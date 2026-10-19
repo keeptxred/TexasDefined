@@ -1,4 +1,5 @@
 import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
+import { museumLicensedHeroes } from "./museum-authority-heroes";
 import type { Destination, ImageRef } from "./types";
 
 const SOURCE_CHECKED_AT = "2026-08-31";
@@ -105,9 +106,9 @@ export const statewideMuseumExpansionWave2Destinations: Destination[] = [
     nearestTown: "Lubbock",
     county: "Lubbock County",
     coordinates: { lat: 33.59021, lng: -101.88603 },
-    hero: museumPlaceholder("Museum of Texas Tech University"),
+    hero: museumLicensedHeroes["museum-of-texas-tech-university-lubbock"],
     bestSeason: "Year-round indoor museum; pair it with Lubbock Lake Landmark and the National Ranching Heritage Center in any season.",
-    entryNote: "Museum admission is currently free. The museum is closed Mondays and Texas Tech holidays; planetarium and café schedules can differ from gallery hours.",
+    entryNote: "Museum galleries are free: Tue–Sat 10 a.m.–5 p.m., Sunday noon–5 p.m., closed Monday/university holidays. Moody Planetarium shows cost extra (adult $6, many concessions $4), with separate schedules. Free parking Fourth Street/Indiana Avenue; accessible entrance is at the east side with no adjacent parking.",
     highlights: ["Free admission", "Natural history and paleontology", "Anthropology and regional history", "Moody Planetarium"],
     body: [
       "The Museum of Texas Tech University is broad by design. Rather than specializing in one subject, it brings together art, anthropology, history, paleontology, natural science, clothing and textile collections within one university institution. That range makes it useful for families and for travelers trying to understand the South Plains from several angles at once.",
@@ -116,8 +117,8 @@ export const statewideMuseumExpansionWave2Destinations: Destination[] = [
     ],
     officialUrl: "https://www.depts.ttu.edu/museumttu/visit/index.php",
     managingAuthority: "Texas Tech University",
-    address: "3301 4th St, Lubbock, TX 79409",
-    sourceCheckedAt: SOURCE_CHECKED_AT,
+    address: "3301 4th St, Lubbock, TX 79415",
+    sourceCheckedAt: "2026-10-18",
   },
   {
     id: "museum-statewide-wave2-grace",
@@ -132,7 +133,7 @@ export const statewideMuseumExpansionWave2Destinations: Destination[] = [
     coordinates: { lat: 32.4432, lng: -99.7340 },
     hero: museumPlaceholder("The Grace Museum"),
     bestSeason: "Year-round indoor museum; cooler months are best for combining the galleries with a walk through historic downtown Abilene.",
-    entryNote: "The downtown museum currently opens Tuesday through Saturday, with extended free Thursday-evening hours. The Grace also operates a separate Spark Science Center, so verify which location your program or exhibit uses.",
+    entryNote: "The Grace Museum at 102 Cypress Street opens Tuesday–Saturday 10 a.m.–5 p.m., with free Thursday nights 5–8 p.m. Admission $10 adults and $7 reduced categories; children under four and eligible members and active-duty families free. Spark Science Center is a SEPARATE venue at 1620 South 3rd Street ($14 adult); optional same-day two-location combo $20 adults. Check current terms before buying.",
     highlights: ["Historic Hotel Grace", "Texas art", "Regional history", "Family and children's learning"],
     body: [
       "The Grace Museum preserves two kinds of Abilene history at once. Its home is the 1909 Hotel Grace, a building tied to the city's railroad-era growth, while the galleries interpret regional history and present art exhibitions that connect Abilene with a much wider Texas cultural story.",
@@ -142,7 +143,7 @@ export const statewideMuseumExpansionWave2Destinations: Destination[] = [
     officialUrl: "https://thegracemuseum.org/",
     managingAuthority: "The Grace Museum",
     address: "102 Cypress St, Abilene, TX 79601",
-    sourceCheckedAt: SOURCE_CHECKED_AT,
+    sourceCheckedAt: "2026-10-19",
   },
   {
     id: "museum-statewide-wave2-samfa",

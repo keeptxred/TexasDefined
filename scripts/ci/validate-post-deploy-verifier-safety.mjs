@@ -5,6 +5,14 @@ const workflow = (name) => fs.readFileSync(`.github/workflows/${name}.yml`, 'utf
 // every acceptance body and source-only PR gate; manual features need no deploy fan-out.
 const scanPolicy = JSON.parse(fs.readFileSync('scripts/ci/update-scan-policy.json', 'utf8'));
 const manualSources = new Set(scanPolicy.manualFeatureWorkflows.map(workflow));
+const postDeployVerificationWorkflows = scanPolicy.postDeployVerificationWorkflows ?? [];
+if (scanPolicy.manualFeatureWorkflows.includes('texasdefined-publication-production-smoke')) {
+  failures.push('TexasDefined publication production smoke must remain deployment-coupled, not manual-only');
+}
+if (postDeployVerificationWorkflows.length !== 1
+    || postDeployVerificationWorkflows[0] !== 'texasdefined-publication-production-smoke') {
+  failures.push('TexasDefined publication production smoke must be the sole explicit post-deploy verification workflow');
+}
 const requireMarker = (source, marker, label) => {
   if (manualSources.has(source) && ['workflow_run:', 'Deploy TexasDefined production'].includes(marker)) {
     if (!source.includes('workflow_dispatch:') || /^  workflow_run:/m.test(source)) failures.push(label + ' (manual feature trigger policy)');

@@ -4,11 +4,13 @@ import { lazy, Suspense, useEffect } from "react";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { heritagePhotoRightsForPath } from "@/data/heritage-photo-license-links";
 import { ArticleBody, Byline } from "@/components/editorial/ArticleBody";
+import { EastTexasFoliageParkMap, EastTexasFoliagePhotoGallery } from "@/components/editorial/EastTexasFoliageMedia";
 import { ArticleCard } from "@/components/editorial/ArticleCard";
 import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { SchoolSupplyPartners } from "@/components/monetization/SchoolSupplyPartners";
+import { FootballFanOffers } from "@/components/sports/FootballFanOffers";
 import { articleInternalLinks } from "@/data/article-internal-links";
 import { riverAuthorityLinksForArticleMetadata } from "@/data/river-authority-relations";
 import { isDestinationPhotoPlaceholder } from "@/data/explore-hero-reconciliation";
@@ -87,6 +89,15 @@ const texasExplainedPillarSlugs = new Set<string>(texasExplainedPillarOrder);
 const texasExplainedSupportSlugs = new Set<string>(texasExplainedSupportOrder);
 const texasExplainedCollectionSlugs = new Set<string>([...texasExplainedPillarOrder, ...texasExplainedSupportOrder]);
 const schoolSupplyArticleSlugs = new Set(["texas-school-districts-explained", "texas-schools-family-life"]);
+// Only football planning explainers get the generic overnight-travel offer.
+// No event, venue or hotel proximity is claimed for these editorial pages.
+const footballTravelArticleSlugs = new Set([
+  "texas-high-school-football-playoffs-explained",
+  "texas-high-school-football-newcomers",
+  "texas-high-school-football-scores-schedules",
+  "texas-high-school-football-classifications-1a-6a",
+  "texas-six-man-football-rules-explained",
+]);
 
 type FaqEntry = { question: string; answer: string };
 type FaqBlock = { type: string; text?: string; items?: string[] };
@@ -407,7 +418,7 @@ function ArticlePage() {
 
   const hasSchoolSupplyRail = schoolSupplyArticleSlugs.has(article.slug);
   const isTexasRiversArticle = article.slug === "texas-rivers-explained";
-  const hideGenericRelatedRail = article.slug === "texas-ecoregions-habitats-guide" || article.slug === "texas-high-school-football-playoffs-explained";
+  const hideGenericRelatedRail = article.slug === "east-texas-fall-colors" || article.slug === "texas-ecoregions-habitats-guide" || article.slug === "texas-high-school-football-playoffs-explained";
   const articleDisplayTitle = isTexasRiversArticle ? "Texas Rivers Explained" : article.title;
   const isSixManFootballArticle = article.slug === "texas-six-man-football-rules-explained";
   const riverBasinHeadingIndex = isTexasRiversArticle
@@ -416,8 +427,6 @@ function ArticlePage() {
   const riverBasinInsertIndex = riverBasinHeadingIndex >= 0
     ? article.body.findIndex((block, index) => index > riverBasinHeadingIndex && block.type === "heading")
     : -1;
-  const riverBodyBeforeBasinReference = riverBasinInsertIndex > 0 ? article.body.slice(0, riverBasinInsertIndex) : article.body;
-  const riverBodyAfterBasinReference = riverBasinInsertIndex > 0 ? article.body.slice(riverBasinInsertIndex) : [];
   const waterTopic = article.slug === "texas-river-basins-guide" ? "basins" : null;
 
   return <article>
@@ -491,12 +500,16 @@ function ArticlePage() {
       {article.slug === "texas-major-cities-regional-differences" ? <TexasCitiesComparison /> : null}
       {article.slug === "texas-high-school-football-playoffs-explained" ? <FootballPlayoffsReference /> : null}
       <div id={isTexasExplainedPillar ? "guide-body" : undefined} className="mt-10 scroll-mt-28">
-        {isTexasRiversArticle ? <>
-          <ArticleBody blocks={riverBodyBeforeBasinReference} entities={graph} />
-          <Suspense fallback={<section className="my-10 border-y border-border py-8" style={{ minHeight: "18rem" }} aria-label="Loading Texas river basin reference" />}><TexasRiverBasinReference /></Suspense>
-          {riverBodyAfterBasinReference.length > 0 ? <ArticleBody blocks={riverBodyAfterBasinReference} entities={graph} /> : null}
-        </> : <ArticleBody blocks={article.body} entities={graph} />}
+        {isTexasRiversArticle ? (
+          <ArticleBody
+            blocks={article.body}
+            entities={graph}
+            insertBeforeIndex={riverBasinInsertIndex > 0 ? riverBasinInsertIndex : undefined}
+            insertBefore={<Suspense fallback={<section className="my-10 border-y border-border py-8" style={{ minHeight: "18rem" }} aria-label="Loading Texas river basin reference" />}><TexasRiverBasinReference /></Suspense>}
+          />
+        ) : <ArticleBody blocks={article.body} entities={graph} />}
       </div>
+      {footballTravelArticleSlugs.has(article.slug) ? <FootballFanOffers slug={article.slug} hasUpcomingAwayTravel={false} showTravelPlanning /> : null}
       {isTexasRiversArticle ? <Suspense fallback={null}><TexasRiversAfterArticle /></Suspense> : null}
       {waterTopic ? (
         <Suspense fallback={<section className="mt-8 border-y border-border bg-surface" style={{ minHeight: "10rem" }} aria-label="Loading Texas water reference" />}>
@@ -558,6 +571,8 @@ function ArticlePage() {
           </div>
         </article>)}
       </div>
+      <EastTexasFoliageParkMap />
+      <EastTexasFoliagePhotoGallery />
       <nav aria-label="Regional foliage planning" className="mt-8 flex flex-wrap gap-4 border-t border-border pt-5 text-sm">
         <a href="https://www.openstreetmap.org/#map=8/32.65/-94.95" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Explore the East Texas region on a map ↗</a>
         <a href="/article/texas-fall-foliage-road-trip" className="font-semibold text-primary underline underline-offset-4">Texas fall foliage road trip →</a>

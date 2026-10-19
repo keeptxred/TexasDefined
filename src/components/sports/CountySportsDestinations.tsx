@@ -4,7 +4,23 @@ import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
 import { sportsVenueLandingLinksForVenue, type SportsVenueLanding } from '@/data/sports-venue-landings';
 import type { Destination } from '@/data/types';
 
+
 const siteUrl = 'https://texasdefined.com';
+// Small link-only county registry. Rich racing research loads only on racing routes.
+const horseRacingCountyDestinations = [
+  { countySlug: 'dallas', name: 'Lone Star Park', city: 'Grand Prairie', category: 'live', href: '/sports-venue/lone-star-park' },
+  { countySlug: 'harris', name: 'Sam Houston Race Park', city: 'Houston', category: 'live', href: '/sports-venue/sam-houston-race-park' },
+  { countySlug: 'bexar', name: 'Retama Park', city: 'Selma', category: 'live', href: '/sports-venue/retama-park' },
+  { countySlug: 'gillespie', name: 'Gillespie County Fairgrounds Horse Racing', city: 'Fredericksburg', category: 'live', href: '/horse-racing/gillespie-county-fairgrounds' },
+  { countySlug: 'travis', name: 'Manor Downs', city: 'Manor', category: 'inactive', href: '/horse-racing/manor-downs' },
+  { countySlug: 'webb', name: 'Laredo Downs', city: 'Laredo', category: 'inactive', href: '/horse-racing/laredo-downs' },
+  { countySlug: 'hidalgo', name: 'Valle de los Tesoros', city: 'McAllen', category: 'inactive', href: '/horse-racing/valle-de-los-tesoros' },
+  { countySlug: 'travis', name: 'Texas Racing Commission', city: 'Austin', category: 'organization', href: '/horse-racing/texas-racing-commission' },
+  { countySlug: 'hays', name: 'Texas Thoroughbred Association', city: 'Buda', category: 'organization', href: '/horse-racing/texas-thoroughbred-association' },
+  { countySlug: 'bastrop', name: 'Texas Quarter Horse Association', city: 'Elgin', category: 'organization', href: '/horse-racing/texas-quarter-horse-association' },
+  { countySlug: 'bastrop', name: "Texas Horsemen's Partnership", city: 'Elgin', category: 'organization', href: '/horse-racing/texas-horsemens-partnership' },
+] as const;
+
 type CountyMajorEvent = { slug: string; name: string; detail: string; startDate: string; endDate?: string };
 type CountyRvParkLink = Pick<Destination, 'slug' | 'name' | 'nearestTown'>;
 type CountyWithPreloadedDiscovery = TexasEntityRecord & { rvParks?: Destination[]; majorEvents?: CountyMajorEvent[] };
@@ -54,6 +70,7 @@ export function CountySportsDestinations({ county, venues }: { county: CountyWit
   const aquariumDestinations = aquariumMarineLinksForCounty(county.slug);
   const rvParks = county.rvParks ?? [];
   const majorEvents = county.majorEvents ?? [];
+  const horseRacingInstitutions = horseRacingCountyDestinations.filter((item) => item.countySlug === county.slug);
 
   const displayedVenues = venues.slice(0, 12);
   const collectionLinks = uniqueCollectionLinks(venues).slice(0, 6);
@@ -148,6 +165,27 @@ export function CountySportsDestinations({ county, venues }: { county: CountyWit
         </div>
       </div>
     </section>
+
+    {horseRacingInstitutions.length ? <section className="border-b border-border py-12" aria-labelledby="county-horse-racing-heading">
+      <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">
+        <div>
+          <p className="eyebrow text-primary">Texas horse racing</p>
+          <h2 id="county-horse-racing-heading" className="mt-2 font-display text-4xl">Horse racing in {county.name}</h2>
+          <p className="mt-3 text-sm leading-6 text-muted-foreground">Live horse-racing venues, inactive track histories and statewide regulatory or horsemen organizations based in this county. Offices are not visitor racetracks.</p>
+        </div>
+        <div>
+          <div className="grid gap-x-7 sm:grid-cols-2">
+            {horseRacingInstitutions.map((track) => <a href={track.href} key={track.href} className="group border-t border-border py-5">
+              <span className="eyebrow text-primary">{track.category === 'live' ? 'Seasonal live horse racing' : track.category === 'organization' ? 'Regulatory or horse-racing organization' : 'Inactive historic racing license'}</span>
+              <strong className="mt-2 block font-display text-2xl leading-tight group-hover:text-primary">{track.name}</strong>
+              <span className="mt-2 block text-sm leading-6 text-muted-foreground">{track.city}, Texas · {track.category === 'live' ? 'Check race-day calendar' : track.category === 'organization' ? 'Industry or regulatory office, not a racetrack' : 'Not a current visitor racetrack'}</span>
+              <span className="mt-3 block text-sm font-semibold text-primary">Open {track.category === 'live' ? 'racing guide' : track.category === 'organization' ? 'institution profile' : 'historical profile'} →</span>
+            </a>)}
+          </div>
+          <a href="/horse-racing" className="mt-6 inline-block text-sm font-semibold underline decoration-primary/40 underline-offset-4 hover:text-primary">Compare every licensed Texas horse-racing institution →</a>
+        </div>
+      </div>
+    </section> : null}
 
     {venues.length ? <section className="border-b border-border py-12" aria-labelledby="county-sports-heading">
       {jsonLd ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} /> : null}

@@ -28,6 +28,458 @@ export interface MuseumAuthorityDossier {
 
 /** Links are to exact, existing destinations or stable topic hubs, not guessed paths. */
 export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
+  "mcnay-art-museum-san-antonio": {
+    name: "McNay Art Museum", slug: "mcnay-art-museum-san-antonio", county: "Bexar", city: "San Antonio", reviewed: "2026-10-19",
+    topics: ["modern-art", "architecture", "sculpture", "family-learning"],
+    whyVisit: "The McNay is not merely an indoor gallery: it joins the Spanish Colonial Revival residence designed for Marion Koogler McNay, a large modern-art collection and a landscaped 25-acre sculpture campus in north-central San Antonio. The intimate original house, newer exhibition spaces and changing installations offer quite different experiences in one visit.",
+    visitorStrategy: "Enter at 6000 North New Braunfels Avenue, not a downtown River Walk museum address. Official hours are Wednesday 10 a.m.–6 p.m., Thursday 10 a.m.–9 p.m., Friday 10 a.m.–6 p.m., Saturday 10 a.m.–5 p.m. and Sunday noon–5 p.m.; closed Monday and Tuesday. Free parking is available in several campus lots. The current ticket table includes $23 general admission with the special exhibition, $10 for ages 13–19 and free entry for ages 12 and younger. General admission is free Thursdays 4–9 p.m. and the first Sunday of each month noon–5 p.m., but special exhibition entry costs $10 at those times. Budget 90 minutes for selected galleries, or two or more hours if adding the sculpture grounds. A currently operating on-site café or full-service restaurant has not been verified, so plan meals separately rather than assuming food is available. Check day-of tickets, holiday closures and individual exhibitions before travel.",
+    accessibility: "The museum confirms designated accessible parking, an accessible entrance, elevators and loan wheelchairs available through visitor services. Most galleries are wheelchair accessible, but some areas may require additional assistance, especially within the historic estate. Request route-specific access or other accommodations from the museum at 210-824-5368 before a visit; do not assume every outdoor sculpture path is uniformly level.",
+    familiesAndGroups: "This can suit art-interested teens and younger children when adults choose a short gallery route, outdoor breaks and age-appropriate exhibitions; it is not an indoor playground. Children must remain accompanied by adults, artwork must not be touched, and some works or temporary shows may require additional context. Free admission for children 12 and younger can help families; the operator has separate paid and advance-arranged tour options. Visitors seeking a sensory-specific accommodation should ask staff rather than assuming a particular support exists.",
+    researchValue: "The museum opened in 1954, a distinctive early Texas modern-art institution built from Marion Koogler McNay's home and collection. Its online collection contains far more than is on display at a given moment; galleries on works on paper, modern painting and theater arts and temporary exhibitions rotate. Compare a house-gallery experience with the museum's later Stieren Center and sculpture garden instead of treating the online holdings as an on-view checklist.",
+    exhibits: [
+      { heading: "Original Spanish Colonial Revival residence", detail: "The 1920s McNay house and courtyard explain how a domestic art collection became a public museum, with the architecture part of the visitor experience." },
+      { heading: "Modern and contemporary collection", detail: "European and American painting and sculpture are presented through rotating selections, not the entirety of the museum's extensive collection." },
+      { heading: "Works on paper and theater arts", detail: "Specialized drawings, prints and stage-related material broaden the visit beyond easel painting; verify which galleries are currently open." },
+      { heading: "Sculpture campus and courtyards", detail: "The 25-acre grounds create a distinct outdoor component; do not touch the sculptures and prepare for Texas sun and changing weather." },
+      { heading: "Two Faced: artists' portraits (dated)", detail: "Listed by the museum for September 3, 2026–March 14, 2027; confirm still on view for the selected day." },
+      { heading: "A People's History: the American Experiment on Stage (dated)", detail: "Stage design and American history exhibition announced through November 8, 2026; not an evergreen permanent gallery." }
+    ],
+    routes: [
+      { label: "90-minute first visit", steps: ["Park at an official McNay lot and confirm today's featured galleries", "See the historic residence and a short selection of modern art", "Finish with a weather-appropriate courtyard or sculpture walk"] },
+      { label: "Budget-friendly free-admission outing", steps: ["Plan for Thursday after 4 p.m. or the first Sunday of the month", "Ask whether a $10 special exhibition supplement applies to anything on your list", "Choose the free general galleries and grounds without assuming every special exhibition is included"] },
+      { label: "Families and access planning", steps: ["Check visitor policies and ask in advance about mobility or sensory needs", "Use short gallery blocks and the free parking lots", "Use the grounds for breaks and keep children with an adult near artworks"] }
+    ],
+    sources: [
+      { label: "McNay — hours, admissions, free-day policy and access", url: "https://www.mcnayart.org/visit/", use: "Opening hours, pricing, grounds schedule, free offers, phone and accommodation caveats" },
+      { label: "McNay — visitor FAQ", url: "https://www.mcnayart.org/frequently-asked-questions/", use: "Parking, photography, elevators, sketching and first-Sunday policies" },
+      { label: "McNay — visitor policies", url: "https://www.mcnayart.org/general-information/", use: "Children, service animals, bags and photography restrictions" },
+      { label: "McNay — exhibitions", url: "https://www.mcnayart.org/exhibitions/", use: "Dated 2026–27 temporary exhibitions; not permanent collections" },
+      { label: "McNay — tour FAQs", url: "https://www.mcnayart.org/adult-tours/", use: "Booked tours, separate ticket rates and limited tour duration" }
+    ],
+    connections: [
+      { label: "Bexar County", href: "/county/bexar", reason: "Place the museum in the county's arts and heritage context." },
+      { label: "San Antonio Museum of Art", href: "/destination/san-antonio-museum-of-art", reason: "Compare McNay's historic estate and modern holdings with a downtown museum." },
+      { label: "Witte Museum", href: "/destination/witte-museum", reason: "Build a family day around different art, natural-science and regional-history experiences." },
+      { label: "Texas museum guides", href: "/explore/museums", reason: "Discover additional researched Texas museum visitor guides." }
+    ],
+  },
+  "texas-military-forces-museum": {
+    name: "Texas Military Forces Museum", slug: "texas-military-forces-museum", county: "Travis", city: "Austin", reviewed: "2026-10-19",
+    topics: ["military-history", "texas-history", "national-guard", "family-learning"],
+    whyVisit: "The Texas Military Forces Museum inside Camp Mabry is an unusual free Austin history stop on an active National Guard installation. Rather than a general war memorial, it explains how Texas militia, volunteer troops, the Texas Army and Air National Guard, and the Texas State Guard developed through the Republic era, world wars and modern service, using original vehicles, uniforms, dioramas and soldiers' stories.",
+    visitorStrategy: "The museum itself is open daily 10 a.m.–4 p.m. with free admission and parking, but visiting is not a normal walk-up street entrance. Adult visitors must complete security screening at Camp Mabry's 35th Street Gate Visitor Control Center, using Maintenance Drive; the Center closes at 3 p.m. every day. The Texas Military Department now specifies a REAL ID or U.S. passport, plus vehicle details and proof of insurance. Weekday VCC hours begin at 7 a.m., weekend VCC hours 8 a.m.; both close at 3 p.m. Be at the gate well before 3 p.m., and check entry requirements on the day. The museum's postal address is 2200 W 35th Street; GPS directions may use 3038 W 35th Street. Museum visitor access is discretionary, and the operating museum is in Building 6, not at the gate. Allow 90 minutes to two hours for principal galleries, plus additional screening time. No restaurant, café or other food service has been verified inside the museum itself.",
+    accessibility: "The operator offers a telephone for special entry accommodations at 512-782-5659. The detailed public visitor-access page explains base clearance rather than establishing every museum gallery's wheelchair, sensory or hearing facilities. Visitors requiring a specific entrance, wheelchair route or interpretation accommodation should call ahead; do not equate installation approval with confirmed gallery accessibility.",
+    familiesAndGroups: "Families interested in vehicles, history and military service can use the large displays for a child-friendly introduction, but wartime weapons, casualties and violent history may be intense for younger children. No one may touch or climb display vehicles and tanks, whether indoors or outside. Adult visitors aged 18 or older must be screened; school and other groups should arrange their entrance with the host at least five business days in advance. Guided museum tours are free with donations welcomed and typically last 1.5–2 hours, adjusted with advance notice. The active installation's security rules override a normal museum outing.",
+    researchValue: "Permanent interpretive areas trace Texas forces from early settlement and the Texas Revolution through the Mexican War, Civil War, twentieth-century conflicts, Cold War and modern Guard operations. Different current operator pages describe the museum as 26,000 or 45,000 square feet: these conflicting display/facility measurements are not used to promise exhibit scale. The museum is not a substitute for its archival collection or military service records, which should be requested from the institution itself.",
+    exhibits: [
+      { heading: "Texas militia and Republic-era service", detail: "Early citizen-soldier formations, Texas independence and the transition from volunteer service to organized Guard forces form a distinctive Texas chronology." },
+      { heading: "36th Infantry Division in world conflict", detail: "Uniforms, photographs and contextual wartime stories illuminate Texas soldiers' roles in the two world wars without promising that every artifact is always on display." },
+      { heading: "Military vehicles and outdoor displays", detail: "Tanks, trucks and other large equipment create a memorable view of military technology; exhibits must not be climbed or touched." },
+      { heading: "Texas Air National Guard and State Guard", detail: "Contrasts the federally recognized Air and Army Guard with Texas State Guard responsibilities and state emergency response." },
+      { heading: "Living-history activities and reenactments", detail: "Event weekends add educational demonstrations; they are occasional programs with separate schedules, not guaranteed features of an ordinary museum visit." }
+    ],
+    routes: [
+      { label: "One-and-a-half-hour first visit", steps: ["Review the current Camp Mabry gate rules and bring an acceptable ID, vehicle details and insurance", "Complete VCC screening well before 3 p.m. and travel to Building 6", "Select Texas Revolution, 36th Division and Guard galleries, then leave time for vehicles if open"] },
+      { label: "Families and vehicle enthusiasts", steps: ["Explain no-climbing rules before children see tanks and weapons", "Explore large vehicle exhibits and a short, age-appropriate chronological section", "Check weather and return to town for a separately planned meal"] },
+      { label: "Organized school or history group", steps: ["Contact museum and base in advance, providing group access information at least five business days ahead", "Confirm adult chaperones' identification, bus access and special accommodations", "Plan a supervised free guided visit of roughly 1.5–2 hours"] }
+    ],
+    sources: [
+      { label: "Texas Military Forces Museum — official hours and entry information", url: "https://texasmilitaryforcesmuseum.org/", use: "Daily 10–4 schedule, free admission, gate cutoff, museum and GPS addresses" },
+      { label: "Texas Military Department — Camp Mabry visitor access", url: "https://tmd.texas.gov/camp-mabry-visitor-access-information", use: "REAL ID, screening, weekends, foreign national restrictions and group lead time" },
+      { label: "Texas Military Department — museum", url: "https://tmd.texas.gov/museum", use: "Institutional oversight and museum exhibits" },
+      { label: "Museum — guided group tour instructions", url: "https://texasmilitaryforcesmuseum.org/?page_id=107", use: "Tour duration, hands-off exhibits, ID and group guidance" },
+      { label: "Museum — about, history and directions", url: "https://texasmilitaryforcesmuseum.org/?page_id=13", use: "Museum location, opening hours, interpretation and public entry" }
+    ],
+    connections: [
+      { label: "Travis County", href: "/county/travis", reason: "Connect Camp Mabry with the state's capital and local history." },
+      { label: "Bullock Texas State History Museum", href: "/destination/bullock-texas-state-history-museum", reason: "Compare a broad statewide story with the military collections." },
+      { label: "Texas State Capitol", href: "/destination/texas-state-capitol", reason: "Connect the state's military history with the civic setting of Austin." },
+      { label: "Explore Texas museums", href: "/explore/museums", reason: "Find other source-backed Texas museum guides." }
+    ],
+  },
+  "menil-collection-houston": {
+    name: "The Menil Collection", slug: "menil-collection-houston", county: "Harris", city: "Houston", reviewed: "2026-10-19",
+    topics: ["art", "architecture", "surrealism", "cultural-history"],
+    whyVisit: "The Menil Collection is a free, neighborhood-scale art campus in Houston's Montrose area rather than a single giant conventional museum. John and Dominique de Menil's independent foundation developed a collection encompassing modern and contemporary art, Surrealism and artworks from across cultures; Renzo Piano's 1987 main building, satellite galleries and shaded green spaces are part of the visit.",
+    visitorStrategy: "The museum's current public schedule is Wednesday through Sunday from 11 a.m. to 7 p.m., closed Monday and Tuesday, with free admission to the art buildings. Start at the main building, 1533 Sul Ross Street. The main free parking lot is at 1515 West Alabama Street, with another next to Richmond Hall at 1500 Richmond Avenue and limited street parking in the residential area. The 30-acre campus contains separate buildings that may have individual gallery closures; review Menil's current On View and campus listings. Allow 75–120 minutes for one or two galleries, or a longer, self-paced visit to multiple separate buildings.",
+    accessibility: "The Menil publishes accessible entrances at all its art buildings, accessible parking in both designated lots, loan wheelchairs in limited supply, and admission for trained service animals on a leash. It does not claim that each outdoor route across its neighborhood is equally shaded or level; arrange specific accommodations and request a wheelchair ahead through visitor services at 713-525-9400.",
+    familiesAndGroups: "Families may bring strollers and use the green spaces between buildings, but food, drinks and photography are prohibited in the art galleries. Groups larger than 15 are encouraged to reserve; groups of 30 or more should provide at least a week's notice and school groups need one adult for every ten students. Menil explicitly does not provide guided tours or permit gallery lectures, so an external guide should not promise a museum docent-led experience.",
+    researchValue: "The Menil Foundation began in 1954 and the main museum opened in 1987. The collection now holds more than 25,000 artworks, yet a large collection count is not the number displayed on any given day. Compare the distinct spaces—the main galleries, Drawing Institute, Cy Twombly Gallery and Dan Flavin installation at Richmond Hall—through their own architecture and art rather than conflating them with nearby independent Rothko Chapel. Gallery guides in English and Spanish help visitors who expect conventional wall labels.",
+    exhibits: [
+      { heading: "Renzo Piano main museum building", detail: "Intimately scaled, daylit galleries, Surrealism and works across ancient to contemporary periods present a non-encyclopedic art encounter." },
+      { heading: "Menil Drawing Institute", detail: "A dedicated satellite building for drawing research and exhibitions; current displays and programs are not necessarily the same as main-building shows." },
+      { heading: "Cy Twombly Gallery", detail: "A separate art gallery on Branard Street with its own focus and entrance; plan walking time between sites." },
+      { heading: "Dan Flavin Installation at Richmond Hall", detail: "Permanent light-based art encountered in a distinct Richmond Avenue building, rather than in the main museum; confirm that it is open on the chosen day." },
+      { heading: "Green spaces and neighborhood setting", detail: "The 30-acre landscaped campus and surrounding residential fabric frame the art and architecture, especially pleasant in milder weather." }
+    ],
+    routes: [
+      { label: "Free main-building essentials", steps: ["Park at 1515 West Alabama and enter the main building at 1533 Sul Ross", "Explore current main galleries and use free bilingual guides as useful", "Walk the green spaces without assuming other galleries share today's schedule"] },
+      { label: "Multiple-campus-building afternoon", steps: ["Check the Menil website for current hours at each separate building", "Tour the main collection and Menil Drawing Institute", "Walk to the Cy Twombly Gallery, then Richmond Hall only if its installation is open"] },
+      { label: "Family or student group", steps: ["Reserve in advance when group size requires it; school chaperone ratio is one for ten", "Use stroller-friendly museum entrance routes and observe no gallery photography", "Choose a limited number of galleries and outdoor breaks instead of a lecture inside"] }
+    ],
+    sources: [
+      { label: "Menil Collection — plan your visit", url: "https://www.menil.org/visit", use: "Official free admission, current hours, parking, photography policy and access" },
+      { label: "Menil Collection — campus", url: "https://www.menil.org/campus", use: "Exact campus buildings and separate gallery identities" },
+      { label: "Menil Collection — about", url: "https://www.menil.org/about", use: "Founders, 1954 foundation, 1987 main opening and collection" },
+      { label: "Menil Collection — school group guidelines", url: "https://www.menil.org/group-visit-and-educator-guidelines", use: "Group sizes, reservation advance notice, chaperones and lecturer restrictions" }
+    ],
+    connections: [
+      { label: "Harris County", href: "/county/harris", reason: "Explore the Houston neighborhood, cultural institutions and county attractions." },
+      { label: "Museum of Fine Arts, Houston", href: "/destination/museum-of-fine-arts-houston", reason: "Compare a large encyclopedic art campus with the Menil's free smaller spaces." },
+      { label: "Texas museums", href: "/explore/museums", reason: "Find more Texas art and historic museums without combining admissions." }
+    ],
+  },
+  "grace-museum-abilene": {
+    name: "The Grace Museum", slug: "grace-museum-abilene", county: "Taylor", city: "Abilene", reviewed: "2026-10-19",
+    topics: ["art", "west-texas-history", "railroad-heritage", "education"],
+    whyVisit: "The Grace Museum tells more than one Abilene story in the restored 1909 Hotel Grace near the former Texas and Pacific rail corridor. It combines American art, West Texas history, historic period rooms and interactive family learning while retaining the architecture of the railroad-era hotel. Its newer Spark Science Center is a SECOND location in Abilene and should not be mistaken for another floor of the downtown museum.",
+    visitorStrategy: "At 102 Cypress Street in downtown Abilene, The Grace Museum posts Tuesday–Saturday hours of 10 a.m.–5 p.m., closing Sundays and Mondays, and free Thursday evenings 5–8 p.m. Regular adult tickets are $10; children age 4 and older, seniors age 65+, students, educators and veterans are listed at $7; children younger than four, members and active-duty military families enter free subject to published ID rules. The museum also operates Spark Science Center at 1620 South 3rd Street with separate admission ($14 adult / $8 reduced categories); the same-day combo ticket currently costs $20 adults / $10 reduced categories. Verify before travel or purchase. Two museum parking areas are adjacent along North 1st Street.",
+    accessibility: "The operator confirms an accessible ramp on the North 1st Street side of the Grace Museum building, an elevator to all floors, accessible restrooms and a wheelchair on request at its Lobby Desk. Noise-cancelling headphones are also available at the Spark desk on the museum's second floor. The separate Spark Science Center is ground-level with accessible south-end entrance and restrooms; do not assume the same ramp, parking lot or address applies to both.",
+    familiesAndGroups: "The Grace Museum has family learning alongside galleries of American art and West Texas history, including reconstructed 1910, 1928 and 1948 living environments. Specially booked school group tours have their own $5 price and advance scheduling, distinct from walk-up family admission. A family prioritizing hands-on STEAM experiences may instead want the separately ticketed Spark Science Center at Abilene Heritage Square; the official combo covers both locations only on the same day.",
+    researchValue: "Hotel Grace was built in 1909 for travelers using the Texas and Pacific Railway, and the adapted museum became an anchor of downtown revival after 1992. Historic rooms on the third floor depict three distinct domestic eras, while changing exhibitions use permanent museum material and community loans to interpret Abilene's art and history. The operator's 2026 America 250 exhibition (January 17–November 28) connects local communities to national history; dated shows should be reverified after they close rather than appearing permanently available.",
+    exhibits: [
+      { heading: "1909 Hotel Grace architecture", detail: "The historic hotel built for Texas and Pacific rail travelers is a key exhibit in itself, connecting downtown Abilene's growth and reuse of historic buildings." },
+      { heading: "Art galleries and changing installations", detail: "American fine art and regional exhibitions move through the downtown museum and should be checked against the current exhibition calendar." },
+      { heading: "Third-floor historic period rooms", detail: "Recreated parlors and kitchens represent Abilene domestic life in 1910, 1928 and 1948, contextualizing the city's transition through multiple decades." },
+      { heading: "History galleries and America 250", detail: "The 2026 community-history exhibition runs January 17–November 28, not indefinitely, and explores local experiences in a broader American story." },
+      { heading: "Spark interactive learning at two locations", detail: "The downtown museum offers a Spark gallery on its second floor, while a separate Spark Science Center at 1620 South 3rd focuses on STEAM programming and requires different or combo tickets." }
+    ],
+    routes: [
+      { label: "Downtown museum in ninety minutes", steps: ["Enter the historic 102 Cypress Street Hotel Grace building", "Explore changing art galleries and 3rd-floor period rooms", "Finish with a historic downtown walk if weather permits"] },
+      { label: "Two-location family learning day", steps: ["Confirm both venues and same-day combo admission before buying", "Start with art and West Texas history at The Grace Museum", "Travel separately to 1620 South 3rd Street for Spark Science Center's hands-on programming"] },
+      { label: "Free Thursday evening visit", steps: ["Verify that Thursday night's 5–8 p.m. free admission applies on the chosen date", "Focus on the downtown galleries open during the event", "Do not assume the separate Spark Science Center also waives admission"] }
+    ],
+    sources: [
+      { label: "The Grace Museum — two locations, schedules and accessibility", url: "https://thegracemuseum.org/about/", use: "Specific opening hours, age brackets, two venues, ticket combinations, parking, ramp, wheelchair and elevators" },
+      { label: "The Grace Museum — history galleries", url: "https://thegracemuseum.org/history/", use: "Period rooms and West Texas history programs" },
+      { label: "The Grace Museum — art exhibitions", url: "https://thegracemuseum.org/art/", use: "Rotating art shows and core museum collections" },
+      { label: "The Grace Museum — America 250 exhibition dates", url: "https://thegracemuseum.org/exhibitions/america-250/", use: "Current dated 2026 history exhibition and editorial expiration" }
+    ],
+    connections: [
+      { label: "Taylor County", href: "/county/taylor", reason: "Connect downtown Abilene and railroad-era history with other county visits." },
+      { label: "Frontier Texas", href: "/destination/frontier-texas", reason: "Compare early frontier interpretation with The Grace's hotel and art history." },
+      { label: "Texas museums", href: "/explore/museums", reason: "Explore history and art museums with their own admission and opening schedules." }
+    ],
+  },
+  "frontiers-of-flight-museum-dallas": {
+      name: "Frontiers of Flight Museum",
+      slug: "frontiers-of-flight-museum-dallas",
+      county: "Dallas",
+      city: "Dallas",
+      reviewed: "2026-10-18",
+      topics: [
+          "aviation-history",
+          "spaceflight",
+          "dallas-love-field",
+          "family-science"
+    ],
+      whyVisit: "At Dallas Love Field, Frontiers of Flight Museum spans experiments in powered flight, military aviation, regional airline history and human spaceflight. The Apollo 7 command module and a moon rock are major draws, while galleries about Braniff, Southwest Airlines, early aviation and Love Field connect these global stories to North Texas. The collection is not interchangeable with an airport observation deck; the museum has artifacts, aircraft, interactive exhibits and documented aviation-history interpretation.",
+      visitorStrategy: "The operator lists Monday–Saturday 10 a.m.–5 p.m. and Sunday 1–5 p.m., with holiday and private-event closures that require checking the dated visitor notice before setting out. Current general admission is $20 for ages 13+, $12 for ages 3–12 and $10 for visitors age 65+; qualifying veterans, first responders and active duty have separate ID discounts. Advance online tickets are available, but normal walk-up tickets are also sold. Groups of 15 or more must arrange group rates in advance. Enter from University Boulevard off Lemmon Avenue; museum parking is free. Café service is available at the Jetsetters coffee lounge, separate from admission.",
+      accessibility: "The museum advertises free wheelchair loans on a first-come basis, designated parking near the entrance, accessible toilets throughout the building and elevator access to second-floor galleries. It is KultureCity-certified for sensory inclusion. The aircraft collection includes large objects and upper-level galleries; confirm access or accommodation needs with the museum at 214-350-3600 rather than assuming every exhibit cockpit is accessible or open for entry.",
+      familiesAndGroups: "Kids can compare early-aircraft designs, spacecraft and airline history, with age-appropriate science exhibits and a Love Field runway-view section. The museum advertises birthdays, school trips and group programs, but these require separate arrangements from normal admission. Jetsetters sells drinks, snacks and meals; the museum does not provide bag storage, so do not arrive with airline luggage. Special Hindenburg programming opened in July 2026 and should be checked as a current temporary exhibit rather than described as a permanent collection.",
+      researchValue: "Follow changes in materials, propulsion and flight safety, from lighter-than-air craft and Wright-era flying to World War military developments, the golden age of commercial flight and the Apollo era. The operator's permanent gallery inventory provides more than twenty themes, while the museum's Texas Aerospace History Walkway and Dallas Love Field material connect the aviation industry to local geography. Compare documented original objects with replicas, models and reconstructions, rather than claiming every displayed airplane was flown in North Texas.",
+      exhibits: [
+          {
+              heading: "Apollo 7 command module and spaceflight",
+              detail: "The museum documents the flown Apollo 7 spacecraft, a North Texas moon rock display and Mercury, Gemini, Shuttle and International Space Station material."
+          },
+          {
+              heading: "Braniff and Southwest commercial aviation",
+              detail: "A Braniff gallery includes a model painted by Alexander Calder, while a separate Southwest collection interprets the Boeing 737 and Dallas-based airline history."
+          },
+          {
+              heading: "Dreamers, early flyers and lighter-than-air aviation",
+              detail: "Early flight models, the first U.S. private pilot license and dirigible artifacts set the technological context, including a chair associated with Hindenburg radio operations."
+          },
+          {
+              heading: "Military aviation, World Wars and Cold War",
+              detail: "Galleries use airplane models, original craft and regional factory history to connect combat aviation with Dallas-Fort Worth manufacturing."
+          },
+          {
+              heading: "Love Field gallery and runway views",
+              detail: "A Curtiss JN-4D Jenny once based at Love Field, airport history and windows overlooking the flight line connect the collection to its present location."
+          },
+          {
+              heading: "Hindenburg: The Flying Hotel (2026 special exhibition)",
+              detail: "Advertised as a July 2026 special installation included with admission. Verify dates and continued availability rather than promoting it as permanent."
+          }
+    ],
+      routes: [
+          {
+              label: "Family aviation introduction",
+              steps: [
+                  "Start with early flight and lighter-than-air design displays",
+                  "Visit the large aircraft and commercial aviation galleries",
+                  "Finish at the Apollo 7 spaceflight display and Love Field observation windows"
+              ]
+          },
+          {
+              label: "Aviation history and engineering",
+              steps: [
+                  "Compare World War I, World War II and Cold War flying technologies",
+                  "Study Texas aerospace manufacturing and airline exhibits",
+                  "Use flight trainers and the Apollo command module to contrast aviation and spaceflight systems"
+              ]
+          },
+          {
+              label: "Dallas Love Field layover with no baggage",
+              steps: [
+                  "Leave carry-on bags elsewhere: the museum provides no bag storage",
+                  "Book an ordinary museum entry, factoring airport ground transport and security time",
+                  "Use Jetsetters for a meal and reserve extra time for the second-floor exhibits"
+              ]
+          }
+    ],
+      sources: [
+          {
+              label: "Frontiers of Flight Museum — official visitor information",
+              url: "https://flightmuseum.com/visit/",
+              use: "Current 2026 closures, hours, tickets, group admissions, accessibility, directions, coffee lounge"
+          },
+          {
+              label: "Frontiers of Flight Museum — permanent and special exhibits",
+              url: "https://flightmuseum.com/exhibits/",
+              use: "Original exhibit themes, Apollo 7, commercial aviation and dated Hindenburg exhibit"
+          },
+          {
+              label: "Frontiers of Flight Museum — field trips and educational experiences",
+              url: "https://flightmuseum.com/education/field-trips/",
+              use: "School-program and booking requirements"
+          },
+          {
+              label: "Frontiers of Flight Museum — official institutional home",
+              url: "https://flightmuseum.com/",
+              use: "Operator identity, latest museum notices and venue context"
+          }
+    ],
+      connections: [
+          {
+              label: "Dallas County",
+              href: "/county/dallas",
+              reason: "Connect Love Field's history to the wider county visitor context."
+          },
+          {
+              label: "Sixth Floor Museum",
+              href: "/destination/sixth-floor-museum-at-dealey-plaza",
+              reason: "An alternative Dallas history visit, separate tickets and a more somber subject."
+          },
+          {
+              label: "Texas museum directory",
+              href: "/explore/museums",
+              reason: "Compare aviation, science, and history museums across Texas."
+          }
+    ],
+  },
+  "museum-of-texas-tech-university-lubbock": {
+      name: "Museum of Texas Tech University",
+      slug: "museum-of-texas-tech-university-lubbock",
+      county: "Lubbock",
+      city: "Lubbock",
+      reviewed: "2026-10-18",
+      topics: [
+          "natural-history",
+          "paleontology",
+          "south-plains-history",
+          "astronomy",
+          "university-museum"
+    ],
+      whyVisit: "The Museum of Texas Tech University combines art, history, anthropology, clothing and textiles, natural history and paleontology, making it a rare free multi-disciplinary museum on the South Plains. Founded in 1929 as the West Texas Museum, it moved to its current Fourth Street and Indiana Avenue site in 1970. The nearby National Ranching Heritage Center and affiliated Lubbock Lake Landmark offer complementary but separately operated collections and visitor experiences.",
+      visitorStrategy: "Main museum general admission is free. As posted by Texas Tech, museum galleries operate Tuesday–Saturday 10 a.m.–5 p.m. and Sunday noon–5 p.m.; the museum closes on Mondays and university holidays. The official calendar lists closure November 26–30, 2026 and December 23, 2026–January 1, 2027, plus special campus-event restrictions. The address is 3301 Fourth Street, Lubbock; free museum parking is along Fourth Street/north side and Indiana Avenue/west side. The east-end accessible entrance has no parking immediately at its door. Moody Planetarium performances have separate, paid tickets and individual schedules. Check Orbit Café hours independently.",
+      accessibility: "The visitor page identifies the accessible museum entrance on the east side and advises contacting 806-742-2490 for individual needs; it explicitly says there is no vehicle parking at that east-end doorway. Free accessible parking is identified at the wider complex but the exact route needs confirmation before travel. Moody Planetarium has two wheelchair-designated seats out of 74; these do not establish accessibility for every museum exhibit. Museum admission and planetarium access should be planned separately.",
+      familiesAndGroups: "Children interested in dinosaurs, South Plains archaeology and astronomy can plan around the geology and biodiversity displays and an optional Moody Planetarium show. Texas Tech states that planetarium admission currently costs $6 per adult, $4 for children ages 4–17, seniors and college students, and is free for ages three and under; other free military/family rules exist. School planetarium groups require a reservation at least two weeks ahead. The museum's nine permanent galleries and rotating exhibitions mean a current map or staff advice is more reliable than promising a particular fossil on display.",
+      researchValue: "The operator reports roughly 9.6 million objects across disciplines, including an approximately 5.5-million-specimen Natural Science Research Laboratory, with only a subset on public exhibition. Public gallery visits should distinguish scientific research holdings from accessible displays. Lubbock Lake Landmark is a separate museum division and archaeological preserve documenting around 12,000 years of High Plains habitation, not a room inside the main university museum; visitors must travel to that separate site and verify its own hours.",
+      exhibits: [
+          {
+              heading: "Paleontology and Ice Age biodiversity",
+              detail: "Explore ancient animals and changing Southern High Plains environments through the museum's paleontology and natural-history interpretation."
+          },
+          {
+              heading: "Southwestern anthropology and history",
+              detail: "Collection areas connect the peoples, settlement and material culture of the High Plains with regional research."
+          },
+          {
+              heading: "Art, clothing and textile galleries",
+              detail: "Named collections extend beyond science to cultural production; current rotating art galleries should be checked for specific exhibits."
+          },
+          {
+              heading: "Moody Planetarium (separate ticket)",
+              detail: "A 74-seat theater for astronomy and music laser shows with two wheelchair seats. Schedules and prices differ from free museum gallery admission."
+          },
+          {
+              heading: "Natural Science Research Laboratory",
+              detail: "The affiliated research repository holds millions of specimens, most not in public galleries; access for scientific researchers is distinct from the visitor route."
+          }
+    ],
+      routes: [
+          {
+              label: "Free two-hour museum orientation",
+              steps: [
+                  "Begin with paleontology and biodiversity galleries",
+                  "Compare Southwestern anthropology with regional history and art",
+                  "Check the current rotating exhibition roster and finish at the gift shop if open"
+              ]
+          },
+          {
+              label: "Families and planetarium",
+              steps: [
+                  "Enter during free museum gallery hours and explore dinosaur displays",
+                  "Consult the separate Moody Planetarium showtime and paid-ticket schedule",
+                  "Allow a food break only if Orbit Café is open that day"
+              ]
+          },
+          {
+              label: "Lubbock science and heritage day",
+              steps: [
+                  "Visit the museum at Fourth Street and Indiana Avenue",
+                  "Travel separately to Lubbock Lake Landmark for archaeological landscape interpretation",
+                  "Consider the National Ranching Heritage Center for a distinct ranching-history perspective"
+              ]
+          }
+    ],
+      sources: [
+          {
+              label: "Museum of Texas Tech University — official visitor planning",
+              url: "https://www.depts.ttu.edu/museumttu/visit/",
+              use: "Free admission, current hours, holiday closures, parking, accessibility"
+          },
+          {
+              label: "Museum of Texas Tech University — operator history and collections",
+              url: "https://www.depts.ttu.edu/museumttu/about/",
+              use: "Founding date, scientific holdings, named gallery disciplines and Lubbock Lake Landmark"
+          },
+          {
+              label: "Moody Planetarium — official tickets and show calendar",
+              url: "https://www.depts.ttu.edu/museumttu/visit/planetarium.php",
+              use: "Separate theater capacity, show dates, tickets and group arrangements"
+          },
+          {
+              label: "Museum of Texas Tech University — institutional notices",
+              url: "https://www.depts.ttu.edu/museumttu/",
+              use: "Campus closures, upcoming events and contact"
+          },
+          {
+              label: "Natural Science Research Laboratory — research program",
+              url: "https://www.depts.ttu.edu/nsrl/",
+              use: "Research collection distinction and institutional holdings"
+          }
+    ],
+      connections: [
+          {
+              label: "Lubbock County",
+              href: "/county/lubbock",
+              reason: "Place the museum and Texas Tech in the county's cultural landscape."
+          },
+          {
+              label: "Texas museum directory",
+              href: "/explore/museums",
+              reason: "Compare other state university and research museums."
+          },
+          {
+              label: "Lubbock Lake Landmark",
+              href: "/destination/lubbock-lake-landmark",
+              reason: "Affiliated outdoor archaeological preserve, reached separately with different visiting rules."
+          }
+    ],
+  },
+  "texas-country-music-hall-of-fame-carthage": {
+    name: "Texas Country Music Hall of Fame and Tex Ritter Museum",
+    slug: "texas-country-music-hall-of-fame-carthage", county: "Panola", city: "Carthage", reviewed: "2026-10-18",
+    topics: ["texas-music", "country-music", "performing-arts", "regional-history"],
+    whyVisit: "Carthage's Texas Country Music Hall of Fame and Tex Ritter Museum preserves the stories of Texans who helped shape country music through recording, radio, film and live performance. The Tex Ritter collection connects Panola County's own singing-cowboy star with national film and broadcasting history; displays about Jim Reeves and other honorees turn a hall of names into a more physical museum experience. This is the Carthage institution, not the Country Music Hall of Fame in Nashville.",
+    visitorStrategy: "The official museum posts Monday through Saturday from 10 a.m. to 4 p.m., with regular adult admission of $10 and child admission of $5; it does not specify a child age boundary in that tariff. Visit at 310 West Panola Street, Carthage, and call 903-694-9561 if traveling on a holiday or seeking group arrangements. The museum and gift shop share a 13,000-square-foot facility, but the annual Hall of Fame induction concerts and John Ritter Tribute Showcase take place at the Carthage Civic Center on ticketed schedules: an ordinary museum admission does not include those shows.",
+    accessibility: "The museum website lists its address, phone, exhibit facilities and banquet spaces but does not publish a sufficiently detailed wheelchair route, parking, restroom, audiovisual captioning or sensory-access policy. Travelers needing a guaranteed step-free entry or particular accommodations should call 903-694-9561 before departure. Do not interpret accessible event seating at the separate Civic Center as proof of access to all museum galleries.",
+    familiesAndGroups: "Families interested in classic country music, radio equipment or Western movies can start with the Tex Ritter story before exploring other honorees. Younger visitors may know actor John Ritter better than his father Tex, and the family connection offers a natural discussion starter. The museum advertises a gift shop and group-sized event space, but regular museum admission must not be conflated with paid annual concerts or larger banquet rentals. Confirm school or coach-tour arrangements with staff rather than promising a guided visit.",
+    researchValue: "The museum's roots predate the current 2002 building: the local Tex Ritter Museum began in the early 1990s, while the statewide Hall of Fame program began in 1998. Its collections connect Ritter's singing-cowboy films and radio/television career, the Jim Reeves display with Henderson radio-station KGRI equipment, and other Hall of Fame inductees. Compare the museum's official inductee chronology with Texas State Historical Association's institutional history rather than implying every year's inductee has a permanent exhibit.",
+    exhibits: [
+      { heading: "Tex Ritter Museum", detail: "Documents Panola County-born Tex Ritter's cowboy music, film roles and broadcast work, including the transition from regional entertainer to Hollywood singing-cowboy star." },
+      { heading: "Jim Reeves and KGRI equipment", detail: "The museum states a significant Jim Reeves display was added in 2004, including radio equipment from his Henderson station, KGRI." },
+      { heading: "Texas Country Music Hall of Fame honorees", detail: "Follow the official year-by-year inductee record and contrast artists, songwriters and entertainers; verify current display rotation before attributing a particular artifact." },
+      { heading: "John Ritter Tribute Showcase history", detail: "An annual performance tradition honoring Tex Ritter's actor son, not an everyday exhibit ticket or on-demand museum concert." }
+    ],
+    routes: [
+      { label: "Classic-country museum visit", steps: ["Begin with the Tex Ritter Museum and Panola County roots", "Continue to the Jim Reeves and other artist displays", "Compare names and dates with the institution's Hall of Fame induction record"] },
+      { label: "Carthage music-and-history outing", steps: ["Tour the Hall of Fame in its posted Monday–Saturday window", "Explore downtown Carthage and the Panola County visitor landscape", "Check the Civic Center separately only if an induction or tribute event is actually scheduled"] },
+      { label: "School or family radio-history visit", steps: ["Identify singing-cowboy movies and midcentury radio as distinct formats", "Study the KGRI radio equipment's relationship to Jim Reeves", "Discuss how Texas performers reached national audiences before modern streaming"] }
+    ],
+    sources: [
+      { label: "Hall of Fame — official Tex Ritter Museum", url: "https://www.tcmhof.com/museum", use: "Permanent displays, institutional history, museum hours and prices" },
+      { label: "Hall of Fame — official contacts", url: "https://www.tcmhof.com/contact", use: "Physical location, contact and ordinary admission" },
+      { label: "Hall of Fame — official inductees", url: "https://www.tcmhof.com/latest-inductees", use: "Curated honoree chronology and context" },
+      { label: "Hall of Fame — event schedule", url: "https://www.tcmhof.com/schedule", use: "Separately ticketed concerts and past special festival hours" },
+      { label: "Texas State Historical Association — institution history", url: "https://www.tshaonline.org/handbook/entries/texas-country-music-hall-of-fame-and-tex-ritter-museum", use: "Independent museum founding and Carthage history" }
+    ],
+    connections: [
+      { label: "Panola County", href: "/county/panola", reason: "Place the institution in Carthage and the Piney Woods." },
+      { label: "Texas museum directory", href: "/explore/museums", reason: "Discover other history, culture and performance museums in Texas." },
+      { label: "Texas music history", href: "/texas-music", reason: "Connect Hall of Fame honorees with the existing statewide Texas music guide." }
+    ],
+  },
+  "bryan-museum-galveston": {
+    name: "The Bryan Museum", slug: "bryan-museum-galveston", county: "Galveston", city: "Galveston", reviewed: "2026-10-18",
+    topics: ["texas-history", "western-art", "galveston-history", "historic-architecture"],
+    whyVisit: "The Bryan Museum occupies Galveston's carefully restored 1895 Orphans Home and uses J.P. and Mary Jon Bryan's Texana collection to interpret Texas and the American West across Indigenous history, Spanish colonization, the frontier, statehood, art and documentary history. The building has a second story worth understanding in its own right: it operated as an orphanage before the museum's 2015 opening. Seven permanent gallery themes and rotating exhibitions invite a deliberate visit rather than a photo-only stop on the island.",
+    visitorStrategy: "For October 2026 the official fall/winter visitor calendar specifies Wednesday through Sunday, 10 a.m.–5 p.m., with Mondays and Tuesdays closed. The spring/summer pattern differs: from March 2 through Labor Day the museum generally closes only Tuesday. The operator lists $15 adults, $14 seniors age 65+, teachers and military, $12 students, $7 children ages 6–12, and free entry for younger children and members; ticket policies can change. Online advance tickets are encouraged and stated to be nonrefundable, though general tickets remain valid one year after initial purchase. Find the museum at 1315 21st Street in Galveston, and confirm holiday closings before setting out.",
+    accessibility: "The museum's published venue-rental policies explicitly reference ADA public accommodations, but this alone does not verify every gallery's step-free route, lift availability, accessible drop-off or visitor sensory aids. The historic former Orphans Home has stairs and multiple gallery levels. Visitors with specific mobility, hearing or sensory needs should ask the museum directly at 409-632-7685 rather than assume all historic areas are accessible. Do not claim a detailed accessible itinerary until museum staff confirm it.",
+    familiesAndGroups: "The collections are rich in historical maps, documents, artworks and material culture rather than children's ride-style attractions. The museum advertises educational field trips with an expert guide through four galleries, plus age-dependent programs, artifact explorations, temporary exhibitions or outdoor gardens. A separately bookable 90-minute Galveston Orphans Home architectural tour has limited capacity and includes museum admission, but is not automatically part of a walk-up ticket. Families can combine a shorter gallery visit with outdoor grounds and other independent Galveston stops.",
+    researchValue: "Use the seven permanent galleries to follow multiple eras without mistaking the history of the institution for the history of its contents. The operator reports approximately 70,000 objects across 12,000 years, including 20,000 rare books, over 30,000 archival documents in several languages, historical maps, Western art, everyday objects and saddles. The museum's collecting scope is vast; a visitor-first guide should select representative galleries and explain source context instead of duplicating an archival catalog or promising access to every object.",
+    exhibits: [
+      { heading: "Orientation and Spanish Colonial galleries", detail: "Set the region's early history in Indigenous and colonial context through artifacts, maps and documents rather than starting only at the Texas Revolution." },
+      { heading: "Texas Frontier and Statehood and Beyond", detail: "Follow exploration, settlement and political transition with period objects, rare maps, documents and interpretive paintings." },
+      { heading: "Texas Master and Rest of the West", detail: "Compare regional artistic traditions and subjects presented across the museum's named permanent galleries." },
+      { heading: "Galveston Orphans Home Gallery", detail: "Connect the 1895 institution's social and architectural history with the building now housing the Bryan collection." },
+      { heading: "Rotating special exhibition gallery", detail: "The operator describes one changing exhibit gallery in addition to its permanent galleries; current topics require date-specific verification." }
+    ],
+    routes: [
+      { label: "Texas-history first visit", steps: ["Begin with the Orientation Gallery and early cultural context", "Continue through Spanish Colonial, Texas Frontier, and Statehood galleries", "Finish with Galveston Orphans Home interpretation and the grounds"] },
+      { label: "Art and archives visit", steps: ["Focus on the Texas Master and Rest of the West collections", "Read artifact and document captions to distinguish originals from reproductions", "Visit the current special exhibition if listed and open that day"] },
+      { label: "Galveston architecture afternoon", steps: ["Reserve any special Orphans Home guided tour separately", "Explore the building history and outdoor grounds", "Add another independently ticketed Galveston historic stop rather than assuming a combined pass"] }
+    ],
+    sources: [
+      { label: "The Bryan Museum — current visitor tickets and hours", url: "https://thebryanmuseum.org/plan-your-visit", use: "October 2026 fall schedule, admissions, age bands and field trips" },
+      { label: "The Bryan Museum — ticket details", url: "https://thebryanmuseum.org/plan-your-visit/tickets", use: "Nonrefundable tickets, booking and separate historic Orphans Home tours" },
+      { label: "The Bryan Museum — official exhibitions", url: "https://thebryanmuseum.org/exhibitions", use: "Named permanent and changing museum galleries" },
+      { label: "The Bryan Museum — Bryan Educational Institute", url: "https://thebryanmuseum.org/about-us/bryan-educational-institute", use: "Historic site, 2015 opening and collecting organization" },
+      { label: "The Bryan Museum — museum guidelines", url: "https://thebryanmuseum.org/venue-rental/museum-guidelines", use: "Published event-specific access requirements, not a full visitor access guarantee" }
+    ],
+    connections: [
+      { label: "Galveston County", href: "/county/galveston", reason: "Connect the museum with the island and county's maritime and civic history." },
+      { label: "Texas museum directory", href: "/explore/museums", reason: "Compare history museums around the state." },
+      { label: "Bishop's Palace Galveston", href: "/destination/bishops-palace-galveston", reason: "A separate historic Galveston building with its own admission and opening rules." }
+    ],
+  },
+  "east-texas-oil-museum-kilgore": {
+    name: "East Texas Oil Museum", slug: "east-texas-oil-museum-kilgore", county: "Gregg", city: "Kilgore", reviewed: "2026-10-17",
+    topics: ["oil-history", "industrial-heritage", "texas-history", "family"],
+    whyVisit: "The East Texas Oil Museum at Kilgore College interprets the 1930 discovery and the transformation of Northeast Texas into a major oil-producing region. Its recreated 1930s Boomtown allows visitors to encounter businesses, machinery, transportation and social life, making the era more tangible than a textbook timeline or a static set of drilling equipment alone.",
+    visitorStrategy: "The Kilgore College operator lists Monday through Saturday from 9 a.m. until 5 p.m., with last museum admission at 4 p.m. and Sunday closed under the standard schedule. Purchase admission only at the museum, not through an invented online booking page: current adult admission is $10, ages 3–11 are $7, ages two and younger are free, and senior/military visitors receive a 10 percent discount. Kilgore College students and employees are admitted free. The museum itself recommends at least 90 minutes. Find it at 1301 S. Henderson Boulevard with visitor parking on Ross Avenue behind the museum. Verify listed holiday closures before travel.",
+    accessibility: "The official visitor and facility-rental information identifies the museum as ADA accessible and provides easy access for vans and buses. A limited number of loan wheelchairs may be checked out at the gift shop without a rental fee, but the operator asks for an ID until the chair is returned. Leashed or harnessed service animals are permitted. Exact accessibility of each Boomtown sound effect, simulation and exhibit should be checked with the museum rather than inferred from a general building statement.",
+    familiesAndGroups: "Boomtown USA has recreated storefronts, an old-fashioned gas station, a drugstore, drilling equipment and other lifelike period scenes that can give school-age children a narrative for how an oil town worked. The simulated blowout and movie sound effects may be intense for some visitors. Formal student group tours require advance arrangements; general admission does not automatically reserve a guide. Food service is not documented as a regular visitor amenity, so plan meals separately in Kilgore.",
+    researchValue: "Use the museum's recreated town and original period artifacts to examine the difference between the giant field's 1930 oil discovery and its social consequences: migration, retail business, machinery, roads and everyday life. The college identifies oral histories and primary-source documents as central to its collecting mission. Compare its physical reconstructions with historic images and operator interpretation; avoid presenting lifelike recreated rooms as untouched 1930s buildings.",
+    exhibits: [
+      { heading: "Boomtown USA", detail: "Full-scale 1930s streetscape with shopfronts, vehicles and people illustrates the everyday economic changes that followed the East Texas oil discovery." },
+      { heading: "Overton Drugstore and Arp General Store", detail: "Recreated business interiors make the human and retail side of drilling-boom migration visible." },
+      { heading: "Boomtown Theater and oil-well blowout effects", detail: "Film and effects interpret drilling hazards; visitors with noise or sensory concerns should ask staff about the presentation." },
+      { heading: "Elevator Ride to the Center of the Earth", detail: "An interpretive simulated underground journey explains subsurface oil formations; it is an exhibit, not travel below the campus." },
+      { heading: "Historic vehicles, equipment and archival collections", detail: "Authentic objects, period displays and documentary material reveal transportation, production technology and memories of East Texas residents." },
+    ],
+    routes: [
+      { label: "Ninety-minute museum essentials", steps: ["Start with the official 1930 discovery context and displays", "Walk the Boomtown USA shops and vehicle exhibits", "Add the film or underground simulation if available and comfortable"] },
+      { label: "Family morning in Kilgore", steps: ["Arrive before 4 p.m. final admission, ideally early for unhurried galleries", "Compare the recreated shopfronts and oilfield work with family life in 1930", "Finish at another separately scheduled Kilgore stop rather than treating this admission as a combined ticket"] },
+      { label: "Petroleum and technology comparison", steps: ["Study drilling methods and the early oilfield's equipment", "Compare exhibits about public communication and technology at the separate Texas Broadcast Museum", "Read archival images and interpret how oil-field wages and infrastructure reshaped Gregg County"] }
+    ],
+    sources: [
+      { label: "Kilgore College — East Texas Oil Museum visitor information", url: "https://easttexasoilmuseum.kilgore.edu/visit/", use: "Current hours, last entry, tickets, parking, wheelchairs and photography restrictions" },
+      { label: "East Texas Oil Museum — permanent experience", url: "https://easttexasoilmuseum.kilgore.edu/welcome/", use: "Official Boomtown, exhibits and archive interpretation" },
+      { label: "East Texas Oil Museum — calendar and temporary programming", url: "https://easttexasoilmuseum.kilgore.edu/events/", use: "Time-bound exhibitions and operator event alerts" },
+      { label: "East Texas Oil Museum — general contact", url: "https://easttexasoilmuseum.kilgore.edu/contact/", use: "Direct telephone, contact and group scheduling" },
+      { label: "East Texas Oil Museum — memberships", url: "https://easttexasoilmuseum.kilgore.edu/memberships/", use: "Official annual admission benefits and visitor discounts" }
+    ],
+    connections: [
+      { label: "Gregg County", href: "/county/gregg", reason: "Connect the East Texas Oil Field to Kilgore and the county's economy." },
+      { label: "Texas Broadcast Museum", href: "/destination/texas-broadcast-museum-kilgore", reason: "Compare separate technological histories in Kilgore; admission and schedules are independent." },
+      { label: "Texas museum directory", href: "/explore/museums", reason: "Compare industrial, history and technology museum options across Texas." }
+    ],
+  },
   "uss-lexington-museum-corpus-christi": {
     name: "USS Lexington Museum on the Bay",
     slug: "uss-lexington-museum-corpus-christi",

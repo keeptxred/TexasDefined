@@ -156,6 +156,8 @@ Canonical contributor profiles use https://texasdefined.com/authors/{author-id}.
 - Houston sports venues: https://texasdefined.com/sports-venues/houston
 - Texas football stadiums: https://texasdefined.com/sports-venues/football
 - Texas motorsports venues: https://texasdefined.com/sports-venues/motorsports
+- Texas horse racing (four live venues, race calendars and three inactive horse-track histories): https://texasdefined.com/horse-racing
+- Fredericksburg Gillespie County Fairgrounds horse racing: https://texasdefined.com/horse-racing/gillespie-county-fairgrounds
 - Texas high-school football stadiums: https://texasdefined.com/sports-venues/high-school-football
 - Texas high-school football team finder: https://texasdefined.com/texas-high-school-football-teams
 - Texas high-school football by ISD: https://texasdefined.com/texas-high-school-football-isds

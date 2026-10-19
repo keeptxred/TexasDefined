@@ -78,7 +78,8 @@ const SITE_DEPTH: Record<string, string[]> = {
   ],
   "lipantitlan": [
     "In far northwestern Nueces County near Sandia, Lipantitlán’s name preserves an association with Lipan Apache presence; the later Mexican picket fort was built in 1831. The small garrison surrendered during the 1835 Texas Revolution. The visible landscape is principally a historical marker and the place where a fort once stood, not a preserved fort with staffed exhibits.",
-    "The Texas Historical Commission explicitly says there is no on-site interpretation beyond the marker and no visitor services. The Handbook of Texas traces the park’s donation and later transfers of administration. Plan a short, respectful outdoor stop with water and independently confirmed directions rather than inventing facilities or a museum that does not exist."
+    "The Texas Historical Commission explicitly says there is no on-site interpretation beyond the marker and no visitor services. The Handbook of Texas traces the park’s donation and later transfers of administration. Plan a short, respectful outdoor stop with water and independently confirmed directions rather than inventing facilities or a museum that does not exist.",
+    "Do not conflate the two military episodes. According to the state agency, the small Mexican garrison surrendered the fort to Texan forces in 1835 without a shot being fired. A later Texas Centennial historical marker identifies a separate June 1842 attack led by Antonio Canales against defenders under James Davis. The marker records the fort’s history; it is not an original fortification or an indoor exhibit."
   ],
   "magoffin-home": [
     "The Magoffin family’s adobe home reveals how commerce, politics and family networks crossed the U.S.–Mexico border long before modern national boundaries simplified those relationships on maps. Its 1875 construction belongs to El Paso’s nineteenth-century urban transformation.",
@@ -206,9 +207,9 @@ const VERIFIED_VISIT_NOTES: Record<string, {entryNote:string;researchNote:string
   "researchNote": "Barrington preserves the original home of Dr. Anson Jones, the final president of the Republic of Texas. The Jones family's cotton operation depended on enslaved people; living-history demonstrations must acknowledge their work as well as the Jones family and agricultural technologies."
 },
   "fort-mckavett": {
-  "entryNote": "THC lists Fort McKavett open daily 8 a.m.–5 p.m.; allow 1–2 hours for a self-guided visit. Larger guided groups, school programs and golf-cart rentals have separate arrangements.",
-  "accessibilityNotes": "THC states most of the historic grounds are NOT wheelchair accessible. The Visitor Center, Museum and Gift Shop can be accessed by wheelchair; limited golf-cart rental may help reach some outdoor areas.",
-  "researchNote": "A self-guided route includes soldiers' barracks, officers' quarters, headquarters, schoolhouse, lime kiln and Government Springs. The visitor center occupies the post's former 1874 hospital. Fort McKavett's post-Civil War Black Regular Army history is integral to the site, not an optional footnote."
+  "entryNote": "Source-checked October 17, 2026: THC lists the site open daily 8 a.m.–5 p.m.; the 1–2-hour self-guided tour is available 8 a.m.–4 p.m. (walk-ins, no advance booking). General admission: adults $5, seniors/veterans/teachers/first responders $3, children 6–17 $2, children 5 and under free; family admission $8 for two adults and one child, plus $1 for each additional child. Reserved group and school tours have separate schedules and charges. Check the official operator page for changes before traveling.",
+  "accessibilityNotes": "Most of Fort McKavett's outdoor historic grounds are NOT wheelchair accessible. The Visitor Center, Museum and Gift Shop are wheelchair accessible. THC lists $5 golf-cart rentals (rental contract required) for access to several outdoor areas, but not the entire property; call 325-396-2358 to discuss access needs before traveling.",
+  "researchNote": "The 1874 hospital now houses the visitor center. Use a self-guided route through the soldiers' barracks, officers' quarters, headquarters and schoolhouse; the lime kiln, quarry and Government Springs involve additional walking. Soldiers from all four Buffalo Soldier regiments served at the fort. Interpret the laundresses, officers' families and nearby Comanche history alongside the post's military supply role, rather than treating the frontier as unoccupied land."
 },
   "fort-lancaster": {
   "entryNote": "THC currently opens Fort Lancaster Tuesday–Saturday 9 a.m.–5 p.m. Budget an hour for the visitor center and scattered fort ruins. Guided battlefield tours and school programs are scheduled separately.",
@@ -257,6 +258,7 @@ export function enrichResearchedHistoricSiteDepth(destination: Destination): Des
   if (destination.slug === "first-capitol-of-texas") {
     return {
       ...destination,
+      bestSeason: "Not currently open to visitors. There is no public visiting season until the Texas Historical Commission announces access.",
       body: [
         ...destination.body,
         ...additions,
@@ -277,10 +279,17 @@ export function enrichResearchedHistoricSiteDepth(destination: Destination): Des
   if (verified) {
     return {
       ...destination,
+      ...(destination.slug === "old-socorro-mission" ? {
+        bestSeason: "Closed archaeological site: there is no public visiting season. Research the separately operated present-day Socorro Mission for a permitted visit.",
+      } : {}),
       body: [...destination.body, ...additions, verified.researchNote].filter((line, index, all) => all.indexOf(line) === index),
       entryNote: verified.entryNote,
       ...(verified.accessibilityNotes ? { accessibilityNotes: verified.accessibilityNotes } : {}),
-      sourceCheckedAt: destination.slug === "fulton-mansion" ? "2026-10-14" : "2026-10-12",
+      ...(destination.slug === "fort-mckavett" ? {
+        address: "7066 FM 864, Fort McKavett, TX 76841",
+        directions: "Remote Menard County location at 7066 FM 864. Plan fuel and water before traveling; check current highway routing and contact the historic site directly about mobility assistance.",
+      } : {}),
+      sourceCheckedAt: destination.slug === "fort-mckavett" ? "2026-10-17" : destination.slug === "fulton-mansion" ? "2026-10-14" : "2026-10-12",
     };
   }
   return additions.length ? { ...destination, body: [...destination.body, ...additions] } : destination;

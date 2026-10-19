@@ -8,6 +8,7 @@ import { Container } from "@/components/layout/Container";
 import { ParkingMapPanel } from "@/components/parking/ParkingMapPanel";
 import { MSRHoustonAuthoritySections, MSRHoustonStatusNotice } from "@/components/sports/MSRHoustonAuthoritySections";
 import { MSRHoustonEventsFallback } from "@/components/sports/MSRHoustonEventsFallback";
+import { FreemanColiseumAuthoritySections } from "@/components/sports/FreemanColiseumAuthoritySections";
 import { SponsoredSportsPlacement } from "@/components/sports/SponsoredSportsPlacement";
 import { canonicalEntityPath } from "@/data/knowledge-graph/relationships";
 import type { TexasEntityRecord } from "@/data/knowledge-graph/types";
@@ -32,6 +33,7 @@ export type SportsVenueGuidePageProps = {
   guide: SportsVenueGuidePilot;
   enrichment?: SportsVenueEnrichment;
   photo?: SportsVenuePhoto;
+  fallbackPhotoSrc?: string;
   parkingMap?: ParkingMapAsset;
   nearbyAttractions?: readonly TexasEntityRecord[];
   upcomingEvents?: readonly TexasEventCarouselItem[];
@@ -44,6 +46,7 @@ export function SportsVenueGuidePage({
   guide,
   enrichment,
   photo,
+  fallbackPhotoSrc,
   parkingMap,
   nearbyAttractions = [],
   upcomingEvents = [],
@@ -169,7 +172,7 @@ export function SportsVenueGuidePage({
           </header>
 
           <div className="grid items-start gap-6 border-b border-border pb-12 lg:grid-cols-[minmax(0,1fr)_22rem]">
-            <VenuePhoto photo={photo} venueName={entity.name} />
+            <VenuePhoto photo={photo} venueName={entity.name} fallbackImageUrl={fallbackPhotoSrc} />
             <QuickFacts guide={guide} capacity={guide.capacity ?? enrichment?.capacity} directionsUrl={directionsUrl} officialUrl={officialUrl} />
           </div>
 
@@ -213,6 +216,8 @@ export function SportsVenueGuidePage({
             />
           ) : null}
 
+          {guide.canonicalPath === "/sports-venue/freeman-coliseum" ? <FreemanColiseumAuthoritySections /> : null}
+
           {guide.gallery?.length ? (
             <EditorialSection eyebrow="Venue photo gallery" title={`${entity.name} in pictures`}>
               <p className="mb-6 max-w-3xl text-sm leading-7 text-muted-foreground">
@@ -235,11 +240,20 @@ export function SportsVenueGuidePage({
             </EditorialSection>
           ) : null}
 
+          {entity.tags?.includes('horse-racing') ? (
+            <section className="border-y border-border py-7">
+              <p className="eyebrow text-primary">Explore Texas horse racing</p>
+              <h2 className="mt-2 font-display text-2xl">Compare every licensed Texas horse-racing track</h2>
+              <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Browse the four live-racing destinations, including the Gillespie County Fairgrounds in Fredericksburg, plus the history of inactive racing licenses. Live race dates vary by track.</p>
+              <a href="/horse-racing" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Texas horse-racing authority directory →</a>
+            </section>
+          ) : null}
+
           <div data-stay-nearby-slot />
 
           {guide.canonicalPath === "/sports-venue/msr-houston" ? <MSRHoustonAuthoritySections /> : null}
 
-          {enrichment?.history && guide.canonicalPath !== "/sports-venue/msr-houston" ? (
+          {enrichment?.history && guide.canonicalPath !== "/sports-venue/msr-houston" && guide.canonicalPath !== "/sports-venue/freeman-coliseum" ? (
             <EditorialSection eyebrow="Venue story" title={`The story of ${entity.name}`}>
               <p className="max-w-3xl text-base leading-8 text-muted-foreground sm:text-lg">
                 {enrichment.history}
@@ -298,9 +312,13 @@ function VenueBreadcrumb({ venueName }: { venueName: string }) {
   );
 }
 
-function VenuePhoto({ photo, venueName }: { photo?: SportsVenuePhoto; venueName: string }) {
+function VenuePhoto({ photo, venueName, fallbackImageUrl }: { photo?: SportsVenuePhoto; venueName: string; fallbackImageUrl?: string }) {
+  // Keep the existing fail-closed primary-image behavior required by the
+  // shared image-safety contract. Only try the same approved source URL
+  // when the proxy fails, and show no-image text if that source also fails.
   const [failedUrl, setFailedUrl] = useState<string | null>(null);
-  if (!photo || failedUrl === photo.imageUrl) {
+  const [failedFallback, setFailedFallback] = useState(false);
+  if (!photo || (failedUrl === photo.imageUrl && (!fallbackImageUrl || failedFallback))) {
     return (
       <div
         className="flex items-center justify-center border border-border bg-muted px-8 py-12 text-center text-sm text-muted-foreground"
@@ -311,7 +329,23 @@ function VenuePhoto({ photo, venueName }: { photo?: SportsVenuePhoto; venueName:
       </div>
     );
   }
-
+  if (failedUrl === photo.imageUrl && fallbackImageUrl) {
+    return (
+      <figure className="min-w-0 overflow-hidden bg-muted">
+        <img
+          src={fallbackImageUrl}
+          alt={photo.alt}
+          width={photo.width}
+          height={photo.height}
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
+          className="block h-auto w-full object-contain"
+          onError={() => setFailedFallback(true)}
+        />
+      </figure>
+    );
+  }
   return (
     <figure className="min-w-0 overflow-hidden bg-muted">
       <img
@@ -340,7 +374,7 @@ function QuickFacts({ guide, capacity, directionsUrl, officialUrl }: { guide: Sp
         <Fact label="Capacity" value={capacity} />
         <Fact label="Venue type" value={guide.venueType} />
         <Fact label="Home team" value={guide.homeTeam} />
-        <Fact label={/motorsports|road-racing|drag-racing|raceway/i.test(guide.venueType) ? "Track activities" : "League / conference"} value={guide.leagueOrConference} />
+        <Fact label={/motorsports|road-racing|drag-racing|raceway/i.test(guide.venueType) ? "Track activities" : /multipurpose|coliseum|event complex/i.test(guide.venueType) ? "Primary uses" : "League / conference"} value={guide.leagueOrConference} />
         <Fact label={/motorsports|road-racing|drag-racing|raceway/i.test(guide.venueType) ? "Circuit configuration" : "Playing surface"} value={guide.playingSurface} />
         <Fact label="Opened" value={guide.opened} />
         <Fact label="Address" value={guide.address} />

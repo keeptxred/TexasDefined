@@ -72,7 +72,7 @@ export function DestinationAuthorityGuide({
 
           <section aria-labelledby={`${destination.slug}-itineraries`}>
             <p className="eyebrow text-primary">Use the time you have</p>
-            <h2 id={`${destination.slug}-itineraries`} className="mt-2 font-display text-4xl">Three ways to visit</h2>
+            <h2 id={`${destination.slug}-itineraries`} className="mt-2 font-display text-4xl">{destination.slug === "battleship-texas" ? "Three ways to explore while the ship is closed" : "Three ways to visit"}</h2>
             <div className="mt-7 grid gap-5 sm:grid-cols-3">
               {authority.itineraries.map((plan) => <article key={plan.label} className="border-t-2 border-foreground pt-5">
                 <p className="eyebrow text-primary">{plan.duration}</p>

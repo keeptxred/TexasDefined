@@ -10,6 +10,10 @@ Purpose: do not use any image of a different museum, nearby city, AI approximati
 | Texas Energy Museum, Beaumont | https://commons.wikimedia.org/wiki/File:Texas_Energy_Museum,_front_entrance.jpg | Creative Commons BY-SA 4.0 International | JJonahJackalope, 2024 | Exact front entrance; original 4000 × 2252 |
 | George Ranch Historical Park | https://www.loc.gov/item/2014633335/ | Library of Congress rights advisory: no known restrictions on publication; user must independently assess rights | Carol M. Highsmith / Library of Congress, 2014, LC-DIG-highsm-29135 | Costumed interpreter at George Ranch, not a generic ranch |
 
+| McNay Art Museum, San Antonio | https://commons.wikimedia.org/wiki/File:McNay_Art_Museum_May_2018_2_(Courtyard).jpg | Creative Commons BY-SA 4.0 International; source creator personally licensed work | Michael Barera, 24 May 2018 | Exact historic McNay museum courtyard, not an unrelated San Antonio building. Attribution source and license links required on published hero; pixel/render QA outstanding. |
+
+| Texas Military Forces Museum, Austin | https://commons.wikimedia.org/wiki/File:Ceremonies_at_Camp_Mabry_190112-Z-DZ751-0199_(32916620338).jpg | Creative Commons BY 2.0 Generic; FlickrReview confirmed 2019 | Sgt. 1st Class Jim Greenhill, 12 January 2019 | Exact museum presentation inside Camp Mabry. Corrects historic destination credit incorrectly claiming public domain; image is CC BY 2.0, must link source and license. Pixel and live display QA pending. |
+
 License compliance:
 - Retain photographer attribution, title, museum-specific image context, source URL, Creative Commons license name/link and modifications wherever the page/photo component allows.
 - Creative Commons BY-SA licensing imposes additional terms on adapted photos; ensure any derivative delivery meets share-alike and credit requirements.
@@ -188,3 +192,48 @@ Exact-site antique farm-equipment photograph: [Boerne ag museum 2013.jpg](https:
 - Source licensing: **CC BY-SA 4.0** with creator requirement for visible credit `Matthew T Rader`, creator website `https://matthewtrader.com`, and proper license reference `https://creativecommons.org/licenses/by-sa/4.0/`. This is not public-domain U.S. Navy imagery.
 - `src/data/military-museum-destinations.ts` already credits `Matthew T Rader / MatthewTRader.com · CC BY-SA 4.0 · Wikimedia Commons` and uses the actual 2018 aerial museum-era photograph. Preserve it and distinguish historic wartime gallery photographs by dates and source.
 - Browser-rendered attribution links, image dimensions, any derivative change notation, and small-screen display remain **unverified** until production acceptance. Do not certify merely from valid source metadata.
+
+## East Texas Oil Museum — original building photo, October 17, 2026
+
+- Specific museum: East Texas Oil Museum on Kilgore College campus, 1301 S Henderson Boulevard, Gregg County, **not a generic derrick**.
+- Image source: [Wikimedia Commons — East Texas Oil Museum building, Kilgore, TX IMG 5900.JPG](https://commons.wikimedia.org/wiki/File:East_Texas_Oil_Museum_building,_Kilgore,_TX_IMG_5900.JPG), uploaded by copyright holder **Billy Hathorn**, photographed **24 October 2012**, 4608×3456 pixels. Source explicitly says self-created, copyright holder licensing it under **Creative Commons Attribution-ShareAlike 3.0 Unported**: https://creativecommons.org/licenses/by-sa/3.0/ .
+- Exact remote hero: `https://commons.wikimedia.org/wiki/Special:Redirect/file/East_Texas_Oil_Museum_building,_Kilgore,_TX_IMG_5900.JPG?width=1600`; source image is a **2012 exterior**, not evidence of current admission, equipment or live exhibits. The photo and license are independent of the museum's operator-prohibited commercial **on-site** photography policy. Credit Billy Hathorn and maintain exact file/license reference, with indication if image is transformed.
+- Only the source identity/license and semantic enrichment are verified at commit time. Browser-rendered pixels, actual source HTTP response, responsive crop and credit link still require post-deploy acceptance. **Not authority-certified or automatically declared indexable.**
+
+## Texas Country Music Hall of Fame and Tex Ritter Museum — Carthage (October 18, 2026)
+
+- **Exact site:** [Wikimedia Commons photograph, Texas Country Music Hall of Fame and Tex Ritter Museum IMG 2956.JPG](https://commons.wikimedia.org/wiki/File:Texas_Country_Music_Hall_of_Fame_and_Tex_Ritter_Museum_IMG_2956.JPG), 20 May 2011, 4320 × 3240, Carthage.
+- **Photographer and license:** Billy Hathorn; photographer-uploaded original, explicitly released under [CC BY-SA 3.0 Unported](https://creativecommons.org/licenses/by-sa/3.0/). Commercial web use is licensed with attribution, license reference and relevant modification notice; comply with applicable share-alike provisions for derivative crops.
+- **Location check:** Commons categorizes the image with the Texas Country Music Hall of Fame, not the unrelated Nashville museum. It is a historical 2011 view, **not proof of current exhibits or operating hours**.
+- **Production status:** source and license verified, reference recorded in `museumLicensedHeroes`; actual pixel load, screen-reader ALT, image credit and responsive crop **pending post-deployment acceptance**. No separate authority certification.
+
+## The Bryan Museum — Galveston (October 18, 2026)
+
+- **Exact site:** [Wikimedia Commons photograph, Galveston Texas - The Bryan Museum - January 2025 - 1.jpg](https://commons.wikimedia.org/wiki/File:Galveston_Texas_-_The_Bryan_Museum_-_January_2025_-_1.jpg), 5 January 2025, 5367 × 3354, coordinates 29.297469, -94.789054. The subject is The Bryan Museum in Galveston, housed in the former Galveston Orphans Home.
+- **Photographer and licensing:** Alexander Hatley, original Flickr upload [54275553393](https://www.flickr.com/photos/109137992@N02/54275553393/); Wikimedia Commons records **CC BY 2.0 Generic**, independently reviewed by FlickreviewR on 29 July 2025. [License details](https://creativecommons.org/licenses/by/2.0/). Provide author, file source and license link; note alterations if image is cropped.
+- **Historical context:** January 2025 site photograph, not evidence for all current galleries, visitor routes or fall 2026 hours.
+- **Production status:** license and location source documented; actual pixel rendering, attribution, responsive crop and canonical indexing remain **unverified** until live deployment QA. Not independently certified.
+
+
+## Frontiers of Flight Museum — Dallas (verified October 18, 2026)
+
+- **Correct exhibit and institution:** [Frontiers of Flight Museum December 2015 107 (Vought V-173 "Flying Pancake").jpg](https://commons.wikimedia.org/wiki/File:Frontiers_of_Flight_Museum_December_2015_107_(Vought_V-173_%22Flying_Pancake%22).jpg) is a specific aviation artifact on exhibit at the Dallas Love Field museum, not a generic airplane photo.
+- Photographer: **Michael Barera**; taken December 12, 2015. Commons describes the original 6,000×4,000 photo as own work and independently lists commercial-compatible **CC BY-SA 4.0** (and CC BY-SA 3.0) licensing with credit and share-alike requirements. Use [CC BY-SA 4.0 license](https://creativecommons.org/licenses/by-sa/4.0/). The existing `src/data/museum-expansion-dfw.ts` hero already carries the exact Vought V-173 image and photographer credit. Do not create a second generic image or imply this 2015 photo documents 2026 temporary exhibitions.
+- Operator site restrictions on new photography for other-than-personal use are not blanket restrictions on reuse of this independently photographer-licensed 2015 original. The actual remote JPEG, on-page original file and CC links, responsive crop and pixel display require post-deployment acceptance.
+
+## Museum of Texas Tech University — Lubbock (verified October 18, 2026)
+
+- **Exact building photograph:** [Museum of Texas Tech University IMG 0038.JPG](https://commons.wikimedia.org/wiki/File:Museum_of_Texas_Tech_University_IMG_0038.JPG) is photographer **Billy Hathorn**'s own photo from April 3, 2009, uploaded April 10, 2009. The original is 2,592×1,944 pixels, with an affirmative [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/) license (other optional licenses also recorded).
+- Hero record `src/data/museum-authority-heroes.ts` is keyed only to `museum-of-texas-tech-university-lubbock`; the existing destination record replaces its missing-image placeholder with this exact licensed photo. Credit photographer, named source and license; when resizing or cropping follow CC share-alike and modification-notice terms. **This is a 2009 exterior photograph, not proof of today's museum display arrangements.**
+- Source/license verification is complete, but browser-level photograph pixel rendering, attribution links, alternate text and mobile crop are **not certified** until the merged page is visually checked.
+
+
+## Menil Collection (Houston) and Grace Museum (Abilene) — October 19, 2026
+
+These authority upgrades **reuse existing, accurate destination photographs**, not stock or fabricated substitutes, and add source-specific license attribution.
+
+- **The Menil Collection**, canonical `/destination/menil-collection-houston`: actual Houston museum photographed by **Francisco Anzola**, 28 June 2011. [Wikimedia original](https://commons.wikimedia.org/wiki/File:Menil_Collection_Houston_(5887512203).jpg) records Flickr transfer and reviewer-confirmed **CC BY 2.0 Generic**, https://creativecommons.org/licenses/by/2.0/ . Existing hero is `https://commons.wikimedia.org/wiki/Special:Redirect/file/Menil_Collection_Houston_(5887512203).jpg?width=1600`. Added photographer/date/CC license to existing destination credit and clickable original-image/license support from the already merged Commons hero credit feature. The image depicts the museum building, not the latest on-view artwork.
+- **The Grace Museum**, canonical `/destination/grace-museum-abilene`: exterior of the original downtown Abilene Hotel Grace / museum building, photographed by **Larry D. Moore** on 26 September 2015. [Wikimedia original](https://commons.wikimedia.org/wiki/File:The_Grace_Museum_Abilene_Texas_2015.jpg) is the photographer's original, **CC BY 4.0 International**, https://creativecommons.org/licenses/by/4.0/ . The rights statement specifically requires attribution, link to license and requests the source image link. The existing destination hero override is normalized from Commons `Special:FilePath` to `Special:Redirect/file/The_Grace_Museum_Abilene_Texas_2015.jpg?width=1600` so clickable attribution resolves through the existing template. Not a photo of the separately located Spark Science Center.
+- **Reuse conditions**: commercial website display is permitted by the cited licenses with author, link to license, any transformations/crops noted as applicable; no endorsement implied. The operator's indoor/gallery photography rules are distinct from licensed older exterior pictures.
+- **Acceptance pending**: production hero pixels, mobile layouts, link navigation and photo caption legibility require browser visual QA after protected merge. The manifest and FAQ contract should not equate HTTP 200 with editorial certification.
+

@@ -1,3 +1,14 @@
+import { applySixLaterTPWDAuthorities } from "./tpwd-six-later-park-authorities";
+import { applySixParkOctoberVisitorAuthority } from "./six-tpwd-visitor-authority-oct17";
+import { applySixParkVisitorAuthorityGuide } from "./six-park-visitor-authority-20261017";
+import { applyTwoNationalParkAuthorities } from "./two-national-parks-2026-authority";
+import { applyRemainingSixNpsAuthorities } from "./remaining-six-nps-authorities";
+import { applyFourFederalParkAuthorities } from "./four-nps-visitor-authorities";
+import { applyTPWDSixNewVisitorGuides } from "./state-park-six-new-visitor-guides";
+import { applyFiveParkAuthorityAlerts } from "./state-park-five-alert-authority";
+import { applyFourParkAlertAuthority } from "./state-park-four-alert-authority";
+import { applyInksLakeVisitorAuthority } from "./inks-lake-visitor-authority";
+import { applyStateParkSixAuthorityWave } from "./state-park-six-authority-wave";
 import { applyDevilsSinkholeVisitorAuthority } from "./devils-sinkhole-visitor-authority";
 import { applyStateParkSourceGroundedDepth } from "./state-park-source-grounded-depth";
 import { applyEsteroLlanoGrandeStateParkAuthority } from "./estero-llano-grande-state-park-authority";
@@ -172,6 +183,17 @@ const CURATORS: Array<(destination: Destination) => Destination> = [
   applyRayRobertsLakeStateParkAuthority,
   applyEsteroLlanoGrandeStateParkAuthority,
   applyStateParkSourceGroundedDepth,
+  applyStateParkSixAuthorityWave,
+  applyFourParkAlertAuthority,
+  applyFiveParkAuthorityAlerts,
+  applyTPWDSixNewVisitorGuides,
+  applyFourFederalParkAuthorities,
+  applyRemainingSixNpsAuthorities,
+  applySixParkOctoberVisitorAuthority,
+  applySixLaterTPWDAuthorities,
+  applyTwoNationalParkAuthorities,
+  applySixParkVisitorAuthorityGuide,
+  applyInksLakeVisitorAuthority,
   applyDevilsSinkholeVisitorAuthority,
 ];
 

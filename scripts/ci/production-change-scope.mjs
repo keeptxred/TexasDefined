@@ -9,6 +9,7 @@ const sharedPattern = /^(?:package(?:-lock)?\.json|vite\.config\.|wrangler\.|src
 const groups = {
   images: /discover|hero|public\/images|materialize/,
   sports: /sports|venue|football/,
+  horse_racing: /horse-racing|horseRacing|HorseRacing|verify-horse-racing-production/,
   foliage: /east-texas-fall-colors|fall-foliage/,
   discovery: /public-routes|sitemap|routeTree|discovery|indexing/,
   events: /events?|ticketmaster/,
@@ -74,6 +75,20 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
       '/explore/casinos/near-houston',
       '/explore/casinos/near-dallas-fort-worth',
     ];
+  }
+  // A shared football template affects every profile, but two representative
+  // verified teams provide a bounded production canary without a 1,268-page crawl.
+  const footballGameNightPages = new Set();
+  if (changedFiles.some(path => [
+    'src/routes/texas-high-school-football-teams_.$slug.tsx',
+    'src/routes/texas-high-school-football-teams_.$slug.lazy.tsx',
+    'src/components/sports/FootballGameNightGuide.tsx',
+  ].includes(path))) {
+    for (const slug of ['aledo', 'southlake-carroll']) {
+      const page = `/texas-high-school-football-teams/${slug}`;
+      candidates.add(page);
+      footballGameNightPages.add(page);
+    }
   }
   const downloadButtonPages = new Set();
   const regionGuidePages = new Set();
@@ -162,6 +177,38 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
     expectedHrefsByPage['/explore'] = ['/explore/casinos'];
     expectedHrefsByPage['/explore/casinos'] = guidePaths;
   }
+  // A shared water-park registry owns many dynamic guides. Verify only newly
+  // added facility URLs (up to four) plus the statewide directory, not 101
+  // unrelated pages. Template-only changes use four type-diverse canaries.
+  // This stays inside the existing 40-page deployment smoke budget.
+  const waterParkOwnerChanged = changedFiles.some(path =>
+    path === 'src/data/texas-water-parks.ts'
+    || /^src\/routes\/explore\.water-parks(?:\.(?:index|\$slug)(?:\.lazy)?)?\.tsx$/.test(path)
+  );
+  if (waterParkOwnerChanged) {
+    const file = 'src/data/texas-water-parks.ts';
+    const current = sources[file]?.after ?? readFileSync(file, 'utf8');
+    const registryPattern = /export const texasWaterParks: WaterParkGuide\[\] = (\[[\s\S]*?\]);\nexport const texasWaterParksBySlug/;
+    const match = current.match(registryPattern);
+    if (!match) throw new Error('Water-park production smoke could not parse the canonical operator registry');
+    const parks = JSON.parse(match[1]);
+    if (parks.length < 1 || parks.length > 1000) throw new Error('Water-park production smoke found an implausible registry');
+    const previous = sources[file]?.before?.match(registryPattern);
+    const priorSlugs = previous ? new Set(JSON.parse(previous[1]).map(park => park.slug)) : new Set();
+    const newParks = previous ? parks.filter(park => !priorSlugs.has(park.slug)) : [];
+    const fallback = [
+      parks.find(park => park.setting === 'Indoor' && !/Resort/.test(park.kind)),
+      parks.find(park => /Resort/.test(park.kind)),
+      parks.find(park => park.kind === 'Inflatable lake water park'),
+      parks.find(park => park.setting === 'Outdoor' && park.kind === 'Destination park'),
+    ].filter(Boolean);
+    const chosen = [...new Map((newParks.length ? newParks : fallback)
+      .slice(0, 4).map(park => [park.slug, park])).values()];
+    const hrefs = chosen.map(park => `/explore/water-parks/${park.slug}`);
+    candidates.add('/explore/water-parks');
+    for (const href of hrefs) candidates.add(href);
+    expectedHrefsByPage['/explore/water-parks'] = hrefs;
+  }
   let contentFallback = false;
   for (const path of changedFiles) {
     const { before = '', after = '' } = sources[path] || {};
@@ -212,12 +259,16 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
   // The two redirect-only state aliases are intentional canonical exceptions.
   // Verify their actual 301 response whenever their route or this planner
   // changes, using the existing deploy smoke instead of a new full crawl.
-  const redirectChecks = changedFiles.some(path => path === 'src/routes/texas-vs.$state.tsx' || path === 'scripts/ci/production-change-scope.mjs')
-    ? [
-      { path: '/texas-vs/california', target: '/article/texas-vs-california-differences' },
-      { path: '/texas-vs/florida', target: '/article/texas-vs-florida-differences' },
-    ]
-    : [];
+  const redirectChecks = [
+    ...(changedFiles.some(path => path === 'src/routes/texas-vs.$state.tsx' || path === 'scripts/ci/production-change-scope.mjs')
+      ? [
+        { path: '/texas-vs/california', target: '/article/texas-vs-california-differences' },
+        { path: '/texas-vs/florida', target: '/article/texas-vs-florida-differences' },
+      ] : []),
+    // Exactly one museum alias changed, not an entire destination crawl.
+    ...(changedFiles.some(path => path === 'src/lib/legacy-editorial-redirects.ts' || path === 'src/data/destination-availability.ts')
+      ? [{ path: '/destination/museum-south-texas-history-edinburg', target: '/destination/museum-of-south-texas-history-edinburg' }] : []),
+  ];
   const allPaths = [...candidates].sort();
   // A deploy smoke is explicitly a bounded sample, never a full-content certification.
   const selectedPaths = [...new Set([...REPRESENTATIVE_PATHS.filter(p => candidates.has(p)), ...allPaths])].slice(0, PAGE_BUDGET - redirectChecks.length);
@@ -225,10 +276,11 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
   const candidateCount = allPaths.length + redirectChecks.length;
   return { baseline, head, changedFiles, shared, selectedPaths, expectedHrefsByPage: selectedExpectedHrefs,
     downloadButtonPages: selectedPaths.filter(p => downloadButtonPages.has(p)),
-    regionGuidePages: selectedPaths.filter(p => regionGuidePages.has(p)), redirectChecks, candidateCount,
+    regionGuidePages: selectedPaths.filter(p => regionGuidePages.has(p)),
+    footballGameNightPages: selectedPaths.filter(p => footballGameNightPages.has(p)), redirectChecks, candidateCount,
     omittedCount: Math.max(0, allPaths.length - selectedPaths.length), pageBudget: PAGE_BUDGET,
     coverage: candidateCount > PAGE_BUDGET ? 'representative sample; full coverage belongs to weekly local audits' : 'identified changed pages and representative dependencies',
-    groups: Object.fromEntries(Object.entries(groups).map(([name, pattern]) => [name, shared || changedFiles.some(p => pattern.test(p))])),
+    groups: Object.fromEntries(Object.entries(groups).map(([name, pattern]) => [name, (name === 'horse_racing' ? false : shared) || changedFiles.some(p => pattern.test(p))])),
   };
 }
 

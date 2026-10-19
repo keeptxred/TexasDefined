@@ -1,3 +1,5 @@
+import { rioGrandeWildScenicRiverAuthorityArticle } from "./rio-grande-wild-scenic-river-authority";
+import { texasNpsHistoricTrailGuides } from "./texas-nps-historic-trail-guides";
 import type {
   ArticleRepository,
   CollectionRepository,
@@ -39,6 +41,8 @@ import {
  */
 
 const editorialArticles = [
+  rioGrandeWildScenicRiverAuthorityArticle,
+  ...texasNpsHistoricTrailGuides,
   ...exploreFeatureArticleStubs,
   ...coreEvergreenArticleStubs,
   ...lazyEvergreenArticleStubs,

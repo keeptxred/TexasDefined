@@ -337,12 +337,15 @@ const historicAuthority: Record<string, { extraBody: string[]; authorityGuide?: 
       "The original post dates to March 1852, but the fort’s later form reflects a different phase of frontier military expansion. The Army left in 1859, while an 1868 reoccupation turned Fort McKavett into a major logistical depot until its final military abandonment in 1883.",
       "Rather than treating the barracks, schoolhouse, hospital and officers’ homes as disconnected ruins, imagine how supplies were delivered, food stored, soldiers housed and medical care provided before dependable rail connections. The proximity of everyday buildings around the parade ground is part of what makes this fort unusually legible.",
       "Fort McKavett was used by Black Regular Army soldiers as well as other federal units, and those soldiers’ service coexisted with discrimination and wider Army campaigns against Native communities. The historic buildings preserve traces of civilian, enlisted, officer and military families’ lives rather than just battlefield history.",
+      "The post was occupied briefly during the Civil War and used as a prisoner-of-war camp before Texas forces abandoned it in April 1862. The 1868 return and expanded supply role explain why different phases of the site should not be collapsed into one date or a single army story.",
+      "THC documents soldiers from all four Buffalo Soldier regiments serving here. Sgt. Emanuel Stance of the 9th Cavalry earned the first post-Civil War Medal of Honor awarded to an African American soldier; his service belongs within a fuller account of Black Regulars facing discrimination and participating in campaigns that displaced Indigenous communities.",
+      "Women working as Army laundresses, civilians, children and later town residents are part of Fort McKavett's history. After the Army left in 1883, civilians occupied former military buildings for decades; the final residents departed original buildings in 1973, showing why surviving structures record more than their initial military uses.",
       "Visitor mobility deserves direct treatment. The state’s official guidance distinguishes more accessible visitor-center facilities from uneven and less accessible historic areas. A careful guide should say what can be experienced comfortably in a shorter visit and when assistance or a different route should be arranged."
     ],
     "authorityGuide": {
       "whyItMatters": "Fort McKavett's surviving buildings offer an unusually readable plan of a nineteenth-century frontier garrison. Its military, civilian and Buffalo Soldier history becomes more meaningful when the visitor traces everyday functions such as housing, medical care, schooling and supply around the parade ground.",
       "assessment": {
-        "recommendedVisit": "THC lists daily 8 a.m.–5 p.m. access and a 1–2-hour self-guided tour. Many historic structures and grounds are NOT wheelchair accessible; the visitor center can be accessed, and staff offer limited golf-cart rentals. Arrange large-group tours separately.",
+        "recommendedVisit": "The historic site is listed open daily 8 a.m.–5 p.m., while the 1–2-hour self-guided tour operates 8 a.m.–4 p.m. without advance reservations. Most historic grounds are not wheelchair accessible; the visitor center is accessible and $5 golf-cart rentals may assist with some areas. Groups and school tours have separate scheduling.",
         "physicalEffort": "Moderate",
         "weatherExposure": "Mostly outdoors",
         "planningLevel": "High",
@@ -388,6 +391,11 @@ const historicAuthority: Record<string, { extraBody: string[]; authorityGuide?: 
           "label": "THC — plan a Fort McKavett visit",
           "url": "https://thc.texas.gov/state-historic-sites/fort-mckavett/plan-your-visit-fort-mckavett",
           "scope": "Self-guided touring, accessibility and facilities."
+        },
+        {
+          "label": "THC — Fort McKavett history",
+          "url": "https://thc.texas.gov/state-historic-sites/fort-mckavett/fort-mckavett-history",
+          "scope": "1852 founding, 1859 and 1883 military closures, Civil War occupation, Buffalo Soldiers, laundresses and civilian reuse."
         }
       ]
     }

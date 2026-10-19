@@ -61,6 +61,24 @@ for (const guide of guides) {
   }
 }
 
+
+const dmvTrust = fs.readFileSync(path.join(root, 'src/routes/find-my-dmv.lazy.tsx'), 'utf8');
+const dmvHead = fs.readFileSync(path.join(root, 'src/routes/find-my-dmv.tsx'), 'utf8');
+for (const token of [
+  'CitationTrustPanel',
+  'methodology=',
+  'lastVerified={sourceVerifiedLabel}',
+  'https://www.txdmv.gov/motorists/new-to-texas',
+  'https://www.txdmv.gov/regional-service-centers',
+  'https://www.dps.texas.gov/apps/Rolodex/index.asp',
+  'DPS requires appointments',
+]) {
+  if (!dmvTrust.includes(token)) errors.push('P1 DMV citation and visit-routing contract missing: ' + token);
+}
+for (const token of ['sourceVerifiedAt', 'sourceVerifiedLabel', 'dateModified: sourceVerifiedAt']) {
+  if (!dmvHead.includes(token)) errors.push('P1 DMV source verification/schema date missing: ' + token);
+}
+
 const countyRouteFiles = [
   'src/routes/find-my-county.tsx',
   'src/routes/find-my-county.lazy.tsx',

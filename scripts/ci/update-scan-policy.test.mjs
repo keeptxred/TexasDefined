@@ -14,6 +14,17 @@ test('blanket deployment subscriptions and duplicate validation cannot return', 
     assert.doesNotMatch(source, /^  workflow_run:/m, name);
     assert.match(source, /^  workflow_dispatch:/m, name);
   }
+  assert.deepEqual(policy.postDeployVerificationWorkflows, ['texasdefined-publication-production-smoke']);
+  for (const name of policy.postDeployVerificationWorkflows) {
+    const source = text(`.github/workflows/${name}.yml`);
+    assert.match(source, /^  workflow_dispatch:/m, name);
+    assert.match(source, /^  workflow_run:/m, name);
+    assert.match(source, /^    workflows:\s*$/m, name);
+    assert.match(source, /^      - Deploy TexasDefined production\s*$/m, name);
+    assert.match(source, /^    types: \[completed\]\s*$/m, name);
+    assert.match(source, /^    branches: \[main\]\s*$/m, name);
+    assert.doesNotMatch(source, /^  (push|schedule):/m, name);
+  }
   for (const name of policy.manualDiagnosticWorkflows) {
     const source = text(`.github/workflows/${name}.yml`);
     assert.doesNotMatch(source, /^  (push|pull_request|workflow_run|schedule):/m, name);
@@ -26,6 +37,27 @@ test('blanket deployment subscriptions and duplicate validation cannot return', 
   assert.doesNotMatch(deploy, /node scripts\/ci\/verify-production-surfaces.mjs/);
   for (const group of ['sports','foliage','discovery','events','financial','advertiser','images']) assert.ok(deploy.includes(`steps.change_scope.outputs.${group}`));
   for (const guard of ['verify-production-health.mjs','capture-active-worker-version.mjs','verified-worker-ledger.mjs record','verify-changed-production-pages.mjs']) assert.ok(deploy.includes(guard));
+});
+
+test('new water park registry rows receive four bounded route-specific production checks', () => {
+  const file = 'src/data/texas-water-parks.ts';
+  const wrap = records => 'export const texasWaterParks: WaterParkGuide[] = ' + JSON.stringify(records)
+    + ';\nexport const texasWaterParksBySlug';
+  const old = [{ slug: 'existing-park', name: 'Existing', setting: 'Outdoor', kind: 'Destination park' }];
+  const added = [
+    { slug: 'new-indoor', setting: 'Indoor', kind: 'Community water park' },
+    { slug: 'new-resort', setting: 'Outdoor', kind: 'Resort water park' },
+    { slug: 'new-lagoon', setting: 'Outdoor', kind: 'Inflatable lake water park' },
+    { slug: 'new-aqua', setting: 'Outdoor', kind: 'Inflatable lake water park' },
+  ];
+  const plan = buildChangePlan({ baseline, head, changedFiles: [file],
+    sources: { [file]: { before: wrap(old), after: wrap([...old, ...added]) } },
+  });
+  const paths = added.map(park => '/explore/water-parks/' + park.slug);
+  assert.deepEqual(plan.expectedHrefsByPage['/explore/water-parks'], paths);
+  for (const path of ['/explore/water-parks', ...paths]) assert.ok(plan.selectedPaths.includes(path));
+  assert.equal(plan.omittedCount, 0);
+  assert.ok(plan.selectedPaths.length <= PAGE_BUDGET);
 });
 
 test('workflow-only changes select no public pages or feature crawls', () => {
@@ -71,6 +103,27 @@ test('planner corrections retest previously missed editorial SSR links, not enti
   assert.deepEqual(plan.regionGuidePages, ['/article/texas-regions-explained']);
   assert.equal(plan.expectedHrefsByPage['/article/texas-regions-explained'][0], '/article/texas-gulf-coast-erosion-shoreline-retreat-guide');
   assert.equal(plan.expectedHrefsByPage['/article/texas-cultural-regions-explained'][0], '/article/texas-oil-boom-wichita-falls-west-texas-rigs');
+});
+
+test('football template changes verify only two real team pages and their live game-night paths', async () => {
+  const plan = buildChangePlan({ baseline, head, changedFiles: ['src/routes/texas-high-school-football-teams_.$slug.lazy.tsx'] });
+  assert.deepEqual(plan.selectedPaths, [
+    '/texas-high-school-football-teams/aledo',
+    '/texas-high-school-football-teams/southlake-carroll',
+  ]);
+  assert.deepEqual(plan.footballGameNightPages, plan.selectedPaths);
+  const html = (url, valid) => '<html><title>Team guide</title>'
+    + '<link rel="canonical" href="https://texasdefined.com' + url.pathname + '">'
+    + '<h2>Game-night essentials</h2>'
+    + '<a href="#football-current-season">2026 results and schedule</a>'
+    + (valid ? 'Browse the TexasDefined shop' : '')
+    + '<section id="football-current-season">Current season</section>'
+    + '<section>Program overview</section></html>';
+  const success = await verifyChangedPages({ plan, head, fetchImpl: async url => new Response(html(url, true)) });
+  assert.equal(success.length, 2);
+  assert.ok(success.every(record => record.passed));
+  const fail = await verifyChangedPages({ plan, head, fetchImpl: async url => new Response(html(url, false)) });
+  assert.ok(fail.every(record => !record.passed && /commerce link absent/.test(record.error)));
 });
 
 test('a shared fishing species change smoke-checks only four real family links', () => {
@@ -192,8 +245,21 @@ test('shared runtime changes and missing baseline select representative coverage
   for (const args of [{ baseline, changedFiles: ['src/routes/__root.tsx'] }, { baseline: null, changedFiles: [] }]) {
     const plan = buildChangePlan({ ...args, head });
     assert.deepEqual(new Set(plan.selectedPaths), new Set(REPRESENTATIVE_PATHS));
-    assert.ok(Object.values(plan.groups).every(Boolean));
+    // The horse-racing acceptance is deliberately change-scoped, not a generic
+    // shared-release/sitewide crawl. Other representative groups retain prior behavior.
+    const { horse_racing, ...regularGroups } = plan.groups;
+    assert.equal(horse_racing, false);
+    assert.ok(Object.values(regularGroups).every(Boolean));
   }
+});
+
+test('horse racing authority is verified only for a racing change, not an unrelated deployment', () => {
+  const change = buildChangePlan({ baseline, head, changedFiles: ['src/data/horse-racing-authority.ts'] });
+  assert.equal(change.groups.horse_racing, true);
+  const unrelated = buildChangePlan({ baseline, head, changedFiles: ['src/routes/__root.tsx'] });
+  assert.equal(unrelated.groups.horse_racing, false);
+  const workflowOnly = buildChangePlan({ baseline, head, changedFiles: ['.github/workflows/verify-aubrey-football.yml'] });
+  assert.equal(workflowOnly.groups.horse_racing, false);
 });
 
 test('deleted feature files still select their native gate and large updates disclose sampling', () => {
@@ -324,4 +390,23 @@ test('semantic query parameters remain separate pages in manual acceptance', asy
   await fetchPage('https://texasdefined.com/fishing/plan?view=list&verify=2');
   await fetchPage('https://texasdefined.com/fishing/plan?view=map&verify=3');
   assert.equal(calls, 2);
+});
+
+test('one duplicate Edinburg museum URL receives a bounded, exact permanent redirect check', async () => {
+  const museum = { path: '/destination/museum-south-texas-history-edinburg', target: '/destination/museum-of-south-texas-history-edinburg' };
+  const plan = buildChangePlan({ baseline, head, changedFiles: ['src/lib/legacy-editorial-redirects.ts'] });
+  assert.deepEqual(plan.redirectChecks, [museum]);
+  assert.ok(plan.selectedPaths.length + plan.redirectChecks.length <= PAGE_BUDGET);
+  const onlyRedirect = { ...plan, selectedPaths: [] };
+  const good = await verifyChangedPages({ plan: onlyRedirect, head, fetchImpl: async (_url, init) => {
+    assert.equal(init.redirect, 'manual');
+    return new Response(null, { status: 301, headers: { location: museum.target } });
+  } });
+  assert.deepEqual(good.map(row => [row.passed, row.status, row.redirectTo]), [[true, 301, museum.target]]);
+  const bad = await verifyChangedPages({ plan: onlyRedirect, head, fetchImpl: async () => new Response(null, { status: 200 }) });
+  assert.equal(bad[0].passed, false);
+  assert.match(bad[0].error, /Expected HTTP 301/);
+  const wrong = await verifyChangedPages({ plan: onlyRedirect, head, fetchImpl: async () => new Response(null, { status: 301, headers: { location: '/destination/unrelated' } }) });
+  assert.equal(wrong[0].passed, false);
+  assert.match(wrong[0].error, /Incorrect redirect target/);
 });

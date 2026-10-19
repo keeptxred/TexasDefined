@@ -90,6 +90,8 @@ import { Route as TexasHistoryRouteImport } from './routes/texas-history'
 import { Route as TexasHistoricLandmarksRouteImport } from './routes/texas-historic-landmarks'
 import { Route as TexasHipHopRouteImport } from './routes/texas-hip-hop'
 import { Route as TexasHighSchoolFootballTeamsRouteImport } from './routes/texas-high-school-football-teams'
+import { Route as TexasHighSchoolFootballPlayoffBracketsRouteImport } from './routes/texas-high-school-football-playoff-brackets'
+import { Route as TexasHighSchoolFootballMatchupsRouteImport } from './routes/texas-high-school-football-matchups'
 import { Route as TexasHighSchoolFootballIsdsRouteImport } from './routes/texas-high-school-football-isds'
 import { Route as TexasHighSchoolFootballDistrictsRouteImport } from './routes/texas-high-school-football-districts'
 import { Route as TexasHighSchoolFootballChampionshipHistoryRouteImport } from './routes/texas-high-school-football-championship-history'
@@ -161,6 +163,7 @@ import { Route as LubbockMusicHistoryRouteImport } from './routes/lubbock-music-
 import { Route as LlmsDottxtRouteImport } from './routes/llms[.]txt'
 import { Route as HuntingRouteImport } from './routes/hunting'
 import { Route as HoustonMusicHistoryRouteImport } from './routes/houston-music-history'
+import { Route as HorseRacingRouteImport } from './routes/horse-racing'
 import { Route as HomeGardenRouteImport } from './routes/home-garden'
 import { Route as GuidesRouteImport } from './routes/guides'
 import { Route as GrueneHallHistoryRouteImport } from './routes/gruene-hall-history'
@@ -216,8 +219,10 @@ import { Route as TexasHomeownershipCostCalculatorLocationRouteImport } from './
 import { Route as TexasHomeInsuranceCalculatorLocationRouteImport } from './routes/texas-home-insurance-calculator_.$location'
 import { Route as TexasHomeAffordabilityCalculatorLocationRouteImport } from './routes/texas-home-affordability-calculator_.$location'
 import { Route as TexasHighSchoolFootballTeamsSlugRouteImport } from './routes/texas-high-school-football-teams_.$slug'
+import { Route as TexasHighSchoolFootballMatchupsSlugRouteImport } from './routes/texas-high-school-football-matchups_.$slug'
 import { Route as TexasHighSchoolFootballIsdsSlugRouteImport } from './routes/texas-high-school-football-isds_.$slug'
 import { Route as TexasHighSchoolFootballDistrictsSlugRouteImport } from './routes/texas-high-school-football-districts_.$slug'
+import { Route as TexasDataSchoolDistrictTaxRatesDotcsvRouteImport } from './routes/texas-data.school-district-tax-rates[.]csv'
 import { Route as TexasDataResearchRouteImport } from './routes/texas-data.research'
 import { Route as TexasDataCountyHousingCostsDotcsvRouteImport } from './routes/texas-data.county-housing-costs[.]csv'
 import { Route as TexasDataCountyHousingCostsRouteImport } from './routes/texas-data.county-housing-costs'
@@ -320,6 +325,7 @@ import { Route as LearnAppraisalDistrictsRouteImport } from './routes/learn.appr
 import { Route as LearnAgriculturalValuationRouteImport } from './routes/learn.agricultural-valuation'
 import { Route as LakesLakeConroeDothtmlRouteImport } from './routes/lakes.lake-conroe[.]html'
 import { Route as HuntingSlugRouteImport } from './routes/hunting.$slug'
+import { Route as HorseRacingSlugRouteImport } from './routes/horse-racing_.$slug'
 import { Route as HistoricSiteWashingtonOnTheBrazosStateHistoricSiteRouteImport } from './routes/historic-site.washington-on-the-brazos-state-historic-site'
 import { Route as HistoricSiteSeminoleCanyonStateParkStateHistoricSiteRouteImport } from './routes/historic-site.seminole-canyon-state-park-state-historic-site'
 import { Route as HistoricSiteMonumentHillKreischeBreweryStateHistoricSiteRouteImport } from './routes/historic-site.monument-hill-kreische-brewery-state-historic-site'
@@ -348,6 +354,7 @@ import { Route as FishingCompareRouteImport } from './routes/fishing.compare'
 import { Route as FishingAccessRouteImport } from './routes/fishing.access'
 import { Route as ExploreWildlifeManagementAreasRouteImport } from './routes/explore.wildlife-management-areas'
 import { Route as ExploreWildlifeRouteImport } from './routes/explore.wildlife'
+import { Route as ExploreWaterParksRouteImport } from './routes/explore.water-parks'
 import { Route as ExploreTripPlannerRouteImport } from './routes/explore.trip-planner'
 import { Route as ExploreTopAttractionsRouteImport } from './routes/explore.top-attractions'
 import { Route as ExploreTexasWildflowerSeasonsRouteImport } from './routes/explore.texas-wildflower-seasons'
@@ -364,11 +371,13 @@ import { Route as ExploreNationalWildlifeRefugesRouteImport } from './routes/exp
 import { Route as ExploreMuseumsRouteImport } from './routes/explore.museums'
 import { Route as ExploreLighthousesRouteImport } from './routes/explore.lighthouses'
 import { Route as ExploreLandscapesRouteImport } from './routes/explore.landscapes'
+import { Route as ExploreInlandBeachesRouteImport } from './routes/explore.inland-beaches'
 import { Route as ExploreHillCountrySpringsRouteImport } from './routes/explore.hill-country-springs'
 import { Route as ExploreCasinosRouteImport } from './routes/explore.casinos'
 import { Route as ExploreAttractionsComparisonRouteImport } from './routes/explore.attractions-comparison'
 import { Route as ExploreAquariumsRouteImport } from './routes/explore.aquariums'
 import { Route as ExploreCategoryRouteImport } from './routes/explore.$category'
+import { Route as EventsAirShowsRouteImport } from './routes/events.air-shows'
 import { Route as EventsCollectionRouteImport } from './routes/events.$collection'
 import { Route as EventSlugRouteImport } from './routes/event.$slug'
 import { Route as DpsOfficeSlugRouteImport } from './routes/dps-office.$slug'
@@ -448,6 +457,7 @@ import { Route as AdminEntityImportReviewRouteImport } from './routes/admin.enti
 import { Route as AdminEditorialOutreachRouteImport } from './routes/admin.editorial-outreach'
 import { Route as AdminBillingRouteImport } from './routes/admin.billing'
 import { Route as KindSlugRouteImport } from './routes/$kind.$slug'
+import { Route as ExploreWaterParksIndexRouteImport } from './routes/explore.water-parks.index'
 import { Route as ExploreCasinosIndexRouteImport } from './routes/explore.casinos.index'
 import { Route as TexasDataResearchTexasHomeownersPremiumsVsCoverageRouteImport } from './routes/texas-data.research.texas-homeowners-premiums-vs-coverage'
 import { Route as SportsSoftballChar123TeamChar125RouteImport } from './routes/sports.softball.{-$team}'
@@ -468,6 +478,7 @@ import { Route as FishingLakeLakeConroeRouteImport } from './routes/fishing.lake
 import { Route as FishingGuidesSubmitRouteImport } from './routes/fishing.guides.submit'
 import { Route as FishingGuidesSlugRouteImport } from './routes/fishing.guides.$slug'
 import { Route as FishingAccessSlugRouteImport } from './routes/fishing.access.$slug'
+import { Route as ExploreWaterParksSlugRouteImport } from './routes/explore.water-parks.$slug'
 import { Route as ExploreTripTokenRouteImport } from './routes/explore.trip.$token'
 import { Route as ExploreTopAttractionsRoadTripsRouteImport } from './routes/explore.top-attractions.road-trips'
 import { Route as ExploreTopAttractionsMethodologyRouteImport } from './routes/explore.top-attractions.methodology'
@@ -500,6 +511,7 @@ import { Route as ExplorePaintedChurchesSlugRouteImport } from './routes/explore
 import { Route as ExploreNearMetroRouteImport } from './routes/explore.near.$metro'
 import { Route as ExploreLandscapesSlugRouteImport } from './routes/explore.landscapes.$slug'
 import { Route as ExploreLakeSlugRouteImport } from './routes/explore.lake.$slug'
+import { Route as ExploreInlandBeachesSlugRouteImport } from './routes/explore.inland-beaches.$slug'
 import { Route as ExploreCountyCountyRouteImport } from './routes/explore.county.$county'
 import { Route as ExploreCavernSlugRouteImport } from './routes/explore.cavern.$slug'
 import { Route as ExploreCasinosSlugRouteImport } from './routes/explore.casinos.$slug'
@@ -1096,6 +1108,18 @@ const TexasHighSchoolFootballTeamsRoute =
       (d) => d.Route,
     ),
   )
+const TexasHighSchoolFootballPlayoffBracketsRoute =
+  TexasHighSchoolFootballPlayoffBracketsRouteImport.update({
+    id: '/texas-high-school-football-playoff-brackets',
+    path: '/texas-high-school-football-playoff-brackets',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const TexasHighSchoolFootballMatchupsRoute =
+  TexasHighSchoolFootballMatchupsRouteImport.update({
+    id: '/texas-high-school-football-matchups',
+    path: '/texas-high-school-football-matchups',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const TexasHighSchoolFootballIsdsRoute =
   TexasHighSchoolFootballIsdsRouteImport.update({
     id: '/texas-high-school-football-isds',
@@ -1541,6 +1565,11 @@ const HoustonMusicHistoryRoute = HoustonMusicHistoryRouteImport.update({
 } as any).lazy(() =>
   import('./routes/houston-music-history.lazy').then((d) => d.Route),
 )
+const HorseRacingRoute = HorseRacingRouteImport.update({
+  id: '/horse-racing',
+  path: '/horse-racing',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/horse-racing.lazy').then((d) => d.Route))
 const HomeGardenRoute = HomeGardenRouteImport.update({
   id: '/home-garden',
   path: '/home-garden',
@@ -1900,6 +1929,12 @@ const TexasHighSchoolFootballTeamsSlugRoute =
       (d) => d.Route,
     ),
   )
+const TexasHighSchoolFootballMatchupsSlugRoute =
+  TexasHighSchoolFootballMatchupsSlugRouteImport.update({
+    id: '/texas-high-school-football-matchups_/$slug',
+    path: '/texas-high-school-football-matchups/$slug',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const TexasHighSchoolFootballIsdsSlugRoute =
   TexasHighSchoolFootballIsdsSlugRouteImport.update({
     id: '/texas-high-school-football-isds_/$slug',
@@ -1920,6 +1955,12 @@ const TexasHighSchoolFootballDistrictsSlugRoute =
       (d) => d.Route,
     ),
   )
+const TexasDataSchoolDistrictTaxRatesDotcsvRoute =
+  TexasDataSchoolDistrictTaxRatesDotcsvRouteImport.update({
+    id: '/school-district-tax-rates.csv',
+    path: '/school-district-tax-rates.csv',
+    getParentRoute: () => TexasDataRoute,
+  } as any)
 const TexasDataResearchRoute = TexasDataResearchRouteImport.update({
   id: '/research',
   path: '/research',
@@ -2530,6 +2571,13 @@ const HuntingSlugRoute = HuntingSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => HuntingRoute,
 } as any).lazy(() => import('./routes/hunting.$slug.lazy').then((d) => d.Route))
+const HorseRacingSlugRoute = HorseRacingSlugRouteImport.update({
+  id: '/horse-racing_/$slug',
+  path: '/horse-racing/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() =>
+  import('./routes/horse-racing_.$slug.lazy').then((d) => d.Route),
+)
 const HistoricSiteWashingtonOnTheBrazosStateHistoricSiteRoute =
   HistoricSiteWashingtonOnTheBrazosStateHistoricSiteRouteImport.update({
     id: '/historic-site/washington-on-the-brazos-state-historic-site',
@@ -2690,6 +2738,11 @@ const ExploreWildlifeRoute = ExploreWildlifeRouteImport.update({
 } as any).lazy(() =>
   import('./routes/explore.wildlife.lazy').then((d) => d.Route),
 )
+const ExploreWaterParksRoute = ExploreWaterParksRouteImport.update({
+  id: '/explore/water-parks',
+  path: '/explore/water-parks',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ExploreTripPlannerRoute = ExploreTripPlannerRouteImport.update({
   id: '/explore/trip-planner',
   path: '/explore/trip-planner',
@@ -2782,6 +2835,11 @@ const ExploreLandscapesRoute = ExploreLandscapesRouteImport.update({
 } as any).lazy(() =>
   import('./routes/explore.landscapes.lazy').then((d) => d.Route),
 )
+const ExploreInlandBeachesRoute = ExploreInlandBeachesRouteImport.update({
+  id: '/explore/inland-beaches',
+  path: '/explore/inland-beaches',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ExploreHillCountrySpringsRoute =
   ExploreHillCountrySpringsRouteImport.update({
     id: '/explore/hill-country-springs',
@@ -2810,6 +2868,13 @@ const ExploreCategoryRoute = ExploreCategoryRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() =>
   import('./routes/explore.$category.lazy').then((d) => d.Route),
+)
+const EventsAirShowsRoute = EventsAirShowsRouteImport.update({
+  id: '/air-shows',
+  path: '/air-shows',
+  getParentRoute: () => EventsRoute,
+} as any).lazy(() =>
+  import('./routes/events.air-shows.lazy').then((d) => d.Route),
 )
 const EventsCollectionRoute = EventsCollectionRouteImport.update({
   id: '/$collection',
@@ -3279,6 +3344,13 @@ const KindSlugRoute = KindSlugRouteImport.update({
   path: '/$kind/$slug',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/$kind.$slug.lazy').then((d) => d.Route))
+const ExploreWaterParksIndexRoute = ExploreWaterParksIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ExploreWaterParksRoute,
+} as any).lazy(() =>
+  import('./routes/explore.water-parks.index.lazy').then((d) => d.Route),
+)
 const ExploreCasinosIndexRoute = ExploreCasinosIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -3409,6 +3481,13 @@ const FishingAccessSlugRoute = FishingAccessSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => FishingAccessRoute,
 } as any)
+const ExploreWaterParksSlugRoute = ExploreWaterParksSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => ExploreWaterParksRoute,
+} as any).lazy(() =>
+  import('./routes/explore.water-parks.$slug.lazy').then((d) => d.Route),
+)
 const ExploreTripTokenRoute = ExploreTripTokenRouteImport.update({
   id: '/explore/trip/$token',
   path: '/explore/trip/$token',
@@ -3605,6 +3684,12 @@ const ExploreLakeSlugRoute = ExploreLakeSlugRouteImport.update({
   path: '/explore/lake/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ExploreInlandBeachesSlugRoute =
+  ExploreInlandBeachesSlugRouteImport.update({
+    id: '/$slug',
+    path: '/$slug',
+    getParentRoute: () => ExploreInlandBeachesRoute,
+  } as any)
 const ExploreCountyCountyRoute = ExploreCountyCountyRouteImport.update({
   id: '/explore/county/$county',
   path: '/explore/county/$county',
@@ -3795,6 +3880,7 @@ export interface FileRoutesByFullPath {
   '/gruene-hall-history': typeof GrueneHallHistoryRoute
   '/guides': typeof GuidesRouteWithChildren
   '/home-garden': typeof HomeGardenRoute
+  '/horse-racing': typeof HorseRacingRoute
   '/houston-music-history': typeof HoustonMusicHistoryRoute
   '/hunting': typeof HuntingRouteWithChildren
   '/llms.txt': typeof LlmsDottxtRoute
@@ -3866,6 +3952,8 @@ export interface FileRoutesByFullPath {
   '/texas-high-school-football-championship-history': typeof TexasHighSchoolFootballChampionshipHistoryRoute
   '/texas-high-school-football-districts': typeof TexasHighSchoolFootballDistrictsRoute
   '/texas-high-school-football-isds': typeof TexasHighSchoolFootballIsdsRoute
+  '/texas-high-school-football-matchups': typeof TexasHighSchoolFootballMatchupsRoute
+  '/texas-high-school-football-playoff-brackets': typeof TexasHighSchoolFootballPlayoffBracketsRoute
   '/texas-high-school-football-teams': typeof TexasHighSchoolFootballTeamsRoute
   '/texas-hip-hop': typeof TexasHipHopRoute
   '/texas-historic-landmarks': typeof TexasHistoricLandmarksRoute
@@ -4026,11 +4114,13 @@ export interface FileRoutesByFullPath {
   '/dps-office/$slug': typeof DpsOfficeSlugRoute
   '/event/$slug': typeof EventSlugRoute
   '/events/$collection': typeof EventsCollectionRoute
+  '/events/air-shows': typeof EventsAirShowsRoute
   '/explore/$category': typeof ExploreCategoryRoute
   '/explore/aquariums': typeof ExploreAquariumsRoute
   '/explore/attractions-comparison': typeof ExploreAttractionsComparisonRoute
   '/explore/casinos': typeof ExploreCasinosRouteWithChildren
   '/explore/hill-country-springs': typeof ExploreHillCountrySpringsRoute
+  '/explore/inland-beaches': typeof ExploreInlandBeachesRouteWithChildren
   '/explore/landscapes': typeof ExploreLandscapesRouteWithChildren
   '/explore/lighthouses': typeof ExploreLighthousesRoute
   '/explore/museums': typeof ExploreMuseumsRoute
@@ -4047,6 +4137,7 @@ export interface FileRoutesByFullPath {
   '/explore/texas-wildflower-seasons': typeof ExploreTexasWildflowerSeasonsRoute
   '/explore/top-attractions': typeof ExploreTopAttractionsRouteWithChildren
   '/explore/trip-planner': typeof ExploreTripPlannerRoute
+  '/explore/water-parks': typeof ExploreWaterParksRouteWithChildren
   '/explore/wildlife': typeof ExploreWildlifeRoute
   '/explore/wildlife-management-areas': typeof ExploreWildlifeManagementAreasRoute
   '/fishing/access': typeof FishingAccessRouteWithChildren
@@ -4075,6 +4166,7 @@ export interface FileRoutesByFullPath {
   '/historic-site/monument-hill-kreische-brewery-state-historic-site': typeof HistoricSiteMonumentHillKreischeBreweryStateHistoricSiteRoute
   '/historic-site/seminole-canyon-state-park-state-historic-site': typeof HistoricSiteSeminoleCanyonStateParkStateHistoricSiteRoute
   '/historic-site/washington-on-the-brazos-state-historic-site': typeof HistoricSiteWashingtonOnTheBrazosStateHistoricSiteRoute
+  '/horse-racing/$slug': typeof HorseRacingSlugRoute
   '/hunting/$slug': typeof HuntingSlugRoute
   '/lakes/lake-conroe.html': typeof LakesLakeConroeDothtmlRoute
   '/learn/agricultural-valuation': typeof LearnAgriculturalValuationRoute
@@ -4177,8 +4269,10 @@ export interface FileRoutesByFullPath {
   '/texas-data/county-housing-costs': typeof TexasDataCountyHousingCostsRoute
   '/texas-data/county-housing-costs.csv': typeof TexasDataCountyHousingCostsDotcsvRoute
   '/texas-data/research': typeof TexasDataResearchRouteWithChildren
+  '/texas-data/school-district-tax-rates.csv': typeof TexasDataSchoolDistrictTaxRatesDotcsvRoute
   '/texas-high-school-football-districts/$slug': typeof TexasHighSchoolFootballDistrictsSlugRoute
   '/texas-high-school-football-isds/$slug': typeof TexasHighSchoolFootballIsdsSlugRoute
+  '/texas-high-school-football-matchups/$slug': typeof TexasHighSchoolFootballMatchupsSlugRoute
   '/texas-high-school-football-teams/$slug': typeof TexasHighSchoolFootballTeamsSlugRoute
   '/texas-home-affordability-calculator/$location': typeof TexasHomeAffordabilityCalculatorLocationRoute
   '/texas-home-insurance-calculator/$location': typeof TexasHomeInsuranceCalculatorLocationRoute
@@ -4209,6 +4303,7 @@ export interface FileRoutesByFullPath {
   '/explore/casinos/$slug': typeof ExploreCasinosSlugRoute
   '/explore/cavern/$slug': typeof ExploreCavernSlugRoute
   '/explore/county/$county': typeof ExploreCountyCountyRoute
+  '/explore/inland-beaches/$slug': typeof ExploreInlandBeachesSlugRoute
   '/explore/lake/$slug': typeof ExploreLakeSlugRoute
   '/explore/landscapes/$slug': typeof ExploreLandscapesSlugRoute
   '/explore/near/$metro': typeof ExploreNearMetroRouteWithChildren
@@ -4241,6 +4336,7 @@ export interface FileRoutesByFullPath {
   '/explore/top-attractions/methodology': typeof ExploreTopAttractionsMethodologyRoute
   '/explore/top-attractions/road-trips': typeof ExploreTopAttractionsRoadTripsRoute
   '/explore/trip/$token': typeof ExploreTripTokenRoute
+  '/explore/water-parks/$slug': typeof ExploreWaterParksSlugRoute
   '/fishing/access/$slug': typeof FishingAccessSlugRoute
   '/fishing/guides/$slug': typeof FishingGuidesSlugRoute
   '/fishing/guides/submit': typeof FishingGuidesSubmitRoute
@@ -4261,6 +4357,7 @@ export interface FileRoutesByFullPath {
   '/sports/softball/{-$team}': typeof SportsSoftballChar123TeamChar125Route
   '/texas-data/research/texas-homeowners-premiums-vs-coverage': typeof TexasDataResearchTexasHomeownersPremiumsVsCoverageRoute
   '/explore/casinos/': typeof ExploreCasinosIndexRoute
+  '/explore/water-parks/': typeof ExploreWaterParksIndexRoute
   '/explore/near/$metro/$collection': typeof ExploreNearMetroCollectionRoute
   '/explore/painted-churches/glossary/$slug': typeof ExplorePaintedChurchesGlossarySlugRoute
   '/explore/painted-churches/heritage/$slug': typeof ExplorePaintedChurchesHeritageSlugRoute
@@ -4311,6 +4408,7 @@ export interface FileRoutesByTo {
   '/gruene-hall-history': typeof GrueneHallHistoryRoute
   '/guides': typeof GuidesRouteWithChildren
   '/home-garden': typeof HomeGardenRoute
+  '/horse-racing': typeof HorseRacingRoute
   '/houston-music-history': typeof HoustonMusicHistoryRoute
   '/hunting': typeof HuntingRouteWithChildren
   '/llms.txt': typeof LlmsDottxtRoute
@@ -4380,6 +4478,8 @@ export interface FileRoutesByTo {
   '/texas-high-school-football-championship-history': typeof TexasHighSchoolFootballChampionshipHistoryRoute
   '/texas-high-school-football-districts': typeof TexasHighSchoolFootballDistrictsRoute
   '/texas-high-school-football-isds': typeof TexasHighSchoolFootballIsdsRoute
+  '/texas-high-school-football-matchups': typeof TexasHighSchoolFootballMatchupsRoute
+  '/texas-high-school-football-playoff-brackets': typeof TexasHighSchoolFootballPlayoffBracketsRoute
   '/texas-high-school-football-teams': typeof TexasHighSchoolFootballTeamsRoute
   '/texas-hip-hop': typeof TexasHipHopRoute
   '/texas-historic-landmarks': typeof TexasHistoricLandmarksRoute
@@ -4540,10 +4640,12 @@ export interface FileRoutesByTo {
   '/dps-office/$slug': typeof DpsOfficeSlugRoute
   '/event/$slug': typeof EventSlugRoute
   '/events/$collection': typeof EventsCollectionRoute
+  '/events/air-shows': typeof EventsAirShowsRoute
   '/explore/$category': typeof ExploreCategoryRoute
   '/explore/aquariums': typeof ExploreAquariumsRoute
   '/explore/attractions-comparison': typeof ExploreAttractionsComparisonRoute
   '/explore/hill-country-springs': typeof ExploreHillCountrySpringsRoute
+  '/explore/inland-beaches': typeof ExploreInlandBeachesRouteWithChildren
   '/explore/landscapes': typeof ExploreLandscapesRouteWithChildren
   '/explore/lighthouses': typeof ExploreLighthousesRoute
   '/explore/museums': typeof ExploreMuseumsRoute
@@ -4588,6 +4690,7 @@ export interface FileRoutesByTo {
   '/historic-site/monument-hill-kreische-brewery-state-historic-site': typeof HistoricSiteMonumentHillKreischeBreweryStateHistoricSiteRoute
   '/historic-site/seminole-canyon-state-park-state-historic-site': typeof HistoricSiteSeminoleCanyonStateParkStateHistoricSiteRoute
   '/historic-site/washington-on-the-brazos-state-historic-site': typeof HistoricSiteWashingtonOnTheBrazosStateHistoricSiteRoute
+  '/horse-racing/$slug': typeof HorseRacingSlugRoute
   '/hunting/$slug': typeof HuntingSlugRoute
   '/lakes/lake-conroe.html': typeof LakesLakeConroeDothtmlRoute
   '/learn/agricultural-valuation': typeof LearnAgriculturalValuationRoute
@@ -4690,8 +4793,10 @@ export interface FileRoutesByTo {
   '/texas-data/county-housing-costs': typeof TexasDataCountyHousingCostsRoute
   '/texas-data/county-housing-costs.csv': typeof TexasDataCountyHousingCostsDotcsvRoute
   '/texas-data/research': typeof TexasDataResearchRouteWithChildren
+  '/texas-data/school-district-tax-rates.csv': typeof TexasDataSchoolDistrictTaxRatesDotcsvRoute
   '/texas-high-school-football-districts/$slug': typeof TexasHighSchoolFootballDistrictsSlugRoute
   '/texas-high-school-football-isds/$slug': typeof TexasHighSchoolFootballIsdsSlugRoute
+  '/texas-high-school-football-matchups/$slug': typeof TexasHighSchoolFootballMatchupsSlugRoute
   '/texas-high-school-football-teams/$slug': typeof TexasHighSchoolFootballTeamsSlugRoute
   '/texas-home-affordability-calculator/$location': typeof TexasHomeAffordabilityCalculatorLocationRoute
   '/texas-home-insurance-calculator/$location': typeof TexasHomeInsuranceCalculatorLocationRoute
@@ -4722,6 +4827,7 @@ export interface FileRoutesByTo {
   '/explore/casinos/$slug': typeof ExploreCasinosSlugRoute
   '/explore/cavern/$slug': typeof ExploreCavernSlugRoute
   '/explore/county/$county': typeof ExploreCountyCountyRoute
+  '/explore/inland-beaches/$slug': typeof ExploreInlandBeachesSlugRoute
   '/explore/lake/$slug': typeof ExploreLakeSlugRoute
   '/explore/landscapes/$slug': typeof ExploreLandscapesSlugRoute
   '/explore/near/$metro': typeof ExploreNearMetroRouteWithChildren
@@ -4754,6 +4860,7 @@ export interface FileRoutesByTo {
   '/explore/top-attractions/methodology': typeof ExploreTopAttractionsMethodologyRoute
   '/explore/top-attractions/road-trips': typeof ExploreTopAttractionsRoadTripsRoute
   '/explore/trip/$token': typeof ExploreTripTokenRoute
+  '/explore/water-parks/$slug': typeof ExploreWaterParksSlugRoute
   '/fishing/access/$slug': typeof FishingAccessSlugRoute
   '/fishing/guides/$slug': typeof FishingGuidesSlugRoute
   '/fishing/guides/submit': typeof FishingGuidesSubmitRoute
@@ -4774,6 +4881,7 @@ export interface FileRoutesByTo {
   '/sports/softball/{-$team}': typeof SportsSoftballChar123TeamChar125Route
   '/texas-data/research/texas-homeowners-premiums-vs-coverage': typeof TexasDataResearchTexasHomeownersPremiumsVsCoverageRoute
   '/explore/casinos': typeof ExploreCasinosIndexRoute
+  '/explore/water-parks': typeof ExploreWaterParksIndexRoute
   '/explore/near/$metro/$collection': typeof ExploreNearMetroCollectionRoute
   '/explore/painted-churches/glossary/$slug': typeof ExplorePaintedChurchesGlossarySlugRoute
   '/explore/painted-churches/heritage/$slug': typeof ExplorePaintedChurchesHeritageSlugRoute
@@ -4826,6 +4934,7 @@ export interface FileRoutesById {
   '/gruene-hall-history': typeof GrueneHallHistoryRoute
   '/guides': typeof GuidesRouteWithChildren
   '/home-garden': typeof HomeGardenRoute
+  '/horse-racing': typeof HorseRacingRoute
   '/houston-music-history': typeof HoustonMusicHistoryRoute
   '/hunting': typeof HuntingRouteWithChildren
   '/llms.txt': typeof LlmsDottxtRoute
@@ -4897,6 +5006,8 @@ export interface FileRoutesById {
   '/texas-high-school-football-championship-history': typeof TexasHighSchoolFootballChampionshipHistoryRoute
   '/texas-high-school-football-districts': typeof TexasHighSchoolFootballDistrictsRoute
   '/texas-high-school-football-isds': typeof TexasHighSchoolFootballIsdsRoute
+  '/texas-high-school-football-matchups': typeof TexasHighSchoolFootballMatchupsRoute
+  '/texas-high-school-football-playoff-brackets': typeof TexasHighSchoolFootballPlayoffBracketsRoute
   '/texas-high-school-football-teams': typeof TexasHighSchoolFootballTeamsRoute
   '/texas-hip-hop': typeof TexasHipHopRoute
   '/texas-historic-landmarks': typeof TexasHistoricLandmarksRoute
@@ -5057,11 +5168,13 @@ export interface FileRoutesById {
   '/dps-office/$slug': typeof DpsOfficeSlugRoute
   '/event/$slug': typeof EventSlugRoute
   '/events/$collection': typeof EventsCollectionRoute
+  '/events/air-shows': typeof EventsAirShowsRoute
   '/explore/$category': typeof ExploreCategoryRoute
   '/explore/aquariums': typeof ExploreAquariumsRoute
   '/explore/attractions-comparison': typeof ExploreAttractionsComparisonRoute
   '/explore/casinos': typeof ExploreCasinosRouteWithChildren
   '/explore/hill-country-springs': typeof ExploreHillCountrySpringsRoute
+  '/explore/inland-beaches': typeof ExploreInlandBeachesRouteWithChildren
   '/explore/landscapes': typeof ExploreLandscapesRouteWithChildren
   '/explore/lighthouses': typeof ExploreLighthousesRoute
   '/explore/museums': typeof ExploreMuseumsRoute
@@ -5078,6 +5191,7 @@ export interface FileRoutesById {
   '/explore/texas-wildflower-seasons': typeof ExploreTexasWildflowerSeasonsRoute
   '/explore/top-attractions': typeof ExploreTopAttractionsRouteWithChildren
   '/explore/trip-planner': typeof ExploreTripPlannerRoute
+  '/explore/water-parks': typeof ExploreWaterParksRouteWithChildren
   '/explore/wildlife': typeof ExploreWildlifeRoute
   '/explore/wildlife-management-areas': typeof ExploreWildlifeManagementAreasRoute
   '/fishing/access': typeof FishingAccessRouteWithChildren
@@ -5106,6 +5220,7 @@ export interface FileRoutesById {
   '/historic-site/monument-hill-kreische-brewery-state-historic-site': typeof HistoricSiteMonumentHillKreischeBreweryStateHistoricSiteRoute
   '/historic-site/seminole-canyon-state-park-state-historic-site': typeof HistoricSiteSeminoleCanyonStateParkStateHistoricSiteRoute
   '/historic-site/washington-on-the-brazos-state-historic-site': typeof HistoricSiteWashingtonOnTheBrazosStateHistoricSiteRoute
+  '/horse-racing_/$slug': typeof HorseRacingSlugRoute
   '/hunting/$slug': typeof HuntingSlugRoute
   '/lakes/lake-conroe.html': typeof LakesLakeConroeDothtmlRoute
   '/learn/agricultural-valuation': typeof LearnAgriculturalValuationRoute
@@ -5208,8 +5323,10 @@ export interface FileRoutesById {
   '/texas-data/county-housing-costs': typeof TexasDataCountyHousingCostsRoute
   '/texas-data/county-housing-costs.csv': typeof TexasDataCountyHousingCostsDotcsvRoute
   '/texas-data/research': typeof TexasDataResearchRouteWithChildren
+  '/texas-data/school-district-tax-rates.csv': typeof TexasDataSchoolDistrictTaxRatesDotcsvRoute
   '/texas-high-school-football-districts_/$slug': typeof TexasHighSchoolFootballDistrictsSlugRoute
   '/texas-high-school-football-isds_/$slug': typeof TexasHighSchoolFootballIsdsSlugRoute
+  '/texas-high-school-football-matchups_/$slug': typeof TexasHighSchoolFootballMatchupsSlugRoute
   '/texas-high-school-football-teams_/$slug': typeof TexasHighSchoolFootballTeamsSlugRoute
   '/texas-home-affordability-calculator_/$location': typeof TexasHomeAffordabilityCalculatorLocationRoute
   '/texas-home-insurance-calculator_/$location': typeof TexasHomeInsuranceCalculatorLocationRoute
@@ -5240,6 +5357,7 @@ export interface FileRoutesById {
   '/explore/casinos/$slug': typeof ExploreCasinosSlugRoute
   '/explore/cavern/$slug': typeof ExploreCavernSlugRoute
   '/explore/county/$county': typeof ExploreCountyCountyRoute
+  '/explore/inland-beaches/$slug': typeof ExploreInlandBeachesSlugRoute
   '/explore/lake/$slug': typeof ExploreLakeSlugRoute
   '/explore/landscapes/$slug': typeof ExploreLandscapesSlugRoute
   '/explore/near/$metro': typeof ExploreNearMetroRouteWithChildren
@@ -5272,6 +5390,7 @@ export interface FileRoutesById {
   '/explore/top-attractions/methodology': typeof ExploreTopAttractionsMethodologyRoute
   '/explore/top-attractions/road-trips': typeof ExploreTopAttractionsRoadTripsRoute
   '/explore/trip/$token': typeof ExploreTripTokenRoute
+  '/explore/water-parks/$slug': typeof ExploreWaterParksSlugRoute
   '/fishing/access/$slug': typeof FishingAccessSlugRoute
   '/fishing/guides/$slug': typeof FishingGuidesSlugRoute
   '/fishing/guides/submit': typeof FishingGuidesSubmitRoute
@@ -5292,6 +5411,7 @@ export interface FileRoutesById {
   '/sports/softball/{-$team}': typeof SportsSoftballChar123TeamChar125Route
   '/texas-data/research/texas-homeowners-premiums-vs-coverage': typeof TexasDataResearchTexasHomeownersPremiumsVsCoverageRoute
   '/explore/casinos/': typeof ExploreCasinosIndexRoute
+  '/explore/water-parks/': typeof ExploreWaterParksIndexRoute
   '/explore/near/$metro/$collection': typeof ExploreNearMetroCollectionRoute
   '/explore/painted-churches/glossary/$slug': typeof ExplorePaintedChurchesGlossarySlugRoute
   '/explore/painted-churches/heritage/$slug': typeof ExplorePaintedChurchesHeritageSlugRoute
@@ -5345,6 +5465,7 @@ export interface FileRouteTypes {
     | '/gruene-hall-history'
     | '/guides'
     | '/home-garden'
+    | '/horse-racing'
     | '/houston-music-history'
     | '/hunting'
     | '/llms.txt'
@@ -5416,6 +5537,8 @@ export interface FileRouteTypes {
     | '/texas-high-school-football-championship-history'
     | '/texas-high-school-football-districts'
     | '/texas-high-school-football-isds'
+    | '/texas-high-school-football-matchups'
+    | '/texas-high-school-football-playoff-brackets'
     | '/texas-high-school-football-teams'
     | '/texas-hip-hop'
     | '/texas-historic-landmarks'
@@ -5576,11 +5699,13 @@ export interface FileRouteTypes {
     | '/dps-office/$slug'
     | '/event/$slug'
     | '/events/$collection'
+    | '/events/air-shows'
     | '/explore/$category'
     | '/explore/aquariums'
     | '/explore/attractions-comparison'
     | '/explore/casinos'
     | '/explore/hill-country-springs'
+    | '/explore/inland-beaches'
     | '/explore/landscapes'
     | '/explore/lighthouses'
     | '/explore/museums'
@@ -5597,6 +5722,7 @@ export interface FileRouteTypes {
     | '/explore/texas-wildflower-seasons'
     | '/explore/top-attractions'
     | '/explore/trip-planner'
+    | '/explore/water-parks'
     | '/explore/wildlife'
     | '/explore/wildlife-management-areas'
     | '/fishing/access'
@@ -5625,6 +5751,7 @@ export interface FileRouteTypes {
     | '/historic-site/monument-hill-kreische-brewery-state-historic-site'
     | '/historic-site/seminole-canyon-state-park-state-historic-site'
     | '/historic-site/washington-on-the-brazos-state-historic-site'
+    | '/horse-racing/$slug'
     | '/hunting/$slug'
     | '/lakes/lake-conroe.html'
     | '/learn/agricultural-valuation'
@@ -5727,8 +5854,10 @@ export interface FileRouteTypes {
     | '/texas-data/county-housing-costs'
     | '/texas-data/county-housing-costs.csv'
     | '/texas-data/research'
+    | '/texas-data/school-district-tax-rates.csv'
     | '/texas-high-school-football-districts/$slug'
     | '/texas-high-school-football-isds/$slug'
+    | '/texas-high-school-football-matchups/$slug'
     | '/texas-high-school-football-teams/$slug'
     | '/texas-home-affordability-calculator/$location'
     | '/texas-home-insurance-calculator/$location'
@@ -5759,6 +5888,7 @@ export interface FileRouteTypes {
     | '/explore/casinos/$slug'
     | '/explore/cavern/$slug'
     | '/explore/county/$county'
+    | '/explore/inland-beaches/$slug'
     | '/explore/lake/$slug'
     | '/explore/landscapes/$slug'
     | '/explore/near/$metro'
@@ -5791,6 +5921,7 @@ export interface FileRouteTypes {
     | '/explore/top-attractions/methodology'
     | '/explore/top-attractions/road-trips'
     | '/explore/trip/$token'
+    | '/explore/water-parks/$slug'
     | '/fishing/access/$slug'
     | '/fishing/guides/$slug'
     | '/fishing/guides/submit'
@@ -5811,6 +5942,7 @@ export interface FileRouteTypes {
     | '/sports/softball/{-$team}'
     | '/texas-data/research/texas-homeowners-premiums-vs-coverage'
     | '/explore/casinos/'
+    | '/explore/water-parks/'
     | '/explore/near/$metro/$collection'
     | '/explore/painted-churches/glossary/$slug'
     | '/explore/painted-churches/heritage/$slug'
@@ -5861,6 +5993,7 @@ export interface FileRouteTypes {
     | '/gruene-hall-history'
     | '/guides'
     | '/home-garden'
+    | '/horse-racing'
     | '/houston-music-history'
     | '/hunting'
     | '/llms.txt'
@@ -5930,6 +6063,8 @@ export interface FileRouteTypes {
     | '/texas-high-school-football-championship-history'
     | '/texas-high-school-football-districts'
     | '/texas-high-school-football-isds'
+    | '/texas-high-school-football-matchups'
+    | '/texas-high-school-football-playoff-brackets'
     | '/texas-high-school-football-teams'
     | '/texas-hip-hop'
     | '/texas-historic-landmarks'
@@ -6090,10 +6225,12 @@ export interface FileRouteTypes {
     | '/dps-office/$slug'
     | '/event/$slug'
     | '/events/$collection'
+    | '/events/air-shows'
     | '/explore/$category'
     | '/explore/aquariums'
     | '/explore/attractions-comparison'
     | '/explore/hill-country-springs'
+    | '/explore/inland-beaches'
     | '/explore/landscapes'
     | '/explore/lighthouses'
     | '/explore/museums'
@@ -6138,6 +6275,7 @@ export interface FileRouteTypes {
     | '/historic-site/monument-hill-kreische-brewery-state-historic-site'
     | '/historic-site/seminole-canyon-state-park-state-historic-site'
     | '/historic-site/washington-on-the-brazos-state-historic-site'
+    | '/horse-racing/$slug'
     | '/hunting/$slug'
     | '/lakes/lake-conroe.html'
     | '/learn/agricultural-valuation'
@@ -6240,8 +6378,10 @@ export interface FileRouteTypes {
     | '/texas-data/county-housing-costs'
     | '/texas-data/county-housing-costs.csv'
     | '/texas-data/research'
+    | '/texas-data/school-district-tax-rates.csv'
     | '/texas-high-school-football-districts/$slug'
     | '/texas-high-school-football-isds/$slug'
+    | '/texas-high-school-football-matchups/$slug'
     | '/texas-high-school-football-teams/$slug'
     | '/texas-home-affordability-calculator/$location'
     | '/texas-home-insurance-calculator/$location'
@@ -6272,6 +6412,7 @@ export interface FileRouteTypes {
     | '/explore/casinos/$slug'
     | '/explore/cavern/$slug'
     | '/explore/county/$county'
+    | '/explore/inland-beaches/$slug'
     | '/explore/lake/$slug'
     | '/explore/landscapes/$slug'
     | '/explore/near/$metro'
@@ -6304,6 +6445,7 @@ export interface FileRouteTypes {
     | '/explore/top-attractions/methodology'
     | '/explore/top-attractions/road-trips'
     | '/explore/trip/$token'
+    | '/explore/water-parks/$slug'
     | '/fishing/access/$slug'
     | '/fishing/guides/$slug'
     | '/fishing/guides/submit'
@@ -6324,6 +6466,7 @@ export interface FileRouteTypes {
     | '/sports/softball/{-$team}'
     | '/texas-data/research/texas-homeowners-premiums-vs-coverage'
     | '/explore/casinos'
+    | '/explore/water-parks'
     | '/explore/near/$metro/$collection'
     | '/explore/painted-churches/glossary/$slug'
     | '/explore/painted-churches/heritage/$slug'
@@ -6375,6 +6518,7 @@ export interface FileRouteTypes {
     | '/gruene-hall-history'
     | '/guides'
     | '/home-garden'
+    | '/horse-racing'
     | '/houston-music-history'
     | '/hunting'
     | '/llms.txt'
@@ -6446,6 +6590,8 @@ export interface FileRouteTypes {
     | '/texas-high-school-football-championship-history'
     | '/texas-high-school-football-districts'
     | '/texas-high-school-football-isds'
+    | '/texas-high-school-football-matchups'
+    | '/texas-high-school-football-playoff-brackets'
     | '/texas-high-school-football-teams'
     | '/texas-hip-hop'
     | '/texas-historic-landmarks'
@@ -6606,11 +6752,13 @@ export interface FileRouteTypes {
     | '/dps-office/$slug'
     | '/event/$slug'
     | '/events/$collection'
+    | '/events/air-shows'
     | '/explore/$category'
     | '/explore/aquariums'
     | '/explore/attractions-comparison'
     | '/explore/casinos'
     | '/explore/hill-country-springs'
+    | '/explore/inland-beaches'
     | '/explore/landscapes'
     | '/explore/lighthouses'
     | '/explore/museums'
@@ -6627,6 +6775,7 @@ export interface FileRouteTypes {
     | '/explore/texas-wildflower-seasons'
     | '/explore/top-attractions'
     | '/explore/trip-planner'
+    | '/explore/water-parks'
     | '/explore/wildlife'
     | '/explore/wildlife-management-areas'
     | '/fishing/access'
@@ -6655,6 +6804,7 @@ export interface FileRouteTypes {
     | '/historic-site/monument-hill-kreische-brewery-state-historic-site'
     | '/historic-site/seminole-canyon-state-park-state-historic-site'
     | '/historic-site/washington-on-the-brazos-state-historic-site'
+    | '/horse-racing_/$slug'
     | '/hunting/$slug'
     | '/lakes/lake-conroe.html'
     | '/learn/agricultural-valuation'
@@ -6757,8 +6907,10 @@ export interface FileRouteTypes {
     | '/texas-data/county-housing-costs'
     | '/texas-data/county-housing-costs.csv'
     | '/texas-data/research'
+    | '/texas-data/school-district-tax-rates.csv'
     | '/texas-high-school-football-districts_/$slug'
     | '/texas-high-school-football-isds_/$slug'
+    | '/texas-high-school-football-matchups_/$slug'
     | '/texas-high-school-football-teams_/$slug'
     | '/texas-home-affordability-calculator_/$location'
     | '/texas-home-insurance-calculator_/$location'
@@ -6789,6 +6941,7 @@ export interface FileRouteTypes {
     | '/explore/casinos/$slug'
     | '/explore/cavern/$slug'
     | '/explore/county/$county'
+    | '/explore/inland-beaches/$slug'
     | '/explore/lake/$slug'
     | '/explore/landscapes/$slug'
     | '/explore/near/$metro'
@@ -6821,6 +6974,7 @@ export interface FileRouteTypes {
     | '/explore/top-attractions/methodology'
     | '/explore/top-attractions/road-trips'
     | '/explore/trip/$token'
+    | '/explore/water-parks/$slug'
     | '/fishing/access/$slug'
     | '/fishing/guides/$slug'
     | '/fishing/guides/submit'
@@ -6841,6 +6995,7 @@ export interface FileRouteTypes {
     | '/sports/softball/{-$team}'
     | '/texas-data/research/texas-homeowners-premiums-vs-coverage'
     | '/explore/casinos/'
+    | '/explore/water-parks/'
     | '/explore/near/$metro/$collection'
     | '/explore/painted-churches/glossary/$slug'
     | '/explore/painted-churches/heritage/$slug'
@@ -6893,6 +7048,7 @@ export interface RootRouteChildren {
   GrueneHallHistoryRoute: typeof GrueneHallHistoryRoute
   GuidesRoute: typeof GuidesRouteWithChildren
   HomeGardenRoute: typeof HomeGardenRoute
+  HorseRacingRoute: typeof HorseRacingRoute
   HoustonMusicHistoryRoute: typeof HoustonMusicHistoryRoute
   HuntingRoute: typeof HuntingRouteWithChildren
   LlmsDottxtRoute: typeof LlmsDottxtRoute
@@ -6964,6 +7120,8 @@ export interface RootRouteChildren {
   TexasHighSchoolFootballChampionshipHistoryRoute: typeof TexasHighSchoolFootballChampionshipHistoryRoute
   TexasHighSchoolFootballDistrictsRoute: typeof TexasHighSchoolFootballDistrictsRoute
   TexasHighSchoolFootballIsdsRoute: typeof TexasHighSchoolFootballIsdsRoute
+  TexasHighSchoolFootballMatchupsRoute: typeof TexasHighSchoolFootballMatchupsRoute
+  TexasHighSchoolFootballPlayoffBracketsRoute: typeof TexasHighSchoolFootballPlayoffBracketsRoute
   TexasHighSchoolFootballTeamsRoute: typeof TexasHighSchoolFootballTeamsRoute
   TexasHipHopRoute: typeof TexasHipHopRoute
   TexasHistoricLandmarksRoute: typeof TexasHistoricLandmarksRoute
@@ -7110,6 +7268,7 @@ export interface RootRouteChildren {
   ExploreAttractionsComparisonRoute: typeof ExploreAttractionsComparisonRoute
   ExploreCasinosRoute: typeof ExploreCasinosRouteWithChildren
   ExploreHillCountrySpringsRoute: typeof ExploreHillCountrySpringsRoute
+  ExploreInlandBeachesRoute: typeof ExploreInlandBeachesRouteWithChildren
   ExploreLandscapesRoute: typeof ExploreLandscapesRouteWithChildren
   ExploreLighthousesRoute: typeof ExploreLighthousesRoute
   ExploreMuseumsRoute: typeof ExploreMuseumsRoute
@@ -7126,6 +7285,7 @@ export interface RootRouteChildren {
   ExploreTexasWildflowerSeasonsRoute: typeof ExploreTexasWildflowerSeasonsRoute
   ExploreTopAttractionsRoute: typeof ExploreTopAttractionsRouteWithChildren
   ExploreTripPlannerRoute: typeof ExploreTripPlannerRoute
+  ExploreWaterParksRoute: typeof ExploreWaterParksRouteWithChildren
   ExploreWildlifeRoute: typeof ExploreWildlifeRoute
   ExploreWildlifeManagementAreasRoute: typeof ExploreWildlifeManagementAreasRoute
   FoodSlugRoute: typeof FoodSlugRoute
@@ -7140,6 +7300,7 @@ export interface RootRouteChildren {
   HistoricSiteMonumentHillKreischeBreweryStateHistoricSiteRoute: typeof HistoricSiteMonumentHillKreischeBreweryStateHistoricSiteRoute
   HistoricSiteSeminoleCanyonStateParkStateHistoricSiteRoute: typeof HistoricSiteSeminoleCanyonStateParkStateHistoricSiteRoute
   HistoricSiteWashingtonOnTheBrazosStateHistoricSiteRoute: typeof HistoricSiteWashingtonOnTheBrazosStateHistoricSiteRoute
+  HorseRacingSlugRoute: typeof HorseRacingSlugRoute
   LakesLakeConroeDothtmlRoute: typeof LakesLakeConroeDothtmlRoute
   LearnAgriculturalValuationRoute: typeof LearnAgriculturalValuationRoute
   LearnAppraisalDistrictsRoute: typeof LearnAppraisalDistrictsRoute
@@ -7222,6 +7383,7 @@ export interface RootRouteChildren {
   TexasCostOfLivingCalculatorLocationRoute: typeof TexasCostOfLivingCalculatorLocationRoute
   TexasHighSchoolFootballDistrictsSlugRoute: typeof TexasHighSchoolFootballDistrictsSlugRoute
   TexasHighSchoolFootballIsdsSlugRoute: typeof TexasHighSchoolFootballIsdsSlugRoute
+  TexasHighSchoolFootballMatchupsSlugRoute: typeof TexasHighSchoolFootballMatchupsSlugRoute
   TexasHighSchoolFootballTeamsSlugRoute: typeof TexasHighSchoolFootballTeamsSlugRoute
   TexasHomeAffordabilityCalculatorLocationRoute: typeof TexasHomeAffordabilityCalculatorLocationRoute
   TexasHomeInsuranceCalculatorLocationRoute: typeof TexasHomeInsuranceCalculatorLocationRoute
@@ -7829,6 +7991,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TexasHighSchoolFootballTeamsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/texas-high-school-football-playoff-brackets': {
+      id: '/texas-high-school-football-playoff-brackets'
+      path: '/texas-high-school-football-playoff-brackets'
+      fullPath: '/texas-high-school-football-playoff-brackets'
+      preLoaderRoute: typeof TexasHighSchoolFootballPlayoffBracketsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/texas-high-school-football-matchups': {
+      id: '/texas-high-school-football-matchups'
+      path: '/texas-high-school-football-matchups'
+      fullPath: '/texas-high-school-football-matchups'
+      preLoaderRoute: typeof TexasHighSchoolFootballMatchupsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/texas-high-school-football-isds': {
       id: '/texas-high-school-football-isds'
       path: '/texas-high-school-football-isds'
@@ -8326,6 +8502,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HoustonMusicHistoryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/horse-racing': {
+      id: '/horse-racing'
+      path: '/horse-racing'
+      fullPath: '/horse-racing'
+      preLoaderRoute: typeof HorseRacingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/home-garden': {
       id: '/home-garden'
       path: '/home-garden'
@@ -8711,6 +8894,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TexasHighSchoolFootballTeamsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/texas-high-school-football-matchups_/$slug': {
+      id: '/texas-high-school-football-matchups_/$slug'
+      path: '/texas-high-school-football-matchups/$slug'
+      fullPath: '/texas-high-school-football-matchups/$slug'
+      preLoaderRoute: typeof TexasHighSchoolFootballMatchupsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/texas-high-school-football-isds_/$slug': {
       id: '/texas-high-school-football-isds_/$slug'
       path: '/texas-high-school-football-isds/$slug'
@@ -8724,6 +8914,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/texas-high-school-football-districts/$slug'
       preLoaderRoute: typeof TexasHighSchoolFootballDistrictsSlugRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/texas-data/school-district-tax-rates.csv': {
+      id: '/texas-data/school-district-tax-rates.csv'
+      path: '/school-district-tax-rates.csv'
+      fullPath: '/texas-data/school-district-tax-rates.csv'
+      preLoaderRoute: typeof TexasDataSchoolDistrictTaxRatesDotcsvRouteImport
+      parentRoute: typeof TexasDataRoute
     }
     '/texas-data/research': {
       id: '/texas-data/research'
@@ -9439,6 +9636,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HuntingSlugRouteImport
       parentRoute: typeof HuntingRoute
     }
+    '/horse-racing_/$slug': {
+      id: '/horse-racing_/$slug'
+      path: '/horse-racing/$slug'
+      fullPath: '/horse-racing/$slug'
+      preLoaderRoute: typeof HorseRacingSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/historic-site/washington-on-the-brazos-state-historic-site': {
       id: '/historic-site/washington-on-the-brazos-state-historic-site'
       path: '/historic-site/washington-on-the-brazos-state-historic-site'
@@ -9635,6 +9839,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExploreWildlifeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/explore/water-parks': {
+      id: '/explore/water-parks'
+      path: '/explore/water-parks'
+      fullPath: '/explore/water-parks'
+      preLoaderRoute: typeof ExploreWaterParksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/explore/trip-planner': {
       id: '/explore/trip-planner'
       path: '/explore/trip-planner'
@@ -9747,6 +9958,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExploreLandscapesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/explore/inland-beaches': {
+      id: '/explore/inland-beaches'
+      path: '/explore/inland-beaches'
+      fullPath: '/explore/inland-beaches'
+      preLoaderRoute: typeof ExploreInlandBeachesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/explore/hill-country-springs': {
       id: '/explore/hill-country-springs'
       path: '/explore/hill-country-springs'
@@ -9781,6 +9999,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/explore/$category'
       preLoaderRoute: typeof ExploreCategoryRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/events/air-shows': {
+      id: '/events/air-shows'
+      path: '/air-shows'
+      fullPath: '/events/air-shows'
+      preLoaderRoute: typeof EventsAirShowsRouteImport
+      parentRoute: typeof EventsRoute
     }
     '/events/$collection': {
       id: '/events/$collection'
@@ -10335,6 +10560,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KindSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/explore/water-parks/': {
+      id: '/explore/water-parks/'
+      path: '/'
+      fullPath: '/explore/water-parks/'
+      preLoaderRoute: typeof ExploreWaterParksIndexRouteImport
+      parentRoute: typeof ExploreWaterParksRoute
+    }
     '/explore/casinos/': {
       id: '/explore/casinos/'
       path: '/'
@@ -10474,6 +10706,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/fishing/access/$slug'
       preLoaderRoute: typeof FishingAccessSlugRouteImport
       parentRoute: typeof FishingAccessRoute
+    }
+    '/explore/water-parks/$slug': {
+      id: '/explore/water-parks/$slug'
+      path: '/$slug'
+      fullPath: '/explore/water-parks/$slug'
+      preLoaderRoute: typeof ExploreWaterParksSlugRouteImport
+      parentRoute: typeof ExploreWaterParksRoute
     }
     '/explore/trip/$token': {
       id: '/explore/trip/$token'
@@ -10698,6 +10937,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/explore/lake/$slug'
       preLoaderRoute: typeof ExploreLakeSlugRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/explore/inland-beaches/$slug': {
+      id: '/explore/inland-beaches/$slug'
+      path: '/$slug'
+      fullPath: '/explore/inland-beaches/$slug'
+      preLoaderRoute: typeof ExploreInlandBeachesSlugRouteImport
+      parentRoute: typeof ExploreInlandBeachesRoute
     }
     '/explore/county/$county': {
       id: '/explore/county/$county'
@@ -10931,11 +11177,13 @@ const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 interface EventsRouteChildren {
   EventsCollectionRoute: typeof EventsCollectionRoute
+  EventsAirShowsRoute: typeof EventsAirShowsRoute
   EventsIndexRoute: typeof EventsIndexRoute
 }
 
 const EventsRouteChildren: EventsRouteChildren = {
   EventsCollectionRoute: EventsCollectionRoute,
+  EventsAirShowsRoute: EventsAirShowsRoute,
   EventsIndexRoute: EventsIndexRoute,
 }
 
@@ -11211,6 +11459,7 @@ interface TexasDataRouteChildren {
   TexasDataCountyHousingCostsRoute: typeof TexasDataCountyHousingCostsRoute
   TexasDataCountyHousingCostsDotcsvRoute: typeof TexasDataCountyHousingCostsDotcsvRoute
   TexasDataResearchRoute: typeof TexasDataResearchRouteWithChildren
+  TexasDataSchoolDistrictTaxRatesDotcsvRoute: typeof TexasDataSchoolDistrictTaxRatesDotcsvRoute
 }
 
 const TexasDataRouteChildren: TexasDataRouteChildren = {
@@ -11224,6 +11473,8 @@ const TexasDataRouteChildren: TexasDataRouteChildren = {
   TexasDataCountyHousingCostsDotcsvRoute:
     TexasDataCountyHousingCostsDotcsvRoute,
   TexasDataResearchRoute: TexasDataResearchRouteWithChildren,
+  TexasDataSchoolDistrictTaxRatesDotcsvRoute:
+    TexasDataSchoolDistrictTaxRatesDotcsvRoute,
 }
 
 const TexasDataRouteWithChildren = TexasDataRoute._addFileChildren(
@@ -11255,6 +11506,17 @@ const ExploreCasinosRouteChildren: ExploreCasinosRouteChildren = {
 const ExploreCasinosRouteWithChildren = ExploreCasinosRoute._addFileChildren(
   ExploreCasinosRouteChildren,
 )
+
+interface ExploreInlandBeachesRouteChildren {
+  ExploreInlandBeachesSlugRoute: typeof ExploreInlandBeachesSlugRoute
+}
+
+const ExploreInlandBeachesRouteChildren: ExploreInlandBeachesRouteChildren = {
+  ExploreInlandBeachesSlugRoute: ExploreInlandBeachesSlugRoute,
+}
+
+const ExploreInlandBeachesRouteWithChildren =
+  ExploreInlandBeachesRoute._addFileChildren(ExploreInlandBeachesRouteChildren)
 
 interface ExploreLandscapesRouteChildren {
   ExploreLandscapesSlugRoute: typeof ExploreLandscapesSlugRoute
@@ -11453,6 +11715,19 @@ const ExploreTopAttractionsRouteWithChildren =
     ExploreTopAttractionsRouteChildren,
   )
 
+interface ExploreWaterParksRouteChildren {
+  ExploreWaterParksSlugRoute: typeof ExploreWaterParksSlugRoute
+  ExploreWaterParksIndexRoute: typeof ExploreWaterParksIndexRoute
+}
+
+const ExploreWaterParksRouteChildren: ExploreWaterParksRouteChildren = {
+  ExploreWaterParksSlugRoute: ExploreWaterParksSlugRoute,
+  ExploreWaterParksIndexRoute: ExploreWaterParksIndexRoute,
+}
+
+const ExploreWaterParksRouteWithChildren =
+  ExploreWaterParksRoute._addFileChildren(ExploreWaterParksRouteChildren)
+
 interface ExploreNearMetroRouteChildren {
   ExploreNearMetroCollectionRoute: typeof ExploreNearMetroCollectionRoute
 }
@@ -11504,6 +11779,7 @@ const rootRouteChildren: RootRouteChildren = {
   GrueneHallHistoryRoute: GrueneHallHistoryRoute,
   GuidesRoute: GuidesRouteWithChildren,
   HomeGardenRoute: HomeGardenRoute,
+  HorseRacingRoute: HorseRacingRoute,
   HoustonMusicHistoryRoute: HoustonMusicHistoryRoute,
   HuntingRoute: HuntingRouteWithChildren,
   LlmsDottxtRoute: LlmsDottxtRoute,
@@ -11579,6 +11855,9 @@ const rootRouteChildren: RootRouteChildren = {
     TexasHighSchoolFootballChampionshipHistoryRoute,
   TexasHighSchoolFootballDistrictsRoute: TexasHighSchoolFootballDistrictsRoute,
   TexasHighSchoolFootballIsdsRoute: TexasHighSchoolFootballIsdsRoute,
+  TexasHighSchoolFootballMatchupsRoute: TexasHighSchoolFootballMatchupsRoute,
+  TexasHighSchoolFootballPlayoffBracketsRoute:
+    TexasHighSchoolFootballPlayoffBracketsRoute,
   TexasHighSchoolFootballTeamsRoute: TexasHighSchoolFootballTeamsRoute,
   TexasHipHopRoute: TexasHipHopRoute,
   TexasHistoricLandmarksRoute: TexasHistoricLandmarksRoute,
@@ -11749,6 +12028,7 @@ const rootRouteChildren: RootRouteChildren = {
   ExploreAttractionsComparisonRoute: ExploreAttractionsComparisonRoute,
   ExploreCasinosRoute: ExploreCasinosRouteWithChildren,
   ExploreHillCountrySpringsRoute: ExploreHillCountrySpringsRoute,
+  ExploreInlandBeachesRoute: ExploreInlandBeachesRouteWithChildren,
   ExploreLandscapesRoute: ExploreLandscapesRouteWithChildren,
   ExploreLighthousesRoute: ExploreLighthousesRoute,
   ExploreMuseumsRoute: ExploreMuseumsRoute,
@@ -11766,6 +12046,7 @@ const rootRouteChildren: RootRouteChildren = {
   ExploreTexasWildflowerSeasonsRoute: ExploreTexasWildflowerSeasonsRoute,
   ExploreTopAttractionsRoute: ExploreTopAttractionsRouteWithChildren,
   ExploreTripPlannerRoute: ExploreTripPlannerRoute,
+  ExploreWaterParksRoute: ExploreWaterParksRouteWithChildren,
   ExploreWildlifeRoute: ExploreWildlifeRoute,
   ExploreWildlifeManagementAreasRoute: ExploreWildlifeManagementAreasRoute,
   FoodSlugRoute: FoodSlugRoute,
@@ -11789,6 +12070,7 @@ const rootRouteChildren: RootRouteChildren = {
     HistoricSiteSeminoleCanyonStateParkStateHistoricSiteRoute,
   HistoricSiteWashingtonOnTheBrazosStateHistoricSiteRoute:
     HistoricSiteWashingtonOnTheBrazosStateHistoricSiteRoute,
+  HorseRacingSlugRoute: HorseRacingSlugRoute,
   LakesLakeConroeDothtmlRoute: LakesLakeConroeDothtmlRoute,
   LearnAgriculturalValuationRoute: LearnAgriculturalValuationRoute,
   LearnAppraisalDistrictsRoute: LearnAppraisalDistrictsRoute,
@@ -11899,6 +12181,8 @@ const rootRouteChildren: RootRouteChildren = {
   TexasHighSchoolFootballDistrictsSlugRoute:
     TexasHighSchoolFootballDistrictsSlugRoute,
   TexasHighSchoolFootballIsdsSlugRoute: TexasHighSchoolFootballIsdsSlugRoute,
+  TexasHighSchoolFootballMatchupsSlugRoute:
+    TexasHighSchoolFootballMatchupsSlugRoute,
   TexasHighSchoolFootballTeamsSlugRoute: TexasHighSchoolFootballTeamsSlugRoute,
   TexasHomeAffordabilityCalculatorLocationRoute:
     TexasHomeAffordabilityCalculatorLocationRoute,

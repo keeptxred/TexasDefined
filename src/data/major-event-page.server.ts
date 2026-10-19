@@ -52,6 +52,9 @@ import { getExpandedMajorEventAuthorityTranche45Server } from "./major-event-exp
 import { getExpandedMajorEventAuthorityTranche46Server } from "./major-event-expanded-authority-tranche46.server";
 import { getExpandedMajorEventAuthorityTranche47Server } from "./major-event-expanded-authority-tranche47.server";
 import { getExpandedMajorEventAuthorityTranche48Server } from "./major-event-expanded-authority-tranche48.server";
+import { getExpandedMajorEventAuthorityTranche49Server } from "./major-event-expanded-authority-tranche49.server";
+import { getExpandedMajorEventAuthorityTranche50Server } from "./major-event-expanded-authority-tranche50.server";
+import { getExpandedMajorEventAuthorityTranche51Server } from "./major-event-expanded-authority-tranche51.server";
 import {
   eventSchemaStatusUrl,
   getMajorEventSchemaEnrichmentServer,
@@ -158,7 +161,10 @@ export function getMajorEventRecordServer(slug: string) {
     ?? getExpandedMajorEventAuthorityTranche45Server(slug)
     ?? getExpandedMajorEventAuthorityTranche46Server(slug)
     ?? getExpandedMajorEventAuthorityTranche47Server(slug)
-    ?? getExpandedMajorEventAuthorityTranche48Server(slug);
+    ?? getExpandedMajorEventAuthorityTranche48Server(slug)
+    ?? getExpandedMajorEventAuthorityTranche49Server(slug)
+    ?? getExpandedMajorEventAuthorityTranche50Server(slug)
+    ?? getExpandedMajorEventAuthorityTranche51Server(slug);
   if (!event) return event;
   if (event.slug === "texas-renaissance-festival") {
     return {
@@ -192,6 +198,20 @@ export function getMajorEventRecordServer(slug: string) {
     };
   }
   return event;
+}
+
+const officialAirshowTicketPages: Record<string, string> = {
+  "wings-over-houston-airshow": "https://wingsoverhouston.com/2026-woha-tickets-sasp/",
+  "amigo-airsho": "https://www.amigoairsho.com/tickets",
+  "texas-capital-air-show": "https://texascapitalairshow.com/tickets/",
+  "bluebonnet-airshow": "https://www.bluebonnetairshow.com/",
+};
+
+function buildOfficialAirshowTicketMarkupServer(slug: string) {
+  const href = officialAirshowTicketPages[slug];
+  const event = getMajorEventRecordServer(slug);
+  if (!href || !event || (event.endDate ?? event.startDate) < new Date().toISOString().slice(0, 10)) return "";
+  return `<section data-airshow-official-tickets class="mt-10 border-y border-border py-8"><p class="eyebrow text-primary">Tickets</p><h2 class="mt-2 font-display text-3xl">Buy from the official air-show organizer</h2><p class="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">Current admission, age rules, parking passes and cancellation policies are controlled by the organizer. This link is not a Ticketmaster or affiliate offer.</p><p class="mt-5"><a class="inline-flex min-h-11 items-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90" href="${esc(href)}" target="_blank" rel="noopener noreferrer">Official tickets and admission →</a></p></section>`;
 }
 
 export function buildMajorEventTicketingMarkupServer(slug: string) {
@@ -228,7 +248,7 @@ export function loadMajorEventPageServer(slug: string) {
   if (!event) return null;
   const occurrenceWindows = getMajorEventOccurrenceWindowsServer(event);
   const dateLabel = formatMajorEventDateLabelServer(event);
-  const ticketingMarkup = buildMajorEventTicketingMarkupServer(event.slug);
+  const ticketingMarkup = buildMajorEventTicketingMarkupServer(event.slug) || buildOfficialAirshowTicketMarkupServer(event.slug);
   const eventYear = new Date(occurrenceWindows[0]?.startDate ?? event.startDate).getUTCFullYear();
   const canonicalUrl = `${siteUrl}/event/${event.slug}`;
   const placeLine = [event.city && `${event.city}, Texas`, event.countyName].filter(Boolean).join(" · ");

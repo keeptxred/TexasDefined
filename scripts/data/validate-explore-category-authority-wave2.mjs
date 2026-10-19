@@ -103,6 +103,85 @@ for (const [slug, markers] of Object.entries(protectedMarkers)) {
   for (const marker of markers) if (!html.includes(marker)) errors.push(`${slug} authority asset missing protected marker: ${marker}.`);
 }
 
+// National Park Service units appear in several editorial categories. Protect
+// exact NPS identity filtering and the source-backed Blackwell School entry.
+const npsDirectory = fs.readFileSync(path.join(root, 'src/data/texas-national-park-service-directory.ts'), 'utf8');
+const npsRuntime = fs.readFileSync(path.join(root, 'src/data/destination-query-runtime.ts'), 'utf8');
+const npsPreserved = fs.readFileSync(path.join(root, 'src/data/destination-preserved-catalog.ts'), 'utf8');
+const blackwell = fs.readFileSync(path.join(root, 'src/data/blackwell-school-national-historic-site.ts'), 'utf8');
+if ((npsDirectory.match(/npsCode: "/g) ?? []).length !== 18) errors.push('Official NPS Texas directory must contain 18 distinct NPS designations.');
+for (const marker of [
+  'blackwell-school-national-historic-site',
+  'butterfield-overland-national-historic-trail',
+  'el-camino-real-de-los-tejas-national-historic-trail',
+  'el-camino-real-de-tierra-adentro-national-historic-trail',
+  'rio-grande-wild-and-scenic-river',
+]) if (!npsDirectory.includes(marker)) errors.push(`NPS directory missing: ${marker}`);
+if (!npsDirectory.includes('nps.gov')) errors.push('Official NPS directory must check the managing agency domain.');
+for (const marker of ['isOfficialTexasNpsDestination', 'national-parks']) if (!npsRuntime.includes(marker)) errors.push(`NPS cross-category discovery missing ${marker}`);
+if (!npsPreserved.includes('[blackwellSchoolNationalHistoricSite]')) errors.push('Blackwell School must survive remote Explore failure.');
+for (const marker of [
+  '501 South Abbott Street', '2026-10-17', 'accessibilityNotes:',
+  'sourceUrl:', 'weekday', 'Public domain', 'National Park Service',
+]) if (!blackwell.toLowerCase().includes(marker.toLowerCase())) errors.push(`Blackwell authority evidence missing ${marker}`);
+
+// Trail authorities are articles rather than fictional single-location
+// destination pins. Preserve full content, canonical route discovery and
+// credited photographs whenever the national collection is modified.
+const trailGuideFile = fs.readFileSync(path.join(root, 'src/data/fixtures/texas-nps-historic-trail-guides.ts'), 'utf8');
+const fixtureRepositories = fs.readFileSync(path.join(root, 'src/data/fixtures/repositories.ts'), 'utf8');
+const nationalHub = fs.readFileSync(path.join(root, 'public/content/explore-category-authority/national-parks.html'), 'utf8');
+for (const slug of [
+  'butterfield-overland-national-historic-trail',
+  'el-camino-real-de-los-tejas-national-historic-trail',
+  'el-camino-real-de-tierra-adentro-national-historic-trail',
+]) {
+  if (!trailGuideFile.includes(`"slug": "${slug}"`)) errors.push(`NPS trail full article missing: ${slug}`);
+  if (!nationalHub.includes(`href="/article/${slug}"`)) errors.push(`NPS hub missing article link to ${slug}`);
+}
+if (!fixtureRepositories.includes('...texasNpsHistoricTrailGuides,')) errors.push('NPS historic-trail articles must be in the canonical fixture article graph.');
+for (const marker of ['commons.wikimedia.org', 'cc by', 'National Park Service', 'private', '2026-10-17']) {
+  if (!trailGuideFile.toLowerCase().includes(marker.toLowerCase())) errors.push(`NPS trail provenance or access warning missing: ${marker}`);
+}
+// Big Thicket is a seven-county preserve: route to its NPS visitor center,
+ // not a fabricated geographic center. Rio Grande is a designated waterway,
+ // therefore represented by a river authority article instead of an invented
+ // single entrance pin.
+const bigThicketAuthority = fs.readFileSync(path.join(root, 'src/data/big-thicket-national-preserve-authority.ts'), 'utf8');
+const rioGrandeAuthority = fs.readFileSync(path.join(root, 'src/data/fixtures/rio-grande-wild-scenic-river-authority.ts'), 'utf8');
+for (const marker of [
+  '"big-thicket-national-preserve"', '30.458251', '-94.387285',
+  '6102 FM 420', '2026-10-17', 'Public domain', 'permits', 'conditions.htm',
+]) if (!bigThicketAuthority.toLowerCase().includes(marker.toLowerCase())) errors.push(`Big Thicket park authority missing: ${marker}`);
+if (!npsPreserved.includes('[bigThicketNationalPreserveAuthority]')) errors.push('Big Thicket NPS visitor center authority must survive remote Explore outages.');
+for (const marker of [
+  'rio-grande-wild-and-scenic-river', '196-mile', 'border',
+  'backcountry', 'river-camping.htm', 'Public domain',
+]) if (!rioGrandeAuthority.toLowerCase().includes(marker.toLowerCase())) errors.push(`Rio Grande authority missing: ${marker}`);
+if (!fixtureRepositories.includes('rioGrandeWildScenicRiverAuthorityArticle,')) errors.push('Rio Grande NPS river authority must be included in article repository.');
+for (const slug of ['big-thicket-national-preserve','blackwell-school-national-historic-site']) {
+  if (!nationalHub.includes(`href="/destination/${slug}"`)) errors.push(`NPS hub missing ${slug}`);
+}
+if (!nationalHub.includes('href="/article/rio-grande-wild-and-scenic-river"')) errors.push('NPS hub must link Rio Grande river guide.');
+
+// Full public NPS inventory lives in a sourced editorial index even when
+// some destinations are withheld from mapped cards by individual page gates.
+const npsIndexStart = nationalHub.indexOf('id="complete-texas-nps-inventory"');
+const npsIndexEnd = nationalHub.indexOf('</section>', npsIndexStart);
+const npsIndexBody = npsIndexStart >= 0 && npsIndexEnd > npsIndexStart
+  ? nationalHub.slice(npsIndexStart, npsIndexEnd) : "";
+if (!npsIndexBody.includes("18 designations")) errors.push("NPS official Texas index title or count missing");
+const npsInventoryCodes = [...npsIndexBody.matchAll(/href="https:\/\/www\.nps\.gov\/([a-z]{4})\/"/g)].map(m => m[1]);
+if (npsInventoryCodes.length !== 18 || new Set(npsInventoryCodes).size !== 18) {
+  errors.push(`The public NPS authority hub must list exactly 18 distinct federal park/heritage designations; found ${npsInventoryCodes.length}`);
+}
+for (const code of ["blsc", "bith", "buov", "elte", "elca", "rigr", "pais", "paal"]) {
+  if (!npsInventoryCodes.includes(code)) errors.push(`Missing NPS site in complete federal directory: ${code}`);
+}
+if (!npsDirectory.includes('u.pathname.startsWith(`/${code}/`)') || !npsDirectory.includes('u.hostname === "www.nps.gov"')) {
+  errors.push("NPS unit classifier must allow exact-code official park subpages, while restricting host to the real NPS");
+}
+
 if (errors.length) {
   console.error('Explore category authority wave 2 validation failed:');
   for (const error of errors) console.error(`- ${error}`);

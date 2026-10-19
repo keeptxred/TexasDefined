@@ -177,9 +177,22 @@ if (!errors.length) {
 
   for (const marker of [
     "const seoName = program?.schoolName || displayName",
-    'title: editorial?.seo?.title ?? `${teamName} Football: 2026 District & Team Guide`',
-    "const description = editorial?.seo?.description ?? `${teamName} football:",
+    'const defaultTitle = program',
+    '`${teamName} Football: 2026 District & Team Guide`',
+    '`${teamName} Football: ${privateAlignment.association} Team Guide`',
+    '`${teamName} Football: ${governingBodyHint} Team Guide`',
+    '`${teamName} Football: Texas Team Guide`',
+    'title: editorial?.seo?.title ?? defaultTitle',
+    "const description = editorial?.seo?.description ?? (program",
+    'non-UIL programs are not forced into UIL classifications',
+    'const sportsTeamDescription = program || privateAlignment || governingBodyHint',
   ]) requireText(featuredProfileRoute, marker, 'Football profile unique SEO metadata');
+  if (featuredProfileRoute.includes('announced 2026 football-season cancellation')) {
+    errors.push('Football SportsTeam schema must not infer season cancellation from a generic editorial notice.');
+  }
+  if (featuredProfileRoute.includes('program?.officialSchoolName || displayName')) {
+    errors.push('Football schema must use the canonical public UIL school name instead of raw TEA campus names.');
+  }
   if (featuredProfileRoute.includes('slug === "ben-bolt-palito-blanco"')) errors.push("Football profile SEO must not override individually authored Ben Bolt title");
 
   for (const marker of [
@@ -1010,7 +1023,7 @@ if (!errors.length) {
     "createFileRoute('/texas-high-school-football-teams/$slug')",
     'getFootballProgramProfilePage',
     'football-program-profile.functions',
-    'Football: 2026 District & Team Guide',
+    'defaultTitle',
   ]) requireText(featuredProfileRoute, marker, 'Football school profile route');
   requireText(featuredProfileRoute, "'@type': 'SportsTeam'", 'Football school profile SportsTeam schema');
   requireText(featuredProfileRoute, "'@type': 'FAQPage'", 'Football school profile FAQ schema');
@@ -1019,6 +1032,7 @@ if (!errors.length) {
     "createLazyFileRoute('/texas-high-school-football-teams/$slug')",
     'How to enroll at',
     'Official district enrollment',
+    '((program && enrollmentLink) || (!program && privateAdmissions))',
     'District enrollment source last reviewed',
      'Official school admissions',
     'Start with {admissions.sourceLabel} ↗',
@@ -1039,11 +1053,11 @@ if (!errors.length) {
     'Texas high schools often share district stadiums.',
     'Open TexasDefined stadium guide →',
     'Official venue source ↗',
-    'Association placement not yet available',
+    'Non-UIL football program',
     'Private-school football uses its association’s own alignment system.',
     "privateAlignment.sourceKind === 'official-association'",
     'privateAlignmentLabel',
-    'All current UIL football programs use the same profile system.',
+    'Related href="/texas-high-school-football-teams"',
     'Open full district guide →',
     'districtPath',
     '/article/texas-high-school-football-scores-schedules',
@@ -1069,6 +1083,12 @@ if (!errors.length) {
     'Exact UIL enrollment pending',
     'Venue details not yet available',
     'Mascot source not yet available',
+    'Association not yet verified',
+    'Association placement not yet available',
+    'No district label in source',
+    'Not specified by source',
+    'has not yet verified a dedicated current enrollment URL',
+    'Association placement not yet verified',
   ]) {
     if (featuredProfilePage.includes(forbidden)) errors.push(`Football profile contains a statewide regression marker: ${forbidden}`);
   }
@@ -1098,6 +1118,7 @@ if (!errors.length) {
     'quickFacts: buildFootballProfileQuickFacts',
     'faq: buildFootballProfileFaq',
   ]) requireText(programProfileServer, marker, 'Football profile server answer generation');
+  requireText(footballProfileContent, "return 'Non-UIL football program';", 'Football profile non-UIL fail-closed label');
   for (const marker of [
     "slug: 'spring'",
     "name: 'KaRon Coleman Sr.'",
@@ -1184,13 +1205,16 @@ if (!errors.length) {
     'top two teams from each 1A six-man district',
     'top four teams from each district advance in 2A through 6A',
     'the two schools with the larger enrollments go to the Division I bracket',
-    'What \'bi-district\' means',
+    'What does bi-district mean in Texas high school football?',
+    'It does not mean a team won two district championships.',
+    '/texas-high-school-football-playoff-brackets',
     'first round in 5A and 6A',
     '/texas-high-school-football-teams',
   ]) requireText(playoffGuide, marker, 'Football playoff guide');
   requireText(playoffGuide, '/article/texas-six-man-football-rules-explained', 'Football playoff guide six-man discovery');
   requireText(playoffGuide, '/article/texas-high-school-football-scores-schedules', 'Football playoff guide scores discovery');
   requireText(playoffGuide, '/article/texas-high-school-football-2026-season-calendar', 'Football playoff guide calendar discovery');
+  requireText(read('src/routes/texas-high-school-football-playoff-brackets.tsx'), 'to="/article/texas-high-school-football-playoffs-explained"', 'Football brackets reciprocal playoff explainer discovery');
   for (const marker of [
     'Texas High School Football Scores 2026: Schedules & UIL Scoreboard',
     'https://www.uiltexas.org/athletics/uil-maxpreps',

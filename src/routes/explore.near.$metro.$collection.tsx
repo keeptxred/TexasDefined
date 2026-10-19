@@ -73,6 +73,9 @@ function MetroProximityCollectionPage() {
             <p className="mt-6 max-w-3xl border-l-2 border-primary pl-5 text-sm leading-7 text-muted-foreground">Straight-line distances are screening estimates from central {metro.name}. They are not road miles or drive-time promises. Use the “Check current drive” links in the map and guide sections below for current Google Maps routing, road mileage and travel-time estimates.</p>
             {presentation.usesGeographicRing && <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">TexasDefined does not treat these geographic rings as literal one-, two- or three-hour drives. Texas road networks vary too much for a straight-line radius to make that claim reliably.</p>}
           </>}
+          {isMcAllenDayTrips && <p className="mt-5 max-w-3xl text-sm leading-7 text-muted-foreground" data-mcallen-starter-guides>
+            <strong>Two nearby starts:</strong> For morning birding, explore <Link to="/destination/$slug" params={{ slug: "santa-ana-national-wildlife-refuge" }} className="font-semibold text-primary underline underline-offset-4">Santa Ana National Wildlife Refuge</Link> near Alamo. For an indoor history stop, visit the <Link to="/destination/$slug" params={{ slug: "museum-of-south-texas-history-edinburg" }} className="font-semibold text-primary underline underline-offset-4">Museum of South Texas History</Link> in Edinburg. Check visitor hours and access before you drive.
+          </p>}
           {!indexReady && <p className="mt-5 max-w-3xl text-sm leading-7 text-muted-foreground">This page is available for navigation but remains excluded from search indexing until its source-backed inventory reaches the minimum inventory and geographic-diversity thresholds for this intent.</p>}
         </div>
       </section>
@@ -99,6 +102,7 @@ function MetroProximityCollectionPage() {
       <Suspense fallback={null}>
         <MetroProximityCollectionRich pageData={pageData} />
       </Suspense>
+      {isMcAllenDayTrips && <div data-stay-nearby-slot aria-label="Optional hotels and rentals for longer McAllen trips" />}
     </main>
   </>;
 }

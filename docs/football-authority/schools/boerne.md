@@ -1,0 +1,28 @@
+# Boerne High Greyhounds — individual Batch 006 football authority dossier
+
+## October 17, 2026 — dated October 16 result replaces previous unverified status
+
+Boerne's Greyhounds beat Liberty Hill 49–7 on October 16; Champion High is a separate Boerne ISD football team. **7–0** through October 16, 2026 based on reported final scores. [Contemporary source: Houston Chronicle October 16 statewide football finals](https://www.houstonchronicle.com/sports/high-school/football/article/texas-scores-friday-week-16-22481255.php). Earlier dossier notes treating this individual fixture as upcoming or unresolved are historical and superseded by this score evidence only. Full UIL score certification, photo rights, staffing questions, specific stadium entrance and 320/390 desktop/mobile Chrome editorial acceptance remain separate pending work.
+
+
+Researched October 16, 2026; authored on branch feature/football-b006-boerne-20261016. IMPLEMENTED only, NOT yet merged, deployed, exact-SHA Chrome VERIFIED, image-licensed, or editorially accepted.
+
+## Official school and classification
+
+Boerne High School Greyhounds (Kendall County), NOT Boerne Champion Chargers. UIL 2026–28 11-man 5A Division II District 13: https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf . Champion plays 5A Division I District 13: https://realignment.uiltexas.org/alignments/2026/Alpha_26-28.pdf . District peers Alamo Heights, Liberty Hill, Legacy Ranch, New Braunfels, Long Creek, Veterans Memorial.
+
+## School visitors and source limits
+
+Boerne High official athletics: https://bhs.boerneisd.net/football and https://bhs.boerneisd.net/424398_2 . 1 Greyhound Lane, Boerne TX 78006, phone 830-357-2200. Brett Sawyer named athletic coordinator, Stan Leech district Director of Athletics; first-party page does not certify full 2026 head varsity football appointment. Boerne ISD Stadium at 1 Greyhound Lane via https://www.boerneisd.net/graduation and Boerne High School home football game event calendars. Exact gate, ADA, event tickets, parking and photo reuse rights NOT independently certified.
+
+## Historical 2022 football title match
+
+Official UIL 2022 Boerne state-team list https://www.uiltexas.org/football/state-team/boerne-2022-2023-football says 15–0 before 2022 4A DI championship, Che Hendrix as then coach, 35–0 semifinal Tyler Chapel Hill. China Spring came back from 21–0 to win 24–21 on last-second field goal per https://www.texasfootball.com/article/2022/12/16/china-springs-scores-24-unanswered-kicks-walkoff-fg-to-stun-boerne and https://www.ksat.com/sports/big-game-coverage/2022/12/17/boerne-loses-heartbreaker-to-china-spring-in-uil-class-4a-division-i-state-championship/ . Final 15–1, state runner-up, NOT champion and historical classification not 2026 5A DII.
+
+## Dated 2026 record and future fixtures
+
+MaxPreps https://www.maxpreps.com/tx/boerne/boerne-greyhounds/football/ shows 6–0 through Thurs October 8: RR Westwood W34–14, Laredo United W41–34, Davenport W30–21, Somerset W42–21, Alamo Heights W38–31, New Braunfels Long Creek W63–35. Specific Oct8 box https://www.maxpreps.com/tx/football/game/boerne-vs-long-creek-new-braunfels/10-8-2026/?c=57f7c4fd-ae02-4dab-b002-38ed323b62c8&tab=Recap ; Texas Prep independently corroborates 63–35. Short MaxPreps schedule teaser incorrectly marks this 10/9; use actual Thursday game date 10/8. Oct16 at Liberty Hill, Oct23 Veterans Memorial, Oct30 New Braunfels, Nov6 Legacy Ranch are upcoming as-of morning Oct16, NOT invented results. MaxPreps summaries are AI/data-generated and attributed, not on-site news.
+
+## Remaining gates
+
+Protected canonical premerge, production descendant deploy, real Chrome mobile+desktop SEO/JSON-LD/canonical and links, verified Kendall County reciprocal link, photo provenance and licensing, event-specific ADA/tickets, 9-dimensional editorial acceptance. No new verified label yet; preserve all 105 historical VERIFIED and cost-scoped audits.

@@ -3,26 +3,6 @@
 
 export const generatedTexasEvents = [
   {
-    "id": "official:state-fair-of-texas:2026-09-25",
-    "brandId": "texasdefined",
-    "slug": "state-fair-of-texas-2026-09-25",
-    "name": "State Fair of Texas",
-    "blurb": "State Fair of Texas is one of those Texas traditions worth planning a weekend around in Dallas.",
-    "city": "Dallas",
-    "region": "prairies-lakes",
-    "startDate": "2026-09-25",
-    "endDate": "2026-10-18",
-    "category": "seasonal",
-    "venue": "Dallas",
-    "officialUrl": "https://bigtex.com/",
-    "sourceName": "State Fair of Texas",
-    "sourceCheckedAt": "2026-08-26T12:37:01.322Z",
-    "confidenceScore": 98,
-    "editorialScore": 98,
-    "status": "published",
-    "autoPublish": true
-  },
-  {
     "id": "official:wurstfest:2026-11-06",
     "brandId": "texasdefined",
     "slug": "wurstfest-2026-11-06",
@@ -36,7 +16,7 @@ export const generatedTexasEvents = [
     "venue": "New Braunfels",
     "officialUrl": "https://wurstfest.com/",
     "sourceName": "Wurstfest",
-    "sourceCheckedAt": "2026-10-15T15:37:39.174Z",
+    "sourceCheckedAt": "2026-10-19T17:31:58.000Z",
     "confidenceScore": 94,
     "editorialScore": 94,
     "status": "published",

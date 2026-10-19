@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "asOf": "2026-10-14",
+  "asOf": "2026-10-19",
   "repository": "keeptxred/TexasDefined",
   "production": "https://texasdefined.com",
   "supabaseProjectId": "ftkznprjljkhymknvhye",
@@ -319,5 +319,286 @@
     "sourceProbeOutcome": "15 queued checks processed; the five new Sixth Floor Museum sources and USS Lexington operator sources returned HTTP 200 with source_baseline. Not editorial certification.",
     "acceptanceRule": "Never remove noindex merely to conceal missing licensed museum photography. Four guides remain intentionally blocked. Source reachability and static page audits do not certify editorial authority.",
     "independentlyCertified": 0
+  },
+  "pendingEastTexasOilMuseumUpgrade20261017": {
+    "canonical": "/destination/east-texas-oil-museum-kilgore",
+    "scope": "Existing Kilgore College museum destination; authority extension, not a duplicate page.",
+    "sourceOwner": "Kilgore College East Texas Oil Museum",
+    "sourceReviewDate": "2026-10-17",
+    "addedDossiers": 1,
+    "addedFaqs": 9,
+    "addedMonitoredOperatorSources": 5,
+    "verifiedSourceUrls": [
+      "https://easttexasoilmuseum.kilgore.edu/visit/",
+      "https://easttexasoilmuseum.kilgore.edu/welcome/",
+      "https://easttexasoilmuseum.kilgore.edu/events/",
+      "https://easttexasoilmuseum.kilgore.edu/contact/",
+      "https://easttexasoilmuseum.kilgore.edu/memberships/"
+    ],
+    "photo": {
+      "url": "https://commons.wikimedia.org/wiki/File:East_Texas_Oil_Museum_building,_Kilgore,_TX_IMG_5900.JPG",
+      "photographer": "Billy Hathorn",
+      "recorded": "2012-10-24",
+      "preciseSubject": "Original exterior of East Texas Oil Museum, Kilgore, Texas",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "browserProductionAcceptance": "not tested",
+      "sourceHtmlAndRenderedPixelVerified": false,
+      "note": "Author self-licensed exact photo on Commons; operator's commercial ON-SITE photography permission rule is separate."
+    },
+    "proposedPostMergeCounts": {
+      "museumDossiers": 72,
+      "museumManifest": 72,
+      "faqRecords": 596,
+      "manifestSourceDefinitions": 305,
+      "benchmarks": 72
+    },
+    "certifier": "none",
+    "status": "Branch submitted, not merged or verified in production. Existing 71-guide production baseline unchanged until deployment and new manifest ingestion."
+  },
+  "photoPermissionQueue20261017": {
+    "issue": "https://github.com/keeptxred/TexasDefined/issues/5057",
+    "missingPhotoRightsGrants": 4,
+    "scope": [
+      "museum-of-the-gulf-coast-port-arthur",
+      "el-paso-holocaust-museum",
+      "texas-broadcast-museum-kilgore",
+      "johnny-nelson-katy-heritage-museum"
+    ],
+    "status": "Official owner contacts sourced; zero permission grants and zero outbound emails. Preserve noindex and site-photo placeholder gates until rights and real image verified."
+  },
+  "pendingOctober18MuseumAuthorityBatch": {
+    "branch": "feature/museum-authority-carthage-galveston-20261018",
+    "institutions": [
+      "texas-country-music-hall-of-fame-carthage",
+      "bryan-museum-galveston"
+    ],
+    "rationale": "Both owner-submitted institutions lacked canonical museum authority dossiers and exact pages, while 2011 and 2025 subject-specific images have verifiable CC commercial-use rights.",
+    "canonicalRoutes": [
+      "/destination/texas-country-music-hall-of-fame-carthage",
+      "/destination/bryan-museum-galveston"
+    ],
+    "additionalAuthorityDossiers": 2,
+    "additionalResearchedFaqs": 19,
+    "additionalOperatorSources": 11,
+    "proposedTotals": {
+      "authorityDossiers": 74,
+      "sourceManifestGuides": 74,
+      "museumFAQs": 615,
+      "sourceManifestURLs": 316,
+      "benchmarkEntries": 74
+    },
+    "photoSourceLicenses": [
+      "Billy Hathorn 2011 CC BY-SA 3.0",
+      "Alexander Hatley 2025 CC BY 2.0, Flickr review verified"
+    ],
+    "editorialCertificatesIssued": 0,
+    "status": "Merged; 2026-10-18 live production HTML and manifest verified. Pages are HTTP 200, canonical, index/follow, show exact museum source photo references and researched FAQs. All 11 first official monitoring sources returned HTTP 200. Not independently editorial or visual/pixel certified.",
+    "guardrails": "No gallery accessibility inferred, no event tickets confused with regular admission, no stock photography, no duplicate slugs, no paid services.",
+    "merged": true,
+    "mergedAt": "2026-10-18T14:34:48Z",
+    "mergedPR": "https://github.com/keeptxred/TexasDefined/pull/5175",
+    "sourceFirstCheck": {
+      "checked": 11,
+      "succeeded": 11,
+      "failed": 0,
+      "results": "source_baseline"
+    },
+    "registeredInSupabase": true
+  },
+  "liveMuseumStateEvening20261018": {
+    "observedAt": "2026-10-18",
+    "publicManifestCount": 74,
+    "mainManifestSourceCount": 316,
+    "sourceMonitoringRegistryCount": 74,
+    "sourceMonitoringSourceRowCount": 340,
+    "researchedFaqCount": 615,
+    "currentlyIndependentAuthorityCertified": 0,
+    "newlyLiveMuseumGuidePaths": [
+      "/destination/bryan-museum-galveston",
+      "/destination/texas-country-music-hall-of-fame-carthage"
+    ],
+    "liveQA": "Production HTTP 200 canonical and index/follow; both research FAQ excerpts and expected exact museum photo filenames in HTML; actual browser image decode and mobile screen QA not completed.",
+    "sourceBaselines": "Verified 6 Bryan and 5 Carthage operator and independent-source references all HTTP 200; review status still awaiting_editorial_verification.",
+    "activePhotoRightsBlockers": [
+      "museum-of-the-gulf-coast-port-arthur",
+      "el-paso-holocaust-museum",
+      "texas-broadcast-museum-kilgore",
+      "johnny-nelson-katy-heritage-museum"
+    ],
+    "photoLicenseLinkDefect": "Bryan and Carthage hero credits visible in HTML but original Commons source and required CC terms were not linked. Fix branch fix/museum-commons-hero-license-links-20261018 adds links in the shared destination template and a focused production acceptance check. Not deployed until merge.",
+    "evidenceIssue": "https://github.com/keeptxred/TexasDefined/issues/5057",
+    "outsideScope": "669 provisional owner names and complete independent competitive authority certification remain open. No false new-page or license grant counts."
+  },
+  "pendingFrontiersAndTexasTechUpgrade20261018": {
+    "existingDestinationsOnly": [
+      "/destination/frontiers-of-flight-museum-dallas",
+      "/destination/museum-of-texas-tech-university-lubbock"
+    ],
+    "sourceOfTruth": "Existing canonical museum pages from src/data/museum-expansion-dfw.ts and src/data/museum-expansion-statewide-wave2.ts, now extended with research dossier/FAQ/manifest and source-specific photo. Do not generate duplicates.",
+    "sourceReviewedAt": "2026-10-18",
+    "officialSources": [
+      "https://flightmuseum.com/visit/",
+      "https://flightmuseum.com/exhibits/",
+      "https://flightmuseum.com/education/field-trips/",
+      "https://flightmuseum.com/",
+      "https://www.depts.ttu.edu/museumttu/visit/",
+      "https://www.depts.ttu.edu/museumttu/about/",
+      "https://www.depts.ttu.edu/museumttu/visit/planetarium.php",
+      "https://www.depts.ttu.edu/museumttu/",
+      "https://www.depts.ttu.edu/nsrl/"
+    ],
+    "addedMuseumAuthorityDossiers": 2,
+    "addedVisitorFaqs": 20,
+    "newManifestSources": 9,
+    "proposedTotals": {
+      "museumDossiers": 76,
+      "manifestMuseumGuides": 76,
+      "researchedFAQCount": 635,
+      "manifestSourceUrls": 325,
+      "benchmarkEntries": 76
+    },
+    "imageEvidence": [
+      {
+        "slug": "frontiers-of-flight-museum-dallas",
+        "subject": "Vought V-173 aircraft, Frontiers of Flight Museum Dallas",
+        "author": "Michael Barera",
+        "date": "2015-12-12",
+        "license": "CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Frontiers_of_Flight_Museum_December_2015_107_(Vought_V-173_%22Flying_Pancake%22).jpg",
+        "status": "Existing licensed hero retained; production pixels and clickable photo rights not yet accepted"
+      },
+      {
+        "slug": "museum-of-texas-tech-university-lubbock",
+        "subject": "Actual Museum of Texas Tech University exterior, Lubbock",
+        "author": "Billy Hathorn",
+        "date": "2009-04-03",
+        "license": "CC BY-SA 3.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Museum_of_Texas_Tech_University_IMG_0038.JPG",
+        "status": "Replaces placeholder on branch; deployment and actual browser photo QA pending"
+      }
+    ],
+    "certificationCount": 0,
+    "status": "Feature branch not yet merged or deployed. New official source monitoring not registered until merge. Four other photo-blocked noindex museums remain unchanged, reference #5057.",
+    "guardrails": "Do not weaken photo/index gate, invent hours, count museum as certified from external source HTTP response, create duplicate routes, or confuse free Tech galleries with separately paid Planetarium."
+  },
+  "pendingOctober19MenilGraceUpgrade": {
+    "branch": "feature/menil-grace-museum-authority-20261019",
+    "canonicalRoutes": [
+      "/destination/menil-collection-houston",
+      "/destination/grace-museum-abilene"
+    ],
+    "scope": "Two preexisting museum destination URLs upgraded to authority dossiers; no duplicate canonical destinations.",
+    "independentSourceReview": "2026-10-19",
+    "proposedCounts": {
+      "museumDossiers": 78,
+      "museumVisitorFaqs": 655,
+      "sourceDefinitions": 333,
+      "comparisonBenchmarks": 78
+    },
+    "addedDossiers": 2,
+    "addedResearchedFaqs": 20,
+    "addedSourceDefinitions": 8,
+    "operatorEvidence": [
+      "https://www.menil.org/visit",
+      "https://www.menil.org/campus",
+      "https://www.menil.org/about",
+      "https://www.menil.org/group-visit-and-educator-guidelines",
+      "https://thegracemuseum.org/about/",
+      "https://thegracemuseum.org/history/",
+      "https://thegracemuseum.org/art/",
+      "https://thegracemuseum.org/exhibitions/america-250/"
+    ],
+    "photoEvidence": [
+      "Francisco Anzola, 2011 Menil exterior, CC BY 2.0",
+      "Larry D. Moore, 2015 Grace Museum exterior, CC BY 4.0"
+    ],
+    "distinctions": "Grace's separate Spark Science Center at 1620 South 3rd versus Grace downtown 102 Cypress, combo rates and free Thursday nighttime; Menil's free admissions, distinct gallery buildings and explicit gallery photography/group lecture restrictions.",
+    "temporaryExhibitionDate": "Grace America 250 January 17-November 28, 2026, not evergreen",
+    "publishedAndProductionVerified": false,
+    "certified": false,
+    "pending": "Live source manifest 78/333, 78 Supabase registry, 357 retained source rows, all eight new source probes 200. Need browser pixel/mobile and independent editorial certification; not an open PR.",
+    "mergeStatus": "merged 2026-10-19 (PR #5280)",
+    "liveProductionSsrAndMonitoringVerified": true,
+    "browserPixelAndMobileQaVerified": false
+  },
+  "october19LiveMonitoringReconciliation": {
+    "checkedAt": "2026-10-19",
+    "githubMainSnapshotAtFirstRead": "a944f338ef46f6863217ff181525d514760e3beb",
+    "githubMainBeforeNewBatch": "7d09ad9f78510dbedee8d9a3f0ecd4e9bb70531a",
+    "mergedHistoricalPrsVerified": [
+      4844,
+      5060,
+      5175,
+      5223,
+      5251,
+      5255,
+      5256,
+      5280
+    ],
+    "publishedManifestHttpStatus": 200,
+    "publishedManifestGuides": 78,
+    "publishedManifestSourceDefinitions": 333,
+    "currentMainAuthorityDossiers": 78,
+    "currentMainMuseumFaqs": 655,
+    "supabaseProject": "ftkznprjljkhymknvhye",
+    "supabaseManifestImportRequestId": 10916,
+    "sourceMonitorRegistryRecordsAfterImport": 78,
+    "sourceMonitorRetainedRowsAfterImport": 357,
+    "retainedRowsClarification": "357 is the existing historical monitoring table row count; the currently published manifest contains 333 source definitions. The importer preserves prior source check fingerprints and extra historical monitored URLs.",
+    "newlyMonitoredPaths": [
+      "/destination/menil-collection-houston",
+      "/destination/grace-museum-abilene"
+    ],
+    "newlyMonitoredSourceChecks": {
+      "checked": 8,
+      "http200": 8,
+      "status": "source_baseline",
+      "observedAt": "2026-10-19T15:56:32Z"
+    },
+    "boundedProductionSsrChecks": {
+      "paths": [
+        "/destination/menil-collection-houston",
+        "/destination/grace-museum-abilene"
+      ],
+      "http200": 2,
+      "canonicalLinks": 2,
+      "noindex": 0,
+      "linkedCcAttributionPresent": 2,
+      "pixelAndMobileBrowserQAVerified": false
+    },
+    "editorialCertificates": 0,
+    "guardrails": "HTTP reachability, licensed photo URL/credit in HTML and source baselines do not certify image decode, visitor authority or full statewide museum coverage. No general photo-blocking safeguards were relaxed."
+  },
+  "pendingMcNayAndMilitaryMuseumBatch20261019": {
+    "pullRequest": "https://github.com/keeptxred/TexasDefined/pull/5287",
+    "branch": "feature/mcnay-museum-authority-20261019",
+    "currentHeadAtLedgerWrite": "a9575d38f33e6589f8dd69b305fd6abeb32fda0f",
+    "canonicalExistingSlugs": [
+      "mcnay-art-museum-san-antonio",
+      "texas-military-forces-museum"
+    ],
+    "proposedAuthorityDossiers": 80,
+    "proposedFaqs": 671,
+    "proposedSourceDefinitions": 345,
+    "newDossiers": 2,
+    "newFaqs": 16,
+    "newManifestSources": 12,
+    "photoEvidence": [
+      "McNay exact courtyard photograph by Michael Barera, Wikimedia Commons CC BY-SA 4.0.",
+      "Texas Military Forces Museum original Jim Greenhill photo, Wikimedia Commons CC BY 2.0, corrects earlier inaccurate public-domain credit."
+    ],
+    "staticConsistency": "80 dossiers / 80 slugs / 80 manifest records, 671 machine-readable FAQs and all associated verification source URLs checked by connected GitHub file reconciliation, PASS",
+    "canonicalPremergeValidation": "NOT EXECUTED locally through GitHub connector; protected CI Merge Gate and Museum Authority Contract queued at latest check",
+    "productionAndSourceMonitoringEnrolled": false,
+    "independentCertified": 0,
+    "existingFourMissingMuseumPhotoPermissions": "Unresolved. Do not clear noindex without exact photo copyright rights and image approval.",
+    "acceptanceOutstanding": [
+      "Protected canonical premerge runner and Merge Gate passing, with newest main reconciliation",
+      "Merged PR, exact-SHA successful production deployment",
+      "Bounded live FAQ/index/canonical plus responsive photo decode and source/license attribution",
+      "Enroll new two guides and twelve official/source-license URLs in existing Supabase source monitoring",
+      "Side-by-side independent visitor-guide certification"
+    ]
   }
 }

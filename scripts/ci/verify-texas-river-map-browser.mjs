@@ -35,7 +35,7 @@ async function inspect(page, label, width, height, mobile) {
     verify(response?.status() === 200, label + ': page returned HTTP ' + response?.status());
     const section = page.locator('section[aria-labelledby="interactive-texas-basin-heading"]');
     await section.scrollIntoViewIfNeeded({ timeout: 25_000 });
-    const load = section.getByRole('button', { name: 'Load interactive basin map' });
+    const load = section.getByRole('button', { name: 'Load interactive river map' });
     await load.waitFor({ state: 'visible', timeout: 25_000 });
     row.checks.push('Article rendered with opt-in map control');
     await page.waitForLoadState('load', { timeout: 20_000 }).catch(() => {});
@@ -61,6 +61,9 @@ async function inspect(page, label, width, height, mobile) {
     verify(shapes >= 23, label + ': expected at least 23 TWDB land/bay geometries, got ' + shapes);
     row.shapes = shapes;
     row.checks.push('TWDB polygons rendered: ' + shapes);
+    const duplicateBasinLabels = await section.locator('path[role="button"][aria-label*="Basin basin"], path[role="button"][aria-label*="basin basin"]').count();
+    verify(duplicateBasinLabels === 0, label + ': duplicated basin wording in map accessibility labels');
+    row.checks.push('Map accessibility labels do not repeat the word basin');
     const selector = section.locator('#texas-basin-selector');
     const choices = await selector.locator('option').allTextContents();
     row.options = choices;
@@ -94,7 +97,7 @@ async function inspect(page, label, width, height, mobile) {
     verify(landChoices >= 16 && landChoices < choices.length, label + ': coastal filter did not update choices: ' + landChoices);
     row.checks.push('Coastal filter updates basin menu');
     await coastal.check();
-    const bayControl = section.getByLabel('Include bay polygons');
+    const bayControl = section.getByLabel('Show separately mapped bays');
     if (await bayControl.isEnabled()) {
       await bayControl.check();
       const bays = await section.locator('svg[role="img"] path').count();

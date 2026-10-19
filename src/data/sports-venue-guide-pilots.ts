@@ -245,8 +245,19 @@ const SPORTS_VENUE_GUIDE_PILOTS: Record<string, SportsVenueGuidePilot> = {
     capacity: "Approximately 6,000 grandstand seats",
     address: "1000 Lone Star Parkway, Grand Prairie, TX 75050",
     officialUrl: "https://www.lonestarpark.com/",
-    reviewedAt: "2026-09-10",
+    reviewedAt: "2026-10-16",
+    eventScheduleUrl: "https://www.lonestarpark.com/live-racing/",
+    faqs: [
+      { question: "When does Lone Star Park hold live horse racing?", answer: "Its verified 2026 Thoroughbred season ran April 16–July 12; Quarter Horse dates are listed separately. Always check the official live calendar for the current meet, race date and first-post time." },
+      { question: "Does Lone Star Park have both Thoroughbred and Quarter Horse racing?", answer: "Yes. The venue runs separate Thoroughbred and Quarter Horse programs, as well as simulcast operations. Simulcast activity does not guarantee horses will race live that day." },
+      { question: "Where can I compare Texas horse racing tracks?", answer: "Texas Defined's statewide horse racing directory includes Lone Star Park, Sam Houston Race Park, Retama Park and Gillespie County Fairgrounds, plus inactive historical tracks." },
+    ],
+    nearbyPlaces: [
+      { label: "All Texas horse racing tracks", detail: "Compare four live venues, dates and racing-license history", href: "/horse-racing" },
+      { label: "Dallas County", detail: "County destinations, transport and lodging planning", href: "/county/dallas" },
+    ],
     sources: [
+      { label: "Lone Star Park 2026 live racing calendar", href: "https://www.lonestarpark.com/live-racing/" },
       { label: "Lone Star Park official site", href: "https://www.lonestarpark.com/" },
       { label: "Lone Star Park facility and grounds", href: "https://www.lonestarpark.com/facility-and-grounds/" },
       { label: "Lone Star Park getting here", href: "https://www.lonestarpark.com/getting-here/" },

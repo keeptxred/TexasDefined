@@ -2,34 +2,66 @@ name: Verify Event structured data production
 
 on:
   workflow_dispatch:
+  # Verify changes to this independent verifier without subscribing to every
+  # production deployment or duplicating full-site release validation.
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/verify-event-structured-data-production.yml'
+      - 'scripts/ci/verify-state-fair-event-production.mjs'
   schedule:
     - cron: '31 13 * * *'
 
 permissions:
   contents: read
+  statuses: read
 
 jobs:
   verify:
+    # Preserve the full, strict events-suite on schedule/manual runs. A page
+    # outside the State Fair must never prevent the Fair-specific job below.
     if: >-
-      github.event_name != 'workflow_run' ||
-      github.event.workflow_run.conclusion == 'success'
+      github.event_name != 'push' &&
+      (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success')
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - name: Check out deployed verifier source (current SHA for scheduled/manual runs)
+      - name: Check out verifier source
         uses: actions/checkout@v4
         with:
           ref: ${{ github.event.workflow_run.head_sha || github.sha }}
-
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
-
       - name: Verify Event structured-data production surfaces
         env:
           PRODUCTION_ORIGIN: https://texasdefined.com
         run: node scripts/ci/verify-event-structured-data-production.mjs
+
+  verify-state-fair:
+    # Independently fail closed on current production even if another event
+    # drifts; keep the existing scheduled and manual quality guarantees.
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out verifier source
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      # On the narrow verifier-only push, never assert live production before
+      # the same SHA has passed its canonical protected deployment.
+      - name: Wait for exact protected production deploy on push
+        if: github.event_name == 'push'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PRODUCTION_COMMIT_SHA: ${{ github.sha }}
+        run: node scripts/ci/wait-for-protected-production.mjs
 
       - name: Verify State Fair Event schema before and after 2026 season
         env:

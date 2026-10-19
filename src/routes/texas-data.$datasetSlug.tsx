@@ -40,6 +40,13 @@ export const Route = createFileRoute('/texas-data/$datasetSlug')({
             spatialCoverage: { '@type': 'State', name: 'Texas' },
             keywords: [loaderData.category, 'Texas data', 'TexasDefined'],
             isBasedOn: loaderData.sourceUrl,
+            ...(loaderData.schoolRates ? {
+              distribution: {
+                '@type': 'DataDownload',
+                encodingFormat: 'text/csv',
+                contentUrl: absoluteUrl(texasDefinedBrand, '/texas-data/school-district-tax-rates.csv'),
+              },
+            } : {}),
             variableMeasured: loaderData.schoolRates ? [
               { '@type': 'PropertyValue', name: 'Adopted total school-district property-tax rate', unitText: 'dollars per $100 taxable value' },
               { '@type': 'PropertyValue', name: 'Maintenance and operations (M&O) rate', unitText: 'dollars per $100 taxable value' },

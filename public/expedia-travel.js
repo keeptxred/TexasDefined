@@ -4,10 +4,11 @@
   const STAY_DATA_URL = "/stay-nearby-hotels.json";
   const DESTINATION_STAY_DATA_URL = "/stay-nearby-destination-hotels.json";
   const PAINTED_CHURCHES_STAY_DATA_URL = "/stay-nearby-painted-churches-hotels.json";
-  const TRAVEL_PATH = /^\/(?:explore(?:\/|$)|destination\/|city\/|county\/|sports-venue\/|sports-venues\/(?!compare(?:\.csv)?(?:\/|$))|sports-venues$|event\/|events(?:\/|$)|texas-state-fair(?:\/|$)|best-places-to-go-camping-in-texas(?:\/|$)|texas-college-towns(?:\/|$)|texas-tailgating-guide(?:\/|$)|texas-unique-lodging(?:\/|$)|texas-music-venues(?:\/|$)|texas-roadside-oddities(?:\/|$))/;
+  const TRAVEL_PATH = /^\/(?:explore(?:\/|$)|destination\/|city\/|county\/|sports-venue\/|horse-racing\/gillespie-county-fairgrounds(?:\/|$)|sports-venues\/(?!compare(?:\.csv)?(?:\/|$))|sports-venues$|event\/|events(?:\/|$)|texas-state-fair(?:\/|$)|best-places-to-go-camping-in-texas(?:\/|$)|texas-college-towns(?:\/|$)|texas-tailgating-guide(?:\/|$)|texas-unique-lodging(?:\/|$)|texas-music-venues(?:\/|$)|texas-roadside-oddities(?:\/|$))/;
   const TRAVEL_ARTICLE_SECTION = /\b(?:travel|lodging|road trips?|weekend getaways?|events?)\b/i;
   const CONTEXT_PATHS = [
     { kind: "destination", key: "painted-churches", pattern: /^\/explore\/painted-churches(?:\/|$)/ },
+    { kind: "destination", key: "fredericksburg", pattern: /^\/horse-racing\/gillespie-county-fairgrounds\/?$/ },
     { kind: "venue", pattern: /^\/sports-venue\/([^/?#]+)\/?$/ },
     { kind: "event", pattern: /^\/event\/([^/?#]+)\/?$/ },
     { kind: "destination", pattern: /^\/destination\/([^/?#]+)\/?$/ },
@@ -562,6 +563,9 @@
     if (target.matches?.(SLOT_SELECTOR)) target.replaceChildren(surface);
     else target.appendChild(surface);
     trackSurfaceImpression(surface, placement);
+    // Expedia is the owner of this async-rendered surface. Notify the existing
+    // CJ choice layer once the target actually exists; no polling or broad DOM scans.
+    window.TexasDefinedStayAffiliateOptions?.sync?.();
   }
 
   // Preserve React SSR for individually audited football-linked counties.
@@ -582,6 +586,11 @@
       document.documentElement.dataset.tdBattleshipArticleHydrated !== "1";
   }
 
+  function mcallenDayTripsHydrationPending() {
+    return normalizePath() === "/explore/near/mcallen/day-trips" &&
+      document.documentElement.dataset.tdMcAllenDayTripsHydrated !== "1";
+  }
+
   function stateFairSlotPending() {
     return /^\/texas-state-fair\/?$/.test(window.location.pathname) &&
       document.documentElement.dataset.tdStateFairHydrated !== "1";
@@ -591,6 +600,7 @@
     // React's State Fair content lazy-hydrates after RootShell. Never mutate
     // the empty affiliate slot before its owning component has committed.
     if (stateFairSlotPending()) return;
+    if (mcallenDayTripsHydrationPending()) return;
     if (battleshipHistoryHydrationPending()) return;
     if (waitingForFootballCountyHydration()) return;
     const version = ++syncVersion;
@@ -607,7 +617,23 @@
     const context = contextFromPath();
     const expectedContext = context ? `${context.kind}:${context.key}` : "";
     if (current?.dataset.surfaceType === "curated" && current.dataset.stayContext === expectedContext) return;
-    if (!context && current?.dataset.surfaceType === "generic") return;
+    // When a destination has zero curated stays, keep the same generic surface.
+    // Removing/replacing it on every mutation also deletes the independently
+    // managed CJ booking choices nested inside it (including Hotel Paso del Norte).
+    if (context && current?.dataset.surfaceType === "generic" && current.dataset.stayContext === expectedContext) return;
+    if (!context && current?.dataset.surfaceType === "generic") {
+      // The swimming guide can stream/hydrate after the lodging surface mounts.
+      // A fallback attached to an initially empty #main must move behind the
+      // now-present guide. Reuse the same node to preserve disclosures and tracking.
+      if (
+        normalizePath() === "/explore/swimming-holes-river-tubing"
+        && main.querySelector("#texas-swimming-holes-river-tubing-guide")
+        && main.lastElementChild !== current
+      ) {
+        main.appendChild(current);
+      }
+      return;
+    }
 
     current?.remove();
 
@@ -622,7 +648,9 @@
     }
 
     if (version !== syncVersion || !isMonetizationEligible()) return;
-    placeSurface(buildGenericSurface(), main);
+    const fallback = buildGenericSurface();
+    fallback.dataset.stayContext = expectedContext;
+    placeSurface(fallback, main);
   }
 
   function scheduleSync() {
@@ -645,6 +673,7 @@
     surface.dataset.stayPlacement = "explicit-mount";
     node.replaceChildren(surface);
     trackSurfaceImpression(surface, "explicit-mount");
+    window.TexasDefinedStayAffiliateOptions?.sync?.();
     return true;
   }
 
@@ -659,12 +688,16 @@
     window.addEventListener("popstate", scheduleSync);
     window.addEventListener("texasdefined:county-hydrated", scheduleSync);
     window.addEventListener("texasdefined:state-fair-hydrated", scheduleSync);
+    window.addEventListener("texasdefined:mcallen-day-trips-hydrated", scheduleSync);
     window.addEventListener("texasdefined:battleship-article-hydrated", scheduleSync);
     for (const method of ["pushState", "replaceState"]) {
       const original = history[method];
       history[method] = function (...args) {
         const result = original.apply(this, args);
         scheduleSync();
+        // A Hotel Paso-specific Hotels.com offer must not persist when a
+        // TanStack client-side route changes to another destination.
+        window.TexasDefinedStayAffiliateOptions?.sync?.();
         return result;
       };
     }

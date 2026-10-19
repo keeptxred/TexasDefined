@@ -14,6 +14,7 @@ const publisher = read('scripts/news/texasdefined-auto-publisher.mjs');
 const flyoverBridge = read('.github/workflows/flyover-scheduled-publish-bridge.yml');
 const migration = read('supabase/migrations/20260813143000_harden_texasdefined_auto_publication.sql');
 const env = read('.env');
+const exploreHandoff = read('docs/EXPLORE-PIPELINE-HANDOFF.md');
 const sitemap = read('src/routes/sitemap[.]xml.ts');
 const remoteArticles = read('src/data/articles-remote.ts');
 const route = readRouteSurface('src/routes/news.$slug.tsx');
@@ -27,10 +28,10 @@ for (const token of ['Report activation state safely', 'TEXASDEFINED_AUTO_PUBLIS
   if (!workflow.includes(token)) errors.push(`Workflow observability contract is missing ${token}`);
 }
 if (/^\s*schedule:/m.test(workflow)) errors.push('Auto-publication schedule must remain disabled until activation is approved.');
-for (const token of ['workflow_dispatch:', "github.event.workflow_run.conclusion == 'success'", 'Verify auto-publication activation remains unset', 'vars.TEXASDEFINED_AUTO_PUBLISH_ENABLED', 'TEXASDEFINED_AUTO_PUBLISH_ENABLED_PRESENT=false', 'Verify live news, published article canonicals and sitemap XML', 'verify-texasdefined-publication-production.mjs', 'actions/checkout@v5', 'actions/setup-node@v5']) {
+for (const token of ['workflow_dispatch:', 'workflow_run:', '- Deploy TexasDefined production', 'types: [completed]', 'branches: [main]', "github.event.workflow_run.conclusion == 'success'", 'Verify auto-publication activation remains unset', 'vars.TEXASDEFINED_AUTO_PUBLISH_ENABLED', 'TEXASDEFINED_AUTO_PUBLISH_ENABLED_PRESENT=false', 'Verify live news, published article canonicals and sitemap XML', 'verify-texasdefined-publication-production.mjs', 'actions/checkout@v5', 'actions/setup-node@v5']) {
   if (!productionSmokeWorkflow.includes(token)) errors.push(`Publication production smoke workflow is missing ${token}`);
 }
-for (const token of ["await fetchHealthy('/news')", "await fetchHealthy('/sitemap.xml')", "firstPublishedNewsPath(news.body)", "story.body.includes(expectedCanonical)", "sitemap.body", "<(?:sitemapindex|urlset)"]) {
+for (const token of ["await fetchHealthy('/news')", "await fetchHealthy('/sitemap.xml')", "firstPublishedNewsPath(news.body)", "story.body.includes(expectedCanonical)", "sitemap.body.includes(\`<loc>\${expectedCanonical}</loc>\`)", "const historicalCanyonPath = '/news/2026-08-10-canyon-lake-full-capacity-recovery'", "Canyon Lake Reaches Full Capacity After a Dramatic Summer Refill", "historicalCanyon.body.includes(historicalCanyonCanonical)", "sitemap.body.includes(\`<loc>\${historicalCanyonCanonical}</loc>\`)", "sitemap.body", "<(?:sitemapindex|urlset)"]) {
   if (!productionSmoke.includes(token)) errors.push(`Publication production smoke is missing ${token}`);
 }
 for (const token of ['ready_for_rewrite IS TRUE', 'classification_confidence', 'texas_relevance_score', 'source_reputation_score', 'security_invoker', 'publish_texasdefined_queue_item_v2', 'FROM anon, authenticated', "TO service_role"]) {
@@ -39,12 +40,16 @@ for (const token of ['ready_for_rewrite IS TRUE', 'classification_confidence', '
 for (const token of ['--hydrate-top=', 'hydrateTopCurrentCandidates', 'isTexasDefinedDirectEditorialSource(item)', "payload?.aiCalls !== 0", '--publish', '--feed-id=', 'exactFeedId', "params.set('id', `eq.${exactFeedId}`)", 'NEWSROOM_HYDRATION_URL', 'hydrate-newsroom-source-pages', 'async function hydrateExactFeed()', 'async function readyQueueCount()', 'async function readyQueueAll(total)', "Prefer: 'count=exact'", "Range: '0-0'", 'DISALLOWED_AUTOMATION_PILLARS', 'signals.auto_publish_eligible !== true', "editorial_lane || '').toUpperCase() !== 'AUTO_PUBLISH'", 'texas-border-immigration', 'texas-elections', 'border wall', 'assassination attempt', 'dedupeAutomationQueue', 'rawEligible', 'held: Math.max(rawEligible - automationEligibleQueue.length, 0)', 'selected: queue.length', 'deferred: Math.max(automationEligibleQueue.length - queue.length, 0)', 'published: 0', 'skipped: 0', 'failed: 0', "method: 'POST'", 'feedIds: [exactFeedId]', 'if (exactFeedId) await hydrateExactFeed()', 'TEXASDEFINED_AUTO_PUBLISH_ENABLED', 'TEXASDEFINED_PUBLISH_CONFIRMATION', 'validateDraft', 'generateAndStoreImage', 'publish_texasdefined_queue_item_v2']) {
   if (!publisher.includes(token)) errors.push(`Publisher is missing ${token}`);
 }
-for (const token of ['flyover_publish_request_v2', 'site=texasdefined', 'feed_id=', 'FEED_ID=', '--feed-id="$FEED_ID"', 'Exact Flyover feed', 'TEXASDEFINED_AUTO_PUBLISH_ENABLED: ${{ vars.TEXASDEFINED_AUTO_PUBLISH_ENABLED }}', 'actions/checkout@v5', 'actions/setup-node@v5']) {
+for (const token of ['issues:', 'types: [opened]', "github.event.issue.user.login == 'keeptxred'", "github.event.issue.author_association == 'OWNER'", "startsWith(github.event.issue.title, '[Flyover Publish TD] ')", 'flyover_publish_request_v2', 'site=texasdefined', 'feed_id=', 'FEED_ID=', '--feed-id="$FEED_ID"', 'Exact Flyover feed', 'TEXASDEFINED_AUTO_PUBLISH_ENABLED: ${{ vars.TEXASDEFINED_AUTO_PUBLISH_ENABLED }}', 'actions/checkout@v5', 'actions/setup-node@v5']) {
   if (!flyoverBridge.includes(token)) errors.push(`Flyover exact-feed bridge is missing ${token}`);
 }
+if (/^\s*schedule:/m.test(flyoverBridge)) errors.push('Flyover publication bridge must remain unscheduled until explicit activation is approved.');
 if (flyoverBridge.includes('TEXASDEFINED_AUTO_PUBLISH_ENABLED: "true"')) errors.push('Flyover bridge must not bypass repository-wide TexasDefined publication activation.');
 if (env.includes('qhwwmdszjgkscqxgmenf')) errors.push('Retired TexasDefined Supabase project remains in .env.');
 if (!env.includes('ftkznprjljkhymknvhye')) errors.push('Active shared Supabase project is absent from .env.');
+if (exploreHandoff.includes('qhwwmdszjgkscqxgmenf')) errors.push('Retired Supabase project remains in the Explore handoff.');
+if (!exploreHandoff.includes('ftkznprjljkhymknvhye')) errors.push('Explore handoff is missing the active shared Supabase project.');
+if (!exploreHandoff.includes('Do not create, connect, or migrate a second database')) errors.push('Explore handoff must preserve the single shared-backend rule.');
 
 for (const token of [
   'fetchPublishedTexasDefinedNewsArticlesForSitemap()',
@@ -94,4 +99,4 @@ if (errors.length) {
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
-console.log('TexasDefined auto-publication is guarded, exact-feed hydration-aware, source-gated, image-gated, disabled by default across manual and Flyover paths, auditable for activation/dry-run counts, production-smoked for /news and Canyon Lake sitemap health, isolated to feed-backed /news routes, complete across paginated sitemap discovery, and additionally quality-gated before public search discovery while manual evergreen content remains on canonical /article routes.');
+console.log('TexasDefined auto-publication is guarded, exact-feed hydration-aware, source-gated, image-gated, disabled by default across manual and Flyover paths, auditable for activation/dry-run counts, production-smoked for /news, dynamic published-news canonicals, and sitemap health, isolated to feed-backed /news routes, complete across paginated sitemap discovery, and additionally quality-gated before public search discovery while manual evergreen content remains on canonical /article routes.');

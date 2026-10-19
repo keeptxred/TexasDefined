@@ -9,6 +9,12 @@ const seeds = new Map(historicSiteSeeds.map((seed) => [seed.slug, seed]));
 // Distinct on-site visitor profiles; unlike generic authority-guide defaults,
 // these distinguish monuments, cemeteries, furnished homes, long hikes and towers.
 const SITE_VISIT_PROFILES: Record<string, Pick<DestinationEditorialAssessment, "physicalEffort" | "weatherExposure" | "planningLevel" | "recommendedVisit">> = {
+  "battleship-texas": {
+    "physicalEffort": "Not applicable — ship closed",
+    "weatherExposure": "Not applicable — ship closed",
+    "planningLevel": "High",
+    "recommendedVisit": "Battleship Texas is closed for regular boarding during its Galveston restoration. The Foundation's current visitor notice governs access. Explore documented history or separately open Galveston attractions now; only plan an onboard visit after the operator announces reopening and ticketing."
+  },
   "acton-state-historic-site": {
     "physicalEffort": "Low",
     "weatherExposure": "Fully outdoors",
@@ -64,8 +70,8 @@ const SITE_VISIT_PROFILES: Record<string, Pick<DestinationEditorialAssessment, "
     "recommendedVisit": "Fanthorp Inn is currently open Friday–Sunday, 10 a.m.–4:30 p.m., with free self-guided public tours and on-site interpretation. Group and school tours have separate reservation policies; a stagecoach demonstration is an event, not a daily entitlement."
   },
   "first-capitol-of-texas": {
-    "physicalEffort": "Low",
-    "weatherExposure": "Mostly outdoors",
+    "physicalEffort": "Not applicable — site closed",
+    "weatherExposure": "Not applicable — site closed",
     "planningLevel": "High",
     "recommendedVisit": "Not open to visitors: the Texas Historical Commission currently lists the First Capitol State Historic Site as Coming Soon, with hours Not Open and no tickets. Do not plan an interior or on-site tour until the operator announces opening; West Columbia's existing public history places remain separate stops."
   },
@@ -125,9 +131,9 @@ const SITE_VISIT_PROFILES: Record<string, Pick<DestinationEditorialAssessment, "
   },
   "magoffin-home": {
     "physicalEffort": "Low",
-    "weatherExposure": "Mostly indoors",
+    "weatherExposure": "Mixed indoor/outdoor",
     "planningLevel": "Moderate",
-    "recommendedVisit": "Focus on the adobe rooms, family histories and borderlands setting; confirm tour arrangements and accessible rooms."
+    "recommendedVisit": "The historic house is closed for restoration through 2027; the visitor center is open. Plan around current visitor-center programs and publicly accessible grounds only; confirm actual access with the Texas Historical Commission."
   },
   "mission-dolores": {
     "physicalEffort": "Low to moderate",
@@ -154,8 +160,8 @@ const SITE_VISIT_PROFILES: Record<string, Pick<DestinationEditorialAssessment, "
     "recommendedVisit": "Combine the historic Fort Griffin setting with the state herd when animals are visible; cattle sightings cannot be guaranteed."
   },
   "old-socorro-mission": {
-    "physicalEffort": "Low",
-    "weatherExposure": "Fully outdoors",
+    "physicalEffort": "Not applicable — site closed",
+    "weatherExposure": "Not applicable — site closed",
     "planningLevel": "High",
     "recommendedVisit": "The Old Socorro Mission State Historic Site is CLOSED to the public, with no services or facilities, according to the Texas Historical Commission. It is the former mission site and must not be confused with the separately operating present-day Socorro Mission. Do not plan entry into the closed archaeological site."
   },
@@ -302,6 +308,10 @@ function authoritySources(officialUrl: string, siteName: string): DestinationAut
       label: "Handbook of Texas — Lipantitlán State Historic Site",
       url: "https://www.tshaonline.org/handbook/entries/lipantitlan-state-historic-site",
       scope: "Site establishment, 1835 surrender, land donation, administration and historical-marker landscape; independent historical context.",
+    }, {
+      label: "THC Historic Sites Atlas — Fort Lipantitlán Centennial marker",
+      url: "https://atlas.thc.texas.gov/Details/5355006315",
+      scope: "1936 Centennial marker documenting the 1835 capture, distinct June 1842 assault, historic land donation and site identification; not a surviving 1830s building.",
     }];
   }
   if (officialUrl.includes("thc.texas.gov")) {
@@ -418,8 +428,45 @@ export function enrichFullHistoricSiteAuthority(destination: Destination): Desti
     },
   ];
 
+  // This ship is currently closed. Never reapply walk-up visitor steps from
+  // the general historic-site fallback while restoration access is restricted.
+  const battleshipTexasIsClosed = seed.slug === "battleship-texas";
+  const battleshipTexasClosedItineraries: DestinationAuthorityGuide["itineraries"] = [
+    {
+      label: "Learn about Texas before traveling",
+      duration: "At-home history research",
+      steps: [
+        "The Battleship Texas Foundation currently marks the ship CLOSED during restoration; do not plan ordinary boarding, an on-deck tour or walk-up access.",
+        "Read the ship's 1914 commissioning, World War I Grand Fleet service, Normandy operations and Pacific campaigns in the linked historical guide.",
+        "Explore the Foundation's official virtual exhibits and current restoration updates before assuming an announced reopening target is confirmed.",
+      ],
+    },
+    {
+      label: "Explore Galveston without boarding",
+      duration: "Separate public-area trip",
+      steps: [
+        "Use only publicly permitted waterfront viewpoints; confirm whether the Pier 21 view and harbor access are available on the actual travel date.",
+        "Visit independently operating Galveston harbor museums or the Strand, confirming each attraction's opening hours, location and admission separately.",
+        "Do not navigate to the old San Jacinto berth or enter Gulf Copper's working shipyard to reach the closed vessel.",
+      ],
+    },
+    {
+      label: "Plan the future museum visit",
+      duration: "After access is announced",
+      steps: [
+        "Follow the Battleship Texas Foundation for a confirmed Pier 15 opening and current public-access instructions; 2027 is a target rather than a guaranteed date.",
+        "Confirm tickets, accessibility, entry location and any guided-tour restrictions before committing to an onboard visit.",
+        "Only after reopening is confirmed, combine the ship with other Galveston maritime-history stops.",
+      ],
+    },
+  ];
+
   const guide: DestinationAuthorityGuide = {
-    whyItMatters: `${seed.significance} ${seed.visitAngle} ${operator ? "This remains an active national cemetery: visiting families, funerals and committal services take priority over sightseeing." : "The historic significance comes from the surviving place and the people whose stories it holds, not simply the age of a building or a memorial."} ${visitIntro}`,
+    whyItMatters: [
+      seed.significance,
+      visitIntro,
+      ...(operator ? ["This is an active national cemetery. Burials, visiting families and committal services take precedence over sightseeing."] : []),
+    ].filter(Boolean).join(" "),
     assessment: {
       recommendedVisit: visit?.recommendedVisit ?? (operator
         ? "A respectful cemetery visit takes priority over tourism. Confirm the VA’s current visitor rules before arrival."
@@ -427,14 +474,24 @@ export function enrichFullHistoricSiteAuthority(destination: Destination): Desti
       physicalEffort: visit?.physicalEffort ?? "Low to moderate",
       weatherExposure: visit?.weatherExposure ?? "Mixed indoor/outdoor",
       planningLevel: visit?.planningLevel ?? "Moderate",
-      familyFit: oldSocorroIsClosed
+      familyFit: firstCapitolIsClosed
+        ? "The First Capitol property is not open. For families, use public West Columbia history resources or separately operating museums instead of planning access to the closed site."
+        : battleshipTexasIsClosed
+        ? "The ship is closed for ordinary boarding. Families can use the Foundation's virtual exhibits and open Galveston museums rather than planning entry to the restoration site."
+        : oldSocorroIsClosed
         ? "Teach families about Piro Pueblo history and the 1680 Pueblo Revolt through public historical interpretation; the original site cannot be entered."
         : operator
         ? "Families can use the memorial landscape for age-appropriate conversations about service, remembrance and respectful behavior; active ceremonies must not be interrupted."
         : (destination.areaGuide?.familyStops?.[0]?.description ?? `Use ${focus[0] || seed.name} as the starting question, then connect one exhibit, building or landscape feature to the region's wider history. Check whether the operator offers family activities.`),
-      firstTimeValue: `Start with the operator's interpretive information to understand ${focus[0] || "the history"}, then follow the site itself instead of relying only on a photo or commemorative marker.`,
+      firstTimeValue: firstCapitolIsClosed
+        ? "Begin with the THC's historical marker record and current Not Open notice; use separately open public venues to explore West Columbia history."
+        : battleshipTexasIsClosed
+        ? "Start with the Foundation's current CLOSED notice and virtual exhibits; use only public waterfront viewpoints or separately open museums until a future ship reopening is confirmed."
+        : oldSocorroIsClosed
+        ? "Read the THC account of the protected original mission site, then plan any in-person visit only at the distinct operating Socorro Mission or other public Mission Trail venues."
+        : `Start with the operator's interpretive information to understand ${focus[0] || "the history"}, then follow the site itself instead of relying only on a photo or commemorative marker.`,
     },
-    itineraries: firstCapitolIsClosed ? closedSiteItineraries : oldSocorroIsClosed ? oldSocorroHistoryItineraries : [
+    itineraries: battleshipTexasIsClosed ? battleshipTexasClosedItineraries : firstCapitolIsClosed ? closedSiteItineraries : oldSocorroIsClosed ? oldSocorroHistoryItineraries : [
       {
         label: "The focused visit",
         duration: "Short visit",

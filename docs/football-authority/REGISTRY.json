@@ -40,7 +40,7 @@
       "boyd",
       "boys-ranch"
     ],
-    "state": "INDIVIDUAL_RESEARCH_IN_PROGRESS",
+    "state": "ALL_25_DEPLOYED_AWAITING_INDIVIDUAL_ACCEPTANCE",
     "dateAssigned": "2026-10-14",
     "selectionRule": "Next 25 NOT_REVIEWED unassigned canonical football schools after verified Batch 005; protect all 105 VERIFIED.",
     "individuallyVerified": 0,
@@ -48,12 +48,44 @@
     "assignmentBranch": "football-authority-batch-006-harmony-20261014",
     "repositoryMainAtAssignment": "76ae6dfe17176649213c6a1cec3fd58ac97099dd",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "boerne",
-    "nextSchool": "boerne",
-    "implementedOnBranch": 11,
-    "remainingToImplement": 14,
+    "currentSchool": null,
+    "nextSchool": null,
+    "implementedOnBranch": 25,
+    "remainingToImplement": 0,
     "remainingToVerify": 25,
-    "notes": "Batch006 11/25 individually authored after Blue Ridge, Bluff Dale and Blum integration, with 105 historical VERIFIED preserved. Statuses reflect released/deployed vs authored stages only; none of Batch006 has exact-SHA independent Chrome or nine-dimension editorial acceptance. Continue Boerne and Champion research; 14 schools remain NOT_REVIEWED."
+    "notes": "All 25 school pages DEPLOYED. Full Batch006 Chrome run #39273758531 on October 19 PASS: 75/75 school viewports, 23/23 county links, 25/25 sitemap entries, 98 screenshots, zero chunk errors, exactly one observed Worker version b4c9dfca. Version matches production deploy #39269777322 (git a20871a). Harness PR #5222 protected-merged ffbf48b. Separately, individual nine-dimension factual/editorial/rights/human-accessibility approval remains 0/25: do not promote any school to VERIFIED. Prior 105 VERIFIED protected. No Batch007.",
+    "technicalBrowserAcceptance": {
+      "runId": 39273758531,
+      "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/39273758531",
+      "checkedAt": "2026-10-19T15:01:49Z",
+      "schoolCasesPassed": 75,
+      "schoolCasesFailed": 0,
+      "schoolCount": 25,
+      "checkedViewports": [
+        1366,
+        390,
+        320
+      ],
+      "countyCasesPassed": 23,
+      "countyCasesFailed": 0,
+      "sitemapUrlsPassed": 25,
+      "screenshotsSaved": 98,
+      "screenshotArtifactId": 12196591822,
+      "javascriptChunkErrors": 0,
+      "observedWorkerVersions": [
+        "b4c9dfca-7f43-4e3d-a24b-22bc16a2a48f"
+      ],
+      "workerVersionMatchesDeploy": true,
+      "productionDeploymentRun": 39269777322,
+      "productionDeploymentGitSha": "a20871abf93259a78d69ebd47fa0d1f8f951d93f",
+      "acceptanceHarnessMergePr": 5222,
+      "acceptanceHarnessMergeSha": "ffbf48b4a906f26c87834ef4d4b0ad23a7df5ebe",
+      "editorialAcceptedSchools": 0,
+      "formalNineDimensionAcceptanceCompleted": false,
+      "schoolPhotoRightsIndividuallyAccepted": false,
+      "individualStatusPromotion": false,
+      "limitation": "Bounded real-Chrome structural/SEO/schema/current-record/county/sitemap tests. Does not independently certify every factual claim, image right, human WCAG test or reviewer signoff."
+    }
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -6555,12 +6587,16 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bishop",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 6,
       "schoolNote": "docs/football-authority/schools/bishop.md",
       "implementedOnBranch": "feature/football-b006-bishop-20261015",
       "actualProductionVerified": false,
-      "reviewScope": "School-specific authored content, UIL district and dated 2–5 results; conflicting coach/stadium identities explicitly unresolved, no licensed photo or exact-SHA production Chrome acceptance."
+      "reviewScope": "School-specific authored content, UIL district and dated 2–5 results; conflicting coach/stadium identities explicitly unresolved, no licensed photo or exact-SHA production Chrome acceptance.",
+      "mergedPr": 5070,
+      "mergedCommit": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
+      "deploymentRun": 39050440079,
+      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb"
     },
     {
       "id": "uil:blackwell",
@@ -6573,12 +6609,16 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/blackwell",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 6,
       "schoolNote": "docs/football-authority/schools/blackwell.md",
       "implementedOnBranch": "feature/football-b006-blackwell-20261015",
       "actualProductionVerified": false,
-      "reviewScope": "Source-backed UIL 1A DII 6-man District7, 2019 semifinal, 5–2 through October 9; Sep4 score sources conflict. Authored only on dependent branch, no photo/venue/coach verification or Chrome QA."
+      "reviewScope": "Source-backed UIL 1A DII 6-man District7, 2019 semifinal, 5–2 through October 9; Sep4 score sources conflict. Authored only on dependent branch, no photo/venue/coach verification or Chrome QA.",
+      "mergedPr": 5070,
+      "mergedCommit": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
+      "deploymentRun": 39050440079,
+      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb"
     },
     {
       "id": "uil:blanco",
@@ -6591,12 +6631,16 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/blanco",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 6,
       "schoolNote": "docs/football-authority/schools/blanco.md",
       "implementedOnBranch": "feature/football-b006-blanco-20261015",
       "actualProductionVerified": false,
-      "reviewScope": "Source-backed 2000 UIL state runner-up and 2001 UIL state championship, current Class3A DII District15, dated Oct9 4–3 and first-party Panther Stadium/tickets; not merged/deployed/Chrome-verified/accepted or independently image licensed."
+      "reviewScope": "Source-backed 2000 UIL state runner-up and 2001 UIL state championship, current Class3A DII District15, dated Oct9 4–3 and first-party Panther Stadium/tickets; not merged/deployed/Chrome-verified/accepted or independently image licensed.",
+      "mergedPr": 5070,
+      "mergedCommit": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
+      "deploymentRun": 39050440079,
+      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb"
     },
     {
       "id": "uil:blanket",
@@ -6609,12 +6653,16 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/blanket",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 6,
       "schoolNote": "docs/football-authority/schools/blanket.md",
       "implementedOnBranch": "feature/football-b006-blanket-20261015",
       "actualProductionVerified": false,
-      "reviewScope": "Individually authored six-man UIL District12, local 2026 results 4–3 through Oct8 and source conflicts, Sept11 firsthand coach quote; branch only pending merges/Chrome/editorial acceptance. No stadium gate or photo rights claimed."
+      "reviewScope": "Individually authored six-man UIL District12, local 2026 results 4–3 through Oct8 and source conflicts, Sept11 firsthand coach quote; branch only pending merges/Chrome/editorial acceptance. No stadium gate or photo rights claimed.",
+      "mergedPr": 5070,
+      "mergedCommit": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
+      "deploymentRun": 39050440079,
+      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb"
     },
     {
       "id": "uil:blooming-grove",
@@ -6627,12 +6675,16 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/blooming-grove",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 6,
       "schoolNote": "docs/football-authority/schools/blooming-grove.md",
       "implementedOnBranch": "feature/football-b006-blooming-grove-20261015",
       "actualProductionVerified": false,
-      "reviewScope": "Official school-coach hire and 3A DII District11, dated 2026 0–6 through Oct9 corroborated by game result; 2025 3–8 not Vernon 10–3; no stadium photo/gate licensing or production Chrome acceptance."
+      "reviewScope": "Official school-coach hire and 3A DII District11, dated 2026 0–6 through Oct9 corroborated by game result; 2025 3–8 not Vernon 10–3; no stadium photo/gate licensing or production Chrome acceptance.",
+      "mergedPr": 5070,
+      "mergedCommit": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
+      "deploymentRun": 39050440079,
+      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb"
     },
     {
       "id": "uil:bloomington",
@@ -6645,12 +6697,16 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bloomington",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 6,
       "schoolNote": "docs/football-authority/schools/bloomington.md",
       "implementedOnBranch": "feature/football-b006-bloomington-20261015",
       "actualProductionVerified": false,
-      "reviewScope": "Official UIL 2A Division I District15, first-party Bloomington ISD campus and Vanco cashless football tickets, 2–5 through Oct9 Shiner 43–3 with syndicated 43–0 discrepancy. Not merged/deployed/browser/editorial accepted or photo licensed."
+      "reviewScope": "Official UIL 2A Division I District15, first-party Bloomington ISD campus and Vanco cashless football tickets, 2–5 through Oct9 Shiner 43–3 with syndicated 43–0 discrepancy. Not merged/deployed/browser/editorial accepted or photo licensed.",
+      "mergedPr": 5070,
+      "mergedCommit": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
+      "deploymentRun": 39050440079,
+      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb"
     },
     {
       "id": "uil:blue-ridge",
@@ -6663,12 +6719,16 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/blue-ridge",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 6,
       "actualProductionVerified": false,
       "schoolNote": "docs/football-authority/schools/blue-ridge.md",
       "implementedOnBranch": "feature/football-b006-blue-ridge-20261015",
-      "reviewScope": "Official ISD Jason Russell AD/head coach, UIL 2026 3A DII D7, dated 2–5 through Oct9 and 2025 7–5/2024 9–3 archival context; no stadium gate/ticket/ADA/photo rights or post-deploy individual acceptance."
+      "reviewScope": "Official ISD Jason Russell AD/head coach, UIL 2026 3A DII D7, dated 2–5 through Oct9 and 2025 7–5/2024 9–3 archival context; no stadium gate/ticket/ADA/photo rights or post-deploy individual acceptance.",
+      "mergedPr": 5070,
+      "mergedCommit": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
+      "deploymentRun": 39050440079,
+      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb"
     },
     {
       "id": "uil:bluff-dale",
@@ -6681,7 +6741,7 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bluff-dale",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 6,
       "schoolNote": "docs/football-authority/schools/bluff-dale.md",
       "auditCompletedAt": "2026-10-16",
@@ -6694,7 +6754,11 @@
       "outboundCountyPath": "/county/erath",
       "linkVerificationStatus": "BRANCH_CODE_PENDING_REAL_PRODUCTION_CHROME",
       "actualProductionVerified": false,
-      "productionVerification": "NOT_DEPLOYED_NO_BROWSER_ACCEPTANCE"
+      "productionVerification": "NOT_DEPLOYED_NO_BROWSER_ACCEPTANCE",
+      "mergedPr": 5070,
+      "mergedCommit": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
+      "deploymentRun": 39050440079,
+      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb"
     },
     {
       "id": "uil:blum",
@@ -6707,7 +6771,7 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/blum",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 6,
       "schoolNote": "docs/football-authority/schools/blum.md",
       "auditCompletedAt": "2026-10-16",
@@ -6720,7 +6784,11 @@
       "outboundCountyPath": "/county/hill",
       "linkVerificationStatus": "BRANCH_CODE_PENDING_REAL_PRODUCTION_CHROME",
       "actualProductionVerified": false,
-      "productionVerification": "NOT_DEPLOYED_NO_BROWSER_ACCEPTANCE"
+      "productionVerification": "NOT_DEPLOYED_NO_BROWSER_ACCEPTANCE",
+      "mergedPr": 5070,
+      "mergedCommit": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
+      "deploymentRun": 39050440079,
+      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb"
     },
     {
       "id": "uil:boerne",
@@ -6733,8 +6801,16 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/boerne",
-      "status": "NOT_REVIEWED",
-      "batch": 6
+      "status": "DEPLOYED",
+      "batch": 6,
+      "schoolNote": "docs/football-authority/schools/boerne.md",
+      "implementedOnBranch": "feature/football-b006-boerne-20261016",
+      "actualProductionVerified": false,
+      "reviewScope": "Source-backed 2026 UIL 5A DII District13 and six-game 6–0 snapshot through October8, 2022 4A DI runner-up, BHS stadium/contact with distinct Champion identity; Chrome/editorial/image rights not certified.",
+      "mergedPr": 5070,
+      "mergedCommit": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
+      "deploymentRun": 39050440079,
+      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb"
     },
     {
       "id": "uil:boerne-champion",
@@ -6747,8 +6823,16 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/boerne-champion",
-      "status": "NOT_REVIEWED",
-      "batch": 6
+      "status": "DEPLOYED",
+      "batch": 6,
+      "schoolNote": "docs/football-authority/schools/boerne-champion.md",
+      "implementedOnBranch": "feature/football-b006-champion-editorial-20261016-chat",
+      "actualProductionVerified": false,
+      "reviewScope": "UIL 5A DI District13, Oct2 6–0 score snapshot, current official head coach Blane Ellis, campus versus Boerne ISD Stadium, 2025 9–4 playoffs and first-party ticket rules; not merged, exact production Chrome/editorial accepted or photo licensed.",
+      "mergedPr": 5070,
+      "mergedCommit": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
+      "deploymentRun": 39050440079,
+      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb"
     },
     {
       "id": "uil:bogata-rivercrest",
@@ -6761,8 +6845,16 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bogata-rivercrest",
-      "status": "NOT_REVIEWED",
-      "batch": 6
+      "status": "DEPLOYED",
+      "batch": 6,
+      "schoolNote": "docs/football-authority/schools/bogata-rivercrest.md",
+      "implementedOnBranch": "feature/football-b006-rivercrest-20261016-chat",
+      "actualProductionVerified": false,
+      "reviewScope": "Rivercrest ISD Red River County and 2A DI District9, 4–3 through October9 30–28 triple-OT game, 2019/2024 sourced records, stale 2026 Chisum 49–42 conflict resolved using specific game 56–42; coach/venue/photo rights not certified; unmerged branch.",
+      "mergedPr": 5070,
+      "mergedCommit": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
+      "deploymentRun": 39050440079,
+      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb"
     },
     {
       "id": "uil:boling",
@@ -6775,8 +6867,16 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/boling",
-      "status": "NOT_REVIEWED",
-      "batch": 6
+      "status": "DEPLOYED",
+      "batch": 6,
+      "schoolNote": "docs/football-authority/schools/boling.md",
+      "implementedOnBranch": "feature/football-b006-boling-20261016-chat",
+      "actualProductionVerified": false,
+      "reviewScope": "Wharton County official school; UIL 1972 2A state title 20–0 Rockwall and 2016 3A DII runner-up 43–7 Gunter; district coach Kevin Urbanek; 2026 2–4 through Oct2 with Oct9 bye; stadium gate/image/real Chrome/editorial acceptance withheld.",
+      "mergedPr": 5070,
+      "mergedCommit": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
+      "deploymentRun": 39050440079,
+      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb"
     },
     {
       "id": "uil:bonham",
@@ -6789,8 +6889,16 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bonham",
-      "status": "NOT_REVIEWED",
-      "batch": 6
+      "status": "DEPLOYED",
+      "batch": 6,
+      "schoolNote": "docs/football-authority/schools/bonham.md",
+      "implementedOnBranch": "feature/football-b006-bonham-20261016-chat",
+      "actualProductionVerified": false,
+      "reviewScope": "Bonham 2026 4A DII District7, new coach Aaron Ford first-party corroboration, 2–5 through Oct16, online-only home tickets and Warrior Stadium media rules; source-dated scores. Exact live Chrome and editorial/photo/accessibility acceptance pending.",
+      "mergedPr": 5070,
+      "mergedCommit": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
+      "deploymentRun": 39050440079,
+      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb"
     },
     {
       "id": "uil:booker",
@@ -6803,8 +6911,16 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/booker",
-      "status": "NOT_REVIEWED",
-      "batch": 6
+      "status": "DEPLOYED",
+      "batch": 6,
+      "schoolNote": "docs/football-authority/schools/booker.md",
+      "implementedOnBranch": "feature/football-b006-booker-20261016-chat",
+      "actualProductionVerified": false,
+      "reviewScope": "Official six-man 1A Division I District1, Booker ISD coach David Biddler and 600 South Main School, 2025 9–3 district champions, 2026 4–3 to Oct9 Claude L0–48; no stadium gate/photo rights/Chrome editorial certification.",
+      "mergedPr": 5070,
+      "mergedCommit": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
+      "deploymentRun": 39050440079,
+      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb"
     },
     {
       "id": "uil:borden-county",
@@ -6817,8 +6933,16 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/borden-county",
-      "status": "NOT_REVIEWED",
-      "batch": 6
+      "status": "DEPLOYED",
+      "batch": 6,
+      "schoolNote": "docs/football-authority/schools/borden-county.md",
+      "implementedOnBranch": "feature/football-b006-borden-county-20261016-chat",
+      "actualProductionVerified": false,
+      "reviewScope": "Five historical UIL verified six-man titles 1997/08/09/16/17, 2026 DI District5, 6–0 through Oct9, coach-source conflict; no current coach/stadium gate/photo rights/exact Chrome acceptance claimed.",
+      "mergedPr": 5070,
+      "mergedCommit": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
+      "deploymentRun": 39050440079,
+      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb"
     },
     {
       "id": "uil:borger",
@@ -6831,8 +6955,16 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/borger",
-      "status": "NOT_REVIEWED",
-      "batch": 6
+      "status": "DEPLOYED",
+      "batch": 6,
+      "schoolNote": "docs/football-authority/schools/borger.md",
+      "implementedOnBranch": "feature/football-b006-final-seven-20261017-source-backed",
+      "actualProductionVerified": false,
+      "reviewScope": "Individual 4A Division II District 3 11-man program Hutchinson County, 2–6 through October 16, 2026; source and stadium/image QA pending",
+      "mergedPr": 5070,
+      "mergedCommit": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
+      "deploymentRun": 39050440079,
+      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb"
     },
     {
       "id": "uil:bosqueville",
@@ -6845,8 +6977,16 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bosqueville",
-      "status": "NOT_REVIEWED",
-      "batch": 6
+      "status": "DEPLOYED",
+      "batch": 6,
+      "schoolNote": "docs/football-authority/schools/bosqueville.md",
+      "implementedOnBranch": "feature/football-b006-final-seven-20261017-source-backed",
+      "actualProductionVerified": false,
+      "reviewScope": "Individual 2A Division I District 8 11-man program McLennan County, 4–3 through October 16, 2026; source and stadium/image QA pending",
+      "mergedPr": 5070,
+      "mergedCommit": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
+      "deploymentRun": 39050440079,
+      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb"
     },
     {
       "id": "uil:bovina",
@@ -6859,8 +6999,16 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bovina",
-      "status": "NOT_REVIEWED",
-      "batch": 6
+      "status": "DEPLOYED",
+      "batch": 6,
+      "schoolNote": "docs/football-authority/schools/bovina.md",
+      "implementedOnBranch": "feature/football-b006-final-seven-20261017-source-backed",
+      "actualProductionVerified": false,
+      "reviewScope": "Individual 2A Division II District 1 11-man program Parmer County, 3–3 through October 9, 2026; source and stadium/image QA pending",
+      "mergedPr": 5070,
+      "mergedCommit": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
+      "deploymentRun": 39050440079,
+      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb"
     },
     {
       "id": "uil:bowie",
@@ -6873,8 +7021,16 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bowie",
-      "status": "NOT_REVIEWED",
-      "batch": 6
+      "status": "DEPLOYED",
+      "batch": 6,
+      "schoolNote": "docs/football-authority/schools/bowie.md",
+      "implementedOnBranch": "feature/football-b006-final-seven-20261017-source-backed",
+      "actualProductionVerified": false,
+      "reviewScope": "Individual 3A Division I District 4 11-man program Montague County, 4–3 through October 9, 2026; source and stadium/image QA pending",
+      "mergedPr": 5070,
+      "mergedCommit": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
+      "deploymentRun": 39050440079,
+      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb"
     },
     {
       "id": "uil:bowie-gold-burg",
@@ -6887,8 +7043,16 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bowie-gold-burg",
-      "status": "NOT_REVIEWED",
-      "batch": 6
+      "status": "DEPLOYED",
+      "batch": 6,
+      "schoolNote": "docs/football-authority/schools/bowie-gold-burg.md",
+      "implementedOnBranch": "feature/football-b006-final-seven-20261017-source-backed",
+      "actualProductionVerified": false,
+      "reviewScope": "Individual 1A Division II District 10 six-man program Montague County, 2–5 through October 9, 2026; source and stadium/image QA pending",
+      "mergedPr": 5070,
+      "mergedCommit": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
+      "deploymentRun": 39050440079,
+      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb"
     },
     {
       "id": "uil:boyd",
@@ -6901,8 +7065,16 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/boyd",
-      "status": "NOT_REVIEWED",
-      "batch": 6
+      "status": "DEPLOYED",
+      "batch": 6,
+      "schoolNote": "docs/football-authority/schools/boyd.md",
+      "implementedOnBranch": "feature/football-b006-final-seven-20261017-source-backed",
+      "actualProductionVerified": false,
+      "reviewScope": "Individual 3A Division I District 4 11-man program Wise County, 2–4 through October 2, 2026; source and stadium/image QA pending",
+      "mergedPr": 5070,
+      "mergedCommit": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
+      "deploymentRun": 39050440079,
+      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb"
     },
     {
       "id": "uil:boys-ranch",
@@ -6915,8 +7087,16 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/boys-ranch",
-      "status": "NOT_REVIEWED",
-      "batch": 6
+      "status": "DEPLOYED",
+      "batch": 6,
+      "schoolNote": "docs/football-authority/schools/boys-ranch.md",
+      "implementedOnBranch": "feature/football-b006-final-seven-20261017-source-backed",
+      "actualProductionVerified": false,
+      "reviewScope": "Individual 1A Division I District 1 six-man program Oldham County, 6–0 through October 8, 2026; source and stadium/image QA pending",
+      "mergedPr": 5070,
+      "mergedCommit": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
+      "deploymentRun": 39050440079,
+      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb"
     },
     {
       "id": "uil:brackettville-brackett",

@@ -98,28 +98,28 @@ export function TexasRiverBasinInteractiveMap() {
     <section className="mt-7 rounded-sm border border-border bg-background" aria-labelledby="interactive-texas-basin-heading">
       <div className="flex flex-wrap items-center justify-between gap-4 p-5 sm:p-7">
         <div className="max-w-3xl">
-          <p className="eyebrow text-primary">2023 official GIS · interactive atlas</p>
-          <h3 id="interactive-texas-basin-heading" className="mt-2 font-display text-2xl sm:text-3xl">Explore the actual Texas river basin boundaries</h3>
+          <p className="eyebrow text-primary">Official 2023 river-basin boundaries</p>
+          <h3 id="interactive-texas-basin-heading" className="mt-2 font-display text-2xl sm:text-3xl">See What Land Drains Into Each Texas River</h3>
           <p className="mt-2 text-sm leading-6 text-muted-foreground">
-            Explore the Texas Water Development Board's official August 7, 2023 basin polygons. Select a basin,
-            show or hide coastal basins, inspect any separately mapped bay polygons and magnify its watershed. These are <strong>drainage boundaries</strong>,
-            not the river channel, launch points or surveyed property lines.
+            This interactive map uses official August 7, 2023 Texas Water Development Board boundaries. Choose a river system to see the land that drains into it,
+            show or hide the coastal drainage areas, and zoom in. The shaded areas show where water drains—not the river channel,
+            public access points or property lines.
           </p>
         </div>
-        {!loaded && <button type="button" className="rounded-sm bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground" onClick={() => setLoaded(true)}>Load interactive basin map</button>}
+        {!loaded && <button type="button" className="rounded-sm bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground" onClick={() => setLoaded(true)}>Load interactive river map</button>}
       </div>
-      {loaded && !features.length && !error ? <p role="status" className="border-t border-border p-6 text-sm">Requesting generalized watershed polygons directly from the TWDB mapping service…</p> : null}
-      {error ? <p role="alert" className="border-t border-border p-6 text-sm text-muted-foreground">The live TWDB GIS layer is temporarily unavailable or blocks this browser. The official PDF map above and the published basin comparison below remain available. <a href={gisMetadata} target="_blank" rel="noreferrer" className="text-primary underline">Open TWDB source metadata ↗</a></p> : null}
+      {loaded && !features.length && !error ? <p role="status" className="border-t border-border p-6 text-sm">Loading official river-basin boundaries from the Texas Water Development Board…</p> : null}
+      {error ? <p role="alert" className="border-t border-border p-6 text-sm text-muted-foreground">The live Texas Water Development Board map layer is temporarily unavailable or blocked in this browser. The official PDF map above and the published basin comparison below remain available. <a href={gisMetadata} target="_blank" rel="noreferrer" className="text-primary underline">Open Texas Water Development Board source metadata ↗</a></p> : null}
       {features.length > 0 && (
         <div className="grid border-t border-border lg:grid-cols-[minmax(0,1fr)_15rem]">
           <div className="relative overflow-hidden bg-surface p-2 sm:p-5">
             <div className="mb-2 flex flex-wrap items-center gap-x-5 gap-y-2 px-2 text-xs text-muted-foreground" aria-label="Basin map legend">
               <span className="inline-flex items-center gap-2"><span aria-hidden="true" className="inline-block h-3 w-4 border" style={{ borderColor: "#456779", backgroundColor: "#638f9b" }} />15 major river basins</span>
               <span className="inline-flex items-center gap-2"><span aria-hidden="true" className="inline-block h-3 w-4 border" style={{ borderColor: "#456779", backgroundColor: "#c9b79c" }} />8 coastal basins</span>
-              <span className="inline-flex items-center gap-2"><span aria-hidden="true" className="inline-block h-3 w-4 border-2" style={{ borderColor: "#572c1c", backgroundColor: "#bf754f" }} />Selected watershed</span>
+              <span className="inline-flex items-center gap-2"><span aria-hidden="true" className="inline-block h-3 w-4 border-2" style={{ borderColor: "#572c1c", backgroundColor: "#bf754f" }} />Selected river basin</span>
             </div>
             <svg viewBox={viewBox} preserveAspectRatio="xMidYMid meet" role="img"
-              aria-label={`Official 2023 TWDB river basin polygons. ${active || "All visible watersheds"} highlighted.`}
+              aria-label={`Official 2023 Texas river basin boundaries. ${active ? `${displayName(active)} selected.` : "All visible basins shown."}`}
               className="h-auto w-full" style={{ maxHeight: 620 }}>
               {visible.map((feature, idx) => {
                 const name = feature.properties.Basin ?? "";
@@ -128,17 +128,17 @@ export function TexasRiverBasinInteractiveMap() {
                   fillOpacity={isActive ? 0.8 : active ? 0.22 : 0.55}
                   stroke={isActive ? "#572c1c" : "#456779"} strokeWidth={isActive ? 2.6 : 0.65}
                   vectorEffect="non-scaling-stroke" fillRule="evenodd"
-                  role="button" tabIndex={0} aria-label={`Select ${displayName(name)} basin`}
+                  role="button" tabIndex={0} aria-label={`Select ${displayName(name)}`}
                   aria-pressed={isActive} onClick={() => setActive(name)}
                   onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); setActive(name); } }}>
-                  <title>{displayName(name)} basin</title>
+                  <title>{displayName(name)}</title>
                 </path>;
               })}
             </svg>
-            <p className="px-2 py-2 text-xs leading-5 text-muted-foreground">Mapped outlines are simplified for screen display using an ArcGIS spatial tolerance. Zoom is for orientation, not legal, survey, or navigational use. Basins include tributary watersheds; the map does not show their channels.</p>
+            <p className="px-2 py-2 text-xs leading-5 text-muted-foreground">The outlines are simplified slightly so they display clearly on screen. Zoom is for orientation, not legal, survey or navigation use. Each basin includes the smaller creeks and streams that feed the main river; those individual channels are not shown.</p>
           </div>
           <div className="border-t border-border p-4 lg:border-l lg:border-t-0">
-            <label htmlFor="texas-basin-selector" className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Choose watershed</label>
+            <label htmlFor="texas-basin-selector" className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground">Choose a river basin</label>
             <select id="texas-basin-selector" value={active} onChange={(event) => { setActive(event.target.value); setZoom(false); }}
               className="mt-2 w-full rounded-sm border border-border bg-background p-2 text-sm">
               <option value="">All basins</option>
@@ -146,26 +146,26 @@ export function TexasRiverBasinInteractiveMap() {
             </select>
             <div className="mt-4 space-y-3 text-sm">
               <label className="flex items-center gap-2"><input type="checkbox" checked={showCoastal} onChange={(event) => { setShowCoastal(event.target.checked); setActive(""); setZoom(false); }} />Show eight coastal basins</label>
-              <label className="flex items-center gap-2"><input type="checkbox" checked={showBays} disabled={!hasSeparateBayPolygons} onChange={(event) => setShowBays(event.target.checked)} />Include bay polygons</label>
-              {!hasSeparateBayPolygons && <p className="text-xs leading-5 text-muted-foreground">The current TWDB response contains no separate bay polygons; the bay option is disabled instead of displaying an unchanged map.</p>}
+              <label className="flex items-center gap-2"><input type="checkbox" checked={showBays} disabled={!hasSeparateBayPolygons} onChange={(event) => setShowBays(event.target.checked)} />Show separately mapped bays</label>
+              {!hasSeparateBayPolygons && <p className="text-xs leading-5 text-muted-foreground">The current Texas Water Development Board data does not include separately mapped bays, so this option is disabled.</p>}
             </div>
             <div className="mt-4 flex flex-wrap gap-2">
               <button type="button" disabled={!active} onClick={() => setZoom(!zoom)} className="rounded-sm border border-border px-3 py-2 text-sm disabled:opacity-40">{zoom ? "Full Texas view" : "Zoom to selection"}</button>
               <button type="button" onClick={() => { setActive(""); setZoom(false); }} className="rounded-sm border border-border px-3 py-2 text-sm">Reset</button>
             </div>
             {active && <div className="mt-5 border-t border-border pt-4 text-sm">
-              <p role="status"><strong>{displayName(active)}</strong><span className="block text-muted-foreground">Selected watershed; actual boundaries provided by TWDB.</span></p>
+              <p role="status"><strong>{displayName(active)}</strong><span className="block text-muted-foreground">Selected river basin; boundaries provided by the Texas Water Development Board.</span></p>
               {activeGuidePath ? (
                 <a href={activeGuidePath} className="mt-3 inline-block font-semibold text-primary underline underline-offset-2">
                   Read the {displayName(active)} guide →
                 </a>
               ) : (
-                <p className="mt-3 text-xs text-muted-foreground">This is one of the eight coastal drainages between the larger named river basins. Use the TWDB directory below for primary-source context.</p>
+                <p className="mt-3 text-xs text-muted-foreground">This is one of the eight coastal drainage areas between the larger named river basins. Use the Texas Water Development Board directory below for official details.</p>
               )}
             </div>}
-            <p className="mt-6 text-xs leading-5 text-muted-foreground">Source: TWDB Groundwater Modeling / GM_MajorBasins, edited August 7, 2023. Requires access to the public TWDB GIS service. No third-party advertising, account, or location access.</p>
-            <a href={gisMetadata} target="_blank" rel="noreferrer" className="mt-3 inline-block text-xs font-semibold text-primary underline">Official GIS layer / metadata ↗</a>
-            <a href={twdbDirectory} target="_blank" rel="noreferrer" className="mt-2 block text-xs font-semibold text-primary underline">TWDB descriptions of all 23 basins ↗</a>
+            <p className="mt-6 text-xs leading-5 text-muted-foreground">Source: Texas Water Development Board official river-basin boundary data, edited August 7, 2023. The map loads from the agency's public mapping service and does not use your location.</p>
+            <a href={gisMetadata} target="_blank" rel="noreferrer" className="mt-3 inline-block text-xs font-semibold text-primary underline">Official map data / metadata ↗</a>
+            <a href={twdbDirectory} target="_blank" rel="noreferrer" className="mt-2 block text-xs font-semibold text-primary underline">Texas Water Development Board descriptions of all 15 major and 8 coastal basins ↗</a>
           </div>
         </div>
       )}

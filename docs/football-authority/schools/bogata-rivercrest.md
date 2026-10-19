@@ -1,0 +1,25 @@
+# Bogata Rivercrest Rebels — individual Batch 006 football research
+
+**Research checkpoint October 16, 2026**; 2026 game in Trenton is scheduled October 16 and its final has **not** been independently certified. **School-specific code implemented on branch `feature/football-b006-rivercrest-20261016-chat` only**, downstream of Champion #5031 / Boerne #5025; not merged, production Chrome VERIFIED, photo-rights audited or formally editorially accepted.
+
+## Canonical identity
+
+Official [Rivercrest ISD](https://www.rivercrestisd.net/) and [Rivercrest High](https://www.rivercrestisd.net/o/rhs/) identify the **Bogata, Texas Rebels**, official campus **4100 US Highway 271 South, Bogata, TX 75417**, school contact **903-632-5204**. [TEA 2026 campus ID194903001](https://rptsvr1.tea.texas.gov/cgi/sas/broker?_debug=0&_program=perfrept.perfmast.sas&_service=marykay&ccyy=2026&id=194903001&lev=C&prgopt=reports%2Facct%2Fcomparison_group.sas) says **Red River County**, not Arkansas and not necessarily every part of a cross-county district. Third-party MaxPreps schedule gives **4126 US271S**; do not claim an exact stadium gate from that inconsistent directory. [UIL 2026–28 official 2A Division I alignment](https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf): Region III **District9** — Rivercrest, Cooper, Honey Grove, Tom Bean, Trenton, Whitewright, Wolfe City. Distinct from Wilson Arkansas *Rivercrest Colts*.
+
+## 2026 dated game-level evidence and stale listings
+
+[October 16 current PigskinPrep District9](https://www.pigskinprep.com/showfreeschedules.asp?distID=106&yr=2026): Rivercrest **4–3** through October9, district **1–2**. Aug28 Maud W49–14; Sep4 Simms James Bowie W42–22; Sep11 Paris Chisum W56–42; Sep18 Prairiland L14–22; Sep25 Tom Bean L20–56; Oct2 Whitewright L7–41; Oct9 Wolfe City W30–28. [MaxPreps dedicated Oct9 Rivercrest-Wolfe City box](https://www.maxpreps.com/tx/football/game/rivercrest-bogata-vs-wolfe-city/10-9-2026/?c=e3bfc40e-df03-46d0-8b1d-620287e758c6) shows **triple overtime**, 30–28 Rivercrest. [Independent Texas Prep update](https://txprepfootball.com/schools/rivercrest-rebels/) corroborates 30–28 and 4–3. [MaxPreps dedicated Sep11 Chisum box](https://www.maxpreps.com/tx/football/game/chisum-paris-vs-rivercrest-bogata/9-11-2026/?c=de08f615-352b-49a6-acc8-7ab8d745df9c) says **56–42**. BUT the [older MaxPreps team schedule, dated Oct3](https://www.maxpreps.com/tx/bogata/rivercrest-rebels/football/schedule/) gives **49–42** and omits Oct9; its team page may still show **3–0 as of September**. Prioritize source-specific box + PigskinPrep; explicitly label stale source conflict rather than silently treating it as verified. Oct16 @Trenton, Oct30 Honey Grove home, Nov6 @Cooper remain schedule entries, **not finals**.
+
+## Historical and visit-specific value
+
+[Dave Campbell's Texas Football Rivercrest program page](https://www.texasfootball.com/team/bogota-rivercrest-rebels) lists **2019 11–2, 2024 8–3**, zero state titles or state-final appearances. Do not turn eleven wins into a fictional UIL championship. DCTF gives a program-only stadium label "Rivercrest Rebel Stadium" but has **not** established current exact vehicle entrance, ADA, ticket conditions or independent image license; venue field intentionally omitted. [Official school football page](https://www.rivercrestisd.net/o/rhs/page/football) is the visitor-checkpoint. Third-party coach sources inconsistent (2026 MaxPreps history Travis McClain vs stale team page "L. Kennedy"); omit named coach pending dated district corroboration. No copied photos, logos or rights claims.
+
+## Authored changes and acceptance
+
+Unique SEO, original editorial tied to 2019/2024/2026, seven school-specific FAQs, dated seven result + three future fixture table and 2-way Red River County context. Following merge of upstream Champion and Boerne, reconcile current main, run canonical `node scripts/ci/run-premerge-validation.mjs`, required protected Merge Gate, verify exact production descendant deployment, then focused real Chrome desktop/mobile accessibility, schema, SEO/canonical, county links, dated source corrections, rights and independent nine-dimension editorial acceptance. Keep previous 105 VERIFIED untouched. No sitewide post-update scans.
+
+## October 19, 2026 — updated October 16 final (reported, not accepted)
+
+[MaxPreps' current Rivercrest schedule](https://www.maxpreps.com/tx/bogata/rivercrest-rebels/football/schedule/) and [High School On SI's October 16 scoreboard](https://www.si.com/high-school/texas/texas-high-school-football-final-scores-results-october-16-01m53bh2k5w8) record **Trenton 21, Rivercrest 17**, bringing Rivercrest to **4–4 through October 16**. The original district alignment, 2019/2024 historical achievements, October 9 Wolfe City overtime result and 2026 school identity are preserved.
+
+This source-backed editorial correction does not establish a school-certified UIL final, image license, guaranteed stadium entrance, exact deployed commit or school-specific nine-dimension editorial/Chrome acceptance. Preserve this school's `DEPLOYED` status until acceptance evidence is recorded.

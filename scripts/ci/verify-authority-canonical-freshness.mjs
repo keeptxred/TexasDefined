@@ -4,10 +4,10 @@ const pages = [
     url: 'https://texasdefined.com/article/texas-rivers-explained',
     required: [
       'Texas Rivers Explained',
-      'Start with the map',
-      'Texas Rivers, Region by Region',
+      'See how Texas rivers cross the state',
+      'How Texas Rivers Change Across the State',
       'Explore All 15 Major Texas River Basins',
-      'Texas rivers at a glance: six quick answers',
+      'Texas Rivers at a Glance',
       'Open the full 15-basin comparison',
     ],
     forbidden: [
@@ -41,6 +41,25 @@ const pages = [
       'Research desk',
     ],
     forbidden: ['Texas Landscapes guide'],
+  },
+  {
+    label: 'Katy District 22-6A game-week hub',
+    url: 'https://texasdefined.com/texas-high-school-football-districts/6a-district-22',
+    required: [
+      'Katy ISD District 22-6A Football',
+      'Katy ISD district game week',
+      'District records from reported games',
+      'not UIL-certified standings',
+      'Reported final scores',
+      'Scheduled / result awaiting verification',
+      'MaxPreps reported final',
+      'UIL alignment source',
+      'Katy Tompkins',
+    ],
+    forbidden: [
+      'Your district hub for the current UIL alignment',
+      'District 22-6A Football | Teams &amp; UIL Guide',
+    ],
   },
   {
     label: 'Six-man football',
