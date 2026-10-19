@@ -19,7 +19,7 @@ const outdoors: LinkRecord[] = [
 const heritage: LinkRecord[] = [
   { href: '/destination/chamizal-national-memorial', label: 'Chamizal National Memorial', copy: 'International boundary history and cultural programs.' },
   { href: '/destination/magoffin-home', label: 'Magoffin Home', copy: 'Adobe architecture and El Paso borderlands history.' },
-  { href: '/destination/old-socorro-mission', label: 'Old Socorro Mission', copy: 'Historic mission landscape in Socorro and the Lower Valley.' },
+  { href: '/destination/old-socorro-mission', label: 'Old Socorro Mission — closed', copy: 'Original archaeological site and Piro Pueblo history; not the modern mission church.' },
   { href: '/destination/hotel-paso-del-norte', label: 'Hotel Paso del Norte', copy: 'The historic downtown hotel and its restored dome.' },
   { href: '/destination/ysleta-del-sur-pueblo-cultural-center-museum-el-paso', label: 'Ysleta del Sur Pueblo Cultural Center', copy: 'Living Tigua cultural interpretation and history.' },
 ];
