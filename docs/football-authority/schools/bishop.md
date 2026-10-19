@@ -1,5 +1,8 @@
 # Bishop Badgers — Batch 006 original research and implementation
 
+> **CURRENT DEPLOYED STATUS — October 19, 2026:** The school-specific authority editorial is merged on `main` and the canonical Batch 006 registry records this page **DEPLOYED**. The [single-Worker-release targeted production Chrome run #39273758531](https://github.com/keeptxred/TexasDefined/actions/runs/39273758531) passed Batch 006 school viewport, reciprocal county and sitemap checks on its tested release. **Individual nine-dimension factual/editorial signoff, photo/brand rights and manual accessibility review are NOT established; this page is NOT individually VERIFIED.** Earlier notes below describing an unmerged branch are historical checkpoints, not today's release status.
+
+
 **Checkpoint: October 15, 2026.** Nueces County, Bishop Consolidated ISD. Implemented on dependent branch feature/football-b006-bishop-20261015; **not deployed, not Chrome-verified, not formally editorially accepted**.
 
 ## Identity and authoritative alignment
