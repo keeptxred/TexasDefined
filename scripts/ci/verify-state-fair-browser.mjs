@@ -58,6 +58,7 @@ try {
       row.checks.gallery = initial.galleryPresent;
       row.checks.map = initial.links.includes('https://bigtex.com/plan-your-visit/map/');
       row.checks.ticketInfo = initial.bodyText.includes('2026 ticket prices and admission');
+      row.checks.futureTicketDestination = !seasonOver || (await page.locator('[data-state-fair-official-ticket-cta]').getAttribute('href')) === 'https://bigtex.com/';
       row.checks.includedActivities = initial.bodyText.includes('More than 100 daily activities');
       row.checks.cottonBowlLink = initial.links.includes(origin + '/sports-venue/cotton-bowl');
       row.checks.redRiverLink = initial.links.includes(origin + '/event/red-river-rivalry');
