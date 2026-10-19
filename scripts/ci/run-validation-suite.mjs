@@ -70,6 +70,7 @@ const checks = [
   ['content-duplication', 'CONTENT/QUALITY', 'Validate content duplication', 'node', ['scripts/data/validate-content-duplication.mjs']],
   ['sitemap-routes', 'SEO/ROUTING', 'Validate sitemap routes', 'node', ['scripts/data/validate-sitemap-routes.mjs']],
   ['internal-link-discovery', 'INTERNAL-LINKING', 'Validate internal-link discovery', 'node', ['scripts/data/validate-internal-link-discovery.mjs']],
+  ['el-paso-area-authority', 'INTERNAL-LINKING', 'Validate El Paso metro definitions and reciprocal links', 'node', ['scripts/data/validate-el-paso-area-authority.mjs']],
   ['search-intent-ctr', 'SEO/CTR', 'Validate search-intent CTR', 'node', ['scripts/data/validate-search-intent-ctr.mjs']],
   ['governed-seo-duplicates', 'SEO/TECHNICAL', 'Validate governed SEO override path uniqueness', 'node', ['scripts/data/validate-governed-seo-duplicate-paths.mjs']],
   ['phase7-technical-seo', 'SEO/TECHNICAL', 'Validate Phase 7 technical SEO batch', 'node', ['scripts/data/validate-phase7-technical-seo.mjs']],

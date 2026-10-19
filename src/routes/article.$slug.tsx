@@ -1,3 +1,4 @@
+import { ElPasoAreaCrossLinks } from '@/components/content/ElPasoAreaAuthority';
 import { createFileRoute, notFound, Link } from "@tanstack/react-router";
 import { lazy, Suspense, useEffect } from "react";
 
@@ -509,6 +510,7 @@ function ArticlePage() {
           />
         ) : <ArticleBody blocks={article.body} entities={graph} />}
       </div>
+      <ElPasoAreaCrossLinks kind="article" slug={article.slug} />
       {footballTravelArticleSlugs.has(article.slug) ? <FootballFanOffers slug={article.slug} hasUpcomingAwayTravel={false} showTravelPlanning /> : null}
       {isTexasRiversArticle ? <Suspense fallback={null}><TexasRiversAfterArticle /></Suspense> : null}
       {waterTopic ? (
