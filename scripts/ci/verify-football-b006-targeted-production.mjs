@@ -59,6 +59,10 @@ const coachCheckpoints={
  bloomington:'Lane Shands',             // Texas Football Feb 2026 analysis
  boerne:'Brett Sawyer',                 // Feb 2025 hiring + Sept 2026 Boerne Star
  'boys-ranch':'Louis Kelley III',        // Boys Ranch ISD head-coach directory + 2023 hiring
+ bovina:'Wade Wilson',                // KFDA August 2026 first-hand coach interview
+ boyd:'Shawn Sparks',                // NTX Varsity August 2026 first-hand interview
+ 'borden-county':'Trey Richey',      // Lamesa Press-Reporter August 2026 original sports report
+ 'bowie-gold-burg':'Austin Norman',  // Bowie News Oct 2026 game-day coaching interview
 };
 for(const school of schools){
  const checkpoint=coachCheckpoints[school.slug];
