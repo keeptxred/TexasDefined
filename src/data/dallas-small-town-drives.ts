@@ -32,7 +32,7 @@ export const DALLAS_SMALL_TOWN_DRIVES = {
 export const DALLAS_DRIVES_VERIFIED_AT = "2026-10-19";
 
 function normalizeTown(name: string) {
-  return name.toLowerCase().normalize("NFKD").replace(/[\\u0300-\\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  return name.toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 }
 
 export function getDallasSmallTownDrive(...names: string[]) {
