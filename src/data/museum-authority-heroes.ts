@@ -3,6 +3,18 @@ import { isDestinationPhotoPlaceholder } from "./explore-hero-reconciliation";
 
 /** Lightweight exact-site photo sources. Never bundle long museum research dossiers in core destination discovery. */
 export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
+  "texas-military-forces-museum": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Ceremonies_at_Camp_Mabry_190112-Z-DZ751-0199_(32916620338).jpg?width=1600",
+    alt: "A January 2019 military history presentation inside the Texas Military Forces Museum at Camp Mabry in Austin",
+    width: 3000, height: 2002,
+    credit: "Sgt. 1st Class Jim Greenhill · 12 January 2019 · CC BY 2.0 · Wikimedia Commons · Ceremonies at Camp Mabry 190112-Z-DZ751-0199 (32916620338).jpg"
+  },
+  "mcnay-art-museum-san-antonio": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/McNay_Art_Museum_May_2018_2_(Courtyard).jpg?width=1600",
+    alt: "Historic McNay Art Museum courtyard in San Antonio, photographed in May 2018",
+    width: 1600, height: 1200,
+    credit: "Michael Barera · 24 May 2018 · CC BY-SA 4.0 · Wikimedia Commons · McNay Art Museum May 2018 2 (Courtyard).jpg"
+  },
   "museum-of-texas-tech-university-lubbock": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Museum_of_Texas_Tech_University_IMG_0038.JPG?width=1600",
     alt: "Museum of Texas Tech University building on its Lubbock campus, photographed in April 2009",

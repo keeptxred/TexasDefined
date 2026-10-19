@@ -28,6 +28,75 @@ export interface MuseumAuthorityDossier {
 
 /** Links are to exact, existing destinations or stable topic hubs, not guessed paths. */
 export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
+  "mcnay-art-museum-san-antonio": {
+    name: "McNay Art Museum", slug: "mcnay-art-museum-san-antonio", county: "Bexar", city: "San Antonio", reviewed: "2026-10-19",
+    topics: ["modern-art", "architecture", "sculpture", "family-learning"],
+    whyVisit: "The McNay is not merely an indoor gallery: it joins the Spanish Colonial Revival residence designed for Marion Koogler McNay, a large modern-art collection and a landscaped 25-acre sculpture campus in north-central San Antonio. The intimate original house, newer exhibition spaces and changing installations offer quite different experiences in one visit.",
+    visitorStrategy: "Enter at 6000 North New Braunfels Avenue, not a downtown River Walk museum address. Official hours are Wednesday 10 a.m.–6 p.m., Thursday 10 a.m.–9 p.m., Friday 10 a.m.–6 p.m., Saturday 10 a.m.–5 p.m. and Sunday noon–5 p.m.; closed Monday and Tuesday. Free parking is available in several campus lots. The current ticket table includes $23 general admission with the special exhibition, $10 for ages 13–19 and free entry for ages 12 and younger. General admission is free Thursdays 4–9 p.m. and the first Sunday of each month noon–5 p.m., but special exhibition entry costs $10 at those times. Budget 90 minutes for selected galleries, or two or more hours if adding the sculpture grounds. A currently operating on-site café or full-service restaurant has not been verified, so plan meals separately rather than assuming food is available. Check day-of tickets, holiday closures and individual exhibitions before travel.",
+    accessibility: "The museum confirms designated accessible parking, an accessible entrance, elevators and loan wheelchairs available through visitor services. Most galleries are wheelchair accessible, but some areas may require additional assistance, especially within the historic estate. Request route-specific access or other accommodations from the museum at 210-824-5368 before a visit; do not assume every outdoor sculpture path is uniformly level.",
+    familiesAndGroups: "This can suit art-interested teens and younger children when adults choose a short gallery route, outdoor breaks and age-appropriate exhibitions; it is not an indoor playground. Children must remain accompanied by adults, artwork must not be touched, and some works or temporary shows may require additional context. Free admission for children 12 and younger can help families; the operator has separate paid and advance-arranged tour options. Visitors seeking a sensory-specific accommodation should ask staff rather than assuming a particular support exists.",
+    researchValue: "The museum opened in 1954, a distinctive early Texas modern-art institution built from Marion Koogler McNay's home and collection. Its online collection contains far more than is on display at a given moment; galleries on works on paper, modern painting and theater arts and temporary exhibitions rotate. Compare a house-gallery experience with the museum's later Stieren Center and sculpture garden instead of treating the online holdings as an on-view checklist.",
+    exhibits: [
+      { heading: "Original Spanish Colonial Revival residence", detail: "The 1920s McNay house and courtyard explain how a domestic art collection became a public museum, with the architecture part of the visitor experience." },
+      { heading: "Modern and contemporary collection", detail: "European and American painting and sculpture are presented through rotating selections, not the entirety of the museum's extensive collection." },
+      { heading: "Works on paper and theater arts", detail: "Specialized drawings, prints and stage-related material broaden the visit beyond easel painting; verify which galleries are currently open." },
+      { heading: "Sculpture campus and courtyards", detail: "The 25-acre grounds create a distinct outdoor component; do not touch the sculptures and prepare for Texas sun and changing weather." },
+      { heading: "Two Faced: artists' portraits (dated)", detail: "Listed by the museum for September 3, 2026–March 14, 2027; confirm still on view for the selected day." },
+      { heading: "A People's History: the American Experiment on Stage (dated)", detail: "Stage design and American history exhibition announced through November 8, 2026; not an evergreen permanent gallery." }
+    ],
+    routes: [
+      { label: "90-minute first visit", steps: ["Park at an official McNay lot and confirm today's featured galleries", "See the historic residence and a short selection of modern art", "Finish with a weather-appropriate courtyard or sculpture walk"] },
+      { label: "Budget-friendly free-admission outing", steps: ["Plan for Thursday after 4 p.m. or the first Sunday of the month", "Ask whether a $10 special exhibition supplement applies to anything on your list", "Choose the free general galleries and grounds without assuming every special exhibition is included"] },
+      { label: "Families and access planning", steps: ["Check visitor policies and ask in advance about mobility or sensory needs", "Use short gallery blocks and the free parking lots", "Use the grounds for breaks and keep children with an adult near artworks"] }
+    ],
+    sources: [
+      { label: "McNay — hours, admissions, free-day policy and access", url: "https://www.mcnayart.org/visit/", use: "Opening hours, pricing, grounds schedule, free offers, phone and accommodation caveats" },
+      { label: "McNay — visitor FAQ", url: "https://www.mcnayart.org/frequently-asked-questions/", use: "Parking, photography, elevators, sketching and first-Sunday policies" },
+      { label: "McNay — visitor policies", url: "https://www.mcnayart.org/general-information/", use: "Children, service animals, bags and photography restrictions" },
+      { label: "McNay — exhibitions", url: "https://www.mcnayart.org/exhibitions/", use: "Dated 2026–27 temporary exhibitions; not permanent collections" },
+      { label: "McNay — tour FAQs", url: "https://www.mcnayart.org/adult-tours/", use: "Booked tours, separate ticket rates and limited tour duration" }
+    ],
+    connections: [
+      { label: "Bexar County", href: "/county/bexar", reason: "Place the museum in the county's arts and heritage context." },
+      { label: "San Antonio Museum of Art", href: "/destination/san-antonio-museum-of-art", reason: "Compare McNay's historic estate and modern holdings with a downtown museum." },
+      { label: "Witte Museum", href: "/destination/witte-museum", reason: "Build a family day around different art, natural-science and regional-history experiences." },
+      { label: "Texas museum guides", href: "/explore/museums", reason: "Discover additional researched Texas museum visitor guides." }
+    ],
+  },
+  "texas-military-forces-museum": {
+    name: "Texas Military Forces Museum", slug: "texas-military-forces-museum", county: "Travis", city: "Austin", reviewed: "2026-10-19",
+    topics: ["military-history", "texas-history", "national-guard", "family-learning"],
+    whyVisit: "The Texas Military Forces Museum inside Camp Mabry is an unusual free Austin history stop on an active National Guard installation. Rather than a general war memorial, it explains how Texas militia, volunteer troops, the Texas Army and Air National Guard, and the Texas State Guard developed through the Republic era, world wars and modern service, using original vehicles, uniforms, dioramas and soldiers' stories.",
+    visitorStrategy: "The museum itself is open daily 10 a.m.–4 p.m. with free admission and parking, but visiting is not a normal walk-up street entrance. Adult visitors must complete security screening at Camp Mabry's 35th Street Gate Visitor Control Center, using Maintenance Drive; the Center closes at 3 p.m. every day. The Texas Military Department now specifies a REAL ID or U.S. passport, plus vehicle details and proof of insurance. Weekday VCC hours begin at 7 a.m., weekend VCC hours 8 a.m.; both close at 3 p.m. Be at the gate well before 3 p.m., and check entry requirements on the day. The museum's postal address is 2200 W 35th Street; GPS directions may use 3038 W 35th Street. Museum visitor access is discretionary, and the operating museum is in Building 6, not at the gate. Allow 90 minutes to two hours for principal galleries, plus additional screening time. No restaurant, café or other food service has been verified inside the museum itself.",
+    accessibility: "The operator offers a telephone for special entry accommodations at 512-782-5659. The detailed public visitor-access page explains base clearance rather than establishing every museum gallery's wheelchair, sensory or hearing facilities. Visitors requiring a specific entrance, wheelchair route or interpretation accommodation should call ahead; do not equate installation approval with confirmed gallery accessibility.",
+    familiesAndGroups: "Families interested in vehicles, history and military service can use the large displays for a child-friendly introduction, but wartime weapons, casualties and violent history may be intense for younger children. No one may touch or climb display vehicles and tanks, whether indoors or outside. Adult visitors aged 18 or older must be screened; school and other groups should arrange their entrance with the host at least five business days in advance. Guided museum tours are free with donations welcomed and typically last 1.5–2 hours, adjusted with advance notice. The active installation's security rules override a normal museum outing.",
+    researchValue: "Permanent interpretive areas trace Texas forces from early settlement and the Texas Revolution through the Mexican War, Civil War, twentieth-century conflicts, Cold War and modern Guard operations. Different current operator pages describe the museum as 26,000 or 45,000 square feet: these conflicting display/facility measurements are not used to promise exhibit scale. The museum is not a substitute for its archival collection or military service records, which should be requested from the institution itself.",
+    exhibits: [
+      { heading: "Texas militia and Republic-era service", detail: "Early citizen-soldier formations, Texas independence and the transition from volunteer service to organized Guard forces form a distinctive Texas chronology." },
+      { heading: "36th Infantry Division in world conflict", detail: "Uniforms, photographs and contextual wartime stories illuminate Texas soldiers' roles in the two world wars without promising that every artifact is always on display." },
+      { heading: "Military vehicles and outdoor displays", detail: "Tanks, trucks and other large equipment create a memorable view of military technology; exhibits must not be climbed or touched." },
+      { heading: "Texas Air National Guard and State Guard", detail: "Contrasts the federally recognized Air and Army Guard with Texas State Guard responsibilities and state emergency response." },
+      { heading: "Living-history activities and reenactments", detail: "Event weekends add educational demonstrations; they are occasional programs with separate schedules, not guaranteed features of an ordinary museum visit." }
+    ],
+    routes: [
+      { label: "One-and-a-half-hour first visit", steps: ["Review the current Camp Mabry gate rules and bring an acceptable ID, vehicle details and insurance", "Complete VCC screening well before 3 p.m. and travel to Building 6", "Select Texas Revolution, 36th Division and Guard galleries, then leave time for vehicles if open"] },
+      { label: "Families and vehicle enthusiasts", steps: ["Explain no-climbing rules before children see tanks and weapons", "Explore large vehicle exhibits and a short, age-appropriate chronological section", "Check weather and return to town for a separately planned meal"] },
+      { label: "Organized school or history group", steps: ["Contact museum and base in advance, providing group access information at least five business days ahead", "Confirm adult chaperones' identification, bus access and special accommodations", "Plan a supervised free guided visit of roughly 1.5–2 hours"] }
+    ],
+    sources: [
+      { label: "Texas Military Forces Museum — official hours and entry information", url: "https://texasmilitaryforcesmuseum.org/", use: "Daily 10–4 schedule, free admission, gate cutoff, museum and GPS addresses" },
+      { label: "Texas Military Department — Camp Mabry visitor access", url: "https://tmd.texas.gov/camp-mabry-visitor-access-information", use: "REAL ID, screening, weekends, foreign national restrictions and group lead time" },
+      { label: "Texas Military Department — museum", url: "https://tmd.texas.gov/museum", use: "Institutional oversight and museum exhibits" },
+      { label: "Museum — guided group tour instructions", url: "https://texasmilitaryforcesmuseum.org/?page_id=107", use: "Tour duration, hands-off exhibits, ID and group guidance" },
+      { label: "Museum — about, history and directions", url: "https://texasmilitaryforcesmuseum.org/?page_id=13", use: "Museum location, opening hours, interpretation and public entry" }
+    ],
+    connections: [
+      { label: "Travis County", href: "/county/travis", reason: "Connect Camp Mabry with the state's capital and local history." },
+      { label: "Bullock Texas State History Museum", href: "/destination/bullock-texas-state-history-museum", reason: "Compare a broad statewide story with the military collections." },
+      { label: "Texas State Capitol", href: "/destination/texas-state-capitol", reason: "Connect the state's military history with the civic setting of Austin." },
+      { label: "Explore Texas museums", href: "/explore/museums", reason: "Find other source-backed Texas museum guides." }
+    ],
+  },
   "menil-collection-houston": {
     name: "The Menil Collection", slug: "menil-collection-houston", county: "Harris", city: "Houston", reviewed: "2026-10-19",
     topics: ["art", "architecture", "surrealism", "cultural-history"],

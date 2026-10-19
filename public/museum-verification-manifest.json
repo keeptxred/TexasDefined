@@ -3,6 +3,29 @@
   "description": "Production museum visitor-guide sources for the existing TexasDefined Supabase authority verification registry; no collection replicas.",
   "museums": [
     {
+      "path": "/destination/1919-san-augustine-county-jail-museum",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 9,
+      "sources": [
+        {
+          "sourceUrl": "https://visitsanaugustinetx.org/local-attractions/",
+          "fetchUrl": "https://visitsanaugustinetx.org/local-attractions/",
+          "label": "Official tourism museum hours, exhibits and history"
+        },
+        {
+          "sourceUrl": "https://atlas.thc.texas.gov/Details/5507018848",
+          "fetchUrl": "https://atlas.thc.texas.gov/Details/5507018848",
+          "label": "Texas Historical Commission jail historical-marker evidence"
+        },
+        {
+          "sourceUrl": "https://thc.texas.gov/historic-sites/mission-dolores",
+          "fetchUrl": "https://thc.texas.gov/historic-sites/mission-dolores",
+          "label": "Separately operated Mission Dolores current visitor guidance"
+        }
+      ]
+    },
+    {
       "path": "/destination/1940-air-terminal-museum-houston",
       "topic": "museum-visitor-guide",
       "cadenceDays": 30,
@@ -247,6 +270,44 @@
       ]
     },
     {
+      "path": "/destination/armstrong-browning-library-museum-waco",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit",
+          "fetchUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit",
+          "label": "Baylor official visitor guidance"
+        },
+        {
+          "sourceUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/directions-parking",
+          "fetchUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/directions-parking",
+          "label": "Baylor parking and accessible entrance"
+        },
+        {
+          "sourceUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/tours",
+          "fetchUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/tours",
+          "label": "Baylor tour policy"
+        },
+        {
+          "sourceUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/building-map-online-tour",
+          "fetchUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/building-map-online-tour",
+          "label": "Baylor gallery map and rooms"
+        },
+        {
+          "sourceUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/research-instruction/use-collections",
+          "fetchUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/research-instruction/use-collections",
+          "label": "FAQ source: May visitors handle rare letters and manuscripts in the museum?"
+        },
+        {
+          "sourceUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/use-our-facility/portrait-policies",
+          "fetchUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/use-our-facility/portrait-policies",
+          "label": "FAQ source: Can I use the library as a venue for wedding portraits?"
+        }
+      ]
+    },
+    {
       "path": "/destination/art-museum-south-texas-corpus-christi",
       "topic": "museum-visitor-guide",
       "cadenceDays": 30,
@@ -294,6 +355,29 @@
           "sourceUrl": "https://amset.org/schedule-a-tour/",
           "fetchUrl": "https://amset.org/schedule-a-tour/",
           "label": "Free school tour and access arrangements"
+        }
+      ]
+    },
+    {
+      "path": "/destination/audie-murphy-american-cotton-museum-greenville",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://cottonmuseum.com/visit/",
+          "fetchUrl": "https://cottonmuseum.com/visit/",
+          "label": "Official visiting information"
+        },
+        {
+          "sourceUrl": "https://cottonmuseum.com/",
+          "fetchUrl": "https://cottonmuseum.com/",
+          "label": "Museum homepage and gallery highlights"
+        },
+        {
+          "sourceUrl": "https://cottonmuseum.com/about/",
+          "fetchUrl": "https://cottonmuseum.com/about/",
+          "label": "Museum history and grounds"
         }
       ]
     },
@@ -354,6 +438,34 @@
       ]
     },
     {
+      "path": "/destination/bell-county-museum-belton",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://www.bellcountymuseum.org/p/visit/faqs",
+          "fetchUrl": "https://www.bellcountymuseum.org/p/visit/faqs",
+          "label": "Museum official FAQ"
+        },
+        {
+          "sourceUrl": "https://www.bellcountymuseum.org/directions.aspx",
+          "fetchUrl": "https://www.bellcountymuseum.org/directions.aspx",
+          "label": "Museum posted hours"
+        },
+        {
+          "sourceUrl": "https://www.bellcountymuseum.org/p/visit",
+          "fetchUrl": "https://www.bellcountymuseum.org/p/visit",
+          "label": "Museum official visiting and free admission"
+        },
+        {
+          "sourceUrl": "https://www.bellcountymuseum.org/events",
+          "fetchUrl": "https://www.bellcountymuseum.org/events",
+          "label": "Official Bell County Museum event calendar"
+        }
+      ]
+    },
+    {
       "path": "/destination/blanton-museum-of-art-austin",
       "topic": "museum-visitor-guide",
       "cadenceDays": 30,
@@ -383,6 +495,52 @@
           "sourceUrl": "https://blantonmuseum.org/visit/group-visits/",
           "fetchUrl": "https://blantonmuseum.org/visit/group-visits/",
           "label": "Blanton group visits"
+        }
+      ]
+    },
+    {
+      "path": "/destination/brazos-valley-museum-natural-history-bryan",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://www.brazosvalleymuseum.org/visit",
+          "fetchUrl": "https://www.brazosvalleymuseum.org/visit",
+          "label": "Museum official visitor information"
+        },
+        {
+          "sourceUrl": "https://www.brazosvalleymuseum.org/about-the-museum",
+          "fetchUrl": "https://www.brazosvalleymuseum.org/about-the-museum",
+          "label": "Museum institutional mission and programming"
+        },
+        {
+          "sourceUrl": "https://www.brazosvalleymuseum.org/accessibility",
+          "fetchUrl": "https://www.brazosvalleymuseum.org/accessibility",
+          "label": "Museum website accessibility statement"
+        }
+      ]
+    },
+    {
+      "path": "/destination/brenham-heritage-museum",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://www.bhmtexas.org/visit",
+          "fetchUrl": "https://www.bhmtexas.org/visit",
+          "label": "Brenham Heritage Museum visitor rules"
+        },
+        {
+          "sourceUrl": "https://www.bhmtexas.org/visit/exhibits",
+          "fetchUrl": "https://www.bhmtexas.org/visit/exhibits",
+          "label": "Museum current exhibits"
+        },
+        {
+          "sourceUrl": "https://www.bhmtexas.org/",
+          "fetchUrl": "https://www.bhmtexas.org/",
+          "label": "Museum homepage"
         }
       ]
     },
@@ -421,6 +579,39 @@
           "sourceUrl": "https://thebryanmuseum.org/hours-location",
           "fetchUrl": "https://thebryanmuseum.org/hours-location",
           "label": "Bryan Museum — location"
+        }
+      ]
+    },
+    {
+      "path": "/destination/buffalo-soldiers-national-museum-houston",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://buffalosoldiersmuseum.org/visit/",
+          "fetchUrl": "https://buffalosoldiersmuseum.org/visit/",
+          "label": "Museum official closure and previous policies"
+        },
+        {
+          "sourceUrl": "https://buffalosoldiersmuseum.org/visit/group-tours/",
+          "fetchUrl": "https://buffalosoldiersmuseum.org/visit/group-tours/",
+          "label": "Museum group tour cancellation"
+        },
+        {
+          "sourceUrl": "https://buffalosoldiersmuseum.org/visit/exhibits/",
+          "fetchUrl": "https://buffalosoldiersmuseum.org/visit/exhibits/",
+          "label": "Museum exhibit and digital themes"
+        },
+        {
+          "sourceUrl": "https://buffalosoldiersmuseum.org/",
+          "fetchUrl": "https://buffalosoldiersmuseum.org/",
+          "label": "FAQ source: What can families visit nearby instead while the museum is closed?"
+        },
+        {
+          "sourceUrl": "https://houmuse.org/institution/buffalo-soldiers-national-museum/",
+          "fetchUrl": "https://houmuse.org/institution/buffalo-soldiers-national-museum/?td_monitor=1",
+          "label": "Houston Museum District independent institutional status; uses content-readable cache bypass"
         }
       ]
     },
@@ -482,6 +673,57 @@
           "sourceUrl": "https://thc.texas.gov/learn/archeological-spotlight/la-salle-archeology-projects",
           "fetchUrl": "https://thc.texas.gov/learn/archeological-spotlight/la-salle-archeology-projects",
           "label": "FAQ verification: Where can I see the La Belle ship itself?"
+        }
+      ]
+    },
+    {
+      "path": "/destination/crow-museum-asian-art-dallas",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://crowmuseum.org/dallas-arts-district/",
+          "fetchUrl": "https://crowmuseum.org/dallas-arts-district/",
+          "label": "Crow Dallas Arts District location"
+        },
+        {
+          "sourceUrl": "https://crowmuseum.org/visit/",
+          "fetchUrl": "https://crowmuseum.org/visit/",
+          "label": "Crow current exhibitions by venue"
+        },
+        {
+          "sourceUrl": "https://crowmuseum.org/where-to-park/",
+          "fetchUrl": "https://crowmuseum.org/where-to-park/",
+          "label": "Crow accessible entrances"
+        },
+        {
+          "sourceUrl": "https://crowmuseum.org/about-the-museum/faqs/",
+          "fetchUrl": "https://crowmuseum.org/about-the-museum/faqs/",
+          "label": "Crow general visitor FAQ"
+        }
+      ]
+    },
+    {
+      "path": "/destination/czech-heritage-museum-genealogy-center-temple",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://czechheritagemuseum.org/contact-us",
+          "fetchUrl": "https://czechheritagemuseum.org/contact-us",
+          "label": "Museum official visiting hours and admission"
+        },
+        {
+          "sourceUrl": "https://czechheritagemuseum.org/plan-your-visit",
+          "fetchUrl": "https://czechheritagemuseum.org/plan-your-visit",
+          "label": "Museum tour choices and directions"
+        },
+        {
+          "sourceUrl": "https://czechheritagemuseum.org/",
+          "fetchUrl": "https://czechheritagemuseum.org/",
+          "label": "Museum official home"
         }
       ]
     },
@@ -614,6 +856,34 @@
           "sourceUrl": "https://easttexasoilmuseum.kilgore.edu/memberships/",
           "fetchUrl": "https://easttexasoilmuseum.kilgore.edu/memberships/",
           "label": "Museum annual membership details"
+        }
+      ]
+    },
+    {
+      "path": "/destination/eisenhower-birthplace",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://thc.texas.gov/state-historic-sites/eisenhower-birthplace/plan-your-visit-eisenhower-birthplace",
+          "fetchUrl": "https://thc.texas.gov/state-historic-sites/eisenhower-birthplace/plan-your-visit-eisenhower-birthplace",
+          "label": "THC current visitor guide and tour booking"
+        },
+        {
+          "sourceUrl": "https://thc.texas.gov/state-historic-sites/eisenhower-birthplace/eisenhower-birthplace-history",
+          "fetchUrl": "https://thc.texas.gov/state-historic-sites/eisenhower-birthplace/eisenhower-birthplace-history",
+          "label": "THC official birthplace history"
+        },
+        {
+          "sourceUrl": "https://thc.texas.gov/blog/homes-president-eisenhower",
+          "fetchUrl": "https://thc.texas.gov/blog/homes-president-eisenhower",
+          "label": "THC presidential-home comparison"
+        },
+        {
+          "sourceUrl": "https://atlas.thc.texas.gov/Details/4200000469",
+          "fetchUrl": "https://atlas.thc.texas.gov/Details/4200000469",
+          "label": "THC historic site Atlas"
         }
       ]
     },
@@ -1109,6 +1379,44 @@
       ]
     },
     {
+      "path": "/destination/mcnay-art-museum-san-antonio",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://www.mcnayart.org/visit/",
+          "fetchUrl": "https://www.mcnayart.org/visit/",
+          "label": "Operator: hours, admission, grounds and accessibility"
+        },
+        {
+          "sourceUrl": "https://www.mcnayart.org/frequently-asked-questions/",
+          "fetchUrl": "https://www.mcnayart.org/frequently-asked-questions/",
+          "label": "Operator: FAQ, free parking, photography"
+        },
+        {
+          "sourceUrl": "https://www.mcnayart.org/general-information/",
+          "fetchUrl": "https://www.mcnayart.org/general-information/",
+          "label": "Operator: pets, visitor safety and policies"
+        },
+        {
+          "sourceUrl": "https://www.mcnayart.org/exhibitions/",
+          "fetchUrl": "https://www.mcnayart.org/exhibitions/",
+          "label": "Operator: time-limited exhibitions"
+        },
+        {
+          "sourceUrl": "https://www.mcnayart.org/adult-tours/",
+          "fetchUrl": "https://www.mcnayart.org/adult-tours/",
+          "label": "Operator: guided tour distinctions"
+        },
+        {
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:McNay_Art_Museum_May_2018_2_(Courtyard).jpg",
+          "fetchUrl": "https://commons.wikimedia.org/wiki/File:McNay_Art_Museum_May_2018_2_(Courtyard).jpg",
+          "label": "License: Michael Barera CC BY-SA 4.0 exact McNay courtyard"
+        }
+      ]
+    },
+    {
       "path": "/destination/menil-collection-houston",
       "topic": "museum-visitor-guide",
       "cadenceDays": 30,
@@ -1227,6 +1535,39 @@
           "sourceUrl": "https://www.depts.ttu.edu/nsrl/",
           "fetchUrl": "https://www.depts.ttu.edu/nsrl/",
           "label": "Texas Tech Museum — scientific collections"
+        }
+      ]
+    },
+    {
+      "path": "/destination/museum-of-the-american-railroad-frisco",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://www.historictrains.org/visit",
+          "fetchUrl": "https://www.historictrains.org/visit",
+          "label": "Museum official visiting calendar and fees"
+        },
+        {
+          "sourceUrl": "https://www.historictrains.org/traintopia",
+          "fetchUrl": "https://www.historictrains.org/traintopia",
+          "label": "TrainTopia activities"
+        },
+        {
+          "sourceUrl": "https://www.historictrains.org/virtual-tour",
+          "fetchUrl": "https://www.historictrains.org/virtual-tour",
+          "label": "Museum rolling stock virtual tour"
+        },
+        {
+          "sourceUrl": "https://www.historictrains.org/mission",
+          "fetchUrl": "https://www.historictrains.org/mission",
+          "label": "Museum institutional background"
+        },
+        {
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Frisco_June_2019_28_(Museum_of_the_American_Railroad).jpg",
+          "fetchUrl": "https://commons.wikimedia.org/wiki/File:Frisco_June_2019_28_(Museum_of_the_American_Railroad).jpg",
+          "label": "Exact Frisco museum rolling-stock photograph, Michael Barera CC BY-SA 4.0, on-site June 2019; photo licensing and museum identity"
         }
       ]
     },
@@ -1572,6 +1913,49 @@
       ]
     },
     {
+      "path": "/destination/texas-broadcast-museum-kilgore",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 9,
+      "sources": [
+        {
+          "sourceUrl": "https://cityofkilgore.com/293/Kilgore-Cultural-District",
+          "fetchUrl": "https://cityofkilgore.com/293/Kilgore-Cultural-District",
+          "label": "City of Kilgore cultural district listing"
+        },
+        {
+          "sourceUrl": "https://tabshow.org/texas-broadcast-museum/",
+          "fetchUrl": "https://tabshow.org/texas-broadcast-museum/",
+          "label": "Texas Association of Broadcasters 2026 museum profile"
+        },
+        {
+          "sourceUrl": "https://texasbroadcastmuseum.com/museum/",
+          "fetchUrl": "https://texasbroadcastmuseum.com/museum/",
+          "label": "Texas Broadcast Museum collections"
+        },
+        {
+          "sourceUrl": "https://texasbroadcastmuseum.com/",
+          "fetchUrl": "https://texasbroadcastmuseum.com/",
+          "label": "Texas Broadcast Museum operator homepage"
+        },
+        {
+          "sourceUrl": "https://texasbroadcastmuseum.com/reviews/",
+          "fetchUrl": "https://texasbroadcastmuseum.com/reviews/",
+          "label": "Operator's visitor reviews"
+        },
+        {
+          "sourceUrl": "https://texasbroadcastmuseum.com/contact-us/",
+          "fetchUrl": "https://texasbroadcastmuseum.com/contact-us/",
+          "label": "Visitor FAQ: Does the museum have a cafeteria or is Studio 4 a restaurant?"
+        },
+        {
+          "sourceUrl": "https://texasbroadcastmuseum.com/espn-mobile-unit/",
+          "fetchUrl": "https://texasbroadcastmuseum.com/espn-mobile-unit/",
+          "label": "Operator: original ESPN broadcast truck 327 preserved and on public display"
+        }
+      ]
+    },
+    {
       "path": "/destination/texas-country-music-hall-of-fame-carthage",
       "topic": "museum-visitor-guide",
       "cadenceDays": 30,
@@ -1684,6 +2068,72 @@
       ]
     },
     {
+      "path": "/destination/texas-military-forces-museum",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://texasmilitaryforcesmuseum.org/",
+          "fetchUrl": "https://texasmilitaryforcesmuseum.org/",
+          "label": "Museum operator: visitor hours, admission and exhibits"
+        },
+        {
+          "sourceUrl": "https://tmd.texas.gov/camp-mabry-visitor-access-information",
+          "fetchUrl": "https://tmd.texas.gov/camp-mabry-visitor-access-information",
+          "label": "Texas Military Department: ID, security screening and group entry"
+        },
+        {
+          "sourceUrl": "https://texasmilitaryforcesmuseum.org/?page_id=107",
+          "fetchUrl": "https://texasmilitaryforcesmuseum.org/?page_id=107",
+          "label": "Museum operator: guided tour procedures and vehicle safeguards"
+        },
+        {
+          "sourceUrl": "https://texasmilitaryforcesmuseum.org/?page_id=13",
+          "fetchUrl": "https://texasmilitaryforcesmuseum.org/?page_id=13",
+          "label": "Museum operator: entrance addresses, hours and weather closures"
+        },
+        {
+          "sourceUrl": "https://tmd.texas.gov/museum",
+          "fetchUrl": "https://tmd.texas.gov/museum",
+          "label": "Texas Military Department: collection and military museum identity"
+        },
+        {
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ceremonies_at_Camp_Mabry_190112-Z-DZ751-0199_(32916620338).jpg",
+          "fetchUrl": "https://commons.wikimedia.org/wiki/File:Ceremonies_at_Camp_Mabry_190112-Z-DZ751-0199_(32916620338).jpg",
+          "label": "Photo licensing: original Jim Greenhill CC BY 2.0 museum event"
+        }
+      ]
+    },
+    {
+      "path": "/destination/texas-prison-museum-huntsville",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://www.txprisonmuseum.org/",
+          "fetchUrl": "https://www.txprisonmuseum.org/",
+          "label": "Museum official home, hours and ticket prices"
+        },
+        {
+          "sourceUrl": "https://www.txprisonmuseum.org/about-us",
+          "fetchUrl": "https://www.txprisonmuseum.org/about-us",
+          "label": "Museum background and Huntsville connection"
+        },
+        {
+          "sourceUrl": "https://www.txprisonmuseum.org/copy-of-texas-prison-rodeo-memories-4",
+          "fetchUrl": "https://www.txprisonmuseum.org/copy-of-texas-prison-rodeo-memories-4",
+          "label": "Museum popular exhibits"
+        },
+        {
+          "sourceUrl": "https://www.txprisonmuseum.org/copy-of-captain-joe-byrd-cemetery",
+          "fetchUrl": "https://www.txprisonmuseum.org/copy-of-captain-joe-byrd-cemetery",
+          "label": "Texas Prison Rodeo history"
+        }
+      ]
+    },
+    {
       "path": "/destination/texas-ranger-hall-of-fame-museum-waco",
       "topic": "museum-visitor-guide",
       "cadenceDays": 30,
@@ -1749,6 +2199,67 @@
           "sourceUrl": "https://www.txtransportationmuseum.org/tickets",
           "fetchUrl": "https://www.txtransportationmuseum.org/tickets",
           "label": "Operator: current ticket limitations"
+        }
+      ]
+    },
+    {
+      "path": "/destination/the-agricultural-museum-arts-center-boerne",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 9,
+      "sources": [
+        {
+          "sourceUrl": "https://theagricultural.org/visit-the-agricultural/",
+          "fetchUrl": "https://theagricultural.org/visit-the-agricultural/",
+          "label": "Official hours, admission, areas, live blacksmith demonstrations"
+        },
+        {
+          "sourceUrl": "https://www.ci.boerne.tx.us/1438/The-AgriCultural-Museum-Arts-Center",
+          "fetchUrl": "https://www.ci.boerne.tx.us/1438/The-AgriCultural-Museum-Arts-Center",
+          "label": "City of Boerne historical museum identity and community programming"
+        },
+        {
+          "sourceUrl": "https://theagricultural.org/",
+          "fetchUrl": "https://theagricultural.org/",
+          "label": "Official history, 2018 name change, event schedule"
+        },
+        {
+          "sourceUrl": "https://theagricultural.org/bluegrass-jams/",
+          "fetchUrl": "https://theagricultural.org/bluegrass-jams/",
+          "label": "Official current recurring bluegrass jam schedule"
+        }
+      ]
+    },
+    {
+      "path": "/destination/the-history-center-diboll",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://www.thehistorycenteronline.com/plan-your-visit",
+          "fetchUrl": "https://www.thehistorycenteronline.com/plan-your-visit",
+          "label": "History Center current plan-a-visit"
+        },
+        {
+          "sourceUrl": "https://www.thehistorycenteronline.com/exhibits/outdoor-railroad-exhibit",
+          "fetchUrl": "https://www.thehistorycenteronline.com/exhibits/outdoor-railroad-exhibit",
+          "label": "History Center Engine 13 exhibit"
+        },
+        {
+          "sourceUrl": "https://www.thehistorycenteronline.com/exhibits",
+          "fetchUrl": "https://www.thehistorycenteronline.com/exhibits",
+          "label": "History Center exhibit overview"
+        },
+        {
+          "sourceUrl": "https://www.thehistorycenteronline.com/about",
+          "fetchUrl": "https://www.thehistorycenteronline.com/about",
+          "label": "History Center historical overview"
+        },
+        {
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:The_Southern_Pine_Lumber_Company_sawmills_near_Diboll,_Texas_in_1907.jpg",
+          "fetchUrl": "https://commons.wikimedia.org/wiki/File:The_Southern_Pine_Lumber_Company_sawmills_near_Diboll,_Texas_in_1907.jpg",
+          "label": "The History Center archival 1907 Diboll sawmill photo: public-domain provenance, NOT modern visitor-site view"
         }
       ]
     },
@@ -1853,441 +2364,6 @@
           "sourceUrl": "https://www.wittemuseum.org/exhibitions/the-witte-museum-100-years/",
           "fetchUrl": "https://www.wittemuseum.org/exhibitions/the-witte-museum-100-years/",
           "label": "Witte Museum — 100 Years"
-        }
-      ]
-    },
-    {
-      "path": "/destination/1919-san-augustine-county-jail-museum",
-      "topic": "museum-visitor-guide",
-      "cadenceDays": 30,
-      "faqCount": 9,
-      "sources": [
-        {
-          "sourceUrl": "https://visitsanaugustinetx.org/local-attractions/",
-          "fetchUrl": "https://visitsanaugustinetx.org/local-attractions/",
-          "label": "Official tourism museum hours, exhibits and history"
-        },
-        {
-          "sourceUrl": "https://atlas.thc.texas.gov/Details/5507018848",
-          "fetchUrl": "https://atlas.thc.texas.gov/Details/5507018848",
-          "label": "Texas Historical Commission jail historical-marker evidence"
-        },
-        {
-          "sourceUrl": "https://thc.texas.gov/historic-sites/mission-dolores",
-          "fetchUrl": "https://thc.texas.gov/historic-sites/mission-dolores",
-          "label": "Separately operated Mission Dolores current visitor guidance"
-        }
-      ]
-    },
-    {
-      "path": "/destination/armstrong-browning-library-museum-waco",
-      "topic": "museum-visitor-guide",
-      "cadenceDays": 30,
-      "faqCount": 8,
-      "sources": [
-        {
-          "sourceUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit",
-          "fetchUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit",
-          "label": "Baylor official visitor guidance"
-        },
-        {
-          "sourceUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/directions-parking",
-          "fetchUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/directions-parking",
-          "label": "Baylor parking and accessible entrance"
-        },
-        {
-          "sourceUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/tours",
-          "fetchUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/tours",
-          "label": "Baylor tour policy"
-        },
-        {
-          "sourceUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/building-map-online-tour",
-          "fetchUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/building-map-online-tour",
-          "label": "Baylor gallery map and rooms"
-        },
-        {
-          "sourceUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/research-instruction/use-collections",
-          "fetchUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/research-instruction/use-collections",
-          "label": "FAQ source: May visitors handle rare letters and manuscripts in the museum?"
-        },
-        {
-          "sourceUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/use-our-facility/portrait-policies",
-          "fetchUrl": "https://library.web.baylor.edu/visit/armstrong-browning-library-museum/visit/use-our-facility/portrait-policies",
-          "label": "FAQ source: Can I use the library as a venue for wedding portraits?"
-        }
-      ]
-    },
-    {
-      "path": "/destination/bell-county-museum-belton",
-      "topic": "museum-visitor-guide",
-      "cadenceDays": 30,
-      "faqCount": 8,
-      "sources": [
-        {
-          "sourceUrl": "https://www.bellcountymuseum.org/p/visit/faqs",
-          "fetchUrl": "https://www.bellcountymuseum.org/p/visit/faqs",
-          "label": "Museum official FAQ"
-        },
-        {
-          "sourceUrl": "https://www.bellcountymuseum.org/directions.aspx",
-          "fetchUrl": "https://www.bellcountymuseum.org/directions.aspx",
-          "label": "Museum posted hours"
-        },
-        {
-          "sourceUrl": "https://www.bellcountymuseum.org/p/visit",
-          "fetchUrl": "https://www.bellcountymuseum.org/p/visit",
-          "label": "Museum official visiting and free admission"
-        },
-        {
-          "sourceUrl": "https://www.bellcountymuseum.org/events",
-          "fetchUrl": "https://www.bellcountymuseum.org/events",
-          "label": "Official Bell County Museum event calendar"
-        }
-      ]
-    },
-    {
-      "path": "/destination/brenham-heritage-museum",
-      "topic": "museum-visitor-guide",
-      "cadenceDays": 30,
-      "faqCount": 8,
-      "sources": [
-        {
-          "sourceUrl": "https://www.bhmtexas.org/visit",
-          "fetchUrl": "https://www.bhmtexas.org/visit",
-          "label": "Brenham Heritage Museum visitor rules"
-        },
-        {
-          "sourceUrl": "https://www.bhmtexas.org/visit/exhibits",
-          "fetchUrl": "https://www.bhmtexas.org/visit/exhibits",
-          "label": "Museum current exhibits"
-        },
-        {
-          "sourceUrl": "https://www.bhmtexas.org/",
-          "fetchUrl": "https://www.bhmtexas.org/",
-          "label": "Museum homepage"
-        }
-      ]
-    },
-    {
-      "path": "/destination/audie-murphy-american-cotton-museum-greenville",
-      "topic": "museum-visitor-guide",
-      "cadenceDays": 30,
-      "faqCount": 8,
-      "sources": [
-        {
-          "sourceUrl": "https://cottonmuseum.com/visit/",
-          "fetchUrl": "https://cottonmuseum.com/visit/",
-          "label": "Official visiting information"
-        },
-        {
-          "sourceUrl": "https://cottonmuseum.com/",
-          "fetchUrl": "https://cottonmuseum.com/",
-          "label": "Museum homepage and gallery highlights"
-        },
-        {
-          "sourceUrl": "https://cottonmuseum.com/about/",
-          "fetchUrl": "https://cottonmuseum.com/about/",
-          "label": "Museum history and grounds"
-        }
-      ]
-    },
-    {
-      "path": "/destination/brazos-valley-museum-natural-history-bryan",
-      "topic": "museum-visitor-guide",
-      "cadenceDays": 30,
-      "faqCount": 8,
-      "sources": [
-        {
-          "sourceUrl": "https://www.brazosvalleymuseum.org/visit",
-          "fetchUrl": "https://www.brazosvalleymuseum.org/visit",
-          "label": "Museum official visitor information"
-        },
-        {
-          "sourceUrl": "https://www.brazosvalleymuseum.org/about-the-museum",
-          "fetchUrl": "https://www.brazosvalleymuseum.org/about-the-museum",
-          "label": "Museum institutional mission and programming"
-        },
-        {
-          "sourceUrl": "https://www.brazosvalleymuseum.org/accessibility",
-          "fetchUrl": "https://www.brazosvalleymuseum.org/accessibility",
-          "label": "Museum website accessibility statement"
-        }
-      ]
-    },
-    {
-      "path": "/destination/czech-heritage-museum-genealogy-center-temple",
-      "topic": "museum-visitor-guide",
-      "cadenceDays": 30,
-      "faqCount": 8,
-      "sources": [
-        {
-          "sourceUrl": "https://czechheritagemuseum.org/contact-us",
-          "fetchUrl": "https://czechheritagemuseum.org/contact-us",
-          "label": "Museum official visiting hours and admission"
-        },
-        {
-          "sourceUrl": "https://czechheritagemuseum.org/plan-your-visit",
-          "fetchUrl": "https://czechheritagemuseum.org/plan-your-visit",
-          "label": "Museum tour choices and directions"
-        },
-        {
-          "sourceUrl": "https://czechheritagemuseum.org/",
-          "fetchUrl": "https://czechheritagemuseum.org/",
-          "label": "Museum official home"
-        }
-      ]
-    },
-    {
-      "path": "/destination/buffalo-soldiers-national-museum-houston",
-      "topic": "museum-visitor-guide",
-      "cadenceDays": 30,
-      "faqCount": 8,
-      "sources": [
-        {
-          "sourceUrl": "https://buffalosoldiersmuseum.org/visit/",
-          "fetchUrl": "https://buffalosoldiersmuseum.org/visit/",
-          "label": "Museum official closure and previous policies"
-        },
-        {
-          "sourceUrl": "https://buffalosoldiersmuseum.org/visit/group-tours/",
-          "fetchUrl": "https://buffalosoldiersmuseum.org/visit/group-tours/",
-          "label": "Museum group tour cancellation"
-        },
-        {
-          "sourceUrl": "https://buffalosoldiersmuseum.org/visit/exhibits/",
-          "fetchUrl": "https://buffalosoldiersmuseum.org/visit/exhibits/",
-          "label": "Museum exhibit and digital themes"
-        },
-        {
-          "sourceUrl": "https://buffalosoldiersmuseum.org/",
-          "fetchUrl": "https://buffalosoldiersmuseum.org/",
-          "label": "FAQ source: What can families visit nearby instead while the museum is closed?"
-        },
-        {
-          "sourceUrl": "https://houmuse.org/institution/buffalo-soldiers-national-museum/",
-          "fetchUrl": "https://houmuse.org/institution/buffalo-soldiers-national-museum/?td_monitor=1",
-          "label": "Houston Museum District independent institutional status; uses content-readable cache bypass"
-        }
-      ]
-    },
-    {
-      "path": "/destination/texas-prison-museum-huntsville",
-      "topic": "museum-visitor-guide",
-      "cadenceDays": 30,
-      "faqCount": 8,
-      "sources": [
-        {
-          "sourceUrl": "https://www.txprisonmuseum.org/",
-          "fetchUrl": "https://www.txprisonmuseum.org/",
-          "label": "Museum official home, hours and ticket prices"
-        },
-        {
-          "sourceUrl": "https://www.txprisonmuseum.org/about-us",
-          "fetchUrl": "https://www.txprisonmuseum.org/about-us",
-          "label": "Museum background and Huntsville connection"
-        },
-        {
-          "sourceUrl": "https://www.txprisonmuseum.org/copy-of-texas-prison-rodeo-memories-4",
-          "fetchUrl": "https://www.txprisonmuseum.org/copy-of-texas-prison-rodeo-memories-4",
-          "label": "Museum popular exhibits"
-        },
-        {
-          "sourceUrl": "https://www.txprisonmuseum.org/copy-of-captain-joe-byrd-cemetery",
-          "fetchUrl": "https://www.txprisonmuseum.org/copy-of-captain-joe-byrd-cemetery",
-          "label": "Texas Prison Rodeo history"
-        }
-      ]
-    },
-    {
-      "path": "/destination/eisenhower-birthplace",
-      "topic": "museum-visitor-guide",
-      "cadenceDays": 30,
-      "faqCount": 8,
-      "sources": [
-        {
-          "sourceUrl": "https://thc.texas.gov/state-historic-sites/eisenhower-birthplace/plan-your-visit-eisenhower-birthplace",
-          "fetchUrl": "https://thc.texas.gov/state-historic-sites/eisenhower-birthplace/plan-your-visit-eisenhower-birthplace",
-          "label": "THC current visitor guide and tour booking"
-        },
-        {
-          "sourceUrl": "https://thc.texas.gov/state-historic-sites/eisenhower-birthplace/eisenhower-birthplace-history",
-          "fetchUrl": "https://thc.texas.gov/state-historic-sites/eisenhower-birthplace/eisenhower-birthplace-history",
-          "label": "THC official birthplace history"
-        },
-        {
-          "sourceUrl": "https://thc.texas.gov/blog/homes-president-eisenhower",
-          "fetchUrl": "https://thc.texas.gov/blog/homes-president-eisenhower",
-          "label": "THC presidential-home comparison"
-        },
-        {
-          "sourceUrl": "https://atlas.thc.texas.gov/Details/4200000469",
-          "fetchUrl": "https://atlas.thc.texas.gov/Details/4200000469",
-          "label": "THC historic site Atlas"
-        }
-      ]
-    },
-    {
-      "path": "/destination/crow-museum-asian-art-dallas",
-      "topic": "museum-visitor-guide",
-      "cadenceDays": 30,
-      "faqCount": 8,
-      "sources": [
-        {
-          "sourceUrl": "https://crowmuseum.org/dallas-arts-district/",
-          "fetchUrl": "https://crowmuseum.org/dallas-arts-district/",
-          "label": "Crow Dallas Arts District location"
-        },
-        {
-          "sourceUrl": "https://crowmuseum.org/visit/",
-          "fetchUrl": "https://crowmuseum.org/visit/",
-          "label": "Crow current exhibitions by venue"
-        },
-        {
-          "sourceUrl": "https://crowmuseum.org/where-to-park/",
-          "fetchUrl": "https://crowmuseum.org/where-to-park/",
-          "label": "Crow accessible entrances"
-        },
-        {
-          "sourceUrl": "https://crowmuseum.org/about-the-museum/faqs/",
-          "fetchUrl": "https://crowmuseum.org/about-the-museum/faqs/",
-          "label": "Crow general visitor FAQ"
-        }
-      ]
-    },
-    {
-      "path": "/destination/museum-of-the-american-railroad-frisco",
-      "topic": "museum-visitor-guide",
-      "cadenceDays": 30,
-      "faqCount": 8,
-      "sources": [
-        {
-          "sourceUrl": "https://www.historictrains.org/visit",
-          "fetchUrl": "https://www.historictrains.org/visit",
-          "label": "Museum official visiting calendar and fees"
-        },
-        {
-          "sourceUrl": "https://www.historictrains.org/traintopia",
-          "fetchUrl": "https://www.historictrains.org/traintopia",
-          "label": "TrainTopia activities"
-        },
-        {
-          "sourceUrl": "https://www.historictrains.org/virtual-tour",
-          "fetchUrl": "https://www.historictrains.org/virtual-tour",
-          "label": "Museum rolling stock virtual tour"
-        },
-        {
-          "sourceUrl": "https://www.historictrains.org/mission",
-          "fetchUrl": "https://www.historictrains.org/mission",
-          "label": "Museum institutional background"
-        },
-        {
-          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Frisco_June_2019_28_(Museum_of_the_American_Railroad).jpg",
-          "fetchUrl": "https://commons.wikimedia.org/wiki/File:Frisco_June_2019_28_(Museum_of_the_American_Railroad).jpg",
-          "label": "Exact Frisco museum rolling-stock photograph, Michael Barera CC BY-SA 4.0, on-site June 2019; photo licensing and museum identity"
-        }
-      ]
-    },
-    {
-      "path": "/destination/the-agricultural-museum-arts-center-boerne",
-      "topic": "museum-visitor-guide",
-      "cadenceDays": 30,
-      "faqCount": 9,
-      "sources": [
-        {
-          "sourceUrl": "https://theagricultural.org/visit-the-agricultural/",
-          "fetchUrl": "https://theagricultural.org/visit-the-agricultural/",
-          "label": "Official hours, admission, areas, live blacksmith demonstrations"
-        },
-        {
-          "sourceUrl": "https://www.ci.boerne.tx.us/1438/The-AgriCultural-Museum-Arts-Center",
-          "fetchUrl": "https://www.ci.boerne.tx.us/1438/The-AgriCultural-Museum-Arts-Center",
-          "label": "City of Boerne historical museum identity and community programming"
-        },
-        {
-          "sourceUrl": "https://theagricultural.org/",
-          "fetchUrl": "https://theagricultural.org/",
-          "label": "Official history, 2018 name change, event schedule"
-        },
-        {
-          "sourceUrl": "https://theagricultural.org/bluegrass-jams/",
-          "fetchUrl": "https://theagricultural.org/bluegrass-jams/",
-          "label": "Official current recurring bluegrass jam schedule"
-        }
-      ]
-    },
-    {
-      "path": "/destination/the-history-center-diboll",
-      "topic": "museum-visitor-guide",
-      "cadenceDays": 30,
-      "faqCount": 8,
-      "sources": [
-        {
-          "sourceUrl": "https://www.thehistorycenteronline.com/plan-your-visit",
-          "fetchUrl": "https://www.thehistorycenteronline.com/plan-your-visit",
-          "label": "History Center current plan-a-visit"
-        },
-        {
-          "sourceUrl": "https://www.thehistorycenteronline.com/exhibits/outdoor-railroad-exhibit",
-          "fetchUrl": "https://www.thehistorycenteronline.com/exhibits/outdoor-railroad-exhibit",
-          "label": "History Center Engine 13 exhibit"
-        },
-        {
-          "sourceUrl": "https://www.thehistorycenteronline.com/exhibits",
-          "fetchUrl": "https://www.thehistorycenteronline.com/exhibits",
-          "label": "History Center exhibit overview"
-        },
-        {
-          "sourceUrl": "https://www.thehistorycenteronline.com/about",
-          "fetchUrl": "https://www.thehistorycenteronline.com/about",
-          "label": "History Center historical overview"
-        },
-        {
-          "sourceUrl": "https://commons.wikimedia.org/wiki/File:The_Southern_Pine_Lumber_Company_sawmills_near_Diboll,_Texas_in_1907.jpg",
-          "fetchUrl": "https://commons.wikimedia.org/wiki/File:The_Southern_Pine_Lumber_Company_sawmills_near_Diboll,_Texas_in_1907.jpg",
-          "label": "The History Center archival 1907 Diboll sawmill photo: public-domain provenance, NOT modern visitor-site view"
-        }
-      ]
-    },
-    {
-      "path": "/destination/texas-broadcast-museum-kilgore",
-      "topic": "museum-visitor-guide",
-      "cadenceDays": 30,
-      "faqCount": 9,
-      "sources": [
-        {
-          "sourceUrl": "https://cityofkilgore.com/293/Kilgore-Cultural-District",
-          "fetchUrl": "https://cityofkilgore.com/293/Kilgore-Cultural-District",
-          "label": "City of Kilgore cultural district listing"
-        },
-        {
-          "sourceUrl": "https://tabshow.org/texas-broadcast-museum/",
-          "fetchUrl": "https://tabshow.org/texas-broadcast-museum/",
-          "label": "Texas Association of Broadcasters 2026 museum profile"
-        },
-        {
-          "sourceUrl": "https://texasbroadcastmuseum.com/museum/",
-          "fetchUrl": "https://texasbroadcastmuseum.com/museum/",
-          "label": "Texas Broadcast Museum collections"
-        },
-        {
-          "sourceUrl": "https://texasbroadcastmuseum.com/",
-          "fetchUrl": "https://texasbroadcastmuseum.com/",
-          "label": "Texas Broadcast Museum operator homepage"
-        },
-        {
-          "sourceUrl": "https://texasbroadcastmuseum.com/reviews/",
-          "fetchUrl": "https://texasbroadcastmuseum.com/reviews/",
-          "label": "Operator's visitor reviews"
-        },
-        {
-          "sourceUrl": "https://texasbroadcastmuseum.com/contact-us/",
-          "fetchUrl": "https://texasbroadcastmuseum.com/contact-us/",
-          "label": "Visitor FAQ: Does the museum have a cafeteria or is Studio 4 a restaurant?"
-        },
-        {
-          "sourceUrl": "https://texasbroadcastmuseum.com/espn-mobile-unit/",
-          "fetchUrl": "https://texasbroadcastmuseum.com/espn-mobile-unit/",
-          "label": "Operator: original ESPN broadcast truck 327 preserved and on public display"
         }
       ]
     }
