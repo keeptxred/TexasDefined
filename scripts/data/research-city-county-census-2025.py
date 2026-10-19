@@ -77,6 +77,39 @@ def geometry(feature):
     return transform(TO_METERS, item)
 
 
+
+
+def official_geometry_check(label, url, where, layer_name, county_name, county_lookup):
+    """Independent city-maintained boundary: return its area inside specified Census county."""
+    payload = urllib.parse.urlencode({
+        "f": "geojson", "where": where, "outFields": "*",
+        "outSR": "4326", "returnGeometry": "true",
+        "resultRecordCount": "500", "geometryPrecision": "6",
+    }).encode()
+    req = urllib.request.Request(url, data=payload,
+        headers={"Content-Type": "application/x-www-form-urlencoded", "User-Agent": UA}, method="POST")
+    with urllib.request.urlopen(req, timeout=115) as resp:
+        data = json.load(resp)
+    if data.get("type") != "FeatureCollection" or "error" in data:
+        raise ValueError(label + " malformed government GIS response: " + str(data)[:300])
+    features = data.get("features", [])
+    if not features or len(features) == 500:
+        raise ValueError(label + " empty or truncated government geometry")
+    county = county_lookup[county_name]
+    intersections = []
+    for ft in features:
+        geom = geometry(ft)
+        cut = geom.intersection(county)
+        if not cut.is_empty and cut.area > 0:
+            intersections.append(cut.area)
+    total = round(sum(intersections))
+    print("CITY-MAINTAINED GIS", label, county_name,
+          "source polygon count", len(features), "intersection square metres", total, flush=True)
+    return {"label": label, "governmentSource": url,
+            "where": where, "sourceVintage": "current publisher state at execution time",
+            "sourceFeatureCount": len(features), "testedCounty": county_name,
+            "totalIntersectSqM": total, "materialOver10000SqM": total >= MIN_AREA_M2}
+
 def main():
     places = load_directory()
     OUTPUT.mkdir(parents=True, exist_ok=True)
@@ -100,6 +133,29 @@ def main():
         census_places = {f["properties"]["BASENAME"]: f for f in cities + cdp}
         if len(census_places) != 57:
             raise ValueError("Census place name ambiguity: " + str(Counter(f["properties"]["BASENAME"] for f in cities + cdp)))
+        county_lookup = dict(zip(county_names, county_geoms))
+        report["officialCityGis"] = []
+        report["officialCityGisErrors"] = []
+        # The Census 2025 places are historical; directly contrast relevant
+        # 2026 city-maintained FULL city-limit polygons, not ETJ buffers.
+        # Capture errors as unresolved source limitations, not false clearance.
+        gov_sources = [
+          ("Houston FULL limits", "https://mycity2.houstontx.gov/gisweb01/rest/services/HoustonMap/Administrative_Boundary/MapServer/0/query",
+           "SERVICE_TY = 'FULL'", "Waller"),
+          ("Houston LIMITED limits", "https://mycity2.houstontx.gov/gisweb01/rest/services/HoustonMap/Administrative_Boundary/MapServer/0/query",
+           "SERVICE_TY = 'LIMITED'", "Waller"),
+          ("Garland city limits", "https://map.garlandtx.gov/arcgis/rest/services/OpenData/Municipal/MapServer/11/query",
+           "1=1", "Rockwall"),
+          ("Austin FULL limits", "https://services.arcgis.com/0L95CJ0VTaxqcmED/arcgis/rest/services/BOUNDARIES_jurisdictions/FeatureServer/0/query",
+           "JURISDICTION_TYPE = 'FULL'", "Bastrop"),
+        ]
+        for label, url, where, county in gov_sources:
+          try:
+            report["officialCityGis"].append(
+                official_geometry_check(label, url, where, "", county, county_lookup))
+          except Exception as exc:
+            report["officialCityGisErrors"].append(f"{label}: {type(exc).__name__}: {exc}")
+            print("GOVERNMENT GIS REVIEW INCOMPLETE: " + label + ": " + str(exc), flush=True)
         for p in places:
             ft = census_places.get(p["name"])
             if ft is None:
