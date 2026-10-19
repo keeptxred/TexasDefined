@@ -26,3 +26,8 @@ Unique SEO, original editorial tied to 2019/2024/2026, seven school-specific FAQ
 [MaxPreps' current Rivercrest schedule](https://www.maxpreps.com/tx/bogata/rivercrest-rebels/football/schedule/) and [High School On SI's October 16 scoreboard](https://www.si.com/high-school/texas/texas-high-school-football-final-scores-results-october-16-01m53bh2k5w8) record **Trenton 21, Rivercrest 17**, bringing Rivercrest to **4–4 through October 16**. The original district alignment, 2019/2024 historical achievements, October 9 Wolfe City overtime result and 2026 school identity are preserved.
 
 This source-backed editorial correction does not establish a school-certified UIL final, image license, guaranteed stadium entrance, exact deployed commit or school-specific nine-dimension editorial/Chrome acceptance. Preserve this school's `DEPLOYED` status until acceptance evidence is recorded.
+
+## October 19, 2026 — disagreeing 2026 staff sources, no fabricated head-coach appointment
+
+The [MaxPreps varsity staff record dated August 29, 2026](https://www.maxpreps.com/tx/bogata/rivercrest-rebels/football/staff/) identifies **Laytner Kennedy** as head coach, while the [separate 2026 MaxPreps season-history record](https://www.maxpreps.com/tx/bogata/rivercrest-rebels/football/history/) still lists **Travis McClain**. These are conflicting records from the same source platform, not independent corroboration, and no first-party Rivercrest ISD appointment was established. The public notice and team-specific FAQ now identify the exact conflict and refrain from filling the current-coach field. This is the Bogata, Texas program, not the Arkansas school. October 16 Trenton final, UIL alignment, county links and photo/stadium caveats remain unchanged.
+

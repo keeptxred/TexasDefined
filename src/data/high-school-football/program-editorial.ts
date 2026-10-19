@@ -2535,7 +2535,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "notice": {
       "title": "Beware outdated Rivercrest results and identical Arkansas school name",
-      "body": "An older MaxPreps Rivercrest team-page snapshot still shows 3–0 before league play, while its October 3 schedule snapshot shows 3–3 and leaves October 9 unresolved. The separate October 9 game report, PigskinPrep District 9 results and Texas Prep all record Rivercrest's 30–28 triple-overtime victory over Wolfe City, making the result 4–3 through that day. The older schedule also gives the September 11 Chisum win as 49–42; the game's box score and PigskinPrep show 56–42. Avoid mixing this Texas school with the Rivercrest Colts in Wilson, Arkansas. Trenton defeated Rivercrest 21–17 on October 16; the reported 2026 record is now 4–4. The coach appointment, stadium entry and photo rights remain unverified.",
+      "body": "An older MaxPreps Rivercrest team-page snapshot still shows 3–0 before league play, while its October 3 schedule snapshot shows 3–3 and leaves October 9 unresolved. The separate October 9 game report, PigskinPrep District 9 results and Texas Prep all record Rivercrest's 30–28 triple-overtime victory over Wolfe City, making the result 4–3 through that day. The older schedule also gives the September 11 Chisum win as 49–42; the game's box score and PigskinPrep show 56–42. Avoid mixing this Texas school with the Rivercrest Colts in Wilson, Arkansas. Trenton defeated Rivercrest 21–17 on October 16; the reported 2026 record is now 4–4. The coaching rosters themselves disagree: MaxPreps' August 29, 2026 varsity staff entry names Laytner Kennedy head coach, but its separate 2026 season-history entry still names Travis McClain. Neither is a district-issued head-coach announcement; the October appointment, stadium entry and photo rights remain unverified.",
       "sourceUrl": "https://www.maxpreps.com/tx/football/game/rivercrest-bogata-vs-wolfe-city/10-9-2026/?c=e3bfc40e-df03-46d0-8b1d-620287e758c6",
       "sourceLabel": "Dated 2026 Rivercrest versus Wolfe City game final, crosschecked with current PigskinPrep 2A District 9; stale profile warnings individually qualified",
       "verifiedAt": "2026-10-16"
@@ -2683,7 +2683,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "Who coaches the Rebels and where can visitors confirm stadium access?",
-        "answer": "Some MaxPreps history lists Travis McClain for 2026, but an older public team summary lists a different coach. The current first-party district appointment, football stadium gate, accessible parking and ticket details have not been independently certified, so check the official Rivercrest High School football page before traveling."
+        "answer": "MaxPreps' dated August 29, 2026 football staff roster names Laytner Kennedy head coach, while its separate 2026 season history names Travis McClain. Neither conflicting entry independently establishes a current Rivercrest ISD appointment. The current first-party district appointment, football stadium gate, accessible parking and ticket details have not been independently certified, so check the official Rivercrest High School football page before traveling."
       }
     ]
   },
@@ -3275,6 +3275,13 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "title": "Borden County Coyotes Football 2026 | Five UIL Titles & Six-Man District 5",
       "description": "Gail Borden County Coyotes: five UIL six-man state championships, 2026 Division I District 5, 7–0 through October 16 and official visitor contacts."
     },
+    "coach": {
+      "name": "Trey Richey",
+      "title": "Borden County Coyotes head football coach (identified in August 18, 2026 Lamesa Press-Reporter fall-sports reporting; later changes unverified)",
+      "sourceUrl": "https://www.pressreporter.com/issues/2026-08-18/pages/25/",
+      "sourceLabel": "Lamesa Press-Reporter Aug 18 2026 original fall sports report expressly names Trey Richey head football coach; conflicting Six-Man Football 2026 Craig Steele listing remains independently unresolved",
+      "verifiedAt": "2026-10-19"
+    },
     "campus": {
       "address": "240 West Kincaid Avenue, Gail, TX 79738",
       "phone": "806-756-4313",
@@ -3290,9 +3297,9 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "notice": {
       "title": "The school has five genuine UIL championships; current coach and stadium entrance need independent confirmation",
-      "body": "Official UIL archives document state championship-game wins in 1997, 2008, 2009, 2016 and 2017. The 2016 and 2017 titles were *1A Six-Man Division I*; 2008 and 2009 were *Division II*. Some third-party title feeds mislabel 2017 Division II. Current third-party coaching directories disagree: MaxPreps lists Trey Richey, while the specialist Six-Man Football team card names Craig Steele; UIL confirms Trey Richey coached the 2017 title team, not automatically the 2026 assignment. Do not assert a present-day head coach without a first-party roster. Exact stadium vehicle entrance, ADA parking, ticket requirements and image rights are unverified.",
-      "sourceUrl": "https://www.uiltexas.org/football/state-team/gail-borden-county-2017-2018-football",
-      "sourceLabel": "Official UIL 2017 roster and championship classification; current district website does not certify 2026 coach appointment",
+      "body": "Official UIL archives document state championship-game wins in 1997, 2008, 2009, 2016 and 2017. The 2016 and 2017 titles were *1A Six-Man Division I*; 2008 and 2009 were *Division II*. Some third-party title feeds mislabel 2017 Division II. The August 18, 2026 Lamesa Press-Reporter Fall Sports report directly identifies Trey Richey as Borden County's current head football coach, while Six-Man Football's 2026 listing still names Craig Steele after his documented 2024 appointment. The dated local report supports a clearly attributed Richey coaching field, not a school-issued new-coach announcement; confirm later staff changes with Borden County ISD. Exact stadium vehicle entrance, ADA parking, ticket requirements and image rights are unverified.",
+      "sourceUrl": "https://www.pressreporter.com/issues/2026-08-18/pages/25/",
+      "sourceLabel": "Lamesa Press-Reporter Aug 18 2026 head-football-coach coverage; separate UIL historic title evidence is retained in the program milestones",
       "verifiedAt": "2026-10-16"
     },
     "season": {
@@ -4158,6 +4165,13 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "title": "Gold-Burg Bears Football 2026 | UIL 1A Division II District 10 Scores, History & Guide",
       "description": "Gold-Burg Bears Texas football: 2026 1A Division II District 10, dated season results, Montague County campus, school-specific program history and contact guidance."
     },
+    "coach": {
+      "name": "Austin Norman",
+      "title": "Gold-Burg Bears head football coach, interviewed in October 8, 2026 Bowie News game coverage and August 13 KAUZ preseason report; later changes unverified",
+      "sourceUrl": "https://bowienewsonline.com/2026/10/gold-burg-gives-it-a-go-falls-to-perrin-35-32/",
+      "sourceLabel": "Bowie News Oct 8 2026 firsthand game article quotes Gold-Burg football coach Austin Norman; KAUZ Aug 13 explicitly calls Norman new head coach, despite conflicting MaxPreps Aug 24 Danny Forman roster",
+      "verifiedAt": "2026-10-19"
+    },
     "campus": {
       "address": "468 Prater Road, Bowie, TX 76230",
       "phone": "940-872-3562",
@@ -4173,9 +4187,9 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "notice": {
       "title": "Verified facts and unresolved game-day claims",
-      "body": "Gold-Burg ISD advertised a 2026–27 athletic director/head football coach opening in March through Region 9, and that vacancy still appeared in September search results. A MaxPreps August 24, 2026 Gold-Burg team staff entry lists Danny Forman as head coach; a separate specialist football directory used Austin Norman. The conflicting third-party names and potentially stale vacancy listing do not independently establish a district-confirmed current appointment. The October 16 Gold-Burg loss to Woodson 53–58 is now corroborated by contemporary reported finals; earlier missing-score snapshots are superseded.",
-      "sourceUrl": "https://www.applitrack.com/region9/OnlineApp/JobPostings/view.asp?%3Fall=1%3D&AppliTrackJobId=10119_1196&AppliTrackLayoutMode=detail&AppliTrackViewPosting=1&applitrackclient=1196&choosedistrict=true",
-      "sourceLabel": "Gold-Burg ISD's Region 9 2026–27 AD/head-coach vacancy posting, supplemented by dated MaxPreps Gold-Burg August 24 staff roster (Danny Forman)",
+      "body": "Gold-Burg ISD advertised a 2026–27 athletic director/head football coach opening in March through Region 9, and that vacancy still appeared in September search results. Bowie News's original October 8, 2026 football report directly quotes Austin Norman as the Gold-Burg head coach following the Perrin game, corroborating NewsChannel 6's August 13 on-camera report naming Norman the new coach. MaxPreps' August 24 roster instead lists Danny Forman, and an older job vacancy remains online. Use Norman with dated firsthand attribution rather than mistaking these stale entries for proof of a later replacement. The October 16 Gold-Burg loss to Woodson 53–58 is now corroborated by contemporary reported finals; earlier missing-score snapshots are superseded.",
+      "sourceUrl": "https://bowienewsonline.com/2026/10/gold-burg-gives-it-a-go-falls-to-perrin-35-32/",
+      "sourceLabel": "October 8 2026 Bowie News direct Austin Norman interview; NewsChannel 6 Aug 13 head-coach preview confirms earlier appointment; contrasting August 24 roster qualified",
       "verifiedAt": "2026-10-19"
     },
     "season": {
@@ -4282,7 +4296,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "overview": [
       "Gold-Burg Bears is Gold-Burg ISD's six-man football team in Montague County. Its authoritative 2026–28 alignment is UIL 1A Division II District 10; that is different from older season divisions and similarly named programs.",
       "Gold-Burg is a Ringgold–Stoneburg community school, separate from the Bowie ISD Jackrabbits. Specialist six-man records report 9–3 in 2021 and 7–5 in 2024, without establishing any UIL football state championship. A 2026 student-produced school football hype video is school-owned material, not an open media license.",
-      "Gold-Burg ISD's March 2026 hiring posting advertised an AD/head-football-coach vacancy for 2026–27, and the posting remained listed into September. A MaxPreps August 24 team-staff roster lists Danny Forman, while a specialist six-man source earlier listed Austin Norman; without a dated district-originated appointment these are attributed, not certified. Contemporary results confirm Woodson defeated Gold-Burg 58–53 on October 16; that reported loss is now included in the 2–6 season ledger.",
+      "Gold-Burg ISD's March 2026 hiring posting advertised an AD/head-football-coach vacancy for 2026–27, and the posting remained listed into September. NewsChannel 6 interviewed newly appointed head coach Austin Norman on August 13, and Bowie News quoted Norman as football coach on October 8 about the Perrin loss. An August 24 MaxPreps roster naming Danny Forman contradicts these firsthand reports and should not override them; Gold-Burg ISD has not independently published a new school-board hiring announcement. Contemporary results confirm Woodson defeated Gold-Burg 58–53 on October 16; that reported loss is now included in the 2–6 season ledger.",
       "Woodson defeated Gold-Burg 58–53 on October 16; the earlier conflicting/empty snapshots are superseded by a current newspaper report and matching October 17 MaxPreps reports. This dated result comes from Houston Chronicle October 16 statewide football finals, not a first-party UIL results certification."
     ],
     "faq": [
@@ -4300,7 +4314,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "Who is the head football coach?",
-        "answer": "Gold-Burg ISD's March vacancy posting sought a 2026–27 AD/head coach. A dated August 24 MaxPreps staff roster names Danny Forman, but an earlier specialist listing names Austin Norman and there is no verified district-issued appointment. The current head-coaching role remains explicitly unconfirmed."
+        "answer": "Gold-Burg ISD's March vacancy posting sought a 2026–27 AD/head coach. Bowie News's October 8 firsthand game report identifies and quotes Austin Norman as Gold-Burg head coach, corroborating NewsChannel 6's August 13 coach interview. MaxPreps names Danny Forman in an August 24 roster, but that conflict does not establish a subsequent coaching change; check Gold-Burg ISD for later staffing."
       },
       {
         "question": "What was the October 9 Throckmorton result?",
