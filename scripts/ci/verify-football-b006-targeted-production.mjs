@@ -163,18 +163,28 @@ try{
    row.workerVersion=await r?.headerValue('x-texasdefined-worker-version')||null;
    if(row.workerVersion)workerVersions.add(row.workerVersion);
    await page.locator('main h1').first().waitFor({state:'visible',timeout:25000});
-   // A generic hydration marker can precede the football cards (Nueces),
-   // while a working county can omit that marker (Victoria). Accept neither
-   // marker as proof of a reciprocal link. Wait only for the real expected DOM.
+   // SSR may briefly expose links before county React hydration unmounts and
+   // remounts the card section. Wait for the real DOM links to remain present
+   // after load rather than accepting the initial transient HTML snapshot.
    const expected=group.map(s=>'/texas-high-school-football-teams/'+s.slug);
+   await page.waitForLoadState('load',{timeout:25000});
    try{
-    await page.waitForFunction(paths=>
-     paths.every(href=>[...document.querySelectorAll('main a[href]')]
-      .some(a=>(a.getAttribute('href')||'').replace(/\/$/,'')===href)),
-     expected,{timeout:20000});
-   }catch{
-    // Still fail closed on genuinely absent links, with their exact slugs.
-    // Do not classify the optional readiness marker itself as acceptance.
+    await page.waitForFunction(paths=>{
+     const key=paths.join('|');
+     const hrefs=new Set([...document.querySelectorAll('main a[href]')]
+      .map(a=>(a.getAttribute('href')||'').replace(/\/$/,'')));
+     const found=paths.every(href=>hrefs.has(href));
+     const now=performance.now();
+     if(!window.__tdB006StableLinks||window.__tdB006StableLinks.key!==key)
+      window.__tdB006StableLinks={key,since:0};
+     if(!found){window.__tdB006StableLinks.since=0;return false;}
+     if(!window.__tdB006StableLinks.since)window.__tdB006StableLinks.since=now;
+     return now-window.__tdB006StableLinks.since>=1200;
+    },expected,{timeout:25000,polling:200});
+    row.stableCountyLinks='all expected links continuously present for 1200ms after load';
+   }catch(error){
+    row.stableCountyLinks='unmet: '+String(error?.message||error).slice(0,160);
+    // Keep the strict final DOM assertion and report the actual absent slugs.
    }
    const observation=await page.evaluate(()=>({
     links:[...document.querySelectorAll('main a[href]')].map(a=>(a.getAttribute('href')||'').replace(/\/$/,'')),
