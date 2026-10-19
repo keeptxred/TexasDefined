@@ -40,10 +40,21 @@ try {
       if (response?.status() !== 200) throw new Error("HTTP " + response?.status());
       await page.getByRole("heading", { name: "Explore the parks on a map" }).waitFor({ state: "visible", timeout: 20000 });
       const selector = page.getByRole("group", { name: "Choose park to locate on map" });
+      // Server-rendered controls remain disabled until React hydration completes.
+      // Verify the first real state transition before checking any initially selected park.
+      await page.waitForFunction(() => {
+        const button = [...document.querySelectorAll("button[aria-pressed]")].find(element => element.textContent?.trim() === "Caddo Lake");
+        return Boolean(button && !button.disabled);
+      }, null, { timeout: 15000 });
       const selection = [];
-      for (const [parkName, latitude] of parks) {
+      const parkSequence = [...parks.slice(1, 2), ...parks.slice(0, 1), ...parks.slice(2)];
+      for (const [parkName, latitude] of parkSequence) {
         const button = selector.getByRole("button", { name: parkName, exact: true });
         await button.click();
+        await page.waitForFunction(name => {
+          const button = [...document.querySelectorAll("button[aria-pressed]")].find(element => element.textContent?.trim() === name);
+          return button?.getAttribute("aria-pressed") === "true";
+        }, parkName, { timeout: 8000 });
         if ((await button.getAttribute("aria-pressed")) !== "true") throw new Error("Selection did not update: " + parkName);
         const iframe = page.locator('iframe[title^="Interactive map around"]');
         const src = await iframe.getAttribute("src");
