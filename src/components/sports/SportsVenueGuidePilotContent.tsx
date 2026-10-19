@@ -12,6 +12,7 @@ import { getSportsVenueGuideWave5 } from "@/data/sports-venue-guide-wave5";
 import { getSportsVenueGuideWave6 } from "@/data/sports-venue-guide-wave6";
 import { getSportsVenueGuideWave7 } from "@/data/sports-venue-guide-wave7";
 import { getSportsVenuePhoto } from "@/data/sports-venue-images-all";
+import { getTop50VenueGuidance } from "@/data/top50-sports-venue-visitor-guidance";
 import type { PublicSportsSponsorPlacement } from "@/data/sports-sponsorship.types";
 
 import { SportsVenueGuidePage } from "./SportsVenueGuidePage";
@@ -50,6 +51,7 @@ export function SportsVenueGuidePilotContent({
 
   if (!guide) return null;
 
+  const top50Guidance = getTop50VenueGuidance(slug);
   const qualityProfile = getSportsVenueQualityProfileAll(slug);
   const visitorFacts = qualityProfile?.visitorFacts;
   const effectiveGuide = {
@@ -63,6 +65,13 @@ export function SportsVenueGuidePilotContent({
     accessibility: guide.accessibility ?? visitorFacts?.accessibility,
     bagPolicy: guide.bagPolicy ?? visitorFacts?.bagAndEntry,
     reviewedAt: guide.reviewedAt ?? qualityProfile?.sourceReview.reviewedAt,
+    faqs: [
+      ...(top50Guidance?.faqs ?? []),
+      ...(guide.faqs ?? []).filter((faq) => !(top50Guidance?.faqs ?? []).some((newItem) => newItem.question.toLowerCase() === faq.question.toLowerCase())),
+    ],
+    sources: [...guide.sources, ...(top50Guidance?.sources ?? [])].filter(
+      (source, index, all) => all.findIndex((item) => item.href === source.href) === index,
+    ),
   };
   const rawEnrichment = getSportsVenueEnrichmentAll(slug);
   const qualitySources = qualityProfile?.sourceReview.authoritativeSources ?? [];
