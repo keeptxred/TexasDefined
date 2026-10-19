@@ -185,6 +185,20 @@ export const Route = createFileRoute("/destination/$slug")({
       const { applyMagoffinHomeAuthority } = await import("@/data/magoffin-home-authority");
       destination = applyMagoffinHomeAuthority(destination);
     }
+    // These three historic places have primary published URLs in older
+    // state-park and destination collections. A specialized curator or remote
+    // fallback can replace part of their record after normal enrichment; apply
+    // the place-specific research and schedules on the final detail page too.
+    if (["washington-on-the-brazos", "san-jacinto-battleground", "goliad-state-park"].includes(destination.slug)) {
+      const { enrichTexasHistoricSiteAuthority } = await import("@/data/historic-site-authority-2026");
+      destination = enrichTexasHistoricSiteAuthority(destination);
+    }
+    // Site-specific closed-property cleanup must survive remote enrichment
+    // and must not suggest visiting the protected 1680 Socorro site.
+    if (destination.slug === "old-socorro-mission") {
+      const { enrichResearchedHistoricSiteDepth } = await import("@/data/historic-site-depth-all");
+      destination = enrichResearchedHistoricSiteDepth(destination);
+    }
     const [completeGraph, categories, relationshipGroups, regions, relatedArticles] = await Promise.all([
       loadTexasKnowledgeGraph(),
       context.queryClient.ensureQueryData(categoriesQuery()),
