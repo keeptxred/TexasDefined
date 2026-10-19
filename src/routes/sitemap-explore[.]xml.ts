@@ -161,6 +161,7 @@ async function emergencyExploreSitemapResponse(error: unknown) {
     "/explore/water-towers",
     "/destination/whirlyball-hurst",
     ...PAINTED_CHURCH_STATIC_PATHS,
+    "/explore/top-50-attractions",
     "/explore/top-attractions",
     "/explore/top-attractions/methodology",
     "/explore/top-attractions/road-trips",
@@ -303,6 +304,18 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         }
 
         const destinations = await resolveDestinationCatalog(rawDestinations);
+        // Public catalogs deliberately carry lightweight summaries of new
+        // Top-50 parks and the Congress Avenue bat colony. Audit the exact
+        // complete, sourced destinations before giving them canonical sitemap URLs.
+        const [{ top50ThemeParkDestinations }, { congressAvenueBatDestination }] = await Promise.all([
+          import("@/data/top50-theme-park-destinations"),
+          import("@/data/congress-avenue-bat-colony-authority"),
+        ]);
+        for (const researched of [...top50ThemeParkDestinations, congressAvenueBatDestination]) {
+          const position = destinations.findIndex((destination) => destination.slug === researched.slug);
+          if (position >= 0) destinations[position] = researched;
+          else destinations.push(researched);
+        }
         // The Explore/search summaries for these authority destinations are deliberately
         // lightweight to stay within the tested client JS bundle budget. The sitemap
         // must audit full researched guides, not summaries, before including URLs.

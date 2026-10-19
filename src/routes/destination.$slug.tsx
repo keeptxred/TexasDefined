@@ -28,6 +28,7 @@ import { getDestinationRelationshipGroups } from "@/data/destination-relationshi
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
 import { articlesQuery, categoriesQuery, destinationQuery, regionsQuery } from "@/data/queries";
 import { isTopTexasAttraction } from "@/data/top-texas-attractions";
+import { isTop50AuthorityWave1 } from "@/data/top50-authority-wave1-slugs";
 import { museumAuthoritySlugs } from "@/data/museum-authority-slugs";
 import { coastalHeritageAuthoritySlugs } from "@/data/coastal-heritage-discovery";
 import { hideImageFallbackLabel, recoverOrHideImage } from "@/lib/image-fallback";
@@ -164,6 +165,12 @@ export const Route = createFileRoute("/destination/$slug")({
     if (isTopTexasAttraction(destination.slug)) {
       const { resolveTopAttractionAuthority } = await import("@/data/top-attraction-authority-resolver");
       destination = resolveTopAttractionAuthority(destination);
+      const { applyTop50FaqWave2 } = await import("@/data/top50-source-verified-faqs-wave2");
+      destination = applyTop50FaqWave2(destination);
+    }
+    if (isTop50AuthorityWave1(destination.slug)) {
+      const { applyTop50AuthorityWave1 } = await import("@/data/destination-authority-top50-wave1");
+      destination = applyTop50AuthorityWave1(destination);
     }
     if (museumAuthoritySlugs.has(destination.slug)) {
       const { enrichMuseumAuthority } = await import("@/data/museum-authority-network");
@@ -172,6 +179,19 @@ export const Route = createFileRoute("/destination/$slug")({
     if (coastalHeritageAuthoritySlugs.has(destination.slug)) {
       const { resolveCoastalHeritageAuthority } = await import("@/data/coastal-heritage-authority");
       destination = resolveCoastalHeritageAuthority(destination);
+    }
+    if (["uss-lexington-museum-corpus-christi","waco-mammoth-national-monument","national-museum-pacific-war","museum-of-fine-arts-houston","kimbell-art-museum-fort-worth","strand-historic-district"].includes(destination.slug)) {
+      const { applyTop50MuseumHistoricUpgrade } = await import("@/data/top50-museum-historic-upgrades");
+      destination = applyTop50MuseumHistoricUpgrade(destination);
+    }
+
+    if (["san-antonio-river-walk","natural-bridge-caverns","moody-gardens","guadalupe-mountains-national-park","enchanted-rock-state-natural-area","houston-museum-of-natural-science","dallas-arboretum-and-botanical-garden","galveston-island-historic-pleasure-pier","san-jacinto-battleground","houston-zoo","barton-springs-pool","hamilton-pool-preserve","cadillac-ranch","gruene-historic-district","fredericksburg-historic-district"].includes(destination.slug)) {
+      const { applyTop50FinalVisitorAnswers } = await import("@/data/top50-final-visitor-faqs");
+      destination = applyTop50FinalVisitorAnswers(destination);
+    }
+    if (["enchanted-rock-state-natural-area", "san-jacinto-battleground", "barton-springs-pool"].includes(destination.slug)) {
+      const { applyTop50FinalAuthority } = await import("@/data/top50-final-park-historic-authority");
+      destination = applyTop50FinalAuthority(destination);
     }
     const [completeGraph, categories, relationshipGroups, regions, relatedArticles] = await Promise.all([
       loadTexasKnowledgeGraph(),

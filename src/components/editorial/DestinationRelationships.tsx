@@ -10,6 +10,7 @@ import { TexasExplainedContextLinks } from "@/components/editorial/TexasExplaine
 import { Container } from "@/components/layout/Container";
 import { distanceMiles, featuredDestinationRelationships, type DestinationRelationshipGroup } from "@/data/destination-relationships";
 import { topTexasAttractionRank } from "@/data/top-texas-attractions";
+import { isTop50AuthorityWave1, isTop50ThemeParkDestination, isTop50BatColonyDestination } from "@/data/top50-authority-wave1-slugs";
 import type { Destination, DestinationAreaGuide, DestinationAreaItem } from "@/data/types";
 
 const DestinationAuthorityGuide = lazy(() => import("@/components/editorial/DestinationAuthorityGuide"));
@@ -42,6 +43,15 @@ const AUTHORITY_GUIDE_DESTINATION_SLUGS = new Set([
   SAM_HOUSTON_MUSEUM_SLUG,
   "whirlyball-hurst",
   "my-story-museum-crystal-city",
+  "enchanted-rock-state-natural-area",
+  "san-jacinto-battleground",
+  "barton-springs-pool",
+  "uss-lexington-museum-corpus-christi",
+  "waco-mammoth-national-monument",
+  "national-museum-pacific-war",
+  "museum-of-fine-arts-houston",
+  "kimbell-art-museum-fort-worth",
+  "strand-historic-district",
   // Include live history destinations curated under other public categories.
   "fort-davis-national-historic-site",
   "san-jacinto-battleground",
@@ -152,7 +162,7 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
     ["goliad-state-park-and-historic-site", "san-jacinto-battleground-state-historic-site", "washington-on-the-brazos-state-historic-site"].includes(destination.slug);
   const isIndividuallyRegisteredAuthorityGuide = Boolean(destination.authorityGuide) && AUTHORITY_GUIDE_DESTINATION_SLUGS.has(destination.slug);
   const hasExtendedAuthorityGuide = isIndividuallyRegisteredAuthorityGuide ||
-    (Boolean(destination.authorityGuide) && historicGuide);
+    (Boolean(destination.authorityGuide) && (historicGuide || isTop50AuthorityWave1(destination.slug) || isTop50ThemeParkDestination(destination.slug) || isTop50BatColonyDestination(destination.slug)));
   const isWhirlyBall = destination.slug === WHIRLYBALL_SLUG;
   const hasCampingProfile = CAMPING_DESTINATION_SLUGS.has(destination.slug);
   const hasSamRayburnHouseContext = destination.slug === "sam-rayburn-house";

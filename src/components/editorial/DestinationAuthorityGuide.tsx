@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 
 import { UnusualBusinessAuthorityPanel } from "@/components/authority/UnusualBusinessAuthorityPanel";
 import { topAttractionTimeline } from "@/data/destination-timelines-top-attractions";
+import { isTopTexasAttraction } from "@/data/top-texas-attractions";
 import { historicSiteAuthorityTimeline } from "@/data/historic-site-authority-timelines";
 import type { Destination } from "@/data/types";
 import { Container } from "@/components/layout/Container";
@@ -33,12 +34,13 @@ export function DestinationAuthorityGuide({
   const primarySource = authority.sources[0];
   const nearby = destination.areaGuide?.nearbyAttractions[0];
   const sideTrip = destination.areaGuide?.sideTrips[0];
-  const questions = [
+  const questions: Array<{ q: string; a: string; sourceUrl?: string }> = [
     { q: `How long should I allow for ${destination.name}?`, a: authority.assessment.recommendedVisit },
+    ...(destination.visitorFaqs ?? []).map((faq) => ({ q: faq.question, a: faq.answer, sourceUrl: faq.sourceUrl })),
     ...(destination.accessibilityNotes ? [{ q: `What should I know about accessibility?`, a: destination.accessibilityNotes }] : []),
     ...(nearby ? [{ q: `What should I pair with ${destination.name}?`, a: `${nearby.name}${nearby.proximity ? ` (${nearby.proximity})` : ""}: ${nearby.description}` }] : []),
     ...(sideTrip ? [{ q: `What is a worthwhile side trip?`, a: `${sideTrip.name}${sideTrip.proximity ? ` (${sideTrip.proximity})` : ""}: ${sideTrip.description}` }] : []),
-  ].slice(0, 6);
+  ].slice(0, 8);
 
   return <>
     <Section tone="surface">
@@ -66,7 +68,7 @@ export function DestinationAuthorityGuide({
             <h2 id={`${destination.slug}-texas-significance`} className="mt-2 font-display text-4xl">Why {destination.name} matters</h2>
             <p className="mt-6 text-base leading-8 text-foreground/90">{authority.whyItMatters}</p>
             <div className="mt-7 border-t border-border pt-5 text-sm leading-6 text-muted-foreground">
-              <strong className="text-foreground">About this guide:</strong> <Link to="/authors/$author" params={{ author: "a-hollis" }} className="border-b border-primary text-primary">Texas Defined Editorial Desk</Link>. Official operator pages control changing access and visitor rules. The site-specific research and planning suggestions here supplement, but do not replace, those sources. Editorial assessments describe trip-planning value rather than a star rating. {destination.category !== "historic-sites" && !["goliad-state-park-and-historic-site", "san-jacinto-battleground-state-historic-site", "washington-on-the-brazos-state-historic-site"].includes(destination.slug) ? <Link to="/explore/top-attractions/methodology" className="border-b border-primary text-primary">See the Top-25 methodology.</Link> : null} <Link to="/citation-guide" className="border-b border-primary text-primary">Citation guidance.</Link>
+              <strong className="text-foreground">About this guide:</strong> <Link to="/authors/$author" params={{ author: "a-hollis" }} className="border-b border-primary text-primary">Texas Defined Editorial Desk</Link>. Official operator pages control changing access and visitor rules. The site-specific research and planning suggestions here supplement, but do not replace, those sources. Editorial assessments describe trip-planning value rather than a star rating. {isTopTexasAttraction(destination.slug) ? <Link to="/explore/top-attractions/methodology" className="border-b border-primary text-primary">See the Top-25 methodology.</Link> : null} <Link to="/citation-guide" className="border-b border-primary text-primary">Citation guidance.</Link>
             </div>
           </section>
 
@@ -106,7 +108,7 @@ export function DestinationAuthorityGuide({
             <p className="eyebrow text-primary">Before you go</p>
             <h2 id={`${destination.slug}-traveler-questions`} className="mt-2 font-display text-4xl">Common visitor questions</h2>
             <dl className="mt-7 divide-y divide-border border-y border-border">
-              {questions.map((item) => <div key={item.q} className="py-5"><dt className="font-display text-2xl">{item.q}</dt><dd className="mt-2 text-sm leading-7 text-muted-foreground">{item.a}{primarySource && item.q.includes("How long") && <sup><a href={sourceHref(0)} className="ml-1 text-primary">[1]</a></sup>}</dd></div>)}
+              {questions.map((item) => <div key={item.q} className="py-5"><dt className="font-display text-2xl">{item.q}</dt><dd className="mt-2 text-sm leading-7 text-muted-foreground">{item.a}{primarySource && item.q.includes("How long") && <sup><a href={sourceHref(0)} className="ml-1 text-primary">[1]</a></sup>}{item.sourceUrl && /^https:\/\//.test(item.sourceUrl) && <a href={item.sourceUrl} target="_blank" rel="noreferrer noopener" className="ml-2 inline-block border-b border-primary text-primary">Official verification ↗</a>}</dd></div>)}
             </dl>
           </section>
 
