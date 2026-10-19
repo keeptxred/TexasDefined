@@ -156,6 +156,50 @@ def main():
           except Exception as exc:
             report["officialCityGisErrors"].append(f"{label}: {type(exc).__name__}: {exc}")
             print("GOVERNMENT GIS REVIEW INCOMPLETE: " + label + ": " + str(exc), flush=True)
+        # Texas Geographical Information Office supplies the CPA city limits,
+        # reported by municipalities for Texas sales-tax jurisdictions. This is
+        # independent of both Census 2025 and each city's own boundary feed.
+        report["texasComptrollerCityBoundaries"] = []
+        report["texasComptrollerErrors"] = []
+        cpa_url = ("https://feature.geographic.texas.gov/arcgis/rest/services/"
+                   "City_Boundaries/Texas_City_Boundaries/MapServer/0/query")
+        key_places = ["Austin", "Garland", "Grand Prairie", "Houston", "Wichita Falls"]
+        try:
+            where = "city_name IN (" + ", ".join("'" + s + "'" for s in key_places) + ")"
+            req = urllib.request.Request(cpa_url, data=urllib.parse.urlencode({
+                "f": "geojson", "where": where, "outFields": "city_name,geo_id",
+                "outSR": "4326", "returnGeometry": "true", "resultRecordCount": "50",
+                "geometryPrecision": "6"
+            }).encode(), headers={"Content-Type": "application/x-www-form-urlencoded", "User-Agent": UA},
+                method="POST")
+            with urllib.request.urlopen(req, timeout=115) as response:
+                dataset = json.load(response)
+            if dataset.get("type") != "FeatureCollection":
+                raise ValueError("CPA API returned an error or unexpected response " + str(dataset)[:350])
+            cpa_features = dataset["features"]
+            for city in key_places:
+                selected = [ft for ft in cpa_features
+                            if str(ft["properties"].get("city_name", "")).lower() == city.lower()]
+                if not selected:
+                    report["texasComptrollerErrors"].append(city + ": no matching city boundary found")
+                    continue
+                member = {"city": city, "source": cpa_url, "polygons": len(selected),
+                          "intersections": []}
+                for ft in selected:
+                    geom = geometry(ft)
+                    for county_index in tree.query(geom):
+                        ci = int(county_index)
+                        cut = geom.intersection(county_geoms[ci])
+                        if not cut.is_empty and cut.area > 0:
+                            member["intersections"].append({
+                                "county": county_names[ci], "squareMetres": round(cut.area),
+                                "substantial": cut.area >= MIN_AREA_M2})
+                report["texasComptrollerCityBoundaries"].append(member)
+                print("TEXAS CPA GIS", city,
+                      [(r["county"],r["squareMetres"]) for r in member["intersections"]], flush=True)
+        except Exception as exc:
+            report["texasComptrollerErrors"].append(type(exc).__name__ + ": " + str(exc))
+            print("TEXAS CPA GIS RESEARCH INCOMPLETE: " + str(exc), flush=True)
         for p in places:
             ft = census_places.get(p["name"])
             if ft is None:
