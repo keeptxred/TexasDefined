@@ -8,10 +8,10 @@ import { TexasRiversCitationTrust } from "@/components/content/TexasRiversCitati
 const twdbMapUrl = "https://www.twdb.texas.gov/mapping/doc/maps/Major_River_Basins_8x11.pdf";
 
 const riverProfiles = [
-  { name: "Rio Grande", href: "/article/texas-rio-grande-river-guide", region: "West Texas & border", note: "International border river · largest Texas drainage area", image: "/images/explore/lakes-rivers/amistad-national-recreation-area.jpg" },
+  { name: "Rio Grande", href: "/article/texas-rio-grande-river-guide", region: "West Texas & border", note: "International border river · largest area of Texas draining into one river system", image: "/images/explore/lakes-rivers/amistad-national-recreation-area.jpg" },
   { name: "Brazos", href: "/article/texas-brazos-river-guide", region: "West & Central Texas", note: "840 river miles · major agricultural and reservoir system", image: "/images/explore/lakes-rivers/lake-somerville-birch-creek-unit.jpg" },
   { name: "Colorado", href: "/article/texas-colorado-river-guide", region: "West & Central Texas", note: "Texas-only river · Highland Lakes and Austin", image: "/images/explore/lakes-rivers/pedernales-falls-state-park.jpg" },
-  { name: "Guadalupe", href: "/article/texas-guadalupe-river-guide", region: "Hill Country & Gulf Coast", note: "Spring-fed streams · Canyon Lake · tubing corridor", image: "/images/editorial/texas-guadalupe-river.jpg" },
+  { name: "Guadalupe", href: "/article/texas-guadalupe-river-guide", region: "Hill Country & Gulf Coast", note: "Spring-fed streams · Canyon Lake · popular tubing stretches", image: "/images/editorial/texas-guadalupe-river.jpg" },
   { name: "Trinity", href: "/article/texas-trinity-river-guide", region: "North Texas & Gulf Coast", note: "River system entirely in Texas · Dallas-Fort Worth water supply", image: "/images/editorial/texas-trinity-river.jpg" },
   { name: "Canadian", href: "/article/texas-canadian-river-guide", region: "Panhandle", note: "Lake Meredith · Panhandle river flowing into Oklahoma", image: "/images/explore/lakes-rivers/lake-meredith-national-recreation-area.jpg" },
   { name: "Cypress", href: "/article/texas-cypress-river-basin-guide", region: "Northeast Texas", note: "Caddo Lake · Cypress Bayou · Northeast Texas", image: "/images/state-parks/caddo-lake-state-park.jpg" },
@@ -21,7 +21,7 @@ const riverProfiles = [
   { name: "Red", href: "/article/texas-red-river-guide", region: "North Texas", note: "Lake Texoma · Oklahoma boundary · North Texas", image: "/images/state-parks/eisenhower-state-park.jpg" },
   { name: "Sabine", href: "/article/texas-sabine-river-guide", region: "East Texas & Louisiana border", note: "Toledo Bend · Sabine Lake · water supply", image: "/images/editorial/texas-river-basins.jpg" },
   { name: "San Antonio", href: "/article/texas-san-antonio-river-guide", region: "South-Central Texas", note: "Medina River · springs · joins the Guadalupe", image: "/images/editorial/moving/san-antonio.jpg" },
-  { name: "San Jacinto", href: "/article/texas-san-jacinto-river-guide", region: "Houston & Gulf Coast", note: "Lake Houston · Lake Conroe · Houston-area flooding and drainage", image: "/images/editorial/texas-river-basins.jpg" },
+  { name: "San Jacinto", href: "/article/texas-san-jacinto-river-guide", region: "Houston & Gulf Coast", note: "Lake Houston · Lake Conroe · Houston-area flooding and water flow", image: "/images/editorial/texas-river-basins.jpg" },
   { name: "Sulphur", href: "/article/texas-sulphur-river-guide", region: "Northeast Texas", note: "Cooper Lake · Wright Patman Lake · Northeast Texas", image: "/images/state-parks/cooper-lake-south-sulphur-unit-state-park.jpg" },
 ] as const;
 
@@ -35,11 +35,11 @@ const tributaryRecreationProfiles = RIVER_AUTHORITY_RELATIONS
   }));
 
 const riverRegions = [
-  { title: "West Texas & the border", rivers: "Rio Grande · Pecos · Devils", description: "High desert, mountain basins, canyon country and an international river system." },
+  { title: "West Texas & the border", rivers: "Rio Grande · Pecos · Devils", description: "High desert, mountains, canyon country and an international river system." },
   { title: "Central Texas & the plains", rivers: "Brazos · Colorado", description: "Long cross-state systems connecting drier western country, major reservoirs and the Gulf." },
-  { title: "Hill Country & South-Central Texas", rivers: "Guadalupe · Frio · Nueces · San Antonio", description: "Limestone, springs, clear water, cypress-lined reaches and spring-fed streams." },
-  { title: "North Texas", rivers: "Trinity · Red", description: "Urban water supply, flood-control reservoirs and the long northern boundary with Oklahoma." },
-  { title: "East Texas", rivers: "Sabine · Neches · Cypress", description: "Wetter forests, broad floodplains, bayous and river systems flowing toward Sabine Lake and the Gulf." },
+  { title: "Hill Country & South-Central Texas", rivers: "Guadalupe · Frio · Nueces · San Antonio", description: "Limestone, springs, clear water, cypress-lined stretches and spring-fed streams." },
+  { title: "North Texas", rivers: "Trinity · Red", description: "Urban water supply, reservoirs built partly for flood control and the long northern boundary with Oklahoma." },
+  { title: "East Texas", rivers: "Sabine · Neches · Cypress", description: "Wetter forests, low river valleys, slow-moving bayous and river systems flowing toward Sabine Lake and the Gulf." },
 ] as const;
 
 const sectionLinks = [
@@ -97,13 +97,13 @@ function TexasRiverOrientationMap() {
         <figcaption className="border-t border-border p-5 sm:p-7 lg:border-l lg:border-t-0 lg:p-8">
           <p className="eyebrow text-primary">Map key</p>
           <h3 className="mt-2 font-display text-2xl">Where the Major Rivers Run</h3>
-          <p className="mt-3 text-sm leading-6 text-muted-foreground">The blue river paths are a simplified guide, not exact surveyed river locations. Compare them with the official map above to see the land that drains into each river system. Texas rivers look and behave differently because they cross very different combinations of rainfall, elevation, geology and climate.</p>
+          <p className="mt-3 text-sm leading-6 text-muted-foreground">The blue river paths are a simplified guide, not exact surveyed river locations. Use the official Texas Water Development Board map linked above to see the land that drains into each river system. That drainage area is called a river basin. Texas rivers look and behave differently because they cross very different combinations of rainfall, elevation, geology and climate.</p>
           <dl className="mt-6 grid grid-cols-3 gap-3">
             <div className="border-t border-border pt-3"><dt className="text-[11px] uppercase text-muted-foreground">Major basins</dt><dd className="mt-1 font-display text-2xl">15</dd></div>
             <div className="border-t border-border pt-3"><dt className="text-[11px] uppercase text-muted-foreground">Coastal basins</dt><dd className="mt-1 font-display text-2xl">8</dd></div>
-            <div className="border-t border-border pt-3"><dt className="text-[11px] uppercase text-muted-foreground">Streams</dt><dd className="mt-1 font-display text-2xl">~191k mi.</dd></div>
+            <div className="border-t border-border pt-3"><dt className="text-[11px] uppercase text-muted-foreground">Rivers &amp; streams</dt><dd className="mt-1 font-display text-2xl">~191k mi.</dd></div>
           </dl>
-          <a href={twdbMapUrl} target="_blank" rel="noreferrer" className="mt-6 inline-block text-sm font-semibold text-primary underline decoration-border underline-offset-4">Open the official Texas Water Development Board basin map ↗</a>
+          <a href={twdbMapUrl} target="_blank" rel="noreferrer" className="mt-6 inline-block text-sm font-semibold text-primary underline decoration-border underline-offset-4">Open the official Texas Water Development Board river-basin map ↗</a><p className="mt-2 text-xs leading-5 text-muted-foreground">The Texas Water Development Board reports approximately 191,000 miles of rivers and streams statewide.</p>
         </figcaption>
       </div>
       <div className="border-t border-border bg-background p-4 sm:p-6">
@@ -128,7 +128,7 @@ function RiverProfileCards() {
         return <div key={river.href} className="overflow-hidden rounded-sm border border-border bg-background">
           <Link to={river.href} className="group block transition-colors hover:border-primary">
             <div className="aspect-[4/3] overflow-hidden bg-surface">
-              <img src={photo?.src ?? river.image} alt={photo?.alt ?? `${river.name} river basin or nearby river destination`} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]" />
+              <img src={photo?.src ?? river.image} alt={photo?.alt ?? `${river.name} river system or nearby river destination`} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]" />
             </div>
             <div className="p-4">
               <span className="font-display text-xl group-hover:text-primary">{river.name}</span>
