@@ -14,6 +14,190 @@ export interface MuseumVisitorFaq {
   reviewed: string;
 }
 export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
+  "menil-collection-houston": [
+    {
+        "question": "Is admission to the Menil Collection in Houston always free?",
+        "answer": "Yes. The Menil states that admission to all of its art buildings and campus green spaces is always free. You do not need a paid ticket to tour the main building, but each satellite gallery can have different exhibitions, opening arrangements or temporary closures.",
+        "verificationUrl": "https://www.menil.org/visit",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.menil.org/visit",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "What hours is the Menil Collection open and on which days?",
+        "answer": "The current public schedule is Wednesday through Sunday, 11 a.m.–7 p.m., and the art museum is closed on Mondays and Tuesdays. Check the official visit and campus pages if you are going to Richmond Hall or another individual exhibition venue.",
+        "verificationUrl": "https://www.menil.org/visit",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.menil.org/visit",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "Which parking lot should visitors use at the Menil Collection?",
+        "answer": "The museum identifies a main parking lot at 1515 West Alabama Street and another parking area next to Richmond Hall at 1500 Richmond Avenue. Some neighborhood street parking is available. The main art building is at 1533 Sul Ross Street.",
+        "verificationUrl": "https://www.menil.org/visit",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.menil.org/visit",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "Can visitors take pictures inside the Menil Collection galleries?",
+        "answer": "Photography and video are not permitted in the Menil's art galleries. Casual photography is permitted in entryways and hallways, but rules about artwork, people and outdoor media uses must still be respected. Carrying a camera does not authorize commercial photo work.",
+        "verificationUrl": "https://www.menil.org/visit",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.menil.org/visit",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "Are wheelchairs, service animals and accessible entrances available at the Menil?",
+        "answer": "The operator states that every Menil art building has an accessible entrance, accessible parking exists at its designated lots, and a limited supply of wheelchairs can be borrowed. Trained and leashed service animals are permitted indoors; pets and emotional-support animals are not.",
+        "verificationUrl": "https://www.menil.org/visit",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.menil.org/visit",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "Are the Cy Twombly Gallery and Menil Drawing Institute part of the main building?",
+        "answer": "No. They are separate Menil Collection campus buildings: the Menil Drawing Institute at 1412 West Main Street and the Cy Twombly Gallery at 1501 Branard Street. Richmond Hall's Dan Flavin installation is another distinct venue, at 1500 Richmond Avenue.",
+        "verificationUrl": "https://www.menil.org/campus",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.menil.org/campus",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "Does the Menil Collection provide docent-led group tours?",
+        "answer": "The operator does not offer guided gallery tours or permit public lecturing inside the galleries. Groups larger than 15 are encouraged to reserve, and groups of 30 or more need at least a week's advance notice. School groups must provide one adult chaperone per ten students.",
+        "verificationUrl": "https://www.menil.org/group-visit-and-educator-guidelines",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.menil.org/group-visit-and-educator-guidelines",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "Why are there so few wall labels in the Menil Collection galleries?",
+        "answer": "The Menil deliberately emphasizes looking directly at artworks rather than filling gallery walls with explanatory text. Free gallery guides, including English and Spanish versions, are available at the museum and can help visitors who want more context.",
+        "verificationUrl": "https://www.menil.org/visit",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.menil.org/visit",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "How large is the Menil campus and when did its main building open?",
+        "answer": "The Menil identifies a 30-acre neighborhood campus in Houston with several separate art buildings. The foundation was established in 1954 and the Renzo Piano-designed main building opened in 1987. The collection totals more than 25,000 works, not all of which are on view.",
+        "verificationUrl": "https://www.menil.org/about",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.menil.org/about",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "Can families bring strollers and food into the Menil Collection?",
+        "answer": "Strollers are welcomed in the galleries, and outdoor green spaces provide places to pause, but the art buildings do not allow food or beverages. Large bags and luggage may be checked at the complimentary coat check; children should stay close to adults near artworks.",
+        "verificationUrl": "https://www.menil.org/visit",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.menil.org/visit",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-19"
+    }
+],
+  "grace-museum-abilene": [
+    {
+        "question": "What are the Grace Museum's regular Abilene opening hours?",
+        "answer": "The downtown Grace Museum at 102 Cypress Street publishes Tuesday through Saturday, 10 a.m.–5 p.m., and closes on Sundays and Mondays. Thursday evenings offer a separate free admission window from 5 p.m. to 8 p.m., subject to museum programming and closures.",
+        "verificationUrl": "https://thegracemuseum.org/about/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://thegracemuseum.org/about/",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "How much is admission to The Grace Museum in 2026?",
+        "answer": "The operator currently lists $10 for adults 18 and older, $7 for children age four and up, seniors 65+, students and educators, and military veterans with qualifying identification. Children under four, members and active-duty military with families are listed as free.",
+        "verificationUrl": "https://thegracemuseum.org/about/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://thegracemuseum.org/about/",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "Is The Grace Museum free on Thursday evenings?",
+        "answer": "Yes. The museum advertises free downtown museum admission on Thursday nights from 5–8 p.m. This is not a standing statement that the separate Spark Science Center across Abilene is free at the same time, so check each facility separately.",
+        "verificationUrl": "https://thegracemuseum.org/about/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://thegracemuseum.org/about/",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "Is the Spark Science Center inside The Grace Museum building?",
+        "answer": "There are two distinct locations. The Grace Museum is at 102 Cypress Street and has a Spark learning area on the second floor; the separate Spark Science Center is at 1620 South 3rd Street in Abilene Heritage Square with its own admission.",
+        "verificationUrl": "https://thegracemuseum.org/about/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://thegracemuseum.org/about/",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "What does the two-location Grace and Spark Science Center ticket cost?",
+        "answer": "The same-day combo admission is currently listed at $20 per adult and $10 for the reduced-price groups, with eligible members and children under four free. Regular admission to Spark Science Center alone is $14 for adults and $8 for the reduced categories.",
+        "verificationUrl": "https://thegracemuseum.org/about/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://thegracemuseum.org/about/",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "Is the 1909 Grace Museum building wheelchair accessible?",
+        "answer": "The museum identifies an accessible ramp on the North 1st Street side, an elevator to all floors, accessible restrooms and a wheelchair that may be requested at the Lobby Desk. Accessible parking exists in the museum's adjacent North 1st Street lots.",
+        "verificationUrl": "https://thegracemuseum.org/about/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://thegracemuseum.org/about/",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "What original historic building houses The Grace Museum?",
+        "answer": "The museum occupies the former Hotel Grace, a 1909 downtown Abilene hotel built to serve passengers arriving by Texas and Pacific Railway. The adapted art-and-history museum became a downtown cultural institution in 1992.",
+        "verificationUrl": "https://thegracemuseum.org/about/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://thegracemuseum.org/about/",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "Can visitors see reconstructed West Texas rooms at The Grace Museum?",
+        "answer": "Yes. The operator's third-floor history collection includes reconstructed parlor and kitchen settings illustrating domestic life in 1910, 1928 and 1948. Other history galleries rotate objects, so a named temporary exhibit is not guaranteed year-round.",
+        "verificationUrl": "https://thegracemuseum.org/history/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://thegracemuseum.org/history/",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "Does The Grace Museum have an America 250 exhibition in 2026?",
+        "answer": "The museum lists an America 250 community-history exhibition from January 17 through November 28, 2026. It connects Abilene and neighboring communities with the broader national anniversary and should not be described as permanent after its advertised end.",
+        "verificationUrl": "https://thegracemuseum.org/exhibitions/america-250/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://thegracemuseum.org/exhibitions/america-250/",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "Can teachers arrange Grace Museum school group tours for a lower rate?",
+        "answer": "Yes. The museum lists $5 advance-scheduled school group tours for teachers and students. This school rate is tied to a prearranged program, not an automatic reduced walk-up ticket for everyone accompanying a child; schools should request a tour in advance.",
+        "verificationUrl": "https://thegracemuseum.org/about/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://thegracemuseum.org/about/",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-19"
+    }
+],
   "frontiers-of-flight-museum-dallas": [
     {
         "question": "What are Frontiers of Flight Museum's weekday and Sunday hours?",
