@@ -281,8 +281,9 @@ export function applyTop50FinalVisitorAnswers(destination: Destination): Destina
   const newFAQs = ANSWERS[destination.slug];
   if (!newFAQs) return destination;
   const merged = new Map<string, { question: string; answer: string; sourceUrl?: string }>();
-  for (const item of [...(destination.visitorFaqs ?? []), ...newFAQs]) {
-    merged.set(item.question.trim().toLowerCase(), item);
+  for (const item of [...newFAQs, ...(destination.visitorFaqs ?? [])]) {
+    const key = item.question.trim().toLowerCase();
+    if (!merged.has(key)) merged.set(key, item);
   }
   return { ...destination, visitorFaqs: [...merged.values()] };
 }
