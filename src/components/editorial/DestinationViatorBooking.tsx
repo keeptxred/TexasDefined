@@ -34,6 +34,8 @@ function WmaHuntingLinks() {
 export function DestinationViatorBooking({ destination }: { destination: Destination }) {
   const market = matchDestinationMarket(destination);
   const huntingLinks = destination.id.startsWith("texas-wma-") ? <WmaHuntingLinks /> : null;
+  // An unverified citywide ghost-tour affiliate link does not help visitors to this free NPS memorial.
+  if (destination.slug === "chamizal-national-memorial") return null;
   if (!market) return huntingLinks;
 
   const hasDedicatedInventory = hasVerifiedViatorMarketUrl(market.slug);

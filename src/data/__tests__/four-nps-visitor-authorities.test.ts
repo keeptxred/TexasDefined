@@ -47,8 +47,14 @@ describe("Four Texas NPS parks — individually sourced authority", () => {
       for (const item of result.authorityGuide?.itineraries ?? []) expect(item.steps.length).toBeGreaterThanOrEqual(3);
       expect(result.authorityGuide?.sources.length).toBeGreaterThanOrEqual(3);
       expect(result.visitorFaqs?.every(faq => faq.sourceUrl?.startsWith("https://www.nps.gov/"))).toBe(true);
-      expect(result.sourceCheckedAt).toBe("2026-10-17");
-      expect(result.hero).toEqual(original.hero);
+      expect(result.sourceCheckedAt).toBe(slug === "chamizal-national-memorial" ? "2026-10-19" : "2026-10-17");
+      if (slug === "chamizal-national-memorial") {
+        expect(result.hero.credit).toContain("Public domain");
+        expect(result.gallery?.some(item => item.image.src === original.hero.src)).toBe(false);
+        expect(result.gallery?.[0].sourceUrl).toContain("commons.wikimedia.org");
+      } else {
+        expect(result.hero).toEqual(original.hero);
+      }
       expect(result.coordinates).toEqual(original.coordinates);
     });
 
@@ -58,6 +64,23 @@ describe("Four Texas NPS parks — individually sourced authority", () => {
       expect(result.entryNote.length).toBeGreaterThan(80);
     });
   }
+
+  it("fixes Chamizal's cut-off history, generic itineraries and planning answers", () => {
+    const actual = applyFourFederalParkAuthorities(fakeDestination("chamizal-national-memorial", "https://www.nps.gov/cham/"));
+    expect(actual.authorityGuide?.whyItMatters).toContain("thousands of El Paso residents");
+    expect(actual.body.join(" ")).toContain("1911");
+    expect(actual.body.join(" ")).toContain("1968");
+    expect(actual.highlights).toContain("Nuestra Herencia mural celebrating borderlands history and culture");
+    expect(actual.authorityGuide?.assessment.recommendedVisit).toContain("60–90 minutes");
+    expect(actual.authorityGuide?.itineraries[0].steps.join(" ")).toContain("orientation film");
+    expect(actual.authorityGuide?.sources.some(item => item.url.endsWith("/accessibility.htm"))).toBe(true);
+    expect(actual.visitorFaqs?.some(item => item.question.includes("free"))).toBe(true);
+    expect(actual.address).toContain("San Marcial");
+    expect(actual.hero.src).toContain("commons.wikimedia.org");
+    expect(actual.gallery?.[0].image.credit).toContain("CC BY-SA 4.0");
+    expect(actual.body.join(" ")).not.toContain("Reach the exact authorized visitor facility");
+    expect(actual.authorityGuide?.whyItMatters.trim().endsWith("United States a")).toBe(false);
+  });
 
   it("never treats a spoofed nps.gov host as authoritative", () => {
     const original = fakeDestination("waco-mammoth-national-monument", "https://www.nps.gov.attacker.test/waco/");

@@ -9,6 +9,15 @@ export type DestinationEditorialLink = {
 };
 
 const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = {
+  "chamizal-national-memorial": [
+    { href: "/county/el-paso", label: "Explore El Paso County", description: "Place Chamizal within the county's river-border, missions, military and cultural history." },
+    { href: "/metro-area/el-paso-metro", label: "El Paso metropolitan guide", description: "Connect the national memorial with the region's museums, historic neighborhoods and visitor landmarks." },
+    { href: "/destination/magoffin-home", label: "Magoffin Home and El Paso history", description: "Compare nineteenth-century borderland family and trade history with Chamizal's twentieth-century treaty story; verify current house restoration access." },
+    { href: "/destination/old-socorro-mission", label: "Old Socorro Mission", description: "Trace earlier Rio Grande settlements along the historic El Paso Mission Trail." },
+    { href: "/destination/franklin-mountains-state-park", label: "Franklin Mountains State Park", description: "Explore the landscape that frames the binational metro area on a separate outdoor outing." },
+    { href: "/article/moving-to-el-paso-guide", label: "Living in El Paso", description: "Understand the contemporary city and neighborhood geography around these historic sites." },
+  ],
+
   "luckenbach": [
     { href: "/article/fredericksburg-johnson-city-historic-road-trip", label: "Historic Fredericksburg to Johnson City road trip", description: "Follow the full west-to-east historical itinerary with Fort Martin Scott, Pacific War Museum, Stonewall, Hye, the two LBJ park districts and current closures." },
   ],
