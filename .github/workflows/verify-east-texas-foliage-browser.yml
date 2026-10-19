@@ -49,6 +49,94 @@ jobs:
           node --check scripts/ci/verify-east-texas-foliage-browser.mjs
           if [[ "$EVENT" == "workflow_dispatch" ]]; then
             echo "should_verify=true" >> "$GITHUB_OUTPUT"
+          elif [[ "$EVENT" == "pull_request" ]]; then
+            # Pure QA workflow/test changes can validate the already-deployed live article.
+            # Do not verify unreleased article-component changes against old production code.
+            if git diff --name-only HEAD^ HEAD | grep -Eq '^src/components/editorial/EastTexasFoliageMedia[.]tsx
+            if git diff --name-only HEAD^ HEAD | grep -Eq '^src/components/editorial/EastTexasFoliageMedia[.]tsx$|^scripts/ci/verify-east-texas-foliage-browser[.]mjs$|^\.github/workflows/verify-east-texas-foliage-browser[.]yml$'; then
+              echo "should_verify=true" >> "$GITHUB_OUTPUT"
+            else
+              echo "should_verify=false" >> "$GITHUB_OUTPUT"
+            fi
+          else
+            echo "should_verify=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  verify:
+    needs: scope
+    if: ${{ needs.scope.outputs.should_verify == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Prepare headless Chrome and isolated Playwright
+        shell: bash
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-foliage-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+      - name: Verify live fall foliage article on desktop and mobile
+        run: node scripts/ci/verify-east-texas-foliage-browser.mjs
+      - name: Save browser acceptance screenshots and results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: east-texas-foliage-browser-${{ github.run_id }}
+          path: artifacts/east-texas-foliage-browser/
+          if-no-files-found: warn
+          retention-days: 14
+; then
+              echo "should_verify=false" >> "$GITHUB_OUTPUT"
+            elif git diff --name-only HEAD^ HEAD | grep -Eq '^scripts/ci/verify-east-texas-foliage-browser[.]mjs$|^\\.github/workflows/verify-east-texas-foliage-browser[.]yml
+            if git diff --name-only HEAD^ HEAD | grep -Eq '^src/components/editorial/EastTexasFoliageMedia[.]tsx$|^scripts/ci/verify-east-texas-foliage-browser[.]mjs$|^\.github/workflows/verify-east-texas-foliage-browser[.]yml$'; then
+              echo "should_verify=true" >> "$GITHUB_OUTPUT"
+            else
+              echo "should_verify=false" >> "$GITHUB_OUTPUT"
+            fi
+          else
+            echo "should_verify=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  verify:
+    needs: scope
+    if: ${{ needs.scope.outputs.should_verify == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Prepare headless Chrome and isolated Playwright
+        shell: bash
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-foliage-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+      - name: Verify live fall foliage article on desktop and mobile
+        run: node scripts/ci/verify-east-texas-foliage-browser.mjs
+      - name: Save browser acceptance screenshots and results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: east-texas-foliage-browser-${{ github.run_id }}
+          path: artifacts/east-texas-foliage-browser/
+          if-no-files-found: warn
+          retention-days: 14
+; then
+              echo "should_verify=true" >> "$GITHUB_OUTPUT"
+            else
+              echo "should_verify=false" >> "$GITHUB_OUTPUT"
+            fi
           elif [[ "$EVENT" == "workflow_run" && "$DEPLOY_RESULT" == "success" ]]; then
             if git diff --name-only HEAD^ HEAD | grep -Eq '^src/components/editorial/EastTexasFoliageMedia[.]tsx$|^scripts/ci/verify-east-texas-foliage-browser[.]mjs$|^\.github/workflows/verify-east-texas-foliage-browser[.]yml$'; then
               echo "should_verify=true" >> "$GITHUB_OUTPUT"
