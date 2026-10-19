@@ -106,6 +106,15 @@ try {
           !!document.querySelector('[data-state-fair-stay-slot]'),
         null, { timeout: 15000 },
       ).then(() => true).catch(() => false);
+      // Check the actual hydrated hotel module, not just an empty React slot.
+      // Expedia owns the surface and disclosures; keep its real DOM contract strict.
+      row.checks.hotelAffiliateDisclosure = await page.waitForFunction(() => {
+        const surface = document.querySelector('[data-state-fair-stay-slot] #expedia-travel-surface');
+        if (!surface || !/Affiliate disclosure: TexasDefined may earn/i.test(surface.textContent || '')) return false;
+        const affiliateLinks = [...surface.querySelectorAll('a[data-affiliate-partner]')];
+        return affiliateLinks.every(a => (a.getAttribute('rel') || '').includes('sponsored'));
+      }, null, { timeout: 15000 }).then(() => true).catch(() => false);
+      row.hotelModuleText = await page.locator('[data-state-fair-stay-slot]').innerText().then(x => x.slice(0, 350)).catch(() => '');
       row.checks.javascript = row.errors.length === 0;
       // Investigate real React #418 failures without weakening the strict baseline.
       // Compare fresh isolated browser contexts with third-party integrations blocked.
