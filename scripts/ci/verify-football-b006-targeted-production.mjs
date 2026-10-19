@@ -58,8 +58,12 @@ try {
  const sitemapResponse=await fetch(root+'/sitemap.xml',{signal:AbortSignal.timeout(45000)});
  result.sitemap.status=sitemapResponse.status;
  const xml=await sitemapResponse.text();
+ // Compare complete <loc> URLs, never a prefix: /boerne must not match
+ // /boerne-champion, nor should a URL mentioned outside a <loc> count.
+ const sitemapUrls=new Set([...xml.matchAll(/<loc>\s*([^<]+?)\s*<\/loc>/gi)]
+  .map(([,url])=>url.trim().replace(/\/$/,'')));
  for(const slug of slugs){
-  if(!xml.includes(root+'/texas-high-school-football-teams/'+slug))result.sitemap.missing.push(slug);
+  if(!sitemapUrls.has(root+'/texas-high-school-football-teams/'+slug))result.sitemap.missing.push(slug);
  }
  if(sitemapResponse.status!==200)result.sitemap.error='Non-200 production sitemap HTTP '+sitemapResponse.status;
 } catch(error) {
@@ -203,6 +207,7 @@ console.log('B006 observed Worker release headers',JSON.stringify(result.observe
 assert.equal(result.summary.schoolCases,75,'Never reduce 25 school x 3 viewport scope');
 assert.equal(result.summary.sitemapFail,0,'Every assigned school must be discoverable in the live production sitemap');
 assert.ok(workerVersions.size<=1,'Mixed Cloudflare Worker versions during one production browser acceptance: '+result.observedWorkerVersions.join(', '));
+assert.equal(result.summary.screenshots,75,'Preserve every one of the 25 schools at all three viewport sizes');
 assert.equal(result.summary.countyScreenshots,result.summary.countyCases,'Preserve one screenshot per county for reciprocal-link diagnosis');
 assert.equal(result.summary.schoolFail,0,'Investigate school failures before technical acceptance');
 assert.equal(result.summary.countyFail,0,'Investigate missing reciprocal county links');
