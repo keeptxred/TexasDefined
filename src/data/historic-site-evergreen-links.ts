@@ -199,6 +199,14 @@ const routeGuides: RouteGuide[] = [
     },
   },
   {
+    slugs: new Set(["old-socorro-mission"]),
+    item: {
+      name: "El Camino Real and El Paso Mission Trail",
+      description: "Understand the nine-mile Ysleta–Socorro–San Elizario corridor and why the original Old Socorro Mission archaeological location is closed to visitors.",
+      href: "/article/el-camino-real-de-tierra-adentro-national-historic-trail",
+    },
+  },
+  {
     slugs: new Set([
       "old-socorro-mission",
       "magoffin-home",
