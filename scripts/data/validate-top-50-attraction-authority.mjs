@@ -96,7 +96,7 @@ const faqWaveSlugs = parseStaticJson(
 const faqWaveRecords = parseStaticJson(
   "src/data/top50-source-verified-faqs-wave2.ts",
   "const VERIFIED_FAQS: Record<Top50FaqWave2Slug, Array<{ question: string; answer: string; sourceUrl: string }>> = ",
-  ";\\n\\nexport function applyTop50FaqWave2",
+  ";\n\nexport function applyTop50FaqWave2",
 );
 assert.equal(faqWaveSlugs.length, 9, "Exactly nine second-wave attraction FAQ upgrades");
 assert.deepEqual(Object.keys(faqWaveRecords).sort(), [...faqWaveSlugs].sort(), "Published FAQ slugs must match lightweight manifest");
