@@ -45,6 +45,16 @@ export function ElPasoGuideNetwork({ currentPath, countyHub = false }: { current
     <p className="eyebrow text-primary">El Paso guide network</p>
     <h2 className="mt-2 font-display text-3xl">Continue exploring El Paso County</h2>
     <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Find more TexasDefined guides to local communities, parks, museums and historic sites. Check official sources for current visitor access.</p>
+    {countyHub ? <div className="mt-7 grid gap-5 sm:grid-cols-2" aria-label="El Paso County landscape photographs">
+      <figure className="overflow-hidden border border-border">
+        <a href="/destination/franklin-mountains-state-park"><img src="/images/state-parks/franklin-mountains-state-park.jpg" alt="Mountain terrain at Franklin Mountains State Park in El Paso County" width={1600} height={1067} loading="lazy" decoding="async" className="aspect-[16/9] w-full object-cover" /></a>
+        <figcaption className="p-3 text-xs text-muted-foreground">Franklin Mountains State Park · Urban Versis 32 · CC BY-SA 4.0 · Wikimedia Commons. <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer" className="underline">License</a></figcaption>
+      </figure>
+      <figure className="overflow-hidden border border-border">
+        <a href="/destination/hueco-tanks-state-park"><img src="/images/explore/historic-sites/hueco-tanks-state-park.jpg" alt="Rocky desert formations at Hueco Tanks State Park and Historic Site near El Paso" width={1600} height={1118} loading="lazy" decoding="async" className="aspect-[16/9] w-full object-cover" /></a>
+        <figcaption className="p-3 text-xs text-muted-foreground">Hueco Tanks State Park · Brian Stansberry · CC BY 3.0 · Wikimedia Commons. <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener noreferrer" className="underline">License</a></figcaption>
+      </figure>
+    </div> : null}
     <ul className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
       {items.map((link) => <li key={link.href} className="border-t border-border pt-4">
         <a href={link.href} className="font-display text-xl font-semibold underline decoration-primary/30 underline-offset-4 hover:text-primary">{link.label}</a>
