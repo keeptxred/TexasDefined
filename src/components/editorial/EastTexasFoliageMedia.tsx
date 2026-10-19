@@ -125,18 +125,36 @@ const PHOTO_SELECTION = [
     license: "https://creativecommons.org/licenses/by-sa/4.0/",
     season: "July photograph — not fall foliage",
   },
+  {
+    slug: "martin-creek-lake-state-park",
+    name: "Martin Creek Lake State Park",
+    source: "https://commons.wikimedia.org/wiki/File:Docks_at_Martin_Creek_Lake_State_Park_2019.jpg",
+    license: "https://creativecommons.org/licenses/by/4.0/",
+    season: "June 2019 lakeshore and trees — not fall foliage",
+    overrideSrc: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Docks_at_Martin_Creek_Lake_State_Park_2019.jpg/960px-Docks_at_Martin_Creek_Lake_State_Park_2019.jpg",
+    overrideAlt: "Lake shoreline, dock and wooded backdrop at Martin Creek Lake State Park",
+  },
+  {
+    slug: "daingerfield-state-park",
+    name: "Daingerfield State Park — October lake reflection",
+    source: "https://commons.wikimedia.org/wiki/File:Daingerfield_sp_reflection.jpg",
+    license: "https://creativecommons.org/licenses/by/4.0/",
+    season: "October 24, 2014 — early autumn with some changing hardwoods, not current conditions",
+    overrideSrc: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Daingerfield_sp_reflection.jpg/960px-Daingerfield_sp_reflection.jpg",
+    overrideAlt: "October view of Lake Daingerfield, with trees and fall-season color reflected in the water",
+  },
 ] as const;
 
 export function EastTexasFoliagePhotoGallery() {
   return <section className="mt-10" aria-labelledby="east-texas-foliage-gallery">
     <h3 id="east-texas-foliage-gallery" className="font-display text-2xl">Photographs of the featured parks</h3>
-    <p className="mt-2 text-sm leading-7 text-muted-foreground">These location-specific, licensed documentary photographs show park settings, not verified peak foliage. We do not present green-season photos as evidence of 2026 fall color. Source and license links accompany each photo.</p>
+    <p className="mt-2 text-sm leading-7 text-muted-foreground">Seven properly attributed photographs cover all six parks, including an October Daingerfield view. The dates are provided for context; none of these images verifies current 2026 color. The Martin Creek image is a woodland lakeshore view rather than the earlier industrial photograph.</p>
     <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
       {PHOTO_SELECTION.map((item) => {
         const photo = stateParkHeroMap[item.slug];
         if (!photo) return null;
-        return <figure key={item.slug} className="overflow-hidden border border-border bg-background">
-          <img src={photo.src} width={photo.width} height={photo.height} alt={photo.alt} loading="lazy" decoding="async" style={{ aspectRatio: "4 / 3" }} className="w-full object-cover" onError={(event) => recoverOrHideImage(event.currentTarget)} />
+        return <figure key={item.source} className="overflow-hidden border border-border bg-background">
+          <img src={"overrideSrc" in item ? item.overrideSrc : photo.src} width={"overrideSrc" in item ? 960 : photo.width} height={"overrideSrc" in item ? 640 : photo.height} alt={"overrideAlt" in item ? item.overrideAlt : photo.alt} loading="lazy" decoding="async" style={{ aspectRatio: "4 / 3" }} className="w-full object-cover" onError={(event) => recoverOrHideImage(event.currentTarget)} />
           <figcaption className="p-3 text-xs leading-5 text-muted-foreground">
             <strong className="block text-foreground">{item.name}</strong>
             <span className="block">{item.season}</span>
@@ -149,7 +167,7 @@ export function EastTexasFoliagePhotoGallery() {
         </figure>;
       })}
     </div>
-    <p className="mt-4 text-sm leading-7 text-muted-foreground">Martin Creek Lake is covered in the park comparison and the driving routes; we are withholding its industrial-view photo from this nature gallery until an appropriate, rights-cleared alternative is verified. Check <a href="https://tpwd.texas.gov/state-parks/martin-creek-lake" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">the official Martin Creek Lake park page ↗</a> for visitor information.</p>
+    <p className="mt-4 text-sm leading-7 text-muted-foreground">For Martin Creek, the gallery uses Larry D. Moore's separately licensed 2019 dock and shoreline photograph instead of the industrial-facing park photo. For current conditions, visit the <a href="https://tpwd.texas.gov/state-parks/martin-creek-lake" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">official Martin Creek Lake park page ↗</a>.</p>
     <p className="mt-4 text-sm leading-7 text-muted-foreground">For actual autumn examples, view the <a href="https://tpwd.texas.gov/newsmedia/news_images/?g=fall_foliage&i=daingerfield_sp_0344.jpg" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">official TPWD Daingerfield fall-foliage photograph ↗</a>. It is linked for reference, not republished or presented as this year's conditions.</p>
   </section>;
 }
