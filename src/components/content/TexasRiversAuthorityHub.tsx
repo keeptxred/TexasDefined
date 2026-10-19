@@ -4,7 +4,6 @@ import { RIVER_AUTHORITY_CARD_PHOTOS } from "@/data/river-authority-photo-catalo
 
 import { PublishableGraphic } from "@/components/editorial/PublishableGraphic";
 import { TexasRiversCitationTrust } from "@/components/content/TexasRiversCitationTrust";
-import { TexasRiverBasinInteractiveMap } from "@/components/content/TexasRiverBasinInteractiveMap";
 
 const twdbMapUrl = "https://www.twdb.texas.gov/mapping/doc/maps/Major_River_Basins_8x11.pdf";
 
@@ -150,15 +149,13 @@ export function TexasRiversAuthorityHub() {
       <div className="max-w-3xl">
         <p className="eyebrow text-primary">See how Texas rivers cross the state</p>
         <h2 id="texas-rivers-authority-heading" className="mt-3 font-display text-3xl leading-tight sm:text-4xl">How Texas Rivers Change Across the State</h2>
-        <p className="mt-4 text-base leading-8 text-muted-foreground">Texas rivers change dramatically from one part of the state to another. Some run through desert canyons, some cross limestone and spring country, and others move through broad forests and coastal plains. The maps below show how those river systems connect different parts of Texas.</p>
+        <p className="mt-4 text-base leading-8 text-muted-foreground">Texas rivers change dramatically from one part of the state to another. Some run through desert canyons, some cross limestone and spring country, and others move through broad forests and coastal plains. The map below shows how those river systems connect different parts of Texas.</p>
         <p className="mt-4 text-sm">
           <a href={twdbMapUrl} target="_blank" rel="noreferrer" className="font-semibold text-primary underline decoration-border underline-offset-4">
             Open the official Texas Water Development Board river-basin map (PDF) ↗
           </a>
         </p>
       </div>
-
-      <TexasRiverBasinInteractiveMap />
 
       <TexasRiverOrientationMap />
 
