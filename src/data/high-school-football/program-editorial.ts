@@ -3810,10 +3810,10 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "notice": {
       "title": "Verified facts and unresolved game-day claims",
-      "body": "Bovina ISD publishes a 2026 Football documents folder. A MaxPreps 2026 staff listing names Wade Wilson, but an official school appointment was not verified; do not claim it as first-party. An October 17 contemporary scoreboard now reports the October 16 Bovina loss to Gruver, 0–55.",
-      "sourceUrl": "https://www.bovinaisd.org/documents/athletics/715565",
-      "sourceLabel": "School material plus explicitly qualified unresolved venue/staff/score claims",
-      "verifiedAt": "2026-10-17"
+      "body": "Bovina ISD's current staff directory explicitly identifies Wade Wilson as athletic director; an August 2026 MaxPreps football staff page separately calls Wilson the varsity head coach. The latter appointment remains third-party unless the district formally identifies the football coaching title. On October 16, Gruver defeated Bovina 55–0, confirmed by October 17 regional football results. The school's 500 Halsell Street contact address is not a verified stadium gate or accessibility promise.",
+      "sourceUrl": "https://www.bovinaisd.org/staff",
+      "sourceLabel": "Bovina ISD official staff directory: Wade Wilson athletic director; MaxPreps Aug 2026 staff listing independently attributes head-coach role",
+      "verifiedAt": "2026-10-19"
     },
     "season": {
       "record": "3–4 through October 16, 2026 (source-dated reported finals; season ongoing)",
@@ -3913,7 +3913,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "overview": [
       "Bovina Mustangs is Bovina ISD's 11-man football team in Parmer County. Its authoritative 2026–28 alignment is UIL 2A Division II District 1; that is different from older season divisions and similarly named programs.",
       "Bovina's completed 2025 postseason included a 36–24 first-round win over Hale Center and a 24–16 win against Seagraves, followed by a 14–48 loss to Stratford. The 2026 Mustangs were 3–3 after a close 38–44 loss at West Texas October 9.",
-      "Bovina ISD publishes a 2026 Football documents folder. A MaxPreps 2026 staff listing names Wade Wilson, but an official school appointment was not verified; do not claim it as first-party. The October 16 Gruver game has no confirmed final here.",
+      "Bovina ISD's current staff directory names Wade Wilson athletic director, while the August 2026 MaxPreps football staff roster names him head coach. Athletic director is first-party established; a current official football head-coach appointment is not separately documented on the district page. The October 16 district home match ended in a 55–0 reported loss to Gruver, not an unresolved fixture.",
       "Gruver shut out Bovina 55–0 in the October 16 district game. This dated result comes from KCBD/FOX34 October 17 South Plains football finals, corroborated by the Houston Chronicle statewide score listing, not a first-party UIL results certification."
     ],
     "faq": [
@@ -3931,7 +3931,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "Who is Bovina's 2026 head coach?",
-        "answer": "MaxPreps names Wade Wilson, but a dated school appointment is still unverified."
+        "answer": "MaxPreps' August 2026 football staff directory lists Wade Wilson head coach, and Bovina ISD's own staff directory separately confirms him athletic director. The head-coach title is third-party attributed; the district's staff listing does not independently verify that exact role."
       },
       {
         "question": "Did Bovina play Gruver on October 16?",
@@ -4138,10 +4138,10 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "notice": {
       "title": "Verified facts and unresolved game-day claims",
-      "body": "The district advertised a 2026–27 head-football-coach opening in March; specialist pages name Austin Norman but school-confirmed appointment evidence is missing. Woodson's October 16 victory over Gold-Burg, 58–53, is now confirmed by matching contemporary press and MaxPreps reports; the earlier incomplete snapshots have been superseded.",
-      "sourceUrl": "https://www.goldburgisd.net/",
-      "sourceLabel": "School material plus explicitly qualified unresolved venue/staff/score claims",
-      "verifiedAt": "2026-10-17"
+      "body": "Gold-Burg ISD advertised a 2026–27 athletic director/head football coach opening in March through Region 9, and that vacancy still appeared in September search results. A MaxPreps August 24, 2026 Gold-Burg team staff entry lists Danny Forman as head coach; a separate specialist football directory used Austin Norman. The conflicting third-party names and potentially stale vacancy listing do not independently establish a district-confirmed current appointment. The October 16 Gold-Burg loss to Woodson 53–58 is now corroborated by contemporary reported finals; earlier missing-score snapshots are superseded.",
+      "sourceUrl": "https://www.applitrack.com/region9/OnlineApp/JobPostings/view.asp?%3Fall=1%3D&AppliTrackJobId=10119_1196&AppliTrackLayoutMode=detail&AppliTrackViewPosting=1&applitrackclient=1196&choosedistrict=true",
+      "sourceLabel": "Gold-Burg ISD's Region 9 2026–27 AD/head-coach vacancy posting, supplemented by dated MaxPreps Gold-Burg August 24 staff roster (Danny Forman)",
+      "verifiedAt": "2026-10-19"
     },
     "season": {
       "record": "2–6 through October 16, 2026 (source-dated reported finals; season ongoing)",
@@ -4247,7 +4247,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "overview": [
       "Gold-Burg Bears is Gold-Burg ISD's six-man football team in Montague County. Its authoritative 2026–28 alignment is UIL 1A Division II District 10; that is different from older season divisions and similarly named programs.",
       "Gold-Burg is a Ringgold–Stoneburg community school, separate from the Bowie ISD Jackrabbits. Specialist six-man records report 9–3 in 2021 and 7–5 in 2024, without establishing any UIL football state championship. A 2026 student-produced school football hype video is school-owned material, not an open media license.",
-      "The district advertised a 2026–27 head-football-coach opening in March; specialist pages name Austin Norman but school-confirmed appointment evidence is missing. Two October 16 Woodson snapshots differed (one reported a 58–53 loss, another had no result), so the match remains explicitly unresolved.",
+      "Gold-Burg ISD's March 2026 hiring posting advertised an AD/head-football-coach vacancy for 2026–27, and the posting remained listed into September. A MaxPreps August 24 team-staff roster lists Danny Forman, while a specialist six-man source earlier listed Austin Norman; without a dated district-originated appointment these are attributed, not certified. The October 16 Woodson game is **not unresolved**: contemporary results report a 58–53 Gold-Burg loss, now incorporated into the 2–6 season ledger.",
       "Woodson defeated Gold-Burg 58–53 on October 16; the earlier conflicting/empty snapshots are superseded by a current newspaper report and matching October 17 MaxPreps reports. This dated result comes from Houston Chronicle October 16 statewide football finals, not a first-party UIL results certification."
     ],
     "faq": [
@@ -4265,7 +4265,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "Who is the head football coach?",
-        "answer": "Third-party and district vacancy evidence do not conclusively establish the current appointment."
+        "answer": "Gold-Burg ISD's March vacancy posting sought a 2026–27 AD/head coach. A dated August 24 MaxPreps staff roster names Danny Forman, but an earlier specialist listing names Austin Norman and there is no verified district-issued appointment. The current head-coaching role remains explicitly unconfirmed."
       },
       {
         "question": "What was the October 9 Throckmorton result?",
@@ -4306,10 +4306,10 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "notice": {
       "title": "Verified facts and unresolved game-day claims",
-      "body": "Boyd ISD confirms the 700 Knox Avenue campus and phone but did not yield a first-party 2026 football head-coach designation. MaxPreps lists Shawn Sparks as coach; attribute this third-party listing, do not present it as a school announcement. Peaster beat Boyd 44–13 on October 16; the reported 2026 record is now 2–5.",
-      "sourceUrl": "https://boydisd.net/highschool",
-      "sourceLabel": "School material plus explicitly qualified unresolved venue/staff/score claims",
-      "verifiedAt": "2026-10-17"
+      "body": "Boyd ISD's current district leadership page officially identifies Shawn Sparks as athletic director. MaxPreps' September 2026 26–27 staff roster separately lists him as head football coach. The district's school-site HEAD COACH section is image-led and does not yield a readable school-issued name, so the head-coach role remains attributed to MaxPreps rather than described as school-certified. Peaster beat Boyd 44–13 on October 16; the reported 2026 tally is 2–5. The campus mailing address is not a confirmed stadium gate.",
+      "sourceUrl": "https://boydisd.net/districtleadershipteam",
+      "sourceLabel": "Boyd ISD official district leadership: Shawn Sparks athletic director; MaxPreps September 2026 names Sparks varsity head coach (third party)",
+      "verifiedAt": "2026-10-19"
     },
     "season": {
       "record": "2–5 through October 16, 2026 (Peaster 44–13 final reported; season ongoing)",
@@ -4406,7 +4406,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "overview": [
       "Boyd Yellowjackets is Boyd ISD's 11-man football team in Wise County. Its authoritative 2026–28 alignment is UIL 3A Division I District 4; that is different from older season divisions and similarly named programs.",
       "The Yellowjackets earned genuine UIL titles in 1983 (Class 2A, 16–8 over Groveton) and 2004 (Class 2A Division I, 17–14 over Newton). The 2004 team is listed at 16–0 in the historical season index. Those championships are separate from today's 3A Division I classification.",
-      "Boyd ISD confirms the 700 Knox Avenue campus and phone but did not yield a first-party 2026 football head-coach designation. MaxPreps lists Shawn Sparks as coach; attribute this third-party listing, do not present it as a school announcement. Peaster beat Boyd 44–13 on October 16; the reported 2026 record is now 2–5."
+      "Boyd ISD's official district leadership roster calls Shawn Sparks its athletic director, and a 2026 MaxPreps staff roster separately calls Sparks head football coach. The latter remains attributed because the district's image-led coaching page does not independently publish that readable appointment. The October 16 home match ended in a reported 44–13 loss to Peaster, leaving Boyd 2–5."
     ],
     "faq": [
       {
@@ -4427,7 +4427,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "Who is listed as the current head coach?",
-        "answer": "MaxPreps lists Shawn Sparks; a school-issued appointment is not independently verified."
+        "answer": "MaxPreps' 2026 roster lists Shawn Sparks as varsity head coach. Boyd ISD's district leadership page independently names him athletic director, but that official role does not alone certify a football head-coach appointment. Verify school-specific coaching details with Boyd ISD."
       },
       {
         "question": "What was Boyd's October 2 result?",
