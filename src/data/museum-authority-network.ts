@@ -30,6 +30,7 @@ export interface MuseumAuthorityDossier {
 export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
   "frontiers-of-flight-museum-dallas": {
       name: "Frontiers of Flight Museum",
+      slug: "frontiers-of-flight-museum-dallas",
       county: "Dallas",
       city: "Dallas",
       reviewed: "2026-10-18",
@@ -134,10 +135,11 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
               href: "/explore/museums",
               reason: "Compare aviation, science, and history museums across Texas."
           }
-      ]
+      ],
   },
   "museum-of-texas-tech-university-lubbock": {
       name: "Museum of Texas Tech University",
+      slug: "museum-of-texas-tech-university-lubbock",
       county: "Lubbock",
       city: "Lubbock",
       reviewed: "2026-10-18",
@@ -244,7 +246,7 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
               href: "/destination/lubbock-lake-landmark",
               reason: "Affiliated outdoor archaeological preserve, reached separately with different visiting rules."
           }
-      ]
+      ],
   },
   "texas-country-music-hall-of-fame-carthage": {
     name: "Texas Country Music Hall of Fame and Tex Ritter Museum",
