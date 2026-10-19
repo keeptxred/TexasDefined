@@ -40,3 +40,18 @@ test("Edinburg museum duplicates consolidate on the researched primary guide", (
   assert.equal(isPrimaryTripPlannerDestination({ slug: alias } as Destination), false);
   assert.equal(isPrimaryTripPlannerDestination({ slug: primary } as Destination), true);
 });
+
+test("McAllen Santa Ana visitor notice is consistent with federal levee closure advisory", () => {
+  const curated = readFileSync("src/routes/explore.near.$metro.$collection.lazy.tsx", "utf8");
+  const refugee = readFileSync("src/data/national-wildlife-refuge-destinations.ts", "utf8");
+  const curation = readFileSync("src/data/destination-curation-batch20.ts", "utf8");
+  const section = curated.split('slug: "santa-ana-national-wildlife-refuge"')[1]?.split('slug: "estero-llano-grande-state-park"')[0] ?? "";
+  const source = refugee.split('slug: "santa-ana-national-wildlife-refuge"')[1]?.split('slug: "texas-point-national-wildlife-refuge"')[0] ?? "";
+  const overlay = curation.split('"santa-ana-national-wildlife-refuge":')[1]?.split('"balcones-canyonlands-national-wildlife-refuge"')[0] ?? "";
+  for (const [name, block] of [["McAllen guide", section], ["refuge destination", source], ["visitor curation", overlay]] as const) {
+    assert.match(block, /Levee Road/,`${name} missing FWS levee notice`);
+    assert.match(block, /Bobcat Trail/,`${name} missing FWS bicycle detour`);
+    assert.match(block, /October 18, 2026/,`${name} missing notice review date`);
+    assert.match(block, /https:\/\/www\.fws\.gov\/refuge\/santa-ana\/visit-us/,`${name} missing official current access source`);
+  }
+});
