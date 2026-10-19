@@ -134,7 +134,7 @@ for (const marker of [
 ]) {
   if (!proximityCollectionRoute.includes(marker)) failures.push(`San Angelo proximity production-proof marker is missing: ${marker}`);
 }
-const dallasTwoHourTitle = 'Small-Town Day Trips From Dallas, Texas';
+const dallasTwoHourTitle = 'Small Towns About 1–2 Hours From Dallas, Texas';
 if (!proximityPresentation.includes('titlePrefix: "Small-Town Day Trips From"')) {
   failures.push('Metro proximity presentation must retain the shared Small-Town Day Trips From title contract for two-hour small-town pages.');
 }
