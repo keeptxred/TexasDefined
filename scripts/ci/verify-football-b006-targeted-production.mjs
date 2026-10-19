@@ -138,7 +138,9 @@ try{
    if(!expectedRecord||!pageData.body.includes(expectedRecord))errors.push('displayed W-L record differs from source record '+expectedRecord);
    if(coachCheckpoints[s.slug]){
     row.observedHeadCoaches=pageData.coaches;
-    if(pageData.coaches.length!==1||pageData.coaches[0]!==coachCheckpoints[s.slug])
+    // Desktop and mobile fact presentations may both render in the DOM. Every
+    // observed Head coach fact must agree; reject missing or contradictory values.
+    if(!pageData.coaches.length||pageData.coaches.some(name=>name!==coachCheckpoints[s.slug]))
      errors.push('rendered head-coach fact mismatch: expected '+coachCheckpoints[s.slug]
        +', observed '+JSON.stringify(pageData.coaches));
    }
