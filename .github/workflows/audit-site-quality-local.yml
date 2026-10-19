@@ -16,6 +16,7 @@ on:
 
 permissions:
   contents: read
+  actions: read
 
 concurrency:
   group: local-site-quality-audit
@@ -46,11 +47,42 @@ jobs:
           test -f /etc/apt/sources.list.d/ubuntu.sources
           timeout 180s sudo apt-get update -qq -o Dir::Etc::sourcelist="sources.list.d/ubuntu.sources" -o Dir::Etc::sourceparts="-"
           timeout 180s sudo apt-get install -y --no-install-recommends imagemagick librsvg2-bin
+      - name: Fingerprint governed Discover registry
+        id: discover_fingerprint
+        run: echo "sha=$(node scripts/assets/materialize-discover-overrides.mjs --fingerprint)" >> "$GITHUB_OUTPUT"
       - name: Restore governed Discover derivatives
+        id: discover_cache
         uses: actions/cache@v4
         with:
           path: public/images/discover
-          key: local-audit-discover-${{ runner.os }}-${{ hashFiles('scripts/assets/materialize-discover-overrides.mjs') }}
+          key: local-audit-discover-${{ runner.os }}-${{ steps.discover_fingerprint.outputs.sha }}
+      - name: Recover exact-registry Discover derivatives from successful production
+        if: steps.discover_cache.outputs.cache-hit != 'true'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_FINGERPRINT: ${{ steps.discover_fingerprint.outputs.sha }}
+        run: |
+          set -euo pipefail
+          prefix="governed-discover-derivatives-${SOURCE_FINGERPRINT}-"
+          stage="$(mktemp -d)"
+          trap 'rm -rf "$stage"' EXIT
+          if ! recent="$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/deploy-production.yml/runs?per_page=12" --jq '.workflow_runs[] | select(.conclusion == "success") | .id')"; then
+            echo "::warning::Discover production artifact lookup unavailable; governed source materialization remains mandatory."
+            exit 0
+          fi
+          while IFS= read -r run_id; do
+            [[ -n "$run_id" ]] || continue
+            names="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$run_id/artifacts?per_page=100" --jq '.artifacts[] | select(.expired == false) | .name' || true)"
+            artifact="$(printf '%s\n' "$names" | grep -F "$prefix" | head -n 1 || true)"
+            [[ "$artifact" == "$prefix"* ]] || continue
+            if gh run download "$run_id" --repo "$GITHUB_REPOSITORY" --name "$artifact" --dir "$stage"; then
+              mkdir -p public/images/discover
+              find "$stage" -type f -name '*.webp' -exec cp -t public/images/discover {} +
+              echo "Restored governed Discover derivatives from successful production run $run_id; the materializer will validate every file."
+              break
+            fi
+          done <<< "$recent"
       - name: Build the complete site once on this runner
         run: |
           npm run prebuild
