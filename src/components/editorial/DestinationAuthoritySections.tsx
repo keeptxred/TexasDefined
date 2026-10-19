@@ -5,6 +5,18 @@ type Props = { destination: Destination };
 
 function commonsPhotoCredit(destination: Destination) {
   const { src, credit } = destination.hero;
+  // The Chamizal hero is a licensed local copy, not a Commons redirect URL.
+  if (destination.slug === "chamizal-national-memorial" &&
+      src === "/images/explore/historic-sites/chamizal-national-memorial.jpg" &&
+      credit?.includes("GoneBefore")) {
+    return {
+      fileUrl: "https://commons.wikimedia.org/wiki/File:Chamizal_National_Memorial.jpg",
+      licenseCode: "CC BY-SA 4.0",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+      credit,
+      note: null,
+    };
+  }
   if (!credit || !src.startsWith("https://commons.wikimedia.org/wiki/Special:Redirect/file/")) return null;
   const encodedFile = src.split("/file/")[1]?.split("?")[0];
   if (!encodedFile) return null;
