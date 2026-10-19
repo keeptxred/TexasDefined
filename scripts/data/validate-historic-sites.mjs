@@ -188,6 +188,11 @@ if (!visitDepth.includes("const SITE_DEPTH") || !runtime.includes("enrichResearc
   failures.push("Removing template filler requires retaining original researched site depth in the published resolver.");
 }
 
+if (fullCatalog.includes("The historic significance comes from the surviving place and the people whose stories it holds") ||
+    !fullCatalog.includes("whyItMatters: [")) {
+  failures.push("Historic authority-guide significance must use actual site facts, not an interchangeable filler sentence.");
+}
+
 // Closure notices must agree across the quick facts, experience assessment,
 // family guidance and itineraries. A contradictory 'best season' is dangerous.
 for (const marker of [
