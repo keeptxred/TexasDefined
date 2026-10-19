@@ -1,6 +1,6 @@
 import type { TexasDataset } from './texas-data-center';
 
-function cell(value: string | number | undefined): string {
+export function escapeTexasCsvCell(value: unknown): string {
   const text = typeof value === 'number'
     ? (Number.isFinite(value) ? String(value) : '')
     : String(value ?? '');
@@ -17,5 +17,5 @@ export function buildTexasDatasetCsv(dataset: TexasDataset): string {
     row.label, row.value, dataset.unit, dataset.year, dataset.updated,
     dataset.sourceName, dataset.sourceUrl, row.note ?? '', dataset.methodology,
   ] as (string | number)[]);
-  return '\uFEFF' + [header, ...rows].map(row => row.map(cell).join(',')).join('\r\n') + '\r\n';
+  return '\uFEFF' + [header, ...rows].map(row => row.map(escapeTexasCsvCell).join(',')).join('\r\n') + '\r\n';
 }

@@ -41,3 +41,20 @@ test('generic dataset pages retain a visible source-backed download without a ne
   assert.ok(source.includes('Download CSV'));
   assert.ok(source.includes('dataset.rows.map'));
 });
+
+test('school-district tax CSV reuses injection-resistant cell encoder', () => {
+  const source = readFileSync('src/routes/texas-data.$datasetSlug.lazy.tsx', 'utf8');
+  assert.match(source, /const cell=escapeTexasCsvCell;const lines=/);
+  assert.doesNotMatch(source, /const cell=\(value:unknown\)=>/);
+});
+
+test('CSV encoder protects spreadsheet-opening of untrusted school and source fields', async () => {
+  const { escapeTexasCsvCell } = await import('./texas-data-download.ts');
+  assert.equal(escapeTexasCsvCell('=HYPERLINK("https://evil.invalid")'), "\"'=HYPERLINK(\"\"https://evil.invalid\"\")\"");
+  assert.equal(escapeTexasCsvCell('  +SUM(1,2)'), "\"'  +SUM(1,2)\"");
+  assert.equal(escapeTexasCsvCell('-3+2'), "\"'-3+2\"");
+  assert.equal(escapeTexasCsvCell(-123.25), '"-123.25"');
+  assert.equal(escapeTexasCsvCell(0), '"0"');
+  assert.equal(escapeTexasCsvCell(null), '""');
+  assert.equal(escapeTexasCsvCell('district,"quote"'), '"district,""quote"""');
+});
