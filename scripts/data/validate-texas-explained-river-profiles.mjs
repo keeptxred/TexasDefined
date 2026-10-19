@@ -48,6 +48,8 @@ for (const marker of [
   'See all river basins →',
   'Explore All 15 Major Texas River Basins',
   'Texas River Basins Explained →',
+  'Texas Lakes & Reservoirs Explained →',
+  '/article/texas-lakes-reservoirs-explained',
   'Explore Texas Lakes & Rivers →',
   '<TexasRiversCitationTrust />',
 ]) if (!authority.includes(marker)) errors.push(`Texas rivers map-first authority contract missing: ${marker}`);

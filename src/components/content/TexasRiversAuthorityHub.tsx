@@ -209,8 +209,9 @@ export function TexasRiversAfterArticle() {
         </div>
       </section>
 
-      <section className="mt-10 grid gap-4 border-t border-border pt-8 md:grid-cols-2" aria-label="Related Texas water guides">
+      <section className="mt-10 grid gap-4 border-t border-border pt-8 md:grid-cols-3" aria-label="Related Texas water guides">
         <Link to="/article/texas-river-basins-guide" className="group p-1"><p className="eyebrow text-primary">See what feeds each river</p><h3 className="mt-2 font-display text-xl group-hover:text-primary">Texas River Basins Explained →</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">See what land drains into each major river and why upstream changes matter downstream.</p></Link>
+        <Link to="/article/texas-lakes-reservoirs-explained" className="group border-t border-border p-1 pt-5 md:border-l md:border-t-0 md:pl-6 md:pt-1"><p className="eyebrow text-primary">Follow the stored water</p><h3 className="mt-2 font-display text-xl group-hover:text-primary">Texas Lakes & Reservoirs Explained →</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">See how dams turn river systems into water supply, flood-control and recreation reservoirs.</p></Link>
         <Link to="/explore/lakes-rivers" className="group border-t border-border p-1 pt-5 md:border-l md:border-t-0 md:pl-6 md:pt-1"><p className="eyebrow text-primary">Experience the water</p><h3 className="mt-2 font-display text-xl group-hover:text-primary">Explore Texas Lakes & Rivers →</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">Move from statewide geography to river parks, swimming water, reservoirs and destination guides.</p></Link>
       </section>
     </div>
