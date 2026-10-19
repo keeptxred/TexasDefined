@@ -5,7 +5,7 @@ const stubs = read('src/data/fixtures/texas-explained-road-system-stubs.ts');
 const articles = read('src/data/fixtures/texas-explained-road-systems.ts');
 const lazy = read('src/data/fixtures/lazy-evergreen.ts');
 const hub = `${read('src/routes/texas-explained.tsx')}\n${read('src/components/editorial/TexasExplainedPage.tsx')}`;
-const topology = read('src/data/fixtures/newest-evergreen.ts');
+const pillar = read('src/data/fixtures/texas-farm-to-market-roads-explained.ts');
 const articleRoute = read('src/routes/article.$slug.tsx');
 const indexReadiness = read('src/data/fixtures/texas-gateway-index-readiness.ts');
 const errors = [];
@@ -28,7 +28,7 @@ for (const [slug, sourceUrl] of profiles) {
   if (!articles.includes(`slug: "${slug}"`)) errors.push(`Missing full road-system article: ${slug}`);
   if (!articles.includes(sourceUrl)) errors.push(`Missing current TxDOT source URL: ${slug}`);
   if (!hub.includes(`"${slug}"`)) errors.push(`Texas Explained hub must surface road-system article: ${slug}`);
-  if (!topology.includes(`/article/${slug}`)) errors.push(`FM-road pillar must link to road-system article: ${slug}`);
+  if (!pillar.includes(`/article/${slug}`)) errors.push(`FM-road pillar primary article data must link to road-system article: ${slug}`);
   if (!articleRoute.includes(`"${slug}"`)) errors.push(`Shared article route must recognize road-system article: ${slug}`);
 }
 
@@ -87,4 +87,4 @@ if (errors.length) {
   errors.forEach((error) => console.error(`- ${error}`));
   process.exit(1);
 }
-console.log(`Texas Explained road-system batch passed: five current-TxDOT-backed explainers are lazy-loaded, hub-visible, reciprocal with the FM-road pillar, collection-aware and each clears the sitewide ${indexFloor}-word article index floor.`);
+console.log(`Texas Explained road-system batch passed: five current-TxDOT-backed explainers are lazy-loaded, hub-visible, directly linked from the FM-road pillar's primary article data, collection-aware and each clears the sitewide ${indexFloor}-word article index floor.`);

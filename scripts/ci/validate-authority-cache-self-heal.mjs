@@ -79,10 +79,10 @@ for (const path of [
 for (const marker of [
   "url: 'https://texasdefined.com/article/texas-rivers-explained'",
   "'Texas Rivers Explained'",
-  "'Start with the map'",
+  "'See how Texas rivers cross the state'",
   "'Open the full 15-basin comparison'",
   "'Explore All 15 Major Texas River Basins'",
-  "'Texas rivers at a glance: six quick answers'",
+  "'Texas Rivers at a Glance'",
 ]) requireText(freshness, marker, `Texas rivers canonical freshness contract ${marker}`);
 
 for (const marker of [

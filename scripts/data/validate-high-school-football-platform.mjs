@@ -177,9 +177,22 @@ if (!errors.length) {
 
   for (const marker of [
     "const seoName = program?.schoolName || displayName",
-    'title: editorial?.seo?.title ?? `${teamName} Football: 2026 District & Team Guide`',
-    "const description = editorial?.seo?.description ?? `${teamName} football:",
+    'const defaultTitle = program',
+    '`${teamName} Football: 2026 District & Team Guide`',
+    '`${teamName} Football: ${privateAlignment.association} Team Guide`',
+    '`${teamName} Football: ${governingBodyHint} Team Guide`',
+    '`${teamName} Football: Texas Team Guide`',
+    'title: editorial?.seo?.title ?? defaultTitle',
+    "const description = editorial?.seo?.description ?? (program",
+    'non-UIL programs are not forced into UIL classifications',
+    'const sportsTeamDescription = program || privateAlignment || governingBodyHint',
   ]) requireText(featuredProfileRoute, marker, 'Football profile unique SEO metadata');
+  if (featuredProfileRoute.includes('announced 2026 football-season cancellation')) {
+    errors.push('Football SportsTeam schema must not infer season cancellation from a generic editorial notice.');
+  }
+  if (featuredProfileRoute.includes('program?.officialSchoolName || displayName')) {
+    errors.push('Football schema must use the canonical public UIL school name instead of raw TEA campus names.');
+  }
   if (featuredProfileRoute.includes('slug === "ben-bolt-palito-blanco"')) errors.push("Football profile SEO must not override individually authored Ben Bolt title");
 
   for (const marker of [
@@ -1010,7 +1023,7 @@ if (!errors.length) {
     "createFileRoute('/texas-high-school-football-teams/$slug')",
     'getFootballProgramProfilePage',
     'football-program-profile.functions',
-    'Football: 2026 District & Team Guide',
+    'defaultTitle',
   ]) requireText(featuredProfileRoute, marker, 'Football school profile route');
   requireText(featuredProfileRoute, "'@type': 'SportsTeam'", 'Football school profile SportsTeam schema');
   requireText(featuredProfileRoute, "'@type': 'FAQPage'", 'Football school profile FAQ schema');
@@ -1019,6 +1032,7 @@ if (!errors.length) {
     "createLazyFileRoute('/texas-high-school-football-teams/$slug')",
     'How to enroll at',
     'Official district enrollment',
+    '((program && enrollmentLink) || (!program && privateAdmissions))',
     'District enrollment source last reviewed',
      'Official school admissions',
     'Start with {admissions.sourceLabel} ↗',
@@ -1039,7 +1053,7 @@ if (!errors.length) {
     'Texas high schools often share district stadiums.',
     'Open TexasDefined stadium guide →',
     'Official venue source ↗',
-    'Association placement not yet available',
+    'Non-UIL football program',
     'Private-school football uses its association’s own alignment system.',
     "privateAlignment.sourceKind === 'official-association'",
     'privateAlignmentLabel',
@@ -1069,6 +1083,12 @@ if (!errors.length) {
     'Exact UIL enrollment pending',
     'Venue details not yet available',
     'Mascot source not yet available',
+    'Association not yet verified',
+    'Association placement not yet available',
+    'No district label in source',
+    'Not specified by source',
+    'has not yet verified a dedicated current enrollment URL',
+    'Association placement not yet verified',
   ]) {
     if (featuredProfilePage.includes(forbidden)) errors.push(`Football profile contains a statewide regression marker: ${forbidden}`);
   }
@@ -1098,6 +1118,7 @@ if (!errors.length) {
     'quickFacts: buildFootballProfileQuickFacts',
     'faq: buildFootballProfileFaq',
   ]) requireText(programProfileServer, marker, 'Football profile server answer generation');
+  requireText(footballProfileContent, "return 'Non-UIL football program';", 'Football profile non-UIL fail-closed label');
   for (const marker of [
     "slug: 'spring'",
     "name: 'KaRon Coleman Sr.'",

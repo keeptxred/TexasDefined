@@ -53,7 +53,7 @@ export function footballProfileAlignmentLabel(input: FootballProfileContentInput
   if (privateAlignment) {
     return `${privateAlignment.association} ${privateAlignment.divisionLabel}${privateAlignment.districtLabel ? ` · ${privateAlignment.districtLabel}` : ''}`;
   }
-  return 'Association placement not yet verified';
+  return 'Non-UIL football program';
 }
 
 export function buildFootballProfileSummary(input: FootballProfileContentInput) {
@@ -78,7 +78,7 @@ export function buildFootballProfileSummary(input: FootballProfileContentInput) 
     return `${team} football is tracked under ${footballProfileAlignmentLabel(input)}.${coach} Private-school association divisions are shown on their own terms rather than being forced into UIL 1A–6A classifications.`;
   }
 
-  return `${team} football has a TexasDefined profile, but a current association placement is shown only when it can be sourced. Use the school and governing-association links on this page for current season verification.`;
+  return `${team} football is outside the current UIL alignment. Association and division details are published only when verified from the governing organization; other sourced team information remains available below.`;
 }
 
 export function buildFootballProfileQuickFacts(input: FootballProfileContentInput): FootballProfileQuickFact[] {

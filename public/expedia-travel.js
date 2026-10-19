@@ -563,6 +563,9 @@
     if (target.matches?.(SLOT_SELECTOR)) target.replaceChildren(surface);
     else target.appendChild(surface);
     trackSurfaceImpression(surface, placement);
+    // Expedia is the owner of this async-rendered surface. Notify the existing
+    // CJ choice layer once the target actually exists; no polling or broad DOM scans.
+    window.TexasDefinedStayAffiliateOptions?.sync?.();
   }
 
   // Preserve React SSR for individually audited football-linked counties.
@@ -608,7 +611,23 @@
     const context = contextFromPath();
     const expectedContext = context ? `${context.kind}:${context.key}` : "";
     if (current?.dataset.surfaceType === "curated" && current.dataset.stayContext === expectedContext) return;
-    if (!context && current?.dataset.surfaceType === "generic") return;
+    // When a destination has zero curated stays, keep the same generic surface.
+    // Removing/replacing it on every mutation also deletes the independently
+    // managed CJ booking choices nested inside it (including Hotel Paso del Norte).
+    if (context && current?.dataset.surfaceType === "generic" && current.dataset.stayContext === expectedContext) return;
+    if (!context && current?.dataset.surfaceType === "generic") {
+      // The swimming guide can stream/hydrate after the lodging surface mounts.
+      // A fallback attached to an initially empty #main must move behind the
+      // now-present guide. Reuse the same node to preserve disclosures and tracking.
+      if (
+        normalizePath() === "/explore/swimming-holes-river-tubing"
+        && main.querySelector("#texas-swimming-holes-river-tubing-guide")
+        && main.lastElementChild !== current
+      ) {
+        main.appendChild(current);
+      }
+      return;
+    }
 
     current?.remove();
 
@@ -623,7 +642,9 @@
     }
 
     if (version !== syncVersion || !isMonetizationEligible()) return;
-    placeSurface(buildGenericSurface(), main);
+    const fallback = buildGenericSurface();
+    fallback.dataset.stayContext = expectedContext;
+    placeSurface(fallback, main);
   }
 
   function scheduleSync() {
@@ -646,6 +667,7 @@
     surface.dataset.stayPlacement = "explicit-mount";
     node.replaceChildren(surface);
     trackSurfaceImpression(surface, "explicit-mount");
+    window.TexasDefinedStayAffiliateOptions?.sync?.();
     return true;
   }
 
@@ -666,6 +688,9 @@
       history[method] = function (...args) {
         const result = original.apply(this, args);
         scheduleSync();
+        // A Hotel Paso-specific Hotels.com offer must not persist when a
+        // TanStack client-side route changes to another destination.
+        window.TexasDefinedStayAffiliateOptions?.sync?.();
         return result;
       };
     }

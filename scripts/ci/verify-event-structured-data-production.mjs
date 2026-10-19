@@ -421,8 +421,14 @@ async function verifyCrossroadsFestivalLeaf() {
     'Parking, walking and navigating downtown',
     'Visit Waxahachie — official downtown parking map',
     'Ellis County Museum',
-    'Event facts last source-checked 2026-10-09',
+    'Event facts last source-checked 2026-10-',
     'Renelibrary',
+    'Main stage · 6–7:30 p.m.',
+    'Main stage · 4–5 p.m.',
+    'Crossroads Festival & Parking Maps',
+    'Whataburger Kids Zone',
+    'Explore historic Waxahachie',
+    'Event facts last source-checked 2026-10-18',
   ]) assert(readable.includes(marker), `Crossroads festival is missing verified visitor content: ${marker}`);
 
   const nodes = extractJsonLd(html).flatMap((block) => collectTypedNodes(block));
@@ -431,7 +437,7 @@ async function verifyCrossroadsFestivalLeaf() {
   if (isLiveOccurrence) {
     assert(event, 'Upcoming Crossroads festival requires single Event occurrence schema');
     assert(event.startDate === '2026-10-24T09:00:00-05:00', 'Crossroads schema must use confirmed 9 a.m. CDT opening');
-    assert(event.endDate === '2026-10-24T19:00:00-05:00', 'Crossroads schema must use confirmed 7 p.m. CDT closing');
+    assert(event.endDate === '2026-10-24T19:30:00-05:00', 'Crossroads Event schema must follow organizer-confirmed 7:30 p.m. main-stage finish, distinct from city-listed general 7 p.m. festival hours');
     const freeOffer = asArray(event.offers).find((offer) => Number(offer?.price) === 0);
     assert(freeOffer, 'Crossroads free admission must appear as structured Offer');
     verifyOfferShape(freeOffer, 'Crossroads general admission', true);

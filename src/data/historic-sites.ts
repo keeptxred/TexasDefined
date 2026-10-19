@@ -67,11 +67,16 @@ export const historicSiteSeeds: HistoricSiteSeed[] = [
   { slug: "dallas-fort-worth-national-cemetery", name: "Dallas-Fort Worth National Cemetery", nearestTown: "Dallas", county: "Dallas County", region: "prairies-lakes", coordinates: { lat: 32.716, lng: -96.948 }, officialUrl: "https://www.cem.va.gov/cems/nchp/DallasFtWorth.asp", significance: "Dedicated and opened for burials in 2000, the VA cemetery occupies more than 600 acres overlooking Mountain Creek Lake and serves veterans and families across North Texas.", visitAngle: "The rolling landscape and modern committal facilities make it a useful place to understand how national cemetery traditions continue in a fast-growing Texas metro area.", themes: ["veterans", "North Texas military history", "national cemeteries"] },
 ];
 
-function historicBody(site: HistoricSiteSeed): [string, string, string] {
+/**
+ * The seed supplies two real, place-specific facts. Deeper narrative research,
+ * access advisories, timelines and operator references are appended by the
+ * historic-site enrichment pipeline. Do not pad pages with interchangeable
+ * explanations of why a historic stop matters or generic 'look for details' copy.
+ */
+function historicBody(site: HistoricSiteSeed): string[] {
   return [
-    `${site.name} belongs on a Texas history itinerary because ${site.significance.charAt(0).toLowerCase()}${site.significance.slice(1)} The value of the stop is not just the surviving building, battlefield, monument or landscape. It is the chance to place a familiar Texas story back in the geography where it happened and to see how transportation, settlement, conflict, work and family life shaped the surrounding region.`,
-    `${site.visitAngle} A useful visit starts with the site's interpretive material rather than treating the property as a photo stop. Look for the details that connect the location to ${site.themes[0]}, ${site.themes[1]} and ${site.themes[2]}; those threads are also the best way to connect this stop with nearby museums, county history and other Texas Defined destinations.`,
-    `Plan this as part of a broader ${site.nearestTown} and ${site.county} route when possible. Hours, tours, restoration work, special programs and access can change, so verify current visitor information with the official site before leaving. Texas Defined uses the official source as the planning authority while this guide focuses on why the place matters, what to notice when you arrive and how it fits into the larger story of Texas.`,
+    site.significance,
+    site.visitAngle,
   ];
 }
 
@@ -101,18 +106,24 @@ export const historicSiteDestinations: Destination[] = historicSiteSeeds.map((si
   nearestTown: site.nearestTown,
   county: site.county,
   coordinates: site.coordinates,
-  hero: {
+  hero: site.slug === "magoffin-home" ? {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Magoffin%20home%202009.jpg?width=1600",
+    alt: "The actual 1875 Magoffin Home adobe residence in El Paso, photographed December 2009",
+    width: 2099,
+    height: 1266,
+    credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons · photographed December 9, 2009",
+  } : {
     src: historicFallback,
     alt: `Historic Texas architecture and landscape representing ${site.name}`,
     width: 1600,
     height: 1067,
   },
   bestSeason: "Year-round; spring and fall are usually the most comfortable for outdoor portions of a visit.",
-  entryNote: site.slug === "fort-martin-scott" ? "THC currently lists staffed hours Tue–Sat 9 a.m.–5 p.m., grounds daily 8 a.m.–8 p.m., and adult admission $10 (reduced rates for seniors and ages 5–17). THC pages conflict about guided tours (main listing: requested tours; Plan Your Visit: self-guided only). Confirm directly before relying on a guided visit." : "Check the official visitor page before departure for current hours, tours, fees, closures and accessibility details.",
+  entryNote: site.slug === "magoffin-home" ? "Texas Historical Commission currently reports that the historic home is closed through 2027 for restoration, while the visitor center remains open. No house tour should be assumed. Check current visitor-center hours and program details before traveling." : site.slug === "fort-martin-scott" ? "THC currently lists staffed hours Tue–Sat 9 a.m.–5 p.m., grounds daily 8 a.m.–8 p.m., and adult admission $10 (reduced rates for seniors and ages 5–17). THC pages conflict about guided tours (main listing: requested tours; Plan Your Visit: self-guided only). Confirm directly before relying on a guided visit." : "Check the official visitor page before departure for current hours, tours, fees, closures and accessibility details.",
   highlights: [...site.themes],
   body: site.slug === "fort-martin-scott" ? fortMartinScottVerifiedBody : historicBody(site),
   ...(site.slug === "fort-martin-scott" ? { visitorFaqs: fortMartinScottVisitorFaqs, accessibilityNotes: "THC lists the visitor center and most grounds as wheelchair accessible with restrooms at the visitor center. Historic buildings, replicas and the nature trail are not ADA accessible; much walking is on gravel/dirt. Contact 830-304-1848 for accommodations.", address: "1606 E Main St, Fredericksburg, TX 78624" } : {}),
   managingAuthority: site.officialUrl.includes("thc.texas.gov") ? "Texas Historical Commission" : site.officialUrl.includes("cem.va.gov") ? "U.S. Department of Veterans Affairs — National Cemetery Administration" : undefined,
   officialUrl: site.officialUrl,
-  sourceCheckedAt: SOURCE_CHECKED_AT,
+  sourceCheckedAt: site.slug === "magoffin-home" ? "2026-10-17" : SOURCE_CHECKED_AT,
 }));

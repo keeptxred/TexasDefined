@@ -14,7 +14,7 @@ const topicLinks: WaterGuide[] = [
     id: "rivers",
     href: "/article/texas-rivers-explained",
     title: "Rivers",
-    description: "Individual rivers, boundary rivers, regions and where the water flows.",
+    description: "Major rivers, border rivers, regional differences and where the water goes.",
   },
   {
     id: "basins",

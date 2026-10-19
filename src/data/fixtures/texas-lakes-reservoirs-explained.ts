@@ -56,6 +56,31 @@ export const texasLakesReservoirsExplainedArticle: Article = {
       description: "See the river systems underneath the reservoir map and how they divide the state into major basins.",
     },
     {
+      href: "/article/lake-buchanan-water-system-guide",
+      label: "Lake Buchanan as a water system",
+      description: "See how upper Colorado River storage anchors the Highland Lakes system.",
+    },
+    {
+      href: "/article/lake-travis-water-system-guide",
+      label: "Lake Travis as a water system",
+      description: "Understand flood-control space, water storage and Mansfield Dam upstream from Austin.",
+    },
+    {
+      href: "/article/lake-whitney-water-system-guide",
+      label: "Lake Whitney as a water system",
+      description: "See how one federal Brazos reservoir combines flood control, supply, hydropower and recreation.",
+    },
+    {
+      href: "/article/possum-kingdom-water-system-guide",
+      label: "Possum Kingdom as a water system",
+      description: "Trace one of the Brazos basin's early multipurpose reservoir projects.",
+    },
+    {
+      href: "/article/toledo-bend-water-system-guide",
+      label: "Toledo Bend as a two-state water system",
+      description: "See how Texas and Louisiana share a huge Sabine River reservoir for water and power.",
+    },
+    {
       href: "/explore/lakes-rivers",
       label: "Texas lakes guide",
       description: "Turn the statewide reservoir story into lake-by-lake trip planning and recreation ideas.",

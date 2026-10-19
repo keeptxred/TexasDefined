@@ -1,5 +1,5 @@
 const sourceUrl = "https://www.twdb.texas.gov/surfacewater/rivers/river_basins/index.asp";
-const lastVerified = "2026-10-09";
+const lastVerified = "2026-10-18";
 const canonicalPage = "https://texasdefined.com/article/texas-rivers-explained";
 
 const majorBasins = [
@@ -51,14 +51,14 @@ const researchedProfiles: Record<string, string> = {
 };
 
 const comparisonMetrics = [
-  { label: "Largest watersheds within Texas", column: 1, unit: "sq. mi." },
-  { label: "Longest river reaches within Texas", column: 2, unit: "miles" },
-  { label: "Highest historical average annual flow", column: 3, unit: "acre-feet/year" },
+  { label: "Largest river basins by Texas land area", column: 1, unit: "sq. mi." },
+  { label: "Longest river lengths within Texas", column: 2, unit: "miles" },
+  { label: "Highest published average annual flow", column: 3, unit: "acre-feet/year" },
 ] as const;
 
 const basinHighlights = [
   { label: "Largest basin in Texas", value: "Rio Grande", detail: "49,387 sq. mi. in Texas" },
-  { label: "Longest Texas reach", value: "Rio Grande", detail: "889 river miles in Texas" },
+  { label: "Longest river segment in Texas", value: "Rio Grande", detail: "889 river miles in Texas" },
   { label: "Highest average flow", value: "Brazos", detail: "6.074 million acre-feet/year" },
 ] as const;
 
@@ -102,7 +102,7 @@ const jsonContent = JSON.stringify({
   source: { name: "Texas Water Development Board", url: sourceUrl },
   lastVerified,
   canonicalPage,
-  methodology: "Texas Defined transcribes TWDB statewide basin statistics into normalized numeric fields for comparison. Coastal basin names are included without inferred statistics when the shared reference does not provide those values.",
+  methodology: "Texas Defined transcribes Texas Water Development Board statewide basin statistics into normalized numeric fields for comparison. Coastal basin names are included without inferred statistics when the shared reference does not provide those values.",
   majorBasins: majorBasins.map(([basin, area, miles, flow]) => ({
     basin,
     areaInTexasSquareMiles: Number(normalizeNumber(area)),
@@ -148,7 +148,7 @@ export function TexasRiverBasinReference() {
       </div>
 
       <p className="mt-3 text-sm leading-7 text-muted-foreground">
-The TWDB numbers describe three distinct questions: area drained within Texas, miles of the named river inside Texas, and historical average annual water volume. None is a live river-level report. Compare the ranking charts or open the full source table and downloadable dataset.
+The Texas Water Development Board figures answer three different questions: how much Texas land drains into each river system, how many miles of the named river lie within Texas, and its published average annual water volume. None of these numbers tells you today's river level. Compare the charts or open the full source table below.
       </p>
 
       <dl className="mt-5 flex flex-wrap gap-2">
@@ -164,8 +164,8 @@ The TWDB numbers describe three distinct questions: area drained within Texas, m
       <section className="mt-7" aria-labelledby="basin-comparison-charts">
         <h4 id="basin-comparison-charts" className="font-display text-xl">Compare river systems by three different measures</h4>
         <p className="mt-2 text-sm leading-6 text-muted-foreground">
-          Rankings below use the exact TWDB reference figures, not estimated contemporary flows.
-          A long river need not have a big drainage area or a high average flow.
+          These rankings use the state's published reference figures, not estimates of today's river flow.
+          A long river does not necessarily drain the most land or carry the most water on average.
         </p>
         <div className="mt-4 grid gap-4 lg:grid-cols-3">
           {comparisonMetrics.map((metric) => {
@@ -200,12 +200,12 @@ The TWDB numbers describe three distinct questions: area drained within Texas, m
 
       <details className="mt-5 border border-border">
         <summary className="px-4 py-3 font-semibold text-foreground">
-          Open the full 15-basin comparison · <span className="text-xs text-muted-foreground">area, Texas river miles and average annual flow</span>
+          Open the full 15-basin comparison · <span className="text-xs text-muted-foreground">land area, river length and average annual flow</span>
         </summary>
 
         <div className="px-4 py-3">
           <p className="text-sm leading-7 text-muted-foreground">
-Average flow is shown in acre-feet per year. One acre-foot is about 325,851 gallons — enough water to cover one acre to a depth of one foot. TWDB does not state the averaging years in its public summary table, so do not treat these reference values as present-day discharge or compare them as though they share a recent time window.
+Average flow is shown in acre-feet per year. One acre-foot is about 325,851 gallons — enough water to cover one acre to a depth of one foot. The Texas Water Development Board does not state the averaging years in its public summary table, so these figures should not be read as today's river flow or as measurements from one recent period.
           </p>
           <div className="mt-5 overflow-x-auto border border-border">
             <table className="w-full border-collapse text-left text-sm" style={{ minWidth: "42rem" }}>
@@ -236,14 +236,14 @@ Average flow is shown in acre-feet per year. One acre-foot is about 325,851 gall
       </details>
 
       <p className="mt-3 text-xs leading-5 text-muted-foreground">
-        Every major basin name opens its own TexasDefined guide. TWDB provides the underlying area, mileage and historical-flow figures;
-        current conditions and public access require separate verification. Data verified {lastVerified}; downloading this reference
+        Every major basin name opens its own TexasDefined guide. The Texas Water Development Board provides the underlying land-area, river-length and average-flow figures;
+        current conditions and public access still require separate verification. Data verified {lastVerified}; downloading this reference
         preserves the source URL and verification date.
       </p>
       <div className="mt-6">
         <p className="eyebrow text-muted-foreground">Between the major rivers</p>
         <h3 className="mt-2 font-display text-xl">Eight coastal basins drain directly toward bays and the Gulf</h3>
-        <p className="mt-3 text-sm leading-7 text-muted-foreground">These smaller drainage areas fill the gaps between the major named river systems, so the entire Texas coast is still part of the statewide watershed story.</p>
+        <p className="mt-3 text-sm leading-7 text-muted-foreground">These smaller drainage areas fill the gaps between the major named river systems, so the entire Texas coast still belongs to the state's connected river-and-drainage system.</p>
         <ul className="mt-3 flex flex-wrap gap-2" aria-label="Eight designated Texas coastal basins">
           {coastalBasins.map((basin) => (
             <li key={basin} className="rounded-sm border border-border bg-surface px-3 py-2 text-xs font-semibold text-foreground">

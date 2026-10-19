@@ -118,6 +118,7 @@ export function SportsVenueGuidePilotContent({
       guide={effectiveGuide}
       enrichment={enrichment}
       photo={renderedPhoto}
+      fallbackPhotoSrc={photo?.imageUrl}
       parkingMap={parkingMap}
       nearbyAttractions={nearbyAttractions}
       upcomingEvents={venueEvents}

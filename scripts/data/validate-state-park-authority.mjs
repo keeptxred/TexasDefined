@@ -259,6 +259,181 @@ for (const set of ["NON_PRIMARY_TRIP_PLANNER_SLUGS", "UNAVAILABLE_DESTINATION_SL
 }
 const unresolvedCandidates = [...candidate].filter((slug) => !knownAlias.has(slug) && !required.includes(slug));
 process.stdout.write(`State-park authority: 83 distinct park-specific source records monitored; ${unresolvedCandidates.length} older park/image fixture aliases still need exact photo/route review; non-facility authority certification requires separate browser and SEO checks.\n`);
+// October 17, 2026: park-by-park alerts and trip facts must remain individually
+// source-backed. An inability to load an alert must NEVER be converted into
+// an "all clear" statement for that park.
+const parkOct17 = [
+  ["atlanta-state-park", ["August 18", "November 30", "January 15", "wood and charcoal fires"]],
+  ["bonham-state-park", ["8.75 miles", "65-acre", "alert detail was not independently fetched"]],
+  ["daingerfield-state-park", ["74-acre Little Pine Lake", "Rustling Leaves", "alert details could not be independently read"]],
+  ["cooper-lake-state-park", ["Honey Creek launch", "Lone Pine", "charcoal cooking", "January 8"]],
+  ["lake-bob-sandlin-state-park", ["October 15, 2026", "both wood and charcoal"]],
+  ["lake-brownwood-state-park", ["Lakeside Trail", "WOOD-fire ban", "charcoal cooking", "January 3"]],
+];
+for (const [slug, facts] of parkOct17) {
+  const start = authority.indexOf(`  "${slug}": {`);
+  const end = authority.indexOf('\n  "', start + 6);
+  const block = start >= 0 ? authority.slice(start, end < 0 ? undefined : end) : "";
+  if (!block.includes('checkedAt: "2026-10-17"')) failures.push(`Park visitor source date not refreshed: ${slug}`);
+  if (!block.includes(`https://tpwd.texas.gov/state-parks/${slug.replace("-state-park", "")}/`)) failures.push(`Park lacks TPWD source URL: ${slug}`);
+  for (const fact of facts) if (!block.includes(fact)) failures.push(`Park ${slug} lost independently sourced detail: ${fact}`);
+}
+if (!authority.includes('url: "https://tpwd.texas.gov/state-parks/atlanta/alert"')) failures.push("Atlanta primary alert must remain linked as a supporting TPWD source.");
+
+// Substantive, park-specific editorial depth is not a generic SEO filler pass.
+const sixAuthority = read("src/data/state-park-six-authority-wave.ts");
+assertContains(curation, "applyStateParkSixAuthorityWave,", "Six TPWD place guides must be in the runtime curator pipeline");
+assertContains(sixAuthority, 'sourceCheckedAt: "2026-10-17"', "Six individual guides must retain the research date");
+assertContains(sixAuthority, "existing.join(\" \").length > 1800", "Researched older narratives must not be blindly discarded");
+for (const [slug, marker] of [
+  ["atlanta-state-park", "4.8 miles of trails"],
+  ["bonham-state-park", "2.7-mile Bois d'Arc Trail"],
+  ["daingerfield-state-park", "2.4-mile Rustling Leaves"],
+  ["cooper-lake-state-park", "10.5-mile Buggy Whip Trail"],
+  ["lake-bob-sandlin-state-park", "3.3 miles of wooded trails"],
+  ["lake-brownwood-state-park", "Nopales Ridge Trail"],
+]) {
+  assertContains(sixAuthority, `"${slug}"`, `Park authority narrative missing: ${slug}`);
+  assertContains(sixAuthority, marker, `Specific verified landmark/activity missing for ${slug}`);
+}
+
+// Inks Lake restricted-area closures must never become a false full-park shutdown.
+const inksVisitor = read("src/data/inks-lake-visitor-authority.ts");
+assertContains(curation, "applyInksLakeVisitorAuthority,", "Inks Lake source-checked visitor authority missing from destination curators");
+const inksStart = authority.indexOf('  "inks-lake-state-park": {');
+const inksEnd = authority.indexOf('\n  "', inksStart + 5);
+const inksSource = inksStart >= 0 ? authority.slice(inksStart, inksEnd >= 0 ? inksEnd : undefined) : "";
+for (const marker of [
+  'checkedAt: "2026-10-17"',
+  'https://tpwd.texas.gov/state-parks/inks-lake/alert',
+  'WOOD AND CHARCOAL',
+  'PARTIAL HUNTING CLOSURES',
+  'Jan. 18 at 5 p.m. to Jan. 21 at 2 p.m.',
+]) assertContains(inksSource, marker, `Inks Lake official alert fact missing: ${marker}`);
+for (const marker of [
+  'Devils Waterhole', 'west-loop sites', 'five December 2026',
+  '2026-10-17', 'containerized', 'visitorFaqs:', 'sourceUrl:',
+]) assertContains(inksVisitor, marker, `Inks Lake visitor FAQ or original guide missing: ${marker}`);
+
+// Current TPWD visitor alerts for four specific parks: protect actual
+// fire, ramp, full-park and partial facility closure distinctions.
+const fourParkAlertGuide = read("src/data/state-park-four-alert-authority.ts");
+assertContains(curation, "applyFourParkAlertAuthority,", "Four source-backed TPWD park alert narratives missing from visitor guide pipeline");
+for (const [slug, markers] of [
+  ["dinosaur-valley-state-park", ["WOOD", "charcoal", "January 10", "river crossing"]],
+  ["caddo-lake-state-park", ["August 28", "both wood and charcoal", "boat ramp"]],
+  ["brazos-bend-state-park", ["November 17", "charcoal", "group camp"]],
+  ["government-canyon-state-natural-area", ["October 22", "December 7", "containerized"]],
+]) {
+  const start = authority.indexOf(`  "${slug}": {`);
+  const end = authority.indexOf('\n  "', start + 8);
+  const record = start >= 0 ? authority.slice(start, end >= 0 ? end : undefined) : "";
+  if (!record.includes('checkedAt: "2026-10-17"')) failures.push(`Official October TPWD evidence review date missing for ${slug}`);
+  if (!record.includes('/alert')) failures.push(`Official TPWD alert source URL missing for ${slug}`);
+  if (!fourParkAlertGuide.includes(`"${slug}"`)) failures.push(`Visitor authority narrative missing for ${slug}`);
+  for (const marker of markers) {
+    if (!(record + fourParkAlertGuide).toLowerCase().includes(marker.toLowerCase())) failures.push(`Park ${slug} lacks closure/site fact ${marker}`);
+  }
+}
+
+// Five park-specific October 2026 alerts with distinct restrictions.
+const fiveParkGuide = read("src/data/state-park-five-alert-authority.ts");
+assertContains(curation, "applyFiveParkAuthorityAlerts,", "Five TPWD park authority articles are missing from destination curation");
+for (const [slug, markers] of [
+  ["bastrop-state-park", ["Lake Mina", "wood and charcoal"]],
+  ["cedar-hill-state-park", ["Argentine ants", "trail-status"]],
+  ["lake-livingston-state-park", ["stumps", "December 2026"]],
+  ["lake-mineral-wells-state-park", ["containerized fuel stoves", "ALL fires"]],
+  ["lake-somerville-state-park", ["Birch Creek", "Flag Pond", "charcoal"]],
+]) {
+  const start = authority.indexOf(`  "${slug}": {`);
+  const end = authority.indexOf('\n  "', start + 7);
+  const parkFacts = start >= 0 ? authority.slice(start, end >= 0 ? end : undefined) : "";
+  if (!parkFacts.includes('checkedAt: "2026-10-17"')) failures.push(`Missing October 17 source review: ${slug}`);
+  if (!parkFacts.includes('supplementalSourceUrl: "https://tpwd.texas.gov/state-parks/')) failures.push(`Missing official park source link: ${slug}`);
+  if (!fiveParkGuide.includes(`"${slug}"`)) failures.push(`Missing individual visit narrative: ${slug}`);
+  for (const marker of markers) if (!(parkFacts+" "+fiveParkGuide).includes(marker)) failures.push(`Park ${slug} lost source-grounded detail: ${marker}`);
+}
+
+// TPWD October 17, 2026 source reconciliation for six independently
+// researched park guides. Do not treat stale trail status as current access.
+const sixNewGuides = read("src/data/state-park-six-new-visitor-guides.ts");
+assertContains(curation, "applyTPWDSixNewVisitorGuides,", "New six-park factual visitor layer must be registered");
+for (const [slug, evidence] of [
+  ["tyler-state-park", ["Whispering Pines", "boat rentals", "October 17"]],
+  ["huntsville-state-park", ["December 4", "January 11", "Lake Raven"]],
+  ["pedernales-falls-state-park", ["January 1, 2027", "charcoal", "Twin Falls"]],
+  ["mckinney-falls-state-park", ["August 11", "Onion Creek", "charcoal"]],
+  ["guadalupe-river-state-park", ["November 20", "January 11", "water"]],
+  ["lost-maples-state-natural-area", ["October 14", "sycamores", "still green"]],
+]) {
+  const parkStart = authority.indexOf(`  "${slug}": {`);
+  const parkEnd = authority.indexOf('\n  "', parkStart + 6);
+  const sourceFacts = parkStart >= 0 ? authority.slice(parkStart, parkEnd > 0 ? parkEnd : undefined) : "";
+  if (!sourceFacts.includes('checkedAt: "2026-10-17"')) failures.push(`Outdated park source check: ${slug}`);
+  if (!sourceFacts.includes('supplementalSourceUrl: "https://tpwd.texas.gov/state-parks/')) failures.push(`Park lacks official original source URL: ${slug}`);
+  if (!sixNewGuides.includes(`"${slug}"`)) failures.push(`Missing individually researched park narrative: ${slug}`);
+  for (const token of evidence) if (!(sourceFacts + sixNewGuides).includes(token)) failures.push(`Park visitor evidence missing ${token}: ${slug}`);
+}
+if ((sixNewGuides.match(/"question":/g) ?? []).length < 18) failures.push("Six individual visitor guides require 18 source-linked FAQ entries");
+
+// Six TPWD "special status" directory entries must not be inflated into 90
+// ordinary open parks. In particular, Indian Lodge's Jan 2027 closure is
+// explicit and must be visible in its canonical parent park visitor facts.
+const specialSiteReview = read("docs/state-parks/TPWD_SPECIAL_STATUS_SIX_SOURCE_REVIEW_2026-10-17.md");
+for (const site of ["Albert & Bessie Kronkosky", "Powderhorn", "Wyler Aerial Tramway", "Barton Warnock", "Fort Leaton", "Indian Lodge"]) {
+  assertContains(specialSiteReview, site, `Special TPWD site review missing: ${site}`);
+}
+for (const marker of ["https://tpwd.texas.gov/state-parks/indian-lodge/alert", "January 2027", "https://tpwd.texas.gov/state-parks/wyler-aerial-tramway", "not open"]) {
+  assertContains(specialSiteReview, marker, `Special TPWD status evidence missing: ${marker}`);
+}
+const davisStart = authority.indexOf('  "davis-mountains-state-park": {');
+const davisEnd = authority.indexOf('\n  "', davisStart + 8);
+const davisFacts = davisStart >= 0 ? authority.slice(davisStart, davisEnd < 0 ? undefined : davisEnd) : "";
+for (const marker of ['checkedAt: "2026-10-17"', 'supplementalSourceUrl: "https://tpwd.texas.gov/state-parks/indian-lodge/alert"', 'JANUARY 2027', '39-room']) {
+  assertContains(davisFacts, marker, `Davis Mountains Indian Lodge visitor safeguard missing: ${marker}`);
+}
+
+// Dated TPWD access and travel safety details for six individual parks.
+const sixOctoberGuides = read("src/data/six-tpwd-visitor-authority-oct17.ts");
+assertContains(curation, "applySixParkOctoberVisitorAuthority,", "Six TPWD original authority guides must be active");
+for (const [slug, markers] of [
+ ["abilene-state-park", ["pellet", "kayak", "swimming pool"]],
+ ["buescher-state-park", ["Oak Haven", "canoe-launch", "charcoal"]],
+ ["eisenhower-state-park", ["Exit 72", "Fossil Ridge", "wet"]],
+ ["fort-boggy-state-park", ["Lake Trail", "November 15", "January 17"]],
+ ["fort-parker-state-park", ["May 2027", "both fishing piers", "motorized"]],
+ ["galveston-island-state-park", ["71–95", "September 28", "boardwalk"]],
+]) {
+ const begin=authority.indexOf(`  "${slug}": {`);
+ const end=authority.indexOf('\n  "',begin+10);
+ const sourceBlock=begin>=0?authority.slice(begin,end>0?end:undefined):"";
+ if(!sourceBlock.includes('checkedAt: "2026-10-17"')) failures.push(`Park ${slug} needs official source review`);
+ if(!sourceBlock.includes('/alert')) failures.push(`Park ${slug} needs actual TPWD alert link`);
+ if(!sixOctoberGuides.includes(`"${slug}"`)) failures.push(`Missing original authority guide: ${slug}`);
+ for(const marker of markers) if(!(sourceBlock+" "+sixOctoberGuides).toLowerCase().includes(marker.toLowerCase())) failures.push(`Missing park source detail ${slug}: ${marker}`);
+}
+
+// Do not turn explicitly partial closures into whole-park shutdowns.
+const sixLater = read("src/data/tpwd-six-later-park-authorities.ts");
+assertContains(curation,"applySixLaterTPWDAuthorities,","New 6-site TPWD destination authority must be connected");
+for(const [slug,clues] of [
+ ["kickapoo-cavern-state-park",["Monday","trash","Friday"]],
+ ["possum-kingdom-state-park",["December","kayak","cabins"]],
+ ["lake-casa-blanca-international-state-park",["courtesy dock","concrete boat ramps","shoreline"]],
+ ["lake-colorado-city-state-park",["Tuesday","Wednesday","self-pay"]],
+ ["purtis-creek-state-park",["Beaver Slide Trail","October 23","primitive"]],
+ ["martin-dies-jr-state-park",["Hen House","February 2027","wood and charcoal"]],
+]){
+ const begin=authority.indexOf(`  "${slug}": {`);
+ const end=authority.indexOf('\n  "',begin+8);
+ const unit=begin>=0?authority.slice(begin,end>0?end:undefined):"";
+ if(!unit.includes('checkedAt: "2026-10-17"')) failures.push(`Current TPWD authority date missing: ${slug}`);
+ if(!unit.includes('supplementalSourceUrl: "https://tpwd.texas.gov/state-parks/')) failures.push(`TPWD primary alert source missing: ${slug}`);
+ if(!sixLater.includes(`"${slug}"`)) failures.push(`Park-specific narrative not registered: ${slug}`);
+ for(const clue of clues) if(!(unit+" "+sixLater).toLowerCase().includes(clue.toLowerCase())) failures.push(`Lost verified park-specific restriction ${slug}: ${clue}`);
+}
+
 if (failures.length) {
   for (const problem of failures) process.stderr.write(`FAIL ${problem}\n`);
   process.exitCode = 1;

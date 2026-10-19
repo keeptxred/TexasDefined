@@ -14,6 +14,209 @@ const person = (name: string, url?: string): EventSchemaEntity => ({ type: "Pers
 // Research pass completed against official event, organizer, municipal, venue, and ticket sources.
 // Optional properties are intentionally omitted when the current event year has no stable public value.
 export const majorEventSchemaEnrichmentBatch2: MajorEventSchemaEnrichment[] = [
+
+  {
+    slug: "ranger-old-school-fly-in-airshow",
+    organizer: organization("Ranger Airfield Foundation", "https://www.rangerairfield.org/"),
+    sources: [
+      { label: "Ranger Airfield Foundation — 2027 verified dates, tickets, flying windows", url: "https://www.rangerairfield.org/airshow" },
+      { label: "Ranger Airfield preservation mission", url: "https://www.rangerairfield.org/" },
+    ],
+    verifiedAt: "2026-10-17",
+  },
+  {
+    slug: "fall-festival-of-flight-gainesville",
+    organizer: organization("Texas Chapter, Antique Airplane Association", "https://texasantiqueairplane.com/"),
+    sources: [{ label: "Texas Antique Airplane Association — 65th Fall Festival of Flight, September 18, 2027", url: "https://texasantiqueairplane.com/flyin.html" }],
+    verifiedAt: "2026-10-17",
+  },
+  {
+    slug: "fiesta-of-flight-laughlin",
+    organizer: organization("47th Flying Training Wing, Laughlin Air Force Base", "https://www.laughlin.af.mil/"),
+    sources: [
+      { label: "Laughlin AFB public affairs — 2026 program", url: "https://www.laughlin.af.mil/News/News/Display/Article/4404606/laughlin-afb-releases-initial-performer-list-for-2026-fiesta-of-flight/" },
+      { label: "Laughlin AFB official 2026 portal", url: "https://www.laughlin.af.mil/Fiesta-of-Flight-2026/" },
+    ],
+    verifiedAt: "2026-10-17",
+  },
+  {
+    slug: "thunder-over-east-texas-athens",
+    organizer: organization("Cedar Creek Veterans Foundation", "https://athenstx.gov/"),
+    sources: [{ label: "City of Athens — July 3, 2026 schedule, admission, parking", url: "https://athenstx.gov/Calendar.aspx?EID=1370" }],
+    verifiedAt: "2026-10-17",
+  },
+  {
+    slug: "caf-high-sky-wing-airsho",
+    organizer: organization("Commemorative Air Force High Sky Wing", "https://www.airsho.org/"),
+    sources: [
+      { label: "City of Midland — September 12–13, 2026 AIRSHO", url: "https://www.midlandtexas.gov/Calendar.aspx?EID=3935&calType=0&day=29&month=9&year=2026" },
+      { label: "CAF 35-year AIRSHO post-event aircraft recap", url: "https://www.commemorativeairforce.org/news/airsho-celebrates-35-years" },
+    ],
+    verifiedAt: "2026-10-17",
+  },
+  {
+    slug: "dallas-warbird-weekend",
+    organizer: organization("Commemorative Air Force National Aviation Education Center", "https://flynaec.org/"),
+    sources: [
+      { label: "CAF — Dallas Warbird Weekend April 11, 2026", url: "https://commemorativeairforce.org/events/663" },
+      { label: "CAF AirPower History Tour — flight options in 2026", url: "https://commemorativeairforce.org/events/662" },
+      { label: "NAEC Warbird Weekend organizer", url: "https://flynaec.org/warbird-weekend/" },
+    ],
+    verifiedAt: "2026-10-17",
+  },
+
+  {
+    slug: "rose-city-airfest",
+    organizer: organization("Rose City Airfest / CampV", "https://www.rosecityairfest.com/"),
+    sources: [
+      { label: "Official Rose City Airfest 2026 event dates and performers", url: "https://www.rosecityairfest.com/" },
+      { label: "Official 2026 tickets, age categories and final-sale terms", url: "https://www.rosecityairfest.com/tickets/airshow" },
+      { label: "Official 2026 parking and shuttles", url: "https://www.rosecityairfest.com/info/map/" },
+    ],
+    verifiedAt: "2026-10-17",
+  },
+  {
+    slug: "corsicana-airsho",
+    organizer: organization("Commemorative Air Force Coyote Squadron", "https://commemorativeairforce.org/units/26"),
+    sources: [
+      { label: "Official 2026 Corsicana Airsho listing", url: "https://commemorativeairforce.org/events/865" },
+      { label: "CAF Coyote Squadron Corsicana heritage", url: "https://commemorativeairforce.org/units/26" },
+    ],
+    verifiedAt: "2026-10-17",
+  },
+  {
+    slug: "addison-kaboom-town-airshow",
+    organizer: organization("Town of Addison", "https://visitaddison.com/kaboom-town/"),
+    sources: [
+      { label: "Official Addison Kaboom Town 2026 air show timing", url: "https://visitaddison.com/kaboom-town/activities/" },
+      { label: "Official viewing, tickets, travel, and hotel policy", url: "https://visitaddison.com/kaboom-town/event-info/" },
+      { label: "Official organizer hotel packages", url: "https://visitaddison.com/kaboom-town/addison-kaboom-town-hotel-packages/" },
+    ],
+    verifiedAt: "2026-10-17",
+  },
+  {
+    slug: "laredo-stars-stripes-airshow",
+    organizer: organization("Washington's Birthday Celebration Association", "https://wbcalaredo.org/"),
+    sources: [
+      { label: "Official WBCA 2026 Stars and Stripes schedule and vendor location", url: "https://wbcalaredo.org/wp-content/uploads/2025/10/2025_2026-Vendor-Application-2.pdf" },
+      { label: "Official WBCA 2026 festival program", url: "https://wbcalaredo.org/wp-content/uploads/2026/02/By-George-2026_Final.pdf" },
+    ],
+    verifiedAt: "2026-10-17",
+  },
+
+  {
+    slug: "great-texas-airshow",
+    organizer: organization("Joint Base San Antonio, 502d Air Base Wing", "https://www.jbsa.mil/GreatTexasAirshow/"),
+    image: {
+      url: "https://media.defense.gov/2022/Apr/26/2002984190/-1/-1/0/220423-F-FD742-0173.JPG",
+      alt: "U.S. Air Force Thunderbirds flying at the Great Texas Airshow at JBSA-Randolph in 2022; historical image, not an announced future lineup",
+      sourceUrl: "https://www.jbsa.mil/News/News/Article/3010427/great-texas-airshow-thrills-more-than-half-million-attendees/",
+      sourceType: "government-open",
+      rightsNote: "Official U.S. Air Force photo, Great Texas Airshow at JBSA-Randolph, April 2022. Archival government photograph, not the 2026 or any future program.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
+    sources: [
+      { label: "Official JBSA 2026 event release", url: "https://www.jbsa.mil/News/News/Article/4376885/press-release-the-great-texas-airshow-returns-to-jbsa-randolph-may-2-3/" },
+      { label: "Official JBSA 2026 event traffic guidance", url: "https://www.jbsa.mil/News/News/Article/4463066/the-great-texas-airshow-kicks-off-at-jbsa-randolph-may-2-3/" },
+    ],
+    verifiedAt: "2026-10-17",
+  },
+  {
+    slug: "wings-over-south-texas",
+    organizer: organization("Naval Air Station Kingsville", "https://www.wingsoversouthtexas.com/"),
+    image: {
+      url: "https://d2cto119c3bgok.cloudfront.net/thumbs/photos/2605/9666893/1000w_q95.jpg",
+      alt: "Blue Angels over Naval Air Station Kingsville at the 2026 Wings Over South Texas Air Show, April 18, 2026; archival photograph",
+      sourceUrl: "https://www.dvidshub.net/image/9666893/us-navy-blue-angels-headline-2026-wings-over-south-texas-air-show-naval-air-station-kingsville-texas",
+      sourceType: "government-open",
+      rightsNote: "U.S. Marine Corps public-domain photo by Cpl. Christian Salazar, taken April 18, 2026 at Naval Air Station Kingsville; DVIDS photo ID 9666893.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
+    sources: [
+      { label: "Official NAS Kingsville Wings Over South Texas site", url: "https://www.wingsoversouthtexas.com/" },
+      { label: "Official 2026 public dates and military access", url: "https://www.wingsoversouthtexas.com/modules/media/?do=inline&id=ca201fc1-61f4-4420-a095-bfd5e9747542" },
+      { label: "Organizer visitor questions", url: "https://www.wingsoversouthtexas.com/information/faqs" },
+    ],
+    verifiedAt: "2026-10-17",
+  },
+  {
+    slug: "wasp-homecoming-fly-in",
+    organizer: organization("National WASP WWII Museum", "https://waspmuseum.org/"),
+    sources: [
+      { label: "Official 2026 Homecoming", url: "https://waspmuseum.org/events/2026-wasp-homecoming/" },
+      { label: "Homecoming heritage and itinerary", url: "https://waspmuseum.org/wasp-heritage-events/" },
+    ],
+    verifiedAt: "2026-10-17",
+  },  {
+    slug: "amigo-airsho",
+    organizer: organization("Amigo Airsho", "https://www.amigoairsho.com/home"),
+    image: {
+      url: "https://d1ldvf68ux039x.cloudfront.net/thumbs/photos/2410/8695491/1000w_q95.jpg",
+      alt: "Vanguard Squadron aerobatic aircraft performing at Amigo Airsho on Fort Bliss, October 12, 2024; archival photo, not a 2026 performer announcement",
+      sourceUrl: "https://www.dvidshub.net/image/8695491/amigo-airsho-returns-fort-bliss",
+      sourceType: "government-open",
+      rightsNote: "U.S. Army photo by Sgt. Charlie Duke at Amigo Airsho, Oct. 12, 2024; DVIDS identifies the photograph as public domain; historical, not current-year lineup.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
+    sources: [
+      { label: "Amigo Airsho 2026 official schedule", url: "https://www.amigoairsho.com/home" },
+      { label: "Amigo Airsho 2026 tickets", url: "https://www.amigoairsho.com/tickets" },
+      { label: "Amigo Airsho visitor and base access FAQ", url: "https://www.amigoairsho.com/faqs" },
+    ],
+    verifiedAt: "2026-10-17",
+  },
+  {
+    slug: "texas-capital-air-show",
+    organizer: organization("Texas Capital Air Show", "https://texascapitalairshow.com/"),
+    sources: [
+      { label: "Texas Capital Air Show 2026 schedule", url: "https://texascapitalairshow.com/guest-information/schedule/" },
+      { label: "Texas Capital Air Show admission and parking", url: "https://texascapitalairshow.com/tickets/" },
+      { label: "Texas Capital Air Show accessibility information", url: "https://texascapitalairshow.com/guest-information/accessibility/" },
+    ],
+    verifiedAt: "2026-10-17",
+  },
+  {
+    slug: "bluebonnet-airshow",
+    organizer: organization("Commemorative Air Force Highland Lakes Squadron", "https://www.bluebonnetairshow.com/"),
+    image: {
+      url: "https://upload.wikimedia.org/wikipedia/commons/4/49/C-47B_Skytrain_-serial_43-49942_Bluebonnet_Belle-26Oct2008.jpg",
+      alt: "The Commemorative Air Force Highland Lakes Squadron's Bluebonnet Belle C-47 at Burnet Airport in 2008; archival photo, not a 2027 show image",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:C-47B_Skytrain_-serial_43-49942_Bluebonnet_Belle-26Oct2008.jpg",
+      sourceType: "wikimedia",
+      licenseName: "Creative Commons Attribution-ShareAlike 2.0",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/2.0/",
+      rightsNote: "Photo: Jim Thompson (2008); unmodified archival aircraft photo at Burnet Airport, not a 2027 performer confirmation.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
+    sources: [
+      { label: "Bluebonnet Airshow 2027 schedule", url: "https://www.bluebonnetairshow.com/" },
+      { label: "Archive photo attribution, context and CC BY-SA 2.0 license", url: "https://commons.wikimedia.org/wiki/File:C-47B_Skytrain_-serial_43-49942_Bluebonnet_Belle-26Oct2008.jpg" },
+    ],
+    verifiedAt: "2026-10-17",
+  },
+  {
+    slug: "wings-over-cowtown-airshow",
+    organizer: organization("Wings Over Cowtown Air Show", "https://www.wingsovercowtown.com/"),
+    image: {
+      url: "https://media.defense.gov/2024/Apr/17/2003441602/-1/-1/0/240411-N-DN159-2536.JPG",
+      alt: "U.S. Navy Blue Angels flying at Wings Over Cowtown at Naval Air Station Joint Reserve Base Fort Worth on April 13, 2024; archival image, not 2027",
+      sourceUrl: "https://www.navy.mil/Resources/Photo-Gallery/igphoto/2003441602/",
+      sourceType: "government-open",
+      rightsNote: "U.S. Navy photo by Mass Communication Specialist 2nd Class Crayton Agnew (April 2024); U.S. federal government official image. This documents the 2024 event, not the 2027 program.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
+    sources: [
+      { label: "Wings Over Cowtown organizer website", url: "https://www.wingsovercowtown.com/" },
+      { label: "Official U.S. Navy Blue Angels 2027 air-show schedule", url: "https://www.blueangels.navsea.cloud.navy.mil/show/" },
+      { label: "U.S. Navy archival photo and credit", url: "https://www.navy.mil/Resources/Photo-Gallery/igphoto/2003441602/" },
+    ],
+    verifiedAt: "2026-10-17",
+  },
   {
     slug: "texas-sandfest",
     organizer: organization("Texas SandFest", "https://www.texassandfest.org/"),

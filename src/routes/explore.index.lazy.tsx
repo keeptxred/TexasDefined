@@ -46,6 +46,14 @@ function ExplorePage() {
           </div>
           <span className="font-semibold text-primary">Aquariums →</span>
         </Link>
+        <Link to="/explore/water-parks" className="group grid gap-5 border border-border bg-surface p-6 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:p-8">
+          <div>
+            <p className="eyebrow text-primary">Summer slides · indoor escapes · resorts</p>
+            <h2 className="mt-2 font-display text-3xl leading-tight group-hover:text-primary">Explore Texas water parks</h2>
+            <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">Find indoor, outdoor, municipal and resort water parks throughout Texas. Compare individual locations, day-pass rules and official operating calendars.</p>
+          </div>
+          <span className="font-semibold text-primary">Find water parks →</span>
+        </Link>
         <Link to="/explore/casinos" className="group grid gap-5 border border-border bg-surface p-6 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:p-8">
           <div>
             <p className="eyebrow text-primary">Texas travel · entertainment</p>

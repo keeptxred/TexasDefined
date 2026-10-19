@@ -185,6 +185,25 @@ if (cloudflareSmoke.includes(String.raw`assert re.search(r'<h1\\b', html, re.I)`
   failures.push('Cloudflare production smoke H1 detection must use a regex word boundary, not a literal escaped backslash.');
 }
 
+for (const [needle, label] of [
+  ["['/appraisal-district/lubbock-appraisal-district']='/property-tax/county/lubbock'", 'Lubbock appraisal-district legacy redirect smoke'],
+  ["['/tax-office/lubbock-tax-office']='/property-tax/county/lubbock'", 'Lubbock tax-office legacy redirect smoke'],
+  ["['/appraisal-district/harris-appraisal-district']='/property-tax/county/harris'", 'Harris appraisal-district legacy redirect smoke'],
+  ["['/tax-office/harris-tax-office']='/property-tax/county/harris'", 'Harris tax-office legacy redirect smoke'],
+  ["echo 'Legacy local-office redirects verified.'", 'legacy local-office redirect success marker'],
+  ["required={origin+'/texas-explained', origin+'/texas-resources', origin+'/article/texas-regions-explained', origin+'/property-tax/county/lubbock'}", 'canonical local-property sitemap requirement'],
+  ["'/appraisal-district/lubbock-appraisal-district',", 'legacy Lubbock appraisal URL sitemap exclusion'],
+  ["'/tax-office/lubbock-tax-office',", 'legacy Lubbock tax-office URL sitemap exclusion'],
+  ["'/appraisal-district/harris-appraisal-district',", 'legacy Harris appraisal URL sitemap exclusion'],
+  ["'/tax-office/harris-tax-office',", 'legacy Harris tax-office URL sitemap exclusion'],
+]) requireText(cloudflareSmoke, needle, label);
+
+for (const retired of ['lubbock_appraisal=get(', 'lubbock_tax=get(', 'harris_appraisal=get(', 'harris_tax=get(']) {
+  if (cloudflareSmoke.includes(retired)) {
+    failures.push(`Cloudflare production smoke must not follow legacy local-office redirects and treat their destination HTML as canonical page evidence: found ${retired}`);
+  }
+}
+
 for (const retired of ['CLOUDFLARE_ZONE_API_TOKEN', '$api/zones', '/dns_records', '/ai/run/']) {
   if (cloudflareSmoke.includes(retired)) {
     failures.push(`Cloudflare production smoke must verify public DNS without requiring privileged zone/DNS API scope: found ${retired}`);

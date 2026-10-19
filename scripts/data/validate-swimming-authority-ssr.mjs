@@ -18,6 +18,82 @@ const workflow = read(".github/workflows/verify-sitemap-production-integrity.yml
 const officialSourceMigration = read("supabase/migrations/20261014215400_swim_float_authority_source_enrollment.sql");
 const currentAlertSources = read("supabase/migrations/20261017145000_swim_float_current_alert_sources.sql");
 const errors = [];
+
+const fallSwimmingDossier = read("docs/editorial/swimming-directory-14-primary-source-check-2026-10-18.md");
+const fallTawakoniCuration = read("src/data/destination-curation-batch4.ts");
+const fallKrauseCuration = read("src/data/destination-curation-batch15.ts");
+for (const marker of [
+  "Lake Tawakoni will close for a permitted youth deer hunt October 30",
+  "Fort Boggy has separate whole-park hunting closures",
+  "Krause Springs normally closes for the winter",
+  "https://tpwd.texas.gov/state-parks/lake-tawakoni/park_events",
+  "https://tpwd.texas.gov/state-parks/fort-boggy/alert",
+  "https://www.krausesprings.net/new-page",
+]) {
+  if (!publicAuthority.includes(marker)) errors.push("Swimming guide lost dated fall access warning: " + marker);
+}
+if (!fallTawakoniCuration.includes("October 30 through noon November 2, 2026") ||
+    !fallTawakoniCuration.includes('sourceCheckedAt: "2026-10-18"'))
+  errors.push("Lake Tawakoni park destination must retain dated entire-park closure.");
+if (!fallKrauseCuration.includes("usually") && !fallKrauseCuration.includes("usual winter closure"))
+  errors.push("Krause Springs closure must be qualified as a typical season, not an unconditional operating status.");
+if (!fallKrauseCuration.includes('sourceCheckedAt:"2026-10-18"'))
+  errors.push("Krause Springs operator FAQ review lost its verification date.");
+if (fallSwimmingDossier.split("\n| ").length - 1 < 14 ||
+    !fallSwimmingDossier.includes("automated research, not independent human editorial signoff"))
+  errors.push("Fourteen-destination swimming source dossier is absent or overclaims signoff.");
+
+
+const reviewedClosureSources = read("supabase/migrations/20261017234000_swim_float_hamilton_caprock_access_sources.sql");
+const hamiltonDestination = read("src/data/destination-curation-batch15.ts");
+const caprockVisitor = read("src/data/six-park-visitor-authority-20261017.ts");
+for (const marker of [
+  "https://drippingspringstx.gov/facilities/facility/details/Hamilton-Pool-Preserve-3",
+  "https://tpwd.texas.gov/state-parks/caprock-canyons/alert",
+  "https://tpwd.texas.gov/state-parks/pedernales-falls",
+]) {
+  if (!reviewedClosureSources.includes(marker)) errors.push("Official swim closure source monitoring missing: " + marker);
+  if (!publicAuthority.includes(marker)) errors.push("Swim guide warning lost its current official source: " + marker);
+}
+if (!activity.includes('"hamilton-pool-preserve": {') || !activity.includes('falling-rock hazards'))
+  errors.push("Hamilton Pool cannot reenter swimming recommendations while its rockfall restriction applies.");
+if (!hamiltonDestination.includes('Swimming is not currently permitted because of falling-rock hazards.') ||
+    !hamiltonDestination.includes('sourceCheckedAt:"2026-10-17"'))
+  errors.push("Hamilton Pool destination record lost current no-swimming guidance or verification date.");
+if (!caprockVisitor.includes("marked Lake Theo swimming area") ||
+    !caprockVisitor.includes("https://tpwd.texas.gov/state-parks/caprock-canyons/alert"))
+  errors.push("Caprock Lake Theo restricted-area warning lost source or destination evidence.");
+
+
+const queueFixMigration = read("supabase/migrations/20261017231000_td_authority_queue_unreviewed_source_alerts.sql");
+if (!queueFixMigration.includes("s.last_checked_at > r.last_verified_at")) errors.push("Authority review queue lost the after-editorial-verification alert gate.");
+for (const marker of [
+  "https://upload.wikimedia.org/wikipedia/commons/7/7b/Garner_state_park.jpg",
+  "https://commons.wikimedia.org/wiki/File:Garner_state_park.jpg",
+  "Larry D. Moore",
+  "https://creativecommons.org/licenses/by/4.0/",
+]) {
+  if (!publicAuthority.includes(marker)) errors.push("Swim guide Garner photo lost source or credit: " + marker);
+}
+
+
+const mobileComparisonClass = 'class="mt-6 grid gap-5 md:hidden"';
+const desktopComparisonClass = 'class="mt-6 hidden overflow-x-auto md:block"';
+if (!publicAuthority.includes(mobileComparisonClass) || !publicAuthority.includes(desktopComparisonClass)) {
+  errors.push("River comparison must have readable mobile cards and a tablet/desktop table.");
+}
+for (const riverSlug of [
+  "texas-comal-river-guide",
+  "texas-guadalupe-river-guide",
+  "texas-san-marcos-river-guide",
+  "texas-frio-river-guide",
+]) {
+  const riverLink = 'href="/article/' + riverSlug + '"';
+  if (publicAuthority.split(riverLink).length - 1 < 2) {
+    errors.push("Mobile cards must preserve the official river route link: " + riverSlug);
+  }
+}
+
 for (const marker of [
   "https://tpwd.texas.gov/state-parks/blanco/alert",
   "https://wimberleyparksandrec.com/swimming-faqs/",

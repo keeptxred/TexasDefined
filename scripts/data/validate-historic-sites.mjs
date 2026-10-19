@@ -169,6 +169,43 @@ for (const primary of ['goliad-state-park', 'san-jacinto-battleground', 'washing
 }
 
 
+// A template introduction with repeated generic prose is not independent
+// site-level research. Preserve the distinct seed facts and let editorial
+// authority/depth overlays supply the additional narrative and visitor advice.
+const seedBodyContract = seeds.match(/function historicBody\(site: HistoricSiteSeed\): string\[\] \{([\s\S]*?)\n\}/)?.[1] ?? "";
+if (!seedBodyContract.includes("site.significance") || !seedBodyContract.includes("site.visitAngle")) {
+  failures.push("Historic-site introduction must use place-specific significance and trip-planning facts.");
+}
+for (const forbidden of [
+  "belongs on a Texas history itinerary because",
+  "The value of the stop is not just the surviving building",
+  "the threads are also the best way to connect this stop",
+  "hours, tours, restoration work, special programs and access can change",
+]) {
+  if (seeds.includes(forbidden)) failures.push(`Remove interchangeable historic-site intro boilerplate: ${forbidden}`);
+}
+if (!visitDepth.includes("const SITE_DEPTH") || !runtime.includes("enrichResearchedHistoricSiteDepth")) {
+  failures.push("Removing template filler requires retaining original researched site depth in the published resolver.");
+}
+
+if (fullCatalog.includes("The historic significance comes from the surviving place and the people whose stories it holds") ||
+    !fullCatalog.includes("whyItMatters: [")) {
+  failures.push("Historic authority-guide significance must use actual site facts, not an interchangeable filler sentence.");
+}
+
+// Closure notices must agree across the quick facts, experience assessment,
+// family guidance and itineraries. A contradictory 'best season' is dangerous.
+for (const marker of [
+  'bestSeason: "Not currently open to visitors.',
+  'bestSeason: "Closed archaeological site:',
+]) if (!visitDepth.includes(marker)) failures.push(`Missing closed-site visitor-season policy: ${marker}`);
+for (const marker of [
+  '"physicalEffort": "Not applicable — site closed"',
+  'familyFit: firstCapitolIsClosed',
+  'firstTimeValue: firstCapitolIsClosed',
+  'oldSocorroHistoryItineraries',
+]) if (!fullCatalog.includes(marker)) failures.push(`Closed historic-site guide still implies public entry: ${marker}`);
+
 const seedBlock = seeds.match(/export const historicSiteSeeds:[\s\S]*?= \[([\s\S]*?)\n\];/);
 if (!seedBlock) failures.push('Could not parse historicSiteSeeds.');
 const seedSlugs = seedBlock ? [...seedBlock[1].matchAll(/slug:\s*"([^"]+)"/g)].map((match) => match[1]) : [];
@@ -464,6 +501,22 @@ for (const marker of [
   'Mayborn Museum | Texas Historic Site Guide',
   'Mayborn authority verification passed after targeted purge',
 ]) if (!cachePurge.includes(marker)) failures.push(`Mayborn production cache-verification contract missing: ${marker}`);
+
+// Fort McKavett must keep individually verified visitor access, history and
+// file-level hero provenance after generic historic-site catalog updates.
+const fortDepth = visitDepth.split('  "fort-mckavett": {')[1]?.split('  "fort-lancaster": {')[0] || '';
+const fortAuthority = authorityExpansion.split('  "fort-mckavett": {')[1]?.split('  "washington-on-the-brazos": {')[0] || '';
+const fortTimeline = fs.readFileSync('src/data/historic-site-authority-timelines.ts', 'utf8');
+const fortImageProvenance = fs.readFileSync('docs/historic-sites/IMAGE_PROVENANCE.md', 'utf8');
+for (const [area, input, markers] of [
+  ['visitor depth', fortDepth, ['8 a.m.–5 p.m.', '8 a.m.–4 p.m.', 'family admission $8', '$5 golf-cart']],
+  ['resolved destination details', visitDepth, ['7066 FM 864', 'sourceCheckedAt: destination.slug === "fort-mckavett" ? "2026-10-17"']],
+  ['historical interpretation', fortAuthority, ['Sgt. Emanuel Stance', 'laundresses', '1973', 'fort-mckavett-history']],
+  ['historical timeline', fortTimeline, ['1859–April 1862', '1968–1973', 'fort-mckavett-history']],
+  ['image provenance', fortImageProvenance, ['## 7. Fort McKavett', 'SimpleeRandom', 'CC0 1.0', 'File:Fort_McKavett,_Texas.jpg']],
+]) {
+  for (const marker of markers) if (!input.includes(marker)) failures.push(`Fort McKavett ${area} missing ${marker}`);
+}
 
 if (failures.length) { console.error('Historic-sites validation failed:'); for (const failure of failures) console.error(`- ${failure}`); process.exit(1); }
 console.log(`Historic-sites validation passed: ${seedSlugs.length} statewide seeds, ${guideSlugs.size} destination-specific area guides, ${clusterIds.length} thematic clusters with valid seed links, ${exactHeroAliases.length + verifiedRemoteHeroes.length} exact verified hero mappings plus ${protectedNationalCemeteries.length} dedicated national-cemetery heroes, every protected hero matches a real seed, Lipantitlan geography is source-corrected, shared preserved-catalog publication, runtime enrichment, Texas History discovery and county cross-links are protected across eager and lazy route surfaces, and the Mayborn Museum dedicated authority route/data/current visitor guidance/post-purge regression contract is protected.`);

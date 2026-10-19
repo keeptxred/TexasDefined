@@ -14,6 +14,181 @@ export interface MuseumVisitorFaq {
   reviewed: string;
 }
 export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
+  "texas-country-music-hall-of-fame-carthage": [
+    {
+        "question": "When is the Texas Country Music Hall of Fame museum open?",
+        "answer": "The Carthage museum posts ordinary gallery hours Monday through Saturday, 10 a.m. to 4 p.m. The yearly induction-weekend schedule has distinct extended and special-event times; check the current museum page or call 903-694-9561 before a holiday visit.",
+        "verificationUrl": "https://www.tcmhof.com/museum",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.tcmhof.com/museum",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "How much does admission to the Carthage museum cost?",
+        "answer": "The museum advertises $10 adult admission and $5 child admission. Its published price notice does not specify the child age bracket, so families should ask staff rather than assume a different age cutoff. Special concert tickets are priced separately.",
+        "verificationUrl": "https://www.tcmhof.com/contact",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.tcmhof.com/contact",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "Is the Texas Country Music Hall of Fame in Nashville?",
+        "answer": "No. This Texas Country Music Hall of Fame and Tex Ritter Museum is at 310 West Panola Street in Carthage, Panola County. The Nashville Country Music Hall of Fame and Museum is a separate institution with its own collections, admission and exhibitions.",
+        "verificationUrl": "https://www.tcmhof.com/contact",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.tcmhof.com/contact",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "What can visitors learn about Tex Ritter in the museum?",
+        "answer": "The Carthage museum started as the Tex Ritter Museum and documents the Panola County-born singer and actor's Western film, recording, radio and television work. Read the relevant exhibits as the story of an influential singing cowboy rather than a complete archive of his films.",
+        "verificationUrl": "https://www.tcmhof.com/museum",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.tcmhof.com/museum",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "Does the Texas Country Music Hall of Fame have a Jim Reeves exhibit?",
+        "answer": "Yes. The museum operator says it expanded its exhibits in 2004 to feature Jim Reeves, including radio equipment from his Henderson station KGRI. Verify which original objects are available on the day rather than promising every photographed piece.",
+        "verificationUrl": "https://www.tcmhof.com/museum",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.tcmhof.com/museum",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "Are Hall of Fame induction concerts included in museum admission?",
+        "answer": "No. The museum and gift-shop visit should not be confused with the Texas Country Music Hall of Fame weekend concerts and the John Ritter Tribute Showcase at the Carthage Civic Center. Those event schedules and ticket prices are announced separately and can vary by year.",
+        "verificationUrl": "https://www.tcmhof.com/schedule",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.tcmhof.com/schedule",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "What is the John Ritter Tribute Showcase?",
+        "answer": "The John Ritter Tribute Showcase is an annual performance competition connected with the Hall of Fame festival and named for Tex Ritter's actor son. Its finalists and location are event-specific, not a permanent daily museum performance.",
+        "verificationUrl": "https://www.tcmhof.com/schedule",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.tcmhof.com/schedule",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "Is this an accessible museum for wheelchair users?",
+        "answer": "Its official visitor pages do not provide enough specifics to confirm the route through each gallery, restroom access or sensory accommodations. Contact the Carthage museum at 903-694-9561 to confirm individual needs before traveling; Civic Center event seating is separate.",
+        "verificationUrl": "https://www.tcmhof.com/contact",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.tcmhof.com/contact",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "How did the Carthage museum and Hall of Fame originate?",
+        "answer": "The local Tex Ritter Museum arose in the early 1990s, and the statewide Hall of Fame initiative followed in 1998. The present facility opened in 2002. The Texas State Historical Association documents the expansion, which explains why the Ritter collection and newer honorees share a museum.",
+        "verificationUrl": "https://www.tshaonline.org/handbook/entries/texas-country-music-hall-of-fame-and-tex-ritter-museum",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.tshaonline.org/handbook/entries/texas-country-music-hall-of-fame-and-tex-ritter-museum",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-18"
+    }
+],
+  "bryan-museum-galveston": [
+    {
+        "question": "What are The Bryan Museum's hours in October and winter?",
+        "answer": "For September through February, The Bryan Museum in Galveston publishes Wednesday–Sunday hours of 10 a.m. to 5 p.m. and closes on Mondays and Tuesdays. Its spring/summer pattern is different, so verify the season's operator calendar and holiday closures before traveling.",
+        "verificationUrl": "https://thebryanmuseum.org/plan-your-visit",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://thebryanmuseum.org/plan-your-visit",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "How much does admission to The Bryan Museum cost?",
+        "answer": "The operator's visitor information currently lists adults $15, seniors 65 and older, teachers and military $14, students $12, children ages 6–12 $7, and free entry for children under six and museum members. Check checkout prices and any special exhibit terms before payment.",
+        "verificationUrl": "https://thebryanmuseum.org/plan-your-visit",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://thebryanmuseum.org/plan-your-visit",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "Are Bryan Museum tickets refundable and do I need to book ahead?",
+        "answer": "The official museum tickets page states that advance online reservations are strongly encouraged, online admission tickets remain valid for one year after purchase, and admission sales are nonrefundable. It does not establish a mandatory timed reservation for all regular visitors.",
+        "verificationUrl": "https://thebryanmuseum.org/plan-your-visit/tickets",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://thebryanmuseum.org/plan-your-visit/tickets",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "Was The Bryan Museum originally the Galveston Orphans Home?",
+        "answer": "Yes. The museum occupies the restored 1895 Galveston Orphans Home. The Bryan Educational Institute acquired the structure in 2013, and the institution opened its galleries to the public in 2015. Historic-building interpretation is distinct from the Texana objects on display.",
+        "verificationUrl": "https://thebryanmuseum.org/about-us/bryan-educational-institute",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://thebryanmuseum.org/about-us/bryan-educational-institute",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "What galleries are permanent at The Bryan Museum?",
+        "answer": "Its official exhibition directory lists an Orientation Gallery, Spanish Colonial Gallery, Texas Frontier Gallery, Statehood and Beyond Gallery, Texas Master Gallery, Rest of the West Gallery and Galveston Orphans Home Gallery, plus a rotating special-exhibition space.",
+        "verificationUrl": "https://thebryanmuseum.org/exhibitions",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://thebryanmuseum.org/exhibitions",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "Can I join a guided Galveston Orphans Home building tour?",
+        "answer": "The operator advertises a separately bookable 90-minute tour covering the former Orphans Home's interior, exterior and related exhibit. Groups are limited to 20, and it includes general museum admission. Do not assume a standard walk-up museum ticket includes that guided program.",
+        "verificationUrl": "https://thebryanmuseum.org/plan-your-visit/tickets",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://thebryanmuseum.org/plan-your-visit/tickets",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "Can families and school groups arrange educational visits?",
+        "answer": "The museum offers guided field-trip programs built around four history galleries and age-appropriate learning activities, sometimes with an art, garden or artifact component. Teachers should arrange group participation in advance rather than treat regular admission as an automatically scheduled tour.",
+        "verificationUrl": "https://thebryanmuseum.org/plan-your-visit",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://thebryanmuseum.org/plan-your-visit",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "Is every gallery at The Bryan Museum wheelchair accessible?",
+        "answer": "The museum publishes an ADA provision for venue rentals but not a complete visitor route for every gallery in the historic building. Travelers should phone 409-632-7685 for step-free entrances, available lifts, restrooms and other accommodation specifics before buying tickets.",
+        "verificationUrl": "https://thebryanmuseum.org/venue-rental/museum-guidelines",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://thebryanmuseum.org/venue-rental/museum-guidelines",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "Does the general ticket include special exhibitions and museum grounds?",
+        "answer": "The Bryan Museum states that ordinary admission includes permanent galleries, special exhibitions when open, and museum grounds. A specially booked historic Orphans Home tour or Great Storm film package has its own arrangements and should not be assumed part of basic admission.",
+        "verificationUrl": "https://thebryanmuseum.org/plan-your-visit/tickets",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://thebryanmuseum.org/plan-your-visit/tickets",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-18"
+    },
+    {
+        "question": "How extensive is The Bryan Museum's collection?",
+        "answer": "The museum reports approximately 70,000 artifacts and documents spanning some 12,000 years, including about 20,000 rare books and more than 30,000 historical documents. This is the scope of the overall collection, not a promise that every object is displayed in galleries.",
+        "verificationUrl": "https://thebryanmuseum.org/exhibitions",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://thebryanmuseum.org/exhibitions",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-18"
+    }
+],
   "east-texas-oil-museum-kilgore": [
     {
         "question": "What are the East Texas Oil Museum's opening hours and final admission?",

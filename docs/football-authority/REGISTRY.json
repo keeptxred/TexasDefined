@@ -40,7 +40,7 @@
       "boyd",
       "boys-ranch"
     ],
-    "state": "INDIVIDUAL_RESEARCH_IN_PROGRESS",
+    "state": "ALL_AUTHORED_AWAITING_INDIVIDUAL_ACCEPTANCE",
     "dateAssigned": "2026-10-14",
     "selectionRule": "Next 25 NOT_REVIEWED unassigned canonical football schools after verified Batch 005; protect all 105 VERIFIED.",
     "individuallyVerified": 0,
@@ -48,12 +48,12 @@
     "assignmentBranch": "football-authority-batch-006-harmony-20261014",
     "repositoryMainAtAssignment": "76ae6dfe17176649213c6a1cec3fd58ac97099dd",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "booker",
-    "nextSchool": "booker",
-    "implementedOnBranch": 16,
-    "remainingToImplement": 9,
+    "currentSchool": null,
+    "nextSchool": null,
+    "implementedOnBranch": 25,
+    "remainingToImplement": 0,
     "remainingToVerify": 25,
-    "notes": "16/25 Batch006 individually authored through Bonham in canonical PR #5034; Booker PR #5035 separate, Borden County #5036 dependent. Historical 105 VERIFIED and 2 DEPLOYED preserved; zero formal Batch006 Chrome/nine-dimension editorial VERIFICATIONS. Remaining 9 NOT_REVIEWED."
+    "notes": "All 25 individually authored after final seven-school PR. Previous 105 VERIFIED protected. No new individual Batch 006 Chrome/nine-dimension accepts; never equate source with production."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -6823,8 +6823,12 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/booker",
-      "status": "NOT_REVIEWED",
-      "batch": 6
+      "status": "IMPLEMENTED",
+      "batch": 6,
+      "schoolNote": "docs/football-authority/schools/booker.md",
+      "implementedOnBranch": "feature/football-b006-booker-20261016-chat",
+      "actualProductionVerified": false,
+      "reviewScope": "Official six-man 1A Division I District1, Booker ISD coach David Biddler and 600 South Main School, 2025 9–3 district champions, 2026 4–3 to Oct9 Claude L0–48; no stadium gate/photo rights/Chrome editorial certification."
     },
     {
       "id": "uil:borden-county",
@@ -6837,8 +6841,12 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/borden-county",
-      "status": "NOT_REVIEWED",
-      "batch": 6
+      "status": "IMPLEMENTED",
+      "batch": 6,
+      "schoolNote": "docs/football-authority/schools/borden-county.md",
+      "implementedOnBranch": "feature/football-b006-borden-county-20261016-chat",
+      "actualProductionVerified": false,
+      "reviewScope": "Five historical UIL verified six-man titles 1997/08/09/16/17, 2026 DI District5, 6–0 through Oct9, coach-source conflict; no current coach/stadium gate/photo rights/exact Chrome acceptance claimed."
     },
     {
       "id": "uil:borger",
@@ -6851,8 +6859,12 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/borger",
-      "status": "NOT_REVIEWED",
-      "batch": 6
+      "status": "IMPLEMENTED",
+      "batch": 6,
+      "schoolNote": "docs/football-authority/schools/borger.md",
+      "implementedOnBranch": "feature/football-b006-final-seven-20261017-source-backed",
+      "actualProductionVerified": false,
+      "reviewScope": "Individual 4A Division II District 3 11-man program Hutchinson County, 2–6 through October 16, 2026; source and stadium/image QA pending"
     },
     {
       "id": "uil:bosqueville",
@@ -6865,8 +6877,12 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bosqueville",
-      "status": "NOT_REVIEWED",
-      "batch": 6
+      "status": "IMPLEMENTED",
+      "batch": 6,
+      "schoolNote": "docs/football-authority/schools/bosqueville.md",
+      "implementedOnBranch": "feature/football-b006-final-seven-20261017-source-backed",
+      "actualProductionVerified": false,
+      "reviewScope": "Individual 2A Division I District 8 11-man program McLennan County, 4–3 through October 16, 2026; source and stadium/image QA pending"
     },
     {
       "id": "uil:bovina",
@@ -6879,8 +6895,12 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bovina",
-      "status": "NOT_REVIEWED",
-      "batch": 6
+      "status": "IMPLEMENTED",
+      "batch": 6,
+      "schoolNote": "docs/football-authority/schools/bovina.md",
+      "implementedOnBranch": "feature/football-b006-final-seven-20261017-source-backed",
+      "actualProductionVerified": false,
+      "reviewScope": "Individual 2A Division II District 1 11-man program Parmer County, 3–3 through October 9, 2026; source and stadium/image QA pending"
     },
     {
       "id": "uil:bowie",
@@ -6893,8 +6913,12 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bowie",
-      "status": "NOT_REVIEWED",
-      "batch": 6
+      "status": "IMPLEMENTED",
+      "batch": 6,
+      "schoolNote": "docs/football-authority/schools/bowie.md",
+      "implementedOnBranch": "feature/football-b006-final-seven-20261017-source-backed",
+      "actualProductionVerified": false,
+      "reviewScope": "Individual 3A Division I District 4 11-man program Montague County, 4–3 through October 9, 2026; source and stadium/image QA pending"
     },
     {
       "id": "uil:bowie-gold-burg",
@@ -6907,8 +6931,12 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bowie-gold-burg",
-      "status": "NOT_REVIEWED",
-      "batch": 6
+      "status": "IMPLEMENTED",
+      "batch": 6,
+      "schoolNote": "docs/football-authority/schools/bowie-gold-burg.md",
+      "implementedOnBranch": "feature/football-b006-final-seven-20261017-source-backed",
+      "actualProductionVerified": false,
+      "reviewScope": "Individual 1A Division II District 10 six-man program Montague County, 2–5 through October 9, 2026; source and stadium/image QA pending"
     },
     {
       "id": "uil:boyd",
@@ -6921,8 +6949,12 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/boyd",
-      "status": "NOT_REVIEWED",
-      "batch": 6
+      "status": "IMPLEMENTED",
+      "batch": 6,
+      "schoolNote": "docs/football-authority/schools/boyd.md",
+      "implementedOnBranch": "feature/football-b006-final-seven-20261017-source-backed",
+      "actualProductionVerified": false,
+      "reviewScope": "Individual 3A Division I District 4 11-man program Wise County, 2–4 through October 2, 2026; source and stadium/image QA pending"
     },
     {
       "id": "uil:boys-ranch",
@@ -6935,8 +6967,12 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/boys-ranch",
-      "status": "NOT_REVIEWED",
-      "batch": 6
+      "status": "IMPLEMENTED",
+      "batch": 6,
+      "schoolNote": "docs/football-authority/schools/boys-ranch.md",
+      "implementedOnBranch": "feature/football-b006-final-seven-20261017-source-backed",
+      "actualProductionVerified": false,
+      "reviewScope": "Individual 1A Division I District 1 six-man program Oldham County, 6–0 through October 8, 2026; source and stadium/image QA pending"
     },
     {
       "id": "uil:brackettville-brackett",

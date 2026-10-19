@@ -38,8 +38,12 @@ function Page() {
     faq,
   } = Route.useLoaderData();
   const schoolName = displayName;
+  // Authored football-page titles contain the verified school-specific mascot.
+  // Fall back to the reference directory for schools without an editorial title;
+  // the optional TEA identity join may be unavailable in deployed SSR.
+  const authoredFootballH1 = editorial?.seo?.title?.match(/^(.+?Football)/i)?.[1];
   const footballName = slug === 'aubrey' ? 'Aubrey Chaparrals Football'
-    : identity?.mascot ? `${displayName} ${identity.mascot} Football` : `${displayName} Football`;
+    : authoredFootballH1 || (identity?.mascot ? `${displayName} ${identity.mascot} Football` : `${displayName} Football`);
   // Summarize the verified editorial ledger before the deeper school reference sections.
   const latestResult = editorial?.season?.games.filter((game) => game.result).at(-1);
   const nextListedFixture = editorial?.season?.games.find((game) => !game.result);
@@ -54,6 +58,15 @@ function Page() {
     'bogata-rivercrest': 'red-river', // TEA campus 194903001 / NCES identify Rivercrest High in Red River County.
     bonham: 'fannin', // Bonham High School official Warpath Drive campus, Fannin County.
     boling: 'wharton', // NCES school 481078000541 identifies Boling High's Wharton County campus.
+    booker: 'lipscomb', // NCES 481083000550 confirms Booker Junior High/High School 6–12 campus in Lipscomb County.
+    'borden-county': 'borden', // Borden County ISD high school campus in Gail, not district land across Howard County.
+    'borger': 'hutchinson', // Borger ISD Hutchinson County school campus, not stadium gate
+    'bosqueville': 'mclennan', // Bosqueville ISD McLennan County school campus, not stadium gate
+    'bovina': 'parmer', // Bovina ISD Parmer County school campus, not stadium gate
+    'bowie': 'montague', // Bowie ISD Montague County school campus, not stadium gate
+    'bowie-gold-burg': 'montague', // Gold-Burg ISD Montague County school campus, not stadium gate
+    'boyd': 'wise', // Boyd ISD Wise County school campus, not stadium gate
+    'boys-ranch': 'oldham', // Boys Ranch ISD Oldham County school campus, not stadium gate
     blum: 'hill', // Blum ISD campus in Hill County.
     'bluff-dale': 'erath', // Bluff Dale ISD in Erath County.
     'baytown-goose-creek-memorial': 'harris',
@@ -70,6 +83,14 @@ function Page() {
     'benavides': 'duval',
     'big-lake-reagan-co': 'reagan',
     'big-sandy': 'upshur',
+    'big-spring': 'howard', // Individual school dossier/NCES campus county; not stadium gate
+    'bishop': 'nueces', // Individual school dossier/NCES campus county; not stadium gate
+    'blackwell': 'nolan', // Individual school dossier/NCES campus county; not stadium gate
+    'blanco': 'blanco', // Individual school dossier/NCES campus county; not stadium gate
+    'blanket': 'brown', // Individual school dossier/NCES campus county; not stadium gate
+    'blooming-grove': 'navarro', // Individual school dossier/NCES campus county; not stadium gate
+    'bloomington': 'victoria', // Individual school dossier/NCES campus county; not stadium gate
+    'blue-ridge': 'collin', // Individual school dossier/NCES campus county; not stadium gate
     'big-sandy-harmony': 'upshur', // NCES Harmony High is in Upshur County, distinct from Big Sandy Wildcats.
     'barksdale-nueces-canyon': 'edwards',
     'bartlett': 'bell',
@@ -217,7 +238,7 @@ function Page() {
           : program?.countyName ? `/county/${countySlug(program.countyName)}` : null;
   const associationLabel = program
     ? 'UIL'
-    : privateAlignment?.association ?? governingBodyHint ?? 'Association not yet verified';
+    : privateAlignment?.association ?? governingBodyHint ?? null;
   const enrollmentBand = program
     ? uilFootballEnrollmentBand(program.classification, program.division)
     : null;
@@ -285,7 +306,7 @@ function Page() {
         </div>
       </aside>}
 
-      {editorial?.season && !editorial.notice && (
+      {editorial?.season && (
         <section aria-label={`${footballName} season at a glance`} className="grid gap-4 border-b border-border py-5 sm:grid-cols-3 sm:py-10">
           <div className="border-l-4 border-primary bg-surface p-4">
             <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">2026 record from reported finals</p>
@@ -323,7 +344,7 @@ function Page() {
 
       {/* Put verified visitor actions and the actual season ahead of history and enrollment. */}
         <dl aria-label={`${displayName} verified football facts`} className="grid grid-cols-2 gap-x-5 border-b border-border py-3 text-sm sm:grid-cols-3 lg:grid-cols-6">
-          <Fact label="Governing body" value={associationLabel} />
+          {associationLabel && <Fact label="Governing body" value={associationLabel} />}
           {program && <Fact label="Current alignment" value={alignmentLabel(program)} />}
           {!program && privateAlignment && <Fact label="Current alignment" value={privateAlignmentLabel(privateAlignment)} />}
           {program && <Fact label="Football district" value={String(program.district)} />}
@@ -339,7 +360,7 @@ function Page() {
         </div>
       ) : null}
 
-      {program && !editorial?.notice && <section id="football-current-season" className="scroll-mt-24 grid gap-8 border-b border-border py-8 sm:py-10 lg:grid-cols-[15rem_1fr]">
+      {program && (editorial?.season || !editorial?.notice) && <section id="football-current-season" className="scroll-mt-24 grid gap-8 border-b border-border py-8 sm:py-10 lg:grid-cols-[15rem_1fr]">
         <div>
           <p className="eyebrow text-primary">Current season</p>
           <h2 className="mt-2 font-display text-3xl">{editorial?.season ? '2026 results & schedule' : '2026 schedule & results sources'}</h2>
@@ -499,8 +520,8 @@ function Page() {
             <dl className="grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
               <Snapshot label="Association" value={privateAlignment.association} />
               <Snapshot label="Football division" value={privateAlignment.divisionLabel} />
-              <Snapshot label="Football district" value={privateAlignment.districtLabel || 'No district label in source'} />
-              <Snapshot label="Format" value={privateAlignment.footballType || 'Not specified by source'} />
+              {privateAlignment.districtLabel && <Snapshot label="Football district" value={privateAlignment.districtLabel} />}
+              {privateAlignment.footballType && <Snapshot label="Format" value={privateAlignment.footballType} />}
               <Snapshot label="Season / cycle" value={privateAlignment.seasonLabel} />
               <Snapshot label="Source type" value={privateAlignment.sourceKind === 'official-association' ? 'Official association' : 'Current secondary source'} />
             </dl>
@@ -511,7 +532,7 @@ function Page() {
             <a href={privateAlignment.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4">{privateAlignment.sourceLabel} ↗</a>
           </div> : <>
             <div className="border-y border-border py-5">
-              <p className="font-display text-2xl">{governingBodyHint ? [governingBodyHint, associationClassification].filter(Boolean).join(' ') : 'Association placement not yet available'}</p>
+              <p className="font-display text-2xl">{governingBodyHint ? [governingBodyHint, associationClassification].filter(Boolean).join(' ') : 'Non-UIL football program'}</p>
               <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
                 This supplied school did not resolve to the current UIL football alignment. TexasDefined does not force private or non-UIL programs into a UIL classification. Association placement is shown only when it has been separately sourced.
               </p>
@@ -599,7 +620,7 @@ function Page() {
         </div>
       </section>}
 
-      {(program || privateAdmissions) && <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
+      {((program && enrollmentLink) || (!program && privateAdmissions)) && <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div>
           <p className="eyebrow text-primary">School enrollment</p>
           <h2 className="mt-2 font-display text-3xl">How to enroll at {schoolName}</h2>
@@ -762,8 +783,9 @@ function PublicEnrollmentSteps({
     ['Ask about transfers separately', 'If the address is outside the attendance zone, review the district’s current transfer or open-enrollment policy. Approval rules, capacity limits and renewal terms can change.'],
     ['Verify athletic eligibility', 'After enrollment is settled, ask the school athletic office how UIL residency, transfer and previous-athletic-participation rules apply to this student’s specific situation.'],
   ];
+  if (!enrollmentLink) return null;
   return <>
-    {enrollmentLink && <div className="mb-6 border border-border p-5">
+    <div className="mb-6 border border-border p-5">
       <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">Official district enrollment</p>
       <p className="mt-2 text-sm leading-7 text-muted-foreground">
         District enrollment source last reviewed {enrollmentLink.verifiedAt}{enrollmentLink.schoolYear ? ` for the ${enrollmentLink.schoolYear} school year` : ''}. Use the district page for current forms, deadlines and required documents.
@@ -771,10 +793,7 @@ function PublicEnrollmentSteps({
       <a href={enrollmentLink.enrollmentUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">
         Start with {enrollmentLink.sourceLabel} ↗
       </a>
-    </div>}
-    {!enrollmentLink && <div className="mb-6 border border-border p-5 text-sm leading-7 text-muted-foreground">
-      <strong className="text-foreground">Start with the district.</strong> TexasDefined has not yet verified a dedicated current enrollment URL for this district, so use the school district’s official site or registrar rather than a third-party enrollment directory.
-    </div>}
+    </div>
     <StepList steps={steps} />
   </>;
 }

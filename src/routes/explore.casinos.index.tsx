@@ -2,7 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
-import { CASINO_GUIDES } from "@/data/texas-casino-guides";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const canonicalPath = "/explore/casinos";
@@ -10,7 +9,8 @@ const description = "Compare operating Texas tribal gaming destinations, new Eas
 const grouped = ["Texas gaming destinations", "Gaming getaways from Texas metros", "Explainers", "New developments"];
 
 export const Route = createFileRoute("/explore/casinos/")({
-  head: () => {
+  loader: async () => (await import("@/data/texas-casino-guides")).CASINO_GUIDES,
+  head: ({ loaderData }) => {
     const url = absoluteUrl(texasDefinedBrand, canonicalPath);
     return {
       meta: buildMeta(texasDefinedBrand, {
@@ -35,8 +35,8 @@ export const Route = createFileRoute("/explore/casinos/")({
           {
             "@type": "ItemList",
             "@id": url + "#guides",
-            numberOfItems: CASINO_GUIDES.length,
-            itemListElement: CASINO_GUIDES.map((guide, i) => ({
+            numberOfItems: loaderData?.length ?? 0,
+            itemListElement: (loaderData ?? []).map((guide, i) => ({
               "@type": "ListItem", position: i + 1,
               name: guide.title,
               url: absoluteUrl(texasDefinedBrand, `/explore/casinos/${guide.slug}`),
@@ -58,6 +58,7 @@ export const Route = createFileRoute("/explore/casinos/")({
 });
 
 function CasinoHub() {
+  const CASINO_GUIDES = Route.useLoaderData();
   return <main>
     <section className="border-b border-border bg-ink text-ink-foreground">
       <Container className="py-14 sm:py-16">

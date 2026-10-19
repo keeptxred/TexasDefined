@@ -14,6 +14,17 @@ test('blanket deployment subscriptions and duplicate validation cannot return', 
     assert.doesNotMatch(source, /^  workflow_run:/m, name);
     assert.match(source, /^  workflow_dispatch:/m, name);
   }
+  assert.deepEqual(policy.postDeployVerificationWorkflows, ['texasdefined-publication-production-smoke']);
+  for (const name of policy.postDeployVerificationWorkflows) {
+    const source = text(`.github/workflows/${name}.yml`);
+    assert.match(source, /^  workflow_dispatch:/m, name);
+    assert.match(source, /^  workflow_run:/m, name);
+    assert.match(source, /^    workflows:\s*$/m, name);
+    assert.match(source, /^      - Deploy TexasDefined production\s*$/m, name);
+    assert.match(source, /^    types: \[completed\]\s*$/m, name);
+    assert.match(source, /^    branches: \[main\]\s*$/m, name);
+    assert.doesNotMatch(source, /^  (push|schedule):/m, name);
+  }
   for (const name of policy.manualDiagnosticWorkflows) {
     const source = text(`.github/workflows/${name}.yml`);
     assert.doesNotMatch(source, /^  (push|pull_request|workflow_run|schedule):/m, name);
@@ -26,6 +37,27 @@ test('blanket deployment subscriptions and duplicate validation cannot return', 
   assert.doesNotMatch(deploy, /node scripts\/ci\/verify-production-surfaces.mjs/);
   for (const group of ['sports','foliage','discovery','events','financial','advertiser','images']) assert.ok(deploy.includes(`steps.change_scope.outputs.${group}`));
   for (const guard of ['verify-production-health.mjs','capture-active-worker-version.mjs','verified-worker-ledger.mjs record','verify-changed-production-pages.mjs']) assert.ok(deploy.includes(guard));
+});
+
+test('new water park registry rows receive four bounded route-specific production checks', () => {
+  const file = 'src/data/texas-water-parks.ts';
+  const wrap = records => 'export const texasWaterParks: WaterParkGuide[] = ' + JSON.stringify(records)
+    + ';\nexport const texasWaterParksBySlug';
+  const old = [{ slug: 'existing-park', name: 'Existing', setting: 'Outdoor', kind: 'Destination park' }];
+  const added = [
+    { slug: 'new-indoor', setting: 'Indoor', kind: 'Community water park' },
+    { slug: 'new-resort', setting: 'Outdoor', kind: 'Resort water park' },
+    { slug: 'new-lagoon', setting: 'Outdoor', kind: 'Inflatable lake water park' },
+    { slug: 'new-aqua', setting: 'Outdoor', kind: 'Inflatable lake water park' },
+  ];
+  const plan = buildChangePlan({ baseline, head, changedFiles: [file],
+    sources: { [file]: { before: wrap(old), after: wrap([...old, ...added]) } },
+  });
+  const paths = added.map(park => '/explore/water-parks/' + park.slug);
+  assert.deepEqual(plan.expectedHrefsByPage['/explore/water-parks'], paths);
+  for (const path of ['/explore/water-parks', ...paths]) assert.ok(plan.selectedPaths.includes(path));
+  assert.equal(plan.omittedCount, 0);
+  assert.ok(plan.selectedPaths.length <= PAGE_BUDGET);
 });
 
 test('workflow-only changes select no public pages or feature crawls', () => {

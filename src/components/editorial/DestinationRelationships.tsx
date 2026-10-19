@@ -82,6 +82,39 @@ function AreaItemCard({ item }: { item: DestinationAreaItem }) {
   </li>;
 }
 
+/**
+ * A small substantive SSR fallback for the canonical Fort McKavett guide.
+ * React.lazy can defer the large shared authority component during streaming;
+ * the initial mobile HTML must retain visit plans and source references even
+ * before hydration replaces this fallback with the full authority guide.
+ */
+function FortMcKavettAuthorityFallback({ destination }: { destination: Destination }) {
+  const guide = destination.authorityGuide;
+  if (!guide || destination.slug !== "fort-mckavett") return null;
+  return <Section tone="surface">
+    <Container>
+      <section aria-labelledby="fort-mckavett-ssr-authority" className="py-7">
+        <p className="eyebrow text-primary">Historic site field guide</p>
+        <h2 id="fort-mckavett-ssr-authority" className="mt-2 font-display text-3xl">Fort McKavett: history and visit planning</h2>
+        <p className="mt-4 max-w-4xl text-sm leading-7">{guide.whyItMatters}</p>
+        <p className="mt-3 max-w-4xl text-sm leading-7">{guide.assessment.recommendedVisit}</p>
+        <h3 className="mt-8 font-display text-2xl">Three ways to visit</h3>
+        <div className="mt-5 grid gap-6 sm:grid-cols-3">
+          {guide.itineraries.map((itinerary) => <section key={itinerary.label} className="border-t-2 border-foreground pt-4">
+            <p className="eyebrow text-primary">{itinerary.duration}</p>
+            <h4 className="mt-2 font-display text-xl">{itinerary.label}</h4>
+            <ol className="mt-3 list-decimal space-y-2 pl-5 text-sm leading-6">{itinerary.steps.map((step) => <li key={step}>{step}</li>)}</ol>
+          </section>)}
+        </div>
+        <h3 className="mt-8 font-display text-2xl">Sources used for this guide</h3>
+        <ul className="mt-3 flex flex-wrap gap-x-6 gap-y-3 text-sm">
+          {guide.sources.map((source) => <li key={source.url}><a href={source.url} target="_blank" rel="noopener noreferrer" className="underline decoration-primary/40 underline-offset-4 hover:text-primary">{source.label}</a></li>)}
+        </ul>
+      </section>
+    </Container>
+  </Section>;
+}
+
 function DestinationAreaGuideSection({ destination }: { destination: Destination }) {
   const guide = destination.areaGuide;
   if (!guide) return null;
@@ -126,12 +159,15 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
   const hasSamRayburnHouseContext = destination.slug === "sam-rayburn-house";
   const hasSamHoustonMuseumContext = destination.slug === SAM_HOUSTON_MUSEUM_SLUG;
   const pairedDestinations = featuredDestinationRelationships(destination, groups);
+  const authorityFallback = destination.slug === "fort-mckavett" && destination.authorityGuide
+    ? <FortMcKavettAuthorityFallback destination={destination} />
+    : null;
 
   return <>
     {destination.slug === "moody-gardens" ? <MoodyGardensSpotlights /> : null}
     {isWhirlyBall ? <Section tone="surface"><Container><UnusualBusinessAuthorityPanel slug={destination.slug} /></Container></Section> : null}
-    {topAttractionRank ? <Suspense fallback={null}><DestinationAuthorityGuide destination={destination} /></Suspense> : null}
-    {!topAttractionRank && hasExtendedAuthorityGuide ? <Suspense fallback={null}><DestinationAuthorityGuide destination={destination} showUnusualBusinessAuthority={!isWhirlyBall} /></Suspense> : null}
+    {topAttractionRank ? <Suspense fallback={authorityFallback}><DestinationAuthorityGuide destination={destination} /></Suspense> : null}
+    {!topAttractionRank && hasExtendedAuthorityGuide ? <Suspense fallback={authorityFallback}><DestinationAuthorityGuide destination={destination} showUnusualBusinessAuthority={!isWhirlyBall} /></Suspense> : null}
     <Suspense fallback={null}><MuseumAuthorityNetworkSection destination={destination} /></Suspense>
     {hasSamRayburnHouseContext ? <SamRayburnContext surface="house" /> : null}
     {destination.slug !== "moody-gardens" ? <DestinationAreaGuideSection destination={destination} /> : null}

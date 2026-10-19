@@ -28,6 +28,72 @@ export interface MuseumAuthorityDossier {
 
 /** Links are to exact, existing destinations or stable topic hubs, not guessed paths. */
 export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
+  "texas-country-music-hall-of-fame-carthage": {
+    name: "Texas Country Music Hall of Fame and Tex Ritter Museum",
+    slug: "texas-country-music-hall-of-fame-carthage", county: "Panola", city: "Carthage", reviewed: "2026-10-18",
+    topics: ["texas-music", "country-music", "performing-arts", "regional-history"],
+    whyVisit: "Carthage's Texas Country Music Hall of Fame and Tex Ritter Museum preserves the stories of Texans who helped shape country music through recording, radio, film and live performance. The Tex Ritter collection connects Panola County's own singing-cowboy star with national film and broadcasting history; displays about Jim Reeves and other honorees turn a hall of names into a more physical museum experience. This is the Carthage institution, not the Country Music Hall of Fame in Nashville.",
+    visitorStrategy: "The official museum posts Monday through Saturday from 10 a.m. to 4 p.m., with regular adult admission of $10 and child admission of $5; it does not specify a child age boundary in that tariff. Visit at 310 West Panola Street, Carthage, and call 903-694-9561 if traveling on a holiday or seeking group arrangements. The museum and gift shop share a 13,000-square-foot facility, but the annual Hall of Fame induction concerts and John Ritter Tribute Showcase take place at the Carthage Civic Center on ticketed schedules: an ordinary museum admission does not include those shows.",
+    accessibility: "The museum website lists its address, phone, exhibit facilities and banquet spaces but does not publish a sufficiently detailed wheelchair route, parking, restroom, audiovisual captioning or sensory-access policy. Travelers needing a guaranteed step-free entry or particular accommodations should call 903-694-9561 before departure. Do not interpret accessible event seating at the separate Civic Center as proof of access to all museum galleries.",
+    familiesAndGroups: "Families interested in classic country music, radio equipment or Western movies can start with the Tex Ritter story before exploring other honorees. Younger visitors may know actor John Ritter better than his father Tex, and the family connection offers a natural discussion starter. The museum advertises a gift shop and group-sized event space, but regular museum admission must not be conflated with paid annual concerts or larger banquet rentals. Confirm school or coach-tour arrangements with staff rather than promising a guided visit.",
+    researchValue: "The museum's roots predate the current 2002 building: the local Tex Ritter Museum began in the early 1990s, while the statewide Hall of Fame program began in 1998. Its collections connect Ritter's singing-cowboy films and radio/television career, the Jim Reeves display with Henderson radio-station KGRI equipment, and other Hall of Fame inductees. Compare the museum's official inductee chronology with Texas State Historical Association's institutional history rather than implying every year's inductee has a permanent exhibit.",
+    exhibits: [
+      { heading: "Tex Ritter Museum", detail: "Documents Panola County-born Tex Ritter's cowboy music, film roles and broadcast work, including the transition from regional entertainer to Hollywood singing-cowboy star." },
+      { heading: "Jim Reeves and KGRI equipment", detail: "The museum states a significant Jim Reeves display was added in 2004, including radio equipment from his Henderson station, KGRI." },
+      { heading: "Texas Country Music Hall of Fame honorees", detail: "Follow the official year-by-year inductee record and contrast artists, songwriters and entertainers; verify current display rotation before attributing a particular artifact." },
+      { heading: "John Ritter Tribute Showcase history", detail: "An annual performance tradition honoring Tex Ritter's actor son, not an everyday exhibit ticket or on-demand museum concert." }
+    ],
+    routes: [
+      { label: "Classic-country museum visit", steps: ["Begin with the Tex Ritter Museum and Panola County roots", "Continue to the Jim Reeves and other artist displays", "Compare names and dates with the institution's Hall of Fame induction record"] },
+      { label: "Carthage music-and-history outing", steps: ["Tour the Hall of Fame in its posted Monday–Saturday window", "Explore downtown Carthage and the Panola County visitor landscape", "Check the Civic Center separately only if an induction or tribute event is actually scheduled"] },
+      { label: "School or family radio-history visit", steps: ["Identify singing-cowboy movies and midcentury radio as distinct formats", "Study the KGRI radio equipment's relationship to Jim Reeves", "Discuss how Texas performers reached national audiences before modern streaming"] }
+    ],
+    sources: [
+      { label: "Hall of Fame — official Tex Ritter Museum", url: "https://www.tcmhof.com/museum", use: "Permanent displays, institutional history, museum hours and prices" },
+      { label: "Hall of Fame — official contacts", url: "https://www.tcmhof.com/contact", use: "Physical location, contact and ordinary admission" },
+      { label: "Hall of Fame — official inductees", url: "https://www.tcmhof.com/latest-inductees", use: "Curated honoree chronology and context" },
+      { label: "Hall of Fame — event schedule", url: "https://www.tcmhof.com/schedule", use: "Separately ticketed concerts and past special festival hours" },
+      { label: "Texas State Historical Association — institution history", url: "https://www.tshaonline.org/handbook/entries/texas-country-music-hall-of-fame-and-tex-ritter-museum", use: "Independent museum founding and Carthage history" }
+    ],
+    connections: [
+      { label: "Panola County", href: "/county/panola", reason: "Place the institution in Carthage and the Piney Woods." },
+      { label: "Texas museum directory", href: "/explore/museums", reason: "Discover other history, culture and performance museums in Texas." },
+      { label: "Texas music history", href: "/texas-music", reason: "Connect Hall of Fame honorees with the existing statewide Texas music guide." }
+    ],
+  },
+  "bryan-museum-galveston": {
+    name: "The Bryan Museum", slug: "bryan-museum-galveston", county: "Galveston", city: "Galveston", reviewed: "2026-10-18",
+    topics: ["texas-history", "western-art", "galveston-history", "historic-architecture"],
+    whyVisit: "The Bryan Museum occupies Galveston's carefully restored 1895 Orphans Home and uses J.P. and Mary Jon Bryan's Texana collection to interpret Texas and the American West across Indigenous history, Spanish colonization, the frontier, statehood, art and documentary history. The building has a second story worth understanding in its own right: it operated as an orphanage before the museum's 2015 opening. Seven permanent gallery themes and rotating exhibitions invite a deliberate visit rather than a photo-only stop on the island.",
+    visitorStrategy: "For October 2026 the official fall/winter visitor calendar specifies Wednesday through Sunday, 10 a.m.–5 p.m., with Mondays and Tuesdays closed. The spring/summer pattern differs: from March 2 through Labor Day the museum generally closes only Tuesday. The operator lists $15 adults, $14 seniors age 65+, teachers and military, $12 students, $7 children ages 6–12, and free entry for younger children and members; ticket policies can change. Online advance tickets are encouraged and stated to be nonrefundable, though general tickets remain valid one year after initial purchase. Find the museum at 1315 21st Street in Galveston, and confirm holiday closings before setting out.",
+    accessibility: "The museum's published venue-rental policies explicitly reference ADA public accommodations, but this alone does not verify every gallery's step-free route, lift availability, accessible drop-off or visitor sensory aids. The historic former Orphans Home has stairs and multiple gallery levels. Visitors with specific mobility, hearing or sensory needs should ask the museum directly at 409-632-7685 rather than assume all historic areas are accessible. Do not claim a detailed accessible itinerary until museum staff confirm it.",
+    familiesAndGroups: "The collections are rich in historical maps, documents, artworks and material culture rather than children's ride-style attractions. The museum advertises educational field trips with an expert guide through four galleries, plus age-dependent programs, artifact explorations, temporary exhibitions or outdoor gardens. A separately bookable 90-minute Galveston Orphans Home architectural tour has limited capacity and includes museum admission, but is not automatically part of a walk-up ticket. Families can combine a shorter gallery visit with outdoor grounds and other independent Galveston stops.",
+    researchValue: "Use the seven permanent galleries to follow multiple eras without mistaking the history of the institution for the history of its contents. The operator reports approximately 70,000 objects across 12,000 years, including 20,000 rare books, over 30,000 archival documents in several languages, historical maps, Western art, everyday objects and saddles. The museum's collecting scope is vast; a visitor-first guide should select representative galleries and explain source context instead of duplicating an archival catalog or promising access to every object.",
+    exhibits: [
+      { heading: "Orientation and Spanish Colonial galleries", detail: "Set the region's early history in Indigenous and colonial context through artifacts, maps and documents rather than starting only at the Texas Revolution." },
+      { heading: "Texas Frontier and Statehood and Beyond", detail: "Follow exploration, settlement and political transition with period objects, rare maps, documents and interpretive paintings." },
+      { heading: "Texas Master and Rest of the West", detail: "Compare regional artistic traditions and subjects presented across the museum's named permanent galleries." },
+      { heading: "Galveston Orphans Home Gallery", detail: "Connect the 1895 institution's social and architectural history with the building now housing the Bryan collection." },
+      { heading: "Rotating special exhibition gallery", detail: "The operator describes one changing exhibit gallery in addition to its permanent galleries; current topics require date-specific verification." }
+    ],
+    routes: [
+      { label: "Texas-history first visit", steps: ["Begin with the Orientation Gallery and early cultural context", "Continue through Spanish Colonial, Texas Frontier, and Statehood galleries", "Finish with Galveston Orphans Home interpretation and the grounds"] },
+      { label: "Art and archives visit", steps: ["Focus on the Texas Master and Rest of the West collections", "Read artifact and document captions to distinguish originals from reproductions", "Visit the current special exhibition if listed and open that day"] },
+      { label: "Galveston architecture afternoon", steps: ["Reserve any special Orphans Home guided tour separately", "Explore the building history and outdoor grounds", "Add another independently ticketed Galveston historic stop rather than assuming a combined pass"] }
+    ],
+    sources: [
+      { label: "The Bryan Museum — current visitor tickets and hours", url: "https://thebryanmuseum.org/plan-your-visit", use: "October 2026 fall schedule, admissions, age bands and field trips" },
+      { label: "The Bryan Museum — ticket details", url: "https://thebryanmuseum.org/plan-your-visit/tickets", use: "Nonrefundable tickets, booking and separate historic Orphans Home tours" },
+      { label: "The Bryan Museum — official exhibitions", url: "https://thebryanmuseum.org/exhibitions", use: "Named permanent and changing museum galleries" },
+      { label: "The Bryan Museum — Bryan Educational Institute", url: "https://thebryanmuseum.org/about-us/bryan-educational-institute", use: "Historic site, 2015 opening and collecting organization" },
+      { label: "The Bryan Museum — museum guidelines", url: "https://thebryanmuseum.org/venue-rental/museum-guidelines", use: "Published event-specific access requirements, not a full visitor access guarantee" }
+    ],
+    connections: [
+      { label: "Galveston County", href: "/county/galveston", reason: "Connect the museum with the island and county's maritime and civic history." },
+      { label: "Texas museum directory", href: "/explore/museums", reason: "Compare history museums around the state." },
+      { label: "Bishop's Palace Galveston", href: "/destination/bishops-palace-galveston", reason: "A separate historic Galveston building with its own admission and opening rules." }
+    ],
+  },
   "east-texas-oil-museum-kilgore": {
     name: "East Texas Oil Museum", slug: "east-texas-oil-museum-kilgore", county: "Gregg", city: "Kilgore", reviewed: "2026-10-17",
     topics: ["oil-history", "industrial-heritage", "texas-history", "family"],

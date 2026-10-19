@@ -387,6 +387,44 @@
       ]
     },
     {
+      "path": "/destination/bryan-museum-galveston",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 10,
+      "sources": [
+        {
+          "sourceUrl": "https://thebryanmuseum.org/plan-your-visit",
+          "fetchUrl": "https://thebryanmuseum.org/plan-your-visit",
+          "label": "Bryan Museum — visit"
+        },
+        {
+          "sourceUrl": "https://thebryanmuseum.org/plan-your-visit/tickets",
+          "fetchUrl": "https://thebryanmuseum.org/plan-your-visit/tickets",
+          "label": "Bryan Museum — tickets"
+        },
+        {
+          "sourceUrl": "https://thebryanmuseum.org/exhibitions",
+          "fetchUrl": "https://thebryanmuseum.org/exhibitions",
+          "label": "Bryan Museum — galleries"
+        },
+        {
+          "sourceUrl": "https://thebryanmuseum.org/about-us/bryan-educational-institute",
+          "fetchUrl": "https://thebryanmuseum.org/about-us/bryan-educational-institute",
+          "label": "Bryan Museum — education"
+        },
+        {
+          "sourceUrl": "https://thebryanmuseum.org/venue-rental/museum-guidelines",
+          "fetchUrl": "https://thebryanmuseum.org/venue-rental/museum-guidelines",
+          "label": "Bryan Museum — access"
+        },
+        {
+          "sourceUrl": "https://thebryanmuseum.org/hours-location",
+          "fetchUrl": "https://thebryanmuseum.org/hours-location",
+          "label": "Bryan Museum — location"
+        }
+      ]
+    },
+    {
       "path": "/destination/bullock-texas-state-history-museum",
       "topic": "museum-visitor-guide",
       "cadenceDays": 30,
@@ -1413,6 +1451,39 @@
           "sourceUrl": "https://www.lamar.edu/spindletop-boomtown-museum/index.html",
           "fetchUrl": "https://www.lamar.edu/spindletop-boomtown-museum/index.html",
           "label": "Lamar Boomtown history and special events"
+        }
+      ]
+    },
+    {
+      "path": "/destination/texas-country-music-hall-of-fame-carthage",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 9,
+      "sources": [
+        {
+          "sourceUrl": "https://www.tcmhof.com/museum",
+          "fetchUrl": "https://www.tcmhof.com/museum",
+          "label": "Texas Country Music Hall of Fame — museum"
+        },
+        {
+          "sourceUrl": "https://www.tcmhof.com/contact",
+          "fetchUrl": "https://www.tcmhof.com/contact",
+          "label": "Texas Country Music Hall of Fame — contact"
+        },
+        {
+          "sourceUrl": "https://www.tcmhof.com/latest-inductees",
+          "fetchUrl": "https://www.tcmhof.com/latest-inductees",
+          "label": "Texas Country Music Hall of Fame — inductees"
+        },
+        {
+          "sourceUrl": "https://www.tcmhof.com/schedule",
+          "fetchUrl": "https://www.tcmhof.com/schedule",
+          "label": "Texas Country Music Hall of Fame — schedule"
+        },
+        {
+          "sourceUrl": "https://www.tshaonline.org/handbook/entries/texas-country-music-hall-of-fame-and-tex-ritter-museum",
+          "fetchUrl": "https://www.tshaonline.org/handbook/entries/texas-country-music-hall-of-fame-and-tex-ritter-museum",
+          "label": "Texas Country Music Hall of Fame — history"
         }
       ]
     },

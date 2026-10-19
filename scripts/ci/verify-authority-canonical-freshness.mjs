@@ -4,10 +4,10 @@ const pages = [
     url: 'https://texasdefined.com/article/texas-rivers-explained',
     required: [
       'Texas Rivers Explained',
-      'Start with the map',
-      'Texas Rivers, Region by Region',
+      'See how Texas rivers cross the state',
+      'How Texas Rivers Change Across the State',
       'Explore All 15 Major Texas River Basins',
-      'Texas rivers at a glance: six quick answers',
+      'Texas Rivers at a Glance',
       'Open the full 15-basin comparison',
     ],
     forbidden: [

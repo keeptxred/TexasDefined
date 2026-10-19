@@ -31,10 +31,33 @@ const logPath = `${artifactDir}/built-worker-ssr-smoke.log`;
 const wranglerReadyMarker = `Ready on ${origin}`;
 
 const smokeTargets = [
+  { path: '/explore/water-parks/schlitterbahn-new-braunfels', requiredText: '/destination/gruene-historic-district', label: 'Schlitterbahn New Braunfels locally sourced additional attractions' },
+  { path: '/explore/water-parks/great-wolf-webster', requiredText: '/destination/space-center-houston', label: 'Webster resort waterpark to NASA-area visitor guides' },
+  { path: '/explore/water-parks/bill-witt-aquatic-center-corpus-christi', requiredText: '/destination/texas-state-aquarium', label: 'Corpus Christi municipal pool to maritime attractions' },
+  { path: '/explore/water-parks/paradise-springs-grapevine', requiredText: 'formulanone', label: 'Historic licensed Paradise Springs photo attribution' },
+  { path: '/explore/water-parks/hawaiian-waters-garland', requiredText: 'davidjoviera', label: 'Historic exact-Garland licensed photo attribution' },
+  { path: '/explore/water-parks/bahama-beach-dallas', requiredText: '/destination/dallas-world-aquarium', label: 'Dallas waterpark guide renders qualified city attraction links' },
+  { path: '/explore/water-parks/waco-surf-waterpark', requiredText: '/destination/waco-mammoth-national-monument', label: 'Waco waterpark guide renders federally managed NPS site option' },
+  { path: '/explore/water-parks/hurricane-harbor-arlington', requiredText: 'Nrpf22pr', label: 'Arlington historical Tornado slide photo attribution renders in individual guide' },
+  { path: '/explore/water-parks/port-royal-ocean-resort-pools', requiredText: 'Can non-resort visitors buy a pool and waterslide day pass?', label: 'Port Royal standalone resort-only waterpark guide is SSR visible' },
+  { path: '/explore/water-parks/port-royal-ocean-resort-pools', requiredText: '6317 State Highway 361', label: 'Port Royal official exact-site address renders' },
+  { path: '/explore/water-parks/kalahari-round-rock', requiredText: "Can families bring coolers, snacks or drinks into Kalahari", label: 'Kalahari detailed first-party visitor rules' },
+  { path: '/explore/water-parks/kalahari-round-rock', requiredText: 'Wikimedia Commons source', label: 'Kalahari exact-location photographed venue credits' },
+  { path: '/explore/water-parks/midland-doug-russell', requiredText: 'Texas.pics', label: 'Midland historical municipal pool credits' },
+  // Bounded individual-waterpark contract: the guide must SSR with researched
+  // operator facts, real media attribution where licensed, and new municipal venues.
+  { path: '/explore/water-parks/schlitterbahn-new-braunfels', requiredText: 'Where should day visitors park versus resort guests?', label: 'New Braunfels researched individual guide' },
+  { path: '/explore/water-parks/schlitterbahn-new-braunfels', requiredText: 'Wikimedia Commons source', label: 'New Braunfels license attribution renders on the individual guide' },
+  { path: '/explore/water-parks/irving-cimarron-family-aquatic', requiredText: 'Cimarron Family Aquatic Center', label: 'one newly added Irving municipal guide survives reconciliation' },
+  { path: '/explore/water-parks/irving-cimarron-family-aquatic', requiredText: 'Can younger children use the water slides at Cimarron?', label: 'Irving guide renders site-specific sourced FAQ rather than a directory row' },
   { path: '/destination/choke-canyon-state-park', requiredText: 'Calliham Unit', label: 'real Choke Canyon park guide names its access units' },
   { path: '/destination/caprock-canyons-state-park', requiredText: 'Caprock Canyons State Park', label: 'canonical Caprock Canyons visitor guide' },
   { path: '/county/gillespie', requiredText: '/article/fredericksburg-johnson-city-historic-road-trip', label: 'Gillespie County links to researched historic corridor itinerary' },
   { path: '/county/blanco', requiredText: '/article/fredericksburg-johnson-city-historic-road-trip', label: 'Blanco County links to researched historic corridor itinerary' },
+  // Exercise the existing county SSR requests more thoroughly without adding
+  // routes or multiplying cold-loads: actual unranked visitor entries must SSR.
+  { path: '/county/gillespie', requiredText: 'LBJ Ranch at Stonewall', label: 'Gillespie County SSR includes sourced supplemental visitor place' },
+  { path: '/county/blanco', requiredText: 'LBJ National Historical Park', label: 'Blanco County SSR includes sourced supplemental visitor place' },
   { path: '/destination/lyndon-b-johnson-state-park-historic-site', requiredText: 'Sauer-Beckmann', label: 'canonical LBJ State Park and living-history farm' },
   { path: '/destination/lyndon-b-johnson-state-park-historic-site', requiredText: '<meta name="robots" content="index, follow', label: 'canonical LBJ State Park is indexable after ordinary content and photo-quality gates' },
   // Exact corridor publication proofs: 200 alone is insufficient; require

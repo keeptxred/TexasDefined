@@ -1,3 +1,5 @@
+import { bigThicketNationalPreserveAuthority } from "./big-thicket-national-preserve-authority";
+import { blackwellSchoolNationalHistoricSite } from "./blackwell-school-national-historic-site";
 import { esteroLlanoGrandeStateParkAuthority } from "./estero-llano-grande-state-park-authority";
 import { rayRobertsLakeStateParkAuthority } from "./ray-roberts-lake-state-park-authority";
 import { lakeSomervilleStateParkAuthority } from "./lake-somerville-state-park-authority";
@@ -29,6 +31,7 @@ import { thcHistoricLandmarkAuthorityBatch02Destinations } from "./thc-historic-
 import { thcHistoricLandmarkAuthorityBatch03Destinations } from "./thc-historic-landmarks-authority-batch03";
 import { thcHistoricLandmarkAuthorityBatch04Destinations } from "./thc-historic-landmarks-authority-batch04";
 import { thcHistoricLandmarkAuthorityBatch05Destinations } from "./thc-historic-landmarks-authority-batch05";
+import { hotelPasoDelNorteAuthorityDestination } from "./hotel-paso-del-norte-authority";
 import { hidalgoPumphouseAuthorityDestinations } from "./hidalgo-pumphouse-authority-destination";
 import { militaryHistoryDestinations } from "./military-history-destinations";
 import { militaryMuseumDestinations } from "./military-museum-destinations";
@@ -235,12 +238,15 @@ function mergePreservedDestinations(...groups: Destination[][]): Destination[] {
  * curation module's import-time mutation of topAttractionDestinations.
  */
 export const preservedExploreDestinations = mergePreservedDestinations(
+  [blackwellSchoolNationalHistoricSite],
+  [bigThicketNationalPreserveAuthority],
   olivewoodCemeteryDestinations,
   thcHistoricLandmarkAuthorityBatch01Destinations,
   thcHistoricLandmarkAuthorityBatch02Destinations,
   thcHistoricLandmarkAuthorityBatch03Destinations,
   thcHistoricLandmarkAuthorityBatch04Destinations,
   thcHistoricLandmarkAuthorityBatch05Destinations,
+  [hotelPasoDelNorteAuthorityDestination],
   coastalHeritageDiscoveryDestinations,
   animalSanctuaryDestinations,
   aquariumMarineDestinations,
