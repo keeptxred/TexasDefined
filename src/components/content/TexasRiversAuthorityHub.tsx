@@ -21,7 +21,7 @@ const riverProfiles = [
   { name: "Red", href: "/article/texas-red-river-guide", region: "North Texas", note: "Lake Texoma · Oklahoma boundary · North Texas", image: "/images/state-parks/eisenhower-state-park.jpg" },
   { name: "Sabine", href: "/article/texas-sabine-river-guide", region: "East Texas & Louisiana border", note: "Toledo Bend · Sabine Lake · water supply", image: "/images/editorial/texas-river-basins.jpg" },
   { name: "San Antonio", href: "/article/texas-san-antonio-river-guide", region: "South-Central Texas", note: "Medina River · springs · joins the Guadalupe", image: "/images/editorial/moving/san-antonio.jpg" },
-  { name: "San Jacinto", href: "/article/texas-san-jacinto-river-guide", region: "Houston & Gulf Coast", note: "Lake Houston · Lake Conroe · Houston-area flooding and drainage", image: "/images/editorial/texas-river-basins.jpg" },
+  { name: "San Jacinto", href: "/article/texas-san-jacinto-river-guide", region: "Houston & Gulf Coast", note: "Lake Houston · Lake Conroe · Houston-area flooding and water flow", image: "/images/editorial/texas-river-basins.jpg" },
   { name: "Sulphur", href: "/article/texas-sulphur-river-guide", region: "Northeast Texas", note: "Cooper Lake · Wright Patman Lake · Northeast Texas", image: "/images/state-parks/cooper-lake-south-sulphur-unit-state-park.jpg" },
 ] as const;
 
@@ -97,13 +97,13 @@ function TexasRiverOrientationMap() {
         <figcaption className="border-t border-border p-5 sm:p-7 lg:border-l lg:border-t-0 lg:p-8">
           <p className="eyebrow text-primary">Map key</p>
           <h3 className="mt-2 font-display text-2xl">Where the Major Rivers Run</h3>
-          <p className="mt-3 text-sm leading-6 text-muted-foreground">The blue river paths are a simplified guide, not exact surveyed river locations. Compare them with the official map above to see the land that drains into each river system. Texas rivers look and behave differently because they cross very different combinations of rainfall, elevation, geology and climate.</p>
+          <p className="mt-3 text-sm leading-6 text-muted-foreground">The blue river paths are a simplified guide, not exact surveyed river locations. Use the official Texas Water Development Board map linked above to see the land that drains into each river system. That drainage area is called a river basin. Texas rivers look and behave differently because they cross very different combinations of rainfall, elevation, geology and climate.</p>
           <dl className="mt-6 grid grid-cols-3 gap-3">
             <div className="border-t border-border pt-3"><dt className="text-[11px] uppercase text-muted-foreground">Major basins</dt><dd className="mt-1 font-display text-2xl">15</dd></div>
             <div className="border-t border-border pt-3"><dt className="text-[11px] uppercase text-muted-foreground">Coastal basins</dt><dd className="mt-1 font-display text-2xl">8</dd></div>
-            <div className="border-t border-border pt-3"><dt className="text-[11px] uppercase text-muted-foreground">Streams</dt><dd className="mt-1 font-display text-2xl">~191k mi.</dd></div>
+            <div className="border-t border-border pt-3"><dt className="text-[11px] uppercase text-muted-foreground">Rivers &amp; streams</dt><dd className="mt-1 font-display text-2xl">~191k mi.</dd></div>
           </dl>
-          <a href={twdbMapUrl} target="_blank" rel="noreferrer" className="mt-6 inline-block text-sm font-semibold text-primary underline decoration-border underline-offset-4">Open the official Texas Water Development Board basin map ↗</a>
+          <a href={twdbMapUrl} target="_blank" rel="noreferrer" className="mt-6 inline-block text-sm font-semibold text-primary underline decoration-border underline-offset-4">Open the official Texas Water Development Board river-basin map ↗</a><p className="mt-2 text-xs leading-5 text-muted-foreground">The Texas Water Development Board reports approximately 191,000 miles of rivers and streams statewide.</p>
         </figcaption>
       </div>
       <div className="border-t border-border bg-background p-4 sm:p-6">
@@ -128,7 +128,7 @@ function RiverProfileCards() {
         return <div key={river.href} className="overflow-hidden rounded-sm border border-border bg-background">
           <Link to={river.href} className="group block transition-colors hover:border-primary">
             <div className="aspect-[4/3] overflow-hidden bg-surface">
-              <img src={photo?.src ?? river.image} alt={photo?.alt ?? `${river.name} river basin or nearby river destination`} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]" />
+              <img src={photo?.src ?? river.image} alt={photo?.alt ?? `${river.name} river system or nearby river destination`} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]" />
             </div>
             <div className="p-4">
               <span className="font-display text-xl group-hover:text-primary">{river.name}</span>
