@@ -75,6 +75,19 @@ try {
         initial.links.some(link => link.startsWith(
           'https://bigtex.com/the-2026-state-fair-of-texas-welcomes-nearly-2-1-million-fairgoers'
         ));
+      // The recap image was distributed directly in the Fair's October 18
+      // press release. Verify the actual pixels, source and prescribed credit.
+      const recapImage = page.locator('[data-state-fair-recap-email-photo] img');
+      await recapImage.scrollIntoViewIfNeeded({ timeout: 15000 });
+      const recapPhotoLoaded = await page.waitForFunction(() => {
+        const img = document.querySelector('[data-state-fair-recap-email-photo] img');
+        return img instanceof HTMLImageElement && img.complete && img.naturalWidth > 0;
+      }, null, { timeout: 20000 }).then(() => true).catch(() => false);
+      const photoCaption = await page.locator('[data-state-fair-recap-email-photo] figcaption').innerText().catch(() => '');
+      row.checks.recapEmailPhoto = recapPhotoLoaded &&
+        (await recapImage.getAttribute('src'))?.includes('20261018/48/27/d5/98/') &&
+        photoCaption.includes('Photo Credit: State Fair of Texas');
+
       const summary = page.locator('[data-state-fair-historical-gallery] details summary');
       await summary.click({ timeout: 15000 });
       const archival = await page.locator('[data-state-fair-historical-gallery] figure').evaluateAll(els => els.map(e => ({
