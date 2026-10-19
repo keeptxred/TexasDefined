@@ -258,6 +258,7 @@ export function enrichResearchedHistoricSiteDepth(destination: Destination): Des
   if (destination.slug === "first-capitol-of-texas") {
     return {
       ...destination,
+      bestSeason: "Not currently open to visitors. There is no public visiting season until the Texas Historical Commission announces access.",
       body: [
         ...destination.body,
         ...additions,
@@ -278,6 +279,9 @@ export function enrichResearchedHistoricSiteDepth(destination: Destination): Des
   if (verified) {
     return {
       ...destination,
+      ...(destination.slug === "old-socorro-mission" ? {
+        bestSeason: "Closed archaeological site: there is no public visiting season. Research the separately operated present-day Socorro Mission for a permitted visit.",
+      } : {}),
       body: [...destination.body, ...additions, verified.researchNote].filter((line, index, all) => all.indexOf(line) === index),
       entryNote: verified.entryNote,
       ...(verified.accessibilityNotes ? { accessibilityNotes: verified.accessibilityNotes } : {}),
