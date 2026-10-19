@@ -9,11 +9,11 @@ Woodson defeated Gold-Burg 58–53 on October 16; the earlier conflicting/empty 
 
 ## Source-verified campus, school identity and history
 
-Gold-Burg ISD publishes 468 Prater Road, Bowie, TX 76230 and office 940-872-3562: [official school material](https://www.goldburgisd.net/). The exact game-night entrance, accessible seating, parking or tickets require venue-specific evidence. Gold-Burg is a Ringgold–Stoneburg community school, separate from the Bowie ISD Jackrabbits. Specialist six-man records report 9–3 in 2021 and 7–5 in 2024, without establishing any UIL football state championship. A 2026 student-produced school football hype video is school-owned material, not an open media license. Context and historical source: [individual record](https://sixmanfootball.com/teams/gold-burg-bears.1196/). The district advertised a 2026–27 head-football-coach opening in March; specialist pages name Austin Norman but school-confirmed appointment evidence is missing. Two October 16 Woodson snapshots differed (one reported a 58–53 loss, another had no result), so the match remains explicitly unresolved.
+Gold-Burg ISD publishes 468 Prater Road, Bowie, TX 76230 and office 940-872-3562: [official school material](https://www.goldburgisd.net/). The exact game-night entrance, accessible seating, parking or tickets require venue-specific evidence. Gold-Burg is a Ringgold–Stoneburg community school, separate from the Bowie ISD Jackrabbits. Specialist six-man records report 9–3 in 2021 and 7–5 in 2024, without establishing any UIL football state championship. A 2026 student-produced school football hype video is school-owned material, not an open media license. Context and historical source: [individual record](https://sixmanfootball.com/teams/gold-burg-bears.1196/). The district advertised a 2026–27 head-football-coach opening in March; specialist pages name Austin Norman but school-confirmed appointment evidence is missing. The earlier October 16 Woodson snapshots differed, but a subsequent October 17 statewide newspaper score report corroborated the 53–58 loss; the score is now presented as a dated reported final, not a school-certified UIL score.
 
 ## Source-dated 2026 varsity games
 
-**2–5 through October 9, 2026**. [Gold-Burg Bears current 2026 game results](https://sixmanfootball.com/teams/gold-burg-bears.1196/schedule/). No result marked without a reported final. Future games, schedule changes and unresolved conflicts are explicitly not treated as wins or losses.
+**2–6 through October 16, 2026**, including the subsequently reported Woodson defeat; previous 2–5 record applies only to the October 9 snapshot. [Gold-Burg Bears current 2026 game results](https://sixmanfootball.com/teams/gold-burg-bears.1196/schedule/). No result marked without a reported final. Future games, schedule changes and unresolved conflicts are explicitly not treated as wins or losses.
 
 | Date | Opponent | Site | Reported result |
 |---|---|---|---|
@@ -24,7 +24,7 @@ Gold-Burg ISD publishes 468 Prater Road, Bowie, TX 76230 and office 940-872-3562
 | 2026-09-25 | Gainesville Lone Star North | Home | L 58–64 |
 | 2026-10-02 | Perrin-Whitt | Away | L 32–35 |
 | 2026-10-09 | Throckmorton | Home | W 51–6 |
-| 2026-10-16 | Woodson | Away | Scheduled / result not verified |
+| 2026-10-16 | Woodson | Away | L 53–58 ([October 17 reported final](https://www.houstonchronicle.com/sports/high-school/football/article/texas-scores-friday-week-16-22481255.php)) |
 | 2026-10-30 | Forestburg | Home | Scheduled / result not verified |
 | 2026-11-06 | Harrold | Away | Scheduled / result not verified |
 
