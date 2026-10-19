@@ -8,10 +8,10 @@ import { TexasRiversCitationTrust } from "@/components/content/TexasRiversCitati
 const twdbMapUrl = "https://www.twdb.texas.gov/mapping/doc/maps/Major_River_Basins_8x11.pdf";
 
 const riverProfiles = [
-  { name: "Rio Grande", href: "/article/texas-rio-grande-river-guide", region: "West Texas & border", note: "International border river · largest Texas drainage area", image: "/images/explore/lakes-rivers/amistad-national-recreation-area.jpg" },
+  { name: "Rio Grande", href: "/article/texas-rio-grande-river-guide", region: "West Texas & border", note: "International border river · largest area of Texas draining into one river system", image: "/images/explore/lakes-rivers/amistad-national-recreation-area.jpg" },
   { name: "Brazos", href: "/article/texas-brazos-river-guide", region: "West & Central Texas", note: "840 river miles · major agricultural and reservoir system", image: "/images/explore/lakes-rivers/lake-somerville-birch-creek-unit.jpg" },
   { name: "Colorado", href: "/article/texas-colorado-river-guide", region: "West & Central Texas", note: "Texas-only river · Highland Lakes and Austin", image: "/images/explore/lakes-rivers/pedernales-falls-state-park.jpg" },
-  { name: "Guadalupe", href: "/article/texas-guadalupe-river-guide", region: "Hill Country & Gulf Coast", note: "Spring-fed streams · Canyon Lake · tubing corridor", image: "/images/editorial/texas-guadalupe-river.jpg" },
+  { name: "Guadalupe", href: "/article/texas-guadalupe-river-guide", region: "Hill Country & Gulf Coast", note: "Spring-fed streams · Canyon Lake · popular tubing stretches", image: "/images/editorial/texas-guadalupe-river.jpg" },
   { name: "Trinity", href: "/article/texas-trinity-river-guide", region: "North Texas & Gulf Coast", note: "River system entirely in Texas · Dallas-Fort Worth water supply", image: "/images/editorial/texas-trinity-river.jpg" },
   { name: "Canadian", href: "/article/texas-canadian-river-guide", region: "Panhandle", note: "Lake Meredith · Panhandle river flowing into Oklahoma", image: "/images/explore/lakes-rivers/lake-meredith-national-recreation-area.jpg" },
   { name: "Cypress", href: "/article/texas-cypress-river-basin-guide", region: "Northeast Texas", note: "Caddo Lake · Cypress Bayou · Northeast Texas", image: "/images/state-parks/caddo-lake-state-park.jpg" },
@@ -35,11 +35,11 @@ const tributaryRecreationProfiles = RIVER_AUTHORITY_RELATIONS
   }));
 
 const riverRegions = [
-  { title: "West Texas & the border", rivers: "Rio Grande · Pecos · Devils", description: "High desert, mountain basins, canyon country and an international river system." },
+  { title: "West Texas & the border", rivers: "Rio Grande · Pecos · Devils", description: "High desert, mountains, canyon country and an international river system." },
   { title: "Central Texas & the plains", rivers: "Brazos · Colorado", description: "Long cross-state systems connecting drier western country, major reservoirs and the Gulf." },
-  { title: "Hill Country & South-Central Texas", rivers: "Guadalupe · Frio · Nueces · San Antonio", description: "Limestone, springs, clear water, cypress-lined reaches and spring-fed streams." },
-  { title: "North Texas", rivers: "Trinity · Red", description: "Urban water supply, flood-control reservoirs and the long northern boundary with Oklahoma." },
-  { title: "East Texas", rivers: "Sabine · Neches · Cypress", description: "Wetter forests, broad floodplains, bayous and river systems flowing toward Sabine Lake and the Gulf." },
+  { title: "Hill Country & South-Central Texas", rivers: "Guadalupe · Frio · Nueces · San Antonio", description: "Limestone, springs, clear water, cypress-lined stretches and spring-fed streams." },
+  { title: "North Texas", rivers: "Trinity · Red", description: "Urban water supply, reservoirs built partly for flood control and the long northern boundary with Oklahoma." },
+  { title: "East Texas", rivers: "Sabine · Neches · Cypress", description: "Wetter forests, low river valleys, slow-moving bayous and river systems flowing toward Sabine Lake and the Gulf." },
 ] as const;
 
 const sectionLinks = [
