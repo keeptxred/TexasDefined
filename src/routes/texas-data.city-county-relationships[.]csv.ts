@@ -8,16 +8,17 @@ export const Route = createFileRoute('/texas-data/city-county-relationships.csv'
       GET: async () => {
         const { TEXAS_CITIES, TEXAS_COUNTIES } = await import('@/data/texas-places');
         const relationships = buildCityCountyRelationships(TEXAS_CITIES, TEXAS_COUNTIES);
-        const header = ['city_name', 'city_slug', 'primary_directory_county', 'all_counties', 'county_count', 'region', 'county_registry_match'];
+        const header = ['city_name', 'city_slug', 'place_type', 'primary_directory_county', 'all_counties', 'county_count', 'region', 'county_registry_match'];
         const rows = relationships
           .slice()
           .sort((a, b) => a.city.name.localeCompare(b.city.name))
-          .map(({ city, counties }) => {
+          .map(({ city, counties, placeType }) => {
             const countyRegistryMatches = counties.map(({ county }) => county ? 'matched' : 'pending');
             const allMatched = countyRegistryMatches.every((status) => status === 'matched');
             return [
               city.name,
               city.slug,
+              placeType,
               `${city.county} County`,
               counties.map(({ name }) => `${name} County`).join('; '),
               String(counties.length),
