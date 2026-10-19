@@ -1,8 +1,8 @@
-name: Whole-site production page audit
+name: Whole-site production page audit (disabled by owner)
+
+# Owner hold 2026-10-19: NO SITEWIDE AUDITS. Do not reenable without explicit authorization.
 
 on:
-  schedule:
-    - cron: '17 13 * * 1'
   workflow_dispatch:
 
 permissions:
@@ -16,6 +16,8 @@ concurrency:
 
 jobs:
   audit-production:
+    # Defense in depth: even an accidental manual launch cannot run the crawler.
+    if: ${{ false }}
     name: Full checks on one local built Worker
     uses: ./.github/workflows/audit-site-quality-local.yml
     with:
@@ -23,7 +25,7 @@ jobs:
 
   preserve-authority-ledger:
     needs: audit-production
-    if: always()
+    if: ${{ false }}
     runs-on: ubuntu-latest
     steps:
       - name: Download local audit evidence
