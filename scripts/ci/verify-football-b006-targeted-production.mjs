@@ -75,7 +75,7 @@ result.summary.sitemapFail=slugs.length-result.summary.sitemapPass;
 // Detect mixed Cloudflare Worker revisions when the server exposes the
 // release header. Do not pretend this header proves an unobservable git SHA.
 const workerVersions=new Set();
-const browser=await chromium.launch({headless:true,executablePath:process.env.CHROME_BIN||'/usr/bin/google-chrome',args:['--no-sandbox','--disable-dev-shm-usage']});
+let browser=await chromium.launch({headless:true,executablePath:process.env.CHROME_BIN||'/usr/bin/google-chrome',args:['--no-sandbox','--disable-dev-shm-usage']});
 try{
  for(const s of schools)for(const [device,width,height] of [['desktop',1366,900],['mobile390',390,844],['reflow320',320,800]]){
   const errors=[],chunk=[],row={slug:s.slug,county:s.county,device,width,errors},path='/texas-high-school-football-teams/'+s.slug;
@@ -140,14 +140,26 @@ try{
    await context.close();
   }
  }
+ // County checks run in a fresh Chrome process. After 75 separate school visits,
+ // releasing Chromium's process resources reduces the chance that a county
+ // hydration failure is a side effect of the preceding long batch.
+ await browser.close();
+ browser=await chromium.launch({headless:true,executablePath:process.env.CHROME_BIN||'/usr/bin/google-chrome',args:['--no-sandbox','--disable-dev-shm-usage']});
  const groups=Map.groupBy(schools,x=>x.county);
  for(const [name,group] of groups){
   const errors=[],row={county:name,schools:group.map(x=>x.slug),errors};result.counties.push(row);result.summary.countyCases++;
-  const ctx=await browser.newContext({viewport:{width:390,height:844}}),page=await ctx.newPage();const js=[];
+  const ctx=await browser.newContext({viewport:{width:390,height:844}}),page=await ctx.newPage();const js=[],assetFailures=[];
   page.on('pageerror',e=>js.push(String(e.message||e)));
+  page.on('requestfailed',request=>{if(request.url().startsWith(root)&&/\.(?:js|css)(?:\?|$)/.test(request.url()))assetFailures.push({url:request.url(),failure:request.failure()?.errorText})});
+  page.on('response',response=>{if(response.url().startsWith(root)&&response.status()>=400&&/\.(?:js|css)(?:\?|$)/.test(response.url()))assetFailures.push({url:response.url(),status:response.status()})});
   try{
    const r=await page.goto(root+'/county/'+name,{waitUntil:'domcontentloaded',timeout:45000});
    if(r?.status()!==200)errors.push('county HTTP '+r?.status());
+   // Inspect the response for the expected anchors, separately from the
+   // post-hydration DOM. No extra network request or acceptance shortcut.
+   const initialHtml=await r?.text().catch(()=>null);
+   row.serverHtmlHasFootballSection=initialHtml?.includes('Independent football histories from this county')??null;
+   row.serverHtmlExpectedAnchors=group.map(s=>({slug:s.slug,present:initialHtml?.includes('/texas-high-school-football-teams/'+s.slug)??null}));
    row.workerVersion=await r?.headerValue('x-texasdefined-worker-version')||null;
    if(row.workerVersion)workerVersions.add(row.workerVersion);
    await page.locator('main h1').first().waitFor({state:'visible',timeout:25000});
@@ -176,7 +188,9 @@ try{
    row.renderedBatch006Links=links.filter(x=>x.startsWith('/texas-high-school-football-teams/'));
    row.observedUrl=page.url();
    for(const s of group)if(!links.includes('/texas-high-school-football-teams/'+s.slug))errors.push('missing reciprocal '+s.slug);
+   row.assetFailures=assetFailures.slice(0,8);
    if(js.length)errors.push('county JavaScript errors '+js[0]);
+   if(assetFailures.length)errors.push('county first-party JS/CSS failures '+JSON.stringify(assetFailures.slice(0,2)).slice(0,240));
   }catch(e){errors.push(String(e.message||e).slice(0,350))}
   finally{
    try{
@@ -195,7 +209,9 @@ try{
     'release='+String(row.workerVersion||'none'),
     'section='+String(row.renderedFootballSection),
     'hydrated='+String(row.hydratedMarker),
-    'schoolLinks='+JSON.stringify(row.renderedBatch006Links||[]));
+    'schoolLinks='+JSON.stringify(row.renderedBatch006Links||[]),
+    'serverHtml='+JSON.stringify(row.serverHtmlExpectedAnchors||[]),
+    'assetFailures='+JSON.stringify(row.assetFailures||[]));
    await ctx.close();
   }
  }
