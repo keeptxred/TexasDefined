@@ -106,6 +106,35 @@ assert.ok(Object.values(faqWaveRecords).flat().every(item => item.question.lengt
 const faqPageLoader = read("src/routes/destination.$slug.tsx");
 assert.ok(faqPageLoader.includes("applyTop50FaqWave2(destination)"), "Source-verified visitor answers must be displayed on canonical destination routes");
 
+const venueData = parseStaticJson(
+  "src/data/top50-sports-venue-visitor-guidance.ts",
+  "}> = ",
+  ";\n\nexport function getTop50VenueGuidance",
+);
+assert.deepEqual(Object.keys(venueData).sort(), ["att-stadium", "circuit-of-the-americas"], "Two Top 50 sports venues must have verified planning answers");
+for (const [slug, record] of Object.entries(venueData)) {
+  assert.ok(record.faqs.length === 3, `${slug}: three ticket, tour and transport answers are required`);
+  assert.ok(record.faqs.every(item => item.question && item.answer.length > 60 && item.sourceUrl.startsWith("https://")), `${slug}: incomplete operator FAQ evidence`);
+  assert.ok(record.sources.length >= 1 && record.sources.every(source => source.href.startsWith("https://")), `${slug}: official source visible`);
+  assert.ok(ranking.some(item => item.href === `/sports-venue/${slug}`), `${slug}: missing canonical sports guide in ranking`);
+}
+const venueRenderer = read("src/components/sports/SportsVenueGuidePilotContent.tsx");
+assert.ok(venueRenderer.includes("getTop50VenueGuidance(slug)") && venueRenderer.includes("top50Guidance?.faqs"), "Venue Q&A not attached to original sports pages");
+
+const eventData = parseStaticJson(
+  "src/data/top50-event-visitor-answers.ts",
+  "const ANSWERS = ",
+  " as const;",
+);
+assert.deepEqual(Object.keys(eventData).sort(), ["houston-livestock-show-rodeo", "state-fair-of-texas", "texas-renaissance-festival"], "Three ranked annual events need verified visitor answers");
+for (const [slug, record] of Object.entries(eventData)) {
+  assert.ok(record.questions.length === 3 && record.questions.every(item => item.answer.length > 70 && item.sourceUrl.startsWith("https://")), `${slug}: missing sourced visitor answers`);
+}
+const eventRenderer = read("src/components/editorial/Top50EventVisitorAnswers.tsx");
+assert.ok(eventRenderer.includes("getTop50EventAnswers(slug)") && eventRenderer.includes("item.sourceUrl"), "Event FAQ source attribution must render");
+assert.ok(read("src/routes/event.$slug.lazy.tsx").includes("Top50EventVisitorAnswers slug={page.slug}"), "Canonical major event pages must show targeted FAQ");
+assert.ok(read("src/routes/texas-state-fair.lazy.tsx").includes('Top50EventVisitorAnswers slug="state-fair-of-texas"'), "State Fair archived authority page must show FAQ");
+
 const ledger = read("docs/editorial/top-50-attractions-authority-ledger-20261017.md");
 const lines = ledger.split("\n").filter(x=>/^\| \d+ \|/.test(x));
 assert.equal(lines.length,50,"Every ranking needs a completion-ledger row");
@@ -139,4 +168,4 @@ assert.ok(sourceRenderer.includes("destination.visitorFaqs ?? []") && sourceRend
 assert.ok(read("src/lib/public-routes.ts").includes('"/explore/top-50-attractions"'),"Top-50 collection must be indexable");
 assert.ok(read("src/routes/sitemap-explore[.]xml.ts").includes('"/explore/top-50-attractions"'),"Top-50 collection must be in Explore sitemap");
 assert.ok(read("src/routes/explore.top-50-attractions.tsx").includes("TEXAS_TOP50_RANKING.map"),"Ranking must render all fifty in source order");
-console.log("Top-50 attraction structural contract: 50 canonical rankings; 10 enriched guides; 5 new destination guides; 9 more pages with 27 official-source FAQs; page/SEO/sitemap routing all checked.");
+console.log("Top-50 attraction structural contract: 50 canonical rankings; 10 enriched guides; 5 new destination guides; 9 landmark pages, 2 sports venues and 3 annual events with 42 official-source FAQs; page/SEO/sitemap routing all checked.");
