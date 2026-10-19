@@ -70,7 +70,7 @@ describe("Camino Real — primary-source and indexable SSR contract", () => {
   it("retains clear citations and public-domain photo captions", () => {
     const photos = article.body.filter((block) => block.type === "image");
     expect(photos).toHaveLength(2);
-    expect(photos.every((block) => block.type === "image" && block.image.credit.includes("public domain"))).toBe(true);
+    expect(photos.every((block) => block.type === "image" && block.image.credit?.includes("public domain") === true)).toBe(true);
     expect(article.sources?.some((source) => source.url.includes("commons.wikimedia.org/wiki/File:YsletaMission.JPG"))).toBe(true);
     expect(article.sources?.some((source) => source.url.includes("ysletadelsurpueblo.org/tourism-hospitality/cultural-center/museum"))).toBe(true);
   });
