@@ -1,5 +1,8 @@
 # Boling Bulldogs — individual Batch 006 Wharton County football research
 
+> **CURRENT DEPLOYED STATUS — October 19, 2026:** The school-specific football authority editorial is merged on `main`; the canonical Batch 006 registry records this page **DEPLOYED**. The [single-release production Chrome run #39273758531](https://github.com/keeptxred/TexasDefined/actions/runs/39273758531) passed 75/75 school viewports, 23/23 reciprocal county links and 25/25 sitemap entries on its tested release. **Individual nine-dimension editorial/factual approval, rights clearance and manual accessibility certification remain outstanding; this school is NOT individually VERIFIED.** Statements below describing an unmerged branch are historical and superseded by this current release checkpoint.
+
+
 **Checkpoint October 16, 2026.** Boling High School, Wharton County, Texas. **Implemented on dependent branch `feature/football-b006-boling-20261016-chat` only; not merged, deployed, browser-VERIFIED, photo-rights cleared or nine-dimension editorially accepted.** Prior 105 VERIFIED retained.
 
 ## Official historical facts — two distinct UIL finals
