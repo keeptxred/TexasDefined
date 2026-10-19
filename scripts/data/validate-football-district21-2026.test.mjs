@@ -70,3 +70,24 @@ test('The District 21 page does not link its matchup section to District 20 game
   assert.ok(integration.includes('DISTRICT_21_2026_GAMES'));
   assert.ok(template.includes('!district21Pilot && <FootballFanOffers'));
 });
+
+const teamPage = readFileSync(new URL('../../src/routes/texas-high-school-football-teams_.$slug.lazy.tsx', import.meta.url), 'utf8');
+const teamSeason = readFileSync(new URL('../../src/components/sports/District21TeamSeason.tsx', import.meta.url), 'utf8');
+
+test('every District 21 school profile receives its own opponent-linked, source-dated league scorecard', () => {
+  assert.ok(teamPage.includes('hasDistrict21TeamScorecard(schoolName)'), 'team eligibility guard');
+  assert.ok(teamPage.includes("program?.classification === '6A' && program.district === 21"), 'restrict to 6A-21');
+  assert.ok(teamPage.includes('!editorial?.season && !editorial?.notice'), 'preserve independently researched team data and notices');
+  assert.ok(teamPage.includes('<District21TeamSeason schoolName={schoolName} />'), 'route integration');
+  assert.ok(teamPage.includes('program && !district21Team &&'), 'avoid duplicated current-season tables');
+  for (const name of known) assert.ok(teamSeason.includes(`'${name}':`), `missing team: ${name}`);
+  assert.equal([...teamSeason.matchAll(/: 'fort-bend-|: 'houston-strake-jesuit'/g)].length, 8, 'eight unique canonical team slugs');
+  for (const marker of [
+    'data-football-d21-team-section', 'games.filter(', 'game.status === \'final\'',
+    'DISTRICT_21_VERIFIED_AT', 'DISTRICT_21_STANDINGS_AS_OF',
+    'Result not verified', 'DISTRICT_21_STRAKE_SCHEDULE_URL',
+    'DISTRICT_21_FBISD_CALENDAR_URL', '/texas-high-school-football-playoff-brackets',
+    '/texas-high-school-football-districts/6a-district-21#district-21-results',
+  ]) assert.ok(teamSeason.includes(marker), marker);
+  assert.ok(data.includes("Strake Jesuit varsity reported final"), 'official Strake results source is attributed correctly');
+});
