@@ -262,7 +262,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Big Spring Steers Football 2026 | Memorial Stadium, Scores & 1953 History",
-      "description": "Big Spring Steers 2026 football: official UIL District 2, 1–5 through October 9, Memorial Stadium game-day location, Stacey Martin and 1953 state runner-up history."
+      "description": "Big Spring Steers football: 2026 UIL District 2, 1–6 through October 16, Memorial Stadium, Stacey Martin and 1953 state runner-up history."
     },
     "coach": {
       "name": "Stacey Martin",
@@ -626,7 +626,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Blackwell Hornets Six-Man Football 2026 | UIL District, 2019 Semifinal & Scores",
-      "description": "Blackwell TX Hornets six-man football, 2026 UIL 1A Division II District 7, 5–2 through October 9, 2019 state-semifinal history and verified district contacts."
+      "description": "Blackwell TX Hornets six-man football: UIL 1A Division II District 7, 6–2 through October 16, 2019 state-semifinal history and district contacts."
     },
     "campus": {
       "address": "100 Hornet Dr, Blackwell, TX 79506",
@@ -810,7 +810,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Blanco Panthers Football 2026 | 2001 State Champions, Stadium & Results",
-      "description": "Blanco Panthers football in Blanco County: 2001 UIL 2A Division I title, 2026 District 15, 4–3 through October 9 and official Panther Stadium directions."
+      "description": "Blanco Panthers football: 2001 UIL state title, 2026 District 15, 5–3 through October 16 and official Panther Stadium visitor guidance."
     },
     "campus": {
       "address": "1215 4th Street, Blanco, TX 78606",
@@ -1357,7 +1357,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Bloomington Bobcats Football 2026 | District 15, Shiner Result & Stadium Tickets",
-      "description": "Bloomington TX Bobcats in Victoria County: UIL 2A Division I District 15, 2–5 through October 9, official Bobcat Stadium ticketing and verified school contacts."
+      "description": "Bloomington Bobcats in Victoria County: UIL 2A Division I District 15, 3–5 through October 16, school contacts and Bobcat Stadium ticketing sources."
     },
     "campus": {
       "address": "2781 FM 616, Victoria, TX 77905 (Bloomington High School and ISD campus contact; confirm spectator gate)",
@@ -2093,7 +2093,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "slug": "boerne",
     "seo": {
       "title": "Boerne Greyhounds Football 2026 | State Final, UIL District & Stadium",
-      "description": "Boerne Greyhounds football: 2022 Class 4A DI state runner-up, 2026 5A DII District 13, 6–0 through Oct 8, Boerne ISD Stadium and original game-day FAQs."
+      "description": "Boerne Greyhounds football: 2022 4A Division I state runner-up, 2026 5A Division II District 13, 7–0 through October 16 and Boerne ISD Stadium."
     },
     "theme": {
       "accentHex": "#65428C",
@@ -3043,7 +3043,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Booker Kiowas Six-Man Football 2026 | UIL District, Scores & Coach",
-      "description": "Booker Kiowas 2026 six-man football in Lipscomb County: coach David Biddler, UIL 1A Division I District 1, 4–3 to October 9 and 2025 district title."
+      "description": "Booker Kiowas six-man football: UIL 1A Division I District 1, 4–4 through October 16, coach David Biddler and 2025 district championship."
     },
     "coach": {
       "name": "David Biddler",
@@ -3238,7 +3238,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Borden County Coyotes Football 2026 | Five UIL Titles & Six-Man District 5",
-      "description": "Gail Borden County Coyotes: five verified UIL six-man state championships, 2026 1A Division I District 5, 6–0 through October 9 and official school visitor contacts."
+      "description": "Gail Borden County Coyotes: five UIL six-man state championships, 2026 Division I District 5, 7–0 through October 16 and official visitor contacts."
     },
     "campus": {
       "address": "240 West Kincaid Avenue, Gail, TX 79738",
