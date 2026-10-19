@@ -64,8 +64,8 @@ const SITE_VISIT_PROFILES: Record<string, Pick<DestinationEditorialAssessment, "
     "recommendedVisit": "Fanthorp Inn is currently open Friday–Sunday, 10 a.m.–4:30 p.m., with free self-guided public tours and on-site interpretation. Group and school tours have separate reservation policies; a stagecoach demonstration is an event, not a daily entitlement."
   },
   "first-capitol-of-texas": {
-    "physicalEffort": "Low",
-    "weatherExposure": "Mostly outdoors",
+    "physicalEffort": "Not applicable — site closed",
+    "weatherExposure": "Not applicable — site closed",
     "planningLevel": "High",
     "recommendedVisit": "Not open to visitors: the Texas Historical Commission currently lists the First Capitol State Historic Site as Coming Soon, with hours Not Open and no tickets. Do not plan an interior or on-site tour until the operator announces opening; West Columbia's existing public history places remain separate stops."
   },
@@ -154,8 +154,8 @@ const SITE_VISIT_PROFILES: Record<string, Pick<DestinationEditorialAssessment, "
     "recommendedVisit": "Combine the historic Fort Griffin setting with the state herd when animals are visible; cattle sightings cannot be guaranteed."
   },
   "old-socorro-mission": {
-    "physicalEffort": "Low",
-    "weatherExposure": "Fully outdoors",
+    "physicalEffort": "Not applicable — site closed",
+    "weatherExposure": "Not applicable — site closed",
     "planningLevel": "High",
     "recommendedVisit": "The Old Socorro Mission State Historic Site is CLOSED to the public, with no services or facilities, according to the Texas Historical Commission. It is the former mission site and must not be confused with the separately operating present-day Socorro Mission. Do not plan entry into the closed archaeological site."
   },
@@ -431,12 +431,18 @@ export function enrichFullHistoricSiteAuthority(destination: Destination): Desti
       physicalEffort: visit?.physicalEffort ?? "Low to moderate",
       weatherExposure: visit?.weatherExposure ?? "Mixed indoor/outdoor",
       planningLevel: visit?.planningLevel ?? "Moderate",
-      familyFit: oldSocorroIsClosed
+      familyFit: firstCapitolIsClosed
+        ? "The First Capitol property is not open. For families, use public West Columbia history resources or separately operating museums instead of planning access to the closed site."
+        : oldSocorroIsClosed
         ? "Teach families about Piro Pueblo history and the 1680 Pueblo Revolt through public historical interpretation; the original site cannot be entered."
         : operator
         ? "Families can use the memorial landscape for age-appropriate conversations about service, remembrance and respectful behavior; active ceremonies must not be interrupted."
         : (destination.areaGuide?.familyStops?.[0]?.description ?? `Use ${focus[0] || seed.name} as the starting question, then connect one exhibit, building or landscape feature to the region's wider history. Check whether the operator offers family activities.`),
-      firstTimeValue: `Start with the operator's interpretive information to understand ${focus[0] || "the history"}, then follow the site itself instead of relying only on a photo or commemorative marker.`,
+      firstTimeValue: firstCapitolIsClosed
+        ? "Begin with the THC's historical marker record and current Not Open notice; use separately open public venues to explore West Columbia history."
+        : oldSocorroIsClosed
+        ? "Read the THC account of the protected original mission site, then plan any in-person visit only at the distinct operating Socorro Mission or other public Mission Trail venues."
+        : `Start with the operator's interpretive information to understand ${focus[0] || "the history"}, then follow the site itself instead of relying only on a photo or commemorative marker.`,
     },
     itineraries: firstCapitolIsClosed ? closedSiteItineraries : oldSocorroIsClosed ? oldSocorroHistoryItineraries : [
       {
