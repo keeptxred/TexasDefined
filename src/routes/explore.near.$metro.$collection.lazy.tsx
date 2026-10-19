@@ -1,4 +1,5 @@
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
+import { useEffect } from "react";
 
 import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { MapPreview } from "@/components/editorial/MapPreview";
@@ -481,10 +482,19 @@ function TexarkanaRoadTripsAuthority({ pageData }: { pageData: CollectionPageDat
 
 export function MetroProximityCollectionRich({ pageData }: { pageData: CollectionPageData }) {
   const { metro, collection, results, townReferences, eventContext, presentation } = pageData;
+  const isMcAllenDayTrips = metro.slug === "mcallen" && collection.slug === "day-trips";
+  // The shared lodging scripts must wait for this lazy section to hydrate.
+  // Otherwise they insert affiliate HTML inside the first curated article and
+  // can trigger React hydration mismatches. Other metros are unaffected.
+  useEffect(() => {
+    if (!isMcAllenDayTrips) return;
+    document.documentElement.dataset.tdMcAllenDayTripsHydrated = "1";
+    window.dispatchEvent(new Event("texasdefined:mcallen-day-trips-hydrated"));
+    return () => { delete document.documentElement.dataset.tdMcAllenDayTripsHydrated; };
+  }, [isMcAllenDayTrips]);
   if (metro.slug === "texarkana" && collection.slug === "road-trips") {
     return <TexarkanaRoadTripsAuthority pageData={pageData} />;
   }
-  const isMcAllenDayTrips = metro.slug === "mcallen" && collection.slug === "day-trips";
   const curatedSlugs = isMcAllenDayTrips ? new Set<string>(MCALLEN_EDITORIAL_TRIPS.map((trip) => trip.slug)) : new Set<string>();
   const groups = (["close-in", "easy-day-trip", "longer-day-trip"] as const)
     .map((band) => ({ band, rows: results.filter((row) => row.distanceBand === band && !curatedSlugs.has(row.destination.slug)) }))

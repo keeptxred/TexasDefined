@@ -102,6 +102,7 @@ function MetroProximityCollectionPage() {
       <Suspense fallback={null}>
         <MetroProximityCollectionRich pageData={pageData} />
       </Suspense>
+      {isMcAllenDayTrips && <div data-stay-nearby-slot aria-label="Optional hotels and rentals for longer McAllen trips" />}
     </main>
   </>;
 }

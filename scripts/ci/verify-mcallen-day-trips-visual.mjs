@@ -60,6 +60,9 @@ try {
       record.workerVersion = response?.headers()?.["x-texasdefined-worker-version"] || null;
       verify("canonical page returns 200", response?.status() === 200, response?.status());
       await page.locator("h2#mcallen-day-trip-guide").waitFor({ state: "visible", timeout: 25000 });
+      // The page must hydrate before its first-party commercial scripts mount
+      // the optional lodging panel in the explicit slot after the article.
+      await page.locator('[data-stay-nearby-slot] #expedia-travel-surface').waitFor({ state: "attached", timeout: 20000 });
       await page.evaluate(() => document.fonts?.ready);
       const data = await page.evaluate(() => {
         const section = document.querySelector('section[aria-labelledby="mcallen-day-trip-guide"]');
@@ -76,6 +79,10 @@ try {
           h1: document.querySelector("h1")?.textContent?.trim() || "",
           canonical: document.querySelector('link[rel="canonical"]')?.href || "",
           cardCount: cards.length,
+          firstCuratedHeading: cards[0]?.querySelector("h3")?.textContent.trim() || "",
+          stayPanelInsideCuratedCard: cards.some(card => Boolean(card.querySelector('#expedia-travel-surface, #td-stay-affiliate-options, .td-stay-affiliate-options'))),
+          stayPanelAfterGuide: Boolean(document.querySelector('[data-stay-nearby-slot] #expedia-travel-surface')) &&
+            !section?.contains(document.getElementById("expedia-travel-surface")),
           quinta: details("Quinta Mazatlán"),
           sabal: details("Sabal Palm Sanctuary & Historic Rabb Plantation"),
           bentsen: details("Bentsen-Rio Grande Valley State Park"),
@@ -89,6 +96,9 @@ try {
       verify("McAllen heading visible", /McAllen/i.test(data.h1), data.h1);
       verify("canonical route correct", data.canonical === ORIGIN + PATH, data.canonical);
       verify("ten curated stops available", data.cardCount >= 10, data.cardCount);
+      verify("Quinta is the first destination heading", data.firstCuratedHeading === "Quinta Mazatlán", data.firstCuratedHeading);
+      verify("lodging offers never interrupt curated destination cards", !data.stayPanelInsideCuratedCard);
+      verify("optional lodging stays after curated guide", data.stayPanelAfterGuide);
       for (const operator of OPERATORS) {
         const card = operator.slug === "quinta-mazatlan" ? data.quinta : data.sabal;
         verify(operator.slug + " editorial card visible", card.exists, card.text.slice(0, 100));
@@ -104,6 +114,7 @@ try {
       const filename = DIR + "/mcallen-day-trips-" + vp.name + ".png";
       await page.screenshot({ path: filename, fullPage: true, animations: "disabled", timeout: 30000 });
       record.screenshot = filename;
+      verify("no React hydration mismatch", record.pageErrors.every(e => !/React error #418|react\.dev\/errors\/(418|423)|hydration mismatch/i.test(e)), JSON.stringify(record.pageErrors));
     } catch (error) {
       verify("browser scenario completed", false, error?.message || error);
       await page.screenshot({ path: DIR + "/mcallen-failed-" + vp.name + ".png", fullPage: false, timeout: 10000 }).catch(() => {});
