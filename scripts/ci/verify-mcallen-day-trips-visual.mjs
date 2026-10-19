@@ -96,6 +96,9 @@ try {
       verify("McAllen heading visible", /McAllen/i.test(data.h1), data.h1);
       verify("canonical route correct", data.canonical === ORIGIN + PATH, data.canonical);
       verify("ten curated stops available", data.cardCount >= 10, data.cardCount);
+      verify("every curated trip has a map selector", await page.locator('[aria-label="Select a featured McAllen day trip on the map"] button').count() === 10);
+      verify("real map iframe available", await page.locator('iframe[title^="Interactive OpenStreetMap location of"]').count() === 1);
+      verify("one consolidated lodging module", await page.locator('#expedia-travel-surface[data-stay-consolidated="true"]').count() === 1);
       verify("Quinta is the first destination heading", data.firstCuratedHeading === "Quinta Mazatlán", data.firstCuratedHeading);
       verify("lodging offers never interrupt curated destination cards", !data.stayPanelInsideCuratedCard);
       verify("optional lodging stays after curated guide", data.stayPanelAfterGuide);

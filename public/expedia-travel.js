@@ -530,10 +530,10 @@
 
     const eyebrow = document.createElement("p");
     eyebrow.className = "eyebrow text-primary";
-    eyebrow.textContent = "Hotels & places to stay";
+    eyebrow.textContent = normalizePath() === "/explore/near/mcallen/day-trips" ? "Staying overnight?" : "Hotels & places to stay";
     const heading = document.createElement("h2");
     heading.className = "mt-2 font-display text-3xl";
-    heading.textContent = "Find a place to stay nearby";
+    heading.textContent = normalizePath() === "/explore/near/mcallen/day-trips" ? "One stop for overnight stays" : "Find a place to stay nearby";
     const search = document.createElement("button");
     search.type = "button";
     search.className = "mt-5 inline-flex min-h-11 items-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90";

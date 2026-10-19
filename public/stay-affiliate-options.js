@@ -258,6 +258,11 @@
         : (intent === "hotel-first"
           ? "Compare hotel availability close to the event or venue on Hotels.com or Orbitz. Broader leisure and destination guides also include vacation-rental options when they fit the trip."
           : "Compare hotel options on Hotels.com or Travelocity, or choose a vacation rental when extra space, a kitchen, or a group-friendly setup fits the trip better."));
+    if (window.location.pathname.replace(/\\/+$/, "") === "/explore/near/mcallen/day-trips") {
+      eyebrow.textContent = "Compare lodging providers";
+      heading.textContent = "Hotel and vacation-rental choices";
+      copy.textContent = "Only staying overnight? Compare hotels and rentals; verify current prices, locations and cancellation rules with each booking provider.";
+    }
     if (casinoStays.length) copy.textContent = "These specific properties have verified hotel listings. Compare dates, cancellation terms, fees and current availability directly with the booking provider. Other lodging options are available below.";
     if (showRvshare) copy.textContent += " For camping and road-trip planning, RVshare is the primary rental option when taking your lodging with you fits the trip.";
 
@@ -503,6 +508,16 @@
 
   function placeBookingChoice(surface, choice, exactPropertyFirst) {
     choice.dataset.priority = exactPropertyFirst ? "exact-property-first" : "broad-search-first";
+    // One coherent overnight section on McAllen: preserve all affiliate choices
+    // but place them inside the existing Expedia container, not as a second section.
+    if (window.location.pathname.replace(/\\/+$/, "") === "/explore/near/mcallen/day-trips") {
+      const parent = surface.querySelector(":scope > .mx-auto");
+      if (parent) {
+        if (choice.parentElement !== parent || choice !== parent.lastElementChild) parent.appendChild(choice);
+        surface.dataset.stayConsolidated = "true";
+        return;
+      }
+    }
     if (exactPropertyFirst) {
       const scopedStyle = Array.from(surface.children).find((child) => child.tagName === "STYLE");
       if (scopedStyle) {

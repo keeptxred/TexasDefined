@@ -56,7 +56,7 @@ function MetroProximityCollectionPage() {
           <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.98] sm:text-7xl">{pageData.title}</h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">{heroSummary}</p>
           <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 border-t border-border pt-6 text-sm">
-            <p><span className="eyebrow mr-2 text-muted-foreground">Source-backed options</span>{optionCount}</p>
+            {isMcAllenDayTrips ? <><p><span className="eyebrow mr-2 text-muted-foreground">Featured outings</span>10 curated choices</p><p><span className="eyebrow mr-2 text-muted-foreground">Further reading</span>Additional researched places below</p></> : <p><span className="eyebrow mr-2 text-muted-foreground">Source-backed options</span>{optionCount}</p>}
             {isAustinTwoHourGuide ? <>
               <p><span className="eyebrow mr-2 text-muted-foreground">Best for</span>Full-day outings</p>
               <p><span className="eyebrow mr-2 text-muted-foreground">Plan around</span>Current traffic + opening hours</p>
