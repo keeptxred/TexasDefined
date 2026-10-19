@@ -236,6 +236,20 @@ for (const token of [
   'to="/county/$slug"', 'to="/explore/near/$metro"', "origin={metro.center}",
 ]) requireText(files.collectionUi, token, `metro collection lazy rich UI missing ${token}`);
 
+// Preserve two operator-backed McAllen day trips without pretending that an
+// incomplete local destination page exists. They intentionally link externally.
+for (const marker of [
+  'slug: "quinta-mazatlan"',
+  'title: "Quinta Mazatlán"',
+  'slug: "sabal-palm-sanctuary"',
+  'title: "Sabal Palm Sanctuary & Historic Rabb Plantation"',
+  'https://www.quintamazatlan.com/visit-explore/park-hours-admission',
+  'https://www.sabalpalmsanctuary.org/',
+  'externalOnly: true',
+  '!("externalOnly" in trip) && <Link',
+  'Quinta Mazatlán offers a close-to-home nature outing',
+]) requireText(files.collectionUi, marker, `McAllen verified operator day trip missing ${marker}`);
+
 // The McAllen lighthouse editorial card must link to the actual canonical
 // destination slug, not a non-existent historic-site alias.
 requireText(files.collectionUi, 'slug: "port-isabel-lighthouse"', "McAllen Port Isabel Lighthouse link must use the canonical destination slug");

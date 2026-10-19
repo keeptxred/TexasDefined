@@ -55,3 +55,22 @@ test("McAllen Santa Ana visitor notice is consistent with federal levee closure 
     assert.match(block, /https:\/\/www\.fws\.gov\/refuge\/santa-ana\/visit-us/,`${name} missing official current access source`);
   }
 });
+
+test("McAllen curated local and Brownsville operator-only stops have no invented destination guides", () => {
+  const source = readFileSync("src/routes/explore.near.$metro.$collection.lazy.tsx", "utf8");
+  const all = source.split("const MCALLEN_EDITORIAL_TRIPS = [")[1]?.split("] as const;")[0] ?? "";
+  for (const [slug, name, url] of [
+    ["quinta-mazatlan", "Quinta Mazatlán", "https://www.quintamazatlan.com/visit-explore/park-hours-admission"],
+    ["sabal-palm-sanctuary", "Sabal Palm Sanctuary & Historic Rabb Plantation", "https://www.sabalpalmsanctuary.org/"],
+  ]) {
+    const block = all.split('slug: "' + slug + '"')[1]?.split("\n  },")[0] ?? "";
+    assert.ok(block.includes("externalOnly: true"), slug + " must not link to nonexistent TexasDefined guide");
+    assert.ok(block.includes(name), slug + " identity missing");
+    assert.ok(block.includes(url), slug + " verified operator link missing");
+    assert.match(block, /reviewed October 19, 2026/i);
+  }
+  assert.equal([...all.matchAll(/slug: "old-hidalgo-pumphouse-museum"/g)].length, 1);
+  assert.ok(source.includes('!("externalOnly" in trip) && <Link to="/destination/$slug"'));
+  assert.ok(source.includes('href={trip.official} target="_blank" rel="noopener noreferrer"'));
+  assert.ok(source.includes("Quinta Mazatlán offers a close-to-home nature outing"));
+});
