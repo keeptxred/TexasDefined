@@ -3464,7 +3464,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "Who is Borden County's football coach today?",
-        "answer": "UIL identifies Trey Richey as the 2017 state-title team's head coach, but current MaxPreps and Six-Man Football directories disagree over 2026 leadership. An official current district staffing source has not resolved the disagreement, so this guide does not certify a current coach."
+        "answer": "Lamesa Press-Reporter's original August 18, 2026 fall-sports article explicitly identifies Trey Richey as Borden County's 2026 head football coach. The specialist Six-Man Football 2026 directory lists Craig Steele, so this page attributes the current coaching claim to dated local reporting rather than claiming a new district-issued appointment. Confirm subsequent changes with Borden County ISD."
       },
       {
         "question": "Where is the Borden County high school campus?",
@@ -4647,7 +4647,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "answer": "The October 8 Wildorado result was an 82–24 Boys Ranch win."
       },
       {
-        "question": "Who is Louis Kelley?",
+        "question": "Who is Boys Ranch\u0027s head football coach?",
         "answer": "Boys Ranch ISD officially lists Louis Kelley as head football coach without a suffix; Dave Campbell's Texas Football identifies the 2023 appointee as Louis Kelley III. This is specific coaching evidence, unlike an ambiguous third-party Jr/II roster. Confirm individual game-day arrangements with the district."
       },
       {
