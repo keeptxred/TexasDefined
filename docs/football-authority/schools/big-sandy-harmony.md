@@ -42,3 +42,7 @@ Prior team coverage was primarily a canonical UIL 2026–28 fixture/alignment re
 5. Rights-cleared, site-specific stadium photography would improve the page but must not be invented, hotlinked without permission or represented as licensed.
 
 **Batch provenance:** This is the first individually researched page of Batch 006; the 25 schools of Batch 005 remain VERIFIED on their October 14 exact-release Chrome evidence. No Batch 006 page is yet marked production-verified.
+
+## October 19, 2026 — 2026 head-coach evidence versus separate school athletic-director role
+[MaxPreps Harmony 2026 varsity staff](https://www.maxpreps.com/tx/big-sandy/harmony-eagles/football/staff/) and the [2026 team history](https://www.maxpreps.com/tx/big-sandy/harmony-eagles/football/history/) explicitly list **Jeremy Jenkins** as 2026 head coach (the roster's scores/season snapshot are stale, so do not derive wins from it). [Harmony High School's first-party staff](https://www.harmonyisd.net/o/harmony-high-school/staff) explicitly names **Brian Mauk** athletic director; it does **not** itself confirm Jenkins's separate current head-football title. These are attributed distinct roles, not contradictory head-coach appointments. The published authority guide adds the 2026 MaxPreps-attributed coach with its source/date. No unverifiable coach appointment, new score, image or license claim. Batch 006 individual nine-dimension editorial acceptance remains pending.
+

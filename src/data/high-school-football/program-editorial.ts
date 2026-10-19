@@ -77,6 +77,13 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "title": "Harmony Eagles Football | Big Sandy, 2026 Results, History & Eagle Stadium",
       "description": "Harmony ISD Eagles football in Big Sandy: 2026 scores, 2022 state-semifinal run, 3A Division II district, Eagle Stadium and verified Upshur County links."
     },
+    "coach": {
+      "name": "Jeremy Jenkins",
+      "title": "Harmony head football coach (MaxPreps 2026 varsity staff listing; Harmony ISD separately identifies Brian Mauk as athletic director)",
+      "sourceUrl": "https://www.maxpreps.com/tx/big-sandy/harmony-eagles/football/staff/",
+      "sourceLabel": "MaxPreps 2026 Harmony varsity coach roster (Jeremy Jenkins); distinct Harmony ISD official staff listing names Brian Mauk athletic director",
+      "verifiedAt": "2026-10-19"
+    },
     "campus": {
       "address": "9788 State Highway 154 West, Big Sandy, TX 75755",
       "phone": "903-725-5495",
@@ -643,7 +650,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "notice": {
       "title": "Verify September 4 points and game-day entrance with Blackwell CISD",
-      "body": "The September 4 Blackwell–Santa Anna contest is consistently reported as a Blackwell win, but published team records conflict on the Blackwell point total: Six-Man Football and Blackwell's MaxPreps listing show 52–6; Santa Anna's MaxPreps recap says 50–6. The table therefore identifies the victory without certifying disputed points. The district's 100 Hornet Dr address is a school contact, NOT a verified stadium gate; independently verified parking, ADA and ticket policies are unavailable.",
+      "body": "The September 4 Blackwell–Santa Anna contest is consistently reported as a Blackwell win, but published team records conflict on the Blackwell point total: Six-Man Football and Blackwell's MaxPreps listing show 52–6; Santa Anna's MaxPreps recap says 50–6. The table therefore identifies the victory without certifying disputed points. Blackwell CISD's official staff list identifies Clint Linman as athletic director, but does not establish that he is the current varsity head football coach; Justin Bamlet and Garrett Watson are listed as coaches without football head-coach titles. The district's 100 Hornet Dr address is a school contact, NOT a verified stadium gate; independently verified parking, ADA and ticket policies are unavailable.",
       "sourceUrl": "https://www.blackwellhornets.org/",
       "sourceLabel": "Blackwell CISD official school contact; exact September 4 final remains independently unresolved",
       "verifiedAt": "2026-10-15"
@@ -812,6 +819,13 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "title": "Blanco Panthers Football 2026 | 2001 State Champions, Stadium & Results",
       "description": "Blanco Panthers football: 2001 UIL state title, 2026 District 15, 5–3 through October 16 and official Panther Stadium visitor guidance."
     },
+    "coach": {
+      "name": "Kent Walker",
+      "title": "Blanco varsity head football coach (2026 MaxPreps football staff; Blanco ISD independently confirms athletics director role)",
+      "sourceUrl": "https://www.maxpreps.com/tx/blanco/blanco-panthers/football/staff/",
+      "sourceLabel": "MaxPreps 2026 Blanco football staff names Kent Walker head coach; Blanco ISD Athletics independently identifies him as athletic director",
+      "verifiedAt": "2026-10-19"
+    },
     "campus": {
       "address": "1215 4th Street, Blanco, TX 78606",
       "sourceUrl": "https://blancoisd.org/campuses",
@@ -834,7 +848,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "notice": {
       "title": "Tickets are online only; check the official event listing",
-      "body": "Blanco ISD Athletics advertises Home Town Ticketing for athletic events, online only. Confirm current available event tickets, pricing, gate, weather changes, visitor seating and accessibility directly with the district. Its athletics directory names Kent Walker as athletic director; this page does not infer that the athletic director is necessarily the football head coach.",
+      "body": "Blanco ISD Athletics advertises Home Town Ticketing for athletic events, online only. Confirm current available event tickets, pricing, gate, weather changes, visitor seating and accessibility directly with the district. Blanco ISD's athletics page identifies Kent Walker as athletic director; the separately dated 2026 MaxPreps varsity staff listing identifies Walker as head football coach. These are distinct sources for two roles, not an inference from athletic-director title alone.",
       "sourceUrl": "https://www.blancoisd.org/athletics",
       "sourceLabel": "District athletics first-party stadium, online ticketing and athletics director entry",
       "verifiedAt": "2026-10-15"
@@ -2099,6 +2113,13 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "accentHex": "#65428C",
       "label": "Independent editorial purple accent; no copied Boerne ISD crest or logo"
     },
+    "coach": {
+      "name": "Brett Sawyer",
+      "title": "Boerne Greyhounds head football coach (quoted under that title in September 16, 2026 local match report; Boerne High independently lists athletic coordinator)",
+      "sourceUrl": "https://www.boernestar.com/article/14105%2Cgreyhounds-pick-up-road-win-at-davenport-in-game-shortened-by-weather-issues",
+      "sourceLabel": "September 16 2026 Boerne Star Davenport–Boerne game report directly quotes Brett Sawyer as head football coach; BHS official football page lists him athletic coordinator",
+      "verifiedAt": "2026-10-19"
+    },
     "campus": {
       "address": "1 Greyhound Lane, Boerne, TX 78006",
       "phone": "830-357-2200",
@@ -2122,7 +2143,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "notice": {
       "title": "Keep Boerne Greyhounds distinct from Champion Chargers",
-      "body": "UIL 2026–28 places Boerne High Greyhounds in 5A Division II District 13 and Boerne Champion Chargers in 5A Division I District 13. The official BHS football page names Brett Sawyer its athletic coordinator (830-357-2200), not independently a confirmed head varsity football coach under that exact title; Stan Leech is district Director of Athletics. Do not infer a coach appointment or use Champion campus directions for Greyhounds home games.",
+      "body": "UIL 2026–28 places Boerne High Greyhounds in 5A Division II District 13 and Boerne Champion Chargers in 5A Division I District 13. The official BHS football page names Brett Sawyer athletic coordinator (830-357-2200); a separate September 16, 2026 Boerne Star game report directly calls him Boerne's head football coach and quotes him after the Davenport win. Stan Leech is the district director of athletics. Do not confuse Greyhounds and Champion campus or football-coaching roles.",
       "sourceUrl": "https://bhs.boerneisd.net/football",
       "sourceLabel": "BHS Athletics staff-role distinctions and official school calendar",
       "verifiedAt": "2026-10-16"
