@@ -26,6 +26,10 @@ export const DALLAS_SMALL_TOWN_DRIVES = {
   "comanche": { minutes: 139, sourceUrl: "https://www.travelmath.com/driving-time/from/Dallas%2C%2BTX/to/Comanche%2C%2BTX" },
   "crockett": { minutes: 141, sourceUrl: "https://www.travelmath.com/driving-time/from/Dallas%2C%2BTX/to/Crockett%2C%2BTX" },
   "jefferson": { minutes: 152, sourceUrl: "https://www.travelmath.com/driving-time/from/Dallas%2C%2BTX/to/Jefferson%2C%2BTX" },
+  "salado": { minutes: 130, sourceUrl: "https://www.travelmath.com/driving-time/from/Dallas%2C%2BTX/to/Salado%2C%2BTX" },
+  "marshall": { minutes: 136, sourceUrl: "https://www.travelmath.com/driving-time/from/Dallas%2C%2BTX/to/Marshall%2C%2BTX" },
+  "lampasas": { minutes: 167, sourceUrl: "https://www.travelmath.com/driving-time/from/Dallas%2C%2BTX/to/Lampasas%2C%2BTX" },
+  "nacogdoches": { minutes: 169, sourceUrl: "https://www.travelmath.com/driving-time/from/Dallas%2C%2BTX/to/Nacogdoches%2C%2BTX" },
 } as const;
 
 export const DALLAS_DRIVES_VERIFIED_AT = "2026-10-19";
