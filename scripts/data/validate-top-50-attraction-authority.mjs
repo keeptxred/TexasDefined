@@ -160,6 +160,42 @@ assert.ok(museumRoute.includes('import("@/data/top50-museum-historic-upgrades")'
 const museumRenderer = read("src/components/editorial/DestinationRelationships.tsx");
 assert.ok(museumSlugs.every(slug => museumRenderer.includes(`"${slug}"`)), "Museum and historic dossiers must display visitor guide, FAQ and sources");
 
+
+const finalFaqs = parseStaticJson(
+  "src/data/top50-final-visitor-faqs.ts",
+  "const ANSWERS: Record<string, Array<{ question: string; answer: string; sourceUrl: string }>> = ",
+  ";\nexport const TOP50_FINAL_FAQ_SLUGS",
+);
+const finalSlugs = parseStaticJson(
+  "src/data/top50-final-visitor-faqs.ts",
+  "export const TOP50_FINAL_FAQ_SLUGS = ",
+  " as const;",
+);
+assert.equal(finalSlugs.length, 15, "Last 15 ranked destinations need named visitor FAQ coverage");
+assert.deepEqual(Object.keys(finalFaqs).sort(), [...finalSlugs].sort(), "Last batch FAQ slugs must match the exact route manifest");
+assert.ok(finalSlugs.every(slug => ranking.some(item => item.href === `/destination/${slug}`)), "Final wave visitor answers must appear in Top 50");
+for(const [slug, questions] of Object.entries(finalFaqs)) {
+  assert.ok(questions.length === 3, `${slug}: three independently useful questions required`);
+  assert.ok(questions.every(item => item.question.length > 15 && item.answer.length > 70 && item.sourceUrl.startsWith("https://")), `${slug}: FAQ needs original answer and named operator link`);
+}
+const finalDossiers = parseStaticJson(
+  "src/data/top50-final-park-historic-authority.ts",
+  "const DOSSIERS: Record<string, Seed> = ",
+  ";\n\nexport function applyTop50FinalAuthority",
+);
+assert.deepEqual(Object.keys(finalDossiers).sort(), ["barton-springs-pool", "enchanted-rock-state-natural-area", "san-jacinto-battleground"], "Three special historic/outdoor authority dossiers required");
+for(const [slug, guide] of Object.entries(finalDossiers)) assertVisitorGuide(guide, slug);
+const finalLoader = read("src/routes/destination.$slug.tsx");
+assert.ok(finalLoader.includes("applyTop50FinalVisitorAnswers(destination)") && finalLoader.includes("applyTop50FinalAuthority(destination)"), "Final fifteen FAQ and three authority upgrades must load on the canonical page");
+const finalRenderer = read("src/components/editorial/DestinationRelationships.tsx");
+assert.ok(Object.keys(finalDossiers).every(slug => finalRenderer.includes(`"${slug}"`)), "All three new historic/outdoor authority sections must be displayed");
+const allCovered = new Set([
+  ...waveManifest, ...parks.map(item=>item.slug), bats.slug,
+  ...Object.keys(faqWaveRecords), ...Object.keys(venueData), ...Object.keys(eventData),
+  ...Object.keys(museumUpgrades), ...finalSlugs, "state-fair-of-texas",
+]);
+assert.ok(ranking.every(item => allCovered.has(item.href.split("/").at(-1))), "Every one of 50 ranked attractions must have at least one source-backed improvement in this branch");
+
 const ledger = read("docs/editorial/top-50-attractions-authority-ledger-20261017.md");
 const lines = ledger.split("\n").filter(x=>/^\| \d+ \|/.test(x));
 assert.equal(lines.length,50,"Every ranking needs a completion-ledger row");
@@ -193,4 +229,4 @@ assert.ok(sourceRenderer.includes("destination.visitorFaqs ?? []") && sourceRend
 assert.ok(read("src/lib/public-routes.ts").includes('"/explore/top-50-attractions"'),"Top-50 collection must be indexable");
 assert.ok(read("src/routes/sitemap-explore[.]xml.ts").includes('"/explore/top-50-attractions"'),"Top-50 collection must be in Explore sitemap");
 assert.ok(read("src/routes/explore.top-50-attractions.tsx").includes("TEXAS_TOP50_RANKING.map"),"Ranking must render all fifty in source order");
-console.log("Top-50 attraction structural contract: 50 canonical rankings; 10 enriched guides; 5 new destination guides; 9 landmark pages, 2 sports venues and 3 annual events with 42 official-source FAQs; six more museum/historic dossiers; page/SEO/sitemap routing all checked.");
+console.log("Top-50 attraction structural contract: 50 canonical rankings; 10 enriched guides; 5 new destination guides; 9 landmark pages, 2 sports venues and 3 annual events with 42 official-source FAQs; six museum/historic dossiers and final 15 visitor Q&A pages; page/SEO/sitemap routing all checked.");
