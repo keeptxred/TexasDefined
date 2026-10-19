@@ -110,7 +110,7 @@ function CityCountyRelationshipsPage() {
                   <td className="px-4 py-4">{county ? <Link to="/$kind/$slug" params={{ kind: 'county', slug: county.slug }} className="font-semibold text-primary hover:underline">{city.county} County</Link> : `${city.county} County`}</td>
                   <td className="px-4 py-4">{additional.length ? additional.map(({ name, county: additionalCounty }, index) => <span key={name}>{index ? ', ' : ''}{additionalCounty ? <Link to="/$kind/$slug" params={{ kind: 'county', slug: additionalCounty.slug }} className="font-semibold text-primary hover:underline">{name} County</Link> : `${name} County`}</span>) : <span className="text-muted-foreground">—</span>}</td>
                   <td className="px-4 py-4">{city.region}</td>
-                  <td className="px-4 py-4"><Link to="/$kind/$slug" params={{ kind: 'city', slug: city.slug }} className="font-semibold text-primary hover:underline">City guide →</Link></td>
+                  <td className="px-4 py-4"><Link to="/$kind/$slug" params={{ kind: 'city', slug: city.slug }} className="font-semibold text-primary hover:underline">{placeType === 'census_designated_place' ? 'Place guide →' : 'City guide →'}</Link></td>
                 </tr>
               );
             })}
