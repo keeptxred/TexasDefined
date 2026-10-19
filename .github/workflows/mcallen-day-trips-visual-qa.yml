@@ -1,0 +1,86 @@
+name: McAllen day trips post-release visual QA
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'src/routes/explore.near.$metro.$collection.lazy.tsx'
+      - 'scripts/ci/verify-mcallen-day-trips-visual.mjs'
+      - '.github/workflows/mcallen-day-trips-visual-qa.yml'
+  workflow_run:
+    workflows: ["Deploy TexasDefined production"]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mcallen-visual-${{ github.event.workflow_run.head_sha || github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  scenario-contract:
+    if: github.event_name == 'pull_request'
+    name: Protect one-route, two-viewport screenshot scenario
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate browser QA scenario
+        run: |
+          node --check scripts/ci/verify-mcallen-day-trips-visual.mjs
+          node scripts/ci/verify-mcallen-day-trips-visual.mjs --self-test
+
+  bounded-production-chrome:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    name: McAllen desktop and mobile screenshots, one URL
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out exact deployed commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+          fetch-depth: 2
+      - name: Run only for changed McAllen page or browser verifier
+        id: scope
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "$GITHUB_EVENT_NAME" == 'workflow_dispatch' ]] ||
+             git diff --name-only HEAD^ HEAD -- 'src/routes/explore.near.$metro.$collection.lazy.tsx' 'scripts/ci/verify-mcallen-day-trips-visual.mjs' '.github/workflows/mcallen-day-trips-visual-qa.yml' | grep -q .; then
+            echo "changed=yes" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=no" >> "$GITHUB_OUTPUT"
+            echo "Unrelated production commit: no McAllen screenshot run."
+          fi
+      - name: Prepare free Chrome on the GitHub runner
+        if: steps.scope.outputs.changed == 'yes'
+        shell: bash
+        run: |
+          set -euo pipefail
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-mcallen-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+      - name: Check exact scenario before visiting production
+        if: steps.scope.outputs.changed == 'yes'
+        run: node scripts/ci/verify-mcallen-day-trips-visual.mjs --self-test
+      - name: Verify McAllen page in desktop and mobile Chrome
+        if: steps.scope.outputs.changed == 'yes'
+        env:
+          TARGET_DEPLOY_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+        run: node scripts/ci/verify-mcallen-day-trips-visual.mjs
+      - name: Preserve two screenshots and test report
+        if: always() && steps.scope.outputs.changed == 'yes'
+        uses: actions/upload-artifact@v4
+        with:
+          name: mcallen-day-trips-visual-${{ github.run_id }}
+          path: artifacts/mcallen-day-trips-visual/
+          if-no-files-found: warn
+          retention-days: 14
