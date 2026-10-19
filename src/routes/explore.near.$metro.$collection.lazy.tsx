@@ -203,6 +203,13 @@ const MCALLEN_FEATURED_POINTS = {
 } as const;
 
 const MCALLEN_OPEN_IMAGES = {
+  "museum-of-south-texas-history-edinburg": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Old_Hidalgo_County_Jail_Edinburg_Texas_2021.jpg?width=1000",
+    alt: "Historic 1910 Hidalgo County Jail building, now part of the Museum of South Texas History in Edinburg",
+    credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons",
+    source: "https://commons.wikimedia.org/wiki/File:Old_Hidalgo_County_Jail_Edinburg_Texas_2021.jpg",
+    license: "https://creativecommons.org/licenses/by/4.0/",
+  },
   "quinta-mazatlan": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/QUINTA_MAZATLAN%2C_Mc_Allen%2C_Tx_-06_%2816663465252%29.jpg?width=1000",
     alt: "Quinta Mazatlán's landscaped grounds in McAllen, Texas",
@@ -261,7 +268,7 @@ function McAllenDayTripsAuthority({ results }: { results: MetroProximityResult[]
       <p className="mt-5 max-w-4xl text-base leading-8 text-muted-foreground">McAllen is a gateway to remarkable wildlife and borderland history—not just a starting point for distant Gulf beaches. A short local excursion can be as memorable as a full coastal day. These are editorial trip anchors, not a ranking by straight-line mileage.</p>
       <div className="mt-10 grid gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
         {MCALLEN_EDITORIAL_TRIPS.map((trip) => {
-          const openPhoto = trip.slug === "quinta-mazatlan" ? MCALLEN_OPEN_IMAGES["quinta-mazatlan"] : trip.slug === "sabal-palm-sanctuary" ? MCALLEN_OPEN_IMAGES["sabal-palm-sanctuary"] : null;
+          const openPhoto = trip.slug === "quinta-mazatlan" ? MCALLEN_OPEN_IMAGES["quinta-mazatlan"] : trip.slug === "sabal-palm-sanctuary" ? MCALLEN_OPEN_IMAGES["sabal-palm-sanctuary"] : trip.slug === "museum-of-south-texas-history-edinburg" ? MCALLEN_OPEN_IMAGES["museum-of-south-texas-history-edinburg"] : null;
           const catalogPhoto = results.find((row) => row.destination.slug === trip.slug)?.destination.hero;
           const photo = openPhoto ?? (catalogPhoto && !isDestinationPhotoPlaceholder(catalogPhoto.src) ? catalogPhoto : null);
           return <article key={trip.slug} className="border-t border-border pt-5">
