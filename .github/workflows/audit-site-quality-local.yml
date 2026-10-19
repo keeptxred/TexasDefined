@@ -46,11 +46,15 @@ jobs:
           test -f /etc/apt/sources.list.d/ubuntu.sources
           timeout 180s sudo apt-get update -qq -o Dir::Etc::sourcelist="sources.list.d/ubuntu.sources" -o Dir::Etc::sourceparts="-"
           timeout 180s sudo apt-get install -y --no-install-recommends imagemagick librsvg2-bin
+      - name: Fingerprint governed Discover registry
+        id: discover_fingerprint
+        run: echo "sha=$(node scripts/assets/materialize-discover-overrides.mjs --fingerprint)" >> "$GITHUB_OUTPUT"
       - name: Restore governed Discover derivatives
+        id: discover_cache
         uses: actions/cache@v4
         with:
           path: public/images/discover
-          key: local-audit-discover-${{ runner.os }}-${{ hashFiles('scripts/assets/materialize-discover-overrides.mjs') }}
+          key: local-audit-discover-${{ runner.os }}-${{ steps.discover_fingerprint.outputs.sha }}
       - name: Build the complete site once on this runner
         run: |
           npm run prebuild
