@@ -5,6 +5,8 @@ const verifiedAt = '2026-08-13';
 export const SPORTS_VENUE_ENRICHMENT_BATCH5: Record<string, SportsVenueEnrichment> = {
   'toyota-stadium-frisco': {
     city: 'Frisco',
+    capacity: '19,096 soccer / 20,500 football',
+    opened: 'August 6, 2005',
     primaryEvents: ['FC Dallas home matches', 'Major soccer events', 'Football, concerts and special events'],
     history: 'Toyota Stadium opened in 2005 as one of Major League Soccer’s early soccer-specific stadiums. A $182 million phased modernization is underway, with FC Dallas continuing to host MLS matches throughout construction and the full project planned to finish in 2028.',
     parking: 'The 2026 renovation changes normal stadium circulation. FC Dallas lists paid general parking plus reserved lots, while some areas have limited availability because of construction. Fans should use the current parking map rather than relying on a previous-season routine.',
@@ -14,6 +16,7 @@ export const SPORTS_VENUE_ENRICHMENT_BATCH5: Record<string, SportsVenueEnrichmen
     planningLinks: [
       { label: '2026 stadium policies and construction access', url: 'https://www.fcdallas.com/stadium/policies' },
       { label: 'FC Dallas stadium information', url: 'https://www.fcdallas.com/stadium/' },
+      { label: 'Toyota Stadium facts and capacity', url: 'https://www.fcdallas.com/stadium/about' },
       { label: 'FC Dallas schedule', url: 'https://www.fcdallas.com/schedule/' },
     ],
     imageBrief: 'Toyota Stadium in Frisco during a modern MLS matchday, wide exterior or bowl view showing the soccer setting and active renovation-era context without emphasizing construction clutter, no added logos or text.',
