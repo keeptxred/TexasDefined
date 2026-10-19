@@ -896,7 +896,9 @@ function ReportedFormIllustration({
 }) {
   // Only source-attributed finals; byes, cancellations, unreported and future
   // dates cannot become wins/losses merely because a scheduled date passed.
-  const finals = games.filter((game) => /^[WLT] [0-9]/.test(game.result || ''));
+  // A sourced win with conflicting published scores still belongs on the
+  // timeline, but its caveat must remain visible rather than inventing points.
+  const finals = games.filter((game) => /^[WLT] /.test(game.result || ''));
   if (finals.length === 0) return null;
   return <figure className="mt-6 border border-border bg-surface p-4 sm:p-6" aria-label={`${schoolName}: original visual timeline of reported 2026 football results`}>
     <figcaption className="mb-4">
