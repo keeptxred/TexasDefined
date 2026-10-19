@@ -1,6 +1,13 @@
 name: Verify GSC manual-next production
 
 on:
+  workflow_run:
+    workflows:
+      - Deploy TexasDefined production
+    types:
+      - completed
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
@@ -12,12 +19,16 @@ concurrency:
 
 jobs:
   verify:
+    # Run only after a successful production deployment, never after a failed
+    # or cancelled one. Explicit dispatch remains available for diagnosis.
     if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
         with:
+          # workflow_run.head_sha is the exact revision deployed by the upstream
+          # workflow; manual dispatch checks the requested source revision.
           ref: ${{ github.event.workflow_run.head_sha || github.sha }}
       - uses: actions/setup-node@v4
         with:
