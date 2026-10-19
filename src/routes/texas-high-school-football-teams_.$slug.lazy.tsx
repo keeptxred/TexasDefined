@@ -11,6 +11,36 @@ import {
   uilFootballEnrollmentBand,
 } from '@/data/high-school-football/enrollment-bands';
 
+// Batch 006: source-backed original season graphics, never unlicensed team photos.
+// Deliberately scoped to the 25 individually researched and already deployed schools.
+const BATCH_006_GRAPHIC_SCHOOLS = new Set([
+  "big-sandy-harmony",
+  "big-spring",
+  "bishop",
+  "blackwell",
+  "blanco",
+  "blanket",
+  "blooming-grove",
+  "bloomington",
+  "blue-ridge",
+  "bluff-dale",
+  "blum",
+  "boerne",
+  "boerne-champion",
+  "bogata-rivercrest",
+  "boling",
+  "bonham",
+  "booker",
+  "borden-county",
+  "borger",
+  "bosqueville",
+  "bovina",
+  "bowie",
+  "bowie-gold-burg",
+  "boyd",
+  "boys-ranch"
+]);
+
 const UIL_ELIGIBILITY_URL = 'https://www.uiltexas.org/policy/eligibility';
 const UIL_DETAILED_ELIGIBILITY_URL = 'https://www.uiltexas.org/policy/constitution/general/eligibility';
 const UIL_EXACT_ENROLLMENT_URL = 'https://www.uiltexas.org/files/alignments/Alpha_26-28.pdf';
@@ -376,6 +406,12 @@ function Page() {
               <Snapshot label="Record when checked" value={editorial.season.record} />
               <Snapshot label="Season data verified" value={editorial.season.verifiedAt} />
             </dl>
+            {BATCH_006_GRAPHIC_SCHOOLS.has(slug) && <ReportedFormIllustration
+              schoolName={footballName}
+              games={editorial.season.games}
+              sourceUrl={editorial.season.sourceUrl}
+              accent={editorial.theme?.accentHex || '#64748b'}
+            />}
             <div role="region" aria-label="Scrollable 2026 football results and schedule table" tabIndex={0} className="mt-5 w-full max-w-full overflow-x-auto border-y border-border focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">
               <table className="w-full min-w-[38rem] text-left text-sm">
                 <thead className="border-b border-border text-xs uppercase tracking-[0.1em] text-muted-foreground">
@@ -844,6 +880,46 @@ function StepList({ steps }: { steps: Array<[string, string]> }) {
       <div><h3 className="font-display text-xl">{title}</h3><p className="mt-1 text-sm leading-7 text-muted-foreground">{body}</p></div>
     </li>)}
   </ol>;
+}
+
+
+function ReportedFormIllustration({
+  schoolName,
+  games,
+  sourceUrl,
+  accent,
+}: {
+  schoolName: string;
+  games: Array<{ date: string; opponent: string; district?: boolean; result?: string }>;
+  sourceUrl: string;
+  accent: string;
+}) {
+  // Only source-attributed finals; byes, cancellations, unreported and future
+  // dates cannot become wins/losses merely because a scheduled date passed.
+  const finals = games.filter((game) => /^[WLT]\\s+\\d/.test(game.result || ''));
+  if (finals.length === 0) return null;
+  return <figure className="mt-6 border border-border bg-surface p-4 sm:p-6" aria-label={`${schoolName}: original visual timeline of reported 2026 football results`}>
+    <figcaption className="mb-4">
+      <span className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">2026 results · visual snapshot</span>
+      <p className="mt-2 font-display text-xl font-semibold text-surface-foreground">The games behind the record</p>
+      <p className="mt-1 text-xs leading-5 text-muted-foreground">Original TexasDefined graphic from this school's individually sourced finals. W = win, L = loss, T = tie. Not a live scoreboard or verified district standings.</p>
+    </figcaption>
+    <ol className="grid grid-cols-3 gap-2 min-[390px]:grid-cols-4 sm:grid-cols-5 xl:grid-cols-8">
+      {finals.map((game) => {
+        const outcome = game.result?.[0] || '';
+        const label = outcome === 'W' ? 'Win' : outcome === 'L' ? 'Loss' : 'Tie';
+        return <li key={`${game.date}-${game.opponent}`} className="min-w-0 border border-border border-t-4 bg-background p-2.5" style={{ borderTopColor: accent }} aria-label={`${game.date}, ${label} against ${game.opponent}, ${game.result}`}>
+          <div className="flex items-baseline justify-between gap-1">
+            <span className="font-display text-2xl font-bold text-foreground">{outcome}</span>
+            <span className="text-[0.66rem] font-semibold text-muted-foreground">{game.date.slice(5)}</span>
+          </div>
+          <p className="mt-1 text-xs font-semibold leading-5 text-foreground break-words">{game.opponent}</p>
+          <p className="mt-1 text-xs tabular-nums text-muted-foreground">{game.result?.slice(2)}{game.district ? ' · District' : ''}</p>
+        </li>;
+      })}
+    </ol>
+    <p className="mt-4 text-xs leading-5 text-muted-foreground">Shows only reported final scores that have been entered into this dated editorial record; future or unconfirmed games are excluded. <a href={sourceUrl} target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline underline-offset-4">Review the underlying results source ↗</a></p>
+  </figure>;
 }
 
 function Fact({ label, value }: { label: string; value?: string }) {
