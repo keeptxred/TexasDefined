@@ -223,6 +223,7 @@ import { Route as TexasHighSchoolFootballMatchupsSlugRouteImport } from './route
 import { Route as TexasHighSchoolFootballIsdsSlugRouteImport } from './routes/texas-high-school-football-isds_.$slug'
 import { Route as TexasHighSchoolFootballDistrictsSlugRouteImport } from './routes/texas-high-school-football-districts_.$slug'
 import { Route as TexasDataResearchRouteImport } from './routes/texas-data.research'
+import { Route as TexasDataSchoolDistrictTaxRatesDotcsvRouteImport } from './routes/texas-data.school-district-tax-rates[.]csv'
 import { Route as TexasDataCountyHousingCostsDotcsvRouteImport } from './routes/texas-data.county-housing-costs[.]csv'
 import { Route as TexasDataCountyHousingCostsRouteImport } from './routes/texas-data.county-housing-costs'
 import { Route as TexasDataCountyGrowthDotcsvRouteImport } from './routes/texas-data.county-growth[.]csv'
@@ -1959,6 +1960,12 @@ const TexasDataResearchRoute = TexasDataResearchRouteImport.update({
   path: '/research',
   getParentRoute: () => TexasDataRoute,
 } as any)
+const TexasDataSchoolDistrictTaxRatesDotcsvRoute =
+  TexasDataSchoolDistrictTaxRatesDotcsvRouteImport.update({
+    id: '/school-district-tax-rates.csv',
+    path: '/school-district-tax-rates.csv',
+    getParentRoute: () => TexasDataRoute,
+  } as any)
 const TexasDataCountyHousingCostsDotcsvRoute =
   TexasDataCountyHousingCostsDotcsvRouteImport.update({
     id: '/county-housing-costs.csv',
@@ -4262,6 +4269,7 @@ export interface FileRoutesByFullPath {
   '/texas-data/county-housing-costs': typeof TexasDataCountyHousingCostsRoute
   '/texas-data/county-housing-costs.csv': typeof TexasDataCountyHousingCostsDotcsvRoute
   '/texas-data/research': typeof TexasDataResearchRouteWithChildren
+  '/texas-data/school-district-tax-rates.csv': typeof TexasDataSchoolDistrictTaxRatesDotcsvRoute
   '/texas-high-school-football-districts/$slug': typeof TexasHighSchoolFootballDistrictsSlugRoute
   '/texas-high-school-football-isds/$slug': typeof TexasHighSchoolFootballIsdsSlugRoute
   '/texas-high-school-football-matchups/$slug': typeof TexasHighSchoolFootballMatchupsSlugRoute
@@ -4785,6 +4793,7 @@ export interface FileRoutesByTo {
   '/texas-data/county-housing-costs': typeof TexasDataCountyHousingCostsRoute
   '/texas-data/county-housing-costs.csv': typeof TexasDataCountyHousingCostsDotcsvRoute
   '/texas-data/research': typeof TexasDataResearchRouteWithChildren
+  '/texas-data/school-district-tax-rates.csv': typeof TexasDataSchoolDistrictTaxRatesDotcsvRoute
   '/texas-high-school-football-districts/$slug': typeof TexasHighSchoolFootballDistrictsSlugRoute
   '/texas-high-school-football-isds/$slug': typeof TexasHighSchoolFootballIsdsSlugRoute
   '/texas-high-school-football-matchups/$slug': typeof TexasHighSchoolFootballMatchupsSlugRoute
@@ -5314,6 +5323,7 @@ export interface FileRoutesById {
   '/texas-data/county-housing-costs': typeof TexasDataCountyHousingCostsRoute
   '/texas-data/county-housing-costs.csv': typeof TexasDataCountyHousingCostsDotcsvRoute
   '/texas-data/research': typeof TexasDataResearchRouteWithChildren
+  '/texas-data/school-district-tax-rates.csv': typeof TexasDataSchoolDistrictTaxRatesDotcsvRoute
   '/texas-high-school-football-districts_/$slug': typeof TexasHighSchoolFootballDistrictsSlugRoute
   '/texas-high-school-football-isds_/$slug': typeof TexasHighSchoolFootballIsdsSlugRoute
   '/texas-high-school-football-matchups_/$slug': typeof TexasHighSchoolFootballMatchupsSlugRoute
@@ -5844,6 +5854,7 @@ export interface FileRouteTypes {
     | '/texas-data/county-housing-costs'
     | '/texas-data/county-housing-costs.csv'
     | '/texas-data/research'
+    | '/texas-data/school-district-tax-rates.csv'
     | '/texas-high-school-football-districts/$slug'
     | '/texas-high-school-football-isds/$slug'
     | '/texas-high-school-football-matchups/$slug'
@@ -6367,6 +6378,7 @@ export interface FileRouteTypes {
     | '/texas-data/county-housing-costs'
     | '/texas-data/county-housing-costs.csv'
     | '/texas-data/research'
+    | '/texas-data/school-district-tax-rates.csv'
     | '/texas-high-school-football-districts/$slug'
     | '/texas-high-school-football-isds/$slug'
     | '/texas-high-school-football-matchups/$slug'
@@ -6895,6 +6907,7 @@ export interface FileRouteTypes {
     | '/texas-data/county-housing-costs'
     | '/texas-data/county-housing-costs.csv'
     | '/texas-data/research'
+    | '/texas-data/school-district-tax-rates.csv'
     | '/texas-high-school-football-districts_/$slug'
     | '/texas-high-school-football-isds_/$slug'
     | '/texas-high-school-football-matchups_/$slug'
@@ -8901,6 +8914,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/texas-high-school-football-districts/$slug'
       preLoaderRoute: typeof TexasHighSchoolFootballDistrictsSlugRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/texas-data/school-district-tax-rates.csv': {
+      id: '/texas-data/school-district-tax-rates.csv'
+      path: '/school-district-tax-rates.csv'
+      fullPath: '/texas-data/school-district-tax-rates.csv'
+      preLoaderRoute: typeof TexasDataSchoolDistrictTaxRatesDotcsvRouteImport
+      parentRoute: typeof TexasDataRoute
     }
     '/texas-data/research': {
       id: '/texas-data/research'
@@ -11439,6 +11459,7 @@ interface TexasDataRouteChildren {
   TexasDataCountyHousingCostsRoute: typeof TexasDataCountyHousingCostsRoute
   TexasDataCountyHousingCostsDotcsvRoute: typeof TexasDataCountyHousingCostsDotcsvRoute
   TexasDataResearchRoute: typeof TexasDataResearchRouteWithChildren
+  TexasDataSchoolDistrictTaxRatesDotcsvRoute: typeof TexasDataSchoolDistrictTaxRatesDotcsvRoute
 }
 
 const TexasDataRouteChildren: TexasDataRouteChildren = {
@@ -11452,6 +11473,7 @@ const TexasDataRouteChildren: TexasDataRouteChildren = {
   TexasDataCountyHousingCostsDotcsvRoute:
     TexasDataCountyHousingCostsDotcsvRoute,
   TexasDataResearchRoute: TexasDataResearchRouteWithChildren,
+  TexasDataSchoolDistrictTaxRatesDotcsvRoute: TexasDataSchoolDistrictTaxRatesDotcsvRoute,
 }
 
 const TexasDataRouteWithChildren = TexasDataRoute._addFileChildren(
