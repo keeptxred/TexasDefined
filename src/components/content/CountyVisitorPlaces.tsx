@@ -2,7 +2,11 @@ import { countyVisitorPlaces } from '@/data/county-visitor-places';
 
 /** Complements existing county state-park, museum, lake, and coastal directories. */
 export function CountyVisitorPlaces({ countySlug, countyName }: { countySlug: string; countyName: string }) {
-  const places = countyVisitorPlaces(countySlug);
+  // El Paso's source-backed museum discoveries live in CountyCityMuseums,
+  // not again in the general attraction list.
+  const places = countyVisitorPlaces(countySlug).filter((place) =>
+    countySlug !== "el-paso" || place.category !== "Museums & discovery",
+  );
   if (!places.length) return null;
   return (
     <section className="border-b border-border py-10" aria-labelledby="county-visitor-places-heading">
