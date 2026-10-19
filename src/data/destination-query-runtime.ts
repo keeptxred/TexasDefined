@@ -206,12 +206,12 @@ function applyResolvedHero(destination: Destination) {
   ))));
   // Specialized editorial curators may reintroduce older remote JPEG heroes.
   // Resolve the approved exact-place local park photograph after all curators.
-  return applyMagoffinHomeAuthority(applyStateParkHeroAsset(curated));
+  return applyStateParkHeroAsset(curated);
 }
 
 function resolveSeoReadyDestination(destination?: Destination | null) {
   if (!destination) return undefined;
-  const resolved = correctDestinationTravelRegion(applyResolvedHero(destination));
+  const resolved = applyMagoffinHomeAuthority(correctDestinationTravelRegion(applyResolvedHero(destination)));
   return isSeoReadyDestination(resolved) ? resolved : undefined;
 }
 
@@ -236,12 +236,12 @@ function reconcileExploreCatalog(destinations: Destination[]) {
     // preserving their existing precedence and historic-site protections.
     .map(enrichMuseumMedia)
     .map(applyTownAuthority)
-    .map(enforceFredericksburgJohnsonCityHeritageAuthority)
-    .map(applyMagoffinHomeAuthority);
+    .map(enforceFredericksburgJohnsonCityHeritageAuthority);
+  const locallyCorrected = improved.map(applyMagoffinHomeAuthority);
   // The collection renderer must apply the same post-curation exact-place rule
   // as the single destination page, not merely the preliminary photo map.
   return filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(
-    improved.map((destination) => applyStateParkHeroAsset(correctDestinationTravelRegion(destination))),
+    locallyCorrected.map((destination) => applyStateParkHeroAsset(correctDestinationTravelRegion(destination))),
   ));
 }
 
