@@ -1,3 +1,5 @@
+> **CURRENT DEPLOYED STATUS — October 19, 2026:** The school-specific football authority editorial is merged on `main`; the canonical Batch 006 registry records this page **DEPLOYED**. The [single-release production Chrome run #39273758531](https://github.com/keeptxred/TexasDefined/actions/runs/39273758531) passed 75/75 school viewports, 23/23 reciprocal county links, and 25/25 sitemap entries on its tested release. **Individual nine-dimension editorial/factual approval, rights clearance and manual accessibility certification remain outstanding; this school is NOT individually VERIFIED.** Statements farther below describing an unmerged branch are historical, superseded by this current release checkpoint.
+
 **Current proposal checkpoint (2026-10-15):** Original research preserved from initial dependent branch. Reconciled against latest main after Blooming Grove merge. School remains **IMPLEMENTED** until protected merge, deployed exact SHA and individual production/editorial proof. Earlier dependent-branch paragraphs below are historical source provenance, not production claims.
 
 ## October 17, 2026 — dated October 16 result replaces previous unverified status
