@@ -33,6 +33,31 @@ export function verifyBattlefieldHtml(raw){
  if(html.includes('Special:Redirect/file/Palo_Alto_Battlefield'))throw new Error("Retired Wikimedia image redirect still rendered");
  return {photo:photoUrl,credited:true};
 }
+/** Chamizal was historically omitted from the NPS live acceptance despite a rewritten guide.
+ * Assert rendered destination content on both direct Worker and canonical domain.
+ */
+export function verifyChamizalHtml(raw) {
+ const html=unescapeAttributes(raw);
+ const required=[
+  ["page identity","Chamizal National Memorial"],
+  ["treaty-era chronology","John F. Kennedy"],
+  ["treaty effective date","January 14, 1964"],
+  ["1968 river channel","1968"],
+  ["community relocation","5,000 El Paso residents"],
+  ["cultural mural","Nuestra Herencia"],
+  ["museum visiting details","Tuesday"],
+  ["memorial admission","free"],
+  ["El Paso history connections","Magoffin Home"],
+  ["NPS public-domain photographic credit","Public domain"],
+  ["historical documentary image","Documentary photographs"],
+ ];
+ for(const [label,needle] of required)if(!html.includes(needle))throw new Error("Chamizal "+label+" missing: "+needle);
+ const forbidden=["Chamizal National Memorial occupies a significant landscape within El Paso, commemorating",
+  "Tours and experiences near Chamizal National Memorial", "First-time focused visit",
+  "during Lyndon B. Johnson’s administration"];
+ for(const needle of forbidden)if(html.includes(needle))throw new Error("Stale Chamizal content survives: "+needle.slice(0,60));
+ return {checked:required.length,staleMarkersRemoved:true};
+}
 const headers=()=>({"cache-control":"no-cache, no-store, max-age=0",pragma:"no-cache","user-agent":"TexasDefined-NPS-Authority-Acceptance/1.0"});
 async function fetchHtml(origin,path,kind){
  let last;
@@ -44,7 +69,7 @@ async function fetchHtml(origin,path,kind){
    if(response.status!==200||response.headers.get("cf-mitigated")==="challenge")throw new Error("HTTP "+response.status+" or edge challenge");
    if(!response.headers.get("content-type")?.includes("text/html"))throw new Error("Not HTML");
    const body=await response.text();
-   const result=kind==="directory"?verifyDirectoryHtml(body):verifyBattlefieldHtml(body);
+   const result=kind==="directory"?verifyDirectoryHtml(body):kind==="battlefield"?verifyBattlefieldHtml(body):verifyChamizalHtml(body);
    evidence.checked.push({origin,path,kind,status:200,attempt:i,htmlBytes:body.length,...result});
    return;
   }catch(e){last=e;if(i<3)await sleep(1500);}
@@ -63,7 +88,7 @@ async function verifyPhotoBytes(){
 }
 export async function main(){
  for(const origin of origins){
-  for(const [path,kind] of [["/explore/national-parks","directory"],["/destination/palo-alto-battlefield-national-historical-park","battlefield"]]){
+  for(const [path,kind] of [["/explore/national-parks","directory"],["/destination/palo-alto-battlefield-national-historical-park","battlefield"],["/destination/chamizal-national-memorial","chamizal"]]){
    try{await fetchHtml(origin,path,kind);}catch(e){evidence.failures.push(String(e?.message||e));}
   }
  }
