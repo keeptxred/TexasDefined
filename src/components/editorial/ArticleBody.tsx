@@ -157,7 +157,27 @@ export function ArticleBody({ blocks, entities = [] }: { blocks: ArticleBlock[];
           }
           return <h2 key={index} id={articleHeadingId(block.text)} className="mb-4 mt-14 scroll-mt-28 font-display text-[2rem] font-semibold leading-[1.08] sm:mt-16 sm:text-[2.45rem]">{render(block.text, 2)}</h2>;
         case "quote": return <PullQuote key={index} text={block.text} entities={available()} {...(block.attribution ? { attribution: block.attribution } : {})} />;
-        case "list": return <ul key={index} className="my-8 list-disc space-y-3 pl-6 marker:text-primary">{block.items.map((item) => <li key={item}>{render(item, 2)}</li>)}</ul>;
+        case "list":
+          if (articleSlug === "texas-rivers-explained"
+            && blocks[index - 1]?.type === "heading"
+            && blocks[index - 1]?.text === "Texas Rivers at a Glance") {
+            return (
+              <dl key={index} className="my-8 grid gap-3 sm:grid-cols-2">
+                {block.items.map((item) => {
+                  const questionEnd = item.indexOf("?");
+                  const question = questionEnd >= 0 ? item.slice(0, questionEnd + 1) : item;
+                  const answer = questionEnd >= 0 ? item.slice(questionEnd + 1).trim() : "";
+                  return (
+                    <div key={item} className="rounded-sm border border-border bg-surface p-4 sm:p-5">
+                      <dt className="font-display text-lg font-semibold leading-snug">{render(question, 1)}</dt>
+                      {answer ? <dd className="mt-2 text-sm leading-6 text-muted-foreground">{render(answer, 2)}</dd> : null}
+                    </div>
+                  );
+                })}
+              </dl>
+            );
+          }
+          return <ul key={index} className="my-8 list-disc space-y-3 pl-6 marker:text-primary">{block.items.map((item) => <li key={item}>{render(item, 2)}</li>)}</ul>;
         case "image": return (
           <figure key={index} className="my-10 sm:my-12">
             <div className="overflow-hidden rounded-2xl border border-border bg-muted/20">
