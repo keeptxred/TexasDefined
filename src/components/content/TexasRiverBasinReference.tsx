@@ -1,3 +1,5 @@
+import { TexasRiverBasinInteractiveMap } from "./TexasRiverBasinInteractiveMap";
+
 const sourceUrl = "https://www.twdb.texas.gov/surfacewater/rivers/river_basins/index.asp";
 const lastVerified = "2026-10-18";
 const canonicalPage = "https://texasdefined.com/article/texas-rivers-explained";
@@ -115,7 +117,9 @@ const jsonDownloadHref = `data:application/json;charset=utf-8,${encodeURICompone
 
 export function TexasRiverBasinReference() {
   return (
-    <div className="mt-8" aria-labelledby="major-basin-reference-heading">
+    <>
+      <TexasRiverBasinInteractiveMap />
+      <div className="mt-8" aria-labelledby="major-basin-reference-heading">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <p className="eyebrow text-primary">Compare the river basins</p>
@@ -252,6 +256,7 @@ Average flow is shown in acre-feet per year. One acre-foot is about 325,851 gall
           ))}
         </ul>
       </div>
-    </div>
+      </div>
+    </>
   );
 }
