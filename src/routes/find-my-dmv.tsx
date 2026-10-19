@@ -2,6 +2,8 @@ import { createFileRoute } from '@tanstack/react-router';
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
+export const sourceVerifiedAt = '2026-10-18';
+export const sourceVerifiedLabel = 'October 18, 2026';
 export const pageTitle = 'Find My DMV in Texas: Vehicle Registration & County Tax Offices';
 export const description = 'Find the Texas office you need for vehicle registration, title, plates or a driver license. Most registration and title work is handled by your county tax office; DPS handles driver licenses.';
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
@@ -31,7 +33,7 @@ export const Route = createFileRoute('/find-my-dmv')({
       '@graph': [
         {
           '@type': 'HowTo', '@id': `${pageUrl}#howto`, url: pageUrl,
-          name: 'How to register a vehicle after moving to Texas', description,
+          name: 'How to register a vehicle after moving to Texas', description, dateModified: sourceVerifiedAt,
           isPartOf: { '@id': `${siteUrl}/#website` },
           step: steps.map((text, index) => ({
             '@type': 'HowToStep', position: index + 1, name: stepNames[index],
