@@ -9,6 +9,7 @@ on:
       - 'src/routes/texas-state-fair.lazy.tsx'
       - 'src/components/editorial/StateFairGuideEnhancements.tsx'
       - 'src/components/editorial/StateFairCurrentHighlights.tsx'
+      - 'src/components/editorial/StateFair2026Results.tsx'
       - 'public/expedia-travel.js'
       - 'public/stay-affiliate-options.js'
   push:
@@ -20,6 +21,7 @@ on:
       - 'src/routes/texas-state-fair.lazy.tsx'
       - 'src/components/editorial/StateFairGuideEnhancements.tsx'
       - 'src/components/editorial/StateFairCurrentHighlights.tsx'
+      - 'src/components/editorial/StateFair2026Results.tsx'
       - 'public/expedia-travel.js'
       - 'public/stay-affiliate-options.js'
   workflow_dispatch:
