@@ -39,18 +39,21 @@ export const SPORTS_VENUE_ENRICHMENT_BATCH3: Record<string, SportsVenueEnrichmen
   },
   'moody-center': {
     city: 'Austin',
+    opened: 'April 2022',
+    capacity: '15,000+ concerts / 10,000+ basketball',
     primaryEvents: ['Texas Longhorns basketball', 'Major concerts', 'Touring arena events'],
     parking: 'Moody Center directs visitors to pre-purchase spaces in nearby garages. Garage opening times are event-specific, and current construction plus planned road closures around downtown Austin and the UT campus can materially affect arrival routes.',
     arrival: 'The venue advises leaving early because of heavy traffic and large crowds. Rideshare pickup and drop-off is at Lot 37 by the LBJ Library, one block north of the arena.',
     stayAndEat: 'Because the arena sits on the University of Texas campus edge near downtown, visitors can build basketball or concert trips around central Austin lodging and dining rather than driving between distant districts.',
     nearby: 'DKR, Disch-Falk Field, the UT campus and central Austin attractions form one of the densest sports-tourism clusters in Texas.',
     planningLinks: [
+      { label: 'Moody Center fast facts', url: 'https://moodycenteratx.com/fast-facts/' },
       { label: 'Plan my trip', url: 'https://moodycenteratx.com/plan-my-trip/' },
       { label: 'Parking', url: 'https://moodycenteratx.com/parking/' },
       { label: 'A–Z guide', url: 'https://moodycenteratx.com/a-z-guide/' },
     ],
     imageBrief: 'Moody Center in Austin at dusk with the UT campus and lively event-night pedestrian scene, contemporary Texas travel photography, no logos or text added.',
-    verifiedAt,
+    verifiedAt: '2026-10-19',
   },
   'alamodome': {
     city: 'San Antonio',
