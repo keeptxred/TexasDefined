@@ -8,7 +8,7 @@ const footballGameNightPages = plan.footballGameNightPages ?? [];
 if (!Array.isArray(footballGameNightPages) || footballGameNightPages.length > 2 || footballGameNightPages.some(p => !['/texas-high-school-football-teams/aledo', '/texas-high-school-football-teams/southlake-carroll'].includes(p) || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded football team smoke contract');
 if (!Array.isArray(regionGuidePages) || regionGuidePages.length > 1 || regionGuidePages.some(p => p !== '/article/texas-regions-explained' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid Texas regions guide smoke contract');
 if (!Array.isArray(downloadButtonPages) || downloadButtonPages.length > 1 || downloadButtonPages.some(p => p !== '/texas-data/texas-population-and-migration-2025' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid data-brief smoke contract');
-if (plan.head !== head || !Array.isArray(plan.selectedPaths) || !Array.isArray(redirectChecks) || redirectChecks.length > 2 || plan.selectedPaths.length + redirectChecks.length > 40) throw new Error('Missing, stale or oversized production change plan');
+if (plan.head !== head || !Array.isArray(plan.selectedPaths) || !Array.isArray(redirectChecks) || redirectChecks.length > 3 || plan.selectedPaths.length + redirectChecks.length > 40) throw new Error('Missing, stale or oversized production change plan');
 const origin = 'https://texasdefined.com';
 const results = [];
 for (const path of plan.selectedPaths) {
@@ -61,8 +61,12 @@ for (const path of plan.selectedPaths) {
 // These are explicit, governed 301 aliases, not ordinary indexable HTML pages.
 // Do not follow the redirect or a 200 landing page would mask a broken 301.
 for (const check of redirectChecks) {
-  if (!['/texas-vs/california', '/texas-vs/florida'].includes(check.path) ||
-      check.target !== '/article/texas-vs-' + check.path.split('/').pop() + '-differences') {
+  const allowed = {
+    '/texas-vs/california': '/article/texas-vs-california-differences',
+    '/texas-vs/florida': '/article/texas-vs-florida-differences',
+    '/destination/museum-south-texas-history-edinburg': '/destination/museum-of-south-texas-history-edinburg',
+  };
+  if (allowed[check.path] !== check.target) {
     throw new Error('Unexpected canonical redirect check');
   }
   let failure;

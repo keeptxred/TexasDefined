@@ -259,12 +259,16 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
   // The two redirect-only state aliases are intentional canonical exceptions.
   // Verify their actual 301 response whenever their route or this planner
   // changes, using the existing deploy smoke instead of a new full crawl.
-  const redirectChecks = changedFiles.some(path => path === 'src/routes/texas-vs.$state.tsx' || path === 'scripts/ci/production-change-scope.mjs')
-    ? [
-      { path: '/texas-vs/california', target: '/article/texas-vs-california-differences' },
-      { path: '/texas-vs/florida', target: '/article/texas-vs-florida-differences' },
-    ]
-    : [];
+  const redirectChecks = [
+    ...(changedFiles.some(path => path === 'src/routes/texas-vs.$state.tsx' || path === 'scripts/ci/production-change-scope.mjs')
+      ? [
+        { path: '/texas-vs/california', target: '/article/texas-vs-california-differences' },
+        { path: '/texas-vs/florida', target: '/article/texas-vs-florida-differences' },
+      ] : []),
+    // Exactly one museum alias changed, not an entire destination crawl.
+    ...(changedFiles.some(path => path === 'src/lib/legacy-editorial-redirects.ts' || path === 'src/data/destination-availability.ts')
+      ? [{ path: '/destination/museum-south-texas-history-edinburg', target: '/destination/museum-of-south-texas-history-edinburg' }] : []),
+  ];
   const allPaths = [...candidates].sort();
   // A deploy smoke is explicitly a bounded sample, never a full-content certification.
   const selectedPaths = [...new Set([...REPRESENTATIVE_PATHS.filter(p => candidates.has(p)), ...allPaths])].slice(0, PAGE_BUDGET - redirectChecks.length);

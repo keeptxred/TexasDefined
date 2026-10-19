@@ -3,6 +3,9 @@ import { test } from "node:test";
 import { readFileSync } from "node:fs";
 import { countyNames, countySlug } from "../metro-county-links.ts";
 import { viatorMarketsForPlace } from "../viator-market-match.ts";
+import { LEGACY_EDITORIAL_REDIRECTS, canonicalDestinationSlug } from "../../lib/legacy-editorial-redirects.ts";
+import { isPrimaryTripPlannerDestination } from "../destination-availability.ts";
+import type { Destination } from "../types.ts";
 
 test("multi-county refuge descriptions cannot create a fictional county URL", () => {
   const counties = countyNames("Cameron, Hidalgo, Starr and Willacy counties");
@@ -26,4 +29,14 @@ test("McAllen day trips server shell links to both curated guides before lazy co
   assert.match(source.slice(start, start + 850), /museum-of-south-texas-history-edinburg/);
   assert.match(source.slice(start, start + 850), /to="\/destination\/\$slug"/);
   assert.ok(!source.includes('slug: "museum-south-texas-history-edinburg"'), "avoid the competing museum slug");
+});
+
+test("Edinburg museum duplicates consolidate on the researched primary guide", () => {
+  const alias = "museum-south-texas-history-edinburg";
+  const primary = "museum-of-south-texas-history-edinburg";
+  assert.equal(LEGACY_EDITORIAL_REDIRECTS["/destination/" + alias], "/destination/" + primary);
+  assert.equal(canonicalDestinationSlug(alias), primary);
+  assert.equal(canonicalDestinationSlug(primary), primary);
+  assert.equal(isPrimaryTripPlannerDestination({ slug: alias } as Destination), false);
+  assert.equal(isPrimaryTripPlannerDestination({ slug: primary } as Destination), true);
 });
