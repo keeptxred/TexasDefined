@@ -28,6 +28,41 @@ export interface MuseumAuthorityDossier {
 
 /** Links are to exact, existing destinations or stable topic hubs, not guessed paths. */
 export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
+  "san-angelo-museum-of-fine-arts": {
+    name: "San Angelo Museum of Fine Arts", slug: "san-angelo-museum-of-fine-arts", county: "Tom Green", city: "San Angelo", reviewed: "2026-10-19",
+    topics: ["fine-art", "contemporary-ceramics", "art-education", "concho-valley-history"],
+    whyVisit: "The San Angelo Museum of Fine Arts is a free, active art and education museum beside the Concho River, not simply a room of historic paintings. Its distinctive 1999 building brings together changing art exhibitions, a substantial ceramics emphasis, regional and international artists, family learning and the separate Concho Clay Studio in San Angelo's downtown cultural district.",
+    visitorStrategy: "The museum is at 1 Love Street near downtown San Angelo, with free adjacent parking. Gallery admission is free, but certain concerts, special events and ceramics classes may have separate fees. Posted hours are Tuesday and Wednesday 10 a.m.–4 p.m., Thursday noon–7 p.m., Friday and Saturday 10 a.m.–4 p.m., Sunday 1–4 p.m., closed Monday and on designated major holidays. Allow 60–90 minutes for a selected-gallery visit as a practical suggestion, and extend time for a scheduled family program. The operator lists the temporary exhibition Discovering Global Treasures in Concho Valley Collections through October 25, 2026, and Spirit of the Ranch from October 22, 2026 through January 3, 2027; verify exhibitions again for future travel rather than assuming these dates are permanent. A café has not been verified; plan food before or after your visit because gallery food and beverages are restricted.",
+    accessibility: "The operator explicitly says every gallery is wheelchair accessible, wheelchairs are available on request at the front desk and service dogs are permitted. A visitor arriving for a particular studio activity, rooftop function or group setup should confirm access needs at 325-653-3333 rather than assuming all events have the same gallery arrangement.",
+    familiesAndGroups: "Families can use free galleries and the museum's monthly third-Saturday Family Day, usually 10 a.m.–2 p.m., which pairs exhibit-linked art activities with studio experiences. Strollers are permitted when pushed by an accompanying adult and artwork must not be touched. Ordinary school tours are not anonymous drop-in lessons: staff organize grade-specific, TEKS-informed activities in advance. Adult Concho Clay Studio courses are separate programs, not automatically included in a free gallery visit.",
+    researchValue: "Founded in 1981 and opened to visitors in 1985 at historic Fort Concho, SAMFA moved to its purpose-built riverfront home in 1999. The collection includes contemporary ceramics, Mexican and Spanish colonial religious art and Texas painting and sculpture. A collection inventory is not a list of objects presently on view. Its biennial ceramic competition, En Plein Air Texas program and community art learning allow visitors to compare exhibition-based art with living regional practice.",
+    exhibits: [
+      { heading: "Changing art galleries", detail: "A rotating mix of local, Texas, national and international artists; consult the exhibition calendar rather than relying on last season's galleries." },
+      { heading: "Contemporary ceramics and ceramic competition", detail: "Ceramic art is a longstanding research and exhibition strength, but not every collection object is displayed in any particular week." },
+      { heading: "En Plein Air Texas — Spirit of the Ranch", detail: "A dated October 22, 2026–January 3, 2027 exhibition presenting ranch-based painting from the fellowship artists, not a permanent exhibit." },
+      { heading: "Concho Clay Studio", detail: "An active museum-operated teaching studio offering ceramics learning; course participation has separate schedules and terms." },
+      { heading: "Concho River architecture and downtown setting", detail: "The distinctive art museum structure and riverfront context pair well with a broader walk around downtown and historic Fort Concho." }
+    ],
+    routes: [
+      { label: "One-hour free-gallery essentials", steps: ["Use the free adjacent parking lot at 1 Love Street", "Choose one or two currently open galleries based on the exhibition schedule", "Include a short architecture or riverfront walk if comfortable outdoors"] },
+      { label: "Family art afternoon", steps: ["Check whether a third-Saturday Family Day is actually scheduled for your visit", "Choose a short age-appropriate gallery route without food or touching artworks", "Participate in the advertised art activity only during its scheduled session"] },
+      { label: "Education or ceramics-focused visit", steps: ["Arrange school field trips ahead with the museum's education program", "Check the Concho Clay Studio schedule and class pricing independently of free admission", "Visit the currently installed ceramics or regionally focused art where available"] }
+    ],
+    sources: [
+      { label: "San Angelo Museum — visitor guide", url: "https://www.samfa.org/visit", use: "Current exact hours, admission, parking, physical access and photo/group policies" },
+      { label: "San Angelo Museum — institution history", url: "https://www.samfa.org/about-samfa", use: "Founding, 1999 museum building, collections and regional programs" },
+      { label: "San Angelo Museum — exhibition calendar", url: "https://www.samfa.org/exhibits", use: "Temporary 2026 exhibition start/end dates and actual art on view" },
+      { label: "San Angelo Museum — field trips", url: "https://www.samfa.org/fieldtrips", use: "Advance-planned school visits and grade-specific programs" },
+      { label: "San Angelo Museum — Family Day", url: "https://www.samfa.org/familyday", use: "Recurring free third-Saturday family sessions and changing dates" },
+      { label: "San Angelo Museum — Concho Clay Studio", url: "https://www.samfa.org/conchoclay", use: "Dedicated educational ceramics operation separate from galleries" }
+    ],
+    connections: [
+      { label: "Tom Green County", href: "/county/tom-green", reason: "Plan a San Angelo and Concho Valley cultural visit by county." },
+      { label: "Museum of the Big Bend", href: "/destination/museum-of-the-big-bend-alpine", reason: "Compare a history-focused West Texas museum with a contemporary arts venue." },
+      { label: "Panhandle-Plains Historical Museum", href: "/destination/panhandle-plains-historical-museum-canyon", reason: "Compare regional historical storytelling with San Angelo's visual-arts focus." },
+      { label: "Texas museums", href: "/explore/museums", reason: "Find more individually researched museums across Texas." }
+    ],
+  },
   "museum-of-south-texas-history-edinburg": {
     name: "Museum of South Texas History", slug: "museum-of-south-texas-history-edinburg", county: "Hidalgo", city: "Edinburg", reviewed: "2026-10-19",
     topics: ["borderland-history", "heritage-architecture", "historical-archives", "family-learning"],

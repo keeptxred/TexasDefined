@@ -1373,6 +1373,13 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "title": "Bloomington Bobcats Football 2026 | District 15, Shiner Result & Stadium Tickets",
       "description": "Bloomington Bobcats in Victoria County: UIL 2A Division I District 15, 3–5 through October 16, school contacts and Bobcat Stadium ticketing sources."
     },
+    "coach": {
+      "name": "Lane Shands",
+      "title": "Bloomington Bobcats head football coach (Dave Campbell's February 2026 coaching analysis; Bloomington ISD separately confirms athletic director role)",
+      "sourceUrl": "https://www.texasfootball.com/article/2026/02/05/which-districts-have-the-best-head-coaches-after-realignment",
+      "sourceLabel": "Dave Campbell's Texas Football February 5 2026 explicitly identifies Lane Shands as Bloomington head football coach; MaxPreps 2026-27 team history corroborates and district lists athletics director",
+      "verifiedAt": "2026-10-19"
+    },
     "campus": {
       "address": "2781 FM 616, Victoria, TX 77905 (Bloomington High School and ISD campus contact; confirm spectator gate)",
       "phone": "361-333-8011",
@@ -1396,7 +1403,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "notice": {
       "title": "Online tickets: no cash at the gate",
-      "body": "Bloomington ISD's own Vanco ticket listing for the October 16, 2026 home matchup against Danbury gives varsity kickoff 7:00 PM at Bobcat Stadium and explicitly states NO CASH IS ACCEPTED AT THE GATE. Confirm current tickets, game postponements, gate and accessible parking with the district. District personnel directory names Lane Shands athletics director, not by itself proof of the head-coach appointment.",
+      "body": "Bloomington ISD's own Vanco ticket listing for the October 16, 2026 home matchup against Danbury gives varsity kickoff 7:00 PM at Bobcat Stadium and explicitly states NO CASH IS ACCEPTED AT THE GATE. Confirm current tickets, game postponements, gate and accessible parking with the district. Bloomington ISD's directory identifies Lane Shands as athletics director; Dave Campbell's February 5, 2026 coaching analysis separately names him head football coach, corroborated by 2026 MaxPreps program history. These distinct roles have distinct sources.",
       "sourceUrl": "https://www.vancoevents.com/us/eventlist/bisdevents",
       "sourceLabel": "First-party Bloomington ISD Vanco ticket event October 16, 2026",
       "verifiedAt": "2026-10-15"
@@ -4485,7 +4492,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "notice": {
       "title": "Verified facts and unresolved game-day claims",
-      "body": "Boys Ranch ISD lists Louis Kelley as an HS/JH coach, and an August 20, 2026 NewsChannel 10 interview quotes Kelley on its football defense. Neither school staff listing nor interview alone officially assigns a 2026 head-coach title. The district office at River Road differs from the high-school address in sports directories; no football gate or accessible-seat certification is inferred.",
+      "body": "Boys Ranch ISD lists Louis Kelley as an HS/JH coach, and an August 20, 2026 NewsChannel 10 interview quotes Kelley on its football defense. Neither school staff listing nor interview alone officially assigns a 2026 head-coach title. MaxPreps's 2026 history calls the coach Louis Kelley Jr, while its staff list displays both Jr and II as head coach and the specialist Six-Man Football May 2026 preview calls him Louis Kelley III. The school directory identifies only Louis Kelley as an HS/JH coach; his current precise head-football title and suffix require authoritative school confirmation. The district office at River Road differs from the high-school address in sports directories; no football gate or accessible-seat certification is inferred.",
       "sourceUrl": "https://www.boysranchisd.org/athletics-2",
       "sourceLabel": "School material plus explicitly qualified unresolved venue/staff/score claims",
       "verifiedAt": "2026-10-17"
@@ -4578,7 +4585,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "overview": [
       "Boys Ranch Roughriders is Boys Ranch ISD's six-man football team in Oldham County. Its authoritative 2026–28 alignment is UIL 1A Division I District 1; that is different from older season divisions and similarly named programs.",
       "Boys Ranch's recent football history changed format: its 2023 entry was eleven-man 2A Division II, then its 2024 and 2025 seasons appear in six-man divisions. The Roughriders went 0–10 in 2024 and rebounded to 7–3 in 2025 before starting 6–0 in 2026.",
-      "Boys Ranch ISD lists Louis Kelley as an HS/JH coach, and an August 20, 2026 NewsChannel 10 interview quotes Kelley on its football defense. Neither school staff listing nor interview alone officially assigns a 2026 head-coach title. The district office at River Road differs from the high-school address in sports directories; no football gate or accessible-seat certification is inferred."
+      "Boys Ranch ISD lists Louis Kelley as an HS/JH coach, and an August 20, 2026 NewsChannel 10 interview quotes Kelley on its football defense. Neither school staff listing nor interview alone officially assigns a 2026 head-coach title. MaxPreps's 2026 history calls the coach Louis Kelley Jr, while its staff list displays both Jr and II as head coach and the specialist Six-Man Football May 2026 preview calls him Louis Kelley III. The school directory identifies only Louis Kelley as an HS/JH coach; his current precise head-football title and suffix require authoritative school confirmation. The district office at River Road differs from the high-school address in sports directories; no football gate or accessible-seat certification is inferred."
     ],
     "faq": [
       {

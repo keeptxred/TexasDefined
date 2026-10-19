@@ -45,6 +45,7 @@ const metroRelocationGuidePaths = new Set([
 const SIX_MAN_FOOTBALL_PATH = "/article/texas-six-man-football-rules-explained";
 const LIGHTHOUSE_VISIT_PATH = "/article/best-lighthouses-to-visit-in-texas";
 const LighthouseVisitPlanner = lazy(() => import("@/components/content/LighthouseVisitPlanner"));
+const CaminoMissionTrailRoute = lazy(() => import("@/components/editorial/CaminoMissionTrailRoute"));
 const LOOPS_SPURS_PATH = "/article/texas-loops-spurs-explained";
 const BOLIVAR_HISTORY_PATH = "/article/point-bolivar-lighthouse-history";
 
@@ -116,6 +117,7 @@ export function ArticleBody({ blocks, entities = [], insertBeforeIndex, insertBe
   const showLoopsSpursVisual = pathname === LOOPS_SPURS_PATH;
   const showBolivarHistoryPhotoSources = pathname === BOLIVAR_HISTORY_PATH;
   const showLighthouseVisitPlanner = pathname === LIGHTHOUSE_VISIT_PATH;
+  const showCaminoMissionTrail = pathname === "/article/el-camino-real-de-tierra-adentro-national-historic-trail";
   const linked = new Set<string>();
   let remainingLinks = articlePolicy.pageBudget;
   // The six-man article opens with two editorial lead paragraphs before its reference graphics.
@@ -151,6 +153,9 @@ export function ArticleBody({ blocks, entities = [], insertBeforeIndex, insertBe
       const rendered = (() => {
         switch (block.type) {
         case "heading":
+          if (showCaminoMissionTrail && block.text === "Route map and three confirmed stops") {
+            return <div key={index}><h2 id={articleHeadingId(block.text)} className="mb-4 mt-14 scroll-mt-28 font-display text-[2rem] font-semibold leading-[1.08] sm:mt-16 sm:text-[2.45rem]">{render(block.text, 2)}</h2><Suspense fallback={null}><CaminoMissionTrailRoute /></Suspense></div>;
+          }
           if (showLighthouseVisitPlanner && block.text === "Texas lighthouses at a glance: access, climbs and trip difficulty") {
             return <div key={index}><h2 id={articleHeadingId(block.text)} className="mb-4 mt-14 scroll-mt-28 font-display text-[2rem] font-semibold leading-[1.08] sm:mt-16 sm:text-[2.45rem]">{render(block.text, 2)}</h2><Suspense fallback={null}><LighthouseVisitPlanner /></Suspense></div>;
           }

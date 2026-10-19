@@ -1,5 +1,8 @@
 # Bluff Dale Bobcats — Batch 006 researched six-man football authority
 
+> **CURRENT DEPLOYED STATUS — October 19, 2026:** The school-specific football authority editorial is merged on `main`; the canonical Batch 006 registry records this page **DEPLOYED**. The [single-release production Chrome run #39273758531](https://github.com/keeptxred/TexasDefined/actions/runs/39273758531) passed 75/75 school viewports, 23/23 reciprocal county links, and 25/25 sitemap entries on its tested release. **Individual nine-dimension editorial/factual approval, rights clearance and manual accessibility certification remain outstanding; this school is NOT individually VERIFIED.** Statements farther below describing an unmerged branch are historical, superseded by this current release checkpoint.
+
+
 **Research checkpoint: October 16, 2026. Status: IMPLEMENTED ON REVIEW BRANCH ONLY.** This is not proof of merged release, protected validation, live Chrome, accessibility, editorial acceptance or photo rights. The prior **105 VERIFIED** schools remain unchanged; do not count Bluff Dale as VERIFIED.
 
 ## School and county identity: first-party and government

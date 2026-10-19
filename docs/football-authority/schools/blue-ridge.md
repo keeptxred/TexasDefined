@@ -1,5 +1,8 @@
 # Blue Ridge Tigers (Texas) — Batch 006 individual authority dossier
 
+> **CURRENT DEPLOYED STATUS — October 19, 2026:** The school-specific football authority editorial is merged on `main`; the canonical Batch 006 registry records this page **DEPLOYED**. The [single-release production Chrome run #39273758531](https://github.com/keeptxred/TexasDefined/actions/runs/39273758531) passed 75/75 school viewports, 23/23 reciprocal county links, and 25/25 sitemap entries on its tested release. **Individual nine-dimension editorial/factual approval, rights clearance and manual accessibility certification remain outstanding; this school is NOT individually VERIFIED.** Statements farther below describing an unmerged branch are historical, superseded by this current release checkpoint.
+
+
 **Research date:** October 15, 2026. **Status:** IMPLEMENTED on dependent feature branch only. NOT merged, deployed, individually browser-VERIFIED, formally editorially accepted or licensed for school photos. This is Blue Ridge **Collin County, Texas**, not Blue Ridge High School in South Carolina.
 
 ## Official identities, visitors and staff

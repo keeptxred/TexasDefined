@@ -5,7 +5,7 @@ import type { Destination } from "./types";
  * county relationships, and older unique research are always preserved.
  * This does not automatically certify full production/editorial acceptance.
  */
-type NpsPatch = Pick<Destination, "summary"|"entryNote"|"highlights"|"body"|"visitorFaqs"|"authorityGuide">;
+type NpsPatch = Pick<Destination, "summary"|"entryNote"|"highlights"|"body"|"visitorFaqs"|"authorityGuide"> & Partial<Pick<Destination, "address"|"directions"|"accessibilityNotes"|"hero"|"gallery">>;
 const SITE_PATCHES: Readonly<Record<string, NpsPatch>> = {
   "alibates-flint-quarries-national-monument": {
   "summary": "See the ancient flint quarry landscape of the Texas Panhandle on a reservation-only ranger-guided outing, with a challenging two-mile hike, geology and Indigenous craftsmanship interpreted by the National Park Service.",
@@ -102,95 +102,153 @@ const SITE_PATCHES: Readonly<Record<string, NpsPatch>> = {
   }
 },
   "chamizal-national-memorial": {
-  "summary": "Explore a U.S.–Mexico border history memorial in El Paso, with a cultural center, changing exhibits, performance spaces and grounds interpreting the peaceful settlement of a long-running international boundary dispute.",
-  "entryNote": "Chamizal grounds are generally open 7 a.m.–7 p.m. daily, while the Cultural Center's regular visitor services operate Tuesday–Saturday 10 a.m.–5 p.m. and are closed Sunday/Monday. Gates can close for federal holidays; do not confuse an evening theater event with staffed museum hours.",
+  "hero": {
+    "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Mural%20and%20Cultural%20Center.jpg%20%28d3498183-87fe-4a4f-854a-b1d4e2f5e815%29.jpg",
+    "alt": "Chamizal National Memorial Cultural Center with the Nuestra Herencia mural, walking path and El Paso landscape",
+    "width": 1269,
+    "height": 667,
+    "credit": "National Park Service · Public domain · Wikimedia Commons"
+  },
+  "gallery": [{
+    "image": {
+      "src": "/images/explore/historic-sites/chamizal-national-memorial.jpg",
+      "alt": "Historical boundary marker at Chamizal National Memorial in El Paso",
+      "width": 1600,
+      "height": 2134,
+      "credit": "GoneBefore · CC BY-SA 4.0 · Wikimedia Commons"
+    },
+    "caption": "The historic boundary marker documents the landscape dispute that shaped this memorial. Photograph by GoneBefore; CC BY-SA 4.0.",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chamizal_National_Memorial.jpg"
+  }],
+  "summary": "Discover how a shifting Rio Grande led to a century-long U.S.–Mexico boundary dispute—and how diplomacy, public art and borderlands culture shape Chamizal National Memorial in El Paso today.",
+  "entryNote": "Admission is free. Memorial grounds: daily 7 a.m.–7 p.m.; Cultural Center exhibits and visitor desk: Tuesday–Saturday, 10 a.m.–5 p.m. (closed Sunday/Monday). The entire memorial closes Thanksgiving, Christmas and New Year’s Day. Special events may open the theater outside visitor-service hours.",
+  "address": "800 South San Marcial Street, El Paso, TX 79905",
+  "directions": "Use the National Park Service entrance gates on South San Marcial Street or Delta Drive. Follow posted signs carefully: nearby roads also approach the international border. Park only during open gate hours; vehicles remaining after closing may be towed.",
+  "accessibilityNotes": "Accessible parking is available in memorial lots. The Cultural Center entrance is approximately 500 feet from parking along an uncovered walkway; the information desk, exhibits, restrooms and a loaner wheelchair are available inside. Outdoor hard-packed gravel trails can become uneven. The outdoor amphitheater has grass seating areas rather than paved routes throughout; contact NPS for specific access needs.",
   "highlights": [
-    "U.S.–Mexico border treaty and peaceful boundary-dispute interpretation",
-    "Separate cultural-center exhibit hours and daily memorial grounds",
-    "El Paso cultural programming and outdoor open space",
-    "National Park Service interpretation of binational civic history"
+    "Nuestra Herencia mural celebrating borderlands history and culture",
+    "Cultural Center museum exhibits, Abrazos Gallery and short orientation film",
+    "Benito Juárez sculpture overlooking the El Paso–Ciudad Juárez borderlands",
+    "Indoor theater, outdoor amphitheater and scheduled cultural performances",
+    "Historic river-boundary interpretation and outdoor walking paths",
+    "Picnic areas and grounds with views toward the Bridge of the Americas"
   ],
   "body": [
-    "Chamizal National Memorial occupies a significant landscape within El Paso, commemorating the diplomatic settlement of a long dispute over where the Rio Grande boundary lay between the United States and Mexico. The memorial connects physical geography, river movement, law and binational relationships. Its cultural programs and interpretation should not be confused with an outdoor wilderness park or an ordinary picnic-only municipal green space.",
-    "Visitors have two distinct operating schedules to consider. NPS lists the memorial gates and grounds open from 7 a.m. to 7 p.m. daily, subject to holiday exceptions. The Cultural Center generally provides park information, exhibits and store services Tuesday through Saturday, 10 a.m. to 5 p.m.; it is closed Sunday and Monday. An after-hours theater program may open the building for an event but does not mean the information desk, exhibitions and bookstore will also be staffed.",
-    "The physical address is 800 South San Marcial Street, El Paso, and the grounds are accessed through official gates along San Marcial Street and Delta Drive. Cars left in the parking lot after closing can be towed under NPS policy. Families visiting in summer should plan for sun and heat exposure even if part of the trip includes indoor exhibition space.",
-    "The site is most rewarding when viewed as part of El Paso's broader borderlands history. Review the official NPS interpretation before visiting, then consider nearby civic and historic sites on their own operating schedules. Chamizal's story is specifically one of diplomacy and contested river boundaries, not a national park with campground reservations, extensive trail permits or a wildlife-driving itinerary.",
-    "For a focused visit, arrive during Cultural Center hours, explore the exhibits and understand the U.S.–Mexico territorial and cultural context before walking the grounds as time and weather allow. Double-check closure exceptions for Thanksgiving, Christmas and New Year's Day, and consult the park when accessibility accommodations or theater schedules are important."
+    "The Rio Grande did not always run through El Paso where it does today. The 1848 Treaty of Guadalupe Hidalgo established the river as part of the U.S.–Mexico boundary, but floods and the river’s moving course left ownership uncertain. A major 1864 flood shifted the river south, putting land known as El Chamizal on the U.S. side of the water even as Mexico contested the boundary. Later agreements distinguished slow erosion from sudden channel changes, but they did not settle the Chamizal claim.",
+    "The nations submitted the dispute to a three-member arbitration panel in 1911. Mexican and Canadian representatives reached a majority decision that favored Mexico’s claim to part of the land, but the United States rejected the award. Cordova Island—Mexican territory separated from the main Mexican side by an altered channel—made the geography even more complex. Presidents John F. Kennedy and Adolfo López Mateos restarted negotiations in 1962; the Chamizal Convention was signed on August 29, 1963, during Lyndon B. Johnson’s administration, and the agreement entered into force in 1964.",
+    "Implementing the settlement required a new channel, international land transfers and large-scale neighborhood changes. After further agreement and construction, water entered the relocated Rio Grande channel in 1968. About 5,000 El Paso residents, plus businesses, had to relocate from the affected area. That upheaval is part of the memorial’s history: peaceful international diplomacy did not mean the outcome was painless for families living on the land.",
+    "Chamizal is therefore a place for history and cultural exchange, not a wilderness park. Inside the Cultural Center, museum exhibits and an orientation film explain the boundary story; the Abrazos Gallery and park programs connect it to living borderlands art. Outside, look for the colorful Nuestra Herencia mural, the sculpture of Mexican president Benito Juárez, the outdoor amphitheater and walking routes across the memorial grounds. Programs and exhibits change, so check the official calendar if a particular performance matters to your trip.",
+    "Plan a typical Cultural Center-and-grounds visit for approximately 60–90 minutes, allowing longer for a performance or a close study of the exhibitions. The memorial charges no admission fee. Visit the Cultural Center Tuesday through Saturday from 10 a.m. to 5 p.m.; on Sunday and Monday, the grounds may be open while the museum is closed. Open grounds are generally available daily from 7 a.m. to 7 p.m., except the three major closure holidays. Enter through San Marcial Street or Delta Drive, never leave a vehicle after gate closing, and carry water and sun protection when walking outside. The Cultural Center doors are roughly 500 feet from accessible parking along an uncovered approach."
   ],
   "visitorFaqs": [
     {
-      "question": "Is Chamizal's Cultural Center open on Sunday?",
-      "answer": "No. Regular NPS Cultural Center visitor hours are Tuesday–Saturday 10 a.m.–5 p.m.; Sunday and Monday are closed.",
+      "question": "Is Chamizal National Memorial free?",
+      "answer": "Yes. NPS lists free admission year-round; there is no required park entrance fee or national parks pass.",
+      "sourceUrl": "https://www.nps.gov/cham/planyourvisit/basicinfo.htm"
+    },
+    {
+      "question": "When can I visit the museum or Cultural Center?",
+      "answer": "Regular staffed visitor services and exhibits operate Tuesday–Saturday from 10 a.m. to 5 p.m. The Cultural Center is closed Sunday and Monday. Theater events may run outside regular hours without opening the exhibits or visitor desk.",
       "sourceUrl": "https://www.nps.gov/cham/planyourvisit/hours.htm"
     },
     {
-      "question": "Can I enter Chamizal memorial grounds after 7 p.m.?",
-      "answer": "NPS lists grounds gate hours from 7 a.m. to 7 p.m. daily, with holiday exceptions. Entering outside gate hours is not permitted.",
+      "question": "Are the memorial grounds open on Sunday or after 7 p.m.?",
+      "answer": "Grounds are normally open Sunday and every other day from 7 a.m. to 7 p.m.; entry after gates close is prohibited. The entire memorial closes on Thanksgiving, Christmas and New Year’s Day.",
       "sourceUrl": "https://www.nps.gov/cham/planyourvisit/hours.htm"
     },
     {
-      "question": "Does an after-hours performance guarantee the museum is open?",
-      "answer": "No. The Cultural Center can open for performances after normal hours without offering full regular visitor services.",
-      "sourceUrl": "https://www.nps.gov/cham/planyourvisit/hours.htm"
+      "question": "How long should I spend at Chamizal National Memorial?",
+      "answer": "Allow about 60–90 minutes for exhibits, mural and a walk on the grounds; 30–45 minutes may suit a short grounds-only visit. Add time for any scheduled performance. These durations are TexasDefined planning estimates, not official NPS tour lengths.",
+      "sourceUrl": "https://www.nps.gov/cham/planyourvisit/basicinfo.htm"
+    },
+    {
+      "question": "Can wheelchair users visit the Cultural Center and grounds?",
+      "answer": "Yes. NPS describes accessible parking, ramps, cultural center restrooms, exhibits and an available loaner wheelchair. The route from parking to the Cultural Center is about 500 feet and uncovered; some outdoor gravel trail surfaces may be rough.",
+      "sourceUrl": "https://www.nps.gov/cham/planyourvisit/accessibility.htm"
+    },
+    {
+      "question": "What is the Chamizal dispute?",
+      "answer": "It was a dispute between the United States and Mexico over territory near El Paso after the Rio Grande shifted course. The countries signed the Chamizal Convention in 1963; a new river channel and land transfers implemented the settlement in the 1960s.",
+      "sourceUrl": "https://www.nps.gov/cham/learn/historyculture/treaties.htm"
     }
   ],
   "authorityGuide": {
-    "whyItMatters": "Chamizal National Memorial occupies a significant landscape within El Paso, commemorating the diplomatic settlement of a long dispute over where the Rio Grande boundary lay between the United States a",
+    "whyItMatters": "Chamizal National Memorial documents a difficult borderlands question: when a river that marks an international boundary moves, where does the border belong? The 1848 treaty, the 1864 flood, the contested 1911 arbitration and the 1963 Chamizal Convention shaped the answer. Construction of the new channel culminated in 1968, but thousands of El Paso residents had to leave homes and businesses in the process. Today the Cultural Center, public art and programs remember both the diplomatic settlement and the lived experiences of communities connected by the border.",
     "assessment": {
-      "recommendedVisit": "Confirm official access, hours and any guided visit before departing",
+      "recommendedVisit": "About 60–90 minutes for the Cultural Center, art and grounds; longer for a scheduled performance",
       "physicalEffort": "Low to moderate",
       "weatherExposure": "Mixed indoor/outdoor",
-      "planningLevel": "Moderate",
-      "familyFit": "Plan age, mobility and trip length around the specific NPS visitor requirements",
-      "firstTimeValue": "Official interpretation and the exact park visitor entrance are more reliable than a broad location pin"
+      "planningLevel": "Low",
+      "familyFit": "Short indoor exhibits, mural and level outdoor areas suit many families; bring sun protection and check program schedules",
+      "firstTimeValue": "Start at the Cultural Center to understand the boundary history, then see the mural, sculpture and river-border landscape outside"
     },
     "itineraries": [
       {
-        "label": "First-time focused visit",
-        "duration": "1–3 hours as site conditions allow",
+        "label": "Museum and memorial highlights",
+        "duration": "About 60–90 minutes · Tuesday–Saturday",
         "steps": [
-          "Review the NPS status and operating rules",
-          "Reach the exact authorized visitor facility",
-          "Follow permitted on-site routes or scheduled ranger programs",
-          "Leave time for the park's source-grounded interpretive exhibits"
+          "Arrive during Cultural Center hours (10 a.m.–5 p.m.) and begin with the orientation film and history exhibits",
+          "Visit Abrazos Gallery when an exhibition is available and examine the Nuestra Herencia mural outside",
+          "See the Benito Juárez sculpture and walk the accessible paths as weather and energy allow",
+          "Leave time to explore the NPS materials on families displaced by the boundary settlement"
         ]
       },
       {
-        "label": "Regional history and landscape day",
-        "duration": "Half to full day",
+        "label": "El Paso borderlands history day",
+        "duration": "Half day · independently managed stops",
         "steps": [
-          "Confirm the named NPS facility's access rules",
-          "Start with the primary interpretation or ranger-led visit",
-          "Choose one separately managed local history or nature stop",
-          "Check return travel, heat and sunset rather than rushing distant stops"
+          "Start at Chamizal to understand the twentieth-century international boundary dispute",
+          "Continue to Magoffin Home’s visitor center if open, noting that historic-house restoration can limit access",
+          "Explore El Paso’s historic core or the El Paso Museum of History on its own posted schedule",
+          "Use TexasDefined’s El Paso and El Paso County guides to plan travel between sites"
         ]
       },
       {
-        "label": "Grounds-only history visit",
-        "duration": "About 45–90 minutes",
+        "label": "Grounds-only visit",
+        "duration": "About 30–45 minutes · museum may be closed",
         "steps": [
-          "Confirm the 7 a.m. to 7 p.m. memorial gate schedule",
-          "Walk only open grounds in safe weather",
-          "Use NPS history resources to understand the river-border settlement",
-          "Exit and move vehicles before the gates close"
+          "Enter through an open gate between 7 a.m. and 7 p.m. and confirm no holiday or event closure",
+          "View the exterior Nuestra Herencia mural and the outdoor memorial landscape where accessible",
+          "Walk a short permitted path and consider how the international river channel shaped this site",
+          "Return to the parking lot and exit before the gates close"
         ]
       }
     ],
     "sources": [
       {
-        "label": "NPS Chamizal hours and exceptions",
+        "label": "NPS Chamizal hours and holiday closures",
         "url": "https://www.nps.gov/cham/planyourvisit/hours.htm",
-        "scope": "Separate grounds and cultural center schedules"
+        "scope": "Separate Cultural Center and memorial grounds schedules; gate and holiday closures"
       },
       {
-        "label": "NPS Chamizal basic visiting details",
+        "label": "NPS basic visitor information",
         "url": "https://www.nps.gov/cham/planyourvisit/basicinfo.htm",
-        "scope": "Physical address, entry gates and visitor access"
+        "scope": "Free entrance, address, facilities, site overview and Wi-Fi/roaming considerations"
       },
       {
-        "label": "NPS Chamizal site history",
+        "label": "NPS access and mobility information",
+        "url": "https://www.nps.gov/cham/planyourvisit/accessibility.htm",
+        "scope": "Parking, uncovered approach, accessible interiors and outdoor trail surfaces"
+      },
+      {
+        "label": "NPS Chamizal treaties and chronology",
+        "url": "https://www.nps.gov/cham/learn/historyculture/treaties.htm",
+        "scope": "1848 treaty, 1911 arbitration context and the 1963 Convention"
+      },
+      {
+        "label": "NPS Chamizal history and culture",
         "url": "https://www.nps.gov/cham/learn/historyculture/index.htm",
-        "scope": "Boundary dispute and cultural history"
+        "scope": "1960s implementation, affected residents, mural, exhibits and theater"
+      },
+      {
+        "label": "NPS Chamizal conflict history",
+        "url": "https://www.nps.gov/cham/learn/historyculture/conflict.htm",
+        "scope": "The flood, land claims, Cordova Island and the 1911 arbitration"
+      },
+      {
+        "label": "NPS park accessibility and site context",
+        "url": "https://www.nps.gov/cham/learn/historyculture/implementation.htm",
+        "scope": "Treaty implementation, land transfer and displacement impacts"
       }
     ]
   }
@@ -412,9 +470,14 @@ export function applyFourFederalParkAuthorities(destination: Destination): Desti
     summary: patch.summary,
     entryNote: patch.entryNote,
     highlights: patch.highlights,
-    body: combined.length > 1800 ? [...existing, ...added] : patch.body,
-    visitorFaqs: [...(destination.visitorFaqs ?? []).filter(old=>!patch.visitorFaqs?.some(f=>f.question===old.question)), ...(patch.visitorFaqs ?? [])],
+    body: destination.slug === "chamizal-national-memorial" ? patch.body : (combined.length > 1800 ? [...existing, ...added] : patch.body),
+    visitorFaqs: destination.slug === "chamizal-national-memorial" ? patch.visitorFaqs : [...(destination.visitorFaqs ?? []).filter(old=>!patch.visitorFaqs?.some(f=>f.question===old.question)), ...(patch.visitorFaqs ?? [])],
+    ...(patch.hero ? { hero: patch.hero } : {}),
+    ...(patch.gallery ? { gallery: patch.gallery } : {}),
+    ...(patch.address ? { address: patch.address } : {}),
+    ...(patch.directions ? { directions: patch.directions } : {}),
+    ...(patch.accessibilityNotes ? { accessibilityNotes: patch.accessibilityNotes } : {}),
     authorityGuide: patch.authorityGuide,
-    sourceCheckedAt: "2026-10-17"
+    sourceCheckedAt: destination.slug === "chamizal-national-memorial" ? "2026-10-19" : "2026-10-17"
   };
 }
