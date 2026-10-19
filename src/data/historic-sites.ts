@@ -129,7 +129,11 @@ export const historicSiteDestinations: Destination[] = historicSiteSeeds.map((si
     width: 1600,
     height: 1067,
   },
-  bestSeason: "Year-round; spring and fall are usually the most comfortable for outdoor portions of a visit.",
+  bestSeason: site.slug === "old-socorro-mission"
+    ? "The early archaeological site is closed to the public; there is no visiting season."
+    : site.slug === "first-capitol-of-texas"
+      ? "The state historic site is not yet open to visitors; check THC before planning a trip."
+      : "Year-round; spring and fall are usually the most comfortable for outdoor portions of a visit.",
   entryNote: site.slug === "magoffin-home" ? "Texas Historical Commission currently reports that the historic home is closed through 2027 for restoration, while the visitor center remains open. No house tour should be assumed. Check current visitor-center hours and program details before traveling." : site.slug === "fort-martin-scott" ? "THC currently lists staffed hours Tue–Sat 9 a.m.–5 p.m., grounds daily 8 a.m.–8 p.m., and adult admission $10 (reduced rates for seniors and ages 5–17). THC pages conflict about guided tours (main listing: requested tours; Plan Your Visit: self-guided only). Confirm directly before relying on a guided visit." : "Check the official visitor page before departure for current hours, tours, fees, closures and accessibility details.",
   highlights: [...site.themes],
   body: site.slug === "magoffin-home" ? magoffinHomeVerifiedBody : site.slug === "fort-martin-scott" ? fortMartinScottVerifiedBody : historicBody(site),
