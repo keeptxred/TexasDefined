@@ -4,7 +4,7 @@ const p = (text: string): ArticleBlock => ({ type: "paragraph", text });
 const h = (text: string): ArticleBlock => ({ type: "heading", text });
 const list = (...items: string[]): ArticleBlock => ({ type: "list", items });
 const quote = (text: string): ArticleBlock => ({ type: "quote", text });
-const image = (src: string, alt: string, width: number, height: number, caption: string): ArticleBlock => ({ type: "image", image: { src, alt, width, height }, caption });
+const image = (src: string, alt: string, width: number, height: number, caption: string, credit?: string): ArticleBlock => ({ type: "image", image: { src, alt, width, height, ...(credit ? { credit } : {}) }, caption });
 
 export const texasRiversExplainedArticle: Article = {
   id: "evergreen-texas-rivers-explained",
@@ -184,9 +184,11 @@ export const texasRiversExplainedArticle: Article = {
     p("The Lavaca basin is smaller still and drains directly toward Lavaca Bay. In a statewide list dominated by famous names, rivers like the Lavaca are easy to skip. But coastal rivers carry freshwater, sediment and nutrients toward estuaries—places where river water and seawater mix—tying inland rainfall to the ecological health of bays."),
     h("How Dams Create Texas Reservoirs"),
     p("Many of the 'lakes' Texans know best are reservoirs created by dams on rivers and tributaries. Lake Travis is the Colorado River. Canyon Lake is the Guadalupe held behind a dam. Lake Texoma stores Red River water. Toledo Bend sits on the Sabine. Reservoirs create useful storage and recreation, but they do not erase the river system underneath the map."),
+    image("https://commons.wikimedia.org/wiki/Special:Redirect/file/USACE_Ray_Roberts_Lake_and_Dam.jpg?width=1600", "Aerial view of Ray Roberts Lake and Dam in North Texas", 1600, 1068, "Ray Roberts Lake is a North Texas reservoir created by damming the Elm Fork of the Trinity River.", "U.S. Army Corps of Engineers · Public domain · Wikimedia Commons"),
     p("That matters when thinking about drought, flooding or water supply. A reservoir can fall even when your neighborhood received rain because the larger basin did not. It can rise rapidly after storms far upstream. Releases from a dam can change downstream river conditions even under a clear local sky."),
     h("How Springs Feed Texas Rivers"),
     p("Some Texas rivers depend heavily on groundwater. In the Hill Country and along the Balcones Fault Zone, springs can provide steady water that keeps a river moving between storms. The Comal and San Marcos are dramatic examples, while spring-fed stretches also shape the Guadalupe, Frio, Nueces, Devils and other waterways."),
+    image("https://commons.wikimedia.org/wiki/Special:Redirect/file/Aerial%20image%20of%20Barton%20springs%20pool%20in%20Austin%2C%20TX.jpg?width=1600", "Aerial view of Barton Springs Pool in Austin, Texas", 1600, 882, "Barton Springs shows groundwater from the Edwards Aquifer reaching the surface in Austin.", "Microbesandmuck27 · CC BY-SA 4.0 · Wikimedia Commons"),
     p("This is why aquifer pumping and river flow can become part of the same argument. Water underground may eventually emerge at a spring. If spring flow weakens, the effects can travel downstream through swimming areas, wildlife habitat and water-supply systems."),
     h("Texas rivers can swing from drought to flood"),
     p("Texans often talk about rivers as though one condition is normal and everything else is an exception. The better mental model is variability. Long dry periods can reduce streams to quiet pools, then intense rainfall can send enormous volumes of water through the same channel."),
