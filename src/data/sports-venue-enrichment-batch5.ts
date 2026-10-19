@@ -156,6 +156,8 @@ export const SPORTS_VENUE_ENRICHMENT_BATCH5: Record<string, SportsVenueEnrichmen
   },
   'tdecu-stadium': {
     city: 'Houston',
+    opened: 'August 29, 2014',
+    capacity: '40,000 seats',
     primaryEvents: ['Houston Cougars football', 'Big 12 college-football games', 'University and special stadium events'],
     history: 'TDECU Stadium is the University of Houston football home. Houston’s official 2026 schedule lists six home games there, including Big 12 dates against UCF, Oklahoma State, Cincinnati and Baylor.',
     parking: 'Football parking is managed through the University of Houston campus and game-day system. Visitors should confirm the current lot, pass and route before travel because campus controls and event traffic can differ substantially from ordinary weekday access.',
@@ -163,11 +165,12 @@ export const SPORTS_VENUE_ENRICHMENT_BATCH5: Record<string, SportsVenueEnrichmen
     stayAndEat: 'Central Houston lodging makes it possible to pair a Cougar football game with EaDo, downtown or other city districts instead of planning the weekend entirely around the stadium parking lot.',
     nearby: 'Fertitta Center and other University of Houston facilities are on the same campus, while Shell Energy Stadium, Daikin Park and downtown Houston add several sports-weekend options nearby.',
     planningLinks: [
+      { label: 'UH TDECU Stadium opening and capacity', url: 'https://uhcougars.com/news/2015/4/10/TDECU_Stadium_Receives_HBJ_Landmark_Award' },
       { label: 'TDECU Stadium information', url: 'https://uhcougars.com/sports/2018/6/12/TDECU-Stadium-Info-html' },
       { label: 'Houston 2026 football schedule', url: 'https://uhcougars.com/sports/football/schedule/2026' },
     ],
     imageBrief: 'TDECU Stadium on the University of Houston campus at dusk on football game day with Houston urban context, energetic collegiate travel photography, no added logos or text.',
-    verifiedAt,
+    verifiedAt: '2026-10-19',
   },
 };
 
