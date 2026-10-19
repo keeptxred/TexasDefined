@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { stateParkHeroMap } from "@/data/state-park-hero-map";
 import { recoverOrHideImage } from "@/lib/image-fallback";
 
@@ -12,6 +12,8 @@ export function EastTexasFoliageParkMap() {
     { name: "Martin Creek Lake", lat: 32.274, lon: -94.580 },
   ] as const;
   const [selected, setSelected] = useState(0);
+  const [hydrated, setHydrated] = useState(false);
+  useEffect(() => setHydrated(true), []);
 
   const northernRoute = "https://www.google.com/maps/dir/?api=1&origin=Tyler%20State%20Park%2C%20Texas&destination=Daingerfield%20State%20Park%2C%20Texas&waypoints=Cooper%20Lake%20State%20Park%20South%20Sulphur%20Unit%2C%20Texas%7CLake%20Bob%20Sandlin%20State%20Park%2C%20Texas&travelmode=driving";
   const easternRoute = "https://www.google.com/maps/dir/?api=1&origin=Tyler%20State%20Park%2C%20Texas&destination=Caddo%20Lake%20State%20Park%2C%20Texas&waypoints=Martin%20Creek%20Lake%20State%20Park%2C%20Texas&travelmode=driving";
@@ -21,7 +23,7 @@ export function EastTexasFoliageParkMap() {
     <h3 className="font-display text-2xl">Explore the parks on a map</h3>
     <p className="mt-2 text-sm leading-7 text-muted-foreground">Choose a park to center the interactive OpenStreetMap view. Pins are approximate park locations for trip orientation, not entrance or navigation coordinates. Confirm the official entrance before driving.</p>
     <div role="group" aria-label="Choose park to locate on map" className="mt-4 flex flex-wrap gap-2">
-      {parks.map((item, index) => <button type="button" key={item.name} aria-pressed={selected === index} onClick={() => setSelected(index)} className={`border px-3 py-2 text-sm transition-colors ${selected === index ? "border-primary bg-primary text-primary-foreground" : "border-border hover:border-primary"}`}>{item.name}</button>)}
+      {parks.map((item, index) => <button type="button" key={item.name} aria-pressed={selected === index} onClick={() => setSelected(index)} disabled={!hydrated} className={`border px-3 py-2 text-sm transition-colors ${selected === index ? "border-primary bg-primary text-primary-foreground" : "border-border hover:border-primary"}`}>{item.name}</button>)}
     </div>
     <iframe key={park.name} src={mapUrl} title={`Interactive map around ${park.name}`} loading="lazy" referrerPolicy="no-referrer-when-downgrade" style={{ height: 384 }} className="w-full border border-border" />
     <a href={`https://www.openstreetmap.org/?mlat=${park.lat}&mlon=${park.lon}#map=11/${park.lat}/${park.lon}`} target="_blank" rel="noopener noreferrer" className="inline-block text-sm font-semibold text-primary underline underline-offset-4">Open larger map for {park.name} ↗</a>
