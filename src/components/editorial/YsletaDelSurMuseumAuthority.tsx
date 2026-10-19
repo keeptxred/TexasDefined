@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
+import { YSLETA_CULTURAL_CENTER_MURAL } from "@/data/ysleta-cultural-center-media";
 
 const museumUrl = "https://www.ysletadelsurpueblo.org/tourism-hospitality/cultural-center/museum";
 const culturalUrl = "https://www.ysletadelsurpueblo.org/tourism-hospitality/cultural-center";
@@ -11,8 +12,7 @@ const missionUrl = "https://www.nps.gov/places/ysleta-mission.htm";
 const breadBakingUrl = "https://www.ysletadelsurpueblo.org/tourism-hospitality/cultural-center/bread-baking";
 const missionTrailUrl = "https://visitelpaso.com/epmissiontrail";
 const visitElPasoCulturalUrl = "https://visitelpaso.com/places/tigua-indian-cultural-center";
-const photoUrl = "https://commons.wikimedia.org/wiki/File:Tigua_Cultural_Center.jpg";
-const panoramaUrl = "https://commons.wikimedia.org/wiki/File:Tigua_Cultural_Center_2.jpg";
+const photoUrl = YSLETA_CULTURAL_CENTER_MURAL.sourceUrl;
 const sourceList = [
   { label: "Ysleta del Sur Pueblo — museum", url: museumUrl, note: "Controlling source for museum hours, tours, interactive exhibits and visitor programming." },
   { label: "Ysleta del Sur Pueblo — Cultural Center", url: culturalUrl, note: "Tribal account of the center, its mission and activities." },
@@ -64,13 +64,13 @@ export default function YsletaDelSurMuseumAuthority() {
     </Container>
 
     <section className="relative mt-5 isolate overflow-hidden bg-ink text-ink-foreground">
-      <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Tigua_Cultural_Center.jpg?width=1600" width={1600} height={1200} fetchPriority="high" decoding="async" alt="Photograph of the actual Tigua Cultural Center at Ysleta del Sur Pueblo in El Paso" className="absolute inset-0 h-full w-full object-cover opacity-65" />
+      <img src={YSLETA_CULTURAL_CENTER_MURAL.src} width={YSLETA_CULTURAL_CENTER_MURAL.width} height={YSLETA_CULTURAL_CENTER_MURAL.height} fetchPriority="high" decoding="async" alt={YSLETA_CULTURAL_CENTER_MURAL.alt} className="absolute inset-0 h-full w-full object-cover object-[center_38%] opacity-70" />
       <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/15" />
       <Container className="relative flex flex-col justify-end pb-12 pt-24" style={{ minHeight: "clamp(26rem, 54vw, 35rem)" }}>
         <p className="eyebrow text-ink-foreground/85">El Paso · Indigenous Texas · Tribal museum</p>
         <h1 className="mt-4 max-w-4xl font-display text-5xl leading-tight sm:text-7xl">Ysleta del Sur Pueblo Cultural Center Museum</h1>
         <p className="mt-5 max-w-3xl text-lg leading-8 text-ink-foreground/85">A practical visitor guide and researched introduction to more than 300 years of Tigua history, a living Pueblo community, and the cultural institution that tells its story.</p>
-        <p className="mt-6 text-xs leading-5 text-ink-foreground/85">Actual Cultural Center photograph: <a href={photoUrl} className="underline" target="_blank" rel="noopener noreferrer">Sue Barnum, 2020</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/" className="underline" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>. Photograph displayed without editorial alteration.</p>
+        <p className="mt-6 max-w-3xl text-xs leading-5 text-ink-foreground/85">Actual Cultural Center mural, <a href={photoUrl} className="underline" target="_blank" rel="noopener noreferrer">photographed by Carol M. Highsmith for the Library of Congress, 2014</a>. Mural artists credited by LOC: Bobby and Eddie Ortiz, Ricky V, Tigua '95. This is cultural artwork at the Center, <strong>not</strong> a photograph of the museum entrance. The Library lists no known restrictions on the photograph.</p>
       </Container>
     </section>
 
@@ -121,10 +121,10 @@ export default function YsletaDelSurMuseumAuthority() {
           <p className="mt-4 text-sm leading-7 text-muted-foreground">{item.text}</p>
         </article>)}
       </div>
-      <figure className="mt-12">
-        <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Tigua_Cultural_Center_2.jpg?width=1280" width={1280} height={296} alt="Wide panoramic photograph of the Tigua Cultural Center in El Paso, photographed in 2020" loading="lazy" decoding="async" className="h-auto w-full" />
-        <figcaption className="mt-3 text-xs text-muted-foreground">A second view of the actual Tigua Cultural Center, Sue Barnum (2020), <a href={panoramaUrl} target="_blank" rel="noopener noreferrer" className="underline">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer" className="underline">CC BY-SA 4.0</a>. No alterations.</figcaption>
-      </figure>
+      <div className="mt-12 border-l-2 border-primary bg-surface px-6 py-5">
+        <p className="eyebrow text-primary">Photographs with accurate subject labels</p>
+        <p className="mt-3 text-sm leading-7">The Library of Congress photograph above documents Tigua mural art at the actual Cultural Center. The previously used service-side parking and delivery-entrance photos were retired because they did not meaningfully show visitors the Pueblo museum or its cultural significance. For current photographs of the museum courtyard and visitor activities, consult the <a href={culturalUrl} target="_blank" rel="noopener noreferrer" className={anchorStyle}>Pueblo's official Cultural Center gallery ↗</a>.</p>
+      </div>
     </Container>
 
     <section className="border-y border-border py-14 sm:py-16">
@@ -186,7 +186,7 @@ export default function YsletaDelSurMuseumAuthority() {
       <h2 className="mt-3 font-display text-4xl">Primary sources, verification and image credits</h2>
       <p className="mt-5 max-w-4xl leading-8">TexasDefined Editorial Desk · Last verified October 9, 2026. The Pueblo's own sources control its identity, history and current museum guidance. The Texas Historical Commission supplies cross-checks for museum contacts and hours; Visit El Paso provides contextual visitor information that should be reconfirmed with the Pueblo. The Handbook of Texas supplies historical museum milestones. The National Park Service supports facts about the separate mission. We do not present tribal-member-only activities as public programming, nor treat estimates as confirmed admission policies.</p>
       <ol className="mt-7 grid gap-5 sm:grid-cols-2">{sourceList.map((source,index)=><li key={source.url} className="border-t border-border pt-4"><p className="eyebrow text-primary">Source {index+1}</p><a className={anchorStyle+" mt-2 inline-block"} href={source.url} target="_blank" rel="noopener noreferrer">{source.label} ↗</a><p className="mt-2 text-sm leading-6 text-muted-foreground">{source.note}</p></li>)}</ol>
-      <p className="mt-7 text-xs leading-6 text-muted-foreground">Image attribution: both photographs by Sue Barnum (2020), licensed CC BY-SA 4.0 through Wikimedia Commons. They are photographs of this Cultural Center, not generic museum substitutes. <a href={photoUrl} className="underline" target="_blank" rel="noopener noreferrer">Hero image license and source</a> · <a href={panoramaUrl} className="underline" target="_blank" rel="noopener noreferrer">Panorama license and source</a>.</p>
+      <p className="mt-7 text-xs leading-6 text-muted-foreground">Image attribution: both photographs by Sue Barnum (2020), licensed CC BY-SA 4.0 through Wikimedia Commons. They are photographs of this Cultural Center, not generic museum substitutes. <a href={photoUrl} className="underline" target="_blank" rel="noopener noreferrer">Mural photograph provenance and source</a>.</p>
       <p className="mt-4 text-xs leading-6 text-muted-foreground">Suggested citation: TexasDefined Editorial Desk. “Ysleta del Sur Pueblo Cultural Center Museum: Tigua History, Exhibits & Visitor Guide.” TexasDefined, verified October 9, 2026. https://texasdefined.com/destination/ysleta-del-sur-pueblo-cultural-center-museum-el-paso</p>
       <p className="mt-4 text-xs leading-6 text-muted-foreground">Information changes: verify museum hours, admission, cultural program access and photography policy with the Pueblo before traveling. This independent guide is not endorsed by or affiliated with the Pueblo.</p>
     </Container>
