@@ -427,8 +427,6 @@ function ArticlePage() {
   const riverBasinInsertIndex = riverBasinHeadingIndex >= 0
     ? article.body.findIndex((block, index) => index > riverBasinHeadingIndex && block.type === "heading")
     : -1;
-  const riverBodyBeforeBasinReference = riverBasinInsertIndex > 0 ? article.body.slice(0, riverBasinInsertIndex) : article.body;
-  const riverBodyAfterBasinReference = riverBasinInsertIndex > 0 ? article.body.slice(riverBasinInsertIndex) : [];
   const waterTopic = article.slug === "texas-river-basins-guide" ? "basins" : null;
 
   return <article>
@@ -502,11 +500,14 @@ function ArticlePage() {
       {article.slug === "texas-major-cities-regional-differences" ? <TexasCitiesComparison /> : null}
       {article.slug === "texas-high-school-football-playoffs-explained" ? <FootballPlayoffsReference /> : null}
       <div id={isTexasExplainedPillar ? "guide-body" : undefined} className="mt-10 scroll-mt-28">
-        {isTexasRiversArticle ? <>
-          <ArticleBody blocks={riverBodyBeforeBasinReference} entities={graph} />
-          <Suspense fallback={<section className="my-10 border-y border-border py-8" style={{ minHeight: "18rem" }} aria-label="Loading Texas river basin reference" />}><TexasRiverBasinReference /></Suspense>
-          {riverBodyAfterBasinReference.length > 0 ? <ArticleBody blocks={riverBodyAfterBasinReference} entities={graph} /> : null}
-        </> : <ArticleBody blocks={article.body} entities={graph} />}
+        {isTexasRiversArticle ? (
+          <ArticleBody
+            blocks={article.body}
+            entities={graph}
+            insertBeforeIndex={riverBasinInsertIndex > 0 ? riverBasinInsertIndex : undefined}
+            insertBefore={<Suspense fallback={<section className="my-10 border-y border-border py-8" style={{ minHeight: "18rem" }} aria-label="Loading Texas river basin reference" />}><TexasRiverBasinReference /></Suspense>}
+          />
+        ) : <ArticleBody blocks={article.body} entities={graph} />}
       </div>
       {footballTravelArticleSlugs.has(article.slug) ? <FootballFanOffers slug={article.slug} hasUpcomingAwayTravel={false} showTravelPlanning /> : null}
       {isTexasRiversArticle ? <Suspense fallback={null}><TexasRiversAfterArticle /></Suspense> : null}
