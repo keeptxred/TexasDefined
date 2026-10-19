@@ -19,6 +19,8 @@ describe('city-to-county relationship reference', () => {
     ['Plano', ['Collin', 'Denton']],
     ['San Marcos', ['Hays', 'Caldwell', 'Guadalupe']],
     ['New Braunfels', ['Comal', 'Guadalupe']],
+    ['Mesquite', ['Dallas', 'Kaufman']],
+    ['San Antonio', ['Bexar', 'Comal']],
     ['Grand Prairie', ['Dallas', 'Ellis', 'Tarrant']],
     ['The Woodlands', ['Montgomery', 'Harris']],
   ])('%s resolves every documented county', (name, expected) => {
