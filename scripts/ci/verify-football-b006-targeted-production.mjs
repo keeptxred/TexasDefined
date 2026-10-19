@@ -51,7 +51,7 @@ function county(slug){
 }
 const schools=slugs.map(slug=>({slug,county:county(slug),model:model(slug)}));
 for(const school of schools)assert.ok(school.model.season?.games?.length>=6&&school.model.faq?.length>=5,'Missing authored source content '+school.slug);
-const result={schema:'football-b006-targeted-browser-v2',method:'Production live HTTPS, precisely 25 schools at 1366/390/320 CSS pixels, 25 sitemap entries and reciprocal county links',candidateSha:process.env.GITHUB_SHA||null,productionSha:'not independently identified from HTML',editorialAccepted:false,photoRightsAccepted:false,schools:[],counties:[],sitemap:{status:0,checked:slugs.length,missing:[],error:null},observedWorkerVersions:[],summary:{schoolCases:0,schoolPass:0,schoolFail:0,countyCases:0,countyPass:0,countyFail:0,sitemapPass:0,sitemapFail:0,screenshots:0,chunkErrors:0}};
+const result={schema:'football-b006-targeted-browser-v2',method:'Production live HTTPS, precisely 25 schools at 1366/390/320 CSS pixels, 25 sitemap entries and reciprocal county links',candidateSha:process.env.GITHUB_SHA||null,productionSha:'not independently identified from HTML',editorialAccepted:false,photoRightsAccepted:false,schools:[],counties:[],sitemap:{status:0,checked:slugs.length,missing:[],error:null},observedWorkerVersions:[],summary:{schoolCases:0,schoolPass:0,schoolFail:0,countyCases:0,countyPass:0,countyFail:0,sitemapPass:0,sitemapFail:0,screenshots:0,countyScreenshots:0,chunkErrors:0}};
 // A complete 25-school browser PASS without discoverable production sitemap URLs
 // is not a valid acceptance. This is one bounded fetch, not a crawl or poll.
 try {
@@ -160,18 +160,43 @@ try{
     // Still fail closed on genuinely absent links, with their exact slugs.
     // Do not classify the optional readiness marker itself as acceptance.
    }
-   const links=await page.evaluate(()=>[...document.querySelectorAll('main a[href]')].map(a=>(a.getAttribute('href')||'').replace(/\/$/,'')));
+   const observation=await page.evaluate(()=>({
+    links:[...document.querySelectorAll('main a[href]')].map(a=>(a.getAttribute('href')||'').replace(/\/$/,'')),
+    footballSection:!!document.querySelector('section[aria-label="Independent football histories from this county"]'),
+    footballHydrated:document.documentElement.dataset.tdFootballCountyHydrated||null
+   }));
+   const links=observation.links;
+   row.linkCount=links.length;
+   row.renderedFootballSection=observation.footballSection;
+   row.hydratedMarker=observation.footballHydrated;
+   row.renderedBatch006Links=links.filter(x=>x.startsWith('/texas-high-school-football-teams/'));
+   row.observedUrl=page.url();
    for(const s of group)if(!links.includes('/texas-high-school-football-teams/'+s.slug))errors.push('missing reciprocal '+s.slug);
    if(js.length)errors.push('county JavaScript errors '+js[0]);
   }catch(e){errors.push(String(e.message||e).slice(0,350))}
-  finally{row.pass=errors.length===0;if(row.pass)result.summary.countyPass++;else result.summary.countyFail++;console.log('B006 county',name,row.pass?'PASS':'FAIL',errors.join('|'));await ctx.close();}
+  finally{
+   try{
+    await page.screenshot({path:out+'/county-'+name+'.png',fullPage:false,animations:'disabled',timeout:15000});
+    result.summary.countyScreenshots++;
+   }catch(error){errors.push('county evidence screenshot failed: '+String(error?.message||error).slice(0,200));}
+   row.pass=errors.length===0;
+   if(row.pass)result.summary.countyPass++;else result.summary.countyFail++;
+   console.log('B006 county',name,row.pass?'PASS':'FAIL',errors.join('|'),
+    'release='+String(row.workerVersion||'none'),
+    'section='+String(row.renderedFootballSection),
+    'hydrated='+String(row.hydratedMarker),
+    'schoolLinks='+JSON.stringify(row.renderedBatch006Links||[]));
+   await ctx.close();
+  }
  }
 }finally{await browser.close()}
 result.observedWorkerVersions=[...workerVersions].sort();
 await writeFile(out+'/report.json',JSON.stringify(result,null,2)+'\n');
 console.log('B006 targeted production acceptance',JSON.stringify(result.summary));
+console.log('B006 observed Worker release headers',JSON.stringify(result.observedWorkerVersions));
 assert.equal(result.summary.schoolCases,75,'Never reduce 25 school x 3 viewport scope');
 assert.equal(result.summary.sitemapFail,0,'Every assigned school must be discoverable in the live production sitemap');
-assert.ok(workerVersions.size<=1,'Mixed Cloudflare Worker versions during one production browser acceptance');
+assert.ok(workerVersions.size<=1,'Mixed Cloudflare Worker versions during one production browser acceptance: '+result.observedWorkerVersions.join(', '));
+assert.equal(result.summary.countyScreenshots,result.summary.countyCases,'Preserve one screenshot per county for reciprocal-link diagnosis');
 assert.equal(result.summary.schoolFail,0,'Investigate school failures before technical acceptance');
 assert.equal(result.summary.countyFail,0,'Investigate missing reciprocal county links');
