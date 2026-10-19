@@ -1341,6 +1341,8 @@ if (!errors.length) {
     ['boyd', 'Shawn Sparks', 'ntxvarsitysports.com/boyd-looking-to-build-on-breakthrough-season/'],
     ['borden-county', 'Trey Richey', 'pressreporter.com/issues/2026-08-18/pages/25/'],
     ['bowie-gold-burg', 'Austin Norman', 'bowienewsonline.com/2026/10/gold-burg-gives-it-a-go-falls-to-perrin-35-32/'],
+    ['borger', 'Jesus A. Villaseñor', 'borgerisd.net/69574_2'],
+    ['bosqueville', 'Reggie Patrick', 'kwtx.com/2026/10/07/classroom-champions-bosquevilles-dax-pharris/'],
   ];
   for (const [slug, expectedCoach, sourceFragment] of currentCoachContracts) {
     const program = footballEditorialRecord(slug);
