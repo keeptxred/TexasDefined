@@ -66,7 +66,7 @@ for (const check of redirectChecks) {
     '/texas-vs/florida': '/article/texas-vs-florida-differences',
     '/destination/museum-south-texas-history-edinburg': '/destination/museum-of-south-texas-history-edinburg',
   };
-  if (allowed[check.path] !== check.target) {
+  if (!Object.hasOwn(allowed, check.path) || allowed[check.path] !== check.target) {
     throw new Error('Unexpected canonical redirect check');
   }
   let failure;
