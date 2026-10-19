@@ -158,7 +158,7 @@ const elPaso = base({
     { href: "/find-my-school-district", label: "Find my school district", description: "Verify school-district and attendance-zone assignments by address." },
     { href: "https://www.census.gov/quickfacts/fact/table/elpasocitytexas/", label: "U.S. Census Bureau — El Paso city facts", description: "Housing values, rents, income, commute and definitions; 2020–2024 ACS figures are historical, not current listings." },
     { href: "https://www.bls.gov/eag/eag.tx_elpaso_msa.htm", label: "BLS — El Paso metro employment", description: "Monthly metro payrolls and labor-force measures, including preliminary August 2026 figures." },
-    { href: "https://www.epwater.org/business/billing-and-rates/rates-and-fees", label: "El Paso Water — rates and fees", description: "Official current water, wastewater and stormwater schedules; confirm service at the actual property." },
+    { href: "https://www.epwater.org/business/billing-and-rates/rates-and-fees", label: "El Paso Water rates and fees", description: "Official current water, wastewater and stormwater schedules; confirm service at the actual property." },
     { href: "https://www.txdmv.gov/motorists/register-your-vehicle", label: "Texas DMV — register a vehicle", description: "Check title, registration and applicable El Paso County emissions-inspection requirements." },
     { href: "https://www.episd.org/", label: "El Paso ISD", description: "District enrollment, maps and campus information; verify school assignment with the district." },
     { href: "https://www.yisd.net/", label: "Ysleta ISD", description: "Official district and campus information for addresses in the district's service area." },
