@@ -113,7 +113,7 @@ export function applyMagoffinHomeAuthority(destination: Destination): Destinatio
     name: "Magoffin Home State Historic Site",
     summary: "Discover El Paso's 1870s adobe home, the Magoffin and Glasgow families and the borderlands history behind it. The historic house is closed through 2027; its visitor center remains open.",
     coordinates: { lat: 31.76279, lng: -106.47706 },
-    address: "1117 Magoffin Ave, El Paso, TX 79901 (visitor center); historic house: 1120 Magoffin Ave",
+    address: "1120 Magoffin Ave, El Paso, TX 79901",
     directions: "Arrive at the visitor center at 1117 Magoffin Avenue. The map pin marks the historic house across the street at 1120. Confirm any construction-related entrance, parking or access changes before traveling.",
     entryNote: "RESTORATION NOTICE: Historic house CLOSED through 2027; visitor center OPEN Tuesday–Saturday, 9 a.m.–4 p.m. (THC, Oct. 19, 2026). No regular interior house tour. Call 915-533-5147 or email magoffin-home@thc.texas.gov for current programs and special tour availability. THC lists standard admission rates, but confirm which, if any, apply during restoration.",
     bestSeason: "Visitor center: year-round during posted hours. For the self-guided historic-district walk, spring and fall usually offer more comfortable temperatures; the house remains closed through 2027.",
