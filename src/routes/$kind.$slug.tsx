@@ -74,6 +74,9 @@ export const Route = createFileRoute('/$kind/$slug')({
     const canonicalPath = canonicalEntityPath(loaderData.entity);
     const countySeriesArticle = loaderData.countySeriesArticle;
     const citySocialImage = loaderData.entity.kind === 'city' ? getCitySocialImage(loaderData.entity.slug) : undefined;
+    const metroSocialImage = loaderData.entity.kind === 'metro-area' && loaderData.entity.slug === 'el-paso-metro'
+      ? { src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/El_Paso_skyline.jpg?width=1600', alt: 'Downtown El Paso skyline beneath the Franklin Mountains' }
+      : undefined;
     let description = searchSnippetDescription(loaderData.entity);
     if (loaderData.entity.kind === 'county' && countySeriesArticle?.dek) description = countySeriesArticle.dek;
     const indexable = isIndexableEntityPage(loaderData.entity);
@@ -82,8 +85,8 @@ export const Route = createFileRoute('/$kind/$slug')({
         canonicalPath,
         title: searchIntentTitle(loaderData.entity),
         description,
-        image: countySeriesArticle?.hero.src ?? citySocialImage?.src,
-        imageAlt: countySeriesArticle?.hero.alt ?? citySocialImage?.alt,
+        image: countySeriesArticle?.hero.src ?? citySocialImage?.src ?? metroSocialImage?.src,
+        imageAlt: countySeriesArticle?.hero.alt ?? citySocialImage?.alt ?? metroSocialImage?.alt,
         imageWidth: countySeriesArticle?.hero.width,
         imageHeight: countySeriesArticle?.hero.height,
         type: countySeriesArticle ? 'article' : 'website',
