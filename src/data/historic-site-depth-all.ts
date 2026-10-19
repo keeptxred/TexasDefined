@@ -102,8 +102,8 @@ const SITE_DEPTH: Record<string, string[]> = {
     "The herd occupies the wider Fort Griffin site, where ruins and grazing land can be interpreted together. Visitor expectations should depend on animal location, weather and operator guidance; seeing individual animals from a particular spot should never be promised."
   ],
   "old-socorro-mission": [
-    "Socorro’s mission landscape is part of a living Rio Grande Valley tradition involving Pueblo, Spanish, Mexican and borderlands communities. The congregation and ongoing religious use are as important to understand as the age of the historic building.",
-    "Plan this as a respectful religious-site visit along the El Paso Mission Trail, not as an unrestricted museum tour. Worship services and community activities govern access, while nearby missions and cultural institutions tell related but distinct stories."
+    "Old Socorro Mission's former location documents a Piro Pueblo and early adobe church after the Pueblo Revolt of 1680. A permanent church stood here by 1691, but repeated Rio Grande floods transformed the settlement and compelled reconstruction and relocation.",
+    "The original archaeological property is CLOSED to the public. It is not the functioning Socorro Mission church built in the 1840s at a separate location. Use historical research instead of planning site entry, and verify admission separately at other Mission Trail venues."
   ],
   "palmito-ranch-battlefield": [
     "Palmito Ranch was the site of a May 1865 engagement along the lower Rio Grande after major Confederate armies elsewhere had surrendered. Its chronology illustrates how news, authority, border trade and military operations unfolded unevenly as the Civil War ended.",
