@@ -144,6 +144,46 @@ try {
       if (vp.name === "desktop") verify("multi-column cards at desktop width", data.quinta.x !== data.bentsen.x && Math.abs(data.quinta.y - data.bentsen.y) < 24, JSON.stringify({ quinta: data.quinta.x, bentsen: data.bentsen.x }));
       if (vp.name === "mobile") verify("cards stack without overlap on mobile", data.bentsen.y >= data.quinta.bottom - 3, JSON.stringify({ quintaBottom: data.quinta.bottom, bentsenTop: data.bentsen.y }));
       verify("no broken above-fold content images", data.photosBroken.length === 0, JSON.stringify(data.photosBroken));
+      // A full-page screenshot does NOT automatically trigger native lazy images
+      // below the fold. Scroll them into view and await load/error before QA
+      // judges image readiness and captures its editorial screenshots.
+      const loadedPhotos = await page.evaluate(async () => {
+        const images = [...document.querySelectorAll("main img")].slice(0, 70);
+        for (const img of images) {
+          img.scrollIntoView({ block: "center", inline: "nearest" });
+          if (img.complete) continue;
+          await new Promise(resolve => {
+            const finish = () => { clearTimeout(timeout); resolve(); };
+            const timeout = setTimeout(finish, 6000);
+            img.addEventListener("load", finish, { once: true });
+            img.addEventListener("error", finish, { once: true });
+          });
+        }
+        const featured = [...document.querySelectorAll('section[aria-labelledby="mcallen-day-trip-guide"] article figure img')];
+        return {
+          total: images.length,
+          featuredTotal: featured.length,
+          featuredLoaded: featured.filter(img => img.complete && img.naturalWidth > 0).length,
+          failedFeatured: featured.filter(img => !img.complete || img.naturalWidth === 0).map(img => (img.currentSrc || img.src).slice(0, 140)),
+          visiblyBroken: images.filter(img => img.isConnected && img.getBoundingClientRect().width > 3 && img.complete && img.naturalWidth === 0)
+            .map(img => (img.currentSrc || img.src).slice(0, 140)),
+        };
+      });
+      verify("featured photos load after actually scrolling", loadedPhotos.featuredTotal >= 3 &&
+        loadedPhotos.featuredTotal === loadedPhotos.featuredLoaded,
+        JSON.stringify(loadedPhotos));
+      verify("no broken images in scrolled page", loadedPhotos.visiblyBroken.length === 0,
+        JSON.stringify(loadedPhotos.visiblyBroken));
+      // The final map choice restores the first iframe, which is also lazy.
+      // Bring it into the viewport and check a real Leaflet tile renders,
+      // rather than accepting an empty iframe element as a functioning map.
+      const mapFrame = page.locator('iframe[title^="Interactive OpenStreetMap location of"]');
+      await mapFrame.scrollIntoViewIfNeeded({ timeout: 15000 });
+      const mapTiles = await page.frameLocator('iframe[title^="Interactive OpenStreetMap location of"]')
+        .locator("img.leaflet-tile-loaded").first().waitFor({ state: "attached", timeout: 12000 })
+        .then(() => true).catch(() => false);
+      verify("selected map loads OpenStreetMap tiles after scroll", mapTiles);
+      await page.evaluate(() => window.scrollTo(0, 0));
       const filename = DIR + "/mcallen-day-trips-" + vp.name + ".png";
       await page.screenshot({ path: filename, fullPage: true, animations: "disabled", timeout: 30000 });
       record.screenshot = filename;
