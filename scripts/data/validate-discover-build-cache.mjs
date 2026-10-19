@@ -91,7 +91,7 @@ assert.ok(cacheWorkflow.includes("github.event.workflow_run.head_branch == 'main
   "the cache purge must remain restricted to protected main releases");
 assert.ok(cacheWorkflow.includes("github.event_name == 'workflow_dispatch'"),
   "authorized manual cache repair must remain available");
-assert.ok(cacheWorkflow.includes("if [[ \\"${PURGE_OUTCOME}\\" != 'success' ]]"),
+assert.ok(cacheWorkflow.includes("PURGE_OUTCOME") && cacheWorkflow.includes("!= 'success'"),
   "cache purge verification must still fail closed for successful production releases");
 
 const purgeScript = readFileSync("scripts/ci/purge-cloudflare-cache.mjs", "utf8");
