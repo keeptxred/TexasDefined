@@ -860,6 +860,34 @@
       ]
     },
     {
+      "path": "/destination/grace-museum-abilene",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 10,
+      "sources": [
+        {
+          "sourceUrl": "https://thegracemuseum.org/about/",
+          "fetchUrl": "https://thegracemuseum.org/about/",
+          "label": "Two locations, rates and combo tickets, accessibility, opening hours, parking"
+        },
+        {
+          "sourceUrl": "https://thegracemuseum.org/history/",
+          "fetchUrl": "https://thegracemuseum.org/history/",
+          "label": "Permanent history period rooms and exhibitions"
+        },
+        {
+          "sourceUrl": "https://thegracemuseum.org/art/",
+          "fetchUrl": "https://thegracemuseum.org/art/",
+          "label": "Art exhibition program"
+        },
+        {
+          "sourceUrl": "https://thegracemuseum.org/exhibitions/america-250/",
+          "fetchUrl": "https://thegracemuseum.org/exhibitions/america-250/",
+          "label": "2026 America 250 exhibition closing date"
+        }
+      ]
+    },
+    {
       "path": "/destination/harry-ransom-center-austin",
       "topic": "museum-visitor-guide",
       "cadenceDays": 30,
@@ -1077,6 +1105,34 @@
           "sourceUrl": "https://www.lbjlibrary.org/exhibitions",
           "fetchUrl": "https://www.lbjlibrary.org/exhibitions",
           "label": "LBJ active exhibitions"
+        }
+      ]
+    },
+    {
+      "path": "/destination/menil-collection-houston",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 10,
+      "sources": [
+        {
+          "sourceUrl": "https://www.menil.org/visit",
+          "fetchUrl": "https://www.menil.org/visit",
+          "label": "Menil current free admissions, hours, parking, photography and accessibility"
+        },
+        {
+          "sourceUrl": "https://www.menil.org/campus",
+          "fetchUrl": "https://www.menil.org/campus",
+          "label": "Menil's five separately operated campus buildings and green spaces"
+        },
+        {
+          "sourceUrl": "https://www.menil.org/about",
+          "fetchUrl": "https://www.menil.org/about",
+          "label": "Founders, collection and historical mission"
+        },
+        {
+          "sourceUrl": "https://www.menil.org/group-visit-and-educator-guidelines",
+          "fetchUrl": "https://www.menil.org/group-visit-and-educator-guidelines",
+          "label": "Group reservation, chaperone and no-gallery-lecture policies"
         }
       ]
     },

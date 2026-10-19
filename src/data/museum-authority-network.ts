@@ -28,6 +28,70 @@ export interface MuseumAuthorityDossier {
 
 /** Links are to exact, existing destinations or stable topic hubs, not guessed paths. */
 export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
+  "menil-collection-houston": {
+    name: "The Menil Collection", slug: "menil-collection-houston", county: "Harris", city: "Houston", reviewed: "2026-10-19",
+    topics: ["art", "architecture", "surrealism", "cultural-history"],
+    whyVisit: "The Menil Collection is a free, neighborhood-scale art campus in Houston's Montrose area rather than a single giant conventional museum. John and Dominique de Menil's independent foundation developed a collection encompassing modern and contemporary art, Surrealism and artworks from across cultures; Renzo Piano's 1987 main building, satellite galleries and shaded green spaces are part of the visit.",
+    visitorStrategy: "The museum's current public schedule is Wednesday through Sunday from 11 a.m. to 7 p.m., closed Monday and Tuesday, with free admission to the art buildings. Start at the main building, 1533 Sul Ross Street. The main free parking lot is at 1515 West Alabama Street, with another next to Richmond Hall at 1500 Richmond Avenue and limited street parking in the residential area. The 30-acre campus contains separate buildings that may have individual gallery closures; review Menil's current On View and campus listings. Allow 75–120 minutes for one or two galleries, or a longer, self-paced visit to multiple separate buildings.",
+    accessibility: "The Menil publishes accessible entrances at all its art buildings, accessible parking in both designated lots, loan wheelchairs in limited supply, and admission for trained service animals on a leash. It does not claim that each outdoor route across its neighborhood is equally shaded or level; arrange specific accommodations and request a wheelchair ahead through visitor services at 713-525-9400.",
+    familiesAndGroups: "Families may bring strollers and use the green spaces between buildings, but food, drinks and photography are prohibited in the art galleries. Groups larger than 15 are encouraged to reserve; groups of 30 or more should provide at least a week's notice and school groups need one adult for every ten students. Menil explicitly does not provide guided tours or permit gallery lectures, so an external guide should not promise a museum docent-led experience.",
+    researchValue: "The Menil Foundation began in 1954 and the main museum opened in 1987. The collection now holds more than 25,000 artworks, yet a large collection count is not the number displayed on any given day. Compare the distinct spaces—the main galleries, Drawing Institute, Cy Twombly Gallery and Dan Flavin installation at Richmond Hall—through their own architecture and art rather than conflating them with nearby independent Rothko Chapel. Gallery guides in English and Spanish help visitors who expect conventional wall labels.",
+    exhibits: [
+      { heading: "Renzo Piano main museum building", detail: "Intimately scaled, daylit galleries, Surrealism and works across ancient to contemporary periods present a non-encyclopedic art encounter." },
+      { heading: "Menil Drawing Institute", detail: "A dedicated satellite building for drawing research and exhibitions; current displays and programs are not necessarily the same as main-building shows." },
+      { heading: "Cy Twombly Gallery", detail: "A separate art gallery on Branard Street with its own focus and entrance; plan walking time between sites." },
+      { heading: "Dan Flavin Installation at Richmond Hall", detail: "Permanent light-based art encountered in a distinct Richmond Avenue building, rather than in the main museum; confirm that it is open on the chosen day." },
+      { heading: "Green spaces and neighborhood setting", detail: "The 30-acre landscaped campus and surrounding residential fabric frame the art and architecture, especially pleasant in milder weather." }
+    ],
+    routes: [
+      { label: "Free main-building essentials", steps: ["Park at 1515 West Alabama and enter the main building at 1533 Sul Ross", "Explore current main galleries and use free bilingual guides as useful", "Walk the green spaces without assuming other galleries share today's schedule"] },
+      { label: "Multiple-campus-building afternoon", steps: ["Check the Menil website for current hours at each separate building", "Tour the main collection and Menil Drawing Institute", "Walk to the Cy Twombly Gallery, then Richmond Hall only if its installation is open"] },
+      { label: "Family or student group", steps: ["Reserve in advance when group size requires it; school chaperone ratio is one for ten", "Use stroller-friendly museum entrance routes and observe no gallery photography", "Choose a limited number of galleries and outdoor breaks instead of a lecture inside"] }
+    ],
+    sources: [
+      { label: "Menil Collection — plan your visit", url: "https://www.menil.org/visit", use: "Official free admission, current hours, parking, photography policy and access" },
+      { label: "Menil Collection — campus", url: "https://www.menil.org/campus", use: "Exact campus buildings and separate gallery identities" },
+      { label: "Menil Collection — about", url: "https://www.menil.org/about", use: "Founders, 1954 foundation, 1987 main opening and collection" },
+      { label: "Menil Collection — school group guidelines", url: "https://www.menil.org/group-visit-and-educator-guidelines", use: "Group sizes, reservation advance notice, chaperones and lecturer restrictions" }
+    ],
+    connections: [
+      { label: "Harris County", href: "/county/harris", reason: "Explore the Houston neighborhood, cultural institutions and county attractions." },
+      { label: "Museum of Fine Arts, Houston", href: "/destination/museum-of-fine-arts-houston", reason: "Compare a large encyclopedic art campus with the Menil's free smaller spaces." },
+      { label: "Texas museums", href: "/explore/museums", reason: "Find more Texas art and historic museums without combining admissions." }
+    ],
+  },
+  "grace-museum-abilene": {
+    name: "The Grace Museum", slug: "grace-museum-abilene", county: "Taylor", city: "Abilene", reviewed: "2026-10-19",
+    topics: ["art", "west-texas-history", "railroad-heritage", "education"],
+    whyVisit: "The Grace Museum tells more than one Abilene story in the restored 1909 Hotel Grace near the former Texas and Pacific rail corridor. It combines American art, West Texas history, historic period rooms and interactive family learning while retaining the architecture of the railroad-era hotel. Its newer Spark Science Center is a SECOND location in Abilene and should not be mistaken for another floor of the downtown museum.",
+    visitorStrategy: "At 102 Cypress Street in downtown Abilene, The Grace Museum posts Tuesday–Saturday hours of 10 a.m.–5 p.m., closing Sundays and Mondays, and free Thursday evenings 5–8 p.m. Regular adult tickets are $10; children age 4 and older, seniors age 65+, students, educators and veterans are listed at $7; children younger than four, members and active-duty military families enter free subject to published ID rules. The museum also operates Spark Science Center at 1620 South 3rd Street with separate admission ($14 adult / $8 reduced categories); the same-day combo ticket currently costs $20 adults / $10 reduced categories. Verify before travel or purchase. Two museum parking areas are adjacent along North 1st Street.",
+    accessibility: "The operator confirms an accessible ramp on the North 1st Street side of the Grace Museum building, an elevator to all floors, accessible restrooms and a wheelchair on request at its Lobby Desk. Noise-cancelling headphones are also available at the Spark desk on the museum's second floor. The separate Spark Science Center is ground-level with accessible south-end entrance and restrooms; do not assume the same ramp, parking lot or address applies to both.",
+    familiesAndGroups: "The Grace Museum has family learning alongside galleries of American art and West Texas history, including reconstructed 1910, 1928 and 1948 living environments. Specially booked school group tours have their own $5 price and advance scheduling, distinct from walk-up family admission. A family prioritizing hands-on STEAM experiences may instead want the separately ticketed Spark Science Center at Abilene Heritage Square; the official combo covers both locations only on the same day.",
+    researchValue: "Hotel Grace was built in 1909 for travelers using the Texas and Pacific Railway, and the adapted museum became an anchor of downtown revival after 1992. Historic rooms on the third floor depict three distinct domestic eras, while changing exhibitions use permanent museum material and community loans to interpret Abilene's art and history. The operator's 2026 America 250 exhibition (January 17–November 28) connects local communities to national history; dated shows should be reverified after they close rather than appearing permanently available.",
+    exhibits: [
+      { heading: "1909 Hotel Grace architecture", detail: "The historic hotel built for Texas and Pacific rail travelers is a key exhibit in itself, connecting downtown Abilene's growth and reuse of historic buildings." },
+      { heading: "Art galleries and changing installations", detail: "American fine art and regional exhibitions move through the downtown museum and should be checked against the current exhibition calendar." },
+      { heading: "Third-floor historic period rooms", detail: "Recreated parlors and kitchens represent Abilene domestic life in 1910, 1928 and 1948, contextualizing the city's transition through multiple decades." },
+      { heading: "History galleries and America 250", detail: "The 2026 community-history exhibition runs January 17–November 28, not indefinitely, and explores local experiences in a broader American story." },
+      { heading: "Spark interactive learning at two locations", detail: "The downtown museum offers a Spark gallery on its second floor, while a separate Spark Science Center at 1620 South 3rd focuses on STEAM programming and requires different or combo tickets." }
+    ],
+    routes: [
+      { label: "Downtown museum in ninety minutes", steps: ["Enter the historic 102 Cypress Street Hotel Grace building", "Explore changing art galleries and 3rd-floor period rooms", "Finish with a historic downtown walk if weather permits"] },
+      { label: "Two-location family learning day", steps: ["Confirm both venues and same-day combo admission before buying", "Start with art and West Texas history at The Grace Museum", "Travel separately to 1620 South 3rd Street for Spark Science Center's hands-on programming"] },
+      { label: "Free Thursday evening visit", steps: ["Verify that Thursday night's 5–8 p.m. free admission applies on the chosen date", "Focus on the downtown galleries open during the event", "Do not assume the separate Spark Science Center also waives admission"] }
+    ],
+    sources: [
+      { label: "The Grace Museum — two locations, schedules and accessibility", url: "https://thegracemuseum.org/about/", use: "Specific opening hours, age brackets, two venues, ticket combinations, parking, ramp, wheelchair and elevators" },
+      { label: "The Grace Museum — history galleries", url: "https://thegracemuseum.org/history/", use: "Period rooms and West Texas history programs" },
+      { label: "The Grace Museum — art exhibitions", url: "https://thegracemuseum.org/art/", use: "Rotating art shows and core museum collections" },
+      { label: "The Grace Museum — America 250 exhibition dates", url: "https://thegracemuseum.org/exhibitions/america-250/", use: "Current dated 2026 history exhibition and editorial expiration" }
+    ],
+    connections: [
+      { label: "Taylor County", href: "/county/taylor", reason: "Connect downtown Abilene and railroad-era history with other county visits." },
+      { label: "Frontier Texas", href: "/destination/frontier-texas", reason: "Compare early frontier interpretation with The Grace's hotel and art history." },
+      { label: "Texas museums", href: "/explore/museums", reason: "Explore history and art museums with their own admission and opening schedules." }
+    ],
+  },
   "frontiers-of-flight-museum-dallas": {
       name: "Frontiers of Flight Museum",
       slug: "frontiers-of-flight-museum-dallas",
