@@ -346,7 +346,7 @@ function DestinationPage() {
 
     {isHotelPasoDelNorte && destination.gallery?.[0] && (
       <section aria-labelledby="hotel-paso-dome-photos" className="border-b border-border bg-surface">
-        <Container className="grid gap-8 py-10 md:py-14 lg:grid-cols-[minmax(0,1.45fr)_minmax(17rem,.75fr)] lg:items-center">
+        <Container className="grid gap-8 py-12 lg:grid-cols-[minmax(0,1.65fr)_minmax(260px,.75fr)] lg:items-center">
           <figure className="min-w-0">
             <img
               src={editorialImageSrc(destination.gallery[0].image.src)}
@@ -355,7 +355,7 @@ function DestinationPage() {
               height={destination.gallery[0].image.height}
               loading="eager"
               decoding="async"
-              className="aspect-[3/2] w-full rounded-sm bg-background object-contain"
+              className="h-auto w-full bg-background object-contain"
               onError={(event) => recoverOrHideImage(event.currentTarget)}
             />
             <figcaption className="mt-3 space-y-2 text-sm leading-6 text-muted-foreground">
@@ -368,7 +368,7 @@ function DestinationPage() {
           <div className="min-w-0">
             <p className="eyebrow text-primary">Inside the Dome Bar</p>
             <h2 id="hotel-paso-dome-photos" className="mt-3 font-display text-3xl leading-tight md:text-4xl">Two views of the historic stained-glass dome</h2>
-            <p className="mt-4 text-base leading-7 text-foreground/85">
+            <p className="mt-4 text-base leading-7 text-foreground/90">
               The opening photo is a 2015 CC0 overhead view. This wider Library of Congress photograph, taken by Carol M. Highsmith in 2014, shows how the dome relates to the room's ornate interior. Both predate the hotel's 2020 restoration and should not be confused with current booking photographs.
             </p>
             <p className="mt-4 text-sm leading-6 text-muted-foreground">
