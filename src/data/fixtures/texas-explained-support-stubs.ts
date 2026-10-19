@@ -9,7 +9,7 @@ export const texasRiverBasinsGuideStub: Article = {
   category: "lakes-rivers",
   hero: {
     src: "/images/editorial/texas-river-basins.jpg",
-    alt: "Guadalupe River flowing through a wooded Texas river corridor",
+    alt: "AI-generated editorial depiction of a wooded Texas river corridor illustrating watershed drainage",
     width: 1600,
     height: 1115,
     credit: "AI-generated editorial illustration · Texas Defined (Cloudflare Workers AI / FLUX.1 schnell)",
