@@ -82,6 +82,10 @@ test("Dallas town pages use independently sourced road time rather than straight
   const longer = selectMetroProximityTownReferences(dallas, three);
   assert.ok(longer.some((row) => row.town.slug === "jefferson"), "Jefferson has an official source even if its authority destination is missing");
   assert.equal(isMetroProximityCollectionIndexReadyWithTownReferences([], dallas, one), true, "official visitor sources meet the protected indexing floor");
+  assert.equal(isMetroProximityCollectionIndexReadyWithTownReferences([], dallas, two), true, "two-hour road trips stay index-eligible even when live catalog is sparse");
+  assert.equal(isMetroProximityCollectionIndexReadyWithTownReferences([], dallas, three), true, "three-hour road trips retain six distinct towns and three counties");
+  assert.ok(new Set(selectMetroProximityTownReferences(dallas, three).map((row) => row.town.county)).size >= 3);
+
 });
 
 test("duplicate destination slugs cannot inflate collection inventory", () => {
