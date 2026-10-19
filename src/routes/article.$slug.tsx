@@ -7,6 +7,7 @@ import { heritagePhotoRightsForPath } from "@/data/heritage-photo-license-links"
 import { ArticleBody, Byline } from "@/components/editorial/ArticleBody";
 import { EastTexasFoliageParkMap, EastTexasFoliagePhotoGallery } from "@/components/editorial/EastTexasFoliageMedia";
 import { ArticleCard } from "@/components/editorial/ArticleCard";
+import type { Article } from "@/data/types";
 import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
@@ -157,6 +158,22 @@ function articleDepartment(category: string): ArticleDepartment {
   if (category === "guides") return { name: "Guides", path: "/guides", usesExploreCategory: false };
   if (category === "texas-history" || category === "history") return { name: "History", path: "/texas-history", usesExploreCategory: false };
   return { name: "Explore", path: "/explore", usesExploreCategory: true };
+}
+
+// Keep recommendation imagery editorially distinct, even when several old
+// articles still point to one shared placeholder. Query-string sizes are not
+// distinct photographs; prefer fewer valid cards over repeated filler.
+function relatedWithDistinctHeroImages(related: Article[], current: Article): Article[] {
+  const seenSources = new Set<string>();
+  return related
+    .filter((item) => item.id !== current.id && (current.slug !== "east-texas-fall-colors" || /fall|autumn|foliage|park|road.trip/i.test(`${item.title} ${item.slug}`)))
+    .filter((item) => {
+      const source = item.hero.src.split("?")[0];
+      if (seenSources.has(source)) return false;
+      seenSources.add(source);
+      return true;
+    })
+    .slice(0, 3);
 }
 
 function articleText(article: { title: string; dek: string; body: Array<{ type: string; text?: string; items?: string[] }> }) {
@@ -589,6 +606,6 @@ function ArticlePage() {
       <a className="border border-border p-5 text-primary hover:underline" href="/article/hill-country-fall-colors">Hill Country fall color →</a>
       <a className="border border-border p-5 text-primary hover:underline" href="/article/texas-fall-foliage-road-trip">Fall foliage road trip →</a>
     </div></Container></Section>}
-    {!isTexasRiversArticle && !hideGenericRelatedRail && <Section tone="surface"><Container><SectionHeader eyebrow={isSixManFootballArticle ? "Keep exploring" : "From the magazine"} title={isSixManFootballArticle ? "More Texas high school football" : "More stories to read next"} /><ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">{related.filter((item) => item.id !== article.id && (article.slug !== "east-texas-fall-colors" || /fall|autumn|foliage|park|road.trip/i.test(`${item.title} ${item.slug}`))).slice(0, 3).map((item) => <li key={item.id}><ArticleCard article={item} size="compact" /></li>)}</ul><nav aria-label="Continue through this section" className="mt-10 border-t border-border pt-6"><div className="flex flex-wrap gap-x-7 gap-y-3"><Link to={department.path} className="eyebrow border-b border-primary py-1 text-primary">More from {department.name} →</Link>{department.usesExploreCategory && <Link to="/explore/$category" params={{ category: article.category }} className="eyebrow border-b border-primary py-1 text-primary">Browse {categoryName} →</Link>}</div></nav></Container></Section>}
+    {!isTexasRiversArticle && !hideGenericRelatedRail && <Section tone="surface"><Container><SectionHeader eyebrow={isSixManFootballArticle ? "Keep exploring" : "From the magazine"} title={isSixManFootballArticle ? "More Texas high school football" : "More stories to read next"} /><ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">{relatedWithDistinctHeroImages(related, article).map((item) => <li key={item.id}><ArticleCard article={item} size="compact" /></li>)}</ul><nav aria-label="Continue through this section" className="mt-10 border-t border-border pt-6"><div className="flex flex-wrap gap-x-7 gap-y-3"><Link to={department.path} className="eyebrow border-b border-primary py-1 text-primary">More from {department.name} →</Link>{department.usesExploreCategory && <Link to="/explore/$category" params={{ category: article.category }} className="eyebrow border-b border-primary py-1 text-primary">Browse {categoryName} →</Link>}</div></nav></Container></Section>}
   </article>;
 }
