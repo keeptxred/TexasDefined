@@ -79,7 +79,7 @@ export function District21TeamSeason({ schoolName }: { schoolName: string }) {
         </div>
       </dl>
       <div role="region" tabIndex={0} aria-label="Scrollable source-checked District 21 football games" className="mt-6 overflow-x-auto border-y border-border focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
-        <table className="w-full min-w-[37rem] text-left text-sm">
+        <table className="w-full min-w-[38rem] text-left text-sm">
           <thead className="border-b border-border text-xs uppercase tracking-wider text-muted-foreground">
             <tr>
               <th scope="col" className="px-3 py-3">Date</th>
