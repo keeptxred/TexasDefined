@@ -237,15 +237,15 @@ function McAllenFeaturedMap() {
     <p className="eyebrow text-primary">Map & current road routes</p>
     <h3 id="mcallen-featured-map" className="mt-2 font-display text-3xl">Choose any of the ten featured outings</h3>
     <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Choose an attraction to move the map pin, then open Google Maps for current road directions from central McAllen. Pins indicate approximate attractions, not guaranteed entry gates. Check the official operator before departing.</p>
-    <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)]">
-      <div className="grid auto-rows-min gap-2 sm:grid-cols-2" role="group" aria-label="Select a featured McAllen day trip on the map">
+    <div className="mt-6 grid gap-6 lg:grid-cols-2">
+      <div className="grid gap-2 sm:grid-cols-2" role="group" aria-label="Select a featured McAllen day trip on the map">
         {MCALLEN_EDITORIAL_TRIPS.map((stop) => <button type="button" key={stop.slug}
           aria-pressed={stop.slug === slug} onClick={() => setSlug(stop.slug)}
-          className={`min-h-12 border px-3 py-3 text-left text-sm font-semibold transition-colors ${stop.slug === slug ? "border-primary bg-primary text-primary-foreground" : "border-border bg-background hover:border-primary"}`}>{stop.title}</button>)}
+          className={`min-h-11 border px-3 py-3 text-left text-sm font-semibold transition-colors ${stop.slug === slug ? "border-primary bg-primary text-primary-foreground" : "border-border bg-background hover:border-primary"}`}>{stop.title}</button>)}
       </div>
       <div>
         <iframe key={trip.slug} title={`Interactive OpenStreetMap location of ${trip.title}`} src={mapUrl} loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade" className="h-80 w-full border border-border sm:h-[440px]" />
+          referrerPolicy="no-referrer-when-downgrade" className="h-80 w-full border border-border sm:h-96" />
         <p className="mt-2 text-xs text-muted-foreground">Map data © OpenStreetMap contributors. The embedded map shows one selected marker at a time.</p>
         <div className="mt-4 border-t border-border pt-4">
           <p className="font-display text-2xl">{trip.title}</p>
@@ -272,7 +272,7 @@ function McAllenDayTripsAuthority({ results }: { results: MetroProximityResult[]
           const catalogPhoto = results.find((row) => row.destination.slug === trip.slug)?.destination.hero;
           const photo = openPhoto ?? (catalogPhoto && !isDestinationPhotoPlaceholder(catalogPhoto.src) ? catalogPhoto : null);
           return <article key={trip.slug} className="border-t border-border pt-5">
-            {photo && <figure className="mb-5"><div className="aspect-[16/10] overflow-hidden bg-muted"><img loading={trip.slug === "quinta-mazatlan" ? "eager" : "lazy"} decoding="async" src={photo.src} alt={photo.alt || trip.title} width={1200} height={750} className="h-full w-full object-cover" onError={(event) => { event.currentTarget.closest("figure")?.classList.add("hidden"); }} /></div>
+            {photo && <figure className="mb-5"><div className="aspect-video overflow-hidden bg-muted"><img loading={trip.slug === "quinta-mazatlan" ? "eager" : "lazy"} decoding="async" src={photo.src} alt={photo.alt || trip.title} width={1200} height={750} className="h-full w-full object-cover" onError={(event) => { event.currentTarget.closest("figure")?.classList.add("hidden"); }} /></div>
               {photo.credit && <figcaption className="mt-2 text-xs leading-5 text-muted-foreground">Photo: {openPhoto ? <><a href={openPhoto.source} target="_blank" rel="noopener noreferrer" className="underline">{openPhoto.credit}</a> · <a href={openPhoto.license} target="_blank" rel="noopener noreferrer" className="underline">License</a></> : photo.credit}</figcaption>}</figure>}
             <p className="eyebrow text-primary">{trip.label}</p>
             <h3 className="mt-3 font-display text-2xl">{trip.title}</h3>
