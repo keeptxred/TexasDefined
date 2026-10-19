@@ -34,3 +34,7 @@ The school page `/texas-high-school-football-teams/boyd` links to `/county/wise`
 [MaxPreps' October 17 completed Boyd–Peaster game recap](https://www.maxpreps.com/news/fUut-PcoIkG0vnA3SOiEbg/football-recap-tough-loss-for-boyd.htm) reports **Peaster 44, Boyd 13**, placing the Yellowjackets at **2–5 through October 16**. The source-dated 1983 and 2004 UIL state championships and separate, unresolved first-party head-coach designation are preserved.
 
 This source-backed editorial correction does not establish a school-certified UIL final, image license, guaranteed stadium entrance, exact deployed commit or school-specific nine-dimension editorial/Chrome acceptance. Preserve this school's `DEPLOYED` status until acceptance evidence is recorded.
+
+## October 19, 2026 — first-party athletics director and third-party coaching roles
+
+[Boyd ISD's district leadership roster](https://boydisd.net/districtleadershipteam) confirms **Shawn Sparks athletic director**. [September 2026 MaxPreps Boyd staff](https://www.maxpreps.com/tx/boyd/boyd-yellowjackets/football/staff/) separately calls Sparks varsity head coach; Boyd's [football coaching page](https://boydisd.net/yellowjacketfootball) has a HEAD COACH image section but did not expose an independently readable official appointment name. The page now distinguishes roles without overclaiming school confirmation. Reported Peaster 44–13 October 16 result retained. No claimed image rights, gate details or final editorial signoff.

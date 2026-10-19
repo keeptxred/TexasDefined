@@ -20,7 +20,7 @@ describe('city-to-county relationship reference', () => {
     ['San Marcos', ['Hays', 'Caldwell', 'Guadalupe']],
     ['New Braunfels', ['Comal', 'Guadalupe']],
     ['Mesquite', ['Dallas', 'Kaufman']],
-    ['San Antonio', ['Bexar', 'Comal']],
+    ['San Antonio', ['Bexar', 'Comal', 'Medina']],
     ['Port Arthur', ['Jefferson', 'Orange']],
     ['Wichita Falls', ['Wichita', 'Archer', 'Clay']],
     ['Grand Prairie', ['Dallas', 'Ellis', 'Tarrant']],

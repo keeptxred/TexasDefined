@@ -979,3 +979,12 @@ jobs:
         env:
           PIPELINE_OUTCOME: ${{ job.status }}
         run: node scripts/ci/publish-github-status.mjs texasdefined-production "$PIPELINE_OUTCOME" "Production deploy and blocking runtime verification passed" "Production pipeline failed; see the GitHub job summary"
+
+  verify-gsc-manual-next-production:
+    name: Verify GSC manual-next production after deploy
+    needs: deploy
+    # Gate on full protected main deployment and verified Worker recovery ledger.
+    if: ${{ needs.deploy.result == 'success' && github.ref == 'refs/heads/main' }}
+    uses: ./.github/workflows/verify-gsc-manual-next-production.yml
+    permissions:
+      contents: read

@@ -28,6 +28,175 @@ export interface MuseumAuthorityDossier {
 
 /** Links are to exact, existing destinations or stable topic hubs, not guessed paths. */
 export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
+  "museum-of-south-texas-history-edinburg": {
+    name: "Museum of South Texas History", slug: "museum-of-south-texas-history-edinburg", county: "Hidalgo", city: "Edinburg", reviewed: "2026-10-19",
+    topics: ["borderland-history", "heritage-architecture", "historical-archives", "family-learning"],
+    whyVisit: "The Museum of South Texas History tells the interconnected story of the Rio Grande Valley, South Texas and northeastern Mexico rather than the history of a single city. An especially useful visit pairs the Rio Grande Legacy galleries with the original restored 1910 Hidalgo County Jail and the neighboring Will Looney Legacy Park, all on the same downtown Edinburg campus.",
+    visitorStrategy: "Use 200 North Closner Boulevard (Business US 281) beside the Hidalgo County courthouse, not the historic jail's separate old street identification. The operator lists Tuesday through Saturday 10 a.m.–5 p.m., Sunday 1–5 p.m. and Monday closed, with some holiday/event exceptions. Regular admission is $9 adults, $6 seniors 62+ with ID and students age 13+ with ID, $5 ages 4–12 and free ages three and younger; eligible active military tickets are $6 outside seasonal Blue Star benefits. Free Saturdays before noon exclude certain museum events. Free parking is offered on Closner Boulevard and in the Kuhn Street overflow lot; nearby courthouse spaces may be available weekends or evenings. Start with the jail and Rio Grande Legacy rather than assuming the research archives are included with a walk-up ticket; allow around 90 minutes to two hours for a selective general visit, as editorial guidance rather than an official duration.",
+    accessibility: "The museum states it is ADA accessible and has visitor parking near the entrance. The 1910 building and the adjacent landscaped park are separate physical experiences, so do not assume every historic stairwell, former cell room or outdoor path is step-free. Visitors who need a specific accessible route or assistance should ask staff at 956-383-6911 before traveling; verify outdoor weather and heat conditions during Rio Grande Valley summers.",
+    familiesAndGroups: "Families can make a short Texas-history route around the bilingual Rio Grande Legacy exhibits, jail stories and outdoor park. The operator publishes self-guided activities and fourth-/seventh-grade learning materials; several previously described hands-on offerings are conditional, so teachers should not promise every activity without checking. Kids may find the old jail's execution history intense; adults can choose age-appropriate parts of the exhibition. The archives reading room and specialist class tours require appointments, not the same access as regular family admission.",
+    researchValue: "Organized as the Hidalgo County Historical Museum in 1967 and opened in the old jail in 1970, the institution expanded into a region-wide history museum in 2003. Its Margaret H. McAllen Memorial Archives preserves photographs and documents useful for deeper South Texas research, but ordinary general admission does not entitle walk-in use. The Rio Grande Legacy sequence treats prehistoric landscape, Indigenous and Spanish colonial history, agriculture, the Mexican border and twentieth-century Valley transformations together.",
+    exhibits: [
+      { heading: "Rio Grande Legacy — River Frontier", detail: "A bilingual regional story beginning with landscape, Indigenous inhabitants and encounters that shaped the Spanish frontier." },
+      { heading: "Rio Grande Legacy — River Crossroads", detail: "A twentieth-century-focused gallery addressing major changes in the Valley and connections across the border." },
+      { heading: "Restored 1910 Hidalgo County Jail", detail: "The former jail is a genuine historic museum wing with the preserved gallows trap-door and the building's layered civic history." },
+      { heading: "Will Looney Legacy Park", detail: "An adjacent outdoor history-learning space with a bronze sculpture, windmill, local landscape elements and native-animal-footprint trails; check current outdoor access." },
+      { heading: "Margaret H. McAllen Memorial Archives", detail: "Photographs and documentary evidence of regional life for appointment-only researchers rather than a standard drop-in exhibition." }
+    ],
+    routes: [
+      { label: "First-visit regional history", steps: ["Park in the museum visitor lot on Closner Boulevard and confirm any current event-related entry rules", "Follow Rio Grande Legacy from the region's early history into the twentieth century", "Explore the restored jail wing if open, noting it is historic interpretation rather than a current facility"] },
+      { label: "Family and short outdoor break", steps: ["Choose age-appropriate highlights in the bilingual Rio Grande Legacy galleries", "Visit the old jail only if its heavier history suits the group", "Consider Will Looney Legacy Park as conditions permit and check available self-guided activities"] },
+      { label: "Research or school group", steps: ["Reserve reading-room research or archive group tours ahead; standard museum admission alone is insufficient", "Consult the self-guided fourth- and seventh-grade teaching resources", "Confirm what interactive and outdoor facilities are operating on your intended visit date"] }
+    ],
+    sources: [
+      { label: "Museum — visitor hours, pricing and parking", url: "https://mosthistory.org/visitor-information/", use: "Official hours, actual ticket tiers, Saturday exclusions, parking, ADA and photo rules" },
+      { label: "Museum — history and Rio Grande Legacy", url: "https://mosthistory.org/about-the-museum/", use: "Institution history, name, purpose and official exhibition divisions" },
+      { label: "Museum — restored jail history", url: "https://mosthistory.org/archive-artifact-collections/old-jail/", use: "1910 jail restoration, surviving features and civic-history interpretation" },
+      { label: "Museum — research archives", url: "https://mosthistory.org/archive-artifact-collections/museum-archives/", use: "Appointment-only archives, reading-room hours and group conditions" },
+      { label: "Museum — education and self-guided visits", url: "https://mosthistory.org/education/tour-activities/", use: "Current posted self-guided resources and conditional family activities" },
+      { label: "Museum — Will Looney Legacy Park", url: "https://mosthistory.org/signature-exhibitions/will-looney-legacy-park/", use: "What the actual museum park contains and interpretation" },
+      { label: "Museum — events and closures", url: "https://mosthistory.org/events/", use: "Check exceptions to regular visitor admission and hours" }
+    ],
+    connections: [
+      { label: "Hidalgo County", href: "/county/hidalgo", reason: "Place the Edinburg museum in its Rio Grande Valley county visitor context." },
+      { label: "Historic Brownsville Museum", href: "/destination/historic-brownsville-museum", reason: "Compare another Rio Grande Valley historic-building museum rather than treating this as a duplicate." },
+      { label: "Port Isabel Historical Museum", href: "/destination/port-isabel-historical-museum", reason: "Continue the regional history through the nearby Laguna Madre coastal perspective." },
+      { label: "Texas museum guides", href: "/explore/museums", reason: "Browse other Texas museums with independent ticket and destination planning." }
+    ],
+  },
+  "mcnay-art-museum-san-antonio": {
+    name: "McNay Art Museum", slug: "mcnay-art-museum-san-antonio", county: "Bexar", city: "San Antonio", reviewed: "2026-10-19",
+    topics: ["modern-art", "architecture", "sculpture", "family-learning"],
+    whyVisit: "The McNay is not merely an indoor gallery: it joins the Spanish Colonial Revival residence designed for Marion Koogler McNay, a large modern-art collection and a landscaped 25-acre sculpture campus in north-central San Antonio. The intimate original house, newer exhibition spaces and changing installations offer quite different experiences in one visit.",
+    visitorStrategy: "Enter at 6000 North New Braunfels Avenue, not a downtown River Walk museum address. Official hours are Wednesday 10 a.m.–6 p.m., Thursday 10 a.m.–9 p.m., Friday 10 a.m.–6 p.m., Saturday 10 a.m.–5 p.m. and Sunday noon–5 p.m.; closed Monday and Tuesday. Free parking is available in several campus lots. The current ticket table includes $23 general admission with the special exhibition, $10 for ages 13–19 and free entry for ages 12 and younger. General admission is free Thursdays 4–9 p.m. and the first Sunday of each month noon–5 p.m., but special exhibition entry costs $10 at those times. Budget 90 minutes for selected galleries, or two or more hours if adding the sculpture grounds. A currently operating on-site café or full-service restaurant has not been verified, so plan meals separately rather than assuming food is available. Check day-of tickets, holiday closures and individual exhibitions before travel.",
+    accessibility: "The museum confirms designated accessible parking, an accessible entrance, elevators and loan wheelchairs available through visitor services. Most galleries are wheelchair accessible, but some areas may require additional assistance, especially within the historic estate. Request route-specific access or other accommodations from the museum at 210-824-5368 before a visit; do not assume every outdoor sculpture path is uniformly level.",
+    familiesAndGroups: "This can suit art-interested teens and younger children when adults choose a short gallery route, outdoor breaks and age-appropriate exhibitions; it is not an indoor playground. Children must remain accompanied by adults, artwork must not be touched, and some works or temporary shows may require additional context. Free admission for children 12 and younger can help families; the operator has separate paid and advance-arranged tour options. Visitors seeking a sensory-specific accommodation should ask staff rather than assuming a particular support exists.",
+    researchValue: "The museum opened in 1954, a distinctive early Texas modern-art institution built from Marion Koogler McNay's home and collection. Its online collection contains far more than is on display at a given moment; galleries on works on paper, modern painting and theater arts and temporary exhibitions rotate. Compare a house-gallery experience with the museum's later Stieren Center and sculpture garden instead of treating the online holdings as an on-view checklist.",
+    exhibits: [
+      { heading: "Original Spanish Colonial Revival residence", detail: "The 1920s McNay house and courtyard explain how a domestic art collection became a public museum, with the architecture part of the visitor experience." },
+      { heading: "Modern and contemporary collection", detail: "European and American painting and sculpture are presented through rotating selections, not the entirety of the museum's extensive collection." },
+      { heading: "Works on paper and theater arts", detail: "Specialized drawings, prints and stage-related material broaden the visit beyond easel painting; verify which galleries are currently open." },
+      { heading: "Sculpture campus and courtyards", detail: "The 25-acre grounds create a distinct outdoor component; do not touch the sculptures and prepare for Texas sun and changing weather." },
+      { heading: "Two Faced: artists' portraits (dated)", detail: "Listed by the museum for September 3, 2026–March 14, 2027; confirm still on view for the selected day." },
+      { heading: "A People's History: the American Experiment on Stage (dated)", detail: "Stage design and American history exhibition announced through November 8, 2026; not an evergreen permanent gallery." }
+    ],
+    routes: [
+      { label: "90-minute first visit", steps: ["Park at an official McNay lot and confirm today's featured galleries", "See the historic residence and a short selection of modern art", "Finish with a weather-appropriate courtyard or sculpture walk"] },
+      { label: "Budget-friendly free-admission outing", steps: ["Plan for Thursday after 4 p.m. or the first Sunday of the month", "Ask whether a $10 special exhibition supplement applies to anything on your list", "Choose the free general galleries and grounds without assuming every special exhibition is included"] },
+      { label: "Families and access planning", steps: ["Check visitor policies and ask in advance about mobility or sensory needs", "Use short gallery blocks and the free parking lots", "Use the grounds for breaks and keep children with an adult near artworks"] }
+    ],
+    sources: [
+      { label: "McNay — hours, admissions, free-day policy and access", url: "https://www.mcnayart.org/visit/", use: "Opening hours, pricing, grounds schedule, free offers, phone and accommodation caveats" },
+      { label: "McNay — visitor FAQ", url: "https://www.mcnayart.org/frequently-asked-questions/", use: "Parking, photography, elevators, sketching and first-Sunday policies" },
+      { label: "McNay — visitor policies", url: "https://www.mcnayart.org/general-information/", use: "Children, service animals, bags and photography restrictions" },
+      { label: "McNay — exhibitions", url: "https://www.mcnayart.org/exhibitions/", use: "Dated 2026–27 temporary exhibitions; not permanent collections" },
+      { label: "McNay — tour FAQs", url: "https://www.mcnayart.org/adult-tours/", use: "Booked tours, separate ticket rates and limited tour duration" }
+    ],
+    connections: [
+      { label: "Bexar County", href: "/county/bexar", reason: "Place the museum in the county's arts and heritage context." },
+      { label: "San Antonio Museum of Art", href: "/destination/san-antonio-museum-of-art", reason: "Compare McNay's historic estate and modern holdings with a downtown museum." },
+      { label: "Witte Museum", href: "/destination/witte-museum", reason: "Build a family day around different art, natural-science and regional-history experiences." },
+      { label: "Texas museum guides", href: "/explore/museums", reason: "Discover additional researched Texas museum visitor guides." }
+    ],
+  },
+  "texas-military-forces-museum": {
+    name: "Texas Military Forces Museum", slug: "texas-military-forces-museum", county: "Travis", city: "Austin", reviewed: "2026-10-19",
+    topics: ["military-history", "texas-history", "national-guard", "family-learning"],
+    whyVisit: "The Texas Military Forces Museum inside Camp Mabry is an unusual free Austin history stop on an active National Guard installation. Rather than a general war memorial, it explains how Texas militia, volunteer troops, the Texas Army and Air National Guard, and the Texas State Guard developed through the Republic era, world wars and modern service, using original vehicles, uniforms, dioramas and soldiers' stories.",
+    visitorStrategy: "The museum itself is open daily 10 a.m.–4 p.m. with free admission and parking, but visiting is not a normal walk-up street entrance. Adult visitors must complete security screening at Camp Mabry's 35th Street Gate Visitor Control Center, using Maintenance Drive; the Center closes at 3 p.m. every day. The Texas Military Department now specifies a REAL ID or U.S. passport, plus vehicle details and proof of insurance. Weekday VCC hours begin at 7 a.m., weekend VCC hours 8 a.m.; both close at 3 p.m. Be at the gate well before 3 p.m., and check entry requirements on the day. The museum's postal address is 2200 W 35th Street; GPS directions may use 3038 W 35th Street. Museum visitor access is discretionary, and the operating museum is in Building 6, not at the gate. Allow 90 minutes to two hours for principal galleries, plus additional screening time. No restaurant, café or other food service has been verified inside the museum itself.",
+    accessibility: "The operator offers a telephone for special entry accommodations at 512-782-5659. The detailed public visitor-access page explains base clearance rather than establishing every museum gallery's wheelchair, sensory or hearing facilities. Visitors requiring a specific entrance, wheelchair route or interpretation accommodation should call ahead; do not equate installation approval with confirmed gallery accessibility.",
+    familiesAndGroups: "Families interested in vehicles, history and military service can use the large displays for a child-friendly introduction, but wartime weapons, casualties and violent history may be intense for younger children. No one may touch or climb display vehicles and tanks, whether indoors or outside. Adult visitors aged 18 or older must be screened; school and other groups should arrange their entrance with the host at least five business days in advance. Guided museum tours are free with donations welcomed and typically last 1.5–2 hours, adjusted with advance notice. The active installation's security rules override a normal museum outing.",
+    researchValue: "Permanent interpretive areas trace Texas forces from early settlement and the Texas Revolution through the Mexican War, Civil War, twentieth-century conflicts, Cold War and modern Guard operations. Different current operator pages describe the museum as 26,000 or 45,000 square feet: these conflicting display/facility measurements are not used to promise exhibit scale. The museum is not a substitute for its archival collection or military service records, which should be requested from the institution itself.",
+    exhibits: [
+      { heading: "Texas militia and Republic-era service", detail: "Early citizen-soldier formations, Texas independence and the transition from volunteer service to organized Guard forces form a distinctive Texas chronology." },
+      { heading: "36th Infantry Division in world conflict", detail: "Uniforms, photographs and contextual wartime stories illuminate Texas soldiers' roles in the two world wars without promising that every artifact is always on display." },
+      { heading: "Military vehicles and outdoor displays", detail: "Tanks, trucks and other large equipment create a memorable view of military technology; exhibits must not be climbed or touched." },
+      { heading: "Texas Air National Guard and State Guard", detail: "Contrasts the federally recognized Air and Army Guard with Texas State Guard responsibilities and state emergency response." },
+      { heading: "Living-history activities and reenactments", detail: "Event weekends add educational demonstrations; they are occasional programs with separate schedules, not guaranteed features of an ordinary museum visit." }
+    ],
+    routes: [
+      { label: "One-and-a-half-hour first visit", steps: ["Review the current Camp Mabry gate rules and bring an acceptable ID, vehicle details and insurance", "Complete VCC screening well before 3 p.m. and travel to Building 6", "Select Texas Revolution, 36th Division and Guard galleries, then leave time for vehicles if open"] },
+      { label: "Families and vehicle enthusiasts", steps: ["Explain no-climbing rules before children see tanks and weapons", "Explore large vehicle exhibits and a short, age-appropriate chronological section", "Check weather and return to town for a separately planned meal"] },
+      { label: "Organized school or history group", steps: ["Contact museum and base in advance, providing group access information at least five business days ahead", "Confirm adult chaperones' identification, bus access and special accommodations", "Plan a supervised free guided visit of roughly 1.5–2 hours"] }
+    ],
+    sources: [
+      { label: "Texas Military Forces Museum — official hours and entry information", url: "https://texasmilitaryforcesmuseum.org/", use: "Daily 10–4 schedule, free admission, gate cutoff, museum and GPS addresses" },
+      { label: "Texas Military Department — Camp Mabry visitor access", url: "https://tmd.texas.gov/camp-mabry-visitor-access-information", use: "REAL ID, screening, weekends, foreign national restrictions and group lead time" },
+      { label: "Texas Military Department — museum", url: "https://tmd.texas.gov/museum", use: "Institutional oversight and museum exhibits" },
+      { label: "Museum — guided group tour instructions", url: "https://texasmilitaryforcesmuseum.org/?page_id=107", use: "Tour duration, hands-off exhibits, ID and group guidance" },
+      { label: "Museum — about, history and directions", url: "https://texasmilitaryforcesmuseum.org/?page_id=13", use: "Museum location, opening hours, interpretation and public entry" }
+    ],
+    connections: [
+      { label: "Travis County", href: "/county/travis", reason: "Connect Camp Mabry with the state's capital and local history." },
+      { label: "Bullock Texas State History Museum", href: "/destination/bullock-texas-state-history-museum", reason: "Compare a broad statewide story with the military collections." },
+      { label: "Texas State Capitol", href: "/destination/texas-state-capitol", reason: "Connect the state's military history with the civic setting of Austin." },
+      { label: "Explore Texas museums", href: "/explore/museums", reason: "Find other source-backed Texas museum guides." }
+    ],
+  },
+  "menil-collection-houston": {
+    name: "The Menil Collection", slug: "menil-collection-houston", county: "Harris", city: "Houston", reviewed: "2026-10-19",
+    topics: ["art", "architecture", "surrealism", "cultural-history"],
+    whyVisit: "The Menil Collection is a free, neighborhood-scale art campus in Houston's Montrose area rather than a single giant conventional museum. John and Dominique de Menil's independent foundation developed a collection encompassing modern and contemporary art, Surrealism and artworks from across cultures; Renzo Piano's 1987 main building, satellite galleries and shaded green spaces are part of the visit.",
+    visitorStrategy: "The museum's current public schedule is Wednesday through Sunday from 11 a.m. to 7 p.m., closed Monday and Tuesday, with free admission to the art buildings. Start at the main building, 1533 Sul Ross Street. The main free parking lot is at 1515 West Alabama Street, with another next to Richmond Hall at 1500 Richmond Avenue and limited street parking in the residential area. The 30-acre campus contains separate buildings that may have individual gallery closures; review Menil's current On View and campus listings. Allow 75–120 minutes for one or two galleries, or a longer, self-paced visit to multiple separate buildings.",
+    accessibility: "The Menil publishes accessible entrances at all its art buildings, accessible parking in both designated lots, loan wheelchairs in limited supply, and admission for trained service animals on a leash. It does not claim that each outdoor route across its neighborhood is equally shaded or level; arrange specific accommodations and request a wheelchair ahead through visitor services at 713-525-9400.",
+    familiesAndGroups: "Families may bring strollers and use the green spaces between buildings, but food, drinks and photography are prohibited in the art galleries. Groups larger than 15 are encouraged to reserve; groups of 30 or more should provide at least a week's notice and school groups need one adult for every ten students. Menil explicitly does not provide guided tours or permit gallery lectures, so an external guide should not promise a museum docent-led experience.",
+    researchValue: "The Menil Foundation began in 1954 and the main museum opened in 1987. The collection now holds more than 25,000 artworks, yet a large collection count is not the number displayed on any given day. Compare the distinct spaces—the main galleries, Drawing Institute, Cy Twombly Gallery and Dan Flavin installation at Richmond Hall—through their own architecture and art rather than conflating them with nearby independent Rothko Chapel. Gallery guides in English and Spanish help visitors who expect conventional wall labels.",
+    exhibits: [
+      { heading: "Renzo Piano main museum building", detail: "Intimately scaled, daylit galleries, Surrealism and works across ancient to contemporary periods present a non-encyclopedic art encounter." },
+      { heading: "Menil Drawing Institute", detail: "A dedicated satellite building for drawing research and exhibitions; current displays and programs are not necessarily the same as main-building shows." },
+      { heading: "Cy Twombly Gallery", detail: "A separate art gallery on Branard Street with its own focus and entrance; plan walking time between sites." },
+      { heading: "Dan Flavin Installation at Richmond Hall", detail: "Permanent light-based art encountered in a distinct Richmond Avenue building, rather than in the main museum; confirm that it is open on the chosen day." },
+      { heading: "Green spaces and neighborhood setting", detail: "The 30-acre landscaped campus and surrounding residential fabric frame the art and architecture, especially pleasant in milder weather." }
+    ],
+    routes: [
+      { label: "Free main-building essentials", steps: ["Park at 1515 West Alabama and enter the main building at 1533 Sul Ross", "Explore current main galleries and use free bilingual guides as useful", "Walk the green spaces without assuming other galleries share today's schedule"] },
+      { label: "Multiple-campus-building afternoon", steps: ["Check the Menil website for current hours at each separate building", "Tour the main collection and Menil Drawing Institute", "Walk to the Cy Twombly Gallery, then Richmond Hall only if its installation is open"] },
+      { label: "Family or student group", steps: ["Reserve in advance when group size requires it; school chaperone ratio is one for ten", "Use stroller-friendly museum entrance routes and observe no gallery photography", "Choose a limited number of galleries and outdoor breaks instead of a lecture inside"] }
+    ],
+    sources: [
+      { label: "Menil Collection — plan your visit", url: "https://www.menil.org/visit", use: "Official free admission, current hours, parking, photography policy and access" },
+      { label: "Menil Collection — campus", url: "https://www.menil.org/campus", use: "Exact campus buildings and separate gallery identities" },
+      { label: "Menil Collection — about", url: "https://www.menil.org/about", use: "Founders, 1954 foundation, 1987 main opening and collection" },
+      { label: "Menil Collection — school group guidelines", url: "https://www.menil.org/group-visit-and-educator-guidelines", use: "Group sizes, reservation advance notice, chaperones and lecturer restrictions" }
+    ],
+    connections: [
+      { label: "Harris County", href: "/county/harris", reason: "Explore the Houston neighborhood, cultural institutions and county attractions." },
+      { label: "Museum of Fine Arts, Houston", href: "/destination/museum-of-fine-arts-houston", reason: "Compare a large encyclopedic art campus with the Menil's free smaller spaces." },
+      { label: "Texas museums", href: "/explore/museums", reason: "Find more Texas art and historic museums without combining admissions." }
+    ],
+  },
+  "grace-museum-abilene": {
+    name: "The Grace Museum", slug: "grace-museum-abilene", county: "Taylor", city: "Abilene", reviewed: "2026-10-19",
+    topics: ["art", "west-texas-history", "railroad-heritage", "education"],
+    whyVisit: "The Grace Museum tells more than one Abilene story in the restored 1909 Hotel Grace near the former Texas and Pacific rail corridor. It combines American art, West Texas history, historic period rooms and interactive family learning while retaining the architecture of the railroad-era hotel. Its newer Spark Science Center is a SECOND location in Abilene and should not be mistaken for another floor of the downtown museum.",
+    visitorStrategy: "At 102 Cypress Street in downtown Abilene, The Grace Museum posts Tuesday–Saturday hours of 10 a.m.–5 p.m., closing Sundays and Mondays, and free Thursday evenings 5–8 p.m. Regular adult tickets are $10; children age 4 and older, seniors age 65+, students, educators and veterans are listed at $7; children younger than four, members and active-duty military families enter free subject to published ID rules. The museum also operates Spark Science Center at 1620 South 3rd Street with separate admission ($14 adult / $8 reduced categories); the same-day combo ticket currently costs $20 adults / $10 reduced categories. Verify before travel or purchase. Two museum parking areas are adjacent along North 1st Street.",
+    accessibility: "The operator confirms an accessible ramp on the North 1st Street side of the Grace Museum building, an elevator to all floors, accessible restrooms and a wheelchair on request at its Lobby Desk. Noise-cancelling headphones are also available at the Spark desk on the museum's second floor. The separate Spark Science Center is ground-level with accessible south-end entrance and restrooms; do not assume the same ramp, parking lot or address applies to both.",
+    familiesAndGroups: "The Grace Museum has family learning alongside galleries of American art and West Texas history, including reconstructed 1910, 1928 and 1948 living environments. Specially booked school group tours have their own $5 price and advance scheduling, distinct from walk-up family admission. A family prioritizing hands-on STEAM experiences may instead want the separately ticketed Spark Science Center at Abilene Heritage Square; the official combo covers both locations only on the same day.",
+    researchValue: "Hotel Grace was built in 1909 for travelers using the Texas and Pacific Railway, and the adapted museum became an anchor of downtown revival after 1992. Historic rooms on the third floor depict three distinct domestic eras, while changing exhibitions use permanent museum material and community loans to interpret Abilene's art and history. The operator's 2026 America 250 exhibition (January 17–November 28) connects local communities to national history; dated shows should be reverified after they close rather than appearing permanently available.",
+    exhibits: [
+      { heading: "1909 Hotel Grace architecture", detail: "The historic hotel built for Texas and Pacific rail travelers is a key exhibit in itself, connecting downtown Abilene's growth and reuse of historic buildings." },
+      { heading: "Art galleries and changing installations", detail: "American fine art and regional exhibitions move through the downtown museum and should be checked against the current exhibition calendar." },
+      { heading: "Third-floor historic period rooms", detail: "Recreated parlors and kitchens represent Abilene domestic life in 1910, 1928 and 1948, contextualizing the city's transition through multiple decades." },
+      { heading: "History galleries and America 250", detail: "The 2026 community-history exhibition runs January 17–November 28, not indefinitely, and explores local experiences in a broader American story." },
+      { heading: "Spark interactive learning at two locations", detail: "The downtown museum offers a Spark gallery on its second floor, while a separate Spark Science Center at 1620 South 3rd focuses on STEAM programming and requires different or combo tickets." }
+    ],
+    routes: [
+      { label: "Downtown museum in ninety minutes", steps: ["Enter the historic 102 Cypress Street Hotel Grace building", "Explore changing art galleries and 3rd-floor period rooms", "Finish with a historic downtown walk if weather permits"] },
+      { label: "Two-location family learning day", steps: ["Confirm both venues and same-day combo admission before buying", "Start with art and West Texas history at The Grace Museum", "Travel separately to 1620 South 3rd Street for Spark Science Center's hands-on programming"] },
+      { label: "Free Thursday evening visit", steps: ["Verify that Thursday night's 5–8 p.m. free admission applies on the chosen date", "Focus on the downtown galleries open during the event", "Do not assume the separate Spark Science Center also waives admission"] }
+    ],
+    sources: [
+      { label: "The Grace Museum — two locations, schedules and accessibility", url: "https://thegracemuseum.org/about/", use: "Specific opening hours, age brackets, two venues, ticket combinations, parking, ramp, wheelchair and elevators" },
+      { label: "The Grace Museum — history galleries", url: "https://thegracemuseum.org/history/", use: "Period rooms and West Texas history programs" },
+      { label: "The Grace Museum — art exhibitions", url: "https://thegracemuseum.org/art/", use: "Rotating art shows and core museum collections" },
+      { label: "The Grace Museum — America 250 exhibition dates", url: "https://thegracemuseum.org/exhibitions/america-250/", use: "Current dated 2026 history exhibition and editorial expiration" }
+    ],
+    connections: [
+      { label: "Taylor County", href: "/county/taylor", reason: "Connect downtown Abilene and railroad-era history with other county visits." },
+      { label: "Frontier Texas", href: "/destination/frontier-texas", reason: "Compare early frontier interpretation with The Grace's hotel and art history." },
+      { label: "Texas museums", href: "/explore/museums", reason: "Explore history and art museums with their own admission and opening schedules." }
+    ],
+  },
   "frontiers-of-flight-museum-dallas": {
       name: "Frontiers of Flight Museum",
       slug: "frontiers-of-flight-museum-dallas",

@@ -14,6 +14,430 @@ export interface MuseumVisitorFaq {
   reviewed: string;
 }
 export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
+  "museum-of-south-texas-history-edinburg": [
+    {
+      "question": "What are the Museum of South Texas History's regular admission prices?",
+      "answer": "The current museum-operated price table lists adults 18 and older at $9, seniors 62 and older with ID at $6, students 13 and older with ID at $6, children ages 4–12 at $5, and children 3 and younger free. Active military with ID is listed at $6, with a seasonal Blue Star Museums exception; check the ticket page for your date.",
+      "verificationUrl": "https://mosthistory.org/visitor-information/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://mosthistory.org/visitor-information/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    },
+    {
+      "question": "Is the museum free on Saturday mornings in Edinburg?",
+      "answer": "Regular admission is free before noon on Saturdays, but the museum explicitly excludes certain special events and programming. Do not treat an evening event or other separately ticketed program as free; check the current events calendar before making a trip expressly for free admission.",
+      "verificationUrl": "https://mosthistory.org/visitor-information/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://mosthistory.org/visitor-information/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    },
+    {
+      "question": "Is Museum of South Texas History open on Sundays or Mondays?",
+      "answer": "The posted public hours are Tuesday through Saturday from 10 a.m. to 5 p.m. and Sunday from 1 to 5 p.m. The museum is closed on Mondays, major holidays and some event dates. If you are planning a long drive, confirm special closures on the official calendar before leaving.",
+      "verificationUrl": "https://mosthistory.org/visitor-information/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://mosthistory.org/visitor-information/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    },
+    {
+      "question": "Where can I park to visit the museum on Closner Boulevard?",
+      "answer": "The operator identifies two free visitor lots: its main lot on Closner Boulevard (Business US 281) and an overflow lot on Kuhn Street north of the museum. Hidalgo County Courthouse parking on McIntyre Street may provide additional spaces during weekends or evening events, subject to local availability and signage.",
+      "verificationUrl": "https://mosthistory.org/visitor-information/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://mosthistory.org/visitor-information/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    },
+    {
+      "question": "Can visitors enter the original 1910 Hidalgo County Jail?",
+      "answer": "Yes, the preserved 1910 jail is part of the museum campus, with interpretation of the former cells, jailer's quarters and surviving gallows trap-door. The museum describes a substantial 2017–2019 restoration; this is a historic part of the visit, not a still-operating detention facility. Verify access to a particular room before travel.",
+      "verificationUrl": "https://mosthistory.org/archive-artifact-collections/old-jail/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://mosthistory.org/archive-artifact-collections/old-jail/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    },
+    {
+      "question": "What is the Rio Grande Legacy exhibition about?",
+      "answer": "The museum's Rio Grande Legacy sequence interprets South Texas and northeastern Mexico as a connected borderland. Sections called River Frontier and River Crossroads explore landscape, Indigenous peoples, Spanish settlement and twentieth-century change; consult the museum about any galleries temporarily unavailable during an exhibition changeover.",
+      "verificationUrl": "https://mosthistory.org/about-the-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://mosthistory.org/about-the-museum/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    },
+    {
+      "question": "Do I need an appointment to use the Margaret H. McAllen Memorial Archives?",
+      "answer": "Yes. Reading-room access is separate from ordinary exhibition admission and requires a research appointment. The museum posts appointment availability Tuesday through Friday, 9 a.m. to noon and 1 to 4 p.m., and asks researchers to contact archives@mosthistory.org. Class archive tours need advance arrangements, not drop-in walkups.",
+      "verificationUrl": "https://mosthistory.org/archive-artifact-collections/museum-archives/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://mosthistory.org/archive-artifact-collections/museum-archives/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    },
+    {
+      "question": "Does the museum offer activities for schoolchildren or self-guided family visits?",
+      "answer": "The museum publishes a self-guided visit PDF and learning materials for fourth- and seventh-grade Texas history, plus selected hands-on activities. Some interactive items are conditional or described on older museum pages, so teachers and parents should confirm current access before promising a specific activity to children.",
+      "verificationUrl": "https://mosthistory.org/education/tour-activities/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://mosthistory.org/education/tour-activities/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    },
+    {
+      "question": "Is the Museum of South Texas History accessible for wheelchair users?",
+      "answer": "The museum's visitor-information page states that the facility is ADA accessible. That is not a guarantee that every surface in the historic jail or landscaped outdoor park is level; visitors requiring a particular doorway, route, lift or assistance should telephone 956-383-6911 before visiting.",
+      "verificationUrl": "https://mosthistory.org/visitor-information/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://mosthistory.org/visitor-information/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    },
+    {
+      "question": "Can I take museum photos and publish them commercially?",
+      "answer": "The museum allows certain handheld cameras and devices for ordinary visits but restricts tripods, lighting rigs and professional equipment. Its permission form specifically distinguishes personal shoots from commercial/promotional production, which requires direct permission. The independently photographer-licensed 2021 exterior jail photo used by TexasDefined has its own CC BY 4.0 rights and is not museum marketing imagery.",
+      "verificationUrl": "https://mosthistory.org/visitor-information/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://mosthistory.org/visitor-information/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    }
+  ],
+  "mcnay-art-museum-san-antonio": [
+      {
+          "question": "Does the McNay Art Museum have free parking?",
+          "answer": "Yes. The McNay says its 25-acre campus has multiple free public parking lots, with accessible spaces indicated on its visitor map. Do not confuse its north-central San Antonio address with downtown River Walk parking.",
+          "verificationUrl": "https://www.mcnayart.org/frequently-asked-questions/",
+          "questionOrigin": "museum-faq",
+          "questionEvidenceUrl": "https://www.mcnayart.org/frequently-asked-questions/",
+          "reviewCycle": "monthly",
+          "reviewed": "2026-10-19"
+      },
+      {
+          "question": "When are the McNay's free-admission hours, and do they cover special exhibitions?",
+          "answer": "General admission is free on Thursdays from 4 to 9 p.m. and the first Sunday of each month from noon to 5 p.m. The museum currently charges an additional $10 for special exhibition access during those free windows, so decide which galleries you want to see before booking.",
+          "verificationUrl": "https://www.mcnayart.org/visit/",
+          "questionOrigin": "museum-faq",
+          "questionEvidenceUrl": "https://www.mcnayart.org/visit/",
+          "reviewCycle": "monthly",
+          "reviewed": "2026-10-19"
+      },
+      {
+          "question": "How much does admission cost for teens, children and adults at the McNay?",
+          "answer": "The October 2026 official table lists general admission with special exhibition at $23, teens 13–19 at $10, and children 12 and younger free. The museum lists further qualifying discounts and free categories; always verify the live ticket screen for your visit date.",
+          "verificationUrl": "https://www.mcnayart.org/visit/",
+          "questionOrigin": "editorial-research",
+          "questionEvidenceUrl": "https://www.mcnayart.org/visit/",
+          "reviewCycle": "monthly",
+          "reviewed": "2026-10-19"
+      },
+      {
+          "question": "Can visitors photograph the McNay galleries and outdoor sculpture?",
+          "answer": "Informal, flash-free photography for personal use is generally allowed in galleries unless the specific exhibition or work forbids it. Ask staff before photographing; staged or professional photography is subject to separate rules, and permission to photograph is not permission to reuse copyrighted artworks commercially.",
+          "verificationUrl": "https://www.mcnayart.org/frequently-asked-questions/",
+          "questionOrigin": "museum-faq",
+          "questionEvidenceUrl": "https://www.mcnayart.org/frequently-asked-questions/",
+          "reviewCycle": "monthly",
+          "reviewed": "2026-10-19"
+      },
+      {
+          "question": "Are wheelchairs and accessible routes available at the McNay?",
+          "answer": "The McNay states that accessible parking, an accessible entrance, elevators and loan wheelchairs are available. Most galleries are accessible, but some areas can require extra help. Contact visitor services about specific routes or accommodations before making the trip.",
+          "verificationUrl": "https://www.mcnayart.org/visit/",
+          "questionOrigin": "museum-faq",
+          "questionEvidenceUrl": "https://www.mcnayart.org/visit/",
+          "reviewCycle": "monthly",
+          "reviewed": "2026-10-19"
+      },
+      {
+          "question": "How much time should I allow for the McNay residence and sculpture grounds?",
+          "answer": "A focused 90-minute visit is a reasonable editorial plan for a few galleries and the residence; allow two hours or longer if you also want the sculpture campus and temporary exhibitions. These are planning suggestions, not museum-mandated tour durations, and the weather affects outdoor time.",
+          "verificationUrl": "https://www.mcnayart.org/visit/",
+          "questionOrigin": "editorial-research",
+          "questionEvidenceUrl": "https://www.mcnayart.org/visit/",
+          "reviewCycle": "monthly",
+          "reviewed": "2026-10-19"
+      },
+      {
+          "question": "Are pets allowed on the McNay grounds or in the art galleries?",
+          "answer": "The museum permits leashed pets on its outdoor grounds, while only service animals may enter the galleries. Keep animals under control around sculpture and visitors, and consult visitor services if an assistance-animal accommodation requires clarification.",
+          "verificationUrl": "https://www.mcnayart.org/general-information/",
+          "questionOrigin": "editorial-research",
+          "questionEvidenceUrl": "https://www.mcnayart.org/general-information/",
+          "reviewCycle": "monthly",
+          "reviewed": "2026-10-19"
+      },
+      {
+          "question": "What is on view at the McNay during late October 2026?",
+          "answer": "The museum lists the portrait exhibition Two Faced through March 14, 2027 and A People's History: The American Experiment on Stage through November 8, 2026. These are dated temporary offerings, not permanent attractions. Check the official exhibition calendar before traveling.",
+          "verificationUrl": "https://www.mcnayart.org/exhibitions/",
+          "questionOrigin": "editorial-research",
+          "questionEvidenceUrl": "https://www.mcnayart.org/exhibitions/",
+          "reviewCycle": "monthly",
+          "reviewed": "2026-10-19"
+      }
+  ],
+  "texas-military-forces-museum": [
+      {
+          "question": "How much does the Texas Military Forces Museum charge for admission or parking?",
+          "answer": "There is no admission charge, and the Texas Military Department states that museum parking is free. Donations support the museum. Being free does not waive Camp Mabry security screening, which is mandatory for adult visitors.",
+          "verificationUrl": "https://texasmilitaryforcesmuseum.org/",
+          "questionOrigin": "editorial-research",
+          "questionEvidenceUrl": "https://texasmilitaryforcesmuseum.org/",
+          "reviewCycle": "monthly",
+          "reviewed": "2026-10-19"
+      },
+      {
+          "question": "What days and hours is the Texas Military Forces Museum open?",
+          "answer": "The museum publishes daily hours of 10 a.m. to 4 p.m., including weekends. However, entry to Camp Mabry must occur before the Visitor Control Center closes at 3 p.m. on both weekdays and weekends; installation restrictions and weather may cause exceptional closures.",
+          "verificationUrl": "https://texasmilitaryforcesmuseum.org/",
+          "questionOrigin": "editorial-research",
+          "questionEvidenceUrl": "https://texasmilitaryforcesmuseum.org/",
+          "reviewCycle": "monthly",
+          "reviewed": "2026-10-19"
+      },
+      {
+          "question": "What documents do I need to enter Camp Mabry to visit the museum?",
+          "answer": "The Texas Military Department's current visitor screening guide says adults should bring a REAL ID-compliant driver's license or state ID, or a U.S. passport, plus vehicle make/color/plate details and proof of insurance. Visitors are screened at the 35th Street Gate Visitor Control Center. If your documentation differs, call security before making the trip.",
+          "verificationUrl": "https://tmd.texas.gov/camp-mabry-visitor-access-information",
+          "questionOrigin": "museum-faq",
+          "questionEvidenceUrl": "https://tmd.texas.gov/camp-mabry-visitor-access-information",
+          "reviewCycle": "monthly",
+          "reviewed": "2026-10-19"
+      },
+      {
+          "question": "Can visitors use a foreign passport to tour the Texas Military Forces Museum?",
+          "answer": "Do not assume ordinary museum entry is available to foreign nationals. Texas Military Department guidance says foreign nationals generally need official business or a pre-approved appointment, and museum guidance notes restrictions without acceptable U.S. documentation. Contact Camp Mabry visitor control for a case-specific ruling before traveling.",
+          "verificationUrl": "https://tmd.texas.gov/camp-mabry-visitor-access-information",
+          "questionOrigin": "museum-faq",
+          "questionEvidenceUrl": "https://tmd.texas.gov/camp-mabry-visitor-access-information",
+          "reviewCycle": "monthly",
+          "reviewed": "2026-10-19"
+      },
+      {
+          "question": "Do weekend museum visitors need an appointment for Camp Mabry screening?",
+          "answer": "Individual weekend walk-up screening is now available at the Camp Mabry Visitor Control Center from 8 a.m. to 3 p.m., though eligibility and successful vetting are still required. Groups should send entrance information at least five business days in advance.",
+          "verificationUrl": "https://tmd.texas.gov/camp-mabry-visitor-access-information",
+          "questionOrigin": "museum-faq",
+          "questionEvidenceUrl": "https://tmd.texas.gov/camp-mabry-visitor-access-information",
+          "reviewCycle": "monthly",
+          "reviewed": "2026-10-19"
+      },
+      {
+          "question": "Can children climb on the military vehicles or tanks in the museum?",
+          "answer": "No. The museum expressly prohibits touching or climbing any artifacts, including tanks, trucks, equipment and mannequins inside or outside. Parents and chaperones should explain this before arriving with young children.",
+          "verificationUrl": "https://texasmilitaryforcesmuseum.org/?page_id=107",
+          "questionOrigin": "editorial-research",
+          "questionEvidenceUrl": "https://texasmilitaryforcesmuseum.org/?page_id=107",
+          "reviewCycle": "monthly",
+          "reviewed": "2026-10-19"
+      },
+      {
+          "question": "How long does a guided tour take and are school group visits free?",
+          "answer": "Museum guidance says a guided visit usually takes about 1.5–2 hours and that guided tours are free, with donations welcome. Organized groups should contact the museum and coordinate Camp Mabry security in advance; the military installation controls entry even when a tour is booked.",
+          "verificationUrl": "https://texasmilitaryforcesmuseum.org/?page_id=107",
+          "questionOrigin": "editorial-research",
+          "questionEvidenceUrl": "https://texasmilitaryforcesmuseum.org/?page_id=107",
+          "reviewCycle": "monthly",
+          "reviewed": "2026-10-19"
+      },
+      {
+          "question": "Is the Texas Military Forces Museum entrance at 2200 or 3038 West 35th Street?",
+          "answer": "Both addresses appear in operator materials for different purposes. Camp Mabry's official street address is 2200 West 35th Street; the museum supplies 3038 West 35th Street for GPS navigation. Do not drive to an old closed entrance: use the current Maintenance Drive/35th Street Gate and check in at the Visitor Control Center before proceeding to Building 6.",
+          "verificationUrl": "https://texasmilitaryforcesmuseum.org/?page_id=13",
+          "questionOrigin": "editorial-research",
+          "questionEvidenceUrl": "https://texasmilitaryforcesmuseum.org/?page_id=13",
+          "reviewCycle": "monthly",
+          "reviewed": "2026-10-19"
+      }
+  ],
+  "menil-collection-houston": [
+    {
+        "question": "Is admission to the Menil Collection in Houston always free?",
+        "answer": "Yes. The Menil states that admission to all of its art buildings and campus green spaces is always free. You do not need a paid ticket to tour the main building, but each satellite gallery can have different exhibitions, opening arrangements or temporary closures.",
+        "verificationUrl": "https://www.menil.org/visit",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.menil.org/visit",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "What hours is the Menil Collection open and on which days?",
+        "answer": "The current public schedule is Wednesday through Sunday, 11 a.m.–7 p.m., and the art museum is closed on Mondays and Tuesdays. Check the official visit and campus pages if you are going to Richmond Hall or another individual exhibition venue.",
+        "verificationUrl": "https://www.menil.org/visit",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.menil.org/visit",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "Which parking lot should visitors use at the Menil Collection?",
+        "answer": "The museum identifies a main parking lot at 1515 West Alabama Street and another parking area next to Richmond Hall at 1500 Richmond Avenue. Some neighborhood street parking is available. The main art building is at 1533 Sul Ross Street.",
+        "verificationUrl": "https://www.menil.org/visit",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.menil.org/visit",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "Can visitors take pictures inside the Menil Collection galleries?",
+        "answer": "Photography and video are not permitted in the Menil's art galleries. Casual photography is permitted in entryways and hallways, but rules about artwork, people and outdoor media uses must still be respected. Carrying a camera does not authorize commercial photo work.",
+        "verificationUrl": "https://www.menil.org/visit",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.menil.org/visit",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "Are wheelchairs, service animals and accessible entrances available at the Menil?",
+        "answer": "The operator states that every Menil art building has an accessible entrance, accessible parking exists at its designated lots, and a limited supply of wheelchairs can be borrowed. Trained and leashed service animals are permitted indoors; pets and emotional-support animals are not.",
+        "verificationUrl": "https://www.menil.org/visit",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.menil.org/visit",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "Are the Cy Twombly Gallery and Menil Drawing Institute part of the main building?",
+        "answer": "No. They are separate Menil Collection campus buildings: the Menil Drawing Institute at 1412 West Main Street and the Cy Twombly Gallery at 1501 Branard Street. Richmond Hall's Dan Flavin installation is another distinct venue, at 1500 Richmond Avenue.",
+        "verificationUrl": "https://www.menil.org/campus",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.menil.org/campus",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "Does the Menil Collection provide docent-led group tours?",
+        "answer": "The operator does not offer guided gallery tours or permit public lecturing inside the galleries. Groups larger than 15 are encouraged to reserve, and groups of 30 or more need at least a week's advance notice. School groups must provide one adult chaperone per ten students.",
+        "verificationUrl": "https://www.menil.org/group-visit-and-educator-guidelines",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.menil.org/group-visit-and-educator-guidelines",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "Why are there so few wall labels in the Menil Collection galleries?",
+        "answer": "The Menil deliberately emphasizes looking directly at artworks rather than filling gallery walls with explanatory text. Free gallery guides, including English and Spanish versions, are available at the museum and can help visitors who want more context.",
+        "verificationUrl": "https://www.menil.org/visit",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.menil.org/visit",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "How large is the Menil campus and when did its main building open?",
+        "answer": "The Menil identifies a 30-acre neighborhood campus in Houston with several separate art buildings. The foundation was established in 1954 and the Renzo Piano-designed main building opened in 1987. The collection totals more than 25,000 works, not all of which are on view.",
+        "verificationUrl": "https://www.menil.org/about",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.menil.org/about",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "Can families bring strollers and food into the Menil Collection?",
+        "answer": "Strollers are welcomed in the galleries, and outdoor green spaces provide places to pause, but the art buildings do not allow food or beverages. Large bags and luggage may be checked at the complimentary coat check; children should stay close to adults near artworks.",
+        "verificationUrl": "https://www.menil.org/visit",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://www.menil.org/visit",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-19"
+    }
+],
+  "grace-museum-abilene": [
+    {
+        "question": "What are the Grace Museum's regular Abilene opening hours?",
+        "answer": "The downtown Grace Museum at 102 Cypress Street publishes Tuesday through Saturday, 10 a.m.–5 p.m., and closes on Sundays and Mondays. Thursday evenings offer a separate free admission window from 5 p.m. to 8 p.m., subject to museum programming and closures.",
+        "verificationUrl": "https://thegracemuseum.org/about/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://thegracemuseum.org/about/",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "How much is admission to The Grace Museum in 2026?",
+        "answer": "The operator currently lists $10 for adults 18 and older, $7 for children age four and up, seniors 65+, students and educators, and military veterans with qualifying identification. Children under four, members and active-duty military with families are listed as free.",
+        "verificationUrl": "https://thegracemuseum.org/about/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://thegracemuseum.org/about/",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "Is The Grace Museum free on Thursday evenings?",
+        "answer": "Yes. The museum advertises free downtown museum admission on Thursday nights from 5–8 p.m. This is not a standing statement that the separate Spark Science Center across Abilene is free at the same time, so check each facility separately.",
+        "verificationUrl": "https://thegracemuseum.org/about/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://thegracemuseum.org/about/",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "Is the Spark Science Center inside The Grace Museum building?",
+        "answer": "There are two distinct locations. The Grace Museum is at 102 Cypress Street and has a Spark learning area on the second floor; the separate Spark Science Center is at 1620 South 3rd Street in Abilene Heritage Square with its own admission.",
+        "verificationUrl": "https://thegracemuseum.org/about/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://thegracemuseum.org/about/",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "What does the two-location Grace and Spark Science Center ticket cost?",
+        "answer": "The same-day combo admission is currently listed at $20 per adult and $10 for the reduced-price groups, with eligible members and children under four free. Regular admission to Spark Science Center alone is $14 for adults and $8 for the reduced categories.",
+        "verificationUrl": "https://thegracemuseum.org/about/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://thegracemuseum.org/about/",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "Is the 1909 Grace Museum building wheelchair accessible?",
+        "answer": "The museum identifies an accessible ramp on the North 1st Street side, an elevator to all floors, accessible restrooms and a wheelchair that may be requested at the Lobby Desk. Accessible parking exists in the museum's adjacent North 1st Street lots.",
+        "verificationUrl": "https://thegracemuseum.org/about/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://thegracemuseum.org/about/",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "What original historic building houses The Grace Museum?",
+        "answer": "The museum occupies the former Hotel Grace, a 1909 downtown Abilene hotel built to serve passengers arriving by Texas and Pacific Railway. The adapted art-and-history museum became a downtown cultural institution in 1992.",
+        "verificationUrl": "https://thegracemuseum.org/about/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://thegracemuseum.org/about/",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "Can visitors see reconstructed West Texas rooms at The Grace Museum?",
+        "answer": "Yes. The operator's third-floor history collection includes reconstructed parlor and kitchen settings illustrating domestic life in 1910, 1928 and 1948. Other history galleries rotate objects, so a named temporary exhibit is not guaranteed year-round.",
+        "verificationUrl": "https://thegracemuseum.org/history/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://thegracemuseum.org/history/",
+        "reviewCycle": "quarterly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "Does The Grace Museum have an America 250 exhibition in 2026?",
+        "answer": "The museum lists an America 250 community-history exhibition from January 17 through November 28, 2026. It connects Abilene and neighboring communities with the broader national anniversary and should not be described as permanent after its advertised end.",
+        "verificationUrl": "https://thegracemuseum.org/exhibitions/america-250/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://thegracemuseum.org/exhibitions/america-250/",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-19"
+    },
+    {
+        "question": "Can teachers arrange Grace Museum school group tours for a lower rate?",
+        "answer": "Yes. The museum lists $5 advance-scheduled school group tours for teachers and students. This school rate is tied to a prearranged program, not an automatic reduced walk-up ticket for everyone accompanying a child; schools should request a tour in advance.",
+        "verificationUrl": "https://thegracemuseum.org/about/",
+        "questionOrigin": "editorial-research",
+        "questionEvidenceUrl": "https://thegracemuseum.org/about/",
+        "reviewCycle": "monthly",
+        "reviewed": "2026-10-19"
+    }
+],
   "frontiers-of-flight-museum-dallas": [
     {
         "question": "What are Frontiers of Flight Museum's weekday and Sunday hours?",

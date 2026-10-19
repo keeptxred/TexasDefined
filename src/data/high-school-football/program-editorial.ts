@@ -262,7 +262,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Big Spring Steers Football 2026 | Memorial Stadium, Scores & 1953 History",
-      "description": "Big Spring Steers 2026 football: official UIL District 2, 1–5 through October 9, Memorial Stadium game-day location, Stacey Martin and 1953 state runner-up history."
+      "description": "Big Spring Steers football: 2026 UIL District 2, 1–6 through October 16, Memorial Stadium, Stacey Martin and 1953 state runner-up history."
     },
     "coach": {
       "name": "Stacey Martin",
@@ -454,7 +454,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Bishop Badgers Football 2026 | UIL District, 2024 Comeback & Scores",
-      "description": "Bishop Badgers 2026 football in Nueces County: UIL Class 3A Division I District 16, 2–5 through October 9, 2024 comeback and visitor guidance."
+      "description": "Bishop Badgers football: 2026 UIL 3A Division I District 16, 2–5 through October 9, George Luna Stadium for Oct. 23 homecoming and school resources."
     },
     "campus": {
       "address": "100 Badger Lane, Bishop, TX 78343",
@@ -470,11 +470,11 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "verifiedAt": "2026-10-15"
     },
     "notice": {
-      "title": "Confirm venue and head coach directly with Bishop CISD",
-      "body": "Current independent records conflict: Dave Campbell's Texas Football calls Bishop's venue Ed Gorny Stadium, while KRIS 6 reported home games at George Luna Stadium in 2024; MaxPreps staff and historical pages disagree about the 2026 head coach. No specific stadium gate, parking, ADA seating, ticket price or coach is asserted here. The school lists 100 Badger Lane, while district athletics lists 719 East Sixth Street. Contact district athletics at 361-584-3591, extension 319.",
-      "sourceUrl": "https://www.bishopcisd.net/athletics/athletic-department",
-      "sourceLabel": "Bishop CISD official athletic department contact and 719 E Sixth St address",
-      "verifiedAt": "2026-10-15"
+      "title": "2026 homecoming uses George Luna Stadium; confirm individual game details",
+      "body": "Bishop High School's own October 2026 events calendar locates the October 23 varsity homecoming game against Santa Gertrudis Academy at George Luna Stadium. An independent older team directory says Ed Gorny Stadium; the school-issued event is stronger venue evidence for October 23, not proof of entrances, future games, parking, tickets or ADA facilities. Bishop CISD lists Mike Davila as athletic director (361-584-3591 ext. 319). Corpus Christi ISD announced April 21 that former Bishop head coach David McHugh accepted the Miller High athletics/football position beginning May 2026. A current MaxPreps Bishop roster lists Keith Talbert as head coach, but no dated Bishop ISD announcement was found to independently certify the replacement.",
+      "sourceUrl": "https://bhs.bishopcisd.net/",
+      "sourceLabel": "Official Bishop High home page October 2026 varsity homecoming event names George Luna Stadium; Bishop CISD athletics and CCISD's April 21 McHugh departure announcement corroborate related roles",
+      "verifiedAt": "2026-10-19"
     },
     "season": {
       "record": "2–5 through October 9, 2026 (MaxPreps updated October 13; season ongoing)",
@@ -588,8 +588,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "The Bishop Badgers represent Bishop Consolidated Independent School District in Bishop, Nueces County, Texas; they are not Badger High School in Wisconsin. The UIL 2026–28 alignment places Bishop in Class 3A Division I District 16 alongside Lyford, Progreso, Raymondville, Rio Hondo, San Diego and Santa Gertrudis Academy. A prior year's conference or district is not an appropriate substitute.",
       "A documented revival distinguishes the program: KRIS 6 News reported that Bishop ended its 2024 regular season with a 40–22 defeat of Falfurrias, finishing 6–4 overall and 6–1 in district after a prior 2–8 campaign. The MaxPreps 2025 archive separately gives Bishop 5–6 with an opening playoff defeat to Goliad. These are dated historical performances, not projected current results.",
       "The October 13 update of MaxPreps' 2026 varsity schedule shows Bishop 2–5 through October 9. The two early wins were over Robstown and Corpus Christi West Oso; subsequent opponents included Rio Hondo, which won 63–25. The October 23 Santa Gertrudis Academy, October 30 Progreso and November 6 San Diego games were scheduled and unplayed as of this October 15 checkpoint. This table is not a final season summary.",
-      "For game-day planning, the official Bishop High School footer lists 100 Badger Lane, while the district athletics office lists 719 East Sixth Street; those cannot automatically be treated as football-gate directions. Independent reporting also uses conflicting stadium labels: KRIS in 2024 wrote George Luna Stadium, and Dave Campbell's current team listing uses Ed Gorny Stadium. Exact present-day stadium name, gate, ticket policies, parking and accessible seating were not independently verified. Fans should confirm the event details through Bishop CISD athletics.",
-      "Do not infer a head-coaching appointment from inconsistent third-party indexes. The 2026 MaxPreps football staff table names Keith Talbert, while its season-history index shows David McHugh for the same year; the school lists Mike Davila as athletic director, which is not interchangeable with head coach. Without dated district corroboration, this independent guide deliberately avoids naming a current head coach."
+      "For October 23, 2026 homecoming against Santa Gertrudis Academy, Bishop High School's first-party event announcement explicitly identifies George Luna Stadium. An independent Dave Campbell's team directory still lists Ed Gorny Stadium, but that directory does not override the event-specific 2026 school announcement. Bishop High's campus mailing address is 100 Badger Lane and Bishop CISD's athletics office is 719 East Sixth Street; neither proves a stadium entrance, car park, accessible gate or ticket procedure. Confirm each event's actual conditions with the district.",
+      "Coaching sources have different timestamps. Corpus Christi ISD's April 21, 2026 announcement establishes that David McHugh was leaving Bishop for Corpus Christi Miller High School in May, so an undated Bishop season-history field still identifying McHugh as a 2026 Bishop coach is stale. MaxPreps' October 13 Bishop staff page names Keith Talbert as head coach; this is third-party roster evidence, not a district-issued appointment. Bishop CISD separately lists Mike Davila as its athletics director, which should not be confused with the varsity coaching role. Without a district-issued new head-coach announcement, this independent guide qualifies the current coach instead of pretending a first-party confirmation."
     ],
     "faq": [
       {
@@ -610,11 +610,11 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "Where is Bishop's football stadium?",
-        "answer": "Independent sources currently disagree on the stadium name (Ed Gorny versus George Luna), and the school and athletic office publish different contact addresses. We have not verified the current football-gate address, ADA access or parking. Confirm details through Bishop CISD athletics at 361-584-3591."
+        "answer": "Bishop High School's own October 2026 homecoming calendar explicitly lists George Luna Stadium for the Friday, October 23 varsity game against Santa Gertrudis Academy. An older third-party football directory says Ed Gorny Stadium, but the school-issued event is authoritative for this specific game. Exact public gate, accessible parking, ticket rules and venue for every other game remain unverified; check Bishop CISD."
       },
       {
         "question": "Who is Bishop's head football coach in 2026?",
-        "answer": "Conflicting MaxPreps staff and season-index entries prevent a reliable independent attribution. The district publicly lists Mike Davila as athletic director, not necessarily head coach. Check official Bishop CISD announcements for the current football coach."
+        "answer": "Corpus Christi ISD publicly announced April 21, 2026 that then-Bishop coach David McHugh was leaving for Miller High in May. MaxPreps' October 13 Bishop staff list identifies Keith Talbert as head coach, but we have not located a Bishop CISD first-party appointment announcement confirming him. Bishop CISD names Mike Davila athletic director, a different role. Verify coaching changes with the district."
       }
     ]
   },
@@ -626,7 +626,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Blackwell Hornets Six-Man Football 2026 | UIL District, 2019 Semifinal & Scores",
-      "description": "Blackwell TX Hornets six-man football, 2026 UIL 1A Division II District 7, 5–2 through October 9, 2019 state-semifinal history and verified district contacts."
+      "description": "Blackwell TX Hornets six-man football: UIL 1A Division II District 7, 6–2 through October 16, 2019 state-semifinal history and district contacts."
     },
     "campus": {
       "address": "100 Hornet Dr, Blackwell, TX 79506",
@@ -810,7 +810,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Blanco Panthers Football 2026 | 2001 State Champions, Stadium & Results",
-      "description": "Blanco Panthers football in Blanco County: 2001 UIL 2A Division I title, 2026 District 15, 4–3 through October 9 and official Panther Stadium directions."
+      "description": "Blanco Panthers football: 2001 UIL state title, 2026 District 15, 5–3 through October 16 and official Panther Stadium visitor guidance."
     },
     "campus": {
       "address": "1215 4th Street, Blanco, TX 78606",
@@ -1026,10 +1026,10 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "verifiedAt": "2026-10-15"
     },
     "notice": {
-      "title": "Do not use a stale or reversed Blanket score feed for directions or standings",
-      "body": "The independently reported 2026 Blanket–Brookesmith final is Blanket W66–34, though an older MaxPreps feed wrongly records Blanket L34–66. Rochelle beat Blanket 68–22, not the 28–0 shown in another old snapshot. Brownwood News reported a late added Abilene X-Dot Academy match, and Blanket won 65–13 on October 8 after older calendars had displayed a bye. First-party football gate, parking and ADA access have not been independently certified; contact Blanket ISD for specific events.",
-      "sourceUrl": "https://www.brownwoodnews.com/2026/10/10/local-high-school-football-standings-after-week-7/",
-      "sourceLabel": "Contemporaneous Brownwood News complete District 12 standings and Abilene X-Dot outcome",
+      "title": "Verify Blanket scores and the canceled Priddy 2026 season",
+      "body": "The independently reported 2026 Blanket–Brookesmith final is Blanket W66–34, though an older MaxPreps feed wrongly records Blanket L34–66. Rochelle beat Blanket 68–22, not the 28–0 shown in another old snapshot. Brownwood News reported a late added Abilene X-Dot Academy match, and Blanket won 65–13 on October 8 after older calendars had displayed a bye. Brownwood News reported before kickoff that Priddy canceled its entire 2026 season. Although UIL realignment still assigns Priddy to District 12 and some external calendars list Blanket at Priddy on October 16, those listings do not establish that a varsity game was played. Do not award Blanket a win, forfeit or district result without school or district evidence. First-party football gate, parking and ADA access have not been independently certified; contact Blanket ISD for specific events.",
+      "sourceUrl": "https://www.brownwoodnews.com/wpb_gallery/gridiron-glance-26-mullin-bulldogs/",
+      "sourceLabel": "Brownwood News Mullin 2026 preseason interview explicitly reports Priddy canceled its 2026 season; individual Blanket score results are independently detailed in the October 10 local recap",
       "verifiedAt": "2026-10-15"
     },
     "season": {
@@ -1357,7 +1357,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Bloomington Bobcats Football 2026 | District 15, Shiner Result & Stadium Tickets",
-      "description": "Bloomington TX Bobcats in Victoria County: UIL 2A Division I District 15, 2–5 through October 9, official Bobcat Stadium ticketing and verified school contacts."
+      "description": "Bloomington Bobcats in Victoria County: UIL 2A Division I District 15, 3–5 through October 16, school contacts and Bobcat Stadium ticketing sources."
     },
     "campus": {
       "address": "2781 FM 616, Victoria, TX 77905 (Bloomington High School and ISD campus contact; confirm spectator gate)",
@@ -2093,7 +2093,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "slug": "boerne",
     "seo": {
       "title": "Boerne Greyhounds Football 2026 | State Final, UIL District & Stadium",
-      "description": "Boerne Greyhounds football: 2022 Class 4A DI state runner-up, 2026 5A DII District 13, 6–0 through Oct 8, Boerne ISD Stadium and original game-day FAQs."
+      "description": "Boerne Greyhounds football: 2022 4A Division I state runner-up, 2026 5A Division II District 13, 7–0 through October 16 and Boerne ISD Stadium."
     },
     "theme": {
       "accentHex": "#65428C",
@@ -3043,7 +3043,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Booker Kiowas Six-Man Football 2026 | UIL District, Scores & Coach",
-      "description": "Booker Kiowas 2026 six-man football in Lipscomb County: coach David Biddler, UIL 1A Division I District 1, 4–3 to October 9 and 2025 district title."
+      "description": "Booker Kiowas six-man football: UIL 1A Division I District 1, 4–4 through October 16, coach David Biddler and 2025 district championship."
     },
     "coach": {
       "name": "David Biddler",
@@ -3238,7 +3238,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Borden County Coyotes Football 2026 | Five UIL Titles & Six-Man District 5",
-      "description": "Gail Borden County Coyotes: five verified UIL six-man state championships, 2026 1A Division I District 5, 6–0 through October 9 and official school visitor contacts."
+      "description": "Gail Borden County Coyotes: five UIL six-man state championships, 2026 Division I District 5, 7–0 through October 16 and official visitor contacts."
     },
     "campus": {
       "address": "240 West Kincaid Avenue, Gail, TX 79738",
@@ -3810,10 +3810,10 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "notice": {
       "title": "Verified facts and unresolved game-day claims",
-      "body": "Bovina ISD publishes a 2026 Football documents folder. A MaxPreps 2026 staff listing names Wade Wilson, but an official school appointment was not verified; do not claim it as first-party. An October 17 contemporary scoreboard now reports the October 16 Bovina loss to Gruver, 0–55.",
-      "sourceUrl": "https://www.bovinaisd.org/documents/athletics/715565",
-      "sourceLabel": "School material plus explicitly qualified unresolved venue/staff/score claims",
-      "verifiedAt": "2026-10-17"
+      "body": "Bovina ISD's current staff directory explicitly identifies Wade Wilson as athletic director; an August 2026 MaxPreps football staff page separately calls Wilson the varsity head coach. The latter appointment remains third-party unless the district formally identifies the football coaching title. On October 16, Gruver defeated Bovina 55–0, confirmed by October 17 regional football results. The school's 500 Halsell Street contact address is not a verified stadium gate or accessibility promise.",
+      "sourceUrl": "https://www.bovinaisd.org/staff",
+      "sourceLabel": "Bovina ISD official staff directory: Wade Wilson athletic director; MaxPreps Aug 2026 staff listing independently attributes head-coach role",
+      "verifiedAt": "2026-10-19"
     },
     "season": {
       "record": "3–4 through October 16, 2026 (source-dated reported finals; season ongoing)",
@@ -3913,7 +3913,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "overview": [
       "Bovina Mustangs is Bovina ISD's 11-man football team in Parmer County. Its authoritative 2026–28 alignment is UIL 2A Division II District 1; that is different from older season divisions and similarly named programs.",
       "Bovina's completed 2025 postseason included a 36–24 first-round win over Hale Center and a 24–16 win against Seagraves, followed by a 14–48 loss to Stratford. The 2026 Mustangs were 3–3 after a close 38–44 loss at West Texas October 9.",
-      "Bovina ISD publishes a 2026 Football documents folder. A MaxPreps 2026 staff listing names Wade Wilson, but an official school appointment was not verified; do not claim it as first-party. The October 16 Gruver game has no confirmed final here.",
+      "Bovina ISD's current staff directory names Wade Wilson athletic director, while the August 2026 MaxPreps football staff roster names him head coach. Athletic director is first-party established; a current official football head-coach appointment is not separately documented on the district page. The October 16 district home match ended in a 55–0 reported loss to Gruver, not an unresolved fixture.",
       "Gruver shut out Bovina 55–0 in the October 16 district game. This dated result comes from KCBD/FOX34 October 17 South Plains football finals, corroborated by the Houston Chronicle statewide score listing, not a first-party UIL results certification."
     ],
     "faq": [
@@ -3931,7 +3931,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "Who is Bovina's 2026 head coach?",
-        "answer": "MaxPreps names Wade Wilson, but a dated school appointment is still unverified."
+        "answer": "MaxPreps' August 2026 football staff directory lists Wade Wilson head coach, and Bovina ISD's own staff directory separately confirms him athletic director. The head-coach title is third-party attributed; the district's staff listing does not independently verify that exact role."
       },
       {
         "question": "Did Bovina play Gruver on October 16?",
@@ -4138,10 +4138,10 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "notice": {
       "title": "Verified facts and unresolved game-day claims",
-      "body": "The district advertised a 2026–27 head-football-coach opening in March; specialist pages name Austin Norman but school-confirmed appointment evidence is missing. Woodson's October 16 victory over Gold-Burg, 58–53, is now confirmed by matching contemporary press and MaxPreps reports; the earlier incomplete snapshots have been superseded.",
-      "sourceUrl": "https://www.goldburgisd.net/",
-      "sourceLabel": "School material plus explicitly qualified unresolved venue/staff/score claims",
-      "verifiedAt": "2026-10-17"
+      "body": "Gold-Burg ISD advertised a 2026–27 athletic director/head football coach opening in March through Region 9, and that vacancy still appeared in September search results. A MaxPreps August 24, 2026 Gold-Burg team staff entry lists Danny Forman as head coach; a separate specialist football directory used Austin Norman. The conflicting third-party names and potentially stale vacancy listing do not independently establish a district-confirmed current appointment. The October 16 Gold-Burg loss to Woodson 53–58 is now corroborated by contemporary reported finals; earlier missing-score snapshots are superseded.",
+      "sourceUrl": "https://www.applitrack.com/region9/OnlineApp/JobPostings/view.asp?%3Fall=1%3D&AppliTrackJobId=10119_1196&AppliTrackLayoutMode=detail&AppliTrackViewPosting=1&applitrackclient=1196&choosedistrict=true",
+      "sourceLabel": "Gold-Burg ISD's Region 9 2026–27 AD/head-coach vacancy posting, supplemented by dated MaxPreps Gold-Burg August 24 staff roster (Danny Forman)",
+      "verifiedAt": "2026-10-19"
     },
     "season": {
       "record": "2–6 through October 16, 2026 (source-dated reported finals; season ongoing)",
@@ -4247,7 +4247,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "overview": [
       "Gold-Burg Bears is Gold-Burg ISD's six-man football team in Montague County. Its authoritative 2026–28 alignment is UIL 1A Division II District 10; that is different from older season divisions and similarly named programs.",
       "Gold-Burg is a Ringgold–Stoneburg community school, separate from the Bowie ISD Jackrabbits. Specialist six-man records report 9–3 in 2021 and 7–5 in 2024, without establishing any UIL football state championship. A 2026 student-produced school football hype video is school-owned material, not an open media license.",
-      "The district advertised a 2026–27 head-football-coach opening in March; specialist pages name Austin Norman but school-confirmed appointment evidence is missing. Two October 16 Woodson snapshots differed (one reported a 58–53 loss, another had no result), so the match remains explicitly unresolved.",
+      "Gold-Burg ISD's March 2026 hiring posting advertised an AD/head-football-coach vacancy for 2026–27, and the posting remained listed into September. A MaxPreps August 24 team-staff roster lists Danny Forman, while a specialist six-man source earlier listed Austin Norman; without a dated district-originated appointment these are attributed, not certified. Contemporary results confirm Woodson defeated Gold-Burg 58–53 on October 16; that reported loss is now included in the 2–6 season ledger.",
       "Woodson defeated Gold-Burg 58–53 on October 16; the earlier conflicting/empty snapshots are superseded by a current newspaper report and matching October 17 MaxPreps reports. This dated result comes from Houston Chronicle October 16 statewide football finals, not a first-party UIL results certification."
     ],
     "faq": [
@@ -4265,7 +4265,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "Who is the head football coach?",
-        "answer": "Third-party and district vacancy evidence do not conclusively establish the current appointment."
+        "answer": "Gold-Burg ISD's March vacancy posting sought a 2026–27 AD/head coach. A dated August 24 MaxPreps staff roster names Danny Forman, but an earlier specialist listing names Austin Norman and there is no verified district-issued appointment. The current head-coaching role remains explicitly unconfirmed."
       },
       {
         "question": "What was the October 9 Throckmorton result?",
@@ -4306,10 +4306,10 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "notice": {
       "title": "Verified facts and unresolved game-day claims",
-      "body": "Boyd ISD confirms the 700 Knox Avenue campus and phone but did not yield a first-party 2026 football head-coach designation. MaxPreps lists Shawn Sparks as coach; attribute this third-party listing, do not present it as a school announcement. Peaster beat Boyd 44–13 on October 16; the reported 2026 record is now 2–5.",
-      "sourceUrl": "https://boydisd.net/highschool",
-      "sourceLabel": "School material plus explicitly qualified unresolved venue/staff/score claims",
-      "verifiedAt": "2026-10-17"
+      "body": "Boyd ISD's current district leadership page officially identifies Shawn Sparks as athletic director. MaxPreps' September 2026 26–27 staff roster separately lists him as head football coach. The district's school-site HEAD COACH section is image-led and does not yield a readable school-issued name, so the head-coach role remains attributed to MaxPreps rather than described as school-certified. Peaster beat Boyd 44–13 on October 16; the reported 2026 tally is 2–5. The campus mailing address is not a confirmed stadium gate.",
+      "sourceUrl": "https://boydisd.net/districtleadershipteam",
+      "sourceLabel": "Boyd ISD official district leadership: Shawn Sparks athletic director; MaxPreps September 2026 names Sparks varsity head coach (third party)",
+      "verifiedAt": "2026-10-19"
     },
     "season": {
       "record": "2–5 through October 16, 2026 (Peaster 44–13 final reported; season ongoing)",
@@ -4406,7 +4406,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "overview": [
       "Boyd Yellowjackets is Boyd ISD's 11-man football team in Wise County. Its authoritative 2026–28 alignment is UIL 3A Division I District 4; that is different from older season divisions and similarly named programs.",
       "The Yellowjackets earned genuine UIL titles in 1983 (Class 2A, 16–8 over Groveton) and 2004 (Class 2A Division I, 17–14 over Newton). The 2004 team is listed at 16–0 in the historical season index. Those championships are separate from today's 3A Division I classification.",
-      "Boyd ISD confirms the 700 Knox Avenue campus and phone but did not yield a first-party 2026 football head-coach designation. MaxPreps lists Shawn Sparks as coach; attribute this third-party listing, do not present it as a school announcement. Peaster beat Boyd 44–13 on October 16; the reported 2026 record is now 2–5."
+      "Boyd ISD's official district leadership roster calls Shawn Sparks its athletic director, and a 2026 MaxPreps staff roster separately calls Sparks head football coach. The latter remains attributed because the district's image-led coaching page does not independently publish that readable appointment. The October 16 home match ended in a reported 44–13 loss to Peaster, leaving Boyd 2–5."
     ],
     "faq": [
       {
@@ -4427,7 +4427,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "Who is listed as the current head coach?",
-        "answer": "MaxPreps lists Shawn Sparks; a school-issued appointment is not independently verified."
+        "answer": "MaxPreps' 2026 roster lists Shawn Sparks as varsity head coach. Boyd ISD's district leadership page independently names him athletic director, but that official role does not alone certify a football head-coach appointment. Verify school-specific coaching details with Boyd ISD."
       },
       {
         "question": "What was Boyd's October 2 result?",

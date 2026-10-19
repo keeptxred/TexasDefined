@@ -2,6 +2,7 @@
  * Kept in sync with full museum dossiers by scripts/data/validate-museum-authority.mjs.
  */
 export const museumAuthoritySlugs: ReadonlySet<string> = new Set([
+  "museum-of-south-texas-history-edinburg",
   "bullock-texas-state-history-museum",
   "perot-museum-nature-science-dallas",
   "witte-museum",
@@ -38,6 +39,10 @@ export const museumAuthoritySlugs: ReadonlySet<string> = new Set([
   "modern-art-museum-fort-worth",
   "american-quarter-horse-hall-of-fame-museum-amarillo",
   "museum-of-fine-arts-houston",
+  "mcnay-art-museum-san-antonio",
+  "texas-military-forces-museum",
+  "menil-collection-houston",
+  "grace-museum-abilene",
   "art-museum-south-texas-corpus-christi",
   "houston-museum-of-natural-science",
   "el-paso-museum-of-art",
