@@ -169,6 +169,43 @@ for (const primary of ['goliad-state-park', 'san-jacinto-battleground', 'washing
 }
 
 
+// A template introduction with repeated generic prose is not independent
+// site-level research. Preserve the distinct seed facts and let editorial
+// authority/depth overlays supply the additional narrative and visitor advice.
+const seedBodyContract = seeds.match(/function historicBody\(site: HistoricSiteSeed\): string\[\] \{([\s\S]*?)\n\}/)?.[1] ?? "";
+if (!seedBodyContract.includes("site.significance") || !seedBodyContract.includes("site.visitAngle")) {
+  failures.push("Historic-site introduction must use place-specific significance and trip-planning facts.");
+}
+for (const forbidden of [
+  "belongs on a Texas history itinerary because",
+  "The value of the stop is not just the surviving building",
+  "the threads are also the best way to connect this stop",
+  "hours, tours, restoration work, special programs and access can change",
+]) {
+  if (seeds.includes(forbidden)) failures.push(`Remove interchangeable historic-site intro boilerplate: ${forbidden}`);
+}
+if (!visitDepth.includes("const SITE_DEPTH") || !runtime.includes("enrichResearchedHistoricSiteDepth")) {
+  failures.push("Removing template filler requires retaining original researched site depth in the published resolver.");
+}
+
+if (fullCatalog.includes("The historic significance comes from the surviving place and the people whose stories it holds") ||
+    !fullCatalog.includes("whyItMatters: [")) {
+  failures.push("Historic authority-guide significance must use actual site facts, not an interchangeable filler sentence.");
+}
+
+// Closure notices must agree across the quick facts, experience assessment,
+// family guidance and itineraries. A contradictory 'best season' is dangerous.
+for (const marker of [
+  'bestSeason: "Not currently open to visitors.',
+  'bestSeason: "Closed archaeological site:',
+]) if (!visitDepth.includes(marker)) failures.push(`Missing closed-site visitor-season policy: ${marker}`);
+for (const marker of [
+  '"physicalEffort": "Not applicable — site closed"',
+  'familyFit: firstCapitolIsClosed',
+  'firstTimeValue: firstCapitolIsClosed',
+  'oldSocorroHistoryItineraries',
+]) if (!fullCatalog.includes(marker)) failures.push(`Closed historic-site guide still implies public entry: ${marker}`);
+
 const seedBlock = seeds.match(/export const historicSiteSeeds:[\s\S]*?= \[([\s\S]*?)\n\];/);
 if (!seedBlock) failures.push('Could not parse historicSiteSeeds.');
 const seedSlugs = seedBlock ? [...seedBlock[1].matchAll(/slug:\s*"([^"]+)"/g)].map((match) => match[1]) : [];
