@@ -37,8 +37,12 @@ const ADDITIONAL_COUNTIES_BY_CITY: Record<string, string[]> = {
   'The Woodlands': ['Harris'],
 };
 
+// The Woodlands is an unincorporated Census-designated place, not a city.
+const CENSUS_DESIGNATED_PLACES = new Set(['The Woodlands']);
+
 export type CityCountyRelationship = {
   city: TexasCity;
+  placeType: 'incorporated_city' | 'census_designated_place';
   primaryCounty: TexasCounty | null;
   counties: Array<{ name: string; county: TexasCounty | null }>;
 };
@@ -49,6 +53,7 @@ export function buildCityCountyRelationships(cities: TexasCity[], counties: Texa
     const countyNames = [city.county, ...(ADDITIONAL_COUNTIES_BY_CITY[city.name] ?? [])];
     return {
       city,
+      placeType: CENSUS_DESIGNATED_PLACES.has(city.name) ? 'census_designated_place' : 'incorporated_city',
       primaryCounty: countyByName.get(city.county) ?? null,
       counties: countyNames.map((name) => ({ name, county: countyByName.get(name) ?? null })),
     };
