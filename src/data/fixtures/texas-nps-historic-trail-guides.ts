@@ -384,7 +384,7 @@ export const texasNpsHistoricTrailGuides: Article[] = [
           {
               "type": "image",
               "image": {
-                  "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Socorro_Mission%2C_Mission_Trail%2C_El_Paso%2C_Texas_%282b1d2a78-155d-451f-679e-7d70fee5ef0f%29.jpg?width=1600",
+                  "src": "https://upload.wikimedia.org/wikipedia/commons/e/e8/Socorro_Mission%2C_Mission_Trail%2C_El_Paso%2C_Texas_%282b1d2a78-155d-451f-679e-7d70fee5ef0f%29.jpg",
                   "alt": "Present-day Socorro Mission church and adobe facade on the El Paso Mission Trail",
                   "width": 1600,
                   "height": 1069,
@@ -407,7 +407,7 @@ export const texasNpsHistoricTrailGuides: Article[] = [
           {
               "type": "image",
               "image": {
-                  "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Presidio_Chapel_of_San_Elizario%2C_Mission_Trail%2C_El_Paso%2C_Texas_%282b82a8e9-155d-451f-671e-392e6e94b7d0%29.jpg?width=1600",
+                  "src": "https://upload.wikimedia.org/wikipedia/commons/c/cd/Presidio_Chapel_of_San_Elizario%2C_Mission_Trail%2C_El_Paso%2C_Texas_%282b82a8e9-155d-451f-671e-392e6e94b7d0%29.jpg",
                   "alt": "White adobe Presidio Chapel of San Elizario on the Camino Real's El Paso Mission Trail",
                   "width": 1600,
                   "height": 1165,
