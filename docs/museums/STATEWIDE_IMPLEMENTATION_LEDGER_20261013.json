@@ -429,5 +429,57 @@
     "photoLicenseLinkDefect": "Bryan and Carthage hero credits visible in HTML but original Commons source and required CC terms were not linked. Fix branch fix/museum-commons-hero-license-links-20261018 adds links in the shared destination template and a focused production acceptance check. Not deployed until merge.",
     "evidenceIssue": "https://github.com/keeptxred/TexasDefined/issues/5057",
     "outsideScope": "669 provisional owner names and complete independent competitive authority certification remain open. No false new-page or license grant counts."
+  },
+  "pendingFrontiersAndTexasTechUpgrade20261018": {
+    "existingDestinationsOnly": [
+      "/destination/frontiers-of-flight-museum-dallas",
+      "/destination/museum-of-texas-tech-university-lubbock"
+    ],
+    "sourceOfTruth": "Existing canonical museum pages from src/data/museum-expansion-dfw.ts and src/data/museum-expansion-statewide-wave2.ts, now extended with research dossier/FAQ/manifest and source-specific photo. Do not generate duplicates.",
+    "sourceReviewedAt": "2026-10-18",
+    "officialSources": [
+      "https://flightmuseum.com/visit/",
+      "https://flightmuseum.com/exhibits/",
+      "https://flightmuseum.com/education/field-trips/",
+      "https://flightmuseum.com/",
+      "https://www.depts.ttu.edu/museumttu/visit/",
+      "https://www.depts.ttu.edu/museumttu/about/",
+      "https://www.depts.ttu.edu/museumttu/visit/planetarium.php",
+      "https://www.depts.ttu.edu/museumttu/",
+      "https://www.depts.ttu.edu/nsrl/"
+    ],
+    "addedMuseumAuthorityDossiers": 2,
+    "addedVisitorFaqs": 20,
+    "newManifestSources": 9,
+    "proposedTotals": {
+      "museumDossiers": 76,
+      "manifestMuseumGuides": 76,
+      "researchedFAQCount": 635,
+      "manifestSourceUrls": 325,
+      "benchmarkEntries": 76
+    },
+    "imageEvidence": [
+      {
+        "slug": "frontiers-of-flight-museum-dallas",
+        "subject": "Vought V-173 aircraft, Frontiers of Flight Museum Dallas",
+        "author": "Michael Barera",
+        "date": "2015-12-12",
+        "license": "CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Frontiers_of_Flight_Museum_December_2015_107_(Vought_V-173_%22Flying_Pancake%22).jpg",
+        "status": "Existing licensed hero retained; production pixels and clickable photo rights not yet accepted"
+      },
+      {
+        "slug": "museum-of-texas-tech-university-lubbock",
+        "subject": "Actual Museum of Texas Tech University exterior, Lubbock",
+        "author": "Billy Hathorn",
+        "date": "2009-04-03",
+        "license": "CC BY-SA 3.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Museum_of_Texas_Tech_University_IMG_0038.JPG",
+        "status": "Replaces placeholder on branch; deployment and actual browser photo QA pending"
+      }
+    ],
+    "certificationCount": 0,
+    "status": "Feature branch not yet merged or deployed. New official source monitoring not registered until merge. Four other photo-blocked noindex museums remain unchanged, reference #5057.",
+    "guardrails": "Do not weaken photo/index gate, invent hours, count museum as certified from external source HTTP response, create duplicate routes, or confuse free Tech galleries with separately paid Planetarium."
   }
 }
