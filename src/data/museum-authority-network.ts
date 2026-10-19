@@ -39,7 +39,7 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
           "spaceflight",
           "dallas-love-field",
           "family-science"
-      ],
+    ],
       whyVisit: "At Dallas Love Field, Frontiers of Flight Museum spans experiments in powered flight, military aviation, regional airline history and human spaceflight. The Apollo 7 command module and a moon rock are major draws, while galleries about Braniff, Southwest Airlines, early aviation and Love Field connect these global stories to North Texas. The collection is not interchangeable with an airport observation deck; the museum has artifacts, aircraft, interactive exhibits and documented aviation-history interpretation.",
       visitorStrategy: "The operator lists Monday–Saturday 10 a.m.–5 p.m. and Sunday 1–5 p.m., with holiday and private-event closures that require checking the dated visitor notice before setting out. Current general admission is $20 for ages 13+, $12 for ages 3–12 and $10 for visitors age 65+; qualifying veterans, first responders and active duty have separate ID discounts. Advance online tickets are available, but normal walk-up tickets are also sold. Groups of 15 or more must arrange group rates in advance. Enter from University Boulevard off Lemmon Avenue; museum parking is free. Café service is available at the Jetsetters coffee lounge, separate from admission.",
       accessibility: "The museum advertises free wheelchair loans on a first-come basis, designated parking near the entrance, accessible toilets throughout the building and elevator access to second-floor galleries. It is KultureCity-certified for sensory inclusion. The aircraft collection includes large objects and upper-level galleries; confirm access or accommodation needs with the museum at 214-350-3600 rather than assuming every exhibit cockpit is accessible or open for entry.",
@@ -70,7 +70,7 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
               heading: "Hindenburg: The Flying Hotel (2026 special exhibition)",
               detail: "Advertised as a July 2026 special installation included with admission. Verify dates and continued availability rather than promoting it as permanent."
           }
-      ],
+    ],
       routes: [
           {
               label: "Family aviation introduction",
@@ -96,7 +96,7 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
                   "Use Jetsetters for a meal and reserve extra time for the second-floor exhibits"
               ]
           }
-      ],
+    ],
       sources: [
           {
               label: "Frontiers of Flight Museum — official visitor information",
@@ -118,7 +118,7 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
               url: "https://flightmuseum.com/",
               use: "Operator identity, latest museum notices and venue context"
           }
-      ],
+    ],
       connections: [
           {
               label: "Dallas County",
@@ -135,7 +135,7 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
               href: "/explore/museums",
               reason: "Compare aviation, science, and history museums across Texas."
           }
-      ],
+    ],
   },
   "museum-of-texas-tech-university-lubbock": {
       name: "Museum of Texas Tech University",
@@ -149,7 +149,7 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
           "south-plains-history",
           "astronomy",
           "university-museum"
-      ],
+    ],
       whyVisit: "The Museum of Texas Tech University combines art, history, anthropology, clothing and textiles, natural history and paleontology, making it a rare free multi-disciplinary museum on the South Plains. Founded in 1929 as the West Texas Museum, it moved to its current Fourth Street and Indiana Avenue site in 1970. The nearby National Ranching Heritage Center and affiliated Lubbock Lake Landmark offer complementary but separately operated collections and visitor experiences.",
       visitorStrategy: "Main museum general admission is free. As posted by Texas Tech, museum galleries operate Tuesday–Saturday 10 a.m.–5 p.m. and Sunday noon–5 p.m.; the museum closes on Mondays and university holidays. The official calendar lists closure November 26–30, 2026 and December 23, 2026–January 1, 2027, plus special campus-event restrictions. The address is 3301 Fourth Street, Lubbock; free museum parking is along Fourth Street/north side and Indiana Avenue/west side. The east-end accessible entrance has no parking immediately at its door. Moody Planetarium performances have separate, paid tickets and individual schedules. Check Orbit Café hours independently.",
       accessibility: "The visitor page identifies the accessible museum entrance on the east side and advises contacting 806-742-2490 for individual needs; it explicitly says there is no vehicle parking at that east-end doorway. Free accessible parking is identified at the wider complex but the exact route needs confirmation before travel. Moody Planetarium has two wheelchair-designated seats out of 74; these do not establish accessibility for every museum exhibit. Museum admission and planetarium access should be planned separately.",
@@ -176,7 +176,7 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
               heading: "Natural Science Research Laboratory",
               detail: "The affiliated research repository holds millions of specimens, most not in public galleries; access for scientific researchers is distinct from the visitor route."
           }
-      ],
+    ],
       routes: [
           {
               label: "Free two-hour museum orientation",
@@ -202,7 +202,7 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
                   "Consider the National Ranching Heritage Center for a distinct ranching-history perspective"
               ]
           }
-      ],
+    ],
       sources: [
           {
               label: "Museum of Texas Tech University — official visitor planning",
@@ -229,7 +229,7 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
               url: "https://www.depts.ttu.edu/nsrl/",
               use: "Research collection distinction and institutional holdings"
           }
-      ],
+    ],
       connections: [
           {
               label: "Lubbock County",
@@ -246,7 +246,7 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
               href: "/destination/lubbock-lake-landmark",
               reason: "Affiliated outdoor archaeological preserve, reached separately with different visiting rules."
           }
-      ],
+    ],
   },
   "texas-country-music-hall-of-fame-carthage": {
     name: "Texas Country Music Hall of Fame and Tex Ritter Museum",
