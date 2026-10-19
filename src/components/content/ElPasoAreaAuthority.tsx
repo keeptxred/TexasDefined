@@ -48,6 +48,16 @@ function GuideCards({ items }: { items: readonly LinkRecord[] }) {
 /** Dedicated metro editorial content: never replace this with generic entity filler. */
 export function ElPasoMetroGuide() {
   return <>
+  <figure className="overflow-hidden border-b border-border py-8">
+    <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/El_Paso_skyline.jpg?width=1600"
+      alt="Downtown El Paso skyline beneath the Franklin Mountains"
+      className="aspect-[16/9] max-h-[30rem] w-full object-cover" loading="eager" decoding="async" />
+    <figcaption className="mt-2 text-xs leading-5 text-muted-foreground">
+      El Paso skyline · Photograph by <a href="https://commons.wikimedia.org/wiki/File:El_Paso_skyline.jpg" target="_blank" rel="noopener noreferrer" className="underline">Quintin Soloviev</a> ·
+      <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer" className="ml-1 underline">CC BY 4.0</a>.
+      Photo presented with a responsive crop.
+    </figcaption>
+  </figure>
     <section className="border-b border-border py-12" aria-labelledby="el-paso-metro-geography">
       <p className="eyebrow text-primary">Metro geography, explained</p>
       <h2 id="el-paso-metro-geography" className="mt-3 font-display text-4xl">What counts as the El Paso metro?</h2>
