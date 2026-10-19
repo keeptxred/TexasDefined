@@ -418,7 +418,7 @@ function ArticlePage() {
 
   const hasSchoolSupplyRail = schoolSupplyArticleSlugs.has(article.slug);
   const isTexasRiversArticle = article.slug === "texas-rivers-explained";
-  const hideGenericRelatedRail = article.slug === "texas-ecoregions-habitats-guide" || article.slug === "texas-high-school-football-playoffs-explained";
+  const hideGenericRelatedRail = article.slug === "east-texas-fall-colors" || article.slug === "texas-ecoregions-habitats-guide" || article.slug === "texas-high-school-football-playoffs-explained";
   const articleDisplayTitle = isTexasRiversArticle ? "Texas Rivers Explained" : article.title;
   const isSixManFootballArticle = article.slug === "texas-six-man-football-rules-explained";
   const riverBasinHeadingIndex = isTexasRiversArticle
