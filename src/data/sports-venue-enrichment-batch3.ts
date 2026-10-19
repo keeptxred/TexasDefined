@@ -117,6 +117,8 @@ export const SPORTS_VENUE_ENRICHMENT_BATCH3: Record<string, SportsVenueEnrichmen
   },
   'shell-energy-stadium': {
     city: 'Houston',
+    capacity: '20,656 seats',
+    opened: 'May 12, 2012',
     primaryEvents: ['Houston Dynamo FC matches', 'Houston Dash matches', 'Soccer, football and special stadium events'],
     parking: 'Shell Energy Stadium uses Lots B and C north of the stadium, with availability and pricing varying by event and the neighboring Astros schedule. The venue encourages public transit, carpooling, walking and biking because parking near the EaDo stadium is limited.',
     arrival: 'METRORail Green and Purple lines stop at EaDo/Stadium directly by the venue. Rideshare pickup and drop-off is designated near Hutchins and Walker, making transit or rideshare especially useful when downtown events overlap.',
@@ -126,9 +128,10 @@ export const SPORTS_VENUE_ENRICHMENT_BATCH3: Record<string, SportsVenueEnrichmen
       { label: 'Directions and parking', url: 'https://www.houstondynamofc.com/shell-energy-stadium/directions' },
       { label: 'Stadium A–Z guide', url: 'https://www.houstondynamofc.com/shell-energy-stadium/azguide' },
       { label: 'Stadium maps', url: 'https://www.houstondynamofc.com/shell-energy-stadium/stadium-maps' },
+      { label: 'Stadium facts and capacity', url: 'https://www.houstondynamofc.com/shell-energy-stadium/about' },
     ],
     imageBrief: 'Soccer-specific stadium in Houston EaDo at dusk with downtown skyline context and pedestrian match-day atmosphere, no added logos or text.',
-    verifiedAt,
+    verifiedAt: '2026-10-19',
   },
   'mclane-stadium': {
     city: 'Waco',
