@@ -78,7 +78,7 @@ function CityCountyRelationshipsPage() {
 
   return (
     <Container className="pb-20 pt-12 sm:pt-16">
-      <nav aria-label="Breadcrumb" className="border-b border-border pb-4 text-xs uppercase tracking-[0.14em] text-muted-foreground">
+      <nav aria-label="Breadcrumb" className="border-b border-border pb-4 text-xs uppercase tracking-wide text-muted-foreground">
         <Link to="/">Front page</Link><span aria-hidden="true" className="mx-2">/</span><Link to="/texas-data">Texas Data</Link><span aria-hidden="true" className="mx-2">/</span><span aria-current="page">City-to-county reference</span>
       </nav>
 
@@ -99,8 +99,8 @@ function CityCountyRelationshipsPage() {
       </section>
 
       <div className="overflow-x-auto border-y border-border">
-        <table className="w-full min-w-[860px] text-left text-sm">
-          <thead><tr className="border-b border-border bg-surface text-[0.68rem] uppercase tracking-[0.12em] text-muted-foreground"><th className="px-4 py-3">City</th><th className="px-4 py-3">Primary directory county</th><th className="px-4 py-3">Other counties</th><th className="px-4 py-3">Region</th><th className="px-4 py-3">Guides</th></tr></thead>
+        <table className="w-full min-w-full text-left text-sm">
+          <thead><tr className="border-b border-border bg-surface text-xs uppercase tracking-wide text-muted-foreground"><th className="px-4 py-3">City</th><th className="px-4 py-3">Primary directory county</th><th className="px-4 py-3">Other counties</th><th className="px-4 py-3">Region</th><th className="px-4 py-3">Guides</th></tr></thead>
           <tbody className="divide-y divide-border">
             {grouped.map(({ city, county, counties }) => {
               const additional = counties.slice(1);
