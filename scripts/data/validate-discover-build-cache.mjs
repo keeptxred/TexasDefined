@@ -52,4 +52,28 @@ assert.match(workflow, /PRODUCTION_HEALTH_LABEL: direct-worker\n\s+PRODUCTION_HE
 assert.match(workflow, /PRODUCTION_HEALTH_LABEL: canonical-domain\n\s+PRODUCTION_HEALTH_DISCOVER_ASSETS: \$\{\{ steps\.change_scope\.outputs\.images \}\}/);
 assert.match(liveImages, /public HTTP 404|HTTP /); // Verifies HTTP status is checked, not solely source-file presence
 assert.match(liveImages, /webpBytes\(bytes\)/);
+
+// The weekly audit must reuse only a successful production derivative artifact
+// with the identical slug/source/transform fingerprint, then run the original
+// strict materializer. A cache hit is not a substitute for byte validation.
+const weeklyAudit = readFileSync(".github/workflows/audit-site-quality-local.yml", "utf8");
+const weeklyCaller = readFileSync(".github/workflows/audit-whole-site-production.yml", "utf8");
+for (const source of [weeklyAudit, weeklyCaller]) {
+  assert.ok(source.includes("actions: read"), "weekly audit caller and reusable workflow need least-privilege artifact-read access");
+}
+assert.ok(weeklyAudit.includes("steps.discover_fingerprint.outputs.sha"), "weekly audit cache key must use governed registry fingerprint");
+assert.ok(weeklyAudit.includes("key: local-audit-discover-${{ runner.os }}-${{ steps.discover_fingerprint.outputs.sha }}"),
+  "weekly audit must invalidate cached derivatives on any governed source or transformation change");
+assert.ok(weeklyAudit.includes("steps.discover_cache.outputs.cache-hit != 'true'"), "artifact recovery must run only after a cache miss");
+assert.ok(weeklyAudit.includes('prefix="governed-discover-derivatives-${SOURCE_FINGERPRINT}-"'),
+  "weekly audit must use production's exact source fingerprint artifact namespace");
+assert.ok(weeklyAudit.includes("select(.conclusion == \"success\")"),
+  "weekly audit may restore artifacts from successful production deployments only");
+assert.ok(weeklyAudit.includes("select(.expired == false)"), "expired production image artifacts may not be reused");
+assert.ok(weeklyAudit.includes('gh run download "$run_id"'),
+  "weekly audit must download exact matching production derivative files, not request all live URLs");
+assert.ok(weeklyAudit.includes("node scripts/assets/materialize-discover-overrides.mjs\n          npm run build"),
+  "strict image materialization/verification must always run before local Worker build");
+assert.ok(!weeklyAudit.includes("restore-keys:"), "a cross-fingerprint cache fallback is prohibited");
+
 console.log("Discover artifact cache provenance, fresh local assets, change-scoped full live WebP delivery, image validation and strict deployment gates verified.");
