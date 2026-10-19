@@ -1331,6 +1331,8 @@ if (!errors.length) {
 
   const currentCoachContracts = [
     ['big-sandy-harmony', 'Brian Mauk', 'kltv.com/story/26056195/harmony-eagles/'],
+    ['bishop', 'Keith Talbert', 'maxpreps.com/tx/bishop/bishop-badgers/football/staff/'],
+    ['boys-ranch', 'Louis Kelley III', 'boysranchisd.org/132207_2'],
     ['boerne', 'Brett Sawyer', 'boernestar.com/article/14105'],
     ['blanco', 'Kent Walker', 'maxpreps.com/tx/blanco/blanco-panthers/football/staff/'],
     ['bloomington', 'Lane Shands', 'texasfootball.com/article/2026/02/05/which-districts-have-the-best-head-coaches-after-realignment'],
