@@ -165,6 +165,8 @@ export const Route = createFileRoute("/destination/$slug")({
     if (isTopTexasAttraction(destination.slug)) {
       const { resolveTopAttractionAuthority } = await import("@/data/top-attraction-authority-resolver");
       destination = resolveTopAttractionAuthority(destination);
+      const { applyTop50FaqWave2 } = await import("@/data/top50-source-verified-faqs-wave2");
+      destination = applyTop50FaqWave2(destination);
     }
     if (isTop50AuthorityWave1(destination.slug)) {
       const { applyTop50AuthorityWave1 } = await import("@/data/destination-authority-top50-wave1");
