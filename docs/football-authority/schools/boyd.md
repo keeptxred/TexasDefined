@@ -28,3 +28,9 @@ Boyd ISD publishes 700 Knox Avenue, Boyd, TX 76023 and office 940-433-9580: [off
 The school page `/texas-high-school-football-teams/boyd` links to `/county/wise`, and the corresponding Wise county guide adds a reciprocal football link. All original FAQs distinguish this particular school, its coaching and its actual sourced history. A current head-coach field is deliberately omitted where first-party confirmation was insufficient. No school logo, team photo or facility image is reused without documented license. An actual school photo still requires rights validation; an unrelated stock image is never substituted.
 
 **Before acceptance:** canonical protected CI on reconciled main, successful exact-SHA production deployment, school/county targeted real Chrome desktop/390px/320px SEO/JSON-LD/FAQ/links/axe checks, game-day and photo-rights evidence, and real nine-dimension Supabase editorial acceptance. Registry stays IMPLEMENTED until these are proven. No broad audit and no synthetic editorial sign-off.
+
+## October 19, 2026 — updated October 16 final (reported, not accepted)
+
+[MaxPreps' October 17 completed Boyd–Peaster game recap](https://www.maxpreps.com/news/fUut-PcoIkG0vnA3SOiEbg/football-recap-tough-loss-for-boyd.htm) reports **Peaster 44, Boyd 13**, placing the Yellowjackets at **2–5 through October 16**. The source-dated 1983 and 2004 UIL state championships and separate, unresolved first-party head-coach designation are preserved.
+
+This source-backed editorial correction does not establish a school-certified UIL final, image license, guaranteed stadium entrance, exact deployed commit or school-specific nine-dimension editorial/Chrome acceptance. Preserve this school's `DEPLOYED` status until acceptance evidence is recorded.

@@ -43,6 +43,7 @@ function Page() {
         <div className="mt-6 flex flex-wrap gap-5 text-sm font-semibold">
           <a href={FOOTBALL_BRACKET_SOURCE} target="_blank" rel="noopener noreferrer" className="text-primary">Open all official UIL brackets ↗</a>
           <Link to="/texas-high-school-football-matchups" className="text-primary">Football scores & matchups →</Link>
+          <Link to="/article/texas-high-school-football-playoffs-explained" className="text-primary">How the UIL playoff rounds work →</Link>
         </div>
       </header>
       <section className="py-9" aria-labelledby="bracket-picker">

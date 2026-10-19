@@ -1205,13 +1205,16 @@ if (!errors.length) {
     'top two teams from each 1A six-man district',
     'top four teams from each district advance in 2A through 6A',
     'the two schools with the larger enrollments go to the Division I bracket',
-    'What \'bi-district\' means',
+    'What does bi-district mean in Texas high school football?',
+    'It does not mean a team won two district championships.',
+    '/texas-high-school-football-playoff-brackets',
     'first round in 5A and 6A',
     '/texas-high-school-football-teams',
   ]) requireText(playoffGuide, marker, 'Football playoff guide');
   requireText(playoffGuide, '/article/texas-six-man-football-rules-explained', 'Football playoff guide six-man discovery');
   requireText(playoffGuide, '/article/texas-high-school-football-scores-schedules', 'Football playoff guide scores discovery');
   requireText(playoffGuide, '/article/texas-high-school-football-2026-season-calendar', 'Football playoff guide calendar discovery');
+  requireText(read('src/routes/texas-high-school-football-playoff-brackets.tsx'), 'to="/article/texas-high-school-football-playoffs-explained"', 'Football brackets reciprocal playoff explainer discovery');
   for (const marker of [
     'Texas High School Football Scores 2026: Schedules & UIL Scoreboard',
     'https://www.uiltexas.org/athletics/uil-maxpreps',

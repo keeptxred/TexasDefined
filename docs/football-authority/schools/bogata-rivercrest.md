@@ -18,3 +18,8 @@ Official [Rivercrest ISD](https://www.rivercrestisd.net/) and [Rivercrest High](
 
 Unique SEO, original editorial tied to 2019/2024/2026, seven school-specific FAQs, dated seven result + three future fixture table and 2-way Red River County context. Following merge of upstream Champion and Boerne, reconcile current main, run canonical `node scripts/ci/run-premerge-validation.mjs`, required protected Merge Gate, verify exact production descendant deployment, then focused real Chrome desktop/mobile accessibility, schema, SEO/canonical, county links, dated source corrections, rights and independent nine-dimension editorial acceptance. Keep previous 105 VERIFIED untouched. No sitewide post-update scans.
 
+## October 19, 2026 — updated October 16 final (reported, not accepted)
+
+[MaxPreps' current Rivercrest schedule](https://www.maxpreps.com/tx/bogata/rivercrest-rebels/football/schedule/) and [High School On SI's October 16 scoreboard](https://www.si.com/high-school/texas/texas-high-school-football-final-scores-results-october-16-01m53bh2k5w8) record **Trenton 21, Rivercrest 17**, bringing Rivercrest to **4–4 through October 16**. The original district alignment, 2019/2024 historical achievements, October 9 Wolfe City overtime result and 2026 school identity are preserved.
+
+This source-backed editorial correction does not establish a school-certified UIL final, image license, guaranteed stadium entrance, exact deployed commit or school-specific nine-dimension editorial/Chrome acceptance. Preserve this school's `DEPLOYED` status until acceptance evidence is recorded.

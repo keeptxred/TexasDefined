@@ -391,3 +391,22 @@ test('semantic query parameters remain separate pages in manual acceptance', asy
   await fetchPage('https://texasdefined.com/fishing/plan?view=map&verify=3');
   assert.equal(calls, 2);
 });
+
+test('one duplicate Edinburg museum URL receives a bounded, exact permanent redirect check', async () => {
+  const museum = { path: '/destination/museum-south-texas-history-edinburg', target: '/destination/museum-of-south-texas-history-edinburg' };
+  const plan = buildChangePlan({ baseline, head, changedFiles: ['src/lib/legacy-editorial-redirects.ts'] });
+  assert.deepEqual(plan.redirectChecks, [museum]);
+  assert.ok(plan.selectedPaths.length + plan.redirectChecks.length <= PAGE_BUDGET);
+  const onlyRedirect = { ...plan, selectedPaths: [] };
+  const good = await verifyChangedPages({ plan: onlyRedirect, head, fetchImpl: async (_url, init) => {
+    assert.equal(init.redirect, 'manual');
+    return new Response(null, { status: 301, headers: { location: museum.target } });
+  } });
+  assert.deepEqual(good.map(row => [row.passed, row.status, row.redirectTo]), [[true, 301, museum.target]]);
+  const bad = await verifyChangedPages({ plan: onlyRedirect, head, fetchImpl: async () => new Response(null, { status: 200 }) });
+  assert.equal(bad[0].passed, false);
+  assert.match(bad[0].error, /Expected HTTP 301/);
+  const wrong = await verifyChangedPages({ plan: onlyRedirect, head, fetchImpl: async () => new Response(null, { status: 301, headers: { location: '/destination/unrelated' } }) });
+  assert.equal(wrong[0].passed, false);
+  assert.match(wrong[0].error, /Incorrect redirect target/);
+});

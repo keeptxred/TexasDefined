@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { Fragment, lazy, Suspense, type ReactNode } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import type { ArticleBlock, Author } from "@/data/types";
 import type { TexasEntityRecord } from "@/data/knowledge-graph";
@@ -6,6 +6,7 @@ import { AutoEntityLinks } from "@/components/content/AutoEntityLinks";
 import { UnusualBusinessAuthorityPanel } from "@/components/authority/UnusualBusinessAuthorityPanel";
 import { hideFailedImageContainer } from "@/lib/image-fallback";
 import { ShopTheStory } from "@/components/commerce/ShopTheStory";
+import { TEXAS_RIVERS_BODY_PHOTO_OVERRIDES } from "@/data/texas-rivers-body-photo-overrides";
 import { INTERNAL_LINK_POLICIES, policyForSurface } from '@/platform/internal-link-policies';
 import { countyLabelHasExplicitContext } from '@/platform/internal-linking';
 
@@ -107,7 +108,7 @@ export function Byline({ author, meta }: { author: Author | null; meta: string }
   );
 }
 
-export function ArticleBody({ blocks, entities = [] }: { blocks: ArticleBlock[]; entities?: TexasEntityRecord[] }) {
+export function ArticleBody({ blocks, entities = [], insertBeforeIndex, insertBefore }: { blocks: ArticleBlock[]; entities?: TexasEntityRecord[]; insertBeforeIndex?: number; insertBefore?: ReactNode }) {
   const pathname = useRouterState({ select: (state) => state.location.pathname });
   const articleSlug = pathname.startsWith("/article/") ? pathname.slice("/article/".length).split("/")[0] : "";
   const showMetroRelocationAuthority = metroRelocationGuidePaths.has(pathname);
@@ -147,7 +148,8 @@ export function ArticleBody({ blocks, entities = [] }: { blocks: ArticleBlock[];
     {showBolivarHistoryPhotoSources ? <BolivarRestorationPhotoSources /> : null}
     {blocks.map((block, index) => {
       if (index < sixManLeadCount) return null;
-      switch (block.type) {
+      const rendered = (() => {
+        switch (block.type) {
         case "heading":
           if (showLighthouseVisitPlanner && block.text === "Texas lighthouses at a glance: access, climbs and trip difficulty") {
             return <div key={index}><h2 id={articleHeadingId(block.text)} className="mb-4 mt-14 scroll-mt-28 font-display text-[2rem] font-semibold leading-[1.08] sm:mt-16 sm:text-[2.45rem]">{render(block.text, 2)}</h2><Suspense fallback={null}><LighthouseVisitPlanner /></Suspense></div>;
@@ -157,33 +159,63 @@ export function ArticleBody({ blocks, entities = [] }: { blocks: ArticleBlock[];
           }
           return <h2 key={index} id={articleHeadingId(block.text)} className="mb-4 mt-14 scroll-mt-28 font-display text-[2rem] font-semibold leading-[1.08] sm:mt-16 sm:text-[2.45rem]">{render(block.text, 2)}</h2>;
         case "quote": return <PullQuote key={index} text={block.text} entities={available()} {...(block.attribution ? { attribution: block.attribution } : {})} />;
-        case "list": return <ul key={index} className="my-8 list-disc space-y-3 pl-6 marker:text-primary">{block.items.map((item) => <li key={item}>{render(item, 2)}</li>)}</ul>;
-        case "image": return (
-          <figure key={index} className="my-10 sm:my-12">
-            <div className="overflow-hidden rounded-2xl border border-border bg-muted/20">
-              <img
-                src={block.image.src}
-                alt={block.image.alt}
-                width={block.image.width}
-                height={block.image.height}
-                loading="lazy"
-                decoding="async"
-                className="h-auto w-full object-contain"
-                onError={(event) => hideFailedImageContainer(event.currentTarget)}
-              />
-            </div>
-            {(block.caption || block.image.credit) && (
-              <figcaption className="mt-3 text-sm leading-6 text-muted-foreground">
-                {block.caption}{block.caption && block.image.credit ? " · " : ""}{block.image.credit}<CommonsImageCreditLink src={block.image.src} />
-              </figcaption>
-            )}
-            {articleSlug === "best-lighthouses-to-visit-in-texas" && block.image.src.includes("Port_Bolivar_TX_-_Point_Bolivar_Lighthouse.jpg") ? <BolivarRestorationPhotoSources /> : null}
-          </figure>
-        );
+        case "list":
+          if (articleSlug === "texas-rivers-explained"
+            && blocks[index - 1]?.type === "heading"
+            && blocks[index - 1]?.text === "Texas Rivers at a Glance") {
+            return (
+              <dl key={index} className="my-8 grid gap-3 sm:grid-cols-2">
+                {block.items.map((item) => {
+                  const questionEnd = item.indexOf("?");
+                  const question = questionEnd >= 0 ? item.slice(0, questionEnd + 1) : item;
+                  const answer = questionEnd >= 0 ? item.slice(questionEnd + 1).trim() : "";
+                  return (
+                    <div key={item} className="rounded-sm border border-border bg-surface p-4 sm:p-5">
+                      <dt className="font-display text-lg font-semibold leading-snug">{render(question, 1)}</dt>
+                      {answer ? <dd className="mt-2 text-sm leading-6 text-muted-foreground">{render(answer, 2)}</dd> : null}
+                    </div>
+                  );
+                })}
+              </dl>
+            );
+          }
+          return <ul key={index} className="my-8 list-disc space-y-3 pl-6 marker:text-primary">{block.items.map((item) => <li key={item}>{render(item, 2)}</li>)}</ul>;
+        case "image": {
+          const articleImage = articleSlug === "texas-rivers-explained"
+            ? TEXAS_RIVERS_BODY_PHOTO_OVERRIDES[block.image.src] ?? block.image
+            : block.image;
+          return (
+            <figure key={index} className="my-10 sm:my-12">
+              <div className="overflow-hidden rounded-2xl border border-border bg-muted/20">
+                <img
+                  src={articleImage.src}
+                  alt={articleImage.alt}
+                  width={articleImage.width}
+                  height={articleImage.height}
+                  loading="lazy"
+                  decoding="async"
+                  className="h-auto w-full object-contain"
+                  onError={(event) => hideFailedImageContainer(event.currentTarget)}
+                />
+              </div>
+              {(block.caption || articleImage.credit) && (
+                <figcaption className="mt-3 text-sm leading-6 text-muted-foreground">
+                  {block.caption}{block.caption && articleImage.credit ? " · " : ""}{articleImage.credit}<CommonsImageCreditLink src={articleImage.src} />
+                </figcaption>
+              )}
+              {articleSlug === "best-lighthouses-to-visit-in-texas" && articleImage.src.includes("Port_Bolivar_TX_-_Point_Bolivar_Lighthouse.jpg") ? <BolivarRestorationPhotoSources /> : null}
+            </figure>
+          );
+        }
         case "shop": return <ShopTheStory key={index} collectionSlug={block.collectionSlug} />;
         case "paragraph":
         default: return <p key={index} className="mt-6 first:mt-0">{render(block.text, 4)}</p>;
+        }
+      })();
+      if (insertBeforeIndex === index && insertBefore) {
+        return <Fragment key={`article-insert-${index}`}>{insertBefore}{rendered}</Fragment>;
       }
+      return rendered;
     })}
     {showMetroRelocationAuthority ? <Suspense fallback={null}><MetroRelocationAuthority articlePath={pathname} /></Suspense> : null}
   </div>;

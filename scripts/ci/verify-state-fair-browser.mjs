@@ -58,6 +58,7 @@ try {
       row.checks.gallery = initial.galleryPresent;
       row.checks.map = initial.links.includes('https://bigtex.com/plan-your-visit/map/');
       row.checks.ticketInfo = initial.bodyText.includes('2026 ticket prices and admission');
+      row.checks.futureTicketDestination = !seasonOver || (await page.locator('[data-state-fair-official-ticket-cta]').getAttribute('href')) === 'https://bigtex.com/';
       row.checks.includedActivities = initial.bodyText.includes('More than 100 daily activities');
       row.checks.cottonBowlLink = initial.links.includes(origin + '/sports-venue/cotton-bowl');
       row.checks.redRiverLink = initial.links.includes(origin + '/event/red-river-rivalry');
@@ -74,6 +75,28 @@ try {
       row.photoCount = archival.length;
       row.checks.photoCount = archival.length === 31;
       row.checks.photoAttribution = archival.every(e => e.alt && e.source && e.license.includes('by-sa') && e.credit.includes('Michael Barera'));
+      // A full-element screenshot alone does not load offscreen lazy images.
+      // Visit every gallery item as a user would, prove decoded image pixels,
+      // and only then capture a gallery screenshot with all 31 images present.
+      const galleryImages = page.locator('[data-state-fair-historical-gallery] figure img');
+      const brokenGalleryImages = [];
+      for (let index = 0; index < archival.length; index += 1) {
+        const image = galleryImages.nth(index);
+        await image.scrollIntoViewIfNeeded({ timeout: 12000 });
+        const loaded = await page.waitForFunction((position) => {
+          const img = document.querySelectorAll('[data-state-fair-historical-gallery] figure img')[position];
+          return img instanceof HTMLImageElement && img.complete && img.naturalWidth > 0;
+        }, index, { timeout: 15000 }).then(() => true).catch(() => false);
+        if (!loaded) {
+          brokenGalleryImages.push({
+            index: index + 1,
+            alt: await image.getAttribute('alt'),
+            src: await image.getAttribute('src'),
+          });
+        }
+      }
+      row.brokenGalleryImages = brokenGalleryImages;
+      row.checks.galleryImagePixels = archival.length === 31 && brokenGalleryImages.length === 0;
       // Independently verify the 2026 photograph; do not conflate its CC0
       // licensing with the preserved 31-photo Michael Barera CC BY-SA archive.
       const freshFigure = page.locator('[data-state-fair-2026-licensed-photo]');
@@ -87,12 +110,16 @@ try {
         source: el.querySelector('a[href*="commons.wikimedia.org"]')?.href || '',
         cc0: el.querySelector('a[href*="creativecommons.org/publicdomain/zero/1.0"]')?.href || '',
         credited: el.textContent?.includes('IcedCowboyCoffee') || false,
+        imageSrc: el.querySelector('img')?.currentSrc || '',
+        imageComplete: el.querySelector('img')?.complete || false,
+        imageWidth: el.querySelector('img')?.naturalWidth || 0,
       }));
       row.checks.currentYearPhoto = freshImageLoaded &&
         row.currentYearPhoto.alt.includes('2026') &&
         row.currentYearPhoto.source.includes('The_Midway_of_the_State_Fair_of_Texas_2026.png') &&
         !!row.currentYearPhoto.cc0 && row.currentYearPhoto.credited;
       await freshFigure.screenshot({ path: out + '/' + viewport + '-2026-photo.png', timeout: 20000 });
+      await page.evaluate(() => window.scrollTo(0, 0));
       await page.screenshot({ path: out + '/' + viewport + '.png', fullPage: false });
       await page.locator('[data-state-fair-historical-gallery]').screenshot({ path: out + '/' + viewport + '-gallery.png', timeout: 20000 });
       // A root shell hydration marker is insufficient for this lazy route's
@@ -102,6 +129,15 @@ try {
           !!document.querySelector('[data-state-fair-stay-slot]'),
         null, { timeout: 15000 },
       ).then(() => true).catch(() => false);
+      // Check the actual hydrated hotel module, not just an empty React slot.
+      // Expedia owns the surface and disclosures; keep its real DOM contract strict.
+      row.checks.hotelAffiliateDisclosure = await page.waitForFunction(() => {
+        const surface = document.querySelector('[data-state-fair-stay-slot] #expedia-travel-surface');
+        if (!surface || !/Affiliate disclosure: TexasDefined may earn/i.test(surface.textContent || '')) return false;
+        const affiliateLinks = [...surface.querySelectorAll('a[data-affiliate-partner]')];
+        return affiliateLinks.every(a => (a.getAttribute('rel') || '').includes('sponsored'));
+      }, null, { timeout: 15000 }).then(() => true).catch(() => false);
+      row.hotelModuleText = await page.locator('[data-state-fair-stay-slot]').innerText().then(x => x.slice(0, 350)).catch(() => '');
       row.checks.javascript = row.errors.length === 0;
       // Investigate real React #418 failures without weakening the strict baseline.
       // Compare fresh isolated browser contexts with third-party integrations blocked.

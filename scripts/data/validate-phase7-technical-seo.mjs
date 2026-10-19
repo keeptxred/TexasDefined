@@ -103,7 +103,7 @@ const exactQuerySourceTargets = [
     source: stateFairRoute,
     tokens: [
       '"State Fair of Texas 2026: Dates, Hours, Schedule & Tickets"',
-      '"State Fair of Texas 2026 runs Sept. 25–Oct. 18 at Fair Park in Dallas. Check daily hours, schedule, tickets, DART, parking, food, rides and events."',
+      '"The 2026 State Fair of Texas concluded October 18 at Fair Park in Dallas. Review historical dates, hours, ticket prices, food, DART and next-date sources."',
       '...stateFairData',
       'startDate: "2026-09-25"',
       'endDate: "2026-10-18"',

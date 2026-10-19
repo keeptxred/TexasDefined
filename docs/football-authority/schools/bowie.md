@@ -28,3 +28,9 @@ Bowie ISD publishes 341 East Highway 287 North, Bowie, TX 76230 and office 940-8
 The school page `/texas-high-school-football-teams/bowie` links to `/county/montague`, and the corresponding Montague county guide adds a reciprocal football link. All original FAQs distinguish this particular school, its coaching and its actual sourced history. School-based football contact: [Tyler Price](https://www.bowieisd.net/o/bhs/page/bowie-high-school-athletics). No school logo, team photo or facility image is reused without documented license. An actual school photo still requires rights validation; an unrelated stock image is never substituted.
 
 **Before acceptance:** canonical protected CI on reconciled main, successful exact-SHA production deployment, school/county targeted real Chrome desktop/390px/320px SEO/JSON-LD/FAQ/links/axe checks, game-day and photo-rights evidence, and real nine-dimension Supabase editorial acceptance. Registry stays IMPLEMENTED until these are proven. No broad audit and no synthetic editorial sign-off.
+
+## October 19, 2026 — updated October 16 final (reported, not accepted)
+
+[MaxPreps' October 17 updated Bowie Jackrabbits schedule](https://www.maxpreps.com/tx/bowie/bowie-jackrabbits/football/schedule/) records **Paradise 37, Bowie 15**, bringing this **Montague County Bowie ISD** program to **4–4 through October 16**. This is not Austin Bowie, nor the unrelated Simms James Bowie Pirates. The existing 2026 school identity and coach evidence remain unchanged.
+
+This source-backed editorial correction does not establish a school-certified UIL final, image license, guaranteed stadium entrance, exact deployed commit or school-specific nine-dimension editorial/Chrome acceptance. Preserve this school's `DEPLOYED` status until acceptance evidence is recorded.

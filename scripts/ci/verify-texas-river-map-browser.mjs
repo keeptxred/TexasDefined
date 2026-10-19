@@ -61,6 +61,9 @@ async function inspect(page, label, width, height, mobile) {
     verify(shapes >= 23, label + ': expected at least 23 TWDB land/bay geometries, got ' + shapes);
     row.shapes = shapes;
     row.checks.push('TWDB polygons rendered: ' + shapes);
+    const duplicateBasinLabels = await section.locator('path[role="button"][aria-label*="Basin basin"], path[role="button"][aria-label*="basin basin"]').count();
+    verify(duplicateBasinLabels === 0, label + ': duplicated basin wording in map accessibility labels');
+    row.checks.push('Map accessibility labels do not repeat the word basin');
     const selector = section.locator('#texas-basin-selector');
     const choices = await selector.locator('option').allTextContents();
     row.options = choices;

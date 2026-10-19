@@ -3,6 +3,12 @@ import { isDestinationPhotoPlaceholder } from "./explore-hero-reconciliation";
 
 /** Lightweight exact-site photo sources. Never bundle long museum research dossiers in core destination discovery. */
 export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
+  "museum-of-texas-tech-university-lubbock": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Museum_of_Texas_Tech_University_IMG_0038.JPG?width=1600",
+    alt: "Museum of Texas Tech University building on its Lubbock campus, photographed in April 2009",
+    width: 1600, height: 1200,
+    credit: "Billy Hathorn · April 2009 · CC BY-SA 3.0 · Wikimedia Commons · Museum of Texas Tech University IMG 0038.JPG"
+  },
   "texas-country-music-hall-of-fame-carthage": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Texas_Country_Music_Hall_of_Fame_and_Tex_Ritter_Museum_IMG_2956.JPG?width=1600",
     alt: "Texas Country Music Hall of Fame and Tex Ritter Museum building in Carthage, photographed May 20, 2011",

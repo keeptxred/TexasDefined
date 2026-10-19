@@ -804,6 +804,34 @@
       ]
     },
     {
+      "path": "/destination/frontiers-of-flight-museum-dallas",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 10,
+      "sources": [
+        {
+          "sourceUrl": "https://flightmuseum.com/visit/",
+          "fetchUrl": "https://flightmuseum.com/visit/",
+          "label": "Frontiers of Flight — visitor information"
+        },
+        {
+          "sourceUrl": "https://flightmuseum.com/exhibits/",
+          "fetchUrl": "https://flightmuseum.com/exhibits/",
+          "label": "Frontiers of Flight — collections"
+        },
+        {
+          "sourceUrl": "https://flightmuseum.com/education/field-trips/",
+          "fetchUrl": "https://flightmuseum.com/education/field-trips/",
+          "label": "Frontiers of Flight — program details"
+        },
+        {
+          "sourceUrl": "https://flightmuseum.com/",
+          "fetchUrl": "https://flightmuseum.com/",
+          "label": "Frontiers of Flight — institutional notices"
+        }
+      ]
+    },
+    {
       "path": "/destination/george-ranch-historical-park",
       "topic": "museum-visitor-guide",
       "cadenceDays": 30,
@@ -1110,6 +1138,39 @@
           "sourceUrl": "https://www.mfah.org/visit/accessibility-resources/",
           "fetchUrl": "https://www.mfah.org/visit/accessibility-resources/",
           "label": "MFAH accessibility"
+        }
+      ]
+    },
+    {
+      "path": "/destination/museum-of-texas-tech-university-lubbock",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 10,
+      "sources": [
+        {
+          "sourceUrl": "https://www.depts.ttu.edu/museumttu/visit/",
+          "fetchUrl": "https://www.depts.ttu.edu/museumttu/visit/",
+          "label": "Texas Tech Museum — visitor information"
+        },
+        {
+          "sourceUrl": "https://www.depts.ttu.edu/museumttu/about/",
+          "fetchUrl": "https://www.depts.ttu.edu/museumttu/about/",
+          "label": "Texas Tech Museum — collections"
+        },
+        {
+          "sourceUrl": "https://www.depts.ttu.edu/museumttu/visit/planetarium.php",
+          "fetchUrl": "https://www.depts.ttu.edu/museumttu/visit/planetarium.php",
+          "label": "Texas Tech Museum — program details"
+        },
+        {
+          "sourceUrl": "https://www.depts.ttu.edu/museumttu/",
+          "fetchUrl": "https://www.depts.ttu.edu/museumttu/",
+          "label": "Texas Tech Museum — institutional notices"
+        },
+        {
+          "sourceUrl": "https://www.depts.ttu.edu/nsrl/",
+          "fetchUrl": "https://www.depts.ttu.edu/nsrl/",
+          "label": "Texas Tech Museum — scientific collections"
         }
       ]
     },

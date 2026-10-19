@@ -2,6 +2,63 @@
 
 > Current evidence ledger. Status vocabulary: **COMPLETE**, **COMPLETE — awaiting measurement**, **BLOCKED — external dependency**, **INCOMPLETE**. A merged PR is not proof of successful production verification. Other chats advance `main` concurrently; all SHAs below are **time-stamped snapshots**, not deployment locks.
 
+## October 19, 2026 — current handoff reconciliation (live repository + scoped production links)
+
+**This is a point-in-time evidence update, not a claim of complete sitewide SEO closure.** Current `main` when this section was prepared: `d1d1a69c0772e6ce953d391a163b2704672a1ec8`. The earlier October 19 production deployment [#39253453049](https://github.com/keeptxred/TexasDefined/actions/runs/39253453049) passed at exact commit `2298befff4dc562b1ee9cd9840d9307cfe552b27`; later main commits are **not** certified by that older deployment.
+
+- **PR #4964 — COMPLETE (scoped production link acceptance).** [#4964](https://github.com/keeptxred/TexasDefined/pull/4964) was merged October 15 at `9a802881e1c9bd618322627b412dfd4a88c2277d`. Its exact [deployment #38794365696](https://github.com/keeptxred/TexasDefined/actions/runs/38794365696) and preserved changed-page smoke checked both required live SSR anchors. On October 19 the public Texas Regions page still visibly linked to [Gulf Coast erosion](https://texasdefined.com/article/texas-gulf-coast-erosion-shoreline-retreat-guide), and Texas Cultural Regions still linked to [Texas oil-boom history](https://texasdefined.com/article/texas-oil-boom-wichita-falls-west-texas-rigs); both links followed to their intended canonical destinations. Do **not** reopen this defect or restore a deployment-wide crawl.
+- **Authentic GSC Web data — AVAILABLE; post-change CTR — COMPLETE awaiting measurement.** The finalized September 18–October 15 owner-property evidence documented in the October 18 section is valid and supersedes the old HYPD/plan blocker. [PR #5254](https://github.com/keeptxred/TexasDefined/pull/5254) was subsequently **merged** October 19 at `347485ad6e157940e7087265930722a3bfa66f97`, improving the bi-district answer and reciprocal playoff-bracket discovery. No post-change finalized comparable CTR cohort exists yet, so neither uplift nor exact-page production acceptance is asserted by this row.
+- **Governed Discover 47/47 and the Aquilla/Cypress Springs image repairs — COMPLETE for previously documented scoped delivery.** Keep the successful earlier run evidence above. Exact-location image rights and native resolution requirements for the four museum placeholders, First Capitol, Del Rio depot and experimental forest remain separate source-specific limitations.
+- **Whole-site internal-link graph + snippet classifications — INCOMPLETE (current comparable evidence).** No new complete after-count was established in this October 19 review. Continue with the *existing* Monday 13:17 UTC local-Worker coordinator; do not count status-zero transport errors as HTTP 404 or claim a changed denominator.
+- **Football ISD 35 historical transport failures — INCOMPLETE (root cause/after-measurement).** Prior indexing and memoization fixes are merged, but a new representative diagnostic with actual transport exception and production timing evidence is still required before classifying or closing the remaining exceptions. Do not start a new full-season authority project.
+- **Battleship Texas hydration #418 and two archival image failures — INCOMPLETE (new runtime QA).** Current SSR renders the historic-photo gallery and source/license links, but server-rendered HTML does not prove mobile/desktop browser hydration or successful image decode. The existing `scripts/ci/verify-battleship-texas-browser.mjs` provides strict Chrome acceptance and integration-isolation diagnostics; no completed, current exact-SHA browser result was established in this review.
+- **Four museum image-rights cases — BLOCKED pending verifiable exact-subject commercial reuse.** Museum of the Gulf Coast (Port Arthur), El Paso Holocaust Museum, Texas Broadcast Museum (Kilgore), and Johnny Nelson Katy Heritage Museum must retain accurate imagery/indexability treatment. Publicly viewable or superficially similar museum imagery does not establish re-use rights.
+- **Indexing validation — awaiting Google's completion outcome.** Historical notices about discovered-not-indexed, 5xx, 403 and canonical validation are not proof of resolution; retain pending status until the corresponding Google notices or finalized owner data can be checked.
+
+**Next independent closure:** preserve and review the next existing complete local graph/snippet artifacts, triage only confirmed route failures, run the targeted Battleship Texas browser acceptance, investigate representative football ISD transport errors and record exact deployed SHA for any corrective PR. All other chats' unrelated in-flight PRs remain out of scope.
+
+## October 18, 2026 — authenticated Search Console CTR baseline and triage
+
+**Access status: AVAILABLE, supersedes historic HYPD blockers.** The connected Search Console discovery returned site-owner access for `sc-domain:texasdefined.com`. Only verified Google Search Console **Web** results in the **final** data state are used below, never GA4 sessions, placeholder zeros or live/provisional 24-hour counts. The provider estimated finalization through October 16; measured windows below end October 15.
+
+**Sitewide September 18–October 15 (28 days):** 431 clicks, 54,170 impressions, **0.7956% CTR**, impression-weighted average position **12.9947**. The no-dimension aggregate was complete. The page-level request returned 2,246 rows, untruncated; these are reporting rows, **not** the canonical sitemap or indexed-page census. Google withholds rare search queries.
+
+**Equal-length sitewide period comparison (both finalized):**
+
+| Metric | Sept 18–Oct 1 | Oct 2–15 | Change |
+| --- | ---: | ---: | ---: |
+| Clicks | 150 | 281 | +131 (+87.3%) |
+| Impressions | 21,868 | 32,302 | +10,434 (+47.7%) |
+| CTR | 0.6859% | 0.8699% | +0.184 percentage points |
+| Average position | 13.16 | 12.88 | ~0.28 positions better |
+
+The page comparison was fetched with `rowLimit=8000`, and neither 14-day window was truncated. This documents improved observed performance; it does **not** prove causation by a particular title, deployment or internal link.
+
+**Highest-priority CTR/intent review candidates, complete 28-day Web page metrics:**
+
+| Page | Clicks | Impressions | CTR | Avg position |
+| --- | ---: | ---: | ---: | ---: |
+| `/article/texas-rivers-explained` | 11 | 2,798 | 0.393% | 8.63 |
+| `/texas-state-fair` | 5 | 1,371 | 0.365% | 11.07 |
+| `/texas-homecoming-mums` | 6 | 1,181 | 0.508% | 8.66 |
+| `/article/texas-six-man-football-rules-explained` | 12 | 1,175 | 1.021% | 6.26 |
+| `/sports-venue/freeman-coliseum` | 1 | 657 | 0.152% | 9.17 |
+| `/event/heart-o-texas-fair-rodeo` | 1 | 584 | 0.171% | 8.07 |
+| `/article/texas-river-basins-guide` | 1 | 524 | 0.191% | 7.31 |
+| `/article/texas-high-school-football-playoffs-explained` | 24 | 1,461 | 1.643% | 5.28 |
+
+**Measured query context and decisions.** The State Fair guide's disclosed searches emphasize 2026 dates, end date, hours and schedule, but the 250-row query result was truncated and the event is season-sensitive: require official, current lifecycle evidence rather than recycled 2026 clickbait. The rivers article already promises major rivers, basins and a map and was updated October 18, after this measurement period; its disclosed queries include school-geography/coastal-plains river questions. Do not rewrite a freshly changed snippet just because its *earlier* CTR was low. Freeman Coliseum and Heart O' Texas Fair returned no disclosed per-page query rows; this is not evidence of zero demand and does not justify an invented query-intent headline. Reassess after a finalized post-change window, with comparable query/rank mix, canonical owner and primary source checked.
+
+**Google sitemap observation:** Search Console currently lists `/sitemap.xml` (3,213 submitted) and `/sitemap-explore.xml` (910 submitted), with **zero sitemap errors or warnings** at their October 17–18 last downloads. Its `indexed=0` content subfield must *not* be reported as zero indexed pages: live page search impressions/clicks are independently observed. Submitted sitemap counts and internal graph denominators differ.
+
+**Remaining independent gates:** obtain the next meaningful complete **local** weekly page/snippet/graph artifact, finish Google's indexing-validation outcome checks and real-world image rights/verified backlinks, and evaluate post-change CTR. The authenticated GSC access blocker is **closed**; preserve all older notes as historical snapshots only. No broad production crawl or unsourced snippet rewrite was triggered.
+
+### October 18 measured playoff-intent follow-up — PR #5254
+
+**COMPLETE — implementation submitted; production and CTR measurement still pending.** Authenticated GSC owner property `sc-domain:texasdefined.com` yielded finalized **Web** query rows for `/article/texas-high-school-football-playoffs-explained` from September 18–October 15: `bi district meaning` 31 impressions (average position 5.03), `what does bi district mean` 24 (3.29), and `what is bi district` 20 (5.15), all zero disclosed clicks. This **75-impression query subset** is not the page's complete impressions or an independent CTR experiment; anonymized queries are not enumerated.
+
+[PR #5254](https://github.com/keeptxred/TexasDefined/pull/5254) makes the existing bi-district section a direct natural-language question and explains paired districts, first-round elimination and different 1A/2A–6A advancement. It connects the article to the already-existing 2026 UIL bracket picker and adds reciprocal article discovery from the bracket page. It preserves the broad source-backed title, 2026 UIL rules and all core SEO metadata, adding protection in the existing football validator. **Neither protected merge nor exact-SHA production verification nor post-change Google CTR lift should be asserted before separately observed evidence.** No expensive sitewide audit was added.
+
 ## October 16, 2026 — current production reconciliation
 
 **This section supersedes older `INCOMPLETE` labels below only for the named gates. Historical counts and failure records remain intentionally preserved.**

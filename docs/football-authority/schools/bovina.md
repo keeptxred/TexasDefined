@@ -9,11 +9,11 @@ Gruver shut out Bovina 55–0 in the October 16 district game. **3–4** through
 
 ## Source-verified campus, school identity and history
 
-Bovina ISD publishes 500 Halsell Street, Bovina, TX 79009 and office 806-251-1336: [official school material](https://www.bovinaisd.org/documents/athletics/715565). The exact game-night entrance, accessible seating, parking or tickets require venue-specific evidence. Bovina's completed 2025 postseason included a 36–24 first-round win over Hale Center and a 24–16 win against Seagraves, followed by a 14–48 loss to Stratford. The 2026 Mustangs were 3–3 after a close 38–44 loss at West Texas October 9. Context and historical source: [individual record](https://www.maxpreps.com/tx/bovina/bovina-mustangs/football/25-26/schedule/). Bovina ISD publishes a 2026 Football documents folder. A MaxPreps 2026 staff listing names Wade Wilson, but an official school appointment was not verified; do not claim it as first-party. The October 16 Gruver game has no confirmed final here.
+Bovina ISD publishes 500 Halsell Street, Bovina, TX 79009 and office 806-251-1336: [official school material](https://www.bovinaisd.org/documents/athletics/715565). The exact game-night entrance, accessible seating, parking or tickets require venue-specific evidence. Bovina's completed 2025 postseason included a 36–24 first-round win over Hale Center and a 24–16 win against Seagraves, followed by a 14–48 loss to Stratford. The 2026 Mustangs were 3–3 after a close 38–44 loss at West Texas October 9. Context and historical source: [individual record](https://www.maxpreps.com/tx/bovina/bovina-mustangs/football/25-26/schedule/). Bovina ISD publishes a 2026 Football documents folder. A MaxPreps 2026 staff listing names Wade Wilson, but an official school appointment was not verified; do not claim it as first-party. The October 16 Gruver result was subsequently reported as a 0–55 home loss in an October 17 contemporary score roundup; see the updated result below. This was unresolved in the earlier October 9 snapshot.
 
 ## Source-dated 2026 varsity games
 
-**3–3 through October 9, 2026**. [Bovina Mustangs current 2026 game results](https://www.maxpreps.com/tx/bovina/bovina-mustangs/football/). No result marked without a reported final. Future games, schedule changes and unresolved conflicts are explicitly not treated as wins or losses.
+**3–4 through October 16, 2026**, including the newly reported Gruver loss; the six prior finals below remain independently dated. [Bovina Mustangs current 2026 game results](https://www.maxpreps.com/tx/bovina/bovina-mustangs/football/). No result marked without a reported final. Future games, schedule changes and unresolved conflicts are explicitly not treated as wins or losses.
 
 | Date | Opponent | Site | Reported result |
 |---|---|---|---|
@@ -23,7 +23,7 @@ Bovina ISD publishes 500 Halsell Street, Bovina, TX 79009 and office 806-251-133
 | 2026-09-25 | Morton | Home | W 38–20 |
 | 2026-10-01 | McCamey | Home | L 14–33 |
 | 2026-10-09 | West Texas | Away | L 38–44 |
-| 2026-10-16 | Gruver | Home | Scheduled / result not verified |
+| 2026-10-16 | Gruver | Home | L 0–55 ([October 17 reported final](https://www.fox34.com/2026/10/17/end-zone-final-scores-friday-oct-16/)) |
 | 2026-10-22 | Stratford | Away | Scheduled / result not verified |
 | 2026-11-06 | Vega | Home | Scheduled / result not verified |
 

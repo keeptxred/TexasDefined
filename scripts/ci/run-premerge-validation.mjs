@@ -123,6 +123,7 @@ const prebuildChecks = [
   ['EVENT/SCHEMA', 'Audit Event schema enrichment', 'node', ['scripts/data/audit-event-schema-enrichment.mjs']],
   ['EVENT/SCHEMA', 'Syntax-check production Event structured-data verifier', 'node', ['--check', 'scripts/ci/verify-event-structured-data-production.mjs']],
   ['IMAGE/PROVENANCE', 'Validate RV image provenance', 'node', ['scripts/data/validate-rv-image-provenance.mjs']],
+  ['IMAGE/PROVENANCE', 'Reject false photo credits on known AI-generated editorial heroes', 'node', ['scripts/data/validate-ai-editorial-image-provenance.mjs']],
   ['IMAGE/READINESS', 'Validate destination final image readiness', 'node', ['scripts/data/validate-destination-image-final-readiness.mjs']],
   ['ANALYTICS/GOVERNANCE', 'Validate shared React affiliate click telemetry', 'node', ['scripts/data/validate-shared-affiliate-tracker.mjs']],
   ['ANALYTICS/GOVERNANCE', 'Validate private partner referral reporting', 'node', ['scripts/data/validate-partner-referral-reporting.mjs']],

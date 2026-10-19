@@ -1,4 +1,5 @@
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
+import { useEffect } from "react";
 
 import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { MapPreview } from "@/components/editorial/MapPreview";
@@ -91,6 +92,16 @@ function austinEditorial(slug: string) {
 
 const MCALLEN_EDITORIAL_TRIPS = [
   {
+    slug: "quinta-mazatlan",
+    externalOnly: true,
+    title: "Quinta Mazatlán",
+    label: "McAllen · Urban nature and birding",
+    plan: "Local morning or relaxed half day",
+    why: "Visit an urban sanctuary with historic Spanish Revival architecture, native Tamaulipan brushland, birding paths and city-run ecology programs—without leaving McAllen.",
+    caution: "At 600 Sunset Drive, parking is limited during the expansion project; consider carpooling or rideshare. Closed Sunday and Monday. Check current admission, hours and construction notices (official sources reviewed October 19, 2026).",
+    official: "https://www.quintamazatlan.com/visit-explore/park-hours-admission",
+  },
+  {
     slug: "bentsen-rio-grande-valley-state-park",
     title: "Bentsen-Rio Grande Valley State Park",
     label: "Western Valley · Birding",
@@ -105,7 +116,7 @@ const MCALLEN_EDITORIAL_TRIPS = [
     label: "Alamo · Subtropical habitat",
     plan: "Half day, best started early",
     why: "Walk rare riparian and subtropical woodland, including the shorter Chachalaca Trail, and look for Valley specialty birds.",
-    caution: "Trails may be open when the visitor center is closed. Check trail conditions, entry fees and refuge rules.",
+    caution: "FWS reports Levee Road temporarily closed to pedestrians and cyclists; bicyclists should use Bobcat Trail as a detour. Other trails may remain accessible. Recheck the official notice, fees and trail conditions before traveling (reviewed October 18, 2026).",
     official: "https://www.fws.gov/refuge/santa-ana/visit-us",
   },
   {
@@ -134,6 +145,16 @@ const MCALLEN_EDITORIAL_TRIPS = [
     why: "Tour the century-old irrigation machinery that changed Lower Valley agriculture, then explore the World Birding Center grounds and river habitat.",
     caution: "The city posts weekday front-desk hours and separately advertises guided tours. Call 956-843-2286 for the exact tour schedule and access before leaving.",
     official: "https://cityofhidalgo.net/old-hidalgo-pump-housemuseum-and-world-birding-center",
+  },
+  {
+    slug: "sabal-palm-sanctuary",
+    externalOnly: true,
+    title: "Sabal Palm Sanctuary & Historic Rabb Plantation",
+    label: "Brownsville · Rio Grande palm forest",
+    plan: "Longer wildlife-focused day",
+    why: "Walk more than three miles of trails in native sabal palm forest and stop at the historic 1892 Rabb Plantation House visitor center.",
+    caution: "At 8435 Sabal Palm Grove Road, the operator lists 7 a.m.–5 p.m. access except Wednesdays, with an admission charge. Trails are walking-only; no bicycles. Check the current schedule and river-area directions before departing (reviewed October 19, 2026).",
+    official: "https://www.sabalpalmsanctuary.org/",
   },
   {
     slug: "laguna-atascosa-national-wildlife-refuge",
@@ -179,8 +200,8 @@ function McAllenDayTripsAuthority() {
             <p className="mt-3 text-sm leading-7 text-muted-foreground">{trip.why}</p>
             <p className="mt-3 border-l-2 border-border pl-4 text-sm leading-6"><strong>Before you go:</strong> {trip.caution}</p>
             <div className="mt-5 flex flex-wrap gap-5 text-sm font-semibold">
-              <Link to="/destination/$slug" params={{ slug: trip.slug }} className="border-b border-primary pb-1 text-primary">Read the TexasDefined guide →</Link>
-              <a href={trip.official} target="_blank" rel="noopener noreferrer" className="border-b border-border pb-1 hover:text-primary">Official visitor information ↗</a>
+              {!("externalOnly" in trip) && <Link to="/destination/$slug" params={{ slug: trip.slug }} className="border-b border-primary pb-1 text-primary">Read the TexasDefined guide →</Link>}
+              <a href={trip.official} target="_blank" rel="noopener noreferrer" className="border-b border-border pb-1 hover:text-primary">{("externalOnly" in trip) ? "Plan using the official visitor site ↗" : "Official visitor information ↗"}</a>
             </div>
           </article>;
         })}
@@ -189,13 +210,14 @@ function McAllenDayTripsAuthority() {
         <p className="eyebrow text-primary">Build a day, not a checklist</p>
         <h3 className="mt-3 font-display text-3xl">Three practical ways to explore from McAllen</h3>
         <div className="mt-7 grid gap-7 lg:grid-cols-3">
-          <div><h4 className="font-display text-2xl">Wildlife before the heat · Half day</h4><p className="mt-3 text-sm leading-7 text-muted-foreground">Start early at Bentsen or Santa Ana and allow two to three hours for trails and overlooks. Bring water and sun protection, then return to McAllen for lunch. Choose one refuge rather than racing through both.</p></div>
+          <div><h4 className="font-display text-2xl">Wildlife before the heat · Half day</h4><p className="mt-3 text-sm leading-7 text-muted-foreground">Start early at Bentsen or Santa Ana and allow two to three hours for trails and overlooks, or choose Quinta Mazatlán for a shorter, city-based nature walk. Bring water and sun protection; avoid racing between refuges.</p></div>
           <div><h4 className="font-display text-2xl">Wetlands + Valley heritage · Most of a day</h4><p className="mt-3 text-sm leading-7 text-muted-foreground">Visit Estero Llano Grande early, take a lunch break in Weslaco, then consider the Museum of South Texas History in Edinburg for an indoor history afternoon. Check the museum's opening days and allow for driving between towns.</p></div>
           <div><h4 className="font-display text-2xl">Port Isabel + South Padre · Full coastal day</h4><p className="mt-3 text-sm leading-7 text-muted-foreground">Leave early for Port Isabel and visit the lighthouse in the morning if climbs are available. After lunch, cross to one South Padre beach access for the afternoon. Confirm bridge traffic, beach flags, parking rules and weather; consider an overnight for a slower pace.</p></div>
         </div>
       </div>
       <div className="mt-10 border-t border-border pt-7">
         <h3 className="font-display text-2xl">How the recommendations work</h3>
+        <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">Quinta Mazatlán offers a close-to-home nature outing, while Sabal Palm Sanctuary is a longer Brownsville-area trip. Both link directly to their operators until a full, source-verified TexasDefined destination guide exists; Old Hidalgo Pumphouse already has one and is listed only once.</p>
         <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">Visitor information was reviewed against state, federal and museum websites in October 2026. The additional places below are screened by geography, not promised road mileage or driving times. The Lower Rio Grande Valley National Wildlife Refuge map pin is its public visitor headquarters near Alamo, not every refuge unit. Choose a specific public-use unit before departing. Padre Island National Seashore near Corpus Christi is better planned as a separate, longer coastal or overnight trip. Confirm current access, operating hours, weather and road conditions before leaving.</p>
         <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3">
           <Link to="/explore/near/$metro" params={{ metro: "mcallen" }} className="eyebrow border-b border-primary pb-1 text-primary">Explore all trips near McAllen →</Link>
@@ -460,10 +482,19 @@ function TexarkanaRoadTripsAuthority({ pageData }: { pageData: CollectionPageDat
 
 export function MetroProximityCollectionRich({ pageData }: { pageData: CollectionPageData }) {
   const { metro, collection, results, townReferences, eventContext, presentation } = pageData;
+  const isMcAllenDayTrips = metro.slug === "mcallen" && collection.slug === "day-trips";
+  // The shared lodging scripts must wait for this lazy section to hydrate.
+  // Otherwise they insert affiliate HTML inside the first curated article and
+  // can trigger React hydration mismatches. Other metros are unaffected.
+  useEffect(() => {
+    if (!isMcAllenDayTrips) return;
+    document.documentElement.dataset.tdMcAllenDayTripsHydrated = "1";
+    window.dispatchEvent(new Event("texasdefined:mcallen-day-trips-hydrated"));
+    return () => { delete document.documentElement.dataset.tdMcAllenDayTripsHydrated; };
+  }, [isMcAllenDayTrips]);
   if (metro.slug === "texarkana" && collection.slug === "road-trips") {
     return <TexarkanaRoadTripsAuthority pageData={pageData} />;
   }
-  const isMcAllenDayTrips = metro.slug === "mcallen" && collection.slug === "day-trips";
   const curatedSlugs = isMcAllenDayTrips ? new Set<string>(MCALLEN_EDITORIAL_TRIPS.map((trip) => trip.slug)) : new Set<string>();
   const groups = (["close-in", "easy-day-trip", "longer-day-trip"] as const)
     .map((band) => ({ band, rows: results.filter((row) => row.distanceBand === band && !curatedSlugs.has(row.destination.slug)) }))

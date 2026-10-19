@@ -5,32 +5,32 @@ import { Container } from "@/components/layout/Container";
 const highlights = [
   {
     title: "Little Lone Stars Land",
-    body: "New for 2026, this family area is designed for toddlers and younger school-age children, with rides, food, entertainment and the relocated petting zoo and Fringe Stage.",
+    body: "Introduced in 2026, this family area was designed for toddlers and younger school-age children, with rides, food, entertainment and the relocated petting zoo and Fringe Stage.",
     href: "https://bigtex.com/big-fun-for-little-texans-state-fair-of-texas-debuts-little-lone-stars-land-and-reimagined-kidway-family-friendly-areas-bring-more-rides-food-entertainment-and-texas-sized-fun-to-the-2026-state-f/",
   },
   {
     title: "Reimagined Kidway",
-    body: "Kidway has a larger footprint, a new layout and additional family-friendly rides and games for 2026.",
+    body: "In 2026, Kidway debuted a larger footprint, a new layout and additional family-friendly rides and games.",
     href: "https://bigtex.com/big-fun-for-little-texans-state-fair-of-texas-debuts-little-lone-stars-land-and-reimagined-kidway-family-friendly-areas-bring-more-rides-food-entertainment-and-texas-sized-fun-to-the-2026-state-f/",
   },
   {
     title: "Every Day Values",
-    body: "The new value program highlights lower-priced food, drinks, rides and souvenirs throughout the Fair, alongside reduced Midway pricing.",
+    body: "The 2026 Every Day Values program highlighted lower-priced food, drinks, rides and souvenirs throughout the Fair, alongside reduced Midway pricing.",
     href: "https://bigtex.com/category/press-releases/",
   },
   {
     title: "Chevrolet Main Stage moved indoors",
-    body: "The Fair's main concert stage is inside the historic Fair Park Coliseum this year, creating an indoor concert setting while keeping performances included with admission.",
+    body: "For 2026, the Fair moved its main concert stage into the historic Fair Park Coliseum, creating an indoor concert setting while keeping performances included with admission.",
     href: "https://bigtex.com/state-fair-of-texas-iconic-chevrolet-main-stage-moves-inside-historic-fair-park-coliseum/",
   },
   {
     title: "Sensory-friendly options expanded",
-    body: "Wednesday sensory-friendly mornings continue in 2026, and the Fair added a sensory-friendly room plus a quieter Safe Kids Corral available throughout the 24-day run.",
+    body: "The 2026 Fair continued Wednesday sensory-friendly mornings and added a sensory-friendly room plus a quieter Safe Kids Corral available throughout the 24-day run.",
     href: "https://bigtex.com/state-fair-amenities-and-accessibility/",
   },
   {
     title: "Stars, Stripes, and Howdies",
-    body: "The 2026 theme marks both America's 250th birthday and the State Fair of Texas' 140th birthday, with related exhibits and experiences across Fair Park.",
+    body: "The 2026 theme marked America's 250th birthday and the State Fair of Texas' 140th birthday, with related exhibits and experiences across Fair Park.",
     href: "https://bigtex.com/theme/",
   },
 ];
@@ -42,10 +42,10 @@ export function StateFairCurrentHighlights() {
     <section className="border-b border-border py-12" data-state-fair-current-highlights>
       <Container>
         <div className="max-w-5xl">
-          <p className="eyebrow text-primary">New for 2026</p>
-          <h2 className="mt-2 font-display text-3xl md:text-4xl">What returning fairgoers should know this year</h2>
+          <p className="eyebrow text-primary">Introduced in 2026</p>
+          <h2 className="mt-2 font-display text-3xl md:text-4xl">What changed at the 2026 Fair</h2>
           <p className="mt-4 max-w-3xl leading-7 text-muted-foreground">
-            The 2026 Fair changes more than the food menu. These are the updates most likely to affect how you plan the day.
+            The 2026 Fair introduced these attractions and visitor-service changes. This section records what was new that year, not a confirmed preview of the next Fair.
           </p>
         </div>
 

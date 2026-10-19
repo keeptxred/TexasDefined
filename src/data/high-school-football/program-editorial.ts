@@ -1179,7 +1179,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Blooming Grove Lions Football 2026 | Coach Sherrill, District & Lion Stadium",
-      "description": "Blooming Grove Lions 2026 football: new head coach Kevin Sherrill, UIL 3A Division II District 11, 0–6 through October 9 and official campus visitor contact."
+      "description": "Blooming Grove Lions 2026 football: head coach Kevin Sherrill, UIL 3A Division II District 11, 0–7 through October 16 and official campus visitor contact."
     },
     "coach": {
       "name": "Kevin Sherrill",
@@ -1202,10 +1202,10 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "verifiedAt": "2026-10-15"
     },
     "season": {
-      "record": "0–6 through October 9, 2026 (Pigskin Prep team ledger, independently confirmed Teague result; season ongoing)",
-      "verifiedAt": "2026-10-15",
-      "sourceUrl": "https://www.texashighschoolfootballhistory.com/showfreeschedules.asp?distID=353&yr=2026",
-      "sourceLabel": "Pigskin Prep 2026 Class3A DII District11 dated opponent ledger; October9 score confirmed by MaxPreps final game box",
+      "record": "0–7 through October 16, 2026 (Elkhart 40–0 reported final; season ongoing)",
+      "verifiedAt": "2026-10-19",
+      "sourceUrl": "https://www.maxpreps.com/news/s1pJrwmNrkCdU5qR8UOdtw/football-recap-tough-loss-for-blooming-grove.htm",
+      "sourceLabel": "MaxPreps October 16 Elkhart 40–0 Blooming Grove completed result and 0–7 record; earlier six results in Pigskin Prep ledger",
       "games": [
         {
           "date": "2026-08-28",
@@ -1248,7 +1248,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "date": "2026-10-16",
           "opponent": "Elkhart",
           "site": "Home",
-          "district": true
+          "district": true,
+          "result": "L 0–40"
         },
         {
           "date": "2026-10-23",
@@ -1319,7 +1320,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "A major recent change was Blooming Grove ISD's announcement that Kevin Sherrill would become its athletic director and head football coach for 2026. The district highlighted rebuilding accomplishments at his previous employer, Vernon ISD, including 10–3 in 2025 and 9–4 in 2024. Those numbers are **Vernon's** results and should not be misrepresented as Blooming Grove achievements. The Lions' 2025 season was 3–8 and included a first-round playoff appearance against Blue Ridge, per the completed game ledger.",
       "The 2026 Lions have experienced a challenging start in their own program. Pigskin Prep's District 11 game ledger lists losses to Frost, Eustace, Wortham, Valley Mills, Hillsboro and Teague through October 9, putting the team 0–6. Teague beat Blooming Grove 68–0 in the October 9 conference opener, independently documented by a completed MaxPreps match and each district's official event schedule. A MaxPreps season index last updated September 1 still showed 0–1 and should not override later games.",
       "For visitors, the district identifies Blooming Grove High School at 212 West Grady Street with a high-school office phone of 903-695-2541, extension 1013. This is not the elementary school or junior-high address. An October 12 official homecoming-parade calendar names Lion Stadium, but the location of the actual vehicle entrance, accessible spectator access, stadium photo rights and current admission terms were not independently confirmed; call the school for match-specific arrangements.",
-      "October 16 against Elkhart, October 23 at Rice, October 30 against Mildred and November 6 at Buffalo were still future fixtures as of the October 15 research date. Consult Blooming Grove ISD's event calendar for kickoff, changes and ticket arrangements; a missing result in old third-party calendar pages should not be mistaken for a cancellation or a win."
+      "October 16 against Elkhart ended in a reported 0–40 home defeat; October 23 at Rice, October 30 against Mildred and November 6 at Buffalo are future fixtures as of October 19. Consult Blooming Grove ISD's event calendar for kickoff, changes and ticket arrangements; a missing result in old third-party calendar pages should not be mistaken for a cancellation or a win."
     ],
     "faq": [
       {
@@ -1344,7 +1345,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "Where can I find Blooming Grove football kickoff and ticket updates?",
-        "answer": "Check Blooming Grove ISD's official athletics and school events calendar for the specific game. Upcoming fixtures after October 9 included Elkhart at home and trips to Rice and Buffalo; event hours, ticketing and access can change."
+        "answer": "Check Blooming Grove ISD's official athletics and school events calendar for the specific game. Elkhart beat Blooming Grove 40–0 on October 16; upcoming trips to Rice and Buffalo still require school event confirmation, and ticketing and access can change."
       }
     ]
   },
@@ -1557,7 +1558,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Blue Ridge Tigers Football 2026 | Coach Russell, District 7 & Tiger Stadium",
-      "description": "Blue Ridge Texas Tigers football: UIL 2026 3A Division II District 7, officially identified coach Jason Russell, 2–5 through October 9, Tiger Stadium and schedules."
+      "description": "Blue Ridge Texas Tigers football: UIL 2026 3A Division II District 7, officially identified coach Jason Russell, 3–5 through October 16, Tiger Stadium and schedules."
     },
     "coach": {
       "name": "Jason Russell",
@@ -1580,10 +1581,10 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "verifiedAt": "2026-10-15"
     },
     "season": {
-      "record": "2–5 through October 9, 2026 (current completed game panel; 2026 season ongoing)",
-      "verifiedAt": "2026-10-15",
-      "sourceUrl": "https://www.maxpreps.com/tx/blue-ridge/blue-ridge-tigers/football/",
-      "sourceLabel": "MaxPreps completed 2026 varsity game results, including Howe 41–21 Oct9; prior Oct4 schedule PDF snapshot only 2–4",
+      "record": "3–5 through October 16, 2026 (Leonard 48–40 away win reported final; season ongoing)",
+      "verifiedAt": "2026-10-19",
+      "sourceUrl": "https://www.maxpreps.com/tx/football/game/blue-ridge-vs-leonard/10-16-2026/?c=dbbca0ec-f682-4209-a595-17c2aae0fffa",
+      "sourceLabel": "MaxPreps completed October 16 Blue Ridge 48–40 Leonard match and 3–5 record; earlier Howe 41–21 loss October 9",
       "games": [
         {
           "date": "2026-08-28",
@@ -1634,7 +1635,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "date": "2026-10-16",
           "opponent": "Leonard",
           "site": "Away",
-          "district": true
+          "district": true,
+          "result": "W 48–40"
         },
         {
           "date": "2026-10-23",
@@ -1690,7 +1692,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "overview": [
       "Blue Ridge High School's Tigers are a Collin County, Texas eleven-man football team in Blue Ridge ISD—not the unrelated Blue Ridge programs in South Carolina or other states. UIL's official 2026–28 alignment places them in Class 3A Division II, District 7 with Bells, Callisburg, Howe, Leonard, Sadler S&S Consolidated and Valley View. Historical conferences must not be relabeled as the present UIL alignment.",
       "Blue Ridge ISD currently identifies Jason Russell as both its athletics director and head football coach, and the high-school campus directory places the school at 11020 County Road 504. The district headquarters separately lists 318 West School Street. The school campus mailing address is a source-backed contact, not independently verified spectator parking or stadium gate instructions.",
-      "By October 9 the 2026 Blue Ridge varsity record was 2–5, with wins over Dallas HSAA and Valley View, close losses to Farmersville and Mount Vernon, plus a 41–21 home district loss against Howe. The October 4 MaxPreps schedule still shows 2–4 because it predates the completed Howe game; use the dated October 9 completed score rather than the older preview. Leonard, Callisburg and S&S Consolidated remain future fixtures as of this record.",
+      "By October 9 the 2026 Blue Ridge varsity record was 2–5, with wins over Dallas HSAA and Valley View, close losses to Farmersville and Mount Vernon, plus a 41–21 home district loss against Howe. The October 4 MaxPreps schedule still shows 2–4 because it predates the completed Howe game; use the dated October 9 completed score rather than the older preview. The October 16 Leonard road game ended in a reported 48–40 Blue Ridge win; Callisburg and S&S Consolidated remain future fixtures as of October 19.",
       "Dave Campbell's football archive describes 2024 and 2025 campaigns of 9–3 and 7–5 respectively, and lists no Texas UIL state football titles for Blue Ridge. Those records are historical context, not a promise of the 2026 season's final standings or a fabricated championship. Avoid overclaiming schools' rivalries and annual attendance when first-party reporting is absent.",
       "The Blue Ridge ISD athletics page and official football-schedule document index are the useful visitor starting points for Tiger Stadium, school contacts and last-minute updates. The sources reviewed do not establish the stadium's precise visitor entrance, cash gate policy, ticket prices, current parking rules, accessible seating, licensed photos or exact ADA route. Fans should consult the official district rather than rely on a school address as a guaranteed game-day gate."
     ],
@@ -1704,8 +1706,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "answer": "Blue Ridge ISD's own athletics and coaching-staff pages identify Jason Russell as the athletic director and head football coach; this is not a guess from an older third-party roster."
       },
       {
-        "question": "What was the 2026 Blue Ridge record through October 9?",
-        "answer": "The current completed game feed shows 2–5 after a home 41–21 defeat to Howe on October 9. An older schedule cached on October 4 still shows 2–4 and had not yet recorded the Howe final."
+        "question": "What was the 2026 Blue Ridge record through October 16?",
+        "answer": "Blue Ridge improved to 3–5 with an October 16 road win over Leonard, 48–40. Earlier it was 2–5 following an October 9 home loss to Howe, 41–21; an old October 4 schedule still shows 2–4 and is stale."
       },
       {
         "question": "Where is the school, and is that address Tiger Stadium's entrance?",
@@ -2287,7 +2289,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Boerne Champion Chargers Football 2026 | Coach, UIL District & Game-Day Guide",
-      "description": "Boerne Champion Chargers football: 2026 UIL 5A Division I District 13, 6–0 through October 2, Blane Ellis, official Boerne ISD Stadium tickets and 2025 postseason."
+      "description": "Boerne Champion Chargers football: 2026 UIL 5A Division I District 13, 7–0 through October 16, Blane Ellis, official Boerne ISD Stadium tickets and 2025 postseason."
     },
     "coach": {
       "name": "Blane Ellis",
@@ -2325,10 +2327,10 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "verifiedAt": "2026-10-16"
     },
     "season": {
-      "record": "6–0 through October 2, 2026 (MaxPreps updated October 5; subsequent result not certified)",
-      "verifiedAt": "2026-10-16",
-      "sourceUrl": "https://www.maxpreps.com/tx/boerne/boerne-champion-chargers/football/schedule/",
-      "sourceLabel": "MaxPreps dated October 5 six completed results; October 2 Lockhart 56–0 independently reported by San Antonio Express-News October 11",
+      "record": "7–0 through October 16, 2026 (Seguin 57–7 final reported October 17; later games unverified)",
+      "verifiedAt": "2026-10-19",
+      "sourceUrl": "https://seguintoday.com/2026/10/17/fast-starting-champion-hands-seguin-57-7-defeat/",
+      "sourceLabel": "Seguin Today October 17 firsthand report confirms Champion 57–7 Seguin on October 16; earlier six results in MaxPreps schedule",
       "games": [
         {
           "date": "2026-08-27",
@@ -2374,7 +2376,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "date": "2026-10-16",
           "opponent": "Seguin",
           "site": "Home",
-          "district": true
+          "district": true,
+          "result": "W 57–7"
         },
         {
           "date": "2026-10-23",
@@ -2436,7 +2439,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "overview": [
       "Samuel V. Champion High School's Chargers compete for Boerne ISD in Kendall County, but are a different varsity program from the Boerne High Greyhounds. The official UIL 2026–28 alignment lists Champion in 11-man Class 5A Division I, District 13 with Austin Anderson, Austin McCallum, Bastrop Cedar Creek, Smithson Valley, Kyle Lehman, Lockhart, Manor and Seguin. Boerne High is in Class 5A Division II District 13; the division matters despite the coincidentally matching district number.",
       "Champion's 2025 Chargers went 9–4, with playoff wins over Southwest and PSJA North before a 41–31 November 28 defeat to New Braunfels. That is Champion's own completed season, not Boerne High's 2022 4A Division I state runner-up story. In the 2026 season, coach Blane Ellis is explicitly identified on the school's current athletics staff page, rather than inferred from district director Stan Leech.",
-      "The MaxPreps 2026 varsity schedule last updated October 5 lists the Chargers 6–0 after six completed games, including a 56–0 October 2 district road win over Lockhart. An independently dated San Antonio Express-News report attributes 235 rushing yards and five touchdowns in that game to Caleb Farias. The October 16 Seguin game is listed with no certified final as of this checkpoint; remaining Smithson Valley, McCallum and Manor games are fixtures, not projected results.",
+      "The MaxPreps 2026 varsity schedule last updated October 5 lists the Chargers 6–0 after six completed games, including a 56–0 October 2 district road win over Lockhart. An independently dated San Antonio Express-News report attributes 235 rushing yards and five touchdowns in that game to Caleb Farias. The October 16 Seguin home game subsequently ended in a reported 57–7 victory, as documented by local October 17 coverage; Smithson Valley, McCallum and Manor remain future fixtures, not projected results.",
       "Champion's own campus is at 201 Charger Boulevard, but official campus announcements place its varsity home football at the shared Boerne ISD Stadium at 1 Greyhound Lane. The district confirms the stadium street address. Its October 13 campus newsletter specifically tells families that an October 16 game-day shuttle runs from Champion High School to the district stadium; that notice should not be treated as a promise of shuttle service at every match.",
       "Champion's official Athletics Tickets page gives unusually useful game-day guidance: BISD tickets are online-only, no cash at the gate, with separate CHS varsity ticket amounts and stadium bag/food policies. The displayed adult varsity rate is $8; pre-sale and gate student categories have different amounts and can change, so check the actual ticket event. The school and stadium entrance and accessible parking arrangements must be confirmed for each event; no stadium photo-license or ADA compliance was independently certified here."
     ],
@@ -2463,7 +2466,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "What was Champion's 2026 record through the October 2 Lockhart game?",
-        "answer": "The MaxPreps October 5 scoreboard lists Champion 6–0 following a 56–0 win at Lockhart on October 2. San Antonio Express-News separately confirms the victory and reports Caleb Farias rushed for 235 yards and five touchdowns. Games after October 2 need updated results."
+        "answer": "The MaxPreps October 5 scoreboard lists Champion 6–0 following a 56–0 win at Lockhart on October 2. San Antonio Express-News separately confirms the victory and reports Caleb Farias rushed for 235 yards and five touchdowns. The October 16 Seguin game subsequently ended in a reported 57–7 win; later games still need updated results."
       },
       {
         "question": "What bags and seating arrangements should Champion fans expect?",
@@ -2479,7 +2482,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Bogata Rivercrest Rebels Football 2026 | District, Scores & Visitor Guide",
-      "description": "Bogata Rivercrest Rebels football in Red River County: 2026 Class 2A Division I District 9, 4–3 through October 9, overtime Wolfe City finish, official school contacts and prior playoff history."
+      "description": "Bogata Rivercrest Rebels football in Red River County: 2026 Class 2A Division I District 9, 4–4 through October 16, overtime Wolfe City finish, official school contacts and prior playoff history."
     },
     "campus": {
       "address": "4100 US Highway 271 South, Bogata, TX 75417",
@@ -2496,16 +2499,16 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "notice": {
       "title": "Beware outdated Rivercrest results and identical Arkansas school name",
-      "body": "An older MaxPreps Rivercrest team-page snapshot still shows 3–0 before league play, while its October 3 schedule snapshot shows 3–3 and leaves October 9 unresolved. The separate October 9 game report, PigskinPrep District 9 results and Texas Prep all record Rivercrest's 30–28 triple-overtime victory over Wolfe City, making the result 4–3 through that day. The older schedule also gives the September 11 Chisum win as 49–42; the game's box score and PigskinPrep show 56–42. Avoid mixing this Texas school with the Rivercrest Colts in Wilson, Arkansas. The actual Oct16 Trenton outcome, coach appointment, stadium entry and photo rights remain unverified.",
+      "body": "An older MaxPreps Rivercrest team-page snapshot still shows 3–0 before league play, while its October 3 schedule snapshot shows 3–3 and leaves October 9 unresolved. The separate October 9 game report, PigskinPrep District 9 results and Texas Prep all record Rivercrest's 30–28 triple-overtime victory over Wolfe City, making the result 4–3 through that day. The older schedule also gives the September 11 Chisum win as 49–42; the game's box score and PigskinPrep show 56–42. Avoid mixing this Texas school with the Rivercrest Colts in Wilson, Arkansas. Trenton defeated Rivercrest 21–17 on October 16; the reported 2026 record is now 4–4. The coach appointment, stadium entry and photo rights remain unverified.",
       "sourceUrl": "https://www.maxpreps.com/tx/football/game/rivercrest-bogata-vs-wolfe-city/10-9-2026/?c=e3bfc40e-df03-46d0-8b1d-620287e758c6",
       "sourceLabel": "Dated 2026 Rivercrest versus Wolfe City game final, crosschecked with current PigskinPrep 2A District 9; stale profile warnings individually qualified",
       "verifiedAt": "2026-10-16"
     },
     "season": {
-      "record": "4–3 through October 9, 2026 (MaxPreps Oct10 game report and PigskinPrep; season ongoing)",
-      "verifiedAt": "2026-10-16",
-      "sourceUrl": "https://www.pigskinprep.com/showfreeschedules.asp?distID=106&yr=2026",
-      "sourceLabel": "PigskinPrep 2026 official-district-grouped score schedule, corroborated via MaxPreps individual game reports; prior MaxPreps schedule index is stale",
+      "record": "4–4 through October 16, 2026 (Trenton 21–17 final reported; season ongoing)",
+      "verifiedAt": "2026-10-19",
+      "sourceUrl": "https://www.maxpreps.com/tx/bogata/rivercrest-rebels/football/schedule/",
+      "sourceLabel": "MaxPreps completed Rivercrest–Trenton October 16 game records 21–17 road loss and 4–4; prior PigskinPrep and individual October 9 game sources retained in history",
       "games": [
         {
           "date": "2026-08-28",
@@ -2556,7 +2559,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "date": "2026-10-16",
           "opponent": "Trenton",
           "site": "Away",
-          "district": true
+          "district": true,
+          "result": "L 17–21"
         },
         {
           "date": "2026-10-30",
@@ -2612,7 +2616,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "overview": [
       "The Rivercrest Rebels are the varsity football program of Rivercrest ISD in Bogata, Red River County, Texas. They are not the Rivercrest Colts in Wilson, Arkansas, and should not be conflated with an unrelated Rivercrest football roster. Texas Education Agency's campus record identifies Rivercrest High in Red River County. UIL places Bogata Rivercrest in eleven-man Class 2A Division I District 9 in the 2026–28 alignment, alongside Cooper, Honey Grove, Tom Bean, Trenton, Whitewright and Wolfe City.",
       "Rivercrest's recent football identity includes an 11–2 season in 2019 and 8–3 in 2024 according to Dave Campbell's Texas Football. Those third-party seasons are properly labeled historical and are not evidence of a state title; DCTF lists no state championship or title-game appearance for Rivercrest. The 2025 score indexes themselves disagree on overall totals, so this guide does not mistake partial archive statistics for a completed certified record.",
-      "For 2026, the Rebels opened with three straight road wins over Maud, Simms James Bowie and Paris Chisum, then dropped games to Prairiland, Tom Bean and Whitewright. Their October 9 home game versus Wolfe City ended 30–28 after three overtimes, lifting Rivercrest to 4–3 through that date. The district result is corroborated by the MaxPreps individual game report, PigskinPrep District 9 schedule and the specialist Texas Prep index. This is a dated snapshot, not a final season result.",
+      "For 2026, the Rebels opened with three straight road wins over Maud, Simms James Bowie and Paris Chisum, then dropped games to Prairiland, Tom Bean and Whitewright. Their October 9 home game versus Wolfe City ended 30–28 after three overtimes, lifting Rivercrest to 4–3 through that date. The district result is corroborated by the MaxPreps individual game report, PigskinPrep District 9 schedule and the specialist Texas Prep index. This is a dated snapshot, not a final season result. Trenton defeated Rivercrest 21–17 on October 16; the reported 2026 record is now 4–4.",
       "Readers should watch two stale-data traps. MaxPreps' separate team-page summaries may show an older 3–0 or 3–3 standing and no Wolfe City final, whereas its current October 9 single-game record confirms 4–3. An older schedule gives the September 11 Chisum final as 49–42, while that game's dedicated box score and PigskinPrep say 56–42. This guide uses the corroborated game-specific 56–42 but discloses why older index totals differ rather than hiding the conflict.",
       "Rivercrest High School's own website lists the campus at 4100 US Highway 271 South, Bogata, TX 75417, phone 903-632-5204. Other sports directories use 4126 US 271 South; the district's official location takes precedence for school contact but is not asserted as the stadium's ticket gate or accessible parking entrance. Game-specific venue, admission, ADA seating, the head coach's current district-confirmed appointment and rights-cleared stadium photos were not independently established. Consult the official school football page."
     ],
@@ -2685,10 +2689,10 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "verifiedAt": "2026-10-16"
     },
     "season": {
-      "record": "2–4 through October 2, 2026 (October 9 bye; October 16 game result not certified)",
-      "verifiedAt": "2026-10-16",
-      "sourceUrl": "https://www.pigskinprep.com/showfreeschedules.asp?distID=356&yr=2026",
-      "sourceLabel": "PigskinPrep official-district-grouped 2026 results crosschecked with MaxPreps 2026 varsity schedule dated October 3",
+      "record": "3–4 through October 16, 2026 (Industrial 35–14 reported final; season ongoing)",
+      "verifiedAt": "2026-10-19",
+      "sourceUrl": "https://www.maxpreps.com/news/rVpbgHUcI0KCpu1rfIHFYA/football-recap-bolings-offense-hits-a-season-high-in-victory-over-industrial.htm",
+      "sourceLabel": "MaxPreps October 17 completed Boling–Industrial report: 35–14 victory and 3–4 record; prior six results from PigskinPrep and MaxPreps retained in narrative",
       "games": [
         {
           "date": "2026-08-28",
@@ -2732,7 +2736,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "date": "2026-10-16",
           "opponent": "Vanderbilt Industrial",
           "site": "Home",
-          "district": true
+          "district": true,
+          "result": "W 35–14"
         },
         {
           "date": "2026-10-23",
@@ -2795,7 +2800,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "The Boling High School Bulldogs represent Boling Independent School District in Wharton County, Texas. Their official 2026–28 football alignment is UIL eleven-man Class 3A Division II, District 14 with Altair Rice Consolidated, East Bernard, El Maton Tidehaven, Van Vleck, Vanderbilt Industrial and Wallis Brazos. That current classification is not interchangeable with the Class 2A label of the program's historical championship.",
       "Boling's history includes an actual state title, unlike many programs with only deep playoff runs. The UIL championship archives record a 20–0 victory over Rockwall in the 1972 Class 2A championship game. Four decades later, the Bulldogs returned to the state final in 2016 Class 3A Division II, where Gunter won 43–7. The 1972 team was champion, and the 2016 team was runner-up—these achievements should not be reversed or combined.",
       "Staff history also needs correct dates. UIL's 2016 Boling state-team file names Stephen Dorr head coach then and lists Kevin Urbanek among the assistants. Today Boling High's own athletics page names Kevin Urbanek athletic director and head football coach, and posts a football schedule covering JV and varsity. A competing third-party directory that calls the coach Steve Urban should not override the current district listing.",
-      "In 2026, Boling opened with a 14–6 win over Weimar, then lost to Ganado, Hallettsville and Shiner before a 28–13 district victory over Van Vleck. Rice Consolidated edged Boling 28–27 on October 2. PigskinPrep and MaxPreps both record 2–4 through that game; October 9 was a scheduled bye. As of this October 16 research the Industrial, Brazos, East Bernard and Tidehaven results have not been independently established; these entries remain fixtures rather than invented outcomes.",
+      "In 2026, Boling opened with a 14–6 win over Weimar, then lost to Ganado, Hallettsville and Shiner before a 28–13 district victory over Van Vleck. Rice Consolidated edged Boling 28–27 on October 2. PigskinPrep and MaxPreps both record 2–4 through that game; October 9 was a scheduled bye. Boling defeated Industrial 35–14 on October 16; the reported 2026 record is 3–4. Brazos, East Bernard and Tidehaven remain upcoming fixtures as of October 19.",
       "The official Boling High campus is listed at 407 Atlantic Avenue, Boling, TX 77420, phone 979-657-2816. Boling ISD's district administrative office is separately at 301 Texas Avenue; the school address is not independently confirmed as the exact stadium parking or visitor entrance. District event rules, ADA facilities and photo licensing have not been independently certified, so fans should consult the posted Boling High athletics schedule and contact the school for a particular game."
     ],
     "faq": [
@@ -2817,7 +2822,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "What was Boling's 2026 record through October 2?",
-        "answer": "Boling was 2–4 through six completed 2026 games, including a 28–13 home district win over Van Vleck and a 28–27 away loss to Rice Consolidated. October 9 was a bye week, so the October 16 Industrial result must be checked independently."
+        "answer": "Boling was 2–4 through six completed 2026 games, including a 28–13 home district win over Van Vleck and a 28–27 away loss to Rice Consolidated. October 9 was a bye week, so Boling then beat Industrial 35–14 on October 16, moving to 3–4."
       },
       {
         "question": "What is the official high school address and football stadium entrance?",
@@ -3966,16 +3971,16 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "notice": {
       "title": "Verified facts and unresolved game-day claims",
-      "body": "Bowie ISD explicitly lists Tyler Price as its current AD and football coach. Austin's different James Bowie school lists Jeff Ables; merging those coaching records would be a serious identity error. The October 16 Paradise final awaits a dated result.",
+      "body": "Bowie ISD explicitly lists Tyler Price as its current AD and football coach. Austin's different James Bowie school lists Jeff Ables; merging those coaching records would be a serious identity error. Paradise defeated Bowie 37–15 on October 16, leaving the Jackrabbits 4–4.",
       "sourceUrl": "https://www.bowieisd.net/o/bhs/page/bowie-high-school-athletics",
       "sourceLabel": "School material plus explicitly qualified unresolved venue/staff/score claims",
       "verifiedAt": "2026-10-17"
     },
     "season": {
-      "record": "4–3 through October 9, 2026",
-      "verifiedAt": "2026-10-17",
+      "record": "4–4 through October 16, 2026 (Paradise 37–15 final reported; season ongoing)",
+      "verifiedAt": "2026-10-19",
       "sourceUrl": "https://www.maxpreps.com/tx/bowie/bowie-jackrabbits/football/schedule/",
-      "sourceLabel": "Source-dated 2026 varsity schedule and result listing; blank results are not claimed finals",
+      "sourceLabel": "MaxPreps October 17 updated Bowie Jackrabbits schedule confirms Paradise 37–15 October 16; 4–4 reported 2026 record, not Austin Bowie",
       "games": [
         {
           "date": "2026-08-28",
@@ -4024,7 +4029,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "date": "2026-10-16",
           "opponent": "Paradise",
           "site": "Home",
-          "district": true
+          "district": true,
+          "result": "L 15–37"
         },
         {
           "date": "2026-10-23",
@@ -4066,7 +4072,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "overview": [
       "Bowie Jackrabbits is Bowie ISD's 11-man football team in Montague County. Its authoritative 2026–28 alignment is UIL 3A Division I District 4; that is different from older season divisions and similarly named programs.",
       "These are the Montague County Bowie ISD Jackrabbits, not the Austin Bowie Bulldogs. Bowie entered 2026 after a 5–5 season and won its first three against Callisburg, Bridgeport and Gainesville, then beat City View before losses to Early and Peaster.",
-      "Bowie ISD explicitly lists Tyler Price as its current AD and football coach. Austin's different James Bowie school lists Jeff Ables; merging those coaching records would be a serious identity error. The October 16 Paradise final awaits a dated result."
+      "Bowie ISD explicitly lists Tyler Price as its current AD and football coach. Austin's different James Bowie school lists Jeff Ables; merging those coaching records would be a serious identity error. Paradise defeated Bowie 37–15 on October 16, leaving the Jackrabbits 4–4."
     ],
     "faq": [
       {
@@ -4095,7 +4101,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "What about the October 16 Paradise result?",
-        "answer": "The home game was listed but its final has not been independently entered."
+        "answer": "The October 16 home game against Paradise ended in a reported 37–15 defeat, bringing Bowie to 4–4. The current MaxPreps Jackrabbits schedule includes the completed final."
       }
     ],
     "coach": {
@@ -4299,16 +4305,16 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "notice": {
       "title": "Verified facts and unresolved game-day claims",
-      "body": "Boyd ISD confirms the 700 Knox Avenue campus and phone but did not yield a first-party 2026 football head-coach designation. MaxPreps lists Shawn Sparks as coach; attribute this third-party listing, do not present it as a school announcement. October 16 Peaster final unverified.",
+      "body": "Boyd ISD confirms the 700 Knox Avenue campus and phone but did not yield a first-party 2026 football head-coach designation. MaxPreps lists Shawn Sparks as coach; attribute this third-party listing, do not present it as a school announcement. Peaster beat Boyd 44–13 on October 16; the reported 2026 record is now 2–5.",
       "sourceUrl": "https://boydisd.net/highschool",
       "sourceLabel": "School material plus explicitly qualified unresolved venue/staff/score claims",
       "verifiedAt": "2026-10-17"
     },
     "season": {
-      "record": "2–4 through October 2, 2026",
-      "verifiedAt": "2026-10-17",
-      "sourceUrl": "https://www.maxpreps.com/tx/boyd/boyd-yellowjackets/football/schedule/",
-      "sourceLabel": "Source-dated 2026 varsity schedule and result listing; blank results are not claimed finals",
+      "record": "2–5 through October 16, 2026 (Peaster 44–13 final reported; season ongoing)",
+      "verifiedAt": "2026-10-19",
+      "sourceUrl": "https://www.maxpreps.com/news/fUut-PcoIkG0vnA3SOiEbg/football-recap-tough-loss-for-boyd.htm",
+      "sourceLabel": "MaxPreps October 17 completed Boyd–Peaster recap reports 44–13 defeat and 2–5 through October 16; older schedule cache was incomplete",
       "games": [
         {
           "date": "2026-08-28",
@@ -4350,7 +4356,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "date": "2026-10-16",
           "opponent": "Peaster",
           "site": "Home",
-          "district": true
+          "district": true,
+          "result": "L 13–44"
         },
         {
           "date": "2026-10-23",
@@ -4398,7 +4405,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "overview": [
       "Boyd Yellowjackets is Boyd ISD's 11-man football team in Wise County. Its authoritative 2026–28 alignment is UIL 3A Division I District 4; that is different from older season divisions and similarly named programs.",
       "The Yellowjackets earned genuine UIL titles in 1983 (Class 2A, 16–8 over Groveton) and 2004 (Class 2A Division I, 17–14 over Newton). The 2004 team is listed at 16–0 in the historical season index. Those championships are separate from today's 3A Division I classification.",
-      "Boyd ISD confirms the 700 Knox Avenue campus and phone but did not yield a first-party 2026 football head-coach designation. MaxPreps lists Shawn Sparks as coach; attribute this third-party listing, do not present it as a school announcement. October 16 Peaster final unverified."
+      "Boyd ISD confirms the 700 Knox Avenue campus and phone but did not yield a first-party 2026 football head-coach designation. MaxPreps lists Shawn Sparks as coach; attribute this third-party listing, do not present it as a school announcement. Peaster beat Boyd 44–13 on October 16; the reported 2026 record is now 2–5."
     ],
     "faq": [
       {
