@@ -1757,6 +1757,30 @@
         "https://mosthistory.org/archive-artifact-collections/museum-archives/",
         "https://mosthistory.org/education/tour-activities/"
       ]
+    },
+    "san-angelo-museum-of-fine-arts": {
+      "name": "San Angelo Museum of Fine Arts",
+      "operatorStrengths": [
+        "Current accessible, wheelchair-ready free galleries and exact Thursday vs Sunday hours",
+        "Separately scheduled education/Concho Clay Studio and free third-Saturday Family Day",
+        "Temporary exhibitions clearly separated from 1981/1985/1999 institution history"
+      ],
+      "openGaps": [
+        "Run manual production visual verification for 2019 licensed exact-building photograph, responsive gallery images and clickable attribution",
+        "Independent side-by-side comparison against the museum operator after deployment",
+        "Check whether a specific studio event, program or gallery has different payment/access conditions"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.samfa.org/visit",
+        "https://www.samfa.org/about-samfa",
+        "https://www.samfa.org/exhibits",
+        "https://www.samfa.org/fieldtrips",
+        "https://www.samfa.org/familyday"
+      ]
     }
   },
   "baselineCollectedAt": "2026-10-12",

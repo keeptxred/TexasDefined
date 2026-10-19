@@ -279,145 +279,302 @@ export const texasNpsHistoricTrailGuides: Article[] = [
     ]
   },
   {
-    "id": "nps-trail-authority-el-camino-real-de-tierra-adentro-national-historic-trail",
-    "brandId": "texasdefined",
-    "slug": "el-camino-real-de-tierra-adentro-national-historic-trail",
-    "title": "El Camino Real de Tierra Adentro in Texas: El Paso Missions and Historic Trail Guide",
-    "dek": "Explore the Texas gateway to a centuries-old trade and travel route linking Mexico City and New Mexico, with a careful El Paso mission itinerary and NPS access resources.",
-    "category": "texas-history",
-    "region": "big-bend",
-    "hero": {
-      "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/YsletaMission.JPG/1280px-YsletaMission.JPG",
-      "alt": "Ysleta Mission church in El Paso, a historic Rio Grande community associated with the Camino Real de Tierra Adentro",
-      "width": 1280,
-      "height": 960,
-      "credit": "James Reyes · CC BY 3.0 · Wikimedia Commons (YsletaMission.JPG)"
-    },
-    "authorId": "a-dell",
-    "publishedAt": "2026-10-17",
-    "readingMinutes": 4,
-    "tags": [
-      "Texas history",
-      "National Park Service",
-      "historic trail",
-      "el-camino-real-de-tierra-adentro-national-historic-trail"
-    ],
-    "body": [
-      {
-        "type": "heading",
-        "text": "A historic corridor crossing the borderlands"
+      "id": "nps-trail-authority-el-camino-real-de-tierra-adentro-national-historic-trail",
+      "brandId": "texasdefined",
+      "slug": "el-camino-real-de-tierra-adentro-national-historic-trail",
+      "title": "El Camino Real de Tierra Adentro in Texas: History and the El Paso Mission Trail",
+      "dek": "Trace the Mexico City–Santa Fe road through El Paso history, with the verified nine-mile Ysleta–Socorro–San Elizario mission corridor, actual addresses and the route's complex Indigenous and colonial legacy.",
+      "category": "texas-history",
+      "region": "big-bend",
+      "hero": {
+          "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/YsletaMission.JPG/1280px-YsletaMission.JPG",
+          "alt": "Ysleta Mission in El Paso, a working church and Tigua spiritual landmark along the historic Camino Real",
+          "width": 1280,
+          "height": 960,
+          "credit": "James Reyes · CC BY 3.0 · Wikimedia Commons (YsletaMission.JPG)"
       },
-      {
-        "type": "paragraph",
-        "text": "El Camino Real de Tierra Adentro linked Mexico City to New Mexico through the natural passage at El Paso. Its origins include older Indigenous trade routes that Spanish colonial travel later followed and reorganized. The National Park Service describes it as a route of exchange, migration, missionization, trade and sometimes violence. Today's national historic trail covers the United States portion of a much larger international story."
-      },
-      {
-        "type": "paragraph",
-        "text": "This is not a continuous modern recreational trail. Its surviving road landscapes, plazas, churches and interpretive exhibits occur in different jurisdictions, including New Mexico, Texas and Mexico. The NPS public-site map is a better trip-planning tool than assuming that a drawn alignment is legal walking access."
-      },
-      {
-        "type": "heading",
-        "text": "Why El Paso matters"
-      },
-      {
-        "type": "paragraph",
-        "text": "The Rio Grande corridor and natural mountain pass made the El Paso region a key gateway for people traveling north toward New Mexico or south into New Spain. In 1598, Juan de Oñate's colonial expedition was a major turning point, but route history includes many earlier Indigenous experiences and later centuries of trade and conflict. NPS history material also describes enslaved Indigenous people, convicts and prisoners of war among those compelled to travel along the route."
-      },
-      {
-        "type": "paragraph",
-        "text": "The Pueblo Revolt of 1680 drove Spanish officials and some Indigenous allies south from New Mexico. Communities and mission settlements developed near present-day El Paso and Ciudad Juárez in that period. The living communities associated with Ysleta, Socorro and San Elizario retain histories much older and more complex than any visitor-driving route."
-      },
-      {
-        "type": "heading",
-        "text": "Visit a real place: Ysleta Mission"
-      },
-      {
-        "type": "paragraph",
-        "text": "Ysleta Mission in present-day El Paso, associated with Ysleta del Sur Pueblo, is a tangible public-facing place to explore El Paso's mission landscape. Unlike a remote archaeological segment, it is a functioning religious and community site, so visitors should check for worship, ceremonies, access and photography policies before arriving. This guide's photograph depicts Ysleta Mission itself and is not labeled as an image of the entire historic trail."
-      },
-      {
-        "type": "paragraph",
-        "text": "The current church reflects later rebuilding and adaptation: do not assume that everything seen today dates to the first mission settlement. NPS's separate Spanish Missions itinerary explains the mission's 1680s context and later architectural changes. This is a visit to a living community, not a preserved diorama."
-      },
-      {
-        "type": "heading",
-        "text": "Continue with Socorro and San Elizario"
-      },
-      {
-        "type": "paragraph",
-        "text": "An El Paso mission-corridor day can add the Socorro Mission and the San Elizario historic community, subject to their current visitor and worship schedules. NPS history identifies the three mission communities as an important legacy of the 1680 upheaval. Treat each as an individual religious and historic property with its own accessibility, parking and cultural expectations."
-      },
-      {
-        "type": "paragraph",
-        "text": "Use verified local addresses and the NPS Texas places-to-go map rather than treating the historic route line as a highway you can follow turn by turn. The separation of communities, modern roads and ongoing cultural use is part of why an interpretive driving visit is more practical than a supposed continuous trail hike."
-      },
-      {
-        "type": "heading",
-        "text": "Understand the complicated legacy"
-      },
-      {
-        "type": "paragraph",
-        "text": "The trail functioned as a commercial artery, carrying animals, goods, official dispatches and travelers, but it also enabled coercive colonial systems and conflict over land and labor. Stories from Pueblo, Tigua, Piro, Mexican, Spanish, Black and other communities belong in the interpretation. Physical churches and archives reveal different parts of that history; none can stand in for every community's experience."
-      },
-      {
-        "type": "paragraph",
-        "text": "NPS traces the route's declining long-distance traffic after new American trade patterns and later rail service connected the Southwest. Visiting today offers an opportunity to compare how the Rio Grande corridor remained a place of exchange despite changing political borders."
-      },
-      {
-        "type": "heading",
-        "text": "Real-world planning and access"
-      },
-      {
-        "type": "paragraph",
-        "text": "Begin by reviewing the National Park Service El Camino Real de Tierra Adentro Texas interactive map and the particular mission's latest visitor information. Choose a daytime itinerary, verify whether interiors are open outside services and check whether photography is appropriate. Allow extra time for construction, weather and the El Paso area's changing urban traffic."
-      },
-      {
-        "type": "paragraph",
-        "text": "Do not invent a universal entrance fee, booking page, trailhead or campground for a multi-jurisdictional historic corridor. Lodging belongs to the El Paso gateway; historic churches do not automatically offer paid tours or public parking beyond what they explicitly announce. For accessibility, contact each destination rather than using the NPS trail name as a guarantee."
-      }
-    ],
-    "internalLinks": [
-      {
-        "href": "/explore/national-parks",
-        "label": "National Park Service Texas"
-      },
-      {
-        "href": "/explore/historic-sites",
-        "label": "Texas history and historic sites"
-      },
-      {
-        "href": "/destination/chamizal-national-memorial",
-        "label": "Chamizal National Memorial"
-      },
-      {
-        "href": "/county/el-paso",
-        "label": "El Paso County"
-      }
-    ],
-    "sources": [
-      {
-        "label": "NPS — Camino Real de Tierra Adentro history",
-        "url": "https://www.nps.gov/elca/learn/historyculture/index.htm"
-      },
-      {
-        "label": "NPS — Texas places to go",
-        "url": "https://www.nps.gov/elca/planyourvisit/places-to-go-in-texas.htm"
-      },
-      {
-        "label": "NPS — Ysleta Mission historic itinerary",
-        "url": "https://www.nps.gov/subjects/travelspanishmissions/ysleta-mission-mission-corpus-christi-de-san-antonio-de-la-ysleta-sur.htm"
-      },
-      {
-        "label": "Wikimedia Commons — licensed Ysleta Mission photo",
-        "url": "https://commons.wikimedia.org/wiki/File:YsletaMission.JPG"
-      }
-    ],
-    "sourceName": "National Park Service",
-    "sourceUrl": "https://www.nps.gov/elca/learn/historyculture/index.htm",
-    "relatedCollections": [],
-    "relatedDestinations": [
-      "chamizal-national-memorial",
-      "fort-davis-national-historic-site"
-    ]
+      "authorId": "a-dell",
+      "publishedAt": "2026-10-17",
+      "updatedAt": "2026-10-19",
+      "readingMinutes": 8,
+      "tags": [
+          "Texas history",
+          "El Camino Real de Tierra Adentro",
+          "El Paso Mission Trail",
+          "Ysleta Mission",
+          "Socorro Mission",
+          "San Elizario"
+      ],
+      "body": [
+          {
+              "type": "heading",
+              "text": "What is El Camino Real de Tierra Adentro?"
+          },
+          {
+              "type": "paragraph",
+              "text": "El Camino Real de Tierra Adentro—roughly, the Royal Road of the Interior—was a long-distance route connecting Mexico City with Santa Fe through the El Paso del Norte region. Older Indigenous paths, river crossings and relationships long preceded Spanish colonial control. The road later carried traders, missionaries, officials, farmers, soldiers, displaced peoples and coerced laborers. Its history is not solely a story of exploration: it is also a history of Indigenous sovereignty, forced migration, colonial rule and cross-border cultural exchange."
+          },
+          {
+              "type": "paragraph",
+              "text": "Congress designated the U.S. portion a National Historic Trail in 2000. The federally recognized route stretches approximately 404 miles from El Paso, Texas, to Santa Fe, New Mexico; the historical road extended much farther south into Mexico. The National Park Service and Bureau of Land Management co-administer the U.S. historic-trail designation. This is not a single park, ticketed attraction or continuous public hiking path; many surviving segments are separated by modern roads, neighborhoods and private property."
+          },
+          {
+              "type": "heading",
+              "text": "Texas trail facts at a glance"
+          },
+          {
+              "type": "list",
+              "items": [
+                  "Historical corridor: Mexico City to Santa Fe, via the El Paso del Norte crossing.",
+                  "U.S. National Historic Trail: approximately 404 miles, El Paso to Santa Fe; designated in 2000.",
+                  "Federal trail partners: National Park Service and Bureau of Land Management.",
+                  "Best-known public-facing Texas section: the approximately nine-mile El Paso Mission Trail along Socorro Road (FM 258).",
+                  "Key Texas stops: Ysleta Mission, Socorro Mission, San Elizario Presidio Chapel and historic district.",
+                  "Access: each working parish or historic property sets its own hours, services, parking and photography rules."
+              ]
+          },
+          {
+              "type": "heading",
+              "text": "Why El Paso became a crossroads"
+          },
+          {
+              "type": "paragraph",
+              "text": "The Rio Grande and the natural passage between nearby mountain ranges made El Paso del Norte a practical gateway between northern New Spain and New Mexico. Juan de Oñate's 1598 expedition marked a major phase of Spanish colonial expansion, but the route's origins cannot be reduced to that expedition. Indigenous communities had developed systems of travel, trade and diplomacy long before Spain declared a royal road."
+          },
+          {
+              "type": "paragraph",
+              "text": "After the 1680 Pueblo Revolt, Spanish colonial officials retreated south alongside Indigenous people whose circumstances and choices varied: some allied with the Spanish, others were displaced or compelled to accompany them. Tiwa/Tigua, Piro, Tano and other Pueblo histories are fundamental to the lower El Paso Valley. Ysleta and Socorro developed as mission communities in this period, while San Elizario's presidio came more than a century later."
+          },
+          {
+              "type": "heading",
+              "text": "The nine-mile El Paso Mission Trail is only one part of the historic road"
+          },
+          {
+              "type": "paragraph",
+              "text": "The El Paso Mission Trail is an approximately nine-mile local heritage-driving corridor following Socorro Road (FM 258) between Ysleta, Socorro and San Elizario. The local route represents one section of the much longer Camino Real, not nine miles of uninterrupted original road surface. Today's navigation follows public roads; historic alignments and the modern driving route are not identical at every point."
+          },
+          {
+              "type": "paragraph",
+              "text": "For a straightforward outing, start at Ysleta Mission, continue southeast to the still-active Socorro Mission and finish in San Elizario's historic district at the presidio chapel. The three stops are separate places of worship and community history, not three branches of one museum. The route below links to real addresses and current site information; opening times may change around Mass, events and repairs."
+          },
+          {
+              "type": "heading",
+              "text": "Route map and three confirmed stops"
+          },
+          {
+              "type": "heading",
+              "text": "Stop 1 — Ysleta Mission and Ysleta del Sur Pueblo"
+          },
+          {
+              "type": "paragraph",
+              "text": "Address: 131 S. Zaragoza Road, El Paso, TX 79907. Ysleta Mission (La Misión de Corpus Christi de San Antonio de la Ysleta del Sur) traces its first church to 1682 and remains a spiritual center for Ysleta del Sur Pueblo. Its architecture is not entirely seventeenth-century: flooding, rebuilding and a damaging 1907 fire changed the church over time. The mission is a living place of worship, not an abandoned colonial structure. Check the parish's current access and photography practices, particularly during services."
+          },
+          {
+              "type": "paragraph",
+              "text": "The nearby Ysleta del Sur Pueblo Cultural Center Museum, at 305 Yaya Lane, offers a separate opportunity to learn about Tigua identity from the Pueblo's own institution. Do not confuse the museum with the church or presume that cultural events are always open to the public."
+          },
+          {
+              "type": "heading",
+              "text": "Stop 2 — Socorro Mission, the working parish"
+          },
+          {
+              "type": "paragraph",
+              "text": "Address: 328 S. Nevarez Road, El Paso, TX 79927. Mission Nuestra Señora de la Limpia Concepción del Socorro began in the 1680s among Piro and other displaced Pueblo communities. Floods changed the Rio Grande's course and damaged previous churches; the standing adobe mission dates primarily to 1843 and reflects rebuilding rather than an intact 1682 structure. Historic timber ceiling beams and continuing worship connect its later building with an older congregation."
+          },
+          {
+              "type": "image",
+              "image": {
+                  "src": "https://upload.wikimedia.org/wikipedia/commons/e/e8/Socorro_Mission%2C_Mission_Trail%2C_El_Paso%2C_Texas_%282b1d2a78-155d-451f-679e-7d70fee5ef0f%29.jpg",
+                  "alt": "Present-day Socorro Mission church and adobe facade on the El Paso Mission Trail",
+                  "width": 1600,
+                  "height": 1069,
+                  "credit": "U.S. National Park Service · public domain · Wikimedia Commons"
+              },
+              "caption": "The active Socorro Mission, not the restricted archaeological location of Old Socorro Mission."
+          },
+          {
+              "type": "paragraph",
+              "text": "Important distinction: Texas Defined also has a page about the original Old Socorro Mission archaeological location. That original site is closed to the public. The building on this itinerary is the later, operating Socorro Mission at South Nevarez Road; readers should not drive to the restricted site expecting admission."
+          },
+          {
+              "type": "heading",
+              "text": "Stop 3 — San Elizario Presidio Chapel and historic district"
+          },
+          {
+              "type": "paragraph",
+              "text": "Address: 1556 San Elizario Road, San Elizario, TX 79849. Despite appearing alongside two missions, San Elizario began here as a Spanish military presidio, not a 1680s Pueblo mission. The strategic presidio was established in 1789 (after the location was selected in 1788) to defend settlement and Camino Real traffic. Flooding and subsequent rebuilding affected earlier chapels; the present parish chapel was built in the late 1870s and completed around 1882. The surrounding historic district includes the plaza and nineteenth-century adobe fabric."
+          },
+          {
+              "type": "image",
+              "image": {
+                  "src": "https://upload.wikimedia.org/wikipedia/commons/c/cd/Presidio_Chapel_of_San_Elizario%2C_Mission_Trail%2C_El_Paso%2C_Texas_%282b82a8e9-155d-451f-671e-392e6e94b7d0%29.jpg",
+                  "alt": "White adobe Presidio Chapel of San Elizario on the Camino Real's El Paso Mission Trail",
+                  "width": 1600,
+                  "height": 1165,
+                  "credit": "U.S. National Park Service · public domain · Wikimedia Commons"
+              },
+              "caption": "San Elizario is a former presidio community; this is the later chapel, not a mission founded after the 1680 revolt."
+          },
+          {
+              "type": "paragraph",
+              "text": "The chapel remains an operating Catholic church. The plaza and historic streets offer worthwhile context even when interiors are unavailable. Verify hours directly with local site operators; information on older federal pages may be out of date."
+          },
+          {
+              "type": "heading",
+              "text": "Historic timeline: dates that should not be mixed up"
+          },
+          {
+              "type": "list",
+              "items": [
+                  "Before 1598: Indigenous travel networks and Rio Grande communities precede the colonial road.",
+                  "1598: Oñate's expedition advances Spanish colonial claims through the El Paso del Norte corridor.",
+                  "1680–1682: After the Pueblo Revolt and subsequent displacement, Ysleta and Socorro mission communities take shape.",
+                  "1788–1789: Site selected and Spanish presidio established at San Elizario, distinct from the earlier Pueblo-linked missions.",
+                  "1843: The current Socorro Mission building is constructed after earlier flood damage.",
+                  "1877–1882: The present San Elizario chapel is built.",
+                  "1907–1908: Ysleta Mission suffers a major fire and is rebuilt.",
+                  "2000: Congress designates the U.S. El Camino Real de Tierra Adentro National Historic Trail."
+              ]
+          },
+          {
+              "type": "heading",
+              "text": "Whose histories does the road preserve?"
+          },
+          {
+              "type": "paragraph",
+              "text": "Camino Real interpretation should not treat the land as vacant before Spanish arrival or frame colonization as a simple march of progress. Travel and settlement unfolded through the homelands of Pueblo peoples and other Indigenous communities. The route facilitated commerce, religious institutions and cultural exchange, but also land conflict, coerced movement, enslavement and military control. The continuing cultural and spiritual life of Ysleta del Sur Pueblo and the other lower-valley communities matters as much as surviving buildings."
+          },
+          {
+              "type": "paragraph",
+              "text": "The changing course of the Rio Grande reshaped settlements and repeatedly damaged church sites. Political borders later changed as the region passed through Spanish, Mexican and U.S. rule. The arrival of railroad transport in the nineteenth century redirected trade away from sections of the historic road, especially San Elizario."
+          },
+          {
+              "type": "heading",
+              "text": "What to know before visiting"
+          },
+          {
+              "type": "list",
+              "items": [
+                  "Allow a flexible half day for the three Lower Valley stops, longer if exploring San Elizario's plaza and surrounding history; driving times depend on traffic and stops.",
+                  "These are functioning religious properties. Confirm access with the individual parish and be considerate of worship, services and ceremonies.",
+                  "Do not assume interior entry, tours, free parking, photography permission or wheelchair access is identical at all three locations.",
+                  "Summer sun and heat can be intense. Carry water, use sun protection and prefer cooler hours for outdoor walks.",
+                  "The federal trail designation does not create public access to private land or the original Old Socorro archaeological site.",
+                  "If researching other trail locations outside El Paso, use the NPS Texas and New Mexico places maps and verify each property's visitor policies."
+              ]
+          },
+          {
+              "type": "heading",
+              "text": "Frequently asked questions"
+          },
+          {
+              "type": "heading",
+              "text": "Can you hike all 404 miles of the national historic trail?"
+          },
+          {
+              "type": "paragraph",
+              "text": "No continuous, publicly accessible hiking tread connects all of the historic alignment. Visit individually managed public sites and do not assume trail designation opens private land."
+          },
+          {
+              "type": "heading",
+              "text": "Are all three El Paso stops Spanish missions from the 1680 Pueblo Revolt?"
+          },
+          {
+              "type": "paragraph",
+              "text": "No. Ysleta and Socorro trace their mission communities to the 1680s; San Elizario is a former presidio established in 1789, with its present chapel dating to the late nineteenth century."
+          },
+          {
+              "type": "heading",
+              "text": "Is Old Socorro Mission the same as the Socorro Mission building you can see today?"
+          },
+          {
+              "type": "paragraph",
+              "text": "No. The earlier archaeological location is closed; the active parish at 328 S. Nevarez Road is the modern public-facing destination on the mission corridor."
+          },
+          {
+              "type": "heading",
+              "text": "Where can I see an official trail map?"
+          },
+          {
+              "type": "paragraph",
+              "text": "The National Park Service provides an interactive places-to-go map for the designated U.S. trail. For the three El Paso mission-corridor stops, use the mapped driving-directions link on this page; the driving line is a modern route rather than a survey of the original royal road."
+          }
+      ],
+      "internalLinks": [
+          {
+              "href": "/destination/ysleta-del-sur-pueblo-cultural-center-museum-el-paso",
+              "label": "Ysleta del Sur Pueblo Cultural Center Museum",
+              "description": "Tigua cultural interpretation directly from the Pueblo, separate from the Ysleta Mission church."
+          },
+          {
+              "href": "/destination/old-socorro-mission",
+              "label": "Old Socorro Mission — original site closed",
+              "description": "Distinguish the inaccessible early archaeological location from today's operating Socorro Mission."
+          },
+          {
+              "href": "/article/texas-borderlands-historic-sites-guide",
+              "label": "Texas borderlands history",
+              "description": "Connect the Camino Real to El Paso's wider Indigenous, Mexican and Tejano history."
+          },
+          {
+              "href": "/county/el-paso",
+              "label": "El Paso County",
+              "description": "Place the missions and historic district within the wider El Paso County landscape."
+          },
+          {
+              "href": "/metro-area/el-paso-metro",
+              "label": "El Paso metro area",
+              "description": "Explore the region beyond the historic trail."
+          },
+          {
+              "href": "/destination/magoffin-home",
+              "label": "Magoffin Home",
+              "description": "Separate later El Paso borderlands and trade history from the mission corridor; check the house's restoration closure."
+          }
+      ],
+      "sources": [
+          {
+              "label": "NPS — El Camino Real history and visiting",
+              "url": "https://www.nps.gov/elca/planyourvisit/index.htm"
+          },
+          {
+              "label": "NPS — Texas trail places",
+              "url": "https://www.nps.gov/elca/planyourvisit/places-to-go-in-texas.htm"
+          },
+          {
+              "label": "NPS — Ysleta Mission certified site",
+              "url": "https://www.nps.gov/places/ysleta-mission.htm"
+          },
+          {
+              "label": "NPS — Socorro Mission",
+              "url": "https://www.nps.gov/subjects/travelspanishmissions/socorro-mission-mission-nuestra-senora-de-la-limpia-concepcion-del-pueblo-de-socorro.htm"
+          },
+          {
+              "label": "NPS — Presidio Chapel of San Elizario",
+              "url": "https://www.nps.gov/places/presidio-chapel-of-san-elizario.htm"
+          },
+          {
+              "label": "El Paso Mission Trail Association — local route",
+              "url": "https://www.elpasomissions.org/history/san-elizario/san-elizario-presidio-and-chapel/"
+          },
+          {
+              "label": "NPS public-domain photo — Socorro Mission",
+              "url": "https://commons.wikimedia.org/wiki/File:Socorro_Mission,_Mission_Trail,_El_Paso,_Texas_(2b1d2a78-155d-451f-679e-7d70fee5ef0f).jpg"
+          },
+          {
+              "label": "NPS public-domain photo — San Elizario Chapel",
+              "url": "https://commons.wikimedia.org/wiki/File:Presidio_Chapel_of_San_Elizario,_Mission_Trail,_El_Paso,_Texas_(2b82a8e9-155d-451f-671e-392e6e94b7d0).jpg"
+          },
+          {
+              "label": "Wikimedia Commons — Ysleta photo/license",
+              "url": "https://commons.wikimedia.org/wiki/File:YsletaMission.JPG"
+          }
+      ],
+      "sourceName": "National Park Service",
+      "sourceUrl": "https://www.nps.gov/elca/planyourvisit/index.htm",
+      "relatedCollections": [],
+      "relatedDestinations": [
+          "ysleta-del-sur-pueblo-cultural-center-museum-el-paso"
+      ]
   }
 ];

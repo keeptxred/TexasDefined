@@ -244,3 +244,10 @@ These authority upgrades **reuse existing, accurate destination photographs**, n
 - **Replacement scope:** Replace the existing museum-placeholder hero on the *canonical* `/destination/museum-of-south-texas-history-edinburg`, not the 301 legacy alias or a new museum listing. The photo shows the old-jail wing, not every modern gallery or any temporary 2026 exhibit.
 - **Rights distinction:** The museum's ordinary visitor photo/equipment and professional-shoot restrictions are not an override of a photographer's separately licensed 2021 exterior image. Do not assume the museum's own exhibit photos or website assets are reusable.
 - **Acceptance outstanding:** Post-merge live image decode/pixels, mobile crop, clickable Commons original and CC license, exact visitor copy and independent editorial side-by-side verification. The museum authority certificate remains `not-certified`.
+
+## San Angelo Museum of Fine Arts (verified sources October 19, 2026)
+
+- Exact subject: [San Angelo September 2019 44 (San Angelo Museum of Fine Arts).jpg](https://commons.wikimedia.org/wiki/File:San_Angelo_September_2019_44_(San_Angelo_Museum_of_Fine_Arts).jpg) is Michael Barera's original September 7, 2019 photograph of the actual museum building, under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). Attribution, original image and Creative Commons terms must be linked visibly. A crop or other adaptation must honor the relevant license obligations.
+- This clears a generic placeholder for the existing canonical `/destination/san-angelo-museum-of-fine-arts` by the licensed-hero registry. It is an exterior building photograph and does not certify 2026 paintings or gallery installations.
+- Commercial image reuse of photographs from SAMFA's own site is expressly restricted; only the separately photographer-licensed Wikimedia work is authorized by the cited Commons license.
+- Still pending protected merge, visual decoding/mobile layout, clickable license and direct comparison of live guide with museum's visitor policy. **Not independently certified.**

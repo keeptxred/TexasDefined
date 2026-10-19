@@ -5,7 +5,7 @@ export function CountyVisitorPlaces({ countySlug, countyName }: { countySlug: st
   // El Paso's source-backed museum discoveries live in CountyCityMuseums,
   // not again in the general attraction list.
   const places = countyVisitorPlaces(countySlug).filter((place) =>
-    countySlug !== "el-paso" || place.category !== "Museums & discovery",
+    countySlug !== "el-paso" || (place.category !== "Museums & discovery" && place.name !== "Chamizal National Memorial"),
   );
   if (!places.length) return null;
   return (

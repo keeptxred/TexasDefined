@@ -1,5 +1,8 @@
 # Boerne High Greyhounds — individual Batch 006 football authority dossier
 
+> **CURRENT DEPLOYED STATUS — October 19, 2026:** The school-specific football authority editorial is merged on `main`; the canonical Batch 006 registry records this page **DEPLOYED**. The [single-release production Chrome run #39273758531](https://github.com/keeptxred/TexasDefined/actions/runs/39273758531) passed 75/75 school viewports, 23/23 reciprocal county links and 25/25 sitemap entries on its tested release. **Individual nine-dimension editorial/factual approval, rights clearance and manual accessibility certification remain outstanding; this school is NOT individually VERIFIED.** Historical statements below describing unmerged branches are superseded. More recent source-specific staff facts have separate dated October 19 notes and protected PR #5300.
+
+
 ## October 17, 2026 — dated October 16 result replaces previous unverified status
 
 Boerne's Greyhounds beat Liberty Hill 49–7 on October 16; Champion High is a separate Boerne ISD football team. **7–0** through October 16, 2026 based on reported final scores. [Contemporary source: Houston Chronicle October 16 statewide football finals](https://www.houstonchronicle.com/sports/high-school/football/article/texas-scores-friday-week-16-22481255.php). Earlier dossier notes treating this individual fixture as upcoming or unresolved are historical and superseded by this score evidence only. Full UIL score certification, photo rights, staffing questions, specific stadium entrance and 320/390 desktop/mobile Chrome editorial acceptance remain separate pending work.
@@ -26,3 +29,10 @@ MaxPreps https://www.maxpreps.com/tx/boerne/boerne-greyhounds/football/ shows 6�
 ## Remaining gates
 
 Protected canonical premerge, production descendant deploy, real Chrome mobile+desktop SEO/JSON-LD/canonical and links, verified Kendall County reciprocal link, photo provenance and licensing, event-specific ADA/tickets, 9-dimensional editorial acceptance. No new verified label yet; preserve all 105 historical VERIFIED and cost-scoped audits.
+
+## October 19, 2026 — independently confirmed Greyhounds head football coach
+[Boerne High School's official 2026 football page](https://bhs.boerneisd.net/football) identifies **Brett Sawyer** as athletic coordinator, phone 830-357-2200. [Boerne Star's locally reported September 16, 2026 victory at Davenport](https://www.boernestar.com/article/14105%2Cgreyhounds-pick-up-road-win-at-davenport-in-game-shortened-by-weather-issues) explicitly calls Sawyer **Boerne head football coach** and quotes his assessment of the 30–21 win. The [Greyhound Athletic Booster Club coaches directory](https://www.gohoundsgo.org/coaches) also independently lists **Brett Sawyer Athletic Coordinator & Head Football Coach**. This resolves the earlier dossier's deliberately withheld head-coach title, without mistaking Champion Chargers coach Blane Ellis or changing 2026 schedule/results. Preserve no stadium gate/ADA/photo claims and require individual editorial acceptance.
+
+## October 19, 2026 — reconcile 2026 football coach evidence throughout the guide
+[Boerne Star February 24, 2025](https://www.boernestar.com/article/10216%2Cbrett-sawyer-hired-as-new-greyhounds-football-coach-geneva-coach-grant-gaston-steps-down) documents Boerne ISD school-board approval of Brett Sawyer as **Greyhounds head football coach**, and [its September 16, 2026 game report](https://www.boernestar.com/article/14105%2Cgreyhounds-pick-up-road-win-at-davenport-in-game-shortened-by-weather-issues) still calls him head coach. [BHS official athletics](https://bhs.boerneisd.net/football) independently confirms the athletic-coordinator role. Earlier overview/FAQ warnings that his football head-coach title was unverified are outdated and corrected across the rendered school article. Do not conflate Sawyer with former 2022 coach Che Hendrix or Champion High staff; no visitor-access/rights certifications.
+

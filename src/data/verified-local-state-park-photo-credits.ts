@@ -15,6 +15,12 @@ export const verifiedStateParkPhotoCredits: Readonly<Record<string, {
     fileUrl: "https://commons.wikimedia.org/wiki/File:Kickapoo_Cavern_State_Park,_landscape.jpg",
     licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
   },
+  "/images/state-parks/franklin-mountains-state-park.jpg": {
+    author: "Urban Versis 32",
+    license: "CC BY-SA 4.0",
+    fileUrl: "https://commons.wikimedia.org/wiki/File:Franklin_Mountains_State_Park_Cactus.jpg",
+    licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+  },
   "/images/state-parks/kickapoo-cavern-state-park.jpg": {
     author: "Mark Gustafson",
     license: "CC BY-SA 4.0",

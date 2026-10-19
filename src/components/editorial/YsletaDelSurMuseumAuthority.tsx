@@ -1,6 +1,5 @@
 import { Link } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
-import { ElPasoGuideNetwork } from "@/components/content/ElPasoGuideNetwork";
 
 const museumUrl = "https://www.ysletadelsurpueblo.org/tourism-hospitality/cultural-center/museum";
 const culturalUrl = "https://www.ysletadelsurpueblo.org/tourism-hospitality/cultural-center";
@@ -164,6 +163,9 @@ export default function YsletaDelSurMuseumAuthority() {
       </div>
       <nav aria-label="Continue exploring El Paso heritage" className="mt-7 flex flex-wrap gap-6">
         <Link to="/$kind/$slug" params={{ kind: "county", slug: "el-paso" }} className={anchorStyle}>Explore El Paso County →</Link>
+        <a href="/metro-area/el-paso-metro" className={anchorStyle}>El Paso metro-area guide →</a>
+        <a href="/city/el-paso" className={anchorStyle}>El Paso city guide →</a>
+        <a href="/destination/old-socorro-mission" className={anchorStyle}>Old Socorro Mission →</a>
         <Link to="/article/$slug" params={{ slug: "texas-borderlands-historic-sites-guide" }} className={anchorStyle}>Texas borderlands and mission history →</Link>
         <Link to="/article/$slug" params={{ slug: "indigenous-texas-history-native-nations" }} className={anchorStyle}>Indigenous Texas history →</Link>
         <a href={missionTrailUrl} className={anchorStyle} target="_blank" rel="noopener noreferrer">Official El Paso Mission Trail visitor guide ↗</a>
@@ -188,6 +190,5 @@ export default function YsletaDelSurMuseumAuthority() {
       <p className="mt-4 text-xs leading-6 text-muted-foreground">Suggested citation: TexasDefined Editorial Desk. “Ysleta del Sur Pueblo Cultural Center Museum: Tigua History, Exhibits & Visitor Guide.” TexasDefined, verified October 9, 2026. https://texasdefined.com/destination/ysleta-del-sur-pueblo-cultural-center-museum-el-paso</p>
       <p className="mt-4 text-xs leading-6 text-muted-foreground">Information changes: verify museum hours, admission, cultural program access and photography policy with the Pueblo before traveling. This independent guide is not endorsed by or affiliated with the Pueblo.</p>
     </Container>
-    <Container><ElPasoGuideNetwork currentPath="/destination/ysleta-del-sur-pueblo-cultural-center-museum-el-paso" /></Container>
   </div>;
 }

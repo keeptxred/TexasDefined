@@ -132,7 +132,8 @@ export const RELOCATION_METROS: RelocationMetro[] = [
     id: "el-paso",
     name: "El Paso",
     guideHref: "/article/moving-to-el-paso-guide",
-    counties: ["El Paso"],
+    // Federal El Paso TX MSA contains both counties; city/address research below remains El Paso County-specific.
+    counties: ["El Paso", "Hudspeth"],
     places: ["El Paso"],
     jobMarket: "El Paso",
     jobCountJune2026: 365_100,

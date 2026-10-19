@@ -334,7 +334,12 @@ function firstLinkedItem(items: DestinationAreaItem[] | undefined): DestinationA
 }
 
 export function enrichFullHistoricSiteAuthority(destination: Destination): Destination {
-  if (destination.category !== "historic-sites" || destination.authorityGuide) return destination;
+  // The closed battleship has an operator-verified, closure-aware visitor
+  // guide. Older resolved/remote records can already carry a generic
+  // authorityGuide, which must not bypass the closed-ship instructions.
+  // Preserve normal first-writer precedence for every other historic site.
+  const forceClosedBattleshipGuide = destination.slug === "battleship-texas";
+  if (!forceClosedBattleshipGuide && (destination.category !== "historic-sites" || destination.authorityGuide)) return destination;
   const establishedSeed = seeds.get(destination.slug);
   // Cover independently authored historic-site records outside the 46 seeds,
   // but only when enough source and unique planning data already exist.

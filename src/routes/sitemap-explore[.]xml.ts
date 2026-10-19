@@ -269,6 +269,19 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         const expandedSlugs = new Set(rawDestinations.map((destination) => destination.slug));
         rawDestinations.push(...publicCavernDestinationFallbacks.filter((destination) => destination.slug && !expandedSlugs.has(destination.slug)));
 
+        // The detail resolver falls back to this checked-in authority record when
+        // a remote Fredericksburg duplicate is too weak for indexing. Mirror that
+        // precedence here so the same indexable canonical page cannot disappear
+        // from the Explore sitemap solely because a thinner remote row exists.
+        const fredericksburgAuthority = preservedExploreDestinations.find(
+          (destination) => destination.slug === "fredericksburg",
+        );
+        if (fredericksburgAuthority) {
+          const position = rawDestinations.findIndex((destination) => destination.slug === fredericksburgAuthority.slug);
+          if (position >= 0) rawDestinations[position] = fredericksburgAuthority;
+          else rawDestinations.push(fredericksburgAuthority);
+        }
+
         // WhirlyBall Hurst is a hand-curated canonical guide. A stale or thinner
         // remote row with the same slug must not shadow the checked-in record and
         // make the canonical page disappear from the Explore sitemap.

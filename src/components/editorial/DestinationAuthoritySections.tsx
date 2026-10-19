@@ -5,6 +5,18 @@ type Props = { destination: Destination };
 
 function commonsPhotoCredit(destination: Destination) {
   const { src, credit } = destination.hero;
+  // The Chamizal hero is a licensed local copy, not a Commons redirect URL.
+  if (destination.slug === "chamizal-national-memorial" &&
+      src === "/images/explore/historic-sites/chamizal-national-memorial.jpg" &&
+      credit?.includes("GoneBefore")) {
+    return {
+      fileUrl: "https://commons.wikimedia.org/wiki/File:Chamizal_National_Memorial.jpg",
+      licenseCode: "CC BY-SA 4.0",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+      credit,
+      note: null,
+    };
+  }
   if (!credit || !src.startsWith("https://commons.wikimedia.org/wiki/Special:Redirect/file/")) return null;
   const encodedFile = src.split("/file/")[1]?.split("?")[0];
   if (!encodedFile) return null;
@@ -77,7 +89,7 @@ export function DestinationAuthoritySections({ destination }: Props) {
       </dl>
     </section>}
 
-    {guide && guide.sources.length > 0 && <section aria-labelledby="destination-authority-sources" className="border-t border-border pt-8">
+    {guide && destination.slug !== "chamizal-national-memorial" && guide.sources.length > 0 && <section aria-labelledby="destination-authority-sources" className="border-t border-border pt-8">
       <p className="eyebrow text-primary">Verify before you travel</p>
       <h2 id="destination-authority-sources" className="mt-3 font-display text-3xl">Primary sources and fact checks</h2>
       <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Our itineraries and recommendations are independent editorial judgments. Hours, ticket prices, access, closures and conditions belong to the official operators and can change after our most recent review.</p>

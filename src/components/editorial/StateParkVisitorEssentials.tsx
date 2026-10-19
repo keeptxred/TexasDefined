@@ -12,7 +12,7 @@ export function StateParkVisitorEssentials({ destination }: { destination: Desti
   if (!links) return null;
   const verified = VERIFIED_PARK_FACILITIES[destination.slug];
   const entries = [
-    { title: "Restrooms and showers", detail: verified?.restrooms },
+    { title: destination.slug === "franklin-mountains-state-park" ? "Restrooms; no verified showers" : "Restrooms and showers", detail: verified?.restrooms },
     { title: "Parking, entrance and access", detail: verified?.parking },
     { title: "Camping, RV hookups and drinking water", detail: verified?.camping },
     { title: "Trails, parking and visitor maps", detail: verified?.maps },
