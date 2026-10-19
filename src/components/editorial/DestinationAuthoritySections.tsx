@@ -89,7 +89,7 @@ export function DestinationAuthoritySections({ destination }: Props) {
       </dl>
     </section>}
 
-    {guide && guide.sources.length > 0 && <section aria-labelledby="destination-authority-sources" className="border-t border-border pt-8">
+    {guide && destination.slug !== "chamizal-national-memorial" && guide.sources.length > 0 && <section aria-labelledby="destination-authority-sources" className="border-t border-border pt-8">
       <p className="eyebrow text-primary">Verify before you travel</p>
       <h2 id="destination-authority-sources" className="mt-3 font-display text-3xl">Primary sources and fact checks</h2>
       <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Our itineraries and recommendations are independent editorial judgments. Hours, ticket prices, access, closures and conditions belong to the official operators and can change after our most recent review.</p>
