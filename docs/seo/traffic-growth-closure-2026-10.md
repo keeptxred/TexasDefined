@@ -2,6 +2,42 @@
 
 > Current evidence ledger. Status vocabulary: **COMPLETE**, **COMPLETE — awaiting measurement**, **BLOCKED — external dependency**, **INCOMPLETE**. A merged PR is not proof of successful production verification. Other chats advance `main` concurrently; all SHAs below are **time-stamped snapshots**, not deployment locks.
 
+## October 18, 2026 — authenticated Search Console CTR baseline and triage
+
+**Access status: AVAILABLE, supersedes historic HYPD blockers.** The connected Search Console discovery returned site-owner access for `sc-domain:texasdefined.com`. Only verified Google Search Console **Web** results in the **final** data state are used below, never GA4 sessions, placeholder zeros or live/provisional 24-hour counts. The provider estimated finalization through October 16; measured windows below end October 15.
+
+**Sitewide September 18–October 15 (28 days):** 431 clicks, 54,170 impressions, **0.7956% CTR**, impression-weighted average position **12.9947**. The no-dimension aggregate was complete. The page-level request returned 2,246 rows, untruncated; these are reporting rows, **not** the canonical sitemap or indexed-page census. Google withholds rare search queries.
+
+**Equal-length sitewide period comparison (both finalized):**
+
+| Metric | Sept 18–Oct 1 | Oct 2–15 | Change |
+| --- | ---: | ---: | ---: |
+| Clicks | 150 | 281 | +131 (+87.3%) |
+| Impressions | 21,868 | 32,302 | +10,434 (+47.7%) |
+| CTR | 0.6859% | 0.8699% | +0.184 percentage points |
+| Average position | 13.16 | 12.88 | ~0.28 positions better |
+
+The page comparison was fetched with `rowLimit=8000`, and neither 14-day window was truncated. This documents improved observed performance; it does **not** prove causation by a particular title, deployment or internal link.
+
+**Highest-priority CTR/intent review candidates, complete 28-day Web page metrics:**
+
+| Page | Clicks | Impressions | CTR | Avg position |
+| --- | ---: | ---: | ---: | ---: |
+| `/article/texas-rivers-explained` | 11 | 2,798 | 0.393% | 8.63 |
+| `/texas-state-fair` | 5 | 1,371 | 0.365% | 11.07 |
+| `/texas-homecoming-mums` | 6 | 1,181 | 0.508% | 8.66 |
+| `/article/texas-six-man-football-rules-explained` | 12 | 1,175 | 1.021% | 6.26 |
+| `/sports-venue/freeman-coliseum` | 1 | 657 | 0.152% | 9.17 |
+| `/event/heart-o-texas-fair-rodeo` | 1 | 584 | 0.171% | 8.07 |
+| `/article/texas-river-basins-guide` | 1 | 524 | 0.191% | 7.31 |
+| `/article/texas-high-school-football-playoffs-explained` | 24 | 1,461 | 1.643% | 5.28 |
+
+**Measured query context and decisions.** The State Fair guide's disclosed searches emphasize 2026 dates, end date, hours and schedule, but the 250-row query result was truncated and the event is season-sensitive: require official, current lifecycle evidence rather than recycled 2026 clickbait. The rivers article already promises major rivers, basins and a map and was updated October 18, after this measurement period; its disclosed queries include school-geography/coastal-plains river questions. Do not rewrite a freshly changed snippet just because its *earlier* CTR was low. Freeman Coliseum and Heart O' Texas Fair returned no disclosed per-page query rows; this is not evidence of zero demand and does not justify an invented query-intent headline. Reassess after a finalized post-change window, with comparable query/rank mix, canonical owner and primary source checked.
+
+**Google sitemap observation:** Search Console currently lists `/sitemap.xml` (3,213 submitted) and `/sitemap-explore.xml` (910 submitted), with **zero sitemap errors or warnings** at their October 17–18 last downloads. Its `indexed=0` content subfield must *not* be reported as zero indexed pages: live page search impressions/clicks are independently observed. Submitted sitemap counts and internal graph denominators differ.
+
+**Remaining independent gates:** obtain the next meaningful complete **local** weekly page/snippet/graph artifact, finish Google's indexing-validation outcome checks and real-world image rights/verified backlinks, and evaluate post-change CTR. The authenticated GSC access blocker is **closed**; preserve all older notes as historical snapshots only. No broad production crawl or unsourced snippet rewrite was triggered.
+
 ## October 16, 2026 — current production reconciliation
 
 **This section supersedes older `INCOMPLETE` labels below only for the named gates. Historical counts and failure records remain intentionally preserved.**
