@@ -463,6 +463,13 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "title": "Bishop Badgers Football 2026 | UIL District, 2024 Comeback & Scores",
       "description": "Bishop Badgers football: 2026 UIL 3A Division I District 16, 2–5 through October 9, George Luna Stadium for Oct. 23 homecoming and school resources."
     },
+    "coach": {
+      "name": "Keith Talbert",
+      "title": "Bishop Badgers head football coach as listed on updated October 13, 2026 MaxPreps staff roster (district hiring notice not independently located)",
+      "sourceUrl": "https://www.maxpreps.com/tx/bishop/bishop-badgers/football/staff/",
+      "sourceLabel": "MaxPreps October 13 2026 roster lists Keith Talbert Bishop head coach; Corpus Christi ISD April 21 2026 original announcement separately confirms former Bishop coach David McHugh left to lead Miller, so older McHugh season-history labels are stale",
+      "verifiedAt": "2026-10-19"
+    },
     "campus": {
       "address": "100 Badger Lane, Bishop, TX 78343",
       "phone": "361-584-2547",
@@ -4477,6 +4484,13 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "title": "Boys Ranch Roughriders Football 2026 | UIL 1A Division I District 1 Scores, History & Guide",
       "description": "Boys Ranch Roughriders Texas football: 2026 1A Division I District 1, dated season results, Oldham County campus, school-specific program history and contact guidance."
     },
+    "coach": {
+      "name": "Louis Kelley III",
+      "title": "Boys Ranch Roughriders head football coach: official athletic directory names Louis Kelley without suffix; 2023 hiring report identifies Louis Kelley III",
+      "sourceUrl": "https://www.boysranchisd.org/132207_2",
+      "sourceLabel": "Current Boys Ranch ISD Athletic Directory calls Louis Kelley Head Football Coach; Dave Campbell's Texas Football May 16 2023 hiring article specifically identifies him as Louis Kelley III (school directory omits suffix)",
+      "verifiedAt": "2026-10-19"
+    },
     "campus": {
       "address": "163 River Road, Boys Ranch, TX 79010 (district office)",
       "phone": "806-534-2221",
@@ -4491,10 +4505,10 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "verifiedAt": "2026-10-17"
     },
     "notice": {
-      "title": "Verified facts and unresolved game-day claims",
-      "body": "Boys Ranch ISD lists Louis Kelley as an HS/JH coach, and an August 20, 2026 NewsChannel 10 interview quotes Kelley on its football defense. Neither school staff listing nor interview alone officially assigns a 2026 head-coach title. MaxPreps's 2026 history calls the coach Louis Kelley Jr, while its staff list displays both Jr and II as head coach and the specialist Six-Man Football May 2026 preview calls him Louis Kelley III. The school directory identifies only Louis Kelley as an HS/JH coach; his current precise head-football title and suffix require authoritative school confirmation. The district office at River Road differs from the high-school address in sports directories; no football gate or accessible-seat certification is inferred.",
-      "sourceUrl": "https://www.boysranchisd.org/athletics-2",
-      "sourceLabel": "School material plus explicitly qualified unresolved venue/staff/score claims",
+      "title": "Verified head coach and unresolved game-day details",
+      "body": "Boys Ranch ISD's official athletic directory expressly lists Louis Kelley as Head Football Coach, while its general staff listing only says HS/JH Coach. Dave Campbell's Texas Football May 16, 2023 hiring report identifies him as Louis Kelley III; a May 2026 Six-Man Football preview uses that suffix too. The school directory omits a suffix, and inconsistent MaxPreps Jr/II listings should not override the sourced III identification. Coach identity does not establish the current game-night entrance, admission rules or accessibility. The district office at River Road differs from the high-school address in sports directories; no football gate or accessible-seat certification is inferred.",
+      "sourceUrl": "https://www.boysranchisd.org/132207_2",
+      "sourceLabel": "Boys Ranch ISD first-party Athletic Directory names Louis Kelley as Head Football Coach; venue and ticket limitations remain",
       "verifiedAt": "2026-10-17"
     },
     "season": {
@@ -4585,7 +4599,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "overview": [
       "Boys Ranch Roughriders is Boys Ranch ISD's six-man football team in Oldham County. Its authoritative 2026–28 alignment is UIL 1A Division I District 1; that is different from older season divisions and similarly named programs.",
       "Boys Ranch's recent football history changed format: its 2023 entry was eleven-man 2A Division II, then its 2024 and 2025 seasons appear in six-man divisions. The Roughriders went 0–10 in 2024 and rebounded to 7–3 in 2025 before starting 6–0 in 2026.",
-      "Boys Ranch ISD lists Louis Kelley as an HS/JH coach, and an August 20, 2026 NewsChannel 10 interview quotes Kelley on its football defense. Neither school staff listing nor interview alone officially assigns a 2026 head-coach title. MaxPreps's 2026 history calls the coach Louis Kelley Jr, while its staff list displays both Jr and II as head coach and the specialist Six-Man Football May 2026 preview calls him Louis Kelley III. The school directory identifies only Louis Kelley as an HS/JH coach; his current precise head-football title and suffix require authoritative school confirmation. The district office at River Road differs from the high-school address in sports directories; no football gate or accessible-seat certification is inferred."
+      "Boys Ranch ISD's official athletic directory expressly lists Louis Kelley as Head Football Coach, while its general staff listing only says HS/JH Coach. Dave Campbell's Texas Football May 16, 2023 hiring report identifies him as Louis Kelley III; a May 2026 Six-Man Football preview uses that suffix too. The school directory omits a suffix, and inconsistent MaxPreps Jr/II listings should not override the sourced III identification. Coach identity does not establish the current game-night entrance, admission rules or accessibility. The district office at River Road differs from the high-school address in sports directories; no football gate or accessible-seat certification is inferred."
     ],
     "faq": [
       {
@@ -4606,7 +4620,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "Who is Louis Kelley?",
-        "answer": "Boys Ranch ISD lists him as a coach and a 2026 TV preview interviewed him; a current head-coach designation remains unconfirmed."
+        "answer": "Boys Ranch ISD officially lists Louis Kelley as head football coach without a suffix; Dave Campbell's Texas Football identifies the 2023 appointee as Louis Kelley III. This is specific coaching evidence, unlike an ambiguous third-party Jr/II roster. Confirm individual game-day arrangements with the district."
       },
       {
         "question": "What is the school's contact address?",
