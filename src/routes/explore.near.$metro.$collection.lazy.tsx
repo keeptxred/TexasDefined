@@ -562,6 +562,51 @@ function TexarkanaRoadTripsAuthority({ pageData }: { pageData: CollectionPageDat
   </>;
 }
 
+type DallasMapTown = {
+  name: string;
+  slug: string;
+  link: string;
+  point: { lat: number; lng: number };
+  drive: { readonly minutes: number; readonly sourceUrl: string };
+};
+
+function DallasSmallTownsInteractiveMap({ towns }: { towns: DallasMapTown[] }) {
+  const [selectedSlug, setSelectedSlug] = useState(towns[0]?.slug ?? "");
+  const town = towns.find((entry) => entry.slug === selectedSlug) ?? towns[0];
+  if (!town) return null;
+  const { lat, lng } = town.point;
+  const bbox = [lng - 0.10, lat - 0.075, lng + 0.10, lat + 0.075].join(",");
+  const mapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${encodeURIComponent(bbox)}&layer=mapnik&marker=${lat}%2C${lng}`;
+  const drivingUrl = `https://www.google.com/maps/dir/?api=1&origin=Dallas%2C%20TX&destination=${encodeURIComponent(town.name + ", Texas")}&travelmode=driving`;
+  return <section className="border-y border-border bg-background" aria-labelledby="dallas-small-town-map">
+    <Container className="py-14 sm:py-18">
+      <p className="eyebrow text-primary">Explore the map</p>
+      <h2 id="dallas-small-town-map" className="mt-3 max-w-4xl font-display text-4xl sm:text-5xl">See where each small town is before you drive</h2>
+      <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">Select a town to center the interactive map, then open live directions from Dallas. Markers identify approximate town centers, not exact parking or attraction entrances.</p>
+      <div className="mt-9 grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)]">
+        <div className="grid max-h-[450px] grid-cols-2 gap-2 overflow-y-auto pr-2" role="group" aria-label="Choose a Dallas small town on the map">
+          {towns.map((entry) => <button type="button" key={entry.slug} aria-pressed={selectedSlug === entry.slug} onClick={() => setSelectedSlug(entry.slug)}
+            className={`min-h-14 rounded-sm border px-3 py-3 text-left text-sm transition-colors ${selectedSlug === entry.slug ? "border-primary bg-primary text-primary-foreground" : "border-border bg-background hover:border-primary"}`}>
+            <span className="block font-semibold">{entry.name}</span><span className="mt-1 block text-xs">{dallasDriveLabel(entry.drive.minutes)}</span>
+          </button>)}
+        </div>
+        <div>
+          <iframe key={town.slug} title={`Interactive location map of ${town.name}, Texas`} src={mapUrl} loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade" className="w-full border border-border" style={{ height: "clamp(320px, 54vw, 440px)" }} />
+          <p className="mt-2 text-xs text-muted-foreground">Map data © OpenStreetMap contributors. Map shows the selected town; the route link opens live road directions.</p>
+          <h3 className="mt-5 font-display text-3xl">{town.name}</h3>
+          <p className="mt-2 text-sm text-muted-foreground">Typical one-way trip: {dallasDriveLabel(town.drive.minutes)} from Dallas; congestion may change the drive.</p>
+          <div className="mt-4 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
+            <a href={drivingUrl} target="_blank" rel="noreferrer noopener" className="border-b border-primary pb-1 text-primary">Check current driving route ↗</a>
+            <a href={town.link} className="border-b border-border pb-1 hover:text-primary">Read town information ↗</a>
+            <a href={town.drive.sourceUrl} target="_blank" rel="noreferrer noopener" className="border-b border-border pb-1 hover:text-primary">Drive-time source ↗</a>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </section>;
+}
+
 export function MetroProximityCollectionRich({ pageData }: { pageData: CollectionPageData }) {
   const { metro, collection, results, townReferences, eventContext, presentation } = pageData;
   const isMcAllenDayTrips = metro.slug === "mcallen" && collection.slug === "day-trips";
@@ -586,8 +631,8 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
       .filter((group) => group.rows.length > 0);
   const dallasOptions = isDallasRoadRing
     ? [
-        ...results.map((row) => ({ name: row.destination.name, slug: row.destination.slug, link: `/destination/${row.destination.slug}`, drive: getDallasSmallTownDrive(row.destination.slug, row.destination.name, row.destination.nearestTown) })),
-        ...townReferences.map((row) => ({ name: row.town.name, slug: row.town.slug, link: row.town.officialUrl, drive: getDallasSmallTownDrive(row.town.slug, row.town.name) })),
+        ...results.map((row) => ({ name: row.destination.name, slug: row.destination.slug, link: `/destination/${row.destination.slug}`, point: row.destination.coordinates, drive: getDallasSmallTownDrive(row.destination.slug, row.destination.name, row.destination.nearestTown) })),
+        ...townReferences.map((row) => ({ name: row.town.name, slug: row.town.slug, link: row.town.officialUrl, point: row.town.coordinates, drive: getDallasSmallTownDrive(row.town.slug, row.town.name) })),
       ].filter((row): row is typeof row & { drive: NonNullable<typeof row.drive> } => Boolean(row.drive))
         .sort((a, b) => a.drive.minutes - b.drive.minutes || a.name.localeCompare(b.name))
     : [];
@@ -740,7 +785,9 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
       </Container>
     </section>}
 
-    {mapMarkers.length > 0 && !isMcAllenDayTrips && <Container className="py-14 sm:py-18">
+    {isDallasRoadRing && <DallasSmallTownsInteractiveMap towns={dallasOptions} />}
+
+    {mapMarkers.length > 0 && !isMcAllenDayTrips && !isDallasRoadRing && <Container className="py-14 sm:py-18">
       <MapPreview markers={mapMarkers} zoom={7} directionsLabel={isMcAllenDayTrips ? `additional researched places near ${metro.name}` : `${presentation.label} near ${metro.name}`} origin={metro.center} originLabel={metro.name} variant={isMcAllenDayTrips ? "cards" : "list"} />
     </Container>}
 
