@@ -1,10 +1,9 @@
 /** Dallas-specific editorial road-duration references (checked 2026-10-19).
- * Travelmath estimates use typical traffic, NOT live routing. City of Ennis provides
- * the Ennis estimate. Do not extrapolate mileage radii into drive-hour promises.
+ * Travelmath estimates use typical traffic, NOT live routing. Do not extrapolate mileage radii into drive-hour promises.
  * Add a town only after checking an actual Dallas-to-town road-route source.
  */
 export const DALLAS_SMALL_TOWN_DRIVES = {
-  "ennis": { minutes: 25, sourceUrl: "https://www.ennistx.gov/departments/Tourism" },
+  "ennis": { minutes: 37, sourceUrl: "https://www.travelmath.com/driving-time/from/Dallas%2C%2BTX/to/Ennis%2C%2BTX" },
   "waxahachie": { minutes: 36, sourceUrl: "https://www.travelmath.com/driving-time/from/Dallas%2C%2BTX/to/Waxahachie%2C%2BTX" },
   "kaufman": { minutes: 36, sourceUrl: "https://www.travelmath.com/driving-time/from/Dallas%2C%2BTX/to/Kaufman%2C%2BTX" },
   "terrell": { minutes: 38, sourceUrl: "https://www.travelmath.com/driving-time/from/Dallas%2C%2BTX/to/Terrell%2C%2BTX" },
