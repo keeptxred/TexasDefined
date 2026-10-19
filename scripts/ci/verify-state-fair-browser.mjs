@@ -143,6 +143,31 @@ try {
         row.currentYearPhoto.source.includes('The_Midway_of_the_State_Fair_of_Texas_2026.png') &&
         !!row.currentYearPhoto.cc0 && row.currentYearPhoto.credited;
       await freshFigure.screenshot({ path: out + '/' + viewport + '-2026-photo.png', timeout: 20000 });
+      // Separate October 2026 Commons CC0 photographs from the 31-photo
+      // CC BY-SA 2019 archive; check decoded pixels on each viewport.
+      const new2026Figures = page.locator('[data-state-fair-2026-bigtex-gallery] figure');
+      const modernPhotoCount = await new2026Figures.count();
+      const modernPhotoErrors = [];
+      for (let index = 0; index < modernPhotoCount; index += 1) {
+        const photo = new2026Figures.nth(index);
+        const img = photo.locator('img');
+        await img.scrollIntoViewIfNeeded({ timeout: 12000 });
+        const pixels = await page.waitForFunction(position => {
+          const src = document.querySelectorAll('[data-state-fair-2026-bigtex-gallery] figure img')[position];
+          return src instanceof HTMLImageElement && src.complete && src.naturalWidth > 0;
+        }, index, { timeout: 20000 }).then(() => true).catch(() => false);
+        const alt = await img.getAttribute('alt') || '';
+        const source = await photo.locator('a[href*="commons.wikimedia.org"]').getAttribute('href');
+        const license = await photo.locator('a[href*="creativecommons.org/publicdomain/zero"]').getAttribute('href');
+        const credit = await photo.innerText();
+        if (!pixels || !alt.includes('2026') || !source?.includes('Big_Tex_') ||
+            !license?.includes('zero/1.0') || !credit.includes('Texan29CleburnePhotographer')) {
+          modernPhotoErrors.push({ index, pixels, alt, source, license, credit: credit.slice(0, 160) });
+        }
+      }
+      row.modernPhotoCount = modernPhotoCount;
+      row.modernPhotoErrors = modernPhotoErrors;
+      row.checks.additional2026Photos = modernPhotoCount === 2 && modernPhotoErrors.length === 0;
       await page.evaluate(() => window.scrollTo(0, 0));
       await page.screenshot({ path: out + '/' + viewport + '.png', fullPage: false });
       await page.locator('[data-state-fair-historical-gallery]').screenshot({ path: out + '/' + viewport + '-gallery.png', timeout: 20000 });

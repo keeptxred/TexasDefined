@@ -211,6 +211,38 @@ export function StateFairPlanningStrip() {
                 </figcaption>
               </figure>
             </div>
+            <div className="mt-10 max-w-4xl" data-state-fair-2026-bigtex-gallery>
+              <p className="eyebrow text-primary">Big Tex during the 2026 Fair</p>
+              <h3 className="mt-2 font-display text-2xl">Big Tex's 2026 look, from two angles</h3>
+              <p className="mt-4 max-w-3xl leading-7 text-muted-foreground">
+                Two independently published, openly licensed photographs document Big Tex during the completed 2026 season.
+                Unlike the 2019 historical archive, both images were taken in October 2026.
+              </p>
+              <div className="mt-6 grid gap-5 sm:grid-cols-2">
+                {[
+                  { file: "Big Tex (northwest view, 2026).jpg", alt: "Big Tex at the October 2026 State Fair of Texas, seen from the northwest", view: "Northwest view" },
+                  { file: "Big Tex (northeast view, 2026).jpg", alt: "Big Tex at the October 2026 State Fair of Texas, seen from the northeast", view: "Northeast view" },
+                ].map((photo) => (
+                  <figure key={photo.file} className="overflow-hidden border border-border bg-background">
+                    <img
+                      src={commonsImage(photo.file, 720)}
+                      alt={photo.alt}
+                      className="w-full object-cover"
+                      style={{ aspectRatio: "3 / 4" }}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <figcaption className="space-y-1 px-4 py-3 text-xs leading-5 text-muted-foreground">
+                      {photo.view}, October 2026 · Photo: Texan29CleburnePhotographer ·{" "}
+                      <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noreferrer" className="underline underline-offset-2">CC0 1.0</a>
+                      {" "}·{" "}
+                      <a href={commonsSource(photo.file)} target="_blank" rel="noreferrer" className="underline underline-offset-2">Wikimedia Commons original</a>
+                      {" "}· Display-cropped for layout.
+                    </figcaption>
+                  </figure>
+                ))}
+              </div>
+            </div>
           </div>
         </Container>
       </section>
