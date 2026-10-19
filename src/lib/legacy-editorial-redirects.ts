@@ -15,6 +15,9 @@ const destinationAliases: Record<string, string> = {
   "barrington-farm-site": "barrington-living-history-farm",
   "fanthorp-inn-state-historic-site": "fanthorp-inn",
   "battleship-texas-state-historic-site": "battleship-texas",
+  // Two published Edinburg museum records describe the same physical museum.
+  // Preserve the researched wave47 authority guide and 301 the older wave2 alias.
+  "museum-south-texas-history-edinburg": "museum-of-south-texas-history-edinburg",
   "port-isabel-lighthouse-state-park": "port-isabel-lighthouse",
   "port-isabel-lighthouse-state-historic-site": "port-isabel-lighthouse",
   "monument-hill-kreische-brewery-state-historic-site": "monument-hill",
