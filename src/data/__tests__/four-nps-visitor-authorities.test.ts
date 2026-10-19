@@ -70,6 +70,10 @@ describe("Four Texas NPS parks — individually sourced authority", () => {
     expect(actual.authorityGuide?.whyItMatters).toContain("thousands of El Paso residents");
     expect(actual.body.join(" ")).toContain("1911");
     expect(actual.body.join(" ")).toContain("1968");
+    expect(actual.body.join(" ")).toContain("during John F. Kennedy’s presidency");
+    expect(actual.body.join(" ")).toContain("January 14, 1964");
+    expect(actual.body.join(" ")).not.toContain("during Lyndon B. Johnson’s administration");
+    expect(actual.authorityGuide?.sources.some(source => source.url.endsWith("/chamizalconvention.htm"))).toBe(true);
     expect(actual.highlights).toContain("Nuestra Herencia mural celebrating borderlands history and culture");
     expect(actual.authorityGuide?.assessment.recommendedVisit).toContain("60–90 minutes");
     expect(actual.authorityGuide?.itineraries[0].steps.join(" ")).toContain("orientation film");
