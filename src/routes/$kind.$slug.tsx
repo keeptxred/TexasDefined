@@ -112,6 +112,7 @@ function searchIntentTitle(entity: TexasEntityRecord) {
   if (entity.kind === 'tax-office' && entity.countySlug) return `${title(entity.countySlug)} County Tax Office`;
   if (entity.kind === 'agency') return `${entity.name}: Services`;
   if (entity.kind === 'city') return `${entity.name}, Texas: City Guide & Things to Do`;
+  if (entity.kind === 'metro-area' && entity.slug === 'el-paso-metro') return 'El Paso Metro: Cities, Attractions & Moving Guide';
   return entity.name;
 }
 
