@@ -6,6 +6,10 @@ import type { ArticleInternalLink } from "./types";
  *
  * Associations are editorially curated: being in the same county does not imply
  * a public launch, trail, camping site, boating connection, or riverfront frontage.
+ * Declare a destination only when its canonical /destination/{slug} route exists.
+ * Cities and fishing lakes must use their actual owners rather than fabricated
+ * /destination aliases. An empty destinations array is intentional until a
+ * genuinely published, factually appropriate destination is verified.
  */
 export type RiverAuthorityLink = ArticleInternalLink & { description: string };
 
@@ -14,25 +18,25 @@ export const RIVER_AUTHORITY_RELATIONS = [
     slug: "texas-guadalupe-river-guide",
     name: "Guadalupe River",
     counties: ["kerr", "comal", "guadalupe", "gonzales", "victoria"],
-    destinations: ["guadalupe-river-state-park", "new-braunfels", "canyon-lake", "seguin"],
+    destinations: ["guadalupe-river-state-park", "new-braunfels"],
   },
   {
     slug: "texas-frio-river-guide",
     name: "Frio River",
     counties: ["real", "uvalde", "frio", "mcmullen"],
-    destinations: ["garner-state-park", "leakey", "concan"],
+    destinations: ["garner-state-park", "leakey"],
   },
   {
     slug: "texas-comal-river-guide",
     name: "Comal River",
     counties: ["comal"],
-    destinations: ["new-braunfels", "landa-park"],
+    destinations: ["new-braunfels"],
   },
   {
     slug: "texas-san-marcos-river-guide",
     name: "San Marcos River",
     counties: ["hays", "guadalupe", "caldwell", "gonzales"],
-    destinations: ["san-marcos", "luling", "rio-vista-park"],
+    destinations: ["san-marcos"],
   },
   {
     slug: "texas-llano-river-guide",
@@ -44,25 +48,25 @@ export const RIVER_AUTHORITY_RELATIONS = [
     slug: "texas-colorado-river-guide",
     name: "Colorado River (Texas)",
     counties: ["llano", "bastrop", "fayette", "colorado", "matagorda"],
-    destinations: ["colorado-bend-state-park", "bastrop", "lake-buchanan"],
+    destinations: ["colorado-bend-state-park", "bastrop"],
   },
   {
     slug: "texas-brazos-river-guide",
     name: "Brazos River",
     counties: ["brazos", "mclennan", "washington", "fort-bend"],
-    destinations: ["waco", "washington-on-the-brazos-state-historic-site"],
+    destinations: ["washington-on-the-brazos-state-historic-site"],
   },
   {
     slug: "texas-neches-river-guide",
     name: "Neches River",
     counties: ["henderson", "cherokee", "tyler", "jasper"],
-    destinations: ["lake-palestine", "sam-rayburn-reservoir"],
+    destinations: [],
   },
   {
     slug: "texas-sabine-river-guide",
     name: "Sabine River",
     counties: ["sabine", "newton", "panola", "orange"],
-    destinations: ["toledo-bend-reservoir"],
+    destinations: [],
   },
   {
     slug: "texas-pecos-river-guide",
@@ -70,16 +74,16 @@ export const RIVER_AUTHORITY_RELATIONS = [
     counties: ["loving", "reeves", "ward", "crockett", "val-verde"],
     destinations: ["amistad-national-recreation-area", "seminole-canyon-state-park"],
   },
-  {slug:"texas-trinity-river-guide","name":"Trinity River","counties":["tarrant","dallas","ellis","kaufman","liberty"],"destinations":["river-legacy-parks","fort-worth-nature-center-and-refuge","dallas"]},
+  {slug:"texas-trinity-river-guide","name":"Trinity River","counties":["tarrant","dallas","ellis","kaufman","liberty"],"destinations":[]},
   {slug:"texas-rio-grande-river-guide","name":"Rio Grande","counties":["el-paso","presidio","brewster","val-verde","webb","hidalgo","cameron"],"destinations":["big-bend-national-park","amistad-national-recreation-area","falcon-state-park"]},
   {slug:"texas-canadian-river-guide","name":"Canadian River","counties":["potter","hutchinson","hemphill"],"destinations":["lake-meredith-national-recreation-area","alibates-flint-quarries-national-monument"]},
   {slug:"texas-cypress-river-basin-guide","name":"Big Cypress Bayou and Cypress River Basin","counties":["marion","harrison","cass"],"destinations":["caddo-lake-state-park","caddo-lake","jefferson"]},
-  {slug:"texas-lavaca-river-guide","name":"Lavaca River","counties":["lavaca","jackson","calhoun"],"destinations":["lake-texana","port-lavaca"]},
-  {slug:"texas-nueces-river-guide","name":"Nueces River","counties":["uvalde","real","live-oak","nueces"],"destinations":["choke-canyon-state-park","george-west"]},
-  {slug:"texas-red-river-guide","name":"Red River","counties":["wichita","grayson","lamar","red-river","bowie"],"destinations":["eisenhower-state-park","lake-texoma"]},
+  {slug:"texas-lavaca-river-guide","name":"Lavaca River","counties":["lavaca","jackson","calhoun"],"destinations":[]},
+  {slug:"texas-nueces-river-guide","name":"Nueces River","counties":["uvalde","real","live-oak","nueces"],"destinations":["choke-canyon-state-park"]},
+  {slug:"texas-red-river-guide","name":"Red River","counties":["wichita","grayson","lamar","red-river","bowie"],"destinations":["eisenhower-state-park"]},
   {slug:"texas-san-antonio-river-guide","name":"San Antonio River","counties":["bexar","wilson","goliad","victoria"],"destinations":["san-antonio-missions-national-historical-park","goliad-state-park-and-historic-site","san-antonio"]},
-  {slug:"texas-san-jacinto-river-guide","name":"San Jacinto River","counties":["montgomery","harris","liberty","chambers"],"destinations":["lake-conroe","lake-houston-wilderness-park","san-jacinto-battleground-state-historic-site"]},
-  {slug:"texas-sulphur-river-guide","name":"Sulphur River","counties":["hopkins","delta","franklin","bowie"],"destinations":["cooper-lake-state-park","wright-patman-lake"]},
+  {slug:"texas-san-jacinto-river-guide","name":"San Jacinto River","counties":["montgomery","harris","liberty","chambers"],"destinations":["san-jacinto-battleground-state-historic-site"]},
+  {slug:"texas-sulphur-river-guide","name":"Sulphur River","counties":["hopkins","delta","franklin","bowie"],"destinations":["cooper-lake-state-park"]},
 ] as const;
 
 type Relation = (typeof RIVER_AUTHORITY_RELATIONS)[number];
