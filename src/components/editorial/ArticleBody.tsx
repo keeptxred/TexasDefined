@@ -6,6 +6,7 @@ import { AutoEntityLinks } from "@/components/content/AutoEntityLinks";
 import { UnusualBusinessAuthorityPanel } from "@/components/authority/UnusualBusinessAuthorityPanel";
 import { hideFailedImageContainer } from "@/lib/image-fallback";
 import { ShopTheStory } from "@/components/commerce/ShopTheStory";
+import { TEXAS_RIVERS_BODY_PHOTO_OVERRIDES } from "@/data/texas-rivers-body-photo-overrides";
 import { INTERNAL_LINK_POLICIES, policyForSurface } from '@/platform/internal-link-policies';
 import { countyLabelHasExplicitContext } from '@/platform/internal-linking';
 
@@ -179,28 +180,33 @@ export function ArticleBody({ blocks, entities = [], insertBeforeIndex, insertBe
             );
           }
           return <ul key={index} className="my-8 list-disc space-y-3 pl-6 marker:text-primary">{block.items.map((item) => <li key={item}>{render(item, 2)}</li>)}</ul>;
-        case "image": return (
-          <figure key={index} className="my-10 sm:my-12">
-            <div className="overflow-hidden rounded-2xl border border-border bg-muted/20">
-              <img
-                src={block.image.src}
-                alt={block.image.alt}
-                width={block.image.width}
-                height={block.image.height}
-                loading="lazy"
-                decoding="async"
-                className="h-auto w-full object-contain"
-                onError={(event) => hideFailedImageContainer(event.currentTarget)}
-              />
-            </div>
-            {(block.caption || block.image.credit) && (
-              <figcaption className="mt-3 text-sm leading-6 text-muted-foreground">
-                {block.caption}{block.caption && block.image.credit ? " · " : ""}{block.image.credit}<CommonsImageCreditLink src={block.image.src} />
-              </figcaption>
-            )}
-            {articleSlug === "best-lighthouses-to-visit-in-texas" && block.image.src.includes("Port_Bolivar_TX_-_Point_Bolivar_Lighthouse.jpg") ? <BolivarRestorationPhotoSources /> : null}
-          </figure>
-        );
+        case "image": {
+          const articleImage = articleSlug === "texas-rivers-explained"
+            ? TEXAS_RIVERS_BODY_PHOTO_OVERRIDES[block.image.src] ?? block.image
+            : block.image;
+          return (
+            <figure key={index} className="my-10 sm:my-12">
+              <div className="overflow-hidden rounded-2xl border border-border bg-muted/20">
+                <img
+                  src={articleImage.src}
+                  alt={articleImage.alt}
+                  width={articleImage.width}
+                  height={articleImage.height}
+                  loading="lazy"
+                  decoding="async"
+                  className="h-auto w-full object-contain"
+                  onError={(event) => hideFailedImageContainer(event.currentTarget)}
+                />
+              </div>
+              {(block.caption || articleImage.credit) && (
+                <figcaption className="mt-3 text-sm leading-6 text-muted-foreground">
+                  {block.caption}{block.caption && articleImage.credit ? " · " : ""}{articleImage.credit}<CommonsImageCreditLink src={articleImage.src} />
+                </figcaption>
+              )}
+              {articleSlug === "best-lighthouses-to-visit-in-texas" && articleImage.src.includes("Port_Bolivar_TX_-_Point_Bolivar_Lighthouse.jpg") ? <BolivarRestorationPhotoSources /> : null}
+            </figure>
+          );
+        }
         case "shop": return <ShopTheStory key={index} collectionSlug={block.collectionSlug} />;
         case "paragraph":
         default: return <p key={index} className="mt-6 first:mt-0">{render(block.text, 4)}</p>;
