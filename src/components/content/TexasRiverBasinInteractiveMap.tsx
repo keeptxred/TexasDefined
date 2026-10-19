@@ -98,7 +98,7 @@ export function TexasRiverBasinInteractiveMap() {
     <section className="mt-7 rounded-sm border border-border bg-background" aria-labelledby="interactive-texas-basin-heading">
       <div className="flex flex-wrap items-center justify-between gap-4 p-5 sm:p-7">
         <div className="max-w-3xl">
-          <p className="eyebrow text-primary">Official 2023 Texas water map</p>
+          <p className="eyebrow text-primary">Official 2023 river-basin boundaries</p>
           <h3 id="interactive-texas-basin-heading" className="mt-2 font-display text-2xl sm:text-3xl">See What Land Drains Into Each Texas River</h3>
           <p className="mt-2 text-sm leading-6 text-muted-foreground">
             This interactive map uses official August 7, 2023 Texas Water Development Board boundaries. Choose a river system to see the land that drains into it,
@@ -119,7 +119,7 @@ export function TexasRiverBasinInteractiveMap() {
               <span className="inline-flex items-center gap-2"><span aria-hidden="true" className="inline-block h-3 w-4 border-2" style={{ borderColor: "#572c1c", backgroundColor: "#bf754f" }} />Selected river basin</span>
             </div>
             <svg viewBox={viewBox} preserveAspectRatio="xMidYMid meet" role="img"
-              aria-label={`Official 2023 Texas river basin boundaries. ${active || "All visible basins"} highlighted.`}
+              aria-label={`Official 2023 Texas river basin boundaries. ${active ? `${displayName(active)} selected.` : "All visible basins shown."}`}
               className="h-auto w-full" style={{ maxHeight: 620 }}>
               {visible.map((feature, idx) => {
                 const name = feature.properties.Basin ?? "";
@@ -163,9 +163,9 @@ export function TexasRiverBasinInteractiveMap() {
                 <p className="mt-3 text-xs text-muted-foreground">This is one of the eight coastal drainage areas between the larger named river basins. Use the Texas Water Development Board directory below for official details.</p>
               )}
             </div>}
-            <p className="mt-6 text-xs leading-5 text-muted-foreground">Source: Texas Water Development Board Groundwater Modeling / GM_MajorBasins, edited August 7, 2023. Requires access to the agency's public mapping service. No third-party advertising, account, or location access.</p>
+            <p className="mt-6 text-xs leading-5 text-muted-foreground">Source: Texas Water Development Board official river-basin boundary data, edited August 7, 2023. The map loads from the agency's public mapping service and does not use your location.</p>
             <a href={gisMetadata} target="_blank" rel="noreferrer" className="mt-3 inline-block text-xs font-semibold text-primary underline">Official map data / metadata ↗</a>
-            <a href={twdbDirectory} target="_blank" rel="noreferrer" className="mt-2 block text-xs font-semibold text-primary underline">Texas Water Development Board descriptions of all 23 basins ↗</a>
+            <a href={twdbDirectory} target="_blank" rel="noreferrer" className="mt-2 block text-xs font-semibold text-primary underline">Texas Water Development Board descriptions of all 15 major and 8 coastal basins ↗</a>
           </div>
         </div>
       )}
