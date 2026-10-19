@@ -105,7 +105,7 @@ const MCALLEN_EDITORIAL_TRIPS = [
     label: "Alamo · Subtropical habitat",
     plan: "Half day, best started early",
     why: "Walk rare riparian and subtropical woodland, including the shorter Chachalaca Trail, and look for Valley specialty birds.",
-    caution: "Trails may be open when the visitor center is closed. Check trail conditions, entry fees and refuge rules.",
+    caution: "FWS reports Levee Road temporarily closed to pedestrians and cyclists; bicyclists should use Bobcat Trail as a detour. Other trails may remain accessible. Recheck the official notice, fees and trail conditions before traveling (reviewed October 18, 2026).",
     official: "https://www.fws.gov/refuge/santa-ana/visit-us",
   },
   {
