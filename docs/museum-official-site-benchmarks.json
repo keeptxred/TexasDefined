@@ -1710,6 +1710,29 @@
         "https://www.mcnayart.org/general-information/",
         "https://www.mcnayart.org/exhibitions/"
       ]
+    },
+    "texas-military-forces-museum": {
+      "name": "Texas Military Forces Museum",
+      "operatorStrengths": [
+        "Up-to-date official access guidance including REAL ID and weekend VCC rules",
+        "Museum's 10 a.m.–4 p.m. schedule, free admission and closing gate at 3 p.m.",
+        "Group tour and permanent collection information"
+      ],
+      "openGaps": [
+        "Confirm specific gallery wheelchair routes and food services directly with museum",
+        "Operator conflicts on square-footage (26,000 vs 45,000) require clarification before using any such number",
+        "Run physical photo pixels, licensing links, live browser layout and complete independent side-by-side visitor comparison"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://texasmilitaryforcesmuseum.org/",
+        "https://tmd.texas.gov/camp-mabry-visitor-access-information",
+        "https://texasmilitaryforcesmuseum.org/?page_id=107",
+        "https://tmd.texas.gov/museum"
+      ]
     }
   },
   "baselineCollectedAt": "2026-10-12",

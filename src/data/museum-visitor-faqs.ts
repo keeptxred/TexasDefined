@@ -88,6 +88,80 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
           "reviewed": "2026-10-19"
       }
   ],
+  "texas-military-forces-museum": [
+      {
+          "question": "How much does the Texas Military Forces Museum charge for admission or parking?",
+          "answer": "There is no admission charge, and the Texas Military Department states that museum parking is free. Donations support the museum. Being free does not waive Camp Mabry security screening, which is mandatory for adult visitors.",
+          "verificationUrl": "https://texasmilitaryforcesmuseum.org/",
+          "questionOrigin": "editorial-research",
+          "questionEvidenceUrl": "https://texasmilitaryforcesmuseum.org/",
+          "reviewCycle": "monthly",
+          "reviewed": "2026-10-19"
+      },
+      {
+          "question": "What days and hours is the Texas Military Forces Museum open?",
+          "answer": "The museum publishes daily hours of 10 a.m. to 4 p.m., including weekends. However, entry to Camp Mabry must occur before the Visitor Control Center closes at 3 p.m. on both weekdays and weekends; installation restrictions and weather may cause exceptional closures.",
+          "verificationUrl": "https://texasmilitaryforcesmuseum.org/",
+          "questionOrigin": "editorial-research",
+          "questionEvidenceUrl": "https://texasmilitaryforcesmuseum.org/",
+          "reviewCycle": "monthly",
+          "reviewed": "2026-10-19"
+      },
+      {
+          "question": "What documents do I need to enter Camp Mabry to visit the museum?",
+          "answer": "The Texas Military Department's current visitor screening guide says adults should bring a REAL ID-compliant driver's license or state ID, or a U.S. passport, plus vehicle make/color/plate details and proof of insurance. Visitors are screened at the 35th Street Gate Visitor Control Center. If your documentation differs, call security before making the trip.",
+          "verificationUrl": "https://tmd.texas.gov/camp-mabry-visitor-access-information",
+          "questionOrigin": "museum-faq",
+          "questionEvidenceUrl": "https://tmd.texas.gov/camp-mabry-visitor-access-information",
+          "reviewCycle": "monthly",
+          "reviewed": "2026-10-19"
+      },
+      {
+          "question": "Can visitors use a foreign passport to tour the Texas Military Forces Museum?",
+          "answer": "Do not assume ordinary museum entry is available to foreign nationals. Texas Military Department guidance says foreign nationals generally need official business or a pre-approved appointment, and museum guidance notes restrictions without acceptable U.S. documentation. Contact Camp Mabry visitor control for a case-specific ruling before traveling.",
+          "verificationUrl": "https://tmd.texas.gov/camp-mabry-visitor-access-information",
+          "questionOrigin": "museum-faq",
+          "questionEvidenceUrl": "https://tmd.texas.gov/camp-mabry-visitor-access-information",
+          "reviewCycle": "monthly",
+          "reviewed": "2026-10-19"
+      },
+      {
+          "question": "Do weekend museum visitors need an appointment for Camp Mabry screening?",
+          "answer": "Individual weekend walk-up screening is now available at the Camp Mabry Visitor Control Center from 8 a.m. to 3 p.m., though eligibility and successful vetting are still required. Groups should send entrance information at least five business days in advance.",
+          "verificationUrl": "https://tmd.texas.gov/camp-mabry-visitor-access-information",
+          "questionOrigin": "museum-faq",
+          "questionEvidenceUrl": "https://tmd.texas.gov/camp-mabry-visitor-access-information",
+          "reviewCycle": "monthly",
+          "reviewed": "2026-10-19"
+      },
+      {
+          "question": "Can children climb on the military vehicles or tanks in the museum?",
+          "answer": "No. The museum expressly prohibits touching or climbing any artifacts, including tanks, trucks, equipment and mannequins inside or outside. Parents and chaperones should explain this before arriving with young children.",
+          "verificationUrl": "https://texasmilitaryforcesmuseum.org/?page_id=107",
+          "questionOrigin": "editorial-research",
+          "questionEvidenceUrl": "https://texasmilitaryforcesmuseum.org/?page_id=107",
+          "reviewCycle": "monthly",
+          "reviewed": "2026-10-19"
+      },
+      {
+          "question": "How long does a guided tour take and are school group visits free?",
+          "answer": "Museum guidance says a guided visit usually takes about 1.5–2 hours and that guided tours are free, with donations welcome. Organized groups should contact the museum and coordinate Camp Mabry security in advance; the military installation controls entry even when a tour is booked.",
+          "verificationUrl": "https://texasmilitaryforcesmuseum.org/?page_id=107",
+          "questionOrigin": "editorial-research",
+          "questionEvidenceUrl": "https://texasmilitaryforcesmuseum.org/?page_id=107",
+          "reviewCycle": "monthly",
+          "reviewed": "2026-10-19"
+      },
+      {
+          "question": "Is the Texas Military Forces Museum entrance at 2200 or 3038 West 35th Street?",
+          "answer": "Both addresses appear in operator materials for different purposes. Camp Mabry's official street address is 2200 West 35th Street; the museum supplies 3038 West 35th Street for GPS navigation. Do not drive to an old closed entrance: use the current Maintenance Drive/35th Street Gate and check in at the Visitor Control Center before proceeding to Building 6.",
+          "verificationUrl": "https://texasmilitaryforcesmuseum.org/?page_id=13",
+          "questionOrigin": "editorial-research",
+          "questionEvidenceUrl": "https://texasmilitaryforcesmuseum.org/?page_id=13",
+          "reviewCycle": "monthly",
+          "reviewed": "2026-10-19"
+      }
+  ],
   "menil-collection-houston": [
     {
         "question": "Is admission to the Menil Collection in Houston always free?",

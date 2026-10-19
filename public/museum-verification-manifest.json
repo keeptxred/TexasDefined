@@ -2068,6 +2068,44 @@
       ]
     },
     {
+      "path": "/destination/texas-military-forces-museum",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://texasmilitaryforcesmuseum.org/",
+          "fetchUrl": "https://texasmilitaryforcesmuseum.org/",
+          "label": "Museum operator: visitor hours, admission and exhibits"
+        },
+        {
+          "sourceUrl": "https://tmd.texas.gov/camp-mabry-visitor-access-information",
+          "fetchUrl": "https://tmd.texas.gov/camp-mabry-visitor-access-information",
+          "label": "Texas Military Department: ID, security screening and group entry"
+        },
+        {
+          "sourceUrl": "https://texasmilitaryforcesmuseum.org/?page_id=107",
+          "fetchUrl": "https://texasmilitaryforcesmuseum.org/?page_id=107",
+          "label": "Museum operator: guided tour procedures and vehicle safeguards"
+        },
+        {
+          "sourceUrl": "https://texasmilitaryforcesmuseum.org/?page_id=13",
+          "fetchUrl": "https://texasmilitaryforcesmuseum.org/?page_id=13",
+          "label": "Museum operator: entrance addresses, hours and weather closures"
+        },
+        {
+          "sourceUrl": "https://tmd.texas.gov/museum",
+          "fetchUrl": "https://tmd.texas.gov/museum",
+          "label": "Texas Military Department: collection and military museum identity"
+        },
+        {
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ceremonies_at_Camp_Mabry_190112-Z-DZ751-0199_(32916620338).jpg",
+          "fetchUrl": "https://commons.wikimedia.org/wiki/File:Ceremonies_at_Camp_Mabry_190112-Z-DZ751-0199_(32916620338).jpg",
+          "label": "Photo licensing: original Jim Greenhill CC BY 2.0 museum event"
+        }
+      ]
+    },
+    {
       "path": "/destination/texas-prison-museum-huntsville",
       "topic": "museum-visitor-guide",
       "cadenceDays": 30,

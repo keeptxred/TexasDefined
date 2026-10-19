@@ -63,6 +63,40 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
       { label: "Texas museum guides", href: "/explore/museums", reason: "Discover additional researched Texas museum visitor guides." }
     ],
   },
+  "texas-military-forces-museum": {
+    name: "Texas Military Forces Museum", slug: "texas-military-forces-museum", county: "Travis", city: "Austin", reviewed: "2026-10-19",
+    topics: ["military-history", "texas-history", "national-guard", "family-learning"],
+    whyVisit: "The Texas Military Forces Museum inside Camp Mabry is an unusual free Austin history stop on an active National Guard installation. Rather than a general war memorial, it explains how Texas militia, volunteer troops, the Texas Army and Air National Guard, and the Texas State Guard developed through the Republic era, world wars and modern service, using original vehicles, uniforms, dioramas and soldiers' stories.",
+    visitorStrategy: "The museum itself is open daily 10 a.m.–4 p.m. with free admission and parking, but visiting is not a normal walk-up street entrance. Adult visitors must complete security screening at Camp Mabry's 35th Street Gate Visitor Control Center, using Maintenance Drive; the Center closes at 3 p.m. every day. The Texas Military Department now specifies a REAL ID or U.S. passport, plus vehicle details and proof of insurance. Weekday VCC hours begin at 7 a.m., weekend VCC hours 8 a.m.; both close at 3 p.m. Be at the gate well before 3 p.m., and check entry requirements on the day. The museum's postal address is 2200 W 35th Street; GPS directions may use 3038 W 35th Street. Museum visitor access is discretionary, and the operating museum is in Building 6, not at the gate. Allow 90 minutes to two hours for principal galleries, plus additional screening time. No restaurant, café or other food service has been verified inside the museum itself.",
+    accessibility: "The operator offers a telephone for special entry accommodations at 512-782-5659. The detailed public visitor-access page explains base clearance rather than establishing every museum gallery's wheelchair, sensory or hearing facilities. Visitors requiring a specific entrance, wheelchair route or interpretation accommodation should call ahead; do not equate installation approval with confirmed gallery accessibility.",
+    familiesAndGroups: "Families interested in vehicles, history and military service can use the large displays for a child-friendly introduction, but wartime weapons, casualties and violent history may be intense for younger children. No one may touch or climb display vehicles and tanks, whether indoors or outside. Adult visitors aged 18 or older must be screened; school and other groups should arrange their entrance with the host at least five business days in advance. Guided museum tours are free with donations welcomed and typically last 1.5–2 hours, adjusted with advance notice. The active installation's security rules override a normal museum outing.",
+    researchValue: "Permanent interpretive areas trace Texas forces from early settlement and the Texas Revolution through the Mexican War, Civil War, twentieth-century conflicts, Cold War and modern Guard operations. Different current operator pages describe the museum as 26,000 or 45,000 square feet: these conflicting display/facility measurements are not used to promise exhibit scale. The museum is not a substitute for its archival collection or military service records, which should be requested from the institution itself.",
+    exhibits: [
+      { heading: "Texas militia and Republic-era service", detail: "Early citizen-soldier formations, Texas independence and the transition from volunteer service to organized Guard forces form a distinctive Texas chronology." },
+      { heading: "36th Infantry Division in world conflict", detail: "Uniforms, photographs and contextual wartime stories illuminate Texas soldiers' roles in the two world wars without promising that every artifact is always on display." },
+      { heading: "Military vehicles and outdoor displays", detail: "Tanks, trucks and other large equipment create a memorable view of military technology; exhibits must not be climbed or touched." },
+      { heading: "Texas Air National Guard and State Guard", detail: "Contrasts the federally recognized Air and Army Guard with Texas State Guard responsibilities and state emergency response." },
+      { heading: "Living-history activities and reenactments", detail: "Event weekends add educational demonstrations; they are occasional programs with separate schedules, not guaranteed features of an ordinary museum visit." }
+    ],
+    routes: [
+      { label: "One-and-a-half-hour first visit", steps: ["Review the current Camp Mabry gate rules and bring an acceptable ID, vehicle details and insurance", "Complete VCC screening well before 3 p.m. and travel to Building 6", "Select Texas Revolution, 36th Division and Guard galleries, then leave time for vehicles if open"] },
+      { label: "Families and vehicle enthusiasts", steps: ["Explain no-climbing rules before children see tanks and weapons", "Explore large vehicle exhibits and a short, age-appropriate chronological section", "Check weather and return to town for a separately planned meal"] },
+      { label: "Organized school or history group", steps: ["Contact museum and base in advance, providing group access information at least five business days ahead", "Confirm adult chaperones' identification, bus access and special accommodations", "Plan a supervised free guided visit of roughly 1.5–2 hours"] }
+    ],
+    sources: [
+      { label: "Texas Military Forces Museum — official hours and entry information", url: "https://texasmilitaryforcesmuseum.org/", use: "Daily 10–4 schedule, free admission, gate cutoff, museum and GPS addresses" },
+      { label: "Texas Military Department — Camp Mabry visitor access", url: "https://tmd.texas.gov/camp-mabry-visitor-access-information", use: "REAL ID, screening, weekends, foreign national restrictions and group lead time" },
+      { label: "Texas Military Department — museum", url: "https://tmd.texas.gov/museum", use: "Institutional oversight and museum exhibits" },
+      { label: "Museum — guided group tour instructions", url: "https://texasmilitaryforcesmuseum.org/?page_id=107", use: "Tour duration, hands-off exhibits, ID and group guidance" },
+      { label: "Museum — about, history and directions", url: "https://texasmilitaryforcesmuseum.org/?page_id=13", use: "Museum location, opening hours, interpretation and public entry" }
+    ],
+    connections: [
+      { label: "Travis County", href: "/county/travis", reason: "Connect Camp Mabry with the state's capital and local history." },
+      { label: "Bullock Texas State History Museum", href: "/destination/bullock-texas-state-history-museum", reason: "Compare a broad statewide story with the military collections." },
+      { label: "Texas State Capitol", href: "/destination/texas-state-capitol", reason: "Connect the state's military history with the civic setting of Austin." },
+      { label: "Explore Texas museums", href: "/explore/museums", reason: "Find other source-backed Texas museum guides." }
+    ],
+  },
   "menil-collection-houston": {
     name: "The Menil Collection", slug: "menil-collection-houston", county: "Harris", city: "Houston", reviewed: "2026-10-19",
     topics: ["art", "architecture", "surrealism", "cultural-history"],

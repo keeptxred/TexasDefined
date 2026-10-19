@@ -12,6 +12,8 @@ Purpose: do not use any image of a different museum, nearby city, AI approximati
 
 | McNay Art Museum, San Antonio | https://commons.wikimedia.org/wiki/File:McNay_Art_Museum_May_2018_2_(Courtyard).jpg | Creative Commons BY-SA 4.0 International; source creator personally licensed work | Michael Barera, 24 May 2018 | Exact historic McNay museum courtyard, not an unrelated San Antonio building. Attribution source and license links required on published hero; pixel/render QA outstanding. |
 
+| Texas Military Forces Museum, Austin | https://commons.wikimedia.org/wiki/File:Ceremonies_at_Camp_Mabry_190112-Z-DZ751-0199_(32916620338).jpg | Creative Commons BY 2.0 Generic; FlickrReview confirmed 2019 | Sgt. 1st Class Jim Greenhill, 12 January 2019 | Exact museum presentation inside Camp Mabry. Corrects historic destination credit incorrectly claiming public domain; image is CC BY 2.0, must link source and license. Pixel and live display QA pending. |
+
 License compliance:
 - Retain photographer attribution, title, museum-specific image context, source URL, Creative Commons license name/link and modifications wherever the page/photo component allows.
 - Creative Commons BY-SA licensing imposes additional terms on adapted photos; ensure any derivative delivery meets share-alike and credit requirements.
