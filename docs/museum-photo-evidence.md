@@ -210,3 +210,15 @@ Exact-site antique farm-equipment photograph: [Boerne ag museum 2013.jpg](https:
 - **Historical context:** January 2025 site photograph, not evidence for all current galleries, visitor routes or fall 2026 hours.
 - **Production status:** license and location source documented; actual pixel rendering, attribution, responsive crop and canonical indexing remain **unverified** until live deployment QA. Not independently certified.
 
+
+## Frontiers of Flight Museum — Dallas (verified October 18, 2026)
+
+- **Correct exhibit and institution:** [Frontiers of Flight Museum December 2015 107 (Vought V-173 "Flying Pancake").jpg](https://commons.wikimedia.org/wiki/File:Frontiers_of_Flight_Museum_December_2015_107_(Vought_V-173_%22Flying_Pancake%22).jpg) is a specific aviation artifact on exhibit at the Dallas Love Field museum, not a generic airplane photo.
+- Photographer: **Michael Barera**; taken December 12, 2015. Commons describes the original 6,000×4,000 photo as own work and independently lists commercial-compatible **CC BY-SA 4.0** (and CC BY-SA 3.0) licensing with credit and share-alike requirements. Use [CC BY-SA 4.0 license](https://creativecommons.org/licenses/by-sa/4.0/). The existing `src/data/museum-expansion-dfw.ts` hero already carries the exact Vought V-173 image and photographer credit. Do not create a second generic image or imply this 2015 photo documents 2026 temporary exhibitions.
+- Operator site restrictions on new photography for other-than-personal use are not blanket restrictions on reuse of this independently photographer-licensed 2015 original. The actual remote JPEG, on-page original file and CC links, responsive crop and pixel display require post-deployment acceptance.
+
+## Museum of Texas Tech University — Lubbock (verified October 18, 2026)
+
+- **Exact building photograph:** [Museum of Texas Tech University IMG 0038.JPG](https://commons.wikimedia.org/wiki/File:Museum_of_Texas_Tech_University_IMG_0038.JPG) is photographer **Billy Hathorn**'s own photo from April 3, 2009, uploaded April 10, 2009. The original is 2,592×1,944 pixels, with an affirmative [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/) license (other optional licenses also recorded).
+- Hero record `src/data/museum-authority-heroes.ts` is keyed only to `museum-of-texas-tech-university-lubbock`; the existing destination record replaces its missing-image placeholder with this exact licensed photo. Credit photographer, named source and license; when resizing or cropping follow CC share-alike and modification-notice terms. **This is a 2009 exterior photograph, not proof of today's museum display arrangements.**
+- Source/license verification is complete, but browser-level photograph pixel rendering, attribution links, alternate text and mobile crop are **not certified** until the merged page is visually checked.
