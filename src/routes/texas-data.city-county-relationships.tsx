@@ -6,7 +6,7 @@ import { buildCityCountyRelationships } from '@/data/city-county-relationships';
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 const canonicalPath = '/texas-data/city-county-relationships';
-const description = 'See how cities in the Texas Defined directory relate to Texas counties, including multi-county cities, with links to city guides, county guides and exact-address county lookup.';
+const description = 'See how Texas cities and places in the Texas Defined directory relate to counties, including multi-county cities, with links to city guides, county guides and exact-address county lookup.';
 const censusBas = 'https://www.census.gov/programs-surveys/bas.html';
 const officialCountyDirectory = 'https://www.texas.gov/texas-county-websites.html';
 
@@ -85,7 +85,7 @@ function CityCountyRelationshipsPage() {
       <header className="py-10">
         <p className="eyebrow text-primary">Texas geography reference</p>
         <h1 className="mt-3 max-w-5xl font-display text-5xl leading-[0.98] sm:text-7xl">What county is a Texas city in?</h1>
-        <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Use this directory to see the county relationships for cities currently covered by Texas Defined. Some Texas cities cross county lines, so this page lists additional counties where that relationship is known instead of pretending every city belongs to only one county.</p>
+        <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Use this directory to see the county relationships for cities and census-designated places currently covered by Texas Defined. Some Texas cities cross county lines, so this page lists additional counties where that relationship is known instead of pretending every city belongs to only one county.</p>
         <div className="mt-6 flex flex-wrap gap-3 text-sm font-semibold">
           <Link to="/find-my-county" className="text-primary hover:underline">Find the county for an exact address →</Link>
           <a href="/texas-data/city-county-relationships.csv" className="text-primary hover:underline">Download the CSV →</a>
@@ -100,13 +100,13 @@ function CityCountyRelationshipsPage() {
 
       <div className="overflow-x-auto border-y border-border">
         <table className="w-full min-w-full text-left text-sm">
-          <thead><tr className="border-b border-border bg-surface text-xs uppercase tracking-wide text-muted-foreground"><th className="px-4 py-3">City</th><th className="px-4 py-3">Primary directory county</th><th className="px-4 py-3">Other counties</th><th className="px-4 py-3">Region</th><th className="px-4 py-3">Guides</th></tr></thead>
+          <thead><tr className="border-b border-border bg-surface text-xs uppercase tracking-wide text-muted-foreground"><th className="px-4 py-3">City or place</th><th className="px-4 py-3">Primary directory county</th><th className="px-4 py-3">Other counties</th><th className="px-4 py-3">Region</th><th className="px-4 py-3">Guides</th></tr></thead>
           <tbody className="divide-y divide-border">
-            {grouped.map(({ city, county, counties }) => {
+            {grouped.map(({ city, county, counties, placeType }) => {
               const additional = counties.slice(1);
               return (
                 <tr key={city.slug}>
-                  <td className="px-4 py-4 font-display text-lg font-semibold">{city.name}</td>
+                  <td className="px-4 py-4 font-display text-lg font-semibold">{city.name}{placeType === 'census_designated_place' ? <span className="block text-xs font-normal text-muted-foreground">Census-designated place</span> : null}</td>
                   <td className="px-4 py-4">{county ? <Link to="/$kind/$slug" params={{ kind: 'county', slug: county.slug }} className="font-semibold text-primary hover:underline">{city.county} County</Link> : `${city.county} County`}</td>
                   <td className="px-4 py-4">{additional.length ? additional.map(({ name, county: additionalCounty }, index) => <span key={name}>{index ? ', ' : ''}{additionalCounty ? <Link to="/$kind/$slug" params={{ kind: 'county', slug: additionalCounty.slug }} className="font-semibold text-primary hover:underline">{name} County</Link> : `${name} County`}</span>) : <span className="text-muted-foreground">—</span>}</td>
                   <td className="px-4 py-4">{city.region}</td>
@@ -117,7 +117,7 @@ function CityCountyRelationshipsPage() {
           </tbody>
         </table>
       </div>
-      <p className="mt-4 text-sm text-muted-foreground">{grouped.length} cities in the current Texas Defined directory · {multiCountyCount} shown with multi-county relationships · {unmatched.length} unmatched county registry relationship{unmatched.length === 1 ? '' : 's'}.</p>
+      <p className="mt-4 text-sm text-muted-foreground">{grouped.length} cities and places in the current Texas Defined directory · {multiCountyCount} shown with multi-county relationships · {unmatched.length} unmatched county registry relationship{unmatched.length === 1 ? '' : 's'}.</p>
       <p className="mt-2 max-w-4xl text-sm leading-6 text-muted-foreground">“Primary directory county” is Texas Defined’s editorial/navigation county, not a claim that the municipality exists only in that county. Municipal boundaries can change through annexation and boundary adjustments; use <Link to="/find-my-county" className="font-semibold text-primary hover:underline">Find My County</Link> for an address-specific answer.</p>
 
       <CitationTrustPanel
@@ -126,7 +126,7 @@ function CityCountyRelationshipsPage() {
           { name: 'U.S. Census Bureau Boundary and Annexation Survey (BAS)', url: censusBas, note: 'Authoritative municipal-boundary reference used to check cross-county incorporated-place relationships.' },
           { name: 'State of Texas county website directory', url: officialCountyDirectory, note: 'Official Texas county-directory reference used for county navigation and verification.' },
         ]}
-        methodology="The Texas Defined city registry retains one primary county for editorial navigation. This reference page supplements that field with known additional counties for cities whose municipal or census-place footprint crosses county boundaries. The visible table and downloadable CSV use the same relationship layer. It is a curated directory of cities covered by Texas Defined, not an exhaustive list of every incorporated place or census-designated place in Texas."
+        methodology="The Texas Defined city registry retains one primary county for editorial navigation. This reference page supplements that field with known additional counties for cities whose municipal footprint or census-designated places whose geographic footprint crosses county boundaries. The Woodlands is a Census-designated place, not an incorporated city. The visible table and downloadable CSV use the same relationship layer. It is a curated directory of cities covered by Texas Defined, not an exhaustive list of every incorporated place or census-designated place in Texas."
         lastVerified="Municipal boundaries can change. Cross-county relationships should be checked against current U.S. Census Bureau BAS/MAF-TIGER geography for legal-boundary research; exact addresses should use Texas Defined’s Find My County lookup."
         title="City-to-county sources and methodology"
       />
