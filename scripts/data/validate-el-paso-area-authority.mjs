@@ -45,6 +45,23 @@ const checks = [
 ];
 
 const failures = [];
+const socorro = read('src/components/editorial/OldSocorroMissionAuthority.tsx');
+const socorroRoute = read('src/routes/destination.$slug.tsx');
+const socorroFacts = read('src/data/historic-site-fact-corrections.ts');
+const socorroCounty = read('src/components/content/CountyHistoricSites.tsx');
+for (const marker of [
+  'Old Socorro Mission', 'closed to the public', 'Different location', 'modern Socorro',
+  '1680', '1691', '1829', 'Early 1980s', 'thc.texas.gov', 'nps.gov',
+  '/article/el-camino-real-de-tierra-adentro-national-historic-trail',
+  '/destination/ysleta-del-sur-pueblo-cultural-center-museum-el-paso',
+  '/county/el-paso',
+]) if (!socorro.includes(marker)) failures.push('Old Socorro dedicated guide missing ' + marker);
+if (!socorroRoute.includes('return <OldSocorroMissionAuthority />')) failures.push('Old Socorro route not using dedicated historical guide');
+if (!socorroFacts.includes('lat: 31.6510715, lng: -106.299106')) failures.push('Old Socorro map still differs from THC official See map');
+if (!socorroFacts.includes('hero: missingDestinationHero(destination)')) failures.push('Old Socorro site-photo license gate bypassed');
+if (socorroCounty.includes('Historic active church on the El Paso Mission Trail')) failures.push('El Paso county confuses original archaeology with operating church');
+if (/google\\.com\\/maps|maps\\/search|maps\\/dir/.test(socorro)) failures.push('Closed Old Socorro guide links directly to travel directions');
+
 for (const [path, markers] of checks) {
   const content = read(path);
   for (const marker of markers) {
