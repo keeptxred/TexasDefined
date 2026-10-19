@@ -15,7 +15,7 @@ const expected = {
   Dallas: 'Dallas; Collin; Denton; Kaufman; Rockwall',
   'Fort Worth': 'Tarrant; Denton; Johnson; Parker; Wise',
   Mesquite: 'Dallas; Kaufman', 'San Antonio': 'Bexar; Comal; Medina',
-  'Port Arthur': 'Jefferson; Orange', 'Wichita Falls': 'Wichita; Archer; Clay',
+  'Port Arthur': 'Jefferson; Orange', 'Wichita Falls': 'Wichita; Clay',
   Houston: 'Harris; Fort Bend; Montgomery', Katy: 'Harris; Fort Bend; Waller',
   Austin: 'Travis; Hays; Williamson', Pearland: 'Brazoria; Fort Bend; Harris',
   Frisco: 'Collin; Denton', Plano: 'Collin; Denton',
@@ -58,7 +58,10 @@ try {
       assert.equal(new Set(counties).size,counties.length,r.city_name+' duplicates');
       assert.ok(counties.every(Boolean),r.city_name+' empty county');
       assert.equal(r.county_registry_match,'matched',r.city_name);
-      if(r.city_name==='Grand Prairie'&&isPredeployPR){
+      if(r.city_name==='Wichita Falls'&&isPredeployPR){
+        assert.ok(['Wichita County; Archer County; Clay County','Wichita County; Clay County'].includes(counties.join('; ')),
+          'Predeploy Wichita Falls must have old or corrected list');
+      }else if(r.city_name==='Grand Prairie'&&isPredeployPR){
         assert.ok(['Dallas County; Ellis County; Tarrant County','Dallas County; Ellis County; Johnson County; Tarrant County'].includes(counties.join('; ')),
           'Predeploy Grand Prairie must have either old or newly deployed list');
       }else if(r.city_name==='San Antonio'&&isPredeployPR){
