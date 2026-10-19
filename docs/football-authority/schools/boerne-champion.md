@@ -1,5 +1,8 @@
 # Boerne Champion Chargers — individualized Batch 006 football research
 
+> **CURRENT DEPLOYED STATUS — October 19, 2026:** The school-specific football authority editorial is merged on `main`; the canonical Batch 006 registry records this page **DEPLOYED**. The [single-release production Chrome run #39273758531](https://github.com/keeptxred/TexasDefined/actions/runs/39273758531) passed 75/75 school viewports, 23/23 reciprocal county links, and 25/25 sitemap entries on its tested release. **Individual nine-dimension editorial/factual approval, rights clearance and manual accessibility certification remain outstanding; this school is NOT individually VERIFIED.** Statements farther below describing an unmerged branch are historical, superseded by this current release checkpoint.
+
+
 **Checkpoint October 16, 2026.** Samuel V. Champion High School **Chargers**, 201 Charger Blvd, Boerne TX 78006, **830-357-2600**, Kendall County. **Not the Boerne Greyhounds**, whose 2022 state-final and current 5A Division II history must not be transferred to Champion. **IMPLEMENTED on dependent branch only; not merged, independently Chrome production-VERIFIED or formally editorially accepted**.
 
 ## UIL district and official school sources

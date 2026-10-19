@@ -14,6 +14,98 @@ export interface MuseumVisitorFaq {
   reviewed: string;
 }
 export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
+  "san-angelo-museum-of-fine-arts": [
+    {
+      "question": "Is the San Angelo Museum of Fine Arts free to visit?",
+      "answer": "Yes. The operator describes general gallery admission as free for everyone, including access to changing exhibitions. Do not extend that promise to concerts, rentals, fundraising events or workshops: selected ticketed programs may cost extra. Check the exact activity before attending.",
+      "verificationUrl": "https://www.samfa.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.samfa.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    },
+    {
+      "question": "What are the museum's Thursday and Sunday hours?",
+      "answer": "The museum lists Thursday as noon to 7 p.m., which differs from its Tuesday, Wednesday, Friday and Saturday 10 a.m.–4 p.m. schedule. Sunday hours are 1–4 p.m. and Monday is closed. It also closes for some major holidays; check the operator's day-of visitor information.",
+      "verificationUrl": "https://www.samfa.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.samfa.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    },
+    {
+      "question": "Is there free parking beside the San Angelo Museum of Fine Arts?",
+      "answer": "Yes. The museum says free parking is available adjacent to its building at 1 Love Street near the Concho River in downtown San Angelo. Parking for special events or busy days may be limited, so follow current signs and plan a short walk rather than expecting a reserved space.",
+      "verificationUrl": "https://www.samfa.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.samfa.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    },
+    {
+      "question": "Can wheelchair users visit all museum galleries?",
+      "answer": "The museum states that its galleries are fully wheelchair accessible and offers loan wheelchairs upon request at the front desk. Service dogs are welcome. For specific entrances, assistance or unusual event setups, call visitor services at 325-653-3333 before traveling.",
+      "verificationUrl": "https://www.samfa.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.samfa.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    },
+    {
+      "question": "Can families bring strollers and snacks into SAMFA?",
+      "answer": "Strollers are allowed if a parent or guardian pushes the stroller forward-facing, rather than pulling it. Food and drinks, including bottled water and gum, are not permitted inside galleries except for certain medical accommodations. There is no verified on-site café, so arrange snacks and meals separately.",
+      "verificationUrl": "https://www.samfa.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.samfa.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    },
+    {
+      "question": "Are flash photography or paid photo shoots permitted inside SAMFA?",
+      "answer": "Ordinary personal photography is generally allowed unless a particular artwork or exhibition says otherwise, but flash, tripods, selfie sticks and video equipment are not permitted in the galleries. Commercial filming or posed promotional photo shoots require advance approval and may involve a rental fee.",
+      "verificationUrl": "https://www.samfa.org/visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.samfa.org/visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    },
+    {
+      "question": "What is San Angelo museum's monthly Family Day?",
+      "answer": "The museum publishes a free Family Day on the third Saturday of the month, generally from 10 a.m. to 2 p.m., with exhibition-linked activities, artmaking and studio experiences. The theme and precise activity stations change. Confirm the date and program rather than assuming every advertised workshop is available every visit.",
+      "verificationUrl": "https://www.samfa.org/familyday",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.samfa.org/familyday",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    },
+    {
+      "question": "Are museum school field trips walk-in or arranged ahead?",
+      "answer": "School field trips are education-led experiences that require planning with the museum's schools-and-families staff. The operator describes grade-level programs from pre-K through middle school using gallery conversation, observation, reasoning and studio art, so groups should arrange the chosen format before arrival.",
+      "verificationUrl": "https://www.samfa.org/fieldtrips",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.samfa.org/fieldtrips",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    },
+    {
+      "question": "What is the Concho Clay Studio and is it included with free gallery admission?",
+      "answer": "The Concho Clay Studio is an active ceramics education space operated by the museum with adult classes and community learning. Do not assume any paid studio course, materials or scheduled workshop is included simply because general exhibition admission is free; consult the studio's current registration details.",
+      "verificationUrl": "https://www.samfa.org/conchoclay",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.samfa.org/conchoclay",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    },
+    {
+      "question": "Which art exhibitions are on view at SAMFA in October 2026?",
+      "answer": "The official October 2026 calendar lists Discovering Global Treasures in Concho Valley Collections through October 25 and Spirit of the Ranch from October 22, 2026 through January 3, 2027. Both dates are temporary facts, not evergreen promises; check the exhibitions calendar when planning a later visit.",
+      "verificationUrl": "https://www.samfa.org/exhibits",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.samfa.org/exhibits",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-19"
+    }
+  ],
   "museum-of-south-texas-history-edinburg": [
     {
       "question": "What are the Museum of South Texas History's regular admission prices?",

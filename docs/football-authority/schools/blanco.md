@@ -1,5 +1,8 @@
 # Blanco Panthers — individualized 2026 football authority dossier
 
+> **CURRENT DEPLOYED STATUS — October 19, 2026:** The school-specific football authority editorial is merged on `main`; the canonical Batch 006 registry records this page **DEPLOYED**. The [single-release production Chrome run #39273758531](https://github.com/keeptxred/TexasDefined/actions/runs/39273758531) passed 75/75 school viewports, 23/23 reciprocal county links and 25/25 sitemap entries on its tested release. **Individual nine-dimension editorial/factual approval, rights clearance and manual accessibility certification remain outstanding; this school is NOT individually VERIFIED.** Historical statements below describing unmerged branches are superseded. More recent source-specific staff facts have separate dated October 19 notes and protected PR #5300.
+
+
 ## October 17, 2026 — dated October 16 result replaces previous unverified status
 
 Blanco defeated Karnes City 54–6 on October 16. **5–3** through October 16, 2026 based on reported final scores. [Contemporary source: Houston Chronicle October 16 statewide football finals](https://www.houstonchronicle.com/sports/high-school/football/article/texas-scores-friday-week-16-22481255.php). Earlier dossier notes treating this individual fixture as upcoming or unresolved are historical and superseded by this score evidence only. Full UIL score certification, photo rights, staffing questions, specific stadium entrance and 320/390 desktop/mobile Chrome editorial acceptance remain separate pending work.
@@ -22,3 +25,10 @@ The [UIL state football archives](https://www.uiltexas.org/football/archives/P27
 ## Editorial integrity and acceptance pending
 
 Six original questions and five substantive school-specific overview paragraphs are authored on branch. Formal status is **IMPLEMENTED on dependency only, not VERIFIED**. Confirm correct Blanco County reciprocal link, first-party coaching appointment, licensed stadium photo if available (no photo claimed), source links, mobile/desktop production Chrome, title/meta, JSON-LD, accessibility, game-day navigation and online-only ticket wording. Canonical Merge Gate remains mandatory after reconciliation; no sweeping Batch004 GIS/browser rerun for unrelated school changes once independent cost fix #4983 is merged. Dependencies: Big Spring #4970 already merged, Bishop #4978, Blackwell #4985. No historical verified school regressed.
+
+## October 19, 2026 — independent 2026 head-coach designation corroborated
+[Blanco ISD current Athletics](https://www.blancoisd.org/athletics) names **Kent Walker** athletic director. Separately, the [MaxPreps 2026 Blanco football staff list](https://www.maxpreps.com/tx/blanco/blanco-panthers/football/staff/) explicitly names **Kent Walker head coach**, with roster updated Sept 5 2026. Do not infer head coaching solely from the first-party athletic-director role; the later football roster independently supports the named position and should be attributed. Preserve Panther Stadium official 604 Terri Ln vs campus 1215 Fourth Street, and existing online-only ticket detail. No invented gate, ADA, photos, scores or editorial signoff.
+
+## October 19, 2026 — reconcile 2026 coach field with article and FAQ
+[Blanco ISD Athletics](https://www.blancoisd.org/athletics) identifies Kent Walker as athletic director; [the separately dated 2026 MaxPreps varsity coaching list](https://www.maxpreps.com/tx/blanco/blanco-panthers/football/staff/) identifies Walker as head football coach. The public page's overview and FAQ are brought into alignment with the explicitly attributed coaching field. Neither athletics-director title nor an undated directory alone establishes new coaching appointments; independent current team-staff reporting is the source. No new score, gate, licensing or human-review claim.
+

@@ -151,8 +151,10 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
   const historicGuide = destination.category === "historic-sites" ||
     ["goliad-state-park-and-historic-site", "san-jacinto-battleground-state-historic-site", "washington-on-the-brazos-state-historic-site"].includes(destination.slug);
   const isIndividuallyRegisteredAuthorityGuide = Boolean(destination.authorityGuide) && AUTHORITY_GUIDE_DESTINATION_SLUGS.has(destination.slug);
-  const hasExtendedAuthorityGuide = isIndividuallyRegisteredAuthorityGuide ||
-    (Boolean(destination.authorityGuide) && historicGuide);
+  // Chamizal has its complete, source-backed guide in DestinationAuthoritySections.
+  // Rendering this second full guide repeats the history, itinerary and sources.
+  const hasExtendedAuthorityGuide = destination.slug !== "chamizal-national-memorial" && (isIndividuallyRegisteredAuthorityGuide ||
+    (Boolean(destination.authorityGuide) && historicGuide));
   const isWhirlyBall = destination.slug === WHIRLYBALL_SLUG;
   const hasCampingProfile = CAMPING_DESTINATION_SLUGS.has(destination.slug);
   const hasSamRayburnHouseContext = destination.slug === "sam-rayburn-house";

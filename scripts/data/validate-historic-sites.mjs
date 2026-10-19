@@ -193,6 +193,16 @@ if (fullCatalog.includes("The historic significance comes from the surviving pla
   failures.push("Historic authority-guide significance must use actual site facts, not an interchangeable filler sentence.");
 }
 
+// Fail if a preexisting generic remote authorityGuide bypasses the
+// closure-aware Battleship Texas visitor copy again.
+for (const marker of [
+  'const forceClosedBattleshipGuide = destination.slug === "battleship-texas"',
+  '!forceClosedBattleshipGuide && (destination.category !== "historic-sites" || destination.authorityGuide)',
+]) if (!fullCatalog.includes(marker)) failures.push(`Battleship preexisting-guide precedence guard missing: ${marker}`);
+if (fullCatalog.includes('if (destination.category !== "historic-sites" || destination.authorityGuide) return destination;')) {
+  failures.push('Generic historic-guide early exit still prevents closed Battleship Texas authority from replacing stale remote guidance.');
+}
+
 // Battleship Texas is a CLOSED historical-reference destination. The page may
 // remain indexable, but its public itinerary and assessment must never imply
 // normal boarding or a walk-up tour while the Foundation says the ship is closed.
@@ -552,7 +562,7 @@ for (const marker of [
   '/destination/hotel-paso-del-norte', '/destination/el-paso-museum-of-art',
   '/destination/chamizal-national-memorial', 'sourceCheckedAt: "2026-10-19"',
 ]) if (!magoffinAuthority.includes(marker)) failures.push('Magoffin authority regression: ' + marker);
-for (const marker of ['import { applyMagoffinHomeAuthority }', 'const resolved = applyMagoffinHomeAuthority(correctDestinationTravelRegion(applyResolvedHero(destination)))', 'const locallyCorrected = improved.map(applyMagoffinHomeAuthority)']) if (!runtime.includes(marker)) failures.push('Magoffin overlay missing from runtime: ' + marker);
+for (const marker of ['import { applyMagoffinHomeAuthority }', 'const resolved = applyMagoffinHomeAuthority(correctDestinationTravelRegion(applyResolvedHero(destination)))', 'const improved = historicEnriched.map(applyMagoffinHomeAuthority)']) if (!runtime.includes(marker)) failures.push('Magoffin overlay missing from runtime: ' + marker);
 for (const marker of ['Magoffin Home visitor FAQ', 'Historic home closed through 2027', 'destination.slug !== "magoffin-home"', 'destination.slug === "magoffin-home" && destination.visitorFaqs?.length']) if (!magoffinRoute.includes(marker)) failures.push('Magoffin route regression: ' + marker);
 if (!seeds.includes('lat: 31.76279, lng: -106.47706')) failures.push('Magoffin fallback map coordinates must be corrected');
 if (!magoffinPairings.includes('"magoffin-home": ["el-paso-museum-of-art", "chamizal-national-memorial", "hotel-paso-del-norte"]')) failures.push('Magoffin local reciprocal links missing');

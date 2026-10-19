@@ -9,6 +9,11 @@ export function CountyHistoricSites({ countyName }: { countyName: string }) {
   // records in the state-parks catalog and therefore are not returned by the
   // historic-sites category query. Keep their county back-links visible.
   const canonicalCountySites: Record<string, {slug:string; name:string; nearestTown:string; summary:string}[]> = {
+    "el-paso": [
+      { slug: "old-socorro-mission", name: "Old Socorro Mission", nearestTown: "Socorro", summary: "Historic active church on the El Paso Mission Trail; verify visitor access and worship schedules." },
+      { slug: "chamizal-national-memorial", name: "Chamizal National Memorial", nearestTown: "El Paso", summary: "NPS interpretation of the international Rio Grande boundary settlement." },
+      { slug: "magoffin-home", name: "Magoffin Home State Historic Site", nearestTown: "El Paso", summary: "Historic house closed for restoration; check current visitor-center arrangements." },
+    ],
     "goliad": [{
       slug: "goliad-state-park",
       name: "Goliad State Park & Mission Espíritu Santo",

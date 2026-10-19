@@ -1,5 +1,8 @@
 # Blackwell Hornets — original Batch 006 six-man football research
 
+> **CURRENT DEPLOYED STATUS — October 19, 2026:** The school-specific football authority editorial is merged on `main`; the canonical Batch 006 registry records this page **DEPLOYED**. The [single-release production Chrome run #39273758531](https://github.com/keeptxred/TexasDefined/actions/runs/39273758531) passed 75/75 school viewports, 23/23 reciprocal county links and 25/25 sitemap entries on its tested release. **Individual nine-dimension editorial/factual approval, rights clearance and manual accessibility certification remain outstanding; this school is NOT individually VERIFIED.** Historical statements below describing unmerged branches are superseded. More recent source-specific staff facts have separate dated October 19 notes and protected PR #5300.
+
+
 ## October 17, 2026 — dated October 16 result replaces previous unverified status
 
 Blackwell beat Trent 67–6 on October 16; the unrelated September 4 Santa Anna score discrepancy remains unresolved. **6–2** through October 16, 2026 based on reported final scores. [Contemporary source: Houston Chronicle October 16 statewide football finals](https://www.houstonchronicle.com/sports/high-school/football/article/texas-scores-friday-week-16-22481255.php). Earlier dossier notes treating this individual fixture as upcoming or unresolved are historical and superseded by this score evidence only. Full UIL score certification, photo rights, staffing questions, specific stadium entrance and 320/390 desktop/mobile Chrome editorial acceptance remain separate pending work.
@@ -26,3 +29,7 @@ Six-Man Football directory currently calls the coach Clint Linman and the venue 
 ## Completion contract
 
 Six original FAQs and school-specific paragraphs implemented in program-editorial.ts, not yet deployed; preserve the Sep4 contradiction, historical 2019 source-count mismatch, dated Oct9 5–2 record, six-man UIL classification and primary district phone. Confirm county reciprocal route, protected canonical premerge and gate, then exact-SHA desktop/mobile real Chrome SEO, structured data, links, accessibility, source provenance and photo rights before nine-dimension acceptance. No broad post-update audits; retain Batch004 unrelated scan scope gate proposed in PR #4983.
+
+## October 19, 2026 — official athletic-director contact, head coach still not certified
+[Blackwell CISD's current Football staff roster](https://www.blackwellhornets.org/apps/pages/index.jsp?pREC_ID=staff&type=d&uREC_ID=80756) lists **Clint Linman** as **athletic director** and identifies Justin Bamlet and Garrett Watson as teachers/coaches without assigning either the current **varsity football head coach** title. This is first-party evidence for a useful school athletics contact only; it is not evidence that Linman, Bamlet or Watson holds the head-football-coach role. The existing unresolved Sep 4 Santa Anna point-total conflict, all independently sourced season results and campus-versus-stadium qualifications remain unchanged. The guide's notice is clarified but no coach object is fabricated, and no nine-dimension signoff is asserted.
+

@@ -3,6 +3,12 @@ import { isDestinationPhotoPlaceholder } from "./explore-hero-reconciliation";
 
 /** Lightweight exact-site photo sources. Never bundle long museum research dossiers in core destination discovery. */
 export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
+  "san-angelo-museum-of-fine-arts": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/San_Angelo_September_2019_44_(San_Angelo_Museum_of_Fine_Arts).jpg?width=1600",
+    alt: "Actual San Angelo Museum of Fine Arts riverside building in September 2019, photographed by Michael Barera",
+    width: 1600, height: 1067,
+    credit: "Michael Barera · 7 September 2019 · CC BY-SA 4.0 · Wikimedia Commons · San Angelo September 2019 44 (San Angelo Museum of Fine Arts).jpg",
+  },
   "museum-of-south-texas-history-edinburg": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Old_Hidalgo_County_Jail_Edinburg_Texas_2021.jpg?width=1600",
     alt: "The preserved 1910 Hidalgo County Jail historic wing of the Museum of South Texas History in Edinburg, photographed in August 2021",

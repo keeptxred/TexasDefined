@@ -220,7 +220,7 @@ function reconcileExploreCatalog(destinations: Destination[]) {
     reconcileDestinationHeroes(applyExploreHeroAssets(applyStateParkHeroAssets(destinations))),
   ).map(enrichAquariumMarineDestination);
   const curated = improveDestinationCatalog(applyAllCuratedDestinations(aquariumEnriched));
-  const improved = enrichHistoricSiteCatalog(curated)
+  const historicEnriched = enrichHistoricSiteCatalog(curated)
     .map(enrichRemainingHistoricSiteAreaGuide)
     .map(enrichHistoricSiteRemoteHero)
     .map(enrichHistoricSiteEvergreenLinks)
@@ -237,11 +237,11 @@ function reconcileExploreCatalog(destinations: Destination[]) {
     .map(enrichMuseumMedia)
     .map(applyTownAuthority)
     .map(enforceFredericksburgJohnsonCityHeritageAuthority);
-  const locallyCorrected = improved.map(applyMagoffinHomeAuthority);
+  const improved = historicEnriched.map(applyMagoffinHomeAuthority);
   // The collection renderer must apply the same post-curation exact-place rule
   // as the single destination page, not merely the preliminary photo map.
   return filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(
-    locallyCorrected.map((destination) => applyStateParkHeroAsset(correctDestinationTravelRegion(destination))),
+    improved.map((destination) => applyStateParkHeroAsset(correctDestinationTravelRegion(destination))),
   ));
 }
 

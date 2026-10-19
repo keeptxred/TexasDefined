@@ -25,7 +25,7 @@ export const DISTRICT_21_OVERALL_OCT14: Readonly<Record<string, string>> = {
 const final = (date: string, away: string, home: string, awayScore: number, homeScore: number, resultSourceUrl = DISTRICT_21_SCHEDULE_URL): DistrictFootballGame => ({
   date, kickoff: '', away, home, status: 'final', awayScore, homeScore,
   sourceUrl: DISTRICT_21_SCHEDULE_URL, resultSourceUrl,
-  sourceLabel: 'Pigskin Prep 2026 reported final',
+  sourceLabel: resultSourceUrl === DISTRICT_21_STRAKE_SCHEDULE_URL ? 'Strake Jesuit varsity reported final' : 'Pigskin Prep 2026 reported final',
   verifiedAt: DISTRICT_21_VERIFIED_AT,
 });
 

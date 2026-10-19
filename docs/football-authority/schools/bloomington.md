@@ -1,3 +1,5 @@
+> **CURRENT DEPLOYED STATUS — October 19, 2026:** The school-specific football authority editorial is merged on `main`; the canonical Batch 006 registry records this page **DEPLOYED**. The [single-release production Chrome run #39273758531](https://github.com/keeptxred/TexasDefined/actions/runs/39273758531) passed 75/75 school viewports, 23/23 reciprocal county links, and 25/25 sitemap entries on its tested release. **Individual nine-dimension editorial/factual approval, rights clearance and manual accessibility certification remain outstanding; this school is NOT individually VERIFIED.** Statements farther below describing an unmerged branch are historical, superseded by this current release checkpoint.
+
 **Current proposal checkpoint (2026-10-15):** Original research preserved from initial dependent branch. Reconciled against latest main after Blooming Grove merge. School remains **IMPLEMENTED** until protected merge, deployed exact SHA and individual production/editorial proof. Earlier dependent-branch paragraphs below are historical source provenance, not production claims.
 
 ## October 17, 2026 — dated October 16 result replaces previous unverified status
@@ -28,3 +30,7 @@ Bloomington beat Danbury 42–0 in its October 16 home football game. **3–5** 
 ## Acceptance pending
 
 Original five substantive paragraphs, six individual FAQs, 10 fixtures, sourced school/distinctive history and cashless fan guidance now authored. Before formal production VERIFICATION: protected PR chain and Merge Gate, exact SHA targeted real Chrome desktop/mobile SEO/structured data, independently verified Victoria County reciprocal links, links, mobile accessibility, photo licensing (none claimed), event/gate updates, source disputes and full nine-dimension editorial acceptance. No sitewide crawl or made-up source validation.
+
+## October 19, 2026 — reconcile 2026 head-coaching overview and FAQ
+[Dave Campbell's February 5, 2026 coach analysis](https://www.texasfootball.com/article/2026/02/05/which-districts-have-the-best-head-coaches-after-realignment) identifies Lane Shands as Bloomington head football coach, separately corroborated by the [2026 MaxPreps program history](https://www.maxpreps.com/tx/bloomington/bloomington-bobcats-lady-cats/football/history/). The Bloomington ISD directory names Shands athletic director. The 2026 page coach object, overview and FAQ now accurately attribute the football-specific coaching claim without inventing a first-party hire announcement. No change to date-qualified completed scores or event-specific Vanco policies.
+

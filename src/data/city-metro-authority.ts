@@ -158,9 +158,9 @@ const METRO_OVERRIDES: Record<string, AuthorityOverride> = {
     tags: ['metro', 'relocation', 'travel', 'regional-discovery', 'transportation'],
   },
   'el-paso-metro': {
-    description: 'The El Paso Metropolitan Area connects the core city with El Paso County, border-region mobility, relocation research, travel planning and nearby places across Far West Texas. It also keeps municipal and county services distinct from the broader cross-jurisdictional planning role of the El Paso Metropolitan Planning Organization.',
-    officialUrl: 'https://www.elpasompo.org/', sourceConfidence: 'official', sourceCheckedAt: wave2CheckedAt, status: 'active', region: 'west-texas',
-    relationships: [{ type: 'has-core-city', targetId: 'city:el-paso' }, { type: 'regional-county', targetId: 'county:el-paso' }, { type: 'located-in-region', targetId: 'region:west-texas' }],
+    description: 'The El Paso, Texas metropolitan statistical area includes El Paso and Hudspeth counties, connecting the urban border city with the rural lands east of it. The Franklin Mountains, Rio Grande, Fort Bliss and trade with Ciudad Juárez shape travel, housing and employment. The El Paso Metropolitan Planning Organization covers a different transportation-planning area that includes parts of southern New Mexico; its boundary is not the same as the two-county U.S. statistical metro.',
+    officialUrl: 'https://www.elpasompo.org/AboutUs', sourceConfidence: 'official', sourceCheckedAt: '2026-10-19', status: 'active', region: 'west-texas',
+    relationships: [{ type: 'has-core-city', targetId: 'city:el-paso' }, { type: 'regional-county', targetId: 'county:el-paso' }, { type: 'regional-county', targetId: 'county:hudspeth' }, { type: 'located-in-region', targetId: 'region:west-texas' }],
     tags: ['metro', 'border-region', 'relocation', 'travel', 'regional-discovery', 'transportation'],
   },
   'corpus-christi-metro': {

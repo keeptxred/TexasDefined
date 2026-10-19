@@ -163,6 +163,9 @@ export default function YsletaDelSurMuseumAuthority() {
       </div>
       <nav aria-label="Continue exploring El Paso heritage" className="mt-7 flex flex-wrap gap-6">
         <Link to="/$kind/$slug" params={{ kind: "county", slug: "el-paso" }} className={anchorStyle}>Explore El Paso County →</Link>
+        <a href="/metro-area/el-paso-metro" className={anchorStyle}>El Paso metro-area guide →</a>
+        <a href="/city/el-paso" className={anchorStyle}>El Paso city guide →</a>
+        <a href="/destination/old-socorro-mission" className={anchorStyle}>Old Socorro Mission →</a>
         <Link to="/article/$slug" params={{ slug: "texas-borderlands-historic-sites-guide" }} className={anchorStyle}>Texas borderlands and mission history →</Link>
         <Link to="/article/$slug" params={{ slug: "indigenous-texas-history-native-nations" }} className={anchorStyle}>Indigenous Texas history →</Link>
         <a href={missionTrailUrl} className={anchorStyle} target="_blank" rel="noopener noreferrer">Official El Paso Mission Trail visitor guide ↗</a>

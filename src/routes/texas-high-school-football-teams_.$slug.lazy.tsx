@@ -2,6 +2,7 @@ import { createLazyFileRoute, Link } from '@tanstack/react-router';
 
 import { Container } from '@/components/layout/Container';
 import { FootballGameNightGuide } from '@/components/sports/FootballGameNightGuide';
+import { District21TeamSeason, hasDistrict21TeamScorecard } from '@/components/sports/District21TeamSeason';
 import { SponsoredSportsPlacement } from '@/components/sports/SponsoredSportsPlacement';
 import {
   UIL_FOOTBALL_ENROLLMENT_BANDS_SOURCE,
@@ -38,6 +39,7 @@ function Page() {
     faq,
   } = Route.useLoaderData();
   const schoolName = displayName;
+  const district21Team = program?.classification === '6A' && program.district === 21 && !editorial?.season && !editorial?.notice && hasDistrict21TeamScorecard(schoolName);
   // Authored football-page titles contain the verified school-specific mascot.
   // Fall back to the reference directory for schools without an editorial title;
   // the optional TEA identity join may be unavailable in deployed SSR.
@@ -360,7 +362,9 @@ function Page() {
         </div>
       ) : null}
 
-      {program && (editorial?.season || !editorial?.notice) && <section id="football-current-season" className="scroll-mt-24 grid gap-8 border-b border-border py-8 sm:py-10 lg:grid-cols-[15rem_1fr]">
+      {district21Team && <District21TeamSeason schoolName={schoolName} />}
+
+      {program && !district21Team && (editorial?.season || !editorial?.notice) && <section id="football-current-season" className="scroll-mt-24 grid gap-8 border-b border-border py-8 sm:py-10 lg:grid-cols-[15rem_1fr]">
         <div>
           <p className="eyebrow text-primary">Current season</p>
           <h2 className="mt-2 font-display text-3xl">{editorial?.season ? '2026 results & schedule' : '2026 schedule & results sources'}</h2>

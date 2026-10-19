@@ -1,5 +1,6 @@
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { isDestinationPhotoPlaceholder } from "@/data/explore-hero-reconciliation";
 
 import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { MapPreview } from "@/components/editorial/MapPreview";
@@ -185,7 +186,81 @@ const MCALLEN_EDITORIAL_TRIPS = [
   },
 ] as const;
 
-function McAllenDayTripsAuthority() {
+/** Exact attraction locations from the existing destination catalog, Commons
+ * photo geotags and operator addresses. Map pins are orientation markers,
+ * not guaranteed entrance locations; navigation uses named destinations. */
+const MCALLEN_FEATURED_POINTS = {
+  "quinta-mazatlan": { lat: 26.17674, lng: -98.22976, query: "Quinta Mazatlan, 600 Sunset Drive, McAllen TX" },
+  "bentsen-rio-grande-valley-state-park": { lat: 26.186, lng: -98.381, query: "Bentsen Rio Grande Valley State Park, Mission TX" },
+  "santa-ana-national-wildlife-refuge": { lat: 26.08, lng: -98.14, query: "Santa Ana National Wildlife Refuge, Green Jay Road, Alamo TX" },
+  "estero-llano-grande-state-park": { lat: 26.126411, lng: -97.956518, query: "Estero Llano Grande State Park, Weslaco TX" },
+  "museum-of-south-texas-history-edinburg": { lat: 26.30284, lng: -98.16138, query: "Museum of South Texas History, Edinburg TX" },
+  "old-hidalgo-pumphouse-museum": { lat: 26.09689, lng: -98.26177, query: "Old Hidalgo Pumphouse Museum, 902 S 2nd Street, Hidalgo TX" },
+  "sabal-palm-sanctuary": { lat: 25.85, lng: -97.4188, query: "Sabal Palm Sanctuary, 8435 Sabal Palm Grove Road, Brownsville TX" },
+  "laguna-atascosa-national-wildlife-refuge": { lat: 26.23, lng: -97.35, query: "Laguna Atascosa National Wildlife Refuge, Ocelot Road, Los Fresnos TX" },
+  "port-isabel-lighthouse": { lat: 26.077984, lng: -97.207133, query: "Port Isabel Lighthouse, Port Isabel TX" },
+  "south-padre-island-beaches": { lat: 26.113528, lng: -97.164556, query: "South Padre Island public beach access, South Padre Island TX" },
+} as const;
+
+const MCALLEN_OPEN_IMAGES = {
+  "museum-of-south-texas-history-edinburg": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Old_Hidalgo_County_Jail_Edinburg_Texas_2021.jpg?width=1000",
+    alt: "Historic 1910 Hidalgo County Jail building, now part of the Museum of South Texas History in Edinburg",
+    credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons",
+    source: "https://commons.wikimedia.org/wiki/File:Old_Hidalgo_County_Jail_Edinburg_Texas_2021.jpg",
+    license: "https://creativecommons.org/licenses/by/4.0/",
+  },
+  "quinta-mazatlan": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/QUINTA_MAZATLAN%2C_Mc_Allen%2C_Tx_-06_%2816663465252%29.jpg?width=1000",
+    alt: "Quinta Mazatlán's landscaped grounds in McAllen, Texas",
+    credit: "Alan Schmierer · CC0 · Wikimedia Commons",
+    source: "https://commons.wikimedia.org/wiki/File:QUINTA_MAZATLAN,_Mc_Allen,_Tx_-06_(16663465252).jpg",
+    license: "https://creativecommons.org/publicdomain/zero/1.0/",
+  },
+  "sabal-palm-sanctuary": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Sabal_Palm_Sanctuary%2C_Cameron_Co._TX%3B_11_Apr_2016.jpg?width=1000",
+    alt: "Old-growth sabal palm forest at Sabal Palm Sanctuary near Brownsville",
+    credit: "William L. Farr · CC BY-SA 4.0 · Wikimedia Commons",
+    source: "https://commons.wikimedia.org/wiki/File:Sabal_Palm_Sanctuary,_Cameron_Co._TX;_11_Apr_2016.jpg",
+    license: "https://creativecommons.org/licenses/by-sa/4.0/",
+  },
+} as const;
+
+function McAllenFeaturedMap() {
+  const [slug, setSlug] = useState<(typeof MCALLEN_EDITORIAL_TRIPS)[number]["slug"]>("quinta-mazatlan");
+  const trip = MCALLEN_EDITORIAL_TRIPS.find((item) => item.slug === slug) ?? MCALLEN_EDITORIAL_TRIPS[0];
+  const point = MCALLEN_FEATURED_POINTS[trip.slug];
+  const bbox = [point.lng - 0.075, point.lat - 0.05, point.lng + 0.075, point.lat + 0.05].join(",");
+  const mapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${encodeURIComponent(bbox)}&layer=mapnik&marker=${point.lat}%2C${point.lng}`;
+  const route = `https://www.google.com/maps/dir/?api=1&origin=McAllen%2C%20TX&destination=${encodeURIComponent(point.query)}&travelmode=driving`;
+  return <section className="mt-14 border-t border-border pt-8" aria-labelledby="mcallen-featured-map">
+    <p className="eyebrow text-primary">Map & current road routes</p>
+    <h3 id="mcallen-featured-map" className="mt-2 font-display text-3xl">Choose any of the ten featured outings</h3>
+    <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Choose an attraction to move the map pin, then open Google Maps for current road directions from central McAllen. Pins indicate approximate attractions, not guaranteed entry gates. Check the official operator before departing.</p>
+    <div className="mt-6 grid gap-6 lg:grid-cols-2">
+      <div className="grid gap-2 sm:grid-cols-2" role="group" aria-label="Select a featured McAllen day trip on the map">
+        {MCALLEN_EDITORIAL_TRIPS.map((stop) => <button type="button" key={stop.slug}
+          aria-pressed={stop.slug === slug} onClick={() => setSlug(stop.slug)}
+          className={`min-h-11 border px-3 py-3 text-left text-sm font-semibold transition-colors ${stop.slug === slug ? "border-primary bg-primary text-primary-foreground" : "border-border bg-background hover:border-primary"}`}>{stop.title}</button>)}
+      </div>
+      <div>
+        <iframe key={trip.slug} title={`Interactive OpenStreetMap location of ${trip.title}`} src={mapUrl} loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade" className="w-full border border-border" style={{ height: "clamp(320px, 60vw, 440px)" }} />
+        <p className="mt-2 text-xs text-muted-foreground">Map data © OpenStreetMap contributors. The embedded map shows one selected marker at a time.</p>
+        <div className="mt-4 border-t border-border pt-4">
+          <p className="font-display text-2xl">{trip.title}</p>
+          <p className="mt-2 text-sm text-muted-foreground">{trip.plan} · {trip.label}</p>
+          <div className="mt-4 flex flex-wrap gap-5 text-sm font-semibold">
+            <a href={route} target="_blank" rel="noopener noreferrer" className="border-b border-primary pb-1 text-primary">Check current drive from McAllen ↗</a>
+            <a href={trip.official} target="_blank" rel="noopener noreferrer" className="border-b border-border pb-1">Official visitor information ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>;
+}
+
+function McAllenDayTripsAuthority({ results }: { results: MetroProximityResult[] }) {
   return <section className="border-b border-border bg-surface" aria-labelledby="mcallen-day-trip-guide">
     <Container className="py-14 sm:py-18">
       <p className="eyebrow text-primary">The Lower Rio Grande Valley, properly explored</p>
@@ -193,7 +268,12 @@ function McAllenDayTripsAuthority() {
       <p className="mt-5 max-w-4xl text-base leading-8 text-muted-foreground">McAllen is a gateway to remarkable wildlife and borderland history—not just a starting point for distant Gulf beaches. A short local excursion can be as memorable as a full coastal day. These are editorial trip anchors, not a ranking by straight-line mileage.</p>
       <div className="mt-10 grid gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
         {MCALLEN_EDITORIAL_TRIPS.map((trip) => {
+          const openPhoto = trip.slug === "quinta-mazatlan" ? MCALLEN_OPEN_IMAGES["quinta-mazatlan"] : trip.slug === "sabal-palm-sanctuary" ? MCALLEN_OPEN_IMAGES["sabal-palm-sanctuary"] : trip.slug === "museum-of-south-texas-history-edinburg" ? MCALLEN_OPEN_IMAGES["museum-of-south-texas-history-edinburg"] : null;
+          const catalogPhoto = results.find((row) => row.destination.slug === trip.slug)?.destination.hero;
+          const photo = openPhoto ?? (catalogPhoto && !isDestinationPhotoPlaceholder(catalogPhoto.src) ? catalogPhoto : null);
           return <article key={trip.slug} className="border-t border-border pt-5">
+            {photo && <figure className="mb-5"><div className="aspect-video overflow-hidden bg-muted"><img loading={trip.slug === "quinta-mazatlan" ? "eager" : "lazy"} decoding="async" src={photo.src} alt={photo.alt || trip.title} width={1200} height={750} className="h-full w-full object-cover" onError={(event) => { event.currentTarget.closest("figure")?.classList.add("hidden"); }} /></div>
+              {photo.credit && <figcaption className="mt-2 text-xs leading-5 text-muted-foreground">Photo: {openPhoto ? <><a href={openPhoto.source} target="_blank" rel="noopener noreferrer" className="underline">{openPhoto.credit}</a> · <a href={openPhoto.license} target="_blank" rel="noopener noreferrer" className="underline">License</a></> : photo.credit}</figcaption>}</figure>}
             <p className="eyebrow text-primary">{trip.label}</p>
             <h3 className="mt-3 font-display text-2xl">{trip.title}</h3>
             <p className="mt-3 text-sm font-semibold">{trip.plan}</p>
@@ -206,6 +286,7 @@ function McAllenDayTripsAuthority() {
           </article>;
         })}
       </div>
+      <McAllenFeaturedMap />
       <div className="mt-14 border-t border-border pt-8">
         <p className="eyebrow text-primary">Build a day, not a checklist</p>
         <h3 className="mt-3 font-display text-3xl">Three practical ways to explore from McAllen</h3>
@@ -501,7 +582,7 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
     .filter((group) => group.rows.length > 0);
   const mapMarkers = [
     ...townReferences.map((row) => ({ id: `town-${row.town.slug}`, label: row.town.name, point: row.town.coordinates, href: countyNames(row.town.county).length === 1 ? `/county/${countySlug(row.town.county)}` : "/browse/counties", distanceMiles: row.distanceMiles })),
-    ...results.map((row) => ({ id: row.destination.slug, label: row.destination.slug === "lower-rio-grande-valley-national-wildlife-refuge" ? "Lower Rio Grande Valley refuge visitor headquarters" : row.destination.name, point: row.destination.coordinates, href: `/destination/${row.destination.slug}`, distanceMiles: row.distanceMiles })),
+    ...results.filter((row) => !isMcAllenDayTrips || !curatedSlugs.has(row.destination.slug)).map((row) => ({ id: row.destination.slug, label: row.destination.slug === "lower-rio-grande-valley-national-wildlife-refuge" ? "Lower Rio Grande Valley refuge visitor headquarters" : row.destination.name, point: row.destination.coordinates, href: `/destination/${row.destination.slug}`, distanceMiles: row.distanceMiles })),
   ]
     .sort((left, right) => left.distanceMiles - right.distanceMiles)
     .map(({ distanceMiles: _distanceMiles, ...marker }) => marker);
@@ -543,7 +624,7 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
       </div>
     </Container>
 
-    {isMcAllenDayTrips && <McAllenDayTripsAuthority />}
+    {isMcAllenDayTrips && <McAllenDayTripsAuthority results={results} />}
 
     {isAustinTwoHourGuide && austinRows.length > 0 && <section className="border-b border-border">
       <Container className="py-14 sm:py-18">
@@ -612,8 +693,8 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
       </Container>
     </section>}
 
-    {mapMarkers.length > 0 && <Container className="py-14 sm:py-18">
-      <MapPreview markers={mapMarkers} zoom={7} directionsLabel={`${presentation.label} near ${metro.name}`} origin={metro.center} originLabel={metro.name} variant={isMcAllenDayTrips ? "cards" : "list"} />
+    {mapMarkers.length > 0 && !isMcAllenDayTrips && <Container className="py-14 sm:py-18">
+      <MapPreview markers={mapMarkers} zoom={7} directionsLabel={isMcAllenDayTrips ? `additional researched places near ${metro.name}` : `${presentation.label} near ${metro.name}`} origin={metro.center} originLabel={metro.name} variant={isMcAllenDayTrips ? "cards" : "list"} />
     </Container>}
 
     {groups.map((group, groupIndex) => <section key={group.band} className={groupIndex % 2 ? "border-y border-border bg-surface" : ""}>

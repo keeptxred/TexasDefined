@@ -78,6 +78,8 @@ const alwaysPurgeUrls = [
   `https://${zoneName}/destination/san-antonio-aquarium`,
   `https://${zoneName}/destination/houston-interactive-aquarium-animal-preserve`,
   `https://${zoneName}/destination/ut-marine-science-institute-patton-center`,
+  // Do not serve cached pre-rewrite Chamizal HTML after the researched NPS guide deploys.
+  `https://${zoneName}/destination/chamizal-national-memorial`,
   `https://${zoneName}/destination/texas-hill-country-olive-co`,
   `https://${zoneName}/destination/brazos-bend-state-park`,
   `https://${zoneName}/destination/devils-river-state-natural-area`,
