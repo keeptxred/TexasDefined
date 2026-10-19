@@ -316,7 +316,7 @@ export const texasNpsHistoricTrailGuides: Article[] = [
           },
           {
               "type": "paragraph",
-              "text": "Congress designated the U.S. portion a National Historic Trail in 2000. The federally recognized route stretches approximately 404 miles from El Paso, Texas, to Santa Fe, New Mexico; the historical road extended much farther south into Mexico. The National Park Service and Bureau of Land Management co-administer the U.S. historic-trail designation. This is not a single park, ticketed attraction or continuous public hiking path; many surviving segments are separated by modern roads, neighborhoods and private property."
+              "text": "Congress designated the U.S. portion a National Historic Trail in 2000. The federally recognized U.S. route stretches approximately 404 miles from El Paso, Texas, to Ohkay Owingeh Pueblo, New Mexico, about 29 miles north of Santa Fe; the historical road extended much farther south into Mexico. The National Park Service and Bureau of Land Management co-administer the U.S. historic-trail designation. This is not a single park, ticketed attraction or continuous public hiking path; many surviving segments are separated by modern roads, neighborhoods and private property."
           },
           {
               "type": "heading",
@@ -326,7 +326,7 @@ export const texasNpsHistoricTrailGuides: Article[] = [
               "type": "list",
               "items": [
                   "Historical corridor: Mexico City to Santa Fe, via the El Paso del Norte crossing.",
-                  "U.S. National Historic Trail: approximately 404 miles, El Paso to Santa Fe; designated in 2000.",
+                  "U.S. National Historic Trail: approximately 404 miles, El Paso to Ohkay Owingeh Pueblo north of Santa Fe; designated in 2000.",
                   "Federal trail partners: National Park Service and Bureau of Land Management.",
                   "Best-known public-facing Texas section: the approximately nine-mile El Paso Mission Trail along Socorro Road (FM 258).",
                   "Key Texas stops: Ysleta Mission, Socorro Mission, San Elizario Presidio Chapel and historic district.",
@@ -379,7 +379,7 @@ export const texasNpsHistoricTrailGuides: Article[] = [
           },
           {
               "type": "paragraph",
-              "text": "Address: 328 S. Nevarez Road, El Paso, TX 79927. Mission Nuestra Señora de la Limpia Concepción del Socorro began in the 1680s among Piro and other displaced Pueblo communities. Floods changed the Rio Grande's course and damaged previous churches; the standing adobe mission dates primarily to 1843 and reflects rebuilding rather than an intact 1682 structure. Historic timber ceiling beams and continuing worship connect its later building with an older congregation."
+              "text": "Address: 328 S. Nevarez Road, Socorro, TX 79927. Mission Nuestra Señora de la Limpia Concepción del Socorro began in the 1680s among Piro and other displaced Pueblo communities. Floods changed the Rio Grande's course and damaged previous churches; the standing adobe mission dates primarily to 1843 and reflects rebuilding rather than an intact 1682 structure. Historic timber ceiling beams and continuing worship connect its later building with an older congregation."
           },
           {
               "type": "image",
@@ -564,6 +564,18 @@ export const texasNpsHistoricTrailGuides: Article[] = [
           {
               "label": "NPS public-domain photo — San Elizario Chapel",
               "url": "https://commons.wikimedia.org/wiki/File:Presidio_Chapel_of_San_Elizario,_Mission_Trail,_El_Paso,_Texas_(2b82a8e9-155d-451f-671e-392e6e94b7d0).jpg"
+          },
+          {
+              "label": "NPS — federal trail endpoints and 404-mile route",
+              "url": "https://www.nps.gov/elca/faqs.htm"
+          },
+          {
+              "label": "Texas Historical Commission — Old Socorro Mission public-access status",
+              "url": "https://thc.texas.gov/historic-sites/old-socorro-mission"
+          },
+          {
+              "label": "Ysleta del Sur Pueblo — Cultural Center Museum",
+              "url": "https://www.ysletadelsurpueblo.org/tourism-hospitality/cultural-center/museum"
           },
           {
               "label": "Wikimedia Commons — Ysleta photo/license",
