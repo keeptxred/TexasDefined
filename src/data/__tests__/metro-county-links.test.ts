@@ -49,9 +49,9 @@ test("McAllen Santa Ana visitor notice is consistent with federal levee closure 
   const source = refugee.split('slug: "santa-ana-national-wildlife-refuge"')[1]?.split('slug: "texas-point-national-wildlife-refuge"')[0] ?? "";
   const overlay = curation.split('"santa-ana-national-wildlife-refuge":')[1]?.split('"balcones-canyonlands-national-wildlife-refuge"')[0] ?? "";
   for (const [name, block] of [["McAllen guide", section], ["refuge destination", source], ["visitor curation", overlay]] as const) {
-    assert.match(block, /Levee Road/,\`\${name} missing FWS levee notice\`);
-    assert.match(block, /Bobcat Trail/,\`\${name} missing FWS bicycle detour\`);
-    assert.match(block, /October 18, 2026/,\`\${name} missing notice review date\`);
-    assert.match(block, /https:\/\/www\.fws\.gov\/refuge\/santa-ana\/visit-us/,\`\${name} missing official current access source\`);
+    assert.match(block, /Levee Road/,`${name} missing FWS levee notice`);
+    assert.match(block, /Bobcat Trail/,`${name} missing FWS bicycle detour`);
+    assert.match(block, /October 18, 2026/,`${name} missing notice review date`);
+    assert.match(block, /https:\/\/www\.fws\.gov\/refuge\/santa-ana\/visit-us/,`${name} missing official current access source`);
   }
 });
