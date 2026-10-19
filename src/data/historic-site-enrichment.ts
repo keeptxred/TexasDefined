@@ -100,9 +100,9 @@ const areaSeeds: Record<string, AreaSeed> = {
     base: "Mathis", neighborhood: "The Nueces-country setting is central to the site's Lipan Apache associations and later military use.", family: "Use a map or timeline before arriving because the site is more about landscape and layered history than surviving monumental architecture.", sideTrip: { name: "Corpus Christi region", description: "Continue east for coastal and South Texas history that places Lipantitlán in a wider regional story." },
   },
   "old-socorro-mission": {
-    intro: "See Old Socorro Mission as part of the El Paso Mission Trail rather than an isolated church. The Lower Valley route links Pueblo, Spanish, Mexican and borderlands histories across several communities.",
+    intro: "The protected Old Socorro archaeological site is closed and cannot be visited as a church. For in-person history, use separately operating El Paso Mission Trail locations and observe their own admission and worship rules.",
     nearby: [link("Magoffin Home", "magoffin-home", "Connect the mission corridor to a later El Paso family and borderlands story." )],
-    base: "El Paso and Socorro", neighborhood: "The Rio Grande valley and long-settled Lower Valley communities are essential context for the mission's history.", family: "Make the mission one stop in a short corridor rather than expecting one building to carry the entire day.", sideTrip: link("Magoffin Home", "magoffin-home", "Move forward in time from mission history to 19th-century El Paso civic and family life."),
+    base: "El Paso and Socorro", neighborhood: "The Rio Grande valley and long-settled Lower Valley communities are essential context for the mission's history.", family: "Use the THC historical record to learn about Piro Pueblo families and the 1680 revolt, then select a different publicly accessible Mission Trail location for a family outing.", sideTrip: link("Magoffin Home", "magoffin-home", "Move forward in time from mission history to 19th-century El Paso civic and family life."),
   },
   "port-isabel-lighthouse": {
     intro: "Use Port Isabel Lighthouse as the visual anchor of a lower Laguna Madre history day, connecting navigation and coastal trade to the working waterfront and the modern beach corridor.",
