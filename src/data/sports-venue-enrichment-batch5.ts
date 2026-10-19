@@ -140,6 +140,8 @@ export const SPORTS_VENUE_ENRICHMENT_BATCH5: Record<string, SportsVenueEnrichmen
   },
   'fertitta-center': {
     city: 'Houston',
+    opened: 'December 1, 2018',
+    capacity: '7,100 seats',
     primaryEvents: ['Houston Cougars men’s basketball', 'Houston women’s basketball and volleyball', 'Major campus sporting events'],
     history: 'Fertitta Center is the University of Houston’s basketball and volleyball arena on the Cullen Boulevard side of campus. It is the current home for Cougar men’s and women’s basketball and volleyball and remains central to the program’s high-demand Big 12 basketball schedule.',
     parking: 'University of Houston parking is event-specific and campus based. Visitors should use the current athletics parking plan and avoid assuming that ordinary university lots are open for game use.',
@@ -147,12 +149,13 @@ export const SPORTS_VENUE_ENRICHMENT_BATCH5: Record<string, SportsVenueEnrichmen
     stayAndEat: 'The University of Houston location makes Fertitta Center practical to combine with central Houston neighborhoods, downtown lodging and other city attractions rather than treating the arena as an isolated suburban stop.',
     nearby: 'TDECU Stadium and other Cougar athletics facilities are on the same campus, while downtown Houston and EaDo sports venues are a short city trip away.',
     planningLinks: [
+      { label: 'UH Fertitta Center opening and capacity', url: 'https://uhcougars.com/news/2018/11/30/mens-basketball-houston-opens-fertitta-center-vs-no-18-21-oregon' },
       { label: 'Fertitta Center facility page', url: 'https://uhcougars.com/facilities/fertitta-center/10' },
       { label: 'Fertitta Center game-day guide', url: 'https://uhcougars.com/sports/2025/11/3/Fertitta-Center-Gameday-Guide' },
       { label: 'Houston basketball tickets and schedule', url: 'https://uhcougars.com/sports/2018/6/12/tickets-hou-tickets-m-baskbl-html' },
     ],
     imageBrief: 'Fertitta Center on the University of Houston campus during a packed basketball night, arena exterior and campus pedestrian energy, modern travel-editorial image, no added logos or text.',
-    verifiedAt,
+    verifiedAt: '2026-10-19',
   },
   'tdecu-stadium': {
     city: 'Houston',
