@@ -155,7 +155,7 @@ export const statewideMuseumExpansionWave2Destinations: Destination[] = [
     region: "big-bend",
     nearestTown: "San Angelo",
     county: "Tom Green County",
-    coordinates: { lat: 31.45461, lng: -100.42815 },
+    coordinates: { lat: 31.456982, lng: -100.432301 },
     hero: museumPlaceholder("San Angelo Museum of Fine Arts"),
     bestSeason: "Year-round indoor museum; fall through spring is most comfortable for adding the Concho River walk and Fort Concho.",
     entryNote: "Gallery admission is currently free. The museum is closed Mondays and selected holidays; check the official site for current exhibitions, programs and any gallery-specific closures.",
