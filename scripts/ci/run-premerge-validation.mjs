@@ -42,6 +42,7 @@ function runCheck({ classification, label, command, args = [], dependsOnBuild = 
 }
 
 const prebuildChecks = [
+  ['HISTORY/CAMINO-REAL', 'Verify factual accuracy, primary sources, indexability and SSR map for El Camino Real', 'node', ['--test', 'scripts/ci/camino-real-factcheck.test.mjs']],
   ['WATERPARK/AUTHORITY', 'Validate source-linked Texas water parks and statewide routing coverage', 'node', ['scripts/data/validate-water-parks-authority.mjs']],
   ['FOOTBALL/BROWSER', 'Syntax-check playoff mobile production acceptance', 'node', ['--check', 'scripts/ci/verify-football-playoffs-browser.mjs']],
   ['CONTENT/IMAGES', 'Syntax-check official state-park photo resolver', 'node', ['--check', 'scripts/data/sync-state-park-hero-assets.mjs']],
