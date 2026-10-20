@@ -483,6 +483,13 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceLabel": "Bishop CISD athletics schedule index; verify kickoff and field for each game",
       "verifiedAt": "2026-10-15"
     },
+    "venue": {
+      "name": "George Luna Stadium",
+      "sourceUrl": "https://bhs.bishopcisd.net/bhs-calendar-events",
+      "sourceLabel": "Bishop High School 2026 calendar repeatedly assigns home football events to George Luna Stadium",
+      "verifiedAt": "2026-10-20",
+      "note": "Bishop High School's current 2026 calendar assigns varsity home football, including the October 23 homecoming game, to George Luna Stadium. This first-party schedule evidence resolves the venue-name conflict for current home events but does not establish the spectator entrance, parking map, ticket policy, ADA seating or a separate stadium street address."
+    },
     "notice": {
       "title": "2026 homecoming uses George Luna Stadium; confirm individual game details",
       "body": "Bishop High School's own October 2026 events calendar locates the October 23 varsity homecoming game against Santa Gertrudis Academy at George Luna Stadium. An independent older team directory says Ed Gorny Stadium; the school-issued event is stronger venue evidence for October 23, not proof of entrances, future games, parking, tickets or ADA facilities. Bishop CISD lists Mike Davila as athletic director (361-584-3591 ext. 319). Corpus Christi ISD announced April 21 that former Bishop head coach David McHugh accepted the Miller High athletics/football position beginning May 2026. A current MaxPreps Bishop roster lists Keith Talbert as head coach, but no dated Bishop ISD announcement was found to independently certify the replacement.",
