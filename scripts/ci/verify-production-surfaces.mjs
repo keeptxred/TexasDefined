@@ -12,6 +12,8 @@ const surfaces = [
   ['mclennan-2020-census-corrected', '/county/mclennan', 'The 2020 U.S. Census counted 260,579 residents in McLennan County.'],
 
   ['gaines-magnolia-title', '/article/chip-and-joanna-gaines-magnolia-waco', 'Chip and Joanna Gaines: Their Story, Magnolia and Waco'],
+  ['gaines-magnolia-faq-question', '/article/chip-and-joanna-gaines-magnolia-waco', 'Are Chip and Joanna Gaines from Magnolia, Texas?'],
+  ['gaines-magnolia-faq-answer', '/article/chip-and-joanna-gaines-magnolia-waco', 'Their Magnolia business is headquartered in Waco, Texas.'],
   ['gaines-magnolia-visit-plan', '/article/chip-and-joanna-gaines-magnolia-waco', 'Plan a Chip-and-Joanna-inspired day in Waco'],
   ['gaines-magnolia-viator', '/article/chip-and-joanna-gaines-magnolia-waco', 'Guided tours and Magnolia-related experiences'],
   ['gaines-magnolia-affiliate-disclosure', '/article/chip-and-joanna-gaines-magnolia-waco', 'Affiliate disclosure: TexasDefined may earn a commission on qualifying Viator bookings'],
