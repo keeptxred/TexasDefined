@@ -439,7 +439,7 @@ function ArticlePage() {
   const hasSchoolSupplyRail = schoolSupplyArticleSlugs.has(article.slug);
   const isTexasRiversArticle = article.slug === "texas-rivers-explained";
   const isCaminoRealArticle = article.slug === "el-camino-real-de-tierra-adentro-national-historic-trail";
-  const hideGenericRelatedRail = article.slug === "east-texas-fall-colors" || article.slug === "texas-ecoregions-habitats-guide" || article.slug === "texas-high-school-football-playoffs-explained";
+  const hideGenericRelatedRail = article.slug === "hill-country-fall-colors" || article.slug === "east-texas-fall-colors" || article.slug === "texas-ecoregions-habitats-guide" || article.slug === "texas-high-school-football-playoffs-explained";
   const articleDisplayTitle = isTexasRiversArticle ? "Texas Rivers Explained" : article.title;
   const isSixManFootballArticle = article.slug === "texas-six-man-football-rules-explained";
   const riverBasinHeadingIndex = isTexasRiversArticle
@@ -606,6 +606,16 @@ function ArticlePage() {
       <a className="border border-border p-5 text-primary hover:underline" href="/article/hill-country-fall-colors">Hill Country fall color →</a>
       <a className="border border-border p-5 text-primary hover:underline" href="/article/texas-fall-foliage-road-trip">Fall foliage road trip →</a>
     </div></Container></Section>}
+    {article.slug === "hill-country-fall-colors" && <Section tone="surface"><Container>
+      <SectionHeader eyebrow="Plan with current information" title="Lost Maples foliage updates and photo credits" />
+      <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Check dated Texas Parks and Wildlife foliage photographs and park alerts before choosing a trip date. The hero photograph shows Lost Maples State Natural Area in November 2005, not verified foliage conditions for this season.</p>
+      <nav aria-label="Lost Maples current reports and credited hero photograph" className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm">
+        <a href="https://tpwd.texas.gov/state-parks/lost-maples/images/foliage" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Official TPWD foliage photographs ↗</a>
+        <a href="https://tpwd.texas.gov/state-parks/lost-maples" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Lost Maples access and alerts ↗</a>
+        <a href="https://commons.wikimedia.org/wiki/File:Lost_Maples_State_Natural_Area,_Edwards_Plateau,_Texas,_United_States.jpg" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Hero photo: Alec Norman, Wikimedia Commons ↗</a>
+        <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">CC BY-SA 3.0 license ↗</a>
+      </nav>
+    </Container></Section>}
     {!isTexasRiversArticle && !hideGenericRelatedRail && <Section tone="surface"><Container><SectionHeader eyebrow={isSixManFootballArticle ? "Keep exploring" : "From the magazine"} title={isSixManFootballArticle ? "More Texas high school football" : "More stories to read next"} /><ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">{relatedWithDistinctHeroImages(related, article).map((item) => <li key={item.id}><ArticleCard article={item} size="compact" /></li>)}</ul><nav aria-label="Continue through this section" className="mt-10 border-t border-border pt-6"><div className="flex flex-wrap gap-x-7 gap-y-3"><Link to={department.path} className="eyebrow border-b border-primary py-1 text-primary">More from {department.name} →</Link>{department.usesExploreCategory && <Link to="/explore/$category" params={{ category: article.category }} className="eyebrow border-b border-primary py-1 text-primary">Browse {categoryName} →</Link>}</div></nav></Container></Section>}
   </article>;
 }
