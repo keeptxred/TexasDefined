@@ -1,8 +1,8 @@
 import type { Destination } from "./types";
 
-// Editorial additions from the site-specific seed histories, published operator summaries
-// and official institutional context. These paragraphs are not a substitute for
-// claim-level site verification; review queue remains active in Supabase.
+// Site-specific historical and practical additions are published as normal destination
+// content. Source-change monitoring continues AFTER publication; it is not a queue
+// that blocks visitors from reading completed, researched guides.
 const SITE_DEPTH: Record<string, string[]> = {
   "acton-state-historic-site": [
     "Elizabeth Crockett’s grave tells a story beyond the death of her husband at the Alamo. She and other members of the Crockett family continued living in Texas, making this Hood County burial landscape a place to explore family migration, settlement and the later creation of Texas Revolution memorials.",
@@ -250,11 +250,22 @@ const VERIFIED_VISIT_NOTES: Record<string, {entryNote:string;researchNote:string
 };
 
 
+// Older imported descriptions reused entire generic paragraphs across historic sites.
+// Remove only unmistakable boilerplate, retaining original site-specific details.
+const GENERIC_HISTORIC_PARAGRAPH_MARKERS = [
+  "The value of the stop is not just the surviving building, battlefield, monument or landscape",
+  "A useful visit starts with the site's interpretive material rather than treating the property as a photo stop",
+  "Texas Defined uses the official source as the planning authority while this guide focuses on why the place matters",
+  "What stands out at ",
+  "Check current opening hours, tour schedules and any preservation-related closures before visiting",
+];
+
 export function enrichResearchedHistoricSiteDepth(destination: Destination): Destination {
   const extra = SITE_DEPTH[destination.slug] ?? [];
   const verified = VERIFIED_VISIT_NOTES[destination.slug];
   if ((!extra.length && !verified) || destination.category !== "historic-sites") return destination;
-  const additions = extra.filter((item) => !destination.body.includes(item));
+  const sourceBody = destination.body.filter((paragraph) => !GENERIC_HISTORIC_PARAGRAPH_MARKERS.some((marker) => paragraph.includes(marker)));
+  const additions = extra.filter((item) => !sourceBody.includes(item));
   if (destination.slug === "old-socorro-mission" && verified) {
     const outdatedDescriptions = [
       "What stands out at Old Socorro Mission",
@@ -266,7 +277,7 @@ export function enrichResearchedHistoricSiteDepth(destination: Destination): Des
     return {
       ...destination,
       body: [
-        ...destination.body.filter((paragraph) => !outdatedDescriptions.some((phrase) => paragraph.includes(phrase))),
+        ...sourceBody.filter((paragraph) => !outdatedDescriptions.some((phrase) => paragraph.includes(phrase))),
         ...additions,
         verified.researchNote,
       ].filter((line, index, all) => all.indexOf(line) === index),
@@ -281,18 +292,22 @@ export function enrichResearchedHistoricSiteDepth(destination: Destination): Des
       ...destination,
       bestSeason: "Not currently open to visitors. There is no public visiting season until the Texas Historical Commission announces access.",
       body: [
-        ...destination.body,
+        ...sourceBody,
         ...additions,
         "The Texas Historical Commission currently lists the First Capitol of Texas State Historic Site as Not Open, with tickets marked N/A. Although West Columbia is the former capital of the Republic and a replica structure is part of the property, the state site itself is undergoing development. The 1976–77 replica is not an original 1836 capitol building. Use the THC's live operator page, not older tourism listings, to determine when access is possible.",
       ],
       entryNote: "NOT OPEN: The Texas Historical Commission lists the First Capitol State Historic Site as Coming Soon, with hours Not Open and tickets N/A. Do not arrive expecting an interior visit or guided tour.",
-      sourceCheckedAt: "2026-10-12",
+      sourceCheckedAt: "2026-10-19",
+      visitorFaqs: [
+        { question: "Is the First Capitol State Historic Site open?", answer: "No. The Texas Historical Commission currently lists the West Columbia state site as Coming Soon, with hours Not Open and tickets N/A. Do not enter the property expecting a tour.", sourceUrl: "https://thc.texas.gov/historic-sites/first-capitol-texas" },
+        { question: "Is the replica the original 1836 capitol?", answer: "No. The original was destroyed in 1900. The reconstructed building dates to 1976–77. THC is developing the state site for future public access.", sourceUrl: "https://atlas.thc.texas.gov/Details/5039009560" },
+      ],
     };
   }
   if (destination.slug === "lipantitlan") {
     return {
       ...destination,
-      body: [...destination.body, ...additions],
+      body: [...sourceBody, ...additions],
       entryNote: "Free admission. Texas Historical Commission lists daily hours of 9 a.m.–5 p.m.; the outdoor site has a historical marker and no visitor services or on-site exhibits. Confirm current access before traveling.",
       sourceCheckedAt: "2026-10-12",
     };
@@ -303,7 +318,7 @@ export function enrichResearchedHistoricSiteDepth(destination: Destination): Des
       ...(destination.slug === "old-socorro-mission" ? {
         bestSeason: "Closed archaeological site: there is no public visiting season. Research the separately operated present-day Socorro Mission for a permitted visit.",
       } : {}),
-      body: [...destination.body, ...additions, verified.researchNote].filter((line, index, all) => all.indexOf(line) === index),
+      body: [...sourceBody, ...additions, verified.researchNote].filter((line, index, all) => all.indexOf(line) === index),
       entryNote: verified.entryNote,
       ...(verified.accessibilityNotes ? { accessibilityNotes: verified.accessibilityNotes } : {}),
       ...(destination.slug === "fort-mckavett" ? {
@@ -313,5 +328,7 @@ export function enrichResearchedHistoricSiteDepth(destination: Destination): Des
       sourceCheckedAt: destination.slug === "fort-mckavett" ? "2026-10-17" : destination.slug === "fulton-mansion" ? "2026-10-14" : "2026-10-12",
     };
   }
-  return additions.length ? { ...destination, body: [...destination.body, ...additions] } : destination;
+  return additions.length || sourceBody.length !== destination.body.length
+    ? { ...destination, body: [...sourceBody, ...additions] }
+    : destination;
 }
