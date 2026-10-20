@@ -143,6 +143,7 @@ function Page() {
         </div>
       </section>
 
+      <section className="border-t border-border py-12" aria-labelledby="research-heading"><h2 id="research-heading" className="font-display text-3xl">Insurance research</h2><Link to="/texas-data/research/texas-homeowners-premiums-vs-coverage" className="mt-3 inline-block border-b border-primary text-primary">Texas homeowners premiums vs. coverage →</Link></section>
       <section className="border-t border-border py-12" aria-labelledby="help-heading">
         <div className="grid gap-8 lg:grid-cols-[15rem_1fr]">
           <div><p className="eyebrow text-primary">Use the numbers</p><h2 id="help-heading" className="mt-2 font-display text-4xl">Where to go next</h2></div>
