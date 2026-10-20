@@ -1,5 +1,41 @@
 # Football Authority — Execution Ledger
 
+## October 20, 2026 — Batch 006 Boerne Champion / Bogata Rivercrest / Boling acceptance-ledger reconciliation
+Continued the active Batch 006 source-review sequence for schools 13–15.
+
+- **Boerne Champion:** Champion High School's official Coaching Staff page still explicitly lists **Blane Ellis — Head Coach** under Football, with Alan Ford and Tyler Mangold in coordinator roles. No new first-party general entrance/parking/ADA/photo-rights evidence found beyond already documented event-specific ticket/shuttle guidance. Preserve the reported 7–0 through Oct. 16 record and strict separation from Boerne High.
+- **Bogata Rivercrest:** Rivercrest High's first-party directory continues to support **Laytner Kennedy as boys athletic director** and official contact only; it still does not independently publish a head-football appointment. Keep Kennedy's head-coach label qualified to the dated football-specific source and preserve the documented stale Travis McClain history-field conflict. No new first-party stadium access/media-rights evidence found. Keep 4–4 through Oct. 16.
+- **Boling:** Boling High Athletics still explicitly lists **Kevin Urbanek — Athletic Director / Head FB Coach** and the 2026 football schedule. No new first-party spectator entrance/parking/ADA/ticket/photo-rights evidence found. Preserve the 1972 UIL title, 2016 runner-up distinction and reported 3–4 through Oct. 16 record.
+
+The successful Batch 006 technical Chrome run remains valid, but none of these schools has final nine-dimension human editorial/accessibility/media-rights acceptance. Registry remains **105 VERIFIED / 25 Batch006 DEPLOYED / 1,162 NOT_REVIEWED**, **0/25 Batch006 individually VERIFIED**.
+
+## October 20, 2026 — Batch 006 Bluff Dale / Blum / Boerne acceptance-ledger reconciliation
+Continued the active Batch 006 source-review sequence for schools 10–12.
+
+- **Bluff Dale:** Bluff Dale ISD's Gaeron Cooley staff biography still explicitly identifies him as **Head Coach of Football** and athletic director. The district school address remains a school locator, not a certified stadium gate. No new first-party entrance/parking/ADA/ticket/photo-rights evidence found. Preserve the school-issued October 23 Milford, October 29 Pinnacle Christian and November 5 Avalon schedule correction plus the 4–3 through Oct. 15 record.
+- **Blum:** Blum ISD's current High School Football page still explicitly lists **Cooper Thornhill — Head Football Coach**. No new first-party venue entrance/parking/ticket/ADA/photo-rights evidence found. Preserve the genuine 2019 UIL state title and the reported 66–60 Avalon result with its source-date discrepancy.
+- **Boerne:** Boerne High School still identifies Brett Sawyer as **Athletic Coordinator** rather than explicitly head football coach. Preserve the separate Boerne Star football-hiring/game evidence for the head-coach title and keep Boerne High distinct from Champion. No new first-party entrance/parking/ADA/photo-rights evidence found. Preserve 7–0 through Oct. 16.
+
+The prior single-release Batch 006 Chrome acceptance remains technically valid. None of these schools has complete nine-dimension human editorial/accessibility/media-rights acceptance, so registry remains **105 VERIFIED / 25 Batch006 DEPLOYED / 1,162 NOT_REVIEWED**, **0/25 Batch006 individually VERIFIED**.
+
+## October 20, 2026 — Batch 006 Blooming Grove / Bloomington / Blue Ridge acceptance-ledger reconciliation
+Continued the active Batch 006 source-review sequence for schools 7–9 after Blackwell, Blanco and Blanket.
+
+- **Blooming Grove:** Blooming Grove ISD still explicitly lists Kevin Sherrill as **Athletic Director/Head Football** and retains the January 23, 2026 first-party hiring announcement. No new first-party entrance/parking/ADA/ticket/photo-rights evidence found. Keep the reported 0–7 through Oct. 16 result state.
+- **Bloomington:** Bloomington ISD still lists Lane Shands as **Athletic Director** rather than explicitly head football coach. Preserve the separately sourced football-specific attribution; do not upgrade the district directory into a head-coach appointment. No new first-party stadium access/media-rights evidence found. Keep 3–5 through Oct. 16 and the Shiner score discrepancy.
+- **Blue Ridge:** Blue Ridge ISD Athletics and the high-school staff directory both still explicitly list Jason Russell as **Athletic Director/Head Football Coach**. Tiger Stadium remains referenced, but exact public entrance/parking/ticket/ADA/photo-rights evidence remains incomplete. Keep the reported 3–5 through Oct. 16 result state.
+
+The successful single-release Batch 006 Chrome evidence remains intact, but no school receives final nine-dimension human editorial/accessibility/media-rights acceptance. Registry remains **105 VERIFIED / 25 Batch006 DEPLOYED / 1,162 NOT_REVIEWED**, **0/25 Batch006 individually VERIFIED**.
+
+## October 20, 2026 — Batch 006 Blackwell / Blanco / Blanket acceptance-ledger reconciliation
+Rechecked the next three active Batch 006 schools after Big Sandy Harmony, Big Spring and Bishop against current first-party sources and the successful single-release production Chrome run #39273758531.
+
+- **Blackwell:** Blackwell CISD still lists Clint Linman as athletic director while its football staff page does not independently label a varsity head coach; retain the separately dated KLST 2026 hire/preseason reporting for Linman's head-football role. No first-party entrance/parking/ADA/photo-rights evidence found. Keep the 6–2 through Oct. 16 record and unresolved Santa Anna score discrepancy.
+- **Blanco:** Blanco ISD Athletics still confirms Kent Walker as athletic director, Panther Stadium at 604 Terri Lane and online-only Home Town tickets. The district page itself still does not label Walker head football coach, so preserve the separate 2026 team-staff attribution. No new first-party entrance/parking/ADA/photo-rights evidence found. Keep the 5–3 through Oct. 16 record.
+- **Blanket:** Blanket ISD's current High School Sports page explicitly identifies **Jalen Helms as High School Head Football**, upgrading the coaching claim to first-party school confirmation. The same page does not establish stadium entrance/parking/ADA details or reusable football photography rights. Preserve the seven played results through Oct. 8 and the separately sourced Priddy-season cancellation handling.
+
+No school is promoted: registry remains **105 VERIFIED / 25 Batch006 DEPLOYED / 1,162 NOT_REVIEWED** with **0/25 Batch006 individually VERIFIED**. The completed technical Chrome evidence remains valid; final nine-dimension human editorial/accessibility/media-rights acceptance is still required before status promotion.
+
 ## October 20, 2026 — Rivercrest 2026 coaching identity resolved with dated staff and AFCA career evidence
 The last school-specific unpopulated current-coach field among the 25 Batch 006 guides was **Bogata Rivercrest**. Its [August 29, 2026 MaxPreps varsity staff roster](https://www.maxpreps.com/tx/bogata/rivercrest-rebels/football/staff/) names **Laytner Kennedy head football coach**, while [Rivercrest High's first-party directory](https://www.rivercrestisd.net/o/rhs/staff?page_no=2) separately lists Kennedy **boys athletic director** (903-632-5204). The competing 2026 [MaxPreps football history](https://www.maxpreps.com/tx/bogata/rivercrest-rebels/football/history/) erroneously retains former coach **Travis McClain**. [The AFCA's October 8, 2026 original head-coach profile](https://www.afca.com/travis-mcclain-head-coach-mount-vernon-hs-tx/) verifies McClain left Rivercrest in **January 2025** for Mount Vernon, making his supposed 2026 Rivercrest designation stale rather than a valid conflicting current assignment.
 

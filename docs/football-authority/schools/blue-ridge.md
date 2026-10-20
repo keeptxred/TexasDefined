@@ -24,3 +24,9 @@ Authored non-generic source-backed program overview, original graphics-only styl
 ## October 19, 2026 — reported October 16 final (source-backed, not production-accepted)
 
 [MaxPreps' October 16 completed Blue Ridge at Leonard game](https://www.maxpreps.com/tx/football/game/blue-ridge-vs-leonard/10-16-2026/?c=dbbca0ec-f682-4209-a595-17c2aae0fffa) gives **Blue Ridge 48, Leonard 40** and **3–5 through October 16**. The accompanying editorial correction updates the dated result, record, SEO summary and October 16 explanation, while retaining prior October 9 historical reporting and dated sources. This is reported result evidence only, not a substitute for official UIL certification, photo permissions, published-release identification or full editorial/browser acceptance.
+
+## October 20, 2026 — acceptance-ledger source recheck
+Blue Ridge ISD's current athletics page and Blue Ridge High School staff directory were rechecked and both explicitly identify **Jason Russell as Athletic Director/Head Football Coach**. The first-party evidence therefore remains stronger than generic sports-directory labels and continues to support the page's current coaching field.
+
+The same district athletics material references Tiger Stadium but does not establish the exact public football entrance, parking allocation, ticket/cash rules, comprehensive accessible-seating details, or reusable football photography rights. The reported 3–5 record through October 16 and prior successful Batch 006 technical Chrome evidence remain unchanged. **Status stays DEPLOYED, not individually VERIFIED.**
+
