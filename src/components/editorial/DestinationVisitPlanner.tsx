@@ -49,7 +49,7 @@ export function DestinationVisitPlanner({ destination }: Props) {
           title={`Need a rental car for ${destination.name}?`}
         />
       ) : null}
-      <DestinationAuthoritySections destination={destination} />
+      {destination.slug !== "moody-gardens" ? <DestinationAuthoritySections destination={destination} /> : null}
       {destination.slug !== "moody-gardens" && (groups.length > 0 || editorialLinks.length > 0) && <section aria-labelledby="things-to-do-there" className="border-t border-border pt-8">
         <p className="eyebrow text-primary">While you’re there</p>
         <h2 id="things-to-do-there" className="mt-3 font-display text-3xl">Things to do and see</h2>
