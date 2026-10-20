@@ -129,6 +129,25 @@ const OPERATOR_RESEARCH_ITINERARIES: Record<string, DestinationAuthorityGuide["i
   ]
 };
 
+const OPERATOR_RESEARCH_VISIT_NOTES: Record<string, Pick<Destination, "entryNote" | "accessibilityNotes">> = {
+  "levi-jordan-plantation": {
+    "entryNote": "THC lists Wednesday–Sunday 9 a.m.–5 p.m., with admission also valid at Varner-Hogg Plantation. Allow about one hour for the self-guided visit; booked guided experiences have their own availability.",
+    "accessibilityNotes": "The THC says the visitor center and archaeology lab are wheelchair accessible, but the historic plantation house is not, and its approach crosses unpaved terrain."
+  },
+  "varner-hogg-plantation": {
+    "entryNote": "THC lists Wednesday–Sunday 9 a.m.–5 p.m. Paid admission covers both Varner-Hogg and Levi Jordan Plantation historic sites. Allow travel time and confirm each site's independent tours.",
+    "accessibilityNotes": "Confirm current historic-house interior access, steps, grounds surfaces and accommodations with Texas Historical Commission staff before arrival."
+  },
+  "starr-family-home": {
+    "entryNote": "THC lists Tuesday–Saturday 10 a.m.–4 p.m. Paid Maplecroft house tours and a free outdoor panel walk are different experiences; guided groups should request reservations at least two weeks ahead.",
+    "accessibilityNotes": "The grounds and principal public facilities are wheelchair accessible, but the second floor of historic Maplecroft is not."
+  },
+  "sam-bell-maxey-house": {
+    "entryNote": "THC currently lists Tuesday–Sunday 10 a.m.–4 p.m. with the last tour at 3 p.m. Its detailed program page contains partly differing start-time information; confirm a specific guided slot before arrival.",
+    "accessibilityNotes": "The first floor of the home, public parking and restrooms are wheelchair accessible. The second floor requires stairs, so a photo notebook is offered instead. Garden brickwork is uneven."
+  }
+};
+
 const SITE_VISIT_PROFILES: Record<string, Pick<DestinationEditorialAssessment, "physicalEffort" | "weatherExposure" | "planningLevel" | "recommendedVisit">> = {
   "battleship-texas": {
     "physicalEffort": "Not applicable — ship closed",
@@ -242,7 +261,7 @@ const SITE_VISIT_PROFILES: Record<string, Pick<DestinationEditorialAssessment, "
     "physicalEffort": "Low to moderate",
     "weatherExposure": "Mixed indoor/outdoor",
     "planningLevel": "Moderate",
-    "recommendedVisit": "Allow time for the plantation landscape and archaeology interpretation, especially the lives of enslaved and freed residents."
+    "recommendedVisit": "THC lists Wednesday–Sunday, 9 a.m.–5 p.m. A one-hour self-guided route covers the archaeology lab and plantation landscape; the historic house is not wheelchair accessible. Admission also covers Varner-Hogg, but guided visits need advance booking."
   },
   "lipantitlan": {
     "physicalEffort": "Low",
@@ -308,7 +327,7 @@ const SITE_VISIT_PROFILES: Record<string, Pick<DestinationEditorialAssessment, "
     "physicalEffort": "Low",
     "weatherExposure": "Mostly indoors",
     "planningLevel": "Moderate",
-    "recommendedVisit": "Plan an interpretive historic-house tour with current operator access to rooms, furnishings and family artifacts."
+    "recommendedVisit": "THC currently lists Tuesday–Sunday 10 a.m.–4 p.m., last tour starts at 3 p.m.; the detailed planner has partly different session wording, so confirm your actual slot. The first floor is wheelchair accessible, with a photo notebook for the upstairs."
   },
   "sam-rayburn-house": {
     "physicalEffort": "Low",
@@ -338,7 +357,7 @@ const SITE_VISIT_PROFILES: Record<string, Pick<DestinationEditorialAssessment, "
     "physicalEffort": "Low",
     "weatherExposure": "Mostly indoors",
     "planningLevel": "Moderate",
-    "recommendedVisit": "Allow for a house tour spanning multiple generations of household history and verify room access."
+    "recommendedVisit": "THC lists Tuesday–Saturday, 10 a.m.–4 p.m. Self-guided house interpretation takes about 30 minutes; guided programs take about 45 minutes and groups should reserve roughly two weeks ahead. The second floor is not wheelchair accessible."
   },
   "stephen-f-austin-memorial": {
     "physicalEffort": "Low",
@@ -350,7 +369,7 @@ const SITE_VISIT_PROFILES: Record<string, Pick<DestinationEditorialAssessment, "
     "physicalEffort": "Low to moderate",
     "weatherExposure": "Mixed indoor/outdoor",
     "planningLevel": "Moderate",
-    "recommendedVisit": "Plan to see the plantation landscape as well as the buildings; interpret enslaved labor, emancipation and subsequent oil-era changes."
+    "recommendedVisit": "THC lists Wednesday–Sunday, 9 a.m.–5 p.m. One admission covers Varner-Hogg and Levi Jordan. Plan separate time for the sugar, ranching, oil and enslaved-labor history here, and check tour and room access directly."
   },
   "zaragoza-birthplace": {
     "physicalEffort": "Low",
@@ -663,7 +682,12 @@ export function enrichFullHistoricSiteAuthority(destination: Destination): Desti
     sources: authoritySources(seed.officialUrl, seed.name),
   };
 
-  return { ...destination, authorityGuide: guide };
+  const operatorVisit = OPERATOR_RESEARCH_VISIT_NOTES[seed.slug];
+  return {
+    ...destination,
+    authorityGuide: guide,
+    ...(operatorVisit ? { ...operatorVisit, sourceCheckedAt: "2026-10-19" } : {}),
+  };
 }
 
 export const fullHistoricSiteAuthoritySeeds = historicSiteSeeds.map((site) => site.slug);
