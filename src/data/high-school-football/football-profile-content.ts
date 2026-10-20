@@ -71,7 +71,13 @@ export function buildFootballProfileSummary(input: FootballProfileContentInput) 
     // Notices include venue construction, access, and schedule advisories.
     // Never convert their mere presence into a fabricated season cancellation.
     const place = [program.city, program.countyName].filter(Boolean).join(', ');
-    const format = program.footballType ? ` a ${program.footballType.toLowerCase()} program` : ' a UIL football program';
+    const format = program.footballType === '11-Man'
+      ? ' an eleven-man program'
+      : program.footballType === '6-Man'
+        ? ' a six-man program'
+        : program.footballType
+          ? ` a ${program.footballType.toLowerCase()} program`
+          : ' a UIL football program';
     const schoolDistrict = program.districtName ? ` The school is matched to ${program.districtName}.` : '';
     const identityDetails = identity?.mascot
       ? ` The verified school identity is the ${identity.mascot}${identity.colors ? `, with ${identity.colors} listed as the school colors` : ''}.`
@@ -95,8 +101,14 @@ export function buildFootballProfileSummary(input: FootballProfileContentInput) 
 
   if (privateAlignment) {
     const coach = editorial?.coach ? ` The current sourced head coach is ${editorial.coach.name}.` : '';
-    const format = privateAlignment.footballType ? ` ${privateAlignment.footballType}` : '';
-    return `${team} football is tracked under ${footballProfileAlignmentLabel(input)}${format ? ` as a${format.toLowerCase().startsWith('a') ? 'n' : ''}${format} program` : ''}.${coach} Private-school association divisions are shown on their own terms rather than being forced into UIL 1A–6A classifications.`;
+    const format = privateAlignment.footballType === '11-Man'
+      ? ' using the eleven-man format'
+      : privateAlignment.footballType === '6-Man'
+        ? ' using the six-man format'
+        : privateAlignment.footballType
+          ? ` using the ${privateAlignment.footballType.toLowerCase()} format`
+          : '';
+    return `${team} football is tracked under ${footballProfileAlignmentLabel(input)}${format}.${coach} Private-school association divisions are shown on their own terms rather than being forced into UIL 1A–6A classifications.`;
   }
 
   return `${team} football is outside the current UIL alignment. Association and division details are published only when verified from the governing organization; other sourced team information remains available below.`;
