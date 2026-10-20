@@ -51,6 +51,7 @@ for (const [slug, expectedVenue, expectedAddress] of [
   ['bowie', 'Jackrabbit Stadium', undefined],
   ['bovina', 'Mustang Stadium', undefined],
   ['bishop', 'George Luna Stadium', undefined],
+  ['bosqueville', 'Bulldog Stadium', undefined],
 ]) {
   const start = editor.indexOf('  "' + slug + '": {');
   assert.ok(start >= 0, slug + ' editorial must exist');
