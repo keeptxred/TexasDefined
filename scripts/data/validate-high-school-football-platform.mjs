@@ -1597,6 +1597,70 @@ if (!errors.length) {
     }
   }
 
+  // These source-dated October 16 results already exist in the game ledgers.
+  // Protect the human-readable overview/FAQ too: correct table data is not
+  // sufficient when a search answer still calls a completed game "upcoming".
+  const october16NarrativeChecks = [
+    {
+      slug: 'big-sandy-harmony',
+      opponent: 'Edgewood',
+      score: 'L 0–48',
+      overview: ['Edgewood', '48–0'],
+      faq: ['0–8', 'October 16', 'Edgewood'],
+      rejected: ['The latest completed result independently checked was an October 9 loss to Quitman'],
+    },
+    {
+      slug: 'booker',
+      opponent: 'White Deer',
+      score: 'L 22–38',
+      overview: ['White Deer', '38–22', '4–4'],
+      rejected: ['White Deer, Wildorado and Boys Ranch are subsequent fixtures'],
+    },
+    {
+      slug: 'borden-county',
+      opponent: 'Westbrook',
+      score: 'W 54–28',
+      overview: ['Westbrook', '54–28', '7–0', 'August 18'],
+      rejected: ['Westbrook, Klondike, Ira and Sands are fixtures with no independently certified scores'],
+    },
+    {
+      slug: 'blanco',
+      opponent: 'Karnes City',
+      score: 'W 54–6',
+      overview: ['Karnes City', '54–6', '5–3'],
+      rejected: ['Remaining fixtures are schedules, not predicted outcomes.'],
+    },
+    {
+      slug: 'bloomington',
+      opponent: 'Danbury',
+      score: 'W 42–0',
+      overview: ['Danbury', '42–0', '3–5'],
+      rejected: [],
+    },
+  ];
+  for (const { slug, opponent, score, overview, faq = [], rejected } of october16NarrativeChecks) {
+    const program = footballEditorialRecord(slug);
+    if (!program) continue;
+    const match = (program.season?.games || []).find((game) =>
+      game.date === '2026-10-16' && game.opponent === opponent);
+    if (!match || match.result !== score) {
+      errors.push('Batch 006 October 16 game source changed or disappeared: ' + slug);
+    }
+    const overviewText = (program.overview || []).join(' ');
+    const faqText = (program.faq || []).map(({ question, answer }) => question + ' ' + answer).join(' ');
+    for (const phrase of overview) {
+      if (!overviewText.includes(phrase)) errors.push('Batch 006 October 16 overview stale: ' + slug + ' missing ' + phrase);
+    }
+    for (const phrase of faq) {
+      if (!faqText.includes(phrase)) errors.push('Batch 006 October 16 FAQ stale: ' + slug + ' missing ' + phrase);
+    }
+    for (const phrase of rejected) {
+      if ((overviewText + ' ' + faqText).includes(phrase)) {
+        errors.push('Batch 006 October 16 prose still contains superseded snapshot: ' + slug);
+      }
+    }
+  }
+
   const outdatedCoachCaveats = [
     ['boerne', 'rather than assuming an unverified coach'],
     ['boerne', 'should not be mistaken for a formally verified current head-coach appointment'],
