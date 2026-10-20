@@ -47,13 +47,15 @@ jobs:
         with:
           ref: ${{ github.event.workflow_run.head_sha || github.sha }}
           fetch-depth: 8
+      # Canceled deployments can be followed by unrelated commits, so inspect
+      # a bounded six-commit release window rather than only HEAD^.
       - name: Restrict screenshots to recent El Paso changes after deployment
         id: scope
         shell: bash
         run: |
           set -euo pipefail
           if [[ "$GITHUB_EVENT_NAME" == 'workflow_dispatch' ]] ||
-             # Successful production can follow a canceled deployment and a few\n             # unrelated pushes. Bound the check to six commits so El Paso QA\n             # still runs, but never becomes perpetual sitewide screenshot work.\n             git diff --name-only HEAD~6 HEAD -- 'src/components/content/ElPasoAreaAuthority.tsx' 'scripts/ci/verify-el-paso-live-visual.mjs' '.github/workflows/el-paso-live-visual-qa.yml' | grep -q .; then
+             git diff --name-only HEAD~6 HEAD -- 'src/components/content/ElPasoAreaAuthority.tsx' 'scripts/ci/verify-el-paso-live-visual.mjs' '.github/workflows/el-paso-live-visual-qa.yml' | grep -q .; then
             echo "changed=yes" >> "$GITHUB_OUTPUT"
           else
             echo "changed=no" >> "$GITHUB_OUTPUT"
