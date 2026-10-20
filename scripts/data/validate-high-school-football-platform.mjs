@@ -1413,6 +1413,9 @@ if (!errors.length) {
       if ((program.faq || []).length < 5) {
         errors.push('Batch 006 source-backed school FAQ unexpectedly missing: ' + slug);
       }
+      if ((program.faq || []).some(({ question }) => (question || '').includes(' for ' + slug + ' against '))) {
+        errors.push('Batch 006 public football FAQ exposes raw lowercase slug instead of school name: ' + slug);
+      }
       const normalized = (program.faq || []).map(({ question }) => (question || '').trim().toLowerCase());
       if (new Set(normalized).size !== normalized.length) {
         errors.push('Batch 006 duplicate questions within a school profile: ' + slug);
