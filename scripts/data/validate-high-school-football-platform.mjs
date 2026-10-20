@@ -1584,6 +1584,16 @@ if (!errors.length) {
           errors.push('Batch 006 scored fixture has malformed or future-dated result: ' + slug);
         }
       }
+      // A milestone dated 2026 must never send readers to MaxPreps' prior
+      // 2025–26 season. Older 2025 history may still legitimately use that URL.
+      for (const milestone of program.milestones || []) {
+        if (/^2026(?:$|[-–])/.test(milestone.date || '') && /\/25-26\//.test(milestone.sourceUrl || '')) {
+          errors.push('Batch 006 2026 milestone links to an obsolete 2025 season: ' + slug);
+        }
+        if (!/^https:\/\//.test(milestone.sourceUrl || '')) {
+          errors.push('Batch 006 historical milestone lacks a clickable source URL: ' + slug);
+        }
+      }
       if ((program.faq || []).length < 5) {
         errors.push('Batch 006 source-backed school FAQ unexpectedly missing: ' + slug);
       }
