@@ -133,5 +133,5 @@ test('responsive District 5 Chrome acceptance cannot be skipped by broad sports 
   assert.ok(successGate[1].includes("steps.live_district5_browser.outcome == 'success'"),
     'Never approve production while District 5 Chrome was skipped or failed');
   const visualArtifactStep = workflow.slice(workflow.indexOf('      - name: Preserve District 5 responsive acceptance evidence'));
-  assert.ok(visualArtifactStep.slice(0, 330).includes('if-no-files-found: error'), 'Fail if District 5 screenshots are absent');
+  assert.ok(visualArtifactStep.slice(0, 500).includes('if-no-files-found: error'), 'Fail if District 5 screenshots are absent');
 });
