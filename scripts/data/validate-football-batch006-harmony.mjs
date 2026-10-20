@@ -13,6 +13,15 @@ assert.ok(registry.schoolRecords.filter(r => r.status === 'VERIFIED').length >= 
 const batch006Records = registry.schoolRecords.filter(r => batch006.slugs.includes(r.slug));
 assert.equal(batch006Records.length, 25, 'Batch 006 must keep exactly 25 registry records');
 for (const record of batch006Records) {
+  assert.equal(record.status, 'DEPLOYED', `Batch 006 school must remain DEPLOYED pending individual acceptance: ${record.slug}`);
+  assert.equal(record.productionVerification, 'BROWSER_PASS_BATCH006_75_SCHOOL_23_COUNTY_25_SITEMAP_2026_10_19', `Batch 006 technical browser evidence missing: ${record.slug}`);
+  assert.equal(record.linkVerificationStatus, 'RECIPROCAL_COUNTY_BROWSER_PASS_BATCH006_2026_10_19', `Batch 006 reciprocal county browser evidence missing: ${record.slug}`);
+  assert.equal(record.technicalBrowserRun, 39273758531, `Batch 006 browser run id missing: ${record.slug}`);
+  assert.equal(record.actualProductionVerified, false, `Batch 006 school must not be promoted before nine-dimension acceptance: ${record.slug}`);
+}
+const batch006Records = registry.schoolRecords.filter(r => batch006.slugs.includes(r.slug));
+assert.equal(batch006Records.length, 25, 'Batch 006 must keep exactly 25 registry records');
+for (const record of batch006Records) {
   assert.notEqual(
     record.status === 'DEPLOYED' ? record.productionVerification : null,
     'NOT_DEPLOYED_NO_BROWSER_ACCEPTANCE',
