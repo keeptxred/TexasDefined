@@ -130,6 +130,29 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
       footballGameNightPages.add(page);
     }
   }
+  // Verify the corrected statewide source figures on the real public pages, not
+  // just a generic HTTP 200 or sitemap entry. Four fixed URLs, no catalog crawl.
+  const texasDataPages = new Set();
+  if (changedFiles.some(path => [
+    'src/data/texas-data-center.server.ts',
+    'src/data/texas-data-center.ts',
+    'src/routes/texas-data.tsx',
+    'src/routes/texas-data.lazy.tsx',
+    'src/routes/texas-data.$datasetSlug.lazy.tsx',
+    'src/components/authority/CitationCollectionTrustRouter.tsx',
+    'scripts/ci/production-change-scope.mjs',
+    'scripts/ci/verify-changed-production-pages.mjs',
+  ].includes(path))) {
+    for (const page of [
+      '/texas-data',
+      '/texas-data/texas-homeowners-premium-history',
+      '/texas-data/texas-metro-payrolls-august-2026',
+      '/texas-data/texas-metro-payrolls-june-2026',
+    ]) {
+      candidates.add(page);
+      texasDataPages.add(page);
+    }
+  }
   const downloadButtonPages = new Set();
   const regionGuidePages = new Set();
   // Make the previously missed standalone regions guide a bounded acceptance
@@ -314,10 +337,11 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
   ];
   const allPaths = [...candidates].sort();
   // A deploy smoke is explicitly a bounded sample, never a full-content certification.
-  const selectedPaths = [...new Set([...REPRESENTATIVE_PATHS.filter(p => candidates.has(p)), ...battleshipVisitorPages, ...fredericksburgSitemapPaths, ...magoffinHomePages, ...allPaths])].slice(0, PAGE_BUDGET - redirectChecks.length);
+  const selectedPaths = [...new Set([...REPRESENTATIVE_PATHS.filter(p => candidates.has(p)), ...battleshipVisitorPages, ...fredericksburgSitemapPaths, ...magoffinHomePages, ...texasDataPages, ...allPaths])].slice(0, PAGE_BUDGET - redirectChecks.length);
   const selectedExpectedHrefs = Object.fromEntries(selectedPaths.filter(p => expectedHrefsByPage[p]).map(p => [p, expectedHrefsByPage[p]]));
   const candidateCount = allPaths.length + redirectChecks.length;
   return { baseline, head, changedFiles, shared, selectedPaths, expectedHrefsByPage: selectedExpectedHrefs,
+    texasDataPages: selectedPaths.filter(p => texasDataPages.has(p)),
     downloadButtonPages: selectedPaths.filter(p => downloadButtonPages.has(p)),
     regionGuidePages: selectedPaths.filter(p => regionGuidePages.has(p)),
     footballGameNightPages: selectedPaths.filter(p => footballGameNightPages.has(p)),

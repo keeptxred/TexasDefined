@@ -94,6 +94,8 @@ test('planner corrections retest previously missed editorial SSR links, not enti
   const plan = buildChangePlan({ baseline, head, changedFiles: ['scripts/ci/production-change-scope.mjs'] });
   assert.deepEqual(plan.selectedPaths, [
     '/destination/battleship-texas', '/destination/fredericksburg', '/destination/magoffin-home',
+    '/texas-data', '/texas-data/texas-homeowners-premium-history',
+    '/texas-data/texas-metro-payrolls-august-2026', '/texas-data/texas-metro-payrolls-june-2026',
     '/article/texas-cultural-regions-explained', '/article/texas-regions-explained',
     '/explore/road-trips',
     '/fishing/species/black-crappie', '/fishing/species/bluegill',
@@ -104,6 +106,46 @@ test('planner corrections retest previously missed editorial SSR links, not enti
   assert.deepEqual(plan.regionGuidePages, ['/article/texas-regions-explained']);
   assert.equal(plan.expectedHrefsByPage['/article/texas-regions-explained'][0], '/article/texas-gulf-coast-erosion-shoreline-retreat-guide');
   assert.equal(plan.expectedHrefsByPage['/article/texas-cultural-regions-explained'][0], '/article/texas-oil-boom-wichita-falls-west-texas-rigs');
+});
+
+test('Texas Data release checks are bounded and reject stale SSR values', async () => {
+  const source = 'src/data/texas-data-center.server.ts';
+  const plan = buildChangePlan({ baseline, head, changedFiles: [source] });
+  const paths = [
+    '/texas-data',
+    '/texas-data/texas-homeowners-premium-history',
+    '/texas-data/texas-metro-payrolls-august-2026',
+    '/texas-data/texas-metro-payrolls-june-2026',
+  ];
+  assert.deepEqual(plan.selectedPaths, paths);
+  assert.deepEqual(plan.texasDataPages, paths);
+  assert.equal(plan.omittedCount, 0);
+  assert.ok(plan.selectedPaths.length <= PAGE_BUDGET);
+  const fresh = {
+    '/texas-data': 'Texas at a glance 4,357,000 August 2026 preliminary $3,489 Search official data briefs /texas-data/texas-metro-payrolls-august-2026',
+    '/texas-data/texas-homeowners-premium-history': '2023 $2,795 2025 $3,489 October 20, 2026',
+    '/texas-data/texas-metro-payrolls-august-2026': 'August 2026 4,357,000 3,495,300 metro_09302026.htm',
+    '/texas-data/texas-metro-payrolls-june-2026': 'June 2026 4,363,300 metro_07292026.htm',
+  };
+  const serve = (record) => async url => new Response(
+    '<html><head><title>Texas Data</title><link rel="canonical" href="https://texasdefined.com'
+      + url.pathname + '"></head><body>' + record[url.pathname] + '</body></html>',
+  );
+  const current = await verifyChangedPages({ plan, head, fetchImpl: serve(fresh) });
+  assert.equal(current.length, 4);
+  assert.ok(current.every(result => result.passed), JSON.stringify(current));
+
+  const stalePremium = { ...fresh, '/texas-data/texas-homeowners-premium-history': '2023 $2,800 2025 $3,489 October 20, 2026' };
+  const badPremium = await verifyChangedPages({ plan, head, fetchImpl: serve(stalePremium) });
+  assert.equal(badPremium.find(result => result.path.endsWith('premium-history')).passed, false);
+
+  const staleHub = { ...fresh, '/texas-data': 'Texas at a glance 4,363,300 DFW nonfarm payrolls June 2026 preliminary $3,489' };
+  const badHub = await verifyChangedPages({ plan, head, fetchImpl: serve(staleHub) });
+  assert.equal(badHub.find(result => result.path === '/texas-data').passed, false);
+
+  const badSource = { ...fresh, '/texas-data/texas-metro-payrolls-june-2026': 'June 2026 4,363,300 metro.t03.htm' };
+  const badArchive = await verifyChangedPages({ plan, head, fetchImpl: serve(badSource) });
+  assert.equal(badArchive.find(result => result.path.endsWith('june-2026')).passed, false);
 });
 
 test('Magoffin restoration edits require exact live SSR closure, FAQ and visitor center', async () => {
