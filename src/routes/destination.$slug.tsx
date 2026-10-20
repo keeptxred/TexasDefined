@@ -214,18 +214,6 @@ export const Route = createFileRoute("/destination/$slug")({
   head: ({ loaderData, params }) => {
     if (!loaderData) return { meta: [{ title: "Unavailable" }, { name: "robots", content: "noindex, nofollow" }] };
     const { destination, categories, relationshipGroups, dallasHeritage } = loaderData;
-    if (destination.slug === "davis-hill-state-park") {
-      const canonicalPath = "/destination/davis-hill-state-park";
-      return {
-        meta: buildMeta(texasDefinedBrand, {
-          title: "Davis Hill State Natural Area: Liberty County, History & Conservation",
-          description: destination.summary,
-          canonicalPath,
-        }),
-        links: [canonicalLink(texasDefinedBrand, canonicalPath)],
-      };
-    }
-
     const isZapataMuseum = destination.slug === "zapata-county-museum-history";
     const isAuthorityMuseum = museumAuthoritySlugs.has(destination.slug);
     const isYsletaMuseum = destination.slug === "ysleta-del-sur-pueblo-cultural-center-museum-el-paso";
@@ -277,7 +265,7 @@ const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(des
           ? "Explore Fort McKavett State Historic Site in Menard County: Buffalo Soldier history, restored barracks, admission, accessibility and tour tips."
           : destination.summary,
         canonicalPath,
-        robots: indexable ? undefined : "noindex, follow",
+        robots: indexable || destination.slug === "davis-hill-state-park" ? undefined : "noindex, follow",
         ...(hasUsableHero ? { image: destination.hero.src, imageAlt: destination.hero.alt } : {}),
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
