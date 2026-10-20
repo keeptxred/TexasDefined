@@ -271,7 +271,7 @@ function Page() {
             <p className="mt-5 max-w-4xl text-lg leading-8 text-muted-foreground" style={slug === 'aubrey' ? { fontSize: '1rem', lineHeight: 1.6 } : undefined}>
               {slug === 'aubrey'
                 ? 'Verified 2026 scores, remaining games, home tickets and Chaparral Stadium information.'
-                : editorial?.intro ?? profileSummary}
+                : editorial?.intro ?? editorial?.overview?.[0] ?? profileSummary}
             </p>
             {editorial?.theme && slug !== 'aubrey' && <div className="mt-5 max-w-3xl" aria-label="Independent editorial team accent">
               <div aria-hidden="true" className="h-1.5 w-28" style={{ backgroundColor: editorial.theme.accentHex }} />
