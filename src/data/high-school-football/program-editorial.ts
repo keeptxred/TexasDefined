@@ -44,7 +44,7 @@ export type FootballProgramEditorial = {
   };
   venue?: {
     name: string;
-    address: string;
+    address?: string;
     sourceUrl: string;
     sourceLabel: string;
     verifiedAt: string;
@@ -1232,6 +1232,13 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceUrl": "https://www.bgisd.org/apps/events/2026/10/?id=0&id=2",
       "sourceLabel": "Official district October 2026 calendar and individual fixture details; historical results sourced independently",
       "verifiedAt": "2026-10-15"
+    },
+    "venue": {
+      "name": "Lion Stadium",
+      "sourceUrl": "https://www.bgisd.org/apps/events/2026/10/?id=0&id=2",
+      "sourceLabel": "Blooming Grove ISD October 2026 calendar names Lion Stadium for homecoming events",
+      "verifiedAt": "2026-10-15",
+      "note": "Blooming Grove ISD's October 2026 calendar identifies Lion Stadium as a school event venue. The evidence reviewed does not establish the spectator vehicle entrance, parking layout, ADA seating or a separate stadium street address, so TexasDefined does not invent one; confirm game-specific access with the district."
     },
     "season": {
       "record": "0–7 through October 16, 2026 (Elkhart 40–0 reported final; season ongoing)",

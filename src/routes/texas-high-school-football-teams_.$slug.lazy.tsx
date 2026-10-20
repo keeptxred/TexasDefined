@@ -609,7 +609,7 @@ function Page() {
         <div>
           <dl className="grid gap-px border border-border bg-border sm:grid-cols-2">
             <Snapshot label="Venue" value={editorial.venue.name} />
-            <Snapshot label="Address" value={editorial.venue.address} />
+            {editorial.venue.address && <Snapshot label="Address" value={editorial.venue.address} />}
           </dl>
           <p className="mt-5 max-w-4xl text-sm leading-7 text-muted-foreground">{editorial.venue.note}</p>
           <a href={editorial.venue.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">{editorial.venue.sourceLabel} ↗</a>

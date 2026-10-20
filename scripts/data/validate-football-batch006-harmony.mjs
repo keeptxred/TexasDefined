@@ -42,6 +42,17 @@ assert.equal((section.match(/"opponent":/g)||[]).length, 10, 'School must show t
 // Permanent score-integrity contract: avoid freezing the Oct 9 scorecard in
 // code. Future verified finals can progress without weakening source checks.
 const harmony = JSON.parse(section.slice(section.indexOf('{')).trim().replace(/,\s*$/, ''));
+
+for (const [slug, expectedVenue] of [['blooming-grove', 'Lion Stadium'], ['blue-ridge', 'Tiger Stadium']]) {
+  const start = editor.indexOf('  "' + slug + '": {');
+  assert.ok(start >= 0, slug + ' editorial must exist');
+  const end = editor.indexOf('\n  "', start + 4);
+  const source = end > start ? editor.slice(start, end) : editor.slice(start);
+  const entry = JSON.parse(source.slice(source.indexOf('{')).trim().replace(/,\s*$/, ''));
+  assert.equal(entry.venue?.name, expectedVenue, slug + ' must retain its first-party sourced venue name');
+  assert.equal(entry.venue?.address, undefined, slug + ' must not invent a stadium address when the source only establishes the venue name');
+  assert.ok(/entrance|parking|address/i.test(entry.venue?.note || ''), slug + ' venue note must preserve the unverified-access caveat');
+}
 const harmonyGames = harmony.season.games;
 assert.equal(harmonyGames.length, 10, 'Preserve the researched 2026 ten-fixture roster');
 const firstSeven = harmonyGames.filter(game => game.date <= '2026-10-09');
