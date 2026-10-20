@@ -129,8 +129,8 @@ export const TEXAS_DATASETS: TexasDataset[] = [
     description: 'Historical June 2026 snapshot of total nonfarm payroll employment across major Texas metropolitan areas. For the latest available comparison, see the August 2026 brief.',
     category: 'Jobs', year: 2026, updated: '2026-08-26', unit: 'count',
     sourceName: 'U.S. Bureau of Labor Statistics metropolitan area employment table',
-    sourceUrl: 'https://www.bls.gov/news.release/metro.t03.htm',
-    methodology: 'Values are June 2026 preliminary total nonfarm payroll employment from the BLS metropolitan area table and are not seasonally adjusted. BLS publishes the source table in thousands; Texas Defined multiplies those values by 1,000 for display. Payroll employment is one labor-market indicator and is not a ranking of relocation quality.',
+    sourceUrl: 'https://www.bls.gov/news.release/archives/metro_07292026.htm',
+    methodology: 'Values are June 2026 preliminary total nonfarm payroll employment from the July 29, 2026 BLS metropolitan area release (Table 3) and are not seasonally adjusted. BLS publishes the source table in thousands; Texas Defined multiplies those values by 1,000 for display. This is a historical release that may differ from subsequently revised figures. Payroll employment is one labor-market indicator and is not a ranking of relocation quality.',
     rows: [
       { label: 'Dallas–Fort Worth–Arlington', value: 4363300 },
       { label: 'Houston–Pasadena–The Woodlands', value: 3521500 },
