@@ -11,6 +11,7 @@ import {
 import { getDistrictFootballGames, getSourcedDistrictRecords, KATY_2026_SCHEDULE_SOURCE, type DistrictFootballGame } from '@/data/high-school-football/football-district-game-week';
 import {
   UIL_FOOTBALL_ENROLLMENT_BANDS_SOURCE,
+  uilEnrollmentFallsWithinBand,
   uilFootballConferenceBand,
   uilFootballEnrollmentBand,
 } from '@/data/high-school-football/enrollment-bands';
@@ -35,6 +36,9 @@ function Page() {
   const shortLabel = `${district.classification}${divisionRoman ? ` Division ${divisionRoman}` : ''} District ${district.district}`;
   const enrollmentBand = uilFootballEnrollmentBand(district.classification, district.division);
   const conferenceBand = uilFootballConferenceBand(district.classification);
+  const placementExceptionPrograms = enrollmentBand
+    ? district.programs.filter((program) => uilEnrollmentFallsWithinBand(program.uilEnrollment, enrollmentBand) === false)
+    : [];
   const reportedEnrollments = district.programs.map((program) => program.uilEnrollment);
   const enrollmentLow = Math.min(...reportedEnrollments);
   const enrollmentHigh = Math.max(...reportedEnrollments);
@@ -243,7 +247,8 @@ function Page() {
             </a>)}
           </div>
           <p className="mt-5 text-sm leading-7 text-muted-foreground">Member order is alphabetical for research usability; it is not a ranking, projected finish, or statement about team quality.</p>
-          <p className="mt-2 text-sm leading-7 text-muted-foreground">Enrollment figures are the UIL 2026–28 realignment snapshot used for classification. They are not live campus headcounts.</p>
+          <p className="mt-2 text-sm leading-7 text-muted-foreground">Enrollment figures are the UIL 2026–28 realignment snapshot, not live campus headcounts. Published cutoff bands explain the normal enrollment ranges, but the final UIL football alignment controls competition placement.</p>
+          {placementExceptionPrograms.length > 0 && <p className="mt-2 text-sm leading-7 text-muted-foreground"><strong className="text-foreground">Placement exception{placementExceptionPrograms.length === 1 ? '' : 's'} in this district:</strong> {placementExceptionPrograms.map((program, index) => <span key={program.profilePath}>{index > 0 ? ', ' : ''}<a href={program.profilePath} className="font-semibold text-primary underline underline-offset-4">{program.schoolName}</a></span>)}. {placementExceptionPrograms.length === 1 ? 'Its' : 'Their'} reported enrollment falls outside the normal published cutoff band shown for this final football placement.</p>}
         </div>
       </section>
 
@@ -270,7 +275,7 @@ function Page() {
         </div>
         <div className="space-y-5 text-sm leading-7 text-muted-foreground">
           <p>These schools share a UIL football district for regular-season competition during the 2026–28 alignment cycle. District results determine playoff qualification under UIL rules.</p>
-          <p><strong className="text-foreground">Enrollment band:</strong> {enrollmentBand?.label || conferenceBand}. <strong className="text-foreground">District snapshot:</strong> {formatEnrollment(enrollmentLow)}–{formatEnrollment(enrollmentHigh)}.</p>
+          <p><strong className="text-foreground">Normal enrollment band:</strong> {enrollmentBand?.label || conferenceBand}. <strong className="text-foreground">District snapshot:</strong> {formatEnrollment(enrollmentLow)}–{formatEnrollment(enrollmentHigh)}.{placementExceptionPrograms.length > 0 ? <> The district snapshot extends beyond the normal band because the final UIL alignment includes {placementExceptionPrograms.length === 1 ? 'an exception placement' : 'exception placements'}; the final alignment remains controlling.</> : null}</p>
           {district.classification === '6A'
             ? <p>6A schools are not assigned to Division I or Division II before the season. After four teams qualify, the two larger-enrollment qualifiers enter Division I and the two smaller-enrollment qualifiers enter Division II.</p>
             : <p>In {district.classification}, Division {divisionRoman} is set during realignment, so every school on this page competes in the same classification and football division before the season begins.</p>}
