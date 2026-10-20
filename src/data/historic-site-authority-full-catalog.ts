@@ -45,7 +45,7 @@ const OPERATOR_RESEARCH_ITINERARIES: Record<string, DestinationAuthorityGuide["i
       "label": "Follow the property's changing uses",
       "duration": "About one hour",
       "steps": [
-        "Check the operator's current admission and on-site tour opportunities before planning an interior visit.",
+        "THC lists a 90-minute self-guided route, including both floors of the main house, outbuildings and the plantation landscape. Check the current admission policy.",
         "Trace sugarcane production, enslaved labor, cattle ranching and later oil extraction as distinct chapters rather than a single elegant-house story.",
         "Explore permitted interpretive grounds only, watching for historic surfaces and seasonal conditions."
       ]
@@ -56,7 +56,7 @@ const OPERATOR_RESEARCH_ITINERARIES: Record<string, DestinationAuthorityGuide["i
       "steps": [
         "Read the landscape through the experiences of the enslaved and paid workers whose labor sustained each phase of the property.",
         "Compare the Varner, Patton and Hogg periods and identify later preservation changes, rather than treating every building as an untouched early-Texas artifact.",
-        "Ask staff about the current accessibility of interiors and outdoor paths before committing to the full walking route."
+        "The visitor center, Ima's cottage, smokehouse, kitchen and barn are wheelchair accessible. The main house has entrance steps; several outdoor features lie in grass but can be viewed from the road."
       ]
     },
     {
@@ -135,8 +135,8 @@ const OPERATOR_RESEARCH_VISIT_NOTES: Record<string, Pick<Destination, "entryNote
     "accessibilityNotes": "The THC says the visitor center and archaeology lab are wheelchair accessible, but the historic plantation house is not, and its approach crosses unpaved terrain."
   },
   "varner-hogg-plantation": {
-    "entryNote": "THC lists Wednesday–Sunday 9 a.m.–5 p.m. Paid admission covers both Varner-Hogg and Levi Jordan Plantation historic sites. Allow travel time and confirm each site's independent tours.",
-    "accessibilityNotes": "Confirm current historic-house interior access, steps, grounds surfaces and accommodations with Texas Historical Commission staff before arrival."
+    "entryNote": "THC lists Wednesday–Sunday 9 a.m.–5 p.m. Budget 90 minutes for Varner-Hogg's self-guided history route; paid admission also covers Levi Jordan. Reserve guided groups approximately four weeks in advance.",
+    "accessibilityNotes": "THC lists accessible parking/restrooms and wheelchair access to the visitor center, Ima Hogg's cottage, smokehouse, kitchen and barn. The main house has entrance steps; only its first floor is listed as accessible. Several outdoor attractions have grass surfaces."
   },
   "starr-family-home": {
     "entryNote": "THC lists Tuesday–Saturday 10 a.m.–4 p.m. Paid Maplecroft house tours and a free outdoor panel walk are different experiences; guided groups should request reservations at least two weeks ahead.",
@@ -406,7 +406,7 @@ function authoritySources(officialUrl: string, siteName: string): DestinationAut
       {label:"THC — Levi Jordan plantation history and archaeological evidence",url:"https://thc.texas.gov/state-historic-sites/levi-jordan-plantation/levi-jordan-history",scope:"Enslaved labor, 92-acre state site, house restoration and over 600,000 excavated artifacts."},
     ],
     "varner-hogg-plantation": [
-      {label:"THC — Varner-Hogg current admission and history",url:"https://thc.texas.gov/historic-sites/varner-hogg-plantation",scope:"Wednesday–Sunday operator hours, shared Levi Jordan admission and plantation/ranch/oil history."},
+      {label:"THC — Varner-Hogg public tours, group bookings and accessible spaces",url:"https://thc.texas.gov/state-historic-sites/varner-hogg-plantation/plan-your-visit-varner-hogg-plantation",scope:"90-minute self-guided visit, four-week adult group reservation, accessible outbuildings and entrance steps to the main house."},
     ],
     "starr-family-home": [
       {label:"THC — Starr Family Home public tours, grounds and accessibility",url:"https://thc.texas.gov/state-historic-sites/starr-family-home/plan-your-visit-starr-family-home",scope:"Thirty-minute self-guided visits, 45-minute guided tours, two-week group reservations, free grounds panels and inaccessible second floor."},
