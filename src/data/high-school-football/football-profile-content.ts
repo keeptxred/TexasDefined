@@ -2,7 +2,7 @@ import {
   uilEnrollmentFallsWithinBand,
   uilFootballEnrollmentBand,
   uilFootballEnrollmentBandForEnrollment,
-} from './enrollment-bands';
+} from './enrollment-bands.ts';
 
 export type FootballProfileContentInput = {
   displayName: string;
