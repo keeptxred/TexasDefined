@@ -304,7 +304,7 @@ function Page() {
           <h2 className="mt-2 font-display text-3xl">{editorial.notice.title}</h2>
           <p className="mt-3 max-w-4xl text-sm leading-7 text-foreground">{editorial.notice.body}</p>
           <a href={editorial.notice.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-3 inline-block text-sm font-semibold text-surface-foreground underline underline-offset-4">{editorial.notice.sourceLabel} ↗</a>
-          <p className="mt-2 text-xs text-muted-foreground">Reporting checked {editorial.notice.verifiedAt}; consult the district for later changes.</p>
+          <p className="mt-2 text-xs text-muted-foreground">Reporting checked <time dateTime={editorial.notice.verifiedAt}>{formatFootballDate(editorial.notice.verifiedAt)}</time>; consult the district for later changes.</p>
         </div>
       </aside>}
 
@@ -317,16 +317,16 @@ function Page() {
           {latestResult && <div className="border-l-4 border-border bg-surface p-4">
             <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Most recent reported result</p>
             <p className="mt-2 font-semibold">{latestResult.result} · {latestResult.opponent}</p>
-            <p className="mt-1 text-xs text-muted-foreground">{latestResult.date}</p>
+            <p className="mt-1 text-xs text-muted-foreground"><time dateTime={latestResult.date}>{formatFootballDate(latestResult.date)}</time></p>
             {latestResult.matchupPath && <Link to={latestResult.matchupPath} className="mt-2 inline-block text-sm font-semibold text-primary underline underline-offset-4">Game details →</Link>}
           </div>}
           {nextListedFixture && <div className="border-l-4 border-border bg-surface p-4">
             <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Next listed 2026 fixture</p>
             <p className="mt-2 font-semibold">{nextListedFixture.opponent}</p>
-            <p className="mt-1 text-xs text-muted-foreground">{nextListedFixture.date} · {nextListedFixture.site}; verify kickoff</p>
+            <p className="mt-1 text-xs text-muted-foreground"><time dateTime={nextListedFixture.date}>{formatFootballDate(nextListedFixture.date)}</time> · {nextListedFixture.site}; verify kickoff</p>
             <a href="#football-current-season" className="mt-2 inline-block text-sm font-semibold text-primary underline underline-offset-4">Full schedule ↓</a>
           </div>}
-          <p className="text-xs leading-6 text-muted-foreground">Checked {editorial.season.verifiedAt}. Source-linked results are verified snapshots, not live game scores or certified district standings.</p>
+          <p className="text-xs leading-6 text-muted-foreground">Checked <time dateTime={editorial.season.verifiedAt}>{formatFootballDate(editorial.season.verifiedAt)}</time>. Source-linked results are verified snapshots, not live game scores or certified district standings.</p>
         </section>
       )}
 
@@ -368,13 +368,13 @@ function Page() {
         <div>
           <p className="eyebrow text-primary">Current season</p>
           <h2 className="mt-2 font-display text-3xl">{editorial?.season ? '2026 results & schedule' : 'Live scores & schedule links'}</h2>
-          {editorial?.season && <p className="mt-4 text-sm leading-7 text-muted-foreground">Season data checked {editorial.season.verifiedAt}. Recheck the school source before travel because kickoff times and venues can change.</p>}
+          {editorial?.season && <p className="mt-4 text-sm leading-7 text-muted-foreground">Season data checked <time dateTime={editorial.season.verifiedAt}>{formatFootballDate(editorial.season.verifiedAt)}</time>. Recheck the school source before travel because kickoff times and venues can change.</p>}
         </div>
         <div className="min-w-0">
           {editorial?.season ? <>
             <dl className="grid gap-px border border-border bg-border sm:grid-cols-2">
               <Snapshot label="Record when checked" value={editorial.season.record} />
-              <Snapshot label="Season data verified" value={editorial.season.verifiedAt} />
+              <Snapshot label="Season data verified" value={formatFootballDate(editorial.season.verifiedAt)} />
             </dl>
             <div role="region" aria-label="Scrollable 2026 football results and schedule table" tabIndex={0} className="mt-5 w-full max-w-full overflow-x-auto border-y border-border focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">
               <table className="w-full min-w-[38rem] text-left text-sm">
@@ -383,7 +383,7 @@ function Page() {
                 </thead>
                 <tbody className="divide-y divide-border">
                   {editorial.season.games.map((game) => <tr key={`${game.date}:${game.opponent}`}>
-                    <td className="px-3 py-3 font-semibold">{game.date}</td>
+                    <td className="px-3 py-3 font-semibold"><time dateTime={game.date}>{formatFootballDate(game.date)}</time></td>
                     <td className="px-3 py-3">{game.opponent}{game.district ? ' *' : ''}</td>
                     <td className="px-3 py-3 text-muted-foreground">{game.site}</td>
                     <td className="px-3 py-3">{game.matchupPath
@@ -596,7 +596,7 @@ function Page() {
               <a href={venue.venuePath} className="text-primary underline underline-offset-4">Open TexasDefined stadium guide →</a>
               <a href={venue.officialUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Official venue source ↗</a>
             </div>
-            {venue.verifiedAt && <p className="mt-3 text-xs text-muted-foreground">Venue details last reviewed {venue.verifiedAt}.</p>}
+            {venue.verifiedAt && <p className="mt-3 text-xs text-muted-foreground">Venue details last reviewed <time dateTime={venue.verifiedAt}>{formatFootballDate(venue.verifiedAt)}</time>.</p>}
           </article>)}
         </div>
       </section>}
@@ -613,7 +613,7 @@ function Page() {
           </dl>
           <p className="mt-5 max-w-4xl text-sm leading-7 text-muted-foreground">{editorial.venue.note}</p>
           <a href={editorial.venue.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">{editorial.venue.sourceLabel} ↗</a>
-          <p className="mt-3 text-xs text-muted-foreground">Venue relationship reviewed {editorial.venue.verifiedAt}.</p>
+          <p className="mt-3 text-xs text-muted-foreground">Venue relationship reviewed <time dateTime={editorial.venue.verifiedAt}>{formatFootballDate(editorial.venue.verifiedAt)}</time>.</p>
         </div>
       </section>}
 
@@ -625,7 +625,7 @@ function Page() {
         <div>
           <p className="max-w-4xl text-sm leading-7 text-muted-foreground">{editorial.development.body}</p>
           <a href={editorial.development.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">{editorial.development.sourceLabel} ↗</a>
-          <p className="mt-3 text-xs text-muted-foreground">Source reviewed {editorial.development.verifiedAt}.</p>
+          <p className="mt-3 text-xs text-muted-foreground">Source reviewed <time dateTime={editorial.development.verifiedAt}>{formatFootballDate(editorial.development.verifiedAt)}</time>.</p>
         </div>
       </section>}
 
@@ -656,7 +656,7 @@ function Page() {
             <Snapshot label="Mascot" value={identity.mascot} />
             <Snapshot label="School colors" value={identity.colors || 'Not listed by the verified source'} />
           </dl>
-          <p className="mt-4 text-xs leading-6 text-muted-foreground">Identity last reviewed {identity.verifiedAt}. Mascot and colors are published only from a school or district source.</p>
+          <p className="mt-4 text-xs leading-6 text-muted-foreground">Identity last reviewed <time dateTime={identity.verifiedAt}>{formatFootballDate(identity.verifiedAt)}</time>. Mascot and colors are published only from a school or district source.</p>
           <a href={identity.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4">{identity.sourceLabel} ↗</a>
         </div>
       </section>}
@@ -785,7 +785,7 @@ function PublicEnrollmentSteps({
     <div className="mb-6 border border-border p-5">
       <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">Official district enrollment</p>
       <p className="mt-2 text-sm leading-7 text-muted-foreground">
-        District enrollment source last reviewed {enrollmentLink.verifiedAt}{enrollmentLink.schoolYear ? ` for the ${enrollmentLink.schoolYear} school year` : ''}. Use the district page for current forms, deadlines and required documents.
+        District enrollment source last reviewed <time dateTime={enrollmentLink.verifiedAt}>{formatFootballDate(enrollmentLink.verifiedAt)}</time>{enrollmentLink.schoolYear ? ` for the ${enrollmentLink.schoolYear} school year` : ''}. Use the district page for current forms, deadlines and required documents.
       </p>
       <a href={enrollmentLink.enrollmentUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">
         Start with {enrollmentLink.sourceLabel} ↗
@@ -818,7 +818,7 @@ function NonUilEnrollmentSteps({
     {admissions && <div className="mb-6 border border-border p-5">
       <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">Official school admissions</p>
       <p className="mt-2 text-sm leading-7 text-muted-foreground">
-        TexasDefined verified this school admissions source on {admissions.verifiedAt}{admissions.applicationCycle ? ` for the ${admissions.applicationCycle} application cycle` : ''}. Use the school page for current application dates, requirements, availability and fees.
+        TexasDefined verified this school admissions source on <time dateTime={admissions.verifiedAt}>{formatFootballDate(admissions.verifiedAt)}</time>{admissions.applicationCycle ? ` for the ${admissions.applicationCycle} application cycle` : ''}. Use the school page for current application dates, requirements, availability and fees.
       </p>
       <a href={admissions.admissionsUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">
         Start with {admissions.sourceLabel} ↗
@@ -847,6 +847,19 @@ function Snapshot({ label, value }: { label: string; value: string }) {
 
 function Related({ href, title, body }: { href: string; title: string; body: string }) {
   return <a href={href} className="border-t-2 border-foreground pt-4"><h3 className="font-display text-2xl hover:text-primary">{title}</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">{body}</p></a>;
+}
+
+const FOOTBALL_DATE_FORMATTER = new Intl.DateTimeFormat('en-US', {
+  month: 'short',
+  day: 'numeric',
+  year: 'numeric',
+  timeZone: 'UTC',
+});
+
+function formatFootballDate(value: string) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return value;
+  const date = new Date(`${value}T12:00:00Z`);
+  return Number.isNaN(date.getTime()) ? value : FOOTBALL_DATE_FORMATTER.format(date);
 }
 
 function alignmentLabel(program: { classification: string; division: 1 | 2 | null }) {
