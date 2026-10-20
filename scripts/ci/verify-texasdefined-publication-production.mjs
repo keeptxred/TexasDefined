@@ -134,6 +134,35 @@ const elPasoResults = await Promise.all(elPasoLiveSurfaces.map(async ({ path, ma
 }));
 for (const result of elPasoResults) console.log(JSON.stringify({ surface: 'El Paso authority production', ...result, ok: true }));
 
+ // A former El Paso destination slug was replaced by the source-backed city
+ // authority. Prove that real production returns a permanent 301 to its one
+ // canonical city URL, rather than serving a 404 or a duplicate destination.
+const legacyElPasoPath = '/destination/el-paso';
+const legacyElPasoToken = `${verifyToken}-el-paso-alias`;
+const legacyElPasoUrl = new URL(legacyElPasoPath, origin);
+legacyElPasoUrl.searchParams.set('td_verify', legacyElPasoToken);
+const legacyElPasoResponse = await fetch(legacyElPasoUrl, {
+  redirect: 'manual',
+  cache: 'no-store',
+  signal: AbortSignal.timeout(20_000),
+  headers: { 'user-agent': userAgent, 'cache-control': 'no-cache' },
+});
+const legacyLocation = legacyElPasoResponse.headers.get('location');
+if (legacyElPasoResponse.status !== 301
+    || legacyElPasoResponse.headers.get('cf-mitigated')?.toLowerCase() === 'challenge'
+    || !legacyLocation) {
+  throw new Error(`${legacyElPasoPath} must return an HTTP 301 to /city/el-paso; received ${legacyElPasoResponse.status}`);
+}
+const redirectedElPaso = new URL(legacyLocation, origin);
+if (redirectedElPaso.origin !== new URL(origin).origin
+    || redirectedElPaso.pathname !== '/city/el-paso'
+    || redirectedElPaso.searchParams.get('td_verify') !== legacyElPasoToken) {
+  throw new Error(`${legacyElPasoPath} redirected to an unexpected destination: ${redirectedElPaso.href}`);
+}
+console.log(JSON.stringify({
+  surface: legacyElPasoPath, status: 301, canonical: `${origin}/city/el-paso`, preservedQuery: true, ok: true,
+}));
+
 const liveNewsPath = firstPublishedNewsPath(news.body);
 if (!liveNewsPath) {
   console.log(JSON.stringify({ verified: true, newsStatus: news.status, publishedNewsPresent: false, reason: 'No routed published news is currently exposed; auto-publication remains disabled.' }));
