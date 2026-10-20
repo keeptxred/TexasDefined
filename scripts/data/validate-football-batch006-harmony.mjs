@@ -79,6 +79,18 @@ for (const needle of [
   assert.ok(rivercrestSection.includes(needle), 'Rivercrest sourced coach/stadium evidence missing: ' + needle);
 }
 assert.ok(rivercrestSection.includes('Older MaxPreps history entries naming Travis McClain are stale'), 'Rivercrest must preserve the stale-coach conflict warning');
+
+for (const [slug, required] of [
+  ['bishop', ['"name": "George Luna Stadium"', 'Bishop High School first-party October 23, 2026 homecoming event identifies George Luna Stadium', 'exact stadium gate not independently verified']],
+  ['blooming-grove', ['"name": "Lion Stadium"', 'Blooming Grove ISD official October 2026 calendar identifies Lion Stadium', 'exact stadium gate not independently verified']],
+  ['blue-ridge', ['"name": "Tiger Stadium"', 'Blue Ridge ISD Athletics directly references Tiger Stadium', 'exact stadium gate not independently verified']],
+]) {
+  const schoolIndex = editor.indexOf('  "' + slug + '": {');
+  assert.ok(schoolIndex >= 0, slug + ' school-specific editorial missing');
+  const schoolNext = editor.indexOf('\n  "', schoolIndex + 4);
+  const schoolSection = schoolNext > schoolIndex ? editor.slice(schoolIndex, schoolNext) : editor.slice(schoolIndex);
+  for (const needle of required) assert.ok(schoolSection.includes(needle), slug + ' venue evidence missing: ' + needle);
+}
 assert.ok(!section.includes('Sources conflict: the 2026 MaxPreps staff listing names Jeremy Jenkins'), 'Never imply the deceased former athletic director could currently be head coach');
 const identity = read('src/data/high-school-football/school-identities.ts');
 assert.ok(identity.includes("slug: 'big-sandy-harmony', mascot: 'Eagles'"), 'Verify source-backed Eagles identity');
