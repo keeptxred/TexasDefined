@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
+import { CURATED_TOURISM_COLLECTIONS } from "@/data/curated-tourism-collections";
 import { CASINO_GUIDE_PATHS } from "@/data/texas-casino-guides";
 import { inlandSwimmingBeaches } from "@/data/inland-beach-authority";
 import { isPrimaryTripPlannerDestination } from "@/data/destination-availability";
@@ -168,6 +169,7 @@ async function emergencyExploreSitemapResponse(error: unknown) {
     "/explore/attractions-comparison",
     "/explore/museums",
     "/explore/aquariums",
+    ...CURATED_TOURISM_COLLECTIONS.map((collection) => `/explore/tourism/${collection.slug}`),
     "/explore/water-parks",
     "/explore/inland-beaches",
     ...inlandSwimmingBeaches.map((beach) => `/explore/inland-beaches/${beach.slug}`),
@@ -397,6 +399,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           "/explore/attractions-comparison",
           "/explore/museums",
           "/explore/aquariums",
+          ...CURATED_TOURISM_COLLECTIONS.map((collection) => `/explore/tourism/${collection.slug}`),
           "/explore/water-parks",
           "/explore/inland-beaches",
           ...inlandSwimmingBeaches.map((beach) => `/explore/inland-beaches/${beach.slug}`),
