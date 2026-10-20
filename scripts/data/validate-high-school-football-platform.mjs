@@ -1226,7 +1226,12 @@ if (!errors.length) {
     'The final alignment controls competition placement',
     'The reported enrollment falls within the published cutoff band for its final football placement',
     'Classification is not a quality ranking.',
+    'That enrollment falls outside the normal published cutoff for',
+    'the final UIL football alignment controls competition placement.',
+    'Use the cited ${editorial.schedule.label} linked on this page',
+
   ]) requireText(footballProfileContent, marker, 'Football profile answer layer');
+  forbidText(footballProfileContent, 'Use the school-published ${editorial.schedule.label} linked on this page', 'Football profile schedule-source attribution');
   for (const marker of [
     'profileSummary: buildFootballProfileSummary',
     'quickFacts: buildFootballProfileQuickFacts',

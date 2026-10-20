@@ -74,9 +74,17 @@ export function buildFootballProfileSummary(input: FootballProfileContentInput) 
     const enrollment = program.uilEnrollment
       ? ` UIL reports ${program.uilEnrollment.toLocaleString('en-US')} students for the 2026–28 realignment snapshot.`
       : '';
+    const finalBand = uilFootballEnrollmentBand(program.classification, program.division);
+    const enrollmentFitsFinalBand = uilEnrollmentFallsWithinBand(program.uilEnrollment, finalBand);
+    const finalPlacement = program.division
+      ? `${program.classification} Division ${program.division === 1 ? 'I' : 'II'}`
+      : program.classification;
+    const placementException = program.uilEnrollment && enrollmentFitsFinalBand === false
+      ? ` That enrollment falls outside the normal published cutoff for ${finalPlacement}; the final UIL football alignment controls competition placement.`
+      : '';
     const coach = editorial?.coach ? ` The current sourced head coach is ${editorial.coach.name}.` : '';
     const notice = editorial?.notice ? ` ${editorial.notice.title}: ${editorial.notice.body}` : '';
-    return `${team} football competes in ${alignment}${place ? ` from ${place}` : ''}.${enrollment}${coach}${notice} This page ties the current UIL placement to school, district, venue, history and schedule sources. Classification is not a quality ranking.`;
+    return `${team} football competes in ${alignment}${place ? ` from ${place}` : ''}.${enrollment}${placementException}${coach}${notice} This page ties the current UIL placement to school, district, venue, history and schedule sources. Classification is not a quality ranking.`;
   }
 
   if (privateAlignment) {
@@ -179,7 +187,7 @@ export function buildFootballProfileFaq(input: FootballProfileContentInput): Foo
     items.push({
       question: `Where can I verify the current ${displayName} football schedule and scores?`,
       answer: editorial?.schedule
-        ? `Use the school-published ${editorial.schedule.label} linked on this page, then confirm scores through the UIL Texas Scoreboard and current school athletics information.`
+        ? `Use the cited ${editorial.schedule.label} linked on this page, then confirm scores through the UIL Texas Scoreboard and current school athletics information.`
         : 'Use the UIL Texas Scoreboard and the school or district athletics source linked on this page. Game dates, kickoff times and venues can change during the season.',
     });
   }
