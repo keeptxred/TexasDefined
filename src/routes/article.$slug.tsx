@@ -583,6 +583,8 @@ function ArticlePage() {
   : <DestinationCard destination={destination} />}</li>)}</ul></Container></Section>}
     {article.slug === "east-texas-fall-colors" && <Section tone="surface"><Container>
       <SectionHeader eyebrow="Plan your fall trip" title="Six places to compare" />
+      <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">The autumn-colored hero photograph shows Daingerfield State Park on October 24, 2014, not verified current-season conditions. Photo: <a href="https://commons.wikimedia.org/wiki/File:Daingerfield_sp_reflection.jpg" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Larry D. Moore via Wikimedia Commons ↗</a> · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">CC BY 4.0 license (cropped to layout) ↗</a>.</p>
+
       <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These are evergreen planning suggestions, not live leaf-color reports. Select a park to see its official alerts, trails and reservation information. Color varies within and between parks.</p>
       <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {([
