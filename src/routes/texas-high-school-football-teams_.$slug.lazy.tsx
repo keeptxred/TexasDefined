@@ -45,8 +45,7 @@ function Page() {
   // Fall back to the reference directory for schools without an editorial title;
   // the optional TEA identity join may be unavailable in deployed SSR.
   const authoredFootballH1 = editorial?.seo?.title?.match(/^(.+?Football)/i)?.[1];
-  const footballName = slug === 'aubrey' ? 'Aubrey Chaparrals Football'
-    : authoredFootballH1 || (identity?.mascot ? `${displayName} ${identity.mascot} Football` : `${displayName} Football`);
+  const footballName = authoredFootballH1 || (identity?.mascot ? `${displayName} ${identity.mascot} Football` : `${displayName} Football`);
   // Summarize the verified editorial ledger before the deeper school reference sections.
   const latestResult = editorial?.season?.games.filter((game) => game.result).at(-1);
   const nextListedFixture = editorial?.season?.games.find((game) => !game.result);

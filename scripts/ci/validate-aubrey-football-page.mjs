@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 
 const editorial = readFileSync('src/data/high-school-football/program-editorial.ts', 'utf8');
+const identities = readFileSync('src/data/high-school-football/school-identities.ts', 'utf8');
 const route = readFileSync('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx', 'utf8');
 const guide = readFileSync('src/components/sports/FootballGameNightGuide.tsx', 'utf8');
 const start = editorial.indexOf('  "aubrey": {');
@@ -25,7 +26,8 @@ assert.equal(aubrey.schedule.ticketUrl, 'https://gofan.co/app/school/TX90134');
 assert.equal(aubrey.venue.policyUrl, 'https://www.aubreyisd.net/page/aubrey-isd-stadium-policies');
 assert.equal(aubrey.venue.address, '510 Spring Hill Road, Aubrey, TX 76227');
 assert.ok(aubrey.seo.title.includes('Schedule, Scores & Tickets'));
-assert.ok(route.includes("slug === 'aubrey' ? 'Aubrey Chaparrals Football'"), 'Aubrey team nickname must appear in the page heading');
+assert.ok(identities.includes("slug: 'aubrey'") && identities.includes("mascot: 'Chaparrals'"), 'Aubrey Chaparrals identity must come from the verified identity registry');
+assert.ok(!route.includes("slug === 'aubrey' ? 'Aubrey Chaparrals Football'"), 'Aubrey team nickname must not be hardcoded in the shared route');
 assert.ok(!route.includes("repeating-linear-gradient(90deg"), 'Decorative yard-line overlay must not cover hero text or obstruct automated contrast inspection');
 assert.ok(route.includes('photo-1508209495879-445d5febf597'), 'Aubrey hero must show a sourced Friday-night football photograph');
 assert.ok(route.includes('Representative high-school football photo, not an Aubrey team or stadium image'), 'Representative non-Aubrey photo requires an explicit disclosure');
