@@ -66,7 +66,14 @@ const premiumBrief = serverRegistry.slice(serverRegistry.indexOf("slug: 'texas-h
 if (!premiumBrief.includes("{ label: '2023', value: 2795 }") || !premiumBrief.includes("{ label: '2025', value: 3489")) {
   failures.push('Homeowners brief must agree with TDI published 2023 ($2,795) and preliminary 2025 ($3,489) annual premiums.');
 }
+const juneBrief = serverRegistry.slice(serverRegistry.indexOf("slug: 'texas-metro-payrolls-june-2026'"), serverRegistry.indexOf("slug: 'texas-metro-payrolls-august-2026'"));
+if (!juneBrief.includes('https://www.bls.gov/news.release/archives/metro_07292026.htm')) {
+  failures.push('Historical June 2026 metro payrolls must link to its original BLS archive, not the rolling table.');
+}
 const augustBrief = serverRegistry.slice(serverRegistry.indexOf("slug: 'texas-metro-payrolls-august-2026'"), serverRegistry.indexOf("slug: 'texas-traffic-monitoring-coverage'"));
+if (!augustBrief.includes('https://www.bls.gov/news.release/archives/metro_09302026.htm')) {
+  failures.push('Current August 2026 metro payrolls must link to the dated September 30 BLS release.');
+}
 for (const [label, value] of [
   ['Dallas–Fort Worth–Arlington', 4357000],
   ['Houston–Pasadena–The Woodlands', 3495300],
