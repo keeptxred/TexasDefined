@@ -6,7 +6,7 @@ import { getCavernAuthorityHtml } from "@/data/cavern-authority.functions";
 import { getSwimmingAuthorityHtml } from "@/data/swimming-authority.functions";
 import { isExploreCategoryIndexReady } from "@/data/explore-category-indexability";
 import { articlesQuery, categoriesQuery, destinationQuery, destinationsQuery } from "@/data/queries";
-import type { Category, CategorySlug, Destination } from "@/data/types";
+import type { Destination } from "@/data/types";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
@@ -110,29 +110,11 @@ export const Route = createFileRoute("/explore/$category")({
     }
   },
   loader: async ({ context, params }) => {
-    // Reuse the existing /explore/$category route to avoid generating a new
-    // route-tree entry or adding a large collection registry to the main bundle.
     if (["scenic-trains", "dude-ranches", "spa-retreats", "wildlife-safaris", "botanical-gardens"].includes(params.category)) {
-      const { getCuratedTourismCollection } = await import("@/data/curated-tourism-collections");
-      const curated = getCuratedTourismCollection(params.category);
-      if (!curated) throw notFound();
-      const slugs = curated.items.flatMap((item) => "destinationSlug" in item ? [item.destinationSlug] : []);
-      const { getDestinationsBySlugs } = await import("@/data/destination-collections.functions");
-      const resolved = slugs.length ? await getDestinationsBySlugs({ data: { slugs } }) : [];
-      const category: Category = {
-        slug: curated.slug as CategorySlug,
-        name: curated.title,
-        eyebrow: curated.eyebrow,
-        description: curated.intro,
-      };
-      return {
-        category,
-        articles: [],
-        destinations: [],
-        authorityHtml: null,
-        curated,
-        existing: resolved.map((destination) => ({ slug: destination.slug, name: destination.name, hero: destination.hero })),
-      };
+      const { loadCuratedTourismCategory } = await import("@/data/curated-tourism-category-loader");
+      const collection = await loadCuratedTourismCategory(params.category);
+      if (!collection) throw notFound();
+      return collection;
     }
     if (params.category === "water-towers") {
       const { waterTowersCategory } = await import("@/data/water-towers");
@@ -172,38 +154,7 @@ export const Route = createFileRoute("/explore/$category")({
   },
   head: ({ loaderData, params }) => {
     if (!loaderData) return { meta: [{ title: "Not found" }, { name: "robots", content: "noindex" }] };
-    if ("curated" in loaderData && loaderData.curated) {
-      const collection = loaderData.curated;
-      const canonicalPath = `/explore/${collection.slug}`;
-      return {
-        meta: buildMeta(texasDefinedBrand, {
-          canonicalPath,
-          title: collection.title,
-          description: collection.intro.slice(0, 270),
-        }),
-        links: [canonicalLink(texasDefinedBrand, canonicalPath)],
-        scripts: [{
-          type: "application/ld+json",
-          children: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "CollectionPage",
-            name: collection.title,
-            description: collection.intro,
-            url: `${siteUrl}${canonicalPath}`,
-            mainEntity: {
-              "@type": "ItemList",
-              numberOfItems: collection.items.length,
-              itemListElement: collection.items.map((item, index) => ({
-                "@type": "ListItem",
-                position: index + 1,
-                name: item.name,
-                url: item.officialUrl,
-              })),
-            },
-          }),
-        }],
-      };
-    }
+    if ("curatedHead" in loaderData) return loaderData.curatedHead;
     const canonicalPath = `/explore/${params.category}`;
     const categoryUrl = `${siteUrl}${canonicalPath}`;
     const hasWildlifeGuide = loaderData.articles.some((article) => article.slug === "texas-wildlife-guide");
