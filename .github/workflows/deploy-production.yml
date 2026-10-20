@@ -724,7 +724,7 @@ jobs:
         with:
           name: district5-responsive-browser-${{ github.run_id }}
           path: artifacts/district5-responsive-browser/
-          if-no-files-found: warn
+          if-no-files-found: error
           retention-days: 14
 
       - name: Verify East Texas foliage article freshness on direct Worker and canonical domain
@@ -872,8 +872,10 @@ jobs:
 
       - name: Mark live production verification complete
         id: live
-        if: ${{ success() && steps.cloudflare.outcome == 'success' }}
-        run: echo 'All blocking production verifiers passed natively.'
+        # The earlier visual QA step could be skipped while GitHub still reported success.
+        # Never certify this deployment without an actual passing District 5 Chrome run.
+        if: ${{ success() && steps.cloudflare.outcome == 'success' && steps.live_district5_browser.outcome == 'success' }}
+        run: echo 'All blocking production verifiers passed natively, including District 5 desktop/mobile Chrome.'
       - name: Publish live verification result
         if: always()
         env:
