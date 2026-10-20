@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
+import { CURATED_TOURISM_COLLECTIONS } from "@/data/curated-tourism-collections";
 import { articlesQuery, categoriesQuery, destinationsQuery, regionsQuery } from "@/data/queries";
 import type { Article, Category, Destination, Region } from "@/data/types";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
@@ -23,6 +24,7 @@ export const Route = createFileRoute("/explore/")({
       ...categories.map((category) => ({ "@type": "WebPage" as const, name: category.name, description: category.description, url: `${siteUrl}/explore/${category.slug}`, image: category.image?.src ? absoluteUrl(texasDefinedBrand, category.image.src) : undefined })),
       { "@type": "CollectionPage" as const, name: "Texas Casinos & Gaming Getaways", description: "Texas tribal casinos, laws and nearby resort trips.", url: `${siteUrl}/explore/casinos` },
       { "@type": "CollectionPage" as const, name: "Texas Aquariums & Marine Life", description: "Texas aquariums and marine-life guides.", url: `${siteUrl}/explore/aquariums` },
+      ...CURATED_TOURISM_COLLECTIONS.map((collection) => ({ "@type": "CollectionPage" as const, name: collection.title, description: collection.intro, url: `${siteUrl}/explore/tourism/${collection.slug}` })),
       { "@type": "CollectionPage" as const, name: "Texas Tours & Bookable Experiences", description: "Texas tours, tickets and activities.", url: `${siteUrl}/explore#tours-experiences` },
       { "@type": "CollectionPage" as const, name: "Painted Churches of Texas", description: "Texas Painted Churches guides and routes.", url: `${siteUrl}/explore/painted-churches` },
       ...regions.map((region) => ({ "@type": "WebPage" as const, name: `${region.name} Guide`, description: region.blurb, url: `${siteUrl}/explore/region/${region.id}` })),
