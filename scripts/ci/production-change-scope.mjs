@@ -39,6 +39,24 @@ function records(source) {
   return result;
 }
 
+// Derive canonical routes from the actual typed Article declaration, not
+// the filename or a nested destination href/Link parameter.
+function standaloneArticleSlugs(source) {
+  const file = ts.createSourceFile('article-fixture.ts', source, ts.ScriptTarget.Latest, true, ts.ScriptKind.TS);
+  const slugs = new Set();
+  function visit(node) {
+    if (ts.isVariableDeclaration(node) && node.type?.getText(file) === 'Article'
+      && node.initializer && ts.isObjectLiteralExpression(node.initializer)) {
+      const slug = node.initializer.properties.find(prop => ts.isPropertyAssignment(prop)
+        && prop.name.getText(file).replace(/^['\"]|['\"]$/g, '') === 'slug');
+      if (slug && ts.isStringLiteralLike(slug.initializer)) slugs.add(slug.initializer.text);
+    }
+    ts.forEachChild(node, visit);
+  }
+  visit(file);
+  return [...slugs];
+}
+
 function articleLinkRegistry(source) {
   const file = ts.createSourceFile('link-registry.ts', source, ts.ScriptTarget.Latest, true, ts.ScriptKind.TS);
   const records = new Map();
@@ -261,12 +279,9 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
     if (!/^src\/(?:data|components|routes|lib)\//.test(path)) continue;
     // An article in a standalone fixture file may be keyed by the filename,
     // unlike bulk registries. Verify that one owner when its article changes.
-    const fixtureMatch = path.match(/^src\/data\/fixtures\/([a-z0-9-]+)\.ts$/);
-    if (fixtureMatch && /:\s*Article\s*=/.test(after)) {
-      const slug = fixtureMatch[1];
-      const declared = [...after.matchAll(/\bslug:\s*["']([a-z0-9-]+)["']/g)]
-        .some(match => match[1] === slug);
-      if (declared) {
+    const fixtureMatch = path.match(/^src\\/data\\/fixtures\\/([a-z0-9-]+)\\.ts$/);
+    if (fixtureMatch) {
+      for (const slug of standaloneArticleSlugs(after)) {
         const page = '/article/' + slug;
         candidates.add(page);
         if (slug === 'texas-regions-explained') regionGuidePages.add(page);
@@ -288,7 +303,9 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
     for (const [id, record] of records(after)) {
       if (oldRecords.get(id)?.text === record.text) continue;
       if (record.key !== 'slug' && publicPath(record.value)) candidates.add(record.value);
-      if (record.key === 'slug' && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(record.value)) {
+      // A JSX Link's params.slug belongs to its `to` route, not to the
+      // source component's type (a destination template can link to articles).
+      if (path.startsWith('src/data/') && record.key === 'slug' && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(record.value)) {
         if (/articles?|core-articles/.test(path)) candidates.add(`/article/${record.value}`);
         else if (/destination/.test(path)) candidates.add(`/destination/${record.value}`);
       }
