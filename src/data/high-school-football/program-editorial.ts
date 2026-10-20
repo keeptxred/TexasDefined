@@ -3545,7 +3545,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Borger Bulldogs Football 2026 | 1962 UIL Final, Scores & District 3",
-      "description": "Borger Bulldogs 2026 football: 1962 UIL 4A runner-up under Gene Mayfield, 2025 forfeit record caveat, District 3 alignment, October scores and campus guide."
+      "description": "Borger Bulldogs football: 2–6 through Oct. 16, 2026, UIL District 3, 1962 state runner-up history, varsity results and Borger school contacts."
     },
     "campus": {
       "address": "600 W First Street, Borger, TX 79007",
@@ -3726,7 +3726,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Bosqueville Bulldogs Football 2026 | District 8, Scores & History",
-      "description": "Bosqueville Bulldogs Texas football: 2026 2A Division I District 8, dated season results, McLennan County campus, school-specific program history and contact guidance."
+      "description": "Bosqueville Bulldogs 2026 football: 4–3 through Oct. 16, UIL 2A Division I District 8, coach Reggie Patrick, game results and school contacts."
     },
     "campus": {
       "address": "7636 Rock Creek Road, Waco, TX 76708",
@@ -3892,7 +3892,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Bovina Mustangs Football 2026 | 2A DII District 1 & Scores",
-      "description": "Bovina Mustangs Texas football: 2026 2A Division II District 1, dated season results, Parmer County campus, school-specific program history and contact guidance."
+      "description": "Bovina Mustangs football: 3–4 through Oct. 16, 2026, UIL 2A Division II District 1, Parmer County school contacts and upcoming fixtures."
     },
     "coach": {
       "name": "Wade Wilson",
@@ -4061,7 +4061,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Bowie Jackrabbits Football 2026 | 3A DI District 4 Scores",
-      "description": "Bowie Jackrabbits Texas football: 2026 3A Division I District 4, dated season results, Montague County campus, school-specific program history and contact guidance."
+      "description": "Bowie Jackrabbits football: 4–4 through Oct. 16, 2026, UIL 3A Division I District 4, Paradise game result and Montague County school guide."
     },
     "campus": {
       "address": "341 East Highway 287 North, Bowie, TX 76230",
@@ -4227,7 +4227,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Gold-Burg Bears Six-Man Football 2026 | District 10 & Scores",
-      "description": "Gold-Burg Bears Texas football: 2026 1A Division II District 10, dated season results, Montague County campus, school-specific program history and contact guidance."
+      "description": "Gold-Burg Bears six-man football: 2–6 through Oct. 16, 2026, UIL 1A Division II District 10, Woodson result and school visitor contacts."
     },
     "coach": {
       "name": "Austin Norman",
@@ -4402,7 +4402,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Boyd Yellowjackets Football 2026 | 3A DI District 4 Scores",
-      "description": "Boyd Yellowjackets Texas football: 2026 3A Division I District 4, dated season results, Wise County campus, school-specific program history and contact guidance."
+      "description": "Boyd Yellowjackets football: 2–5 through Oct. 16, 2026, UIL 3A Division I District 4, Peaster game result and Wise County school guide."
     },
     "coach": {
       "name": "Shawn Sparks",
@@ -4567,7 +4567,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Boys Ranch Football 2026 | Six-Man District 1 Scores & History",
-      "description": "Boys Ranch Roughriders Texas football: 2026 1A Division I District 1, dated season results, Oldham County campus, school-specific program history and contact guidance."
+      "description": "Boys Ranch Roughriders six-man football: 6–0 through Oct. 8, 2026, UIL 1A Division I District 1, coach Louis Kelley III and team guide."
     },
     "coach": {
       "name": "Louis Kelley III",
