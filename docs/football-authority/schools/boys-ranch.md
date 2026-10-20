@@ -42,3 +42,6 @@ An [original regional August 20, 2026 NewsChannel 10 preview](https://www.newsch
 
 **Production-facing change:** add a source-dated milestone, an original concise overview paragraph, and a FAQ explaining the October 2 omission without treating it as a played game. Continue to show 6–0 through October 8 with six attributed results and three later scheduled games. Do **not** synthesize a tenth played result, assert official forfeit, fabricate a playoff record, or modify district classification, media rights, county links, stadium access or nine-dimension acceptance. A direct district response could later resolve the status.
 
+## October 20, 2026 — October 16 schedule-gap check (not a result)
+
+The [2026 Boys Ranch Roughriders dated varsity schedule](https://www.maxpreps.com/tx/boys-ranch/boys-ranch-roughriders/football/schedule/) still shows **6–0 through October 8** and next lists **October 23 versus Claude**. It lists **no October 16 Boys Ranch game**. Retain the accurate as-of October 8 record; do not invent a win, cancellation forfeit, final, playoff status, or district standings entry based on a date gap. This is a third-party schedule observation rather than an official UIL statement. Confirm any new fixtures or venue details with Boys Ranch ISD.
