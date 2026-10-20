@@ -71,7 +71,7 @@ const startHere = [
   },
   {
     title: "Browse every current UIL football district",
-    description: "Open all 192 current 2026–28 UIL football districts and move from a district roster directly into each school’s research profile.",
+    description: "Open all 192 current 2026–28 UIL football districts and move from a district roster directly into each school’s team guide.",
     href: "/texas-high-school-football-districts",
     label: "Browse UIL districts",
   },

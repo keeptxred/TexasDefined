@@ -1014,6 +1014,8 @@ if (!errors.length) {
   forbidText(footballDistrictIndexPage, 'research profile', 'Football district directory page');
   forbidText(classificationGuide, 'research profile', 'Football classifications guide');
   forbidText(footballChampionshipPage, 'research profile', 'Football championship history page');
+  forbidText(scoresSchedulesGuide, 'research profile', 'Football scores and schedules guide');
+  forbidText(footballHub, 'research profile', 'Friday Night Lights hub');
 
   for (const marker of [
     "createFileRoute('/texas-high-school-football-districts/$slug')",
