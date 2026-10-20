@@ -50,7 +50,7 @@ for (const [name, source] of [["full article", intents], ["discovery stub", inte
 for (const marker of ["The_Lost_Maples_State_Park_-_Fall_Colors_in_Texas", "Golden-orange and rust-red autumn", "G. Lamar", "24 Nov 2012", "CC BY 2.0"]) {
   if (!hillCountryFallHero.includes(marker) && !hillCountryFallHero.includes(marker.toLowerCase())) fail(`Hill Country autumn hero missing ${marker}`);
 }
-for (const marker of ["Hero photo: G. Lamar, November 2012", "creativecommons.org/licenses/by/2.0", "not a verified report of current foliage"]) {
+for (const marker of ["Hero photo: G. Lamar, November 2012", "CC BY 2.0 license", "foliageHeroRights?.license", "not a verified report of current foliage"]) {
   if (!articleRoute.includes(marker)) fail(`Hill Country hero credit or historical caveat missing: ${marker}`);
 }
 
