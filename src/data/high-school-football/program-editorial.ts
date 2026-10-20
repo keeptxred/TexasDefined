@@ -822,7 +822,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "answer": "Blackwell CISD publishes 100 Hornet Dr, Blackwell TX 79506, phone 325-282-2311. That is the school contact address, not a verified football stadium vehicle gate. Confirm each event's location, ADA parking and ticket policies with the district before attending."
       },
       {
-        "question": "What was the October 16, 2026 football result for blackwell against Trent?",
+        "question": "What was the October 16, 2026 Blackwell Hornets football result against Trent?",
         "answer": "Blackwell beat Trent 67–6 on October 16; the unrelated September 4 Santa Anna score discrepancy remains unresolved. Source: Houston Chronicle October 16 statewide football finals."
       }
     ]
@@ -1022,7 +1022,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "answer": "Blanco ISD identifies Kent Walker as athletic director, while MaxPreps' 2026 varsity staff listing separately names him head football coach. The football-specific role is attributed to the dated third-party staff entry, not inferred from the AD title; check Blanco ISD for later changes."
       },
       {
-        "question": "What was the October 16, 2026 football result for blanco against Karnes City?",
+        "question": "What was the October 16, 2026 Blanco Panthers football result against Karnes City?",
         "answer": "Blanco defeated Karnes City 54–6 on October 16. Source: Houston Chronicle October 16 statewide football finals."
       }
     ]
@@ -1584,7 +1584,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "answer": "Bloomington ISD officially lists Lane Shands athletic director (361-333-8011). Dave Campbell's February 5, 2026 coaching analysis independently names him Bobcats head football coach, and MaxPreps 2026 program history corroborates that football-specific title. No new district hiring announcement is asserted; contact Bloomington Athletics for subsequent staff changes."
       },
       {
-        "question": "What was the October 16, 2026 football result for bloomington against Danbury?",
+        "question": "What was the October 16, 2026 Bloomington Bobcats football result against Danbury?",
         "answer": "Bloomington beat Danbury 42–0 in its October 16 home football game. Source: Houston Chronicle October 16 statewide football finals."
       }
     ]
@@ -2323,7 +2323,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "answer": "Boerne High identifies Brett Sawyer as athletic coordinator at 830-357-2200; Boerne Star independently documented his 2025 board-approved head football-coach appointment and quoted him as head coach in September 2026. District director of athletics Stan Leech is at 830-357-2133. Check the official calendar for ticketing and accessible-entry information, which remain event-specific."
       },
       {
-        "question": "What was the October 16, 2026 football result for boerne against Liberty Hill?",
+        "question": "What was the October 16, 2026 Boerne Greyhounds football result against Liberty Hill?",
         "answer": "Boerne's Greyhounds beat Liberty Hill 49–7 on October 16; Champion High is a separate Boerne ISD football team. Source: Houston Chronicle October 16 statewide football finals."
       }
     ]
@@ -3271,7 +3271,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "answer": "Booker ISD posts a current high-school and junior-high football schedule on its official Athletics page. Check the school for venue changes, parking, seating and event-specific ticket rules before attending."
       },
       {
-        "question": "What was the October 16, 2026 football result for booker against White Deer?",
+        "question": "What was the October 16, 2026 Booker Kiowas football result against White Deer?",
         "answer": "White Deer beat the Booker Kiowas 38–22 on October 16 in Class 1A six-man District 1. Source: Houston Chronicle October 16 statewide football finals."
       }
     ]
