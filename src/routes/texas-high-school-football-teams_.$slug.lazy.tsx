@@ -105,6 +105,23 @@ function Page() {
     'bandera': 'bandera',
     'bangs': 'brown',
     'banquete': 'nueces',
+    'abbott': 'hill',
+    'abernathy': 'hale',
+    'abilene': 'taylor',
+    'abilene-cooper': 'taylor',
+    'abilene-texas-leadership': 'taylor',
+    'abilene-wylie': 'taylor',
+    'ackerly-sands': 'dawson',
+    'agua-dulce': 'nueces',
+    'alba-golden': 'wood',
+    'albany': 'shackelford',
+    'aledo': 'parker',
+    'alice': 'jim-wells',
+    'alief-elsik': 'harris',
+    'alief-hastings': 'harris',
+    'katy': 'fort-bend',
+    'fort-davis': 'jeff-davis',
+    'southlake-carroll': 'tarrant',
     'alief-taylor': 'harris',
     'all-saints-fort-worth': 'tarrant',
     allen: 'collin',
@@ -201,43 +218,10 @@ function Page() {
     'austin-travis': { slug: 'austin', name: 'Austin' },
   };
   const cityGuide = editorial?.slug ? batch002CityGuide[editorial.slug] : undefined;
-  const researchedCountyLink = editorial?.slug ? researchedCampusCounty[editorial.slug] : undefined;
-  const countyPath = researchedCountyLink ? `/county/${researchedCountyLink}`
-    : schoolName === 'Alief Hastings'
-    ? '/county/harris'
-    : schoolName === 'Alief Elsik'
-    ? '/county/harris'
-    : schoolName === 'Alice'
-    ? '/county/jim-wells'
-    : schoolName === 'Aledo'
-    ? '/county/parker'
-    : schoolName === 'Albany'
-    ? '/county/shackelford'
-    : schoolName === 'Alba-Golden'
-    ? '/county/wood'
-    : schoolName === 'Agua Dulce'
-    ? '/county/nueces'
-    : schoolName === 'Ackerly Sands'
-    ? '/county/dawson'
-    : schoolName === 'Abilene Wylie'
-    ? '/county/taylor'
-    : schoolName === 'Abilene Texas Leadership'
-    ? '/county/taylor'
-    : schoolName === 'Abilene Cooper'
-    ? '/county/taylor'
-    : schoolName === 'Abilene'
-    ? '/county/taylor'
-    : schoolName === 'Abernathy'
-    ? '/county/hale'
-    : schoolName === 'Abbott'
-    ? '/county/hill'
-    : schoolName === 'Katy'
-      ? '/county/fort-bend'
-      : schoolName === 'Fort Davis'
-        ? '/county/jeff-davis'
-        : schoolName === 'Southlake Carroll'
-          ? '/county/tarrant'
-          : program?.countyName ? `/county/${countySlug(program.countyName)}` : null;
+  const researchedCountyLink = researchedCampusCounty[slug];
+  const countyPath = researchedCountyLink
+    ? `/county/${researchedCountyLink}`
+    : program?.countyName ? `/county/${countySlug(program.countyName)}` : null;
   const associationLabel = program
     ? 'UIL'
     : privateAlignment?.association ?? governingBodyHint ?? null;

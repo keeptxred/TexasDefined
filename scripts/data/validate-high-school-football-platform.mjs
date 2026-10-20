@@ -1087,6 +1087,36 @@ if (!errors.length) {
   requireText(featuredProfileRoute, "'@type': 'FAQPage'", 'Football school profile FAQ schema');
 
   for (const marker of [
+    "const researchedCountyLink = researchedCampusCounty[slug]",
+    "const countyPath = researchedCountyLink",
+    "'abbott': 'hill'",
+    "'abernathy': 'hale'",
+    "'abilene': 'taylor'",
+    "'abilene-cooper': 'taylor'",
+    "'abilene-texas-leadership': 'taylor'",
+    "'abilene-wylie': 'taylor'",
+    "'ackerly-sands': 'dawson'",
+    "'agua-dulce': 'nueces'",
+    "'alba-golden': 'wood'",
+    "'albany': 'shackelford'",
+    "'aledo': 'parker'",
+    "'alice': 'jim-wells'",
+    "'alief-elsik': 'harris'",
+    "'alief-hastings': 'harris'",
+    "'katy': 'fort-bend'",
+    "'fort-davis': 'jeff-davis'",
+    "'southlake-carroll': 'tarrant'",
+  ]) requireText(featuredProfilePage, marker, 'Football canonical campus-county map');
+  for (const retired of [
+    "editorial?.slug ? researchedCampusCounty[editorial.slug]",
+    "schoolName === 'Alief Hastings'",
+    "schoolName === 'Abilene Wylie'",
+    "schoolName === 'Katy'",
+    "schoolName === 'Fort Davis'",
+    "schoolName === 'Southlake Carroll'",
+  ]) forbidText(featuredProfilePage, retired, 'Football canonical campus-county map');
+
+  for (const marker of [
     "createLazyFileRoute('/texas-high-school-football-teams/$slug')",
     'School enrollment and football eligibility',
     'Official district enrollment',
