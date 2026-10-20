@@ -22,6 +22,16 @@ async function checkViewport(name, viewport) {
   const page = await browser.newPage({ viewport, deviceScaleFactor: 1 });
   const errors = [];
   let providerResponse = null;
+  const providerRequests = [];
+  const requestErrors = [];
+  const browserErrors = [];
+  page.on('requestfailed', request => {
+    if (/maxpreps\.com/.test(request.url())) requestErrors.push({ url: request.url(), failure: request.failure()?.errorText });
+  });
+  page.on('pageerror', error => browserErrors.push(String(error).slice(0, 300)));
+  page.on('response', response => {
+    if (/maxpreps\.com/.test(response.url())) providerRequests.push({ url: response.url(), status: response.status() });
+  });
   page.on('response', response => {
     if (response.url().startsWith(providerScript)) providerResponse = response.status();
   });
@@ -111,9 +121,34 @@ async function checkViewport(name, viewport) {
     expect(after.scriptCount === 1, '6A D1 widget script duplicated or missing after selector changes');
     expect(after.hasWidget, '6A D1 widget failed to remount after returning from another class');
     expect(after.scrollWidth <= after.width + 5, 'Horizontal overflow after switching brackets');
+    // A loaded provider script and an iframe node do not prove a visible
+    // bracket. Collect the actual child-frame document to diagnose blank
+    // panels and third-party challenges without scraping game results.
+    await page.waitForTimeout(2500);
+    const providerFrames = await Promise.all(page.frames()
+      .filter(frame => frame !== page.mainFrame())
+      .map(async frame => {
+        let documentInfo;
+        try {
+          documentInfo = await frame.evaluate(() => ({
+            title: document.title,
+            readyState: document.readyState,
+            text: (document.body?.innerText || '').slice(0, 500),
+            htmlLength: document.body?.innerHTML.length || 0,
+            iframeCount: document.querySelectorAll('iframe').length,
+          }));
+        } catch (error) {
+          documentInfo = { error: String(error).slice(0, 400) };
+        }
+        return { url: frame.url(), documentInfo };
+      }));
+    const embeddedFrame = providerFrames.find(frame => /maxpreps\\.com/i.test(frame.url));
+    expect(!!embeddedFrame, 'Official widget never navigated to a MaxPreps frame');
+    expect(!!embeddedFrame?.documentInfo && !('error' in embeddedFrame.documentInfo), 'Cannot inspect provider widget document');
+    expect((embeddedFrame?.documentInfo?.htmlLength || 0) > 200, 'MaxPreps widget frame is blank, not a rendered bracket');
     const screenshot = `${output}/maxpreps-playoffs-${name}.png`;
     await page.screenshot({ path: screenshot, fullPage: true, animations: 'disabled', timeout: 30000 });
-    results.push({ name, status: errors.length ? 'FAIL' : 'PASS', errors, providerResponse, first: { ...first, htmlSnippet: first.htmlSnippet.slice(0, 700) }, second, fallback, after, screenshot });
+    results.push({ name, status: errors.length ? 'FAIL' : 'PASS', errors, providerResponse, first: { ...first, htmlSnippet: first.htmlSnippet.slice(0, 700) }, second, fallback, after, providerFrames, providerRequests: providerRequests.slice(-15), requestErrors, browserErrors, screenshot });
     console.log('MaxPreps playoff widget QA: ' + JSON.stringify(results.at(-1)));
     failures.push(...errors.map(error => `${name}: ${error}`));
   } catch (error) {
