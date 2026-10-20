@@ -170,12 +170,17 @@ async function checkViewport(name, viewport) {
     }) : null;
     if (providerFrame) {
       try {
-        await providerFrame.locator('body').screenshot({
-          path: `${output}/maxpreps-provider-frame-${name}.png`,
-          timeout: 20000,
-        });
+        const frameElement = page.locator('[data-official-playoff-bracket="6AD1"] iframe').first();
+        await frameElement.scrollIntoViewIfNeeded({ timeout: 12000 });
+        await page.waitForTimeout(1400);
+        if (name === 'desktop') {
+          await frameElement.screenshot({
+            path: `${output}/maxpreps-provider-frame-${name}.png`,
+            timeout: 20000,
+          });
+        }
       } catch (error) {
-        browserErrors.push('provider-frame-screenshot: ' + String(error).slice(0, 300));
+        browserErrors.push('provider-frame-scroll-and-screenshot: ' + String(error).slice(0, 300));
       }
     }
 
