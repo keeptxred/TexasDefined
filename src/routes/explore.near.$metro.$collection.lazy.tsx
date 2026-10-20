@@ -733,7 +733,7 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
         <h2 className="mt-3 max-w-4xl font-display text-4xl sm:text-5xl">Choose by travel time and the kind of day you want</h2>
         <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">The figures below are published typical one-way road-time estimates from Dallas, not flight-distance conversions or live predictions. Allow more time for rush-hour traffic, stops and weekend crowds. Checked {DALLAS_DRIVES_VERIFIED_AT}.</p>
         <div className="mt-8 overflow-x-auto">
-          <table className="w-full min-w-[560px] border-collapse text-left text-sm">
+          <table className="w-full border-collapse text-left text-sm" style={{ minWidth: 560 }}>
             <caption className="sr-only">Compare Dallas small-town driving-time estimates and their sources</caption>
             <thead className="border-y border-border"><tr><th className="py-3 pr-4">Town</th><th className="px-4 py-3">Typical one-way drive</th><th className="px-4 py-3">Published estimate</th><th className="py-3 pl-4">Current directions</th></tr></thead>
             <tbody>{dallasOptions.map((row) => <tr key={row.slug} className="border-b border-border">
