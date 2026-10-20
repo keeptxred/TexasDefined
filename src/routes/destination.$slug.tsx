@@ -70,6 +70,7 @@ const YoungCountyMuseumAuthority = lazy(() =>
 );
 
 const DallasBlackHistoryAuthority = lazy(() => import("@/components/editorial/DallasBlackHistoryAuthority").then((m) => ({ default: m.DallasBlackHistoryAuthority })));
+const DavisHillAuthority = lazy(() => import("@/components/editorial/DavisHillAuthority"));
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
 function hasValidCoordinates(lat: number, lng: number) {
@@ -213,6 +214,18 @@ export const Route = createFileRoute("/destination/$slug")({
   head: ({ loaderData, params }) => {
     if (!loaderData) return { meta: [{ title: "Unavailable" }, { name: "robots", content: "noindex, nofollow" }] };
     const { destination, categories, relationshipGroups, dallasHeritage } = loaderData;
+    if (destination.slug === "davis-hill-state-park") {
+      const canonicalPath = "/destination/davis-hill-state-park";
+      return {
+        meta: buildMeta(texasDefinedBrand, {
+          title: "Davis Hill State Natural Area: Liberty County, History & Conservation",
+          description: destination.summary,
+          canonicalPath,
+        }),
+        links: [canonicalLink(texasDefinedBrand, canonicalPath)],
+      };
+    }
+
     const isZapataMuseum = destination.slug === "zapata-county-museum-history";
     const isAuthorityMuseum = museumAuthoritySlugs.has(destination.slug);
     const isYsletaMuseum = destination.slug === "ysleta-del-sur-pueblo-cultural-center-museum-el-paso";
@@ -277,6 +290,7 @@ const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(des
 
 function DestinationPage() {
   const { destination, graph, categories, regions, relatedArticles, relationshipGroups, dallasHeritage } = Route.useLoaderData();
+  if (destination.slug === "davis-hill-state-park") return <Suspense fallback={null}><DavisHillAuthority /></Suspense>;
 
   if (destination.slug === "mayborn-museum-waco") return <Suspense fallback={null}><MaybornMuseumAuthority /></Suspense>;
   if (destination.slug === "zapata-county-museum-history") return <Suspense fallback={null}><ZapataCountyMuseumAuthority /></Suspense>;
