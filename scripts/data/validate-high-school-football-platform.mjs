@@ -976,6 +976,7 @@ if (!errors.length) {
     'district.enrollmentSourceUrl',
     'UIL_FOOTBALL_ENROLLMENT_BANDS_SOURCE.url',
   ]) requireText(footballDistrictPage, marker, 'Football district detail page durable contract');
+  forbidText(footballDistrictPage, 'research usability', 'Football district detail page');
 
   for (const marker of [
     'loadUilAllTimeFootballHistory',
