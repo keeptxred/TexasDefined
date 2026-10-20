@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
+import type { Destination } from "@/data/types";
+import MuseumAuthorityNetworkSection from "@/components/editorial/MuseumAuthorityNetworkSection";
 import { Container } from "@/components/layout/Container";
 
 const links = {
@@ -21,15 +23,6 @@ const keyDates = [
   { year: "1919", title: "Leather industry", description: "Carl Welhausen takes over the tannery that develops into Tex-Tan." },
   { year: "1981–82", title: "Museum founded", description: "Local volunteers organize in 1981; the museum receives its charter January 26, 1982." },
   { year: "1986", title: "House gift", description: "Mary Bell Browning deeds the former Elkins house to the museum, securing its lasting home." },
-];
-
-const exhibitThemes = [
-  { title: "Railroad room", detail: "Photographs, mementos and objects connect the San Antonio and Aransas Pass Railway to the town's growth, its work force and a network spanning Central and South Texas." },
-  { title: "Leather Room", detail: "Displays on tanneries and leather crafts include saddles and goods that explain why Yoakum became known as a leather capital. Learn how Tex-Tan helped turn regional hides and skilled labor into an industry." },
-  { title: "Historic house", detail: "The former Elkins–Browning residence is an artifact in its own right. Look for the distinctive stair, stained and beveled glazing and domestic rooms repurposed for public memory." },
-  { title: "Military and community history", detail: "Military objects and locally collected material interpret the lives of Yoakum residents across generations. Displays and temporary themes may vary; check ahead." },
-  { title: "Tomatoes and town industries", detail: "The wider town story includes cotton, produce packing and the tomato trade, particularly the packing sheds of the 1940s. Ask staff what materials are currently displayed." },
-  { title: "Seasonal exhibitions", detail: "Visitor accounts describe a Christmas Tree Forest and rotating community displays. Dates and installation sizes are not confirmed for 2026; consult museum-run updates." }
 ];
 
 const sourceList = [
@@ -56,7 +49,7 @@ function SectionHeader({ overline, title, description }: { overline: string; tit
   </div>;
 }
 
-export default function YoakumHeritageMuseumAuthority() {
+export default function YoakumHeritageMuseumAuthority({ destination }: { destination: Destination }) {
   return <main>
     <Container className="pt-8 sm:pt-12">
       <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-2 text-xs uppercase tracking-wide text-muted-foreground">
@@ -107,12 +100,6 @@ export default function YoakumHeritageMuseumAuthority() {
         </aside>
       </Container>
     </section>
-    <Container className="py-14 sm:py-20">
-      <SectionHeader overline="Detailed exhibit guide" title="What the museum preserves" description="The established exhibit themes below come from state heritage tourism records. Temporary objects, room access and special programs may change without notice."/>
-      <div className="mt-9 grid gap-x-10 gap-y-8 md:grid-cols-2 lg:grid-cols-3">
-        {exhibitThemes.map((item) => <article key={item.title} className="border-t border-border pt-5"><h3 className="font-display text-2xl">{item.title}</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">{item.detail}</p></article>)}
-      </div>
-    </Container>
     <section className="border-y border-border bg-muted/30 py-14 sm:py-20">
       <Container>
         <SectionHeader overline="A documented origin story" title="How Yoakum built its museum" description="The 1987 community centennial history records a more precise timeline than many brief tourist listings. Crucially, organizing the museum and acquiring the present house were different events."/>
@@ -161,23 +148,7 @@ export default function YoakumHeritageMuseumAuthority() {
         ].map((item) => <a key={item.href} href={item.href} className="group border-t border-border pt-5 hover:border-primary"><h3 className="font-display text-2xl group-hover:text-primary">{item.title} →</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">{item.desc}</p></a>)}
       </div>
     </Container>
-    <section className="border-y border-border py-14">
-      <Container>
-        <SectionHeader overline="Quick answers" title="Frequently asked questions about Yoakum Heritage Museum"/>
-        <dl className="mt-8 grid gap-6 md:grid-cols-2">
-          {[
-            ["Where is Yoakum Heritage Museum?", "The museum is at 312 Simpson Street, Yoakum, Texas 77995, in Lavaca County. The city also extends into DeWitt County."],
-            ["Is admission free?", "No verified current admission schedule is published by the state directory. Ask the museum about any admission charge or suggested donation before visiting."],
-            ["What days is the museum open?", "A Texas Historical Commission record last updated August 8, 2021 lists Sunday, Tuesday and Thursday from 1 to 4 p.m. and Friday from 10 a.m. to 4 p.m. Treat these as older published hours and call ahead."],
-            ["What is the museum known for?", "Railroad memorabilia from the San Antonio and Aransas Pass Railway, hand-tooled saddles and leatherworking, Yoakum military history and the historic Elkins–Browning house."],
-            ["Is the museum in Yoakum County?", "No. It is in the city of Yoakum in Lavaca County. Yoakum County and its Heritage and Art Museum are far away, in the Texas South Plains."],
-            ["Is the Christmas Tree Forest open in 2026?", "The Christmas Tree Forest has been a recurring seasonal exhibit, but specific 2026 opening dates are not verified. Check the museum’s announcements before making holiday plans."],
-            ["Is the museum accessible?", "It occupies a historic multilevel residence. Ask staff about the entrance, stair lift, restroom and any gallery-specific mobility restrictions before arrival."],
-            ["How much time should I allow?", "Plan roughly 45–90 minutes for exhibits and historic-house details. This is a TexasDefined planning estimate, not an official timed tour."]
-          ].map(([question, answer])=><div key={question} className="border-t border-border pt-5"><dt className="font-display text-xl">{question}</dt><dd className="mt-3 text-sm leading-7 text-muted-foreground">{answer}</dd></div>)}
-        </dl>
-      </Container>
-    </section>
+    <MuseumAuthorityNetworkSection destination={destination} />
     <section className="border-t border-border py-14">
       <Container>
         <SectionHeader overline="Sources, methodology & corrections" title="How this guide was researched"/>
