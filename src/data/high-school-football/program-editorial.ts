@@ -2086,6 +2086,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceLabel": "Contemporaneous Dave Campbell's 2019 state-title game recap, crosschecked with UIL school-team archive",
       "verifiedAt": "2026-10-16"
     },
+    "venue": {
+      "name": "J.M. White Field",
+      "address": "310 S Avenue F, Blum, TX 76627 (Blum High orientation point; exact field gate not independently verified)",
+      "sourceUrl": "https://www.texasfootball.com/team/blum-bobcats",
+      "sourceLabel": "Dave Campbell's Texas Football current Blum program page identifies J.M. White Field",
+      "verifiedAt": "2026-10-20",
+      "note": "Dave Campbell's Texas Football identifies J.M. White Field as Blum's stadium. Blum ISD's school address is supplied only as an orientation point; TexasDefined does not infer the vehicle gate, parking entrance, ticket entrance or accessible-seating route. Confirm event-specific access with Blum ISD."
+    },
     "development": {
       "title": "Blum's 2019 title and the 2026 Division I rebuild",
       "body": "The Bobcats are more than a generic small-school six-man entry. In the 2019 Class 1A Division I championship, Blum overcame reigning champion McLean 58–52 after a tying McLean score late in the fourth quarter; Coltin Gonzales scored the decisive late rushing touchdown. UIL's archived 2019 roster identifies then coach Cooper Thornhill, while Blum ISD's football department currently publishes his name as head coach. Six-Man Football's historical ledger shows 13–2 in 2019 but UIL's historical team page identifies 12–2 at its own archival checkpoint: do not collapse unlike snapshot definitions. In 2026 the official UIL District 11 places Blum with Avalon, Bluff Dale, Covington and Milford. A seven-game completed ledger through October 8 shows a 1–6 start; it is not the final season tally.",
@@ -4375,6 +4383,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         }
       ],
       "latestResultSourceUrl": "https://www.houstonchronicle.com/sports/high-school/football/article/texas-scores-friday-week-16-22481255.php"
+    },
+    "venue": {
+      "name": "Gold-Burg Bears Field",
+      "address": "468 Prater Road, Bowie, TX 76230 (Gold-Burg ISD orientation point; exact field gate not independently verified)",
+      "sourceUrl": "https://sixmanfootball.com/teams/gold-burg-bears.1196/",
+      "sourceLabel": "Six-Man Football current Gold-Burg team directory identifies Gold-Burg Bears Field",
+      "verifiedAt": "2026-10-20",
+      "note": "Six-Man Football identifies Gold-Burg Bears Field as the program's stadium. Gold-Burg ISD's Prater Road address is an orientation point only; TexasDefined does not claim the precise vehicle gate, parking entrance, ticket entrance or accessible-seating route. Confirm game-day access with Gold-Burg ISD."
     },
     "development": {
       "title": "Gold-Burg Bears: a specific program across distinct football seasons",
