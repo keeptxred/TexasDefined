@@ -41,7 +41,7 @@ export const Route = createFileRoute("/texas-old-west")({
               isPartOf: { "@id": `${origin}/#website` },
               mainEntity: { "@id": `${canonicalUrl}#items` },
               breadcrumb: { "@id": `${canonicalUrl}#breadcrumbs` },
-              dateModified: "2026-10-20",
+              dateModified: "2026-08-30",
             },
             {
               "@type": "ItemList",
