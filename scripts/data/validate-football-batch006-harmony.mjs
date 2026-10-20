@@ -104,6 +104,7 @@ assert.ok(profile.includes("'big-sandy-harmony': { officialSchoolName: 'Harmony 
 const page = read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
 assert.ok(page.includes('aria-label="Independent editorial team accent"'), 'Researched football profiles must expose the rights-safe editorial accent in the header');
 assert.ok(page.includes('backgroundColor: editorial.theme.accentHex'), 'Football profile header must use the sourced editorial accent without requiring a logo or photo');
+assert.ok(page.includes('editorial?.intro ?? editorial?.overview?.[0] ?? profileSummary'), 'Researched football profiles must use authored overview copy before generic header fallback');
 assert.ok(page.includes('{editorial.theme.label}'), 'Football profile header must disclose the independent editorial accent provenance');
 const county = read('src/routes/$kind.$slug.lazy.tsx');
 assert.ok(page.includes("'big-sandy-harmony': 'upshur'"), 'Harmony must link out to Upshur County');
