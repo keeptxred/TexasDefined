@@ -21,6 +21,7 @@ import { enrichHistoricSiteEvergreenLinks } from "./historic-site-evergreen-link
 import { enrichTexasHistoricSiteAuthority } from "./historic-site-authority-2026";
 import { enrichFullHistoricSiteAuthority } from "./historic-site-authority-full-catalog";
 import { enrichResearchedHistoricSiteDepth } from "./historic-site-depth-all";
+import { applyHistoricVisitorUpgrades20261019 } from "./historic-site-visitor-upgrades-20261019";
 import { applyHistoricSiteFactCorrections } from "./historic-site-fact-corrections";
 import { enrichHistoricSiteRemoteHero } from "./historic-site-remote-heroes";
 import { enrichNationalCemeteryDestination } from "./national-cemetery-enrichment";
@@ -183,7 +184,7 @@ function finishHistoricSiteEnrichment(destination: Destination) {
       ),
     ),
   );
-  return enrichResearchedHistoricSiteDepth(enrichFullHistoricSiteAuthority(enrichTexasHistoricSiteAuthority(enriched)));
+  return applyHistoricVisitorUpgrades20261019(enrichResearchedHistoricSiteDepth(enrichFullHistoricSiteAuthority(enrichTexasHistoricSiteAuthority(enriched))));
 }
 
 function applyResolvedHero(destination: Destination) {
@@ -229,6 +230,7 @@ function reconcileExploreCatalog(destinations: Destination[]) {
     .map(enrichTexasHistoricSiteAuthority)
     .map(enrichFullHistoricSiteAuthority)
     .map(enrichResearchedHistoricSiteDepth)
+    .map(applyHistoricVisitorUpgrades20261019)
     .map(enrichCavernAreaGuide)
     .map(normalizeDestinationCounty)
     // Remote Explore results can still carry missing-image placeholders. Apply
