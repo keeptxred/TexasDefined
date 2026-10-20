@@ -4,7 +4,7 @@ import { texasDefinedBrand } from '@/brand/texasdefined';
 import { getTexasDatasets } from '@/data/texas-data-center';
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
-export const description = 'Explore Texas population, migration, housing, jobs, property taxes, insurance, transportation and county-level statistics using authoritative public sources.';
+export const description = 'Explore sourced Texas population, housing, jobs, taxes, insurance and county statistics.';
 export const sportsComparisonPath = '/sports-venues/compare';
 export const sportsComparisonCsvPath = '/sports-venues/compare.csv';
 
@@ -48,12 +48,12 @@ export const featuredDataProducts = [
 ] as const;
 
 export const nextStops = [
-  ['Texas homeowners premiums vs. coverage', '/texas-data/research/texas-homeowners-premiums-vs-coverage', 'Explore the research behind Texas homeowners insurance premium and coverage comparisons.'],
-  ['County housing costs', '/texas-data/county-housing-costs', 'Compare official ACS home values, rent, owner costs and household income across Texas counties.'],
-  ['Find your county', '/browse/counties', 'Explore all 254 counties and continue into local guides, official resources and county-level context.'],
-  ['Find a city', '/browse/cities', 'Browse major cities, regional centers and communities across Texas.'],
-  ['Plan a move to Texas', '/moving-to-texas', 'Use relocation research, metro guides, city matching and practical moving tools.'],
-  ['Texas industries', '/texas-industries', 'Connect statewide economic data with sourced sector and regional industry guides.'],
+  ['Texas homeowners premiums vs. coverage', '/texas-data/research/texas-homeowners-premiums-vs-coverage', 'Explore Texas homeowners insurance premiums and coverage.'],
+  ['County housing costs', '/texas-data/county-housing-costs', 'Compare ACS home values, rent, costs and income.'],
+  ['Find your county', '/browse/counties', 'Explore all 254 counties and local guides.'],
+  ['Find a city', '/browse/cities', 'Browse Texas cities and communities.'],
+  ['Plan a move to Texas', '/moving-to-texas', 'Explore relocation and metro guides.'],
+  ['Texas industries', '/texas-industries', 'Explore Texas industry guides.'],
 ] as const;
 
 export const Route = createFileRoute('/texas-data')({
@@ -73,10 +73,10 @@ export const Route = createFileRoute('/texas-data')({
         creator: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#organization` },
         isBasedOn: dataset.sourceUrl,
       })),
-      ...featuredDataProducts.map((dataset) => ({
+      ...featuredDataProducts.filter((dataset) => dataset.path !== sportsComparisonPath).map((dataset) => ({
         '@type': 'Dataset',
         '@id': `${absoluteUrl(texasDefinedBrand, dataset.path)}#dataset`,
-        name: dataset.path === sportsComparisonPath ? 'Texas Sports Venue Comparison' : dataset.title,
+        name: dataset.title,
         description: dataset.description,
         url: absoluteUrl(texasDefinedBrand, dataset.path),
         temporalCoverage: dataset.temporalCoverage,
@@ -84,9 +84,10 @@ export const Route = createFileRoute('/texas-data')({
         distribution: {
           '@type': 'DataDownload',
           encodingFormat: 'text/csv',
-          contentUrl: absoluteUrl(texasDefinedBrand, dataset.path === sportsComparisonPath ? sportsComparisonCsvPath : dataset.csvPath),
+          contentUrl: absoluteUrl(texasDefinedBrand, dataset.csvPath),
         },
       })),
+      { '@type': 'Dataset', name: 'Texas Sports Venue Comparison', url: absoluteUrl(texasDefinedBrand, sportsComparisonPath), distribution: { '@type': 'DataDownload', encodingFormat: 'text/csv', contentUrl: absoluteUrl(texasDefinedBrand, sportsComparisonCsvPath) } },
     ];
     return {
       meta: buildMeta(texasDefinedBrand, {
