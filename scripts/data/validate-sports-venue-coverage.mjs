@@ -16,6 +16,7 @@ const [
   sharedGuidePage,
   quickAnswers,
   enrichmentAll,
+  qualityCompletion,
   editorialDescriptions,
   editorialDescriptionsWave6,
   editorialDescriptionsWave7,
@@ -47,6 +48,7 @@ const [
   read('src/components/sports/SportsVenueGuidePage.tsx'),
   read('src/components/sports/SportsVenueQuickAnswers.tsx'),
   read('src/data/sports-venue-enrichment-all.ts'),
+  read('src/data/sports-venue-quality-completion.ts'),
   read('src/data/sports-venue-editorial.server.ts'),
   read('src/data/sports-venue-editorial-wave6.server.ts'),
   read('src/data/sports-venue-editorial-wave7.server.ts'),
@@ -200,6 +202,7 @@ for (const marker of [
   'getSportsVenueQualityProfile(lookupSlug)',
   'getSportsVenueQualityProfileWave5(lookupSlug)',
   'getSportsVenueQualityProfileWave9(lookupSlug)',
+  'getSportsVenueQualityCompletion(lookupSlug)',
 ]) {
   assert(enrichmentAll.includes(marker), `Combined sports venue quality lookup is missing ${marker}.`);
 }
@@ -214,6 +217,27 @@ for (const marker of [
   assert(sharedGuideContent.includes(marker), `Shared sports venue guide must surface vetted visitor facts: ${marker}.`);
 }
 assert(sharedGuidePage.includes('League / conference'), 'Shared sports venue quick facts must surface sourced league or conference context.');
+const qualityCompletionSlugs = [
+  "att-stadium",
+  "college-park-center",
+  "comerica-center",
+  "daikin-park",
+  "dickies-arena",
+  "frost-bank-center",
+  "kyle-field",
+  "mclane-stadium",
+  "moody-coliseum-smu",
+  "shell-energy-stadium",
+  "toyota-center-houston",
+  "toyota-stadium-frisco",
+  "unt-coliseum"
+];
+for (const slug of qualityCompletionSlugs) {
+  assert(qualityCompletion.includes(`'${slug}': {`), `Final sports venue quality completion is missing ${slug}.`);
+}
+for (const marker of ['accessibility:', 'bagAndEntry:', 'sourceReview:', "reviewedAt = '2026-10-08'"]) {
+  assert(qualityCompletion.includes(marker), `Final sports venue quality completion is missing governed visitor/source marker: ${marker}.`);
+}
 assert(sharedGuidePage.includes('"@type": "FAQPage"'), 'Shared sports venue guide must publish FAQ structured data when visible venue FAQs exist.');
 assert(sharedGuidePage.includes('"@type": "WebPage"'), 'Shared sports venue guide must publish WebPage structured data for page-level freshness metadata.');
 assert(sharedGuidePage.includes('...upcomingEvents.flatMap((event) => [event.lastVerifiedAt, event.lastUpdatedAt])'), 'Shared sports venue freshness must consider event verification timestamps.');

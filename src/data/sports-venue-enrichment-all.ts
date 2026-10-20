@@ -18,6 +18,7 @@ import { getSportsVenueEnrichmentBatch8ACompletion } from './sports-venue-enrich
 import { getSportsVenueEnrichmentBatch8BCompletion } from './sports-venue-enrichment-batch8b-completion';
 import { getSportsVenueHistoryCompletion } from './sports-venue-history-completion';
 import { applySportsVenueMaintenance } from './sports-venue-maintenance';
+import { getSportsVenueQualityCompletion } from './sports-venue-quality-completion';
 
 export { sportsVenueMapUrl };
 
@@ -31,7 +32,8 @@ export function getSportsVenueQualityProfileAll(slug: string) {
     ?? getSportsVenueQualityProfileWave6(lookupSlug)
     ?? getSportsVenueQualityProfileWave7(lookupSlug)
     ?? getSportsVenueQualityProfileWave8(lookupSlug)
-    ?? getSportsVenueQualityProfileWave9(lookupSlug);
+    ?? getSportsVenueQualityProfileWave9(lookupSlug)
+    ?? getSportsVenueQualityCompletion(lookupSlug);
 }
 
 export function getSportsVenueEnrichmentAll(slug: string) {
