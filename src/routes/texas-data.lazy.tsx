@@ -1,4 +1,5 @@
 import { createLazyFileRoute, Link, Outlet, useRouterState } from '@tanstack/react-router';
+import { useState } from 'react';
 
 import { DepartmentHero } from '@/components/editorial/DepartmentHero';
 import { Container } from '@/components/layout/Container';
@@ -19,9 +20,10 @@ function TexasDataRoute() {
 
 function Page() {
   const { datasets } = Route.useLoaderData();
+  const [searchQuery, setSearchQuery] = useState('');
   const currentPopulation = datasets.find((dataset) => dataset.slug === 'texas-population-and-migration-2025');
   const homeowners = datasets.find((dataset) => dataset.slug === 'texas-homeowners-premium-history');
-  const payrolls = datasets.find((dataset) => dataset.slug === 'texas-metro-payrolls-june-2026');
+  const payrolls = datasets.find((dataset) => dataset.slug === 'texas-metro-payrolls-august-2026');
 
   const population = currentPopulation?.rows.find((row) => row.label.includes('July 1, 2025'))?.value;
   const populationGrowth = currentPopulation?.rows.find((row) => row.label.includes('Numeric population growth'))?.value;
@@ -34,10 +36,14 @@ function Page() {
     populationGrowth ? { value: `+${numberFormatter.format(populationGrowth)}`, label: 'Population growth', note: 'July 2024 to July 2025', to: '/texas-data/texas-population-and-migration-2025' } : null,
     domesticMigration ? { value: `+${numberFormatter.format(domesticMigration)}`, label: 'Net domestic migration', note: 'July 2024 to July 2025', to: '/texas-data/texas-population-and-migration-2025' } : null,
     homeownersPremium ? { value: currencyFormatter.format(homeownersPremium), label: 'Average homeowners premium', note: '2025 preliminary statewide average', to: '/texas-data/texas-homeowners-premium-history' } : null,
-    dfwPayrolls ? { value: numberFormatter.format(dfwPayrolls), label: 'DFW nonfarm payrolls', note: 'June 2026 preliminary', to: '/texas-data/texas-metro-payrolls-june-2026' } : null,
+    dfwPayrolls ? { value: numberFormatter.format(dfwPayrolls), label: 'DFW nonfarm payrolls', note: 'August 2026 preliminary', to: '/texas-data/texas-metro-payrolls-august-2026' } : null,
   ].filter(Boolean) as Array<{ value: string; label: string; note: string; to: string }>;
 
-  const categories = datasets.reduce<Record<string, typeof datasets>>((groups, dataset) => {
+  const normalizedQuery = searchQuery.trim().toLowerCase();
+  const matchingDatasets = normalizedQuery
+    ? datasets.filter((dataset) => [dataset.title, dataset.description, dataset.category, dataset.sourceName, String(dataset.year)].some((field) => field.toLowerCase().includes(normalizedQuery)))
+    : datasets;
+  const categories = matchingDatasets.reduce<Record<string, typeof datasets>>((groups, dataset) => {
     const key = dataset.category;
     groups[key] = [...(groups[key] ?? []), dataset];
     return groups;
@@ -55,7 +61,7 @@ function Page() {
         <div className="py-6">
           <p className="eyebrow text-primary">Current snapshot</p>
           <h2 id="snapshot-heading" className="mt-2 font-display text-3xl sm:text-4xl">Texas at a glance</h2>
-          <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">A few current statewide indicators from the official-source datasets below. Dates matter: each number is labeled with its data vintage rather than presented as a timeless fact.</p>
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">A few selected Texas statewide and metropolitan indicators from the official-source datasets below. Dates matter: each number is labeled with its data vintage rather than presented as a timeless fact.</p>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-5">
           {headlineStats.map((stat, index) => <Link key={stat.label} to={stat.to} className={`group border-t border-border py-6 sm:px-5 ${index > 0 ? 'lg:border-l' : ''}`}>
@@ -94,14 +100,18 @@ function Page() {
             <p className="eyebrow text-primary">Official-source briefs</p>
             <h2 id="briefs-heading" className="mt-2 font-display text-4xl">Explore Texas data by topic</h2>
             <p className="mt-4 text-sm leading-7 text-muted-foreground">Each brief identifies its source, data year, update date and methodology so older statistics are not confused with current ones.</p>
+            <label htmlFor="texas-data-search" className="mt-6 block text-sm font-semibold">Search official data briefs</label>
+            <input id="texas-data-search" type="search" autoComplete="off" value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)} placeholder="Search jobs, insurance, taxes…" className="mt-2 w-full rounded-none border border-border bg-background px-3 py-3 text-sm text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary" />
+            <p className="mt-2 text-xs text-muted-foreground" aria-live="polite">{matchingDatasets.length} of {datasets.length} briefs shown</p>
           </div>
           <div className="space-y-10">
+            {matchingDatasets.length === 0 && <p role="status" className="border-y border-border py-8 text-sm text-muted-foreground">No data briefs match that search. Try a different topic or source.</p>}
             {Object.entries(categories).map(([category, categoryDatasets]) => <section key={category} aria-labelledby={`category-${category.replaceAll(' ', '-').toLowerCase()}`}>
               <div className="border-b border-border pb-3">
                 <h3 id={`category-${category.replaceAll(' ', '-').toLowerCase()}`} className="font-display text-3xl">{editorialLabel(category)}</h3>
               </div>
               <div className="grid sm:grid-cols-2">
-                {categoryDatasets.map((dataset) => <Link key={dataset.slug} to="/texas-data/$datasetSlug" params={{ datasetSlug: dataset.slug }} className="group border-b border-border py-6 sm:px-5">
+                {[...categoryDatasets].sort((a, b) => b.updated.localeCompare(a.updated)).map((dataset) => <Link key={dataset.slug} to="/texas-data/$datasetSlug" params={{ datasetSlug: dataset.slug }} className="group border-b border-border py-6 sm:px-5">
                   <p className="eyebrow text-primary">{dataset.year} data · Updated {dataset.updated}</p>
                   <h4 className="mt-2 font-display text-2xl leading-tight group-hover:text-primary">{dataset.title}</h4>
                   <p className="mt-3 text-sm leading-6 text-muted-foreground">{dataset.description}</p>
