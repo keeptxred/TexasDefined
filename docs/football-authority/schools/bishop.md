@@ -41,3 +41,6 @@ The editorial now explains the school-issued October 23 George Luna venue and co
 
 Editorial decision: add Keith Talbert as a **dated, third-party-attributed current head-coach field** rather than leave a blank coach record in the presence of supporting contemporary roster data. This is **not** a claim of a school-issued appointment notice: official Bishop CISD hiring confirmation is still missing. No score, George Luna homecoming event, gate/parking/photo/ADA evidence or nine-dimension editorial status changed.
 
+## October 20, 2026 — current Bishop High calendar resolves varsity home venue name
+Bishop High School's 2026 calendar repeatedly assigns home football events to **George Luna Stadium**, including the October 23 varsity homecoming game against Santa Gertrudis Academy. That current first-party schedule evidence is stronger for 2026 home events than older third-party directory references to Ed Gorny Stadium. The public football guide now publishes George Luna Stadium as the current home-event venue name while leaving the spectator entrance, parking, ticket policy, ADA seating and any separate stadium street address unclaimed.
+
