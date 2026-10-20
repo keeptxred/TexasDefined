@@ -128,4 +128,10 @@ test('responsive District 5 Chrome acceptance cannot be skipped by broad sports 
     'Chrome acceptance must run after its browser dependency installation');
   assert.ok(workflow.includes('live_district5_browser'));
   assert.ok(workflow.includes('district5-responsive-browser-${{ github.run_id }}'));
+  const successGate = workflow.match(/- name: Mark live production verification complete\n\s+id: live\n[\s\S]{0,420}?\s+if: ([^\n]+)/);
+  assert.ok(successGate, 'Missing protected final live-acceptance step');
+  assert.ok(successGate[1].includes("steps.live_district5_browser.outcome == 'success'"),
+    'Never approve production while District 5 Chrome was skipped or failed');
+  const visualArtifactStep = workflow.slice(workflow.indexOf('      - name: Preserve District 5 responsive acceptance evidence'));
+  assert.ok(visualArtifactStep.slice(0, 330).includes('if-no-files-found: error'), 'Fail if District 5 screenshots are absent');
 });
