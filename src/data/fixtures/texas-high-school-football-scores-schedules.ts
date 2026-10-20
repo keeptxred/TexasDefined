@@ -36,7 +36,7 @@ export const texasHighSchoolFootballScoresSchedulesArticle: Article = {
     {
       href: "/texas-high-school-football-teams",
       label: "Find any current UIL football program",
-      description: "Search all 1,268 current UIL programs by school, ISD, city or county, then open the school research profile.",
+      description: "Search all 1,268 current UIL programs by school, ISD, city or county, then open the school team guide.",
     },
     {
       href: "/texas-high-school-football-districts",
