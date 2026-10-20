@@ -3111,6 +3111,43 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
     ],
   },
 
+  "yoakum-heritage-museum": {
+    name: "Yoakum Heritage Museum", slug: "yoakum-heritage-museum", county: "Lavaca", city: "Yoakum", reviewed: "2026-10-20",
+    topics: ["railroad-history", "leather-industry", "heritage-architecture", "local-history"],
+    whyVisit: "Yoakum Heritage Museum explains how an 1887 railroad junction developed into a nationally recognized leather-working center and agricultural shipping town. The setting adds a rare second layer: visitors encounter this town history in the former J. K. Elkins home, an early twentieth-century residence with noteworthy glasswork and woodwork preserved through a citizen-led museum effort.",
+    visitorStrategy: "Travel to 312 Simpson Street, Yoakum, Texas 77995, rather than to the unrelated Yoakum County Heritage and Art Museum in Plains. Telephone 361-293-7022. The Texas Historical Commission museum registry last updated August 8, 2021 publishes Sunday, Tuesday and Thursday hours from 1 to 4 p.m. and Friday 10 a.m. to 4 p.m.; this is historical directory information, not independently verified current hours. Current admission or donation amounts, group access, street parking conditions, onsite retail and food options have not been verified; call or consult museum-managed announcements before making a special trip. Plan 45–90 minutes as independent guidance, not an official timed tour.",
+    accessibility: "The museum occupies a historic multi-level residence with an ornate staircase rather than a purpose-built contemporary visitor center. Visitor descriptions mention a stair-lift seat, but the present operation, weight limits, step-free entrances, restrooms and stroller access have not been independently confirmed by the museum. Call before arrival with mobility or sensory requirements and do not rely on review reports as evidence of guaranteed access.",
+    familiesAndGroups: "School-age children interested in trains, cowboy saddles, leather crafts, historic houses or the military history of their community can follow a focused short route with adults. Toddlers may appreciate seasonal displays but the museum is a historic furnished residence, not a verified hands-on children's facility. Military-room objects may call for parental context. Group and school tours, photography, pets, restrooms, food service and children's activities are not documented comprehensively enough to promise; arrange requests directly with volunteer staff.",
+    researchValue: "The museum began with a November 30, 1981 organizing meeting and received a state charter January 26, 1982; a dated local centennial account documents both events and the volunteers' work. Mary Bell Browning deeded the former Elkins house December 1, 1986. The home had been rebuilt around 1912, and the centennial record describes the ornate stair and stained or beveled entry glazing. Comparisons with Texas State Historical Association railroad, Tex-Tan and tomato-packing histories give meaning to the exhibits without pretending to inventory the museum's archival holdings.",
+    exhibits: [
+      { heading: "San Antonio and Aransas Pass Railway material", detail: "Rail photographs and artifacts connect the 1887 founding and the shops or roundhouse economy to the wider Texas rail network. Specific objects may rotate." },
+      { heading: "Leather Room and local tanneries", detail: "Saddles, rawhide and other leather goods explain the craftsmanship and manufacturing behind Yoakum's Leather Capital identity, including the rise of Tex-Tan." },
+      { heading: "The 1912 Elkins-Browning home", detail: "Architecture is a core part of the visit: the donated residence preserves elements of a prominent local family's domestic history, not merely a backdrop for cases." },
+      { heading: "Military and community memorabilia", detail: "Themed rooms interpret Yoakum families' service and civic life. Do not promise that every reported display remains installed during the current season." },
+      { heading: "Christmas Tree Forest, seasonal", detail: "A recurring community holiday tradition that decorates the historic rooms. No independently verified dates or admission conditions are available for the 2026 edition." }
+    ],
+    routes: [
+      { label: "First museum visit (45–90 minutes)", steps: ["Confirm hours and any donation expectations by calling the museum", "Begin with the railroad and Leather Room exhibits", "Pause to study the preserved house details"] },
+      { label: "Family history half-day", steps: ["Arrange the museum visit during an actual open period", "Choose railroad and saddle topics for school-age children", "Add downtown Yoakum or Chisholm Trail Memorial Park if access is appropriate"] },
+      { label: "Lavaca–DeWitt regional history", steps: ["Start in Yoakum to understand railway and leather industry", "Continue to Shiner for its own railroad and immigrant heritage", "Add Cuero or Hallettsville according to separately verified opening times"] }
+    ],
+    sources: [
+      { label: "Texas Historical Commission museum directory", url: "https://atlas.thc.texas.gov/Details/4200000614", use: "Museum identity, address, contact, 2021 date of last hours update" },
+      { label: "Texas Time Travel museum tour", url: "https://texastimetravel.com/directory/yoakum-heritage-museum-tour/", use: "Historic Elkins home, Leather Room, railroad and military themes" },
+      { label: "Texas Time Travel museum directory", url: "https://texastimetravel.com/directory/yoakum-heritage-museum/", use: "1912 house and individual permanent exhibit topics" },
+      { label: "Yoakum Community: The First Hundred Years (1987), page 24", url: "https://texashistory.unt.edu/ark:/67531/metapth880869/m1/34/", use: "Primary local museum-founding timeline, original house and 1986 donation" },
+      { label: "TSHA Handbook of Texas: Yoakum", url: "https://www.tshaonline.org/handbook/entries/yoakum-tx", use: "Regional economic history, railroad, leather manufacture, tomato shipping" },
+      { label: "Texas Highways 2026 Texas State Travel Guide", url: "https://texashighways.com/wp-content/uploads/2026/01/Travel-Guide-2026.pdf", use: "Current-year travel guide entry confirming address, telephone and exhibition themes" }
+    ],
+    connections: [
+      { label: "Lavaca County", href: "/county/lavaca", reason: "Place Yoakum in the Lavaca County museum and railroad corridor." },
+      { label: "DeWitt County", href: "/county/dewitt", reason: "Understand Yoakum's two-county city geography and neighboring cattle history." },
+      { label: "Shiner", href: "/destination/shiner", reason: "Continue along the rail corridor into a Czech and German heritage town." },
+      { label: "Chisholm Trail Heritage Museum", href: "/destination/chisholm-trail-heritage-museum", reason: "Compare nearby ranching history and the craftsmanship behind cattle culture." },
+      { label: "Texas museum directory", href: "/explore/museums", reason: "Explore other researched museums in the state." }
+    ],
+  },
+
 };
 
 export const museumAuthorityDirectory = Object.values(museumAuthorityDossiers).map(({ slug, name, city, county, topics }) => ({ slug, name, city, county, topics }));
