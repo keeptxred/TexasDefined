@@ -1152,6 +1152,10 @@ if (!errors.length) {
     'formatFootballDate',
     '<time dateTime={game.date}>{formatFootballDate(game.date)}</time>',
     '<time dateTime={identity.verifiedAt}>{formatFootballDate(identity.verifiedAt)}</time>',
+    'FootballIdentityPanel',
+    'Original TexasDefined field graphic.',
+    'No school logo, mascot artwork or school-owned photograph is reproduced.',
+    "slug === 'aubrey' ?",
   ]) requireText(featuredProfilePage, marker, 'Football school profile page');
   for (const forbidden of [
     '<td className="px-3 py-3 font-semibold">{game.date}</td>',
