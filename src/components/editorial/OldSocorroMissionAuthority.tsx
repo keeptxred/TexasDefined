@@ -58,21 +58,21 @@ export default function OldSocorroMissionAuthority() {
       </nav>
     </Container>
     <header className="mt-5 overflow-hidden bg-ink text-ink-foreground">
-      <Container className="grid gap-10 py-14 sm:py-20 lg:grid-cols-[minmax(0,1.4fr)_minmax(250px,.75fr)] lg:items-center">
+      <Container className="grid gap-10 py-14 sm:py-20 lg:grid-cols-2 lg:items-center">
         <div>
-          <p className="eyebrow text-ink-foreground/70">El Paso County · Protected archaeological landscape</p>
+          <p className="eyebrow text-ink-foreground/80">El Paso County · Protected archaeological landscape</p>
           <h1 className="mt-5 max-w-4xl font-display text-5xl leading-tight sm:text-7xl">Old Socorro Mission</h1>
-          <p className="mt-6 max-w-3xl text-xl leading-8 text-ink-foreground/85">The original Socorro mission site: Pueblo Revolt refugees, a seventeenth-century adobe church, a changing Rio Grande and archaeology that recovered a lost landscape.</p>
+          <p className="mt-6 max-w-3xl text-xl leading-8 text-ink-foreground/80">The original Socorro mission site: Pueblo Revolt refugees, a seventeenth-century adobe church, a changing Rio Grande and archaeology that recovered a lost landscape.</p>
           <p className="mt-6 max-w-3xl text-base leading-7 text-ink-foreground/80"><strong>Important:</strong> The original mission site is closed to the public. This is a history and archaeology guide, not an admission or driving guide.</p>
           <a href={thc} target="_blank" rel="noopener noreferrer" className="mt-6 inline-block border-b border-current pb-1 text-sm font-semibold">Check the state site's official closure notice ↗</a>
         </div>
-        <div className="border-l-2 border-ink-foreground/50 pl-6">
-          <p className="eyebrow text-ink-foreground/75">At a glance</p>
+        <div className="border-l-2 border-ink-foreground/20 pl-6">
+          <p className="eyebrow text-ink-foreground/80">At a glance</p>
           <dl className="mt-5 space-y-5 text-sm">
-            <div><dt className="text-ink-foreground/65">Access</dt><dd className="mt-1 text-xl font-semibold">Closed to the public</dd></div>
-            <div><dt className="text-ink-foreground/65">Known mission location</dt><dd className="mt-1 text-xl font-semibold">Used by the 1680s</dd></div>
-            <div><dt className="text-ink-foreground/65">Permanent church</dt><dd className="mt-1 text-xl font-semibold">1691</dd></div>
-            <div><dt className="text-ink-foreground/65">Historic protection</dt><dd className="mt-1 text-xl font-semibold">State Antiquities Landmark</dd></div>
+            <div><dt className="text-ink-foreground/80">Access</dt><dd className="mt-1 text-xl font-semibold">Closed to the public</dd></div>
+            <div><dt className="text-ink-foreground/80">Known mission location</dt><dd className="mt-1 text-xl font-semibold">Used by the 1680s</dd></div>
+            <div><dt className="text-ink-foreground/80">Permanent church</dt><dd className="mt-1 text-xl font-semibold">1691</dd></div>
+            <div><dt className="text-ink-foreground/80">Historic protection</dt><dd className="mt-1 text-xl font-semibold">State Antiquities Landmark</dd></div>
           </dl>
         </div>
       </Container>
