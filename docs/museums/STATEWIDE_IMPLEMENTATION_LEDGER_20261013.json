@@ -600,5 +600,77 @@
       "Enroll new two guides and twelve official/source-license URLs in existing Supabase source monitoring",
       "Side-by-side independent visitor-guide certification"
     ]
+  },
+  "october19MuseumExecutionContinuation": {
+    "updatedAt": "2026-10-19",
+    "liveProductionEvidence": {
+      "basis": "Actual Supabase pg_net production museum manifest fetch, processed by td_maintenance.collect_museum_source_manifest(), request 11015, run id 48, processed 2026-10-19 19:59:58 UTC",
+      "publishedMuseumGuides": 81,
+      "publishedMuseumSourceDefinitions": 353,
+      "sourceRegistryEnrolled": true,
+      "scope": "Manifest and source monitoring, not visual pixel QA, independent editorial certification or proof that every museum merits a page"
+    },
+    "mergedToday": [
+      {
+        "pr": 5287,
+        "mergeSha": "9f84bd3341130708e14768d60fc574515fe91326",
+        "guides": [
+          "mcnay-art-museum-san-antonio",
+          "texas-military-forces-museum"
+        ],
+        "mergeVerified": true
+      },
+      {
+        "pr": 5293,
+        "mergeSha": "3198a0ee7263de5ab45db13720cd5eb138544662",
+        "scope": "Bounds McNay/Texas Military Forces postdeploy canonical, photo licensing and FAQ acceptance",
+        "mergeVerified": true
+      },
+      {
+        "pr": 5297,
+        "mergeSha": "217a1f26ab97262b4b66c35fcdccd7df5f31a6a4",
+        "guides": [
+          "museum-of-south-texas-history-edinburg"
+        ],
+        "faqsAdded": 10,
+        "sourceDefinitionsAdded": 8,
+        "mergeVerified": true
+      }
+    ],
+    "openOrGatePendingAtSnapshot": [
+      {
+        "pr": 5302,
+        "canonicalGuide": "san-angelo-museum-of-fine-arts",
+        "sourceBranch": "feature/san-angelo-museum-authority-rebased-20261019",
+        "faqsAdded": 10,
+        "sourceDefinitionsAdded": 7,
+        "newManifestGuideTotalIfMerged": 82,
+        "newManifestSourceDefinitionsIfMerged": 360,
+        "museumResearchContract": "passed",
+        "requiredMergeGate": "pending",
+        "autoMerge": "enabled; requires protected checks",
+        "notes": "Corrects outdated museum map pin to address-grounded 31.456982,-100.432301; explicitly not independently certified."
+      },
+      {
+        "pr": 5309,
+        "canonicalGuide": "museum-of-south-texas-history-edinburg",
+        "scope": "adds specific production photo/license/original-source/FAQ/canonical/indexing check",
+        "autoMerge": "enabled; requires protected checks"
+      }
+    ],
+    "supersededBranches": [
+      {
+        "pr": 5299,
+        "state": "closed",
+        "reason": "Stacked PR merge base became dirty after Edinburg #5297 squash; replaced by clean eight-file replay #5302"
+      }
+    ],
+    "editorialCertificatesIssued": 0,
+    "remaining": "Statewide owner-name parsing and entity verification incomplete; most Texas museums still lack independently certified guides; exact-photo rights and manual pixel/SSR acceptance remain open for many venues. Avoid equating Supabase verified HTTP status with an independent content certification.",
+    "operationalNotes": [
+      "No force pushes, no protected checks bypassed, no Lovable credits or purchase.",
+      "Use current main and production state before any further museum changes. Do not interpret provisional 82-guide future totals as already live.",
+      "Existing daily Supabase museum manifest source sync persists; previous import run 47 processed 80/345, run 48 processed 81/353."
+    ]
   }
 }
