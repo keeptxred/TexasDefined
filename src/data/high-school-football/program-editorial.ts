@@ -172,7 +172,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Harmony Eagle Stadium",
-      "address": "9788 SH 154 W, Big Sandy, TX 75755 (athletics campus address; confirm event gate)",
       "sourceUrl": "https://www.harmonyisd.net/o/ha",
       "sourceLabel": "Harmony ISD Athletics official Eagle Stadium and contact information",
       "verifiedAt": "2026-10-14",
@@ -1435,7 +1434,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Bobcat Stadium",
-      "address": "Bloomington ISD, Victoria County, Texas (stadium vehicle-gate address not independently confirmed)",
       "sourceUrl": "https://www.vancoevents.com/us/eventlist/bisdevents",
       "sourceLabel": "District-originated Vanco event listing identifies Bobcat Stadium, not an independently verified stadium street gate",
       "verifiedAt": "2026-10-15",
@@ -3007,7 +3005,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Warrior Stadium (Bonham ISD)",
-      "address": "Bonham ISD, Bonham, TX (venue confirmed; exact entrance address not independently verified)",
       "sourceUrl": "https://www.bonhamisd.org/104427_2",
       "sourceLabel": "Bonham ISD Athletics official Warrior Stadium media-credential and sideline policy",
       "verifiedAt": "2026-10-17",
@@ -8040,7 +8037,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Ben Grill Field (also called Benjamin Mustangs Field)",
-      "address": "Benjamin, Texas (precise stadium entrance unverified; school: 300 W. Hays Street)",
       "sourceUrl": "https://sixmanfootball.com/teams/benjamin-mustangs.1041/schedule/",
       "sourceLabel": "Six-Man Football stadium and team information; historical Ben Grill Field name corroborated by a 2006 local school board report",
       "verifiedAt": "2026-10-12",
@@ -8925,7 +8921,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Hornet Stadium",
-      "address": "Azle, Texas — confirm gate/parking with district",
       "sourceUrl": "https://www.azleisd.net/o/ahs/live_feeds/12904056",
       "sourceLabel": "Official Azle High 2026 football announcement",
       "verifiedAt": "2026-10-10",
@@ -10180,7 +10175,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "House Park",
-      "address": "Austin, Texas; confirm event venue with school",
       "sourceUrl": "https://www.texasfootball.com/team/default.aspx?url=austin-anderson-trojans",
       "sourceLabel": "Dave Campbell's Texas Football program venue",
       "verifiedAt": "2026-10-10",
@@ -11032,7 +11026,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Michael Glaspie Field (AISD Martin/Seguin competition venue)",
-      "address": "At Martin High School, Arlington, TX — confirm specific event venue and spectator gate",
       "sourceUrl": "https://www.aisd.net/bond2019/glaspie-field/",
       "sourceLabel": "Arlington ISD official Glaspie Field facility project",
       "verifiedAt": "2026-10-09",
@@ -11213,7 +11206,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Glaspie Field (historic directory listing)",
-      "address": "Arlington, Texas — use event-specific Arlington ISD match venue",
       "sourceUrl": "https://www.texasfootball.com/team/arlington-martin-warriors",
       "sourceLabel": "DCTF listed Martin football stadium",
       "verifiedAt": "2026-10-09",
@@ -11390,7 +11382,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Cravens Field (historical program stadium)",
-      "address": "Arlington, TX — confirm ticket-specific entrance through Arlington ISD",
       "sourceUrl": "https://www.texasfootball.com/team/arlington-lamar-vikings",
       "sourceLabel": "DCTF varsity stadium listing",
       "verifiedAt": "2026-10-09",
@@ -11567,7 +11558,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Choctaw Stadium (multiple scheduled 2026 home games; Wilemon Field in historical listings)",
-      "address": "Choctaw Stadium, Arlington, Texas — verify event-specific entrance with Arlington ISD",
       "sourceUrl": "https://www.choctawstadium.com/event/high-school-football-20261105/",
       "sourceLabel": "Choctaw Stadium official 2026 high-school football calendar",
       "verifiedAt": "2026-10-09",
@@ -11674,7 +11664,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Choctaw Stadium (documented 2026 Bowie home fixtures); Wilemon Field in historic listings",
-      "address": "Choctaw Stadium, Arlington, Texas — check exact game-day entrance",
       "sourceUrl": "https://www.choctawstadium.com/event/high-school-football-20261105/",
       "sourceLabel": "Official Choctaw Stadium 2026 high-school football schedule",
       "verifiedAt": "2026-10-09",
@@ -12041,7 +12030,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Wildcat Stadium",
-      "address": "Archer City, Texas — verify game-day spectator gate with Archer City ISD",
       "sourceUrl": "https://txfb.sidev.co/team/archer-city-wildcats",
       "sourceLabel": "DCTF independent stadium record",
       "verifiedAt": "2026-10-09",
@@ -12349,7 +12337,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Cougar Stadium",
-      "address": "Aquilla, TX — current stadium entrance not independently verified",
       "sourceUrl": "https://www.texasfootball.com/team/aquilla-cougars",
       "sourceLabel": "DCTF team stadium directory",
       "verifiedAt": "2026-10-09",
@@ -12449,7 +12436,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Nelson Davis Stadium",
-      "address": "Apple Springs, Texas — spectator entrance and accessibility unverified",
       "sourceUrl": "https://www.texasfootball.com/team/apple-springs-eagles",
       "sourceLabel": "DCTF stadium name and historical 500 capacity",
       "verifiedAt": "2026-10-09",
@@ -12607,7 +12593,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Bulldog Stadium",
-      "address": "Anton, TX — spectator entrance unverified",
       "sourceUrl": "https://www.texasfootball.com/team/anton-bulldogs",
       "sourceLabel": "DCTF Anton Bulldogs stadium record",
       "verifiedAt": "2026-10-09",
@@ -12773,7 +12758,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Tommy Sanchez Memorial Stadium",
-      "address": "Anthony, Texas — verify stadium entrance with Anthony ISD",
       "sourceUrl": "https://www.texasfootball.com/team/anthony-wildcats",
       "sourceLabel": "DCTF Wildcats venue directory",
       "verifiedAt": "2026-10-09",
@@ -12940,7 +12924,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Tiger Stadium",
-      "address": "Anson, TX — exact game gate unverified",
       "sourceUrl": "https://www.texasfootball.com/team/default.aspx?url=anson-tigers",
       "sourceLabel": "Dave Campbell's Texas Football Tigers venue listing",
       "verifiedAt": "2026-10-09",
@@ -13361,7 +13344,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Mustang Bowl",
-      "address": "Andrews, TX — verify exact match-day gate with Andrews ISD",
       "sourceUrl": "https://www.texasfootball.com/team/andrews-mustangs",
       "sourceLabel": "DCTF Mustang Bowl historical venue listing",
       "verifiedAt": "2026-10-09",
@@ -13696,7 +13678,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Kyle White Stadium",
-      "address": "Anahuac, Texas — separate official spectator entrance not independently verified",
       "sourceUrl": "https://www.aisdpanthers.com/o/ahs/live-feed",
       "sourceLabel": "Anahuac ISD High School first-party October 2, 2026 Kyle White Stadium game notice",
       "verifiedAt": "2026-10-09",
@@ -13796,7 +13777,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Bulldog Stadium",
-      "address": "Amherst, TX — exact spectator entrance not independently verified",
       "sourceUrl": "https://www.texasfootball.com/team/amherst-bulldogs",
       "sourceLabel": "Dave Campbell's Texas Football historic program/venue listing",
       "verifiedAt": "2026-10-09",
@@ -14120,7 +14100,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Wildcat Stadium",
-      "address": "Amarillo — official spectator entrance not confirmed",
       "sourceUrl": "https://www.texasfootball.com/team/amarillo-river-road-wildcats",
       "sourceLabel": "DCTF River Road Wildcats stadium record",
       "verifiedAt": "2026-10-09",
@@ -14447,7 +14426,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Hornet Stadium",
-      "address": "Amarillo, Texas — entrance unverified",
       "sourceUrl": "https://www.texasfootball.com/team/amarillo-highland-park-hornets",
       "sourceLabel": "DCTF independent program stadium directory",
       "verifiedAt": "2026-10-09",
@@ -14776,7 +14754,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Dick Bivins Stadium",
-      "address": "Amarillo, Texas — verify match-day stadium gate, parking and accessibility with Amarillo ISD",
       "sourceUrl": "https://www.ahsfhs.org/national/teams/teampage.asp?Team=Amarillo",
       "sourceLabel": "Independent Amarillo Sandies team stadium directory",
       "verifiedAt": "2026-10-09",
@@ -14960,7 +14937,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Alvord ISD home football field — exact current stadium name/gate not yet corroborated",
-      "address": "Alvord, Wise County — verify entrance directly with school athletics",
       "sourceUrl": "https://www.alvordisd.net/athletics",
       "sourceLabel": "Alvord ISD official athletics and football documents",
       "verifiedAt": "2026-10-09",
@@ -15140,7 +15116,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Freedom Field",
-      "address": "Alvin ISD, Pearland/Iowa Colony-area venue network — confirm game-specific event gate",
       "sourceUrl": "https://www.texasfootball.com/team/alvin-shadow-creek-sharks/",
       "sourceLabel": "Dave Campbell's Shadow Creek stadium listing",
       "verifiedAt": "2026-10-09",
@@ -15327,7 +15302,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Freedom Field — listed district venue",
-      "address": "Iowa Colony/Alvin ISD district athletic facilities; confirm field and ticket gate for each home game",
       "sourceUrl": "https://www.texasfootball.com/team/iowa-colony-pioneers",
       "sourceLabel": "Dave Campbell's Iowa Colony team stadium directory",
       "verifiedAt": "2026-10-09",
@@ -15514,7 +15488,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Memorial Stadium (Alvin)",
-      "address": "Alvin, Brazoria County — game-night entry address and parking not independently verified",
       "sourceUrl": "https://www.texasfootball.com/team/alvin-yellowjackets",
       "sourceLabel": "Dave Campbell's Alvin football program venue",
       "verifiedAt": "2026-10-09",
@@ -15700,7 +15673,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Charles Head Stadium",
-      "address": "Alvarado, Johnson County — spectator entrance requires local confirmation",
       "sourceUrl": "https://www.texasfootball.com/team/default.aspx?url=alvarado-indians",
       "sourceLabel": "Dave Campbell's Alvarado Indians stadium record",
       "verifiedAt": "2026-10-09",
@@ -15885,7 +15857,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Cam'Ron Matthews Field",
-      "address": "Alto, Cherokee County, Texas — football spectator gate not independently verified",
       "sourceUrl": "https://www.texasfootball.com/team/alto-yellowjackets",
       "sourceLabel": "Dave Campbell's Alto Yellowjackets program history and venue",
       "verifiedAt": "2026-10-09",
@@ -16070,7 +16041,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Rice Veterans' Memorial Stadium",
-      "address": "Altair, Texas — exact spectator gate and parking location not independently established",
       "sourceUrl": "https://www.texasfootball.com/team/rice-consolidated-raiders",
       "sourceLabel": "Dave Campbell's stadium and 2026 team history",
       "verifiedAt": "2026-10-09",
@@ -16219,7 +16189,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Buck Stadium",
-      "address": "Alpine, Texas — stadium spectator entrance and parking address unverified",
       "sourceUrl": "https://www.texasfootball.com/team/default.aspx?url=alpine-bucks",
       "sourceLabel": "Dave Campbell's Alpine Bucks venue and program record",
       "verifiedAt": "2026-10-09",
@@ -16591,7 +16560,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "McNair Stadium — school campus athletic venue",
-      "address": "9700 Saints Circle, Fort Worth, TX 76108 (school campus; verify stadium entrance separately)",
       "sourceUrl": "https://www.aseschool.org/about/campus-map",
       "sourceLabel": "Official All Saints campus map identifies McNair Stadium",
       "verifiedAt": "2026-10-09",
@@ -16781,7 +16749,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Crump Stadium — documented venue for Taylor–Memorial on Oct. 16, 2026",
-      "address": "Alief, Houston, Texas — verify your assigned entrance for each game",
       "sourceUrl": "https://www.houstonmemorialfootball.com/schedule",
       "sourceLabel": "Memorial varsity 2026 venue schedule (Taylor away game at Crump)",
       "verifiedAt": "2026-10-16",
@@ -17000,7 +16967,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Alief ISD scheduled football facility — verify event-specific stadium",
-      "address": "Houston / Alief ISD, Texas; do not assume school campus is the game venue",
       "sourceUrl": "https://www.maxpreps.com/tx/houston/alief-elsik-rams/football/schedule/",
       "sourceLabel": "School-linked MaxPreps schedule for home versus away designation",
       "verifiedAt": "2026-10-09",
@@ -17372,7 +17338,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Robert Nail Memorial Stadium — Denney Faith Field",
-      "address": "Historic gate near Central Street and North Walnut Street, Albany, Texas; confirm official game entrance and parking",
       "sourceUrl": "https://www.hmdb.org/m.asp?m=85275",
       "sourceLabel": "Texas historical marker at Albany's first public school and stadium gateway",
       "verifiedAt": "2026-10-09",
@@ -17614,7 +17579,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Agua Dulce ISD football field",
-      "address": "One Longhorn Drive, Agua Dulce, TX 78330; specific game entry and parking rules unverified",
       "sourceUrl": "https://www.tdlr.texas.gov/TABS/Search/Print/TABS2026016320",
       "sourceLabel": "Texas Department of Licensing and Regulation football-field bleacher project",
       "verifiedAt": "2026-10-09",
@@ -17742,7 +17706,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Mustang Field (name reported by Texas football reference)",
-      "address": "Ackerly, Dawson County, Texas — confirm actual stadium gate directly with Sands CISD",
       "sourceUrl": "https://www.texasfootball.com/team/sands-mustangs",
       "sourceLabel": "Dave Campbell's Texas Football — Sands Mustang Field venue reference",
       "verifiedAt": "2026-10-09",
@@ -17984,7 +17947,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "TLCA Abilene football — confirm each game's assigned field",
-      "address": "Secondary school: 3250 State Street, Abilene, TX 79603; football field entrance is NOT verified",
       "sourceUrl": "https://www.texasleadershipabilene.com/athletics/coaching-staff",
       "sourceLabel": "Texas Leadership of Abilene official athletics office and coach",
       "verifiedAt": "2026-10-09",
@@ -18105,7 +18067,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Shotwell Stadium / Shotwell Annex game-day district facilities",
-      "address": "Abilene, Texas — current game-specific venue and gate from Abilene ISD",
       "sourceUrl": "https://www.abileneisd.org/article/2937209",
       "sourceLabel": "Abilene ISD Shotwell and Shotwell Annex official event guidance",
       "verifiedAt": "2026-10-09",
@@ -18233,7 +18194,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Shotwell Stadium",
-      "address": "Abilene, Texas — confirm the specific event's stadium entrance with Abilene ISD",
       "sourceUrl": "https://www.abileneisd.org/article/2937209",
       "sourceLabel": "Abilene ISD 2026 Shotwell Stadium and Annex notice",
       "verifiedAt": "2026-10-09",
@@ -18354,7 +18314,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Abernathy ISD football stadium",
-      "address": "Abernathy, Texas — verify the game-day stadium gate with Abernathy ISD",
       "sourceUrl": "https://www.southernbleacher.com/listing/abernathy-independent-school-district/214/",
       "sourceLabel": "Southern Bleacher — Abernathy ISD stadium seating installation",
       "verifiedAt": "2026-10-09",
@@ -18487,7 +18446,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "El Paso Field",
-      "address": "Shamrock, Texas — confirm the current entrance and parking instructions with Shamrock ISD",
       "sourceUrl": "https://www.texasfootball.com/team/shamrock-irish",
       "sourceLabel": "Dave Campbell's Texas Football — Shamrock program history",
       "verifiedAt": "2026-10-09",
@@ -18652,7 +18610,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Panther Field",
-      "address": "Abbott, Texas — confirm the stadium entry address with Abbott ISD",
       "sourceUrl": "https://www.texasfootball.com/team/abbott-panthers",
       "sourceLabel": "Dave Campbell's Texas Football — Abbott venue",
       "verifiedAt": "2026-10-08",
@@ -18838,7 +18795,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Bart Coan Field (historical Fort Davis home football venue)",
-      "address": "Fort Davis ISD campus area, Fort Davis — confirm access with the district; no 2026 football games scheduled",
       "sourceUrl": "https://www.fdisd.com/article/239245",
       "sourceLabel": "Fort Davis ISD's 2020 Bart Coan Football Field announcement",
       "verifiedAt": "2026-10-08",
