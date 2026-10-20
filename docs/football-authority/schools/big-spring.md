@@ -46,15 +46,14 @@ The authored Steers guide explains the historically significant 1953 title appea
 
 ## Pending verification and acceptance
 
-- Recheck any newer 2026 October outcomes after the independently supported October 9 Pecos final (L 24–33; 1–5 through October 9); confirm stadium home-game venue per fixture against dated district reporting.
-- Verify exact school/venue identity and 2026 UIL assignment in source content, not only HTTP status.
-- Find original, rights-cleared stadium-specific image if available; **none certified**. Do not use official copyrighted gallery images by assumption.
-- School-specific editorial, coach, venue, original FAQs and sourced 2026 score table are authored on PR #4970; confirm rendering, route and county links, copyright/licensing compliance before final acceptance.
-- Establish legitimate reciprocal Howard County linking; validate SEO/structured data, desktop/mobile accessibility and a target-specific Chrome acceptance on exact production SHA.
-- Run canonical `node scripts/ci/run-premerge-validation.mjs` and protected merge checks before deployment.
-- Do not call `td_maintenance.accept_authority_page` until the full nine-dimension contract is genuinely supported. Registry marks IMPLEMENTED (unmerged branch), never VERIFIED without production acceptance.
+- **Technical production acceptance is complete:** [Batch 006 Chrome run #39273758531](https://github.com/keeptxred/TexasDefined/actions/runs/39273758531) passed Big Spring at 1366px desktop, 390px mobile and 320px reflow. The reciprocal Howard County check passed on the same single observed Worker release, and the Batch 006 sitemap cohort was 25/25.
+- Recheck any newer 2026 outcomes after the sourced October 16 Seminole loss before changing the 1–6 record or future fixtures; confirm each home-game venue against dated district reporting rather than assuming every game uses the same field.
+- Preserve the campus-versus-Memorial-Stadium distinction from Big Spring ISD sources. Exact vehicle entrance, parking, accessible seating and game-specific ticket policy remain unverified.
+- Find original, rights-cleared stadium-specific imagery if available; **none is certified**. Do not reuse official gallery images by assumption.
+- Final nine-dimension editorial/factual signoff and a manual human accessibility review remain required. The successful automated Chrome/reflow/county/sitemap run does not substitute for those reviews.
+- Do not call `td_maintenance.accept_authority_page` or promote this registry record to `VERIFIED` until those remaining dimensions are actually supported.
 
-**Sources checked October 15, 2026:** UIL archival final, official 2026–28 UIL school alignment, Big Spring ISD athletics/football/venue/contacts and third-party MaxPreps schedule. Source retrieval does not establish complete human factual verification or photo licensing.
+**Sources checked/reconciled through October 20, 2026:** UIL archival final and 2026–28 alignment, Big Spring ISD athletics/football/venue contacts, dated third-party schedule/results, and the October 19 production Chrome evidence. Technical acceptance no longer belongs on the blocker list; photo rights, game-day access details and final human/editorial acceptance do.
 
 ## October 20, 2026 — eliminate stale “upcoming Seminole” wording
 The published overview previously called the **October 16 Seminole game upcoming** even though the same authority page's dated ledger and later paragraph already reported Big Spring **lost 16–43**, leaving the Steers **1–6** through October 16. The contradictory forward-looking sentence is now replaced with the recorded result and explicitly labels the remaining Monahans/Fort Stockton/Snyder games as scheduled only. The existing October 17 KCBD/FOX34 and Houston Chronicle reporting is the source for the final; no new score, school record, stadium or playoff outcome was generated.

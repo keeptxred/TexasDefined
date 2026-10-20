@@ -26,7 +26,9 @@
 
 ## Implementation and pending gates
 
-Original content, original FAQs, season snapshots, critical visitor/source disagreements and UIL data implemented in program-editorial.ts. Needs protected canonical premerge gate, merge behind Big Spring PR #4970, exact-SHA desktop/mobile production Chrome checks (links, image governance, SEO, schema, accessibility), 2026 score updates, Nueces County reciprocal internal links and independent nine-dimension editorial acceptance. Retain NOT VERIFIED until then.
+Original content, original FAQs, season snapshots, critical visitor/source disagreements and UIL data are merged and deployed. [Batch 006 Chrome run #39273758531](https://github.com/keeptxred/TexasDefined/actions/runs/39273758531) passed Bishop at 1366px desktop, 390px mobile and 320px reflow; the reciprocal Nueces County check passed on the same single Worker release, and the Batch 006 sitemap cohort passed 25/25. Those technical gates are complete.
+
+Bishop remains **DEPLOYED, not VERIFIED** because the remaining issues are substantive rather than mechanical: Keith Talbert is still a dated third-party-attributed head-coach field rather than a Bishop CISD hiring notice; George Luna Stadium is source-supported for the October 23 school event but exact vehicle gate/parking/ADA access is not certified; no stadium/photo reuse rights are established; and a manual human accessibility plus final nine-dimension editorial review has not been completed.
 
 ## October 19, 2026 — first-party stadium and former-coach chronology clarified
 
