@@ -1,7 +1,7 @@
 import type { Article } from "../types";
 
 /**
- * Subject-specific, rights-documented photographs for Texas Life housing guides.
+ * Subject-specific, rights-documented imagery for Texas Life housing guides.
  * Used by both eager article fixtures and lightweight catalog stubs, avoiding
  * mismatches between article pages and the Texas Life card images.
  * Source and reuse-license URLs: src/data/heritage-photo-license-links.ts.
@@ -31,11 +31,11 @@ export const mortgageFinancingHero: Article["hero"] = {
 };
 
 export const homeEquityHero: Article["hero"] = {
-  src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Hartley_House,_Houston,_TX.jpg?width=1280",
-  alt: "A house in Houston, Texas, representing the residential property used as collateral for a home equity loan",
-  width: 1280,
-  height: 853,
-  credit: "25or6to4 · Wikimedia Commons · CC BY-SA 4.0 (cropped for display)",
+  src: "/images/editorial/texas-heloc-home-equity.jpg",
+  alt: "Texas home equity illustration showing a house, the 80 percent combined-lien limit and a value line",
+  width: 1600,
+  height: 1000,
+  credit: "Texas Defined · original editorial illustration",
 };
 
 export const privateWellEquipmentHero: Article["hero"] = {
