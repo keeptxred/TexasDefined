@@ -106,6 +106,8 @@ const elPasoLiveSurfaces = [
     'Connected El Paso guides',
     '/county/hudspeth',
     'Quintin Soloviev',
+    '/media/remote?url=',
+    'El_Paso_skyline.jpg',
   ] },
   { path: '/city/el-paso', markers: [
     'Connected El Paso guides',
@@ -133,6 +135,69 @@ const elPasoResults = await Promise.all(elPasoLiveSurfaces.map(async ({ path, ma
   return { path, status, markersVerified: markers.length };
 }));
 for (const result of elPasoResults) console.log(JSON.stringify({ surface: 'El Paso authority production', ...result, ok: true }));
+
+// Bounded El Paso destination/neighbor network acceptance. These are the
+// specific related authorities linked from the metro page, not a sitewide scan.
+// A title or county mention alone is insufficient: insist on the actual metro
+// backlink in each publicly rendered page.
+const elPasoNetworkPaths = [
+  '/county/hudspeth',
+  '/destination/chamizal-national-memorial',
+  '/destination/magoffin-home',
+  '/destination/old-socorro-mission',
+  '/destination/franklin-mountains-state-park',
+  '/destination/hueco-tanks-state-park-and-historic-site',
+  '/destination/el-paso-museum-of-art',
+  '/destination/el-paso-museum-of-archaeology',
+  '/destination/hotel-paso-del-norte',
+  '/article/el-camino-real-de-tierra-adentro-national-historic-trail',
+  '/destination/ysleta-del-sur-pueblo-cultural-center-museum-el-paso',
+];
+const elPasoNetworkResults = await Promise.allSettled(elPasoNetworkPaths.map(async path => {
+  // Ysleta del Sur uses its own researched authority navigation, rather than
+  // the shared 'Connected El Paso guides' heading.
+  const expected = path.includes('ysleta-del-sur-pueblo')
+    ? 'El Paso metro-area guide' : 'Connected El Paso guides';
+  const { status, body } = await fetchHealthy(path, expected);
+  if (!body.includes('/metro-area/el-paso-metro')) {
+    throw new Error(`${path} is missing its live El Paso metro backlink`);
+  }
+  return { path, status, backlink: true };
+}));
+const elPasoNetworkFailures = [];
+for (let i = 0; i < elPasoNetworkResults.length; i++) {
+  const item = elPasoNetworkResults[i];
+  if (item.status === 'rejected') {
+    elPasoNetworkFailures.push(`${elPasoNetworkPaths[i]}: ${String(item.reason)}`);
+  } else {
+    console.log(JSON.stringify({ surface: 'El Paso connected authority', ...item.value, ok: true }));
+  }
+}
+if (elPasoNetworkFailures.length) {
+  throw new Error('El Paso connected authority live verification failed: ' + elPasoNetworkFailures.join('; '));
+}
+
+// Do not mistake a licensed image URL or a caption for a loaded photograph.
+// The live metro hero is delivered through the existing same-origin remote
+// image route; require real encoded image bytes from that exact route.
+const skylineSource = 'https://commons.wikimedia.org/wiki/Special:Redirect/file/El_Paso_skyline.jpg?width=1600';
+const skylinePath = '/media/remote?url=' + encodeURIComponent(skylineSource);
+const skylineResponse = await fetch(origin + skylinePath, {
+  redirect: 'follow', cache: 'no-store', signal: AbortSignal.timeout(30_000),
+  headers: { 'user-agent': userAgent },
+});
+const skylineType = (skylineResponse.headers.get('content-type') || '').toLowerCase();
+const skylineBytes = new Uint8Array(await skylineResponse.arrayBuffer());
+const skylineMagic = (skylineBytes[0] === 255 && skylineBytes[1] === 216)
+  || (skylineBytes[0] === 137 && skylineBytes[1] === 80 && skylineBytes[2] === 78 && skylineBytes[3] === 71)
+  || (skylineBytes[0] === 82 && skylineBytes[1] === 73 && skylineBytes[8] === 87 && skylineBytes[9] === 69);
+if (!skylineResponse.ok || !skylineType.startsWith('image/') || skylineBytes.length < 1024 || !skylineMagic) {
+  throw new Error('El Paso skyline returned no valid image bytes: ' + JSON.stringify({
+    status: skylineResponse.status, type: skylineType, bytes: skylineBytes.length,
+  }));
+}
+console.log(JSON.stringify({ surface: 'El Paso skyline real image bytes', status: skylineResponse.status,
+  type: skylineType, bytes: skylineBytes.length, ok: true }));
 
 const liveNewsPath = firstPublishedNewsPath(news.body);
 if (!liveNewsPath) {
