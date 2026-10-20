@@ -1,15 +1,15 @@
 import type { ImageRef } from "../types";
 
 /** Authenticated autumn colors at the East Trail, Lost Maples State Natural Area.
- * Wing-Chi Poon, 5 November 2005; CC BY-SA 2.5.
- * Source: https://commons.wikimedia.org/wiki/File:Aerial_View_of_Autumn_Forest_Colors.jpg
- * License: https://creativecommons.org/licenses/by-sa/2.5/
+ * G. Lamar, 24 November 2012; CC BY 2.0.
+ * Source: https://commons.wikimedia.org/wiki/File:The_Lost_Maples_State_Park_-_Fall_Colors_in_Texas_(29567585500).jpg
+ * License: https://creativecommons.org/licenses/by/2.0/
  * Historical illustration only; never imply current-season foliage conditions.
  */
 export const hillCountryFallColorsHero: ImageRef = {
-  src: "https://upload.wikimedia.org/wikipedia/commons/2/2d/Aerial_View_of_Autumn_Forest_Colors.jpg",
-  alt: "Red, orange, and gold autumn leaves in the forest at Lost Maples State Natural Area in the Texas Hill Country",
-  width: 2048,
-  height: 1360,
-  credit: "Wing-Chi Poon · 5 Nov 2005 · CC BY-SA 2.5 · Wikimedia Commons; historically photographed fall foliage",
+  src: "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/33/The_Lost_Maples_State_Park_-_Fall_Colors_in_Texas_%2829567585500%29.jpg/960px-The_Lost_Maples_State_Park_-_Fall_Colors_in_Texas_%2829567585500%29.jpg",
+  alt: "Golden-orange and rust-red autumn maple leaves over a woodland trail at Lost Maples State Natural Area, Texas",
+  width: 960,
+  height: 540,
+  credit: "G. Lamar · 24 Nov 2012 · CC BY 2.0 · Wikimedia Commons; historical fall foliage photograph",
 };
