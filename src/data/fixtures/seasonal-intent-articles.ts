@@ -4,6 +4,7 @@ import roadTrip from "@/assets/road-trip.jpg";
 import smallTown from "@/assets/small-town.jpg";
 
 import { hillCountryFallColorsHero } from "./hill-country-fall-colors-hero";
+import { eastTexasFallColorsHero } from "./east-texas-fall-colors-hero";
 import type { Article, ImageRef } from "../types";
 import { applySeasonalIntentDepth } from "./seasonal-intent-depth-blocks";
 
@@ -221,7 +222,7 @@ const baseSeasonalIntentArticles: Article[] = [
   },
   {
     id: "si-10", brandId: BRAND, slug: "east-texas-fall-colors", title: "Where to See Fall Colors in East Texas",
-    dek: "Plan East Texas fall foliage trips to Caddo Lake, Daingerfield, Lake Bob Sandlin and Tyler, with a realistic color calendar, park links and route ideas.", category: "outdoors", region: "piney-woods", hero: fall, authorId: "a-dell", publishedAt: "2026-08-20", updatedAt: "2026-10-07", readingMinutes: 8,
+    dek: "Plan East Texas fall foliage trips to Caddo Lake, Daingerfield, Lake Bob Sandlin and Tyler, with a realistic color calendar, park links and route ideas.", category: "outdoors", region: "piney-woods", hero: eastTexasFallColorsHero, authorId: "a-dell", publishedAt: "2026-08-20", updatedAt: "2026-10-07", readingMinutes: 8,
     tags: ["East Texas fall colors", "Piney Woods fall foliage", "Caddo Lake fall", "Daingerfield fall colors"], relatedCollections: [], relatedDestinations: ["caddo-lake"],
     sourceName: "Texas Parks and Wildlife Department", sourceUrl: "https://tpwd.texas.gov/state-parks/parks/things-to-do/fall-for-parks",
     internalLinks: [
