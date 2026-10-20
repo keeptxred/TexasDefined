@@ -181,6 +181,23 @@ const currentVisitNotes = fs.readFileSync('src/data/historic-site-depth-all.ts',
 for (const slug of ['old-socorro-mission', 'caddo-mounds-state-historic-site', 'fanthorp-inn', 'landmark-inn', 'fort-griffin', 'barrington-living-history-farm', 'fort-mckavett', 'fort-lancaster', 'mission-dolores', 'acton-state-historic-site', 'goodnight-ranch', 'french-legation', 'fannin-battleground', 'kreische-brewery', 'confederate-reunion-grounds']) {
   if (!currentVisitNotes.includes(`"${slug}": {`)) failures.push(`Missing site-specific current visitor/access guidance: ${slug}`);
 }
+for (const slug of [
+  'sam-bell-maxey-house', 'starr-family-home',
+  'port-isabel-lighthouse', 'palmito-ranch-battlefield',
+]) {
+  if (!currentVisitNotes.includes(`"${slug}": {`)) {
+    failures.push(`Missing reviewed visiting guidance for historic-site wave 2: ${slug}`);
+  }
+}
+for (const sourceUrl of [
+  'https://thc.texas.gov/state-historic-sites/port-isabel-lighthouse/plan-your-visit-port-isabel-lighthouse',
+  'https://thc.texas.gov/state-historic-sites/palmito-ranch-battlefield/palmito-ranch-battlefield-history',
+]) if (!fullAuthorityFile.includes(sourceUrl)) {
+  failures.push(`Historic authority missing linked second-wave official evidence: ${sourceUrl}`);
+}
+for (const caution of ['75 winding stairs', 'three short ladders', 'no staffed services']) {
+  if (!currentVisitNotes.includes(caution)) failures.push(`Second-wave visitor constraints missing: ${caution}`);
+}
 if (!fullAuthorityFile.includes('oldSocorroHistoryItineraries') || !fullAuthorityFile.includes('closedSiteItineraries')) {
   failures.push('Closed First Capitol and Old Socorro must not receive ordinary public-access itineraries.');
 }
