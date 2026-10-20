@@ -67,10 +67,11 @@ function Page() {
       </section>}
 
       <section className="py-12" aria-labelledby="featured-heading">
+        <p className="eyebrow text-primary">Data from across Texas Defined</p>
         <div className="border-b border-border pb-4">
           <p className="eyebrow text-primary">Featured data products</p>
           <h2 id="featured-heading" className="mt-2 font-display text-4xl">Compare Texas by county, city and place</h2>
-          <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">These larger comparison tools sit alongside the statewide data briefs and are now part of the same Texas Data catalog.</p>
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">These cross-vertical reference datasets sit alongside the statewide data briefs and are now part of the same Texas Data catalog.</p>
         </div>
         <div className="grid md:grid-cols-2">
           {featuredDataProducts.map((dataset, index) => <article key={dataset.path} className={`border-b border-border py-7 md:px-6 ${index % 2 === 1 ? 'md:border-l' : ''}`}>
@@ -78,6 +79,7 @@ function Page() {
             <h3 className="mt-2 font-display text-3xl leading-tight"><Link to={dataset.path} className="hover:text-primary">{dataset.title}</Link></h3>
             <p className="mt-3 text-sm leading-7 text-muted-foreground">{dataset.description}</p>
             <p className="mt-4 text-xs leading-5 text-muted-foreground">Source: {dataset.source}</p>
+            {dataset.path === '/sports-venues/compare' && <p className="mt-2 text-xs leading-5 text-muted-foreground">Capacity and opening fields remain blank when the verified profile does not contain a usable value.</p>}
             <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
               <Link to={dataset.path} className="border-b border-primary text-primary">Explore dataset →</Link>
               <a href={dataset.csvPath} className="border-b border-primary text-primary">Download CSV ↓</a>
