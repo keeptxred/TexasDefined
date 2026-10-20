@@ -64,7 +64,7 @@ export default function OldSocorroMissionAuthority() {
           <h1 className="mt-5 max-w-4xl font-display text-5xl leading-tight sm:text-7xl">Old Socorro Mission</h1>
           <p className="mt-6 max-w-3xl text-xl leading-8 text-ink-foreground/80">The original Socorro mission site: Pueblo Revolt refugees, a seventeenth-century adobe church, a changing Rio Grande and archaeology that recovered a lost landscape.</p>
           <p className="mt-6 max-w-3xl text-base leading-7 text-ink-foreground/80"><strong>Important:</strong> The original mission site is closed to the public. This is a history and archaeology guide, not an admission or driving guide.</p>
-          <a href={thc} target="_blank" rel="noopener noreferrer" className="mt-6 inline-block border-b border-current pb-1 text-sm font-semibold">Check the state site's official closure notice ↗</a>
+          <a href={thc} target="_blank" rel="noopener noreferrer" className="mt-6 inline-block border-b border-ink-foreground/20 pb-1 text-sm font-semibold">Check the state site's official closure notice ↗</a>
         </div>
         <div className="border-l-2 border-ink-foreground/20 pl-6">
           <p className="eyebrow text-ink-foreground/80">At a glance</p>
@@ -79,13 +79,13 @@ export default function OldSocorroMissionAuthority() {
     </header>
     <section className="border-b border-border bg-surface py-10 sm:py-14">
       <Container className="grid gap-6 md:grid-cols-2">
-        <article className="border-t-4 border-foreground pt-5">
+        <article className="border-t-2 border-foreground pt-5">
           <p className="eyebrow text-primary">Original location · Do not visit</p>
           <h2 className="mt-3 font-display text-3xl">Old Socorro archaeological site</h2>
           <p className="mt-4 leading-7">10551 Nicholas Road, Socorro, Texas, is the historical location published by the Texas Historical Commission. It is <strong>not open</strong>; no public tours, visitor entrance, restrooms or on-site services are offered. This address is provided for historical identification, not travel directions.</p>
           <a className={linkClass + " mt-4 inline-block"} href={thc} target="_blank" rel="noopener noreferrer">THC archaeological-site record ↗</a>
         </article>
-        <article className="border-t-4 border-foreground pt-5">
+        <article className="border-t-2 border-foreground pt-5">
           <p className="eyebrow text-primary">Later church · Separate operator</p>
           <h2 className="mt-3 font-display text-3xl">La Purísima Socorro Mission</h2>
           <p className="mt-4 leading-7">The present-day mission church, completed in the 1840s, is at <strong>328 S. Nevarez Road</strong>. It is not the archaeological location described on this page. As an active religious property, its entry and worship arrangements should be confirmed with its operator.</p>
