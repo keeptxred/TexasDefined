@@ -120,7 +120,7 @@ export function buildFootballProfileFaq(input: FootballProfileContentInput): Foo
   if (editorial?.coach) {
     items.push({
       question: `Who is the ${displayName} football head coach?`,
-      answer: `The current school-source entry used by TexasDefined lists ${editorial.coach.name} as the head football coach.`,
+      answer: `TexasDefined's current sourced coach record identifies ${editorial.coach.name} as the head football coach. The source trail on this page shows the underlying school, news or roster source used for that attribution.`,
     });
   }
 
