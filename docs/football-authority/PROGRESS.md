@@ -1,5 +1,14 @@
 # Football Authority — Execution Ledger
 
+## October 20, 2026 — Batch 006 Boerne Champion / Bogata Rivercrest / Boling acceptance-ledger reconciliation
+Continued the active Batch 006 source-review sequence for schools 13–15.
+
+- **Boerne Champion:** Champion High School's official Coaching Staff page still explicitly lists **Blane Ellis — Head Coach** under Football, with Alan Ford and Tyler Mangold in coordinator roles. No new first-party general entrance/parking/ADA/photo-rights evidence found beyond already documented event-specific ticket/shuttle guidance. Preserve the reported 7–0 through Oct. 16 record and strict separation from Boerne High.
+- **Bogata Rivercrest:** Rivercrest High's first-party directory continues to support **Laytner Kennedy as boys athletic director** and official contact only; it still does not independently publish a head-football appointment. Keep Kennedy's head-coach label qualified to the dated football-specific source and preserve the documented stale Travis McClain history-field conflict. No new first-party stadium access/media-rights evidence found. Keep 4–4 through Oct. 16.
+- **Boling:** Boling High Athletics still explicitly lists **Kevin Urbanek — Athletic Director / Head FB Coach** and the 2026 football schedule. No new first-party spectator entrance/parking/ADA/ticket/photo-rights evidence found. Preserve the 1972 UIL title, 2016 runner-up distinction and reported 3–4 through Oct. 16 record.
+
+The successful Batch 006 technical Chrome run remains valid, but none of these schools has final nine-dimension human editorial/accessibility/media-rights acceptance. Registry remains **105 VERIFIED / 25 Batch006 DEPLOYED / 1,162 NOT_REVIEWED**, **0/25 Batch006 individually VERIFIED**.
+
 ## October 20, 2026 — Batch 006 Bluff Dale / Blum / Boerne acceptance-ledger reconciliation
 Continued the active Batch 006 source-review sequence for schools 10–12.
 
