@@ -94,6 +94,21 @@ try {
         if (!await item.getByRole("link", { name: "Wikimedia source" }).count()) throw new Error("Missing image provenance: " + i);
         if (!await item.getByRole("link", { name: "License terms" }).count()) throw new Error("Missing image license: " + i);
       }
+      // Validate the live replacement sources as well as their generic image load status.
+      // A fallback image may load successfully, but that must not masquerade as the
+      // intended park photograph or the dated October foliage example.
+      for (const [label, expectedSrc] of [
+        ["Martin Creek Lake State Park", "Docks_at_Martin_Creek_Lake_State_Park_2019.jpg"],
+        ["Daingerfield State Park — October lake reflection", "Daingerfield_sp_reflection.jpg"],
+      ]) {
+        const figure = gallery.locator("figure").filter({ has: page.getByText(label, { exact: true }) });
+        if (await figure.count() !== 1) throw new Error("Expected exactly one gallery image for " + label);
+        const actualSrc = await figure.locator("img").getAttribute("src");
+        if (!actualSrc?.includes(expectedSrc)) throw new Error("Unexpected photo source for " + label + ": " + actualSrc);
+      }
+      for (const label of ["Daingerfield State Park", "Caddo Lake State Park", "Lake Bob Sandlin State Park", "Tyler State Park", "Cooper Lake State Park (South Sulphur Unit)", "Martin Creek Lake State Park"]) {
+        if (!await gallery.getByText(label, { exact: true }).count()) throw new Error("Six-park image coverage missing " + label);
+      }
       if (!await gallery.getByText("Martin Creek Lake State Park", { exact: true }).count()) throw new Error("Martin Creek lakeshore photograph missing");
       if (!await gallery.getByText("Daingerfield State Park — October lake reflection", { exact: true }).count()) throw new Error("October Daingerfield photograph missing");
       if (await page.getByRole("heading", { name: "More stories to read next" }).count()) throw new Error("Unrelated magazine rail returned");
