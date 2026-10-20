@@ -72,6 +72,10 @@ function MarketCard({ market }: { market: (typeof VIATOR_RUNTIME_MARKETS)[number
     {market.signalLanes?.length ? <p className="mt-3 text-sm leading-6 text-muted-foreground"><strong className="font-semibold text-foreground">Recent inventory signals:</strong> {market.signalLanes.join(" · ")}</p> : null}
     <div className="mt-5 flex flex-wrap gap-4 text-sm font-semibold">
       <a href={localSearch} className="border-b border-primary text-primary">TexasDefined places →</a>
+      {market.slug === "waco" ? <>
+        <a href="/waco-ghost-tours" className="border-b border-primary text-primary">Compare Waco ghost tours →</a>
+        <a href="/dallas-to-waco-magnolia-tours" className="border-b border-primary text-primary">Dallas-to-Waco day trips →</a>
+      </> : null}
       <a
         href={viatorUrl}
         target="_blank"
