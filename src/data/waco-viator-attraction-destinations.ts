@@ -206,7 +206,6 @@ const WACO_AUTHORITY_GUIDES: Readonly<Record<string, DestinationAuthorityGuide>>
     ],
     sources: [
       { label: "City of Waco — Suspension Bridge and Riverwalk", url: "https://www.waco-texas.com/Departments/Parks-Recreation/Suspension-Bridge-Riverwalk-Area", scope: "Public access, bridge history and riverfront destinations" },
-      { label: "National Park Service — Waco Suspension Bridge", url: "https://www.nps.gov/places/waco-suspension-bridge.htm", scope: "Cattle-trail history and interpretive background" },
     ],
   },
   "cameron-park-waco": {
