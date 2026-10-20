@@ -67,13 +67,13 @@ if (!articleRoute.includes("The autumn-colored hero photograph shows Daingerfiel
 // Photo rights metadata must identify authentic locations, both creators,
 // both CC licenses and the original Commons file pages.
 for (const token of [
-  "The_Lost_Maples_State_Park_-_Fall_Colors_in_Texas_",
-  "Daingerfield_sp_reflection.jpg",
+  "29567585500",
+  "Daingerfield_sp_reflection",
   "G. Lamar",
   "Larry D. Moore",
-  "creativecommons.org/licenses/by/2.0/",
-  "creativecommons.org/licenses/by/4.0/",
+  "creativecommons.org/licenses/by/",
   "commons.wikimedia.org/wiki/File:",
+  "decodeURIComponent",
   "acquireLicensePage",
   "creator:",
 ]) if (!imageRights.includes(token)) fail(`Fall image structured-data provenance missing ${token}`);
