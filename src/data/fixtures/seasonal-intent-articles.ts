@@ -3,7 +3,6 @@ import caddoLake from "@/assets/caddo-lake.jpg";
 import roadTrip from "@/assets/road-trip.jpg";
 import smallTown from "@/assets/small-town.jpg";
 
-import { stateParkHeroMap } from "../state-park-hero-map";
 import { lostMaplesAutumnHero } from "./lost-maples-autumn-hero";
 import type { Article, ImageRef } from "../types";
 import { applySeasonalIntentDepth } from "./seasonal-intent-depth-blocks";
