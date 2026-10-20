@@ -9,6 +9,8 @@ const runId = process.env.GITHUB_RUN_ID ?? Date.now().toString();
 const summaryPath = process.env.GITHUB_STEP_SUMMARY;
 
 const surfaces = [
+  ['mclennan-2020-census-corrected', '/county/mclennan', 'The 2020 U.S. Census counted 260,579 residents in McLennan County.'],
+
   ['gaines-magnolia-title', '/article/chip-and-joanna-gaines-magnolia-waco', 'Chip and Joanna Gaines: Their Story, Magnolia and Waco'],
   ['gaines-magnolia-visit-plan', '/article/chip-and-joanna-gaines-magnolia-waco', 'Plan a Chip-and-Joanna-inspired day in Waco'],
   ['gaines-magnolia-viator', '/article/chip-and-joanna-gaines-magnolia-waco', 'Guided tours and Magnolia-related experiences'],
