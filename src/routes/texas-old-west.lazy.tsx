@@ -49,7 +49,7 @@ function TexasOldWestPage() {
             ["Goodnight Ranch", "/destination/goodnight-ranch", "Use a preserved ranch landscape to understand Panhandle ranching and Charles and Mary Ann Goodnight."],
             ["Fort Griffin", "/destination/fort-griffin", "Connect a frontier Army post, the state longhorn herd and the cattle-trail era."],
             ["Young County Museum of History & Culture", "/destination/young-county-museum-of-history-and-culture", "Explore the Brazos Indian Reservation, Fort Belknap, cattle history and primary-source research from Graham."],
-            ["Young County frontier history", "/article/young-county-graham-fort-belknap-brazos-cross-timbers-texas", "Connect Graham, Fort Belknap and the Brazos frontier with the county\x27s changing communities and landscape."],
+            ["Young County frontier history", "/county/young", "Connect Graham, Fort Belknap and the Brazos frontier with the county\x27s changing communities and landscape."],
             ["Texas dance halls", "/texas-dance-halls-honky-tonks", "Follow the social rooms where western swing, country music and community life became lived culture."],
             ["Texas two-step", "/texas-two-step", "Understand the dance tradition before building a dance-hall or honky-tonk night into the trip."],
             ["Historic sites & museums", "/explore/historic-sites", "Browse the larger preserved-site catalog for forts, battlefields, homes, missions and museums."],
