@@ -15,7 +15,6 @@ const surfaces = [
   ['gaines-magnolia-affiliate-disclosure', '/article/chip-and-joanna-gaines-magnolia-waco', 'Affiliate disclosure: TexasDefined may earn a commission on qualifying Viator bookings'],
   ['gaines-magnolia-hotels', '/article/chip-and-joanna-gaines-magnolia-waco', 'data-stay-nearby-slot'],
   ['gaines-magnolia-silos-reciprocal', '/destination/magnolia-market-at-the-silos', 'Read our Chip and Joanna Gaines authority guide'],
-  ['gaines-magnolia-mclennan-reciprocal', '/article/mclennan-county-waco-brazos-baylor-mammoths-texas', 'Chip and Joanna Gaines and Magnolia in Waco'],
 
   ['football-wills-point', '/texas-high-school-football-teams/wills-point', 'Wills Point Tigers Football'],
   ['football-bryan', '/texas-high-school-football-teams/bryan', 'Bryan Vikings Football'],
