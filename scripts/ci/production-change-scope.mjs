@@ -60,7 +60,7 @@ function articleLinkRegistry(source) {
   return records;
 }
 
-export function buildChangePlan({ changedFiles, sources = {}, baseline = null, head = null }) {
+export function buildChangePlan({ changedFiles, sources = {}, baseline = null, head = null, enforceCriticalCanaries = false }) {
   const shared = baseline === null || changedFiles.some(p => sharedPattern.test(p));
   const candidates = new Set(shared ? REPRESENTATIVE_PATHS : []);
   const expectedHrefsByPage = {};
@@ -132,8 +132,11 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
   }
   // Verify the corrected statewide source figures on the real public pages, not
   // just a generic HTTP 200 or sitemap entry. Four fixed URLs, no catalog crawl.
+  // Deploy runs enforce these canaries even when a newer release supersedes the
+  // original Texas Data change; otherwise the changed-files baseline can skip
+  // the checks and certify stale cache content as healthy.
   const texasDataPages = new Set();
-  if (changedFiles.some(path => [
+  if (enforceCriticalCanaries || changedFiles.some(path => [
     'src/data/texas-data-center.server.ts',
     'src/data/texas-data-center.ts',
     'src/routes/texas-data.tsx',
@@ -388,7 +391,7 @@ async function main() {
     if (baseline) { try { before = git(['show', `${baseline}:${path}`]); } catch {} }
     sources[path] = { before, after };
   }
-  const plan = buildChangePlan({ baseline, head, changedFiles, sources });
+  const plan = buildChangePlan({ baseline, head, changedFiles, sources, enforceCriticalCanaries: true });
   mkdirSync('.artifacts', { recursive: true });
   writeFileSync('.artifacts/production-change-plan.json', JSON.stringify(plan, null, 2));
   if (process.env.GITHUB_OUTPUT) for (const [group, value] of Object.entries(plan.groups)) appendFileSync(process.env.GITHUB_OUTPUT, `${group}=${value}\n`);
