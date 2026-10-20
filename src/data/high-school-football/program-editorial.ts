@@ -748,6 +748,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       ],
       "latestResultSourceUrl": "https://www.houstonchronicle.com/sports/high-school/football/article/texas-scores-friday-week-16-22481255.php"
     },
+    "venue": {
+      "name": "Blackwell Hornets Field",
+      "address": "100 Hornet Drive, Blackwell, TX 79506 (school orientation point; exact field gate not independently verified)",
+      "sourceUrl": "https://sixmanfootball.com/teams/blackwell-hornets.1046/",
+      "sourceLabel": "Six-Man Football current Blackwell team directory identifies Blackwell Hornets Field",
+      "verifiedAt": "2026-10-20",
+      "note": "Six-Man Football identifies Blackwell Hornets Field as the program's stadium. Blackwell CISD's school address is an orientation point only; TexasDefined does not claim a precise vehicle gate, parking entrance, ticket entrance or accessible-seating route. Confirm game-day details with Blackwell CISD."
+    },
     "development": {
       "title": "2019 Hornets reached the 1A Division II six-man state semifinals",
       "body": "Dave Campbell's Texas Football previewed unbeaten Blackwell facing Motley County in the 2019 Class 1A Division II semifinal, following Blackwell's quarterfinal upset of Jayton 62–54. Historical schedule reporting shows Motley County ended Blackwell's postseason run 56–44; UIL's 2019 state-final announcement instead listed Motley County against Richland Springs. Blackwell reached the state semifinals, not the state championship game. Competing historical totals count games differently (13–1 and 15–1), so this guide does not assert an unqualified full-season record.",
@@ -1139,6 +1147,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "district": true
         }
       ]
+    },
+    "venue": {
+      "name": "Switzer Field",
+      "address": "901 Avenue H, Blanket, TX 76432 (school/district orientation point; exact stadium gate not independently verified)",
+      "sourceUrl": "https://www.texasfootball.com/team/blanket-tigers",
+      "sourceLabel": "Dave Campbell's Texas Football current Blanket program page identifies Switzer Field",
+      "verifiedAt": "2026-10-20",
+      "note": "Dave Campbell's Texas Football identifies Switzer Field as Blanket's stadium. Blanket ISD's Avenue H address is supplied only as an orientation point; TexasDefined does not infer the vehicle gate, parking entrance, ticket entrance or accessible-seating route. Confirm event-specific arrival details with Blanket ISD."
     },
     "development": {
       "title": "The Tigers' 2026 rebound, rebuilt after a difficult week",
@@ -3228,6 +3244,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       ],
       "latestResultSourceUrl": "https://www.houstonchronicle.com/sports/high-school/football/article/texas-scores-friday-week-16-22481255.php"
     },
+    "venue": {
+      "name": "Kiowas Stadium",
+      "address": "600 South Main Street, Booker, TX 79005 (school campus orientation point; exact stadium gate not independently verified)",
+      "sourceUrl": "https://www.texasfootball.com/team/booker-kiowas",
+      "sourceLabel": "Dave Campbell's Texas Football current Booker program page identifies Kiowas Stadium",
+      "verifiedAt": "2026-10-20",
+      "note": "Dave Campbell's Texas Football identifies Kiowas Stadium as Booker's football stadium. The NCES-backed school address is an orientation point only; TexasDefined does not claim it is the public vehicle gate, parking entrance, ticket entrance or accessible-seating route. Confirm live game details with Booker ISD."
+    },
     "development": {
       "title": "2025 district unbeaten campaign and 2026 six-man reset",
       "body": "Booker won all four 2025 conference contests, ended 9–3 overall and reached the six-man postseason according to its archived MaxPreps varsity schedule: wins over Springlake-Earth 75–58 in the first playoff round followed by a 98–48 defeat to Whiteface. This is a two-round postseason, not a state title; the six-man District 1 competitors for 2026–28 are officially Boys Ranch, Booker, Claude, White Deer and Wildorado. The 2026 Kiowas were 4–3 through an October 9 district loss to Claude, 48–0. This game was the first 2026 home defeat and a dated snapshot, not a forecast of the season.",
@@ -3421,6 +3445,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         }
       ],
       "latestResultSourceUrl": "https://www.fox34.com/2026/10/17/end-zone-final-scores-friday-oct-16/"
+    },
+    "venue": {
+      "name": "Coyote Stadium",
+      "address": "240 W Kincaid Avenue, Gail, TX 79738 (Borden County ISD orientation point; exact stadium gate not independently verified)",
+      "sourceUrl": "https://www.texasfootball.com/team/borden-county-coyotes/",
+      "sourceLabel": "Dave Campbell's Texas Football current Borden County program page identifies Coyote Stadium",
+      "verifiedAt": "2026-10-20",
+      "note": "Dave Campbell's Texas Football identifies Coyote Stadium as Borden County's stadium. The district's Kincaid Avenue address is an orientation point only; TexasDefined does not infer the vehicle gate, parking entrance, ticket entrance or accessible-seating route. Confirm current game-day access with Borden County ISD."
     },
     "development": {
       "title": "Five state crowns spanning two decades and two six-man divisions",
@@ -3629,6 +3661,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "district": true
         }
       ]
+    },
+    "venue": {
+      "name": "Bulldog Stadium",
+      "address": "600 W First Street, Borger, TX 79007 (Borger High orientation point; exact stadium gate not independently verified)",
+      "sourceUrl": "https://www.borgerisd.net/69293_2",
+      "sourceLabel": "Borger ISD 2026–27 back-to-school page identifies Bulldog Stadium for the August 1 Meet the Bulldogs event",
+      "verifiedAt": "2026-10-20",
+      "note": "Borger ISD itself identifies Bulldog Stadium in its current 2026–27 event information. The high-school street address is provided only as an orientation point and is not asserted as the stadium's vehicle gate, parking entrance, ticket entrance or accessible-seating route. Confirm football-specific arrival details with Borger ISD."
     },
     "development": {
       "title": "1962 Class 4A state runner-up under Gene Mayfield; 2025 forfeit-record caveat",
