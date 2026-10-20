@@ -92,6 +92,27 @@ async function checkViewport(name, viewport) {
     if (second.memberId) expect(second.memberId === expectedMemberId, '6A D2 widget member ID changed');
     expect(second.hasDirectLink, '6A D2 MaxPreps fallback missing');
     expect(second.scrollWidth <= second.width + 5, '6A D2 horizontal page overflow');
+    const d2ProviderFrame = page.frames().find(frame => frame.url().includes(expectedD2BracketId));
+    const d2FrameInfo = d2ProviderFrame ? await d2ProviderFrame.evaluate(() => ({
+      title: document.title,
+      content: (document.body?.innerText || '').slice(0, 220),
+      htmlLength: document.body?.innerHTML.length || 0,
+    })) : null;
+    expect(!!d2FrameInfo && /6A D2/i.test(d2FrameInfo.title), '6A D2 iframe did not render the correct tournament title');
+    expect((d2FrameInfo?.htmlLength || 0) > 200, '6A D2 MaxPreps iframe body is empty');
+    if (name === 'desktop' && d2ProviderFrame) {
+      try {
+        const frameElement = page.locator('[data-official-playoff-bracket="6AD2"] iframe').first();
+        await frameElement.scrollIntoViewIfNeeded({ timeout: 12000 });
+        await page.waitForTimeout(1200);
+        await frameElement.screenshot({
+          path: `${output}/maxpreps-provider-d2-desktop.png`,
+          timeout: 20000,
+        });
+      } catch (error) {
+        browserErrors.push('6A-D2-iframe-screenshot: ' + String(error).slice(0, 300));
+      }
+    }
 
     // Non-embedded divisions retain source links; switching away must clean
     // up the externally loaded widget, even after MaxPreps modifies its DOM.
@@ -186,7 +207,7 @@ async function checkViewport(name, viewport) {
 
     const screenshot = `${output}/maxpreps-playoffs-${name}.png`;
     await page.screenshot({ path: screenshot, fullPage: true, animations: 'disabled', timeout: 30000 });
-    results.push({ name, status: errors.length ? 'FAIL' : 'PASS', errors, providerResponse, first: { ...first, htmlSnippet: first.htmlSnippet.slice(0, 700) }, second, fallback, after, providerFrames, frameVisuals, providerRequests: providerRequests.slice(-15), requestErrors, browserErrors, screenshot });
+    results.push({ name, status: errors.length ? 'FAIL' : 'PASS', errors, providerResponse, first: { ...first, htmlSnippet: first.htmlSnippet.slice(0, 700) }, second, d2FrameInfo, fallback, after, providerFrames, frameVisuals, providerRequests: providerRequests.slice(-15), requestErrors, browserErrors, screenshot });
     console.log('MaxPreps playoff widget QA: ' + JSON.stringify(results.at(-1)));
     failures.push(...errors.map(error => `${name}: ${error}`));
   } catch (error) {
