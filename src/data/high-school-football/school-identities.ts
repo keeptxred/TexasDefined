@@ -11,6 +11,13 @@ export type VerifiedFootballSchoolIdentity = {
 // Verify identities classification-first (6A, then 5A through 1A); the original user-supplied seed list
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
+  {
+    slug: 'aubrey',
+    mascot: 'Chaparrals',
+    sourceUrl: 'https://www.aubreyisd.net/o/ahs/live-feed?page_no=9',
+    sourceLabel: 'Aubrey ISD official Aubrey High School feed identifies the Chaparrals and publishes the 2026–28 football realignment',
+    verifiedAt: '2026-10-20',
+  },
   { slug: 'big-sandy-harmony', mascot: 'Eagles', colors: 'Red and White', sourceUrl: 'https://www.harmonyisd.net/o/ha', sourceLabel: 'Harmony ISD official athletics confirms Eagles; KLTV 2026 Harmony school preview independently identifies red and white school colors', verifiedAt: '2026-10-14' },
   { slug: 'baytown-goose-creek-memorial', mascot: 'Patriots', sourceUrl: 'https://gcm.gccisd.net/about-us-mission-vision', sourceLabel: 'Goose Creek CISD current official campus source; separately source 2026 athletic results', verifiedAt: '2026-10-10' },
   { slug: 'baytown-lee', mascot: 'Ganders', sourceUrl: 'https://rel.gccisd.net/athletics', sourceLabel: 'Goose Creek CISD current official campus source; separately source 2026 athletic results', verifiedAt: '2026-10-10' },
