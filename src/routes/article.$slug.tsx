@@ -618,6 +618,7 @@ function ArticlePage() {
       <SectionHeader eyebrow="Plan with current information" title="Lost Maples foliage updates and photo credits" />
       <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Check dated Texas Parks and Wildlife foliage photographs and park alerts before choosing a trip date. The hero photograph shows Lost Maples State Natural Area in November 2005, not verified foliage conditions for this season.</p>
       <nav aria-label="Lost Maples current reports and credited hero photograph" className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm">
+        <a href="https://tpwd.texas.gov/state-parks/lost-maples/foliage-reports" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Official 2026 Lost Maples foliage report ↗</a>
         <a href="https://tpwd.texas.gov/state-parks/lost-maples/images/foliage" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Official TPWD foliage photographs ↗</a>
         <a href="https://tpwd.texas.gov/state-parks/lost-maples" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Lost Maples access and alerts ↗</a>
         <a href="https://commons.wikimedia.org/wiki/File:Lost_Maples_State_Natural_Area,_Edwards_Plateau,_Texas,_United_States.jpg" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Hero photo: Alec Norman, Wikimedia Commons ↗</a>
