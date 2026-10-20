@@ -1671,6 +1671,35 @@ if (!errors.length) {
     }
   }
 
+  // The Bluff Dale school-issued 2026 calendar corrects an incomplete
+  // third-party season feed. Keep all three published varsity fixtures visible;
+  // each may gain a score later without breaking this source-integrity test.
+  const bluffDale = footballEditorialRecord('bluff-dale');
+  if (bluffDale) {
+    const originalCalendar = 'bdisd.smartsiteshost.com/page/page_calendar?calID=136451';
+    if (!bluffDale.schedule?.sourceUrl?.includes(originalCalendar)) {
+      errors.push('Bluff Dale 2026 season schedule must cite the first-party ISD calendar');
+    }
+    const originalVarsityFixtures = [
+      ['2026-10-23', 'Milford', 'Away', true],
+      ['2026-10-29', 'Pinnacle Christian', 'Home', false],
+      ['2026-11-05', 'Avalon', 'Home', true],
+    ];
+    for (const [date, opponent, site, district] of originalVarsityFixtures) {
+      const game = bluffDale.season?.games?.find(g => g.date === date && g.opponent === opponent);
+      if (!game || game.site !== site || Boolean(game.district) !== district) {
+        errors.push('Bluff Dale official 2026 game missing/misidentified: ' + date + ' ' + opponent);
+      }
+    }
+    const narrative = [
+      ...(bluffDale.overview || []),
+      ...(bluffDale.faq || []).map(({ answer }) => answer),
+    ].join(' ');
+    if (!narrative.includes('October 23') || !narrative.includes('October 22')) {
+      errors.push('Bluff Dale must preserve school-versus-specialist Milford date discrepancy');
+    }
+  }
+
   const outdatedCoachCaveats = [
     ['boerne', 'rather than assuming an unverified coach'],
     ['boerne', 'should not be mistaken for a formally verified current head-coach appointment'],
