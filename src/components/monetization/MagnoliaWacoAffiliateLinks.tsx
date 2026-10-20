@@ -6,23 +6,34 @@ import { trackAffiliateClick } from "@/lib/affiliate-click";
  */
 export function MagnoliaWacoAffiliateLinks() {
   const placement = "chip-joanna-magnolia-waco-visit";
-  const label = "View Magnolia Market guided day tour from Dallas";
-  const href = buildViatorAffiliateUrl("https://www.viator.com/tours/Dallas/Waco-Texas-and-Magnolia-Market-at-the-Silos/d918-123176P6", placement);
+  const localPlacement = `${placement}-waco-local`;
+  const localLabel = "See guided Fixer Upper homes tour in Waco";
+  const localHref = buildViatorAffiliateUrl("https://www.viator.com/tours/Waco/Brazos-Tours/d50076-62589P1", localPlacement);
+  const dallasPlacement = `${placement}-dallas-transfer`;
+  const dallasLabel = "See Dallas-to-Magnolia private day tour";
+  const dallasHref = buildViatorAffiliateUrl("https://www.viator.com/tours/Dallas/Waco-Texas-and-Magnolia-Market-at-the-Silos/d918-123176P6", dallasPlacement);
   return (
     <>
       <section aria-labelledby="magnolia-waco-tours" className="my-10 border-y border-border bg-surface px-5 py-8 sm:px-8">
         <p className="eyebrow text-primary">Plan a Waco visit</p>
         <h2 id="magnolia-waco-tours" className="mt-2 font-display text-3xl">Guided tours and Magnolia-related experiences</h2>
         <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
-          This independently operated private day tour includes Magnolia Market and other Waco stops, departing from the Dallas area—not Waco. Check available dates, pickup rules, total price and its nonrefundable cancellation policy before booking. This is not an official Magnolia experience, a meet-and-greet or a ticket to a paid Magnolia event.
+          Already in Waco? The local, independently operated guided tour visits Fixer Upper homes and landmarks and meets at the former Harp Design shop in Waco—not at the Silos. A separate private day tour departs from Dallas and includes Magnolia Market, with different pickup and cancellation terms. Neither is an official Magnolia event ticket or a chance to meet Chip and Joanna. Check current availability, accessibility and cancellation rules before booking.
         </p>
         <div className="mt-5 flex flex-wrap items-center gap-5">
-          <a href={href} target="_blank" rel="sponsored nofollow noopener noreferrer"
-            data-affiliate-partner="viator" data-affiliate-placement={placement}
-            data-commercial-partner="viator" data-commercial-placement={placement}
-            onClick={() => trackAffiliateClick({ partner: "viator", label, placement, module: "experiences" })}
+          <a href={localHref} target="_blank" rel="sponsored nofollow noopener noreferrer"
+            data-affiliate-partner="viator" data-affiliate-placement={localPlacement}
+            data-commercial-partner="viator" data-commercial-placement={localPlacement}
+            onClick={() => trackAffiliateClick({ partner: "viator", label: localLabel, placement: localPlacement, module: "experiences" })}
             className="inline-flex bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground">
-            {label} ↗
+            {localLabel} ↗
+          </a>
+          <a href={dallasHref} target="_blank" rel="sponsored nofollow noopener noreferrer"
+            data-affiliate-partner="viator" data-affiliate-placement={dallasPlacement}
+            data-commercial-partner="viator" data-commercial-placement={dallasPlacement}
+            onClick={() => trackAffiliateClick({ partner: "viator", label: dallasLabel, placement: dallasPlacement, module: "experiences" })}
+            className="inline-flex border border-primary px-5 py-3 text-sm font-semibold text-primary">
+            {dallasLabel} ↗
           </a>
           <a href="https://magnolia.com/pages/visit" target="_blank" rel="noopener noreferrer" className="text-sm font-semibold text-primary underline underline-offset-4">
             Official Magnolia hours and ticketed experiences ↗
