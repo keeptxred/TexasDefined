@@ -497,6 +497,12 @@ function DestinationPage() {
             </li>)}
           </ul>
         </section>}
+        {destination.slug === "magnolia-market-at-the-silos" && <section className="mt-10 border-t border-border pt-8" aria-label="Chip and Joanna Gaines history and Magnolia visitor guide">
+          <p className="eyebrow text-primary">The people behind Magnolia</p>
+          <h2 className="mt-2 font-display text-3xl">Chip and Joanna Gaines: from Fixer Upper to the Silos</h2>
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Learn how the Baylor graduates built a Waco-based renovation, television, home and hospitality company, then plan the other Magnolia-related stops across town.</p>
+          <Link to="/article/$slug" params={{ slug: "chip-and-joanna-gaines-magnolia-waco" }} className="mt-5 inline-block border-b border-primary pb-1 font-semibold text-primary">Read our Chip and Joanna Gaines authority guide →</Link>
+        </section>}
         {destination.slug === "franklin-mountains-state-park" && <Suspense fallback={null}><FranklinMountainsAuthority /></Suspense>}
         {!isChokeCanyon && destination.slug !== "franklin-mountains-state-park" && destination.slug !== "magoffin-home" && <Suspense fallback={null}><DestinationViatorBooking destination={destination} /></Suspense>}
         {DESTINATION_LAKE_GUIDE_LINKS[destination.slug] ? <section className="mt-10 border-t border-border pt-8" aria-label="Related lake fishing and recreation guide"><p className="eyebrow text-primary">Explore this lake</p><h2 className="mt-3 font-display text-3xl">Fishing, boat ramps and lake conditions</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">This park is part of a larger lake trip. Our separate lake guide connects species, launch facilities, boating and nearby counties; confirm park admission, accessibility, overnight reservations and closures with the operator.</p><a href={`/fishing/lakes/${DESTINATION_LAKE_GUIDE_LINKS[destination.slug].slug}`} className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">{DESTINATION_LAKE_GUIDE_LINKS[destination.slug].name} visitor and fishing guide →</a></section> : null}

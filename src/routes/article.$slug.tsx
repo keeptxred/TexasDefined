@@ -11,6 +11,8 @@ import type { Article } from "@/data/types";
 import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
+import { MagnoliaWacoAffiliateLinks } from "@/components/monetization/MagnoliaWacoAffiliateLinks";
+import { magnoliaPeopleSchemaForArticle } from "@/data/magnolia-people-schema";
 import { SchoolSupplyPartners } from "@/components/monetization/SchoolSupplyPartners";
 import { FootballFanOffers } from "@/components/sports/FootballFanOffers";
 import { articleInternalLinks } from "@/data/article-internal-links";
@@ -104,6 +106,7 @@ const footballTravelArticleSlugs = new Set([
 type FaqEntry = { question: string; answer: string };
 type FaqBlock = { type: string; text?: string; items?: string[] };
 const FAQ_ARTICLE_SLUGS = new Set([
+  "chip-and-joanna-gaines-magnolia-waco",
   MOVING_TO_TEXAS_PILLAR_SLUG,
   "history-of-the-texas-flag",
   "texas-flag-etiquette-display-guide",
@@ -113,6 +116,7 @@ const FAQ_ARTICLE_SLUGS = new Set([
   "moving-to-el-paso-guide",
 ]);
 const FAQ_START_HEADING_BY_SLUG: Readonly<Record<string, string>> = {
+  "chip-and-joanna-gaines-magnolia-waco": "Frequently asked questions about Chip and Joanna Gaines",
   "texas-high-school-football-playoffs-explained": "Frequently asked questions",
   [MOVING_TO_TEXAS_PILLAR_SLUG]: "Frequently asked questions about moving to Texas",
   "texas-loops-spurs-explained": "Frequently asked questions about Texas Loops and Spurs",
@@ -358,7 +362,10 @@ export const Route = createFileRoute("/article/$slug")({
         acceptedAnswer: { "@type": "Answer", text: answer },
       })),
     } : null;
+    const magnoliaPeopleSchema = article.slug === "chip-and-joanna-gaines-magnolia-waco"
+      ? magnoliaPeopleSchemaForArticle(articleUrl) : [];
     const schemaGraph = [
+      ...magnoliaPeopleSchema,
       webPageSchema,
       imageSchema,
       ...(authorSchema ? [authorSchema] : []),
@@ -530,6 +537,7 @@ function ArticlePage() {
           />
         ) : <ArticleBody blocks={article.body} entities={graph} />}
       </div>
+      {article.slug === "chip-and-joanna-gaines-magnolia-waco" && <MagnoliaWacoAffiliateLinks />}
       <ElPasoAreaCrossLinks kind="article" slug={article.slug} />
       {footballTravelArticleSlugs.has(article.slug) ? <FootballFanOffers slug={article.slug} hasUpcomingAwayTravel={false} showTravelPlanning /> : null}
       {isTexasRiversArticle ? <Suspense fallback={null}><TexasRiversAfterArticle /></Suspense> : null}
