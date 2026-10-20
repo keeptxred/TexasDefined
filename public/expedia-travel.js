@@ -4,10 +4,10 @@
   const STAY_DATA_URL = "/stay-nearby-hotels.json";
   const DESTINATION_STAY_DATA_URL = "/stay-nearby-destination-hotels.json";
   const PAINTED_CHURCHES_STAY_DATA_URL = "/stay-nearby-painted-churches-hotels.json";
-  const TRAVEL_PATH = /^\/(?:explore(?:\/|$)|destination\/|city\/|county\/|sports-venue\/|horse-racing\/gillespie-county-fairgrounds(?:\/|$)|sports-venues\/(?!compare(?:\.csv)?(?:\/|$))|sports-venues$|event\/|events(?:\/|$)|texas-state-fair(?:\/|$)|best-places-to-go-camping-in-texas(?:\/|$)|texas-college-towns(?:\/|$)|texas-tailgating-guide(?:\/|$)|texas-unique-lodging(?:\/|$)|texas-music-venues(?:\/|$)|texas-roadside-oddities(?:\/|$))/;
+  const TRAVEL_PATH = /^\/(?:article\/chip-and-joanna-gaines-magnolia-waco(?:\/|$)|explore(?:\/|$)|destination\/|city\/|county\/|sports-venue\/|horse-racing\/gillespie-county-fairgrounds(?:\/|$)|sports-venues\/(?!compare(?:\.csv)?(?:\/|$))|sports-venues$|event\/|events(?:\/|$)|texas-state-fair(?:\/|$)|best-places-to-go-camping-in-texas(?:\/|$)|texas-college-towns(?:\/|$)|texas-tailgating-guide(?:\/|$)|texas-unique-lodging(?:\/|$)|texas-music-venues(?:\/|$)|texas-roadside-oddities(?:\/|$))/;
   const TRAVEL_ARTICLE_SECTION = /\b(?:travel|lodging|road trips?|weekend getaways?|events?)\b/i;
   const CONTEXT_PATHS = [
-    { kind: "destination", key: "magnolia-market-at-the-silos", pattern: /^\\/article\\/chip-and-joanna-gaines-magnolia-waco\\/?$/ },
+    { kind: "destination", key: "magnolia-market-at-the-silos", pattern: /^\/article\/chip-and-joanna-gaines-magnolia-waco\/?$/ },
     { kind: "destination", key: "painted-churches", pattern: /^\/explore\/painted-churches(?:\/|$)/ },
     { kind: "destination", key: "fredericksburg", pattern: /^\/horse-racing\/gillespie-county-fairgrounds\/?$/ },
     { kind: "venue", pattern: /^\/sports-venue\/([^/?#]+)\/?$/ },
