@@ -81,6 +81,19 @@ function ExplorePage() {
       </div>
     </Container>
 
+    <Section tone="surface">
+      <Container>
+        <SectionHeader eyebrow="Curated Texas attractions" title="Five more ways to explore Texas" description="Focused collections of notable experiences—not giant directories. Each guide includes official booking information, practical advice and nearby county connections." />
+        <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <li className="border-t-2 border-foreground pt-5"><a href="/explore/scenic-trains" className="group block"><p className="eyebrow text-primary">Rail travel</p><h3 className="mt-2 font-display text-2xl group-hover:text-primary">Scenic train rides & historic railroads</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Three bookable heritage-rail experiences with official schedules and county travel links.</p></a></li>
+          <li className="border-t-2 border-foreground pt-5"><a href="/explore/dude-ranches" className="group block"><p className="eyebrow text-primary">Western vacations</p><h3 className="mt-2 font-display text-2xl group-hover:text-primary">Dude ranches & cowboy getaways</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Four standout guest ranches and upscale ranch stays, clearly distinguished by experience.</p></a></li>
+          <li className="border-t-2 border-foreground pt-5"><a href="/explore/spa-retreats" className="group block"><p className="eyebrow text-primary">Spa & wellness</p><h3 className="mt-2 font-display text-2xl group-hover:text-primary">Destination spa resorts</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Four overnight wellness escapes and urban hotel spas with official booking details.</p></a></li>
+          <li className="border-t-2 border-foreground pt-5"><a href="/explore/wildlife-safaris" className="group block"><p className="eyebrow text-primary">Wildlife encounters</p><h3 className="mt-2 font-display text-2xl group-hover:text-primary">Drive-through safari & wildlife parks</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Three wildlife experiences with visitor rules, conservation context and family advice.</p></a></li>
+          <li className="border-t-2 border-foreground pt-5"><a href="/explore/botanical-gardens" className="group block"><p className="eyebrow text-primary">Seasonal gardens</p><h3 className="mt-2 font-display text-2xl group-hover:text-primary">Botanical gardens & arboretums</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Five major garden destinations with seasonal blooms and visitor guidance.</p></a></li>
+        </ul>
+      </Container>
+    </Section>
+
     <Section>
       <Container>
         <SectionHeader eyebrow="The guide by subject" title="Find your way into Texas" description="Rivers, parks, caverns, beaches, historic places, small towns and road trips — organized as a field guide to the state." />
