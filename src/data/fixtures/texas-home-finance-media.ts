@@ -43,5 +43,5 @@ export const privateWellEquipmentHero: Article["hero"] = {
   alt: "Well drilling crew and equipment on Walking M Ranch in Baylor County near Seymour, Texas",
   width: 1280,
   height: 852,
-  credit: "Mark Meyer / USDA NRCS Texas · Wikimedia Commons · CC BY 2.0 (cropped for display)",
+  credit: "USDA NRCS Texas · Wikimedia Commons · CC BY 2.0 (cropped for display)",
 };
