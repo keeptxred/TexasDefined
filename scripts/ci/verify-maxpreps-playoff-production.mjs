@@ -142,7 +142,7 @@ async function checkViewport(name, viewport) {
         }
         return { url: frame.url(), documentInfo };
       }));
-    const embeddedFrame = providerFrames.find(frame => /maxpreps\\.com/i.test(frame.url));
+    const embeddedFrame = providerFrames.find(frame => /maxpreps\.com/i.test(frame.url));
     expect(!!embeddedFrame, 'Official widget never navigated to a MaxPreps frame');
     expect(!!embeddedFrame?.documentInfo && !('error' in embeddedFrame.documentInfo), 'Cannot inspect provider widget document');
     expect((embeddedFrame?.documentInfo?.htmlLength || 0) > 200, 'MaxPreps widget frame is blank, not a rendered bracket');
