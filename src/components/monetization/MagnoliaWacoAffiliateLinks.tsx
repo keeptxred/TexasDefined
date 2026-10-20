@@ -1,5 +1,6 @@
 import { buildViatorAffiliateUrl } from "@/lib/viator-affiliate";
 import { WACO_VIATOR_ATTRACTIONS } from "@/data/waco-viator-attraction-links";
+import { WacoViatorExperienceCards } from "@/components/monetization/WacoViatorExperienceCards";
 import { trackAffiliateClick } from "@/lib/affiliate-click";
 
 /** Existing approved Viator affiliate builder + sitewide governed stay widget.
@@ -40,6 +41,13 @@ export function MagnoliaWacoAffiliateLinks() {
         </nav>
         <p className="mt-4 text-xs leading-5 text-muted-foreground">Affiliate disclosure: TexasDefined may earn a commission on qualifying Viator bookings, at no additional cost to you. Editorial content and official Magnolia information are independent of these links.</p>
       </section>
+      <div className="my-8">
+        <WacoViatorExperienceCards kind="dallas" title="Another Dallas-to-Waco Magnolia day-tour option" />
+        <nav className="mt-3 flex flex-wrap gap-5 text-sm" aria-label="Waco tour comparison guides">
+          <a className="font-semibold text-primary underline underline-offset-4" href="/dallas-to-waco-magnolia-tours">Compare the Dallas-to-Waco itinerary, exclusions and departure point →</a>
+          <a className="font-semibold text-primary underline underline-offset-4" href="/waco-ghost-tours">Explore bookable Waco ghost walks →</a>
+        </nav>
+      </div>
       <div data-stay-nearby-slot aria-label="Compare Waco hotels and places to stay" className="my-10">
         <p className="text-sm text-muted-foreground">Compare hotels near downtown Waco and Magnolia Market using our travel booking partners.</p>
       </div>
