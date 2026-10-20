@@ -81,6 +81,7 @@ function ExploreCategoryPage() {
 
   return <>
     <CategoryPage category={match.slug as CategorySlug} eyebrow={match.eyebrow} title={match.name} intro={match.description} image={match.image} authorityHtml={authorityHtml} />
+    {match.slug === "state-parks" ? <Container className="pb-10 sm:pb-14"><section className="border-t border-border pt-8" aria-labelledby="davis-hill-future-state-park"><p className="eyebrow text-primary">Future state natural area</p><h2 id="davis-hill-future-state-park" className="mt-2 font-display text-3xl">Davis Hill: a protected landscape not yet open for visits</h2><p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Davis Hill is in Liberty County near the Trinity River, not the Davis Mountains. It has no published public entrance or camping reservations; discover its documented geology, plant diversity and conservation history instead of adding it to a visit itinerary.</p><Link to="/destination/davis-hill-state-park" className="mt-4 inline-block border-b border-primary pb-1 text-primary">Read the Davis Hill research and access guide →</Link></section></Container> : null}
     {(match.slug === "beaches-coast" || match.slug === "lakes-rivers") ? <Container className="pb-10 sm:pb-14">
       <section className="border-y border-border py-8" aria-labelledby="inland-beaches-bridge">
         <p className="eyebrow text-primary">Freshwater swimming and the Texas coast are different trips</p>
