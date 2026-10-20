@@ -3042,7 +3042,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceUrl": "https://www.bonhamisd.org/104427_2",
       "sourceLabel": "Bonham ISD Athletics official Warrior Stadium media-credential and sideline policy",
       "verifiedAt": "2026-10-17",
-      "note": "Bonham ISD calls its football venue Warrior Stadium. For 2026–27 the district says tickets for all junior-high and high-school home athletics are ONLINE ONLY; follow the official Bonham ISD Athletic Tickets page. Sideline media must have advance district credentials, requested at least one week ahead. The campus address 1002 Warpath Dr and district address 1005 Chestnut St are NOT independently verified stadium entrance/parking/ADA directions.",
+      "note": "Bonham ISD calls its football venue Warrior Stadium. For 2026–27 the district says tickets for all junior-high and high-school home athletics are ONLINE ONLY; it posts a purchase QR code at the event entrance, and existing senior passes remain accepted at the gate. The QR code starts an online purchase, not a staffed cash ticket window. Sideline media must have advance district credentials, requested at least one week ahead. The campus address 1002 Warpath Dr and district address 1005 Chestnut St are NOT independently verified stadium entrance/parking/ADA directions.",
       "policyUrl": "https://www.bonhamisd.org/104427_2"
     },
     "development": {
@@ -3094,7 +3094,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "Bonham's football leadership changed before the 2026 season. After the Warriors' winless 2025 campaign, Bonham ISD named Aaron Ford its new varsity head coach and assistant athletic director in April 2026. The school still lists John Ramsey as athletic director. Although some MaxPreps staff entries name Kyle Dezern or John Ramsey as head coach, those old or conflicting labels do not supersede the dated district hiring announcement.",
       "On the field, Bonham opened 2026 with a 60–0 win over Dallas Inspired Vision and added a 28–16 win on the road at Venus. Its losses before district play included Howe, Life Oak Cliff and Pottsboro. The Oct 9 district opener at Paris North Lamar ended 31–13 to North Lamar. MaxPreps' Oct 17 update separately reports the Oct 16 home loss to Quinlan Ford by 58–12, producing a 2–5, 0–2 district snapshot. An older Oct 13 fixtures page still lists 2–4 and lacks that Ford result; the newer result must be distinguished from a stale schedule.",
       "Unlike the recent 2025 rebuilding year, Bonham also has a documented 2021 playoff season. The Warriors went 5–6 and faced Gladewater in a bi-district game, losing 49–10. That team played in a different classification/realignment era. Dave Campbell's program archive lists no state football title or title-game appearance; don't confuse appearances in early playoff rounds with a state championship.",
-      "Bonham ISD officially names its venue Warrior Stadium and has a specific football sideline media credential policy: journalists and photographers requesting sideline access must apply to the district at least one week ahead. For 2026–27 the district says all junior-high and high-school HOME athletic event tickets are sold online only through its Bonham ISD Athletic Tickets page; this is actual first-party policy, not an estimated price. Bonham High School lists 1002 Warpath Drive and 903-583-5567 for school contact, distinct from Bonham ISD's 1005 Chestnut St district office. Neither address has been independently certified as the stadium vehicle entrance, and parking, accessible seating, specific gate and ticket price must still be checked."
+      "Bonham ISD officially names its venue Warrior Stadium and has a specific football sideline media credential policy: journalists and photographers requesting sideline access must apply to the district at least one week ahead. For 2026–27 the district says all junior-high and high-school HOME athletic-event tickets are sold online only through its Bonham ISD Athletic Tickets page or Hometown Fan app. The entrance displays QR links for online purchasing, and existing senior passes remain valid; neither practice means cash tickets are sold at the gate. This is first-party policy, not an estimated price. Bonham High School lists 1002 Warpath Drive and 903-583-5567 for school contact, distinct from Bonham ISD's 1005 Chestnut St district office. Neither address has been independently certified as the stadium vehicle entrance, and parking, accessible seating, specific gate and ticket price must still be checked."
     ],
     "faq": [
       {
@@ -3115,7 +3115,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "Where is Warrior Stadium and what are its admission or parking rules?",
-        "answer": "Bonham ISD names Warrior Stadium and says all 2026–27 junior-high and high-school HOME athletic-event tickets are ONLINE ONLY through the district's official Athletic Tickets page (https://www.bonhamisd.org/37878_1). Exact stadium vehicle gate/ADA parking and accessible seating remain unverified; verify with Bonham ISD before traveling."
+        "answer": "Bonham ISD names Warrior Stadium and says all 2026–27 junior-high and high-school HOME athletic-event tickets are ONLINE ONLY through the district's official Athletic Tickets page (https://www.bonhamisd.org/37878_1) or Hometown Fan app. QR codes at the entrance link to online checkout, and existing senior passes are accepted at the gate, according to district Back-to-School guidance. Exact stadium vehicle gate/ADA parking and accessible seating remain unverified; verify with Bonham ISD before traveling."
       },
       {
         "question": "Do photographers need credentials to work Bonham football sidelines?",
@@ -3128,7 +3128,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     ],
     "notice": {
       "title": "2026–27 home football tickets are online only",
-      "body": "Bonham ISD Athletics states that all junior high and high school HOME athletic-event tickets are online only for 2026–27, and links to the district's official Athletic Tickets page. No cash acceptance or on-site ticket option is asserted. Football sideline photographers and other media need advance district approval, ideally submitted a week before the game. The exact vehicle gate, parking and accessibility remain unverified.",
+      "body": "Bonham ISD Athletics states that all junior high and high school HOME athletic-event tickets are online only for 2026–27, and links to the district's official Athletic Tickets page. Bonham ISD's Back-to-School guidance says a QR code at the entrance links to the online ticket purchase page, and existing senior passes remain valid at the gate. That is not an in-person cash-sale promise; buy tickets online or through the Hometown Fan app. Football sideline photographers and other media need advance district approval, ideally submitted a week before the game. The exact vehicle gate, parking and accessibility remain unverified.",
       "sourceUrl": "https://www.bonhamisd.org/104427_2",
       "sourceLabel": "Bonham ISD Athletics first-party 2026–27 online-only ticket notice and official sideline media rules",
       "verifiedAt": "2026-10-17"
@@ -3355,8 +3355,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "schedule": {
       "label": "Official Borden County ISD Athletics schedules",
-      "sourceUrl": "https://www.bccoyotes.net/",
-      "sourceLabel": "School district homepage links its athletic schedules; verify varsity date, facility, attendance and tickets with school",
+      "sourceUrl": "https://www.bcisd.net/athletics",
+      "sourceLabel": "Borden County ISD first-party Athletics page directly lists its 2026 varsity football schedule as subject to change; verify the current fixture and game-day access with the school",
       "verifiedAt": "2026-10-16"
     },
     "notice": {
@@ -3506,7 +3506,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "The Coyotes won five state championships documented by the UIL, not just five appearances: 1997 against Valera Panther Creek 48–16, 2008 against Woodson 54–8, 2009 against Roscoe Highland 28–14, 2016 against Jonesboro 60–12 and 2017 against Jonesboro 60–22. The 2008 and 2009 crowns belonged to six-man Division II; the 2016 and 2017 titles to Division I. A third-party index mislabels the latter division, so official UIL archives control this classification.",
       "UIL's 2017–18 Borden County state-team file names Trey Richey as the 2017 championship coach. For 2026, the Lamesa Press-Reporter's August 18 fall-sports report separately identifies Richey as the Coyotes' head football coach. A specialist Six-Man Football directory instead names Craig Steele, so the current coaching field is attributed to the dated local report, not asserted as a fresh district-issued hiring announcement. Confirm subsequent staffing changes directly with Borden County ISD.",
       "The 2026 Coyotes opened with six wins through October 9, including 75–69 against Whiteface, 66–16 at Benjamin and a 72–16 October 9 win over O'Donnell in the District 5 opener. The Oct10 varsity schedule says 6–0; an earlier cached MaxPreps homepage still said 5–0 before O'Donnell. Westbrook subsequently became a reported 54–28 Borden County away win on October 16, putting the Coyotes at 7–0 through that date; KCBD/FOX34's October 17 South Plains finals and the Houston Chronicle statewide listing corroborate the score. Klondike, Ira and Sands remain scheduled games without reported final results, not an already completed championship path.",
-      "The official Borden County ISD site identifies its Gail campus and administrative contact at 240 West Kincaid Avenue, phone 806-756-4313, and links its athletic schedules. Third-party stadium listings use the name Coyote Stadium, but the school address is not independently confirmed as the precise football gate or accessible parking. School photographs/logos and stadium images must not be reused without verified licensing; confirm visitor ticket/entry rules directly with the district.",
+      "The official Borden County ISD site identifies its Gail campus and administrative contact at 240 West Kincaid Avenue, phone 806-756-4313; its dedicated Athletics page directly links a 2026 varsity football schedule labeled subject to change. Third-party stadium listings use the name Coyote Stadium, but the school address is not independently confirmed as the precise football gate or accessible parking. School photographs/logos and stadium images must not be reused without verified licensing; confirm visitor ticket/entry rules directly with the district.",
       "Borden County defeated Westbrook 54–28 away on October 16 and remained undefeated. This dated result comes from KCBD/FOX34 October 17 South Plains football finals, corroborated by the Houston Chronicle statewide score listing, not a first-party UIL results certification."
     ],
     "faq": [
@@ -3536,7 +3536,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "Is the campus address the exact Coyote Stadium parking entrance?",
-        "answer": "Not necessarily. A third-party team directory names Coyote Stadium, but official game-specific stadium vehicle entrance, ADA parking, ticket and spectator rules are not independently confirmed. Consult Borden County ISD Athletics for the scheduled game."
+        "answer": "Not necessarily. A third-party team directory names Coyote Stadium, but official game-specific stadium vehicle entrance, ADA parking, ticket and spectator rules are not independently confirmed. Consult the district's dedicated https://www.bcisd.net/athletics page for its 2026 varsity football schedule, which the district marks subject to change; confirm actual stadium gate and access directly."
       },
       {
         "question": "What was the October 16, 2026 football result for Borden County against Westbrook?",
