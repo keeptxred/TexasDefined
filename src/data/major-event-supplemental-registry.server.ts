@@ -180,6 +180,11 @@ export const supplementalMajorEventSlugs = [
   "thunder-over-east-texas-athens",
   "caf-high-sky-wing-airsho",
   "dallas-warbird-weekend",
+  "greenville-armed-forces-day-fly-in",
+  "tyler-magnificent-warbird-expo",
+  "thunder-over-cedar-creek-lake-airshow",
+  "stephanie-nichols-georgetown-car-plane-show",
+  "biplanes-breakfast-rockport",
 ] as const;
 
 export function loadSupplementalMajorEventRecordsServer() {
