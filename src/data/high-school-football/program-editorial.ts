@@ -4657,12 +4657,20 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "body": "The Roughriders finished 7–3 in the subsequent six-man season.",
         "sourceUrl": "https://www.maxpreps.com/tx/boys-ranch/boys-ranch-roughriders/football/history/",
         "sourceLabel": "Dated school / football historical source"
+      },
+      {
+        "date": "2026-10-02",
+        "title": "Miami originally scheduled — no completed final corroborated",
+        "body": "Boys Ranch's August 20 2026 regional preseason schedule included an October 2 trip to Miami. On September 26 a Boys Ranch coaching account publicly sought a replacement Week 6 opponent, including out-of-state options. The team's October 16-updated completed MaxPreps schedule has no Miami game or scored replacement. Without a district confirmation, do not assert Miami was played, formally cancelled, forfeited or won; exclude this unsupported fixture from the completed six-win record.",
+        "sourceUrl": "https://sixmanfootball.com/threads/boys-ranch-looking-for-a-week-6-10-2.43283/",
+        "sourceLabel": "September 26 2026 first-person Boys Ranch Week 6 replacement-opponent request; crosschecked with KFDA Aug 20 preseason original schedule and dated MaxPreps current results"
       }
     ],
     "overview": [
       "Boys Ranch Roughriders is Boys Ranch ISD's six-man football team in Oldham County. Its authoritative 2026–28 alignment is UIL 1A Division I District 1; that is different from older season divisions and similarly named programs.",
       "Boys Ranch's recent football history changed format: its 2023 entry was eleven-man 2A Division II, then its 2024 and 2025 seasons appear in six-man divisions. The Roughriders went 0–10 in 2024 and rebounded to 7–3 in 2025 before starting 6–0 in 2026.",
-      "Boys Ranch ISD's official athletic directory expressly lists Louis Kelley as Head Football Coach, while its general staff listing only says HS/JH Coach. Dave Campbell's Texas Football May 16, 2023 hiring report identifies him as Louis Kelley III; a May 2026 Six-Man Football preview uses that suffix too. The school directory omits a suffix, and inconsistent MaxPreps Jr/II listings should not override the sourced III identification. Coach identity does not establish the current game-night entrance, admission rules or accessibility. The district office at River Road differs from the high-school address in sports directories; no football gate or accessible-seat certification is inferred."
+      "Boys Ranch ISD's official athletic directory expressly lists Louis Kelley as Head Football Coach, while its general staff listing only says HS/JH Coach. Dave Campbell's Texas Football May 16, 2023 hiring report identifies him as Louis Kelley III; a May 2026 Six-Man Football preview uses that suffix too. The school directory omits a suffix, and inconsistent MaxPreps Jr/II listings should not override the sourced III identification. Coach identity does not establish the current game-night entrance, admission rules or accessibility. The district office at River Road differs from the high-school address in sports directories; no football gate or accessible-seat certification is inferred.",
+      "Boys Ranch's August 2026 preseason schedule also planned an October 2 game at Miami, but a September 26 Boys Ranch coaching post sought a replacement opponent for that week. The updated completed-results schedule does not list a Miami final or any verified replacement. This guide retains only actually sourced outcomes in the 6–0 record and does not call the unplayed-looking fixture a win, loss, cancellation or forfeit without confirmation."
     ],
     "faq": [
       {
@@ -4692,6 +4700,10 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "When is Booker scheduled to visit?",
         "answer": "The school-versus-Booker schedule shows November 5, subject to official updates."
+      },
+      {
+        "question": "Why is there no October 2 game at Miami in the 2026 results?",
+        "answer": "An August 20 local preseason schedule listed Boys Ranch at Miami on October 2. On September 26 a Boys Ranch coaching account publicly sought a replacement Week 6 opponent; the later completed-team schedule lists neither a Miami final nor a verifiable replacement. The game status is unresolved, so it cannot be added as a win, loss, forfeit or assumed cancellation."
       }
     ]
   },
