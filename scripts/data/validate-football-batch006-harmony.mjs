@@ -93,6 +93,8 @@ for (const [slug, required] of [
   ['bowie', ['"name": "Jackrabbit Stadium"', "Dave Campbell's Texas Football current Bowie Jackrabbits program page identifies Jackrabbit Stadium", 'exact stadium gate not independently verified']],
   ['boyd', ['"name": "Yellow Jacket Stadium"', "Dave Campbell's Texas Football current Boyd program page identifies Yellow Jacket Stadium", 'exact stadium gate not independently verified']],
   ['boys-ranch', ['"name": "Roughrider Stadium"', "Dave Campbell's Texas Football current Boys Ranch program page identifies Roughrider Stadium", 'exact public gate/address not independently verified']],
+  ['blum', ['"name": "J.M. White Field"', "Dave Campbell's Texas Football current Blum program page identifies J.M. White Field", 'exact field gate not independently verified']],
+  ['bowie-gold-burg', ['"name": "Gold-Burg Bears Field"', 'Six-Man Football current Gold-Burg team directory identifies Gold-Burg Bears Field', 'exact field gate not independently verified']],
 ]) {
   const schoolIndex = editor.indexOf('  "' + slug + '": {');
   assert.ok(schoolIndex >= 0, slug + ' school-specific editorial missing');
