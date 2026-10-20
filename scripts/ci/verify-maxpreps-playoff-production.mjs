@@ -17,6 +17,7 @@ const browser = await chromium.launch({
 const providerScript = 'https://www.maxpreps.com/includes/js/widget/widget.compressed.js';
 const expectedD1BracketId = 'ade72ad3-0f62-42ef-a2cb-143bf425942b';
 const expectedD2BracketId = '412dffeb-8db4-405a-90d8-d835b3a6ca23';
+const expected5AD1BracketId = '4cc4d252-d23d-41ad-b706-761d65cdfe58';
 const expectedMemberId = '8ada50e8-19a3-462f-9a14-ca430a481250';
 async function checkViewport(name, viewport) {
   const page = await browser.newPage({ viewport, deviceScaleFactor: 1 });
@@ -101,21 +102,53 @@ async function checkViewport(name, viewport) {
     expect(!!d2FrameInfo && /6A D2/i.test(d2FrameInfo.title), '6A D2 iframe did not render the correct tournament title');
     expect((d2FrameInfo?.htmlLength || 0) > 200, '6A D2 MaxPreps iframe body is empty');
 
-    // Non-embedded divisions retain source links; switching away must clean
-    // up the externally loaded widget, even after MaxPreps modifies its DOM.
+    // Verify the third provider-issued bracket and its actual cross-origin
+    // tournament frame. The member ID is explicitly included in the owner's
+    // 5A Division I "Get Code" snippet.
     await page.getByRole('button', { name: '5A' }).click();
     await page.locator('[data-official-playoff-bracket="5AD1"]').waitFor({ timeout: 12000 });
-    const fallback = await page.evaluate(() => {
+    await page.waitForTimeout(2200);
+    const fiveA = await page.evaluate(() => {
       const el = document.querySelector('[data-official-playoff-bracket="5AD1"]');
+      const anchor = el?.querySelector('.maxpreps-widget-link');
+      return {
+        scriptCount: [...document.scripts].filter(x => x.src.includes('widget.compressed.js')).length,
+        href: anchor?.getAttribute('href') || '',
+        memberId: anchor?.getAttribute('data-member-id') || '',
+        iframeCount: el?.querySelectorAll('iframe').length || 0,
+        hasSource: !!el?.querySelector('a[href*="maxpreps.com/tournament"]'),
+        viewportWidth: innerWidth,
+        documentWidth: document.documentElement.scrollWidth,
+      };
+    });
+    expect(fiveA.scriptCount === 1, '5A D1 script not loaded exactly once');
+    expect(fiveA.href.includes(expected5AD1BracketId) || fiveA.iframeCount > 0, '5A D1 official widget absent');
+    if(fiveA.memberId) expect(fiveA.memberId === expectedMemberId, '5A D1 widget member mismatch');
+    expect(fiveA.hasSource, '5A D1 official MaxPreps fallback missing');
+    expect(fiveA.documentWidth <= fiveA.viewportWidth + 5, '5A D1 page-wide horizontal overflow');
+    const fiveAFrame = page.frames().find(frame => frame.url().includes(expected5AD1BracketId));
+    const fiveAFrameInfo = fiveAFrame ? await fiveAFrame.evaluate(() => ({
+      title: document.title,
+      htmlLength: document.body?.innerHTML.length || 0,
+      text: (document.body?.innerText || '').slice(0, 180),
+    })) : null;
+    expect(!!fiveAFrameInfo && /5A D1/i.test(fiveAFrameInfo.title), '5A D1 provider frame not correct');
+    expect((fiveAFrameInfo?.htmlLength || 0) > 200, '5A D1 provider frame is empty');
+
+    // An unconfigured class must still show a working official source link.
+    await page.getByRole('button', { name: '4A' }).click();
+    await page.locator('[data-official-playoff-bracket="4AD1"]').waitFor({ timeout: 12000 });
+    const fallback = await page.evaluate(() => {
+      const el = document.querySelector('[data-official-playoff-bracket="4AD1"]');
       return {
         text: el?.textContent || '',
         hasWidgetAnchor: !!el?.querySelector('.maxpreps-widget-link'),
         scripts: [...document.scripts].filter(s => s.src.includes('widget.compressed.js')).length,
       };
     });
-    expect(!fallback.hasWidgetAnchor, '5A D1 must not receive unverified widget code');
-    expect(fallback.text.includes('View official 5A Division I bracket'), '5A D1 official bracket fallback missing');
-    expect(fallback.scripts === 0, 'MaxPreps widget script not cleaned up on fallback division');
+    expect(!fallback.hasWidgetAnchor, '4A D1 used unverified widget');
+    expect(fallback.text.includes('View official 4A Division I bracket'), '4A D1 official fallback missing');
+    expect(fallback.scripts === 0, 'Provider script not cleaned up when switching to 4A');
 
     await page.getByRole('button', { name: '6A' }).click();
     await page.locator('[data-official-playoff-bracket="6AD1"]').waitFor({ timeout: 12000 });
@@ -194,7 +227,7 @@ async function checkViewport(name, viewport) {
 
     const screenshot = `${output}/maxpreps-playoffs-${name}.png`;
     await page.screenshot({ path: screenshot, fullPage: true, animations: 'disabled', timeout: 30000 });
-    results.push({ name, status: errors.length ? 'FAIL' : 'PASS', errors, providerResponse, first: { ...first, htmlSnippet: first.htmlSnippet.slice(0, 700) }, second, d2FrameInfo, fallback, after, providerFrames, frameVisuals, providerRequests: providerRequests.slice(-15), requestErrors, browserErrors, screenshot });
+    results.push({ name, status: errors.length ? 'FAIL' : 'PASS', errors, providerResponse, first: { ...first, htmlSnippet: first.htmlSnippet.slice(0, 700) }, second, d2FrameInfo, fiveA, fiveAFrameInfo, fallback, after, providerFrames, frameVisuals, providerRequests: providerRequests.slice(-15), requestErrors, browserErrors, screenshot });
     console.log('MaxPreps playoff widget QA: ' + JSON.stringify(results.at(-1)));
     failures.push(...errors.map(error => `${name}: ${error}`));
   } catch (error) {
@@ -212,4 +245,4 @@ try {
   await browser.close();
 }
 await writeFile(`${output}/report.json`, JSON.stringify({ url: origin + path, checkedAt: new Date().toISOString(), results, failures }, null, 2));
-assert.deepEqual(failures, [], '6A D1 and D2 MaxPreps widget QA failed');
+assert.deepEqual(failures, [], '6A D1/D2 and 5A D1 MaxPreps widget QA failed');
