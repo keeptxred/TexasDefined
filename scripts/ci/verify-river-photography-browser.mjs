@@ -12,6 +12,12 @@ const rivers = [
   { slug: 'texas-lavaca-river-guide', image: 'Swing_Bridge_Over_Lavaca_River.jpg', alt: /Lavaca River/i, license: /CC BY 2\.0/i },
   { slug: 'texas-sabine-river-guide', image: 'Sabine_River_near_Big_Sandy', alt: /Sabine River/i, license: /CC BY 3\.0/i },
   { slug: 'texas-san-jacinto-river-guide', image: 'West_Fork_San_Jacinto_River.jpg', alt: /San Jacinto River/i, license: /CC BY-SA 4\.0/i },
+  { slug: 'texas-cypress-river-basin-guide', image: 'Big_Cypress_Bayou%2C_Caddo_Lake_State_Park', alt: /Cypress Bayou/i, license: /CC BY-SA 4\.0/i, author: /William L\. Farr/i },
+  { slug: 'texas-neches-river-guide', image: 'Neches_River%2C_Orange_County', alt: /Neches River/i, license: /CC BY-SA 4\.0/i, author: /William L\. Farr/i },
+  { slug: 'texas-red-river-guide', image: 'Red_River%2C_Texas', alt: /Red River/i, license: /CC BY-SA 2\.0/i, author: /brewbooks/i },
+  { slug: 'texas-sulphur-river-guide', image: 'Fishing_on_the_Sulphur_River_-_Wright_Patman_Dam', alt: /Sulphur River/i, license: /CC BY 2\.0/i, author: /Tony Webster/i },
+  { slug: 'texas-frio-river-guide', image: 'Garner_state_park.jpg', alt: /Frio River/i, license: /CC BY 4\.0/i, author: /Larry D\. Moore/i },
+  { slug: 'texas-llano-river-guide', image: 'Llano_River_in_Junction%2C_TX_IMG_4345', alt: /Llano River/i, license: /CC BY-SA 3\.0/i, author: /Billy Hathorn/i },
 ];
 
 const pages = [];
@@ -96,6 +102,11 @@ try {
           const outer = anchor.locator('..');
           const credit = await outer.innerText();
           verify(river.license.test(credit), label + ': missing visible photo license at ' + path + ' for ' + river.slug);
+          if (river.author) verify(river.author.test(credit), label + ': missing correct photo creator at ' + path + ' for ' + river.slug);
+          verify(await outer.locator('a[href*="commons.wikimedia.org/wiki/File:"]').count() >= 1,
+            label + ': photo original source permalink absent at ' + path + ' for ' + river.slug);
+          verify(await outer.locator('a[href^="https://creativecommons.org/licenses/"]').count() >= 1,
+            label + ': Creative Commons license permalink absent at ' + path + ' for ' + river.slug);
           record.images.push({ river: river.slug, ...result, credited: true });
         }
         const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
@@ -115,4 +126,4 @@ try {
   }, null, 2));
   await browser?.close();
 }
-console.log('River photo acceptance passed: three live guide heroes and six directory cards at mobile and desktop widths.');
+console.log('River photo acceptance passed: nine live guide heroes and eighteen directory cards at mobile and desktop widths.');
