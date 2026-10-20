@@ -1,13 +1,7 @@
+import { renterHero } from "./relocation-remaining-media";
 import { moverVerificationHero, healthCoverageHero, militaryFamilyHero } from "./relocation-wave5-media";
-import smallTown from "@/assets/small-town.jpg";
 import type { Article } from "../types";
 
-const homeHero: Article["hero"] = {
-  src: smallTown,
-  alt: "Homes and neighborhood streets in a Texas community",
-  width: 1600,
-  height: 1067,
-};
 
 const stub = (
   id: string,
@@ -28,7 +22,7 @@ export const relocationAuthorityWave5Stubs: Article[] = [
     title: "Moving to Texas as a Renter: Lease, Deposit & Utility Guide",
     dek: "A practical renter-first Texas relocation guide covering lease review, deposits, repairs, utilities, insurance, address verification and move-in documentation.",
     category: "moving-to-texas",
-    hero: homeHero,
+    hero: renterHero,
     publishedAt: "2026-09-29",
     readingMinutes: 9,
     tags: ["renting in texas", "texas renter", "lease", "security deposit", "moving to texas"],
