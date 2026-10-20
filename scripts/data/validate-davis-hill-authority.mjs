@@ -20,6 +20,9 @@ required(head, 'const indexable = audit.readyForIndexing && (isPrimaryTripPlanne
 required(head, 'import("@/components/editorial/DavisHillAuthority")');
 required(resolver, 'slug === "davis-hill-state-park"');
 required(fallback, 'brandId:"texasdefined"');
+required(fallback, '/images/state-parks/davis-hill-salt-dome-concept.svg');
+required(guide, '/images/state-parks/davis-hill-salt-dome-concept.svg');
+required(head, '"battleship-texas", "davis-hill-state-park"');
 required(head, "canonicalLink(texasDefinedBrand, canonicalPath)");
 required(guide, "export default function DavisHillAuthorityPage()");
 required(guide, "Public access: not open for ordinary visits");
