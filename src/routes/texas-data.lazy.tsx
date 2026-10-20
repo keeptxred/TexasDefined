@@ -5,7 +5,7 @@ import { Container } from '@/components/layout/Container';
 
 import { description, featuredDataProducts, nextStops } from './texas-data';
 
-const editorialLabel = (value: string) => value.replaceAll('-', ' ').replace(/\b\w/g, (character) => character.toUpperCase());
+const editorialLabel = (value: string) => value.replaceAll('-', ' ');
 const numberFormatter = new Intl.NumberFormat('en-US');
 const currencyFormatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
 
