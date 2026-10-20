@@ -106,7 +106,7 @@ test('source-derived records never contradict their own disclaimer', () => {
   assert.ok(!page.includes('we do not assign district ranks, win–loss records'));
 });
 
-test('responsive district browser acceptance runs only when sports content changes', () => {
+test('responsive District 5 Chrome acceptance cannot be skipped by broad sports change-scope detection', () => {
   const browserScript = readFileSync(new URL('../../scripts/ci/verify-district-5-responsive-browser.mjs', import.meta.url), 'utf8');
   const workflow = readFileSync(new URL('../../.github/workflows/deploy-production.yml', import.meta.url), 'utf8');
   for (const source of [browserScript, workflow]) assert.ok(source.includes('district5'), 'missing District 5 browser QA path');
@@ -114,7 +114,11 @@ test('responsive district browser acceptance runs only when sports content chang
     // Screenshot paths are assembled with each viewport label in the runner.
     assert.ok(browserScript.includes(marker) || (marker.startsWith('district5-') && browserScript.includes("'/district5-' + spec.label + '.png'")), marker);
   }
-  assert.ok(workflow.includes("steps.change_scope.outputs.sports == 'true'"));
+  const deps = workflow.match(/- name: Prepare District 5 responsive Chrome verification\\n\\s+id: district5_browser_deps\\n\\s+if: ([^\\n]+)/);
+  assert.ok(deps, 'District 5 browser dependency gate missing');
+  assert.ok(deps[1].includes("steps.live_district5.outcome == 'success'"), 'Run after District 5 HTML smoke');
+  assert.ok(!deps[1].includes('steps.change_scope.outputs.sports'), 'Do not skip District 5 browser on other changes');
+  assert.ok(workflow.includes("steps.district5_browser_deps.outcome == 'success'"));
   assert.ok(workflow.includes('live_district5_browser'));
   assert.ok(workflow.includes('district5-responsive-browser-${{ github.run_id }}'));
 });
