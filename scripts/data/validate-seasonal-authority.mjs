@@ -14,6 +14,9 @@ const destinationLinks = read("src/data/destination-editorial-links.ts");
 const newest = read("src/data/fixtures/lazy-newest-evergreen.ts");
 const exploreIntents = read("src/components/editorial/ExploreIntentPaths.tsx");
 const server = read("src/server.ts");
+const hillCountryAutumnHero = read("src/data/fixtures/lost-maples-autumn-hero.ts");
+const articleRoute = read("src/routes/article.$slug.tsx");
+const imageRights = read("src/data/image-rights.ts");
 
 const groups = {
   bluebonnets: ["texas-bluebonnets-complete-guide", "best-places-to-see-bluebonnets-in-texas", "texas-bluebonnet-road-trip", "bluebonnets-near-austin", "bluebonnets-near-houston", "bluebonnets-near-dallas-fort-worth", "bluebonnets-near-san-antonio", "texas-bluebonnet-festivals", "is-it-illegal-to-pick-bluebonnets-in-texas"],
@@ -132,5 +135,17 @@ if (!authority.includes("private ranch country") || !authority.includes("never a
 if (!newest.includes("loadSeasonalIntentArticle") || !newest.includes("loadSeasonalAuthorityArticle")) fail("seasonal articles are not wired through lazy evergreen loaders");
 if (!authorityLazy.includes('await import("./seasonal-authority-articles")')) fail("seasonal authority full bodies are not dynamically imported");
 if (!intentLazy.includes('await import("./seasonal-intent-articles")')) fail("seasonal intent full bodies are not dynamically imported");
+
+// A seasonal color guide cannot quietly regress to a generic or green-season hero.
+for (const [fileName, source] of [["loaded Hill Country article", intents], ["lazy Hill Country article", intentLazy]]) {
+  if (!source.includes("hero: lostMaplesAutumnHero")) fail(`${fileName}: fall-color page must use the authentic autumn canopy photograph`);
+}
+for (const required of ["Aerial_View_of_Autumn_Forest_Colors.jpg", "Red, orange, and golden fall foliage", "Wing-Chi Poon", "CC BY-SA 2.5", "cropped for display"]) {
+  if (!hillCountryAutumnHero.includes(required)) fail(`Hill Country autumn hero missing source, color, or attribution: ${required}`);
+}
+if (!articleRoute.includes("Hero photo: Wing-Chi Poon, Wikimedia Commons")) fail("Hill Country hero must link to photo provenance");
+if (!articleRoute.includes("CC BY-SA 2.5 license")) fail("Hill Country hero must link to its actual license");
+if (!articleRoute.includes('article.slug === "hill-country-fall-colors" ? "absolute inset-0 size-full object-cover opacity-100"')) fail("Hill Country autumn colors must not be obscured by global hero opacity");
+if (!imageRights.includes("Aerial_View_of_Autumn_Forest_Colors.jpg")) fail("Hill Country hero image rights must be present in structured data");
 
 if (!process.exitCode) console.log("Seasonal authority guardrail passed: 20 canonical pages, 1 retired redirect, county/destination reciprocity, Explore discovery, safety/currentness caveats and lazy loading verified.");
