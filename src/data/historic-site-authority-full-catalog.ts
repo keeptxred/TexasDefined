@@ -43,7 +43,7 @@ const OPERATOR_RESEARCH_ITINERARIES: Record<string, DestinationAuthorityGuide["i
   "varner-hogg-plantation": [
     {
       "label": "Follow the property's changing uses",
-      "duration": "About one hour",
+      "duration": "About 90 minutes",
       "steps": [
         "THC lists a 90-minute self-guided route, including both floors of the main house, outbuildings and the plantation landscape. Check the current admission policy.",
         "Trace sugarcane production, enslaved labor, cattle ranching and later oil extraction as distinct chapters rather than a single elegant-house story.",
@@ -369,7 +369,7 @@ const SITE_VISIT_PROFILES: Record<string, Pick<DestinationEditorialAssessment, "
     "physicalEffort": "Low to moderate",
     "weatherExposure": "Mixed indoor/outdoor",
     "planningLevel": "Moderate",
-    "recommendedVisit": "THC lists Wednesday–Sunday, 9 a.m.–5 p.m. One admission covers Varner-Hogg and Levi Jordan. Plan separate time for the sugar, ranching, oil and enslaved-labor history here, and check tour and room access directly."
+    "recommendedVisit": "THC lists Wednesday–Sunday, 9 a.m.–5 p.m. and a 90-minute self-guided route. One admission covers Varner-Hogg and Levi Jordan; arrange guided group visits four weeks ahead."
   },
   "zaragoza-birthplace": {
     "physicalEffort": "Low",
