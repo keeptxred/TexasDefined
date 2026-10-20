@@ -21,7 +21,7 @@ import { MapPreview } from "@/components/editorial/MapPreview";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import YsletaDelSurMuseumAuthority from "@/components/editorial/YsletaDelSurMuseumAuthority";
-import OldSocorroMissionAuthority from "@/components/editorial/OldSocorroMissionAuthority";
+
 import { isPrimaryTripPlannerDestination } from "@/data/destination-availability";
 import { riverAuthorityLinksForDestination } from "@/data/river-authority-relations";
 import { destinationLocationAnswer } from "@/data/destination-location-answer";
@@ -69,6 +69,10 @@ const ZapataCountyMuseumAuthority = lazy(() =>
 const YoungCountyMuseumAuthority = lazy(() =>
   import("@/components/editorial/YoungCountyMuseumAuthority")
 );
+
+// Keep the long Old Socorro archival authority page out of the shared main JS
+// bundle. Streaming SSR retains closure-aware fallback and full guide content.
+const OldSocorroMissionAuthority = lazy(() => import("@/components/editorial/OldSocorroMissionAuthority"));
 
 const DallasBlackHistoryAuthority = lazy(() => import("@/components/editorial/DallasBlackHistoryAuthority").then((m) => ({ default: m.DallasBlackHistoryAuthority })));
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
@@ -283,7 +287,7 @@ function DestinationPage() {
   if (destination.slug === "mayborn-museum-waco") return <Suspense fallback={null}><MaybornMuseumAuthority /></Suspense>;
   if (destination.slug === "zapata-county-museum-history") return <Suspense fallback={null}><ZapataCountyMuseumAuthority /></Suspense>;
   if (destination.slug === "ysleta-del-sur-pueblo-cultural-center-museum-el-paso") return <YsletaDelSurMuseumAuthority />;
-  if (destination.slug === "old-socorro-mission") return <OldSocorroMissionAuthority />;
+  if (destination.slug === "old-socorro-mission") return <Suspense fallback={<Container className="py-12"><h1 className="font-display text-4xl">Old Socorro Mission</h1><p className="mt-4">The protected original archaeological site is closed to the public.</p></Container>}><OldSocorroMissionAuthority /></Suspense>;
   if (destination.slug === "young-county-museum-of-history-and-culture") return <Suspense fallback={null}><YoungCountyMuseumAuthority /></Suspense>;
 
   const region = regions.find((item) => item.id === destination.region);
