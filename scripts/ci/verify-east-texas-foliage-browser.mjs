@@ -126,6 +126,56 @@ try {
       await context.close();
     }
   }
+
+  // Keep the Hill Country hero, historical credit and current TPWD link honest
+  // on both real Chrome viewport sizes. This is a non-commerce read-only test.
+  for (const viewport of viewports) {
+    const context = await browser.newContext({
+      viewport: { width: viewport.width, height: viewport.height },
+      isMobile: viewport.isMobile,
+      hasTouch: viewport.isMobile,
+      deviceScaleFactor: 1,
+    });
+    await context.route(/(google-analytics|googletagmanager|connect\\.facebook\\.net|facebook\\.com\\/tr|\\/api\\/analytics|\\/api\\/track)/i, route => route.abort());
+    const page = await context.newPage();
+    try {
+      const response = await page.goto(origin + "/article/hill-country-fall-colors?foliage_browser_qa=" + (process.env.GITHUB_SHA || "manual").slice(0, 12), { waitUntil: "domcontentloaded", timeout: 45000 });
+      if (response?.status() !== 200) throw new Error("Hill Country HTTP " + response?.status());
+      await page.getByRole("heading", { level: 1, name: "Where to See Fall Colors in the Texas Hill Country" }).waitFor({ state: "visible", timeout: 20000 });
+      const hero = page.locator('img[alt*="autumn maple leaves"]').first();
+      await hero.waitFor({ state: "attached", timeout: 15000 });
+      await hero.scrollIntoViewIfNeeded();
+      await hero.evaluate(image => image.decode().catch(() => {}));
+      if (await hero.evaluate(image => image.naturalWidth) < 300) throw new Error("Lost Maples hero did not load");
+      const heroSrc = await hero.getAttribute("src");
+      if (!heroSrc?.includes("The_Lost_Maples_State_Park_-_Fall_Colors_in_Texas_")) throw new Error("Wrong Hill Country autumn hero: " + heroSrc);
+      await page.getByRole("heading", { name: "Lost Maples foliage updates and photo credits" }).waitFor({ state: "visible" });
+      const tpwd = await page.getByRole("link", { name: /Official 2026 Lost Maples foliage report/ }).getAttribute("href");
+      if (tpwd !== "https://tpwd.texas.gov/state-parks/lost-maples/foliage-reports") throw new Error("Incorrect official 2026 foliage report link");
+      const photoLink = await page.getByRole("link", { name: /Hero photo: G. Lamar, November 2012/ }).getAttribute("href");
+      if (!photoLink?.includes("29567585500")) throw new Error("Historical photo source link missing");
+      const ccLink = await page.getByRole("link", { name: /CC BY 2.0 license/ }).getAttribute("href");
+      if (ccLink !== "https://creativecommons.org/licenses/by/2.0/") throw new Error("Historical photo rights link missing");
+      if (!await page.getByText("not a verified report of current foliage conditions", { exact: false }).count()) throw new Error("Historical photo caveat missing");
+      if (await page.getByRole("heading", { name: "More stories to read next" }).count()) throw new Error("Unrelated magazine rail on Hill Country article");
+      const canonical = await page.locator('link[rel="canonical"]').getAttribute("href");
+      if (canonical !== "https://texasdefined.com/article/hill-country-fall-colors") throw new Error("Hill Country canonical incorrect: " + canonical);
+      const robots = await page.locator('meta[name="robots"]').getAttribute("content");
+      if (/noindex/i.test(robots || "")) throw new Error("Hill Country article unexpectedly noindex");
+      const dimensions = await page.evaluate(() => ({ viewport: window.innerWidth, document: document.documentElement.scrollWidth }));
+      if (dimensions.document > dimensions.viewport + 8) throw new Error("Hill Country horizontal overflow: " + (dimensions.document - dimensions.viewport));
+      await page.screenshot({ path: output + "/hill-country-" + viewport.label + ".png", fullPage: true, animations: "disabled" });
+      findings.push({ viewport: "hill-country-" + viewport.label, loadedHero: true, historicalCredit: true, officialReport: true, overflow: dimensions.document - dimensions.viewport, result: "pass" });
+      console.log("PASS Hill Country " + viewport.label + " historical hero, rights, official foliage link and responsive layout");
+    } catch (error) {
+      failures.push("hill-country-" + viewport.label + ": " + String(error?.message || error));
+      console.error("::error title=Hill Country foliage browser QA::" + failures.at(-1));
+      try { await page.screenshot({ path: output + "/FAIL-hill-country-" + viewport.label + ".png", fullPage: true, timeout: 15000 }); } catch {}
+    } finally {
+      await page.close();
+      await context.close();
+    }
+  }
 } finally {
   await browser.close();
 }
