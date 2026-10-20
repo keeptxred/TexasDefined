@@ -1,11 +1,11 @@
-import type { Destination } from "./types";
+import type { Destination, DestinationAuthorityGuide } from "./types";
 
 /**
  * Canonical Waco attractions promoted from verified editorial research.
  * Viator's attraction overviews are not themselves admission or tour tickets.
  * Booking links are rendered separately through the shared affiliate component.
  */
-export const wacoViatorAttractionDestinations: Destination[] = [
+const wacoViatorAttractionBaseDestinations: Destination[] = [
   {
     id: "waco-attraction-cottonland-castle",
     brandId: "texasdefined",
@@ -161,3 +161,97 @@ export const wacoViatorAttractionDestinations: Destination[] = [
     sourceCheckedAt: "2026-10-20",
   },
 ];
+
+/**
+ * Full authority-template planning layer: visit assessments, itineraries and
+ * primary-source references. Independent editorial recommendations, not
+ * live inventory or guarantees of access.
+ */
+const WACO_AUTHORITY_GUIDES: Readonly<Record<string, DestinationAuthorityGuide>> = {
+  "cottonland-castle": {
+    whyItMatters: "Cottonland Castle documents the evolution of Waco's architecture during the cotton-trade era and offers an unusual case study in historic residential restoration. Its tour access is more limited than an ordinary museum, making advance planning as important as the building's history.",
+    assessment: {
+      recommendedVisit: "Allow approximately one hour for the official ticketed Castle Tour, plus arrival time. The house is not open for an unticketed self-guided walk.",
+      physicalEffort: "Moderate",
+      weatherExposure: "Mostly indoors",
+      planningLevel: "High",
+      familyFit: "Best for visitors interested in architectural history and design who can comfortably use historic staircases; check Magnolia's guest policies for age or mobility concerns.",
+      firstTimeValue: "Strong architectural add-on for Waco visitors who secure a reservation; not a spontaneous alternative to the Silos.",
+    },
+    itineraries: [
+      { label: "The castle visit", duration: "About 1 hour", steps: ["Reserve a Magnolia Castle Tour for a specific date and time.", "Use the ticket's parking and arrival instructions.", "Explore the historic residence with the official guide."] },
+      { label: "Architecture and design", duration: "Half day", steps: ["Begin with your booked Cottonland Castle visit.", "Drive to Magnolia Market at the Silos for its public grounds and shops.", "Add a downtown Waco stop such as the Dr Pepper Museum if time allows."] },
+      { label: "Waco's changing cityscape", duration: "Full day", steps: ["Tour Cottonland Castle only with a confirmed reservation.", "Explore Magnolia Market and downtown Waco.", "Visit the Dr Pepper Museum and walk the Waco Suspension Bridge and Brazos riverfront."] },
+    ],
+    sources: [
+      { label: "Texas Historical Commission — Cottonland Castle historic marker", url: "https://atlas.thc.texas.gov/Details/5309005314", scope: "Construction chronology, architecture and historic landmark designation" },
+      { label: "Magnolia — current guided tours", url: "https://magnolia.com/pages/tours", scope: "Operator-controlled reservations and tour formats" },
+      { label: "Magnolia Help Center — Castle Tour access", url: "https://help.magnolia.com/hc/en-us/articles/31170532641940-About-Magnolia-Castle-Tours", scope: "Ticket rules, private property, stairs and accessibility" },
+    ],
+  },
+  "waco-suspension-bridge": {
+    whyItMatters: "The 1870 bridge turned a Brazos River crossing into an engineering and commerce landmark and still visibly connects Waco's historic downtown with its public riverfront. Its setting makes infrastructure history approachable without requiring a ticket.",
+    assessment: {
+      recommendedVisit: "Allow 20–40 minutes for the bridge and cattle-drive sculptures; a riverfront walk or nearby museum can extend the stop to a half day.",
+      physicalEffort: "Low to moderate",
+      weatherExposure: "Fully outdoors",
+      planningLevel: "Low",
+      familyFit: "Good for most ages as a short outdoor stop, but supervise children near water and check current pedestrian access.",
+      firstTimeValue: "An easy first stop for understanding Waco's river geography and historic transport role.",
+    },
+    itineraries: [
+      { label: "Bridge and sculptures", duration: "20–40 minutes", steps: ["Start at Indian Spring Park.", "See the Branding the Brazos cattle-drive sculptures.", "Cross the historic pedestrian bridge and return when ready."] },
+      { label: "Walk the river", duration: "1–2 hours", steps: ["Visit the bridge and its park entrances.", "Follow an open section of the Waco Riverwalk.", "Leave time for river views and shaded rest stops."] },
+      { label: "Downtown and the Brazos", duration: "Half day", steps: ["Begin at the Waco Suspension Bridge.", "Explore the nearby riverfront and downtown blocks.", "Pair the walk with the Dr Pepper Museum or Texas Ranger Hall of Fame and Museum."] },
+    ],
+    sources: [
+      { label: "City of Waco — Suspension Bridge and Riverwalk", url: "https://www.waco-texas.com/Departments/Parks-Recreation/Suspension-Bridge-Riverwalk-Area", scope: "Public access, bridge history and riverfront destinations" },
+      { label: "National Park Service — Waco Suspension Bridge", url: "https://www.nps.gov/places/waco-suspension-bridge.htm", scope: "Cattle-trail history and interpretive background" },
+    ],
+  },
+  "cameron-park-waco": {
+    whyItMatters: "Cameron Park preserves a substantial wooded river corridor and bluff landscape close to central Waco. Its scenic overlooks, public trail system and longstanding Cameron-family gifts connect outdoor recreation to the city's civic history.",
+    assessment: {
+      recommendedVisit: "Allow 45–90 minutes for an overlook and short walk, or several hours for signed trails, recreation and picnic stops.",
+      physicalEffort: "Moderate to high",
+      weatherExposure: "Fully outdoors",
+      planningLevel: "Moderate",
+      familyFit: "Play areas and shorter walks fit family visits; technical trails and Jacob's Ladder require age-appropriate mobility and supervision.",
+      firstTimeValue: "The best Waco option among these seven for bluffs, woodland trails and wide Brazos views without paying general admission.",
+    },
+    itineraries: [
+      { label: "Scenic overlooks", duration: "45–90 minutes", steps: ["Choose a designated viewpoint such as Lovers Leap or Emmons Cliff.", "Use posted parking and trailhead signs.", "Add a short signed walk suitable for your group's ability."] },
+      { label: "Trails and rivers", duration: "2–3 hours", steps: ["Choose a marked walking or biking route using the city's trail map.", "Bring water and allow for hills and uneven surfaces.", "Finish at a picnic or river-view stop; avoid closed or muddy trails."] },
+      { label: "Outdoor Waco", duration: "Half to full day", steps: ["Begin with overlooks or a Cameron Park hike.", "Optionally visit Cameron Park Zoo with separate admission.", "Explore the Waco Suspension Bridge and Riverwalk farther downtown."] },
+    ],
+    sources: [
+      { label: "City of Waco — Cameron Park", url: "https://www.waco-texas.com/Departments/Parks-Recreation/Cameron-Park", scope: "Public park history, hours and recreational areas" },
+      { label: "City of Waco — Trail rules", url: "https://www.waco-texas.com/Departments/Parks-Recreation/Cameron-Park/Cameron-Park-Trail-System-Rules", scope: "Trail safety, route rules and multi-use guidance" },
+    ],
+  },
+  "cameron-park-zoo": {
+    whyItMatters: "Cameron Park Zoo gives Central Texas families a zoological destination within Waco's largest urban park. Its habitat-based exhibits create a natural pairing with the surrounding free park, while admission, visitor rules and animal care remain independently managed by the zoo.",
+    assessment: {
+      recommendedVisit: "Allow 2–3 hours for a comfortable general visit, adjusting for animal activity, children's pace and seasonal heat.",
+      physicalEffort: "Low to moderate",
+      weatherExposure: "Mostly outdoors",
+      planningLevel: "Moderate",
+      familyFit: "A good family-oriented walking attraction with animal habitats; confirm accessibility, weather and any age-specific program rules before visiting.",
+      firstTimeValue: "The strongest wildlife-focused choice on this list, especially for families with children.",
+    },
+    itineraries: [
+      { label: "Zoo highlights", duration: "2 hours", steps: ["Check zoo hours and purchase admission through the operator.", "Visit priority habitat areas at a comfortable pace.", "Leave room for breaks and changing animal visibility."] },
+      { label: "Family visit", duration: "3–4 hours", steps: ["Arrive early on warm days and begin with outdoor habitats.", "Follow the zoo map through wildlife sections.", "Use rest areas and revisit popular habitats as time permits."] },
+      { label: "Wildlife and Waco", duration: "Half to full day", steps: ["Visit Cameron Park Zoo with separately obtained admission.", "Add a short walk or lookout in adjacent free Cameron Park.", "Finish with the Waco Suspension Bridge and its riverfront parks if energy allows."] },
+    ],
+    sources: [
+      { label: "Cameron Park Zoo — visiting information", url: "https://www.cameronparkzoo.com/plan-your-visit/hours-pricing/", scope: "Admission, seasonal hours, restrictions and visitor services" },
+      { label: "Cameron Park Zoo — official ticketing", url: "https://www.cameronparkzoo.com/plan-your-visit/purchase-tickets/", scope: "Official ticket purchase and current options" },
+    ],
+  },
+};
+
+export const wacoViatorAttractionDestinations: Destination[] = wacoViatorAttractionBaseDestinations.map((entry) => ({
+  ...entry,
+  authorityGuide: WACO_AUTHORITY_GUIDES[entry.slug],
+}));
