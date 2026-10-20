@@ -32,7 +32,7 @@ function GoogleTagManagerHead() {
   return (
     <script
       dangerouslySetInnerHTML={{
-        __html: `(function(w,d,h){var n=w.navigator;if(n.webdriver||/HeadlessChrome|Lighthouse|PageSpeed|TexasDefined-[^ ]*Smoke/i.test(n.userAgent)||!h.includes(w.location.hostname.toLowerCase()))return;(w.dataLayer||=[]).push({'gtm.start':Date.now(),event:'gtm.js'});d.head.appendChild(d.createElement('script')).src='https://www.googletagmanager.com/gtm.js?id=${googleTagManagerId}';})(window,document,${googleTagManagerHosts});`,
+        __html: `(function(w,d,h){var n=w.navigator;if(n.webdriver===true||/HeadlessChrome|Lighthouse|PageSpeed|TexasDefined-[^ ]*Smoke/i.test(n.userAgent)||!h.includes(w.location.hostname.toLowerCase()))return;(w.dataLayer||=[]).push({'gtm.start':Date.now(),event:'gtm.js'});d.head.appendChild(d.createElement('script')).src='https://www.googletagmanager.com/gtm.js?id=${googleTagManagerId}';})(window,document,${googleTagManagerHosts});`,
       }}
     />
   );
