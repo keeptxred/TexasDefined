@@ -94,6 +94,7 @@ export function DestinationViatorBooking({ destination }: { destination: Destina
     ) : null}
     {wacoAttraction ? (
       <nav aria-label="Related Waco experience guides" className="mt-6 flex flex-wrap gap-5 text-sm">
+        <a href="/waco-attractions" className="font-semibold text-primary underline underline-offset-4">All seven Waco attraction guides →</a>
         <a href="/waco-ghost-tours" className="font-semibold text-primary underline underline-offset-4">Waco ghost-tour comparison →</a>
         <a href="/dallas-to-waco-magnolia-tours" className="font-semibold text-primary underline underline-offset-4">Dallas-to-Waco guided day trip →</a>
       </nav>
