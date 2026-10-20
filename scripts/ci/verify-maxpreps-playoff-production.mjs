@@ -148,7 +148,7 @@ async function checkViewport(name, viewport) {
     expect((embeddedFrame?.documentInfo?.htmlLength || 0) > 200, 'MaxPreps widget frame has no HTML content');
     // Nonempty DOM does not guarantee a painted iframe. Capture the iframe
     // itself and the widget's computed visibility, not just its host region.
-    const providerFrame = page.frames().find(frame => /maxpreps\\.com\/widgets\/tournament\\.aspx/i.test(frame.url()));
+    const providerFrame = page.frames().find(frame => /maxpreps\.com\/widgets\/tournament\.aspx/i.test(frame.url()));
     const frameVisuals = providerFrame ? await providerFrame.evaluate(() => {
       const body = document.body;
       const main = document.querySelector('h1, h2, main, .bracket, .tournament');
