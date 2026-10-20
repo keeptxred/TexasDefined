@@ -1226,17 +1226,17 @@ if (!errors.length) {
   requireText(footballProgramEditorial, 'address?: string;', 'Football editorial venue address must be optional when only the venue relationship is verified');
   const unsafeVenueAddressPattern = /confirm|not verified|unverified|not independently|not a verified|do not assume|entrance.*not|gate.*not|campus.*verify|current stadium entrance/i;
   const unsafeVenueNamePattern = /confirm|verify|exact current stadium name|scheduled football facility|assigned field/i;
-  for (const match of footballProgramEditorial.matchAll(/"venue":\\s*\\{[\\s\\S]*?\\n\\s*\\}/g)) {
+  for (const match of footballProgramEditorial.matchAll(/"venue":\s*\{[\s\S]*?\n\s*\}/g)) {
     const block = match[0];
-    const venueName = block.match(/"name":\\s*"([^"]+)"/)?.[1];
-    const venueAddress = block.match(/"address":\\s*"([^"]+)"/)?.[1];
+    const venueName = block.match(/"name":\s*"([^"]+)"/)?.[1];
+    const venueAddress = block.match(/"address":\s*"([^"]+)"/)?.[1];
     if (venueName && unsafeVenueNamePattern.test(venueName)) {
       errors.push(`Football editorial venue name must be a venue name, not verification instructions: ${venueName}`);
     }
     if (venueAddress && unsafeVenueAddressPattern.test(venueAddress)) {
       errors.push(`Football editorial venue address must not contain caveat prose: ${venueAddress}`);
     }
-    if (venueAddress && !/\\d/.test(venueAddress)) {
+    if (venueAddress && !/\d/.test(venueAddress)) {
       errors.push(`Football editorial venue address must be street-level, not a city/county placeholder: ${venueAddress}`);
     }
   }
