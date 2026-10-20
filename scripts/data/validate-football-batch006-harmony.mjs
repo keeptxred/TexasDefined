@@ -19,12 +19,15 @@ for (const record of batch006Records) {
     `DEPLOYED Batch 006 record may not claim it was never deployed or browser-tested: ${record.slug}`,
   );
 }
-for (const slug of ['bluff-dale', 'blum']) {
-  const record = batch006Records.find(r => r.slug === slug);
-  assert.equal(record?.productionVerification, 'BROWSER_PASS_BATCH006_75_SCHOOL_23_COUNTY_25_SITEMAP_2026_10_19', `${slug} must retain the October 19 technical browser evidence`);
-  assert.equal(record?.linkVerificationStatus, 'RECIPROCAL_COUNTY_BROWSER_PASS_BATCH006_2026_10_19', `${slug} must retain reciprocal county browser evidence`);
-  assert.equal(record?.technicalBrowserRun, 39273758531, `${slug} must retain the supporting browser run id`);
-  assert.equal(record?.actualProductionVerified, false, `${slug} must remain pending individual nine-dimension acceptance`);
+for (const record of batch006Records) {
+  assert.equal(record.productionVerification, 'BROWSER_PASS_BATCH006_75_SCHOOL_23_COUNTY_25_SITEMAP_2026_10_19', `${record.slug} must retain the October 19 technical browser evidence`);
+  assert.equal(record.linkVerificationStatus, 'RECIPROCAL_COUNTY_BROWSER_PASS_BATCH006_2026_10_19', `${record.slug} must retain reciprocal county browser evidence`);
+  assert.equal(record.technicalBrowserRun, 39273758531, `${record.slug} must retain the supporting browser run id`);
+  assert.equal(record.technicalBrowserArtifact, 12196591822, `${record.slug} must retain the Batch 006 browser artifact id`);
+  assert.equal(record.technicalBrowserWorkerVersion, 'b4c9dfca-7f43-4e3d-a24b-22bc16a2a48f', `${record.slug} must retain the single observed Worker version`);
+  assert.equal(record.technicalBrowserDeploymentRun, 39269777322, `${record.slug} must retain the supporting deployment run`);
+  assert.equal(record.technicalBrowserDeployedCommit, 'a20871abf93259a78d69ebd47fa0d1f8f951d93f', `${record.slug} must retain the deployed commit tied to the browser sample`);
+  assert.equal(record.actualProductionVerified, false, `${record.slug} must remain pending individual nine-dimension acceptance`);
 }
 const school = registry.schoolRecords.find(r => r.slug === 'big-sandy-harmony');
 assert.ok(school && school.batch === 6 && ['IMPLEMENTED','MERGED','DEPLOYED','VERIFIED'].includes(school.status), 'Harmony may not be certified without implementation');
