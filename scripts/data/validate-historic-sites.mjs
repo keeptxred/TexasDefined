@@ -33,6 +33,23 @@ if (!socorroEarlyHistory.includes('October 13, 1680') || !socorroEarlyHistory.in
 if (socorroEarlyHistory.includes('Plan this as a respectful religious-site visit') || socorroEarlyHistory.includes('congregation and ongoing religious use')) {
   failures.push('Closed Old Socorro must not contain a visitor invitation to an active church.');
 }
+// Preserve site-specific research but never republish repeated seed filler or
+// suggest visiting a state historic site that the operator says is closed.
+for (const marker of [
+  'GENERIC_HISTORIC_PARAGRAPH_MARKERS',
+  'The value of the stop is not just the surviving building',
+  'A useful visit starts with the site',
+  'const sourceBody = destination.body.filter',
+  'sourceBody.length !== destination.body.length',
+  'destination.slug === "first-capitol-of-texas"',
+  'sourceCheckedAt: "2026-10-19"',
+  'question: "Is the First Capitol State Historic Site open?"',
+]) if (!firstPartyDepth.includes(marker)) failures.push('Historic boilerplate/closed site correction missing: ' + marker);
+for (const marker of [
+  'The First Capitol State Historic Site is currently closed',
+  'The First Capitol state property is not currently open',
+]) if (!primary.includes(marker)) failures.push('Closed First Capitol erroneously marketed as an on-site outing: ' + marker);
+
 if (!firstPartyDepth.includes('outdatedDescriptions') || !operatorResearch.includes('old-socorro-mission-history')) {
   failures.push('Old Socorro research must actively remove obsolete generic visit prose and cite the exact THC chronology.');
 }
