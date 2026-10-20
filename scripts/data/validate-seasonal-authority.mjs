@@ -17,6 +17,7 @@ const destinationLinks = read("src/data/destination-editorial-links.ts");
 const newest = read("src/data/fixtures/lazy-newest-evergreen.ts");
 const exploreIntents = read("src/components/editorial/ExploreIntentPaths.tsx");
 const server = read("src/server.ts");
+const imageRights = read("src/data/image-rights.ts");
 
 const groups = {
   bluebonnets: ["texas-bluebonnets-complete-guide", "best-places-to-see-bluebonnets-in-texas", "texas-bluebonnet-road-trip", "bluebonnets-near-austin", "bluebonnets-near-houston", "bluebonnets-near-dallas-fort-worth", "bluebonnets-near-san-antonio", "texas-bluebonnet-festivals", "is-it-illegal-to-pick-bluebonnets-in-texas"],
@@ -158,5 +159,20 @@ if (!authority.includes("private ranch country") || !authority.includes("never a
 if (!newest.includes("loadSeasonalIntentArticle") || !newest.includes("loadSeasonalAuthorityArticle")) fail("seasonal articles are not wired through lazy evergreen loaders");
 if (!authorityLazy.includes('await import("./seasonal-authority-articles")')) fail("seasonal authority full bodies are not dynamically imported");
 if (!intentLazy.includes('await import("./seasonal-intent-articles")')) fail("seasonal intent full bodies are not dynamically imported");
+
+// Keep both seasonal article heroes visibly autumnal and their image-license metadata accurate.
+// Verify the full article and lazy/list card use the same historic, credited photograph.
+for (const [name, heroVariable] of [["Hill Country", "hillCountryFallColorsHero"], ["East Texas", "eastTexasFallColorsHero"]]) {
+  if (!intents.includes(`hero: ${heroVariable}`) || !intentLazy.includes(`hero: ${heroVariable}`)) fail(`${name} fall-colors hero must be shared by full and lazy article entries`);
+}
+for (const [file, tokens] of [
+  [hillCountryFallHero, ["The_Lost_Maples_State_Park_-_Fall_Colors_in_Texas_", "G. Lamar", "CC BY 2.0", "24 Nov 2012"]],
+  [eastTexasFallHero, ["Daingerfield_sp_reflection.jpg", "Larry D. Moore", "CC BY 4.0", "24 Oct 2014"]],
+]) for (const token of tokens) if (!file.includes(token)) fail(`Seasonal fall hero missing verified photography provenance: ${token}`);
+for (const token of ["The_Lost_Maples_State_Park_-_Fall_Colors_in_Texas_", "Daingerfield_sp_reflection.jpg", "creativecommons.org/licenses/by/2.0/", "creativecommons.org/licenses/by/4.0/"]) {
+  if (!imageRights.includes(token)) fail(`Seasonal hero structured image rights missing: ${token}`);
+}
+if (!articleRoute.includes("Hero photo: G. Lamar, November 2012")) fail("Hill Country hero photographer link missing");
+if (!articleRoute.includes("Official 2026 Lost Maples foliage report")) fail("Hill Country foliage update link missing");
 
 if (!process.exitCode) console.log("Seasonal authority guardrail passed: 20 canonical pages, 1 retired redirect, county/destination reciprocity, Explore discovery, safety/currentness caveats and lazy loading verified.");
