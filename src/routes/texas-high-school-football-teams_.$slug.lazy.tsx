@@ -367,7 +367,7 @@ function Page() {
       {program && !district21Team && (editorial?.season || !editorial?.notice) && <section id="football-current-season" className="scroll-mt-24 grid gap-8 border-b border-border py-8 sm:py-10 lg:grid-cols-[15rem_1fr]">
         <div>
           <p className="eyebrow text-primary">Current season</p>
-          <h2 className="mt-2 font-display text-3xl">{editorial?.season ? '2026 results & schedule' : '2026 schedule & results sources'}</h2>
+          <h2 className="mt-2 font-display text-3xl">{editorial?.season ? '2026 results & schedule' : 'Live scores & schedule links'}</h2>
           {editorial?.season && <p className="mt-4 text-sm leading-7 text-muted-foreground">Season data checked {editorial.season.verifiedAt}. Recheck the school source before travel because kickoff times and venues can change.</p>}
         </div>
         <div className="min-w-0">
@@ -396,7 +396,7 @@ function Page() {
             <p className="mt-3 text-xs leading-6 text-muted-foreground">* District game. This table is a dated editorial snapshot, not a live scoreboard.</p>
             <a href={editorial.season.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">{editorial.season.sourceLabel} ↗</a>
             {editorial.season.latestResultSourceUrl && <a href={editorial.season.latestResultSourceUrl} target="_blank" rel="noreferrer noopener" className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4">Verify latest recorded final ↗</a>}
-          </> : <p className="max-w-4xl text-sm leading-7 text-muted-foreground">TexasDefined does not publish a team-specific schedule here unless the current season has been separately verified. Use UIL’s Texas Scoreboard and the school’s own athletics information for the latest game dates and results. The UIL scoreboard is powered by information submitted through MaxPreps; completeness depends on school and coach submissions, and it is not an official district-standings table.</p>}
+          </> : <p className="max-w-4xl text-sm leading-7 text-muted-foreground">TexasDefined does not publish an unverified team-specific schedule. Use UIL’s Texas Scoreboard and the school’s official athletics source for current dates and results; the UIL feed is submission-based and is not an official district-standings table.</p>}
           <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">
             <a href="https://www.uiltexas.org/maxpreps/" target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">UIL Texas Scoreboard gateway ↗</a>
             {editorial?.schedule && <a href={editorial.schedule.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">{editorial.schedule.label} ↗</a>}
@@ -626,8 +626,8 @@ function Page() {
 
       {((program && enrollmentLink) || (!program && privateAdmissions)) && <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div>
-          <p className="eyebrow text-primary">School enrollment</p>
-          <h2 className="mt-2 font-display text-3xl">How to enroll at {schoolName}</h2>
+          <p className="eyebrow text-primary">Enrollment & eligibility</p>
+          <h2 className="mt-2 font-display text-3xl">School enrollment and football eligibility</h2>
         </div>
         <div>
           {program ? <PublicEnrollmentSteps schoolName={schoolName} districtName={program.districtName} enrollmentLink={enrollmentLink} /> : <NonUilEnrollmentSteps schoolName={schoolName} association={privateAlignment?.association ?? governingBodyHint} admissions={privateAdmissions} />}
@@ -700,21 +700,6 @@ function Page() {
 
       <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div>
-          <p className="eyebrow text-primary">Research beyond the score</p>
-          <h2 className="mt-2 font-display text-3xl">What families should check next</h2>
-        </div>
-        <div className="grid gap-px bg-border md:grid-cols-2">
-          {program?.footballType === '6-Man' ? <ResearchCard title="Six-man player development" body="Small six-man schools may not field separate freshman or JV teams. Ask the district what programs actually operate, how younger players develop and how multirole participation works." /> : <ResearchCard title="Freshman, JV and varsity path" body="Look beyond the varsity record. Ask how many teams the program fields, roster sizes, how younger players develop and whether position depth creates a realistic path to playing time." />}
-          <ResearchCard title="Coaching continuity" body="Check the current head coach and staff, how long the core staff has been in place and whether program systems remain stable across freshman, JV and varsity." />
-          <ResearchCard title="Schedule and district travel" body="The current district or association grouping tells you the competitive neighborhood. Review opponents, travel distance, rivalry games and the current schedule rather than relying on an old classification." />
-          <ResearchCard title="Academics and daily fit" body="Football is one piece of a four-year school experience. Compare academics, programs, commute, campus culture and student support alongside the football program." />
-          <ResearchCard title="Facilities and stadium" body="Some teams play on campus and others use shared district stadiums. Confirm practice facilities, game venue, parking and game-night logistics." />
-          <ResearchCard title="Transfers and eligibility" body="Ask the school about enrollment and transfer rules, then separately verify the athletic eligibility consequences with the governing association." />
-        </div>
-      </section>
-
-      <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
-        <div>
           <p className="eyebrow text-primary">Football FAQ</p>
           <h2 className="mt-2 font-display text-3xl">{displayName} football questions</h2>
         </div>
@@ -781,11 +766,9 @@ function PublicEnrollmentSteps({
 }) {
   const district = districtName || 'the school district';
   const steps = [
-    ['Verify the exact address', `Use an official district boundary or campus-assignment tool to confirm that the residence is served by ${schoolName}. A city name or ZIP code is not enough.`],
-    ['Start district registration', `Use ${district}'s official new-student registration process. Expect proof of residence, parent or guardian identification, student identity records, immunization records and prior school records as applicable.`],
-    ['Confirm the campus assignment', 'Before signing a lease or closing on a home because of a particular school, get the campus assignment confirmed by the district and ask whether boundary changes are pending.'],
-    ['Ask about transfers separately', 'If the address is outside the attendance zone, review the district’s current transfer or open-enrollment policy. Approval rules, capacity limits and renewal terms can change.'],
-    ['Verify athletic eligibility', 'After enrollment is settled, ask the school athletic office how UIL residency, transfer and previous-athletic-participation rules apply to this student’s specific situation.'],
+    ['Confirm the school assignment', `Use an official district boundary or campus-assignment tool to confirm that the residence is served by ${schoolName}. A city name or ZIP code is not enough.`],
+    ['Use the district’s current registration process', `Complete enrollment through ${district}'s official new-student process and verify the assigned campus directly with the district.`],
+    ['Verify football eligibility separately', 'Enrollment, transfer approval and varsity eligibility are different decisions. Ask the school athletic office how UIL residency, transfer and previous-participation rules apply to the student.'],
   ];
   if (!enrollmentLink) return null;
   return <>
@@ -817,10 +800,8 @@ function NonUilEnrollmentSteps({
   } | null;
 }) {
   const steps = [
-    ['Use the school’s admissions office', `Start with ${schoolName}'s official admissions process rather than a public-school attendance-zone lookup.`],
-    ['Check application requirements', 'Confirm application dates, transcripts or records, recommendations, testing or interviews, grade-level availability and any tuition or financial-aid requirements.'],
-    ['Ask about admission timing', 'Private-school admission can depend on available seats and deadlines, so verify the intended entry year directly with the school.'],
-    ['Confirm the football program', `Verify that the school is fielding football in the intended season and confirm its current ${association ?? 'athletic association'} placement and schedule.`],
+    ['Use the school’s official admissions process', `Start with ${schoolName}'s admissions office for current dates, requirements, availability and fees.`],
+    ['Confirm the current football program', `Verify that the school is fielding football in the intended season and confirm its current ${association ?? 'athletic association'} placement and schedule.`],
     ['Verify athletic eligibility separately', 'Admission does not automatically establish athletic eligibility. Ask the school how transfer, age, residence, prior participation and association rules apply to the student.'],
   ];
   return <>
@@ -852,10 +833,6 @@ function Fact({ label, value }: { label: string; value?: string }) {
 
 function Snapshot({ label, value }: { label: string; value: string }) {
   return <div className="bg-background p-5"><dt className="text-xs uppercase tracking-[0.1em] text-muted-foreground">{label}</dt><dd className="mt-2 font-semibold">{value}</dd></div>;
-}
-
-function ResearchCard({ title, body }: { title: string; body: string }) {
-  return <article className="bg-background p-6"><h3 className="font-display text-2xl">{title}</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">{body}</p></article>;
 }
 
 function Related({ href, title, body }: { href: string; title: string; body: string }) {
