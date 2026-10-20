@@ -52,3 +52,8 @@ The originally merged program's scored schedule had seven completed games throug
 
 **Actual editorial correction:** restore the complete 10-game chronological list (seven sourced completed finals + **three school-published future fixtures**), change the schedule source to the first-party district calendar, and align the overview/FAQ/notice on the Milford calendar discrepancy. The prior 4–3 through Oct 15 record remains correct and dated. Formal nine-dimension editorial/rights/manual-accessibility acceptance remains pending despite the older successful Batch006 Chrome structural run.
 
+## October 20, 2026 — acceptance-ledger source recheck
+Bluff Dale ISD's current Gaeron Cooley staff biography was rechecked and still explicitly states that Cooley is **Head Coach of Football** while also serving as athletic director. That first-party school evidence continues to support the coaching field and is stronger than stale generic sports-directory labels.
+
+The district page still identifies the school at 430 FM 2481 but does not establish the exact public football entrance, parking allocation, accessible seating, ticket rules, or reusable football photography rights. The school-issued October 23 Milford / October 29 Pinnacle Christian / November 5 Avalon schedule correction and the 4–3 through October 15 record remain unchanged. **Status stays DEPLOYED, not individually VERIFIED.**
+
