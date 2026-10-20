@@ -485,7 +485,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "notice": {
       "title": "2026 homecoming uses George Luna Stadium; confirm individual game details",
-      "body": "Bishop High School's own October 2026 events calendar locates the October 23 varsity homecoming game against Santa Gertrudis Academy at George Luna Stadium. An independent older team directory says Ed Gorny Stadium; the school-issued event is stronger venue evidence for October 23, not proof of entrances, future games, parking, tickets or ADA facilities. Bishop CISD lists Mike Davila as athletic director (361-584-3591 ext. 319). Corpus Christi ISD announced April 21 that former Bishop head coach David McHugh accepted the Miller High athletics/football position beginning May 2026. A current MaxPreps Bishop roster lists Keith Talbert as head coach, but no dated Bishop ISD announcement was found to independently certify the replacement.",
+      "body": "Bishop High School's official calendar names George Luna Stadium for the October 23, 2026 varsity homecoming against Santa Gertrudis Academy. Regional 2024 news coverage documented Bishop CISD's decision to rename Badger Stadium for the late athletic director George Luna after a January 22 school-board agenda item. An older third-party directory instead lists Ed Gorny Stadium, but that is not proof the current venue bears that name. The school's own 2026 event designation is stronger venue evidence; exact street entrance, parking, tickets and accessible seating remain unverified. Bishop CISD lists Mike Davila as athletic director (361-584-3591 ext. 319). Corpus Christi ISD announced April 21 that former Bishop head coach David McHugh accepted the Miller High athletics/football position beginning May 2026. A current MaxPreps Bishop roster lists Keith Talbert as head coach, but no dated Bishop ISD announcement was found to independently certify the replacement.",
       "sourceUrl": "https://bhs.bishopcisd.net/",
       "sourceLabel": "Official Bishop High home page October 2026 varsity homecoming event names George Luna Stadium; Bishop CISD athletics and CCISD's April 21 McHugh departure announcement corroborate related roles",
       "verifiedAt": "2026-10-19"
@@ -579,6 +579,13 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "milestones": [
       {
         "date": "2024",
+        "title": "Badger Stadium renamed George Luna Stadium",
+        "body": "Following the death of longtime Bishop CISD athletic director George Luna, the district approved renaming Badger Stadium in his honor after the January 22 school-board agenda. Bishop High's 2026 varsity homecoming calendar confirms George Luna Stadium is the current event name; exact entry-gate details remain unknown.",
+        "sourceUrl": "https://www.kztv10.com/news/local-news/badger-stadium-renamed-after-former-bishop-athletic-director-george-luna",
+        "sourceLabel": "KZTV local original interview with Bishop CISD superintendent about January 2024 stadium naming"
+      },
+      {
+        "date": "2024",
         "title": "6–1 district finish in regular-season rebound",
         "body": "Bishop beat Falfurrias 40–22 to finish the 2024 regular season 6–4, 6–1 in district, following an earlier 2–8 year.",
         "sourceUrl": "https://www.kristv.com/sports/friday-night-fever/bishop-caps-turn-around-season-with-game-night-south-texas-win-over-falfurrias",
@@ -610,7 +617,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "The Bishop Badgers represent Bishop Consolidated Independent School District in Bishop, Nueces County, Texas; they are not Badger High School in Wisconsin. The UIL 2026–28 alignment places Bishop in Class 3A Division I District 16 alongside Lyford, Progreso, Raymondville, Rio Hondo, San Diego and Santa Gertrudis Academy. A prior year's conference or district is not an appropriate substitute.",
       "A documented revival distinguishes the program: KRIS 6 News reported that Bishop ended its 2024 regular season with a 40–22 defeat of Falfurrias, finishing 6–4 overall and 6–1 in district after a prior 2–8 campaign. The MaxPreps 2025 archive separately gives Bishop 5–6 with an opening playoff defeat to Goliad. These are dated historical performances, not projected current results.",
       "The October 13 update of MaxPreps' 2026 varsity schedule shows Bishop 2–5 through October 9. The two early wins were over Robstown and Corpus Christi West Oso; subsequent opponents included Rio Hondo, which won 63–25. The October 23 Santa Gertrudis Academy, October 30 Progreso and November 6 San Diego games were scheduled and unplayed as of this October 15 checkpoint. This table is not a final season summary.",
-      "For October 23, 2026 homecoming against Santa Gertrudis Academy, Bishop High School's first-party event announcement explicitly identifies George Luna Stadium. An independent Dave Campbell's team directory still lists Ed Gorny Stadium, but that directory does not override the event-specific 2026 school announcement. Bishop High's campus mailing address is 100 Badger Lane and Bishop CISD's athletics office is 719 East Sixth Street; neither proves a stadium entrance, car park, accessible gate or ticket procedure. Confirm each event's actual conditions with the district.",
+      "Bishop CISD renamed the football venue formerly called Badger Stadium in honor of late athletic director George Luna in 2024, as reported by local KZTV with district leadership; a January 22 school-board agenda authorized the naming decision. Bishop High's own October 23, 2026 homecoming announcement expressly calls its Santa Gertrudis Academy varsity venue George Luna Stadium. An older Dave Campbell's team directory lists Ed Gorny Stadium; that unsupported legacy listing does not override the school event's current venue name and is not proof of a stadium address. Bishop High's campus contact is 100 Badger Lane and the athletics office is 719 East Sixth Street; neither verifies the stadium vehicle gate, accessible parking or ticketing. Confirm individual event access directly with the district.",
       "Coaching sources have different timestamps. Corpus Christi ISD's April 21, 2026 announcement establishes that David McHugh was leaving Bishop for Corpus Christi Miller High School in May, so an undated Bishop season-history field still identifying McHugh as a 2026 Bishop coach is stale. MaxPreps' October 13 Bishop staff page names Keith Talbert as head coach; this is third-party roster evidence, not a district-issued appointment. Bishop CISD separately lists Mike Davila as its athletics director, which should not be confused with the varsity coaching role. Without a district-issued new head-coach announcement, this independent guide qualifies the current coach instead of pretending a first-party confirmation."
     ],
     "faq": [
@@ -632,7 +639,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "Where is Bishop's football stadium?",
-        "answer": "Bishop High School's own October 2026 homecoming calendar explicitly lists George Luna Stadium for the Friday, October 23 varsity game against Santa Gertrudis Academy. An older third-party football directory says Ed Gorny Stadium, but the school-issued event is authoritative for this specific game. Exact public gate, accessible parking, ticket rules and venue for every other game remain unverified; check Bishop CISD."
+        "answer": "Bishop High's official October 23, 2026 homecoming event names George Luna Stadium for the Santa Gertrudis Academy varsity game. Local 2024 KZTV reporting confirms Bishop CISD renamed Badger Stadium in memory of athletic director George Luna; an old independent directory's Ed Gorny Stadium entry is not a reliable current name. Do not assume 100 Badger Lane (school contact) or 719 East Sixth Street (athletics office) is the stadium entrance. Verify parking, admissions and accessible facilities with Bishop CISD."
       },
       {
         "question": "Who is Bishop's head football coach in 2026?",
