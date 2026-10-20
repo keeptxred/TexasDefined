@@ -1090,6 +1090,13 @@ if (!errors.length) {
   requireText(featuredProfileRoute, "'@type': 'FAQPage'", 'Football school profile FAQ schema');
 
   for (const marker of [
+    "const footballName = identity?.mascot",
+    "?`\${displayName} \${identity.mascot} Football`",
+    ": authoredFootballH1 || `\${displayName} Football`",
+  ]) requireText(featuredProfilePage, marker, 'Verified football team-name precedence');
+  forbidText(featuredProfilePage, 'const footballName = authoredFootballH1 || (identity?.mascot', 'Verified football team-name precedence');
+
+  for (const marker of [
     "createLazyFileRoute('/texas-high-school-football-teams/$slug')",
     'School enrollment and football eligibility',
     'Official district enrollment',
