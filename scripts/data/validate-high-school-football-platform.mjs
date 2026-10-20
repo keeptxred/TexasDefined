@@ -1343,6 +1343,41 @@ if (!errors.length) {
     return null;
   };
 
+  const batch006IdentityContracts = [
+    ['big-sandy-harmony', 'Eagles'],
+    ['big-spring', 'Steers'],
+    ['bishop', 'Badgers'],
+    ['blackwell', 'Hornets'],
+    ['blanco', 'Panthers'],
+    ['blanket', 'Tigers'],
+    ['blooming-grove', 'Lions'],
+    ['bloomington', 'Bobcats'],
+    ['blue-ridge', 'Tigers'],
+    ['bluff-dale', 'Bobcats'],
+    ['blum', 'Bobcats'],
+    ['boerne', 'Greyhounds'],
+    ['boerne-champion', 'Chargers'],
+    ['bogata-rivercrest', 'Rebels'],
+    ['boling', 'Bulldogs'],
+    ['bonham', 'Purple Warriors'],
+    ['booker', 'Kiowas'],
+    ['borden-county', 'Coyotes'],
+    ['borger', 'Bulldogs'],
+    ['bosqueville', 'Bulldogs'],
+    ['bovina', 'Mustangs'],
+    ['bowie', 'Jackrabbits'],
+    ['bowie-gold-burg', 'Bears'],
+    ['boyd', 'Yellowjackets'],
+    ['boys-ranch', 'Roughriders'],
+  ];
+  for (const [slug, mascot] of batch006IdentityContracts) {
+    requireText(
+      schoolIdentities,
+      `slug: '${slug}', mascot: '${mascot}'`,
+      'Batch 006 verified school/district mascot identity',
+    );
+  }
+
   const currentCoachContracts = [
     ['big-sandy-harmony', 'Brian Mauk', 'kltv.com/story/26056195/harmony-eagles/'],
     ['bishop', 'Keith Talbert', 'maxpreps.com/tx/bishop/bishop-badgers/football/staff/'],
