@@ -3,8 +3,10 @@ name: Refresh Texas football scores and brackets
 on:
   workflow_dispatch:
   schedule:
-    # Approximately 6 a.m. CDT daily during football season; no Cloudflare CPU.
+    # During the season, run after Friday nights and again the next morning.
+    # UTC; fall daylight transitions do not affect date-only final verification.
     - cron: '13 11 * 8-12 *'
+    - cron: '17 5 * 8-12 *'
   pull_request:
     paths:
       - 'scripts/data/refresh-football-matchups.mjs'
@@ -21,8 +23,8 @@ concurrency:
 
 jobs:
   refresh:
-    # Skip scheduled jobs completely until an authorized feed URL is available.
-    if: ${{ github.event_name == 'pull_request' || vars.FOOTBALL_RESULTS_FEED_URL != '' }}
+    # Do not silently skip when no authorized feed is configured: report the
+    # deployment blocker to the owner and fail visibly instead.
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -34,13 +36,26 @@ jobs:
           node-version: 24
       - name: Syntax-check limited score adapter
         run: node --check scripts/data/refresh-football-matchups.mjs
+      - name: Require an authorized football score feed and record setup blocker
+        if: ${{ github.event_name != 'pull_request' && vars.FOOTBALL_RESULTS_FEED_URL == '' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title='BLOCKED: TexasDefined football scores are not automatically updating'
+          if ! gh issue list --repo "$GITHUB_REPOSITORY" --state open --limit 100 --json title --jq '.[].title' | grep -Fxq "$title"; then
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body 'The season score-refresh workflow is running, but FOOTBALL_RESULTS_FEED_URL is not set. District hubs (including 6A-5, 6A-21 and 6A-22) will remain on dated editorial scores until a permitted machine-readable source is configured. Set the repository variable FOOTBALL_RESULTS_FEED_URL and optional secret FOOTBALL_RESULTS_FEED_TOKEN with an explicitly authorized provider. This failure must remain visible; do not scrape an unlicensed source or invent finals. See docs/football-authority/MATCHUPS_BRACKETS_FEED.md.'
+          fi
+          echo "::error::Football updates are NOT automatic: FOOTBALL_RESULTS_FEED_URL is missing; blocker issue recorded."
+          exit 1
       - name: Fetch only authorized verified score feed
         if: ${{ github.event_name != 'pull_request' && vars.FOOTBALL_RESULTS_FEED_URL != '' }}
         env:
           FOOTBALL_RESULTS_FEED_URL: ${{ vars.FOOTBALL_RESULTS_FEED_URL }}
           FOOTBALL_RESULTS_FEED_TOKEN: ${{ secrets.FOOTBALL_RESULTS_FEED_TOKEN }}
         run: node scripts/data/refresh-football-matchups.mjs
-      - name: Propose updated scores and brackets for checks
+      - name: Propose and auto-merge validated score updates after required checks
         if: ${{ github.event_name != 'pull_request' && vars.FOOTBALL_RESULTS_FEED_URL != '' }}
         env:
           GH_TOKEN: ${{ github.token }}
@@ -60,4 +75,5 @@ jobs:
           git add src/data/high-school-football/football-matchups.snapshot.json
           git commit -m 'Refresh sourced 2026 football scores and brackets'
           git push origin "$branch"
-          gh pr create --base main --head "$branch" --title 'Update verified 2026 Texas football scores and brackets' --body 'Bounded, source-attributed football snapshot change. Review fixtures and required CI before merging. No full-site scanning or direct production changes.'
+          gh pr create --base main --head "$branch" --title 'Update verified 2026 Texas football scores and brackets' --body 'Bounded, source-attributed authorized football snapshot change. Protected CI and automated merge approval required; no bypass of branch protection or direct production changes.'
+          gh pr merge "$branch" --repo "$GITHUB_REPOSITORY" --auto --squash
