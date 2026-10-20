@@ -11,6 +11,7 @@ import type { Article } from "@/data/types";
 import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
+import { MagnoliaWacoAffiliateLinks } from "@/components/monetization/MagnoliaWacoAffiliateLinks";
 import { SchoolSupplyPartners } from "@/components/monetization/SchoolSupplyPartners";
 import { FootballFanOffers } from "@/components/sports/FootballFanOffers";
 import { articleInternalLinks } from "@/data/article-internal-links";
@@ -104,6 +105,7 @@ const footballTravelArticleSlugs = new Set([
 type FaqEntry = { question: string; answer: string };
 type FaqBlock = { type: string; text?: string; items?: string[] };
 const FAQ_ARTICLE_SLUGS = new Set([
+  "chip-and-joanna-gaines-magnolia-waco",
   MOVING_TO_TEXAS_PILLAR_SLUG,
   "history-of-the-texas-flag",
   "texas-flag-etiquette-display-guide",
@@ -113,6 +115,7 @@ const FAQ_ARTICLE_SLUGS = new Set([
   "moving-to-el-paso-guide",
 ]);
 const FAQ_START_HEADING_BY_SLUG: Readonly<Record<string, string>> = {
+  "chip-and-joanna-gaines-magnolia-waco": "Frequently asked questions about Chip and Joanna Gaines",
   "texas-high-school-football-playoffs-explained": "Frequently asked questions",
   [MOVING_TO_TEXAS_PILLAR_SLUG]: "Frequently asked questions about moving to Texas",
   "texas-loops-spurs-explained": "Frequently asked questions about Texas Loops and Spurs",
@@ -323,7 +326,13 @@ export const Route = createFileRoute("/article/$slug")({
           url: `${siteUrl}/texas-explained`,
         },
       } : {}),
-      about: mentions.slice(0, 8).map((entity) => ({ "@id": `${siteUrl}${canonicalEntityPath(entity)}#entity` })),
+      about: [
+        ...(article.slug === "chip-and-joanna-gaines-magnolia-waco" ? [
+          { "@id": `${articleUrl}#chip-gaines` },
+          { "@id": `${articleUrl}#joanna-gaines` },
+        ] : []),
+        ...mentions.slice(0, 8).map((entity) => ({ "@id": `${siteUrl}${canonicalEntityPath(entity)}#entity` })),
+      ],
       mentions: mentions.map((entity) => ({ "@type": schemaTypeForEntityKind(entity.kind), "@id": `${siteUrl}${canonicalEntityPath(entity)}#entity`, name: entity.name, url: `${siteUrl}${canonicalEntityPath(entity)}` })),
       ...(relatedDestinations.length ? {
         hasPart: relatedDestinations.map((destination) => ({
@@ -358,7 +367,12 @@ export const Route = createFileRoute("/article/$slug")({
         acceptedAnswer: { "@type": "Answer", text: answer },
       })),
     } : null;
+    const magnoliaPeopleSchema = article.slug === "chip-and-joanna-gaines-magnolia-waco" ? [
+      { "@type": "Person", "@id": `${articleUrl}#chip-gaines`, name: "Chip Gaines", description: "Entrepreneur, television personality and Magnolia co-founder based in Waco, Texas", sameAs: "https://magnolia.com/blogs/article/about-chip-and-joanna" },
+      { "@type": "Person", "@id": `${articleUrl}#joanna-gaines`, name: "Joanna Gaines", description: "Designer, author, television personality and Magnolia co-founder based in Waco, Texas", sameAs: "https://magnolia.com/blogs/article/about-chip-and-joanna" },
+    ] : [];
     const schemaGraph = [
+      ...magnoliaPeopleSchema,
       webPageSchema,
       imageSchema,
       ...(authorSchema ? [authorSchema] : []),
@@ -530,6 +544,7 @@ function ArticlePage() {
           />
         ) : <ArticleBody blocks={article.body} entities={graph} />}
       </div>
+      {article.slug === "chip-and-joanna-gaines-magnolia-waco" && <MagnoliaWacoAffiliateLinks />}
       <ElPasoAreaCrossLinks kind="article" slug={article.slug} />
       {footballTravelArticleSlugs.has(article.slug) ? <FootballFanOffers slug={article.slug} hasUpcomingAwayTravel={false} showTravelPlanning /> : null}
       {isTexasRiversArticle ? <Suspense fallback={null}><TexasRiversAfterArticle /></Suspense> : null}
