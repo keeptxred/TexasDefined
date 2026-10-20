@@ -68,7 +68,7 @@ const curated: Record<string, Partial<Destination>> = {
           name: "LBJ State Park & Sauer-Beckmann Farm",
           description: "The adjacent state park issues ranch driving permits and adds German-Texan living history, longhorns, bison and Pedernales River context.",
           proximity: "Stonewall corridor",
-          href: "/destination/lyndon-b-johnson-state-park-and-historic-site",
+          href: "/destination/lyndon-b-johnson-state-park-historic-site",
         },
         {
           name: "Johnson City",
@@ -127,7 +127,7 @@ const curated: Record<string, Partial<Destination>> = {
           name: "Sauer-Beckmann Living History Farm",
           description: "The adjacent state-park farm gives families a working-history experience with demonstrations and livestock.",
           proximity: "Stonewall corridor",
-          href: "/destination/lyndon-b-johnson-state-park-and-historic-site",
+          href: "/destination/lyndon-b-johnson-state-park-historic-site",
         },
       ],
       sideTrips: [

@@ -5,8 +5,38 @@ import { destinationsQuery } from '@/data/queries';
 export function CountyHistoricSites({ countyName }: { countyName: string }) {
   const { data: destinations } = useSuspenseQuery(destinationsQuery({ category: 'historic-sites' }));
   const county = countyName.replace(/\s+County$/i, '').trim().toLowerCase();
-  const sites = destinations
-    .filter((destination) => destination.county?.replace(/\s+County$/i, '').trim().toLowerCase() === county)
+  // Some state-administered heritage properties have canonical destination
+  // records in the state-parks catalog and therefore are not returned by the
+  // historic-sites category query. Keep their county back-links visible.
+  const canonicalCountySites: Record<string, {slug:string; name:string; nearestTown:string; summary:string}[]> = {
+    "el-paso": [
+      { slug: "old-socorro-mission", name: "Old Socorro Mission", nearestTown: "Socorro", summary: "Historic active church on the El Paso Mission Trail; verify visitor access and worship schedules." },
+      { slug: "chamizal-national-memorial", name: "Chamizal National Memorial", nearestTown: "El Paso", summary: "NPS interpretation of the international Rio Grande boundary settlement." },
+      { slug: "magoffin-home", name: "Magoffin Home State Historic Site", nearestTown: "El Paso", summary: "Historic house closed for restoration; check current visitor-center arrangements." },
+    ],
+    "goliad": [{
+      slug: "goliad-state-park",
+      name: "Goliad State Park & Mission Espíritu Santo",
+      nearestTown: "Goliad",
+      summary: "Spanish mission interpretation and the San Antonio River landscape; visit Presidio La Bahía separately.",
+    }],
+    "harris": [{
+      slug: "san-jacinto-battleground",
+      name: "San Jacinto Battleground",
+      nearestTown: "La Porte",
+      summary: "The 1836 battle landscape, monument and museum in the Houston Ship Channel corridor.",
+    }],
+    "washington": [{
+      slug: "washington-on-the-brazos",
+      name: "Washington-on-the-Brazos",
+      nearestTown: "Washington",
+      summary: "Independence convention landscape, Star of the Republic Museum and Barrington Farm.",
+    }],
+  };
+  const sites = [
+    ...destinations.filter((destination) => destination.county?.replace(/\s+County$/i, '').trim().toLowerCase() === county),
+    ...(canonicalCountySites[county] ?? []),
+  ].filter((item, index, all) => all.findIndex((candidate) => candidate.slug === item.slug) === index)
     .sort((left, right) => left.name.localeCompare(right.name));
   if (!sites.length) return null;
 

@@ -21,6 +21,7 @@ import {
   selectMetroProximityTownReferences,
   type MetroProximityTownResult,
 } from "./metro-proximity-town-references";
+import { buildMetroProximityEventContextServer } from "./metro-proximity-events.server";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
@@ -239,10 +240,12 @@ export async function loadMetroProximityCollectionPageDataServer(metroSlug: stri
   const townReferences = selectMetroProximityTownReferences(metro, collection, results);
   const optionCount = results.length + townReferences.length;
   const indexReady = isMetroProximityCollectionIndexReadyWithTownReferences(destinations, metro, collection);
+  const eventContext = buildMetroProximityEventContextServer(metro, collection, results);
   const canonicalPath = metroProximityCanonicalPath(metro.slug, collection.slug);
   const presentation = metroProximityCollectionPresentation(collection);
   const isTexarkanaRoadTrips = metro.slug === "texarkana" && collection.slug === "road-trips";
   const isAustinTwoHourGuide = metro.slug === "austin" && collection.slug === "small-towns-2-hours";
+  const isMcAllenDayTrips = metro.slug === "mcallen" && collection.slug === "day-trips";
   const title = isTexarkanaRoadTrips
     ? "Best Road Trips From Texarkana, Texas"
     : isAustinTwoHourGuide
@@ -250,9 +253,11 @@ export async function loadMetroProximityCollectionPageDataServer(metroSlug: stri
       : presentation.usesGeographicRing
         ? `${presentation.titlePrefix} ${metro.name}, Texas`
         : metroProximityTitle(metro, collection);
-  const description = isTexarkanaRoadTrips
-    ? "Plan scenic drives and multi-stop road trips from Texarkana through the Piney Woods, Caddo country, historic East Texas towns, lakes and state parks, with route order, trip length, seasonal guidance and current driving links."
-    : isAustinTwoHourGuide
+  const description = isMcAllenDayTrips
+    ? "Choose meaningful McAllen day trips in the Rio Grande Valley: Bentsen-Rio Grande Valley State Park, Santa Ana Refuge, birding, Edinburg history, Port Isabel and South Padre Island. Local and longer outings, official visitor sources and live driving links."
+    : isTexarkanaRoadTrips
+      ? "Plan scenic drives and multi-stop road trips from Texarkana through the Piney Woods, Caddo country, historic East Texas towns, lakes and state parks, with route order, trip length, seasonal guidance and current driving links."
+      : isAustinTwoHourGuide
       ? `Compare ${optionCount} worthwhile small-town day trips from Austin, with trip-planning guidance for Hill Country wine, Texas history, river towns, courthouse squares and heritage routes. Check live routing before you leave because Austin-area traffic can materially change drive times.`
       : presentation.usesGeographicRing
         ? `Compare ${optionCount} ${presentation.searchIntent} around ${metro.name}, screened by geographic distance with source-backed TexasDefined guides and official local references. Use the page's route links for current road mileage and driving time.`
@@ -308,5 +313,5 @@ export async function loadMetroProximityCollectionPageDataServer(metroSlug: stri
       }),
     }],
   };
-  return { metro, collection, results, townReferences, optionCount, indexReady, presentation, canonicalPath, title, description, reviewedAt, head };
+  return { metro, collection, results, townReferences, optionCount, eventContext, indexReady, presentation, canonicalPath, title, description, reviewedAt, head };
 }

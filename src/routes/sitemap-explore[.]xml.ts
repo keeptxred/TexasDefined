@@ -1,7 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
+import { CASINO_GUIDE_PATHS } from "@/data/texas-casino-guides";
+import { inlandSwimmingBeaches } from "@/data/inland-beach-authority";
 import { isPrimaryTripPlannerDestination } from "@/data/destination-availability";
+import { zionHillNacogdochesAuthorityDestinations } from "@/data/zion-hill-nacogdoches-authority-destinations";
 import { auditDestination } from "@/data/destination-audit";
 import { supplementalExploreCategories } from "@/data/explore-categories";
 import { isExploreCategoryIndexReady } from "@/data/explore-category-indexability";
@@ -101,12 +104,18 @@ async function resolveDestinationCatalog(destinations: Destination[]) {
     { reconcileDestinationHeroes },
     { applyExploreHeroAssets },
     { applyStateParkHeroAssets },
+    { applyHistoricSiteFactCorrections },
   ] = await Promise.all([
     import("@/data/destination-quality"),
     import("@/data/explore-hero-reconciliation"),
     import("@/data/explore-heroes"),
     import("@/data/state-park-heroes"),
+    import("@/data/historic-site-fact-corrections"),
   ]);
+  // Keep the sitemap's final quality gate aligned with the *resolved public
+  // destination*, including closed-site status and exact-location image rights.
+  // Otherwise Lipantitlan and Old Socorro can be noindex on their HTML pages
+  // while still appearing in the XML feed with unrelated or misidentified art.
   return improveDestinationCatalog(
     applyAllCuratedDestinations(
       reconcileDestinationHeroes(
@@ -115,10 +124,41 @@ async function resolveDestinationCatalog(destinations: Destination[]) {
         ),
       ),
     ),
-  );
+  ).map(applyHistoricSiteFactCorrections);
 }
 
-function emergencyExploreSitemapResponse(error: unknown) {
+// Keep the 91-row research registry out of the eagerly evaluated route module
+// and off the initial browser bundle. Uncertified leaves never enter the sitemap.
+async function indexReadyWaterParkPaths(): Promise<string[]> {
+  try {
+    const { texasWaterParks } = await import("@/data/texas-water-parks");
+    return texasWaterParks
+      .filter((park) => park.authorityReady)
+      .map((park) => `/explore/water-parks/${park.slug}`);
+  } catch (error) {
+    console.error("Explore water-park sitemap source unavailable; omitting unverified leaves", error);
+    return [];
+  }
+}
+
+// Preserve the same reviewed public town guide that the destination route serves.
+// Audit the full canonical record: neither a thin remote row nor an emergency
+// sitemap fallback may silently drop an already indexable destination.
+async function auditedFredericksburgSitemapEntry(): Promise<string | null> {
+  try {
+    const { smallTownWave1Destinations } = await import("@/data/small-town-destinations-wave1");
+    const canonical = smallTownWave1Destinations.find((destination) => destination.slug === "fredericksburg");
+    if (!canonical || !isPrimaryTripPlannerDestination(canonical) || !auditDestination(canonical).readyForIndexing) {
+      return null;
+    }
+    return entry(`/destination/${canonical.slug}`, canonical.sourceCheckedAt);
+  } catch (error) {
+    console.error("Fredericksburg audited sitemap source unavailable", error);
+    return null;
+  }
+}
+
+async function emergencyExploreSitemapResponse(error: unknown) {
   console.error("Explore sitemap generation failed; serving governed static fallback", error);
   const fallbackPaths = [
     "/explore",
@@ -128,6 +168,11 @@ function emergencyExploreSitemapResponse(error: unknown) {
     "/explore/attractions-comparison",
     "/explore/museums",
     "/explore/aquariums",
+    "/explore/water-parks",
+    "/explore/inland-beaches",
+    ...inlandSwimmingBeaches.map((beach) => `/explore/inland-beaches/${beach.slug}`),
+    ...(await indexReadyWaterParkPaths()),
+    ...CASINO_GUIDE_PATHS,
     "/explore/rv-parks",
     "/explore/wildlife",
     "/explore/water-towers",
@@ -141,8 +186,10 @@ function emergencyExploreSitemapResponse(error: unknown) {
     ...EXPLORE_REGION_SLUGS.map((regionSlug) => `/explore/region/${regionSlug}`),
     ...METRO_PROXIMITY_METROS.map((metro) => `/explore/near/${metro.slug}`),
   ];
-  const entries = [...new Set(fallbackPaths)]
-    .map((path) => entry(path))
+  const entries = [
+    ...[...new Set(fallbackPaths)].map((path) => entry(path)),
+    await auditedFredericksburgSitemapEntry(),
+  ]
     .filter((item): item is string => Boolean(item))
     .join("\n");
   const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${entries}\n</urlset>`;
@@ -241,6 +288,19 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         const expandedSlugs = new Set(rawDestinations.map((destination) => destination.slug));
         rawDestinations.push(...publicCavernDestinationFallbacks.filter((destination) => destination.slug && !expandedSlugs.has(destination.slug)));
 
+        // The detail resolver falls back to this checked-in authority record when
+        // a remote Fredericksburg duplicate is too weak for indexing. Mirror that
+        // precedence here so the same indexable canonical page cannot disappear
+        // from the Explore sitemap solely because a thinner remote row exists.
+        const fredericksburgAuthority = preservedExploreDestinations.find(
+          (destination) => destination.slug === "fredericksburg",
+        );
+        if (fredericksburgAuthority) {
+          const position = rawDestinations.findIndex((destination) => destination.slug === fredericksburgAuthority.slug);
+          if (position >= 0) rawDestinations[position] = fredericksburgAuthority;
+          else rawDestinations.push(fredericksburgAuthority);
+        }
+
         // WhirlyBall Hurst is a hand-curated canonical guide. A stale or thinner
         // remote row with the same slug must not shadow the checked-in record and
         // make the canonical page disappear from the Explore sitemap.
@@ -250,9 +310,57 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           else rawDestinations.push(canonicalDestination);
         }
 
+        // Two original-source Black heritage guides were merged to the checked-in catalog.
+        // A thinner Explore API row with the same slug must not replace the researched
+        // authority record and quietly remove its canonical URL from this sitemap.
+        // Run the ordinary auditDestination indexability gate on the resolved results.
+        for (const canonicalDestination of zionHillNacogdochesAuthorityDestinations) {
+          const existingIndex = rawDestinations.findIndex((destination) => destination.slug === canonicalDestination.slug);
+          if (existingIndex >= 0) rawDestinations[existingIndex] = canonicalDestination;
+          else rawDestinations.push(canonicalDestination);
+        }
+
+        // Keep a source-backed historical reference independent of the visit-planner
+        // availability rules. A thinner/stale remote Explore record may share this
+        // slug and would otherwise displace the curated record before quality audit,
+        // incorrectly removing an indexable history page from the Explore sitemap.
+        // This does not open the closed First Capitol site for visitor recommendations.
+        const firstCapitolReference = preservedExploreDestinations.find(
+          (destination) => destination.slug === "first-capitol-of-texas",
+        );
+        if (firstCapitolReference) {
+          const position = rawDestinations.findIndex((destination) => destination.slug === firstCapitolReference.slug);
+          if (position >= 0) rawDestinations[position] = firstCapitolReference;
+          else rawDestinations.push(firstCapitolReference);
+        }
+
         const destinations = await resolveDestinationCatalog(rawDestinations);
+        // The Explore/search summaries for these authority destinations are deliberately
+        // lightweight to stay within the tested client JS bundle budget. The sitemap
+        // must audit full researched guides, not summaries, before including URLs.
+        // Load the larger authoritative records inside this server-only handler.
+        const { coastalHeritageAuthorityDestinations } = await import("@/data/coastal-heritage-authority");
+        for (const canonicalDestination of coastalHeritageAuthorityDestinations) {
+          const position = destinations.findIndex((item) => item.slug === canonicalDestination.slug);
+          if (position >= 0) destinations[position] = canonicalDestination;
+          else destinations.push(canonicalDestination);
+        }
+        // The First Capitol is closed to visits but its historical page is
+        // indexable. Resolve the very same researched destination as the detail
+        // route: the lightweight sitemap catalog can omit its authority depth
+        // or contain a stale remote version of this exact slug.
+        const { loadFirstCapitolSitemapReference } = await import("@/data/first-capitol-sitemap.server");
+        const resolvedFirstCapitol = await loadFirstCapitolSitemapReference().catch((error) => {
+          console.error("First Capitol sitemap detail lookup unavailable", error);
+          return undefined;
+        });
+        const firstCapitolIndex = destinations.findIndex((item) => item.slug === "first-capitol-of-texas");
+        if (firstCapitolIndex >= 0) destinations.splice(firstCapitolIndex, 1);
+        // A failed detailed resolution must not silently publish a thin
+        // fallback in the sitemap. Other destinations retain existing gates.
+        if (resolvedFirstCapitol) destinations.push(resolvedFirstCapitol);
         const indexableDestinations = [...new Map(destinations.filter((item) => item.slug).map((item) => [item.slug, item])).values()]
-          .filter((destination) => isPrimaryTripPlannerDestination(destination) && auditDestination(destination).readyForIndexing);
+          .filter((destination) => (isPrimaryTripPlannerDestination(destination) || ["1940-air-terminal-museum-houston", "elisabet-ney-museum-austin", "buffalo-soldiers-national-museum-houston", "first-capitol-of-texas", "battleship-texas"].includes(destination.slug)) && auditDestination(destination).readyForIndexing);
         const indexableRvParkDestinations = [...new Map(loadRvParkDestinationsServer().filter((item) => item.slug).map((item) => [item.slug, item])).values()]
           .filter((destination) => isPrimaryTripPlannerDestination(destination) && auditDestination(destination).readyForIndexing);
         const sitemapIndexableDestinations = mergeDestinationSources(indexableDestinations, indexableRvParkDestinations);
@@ -289,6 +397,11 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           "/explore/attractions-comparison",
           "/explore/museums",
           "/explore/aquariums",
+          "/explore/water-parks",
+          "/explore/inland-beaches",
+          ...inlandSwimmingBeaches.map((beach) => `/explore/inland-beaches/${beach.slug}`),
+          ...(await indexReadyWaterParkPaths()),
+          ...CASINO_GUIDE_PATHS,
           "/explore/rv-parks",
           "/explore/wildlife",
           "/explore/water-towers",
@@ -306,6 +419,12 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         const destinationEntries = sitemapIndexableDestinations
           .map((item) => entry(`/destination/${item.slug}`, item.sourceCheckedAt))
           .filter((item): item is string => Boolean(item));
+        // A remote or curated catalog may omit the canonical town record; do
+        // not bypass the destination quality gate or create duplicate XML rows.
+        const auditedFredericksburgEntry = await auditedFredericksburgSitemapEntry();
+        if (auditedFredericksburgEntry && !destinationEntries.some((item) => item.includes(`<loc>${BASE_URL}/destination/fredericksburg</loc>`))) {
+          destinationEntries.push(auditedFredericksburgEntry);
+        }
         const { loadMetroProximitySitemapEntriesServer } = await import("@/data/metro-proximity-page-data.server");
         // Proximity sitemap eligibility intentionally resolves through the same
         // canonical destination pipeline as live metro pages. Do not pass the

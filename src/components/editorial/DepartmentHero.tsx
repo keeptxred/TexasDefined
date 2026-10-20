@@ -27,7 +27,7 @@ export function DepartmentHero({
           </ol>
         </nav>
         <div className="mt-10 max-w-5xl border-t border-border pt-8">
-          <p className="eyebrow text-primary">{eyebrow}</p>
+          <p className={cn("eyebrow", tone === "surface" ? "text-surface-foreground" : "text-primary")}>{eyebrow}</p>
           <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">{title}</h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">{description}</p>
         </div>

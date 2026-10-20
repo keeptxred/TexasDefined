@@ -68,7 +68,7 @@ const patches: Record<string, AuthorityPatch> = {
     links: [
       { href: "/article/texas-rural-wells-water-guide", label: "Rural Texas wells and water", description: "See how wells, groundwater, storage and drought shape rural-property decisions." },
       { href: "/article/buying-land-in-texas-guide", label: "Buying land in Texas", description: "Put ponds and livestock water into the larger acreage due-diligence checklist." },
-      { href: "/article/texas-slang-explained", label: "Texas language and slang", description: "Explore more words shaped by ranching, Spanish, geography and regional history." },
+      { href: "/texas-slang-explained", label: "Texas language and slang", description: "Explore more words shaped by ranching, Spanish, geography and regional history." },
       { href: "https://tpwd.texas.gov/landwater/water/habitats/private_water/", label: "TPWD private pond management", description: "Official Texas guidance and resources for managing private lakes and ponds." },
       { href: "https://tpwd.texas.gov/faq/landwater/fisheries/", label: "TPWD private fishing pond FAQ", description: "Current answers on pond construction guidance, fish stocking and private-water management." },
     ],

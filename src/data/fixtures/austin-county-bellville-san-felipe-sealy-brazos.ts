@@ -37,6 +37,7 @@ export const austinCountyBellvilleSanFelipeSealyBrazosArticle: Article = {
   internalLinks: [
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
     { href: "/article/phenix-knives-bellville", label: "Phenix Knives in Bellville", description: "Visit the working blacksmith shop, see hand-forged craft and plan the hands-on visitor experience." },
+    { href: "/article/newmans-castle-bellville-texas", label: "Newman's Castle in Bellville", description: "Read about Mike Newman's castle, his family's legacy and current visitor arrangements." },
     { href: "/county/washington", label: "Explore Washington County", description: "Continue north toward Brenham, Independence and Washington-on-the-Brazos." },
     { href: "/county/fayette", label: "Explore Fayette County", description: "Head west toward La Grange, Czech and German communities and the Colorado River." },
     { href: "/county/fort-bend", label: "Explore Fort Bend County", description: "Follow the lower Brazos toward Richmond, Sugar Land and the Houston metro." },

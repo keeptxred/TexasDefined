@@ -30,7 +30,7 @@ export const sanAntonioMilitaryAviationHistoryArticle: Article = {
     { href: "/article/texas-national-guard-history", label: "Texas National Guard history", description: "Connect San Antonio's federal installations with the state's citizen-soldier tradition and Camp Mabry." },
     { href: "/article/texas-world-war-ii-bases-pow-camps", label: "Texas World War II bases and POW camps", description: "See how San Antonio fit into the statewide wartime training network." },
     { href: "/city/san-antonio", label: "San Antonio", description: "Explore the city's missions, neighborhoods, food, military heritage and visitor guides." },
-    { href: "/article/bexar-county-san-antonio-missions-river", label: "Bexar County guide", description: "Connect military aviation with the larger county history and travel landscape." },
+    { href: "/county/bexar", label: "Bexar County guide", description: "Connect military aviation with the larger county history and travel landscape." },
   ],
   relatedCollections: [],
   relatedDestinations: ["the-alamo", "san-antonio-missions-national-historical-park", "casa-navarro"],

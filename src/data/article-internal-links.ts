@@ -7,6 +7,35 @@ const texasExplainedLink: ArticleInternalLink = {
 };
 
 export const articleInternalLinks: Record<string, ArticleInternalLink[]> = {
+  "texas-traditions-you-should-experience": [
+    {
+      href: "/article/texas-bucket-list-by-season",
+      label: "Plan Texas experiences by season",
+      description: "Choose which traditions fit spring wildflowers, summer river weekends, fall fairs and winter travel.",
+    },
+    {
+      href: "/article/fort-worth-stockyards-history-cattle-culture",
+      label: "Fort Worth Stockyards cattle history",
+      description: "Trace how cattle markets and stockyards shaped the western heritage behind today's ranching traditions.",
+    },
+    {
+      href: "/article/san-antonio-stock-show-rodeo-history-guide",
+      label: "San Antonio Stock Show and Rodeo history",
+      description: "See how livestock exhibitions, rodeo and youth agricultural scholarships connect city and rural Texas.",
+    },
+  ],
+  "texas-bucket-list-by-season": [
+    {
+      href: "/article/texas-traditions-you-should-experience",
+      label: "Twenty-one Texas traditions to experience",
+      description: "Turn a seasonal destination list into a more meaningful trip by understanding the communities behind each tradition.",
+    },
+    {
+      href: "/article/weirdest-town-names-in-texas-and-how-they-got-them",
+      label: "The stories behind unusual Texas town names",
+      description: "Add a small-town history detour when planning scenic drives and road-trip seasons.",
+    },
+  ],
   "texas-road-closures-drivetexas-guide": [
     {
       href: "/article/why-austin-i35-traffic-keeps-getting-worse",
@@ -210,6 +239,11 @@ export const articleInternalLinks: Record<string, ArticleInternalLink[]> = {
   "texas-cultural-regions-explained": [
     texasExplainedLink,
     {
+      href: "/article/texas-oil-boom-wichita-falls-west-texas-rigs",
+      label: "How oil booms reshaped Texas regions",
+      description: "Explore how oil development changed the economies, settlement patterns and identities of North and West Texas.",
+    },
+    {
       href: "/article/texas-regions-explained",
       label: "Start with the physical regions of Texas",
       description: "Put settlement and migration onto the underlying map of forests, prairies, coast, limestone country, plains and desert.",
@@ -237,6 +271,11 @@ export const articleInternalLinks: Record<string, ArticleInternalLink[]> = {
   ],
   "texas-barbecue-styles-explained": [
     texasExplainedLink,
+    {
+      href: "/article/texas-restaurants-for-out-of-town-visitors",
+      label: "Texas restaurants to recommend to visitors",
+      description: "Take barbecue's regional food traditions into a practical guide for choosing Texas meals when friends or family visit.",
+    },
     {
       href: "/explore/food-bbq",
       label: "Explore Texas food & barbecue",
@@ -278,6 +317,11 @@ export const articleInternalLinks: Record<string, ArticleInternalLink[]> = {
   ],
   "texas-regions-explained": [
     texasExplainedLink,
+    {
+      href: "/article/texas-gulf-coast-erosion-shoreline-retreat-guide",
+      label: "Why the Texas Gulf coastline keeps changing",
+      description: "Connect the coastal region's barrier islands, bays and shifting shoreline with the forces behind Gulf Coast erosion and retreat.",
+    },
     {
       href: "/article/texas-trees-guide",
       label: "Read Texas by its trees",

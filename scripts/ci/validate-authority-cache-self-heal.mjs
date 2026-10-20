@@ -43,15 +43,15 @@ for (const [needle, label] of [
 ]) requireText(workflow, needle, label);
 
 for (const [needle, label] of [
-  ['workflow_run:', 'independent freshness workflow-run trigger'],
-  ['- Purge authority cache after production deploy', 'freshness must wait for cache self-heal'],
+  ['workflow_dispatch:', 'explicit freshness recheck trigger'],
+
   ['workflow_dispatch:', 'manual freshness trigger'],
   ["github.event.workflow_run.conclusion == 'success'", 'freshness requires successful cache self-heal'],
   ["github.event.workflow_run.head_branch == 'main'", 'freshness main-branch guard'],
   ['node scripts/ci/verify-authority-canonical-freshness.mjs', 'independent canonical freshness command'],
 ]) requireText(verifyWorkflow, needle, label);
 
-if (verifyWorkflow.includes('- Deploy TexasDefined production')) {
+if (/^  workflow_run:/m.test(verifyWorkflow)) {
   failures.push('Independent authority freshness must run after cache self-heal, not race the production deploy completion.');
 }
 
@@ -79,10 +79,17 @@ for (const path of [
 for (const marker of [
   "url: 'https://texasdefined.com/article/texas-rivers-explained'",
   "'Texas Rivers Explained'",
-  "'Start with the map'",
+  "'See how Texas rivers cross the state'",
   "'Open the full 15-basin comparison'",
-  "'Texas rivers at a glance'",
+  "'Explore All 15 Major Texas River Basins'",
+  "'Texas Rivers at a Glance'",
 ]) requireText(freshness, marker, `Texas rivers canonical freshness contract ${marker}`);
+
+for (const marker of [
+  "'six-man-field-title'",
+  "'100 yards including end zones'",
+  "'80 yards × 40 yards · midfield at the 40'",
+]) requireText(freshness, marker, `Six-man field visual freshness contract ${marker}`);
 
 if (productionWorkflow.includes("CLOUDFLARE_CACHE_API_TOKEN: ${{ secrets.CLOUDFLARE_CACHE_API_TOKEN ||")) {
   failures.push('Primary production deployment must not fall back to deploy/general Cloudflare tokens for cache purge.');
@@ -94,4 +101,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Authority cache self-heal protected: post-deploy repair requires a successful dedicated-token targeted purge and canonical freshness verification, independent verification waits for repair, broad purge is forbidden, and deploy/general Cloudflare credentials are never reused for cache invalidation.');
+console.log('Authority cache self-heal protected: post-deploy repair requires a successful dedicated-token targeted purge and canonical freshness verification, independent verification remains manual because repair already verifies freshness, broad purge is forbidden, and deploy/general Cloudflare credentials are never reused for cache invalidation.');

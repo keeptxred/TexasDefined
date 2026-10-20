@@ -46,6 +46,6 @@ describe("Texas trees around homes authority guide", () => {
     expect(linkSource).toContain('"texas-homeowner-field-manual"');
     expect(linkSource).toContain('"texas-trees-guide"');
     expect(linkSource).toContain('"best-native-plants-texas-yard"');
-    expect(linkSource).toContain('"texas-hurricane-preparation-guide"');
+    expect(linkSource).toContain('"texas-hurricane-preparation-homeowners-renters"');
   });
 });

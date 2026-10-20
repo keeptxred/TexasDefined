@@ -30,6 +30,7 @@ export const republicOfTexasNavyHistoryArticle: Article = {
     { href: "/article/texas-military-history-timeline", label: "Texas military history timeline", description: "Place the Republic's naval campaigns alongside the Texas Revolution, frontier Army, world wars and modern military history." },
     { href: "/article/republic-of-texas-government-trail", label: "Republic of Texas government trail", description: "Connect the Navy's funding and political battles to the unstable government of the independent Republic." },
     { href: "/article/texas-revolution-historic-sites-road-trip", label: "Texas Revolution road trip", description: "Follow the land campaign while remembering that New Orleans supply lines and the Gulf mattered to survival in 1836." },
+    { href: "/article/uss-texas-1895-original-battleship", label: "The first USS Texas (1895)", description: "Read about the later U.S. Navy battleship that fought at Santiago, distinct from the Republic’s independent navy." },
     { href: "/article/battleship-texas-bb-35-history-restoration", label: "Battleship Texas", description: "Continue into the state's later naval memory through the surviving twentieth-century dreadnought." },
     { href: "/destination/san-jacinto-battleground", label: "San Jacinto Battleground", description: "Connect the Navy's 1836 supply and blockade role with the land victory that secured the Revolution." },
     { href: "/county/galveston", label: "Galveston County guide", description: "Use Galveston as the geographic center for much of the Republic's naval story." },

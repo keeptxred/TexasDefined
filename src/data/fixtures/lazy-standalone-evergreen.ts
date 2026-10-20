@@ -45,7 +45,7 @@ const texasHighSchoolFootballPlayoffsStub: Article = {
   dek: "From district qualification and bi-district matchups to 6A's Division I/II split, neutral sites and state championships, here is how the UIL football postseason works in 2026.",
   category: "sports",
   hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Fort_Worth_Cultural_District_June_2016_09_%28Farrington_Field%29.jpg?width=1800", alt: "Farrington Field, a historic high school football stadium in Fort Worth, Texas", width: 1800, height: 1200, credit: "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons" },
-  authorId: "a-marisol", publishedAt: "2026-09-19", readingMinutes: 12,
+  authorId: "a-marisol", publishedAt: "2026-09-19", updatedAt: "2026-10-16", readingMinutes: 6,
   tags: ["texas high school football playoffs", "uil football playoffs", "texas football bracket", "bi-district football", "6A football playoffs", "texas state championships"], featured: false,
   sourceName: "University Interscholastic League", sourceUrl: "https://www.uiltexas.org/football/playoff-brackets",
   body: [], relatedCollections: [], relatedDestinations: [],
@@ -125,6 +125,18 @@ const texasRevolutionHistoricSitesRoadTripStub: Article = {
   tags: ["texas revolution", "texas independence", "texas history road trip", "san felipe de austin", "washington on the brazos", "goliad", "san jacinto"], featured: true,
   sourceName: "Texas Historical Commission", sourceUrl: "https://thc.texas.gov/historic-sites",
   body: [], relatedCollections: [], relatedDestinations: ["san-felipe-de-austin", "washington-on-the-brazos", "star-of-the-republic-museum", "fannin-battleground", "presidio-la-bahia", "san-jacinto-battleground"],
+};
+
+const nacogdochesSanAugustineHistoricRoadTripStub: Article = {
+  id: "evergreen-nacogdoches-san-augustine-historic-road-trip", brandId: "texasdefined", slug: "nacogdoches-san-augustine-historic-road-trip",
+  title: "Historic Road Trip: Nacogdoches, Caddo Country & San Augustine",
+  dek: "A two-to-three-day East Texas heritage trip with Caddo Mounds, Mission Dolores and El Camino Real.",
+  category: "texas-history",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Nacogdoches%20downtown.jpg?width=1600", alt: "Historic downtown Nacogdoches", width: 1200, height: 804, credit: "Chris Litherland · CC BY 3.0 · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-10-12", updatedAt: "2026-10-12", readingMinutes: 18,
+  tags: ["Nacogdoches","San Augustine","Caddo Mounds","Mission Dolores","El Camino Real"], featured: true,
+  sourceName: "Texas Historical Commission", sourceUrl: "https://thc.texas.gov/travel/historic-road-trips",
+  body: [], relatedCollections: [], relatedDestinations: ["nacogdoches","mission-dolores","caddo-mounds-state-historic-site","san-augustine"]
 };
 
 const texasFrontierFortsRoadTripStub: Article = {
@@ -271,6 +283,30 @@ const texasWorldWarIIHistoricSitesGuideStub: Article = {
   body: [], relatedCollections: [], relatedDestinations: ["battleship-texas", "eisenhower-birthplace", "national-museum-pacific-war", "iwo-jima-museum-monument", "slaton-harvey-house"],
 };
 
+const ussLexingtonCv16HistoryVisitorGuideStub: Article = {
+  id: "evergreen-uss-lexington-cv16-history-visitor-guide", brandId: "texasdefined", slug: "uss-lexington-cv16-history-visitor-guide",
+  title: "USS Lexington (CV-16): The Blue Ghost, World War II Aircraft Carrier and Corpus Christi Museum",
+  dek: "The complete story of USS Lexington: Pacific combat, postwar aviation, service as a Navy training carrier, and the preserved Corpus Christi museum with current visitor details and archival photos.",
+  category: "texas-history", region: "gulf-coast",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/USS_Lexington_%28CV-16%29_underway_on_13_June_1944.jpg?width=1600", alt: "USS Lexington CV-16 in the Pacific on June 13, 1944", width: 5732, height: 4313, credit: "U.S. Navy 80-G-236932 · Public domain · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-10-14", updatedAt: "2026-10-14", readingMinutes: 18,
+  tags: ["USS Lexington", "CV-16", "Blue Ghost", "Corpus Christi", "WWII aircraft carrier"], featured: true,
+  sourceName: "USS Lexington Museum on the Bay", sourceUrl: "https://usslexington.com/about-the-uss-lexington/the-ship/",
+  body: [], relatedCollections: [], relatedDestinations: ["uss-lexington-museum-corpus-christi", "texas-state-aquarium", "battleship-texas"],
+};
+
+const ussTexas1895OriginalBattleshipStub: Article = {
+  id: "evergreen-uss-texas-1895-original-battleship", brandId: "texasdefined", slug: "uss-texas-1895-original-battleship",
+  title: "The First USS Texas (1895–1911): Spanish–American War Battleship and San Marcos",
+  dek: "Before the surviving Battleship Texas BB-35, a different USS Texas fought at Santiago de Cuba in 1898. Discover its unusual design, people, service, renaming, gunnery-test wreck and archival images.",
+  category: "texas-history", region: "gulf-coast",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/USS_Texas_%281895-1911%29.jpg?width=1280", alt: "The first USS Texas photographed before the dreadnought era", width: 740, height: 576, credit: "U.S. Navy / NHHC NH 63506 · Public domain · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-10-14", updatedAt: "2026-10-14", readingMinutes: 19,
+  tags: ["original USS Texas", "USS Texas 1895", "USS San Marcos", "Spanish-American War Texas", "Battle of Santiago de Cuba"], featured: true,
+  sourceName: "Naval History and Heritage Command", sourceUrl: "https://www.history.navy.mil/browse-by-topic/ships/ships-of-steam/uss-texas.html",
+  body: [], relatedCollections: [], relatedDestinations: ["battleship-texas", "san-jacinto-battleground"],
+};
+
 const battleshipTexasBB35HistoryRestorationStub: Article = {
   id: "evergreen-battleship-texas-bb-35-history-restoration", brandId: "texasdefined", slug: "battleship-texas-bb-35-history-restoration",
   title: "Battleship Texas (BB-35): The Last Dreadnought and Its Return to Galveston",
@@ -355,7 +391,32 @@ const fredericksburgHistoryWeekendGuideStub: Article = {
   body: [], relatedCollections: [], relatedDestinations: ["national-museum-pacific-war", "fort-martin-scott"],
 };
 
+const historicSanAntonioHeritageRoadTripStub: Article = {
+  id: "evergreen-historic-san-antonio-heritage-road-trip", brandId: "texasdefined", slug: "historic-san-antonio-heritage-road-trip",
+  title: "Historic San Antonio Road Trip: Missions, King William, the Alamo and Downtown",
+  dek: "A two-day heritage route with the missions, downtown plazas, King William and independently verified visitor access.",
+  category: "texas-history", region: "south-texas",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Mission%20San%20Jose%20San%20Antonio%2001.jpg?width=1600", alt: "Historic stonework at Mission San José in San Antonio", width: 4608, height: 3456, credit: "Steven B Yount · CC BY-SA 4.0 · Wikimedia Commons" },
+  authorId: "a-marisol", publishedAt: "2026-10-12", updatedAt: "2026-10-12", readingMinutes: 21,
+  tags: ["San Antonio history", "historic San Antonio road trip", "San Antonio Missions", "King William", "Tejano history"],
+  featured: true, sourceName: "National Park Service and Texas Historical Commission", sourceUrl: "https://www.nps.gov/saan/planyourvisit/index.htm",
+  body: [], relatedCollections: [], relatedDestinations: ["the-alamo", "casa-navarro", "san-antonio-missions-national-historical-park", "king-william-historic-district", "menger-hotel-san-antonio", "mission-san-jose-san-antonio"],
+};
+
+const fredericksburgJohnsonCityHistoricRoadTripStub: Article = {
+  id: "evergreen-fredericksburg-johnson-city-historic-road-trip", brandId: "texasdefined", slug: "fredericksburg-johnson-city-historic-road-trip",
+  title: "Fredericksburg to Johnson City: The Complete Historic Hill Country Road Trip",
+  dek: "Historic Fredericksburg, Fort Martin Scott, the Pacific War museum, Stonewall, LBJ Ranch, Sauer-Beckmann Farm, Hye and Johnson City with present-day closures, costs and a Luckenbach detour.",
+  category: "road-trips", region: "hill-country",
+  hero: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Lyndon_B._Johnson_Ranch_October_2020_28_%28Texas_White_House%29.jpg?width=1600", alt: "The Texas White House at LBJ Ranch near Stonewall; exterior image, interior currently closed", width: 1600, height: 1067, credit: "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons" },
+  authorId: "a-dell", publishedAt: "2026-10-12", readingMinutes: 19,
+  tags: ["fredericksburg to johnson city", "lbj ranch", "hill country historic sites", "stonewall", "fort martin scott", "luckenbach"], featured: true,
+  sourceName: "Texas Historical Commission", sourceUrl: "https://thc.texas.gov/blog/historic-road-trip-fredericksburg-johnson-city",
+  body: [], relatedCollections: [], relatedDestinations: ["fredericksburg", "fort-martin-scott", "stonewall", "hye", "johnson-city", "luckenbach"],
+};
+
 export const standaloneEvergreenStubs: Article[] = [
+  historicSanAntonioHeritageRoadTripStub,
   rodeo101Stub,
   texasHighSchoolFootballClassificationsStub,
   texasSixManFootballExplainedStub,
@@ -368,6 +429,7 @@ export const standaloneEvergreenStubs: Article[] = [
   sixFlagsOverTexasMeaningStub,
   texasRevolutionHistoricSitesRoadTripStub,
   texasFrontierFortsRoadTripStub,
+  nacogdochesSanAugustineHistoricRoadTripStub,
   presidentialTexasHistoricHomesStub,
   brazoriaPlantationsSlaveryEmancipationHistoryStub,
   sallieHoggTexasLegacyStub,
@@ -380,12 +442,15 @@ export const standaloneEvergreenStubs: Article[] = [
   texasBorderlandsHistoricSitesGuideStub,
   texasWorldWarIIHistoricSitesGuideStub,
   battleshipTexasBB35HistoryRestorationStub,
+  ussTexas1895OriginalBattleshipStub,
+  ussLexingtonCv16HistoryVisitorGuideStub,
   texasMilitaryHistoryTimelineStub,
   texasCivilWarSitesGuideStub,
   republicOfTexasGovernmentTrailStub,
   washingtonOnTheBrazosWeekendGuideStub,
   goliadHistoryWeekendGuideStub,
   fredericksburgHistoryWeekendGuideStub,
+  fredericksburgJohnsonCityHistoricRoadTripStub,
 ];
 
 export async function loadStandaloneEvergreenArticle(brandId: string, slug: string): Promise<Article | null> {
@@ -402,6 +467,7 @@ export async function loadStandaloneEvergreenArticle(brandId: string, slug: stri
   if (slug === sixFlagsOverTexasMeaningStub.slug) return import("./six-flags-over-texas-meaning").then((module) => module.sixFlagsOverTexasMeaningArticle);
   if (slug === texasRevolutionHistoricSitesRoadTripStub.slug) return import("./texas-revolution-historic-sites-road-trip").then((module) => module.texasRevolutionHistoricSitesRoadTripArticle);
   if (slug === texasFrontierFortsRoadTripStub.slug) return import("./texas-frontier-forts-road-trip").then((module) => module.texasFrontierFortsRoadTripArticle);
+  if (slug === nacogdochesSanAugustineHistoricRoadTripStub.slug) return import("./nacogdoches-san-augustine-historic-road-trip").then((module) => module.nacogdochesSanAugustineHistoricRoadTripArticle);
   if (slug === presidentialTexasHistoricHomesStub.slug) return import("./presidential-texas-historic-homes").then((module) => module.presidentialTexasHistoricHomesArticle);
   if (slug === brazoriaPlantationsSlaveryEmancipationHistoryStub.slug) return import("./brazoria-plantations-slavery-emancipation-history").then((module) => module.brazoriaPlantationsSlaveryEmancipationHistoryArticle);
   if (slug === sallieHoggTexasLegacyStub.slug) return import("./sallie-hogg-texas-legacy").then((module) => module.sallieHoggTexasLegacyArticle);
@@ -411,14 +477,18 @@ export async function loadStandaloneEvergreenArticle(brandId: string, slug: stri
   if (slug === hoggFoundationMentalHealthHistoryStub.slug) return import("./hogg-foundation-mental-health-texas-history").then((module) => module.hoggFoundationMentalHealthHistoryArticle);
   if (slug === hoggFamilyHeritageTrailTexasStub.slug) return import("./hogg-family-heritage-trail-texas").then((module) => module.hoggFamilyHeritageTrailTexasArticle);
   if (slug === riverOaksHoggBrothersPlanningHistoryStub.slug) return import("./river-oaks-hogg-brothers-houston-planning-history").then((module) => module.riverOaksHoggBrothersPlanningHistoryArticle);
+  if (slug === historicSanAntonioHeritageRoadTripStub.slug) return import("./historic-san-antonio-heritage-road-trip").then((module) => module.historicSanAntonioHeritageRoadTripArticle);
   if (slug === texasBorderlandsHistoricSitesGuideStub.slug) return import("./texas-borderlands-historic-sites-guide").then((module) => module.texasBorderlandsHistoricSitesGuideArticle);
   if (slug === texasWorldWarIIHistoricSitesGuideStub.slug) return import("./texas-world-war-ii-historic-sites-guide").then((module) => module.texasWorldWarIIHistoricSitesGuideArticle);
   if (slug === battleshipTexasBB35HistoryRestorationStub.slug) return import("./battleship-texas-bb-35-history-restoration").then((module) => module.battleshipTexasBB35HistoryRestorationArticle);
+  if (slug === ussTexas1895OriginalBattleshipStub.slug) return import("./uss-texas-1895-original-battleship").then((module) => module.ussTexas1895OriginalBattleshipArticle);
+  if (slug === ussLexingtonCv16HistoryVisitorGuideStub.slug) return import("./uss-lexington-cv16-history-visitor-guide").then((module) => module.ussLexingtonCv16HistoryVisitorGuideArticle);
   if (slug === texasMilitaryHistoryTimelineStub.slug) return import("./texas-military-history-timeline").then((module) => module.texasMilitaryHistoryTimelineArticle);
   if (slug === texasCivilWarSitesGuideStub.slug) return import("./texas-civil-war-sites-guide").then((module) => module.texasCivilWarSitesGuideArticle);
   if (slug === republicOfTexasGovernmentTrailStub.slug) return import("./republic-of-texas-government-trail").then((module) => module.republicOfTexasGovernmentTrailArticle);
   if (slug === washingtonOnTheBrazosWeekendGuideStub.slug) return import("./washington-on-the-brazos-weekend-guide").then((module) => module.washingtonOnTheBrazosWeekendGuideArticle);
   if (slug === goliadHistoryWeekendGuideStub.slug) return import("./goliad-history-weekend-guide").then((module) => module.goliadHistoryWeekendGuideArticle);
   if (slug === fredericksburgHistoryWeekendGuideStub.slug) return import("./fredericksburg-history-weekend-guide").then((module) => module.fredericksburgHistoryWeekendGuideArticle);
+  if (slug === fredericksburgJohnsonCityHistoricRoadTripStub.slug) return import("./fredericksburg-johnson-city-historic-road-trip").then((module) => module.fredericksburgJohnsonCityHistoricRoadTripArticle);
   return null;
 }

@@ -50,6 +50,23 @@ function unique(items: Destination[]) {
   return [...new Map(items.map((item) => [item.slug, item])).values()];
 }
 
+
+/** Keep explicit editorial relationships visible ahead of distance-ranked suggestions. */
+export function featuredDestinationRelationships(
+  destination: Destination,
+  groups: DestinationRelationshipGroup[],
+  limit = 6,
+): Destination[] {
+  const curated = groups.filter((group) => group.id === "curated-pairings").flatMap((group) => group.destinations);
+  const discovered = groups
+    .filter((group) => group.id !== "curated-pairings")
+    .flatMap((group) => group.destinations)
+    .sort((left, right) => (distanceMiles(destination, left) ?? Number.POSITIVE_INFINITY) - (distanceMiles(destination, right) ?? Number.POSITIVE_INFINITY));
+  return unique([...curated, ...discovered])
+    .filter((item) => item.slug !== destination.slug)
+    .slice(0, limit);
+}
+
 function nearest(origin: Destination, candidates: Destination[], limit: number) {
   return candidates
     .map((destination) => ({ destination, miles: distanceMiles(origin, destination) }))

@@ -100,8 +100,8 @@ export const lakeConroeSources = {
     url: "https://www.recreation.gov/camping/campgrounds/234004",
   },
   usfsScottsRidge: {
-    label: "U.S. Forest Service — Scott's Ridge Boat Ramp",
-    url: "https://www.fs.usda.gov/r08/texas/recreation/scotts-ridge-boat-ramp-936-344-6205",
+    label: "Visit Conroe — Scott's Ridge Boat Ramp visitor listing",
+    url: "https://www.visitconroe.com/lake-conroe/boating/boat-ramps/",
   },
   usfsStubblefield: {
     label: "Recreation.gov / U.S. Forest Service — Stubblefield Lake",

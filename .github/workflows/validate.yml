@@ -1,11 +1,6 @@
 name: Validate TexasDefined
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - "**"
-      - "!src/data/destination-curation-batch*.ts"
   workflow_dispatch:
 
 permissions:

@@ -68,7 +68,7 @@ export const categories: Category[] = [
     slug: "state-parks",
     name: "State Parks",
     eyebrow: "Public land",
-    description: "Eighty-nine parks, from granite domes to canyon rims — and how to actually get in.",
+    description: "Find Texas state parks, from granite domes to canyon rims — with verified visitor facilities, maps and entry guidance.",
     image: images.enchantedRock,
   },
   {

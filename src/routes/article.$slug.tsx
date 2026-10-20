@@ -1,14 +1,20 @@
+import { ElPasoAreaCrossLinks } from '@/components/content/ElPasoAreaAuthority';
 import { createFileRoute, notFound, Link } from "@tanstack/react-router";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
+import { heritagePhotoRightsForPath } from "@/data/heritage-photo-license-links";
 import { ArticleBody, Byline } from "@/components/editorial/ArticleBody";
+import { EastTexasFoliageParkMap, EastTexasFoliagePhotoGallery } from "@/components/editorial/EastTexasFoliageMedia";
 import { ArticleCard } from "@/components/editorial/ArticleCard";
+import type { Article } from "@/data/types";
 import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { SchoolSupplyPartners } from "@/components/monetization/SchoolSupplyPartners";
+import { FootballFanOffers } from "@/components/sports/FootballFanOffers";
 import { articleInternalLinks } from "@/data/article-internal-links";
+import { riverAuthorityLinksForArticleMetadata } from "@/data/river-authority-relations";
 import { isDestinationPhotoPlaceholder } from "@/data/explore-hero-reconciliation";
 import { shouldNoindexTexasGatewayArticle } from "@/data/fixtures/texas-gateway-index-readiness";
 import { imageRightsFor } from "@/data/image-rights";
@@ -22,6 +28,7 @@ import { formatDate, formatReadingTime } from "@/domain/utils/format";
 import { recoverOrHideImage } from "@/lib/image-fallback";
 import { absoluteUrl, buildMeta, canonicalLink, schemaTypeForEntityKind } from "@/lib/seo";
 import { unusualBusinessAnalyticsAttributes } from "@/lib/unusual-business-analytics";
+import { FootballPlayoffsReference } from "@/components/content/FootballPlayoffsReference";
 import { TexasCitiesComparison } from "@/components/content/TexasCitiesComparison";
 
 const TexasWaterSearchResource = lazy(() =>
@@ -84,6 +91,15 @@ const texasExplainedPillarSlugs = new Set<string>(texasExplainedPillarOrder);
 const texasExplainedSupportSlugs = new Set<string>(texasExplainedSupportOrder);
 const texasExplainedCollectionSlugs = new Set<string>([...texasExplainedPillarOrder, ...texasExplainedSupportOrder]);
 const schoolSupplyArticleSlugs = new Set(["texas-school-districts-explained", "texas-schools-family-life"]);
+// Only football planning explainers get the generic overnight-travel offer.
+// No event, venue or hotel proximity is claimed for these editorial pages.
+const footballTravelArticleSlugs = new Set([
+  "texas-high-school-football-playoffs-explained",
+  "texas-high-school-football-newcomers",
+  "texas-high-school-football-scores-schedules",
+  "texas-high-school-football-classifications-1a-6a",
+  "texas-six-man-football-rules-explained",
+]);
 
 type FaqEntry = { question: string; answer: string };
 type FaqBlock = { type: string; text?: string; items?: string[] };
@@ -93,11 +109,15 @@ const FAQ_ARTICLE_SLUGS = new Set([
   "texas-flag-etiquette-display-guide",
   "texas-loops-spurs-explained",
   "east-texas-fall-colors",
+  "texas-high-school-football-playoffs-explained",
+  "moving-to-el-paso-guide",
 ]);
 const FAQ_START_HEADING_BY_SLUG: Readonly<Record<string, string>> = {
+  "texas-high-school-football-playoffs-explained": "Frequently asked questions",
   [MOVING_TO_TEXAS_PILLAR_SLUG]: "Frequently asked questions about moving to Texas",
   "texas-loops-spurs-explained": "Frequently asked questions about Texas Loops and Spurs",
   "east-texas-fall-colors": "Frequently asked questions",
+  "moving-to-el-paso-guide": "Frequently asked questions about moving to El Paso",
 };
 
 function faqEntriesForArticle(article: { slug: string; body: FaqBlock[] }): FaqEntry[] | null {
@@ -135,8 +155,25 @@ function articleDepartment(category: string): ArticleDepartment {
   const livingHere = new Set(["moving-to-texas", "home-garden", "real-estate"]);
   if (livingHere.has(category)) return { name: "Texas Life", path: "/texas-living", usesExploreCategory: false };
   if (category === "sports") return { name: "Sports", path: "/sports", usesExploreCategory: false };
+  if (category === "guides") return { name: "Guides", path: "/guides", usesExploreCategory: false };
   if (category === "texas-history" || category === "history") return { name: "History", path: "/texas-history", usesExploreCategory: false };
   return { name: "Explore", path: "/explore", usesExploreCategory: true };
+}
+
+// Keep recommendation imagery editorially distinct, even when several old
+// articles still point to one shared placeholder. Query-string sizes are not
+// distinct photographs; prefer fewer valid cards over repeated filler.
+function relatedWithDistinctHeroImages(related: Article[], current: Article): Article[] {
+  const seenSources = new Set<string>();
+  return related
+    .filter((item) => item.id !== current.id && (current.slug !== "east-texas-fall-colors" || /fall|autumn|foliage|park|road.trip/i.test(`${item.title} ${item.slug}`)))
+    .filter((item) => {
+      const source = item.hero.src.split("?")[0];
+      if (seenSources.has(source)) return false;
+      seenSources.add(source);
+      return true;
+    })
+    .slice(0, 3);
 }
 
 function articleText(article: { title: string; dek: string; body: Array<{ type: string; text?: string; items?: string[] }> }) {
@@ -186,7 +223,7 @@ export const Route = createFileRoute("/article/$slug")({
     const [authors, categories, related, destinations, completeGraph] = await Promise.all([
       context.queryClient.ensureQueryData(authorsQuery()),
       context.queryClient.ensureQueryData(categoriesQuery()),
-      context.queryClient.ensureQueryData(articlesQuery({ category: article.category, limit: 4 })),
+      article.slug === "texas-ecoregions-habitats-guide" ? Promise.resolve([]) : context.queryClient.ensureQueryData(articlesQuery({ category: article.category, limit: 4 })),
       getDestinationsBySlugs({ data: { slugs: article.relatedDestinations.slice(0, 8) } }),
       loadTexasKnowledgeGraph(),
     ]);
@@ -357,8 +394,20 @@ export const Route = createFileRoute("/article/$slug")({
 
 function ArticlePage() {
   const { article, graph, categories, destinations, authors, related } = Route.useLoaderData();
+  // BB-35's long lazy article hydrates after the root shell. Third-party
+  // lodging integrations must not mutate this React-owned subtree until mount.
+  useEffect(() => {
+    if (article.slug !== "battleship-texas-bb-35-history-restoration") return;
+    document.documentElement.dataset.tdBattleshipArticleHydrated = "1";
+    window.dispatchEvent(new Event("texasdefined:battleship-article-hydrated"));
+    return () => {
+      delete document.documentElement.dataset.tdBattleshipArticleHydrated;
+    };
+  }, [article.slug]);
   const primarySource = articlePrimarySource(article);
+  const corridorHeroRights = heritagePhotoRightsForPath(`/article/${article.slug}`);
   const authoritySources = localArticleAuthoritySources[article.slug] ?? remoteEvergreenAuthoritySources[article.slug] ?? [];
+  const visibleSources = authoritySources.length ? authoritySources : (article.sources ?? []).map((source) => ({ ...source, scope: "" }));
   const hasAuthoritySourceSection = hasSourcesAndFurtherReading(article.body);
   const author = authors.find((item) => item.id === article.authorId) ?? null;
   const categoryName = categories.find((category) => category.slug === article.category)?.name
@@ -377,12 +426,11 @@ function ArticlePage() {
     : null;
   const embeddedInternalLinks = article.internalLinks ?? [];
   const supplementalInternalLinks = articleInternalLinks[article.slug] ?? [];
-  const internalLinks = [
-    ...embeddedInternalLinks,
-    ...supplementalInternalLinks.filter(
-      (link) => !embeddedInternalLinks.some((existing) => existing.href === link.href),
-    ),
-  ];
+  const topicallyRelevantRiverLinks = riverAuthorityLinksForArticleMetadata(article);
+  const availableArticleLinks = [...embeddedInternalLinks, ...supplementalInternalLinks, ...topicallyRelevantRiverLinks];
+  const internalLinks = availableArticleLinks.filter(
+    (link, index, links) => links.findIndex((item) => item.href === link.href) === index,
+  );
   const relatedDestinations = article.relatedDestinations
     .map((destinationSlug) => destinations.find((destination) => destination.slug === destinationSlug))
     .filter((destination): destination is NonNullable<typeof destination> => Boolean(destination))
@@ -390,6 +438,8 @@ function ArticlePage() {
 
   const hasSchoolSupplyRail = schoolSupplyArticleSlugs.has(article.slug);
   const isTexasRiversArticle = article.slug === "texas-rivers-explained";
+  const isCaminoRealArticle = article.slug === "el-camino-real-de-tierra-adentro-national-historic-trail";
+  const hideGenericRelatedRail = article.slug === "east-texas-fall-colors" || article.slug === "texas-ecoregions-habitats-guide" || article.slug === "texas-high-school-football-playoffs-explained";
   const articleDisplayTitle = isTexasRiversArticle ? "Texas Rivers Explained" : article.title;
   const isSixManFootballArticle = article.slug === "texas-six-man-football-rules-explained";
   const riverBasinHeadingIndex = isTexasRiversArticle
@@ -398,8 +448,6 @@ function ArticlePage() {
   const riverBasinInsertIndex = riverBasinHeadingIndex >= 0
     ? article.body.findIndex((block, index) => index > riverBasinHeadingIndex && block.type === "heading")
     : -1;
-  const riverBodyBeforeBasinReference = riverBasinInsertIndex > 0 ? article.body.slice(0, riverBasinInsertIndex) : article.body;
-  const riverBodyAfterBasinReference = riverBasinInsertIndex > 0 ? article.body.slice(riverBasinInsertIndex) : [];
   const waterTopic = article.slug === "texas-river-basins-guide" ? "basins" : null;
 
   return <article>
@@ -411,7 +459,7 @@ function ArticlePage() {
             <li><Link to="/texas-explained" className="py-1 hover:text-foreground">Texas Explained</Link></li>
           </> : <>
             <li><Link to={department.path} className="py-1 hover:text-foreground">{department.name}</Link></li>
-            {department.usesExploreCategory && <><li aria-hidden="true">·</li><li><Link to="/explore/$category" params={{ category: article.category }} className="py-1 hover:text-foreground">{categoryName}</Link></li></>}
+            {department.usesExploreCategory && <><li aria-hidden="true">·</li><li>{article.category === "events" ? <Link to="/events" className="py-1 hover:text-foreground">{categoryName}</Link> : <Link to="/explore/$category" params={{ category: article.category }} className="py-1 hover:text-foreground">{categoryName}</Link>}</li></>}
           </>}
           <li aria-hidden="true">·</li><li aria-current="page" className="max-w-full truncate py-1 text-foreground">{articleDisplayTitle}</li>
         </ol>
@@ -471,13 +519,19 @@ function ArticlePage() {
       </section>}
       {article.slug === "texas-rivers-explained" ? <Suspense fallback={<section className="mt-10 border-y border-border py-10" style={{ minHeight: "28rem" }} aria-label="Loading Texas river atlas" />}><TexasRiversAuthorityHub /></Suspense> : null}
       {article.slug === "texas-major-cities-regional-differences" ? <TexasCitiesComparison /> : null}
+      {article.slug === "texas-high-school-football-playoffs-explained" ? <FootballPlayoffsReference /> : null}
       <div id={isTexasExplainedPillar ? "guide-body" : undefined} className="mt-10 scroll-mt-28">
-        {isTexasRiversArticle ? <>
-          <ArticleBody blocks={riverBodyBeforeBasinReference} entities={graph} />
-          <Suspense fallback={<section className="my-10 border-y border-border py-8" style={{ minHeight: "18rem" }} aria-label="Loading Texas river basin reference" />}><TexasRiverBasinReference /></Suspense>
-          {riverBodyAfterBasinReference.length > 0 ? <ArticleBody blocks={riverBodyAfterBasinReference} entities={graph} /> : null}
-        </> : <ArticleBody blocks={article.body} entities={graph} />}
+        {isTexasRiversArticle ? (
+          <ArticleBody
+            blocks={article.body}
+            entities={graph}
+            insertBeforeIndex={riverBasinInsertIndex > 0 ? riverBasinInsertIndex : undefined}
+            insertBefore={<Suspense fallback={<section className="my-10 border-y border-border py-8" style={{ minHeight: "18rem" }} aria-label="Loading Texas river basin reference" />}><TexasRiverBasinReference /></Suspense>}
+          />
+        ) : <ArticleBody blocks={article.body} entities={graph} />}
       </div>
+      <ElPasoAreaCrossLinks kind="article" slug={article.slug} />
+      {footballTravelArticleSlugs.has(article.slug) ? <FootballFanOffers slug={article.slug} hasUpcomingAwayTravel={false} showTravelPlanning /> : null}
       {isTexasRiversArticle ? <Suspense fallback={null}><TexasRiversAfterArticle /></Suspense> : null}
       {waterTopic ? (
         <Suspense fallback={<section className="mt-8 border-y border-border bg-surface" style={{ minHeight: "10rem" }} aria-label="Loading Texas water reference" />}>
@@ -485,18 +539,18 @@ function ArticlePage() {
         </Suspense>
       ) : null}
       {hasSchoolSupplyRail ? <SchoolSupplyPartners className="school-supply-bottom" /> : null}
-      {article.hero.credit && <p className="mt-10 text-xs text-muted-foreground">Image credit: {article.hero.credit}</p>}
+      {article.hero.credit && <p className="mt-10 break-words text-xs text-muted-foreground">Image credit: {corridorHeroRights ? <a href={corridorHeroRights.sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-2">{article.hero.credit}</a> : article.hero.credit}{corridorHeroRights && <> · <a href={corridorHeroRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">License terms</a></>}</p>}
       {primarySource && <p className="mt-4 text-xs leading-6 text-muted-foreground">Primary source: <a href={primarySource.url} target="_blank" rel="noreferrer" className="font-semibold text-foreground underline decoration-border underline-offset-4 hover:text-primary">{primarySource.label} ↗</a></p>}
       {isTexasRiversArticle && <nav aria-label="Editorial standards" className="mt-5 flex flex-wrap gap-x-5 gap-y-2 border-t border-border pt-4 text-xs text-muted-foreground">
         <a href="/editorial-policy" className="py-1 underline decoration-border underline-offset-4 hover:text-primary">Editorial policy</a>
         <a href="/sourcing-methodology" className="py-1 underline decoration-border underline-offset-4 hover:text-primary">How we source</a>
         <a href="/corrections-policy" className="py-1 underline decoration-border underline-offset-4 hover:text-primary">Corrections &amp; updates</a>
       </nav>}
-      {!hasAuthoritySourceSection && authoritySources.length > 0 && <section className="mt-10 border-t border-border pt-6" aria-labelledby="authority-sources-heading">
+      {!hasAuthoritySourceSection && visibleSources.length > 0 && <section className="mt-10 border-t border-border pt-6" aria-labelledby="authority-sources-heading">
         <h2 id="authority-sources-heading" className="font-display text-2xl">Sources and further reading</h2>
-        <ul className="mt-4 space-y-3 text-sm leading-6 text-muted-foreground">{authoritySources.map((source) => <li key={source.url}>
+        <ul className="mt-4 space-y-3 text-sm leading-6 text-muted-foreground">{visibleSources.map((source) => <li key={source.url}>
           <a href={source.url} target="_blank" rel="noreferrer" className="font-semibold text-foreground underline decoration-border underline-offset-4 hover:text-primary">{source.label} ↗</a>
-          <span className="block">{source.scope}</span>
+          {source.scope && <span className="block">{source.scope}</span>}
         </li>)}</ul>
       </section>}
       {!isTexasRiversArticle && internalLinks.length > 0 && <aside className="mt-14 border-y border-border py-8" aria-label="Related reading">
@@ -510,7 +564,7 @@ function ArticlePage() {
       </aside>}
       {!isTexasRiversArticle && article.tags.length > 0 && <div className="mt-10 border-t border-border pt-5"><p className="eyebrow text-muted-foreground">Filed under</p><ul className="mt-3 flex flex-wrap gap-2">{article.tags.map((tag) => <li key={tag}><a href={`/search?q=${encodeURIComponent(tag)}`} className="inline-block rounded-full border border-border px-3 py-2 text-sm text-foreground/75 transition-colors hover:border-primary hover:text-primary">{tag}</a></li>)}</ul></div>}
     </Container>
-    {relatedDestinations.length > 0 && <Section><Container><SectionHeader eyebrow={isTexasRiversArticle ? "Explore the rivers" : "Plan Your Visit"} title={isTexasRiversArticle ? "Places to experience Texas rivers" : "Places connected to this story"} description={isTexasRiversArticle ? "Parks and destinations where the statewide river story becomes a place you can visit, from clear Hill Country water to desert tributaries and East Texas wetlands." : "Destinations explicitly tied to this article in the Texas Defined guide."} /><ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">{relatedDestinations.map((destination) => <li key={destination.id}>{isDestinationPhotoPlaceholder(destination.hero.src)
+    {relatedDestinations.length > 0 && <Section><Container><SectionHeader eyebrow={isTexasRiversArticle ? "Explore the rivers" : isCaminoRealArticle ? "El Paso history" : "Plan Your Visit"} title={isTexasRiversArticle ? "Places to experience Texas rivers" : "Places connected to this story"} description={isTexasRiversArticle ? "Parks and destinations where the statewide river story becomes a place you can visit, from clear Hill Country water to desert tributaries and East Texas wetlands." : isCaminoRealArticle ? "Explore the El Paso mission corridor and directly related borderlands places." : "Destinations explicitly tied to this article in the Texas Defined guide."} /><ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">{relatedDestinations.map((destination) => <li key={destination.id}>{isDestinationPhotoPlaceholder(destination.hero.src)
   ? <article className="border-t border-border pt-5">
       <p className="eyebrow text-primary">{destination.nearestTown || destination.region.replace(/-/g, " ")}</p>
       <h3 className="mt-2 font-display text-2xl"><Link to="/destination/$slug" params={{ slug: destination.slug }} className="hover:text-primary">{destination.name}</Link></h3>
@@ -539,6 +593,8 @@ function ArticlePage() {
           </div>
         </article>)}
       </div>
+      <EastTexasFoliageParkMap />
+      <EastTexasFoliagePhotoGallery />
       <nav aria-label="Regional foliage planning" className="mt-8 flex flex-wrap gap-4 border-t border-border pt-5 text-sm">
         <a href="https://www.openstreetmap.org/#map=8/32.65/-94.95" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Explore the East Texas region on a map ↗</a>
         <a href="/article/texas-fall-foliage-road-trip" className="font-semibold text-primary underline underline-offset-4">Texas fall foliage road trip →</a>
@@ -550,6 +606,6 @@ function ArticlePage() {
       <a className="border border-border p-5 text-primary hover:underline" href="/article/hill-country-fall-colors">Hill Country fall color →</a>
       <a className="border border-border p-5 text-primary hover:underline" href="/article/texas-fall-foliage-road-trip">Fall foliage road trip →</a>
     </div></Container></Section>}
-    {!isTexasRiversArticle && <Section tone="surface"><Container><SectionHeader eyebrow={isSixManFootballArticle ? "Keep exploring" : "From the magazine"} title={isSixManFootballArticle ? "More Texas high school football" : "More stories to read next"} /><ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">{related.filter((item) => item.id !== article.id && (article.slug !== "east-texas-fall-colors" || /fall|autumn|foliage|park|road.trip/i.test(`${item.title} ${item.slug}`))).slice(0, 3).map((item) => <li key={item.id}><ArticleCard article={item} size="compact" /></li>)}</ul><nav aria-label="Continue through this section" className="mt-10 border-t border-border pt-6"><div className="flex flex-wrap gap-x-7 gap-y-3"><Link to={department.path} className="eyebrow border-b border-primary py-1 text-primary">More from {department.name} →</Link>{department.usesExploreCategory && <Link to="/explore/$category" params={{ category: article.category }} className="eyebrow border-b border-primary py-1 text-primary">Browse {categoryName} →</Link>}</div></nav></Container></Section>}
+    {!isTexasRiversArticle && !hideGenericRelatedRail && <Section tone="surface"><Container><SectionHeader eyebrow={isSixManFootballArticle ? "Keep exploring" : "From the magazine"} title={isSixManFootballArticle ? "More Texas high school football" : "More stories to read next"} /><ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">{relatedWithDistinctHeroImages(related, article).map((item) => <li key={item.id}><ArticleCard article={item} size="compact" /></li>)}</ul><nav aria-label="Continue through this section" className="mt-10 border-t border-border pt-6"><div className="flex flex-wrap gap-x-7 gap-y-3"><Link to={department.path} className="eyebrow border-b border-primary py-1 text-primary">More from {department.name} →</Link>{department.usesExploreCategory && <Link to="/explore/$category" params={{ category: article.category }} className="eyebrow border-b border-primary py-1 text-primary">Browse {categoryName} →</Link>}</div></nav></Container></Section>}
   </article>;
 }

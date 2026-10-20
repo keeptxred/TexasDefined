@@ -96,7 +96,7 @@ requireText(sourceRegistry, "Never infer a new annual date from last year's week
 // 15: refresh reliability and independent live guard.
 for (const marker of ['schedule:', 'cron: "17 11 * * *"', 'cancel-in-progress: false', 'Prevalidate generated refresh branch']) requireText(sync, marker, 'daily event refresh reliability contract');
 for (const marker of ['readFile(OUTPUT_PATH, "utf8")', 'stableEventEquals', 'preservedCheckTimestamps']) requireText(syncScript, marker, 'idempotent/fail-safe event sync contract');
-for (const marker of ['schedule:', 'workflow_run:', 'Verify temporal Event production surfaces']) requireText(temporalWorkflow, marker, 'independent live temporal guard');
+for (const marker of ['schedule:', 'workflow_dispatch:', 'Verify temporal Event production surfaces']) requireText(temporalWorkflow, marker, 'independent live temporal guard');
 
 // 16: event-specific GSC/indexation evidence and interpretation.
 const gsc = JSON.parse(read('ops/seo/gsc-discovered-2026-09-13.json'));

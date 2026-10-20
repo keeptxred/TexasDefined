@@ -37,6 +37,11 @@ function SportsPage() {
                 <span className="mt-2 block text-sm leading-6 text-muted-foreground">How championships, continuity and a team-first culture became woven into San Antonio's modern civic identity.</span>
                 <span className="mt-3 block text-sm font-semibold text-primary">Read the Spurs culture guide →</span>
               </Link>
+              <a href="/sports/softball" className="group border-t border-border py-5">
+                <strong className="block font-display text-2xl group-hover:text-primary">Texas women’s softball: teams, championships and the Lady Dragons</strong>
+                <span className="mt-2 block text-sm leading-6 text-muted-foreground">Explore UIL softball champions, college teams, junior-college development, and the story of Paris Junior College program assistant Jack Butler.</span>
+                <span className="mt-3 block text-sm font-semibold text-primary">Explore Texas softball →</span>
+              </a>
               <Link to="/sports/friday-night-lights" className="group border-t border-border py-5">
                 <strong className="block font-display text-2xl group-hover:text-primary">Friday Night Lights, Defined</strong>
                 <span className="mt-2 block text-sm leading-6 text-muted-foreground">The parent guide to Texas high school football: newcomer basics, stadiums, six-man and 11-man culture, marching bands, homecoming mums, rivalries and the season arc.</span>

@@ -8,11 +8,12 @@ import { SamRayburnContext } from "@/components/editorial/SamRayburnContext";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { TexasExplainedContextLinks } from "@/components/editorial/TexasExplainedContextLinks";
 import { Container } from "@/components/layout/Container";
-import { distanceMiles, type DestinationRelationshipGroup } from "@/data/destination-relationships";
+import { distanceMiles, featuredDestinationRelationships, type DestinationRelationshipGroup } from "@/data/destination-relationships";
 import { topTexasAttractionRank } from "@/data/top-texas-attractions";
 import type { Destination, DestinationAreaGuide, DestinationAreaItem } from "@/data/types";
 
 const DestinationAuthorityGuide = lazy(() => import("@/components/editorial/DestinationAuthorityGuide"));
+const MuseumAuthorityNetworkSection = lazy(() => import("@/components/editorial/MuseumAuthorityNetworkSection"));
 
 const CAMPING_DESTINATION_SLUGS = new Set([
   "enchanted-rock-state-natural-area",
@@ -41,6 +42,17 @@ const AUTHORITY_GUIDE_DESTINATION_SLUGS = new Set([
   SAM_HOUSTON_MUSEUM_SLUG,
   "whirlyball-hurst",
   "my-story-museum-crystal-city",
+  // Include live history destinations curated under other public categories.
+  "fort-davis-national-historic-site",
+  "san-jacinto-battleground",
+  "the-alamo",
+  "goliad-state-park",
+  "fort-lancaster",
+  "fort-griffin",
+  "fort-mckavett",
+  "washington-on-the-brazos",
+  "presidio-la-bahia",
+  "palo-alto-battlefield-national-historical-park",
 ]);
 
 const AREA_GROUPS: Array<{
@@ -67,6 +79,39 @@ function AreaItemCard({ item }: { item: DestinationAreaItem }) {
     <h3>{name}</h3>
     <p className="mt-2 text-sm leading-6 text-muted-foreground">{item.description}</p>
   </li>;
+}
+
+/**
+ * A small substantive SSR fallback for the canonical Fort McKavett guide.
+ * React.lazy can defer the large shared authority component during streaming;
+ * the initial mobile HTML must retain visit plans and source references even
+ * before hydration replaces this fallback with the full authority guide.
+ */
+function FortMcKavettAuthorityFallback({ destination }: { destination: Destination }) {
+  const guide = destination.authorityGuide;
+  if (!guide || destination.slug !== "fort-mckavett") return null;
+  return <Section tone="surface">
+    <Container>
+      <section aria-labelledby="fort-mckavett-ssr-authority" className="py-7">
+        <p className="eyebrow text-primary">Historic site field guide</p>
+        <h2 id="fort-mckavett-ssr-authority" className="mt-2 font-display text-3xl">Fort McKavett: history and visit planning</h2>
+        <p className="mt-4 max-w-4xl text-sm leading-7">{guide.whyItMatters}</p>
+        <p className="mt-3 max-w-4xl text-sm leading-7">{guide.assessment.recommendedVisit}</p>
+        <h3 className="mt-8 font-display text-2xl">Three ways to visit</h3>
+        <div className="mt-5 grid gap-6 sm:grid-cols-3">
+          {guide.itineraries.map((itinerary) => <section key={itinerary.label} className="border-t-2 border-foreground pt-4">
+            <p className="eyebrow text-primary">{itinerary.duration}</p>
+            <h4 className="mt-2 font-display text-xl">{itinerary.label}</h4>
+            <ol className="mt-3 list-decimal space-y-2 pl-5 text-sm leading-6">{itinerary.steps.map((step) => <li key={step}>{step}</li>)}</ol>
+          </section>)}
+        </div>
+        <h3 className="mt-8 font-display text-2xl">Sources used for this guide</h3>
+        <ul className="mt-3 flex flex-wrap gap-x-6 gap-y-3 text-sm">
+          {guide.sources.map((source) => <li key={source.url}><a href={source.url} target="_blank" rel="noopener noreferrer" className="underline decoration-primary/40 underline-offset-4 hover:text-primary">{source.label}</a></li>)}
+        </ul>
+      </section>
+    </Container>
+  </Section>;
 }
 
 function DestinationAreaGuideSection({ destination }: { destination: Destination }) {
@@ -103,28 +148,34 @@ function DestinationAreaGuideSection({ destination }: { destination: Destination
 
 export function DestinationRelationships({ destination, groups, regionName }: { destination: Destination; groups: DestinationRelationshipGroup[]; regionName?: string }) {
   const topAttractionRank = topTexasAttractionRank(destination.slug);
-  const hasExtendedAuthorityGuide = Boolean(destination.authorityGuide) && AUTHORITY_GUIDE_DESTINATION_SLUGS.has(destination.slug);
+  const historicGuide = destination.category === "historic-sites" ||
+    ["goliad-state-park-and-historic-site", "san-jacinto-battleground-state-historic-site", "washington-on-the-brazos-state-historic-site"].includes(destination.slug);
+  const isIndividuallyRegisteredAuthorityGuide = Boolean(destination.authorityGuide) && AUTHORITY_GUIDE_DESTINATION_SLUGS.has(destination.slug);
+  // Chamizal has its complete, source-backed guide in DestinationAuthoritySections.
+  // Rendering this second full guide repeats the history, itinerary and sources.
+  const hasExtendedAuthorityGuide = destination.slug !== "chamizal-national-memorial" && (isIndividuallyRegisteredAuthorityGuide ||
+    (Boolean(destination.authorityGuide) && historicGuide));
   const isWhirlyBall = destination.slug === WHIRLYBALL_SLUG;
   const hasCampingProfile = CAMPING_DESTINATION_SLUGS.has(destination.slug);
   const hasSamRayburnHouseContext = destination.slug === "sam-rayburn-house";
   const hasSamHoustonMuseumContext = destination.slug === SAM_HOUSTON_MUSEUM_SLUG;
-  const pairedDestinations = [...new Map(
-    groups.flatMap((group) => group.destinations).map((item) => [item.slug, item]),
-  ).values()]
-    .sort((left, right) => (distanceMiles(destination, left) ?? Number.POSITIVE_INFINITY) - (distanceMiles(destination, right) ?? Number.POSITIVE_INFINITY))
-    .slice(0, 6);
+  const pairedDestinations = featuredDestinationRelationships(destination, groups);
+  const authorityFallback = destination.slug === "fort-mckavett" && destination.authorityGuide
+    ? <FortMcKavettAuthorityFallback destination={destination} />
+    : null;
 
   return <>
     {destination.slug === "moody-gardens" ? <MoodyGardensSpotlights /> : null}
     {isWhirlyBall ? <Section tone="surface"><Container><UnusualBusinessAuthorityPanel slug={destination.slug} /></Container></Section> : null}
-    {topAttractionRank ? <Suspense fallback={null}><DestinationAuthorityGuide destination={destination} /></Suspense> : null}
-    {!topAttractionRank && hasExtendedAuthorityGuide ? <Suspense fallback={null}><DestinationAuthorityGuide destination={destination} showUnusualBusinessAuthority={!isWhirlyBall} /></Suspense> : null}
+    {topAttractionRank ? <Suspense fallback={authorityFallback}><DestinationAuthorityGuide destination={destination} /></Suspense> : null}
+    {!topAttractionRank && hasExtendedAuthorityGuide ? <Suspense fallback={authorityFallback}><DestinationAuthorityGuide destination={destination} showUnusualBusinessAuthority={!isWhirlyBall} /></Suspense> : null}
+    <Suspense fallback={null}><MuseumAuthorityNetworkSection destination={destination} /></Suspense>
     {hasSamRayburnHouseContext ? <SamRayburnContext surface="house" /> : null}
     {destination.slug !== "moody-gardens" ? <DestinationAreaGuideSection destination={destination} /> : null}
 
     {pairedDestinations.length ? <Section tone="surface" className="py-10 sm:py-12 lg:py-14">
       <Container>
-        <SectionHeader eyebrow="Nearby" title="Explore nearby" description={`More places near ${destination.name}, ordered by distance to help plan the rest of your trip.`} />
+        <SectionHeader eyebrow="Plan the route" title="Explore related places" description={`Editorially paired stops near ${destination.name} appear first, followed by nearby destinations. Distances are approximate straight-line miles.`} />
         <ul className="mt-8 grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
           {pairedDestinations.map((item) => {
             const miles = distanceMiles(destination, item);
@@ -147,8 +198,8 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
             {hasSamHoustonMuseumContext && <Link to="/article/republic-of-texas-government-trail" className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">Republic government trail</Link>}
             {hasSamHoustonMuseumContext && <Link to="/article/texas-revolution-historic-sites-road-trip" className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">Texas Revolution road trip</Link>}
             <Link to="/explore/trip-planner" search={{ destination: destination.slug }} className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">Build the weekend</Link>
-            <Link to="/explore/$category" params={{ category: destination.category }} className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">More like this</Link>
-            <Link to="/explore/region/$region" params={{ region: destination.region }} className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">Explore the region</Link>
+            {destination.category === "guides" ? <Link to="/guides" className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">More like this</Link> : destination.category === "sports" ? <Link to="/sports" className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">More like this</Link> : destination.category === "events" ? <Link to="/events" className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">More like this</Link> : <Link to="/explore/$category" params={{ category: destination.category }} className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">More like this</Link>}
+            <Link to="/explore/region/$region" params={{ region: destination.region === "panhandle-plains" ? "panhandle" : destination.region }} className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">Explore the region</Link>
             <Link to="/events" className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">Check the calendar</Link>
             <Link to="/search" search={{ q: destination.nearestTown }} className="eyebrow text-ink-foreground/80 hover:text-ink-foreground">Look nearby</Link>
           </nav>

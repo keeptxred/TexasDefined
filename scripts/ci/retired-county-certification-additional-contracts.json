@@ -16,7 +16,7 @@
     "displayName": "Garza County",
     "targetSha": "2eeee380c7315a066e9072351153567d4afe349d",
     "fixture": "src/data/fixtures/garza-county-post-caprock-lake-alan-henry-west-texas.ts",
-    "heroUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Garza%20County%20courthouse%2C%20Post%2C%20Texas.jpg?width=1600",
+    "heroUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Caprock%20Escarpment%20Garza%20County%20Texas%202010.jpg?width=1600",
     "sourceRequirements": [
       {"file":"src/data/county-series-profiles-rolling-plains.ts","includes":["countySlug: \"garza\""]},
       {"file":"src/data/fixtures/garza-county-post-caprock-lake-alan-henry-west-texas.ts","includes":["Garza County: Post, the Caprock, Ranch Country and Lake Alan Henry"]}

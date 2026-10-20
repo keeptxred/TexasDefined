@@ -6,7 +6,7 @@ export interface ViatorMatchMarket {
 /** Compact destination matcher. Exact aliases prevent substring collisions such as Mission, Texas vs. San Antonio Missions. */
 export const VIATOR_MATCH_MARKETS: readonly ViatorMatchMarket[] = [
   { slug: "austin", aliases: "|austin|travis|dripping springs|texas capitol|lady bird lake|barton springs|congress avenue|" },
-  { slug: "san-antonio", aliases: "|san antonio|bexar|the alamo|alamo|river walk|san antonio missions|mission san jose|" },
+  { slug: "san-antonio", aliases: "|san antonio|bexar|the alamo|river walk|san antonio missions|mission san jose|" },
   { slug: "dallas", aliases: "|dallas|parker|collin|southfork ranch|dealey plaza|sixth floor museum|reunion tower|bishop arts|" },
   { slug: "fort-worth", aliases: "|fort worth|tarrant|stockyards|fort worth stockyards|billy bobs texas|sundance square|" },
   { slug: "arlington", aliases: "|arlington|at t stadium|globe life field|six flags over texas|" },
@@ -22,7 +22,7 @@ export const VIATOR_MATCH_MARKETS: readonly ViatorMatchMarket[] = [
   { slug: "corpus-christi", aliases: "|corpus christi|nueces|rockport|aransas|little bay|texas state aquarium|uss lexington|padre island national seashore|" },
   { slug: "port-aransas", aliases: "|port aransas|mustang island|" },
   { slug: "south-padre-island", aliases: "|south padre island|cameron|laguna madre|port isabel|" },
-  { slug: "rio-grande-valley", aliases: "|rio grande valley|hidalgo|mcallen|brownsville|edinburg|mission|" },
+  { slug: "rio-grande-valley", aliases: "|rio grande valley|hidalgo|mcallen|brownsville|edinburg|mission|alamo|" },
   { slug: "el-paso", aliases: "|el paso|franklin mountains|el paso mission trail|" },
   { slug: "big-bend-terlingua", aliases: "|big bend|brewster|terlingua|big bend national park|santa elena canyon|" },
   { slug: "marfa-alpine", aliases: "|marfa|alpine|presidio|jeff davis|davis mountains|fort davis|" },

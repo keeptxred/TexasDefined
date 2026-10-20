@@ -1,0 +1,124 @@
+name: Batch 004 remaining GIS and contrast evidence
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/ci/verify-football-b004-austin-gis.mjs'
+      - 'scripts/ci/audit-football-b004-sources.mjs'
+      - 'scripts/ci/review-football-b004-mobile-contrast.mjs'
+      - 'scripts/ci/should-run-football-b004.mjs'
+      - 'scripts/ci/should-run-football-b004.test.mjs'
+      - 'src/routes/$kind.$slug.lazy.tsx'
+      - 'src/routes/texas-high-school-football-teams_.$slug.lazy.tsx'
+      - 'docs/football-authority/REGISTRY.json'
+      - 'src/data/high-school-football/program-editorial.ts'
+      - '.github/workflows/audit-football-b004-final-evidence.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/ci/verify-football-b004-austin-gis.mjs'
+      - 'scripts/ci/audit-football-b004-sources.mjs'
+      - 'scripts/ci/review-football-b004-mobile-contrast.mjs'
+      - 'scripts/ci/should-run-football-b004.mjs'
+      - 'scripts/ci/should-run-football-b004.test.mjs'
+      - 'src/routes/$kind.$slug.lazy.tsx'
+      - 'src/routes/texas-high-school-football-teams_.$slug.lazy.tsx'
+      - 'docs/football-authority/REGISTRY.json'
+      - 'src/data/high-school-football/program-editorial.ts'
+      - '.github/workflows/audit-football-b004-final-evidence.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  scope:
+    name: Determine whether Batch 004 evidence needs rerunning
+    runs-on: ubuntu-latest
+    outputs:
+      relevant: ${{ steps.assess.outputs.relevant }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify fail-closed Batch 004 change classifier
+        run: node scripts/ci/should-run-football-b004.test.mjs
+      - name: Classify changed program entries and Batch 004 registry
+        id: assess
+        env:
+          B004_BASE_SHA: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
+        run: node scripts/ci/should-run-football-b004.mjs
+  gis:
+    name: Verify 14 Austin city campuses and two exclusions against official GIS
+    needs: scope
+    if: needs.scope.outputs.relevant == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Node syntax
+        run: node --check scripts/ci/verify-football-b004-austin-gis.mjs
+      - name: Verify TEA geocoded campus points against City of Austin full-purpose polygons
+        run: node scripts/ci/verify-football-b004-austin-gis.mjs
+      - name: Preserve primary GIS evidence even if unresolved
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: football-b004-gis-evidence
+          path: artifacts/football-b004-municipal-gis/
+          if-no-files-found: warn
+          retention-days: 30
+  contrast:
+    name: Individually scroll and re-audit inconclusive mobile contrast cells
+    needs: scope
+    if: needs.scope.outputs.relevant == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Node syntax
+        run: node --check scripts/ci/review-football-b004-mobile-contrast.mjs
+      - name: Install isolated Chromium accessibility tooling
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-football-b004-a11y --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1 axe-core@4.10.3
+      - name: Check all previously incomplete mobile cells and all 25 schools for photo-license claims
+        run: node scripts/ci/review-football-b004-mobile-contrast.mjs
+      - name: Preserve individual node-level evidence, including failures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: football-b004-contrast-photo-evidence
+          path: artifacts/football-b004-contrast-and-images/
+          if-no-files-found: warn
+          retention-days: 30
+
+  source-links:
+    name: Review 25 football sources
+    needs: scope
+    if: needs.scope.outputs.relevant == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check scripts/ci/audit-football-b004-sources.mjs
+      - run: node scripts/ci/audit-football-b004-sources.mjs
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: football-b004-source-evidence
+          path: artifacts/football-b004-source-evidence/
+          if-no-files-found: warn
+          retention-days: 30

@@ -59,7 +59,14 @@ function uniqueSorted(values: Array<string | undefined>) {
     .sort((left, right) => left.localeCompare(right));
 }
 
-async function buildFootballIsdDirectory(): Promise<BuiltFootballIsdDirectory> {
+// Match the upstream AskTED cache's six-hour lifetime. This directory previously
+// regrouped all 1,268 UIL programs for every SSR ISD profile request even when
+// the underlying matched program data had not changed.
+const ISD_CACHE_TTL_MS = 6 * 60 * 60 * 1000;
+let isdDirectoryCache: { loadedAt: number; built: BuiltFootballIsdDirectory } | null = null;
+let isdDirectoryInFlight: Promise<BuiltFootballIsdDirectory> | null = null;
+
+async function assembleFootballIsdDirectory(): Promise<BuiltFootballIsdDirectory> {
   const programs = await loadAllFootballProgramsWithDirectory();
   const grouped = new Map<string, FootballProgramDirectoryResult[]>();
   const districtNameBySlug = new Map<string, string>();
@@ -97,7 +104,7 @@ async function buildFootballIsdDirectory(): Promise<BuiltFootballIsdDirectory> {
 
     return {
       slug,
-      profilePath: footballIsdProfilePath(districtName),
+      profilePath: footballIsdProfilePath(sourceDistrictName),
       districtName,
       programCount: ordered.length,
       highestClassification: first.classification,
@@ -131,6 +138,23 @@ async function buildFootballIsdDirectory(): Promise<BuiltFootballIsdDirectory> {
   }
 
   return { isds, matchedProgramCount, unmatchedProgramCount };
+}
+
+// Share both the completed index and concurrent cold-start builds across SSR
+// requests. Never memoize a rejected remote-directory fetch.
+async function buildFootballIsdDirectory(): Promise<BuiltFootballIsdDirectory> {
+  if (isdDirectoryCache && Date.now() - isdDirectoryCache.loadedAt < ISD_CACHE_TTL_MS) {
+    return isdDirectoryCache.built;
+  }
+  if (isdDirectoryInFlight) return isdDirectoryInFlight;
+  isdDirectoryInFlight = assembleFootballIsdDirectory();
+  try {
+    const built = await isdDirectoryInFlight;
+    isdDirectoryCache = { loadedAt: Date.now(), built };
+    return built;
+  } finally {
+    isdDirectoryInFlight = null;
+  }
 }
 
 export async function getFootballIsdDirectory() {

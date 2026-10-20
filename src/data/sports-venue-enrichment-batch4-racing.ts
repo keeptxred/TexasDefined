@@ -20,7 +20,7 @@ export const SPORTS_VENUE_ENRICHMENT_BATCH4_RACING: Record<string, SportsVenueEn
   },
   'msr-houston': {
     city: 'Angleton',
-    primaryEvents: ['Road-course track days', 'Member and guest driving', 'Racing schools, karting and private motorsports events'],
+    primaryEvents: ['Registered road-course track days and races', 'Member and eligible guest driving', 'Driving and motorcycle schools; recreational karting temporarily paused'],
     history: 'MSR Houston occupies 163 acres south of Houston and includes a 2.38-mile, 17-turn road course, a karting circuit, large paddock and private garages. The main track can operate clockwise or counter-clockwise and is FIA approved.',
     parking: 'MSR Houston is primarily a participant-focused facility rather than a walk-up spectator stadium. Members, guests and event participants should check in at the front office and follow the assigned paddock, garage or event instructions on arrival.',
     arrival: 'All members and guests must sign in before track access, and drivers need to know the current track direction, conditions and session schedule. Driving experiences and rentals should be booked in advance rather than treated as a spontaneous visitor stop.',
@@ -32,7 +32,7 @@ export const SPORTS_VENUE_ENRICHMENT_BATCH4_RACING: Record<string, SportsVenueEn
       { label: 'Track calendar', url: 'https://msrhouston.com/calendar/' },
     ],
     imageBrief: 'Technical Texas road course near Houston with sports cars on a sweeping corner, paddock and flat Gulf Coast landscape visible, no logos or text.',
-    verifiedAt,
+    verifiedAt: '2026-10-09',
   },
   'eagles-canyon-raceway': {
     city: 'Decatur',

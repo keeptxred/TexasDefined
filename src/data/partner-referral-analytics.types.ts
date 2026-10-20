@@ -53,6 +53,31 @@ export type TravelRoutingComparisonRow = {
   ctr: number | null;
 };
 
+export type CasinoReferralPageRow = {
+  pagePath: string;
+  clicks30d: number;
+  impressions30d: number;
+  searchStarts30d: number;
+  ctr: number | null;
+};
+
+export type CasinoReferralSummary = {
+  clicks30d: number;
+  impressions30d: number;
+  searchStarts30d: number;
+  ctr: number | null;
+  exactHotelClicks30d: number;
+  exactHotelImpressions30d: number;
+  exactHotelCtr: number | null;
+  pages: CasinoReferralPageRow[];
+  exactHotelPlacements: Array<{
+    placement: string;
+    clicks30d: number;
+    impressions30d: number;
+    ctr: number | null;
+  }>;
+};
+
 export type PartnerReferralAnalyticsDashboard = {
   generatedAt: string;
   lastSyncedAt: string | null;
@@ -63,6 +88,7 @@ export type PartnerReferralAnalyticsDashboard = {
   travelRoutingMinimumImpressionsPerPartner: number;
   travelRoutingComparisonReady: boolean;
   travelRoutingPartners: TravelRoutingComparisonRow[];
+  casino: CasinoReferralSummary;
   windowDays: number;
   totalClicks30d: number;
   totalClicks7d: number;

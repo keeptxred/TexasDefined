@@ -6,6 +6,7 @@ import { applyCurrentEntityCorrections } from '@/data/knowledge-graph/current-en
 import { canonicalEntityPath, isIndexableEntityPage } from '@/data/knowledge-graph/relationships';
 import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
 import type { SportsVenueLanding } from '@/data/sports-venue-landings';
+import { getSportsVenueReviewDates } from '@/data/sports-venue-review-dates.functions';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
 const siteUrl = 'https://texasdefined.com';
@@ -36,9 +37,13 @@ export const Route = createFileRoute('/sports-venues/$landing')({
       .sort((a, b) => venueSortKey(a).localeCompare(venueSortKey(b)) || a.name.localeCompare(b.name));
 
     if (!venues.length) throw notFound();
+    const venueReviewDates = await getSportsVenueReviewDates({
+      data: { slugs: venues.map((venue) => venue.slug) },
+    });
     return {
       landing,
       venues,
+      venueReviewDates,
       marketLandings: SPORTS_VENUE_LANDINGS.filter((item) => item.kind === 'market' && item.slug !== landing.slug),
       themeLandings: SPORTS_VENUE_LANDINGS.filter((item) => item.kind === 'theme' && item.slug !== landing.slug),
     };
@@ -59,13 +64,13 @@ export const Route = createFileRoute('/sports-venues/$landing')({
 });
 
 function SportsVenueLandingPage() {
-  const { landing, venues, marketLandings, themeLandings } = Route.useLoaderData();
+  const { landing, venues, venueReviewDates, marketLandings, themeLandings } = Route.useLoaderData();
   const canonicalPath = `/sports-venues/${landing.slug}`;
   const professional = venues.filter((venue) => venue.tags?.includes('professional')).length;
   const college = venues.filter((venue) => venue.tags?.includes('college')).length;
   const majorDraws = venues.filter((venue) => venue.tags?.includes('major-tourist-draw')).length;
   const lastReviewed = venues
-    .map((venue) => venue.sourceCheckedAt)
+    .map((venue) => venueReviewDates[venue.slug] ?? venue.sourceCheckedAt)
     .filter((date): date is string => Boolean(date))
     .sort()
     .at(-1);
@@ -82,6 +87,7 @@ function SportsVenueLandingPage() {
         description: landing.description,
         isPartOf: { '@id': `${siteUrl}/#website` },
         mainEntity: { '@id': `${siteUrl}${canonicalPath}#venues` },
+        dateModified: lastReviewed,
       },
       {
         '@type': 'ItemList',
@@ -144,7 +150,7 @@ function SportsVenueLandingPage() {
             <Stat label="Professional venues" value={professional} />
             <Stat label="College venues" value={college} />
           </dl>
-          {lastReviewed ? <p className="mt-5 text-xs leading-5 text-muted-foreground">Venue source records on this page were reviewed through {formatDate(lastReviewed)}. Event schedules, parking rules and operating details can change; use the official links inside each venue guide before traveling.</p> : null}
+          {lastReviewed ? <p className="mt-5 text-xs leading-5 text-muted-foreground">The most recently checked individual venue record in this collection was verified {formatDate(lastReviewed)}. Other listings may have older reviews; consult the dated sources on each guide for schedules, parking and operating status.</p> : null}
         </header>
 
         <section className="grid gap-8 border-b border-border py-12 lg:grid-cols-[15rem_1fr]" aria-labelledby="quick-answers-heading">
@@ -216,7 +222,7 @@ function buildQuickAnswers(landing: SportsVenueLanding, venues: TexasEntityRecor
   const exampleSentence = formatList(examples);
   const answerLabel = landing.eyebrow.replace(/ sports travel$/i, '').trim();
   const sourceAnswer = lastReviewed
-    ? `TexasDefined currently includes ${venues.length} matching venue guide${venues.length === 1 ? '' : 's'} here. Source records for this collection were reviewed through ${formatDate(lastReviewed)}; event schedules and operating details should still be confirmed on the official venue links before travel.`
+    ? `TexasDefined currently includes ${venues.length} matching venue guide${venues.length === 1 ? '' : 's'} here. The latest individual venue source check was ${formatDate(lastReviewed)}; other venue records may be older. Recheck official links for operating status and event details.`
     : `TexasDefined currently includes ${venues.length} matching venue guide${venues.length === 1 ? '' : 's'} here. Each venue page links to an official source for details that can change before an event.`;
 
   return [

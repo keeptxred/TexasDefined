@@ -226,17 +226,18 @@ export const nationalWildlifeRefugeDestinations: Destination[] = [
     summary: "Lower Rio Grande Valley National Wildlife Refuge protects a distributed wildlife corridor across deep South Texas, reconnecting thornscrub, resaca, river and brush habitats used by migratory birds and rare borderland species.",
     region: "south-texas",
     nearestTown: "Alamo",
-    county: "Cameron, Hidalgo, Starr and Willacy counties",
-    coordinates: { lat: 26.08, lng: -98.13 },
+    // County and pin identify the Alamo visitor headquarters. Refuge tracts span four counties.
+    county: "Hidalgo County",
+    coordinates: { lat: 26.082165, lng: -98.135359 },
     bestSeason: "Fall through spring for cooler temperatures, migration and peak birding activity.",
-    entryNote: "This is a geographically distributed refuge with multiple tracts and access points rather than one compact park. Choose a specific public-use unit and check current federal access notices before traveling.",
+    entryNote: "This refuge spans Cameron, Hidalgo, Starr and Willacy counties. The map pin identifies the headquarters at the Santa Ana refuge complex near Alamo, not every refuge unit. Choose a named public-use location from the FWS visitor map and check unit-specific access before traveling.",
     highlights: ["Lower Rio Grande wildlife corridor", "Nearly 40,000 acres of public-use lands", "Birding and wildlife photography", "South Texas thornscrub and resaca habitat"],
     body: [
       "The Lower Rio Grande Valley refuge is best understood as a conservation corridor rather than a single enclosed destination. Since 1979, the U.S. Fish and Wildlife Service has assembled and restored tracts across the Valley to reconnect habitat in a region where agriculture, roads and urban growth fragmented native thornscrub and river landscapes.",
       "That distributed design protects movement routes for birds, mammals, reptiles and other species while giving visitors access to selected trails, observation decks and wildlife areas. Different units can feel completely different, from dry brush to wetlands and river-associated habitat.",
       "Trip planning therefore starts with selecting a named public-use area, not simply entering the refuge name in navigation. Border-area road conditions, weather, land-management projects and unit-specific rules can change, so the current FWS visitor map should be consulted before departure."
     ],
-    officialUrl: "https://www.fws.gov/refuge/lower-rio-grande-valley",
+    officialUrl: "https://www.fws.gov/refuge/lower-rio-grande-valley/visit-us",
   }),
   refuge({
     slug: "mcfaddin-national-wildlife-refuge",
@@ -323,14 +324,14 @@ export const nationalWildlifeRefugeDestinations: Destination[] = [
     coordinates: { lat: 26.08, lng: -98.14 },
     address: "3325 Green Jay Road, Alamo, TX 78516",
     bestSeason: "Late fall through spring for comfortable birding, winter specialties and migration; early morning is best in warm weather.",
-    entryNote: "Trails are generally open sunrise to sunset, but individual levees or routes can close temporarily. Check current FWS closure notices, tram schedules and fees before arrival.",
+    entryNote: "FWS currently lists Levee Road as closed to foot and bicycle traffic, with Bobcat Trail as a bicycle detour (notice reviewed October 18, 2026). Other refuge trails may remain open sunrise to sunset. Check the official Visit Us alert for reopening, tram schedules and fees.",
     highlights: ["Rio Grande Valley specialty birds", "Subtropical thorn forest", "Observation tower and trails", "Butterflies and migration"],
     body: [
       "Santa Ana is small compared with many federal refuges, but its position near the Rio Grande gives it exceptional biological value. Subtropical forest, resacas, thornscrub and wetland edges support birds and butterflies whose U.S. ranges are concentrated in deep South Texas.",
       "The refuge is designed for close, low-impact exploration. A trail network, observation areas and seasonal interpretive programs let visitors search for green jays, great kiskadees, chachalacas, raptors and migrant warblers without needing to cover a huge landscape.",
-      "Temporary route closures are part of managing a floodplain refuge, and summer heat can be severe. Visitors should check current notices, carry ample water and plan around early-day wildlife activity rather than assuming every trail or levee is always available."
+      "The FWS visitor notice reviewed October 18, 2026 says Levee Road is temporarily closed to pedestrians and cyclists and directs cyclists to Bobcat Trail. This does not mean the whole refuge is closed; check the live FWS notice for reopening and any additional restrictions. Summer heat can be severe, so bring water and plan early-day wildlife viewing."
     ],
-    officialUrl: "https://www.fws.gov/refuge/santa-ana",
+    officialUrl: "https://www.fws.gov/refuge/santa-ana/visit-us",
   }),
   refuge({
     slug: "texas-point-national-wildlife-refuge",

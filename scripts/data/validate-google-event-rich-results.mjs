@@ -10,7 +10,15 @@ const registry = read('src/data/major-event-schema-enrichment.server.ts');
 const eventsDirectory = read('src/data/major-event-directory.server.ts');
 const sitemap = read('src/routes/sitemap[.]xml.ts');
 const stateFair = read('src/routes/texas-state-fair.tsx');
+const churchTimeline = read('src/routes/explore.painted-churches.timeline.tsx');
+const sportsVenueGuide = read('src/components/sports/SportsVenueGuidePage.tsx');
 const failures = [];
+
+forbidText(churchTimeline, '"@type": "Event"', 'Historical Painted Churches milestones must not emit scheduled Event rich-result markup.');
+forbidText(churchTimeline, 'startDate:', 'Historical year-only milestones must not invent precise occurrence dates.');
+requireText(churchTimeline, '"@type": "CreativeWork"', 'Historical timeline entries must retain reference-material structured data.');
+forbidText(sportsVenueGuide, '"@type": "Event"', 'Sports venue event listings must not emit occurrence rich results from a venue guide.');
+requireText(sportsVenueGuide, 'url: event.officialEventUrl', 'Sports venue listings must retain discovery links to individual official event pages.');
 
 function requireText(source, needle, message) {
   if (!source.includes(needle)) failures.push(message);
@@ -24,8 +32,8 @@ for (const [needle, message] of [
   ['"@type": "Event"', 'Dedicated event pages must emit Event JSON-LD.'],
   ['name: event.name', 'Event JSON-LD must include the event name.'],
   ['url: canonicalUrl', 'Event JSON-LD must include its canonical URL.'],
-  ['startDate: window.startDate', 'Event JSON-LD must include startDate.'],
-  ['endDate: window.endDate', 'Event JSON-LD must carry the occurrence endDate when known.'],
+  ['startDate: occurrenceWindows.length === 1 && event.startDateTime?.startsWith(window.startDate)', 'Event JSON-LD must include startDate.'],
+  ['endDate: occurrenceWindows.length === 1 && event.endDateTime?.startsWith(window.endDate ?? window.startDate)', 'Event JSON-LD must carry the occurrence endDate when known.'],
   ['eventStatus: eventSchemaStatusUrl(occurrenceEnrichment?.lifecycle?.status)', 'Event JSON-LD must publish lifecycle status.'],
   ['eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode"', 'Physical Texas events must publish OfflineEventAttendanceMode.'],
   ['description: event.whyItMatters', 'Event JSON-LD must include a useful event description.'],
@@ -102,6 +110,10 @@ for (const [needle, message] of [
   ['eventStatus: "https://schema.org/EventScheduled"', 'State Fair must publish scheduled status while current.'],
   ['eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode"', 'State Fair must publish offline attendance mode.'],
   ['"@type": "PostalAddress"', 'State Fair must publish a PostalAddress.'],
+  ['fairConcluded()', 'State Fair guide must check the occurrence expiry.'],
+  ['Date.parse("2026-10-19T00:00:00-05:00")', 'State Fair expiry must use Texas-local midnight.'],
+  ['"@type": "WebPage"', 'Expired State Fair must downgrade to WebPage schema.'],
+  ['"@type": "Thing"', 'Expired State Fair must retain its evergreen identity.'],
 ]) requireText(stateFair, needle, message);
 
 if (failures.length) {

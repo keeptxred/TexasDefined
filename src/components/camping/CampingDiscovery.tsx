@@ -10,6 +10,20 @@ export interface CampingDiscoveryEntry {
   profile: CampingDiscoveryProfile;
 }
 
+/**
+ * These researched camping profiles have a verified TPWD visitor guide, but
+ * their draft TexasDefined destination URLs currently return 404 or a redirect.
+ * Never advertise a non-existent on-site authority page or hydrate a trip
+ * planner from an unavailable destination merely because the camping profile
+ * is complete. Switch back to our own canonical guide only after a live
+ * indexability audit verifies it.
+ */
+const OFFICIAL_ONLY_CAMPING_DESTINATIONS: Readonly<Record<string, string>> = {
+  "palo-pinto-mountains-state-park": "https://tpwd.texas.gov/state-parks/palo-pinto-mountains",
+  "ray-roberts-lake-state-park": "https://tpwd.texas.gov/state-parks/ray-roberts-lake",
+  "seminole-canyon-state-park-and-historic-site": "https://tpwd.texas.gov/state-parks/seminole-canyon",
+};
+
 const styleLabels: Record<CampingStyle, string> = {
   tent: "Tent",
   rv: "RV",
@@ -383,7 +397,8 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
         const countySlug = profile.county.toLowerCase().replace(/[^a-z0-9]+/g, "-");
         const anchor = profileAnchor(profile);
         const isParentDestination = anchor === profile.destinationSlug;
-        const hasDestinationGuide = hasCampingDestinationGuide(profile.destinationSlug);
+        const officialOnlyGuide = OFFICIAL_ONLY_CAMPING_DESTINATIONS[profile.destinationSlug];
+        const hasDestinationGuide = hasCampingDestinationGuide(profile.destinationSlug) && !officialOnlyGuide;
         const image = campingCardImages[profile.destinationSlug];
         const selectedForCompare = compareIds.includes(anchor);
         const compareLimitReached = compareIds.length >= 3 && !selectedForCompare;
@@ -426,6 +441,7 @@ export function CampingDiscovery({ entries }: { entries: CampingDiscoveryEntry[]
               >{selectedForCompare ? "Added to compare" : compareLimitReached ? "Compare limit reached" : "Compare"}</button>
               {hasDestinationGuide ? <Link to="/destination/$slug" params={{ slug: profile.destinationSlug }} className="text-primary underline-offset-4 hover:underline">{isParentDestination ? "Destination guide" : "Parent destination guide"}</Link> : null}
               {hasDestinationGuide ? <Link to="/explore/trip-planner" search={{ destination: profile.destinationSlug }} className="text-primary underline-offset-4 hover:underline">Build trip</Link> : null}
+              {officialOnlyGuide ? <a href={officialOnlyGuide} target="_blank" rel="noreferrer noopener" className="text-primary underline-offset-4 hover:underline">Official park guide ↗</a> : null}
               <Link to="/$kind/$slug" params={{ kind: "county", slug: countySlug }} className="text-primary underline-offset-4 hover:underline">{profile.county} County</Link>
               <a href={profile.reservationUrl} target="_blank" rel="noreferrer" className="text-primary underline-offset-4 hover:underline">Official reservations/details ↗</a>
             </div>

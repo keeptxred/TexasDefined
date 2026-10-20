@@ -35,6 +35,7 @@ export const bastropCountyLostPinesColoradoRiverHistoryArticle: Article = {
   ],
   featured: false,
   internalLinks: [
+    { href: "/article/texas-colorado-river-guide", label: "Texas colorado  River guide", description: "Connect county tourism, fisheries and camping with the full river authority guide." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
     { href: "/county/travis", label: "Explore Travis County", description: "Continue west toward Austin and the Colorado River's urban Central Texas corridor." },
     { href: "/county/caldwell", label: "Explore Caldwell County", description: "Continue south toward Lockhart and the prairie-and-post-oak country." },

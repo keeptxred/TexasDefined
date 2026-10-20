@@ -42,7 +42,7 @@ const additions: Record<string, ArticleInternalLink[]> = {
     completeGuide,
     bestToVisit,
     civilWar,
-    { href: "/article/galveston-county-island-port-juneteenth-texas", label: "Galveston County: island, harbor and storms", description: "Place Point Bolivar beside the ferry, port, hurricane history and Galveston Bay." },
+    { href: "/county/galveston", label: "Galveston County: island, harbor and storms", description: "Place Point Bolivar beside the ferry, port, hurricane history and Galveston Bay." },
     { href: "/article/texas-lighthouse-road-trip", label: "Add Point Bolivar to the lighthouse road trip", description: "Use the ferry crossing as one of the strongest maritime-history legs on the Texas coast." },
   ],
   "lydia-ann-lighthouse-port-aransas": [
@@ -81,7 +81,7 @@ const additions: Record<string, ArticleInternalLink[]> = {
     mapLink,
   ],
   "galveston-county-island-port-juneteenth-texas": [
-    { href: "/article/point-bolivar-lighthouse-history", label: "Point Bolivar Lighthouse", description: "Explore the black cast-iron tower across the bay and its role in Galveston navigation and hurricane survival." },
+    { href: "/article/point-bolivar-lighthouse-history", label: "Point Bolivar Lighthouse", description: "Explore the restored black-and-white lighthouse across Galveston Bay and its history of shipping, storms and preservation." },
     bestToVisit,
     mapLink,
   ],

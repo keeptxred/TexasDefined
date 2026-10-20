@@ -4,10 +4,11 @@
   const STAY_DATA_URL = "/stay-nearby-hotels.json";
   const DESTINATION_STAY_DATA_URL = "/stay-nearby-destination-hotels.json";
   const PAINTED_CHURCHES_STAY_DATA_URL = "/stay-nearby-painted-churches-hotels.json";
-  const TRAVEL_PATH = /^\/(?:explore(?:\/|$)|destination\/|city\/|county\/|sports-venue\/|sports-venues\/(?!compare(?:\.csv)?(?:\/|$))|sports-venues$|event\/|events(?:\/|$)|texas-state-fair(?:\/|$)|best-places-to-go-camping-in-texas(?:\/|$)|texas-college-towns(?:\/|$)|texas-tailgating-guide(?:\/|$)|texas-unique-lodging(?:\/|$)|texas-music-venues(?:\/|$)|texas-roadside-oddities(?:\/|$))/;
+  const TRAVEL_PATH = /^\/(?:explore(?:\/|$)|destination\/|city\/|county\/|sports-venue\/|horse-racing\/gillespie-county-fairgrounds(?:\/|$)|sports-venues\/(?!compare(?:\.csv)?(?:\/|$))|sports-venues$|event\/|events(?:\/|$)|texas-state-fair(?:\/|$)|best-places-to-go-camping-in-texas(?:\/|$)|texas-college-towns(?:\/|$)|texas-tailgating-guide(?:\/|$)|texas-unique-lodging(?:\/|$)|texas-music-venues(?:\/|$)|texas-roadside-oddities(?:\/|$))/;
   const TRAVEL_ARTICLE_SECTION = /\b(?:travel|lodging|road trips?|weekend getaways?|events?)\b/i;
   const CONTEXT_PATHS = [
     { kind: "destination", key: "painted-churches", pattern: /^\/explore\/painted-churches(?:\/|$)/ },
+    { kind: "destination", key: "fredericksburg", pattern: /^\/horse-racing\/gillespie-county-fairgrounds\/?$/ },
     { kind: "venue", pattern: /^\/sports-venue\/([^/?#]+)\/?$/ },
     { kind: "event", pattern: /^\/event\/([^/?#]+)\/?$/ },
     { kind: "destination", pattern: /^\/destination\/([^/?#]+)\/?$/ },
@@ -71,6 +72,8 @@
   }
 
   function isTravelBookingSurface(pathname = window.location.pathname) {
+    // A law explainer and an unbuilt resort cannot provide current lodging inventory.
+    if (/^\/explore\/casinos\/(?:texas-gaming-laws|naskila-resort-leggett)\/?$/.test(pathname)) return false;
     if (pathname === window.location.pathname && TRAVEL_PATH.test(window.location.pathname)) return true;
     return TRAVEL_PATH.test(pathname) || hasTravelBookingMetadata();
   }
@@ -527,10 +530,10 @@
 
     const eyebrow = document.createElement("p");
     eyebrow.className = "eyebrow text-primary";
-    eyebrow.textContent = "Hotels & places to stay";
+    eyebrow.textContent = normalizePath() === "/explore/near/mcallen/day-trips" ? "Staying overnight?" : "Hotels & places to stay";
     const heading = document.createElement("h2");
     heading.className = "mt-2 font-display text-3xl";
-    heading.textContent = "Find a place to stay nearby";
+    heading.textContent = normalizePath() === "/explore/near/mcallen/day-trips" ? "One stop for overnight stays" : "Find a place to stay nearby";
     const search = document.createElement("button");
     search.type = "button";
     search.className = "mt-5 inline-flex min-h-11 items-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90";
@@ -560,17 +563,45 @@
     if (target.matches?.(SLOT_SELECTOR)) target.replaceChildren(surface);
     else target.appendChild(surface);
     trackSurfaceImpression(surface, placement);
+    // Expedia is the owner of this async-rendered surface. Notify the existing
+    // CJ choice layer once the target actually exists; no polling or broad DOM scans.
+    window.TexasDefinedStayAffiliateOptions?.sync?.();
   }
 
   // Preserve React SSR for individually audited football-linked counties.
   // Their lodging cards wait for route hydration; the pages still show eligible cards afterward.
   function waitingForFootballCountyHydration() {
     const path = window.location.pathname.replace(/\/+$/, "");
-    return (path === "/county/van-zandt" || path === "/county/hill" || path === "/county/fort-bend" || path === "/county/jeff-davis" || path === "/county/tarrant")
-      && document.documentElement.dataset.tdFootballCountyHydrated !== "1";
+    // All county and city authority routes have a React hydration readiness
+    // signal; defer affiliate DOM changes until their route mounts.
+    const guardedRoute = /^\/(?:county|city)\/[a-z0-9-]+$/.test(path);
+    return guardedRoute && document.documentElement.dataset.tdFootballCountyHydrated !== "1";
+  }
+
+  function battleshipHistoryHydrationPending() {
+    // RootShell may hydrate before the lazy BB-35 article. Wait for the
+    // actual article component effect before inserting the lodging surface.
+    return window.location.pathname.replace(/\/+$/, "") ===
+      "/article/battleship-texas-bb-35-history-restoration" &&
+      document.documentElement.dataset.tdBattleshipArticleHydrated !== "1";
+  }
+
+  function mcallenDayTripsHydrationPending() {
+    return normalizePath() === "/explore/near/mcallen/day-trips" &&
+      document.documentElement.dataset.tdMcAllenDayTripsHydrated !== "1";
+  }
+
+  function stateFairSlotPending() {
+    return /^\/texas-state-fair\/?$/.test(window.location.pathname) &&
+      document.documentElement.dataset.tdStateFairHydrated !== "1";
   }
 
   async function syncSurface() {
+    // React's State Fair content lazy-hydrates after RootShell. Never mutate
+    // the empty affiliate slot before its owning component has committed.
+    if (stateFairSlotPending()) return;
+    if (mcallenDayTripsHydrationPending()) return;
+    if (battleshipHistoryHydrationPending()) return;
     if (waitingForFootballCountyHydration()) return;
     const version = ++syncVersion;
     const current = document.getElementById(SURFACE_ID);
@@ -586,7 +617,23 @@
     const context = contextFromPath();
     const expectedContext = context ? `${context.kind}:${context.key}` : "";
     if (current?.dataset.surfaceType === "curated" && current.dataset.stayContext === expectedContext) return;
-    if (!context && current?.dataset.surfaceType === "generic") return;
+    // When a destination has zero curated stays, keep the same generic surface.
+    // Removing/replacing it on every mutation also deletes the independently
+    // managed CJ booking choices nested inside it (including Hotel Paso del Norte).
+    if (context && current?.dataset.surfaceType === "generic" && current.dataset.stayContext === expectedContext) return;
+    if (!context && current?.dataset.surfaceType === "generic") {
+      // The swimming guide can stream/hydrate after the lodging surface mounts.
+      // A fallback attached to an initially empty #main must move behind the
+      // now-present guide. Reuse the same node to preserve disclosures and tracking.
+      if (
+        normalizePath() === "/explore/swimming-holes-river-tubing"
+        && main.querySelector("#texas-swimming-holes-river-tubing-guide")
+        && main.lastElementChild !== current
+      ) {
+        main.appendChild(current);
+      }
+      return;
+    }
 
     current?.remove();
 
@@ -601,7 +648,9 @@
     }
 
     if (version !== syncVersion || !isMonetizationEligible()) return;
-    placeSurface(buildGenericSurface(), main);
+    const fallback = buildGenericSurface();
+    fallback.dataset.stayContext = expectedContext;
+    placeSurface(fallback, main);
   }
 
   function scheduleSync() {
@@ -624,6 +673,7 @@
     surface.dataset.stayPlacement = "explicit-mount";
     node.replaceChildren(surface);
     trackSurfaceImpression(surface, "explicit-mount");
+    window.TexasDefinedStayAffiliateOptions?.sync?.();
     return true;
   }
 
@@ -637,11 +687,17 @@
 
     window.addEventListener("popstate", scheduleSync);
     window.addEventListener("texasdefined:county-hydrated", scheduleSync);
+    window.addEventListener("texasdefined:state-fair-hydrated", scheduleSync);
+    window.addEventListener("texasdefined:mcallen-day-trips-hydrated", scheduleSync);
+    window.addEventListener("texasdefined:battleship-article-hydrated", scheduleSync);
     for (const method of ["pushState", "replaceState"]) {
       const original = history[method];
       history[method] = function (...args) {
         const result = original.apply(this, args);
         scheduleSync();
+        // A Hotel Paso-specific Hotels.com offer must not persist when a
+        // TanStack client-side route changes to another destination.
+        window.TexasDefinedStayAffiliateOptions?.sync?.();
         return result;
       };
     }
@@ -655,6 +711,20 @@
     isMonetizationEligible,
   });
 
-  if (document.readyState === "complete") start();
-  else window.addEventListener("load", start, { once: true });
+  // Loading the page does not mean React has finished hydrating. The Expedia
+  // surfaces insert and replace DOM nodes inside #main, and doing so before
+  // React mounts intermittently causes hydration error #418 on destination pages.
+  let started = false;
+  function startWhenHydrated() {
+    if (document.documentElement.dataset.tdRootHydrated === "1") {
+      if (started) return;
+      started = true;
+      start();
+    } else {
+      window.addEventListener("texasdefined:root-hydrated", startWhenHydrated, { once: true });
+    }
+  }
+
+  if (document.readyState === "complete") startWhenHydrated();
+  else window.addEventListener("load", startWhenHydrated, { once: true });
 })();

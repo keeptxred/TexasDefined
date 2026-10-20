@@ -9,6 +9,7 @@ const authority = read('src/components/content/TexasRiversAuthorityHub.tsx');
 const citationTrust = read('src/components/content/TexasRiversCitationTrust.tsx');
 const basinReference = read('src/components/content/TexasRiverBasinReference.tsx');
 const articleRoute = read('src/routes/article.$slug.tsx');
+const articleBodyComponent = read('src/components/editorial/ArticleBody.tsx');
 const hub = `${read('src/routes/texas-explained.tsx')}\n${read('src/components/editorial/TexasExplainedPage.tsx')}`;
 const topology = read('src/data/fixtures/newest-evergreen.ts');
 const errors = [];
@@ -22,7 +23,7 @@ const profiles = [
 ];
 
 for (const marker of [
-  'title: "Major Rivers of Texas: Basins, Regions & Waterways Explained"',
+  'title: "Texas Rivers Explained: Major Rivers, Basins & Map"',
   'major rivers and river basins of Texas',
   'href: "/article/texas-river-basins-guide"',
   'href: "/article/texas-lakes-reservoirs-explained"',
@@ -41,12 +42,14 @@ for (const marker of [
 ]) if (!pillar.includes(marker)) errors.push(`Texas rivers section image contract missing: ${marker}`);
 
 for (const marker of [
-  'Start with the map',
-  'Texas Rivers, Region by Region',
+  'See how Texas rivers cross the state',
+  'How Texas Rivers Change Across the State',
   'const riverRegions = [',
   'See all river basins →',
-  'Go Deeper on Five Major Texas Rivers',
+  'Explore All 15 Major Texas River Basins',
   'Texas River Basins Explained →',
+  'Texas Lakes & Reservoirs Explained →',
+  '/article/texas-lakes-reservoirs-explained',
   'Explore Texas Lakes & Rivers →',
   '<TexasRiversCitationTrust />',
 ]) if (!authority.includes(marker)) errors.push(`Texas rivers map-first authority contract missing: ${marker}`);
@@ -62,30 +65,26 @@ for (const marker of [
   'Texas Water Development Board — River Basins',
   'Texas Water Development Board — Major River Basins Map',
   'Sources, methodology and verification',
-  'lastVerified="October 3, 2026"',
+  'lastVerified="October 18, 2026"',
   'Recommended citation',
   'https://texasdefined.com/article/texas-rivers-explained',
 ]) if (!citationTrust.includes(marker)) errors.push(`Texas rivers citation trust contract missing: ${marker}`);
 
 for (const marker of [
   'const sourceUrl = "https://www.twdb.texas.gov/surfacewater/rivers/river_basins/index.asp";',
-  'const lastVerified = "2026-10-03";',
+  'const lastVerified = "2026-10-18";',
   'const canonicalPage = "https://texasdefined.com/article/texas-rivers-explained";',
   'const majorBasins = [',
   'const coastalBasins = [',
-  'const basinHighlights = [',
-  'Largest basin in Texas',
-  'Longest Texas reach',
-  'Highest average flow',
   'const csvHeaders = [',
   '"basin_type"',
   'const csvDownloadHref = `data:text/csv;charset=utf-8,${encodeURIComponent(csvContent)}`;',
   'const jsonDownloadHref = `data:application/json;charset=utf-8,${encodeURIComponent(jsonContent)}`;',
-  'methodology: "Texas Defined transcribes TWDB statewide basin statistics into normalized numeric fields for comparison.',
+  'methodology: "Texas Defined transcribes Texas Water Development Board statewide basin statistics into normalized numeric fields for comparison.',
   'download="texasdefined-texas-river-basins.csv"',
-  'Download CSV ↓',
+  'Download table (CSV) ↓',
   'download="texasdefined-texas-river-basins.json"',
-  'Download JSON ↓',
+  'Download data (JSON) ↓',
   '<details className="mt-5',
   'Open the full 15-basin comparison',
   'Eight coastal basins drain directly toward bays and the Gulf',
@@ -97,8 +96,18 @@ for (const marker of [
   'texasExplainedQuickAnswer && !isTexasRiversArticle',
   '!isTexasRiversArticle && internalLinks.length > 0',
   '!isTexasRiversArticle && article.tags.length > 0',
-  '!isTexasRiversArticle && <Section tone="surface">',
 ]) if (!articleRoute.includes(marker)) errors.push(`Texas rivers simplified presentation contract missing: ${marker}`);
+
+for (const marker of [
+  'articleSlug === "texas-rivers-explained"',
+  'blocks[index - 1]?.text === "Texas Rivers at a Glance"',
+  '<dl key={index} className="my-8 grid gap-3 sm:grid-cols-2">',
+]) if (!articleBodyComponent.includes(marker)) errors.push(`Texas rivers quick-answer card contract missing: ${marker}`);
+
+if (!articleRoute.includes('!isTexasRiversArticle && <Section tone="surface">')
+  && !articleRoute.includes('!isTexasRiversArticle && !hideGenericRelatedRail && <Section tone="surface">')) {
+  errors.push('Texas rivers simplified presentation contract missing: rivers must remain excluded from the generic related-story rail.');
+}
 
 for (const marker of [
   'const riversLink = { href: "/article/texas-rivers-explained"',
@@ -161,10 +170,78 @@ for (const [slug] of profiles) {
   }
 }
 
+// The second tranche closes all remaining TWDB major basin coverage without duplicating the original five.
+const additionalStubs = read('src/data/fixtures/texas-explained-river-profiles-remaining-stubs.ts');
+const additionalGuides = read('src/data/fixtures/texas-explained-river-profiles-remaining.ts');
+const interactiveMap = read('src/components/content/TexasRiverBasinInteractiveMap.tsx');
+const additionalBasins = [
+  ['Canadian', 'texas-canadian-river-guide', 'canadian/index.asp'],
+  ['Cypress', 'texas-cypress-river-basin-guide', 'cypress/index.asp'],
+  ['Lavaca', 'texas-lavaca-river-guide', 'lavaca/index.asp'],
+  ['Neches', 'texas-neches-river-guide', 'neches/index.asp'],
+  ['Nueces', 'texas-nueces-river-guide', 'nueces/index.asp'],
+  ['Red', 'texas-red-river-guide', 'red/index.asp'],
+  ['Sabine', 'texas-sabine-river-guide', 'sabine/index.asp'],
+  ['San Antonio', 'texas-san-antonio-river-guide', 'sanantonio/index.asp'],
+  ['San Jacinto', 'texas-san-jacinto-river-guide', 'sanjacinto/index.asp'],
+  ['Sulphur', 'texas-sulphur-river-guide', 'sulphur/index.asp'],
+];
+for (const [name, slug, twdbPath] of additionalBasins) {
+  if (!additionalStubs.includes(`slug: "${slug}"`)) errors.push(`Missing new river stub ${slug}`);
+  const begin = additionalGuides.indexOf(`slug: "${slug}"`);
+  const next = begin < 0 ? -1 : additionalGuides.indexOf('\nexport const ', begin);
+  const body = begin < 0 ? '' : additionalGuides.slice(begin, next > begin ? next : additionalGuides.length);
+  const wordCount = body.slice(body.indexOf('body: [')).split(/\s+/).length;
+  if (wordCount < 600) errors.push(`New river guide below 600-word floor: ${name}, ${wordCount}`);
+  if (!body.includes(`/river_basins/${twdbPath}`)) errors.push(`Missing official TWDB source: ${name}`);
+  if (!body.includes('/article/texas-rivers-explained') || !body.includes('/article/texas-river-basins-guide') || !body.includes('/texas-explained')) errors.push(`Missing profile backlinks: ${slug}`);
+  if (!authority.includes(`/article/${slug}`)) errors.push(`Missing flagship atlas link: ${slug}`);
+  if (!basinReference.includes(`/article/${slug}`)) errors.push(`Missing TWDB table link: ${slug}`);
+  if (!topology.includes(`/article/${slug}`)) errors.push(`Missing reciprocal topology link: ${slug}`);
+  if (!hub.includes(`"${slug}"`)) errors.push(`Missing Texas Explained collection entry: ${slug}`);
+}
+// Prevent the new basin articles from drifting back into cloned generic prose.
+for (const duplicated of [
+  'Watershed area describes the land within Texas',
+  'A basin is a network, not a blue line',
+  'The official TWDB August 2023 GIS layer traces watershed boundaries',
+  'Flooding can originate upstream even when the sky is clear locally',
+  'Texas public river-navigation law does not give everyone',
+]) {
+  if (additionalGuides.includes(duplicated)) errors.push(`Duplicated generic river guide paragraph: ${duplicated}`);
+}
+for (const marker of [
+  '15 major river basins',
+  '8 coastal basins',
+  'Selected river basin',
+  'Read the {displayName(active)} guide',
+  'basinGuidePaths[normalize(active)]',
+]) {
+  if (!interactiveMap.includes(marker)) errors.push(`Map legend or guide navigation missing: ${marker}`);
+}
+
+for (const marker of [
+  '...texasExplainedRemainingRiverProfileStubs',
+  'texasExplainedRemainingRiverProfileStubs.some((article) => article.slug === slug)',
+  'await import("./texas-explained-river-profiles-remaining")',
+  'texasExplainedRemainingRiverProfileArticles.find((candidate) => candidate.slug === slug)',
+]) if (!lazy.includes(marker)) errors.push(`Additional river guide lazy loading missing: ${marker}`);
+for (const marker of [
+  'GM_Admin_Boundaries/MapServer/0',
+  'Basin%2CBAYS',
+  'maxAllowableOffset=0.025',
+  'Load interactive river map',
+  'Zoom to selection',
+  'showCoastal',
+  'showBays',
+  'TWDB',
+]) if (!interactiveMap.includes(marker)) errors.push(`TWDB interactive map source/control missing: ${marker}`);
+if (!basinReference.includes('<TexasRiverBasinInteractiveMap />')) errors.push('Official interactive basin atlas not mounted after the river-basin explainer');
+
 if (errors.length) {
   console.error('Texas Explained river profile validation failed:');
   errors.forEach((error) => console.error(`- ${error}`));
   process.exit(1);
 }
 
-console.log('Texas Explained river authority passed: the GSC-focused statewide river title, map-first regional orientation, progressive basin reference, citation trust layer, downloadable CSV/JSON basin data, focused flagship presentation, non-duplicative regional flow and river-section imagery are protected alongside five TWDB-backed, lazy-loaded, hub-visible, substantive river profiles.');
+console.log('Texas Explained river authority passed: official basin mapping, 15 source-backed river guides, progressive TWDB basin statistics, 2023 GIS references and citations are protected.');

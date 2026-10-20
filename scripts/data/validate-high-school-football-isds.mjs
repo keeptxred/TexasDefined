@@ -51,14 +51,33 @@ if (!errors.length) {
     '/texas-high-school-football-isds/',
   ]) requireText(slugs, marker, 'Football ISD slug helper');
 
+  // The live ISD route builds the 1,268-program directory on SSR. Prevent
+  // regression to a full AskTED campus scan for each unmatched UIL school.
+  for (const marker of [
+    'bySchoolToken: Map<string, PreparedTeaDirectoryRecord[]>',
+    'for (const token of row.schoolMatchTokens)',
+    'for (const token of programTokens)',
+    'matcher.bySchoolToken.get(token)',
+    'const score = contextualMatchScore(programTokens, row)',
+    'score >= 90 && score === bestScore',
+  ]) requireText(directory, marker, 'Indexed, tie-safe AskTED matcher');
+  if (directory.includes('const ranked = matcher.rows')) errors.push('Football ISD matching must not rescan the entire TEA directory for every program.');
+
   for (const marker of [
     'isdProfilePath?: string',
     'footballIsdProfilePath(record.districtName)',
     'loadAllFootballProgramsWithDirectory',
     'allProgramDirectoryCache',
+    'if (directoryInFlight) return directoryInFlight',
+    'if (allProgramDirectoryInFlight) return allProgramDirectoryInFlight',
   ]) requireText(directory, marker, 'Football directory ISD integration');
 
   for (const marker of [
+    'ISD_CACHE_TTL_MS = 6 * 60 * 60 * 1000',
+    'if (isdDirectoryInFlight) return isdDirectoryInFlight',
+    'isdDirectoryInFlight = assembleFootballIsdDirectory()',
+    'isdDirectoryCache = { loadedAt: Date.now(), built }',
+    'isdDirectoryInFlight = null',
     'loadAllFootballProgramsWithDirectory',
     'Football ISD slug collision',
     'Football ISD directory expected 1,268 UIL programs',
@@ -69,6 +88,7 @@ if (!errors.length) {
     'getFootballIsdProfile',
     'footballIsdSitemapEntries',
     'getOfficialFootballEnrollmentLink',
+    'profilePath: footballIsdProfilePath(sourceDistrictName)',
   ]) requireText(server, marker, 'Football ISD server');
 
   for (const marker of [
@@ -92,6 +112,21 @@ if (!errors.length) {
     'Browse all 1,268 UIL programs',
   ]) requireText(indexPage, marker, 'Football ISD index page');
 
+  // Google fetched Katy ISD successfully on 2026-10-17 but recorded a
+  // noindex meta tag, while Houston ISD was indexed. The route loader throws a
+  // 404 for genuinely missing districts; its head fallback must not interpret
+  // unresolved streamed loaderData as a permanent indexability decision.
+  if (!detailRoute.includes("if (!profile) throw notFound()")) {
+    errors.push('Unknown football ISD routes must still fail closed with notFound().');
+  }
+  if (!detailRoute.includes("if (!loaderData) return { meta: [{ title: 'Texas high school football by ISD' }] };")) {
+    errors.push('Unresolved ISD loader data must retain a safe, non-noindex head fallback.');
+  }
+  const unresolvedIsdHead = detailRoute.split("if (!loaderData) return")[1]?.split("\n")[0] ?? '';
+  if (/noindex|robots/.test(unresolvedIsdHead)) {
+    errors.push('ISD async head fallback must not publish noindex before the route loader has resolved.');
+  }
+
   for (const marker of [
     "createFileRoute('/texas-high-school-football-isds/$slug')",
     'getFootballIsdProfilePage',
@@ -109,6 +144,9 @@ if (!errors.length) {
     'UIL eligibility standards ↗',
     'Do not confuse the school district/ISD with the UIL football competition district.',
   ]) requireText(detailPage, marker, 'Football ISD detail page');
+  if (detailPage.includes(": 'Pending'")) {
+    errors.push('Football ISD detail page must not render a Pending enrollment placeholder.');
+  }
 
   requireText(schoolProfile, 'program.isdProfilePath', 'School-to-ISD handoff');
   requireText(schoolProfile, 'football programs →', 'School-to-ISD handoff');

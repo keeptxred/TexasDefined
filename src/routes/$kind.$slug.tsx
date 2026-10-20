@@ -3,6 +3,7 @@ import { texasDefinedBrand } from '@/brand/texasdefined';
 import { loadCountyProfile } from '@/data/county-profile';
 import { loadCountySeriesArticle } from '@/data/county-series';
 import { getCitySocialImage } from '@/data/city-social-images';
+import { elPasoCountyHero } from '@/data/el-paso-county-hero';
 import {
   canonicalEntityPath,
   isIndexableEntityPage,
@@ -11,6 +12,7 @@ import {
 import type { TexasEntityRecord } from '@/data/knowledge-graph/types';
 import { applyCurrentEntityCorrections } from '@/data/knowledge-graph/current-entity-corrections';
 import { loadLocalGovernmentProfile } from '@/data/local-government-profile';
+import { getSportsVenueEditorialDescriptions } from '@/data/sports-venue-editorial.functions';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
 export const Route = createFileRoute('/$kind/$slug')({
@@ -30,9 +32,7 @@ export const Route = createFileRoute('/$kind/$slug')({
         .sort((left, right) => sportsVenuePriority(left) - sportsVenuePriority(right) || left.name.localeCompare(right.name))
       : [];
     const countySportsEditorial = countySportsCandidates.length
-      ? await import('@/data/sports-venue-editorial.functions').then(({ getSportsVenueEditorialDescriptions }) =>
-          getSportsVenueEditorialDescriptions({ data: { ids: countySportsCandidates.map((venue) => venue.id) } }),
-        )
+      ? await getSportsVenueEditorialDescriptions({ data: { ids: countySportsCandidates.map((venue) => venue.id) } })
       : {};
     const countySportsVenues = countySportsCandidates.map((venue) => {
       const description = countySportsEditorial[venue.id];
@@ -42,27 +42,43 @@ export const Route = createFileRoute('/$kind/$slug')({
       ? import('@/data/food-destination-entity-index').then(({ loadEntityFoodDestinations }) => loadEntityFoodDestinations(entity.kind, entity.slug))
       : Promise.resolve([]);
     if (entity.kind !== 'county') {
-      const foodDestinations = await foodDestinationsPromise;
-      return { entity, related, countyProfile: null, localGovernment: null, countySeriesArticle: null, countySportsVenues, foodDestinations };
+      const [foodDestinations, countyStateParks] = await Promise.all([
+        foodDestinationsPromise,
+        entity.kind === 'city'
+          ? import('@/data/state-park-county-index').then(({ getCityStateParkLinks }) => getCityStateParkLinks(entity.slug))
+          : Promise.resolve([]),
+      ]);
+      return { entity, related, countyProfile: null, localGovernment: null, countySeriesArticle: null, countySportsVenues, foodDestinations, countyStateParks, countyWaterParks: [] };
     }
+    const countyStateParksPromise = import('@/data/state-park-county-index').then(({ getCountyStateParkLinks }) => getCountyStateParkLinks(entity.slug));
     const countyRvParksPromise = import('@/data/rv-parks/county-index').then(({ loadCountyRvParksSnapshot }) => loadCountyRvParksSnapshot(entity.slug));
     const countyMajorEventsPromise = import('@/data/county-major-events').then(({ getCountyMajorEvents }) => getCountyMajorEvents(entity.slug));
-    const [countyProfile, localGovernment, countySeriesArticle, countyRvParks, countyMajorEvents, foodDestinations] = await Promise.all([
+    const countyWaterParksPromise = import('@/data/texas-water-parks').then(({ texasWaterParks }) => texasWaterParks
+      .filter((park) => park.county?.toLowerCase().replace(/\s+/g, '-') === entity.slug)
+      .map(({ slug, name, city, setting, kind, admission }) => ({ slug, name, city, setting, kind, admission })));
+
+    const [countyProfile, localGovernment, countySeriesArticle, countyRvParks, countyMajorEvents, foodDestinations, countyStateParks, countyWaterParks] = await Promise.all([
       loadCountyProfile(entity.slug, entity.name),
       loadLocalGovernmentProfile(entity.slug, entity.name),
       loadCountySeriesArticle(entity.slug),
       countyRvParksPromise,
       countyMajorEventsPromise,
       foodDestinationsPromise,
+      countyStateParksPromise,
+      countyWaterParksPromise,
     ]);
     const countyEntity = { ...entity, rvParks: countyRvParks, majorEvents: countyMajorEvents };
-    return { entity: countyEntity, related, countyProfile, localGovernment, countySeriesArticle, countySportsVenues, foodDestinations };
+    return { entity: countyEntity, related, countyProfile, localGovernment, countySeriesArticle, countySportsVenues, foodDestinations, countyStateParks, countyWaterParks };
   },
   head: ({ loaderData }) => {
     if (!loaderData) return {};
     const canonicalPath = canonicalEntityPath(loaderData.entity);
     const countySeriesArticle = loaderData.countySeriesArticle;
     const citySocialImage = loaderData.entity.kind === 'city' ? getCitySocialImage(loaderData.entity.slug) : undefined;
+    const countyHeroImage = loaderData.entity.kind === 'county' && loaderData.entity.slug === 'el-paso' ? elPasoCountyHero : undefined;
+    const metroSocialImage = loaderData.entity.kind === 'metro-area' && loaderData.entity.slug === 'el-paso-metro'
+      ? { src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/El_Paso_skyline.jpg?width=1600', alt: 'Downtown El Paso skyline beneath the Franklin Mountains' }
+      : undefined;
     let description = searchSnippetDescription(loaderData.entity);
     if (loaderData.entity.kind === 'county' && countySeriesArticle?.dek) description = countySeriesArticle.dek;
     const indexable = isIndexableEntityPage(loaderData.entity);
@@ -71,12 +87,13 @@ export const Route = createFileRoute('/$kind/$slug')({
         canonicalPath,
         title: searchIntentTitle(loaderData.entity),
         description,
-        image: countySeriesArticle?.hero.src ?? citySocialImage?.src,
-        imageAlt: countySeriesArticle?.hero.alt ?? citySocialImage?.alt,
-        imageWidth: countySeriesArticle?.hero.width,
-        imageHeight: countySeriesArticle?.hero.height,
+        image: countyHeroImage?.src ?? countySeriesArticle?.hero.src ?? citySocialImage?.src ?? metroSocialImage?.src,
+        imageAlt: countyHeroImage?.alt ?? countySeriesArticle?.hero.alt ?? citySocialImage?.alt ?? metroSocialImage?.alt,
+        imageWidth: countyHeroImage?.width ?? countySeriesArticle?.hero.width,
+        imageHeight: countyHeroImage?.height ?? countySeriesArticle?.hero.height,
         type: countySeriesArticle ? 'article' : 'website',
         publishedTime: countySeriesArticle?.publishedAt,
+        modifiedTime: countySeriesArticle?.updatedAt,
         robots: indexable ? undefined : 'noindex, follow, max-image-preview:large',
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
@@ -100,6 +117,7 @@ function searchIntentTitle(entity: TexasEntityRecord) {
   if (entity.kind === 'tax-office' && entity.countySlug) return `${title(entity.countySlug)} County Tax Office`;
   if (entity.kind === 'agency') return `${entity.name}: Services`;
   if (entity.kind === 'city') return `${entity.name}, Texas: City Guide & Things to Do`;
+  if (entity.kind === 'metro-area' && entity.slug === 'el-paso-metro') return 'El Paso Metro: Cities, Attractions & Moving Guide';
   return entity.name;
 }
 

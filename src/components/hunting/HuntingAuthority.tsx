@@ -10,12 +10,21 @@ import {
   type HuntingAuthorityTopic,
 } from "@/data/hunting/authority";
 import { HUNTING_AUTHORITY_TOPICS_V2, HUNTING_V2_HUB_GROUPS } from "@/data/hunting/authority-v2";
+import { TEXAS_WILDLIFE_SPECIES } from "@/data/knowledge-graph/wildlife-species";
 
 const ALL_HUNTING_TOPICS: Record<string, HuntingAuthorityTopic> = {
   ...HUNTING_AUTHORITY_TOPICS,
   ...HUNTING_AUTHORITY_TOPICS_V2,
 };
 const ALL_HUNTING_HUB_GROUPS = [...HUNTING_HUB_GROUPS, ...HUNTING_V2_HUB_GROUPS] as const;
+const HUNTING_SPECIES_CONTEXT = [
+  { slug: "white-tailed-deer", purpose: "Widespread deer habitat and species identification" },
+  { slug: "mule-deer", purpose: "Western Texas habitat and identification versus white-tailed deer" },
+  { slug: "javelina", purpose: "Collared peccary biology and South/West Texas brush habitat" },
+  { slug: "wild-turkey", purpose: "Texas wild turkey species and woodland habitat" },
+  { slug: "american-alligator", purpose: "Coastal and East Texas alligator ecology; special rules apply" },
+] as const;
+
 
 function ResourceLink({ link }: { link: HuntingAuthorityLink }) {
   if (link.external) return <a href={link.href} target="_blank" rel="noreferrer" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4 hover:decoration-primary">{link.label} ↗</a>;
@@ -31,6 +40,20 @@ export function HuntingAuthorityHub() {
     <section className="border-b border-border bg-muted/30 py-14 md:py-20"><Container><nav aria-label="Breadcrumb" className="mb-8 text-xs uppercase tracking-[0.14em] text-muted-foreground"><Link to="/">Front page</Link><span aria-hidden="true" className="mx-2">/</span><span aria-current="page">Hunting</span></nav><p className="eyebrow text-primary">Texas hunting guide</p><h1 className="mt-3 max-w-5xl font-display text-5xl leading-none md:text-7xl">Hunting Texas: licenses, public land, species and season planning</h1><p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Start with access and legal planning, then connect the hunt to wildlife habitat, counties, camping, fishing, parks and trip planning. Current-rule questions route back to Texas Parks and Wildlife Department instead of treating an independent publication as the legal authority.</p><div className="mt-8 flex flex-wrap gap-3"><Link to="/hunting/public-hunting" className="inline-flex items-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground">Find public hunting →</Link><Link to="/hunting/texas-hunting-license" className="inline-flex items-center border border-border px-5 py-3 text-sm font-semibold hover:border-primary hover:text-primary">Hunting licenses →</Link><Link to="/explore/outdoors" className="inline-flex items-center border border-border px-5 py-3 text-sm font-semibold hover:border-primary hover:text-primary">Public lands & outdoors →</Link><Link to="/explore/trip-planner" className="inline-flex items-center border border-border px-5 py-3 text-sm font-semibold hover:border-primary hover:text-primary">Build a trip →</Link></div></Container></section>
     <FreshnessPanel />
     <section className="py-12 md:py-16"><Container><div className="grid gap-12">{ALL_HUNTING_HUB_GROUPS.map((group) => <section key={group.title}><div className="grid gap-4 border-b border-border pb-5 lg:grid-cols-[1fr_2fr] lg:items-end"><h2 className="font-display text-3xl md:text-4xl">{group.title}</h2><p className="max-w-2xl text-sm leading-7 text-muted-foreground">{group.description}</p></div><div className="mt-7 grid gap-5 md:grid-cols-2 lg:grid-cols-3">{group.slugs.map((slug) => { const topic = ALL_HUNTING_TOPICS[slug]; return <Link key={slug} to={`/hunting/${slug}`} className="group border border-border p-5 transition hover:border-primary"><p className="eyebrow text-primary">{topic.eyebrow}</p><h3 className="mt-2 font-display text-2xl leading-tight group-hover:text-primary">{topic.title}</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{topic.description}</p><span className="mt-4 inline-block text-sm font-semibold text-primary">Open guide →</span></Link>; })}</div></section>)}</div></Container></section>
+    <section className="border-y border-border py-12"><Container>
+      <h2 className="font-display text-3xl md:text-4xl">Understand the species, then verify the current hunt</h2>
+      <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">These independently researched wildlife profiles explain identification, habitat and Texas range. They do not establish a legal season, bag limit, public-land permit or county-specific rule. Verify all current restrictions directly with <a href="https://tpwd.texas.gov/regulations/outdoor-annual/hunting/" target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline">TPWD's official hunting regulations</a> before planning a hunt.</p>
+      <ul className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {HUNTING_SPECIES_CONTEXT.map((entry) => {
+          const species = TEXAS_WILDLIFE_SPECIES.find((record) => record.slug === entry.slug);
+          return species ? <li key={entry.slug} className="border border-border p-5">
+            <h3 className="font-display text-xl"><a href={`/wildlife-species/${entry.slug}`} className="text-primary underline decoration-primary/40 underline-offset-4">{species.name}</a></h3>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">{entry.purpose}</p>
+          </li> : null;
+        })}
+      </ul>
+    </Container></section>
+
     <section className="border-y border-border bg-muted/30 py-12"><Container><div className="grid gap-8 lg:grid-cols-[1fr_2fr]"><div><p className="eyebrow text-primary">Connected Texas discovery</p><h2 className="mt-3 font-display text-4xl">A hunt is also a place-based trip</h2></div><div className="grid gap-5 sm:grid-cols-2"><p className="text-sm leading-7 text-muted-foreground">Public hunting works best when access records connect to counties, regions, wildlife habitat and nearby destinations. Use TexasDefined's outdoor and wildlife systems to understand the place around the hunt.</p><p className="text-sm leading-7 text-muted-foreground">Camping, fishing, parks and trip-planning links make it easier to turn a permit or drawn hunt into a realistic itinerary without weakening the distinction between travel guidance and legal hunting rules.</p></div><div className="lg:col-start-2 flex flex-wrap gap-x-6 gap-y-3 text-sm"><Link to="/explore/outdoors" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">Public lands & outdoors</Link><Link to="/explore/wildlife" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">Wildlife</Link><Link to="/best-places-to-go-camping-in-texas" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">Camping</Link><Link to="/fishing" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">Fishing</Link><Link to="/explore/state-parks" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">State parks</Link><Link to="/browse/counties" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">Counties</Link></div></div></Container></section>
   </main>;
 }

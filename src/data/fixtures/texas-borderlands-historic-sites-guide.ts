@@ -26,7 +26,11 @@ export const texasBorderlandsHistoricSitesGuideArticle: Article = {
   sourceName: "Texas Historical Commission",
   sourceUrl: "https://thc.texas.gov/historic-sites",
   internalLinks: [
+    { href: "/destination/the-alamo", label: "The Alamo", description: "Understand the mission's Spanish, Mexican and Tejano history before the 1836 siege." },
+    { href: "/destination/goliad-state-park", label: "Mission Espíritu Santo", description: "Read the Spanish mission system and Indigenous history alongside the San Antonio River." },
+    { href: "/destination/presidio-la-bahia", label: "Presidio La Bahía", description: "Follow the military companion to Goliad's mission site across the colonial and Revolutionary eras." },
     { href: "/explore/historic-sites", label: "Texas historic sites", description: "Browse the statewide collection of source-checked historic destinations." },
+    { href: "/article/el-camino-real-de-tierra-adentro-national-historic-trail", label: "El Camino Real and the El Paso Mission Trail", description: "Follow the Lower Valley mission corridor while distinguishing active churches from the closed original Old Socorro archaeological site." },
     { href: "/destination/old-socorro-mission", label: "Old Socorro Mission", description: "Start with the early mission landscape and Pueblo history of the El Paso Lower Valley." },
     { href: "/destination/ysleta-del-sur-pueblo-cultural-center-museum-el-paso", label: "Ysleta del Sur Pueblo Cultural Center Museum", description: "Hear a living Tigua community's own interpretation before exploring the nearby missions; the museum is separate from Ysleta Mission." },
     { href: "/destination/magoffin-home", label: "Magoffin Home", description: "Move into 19th-century El Paso through a multicultural family tied to trade, politics and U.S.-Mexico relations." },
@@ -35,8 +39,9 @@ export const texasBorderlandsHistoricSitesGuideArticle: Article = {
     { href: "/destination/mission-dolores", label: "Mission Dolores", description: "Connect Spanish, French and Ais histories through an archaeology-rich East Texas mission site." },
   ],
   relatedCollections: [],
-  relatedDestinations: ["ysleta-del-sur-pueblo-cultural-center-museum-el-paso", "old-socorro-mission", "magoffin-home", "casa-navarro", "lipantitlan", "mission-dolores"],
+  relatedDestinations: ["ysleta-del-sur-pueblo-cultural-center-museum-el-paso", "old-socorro-mission", "magoffin-home", "casa-navarro", "lipantitlan", "mission-dolores", "the-alamo", "goliad-state-park", "presidio-la-bahia"],
   body: [
+    p("The Alamo and the Goliad mission-presidio landscape make valuable companion examples. Both are frequently encountered through Texas Revolution interpretation, but their buildings and communities predate 1836 by generations. Visit the Alamo's earlier mission history alongside the San Antonio mission network, and compare Mission Espíritu Santo with Presidio La Bahía as separate Goliad visitor sites with interlocking colonial histories."),
     p("Texas borderlands history does not fit neatly inside the familiar sequence of Spanish mission, Mexican province, Republic and statehood. Across El Paso, San Antonio, South Texas and East Texas, Indigenous communities, Spanish institutions, Mexican political life, Tejano families, trade routes and later American expansion overlapped for generations."),
     p("The most useful way to explore that history is not as one continuous road trip—the distances are too large—but as a set of regional anchors. Old Socorro Mission and Magoffin Home explain the El Paso borderlands. Casa Navarro centers Tejano political leadership in San Antonio. Lipantitlán reveals how an Indigenous-named landscape became a Mexican military post and Texas Revolution site. Mission Dolores shows a different borderland altogether, where Spanish, French and Ais worlds met in East Texas."),
     h("How to use this guide"),

@@ -33,6 +33,9 @@ export const gillespieCountyFredericksburgStonewallHillCountryArticle: Article =
   ],
   featured: false,
   internalLinks: [
+    { href: "/article/texas-wine-country", label: "Texas wine-country regions", description: "Distinguish Gillespie County's tasting rooms from the wider state's grape-growing appellations." },
+    { href: "/article/texas-german-belt", label: "Historic German-Texan communities", description: "Connect local history to the broader 1840s settlement geography." },
+    { href: "/article/scenic-drives-in-texas", label: "Scenic routes through Gillespie County", description: "Choose public Hill Country road corridors with practical parking and safety context." },
     { href: "/county/llano", label: "Explore Llano County", description: "Follow the granite country and Llano River north of Fredericksburg." },
     { href: "/county/kerr", label: "Explore Kerr County", description: "Explore Kerrville and the Guadalupe River to the southwest." },
     {
@@ -66,7 +69,7 @@ export const gillespieCountyFredericksburgStonewallHillCountryArticle: Article =
       description: "Use the southern county corridor for seasonal bat viewing, trail time and a different Hill Country landscape.",
     },
     {
-      href: "/destination/lyndon-b-johnson-state-park-and-historic-site",
+      href: "/destination/lyndon-b-johnson-state-park-historic-site",
       label: "Lyndon B. Johnson State Park & Historic Site",
       description: "German-Texan farm history, longhorns and the Pedernales River at Stonewall.",
     },
@@ -98,7 +101,7 @@ export const gillespieCountyFredericksburgStonewallHillCountryArticle: Article =
     "fort-martin-scott",
     "luckenbach",
     "old-tunnel-state-park",
-    "lyndon-b-johnson-state-park-and-historic-site",
+    "lyndon-b-johnson-state-park-historic-site",
     "lyndon-b-johnson-national-historical-park",
     "enchanted-rock-state-natural-area",
   ],

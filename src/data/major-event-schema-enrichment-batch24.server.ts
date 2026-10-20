@@ -16,6 +16,7 @@ export const majorEventSchemaEnrichmentBatch24: MajorEventSchemaEnrichment[] = [
   },
   {
     slug: "fiesta-de-palmas",
+    organizer: { type: "Organization", name: "City of McAllen", url: "https://www.mcallen.net/" },
     image: {
       url: "https://commons.wikimedia.org/wiki/Special:Redirect/file/McAllen%20Convention%20Center.jpg?width=1600",
       alt: "McAllen Convention Center, the Fiesta de Palmas event campus in McAllen, Texas",
@@ -27,8 +28,11 @@ export const majorEventSchemaEnrichmentBatch24: MajorEventSchemaEnrichment[] = [
       exactLocation: true,
       approvedForCommercialUse: true,
     },
-    sources: [{ label: "Wikimedia Commons — McAllen Convention Center", url: "https://commons.wikimedia.org/wiki/File:McAllen_Convention_Center.jpg" }],
-    verifiedAt: "2026-09-21",
+    sources: [
+      { label: "Fiesta de Palmas — official organizer contact", url: "https://www.fiestadepalmas.com/contact.aspx" },
+      { label: "Wikimedia Commons — McAllen Convention Center", url: "https://commons.wikimedia.org/wiki/File:McAllen_Convention_Center.jpg" },
+    ],
+    verifiedAt: "2026-10-13",
   },
   {
     slug: "south-pole-illuminated-festival",
@@ -48,6 +52,7 @@ export const majorEventSchemaEnrichmentBatch24: MajorEventSchemaEnrichment[] = [
   },
   {
     slug: "bands-of-america-san-antonio-super-regional",
+    organizer: { type: "Organization", name: "Music for All", url: "https://musicforall.org/" },
     image: {
       url: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Alamodome%20from%20the%20Tower%20of%20the%20Americas%20IMG%204600.JPG?width=1600",
       alt: "Alamodome in San Antonio, venue for the Bands of America San Antonio Super Regional Championship",
@@ -59,11 +64,15 @@ export const majorEventSchemaEnrichmentBatch24: MajorEventSchemaEnrichment[] = [
       exactLocation: true,
       approvedForCommercialUse: true,
     },
-    sources: [{ label: "Wikimedia Commons — Alamodome", url: "https://commons.wikimedia.org/wiki/File:Alamodome_from_the_Tower_of_the_Americas_IMG_4600.JPG" }],
-    verifiedAt: "2026-09-21",
+    sources: [
+      { label: "Music for All — official San Antonio Super Regional", url: "https://marching.musicforall.org/san-antonio-super-regional/" },
+      { label: "Wikimedia Commons — Alamodome", url: "https://commons.wikimedia.org/wiki/File:Alamodome_from_the_Tower_of_the_Americas_IMG_4600.JPG" },
+    ],
+    verifiedAt: "2026-10-13",
   },
   {
     slug: "big-12-football-championship",
+    organizer: { type: "Organization", name: "Big 12 Conference", url: "https://big12sports.com/" },
     image: {
       url: "https://commons.wikimedia.org/wiki/Special:Redirect/file/AT%26T%20Stadium%2C%20Arlington%2C%20Texas%2C%20United%20States.jpg?width=1600",
       alt: "AT&T Stadium in Arlington, venue for the Big 12 Football Championship",
@@ -75,8 +84,11 @@ export const majorEventSchemaEnrichmentBatch24: MajorEventSchemaEnrichment[] = [
       exactLocation: true,
       approvedForCommercialUse: true,
     },
-    sources: [{ label: "Wikimedia Commons — AT&T Stadium", url: "https://commons.wikimedia.org/wiki/File:AT%26T_Stadium,_Arlington,_Texas,_United_States.jpg" }],
-    verifiedAt: "2026-09-21",
+    sources: [
+      { label: "Big 12 Conference — official 2026 Football Championship", url: "https://big12sports.com/tournaments/?id=1074&path=football" },
+      { label: "Wikimedia Commons — AT&T Stadium", url: "https://commons.wikimedia.org/wiki/File:AT%26T_Stadium,_Arlington,_Texas,_United_States.jpg" },
+    ],
+    verifiedAt: "2026-10-13",
   },
   {
     slug: "el-paso-film-festival",

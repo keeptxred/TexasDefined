@@ -1,0 +1,67 @@
+name: Texas waterpark photo-rights candidates
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - scripts/data/discover-waterpark-photo-candidates.mjs
+      - .github/workflows/waterpark-photo-candidates.yml
+  push:
+    branches: [main]
+    paths:
+      - scripts/data/discover-waterpark-photo-candidates.mjs
+      - .github/workflows/waterpark-photo-candidates.yml
+  schedule:
+    - cron: "23 13 * * 1"
+  workflow_dispatch:
+    inputs:
+      offset:
+        description: "Index within currently unphotographed waterparks (0-based)"
+        required: false
+        default: "0"
+      limit:
+        description: "Number of venues to search (1 to 25, default 20)"
+        required: false
+        default: "20"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: texasdefined-waterpark-photo-research
+  cancel-in-progress: true
+
+jobs:
+  photo-candidates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Check out source registry
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Protect candidate licensing and venue matching
+        run: node scripts/data/discover-waterpark-photo-candidates.mjs --self-test
+      - name: Search bounded Commons editorial candidate batch
+        if: github.event_name != 'pull_request'
+        shell: bash
+        env:
+          BATCH_OFFSET: ${{ inputs.offset || '0' }}
+          BATCH_LIMIT: ${{ inputs.limit || '20' }}
+        run: |
+          set -euo pipefail
+          if [[ "$GITHUB_EVENT_NAME" == "schedule" ]]; then
+            node scripts/data/discover-waterpark-photo-candidates.mjs --rotation=weekly --limit=20
+          else
+            node scripts/data/discover-waterpark-photo-candidates.mjs "--offset=${BATCH_OFFSET}" "--limit=${BATCH_LIMIT}"
+          fi
+      - name: Preserve source, license, and editorial-review evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: waterpark-photo-candidates-${{ github.run_id }}
+          path: .artifacts/waterpark-photo-candidates.json
+          if-no-files-found: warn
+          retention-days: 14

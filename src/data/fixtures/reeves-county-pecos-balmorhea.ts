@@ -25,6 +25,7 @@ export const reevesCountyPecosBalmorheaArticle: Article = {
   tags: ["Reeves County", "Pecos", "Balmorhea", "San Solomon Springs", "Pecos River", "Texas rodeo", "Texas counties", "West Texas", "Texas history"],
   featured: false,
   internalLinks: [
+    { href: "/article/texas-pecos-river-guide", label: "Texas pecos  River guide", description: "Access, river history, appropriate recreation, camping and verified current-source checks." },
     { href: "/county/culberson", label: "Explore neighboring Culberson County", description: "Continue west toward Van Horn, Guadalupe Peak and the Salt Basin." },
     { href: "/county/jeff-davis", label: "Explore neighboring Jeff Davis County", description: "Follow the Davis Mountains south toward Fort Davis and McDonald Observatory country." },
     { href: "/article/texas-caverns-caves-first-timers-guide", label: "Go deeper into West Texas geology", description: "A first-timer's guide to the caves, springs and underground landscapes that shape Texas." },

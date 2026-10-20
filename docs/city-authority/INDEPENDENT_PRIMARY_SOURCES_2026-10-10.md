@@ -1,0 +1,161 @@
+# Eleven-city authority: independent source checks — 2026-10-10
+
+**Scope:** Houston, Dallas, Fort Worth, Austin, San Antonio, El Paso, Arlington, Hurst, Corpus Christi, Plano, Lubbock.  
+**Status:** Partial source verification only. This document is not a declaration of full factual QA or WCAG acceptance.
+
+## Evidence policy
+
+Records below are comparisons to independently retrieved *official operator, agency, or Texas government* pages on October 10, 2026. PASS means only the specific stated claim was confirmed, not that all descriptions, photographs, accessibility, hours, prices, districts, tax boundaries, or links for that city passed. Recheck change-sensitive visitor information before travel. Published city-page values are from `src/data/city-authority-profiles.ts`. The prior census and transport evidence remains in `FINAL_BROWSER_AND_FACTUAL_QA_2026-10-09.md`.
+
+## Featured destination claims
+
+| City | Published claim / destination | Independent official evidence | Result | Scope / correction |
+|---|---|---|---|---|
+| Houston | Space Center Houston is a Houston-area NASA visitor destination | https://spacecenter.org/contact/ (1601 E NASA Parkway, Houston 77058) | PASS | Address and operation confirmed; full itinerary not tested |
+| Houston | Houston Zoo is a family destination around Hermann Park | https://www.houstonzoo.org/plan-your-visit/ (6200 Hermann Park Drive) | PASS | Nonmembers require timed online tickets; current ticket operations should be checked before travel |
+| Dallas | Sixth Floor Museum at Dealey Plaza | https://www.jfk.org/plan-your-visit/visitation-guidelines/ | PASS | Open Wed-Sun per museum; tickets timed; not a blanket seven-day opening claim |
+| Fort Worth | Kimbell Art Museum in the Cultural District | https://kimbellart.org/visit | PASS | Permanent collection free; Mondays closed; special exhibitions separately ticketed |
+| Fort Worth | Fort Worth Zoo operates as a family visitor attraction | https://www.fortworthzoo.org/plan-a-visit | PASS | Visitor operation confirmed; ticket rates/hours intentionally not hard-coded into city page |
+| San Antonio | The Alamo historic site is an active visitor attraction | https://www.thealamo.org/visit | PASS | Free church entry requires a reservation |
+| San Antonio | San Antonio River Walk is a pedestrian visitor district | https://www.thesanantonioriverwalk.com/plan-your-trip/faqs/ | PASS | Free-to-enter public walkway; paid tours/boats separate |
+| El Paso | Franklin Mountains State Park has visitor access in El Paso | https://tpwd.texas.gov/state-parks/franklin-mountains | PASS | Active alerts and capacity/reservation caveats apply |
+| El Paso | Ysleta del Sur Pueblo Cultural Center Museum | https://www.ysletadelsurpueblo.org/tourism-hospitality/cultural-center/museum ; https://atlas.thc.texas.gov/details/4200001263 | PASS | Tribal operator and THC confirm museum and Wed-Sun hours; verified museum address 305 Yaya Lane |
+| Arlington | AT&T Stadium is a current event and touring venue | https://attstadium.com/tours/ | PASS | Individual tours/field access depend on calendar and availability |
+| Corpus Christi | Texas State Aquarium is active at North Beach | https://www.texasstateaquarium.org/plan-your-visit/visitor-information/map-directions/ | PASS | 2710 N Shoreline Blvd confirmed; special hours and exhibits change |
+
+| Dallas | State Fair of Texas is held in Dallas at Fair Park in 2026 | https://www.fairparkdallas.com/events/detail/2026-state-fair-of-texas | PASS | September 25–October 18, 2026; do not imply it is year-round |
+| Fort Worth | Fort Worth Stockyards hosts the public longhorn cattle drive | https://fortworthstockyards.com/attractions/fort-worth-herd/ | PASS | Weather permitting and schedule change-sensitive |
+| Fort Worth | Dickies Arena operates a sports and concert venue | https://dickiesarena.com/events/month/2026-10/ | PASS | Current October 2026 event calendar confirms ongoing operation |
+| Austin | Blanton Museum of Art operates as a museum visitor attraction | https://blantonmuseum.org/visit/ | PASS | Monday closure and other changing entry rules are in the official visitor page |
+| Austin | Texas State Capitol and Capitol Visitors Center receive visitors | https://tspb.texas.gov/plan/hours/hours.html | PASS | State Preservation Board is responsible for official visitor information |
+| Arlington | Globe Life Field hosts Texas Rangers ballpark tours | https://www.mlb.com/rangers/ballpark/tours-and-events | PASS | Official ballpark and operator confirm address and current tours |
+| Hurst | WhirlyBall Hurst is the active Hurst location | https://whirlyballtexas.com/locations/ | PASS | 147 E Harwood Rd Hurst; separate Plano location is CLOSED and must not be confused with this one |
+
+| Dallas | Dallas World Aquarium operates in downtown Dallas | https://dwazoo.com/about-dwa/ ; https://dwazoo.com/hours-prices/ | PASS | 1801 N Griffin Street, active operator and admission information |
+| Corpus Christi | USS Lexington Museum operates on North Beach | https://usslexington.com/visit/hours-admission/ | PASS | 2914 N Shoreline Blvd; active museum; holiday closures apply |
+| Lubbock | Silent Wings Museum operates under City of Lubbock | https://www.mylubbock.us/400/Silent-Wings-Museum ; https://www.mylubbock.us/401/About-Us | PASS | 6202 N I-27; Monday and municipal-holiday closures apply |
+
+**Important distinction:** The Alamo's *planned new Museum and Visitor Center* is scheduled for **spring 2028**, not presently open. This is distinct from the historic Alamo church, grounds, and current Ralston Family Collections Center, which are operating. Official: https://www.thealamo.org/support/alamo-visitor-center-museum . Do not conflate current and future visitor facilities.
+
+All 21 distinct named attraction or venue anchors from the sampled city featured cards now have independently retrieved first-party operation/location confirmation. This narrow claim DOES NOT certify the complete editorial descriptions, user-experience details, individual images, outbound links, or food and guide recommendations. No PASS is implied for those other fields.
+
+## Updated transportation claims
+
+| City | Claim | Official source | Result | Notes |
+|---|---|---|---|---|
+| Arlington | On-demand rides connect to CentrePort TRE, not fixed rail throughout the city | https://www.arlingtontx.gov/City-Services/Transportation-Streets-Traffic/Arlington-On-Demand | PASS | No published citywide stadium rail service may be inferred |
+| Plano | DART operates on-demand GoLink and expanded service October 5, 2026 | https://prod.dart.org/about/news-and-events/newsreleases/newsrelease-detail/dart-announces-expanded-golink-service-in-plano-to-provide-riders-with-greater-access-and-connectivity | PASS | New Southwest Plano zone; older blanket bus/rail coverage statements must not imply rail to each neighborhood |
+| Lubbock | Citibus redesigned portions of network effective September 28, 2026 | https://citibus.com/ | PASS | Avoid publishing pre-redesign route numbers |
+| Houston | City GIS distinguishes municipal limits, ETJ, county boundaries | https://mycity2.houstontx.gov/gisweb01/rest/services/HoustonMap/Administrative_Boundary/MapServer | SOURCE CONFIRMED, GEOMETRY UNVERIFIED | GIS layer availability does not itself prove every county intersection |
+| San Antonio | City GIS publishes separate city-limits and ETJ geography | https://www.sanantonio.gov/Portals/0/Files/GIS/Maps/SAETJ%20CCD%202026%2054x58.pdf | SOURCE CONFIRMED, GEOMETRY UNVERIFIED | Map is not a legal parcel-level boundary determination |
+
+## Browser regression and known production correction
+
+- PR #4519 fixed two obsolete `/destination/kimbell-art-museum` Fort Worth links to `/destination/kimbell-art-museum-fort-worth`.
+- PR #4581 introduced automated real-Chrome verification of both city links plus destination HTTP 200. The Fort Worth Kimbell assertions passed on the subsequent 33-viewport post-deployment run, independently supported by direct live city-page navigation to the canonical destination.
+- Run #38076892375 reported **imageAlternatives FAIL on all 33 city/viewport combinations** because the runner required every `img` to have a *nonempty* alt value. Explicit `alt=""` is allowed for decorative imagery under accessibility conventions. PR #4587 changes the assertion to require a present alt attribute, recording the number of intentionally empty alternatives and URLs of truly missing attributes. This narrower automated check is **not a full image-semantic or WCAG audit**.
+- The post-deploy Chrome result must not be recorded as 33/33 overall passing until the corrected semantic test passes its own CI and production run.
+
+## Additional municipal county jurisdiction verification — October 10, 2026
+
+| City | Published counties | Municipality evidence | Result | Limitation |
+|---|---|---|---|---|
+| Plano | Collin and Denton | [Plano city financial service](https://ecop.plano.gov/MyTaxDollar/MyTaxDollar.aspx) distinguishes Collin/Denton residences; [Plano elections](https://www.plano.gov/elections?NID=1402) | PASS for listed county inclusion | Not individual parcel-level verification |
+| Corpus Christi | Nueces, San Patricio, Kleberg, Aransas | [City election notice](https://www.corpuschristitx.gov/media/fmibd5eg/notice-of-election-long-2022-english-1.pdf) identifies these four counties | PASS for listed county inclusion | Dated notice, not current spatial overlay |
+
+These comparisons do not establish precise current municipal/ETJ boundaries. Comprehensive GIS intersection work remains unverified.
+
+## October 10 follow-up: direct municipal GIS sources
+
+The following public authoritative GIS services have been independently located and distinguish incorporated city limits from nearby jurisdictions, but their geometries **have not been overlaid against an independent county polygon layer**. Therefore these entries are **SOURCE CONFIRMED / BOUNDARIES NOT CERTIFIED**.
+
+| City | Municipality GIS source | Available boundary evidence | Outcome |
+|---|---|---|---|
+| Houston | https://mycity2.houstontx.gov/gisweb01/rest/services/HoustonMap/Administrative_Boundary/MapServer | Separate city-limit (layer 0), ETJ (layer 1) and county (layer 9) polygons | SOURCE CONFIRMED; county intersection UNVERIFIED |
+| San Antonio | https://www.sanantonio.gov/Portals/0/Files/GIS/Maps/SAETJ%20CCD%202026%2054x58.pdf | City boundary and ETJ separately drawn, Bexar and adjacent county labels | SOURCE CONFIRMED; county intersection UNVERIFIED |
+| El Paso | https://gis.elpasotexas.gov/accela/rest/services/311/CityLimits/FeatureServer/0 | Official municipal polygon, distinct from https://gis.elpasotexas.gov/ArcGIS/rest/services/CountyBoundary/FeatureServer | SOURCE CONFIRMED; spatial containment UNVERIFIED |
+| Arlington | https://gis2.arlingtontx.gov/agsext2/rest/services/OpenData/OD_PoliticalBoundary/MapServer | Official municipal boundary layer 1 | SOURCE CONFIRMED; spatial containment UNVERIFIED |
+| Hurst | https://mms.hursttx.gov/arcgis/rest/services/EnerGov_Basemap/MapServer | Official city limits layer 2 | SOURCE CONFIRMED; spatial containment UNVERIFIED |
+
+The next valid acceptance step is a dated, repeatable polygon overlay with a known county-boundary vintage, recording intersection area and tolerances. **Do not infer a county intersection merely because its name is present in the map-service layer list.**
+
+
+## Relocation guidance: authoritative statewide jurisdiction limits
+
+| Published city-page guidance | Independent primary source | Result | Exact limitation |
+|---|---|---|---|
+| School attendance must be verified by address, not inferred from city name | https://tea.texas.gov/families-and-students/school-district-locator/school-district-locator-faq | PASS for procedural guidance | TEA distinguishes district boundaries from campus attendance zones; district confirms specific campus assignments |
+| A school-district map is not a parcel-level legal determination | https://tea.texas.gov/families-and-students/school-district-locator/geographic-data | PASS for the caution | TEA describes map geometry as approximate and refers legal/attendance verification to the district |
+| A Texas city's name does not establish a single property-tax rate or taxing-unit stack | https://comptroller.texas.gov/taxes/property-tax/basics.php | PASS for procedural guidance | County, school, city and special districts may overlap; property-specific units/rates remain unverified |
+| Local appraisal and tax records must be checked through appropriate local government offices | https://comptroller.texas.gov/taxes/property-tax/county-directory/index.php | PASS for procedural guidance | The Comptroller does not hold an individual homeowner's local appraisal/tax information |
+
+**Scope:** These four checks validate the statewide *methodology* behind the 11-city relocation advice, not the address-level schools, utilities, specific tax figures, neighborhood risks, or exact city-specific operators.
+
+
+## High-priority unresolved jurisdiction discrepancy: Houston / Waller County
+
+**Published:** `src/data/city-authority-profiles.ts` currently describes incorporated Houston as reaching Harris, Fort Bend, Montgomery **and Waller** counties.
+
+**Conflicting primary evidence:** A [City of Houston financial report](https://www.houstontx.gov/controller/cafr2001/cafr2001.pdf) explicitly describes three incorporated counties—Harris, Fort Bend, Montgomery. The [Harris Central Appraisal District explanation](https://hcad.org/hcad-help/hcad-properties-split-by-county-line/) likewise describes City of Houston parcels in Montgomery and Fort Bend outside Harris. Houston's [planning ETJ FAQ](https://pwehelp.houstontx.gov/planning/DevelopRegs/faq.html) explicitly lists Waller among Houston's *ETJ* counties, which is not proof it is within city limits. Its [municipal GIS service](https://mycity2.houstontx.gov/gisweb01/rest/services/HoustonMap/Administrative_Boundary/MapServer) exposes separate city-limit, ETJ and county layers.
+
+**Disposition:** **UNVERIFIED / POSSIBLE PUBLISHED ERROR** until a current city-limits polygon is intersected with Waller County's boundary and any limited-purpose territory is characterized. The four-county claim must not be counted PASS merely because Waller occurs in GIS council district, voting precinct or ETJ data. Do not silently erase Waller from published data without the current-year spatial determination.
+
+
+## Houston editorial correction: incorporated boundaries versus Waller ETJ
+
+**October 10, 2026 action:** The current Houston city profile previously asserted that Waller County is inside Houston's incorporated city limits. Multiple Houston municipal sources independently distinguish incorporated city limits from its ETJ: [City Planning annexation reference](https://www.houstontx.gov/planning/Annexation/), [current official city-limits and ETJ GIS layers](https://mycity2.houstontx.gov/gisweb01/rest/services/HoustonMap/Administrative_Boundary/MapServer), and [City Planning ETJ FAQ](https://www.houstontx.gov/planning/DevelopRegs/faq.html), which explicitly includes Waller among ETJ counties. An earlier [city financial report](https://www.houstontx.gov/controller/cafr2001/cafr2001.pdf) describes the three incorporated counties as Harris, Fort Bend and Montgomery.
+
+**Editorial remediation:** remove Waller from the unconditional incorporated-county list and explicitly explain that Waller is included in Houston's ETJ, not automatically in its full-service incorporated limits. Avoid implying county-specific address eligibility without parcel checks.
+
+**Residual acceptance limit:** This is a conservative correction of an unsupported categorical statement, **not** a completed current-date spatial overlay. Limited-purpose annexation and historical boundary changes still require a current municipal polygon/county overlay before full municipal-jurisdiction certification.
+
+## October 10 final release checkpoint — independently retrieved GitHub Actions outcomes
+
+- Protected production deployment [run #38098919324](https://github.com/keeptxred/TexasDefined/actions/runs/38098919324), retry attempt 2: **SUCCESS**, deployed exact main commit `b23d14b2385e57070a8c11938363ea146ab8c9d7`. The initial failed attempt was blocked by upstream Wikimedia Commons HTTP 429 during governed image derivative materialization; **not** an approved bypass of the image gate.
+- Eleven-city real-browser regression [run #38098919338](https://github.com/keeptxred/TexasDefined/actions/runs/38098919338), retry attempt 2: **SUCCESS** after the protected deployment for the same exact SHA. The runner tests 11 pages × mobile/tablet/desktop = **33 viewport cases**, with rendered metadata, errors, images/alt-presence, overflow, focus traversal and a limited internal-link sample. Test screenshots and JSON artifacts are retained by the workflow.
+- The Houston source and published guide now distinguish incorporated Harris/Fort Bend/Montgomery counties from Houston's Waller County ETJ through merged PR #4608. Spatial intersection proof remains unverified.
+- **Overall acceptance: INCOMPLETE.** Passing automated checks do not prove manual visual/keyboard/menu/touch/contrast WCAG acceptance, all external links, all factual/visitor claims, or all 11 municipal/county GIS overlays.
+
+## Acceptance still outstanding
+
+Complete all 11 city municipal boundary overlays; audit unreviewed featured destinations, food venues, school/tax/utility claims and official link targets; inspect browser screenshots and keyboard/contrast/touch behavior across all requested viewports; retain artifacts. Do not advance the global city factual review date or mark 11/11 fully certified without that evidence.
+
+
+## Continued municipal GIS reproducibility and explicit outstanding source gaps
+
+An open-source research helper was added at [`scripts/data/verify-city-municipal-gis.py`](../../scripts/data/verify-city-municipal-gis.py). It references confirmed city-limit vector services from Houston (layer 0, distinct from ETJ layer 1), Dallas (CityLimits/0), Fort Worth (Report_Areas_Published/3), Austin (City_of_Austin_WFL1/0 Full Purpose), El Paso (CityLimits/0), Arlington (OD_PoliticalBoundary/1), Hurst (EnerGov_Basemap/2), Corpus Christi (CITYLIMITS/2), Plano (MunicipalBoundary/0), and Lubbock (ParcelMap/13). It uses independent [U.S. Census TIGERweb BAS 2026 county geography](https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/State_County/MapServer/29), current polygon candidates, an equal-area EPSG:5070 overlay and explicit sliver-review threshold. Metadata availability is not geometry certification; the tool was **not successfully executed against live polygon servers** during this update. A subsequent October 10 source-only inspection independently confirmed official current polygon REST endpoints for Austin (Full Purpose), Corpus Christi (CITYLIMITS) and Lubbock (City Limit). San Antonio current authoritative vector layer/vintage remains unconfirmed. **None has a completed county overlay.** No county-geometry PASS has been awarded.
+
+The detailed [eleven-city acceptance matrix](INDEPENDENT_ACCEPTANCE_MATRIX_2026-10-10.md) records review of downloaded Chrome artifact #11687994544, the scroll-offset screenshots caveat, and specific GIS, facts, visual, accessibility, SEO and link blockers. PR #4609 already preserved protected production/Chrome results; this addendum does not reset any fact verification dates.
+
+### Three new official current municipal polygon source references
+
+Austin City of Austin full-purpose polygons: https://services.arcgis.com/0L95CJ0VTaxqcmED/ArcGIS/rest/services/City_of_Austin_WFL1/FeatureServer/0 ; separate limited-purpose/ETJ source https://services.arcgis.com/0L95CJ0VTaxqcmED/arcgis/rest/services/BOUNDARIES_jurisdictions/FeatureServer/0. Corpus Christi city-maintained CITYLIMITS polygons: https://ccpublicgis.cctexas.com/server01/rest/services/CC_GENERAL_SERVICES/CC_GENERAL_SERVICES/MapServer/2. Lubbock City Limit polygons with annexation and update dates: https://pubgis.ci.lubbock.tx.us/server/rest/services/Layers/ParcelMap/MapServer/13, navigable from https://www.mylubbock.us/321/REST-Services. These are **SOURCE CONFIRMED / GEOMETRY AND VINTAGE NOT CERTIFIED** until live geometry succeeds and the county overlay is inspected. No original historical case is silently rewritten.
+
+
+### San Antonio current-layer discovery, provenance caution
+
+The City of San Antonio [official GIS data catalog](https://www.sanantonio.gov/GIS/GISData) identifies `Cosa Boundary` and a quarterly publication cadence. A separate [ArcGIS COSA City Limits vector service](https://services7.arcgis.com/BUFM2kw4MpxDUJVh/ArcGIS/rest/services/COSA_City_Limits/FeatureServer) states source data updated March 17, 2026 and service published April 7, 2026. **No evidence yet establishes that the hosted service is the authoritative city's current polygon**. Its endpoint is included as an explicitly optional, unverified spatial-research candidate, not an authoritative GIS PASS or proof of Bexar/Comal/Medina incorporated intersections. Keep ETJ and annexation categories separate.
+
+
+### GIS taxonomy correction: never union ETJ with actual city limits
+
+The official Austin WFL1 layer actually includes `FULL`, `LTD`, ETJ and other-city jurisdiction polygons; relying on the source URL alone would erroneously overstate city area. The researcher now restricts Austin to `CITY_NAME='Austin' AND JURISDICTION_TYPE='FULL'` for full-purpose geometry and records `LTD` as a separate limited-purpose category. Houston city-limit geometry similarly separates `SERVICE_TY='FULL'` and `SERVICE_TY='LIMITED'` before drawing county conclusions. The original combined geometries were **never run and never certified**. Source: Austin [official ArcGIS layer](https://services.arcgis.com/0L95CJ0VTaxqcmED/ArcGIS/rest/services/City_of_Austin_WFL1/FeatureServer/0?f=pjson), Houston [official ArcGIS layer](https://mycity2.houstontx.gov/gisweb01/rest/services/HoustonMap/Administrative_Boundary/MapServer/0?f=pjson).
+
+
+### Additional official GIS source validation (Dallas, Fort Worth, Arlington)
+
+Dallas: the prior Basemap CityLimits/0 endpoint was not consistently available as a real polygon feature endpoint. Replace the independent-source reference in the GIS helper with the City of Dallas [Pbw_public/ROWMSReferenceLayers/MapServer/2 City Limit polygon](https://gis.dallascityhall.com/arcgis/rest/services/Pbw_public/ROWMSReferenceLayers/MapServer/2), query `CITY='Dallas'`. Fort Worth: use [CIVIC/OpenData_Boundaries/MapServer/0](https://mapit.fortworthtexas.gov/ags/rest/services/CIVIC/OpenData_Boundaries/MapServer/0), clearly documenting full/limited-purpose corporate limits (unlike ETJ); separate `DESIGNATION='Full Purpose'` and `DESIGNATION='Limited Purpose'`. Arlington: [Municipal Boundary/1](https://gis2.arlingtontx.gov/agsext2/rest/services/OpenData/OD_PoliticalBoundary/MapServer/1) must be restricted to `MUNICIPALNAME='Arlington'` rather than unconditionally unioning all municipalities. These corrections improve research safety but **do not constitute a spatial overlay, source freshness certification or legal parcel boundary evidence**.
+
+## Fort Worth — dated incorporated-versus-ETJ parcel inventory from the City
+
+The City of Fort Worth's [2023 adopted Comprehensive Plan, chapter 25, page 25-6](https://www.fortworthtexas.gov/files/assets/public/v/1/the-fwlab/documents/planning/comprehensive-planning/adopted/25-intergovernmental-cooperation-final-2023.pdf), reports a **2021 municipal Planning and Data Analytics inventory**, explicitly separating taxable city-limit parcels from extraterritorial jurisdiction (ETJ) parcels. The official [2023 adopted plan index](https://www.fortworthtexas.gov/departments/city-manager/department-divisions/planning/comprehensiveplan/adopted) identifies this as adopted municipal planning material. The City explicitly lists incorporated parts of **Tarrant, Denton, Parker, Johnson and Wise** counties.
+
+| County | Incorporated city-limit parcels **(2021)** | ETJ parcels **(2021)** |
+|---|---:|---:|
+| Tarrant | 263,685 | 24,975 |
+| Denton | 5,557 | 1,657 |
+| Parker | 76 | 6,378 |
+| Johnson | 52 | 4,620 |
+| Wise | 6 | 1,076 |
+
+**Method and limitations:** This is dated 2021 municipal source data republished with the 2023 city plan, not a verified count of 2026 parcels or population. The 2026 independent City GIS layer in [first GIS overlay results](FIRST_MUNICIPAL_COUNTY_SPATIAL_RESULTS_2026-10-10.md) independently found substantial full-purpose municipal polygon overlap in these five counties. The two methods are directionally consistent, but neither proves current parcel-level service jurisdiction. The City's [ETJ guidance](https://www.fortworthtexas.gov/departments/development-services/etj) separately defines ETJ outside incorporated city limits. **Evidence PASS limited to identifying the five historical incorporated counties; citywide GIS legal/current vintage remains PARTIAL.** The original 2023 municipal PDF could not be visually re-opened in this research environment (server HTTP 403); the values were cross-checked against its publicly indexed text and retained earlier PR #4610. Do not claim visual PDF verification or silently update population/source-check dates.

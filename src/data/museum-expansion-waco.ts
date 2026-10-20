@@ -22,7 +22,7 @@ export const wacoMuseumDestinations: Destination[] = [
       credit: "Ichabod · Wikimedia Commons · CC BY-SA 3.0",
     },
     bestSeason: "Year-round indoor museum; fall through spring is especially comfortable for walking between the museum, Magnolia Market and other downtown Waco attractions.",
-    entryNote: "General admission is currently purchased on arrival rather than online and includes a complimentary fountain drink. Hours run later Friday through Sunday, but staffing, events and holiday closures can change the schedule, so confirm the official visitor page before arrival.",
+    entryNote: "Regular public museum hours are seven days 10 a.m.–5:30 p.m. with last admission sold at 4:30 p.m.; paid admission includes a complimentary 12-ounce fountain drink. General tickets are bought on arrival (not online); access to the soda fountain and shop requires museum admission. The public lot is paid and not come-and-go; check temporary street closures before visiting.",
     highlights: ["Dr Pepper history", "Historic bottling plant", "Soda fountain", "Downtown Waco location"],
     body: [
       "The Dr Pepper Museum connects a nationally familiar brand to the specific Texas setting where the drink developed. Its main building is the former Artesian Manufacturing and Bottling Company, an early Waco bottling plant whose industrial architecture gives the exhibits a physical connection to the business history on display. Galleries follow formulation, bottling, advertising, distribution and the changing culture of American soft drinks rather than presenting the site as only a collection of logos and memorabilia.",

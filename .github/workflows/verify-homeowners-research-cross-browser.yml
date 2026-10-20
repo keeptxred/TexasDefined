@@ -1,0 +1,47 @@
+name: Verify homeowners research Firefox WebKit accessibility
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: homeowners-research-cross-browser-${{ github.event.workflow_run.head_sha || github.sha }}
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [firefox, webkit]
+    steps:
+      - name: Check out exact test or deployed revision
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install pinned free Playwright browser and accessibility engine
+        run: |
+          npm install --prefix /tmp/texasdefined-homeowners-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1 playwright@1.56.1 axe-core@4.10.3
+          /tmp/texasdefined-homeowners-qa/node_modules/.bin/playwright install --with-deps "${{ matrix.browser }}"
+      - name: Verify production research, hub, CSV, hydration, responsive layout and WCAG
+        env:
+          BROWSER_ENGINE: ${{ matrix.browser }}
+          ACCESSIBILITY_AUDIT: '1'
+        run: node scripts/ci/verify-homeowners-research-browser.mjs
+      - name: Preserve browser screenshots, violations and acceptance report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: homeowners-research-${{ matrix.browser }}-accessibility
+          path: artifacts/homeowners-research-browser/
+          if-no-files-found: warn
+          retention-days: 14

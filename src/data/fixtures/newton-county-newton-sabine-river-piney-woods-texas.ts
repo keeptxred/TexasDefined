@@ -35,6 +35,7 @@ export const newtonCountyNewtonSabineRiverPineyWoodsTexasArticle: Article = {
   ],
   featured: false,
   internalLinks: [
+    { href: "/article/texas-sabine-river-guide", label: "Texas sabine  River guide", description: "Connect county tourism, fisheries and camping with the full river authority guide." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
     { href: "/county/jasper", label: "Explore Jasper County", description: "Continue west through Deep East Texas toward Jasper, Kirbyville and Sam Rayburn country." },
     { href: "/county/sabine", label: "Explore Sabine County", description: "Travel north toward Hemphill, Toledo Bend and the upper Sabine border country." },

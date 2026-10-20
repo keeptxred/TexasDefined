@@ -24,7 +24,7 @@ const migratedGuideRedirects = [
   ['src/routes/explore.texas-state-parks-guide.tsx', '/explore/texas-state-parks-guide', '/explore/state-parks'],
   ['src/routes/explore.texas-lakes-guide.tsx', '/explore/texas-lakes-guide', '/explore/lakes-rivers'],
   ['src/routes/explore.texas-camping-guide.tsx', '/explore/texas-camping-guide', '/best-places-to-go-camping-in-texas'],
-  ['src/routes/explore.texas-scenic-drives.tsx', '/explore/texas-scenic-drives', '/explore/road-trips'],
+  ['src/routes/explore.texas-scenic-drives.tsx', '/explore/texas-scenic-drives', '/article/scenic-drives-in-texas'],
   ['src/routes/explore.texas-wildflower-seasons.tsx', '/explore/texas-wildflower-seasons', '/article/texas-wildflowers-guide'],
   ['src/routes/explore.national-wildlife-refuges.tsx', '/explore/national-wildlife-refuges', '/explore/outdoors'],
   ['src/routes/explore.wildlife-management-areas.tsx', '/explore/wildlife-management-areas', '/explore/outdoors'],
@@ -124,6 +124,20 @@ for (const feature of [
   if (!exploreSitemap.includes(feature)) failures.push(`Explore sitemap dual-source reliability contract missing: ${feature}`);
 }
 if (exploreSitemap.includes('const destinations = remoteFailed ? fixtureDestinations : remoteDestinations')) failures.push('Explore sitemap must not use the obsolete single-source outage fallback.');
+const firstCapitolSitemap = fs.readFileSync('src/data/first-capitol-sitemap.server.ts', 'utf8');
+for (const marker of [
+  'loadFirstCapitolSitemapReference()',
+  'destinations.splice(firstCapitolIndex, 1)',
+  'if (resolvedFirstCapitol) destinations.push(resolvedFirstCapitol)',
+]) {
+  if (!exploreSitemap.includes(marker)) failures.push('First Capitol sitemap must use its dedicated index-ready detail resolver: ' + marker);
+}
+for (const marker of [
+  'getResolvedDestination("first-capitol-of-texas")',
+  'export async function loadFirstCapitolSitemapReference()',
+]) {
+  if (!firstCapitolSitemap.includes(marker)) failures.push('First Capitol sitemap resolver must reuse the canonical page query: ' + marker);
+}
 if (!exploreSitemap.includes('isPrimaryTripPlannerDestination(destination)') || !exploreSitemap.includes('auditDestination(destination).readyForIndexing')) {
   failures.push('Explore sitemap must publish only primary, quality-approved destinations.');
 }

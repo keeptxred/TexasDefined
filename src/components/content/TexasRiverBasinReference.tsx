@@ -1,5 +1,7 @@
+import { TexasRiverBasinInteractiveMap } from "./TexasRiverBasinInteractiveMap";
+
 const sourceUrl = "https://www.twdb.texas.gov/surfacewater/rivers/river_basins/index.asp";
-const lastVerified = "2026-10-03";
+const lastVerified = "2026-10-18";
 const canonicalPage = "https://texasdefined.com/article/texas-rivers-explained";
 
 const majorBasins = [
@@ -31,10 +33,29 @@ const coastalBasins = [
   "Nueces-Rio Grande",
 ] as const;
 
-const basinHighlights = [
-  { label: "Largest basin in Texas", value: "Rio Grande", detail: "49,387 sq. mi. in Texas" },
-  { label: "Longest Texas reach", value: "Rio Grande", detail: "889 river miles in Texas" },
-  { label: "Highest average flow", value: "Brazos", detail: "6.074 million acre-feet/year" },
+// Keep only verified published profiles here; all other major basins link to TWDB's official directory.
+const researchedProfiles: Record<string, string> = {
+  Brazos: "/article/texas-brazos-river-guide",
+  Colorado: "/article/texas-colorado-river-guide",
+  Guadalupe: "/article/texas-guadalupe-river-guide",
+  Trinity: "/article/texas-trinity-river-guide",
+  "Rio Grande": "/article/texas-rio-grande-river-guide",
+  Canadian: "/article/texas-canadian-river-guide",
+  Cypress: "/article/texas-cypress-river-basin-guide",
+  Lavaca: "/article/texas-lavaca-river-guide",
+  Neches: "/article/texas-neches-river-guide",
+  Nueces: "/article/texas-nueces-river-guide",
+  Red: "/article/texas-red-river-guide",
+  Sabine: "/article/texas-sabine-river-guide",
+  "San Antonio": "/article/texas-san-antonio-river-guide",
+  "San Jacinto": "/article/texas-san-jacinto-river-guide",
+  Sulphur: "/article/texas-sulphur-river-guide",
+};
+
+const comparisonMetrics = [
+  { label: "Largest basins by land area in Texas", column: 1, unit: "square miles" },
+  { label: "Longest rivers within Texas", column: 2, unit: "miles" },
+  { label: "Most water per year, on average", column: 3, unit: "acre-feet per year" },
 ] as const;
 
 const csvHeaders = [
@@ -77,7 +98,7 @@ const jsonContent = JSON.stringify({
   source: { name: "Texas Water Development Board", url: sourceUrl },
   lastVerified,
   canonicalPage,
-  methodology: "Texas Defined transcribes TWDB statewide basin statistics into normalized numeric fields for comparison. Coastal basin names are included without inferred statistics when the shared reference does not provide those values.",
+  methodology: "Texas Defined transcribes Texas Water Development Board statewide basin statistics into normalized numeric fields for comparison. Coastal basin names are included without inferred statistics when the shared reference does not provide those values.",
   majorBasins: majorBasins.map(([basin, area, miles, flow]) => ({
     basin,
     areaInTexasSquareMiles: Number(normalizeNumber(area)),
@@ -90,7 +111,9 @@ const jsonDownloadHref = `data:application/json;charset=utf-8,${encodeURICompone
 
 export function TexasRiverBasinReference() {
   return (
-    <div className="mt-8" aria-labelledby="major-basin-reference-heading">
+    <>
+      <TexasRiverBasinInteractiveMap />
+      <div className="mt-8" aria-labelledby="major-basin-reference-heading">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <p className="eyebrow text-primary">Compare the river basins</p>
@@ -110,40 +133,67 @@ export function TexasRiverBasinReference() {
             download="texasdefined-texas-river-basins.csv"
             className="underline decoration-border underline-offset-4"
           >
-            Download CSV ↓
+            Download table (CSV) ↓
           </a>
           <a
             href={jsonDownloadHref}
             download="texasdefined-texas-river-basins.json"
             className="underline decoration-border underline-offset-4"
           >
-            Download JSON ↓
+            Download data (JSON) ↓
           </a>
         </div>
       </div>
 
       <p className="mt-3 text-sm leading-7 text-muted-foreground">
-        The statewide numbers are useful for comparison, but the full table does not need to dominate the story. Start with three scale markers, then open the complete TWDB reference when you want basin-by-basin detail.
+The Texas Water Development Board figures answer three different questions: how much Texas land drains into each river system, how many miles of the named river lie within Texas, and its published average annual water volume. None of these numbers tells you today's river level. Compare the charts or open the full source table below.
       </p>
 
-      <dl className="mt-5 flex flex-wrap gap-2">
-        {basinHighlights.map((item) => (
-          <div key={item.label} className="rounded-sm border border-border bg-surface px-3 py-2 text-xs font-semibold">
-            <dt className="text-muted-foreground">{item.label}</dt>
-            <dd className="mt-2 font-display text-xl text-foreground">{item.value}</dd>
-            <dd className="mt-2 text-primary">{item.detail}</dd>
-          </div>
-        ))}
-      </dl>
+      <section className="mt-7" aria-labelledby="basin-comparison-charts">
+        <h4 id="basin-comparison-charts" className="font-display text-xl">Compare river systems by three different measures</h4>
+        <p className="mt-2 text-sm leading-6 text-muted-foreground">
+          These rankings use the state's published reference figures, not estimates of today's river flow.
+          A long river does not necessarily drain the most land or carry the most water on average. One acre-foot is about 326,000 gallons.
+        </p>
+        <div className="mt-4 grid gap-4 lg:grid-cols-3">
+          {comparisonMetrics.map((metric) => {
+            const ranked = [...majorBasins]
+              .sort((a, b) => Number(normalizeNumber(b[metric.column])) - Number(normalizeNumber(a[metric.column])))
+              .slice(0, 5);
+            const maximum = Number(normalizeNumber(ranked[0][metric.column]));
+            return (
+              <div key={metric.label} className="rounded-sm border border-border bg-background p-4">
+                <h5 className="text-sm font-semibold text-foreground">{metric.label}</h5>
+                <ol className="mt-4 space-y-3">
+                  {ranked.map(([name, area, miles, flow]) => {
+                    const numeric = Number(normalizeNumber([name, area, miles, flow][metric.column]));
+                    return (
+                      <li key={name}>
+                        <div className="mb-1 flex items-baseline justify-between gap-2 text-xs">
+                          <span className="font-semibold text-foreground">{name}</span>
+                          <span className="text-muted-foreground" style={{ fontVariantNumeric: "tabular-nums" }}>{numeric.toLocaleString("en-US")} {metric.unit}</span>
+                        </div>
+                        <div className="h-2 overflow-hidden rounded-sm bg-surface" role="img" aria-label={name + ": " + numeric.toLocaleString("en-US") + " " + metric.unit}>
+                          <div className="h-full bg-primary" style={{ width: `${Math.round((numeric / maximum) * 100)}%` }} />
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ol>
+              </div>
+            );
+          })}
+        </div>
+      </section>
 
       <details className="mt-5 border border-border">
         <summary className="px-4 py-3 font-semibold text-foreground">
-          Open the full 15-basin comparison · <span className="text-xs text-muted-foreground">area, Texas river miles and average annual flow</span>
+          Open the full 15-basin comparison · <span className="text-xs text-muted-foreground">land area, river length and average annual flow</span>
         </summary>
 
         <div className="px-4 py-3">
           <p className="text-sm leading-7 text-muted-foreground">
-            Average flow is shown in acre-feet per year. One acre-foot is about 325,851 gallons — enough water to cover one acre to a depth of one foot.
+Average flow is shown in acre-feet per year. One acre-foot is about 325,851 gallons — enough water to cover one acre to a depth of one foot. The Texas Water Development Board does not state the averaging years in its public summary table, so these figures should not be read as today's river flow or as measurements from one recent period.
           </p>
           <div className="mt-5 overflow-x-auto border border-border">
             <table className="w-full border-collapse text-left text-sm" style={{ minWidth: "42rem" }}>
@@ -158,8 +208,10 @@ export function TexasRiverBasinReference() {
               </thead>
               <tbody className="divide-y divide-border">
                 {majorBasins.map(([name, area, miles, flow]) => (
-                  <tr key={name}>
-                    <th scope="row" className="px-4 py-3 font-semibold text-foreground">{name}</th>
+                  <tr key={name} id={`texas-basin-${name.toLowerCase().replaceAll(" ", "-")}`}>
+                    <th scope="row" className="px-4 py-3 font-semibold text-foreground">
+                      {researchedProfiles[name] ? <a className="text-primary underline underline-offset-2" href={researchedProfiles[name]}>{name} <span className="sr-only">independent river profile</span></a> : name}
+                    </th>
                     <td className="px-4 py-3 text-right text-muted-foreground" style={{ fontVariantNumeric: "tabular-nums" }}>{area}</td>
                     <td className="px-4 py-3 text-right text-muted-foreground" style={{ fontVariantNumeric: "tabular-nums" }}>{miles}</td>
                     <td className="px-4 py-3 text-right text-muted-foreground" style={{ fontVariantNumeric: "tabular-nums" }}>{flow}</td>
@@ -171,10 +223,15 @@ export function TexasRiverBasinReference() {
         </div>
       </details>
 
+      <p className="mt-3 text-xs leading-5 text-muted-foreground">
+        Every major basin name opens its own TexasDefined guide. The Texas Water Development Board provides the underlying land-area, river-length and average-flow figures;
+        current conditions and public access still require separate verification. Data verified {lastVerified}; downloading this reference
+        preserves the source URL and verification date.
+      </p>
       <div className="mt-6">
         <p className="eyebrow text-muted-foreground">Between the major rivers</p>
         <h3 className="mt-2 font-display text-xl">Eight coastal basins drain directly toward bays and the Gulf</h3>
-        <p className="mt-3 text-sm leading-7 text-muted-foreground">These smaller drainage areas fill the gaps between the major named river systems, so the entire Texas coast is still part of the statewide watershed story.</p>
+        <p className="mt-3 text-sm leading-7 text-muted-foreground">These smaller drainage areas fill the gaps between the major named river systems, so the entire Texas coast still belongs to the state's connected river-and-drainage system.</p>
         <ul className="mt-3 flex flex-wrap gap-2" aria-label="Eight designated Texas coastal basins">
           {coastalBasins.map((basin) => (
             <li key={basin} className="rounded-sm border border-border bg-surface px-3 py-2 text-xs font-semibold text-foreground">
@@ -183,6 +240,7 @@ export function TexasRiverBasinReference() {
           ))}
         </ul>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

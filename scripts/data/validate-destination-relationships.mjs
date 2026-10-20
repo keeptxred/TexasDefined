@@ -47,6 +47,10 @@ requireFeatures(engine, [
   'const used = new Set<string>()',
   'item.slug !== destination.slug',
   'new Map(items.map((item) => [item.slug, item]))',
+  'export function featuredDestinationRelationships(',
+  'const curated = groups.filter((group) => group.id === "curated-pairings")',
+  'unique([...curated, ...discovered])',
+  '.slice(0, limit)',
 ], 'Destination relationship engine');
 
 requireFeatures(serverBoundary, [
@@ -68,14 +72,10 @@ if (serverBoundary.includes('queryClient')) {
 }
 
 requireFeatures(component, [
-  'const pairedDestinations = [...new Map(',
-  '.flatMap((group) => group.destinations)',
-  '.map((item) => [item.slug, item])',
-  '.sort((left, right)',
-  '.slice(0, 6)',
+  'const pairedDestinations = featuredDestinationRelationships(destination, groups)',
   'TexasExplainedContextLinks surface="destination"',
-  'title="Explore nearby"',
-  'More places near ${destination.name}, ordered by distance to help plan the rest of your trip.',
+  'title="Explore related places"',
+  'Editorially paired stops near ${destination.name} appear first',
   'pairedDestinations.map((item)',
   'DestinationCard',
   'distanceMiles(destination, item)',
@@ -96,6 +96,9 @@ requireFeatures(component, [
   'className="flex flex-wrap gap-x-6 gap-y-3"',
 ], 'Destination relationship UI');
 
+for (const specialHub of ['destination.category === "guides" ? <Link to="/guides"', 'destination.category === "sports" ? <Link to="/sports"', 'destination.category === "events" ? <Link to="/events"', 'destination.region === "panhandle-plains" ? "panhandle" : destination.region']) {
+  if (!component.includes(specialHub)) errors.push('Destination relationship continuation must use public canonical hub routes: ' + specialHub);
+}
 if (component.includes('if (!groups.length) return null')) {
   errors.push('Destination relationship UI must preserve Texas Explained fallback discovery when no relationship groups are available.');
 }

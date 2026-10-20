@@ -19,6 +19,16 @@ const editorialPromotionsPath = "scripts/data/texas-gateway-editorial-promotions
 
 const readiness = read(readinessPath);
 const stubs = read(stubsPath);
+const detailedGateway = read("src/data/fixtures/texas-gateway-articles-batch2.ts");
+for (const [label, source] of [["published travel guides", detailedGateway], ["staged search metadata", stubs]]) {
+  if (source.includes('relatedDestinations: ["') && source.includes('"palo-duro-canyon"')) {
+    fail(label + " still connects Palo Duro Canyon via a retired redirecting destination slug.");
+  }
+  if (!source.includes('"palo-duro-canyon-state-park"')) {
+    fail(label + " is missing the indexable Palo Duro Canyon State Park relationship.");
+  }
+}
+
 const loader = read(loaderPath);
 const core = read(corePath);
 const articleRoute = read(articleRoutePath);

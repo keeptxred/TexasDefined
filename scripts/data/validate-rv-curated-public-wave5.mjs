@@ -41,7 +41,12 @@ for (const [slug, name, officialUrl] of wave5) {
     requireText(block, field, `${name} overlay is missing ${field.replace(':', '')}.`);
   }
   requireText(block, `officialUrl: \"${officialUrl}\"`, `${name} must retain its official TPWD park source.`);
-  requireText(block, 'sourceCheckedAt: "2026-09-13"', `${name} must retain the Wave 5 source-review date.`);
+  // A properly researched newer source review must not fail the original Wave 5 baseline.
+  // Reject missing, malformed, older-than-baseline, or future-dated source reviews.
+  const reviewDate = block.match(/sourceCheckedAt:\s*"(\d{4}-\d{2}-\d{2})"/)?.[1];
+  if (!reviewDate || Number.isNaN(Date.parse(reviewDate + "T00:00:00Z")) || reviewDate < "2026-09-13" || reviewDate > new Date().toISOString().slice(0, 10)) {
+    errors.push(`${name} must have a real source-review date on or after 2026-09-13 and no later than today.`);
+  }
   const paragraphCount = (block.match(/^\s{6}".+",?$/gm) ?? []).length;
   if (paragraphCount < 3) errors.push(`${name} must retain at least three substantive body paragraphs.`);
   const highlights = block.match(/highlights: \[([^\]]+)\]/s)?.[1] ?? '';

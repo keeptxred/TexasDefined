@@ -35,6 +35,7 @@ export const marionCountyJeffersonCaddoLakeRiverportPineyWoodsArticle: Article =
   ],
   featured: false,
   internalLinks: [
+    { href: "/destination/jefferson", label: "Jefferson authority travel guide", description: "Explore independently sourced downtown history, Big Cypress Bayou, guided tours and practical trip planning." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
     { href: "/county/harrison", label: "Explore Harrison County", description: "Continue south toward Marshall and the Harrison County side of Caddo Lake." },
     { href: "/county/upshur", label: "Explore Upshur County", description: "Head west toward Gilmer and the central Piney Woods." },

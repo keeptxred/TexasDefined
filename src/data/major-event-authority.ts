@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 
-import { hasExpiredConfirmedEventOccurrence, type EventOccurrenceDateShape } from "./event-occurrence-lifecycle";
+import { hasExpiredConfirmedEventOccurrence, latestEventOccurrenceDate, type EventOccurrenceDateShape } from "./event-occurrence-lifecycle";
 import { isRecurrenceDerivedMajorEventSlug } from "./major-event-date-confidence";
 
 const CHAPPELL_HILL_WILDFLOWER_SECTION_TITLE = "Use the county wildflower map before chasing roadside photos";
@@ -92,6 +92,7 @@ const loadMajorEventPage = createServerFn({ method: "GET" })
     const eventImage = hasCompliantMajorEventImageServer(data.slug) ? getMajorEventSchemaEnrichmentServer(data.slug)?.image : undefined;
     return {
       ...renderedPage,
+      eventOccurrenceEndDate: occurrence ? latestEventOccurrenceDate(occurrence) : null,
       imageCompliant: hasCompliantMajorEventImageServer(data.slug),
       image: eventImage?.url,
       imageAlt: eventImage?.alt,

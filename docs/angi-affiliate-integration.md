@@ -1,6 +1,6 @@
 # TexasDefined Angi affiliate integration
 
-Reviewed 2026-10-02 from the active CJ advertiser terms and current Angi link catalog supplied from the TexasDefined publisher account.
+Reviewed 2026-10-03 from the active CJ advertiser terms and current Angi link catalog supplied from the TexasDefined publisher account.
 
 ## Purpose
 
@@ -12,12 +12,17 @@ The conversion action is an **Angi.com Service Request**: a customer submits a s
 
 `public/angi-home-services.js` normally uses the page H1, meta description, and pathname to select a single service category. It does not scan the full article body for incidental mentions. This keeps placements aligned with the page's primary intent and reduces irrelevant affiliate modules.
 
+Fallback regexes use **service-intent fallbacks**, not generic topic words. In particular, Roofing no longer matches a bare `roof` mention such as “roof age” or “roof settlement,” and Landscaping no longer matches a geographic `landscape` mention. The fallbacks require contractor/service language such as roofing, roofer, roof repair, landscaping service, landscaper or landscape contractor. This prevents insurance, first-year-homeowner, ecoregion, county and other informational pages from inheriting unrelated contractor CTAs.
+
 For a small set of audited evergreen guides, the module also uses **exact-path overrides** when the article's primary contractor intent is clear but the editorial H1/meta copy intentionally avoids sales-oriented service terminology. Current governed overrides are:
 
+- `/article/texas-roofs-hail-wind-heat` → Roofing
 - `/article/texas-foundation-care-clay-soil-drought` → Foundation Services
 - `/article/texas-household-pests-guide` → Pest Control
 - `/article/texas-pool-owner-guide` → Swimming Pools
 - `/article/texas-home-maintenance-calendar` → Handyman Services
+- `/article/texas-native-garden-that-survives-august` → Landscaping
+- `/article/best-native-plants-texas-yard` → Landscaping
 
 Broad multi-system pages and pages that use service-like words in a non-contractor sense use **explicit opt-outs** instead of being forced into whichever service keyword happens to match first. Current opt-outs include:
 
@@ -31,7 +36,7 @@ Broad multi-system pages and pages that use service-like words in a non-contract
 - `/moving-to-texas/data` — a source-backed relocation research/data center; its route and metadata contain relocation language, but its primary intent is research rather than selecting a mover.
 - `/moving-to-texas/tools` — a planning toolkit for checklists, first-year costs, paperwork and official-source lookups; its route contains “moving to Texas,” but it is not a moving-company selection page.
 
-Do not replace exact-path overrides with broader generic words such as `pool`, `pests`, `foundation`, or `maintenance`. Do not treat generic or figurative uses of `landscape`, or route-family words such as `moving to texas` and `relocation`, as sufficient contractor intent on research/tool hubs or adjacent planning articles. Those terms occur in many informational pages and would increase irrelevant affiliate boxes.
+Do not replace exact-path overrides with broader generic words such as `pool`, `pests`, `foundation`, `maintenance`, `roof` or `landscape`. Do not treat route-family words such as `moving to texas` and `relocation` as sufficient contractor intent on research/tool hubs or adjacent planning articles. Those terms occur in many informational pages and would increase irrelevant affiliate boxes.
 
 Eligible route families are intentionally limited to editorial and guide surfaces with potential homeowner intent:
 
@@ -87,6 +92,7 @@ The production check protects these contracts:
 - the deployed shared loader remains route-gated, idempotent, SPA-aware, and still creates/appends the Angi client script only for governed route families;
 - the deployed Angi module still contains the approved CJ AID/network attribution and representative governed service-request categories;
 - the audited exact-path overrides and explicit false-positive/multi-system opt-outs remain present in the deployed asset;
+- the broad bare-roof and generic-landscape matchers remain absent from the deployed asset;
 - sponsored/nofollow attribution, first-party commercial metadata, disclosure language and the provider disclaimer remain present;
 - Cloudflare challenge responses and non-2xx asset responses fail closed rather than producing a false green check.
 
@@ -94,4 +100,4 @@ The production check protects these contracts:
 
 ## Optimization rule
 
-Measure Angi like the rest of the TexasDefined affiliate portfolio: contextual impressions and clicks first, then CJ service-request conversions, reversals, and realized commission. Do not expand Angi into unrelated Texas lifestyle pages merely because the headline commission rate is high. When a strong home-service article is not matching, prefer an audited exact-path override over widening generic keyword regexes. When an informational page matches only because a service term is incidental, figurative or inherited from a broad route family, add a governed exact-path opt-out instead of weakening the service patterns sitewide.
+Measure Angi like the rest of the TexasDefined affiliate portfolio: contextual impressions and clicks first, then CJ service-request conversions, reversals, and realized commission. Do not expand Angi into unrelated Texas lifestyle pages merely because the headline commission rate is high. When a strong home-service article is not matching, prefer an audited exact-path override over widening a generic keyword regex. When one informational page is an isolated false positive, use a governed exact-path opt-out. When a broad fallback term demonstrably causes a class of unrelated matches, narrow that fallback to contractor/service intent and preserve the audited intended pages with exact positive overrides.

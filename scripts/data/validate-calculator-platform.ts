@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { calculateAffordability } from '../../src/lib/financial/affordability.ts';
+import { BUDGET_GROUPS, calculateHouseholdBudget, createBudgetDefaults, migrateLegacyBudget, sanitizeBudget, createBudgetCsv, createBudgetShareQuery } from '../../src/lib/financial/budget-planner.ts';
 import { calculateClosingCosts } from '../../src/lib/financial/closing-costs.ts';
 import { calculateHomeownershipCost } from '../../src/lib/financial/homeownership.ts';
 import { calculateMortgage, calculateMonthlyPrincipalInterest, calculateRefinance } from '../../src/lib/financial/mortgage.ts';
@@ -135,5 +136,61 @@ const mortgageComponentSource = fs.readFileSync('src/components/calculators/Offi
 const mortgageFrameworkImport = mortgageComponentSource.match(/import\s*\{([\s\S]*?)\}\s*from '@\/components\/property\/PropertyCalculatorFramework';/)?.[1] ?? '';
 assert.match(mortgageFrameworkImport, /\bBreakdownChart\b/, 'OfficialMortgageCalculator must import BreakdownChart before rendering it');
 assert.ok(mortgageComponentSource.includes('<BreakdownChart items={housingBreakdown}/>'), 'OfficialMortgageCalculator must render the shared mortgage breakdown chart');
+
+
+const budgetBaseline = calculateHouseholdBudget(createBudgetDefaults());
+close(budgetBaseline.income, 7000, .001, 'example budget take-home income');
+close(budgetBaseline.expenses, 5250, .001, 'example budget expenses excluding savings');
+close(budgetBaseline.savings, 700, .001, 'savings shown outside expenses');
+close(budgetBaseline.remaining, 1050, .001, 'example budget remaining');
+close(budgetBaseline.savingsPercent, 10, .001, 'savings percent of income');
+close(budgetBaseline.annualRemaining, 12600, .001, '12-month no-growth projection');
+const debtGroup = BUDGET_GROUPS.find(group => group.id === 'debt');
+assert.ok(debtGroup && /not already counted as purchases/.test(debtGroup.description), 'credit card amounts must warn about double counting');
+assert.ok(debtGroup.fields.some(field => field.key === 'creditCards' && /Existing credit-card debt repayments/.test(field.label)), 'credit-card input must be explicitly limited to existing debt');
+const withoutCardDebt = calculateHouseholdBudget({ ...createBudgetDefaults(), creditCards: 0 });
+close(withoutCardDebt.expenses, 4900, .001, 'removing card debt payment removes only that amount');
+close(withoutCardDebt.remaining, 1400, .001, 'removing card debt payment preserves remaining math');
+const annualBillBudget = calculateHouseholdBudget(sanitizeBudget({ annualTravel: 1200, annualPropertyTax: 2400 }, Object.fromEntries(Object.keys(createBudgetDefaults()).map(key => [key, 0])) as ReturnType<typeof createBudgetDefaults>));
+close(annualBillBudget.expenses, 300, .001, 'annual expenses converted to monthly reserve');
+const unsafeBudget = sanitizeBudget({ pay: -500, housingPayment: -10, otherExpenses: Infinity, extraIncome: 'not-a-number' });
+assert.equal(unsafeBudget.pay, 0, 'negative income is rejected');
+assert.equal(unsafeBudget.housingPayment, 0, 'negative expenses are rejected');
+assert.equal(unsafeBudget.otherExpenses, 0, 'non-finite amounts are rejected');
+assert.equal(unsafeBudget.extraIncome, 0, 'invalid shared URL values are rejected');
+assert.ok(Number.isFinite(calculateHouseholdBudget(unsafeBudget).remaining), 'budget must stay finite');
+const oldBudget = migrateLegacyBudget({ income: 4500, housing: 1800, transport: 400, food: 600, utilities: 300, debt: 100, savings: 500, other: 50 });
+const oldTotals = calculateHouseholdBudget(oldBudget);
+close(oldTotals.income, 4500, .001, 'legacy take-home migration');
+close(oldTotals.expenses, 3250, .001, 'legacy inputs never double count illustrative defaults');
+close(oldTotals.savings, 500, .001, 'legacy savings migration');
+close(oldTotals.remaining, 750, .001, 'legacy remaining migration');
+assert.ok(fs.readFileSync('src/components/calculators/TexasBudgetPlanner.tsx', 'utf8').includes('shareApproved'), 'budget share URL requires explicit acknowledgement');
+assert.ok(fs.readFileSync('src/routes/texas-budget-planner.lazy.tsx', 'utf8').includes('TexasBudgetPlanner'), 'budget route must use detailed planner');
+
+
+const budgetUxSource = fs.readFileSync('src/components/calculators/TexasBudgetPlanner.tsx', 'utf8');
+assert.ok(budgetUxSource.includes("setBudget(sanitizeBudget(JSON.parse(readSaved(BUDGET_STORAGE_KEY)!)))"), 'saved v3 budget auto-restores after a reload');
+assert.ok(budgetUxSource.includes('#budget-print-details { display: block !important; }'), 'itemized entries must be visible on printed budget');
+assert.ok(budgetUxSource.includes('Detailed monthly budget'), 'print view must include detailed entries');
+assert.ok(budgetUxSource.includes('createBudgetCsv(budget)'), 'CSV download must use tested serializer');
+assert.ok(budgetUxSource.includes('createBudgetShareQuery(budget)'), 'share action must use tested serializer');
+assert.ok(budgetUxSource.includes('Review $0 categories before relying on your remaining balance.'), 'zero-value categories must be called out before displaying spendable remainder');
+assert.ok(budgetUxSource.includes("group.monthly === 0"), 'zero category review must respond to actual current budget totals');
+const budgetRouteSource = fs.readFileSync('src/routes/texas-budget-planner.lazy.tsx', 'utf8');
+assert.ok(budgetRouteSource.includes("title: 'What your Texas household budget can show'"), 'budget-specific summary must replace generic calculator copy');
+assert.ok(budgetRouteSource.includes('Credit-card debt</strong>'), 'methodology must address card payment duplication');
+assert.ok(fs.readFileSync('src/data/budget-planner-faqs.ts', 'utf8').includes('How can I avoid counting credit-card purchases twice?'), 'credit card FAQ and schema should describe correct accounting');
+const sampleBudget = createBudgetDefaults();
+const sampleCsv = createBudgetCsv(sampleBudget);
+assert.ok(sampleCsv.startsWith('"Category","Item","Entered USD","Period","Monthly USD"' + String.fromCharCode(13, 10)), 'CSV must contain quoted headers and CRLF line endings');
+assert.ok(sampleCsv.includes('"Total","Monthly expenses and bill reserves","","monthly","5250.00"'), 'CSV must distinguish expenses from savings');
+assert.ok(sampleCsv.includes('"Total","Monthly savings allocations","","monthly","700.00"'), 'CSV must include savings as a separate total');
+assert.ok(sampleCsv.includes('"Total","Remaining after allocations","","monthly","1050.00"'), 'CSV remaining must agree with calculator');
+const annualCsv = createBudgetCsv(sanitizeBudget({ annualTravel: 1200 }));
+assert.ok(annualCsv.includes('"Travel, gifts and seasonal spending","1200","annual","100.00"'), 'annual CSV entries must be converted to monthly reserves');
+const shareQuery = createBudgetShareQuery({ ...sampleBudget, secretNote: 'DO_NOT_EXPORT' } as typeof sampleBudget);
+assert.ok(!shareQuery.includes('DO_NOT_EXPORT') && !shareQuery.includes('secretNote'), 'shared budget must whitelist financial field keys');
+assert.deepEqual(sanitizeBudget(JSON.parse(new URLSearchParams(shareQuery).get('b3') ?? '{}')), sampleBudget, 'shared URL must round trip the budget without changing entries');
 
 console.log('Calculator platform validation passed: golden math, edge cases, cross-calculator consistency, universal actions, and shared breakdown components.');

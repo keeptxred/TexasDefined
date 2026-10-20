@@ -13,7 +13,7 @@ const CITY_RELOCATION_LINKS = [
   { href: '/compare-texas-cities', label: 'Compare Texas cities', copy: 'Put this city beside other Texas places using the same relocation research framework instead of comparing reputation alone.' },
   { href: '/texas-cost-of-living-calculator', label: 'Cost-of-living planner', copy: 'Replace broad averages with your household spending, housing assumptions, transportation and recurring local costs.' },
   { href: '/texas-salary-comparison-by-city', label: 'Salary planning', copy: 'Work backward from the household budget and compare income needs across the Texas places still on your shortlist.' },
-  { href: '/find-my-school-district', label: 'School-district lookup', copy: 'Verify the district and campus from an exact address; a city or mailing label does not establish school assignment.' },
+  { href: '/find-my-school-district', label: 'School-district lookup', copy: 'Research the district for an address; maps are approximate, and the school district must confirm campus attendance assignments.' },
   { href: '/find-my-utilities', label: 'Utility lookup', copy: 'Verify electric, water and sewer service for the address instead of assuming every property in the city uses the same provider.' },
   { href: '/find-my-property-tax', label: 'Property-tax research', copy: 'Identify the appraisal district, tax office and local taxing-unit stack for the property you are considering.' },
   { href: '/texas-home-insurance-calculator', label: 'Home-insurance planning', copy: 'Estimate the insurance side of the housing budget, then replace planning assumptions with property-specific quotes.' },
@@ -128,13 +128,21 @@ export function EntityDepthSections({ entity, related }: { entity: TexasEntityRe
         <div className="max-w-3xl">
           {cityProfile?.jurisdiction ? <>
             <p className="text-base leading-7 text-muted-foreground">{cityProfile.jurisdiction.note}</p>
-            <div className="mt-5 flex flex-wrap gap-2" aria-label={`Counties containing parts of ${entity.name}`}>
+            <div className="mt-5 flex flex-wrap gap-2" role="group" aria-label={`Counties containing parts of ${entity.name}`}>
               {cityProfile.jurisdiction.counties.map((county) => <span key={county} className="border border-border px-3 py-2 text-sm font-medium">{county}</span>)}
             </div>
             {cityProfile.jurisdiction.sourceUrl ? <a className="mt-5 inline-block text-sm font-semibold text-primary underline underline-offset-4" href={cityProfile.jurisdiction.sourceUrl} target="_blank" rel="noreferrer noopener">Official jurisdiction source ↗</a> : null}
           </> : <p className="text-base leading-7 text-muted-foreground">
             {countyName ? `${countyName} is the primary county context stored for this city page, but a city name or mailing address should not be treated as proof of county, school-district, appraisal-district or utility jurisdiction. Verify the exact address before using a local office, tax record, school boundary or service provider.` : `City, county, school-district, appraisal-district and utility boundaries are separate systems. Verify the exact address before relying on a local jurisdiction or service provider.`}
           </p>}
+          {cityProfile ? <aside className="mt-7 border-t border-border pt-6" aria-labelledby="city-address-verification-title">
+            <h3 id="city-address-verification-title" className="font-display text-2xl leading-tight">Verify the actual property address</h3>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">A school district boundary is not the same as a campus attendance zone. The Texas Education Agency warns that its digital district maps are approximate and do not determine which school a child may attend; ask the serving district to confirm enrollment and campus assignment. Texas property-tax bills can include several separate local taxing units, so a published city tax rate is not the total rate for every address.</p>
+            <ul className="mt-4 space-y-2 text-sm font-semibold">
+              <li><a className="text-[#8c3e23] underline underline-offset-4" href="https://tea.texas.gov/families-and-students/school-district-locator/school-district-locator-faq" target="_blank" rel="noreferrer noopener">Texas Education Agency: district boundaries and attendance zones ↗</a></li>
+              <li><a className="text-[#8c3e23] underline underline-offset-4" href="https://comptroller.texas.gov/taxes/property-tax/rates/" target="_blank" rel="noreferrer noopener">Texas Comptroller: local tax rates by taxing unit ↗</a></li>
+            </ul>
+          </aside> : null}
         </div>
       </div>
     </section> : null}
@@ -198,6 +206,31 @@ export function EntityDepthSections({ entity, related }: { entity: TexasEntityRe
             <p className="mt-2 max-w-3xl text-sm leading-6 text-muted-foreground">These public spaces and self-guided ideas can keep a city day inexpensive. Parking, special events, rentals or adjacent attractions can still carry fees.</p>
             <div className="mt-4 grid gap-4 sm:grid-cols-3">
               {cityProfile.tripPlanning.freeThings.map((item) => item.href
+                ? <a key={item.title} href={item.href} className="border border-border p-5 hover:border-primary/60"><strong className="font-display text-xl leading-tight">{item.title}</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">{item.summary}</span><span className="mt-3 block text-sm font-semibold text-primary">Open guide →</span></a>
+                : <article key={item.title} className="border border-border p-5"><strong className="font-display text-xl leading-tight">{item.title}</strong><p className="mt-2 text-sm leading-6 text-muted-foreground">{item.summary}</p></article>)}
+            </div>
+          </div>
+          <div>
+            <h3 className="font-display text-2xl">Family-friendly plan</h3>
+            <p className="mt-2 max-w-3xl text-sm leading-6 text-muted-foreground">Use these clusters to reduce cross-city driving and balance major attractions with parks, breaks and weather-aware stops. Verify age, height, admission and reservation rules with the attraction itself.</p>
+            <div className="mt-4 grid gap-4 sm:grid-cols-3">
+              {cityProfile.tripPlanning.family.map((item) => item.href
+                ? <a key={item.title} href={item.href} className="border border-border p-5 hover:border-primary/60"><strong className="font-display text-xl leading-tight">{item.title}</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">{item.summary}</span><span className="mt-3 block text-sm font-semibold text-primary">Open guide →</span></a>
+                : <article key={item.title} className="border border-border p-5"><strong className="font-display text-xl leading-tight">{item.title}</strong><p className="mt-2 text-sm leading-6 text-muted-foreground">{item.summary}</p></article>)}
+            </div>
+          </div>
+          <div>
+            <h3 className="font-display text-2xl">Getting around</h3>
+            <p className="mt-2 max-w-3xl text-sm leading-6 text-muted-foreground">These are visitor-planning patterns, not live schedules. Recheck transit service, construction, event traffic, parking and road conditions for the day you travel.</p>
+            <div className="mt-4 grid gap-4 sm:grid-cols-3">
+              {cityProfile.tripPlanning.gettingAround.map((item) => <article key={item.title} className="border border-border p-5"><strong className="font-display text-xl leading-tight">{item.title}</strong><p className="mt-2 text-sm leading-6 text-muted-foreground">{item.summary}</p></article>)}
+            </div>
+          </div>
+          <div>
+            <h3 className="font-display text-2xl">Shopping & entertainment</h3>
+            <p className="mt-2 max-w-3xl text-sm leading-6 text-muted-foreground">Choose one district that already fits the rest of the day. This avoids turning dining, shopping or nightlife into another long cross-city transfer.</p>
+            <div className="mt-4 grid gap-4 sm:grid-cols-3">
+              {cityProfile.tripPlanning.shoppingEntertainment.map((item) => item.href
                 ? <a key={item.title} href={item.href} className="border border-border p-5 hover:border-primary/60"><strong className="font-display text-xl leading-tight">{item.title}</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">{item.summary}</span><span className="mt-3 block text-sm font-semibold text-primary">Open guide →</span></a>
                 : <article key={item.title} className="border border-border p-5"><strong className="font-display text-xl leading-tight">{item.title}</strong><p className="mt-2 text-sm leading-6 text-muted-foreground">{item.summary}</p></article>)}
             </div>

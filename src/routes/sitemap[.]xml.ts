@@ -44,15 +44,18 @@ const STATIC_LASTMOD_BY_PATH: Readonly<Record<string, string>> = {
   "/texas-flag": PRIORITY_SEO_LASTMOD,
   "/texas-vs-every-state": PRIORITY_SEO_LASTMOD,
   "/texas-history": "2026-08-20",
+  "/dallas-black-history": "2026-10-13",
+  "/texas-historic-landmarks": "2026-10-12",
   "/texas-symbols": "2026-08-20",
   "/editorial-policy": "2026-09-01",
   "/corrections-policy": "2026-09-01",
   "/sourcing-methodology": "2026-09-01",
 };
 const ARTICLE_LASTMOD_BY_SLUG: Readonly<Record<string, string>> = {
+  "texas-high-school-football-playoffs-explained": "2026-10-16",
   "history-of-the-texas-flag": "2026-08-20",
   "texas-flag-etiquette-display-guide": "2026-08-20",
-  "texas-rivers-explained": "2026-10-03",
+  "texas-rivers-explained": "2026-10-18",
 };
 
 export const Route = createFileRoute("/sitemap.xml")({
@@ -109,10 +112,11 @@ export const Route = createFileRoute("/sitemap.xml")({
         const { loadTexasKnowledgeGraph } = await import("@/data/knowledge-graph");
         const { relocationCityPairSitemapEntries } = await import("@/data/relocation-city-pairs");
         const { getSportsVenuePhoto } = await import("@/data/sports-venue-images-all");
-        const { footballProgramSitemapEntries, privateFootballProgramSitemapEntries, footballDistrictSitemapEntries } = await import("@/data/high-school-football/football-sitemap.server");
+        const { footballProgramSitemapEntries, privateFootballProgramSitemapEntries, footballDistrictSitemapEntries, footballGameSitemapEntries } = await import("@/data/high-school-football/football-sitemap.server");
         const footballProfileEntries = footballProgramSitemapEntries();
         const privateFootballProfileEntries = privateFootballProgramSitemapEntries();
         const footballDistrictEntries = footballDistrictSitemapEntries();
+        const footballGameEntries = footballGameSitemapEntries();
         // Do not hydrate the live TEA-backed football ISD directory on the public
         // sitemap request path. A cold Worker would otherwise fetch and parse the
         // statewide AskTED CSV and fuzzy-match all 1,268 UIL programs before it
@@ -199,7 +203,12 @@ export const Route = createFileRoute("/sitemap.xml")({
         const activeCollectionSlugs = new Set(liveShopProducts.flatMap((product) => product.collectionSlugs));
         const { COUNTY_PROPERTY_RECORDS } = await import("@/data/property/county-property-data");
         const countyPages = COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady);
+        // The county route withholds indexing until a substantive county-series
+        // editorial profile exists. Apply the same gate to the sitemap: a
+        // source-ready graph record alone does not make its county page ready.
+        const { hasCountySeriesProfileServer } = await import("@/data/county-series.server");
         const entityPages = graph.filter(isIndexableEntityPage)
+          .filter((entity) => entity.kind !== "county" || hasCountySeriesProfileServer(entity.slug))
           .filter(isTexasDefinedOwnedEntity)
           .filter((entity) => entity.kind !== "sports-venue" || Boolean(getSportsVenuePhoto(entity.slug)));
         // Major-event authority routes are permanent guides, even between annual editions.
@@ -271,6 +280,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           ...footballProfileEntries,
           ...privateFootballProfileEntries,
           ...footballDistrictEntries,
+          ...footballGameEntries,
         ];
 
         const uniqueEntries = [...new Map(entries.map((entry) => {

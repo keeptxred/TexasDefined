@@ -35,6 +35,7 @@ export const sabineCountyHemphillToledoBendSabineRiverEastTexasArticle: Article 
   ],
   featured: false,
   internalLinks: [
+    { href: "/article/texas-sabine-river-guide", label: "Texas sabine  River guide", description: "Connect county tourism, fisheries and camping with the full river authority guide." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
     { href: "/county/shelby", label: "Explore Shelby County", description: "Continue north toward Center and the forests of deep East Texas." },
     { href: "/county/san-augustine", label: "Explore San Augustine County", description: "Travel west toward one of Texas's oldest Anglo-American settlement corridors." },

@@ -1,0 +1,233 @@
+#!/usr/bin/env bash
+set -euo pipefail
+# Full county coverage and its existing quality gates, against loopback only.
+node scripts/ci/local-audit-curl.mjs --validate
+: "${COUNTY_AUDIT_TMPDIR:?Local county work directory is required}"
+node scripts/data/inventory-county-series.mjs ${COUNTY_AUDIT_TMPDIR}/county-profiles.tsv
+test "$(wc -l < ${COUNTY_AUDIT_TMPDIR}/county-profiles.tsv)" -eq 254
+curl() { node scripts/ci/local-audit-curl.mjs "$@"; }
+set -euo pipefail
+cp ${COUNTY_AUDIT_TMPDIR}/county-profiles.tsv ${COUNTY_AUDIT_TMPDIR}/pending.tsv
+: > ${COUNTY_AUDIT_TMPDIR}/results.txt
+
+html_contains_text() {
+  local html_file="$1"
+  local expected="$2"
+  python3 - "$html_file" "$expected" <<'PY'
+import html
+import sys
+from pathlib import Path
+document = html.unescape(Path(sys.argv[1]).read_text(errors='ignore'))
+expected = sys.argv[2]
+raise SystemExit(0 if expected.casefold() in document.casefold() else 1)
+PY
+}
+
+visible_word_count() {
+  local html_file="$1"
+  python3 - "$html_file" <<'PY'
+import html
+import re
+import sys
+from pathlib import Path
+document = Path(sys.argv[1]).read_text(errors='ignore')
+document = re.sub(r'<script\b[^>]*>[\s\S]*?</script>', ' ', document, flags=re.I)
+document = re.sub(r'<style\b[^>]*>[\s\S]*?</style>', ' ', document, flags=re.I)
+document = re.sub(r'<[^>]+>', ' ', document)
+document = html.unescape(document)
+words = re.findall(r"[A-Za-z0-9]+(?:[’'\-][A-Za-z0-9]+)*", document)
+print(len(words))
+PY
+}
+
+validate_county_section_order_and_depth() {
+  local html_file="$1"
+  local county_slug="$2"
+  python3 - "$html_file" "$county_slug" <<'PY'
+import html
+import re
+import sys
+from pathlib import Path
+raw = Path(sys.argv[1]).read_text(errors='ignore')
+document = html.unescape(raw).casefold()
+# Keep the substantive feature and data-grid requirements. The new
+# visitor-first template intentionally presents facts before the full
+# county history, rather than burying core information beneath it.
+editorial = document.find('county feature')
+facts = document.find('the county in numbers')
+if editorial < 0 or facts < 0 or facts >= editorial:
+    raise SystemExit(1)
+if sys.argv[2] == 'van-zandt':
+    clean = re.sub(r'<script\b[^>]*>[\s\S]*?</script>', ' ', raw, flags=re.I)
+    clean = re.sub(r'<style\b[^>]*>[\s\S]*?</style>', ' ', clean, flags=re.I)
+    clean = html.unescape(re.sub(r'<[^>]+>', ' ', clean)).casefold()
+    clean = re.sub(r'\s+', ' ', clean)
+    required = (
+        'van zandt county essentials',
+        '2025 population (estimate)',
+        '66,130',
+        'canton',
+        'wills point',
+        'grand saline',
+        'edgewood',
+        'fruitvale',
+        'ben wheeler',
+        'martins mill',
+        'edom',
+        'does not collect property taxes',
+    )
+    if any(item not in clean for item in required):
+        raise SystemExit(1)
+    if document.find('van zandt county essentials') >= facts:
+        raise SystemExit(1)
+    if any(url not in document for url in (
+        '/property-tax/county/van-zandt',
+        '/destination/wills-point-depot-museum',
+        'vanzandt.propertytaxpayments.net/search',
+    )):
+        raise SystemExit(1)
+PY
+}
+
+has_noindex() {
+  local html_file="$1"
+  python3 - "$html_file" <<'PY'
+import re
+import sys
+from pathlib import Path
+document = Path(sys.argv[1]).read_text(errors='ignore')
+robots = re.findall(r'<meta\b[^>]*(?:name=["\x27]robots["\x27][^>]*|content=["\x27][^"\x27]*noindex[^"\x27]*["\x27][^>]*)>', document, flags=re.I)
+raise SystemExit(0 if any('noindex' in tag.casefold() and 'robots' in tag.casefold() for tag in robots) else 1)
+PY
+}
+
+verify_profile() {
+  local county_slug="$1"
+  local legacy_slug="$2"
+  local title="$3"
+  local url="https://texasdefined.com/county/$county_slug"
+  local legacy_url="https://texasdefined.com/article/$legacy_slug"
+  local html="${COUNTY_AUDIT_TMPDIR}/county-${county_slug}.html"
+  local code words image image_result image_code image_type redirect_result redirect_code redirect_url
+
+  code=$(curl -A 'TexasDefinedCountyQualityAudit/2.0 (+https://texasdefined.com)' -L -sS -o "$html" -w '%{http_code}' --max-time 30 "$url" || echo 000)
+  if [[ "$code" != "200" ]]; then
+    echo "WAIT page=$code $url"
+    return 1
+  fi
+
+  if grep -Eqi 'Story unavailable|This story is no longer available|page not found|404[^0-9].*not found|County unavailable|will expand as additional local sources are verified|This county guide is being expanded|We are adding verified details before expanding this page into a full guide' "$html"; then
+    echo "WAIT placeholder-or-fallback $url"
+    return 1
+  fi
+
+  if ! html_contains_text "$html" "$title"; then
+    echo "WAIT editorial-layer title=$title $url"
+    return 1
+  fi
+  if ! grep -Fqi 'County feature' "$html"; then
+    echo "WAIT county-feature-marker $url"
+    return 1
+  fi
+  if ! grep -Fqi 'The county in numbers' "$html"; then
+    echo "WAIT structured-layer $url"
+    return 1
+  fi
+  if ! validate_county_section_order_and_depth "$html" "$county_slug"; then
+    echo "WAIT county-practical-first-order-or-van-zandt-depth $url"
+    return 1
+  fi
+
+  for numeric_label in '2020 population' 'Land area' 'Water area'; do
+    if ! grep -Fqi "$numeric_label" "$html"; then
+      echo "WAIT numeric-fact label=$numeric_label $url"
+      return 1
+    fi
+  done
+
+  words=$(visible_word_count "$html")
+  if [[ "$words" -lt 1200 ]]; then
+    echo "WAIT thin-render visible_words=$words $url"
+    return 1
+  fi
+
+  if has_noindex "$html"; then
+    echo "WAIT unexpected-noindex $url"
+    return 1
+  fi
+
+  if ! grep -Eqi "<link[^>]+rel=[\"']canonical[\"'][^>]+href=[\"']https://texasdefined\.com/county/${county_slug}[\"']|<link[^>]+href=[\"']https://texasdefined\.com/county/${county_slug}[\"'][^>]+rel=[\"']canonical[\"']" "$html"; then
+    echo "WAIT canonical-mismatch $url"
+    return 1
+  fi
+
+  image=$(python3 - "$html" <<'PY'
+import re
+import sys
+from pathlib import Path
+html = Path(sys.argv[1]).read_text(errors='ignore')
+patterns = [
+    r'<meta[^>]+property=["\x27]og:image["\x27][^>]+content=["\x27]([^"\x27]+)',
+    r'<meta[^>]+content=["\x27]([^"\x27]+)["\x27][^>]+property=["\x27]og:image["\x27]',
+]
+for pattern in patterns:
+    match = re.search(pattern, html, re.I)
+    if match:
+        print(match.group(1))
+        break
+PY
+)
+
+  if [[ -z "$image" ]]; then
+    echo "WAIT image-metadata $url"
+    return 1
+  fi
+  if [[ "$image" == /* ]]; then image="https://texasdefined.com$image"; fi
+
+  image_result=$(curl -A 'TexasDefinedCountyQualityAudit/2.0 (+https://texasdefined.com)' -L -sS -o /dev/null -w '%{http_code}\t%{content_type}' --max-time 30 "$image" || printf '000\t')
+  IFS=$'\t' read -r image_code image_type <<< "$image_result"
+  if [[ "$image_code" != "200" ]]; then
+    echo "WAIT image=$image_code $image ($url)"
+    return 1
+  fi
+  if [[ ! "$image_type" =~ ^image/(jpeg|png|webp)(\;.*)?$ ]]; then
+    echo "WAIT image-mime=$image_type $image ($url)"
+    return 1
+  fi
+
+  redirect_result=$(curl -A 'TexasDefinedCountyQualityAudit/2.0 (+https://texasdefined.com)' -sS -o /dev/null -w '%{http_code}\t%{redirect_url}' --max-time 30 "$legacy_url" || printf '000\t')
+  IFS=$'\t' read -r redirect_code redirect_url <<< "$redirect_result"
+  if [[ "$redirect_code" != "301" || "$redirect_url" != "$url" ]]; then
+    echo "WAIT legacy-redirect=$redirect_code target=$redirect_url expected=$url ($legacy_url)"
+    return 1
+  fi
+
+  echo "PASS page=200 words=$words visitor-first=yes structured=yes canonical=yes indexable=yes image=200 mime=$image_type redirect=301 $url" | tee -a ${COUNTY_AUDIT_TMPDIR}/results.txt
+  return 0
+}
+
+for attempt in $(seq 1 4); do
+  : > ${COUNTY_AUDIT_TMPDIR}/next-pending.tsv
+  while IFS=$'\t' read -r county_slug legacy_slug title; do
+    [[ -z "$county_slug" ]] && continue
+    if ! verify_profile "$county_slug" "$legacy_slug" "$title"; then
+      printf '%s\t%s\t%s\n' "$county_slug" "$legacy_slug" "$title" >> ${COUNTY_AUDIT_TMPDIR}/next-pending.tsv
+    fi
+  done < ${COUNTY_AUDIT_TMPDIR}/pending.tsv
+
+  if [[ ! -s ${COUNTY_AUDIT_TMPDIR}/next-pending.tsv ]]; then
+    : > ${COUNTY_AUDIT_TMPDIR}/pending.tsv
+    echo "PASS: all 254 canonical county pages are live, substantive, visitor-first, indexable, canonical, illustrated, placeholder-free, and have valid legacy redirects."
+    cat ${COUNTY_AUDIT_TMPDIR}/results.txt
+    exit 0
+  fi
+
+  mv ${COUNTY_AUDIT_TMPDIR}/next-pending.tsv ${COUNTY_AUDIT_TMPDIR}/pending.tsv
+  echo "Production quality audit still has $(wc -l < ${COUNTY_AUDIT_TMPDIR}/pending.tsv) failing county page(s); attempt $attempt/4."
+  cut -f1 ${COUNTY_AUDIT_TMPDIR}/pending.tsv
+  if [[ "$attempt" -lt 4 ]]; then sleep 15; fi
+done
+
+echo "County production quality audit failed. These canonical county pages did not satisfy every quality gate:"
+cut -f1 ${COUNTY_AUDIT_TMPDIR}/pending.tsv
+exit 1

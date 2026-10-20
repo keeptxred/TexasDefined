@@ -93,6 +93,14 @@ if (!failures.length) {
   for (const signal of ["isCompleteFishingSpeciesSlug", "isCompleteFishingLakeSlug", "lakeSpecies", "lakeTechniques", "buildFishingSpeciesProfileHead", "citation:", "Lakes with full fishing guides appear before basic lake profiles", "not a live bite report"]) {
     if (!speciesServer.includes(signal)) failures.push(`General species publication/server-head contract missing: ${signal}`);
   }
+  for (const signal of [
+    'fishSpeciesFamilies', 'family?.speciesSlugs ?? []',
+    'candidateSlug !== species.slug', 'isCompleteFishingSpeciesSlug(candidate.slug)',
+    'familyPeers,', 'fishingFoundationAnchor("species", candidate!.slug)',
+  ]) if (!speciesServer.includes(signal)) failures.push(`Species family related-reading contract missing: ${signal}`);
+  for (const signal of ['data.familyPeers.map', 'peer.href', 'More guides in this fishing collection', 'does not imply shared lakes']) {
+    if (!speciesUi.includes(signal)) failures.push(`Visitor-facing species collection link missing: ${signal}`);
+  }
   if (!speciesRoute.includes('createFileRoute("/fishing/species/$slug")') || !speciesRoute.includes("throw notFound()") || !speciesRoute.includes("loaderData?.head")) failures.push("General species critical route is incomplete.");
   if (!speciesLazy.includes('createLazyFileRoute("/fishing/species/$slug")') || !speciesLazy.includes("FishingSpeciesProfile data={Route.useLoaderData()}")) failures.push("General species UI is not protected by a native lazy route.");
   if (speciesRoute.includes('from "@/components/fishing/FishingSpeciesProfile"') || /\bcomponent\s*:/.test(speciesRoute) || speciesRoute.includes("buildMeta") || speciesRoute.includes('"@type":')) failures.push("General species UI or SEO payload leaked into the critical route.");

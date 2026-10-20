@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
+import { paintedChurchAuthorityExpansionDateLabel } from "@/data/painted-church-authority-sources";
 import { resolvePaintedChurchVisitorStatus } from "@/data/painted-church-visitor-status";
 import { expandedPaintedChurches } from "@/data/painted-churches-expanded";
 
@@ -9,7 +10,7 @@ async function buildChecklist() {
   const { paintedChurchItineraries } = await import("@/data/painted-church-itineraries");
   const lines = [
     "TEXAS PAINTED CHURCHES FIELD CHECKLIST",
-    "Texas Defined · reviewed August 18, 2026",
+    `Texas Defined · collection reviewed ${paintedChurchAuthorityExpansionDateLabel}`,
     "",
     "Canonical collection: https://texasdefined.com/explore/painted-churches",
     "Methodology: https://texasdefined.com/explore/painted-churches/methodology",

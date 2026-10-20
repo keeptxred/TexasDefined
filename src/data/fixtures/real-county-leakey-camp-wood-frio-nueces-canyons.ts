@@ -33,6 +33,8 @@ export const realCountyLeakeyCampWoodFrioNuecesCanyonsArticle: Article = {
   ],
   featured: false,
   internalLinks: [
+    { href: "/article/texas-frio-river-guide", label: "Frio River canyon visitor guide", description: "Follow the connected river corridor with TPWD-sourced access, angling, camping and tourism guidance." },
+
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
     { href: "/county/edwards", label: "Explore Edwards County", description: "Continue northwest toward Rocksprings, Devil's Sinkhole and the upper plateau." },
     { href: "/county/kinney", label: "Explore Kinney County", description: "Head southwest toward Brackettville, Fort Clark and Las Moras Springs." },

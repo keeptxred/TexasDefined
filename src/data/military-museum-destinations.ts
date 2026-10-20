@@ -18,19 +18,31 @@ export const militaryMuseumDestinations: Destination[] = [
       height: 2171,
       credit: "Matthew T Rader / MatthewTRader.com · CC BY-SA 4.0 · Wikimedia Commons",
     },
+    gallery: [
+      { image: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Launch%20of%20USS%20Lexington%20(CV-16)%20at%20the%20Fore%20River%20Shipyard%20in%201942.jpg?width=1280", alt: "USS Lexington launching in September 1942 at Fore River Shipyard", width: 1193, height: 981, credit: "U.S. Navy archive · Public domain · Wikimedia Commons" }, caption: "1942 — Lexington's launch at Fore River Shipyard, years before preservation at Corpus Christi.", sourceUrl: "https://commons.wikimedia.org/wiki/File:Launch%20of%20USS%20Lexington%20(CV-16)%20at%20the%20Fore%20River%20Shipyard%20in%201942.jpg" },
+      { image: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/USS%20Lexington%20(CV-16)%20underway%20on%2013%20June%201944.jpg?width=1280", alt: "CV-16 operating in the Pacific, viewed from a Navy Dauntless aircraft in June 1944", width: 5732, height: 4313, credit: "U.S. Navy photograph 80-G-236932 · Public domain · Wikimedia Commons" }, caption: "1944 — The carrier on active Pacific operations, viewed from an aircraft just after takeoff.", sourceUrl: "https://commons.wikimedia.org/wiki/File:USS%20Lexington%20(CV-16)%20underway%20on%2013%20June%201944.jpg" },
+      { image: { src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/USS%20Lexington%20(AVT-16)%20launches%20an%20A-7%20Corsair%20II%20in%201984.jpg?width=1280", alt: "A Navy A-7 Corsair II aircraft launches from USS Lexington during training-carrier service in 1984", width: 764, height: 472, credit: "U.S. Navy archive · Public domain · Wikimedia Commons" }, caption: "1984 — Lexington operating as a training carrier, well after World War II.", sourceUrl: "https://commons.wikimedia.org/wiki/File:USS%20Lexington%20(AVT-16)%20launches%20an%20A-7%20Corsair%20II%20in%201984.jpg" }
+    ],
     bestSeason: "Year-round. Summer offers longer museum hours but the flight deck can be hot; cooler fall through spring weather is usually more comfortable for outdoor decks.",
-    entryNote: "The museum is open daily except Thanksgiving and Christmas. Published 2026 hours are 9 a.m.–5 p.m. from Labor Day through Memorial Day and 9 a.m.–6 p.m. in summer. Check current hours, admission and accessibility before leaving home.",
-    highlights: ["World War II aircraft carrier", "Flight deck", "Naval aviation", "Pearl Harbor exhibit", "National Historic Landmark"],
+    entryNote: "OPEN for regular tours. As checked October 14, 2026: 9 a.m.–5 p.m. outside summer, 9 a.m.–6 p.m. in summer; closed Thanksgiving and Christmas. Adult admission $25, child 4–12 $15, all-day parking $5. General admission is sold at the entrance booths, not as ordinary online tickets. Check the official museum for changes.",
+    highlights: ["World War II aircraft carrier", "Flight deck aircraft", "Wheelchair-accessible hangar and flight decks with LEX LIFT", "Pearl Harbor exhibit", "National Historic Landmark"],
     body: [
       "USS Lexington (CV-16), nicknamed the Blue Ghost, entered service in 1943 and fought across the Pacific during World War II. After decades of later service as an attack carrier and training carrier, she was decommissioned in 1991 and opened as a museum in Corpus Christi in 1992.",
       "The ship is one of the strongest places in Texas to understand naval aviation at full scale. Visitors can move through the hangar and flight decks, see aircraft and shipboard spaces, and connect carrier operations with the Pacific War rather than reading the subject only through artifacts behind glass.",
-      "Plan several hours rather than treating Lexington as a quick photo stop. North Beach makes it easy to pair the ship with the Texas State Aquarium, while downtown Corpus Christi and the bayfront provide food, lodging and a second layer of coastal history.",
+      "Plan several hours rather than treating Lexington as a quick photo stop. The operator's Mess Deck Café on the hangar deck sells lunch and snacks during posted service hours (currently 10 a.m.–4 p.m. daily); outside food is not permitted. North Beach also makes it easy to pair the ship with the separately ticketed Texas State Aquarium, while downtown Corpus Christi and the bayfront provide additional dining and lodging.",
+      "The museum explicitly lists its Hangar Deck and Flight Deck as wheelchair accessible, connected via the LEX LIFT elevator, but steep ladders and tight original compartments limit access to deeper decks. Current 2026 admission: adult $25, senior $21, military $16 with ID, youth 13–17 $20, children 4–12 $15; ages 3 and under free. Parking is $5 all day. Hours, prices and access should be rechecked directly with the museum before setting out.",
+      "For the full story of CV-16—from the original USS Cabot name and the lost CV-2 to Pacific combat, the Blue Ghost nickname, Cold War and training-carrier service—read our separately researched USS Lexington authority history with original Navy photographs. The ship is an aircraft carrier, not a battleship; compare the two surviving Texas museum ships via the Battleship Texas guide.",
     ],
     officialUrl: "https://usslexington.com/",
     managingAuthority: "USS Lexington Museum on the Bay",
     address: "2914 N Shoreline Blvd, Corpus Christi, TX 78402",
-    sourceCheckedAt: "2026-08-20",
+    sourceCheckedAt: "2026-10-14",
     county: "Nueces",
+    accessibilityNotes: "The museum says Hangar Deck and Flight Deck are wheelchair accessible using the LEX LIFT elevator; other original ship spaces may require steep ladders and tight passageways. Ask the operator about specific access needs before buying tickets.",
+    visitorFaqs: [
+      { question: "Is USS Lexington a battleship?", answer: "No. CV-16 is an Essex-class aircraft carrier; Battleship Texas BB-35 is a different ship under restoration in Galveston." },
+      { question: "Are the hangar and flight decks accessible?", answer: "The museum lists both decks as wheelchair accessible using its LEX LIFT elevator, but many other ship spaces are not accessible via this route.", sourceUrl: "https://usslexington.com/visit/hours-admission/" },
+    ],
     areaGuide: {
       intro: "USS Lexington is the anchor for a Corpus Christi military-and-maritime day. Give the carrier several hours, then use North Beach and the bayfront to keep the rest of the itinerary compact.",
       nearbyAttractions: [
@@ -55,9 +67,11 @@ export const militaryMuseumDestinations: Destination[] = [
         { name: "USS Lexington flight deck", proximity: "On site", description: "Aircraft and the scale of the carrier make the naval-aviation story especially tangible." },
       ],
       sideTrips: [
+        { name: "Complete USS Lexington (CV-16) history and photo essay", description: "Read the independent TexasDefined guide to the carrier’s combat record, Blue Ghost nickname, veteran history and postwar training service.", href: "/article/uss-lexington-cv16-history-visitor-guide" },
+        { name: "Battleship Texas: a different preserved warship", description: "Understand the contrast between a dreadnought gun platform and an aircraft carrier. Battleship Texas is closed for regular tours in Galveston.", href: "/article/battleship-texas-bb-35-history-restoration" },
         { name: "Texas military museums and historic sites", description: "Use the statewide guide to connect Lexington with Battleship Texas, the National Museum of the Pacific War, Camp Mabry, WASP history and preserved battlefields.", href: "/article/texas-military-museums-historic-sites-guide" },
         { name: "Texas in World War II", description: "Connect the carrier to the state's wartime bases, training system, POW camps and home-front transformation.", href: "/article/texas-world-war-ii-bases-pow-camps" },
-        { name: "Nueces County guide", description: "Continue into Corpus Christi, Padre Island and the wider Coastal Bend.", href: "/article/nueces-county-corpus-christi-padre-island-texas" },
+        { name: "Nueces County guide", description: "Continue into Corpus Christi, Padre Island and the wider Coastal Bend.", href: "/county/nueces" },
       ],
     },
   },

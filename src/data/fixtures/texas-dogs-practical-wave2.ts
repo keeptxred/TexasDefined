@@ -158,7 +158,7 @@ export const texasDogFriendlyPatiosArticle: Article = {
       description: "Build a weekend around places where the dog can realistically participate.",
     },
     {
-      href: "/food-bbq",
+      href: "/explore/food-bbq",
       label: "Texas food and barbecue",
       description: "Explore Texas food coverage, then verify an individual restaurant's current pet policy.",
     },

@@ -1,6 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import {
   collectSitemapEntries,
+  fetchText,
   parseExplicitUrls,
   selectMeaningfulUrls,
   submitIndexNowSafely,
@@ -28,13 +29,7 @@ if (process.env.PUBLIC_INDEXING_ENABLED === 'false') {
 const localKey = (await readFile(new URL(`../../public/${key}.txt`, import.meta.url), 'utf8')).trim();
 if (localKey !== key) throw new Error('Tracked IndexNow key file does not match the configured key.');
 
-const robotsResponse = await fetch(`${origin}/robots.txt`, {
-  headers: { 'user-agent': 'TexasDefinedIndexNow/2.0' },
-  redirect: 'follow',
-  signal: AbortSignal.timeout(15_000),
-});
-if (!robotsResponse.ok) throw new Error(`robots.txt returned HTTP ${robotsResponse.status}`);
-const robots = await robotsResponse.text();
+const robots = await fetchText(`${origin}/robots.txt`, { userAgent: 'TexasDefinedIndexNow/2.0' });
 for (const required of [
   'User-agent: Bingbot',
   'User-agent: OAI-SearchBot',

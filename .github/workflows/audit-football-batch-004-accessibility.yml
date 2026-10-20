@@ -1,0 +1,62 @@
+name: Audit Batch 004 football accessibility
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/ci/audit-football-batch-004-accessibility.mjs'
+      - '.github/workflows/audit-football-batch-004-accessibility.yml'
+      - 'src/routes/texas-high-school-football-teams_.$slug.lazy.tsx'
+      - 'public/stay-affiliate-options.js'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/ci/audit-football-batch-004-accessibility.mjs'
+      - '.github/workflows/audit-football-batch-004-accessibility.yml'
+      - 'src/routes/texas-high-school-football-teams_.$slug.lazy.tsx'
+      - 'public/stay-affiliate-options.js'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  syntax:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check scripts/ci/audit-football-batch-004-accessibility.mjs
+  diagnostic:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Wait for exact protected production deployment
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PRODUCTION_COMMIT_SHA: ${{ github.sha }}
+        run: node scripts/ci/wait-for-protected-production.mjs
+      - name: Install isolated free Chrome accessibility tooling
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-football-b004-a11y --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1 axe-core@4.10.3
+      - name: Audit 25 schools, 10 counties, Austin city and capture screenshots
+        env:
+          PRODUCTION_COMMIT_SHA: ${{ github.sha }}
+        run: node scripts/ci/audit-football-batch-004-accessibility.mjs
+      - name: Retain machine-readable findings and selected full-page screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: football-batch-004-accessibility
+          path: artifacts/football-batch-004-accessibility/
+          if-no-files-found: warn
+          retention-days: 30

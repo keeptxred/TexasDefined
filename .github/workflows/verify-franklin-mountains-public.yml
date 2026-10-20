@@ -1,0 +1,27 @@
+name: Verify Franklin Mountains live authority
+
+on:
+  workflow_run:
+    workflows:
+      - Purge authority cache after production deploy
+    types:
+      - completed
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  franklin-live:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.head_branch == 'main' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out approved repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check direct Worker, canonical HTML and original-license hero bytes
+        run: node scripts/production/verify-franklin-mountains-public.mjs

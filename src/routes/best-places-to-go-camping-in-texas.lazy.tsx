@@ -3,6 +3,7 @@ import { createLazyFileRoute, Link } from "@tanstack/react-router";
 
 import caddoLake from "@/assets/caddo-lake.jpg";
 import { CampingDiscovery } from "@/components/camping/CampingDiscovery";
+import { riverAuthorityLinksForArticleMetadata } from "@/data/river-authority-relations";
 import { Container } from "@/components/layout/Container";
 
 const standoutCamping = [
@@ -35,7 +36,7 @@ const standoutCamping = [
     to: "/destination/caddo-lake",
     eyebrow: "Paddling & fishing",
     label: "Caddo Lake State Park",
-    body: "An East Texas base for cypress-lined water, fishing and developed campsites, including a small verified full-hookup inventory.",
+    body: "An East Texas base for Big Cypress Bayou and Caddo Lake paddling, fishing and developed campsites, including a small verified full-hookup inventory.",
     image: { src: caddoLake, alt: "Bald cypress trees draped in Spanish moss on Caddo Lake at dawn", width: 1600, height: 1067 },
   },
   {
@@ -43,7 +44,7 @@ const standoutCamping = [
     to: "/destination/big-bend-national-park",
     eyebrow: "Remote & backcountry",
     label: "Big Bend National Park",
-    body: "A destination for desert, mountain and backcountry camping where campground choice, permits and seasonal heat materially change the trip.",
+    body: "A destination for desert, mountains, Rio Grande canyon scenery and backcountry camping where permits, season and heat materially change the trip.",
     image: { src: "/images/explore/national-parks/big-bend-national-park.jpg", alt: "Big Bend National Park in Texas", width: 1600, height: 2133, credit: "Betty Alex · U.S. National Park Service · Public domain · Wikimedia Commons" },
   },
   {
@@ -51,10 +52,14 @@ const standoutCamping = [
     to: "/destination/brazos-bend-state-park",
     eyebrow: "Near Houston",
     label: "Brazos Bend State Park",
-    body: "A practical Houston-area camping escape with developed sites, primitive walk-in camping, wetlands, trails and wildlife.",
+    body: "A practical Houston-area camping escape beside the Brazos River watershed, with developed sites, primitive walk-in camping, wetlands, trails and wildlife.",
     image: { src: "/images/state-parks/brazos-bend-state-park.jpg", alt: "Brazos Bend State Park in Texas", width: 1600, height: 1280, credit: "Mike Fisher · CC BY 2.0 · Wikimedia Commons" },
   },
 ] as const;
+
+const riverCampingGuides = [...new Map(standoutCamping.flatMap((item) =>
+  riverAuthorityLinksForArticleMetadata({slug: item.slug, title: item.label, dek: item.body, tags: []})
+).map((link) => [link.href, link])).values()];
 
 export const Route = createLazyFileRoute("/best-places-to-go-camping-in-texas")({ component: CampingGuidePage });
 
@@ -128,6 +133,13 @@ function CampingGuidePage() {
             </div>
           </Link>)}
         </div>
+        {riverCampingGuides.length > 0 ? <nav className="mt-9 border-t border-border pt-7" aria-label="Related river camping and visitor guides">
+          <h3 className="font-display text-2xl">Plan the river portion of your camping trip</h3>
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">These named rivers relate to the campgrounds above. Their guides explain lawful access, separate river routes, fishing and trip logistics; a nearby campsite does not grant unrestricted riverbank entry.</p>
+          <div className="mt-5 grid gap-x-6 gap-y-3 sm:grid-cols-2 lg:grid-cols-4">
+            {riverCampingGuides.map((link) => <Link key={link.href} to={link.href} className="border-t border-border pt-3 text-sm font-semibold text-primary hover:underline">{link.label} →</Link>)}
+          </div>
+        </nav> : null}
       </Container>
     </section>
 
@@ -181,7 +193,7 @@ function CampingGuidePage() {
           <div className="border border-border bg-background p-6"><h3 className="font-display text-2xl">Winter</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">South and West Texas can work well for cooler-weather trips, but fronts, freezes and large overnight temperature swings still require a current forecast and campsite-specific preparation.</p></div>
         </div>
         <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
-          <Link to="/texas-weather" className="text-primary underline-offset-4 hover:underline">Texas weather planning →</Link>
+          <a href="https://www.weather.gov/" target="_blank" rel="noopener noreferrer" className="text-primary underline-offset-4 hover:underline">Check the National Weather Service forecast →</a>
           <Link to="/explore/road-trips" className="text-primary underline-offset-4 hover:underline">Plan the drive →</Link>
         </div>
       </Container>

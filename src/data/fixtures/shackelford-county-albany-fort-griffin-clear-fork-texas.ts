@@ -40,7 +40,7 @@ export const shackelfordCountyAlbanyFortGriffinClearForkTexasArticle: Article = 
     { href: "/county/throckmorton", label: "Explore Throckmorton County", description: "Follow the Clear Fork north into ranch country and the Rolling Plains." },
     { href: "/county/stephens", label: "Explore Stephens County", description: "Head east toward Breckenridge, Hubbard Creek and oil-country history." },
     { href: "/county/taylor", label: "Explore Taylor County", description: "Travel southwest toward Abilene and the central West Texas crossroads." },
-    { href: "/historic-site/fort-griffin", label: "Visit Fort Griffin", description: "Explore TexasDefined's guide to the frontier fort and state historic site." },
+    { href: "/destination/fort-griffin", label: "Visit Fort Griffin", description: "Explore TexasDefined's guide to the frontier fort and state historic site." },
     { href: "/article/why-texas-has-254-counties", label: "Why Texas has 254 counties", description: "See how distance, settlement and courthouse access shaped the Texas county map." },
   ],
   relatedCollections: [],

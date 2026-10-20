@@ -35,6 +35,7 @@ export const masonCountyMasonFortLlanoRiverHillCountryArticle: Article = {
   ],
   featured: false,
   internalLinks: [
+    { href: "/article/texas-llano-river-guide", label: "Texas llano  River guide", description: "Access, river history, appropriate recreation, camping and verified current-source checks." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
     { href: "/county/llano", label: "Explore Llano County", description: "Continue east along the Llano River into granite country and the Highland Lakes." },
     { href: "/county/gillespie", label: "Explore Gillespie County", description: "Travel southeast toward Fredericksburg and the larger German Texas settlement corridor." },

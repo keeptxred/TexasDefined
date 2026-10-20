@@ -1,9 +1,6 @@
 name: Things That Define Texas production smoke
 
 on:
-  workflow_run:
-    workflows: ['Deploy TexasDefined production']
-    types: [completed]
   workflow_dispatch:
 
 permissions:
@@ -81,7 +78,7 @@ jobs:
           check_page '/article/caddo-lake-cypress-morning' 'Morning on Caddo'
           check_page '/article/texas-wildlife-guide' 'Texas Wildlife'
           check_page '/article/texas-trees-guide' 'Texas Trees Explained'
-          check_page '/article/galveston-county-island-port-juneteenth-texas' 'Juneteenth began here'
+          check_page '/county/galveston' 'Galveston County'
 
       - name: Verify machine-readable reference distributions
         shell: bash

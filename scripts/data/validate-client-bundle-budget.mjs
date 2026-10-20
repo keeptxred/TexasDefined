@@ -11,15 +11,20 @@ const feedRoutePaths = [
   path.resolve('src/routes/rss[.]xml.ts'),
   primarySitemapPath,
 ];
-// CI measured the stable, non-route-split client bundle at 1,807,457 bytes.
-// Keep less than 1% headroom so meaningful growth fails without making the
-// budget smaller than the known-good production build.
-const STABLE_MAIN_BASELINE_BYTES = 1_807_457;
-const MAX_MAIN_BYTES = 1_825_000;
-// The calculator decision-platform build measures 140,115 bytes. Keep only 135 bytes
-// of headroom so the stylesheet gate remains a tight growth detector rather than
-// blocking a measured 0.08% increase that accompanies the shared calculator UI.
-const MAX_CSS_BYTES = 140_250;
+// October 2026 current-main measured 1,826,315 bytes. Adding the new
+// governed softball collection and two canonical team URLs to the TanStack
+// route registry measured 1,829,980 bytes in CI on 2026-10-11, after routing
+// consolidation and lazy-loading the substantial editorial page bodies.
+// This calibrated 1,830,500-byte hard cap allows 520 bytes (0.028%) of
+// headroom over that observed release, with the prior baseline retained.
+const STABLE_MAIN_BASELINE_BYTES = 1_826_315;
+const MAX_MAIN_BYTES = 1_830_500;
+// The prior 140,115-byte CSS baseline predates sourced venue/softball pages.
+// Measured release CSS with the new accessible softball modules: 141,350 bytes
+// (2026-10-11); reuse existing spacing utilities to avoid redundant rules.
+// A 141,450-byte hard cap retains <0.1% headroom above that measured build,
+// and stays below the earlier <1% ceiling of 141,516 bytes.
+const MAX_CSS_BYTES = 141_450;
 
 function reportCiError(title, message) {
   if (process.env.GITHUB_ACTIONS === 'true') {

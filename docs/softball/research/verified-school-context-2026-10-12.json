@@ -1,0 +1,168 @@
+{
+  "version": 1,
+  "reviewedAt": "2026-10-12",
+  "publicationStatus": "research-only",
+  "approvedForTeamPagePublication": false,
+  "methodology": "Source observations fact-checked against source sites or primary government documents in October 2026. 'Institutional context' is explicitly distinct from verified girls-softball program history; unverified topics remain publication blockers under the 38-dimension first-release contract. This sourcebook is not a sitemap, approved profile, media permission or 2027 schedule.",
+  "records": [
+    {
+      "school": "Shiner",
+      "id": "shiner-school-history",
+      "kind": "institutional-context",
+      "source": "https://www.shinerisd.net/about-shiner-isd",
+      "claim": "Shiner ISD dates its community school-building history to 1890 and says it opened the present 510 CR 348 campus beside Comanche Stadium in 2007; a junior-high building followed in 2018.",
+      "caution": "1890 is not the foundation date of girls softball. Campus location beside Comanche Stadium does not identify the softball diamond or public parking."
+    },
+    {
+      "school": "Shiner",
+      "id": "shiner-softball-staff",
+      "kind": "softball-staff-as-of",
+      "source": "https://www.shinerisd.net/athletics/softball",
+      "claim": "The school's current public softball page identifies Jason Keller, Anastacia Rehak, Patrick Walker and Kailey Moeller as the Lady Comanches coaching group.",
+      "caution": "Do not infer separate coaching job titles for each assistant or a binding spring 2027 appointment."
+    },
+    {
+      "school": "Shiner",
+      "id": "shiner-title-2015",
+      "kind": "historical-softball",
+      "source": "https://www.uiltexas.org/softball/state-team/shiner-2014-2015-girls-softball",
+      "claim": "UIL's 2014–15 Shiner softball state-team sheet identifies Steven Cerny as coach, John Hoelter as assistant and Shiner's 2015 state-tournament appearance.",
+      "caution": "Do not assign 2015 coaching history to Jason Keller or confuse the state-team sheet's prefinal record with a finished season."
+    },
+    {
+      "school": "Shiner",
+      "id": "shiner-title-2024",
+      "kind": "historical-softball",
+      "source": "https://www.uiltexas.org/softball/state-team/shiner-2023-2024-softball",
+      "claim": "UIL's 2023–24 state-team archive identifies Jason Keller as head coach and Anastacia Rehak and Patrick Walker as assistants; its earlier-edition record lists 13 tournament appearances through 2024.",
+      "caution": "The 2024 appearance count was a historical snapshot and does not replace the 2026 archive's 15 appearances."
+    },
+    {
+      "school": "Shiner",
+      "id": "shiner-2025-runner-up",
+      "kind": "historical-softball",
+      "source": "https://www.uiltexas.org/softball/state-team/shiner-2024-2025-softball",
+      "claim": "UIL's 2024–25 Shiner team sheet identifies Jason Keller as coach and records Shiner's 14th state-tournament appearance.",
+      "caution": "Its 30–5 submitted season record is not automatically a postfinal tally; Shiner finished runner-up in the championship bracket."
+    },
+    {
+      "school": "Pearland",
+      "id": "pearland-institution",
+      "kind": "institutional-context",
+      "source": "https://phs.pearlandisd.org/our-school-phs/campus-profile/about-pearland-high-school",
+      "claim": "Pearland High School states that it was established in 1937–38, uses maroon, white and accent black, calls its mascot Derrick, and identifies its yearbook as The Gusher.",
+      "caution": "1937–38 is the SCHOOL's founding period, not evidence of when its softball program began; the mascot named Derrick is the wider school's mascot, not a player or facility."
+    },
+    {
+      "school": "Pearland",
+      "id": "pearland-school-song",
+      "kind": "institutional-context",
+      "source": "https://phs.pearlandisd.org/our-school-phs/campus-profile/about-pearland-high-school",
+      "claim": "Pearland High publishes separate fight-song and school-song traditions as part of its campus profile and uses Pride, Honor and Success as its motto.",
+      "caution": "School traditions supply contextual identity but must not be presented as softball-team-specific rituals without team reporting. Do not reproduce song lyrics."
+    },
+    {
+      "school": "Pearland",
+      "id": "pearland-four-titles",
+      "kind": "historical-softball",
+      "source": "https://www.pearlandisd.org/news/isd-news-details/~board/pearland-isd-news/post/pearland-oilers-capture-fourth-uil-6a-division-1-state-championship",
+      "claim": "Pearland ISD's June 3, 2026 story documents a 6–3 title-game win over Waco Midway and Pearland state softball titles in 1996, 2010, 2023 and 2026.",
+      "caution": "The district story spells the coach's given name Michelle; its current school sports department spells Michele. Cite variants by source, prefer school department for current role."
+    },
+    {
+      "school": "Pearland",
+      "id": "pearland-coach-directory",
+      "kind": "softball-staff-as-of",
+      "source": "https://phs.pearlandisd.org/athletics-phs/general-information",
+      "claim": "Pearland High's own athletics general-information directory identifies Michele Hyden as girls athletics coordinator.",
+      "caution": "Athletics coordinator is not itself a date-specific 2027 head softball coaching appointment, even though a separate softball staff page lists her as head coach."
+    },
+    {
+      "school": "Pearland",
+      "id": "pearland-school-schedule-trap",
+      "kind": "visitor-evidence-limitation",
+      "source": "https://phs.pearlandisd.org/athletics-phs/schedules-ticketing-information/softball",
+      "claim": "Pearland High's school softball ticketing page displays May 2026 playoff dates at A&M Consolidated in College Station and a Game 3 note naming a different opponent.",
+      "caution": "This is an historical away-site playoff notice and inconsistent opponent listing; it is neither the home softball-field address nor a published 2027 varsity schedule."
+    },
+    {
+      "school": "Pearland",
+      "id": "pearland-youth-development",
+      "kind": "community-program",
+      "source": "https://www.pearlandisd.org/departments/athletics/summer-camps",
+      "claim": "Pearland ISD lists PHS Youth Softball Camp and PHS Future Softball Players among district youth camp offerings, distinguishing those school-led programs from unrelated community select-ball leagues.",
+      "caution": "The offerings are 2026 listings and not evidence of registrations, prices, current availability or school attendance eligibility for next summer."
+    },
+    {
+      "school": "Katy",
+      "id": "katy-hall-2015",
+      "kind": "historic-honors",
+      "source": "https://www.katyisd.org/news-details/~board/news-headlines-katy-independent-school-district-100/post/champions-to-allstars-katy-isd-athletic-hall-of-honor-inducts-class-of-2025",
+      "claim": "Katy ISD's October 10, 2025 Athletic Hall of Honor induction included the entire 2015 Katy High softball state championship team and separately recognized Coach Kalum Haack as an individual honoree.",
+      "caution": "The page includes separate football inductees. Do not imply its football team or all named individuals were members of the softball program."
+    },
+    {
+      "school": "Katy",
+      "id": "katy-2026-title",
+      "kind": "historical-softball",
+      "source": "https://www.katyisd.org/news-details/~board/news-headlines-katy-independent-school-district-100/post/softball-dynasty-katy-softball-dominates-to-net-third-state-title-in-11-years",
+      "claim": "Katy ISD's 2026 championship story confirms a 7–2 victory against Forney, its 2015, 2019 and 2026 state title seasons and the postfinal 39–5 team record.",
+      "caution": "The UIL submitted team sheet lists 38–5 before the title game, a date-cutoff difference, not contradictory accounts."
+    },
+    {
+      "school": "Katy",
+      "id": "katy-field-agenda",
+      "kind": "administrative-process",
+      "source": "https://www.katyisdtx.new.swagit.com/videos/394549",
+      "claim": "Katy ISD's July 27, 2026 official board-meeting video index includes agenda item 9.11 to consider naming part of a Katy High School facility.",
+      "caution": "An agenda entry alone is not an adopted vote or proof of the exact installed naming/sign text; verify official minutes or recording before elevating the field honor."
+    },
+    {
+      "school": "Ganado",
+      "id": "ganado-house-resolution",
+      "kind": "historical-softball",
+      "source": "https://capitol.texas.gov/tlodocs/89R/billtext/html/HR01528F.htm",
+      "claim": "Texas House Resolution 1528 commemorates Ganado's first UIL state softball championship in 2025, a 5–4 final against Riesel, a 33–5–1 final record and 10–0 postseason.",
+      "caution": "These are 2024–25 facts; do not transfer this record to 2025–26 or conflate the first title with its 2026 repeat."
+    },
+    {
+      "school": "Ganado",
+      "id": "ganado-campus",
+      "kind": "institutional-context",
+      "source": "https://www.ganadoisd.org/campus",
+      "claim": "Ganado ISD lists the high school and junior high at 501 W Devers, while district administration uses 210 S 6th Street.",
+      "caution": "Neither 501 W Devers nor the district office automatically provides the entrance or exact playing address of Ganado Softball Field."
+    },
+    {
+      "school": "Ganado",
+      "id": "ganado-team-facility",
+      "kind": "venue-source-needed",
+      "source": "https://ghs.ganadoisd.org/",
+      "claim": "Ganado High publishes athletics events and school contacts, but its general homepage currently emphasizes October-season events rather than confirmed spring-2027 varsity softball field entry details.",
+      "caution": "Do not infer field accessibility, ticket costs, event parking or a game calendar from general high-school information."
+    },
+    {
+      "school": "Amarillo Highland Park",
+      "id": "amarillo-new-sport",
+      "kind": "historical-softball",
+      "source": "https://www.hpisd.net/live-feed?page_no=27",
+      "claim": "Amarillo Highland Park ISD's live feed refers to softball and baseball as its two newest programs and records a parent softball meeting in older school announcements.",
+      "caution": "The relative displayed age ('almost two years ago') is not a precise launch date; do not copy Dallas Highland Park athletics information."
+    },
+    {
+      "school": "Amarillo Highland Park",
+      "id": "amarillo-hornets",
+      "kind": "institutional-context",
+      "source": "https://www.hpisd.net/",
+      "claim": "Highland Park ISD's official Amarillo site is hpisd.net, with administrative address 15300 Amarillo Blvd East; it identifies its school community as the Hornets.",
+      "caution": "Do not confuse this with Dallas Highland Park's hpisd.org, different student body and separate athletics/fields. District office address is not a verified softball venue."
+    }
+  ],
+  "blockingResearch": [
+    "Current spring-2027 softball game fixtures and official season-specific staff assignments where not yet published",
+    "Exact physical varsity softball playing diamond, spectator entrance, accessibility, parking, game-day ticket requirements per campus",
+    "Licensed original school or field media and affirmative publishing-rights record per asset",
+    "Original full source-specific program timeline and coach succession, independent crosschecking of disputed records",
+    "Original 13-section unique narrative and finished mobile/desktop/SSR browser acceptance before first publication"
+  ]
+}

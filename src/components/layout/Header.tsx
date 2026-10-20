@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Menu, Search, ShoppingBag, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useBrand } from "@/brand/context";
 import type { BrandNavItem } from "@/brand/types";
@@ -24,6 +24,12 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const [openGroup, setOpenGroup] = useState<string | null>(null);
 
+  // An SSR-rendered button is visible before React hydration attaches onClick.
+  // Keep it genuinely disabled during that window rather than silently dropping
+  // a tap. The city accessibility test must still prove it becomes usable.
+  const [hydrated, setHydrated] = useState(false);
+  useEffect(() => { setHydrated(true); }, []);
+
   return (
     <header className="sticky top-0 z-50 border-b border-border/80 bg-background/96 backdrop-blur supports-[backdrop-filter]:bg-background/92">
       <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-50 focus:inline-flex focus:min-h-11 focus:items-center focus:bg-primary focus:px-3 focus:py-2 focus:text-primary-foreground">
@@ -34,8 +40,8 @@ export function Header() {
         <div className="hidden lg:block">
           <Container width="wide" className="relative flex h-[4.25rem] items-center justify-center border-b border-border/70">
             <p className="absolute left-0 eyebrow text-muted-foreground">The Texas magazine</p>
-            <Link to="/" className="flex items-baseline" aria-label={`${brand.identity.wordmark} front page`}>
-              <span className="font-display text-[2.45rem] font-semibold leading-none tracking-[-0.045em] text-foreground xl:text-[2.7rem]">{brand.identity.wordmark}</span>
+            <Link to="/" className="inline-flex items-center" aria-label={`${brand.identity.wordmark} front page`}>
+              <img src="/texasdefined-logo.svg" alt="" width={1825} height={382} className="block h-auto w-[15.25rem] xl:w-[16.5rem]" decoding="async" />
             </Link>
             <div className="absolute right-0 flex items-center gap-1">
               {brand.features.search && <Link to="/search" aria-label="Search Texas Defined" className="inline-flex min-h-11 items-center gap-2 px-3 py-2 text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-foreground/65 transition-colors hover:text-primary"><Search className="size-4" aria-hidden /><span>Search</span></Link>}
@@ -55,11 +61,11 @@ export function Header() {
         </div>
 
         <Container width="wide" className="flex h-[4.5rem] items-center justify-between lg:hidden">
-          <Link to="/" className="flex shrink-0 items-baseline" aria-label={`${brand.identity.wordmark} front page`}><span className="font-display text-[1.9rem] font-semibold leading-none tracking-[-0.04em] text-foreground sm:text-[2.1rem]">{brand.identity.wordmark}</span></Link>
+          <Link to="/" className="flex min-w-0 shrink items-center" aria-label={`${brand.identity.wordmark} front page`}><img src="/texasdefined-logo.svg" alt="" width={1825} height={382} className="block h-auto w-[min(44vw,12.5rem)]" decoding="async" /></Link>
           <div className="flex items-center gap-0.5">
             <Link to="/shop/cart" aria-label={cart.count > 0 ? `View your bag with ${cart.count} item${cart.count === 1 ? "" : "s"}` : "View your bag"} className="relative inline-flex min-h-11 min-w-11 items-center justify-center gap-1.5 p-2 text-foreground/65 transition-colors hover:text-primary"><ShoppingBag className="size-[18px]" aria-hidden />{cart.count > 0 ? <span className="absolute -right-0.5 -top-0.5 inline-flex min-w-4 items-center justify-center rounded-full bg-primary px-1 text-[9px] leading-4 text-primary-foreground">{cart.count}</span> : null}</Link>
             {brand.features.search && <Link to="/search" aria-label="Search Texas Defined" className="inline-flex min-h-11 min-w-11 items-center justify-center p-2 text-foreground/65 transition-colors hover:text-primary"><Search className="size-[18px]" aria-hidden /></Link>}
-            <button type="button" className="inline-flex min-h-11 min-w-11 items-center justify-center p-2 text-foreground/65 transition-colors hover:text-primary" aria-label={open ? brand.copy.close : brand.copy.menu} aria-expanded={open} aria-controls="mobile-main-menu" onClick={() => setOpen((value) => !value)}>{open ? <X className="size-5" aria-hidden /> : <Menu className="size-5" aria-hidden />}</button>
+            <button type="button" className="inline-flex min-h-11 min-w-11 items-center justify-center p-2 text-foreground/65 transition-colors hover:text-primary" aria-label={open ? brand.copy.close : brand.copy.menu} aria-expanded={open} aria-controls="mobile-main-menu" disabled={!hydrated} onClick={() => setOpen((value) => !value)}>{open ? <X className="size-5" aria-hidden /> : <Menu className="size-5" aria-hidden />}</button>
           </div>
         </Container>
 

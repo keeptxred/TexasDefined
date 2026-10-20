@@ -1,4 +1,4 @@
-import { appendFileSync, mkdirSync, writeFileSync } from 'node:fs';
+import { appendFileSync, mkdirSync, writeFileSync, readFileSync } from 'node:fs';
 import { spawn } from 'node:child_process';
 import path from 'node:path';
 
@@ -12,6 +12,13 @@ const homepageTimeoutMs = Math.max(
   requestTimeoutMs,
   Number.parseInt(process.env.BUILT_WORKER_SMOKE_HOMEPAGE_TIMEOUT_MS || '20000', 10) || 20000,
 );
+// County SSR can cold-load the statewide graph in Wrangler's emulated runtime.
+// Do not abort and multiply heavyweight in-flight requests every 30 seconds.
+// Still require a real HTTP 200 and the exact itinerary backlink within this bound.
+const countyTimeoutMs = Math.max(
+  requestTimeoutMs,
+  Number.parseInt(process.env.BUILT_WORKER_SMOKE_COUNTY_TIMEOUT_MS || '180000', 10) || 180000,
+);
 const warmupTimeoutMs = Math.max(
   requestTimeoutMs,
   Number.parseInt(process.env.BUILT_WORKER_SMOKE_WARMUP_TIMEOUT_MS || '30000', 10) || 30000,
@@ -24,6 +31,57 @@ const logPath = `${artifactDir}/built-worker-ssr-smoke.log`;
 const wranglerReadyMarker = `Ready on ${origin}`;
 
 const smokeTargets = [
+  // El Paso authority acceptance: real SSR must publish the researched metro guide
+  // and crawlable city / relocation backlinks, not the old statewide fallback.
+  { path: '/metro-area/el-paso-metro', requiredText: 'What counts as the El Paso metro?', label: 'El Paso metro includes researched two-county guide' },
+  { path: '/metro-area/el-paso-metro', requiredText: 'Hudspeth County', label: 'El Paso metro retains federal two-county geography' },
+  { path: '/metro-area/el-paso-metro', requiredText: 'Connected El Paso guides', label: 'El Paso metro renders reciprocal link rail' },
+  { path: '/metro-area/el-paso-metro', requiredText: '/county/hudspeth', label: 'El Paso metro links to Hudspeth County' },
+  { path: '/metro-area/el-paso-metro', requiredText: 'Quintin Soloviev', label: 'El Paso metro preserves licensed skyline attribution' },
+  { path: '/city/el-paso', requiredText: '/metro-area/el-paso-metro', label: 'El Paso city guide links back to metro' },
+  { path: '/article/moving-to-el-paso-guide', requiredText: '/metro-area/el-paso-metro', label: 'Moving to El Paso article links to metro guide' },
+  // A merged Magoffin code change is not proof of publication; inspect the real
+  // locally built Worker SSR rather than trusting module-level source markers.
+  { path: '/destination/magoffin-home', requiredText: 'Historic home closed through 2027', label: 'Magoffin restoration alert is SSR-rendered' },
+  { path: '/destination/magoffin-home', requiredText: 'Magoffin Home visitor FAQ', label: 'Magoffin restored visitor FAQ replaces generic-only guide' },
+  { path: '/destination/magoffin-home', requiredText: '1117 Magoffin Avenue', label: 'Magoffin current visitor-center arrival address is visible' },
+  { path: '/explore/water-parks/schlitterbahn-new-braunfels', requiredText: '/destination/gruene-historic-district', label: 'Schlitterbahn New Braunfels locally sourced additional attractions' },
+  { path: '/explore/water-parks/great-wolf-webster', requiredText: '/destination/space-center-houston', label: 'Webster resort waterpark to NASA-area visitor guides' },
+  { path: '/explore/water-parks/bill-witt-aquatic-center-corpus-christi', requiredText: '/destination/texas-state-aquarium', label: 'Corpus Christi municipal pool to maritime attractions' },
+  { path: '/explore/water-parks/paradise-springs-grapevine', requiredText: 'formulanone', label: 'Historic licensed Paradise Springs photo attribution' },
+  { path: '/explore/water-parks/hawaiian-waters-garland', requiredText: 'davidjoviera', label: 'Historic exact-Garland licensed photo attribution' },
+  { path: '/explore/water-parks/bahama-beach-dallas', requiredText: '/destination/dallas-world-aquarium', label: 'Dallas waterpark guide renders qualified city attraction links' },
+  { path: '/explore/water-parks/waco-surf-waterpark', requiredText: '/destination/waco-mammoth-national-monument', label: 'Waco waterpark guide renders federally managed NPS site option' },
+  { path: '/explore/water-parks/hurricane-harbor-arlington', requiredText: 'Nrpf22pr', label: 'Arlington historical Tornado slide photo attribution renders in individual guide' },
+  { path: '/explore/water-parks/port-royal-ocean-resort-pools', requiredText: 'Can non-resort visitors buy a pool and waterslide day pass?', label: 'Port Royal standalone resort-only waterpark guide is SSR visible' },
+  { path: '/explore/water-parks/port-royal-ocean-resort-pools', requiredText: '6317 State Highway 361', label: 'Port Royal official exact-site address renders' },
+  { path: '/explore/water-parks/kalahari-round-rock', requiredText: "Can families bring coolers, snacks or drinks into Kalahari", label: 'Kalahari detailed first-party visitor rules' },
+  { path: '/explore/water-parks/kalahari-round-rock', requiredText: 'Wikimedia Commons source', label: 'Kalahari exact-location photographed venue credits' },
+  { path: '/explore/water-parks/midland-doug-russell', requiredText: 'Texas.pics', label: 'Midland historical municipal pool credits' },
+  // Bounded individual-waterpark contract: the guide must SSR with researched
+  // operator facts, real media attribution where licensed, and new municipal venues.
+  { path: '/explore/water-parks/schlitterbahn-new-braunfels', requiredText: 'Where should day visitors park versus resort guests?', label: 'New Braunfels researched individual guide' },
+  { path: '/explore/water-parks/schlitterbahn-new-braunfels', requiredText: 'Wikimedia Commons source', label: 'New Braunfels license attribution renders on the individual guide' },
+  { path: '/explore/water-parks/irving-cimarron-family-aquatic', requiredText: 'Cimarron Family Aquatic Center', label: 'one newly added Irving municipal guide survives reconciliation' },
+  { path: '/explore/water-parks/irving-cimarron-family-aquatic', requiredText: 'Can younger children use the water slides at Cimarron?', label: 'Irving guide renders site-specific sourced FAQ rather than a directory row' },
+  { path: '/destination/choke-canyon-state-park', requiredText: 'Calliham Unit', label: 'real Choke Canyon park guide names its access units' },
+  { path: '/destination/caprock-canyons-state-park', requiredText: 'Caprock Canyons State Park', label: 'canonical Caprock Canyons visitor guide' },
+  { path: '/county/gillespie', requiredText: '/article/fredericksburg-johnson-city-historic-road-trip', label: 'Gillespie County links to researched historic corridor itinerary' },
+  { path: '/county/blanco', requiredText: '/article/fredericksburg-johnson-city-historic-road-trip', label: 'Blanco County links to researched historic corridor itinerary' },
+  // Exercise the existing county SSR requests more thoroughly without adding
+  // routes or multiplying cold-loads: actual unranked visitor entries must SSR.
+  { path: '/county/gillespie', requiredText: 'LBJ Ranch at Stonewall', label: 'Gillespie County SSR includes sourced supplemental visitor place' },
+  { path: '/county/blanco', requiredText: 'LBJ National Historical Park', label: 'Blanco County SSR includes sourced supplemental visitor place' },
+  { path: '/destination/lyndon-b-johnson-state-park-historic-site', requiredText: 'Sauer-Beckmann', label: 'canonical LBJ State Park and living-history farm' },
+  { path: '/destination/lyndon-b-johnson-state-park-historic-site', requiredText: '<meta name="robots" content="index, follow', label: 'canonical LBJ State Park is indexable after ordinary content and photo-quality gates' },
+  // Exact corridor publication proofs: 200 alone is insufficient; require
+  // researched on-page narrative so remote/generic fallback cannot mask a release.
+  { path: '/article/fredericksburg-johnson-city-historic-road-trip', requiredText: 'Fredericksburg to Johnson City: The Complete Historic Hill Country Road Trip', label: 'Fredericksburg Johnson City historic itinerary' },
+  { path: '/destination/stonewall', requiredText: 'Stonewall is a practical geographic key', label: 'Stonewall LBJ Ranch source-reviewed guide' },
+  { path: '/destination/luckenbach', requiredText: 'Luckenbach is often described as a tiny Texas town', label: 'Luckenbach Dance Hall authority narrative' },
+  { path: '/destination/fredericksburg-art-guild', requiredText: 'The Fredericksburg Art Guild is not a historic-house museum', label: 'Fredericksburg Art Guild primary-source narrative' },
+  { path: '/destination/fort-martin-scott', requiredText: 'Fort Martin Scott began as a U.S. Army post in 1848', label: 'Fort Martin Scott research supersedes old generic prose' },
+  { path: '/destination/fort-martin-scott', requiredText: 'THC pages conflict', label: 'Fort Martin Scott competing official tour notices disclosed' },
   { path: '/', requiredText: rootRequiredText, label: 'homepage' },
   {
     path: '/best-places-to-go-camping-in-texas',
@@ -79,10 +137,51 @@ const smokeTargets = [
   { path: '/guides/citypass-texas', requiredText: 'Is CityPASS® worth it in Texas?', label: 'guide child route body' },
   { path: '/explore/landscapes/hill-country', requiredText: 'The Hill Country is where the Edwards Plateau breaks into rounded hills', label: 'landscape child route body' },
   { path: '/sports/friday-night-lights', requiredText: 'Friday Night Lights, Defined', label: 'sports child route body' },
+  { path: '/sports/softball', requiredText: 'Women’s softball in Texas, defined', label: 'Texas women’s softball authority SSR' },
+  { path: '/sports/softball/schools', requiredText: 'Every listed Texas UIL softball school and district', label: '2026–27 1,192-school UIL softball directory SSR' },
+  // Each newly approved authority profile is tested on the BUILT Worker:
+  // dynamic routes must not return 200 with unrelated directory/hub content.
+  ...JSON.parse(readFileSync(new URL('../../src/data/softball/published-team-profiles.json', import.meta.url), 'utf8')).pages.map((p) => ({
+    path: p.canonicalPath,
+    requiredText: p.title,
+    label: 'source-reviewed softball team authority SSR: ' + p.slug,
+  })),
+  { path: '/sports/softball/paris-junior-college', requiredText: 'Paris Junior College Lady Dragons softball', label: 'PJC softball team authority SSR' },
+  { path: '/sports/softball/texas-volts', requiredText: 'Texas Volts: professional softball comes home to Round Rock', label: 'professional softball team authority SSR' },
   { path: '/texas-data/county-growth', requiredText: 'Texas county population growth, 2020–2025', label: 'Texas Data child route body' },
 ];
 
 const redirectTargets = [
+  { path: '/destination/choke-canyon-north-shore-unit-state-park?source=gsc', expectedStatus: 301, expectedPath: '/destination/choke-canyon-state-park', expectedQuery: ['source','gsc'], label: 'legacy Choke Canyon North Shore import' },
+  { path: '/state-park/caprock-canyons-trailway-estelline-terminal-state-park?source=gsc', expectedStatus: 301, expectedPath: '/destination/caprock-canyons-state-park', expectedQuery: ['source','gsc'], label: 'legacy Estelline Trailway import' },
+  {"path": "/historic-site/seminole-canyon-state-park-and-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/seminole-canyon-state-park", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/historic-site/lipantitlan-state-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/lipantitlan", "expectedQuery": ["source", "gsc"], "label": "verified historic-site alias"},
+  {"path": "/historic-site/san-jacinto-monument-state-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/san-jacinto-battleground", "expectedQuery": ["source", "gsc"], "label": "verified monument guide alias"},
+  {"path": "/destination/choke-canyon-south-shore-unit-state-park?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/choke-canyon-state-park", "expectedQuery": ["source", "gsc"], "label": "verified park unit alias"},
+  {"path": "/state-park/choke-canyon-south-shore-unit-state-park?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/choke-canyon-state-park", "expectedQuery": ["source", "gsc"], "label": "verified park unit alias"},
+  {"path": "/historic-site/seminole-canyon-state-park-state-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/seminole-canyon-state-park", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/historic-site/goliad-state-park-state-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/goliad-state-park", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/historic-site/goliad-state-park-and-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/goliad-state-park", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/historic-site/barrington-farm-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/barrington-living-history-farm", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/historic-site/fanthorp-inn-state-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/fanthorp-inn", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/historic-site/battleship-texas-state-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/battleship-texas", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/historic-site/port-isabel-lighthouse-state-park?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/port-isabel-lighthouse", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/historic-site/port-isabel-lighthouse-state-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/port-isabel-lighthouse", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/historic-site/monument-hill-kreische-brewery-state-historic-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/monument-hill", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/historic-site/monument-hill-and-kreische-brewery-state-historic-sites?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/monument-hill", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/museum/barrington-farm-site?source=gsc", "expectedStatus": 301, "expectedPath": "/destination/barrington-living-history-farm", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/news/audie-murphy-texas-war-hero-actor?source=gsc", "expectedStatus": 301, "expectedPath": "/article/audie-murphy-texas-war-hero-actor", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/news/fort-worth-stockyards-history-cattle-culture?source=gsc", "expectedStatus": 301, "expectedPath": "/article/fort-worth-stockyards-history-cattle-culture", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/news/mirabeau-b-lamar-president-republic-texas?source=gsc", "expectedStatus": 301, "expectedPath": "/article/mirabeau-b-lamar-president-republic-texas", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/news/blue-bell-ice-cream-brenham-texas-history?source=gsc", "expectedStatus": 301, "expectedPath": "/article/blue-bell-ice-cream-brenham-texas-history", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/news/bucees-texas-road-trip-history?source=gsc", "expectedStatus": 301, "expectedPath": "/article/bucees-texas-road-trip-history", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/news/james-bowie-texas-alamo-life-legend?source=gsc", "expectedStatus": 301, "expectedPath": "/article/james-bowie-texas-alamo-life-legend", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/news/william-barret-travis-alamo-commander?source=gsc", "expectedStatus": 301, "expectedPath": "/article/william-barret-travis-alamo-commander", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+  {"path": "/news/chester-nimitz-texas-fleet-admiral?source=gsc", "expectedStatus": 301, "expectedPath": "/article/chester-nimitz-texas-fleet-admiral", "expectedQuery": ["source", "gsc"], "label": "historical GSC alias"},
+
+  { path: '/destination/lyndon-b-johnson-state-park-and-historic-site', expectedStatus: 301, expectedPath: '/destination/lyndon-b-johnson-state-park-historic-site', expectQueryPreserved: false, label: 'LBJ State Park broken editorial alias canonical redirect' },
+  { path: '/destination/lyndon-b-johnson-state-park-state-historic-site', expectedStatus: 301, expectedPath: '/destination/lyndon-b-johnson-state-park-historic-site', expectQueryPreserved: false, label: 'LBJ State Park secondary historical alias canonical redirect' },
+  { path: '/historic-site/lyndon-b-johnson-state-park-state-historic-site', expectedStatus: 301, expectedPath: '/destination/lyndon-b-johnson-state-park-historic-site', expectQueryPreserved: false, label: 'LBJ State Park old historic-site route canonical redirect' },
   {
     path: '/fishing/fishing/techniques/soft-plastics?source=smoke',
     expectedStatus: 301,
@@ -117,6 +216,10 @@ const child = spawn(
     host,
     '--port',
     String(port),
+    // Let the runtime choose an ephemeral inspector socket. Avoid Wrangler's
+    // network-interface scan in restricted local runners; no inspector is used.
+    '--inspector-port',
+    '0',
   ],
   {
     cwd: process.cwd(),
@@ -204,6 +307,13 @@ async function checkRenderRoute(group, attemptToken, timeoutMs = requestTimeoutM
       return '';
     }
 
+    // Capture a bounded server-rendered failure body for diagnosing real lake route 500s.
+    // Never log cookies, authorization headers, query credentials or entire HTML documents.
+    if (response.status >= 500) {
+      const preview = body.slice(0, 1800).replace(/[\r\n\t]+/g, " ");
+      appendFileSync(logPath, `[smoke:ssr-error] ${group.path} HTTP ${response.status}: ${preview}\n`);
+      process.stdout.write(`[smoke:ssr-error] ${group.path}: ${preview}\n`);
+    }
     return `${group.path} returned HTTP ${response.status}`;
   } catch (error) {
     const detail = error instanceof Error ? error.message : String(error);
@@ -224,8 +334,8 @@ async function checkRedirectTarget(target, attemptToken) {
     lastStatus.set(target.path, String(response.status));
     const location = response.headers.get('location');
     const redirectedUrl = location ? new URL(location, url) : null;
-    const queryMatches = redirectedUrl?.searchParams.get(target.expectedQuery[0]) === target.expectedQuery[1]
-      && Boolean(redirectedUrl?.searchParams.get('built_worker_smoke'));
+    const queryMatches = target.expectQueryPreserved === false || (redirectedUrl?.searchParams.get(target.expectedQuery[0]) === target.expectedQuery[1]
+      && Boolean(redirectedUrl?.searchParams.get('built_worker_smoke')));
 
     if (response.status === target.expectedStatus && redirectedUrl?.pathname === target.expectedPath && queryMatches) return '';
 
@@ -237,20 +347,38 @@ async function checkRedirectTarget(target, attemptToken) {
   }
 }
 
-async function verifyWithRetries(target, checker, label) {
+// Do not accept a generic 200/hub for an unapproved or invented UIL team.
+// The built Worker must return a real HTTP 404, even before any profiles are live.
+const forbiddenSoftballRoute = { path: '/sports/softball/never-an-approved-uil-school-ci', label: 'Unapproved UIL school must be a 404' };
+async function checkForbiddenSoftballRoute(target, attemptToken) {
+  try {
+    const response = await fetch(smokeUrl(target.path, attemptToken), {
+      redirect: 'manual', cache: 'no-store', headers: requestHeaders,
+      signal: AbortSignal.timeout(requestTimeoutMs),
+    });
+    lastStatus.set(target.path, String(response.status));
+    if (response.status === 404) return '';
+    return target.label + ': expected true HTTP 404 but received ' + response.status;
+  } catch(error) {
+    const detail = error instanceof Error ? error.message : String(error);
+    return target.label + ': fetch failed: ' + detail;
+  }
+}
+
+async function verifyWithRetries(target, checker, label, maxAttempts = targetAttempts) {
   let failure = '';
 
-  for (let attempt = 1; attempt <= targetAttempts; attempt += 1) {
+  for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
     if (child.exitCode !== null) return `Wrangler dev exited during ${label} verification (exit ${child.exitCode}).`;
 
     failure = await checker(target, `${label.replaceAll(' ', '-')}-${attempt}`);
     if (!failure) {
-      if (attempt > 1) console.log(`${label} passed on retry ${attempt}/${targetAttempts}.`);
+      if (attempt > 1) console.log(`${label} passed on retry ${attempt}/${maxAttempts}.`);
       return '';
     }
 
-    if (attempt < targetAttempts) {
-      console.log(`${label} attempt ${attempt}/${targetAttempts} failed: ${failure}. Retrying.`);
+    if (attempt < maxAttempts) {
+      console.log(`${label} attempt ${attempt}/${maxAttempts} failed: ${failure}. Retrying.`);
       await sleep(retryDelayMs);
     }
   }
@@ -303,14 +431,22 @@ try {
 
     for (const group of renderRouteGroups) {
       const label = `render route ${group.path}`;
-      const timeoutMs = group.path === '/' ? homepageTimeoutMs : requestTimeoutMs;
+      const isCounty = group.path === '/county/gillespie' || group.path === '/county/blanco';
+      const timeoutMs = isCounty ? countyTimeoutMs : group.path === '/' ? homepageTimeoutMs : requestTimeoutMs;
       const failure = await verifyWithRetries(
         group,
         (target, attemptToken) => checkRenderRoute(target, attemptToken, timeoutMs),
         label,
+        isCounty ? 1 : targetAttempts,
       );
       if (failure) failures.push(failure);
       else console.log(`[route] verified (200): ${group.path} (${group.checks.length} marker check${group.checks.length === 1 ? '' : 's'})`);
+    }
+
+    {
+      const failure = await verifyWithRetries(forbiddenSoftballRoute, checkForbiddenSoftballRoute, 'unapproved softball team 404');
+      if (failure) failures.push(failure);
+      else console.log('[route] verified (404): '+forbiddenSoftballRoute.path+' (never publish invented UIL schools)');
     }
 
     for (const target of redirectTargets) {

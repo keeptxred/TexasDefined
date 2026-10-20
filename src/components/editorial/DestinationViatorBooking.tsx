@@ -34,6 +34,10 @@ function WmaHuntingLinks() {
 export function DestinationViatorBooking({ destination }: { destination: Destination }) {
   const market = matchDestinationMarket(destination);
   const huntingLinks = destination.id.startsWith("texas-wma-") ? <WmaHuntingLinks /> : null;
+  // Citywide commercial tours should never appear to sell entry to a closed
+  // archaeological or state historic site. They also do not belong on a free
+  // NPS memorial when no site-specific bookable product exists.
+  if (["chamizal-national-memorial", "old-socorro-mission", "first-capitol-of-texas"].includes(destination.slug)) return null;
   if (!market) return huntingLinks;
 
   const hasDedicatedInventory = hasVerifiedViatorMarketUrl(market.slug);

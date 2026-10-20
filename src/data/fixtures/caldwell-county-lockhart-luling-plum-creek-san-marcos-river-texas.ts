@@ -33,6 +33,7 @@ export const caldwellCountyLockhartLulingPlumCreekSanMarcosRiverTexasArticle: Ar
   ],
   featured: false,
   internalLinks: [
+    { href: "/article/texas-san-marcos-river-guide", label: "Full san marcos  River guide", description: "Plan the related river with official access, fishing, camping and visitor information." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
     { href: "/county/hays", label: "Explore Hays County", description: "Continue northwest toward San Marcos, the Hill Country edge and the upper San Marcos River." },
     { href: "/county/guadalupe", label: "Explore Guadalupe County", description: "Follow the San Marcos River boundary toward Seguin and the Guadalupe River country." },

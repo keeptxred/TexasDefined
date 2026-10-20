@@ -3,6 +3,7 @@ import fs from "node:fs";
 const read = (path) => fs.readFileSync(path, "utf8");
 const paths = {
   network: "src/data/fishing/statewide-lake-network.ts",
+  fortParkerPark: "src/data/destination-curation-batch6.ts",
   species: "src/data/fishing/species-catalog.ts",
   slugs: "src/data/fishing/slugs.ts",
   routing: "src/data/fishing/showcase-lake-routing.ts",
@@ -47,6 +48,37 @@ const expected = [
   ["alan-henry-reservoir", "Alan Henry Reservoir"],
   ["lake-meredith", "Lake Meredith"],
   ["lake-houston", "Lake Houston"],
+  ["joe-pool-lake", "Joe Pool Lake"],
+  ["lake-granbury", "Lake Granbury"],
+  ["lake-waco", "Lake Waco"],
+  ["lake-brownwood", "Lake Brownwood"],
+  ["proctor-lake", "Proctor Lake"],
+  ["lake-arrowhead", "Lake Arrowhead"],
+  ["lake-casa-blanca", "Lake Casa Blanca"],
+  ["lake-mineral-wells", "Lake Mineral Wells"],
+  ["lake-colorado-city", "Lake Colorado City"],
+  ["lake-stamford", "Lake Stamford"],
+  ["lake-sweetwater", "Lake Sweetwater"],
+  ["lake-georgetown", "Lake Georgetown"],
+  ["benbrook-lake", "Benbrook Lake"],
+  ["granger-lake", "Granger Lake"],
+  ["aquilla-lake", "Aquilla Lake"],
+  ["white-rock-lake", "White Rock Lake"],
+  ["bardwell-lake", "Bardwell Lake"],
+  ["lake-bastrop", "Lake Bastrop"],
+  ["lake-arlington", "Lake Arlington"],
+  ["cedar-lake-cleburne-state-park", "Cedar Lake at Cleburne State Park"],
+  ["lake-worth", "Lake Worth"],
+  ["lake-nasworthy", "Lake Nasworthy"],
+  ["fort-parker-state-park-lake", "Fort Parker State Park Lake"],
+  ["lake-tyler", "Lake Tyler (East and West)"],
+  ["medina-lake", "Medina Lake"],
+  ["lake-weatherford", "Lake Weatherford"],
+  ["lake-abilene", "Lake Abilene"],
+  ["lake-cypress-springs", "Lake Cypress Springs"],
+  ["bachman-lake", "Bachman Lake"],
+  ["e-v-spence-reservoir", "E. V. Spence Reservoir"],
+  ["brady-creek-reservoir", "Brady Creek Reservoir"],
 ];
 
 const fail = (message) => { throw new Error(`Statewide fishing network validation failed: ${message}`); };
@@ -62,21 +94,21 @@ const wave2 = parseTuple(files.slugs, "WAVE2_COMPLETE_FISHING_LAKE_SLUGS");
 const statewide = parseTuple(files.slugs, "STATEWIDE_NETWORK_COMPLETE_FISHING_LAKE_SLUGS");
 if (base.length !== 10) fail(`expected 10 legacy complete lakes, found ${base.length}`);
 if (wave2.length !== 5) fail(`expected 5 wave-2 complete lakes, found ${wave2.length}`);
-if (statewide.length !== 26) fail(`expected 26 statewide-network lakes, found ${statewide.length}`);
+if (statewide.length !== 57) fail(`expected 57 statewide-network lakes, found ${statewide.length}`);
 const complete = [...base, ...wave2, ...statewide];
-if (new Set(complete).size !== 41) fail(`expected 41 unique complete lakes, found ${new Set(complete).size}`);
+if (new Set(complete).size !== 72) fail(`expected 72 unique complete lakes, found ${new Set(complete).size}`);
 
 const expectedSlugs = expected.map(([slug]) => slug);
 const lcraLiveExpectedSlugs = new Set(["fayette-county-reservoir"]);
-const officialFallbackSlugs = new Set(["calaveras-lake"]);
+const officialFallbackSlugs = new Set(["calaveras-lake", "lake-casa-blanca", "white-rock-lake", "lake-bastrop", "cedar-lake-cleburne-state-park", "fort-parker-state-park-lake", "bachman-lake"]);
 const twdbLiveExpectedSlugs = expectedSlugs.filter((slug) => !lcraLiveExpectedSlugs.has(slug) && !officialFallbackSlugs.has(slug));
 const liveExpectedSlugs = expectedSlugs.filter((slug) => !officialFallbackSlugs.has(slug));
-if (JSON.stringify(statewide) !== JSON.stringify(expectedSlugs)) fail("statewide slug registry drifted from the authoritative 26-lake release order");
+if (JSON.stringify(statewide) !== JSON.stringify(expectedSlugs)) fail("statewide slug registry drifted from the authoritative 57-lake release order");
 
 const topLevel = [...files.network.matchAll(/^    slug: "([^"]+)", name: "([^"]+)"/gm)].map((match) => ({ slug: match[1], name: match[2], index: match.index }));
-if (topLevel.length !== 26) fail(`expected 26 top-level lake definitions, found ${topLevel.length}`);
-if (new Set(topLevel.map((row) => row.slug)).size !== 26) fail("duplicate statewide lake slug");
-if (new Set(topLevel.map((row) => row.name)).size !== 26) fail("duplicate statewide lake name");
+if (topLevel.length !== 57) fail(`expected 57 top-level lake definitions, found ${topLevel.length}`);
+if (new Set(topLevel.map((row) => row.slug)).size !== topLevel.length) fail("duplicate statewide lake slug");
+if (new Set(topLevel.map((row) => row.name)).size !== topLevel.length) fail("duplicate statewide lake name");
 for (const [slug, name] of expected) {
   const row = topLevel.find((item) => item.slug === slug);
   if (!row || row.name !== name) fail(`missing or renamed lake definition: ${slug}`);
@@ -98,10 +130,53 @@ for (let i = 0; i < topLevel.length; i += 1) {
   if (officialFallbackSlugs.has(row.slug) && (hasTwdbLive || hasLcraLive)) fail(`${row.slug} must remain on an official-agency fallback until a monitored live source exists`);
   if (!expectsTwdbLive && hasTwdbLive) fail(`${row.slug} has an unexpected Water Data for Texas mapping`);
   if (!expectsLcraLive && hasLcraLive) fail(`${row.slug} has an unexpected LCRA Hydromet mapping`);
+  // Every statewide guide must offer named TPWD-reviewed visit planning, not one generic ramp inventory.
+  const accessSegment = segment.match(/accessPoints:\s*\[([\s\S]*?)\n\s*\],/)?.[1];
+  if (!accessSegment) fail(`${row.slug} is missing named public-access facilities`);
+  const facilityNames = [...accessSegment.matchAll(/\{\s*name:\s*"([^"]+)"/g)].map((match) => match[1]);
+  if (facilityNames.length < 1) fail(`${row.slug} has no independently named public-access sites`);
+  if (new Set(facilityNames).size !== facilityNames.length) fail(`${row.slug} repeats the same facility in its access inventory`);
+  for (const token of ["operator:", "launch:", "fee:", "availability:"]) {
+    if (!accessSegment.includes(token)) fail(`${row.slug} access inventory is missing ${token}`);
+  }
+  if (segment.includes("public access inventory") && segment.includes("accessPoints:")) {
+    // The historical summary may mention an inventory; the actual accessPoints must not be a fabricated generic site.
+    if (accessSegment.includes("public access inventory")) fail(`${row.slug} includes a generic access item after review`);
+  }
   const fishCount = [...segment.matchAll(/fish\("/g)].length;
   if (fishCount < 3) fail(`${row.slug} is too thin: only ${fishCount} source-backed fish targets`);
   const relatedCount = [...segment.matchAll(/\{slug:"[^"]+",name:"[^"]+"\}/g)].length;
   if (relatedCount < 2) fail(`${row.slug} requires at least two related-lake links`);
+}
+
+for (const slug of ["white-rock-lake", "lake-ray-hubbard"]) {
+  const m = new RegExp('^    slug: "' + slug + '", name:', 'm').exec(files.network);
+  if (!m) fail(`missing source-supported no-camping lake ${slug}`);
+  const end = files.network.indexOf("\n  },", m.index);
+  if (!files.network.slice(m.index, end).includes("campingProhibited: true"))
+    fail(`${slug} must continue publishing its verified no-camping restriction`);
+}
+for (const token of ["pageData.campingProhibited", "No overnight camping at"]) {
+  requireText(files.component, token, "source-confirmed no-camping UI contract missing " + token);
+}
+
+// Operator-specific safety gates: retain current low-water, pier and construction warnings
+// on BOTH the fishing authority and its related state-park destination page.
+const fortParkerStart = files.network.indexOf('    slug: "fort-parker-state-park-lake", name:');
+if (fortParkerStart < 0) fail("Fort Parker Lake must remain independently registered");
+const fortParkerEnd = files.network.indexOf("\n  },", fortParkerStart);
+const fortParkerGuide = files.network.slice(fortParkerStart, fortParkerEnd);
+for (const token of [
+  "fort_parker", "2016", "2026", "2027", "motorized launching",
+  "fishing piers", "burn ban", "Navasota River", "Lake Springfield",
+  "campingUrl:", "liveDataNote:",
+]) requireText(fortParkerGuide, token, "Fort Parker Lake source/access warning missing " + token);
+const parkStart = files.fortParkerPark.indexOf('"fort-parker-state-park": {');
+if (parkStart < 0) fail("Fort Parker park curation missing");
+const parkEnd = files.fortParkerPark.indexOf('"galveston-island-state-park": {', parkStart);
+const fortParkerPark = files.fortParkerPark.slice(parkStart, parkEnd);
+for (const token of ["Fort Parker Lake", "low water", "both fishing piers", "burn ban", "May 2027", "Navasota River"]) {
+  requireText(fortParkerPark, token, "Fort Parker state-park destination lost its active operator warning " + token);
 }
 
 for (const slug of expectedSlugs) {
@@ -140,7 +215,7 @@ for (const token of [
   "getLcraHydrometSiteNumber",
 ]) requireText(files.liveFetcher, token, `LCRA resilient fetch contract missing ${token}`);
 
-if ((files.network.match(/waterDataSlug: "/g) ?? []).length !== 24) fail("expected 24 statewide-network TWDB live-water mappings");
+if ((files.network.match(/waterDataSlug:\s*"/g) ?? []).length !== twdbLiveExpectedSlugs.length) fail(`expected ${twdbLiveExpectedSlugs.length} statewide-network TWDB live-water mappings`);
 if ((files.network.match(/lcraHydrometSiteNumber: "/g) ?? []).length !== 1) fail("expected exactly one statewide-network LCRA Hydromet mapping");
 if (files.network.includes("TPWD — current lake conditions entry point")) fail("obsolete pseudo-live TPWD current-conditions fallback remains");
 
@@ -155,8 +230,8 @@ for (const slug of officialFallbackSlugs) {
   }
 }
 for (const token of [
-  "All 40 monitored lake page-data snapshots and server paths are current",
-  "All 40 monitored lake snapshots and live UI surfaces passed",
+  "All 57 monitored lake page-data snapshots and server paths are current",
+  "All 57 monitored lake snapshots and live UI surfaces passed",
 ]) requireText(files.liveWorkflow, token, `production live-water workflow coverage contract missing ${token}`);
 
 for (const token of [
@@ -239,8 +314,8 @@ const sectionMatch = files.routing.match(/SHOWCASE_LAKE_SECTION_SLUGS\s*=\s*\[([
 const sectionCount = sectionMatch ? [...sectionMatch[1].matchAll(/"([a-z0-9-]+)"/g)].length : 0;
 if (sectionCount !== 8) fail(`expected 8 lake intent sections, found ${sectionCount}`);
 const newEntryUrls = statewide.length * (1 + sectionCount);
-if (newEntryUrls !== 234) fail(`expected 234 statewide-network overview/intent URLs, found ${newEntryUrls}`);
+if (newEntryUrls !== 513) fail(`expected 513 statewide-network overview/intent URLs across the 57 statewide lake guides, found ${newEntryUrls}`);
 
 if (files.network.includes('from "@/data/types";\\nimport')) fail("literal escaped newline remains in statewide import block");
 
-console.log(`Statewide fishing network validation passed: 15 existing + 26 statewide-network lakes = 41 complete lake guides; ${newEntryUrls} statewide-network overview/intent URLs; source-backed identity, species/technique relationships, canonical routing, sitemap discovery, related-lake/county links, report freshness language, 24 TWDB live-water mappings, one resilient LCRA Hydromet live mapping, one explicit official-agency fallback, current-condition honesty and duplicate-route safeguards are protected.`);
+console.log(`Statewide fishing network validation passed: 15 existing + 57 statewide-network lakes = 72 complete lake guides; ${newEntryUrls} statewide-network overview/intent URLs; source-backed identity, species/technique relationships, canonical routing, sitemap discovery, related-lake/county links, report freshness language, 49 TWDB live-water mappings, one resilient LCRA Hydromet live mapping, three explicit official-agency fallbacks, current-condition honesty and duplicate-route safeguards are protected.`);

@@ -1,0 +1,60 @@
+{
+  "season": "2026",
+  "updatedAt": "2026-10-16",
+  "feed": "editorially verified source snapshots",
+  "games": [
+    {
+      "slug": "2026-10-16-houston-memorial-at-alief-taylor",
+      "date": "2026-10-16",
+      "kickoff": "7:00 p.m. CDT",
+      "classification": "6A",
+      "district": 20,
+      "home": {
+        "name": "Alief Taylor",
+        "mascot": "Lions",
+        "slug": "alief-taylor",
+        "recordAtKickoff": "6–1"
+      },
+      "away": {
+        "name": "Houston Memorial",
+        "mascot": "Mustangs",
+        "slug": "houston-memorial",
+        "recordAtKickoff": "6–0"
+      },
+      "status": "final",
+      "homeScore": 18,
+      "awayScore": 42,
+      "venue": "Crump Stadium",
+      "venueSourceUrl": "https://www.houstonmemorialfootball.com/schedule",
+      "sourceUrl": "https://www.maxpreps.com/tx/football/game/alief-taylor-houston-vs-memorial-houston/10-16-2026/",
+      "resultSourceUrl": "https://www.houstonchronicle.com/sports/high-school/football/article/texas-scores-friday-week-16-22481255.php",
+      "sourceLabel": "MaxPreps game listing; Houston Chronicle reported final",
+      "verifiedAt": "2026-10-16",
+      "phase": "regular"
+    },
+    {
+      "slug": "2026-10-23-houston-lamar-at-houston-memorial",
+      "date": "2026-10-23",
+      "kickoff": "7:00 p.m. CDT",
+      "classification": "6A",
+      "district": 20,
+      "home": {
+        "name": "Houston Memorial",
+        "mascot": "Mustangs",
+        "slug": "houston-memorial"
+      },
+      "away": {
+        "name": "Houston Lamar",
+        "mascot": "Texans",
+        "slug": "houston-lamar"
+      },
+      "status": "scheduled",
+      "venue": "Tully Stadium",
+      "venueSourceUrl": "https://www.houstonmemorialfootball.com/schedule",
+      "sourceUrl": "https://www.houstonmemorialfootball.com/schedule",
+      "sourceLabel": "Memorial High School football schedule",
+      "verifiedAt": "2026-10-16",
+      "phase": "regular"
+    }
+  ]
+}

@@ -35,6 +35,8 @@ export const ellisCountyWaxahachieEnnisBlacklandPrairieArticle: Article = {
   ],
   featured: false,
   internalLinks: [
+    { href: "/destination/waxahachie", label: "Waxahachie researched visitor guide", description: "Waxahachie visitor guide: 1895 courthouse, cotton-era architecture, Getzendaner Park and accessible family stops." },
+    { href: "/event/crossroads-of-texas-country-festival", label: "Crossroads of Texas GO TEXAN Country Festival", description: "Turn the Waxahachie courthouse-square story into a practical October festival itinerary." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
     { href: "/county/johnson", label: "Explore Johnson County", description: "Continue west toward Cleburne, the Nolan River and Chisholm Trail country." },
     { href: "/county/hill", label: "Explore Hill County", description: "Head south toward Hillsboro, Lake Whitney and the rolling prairie." },

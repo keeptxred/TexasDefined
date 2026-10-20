@@ -12,7 +12,34 @@ const destinationPlanner = fs.readFileSync('src/components/editorial/Destination
 const productionVerifier = fs.readFileSync('scripts/ci/verify-stay-affiliate-production.mjs', 'utf8');
 const productionWorkflow = fs.readFileSync('.github/workflows/verify-stay-affiliate-production.yml', 'utf8');
 const integrationDocs = fs.readFileSync('docs/expedia-affiliate-integration.md', 'utf8');
+const casinoHub = fs.readFileSync('src/routes/explore.casinos.index.tsx', 'utf8');
+const casinoGuide = fs.readFileSync('src/routes/explore.casinos.$slug.tsx', 'utf8');
+const expediaBootstrap = fs.readFileSync('public/expedia-travel.js', 'utf8');
+// Expedia owns async DOM placement. The CJ layer must be explicitly notified
+// after insertion and route updates, rather than relying on main subtree timing.
+const cjRefreshBridge = 'window.TexasDefinedStayAffiliateOptions?.sync?.();';
+if (expediaBootstrap.split(cjRefreshBridge).length - 1 !== 3) {
+  throw new Error('Expedia must refresh the governed CJ panel for generic/curated mount, explicit mount, and SPA route changes');
+}
+for (const needle of [
+  'current?.dataset.surfaceType === "generic" && current.dataset.stayContext === expectedContext',
+  'fallback.dataset.stayContext = expectedContext',
+]) {
+  if (!expediaBootstrap.includes(needle)) {
+    throw new Error('Generic stay fallback must retain its context and cannot repeatedly delete embedded CJ offers: ' + needle);
+  }
+}
+
 const errors = [];
+if (!casinoHub.includes('data-stay-nearby-slot') || !casinoGuide.includes('data-stay-nearby-slot')) {
+  errors.push('Casino travel routes must reuse the first-party Stay Nearby placement slot.');
+}
+for (const suppressed of ['texas-gaming-laws', 'naskila-resort-leggett']) {
+  if (!casinoGuide.includes(`guide.slug !== "${suppressed}"`) || !expediaBootstrap.includes(suppressed)) {
+    errors.push(`Non-bookable casino page ${suppressed} must suppress lodging affiliates.`);
+  }
+}
+
 
 const requireText = (text, needle, label) => {
   if (!text.includes(needle)) errors.push(`${label}: missing ${needle}`);
@@ -74,6 +101,29 @@ try {
       ['/texas-music-venues', 'both'],
       ['/texas-roadside-oddities', 'both'],
     ];
+    if (typeof api.casinoHotelChoices !== 'function') {
+      errors.push('Casino pages must expose verified exact-property Hotels.com choices.');
+    } else {
+      const expected = {
+        '/explore/casinos/kickapoo-lucky-eagle': 1,
+        '/explore/casinos/near-houston': 2,
+        '/explore/casinos/near-dallas-fort-worth': 1,
+        '/explore/casinos/naskila-leggett': 0,
+        '/explore/casinos/texas-gaming-laws': 0,
+        '/explore/casinos/naskila-resort-leggett': 0,
+      };
+      for (const [route, count] of Object.entries(expected)) {
+        const choices = api.casinoHotelChoices(route);
+        if (choices.length !== count) errors.push(`Casino route ${route} expected ${count} verified property choices, got ${choices.length}.`);
+        for (const choice of choices) {
+          if (!choice.destination.startsWith('https://www.hotels.com/ho')
+            || !choice.sourceUrl.startsWith('https://')
+            || !api.buildCjDeepLink(choice.destination).startsWith('https://www.anrdoezrs.net/links/101876465/type/dlg/')) {
+            errors.push(`Casino route ${route} must use verified Hotels.com exact property and CJ deep link.`);
+          }
+        }
+      }
+    }
     for (const [pathname, expected] of bookingCases) {
       const actual = api.bookingIntent(pathname);
       if (actual !== expected) errors.push(`booking intent regression for ${pathname}: expected ${expected}, received ${actual}.`);
@@ -147,6 +197,26 @@ try {
     }
     if (api.exactPropertyDestination('Not A Curated Hotel') !== null) errors.push('Unknown hotel names must fail closed instead of receiving a guessed property URL.');
 
+    // Distinct, source-verified historic hotel opportunity; not part of the 30-card cohort.
+    if (typeof api.hotelPasoStay !== 'function') {
+      errors.push('Hotel Paso exact-stay resolver missing.');
+    } else {
+      const stay = api.hotelPasoStay('/destination/hotel-paso-del-norte');
+      if (!stay || stay.name !== 'Hotel Paso Del Norte, Autograph Collection'
+        || stay.destination !== 'https://www.hotels.com/ho114680/hotel-paso-del-norte-autograph-collection-el-paso-united-states-of-america/'
+        || stay.sourceUrl !== 'https://www.hotelpdn.com/location'
+        || stay.verifiedAt !== '2026-10-17'
+        || !api.buildCjDeepLink(stay.destination).startsWith('https://www.anrdoezrs.net/links/101876465/type/dlg/https://www.hotels.com/ho114680/')) {
+        errors.push('Hotel Paso exact-property listing, verified operator identity or publisher deeplink drifted.');
+      }
+      for (const pathname of ['/destination/magoffin-home', '/city/el-paso', '/county/el-paso', '/destination/hotel-paso-del-norte-other', '/explore/casinos/near-houston']) {
+        if (api.hotelPasoStay(pathname) !== null) errors.push('Hotel Paso offer leaked to '+pathname);
+      }
+    }
+    for (const clause of ['placement: "hotel-paso-exact-hotel-stay"', 'operator identity checked against', 'hotelPasoStay() ? "hotel-paso-exact"', 'Check Hotel Paso del Norte on Hotels.com', 'variant: featuredStay || hotelPasoExact || showRvshare ? "secondary" : "primary"']) {
+      if (!source.includes(clause)) errors.push('Hotel Paso commercial attribution or route guard missing: '+clause);
+    }
+
     const featuredGolfCases = [
       ['/sports-venue/pga-frisco-fields-ranch', 'Omni PGA Frisco Resort & Spa', 'https://www.hotels.com/ho2796737888/omni-pga-frisco-resort-frisco-united-states-of-america/', 'www.omnihotels.com'],
       ['/sports-venue/tpc-san-antonio', 'JW Marriott San Antonio Hill Country Resort & Spa', 'https://www.hotels.com/ho325236/jw-marriott-san-antonio-hill-country-resort-spa-san-antonio-united-states-of-america/', 'www.marriott.com'],
@@ -216,7 +286,7 @@ for (const [needle, label] of [
   ['placement: "stay-nearby-featured-golf"', 'featured golf affiliate attribution'],
   ['A venue-linked stay to consider', 'featured golf stay heading'],
   ['Venue relationship verified against', 'featured golf source disclosure'],
-  ['variant: featuredStay || showRvshare ? "secondary" : "primary"', 'featured-golf and RVshare priority policy'],
+  ['variant: featuredStay || hotelPasoExact || showRvshare ? "secondary" : "primary"', 'featured-golf and RVshare priority policy'],
   ['https://www.hotels.com/ho115100/hilton-anatole-dallas-united-states-of-america/', 'mature Hilton Anatole property record'],
   ['https://www.hotels.com/ho2949850752/loews-arlington-arlington-united-states-of-america/', 'Loews Arlington property record'],
   ['https://www.hotels.com/ho1830497920/tru-by-hilton-northlake-fort-worth-tx-roanoke-united-states-of-america/', 'Tru Northlake property record'],
@@ -265,7 +335,7 @@ for (const [needle, label] of [
   ['Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com, Travelocity or Vrbo activity', 'destination/leisure traveler affiliate disclosure'],
   ['Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com, Travelocity or RVshare activity', 'RVshare-enabled outdoor traveler affiliate disclosure'],
   ['if (intent === "both" && !showRvshare)', 'Vrbo suppression on RVshare-intent routes'],
-  ['variant: featuredStay || showRvshare ? "secondary" : "primary"', 'hotel CTA demotion on RVshare-intent routes'],
+  ['variant: featuredStay || hotelPasoExact || showRvshare ? "secondary" : "primary"', 'hotel CTA demotion on RVshare-intent routes'],
   ['destination: RVSHARE_DESTINATION', 'RVshare governed destination'],
   ['variant: "primary"', 'RVshare primary CTA treatment'],
   ['Affiliate disclosure: TexasDefined may earn a referral commission when an eligible new Vrbo property listing goes live', 'owner affiliate disclosure'],
@@ -376,8 +446,7 @@ if (!productionVerifier.includes("route: '/sports-venue/xtreme-raceway-park'") |
 }
 
 for (const [needle, label] of [
-  ['workflow_run:', 'post-deploy workflow trigger'],
-  ['Deploy TexasDefined production', 'production deployment dependency'],
+  ['workflow_dispatch:', 'manual production acceptance trigger'],
   ['github.event.workflow_run.conclusion == \'success\'', 'successful-deploy guard'],
   ['node scripts/ci/verify-stay-affiliate-production.mjs', 'live stay affiliate verifier invocation'],
 ]) requireText(productionWorkflow, needle, label);

@@ -1,7 +1,9 @@
+import { ensureTexasNpsDirectoryHtml } from "@/data/texas-nps-directory-ssr-fallback";
 import { createFileRoute, notFound, redirect } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { getCavernAuthorityHtml } from "@/data/cavern-authority.functions";
+import { getSwimmingAuthorityHtml } from "@/data/swimming-authority.functions";
 import { isExploreCategoryIndexReady } from "@/data/explore-category-indexability";
 import { articlesQuery, categoriesQuery, destinationQuery, destinationsQuery } from "@/data/queries";
 import type { Destination } from "@/data/types";
@@ -20,10 +22,10 @@ const legacyExploreRedirects: Record<string, string> = {
   "big-bend": "/explore/region/big-bend",
   "gulf-coast": "/explore/region/gulf-coast",
   "hill-country": "/explore/region/hill-country",
-  "panhandle-plains": "/explore/region/panhandle-plains",
+  "panhandle-plains": "/explore/region/panhandle",
   "piney-woods": "/explore/region/piney-woods",
   "prairies-lakes": "/explore/region/prairies-lakes",
-  "south-texas-plains": "/explore/region/south-texas-plains",
+  "south-texas-plains": "/explore/region/south-texas",
 };
 const authorityCategorySlugs = new Set(["outdoors", "caverns", "lakes-rivers", "beaches-coast", "small-towns"]);
 for (const slug of ["major-springs", "swimming-holes-river-tubing", "state-parks", "national-parks", "historic-sites", "road-trips", "food-bbq"]) authorityCategorySlugs.add(slug);
@@ -127,7 +129,13 @@ export const Route = createFileRoute("/explore/$category")({
       authorityPath ? Promise.all([
         category.slug === "caverns"
           ? getCavernAuthorityHtml()
-          : fetch(import.meta.env.SSR ? `${siteUrl}${authorityPath}` : authorityPath).then((response) => response.ok ? response.text() : null),
+          : category.slug === SWIMMING_HOLES_RIVER_TUBING_SLUG
+            ? getSwimmingAuthorityHtml()
+            : category.slug === "national-parks"
+              ? import.meta.env.SSR
+                ? Promise.resolve(ensureTexasNpsDirectoryHtml(null))
+                : fetch(authorityPath).then((response) => response.ok ? response.text() : null).catch(() => null).then(ensureTexasNpsDirectoryHtml)
+              : fetch(import.meta.env.SSR ? `${siteUrl}${authorityPath}` : authorityPath).then((response) => response.ok ? response.text() : null),
         category.slug === "beaches-coast"
           ? fetch(import.meta.env.SSR ? `${siteUrl}${COASTAL_AUTHORITY_PATH}` : COASTAL_AUTHORITY_PATH).then((response) => response.ok ? response.text() : null)
           : Promise.resolve(null),
@@ -148,11 +156,19 @@ export const Route = createFileRoute("/explore/$category")({
       : params.category === "outdoors" && !hasWildlifeGuide
         ? [{ "@type": "ListItem", position: 1, item: { "@type": "Article", name: "Texas Wildlife Guide: Animals & Habitats", description: "A statewide guide to Texas wildlife and the habitats that shape where animals live, from East Texas forests and Gulf wetlands to Hill Country, prairie and desert country.", url: `${siteUrl}/article/texas-wildlife-guide` } }]
         : [];
+    // The researched swim-and-float category is a standalone reference guide
+    // even during a transient destination-catalog outage. Keep it indexable
+    // only when the independently authored authority document was actually
+    // loaded and its source section remains visible.
+    const swimmingAuthorityReady = params.category === SWIMMING_HOLES_RIVER_TUBING_SLUG
+      && typeof loaderData.authorityHtml === "string"
+      && loaderData.authorityHtml.includes('id="texas-swimming-holes-river-tubing-guide"')
+      && loaderData.authorityHtml.includes("Official sources");
     const indexReady = isExploreCategoryIndexReady(
       loaderData.category.slug,
       loaderData.articles.length + loaderData.destinations.length + featuredCollectionItems.length
         + (params.category === "beaches-coast" ? COASTAL_AUTHORITY_ITEM_COUNT : 0),
-    ) || loaderData.category.slug === "water-towers";
+    ) || swimmingAuthorityReady || loaderData.category.slug === "water-towers";
     const categorySeo = categorySeoOverrides[loaderData.category.slug];
     const metaTitle = categorySeo?.title ?? loaderData.category.name;
     const metaDescription = categorySeo?.description ?? loaderData.category.description;

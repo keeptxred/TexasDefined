@@ -31,17 +31,13 @@ export const TEXAS_DATASETS: TexasDataset[] = [
   },
   {
     slug: 'school-district-tax-rates',
-    title: 'Texas School-District Tax Rate Examples',
-    description: 'Compare selected school-district adopted rates from the statewide property-tax dataset.',
-    category: 'Education', year: 2024, updated: '2026-07-30', unit: 'percent',
-    sourceName: 'Texas Comptroller property-tax rate data',
+    title: 'Texas School District Property Tax Rates — 2025',
+    description: 'Search statewide 2025 school-district adopted property-tax rates, compare 2024, and review source-backed M&O and I&S components.',
+    category: 'Education', year: 2025, updated: '2026-10-14', unit: 'percent',
+    sourceName: 'Texas Comptroller of Public Accounts — Property Tax Assistance Division',
     sourceUrl: 'https://comptroller.texas.gov/taxes/property-tax/rates/',
-    methodology: 'This is a selected comparison, not a complete ranking of every Texas school district. Verify current parcel-level taxing units with the appraisal district and tax offices.',
-    rows: [
-      { label: 'Judson ISD', value: 1.3022, note: 'Bexar County' }, { label: 'Hutto ISD', value: 1.2925, note: 'Williamson County' },
-      { label: 'Mesquite ISD', value: 1.2746, note: 'Dallas County' }, { label: 'Argyle ISD', value: 1.2675, note: 'Denton County' },
-      { label: 'Pflugerville ISD', value: 1.2546, note: 'Travis County' }, { label: 'Socorro ISD', value: 1.2293, note: 'El Paso County' },
-    ],
+    methodology: 'The statewide explorer reads the production Texas Comptroller-backed school-district rate dataset, compares 2025 with 2024, and preserves verified local-government or district corrections where the statewide workbook is demonstrably wrong. Rates are dollars per $100 of taxable value; verify parcel-specific taxing units and exemptions locally.',
+    rows: [],
   },
   {
     slug: 'homestead-exemption-history',
@@ -124,7 +120,7 @@ export const TEXAS_DATASETS: TexasDataset[] = [
       { label: '2022', value: 2374 },
       { label: '2023', value: 2800 },
       { label: '2024', value: 3291 },
-      { label: '2025', value: 3506, note: 'Preliminary TDI statewide average.' },
+      { label: '2025', value: 3489, note: 'Preliminary TDI statewide average; checked October 2026.' },
     ],
   },
   {

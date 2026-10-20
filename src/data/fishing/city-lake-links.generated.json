@@ -1,0 +1,1126 @@
+{
+  "abilene": [
+    {
+      "slug": "lake-abilene",
+      "name": "Lake Abilene"
+    }
+  ],
+  "amarillo": [
+    {
+      "slug": "lake-meredith",
+      "name": "Lake Meredith"
+    }
+  ],
+  "arlington": [
+    {
+      "slug": "lake-arlington",
+      "name": "Lake Arlington"
+    }
+  ],
+  "athens": [
+    {
+      "slug": "cedar-creek-reservoir",
+      "name": "Cedar Creek Reservoir"
+    }
+  ],
+  "austin": [
+    {
+      "slug": "lake-austin",
+      "name": "Lake Austin"
+    },
+    {
+      "slug": "lake-georgetown",
+      "name": "Lake Georgetown"
+    },
+    {
+      "slug": "lake-travis",
+      "name": "Lake Travis"
+    }
+  ],
+  "azle": [
+    {
+      "slug": "eagle-mountain-lake",
+      "name": "Eagle Mountain Lake"
+    },
+    {
+      "slug": "lake-worth",
+      "name": "Lake Worth"
+    }
+  ],
+  "ballinger": [
+    {
+      "slug": "o-h-ivie-lake",
+      "name": "O.H. Ivie Lake"
+    }
+  ],
+  "bandera": [
+    {
+      "slug": "medina-lake",
+      "name": "Medina Lake"
+    }
+  ],
+  "bangs": [
+    {
+      "slug": "lake-brownwood",
+      "name": "Lake Brownwood"
+    }
+  ],
+  "bardwell": [
+    {
+      "slug": "bardwell-lake",
+      "name": "Bardwell Lake"
+    }
+  ],
+  "bastrop": [
+    {
+      "slug": "lake-bastrop",
+      "name": "Lake Bastrop"
+    }
+  ],
+  "bellmead": [
+    {
+      "slug": "lake-waco",
+      "name": "Lake Waco"
+    }
+  ],
+  "belton": [
+    {
+      "slug": "belton-lake",
+      "name": "Belton Lake"
+    },
+    {
+      "slug": "stillhouse-hollow-reservoir",
+      "name": "Stillhouse Hollow Reservoir"
+    }
+  ],
+  "benbrook": [
+    {
+      "slug": "benbrook-lake",
+      "name": "Benbrook Lake"
+    }
+  ],
+  "borger": [
+    {
+      "slug": "lake-meredith",
+      "name": "Lake Meredith"
+    }
+  ],
+  "brady": [
+    {
+      "slug": "brady-creek-reservoir",
+      "name": "Brady Creek Reservoir"
+    }
+  ],
+  "brenham": [
+    {
+      "slug": "lake-somerville",
+      "name": "Lake Somerville"
+    }
+  ],
+  "bridgeport": [
+    {
+      "slug": "lake-bridgeport",
+      "name": "Lake Bridgeport"
+    }
+  ],
+  "brookeland": [
+    {
+      "slug": "sam-rayburn-reservoir",
+      "name": "Sam Rayburn Reservoir"
+    }
+  ],
+  "brownwood": [
+    {
+      "slug": "lake-brownwood",
+      "name": "Lake Brownwood"
+    }
+  ],
+  "bryan": [
+    {
+      "slug": "lake-somerville",
+      "name": "Lake Somerville"
+    }
+  ],
+  "buchanan-dam": [
+    {
+      "slug": "lake-buchanan",
+      "name": "Lake Buchanan"
+    }
+  ],
+  "buffalo-gap": [
+    {
+      "slug": "lake-abilene",
+      "name": "Lake Abilene"
+    }
+  ],
+  "burkeville": [
+    {
+      "slug": "toledo-bend-reservoir",
+      "name": "Toledo Bend Reservoir"
+    }
+  ],
+  "burnet": [
+    {
+      "slug": "lake-buchanan",
+      "name": "Lake Buchanan"
+    }
+  ],
+  "canyon-lake": [
+    {
+      "slug": "canyon-lake",
+      "name": "Canyon Lake"
+    }
+  ],
+  "cedar-hill": [
+    {
+      "slug": "joe-pool-lake",
+      "name": "Joe Pool Lake"
+    }
+  ],
+  "chandler": [
+    {
+      "slug": "lake-palestine",
+      "name": "Lake Palestine"
+    }
+  ],
+  "cleburne": [
+    {
+      "slug": "cedar-lake-cleburne-state-park",
+      "name": "Cedar Lake at Cleburne State Park"
+    },
+    {
+      "slug": "lake-granbury",
+      "name": "Lake Granbury"
+    }
+  ],
+  "clifton": [
+    {
+      "slug": "lake-whitney",
+      "name": "Lake Whitney"
+    }
+  ],
+  "coldspring": [
+    {
+      "slug": "lake-livingston",
+      "name": "Lake Livingston"
+    }
+  ],
+  "coleman": [
+    {
+      "slug": "o-h-ivie-lake",
+      "name": "O.H. Ivie Lake"
+    }
+  ],
+  "colorado-city": [
+    {
+      "slug": "lake-colorado-city",
+      "name": "Lake Colorado City"
+    },
+    {
+      "slug": "lake-sweetwater",
+      "name": "Lake Sweetwater"
+    }
+  ],
+  "comanche": [
+    {
+      "slug": "proctor-lake",
+      "name": "Proctor Lake"
+    }
+  ],
+  "conroe": [
+    {
+      "slug": "lake-conroe",
+      "name": "Lake Conroe"
+    }
+  ],
+  "corpus-christi": [
+    {
+      "slug": "lake-corpus-christi",
+      "name": "Lake Corpus Christi"
+    }
+  ],
+  "corsicana": [
+    {
+      "slug": "richland-chambers-reservoir",
+      "name": "Richland-Chambers Reservoir"
+    }
+  ],
+  "crowley": [
+    {
+      "slug": "benbrook-lake",
+      "name": "Benbrook Lake"
+    }
+  ],
+  "dallas": [
+    {
+      "slug": "bachman-lake",
+      "name": "Bachman Lake"
+    },
+    {
+      "slug": "white-rock-lake",
+      "name": "White Rock Lake"
+    }
+  ],
+  "decatur": [
+    {
+      "slug": "lake-bridgeport",
+      "name": "Lake Bridgeport"
+    }
+  ],
+  "del-rio": [
+    {
+      "slug": "amistad-reservoir",
+      "name": "Amistad Reservoir"
+    }
+  ],
+  "denison": [
+    {
+      "slug": "lake-texoma",
+      "name": "Lake Texoma"
+    }
+  ],
+  "denton": [
+    {
+      "slug": "lewisville-lake",
+      "name": "Lewisville Lake"
+    },
+    {
+      "slug": "ray-roberts-lake",
+      "name": "Ray Roberts Lake"
+    }
+  ],
+  "dublin": [
+    {
+      "slug": "proctor-lake",
+      "name": "Proctor Lake"
+    }
+  ],
+  "early": [
+    {
+      "slug": "lake-brownwood",
+      "name": "Lake Brownwood"
+    }
+  ],
+  "el-cenizo": [
+    {
+      "slug": "lake-casa-blanca",
+      "name": "Lake Casa Blanca"
+    }
+  ],
+  "elgin": [
+    {
+      "slug": "lake-bastrop",
+      "name": "Lake Bastrop"
+    }
+  ],
+  "elmendorf": [
+    {
+      "slug": "calaveras-lake",
+      "name": "Calaveras Lake"
+    }
+  ],
+  "emory": [
+    {
+      "slug": "lake-fork",
+      "name": "Lake Fork"
+    }
+  ],
+  "ennis": [
+    {
+      "slug": "bardwell-lake",
+      "name": "Bardwell Lake"
+    }
+  ],
+  "fayetteville": [
+    {
+      "slug": "fayette-county-reservoir",
+      "name": "Fayette County Reservoir"
+    }
+  ],
+  "flower-mound": [
+    {
+      "slug": "grapevine-lake",
+      "name": "Grapevine Lake"
+    }
+  ],
+  "fort-worth": [
+    {
+      "slug": "benbrook-lake",
+      "name": "Benbrook Lake"
+    },
+    {
+      "slug": "eagle-mountain-lake",
+      "name": "Eagle Mountain Lake"
+    },
+    {
+      "slug": "lake-arlington",
+      "name": "Lake Arlington"
+    },
+    {
+      "slug": "lake-granbury",
+      "name": "Lake Granbury"
+    },
+    {
+      "slug": "lake-worth",
+      "name": "Lake Worth"
+    }
+  ],
+  "fritch": [
+    {
+      "slug": "lake-meredith",
+      "name": "Lake Meredith"
+    }
+  ],
+  "garland": [
+    {
+      "slug": "lake-ray-hubbard",
+      "name": "Lake Ray Hubbard"
+    }
+  ],
+  "george-west": [
+    {
+      "slug": "lake-corpus-christi",
+      "name": "Lake Corpus Christi"
+    }
+  ],
+  "georgetown": [
+    {
+      "slug": "granger-lake",
+      "name": "Granger Lake"
+    },
+    {
+      "slug": "lake-georgetown",
+      "name": "Lake Georgetown"
+    }
+  ],
+  "glen-rose": [
+    {
+      "slug": "cedar-lake-cleburne-state-park",
+      "name": "Cedar Lake at Cleburne State Park"
+    }
+  ],
+  "graford": [
+    {
+      "slug": "lake-mineral-wells",
+      "name": "Lake Mineral Wells"
+    },
+    {
+      "slug": "possum-kingdom-reservoir",
+      "name": "Possum Kingdom Reservoir"
+    }
+  ],
+  "graham": [
+    {
+      "slug": "possum-kingdom-reservoir",
+      "name": "Possum Kingdom Reservoir"
+    }
+  ],
+  "granbury": [
+    {
+      "slug": "lake-granbury",
+      "name": "Lake Granbury"
+    }
+  ],
+  "grand-prairie": [
+    {
+      "slug": "joe-pool-lake",
+      "name": "Joe Pool Lake"
+    }
+  ],
+  "granger": [
+    {
+      "slug": "granger-lake",
+      "name": "Granger Lake"
+    }
+  ],
+  "granite-shoals": [
+    {
+      "slug": "lake-lbj",
+      "name": "Lake LBJ"
+    }
+  ],
+  "grapevine": [
+    {
+      "slug": "grapevine-lake",
+      "name": "Grapevine Lake"
+    }
+  ],
+  "greenville": [
+    {
+      "slug": "lake-tawakoni",
+      "name": "Lake Tawakoni"
+    }
+  ],
+  "groesbeck": [
+    {
+      "slug": "fort-parker-state-park-lake",
+      "name": "Fort Parker State Park Lake"
+    }
+  ],
+  "gun-barrel-city": [
+    {
+      "slug": "cedar-creek-reservoir",
+      "name": "Cedar Creek Reservoir"
+    }
+  ],
+  "haskell": [
+    {
+      "slug": "lake-stamford",
+      "name": "Lake Stamford"
+    }
+  ],
+  "hemphill": [
+    {
+      "slug": "toledo-bend-reservoir",
+      "name": "Toledo Bend Reservoir"
+    }
+  ],
+  "henrietta": [
+    {
+      "slug": "lake-arrowhead",
+      "name": "Lake Arrowhead"
+    }
+  ],
+  "hillsboro": [
+    {
+      "slug": "aquilla-lake",
+      "name": "Aquilla Lake"
+    }
+  ],
+  "houston": [
+    {
+      "slug": "lake-houston",
+      "name": "Lake Houston"
+    }
+  ],
+  "humble": [
+    {
+      "slug": "lake-houston",
+      "name": "Lake Houston"
+    }
+  ],
+  "jasper": [
+    {
+      "slug": "sam-rayburn-reservoir",
+      "name": "Sam Rayburn Reservoir"
+    },
+    {
+      "slug": "toledo-bend-reservoir",
+      "name": "Toledo Bend Reservoir"
+    }
+  ],
+  "jefferson": [
+    {
+      "slug": "caddo-lake",
+      "name": "Caddo Lake"
+    },
+    {
+      "slug": "lake-o-the-pines",
+      "name": "Lake O' the Pines"
+    }
+  ],
+  "joshua": [
+    {
+      "slug": "cedar-lake-cleburne-state-park",
+      "name": "Cedar Lake at Cleburne State Park"
+    }
+  ],
+  "justiceburg": [
+    {
+      "slug": "alan-henry-reservoir",
+      "name": "Alan Henry Reservoir"
+    }
+  ],
+  "karnack": [
+    {
+      "slug": "caddo-lake",
+      "name": "Caddo Lake"
+    }
+  ],
+  "kennedale": [
+    {
+      "slug": "lake-arlington",
+      "name": "Lake Arlington"
+    }
+  ],
+  "kerens": [
+    {
+      "slug": "richland-chambers-reservoir",
+      "name": "Richland-Chambers Reservoir"
+    }
+  ],
+  "killeen": [
+    {
+      "slug": "belton-lake",
+      "name": "Belton Lake"
+    },
+    {
+      "slug": "stillhouse-hollow-reservoir",
+      "name": "Stillhouse Hollow Reservoir"
+    }
+  ],
+  "kingsland": [
+    {
+      "slug": "lake-buchanan",
+      "name": "Lake Buchanan"
+    },
+    {
+      "slug": "lake-lbj",
+      "name": "Lake LBJ"
+    }
+  ],
+  "kingwood": [
+    {
+      "slug": "lake-houston",
+      "name": "Lake Houston"
+    }
+  ],
+  "la-grange": [
+    {
+      "slug": "fayette-county-reservoir",
+      "name": "Fayette County Reservoir"
+    }
+  ],
+  "lago-vista": [
+    {
+      "slug": "lake-travis",
+      "name": "Lake Travis"
+    }
+  ],
+  "lake-worth": [
+    {
+      "slug": "lake-worth",
+      "name": "Lake Worth"
+    }
+  ],
+  "lakehills": [
+    {
+      "slug": "medina-lake",
+      "name": "Medina Lake"
+    }
+  ],
+  "lakeway": [
+    {
+      "slug": "lake-travis",
+      "name": "Lake Travis"
+    }
+  ],
+  "laredo": [
+    {
+      "slug": "falcon-international-reservoir",
+      "name": "Falcon International Reservoir"
+    },
+    {
+      "slug": "lake-casa-blanca",
+      "name": "Lake Casa Blanca"
+    }
+  ],
+  "lewisville": [
+    {
+      "slug": "lewisville-lake",
+      "name": "Lewisville Lake"
+    }
+  ],
+  "little-elm": [
+    {
+      "slug": "lewisville-lake",
+      "name": "Lewisville Lake"
+    }
+  ],
+  "livingston": [
+    {
+      "slug": "lake-livingston",
+      "name": "Lake Livingston"
+    }
+  ],
+  "longview": [
+    {
+      "slug": "lake-o-the-pines",
+      "name": "Lake O' the Pines"
+    }
+  ],
+  "lubbock": [
+    {
+      "slug": "alan-henry-reservoir",
+      "name": "Alan Henry Reservoir"
+    }
+  ],
+  "lufkin": [
+    {
+      "slug": "sam-rayburn-reservoir",
+      "name": "Sam Rayburn Reservoir"
+    }
+  ],
+  "mabank": [
+    {
+      "slug": "cedar-creek-reservoir",
+      "name": "Cedar Creek Reservoir"
+    }
+  ],
+  "marble-falls": [
+    {
+      "slug": "lake-lbj",
+      "name": "Lake LBJ"
+    }
+  ],
+  "marshall": [
+    {
+      "slug": "caddo-lake",
+      "name": "Caddo Lake"
+    }
+  ],
+  "mathis": [
+    {
+      "slug": "lake-corpus-christi",
+      "name": "Lake Corpus Christi"
+    }
+  ],
+  "mckinney": [
+    {
+      "slug": "lake-lavon",
+      "name": "Lake Lavon"
+    }
+  ],
+  "mexia": [
+    {
+      "slug": "fort-parker-state-park-lake",
+      "name": "Fort Parker State Park Lake"
+    }
+  ],
+  "mico": [
+    {
+      "slug": "medina-lake",
+      "name": "Medina Lake"
+    }
+  ],
+  "midlothian": [
+    {
+      "slug": "joe-pool-lake",
+      "name": "Joe Pool Lake"
+    }
+  ],
+  "mineral-wells": [
+    {
+      "slug": "lake-mineral-wells",
+      "name": "Lake Mineral Wells"
+    },
+    {
+      "slug": "possum-kingdom-reservoir",
+      "name": "Possum Kingdom Reservoir"
+    }
+  ],
+  "montgomery": [
+    {
+      "slug": "lake-conroe",
+      "name": "Lake Conroe"
+    }
+  ],
+  "mount-pleasant": [
+    {
+      "slug": "lake-bob-sandlin",
+      "name": "Lake Bob Sandlin"
+    }
+  ],
+  "mount-vernon": [
+    {
+      "slug": "lake-cypress-springs",
+      "name": "Lake Cypress Springs"
+    }
+  ],
+  "nacogdoches": [
+    {
+      "slug": "lake-nacogdoches",
+      "name": "Lake Nacogdoches"
+    }
+  ],
+  "new-braunfels": [
+    {
+      "slug": "canyon-lake",
+      "name": "Canyon Lake"
+    }
+  ],
+  "onalaska": [
+    {
+      "slug": "lake-livingston",
+      "name": "Lake Livingston"
+    }
+  ],
+  "ore-city": [
+    {
+      "slug": "lake-o-the-pines",
+      "name": "Lake O' the Pines"
+    }
+  ],
+  "palestine": [
+    {
+      "slug": "lake-palestine",
+      "name": "Lake Palestine"
+    }
+  ],
+  "pilot-point": [
+    {
+      "slug": "ray-roberts-lake",
+      "name": "Ray Roberts Lake"
+    }
+  ],
+  "pittsburg": [
+    {
+      "slug": "lake-bob-sandlin",
+      "name": "Lake Bob Sandlin"
+    },
+    {
+      "slug": "lake-cypress-springs",
+      "name": "Lake Cypress Springs"
+    }
+  ],
+  "post": [
+    {
+      "slug": "alan-henry-reservoir",
+      "name": "Alan Henry Reservoir"
+    }
+  ],
+  "pottsboro": [
+    {
+      "slug": "lake-texoma",
+      "name": "Lake Texoma"
+    }
+  ],
+  "princeton": [
+    {
+      "slug": "lake-lavon",
+      "name": "Lake Lavon"
+    }
+  ],
+  "proctor": [
+    {
+      "slug": "proctor-lake",
+      "name": "Proctor Lake"
+    }
+  ],
+  "quinlan": [
+    {
+      "slug": "lake-tawakoni",
+      "name": "Lake Tawakoni"
+    }
+  ],
+  "quitman": [
+    {
+      "slug": "lake-fork",
+      "name": "Lake Fork"
+    }
+  ],
+  "rio-bravo": [
+    {
+      "slug": "lake-casa-blanca",
+      "name": "Lake Casa Blanca"
+    }
+  ],
+  "river-oaks": [
+    {
+      "slug": "lake-worth",
+      "name": "Lake Worth"
+    }
+  ],
+  "robert-lee": [
+    {
+      "slug": "e-v-spence-reservoir",
+      "name": "E. V. Spence Reservoir"
+    }
+  ],
+  "rockwall": [
+    {
+      "slug": "lake-ray-hubbard",
+      "name": "Lake Ray Hubbard"
+    }
+  ],
+  "roma": [
+    {
+      "slug": "falcon-international-reservoir",
+      "name": "Falcon International Reservoir"
+    }
+  ],
+  "roscoe": [
+    {
+      "slug": "lake-sweetwater",
+      "name": "Lake Sweetwater"
+    }
+  ],
+  "round-rock": [
+    {
+      "slug": "lake-georgetown",
+      "name": "Lake Georgetown"
+    }
+  ],
+  "rowlett": [
+    {
+      "slug": "lake-ray-hubbard",
+      "name": "Lake Ray Hubbard"
+    }
+  ],
+  "rule": [
+    {
+      "slug": "lake-stamford",
+      "name": "Lake Stamford"
+    }
+  ],
+  "runaway-bay": [
+    {
+      "slug": "lake-bridgeport",
+      "name": "Lake Bridgeport"
+    }
+  ],
+  "saginaw": [
+    {
+      "slug": "eagle-mountain-lake",
+      "name": "Eagle Mountain Lake"
+    }
+  ],
+  "san-angelo": [
+    {
+      "slug": "e-v-spence-reservoir",
+      "name": "E. V. Spence Reservoir"
+    },
+    {
+      "slug": "lake-nasworthy",
+      "name": "Lake Nasworthy"
+    },
+    {
+      "slug": "o-h-ivie-lake",
+      "name": "O.H. Ivie Lake"
+    }
+  ],
+  "san-antonio": [
+    {
+      "slug": "calaveras-lake",
+      "name": "Calaveras Lake"
+    },
+    {
+      "slug": "medina-lake",
+      "name": "Medina Lake"
+    }
+  ],
+  "sanger": [
+    {
+      "slug": "ray-roberts-lake",
+      "name": "Ray Roberts Lake"
+    }
+  ],
+  "scotland": [
+    {
+      "slug": "lake-arrowhead",
+      "name": "Lake Arrowhead"
+    }
+  ],
+  "sherman": [
+    {
+      "slug": "lake-texoma",
+      "name": "Lake Texoma"
+    }
+  ],
+  "smithville": [
+    {
+      "slug": "lake-bastrop",
+      "name": "Lake Bastrop"
+    }
+  ],
+  "snyder": [
+    {
+      "slug": "lake-colorado-city",
+      "name": "Lake Colorado City"
+    }
+  ],
+  "somerville": [
+    {
+      "slug": "lake-somerville",
+      "name": "Lake Somerville"
+    }
+  ],
+  "southlake": [
+    {
+      "slug": "grapevine-lake",
+      "name": "Grapevine Lake"
+    }
+  ],
+  "spring-branch": [
+    {
+      "slug": "canyon-lake",
+      "name": "Canyon Lake"
+    }
+  ],
+  "stamford": [
+    {
+      "slug": "lake-stamford",
+      "name": "Lake Stamford"
+    }
+  ],
+  "streetman": [
+    {
+      "slug": "richland-chambers-reservoir",
+      "name": "Richland-Chambers Reservoir"
+    }
+  ],
+  "sulphur-springs": [
+    {
+      "slug": "lake-fork",
+      "name": "Lake Fork"
+    }
+  ],
+  "sweetwater": [
+    {
+      "slug": "lake-colorado-city",
+      "name": "Lake Colorado City"
+    },
+    {
+      "slug": "lake-sweetwater",
+      "name": "Lake Sweetwater"
+    }
+  ],
+  "taylor": [
+    {
+      "slug": "granger-lake",
+      "name": "Granger Lake"
+    }
+  ],
+  "temple": [
+    {
+      "slug": "belton-lake",
+      "name": "Belton Lake"
+    },
+    {
+      "slug": "stillhouse-hollow-reservoir",
+      "name": "Stillhouse Hollow Reservoir"
+    }
+  ],
+  "three-rivers": [
+    {
+      "slug": "choke-canyon-reservoir",
+      "name": "Choke Canyon Reservoir"
+    }
+  ],
+  "tilden": [
+    {
+      "slug": "choke-canyon-reservoir",
+      "name": "Choke Canyon Reservoir"
+    }
+  ],
+  "troup": [
+    {
+      "slug": "lake-tyler",
+      "name": "Lake Tyler (East and West)"
+    }
+  ],
+  "tuscola": [
+    {
+      "slug": "lake-abilene",
+      "name": "Lake Abilene"
+    }
+  ],
+  "tyler": [
+    {
+      "slug": "lake-palestine",
+      "name": "Lake Palestine"
+    },
+    {
+      "slug": "lake-tyler",
+      "name": "Lake Tyler (East and West)"
+    }
+  ],
+  "waco": [
+    {
+      "slug": "aquilla-lake",
+      "name": "Aquilla Lake"
+    },
+    {
+      "slug": "fort-parker-state-park-lake",
+      "name": "Fort Parker State Park Lake"
+    },
+    {
+      "slug": "lake-waco",
+      "name": "Lake Waco"
+    },
+    {
+      "slug": "lake-whitney",
+      "name": "Lake Whitney"
+    }
+  ],
+  "waxahachie": [
+    {
+      "slug": "bardwell-lake",
+      "name": "Bardwell Lake"
+    }
+  ],
+  "weatherford": [
+    {
+      "slug": "lake-mineral-wells",
+      "name": "Lake Mineral Wells"
+    },
+    {
+      "slug": "lake-weatherford",
+      "name": "Lake Weatherford"
+    }
+  ],
+  "west-lake-hills": [
+    {
+      "slug": "lake-austin",
+      "name": "Lake Austin"
+    }
+  ],
+  "whitehouse": [
+    {
+      "slug": "lake-tyler",
+      "name": "Lake Tyler (East and West)"
+    }
+  ],
+  "whitney": [
+    {
+      "slug": "aquilla-lake",
+      "name": "Aquilla Lake"
+    },
+    {
+      "slug": "lake-whitney",
+      "name": "Lake Whitney"
+    }
+  ],
+  "wichita-falls": [
+    {
+      "slug": "lake-arrowhead",
+      "name": "Lake Arrowhead"
+    }
+  ],
+  "willis": [
+    {
+      "slug": "lake-conroe",
+      "name": "Lake Conroe"
+    }
+  ],
+  "wills-point": [
+    {
+      "slug": "lake-tawakoni",
+      "name": "Lake Tawakoni"
+    }
+  ],
+  "winnsboro": [
+    {
+      "slug": "lake-cypress-springs",
+      "name": "Lake Cypress Springs"
+    }
+  ],
+  "woodway": [
+    {
+      "slug": "lake-waco",
+      "name": "Lake Waco"
+    }
+  ],
+  "wylie": [
+    {
+      "slug": "lake-lavon",
+      "name": "Lake Lavon"
+    }
+  ],
+  "zapata": [
+    {
+      "slug": "falcon-international-reservoir",
+      "name": "Falcon International Reservoir"
+    }
+  ]
+}

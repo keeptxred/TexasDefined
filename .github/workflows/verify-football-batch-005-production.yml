@@ -1,0 +1,38 @@
+name: Verify Batch 005 football production browser
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: texasdefined-football-batch005-production-browser
+  cancel-in-progress: false
+jobs:
+  verify:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install free runner Chrome driver
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-batch005-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+      - name: Verify 25 school pages, 20 campus county backlinks, desktop/mobile, SEO and schema
+        env:
+          ACCEPTANCE_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+        run: node scripts/ci/verify-football-batch-005-production.mjs
+      - name: Preserve full QA evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: football-batch005-production-browser-acceptance
+          path: artifacts/football-batch-005/
+          retention-days: 14
+          if-no-files-found: warn

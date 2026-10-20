@@ -14,6 +14,14 @@ For every code, data, content-system, routing, SEO, image-governance, build, or 
 - Auxiliary PR workflows may provide faster feature-specific feedback, but they must be path-scoped and their deterministic requirements must also exist in the canonical pre-merge contract. Do not create a second unscoped PR validation contract.
 - Validators that enforce CI wiring must validate the canonical contract itself, not depend on a particular command remaining textually embedded in a workflow YAML file.
 
+## Update verification cost policy
+
+- The canonical pre-merge contract is required once for each candidate revision; GitHub's protected merge gate remains mandatory. Reuse valid local evidence when the source tree and base have not changed. Re-run after material changes or reconciliation.
+- Do not add a second automatic post-merge run of the full contract or its watchdog. `validate.yml` remains an explicit manual entry point for automation branch prevalidation.
+- Feature production/browser acceptance workflows are manual unless a documented change scope requires them. Never attach a content project's acceptance crawl to every deployment.
+- Each deployment proves health, deployed Worker identity, a bounded sample of changed pages/dependencies, and relevant native feature gates. This smoke is not a full-content certification. Preserve failures for every selected check.
+- Complete broad audits run weekly against the local built Worker. See docs/update-scan-policy.md and scripts/ci/update-scan-policy.json.
+
 ## Editorial article rule
 
 For every new Texas Defined editorial article:
@@ -25,3 +33,8 @@ For every new Texas Defined editorial article:
 - Use descriptive anchor text and never generic text such as `click here`.
 - Verify every internal route exists. Never invent or guess an internal URL.
 - When a new article strengthens an existing topic cluster, consider adding reciprocal links from older related articles back to the new article.
+
+
+## Museum authority pages — automatic requirement
+
+When asked to create or improve a museum page, ALWAYS apply docs/museum-authority-standard.md instead of the generic historic-site template. Be the best independent visitor guide, NOT a mirror of the museum's complete collections. Update the existing canonical destination, record up to ten useful brief exhibit highlights (fewer where warranted), true kid/family fit, dining type (cafe vs cafeteria vs full restaurant vs unverified), admission, visit time, parking/map, access/sensory needs, exact-location rights-cleared photos and helpful two-way county/city and nearby-page links. Research genuine museum-specific visitor QUESTIONS via the museum's own FAQ AND independent visitor questions; then write source-verified answers and register them in src/data/museum-visitor-faqs.ts. The institution's FAQ is never sufficient as the sole research source, and question popularity must not be claimed without evidence. Each new museum needs a MuseumAuthorityDossier in src/data/museum-authority-network.ts and researched FAQ, validated through scripts/data/validate-museum-authority.mjs in the canonical premerge contract. No boilerplate FAQ, copied collection catalog, invented amenity, guessed crosslink or declaration of authority without direct visitor-guide comparison and live QA.

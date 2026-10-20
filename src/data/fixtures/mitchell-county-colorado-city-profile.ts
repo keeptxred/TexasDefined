@@ -13,6 +13,7 @@ export const mitchellCountyColoradoCityProfileArticle: Article = {
   internalLinks: [
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county reference pages and enriched county guides." },
     { href: "/county/nolan", label: "Explore Nolan County", description: "Continue east toward Sweetwater, railroad history and wind country." },
+    { href: "/fishing/lakes/lake-sweetwater", label: "Visit neighboring Lake Sweetwater", description: "Compare nearby Nolan County’s historic city lake and park with Mitchell County reservoirs; check golden algae and low-water access warnings first." },
     { href: "/county/howard", label: "Explore Howard County", description: "Continue west toward Big Spring and the Permian Basin gateway." },
     { href: "/county/scurry", label: "Explore Scurry County", description: "Head north toward Snyder and the upper Colorado watershed." },
     { href: "/county/coke", label: "Explore Coke County", description: "Follow the Colorado River country southeast toward Robert Lee." },

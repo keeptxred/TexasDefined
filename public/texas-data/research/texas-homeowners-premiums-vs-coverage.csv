@@ -1,0 +1,11 @@
+year,average_annual_premium_usd,average_coverage_usd,premium_yoy_change_usd,premium_yoy_change_percent,coverage_yoy_change_usd,coverage_yoy_change_percent,premium_per_100k_coverage_usd,source_status,last_verified,source_url
+2016,1791,252000,,,,,710.71,published,2026-10-10,https://tdi.texas.gov/general/texas-homeowners-insurance-market-overview.html
+2017,1860,262300,69,3.8526,10300,4.0873,709.11,published,2026-10-10,https://tdi.texas.gov/general/texas-homeowners-insurance-market-overview.html
+2018,1916,275700,56,3.0108,13400,5.1087,694.96,published,2026-10-10,https://tdi.texas.gov/general/texas-homeowners-insurance-market-overview.html
+2019,1961,287900,45,2.3486,12200,4.4251,681.14,published,2026-10-10,https://tdi.texas.gov/general/texas-homeowners-insurance-market-overview.html
+2020,1987,294900,26,1.3259,7000,2.4314,673.79,published,2026-10-10,https://tdi.texas.gov/general/texas-homeowners-insurance-market-overview.html
+2021,2124,317200,137,6.8948,22300,7.5619,669.61,published,2026-10-10,https://tdi.texas.gov/general/texas-homeowners-insurance-market-overview.html
+2022,2374,354300,250,11.7702,37100,11.6961,670.05,published,2026-10-10,https://tdi.texas.gov/general/texas-homeowners-insurance-market-overview.html
+2023,2795,387200,421,17.7338,32900,9.2859,721.85,published,2026-10-10,https://tdi.texas.gov/general/texas-homeowners-insurance-market-overview.html
+2024,3291,408500,496,17.7460,21300,5.5010,805.63,published,2026-10-10,https://tdi.texas.gov/general/texas-homeowners-insurance-market-overview.html
+2025,3489,432800,198,6.0164,24300,5.9486,806.15,preliminary,2026-10-10,https://tdi.texas.gov/general/texas-homeowners-insurance-market-overview.html

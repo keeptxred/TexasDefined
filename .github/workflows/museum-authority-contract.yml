@@ -1,0 +1,75 @@
+name: Museum Authority Contract
+
+on:
+  pull_request:
+    paths:
+      - 'src/data/**'
+      - 'src/components/editorial/MuseumAuthorityNetworkSection.tsx'
+      - 'src/components/content/CountyCityMuseums.tsx'
+      - 'src/routes/destination.*'
+      - 'src/routes/$kind.$slug.lazy.tsx'
+      - 'scripts/data/validate-museum-authority.mjs'
+      - 'scripts/data/audit-owner-museum-inventory.mjs'
+      - 'scripts/data/museum-owner-inventory-parser.mjs'
+      - 'scripts/data/test-museum-owner-inventory-parser.mjs'
+      - 'scripts/data/museum-owner-inventory-parser.mjs'
+      - 'scripts/data/test-museum-owner-inventory-parser.mjs'
+      - 'docs/museums/**'
+      - 'docs/museum-authority-standard.md'
+      - '.github/workflows/museum-authority-contract.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/data/**'
+      - 'src/components/editorial/MuseumAuthorityNetworkSection.tsx'
+      - 'src/components/content/CountyCityMuseums.tsx'
+      - 'src/routes/destination.*'
+      - 'src/routes/$kind.$slug.lazy.tsx'
+      - 'scripts/data/validate-museum-authority.mjs'
+      - 'scripts/data/audit-owner-museum-inventory.mjs'
+      - 'scripts/data/museum-owner-inventory-parser.mjs'
+      - 'scripts/data/test-museum-owner-inventory-parser.mjs'
+      - 'scripts/data/museum-owner-inventory-parser.mjs'
+      - 'scripts/data/test-museum-owner-inventory-parser.mjs'
+      - 'docs/museums/**'
+      - 'docs/museum-authority-standard.md'
+      - '.github/workflows/museum-authority-contract.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  museum-authority:
+    name: Enforce museum research and cross-linking
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate museum dossiers and changed museum records
+        env:
+          MUSEUM_AUTHORITY_BASE_REF: ${{ github.event_name == 'pull_request' && format('origin/{0}', github.base_ref) || '' }}
+        run: node scripts/data/validate-museum-authority.mjs
+      - name: Test owner museum identity boundary parsing
+        run: node scripts/data/test-museum-owner-inventory-parser.mjs
+      - name: Validate all 668 provisional owner-name boundaries
+        run: node scripts/data/test-museum-owner-inventory-parser.mjs
+      - name: Reconcile owner-supplied statewide museum inventory
+        run: |
+          node scripts/data/audit-owner-museum-inventory.mjs > museum-coverage-report.json
+          node -e 'const r=require("./museum-coverage-report.json"); console.log(JSON.stringify({existingMuseumRecords:r.uniqueSourceSlugs,ownerNamesDetected:r.uniqueNameSegments,matchingExisting:r.matchingExistingRecords,needsSourceResearch:r.requiringIndependentResearch,identityOrGeographyProblems:r.flaggedOutOfStateOrAmbiguous,examples:r.unresolved.slice(0,20).map(x=>x.submittedName)},null,2));'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: statewide-museum-coverage
+          path: museum-coverage-report.json
+          if-no-files-found: ignore
+      - name: Install exact dependencies
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Build production application (canonical release check)
+        run: npm run build

@@ -3,6 +3,41 @@ import { spawnSync } from 'node:child_process';
 
 const checks = [
   {
+    id: 'tpwd-lake-official-source-enrollment',
+    label: 'Every completed lake guide has its official state-agency source registered for continued checking',
+    script: 'scripts/data/validate-tpwd-lake-source-enrollment.mjs',
+  },
+  {
+    id: 'authority-reciprocal-link-graph',
+    label: 'Real inbound and reciprocal links across all sitemap pages',
+    script: 'scripts/ci/authority-link-graph.test.mjs',
+  },
+  {
+    id: 'region-landscape-contextual-discovery',
+    label: 'Verified reciprocal links between seven travel regions and published landscape guides',
+    script: 'scripts/data/validate-region-landscape-context.mjs',
+  },
+  {
+    id: 'wildlife-ecological-discovery',
+    label: 'Contextual animal profile links from authoritative wildlife, bird and hunting guides',
+    script: 'scripts/data/validate-contextual-wildlife-crosslinks.mjs',
+  },
+  {
+    id: 'region-and-swimming-publication-scope',
+    label: 'Seven-region SSR scope and research-gated swim guide indexing',
+    script: 'scripts/ci/verify-region-scope-and-swim-indexability.mjs',
+  },
+  {
+    id: 'fishing-sitemap-indexability',
+    label: 'Empty lake guides/reports excluded from sitemaps until verified',
+    script: 'scripts/data/validate-fishing-sitemap-indexability.mjs',
+  },
+  {
+    id: 'authority-evidence-diagnostics',
+    label: 'Topic-sensitive sitewide authority diagnostic correctness',
+    script: 'scripts/ci/authority-evidence.test.mjs',
+  },
+  {
     id: 'generated-content',
     label: 'Thin, empty and generated-content quality',
     script: 'scripts/data/validate-generated-page-quality.mjs',

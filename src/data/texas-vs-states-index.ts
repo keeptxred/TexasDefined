@@ -6,7 +6,21 @@ export const TEXAS_VS_STATE_GROUPS = [
 ] as const;
 
 export const TEXAS_VS_STATES = TEXAS_VS_STATE_GROUPS.flatMap((group) => group.states);
+// A fixed first-six list strands the states at each group's tail with no peer
+// inlinks. Rotate the same six-link budget around the regional ring instead.
+export function texasVsRelatedStates(name: string): string[] {
+  const group = TEXAS_VS_STATE_GROUPS.find((entry) => entry.states.some((state) => state === name));
+  if (!group) return [];
+  const states: readonly string[] = group.states;
+  const origin = states.indexOf(name);
+  return Array.from({ length: Math.min(6, states.length - 1) }, (_, offset) => states[(origin + offset + 1) % states.length]);
+}
+
 export const texasVsStateSlug = (value: string) => value.toLowerCase().replaceAll(" ", "-");
+export const texasVsCanonicalPath = (state: string) => {
+  const slug = texasVsStateSlug(state);
+  return slug === "california" || slug === "florida" ? `/article/texas-vs-${slug}-differences` : `/texas-vs/${slug}`;
+};
 export const texasVsStateName = (slug: string) => TEXAS_VS_STATES.find((state) => texasVsStateSlug(state) === slug) ?? null;
 
 export type TexasVsStateSourceTopic = "tax" | "housing" | "jobs" | "risk" | "transport";

@@ -40,6 +40,11 @@
     const market = slug ? markets[slug] : null;
     const existing = document.querySelector('[data-city-experience-affiliate="viator"]');
 
+    // The Viator section is inserted inside React's article. Inserting it
+    // before hydration caused real Chrome React #418 on Fort Worth city pages.
+    // Wait for the same post-hydration signal as the lodging widgets.
+    if (market && document.documentElement.dataset.tdFootballCountyHydrated !== "1") return;
+
     if (!market) {
       existing?.remove();
       return;
@@ -61,7 +66,7 @@
     section.setAttribute("data-city-experience-affiliate", "viator");
     section.setAttribute("data-city-slug", slug);
     section.className = "border-b border-border bg-surface/55 py-7 sm:py-8";
-    section.innerHTML = `<p class="eyebrow text-primary">Tours &amp; bookable experiences</p><h2 class="mt-2 font-display text-3xl leading-tight">Find things to do in ${name}</h2><p class="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">Check current guided tours, tickets and organized experiences on Viator.</p><a href="${href}" target="_blank" rel="sponsored nofollow noopener noreferrer" data-affiliate-partner="viator" data-affiliate-placement="${placement}" data-commercial-partner="viator" data-commercial-placement="${placement}" class="mt-5 inline-flex min-h-11 items-center bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90">${label} ↗</a><p class="mt-4 max-w-3xl text-xs leading-5 text-muted-foreground">Affiliate disclosure: TexasDefined may earn a commission from qualifying Viator bookings, at no additional cost to you.</p>`;
+    section.innerHTML = `<p class="eyebrow" style="color:#8c3e23">Tours &amp; bookable experiences</p><h2 class="mt-2 font-display text-3xl leading-tight">Find things to do in ${name}</h2><p class="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">Check current guided tours, tickets and organized experiences on Viator.</p><a href="${href}" target="_blank" rel="sponsored nofollow noopener noreferrer" data-affiliate-partner="viator" data-affiliate-placement="${placement}" data-commercial-partner="viator" data-commercial-placement="${placement}" class="mt-5 inline-flex min-h-11 items-center bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90">${label} ↗</a><p class="mt-4 max-w-3xl text-xs leading-5 text-muted-foreground">Affiliate disclosure: TexasDefined may earn a commission from qualifying Viator bookings, at no additional cost to you.</p>`;
     section.querySelector("a")?.addEventListener("click", () => trackClick(slug, label, placement));
     anchor.insertAdjacentElement("afterend", section);
   }
@@ -78,6 +83,7 @@
 
   render();
   window.addEventListener("popstate", scheduleRender);
+  window.addEventListener("texasdefined:county-hydrated", scheduleRender);
   const root = document.getElementById("main") || document.body;
   new MutationObserver(scheduleRender).observe(root, { childList: true, subtree: true });
 })();

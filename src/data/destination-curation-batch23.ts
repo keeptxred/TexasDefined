@@ -111,8 +111,10 @@ const curated: Record<string, Partial<Destination>> = {
     summary: "Commissioned in 1914, USS Texas (BB-35) is the world's only surviving dreadnought-era battleship and a veteran of both World Wars, now undergoing a $75 million restoration and museum overhaul in Galveston for a permanent home at Pier 15.",
     nearestTown: "Galveston",
     bestSeason: "Not currently open for regular tours; plan for the announced 2027 grand-reopening target only after confirming current Foundation updates",
-    entryNote: "Battleship Texas is closed for regular visitation during restoration. Do not plan it as an ordinary museum stop until the Battleship Texas Foundation announces reopening; limited specialty opportunities may be announced separately.",
+    entryNote: "CLOSED FOR REGULAR TOURS. As confirmed by the Battleship Texas Foundation on October 14, 2026, the ship remains at Gulf Copper Shipyard. For now its best public view is from Galveston Pier 21. The future permanent museum berth at Pier 15 has not opened; 2027 is a target, not a guaranteed date.",
     highlights: [
+      "Current shipyard berth: Gulf Copper, Galveston (no normal walk-up boarding)",
+      "Current shoreline view: Pier 21, per the Battleship Texas Foundation",
       "Only surviving dreadnought-era battleship",
       "World War I service with the British Grand Fleet",
       "World War II gunfire support at North Africa, Normandy, Southern France, Iwo Jima and Okinawa",
@@ -131,9 +133,76 @@ const curated: Record<string, Partial<Destination>> = {
       "The new Galveston setting will change how visitors experience the ship. Pier 15 places Texas inside a working port and near the Strand, harbor museums, cruise terminals, restaurants and other island attractions, allowing a future visit to become part of a full maritime-history day rather than an isolated stop.",
       "For the complete ship history—from the first battleship named Texas through BB-35's 1914 commissioning, both World Wars, D-Day, museum preservation and the Galveston restoration—use the linked TexasDefined Battleship Texas history guide and verify current access through the Foundation before traveling specifically to board the ship.",
     ],
-    managingAuthority: "Battleship Texas Foundation",
+    gallery: [
+          {
+                image: {
+                      "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/USS%20Texas%20(BB-35)%201914.jpg?width=1280",
+                      "alt": "USS Texas BB-35 with early cage masts in 1914",
+                      "width": 1024,
+                      "height": 768,
+                      "credit": "Historic photograph · Public domain · Wikimedia Commons"
+                },
+                "caption": "1914 — The new battleship in its first appearance before interwar modernization.",
+                "sourceUrl": "https://commons.wikimedia.org/wiki/File:USS%20Texas%20(BB-35)%201914.jpg"
+          },
+          {
+                image: {
+                      "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/USS%20Texas-6.jpg?width=1280",
+                      "alt": "USS Texas BB-35 at sea near Hawaii in 1945",
+                      "width": 740,
+                      "height": 589,
+                      "credit": "U.S. Navy · Public domain · Wikimedia Commons"
+                },
+                "caption": "January 1945 — Texas preparing for the Pacific campaigns; this is an archival Navy view.",
+                "sourceUrl": "https://commons.wikimedia.org/wiki/File:USS%20Texas-6.jpg"
+          },
+          {
+                image: {
+                      "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/USS%20Texas%20BB-35.jpg?width=1280",
+                      "alt": "USS Texas at its old San Jacinto museum berth in 2006",
+                      "width": 1752,
+                      "height": 1682,
+                      "credit": "Jacobst · Public domain · Wikimedia Commons"
+                },
+                "caption": "2006 — Historical San Jacinto museum berth. Texas is NO LONGER here.",
+                "sourceUrl": "https://commons.wikimedia.org/wiki/File:USS%20Texas%20BB-35.jpg"
+          },
+          {
+                image: {
+                      "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/US%20Navy%20100821-N-8390S-068%20The%20museum%20battleship%20USS%20Texas%20is%20being%20restored%20to%20her%201945%20condition.jpg?width=1280",
+                      "alt": "USS Texas during a 2010 Navy community restoration project",
+                      "width": 2144,
+                      "height": 1424,
+                      "credit": "U.S. Navy · Public domain · Wikimedia Commons"
+                },
+                "caption": "August 2010 — Earlier restoration work, not a photograph of the 2022–26 shipyard overhaul.",
+                "sourceUrl": "https://commons.wikimedia.org/wiki/File:US%20Navy%20100821-N-8390S-068%20The%20museum%20battleship%20USS%20Texas%20is%20being%20restored%20to%20her%201945%20condition.jpg"
+          },
+          {
+                image: {
+                      "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/USS%20Texas%20(BB-35)%20March%202022%2005.jpg?width=1280",
+                      "alt": "USS Texas at San Jacinto in March 2022 before its transfer to Galveston",
+                      "width": 6000,
+                      "height": 4000,
+                      "credit": "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons"
+                },
+                "caption": "March 2022 — One of the last pre-tow views at San Jacinto. This is NOT the current shipyard berth.",
+                "sourceUrl": "https://commons.wikimedia.org/wiki/File:USS%20Texas%20(BB-35)%20March%202022%2005.jpg"
+          },
+          {
+                image: {
+                      "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/USS%20Texas%20%28BB-35%29%20in%20Galveston%202025-12-27.jpg?width=1280",
+                      "alt": "USS Texas BB-35 docked near Gulf Copper in Galveston on December 27 2025",
+                      "width": 4896,
+                      "height": 3672,
+                      "credit": "Spheroidite · CC BY 4.0 · Wikimedia Commons"
+                },
+                "caption": "December 2025 — Texas at its Galveston shipyard berth. This dated view does not establish current public access.",
+                "sourceUrl": "https://commons.wikimedia.org/wiki/File:USS_Texas_%28BB-35%29_in_Galveston_2025-12-27.jpg"
+          }
+    ],    managingAuthority: "Battleship Texas Foundation",
     officialUrl: "https://battleshiptexas.org/",
-    sourceCheckedAt: "2026-08-19",
+    sourceCheckedAt: "2026-10-14",
     county: "Galveston",
     directions: "The ship remains in the Galveston restoration process and is not an ordinary walk-up attraction. Use the Battleship Texas Foundation's current access instructions rather than navigating to the former San Jacinto berth. The future permanent museum location is Pier 15 in Galveston.",
     accessibilityNotes: "Public-access details for the restored Pier 15 museum are still being finalized. Historic warships contain ladders, narrow passageways and deck transitions, so review the Foundation's current accessibility information once regular tours reopen.",

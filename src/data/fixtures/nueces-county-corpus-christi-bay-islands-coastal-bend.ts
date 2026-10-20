@@ -35,6 +35,9 @@ export const nuecesCountyCorpusChristiBayIslandsCoastalBendArticle: Article = {
   ],
   featured: false,
   internalLinks: [
+    { href: "/destination/la-salle-odyssey-texas-coast", label: "La Salle Odyssey history trail", description: "Connect coastal archaeology collections across six counties." },
+    { href: "/destination/corpus-christi-museum-science-history", label: "Corpus Christi Museum of Science and History", description: "Plan the 1554 Spanish shipwreck and La Belle archaeology exhibits." },
+    { href: "/destination/port-aransas", label: "Port Aransas authority travel guide", description: "Plan Mustang Island beach access, permits, ferries, fishing and nature stops." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
     { href: "/article/horses-on-the-beach-corpus-christi", label: "Horses on the Beach in Corpus Christi", description: "Plan a guided horseback ride on the Padre Island shoreline and connect it to the wider Coastal Bend." },
     { href: "/county/san-patricio", label: "Explore San Patricio County", description: "Continue north and west through Sinton, Portland, the Nueces River country and Coastal Bend prairie." },
@@ -44,7 +47,7 @@ export const nuecesCountyCorpusChristiBayIslandsCoastalBendArticle: Article = {
     { href: "/article/why-texas-has-254-counties", label: "Why Texas has 254 counties", description: "See how settlement, travel and courthouse access shaped the Texas county map." },
   ],
   relatedCollections: [],
-  relatedDestinations: [],
+  relatedDestinations: ["la-salle-odyssey-texas-coast","corpus-christi-museum-science-history","port-aransas"],
   body: [
     p("Nueces County is where South Texas meets the Gulf in full view. Corpus Christi wraps around a system of bays that has shaped settlement, shipping, military aviation, fishing and recreation for generations. East of the city, Mustang Island and the northern end of Padre Island form long, narrow barriers between the Gulf and protected inland waters. West of town, the land flattens into farming and ranch country around Robstown, Agua Dulce, Bishop and smaller communities. The county is coastal, urban and agricultural at the same time."),
     p("Its name comes from the Nueces River, the major South Texas waterway that reaches the coast at Nueces Bay. Spanish explorers called it the Río de las Nueces, or River of Nuts, a reference generally associated with pecan trees along its banks. The river, bays and barrier islands are not background scenery here. They are the physical framework around which the county developed."),

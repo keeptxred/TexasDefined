@@ -13,6 +13,10 @@ interface MajorEventAuthorityDetails {
   slug: string;
   whyItMatters: string;
   planningSections: MajorEventPlanningSection[];
+  // Optional, individually sourced visitor essentials and search metadata.
+  quickFacts?: Array<{ label: string; value: string }>;
+  seoTitle?: string;
+  seoDescription?: string;
   relatedLinks: MajorEventRelatedLink[];
   sources: MajorEventSource[];
 }

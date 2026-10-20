@@ -30,7 +30,12 @@ export const statewideMuseumExpansionWave11Destinations: Destination[] = [
     nearestTown: "Brownsville",
     county: "Cameron County",
     coordinates: { lat: 25.90749, lng: -97.49919 },
-    hero: museumPlaceholder("Historic Brownsville Museum"),
+    hero: {
+      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Southern_Pacific_Railroad_Passenger_Depot_Brownsville_Texas.jpg?width=1600",
+      alt: "Historic Brownsville Museum inside the preserved Southern Pacific Railroad Passenger Depot in Brownsville, Texas",
+      width: 4608, height: 3072,
+      credit: "25or6to4 · CC BY-SA 3.0 · Wikimedia Commons · Southern Pacific Railroad Passenger Depot Brownsville Texas.jpg",
+    },
     bestSeason: "Year-round indoor museum; fall through spring is the most comfortable time for combining the depot with a downtown Brownsville walking itinerary.",
     entryNote: "The Brownsville Historical Association currently lists Tuesday-Saturday hours from 10 a.m. to 4 p.m. Admission also includes the Simón Celaya Railroad Gallery and Mary A. Yturria Education Center; confirm holiday and special-event changes before arrival.",
     highlights: ["1928 Southern Pacific Railroad Depot", "1872 Rio Grande Railroad locomotive", "Brownsville founding history", "Simón Celaya Railroad Gallery"],

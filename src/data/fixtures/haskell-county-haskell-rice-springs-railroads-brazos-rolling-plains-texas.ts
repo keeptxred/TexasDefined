@@ -38,6 +38,7 @@ export const haskellCountyHaskellRiceSpringsRailroadsBrazosRollingPlainsTexasArt
   featured: false,
   internalLinks: [
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county reference pages and enriched county guides." },
+    { href: "/fishing/lakes/lake-stamford", label: "Lake Stamford fishing, ramps and camping", description: "Plan the Haskell County reservoir visit with white-crappie fishing, Stamford Park and Silo Scott access, lake level, official regulations and camping details." },
     { href: "/county/stonewall", label: "Explore Stonewall County", description: "Continue west toward Aspermont, Double Mountain and the Brazos headwaters." },
     { href: "/county/knox", label: "Explore Knox County", description: "Head north toward Benjamin, Munday and upper Brazos ranch country." },
     { href: "/county/baylor", label: "Explore Baylor County", description: "Follow U.S. 277 northeast toward Seymour and the Brazos crossings." },
@@ -111,8 +112,8 @@ export const haskellCountyHaskellRiceSpringsRailroadsBrazosRollingPlainsTexasArt
     p("Oil did not replace cotton, wheat or cattle. Instead, the industries overlapped on the same land. A field could produce crops on the surface while mineral leases generated revenue below ground. That layered economy remains characteristic of much of northwest Texas and helps explain why energy equipment is a normal part of the agricultural landscape."),
 
     h("Lake Stamford changed water and recreation"),
-    p("Lake Stamford was created in 1951 when a dam impounded Paint Creek. The reservoir lies partly within Haskell County and became an important water and recreation resource for the region. Fishing, boating and camping brought a public-outdoor dimension to a county where most land remains privately owned."),
-    p("Texas Parks and Wildlife identifies public access in Haskell County at Silo Scott Memorial Park and Anchor Marina, where visitors can reach the shoreline and launch boats. The reservoir supports popular warm-water fisheries and gives residents a recreational destination that contrasts with the otherwise dry agricultural plains."),
+    p("Construction of Lake Stamford Dam began in 1951, and the reservoir began impounding Paint Creek in 1953. The lake in Haskell County became an important municipal water and recreation resource for the Stamford area. Fishing, boating and camping brought a public-outdoor dimension to a county where most land remains privately owned."),
+    p("Texas Parks and Wildlife identifies public access in Haskell County at Silo Scott Memorial Park and Anchor Marina, where visitors can reach the shoreline and launch boats. White crappie is the lake’s standout TPWD-rated fishery, but fluctuating water levels can limit launches. Check the updated TexasDefined Lake Stamford guide and the ramp operators before towing a boat."),
 
     h("Wildlife is part of the working landscape"),
     p("Haskell County's mix of cropland, mesquite pasture, creek bottoms, reservoirs and grassland supports white-tailed deer, turkey, dove, quail, waterfowl and other wildlife. Hunting is an important seasonal use of private ranch and farm land, while reservoirs and small community lakes provide public fishing opportunities."),

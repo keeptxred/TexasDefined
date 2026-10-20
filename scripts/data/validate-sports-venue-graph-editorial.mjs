@@ -50,6 +50,17 @@ for (const marker of [
   'Colonial Country Club opened in 1936 from Marvin Leonard’s championship-golf vision',
 ]) assert(corrections.includes(marker), `Current sports-venue corrections must preserve core Tarrant editorial fallback: ${marker}`);
 
+for (const marker of [
+  "'sports-venue:daikin-park'",
+  'Daikin Park has anchored Houston Astros baseball in downtown Houston since 2000',
+  "'sports-venue:shell-energy-stadium'",
+  'Shell Energy Stadium is Houston’s soccer-focused home for Dynamo FC and the Dash',
+  "'sports-venue:toyota-center-houston'",
+  'Toyota Center is the Houston Rockets’ downtown arena and a major stop for concerts and touring sports events',
+  "'sports-venue:legacy-stadium-katy'",
+  'Legacy Stadium is Katy ISD’s 2017 district stadium',
+]) assert(corrections.includes(marker), `Current sports-venue corrections must preserve core Harris editorial fallback: ${marker}`);
+
 
 for (const marker of [
   'getSportsVenueEditorialDescriptions',
@@ -85,6 +96,8 @@ assert(
     && countySportsBlock.indexOf('.filter(isIndexableEntityPage)') > countySportsBlock.indexOf('.map(applyCurrentEntityCorrections)'),
   'County route must apply current sports-venue corrections before the indexability gate so corrected authority descriptions are eligible for county cards.',
 );
+assert(entityRoute.includes("import { getSportsVenueEditorialDescriptions } from '@/data/sports-venue-editorial.functions';"), 'County route must statically import the sports-venue server function so TanStack can compile the RPC boundary deterministically.');
+assert(!entityRoute.includes("await import('@/data/sports-venue-editorial.functions')"), 'County route must not dynamically import a TanStack server function; dynamic server-function imports can break bundler/RPC behavior.');
 assert(entityRoute.includes("getSportsVenueEditorialDescriptions({ data: { ids: countySportsCandidates.map((venue) => venue.id) } })"), 'County route must bulk-load vetted sports-venue editorial descriptions.');
 assert(entityRoute.includes('countySportsEditorial[venue.id]'), 'County route must apply vetted sports-venue editorial descriptions to county cards.');
 
@@ -104,4 +117,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('Sports venue graph editorial validation passed: new seed prose excludes retired boilerplate, legacy suppression remains in place, 84/84 vetted editorial descriptions are available through the bulk server bridge, and county/full-graph surfaces are wired to receive differentiated copy.');
+console.log('Sports venue graph editorial validation passed: new seed prose excludes retired boilerplate, legacy suppression remains in place, core Tarrant and Harris venue copy has durable local fallbacks, 84/84 vetted editorial descriptions are available through the bulk server bridge, and county routes use a static TanStack server-function import for deterministic RPC wiring.');

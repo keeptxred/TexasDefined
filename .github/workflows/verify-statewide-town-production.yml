@@ -1,0 +1,66 @@
+name: Verify statewide town authority production
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/ci/verify-statewide-town-production.mjs'
+      - 'src/data/town-authority-link-index.ts'
+      - '.github/workflows/verify-statewide-town-production.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/ci/verify-statewide-town-production.mjs'
+      - 'src/data/town-authority-link-index.ts'
+      - 'src/data/town-authority-network.ts'
+      - 'src/data/town-authority-links.ts'
+      - 'src/components/editorial/DestinationAuthoritySections.tsx'
+      - 'src/components/editorial/DestinationRelationships.tsx'
+      - 'src/components/content/CountyTownAuthorityLinks.tsx'
+      - 'src/data/small-town-destinations-wave*.ts'
+      - '.github/workflows/verify-statewide-town-production.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '23 11 * * 2'
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: statewide-town-production-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  syntax:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate verification script syntax
+        run: node --check scripts/ci/verify-statewide-town-production.mjs
+  verify:
+    name: Audit all researched towns and linked county production
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Confirm protected production deployment is on this SHA
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PRODUCTION_COMMIT_SHA: ${{ github.sha }}
+        run: node scripts/ci/wait-for-protected-production.mjs
+      - name: Verify all town guides, Gruene and reciprocal county pages
+        run: node scripts/ci/verify-statewide-town-production.mjs
+      - name: Keep full evidence (including on failures)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: statewide-town-production-acceptance
+          path: artifacts/town-authority-production/
+          if-no-files-found: warn
+          retention-days: 30

@@ -128,6 +128,12 @@ forbidPattern(aiDemandPath, aiDemand, /git\s+push\s+origin\s+HEAD:main/, 'push A
 forbidPattern(aiDemandPath, aiDemand, /git\s+push\s+origin\s+main(?:\s|$)/m, 'push AI-derived demand changes directly to main');
 forbidPattern(aiDemandPath, aiDemand, /gh\s+pr\s+merge/, 'auto-merge AI-derived demand or content changes');
 
+const mergeGatePath = '.github/workflows/merge-gate.yml';
+const mergeGate = read(mergeGatePath);
+requireText(mergeGatePath, mergeGate, 'VALIDATED_SHA: ${{ github.event.pull_request.head.sha }}');
+requireText(mergeGatePath, mergeGate, 'node scripts/ci/run-premerge-validation.mjs');
+forbidPattern(mergeGatePath, mergeGate, /statuses\/(?!\$VALIDATED_SHA)[^"\s]+/, 'publish supplemental statuses on synthetic merge refs; keep them beside the native Actions check on the validated PR head');
+
 if (failures.length) {
   console.error('Automation main-write policy validation failed:');
   for (const failure of failures) console.error(`- ${failure}`);

@@ -35,6 +35,8 @@ export const blancoCountyJohnsonCityBlancoPedernalesHillCountryArticle: Article 
   ],
   featured: false,
   internalLinks: [
+    { href: "/article/texas-wine-country", label: "Texas Wine Country", description: "Understand the Hye and Johnson City wine corridor and its wider grape-growing connections." },
+    { href: "/article/scenic-drives-in-texas", label: "Hill Country scenic routes", description: "Connect Blanco County with the U.S. 290 and Highland Lakes route choices." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
     { href: "/destination/johnson-city", label: "Johnson City visitor guide", description: "Plan downtown museums, LBJ history, the courthouse square and Hill Country side trips from Johnson City." },
     { href: "/destination/lbj-boyhood-home-johnson-city", label: "LBJ Boyhood Home", description: "Plan the free National Park Service program at Lyndon Johnson's restored 1920s childhood home in Johnson City." },

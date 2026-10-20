@@ -34,6 +34,10 @@ export const aransasCountyRockportFultonBaysCoastalHeritageArticle: Article = {
   ],
   featured: false,
   internalLinks: [
+    { href: "/destination/la-salle-odyssey-texas-coast", label: "La Salle Odyssey museum trail", description: "Visit the Coastal Bend museums interpreting La Belle and Fort St. Louis." },
+    { href: "/destination/goose-island-big-tree", label: "The Big Tree at Goose Island", description: "Explore the centuries-old coastal live oak and official botanical measurements." },
+    { href: "/destination/texas-maritime-museum-rockport", label: "Texas Maritime Museum", description: "Learn how shipping, fishing and navigation shaped Aransas Bay." },
+    { href: "/destination/rockport", label: "Rockport authority travel guide", description: "Plan Rockport waterfront, galleries, birding and Aransas Bay excursions." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
     { href: "/county/refugio", label: "Explore Refugio County", description: "Continue northwest toward Refugio, Woodsboro, the Mission River and coastal prairie." },
     { href: "/county/calhoun", label: "Explore Calhoun County", description: "Follow the middle Texas coast northeast toward Port Lavaca, Indianola and Matagorda Bay." },
@@ -43,7 +47,7 @@ export const aransasCountyRockportFultonBaysCoastalHeritageArticle: Article = {
     { href: "/article/why-texas-has-254-counties", label: "Why Texas has 254 counties", description: "See how settlement, travel and courthouse access shaped the Texas county map." },
   ],
   relatedCollections: [],
-  relatedDestinations: [],
+  relatedDestinations: ["la-salle-odyssey-texas-coast","goose-island-big-tree","texas-maritime-museum-rockport","fulton-mansion"],
   body: [
     p("Aransas County is one of the smallest counties in Texas by land area, but its shoreline, bays, islands and wildlife give it a geographic presence far larger than its footprint. Rockport, the county seat, and neighboring Fulton sit on Live Oak Peninsula between Copano Bay and Aransas Bay. Across the water lie barrier islands and channels that connect the protected estuaries of the Coastal Bend with the Gulf of Mexico. The result is a county whose history has always depended on the edge between land and water."),
     p("That edge shaped nearly every major chapter of local life. Indigenous people harvested coastal resources here for thousands of years. Spanish and Mexican authorities treated the bays as strategic gateways to the interior. Nineteenth-century entrepreneurs built ports, cattle packeries and rail connections. Fishing and shipbuilding later replaced much of the old cattle trade, tourism became a permanent economic force, and modern residents built an arts community around a landscape known for live oaks, bird migration and saltwater recreation."),

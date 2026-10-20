@@ -35,6 +35,9 @@ export const cameronCountyBrownsvilleHarlingenSouthPadreRioGrandeArticle: Articl
   ],
   featured: false,
   internalLinks: [
+    { href: "/destination/south-padre-island", label: "South Padre Island visitor authority", description: "Choose beach access, Laguna Madre nature visits and Port Isabel heritage stops." },
+    { href: "/destination/port-isabel-historical-museum", label: "Port Isabel Historical Museum", description: "Explore the 1899 Champion Building and its 1906 fish mural." },
+    { href: "/destination/historic-brownsville-museum", label: "Historic Brownsville Museum", description: "Connect the restored railroad depot with the 1872 locomotive and city heritage." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
     { href: "/county/willacy", label: "Explore Willacy County", description: "Continue north through Raymondville, Port Mansfield and the Laguna Madre." },
     { href: "/county/hidalgo", label: "Explore Hidalgo County", description: "Follow the Lower Rio Grande Valley west toward McAllen, Edinburg and the irrigation belt." },
@@ -43,7 +46,7 @@ export const cameronCountyBrownsvilleHarlingenSouthPadreRioGrandeArticle: Articl
     { href: "/article/why-texas-has-254-counties", label: "Why Texas has 254 counties", description: "See how settlement, travel and courthouse access shaped the Texas county map." },
   ],
   relatedCollections: [],
-  relatedDestinations: [],
+  relatedDestinations: ["south-padre-island","port-isabel-historical-museum","palo-alto-battlefield-national-historical-park","historic-brownsville-museum"],
   body: [
     p("Cameron County occupies the southernmost corner of Texas, where the Rio Grande meets the Gulf of Mexico and the Lower Rio Grande Valley opens into bays, resacas, barrier islands and subtropical brush. Brownsville, the county seat, faces Matamoros across the river. Harlingen sits farther inland at a transportation crossroads. Port Isabel and South Padre Island turn toward the Laguna Madre and Gulf, while San Benito, Los Fresnos, La Feria and smaller communities fill the agricultural and urban corridor between them."),
     p("Few Texas counties contain so many distinct landscapes in such a compact area. Irrigated fields lie only a short drive from thornscrub wildlife habitat. Historic border neighborhoods connect to an international port of entry, while beaches and tidal flats stretch along the coast. The county's story combines Spanish ranching, Tejano settlement, the U.S.-Mexico War, river trade, railroads, agriculture, migration, tourism, conservation, shipping and, more recently, commercial spaceflight."),

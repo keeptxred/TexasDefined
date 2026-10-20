@@ -179,7 +179,7 @@ export const fredericksburgWineryAuthorityDestinations: Destination[] = [
         { name: "National Museum of the Pacific War", description: "A destination-scale museum in Fredericksburg for a history-first alternative.", proximity: "Fredericksburg", href: "/destination/national-museum-pacific-war" },
       ],
       sideTrips: [
-        { name: "Stonewall", description: "Continue east for orchards, LBJ sites and another layer of Hill Country agriculture.", proximity: "East", href: "/destination/lyndon-b-johnson-state-park-and-historic-site" },
+        { name: "Stonewall", description: "Continue east for orchards, LBJ sites and another layer of Hill Country agriculture.", proximity: "East", href: "/destination/lyndon-b-johnson-state-park-historic-site" },
         { name: "Gillespie County", description: "Use the county guide for ranching, German settlement, peaches, wine and the broader rural landscape.", proximity: "Countywide", href: "/county/gillespie" },
       ],
     },

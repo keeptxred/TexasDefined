@@ -37,7 +37,7 @@ export const texasCoreDepthArticles: Article[] = [
     sourceUrl: 'https://www.txdot.gov/about/campaigns-outreach/bluebonnets-wildflowers/wildflower-program.html',
     internalLinks: [
       { href: '/explore/road-trips', label: 'Texas road trips', description: 'Build a spring drive around more than one roadside stop.' },
-      { href: '/explore/hill-country', label: 'Texas Hill Country', description: 'Explore parks, towns, rivers and seasonal stops in the region.' },
+      { href: '/explore/region/hill-country', label: 'Texas Hill Country', description: 'Explore parks, towns, rivers and seasonal stops in the region.' },
       { href: '/article/texas-native-garden-that-survives-august', label: 'A garden that survives August', description: 'Turn the spring inspiration into a realistic Texas planting plan.' },
     ],
     body: [

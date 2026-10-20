@@ -10,6 +10,12 @@ interface TicketmasterRow {
 interface TicketmasterSnapshot { fetchedAt: string | null; events: TicketmasterRow[] }
 
 const ticketmasterAuthorityMatchers = [
+  { city: "El Paso", slug: "amigo-airsho", prefix: "amigo airsho" },
+  { city: "Houston", slug: "wings-over-houston-airshow", prefix: "wings over houston" },
+  { city: "Houston", slug: "wings-over-houston-airshow", prefix: "caf wings over houston" },
+  { city: "San Marcos", slug: "texas-capital-air-show", prefix: "texas capital air show" },
+  { city: "Burnet", slug: "bluebonnet-airshow", prefix: "bluebonnet airshow" },
+  { city: "Fort Worth", slug: "wings-over-cowtown-airshow", prefix: "wings over cowtown" },
   { city: "McAllen", slug: "fiesta-de-palmas", prefix: "fiesta de palmas" },
   { city: "McAllen", slug: "mcallen-holiday-parade", prefix: "mcallen holiday parade" },
   { city: "McAllen", slug: "south-pole-illuminated-festival", prefix: "south pole illuminated festival" },
@@ -19,6 +25,7 @@ const ticketmasterAuthorityMatchers = [
   { city: "El Paso", slug: "way-out-west-festival-el-paso", prefix: "way out west festival" },
   { city: "Dallas", slug: "state-fair-classic", prefix: "state fair classic" },
   { city: "Dallas", slug: "red-river-rivalry", prefix: "oklahoma sooners football vs. texas longhorns football" },
+  { city: "Dallas", slug: "red-river-rivalry", prefix: "texas longhorns football vs. oklahoma sooners football" },
   { city: "Beaumont", slug: "beaumont-comic-con", prefix: "beaumont comic con" },
   { city: "The Woodlands", slug: "eagle-fest-the-woodlands", prefix: "eagle fest" },
   { city: "Austin", slug: "austin-city-limits-music-festival", prefix: "austin city limits festival" },

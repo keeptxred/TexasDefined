@@ -1,0 +1,79 @@
+{
+  "version": 1,
+  "verifiedAt": "2026-10-11",
+  "censusYear": "2024-25",
+  "districtAlignmentYear": "2026-27",
+  "methodology": "Exact TEA campus ID and NCES CCD physical campus crosswalk for five UIL SOFTBALL schools. School campus county follows physical NCES campus location when TEA district association differs. Counts cite their own vintage, measure and agency; not UIL alignment enrollment nor assumed spring 2027 attendance. County refers to campus location, not district footprint, mailing city, football or spectator playing field.",
+  "schools": [
+    {
+      "uilName": "Shiner",
+      "campusName": "Shiner H S",
+      "teaCampusId": "143903001",
+      "county": "Lavaca",
+      "districtName": "Shiner ISD",
+      "grades": "07–12",
+      "historicalStudentCount": 309,
+      "countType": "TEA 2025 School Report Card students, 2024–25 data",
+      "campusAddress": "510 CR 348, Shiner, TX 77984",
+      "campusAddressSource": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=484011004554",
+      "studentSource": "https://rptsvr1.tea.texas.gov/cgi/sas/broker?_debug=0&_program=perfrept.perfmast.sas&_service=marykay&ccyy=2025&from_tprs=2025&id=143903001&lev=C&prgopt=reports%2Fsrc%2Fsrc.sas",
+      "caveat": "TEA 2025 SRC membership 309 differs from NCES 2024–25 enrollment 311; combined campus is grades 7–12, never claim this is 9–12 varsity eligibility enrollment or UIL alignment enrollment."
+    },
+    {
+      "uilName": "Ganado",
+      "campusName": "Ganado H S",
+      "teaCampusId": "120902001",
+      "county": "Jackson",
+      "districtName": "Ganado ISD",
+      "grades": "09–12",
+      "historicalStudentCount": 221,
+      "countType": "TEA 2025 School Report Card students, 2024–25 data",
+      "campusAddress": "501 W Devers, Ganado, TX 77962",
+      "campusAddressSource": "https://www.ganadoisd.org/campus",
+      "studentSource": "https://rptsvr1.tea.texas.gov/cgi/sas/broker?_debug=0&_program=perfrept.perfmast.sas&_service=marykay&ccyy=2025&from_tprs=2025&id=120902001&lev=C&prgopt=reports%2Fsrc%2Fsrc.sas",
+      "caveat": "Ganado ISD district office is 210 S 6th St, not the high school or independently located Ganado Softball Field."
+    },
+    {
+      "uilName": "Katy",
+      "campusName": "Katy H S",
+      "teaCampusId": "101914001",
+      "county": "Fort Bend",
+      "districtName": "Katy ISD",
+      "grades": "09–12",
+      "historicalStudentCount": 3543,
+      "countType": "NCES 2024–25 CCD public school enrollment",
+      "campusAddress": "6331 Highway Blvd, Katy, TX 77494",
+      "campusAddressSource": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=482517002809",
+      "studentSource": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=482517002809",
+      "caveat": "CRITICAL: NCES classifies the physical Katy High campus in FORT BEND COUNTY, whereas TEA's KATY ISD district record is associated with HARRIS COUNTY. Do not copy district county into campus county, nor use the school address as exact KHS-Softball Field public entrance."
+    },
+    {
+      "uilName": "Pearland",
+      "campusName": "Pearland H S",
+      "teaCampusId": "020908001",
+      "county": "Brazoria",
+      "districtName": "Pearland ISD",
+      "grades": "09–12",
+      "historicalStudentCount": 3408,
+      "countType": "TEA 2025 School Report Card students, 2024–25 data",
+      "campusAddress": "3775 S Main St, Pearland, TX 77581",
+      "campusAddressSource": "https://phs.pearlandisd.org/athletics-phs/general-information",
+      "studentSource": "https://rptsvr1.tea.texas.gov/cgi/sas/broker?_debug=0&_program=perfrept.perfmast.sas&_service=marykay&ccyy=2025&from_tprs=2025&id=020908001&lev=C&prgopt=reports%2Fsrc%2Fsrc.sas",
+      "caveat": "NCES CCD previously showed a slightly different 2024–25 count of 3,412: these agencies have distinct reporting definitions/snapshots. Quote TEA 2025 3,408 as dated and attributed, never assert any count is 2026–27 current. School campus and The RIG are not proof of varsity softball diamond."
+    },
+    {
+      "uilName": "Amarillo Highland Park",
+      "campusName": "Highland Park H S",
+      "teaCampusId": "188903001",
+      "county": "Potter",
+      "districtName": "Highland Park ISD (Amarillo)",
+      "grades": "09–12",
+      "historicalStudentCount": 213,
+      "countType": "TEA 2025 Campus Comparison Group students, 2024–25 data",
+      "campusAddress": "15300 Amarillo Blvd E, Amarillo, TX 79108",
+      "campusAddressSource": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=483556006160",
+      "studentSource": "https://rptsvr1.tea.texas.gov/cgi/sas/broker?_debug=0&_program=perfrept.perfmast.sas&_service=marykay&ccyy=2025&id=188903001&lev=C&prgopt=reports%2Facct%2Fcomparison_group.sas",
+      "caveat": "This is Potter County Amarillo Highland Park HS campus 188903001, not Dallas Highland Park (separate TEA ID/county), and school/district office address is not necessarily varsity softball field."
+    }
+  ]
+}

@@ -264,7 +264,7 @@ export const texasGatewayArticlesBatch2: Article[] = [
       { href: "/explore/food-bbq", label: "Texas food and barbecue" },
     ],
     relatedCollections: [],
-    relatedDestinations: ["palo-duro-canyon", "enchanted-rock", "caddo-lake", "gruene-historic-district", "fort-davis", "galveston"],
+    relatedDestinations: ["palo-duro-canyon-state-park", "enchanted-rock", "caddo-lake", "gruene-historic-district", "fort-davis", "galveston"],
   },
   {
     id: "gateway-facts-sound-fake",
@@ -318,7 +318,7 @@ export const texasGatewayArticlesBatch2: Article[] = [
       { href: "/explore/state-parks", label: "Explore Texas state parks" },
     ],
     relatedCollections: [],
-    relatedDestinations: ["big-bend-chisos-basin", "palo-duro-canyon", "caddo-lake", "san-antonio-missions"],
+    relatedDestinations: ["big-bend-chisos-basin", "palo-duro-canyon-state-park", "caddo-lake", "san-antonio-missions"],
   },
   {
     id: "gateway-first-trip-mistakes",
@@ -391,7 +391,7 @@ export const texasGatewayArticlesBatch2: Article[] = [
       { href: "/explore/road-trips", label: "Texas road trips" },
     ],
     relatedCollections: [],
-    relatedDestinations: ["san-antonio-missions", "palo-duro-canyon", "galveston", "big-bend-chisos-basin"],
+    relatedDestinations: ["san-antonio-missions", "palo-duro-canyon-state-park", "galveston", "big-bend-chisos-basin"],
   },
   {
     id: "gateway-seasonal-bucket",
@@ -454,7 +454,7 @@ export const texasGatewayArticlesBatch2: Article[] = [
       { href: "/explore/small-towns", label: "Texas small towns" },
     ],
     relatedCollections: [],
-    relatedDestinations: ["big-bend-chisos-basin", "galveston", "fredericksburg", "palo-duro-canyon"],
+    relatedDestinations: ["big-bend-chisos-basin", "galveston", "fredericksburg", "palo-duro-canyon-state-park"],
   },
 ];
 

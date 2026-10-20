@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
+import { paintedChurchAuthorityExpansionDate } from "@/data/painted-church-authority-sources";
 import { buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const canonicalPath = "/explore/painted-churches/knowledge-graph";
@@ -17,7 +18,7 @@ export const Route = createFileRoute(canonicalPath)({
     return { edges: paintedChurchKnowledgeEdges, nodes: paintedChurchKnowledgeNodes };
   },
   head: () => ({
-    meta: buildMeta(texasDefinedBrand, { canonicalPath, title: "Texas Painted Churches Knowledge Graph", description }),
+    meta: buildMeta(texasDefinedBrand, { canonicalPath, title: "Texas Painted Churches Knowledge Graph", description, modifiedTime: `${paintedChurchAuthorityExpansionDate}T12:00:00-05:00` }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
     scripts: [jsonLd({
       "@context": "https://schema.org",
@@ -26,7 +27,7 @@ export const Route = createFileRoute(canonicalPath)({
       name: "Texas Painted Churches knowledge graph",
       description,
       url: pageUrl,
-      dateModified: "2026-08-18",
+      dateModified: paintedChurchAuthorityExpansionDate,
       variableMeasured: ["church", "person", "technique", "symbol", "heritage community", "preservation relationship"],
       creator: { "@id": `${siteUrl}/#organization` },
     })],

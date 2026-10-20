@@ -44,6 +44,15 @@ for (const feature of ['isCountyPropertyIndexReady(county)',"robots: indexReady 
 for (const feature of ['export function isIndexableEntityPage',"['active', 'seasonal'].includes(entity.status)",'description.length < 180','!entity.sourceCheckedAt',"['official', 'high'].includes(entity.sourceConfidence)",'hasEntitySpecificOfficialUrl(entity)','NON_SPECIFIC_OFFICIAL_URLS',"'https://www.texas.gov/texas-county-websites.html'",'LOCAL_GOVERNMENT_KINDS.has(entity.kind)',"entity.sourceConfidence !== 'official'","entity.status !== 'active'",'contextSignals >= 3']) {
   if (!entityRelationships.includes(feature)) errors.push(`Generic entity quality gate missing: ${feature}`);
 }
+// Indexability must not fluctuate when Census TIGERWeb coordinates are
+// unavailable, while the full county editorial and relationship gates remain.
+const countyGate = entityRelationships.match(/if \(entity\.kind === 'county'\) \{[\s\S]*?\n  \}/)?.[0] ?? '';
+for (const token of ["'county-series-complete'", 'countyRelationshipsComplete = entity.relationships.length >= 2', '&& editorialComplete', '&& countyRelationshipsComplete']) {
+  if (!countyGate.includes(token)) errors.push('County indexation quality gate missing: ' + token);
+}
+if (countyGate.includes('Boolean(entity.coordinates)')) {
+  errors.push('County SEO indexability must not require an intermittent Census coordinates lookup.');
+}
 for (const feature of ['const entityCounty = countyContext(entity)','if (!isIndexableEntityPage(candidate)) return false;','const sameCounty = Boolean(entityCounty && candidateCounty && entityCounty === candidateCounty)',"score += 120; reasons.push('direct relationship')","score += 70; reasons.push('same county')",'const miles = distanceMiles(entity, candidate)',"miles <= 25","miles <= 75","miles <= 150",'sharedTags.length * 6','LOCAL_GOVERNMENT_KINDS.has(entity.kind) && !sameCounty && !directlyRelated && !incomingRelated','proximityTieBreak(entity, a.entity, b.entity)','function distanceMiles(a: TexasEntityRecord, b: TexasEntityRecord)']) {
   if (!entityRelationships.includes(feature)) errors.push(`Related-entity ranking contract missing: ${feature}`);
 }
@@ -121,6 +130,12 @@ for (const feature of [
   'First-time plan',
   'Where to stay',
   'Free things to do',
+  'Family-friendly plan',
+  'cityProfile.tripPlanning.family',
+  'Getting around',
+  'cityProfile.tripPlanning.gettingAround',
+  'Shopping & entertainment',
+  'cityProfile.tripPlanning.shoppingEntertainment',
   'cityDiscoveryItems',
   'Best first stops and planning guides',
   'Places connected to {entity.name}',
@@ -150,10 +165,26 @@ for (const [label, pattern] of [
   ['districts', /districts:/g],
   ['featured', /featured:/g],
   ['tripPlanning', /tripPlanning:/g],
+  ['family planning', /\n      family: \[/g],
+  ['getting-around planning', /\n      gettingAround: \[/g],
+  ['shopping/entertainment planning', /\n      shoppingEntertainment: \[/g],
 ]) {
   const count = (cityAuthorityProfiles.match(pattern) ?? []).length;
   if (count < 11) errors.push(`Every published city authority profile must carry ${label}; found ${count}, expected at least 11`);
 }
+for (const feature of [
+  "title: 'Use METRORail for the central corridor'",
+  "title: 'DART works best on rail-connected trips'",
+  "title: 'Walk the downtown core'",
+  "title: 'The mountain shapes every cross-city trip'",
+  "title: 'Plan the last mile before an event'",
+  "title: 'Padre Island is a separate driving block'",
+  "title: 'Legacy West'",
+  "title: 'Depot District'",
+]) {
+  if (!cityAuthorityProfiles.includes(feature)) errors.push(`City visitor-planning modules must stay city-specific: missing ${feature}`);
+}
+
 for (const feature of [
   'getCitySocialImage',
   "loaderData.entity.kind === 'city' ? getCitySocialImage(loaderData.entity.slug) : undefined",
@@ -163,6 +194,8 @@ for (const feature of [
   if (!entityRoute.includes(feature)) errors.push(`City social preview contract missing: ${feature}`);
 }
 if (!cityAuthorityProfiles.includes("href: '/explore/near/el-paso/road-trips'")) errors.push('El Paso city authority must retain a contextual crawlable inbound link to the canonical road-trips collection.');
+if (!cityAuthorityProfiles.includes("href: '/destination/kimbell-art-museum-fort-worth'")) errors.push('Fort Worth authority must link to the published canonical Kimbell Art Museum guide.');
+if (cityAuthorityProfiles.includes("href: '/destination/kimbell-art-museum'")) errors.push('Obsolete Kimbell Art Museum destination slug must not reappear on city authority pages.');
 for (const slug of ['houston','dallas','fort-worth','austin','san-antonio','el-paso','arlington','hurst','corpus-christi','plano','lubbock']) {
   if (!citySocialImages.includes(`${slug}:`) && !citySocialImages.includes(`'${slug}':`)) errors.push(`City social image metadata missing for ${slug}`);
 }
@@ -193,6 +226,15 @@ for (const feature of [
 ]) {
   if (!cityAuthorityProfiles.includes(feature)) errors.push(`Fort Worth city authority remediation missing: ${feature}`);
 }
+// Houston's Waller County is ETJ and limited-purpose annexation candidate
+// territory, not automatically an ordinary full-service county membership.
+const houstonProfile = cityAuthorityProfiles.slice(cityAuthorityProfiles.indexOf('  houston: {'), cityAuthorityProfiles.indexOf('  dallas: {'));
+const houstonGraph = cityMetroAuthority.slice(cityMetroAuthority.indexOf('  houston: city('), cityMetroAuthority.indexOf('  dallas: city('));
+if (!houstonProfile.includes("counties: ['Harris County', 'Fort Bend County', 'Montgomery County']")) errors.push('Houston must preserve full-purpose three-county list; Waller is not full-purpose by default.');
+if (!houstonProfile.includes('limited-purpose annexation') || !houstonProfile.includes('Waller County')) errors.push('Houston Waller limited-purpose/ETJ distinction missing.');
+if (!houstonGraph.includes("'etj-overlap', targetId: 'county:waller'")) errors.push('Houston Waller knowledge-graph relationship must be ETJ-specific.');
+if (houstonGraph.includes("'jurisdiction-overlap', targetId: 'county:waller'")) errors.push('Houston Waller must not masquerade as ordinary full-purpose county membership.');
+
 for (const feature of [
   'Tarrant County is the city’s primary county context',
   "'jurisdiction-overlap', targetId: 'county:denton'",
@@ -262,6 +304,24 @@ for (const feature of ['COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexRead
 for (const feature of ['isPrimaryTripPlannerDestination','auditDestination','const indexableDestinations =','auditDestination(destination).readyForIndexing']) {
   if (!exploreSitemap.includes(feature)) errors.push(`Explore sitemap quality contract missing: ${feature}`);
 }
+
+// City-specific relocation methodology must never imply TEA maps establish
+// campus assignments or that a single municipal levy equals a property's tax.
+// Both primary-source explanations are visible only on the 11 deep city guides.
+for (const marker of [
+  'city-address-verification-title',
+  'tea.texas.gov/families-and-students/school-district-locator/school-district-locator-faq',
+  'comptroller.texas.gov/taxes/property-tax/rates/',
+  'The Texas Education Agency warns that its digital district maps are approximate',
+  'a published city tax rate is not the total rate for every address',
+  'cityProfile ? <aside',
+]) {
+  if (!entityDepth.includes(marker)) errors.push(`City primary-source verification missing: ${marker}`);
+}
+if (entityDepth.includes('Verify the district and campus from an exact address')) {
+  errors.push('City relocation cards must not claim district-map tools certify campus attendance zones.');
+}
+
 if (countyRoute.includes("dateModified: '2026-08-08'")) errors.push('County pages must not use a hard-coded modified date.');
 
 if (errors.length) {

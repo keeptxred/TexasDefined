@@ -121,7 +121,7 @@ export const hyeTexasDestinations: Destination[] = [
           description:
             "A larger lodging inventory to the west for travelers continuing deeper into Hill Country wine country.",
           proximity: "West on U.S. 290",
-          href: "/destination/fredericksburg-texas-wineries-things-to-do-guide",
+          href: "/article/fredericksburg-texas-wineries-things-to-do-guide",
         },
       ],
       neighborhoods: [
@@ -168,7 +168,7 @@ export const hyeTexasDestinations: Destination[] = [
           description:
             "Continue west for the largest concentration of wineries, museums, lodging, shopping and visitor services in the corridor.",
           proximity: "West",
-          href: "/destination/fredericksburg-texas-wineries-things-to-do-guide",
+          href: "/article/fredericksburg-texas-wineries-things-to-do-guide",
         },
       ],
     },

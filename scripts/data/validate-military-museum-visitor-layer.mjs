@@ -17,7 +17,7 @@ const requiredDestinations = [
   {
     slug: 'uss-lexington-museum-corpus-christi',
     officialUrl: 'https://usslexington.com/',
-    terms: ['USS Lexington Museum', 'Corpus Christi', 'World War II aircraft carrier', 'coordinates:', 'county: "Nueces"', 'areaGuide:', 'sourceCheckedAt: "2026-08-20"'],
+    terms: ['USS Lexington Museum', 'Corpus Christi', 'World War II aircraft carrier', 'coordinates:', 'county: "Nueces"', 'areaGuide:', 'sourceCheckedAt: "2026-10-14"'],
   },
   {
     slug: 'national-wasp-wwii-museum-sweetwater',

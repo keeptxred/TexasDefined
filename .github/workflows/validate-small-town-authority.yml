@@ -1,0 +1,58 @@
+name: Validate statewide town authority
+
+on:
+  pull_request:
+    paths:
+      - 'src/data/small-town-destinations-wave*.ts'
+      - 'src/data/small-town-authority-wave16.ts'
+      - 'src/data/town-authority-network.ts'
+      - 'src/data/town-authority-links.ts'
+      - 'src/data/town-authority-link-index.ts'
+      - 'src/data/types.ts'
+      - 'src/data/texas-places.ts'
+      - 'src/data/city-authority-profiles.ts'
+      - 'src/data/city-authority-index.ts'
+      - 'src/data/destination-preserved-catalog.ts'
+      - 'src/data/destination-query-runtime.ts'
+      - 'src/components/editorial/DestinationVisitPlanner.tsx'
+      - 'src/components/editorial/DestinationAuthoritySections.tsx'
+      - 'src/components/content/CountyTownAuthorityLinks.tsx'
+      - 'src/routes/$kind.$slug.lazy.tsx'
+      - 'src/data/fixtures/*county*.ts'
+      - 'scripts/data/validate-small-town-authority.mjs'
+      - '.github/workflows/validate-small-town-authority.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/data/small-town-destinations-wave*.ts'
+      - 'src/data/small-town-authority-wave16.ts'
+      - 'src/data/town-authority-network.ts'
+      - 'src/data/town-authority-links.ts'
+      - 'src/data/town-authority-link-index.ts'
+      - 'src/data/types.ts'
+      - 'src/data/texas-places.ts'
+      - 'src/data/city-authority-profiles.ts'
+      - 'src/data/city-authority-index.ts'
+      - 'src/data/destination-preserved-catalog.ts'
+      - 'src/data/destination-query-runtime.ts'
+      - 'src/components/editorial/DestinationVisitPlanner.tsx'
+      - 'src/components/editorial/DestinationAuthoritySections.tsx'
+      - 'src/components/content/CountyTownAuthorityLinks.tsx'
+      - 'src/routes/$kind.$slug.lazy.tsx'
+      - 'src/data/fixtures/*county*.ts'
+      - 'scripts/data/validate-small-town-authority.mjs'
+      - '.github/workflows/validate-small-town-authority.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate every researched town and city authority contract
+        run: node scripts/data/validate-small-town-authority.mjs

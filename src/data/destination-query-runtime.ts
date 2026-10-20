@@ -1,3 +1,5 @@
+import { isOfficialTexasNpsDestination } from "./texas-national-park-service-directory";
+import { isTexasStateParkDestination } from "./state-park-authority";
 import { abileneAreaDestinationFallbacks } from "./abilene-area-destinations";
 import { enrichAquariumMarineDestination } from "./aquarium-marine-destinations";
 import { enrichCavernAreaGuide } from "./cavern-area-guides";
@@ -5,6 +7,8 @@ import { filterCurrentlyVisitableDestinations } from "./destination-availability
 import { filterSeoReadyDestinations, isSeoReadyDestination } from "./destination-audit";
 import { applyAllCuratedDestination, applyAllCuratedDestinations } from "./destination-curation-all";
 import { preservedExploreDestinations } from "./destination-preserved-catalog";
+import { enforceFredericksburgJohnsonCityHeritageAuthority } from "./fredericksburg-johnson-city-heritage-destinations";
+import { enrichMuseumMedia } from "./museum-authority-heroes";
 import { improveDestinationCatalog, improveDestinationQuality } from "./destination-quality";
 import { fetchCoreExploreDestination, fetchCoreExploreDestinations } from "./explore-core-remote";
 import { applyDestinationHeroOverride, isDestinationPhotoPlaceholder, reconcileDestinationHeroes } from "./explore-hero-reconciliation";
@@ -12,12 +16,20 @@ import { applyExploreHeroAsset, applyExploreHeroAssets } from "./explore-heroes"
 import { fetchExploreDestination, fetchExploreDestinations } from "./explore-remote";
 import { enrichRemainingHistoricSiteAreaGuide } from "./historic-site-area-guides-extra";
 import { enrichHistoricSiteCatalog, enrichHistoricSiteDestination } from "./historic-site-enrichment";
+import { applyMagoffinHomeAuthority } from "./magoffin-home-authority";
 import { enrichHistoricSiteEvergreenLinks } from "./historic-site-evergreen-links";
+import { enrichTexasHistoricSiteAuthority } from "./historic-site-authority-2026";
+import { enrichFullHistoricSiteAuthority } from "./historic-site-authority-full-catalog";
+import { enrichResearchedHistoricSiteDepth } from "./historic-site-depth-all";
+import { applyHistoricVisitorUpgrades20261019 } from "./historic-site-visitor-upgrades-20261019";
 import { applyHistoricSiteFactCorrections } from "./historic-site-fact-corrections";
 import { enrichHistoricSiteRemoteHero } from "./historic-site-remote-heroes";
 import { enrichNationalCemeteryDestination } from "./national-cemetery-enrichment";
+import { filterDestinationsByScope } from "./destination-query-scope";
+import { correctDestinationTravelRegion } from "./destination-region-consistency";
+import { applyTownAuthority } from "./town-authority-network";
 import { platform, scope } from "./index";
-import { applyStateParkHeroAsset, applyStateParkHeroAssets } from "./state-park-heroes";
+import { applyStateParkHeroAsset, applyStateParkHeroAssets, recoverUniqueParkHeroesAfterGlobalReconciliation } from "./state-park-heroes";
 import type { Destination, Slug } from "./types";
 import type { DestinationQuery } from "./repositories";
 import { selectSwimmingHoleAndTubingDestinations } from "./water-recreation";
@@ -32,13 +44,23 @@ type RemoteCatalogResult = {
   failed: boolean;
 };
 
-async function withDestinationRemoteTimeout<T>(label: string, operation: Promise<T>): Promise<T> {
+async function withDestinationRemoteTimeout<T>(
+  label: string,
+  operation: Promise<T> | ((signal: AbortSignal) => Promise<T>),
+): Promise<T> {
+  const controller = new AbortController();
   let timer: ReturnType<typeof setTimeout> | undefined;
   try {
     return await Promise.race([
-      operation,
+      typeof operation === "function" ? operation(controller.signal) : operation,
       new Promise<T>((_resolve, reject) => {
-        timer = setTimeout(() => reject(new Error(`${label} timed out after ${REMOTE_DESTINATION_TIMEOUT_MS}ms`)), REMOTE_DESTINATION_TIMEOUT_MS);
+        timer = setTimeout(() => {
+          // Multi-page callers must stop scheduling additional remote reads
+          // once the caller has fallen back. Each in-flight fetch retains
+          // its own shorter AbortSignal.timeout transport limit.
+          controller.abort();
+          reject(new Error(`${label} timed out after ${REMOTE_DESTINATION_TIMEOUT_MS}ms`));
+        }, REMOTE_DESTINATION_TIMEOUT_MS);
       }),
     ]);
   } finally {
@@ -83,7 +105,7 @@ function mergeReadyCatalogs(primary: Destination[], fallback: Destination[]): De
 }
 
 function filterPreservedDestinations(rows: Destination[], query: Omit<DestinationQuery, "brandId">): Destination[] {
-  if (query.category) rows = rows.filter((destination) => destination.category === query.category);
+  rows = filterDestinationsByScope(rows, query);
   if (query.featured !== undefined) rows = rows.filter((destination) => Boolean(destination.featured) === query.featured);
   return query.limit ? rows.slice(0, query.limit) : rows;
 }
@@ -123,9 +145,9 @@ async function loadEnrichedCatalog(
   params: Omit<DestinationQuery, "brandId">,
 ): Promise<RemoteCatalogResult> {
   try {
-    let destinations = await withDestinationRemoteTimeout("Explore enrichment", fetchExploreDestinations(options));
+    let destinations = await withDestinationRemoteTimeout("Explore enrichment", (signal) => fetchExploreDestinations({ ...options, signal }));
     if (params.featured && !destinations.length) {
-      const catalog = await withDestinationRemoteTimeout("Explore featured fallback catalog", fetchExploreDestinations({ category: params.category, limit: 5000 }));
+      const catalog = await withDestinationRemoteTimeout("Explore featured fallback catalog", (signal) => fetchExploreDestinations({ category: params.category, limit: 5000, signal }));
       destinations = featuredFallback(catalog, params.limit ?? 6);
     }
     return { destinations, failed: false };
@@ -140,9 +162,9 @@ async function loadCoreCatalog(
   params: Omit<DestinationQuery, "brandId">,
 ): Promise<Destination[]> {
   try {
-    let core = await withDestinationRemoteTimeout("Core Explore catalog", fetchCoreExploreDestinations(options));
+    let core = await withDestinationRemoteTimeout("Core Explore catalog", (signal) => fetchCoreExploreDestinations({ ...options, signal }));
     if (params.featured && !core.length) {
-      const catalog = await withDestinationRemoteTimeout("Core Explore featured fallback catalog", fetchCoreExploreDestinations({ category: params.category, limit: 5000 }));
+      const catalog = await withDestinationRemoteTimeout("Core Explore featured fallback catalog", (signal) => fetchCoreExploreDestinations({ category: params.category, limit: 5000, signal }));
       core = featuredFallback(catalog, params.limit ?? 6);
     }
     return core;
@@ -153,7 +175,7 @@ async function loadCoreCatalog(
 }
 
 function finishHistoricSiteEnrichment(destination: Destination) {
-  return enrichNationalCemeteryDestination(
+  const enriched = enrichNationalCemeteryDestination(
     applyHistoricSiteFactCorrections(
       enrichHistoricSiteEvergreenLinks(
         enrichHistoricSiteRemoteHero(
@@ -162,10 +184,11 @@ function finishHistoricSiteEnrichment(destination: Destination) {
       ),
     ),
   );
+  return applyHistoricVisitorUpgrades20261019(enrichResearchedHistoricSiteDepth(enrichFullHistoricSiteAuthority(enrichTexasHistoricSiteAuthority(enriched))));
 }
 
 function applyResolvedHero(destination: Destination) {
-  return normalizeDestinationCounty(
+  const curated = enforceFredericksburgJohnsonCityHeritageAuthority(applyTownAuthority(enrichMuseumMedia(normalizeDestinationCounty(
     enrichCavernAreaGuide(
       finishHistoricSiteEnrichment(
         improveDestinationQuality(
@@ -181,40 +204,89 @@ function applyResolvedHero(destination: Destination) {
         ),
       ),
     ),
-  );
+  ))));
+  // Specialized editorial curators may reintroduce older remote JPEG heroes.
+  // Resolve the approved exact-place local park photograph after all curators.
+  return applyStateParkHeroAsset(curated);
 }
 
 function resolveSeoReadyDestination(destination?: Destination | null) {
   if (!destination) return undefined;
-  const resolved = applyResolvedHero(destination);
+  const resolved = applyMagoffinHomeAuthority(correctDestinationTravelRegion(applyResolvedHero(destination)));
   return isSeoReadyDestination(resolved) ? resolved : undefined;
 }
 
 function reconcileExploreCatalog(destinations: Destination[]) {
-  const aquariumEnriched = reconcileDestinationHeroes(applyExploreHeroAssets(applyStateParkHeroAssets(destinations)))
-    .map(enrichAquariumMarineDestination);
+  const aquariumEnriched = recoverUniqueParkHeroesAfterGlobalReconciliation(
+    reconcileDestinationHeroes(applyExploreHeroAssets(applyStateParkHeroAssets(destinations))),
+  ).map(enrichAquariumMarineDestination);
   const curated = improveDestinationCatalog(applyAllCuratedDestinations(aquariumEnriched));
-  const improved = enrichHistoricSiteCatalog(curated)
+  const historicEnriched = enrichHistoricSiteCatalog(curated)
     .map(enrichRemainingHistoricSiteAreaGuide)
     .map(enrichHistoricSiteRemoteHero)
     .map(enrichHistoricSiteEvergreenLinks)
     .map(applyHistoricSiteFactCorrections)
     .map(enrichNationalCemeteryDestination)
+    .map(enrichTexasHistoricSiteAuthority)
+    .map(enrichFullHistoricSiteAuthority)
+    .map(enrichResearchedHistoricSiteDepth)
+    .map(applyHistoricVisitorUpgrades20261019)
     .map(enrichCavernAreaGuide)
-    .map(normalizeDestinationCounty);
-  return filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(improved));
+    .map(normalizeDestinationCounty)
+    // Remote Explore results can still carry missing-image placeholders. Apply
+    // subject-specific museum media before town/corridor authority overlays,
+    // preserving their existing precedence and historic-site protections.
+    .map(enrichMuseumMedia)
+    .map(applyTownAuthority)
+    .map(enforceFredericksburgJohnsonCityHeritageAuthority);
+  const improved = historicEnriched.map(applyMagoffinHomeAuthority);
+  // The collection renderer must apply the same post-curation exact-place rule
+  // as the single destination page, not merely the preliminary photo map.
+  return filterSeoReadyDestinations(filterCurrentlyVisitableDestinations(
+    improved.map((destination) => applyStateParkHeroAsset(correctDestinationTravelRegion(destination))),
+  ));
 }
 
 export async function listResolvedDestinations(params: Omit<DestinationQuery, "brandId"> = {}) {
+  // A TPWD park may be editorially categorized as coastal, history, lake or outdoors.
+  // Select from the already-filtered full catalog, never include RV-business aliases or closed parks.
+  if (params.category === "state-parks") {
+    const parks = filterDestinationsByScope(
+      (await listResolvedDestinations()).filter(isTexasStateParkDestination),
+      { region: params.region },
+    ).sort((a, b) => a.name.localeCompare(b.name));
+    if (params.featured) return featuredFallback(parks, params.limit ?? 6);
+    return params.limit ? parks.slice(0, params.limit) : parks;
+  }
+
+  // NPS administers historic sites, seashores, monuments, rivers and trails in
+  // multiple editorial categories. Keep this directory strictly NPS-owned.
+  // Do not re-run the virtual category scope filter on those original records.
+  if (params.category === "national-parks") {
+    const destinations = filterDestinationsByScope(
+      (await listResolvedDestinations()).filter(isOfficialTexasNpsDestination),
+      { region: params.region },
+    ).sort((a, b) => a.name.localeCompare(b.name));
+    if (params.featured) return featuredFallback(destinations, params.limit ?? 6);
+    return params.limit ? destinations.slice(0, params.limit) : destinations;
+  }
+
   if (params.category === WATER_COLLECTION) {
-    const destinations = selectSwimmingHoleAndTubingDestinations(await listResolvedDestinations());
+    // This is a VIRTUAL cross-category collection: qualifying towns, state
+    // parks and rivers retain their real categories. Reapplying the virtual
+    // slug as an exact category filter drops EVERY selected destination.
+    // Only the optional geographic region belongs in the final scope gate.
+    const destinations = filterDestinationsByScope(
+      selectSwimmingHoleAndTubingDestinations(await listResolvedDestinations()),
+      { region: params.region },
+    );
     if (params.featured) return featuredFallback(destinations, params.limit ?? 6);
     return params.limit ? destinations.slice(0, params.limit) : destinations;
   }
 
   if (params.category === RV_COLLECTION) {
     const { listRvParkDestinations } = await import("./rv-parks");
-    const destinations = (await listRvParkDestinations()).map(normalizeDestinationCounty);
+    const destinations = filterDestinationsByScope((await listRvParkDestinations()).map(normalizeDestinationCounty), params);
     if (params.featured) return featuredFallback(destinations, params.limit ?? 6);
     return params.limit ? destinations.slice(0, params.limit) : destinations;
   }
@@ -247,7 +319,7 @@ export async function listResolvedDestinations(params: Omit<DestinationQuery, "b
     cityPassPreserved,
   ));
   const merged = mergeReadyCatalogs(primaryReady, fallbackReady);
-  const scoped = params.category ? merged.filter((destination) => destination.category === params.category) : merged;
+  const scoped = filterDestinationsByScope(merged, params);
   if (params.featured) return featuredFallback(scoped, params.limit ?? 6);
   return params.limit ? scoped.slice(0, params.limit) : scoped;
 }
@@ -271,7 +343,7 @@ export async function getResolvedDestination(slug: Slug) {
 
   const { getRvParkDestination } = await import("./rv-parks");
   const rvPark = await getRvParkDestination(slug);
-  if (rvPark) return applyResolvedHero(rvPark);
+  if (rvPark) return correctDestinationTravelRegion(applyResolvedHero(rvPark));
 
   const preserved = preservedExploreDestinations.find((destination) => destination.slug === slug);
   const readyPreserved = resolveSeoReadyDestination(preserved);
@@ -304,15 +376,15 @@ export async function getResolvedDestination(slug: Slug) {
   }
 
   const fallback = preserved ?? cavernPreserved ?? cityPassPreserved;
-  if (fallback) return applyResolvedHero(fallback);
-  if (!local && weakCandidates.length) return applyResolvedHero(weakCandidates[0]);
-  return local ? applyResolvedHero(local) : local;
+  if (fallback) return correctDestinationTravelRegion(applyResolvedHero(fallback));
+  if (!local && weakCandidates.length) return correctDestinationTravelRegion(applyResolvedHero(weakCandidates[0]));
+  return local ? correctDestinationTravelRegion(applyResolvedHero(local)) : local;
 }
 
 export async function listResolvedDestinationSearchCatalog() {
   let enrichedFailed = false;
   const [enriched, cavernFallbacks, cityPassFallbacks] = await Promise.all([
-    withDestinationRemoteTimeout("Explore destination search catalog", fetchExploreDestinations({ limit: 5000 }))
+    withDestinationRemoteTimeout("Explore destination search catalog", (signal) => fetchExploreDestinations({ limit: 5000, signal }))
       .catch((error) => {
         enrichedFailed = true;
         console.error("Enriched destination search index unavailable; merging core and preserved catalogs", error);
@@ -322,7 +394,7 @@ export async function listResolvedDestinationSearchCatalog() {
     loadCityPassDestinationExpansion(),
   ]);
   const core = enrichedFailed
-    ? await withDestinationRemoteTimeout("Core destination search catalog", fetchCoreExploreDestinations({ limit: 5000 }))
+    ? await withDestinationRemoteTimeout("Core destination search catalog", (signal) => fetchCoreExploreDestinations({ limit: 5000, signal }))
       .catch((error) => {
         console.error("Core remote destination search index unavailable; retaining preserved destinations", error);
         return [] as Destination[];

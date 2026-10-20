@@ -12,7 +12,12 @@ if (outcome === 'skipped' || outcome === '') {
 
 const token = process.env.GH_TOKEN ?? process.env.GITHUB_TOKEN;
 const repository = process.env.GITHUB_REPOSITORY;
-const sha = process.env.GITHUB_SHA;
+const statusTargetOverride = process.env.STATUS_TARGET_SHA;
+if (statusTargetOverride && !/^[a-f0-9]{40}$/i.test(statusTargetOverride)) {
+  console.error('::error title=Invalid CI status target::STATUS_TARGET_SHA must be a 40-character commit SHA.');
+  process.exit(2);
+}
+const sha = statusTargetOverride || process.env.GITHUB_SHA;
 
 if (!token || !repository || !sha) {
   console.log(`::warning title=CI telemetry unavailable::Could not publish ${context} status because GitHub token/repository/SHA metadata is unavailable.`);
@@ -21,6 +26,10 @@ if (!token || !repository || !sha) {
 
 const state = outcome === 'pending' ? 'pending' : outcome === 'success' ? 'success' : 'failure';
 const description = state === 'failure' ? failureDescription : successDescription;
+const runId = process.env.GITHUB_RUN_ID;
+const targetUrl = runId && /^\d+$/.test(runId)
+  ? `https://github.com/${repository}/actions/runs/${runId}`
+  : undefined;
 
 try {
   const response = await fetch(`https://api.github.com/repos/${repository}/statuses/${sha}`, {
@@ -31,7 +40,7 @@ try {
       'X-GitHub-Api-Version': '2022-11-28',
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ state, context, description: description.slice(0, 140) }),
+    body: JSON.stringify({ state, context, description: description.slice(0, 140), ...(targetUrl ? { target_url: targetUrl } : {}) }),
   });
 
   if (!response.ok) {

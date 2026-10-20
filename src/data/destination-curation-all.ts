@@ -1,3 +1,25 @@
+import { applyFranklinMountainsVisitorAuthority } from "./franklin-mountains-visitor-authority";
+import { applySixLaterTPWDAuthorities } from "./tpwd-six-later-park-authorities";
+import { applySixParkOctoberVisitorAuthority } from "./six-tpwd-visitor-authority-oct17";
+import { applySixParkVisitorAuthorityGuide } from "./six-park-visitor-authority-20261017";
+import { applyTwoNationalParkAuthorities } from "./two-national-parks-2026-authority";
+import { applyRemainingSixNpsAuthorities } from "./remaining-six-nps-authorities";
+import { applyFourFederalParkAuthorities } from "./four-nps-visitor-authorities";
+import { applyTPWDSixNewVisitorGuides } from "./state-park-six-new-visitor-guides";
+import { applyFiveParkAuthorityAlerts } from "./state-park-five-alert-authority";
+import { applyFourParkAlertAuthority } from "./state-park-four-alert-authority";
+import { applyInksLakeVisitorAuthority } from "./inks-lake-visitor-authority";
+import { applyStateParkSixAuthorityWave } from "./state-park-six-authority-wave";
+import { applyDevilsSinkholeVisitorAuthority } from "./devils-sinkhole-visitor-authority";
+import { applyStateParkSourceGroundedDepth } from "./state-park-source-grounded-depth";
+import { applyEsteroLlanoGrandeStateParkAuthority } from "./estero-llano-grande-state-park-authority";
+import { applyRayRobertsLakeStateParkAuthority } from "./ray-roberts-lake-state-park-authority";
+import { applyLakeSomervilleStateParkAuthority } from "./lake-somerville-state-park-authority";
+import { applyHillCountryStateNaturalAreaAuthority } from "./hill-country-state-natural-area-authority";
+import { applyCanonicalHistoricStatePark } from "./canonical-historic-state-parks";
+import { applyNewlyOpenedStateParkAuthority } from "./newly-opened-state-parks-2026";
+import { applyVerifiedStateParkHeadquarters } from "./state-park-verified-locations";
+import { applyStateParkAuthorityRecovery } from "./state-park-authority-recovery";
 import { applyCuratedDestination } from "./destination-curation";
 import { applyCuratedDestinationBatch2 } from "./destination-curation-batch2";
 import { applyCuratedDestinationBatch4 } from "./destination-curation-batch4";
@@ -153,6 +175,28 @@ const CURATORS: Array<(destination: Destination) => Destination> = [
   applyCuratedTopAttractionsBatch4,
   applyCuratedTopAttractionsBatch5,
   applyMoodyGardensCurrentCuration,
+  applyStateParkAuthorityRecovery,
+  applyVerifiedStateParkHeadquarters,
+  applyNewlyOpenedStateParkAuthority,
+  applyCanonicalHistoricStatePark,
+  applyHillCountryStateNaturalAreaAuthority,
+  applyLakeSomervilleStateParkAuthority,
+  applyRayRobertsLakeStateParkAuthority,
+  applyEsteroLlanoGrandeStateParkAuthority,
+  applyStateParkSourceGroundedDepth,
+  applyStateParkSixAuthorityWave,
+  applyFourParkAlertAuthority,
+  applyFiveParkAuthorityAlerts,
+  applyTPWDSixNewVisitorGuides,
+  applyFourFederalParkAuthorities,
+  applyRemainingSixNpsAuthorities,
+  applySixParkOctoberVisitorAuthority,
+  applySixLaterTPWDAuthorities,
+  applyTwoNationalParkAuthorities,
+  applySixParkVisitorAuthorityGuide,
+  applyInksLakeVisitorAuthority,
+  applyDevilsSinkholeVisitorAuthority,
+  applyFranklinMountainsVisitorAuthority,
 ];
 
 function runCurators(destination: Destination): Destination {

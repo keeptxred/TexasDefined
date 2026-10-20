@@ -132,7 +132,7 @@ export const statewideMuseumExpansionWave9Destinations: Destination[] = [
     officialUrl: "https://www.co.zapata.tx.us/page/zapata.county.museum",
     managingAuthority: "Zapata County Museum of History / Zapata County",
     address: "805 N US Hwy 83, Zapata, TX 78076",
-    sourceCheckedAt: "2026-10-09",
+    sourceCheckedAt: "2026-10-19",
   },
   {
     id: "museum-statewide-wave9-whitehead",

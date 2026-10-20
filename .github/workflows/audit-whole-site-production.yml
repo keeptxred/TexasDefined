@@ -1,40 +1,129 @@
-name: Whole-site production page audit
+name: Whole-site production page audit (disabled by owner)
+
+# Owner hold 2026-10-19: NO SITEWIDE AUDITS. Do not reenable without explicit authorization.
 
 on:
-  schedule:
-    - cron: '17 13 * * 1'
   workflow_dispatch:
 
 permissions:
   contents: read
+  actions: read
+  issues: write
 
 concurrency:
-  # This is intentionally a production-only crawl. Running it on pull requests
-  # audited the already-deployed site rather than the branch and multiplied live
-  # SSR/Supabase traffic during busy merge windows.
-  group: whole-site-production-audit
+  group: weekly-local-quality-coordinator
   cancel-in-progress: true
 
 jobs:
   audit-production:
-    name: Crawl every sitemap-listed production page
+    # Defense in depth: even an accidental manual launch cannot run the crawler.
+    if: ${{ false }}
+    name: Full checks on one local built Worker
+    uses: ./.github/workflows/audit-site-quality-local.yml
+    with:
+      audit: all
+
+  preserve-authority-ledger:
+    needs: audit-production
+    if: ${{ false }}
     runs-on: ubuntu-latest
-    timeout-minutes: 60
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-node@v4
+      - name: Download local audit evidence
+        uses: actions/download-artifact@v4
         with:
-          node-version: '22'
-          cache: npm
-      - run: npm ci
-      - name: Audit every production URL
-        run: npm run production:pages:audit
-      - name: Upload complete page-quality report
+          name: local-site-quality-audit-all
+          path: /tmp
+      - name: Preserve the ongoing existing-page authority remediation issue
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/github-script@v7
         with:
-          name: texasdefined-whole-site-page-audit
-          path: |
-            /tmp/texasdefined-page-audit.json
-            /tmp/texasdefined-page-audit.tsv
-          if-no-files-found: warn
+          script: |
+            const fs = require('fs');
+            const file = '/tmp/texasdefined-page-audit.json';
+            if (!fs.existsSync(file)) {
+              // A failed prerequisite build produces no audit artifact. Do not
+              // overwrite the permanent issue with an invented zero-page scan.
+              core.warning('No completed local audit artifact: preserving the last valid authority ledger unchanged.');
+              return;
+            }
+            const title = '[Sitewide Authority] Existing-page research, SEO and factual QA backlog';
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const run = `${context.serverUrl}/${owner}/${repo}/actions/runs/${context.runId}`;
+            const data = fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')) : null;
+            const totals = data?.totals ?? { pages: 0, failingPages: 0 };
+            const familyRows = Object.entries(data?.authorityByFamily ?? {})
+              .sort((a,b) => b[1].withReviewFlags - a[1].withReviewFlags)
+              .map(([name, x]) => `| ${name} | ${x.pages} | ${x.withReviewFlags} | ${x.missingPrimarySourceCandidates} |`)
+              .slice(0, 30);
+            const graph = data?.linkGraph?.totals ?? {};
+            const graphByFamily = Object.entries(data?.linkGraph?.byFamily ?? {})
+              .sort((a,b) => b[1].noInbound - a[1].noInbound)
+              .slice(0,22).map(([family, stats]) =>
+                `| ${family} | ${stats.pages} | ${stats.noInbound} | ${stats.noReciprocal} | ${stats.linkedPathsOutsideSitemap} |`);
+            const flagRows = Object.entries(data?.authorityFlags ?? {})
+              .sort((a,b)=>b[1]-a[1])
+              .map(([flag, count]) => `| ${flag} | ${count} |`);
+            const candidates = (data?.results ?? [])
+              .filter(r => r.issues?.length || r.authority?.reviewFlags?.length)
+              .sort((a,b)=>(a.authority?.priority ?? 9)-(b.authority?.priority ?? 9)||b.issues.length-a.issues.length)
+              .slice(0,40).map(r => `- ${r.url}: technical [${r.issues.map(x=>x.code).join(', ')||'none'}], editorial review [${r.authority?.reviewFlags?.join(', ')||'none'}]`);
+            const body = [
+              '# TexasDefined local-build authority retrofit queue',
+              '',
+              'This is a review queue, **not** a declaration that each page is wrong. Evidence signals are only prompts for individually verified research; a green crawl cannot certify historical, fishing, venue, municipal or other factual claims.',
+              'No page is accepted as ultimate authority until relevant factual sources, content, cross-links, images, accessibility and live Google-search eligibility are independently evidenced.',
+              '',
+              `Local built-Worker audit: ${run}`,
+              `Checked-out revision: ${data?.sourceSha ?? 'not recorded'}`,
+              `Audited: ${data?.auditedAt ?? 'audit did not produce a report'}`,
+              `Sitemap URLs audited: ${totals.pages}`,
+              `Technical fail pages: ${totals.failingPages}`,
+              `Sitemap failures: ${data?.sitemapFailures?.length ?? 'unknown'}`,
+              '',
+              '## Grouped review findings',
+              '',
+              '| Page family | URLs | Evidence review flags | No recognizable primary-source host |',
+              '| --- | ---: | ---: | ---: |',
+              ...familyRows,
+              '',
+              '## Review evidence gaps (signals only)',
+              '',
+              '| Signal | URLs |',
+              '| --- | ---: |',
+              ...flagRows,
+              '',
+              '## Actual on-page contextual link graph',
+              '',
+              `Pages with no main-content inbound link from another sitemap URL: ${graph.noInbound ?? 'unknown'}`,
+              `Pages with outgoing links but no reciprocal main-content link: ${graph.noReciprocal ?? 'unknown'}`,
+              `Pages linking to at least one path not listed in the audited sitemaps: ${graph.pagesWithUnsitemappedLinks ?? 'unknown'}`,
+              '',
+              '| Page family | Audited pages | No contextual inbound | No reciprocal outbound | Links outside sitemap |',
+              '| --- | ---: | ---: | ---: | ---: |',
+              ...graphByFamily,
+              '',
+              'The full contextual-link graph is in `texasdefined-contextual-link-graph.tsv`. Missing reciprocal links and paths outside the sitemap are **research candidates**, not instructions to insert irrelevant links or index noindex URLs.',
+              '',
+              '## Immediate review candidates',
+              '',
+              ...candidates,
+              '',
+              'The complete per-URL ledger is preserved in the workflow artifact: `texasdefined-authority-review.tsv`. Remediate by template only for genuine shared defects; original source research and appropriate contextual links still require page-level verification.',
+              'Do **not** close this issue on technical-only checks. A separate editorial-acceptance ledger must substantiate all applicable pages before closure.',
+            ].join('\n').slice(0,59000);
+            // Issue #4704 is the single permanent authority ledger. Reuse the
+            // exact record across failed/successful crawls even if a separate
+            // process accidentally closed it; never generate a duplicate.
+            const issueNumber = 4704;
+            const { data: existing } = await github.rest.issues.get({owner,repo,issue_number:issueNumber});
+            if (existing.pull_request || existing.title !== title) {
+              throw new Error('Permanent TexasDefined authority issue #4704 was replaced or renamed; manual review required');
+            }
+            await github.rest.issues.update({
+              owner,repo,issue_number:issueNumber,body,
+              ...(existing.state === 'closed' ? {state:'open',state_reason:'reopened'} : {}),
+            });
+      - name: Keep production technical audit fail-closed
+        if: needs.audit-production.result != 'success'
+        run: exit 1

@@ -1,4 +1,5 @@
 import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
+import { museumLicensedHeroes } from "./museum-authority-heroes";
 import type { Destination, ImageRef } from "./types";
 
 const SOURCE_CHECKED_AT = "2026-08-31";
@@ -57,7 +58,7 @@ export const statewideMuseumExpansionWave2Destinations: Destination[] = [
     coordinates: { lat: 35.18858, lng: -101.8451 },
     hero: museumPlaceholder("Amarillo Museum of Art"),
     bestSeason: "Year-round indoor museum; a useful all-weather stop during Panhandle heat, cold, wind or thunderstorms.",
-    entryNote: "General admission is currently free. The museum is closed to the public on Mondays and Tuesdays and observes major holiday closures; confirm current hours before traveling.",
+    entryNote: "Admission is always free. Galleries open Wednesday–Saturday 11 a.m.–5 p.m. and Sunday 1–5 p.m.; closed Monday and Tuesday. Use Amarillo College's west plaza entrance, park in lots 5 or 6 (accessible lot 8), and consult the operator for holiday changes.",
     highlights: ["Free admission", "Changing art exhibitions", "Amarillo College campus", "Amarillo Cultural District"],
     body: [
       "Amarillo Museum of Art provides a visual-arts counterpoint to the Panhandle's ranching, transportation and frontier museums. Its galleries rotate through exhibitions drawn from the permanent collection and visiting artists, giving travelers a cultural stop that changes significantly from one visit to the next.",
@@ -105,9 +106,9 @@ export const statewideMuseumExpansionWave2Destinations: Destination[] = [
     nearestTown: "Lubbock",
     county: "Lubbock County",
     coordinates: { lat: 33.59021, lng: -101.88603 },
-    hero: museumPlaceholder("Museum of Texas Tech University"),
+    hero: museumLicensedHeroes["museum-of-texas-tech-university-lubbock"],
     bestSeason: "Year-round indoor museum; pair it with Lubbock Lake Landmark and the National Ranching Heritage Center in any season.",
-    entryNote: "Museum admission is currently free. The museum is closed Mondays and Texas Tech holidays; planetarium and café schedules can differ from gallery hours.",
+    entryNote: "Museum galleries are free: Tue–Sat 10 a.m.–5 p.m., Sunday noon–5 p.m., closed Monday/university holidays. Moody Planetarium shows cost extra (adult $6, many concessions $4), with separate schedules. Free parking Fourth Street/Indiana Avenue; accessible entrance is at the east side with no adjacent parking.",
     highlights: ["Free admission", "Natural history and paleontology", "Anthropology and regional history", "Moody Planetarium"],
     body: [
       "The Museum of Texas Tech University is broad by design. Rather than specializing in one subject, it brings together art, anthropology, history, paleontology, natural science, clothing and textile collections within one university institution. That range makes it useful for families and for travelers trying to understand the South Plains from several angles at once.",
@@ -116,8 +117,8 @@ export const statewideMuseumExpansionWave2Destinations: Destination[] = [
     ],
     officialUrl: "https://www.depts.ttu.edu/museumttu/visit/index.php",
     managingAuthority: "Texas Tech University",
-    address: "3301 4th St, Lubbock, TX 79409",
-    sourceCheckedAt: SOURCE_CHECKED_AT,
+    address: "3301 4th St, Lubbock, TX 79415",
+    sourceCheckedAt: "2026-10-18",
   },
   {
     id: "museum-statewide-wave2-grace",
@@ -132,7 +133,7 @@ export const statewideMuseumExpansionWave2Destinations: Destination[] = [
     coordinates: { lat: 32.4432, lng: -99.7340 },
     hero: museumPlaceholder("The Grace Museum"),
     bestSeason: "Year-round indoor museum; cooler months are best for combining the galleries with a walk through historic downtown Abilene.",
-    entryNote: "The downtown museum currently opens Tuesday through Saturday, with extended free Thursday-evening hours. The Grace also operates a separate Spark Science Center, so verify which location your program or exhibit uses.",
+    entryNote: "The Grace Museum at 102 Cypress Street opens Tuesday–Saturday 10 a.m.–5 p.m., with free Thursday nights 5–8 p.m. Admission $10 adults and $7 reduced categories; children under four and eligible members and active-duty families free. Spark Science Center is a SEPARATE venue at 1620 South 3rd Street ($14 adult); optional same-day two-location combo $20 adults. Check current terms before buying.",
     highlights: ["Historic Hotel Grace", "Texas art", "Regional history", "Family and children's learning"],
     body: [
       "The Grace Museum preserves two kinds of Abilene history at once. Its home is the 1909 Hotel Grace, a building tied to the city's railroad-era growth, while the galleries interpret regional history and present art exhibitions that connect Abilene with a much wider Texas cultural story.",
@@ -142,7 +143,7 @@ export const statewideMuseumExpansionWave2Destinations: Destination[] = [
     officialUrl: "https://thegracemuseum.org/",
     managingAuthority: "The Grace Museum",
     address: "102 Cypress St, Abilene, TX 79601",
-    sourceCheckedAt: SOURCE_CHECKED_AT,
+    sourceCheckedAt: "2026-10-19",
   },
   {
     id: "museum-statewide-wave2-samfa",
@@ -154,7 +155,7 @@ export const statewideMuseumExpansionWave2Destinations: Destination[] = [
     region: "big-bend",
     nearestTown: "San Angelo",
     county: "Tom Green County",
-    coordinates: { lat: 31.45461, lng: -100.42815 },
+    coordinates: { lat: 31.456982, lng: -100.432301 },
     hero: museumPlaceholder("San Angelo Museum of Fine Arts"),
     bestSeason: "Year-round indoor museum; fall through spring is most comfortable for adding the Concho River walk and Fort Concho.",
     entryNote: "Gallery admission is currently free. The museum is closed Mondays and selected holidays; check the official site for current exhibitions, programs and any gallery-specific closures.",
@@ -180,7 +181,12 @@ export const statewideMuseumExpansionWave2Destinations: Destination[] = [
     nearestTown: "Corpus Christi",
     county: "Nueces County",
     coordinates: { lat: 27.8104, lng: -97.39555 },
-    hero: museumPlaceholder("Corpus Christi Museum of Science and History"),
+    hero: {
+      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Corpus_christi_museum_of_science_history.jpg?width=1600",
+      alt: "Corpus Christi Museum of Science and History exterior building in Corpus Christi, Texas, photographed May 2014",
+      width: 2159, height: 1438,
+      credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons · File:Corpus christi museum of science history.jpg (2014)",
+    },
     bestSeason: "Year-round indoor museum; especially useful during hot, windy or rainy Gulf Coast weather.",
     entryNote: "The museum is currently closed Mondays and keeps seasonal summer hours. Admission and special-program pricing vary; check the current visitor page before arrival.",
     highlights: ["Science and South Texas history", "Coastal ecology", "Archaeology", "Family learning"],
@@ -232,17 +238,18 @@ export const statewideMuseumExpansionWave2Destinations: Destination[] = [
     coordinates: { lat: 28.02642, lng: -97.04874 },
     hero: museumPlaceholder("Texas Maritime Museum"),
     bestSeason: "Year-round museum; fall through spring is ideal for pairing it with Rockport's waterfront and other outdoor coastal stops.",
-    entryNote: "The museum currently uses donation-based pay-what-you-can admission and opens Tuesday through Saturday. Verify hours and special programming on the official site before traveling.",
-    highlights: ["Texas maritime history", "Shipbuilding and shipwrecks", "Fishing and offshore industry", "Rockport waterfront"],
+    entryNote: "The operator lists Tuesday–Saturday, 10 a.m.–4 p.m., with pay-what-you-can, donation-based admission. Phone 361-729-1271 for holiday and special-event changes. Two documented 2026 exhibits are scheduled through December 31; check the operator site before travel.",
+    highlights: ["Texas maritime history", "Shipbuilding and shipwrecks", "2026 wooden shipbuilding and Spain’s American Revolution role", "Fishing and offshore industry", "Rockport waterfront"],
     body: [
       "Texas Maritime Museum broadens the idea of Texas history beyond cattle trails and battlefields by focusing on the Gulf. Shipbuilding, fishing, offshore industry, navigation and maritime trade all shaped coastal communities long before modern beach tourism became the dominant visitor image.",
       "The museum's exhibits also connect human history with the water itself. Shipwrecks, Indigenous coastal lifeways and working-waterfront industries show how bays and the Gulf functioned as transportation routes, food sources, workplaces and hazards across different periods.",
+      "The museum\'s dated fall 2026 exhibits add two particularly useful reasons to visit. Built for Victory (scheduled September 30–December 31, 2026) explains World War I wooden steamship production, the Emergency Fleet Corporation, the Rockport-area Heldenfels Brothers Shipyard and the remnants of vessels off the Texas coast. Tides of Freedom (scheduled February 2–December 31, 2026) traces Spanish support for American independence, Bernardo de Gálvez, Gulf campaigns and cattle supplied from Texas. These are 2026 exhibitions, not permanent displays; confirm their end dates before planning.",
       "Rockport already offers strong coastal stops, including Fulton Mansion and wildlife destinations. Adding the maritime museum creates a more complete Aransas County itinerary combining architecture, ecology, art and the working history of the coast."
     ],
     officialUrl: "https://texasmaritimemuseum.org/",
     managingAuthority: "Texas Maritime Museum",
     address: "1202 Navigation Cir, Rockport, TX 78382",
-    sourceCheckedAt: SOURCE_CHECKED_AT,
+    sourceCheckedAt: "2026-10-14",
   },
   {
     id: "museum-statewide-wave2-most",

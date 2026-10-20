@@ -37,6 +37,7 @@ export const fayetteCountyLaGrangePaintedChurchesColoradoRiverArticle: Article =
   ],
   featured: false,
   internalLinks: [
+    { href: "/destination/round-top", label: "Round Top authority visitor guide", description: "Research-backed Round Top antiques, music and heritage trip guide." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
     { href: "/county/lee", label: "Explore Lee County", description: "Continue north toward Giddings, Serbin and the Wendish heritage corridor." },
     { href: "/county/bastrop", label: "Explore Bastrop County", description: "Follow the Colorado River northwest into the Lost Pines." },

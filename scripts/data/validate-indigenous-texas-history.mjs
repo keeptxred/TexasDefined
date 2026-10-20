@@ -11,8 +11,9 @@ const sourcesPath = "src/data/local-article-authority-sources.ts";
 const articleRoutePath = "src/routes/article.$slug.tsx";
 const sitemapPath = "src/routes/sitemap[.]xml.ts";
 const productionSurfacesPath = "scripts/ci/verify-production-surfaces.mjs";
+const destinationRoutePath = "src/routes/destination.$slug.tsx";
 
-for (const path of [articlePath, lazyPath, historyHubPath, originsPath, sourcesPath, articleRoutePath, sitemapPath, productionSurfacesPath]) {
+for (const path of [articlePath, lazyPath, historyHubPath, originsPath, sourcesPath, articleRoutePath, sitemapPath, productionSurfacesPath, destinationRoutePath]) {
   if (!fs.existsSync(path)) failures.push(`Missing Indigenous Texas authority dependency: ${path}`);
 }
 
@@ -24,6 +25,7 @@ const sources = fs.existsSync(sourcesPath) ? read(sourcesPath) : "";
 const articleRoute = fs.existsSync(articleRoutePath) ? read(articleRoutePath) : "";
 const sitemap = fs.existsSync(sitemapPath) ? read(sitemapPath) : "";
 const productionSurfaces = fs.existsSync(productionSurfacesPath) ? read(productionSurfacesPath) : "";
+const destinationRoute = fs.existsSync(destinationRoutePath) ? read(destinationRoutePath) : "";
 
 const slug = "indigenous-texas-history-native-nations";
 const canonicalPath = `/article/${slug}`;
@@ -71,7 +73,7 @@ for (const marker of [
 for (const href of [
   "/article/texas-before-united-states-how-texas-began",
   "/destination/caddo-mounds-state-historic-site",
-  "/destination/hueco-tanks-state-park-and-historic-site",
+  "https://tpwd.texas.gov/state-parks/hueco-tanks",
   "/destination/ysleta-del-sur-pueblo-cultural-center-museum-el-paso",
   "/destination/lipantitlan",
   "/destination/mission-dolores",
@@ -80,7 +82,7 @@ for (const href of [
   "/county/el-paso",
   "/county/polk",
 ]) {
-  if (!article.includes(`href: "${href}"`)) failures.push(`Indigenous Texas internal authority link missing: ${href}`);
+  if (!article.includes(`href: "${href}"`)) failures.push(`Indigenous Texas researched authority link missing: ${href}`);
 }
 
 for (const destination of [
@@ -105,6 +107,14 @@ for (const marker of [
 if (!historyHub.includes(`slug: "${slug}"`)) failures.push("Texas History hub is missing the Indigenous Texas start-here guide.");
 if (!historyHub.includes("Indigenous Texas: Native nations before European colonization")) failures.push("Texas History hub is missing the Indigenous Texas visible discovery label.");
 if (!origins.includes(`href: "${canonicalPath}"`)) failures.push("Texas-before-U.S. cornerstone must retain a reciprocal link to the Indigenous Texas guide.");
+
+for (const marker of [
+  'import YsletaDelSurMuseumAuthority from "@/components/editorial/YsletaDelSurMuseumAuthority";',
+  'if (destination.slug === "ysleta-del-sur-pueblo-cultural-center-museum-el-paso") return <YsletaDelSurMuseumAuthority />;',
+]) {
+  if (!destinationRoute.includes(marker)) failures.push(`Ysleta authority hydration contract missing: ${marker}`);
+}
+if (destinationRoute.includes('const YsletaDelSurMuseumAuthority = lazy(() =>')) failures.push("Ysleta authority must not cross a lazy/Suspense hydration boundary.");
 
 const requiredAuthoritySourceUrls = [
   "https://learning.thc.texas.gov/texas-history/indigenous-texas/",

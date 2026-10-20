@@ -7,6 +7,7 @@ const execFileAsync = promisify(execFile);
 const ROOT = process.cwd();
 const ENV_PATH = path.join(ROOT, ".env");
 const LEGACY_PATH = path.join(ROOT, "src/data/fixtures/legacy-explore.ts");
+const OFFICIAL_INVENTORY = path.join(ROOT, "docs/state-parks/TPWD_OFFICIAL_90_SITE_INVENTORY_2026-10-12.json");
 const OUT_DIR = path.join(ROOT, "public/images/state-parks");
 const MAP_PATH = path.join(ROOT, "src/data/state-park-hero-map.ts");
 const REPORT_PATH = path.join(ROOT, "scripts/data/state-park-hero-report.json");
@@ -15,7 +16,7 @@ const LICENSE_OK = ["public domain", "cc0", "cc by", "cc-by", "cc by-sa", "cc-by
 const USER_AGENT = "TexasDefined/1.0 (park-photo sync; https://texasdefined.com)";
 const API_GAP_MS = 850;
 const CLOUDFLARE_MODEL = "@cf/black-forest-labs/flux-1-schnell";
-const EXPECTED_STATE_PARK_COUNT = 99;
+const EXPECTED_STATE_PARK_COUNT = 84; // 83 public TPWD parks plus one guided-only site
 let lastApiRequestAt = 0;
 
 const GENERIC_WORDS = new Set([
@@ -104,29 +105,39 @@ async function loadParks() {
   const supabaseUrl = String(env.VITE_TEXASDEFINED_SUPABASE_URL || env.VITE_SUPABASE_URL || "").replace(/\/$/, "");
   const supabaseKey = String(env.VITE_TEXASDEFINED_SUPABASE_ANON_KEY || env.VITE_SUPABASE_PUBLISHABLE_KEY || "");
 
-  // The preserved 99-record catalog is the fail-closed membership authority for this image job.
+  // The TPWD 90-site inventory, filtered to public/guided properties, is the fail-closed membership authority.
   // Remote Explore data may enrich a canonical slug, but generic remote park/campground/trail rows
   // must never silently expand the state-park hero inventory.
   const preserved = new Map();
+  const official = JSON.parse(await fs.readFile(OFFICIAL_INVENTORY, "utf8"));
+  const eligible = official.entries.filter((entry) => ["public-park", "guided-only"].includes(entry.status));
+  if (eligible.length !== EXPECTED_STATE_PARK_COUNT) {
+    throw new Error("TPWD inventory changed; review public and guided park membership before running the image sync: " + eligible.length);
+  }
+  for (const entry of eligible) {
+    if (!entry.associatedPath?.startsWith("/destination/") || !entry.officialUrl?.startsWith("https://tpwd.texas.gov/state-parks/")) {
+      throw new Error("Invalid TPWD official image-sync member: " + JSON.stringify(entry));
+    }
+    const slug = entry.associatedPath.slice("/destination/".length);
+    if (!/^[a-z0-9-]+$/.test(slug) || preserved.has(slug)) throw new Error("Invalid or duplicate official park slug: " + slug);
+    preserved.set(slug, {
+      slug, name: slug.split("-").map((word) => word[0].toUpperCase() + word.slice(1)).join(" "),
+      city: "", county: "", lat: 0, lng: 0, summary: "", activities: [],
+      existingHero: "", existingAlt: "", source: "tpwd-2026-official-90-inventory",
+    });
+  }
   const legacy = await fs.readFile(LEGACY_PATH, "utf8").catch(() => "");
   const block = legacy.match(/const records = `([\s\S]*?)`\.trim\(\)/)?.[1] || "";
+  // The small legacy Explore fixture enriches matching official entries only.
+  // It is NOT the authoritative park membership list.
   for (const line of block.split(/\r?\n/).map((item) => item.trim()).filter(Boolean)) {
-    const [slug, name, type, town, county, , lat, lng, summary, , activities] = line.split("|");
-    if (!isStateParkType(type)) continue;
-    if (!slug) throw new Error(`State Parks canonical catalog contains a row without a slug: ${name || line}`);
-    if (preserved.has(slug)) throw new Error(`State Parks canonical catalog contains duplicate slug: ${slug}`);
+    const [slug, name, , town, county, , lat, lng, summary, , activities] = line.split("|");
+    const existing = preserved.get(slug);
+    if (!existing) continue;
     preserved.set(slug, {
-      slug,
-      name,
-      city: town,
-      county,
-      lat: Number(lat || 0),
-      lng: Number(lng || 0),
-      summary: summary || "",
+      ...existing, name: name || existing.name, city: town || "", county: county || "",
+      lat: Number(lat || 0), lng: Number(lng || 0), summary: summary || "",
       activities: String(activities || "").split(",").map((item) => item.trim()).filter(Boolean),
-      existingHero: "",
-      existingAlt: "",
-      source: "preserved",
     });
   }
 
@@ -413,6 +424,17 @@ async function main() {
     throw new Error(`State Parks catalog integrity check failed: expected ${EXPECTED_STATE_PARK_COUNT} canonical listings, found ${parks.length}.`);
   }
 
+  // Preserve the existing human-reviewed image manifest. An additive sync must
+  // never overwrite approved JPEGs or discard credited legacy image rows.
+  const mapText = await fs.readFile(MAP_PATH, "utf8").catch(() => "");
+  const preservedRows = mapText.split(/\r?\n/).filter((line) => /^  "[a-z0-9-]+": \{ src:/.test(line));
+  const preservedMapKeys = new Set();
+  for (const line of preservedRows) {
+    const key = line.match(/^  "([a-z0-9-]+)": \{ src:/)?.[1];
+    if (!key || preservedMapKeys.has(key)) throw new Error("Invalid or duplicate existing photo manifest key: " + key);
+    preservedMapKeys.add(key);
+  }
+  const aiOptedIn = process.env.TD_ALLOW_STATE_PARK_IMAGE_AI === "true" && imageAiConfigured();
   const heroCounts = new Map();
   for (const park of parks) if (isJpeg(park.existingHero)) heroCounts.set(park.existingHero, (heroCounts.get(park.existingHero) || 0) + 1);
 
@@ -420,7 +442,8 @@ async function main() {
   const mapRows = [];
   const report = {
     generatedAt: new Date().toISOString(), totalParks: parks.length,
-    canonicalMembership: "preserved-legacy-explore",
+    canonicalMembership: "tpwd-official-inventory-public-and-guided",
+    preservedLicensedPhotoCount: preservedRows.length,
     ignoredRemoteParkLike,
     retainedUniqueExisting: [], downloaded: [], aiGenerated: [], unresolved: [], rejectedDuplicateExisting: [],
     aiAvailable: imageAiConfigured(),
@@ -428,6 +451,11 @@ async function main() {
 
   for (let index = 0; index < parks.length; index += 1) {
     const park = parks[index];
+    if (preservedMapKeys.has(park.slug)) {
+      report.retainedUniqueExisting.push(park.slug);
+      console.log("Retained pre-approved mapped photo for " + park.slug);
+      continue;
+    }
     const existingUnique = isJpeg(park.existingHero) && heroCounts.get(park.existingHero) === 1;
     if (existingUnique) {
       report.retainedUniqueExisting.push(park.slug);
@@ -455,7 +483,7 @@ async function main() {
       console.warn(`  free-photo lookup failed: ${error?.message || error}`);
     }
 
-    if (!resolved && imageAiConfigured()) {
+    if (!resolved && aiOptedIn) {
       try {
         const relative = `/images/state-parks/${park.slug}.jpg`;
         await generateAiJpeg(park, path.join(OUT_DIR, `${park.slug}.jpg`));
@@ -468,7 +496,7 @@ async function main() {
       }
     }
 
-    if (!resolved) report.unresolved.push({ slug: park.slug, name: park.name, reason: imageAiConfigured() ? "no exact free photo and AI generation failed" : "no exact free photo; Cloudflare image generation unavailable" });
+    if (!resolved) report.unresolved.push({ slug: park.slug, name: park.name, reason: aiOptedIn ? "no exact free photo and opted-in AI generation failed" : "no exact free photo; AI generation requires explicit manual opt-in" });
     await sleep(300);
   }
 
@@ -476,13 +504,14 @@ async function main() {
     'import type { ImageRef } from "./types";', "",
     "/** Generated by scripts/data/sync-state-park-hero-assets.mjs. Do not hand-edit. */",
     "export const stateParkHeroMap: Record<string, ImageRef> = {",
+    ...preservedRows,
     ...mapRows.map((row) => `  ${tsString(row.slug)}: { src: ${tsString(row.src)}, alt: ${tsString(row.alt)}, width: ${row.width || 1600}, height: ${row.height || 900}, credit: ${tsString(row.credit)} },`),
     "};", "",
   ];
   await fs.writeFile(MAP_PATH, lines.join("\n"), "utf8");
   await fs.writeFile(REPORT_PATH, `${JSON.stringify(report, null, 2)}\n`, "utf8");
 
-  console.log(JSON.stringify({ totalParks: report.totalParks, retainedUniqueExisting: report.retainedUniqueExisting.length, downloaded: report.downloaded.length, aiGenerated: report.aiGenerated.length, unresolved: report.unresolved.length, rejectedDuplicateExisting: report.rejectedDuplicateExisting.length, ignoredRemoteParkLike: report.ignoredRemoteParkLike.length, aiAvailable: report.aiAvailable }, null, 2));
+  console.log(JSON.stringify({ totalParks: report.totalParks, retainedUniqueExisting: report.retainedUniqueExisting.length, downloaded: report.downloaded.length, aiGenerated: report.aiGenerated.length, unresolved: report.unresolved.length, rejectedDuplicateExisting: report.rejectedDuplicateExisting.length, ignoredRemoteParkLike: report.ignoredRemoteParkLike.length, aiAvailable: report.aiAvailable, aiOptedIn, preservedLicensedPhotoCount: preservedRows.length }, null, 2));
   if (report.unresolved.length) process.exitCode = 3;
 }
 

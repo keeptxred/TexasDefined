@@ -179,7 +179,8 @@ requireSymbols(relocationHub, [
 ], 'relocation hub linking');
 requireSymbols(relocationState, [
   'relatedStates.map',
-  'to="/texas-vs/$state"',
+  'texasVsCanonicalPath',
+  'href={texasVsCanonicalPath(state)}',
   'to="/moving-to-texas-checklist"',
   'to="/compare-texas-cities"',
   'to="/browse/cities"',

@@ -1,0 +1,71 @@
+name: Verify seven regional guides in production
+
+on:
+  schedule:
+    - cron: '37 12 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: region-geography-live-acceptance
+  cancel-in-progress: true
+
+jobs:
+  verify-live:
+    name: Check live region geography and swimming indexability
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          # Always verify the immutable revision that just deployed, not moving main.
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify seven rendered regional inventories and swimming indexability
+        id: audit
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -o pipefail
+          node scripts/ci/verify-region-scope-and-swim-indexability.mjs --live 2>&1 | tee /tmp/texasdefined-region-live-verification.log
+      - name: Save production observations
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: texasdefined-region-live-verification
+          path: /tmp/texasdefined-region-live-verification.log
+          if-no-files-found: warn
+      - name: Alert on geographic misclassification or clear verified incident
+        if: always()
+        uses: actions/github-script@v7
+        env:
+          AUDIT_RESULT: ${{ steps.audit.outcome }}
+        with:
+          script: |
+            const title = '[Production] Explore region misclassification or swimming indexability regression';
+            const { owner, repo } = context.repo;
+            const runUrl = `${context.serverUrl}/${owner}/${repo}/actions/runs/${context.runId}`;
+            const items = await github.paginate(github.rest.issues.listForRepo, { owner, repo, state: 'open', per_page: 100 });
+            const existing = items.find(item => !item.pull_request && item.title === title);
+            if (process.env.AUDIT_RESULT === 'failure') {
+              const body = [
+                'The production SSR geography verifier found a failing seven-region inventory, wrong-region destination card, empty regional hub, or swimming indexability contradiction.',
+                '',
+                `Run: ${runUrl}`,
+                'Inspect the uploaded region-verification log. Repair the shared destination data/classifier or individual reviewed record, deploy, and rerun live acceptance.',
+                'A green source contract is insufficient; the live rendered route must also pass. Do not suppress the failure by blindly relabeling a place.',
+              ].join('\n');
+              if (existing) await github.rest.issues.update({ owner, repo, issue_number: existing.number, body });
+              else await github.rest.issues.create({ owner, repo, title, body });
+            } else if (process.env.AUDIT_RESULT === 'success' && existing) {
+              await github.rest.issues.createComment({ owner, repo, issue_number: existing.number, body: `Live seven-region and swimming verification passed: ${runUrl}` });
+              await github.rest.issues.update({ owner, repo, issue_number: existing.number, state: 'closed' });
+            }
+      - name: Keep real production failures visible
+        if: steps.audit.outcome == 'failure'
+        run: exit 1

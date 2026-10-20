@@ -56,7 +56,7 @@ for (const token of [
   '<Link to="/texas-food-history"',
   'Explore the full Texas Food History collection',
   'const guideDestinationLinks',
-  'href: "/destination/dr-pepper-museum"',
+  'href: "/destination/dr-pepper-museum-waco"',
   'Explore the Dr Pepper Museum',
   '"@type": "TouristAttraction"',
 ]) {

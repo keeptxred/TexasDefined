@@ -11,6 +11,8 @@ describe("editorial image delivery", () => {
 
     const unsplash = "https://images.unsplash.com/photo-123?auto=format";
     expect(editorialImageSrc(unsplash)).toBe(`/media/remote?url=${encodeURIComponent(unsplash)}`);
+    const usfsPhoto = "https://research.fs.usda.gov/sites/default/files/2023-02/srs-sfaef-bridge.jpg";
+    expect(editorialImageSrc(usfsPhoto)).toBe(`/media/remote?url=${encodeURIComponent(usfsPhoto)}`);
     const wikimedia = "https://upload.wikimedia.org/wikipedia/commons/a/a1/example.jpg";
     expect(editorialImageSrc(wikimedia)).toBe(`/media/remote?url=${encodeURIComponent(wikimedia)}`);
     const wikimediaThumb = "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a1/example.jpg/1280px-example.jpg";
@@ -19,6 +21,8 @@ describe("editorial image delivery", () => {
 
   it("rejects non-HTTPS and unapproved hosts from the remote-image policy", () => {
     expect(allowedRemoteImageUrl("http://images.unsplash.com/photo.jpg")).toBeNull();
+    expect(allowedRemoteImageUrl("http://research.fs.usda.gov/sites/default/files/2023-02/srs-sfaef-bridge.jpg")).toBeNull();
+    expect(allowedRemoteImageUrl("https://research.fs.usda.gov.evil.example/srs-sfaef-bridge.jpg")).toBeNull();
     expect(allowedRemoteImageUrl("http://thumb.wikimedia.org/wikipedia/commons/thumb/a/a1/example.jpg/1280px-example.jpg")).toBeNull();
     expect(allowedRemoteImageUrl("https://evil.example/photo.jpg")).toBeNull();
     expect(allowedRemoteImageUrl("javascript:alert(1)")).toBeNull();

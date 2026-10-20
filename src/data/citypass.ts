@@ -2,6 +2,18 @@ export const CITYPASS_GUIDE_PATH = "/guides/citypass-texas";
 
 export type CityPassMarket = "Dallas" | "Houston" | "San Antonio";
 
+// The three 7eer tracked URLs were repeatedly HTTP 404 during independent
+// production QA on 2026-10-10. Retain the exact approved campaign identifiers
+// for partner remediation, but NEVER send readers to known-dead redirect URLs
+// until a new tracked destination has been verified in a real browser.
+export const CITYPASS_AFFILIATE_LINKS_ENABLED = false;
+
+export const CITYPASS_OFFICIAL_URLS: Readonly<Record<CityPassMarket, string>> = {
+  "Dallas": "https://www.citypass.com/dallas",
+  "Houston": "https://www.citypass.com/houston",
+  "San Antonio": "https://www.citypass.com/san-antonio",
+};
+
 export const CITYPASS_AFFILIATE_URLS: Readonly<Record<CityPassMarket, string>> = {
   "Dallas": "https://citypass.7eer.net/c/7236213/305537/3331",
   "Houston": "https://citypass.7eer.net/c/7236213/305542/3331",

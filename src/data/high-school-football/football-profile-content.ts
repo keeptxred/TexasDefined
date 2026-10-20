@@ -53,7 +53,7 @@ export function footballProfileAlignmentLabel(input: FootballProfileContentInput
   if (privateAlignment) {
     return `${privateAlignment.association} ${privateAlignment.divisionLabel}${privateAlignment.districtLabel ? ` · ${privateAlignment.districtLabel}` : ''}`;
   }
-  return 'Association placement not yet verified';
+  return 'Non-UIL football program';
 }
 
 export function buildFootballProfileSummary(input: FootballProfileContentInput) {
@@ -62,15 +62,15 @@ export function buildFootballProfileSummary(input: FootballProfileContentInput) 
 
   if (program) {
     const alignment = footballProfileAlignmentLabel(input);
-    if (editorial?.notice) {
-      return `${team} is assigned to ${alignment}, but the school announced a 2026 football-season cancellation. ${editorial.notice.body}`;
-    }
+    // Notices include venue construction, access, and schedule advisories.
+    // Never convert their mere presence into a fabricated season cancellation.
     const place = [program.city, program.countyName].filter(Boolean).join(', ');
     const enrollment = program.uilEnrollment
       ? ` UIL reports ${program.uilEnrollment.toLocaleString('en-US')} students for the 2026–28 realignment snapshot.`
       : '';
     const coach = editorial?.coach ? ` The current sourced head coach is ${editorial.coach.name}.` : '';
-    return `${team} football competes in ${alignment}${place ? ` from ${place}` : ''}.${enrollment}${coach} This page ties the current UIL placement to school, district, venue, history and schedule sources. Classification is not a quality ranking.`;
+    const notice = editorial?.notice ? ` ${editorial.notice.title}: ${editorial.notice.body}` : '';
+    return `${team} football competes in ${alignment}${place ? ` from ${place}` : ''}.${enrollment}${coach}${notice} This page ties the current UIL placement to school, district, venue, history and schedule sources. Classification is not a quality ranking.`;
   }
 
   if (privateAlignment) {
@@ -78,7 +78,7 @@ export function buildFootballProfileSummary(input: FootballProfileContentInput) 
     return `${team} football is tracked under ${footballProfileAlignmentLabel(input)}.${coach} Private-school association divisions are shown on their own terms rather than being forced into UIL 1A–6A classifications.`;
   }
 
-  return `${team} football has a TexasDefined profile, but a current association placement is shown only when it can be sourced. Use the school and governing-association links on this page for current season verification.`;
+  return `${team} football is outside the current UIL alignment. Association and division details are published only when verified from the governing organization; other sourced team information remains available below.`;
 }
 
 export function buildFootballProfileQuickFacts(input: FootballProfileContentInput): FootballProfileQuickFact[] {
@@ -107,6 +107,16 @@ export function buildFootballProfileQuickFacts(input: FootballProfileContentInpu
 export function buildFootballProfileFaq(input: FootballProfileContentInput): FootballProfileFaq[] {
   const { displayName, program, identity, privateAlignment, venueLinks = [], editorial } = input;
   const items: FootballProfileFaq[] = [];
+
+  // Keep the verified coach answer ahead of generic classification/district FAQs.
+  // With five authored Aubrey questions, adding coach last would exceed the
+  // eight-question presentation limit and silently remove the coach answer.
+  if (editorial?.coach) {
+    items.push({
+      question: `Who is the ${displayName} football head coach?`,
+      answer: `The current school-source entry used by TexasDefined lists ${editorial.coach.name} as the head football coach.`,
+    });
+  }
 
   if (program) {
     items.push({
@@ -151,13 +161,6 @@ export function buildFootballProfileFaq(input: FootballProfileContentInput): Foo
     });
   }
 
-  if (editorial?.coach) {
-    items.push({
-      question: `Who is the ${displayName} football head coach?`,
-      answer: `The current school-source entry used by TexasDefined lists ${editorial.coach.name} as the head football coach.`,
-    });
-  }
-
   if (!editorial?.notice) {
     items.push({
       question: `Where can I verify the current ${displayName} football schedule and scores?`,
@@ -170,7 +173,12 @@ export function buildFootballProfileFaq(input: FootballProfileContentInput): Foo
   const merged = [...(editorial?.faq ?? []), ...items];
   const seen = new Set<string>();
   return merged.filter((item) => {
-    const key = item.question.trim().toLowerCase();
+    // Editorial and generated questions can ask the same coaching question in
+    // different words. Preserve the editorial answer, which comes first.
+    const question = item.question.trim().toLowerCase().replace(/\s+/g, ' ');
+    const key = /\b(?:head (?:football )?coach|football head coach|varsity football coach|who coaches)\b/.test(question)
+      ? 'head-football-coach'
+      : question;
     if (seen.has(key)) return false;
     seen.add(key);
     return true;

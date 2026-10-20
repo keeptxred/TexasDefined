@@ -115,8 +115,7 @@ requireContains("robots.txt", files.robots, "Sitemap: https://texasdefined.com/s
 requireContains("robots.txt", files.robots, "Sitemap: https://texasdefined.com/sitemap-explore.xml");
 requireContains("robots.txt", files.robots, "Sitemap: https://texasdefined.com/rss.xml");
 
-requireContains("Flag production smoke", files.smoke, "workflow_run:");
-requireContains("Flag production smoke", files.smoke, 'workflows: ["Deploy TexasDefined production"]');
+requireContains("Flag production smoke", files.smoke, "workflow_dispatch:");
 requireContains("Flag production smoke", files.smoke, "texas-flag-history-page");
 requireContains("Flag production smoke", files.smoke, "texas-flag-history-reciprocity");
 requireContains("Flag production smoke", files.smoke, "texas-flag-history-schema");
@@ -136,7 +135,7 @@ requireContains("WebSub notifier", files.webSub, "hub.mode=publish");
 requireContains("WebSub notifier", files.webSub, "hub.url=${feed}");
 requireContains("WebSub notifier", files.webSub, "texasdefined-websub");
 
-requireContains("Production deploy", files.deploy, "node scripts/ci/verify-production-surfaces.mjs");
+requireContains("Production deploy", files.deploy, "node scripts/ci/verify-changed-production-pages.mjs");
 requireContains("Production deploy", files.deploy, "node scripts/ci/publish-github-status.mjs texasdefined-production");
 requireContains("Production deploy", files.deploy, "node scripts/ci/publish-github-status.mjs texasdefined-bundle-budget");
 requireContains("Production deploy", files.deploy, 'CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_DEPLOY_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}');

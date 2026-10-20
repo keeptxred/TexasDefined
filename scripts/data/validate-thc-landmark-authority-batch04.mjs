@@ -1,0 +1,26 @@
+#!/usr/bin/env node
+import fs from "node:fs";
+const read = p=>fs.readFileSync(p,"utf8");
+const source=read("src/data/thc-regency-suspension-bridge.ts");
+const catalog=read("src/data/destination-preserved-catalog.ts");
+const index=read("src/routes/texas-historic-landmarks.lazy.tsx");
+const pairs=read("src/data/destination-curated-pairings.ts");
+const workflow=read(".github/workflows/thc-landmark-watch.yml");
+const errors=[];
+const expect=(test,msg)=>{if(!test)errors.push(msg)};
+expect(source.includes('slug:"regency-suspension-bridge"'),"Canonical destination not found");
+expect(source.includes("makeThcHeritageDestination({"),"Full heritage builder not used");
+expect(source.includes("Larry D. Moore")&&source.includes("CC BY 4.0")&&source.includes("commonsFilePage(bridgePhoto)"),"Exact Regency photo license absent");
+expect(source.includes("1939")&&source.includes("1976")&&source.includes("2019"),"1939 construction and separate designations not distinguished");
+expect(source.includes("1936")&&source.includes("1938")&&source.includes("disagree"),"Documentary flood-date conflict hidden");
+expect(source.includes("Do not assume")&&source.includes("current")&&source.includes("accessibility:"),"Road-safety and accessibility guidance missing");
+expect((source.match(/thcFaq\(/g)||[]).length>=6,"Insufficient source-linked FAQs");
+expect((source.match(/thcSource\(/g)||[]).length>=5,"Insufficient named sources");
+expect((source.slice(source.indexOf("body:["),source.indexOf("faqs:[")).match(/\n    "/g)||[]).length>=6,"Fewer than six substantive history sections");
+expect(source.includes("firstVisitSteps:"),"Visitor itinerary missing");
+expect(catalog.includes("thcHistoricLandmarkAuthorityBatch04Destinations"),"Destination absent from canonical catalog");
+expect(index.includes('"regency-suspension-bridge"'),"No contextual index link");
+expect(pairs.includes('"regency-suspension-bridge"'),"No reciprocal contextual links");
+expect(workflow.includes("validate-thc-landmark-authority-batch04.mjs"),"No permanent CI enforcement");
+console.log(JSON.stringify({batch:"04",slug:"regency-suspension-bridge",errors,ready:!errors.length},null,2));
+if(errors.length)process.exitCode=1;

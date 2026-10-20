@@ -1,0 +1,70 @@
+name: Verify Newman's Castle production browser
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/ci/verify-newmans-castle-browser.mjs'
+      - '.github/workflows/verify-newmans-castle-browser.yml'
+      - 'src/data/fixtures/newmans-castle-bellville-texas.ts'
+      - 'src/routes/article.$slug.tsx'
+      - 'src/data/image-rights.ts'
+      - 'src/styles.css'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/ci/verify-newmans-castle-browser.mjs'
+      - '.github/workflows/verify-newmans-castle-browser.yml'
+      - 'src/data/fixtures/newmans-castle-bellville-texas.ts'
+      - 'src/routes/article.$slug.tsx'
+      - 'src/data/image-rights.ts'
+      - 'src/styles.css'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+  statuses: read
+concurrency:
+  group: newmans-castle-browser-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  syntax:
+    if: ${{ github.event_name == 'pull_request' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check scripts/ci/verify-newmans-castle-browser.mjs
+  verify:
+    if: ${{ github.event_name != 'pull_request' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Wait for exact protected deployment
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PRODUCTION_COMMIT_SHA: ${{ github.sha }}
+        run: node scripts/ci/wait-for-protected-production.mjs
+      - name: Install isolated browser and accessibility drivers
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-castle-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1 axe-core@4.10.3
+      - name: Check Newman's Castle in live Chrome on mobile, tablet and desktop
+        env:
+          PRODUCTION_ORIGIN: https://texasdefined.com
+        run: node scripts/ci/verify-newmans-castle-browser.mjs
+      - name: Retain screenshots and accessibility evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: newmans-castle-production-browser-qa
+          path: artifacts/newmans-castle-browser/
+          if-no-files-found: warn
+          retention-days: 30

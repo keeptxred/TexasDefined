@@ -9,7 +9,7 @@ const promotedArticleTargets = [
   ['src/data/fixtures/caddo-lake-cypress-morning.ts', 'slug: "caddo-lake-cypress-morning"', '/article/caddo-lake-cypress-morning'],
   ['src/data/fixtures/texas-wildlife-guide-stub.ts', 'slug: "texas-wildlife-guide"', '/article/texas-wildlife-guide'],
   ['src/data/fixtures/texas-trees-guide-stub.ts', 'slug: "texas-trees-guide"', '/article/texas-trees-guide'],
-  ['src/data/fixtures/galveston-county-island-port-juneteenth.ts', 'slug: "galveston-county-island-port-juneteenth-texas"', '/article/galveston-county-island-port-juneteenth-texas'],
+  ['src/data/fixtures/galveston-county-island-port-juneteenth.ts', 'slug: "galveston-county-island-port-juneteenth-texas"', '/county/galveston'],
 ];
 const promotedRouteTargets = [
   ['src/routes/texas-roadside-oddities.tsx', 'const canonicalPath = "/texas-roadside-oddities"', '/texas-roadside-oddities'],
@@ -75,7 +75,7 @@ const requiredDeepDiveMappings = new Map([
   [173, '/texas-chili-con-carne-history'],
   [174, '/texas-dance-halls-honky-tonks'],
   [180, '/texas-dance-halls-honky-tonks'],
-  [185, '/article/galveston-county-island-port-juneteenth-texas'],
+  [185, '/county/galveston'],
   [190, '/texas-homecoming-mums'],
   [191, '/texas-dance-halls-honky-tonks'],
   [200, '/article/texas-wildlife-guide'],

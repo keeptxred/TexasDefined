@@ -28,14 +28,14 @@ export function Footer() {
         )}
         <Container className="grid gap-12 py-14 sm:py-16 md:grid-cols-[1.25fr_repeat(3,1fr)]">
           <div className="md:pr-8">
-            <p className="font-display text-4xl font-semibold leading-none tracking-[-0.03em]">{brand.identity.wordmark}</p>
+            <Link to="/" className="inline-block w-full max-w-[17rem]" aria-label="Texas Defined home"><img src="/texasdefined-logo.svg" alt="" width={1825} height={382} className="block h-auto w-full" decoding="async" loading="lazy" /></Link>
             <div className="mt-5 h-px w-12 bg-primary" />
             <p className="mt-5 max-w-sm text-base leading-7 text-surface-foreground/85">{brand.identity.tagline}</p>
             <p className="mt-4 max-w-sm text-sm leading-6 text-muted-foreground">{brand.copy.footerNote}</p>
           </div>
           {brand.footer.map((column) => (
             <nav key={column.title} aria-label={column.title} className="border-t border-border/60 pt-5 md:border-t-0 md:pt-0">
-              <h2 className="eyebrow text-primary">{column.title}</h2>
+              <h2 className="eyebrow text-[#8c3e23]">{column.title}</h2>
               <ul className="mt-5 space-y-3">
                 {column.items.map((item) => (
                   <li key={item.to}>

@@ -57,14 +57,34 @@ function tag(block, name) {
   return match ? decodeXml(match[1].trim()) : null;
 }
 
+/**
+ * Network failures between GitHub runners and Cloudflare are transient. Retry
+ * only timeouts and retryable HTTP responses; do not mask ownership/key errors.
+ * Hourly IndexNow will independently retry external service disruptions.
+ */
 export async function fetchText(url, { fetchImpl = fetch, userAgent = 'IndexNowDistribution/2.0' } = {}) {
-  const response = await fetchImpl(url, {
-    headers: { 'user-agent': userAgent, accept: 'text/plain,text/xml,application/xml,text/html;q=0.8,*/*;q=0.2' },
-    redirect: 'follow',
-    signal: AbortSignal.timeout(15_000),
-  });
-  if (!response.ok) throw new Error(`${url} returned HTTP ${response.status}`);
-  return response.text();
+  let lastError;
+  for (let attempt = 1; attempt <= 3; attempt += 1) {
+    try {
+      const response = await fetchImpl(url, {
+        headers: { 'user-agent': userAgent, accept: 'text/plain,text/xml,application/xml,text/html;q=0.8,*/*;q=0.2' },
+        redirect: 'follow',
+        signal: AbortSignal.timeout(20_000),
+      });
+      if (response.ok) return await response.text();
+      const problem = new Error(`${url} returned HTTP ${response.status}`);
+      if (![408, 429, 500, 502, 503, 504].includes(response.status)) {
+        problem.retryable = false;
+        throw problem;
+      }
+      lastError = problem;
+    } catch (error) {
+      if (error instanceof Error && error.retryable === false) throw error;
+      lastError = error;
+    }
+    if (attempt < 3) await new Promise((resolve) => setTimeout(resolve, 1_500 * attempt));
+  }
+  throw lastError;
 }
 
 export async function collectSitemapEntries(sitemapUrl, { origin, fetchImpl = fetch, visited = new Set(), depth = 0 } = {}) {

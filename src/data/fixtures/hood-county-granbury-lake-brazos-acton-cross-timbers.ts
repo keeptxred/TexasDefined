@@ -35,6 +35,7 @@ export const hoodCountyGranburyLakeBrazosActonCrossTimbersArticle: Article = {
   ],
   featured: false,
   internalLinks: [
+    { href: "/destination/granbury", label: "Granbury authority travel guide", description: "Connect the historic courthouse square to Lake Granbury and local experiences." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
     { href: "/county/erath", label: "Explore Erath County", description: "Continue west toward Stephenville, Dublin and Cross Timbers ranch country." },
     { href: "/county/palo-pinto", label: "Explore Palo Pinto County", description: "Head northwest toward Mineral Wells and Possum Kingdom country." },

@@ -19,20 +19,14 @@ on:
       - 'src/routes/sports-venue.$slug.tsx'
       - 'src/components/sports/SportsVenueQuickAnswers.tsx'
       - 'src/components/sports/SportsVenueGuidePage.tsx'
-  workflow_run:
-    workflows: ["Deploy TexasDefined production"]
-    types: [completed]
-    branches: [main]
-  schedule:
-    - cron: '23 10 * * *'
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: sports-venue-heroes-production-all-${{ github.event_name }}-${{ github.event.workflow_run.head_sha || github.sha }}
-  cancel-in-progress: false
+  group: sports-venue-heroes-local-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   contract:
@@ -43,16 +37,8 @@ jobs:
       - name: Validate exhaustive audit contract
         run: node scripts/ci/verify-sports-venue-heroes-production-all.mjs --contract-only
 
-  live-production:
-    if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
-    env:
-      PRODUCTION_ORIGIN: https://texasdefined.com
-      DEPLOY_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
-      - name: Verify all governed sports venue heroes in production
-        run: node scripts/ci/verify-sports-venue-heroes-production-all.mjs
+  local-built-worker:
+    if: github.event_name == 'workflow_dispatch'
+    uses: ./.github/workflows/audit-site-quality-local.yml
+    with:
+      audit: venues

@@ -37,6 +37,9 @@ export const texasRegionsExplainedArticle: Article = {
   ],
   featured: true,
   internalLinks: [
+    { href: "/article/scenic-drives-in-texas", label: "Scenic drives across all seven regions", description: "Practical route and vehicle guidance from Hill Country to Big Bend and the coast." },
+    { href: "/article/texas-wine-country", label: "Texas wine country and grape-growing regions", description: "Compare tourism corridors with federally defined viticultural areas." },
+    { href: "/article/texas-german-belt", label: "German-Texan settlement heritage", description: "Explore the cultural footprint across several counties rather than treating it as a travel region." },
     {
       href: "/explore",
       label: "Explore Texas by place",
@@ -83,7 +86,7 @@ export const texasRegionsExplainedArticle: Article = {
   body: [
     p("Texas is one state on a map and several very different places on the ground. Pine forest near Louisiana, limestone river country west of Austin, High Plains around Amarillo, subtropical communities in the Rio Grande Valley and desert mountains near Big Bend all belong to Texas, but they do not look, feel or travel the same way."),
     p("That is why Texans, state agencies, tourism organizations, ecologists and historians use regional names so often. The complication is that they do not all draw the same lines. There is no single universally official seven-region map of Texas."),
-    p("TexasDefined therefore uses one consistent editorial framework for statewide discovery. Our seven regions are meant to make the state easier to understand and explore while respecting the fact that real landscapes and cultures blend into one another."),
+    p("For planning purposes, it helps to think in seven broad regions rather than one rigid map. They make it easier to compare a desert trip with a coastal weekend or a drive through the forests of East Texas, while leaving room for the places where landscapes and cultures overlap."),
 
     h("The seven TexasDefined regions"),
     list(
@@ -159,21 +162,21 @@ export const texasRegionsExplainedArticle: Article = {
     h("7. South Texas Plains"),
     p("South Texas Plains is TexasDefined's region of brush country, ranchlands, border communities and the Rio Grande Valley. It stretches south from the San Antonio sphere toward Laredo, McAllen, Edinburg and Brownsville, becoming hotter, flatter and increasingly subtropical toward the lower Rio Grande."),
     p("Mesquite, thorn scrub and ranch country dominate much of the interior. In the Valley, irrigation, citrus, palms and extraordinary bird diversity create a landscape that can feel very different from the rest of Texas. Mexican American and Tejano culture is foundational across the region, visible in language, food, music, ranching and family histories."),
-    p("The Gulf-facing edge overlaps with the Gulf Coast region. That is not a flaw in the system. A place can participate in more than one geographic story even when TexasDefined assigns it one primary region for navigation."),
+    p("Closer to the Gulf, brush country gives way to bays, coastal prairie and beaches. Brownsville and the lower Rio Grande Valley sit at that meeting point: a trip can combine border history, subtropical birding and Gulf Coast scenery without crossing a sharp regional boundary."),
     list(
       "Landscape: thorn scrub, mesquite, ranchlands, Rio Grande floodplain and subtropical Valley.",
       "Anchor places: Laredo, McAllen, Edinburg, Brownsville and Kingsville.",
       "Known for: border culture, ranch history, birding, wildlife, tacos and the Rio Grande Valley.",
     ),
 
-    h("How TexasDefined uses the seven regions"),
-    p("The seven-region model is an editorial and discovery system. TexasDefined uses the same region IDs across destination records, Explore navigation and regional landing pages so a park, lake, town, historic site, event or travel guide can participate in one consistent geographic structure."),
-    p("The boundaries are deliberately practical rather than administrative. Counties do not always line up neatly with physical geography or cultural identity, and metropolitan areas can straddle regional transitions. When a place sits near an edge, TexasDefined assigns the primary region that best matches its landscape, travel patterns and surrounding destinations while acknowledging meaningful overlaps in the editorial copy."),
-    p("The stable region names are Big Bend Country, Gulf Coast, Hill Country, Panhandle Plains, Piney Woods, Prairies & Lakes and South Texas Plains. Those names are the common vocabulary TexasDefined will use across statewide discovery going forward."),
+    h("How to use the seven regions when planning a trip"),
+    p("Start with the kind of trip you want rather than the name of a region. Big Bend Country suits desert drives and dark skies; the Hill Country is strong for rivers and small towns; the Gulf Coast offers beaches, birding and maritime history. Once you choose an area, compare nearby parks, towns and routes instead of treating its boundaries as a fence."),
+    p("County lines do not always follow forests, hills or watersheds. Austin sits near the transition between the Blackland Prairie and the Hill Country; Brownsville is both a border destination and a gateway to the coast. If your itinerary crosses one of these edges, plan around drive time and the places you want to visit, not a line on a map."),
+    p("The seven starting points are Big Bend Country, Gulf Coast, Hill Country, Panhandle Plains, Piney Woods, Prairies & Lakes and South Texas Plains. For a longer drive, pair neighboring areas—for example, the Hill Country with the Prairies & Lakes region or South Texas with the Gulf Coast."),
 
     h("What about West Texas, Central Texas and the Rio Grande Valley?"),
-    p("They still matter. A seven-region taxonomy does not erase the regional names Texans actually use. 'West Texas' is a powerful cultural term that can include the Permian Basin, Trans-Pecos and other areas depending on who is speaking. 'Central Texas' can describe Austin, Waco, the Hill Country edge and surrounding counties. The Rio Grande Valley is a distinct subregion with an identity far stronger than a simple compass direction."),
-    p("TexasDefined treats those names as subregions, cultural regions or useful aliases rather than forcing every familiar term to become a top-level navigation region. That keeps the statewide structure understandable while recognizing that Texas has more than seven meaningful geographic identities."),
+    p("They still matter. Seven broad travel regions cannot replace every name Texans use. 'West Texas' is a powerful cultural term that can include the Permian Basin, Trans-Pecos and other areas depending on who is speaking. 'Central Texas' can describe Austin, Waco, the Hill Country edge and surrounding counties. The Rio Grande Valley is a distinct subregion with an identity far stronger than a simple compass direction."),
+    p("Use the name that fits the journey. A Permian Basin road trip will feel different from an El Paso visit even though both are commonly called West Texas; the Rio Grande Valley has its own identity within South Texas. Local names often tell you more about the food, history and landscape than any statewide map can."),
 
     h("Why regional boundaries overlap"),
     p("Rainfall, geology, vegetation and elevation change gradually. So do food traditions, accents, architecture and settlement patterns. The Edwards Plateau does not stop because a county line appears. The coastal plain reaches inland. East Texas forest thins into prairie. South Texas brush country blends toward the coast."),
@@ -192,6 +195,6 @@ export const texasRegionsExplainedArticle: Article = {
 
     h("One state, seven useful starting points"),
     p("The point of defining regions is not to divide Texas into rigid boxes. It is to make the scale of the state understandable. The Gulf Coast lives with saltwater and storms. Big Bend Country is shaped by desert and distance. The Hill Country follows limestone and springs. The Panhandle Plains open to wind and sky. The Piney Woods belong to forest and water. Prairies & Lakes mixes grassland, reservoirs and metropolitan growth. South Texas Plains carries brush country and border culture toward the Rio Grande."),
-    p("Together, the seven regions give TexasDefined a consistent way to organize a state that is too large and varied to explain as one landscape. They are starting points — and the roads between them are where Texas becomes most interesting."),
+    p("Together, these seven regions offer a manageable starting point for exploring a state too large and varied to describe with a single landscape. The places where one region turns into another are often as interesting as the best-known destinations."),
   ],
 };

@@ -21,9 +21,10 @@ export const historicSiteRemoteHeroes: Record<string, ImageRef> = {
     width: 802, height: 538, credit: "N. Saum · CC BY-SA 3.0 · Wikimedia Commons",
   },
   "casa-navarro": {
-    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Casa_Navarro_State_Historic_Site_in_2009.jpg",
-    alt: "Casa Navarro State Historic Site in San Antonio, Texas",
-    width: 500, height: 333, credit: "TxHC · CC BY-SA 3.0 · Wikimedia Commons",
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Casa_Navarro_State_Historic_Site_July_2017_01_%28main_house%29.jpg?width=1600",
+    alt: "Main historic house at Casa Navarro State Historic Site in San Antonio, photographed in July 2017",
+    width: 1600, height: 1142,
+    credit: "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons · File:Casa Navarro State Historic Site July 2017 01 (main house).jpg",
   },
   "confederate-reunion-grounds": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Confederate_Reunion_Grounds_State_Historic_Site_in_2009.jpg",
@@ -114,11 +115,6 @@ export const historicSiteRemoteHeroes: Record<string, ImageRef> = {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Part_of_the_State_of_Texas%27s_official_longhorn_herd%2C_kept_at_Fort_Griffin%2C_a_state_historic_site_in_Shackelford_County%2C_Texas_LCCN2015630038.tif?width=1600",
     alt: "Part of the Official State of Texas Longhorn Herd at Fort Griffin State Historic Site",
     width: 1600, height: 1068, credit: "Carol M. Highsmith / Library of Congress · Public domain · Wikimedia Commons",
-  },
-  "old-socorro-mission": {
-    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Socorro_Mission%2C_Mission_Trail%2C_El_Paso%2C_Texas_%282b1d2a78-155d-451f-679e-7d70fee5ef0f%29.jpg",
-    alt: "Socorro Mission on the Mission Trail in Socorro, Texas",
-    width: 1600, height: 1069, credit: "National Park Service · Public domain · Wikimedia Commons",
   },
   "palmito-ranch-battlefield": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Palmito_Ranch_Battlefield_2012-09-30_11-15-36.jpg",

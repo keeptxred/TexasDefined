@@ -54,6 +54,12 @@ export function rankRelatedEntities(entity: TexasEntityRecord, graph: TexasEntit
     .filter((candidate) => {
       if (candidate.id === entity.id || candidate.status === 'retired') return false;
       if (!isIndexableEntityPage(candidate)) return false;
+      // A broad region such as West Texas is not evidence that a place is nearby.
+      // Metro related links must have a verified explicit/incoming relationship or
+      // share the core county; otherwise faraway venues can outrank local guides.
+      if (entity.kind === 'metro-area' && !explicit.has(candidate.id)
+        && !candidate.relationships.some((relationship) => relationship.targetId === entity.id)
+        && !(entityCounty && countyContext(candidate) === entityCounty)) return false;
       return true;
     })
     .map((candidate) => {
@@ -175,11 +181,15 @@ export function isIndexableEntityPage(entity: TexasEntityRecord) {
 
   if (entity.kind === 'county') {
     const editorialComplete = entity.tags?.includes('county-series-complete') ?? false;
+    const countyRelationshipsComplete = entity.relationships.length >= 2;
+    // Census TIGERWeb coordinates are supplementary context; an intermittent
+    // geocoding lookup must never change search eligibility for a completed,
+    // source-verified county editorial guide.
     return description.length >= 180
       && entity.sourceConfidence === 'official'
       && entity.status === 'active'
-      && Boolean(entity.coordinates)
-      && (editorialComplete || entity.relationships.length >= 2);
+      && editorialComplete
+      && countyRelationshipsComplete;
   }
 
   if (description.length < 180) return false;

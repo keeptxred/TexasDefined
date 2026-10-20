@@ -40,9 +40,9 @@ export const texasFarmToMarketRoadsExplainedArticle: Article = {
       description: "Build a trip around the slower roads, small towns and landscapes between the big cities.",
     },
     {
-      href: "/article/texas-road-trip-rules",
-      label: "The Texas road trip is about the space between",
-      description: "Use the road itself as part of the trip instead of treating every mile as time to erase.",
+      href: "/explore/top-attractions/road-trips",
+      label: "Texas road-trip attractions and scenic stops",
+      description: "Choose meaningful stops and regional scenery instead of treating rural roads only as a way to reach the next city.",
     },
     {
       href: "/article/texas-hill-country-what-makes-it",
@@ -58,6 +58,31 @@ export const texasFarmToMarketRoadsExplainedArticle: Article = {
       href: "/article/texas-regions-explained",
       label: "The regions of Texas explained",
       description: "Put FM and RM roads into the larger geography of plains, forests, coast, Hill Country and West Texas.",
+    },
+    {
+      href: "/article/texas-ranch-to-market-roads-explained",
+      label: "Ranch-to-Market roads explained",
+      description: "Understand what an RM designation actually means and why Ranch Road 1 is a separate exception.",
+    },
+    {
+      href: "/article/texas-loops-spurs-explained",
+      label: "Texas Loops and Spurs explained",
+      description: "Read the bypasses and branch connectors that organize traffic around and off the main corridor.",
+    },
+    {
+      href: "/article/texas-business-routes-explained",
+      label: "Texas Business Routes explained",
+      description: "See why an older highway alignment often keeps running through the center of town after a bypass opens.",
+    },
+    {
+      href: "/article/texas-park-recreational-roads-explained",
+      label: "Park and Recreational Roads explained",
+      description: "Decode the PR and RE systems that connect parks and recreation areas to the state highway network.",
+    },
+    {
+      href: "/article/texas-historic-memorial-highways-explained",
+      label: "Historic routes and memorial highways",
+      description: "Separate the numbered highway designation from historic-route signs and honorary highway names.",
     },
     {
       href: "https://ftp.txdot.gov/pub/txdot-info/tpp/2050/meeting-materials/round-02/rural-transportation.pdf",

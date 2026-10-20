@@ -41,6 +41,7 @@ on:
 
 permissions:
   contents: read
+  statuses: read
 
 concurrency:
   group: remote-evergreen-production-${{ github.ref }}
@@ -65,11 +66,16 @@ jobs:
     if: ${{ github.event_name != 'pull_request' }}
     needs: validate-cohort
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Wait for this commit's protected production deployment
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PRODUCTION_COMMIT_SHA: ${{ github.sha }}
+        run: node scripts/ci/wait-for-protected-production.mjs
       - name: Require canonical, indexable, sourced, image-backed production pages and sitemap discovery
         run: node scripts/ci/verify-remote-evergreen-production.mjs

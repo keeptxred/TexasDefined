@@ -1,11 +1,6 @@
 name: Verify relocation production
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/verify-relocation-production.yml'
-      - 'scripts/ci/verify-relocation-production.mjs'
   pull_request:
     paths:
       - 'scripts/ci/verify-relocation-production.mjs'
@@ -25,9 +20,6 @@ on:
       - 'src/data/fixtures/lazy-relocation*.ts'
       - 'src/lib/relocation-public-routes.ts'
       - 'src/lib/public-routes.ts'
-  workflow_run:
-    workflows: ['Deploy TexasDefined production']
-    types: [completed]
   workflow_dispatch:
 
 permissions:
@@ -51,10 +43,13 @@ jobs:
         run: node --check scripts/ci/verify-relocation-production.mjs
 
   verify:
-    if: ${{ github.event_name != 'pull_request' }}
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     env:
       GH_TOKEN: ${{ github.token }}
+      DEPLOY_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+      # GitHub's reserved GITHUB_SHA can point at the receiver's newer default branch.
+      STATUS_TARGET_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -77,7 +72,7 @@ jobs:
             url="${PRODUCTION_ORIGIN}${path}"
             separator='?'
             if [[ "$path" == *'?'* ]]; then separator='&'; fi
-            probe_url="${url}${separator}relocation_probe=${GITHUB_SHA}-${RANDOM}"
+            probe_url="${url}${separator}relocation_probe=${DEPLOY_SHA}-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}-${RANDOM}"
             body="$(curl -fsSL --max-time 30 -H 'cache-control: no-cache' -H 'pragma: no-cache' -A 'TexasDefined-Relocation-Route-Probe/1.0' "$probe_url" 2>/dev/null)"
             curl_status=$?
             if [[ $curl_status -eq 0 ]] && grep -Fq "$needle" <<<"$body"; then
@@ -103,8 +98,6 @@ jobs:
           probe td-reloc-sitemap /sitemap.xml '/article/military-family-moving-to-texas'
           exit "$failed"
       - name: Publish relocation live verification pending
-        env:
-          GITHUB_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
         run: node scripts/ci/publish-github-status.mjs texasdefined-relocation-live pending "Verifying TexasDefined relocation production surfaces"
       - name: Verify relocation toolkit in production
         id: relocation_live
@@ -114,6 +107,5 @@ jobs:
       - name: Publish relocation live verification result
         if: always()
         env:
-          GITHUB_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
           STAGE_OUTCOME: ${{ steps.relocation_live.outcome }}
         run: node scripts/ci/publish-github-status.mjs texasdefined-relocation-live "$STAGE_OUTCOME" "Relocation production verification passed" "Relocation production verification failed"

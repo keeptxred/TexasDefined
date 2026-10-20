@@ -2,6 +2,7 @@ import { createFileRoute, notFound } from '@tanstack/react-router';
 
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { getFootballProgramProfilePage } from '@/data/high-school-football/football-program-profile.functions';
+import { getActiveSportsSponsorPlacement } from '@/data/sports-sponsorship.functions';
 import { buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
@@ -10,7 +11,12 @@ export const Route = createFileRoute('/texas-high-school-football-teams/$slug')(
   loader: async ({ params }) => {
     const profile = await getFootballProgramProfilePage(params.slug);
     if (!profile) throw notFound();
-    return profile;
+    // Existing governed loader fails closed and returns null while the launch hold is active.
+    // Do not promote school partnerships or cancelled programs into paid game-night inventory.
+    const sponsorPlacement = profile.editorial?.notice
+      ? null
+      : await getActiveSportsSponsorPlacement({ data: { surfacePath: `/texas-high-school-football-teams/${profile.slug}` } });
+    return { ...profile, sponsorPlacement };
   },
   head: ({ loaderData }) => {
     if (!loaderData) return { meta: [{ title: 'Football school profile not found' }, { name: 'robots', content: 'noindex' }] };
@@ -26,14 +32,26 @@ export const Route = createFileRoute('/texas-high-school-football-teams/$slug')(
     const seoName = program?.schoolName || displayName;
     const teamName = identity?.mascot ? `${seoName} ${identity.mascot}` : seoName;
     const enrollment = program?.uilEnrollment ? `, UIL enrollment ${program.uilEnrollment.toLocaleString('en-US')}` : '';
-    const description = editorial?.seo?.description ?? `${teamName} football: ${classification}${enrollment}. See 2026 district opponents, verified school and venue links where available, UIL history, scores and schedule sources.`;
+    const defaultTitle = program
+      ? `${teamName} Football: 2026 District & Team Guide`
+      : privateAlignment
+        ? `${teamName} Football: ${privateAlignment.association} Team Guide`
+        : governingBodyHint
+          ? `${teamName} Football: ${governingBodyHint} Team Guide`
+          : `${teamName} Football: Texas Team Guide`;
+    const description = editorial?.seo?.description ?? (program
+      ? `${teamName} football: ${classification}${enrollment}. See 2026 district opponents, verified school and venue links where available, UIL history, scores and schedule sources.`
+      : `${teamName} football: ${classification}. See verified association, school, venue and current-season sources where available; non-UIL programs are not forced into UIL classifications.`);
     const url = `${siteUrl}${canonicalPath}`;
     const sportsTeamName = identity?.mascot ? `${seoName} ${identity.mascot}` : `${seoName} Football`;
+    const sportsTeamDescription = program || privateAlignment || governingBodyHint
+      ? `${sportsTeamName} competes in ${classification}.`
+      : `${sportsTeamName} is a non-UIL football program; association placement is published only when verified.`;
 
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
-        title: editorial?.seo?.title ?? `${teamName} Football: 2026 District & Team Guide`,
+        title: editorial?.seo?.title ?? defaultTitle,
         description,
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
@@ -49,7 +67,7 @@ export const Route = createFileRoute('/texas-high-school-football-teams/$slug')(
             isPartOf: { '@id': `${siteUrl}/#website` },
             about: {
               '@type': 'HighSchool',
-              name: program?.officialSchoolName || displayName,
+              name: displayName,
               address: program?.city ? {
                 '@type': 'PostalAddress',
                 addressLocality: program.city,
@@ -65,7 +83,7 @@ export const Route = createFileRoute('/texas-high-school-football-teams/$slug')(
             sport: 'American football',
             memberOf: {
               '@type': 'HighSchool',
-              name: program?.officialSchoolName || displayName,
+              name: displayName,
             },
             location: program?.city ? {
               '@type': 'Place',
@@ -77,9 +95,7 @@ export const Route = createFileRoute('/texas-high-school-football-teams/$slug')(
                 addressCountry: 'US',
               },
             } : undefined,
-            description: editorial?.notice
-              ? `${sportsTeamName} is assigned to ${classification} but has an announced 2026 football-season cancellation. UIL alignment is not confirmation of games being played.`
-              : `${sportsTeamName} competes in ${classification}.`,
+            description: sportsTeamDescription,
           },
           ...(faq.length ? [{
             '@type': 'FAQPage',

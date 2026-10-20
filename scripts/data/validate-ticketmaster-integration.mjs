@@ -18,6 +18,12 @@ try {
   assert.equal(cta.label, 'Find Tickets →');
   assert.ok(cta.rel.includes('sponsored'));
   assert.ok(cta.disclosure);
+  assert.equal(ticketmasterAuthorityGuidePath('Amigo Airsho 2026', 'El Paso'), '/event/amigo-airsho');
+  assert.equal(ticketmasterAuthorityGuidePath('CAF Wings Over Houston Airshow', 'Houston'), '/event/wings-over-houston-airshow');
+  assert.equal(ticketmasterAuthorityGuidePath('Texas Capital Air Show 2026', 'San Marcos'), '/event/texas-capital-air-show');
+  assert.equal(ticketmasterAuthorityGuidePath('Bluebonnet Airshow 2027', 'Burnet'), '/event/bluebonnet-airshow');
+  assert.equal(ticketmasterAuthorityGuidePath('Wings Over Cowtown Air Show', 'Fort Worth'), '/event/wings-over-cowtown-airshow');
+  assert.equal(ticketmasterAuthorityGuidePath('Amigo Airsho 2026', 'Dallas'), undefined);
   assert.equal(ticketmasterAuthorityGuidePath('Fiesta De Palmas - Presented By The City Of Mcallen', 'McAllen'), '/event/fiesta-de-palmas');
   assert.equal(ticketmasterAuthorityGuidePath('South Pole Illuminated Festival 2026 - McAllen Convention Center', 'McAllen'), '/event/south-pole-illuminated-festival');
   assert.equal(ticketmasterAuthorityGuidePath('Bands Of America: San Antonio Super Regional Championship Prelims', 'San Antonio'), '/event/bands-of-america-san-antonio-super-regional');
@@ -25,6 +31,7 @@ try {
   assert.equal(ticketmasterAuthorityGuidePath('Way Out West Festival Featuring Cole Swindell', 'El Paso'), '/event/way-out-west-festival-el-paso');
   assert.equal(ticketmasterAuthorityGuidePath('State Fair Classic', 'Dallas'), '/event/state-fair-classic');
   assert.equal(ticketmasterAuthorityGuidePath('Oklahoma Sooners Football vs. Texas Longhorns Football', 'Dallas'), '/event/red-river-rivalry');
+  assert.equal(ticketmasterAuthorityGuidePath('Texas Longhorns Football vs. Oklahoma Sooners Football', 'Dallas'), '/event/red-river-rivalry');
   assert.equal(ticketmasterAuthorityGuidePath('Beaumont Comic Con', 'Beaumont'), '/event/beaumont-comic-con');
   assert.equal(ticketmasterAuthorityGuidePath('Eagle Fest Featuring ZZ Top', 'The Woodlands'), '/event/eagle-fest-the-woodlands');
   assert.equal(ticketmasterAuthorityGuidePath('Austin City Limits Festival', 'Austin'), '/event/austin-city-limits-music-festival');

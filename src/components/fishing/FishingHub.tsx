@@ -5,6 +5,7 @@ import { FishingPhoto } from "@/components/fishing/FishingPhoto";
 import { Container } from "@/components/layout/Container";
 import { getFishingFishImage, getFishingLakeImage } from "@/data/fishing/image-library";
 import { fishingFoundationAnchor, isCompleteFishingLakeSlug } from "@/data/fishing/slugs";
+import { RIVER_AUTHORITY_RELATIONS } from "@/data/river-authority-relations";
 import type { FishSpecies, FishingLake, LakeSpeciesProfile } from "@/data/fishing/types";
 
 interface FishingHubProps {
@@ -96,6 +97,21 @@ export function FishingHub({ lakes, species, lakeSpecies }: FishingHubProps) {
             </article>;
           })}
         </div>
+      </section>
+
+      <section className="border-t border-border py-14" aria-labelledby="river-fishing-guide-heading">
+        <p className="eyebrow text-primary">River fishing</p>
+        <h2 id="river-fishing-guide-heading" className="mt-3 font-display text-4xl">Fishing Texas Rivers</h2>
+        <p className="mt-4 max-w-3xl text-base leading-7 text-muted-foreground">River fisheries differ from reservoir fishing. Choose the actual reach before deciding which access rules, gear, harvest restrictions or health advisories apply. A watershed connection does not guarantee a public fishing bank.</p>
+        <details className="mt-7 border-y border-border py-5" open>
+          <summary className="cursor-pointer font-semibold text-primary">Explore every published Texas river fishing and visitor guide</summary>
+          <nav className="mt-5 grid gap-x-8 sm:grid-cols-2 lg:grid-cols-3" aria-label="River fishing and visitor guides">
+            {RIVER_AUTHORITY_RELATIONS.map((river) => <Link key={river.slug} to={`/article/${river.slug}`} className="group border-t border-border py-3">
+              <strong className="block font-display text-lg group-hover:text-primary">{river.name}</strong>
+              <span className="mt-1 block text-sm leading-6 text-muted-foreground">Reach-specific fishing, legal access, camping context and source references</span>
+            </Link>)}
+          </nav>
+        </details>
       </section>
 
       <section className="border-t border-border py-14" aria-labelledby="fishing-resources">

@@ -3,10 +3,12 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { RegionalDestinationGrid } from "@/components/editorial/RegionalDestinationGrid";
 import { RegionalHubSections } from "@/components/editorial/RegionalHubSections";
+import { RegionAuthorityGuide } from "@/components/editorial/RegionAuthorityGuide";
 import { SectionHeader } from "@/components/editorial/SectionHeader";
 import { TopAttractionCollectionLinks } from "@/components/editorial/TopAttractionCollectionLinks";
 import { Container } from "@/components/layout/Container";
 import { destinationsQuery, regionsQuery } from "@/data/queries";
+import { filterDestinationsByScope } from "@/data/destination-query-scope";
 import type { Destination } from "@/data/types";
 import { recoverOrHideImage } from "@/lib/image-fallback";
 import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
@@ -39,7 +41,12 @@ export const Route = createFileRoute("/explore/region/$region")({
     const regions = await context.queryClient.ensureQueryData(regionsQuery());
     const region = regions.find((item) => item.id === params.region);
     if (!region) throw notFound();
-    const destinations = await context.queryClient.ensureQueryData(destinationsQuery({ region: region.id, limit: 5000 }));
+    // Defense in depth: caches, remote catalogs and legacy query sources may
+    // return a statewide collection even for a region-keyed request. Only
+    // explicitly classified members of this exact region may appear in the
+    // human guide, counts, related cards or JSON-LD.
+    const loadedDestinations = await context.queryClient.ensureQueryData(destinationsQuery({ region: region.id, limit: 5000 }));
+    const destinations = filterDestinationsByScope(loadedDestinations, { region: region.id });
     return { region, regions, destinations };
   },
   head: ({ loaderData, params }) => {
@@ -91,6 +98,7 @@ function RegionPage() {
       </div>
     </Container>
 
+    <RegionAuthorityGuide region={region} />
     <RegionalHubSections destinations={destinations} region={region} allRegions={regions} />
     <TopAttractionCollectionLinks destinations={destinations} contextLabel={region.name} />
 

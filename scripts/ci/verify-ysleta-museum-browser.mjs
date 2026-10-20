@@ -45,21 +45,41 @@ function hasLink(data, path) {
 async function inspectMuseum(page, viewport) {
   const response = await page.goto(cacheBusted(museumPath), { waitUntil: 'domcontentloaded', timeout: 60_000 });
   await page.locator('h1').first().waitFor({ state: 'visible', timeout: 25_000 });
+  const traces = [];
+  const record = async stage => {
+    const state = await page.evaluate(() => ({
+      url: location.pathname, scrollY, mainCount: document.querySelectorAll('main').length,
+      rootTextStart: document.body.innerText.slice(0, 150),
+      scripts: document.querySelectorAll('script').length
+    }));
+    traces.push({ stage, ...state });
+    await writeFile(artifacts + '/' + viewport + '-stage-trace.json', JSON.stringify(traces, null, 2) + '\n');
+  };
+  await record('after-h1-visible');
   await page.evaluate(() => document.fonts?.ready);
+  await record('after-fonts');
+  await page.waitForTimeout(1200);
+  await record('after-1200ms');
   const hero = page.locator('img[alt*="Photograph of the actual Tigua Cultural Center"]');
   const panorama = page.locator('img[alt*="Wide panoramic photograph"]');
   await panorama.scrollIntoViewIfNeeded({ timeout: 20_000 });
+  await record('after-panorama-scroll');
   let photoWait = null;
   try {
     await page.waitForFunction(() => [...document.images].filter(img => /Tigua Cultural Center/.test(img.alt)).length === 2 &&
       [...document.images].filter(img => /Tigua Cultural Center/.test(img.alt)).every(img => img.complete && img.naturalWidth >= 500),
       null, { timeout: 25_000, polling: 350 });
   } catch (err) { photoWait = err instanceof Error ? err.message : String(err); }
+  await record('after-images-loaded');
   await page.evaluate(() => window.scrollTo(0, 0));
+  await record('after-scroll-top');
   await page.screenshot({ path: artifacts + '/' + viewport + '-museum.png', fullPage: true, animations: 'disabled', timeout: 40_000 });
   const data = await snapshot(page);
   check(response?.status() === 200, viewport + ': museum HTTP ' + response?.status());
   check(data.h1.length === 1 && data.h1[0] === 'Ysleta del Sur Pueblo Cultural Center Museum', viewport + ': incorrect H1');
+  const mainCount = await page.locator('main').count();
+  await writeFile(artifacts + '/' + viewport + '-landmark-stage.json', JSON.stringify({ url: page.url(), mainCount, h1: data.h1, errorFreeSoFar: true }, null, 2) + '\n');
+  check(mainCount === 1, viewport + ': expected one semantic main landmark; actual ' + mainCount);
   check(data.title.includes('Ysleta del Sur Pueblo Museum'), viewport + ': missing SEO title');
   check(data.metaDescription.length > 80, viewport + ': missing/short description');
   check(data.canonical === origin + museumPath, viewport + ': wrong canonical ' + data.canonical);
@@ -90,13 +110,94 @@ async function inspectInbound(page, path, viewport) {
 let browser;
 try {
   browser = await chromium.launch({ headless: true, executablePath: process.env.CHROME_BIN || '/usr/bin/google-chrome', args: ['--no-sandbox', '--disable-dev-shm-usage'] });
+  // Diagnose the global hydration fault without changing visitor-facing production.
+  // Compare fresh Chrome contexts: baseline, each deferred integration blocked,
+  // and all deferred integrations blocked. Keep the primary strict assertion.
+  const integrations = ['/expedia-travel.js', '/stay-affiliate-options.js', '/stay-nearby-context-images.js', '/city-experience-affiliate.js', '/texas-brand-locator.js'];
+  const scenarios = [{ label: 'baseline', blocked: [] }, { label: 'baseline-repeat', blocked: [] }, ...integrations.map(src => ({ label: src, blocked: [src] })), { label: 'all-integrations', blocked: integrations }];
+  const isolation = [];
+  for (const scenario of scenarios) {
+    const context = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, deviceScaleFactor: 1 });
+    try {
+      if (scenario.blocked.length) await context.route('**/*', async route => {
+        const url = new URL(route.request().url());
+        if (scenario.blocked.includes(url.pathname)) await route.abort();
+        else await route.continue();
+      });
+      const page = await context.newPage();
+      const errors = [];
+      page.on('pageerror', err => errors.push({ message: err.message, stack: err.stack }));
+      const response = await page.goto(cacheBusted(museumPath), { waitUntil: 'domcontentloaded', timeout: 60_000 });
+      let hydrationSignal = false;
+      let hydrationWaitError = null;
+      try {
+        await page.waitForFunction(() => document.documentElement.dataset.tdRootHydrated === '1', null, { timeout: 25000 });
+        hydrationSignal = true;
+      } catch (error) {
+        hydrationWaitError = String(error);
+      }
+      const errorsAtHydration = errors.length;
+      // Also exercise lazy visibility and asynchronous scripts: React #418 has
+      // occurred later in full acceptance even when short baseline probes pass.
+      try {
+        await page.locator('img[alt*="Wide panoramic photograph"]').scrollIntoViewIfNeeded({ timeout: 15000 });
+      } catch { /* record hydration outcome regardless of photo availability */ }
+      await page.waitForTimeout(1100);
+      isolation.push({
+        label: scenario.label, blocked: scenario.blocked, status: response?.status(),
+        hydrationSignal, hydrationWaitError, errorsAtHydration, errors,
+        h1: await page.locator('h1').allTextContents()
+      });
+    } catch (err) {
+      isolation.push({ label: scenario.label, diagnosticFailure: String(err) });
+    } finally { await context.close(); }
+  }
+  await writeFile(artifacts + '/hydration-script-isolation.json', JSON.stringify(isolation, null, 2) + '\n');
   for (const [viewport, width, height, mobile] of [['mobile', 390, 844, true], ['desktop', 1366, 900, false]]) {
     const context = await browser.newContext({ viewport: { width, height }, isMobile: mobile, hasTouch: mobile, deviceScaleFactor: 1 });
     const page = await context.newPage(); const errors = [];
-    page.on('pageerror', e => errors.push(e.message));
+    page.on('pageerror', e => errors.push({ url: page.url(), message: e.message, stack: e.stack || null }));
+    const firstVisit = await browser.newContext({ viewport: { width, height }, isMobile: mobile, hasTouch: mobile, javaScriptEnabled: false, deviceScaleFactor: 1 });
+    try {
+      const ssr = await firstVisit.newPage();
+      const response = await ssr.goto(cacheBusted(museumPath), { waitUntil: 'domcontentloaded', timeout: 60_000 });
+      const markup = await ssr.evaluate(() => ({
+        h1: [...document.querySelectorAll('h1')].map(e => e.textContent.trim()),
+        bodyTextStart: document.body.innerText.slice(0, 2500),
+        renderedMainCount: document.querySelectorAll('main').length,
+        rootChildren: [...document.body.children].map(el => ({ tag: el.tagName, id: el.id, childCount: el.children.length })),
+        htmlLength: document.documentElement.outerHTML.length
+      }));
+      await writeFile(artifacts + '/' + viewport + '-ssr-diagnostic.json', JSON.stringify({ status: response?.status(), markup }, null, 2) + '\n');
+      await ssr.screenshot({ path: artifacts + '/' + viewport + '-museum-ssr.png', fullPage: true, animations: 'disabled' });
+    } finally { await firstVisit.close(); }
     try {
       out.push(await inspectMuseum(page, viewport));
+      // Capture the failing destination while it is still visible, before visiting
+      // linked pages; otherwise hydration evidence is accidentally taken elsewhere.
+      if (errors.length) {
+        const museumDom = await page.evaluate(() => ({
+          url: location.href,
+          mainCount: document.querySelectorAll('main').length,
+          headings: [...document.querySelectorAll('h1,h2')].slice(0, 15).map(e => ({ tag: e.tagName, text: e.textContent?.trim() })),
+          bodyChildTags: [...document.body.children].map(e => e.tagName),
+          rootMarkupStart: document.body.firstElementChild?.outerHTML.slice(0, 12000),
+          htmlLength: document.documentElement.outerHTML.length
+        }));
+        await writeFile(artifacts + '/' + viewport + '-museum-hydration-local.json', JSON.stringify({ errors, museumDom }, null, 2) + '\n');
+      }
       for (const path of [links.borderlands, links.city, links.county, links.sacred]) out.push(await inspectInbound(page, path, viewport));
+      if (errors.length) {
+        const dom = await page.evaluate(() => ({
+          url: location.href,
+          h1: [...document.querySelectorAll('h1')].map(e => e.textContent.trim()),
+          bodyTextStart: document.body.innerText.slice(0, 2500),
+          renderedMainCount: document.querySelectorAll('main').length,
+          rootChildren: [...document.body.children].map(el => ({ tag: el.tagName, id: el.id, childCount: el.children.length })),
+          htmlLength: document.documentElement.outerHTML.length
+        }));
+        await writeFile(artifacts + '/' + viewport + '-hydration-errors.json', JSON.stringify({ errors, dom }, null, 2) + '\n');
+      }
       check(errors.length === 0, viewport + ': page runtime errors ' + JSON.stringify(errors));
     } finally { await context.close(); }
   }
@@ -106,3 +207,7 @@ try {
   await writeFile(artifacts + '/failure.json', JSON.stringify({ checkedAt: new Date().toISOString(), completed: out, failure: String(e?.stack || e) }, null, 2) + '\n');
   throw e;
 } finally { if (browser) await browser.close(); }
+
+// Run a separate, strict assistive-technology tree, keyboard, and computed-contrast pass.
+// The existing live Chrome acceptance and hydration assertions remain unchanged.
+await import('./verify-ysleta-museum-accessibility.mjs');

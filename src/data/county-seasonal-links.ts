@@ -18,6 +18,7 @@ export const countySeasonalLinksBySlug: Record<string, ArticleInternalLink[]> = 
     { href: "/article/best-christmas-towns-in-texas", label: "Pair historic Jefferson with Texas Christmas towns", description: "Use the statewide holiday-town guide to build a December trip around East Texas historic districts and traditions." },
   ],
   ellis: [
+    { href: "/event/crossroads-of-texas-country-festival", label: "Plan the Crossroads of Texas Country Festival in Waxahachie", description: "Compare the official October festival date, free admission, performers, vendor districts and downtown parking guidance." },
     { href: "/article/bluebonnets-near-dallas-fort-worth", label: "Use the DFW bluebonnet guide for Ennis", description: "Connect Ellis County with the organized Ennis trail system and North Texas's typically later bloom window." },
     { href: "/article/best-places-to-see-bluebonnets-in-texas", label: "Compare Ennis with Texas bluebonnet regions", description: "See how Ennis timing and trail access compare with Washington County, the Highland Lakes and Big Bend." },
     { href: "/article/texas-bluebonnet-festivals", label: "Pair Ennis trails with bluebonnet festival planning", description: "Use official event schedules alongside current bloom reports rather than assuming festival weekend equals peak bloom." },

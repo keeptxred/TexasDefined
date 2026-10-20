@@ -26,6 +26,7 @@ export const texasMilitaryMuseumsHistoricSitesGuideArticle: Article = {
   sourceName: "Texas Historical Commission",
   sourceUrl: "https://thc.texas.gov/learn/military-history",
   internalLinks: [
+    { href: "/article/uss-lexington-cv16-history-visitor-guide", label: "USS Lexington: full history, photo essay and visitor guide", description: "A detailed study of the Blue Ghost and the preserved carrier in Corpus Christi." },
     { href: "/article/texas-military-history-timeline", label: "Texas military history timeline", description: "Start with the chronology before choosing the places that best match the era you want to explore." },
     { href: "/destination/uss-lexington-museum-corpus-christi", label: "USS Lexington Museum", description: "Walk the decks of the World War II Essex-class carrier preserved on Corpus Christi's North Beach." },
     { href: "/destination/national-wasp-wwii-museum-sweetwater", label: "National WASP WWII Museum", description: "Visit Avenger Field in Sweetwater, where Women Airforce Service Pilots trained during World War II." },
@@ -41,7 +42,9 @@ export const texasMilitaryMuseumsHistoricSitesGuideArticle: Article = {
     p("Texas military history is unusually easy to experience on the ground. The state preserves battlefields from the Republic, the U.S.–Mexican War and the Civil War; frontier Army posts; World War training fields; naval vessels; National Guard collections; and museums built around specialized aviation programs. The strongest visits are the ones where the physical place explains something a general timeline cannot."),
     p("This guide is organized by what each place helps you understand, not by a ranking that pretends a carrier museum and a battlefield are interchangeable. Use it to choose a trip by era, geography or type of experience, then open the individual TexasDefined destination pages for current access and nearby-stop planning."),
 
-    h("For naval aviation: USS Lexington in Corpus Christi"),
+    h("The two ship-museum experiences are not interchangeable"),
+    p("USS Lexington is a historic Essex-class aircraft carrier with visitor access in Corpus Christi. Battleship Texas is a separate dreadnought battleship under restoration in Galveston, without ordinary boarding tours at present. For Lexington, plan for aircraft displays, extensive shipboard walking and the accessible hangar and flight decks; for BB-35, consult the Foundation's latest closure and future-museum information. Both deserve dedicated authority guides rather than a shared generic naval-museum listing."),
+        h("For naval aviation: USS Lexington in Corpus Christi"),
     p("USS Lexington (CV-16) is the most immersive naval-aviation stop in Texas. Commissioned in 1943, the Essex-class carrier fought across the Pacific and later served for decades as a training carrier before becoming a museum on Corpus Christi's North Beach."),
     p("The reason to visit is scale. Flight decks, hangar spaces and aircraft make carrier operations understandable in a way photographs cannot. It is also one of the easiest major military museums to combine with a family trip because the Texas State Aquarium sits next door and the Corpus Christi bayfront is close by."),
 

@@ -31,7 +31,7 @@ const articleRoute = read('src/routes/article.$slug.tsx');
 const destinationRoute = read('src/routes/destination.$slug.tsx');
 const eventsRoute = `${read('src/routes/events.tsx')}\n${read('src/data/major-event-directory.server.ts')}\n${read('src/data/major-event-page.server.ts')}`;
 const aboutRoute = read('src/routes/about.tsx');
-const privacyRoute = read('src/routes/privacy.tsx');
+const privacyRoute = `${read('src/routes/privacy.tsx')}\n${read('src/routes/privacy.lazy.tsx')}`;
 const footer = read('src/components/layout/Footer.tsx');
 const homeRoute = read('src/routes/index.tsx');
 const exploreSitemap = read('src/routes/sitemap-explore[.]xml.ts');
@@ -116,7 +116,7 @@ for (const marker of ['trackTexasDefinedOutcome("shop_checkout_started"', 'track
 for (const marker of ['trackTexasDefinedOutcome("shop_checkout_returned"', 'trackTexasDefinedOutcome("shop_purchase_confirmed"', 'trackTexasDefinedOutcome("shop_purchase_unconfirmed"', 'verification-request-error']) if (!shopCheckoutReturn.includes(marker)) errors.push(`Shop checkout-return observability missing: ${marker}.`);
 for (const marker of ['texasdefined_shop_funnel_daily', 'shop_funnel_sync_heartbeat', 'enable row level security', 'revoke all on table public.texasdefined_shop_funnel_daily from public, anon, authenticated']) if (!shopFunnelMigration.includes(marker)) errors.push(`Shop funnel private aggregate migration missing: ${marker}.`);
 for (const marker of ['texas_defined_outcomes', 'shop_checkout_failed', 'shop_purchase_confirmed', 'CLOUDFLARE_API_TOKEN', 'SUPABASE_SERVICE_ROLE_KEY']) if (!shopFunnelSync.includes(marker)) errors.push(`Shop funnel sync protection missing: ${marker}.`);
-for (const marker of ['Sync shop funnel analytics', 'Deploy TexasDefined production', 'sync-shop-funnel-analytics.mjs', 'texasdefined-publication']) if (!shopFunnelWorkflow.includes(marker)) errors.push(`Shop funnel workflow protection missing: ${marker}.`);
+for (const marker of ['Sync shop funnel analytics', 'schedule:', 'workflow_dispatch:', 'sync-shop-funnel-analytics.mjs', 'texasdefined-publication']) if (!shopFunnelWorkflow.includes(marker)) errors.push(`Shop funnel workflow protection missing: ${marker}.`);
 if (rootRoute.includes('canonicalLink(texasDefinedBrand, "/")')) errors.push('Root route still injects an inherited homepage canonical.');
 if (rootRoute.includes('{ property: "og:url", content: siteUrl }')) errors.push('Root route still injects an inherited homepage Open Graph URL.');
 for (const feature of ['og:image','twitter:image','defaultSocialImage']) if (!rootRoute.includes(feature)) errors.push(`Default social-preview feature missing: ${feature}.`);

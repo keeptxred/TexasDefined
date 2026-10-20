@@ -68,7 +68,7 @@ const groups: ReadonlyArray<ResourceGroup> = [
       ['Texas Secretary of State agency page', '/agency/texas-secretary-of-state'],
       ['Texas Comptroller agency page', '/agency/texas-comptroller'],
       ['Texas Department of Insurance', '/agency/texas-department-insurance'],
-      ['Texas Department of Motor Vehicles agency page', '/agency/texas-dmv'],
+      ['Texas Department of Motor Vehicles agency page', '/texas-dmv'],
       ['Texas Commission on Environmental Quality', '/agency/texas-commission-environmental-quality'],
       ['Texas Education Agency', '/agency/texas-education-agency'],
       ['Texas Health and Human Services', '/agency/texas-health-human-services'],

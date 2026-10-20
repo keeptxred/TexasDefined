@@ -2,6 +2,7 @@ import fs from 'node:fs';
 
 const workflow = fs.readFileSync('.github/workflows/deploy-production.yml', 'utf8');
 const cloudflareSmoke = fs.readFileSync('.github/workflows/cloudflare-production-smoke.yml', 'utf8');
+const staleRecovery = fs.readFileSync('.github/workflows/recover-stale-production-deploy.yml', 'utf8');
 const health = fs.readFileSync('scripts/ci/verify-production-health.mjs', 'utf8');
 const capture = fs.readFileSync('scripts/ci/capture-active-worker-version.mjs', 'utf8');
 const restore = fs.readFileSync('.github/workflows/restore-verified-worker.yml', 'utf8');
@@ -9,7 +10,11 @@ const ledger = fs.readFileSync('scripts/ci/verified-worker-ledger.mjs', 'utf8');
 const premerge = fs.readFileSync('scripts/ci/run-premerge-validation.mjs', 'utf8');
 const smoke = fs.readFileSync('scripts/ci/verify-built-worker-ssr.mjs', 'utf8');
 const productionSurfaces = fs.readFileSync('scripts/ci/verify-production-surfaces.mjs', 'utf8');
+const cloudflareGitBuildWait = fs.readFileSync('scripts/ci/wait-for-cloudflare-git-build.mjs', 'utf8');
 const failures = [];
+if (!premerge.includes("'scripts/ci/wait-for-cloudflare-git-build.test.mjs'")) {
+  failures.push('Canonical premerge validation no longer runs the Cloudflare check-run retry regression tests.');
+}
 
 const workflowDirectory = '.github/workflows';
 const canonicalProductionDeployWorkflow = 'deploy-production.yml';
@@ -53,11 +58,41 @@ for (const entry of fs.readdirSync(workflowDirectory, { withFileTypes: true })) 
 const requireText = (source, needle, label) => {
   if (!source.includes(needle)) failures.push(`${label}: missing ${needle}`);
 };
+// Stale-deploy recovery must not duplicate an already queued, running or newer
+// successful canonical deployment for the exact current-main revision.
+for (const [needle, label] of [
+  ["SOURCE_FINISHED_AT: ${{ github.event.workflow_run.updated_at }}", "stale recovery completion-time provenance"],
+  ["actions/workflows/deploy-production.yml/runs?branch=main&per_page=100", "read existing canonical production workflow runs"],
+  [".head_sha == $current_sha", "exact current-main SHA matching"],
+  [".status == \"queued\"", "queued deployment deduplication"],
+  [".status == \"in_progress\"", "running deployment deduplication"],
+  [".conclusion == \"success\"", "verified successful deployment detection"],
+  [".updated_at >= $source_finished", "do not accept an older finished deployment"],
+  ["Refusing to dispatch blindly", "invalid GitHub API evidence fails closed"],
+  ["if [[ -n \"${EXISTING_RUN}\" ]]", "skip duplicate protected deployment"],
+  ["if: ${{ steps.freshness.outputs.stale == 'true' }}", "only dispatch when stale recovery is needed"],
+]) requireText(staleRecovery, needle, label);
+
+
+const pushTriggerStart = workflow.indexOf('  push:\n');
+const workflowDispatchStart = workflow.indexOf('  workflow_dispatch:', pushTriggerStart);
+const pushTriggerBlock = pushTriggerStart >= 0
+  ? workflow.slice(pushTriggerStart, workflowDispatchStart > pushTriggerStart ? workflowDispatchStart : workflow.length)
+  : '';
+if (!pushTriggerBlock.includes('branches:\n      - main')) {
+  failures.push('Production deployment must run for pushes to main.');
+}
+if (pushTriggerBlock.includes('\n    paths:') || pushTriggerBlock.includes('\n    paths-ignore:')) {
+  failures.push('Production deployment must not path-filter main pushes while Cloudflare Git integration can deploy every production-branch push.');
+}
 
 for (const [needle, label] of [
   ['group: texasdefined-production', 'serialized production deployment concurrency group'],
   ['cancel-in-progress: false', 'production deployment serialization must not cancel an active Worker replacement'],
   ['timeout 180s sudo apt-get update -qq', 'bounded ImageMagick apt metadata refresh'],
+  ['Dir::Etc::sourcelist="sources.list.d/ubuntu.sources"', 'governed image packages must refresh only official signed Ubuntu runner sources'],
+  ['Dir::Etc::sourceparts="-"', 'exclude unrelated broken third-party apt sources without skipping image safety gates'],
+  ['if [[ ! -f /etc/apt/sources.list.d/ubuntu.sources ]]', 'fail closed if official Ubuntu runner source unavailable'],
   ['timeout 180s sudo apt-get install -y --no-install-recommends imagemagick', 'bounded ImageMagick package install'],
   ['librsvg2-bin', 'install SVG delegate for governed Discover editorial images'],
   ['command -v rsvg-convert', 'require working SVG delegate before image materialization'],
@@ -88,6 +123,9 @@ for (const [needle, label] of [
   ['path: artifacts/predeploy-current-*', 'visible predeploy incident diagnostics upload'],
   ['id: predeploy_health', 'predeploy fail-closed health gate'],
   ['Current production is unhealthy; deploy blocked', 'predeploy fail-closed error'],
+  ['id: cloudflare_git_build', 'Cloudflare Git-build serialization step'],
+  ['node scripts/ci/wait-for-cloudflare-git-build.mjs', 'Cloudflare Git-build serialization command'],
+  ['DEPLOYMENT / CONCURRENCY', 'Cloudflare Git-build serialization failure classification'],
   ['deployments: write', 'verified Worker ledger permission'],
   ['id: deployed_worker_version', 'immediate post-deploy Worker version capture'],
   ['id: verified_worker_version', 'post-verification active Worker version capture'],
@@ -145,6 +183,25 @@ if (cloudflareSmoke.includes("assert 'Texas Regions Explained' in regions")) {
 requireText(cloudflareSmoke, String.raw`assert re.search(r'<h1\b', html, re.I)`, 'Cloudflare smoke canonical financial H1 regex');
 if (cloudflareSmoke.includes(String.raw`assert re.search(r'<h1\\b', html, re.I)`)) {
   failures.push('Cloudflare production smoke H1 detection must use a regex word boundary, not a literal escaped backslash.');
+}
+
+for (const [needle, label] of [
+  ["['/appraisal-district/lubbock-appraisal-district']='/property-tax/county/lubbock'", 'Lubbock appraisal-district legacy redirect smoke'],
+  ["['/tax-office/lubbock-tax-office']='/property-tax/county/lubbock'", 'Lubbock tax-office legacy redirect smoke'],
+  ["['/appraisal-district/harris-appraisal-district']='/property-tax/county/harris'", 'Harris appraisal-district legacy redirect smoke'],
+  ["['/tax-office/harris-tax-office']='/property-tax/county/harris'", 'Harris tax-office legacy redirect smoke'],
+  ["echo 'Legacy local-office redirects verified.'", 'legacy local-office redirect success marker'],
+  ["required={origin+'/texas-explained', origin+'/texas-resources', origin+'/article/texas-regions-explained', origin+'/property-tax/county/lubbock'}", 'canonical local-property sitemap requirement'],
+  ["'/appraisal-district/lubbock-appraisal-district',", 'legacy Lubbock appraisal URL sitemap exclusion'],
+  ["'/tax-office/lubbock-tax-office',", 'legacy Lubbock tax-office URL sitemap exclusion'],
+  ["'/appraisal-district/harris-appraisal-district',", 'legacy Harris appraisal URL sitemap exclusion'],
+  ["'/tax-office/harris-tax-office',", 'legacy Harris tax-office URL sitemap exclusion'],
+]) requireText(cloudflareSmoke, needle, label);
+
+for (const retired of ['lubbock_appraisal=get(', 'lubbock_tax=get(', 'harris_appraisal=get(', 'harris_tax=get(']) {
+  if (cloudflareSmoke.includes(retired)) {
+    failures.push(`Cloudflare production smoke must not follow legacy local-office redirects and treat their destination HTML as canonical page evidence: found ${retired}`);
+  }
 }
 
 for (const retired of ['CLOUDFLARE_ZONE_API_TOKEN', '$api/zones', '/dns_records', '/ai/run/']) {
@@ -258,23 +315,37 @@ const smokeIndex = workflow.indexOf('id: runtime_smoke');
 const predeployDirectIndex = workflow.indexOf('id: predeploy_direct_health');
 const predeployCanonicalIndex = workflow.indexOf('id: predeploy_canonical_health');
 const predeployGateIndex = workflow.indexOf('id: predeploy_health');
+const cloudflareGitBuildIndex = workflow.indexOf('id: cloudflare_git_build');
 const captureIndex = workflow.indexOf('id: rollback_target');
-const deployIndex = workflow.indexOf('id: cloudflare');
+const deployIndex = workflow.indexOf('id: cloudflare\n');
 if (
   smokeIndex < 0 ||
   predeployDirectIndex < 0 ||
   predeployCanonicalIndex < 0 ||
   predeployGateIndex < 0 ||
+  cloudflareGitBuildIndex < 0 ||
   captureIndex < 0 ||
   deployIndex < 0 ||
   smokeIndex > predeployDirectIndex ||
   predeployDirectIndex > predeployCanonicalIndex ||
   predeployCanonicalIndex > predeployGateIndex ||
-  predeployGateIndex > captureIndex ||
+  predeployGateIndex > cloudflareGitBuildIndex ||
+  cloudflareGitBuildIndex > captureIndex ||
   captureIndex > deployIndex
 ) {
-  failures.push('The built Worker smoke and current direct/canonical health gate must pass before rollback-target capture and Cloudflare deployment.');
+  failures.push('The built Worker smoke and current direct/canonical health gate must pass before Cloudflare Git-build serialization, rollback-target capture and protected Cloudflare deployment.');
 }
+
+for (const [needle, label] of [
+  ["const checkName = 'Workers Builds: texasdefined-site';", 'Cloudflare Git-build check name'],
+  ["const appSlug = 'cloudflare-workers-and-pages';", 'Cloudflare GitHub app identity'],
+  ["commits/${sha}/check-runs?per_page=100", 'Cloudflare Git-build GitHub check query'],
+  ["check.status !== 'completed'", 'Cloudflare Git-build completion gate'],
+  ["const transientHttpStatuses = new Set([429, 500, 502, 503, 504]);", 'transient GitHub check-run API retry classifications'],
+  ["const maxQueryAttempts = 4;", 'bounded transient GitHub API retries'],
+  ["refusing to assume the external build is absent", 'GitHub API outage must fail closed'],
+  ['refusing to race an external production deployment', 'Cloudflare Git-build timeout fail-closed behavior'],
+]) requireText(cloudflareGitBuildWait, needle, label);
 
 const deployedVersionIndex = workflow.indexOf('id: deployed_worker_version');
 const liveGateIndex = workflow.indexOf('id: live\n');
@@ -365,4 +436,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Production deployment safety passed: current production must be healthy before replacement, rollback targets are captured only after that gate, failed releases capture visible diagnostics and rollback, Cloudflare production smoke routes Workers API probes through the deploy-capable credential, verifies live public DNS/Cloudflare edge routing without privileged zone/DNS scope, and verifies Workers AI through the production binding instead of a broad REST token; targeted cache purge uses only its dedicated least-privilege credential while cache-busted live verification remains authoritative, live State Fair verification remains markup-agnostic, and fully verified Worker versions advance an immutable recovery ledger used by the manual restore workflow.');
+console.log('Production deployment safety passed: every main push enters the protected production workflow; any Cloudflare Git integration build for that SHA must settle before rollback-target capture and protected deployment; current production must be healthy before replacement; failed releases capture visible diagnostics and rollback; Cloudflare production smoke routes Workers API probes through the deploy-capable credential, verifies live public DNS/Cloudflare edge routing without privileged zone/DNS scope, and verifies Workers AI through the production binding instead of a broad REST token; targeted cache purge uses only its dedicated least-privilege credential while cache-busted live verification remains authoritative, live State Fair verification remains markup-agnostic, and fully verified Worker versions advance an immutable recovery ledger used by the manual restore workflow.');

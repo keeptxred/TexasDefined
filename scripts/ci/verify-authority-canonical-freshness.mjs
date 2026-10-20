@@ -4,15 +4,16 @@ const pages = [
     url: 'https://texasdefined.com/article/texas-rivers-explained',
     required: [
       'Texas Rivers Explained',
-      'Start with the map',
-      'Texas Rivers, Region by Region',
-      'Go Deeper on Five Major Texas Rivers',
+      'See how Texas rivers cross the state',
+      'How Texas Rivers Change Across the State',
+      'Explore All 15 Major Texas River Basins',
+      'Texas Rivers at a Glance',
       'Open the full 15-basin comparison',
     ],
     forbidden: [
       'Dedicated river profiles',
       "See Texas's Major Rivers on the Map",
-      'Texas rivers at a glance',
+
       'More stories to read next',
     ],
   },
@@ -42,6 +43,25 @@ const pages = [
     forbidden: ['Texas Landscapes guide'],
   },
   {
+    label: 'Katy District 22-6A game-week hub',
+    url: 'https://texasdefined.com/texas-high-school-football-districts/6a-district-22',
+    required: [
+      'Katy ISD District 22-6A Football',
+      'Katy ISD district game week',
+      'District records from reported games',
+      'not UIL-certified standings',
+      'Reported final scores',
+      'Scheduled / result awaiting verification',
+      'MaxPreps reported final',
+      'UIL alignment source',
+      'Katy Tompkins',
+    ],
+    forbidden: [
+      'Your district hub for the current UIL alignment',
+      'District 22-6A Football | Teams &amp; UIL Guide',
+    ],
+  },
+  {
     label: 'Six-man football',
     url: 'https://texasdefined.com/article/texas-six-man-football-rules-explained',
     required: [
@@ -49,8 +69,10 @@ const pages = [
       'How It Works',
       'Six-man at a glance',
       'How the exchange rule works',
+      'six-man-field-title',
+      '100 yards including end zones',
     ],
-    forbidden: [],
+    forbidden: ['80 yards × 40 yards · midfield at the 40'],
   },
   {
     label: 'Mountain biking',

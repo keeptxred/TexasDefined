@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { useEffect } from "react";
 
 import { Container } from "@/components/layout/Container";
 import { editorialImageSrc } from "@/lib/editorial-image-delivery";
@@ -13,7 +14,7 @@ type FairPhoto = {
 const commonsSource = (file: string) =>
   `https://commons.wikimedia.org/wiki/File:${encodeURIComponent(file.replaceAll(" ", "_"))}`;
 
-const commonsImage = (file: string, width = 1800) =>
+const commonsImage = (file: string, width = 1200) =>
   editorialImageSrc(
     `https://commons.wikimedia.org/wiki/Special:Redirect/file/${encodeURIComponent(file)}?width=${width}`,
   );
@@ -128,7 +129,7 @@ function StateFairLivePanel() {
 
           <div>
             <p className="eyebrow text-primary">{status}</p>
-            <h2 className="mt-2 font-display text-3xl md:text-4xl">Plan the day before you enter the gates</h2>
+            <h2 className="mt-2 font-display text-3xl md:text-4xl">{fairFinished ? "2026 Fair archive" : "Plan the day before you enter the gates"}</h2>
             <p className="mt-4 leading-7 text-muted-foreground">September 25–October 18, 2026 · Fair Park, Dallas</p>
             <div className="mt-6 grid gap-5 sm:grid-cols-2">
               <div className="border border-border bg-background p-5"><p className="text-xs leading-5 text-muted-foreground">Sunday–Thursday</p><p className="mt-2 font-display text-3xl">10 AM–9 PM</p></div>
@@ -137,12 +138,12 @@ function StateFairLivePanel() {
               <div className="border border-border bg-background p-5"><p className="text-xs leading-5 text-muted-foreground">Midway</p><p className="mt-2 font-display text-3xl">11 AM most days</p></div>
             </div>
             <div className="mt-6 flex flex-wrap gap-3">
-              <a href="https://bigtex.com/schedule/" target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90">Today’s schedule ↗</a>
-              <a href="https://bigtex.com/buy-tickets-new/" target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center rounded-md border border-border px-5 py-3 text-sm font-semibold hover:bg-muted">Tickets ↗</a>
+              <a href="https://bigtex.com/schedule/" target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90">{fairFinished ? "Organizer schedule ↗" : "Today’s schedule ↗"}</a>
+              <a href={fairFinished ? "https://bigtex.com/" : "https://bigtex.com/buy-tickets-new/"} target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center rounded-md border border-border px-5 py-3 text-sm font-semibold hover:bg-muted">{fairFinished ? "Future ticket updates ↗" : "Tickets ↗"}</a>
               <a href="https://bigtex.com/plan-your-visit/getting-here/" target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center rounded-md border border-border px-5 py-3 text-sm font-semibold hover:bg-muted">DART & parking ↗</a>
               <a href="https://bigtex.com/plan-your-visit/" target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center rounded-md border border-border px-5 py-3 text-sm font-semibold hover:bg-muted">Visitor guide ↗</a>
             </div>
-            <p className="mt-4 text-xs leading-5 text-muted-foreground">Hours and operations can change for weather or special circumstances. Check the official schedule before leaving.</p>
+            <p className="mt-4 text-xs leading-5 text-muted-foreground">{fairFinished ? "2026 Fair ended. Confirm future dates." : "Hours can change. Verify before visiting."}</p>
           </div>
         </div>
       </Container>
@@ -151,6 +152,16 @@ function StateFairLivePanel() {
 }
 
 export function StateFairPlanningStrip() {
+  // RootShell may commit before this lazy route hydrates. Make DOM-owned
+  // affiliate integrations wait until the State Fair slot itself is mounted.
+  useEffect(() => {
+    document.documentElement.dataset.tdStateFairHydrated = "1";
+    window.dispatchEvent(new Event("texasdefined:state-fair-hydrated"));
+    return () => {
+      delete document.documentElement.dataset.tdStateFairHydrated;
+    };
+  }, []);
+  const fairFinished = Date.now() >= Date.parse("2026-10-19T00:00:00-05:00");
   return (
     <>
       <StateFairLivePanel />
@@ -160,9 +171,9 @@ export function StateFairPlanningStrip() {
             <div>
               <p className="eyebrow text-primary">Plan the visit</p>
               <h2 className="mt-2 font-display text-3xl md:text-4xl">Tickets, football and a place to stay</h2>
-              <p className="mt-4 max-w-3xl leading-7 text-muted-foreground">Buy Fair admission directly from the State Fair of Texas. If you are coming for a Cotton Bowl game, use the dedicated event guide for game-day timing, then use this page for food, rides and Fair planning.</p>
+              <p className="mt-4 max-w-3xl leading-7 text-muted-foreground">{fairFinished ? "The 2026 Fair ended. Check the organizer for next year's tickets." : "Buy Fair admission officially. Use game guides for Cotton Bowl visits."}</p>
               <div className="mt-6 flex flex-wrap gap-3">
-                <a href="https://bigtex.com/buy-tickets-new/" target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90" data-state-fair-official-ticket-cta>Buy State Fair tickets ↗</a>
+                <a href={fairFinished ? "https://bigtex.com/" : "https://bigtex.com/buy-tickets-new/"} target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90" data-state-fair-official-ticket-cta>{fairFinished ? "Future ticket updates ↗" : "Buy State Fair tickets ↗"}</a>
                 <Link to="/event/state-fair-classic" className="inline-flex min-h-11 items-center rounded-md border border-border px-5 py-3 text-sm font-semibold hover:bg-muted">State Fair Classic guide</Link>
                 <Link to="/event/red-river-rivalry" className="inline-flex min-h-11 items-center rounded-md border border-border px-5 py-3 text-sm font-semibold hover:bg-muted">Red River Rivalry guide</Link>
               </div>
@@ -178,7 +189,60 @@ export function StateFairPlanningStrip() {
             <div className="mt-6 flex gap-4 overflow-x-auto pb-4" aria-label="State Fair of Texas featured photos">
               {featuredPhotos.map((photo, index) => <div key={photo.file} style={{ flex: "0 0 min(82vw, 18rem)" }}><PhotoCard photo={photo} eager={index === 0} /></div>)}
             </div>
-            <p className="mt-2 text-xs leading-5 text-muted-foreground">These archival images are independently licensed through Wikimedia Commons. For current-year photography, use the State Fair’s official media galleries.</p>
+            <p className="mt-2 text-xs leading-5 text-muted-foreground">The carousel preserves licensed 2019 archive images; the separate September 2026 photo below is CC0. The Fair also publishes official media galleries.</p>
+            <div className="mt-10 max-w-4xl" data-state-fair-2026-licensed-photo>
+              <p className="eyebrow text-primary">Photographed in September 2026</p>
+              <h3 className="mt-2 font-display text-2xl">The 2026 Midway from above</h3>
+              <figure className="mt-4 overflow-hidden border border-border bg-background">
+                <img
+                  src={commonsImage("The Midway of the State Fair of Texas 2026.png", 960)}
+                  alt="2026 State Fair of Texas Midway, tents and Dallas skyline viewed from the Top o' Texas Tower"
+                  className="w-full object-cover"
+                  style={{ aspectRatio: "3 / 2" }}
+                  loading="lazy"
+                  decoding="async"
+                />
+                <figcaption className="space-y-1 px-4 py-3 text-xs leading-5 text-muted-foreground">
+                  September 28, 2026 · View from the Top o' Texas Tower. Photo: IcedCowboyCoffee ·{" "}
+                  <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noreferrer" className="underline underline-offset-2">CC0 1.0</a>
+                  {" "}·{" "}
+                  <a href={commonsSource("The Midway of the State Fair of Texas 2026.png")} target="_blank" rel="noreferrer" className="underline underline-offset-2">Wikimedia Commons source</a>
+                  {" "}· Display-cropped for layout.
+                </figcaption>
+              </figure>
+            </div>
+            <div className="mt-10 max-w-4xl" data-state-fair-2026-bigtex-gallery>
+              <p className="eyebrow text-primary">Big Tex during the 2026 Fair</p>
+              <h3 className="mt-2 font-display text-2xl">Big Tex's 2026 look, from two angles</h3>
+              <p className="mt-4 max-w-3xl leading-7 text-muted-foreground">
+                Two independently published, openly licensed photographs document Big Tex during the completed 2026 season.
+                Unlike the 2019 historical archive, both images were taken in October 2026.
+              </p>
+              <div className="mt-6 grid gap-5 sm:grid-cols-2">
+                {[
+                  { file: "Big Tex (northwest view, 2026).jpg", alt: "Big Tex at the October 2026 State Fair of Texas, seen from the northwest", view: "Northwest view" },
+                  { file: "Big Tex (northeast view, 2026).jpg", alt: "Big Tex at the October 2026 State Fair of Texas, seen from the northeast", view: "Northeast view" },
+                ].map((photo) => (
+                  <figure key={photo.file} className="overflow-hidden border border-border bg-background">
+                    <img
+                      src={commonsImage(photo.file, 720)}
+                      alt={photo.alt}
+                      className="w-full object-cover"
+                      style={{ aspectRatio: "3 / 4" }}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <figcaption className="space-y-1 px-4 py-3 text-xs leading-5 text-muted-foreground">
+                      {photo.view}, October 2026 · Photo: Texan29CleburnePhotographer ·{" "}
+                      <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noreferrer" className="underline underline-offset-2">CC0 1.0</a>
+                      {" "}·{" "}
+                      <a href={commonsSource(photo.file)} target="_blank" rel="noreferrer" className="underline underline-offset-2">Wikimedia Commons original</a>
+                      {" "}· Display-cropped for layout.
+                    </figcaption>
+                  </figure>
+                ))}
+              </div>
+            </div>
           </div>
         </Container>
       </section>

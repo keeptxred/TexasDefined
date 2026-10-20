@@ -38,7 +38,9 @@ export const Route = createFileRoute(canonicalPath)({
   head: () => ({
     meta: buildMeta(texasDefinedBrand, { canonicalPath, title: "Texas Painted Churches Timeline", description }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
-    scripts: [jsonLd({ "@context": "https://schema.org", "@type": "ItemList", "@id": `${pageUrl}#timeline`, name: "Texas Painted Churches chronology", numberOfItems: events.length, itemListElement: events.map(([date, name, text], index) => ({ "@type": "ListItem", position: index + 1, item: { "@type": "Event", name, description: text, startDate: date.length === 4 ? `${date}-01-01` : undefined } })) })],
+    // Historical milestones are reference material, not scheduled visitor events.
+    // Preserve the source's date precision instead of inventing January 1 dates.
+    scripts: [jsonLd({ "@context": "https://schema.org", "@type": "ItemList", "@id": `${pageUrl}#timeline`, name: "Texas Painted Churches chronology", numberOfItems: events.length, itemListElement: events.map(([date, name, text], index) => ({ "@type": "ListItem", position: index + 1, item: { "@type": "CreativeWork", name, description: `${date}: ${text}` } })) })],
   }),
   component: TimelinePage,
 });

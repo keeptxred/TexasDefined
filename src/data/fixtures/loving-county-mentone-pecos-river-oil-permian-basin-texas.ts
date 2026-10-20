@@ -33,6 +33,7 @@ export const lovingCountyMentonePecosRiverOilPermianBasinTexasArticle: Article =
   ],
   featured: false,
   internalLinks: [
+    { href: "/article/texas-pecos-river-guide", label: "Texas pecos  River guide", description: "Access, river history, appropriate recreation, camping and verified current-source checks." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county reference pages and enriched county guides." },
     { href: "/county/reeves", label: "Explore Reeves County", description: "Follow the Pecos south toward Pecos, Balmorhea and the Trans-Pecos." },
     { href: "/county/winkler", label: "Explore Winkler County", description: "Continue east toward Kermit, Wink and another classic Permian Basin oil story." },

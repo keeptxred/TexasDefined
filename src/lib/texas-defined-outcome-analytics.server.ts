@@ -154,13 +154,26 @@ function numericScore(value: unknown) {
   return Math.max(-1_000_000, Math.min(1_000_000, score));
 }
 
-function analyticsIndex(event: string, resourceId: string, entityKind: string) {
+function analyticsIndex(event: string, resourceId: string, entityKind: string, path = "") {
   const suffix = resourceId || entityKind || "site";
-  return `${event}:${suffix}`
+  const base = `${event}:${suffix}`
     .toLowerCase()
     .replace(/[^a-z0-9:._-]+/g, "-")
-    .replace(/-+/g, "-")
-    .slice(0, 90);
+    .replace(/-+/g, "-");
+  // Cloudflare Analytics Engine samples independently per index. Partner-only
+  // indexing mixes all page paths and exaggerates rare page-level attribution
+  // when SUM(_sample_interval) is split back out by page.
+  // Only commercial impressions/clicks need page-cohort accuracy: leave all
+  // other event indexes and the total number of writeDataPoint calls unchanged.
+  if ((event === "partner_referral_shown" || event === "partner_referral_clicked") && path) {
+    let pageHash = 2166136261;
+    for (let i = 0; i < path.length; i++) {
+      pageHash = Math.imul(pageHash ^ path.charCodeAt(i), 16777619) >>> 0;
+    }
+    const discriminator = `:${pageHash.toString(16).padStart(8, "0")}`;
+    return `${base.slice(0, 90 - discriminator.length)}${discriminator}`;
+  }
+  return base.slice(0, 90);
 }
 
 function normalizeEvent(value: unknown): OutcomeEvent | null {
@@ -205,7 +218,7 @@ function writeEvent(dataset: AnalyticsDataset, event: OutcomeEvent) {
       event.acquisitionSource || "",
     ],
     doubles: [1, event.score || 0],
-    indexes: [analyticsIndex(event.event, resourceId, entityKind)],
+    indexes: [analyticsIndex(event.event, resourceId, entityKind, event.path || "")],
   });
 }
 

@@ -116,7 +116,9 @@ for (const marker of [
 for (const marker of [
   'failedImage',
   'setFailedImage',
-  'const showImage = failedImage !== image',
+  'const showImage = failedImage !== displayImage',
+  'src={displayImage}',
+  'onError={() => setFailedImage(displayImage)}',
   'Product image unavailable.',
 ]) requireMarker('product detail', marker);
 

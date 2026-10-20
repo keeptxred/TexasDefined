@@ -1,0 +1,36 @@
+name: TPWD Strict TLS Transport Diagnostic
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/ci/diagnose-tpwd-tls.mjs"
+      - ".github/workflows/tpwd-strict-tls-transport.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tpwd-strict-transport
+  cancel-in-progress: false
+
+jobs:
+  source-transport:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Inspect strict TLS and four primary TPWD sources
+        run: node scripts/ci/diagnose-tpwd-tls.mjs
+      - name: Preserve full diagnostic evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tpwd-strict-tls-diagnostic
+          path: .artifacts/tpwd-tls-transport-diagnostic.json
+          if-no-files-found: warn
+          retention-days: 14

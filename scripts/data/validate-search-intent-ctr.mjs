@@ -242,7 +242,7 @@ for (const required of [
   '/article/texas-rivers-explained',
   '/article/texas-river-basins-guide',
   '/article/texas-lakes-reservoirs-explained',
-  'Individual rivers, boundary rivers, regions and where the water flows.',
+  'Major rivers, border rivers, regional differences and where the water goes.',
   'The land that drains into each river, including the boundaries that separate one river system from another.',
   'Why most familiar inland Texas lakes are reservoirs and how managed water works.',
 ]) {

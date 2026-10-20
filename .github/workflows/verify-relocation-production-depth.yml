@@ -1,18 +1,6 @@
 name: Verify relocation production depth
 
 on:
-  pull_request:
-    paths:
-      - '.github/workflows/verify-relocation-production-depth.yml'
-      - 'src/data/fixtures/relocation-evergreen-depth*.ts'
-      - 'src/data/fixtures/lazy-migrated-editorial.ts'
-  push:
-    branches:
-      - main
-    paths:
-      - '.github/workflows/verify-relocation-production-depth.yml'
-      - 'src/data/fixtures/relocation-evergreen-depth*.ts'
-      - 'src/data/fixtures/lazy-migrated-editorial.ts'
   workflow_dispatch:
 
 permissions:
@@ -20,8 +8,11 @@ permissions:
 
 jobs:
   verify:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    env:
+      DEPLOY_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
     steps:
       - name: Verify live relocation guides use depth records
         env:
@@ -29,7 +20,7 @@ jobs:
         run: |
           node <<'NODE'
           const origin = process.env.PRODUCTION_ORIGIN;
-          const revision = `${process.env.GITHUB_SHA}-${process.env.GITHUB_RUN_ID}`;
+          const revision = `${process.env.DEPLOY_SHA}-${process.env.GITHUB_RUN_ID}`;
           const minReadingMinutes = 3;
           const checks = [
             {
@@ -50,7 +41,13 @@ jobs:
             {
               label: 'El Paso',
               path: '/article/moving-to-el-paso-guide',
-              depthNeedle: 'Water belongs in the housing budget',
+              depthNeedle: 'Which part of El Paso should you live in?',
+              extraNeedles: [
+                'Moving to El Paso, Texas:',
+                'El Paso at a glance: costs and commuting',
+                'El_Paso_skyline.jpg',
+                'El Paso Water rates and fees',
+              ],
             },
           ];
 
@@ -68,14 +65,16 @@ jobs:
             });
             const body = await response.text();
             const depthPresent = body.includes(check.depthNeedle);
+            const missingExtraNeedles = (check.extraNeedles ?? []).filter((needle) => !body.includes(needle));
             const readingTimeMatch = body.match(/About\s+(\d+)\s+minutes?/i);
             const readingMinutes = readingTimeMatch ? Number(readingTimeMatch[1]) : 0;
             const readingTimeHealthy = readingMinutes >= minReadingMinutes;
 
-            if (!response.ok || !depthPresent || !readingTimeHealthy) {
+            if (!response.ok || !depthPresent || !readingTimeHealthy || missingExtraNeedles.length > 0) {
               failed = true;
               const problems = [
                 !depthPresent ? `missing depth marker: ${check.depthNeedle}` : null,
+                ...missingExtraNeedles.map((needle) => `missing authority marker: ${needle}`),
                 !readingTimeMatch ? 'missing rendered reading-time byline' : null,
                 readingTimeMatch && !readingTimeHealthy
                   ? `rendered reading time ${readingMinutes}m is below ${minReadingMinutes}m minimum`

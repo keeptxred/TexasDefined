@@ -24,6 +24,8 @@ export const frioCountyPearsallDilleyFrioRiverWinterGardenArticle: Article = {
   tags: ["Frio County", "Pearsall Texas", "Dilley Texas", "Frio River", "Winter Garden", "South Texas ranching", "Interstate 35", "Texas history", "Texas counties"],
   featured: false,
   internalLinks: [
+    { href: "/article/texas-frio-river-guide", label: "Frio River: upper and lower reaches", description: "Follow the connected river corridor with TPWD-sourced access, angling, camping and tourism guidance." },
+
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
     { href: "/county/atascosa", label: "Explore Atascosa County", description: "Continue east toward Jourdanton, Pleasanton and the Atascosa River." },
     { href: "/county/la-salle", label: "Explore La Salle County", description: "Follow I-35 south toward Cotulla and the Nueces River." },

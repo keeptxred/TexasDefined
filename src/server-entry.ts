@@ -99,6 +99,14 @@ function withWorkerVersionHeader(response: Response, env: unknown) {
 
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
+    if (request.method === "POST" && ["/api/public/network-application", "/api/public/network-checkout", "/api/public/network-billing"].includes(new URL(request.url).pathname)) {
+      const limiter = typeof env === "object" && env !== null ? Reflect.get(env, "TEXAS_DEFINED_NETWORK_RATE_LIMITER") : null;
+      if (!limiter || typeof limiter !== "object") return new Response("Service temporarily unavailable", { status: 503 });
+      const check = Reflect.get(limiter, "limit");
+      if (typeof check !== "function") return new Response("Service temporarily unavailable", { status: 503 });
+      const rate = await Reflect.apply(check, limiter, [{ key: new URL(request.url).pathname + ":" + (request.headers.get("cf-connecting-ip") || "unknown") }]);
+      if (!rate?.success) return new Response("Too many requests", { status: 429 });
+    }
     const newsletterApiResponse = await texasDefinedNewsletterApiResponse(request);
     if (newsletterApiResponse) return newsletterApiResponse;
 

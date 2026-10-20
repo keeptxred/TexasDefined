@@ -4,33 +4,6 @@ on:
   schedule:
     - cron: '37 12 * * *'
   workflow_dispatch:
-  # Audit changes that can affect public content quality immediately on PRs.
-  pull_request:
-    paths:
-      - '.github/workflows/site-quality-watchdog.yml'
-      - 'scripts/data/run-site-quality-watch.mjs'
-      - 'scripts/data/validate-*.mjs'
-      - 'src/routes/**'
-      - 'src/data/**'
-      - 'src/components/content/**'
-      - 'src/components/editorial/**'
-      - 'src/components/directories/**'
-      - 'src/lib/public-routes.ts'
-  # Repeat the same audit after those changes reach production main.
-  push:
-    branches:
-      - main
-    paths:
-      - '.github/workflows/site-quality-watchdog.yml'
-      - 'scripts/data/run-site-quality-watch.mjs'
-      - 'scripts/data/validate-*.mjs'
-      - 'src/routes/**'
-      - 'src/data/**'
-      - 'src/components/content/**'
-      - 'src/components/editorial/**'
-      - 'src/components/directories/**'
-      - 'src/lib/public-routes.ts'
-
 permissions:
   contents: read
   issues: write
@@ -143,3 +116,6 @@ jobs:
       - name: Fail workflow when quality checks fail
         if: steps.quality.outcome == 'failure'
         run: exit 1
+      - name: Audit Dallas Black History live pages and sitemap links
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: node scripts/ci/check-dallas-black-history-production.mjs

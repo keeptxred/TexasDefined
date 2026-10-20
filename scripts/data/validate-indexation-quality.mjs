@@ -18,6 +18,12 @@ const financeEvergreenDepth = fs.readFileSync('src/data/fixtures/finance-evergre
 const financeEvergreenDepth2 = fs.readFileSync('src/data/fixtures/finance-evergreen-depth-2.ts', 'utf8');
 const entityRoute = fs.readFileSync('src/routes/$kind.$slug.tsx', 'utf8');
 const countyRoute = fs.readFileSync('src/routes/property-tax.county.$county.tsx', 'utf8');
+const regionalStubs = fs.readFileSync('src/data/fixtures/regional-authority-stubs.ts', 'utf8');
+const regionalArticleBodies = fs.readFileSync('src/data/fixtures/regional-authority-guides.ts', 'utf8');
+const regionalArticleEnrichment = fs.readFileSync('src/data/fixtures/regional-authority-enrichment.ts', 'utf8');
+const regionalIndexRegistration = fs.readFileSync('src/data/fixtures/lazy-texas-core-articles.ts', 'utf8');
+const regionalHubRoute = fs.readFileSync('src/routes/explore.region.$region.tsx', 'utf8');
+const regionalScenicRedirect = fs.readFileSync('src/routes/explore.texas-scenic-drives.tsx', 'utf8');
 const failures = [];
 
 const section = (name) => registry.match(new RegExp(`export const ${name} = \\[([\\s\\S]*?)\\] as const;`))?.[1] ?? '';
@@ -184,10 +190,32 @@ if (!entityRoute.includes('isIndexableEntityPage')) failures.push('Generic entit
 if (!entityRoute.includes('robots: indexable ? undefined :') || !entityRoute.includes('noindex, follow')) failures.push('Generic entity pages must emit a noindex directive when the quality gate fails.');
 if (!countyRoute.includes('isCountyPropertyIndexReady')) failures.push('County indexation gate missing: isCountyPropertyIndexReady.');
 if (!countyRoute.includes('robots: indexReady ? undefined :') || !countyRoute.includes('noindex, follow')) failures.push('County pages must emit a noindex directive when the quality gate fails.');
+if (!sitemap.includes('hasCountySeriesProfileServer(entity.slug)')) failures.push('County sitemap must require the same editorial-profile gate as its canonical page.');
 for (const feature of ['graph.filter(isIndexableEntityPage)', 'COUNTY_PROPERTY_RECORDS.filter(isCountyPropertyIndexReady)']) if (!sitemap.includes(feature)) failures.push(`Primary sitemap quality gate missing: ${feature}`);
 for (const feature of ['isPrimaryTripPlannerDestination(destination)', 'auditDestination(destination).readyForIndexing']) if (!exploreSitemap.includes(feature)) failures.push(`Explore sitemap destination quality gate missing: ${feature}`);
 if (!sitemap.includes('.filter((path) => !isExploreSitemapOwnedPath(path))')) failures.push('Primary sitemap must exclude Explore-owned static paths.');
 if (!exploreSitemap.includes('!isExploreSitemapOwnedPath(normalized)')) failures.push('Explore sitemap must reject paths outside its owned crawl namespace.');
+
+// The statewide regional authority pages must be discoverable through the same
+// canonical article/sitemap/structured-data machinery as the rest of TexasDefined.
+for (const slug of ['scenic-drives-in-texas', 'texas-wine-country', 'texas-german-belt']) {
+  if (!regionalStubs.includes(`slug: "${slug}"`)) failures.push(`SEO: missing canonical indexed regional article stub: ${slug}`);
+  if (!regionalArticleBodies.includes(`"slug": "${slug}"`)) failures.push(`SEO: missing full regional authority body: ${slug}`);
+  if (!regionalArticleEnrichment.includes(`"${slug}":`)) failures.push(`SEO: missing source-rich regional editorial section: ${slug}`);
+}
+for (const marker of [
+  'texasCoreArticleStubs.push(...regionalAuthorityArticleStubs)',
+  'regionalAuthoritySlugs.has(slug)',
+]) if (!regionalIndexRegistration.includes(marker)) failures.push(`SEO: regional guide discovery/loading missing: ${marker}`);
+for (const marker of [
+  'canonicalLink(texasDefinedBrand, canonicalPath)',
+  '"@type": "Article"',
+  '"@type": "BreadcrumbList"',
+  'dateModified: article.updatedAt ?? article.publishedAt',
+  'article.hero.alt',
+]) if (!articleRoute.includes(marker)) failures.push(`SEO: shared article canonical/schema/image contract missing: ${marker}`);
+if (!regionalHubRoute.includes('RegionAuthorityGuide')) failures.push('SEO: the seven canonical Explore regions must retain their unique regional authority sections.');
+if (!regionalScenicRedirect.includes('/article/scenic-drives-in-texas')) failures.push('SEO: legacy Scenic Drives must redirect to the canonical statewide authority URL.');
 
 if (failures.length) {
   console.error('Indexation quality validation failed:');

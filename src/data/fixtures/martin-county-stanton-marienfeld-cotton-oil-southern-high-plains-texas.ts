@@ -60,8 +60,8 @@ export const martinCountyStantonMarienfeldCottonOilSouthernHighPlainsTexasArticl
       description: "See how distance, settlement and local government produced Texas's unusually large county map.",
     },
     {
-      href: "/article/texas-oil-boom-history-spindletop-permian-basin",
-      label: "Texas oil history",
+      href: "/texas-industries/energy-power",
+      label: "Texas energy industry",
       description: "Place Martin County's petroleum story in the larger history of Texas oil development.",
     },
   ],

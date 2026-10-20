@@ -10,7 +10,7 @@ for (const slug of [
   "texas-homeowner-field-manual",
   "texas-home-maintenance-calendar",
   "prepare-texas-house-freeze",
-  "texas-hurricane-preparation-guide",
+  "texas-hurricane-preparation-homeowners-renters",
   "how-to-choose-electricity-plan-texas",
 ]) {
   const existing = articleInternalLinks[slug] ?? [];

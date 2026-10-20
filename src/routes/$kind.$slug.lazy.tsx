@@ -1,9 +1,18 @@
+import lakeGuidesNearCity from "@/data/fishing/city-lake-links.generated.json";
 import { lazy, Suspense, useEffect } from 'react';
 import { createLazyFileRoute } from '@tanstack/react-router';
 import { AutoEntityLinks } from '@/components/content/AutoEntityLinks';
+import { CountyStateParks } from '@/components/content/CountyStateParks';
 import { CountyCoastalPlaces } from '@/components/content/CountyCoastalPlaces';
+import { CountyInlandSwimmingBeaches } from '@/components/content/CountyInlandSwimmingBeaches';
+import { CountyVisitorPlaces } from '@/components/content/CountyVisitorPlaces';
+import { CountyWaterParks } from '@/components/content/CountyWaterParks';
+import { CountyTownAuthorityLinks } from '@/components/content/CountyTownAuthorityLinks';
+import { CountyCityMuseums } from '@/components/content/CountyCityMuseums';
 import { CountyGuideSections } from '@/components/content/CountyGuideSections';
 import { EntityDepthSections } from '@/components/content/EntityDepthSections';
+import { ElPasoMetroGuide, ElPasoAreaCrossLinks } from '@/components/content/ElPasoAreaAuthority';
+import { elPasoCountyHero } from '@/data/el-paso-county-hero';
 import { WildlifeDepthSections } from '@/components/content/WildlifeDepthSections';
 import { Container } from '@/components/layout/Container';
 import { CountySportsDestinations } from '@/components/sports/CountySportsDestinations';
@@ -29,8 +38,52 @@ const CountyHighSchoolFootball = lazy(() =>
   })),
 );
 
+// Independently sourced municipal associations for verified Batch 002 and Batch 003
+// campuses with an existing canonical TexasDefined city guide.
+const batch002FootballCityLinks: Record<string, { name: string; slug: string; context: string }[]> = {
+  austin: [
+    { name: 'Austin High Maroons', slug: 'austin', context: '1942 state champion, House Park heritage' },
+    { name: 'Austin Achieve Polar Bears', slug: 'austin-achieve', context: 'Charter campus inside Austin full-purpose municipal limits, verified with TEA and city GIS' },
+    { name: 'Vandegrift Vipers', slug: 'austin-vandegrift', context: 'Leander ISD campus inside Austin full-purpose municipal limits; 2024 state title' },
+    { name: 'Akins Eagles', slug: 'austin-akins', context: 'Burger Stadium varsity calendar' },
+    { name: 'Anderson Trojans', slug: 'austin-anderson', context: '2025 10–2 playoff season' },
+    { name: 'Bowie Bulldogs', slug: 'austin-bowie', context: 'Coach Jeff Ables and Bowie traditions' },
+    { name: 'Crockett Cougars', slug: 'austin-crockett', context: 'Burger Stadium home fixtures' },
+    { name: 'Eastside Panthers', slug: 'austin-eastside', context: 'Eastside Early College football' },
+    { name: 'LBJ Jaguars', slug: 'austin-johnson', context: '2021 4A Division I state runner-up' },
+    { name: 'LASA Raptors', slug: 'austin-lasa', context: 'Raptors varsity football calendar' },
+    { name: 'McCallum Knights', slug: 'austin-mccallum', context: '2025 6–4 football season' },
+    { name: 'Navarro Vikings', slug: 'austin-navarro', context: '2026 homecoming and Senior Night' },
+    { name: 'Northeast Raiders', slug: 'austin-northeast', context: 'Reagan-era 1967, 1968 and 1970 titles' },
+    { name: 'Travis Rebels', slug: 'austin-travis', context: '2026 cross-city stadium schedule' },
+  ],
+  // Batch 003: current Arlington ISD school directory confirms all six city campuses.
+  arlington: [
+    { name: 'Arlington High Colts', slug: 'arlington', context: '1951 UIL state title and the Colts football tradition' },
+    { name: 'Bowie Volunteers', slug: 'arlington-bowie', context: 'Crossing the Line tradition and Choctaw game-day guide' },
+    { name: 'Sam Houston Texans', slug: 'arlington-houston', context: 'Texans football history and sourced 2026 season context' },
+    { name: 'Lamar Vikings', slug: 'arlington-lamar', context: '1990 state-final run and Vikings coaches' },
+    { name: 'Martin Warriors', slug: 'arlington-martin', context: 'Postseason history and Glaspie Field background' },
+    { name: 'Seguin Cougars', slug: 'arlington-seguin', context: 'Separate 5A Division II program and Glaspie Field context' },
+  ],
+  houston: [
+    { name: 'Alief Elsik Rams', slug: 'alief-elsik', context: 'Houston Alief ISD football, with sourced 2026 program and postseason history.' },
+    { name: 'Alief Hastings Fighting Bears', slug: 'alief-hastings', context: 'The Houston program’s verified 1997 state-final appearance and current district context.' },
+    { name: 'Alief Taylor Lions', slug: 'alief-taylor', context: 'Houston Alief ISD campus, current UIL placement and dated team results.' },
+  ],
+  'fort-worth': [
+    { name: 'All Saints Episcopal Saints', slug: 'all-saints-fort-worth', context: 'Fort Worth school and McNair Stadium, with sourced TAPPS championship history.' },
+  ],
+};
+
 // Exactly five independently researched football authority entries; campus county, not postal city or school-district footprint.
 const batch001FootballCountyLinks: Record<string, { name: string; href: string; description: string; campusCountySource: string }> = {
+  knox: {
+    name: 'Benjamin Mustangs',
+    href: '/texas-high-school-football-teams/benjamin',
+    description: 'Explore Benjamin ISD\'s 2022 and 2023 six-man titles, 2026 game reports and stadium visit information.',
+    campusCountySource: 'https://www.benjaminisd.net/',
+  },
   'van-zandt': {
     name: 'Wills Point Tigers',
     href: '/texas-high-school-football-teams/wills-point',
@@ -55,12 +108,187 @@ const batch001FootballCountyLinks: Record<string, { name: string; href: string; 
     description: 'Read the 2003 six-man championship-game history and the district’s announced cancellation of its 2026 season.',
     campusCountySource: 'https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?DistrictID=4820100&ID=482010001962&Search=1',
   },
+  taylor: {
+    name: 'Abilene High Eagles',
+    href: '/texas-high-school-football-teams/abilene',
+    description: 'Explore Abilene High’s seven state football titles, historic 49-game winning streak and Shotwell Stadium visitor information.',
+    campusCountySource: 'https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=480744000010',
+  },
+  nueces: {
+    name: 'Agua Dulce Longhorns',
+    href: '/texas-high-school-football-teams/agua-dulce',
+    description: 'Read the Longhorns’ 2026 coaching, recent playoffs and state-registered football-field improvement research before planning a game-day visit.',
+    campusCountySource: 'https://www.tdlr.texas.gov/TABS/Search/Print/TABS2026016320',
+  },
+  harris: {
+    name: 'Alief Elsik Rams',
+    href: '/texas-high-school-football-teams/alief-elsik',
+    description: 'Explore Elsik’s 1990s UIL postseason record, 2026 coaching research and Alief district football.',
+    campusCountySource: 'https://www.maxpreps.com/tx/houston/alief-elsik-rams/football/schedule/',
+  },
+  'jim-wells': {
+    name: 'Alice Coyotes',
+    href: '/texas-high-school-football-teams/alice',
+    description: 'Explore Alice’s September 2026 Memorial Stadium, Joe Castellano and current district competition.',
+    campusCountySource: 'https://www.tdlr.texas.gov/TABS/Search/Project/TABS2025013898',
+  },
+  parker: {
+    name: 'Aledo Bearcats',
+    href: '/texas-high-school-football-teams/aledo',
+    description: 'Discover twelve UIL titles, the 2026 Class 6A transition and Tim Buchanan Stadium.',
+    campusCountySource: 'https://ahs.aledoisd.org/parents-students/aledo-high-school-graduation-information/class-of-2026-graduation',
+  },
+  shackelford: {
+    name: 'Albany Lions',
+    href: '/texas-high-school-football-teams/albany',
+    description: 'Research Albany’s four championships, coach Denney Faith and Robert Nail Stadium.',
+    campusCountySource: 'https://rptsvr1.tea.texas.gov/cgi/sas/broker?_debug=0&_program=perfrept.perfmast.sas&_service=marykay&ccyy=2026&dds_report=D9&id=209901001&lev=C&prgopt=reports%2Facct%2Fdistinctions.sas',
+  },
+  wood: {
+    name: 'Alba-Golden Panthers',
+    href: '/texas-high-school-football-teams/alba-golden',
+    description: 'Read about the Panthers’ 2023 seven-win season, Drew Webster and 2026 district.',
+    campusCountySource: 'https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?County=Wood+County&ID=480765000053&Search=1&State=48',
+  },
+  dawson: {
+    name: 'Ackerly Sands Mustangs',
+    href: '/texas-high-school-football-teams/ackerly-sands',
+    description: 'Discover the Ackerly Sands six-man tradition, 2025 area-round heartbreak, 2026 Billy Grumbles coaching change and UIL Division I opponents.',
+    campusCountySource: 'https://nces.ed.gov/ccd/districtsearch/district_detail.asp?ID2=4839120&Miles=20&Search=1&Zip=79749',
+  },
+  hale: {
+    name: 'Abernathy Antelopes',
+    href: '/texas-high-school-football-teams/abernathy',
+    description: 'Explore Abernathy’s historic 1980s district-title streak, 2016 state-semifinal run and 2026 Antelopes leadership.',
+    campusCountySource: 'https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=480741000008',
+  },
   tarrant: {
     name: 'Southlake Carroll Dragons',
     href: '/texas-high-school-football-teams/southlake-carroll',
     description: 'Research eight actual state titles, the disputed 2003 UIL summary and the Dragons’ 2026 leadership.',
     campusCountySource: 'https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=481302000791',
   },
+};
+
+// Independently researched Batch 002 and Batch 003 county links. Lists retain
+// multiple teams in the same county rather than replacing an existing card.
+const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: string; context: string }>> = {
+  'victoria': [{ name: 'Bloomington Bobcats', slug: 'bloomington', context: 'Victoria County Bloomington ISD; first-party Bobcat Stadium home event details' }],
+  'navarro': [{ name: 'Blooming Grove Lions', slug: 'blooming-grove', context: 'Navarro County Blooming Grove ISD; official 2026 district assignment' }],
+  'blanco': [{ name: 'Blanco Panthers', slug: 'blanco', context: 'Blanco ISD campus in Blanco County; 2001 UIL state championship' }],
+  'nolan': [{ name: 'Blackwell Hornets', slug: 'blackwell', context: 'NCES Blackwell campus in Nolan County; six-man 2019 semifinal and disputed September 4 score' }],
+  'howard': [{ name: 'Big Spring Steers', slug: 'big-spring', context: 'Howard County Big Spring ISD; documented 1953 state finalist and 2026 Seminole result' }],
+  kendall: [{ name: 'Boerne Greyhounds', slug: 'boerne', context: '2022 4A Division I state runner-up and 2026 Boerne ISD Stadium guide, distinct from Champion Chargers' }, { name: 'Boerne Champion Chargers', slug: 'boerne-champion', context: '2026 Class 5A Division I District 13 Chargers, Blane Ellis, shared stadium ticket rules and 2025 playoff history' }],
+  'red-river': [{ name: 'Bogata Rivercrest Rebels', slug: 'bogata-rivercrest', context: 'Rivercrest ISD Red River County guide: UIL 2A Division I District 9 and 2026 triple-overtime Wolfe City win' }],
+  fannin: [{ name: 'Bonham Purple Warriors', slug: 'bonham', context: '2026 UIL 4A DII District 7, Aaron Ford, and online-only home ticket guidance for Bonham' }],
+  wharton: [{ name: 'Boling Bulldogs', slug: 'boling', context: 'UIL 1972 Class 2A champions, 2016 state finalists and current Wharton County varsity program' }],
+  lipscomb: [{ name: 'Booker Kiowas', slug: 'booker', context: 'Booker ISD Kiowas six-man UIL District 1, 2025 undefeated district and 2026 schedule' }],
+  borden: [{ name: 'Borden County Coyotes', slug: 'borden-county', context: 'Five genuine six-man UIL state titles and 2026 Division I District 5 Gail football' }],
+  'hutchinson': [{ name: 'Borger Bulldogs', slug: 'borger', context: '4A Division II District 3 program and dated Hutchinson County football results' }],
+  'parmer': [{ name: 'Bovina Mustangs', slug: 'bovina', context: '2A Division II District 1 program and dated Parmer County football results' }],
+  'montague': [{ name: 'Bowie Jackrabbits', slug: 'bowie', context: '3A Division I District 4 program and dated Montague County football results' }, { name: 'Gold-Burg Bears', slug: 'bowie-gold-burg', context: '1A Division II District 10 program and dated Montague County football results' }],
+  'oldham': [{ name: 'Boys Ranch Roughriders', slug: 'boys-ranch', context: '1A Division I District 1 program and dated Oldham County football results' }],
+  erath: [{ name: 'Bluff Dale Bobcats', slug: 'bluff-dale', context: '2026 UIL Division I six-man District 11, Erath County school contacts and dated football results' }],
+  // Batch 005 remaining 14 researched team links, retaining prior schools per county.
+  jefferson: [{ name: "Beaumont United Timberwolves", slug: 'beaumont-united', context: "2025 first winning varsity season under Drenard Williams and Beaumont Bowl" }, { name: "Beaumont West Brook Bruins", slug: 'beaumont-west-brook', context: "1982 UIL champion, 2018 6A Division II runner-up and Beaumont Bowl rivalry" }],
+  'panola': [{ name: "Beckville Bearcats", slug: 'beckville', context: "Playoff football in Panola County, and a real campus-versus-stadium distinction" }],
+  'bee': [{ name: "Beeville A. C. Jones Trojans", slug: 'beeville-jones', context: "Beeville's Trojans: the current 2026 district schedule versus stale school football pages" }],
+  'grayson': [{ name: "Bells Panthers", slug: 'bells', context: "The Panther Way and real Friday-night games at Panther Stadium" }],
+  'jim-wells': [{ name: "Ben Bolt–Palito Blanco Fighting Badgers", slug: 'ben-bolt-palito-blanco', context: "Jim Wells County Fighting Badgers with a first-party 2026 game calendar" }],
+  'duval': [{ name: "Benavides Eagles", slug: 'benavides', context: "Benavides Eagles: a published 2026 six-man football schedule, not eleven-man" }],
+  'reagan': [{ name: "Reagan County Owls", slug: 'big-lake-reagan-co', context: "Big Lake's Reagan County Owls, 1986 Class 2A semifinals and James H. Bird Memorial Stadium" }],
+  'upshur': [{ name: "Big Sandy Wildcats", slug: 'big-sandy', context: "Big Sandy's 1973–75 dynasty, 1974 co-championship tie and Lovie Smith connection" }, { name: 'Harmony Eagles', slug: 'big-sandy-harmony', context: 'Harmony ISD in Upshur County: the 2022 Class 3A Division II state semifinal and 2026 Eagle Stadium guide, distinct from Big Sandy Wildcats' }],
+  austin: [{ name: 'Bellville Brahmas', slug: 'bellville', context: '1960, 1977 and 2023 UIL football state-final appearances in Austin County' }],
+  // Batch 005 school-specific campus county links, distinct from away-game stadiums.
+  'edwards': [{ name: "Nueces Canyon Panthers", slug: "barksdale-nueces-canyon", context: "six-man Panthers and Camp Wood stadium" }],
+  'bell': [{ name: "Bartlett Bulldogs", slug: "bartlett", context: "1990, 1992 and 1999 UIL titles" }, { name: "Belton Tigers", slug: 'belton', context: "2026 Tiger Stadium guide: distinguish varsity games from JV and Lake Belton" }],
+  'bastrop': [{ name: "Bastrop Bears", slug: "bastrop", context: "Bears football and shared Memorial Stadium" }, { name: "Cedar Creek Eagles", slug: "bastrop-cedar-creek", context: "Eagles football and shared Memorial Stadium" }],
+  'matagorda': [{ name: "Bay City Blackcats", slug: "bay-city", context: "1983 and 2000 UIL championships" }],
+  harris: [{ name: 'Alief Taylor Lions', slug: 'alief-taylor', context: '2026 District 20 opening streak and documented Elsik and Hastings games' }, { name: "Goose Creek Memorial Patriots", slug: 'baytown-goose-creek-memorial', context: "Patriots founded in 2008 and their 2025 playoff season" }, { name: "Baytown Lee Ganders", slug: 'baytown-lee', context: "Back-to-back 1951 and 1952 Class 4A state finalists, never champions" }, { name: "Baytown Sterling Rangers", slug: 'baytown-sterling', context: "1972 Class 4A state-final season and the school's Spirit of Sterling traditions" }],
+  tarrant: [
+    { name: 'Azle Hornets', slug: 'azle', context: 'Hornet Field visitor guide and 2026 5A Division I fixtures' },
+    { name: "Fort Worth All Saints' Episcopal Saints", slug: 'all-saints-fort-worth', context: 'Back-to-back 2024–25 undefeated TAPPS Division II champions at McNair Stadium' },
+    // Batch 003: campuses and Tarrant County independently corroborated by NCES.
+    { name: 'Arlington High Colts', slug: 'arlington', context: '1951 UIL football state championship and program history' },
+    { name: 'Arlington Bowie Volunteers', slug: 'arlington-bowie', context: 'Crossing the Line tradition and Choctaw Stadium fixtures' },
+    { name: 'Arlington Lamar Vikings', slug: 'arlington-lamar', context: '1990 UIL state finalist and modern Vikings football' },
+    { name: 'Arlington Martin Warriors', slug: 'arlington-martin', context: 'Warriors postseason history and Glaspie Field context' },
+    { name: 'Sam Houston Texans', slug: 'arlington-houston', context: 'Texans football history and documented Choctaw Stadium fixtures' },
+    { name: 'Seguin Cougars', slug: 'arlington-seguin', context: '5A Division II program and Glaspie Field home-venue history' },
+  ],
+  denton: [
+    { name: 'Argyle Eagles', slug: 'argyle', context: '2013 and 2020 UIL football championships and current 5A Division II alignment' },
+    { name: 'Aubrey Chaparrals', slug: 'aubrey', context: '2026 digital-ticket Chaparral Stadium policies and 2024 playoffs' },
+  ],
+  collin: [
+    { name: 'Allen Eagles', slug: 'allen', context: 'Five UIL state titles, historic Kyler Murray era and 2026 Eagle Stadium visitor guidance' },
+    { name: 'Anna Coyotes', slug: 'anna', context: '2023 Class 4A Division I state champion and current Coyotes program' },
+  , { name: 'Blue Ridge Tigers', slug: 'blue-ridge', context: 'Blue Ridge ISD Collin County campus and 2026 UIL alignment' }],
+  brewster: [{ name: 'Alpine Bucks', slug: 'alpine', context: 'Big Bend-area Bucks football, current alignment and Buck Stadium research' }],
+  colorado: [{ name: 'Rice Consolidated Raiders', slug: 'altair-rice', context: 'Altair Raiders playoff tradition and 2026 District 14 games' }],
+  cherokee: [{ name: 'Alto Yellowjackets', slug: 'alto', context: '2006 and 2007 consecutive UIL football state champions' }],
+  johnson: [{ name: 'Alvarado Indians', slug: 'alvarado', context: '2024 and 2025 playoff seasons and current District 4 football' }],
+  brazoria: [
+    { name: 'Alvin Yellowjackets', slug: 'alvin', context: 'Alvin High football history and 2026 Class 6A District 19' },
+    { name: 'Iowa Colony Pioneers', slug: 'alvin-iowa-colony', context: 'Three consecutive twelve-win seasons from 2023 to 2025' },
+    { name: 'Shadow Creek Sharks', slug: 'alvin-shadow-creek', context: '2018 state runner-up and 2019 UIL football state champions' },
+    { name: 'Angleton Wildcats', slug: 'angleton', context: 'Brazoria County football history and the Wildcats’ 2024 postseason run' },
+  ],
+  // Batch 005 first five independently verified campuses; historical finals/official current resources.
+  'runnels': [{ name: 'Ballinger Bearcats', slug: 'ballinger', context: '1953 UIL state runner-up and official 2026 reserved-ticket notice' }],
+  'reeves': [{ name: 'Balmorhea Bears', slug: 'balmorhea', context: '2020-season six-man state champion, final played Jan. 2021' }],
+  'bandera': [{ name: 'Bandera Bulldogs', slug: 'bandera', context: '2002 two-overtime 3A Division II state champion' }],
+  'brown': [{ name: 'Bangs Dragons', slug: 'bangs', context: '2002 and 2003 successive UIL state football runner-up seasons' }, { name: 'Blanket Tigers', slug: 'blanket', context: 'Blanket ISD Brown County six-man team with dated 2026 results' }],
+  'nueces': [{ name: 'Banquete Bulldogs', slug: 'banquete', context: '2026 Banquete varsity schedule and Bulldog Stadium calendar' }, { name: 'Bishop Badgers', slug: 'bishop', context: 'Bishop CISD Nueces County program; 2026 3A Division I District 16' }],
+  // Batch 004 independently matched campus counties; school game sites can differ.
+  smith: [{ name: 'Arp Tigers', slug: 'arp', context: '2016 semifinal and Bill Herrington Stadium history' }],
+  stonewall: [{ name: 'Aspermont Hornets', slug: 'aspermont', context: '1999 11-man state final and modern six-man program' }],
+  henderson: [{ name: 'Athens Hornets', slug: 'athens', context: '2025 postseason success and the 2026 team calendar' }],
+  cass: [{ name: 'Atlanta Rabbits', slug: 'atlanta', context: '2003 UIL state football title and Rabbit Stadium traditions' }],
+  ellis: [{ name: 'Avalon Eagles', slug: 'avalon', context: 'Six-man football and 2024 ten-win season' }],
+  mclennan: [{ name: 'Axtell Longhorns', slug: 'axtell', context: 'Three consecutive ten-win football seasons' }, { name: 'Bosqueville Bulldogs', slug: 'bosqueville', context: '2A Division I District 8 McLennan County 2026 varsity football' }],
+  callahan: [{ name: 'Baird Bears', slug: 'baird', context: '2019 six-man transition and 2026 UIL district' }],
+  travis: [
+    { name: 'Vandegrift Vipers', slug: 'austin-vandegrift', context: '2024 6A Division II state title at Leander ISD campus' },
+    { name: 'Austin High Maroons', slug: 'austin', context: '1942 championship and House Park football tradition' },
+    { name: 'Austin Achieve Polar Bears', slug: 'austin-achieve', context: 'Northeast campus public charter football' },
+    { name: 'Akins Eagles', slug: 'austin-akins', context: 'Burger Stadium calendar and visitor distinctions' },
+    { name: 'Anderson Trojans', slug: 'austin-anderson', context: '2025 ten-win season and 2026 UIL schedule' },
+    { name: 'Bowie Bulldogs', slug: 'austin-bowie', context: 'Jeff Ables coaching record and Austin ISD home tickets' },
+    { name: 'Crockett Cougars', slug: 'austin-crockett', context: 'Burger Stadium varsity vs campus JV sites' },
+    { name: 'Eastside Early College Panthers', slug: 'austin-eastside', context: 'campus football and 2026 Austin-area fixtures' },
+    { name: 'Austin LBJ Jaguars', slug: 'austin-johnson', context: '2021 state runner-up and distinct LBJ campus' },
+    { name: 'Lake Travis Cavaliers', slug: 'austin-lake-travis', context: 'six UIL titles and 2026 stadium reconstruction' },
+    { name: 'LASA Raptors', slug: 'austin-lasa', context: 'school football calendar and Nelson Field fixtures' },
+    { name: 'McCallum Knights', slug: 'austin-mccallum', context: 'UIL 5A district competition and recent results' },
+    { name: 'Navarro Vikings', slug: 'austin-navarro', context: 'LASA homecoming and family football tradition' },
+    { name: 'Northeast Raiders', slug: 'austin-northeast', context: 'historic Reagan titles and modern campus identity' },
+    { name: 'Travis Rebels', slug: 'austin-travis', context: 'multiple Austin ISD stadiums and 2026 fixtures' },
+    { name: 'Westlake Chaparrals', slug: 'austin-westlake', context: 'four football state titles and 2026 Tony Salazar coaching' },
+  ],
+  // Batch 003 school-specific campus links use NCES school locator county, not stadium address.
+  lamb: [{ name: 'Amherst Bulldogs', slug: 'amherst', context: '1994 and 1995 UIL six-man state champions and conflicting official 1995 score records' }],
+  chambers: [{ name: 'Anahuac Panthers', slug: 'anahuac', context: 'Panthers football history and 2026 classification' }],
+  grimes: [{ name: 'Anderson-Shiro Fighting Owls', slug: 'anderson-shiro', context: 'School-specific recent postseason history and 2026 results' }],
+  andrews: [{ name: 'Andrews Mustangs', slug: 'andrews', context: 'Mustangs program history and 2026 coaching transition' }],
+  jones: [{ name: 'Anson Tigers', slug: 'anson', context: 'Anson program history and current UIL district' }],
+  'el-paso': [{ name: 'Anthony Wildcats', slug: 'anthony', context: 'Anthony Texas varsity history and 2026 UIL football context' }],
+  hockley: [{ name: 'Anton Bulldogs', slug: 'anton', context: 'Anton School football history and modern UIL six-man alignment' }],
+  trinity: [{ name: 'Apple Springs Eagles', slug: 'apple-springs', context: 'Six-man Eagles history and UIL classification-source clarification' }],
+  hill: [{ name: 'Aquilla Cougars', slug: 'aquilla', context: 'Hill County Aquilla program history and modern six-man football' }, { name: 'Blum Bobcats', slug: 'blum', context: '2019 UIL six-man Division I champion over McLean; 2026 District11 team with verified Blum ISD sources' }],
+  'san-patricio': [{ name: 'Aransas Pass Panthers', slug: 'aransas-pass', context: 'Aransas Pass program history and contemporary varsity schedule context' }],
+  archer: [{ name: 'Archer City Wildcats', slug: 'archer-city', context: '1964 state championship and reconciled UIL historical indexing discrepancy' }],
+  wise: [{ name: 'Alvord Bulldogs', slug: 'alvord', context: '2025 undefeated district run and 2026 home ticket details' }, { name: 'Boyd Yellowjackets', slug: 'boyd', context: '3A Division I District 4 Wise County 2026 varsity football' }],
+  randall: [
+    { name: 'Amarillo High Sandies', slug: 'amarillo', context: 'Four UIL state titles and the documented Sandies–Tascosa football series' },
+    { name: 'Caprock Longhorns', slug: 'amarillo-caprock', context: 'Verified Randall County campus, 2026 Longhorns history and current UIL alignment' },
+  ],
+  potter: [
+    { name: 'Amarillo Highland Park Hornets', slug: 'amarillo-highland-park', context: 'Potter County Hornets campus, 2026 UIL football alignment and school-specific program history' },
+    { name: 'Palo Duro Dons', slug: 'amarillo-palo-duro', context: 'Dons football history, modern revival and UIL District 2' },
+    { name: 'River Road Wildcats', slug: 'amarillo-river-road', context: 'Wildcats football history and current 3A Division II context' },
+    { name: 'Tascosa Rebels', slug: 'amarillo-tascosa', context: 'Rebels program history and documented cross-city series' },
+  ],
 };
 
 const siteUrl = 'https://texasdefined.com';
@@ -70,12 +298,12 @@ const referenceKinds = new Set([...localGovernmentKinds, 'agency']);
 export const Route = createLazyFileRoute('/$kind/$slug')({ component: EntityPage });
 
 function EntityPage() {
-  const { entity, related, countyProfile, localGovernment, countySeriesArticle, countySportsVenues, foodDestinations } = Route.useLoaderData();
-  // Individually audited football-linked Van Zandt, Hill, Fort Bend and Jeff Davis
-  // county pages defer first-party lodging inserts until React route hydration.
-  // Do not suppress those panels once their React tree is ready.
+  const { entity, related, countyProfile, localGovernment, countySeriesArticle, countySportsVenues, foodDestinations, countyStateParks, countyWaterParks } = Route.useLoaderData();
+  // All canonical city and county routes wait for React hydration before
+  // first-party affiliate scripts modify the route's DOM. Preserve the
+  // established readiness signal for backward compatibility with county QA.
   useEffect(() => {
-    if (entity.kind !== 'county' || (entity.slug !== 'van-zandt' && entity.slug !== 'hill' && entity.slug !== 'fort-bend' && entity.slug !== 'jeff-davis' && entity.slug !== 'tarrant')) return;
+    if (entity.kind !== 'county' && entity.kind !== 'city') return;
     document.documentElement.dataset.tdFootballCountyHydrated = '1';
     window.dispatchEvent(new Event('texasdefined:county-hydrated'));
     return () => { delete document.documentElement.dataset.tdFootballCountyHydrated; };
@@ -134,6 +362,27 @@ function EntityPage() {
           <span aria-current="page" className="text-foreground">{entity.name}</span>
         </nav>
 
+        {entity.kind === 'county' && entity.slug === 'el-paso' ? (
+          <figure className="overflow-hidden border-b border-border py-8" aria-label="El Paso County hero photograph">
+            <img
+              src={elPasoCountyHero.src}
+              alt={elPasoCountyHero.alt}
+              width={elPasoCountyHero.width}
+              height={elPasoCountyHero.height}
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
+              className="aspect-video w-full object-cover"
+            />
+            <figcaption className="mt-2 text-xs leading-5 text-muted-foreground">
+              Hueco Tanks East Mountain in El Paso County · Photo by{' '}
+              <a href={elPasoCountyHero.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline">{elPasoCountyHero.creator}</a>{' '}
+              (<a href={elPasoCountyHero.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline">CC BY 3.0</a>).
+              Locally resized and cropped for this page.
+            </figcaption>
+          </figure>
+        ) : null}
+
         <header className="grid gap-8 border-b border-border py-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
           <div>
             <p className="eyebrow text-primary">{readerLabel(entity.kind)}</p>
@@ -166,12 +415,42 @@ function EntityPage() {
           {entity.coordinates && <a className="underline decoration-primary/50 underline-offset-4 hover:text-primary" href={`https://www.google.com/maps/search/?api=1&query=${entity.coordinates.latitude},${entity.coordinates.longitude}`} target="_blank" rel="noreferrer">Open in maps ↗</a>}
         </div>
 
+        {entity.kind === 'city' && (lakeGuidesNearCity as Record<string, {slug: string; name: string}[]>)[entity.slug]?.length ? <section className="border-b border-border py-9" aria-label="Nearby lake recreation and fishing guides"><p className="eyebrow text-primary">Lakes and outdoor recreation</p><h2 className="mt-2 font-display text-3xl">Lakes to explore near {entity.name}</h2><p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Explore source-backed TexasDefined guides connected with this city and surrounding communities. Location associations are for trip planning, not measured drive times or permission to enter privately owned shoreline. Verify public launch and camping status before travel.</p><div className="mt-5 grid gap-4 sm:grid-cols-2">{((lakeGuidesNearCity as Record<string, {slug: string; name: string}[]>)[entity.slug] ?? []).map((lake) => <a key={lake.slug} href={`/fishing/lakes/${lake.slug}`} className="border-t border-border py-4"><strong className="block font-display text-2xl hover:text-primary">{lake.name}</strong><span className="mt-2 block text-sm text-muted-foreground">Fishing, ramps, water levels and nearby public parks →</span></a>)}</div><a href="/fishing/lakes" className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Compare all Texas fishing lakes →</a></section> : null}
         {entity.kind === 'city' ? <Suspense fallback={null}><CityPassContextualCallout surface="city" slug={entity.slug} /></Suspense> : null}
         {entity.kind === 'county' && countyProfile && localGovernment ? <CountyGuideSections entity={entity} profile={countyProfile} localGovernment={localGovernment} related={related} countySeriesArticle={countySeriesArticle} /> : null}
+        {entity.kind === 'metro-area' && entity.slug === 'el-paso-metro' ? <ElPasoMetroGuide /> : null}
         {(entity.kind === 'city' || entity.kind === 'county') && foodDestinations.length ? <Suspense fallback={null}><EntityFoodDestinations entity={entity} destinations={foodDestinations} /></Suspense> : null}
+        {(entity.kind === 'county' || entity.kind === 'city') ? <CountyTownAuthorityLinks kind={entity.kind} slug={entity.slug} name={entity.name} /> : null}
+        <CountyCityMuseums kind={entity.kind} slug={entity.slug} name={entity.name} />
+        {(entity.kind === 'county' || entity.kind === 'city') ? <CountyStateParks countyName={entity.name} parks={countyStateParks} scope={entity.kind} /> : null}
         {entity.kind === 'county' ? <CountyCoastalPlaces county={entity} /> : null}
+        {entity.kind === 'county' ? <CountyInlandSwimmingBeaches countySlug={entity.slug} countyName={entity.name} /> : null}
+        {entity.kind === 'county' ? <CountyWaterParks countySlug={entity.slug} countyName={entity.name} parks={countyWaterParks} /> : null}
+        {entity.kind === 'county' ? <CountyVisitorPlaces countySlug={entity.slug} countyName={entity.name} /> : null}
         {entity.kind === 'county' ? <CountySportsDestinations county={entity} venues={countySportsVenues} /> : null}
         {entity.kind === 'county' ? <Suspense fallback={null}><CountyHighSchoolFootball county={entity} /></Suspense> : null}
+        {entity.kind === 'county' && batch002FootballCountyLinks[entity.slug] ? <section aria-label="Independent football histories from this county" className="border-b border-border py-9">
+          <p className="eyebrow text-primary">Researched local football programs</p>
+          <h2 className="mt-2 font-display text-3xl">Football history connected to {entity.name}</h2>
+          <ul className="mt-5 grid gap-4 sm:grid-cols-2">
+            {batch002FootballCountyLinks[entity.slug].map((school) => <li key={school.slug} className="rounded-lg border border-border p-4">
+              <a className="font-semibold text-primary underline underline-offset-4" href={`/texas-high-school-football-teams/${school.slug}`}>{school.name} football authority guide →</a>
+              <p className="mt-2 text-sm text-muted-foreground">{school.context}</p>
+            </li>)}
+          </ul>
+          <p className="mt-4 text-xs text-muted-foreground">Independent editorial guides. Game sites and district boundaries may span county lines; each listed school is linked by its campus county.</p>
+        </section> : null}
+        {entity.kind === 'city' && batch002FootballCityLinks[entity.slug] ? <section aria-label="Individually researched local high school football" className="border-b border-border py-9">
+          <p className="eyebrow text-primary">Researched local football programs</p>
+          <h2 className="mt-2 font-display text-3xl">Football history in {entity.name}</h2>
+          <ul className="mt-5 grid gap-4 sm:grid-cols-2">
+            {batch002FootballCityLinks[entity.slug].map((school) => <li key={school.slug} className="rounded-lg border border-border p-4">
+              <a className="font-semibold text-primary underline underline-offset-4" href={`/texas-high-school-football-teams/${school.slug}`}>{school.name} football profile →</a>
+              <p className="mt-2 text-sm text-muted-foreground">{school.context}</p>
+            </li>)}
+          </ul>
+          <p className="mt-4 text-xs text-muted-foreground">Campus-city links do not certify game-day stadium entrances or district-wide service areas.</p>
+        </section> : null}
         {batch001FootballLink ? <section aria-label="Researched high school football history from this county" className="grid gap-6 border-b border-border py-10 lg:grid-cols-[14rem_1fr]">
           <div>
             <p className="eyebrow text-primary">Local football history</p>
@@ -181,11 +460,32 @@ function EntityPage() {
             <a href={batch001FootballLink.href} className="text-lg font-semibold text-primary underline underline-offset-4">{batch001FootballLink.name} football profile →</a>
             <p className="mt-3 text-sm leading-7 text-muted-foreground">{batch001FootballLink.description}</p>
             <p className="mt-2 text-xs text-muted-foreground">Campus county checked against <a href={batch001FootballLink.campusCountySource} target="_blank" rel="noreferrer noopener" className="underline underline-offset-4">federal school records ↗</a>. This independent football guide is not an official school website.</p>
+            {entity.kind === 'county' && entity.slug === 'harris' && <div className="mt-6 border-t border-border pt-5">
+              <a href="/texas-high-school-football-teams/alief-hastings" className="text-lg font-semibold text-primary underline underline-offset-4">Alief Hastings Fighting Bears football history →</a>
+              <p className="mt-3 text-sm leading-7 text-muted-foreground">Explore Hastings’ documented 1997 5A Division II state-final appearance, coach Michael Carter, 2026 District 20 and Crump Stadium visitor resources.</p>
+              <p className="mt-2 text-xs text-muted-foreground">Separate Alief ISD program from neighboring Alief Elsik and Alief Taylor. <a className="underline underline-offset-4" href="https://www.uiltexas.org/historical-archives/athletics/archives/football/champions.html" target="_blank" rel="noreferrer noopener">UIL final record ↗</a></p>
+            </div>}
+            {entity.kind === 'county' && entity.slug === 'taylor' && <div className="mt-6 border-t border-border pt-5">
+              <a href="/texas-high-school-football-teams/abilene-wylie" className="text-lg font-semibold text-primary underline underline-offset-4">Abilene Wylie Bulldogs football profile →</a>
+              <p className="mt-3 text-sm leading-7 text-muted-foreground">Follow the Bulldogs' 2004 football state title, four UIL title-game appearances, Clay Martin and Hugh Sandifer Stadium at the Wylie High campus.</p>
+              <p className="mt-2 text-xs text-muted-foreground">The Wylie High campus is independently documented in Taylor County by <a href="https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=484650005293" target="_blank" rel="noreferrer noopener" className="underline underline-offset-4">NCES official 2025–26 school records ↗</a>. Independent coverage, not a school website.</p>
+            </div>}
+            {entity.kind === 'county' && entity.slug === 'taylor' && <div className="mt-6 border-t border-border pt-5">
+              <a href="/texas-high-school-football-teams/abilene-texas-leadership" className="text-lg font-semibold text-primary underline underline-offset-4">Texas Leadership of Abilene Eagles football →</a>
+              <p className="mt-3 text-sm leading-7 text-muted-foreground">Explore Abilene's younger public-charter program, the fifth season of eleven-man football and 2026 head coach Webb Murphy.</p>
+              <p className="mt-2 text-xs text-muted-foreground">The <a href="https://www.texasleadershipabilene.com/campus/secondary-campus" target="_blank" rel="noreferrer noopener" className="underline underline-offset-4">official secondary campus</a> is in Abilene, Taylor County; the network's San Angelo headquarters must not be confused with the Abilene football school.</p>
+            </div>}
+            {entity.kind === 'county' && entity.slug === 'taylor' && <div className="mt-6 border-t border-border pt-5">
+              <a href="/texas-high-school-football-teams/abilene-cooper" className="text-lg font-semibold text-primary underline underline-offset-4">Abilene Cooper Cougars football profile →</a>
+              <p className="mt-3 text-sm leading-7 text-muted-foreground">Discover the Cougars' 1967 and 1996 state-final appearances, the 1961-origin Crosstown Showdown and 2026 head coach Scott Stewart.</p>
+              <p className="mt-2 text-xs text-muted-foreground">Cooper's Taylor County campus confirmed by <a href="https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=480744000016" target="_blank" rel="noreferrer noopener" className="underline underline-offset-4">NCES school record ↗</a>. Independent editorial, not an official athletic department.</p>
+            </div>}
           </div>
         </section> : null}
-        {entity.kind === 'wildlife-species' ? <WildlifeDepthSections entity={entity} related={visibleRelated} /> : entity.kind !== 'county' ? <EntityDepthSections entity={entity} related={visibleRelated} /> : null}
+        {entity.kind === 'wildlife-species' ? <WildlifeDepthSections entity={entity} related={visibleRelated} /> : entity.kind !== 'county' && !(entity.kind === 'metro-area' && entity.slug === 'el-paso-metro') ? <EntityDepthSections entity={entity} related={visibleRelated} /> : null}
+        <ElPasoAreaCrossLinks kind={entity.kind} slug={entity.slug} />
 
-        {entity.kind !== 'county' && entity.tags?.length ? <section className="grid gap-6 border-b border-border py-10 lg:grid-cols-[14rem_1fr]">
+        {entity.kind !== 'county' && entity.tags?.length && !(entity.kind === 'metro-area' && entity.slug === 'el-paso-metro') ? <section className="grid gap-6 border-b border-border py-10 lg:grid-cols-[14rem_1fr]">
           <div>
             <p className="eyebrow text-primary">{notesEyebrow(entity.kind)}</p>
             <h2 className="mt-2 font-display text-3xl">{notesHeading(entity)}</h2>
@@ -278,7 +578,7 @@ function formatCheckedDate(value: string) {
 }
 function readerLabel(kind: string) {
   const labels: Record<string, string> = {
-    county: 'County Guide', city: 'City Guide', region: 'Around the State', 'metro-area': 'City Life',
+    county: 'County Guide', city: 'City Guide', region: 'Around the State', 'metro-area': 'Metro Area',
     agency: 'Texas State Agency',
     'appraisal-district': 'Property Appraisal', 'tax-office': 'County Tax Office', 'county-clerk': 'County Clerk', 'dps-office': 'DPS Office',
     museum: 'Museum Guide', 'historic-site': 'Then & Now', mission: 'Texas History', battlefield: 'Texas History',

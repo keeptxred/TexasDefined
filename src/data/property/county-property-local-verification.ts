@@ -19,6 +19,35 @@ export type CountyPropertyLocalVerification = {
  * local government/property-tax sources and is protected by CI freshness checks.
  */
 export const COUNTY_PROPERTY_LOCAL_VERIFICATION: Record<string, CountyPropertyLocalVerification> = {
+  'van-zandt': {
+    appraisalDistrict: {
+      name: 'Emily Reeves',
+      websiteUrl: 'https://vzcad.org/',
+      phone: '903-567-6171',
+      address: '27867 State Hwy. 64, Canton, TX 75103',
+      email: 'admin@vzcad.org',
+    },
+    taxOffice: {
+      name: 'Misty Stanberry',
+      websiteUrl: 'https://www.vanzandtcounty.org/page/vanzandt.County.Assessor.Collector',
+      phone: '903-567-6511',
+      address: '24632 Hwy. 64, Canton, TX 75103',
+      email: 'mstanberry@vanzandtcounty.org',
+    },
+    links: {
+      appraisalDistrictUrl: 'https://vzcad.org/',
+      taxOfficeUrl: 'https://www.vanzandtcounty.org/page/vanzandt.County.Assessor.Collector',
+      paymentUrl: 'https://vanzandt.propertytaxpayments.net/search',
+      countyWebsiteUrl: 'https://www.vanzandtcounty.org/',
+    },
+    lastVerifiedAt: '2026-10-09',
+    sourceUrls: [
+      'https://comptroller.texas.gov/taxes/property-tax/county-directory/vanzandt.php',
+      'https://vzcad.org/',
+      'https://vanzandt.propertytaxpayments.net/search',
+      'https://www.vanzandtcounty.org/page/vanzandt.County.Assessor.Collector',
+    ],
+  },
   polk: {
     appraisalDistrict: {
       name: 'Chad Hill',

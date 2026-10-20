@@ -6,6 +6,13 @@ const exploreSitemap = fs.readFileSync('src/routes/sitemap-explore[.]xml.ts', 'u
 const countyRoute = fs.readFileSync('src/routes/property-tax.county.$county.tsx', 'utf8');
 const failures = [];
 
+const playoffsArticle = fs.readFileSync('src/data/fixtures/texas-high-school-football-playoffs.ts', 'utf8');
+const playoffUpdatedAt = playoffsArticle.match(/updatedAt:\s*"([^\"]+)"/)?.[1];
+const playoffSitemapDate = primarySitemap.match(/"texas-high-school-football-playoffs-explained":\s*"([^\"]+)"/)?.[1];
+if (!playoffUpdatedAt || playoffUpdatedAt !== playoffSitemapDate) {
+  failures.push('Football playoff sitemap lastmod must match its verified editorial updatedAt.');
+}
+
 const forbiddenDynamicFreshness = [
   "sourceCheckedAt: localGovernment.countyWebsiteUrl ? new Date().toISOString().slice(0, 10) : geographic.sourceCheckedAt",
   "sourceCheckedAt: office.lastUpdated ?? new Date().toISOString().slice(0, 10)",

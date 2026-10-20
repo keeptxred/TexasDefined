@@ -16,6 +16,8 @@ export type CountyProfile = {
   countySeat?: string;
   countySeatPlace?: CountySeatPlace;
   population2020?: number;
+  /** U.S. Census Vintage 2025 estimate, supplied only for independently verified counties. */
+  population2025Estimate?: number;
   landAreaSquareMiles?: number;
   waterAreaSquareMiles?: number;
   populationDensityPerSquareMile?: number;
@@ -49,6 +51,30 @@ type TigerwebCountyFeature = {
     INTPTLAT?: string | number;
     INTPTLON?: string | number;
   };
+};
+
+// Curated county relationships do not assume a town has an independent city page.
+ // Verify using the Handbook of Texas and county roads/municipal boundaries map.
+const VERIFIED_COUNTY_COMMUNITIES: Record<string, string[]> = {
+  'van-zandt': ['Canton', 'Wills Point', 'Grand Saline', 'Van', 'Edgewood', 'Fruitvale', 'Ben Wheeler', 'Martins Mill', 'Edom'],
+  // Source: El Paso County Elections municipalities; TWDB 2022 El Paso County map
+  // Additional named places are unincorporated communities, not municipalities.
+  'el-paso': ['El Paso', 'Anthony', 'Vinton', 'Canutillo', 'Westway', 'Horizon City', 'Socorro', 'San Elizario', 'Clint', 'Fabens', 'Montana Vista', 'Tornillo'],
+};
+
+// Same authoritative county-seat register as fetchCountySeats(), retained so a
+// temporary State Library HTTP outage cannot strip verified civic geography
+// from a production SSR page. Add only individually source-confirmed entries.
+// Tarrant: https://www.tsl.texas.gov/ref/abouttx/countyseats.html
+// Cross-check: https://www.tarrantcountytx.gov/content/main/en/county/about-tarrant.html
+const VERIFIED_COUNTY_SEAT_FALLBACKS: Record<string, string> = {
+  tarrant: 'Fort Worth',
+  'el-paso': 'El Paso',
+};
+
+const VERIFIED_2025_CENSUS_ESTIMATES: Record<string, number> = {
+  'van-zandt': 66130, // Census QuickFacts, Vintage 2025, July 1 estimate.
+  'el-paso': 877858, // Census QuickFacts, Vintage 2025, July 1 estimate.
 };
 
 const cache = new Map<string, Promise<CountyProfile>>();
@@ -85,7 +111,7 @@ async function fetchCountyProfile(slug: string, countyName: string): Promise<Cou
     countyCensusFactsPromise,
   ]);
 
-  const countySeatName = seatsResult.status === 'fulfilled' ? seatsResult.value.get(normalizeCountyKey(baseName)) : undefined;
+  const countySeatName = (seatsResult.status === 'fulfilled' ? seatsResult.value.get(normalizeCountyKey(baseName)) : undefined) ?? VERIFIED_COUNTY_SEAT_FALLBACKS[slug];
   const countySeatPlace = countySeatName ? toCountySeatPlace(countySeatName) : undefined;
   const countySeat = countySeatPlace?.displayName;
   const censusFacts = censusFactsResult.status === 'fulfilled' && countyCode ? censusFactsResult.value.get(countyCode) ?? {} : {};
@@ -93,7 +119,7 @@ async function fetchCountyProfile(slug: string, countyName: string): Promise<Cou
   const latitude = censusFacts.latitude ?? fallbackGeography?.latitude;
   const longitude = censusFacts.longitude ?? fallbackGeography?.longitude;
   const usedGeographyFallback = fallbackGeography != null && (censusFacts.latitude == null || censusFacts.longitude == null);
-  const majorCommunities = Array.from(new Set([countySeatName, ...knownCommunities].filter((value): value is string => Boolean(value))));
+  const majorCommunities = Array.from(new Set([countySeatName, ...(VERIFIED_COUNTY_COMMUNITIES[slug] ?? knownCommunities)].filter((value): value is string => Boolean(value))));
   const populationDensityPerSquareMile = density(censusFacts.population2020, censusFacts.landAreaSquareMiles);
   const waterSharePercent = waterShare(censusFacts.landAreaSquareMiles, censusFacts.waterAreaSquareMiles);
 
@@ -101,6 +127,7 @@ async function fetchCountyProfile(slug: string, countyName: string): Promise<Cou
     countySeat,
     countySeatPlace,
     population2020: censusFacts.population2020,
+    population2025Estimate: VERIFIED_2025_CENSUS_ESTIMATES[slug],
     landAreaSquareMiles: censusFacts.landAreaSquareMiles,
     waterAreaSquareMiles: censusFacts.waterAreaSquareMiles,
     populationDensityPerSquareMile,
@@ -112,6 +139,8 @@ async function fetchCountyProfile(slug: string, countyName: string): Promise<Cou
       TSL_COUNTY_SEATS_URL,
       CENSUS_TIGERWEB_SOURCE_URL,
       ...(usedGeographyFallback ? [CENSUS_TIGERWEB_COUNTY_SNAPSHOT_URL] : []),
+      ...(slug === 'van-zandt' ? ['https://www.tshaonline.org/handbook/entries/van-zandt-county', 'https://www.census.gov/quickfacts/fact/table/vanzandtcountytexas/PST045225', 'https://www.vanzandtcounty.org/upload/page/2695/2025%20DOCS/VanZandtCountyWallMap11292023.pdf'] : []),
+      ...(slug === 'el-paso' ? ['https://www.census.gov/quickfacts/fact/table/elpasocountytexas/PST045225', 'https://epcountyvotestx.gov/maps/municipalities', 'https://www.twdb.texas.gov/board/2022/01/Board/Brd06.pdf'] : []),
     ],
   };
 }

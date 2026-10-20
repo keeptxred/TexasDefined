@@ -31,7 +31,7 @@ export const statewideMuseumExpansionWave49Destinations: Destination[] = [
     coordinates: { lat: 29.87316, lng: -93.93291 },
     hero: museumPlaceholder("Museum of the Gulf Coast"),
     bestSeason: "Year-round for indoor galleries; fall through spring is especially comfortable for combining the museum with Port Arthur, Sabine Pass and other upper Gulf Coast heritage stops.",
-    entryNote: "The museum currently publishes Monday-Saturday hours from 9 a.m. to 5 p.m. and is closed Sundays and major holidays. Current general admission is $8 for adults, with reduced rates for seniors, college students and children. Check the museum's current visitor information before a dedicated trip for holiday closures, special events or admission changes.",
+    entryNote: "The museum currently publishes Monday-Saturday hours from 9 a.m. to 5 p.m. and is closed Sundays and holidays. On October 19, 2026, both its homepage and separate Admissions / History page listed $8 for adults, $6 for seniors 62+, $3 for children ages 4-18, and free admission for children under 4. The museum lists visitor parking and its entrance along Lakeshore Drive. Check the operator's live information or call 409-982-7000 for holiday closures, special events and possible admission changes before travel.",
     highlights: [
       "More than 35,000 collection objects",
       "Music Hall of Fame including Janis Joplin and other Gulf Coast artists",
@@ -46,6 +46,6 @@ export const statewideMuseumExpansionWave49Destinations: Destination[] = [
     officialUrl: "https://www.museumofthegulfcoast.org/",
     managingAuthority: "Port Arthur Historical Society in partnership with the City of Port Arthur",
     address: "700 Procter St, Port Arthur, TX 77640",
-    sourceCheckedAt: SOURCE_CHECKED_AT,
+    sourceCheckedAt: "2026-10-19",
   },
 ];

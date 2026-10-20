@@ -8,7 +8,7 @@ export const aquariumMarineDestinations3: Destination[] = [
     name: "Houston Interactive Aquarium & Animal Preserve",
     summary: "A north Houston interactive animal attraction combining marine exhibits with birds, reptiles, mammals and bookable in-water or behind-the-scenes experiences.",
     category: "guides",
-    region: "prairies-lakes",
+    region: "gulf-coast",
     nearestTown: "Houston",
     county: "Harris",
     address: "5440 N Sam Houston Pkwy E, Houston, TX 77032",

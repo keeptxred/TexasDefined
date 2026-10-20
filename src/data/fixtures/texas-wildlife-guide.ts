@@ -63,6 +63,51 @@ export const texasWildlifeGuideArticle: Article = {
       label: "Texas trees explained",
       description: "Learn the trees and woodland habitats that shape where many Texas animals live.",
     },
+    {
+      href: "/wildlife-species/american-alligator",
+      label: "American alligator field guide",
+      description: "Wetlands, bayous, safe observation distances and the current official TPWD species resource.",
+    },
+    {
+      href: "/wildlife-species/black-bear",
+      label: "Texas black bears",
+      description: "Western Texas bear habitat, recolonization and responsible wildlife viewing.",
+    },
+    {
+      href: "/wildlife-species/bobcat",
+      label: "Texas bobcats",
+      description: "Identify the state's secretive native cat and recognize its broad habitat range.",
+    },
+    {
+      href: "/wildlife-species/javelina",
+      label: "Javelinas in Texas",
+      description: "Understand collared peccaries, their thornscrub habitat and how they differ from feral hogs.",
+    },
+    {
+      href: "/wildlife-species/nine-banded-armadillo",
+      label: "Nine-banded armadillos",
+      description: "Why this recognizable Texas mammal digs, forages and thrives across much of the state.",
+    },
+    {
+      href: "/wildlife-species/ocelot",
+      label: "Texas ocelots",
+      description: "Endangered Lower Rio Grande Valley wild cats, dense brush habitat and protection.",
+    },
+    {
+      href: "/wildlife-species/painted-bunting",
+      label: "Painted buntings",
+      description: "Seasonal songbird habitat, identification and responsible birdwatching.",
+    },
+    {
+      href: "/wildlife-species/roseate-spoonbill",
+      label: "Roseate spoonbills",
+      description: "Coastal wading birds, Gulf wetlands and how to identify this pink species.",
+    },
+    {
+      href: "/wildlife-species/wild-turkey",
+      label: "Wild turkeys in Texas",
+      description: "Native bird biology, habitat and how to separate natural history from changing hunting rules.",
+    },
   ],
   relatedCollections: [],
   relatedDestinations: [],

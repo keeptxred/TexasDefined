@@ -44,6 +44,9 @@ export type CityAuthorityProfile = {
     firstTime: ReadonlyArray<{ title: string; summary: string; href?: string }>;
     stayAreas: ReadonlyArray<{ title: string; summary: string }>;
     freeThings: ReadonlyArray<{ title: string; summary: string; href?: string }>;
+    family: ReadonlyArray<{ title: string; summary: string; href?: string }>;
+    gettingAround: ReadonlyArray<{ title: string; summary: string }>;
+    shoppingEntertainment: ReadonlyArray<{ title: string; summary: string; href?: string }>;
   };
   systems: ReadonlyArray<CityAuthoritySystem>;
 };
@@ -55,8 +58,8 @@ const profiles: Record<string, CityAuthorityProfile> = {
     populationEstimate: { value: 2_397_315, year: 2025, asOf: 'July 1, 2025' },
     jurisdiction: {
       primaryCounty: 'Harris County',
-      counties: ['Harris County', 'Fort Bend County', 'Montgomery County', 'Waller County'],
-      note: 'Most of Houston is in Harris County, with incorporated city limits also reaching into Fort Bend, Montgomery and Waller counties. Verify the exact address before using county appraisal, election, school, court or other local-service records.',
+      counties: ['Harris County', 'Fort Bend County', 'Montgomery County'],
+      note: 'Most full-purpose incorporated Houston addresses are in Harris County; full-purpose city limits also extend into Fort Bend and Montgomery counties. The city maps limited-purpose annexation territory separately from full-purpose city limits and from its extraterritorial jurisdiction (ETJ). An October 2026 comparison of city GIS and Census county polygons found a small Waller County overlap in the limited-purpose layer that still needs legal-boundary review; the ETJ also extends into Waller. Neither an ETJ label nor a limited-purpose GIS overlap alone proves full city services, voting status, tax jurisdiction or residency for a particular address. Verify the exact parcel and annexation record before relying on appraisal, school, election, court or utility boundaries.',
       sourceUrl: 'https://mycity2.houstontx.gov/gisweb01/rest/services/HoustonMap/Administrative_Boundary/MapServer',
     },
     hero: {
@@ -96,6 +99,21 @@ const profiles: Record<string, CityAuthorityProfile> = {
         { title: 'Buffalo Bayou Park', summary: 'Use the trails, skyline views and public green space along Buffalo Bayou for a no-ticket urban outing.' },
         { title: 'Discovery Green', summary: 'Downtown public space offers lawns, public art and changing free programming; verify the calendar for event-specific details.' },
       ],
+      family: [
+        { title: 'Hermann Park + Houston Zoo', summary: 'Keep a family day compact around the park, zoo and nearby museums so children spend more time exploring and less time in Houston traffic.', href: '/destination/houston-zoo' },
+        { title: 'Space Center Houston', summary: 'Treat NASA as its own major family outing and allow enough time for exhibits, tram experiences and the drive southeast of the urban core.', href: '/destination/space-center-houston' },
+        { title: 'Bayou and discovery parks', summary: 'Mix ticketed attractions with playground, trail and open-space time at Buffalo Bayou Park or Discovery Green, especially in cooler parts of the day.' },
+      ],
+      gettingAround: [
+        { title: 'Use METRORail for the central corridor', summary: 'Downtown, the Museum District, Hermann Park, the Texas Medical Center and other central stops can be easier to connect by rail than by repeatedly parking.' },
+        { title: 'Expect to drive across the wider metro', summary: 'Space Center Houston, Uptown and many neighborhood destinations sit well outside the compact rail corridor, so group those stops geographically.' },
+        { title: 'Plan around traffic, heat and event parking', summary: 'Houston distances can look short on a map but become slow at rush hour or during major events. Leave buffer time and avoid moving the car for every central stop.' },
+      ],
+      shoppingEntertainment: [
+        { title: 'Uptown / Galleria', summary: 'Use the Galleria area for destination-scale shopping, dining and indoor entertainment, especially when weather makes outdoor plans less appealing.' },
+        { title: 'The Heights', summary: 'Pair independent shops, restaurants and neighborhood streets along Heights-area commercial corridors with nearby trails and historic residential blocks.' },
+        { title: 'Downtown, EaDo & Montrose', summary: 'Choose the district that matches the evening: sports and concerts downtown/EaDo, or smaller restaurants, galleries and nightlife in Montrose.' },
+      ],
     },
     systems: [
       {
@@ -128,7 +146,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       primaryCounty: 'Dallas County',
       counties: ['Dallas County', 'Collin County', 'Denton County', 'Kaufman County', 'Rockwall County'],
       note: 'Dallas is primarily in Dallas County, but official city information identifies portions of the municipality in Collin, Denton, Kaufman and Rockwall counties. Address-level county verification matters for elections, appraisal districts, courts, schools and records.',
-      sourceUrl: 'https://dallascityhall.com/government/citysecretary/elections/Pages/elections.aspx',
+      sourceUrl: 'https://gis.dallascityhall.com/arcgis/rest/services/Pbw_public/ROWMSReferenceLayers/MapServer/2',
     },
     hero: {
       src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Dallas_Texas_Skyline.jpg?width=1600',
@@ -145,6 +163,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       { name: 'Lower Greenville', summary: 'A restaurant, neighborhood and nightlife corridor northeast of downtown that feels distinct from the central business district.' },
     ],
     featured: [
+      { eyebrow: 'Heritage', title: 'Dallas Black History: Eight Landmark Places', summary: 'Research local Freedmen’s Towns, civil-rights organizing, Deep Ellum, the museum, a school, church and historic neighborhoods.', href: '/dallas-black-history' },
       { eyebrow: 'History', title: 'The Sixth Floor Museum at Dealey Plaza', summary: 'Use the dedicated destination guide to place the Kennedy assassination site within downtown Dallas history.', href: '/destination/sixth-floor-museum-at-dealey-plaza' },
       { eyebrow: 'Family', title: 'Dallas World Aquarium', summary: 'Plan the downtown aquarium-and-rainforest experience as an indoor anchor that can pair with nearby central-city stops.', href: '/destination/dallas-world-aquarium' },
       { eyebrow: 'Seasonal', title: 'State Fair of Texas', summary: 'Use the current State Fair guide for dates, planning, Fair Park context and event-specific details.', href: '/texas-state-fair' },
@@ -166,6 +185,21 @@ const profiles: Record<string, CityAuthorityProfile> = {
         { title: 'Klyde Warren Park', summary: 'Use the public deck park between downtown and Uptown for lawns, skyline views and changing programming.' },
         { title: 'Dallas Arts District walk', summary: 'Architecture, public space and outdoor art can be explored without buying a museum ticket.' },
         { title: 'White Rock Lake trails', summary: 'The lake and surrounding trail system provide a large public outdoor escape inside the city.' },
+      ],
+      family: [
+        { title: 'Dallas World Aquarium + downtown', summary: 'Use the aquarium as an indoor family anchor, then add one nearby downtown or Arts District stop instead of crossing the city repeatedly.', href: '/destination/dallas-world-aquarium' },
+        { title: 'Klyde Warren Park + Arts District', summary: 'Balance museums with outdoor play, food trucks and public space between downtown and Uptown.' },
+        { title: 'White Rock Lake or Fair Park', summary: 'Choose one east-side family block for trails, open space, museums or seasonal State Fair activities rather than stacking several distant districts.' },
+      ],
+      gettingAround: [
+        { title: 'DART works best on rail-connected trips', summary: 'Downtown, the Arts District, Uptown connections, Fair Park and airport transfers can fit a transit-first plan when the stops line up with rail or streetcar service.' },
+        { title: 'Keep neighborhood evenings local', summary: 'Deep Ellum, Bishop Arts, Lower Greenville and the Design District are separate clusters. Pick one for dinner and entertainment rather than driving between all of them.' },
+        { title: 'Use the car strategically', summary: 'A car remains useful for White Rock Lake and many outer neighborhoods, but central parking and event traffic can make rail, streetcar or rideshare simpler for selected trips.' },
+      ],
+      shoppingEntertainment: [
+        { title: 'Bishop Arts', summary: 'A walkable Oak Cliff cluster of independent shops, restaurants and small-scale nightlife that feels different from downtown.' },
+        { title: 'Deep Ellum', summary: 'Use Deep Ellum for live music, murals, restaurants and nightlife, with event nights requiring extra parking or rail planning.' },
+        { title: 'Uptown & Design District', summary: 'Uptown works well for dining and urban nightlife, while the nearby Design District adds galleries, showrooms and destination restaurants.' },
       ],
     },
     systems: [
@@ -203,7 +237,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       primaryCounty: 'Tarrant County',
       counties: ['Tarrant County', 'Denton County', 'Parker County', 'Johnson County', 'Wise County'],
       note: 'Most of Fort Worth is in Tarrant County, but the incorporated city also extends into Denton, Parker, Johnson and Wise counties. Property taxes, appraisal districts, schools, records and some services therefore depend on the exact address rather than the city name alone.',
-      sourceUrl: 'https://www.fortworthtexas.gov/files/assets/public/v/1/the-fwlab/documents/planning/comprehensive-planning/adopted/25-intergovernmental-cooperation-final-2023.pdf',
+      sourceUrl: 'https://www.fortworthtexas.gov/files/assets/public/v/1/city-manager/documents/planning/comprehensive-planning/adopted/25-intergovernmental-cooperation-final-2023.pdf',
     },
     hero: {
       src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Fort_Worth_Stock_Yards_Entrance_Wiki_(1_of_1).jpg?width=1600',
@@ -223,7 +257,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
     ],
     featured: [
       { eyebrow: 'Western heritage', title: 'Fort Worth Stockyards', summary: 'Start with the city’s signature cattle, rail and Western-history district, then use the destination guide for current planning details.', href: '/destination/fort-worth-stockyards', image: { src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Fort_Worth_Stock_Yards_Entrance_Wiki_(1_of_1).jpg?width=1200', alt: 'Fort Worth Stockyards entrance and historic district' } },
-      { eyebrow: 'Art & architecture', title: 'Kimbell Art Museum', summary: 'Connect the city page directly to one of the Cultural District’s nationally significant museums and architectural landmarks.', href: '/destination/kimbell-art-museum', image: { src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Kimbell_Art_Museum_Fort_Worth_01.jpg?width=1200', alt: 'Kimbell Art Museum in Fort Worth' } },
+      { eyebrow: 'Art & architecture', title: 'Kimbell Art Museum', summary: 'Connect the city page directly to one of the Cultural District’s nationally significant museums and architectural landmarks.', href: '/destination/kimbell-art-museum-fort-worth', image: { src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Kimbell_Art_Museum_Fort_Worth_01.jpg?width=1200', alt: 'Kimbell Art Museum in Fort Worth' } },
       { eyebrow: 'Family', title: 'Fort Worth Zoo', summary: 'Use the dedicated zoo guide for a major family attraction south of downtown.', href: '/destination/fort-worth-zoo', image: { src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Museum%20of%20Living%20Art%20Fort%20Worth%20Zoo%2C%20March%202026.jpg?width=1200', alt: 'Fort Worth Zoo habitat complex' } },
       { eyebrow: 'Events & sports', title: 'Dickies Arena', summary: 'Plan around rodeos, concerts, sports and major touring events in the Cultural District.', href: '/sports-venue/dickies-arena', image: { src: '/api/sports-venue-hero?slug=dickies-arena', alt: 'Dickies Arena in Fort Worth' } },
       { eyebrow: 'Nearby trips', title: 'Explore near Fort Worth', summary: 'Continue into lakes, small towns, road trips and other day-trip ideas around the western side of the Metroplex.', href: '/explore/near/fort-worth' },
@@ -231,7 +265,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
     tripPlanning: {
       firstTime: [
         { title: 'Stockyards + Western heritage', summary: 'Give the Stockyards a dedicated block rather than squeezing it between downtown museums and a night event.', href: '/destination/fort-worth-stockyards' },
-        { title: 'Cultural District + zoo or gardens', summary: 'Use a second day for museums, Dickies Arena-area attractions and the zoo without repeatedly crossing downtown.', href: '/destination/kimbell-art-museum' },
+        { title: 'Cultural District + zoo or gardens', summary: 'Use a second day for museums, Dickies Arena-area attractions and the zoo without repeatedly crossing downtown.', href: '/destination/kimbell-art-museum-fort-worth' },
         { title: 'Downtown + Trinity', summary: 'Pair Sundance Square and central architecture with river trails or Panther Island for a compact urban-and-outdoor day.' },
       ],
       stayAreas: [
@@ -243,6 +277,21 @@ const profiles: Record<string, CityAuthorityProfile> = {
         { title: 'Fort Worth Water Gardens', summary: 'Explore the downtown public architectural landscape and water features without an admission ticket.' },
         { title: 'Trinity Trails', summary: 'Walk or bike the public river trail system for skyline, park and neighborhood connections.' },
         { title: 'Sundance Square & downtown walk', summary: 'Use central plazas, architecture and public spaces as a no-ticket orientation to the city center.' },
+      ],
+      family: [
+        { title: 'Fort Worth Zoo day', summary: 'Give the zoo its own substantial block and pair it only with nearby gardens or one Cultural District stop rather than forcing a citywide loop.' },
+        { title: 'Stockyards with kids', summary: 'Use the cattle-drive tradition, museums and pedestrian core as the family anchor, then add only age-appropriate rodeo or evening activities.', href: '/destination/fort-worth-stockyards' },
+        { title: 'Museums + open space', summary: 'Mix a Cultural District museum with Trinity Park or river-trail time to balance indoor attention spans and outdoor movement.' },
+      ],
+      gettingAround: [
+        { title: 'Treat the Stockyards and Cultural District as separate clusters', summary: 'They are not one walkable visitor zone. Plan each as a dedicated block and avoid unnecessary back-and-forth through downtown.' },
+        { title: 'Use rail for selected regional trips', summary: 'TEXRail and Trinity Railway Express can simplify airport or Dallas-area connections, while local buses and rideshare cover only part of a typical visitor itinerary.' },
+        { title: 'Expect event-day parking pressure', summary: 'Dickies Arena, Stockyards events and downtown conventions can change traffic patterns quickly. Check the event calendar before choosing where to park or stay.' },
+      ],
+      shoppingEntertainment: [
+        { title: 'Stockyards', summary: 'Western shops, live music, dining and rodeo-oriented entertainment make this the strongest themed visitor district.' },
+        { title: 'West 7th', summary: 'Restaurants, bars and entertainment sit between downtown and the Cultural District, making it useful after a museum day.' },
+        { title: 'Camp Bowie & Near Southside', summary: 'Use these corridors for independent restaurants, local retail, galleries and neighborhood-scale nightlife beyond the main tourist zones.' },
       ],
     },
     systems: [
@@ -276,7 +325,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       primaryCounty: 'Travis County',
       counties: ['Travis County', 'Williamson County', 'Hays County'],
       note: 'Austin lies primarily in Travis County, with incorporated city limits extending into Williamson and Hays counties. County, school, appraisal and utility boundaries should be verified for the exact address.',
-      sourceUrl: 'https://www.austintexas.gov/ready-central-texas/news/city-austin-become-ipaws-alerting-authority',
+      sourceUrl: 'https://data.austintexas.gov/Locations-and-Maps/Jurisdiction-Austin/3pzb-6mbr/about',
     },
     hero: {
       src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Austin%2C_TX_skyline_2026.jpg?width=1600',
@@ -314,22 +363,37 @@ const profiles: Record<string, CityAuthorityProfile> = {
         { title: 'Ann and Roy Butler Hike-and-Bike Trail', summary: 'Walk or bike the public Lady Bird Lake trail for skyline and waterfront views.' },
         { title: 'Mount Bonnell overlook', summary: 'A short climb reaches a classic public overlook above the Colorado River and west Austin.' },
       ],
+      family: [
+        { title: 'Zilker + Barton Springs area', summary: 'Build a family outdoor day around the park, trail and swimming-area corridor, with heat and water-safety planning in warmer months.' },
+        { title: 'Capitol + museum corridor', summary: 'Pair the Texas State Capitol with one nearby museum so history and indoor time share the same central-city block.', href: '/destination/texas-state-capitol' },
+        { title: 'Lady Bird Lake + South Congress', summary: 'Use the trail, bridges and neighborhood stops for a flexible family half day without stacking several long drives.' },
+      ],
+      gettingAround: [
+        { title: 'Walk the central clusters', summary: 'Downtown, the Capitol area, Lady Bird Lake and parts of South Congress are easiest when parked once or reached by transit and explored on foot.' },
+        { title: 'Use CapMetro where routes match the trip', summary: 'Frequent bus corridors and rail can reduce parking needs for selected central and north-side trips, but they do not replace a car for every Hill Country or outer-neighborhood stop.' },
+        { title: 'Expect event and festival disruption', summary: 'Football, festivals and downtown events can materially change parking, street access and travel time. Build the day around the event rather than assuming normal traffic.' },
+      ],
+      shoppingEntertainment: [
+        { title: 'South Congress', summary: 'Boutiques, restaurants, music and street life make this one of the easiest shopping-and-entertainment districts to combine with central sightseeing.' },
+        { title: 'Downtown entertainment districts', summary: 'Choose among 2nd Street, Sixth Street and Rainey-area nightlife based on the trip rather than treating downtown as one uniform evening zone.' },
+        { title: 'The Domain / North Burnet', summary: 'Use north Austin for destination shopping, restaurants and entertainment when the trip already includes north-side hotels, offices or events.' },
+      ],
     },
     systems: [
       {
         title: 'Water & electric utilities',
-        summary: 'Austin Water provides municipal water and wastewater services, while Austin Energy is the City of Austin’s electric utility. Service boundaries can extend beyond or stop short of a mailing-city label, so verify the actual address.',
-        links: [{ label: 'Austin Water', href: 'https://www.austintexas.gov/water' }, { label: 'Austin Energy', href: 'https://austinenergy.com/' }],
+        summary: 'Austin Water provides municipal water and wastewater services, while Austin Energy is the City of Austin’s electric utility. The utility service boundaries need not follow Austin mailing-city lines; Austin Water offers service-availability letters for individual tracts of land, so confirm the actual address before committing to a property.',
+        links: [{ label: 'Austin Water', href: 'https://www.austintexas.gov/water' }, { label: 'Austin Water service availability', href: 'https://www.austintexas.gov/water/programs/service-extension' }, { label: 'Austin Energy', href: 'https://austinenergy.com/' }],
       },
       {
         title: 'Public transportation',
-        summary: 'CapMetro is the public-transit agency for Austin and Central Texas, operating bus, rail and other mobility services. Use live system information for routes and schedules.',
+        summary: 'CapMetro operates Austin bus and commuter-rail service. Its Rapid 800 Pleasant Valley and Rapid 837 Expo Center bus corridors reached full frequency on June 7, 2026, improving connections east of I-35. Austin Light Rail is a future project, not an operating service; verify current routes, transfers, airport service and construction impacts with CapMetro’s live trip planner.',
         links: [{ label: 'CapMetro', href: 'https://www.capmetro.org/' }],
       },
       {
         title: 'Airport',
         summary: 'Austin-Bergstrom International Airport (AUS) is Austin’s primary commercial airport. The City of Austin maintains the official airport information and travel notices.',
-        links: [{ label: 'Austin-Bergstrom International', href: 'https://www.austintexas.gov/airport' }],
+        links: [{ label: 'Austin-Bergstrom International', href: 'https://www.flyaustin.com/' }],
       },
       {
         title: 'Schools',
@@ -346,7 +410,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       primaryCounty: 'Bexar County',
       counties: ['Bexar County', 'Comal County', 'Medina County'],
       note: 'San Antonio is primarily in Bexar County, with incorporated portions reaching into Comal and Medina counties. Verify the exact address before relying on county, school, appraisal, election or service boundaries.',
-      sourceUrl: 'https://www.sa.gov/files/assets/main/v/1/planning/documents/adopted-plans/utsa-area-regional-center-plan-2019.pdf',
+      sourceUrl: 'https://www.sanantonio.gov/GIS/GISData',
     },
     hero: {
       src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/San_Antonio_Skyline_2026.jpg?width=1600',
@@ -364,6 +428,9 @@ const profiles: Record<string, CityAuthorityProfile> = {
     ],
     featured: [
       { eyebrow: 'Texas history', title: 'The Alamo', summary: 'Start with the former mission and battle site, then connect it to the wider Spanish colonial mission story.', href: '/destination/the-alamo' },
+      { eyebrow: 'Historic itinerary', title: 'Two-day San Antonio heritage route', summary: 'Plan the downtown Spanish plazas, José Antonio Navarro’s home, King William and all four NPS missions with verified access caveats.', href: '/article/historic-san-antonio-heritage-road-trip' },
+      { eyebrow: 'World Heritage', title: 'Four NPS missions', summary: 'Compare Concepción, San José, San Juan and Espada, including ranger programs, access conditions and the Indigenous/colonial landscape.', href: '/destination/san-antonio-missions-national-historical-park' },
+      { eyebrow: 'Tejano heritage', title: 'Casa Navarro', summary: 'Visit the preserved adobe home of José Antonio Navarro to explore Tejano history beyond the Alamo narrative.', href: '/destination/casa-navarro' },
       { eyebrow: 'City icon', title: 'San Antonio River Walk', summary: 'Use the river corridor to connect downtown, Museum Reach, Pearl and the Mission Reach landscape.', href: '/destination/san-antonio-river-walk' },
       { eyebrow: 'Nearby trips', title: 'Explore near San Antonio', summary: 'Build Hill Country, river, cavern and small-town extensions around the city.', href: '/explore/near/san-antonio' },
       { eyebrow: 'Moving', title: 'Moving to San Antonio', summary: 'Compare Bexar-area commutes, city boundaries, school districts and utility systems before choosing an address.', href: '/article/moving-to-san-antonio-guide' },
@@ -372,7 +439,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       firstTime: [
         { title: 'Alamo + downtown River Walk', summary: 'Start with the historic core and river level on the same day rather than driving between distant attractions.', href: '/destination/the-alamo' },
         { title: 'Pearl + Museum Reach', summary: 'Follow the river north for food, public space and museums without treating Pearl as a separate cross-town trip.', href: '/destination/san-antonio-river-walk' },
-        { title: 'Missions day', summary: 'Reserve a separate block for the southern mission corridor and Mission Reach so the World Heritage landscape is not reduced to a quick drive-by.' },
+        { title: 'Missions day', summary: 'Reserve a separate block for the southern mission corridor and Mission Reach so the World Heritage landscape is not reduced to a quick drive-by.', href: '/destination/san-antonio-missions-national-historical-park' },
       ],
       stayAreas: [
         { title: 'Downtown / River Walk', summary: 'Best for a first leisure visit centered on historic sites, river walks, conventions and central dining.' },
@@ -381,8 +448,23 @@ const profiles: Record<string, CityAuthorityProfile> = {
       ],
       freeThings: [
         { title: 'River Walk public paths', summary: 'Walking the public river corridor costs nothing; cruises, attractions and dining are separate purchases.', href: '/destination/san-antonio-river-walk' },
-        { title: 'San Antonio Missions landscape', summary: 'The national historical park’s mission grounds and river corridor can anchor a low-cost history day; confirm current NPS access details.' },
+        { title: 'San Antonio Missions landscape', summary: 'The national historical park’s mission grounds and river corridor can anchor a low-cost history day; confirm current NPS access details.', href: '/destination/san-antonio-missions-national-historical-park' },
         { title: 'Historic plazas & Market Square area', summary: 'Explore downtown plazas, public art and the market district without requiring a ticketed attraction.' },
+      ],
+      family: [
+        { title: 'Alamo + River Walk', summary: 'Keep the first family history day compact by pairing the Alamo with the downtown river rather than adding a long cross-city attraction.', href: '/destination/the-alamo' },
+        { title: 'Mission corridor', summary: 'Use one or two missions plus Mission Reach as a slower history-and-outdoors day, with water, shade and heat planning for younger visitors.', href: '/destination/san-antonio-missions-national-historical-park' },
+        { title: 'Pearl + Museum Reach', summary: 'Combine public space, food, river walking and nearby museums in a single north-of-downtown cluster.', href: '/destination/san-antonio-river-walk' },
+      ],
+      gettingAround: [
+        { title: 'Walk the downtown core', summary: 'The Alamo, central River Walk, convention district and major downtown plazas fit a mostly pedestrian plan once the car is parked.' },
+        { title: 'Use VIA for selected city trips', summary: 'VIA bus service can support central and corridor travel, but mission, theme-park and far-north itineraries usually require more deliberate transfer or driving plans.' },
+        { title: 'Separate downtown from outer attractions', summary: 'The mission chain, northwest attractions and far-north neighborhoods are not extensions of one walkable visitor zone. Build those as separate blocks.' },
+      ],
+      shoppingEntertainment: [
+        { title: 'Pearl', summary: 'Use Pearl for restaurants, shops, public space and river access in a compact district that can continue naturally into Museum Reach.' },
+        { title: 'Market Square', summary: 'Downtown-adjacent shops, food and cultural programming make Market Square a natural companion to the historic core.' },
+        { title: 'River Walk evening', summary: 'The central river corridor concentrates dining and entertainment, while quieter Museum Reach and Mission Reach sections provide a different experience.' },
       ],
     },
     systems: [
@@ -416,7 +498,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       primaryCounty: 'El Paso County',
       counties: ['El Paso County'],
       note: 'El Paso is an El Paso County municipality. City, school, utility and special-district boundaries still differ, so use the exact address for local-service and property decisions.',
-      sourceUrl: 'https://www.elpasotexas.gov/planning-and-inspections/gis/',
+      sourceUrl: 'https://gis.elpasotexas.gov/accela/rest/services/311/CityLimits/FeatureServer/0',
     },
     hero: {
       src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/El_Paso_skyline.jpg?width=1600',
@@ -433,8 +515,9 @@ const profiles: Record<string, CityAuthorityProfile> = {
       { name: 'Upper Valley', summary: 'The Rio Grande, irrigated land and lower-density neighborhoods give northwest El Paso a different landscape from the desert east side.' },
     ],
     featured: [
-      { eyebrow: 'Living Tigua history', title: 'Ysleta del Sur Pueblo Cultural Center Museum', summary: 'Visit the Pueblo-operated museum for Tigua history and culture before following the nearby Mission Trail; check museum hours and public programs directly.', href: '/destination/ysleta-del-sur-pueblo-cultural-center-museum-el-paso' },
       { eyebrow: 'Outdoors', title: 'Franklin Mountains State Park', summary: 'Use the mountain park to understand the geography that physically divides and defines El Paso.', href: '/destination/franklin-mountains-state-park' },
+      { eyebrow: 'Living Tigua history', title: 'Ysleta del Sur Pueblo Cultural Center Museum', summary: 'Visit the Pueblo-operated museum for Tigua history and culture before following the nearby Mission Trail; check museum hours and public programs directly.', href: '/destination/ysleta-del-sur-pueblo-cultural-center-museum-el-paso' },
+      { eyebrow: 'Historic hotel', title: 'Hotel Paso del Norte', summary: 'Explore Trost’s 1912 hotel, stained-glass dome, National Register history, restored interiors and today’s downtown lodging choices.', href: '/destination/hotel-paso-del-norte' },
       { eyebrow: 'Nearby trips', title: 'Explore near El Paso', summary: 'Build desert, mountain, history and weekend-trip ideas around Far West Texas.', href: '/explore/near/el-paso' },
       { eyebrow: 'Road trips', title: 'Road trips from El Paso', summary: 'Build longer Far West Texas drives around desert scenery, mountain corridors, historic stops and realistic distances from El Paso.', href: '/explore/near/el-paso/road-trips' },
       { eyebrow: 'Moving', title: 'Moving to El Paso', summary: 'Compare mountain crossings, military access, desert utilities and address-level local systems before choosing a home.', href: '/article/moving-to-el-paso-guide' },
@@ -454,6 +537,21 @@ const profiles: Record<string, CityAuthorityProfile> = {
         { title: 'Scenic Drive overlook', summary: 'Use the public overlook for a broad view of El Paso, the Rio Grande valley and Ciudad Juárez; check road access before departure.' },
         { title: 'Downtown public art & architecture', summary: 'Walk central streets and plazas for murals, historic buildings and civic spaces without a ticket.' },
         { title: 'UTEP campus architecture', summary: 'The university’s distinctive Bhutanese-influenced architecture creates a free self-guided walking stop when campus access permits.' },
+      ],
+      family: [
+        { title: 'El Paso Zoo + central museums', summary: 'Use one major family attraction and one nearby indoor stop to avoid spending the day crossing the mountain from side to side.' },
+        { title: 'Franklin Mountains', summary: 'Choose age-appropriate trails or overlooks and plan around heat, wind, elevation and water needs.', href: '/destination/franklin-mountains-state-park' },
+        { title: 'Downtown + streetcar', summary: 'Pair public art, historic architecture and a streetcar ride for a lower-driving family introduction to the city center.' },
+      ],
+      gettingAround: [
+        { title: 'The mountain shapes every cross-city trip', summary: 'Franklin Mountains divide the urban area, so west-side, northeast and east-side stops can require longer drives than straight-line distance suggests.' },
+        { title: 'Use the streetcar downtown when it fits', summary: 'The El Paso Streetcar can connect downtown, UTEP and nearby central districts without repeated parking.' },
+        { title: 'Drive for mountain and outer-corridor days', summary: 'Franklin Mountains access, Mission Valley and many east-side destinations are easier to treat as separate driving blocks.' },
+      ],
+      shoppingEntertainment: [
+        { title: 'Downtown', summary: 'Historic streets, museums, theaters, public art and restaurants make downtown the strongest all-purpose evening cluster.' },
+        { title: 'Kern Place / Cincinnati corridor', summary: 'Use the UTEP-adjacent area for restaurants, bars and a younger nightlife scene close to west-side hotels.' },
+        { title: 'East Side retail', summary: 'Major shopping centers and newer dining clusters on the east side are most practical when the day is already focused east of the mountains.' },
       ],
     },
     systems: [
@@ -487,7 +585,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       primaryCounty: 'Tarrant County',
       counties: ['Tarrant County'],
       note: 'Arlington is in Tarrant County. School districts, utilities and special districts still have their own boundaries, so city residency does not replace address-level verification.',
-      sourceUrl: 'https://www.tarrantcountytx.gov/en/elections/interactive-maps.html',
+      sourceUrl: 'https://gis2.arlingtontx.gov/agsext2/rest/services/OpenData/OD_PoliticalBoundary/MapServer/1',
     },
     hero: {
       src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Arlington_Texas_Entertainment_District.jpg?width=1600',
@@ -524,6 +622,21 @@ const profiles: Record<string, CityAuthorityProfile> = {
         { title: 'Downtown public art walk', summary: 'Explore civic spaces, murals and the UTA-area streets without buying an attraction ticket.' },
         { title: 'Entertainment District exterior walk', summary: 'On non-event days, the public streetscape around the stadiums offers architecture and photo stops; respect event-day access controls.' },
       ],
+      family: [
+        { title: 'Theme-park or stadium day', summary: 'Choose the primary ticketed attraction first and build the rest of the day around its opening time, parking plan and energy demands.' },
+        { title: 'River Legacy Parks', summary: 'Use the park and Trinity River greenbelt for trails, nature and a lower-cost family break away from event crowds.' },
+        { title: 'Downtown / UTA', summary: 'Mix a civic or university-area stop with local dining when the family trip needs a quieter half day outside the Entertainment District.' },
+      ],
+      gettingAround: [
+        { title: 'Plan the last mile before an event', summary: 'Arlington’s stadium and theme-park district requires a deliberate driving, rideshare or local on-demand plan; do not assume regional rail will drop you at the venue.' },
+        { title: 'Treat the Entertainment District as one parking decision', summary: 'AT&T Stadium, Globe Life Field and nearby attractions sit close together, but event controls can make moving the car between them inefficient.' },
+        { title: 'Leave Metroplex transfer time', summary: 'Dallas, Fort Worth and DFW Airport may look close on a regional map, but freeway congestion and event traffic can materially change arrival times.' },
+      ],
+      shoppingEntertainment: [
+        { title: 'Entertainment District', summary: 'Stadiums, theme parks, concerts and event-oriented restaurants make this the city’s dominant visitor entertainment cluster.' },
+        { title: 'Downtown Arlington', summary: 'Use downtown for smaller venues, local restaurants, public art and UTA-area activity beyond the stadium corridor.' },
+        { title: 'Arlington Highlands / south Arlington', summary: 'A separate retail, dining and movie-entertainment cluster that works best when the trip already uses I-20 or south Arlington hotels.' },
+      ],
     },
     systems: [
       {
@@ -533,7 +646,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       },
       {
         title: 'Public transportation',
-        summary: 'Arlington uses a citywide on-demand rideshare transit model rather than a traditional fixed-route city bus network. The service also connects riders with the TRE CentrePort area for regional connections.',
+        summary: 'Arlington On-Demand operates shared rides through the Arlington Transportation app, not a conventional fixed-route city bus network. The service connects Arlington with CentrePort TRE Station and the Eastchase area in Fort Worth for regional transfers; the city lists Monday–Saturday service, with no regular Sunday rides. Verify the service area, current hours, fares and pickup location directly before planning a trip.',
         links: [{ label: 'Arlington On-Demand', href: 'https://www.arlingtontx.gov/City-Services/Transportation-Streets-Traffic/Arlington-On-Demand' }],
       },
       {
@@ -556,7 +669,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       primaryCounty: 'Tarrant County',
       counties: ['Tarrant County'],
       note: 'Hurst is in Tarrant County. School-district, utility and service boundaries still need to be checked at the exact address, especially in the tightly connected Mid-Cities area.',
-      sourceUrl: 'https://www.tarrantcountytx.gov/en/elections/interactive-maps.html',
+      sourceUrl: 'https://mms.hursttx.gov/arcgis/rest/services/EnerGov_Basemap/MapServer/2',
     },
     hero: {
       src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Cityhallathurst.jpg?width=1600',
@@ -592,12 +705,27 @@ const profiles: Record<string, CityAuthorityProfile> = {
         { title: 'Hurst public parks', summary: 'The municipal park system gives families several no-ticket recreation options; check city rules for specific facilities.' },
         { title: 'Bell Station rail-watching / orientation', summary: 'The station area is a useful public orientation point for understanding Hurst’s place on the regional rail corridor; fares apply to train rides.' },
       ],
+      family: [
+        { title: 'WhirlyBall Hurst', summary: 'Use the dedicated guide for an indoor family or group activity that works well as a Mid-Cities add-on.', href: '/destination/whirlyball-hurst' },
+        { title: 'Chisholm Park', summary: 'Build in playground, trail and open-space time when a regional Dallas–Fort Worth trip needs a simple local reset.' },
+        { title: 'Short local day + regional attraction', summary: 'Hurst is compact, so families can pair one Hurst stop with Fort Worth, Arlington or Grapevine without needing a full tourist checklist in the city.' },
+      ],
+      gettingAround: [
+        { title: 'Use Hurst as a regional base', summary: 'Loop 820 and SH 121 make driving to Fort Worth, Arlington and DFW Airport practical, but peak traffic can erase the apparent advantage of a central location.' },
+        { title: 'Bell Station can replace selected car trips', summary: 'Trinity Railway Express provides a useful regional rail option for trips aligned with its corridor; check the current schedule before depending on it.' },
+        { title: 'Local errands are still car-oriented', summary: 'Most Hurst shopping, parks and family visits are easier by car, so choose a hotel area that matches the highway or regional destination you will use most.' },
+      ],
+      shoppingEntertainment: [
+        { title: 'North East Mall area', summary: 'The city’s largest retail cluster combines shopping, dining and indoor entertainment close to SH 121.' },
+        { title: 'WhirlyBall + Mid-Cities evening', summary: 'Use WhirlyBall as the activity anchor, then choose dining in Hurst or neighboring Mid-Cities rather than adding a long Metroplex drive.', href: '/destination/whirlyball-hurst' },
+        { title: 'Hurst Town Center / local corridors', summary: 'Smaller retail and restaurant clusters offer a more practical neighborhood option for visitors staying locally.' },
+      ],
     },
     systems: [
       {
         title: 'Water & city services',
-        summary: 'The City of Hurst Public Works system operates municipal water distribution and wastewater collection, while Utility Billing handles city water accounts. Electric service should still be verified for the exact address rather than inferred from the Hurst mailing label.',
-        links: [{ label: 'Hurst water & sewer', href: 'https://www.hursttx.gov/residents/city-services/water-and-sewer' }],
+        summary: 'City of Hurst Public Works operates local drinking-water distribution and wastewater collection, while Utility Billing manages city customer accounts. Fort Worth Water separately lists Hurst as a wholesale drinking-water and wastewater customer; that upstream supply contract does not establish which provider serves a particular address. Verify the property and electric service separately.',
+        links: [{ label: 'Hurst water & sewer', href: 'https://www.hursttx.gov/residents/city-services/water-and-sewer' }, { label: 'Fort Worth wholesale water customers', href: 'https://www.fortworthtexas.gov/departments/water/wholesale' }],
       },
       {
         title: 'Regional rail & airport access',
@@ -612,7 +740,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       {
         title: 'Parks & recreation',
         summary: 'Hurst Parks & Recreation manages the city park system, recreation programs, aquatics and athletic facilities. Chisholm Park is the city’s largest park and includes trails, playgrounds, a fishing pond, athletic fields and other family recreation.',
-        links: [{ label: 'Hurst Parks & Recreation', href: 'https://www.hursttx.gov/about-us/departments/parks-recreation' }, { label: 'Chisholm Park', href: 'https://www.hursttx.gov/Home/Components/FacilityDirectory/FacilityDirectory/32/2514' }],
+        links: [{ label: 'Hurst Parks & Recreation', href: 'https://www.hursttx.gov/about-us/departments/parks-recreation' }, { label: 'Chisholm Park', href: 'https://www.hursttx.gov/Home/Components/FacilityDirectory/FacilityDirectory/32/' }],
       },
       {
         title: 'Local trip planning',
@@ -629,7 +757,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       primaryCounty: 'Nueces County',
       counties: ['Nueces County', 'San Patricio County', 'Kleberg County', 'Aransas County'],
       note: 'Corpus Christi is centered in Nueces County, while current municipal and Census place geography includes smaller portions across San Patricio, Kleberg and Aransas counties. Coastal and barrier-island boundaries make exact-address and parcel verification especially important.',
-      sourceUrl: 'https://www.corpuschristitx.gov/media/k4rg0ztp/2025gmp_withappendices_final.pdf',
+      sourceUrl: 'https://ccpublicgis.cctexas.com/server01/rest/services/CC_GENERAL_SERVICES/CC_GENERAL_SERVICES/MapServer/2',
     },
     hero: {
       src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Corpus_Christi_skyline.jpg?width=1600',
@@ -667,12 +795,27 @@ const profiles: Record<string, CityAuthorityProfile> = {
         { title: 'Cole Park', summary: 'Use the public bayfront park, trail and open space for a low-cost outdoor stop.' },
         { title: 'McGee Beach', summary: 'Central bayfront beach access offers an easy public shoreline stop; confirm current swimming and safety conditions.' },
       ],
+      family: [
+        { title: 'North Beach two-attraction day', summary: 'Pair USS Lexington with the Texas State Aquarium and keep the rest of the day nearby so parking and bridge crossings stay simple.', href: '/destination/uss-lexington-museum-corpus-christi' },
+        { title: 'Bayfront + beach break', summary: 'Mix museums or downtown walking with Cole Park or a central bayfront beach for a flexible lower-cost family block.' },
+        { title: 'Padre Island nature day', summary: 'Treat Gulf beach, wildlife and national-seashore time as a separate weather-dependent day with sun, surf and water-safety planning.', href: '/destination/padre-island-national-seashore' },
+      ],
+      gettingAround: [
+        { title: 'Group North Beach stops together', summary: 'USS Lexington and the Texas State Aquarium share the same visitor area, making one parking decision more efficient than multiple bridge crossings.' },
+        { title: 'Use CCRTA for selected urban trips', summary: 'Regional bus service can support some city travel, while beach, island and outer-neighborhood plans usually remain easier by car.' },
+        { title: 'Padre Island is a separate driving block', summary: 'Downtown and North Beach are not interchangeable with Gulf-beach time. Allow for causeway travel, weather and seasonal beach traffic.' },
+      ],
+      shoppingEntertainment: [
+        { title: 'Downtown & Bayfront', summary: 'Use central Corpus Christi for restaurants, festivals, marina walks, museums and event venues in the most urban visitor cluster.' },
+        { title: 'Padre Island', summary: 'Island restaurants, fishing-oriented businesses and beach nightlife work best when the trip is already based near the Gulf.' },
+        { title: 'Southside / La Palmera area', summary: 'Major shopping, dining and indoor entertainment are concentrated inland on the south side, useful during heat or poor beach weather.' },
+      ],
     },
     systems: [
       {
         title: 'Water & city utilities',
-        summary: 'Corpus Christi municipal services include water and wastewater systems. Use the city’s current service portal for account, conservation, outage and utility information, and verify other service territories for the exact address.',
-        links: [{ label: 'City of Corpus Christi', href: 'https://www.corpuschristitx.gov/' }],
+        summary: 'Corpus Christi Water manages the city water and wastewater systems, and Corpus Christi Gas is a separate municipal natural-gas service. These service areas and electric service do not necessarily match a mailing-city boundary; confirm utility availability and any city account for the exact property.',
+        links: [{ label: 'City utility services: water and gas', href: 'https://www.corpuschristitx.gov/living-in-our-community/utilities/' }, { label: 'Corpus Christi Water', href: 'https://www.corpuschristitx.gov/department-directory/corpus-christi-water' }],
       },
       {
         title: 'Public transportation',
@@ -682,7 +825,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       {
         title: 'Airport',
         summary: 'Corpus Christi International Airport (CRP) is the city’s primary commercial airport. Use the airport’s live site for airline, parking and ground-transportation details.',
-        links: [{ label: 'Corpus Christi International', href: 'https://www.corpuschristiairport.com/' }],
+        links: [{ label: 'Corpus Christi International', href: 'https://corpuschristiairport.com/' }],
       },
       {
         title: 'Schools',
@@ -699,7 +842,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       primaryCounty: 'Collin County',
       counties: ['Collin County', 'Denton County'],
       note: 'Most of Plano is in Collin County, with part of the city in Denton County. The city’s own tax tools distinguish the two county contexts, so property, school and appraisal records should be checked against the exact address.',
-      sourceUrl: 'https://ecop.plano.gov/MyTaxDollar/MyTaxDollar.aspx',
+      sourceUrl: 'https://maps.planogis.org/arcgiswad/rest/services/OpenData/MunicipalBoundary/MapServer/0',
     },
     hero: {
       src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Hdr_plano.jpg?width=1600',
@@ -735,16 +878,31 @@ const profiles: Record<string, CityAuthorityProfile> = {
         { title: 'Oak Point Park & Nature Preserve', summary: 'Use the large public park and trail network for walking, cycling and open-space time.' },
         { title: 'Arbor Hills Nature Preserve', summary: 'Trails and natural areas provide a free outdoor stop on Plano’s western side.' },
       ],
+      family: [
+        { title: 'Oak Point Park', summary: 'Use the large trail and open-space system as a flexible outdoor family anchor before adding a more structured attraction.' },
+        { title: 'Downtown Plano', summary: 'Combine the historic district with railroad history, public art and an easy meal in the city’s most walkable older center.' },
+        { title: 'Legacy district family block', summary: 'Use Legacy-area dining, shops and entertainment as an evening or weather-proof complement to parks and museums.' },
+      ],
+      gettingAround: [
+        { title: 'DART works best along the east-central rail corridor', summary: 'Downtown Plano, Parker Road and CityLine/Bush connections can support a transit-first trip when the itinerary stays near rail and feeder services.' },
+        { title: 'West Plano is more car-oriented', summary: 'Legacy, Legacy West and Dallas North Tollway destinations are separated from the historic downtown rail corridor, so driving or rideshare is often simpler.' },
+        { title: 'Use live DART planning for regional rail', summary: 'Airport and regional rail options are changing faster than the street grid. Check the current DART trip planner instead of assuming a static route or transfer pattern.' },
+      ],
+      shoppingEntertainment: [
+        { title: 'Legacy West', summary: 'Destination shopping, restaurants, hotels and entertainment form one of Plano’s strongest all-in-one visitor districts.' },
+        { title: 'The Shops at Legacy', summary: 'A separate walkable mixed-use cluster adds restaurants, retail and evening activity near the Tollway.' },
+        { title: 'Downtown Plano', summary: 'Historic storefronts, local restaurants, events and small businesses provide a more local-scale alternative to west Plano shopping districts.' },
+      ],
     },
     systems: [
       {
         title: 'Water & city utilities',
-        summary: 'Plano Customer & Utility Services manages water, sewer and trash service accounts. Electric service remains address-specific and should be verified separately from the city utility account.',
-        links: [{ label: 'Plano Customer & Utility Services', href: 'https://cus.plano.gov/' }],
+        summary: 'Plano Customer & Utility Services manages city water, sewer and trash accounts, with current water resources and service-rate notices published by Plano. Electricity is a separate service-territory question; verify the exact address and current city rates rather than assuming one utility account covers every service.',
+        links: [{ label: 'Plano Customer & Utility Services', href: 'https://cus.plano.gov/' }, { label: 'Plano Water Resources and rate updates', href: 'https://www.plano.gov/plano-water-resources' }],
       },
       {
         title: 'Public transportation',
-        summary: 'Plano is connected to the wider North Texas transit network through DART. Use DART’s current maps and trip-planning tools for rail, bus and other service information.',
+        summary: 'Plano is served by DART rail, bus and on-demand GoLink. DART expanded Plano GoLink zones on October 5, 2026, including a new Southwest Plano zone and connections with the Silver Line and major transit centers. GoLink is organized by service zone, not one unrestricted citywide ride area; check the exact address, operating hours, transfer rules and current DART trip planner before traveling.',
         links: [{ label: 'DART', href: 'https://www.dart.org/' }],
       },
       {
@@ -767,7 +925,7 @@ const profiles: Record<string, CityAuthorityProfile> = {
       primaryCounty: 'Lubbock County',
       counties: ['Lubbock County'],
       note: 'Lubbock is in Lubbock County. Municipal, school, utility and special-district boundaries still differ, so use the exact address for household and property decisions.',
-      sourceUrl: 'https://ci.lubbock.tx.us/pages/city-government/city-charter',
+      sourceUrl: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/Layers/ParcelMap/MapServer/13',
     },
     hero: {
       src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/Lubbock%2C_Texas_skyline.jpg?width=1600',
@@ -804,16 +962,31 @@ const profiles: Record<string, CityAuthorityProfile> = {
         { title: 'Mackenzie Park', summary: 'Use public parkland and the Canyon Lakes system for outdoor time close to the city center.' },
         { title: 'Texas Tech public art & campus walk', summary: 'The campus offers architecture and outdoor art that can be explored on foot when public access allows.' },
       ],
+      family: [
+        { title: 'Texas Tech + museum day', summary: 'Use the university area for museums, campus landmarks and indoor time, especially when West Texas weather makes long outdoor stops less comfortable.' },
+        { title: 'Mackenzie Park + Canyon Lakes', summary: 'Build in playground, trail and open-space time close to the city center for a lower-cost family block.' },
+        { title: 'Aviation history', summary: 'Silent Wings Museum can anchor a focused indoor family history stop near the airport.', href: '/destination/silent-wings-museum-lubbock' },
+      ],
+      gettingAround: [
+        { title: 'Plan on driving for most citywide trips', summary: 'Lubbock’s major visitor areas are spread across a broad street grid, and a car is usually the simplest way to connect downtown, Texas Tech, south Lubbock and airport-area stops.' },
+        { title: 'Use Citibus where the route fits', summary: 'Local bus service can support selected city and university trips, but it is better treated as one option than as a complete visitor network for every attraction.' },
+        { title: 'Watch event and game traffic', summary: 'Texas Tech football, concerts and university events can change parking and travel times around campus and central corridors.' },
+      ],
+      shoppingEntertainment: [
+        { title: 'Depot District', summary: 'Live music, nightlife, restaurants and Buddy Holly-related attractions make the downtown district the city’s strongest visitor entertainment cluster.' },
+        { title: 'Broadway / Texas Tech', summary: 'Use the campus-adjacent corridor for restaurants, student-oriented nightlife and game-day activity.' },
+        { title: 'South and west Lubbock', summary: 'Newer retail centers, restaurants and movie entertainment around Loop 289 are practical for visitors staying outside downtown.' },
+      ],
     },
     systems: [
       {
         title: 'City utilities',
-        summary: 'Lubbock’s city government provides local utility and public-service information, while specific electric arrangements and service territories can change over time. Verify the exact property before comparing costs or providers.',
-        links: [{ label: 'City of Lubbock', href: 'https://www.mylubbock.us/' }],
+        summary: 'Lubbock Water Utilities operates municipal water supply, treatment, distribution and wastewater facilities, while City of Lubbock Utilities handles consolidated city water, wastewater, stormwater and solid-waste accounts. In the LP&L electric delivery territory, customers choose a separate retail electric provider; LP&L is not their retail electricity seller. Verify the exact property and both utility service and billing boundaries.',
+        links: [{ label: 'Lubbock Water Utilities', href: 'https://www.mylubbock.us/water' }, { label: 'City of Lubbock Utility Billing', href: 'https://www.mylubbock.us/COLU' }, { label: 'Retail electric providers (City of Lubbock)', href: 'https://www.mylubbock.us/361/Retail-Providers' }],
       },
       {
         title: 'Public transportation',
-        summary: 'Citibus provides public transportation in Lubbock, including fixed-route and accessible services. Use its live route and trip-planning tools for current service.',
+        summary: 'Citibus operates Lubbock fixed-route, GoPass-bookable On-Demand and eligible CitiAccess services. New Route 205 and redesigned Routes 025, 211 and 214 entered service September 28, 2026; Texas Tech campus routes may follow academic calendars. Check Citibus current maps and GoPass rather than assuming old route numbers, uniform coverage or Sunday fixed-route service.',
         links: [{ label: 'Citibus', href: 'https://citibus.com/' }],
       },
       {

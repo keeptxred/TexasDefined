@@ -10,10 +10,6 @@ on:
       - 'src/routes/county.tsx'
       - 'src/routes/county.lazy.tsx'
       - 'src/routes/api.find-my-county.ts'
-  workflow_run:
-    workflows: ['Deploy TexasDefined production']
-    types: [completed]
-
 permissions:
   contents: read
 
@@ -22,8 +18,19 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  syntax:
+    if: ${{ github.event_name == 'pull_request' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+      - run: node --check scripts/ci/verify-county-production.mjs
+
   verify-county-production:
-    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:

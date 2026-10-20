@@ -19,7 +19,7 @@ export const lighthouseDeepDiveExpansionBySlug: Record<string, ArticleBlock[]> =
     h("Point Bolivar Lighthouse FAQ"),
     p("When was the current Point Bolivar Lighthouse first lit? The present cast-iron tower entered service in 1873 after the earlier station had been disrupted during the Civil War."),
     p("Is Point Bolivar Lighthouse open for climbing? It should be treated as a view-only historic landmark unless an authorized public-access program specifically says otherwise. TexasDefined does not recommend entering private or restricted property."),
-    p("Why is the tower black? The dark cast-iron exterior is one of the defining visual characteristics of the surviving structure and makes it easy to distinguish from the white masonry and frame lighthouses found elsewhere on the Gulf Coast."),
+    p("Why do older Point Bolivar photographs show a dark tower? For decades it had a dark exterior. The Bolivar Point Lighthouse Foundation confirms a restoration that repainted the cast-iron tower in its historic black-and-white stripes, so old photographs must not be presented as its current appearance."),
   ],
 
   "lydia-ann-lighthouse-port-aransas": [

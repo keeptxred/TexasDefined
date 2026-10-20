@@ -8,6 +8,7 @@ export const REMOTE_IMAGE_HOSTS = new Set([
   "thumb.wikimedia.org",
   "upload.wikimedia.org",
   "images.unsplash.com",
+  "research.fs.usda.gov",
 ]);
 
 const OWN_IMAGE = /^https:\/\/(?:www\.)?texasdefined\.com(\/[^#]*)/i;

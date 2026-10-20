@@ -1,4 +1,5 @@
 import "./lib/error-capture";
+import { LEGACY_EDITORIAL_REDIRECTS } from "./lib/legacy-editorial-redirects";
 
 import { countySlugForLegacyArticle } from "./data/county-series";
 import { allowedRemoteImageUrl, REMOTE_IMAGE_PATH } from "./lib/editorial-image-delivery";
@@ -22,6 +23,7 @@ const BING_VERIFICATION_META =
 const REMOTE_IMAGE_REDIRECT_STATUSES = new Set([301, 302, 303, 307, 308]);
 const MAX_REMOTE_IMAGE_REDIRECTS = 4;
 const ENTITY_REDIRECTS: Record<string, string> = {
+  ...LEGACY_EDITORIAL_REDIRECTS,
   "/lake/caddo-lake": "/destination/caddo-lake",
   "/state-park/palo-duro-canyon-state-park": "/destination/palo-duro-canyon-state-park",
   "/state-park/enchanted-rock-state-natural-area": "/destination/enchanted-rock-state-natural-area",
@@ -104,7 +106,7 @@ function canonicalEntityRedirect(request: Request) {
   return Response.redirect(url.toString(), 301);
 }
 
-async function fetchAllowedRemoteImage(initialUrl: URL) {
+async function fetchAllowedRemoteImageOnce(initialUrl: URL) {
   let target = initialUrl;
 
   for (let redirectCount = 0; redirectCount <= MAX_REMOTE_IMAGE_REDIRECTS; redirectCount += 1) {
@@ -125,10 +127,29 @@ async function fetchAllowedRemoteImage(initialUrl: URL) {
   return new Response("Too many remote image redirects", { status: 508 });
 }
 
+const RETRYABLE_REMOTE_IMAGE_STATUSES = new Set([408, 429, 500, 502, 503, 504]);
+
+// The remote broker never substitutes a different photo. Retry the same
+// rights-checked source on transient upstream throttling before failing closed.
+// Cloudflare's per-POP cache still serves verified 200 image bytes normally.
+async function fetchAllowedRemoteImage(initialUrl: URL): Promise<Response> {
+  let response = await fetchAllowedRemoteImageOnce(initialUrl);
+  for (let retry = 1; retry <= 2 && RETRYABLE_REMOTE_IMAGE_STATUSES.has(response.status); retry += 1) {
+    const retryAfter = Number(response.headers.get("retry-after"));
+    const delay = Number.isFinite(retryAfter) && retryAfter > 0
+      ? Math.min(8_000, Math.max(1_000, retryAfter * 1_000))
+      : retry * 2_000;
+    await response.body?.cancel();
+    await new Promise((resolve) => setTimeout(resolve, delay));
+    response = await fetchAllowedRemoteImageOnce(initialUrl);
+  }
+  return response;
+}
+
 function cachedHeadResponse(response: Response) {
   return new Response(null, {
-    status: cacheSafeResponse.status,
-    statusText: cacheSafeResponse.statusText,
+    status: response.status,
+    statusText: response.statusText,
     headers: response.headers,
   });
 }

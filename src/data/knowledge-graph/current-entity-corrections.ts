@@ -16,6 +16,13 @@ function stripGeneratedSportsVenueBoilerplate(description?: string) {
 export function applyCurrentEntityCorrections(entity: TexasEntityRecord): TexasEntityRecord {
   let corrected = entity;
 
+  // The MSR Houston guide's October 9 primary-source audit is newer than the
+  // original August inventory snapshot. Scope the date only to this venue;
+  // other sports-venue records retain their own actual verification dates.
+  if (corrected.id === 'sports-venue:msr-houston') {
+    corrected = { ...corrected, sourceCheckedAt: '2026-10-09' };
+  }
+
   if (corrected.id === 'sports-venue:jones-att-stadium') {
     corrected = {
       ...corrected,
@@ -30,6 +37,34 @@ export function applyCurrentEntityCorrections(entity: TexasEntityRecord): TexasE
     corrected = {
       ...corrected,
       description: 'AT&T Stadium is the Dallas Cowboys’ home in Arlington and the centerpiece of one of Texas’s densest big-event districts. NFL Sundays, college football, stadium tours, concerts and special events all pull visitors into the same Arlington corridor as Globe Life Field, making parking strategy and the surrounding entertainment district part of the experience.',
+    };
+  }
+
+  if (corrected.id === 'sports-venue:daikin-park') {
+    corrected = {
+      ...corrected,
+      description: 'Daikin Park has anchored Houston Astros baseball in downtown Houston since 2000, combining a retractable-roof ballpark with the preserved Union Station setting. The venue took the Daikin Park name for the 2025 season, while its downtown location keeps games closely tied to Houston hotels, restaurants, Discovery Green and the convention district.',
+    };
+  }
+
+  if (corrected.id === 'sports-venue:shell-energy-stadium') {
+    corrected = {
+      ...corrected,
+      description: 'Shell Energy Stadium is Houston’s soccer-focused home for Dynamo FC and the Dash in the EaDo district just east of downtown. METRORail’s Green and Purple lines stop at EaDo/Stadium, while the stadium’s proximity to Daikin Park and downtown gives match days a compact, transit-friendly city setting.',
+    };
+  }
+
+  if (corrected.id === 'sports-venue:toyota-center-houston') {
+    corrected = {
+      ...corrected,
+      description: 'Toyota Center is the Houston Rockets’ downtown arena and a major stop for concerts and touring sports events. The adjacent Toyota Tundra Garage, surrounding downtown lots and walkable access to Discovery Green and the convention district make the arena less of a stand-alone destination than a central-city event anchor.',
+    };
+  }
+
+  if (corrected.id === 'sports-venue:legacy-stadium-katy') {
+    corrected = {
+      ...corrected,
+      description: 'Legacy Stadium is Katy ISD’s 2017 district stadium and serves multiple Katy-area schools rather than one permanent home team. Its west-Harris County location makes district schedules, event-specific parking and school assignment more useful to visitors than generic Houston stadium advice.',
     };
   }
 

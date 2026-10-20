@@ -1,3 +1,5 @@
+import { createProductionPageFetch } from './reuse-production-page.mjs';
+const fetchPage = createProductionPageFetch();
 import { appendFileSync } from 'node:fs';
 import { matchesExpectedSurface } from './html-surface-marker.mjs';
 
@@ -7,6 +9,9 @@ const runId = process.env.GITHUB_RUN_ID ?? Date.now().toString();
 const summaryPath = process.env.GITHUB_STEP_SUMMARY;
 
 const surfaces = [
+  ['football-wills-point', '/texas-high-school-football-teams/wills-point', 'Wills Point Tigers Football'],
+  ['football-bryan', '/texas-high-school-football-teams/bryan', 'Bryan Vikings Football'],
+  ['football-championship-history', '/texas-high-school-football-championship-history', 'Texas high school football state championship history'],
   ['city-houston-authority', '/city/houston', 'Museum District + Hermann Park'],
   ['city-houston-social', '/city/houston', 'Houston_texas_usa_skyline.jpg?width=1600'],
   ['city-dallas-authority', '/city/dallas', 'Choose one evening district'],
@@ -47,6 +52,16 @@ const surfaces = [
   ['metro-el-paso-weekend-trips', '/explore/near/el-paso/weekend-trips', 'Weekend Trips From El Paso, Texas'],
   ['metro-lubbock-hub', '/explore/near/lubbock', 'Explore by trip type'],
   ['metro-mcallen-hub', '/explore/near/mcallen', 'Explore by trip type'],
+  ['metro-mcallen-world-birding-center', '/explore/near/mcallen', 'Nine World Birding Center sites. Nine different ways to explore the Valley.'],
+  ['metro-mcallen-world-birding-roma', '/explore/near/mcallen', 'Roma Bluffs World Birding Center'],
+  ['metro-mcallen-world-birding-operator', '/explore/near/mcallen', 'Current official visitor information'],
+  ['metro-mcallen-pumphouse-hub-guide', '/explore/near/mcallen', 'Explore the historic pumphouse guide'],
+  ['metro-mcallen-pumphouse-historic-collection', '/explore/near/mcallen/historic-sites', 'Old Hidalgo Pumphouse Museum and World Birding Center'],
+  ['metro-mcallen-pumphouse-destination-authority', '/destination/old-hidalgo-pumphouse-museum', '1909 Rio Grande irrigation pumping station'],
+
+  ['metro-mcallen-day-trips-title', '/explore/near/mcallen/day-trips', 'Best Day Trips From McAllen, Texas'],
+  ['metro-mcallen-day-trips-editorial', '/explore/near/mcallen/day-trips', 'Which McAllen day trip fits your day?'],
+  ['metro-mcallen-day-trips-access', '/explore/near/mcallen/day-trips', 'Remote four-wheel-drive beach routes are not ordinary day-trip recommendations.'],
   ['metro-midland-odessa-road-trips', '/explore/near/midland-odessa/road-trips', 'Road Trips From Midland–Odessa, Texas'],
   ['metro-tyler-lakes', '/explore/near/tyler/lakes', 'Lakes Near Tyler, Texas'],
   ['metro-college-station-day-trips', '/explore/near/college-station/day-trips', 'Best Day Trips From College Station, Texas'],
@@ -125,6 +140,8 @@ const surfaces = [
   ['home-insurance-calculator', '/texas-home-insurance-calculator', 'Homeowners insurance calculator without personal information'],
   ['moving-pillar', '/article/moving-to-texas-what-nobody-tells-you', 'The quick answer: what should you know before moving to Texas?'],
   ['relocation-data-center', '/moving-to-texas/data', 'The data behind a move to Texas'],
+  ['relocation-el-paso-guide', '/article/moving-to-el-paso-guide', 'Which part of El Paso should you live in?'],
+  ['relocation-el-paso-hero', '/article/moving-to-el-paso-guide', 'El_Paso_skyline.jpg'],
   ['relocation-city-comparison', '/browse/cities', 'The Texas city directory'],
   ['flag-history', '/article/history-of-the-texas-flag', 'The Texas Flag: A History of the Lone Star'],
   ['flag-etiquette', '/article/texas-flag-etiquette-display-guide', 'Texas Flag Etiquette: How to Display the Lone Star Flag Correctly'],
@@ -255,7 +272,7 @@ async function verifyRevisionBoundSurface(label, path, needle) {
     console.log(`[${label}] attempt ${attempt}: ${url}`);
 
     try {
-      const response = await fetch(url, {
+      const response = await fetchPage(url, {
         redirect: 'follow',
         cache: 'no-store',
         signal: AbortSignal.timeout(30_000),
@@ -332,7 +349,7 @@ for (let attempt = 1; attempt <= 6; attempt += 1) {
       redirect: 'follow',
       signal: AbortSignal.timeout(30_000),
       headers: { 'user-agent': 'TexasDefined-CI-Production-Smoke/1.0' },
-    });
+    }, attempt > 1);
     canonicalHomepageStatus = String(response.status);
     canonicalHomepageChallenge = response.headers.get('cf-mitigated')?.toLowerCase() === 'challenge';
     canonicalHomepageBody = await response.text();
@@ -382,7 +399,62 @@ if (!canonicalHomepagePassed) {
 appendSummary(`\nAll ${surfaces.length} revision-bound production surfaces plus the canonical homepage passed without a Cloudflare challenge.\n`);
 console.log(`TexasDefined production verification passed (${surfaces.length} revision-bound surfaces plus canonical homepage, no cf-mitigated challenges).`);
 
+
+/* City sitemap authority: fail closed against actual cache-busted production XML. */
+const citySitemapEntries = [
+  'houston', 'dallas', 'fort-worth', 'austin', 'san-antonio', 'el-paso',
+  'arlington', 'hurst', 'corpus-christi', 'plano', 'lubbock',
+];
+const { readFileSync } = await import('node:fs');
+const cityMetroAuthoritySource = readFileSync('src/data/city-metro-authority.ts', 'utf8');
+const cityAuthorityLastmod = cityMetroAuthoritySource.match(/const cityAuthorityCheckedAt = '(\d{4}-\d{2}-\d{2})'/)?.[1];
+if (!cityAuthorityLastmod) throw new Error('City sitemap authority date is unavailable from current entity source');
+let citySitemapPassed = false;
+let citySitemapFailure = 'unavailable';
+for (let attempt = 1; attempt <= 6; attempt += 1) {
+  try {
+    const cacheBust = new URL('/sitemap.xml', origin);
+    cacheBust.searchParams.set('city_authority_verify', [sha, runId, attempt].join('-'));
+    const response = await fetch(cacheBust, {
+      cache: 'no-store',
+      redirect: 'follow',
+      signal: AbortSignal.timeout(30_000),
+      headers: { 'user-agent': 'TexasDefined-CI-City-Sitemap/1.0', 'cache-control': 'no-cache, no-store', pragma: 'no-cache' },
+    });
+    if (!response.ok || response.headers.get('cf-mitigated')?.toLowerCase() === 'challenge') {
+      throw new Error('Live sitemap HTTP ' + response.status + ' (challenge=' + response.headers.get('cf-mitigated') + ')');
+    }
+    const xml = await response.text();
+    if (!xml.includes('<urlset') || !xml.includes('</urlset>')) throw new Error('Invalid live primary sitemap XML');
+    const citySitemapMissing = citySitemapEntries.filter((slug) => {
+      const expected = new URL('/city/' + slug, origin).toString();
+      const entries = [...xml.matchAll(/<url>([\s\S]*?)<\/url>/g)];
+      return !entries.some(([, entry]) => {
+        const loc = entry.match(/<loc>([^<]+)<\/loc>/)?.[1]?.replace(/&amp;/g, '&');
+        const lastmod = entry.match(/<lastmod>([^<]+)<\/lastmod>/)?.[1];
+        return loc === expected && lastmod === cityAuthorityLastmod;
+      });
+    });
+    if (citySitemapMissing.length) throw new Error('Missing/stale city entries: ' + citySitemapMissing.join(', ') + '; expected lastmod ' + cityAuthorityLastmod);
+    citySitemapPassed = true;
+    console.log('[city-sitemap-authority] verified 11 live city URLs with lastmod=' + cityAuthorityLastmod);
+    appendSummary('| ✅ pass | city-sitemap-authority | 200 | ' + attempt + ' | no |\n');
+    break;
+  } catch (error) {
+    citySitemapFailure = error instanceof Error ? error.message : String(error);
+    console.error('[city-sitemap-authority] attempt ' + attempt + ': ' + citySitemapFailure);
+    if (attempt < 6) await sleep(5_000);
+  }
+}
+if (!citySitemapPassed) {
+  appendSummary('| ❌ FAIL | city-sitemap-authority | error | 6 | unknown |\n');
+  throw new Error('LIVE PRODUCTION city sitemap authority failure: ' + citySitemapFailure);
+}
+
 await import('./verify-texas-industries-production.mjs');
 await import('./verify-gaming-production.mjs');
 await import('./verify-hurst-whirlyball-production.mjs');
 await import('./verify-viator-production.mjs');
+await import('./verify-fredericksburg-corridor-production.mjs');
+await import('./verify-seo-recovery-production.mjs');
+await import('./verify-rockport-exhibits-production.mjs');

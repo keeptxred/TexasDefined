@@ -18,6 +18,9 @@ import {
 } from "./texas-explained-support-stubs";
 import { texasExplainedSupportStubs2, texasRailroadsTownGrowthGuideStub } from "./texas-explained-support-stubs-2";
 import { texasExplainedRiverProfileStubs } from "./texas-explained-river-profile-stubs";
+import { texasExplainedRemainingRiverProfileStubs } from "./texas-explained-river-profiles-remaining-stubs";
+import { texasRiverRecreationGuideStubs } from "./texas-river-recreation-guide-stubs";
+import { allRiverAuthorityNavigationLinks } from "@/data/river-authority-relations";
 import { texasExplainedReservoirProfileStubs } from "./texas-explained-reservoir-profile-stubs";
 import { texasExplainedRoadSystemStubs } from "./texas-explained-road-system-stubs";
 import { texasHomeArchitectureRegionsStub } from "./texas-home-architecture-regions-stub";
@@ -45,11 +48,11 @@ const texasFarmToMarketRoadsExplainedStub: Article = {
 };
 
 const texasRiversExplainedStub: Article = {
-  id: "evergreen-texas-rivers-explained", brandId: "texasdefined", slug: "texas-rivers-explained", title: "Major Rivers of Texas: Basins, Regions & Waterways Explained",
+  id: "evergreen-texas-rivers-explained", brandId: "texasdefined", slug: "texas-rivers-explained", title: "Texas Rivers Explained: Major Rivers, Basins & Map",
   dek: "Major Texas rivers and 15 river basins explained, including the Rio Grande, Brazos, Colorado, Guadalupe, Trinity and Sabine.",
   category: "lakes-rivers",
   hero: { src: "/images/explore/lakes-rivers/guadalupe-river-state-park.jpg", alt: "The Guadalupe River flowing beneath bald cypress trees in the Texas Hill Country", width: 1600, height: 1115, credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons" },
-  authorId: "a-marisol", publishedAt: "2026-08-13", readingMinutes: 12,
+  authorId: "a-marisol", publishedAt: "2026-08-13", updatedAt: "2026-10-18", readingMinutes: 14,
   tags: ["texas rivers", "river basins", "brazos river", "colorado river", "guadalupe river", "rio grande", "texas geography", "texas water"],
   featured: true, sourceName: "Texas Water Development Board", sourceUrl: "https://www.twdb.texas.gov/surfacewater/rivers/river_basins/index.asp",
   body: [], relatedCollections: [], relatedDestinations: ["guadalupe-river-state-park", "devils-river-state-natural-area", "south-llano-river-state-park"],
@@ -125,7 +128,7 @@ export const lazyEvergreenArticleStubs: Article[] = [
   texasRoofsHailWindHeatStub, texasSchoolDistrictsExplainedStub, chooseElectricityPlanTexasStub, texasRiversExplainedStub,
   texasLakesReservoirsExplainedStub, texasHillCountryStub, texasTownCulturalRootsStub, texasCourthousesTownSquareStub,
   texasFoundationCareStub, prepareTexasHouseFreezeStub, mudsPidsHoasSpecialDistrictsStub,
-  ...texasExplainedSupportStubs, ...texasExplainedSupportStubs2, ...texasExplainedRiverProfileStubs, ...texasExplainedReservoirProfileStubs, ...texasExplainedRoadSystemStubs,
+  ...texasExplainedSupportStubs, ...texasExplainedSupportStubs2, ...texasExplainedRiverProfileStubs, ...texasExplainedRemainingRiverProfileStubs, ...texasRiverRecreationGuideStubs, ...texasExplainedReservoirProfileStubs, ...texasExplainedRoadSystemStubs,
 ];
 
 const addSourceLinks = (article: Article, links: NonNullable<Article["internalLinks"]>): Article => {
@@ -185,7 +188,7 @@ export async function loadLazyEvergreenArticle(brandId: string, slug: string): P
   if (slug === texasRoofsHailWindHeatStub.slug) { const { texasRoofsHailWindHeatArticle } = await import("./texas-roofs-hail-wind-heat"); return addSourceLinks(texasRoofsHailWindHeatArticle, [{ href: "https://www.tdi.texas.gov/tips/replacing-your-roof.html", label: "Texas Department of Insurance roof guidance", description: "Official guidance on roof coverage, wind and hail deductibles, claims and replacement." }, { href: "https://www.tdi.texas.gov/tips/after-hail-or-windstorms.html", label: "Texas hail and windstorm claim guidance", description: "Official Texas consumer guidance for documenting damage and handling storm claims." }]); }
   if (slug === texasSchoolDistrictsExplainedStub.slug) { const { texasSchoolDistrictsExplainedArticle } = await import("./texas-school-districts-explained"); return addSourceLinks(texasSchoolDistrictsExplainedArticle, [{ href: "https://tea.texas.gov/families-and-students/school-district-locator/school-district-locator", label: "Texas Education Agency school district locator", description: "Official state map and district-boundary information for Texas addresses." }, { href: "https://tea.texas.gov/glossary/askted", label: "AskTED Texas Education Directory", description: "Official school, district, county and regional education directory information." }]); }
   if (slug === chooseElectricityPlanTexasStub.slug) { const { chooseElectricityPlanTexasArticle } = await import("./choose-electricity-plan-texas"); return addSourceLinks(chooseElectricityPlanTexasArticle, [{ href: "https://www.powertochoose.org/", label: "Power to Choose", description: "Official Texas resource for comparing retail electricity offers in eligible areas." }, { href: "https://www.puc.texas.gov/consumer/electricity/", label: "Public Utility Commission electricity information", description: "Official consumer guidance on electric service, utilities and retail providers." }]); }
-  if (slug === texasRiversExplainedStub.slug) { const { texasRiversExplainedArticle } = await import("./texas-rivers-explained"); return addSourceLinks(texasRiversExplainedArticle, texasRiversSourceLinks); }
+  if (slug === texasRiversExplainedStub.slug) { const { texasRiversExplainedArticle } = await import("./texas-rivers-explained"); return addSourceLinks(texasRiversExplainedArticle, [...texasRiversSourceLinks, ...allRiverAuthorityNavigationLinks()]); }
   if (slug === texasLakesReservoirsExplainedStub.slug) { const { texasLakesReservoirsExplainedArticle } = await import("./texas-lakes-reservoirs-explained"); return texasLakesReservoirsExplainedArticle; }
   if (slug === texasHillCountryStub.slug) { const { texasHillCountryWhatMakesItArticle } = await import("./texas-hill-country-what-makes-it"); return texasHillCountryWhatMakesItArticle; }
   if (slug === texasTownCulturalRootsStub.slug) { const { texasTownCulturalRootsArticle } = await import("./texas-town-cultural-roots"); return addSourceLinks(texasTownCulturalRootsArticle, [culturalRegionsReciprocalLink]); }
@@ -217,7 +220,24 @@ export async function loadLazyEvergreenArticle(brandId: string, slug: string): P
   if (texasExplainedRiverProfileStubs.some((article) => article.slug === slug)) {
     const riverModule = await import("./texas-explained-river-profiles");
     const article = riverModule.texasExplainedRiverProfileArticles.find((candidate) => candidate.slug === slug);
-    return article ?? null;
+    if (!article) return null;
+    const { enhanceExistingRiverGuide } = await import("./texas-river-authority-extensions");
+    const { enhanceRemainingRiverGuide } = await import("./texas-river-authority-remaining");
+    return enhanceRemainingRiverGuide(enhanceExistingRiverGuide(article));
+  }
+
+  if (texasExplainedRemainingRiverProfileStubs.some((article) => article.slug === slug)) {
+    const riverModule = await import("./texas-explained-river-profiles-remaining");
+    const article = riverModule.texasExplainedRemainingRiverProfileArticles.find((candidate) => candidate.slug === slug);
+    if (!article) return null;
+    const { enhanceExistingRiverGuide } = await import("./texas-river-authority-extensions");
+    const { enhanceRemainingRiverGuide } = await import("./texas-river-authority-remaining");
+    return enhanceRemainingRiverGuide(enhanceExistingRiverGuide(article));
+  }
+
+  if (texasRiverRecreationGuideStubs.some((article) => article.slug === slug)) {
+    const { texasRiverRecreationGuideArticles } = await import("./texas-river-recreation-guides");
+    return texasRiverRecreationGuideArticles.find((article) => article.slug === slug) ?? null;
   }
 
   if (texasExplainedReservoirProfileStubs.some((article) => article.slug === slug)) {

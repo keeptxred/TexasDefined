@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 
 import { UnusualBusinessAuthorityPanel } from "@/components/authority/UnusualBusinessAuthorityPanel";
 import { topAttractionTimeline } from "@/data/destination-timelines-top-attractions";
+import { historicSiteAuthorityTimeline } from "@/data/historic-site-authority-timelines";
 import type { Destination } from "@/data/types";
 import { Container } from "@/components/layout/Container";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
@@ -27,7 +28,8 @@ export function DestinationAuthorityGuide({
   const authority = destination.authorityGuide;
   if (!authority) return null;
 
-  const timeline = topAttractionTimeline(destination.slug);
+  const primaryTimeline = topAttractionTimeline(destination.slug);
+  const timeline = primaryTimeline.length ? primaryTimeline : historicSiteAuthorityTimeline(destination.slug);
   const primarySource = authority.sources[0];
   const nearby = destination.areaGuide?.nearbyAttractions[0];
   const sideTrip = destination.areaGuide?.sideTrips[0];
@@ -64,13 +66,13 @@ export function DestinationAuthorityGuide({
             <h2 id={`${destination.slug}-texas-significance`} className="mt-2 font-display text-4xl">Why {destination.name} matters</h2>
             <p className="mt-6 text-base leading-8 text-foreground/90">{authority.whyItMatters}</p>
             <div className="mt-7 border-t border-border pt-5 text-sm leading-6 text-muted-foreground">
-              <strong className="text-foreground">About this guide:</strong> <Link to="/authors/$author" params={{ author: "a-hollis" }} className="border-b border-primary text-primary">Texas Defined Editorial Desk</Link>. Operational details are checked against the linked controlling source; supporting sources deepen history, science, conservation or institutional context. Editorial assessments describe trip-planning value rather than a star rating. <Link to="/explore/top-attractions/methodology" className="border-b border-primary text-primary">See the Top-25 methodology.</Link> <Link to="/citation-guide" className="border-b border-primary text-primary">Citation guidance.</Link>
+              <strong className="text-foreground">About this guide:</strong> <Link to="/authors/$author" params={{ author: "a-hollis" }} className="border-b border-primary text-primary">Texas Defined Editorial Desk</Link>. Official operator pages control changing access and visitor rules. The site-specific research and planning suggestions here supplement, but do not replace, those sources. Editorial assessments describe trip-planning value rather than a star rating. {destination.category !== "historic-sites" && !["goliad-state-park-and-historic-site", "san-jacinto-battleground-state-historic-site", "washington-on-the-brazos-state-historic-site"].includes(destination.slug) ? <Link to="/explore/top-attractions/methodology" className="border-b border-primary text-primary">See the Top-25 methodology.</Link> : null} <Link to="/citation-guide" className="border-b border-primary text-primary">Citation guidance.</Link>
             </div>
           </section>
 
           <section aria-labelledby={`${destination.slug}-itineraries`}>
             <p className="eyebrow text-primary">Use the time you have</p>
-            <h2 id={`${destination.slug}-itineraries`} className="mt-2 font-display text-4xl">Three ways to visit</h2>
+            <h2 id={`${destination.slug}-itineraries`} className="mt-2 font-display text-4xl">{destination.slug === "battleship-texas" ? "Three ways to explore while the ship is closed" : "Three ways to visit"}</h2>
             <div className="mt-7 grid gap-5 sm:grid-cols-3">
               {authority.itineraries.map((plan) => <article key={plan.label} className="border-t-2 border-foreground pt-5">
                 <p className="eyebrow text-primary">{plan.duration}</p>
@@ -125,7 +127,7 @@ export function DestinationAuthorityGuide({
             <section className="mt-10 border-t-2 border-foreground pt-5" aria-labelledby={`${destination.slug}-review-log`}>
               <p className="eyebrow text-primary">Update history</p>
               <h2 id={`${destination.slug}-review-log`} className="mt-2 font-display text-3xl">Latest review</h2>
-              <p className="mt-4 text-sm leading-7 text-muted-foreground"><strong className="text-foreground">{checkedDate(destination.sourceCheckedAt)}:</strong> official visitor guidance, entry/reservation notes, access and accessibility information where published, recommended visit structure, surrounding trip context and supporting institutional sources reviewed for this guide.</p>
+              <p className="mt-4 text-sm leading-7 text-muted-foreground"><strong className="text-foreground">Last recorded source review: {checkedDate(destination.sourceCheckedAt)}.</strong> This records the source-check date held for the destination, not a live confirmation that every facility, exhibition, operating hour or admission rule remains unchanged. Check the named operator before traveling.</p>
               <p className="mt-3 text-xs leading-5 text-muted-foreground">Hours, prices, weather closures, special events and capacity limits can change after review. The linked controlling visitor source governs current-day operations.</p>
             </section>
           </aside>

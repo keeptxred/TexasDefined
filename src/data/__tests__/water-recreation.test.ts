@@ -4,7 +4,7 @@ import { auditDestination } from "../destination-audit";
 import { applyAllCuratedDestination } from "../destination-curation-all";
 import { preservedExploreDestinations } from "../destination-preserved-catalog";
 import { listResolvedDestinations } from "../destination-query-runtime";
-import { selectSwimmingHoleAndTubingDestinations } from "../water-recreation";
+import { selectSwimmingHoleAndTubingDestinations, SWIM_ACTIVITY_RESTRICTIONS } from "../water-recreation";
 import type { Destination } from "../types";
 
 const destination = (overrides: Partial<Destination>): Destination => ({
@@ -27,27 +27,28 @@ const destination = (overrides: Partial<Destination>): Destination => ({
 
 describe("Swimming Holes & River Tubing qualification", () => {
   it("includes destinations with clear positive swimming signals", () => {
-    const item = destination({ summary: "A spring-fed pool with year-round swimming." });
+    const item = destination({ slug: "blanco-state-park", summary: "A spring-fed pool with year-round swimming." });
     expect(selectSwimmingHoleAndTubingDestinations([item])).toEqual([item]);
   });
 
   it("excludes prohibition-only swimming mentions", () => {
-    const item = destination({ body: ["Swimming is not allowed. Stay out of the water."] });
+    const item = destination({ slug: "blanco-state-park", body: ["Swimming is not allowed. Stay out of the water."] });
     expect(selectSwimmingHoleAndTubingDestinations([item])).toEqual([]);
   });
 
   it("keeps mixed-rule destinations when a separate area allows swimming", () => {
-    const item = destination({ body: ["Do not swim at Gorman Falls. Spicewood Springs has spring-fed swimming holes."] });
+    const item = destination({ slug: "colorado-bend-state-park", body: ["Do not swim at Gorman Falls. Spicewood Springs has spring-fed swimming holes."] });
     expect(selectSwimmingHoleAndTubingDestinations([item])).toEqual([item]);
   });
 
   it("does not treat wildlife uses of wading as water recreation", () => {
-    const item = destination({ highlights: ["Lake loops for alligators, wading birds and wetland views"] });
+    const item = destination({ slug: "fort-boggy-state-park", highlights: ["Lake loops for alligators, wading birds and wetland views"] });
     expect(selectSwimmingHoleAndTubingDestinations([item])).toEqual([]);
   });
 
   it("excludes destinations with a current all-site swimming closure", () => {
     const item = destination({
+      slug: "blanco-state-park",
       summary: "A spring-fed swimming hole.",
       entryNote: "Swimming is cancelled until further notice.",
     });
@@ -80,6 +81,31 @@ describe("Swimming Holes & River Tubing qualification", () => {
   it("keeps San Marcos when the production water collection resolves the full catalog", async () => {
     const items = await listResolvedDestinations({ category: "swimming-holes-river-tubing" });
     expect(items.some((item) => item.slug === "san-marcos")).toBe(true);
+  });
+
+  it("keeps cross-category water destinations when a region is also requested", async () => {
+    const items = await listResolvedDestinations({ category: "swimming-holes-river-tubing", region: "hill-country" });
+    expect(items.some((item) => item.slug === "new-braunfels")).toBe(true);
+    expect(items.some((item) => item.slug === "san-marcos")).toBe(true);
+    expect(items.every((item) => item.region === "hill-country")).toBe(true);
+  });
+
+  it("does not advertise Abilene State Park while both pool and lake swimming are closed", () => {
+    const item = destination({
+      slug: "abilene-state-park",
+      summary: "The historic pool and Lake Abilene were once popular for swimming.",
+      entryNote: "Swimming and fishing at Lake Abilene are not permitted; the pool is closed for renovations.",
+    });
+    expect(SWIM_ACTIVITY_RESTRICTIONS[item.slug]?.source).toContain("tpwd.texas.gov");
+    expect(selectSwimmingHoleAndTubingDestinations([item])).toEqual([]);
+  });
+
+  it("does not equate a passing swimming reference in an off-topic park with confirmed swimming access", () => {
+    const item = destination({
+      slug: "palo-duro-canyon-state-park",
+      summary: "A desert canyon with a historical story about swimming.",
+    });
+    expect(selectSwimmingHoleAndTubingDestinations([item])).toEqual([]);
   });
 
   it("includes Bandera as the canonical Medina River tubing gateway", () => {

@@ -1,0 +1,141 @@
+import "../network.css";
+import { createLazyFileRoute } from '@tanstack/react-router';
+import { useEffect, useState } from 'react';
+import { Container } from '@/components/layout/Container';
+import { supabase } from '@/integrations/supabase/client';
+import { wereNetworkUnsubmittedDraftsDeleted } from '@/data/network-owner-draft-cleanup';
+
+export const Route=createLazyFileRoute('/business/dashboard')({component:BusinessDashboard});
+type Account={id:string;application_id:string;access_enabled:boolean;membership_tier:'plus'|'featured'};
+type Revision={id:string;review_status:string;created_at:string;proposed_profile:Record<string,unknown>};
+type Published={slug:string;profile:Record<string,unknown>;logo_storage_path:string|null;gallery_storage_paths:string[]};
+const fields=[['business_name','Business name'],['description','Description'],['category','Category'],['city','City / area'],['address','Public address'],['phone','Public phone'],['hours','Hours'],['website','Website'],['social','Social link'],['services','Services'],['faq','FAQs'],['offer','Current offer']] as const;
+function BusinessDashboard(){
+ const {ownerPortalOpen}=Route.useLoaderData();
+ const [email,setEmail]=useState('');
+ const [userId,setUserId]=useState<string|null>(null);
+ const [account,setAccount]=useState<Account|null>(null);
+ const [revisions,setRevisions]=useState<Revision[]>([]);
+ const [published,setPublished]=useState<Published|null>(null);
+ const [draft,setDraft]=useState<Record<string,string>>({});
+ const [newLogo,setNewLogo]=useState<File|null>(null);
+ const [newGallery,setNewGallery]=useState<File[]>([]);
+ const [message,setMessage]=useState('');
+ const [busy,setBusy]=useState(false);
+ useEffect(()=>{
+  let alive=true;
+  let authStateEventReceived=false;
+  // A slow getUser() response must not resurrect a user after a sign-out or
+  // account switch delivered through onAuthStateChange.
+  void supabase.auth.getUser().then(({data})=>{
+    if(alive&&!authStateEventReceived)setUserId(data.user?.id||null);
+  }).catch(()=>{if(alive&&!authStateEventReceived)setUserId(null)});
+  const {data:{subscription}}=supabase.auth.onAuthStateChange((_event,session)=>{
+    authStateEventReceived=true;
+    if(alive)setUserId(session?.user.id||null);
+  });
+  return()=>{alive=false;subscription.unsubscribe()};
+ },[]);
+ useEffect(()=>{
+  // Auth switches must not display the prior owner's account, private review
+  // history, uploaded File objects, or editable draft while new RLS data loads.
+  setAccount(null);setPublished(null);setRevisions([]);
+  setDraft({});setNewLogo(null);setNewGallery([]);
+  setEmail('');setMessage('');
+  if(!userId)return;
+  let active=true;void (async()=>{
+  const {data,error}=await supabase.from('texasdefined_network_business_accounts').select('id,application_id,access_enabled,membership_tier').eq('owner_user_id',userId).limit(1).maybeSingle();
+  if(!active)return;if(error){setMessage('Account loading failed.');return}
+  setAccount(data as Account|null);if(data){
+   const [revisionsResult, listingResult]=await Promise.all([
+    supabase.from('texasdefined_network_profile_revisions').select('id,review_status,created_at,proposed_profile').eq('business_account_id',data.id).order('created_at',{ascending:false}).limit(20),
+    supabase.from('texasdefined_network_public_listings').select('slug,profile,logo_storage_path,gallery_storage_paths').eq('application_id',data.application_id).eq('is_published',true).maybeSingle()
+   ]);
+   if(active){setRevisions((revisionsResult.data||[]) as Revision[]);setPublished(!listingResult.error?listingResult.data as Published|null:null)}
+  }else{setPublished(null)}
+ })();return()=>{active=false}},[userId]);
+ async function signIn(e:React.FormEvent){e.preventDefault();if(!ownerPortalOpen){setMessage('Owner sign-in is not yet available.');return}setBusy(true);const {error}=await supabase.auth.signInWithOtp({email,options:{emailRedirectTo:window.location.origin+'/business/dashboard',shouldCreateUser:true}});setMessage(error?error.message:'Check your email for a secure sign-in link.');setBusy(false)}
+ async function submit(e:React.FormEvent){e.preventDefault();if(!ownerPortalOpen||!account?.access_enabled||account.membership_tier!=='featured')return;setBusy(true);setMessage('');
+ const {data:{user}}=await supabase.auth.getUser();if(!user){setMessage('Sign in again.');setBusy(false);return}
+ const payload:Record<string,unknown>=Object.fromEntries(Object.entries(draft).filter(([k,v])=>fields.some(([name])=>name===k)&&v.trim()));
+ const selected=[...(newLogo?[newLogo]:[]),...newGallery];
+ if(selected.some(file=>file.size>3000000||file.size===0||!['image/jpeg','image/png','image/webp'].includes(file.type))) {
+  setMessage('Use JPEG, PNG or WebP files under 3 MB.');setBusy(false);return;
+ }
+ // Fail early on quota exhaustion; the Storage INSERT policy is the authoritative guard.
+ if(selected.length){
+  const {data:priorMedia,error:quotaError}=await supabase.storage.from('texasdefined-network-featured-drafts')
+   .list(user.id+'/'+account.id,{limit:100});
+  if(quotaError||!priorMedia){setMessage('Media quota could not be checked. Please retry.');setBusy(false);return}
+  if(priorMedia.length+selected.length>24){
+   setMessage('This business has reached its 24-draft-image limit. Contact Texas Defined to review older draft media.');
+   setBusy(false);return;
+  }
+ }
+ const uploadedPaths:string[]=[];
+ const drafts=supabase.storage.from('texasdefined-network-featured-drafts');
+ const upload=async(file:File,label:string)=>{
+  const ext=file.type==='image/png'?'png':file.type==='image/webp'?'webp':'jpg';
+  const path=user.id+'/'+account.id+'/'+crypto.randomUUID()+'-'+label+'.'+ext;
+  const {error}=await drafts.upload(path,file,{contentType:file.type,upsert:false});
+  if(error)throw new Error('Image upload failed');
+  uploadedPaths.push(path);
+  return path;
+ };
+ const cleanUnsubmitted=async()=>{
+  if(!uploadedPaths.length)return true;
+  // Storage may return HTTP 200 even when RLS deletes ZERO rows. Confirm each
+  // attempted object's absence from the authoritative owner-visible inventory.
+  const {error}=await drafts.remove(uploadedPaths);
+  if(error)return false;
+  const {data:remainingMedia,error:inventoryError}=await drafts.list(user.id+'/'+account.id,{limit:100});
+  if(inventoryError || !wereNetworkUnsubmittedDraftsDeleted(uploadedPaths,remainingMedia))return false;
+  // A disabled owner may no longer see prior private media via RLS, so their
+  // empty list is not evidence that deletion succeeded. Fail closed.
+  const {data:stillEnabled,error:bindingError}=await supabase
+    .from('texasdefined_network_business_accounts')
+    .select('id').eq('id',account.id).eq('access_enabled',true).maybeSingle();
+  return !bindingError && !!stillEnabled;
+ };
+ try{
+  if(newLogo)payload.logo_storage_path=await upload(newLogo,'logo');
+  if(newGallery.length){
+   const paths:string[]=[];
+   // Sequential uploads make it possible to clean every successful path on partial failure.
+   for(const [i,file] of newGallery.entries())paths.push(await upload(file,'photo-'+i));
+   payload.gallery_storage_paths=paths;
+  }
+ }catch(err){
+  const cleaned=await cleanUnsubmitted();
+  setMessage((err instanceof Error?err.message:'Image upload failed')+(cleaned?'':' Contact Texas Defined to remove the unused drafts.'));
+  setBusy(false);return;
+ }
+
+ if(!Object.keys(payload).length && !newLogo && !newGallery.length){setMessage('Enter at least one proposed change.');setBusy(false);return}
+ const {error}=await supabase.from('texasdefined_network_profile_revisions').insert({business_account_id:account.id,submitted_by:user.id,proposed_profile:payload} as never);
+ if(error){
+  const cleaned=await cleanUnsubmitted();
+  setMessage('Could not submit: '+error.message+(cleaned?'':' The uploaded draft files may still need cleanup.'));
+ }else{
+  setMessage('Changes submitted for editorial approval. Your public listing is unchanged.');
+  setDraft({});setNewLogo(null);setNewGallery([]);
+  setRevisions(old=>[{id:'new',created_at:new Date().toISOString(),review_status:'pending_review',proposed_profile:payload},...old]);
+ }
+ setBusy(false)
+ }
+ return <div><Container className="py-12"><p className="eyebrow text-primary">TexasDefined Network</p><h1 className="mt-2 font-display text-4xl">My Business Dashboard</h1>
+ {!ownerPortalOpen&&<p role="status" className="mt-6 rounded-lg border border-amber-300 bg-amber-50 p-4 text-sm font-semibold text-amber-950">Owner email sign-in is not available before Network launch.</p>}
+ {!userId?<form onSubmit={signIn} className="mt-8 max-w-md space-y-4"><p>Verified business owners can request a secure email sign-in link. Signing in alone does not grant access.</p><label className="block">Account email<input required type="email" className="mt-2 w-full border border-border p-3" value={email} onChange={e=>setEmail(e.target.value)}/></label><button disabled={!ownerPortalOpen||busy} className="bg-primary px-6 py-3 text-primary-foreground">Email sign-in link</button></form>:<><button className="mt-4 border border-border px-4 py-2" onClick={()=>void supabase.auth.signOut()}>Sign out</button>
+ {!account?<p className="mt-6">No verified business is assigned to this account. Contact TexasDefined to verify ownership and activate access.</p>:!account.access_enabled?<p className="mt-6">Your business account is pending activation.</p>:account.membership_tier==='plus'?<section className="mt-8 rounded-2xl border border-border p-6"><h2 className="font-display text-2xl">Plus business membership</h2><p className="mt-3">Your verified owner access is enabled. Featured profile editing requires a separately approved Featured membership.</p><a href="/network/billing" className="mt-4 inline-block font-semibold text-primary underline">View membership billing</a>{published&&<p className="mt-4"><a className="font-semibold text-primary underline" href={'/network/business/'+published.slug}>View approved public listing</a></p>}</section>:!published?<section className="mt-8 rounded-2xl border border-border p-6"><h2 className="font-display text-2xl">Featured edits are paused</h2><p className="mt-3 text-muted-foreground">Featured editing requires a published business listing and an active Plus subscription. Previously submitted reviews remain available when your listing is restored.</p><a className="mt-4 inline-block font-semibold text-primary underline" href="/network/billing">Review membership billing</a></section>:<div className="mt-8 grid gap-8 lg:grid-cols-2"><form onSubmit={submit} className="space-y-5"><h2 className="font-display text-2xl">Propose updates</h2><p className="text-sm text-muted-foreground">Only fill fields you want to change. Every update requires approval before appearing publicly.</p>{fields.map(([name,label])=><label key={name} className="block text-sm font-semibold">{label}{['description','services','faq'].includes(name)?<textarea className="mt-2 w-full rounded-lg border border-border p-3" maxLength={1500} rows={3} value={draft[name]||''} onChange={e=>setDraft(old=>({...old,[name]:e.target.value}))}/>:<input className="mt-2 w-full rounded-lg border border-border p-3" maxLength={300} value={draft[name]||''} onChange={e=>setDraft(old=>({...old,[name]:e.target.value}))}/>}</label>)}<div className="space-y-3 border-t border-border pt-5"><p className="font-semibold">Submit image changes for approval</p><label className="block text-sm">Replace logo <input type="file" accept="image/jpeg,image/png,image/webp" onChange={e=>setNewLogo(e.target.files?.[0]||null)} className="mt-2 block"/></label><label className="block text-sm">Replace gallery (up to six) <input type="file" multiple accept="image/jpeg,image/png,image/webp" onChange={e=>setNewGallery(Array.from(e.target.files||[]).slice(0,6))} className="mt-2 block"/></label></div><button disabled={busy||revisions.some(r=>r.review_status==='pending_review')} className="rounded-full bg-primary px-6 py-3 font-semibold text-primary-foreground disabled:opacity-50">Submit changes for approval</button></form><aside><div className="sticky top-28 rounded-2xl border border-border bg-white p-6"><h2 className="font-display text-2xl">Current approved listing</h2>
+   {published?<div className="mt-4 space-y-3">
+     {published.logo_storage_path&&<img src={supabase.storage.from('texasdefined-network-published').getPublicUrl(published.logo_storage_path).data.publicUrl} alt="Current approved business logo" className="h-20 w-20 rounded-xl border object-contain"/>}
+     <p className="font-semibold">{String(published.profile.business_name||'Your business')}</p>
+     <p className="text-sm text-muted-foreground">{String(published.profile.category||'')} · {String(published.profile.city||'')}</p>
+     <a className="inline-block text-sm text-primary underline" href={'/network/business/'+published.slug} target="_blank" rel="noreferrer">View live approved page</a>
+     <p className="text-xs text-muted-foreground">The currently approved listing stays online while proposed edits await review.</p>
+   </div>:<p className="mt-4 text-sm text-muted-foreground">No approved public profile is available yet.</p>}
+   <h2 className="mt-8 font-display text-2xl">Preview proposed changes</h2>{fields.filter(([name])=>draft[name]?.trim()).map(([name,label])=><p key={name} className="mt-4 whitespace-pre-wrap"><strong>{label}:</strong> {draft[name]}</p>)}<h3 className="mt-8 font-display text-xl">Review history</h3>{revisions.map(r=><div key={r.id} className="mt-3 border-t border-border pt-3 text-sm">{r.review_status} · {new Date(r.created_at).toLocaleDateString()}</div>)}</div></aside></div>}
+ </>}
+ {message&&<p role="status" className="mt-6 rounded-xl border border-border p-4">{message}</p>}
+ </Container></div>
+}

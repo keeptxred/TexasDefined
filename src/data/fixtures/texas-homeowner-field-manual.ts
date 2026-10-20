@@ -27,7 +27,7 @@ export const texasHomeownerFieldManualArticle: Article = {
   sourceUrl: "https://www.tdi.texas.gov/consumer/homeowners.html",
   internalLinks: [
     { href: "/article/texas-home-maintenance-calendar", label: "Texas home maintenance calendar", description: "Turn this field manual into a month-by-month maintenance rhythm." },
-    { href: "/article/texas-hurricane-preparation-guide", label: "Texas hurricane preparation guide", description: "Build a storm plan for wind, flooding, evacuation, outages and insurance documentation." },
+    { href: "/article/texas-hurricane-preparation-homeowners-renters", label: "Texas hurricane preparation guide", description: "Build a storm plan for wind, flooding, evacuation, outages and insurance documentation." },
     { href: "/article/prepare-texas-house-freeze", label: "Prepare a Texas house for a freeze", description: "Protect plumbing, pools, plants, pets and backup power before temperatures fall." },
     { href: "/article/texas-foundation-care-clay-soil-drought", label: "Texas foundation care", description: "Understand expansive clay, drought, drainage and the warning signs worth investigating." },
     { href: "/article/texas-roofs-hail-wind-heat", label: "Texas roofs, hail, wind and heat", description: "Know what Texas weather does to a roof and how to document storm damage." },

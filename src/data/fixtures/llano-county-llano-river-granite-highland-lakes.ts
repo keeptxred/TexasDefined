@@ -35,6 +35,7 @@ export const llanoCountyLlanoRiverGraniteHighlandLakesArticle: Article = {
   ],
   featured: false,
   internalLinks: [
+    { href: "/article/texas-llano-river-guide", label: "Texas llano  River guide", description: "Access, river history, appropriate recreation, camping and verified current-source checks." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
     { href: "/county/burnet", label: "Explore Burnet County", description: "Continue east into the Highland Lakes, Marble Falls and Burnet country." },
     { href: "/county/gillespie", label: "Explore Gillespie County", description: "Travel south toward Fredericksburg, German heritage and the southern side of Enchanted Rock." },

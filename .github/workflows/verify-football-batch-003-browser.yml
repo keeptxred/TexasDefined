@@ -1,0 +1,68 @@
+name: Verify Batch 003 football production browser
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/ci/verify-football-batch-003-browser.mjs'
+      - '.github/workflows/verify-football-batch-003-browser.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  statuses: write
+concurrency:
+  group: football-batch-003-production-browser
+  cancel-in-progress: false
+jobs:
+  source-syntax:
+    name: Validate fixed Batch 003 roster and browser source on PR
+    if: ${{ github.event_name == 'pull_request' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node --check scripts/ci/verify-football-batch-003-browser.mjs
+      - run: node scripts/ci/verify-football-batch-003.mjs
+
+  verify:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - name: Check out repository evidence and browser runner
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+      - name: Set up Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install isolated Chrome browser driver at no project cost
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-wp-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+      - name: Independently validate 25 school routes, county and city links, sitemap, mobile and desktop
+        id: browser
+        env:
+          ACCEPTANCE_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+        run: node scripts/ci/verify-football-batch-003-browser.mjs
+      - name: Publish discoverable deployed-commit browser acceptance result
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          STATUS_TARGET_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+          BROWSER_OUTCOME: ${{ steps.browser.outcome }}
+        run: |
+          node scripts/ci/publish-github-status.mjs texasdefined-football-batch-003-browser "$BROWSER_OUTCOME" "Batch 003 production Chrome checks passed" "Batch 003 production Chrome checks failed"
+      - name: Preserve screenshots and per-school browser report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: football-batch-003-browser-acceptance
+          path: artifacts/football-batch-003/
+          if-no-files-found: warn
+          retention-days: 14

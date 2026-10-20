@@ -1,3 +1,6 @@
+import { hasUnresolvedPublicRouteToken } from "./public-route-tokens";
+import publishedSoftballIndex from '@/data/softball/published-team-index.json';
+
 export const INDEXABLE_STATIC_PATHS = [
   "/",
   "/explore",
@@ -7,6 +10,18 @@ export const INDEXABLE_STATIC_PATHS = [
   "/explore/attractions-comparison",
   "/explore/museums",
   "/explore/aquariums",
+  "/explore/inland-beaches",
+  "/explore/water-parks",
+  "/explore/casinos",
+  "/explore/casinos/kickapoo-lucky-eagle",
+  "/explore/casinos/naskila-livingston",
+  "/explore/casinos/naskila-leggett",
+  "/explore/casinos/ischoopa-travel-center",
+  "/explore/casinos/speaking-rock-el-paso",
+  "/explore/casinos/near-houston",
+  "/explore/casinos/near-dallas-fort-worth",
+  "/explore/casinos/texas-gaming-laws",
+  "/explore/casinos/naskila-resort-leggett",
   "/explore/wildlife",
   "/explore/painted-churches",
   "/explore/painted-churches-plan",
@@ -59,6 +74,11 @@ export const INDEXABLE_STATIC_PATHS = [
   "/dogs",
   "/sports",
   "/sports/friday-night-lights",
+  "/sports/softball",
+  "/sports/softball/schools",
+  ...(publishedSoftballIndex as { pages: { slug: string }[] }).pages.map((entry) => `/sports/softball/${entry.slug}`),
+  "/sports/softball/paris-junior-college",
+  "/sports/softball/texas-volts",
   "/gaming",
   "/gaming/video-game-industry",
   "/gaming/why-dallas-matters-online-gaming",
@@ -74,6 +94,16 @@ export const INDEXABLE_STATIC_PATHS = [
   "/gaming/events-conventions",
   "/gaming/data-centers-internet-infrastructure",
   "/texas-tailgating-guide",
+  "/horse-racing",
+  "/horse-racing/calendar",
+  "/horse-racing/gillespie-county-fairgrounds",
+  "/horse-racing/manor-downs",
+  "/horse-racing/laredo-downs",
+  "/horse-racing/valle-de-los-tesoros",
+  "/horse-racing/texas-racing-commission",
+  "/horse-racing/texas-thoroughbred-association",
+  "/horse-racing/texas-quarter-horse-association",
+  "/horse-racing/texas-horsemens-partnership",
   "/sports-venues",
   "/sports-venues/compare",
   "/sports-venues/dallas-fort-worth",
@@ -95,6 +125,7 @@ export const INDEXABLE_STATIC_PATHS = [
   "/sports-venues/soccer",
   "/sports-venue/jones-att-stadium",
   "/events",
+  "/events/air-shows",
   "/events/rodeos",
   "/events/food-festivals",
   "/events/music-festivals",
@@ -123,6 +154,7 @@ export const INDEXABLE_STATIC_PATHS = [
   "/texas-flag",
   "/texas-vs-every-state",
   "/texas-history",
+  "/dallas-black-history",
   "/texas-old-west",
   "/texas-sacred-places",
   "/texas-science-technology-industry",
@@ -221,6 +253,7 @@ export const INDEXABLE_STATIC_PATHS = [
   "/start-a-business-in-texas",
   "/texas-explained",
   "/texas-data",
+  "/texas-data/research/texas-homeowners-premiums-vs-coverage",
   "/texas-data/city-county-relationships",
   "/county",
   "/property-tax-guides",
@@ -247,6 +280,8 @@ export const INDEXABLE_STATIC_PATHS = [
   "/find-my-dmv",
   "/find-my-school-district",
   "/texas-high-school-football-teams",
+  "/texas-high-school-football-matchups",
+  "/texas-high-school-football-playoff-brackets",
   "/texas-high-school-football-isds",
   "/texas-high-school-football-districts",
   "/texas-high-school-football-championship-history",
@@ -317,6 +352,7 @@ export const CONDITIONAL_INDEXABLE_PUBLIC_PATHS = [
 ] as const;
 
 export const REDIRECT_ONLY_PATHS = [
+  "/museum/barrington-farm-site",
   "/advertising-billing",
   "/advertising-terms",
   "/texas-attorney-general",
@@ -428,6 +464,16 @@ export const REDIRECT_ONLY_PATHS = [
 ] as const;
 
 export const NON_INDEXABLE_PUBLIC_PATHS = [
+  "/business/dashboard",
+  "/network/apply",
+  "/network/billing",
+  "/network/checkout-return",
+  "/network/directory",
+  "/network/example/basic",
+  "/network/example/plus",
+  "/network/join",
+  "/network/terms",
+  "/texas-data/research",
   "/search",
   "/explore/search",
   "/fishing/guides/submit",
@@ -446,6 +492,7 @@ export const NON_INDEXABLE_PUBLIC_PATHS = [
   "/texas-data/county-growth.csv",
   "/texas-data/county-housing-costs.csv",
   "/texas-data/city-county-relationships.csv",
+  "/texas-data/school-district-tax-rates.csv",
 ] as const;
 
 const NON_INDEXABLE_PREFIXES = ["/admin", "/api/"] as const;
@@ -453,6 +500,7 @@ const NON_INDEXABLE_PREFIXES = ["/admin", "/api/"] as const;
 export function normalizePublicPath(path: string) {
   const value = path.trim();
   if (!value || !value.startsWith("/") || value.startsWith("//")) return null;
+  if (hasUnresolvedPublicRouteToken(value)) return null;
   if (value.includes("?") || value.includes("#") || /[\u0000-\u001F\u007F]/.test(value)) return null;
   if (value === "/") return value;
   return value.replace(/\/{2,}/g, "/").replace(/\/+$/, "");

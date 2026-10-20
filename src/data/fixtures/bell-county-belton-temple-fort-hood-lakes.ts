@@ -24,6 +24,7 @@ export const bellCountyBeltonTempleFortHoodLakesArticle: Article = {
   tags: ["Bell County", "Belton", "Temple", "Killeen", "Fort Hood", "Salado", "Belton Lake", "Stillhouse Hollow Lake", "Central Texas", "Texas counties"],
   featured: false,
   internalLinks: [
+    { href: "/destination/salado", label: "Salado authority travel guide", description: "Follow Salado Creek history and the village's arts, shops and travel plan." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
     { href: "/county/williamson", label: "Explore Williamson County", description: "Continue south along Interstate 35 toward Georgetown, Round Rock and the San Gabriel River." },
     { href: "/county/mclennan", label: "Explore McLennan County", description: "Continue north toward Waco and the middle Brazos country." },

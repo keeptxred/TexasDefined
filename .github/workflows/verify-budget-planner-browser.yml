@@ -1,0 +1,66 @@
+name: Verify Texas budget planner browser
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/ci/verify-budget-planner-browser.mjs'
+      - '.github/workflows/verify-budget-planner-browser.yml'
+      - 'src/components/calculators/TexasBudgetPlanner.tsx'
+      - 'src/lib/financial/budget-planner.ts'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/ci/verify-budget-planner-browser.mjs'
+      - '.github/workflows/verify-budget-planner-browser.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  statuses: read
+
+concurrency:
+  group: budget-planner-browser-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  syntax:
+    name: Validate budget planner browser verifier syntax
+    if: ${{ github.event_name == 'pull_request' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check scripts/ci/verify-budget-planner-browser.mjs
+
+  verify:
+    if: ${{ github.event_name != 'pull_request' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Wait for exact SHA protected production deployment
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PRODUCTION_COMMIT_SHA: ${{ github.sha }}
+        run: node scripts/ci/wait-for-protected-production.mjs
+      - name: Prepare Chrome and isolated Playwright (no project dependency changes)
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-budget-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+      - name: Exercise live budget calculator, privacy, persistence, export and print on mobile and desktop
+        run: node scripts/ci/verify-budget-planner-browser.mjs
+      - name: Save browser acceptance report and screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: budget-planner-browser-acceptance
+          path: artifacts/texas-budget-planner-browser/
+          if-no-files-found: warn
+          retention-days: 14

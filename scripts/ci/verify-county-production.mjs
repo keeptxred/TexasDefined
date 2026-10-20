@@ -2,6 +2,10 @@ const origin = process.env.PRODUCTION_ORIGIN ?? 'https://texasdefined.com';
 const runId = process.env.GITHUB_RUN_ID ?? Date.now().toString();
 const sha = process.env.GITHUB_SHA ?? 'local';
 const timeoutMs = Number(process.env.COUNTY_SMOKE_TIMEOUT_MS ?? 20000);
+const lookupAttempts = Math.max(1, Number(process.env.COUNTY_SMOKE_LOOKUP_ATTEMPTS ?? 4));
+const lookupRetryDelayMs = Math.max(250, Number(process.env.COUNTY_SMOKE_LOOKUP_RETRY_DELAY_MS ?? 1500));
+const transientLookupStatuses = new Set([429, 502, 503, 504]);
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 function fail(message) {
   console.error(`::error title=County production smoke failed::${message}`);
@@ -65,22 +69,50 @@ async function verifyCountyMapAsset() {
 }
 
 async function postLookup(payload) {
-  const { response, url } = await request('/api/find-my-county', {
-    method: 'POST',
-    headers: { 'content-type': 'application/json' },
-    body: JSON.stringify(payload),
-  });
-  let body;
-  try {
-    body = await response.json();
-  } catch {
-    fail(`POST ${url} returned non-JSON content with status ${response.status}.`);
-    return { response, body: null, url };
+  let lastResult = null;
+
+  for (let attempt = 1; attempt <= lookupAttempts; attempt += 1) {
+    try {
+      const { response, url } = await request(`/api/find-my-county?lookup_attempt=${attempt}`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const rawBody = await response.text();
+      let body = null;
+      try {
+        body = rawBody ? JSON.parse(rawBody) : null;
+      } catch {
+        body = null;
+      }
+
+      lastResult = { response, body, url };
+      if (response.ok && body?.ok) return lastResult;
+
+      const detail = body ? JSON.stringify(body) : rawBody.slice(0, 500) || 'empty response';
+      const message = `POST ${url} failed for ${JSON.stringify(payload)} with status ${response.status}: ${detail}`;
+      const retryable = transientLookupStatuses.has(response.status);
+
+      if (!retryable || attempt === lookupAttempts) {
+        fail(message);
+        return lastResult;
+      }
+
+      console.warn(`::warning title=Transient Census lookup failure::${message}. Retrying ${attempt + 1}/${lookupAttempts}.`);
+    } catch (error) {
+      const message = `POST county lookup threw for ${JSON.stringify(payload)} on attempt ${attempt}/${lookupAttempts}: ${error instanceof Error ? error.message : String(error)}`;
+      if (attempt === lookupAttempts) {
+        fail(message);
+        return lastResult ?? { response: null, body: null, url: `${origin}/api/find-my-county` };
+      }
+      console.warn(`::warning title=Transient Census lookup request error::${message}. Retrying.`);
+    }
+
+    await sleep(lookupRetryDelayMs * attempt);
   }
-  if (!response.ok || !body?.ok) {
-    fail(`POST ${url} failed for ${JSON.stringify(payload)} with status ${response.status}: ${JSON.stringify(body)}`);
-  }
-  return { response, body, url };
+
+  fail(`County lookup exhausted retries for ${JSON.stringify(payload)}.`);
+  return lastResult ?? { response: null, body: null, url: `${origin}/api/find-my-county` };
 }
 
 async function verifyCityLookup() {

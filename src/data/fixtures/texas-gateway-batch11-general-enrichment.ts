@@ -93,7 +93,7 @@ export const texasGatewayBatch11GeneralEnrichment: Record<string, GatewayGeneral
     sourceName: "National Weather Service — Flood Safety",
     sourceUrl: "https://www.weather.gov/safety/flood",
     internalLinks: [
-      { href: "/texas-weather", label: "Texas weather guide" },
+      { href: "https://www.weather.gov/", label: "National Weather Service forecasts" },
       { href: "/explore/historic-sites", label: "Texas historic sites" },
     ],
     relatedDestinations: ["houston", "fort-worth", "san-antonio"],
@@ -103,7 +103,7 @@ export const texasGatewayBatch11GeneralEnrichment: Record<string, GatewayGeneral
     sourceName: "National Weather Service — Heat Safety",
     sourceUrl: "https://www.weather.gov/safety/heat",
     internalLinks: [
-      { href: "/texas-weather", label: "Texas weather guide" },
+      { href: "https://www.weather.gov/", label: "National Weather Service forecasts" },
       { href: "/explore/caverns", label: "Texas caverns" },
     ],
     relatedDestinations: ["houston", "san-antonio", "galveston"],

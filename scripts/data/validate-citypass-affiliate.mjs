@@ -35,6 +35,11 @@ for (const [needle, label] of [
 requireText(calloutWrapper, 'import("./CityPassCalloutContent")', 'Lazy CityPASS CTA performance split');
 requireText(calloutWrapper, 'showGuideLink?: boolean', 'Guide self-link suppression contract');
 requireText(calloutContent, 'CITYPASS_AFFILIATE_URLS[market]', 'Market-specific CityPASS CTA target');
+requireText(cityPassData, 'CITYPASS_AFFILIATE_LINKS_ENABLED = false', 'Pause nonfunctional tracked redirects pending partner reissue');
+requireText(cityPassData, 'CITYPASS_OFFICIAL_URLS', 'Verified CityPASS fallback URL map');
+requireText(calloutContent, 'CITYPASS_OFFICIAL_URLS[market]', 'Working direct official CityPASS CTA target');
+requireText(calloutContent, 'CITYPASS_AFFILIATE_LINKS_ENABLED ? "citypass" : undefined', 'No misleading tracking for direct links');
+requireText(calloutContent, 'does not earn an affiliate commission from this fallback link', 'Truthful paused-link disclosure');
 requireText(calloutContent, 'showGuideLink = true', 'Contextual guide-link default');
 requireText(calloutContent, 'Check current {market} CityPASS® price', 'Price-oriented affiliate CTA');
 
@@ -48,8 +53,15 @@ if (cityPassData.includes('https://www.anrdoezrs.net/click-101876465-11436795'))
   errors.push('CityPASS affiliate data must not regress to the generic CJ link; preserve the three market-specific CityPASS destinations.');
 }
 
+
+for (const [market, href] of [
+  ['Dallas', 'https://www.citypass.com/dallas'],
+  ['Houston', 'https://www.citypass.com/houston'],
+  ['San Antonio', 'https://www.citypass.com/san-antonio'],
+]) requireText(cityPassData, `"${market}": "${href}"`, `${market} validated non-affiliate fallback`);
+
 const destinationCoverage = [
-  ['Dallas', 'perot-museum-of-nature-and-science', '/destination/perot-museum-of-nature-and-science'],
+  ['Dallas', 'perot-museum-of-nature-and-science', '/destination/perot-museum-nature-science-dallas'],
   ['Dallas', 'reunion-tower-dallas', '/destination/reunion-tower-dallas'],
   ['Dallas', 'dallas-zoo', '/destination/dallas-zoo'],
   ['Dallas', 'george-w-bush-presidential-museum-dallas', '/destination/george-w-bush-presidential-museum-dallas'],

@@ -29,6 +29,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           SOURCE_SHA: ${{ github.event.workflow_run.head_sha }}
           SOURCE_RUN_ID: ${{ github.event.workflow_run.id }}
+          SOURCE_FINISHED_AT: ${{ github.event.workflow_run.updated_at }}
         run: |
           set -euo pipefail
 
@@ -51,8 +52,47 @@ jobs:
             echo 'stale=false' >> "${GITHUB_OUTPUT}"
             echo "Production workflow ${SOURCE_RUN_ID} completed from current main ${CURRENT_SHA}; no recovery dispatch is needed."
           else
-            echo 'stale=true' >> "${GITHUB_OUTPUT}"
-            echo "::warning title=Stale production workflow detected::run=${SOURCE_RUN_ID}, deployed-source=${SOURCE_SHA}, current-main=${CURRENT_SHA}. Current main will be redeployed."
+            # The push to current main already triggers the canonical protected
+            # production workflow. Avoid dispatching the same SHA a second time.
+            # A successful run completed BEFORE this stale run is not sufficient:
+            # this old run may have overwritten that Worker and still needs repair.
+            DEPLOY_RUNS="$(curl --fail-with-body --silent --show-error \
+              -H "Authorization: Bearer ${GH_TOKEN}" \
+              -H 'Accept: application/vnd.github+json' \
+              -H 'X-GitHub-Api-Version: 2022-11-28' \
+              "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/workflows/deploy-production.yml/runs?branch=main&per_page=100")"
+
+            if ! jq -e '.workflow_runs | type == "array"' <<< "${DEPLOY_RUNS}" >/dev/null; then
+              echo '::error title=Unable to inspect current deployments::Refusing to dispatch blindly when GitHub run data is invalid.'
+              exit 1
+            fi
+
+            EXISTING_RUN="$(jq -r \
+              --arg current_sha "${CURRENT_SHA}" \
+              --arg source_run "${SOURCE_RUN_ID}" \
+              --arg source_finished "${SOURCE_FINISHED_AT}" \
+              '[.workflow_runs[]
+                | select(.head_sha == $current_sha and ((.id | tostring) != $source_run))
+                | select(
+                    (.status == "queued" or .status == "in_progress" or .status == "waiting" or .status == "pending" or .status == "requested")
+                    or (.status == "completed" and .conclusion == "success" and $source_finished != "" and .updated_at >= $source_finished)
+                  )
+                | .id] | first // empty' <<< "${DEPLOY_RUNS}")"
+
+            if [[ -n "${EXISTING_RUN}" ]]; then
+              echo 'stale=false' >> "${GITHUB_OUTPUT}"
+              echo "Stale run ${SOURCE_RUN_ID} is covered by current-main deployment ${EXISTING_RUN} for ${CURRENT_SHA}; skipping duplicate dispatch."
+              {
+                echo '## Redundant recovery deployment skipped'
+                echo
+                echo "Stale completed run: \`${SOURCE_RUN_ID}\` (\`${SOURCE_SHA}\`)."
+                echo "Current main: \`${CURRENT_SHA}\`; matching protected deployment: \`${EXISTING_RUN}\`."
+                echo 'No additional Worker deployment was initiated. The existing deployment retains all CI, rollback and production gates.'
+              } >> "${GITHUB_STEP_SUMMARY}"
+            else
+              echo 'stale=true' >> "${GITHUB_OUTPUT}"
+              echo "::warning title=Stale production workflow detected::run=${SOURCE_RUN_ID}, deployed-source=${SOURCE_SHA}, current-main=${CURRENT_SHA}. No safe current-main deployment was found, so the normal protected recovery workflow will be dispatched."
+            fi
           fi
 
       - name: Dispatch current main production recovery

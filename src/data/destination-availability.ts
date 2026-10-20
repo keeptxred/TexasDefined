@@ -5,6 +5,7 @@ import type { Destination } from "./types";
  * recommend as ordinary visitable Trip Planner stops today.
  */
 const UNAVAILABLE_DESTINATION_SLUGS = new Set([
+  "wyler-aerial-tramway-state-park", // TPWD site is closed to regular visitation
   "albert-bessie-kronkosky-state-natural-area",
   "powderhorn-state-park",
   "chinati-mountains-state-natural-area",
@@ -12,6 +13,11 @@ const UNAVAILABLE_DESTINATION_SLUGS = new Set([
   "davis-hill-state-park",
   "battleship-texas",
   "battleship-texas-state-historic-site",
+  "1940-air-terminal-museum-houston", // closed March 2026; historic reference page remains accessible
+  "buffalo-soldiers-national-museum-houston", // renovations: exclude visits until operator confirms reopening
+  "elisabet-ney-museum-austin", // closed for renovations until anticipated spring 2027 reopening
+  "first-capitol-of-texas", // THC: Not Open; historical reference, not a trip-planner destination
+  "old-socorro-mission", // THC: original archaeological location closed; distinct from active Socorro Mission
 ]);
 
 /**
@@ -40,8 +46,10 @@ const NON_PRIMARY_TRIP_PLANNER_SLUGS = new Set([
   "devils-river-big-satan-unit-state-natural-area",
   "devils-river-del-norte-unit-state-natural-area",
   "enchanted-rock",
-  "goliad-state-park",
   "goliad-state-park-state-historic-site",
+  "goliad-state-park-and-historic-site",
+  "san-jacinto-battleground-state-historic-site",
+  "washington-on-the-brazos-state-historic-site",
   "hill-country-louise-merrick-unit-state-natural-area",
   "hueco-tanks-state-park",
   "hueco-tanks-state-park-state-historic-site",
@@ -52,9 +60,12 @@ const NON_PRIMARY_TRIP_PLANNER_SLUGS = new Set([
   "lake-somerville-nails-creek-unit",
   "lake-somerville-nails-creek-unit-state-park",
   "lake-somerville-trailway-newman-bottom-th-state-park",
-  "lyndon-b-johnson-state-park-historic-site",
+  // The long-form key is a curation source, not an indexable public route.
+  // The public LBJ State Park authority URL is the shorter -historic-site slug.
+  "lyndon-b-johnson-state-park-and-historic-site",
   "lyndon-b-johnson-state-park-state-historic-site",
   "monument-hill-kreische-brewery-state-historic-site",
+  "museum-south-texas-history-edinburg", // Same Edinburg museum as the stronger museum-of- authority guide
   "palo-duro-canyon",
   "porretto-beach",
   "port-isabel-lighthouse-state-park",
@@ -63,13 +74,11 @@ const NON_PRIMARY_TRIP_PLANNER_SLUGS = new Set([
   "ray-roberts-lake-johnson-branch-unit",
   "ray-roberts-lake-johnson-branch-unit-state-park",
   "ray-roberts-lake-jordon-unit-state-park",
-  "san-jacinto-battleground",
   "san-jacinto-monument-state-historic-site",
   "san-marcos-springs-spring-lake",
   "seminole-canyon-state-park",
   "seminole-canyon-state-park-state-historic-site",
   "sheldon-lake-state-park-environmental-learning-center",
-  "washington-on-the-brazos",
   "world-birding-center-bentsen-rio-grande-valley-state-park",
   "world-birding-center-estero-llano-grande-state-park",
   "world-birding-center-resaca-de-la-palma-state-park",

@@ -16,14 +16,14 @@ const errors = [];
 for (const feature of [
   'function featuredFallback(destinations: Destination[], limit = 6)',
   'if (params.featured)',
-  'fetchExploreDestinations({ category: params.category, limit: 5000 })',
-  'fetchCoreExploreDestinations({ category: params.category, limit: 5000 })',
+  'fetchExploreDestinations({ category: params.category, limit: 5000, signal })',
+  'fetchCoreExploreDestinations({ category: params.category, limit: 5000, signal })',
   'const local = await platform.destinations.list({ ...scope, ...params })',
   'const preserved = preservedFor(params)',
   'mergeDestinations(enriched, core, preserved, local)',
   'const preserved = preservedExploreDestinations.find((destination) => destination.slug === slug)',
   'const local = await platform.destinations.getBySlug(scope, slug)',
-  'return local ? applyResolvedHero(local) : local',
+  'return local ? correctDestinationTravelRegion(applyResolvedHero(local)) : local',
 ]) {
   if (!destinationRuntime.includes(feature)) errors.push(`Remote destination fallback feature missing: ${feature}`);
 }

@@ -1,0 +1,47 @@
+name: Waterpark Wikimedia image provenance
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - src/data/texas-water-parks.ts
+      - scripts/data/audit-waterpark-wikimedia-provenance.mjs
+      - .github/workflows/waterpark-wikimedia-provenance.yml
+  push:
+    branches: [main]
+    paths:
+      - src/data/texas-water-parks.ts
+      - scripts/data/audit-waterpark-wikimedia-provenance.mjs
+      - .github/workflows/waterpark-wikimedia-provenance.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: waterpark-wikimedia-provenance-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check-commons-source:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+      - name: Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check source audit parser and license safety
+        run: node scripts/data/audit-waterpark-wikimedia-provenance.mjs --self-test
+      - name: Verify exact image titles, licensing, and dimensions against Commons
+        run: node scripts/data/audit-waterpark-wikimedia-provenance.mjs --strict
+      - name: Preserve source evidence for editorial review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: waterpark-wikimedia-provenance-${{ github.run_id }}
+          path: .artifacts/waterpark-photo-provenance.json
+          if-no-files-found: warn
+          retention-days: 14

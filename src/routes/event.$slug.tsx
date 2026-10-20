@@ -22,6 +22,8 @@ export const Route = createFileRoute("/event/$slug")({
         canonicalPath,
         title: page.title.replace("Texas Travel Guide", `${page.city} Guide`),
         description: page.description,
+        eventOccurrenceEndDate: page.eventOccurrenceEndDate,
+        eventName: page.name,
         image: page.image,
         imageAlt: page.imageAlt,
         type: "article",

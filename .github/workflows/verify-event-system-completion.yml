@@ -19,11 +19,6 @@ on:
       - 'src/routes/event.$slug.lazy.tsx'
       - '.github/workflows/sync-texas-events.yml'
       - 'scripts/events/sync-texas-events-safe.mjs'
-  workflow_run:
-    workflows:
-      - 'Deploy TexasDefined production'
-    types:
-      - completed
   schedule:
     - cron: '41 11 * * *'
   workflow_dispatch:
@@ -40,8 +35,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: Check out repository
+      - name: Check out deployed Events verifier revision
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
@@ -57,8 +54,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 18
     steps:
-      - name: Check out repository
+      - name: Check out deployed Events verifier revision
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
       - name: Set up Node
         uses: actions/setup-node@v4
         with:

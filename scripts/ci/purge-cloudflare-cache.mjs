@@ -26,12 +26,46 @@ const paintedChurchGuideUrls = [
   ...(await readPaintedChurchGuideSlugs()).map((slug) => `https://${zoneName}/explore/painted-churches/guides/${slug}`),
 ];
 
+// Public-region and landscape authority HTML can remain stale on Cloudflare
+// even after a successful Workers deployment. Invalidate all seven dynamic
+// regional travel hubs plus the governed landscape/scenic discovery pages,
+// not just the previously maintained museum and sports-venue URLs.
+const regionalAuthorityPurgeUrls = [
+  ...["hill-country","gulf-coast","big-bend","panhandle","piney-woods","prairies-lakes","south-texas"].map((id) => `https://${zoneName}/explore/region/${id}`),
+  ...["best-places-to-photograph-texas-landscapes","best-scenic-drives-for-every-texas-landscape","cross-timbers","forests","guadalupe-mountains","most-beautiful-landscapes-in-texas","permian-basin","post-oak-savannah","rivers-and-river-valleys","rolling-plains","texas-geography-explained","texas-landscapes-by-region","what-part-of-texas-looks-like-arizona-colorado-or-the-south","why-is-the-texas-hill-country-so-hilly"].map((slug) => `https://${zoneName}/explore/landscapes/${slug}`),
+  `https://${zoneName}/explore/swimming-holes-river-tubing`,
+];
+
+// Discover pages point to build-time generated, immutable-in-source WebP files.
+// Purging only the HTML preserves cached 404s for those image URLs after deploy.
+// Derive the exact file set from the governed image materializer, not a duplicated list.
+async function discoverImagePurgeUrls() {
+  const manifest = await readFile(new URL('../assets/materialize-discover-overrides.mjs', import.meta.url), 'utf8');
+  const slugs = [...manifest.matchAll(/^\s*\[\s*\n\s*"([a-z0-9-]+)",/gm)].map((match) => match[1]);
+  if (slugs.length < 42 || new Set(slugs).size !== slugs.length) {
+    throw new Error(`Governed Discover manifest is incomplete or has duplicate slugs: ${slugs.length}`);
+  }
+  return slugs.map((slug) => `https://${zoneName}/images/discover/${slug}.webp`);
+}
+const generatedDiscoverImageUrls = await discoverImagePurgeUrls();
+
 const alwaysPurgeUrls = [
+  ...regionalAuthorityPurgeUrls,
   // Image/Discover metadata repair surfaces — purge HTML so post-deploy strict audit sees the deployed revision.
   `https://${zoneName}/event/chappell-hill-bluebonnet-festival`,
   `https://${zoneName}/article/ima-hogg-texas-legacy`,
   `https://${zoneName}/article/camping-in-texas-with-your-dog`,
   `https://${zoneName}/article/texas-high-school-football-scores-schedules`,
+  // Published football game-week snapshots and their linked school profiles
+  // share a sourced league ledger. Invalidate the whole local authority cluster
+  // after a verified deployment; do not leave old HTML pointing at new game data.
+  `https://${zoneName}/texas-high-school-football-districts/6a-district-22`,
+  `https://${zoneName}/texas-high-school-football-districts/6a-district-21`,
+  ...[
+    'fort-bend-austin', 'fort-bend-bush', 'fort-bend-clements',
+    'fort-bend-elkins', 'fort-bend-hightower', 'fort-bend-ridge-point',
+    'fort-bend-travis', 'houston-strake-jesuit',
+  ].map((slug) => `https://${zoneName}/texas-high-school-football-teams/${slug}`),
   `https://${zoneName}/article/best-lighthouses-to-visit-in-texas`,
   `https://${zoneName}/article/texas-medal-of-honor-heroes`,
   `https://${zoneName}/article/texas-red-river-war-guide`,
@@ -40,6 +74,8 @@ const alwaysPurgeUrls = [
   `https://${zoneName}/article/texas-frontier-forts-road-trip`,
   `https://${zoneName}/article/texas-ecoregions-habitats-guide`,
   `https://${zoneName}/county/collin`,
+  // El Paso County guide uses a licensed first-party hero and must not retain cached pre-image HTML.
+  `https://${zoneName}/county/el-paso`,
   `https://${zoneName}/county/crockett`,
   `https://${zoneName}/county/dickens`,
   `https://${zoneName}/destination/zapata-county-museum-history`,
@@ -52,6 +88,10 @@ const alwaysPurgeUrls = [
   `https://${zoneName}/destination/san-antonio-aquarium`,
   `https://${zoneName}/destination/houston-interactive-aquarium-animal-preserve`,
   `https://${zoneName}/destination/ut-marine-science-institute-patton-center`,
+  // Do not serve cached pre-rewrite Chamizal HTML after the researched NPS guide deploys.
+  `https://${zoneName}/destination/chamizal-national-memorial`,
+  // Preserve fresh park admission, trail comparisons, camping and image updates.
+  `https://${zoneName}/destination/franklin-mountains-state-park`,
   `https://${zoneName}/destination/texas-hill-country-olive-co`,
   `https://${zoneName}/destination/brazos-bend-state-park`,
   `https://${zoneName}/destination/devils-river-state-natural-area`,
@@ -144,6 +184,7 @@ const metroUrls = purgeMetroProximity
   : [];
 
 const urls = [...new Set([
+  ...generatedDiscoverImageUrls,
   ...rawUrls
     .split(/[\n,]+/)
     .map((value) => value.trim())
@@ -234,6 +275,46 @@ for (let index = 0; index < chunks.length; index += 1) {
 
 console.log(`Cloudflare accepted targeted purge for ${urls.length} URL(s) in ${zoneName} across ${chunks.length} request(s).`);
 for (const url of urls) console.log(`- ${url}`);
+
+// Verify actual served WebP bytes, not just metadata or purge-API success.
+// Different Cloudflare edges can expose a transient stale 404 directly after
+// the purge API returns. Require eventually decodable WebP, bounded to five
+// probes; a persistently missing image still fails closed.
+for (const slug of ['collin-county', 'freeman-coliseum', 'dubina-saints-cyril-methodius']) {
+  const url = `https://${zoneName}/images/discover/${slug}.webp`;
+  let verified = false;
+  let lastReason = 'not checked';
+  for (let attempt = 1; attempt <= 5; attempt += 1) {
+    try {
+      const response = await fetch(url, {
+        cache: 'no-store',
+        headers: {
+          'cache-control': 'no-cache',
+          'user-agent': 'TexasDefined-Discover-Asset-PostPurge/1.0',
+        },
+        signal: AbortSignal.timeout(30_000),
+      });
+      const bytes = new Uint8Array(await response.arrayBuffer());
+      const realWebp = bytes.length >= 12
+        && String.fromCharCode(...bytes.slice(0, 4)) === 'RIFF'
+        && String.fromCharCode(...bytes.slice(8, 12)) === 'WEBP';
+      const type = (response.headers.get('content-type') ?? '').toLowerCase();
+      if (response.ok && realWebp && type.startsWith('image/webp')) {
+        console.log(`Discover image delivered valid WebP after cache purge: ${slug} (${bytes.length} bytes; attempt ${attempt})`);
+        verified = true;
+        break;
+      }
+      lastReason = `HTTP ${response.status}, bytes=${bytes.length}, type=${type}`;
+    } catch (error) {
+      lastReason = error instanceof Error ? error.message : String(error);
+    }
+    if (attempt < 5) {
+      console.warn(`Discover post-purge edge not ready: ${slug}, attempt ${attempt}/5 (${lastReason}); retrying.`);
+      await new Promise((resolve) => setTimeout(resolve, 3_000));
+    }
+  }
+  if (!verified) throw new Error(`Discover image failed live post-purge binary verification after 5 attempts: ${url} ${lastReason}`);
+}
 
 const requiredMaybornMarkers = [
   'Mayborn Museum in Waco',

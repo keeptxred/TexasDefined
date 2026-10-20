@@ -1,0 +1,243 @@
+{
+  "version": 1,
+  "season": "2025-26",
+  "checkedAt": "2026-10-11",
+  "description": "Source-attributed official Texas UIL 2026 softball title champions and Texas Girls Coaches Association-selected 2026 championship all-tournament most valuable players, maintained as historical school research (not current 2026-27 athlete rosters).",
+  "sources": [
+    {
+      "id": "uil-champion-archive",
+      "url": "https://www.uiltexas.org/softball/archives",
+      "publisher": "University Interscholastic League",
+      "title": "2025–26 UIL softball state champions archive",
+      "checkedAt": "2026-10-11"
+    },
+    {
+      "id": "uil-all-tournament",
+      "url": "https://www.uiltexas.org/press-releases/detail/2026-uil-softball-state-all-tournament-teams",
+      "publisher": "University Interscholastic League",
+      "title": "May 31, 2026 state all-tournament award release; teams selected by TGCA",
+      "checkedAt": "2026-10-11"
+    }
+  ],
+  "records": [
+    {
+      "classification": "1A",
+      "champion": "Jonesboro",
+      "championshipSeason": "2025-26",
+      "championshipSourceId": "uil-champion-archive",
+      "award": "2026 UIL softball championship all-tournament MVP",
+      "awardMvp": "Ally Thorman",
+      "awardSelectionBody": "Texas Girls Coaches Association",
+      "awardSourceId": "uil-all-tournament",
+      "athleteStatus": "historical-public-award-only",
+      "allowRosterPublication": false,
+      "allowUnlicensedPhoto": false,
+      "registry2026_27": {
+        "uilName": "Jonesboro",
+        "conference": "2A",
+        "district": 26,
+        "region": 4
+      }
+    },
+    {
+      "classification": "2A Division I",
+      "champion": "Ganado",
+      "championshipSeason": "2025-26",
+      "championshipSourceId": "uil-champion-archive",
+      "award": "2026 UIL softball championship all-tournament MVP",
+      "awardMvp": "Saylor Bures",
+      "awardSelectionBody": "Texas Girls Coaches Association",
+      "awardSourceId": "uil-all-tournament",
+      "athleteStatus": "historical-public-award-only",
+      "allowRosterPublication": false,
+      "allowUnlicensedPhoto": false,
+      "registry2026_27": {
+        "uilName": "Ganado",
+        "conference": "2A",
+        "district": 29,
+        "region": 4
+      }
+    },
+    {
+      "classification": "2A Division II",
+      "champion": "Shiner",
+      "championshipSeason": "2025-26",
+      "championshipSourceId": "uil-champion-archive",
+      "award": "2026 UIL softball championship all-tournament MVP",
+      "awardMvp": "Lauren Springfield",
+      "awardSelectionBody": "Texas Girls Coaches Association",
+      "awardSourceId": "uil-all-tournament",
+      "athleteStatus": "historical-public-award-only",
+      "allowRosterPublication": false,
+      "allowUnlicensedPhoto": false,
+      "registry2026_27": {
+        "uilName": "Shiner",
+        "conference": "2A",
+        "district": 29,
+        "region": 4
+      }
+    },
+    {
+      "classification": "3A Division I",
+      "champion": "Grandview",
+      "championshipSeason": "2025-26",
+      "championshipSourceId": "uil-champion-archive",
+      "award": "2026 UIL softball championship all-tournament MVP",
+      "awardMvp": "Madi Doty",
+      "awardSelectionBody": "Texas Girls Coaches Association",
+      "awardSourceId": "uil-all-tournament",
+      "athleteStatus": "historical-public-award-only",
+      "allowRosterPublication": false,
+      "allowUnlicensedPhoto": false,
+      "registry2026_27": {
+        "uilName": "Grandview",
+        "conference": "3A",
+        "district": 16,
+        "region": 2
+      }
+    },
+    {
+      "classification": "3A Division II",
+      "champion": "Santa Gertrudis Academy",
+      "championshipSeason": "2025-26",
+      "championshipSourceId": "uil-champion-archive",
+      "award": "2026 UIL softball championship all-tournament MVP",
+      "awardMvp": "K'Lee Bazan",
+      "awardSelectionBody": "Texas Girls Coaches Association",
+      "awardSourceId": "uil-all-tournament",
+      "athleteStatus": "historical-public-award-only",
+      "allowRosterPublication": false,
+      "allowUnlicensedPhoto": false,
+      "registry2026_27": {
+        "uilName": "Santa Gertrudis Acad",
+        "conference": "3A",
+        "district": 30,
+        "region": 4
+      }
+    },
+    {
+      "classification": "4A Division I",
+      "champion": "Bullard",
+      "championshipSeason": "2025-26",
+      "championshipSourceId": "uil-champion-archive",
+      "award": "2026 UIL softball championship all-tournament MVP",
+      "awardMvp": "Brooklyn Brannen",
+      "awardSelectionBody": "Texas Girls Coaches Association",
+      "awardSourceId": "uil-all-tournament",
+      "athleteStatus": "historical-public-award-only",
+      "allowRosterPublication": false,
+      "allowUnlicensedPhoto": false,
+      "registry2026_27": {
+        "uilName": "Bullard",
+        "conference": "4A",
+        "district": 17,
+        "region": 3
+      }
+    },
+    {
+      "classification": "4A Division II",
+      "champion": "Liberty",
+      "championshipSeason": "2025-26",
+      "championshipSourceId": "uil-champion-archive",
+      "award": "2026 UIL softball championship all-tournament MVP",
+      "awardMvp": "Bayleigh Taylor",
+      "awardSelectionBody": "Texas Girls Coaches Association",
+      "awardSourceId": "uil-all-tournament",
+      "athleteStatus": "historical-public-award-only",
+      "allowRosterPublication": false,
+      "allowUnlicensedPhoto": false,
+      "registry2026_27": {
+        "uilName": "Liberty",
+        "conference": "4A",
+        "district": 19,
+        "region": 3
+      }
+    },
+    {
+      "classification": "5A Division I",
+      "champion": "Mont Belvieu Barbers Hill",
+      "championshipSeason": "2025-26",
+      "championshipSourceId": "uil-champion-archive",
+      "award": "2026 UIL softball championship all-tournament MVP",
+      "awardMvp": "Macie Bryant",
+      "awardSelectionBody": "Texas Girls Coaches Association",
+      "awardSourceId": "uil-all-tournament",
+      "athleteStatus": "historical-public-award-only",
+      "allowRosterPublication": false,
+      "allowUnlicensedPhoto": false,
+      "registry2026_27": {
+        "uilName": "Mt Belvieu Barbers Hill",
+        "conference": "6A",
+        "district": 18,
+        "region": 3
+      }
+    },
+    {
+      "classification": "5A Division II",
+      "champion": "Montgomery Lake Creek",
+      "championshipSeason": "2025-26",
+      "championshipSourceId": "uil-champion-archive",
+      "award": "2026 UIL softball championship all-tournament MVP",
+      "awardMvp": "Madalyn Davis",
+      "awardSelectionBody": "Texas Girls Coaches Association",
+      "awardSourceId": "uil-all-tournament",
+      "athleteStatus": "historical-public-award-only",
+      "allowRosterPublication": false,
+      "allowUnlicensedPhoto": false,
+      "registry2026_27": {
+        "uilName": "Montgomery Lake Creek",
+        "conference": "5A",
+        "district": 17,
+        "region": 3
+      }
+    },
+    {
+      "classification": "6A Division I",
+      "champion": "Pearland",
+      "championshipSeason": "2025-26",
+      "championshipSourceId": "uil-champion-archive",
+      "award": "2026 UIL softball championship all-tournament MVP",
+      "awardMvp": "Madelyn Guzman",
+      "awardSelectionBody": "Texas Girls Coaches Association",
+      "awardSourceId": "uil-all-tournament",
+      "athleteStatus": "historical-public-award-only",
+      "allowRosterPublication": false,
+      "allowUnlicensedPhoto": false,
+      "registry2026_27": {
+        "uilName": "Pearland",
+        "conference": "6A",
+        "district": 19,
+        "region": 3
+      }
+    },
+    {
+      "classification": "6A Division II",
+      "champion": "Katy",
+      "championshipSeason": "2025-26",
+      "championshipSourceId": "uil-champion-archive",
+      "award": "2026 UIL softball championship all-tournament MVP",
+      "awardMvp": "Haley Schmitt",
+      "awardSelectionBody": "Texas Girls Coaches Association",
+      "awardSourceId": "uil-all-tournament",
+      "athleteStatus": "historical-public-award-only",
+      "allowRosterPublication": false,
+      "allowUnlicensedPhoto": false,
+      "registry2026_27": {
+        "uilName": "Katy",
+        "conference": "6A",
+        "district": 22,
+        "region": 3
+      }
+    }
+  ],
+  "editorialRules": [
+    "Classification Division I/II corresponds to 2025–26 state title bracket, NOT automatically to 2026–27 regular UIL district alignment.",
+    "No athlete's current school enrollment, recruitment contact, eligibility, residence or personal data may be inferred from the historical award.",
+    "Selection committee is the Texas Girls Coaches Association; award is at the state all-tournament level and must not be represented as full-season statewide MVP.",
+    "Primary official UIL archive and UIL May 31 release corroborate championship school and historical MVP; original award name spellings preserved.",
+    "All 2026 champion school dossiers must be individually researched under the 38-topic complete-first-release standard before URLs publish.",
+    "Important documented league transition: 2026 5A Division I champion Mont Belvieu Barbers Hill appears as 'Mt Belvieu Barbers Hill' in **2026–27 Conference 6A** district 18; never identify it as 2026–27 5A based solely on the title.",
+    "The 2026 1A title champion Jonesboro appears in the 2026–27 **2A softball alignment registry**; the historical trophy's 1A division is not its new softball conference.",
+    "UIL naming aliases are explicit: 'Santa Gertrudis Academy' (2026 champion) matches 'Santa Gertrudis Acad' in 2026–27 alignment; 'Mont Belvieu Barbers Hill' matches 'Mt Belvieu Barbers Hill'."
+  ]
+}

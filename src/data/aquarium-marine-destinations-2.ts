@@ -8,7 +8,7 @@ export const aquariumMarineDestinations2: Destination[] = [
     name: "Downtown Aquarium Houston",
     summary: "A central Houston aquarium-and-entertainment complex combining themed aquatic exhibits, stingray encounters, a shark train, restaurant space and family rides.",
     category: "guides",
-    region: "prairies-lakes",
+    region: "gulf-coast",
     nearestTown: "Houston",
     county: "Harris",
     address: "410 Bagby St, Houston, TX 77002",

@@ -26,6 +26,7 @@ export const jeffDavisCountyFortDavisMountainsArticle: Article = {
   tags: ["Jeff Davis County", "Fort Davis", "Davis Mountains", "McDonald Observatory", "Valentine", "Buffalo Soldiers", "Texas counties", "West Texas", "Texas history"],
   featured: false,
   internalLinks: [
+    { href: "/destination/fort-davis", label: "Fort Davis authority travel guide", description: "Add Fort Davis history, Davis Mountains outdoors and dark-sky travel guidance." },
     { href: "/county/culberson", label: "Explore neighboring Culberson County", description: "Continue north toward Van Horn, Guadalupe Peak and the Salt Basin." },
     { href: "/county/presidio", label: "Explore neighboring Presidio County", description: "Continue south and west through Marfa, Fort Leaton and the Rio Grande borderlands." },
     { href: "/county/brewster", label: "Explore neighboring Brewster County", description: "Continue into Alpine, Terlingua and Big Bend National Park." },

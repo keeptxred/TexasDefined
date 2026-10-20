@@ -1,0 +1,50 @@
+name: THC Atlas statewide coverage census
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "scripts/data/audit-thc-atlas-catalog.mjs"
+      - ".github/workflows/thc-atlas-census.yml"
+  pull_request:
+    paths:
+      - "scripts/data/audit-thc-atlas-catalog.mjs"
+      - ".github/workflows/thc-atlas-census.yml"
+  schedule:
+    - cron: "17 13 1 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: thc-atlas-statewide-census
+  cancel-in-progress: false
+
+jobs:
+  atlas-source-census:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Check source scanner syntax
+        run: node --check scripts/data/audit-thc-atlas-catalog.mjs
+      - name: Validate local canonical match logic
+        run: node scripts/data/audit-thc-atlas-catalog.mjs
+      - name: Compare public THC Atlas layers with TexasDefined source names
+        if: github.event_name != 'pull_request'
+        run: node scripts/data/audit-thc-atlas-catalog.mjs --live
+      - name: Preserve all source category counts and candidate identifiers
+        if: always() && github.event_name != 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: thc-atlas-candidate-census
+          path: |
+            artifacts/thc-atlas-census.json
+            artifacts/thc-atlas-census.md
+          if-no-files-found: warn
+          retention-days: 30

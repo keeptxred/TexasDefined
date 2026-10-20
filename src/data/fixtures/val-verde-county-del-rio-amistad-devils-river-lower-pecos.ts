@@ -35,6 +35,7 @@ export const valVerdeCountyDelRioAmistadDevilsRiverLowerPecosArticle: Article = 
   ],
   featured: false,
   internalLinks: [
+    { href: "/article/texas-pecos-river-guide", label: "Texas pecos  River guide", description: "Access, river history, appropriate recreation, camping and verified current-source checks." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
     { href: "/county/kinney", label: "Explore Kinney County", description: "Head east toward Brackettville, Fort Clark and Las Moras Springs." },
     { href: "/county/edwards", label: "Explore Edwards County", description: "Continue north onto the Edwards Plateau toward Rocksprings and ranch country." },

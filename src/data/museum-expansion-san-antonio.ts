@@ -19,10 +19,10 @@ export const sanAntonioMuseumDestinations: Destination[] = [
       alt: "Historic Lone Star Brewery complex that houses the San Antonio Museum of Art",
       width: 1600,
       height: 1200,
-      credit: "Brownings · Wikimedia Commons · public domain",
+      credit: "Brownings · Public domain (author dedicated) · Wikimedia Commons · File:FirstLoneStarBrewery.JPG · 2006",
     },
     bestSeason: "Year-round indoor museum; fall through spring is especially pleasant for arriving by the River Walk's Museum Reach or combining the galleries with nearby outdoor stops.",
-    entryNote: "The museum is closed Mondays and currently opens Tuesday through Sunday, with later hours on Tuesday and Friday. Admission categories and Bexar County free hours vary, so confirm the current ticket page before visiting.",
+    entryNote: "Tuesday and Friday 10 a.m.–7 p.m., Wednesday/Thursday/Saturday/Sunday 10 a.m.–5 p.m.; closed Monday. Adults $24 and children 12 or younger free. Bexar County residents with proof get free general admission Tuesday 4–7 p.m. and second Sunday 10 a.m.–noon; special exhibitions may cost extra. Across-street visitor parking requires vehicle registration.",
     highlights: ["Global art collections", "Historic Lone Star Brewery", "Museum Reach of the River Walk", "Ancient Mediterranean and Asian art"],
     body: [
       "The San Antonio Museum of Art gives the city an encyclopedic collection inside one of its most recognizable adaptive-reuse landmarks. The former Lone Star Brewery was converted into the museum in the early 1980s, so the visit combines industrial architecture with galleries that range from ancient Egypt, Greece and Rome to Asian, Latin American, European, American and contemporary art.",
@@ -53,7 +53,7 @@ export const sanAntonioMuseumDestinations: Destination[] = [
       credit: "Csyberblue · Wikimedia Commons · public domain",
     },
     bestSeason: "Year-round indoor museum; fall through spring is best for spending additional time on the 25-acre grounds and sculpture-filled campus.",
-    entryNote: "The museum is closed Mondays and Tuesdays and offers free general admission Thursday evenings and on the first Sunday of each month. Special exhibitions may carry an additional fee, so verify the current visitor calendar before arrival.",
+    entryNote: "6000 N New Braunfels Ave, with free campus parking. Open Wednesday–Friday from 10 a.m. (Thursday until 9 p.m.), Saturday until 5 p.m. and Sunday noon–5 p.m.; closed Monday and Tuesday. October 2026 listed adult admission including special exhibition is $23, teens 13–19 $10, children 12 and under free. Thursdays 4–9 p.m. and first Sundays noon–5 p.m. offer free general admission, but a $10 special-exhibition charge may apply. Verify current tickets, schedules and holiday notices.",
     highlights: ["Modern and contemporary art", "Spanish Colonial Revival mansion", "25-acre sculpture campus", "Theater arts collection"],
     body: [
       "The McNay begins with a house. Marion Koogler McNay's Spanish Colonial Revival residence became the core of the museum she established through her collection and estate, and that domestic setting still shapes the experience even as later additions expanded the institution. Galleries move through modern European and American art, prints and drawings, sculpture and a nationally significant theater-arts collection.",
@@ -63,7 +63,8 @@ export const sanAntonioMuseumDestinations: Destination[] = [
     officialUrl: "https://www.mcnayart.org/",
     managingAuthority: "McNay Art Museum",
     address: "6000 N New Braunfels Ave, San Antonio, TX 78209",
-    sourceCheckedAt: SOURCE_CHECKED_AT,
+    sourceCheckedAt: "2026-10-19",
+    accessibilityNotes: "The McNay lists free accessible parking, an accessible entrance, elevators and loan wheelchairs; some historic-estate areas may need staff assistance. Ask visitor services at 210-824-5368 about a specific mobility or sensory requirement.",
   },
   {
     id: "museum-expansion-spanish-governors-palace",

@@ -1,0 +1,16 @@
+# Austin Navarro Vikings — Batch 004 school-specific audit
+
+Research date 2026-10-10. **IMPLEMENTED ONLY**, NOT merged/deployed/production VERIFIED.
+
+School-specific deficiency: an individual editorial view was absent; facts about this program and visitors require distinguishing Austin school identities, actual playing venues and the historical era from 2026 classification. Distinct from Navarro College and Navarro ISD. Opposing school documents October 15 varsity date at Burger Stadium, but no verified coach/history.
+
+[Documented source](https://crockett.austinschools.org/athletics/teams/football). Original text/timeline graphic presentation, not unlicensed photos or fabricated school logos. Program-specific narrative, milestone, distinct FAQ, SEO and source in code commit `fae07415a4e6d02bc7b5c2e89cf889466cbd0fa9`.
+
+**Acceptance gaps:** school-specific additional research where noted, original confirmed district/school sources, past championships/playoffs if documented, coach, inbound county/city links, current ticket/parking/ADA resources, mobile desktop Chrome, unique metadata/schema/sitemap, imagery rights, CI, protected merge, deployment and real production inspection. Explicitly not claiming completion on the implementation commit.
+
+## Navarro campus first-party football calendar evidence — 2026-10-10
+
+[Navarro Early College's official calendar](https://navarro.austinschools.org/events) lists October 8 varsity homecoming against LASA, October 15 at Crockett, October 23 at Bastrop, and October 30 senior night versus Pflugerville. [School news](https://navarro.austinschools.org/news) documents the football family meeting in July 2026. Added school-specific traditions, context and current resources in `dc256b0ceb04157a68bd753fc31ec9e497c0e3ea`, without claiming undocumented championships or head coaches. NOT production VERIFIED.
+
+## Batch 004 individual production browser certification — October 10, 2026
+**TECHNICAL PRODUCTION VERIFIED**, superseding earlier pre-merge and IMPLEMENTED status. Original school-specific research and unresolved editorial caveats above remain preserved. [PR #4540](https://github.com/keeptxred/TexasDefined/pull/4540) merged at `f4af3c89956a823fd37e367fd883897d92bce2ed`; [successful Cloudflare deployment](https://github.com/keeptxred/TexasDefined/actions/runs/38060642093) served commit `2aabb6a5809f14a0c734dd01e25d16b30a5a5f29`. [Real production Chrome test](https://github.com/keeptxred/TexasDefined/actions/runs/38061056139) passed this school at **1366px desktop and 390px mobile**, including HTTP 200, school H1, useful SEO/canonical/schema, readable public source link, county and any approved Austin city reciprocal links, sitemap membership, and no recorded horizontal overflow, visible broken image/alt omission or client-side runtime errors. [Artifact 11673525515](https://github.com/keeptxred/TexasDefined/actions/runs/38061056139/artifacts/11673525515) contains `desktop-school-austin-navarro.png`, `mobile-school-austin-navarro.png`, and the full result record. All 72/72 batch checks and 25/25 sitemap URLs passed. This technical browser result is **not** a blanket assertion of photographer licensing, precise historical records beyond cited sources, live ticket policies, ADA/parking specifics or future scores.

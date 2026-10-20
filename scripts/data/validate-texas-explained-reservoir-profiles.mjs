@@ -5,7 +5,7 @@ const stubs = read('src/data/fixtures/texas-explained-reservoir-profile-stubs.ts
 const articles = read('src/data/fixtures/texas-explained-reservoir-profiles.ts');
 const lazy = read('src/data/fixtures/lazy-evergreen.ts');
 const hub = `${read('src/routes/texas-explained.tsx')}\n${read('src/components/editorial/TexasExplainedPage.tsx')}`;
-const topology = read('src/data/fixtures/newest-evergreen.ts');
+const pillar = read('src/data/fixtures/texas-lakes-reservoirs-explained.ts');
 const articleRoute = read('src/routes/article.$slug.tsx');
 const errors = [];
 
@@ -38,7 +38,7 @@ for (const [slug, sourceUrl] of profiles) {
   if (!articles.includes(`slug: "${slug}"`)) errors.push(`Missing full reservoir profile: ${slug}`);
   if (!articles.includes(sourceUrl)) errors.push(`Missing TWDB reservoir source URL: ${slug}`);
   if (!hub.includes(`"${slug}"`)) errors.push(`Texas Explained hub must surface reservoir profile: ${slug}`);
-  if (!topology.includes(`/article/${slug}`)) errors.push(`Reservoir pillar must link to profile: ${slug}`);
+  if (!pillar.includes(`/article/${slug}`)) errors.push(`Reservoir pillar primary article data must link to profile: ${slug}`);
   if (!articleRoute.includes(`"${slug}"`)) errors.push(`Shared article route must recognize reservoir profile: ${slug}`);
 }
 
@@ -106,4 +106,4 @@ if (errors.length) {
   errors.forEach((error) => console.error(`- ${error}`));
   process.exit(1);
 }
-console.log(`Texas Explained reservoir batch passed: five TWDB-backed water-system profiles remain lazy-loaded, hub-visible, reciprocal, source-backed, collection-aware and substantive at ${RESERVOIR_MIN_PARAGRAPHS}+ paragraphs and ${RESERVOIR_MIN_WORDS}+ body words each.`);
+console.log(`Texas Explained reservoir batch passed: five TWDB-backed water-system profiles remain lazy-loaded, hub-visible, directly linked from the reservoir pillar's primary article data, source-backed, collection-aware and substantive at ${RESERVOIR_MIN_PARAGRAPHS}+ paragraphs and ${RESERVOIR_MIN_WORDS}+ body words each.`);

@@ -10,6 +10,7 @@ on:
         type: choice
         options:
           - dry-run
+          - hydrate
           - publish
       confirmation:
         description: For publish mode only, enter PUBLISH_TEXASDEFINED.
@@ -102,6 +103,23 @@ jobs:
             failed: queue.failed,
             ids: queue.ids,
           }));
+          NODE
+      - name: Hydrate up to eight independently qualified current source pages (zero AI)
+        if: inputs.mode == 'hydrate'
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/news/texasdefined-auto-publisher.mjs --hydrate-top=8 | tee /tmp/texasdefined-hydrate.jsonl
+          node - <<'NODE'
+          const fs = require('node:fs');
+          const rows = fs.readFileSync('/tmp/texasdefined-hydrate.jsonl','utf8').split(/\r?\n/).filter(Boolean);
+          const result = rows.map(line => JSON.parse(line)).find(row => row.mode === 'hydrate');
+          if (!result || result.aiCalls !== 0 || result.requested > 8
+            || !Number.isInteger(result.requested) || !Number.isInteger(result.updated)
+            || result.updated > result.requested) {
+            throw new Error('Source hydration audit failed closed.');
+          }
+          console.log(JSON.stringify(result));
           NODE
       - name: Publish one approved eligible article
         if: inputs.mode == 'publish'

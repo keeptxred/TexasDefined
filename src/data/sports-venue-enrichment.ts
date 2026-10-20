@@ -23,18 +23,21 @@ const verifiedAt = '2026-08-13';
 export const SPORTS_VENUE_ENRICHMENT: Record<string, SportsVenueEnrichment> = {
   'att-stadium': {
     city: 'Arlington',
+    capacity: '80,000 seats; expandable to about 100,000',
+    opened: '2009',
     primaryEvents: ['Dallas Cowboys home games', 'College football and major sporting events', 'Stadium tours, concerts and special events'],
     parking: 'AT&T Stadium says approximately 12,000 spaces are distributed across 15 numbered stadium lots, with nearly 12,000 additional spaces in lettered lots around the Rangers ballpark available on event days. Parking passes are lot-specific for many events.',
     arrival: 'For Cowboys games, stadium parking generally opens about five hours before kickoff. Tailgating is limited to designated perimeter spaces, so fans planning a full pregame should arrive early and confirm the assigned lot before driving to Arlington.',
     stayAndEat: 'The stadium sits in Arlington’s major entertainment district. For a sports weekend, lodging near the stadium district reduces the need to move a car between a game, restaurants and nearby attractions.',
     nearby: 'Globe Life Field and other Arlington entertainment attractions make this one of the easiest Texas venues to turn into a multi-event sports weekend.',
     planningLinks: [
+      { label: 'Dallas Cowboys stadium facts', url: 'https://www.dallascowboys.com/news/seatgeek-announces-industry-shifting-primary-ticketing-partnership-with-d-456196' },
       { label: 'Official parking guide', url: 'https://attstadium.com/stadium-info/parking/' },
       { label: 'Stadium A–Z guide', url: 'https://attstadium.com/stadium-info/a-to-z-guide/' },
       { label: 'Cowboys game-day timing', url: 'https://attstadium.com/gameday/' },
     ],
     imageBrief: 'Wide exterior architectural view of AT&T Stadium in Arlington on a clear Texas evening, emphasizing the stadium scale and event-day setting; no logos added, no text overlay.',
-    verifiedAt,
+    verifiedAt: '2026-10-19',
   },
   'texas-motor-speedway': {
     city: 'Fort Worth',

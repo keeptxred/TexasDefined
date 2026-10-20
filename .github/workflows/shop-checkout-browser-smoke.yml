@@ -1,0 +1,65 @@
+name: Texas Defined shop checkout browser smoke
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/shop-checkout-browser-smoke.yml'
+      - 'scripts/ci/verify-shop-checkout-browser.mjs'
+      - 'src/routes/shop.cart.lazy.tsx'
+      - 'src/lib/shop-cart.tsx'
+      - 'src/components/commerce/ProductDetailPage.tsx'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/shop-checkout-browser-smoke.yml'
+      - 'scripts/ci/verify-shop-checkout-browser.mjs'
+      - 'src/routes/shop.cart.lazy.tsx'
+      - 'src/lib/shop-cart.tsx'
+      - 'src/components/commerce/ProductDetailPage.tsx'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: texasdefined-shop-browser-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+      - name: Set up Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate browser smoke syntax
+        run: node --check scripts/ci/verify-shop-checkout-browser.mjs
+      - name: Install pinned browser controller
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm install --prefix /tmp/texasdefined-shop-qa --no-audit --no-fund --no-save playwright-core@1.56.1
+          if command -v google-chrome >/dev/null 2>&1; then
+            echo "CHROME_BIN=$(command -v google-chrome)" >> "$GITHUB_ENV"
+          elif command -v chromium >/dev/null 2>&1; then
+            echo "CHROME_BIN=$(command -v chromium)" >> "$GITHUB_ENV"
+          else
+            node /tmp/texasdefined-shop-qa/node_modules/playwright-core/cli.js install chromium
+          fi
+      - name: Verify production storefront and mocked checkout on mobile and desktop
+        env:
+          PLAYWRIGHT_CORE_PATH: /tmp/texasdefined-shop-qa/node_modules/playwright-core
+        run: node scripts/ci/verify-shop-checkout-browser.mjs
+      - name: Upload checkout browser results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: texasdefined-shop-browser-qa
+          path: artifacts/shop-checkout-browser/
+          if-no-files-found: warn
+          retention-days: 7

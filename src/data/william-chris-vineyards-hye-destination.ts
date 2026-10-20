@@ -102,7 +102,7 @@ export const williamChrisVineyardsHyeDestinations: Destination[] = [
           description:
             "Continue west toward Stonewall and Fredericksburg for a much larger winery and tasting-room network.",
           proximity: "Along U.S. 290",
-          href: "/destination/fredericksburg-texas-wineries-things-to-do-guide",
+          href: "/article/fredericksburg-texas-wineries-things-to-do-guide",
         },
       ],
       lodging: [
@@ -118,7 +118,7 @@ export const williamChrisVineyardsHyeDestinations: Destination[] = [
           description:
             "Stay west when William Chris is one stop in a larger wine-country, shopping or German-Texan heritage weekend.",
           proximity: "West on U.S. 290",
-          href: "/destination/fredericksburg-texas-wineries-things-to-do-guide",
+          href: "/article/fredericksburg-texas-wineries-things-to-do-guide",
         },
       ],
       neighborhoods: [
@@ -166,7 +166,7 @@ export const williamChrisVineyardsHyeDestinations: Destination[] = [
           description:
             "Continue west for the region's largest concentration of lodging, shops, museums and wine-country visitor services.",
           proximity: "West",
-          href: "/destination/fredericksburg-texas-wineries-things-to-do-guide",
+          href: "/article/fredericksburg-texas-wineries-things-to-do-guide",
         },
       ],
     },

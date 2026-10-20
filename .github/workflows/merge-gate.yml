@@ -52,10 +52,20 @@ jobs:
 
       # Single source of truth: developers and CI run the same deterministic
       # pre-merge contract. Add future required checks to the runner, not here.
+      # Wrangler's first local SSR request may need extra cold-start time to load
+      # the production Worker module graph; the separate performance budgets stay unchanged.
       - name: Run canonical pre-merge validation
+        env:
+          BUILT_WORKER_SMOKE_STARTUP_TIMEOUT_MS: "120000"
+          BUILT_WORKER_SMOKE_REQUEST_TIMEOUT_MS: "90000"
         run: |
           set -o pipefail
           node scripts/ci/run-premerge-validation.mjs 2>&1 | tee canonical-premerge-output.txt
+
+      # Every river and river-basin authority guide, including future additions,
+      # must pass the machine-readable quality and reciprocal-link contract before merge.
+      - name: Validate universal river authority
+        run: node scripts/data/validate-river-authority.mjs
 
       - name: Publish required protected-branch status
         if: github.event_name == 'pull_request'
@@ -63,7 +73,6 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           REPOSITORY: ${{ github.repository }}
           VALIDATED_SHA: ${{ github.event.pull_request.head.sha }}
-          MERGE_SHA: ${{ github.sha }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         shell: bash
         run: |
@@ -77,20 +86,11 @@ jobs:
             -f description='Canonical Required merge gate passed' \
             -f target_url="$RUN_URL" >/dev/null
           echo "Published Required merge gate status for validated PR head $VALIDATED_SHA."
-          # Branch protection may evaluate GitHub's synthetic PR merge commit rather
-          # than the head commit. The canonical validation above runs against the
-          # reconciled PR merge workspace; mark that checked-out merge SHA as well.
-          if [ "$MERGE_SHA" != "$VALIDATED_SHA" ]; then
-            gh api \
-              --method POST \
-              -H "Accept: application/vnd.github+json" \
-              "repos/$REPOSITORY/statuses/$MERGE_SHA" \
-              -f state='success' \
-              -f context='Required merge gate' \
-              -f description='Canonical Required merge gate passed on PR merge ref' \
-              -f target_url="$RUN_URL" >/dev/null
-            echo "Published Required merge gate status for validated PR merge $MERGE_SHA."
-          fi
+          # Keep the supplemental status on the PR head alongside the native
+          # Actions check. A status on a synthetic merge ref makes GitHub evaluate
+          # that ref instead, where the same-named Actions check is absent. GitHub
+          # also regenerates those refs independently of workflow completion.
+          # Strict branch protection still requires the head to include main.
 
       - name: Capture performance-budget failure details
         if: failure()

@@ -30,7 +30,6 @@ const records: MajorEventAuthorityRecord[] = [
     ],
     relatedLinks: [
       { href: "/county/hidalgo", label: "Explore Hidalgo County", description: "Plan McAllen, Edinburg, Mission, wildlife, museums and other Rio Grande Valley stops around the festival." },
-      { href: "/article/hidalgo-county-edinburg-mcallen-mission-rio-grande-valley-texas", label: "Understand Hidalgo County and the Rio Grande Valley", description: "Read the deeper regional guide to the communities, landscape and border culture surrounding BorderFest." },
       { href: "/events", label: "Texas events calendar", description: "Compare other source-checked Texas festivals and current event dates." },
     ],
     sources: [

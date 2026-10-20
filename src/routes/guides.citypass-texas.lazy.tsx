@@ -15,7 +15,7 @@ type Attraction = {
 };
 
 const DALLAS_ATTRACTIONS: readonly Attraction[] = [
-  { name: "Perot Museum of Nature and Science", href: "/destination/perot-museum-of-nature-and-science", admission: "General admission plus one film in the Hoglund Foundation Theater.", reservation: "Required" },
+  { name: "Perot Museum of Nature and Science", href: "/destination/perot-museum-nature-science-dallas", admission: "General admission plus one film in the Hoglund Foundation Theater.", reservation: "Required" },
   { name: "Reunion Tower GeO-Deck", href: "/destination/reunion-tower-dallas", admission: "Indoor and outdoor observation decks, telescopes and a souvenir digital photo.", reservation: "Required" },
   { name: "Dallas Zoo", href: "/destination/dallas-zoo", admission: "General admission to animal exhibits and daily keeper chats." },
   { name: "George W. Bush Presidential Museum", href: "/destination/george-w-bush-presidential-museum-dallas", admission: "General admission to permanent and special exhibits plus the mobile audio tour." },

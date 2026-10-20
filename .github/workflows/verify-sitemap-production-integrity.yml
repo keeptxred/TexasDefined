@@ -1,11 +1,6 @@
 name: Verify production sitemap integrity
 
 on:
-  workflow_run:
-    workflows:
-      - Deploy TexasDefined production
-    types:
-      - completed
   workflow_dispatch:
 
 permissions:
@@ -21,10 +16,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - name: Check out current main
+      - name: Check out deployed verifier source (current SHA for scheduled/manual runs)
         uses: actions/checkout@v4
         with:
-          ref: main
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -33,3 +28,30 @@ jobs:
 
       - name: Verify production sitemap integrity
         run: node scripts/ci/verify-sitemap-production-integrity.mjs
+
+      - name: Verify all 14 THC landmarks remain discoverable with distinct hotel image
+        # Old deployment SHAs predate this verifier: do not falsely fail their
+        # production workflow while preserving the exact deployed-SHA checkout.
+        if: ${{ hashFiles('scripts/ci/verify-thc-landmark-sitemap-production.mjs') != '' }}
+        run: node scripts/ci/verify-thc-landmark-sitemap-production.mjs
+
+      - name: Verify historical photographic subjects and closed original-site indexing
+        if: ${{ hashFiles('scripts/ci/verify-historic-photo-indexability-production.mjs') != '' }}
+        run: node scripts/ci/verify-historic-photo-indexability-production.mjs
+
+      - name: Test primary museum hero isolation from related placeholders
+        run: node --test scripts/ci/museum-primary-hero.test.mjs
+
+      - name: Verify museum production acceptance
+        # Bounded live checks; unresolved photo gaps are reported, not certified.
+        if: ${{ hashFiles('scripts/ci/verify-museum-production.mjs') != '' }}
+        run: node scripts/ci/verify-museum-production.mjs
+
+      - name: Preserve museum production acceptance evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: museum-production-acceptance-${{ github.run_id }}
+          path: .artifacts/museum-production-acceptance.json
+          if-no-files-found: ignore
+          retention-days: 30

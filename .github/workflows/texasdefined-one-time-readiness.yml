@@ -1,0 +1,86 @@
+name: TexasDefined one-time publisher dry-run verification
+
+# Merging this workflow on protected main triggers a bounded GET-only read.
+# No schedule and no paths for hydration or publication.
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/texasdefined-one-time-readiness.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: texasdefined-readonly-publication-readiness
+  cancel-in-progress: false
+
+jobs:
+  read-only-dry-run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    environment: texasdefined-publication
+    env:
+      KEEP_TX_RED_SUPABASE_URL: https://ftkznprjljkhymknvhye.supabase.co
+      KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY }}
+      TEXASDEFINED_AUTO_PUBLISH_ENABLED: ${{ vars.TEXASDEFINED_AUTO_PUBLISH_ENABLED }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+      - name: Fail closed unless automatic publishing remains fully disabled
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/data/validate-texasdefined-auto-publication.mjs
+          if [[ -n "$TEXASDEFINED_AUTO_PUBLISH_ENABLED" ]]; then
+            echo "::error::Automatic publishing must remain unset; refusing to run."
+            exit 1
+          fi
+          echo "TEXASDEFINED_AUTO_PUBLISH_ENABLED_PRESENT=false"
+      - name: Execute real bounded publisher queue dry-run (no write path)
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -z "$KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY" ]]; then
+            echo "::error::The existing publication environment lacks its Supabase service key."
+            exit 1
+          fi
+          # No --publish, --feed-id or --hydrate-top; GET-only queue branch.
+          node scripts/news/texasdefined-auto-publisher.mjs --limit=3 | tee /tmp/texasdefined-readiness.jsonl
+          node --input-type=module <<'NODE'
+          import { readFileSync, appendFileSync } from 'node:fs';
+          const rows = readFileSync('/tmp/texasdefined-readiness.jsonl', 'utf8')
+            .split(/\r?\n/).filter(Boolean).map((line) => JSON.parse(line));
+          const queue = rows.find((row) => row.mode === 'dry-run');
+          if (!queue) throw new Error('The actual publisher emitted no dry-run result.');
+          for (const field of ['rawEligible','eligible','held','selected','deferred','published','skipped','failed']) {
+            if (!Number.isInteger(queue[field]) || queue[field] < 0) {
+              throw new Error('Missing or invalid field: ' + field);
+            }
+          }
+          if (queue.rawEligible !== queue.eligible + queue.held) throw new Error('Raw queue ownership mismatch.');
+          if (queue.eligible !== queue.selected + queue.deferred) throw new Error('Eligible queue accounting mismatch.');
+          if (!Array.isArray(queue.ids) || queue.ids.length !== queue.selected) throw new Error('Selected IDs mismatch.');
+          if (queue.published !== 0 || queue.skipped !== 0 || queue.failed !== 0) {
+            throw new Error('A dry-run must perform zero publication actions.');
+          }
+          const summary = {
+            mode: 'real-actions-dry-run',
+            rawEligible: queue.rawEligible, eligible: queue.eligible,
+            held: queue.held, selected: queue.selected, deferred: queue.deferred,
+            published: queue.published, skipped: queue.skipped, failed: queue.failed,
+            ids: queue.ids,
+          };
+          console.log(JSON.stringify(summary));
+          appendFileSync(process.env.GITHUB_STEP_SUMMARY, [
+            '## TexasDefined actual dry-run (publication disabled)',
+            '', '- Raw eligible: ' + queue.rawEligible,
+            '- Safe eligible: ' + queue.eligible,
+            '- Held: ' + queue.held,
+            '- Selected IDs: ' + JSON.stringify(queue.ids),
+            '- Published / skipped / failed: 0 / 0 / 0', ''
+          ].join('\n'));
+          NODE

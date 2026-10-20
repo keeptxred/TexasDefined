@@ -19,7 +19,14 @@ type AreaSeed = {
   sideTrip: DestinationAreaItem;
 };
 
-const link = (name: string, slug: string, description: string): DestinationAreaItem => ({ name, description, href: `/destination/${slug}` });
+const HISTORIC_CANONICAL_ALIASES: Record<string, string> = {
+  "goliad-state-park": "goliad-state-park",
+  "san-jacinto-battleground": "san-jacinto-battleground",
+  "washington-on-the-brazos": "washington-on-the-brazos",
+};
+const link = (name: string, slug: string, description: string): DestinationAreaItem => ({
+  name, description, href: `/destination/${HISTORIC_CANONICAL_ALIASES[slug] ?? slug}`,
+});
 
 const areaSeeds: Record<string, AreaSeed> = {
   "acton-state-historic-site": {
@@ -93,9 +100,9 @@ const areaSeeds: Record<string, AreaSeed> = {
     base: "Mathis", neighborhood: "The Nueces-country setting is central to the site's Lipan Apache associations and later military use.", family: "Use a map or timeline before arriving because the site is more about landscape and layered history than surviving monumental architecture.", sideTrip: { name: "Corpus Christi region", description: "Continue east for coastal and South Texas history that places Lipantitlán in a wider regional story." },
   },
   "old-socorro-mission": {
-    intro: "See Old Socorro Mission as part of the El Paso Mission Trail rather than an isolated church. The Lower Valley route links Pueblo, Spanish, Mexican and borderlands histories across several communities.",
+    intro: "The protected Old Socorro archaeological site is closed and cannot be visited as a church. For in-person history, use separately operating El Paso Mission Trail locations and observe their own admission and worship rules.",
     nearby: [link("Magoffin Home", "magoffin-home", "Connect the mission corridor to a later El Paso family and borderlands story." )],
-    base: "El Paso and Socorro", neighborhood: "The Rio Grande valley and long-settled Lower Valley communities are essential context for the mission's history.", family: "Make the mission one stop in a short corridor rather than expecting one building to carry the entire day.", sideTrip: link("Magoffin Home", "magoffin-home", "Move forward in time from mission history to 19th-century El Paso civic and family life."),
+    base: "El Paso and Socorro", neighborhood: "The Rio Grande valley and long-settled Lower Valley communities are essential context for the mission's history.", family: "Use the THC historical record to learn about Piro Pueblo families and the 1680 revolt, then select a different publicly accessible Mission Trail location for a family outing.", sideTrip: link("Magoffin Home", "magoffin-home", "Move forward in time from mission history to 19th-century El Paso civic and family life."),
   },
   "port-isabel-lighthouse": {
     intro: "Use Port Isabel Lighthouse as the visual anchor of a lower Laguna Madre history day, connecting navigation and coastal trade to the working waterfront and the modern beach corridor.",
@@ -164,8 +171,8 @@ const areaSeeds: Record<string, AreaSeed> = {
   },
   "magoffin-home": {
     intro: "Start an El Paso borderlands history day at Magoffin Home, then connect family life, trade and adobe architecture to the mission corridor and later U.S.–Mexico boundary history.",
-    nearby: [link("Chamizal National Memorial", "chamizal-national-memorial", "A later border-history chapter centered on diplomacy and boundary change."), link("Old Socorro Mission", "old-socorro-mission", "Extend the route into the Lower Valley's earlier mission history.")],
-    base: "Downtown El Paso", neighborhood: "The Magoffin Historic District helps place the home within early El Paso growth.", family: "Balance an indoor historic-home visit with the open grounds at Chamizal.", sideTrip: link("Old Socorro Mission", "old-socorro-mission", "Continue east for an earlier layer of borderlands history."),
+    nearby: [link("Chamizal National Memorial", "chamizal-national-memorial", "A later border-history chapter centered on diplomacy and boundary change."), link("Old Socorro Mission", "old-socorro-mission", "Read the Lower Valley's earlier mission history; the original Old Socorro archaeological site is closed, so do not plan an on-site visit.")],
+    base: "Downtown El Paso", neighborhood: "The Magoffin Historic District helps place the home within early El Paso growth.", family: "The historic house is closed through 2027 for restoration; use the open visitor center if available, then pair it with Chamizal for outdoor time.", sideTrip: link("Old Socorro Mission", "old-socorro-mission", "Read about the original Old Socorro Mission remotely, then choose a separately operating Lower Valley mission for an actual visit. The archaeological site is closed."),
   },
   "caddo-mounds-state-historic-site": {
     intro: "Treat Caddo Mounds as a foundational Texas-history stop in its own right, placing ancestral Caddo history before the later Spanish, Mexican and Anglo chapters.",
@@ -173,9 +180,9 @@ const areaSeeds: Record<string, AreaSeed> = {
     base: "Alto and Nacogdoches", neighborhood: "The Caddo homeland and Piney Woods landscape are part of the interpretation, not merely a backdrop.", family: "The outdoor mounds and grounds help younger visitors understand scale and place.", sideTrip: link("Mission Tejas State Park", "mission-tejas-state-park", "Compare Indigenous and Spanish-colonial histories in the same region."),
   },
   "first-capitol-of-texas": {
-    intro: "West Columbia and nearby Brazoria County sites make a compact route through the first Republic government, Stephen F. Austin's final days and plantation history.",
+    intro: "The First Capitol State Historic Site is currently closed. Research its 1836 Republic government story, then build a separate outing around currently open West Columbia and Brazoria County historical destinations.",
     nearby: [link("Stephen F. Austin Memorial", "stephen-f-austin-memorial", "Add Austin's final chapter to the West Columbia route."), link("Varner-Hogg Plantation", "varner-hogg-plantation", "Adds slavery, emancipation, agriculture and later oil wealth to the county story.")],
-    base: "West Columbia and Lake Jackson", neighborhood: "The Brazos corridor helps explain why early political and commercial centers developed here.", family: "Combine the compact political-history stop with a larger historic property and grounds.", sideTrip: link("San Felipe de Austin", "san-felipe-de-austin", "Trace Austin's colony back to its earlier headquarters."),
+    base: "West Columbia and Lake Jackson", neighborhood: "The Brazos corridor helps explain why early political and commercial centers developed here.", family: "The First Capitol state property is not currently open. Families can use its documented history before visiting other independently open public museums and historical locations in Brazoria County.", sideTrip: link("San Felipe de Austin", "san-felipe-de-austin", "Trace Austin's colony back to its earlier headquarters."),
   },
   "varner-hogg-plantation": {
     intro: "Use Varner-Hogg as the deeper social-history stop in a Brazoria County route, adding labor, slavery, emancipation, agriculture and oil to nearby Republic landmarks.",

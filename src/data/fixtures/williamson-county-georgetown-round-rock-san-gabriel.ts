@@ -24,6 +24,7 @@ export const williamsonCountyGeorgetownRoundRockSanGabrielArticle: Article = {
   tags: ["Williamson County", "Georgetown", "Round Rock", "Taylor", "Hutto", "San Gabriel River", "Lake Georgetown", "Blackland Prairie", "Central Texas", "Texas counties"],
   featured: false,
   internalLinks: [
+    { href: "/destination/taylor", label: "Taylor authority visitor guide", description: "Taylor railroad heritage, historic architecture and Williamson County visitor guide." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
     { href: "/county/travis", label: "Explore Travis County", description: "Continue south into Austin, the Colorado River and the urban core of Central Texas." },
     { href: "/county/bell", label: "Explore Bell County", description: "Continue north toward Temple, Belton and another major I-35 corridor county." },

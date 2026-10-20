@@ -15,7 +15,7 @@ export function CountyStatewideContextSection({ countyName, countySlug }: { coun
   if (!facts.length) return null;
 
   return (
-    <div className="mt-8 border-t border-border pt-7" aria-labelledby="county-statewide-context-heading">
+    <section className="mt-8 border-t border-border pt-7" aria-labelledby="county-statewide-context-heading">
       <p className="eyebrow text-primary">Statewide context</p>
       <h3 id="county-statewide-context-heading" className="mt-2 font-display text-3xl">Where {countyName} sits in the county data</h3>
       <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">
@@ -35,6 +35,6 @@ export function CountyStatewideContextSection({ countyName, countySlug }: { coun
         <a href="/article/texas-major-cities-regional-differences" className="text-primary underline decoration-primary/40 underline-offset-4">Compare Texas cities & regions →</a>
         <a href="/article/texas-culture-social-customs-newcomers" className="text-primary underline decoration-primary/40 underline-offset-4">Texas culture for newcomers →</a>
       </div>
-    </div>
+    </section>
   );
 }

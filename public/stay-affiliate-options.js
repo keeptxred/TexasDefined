@@ -43,6 +43,26 @@
     ["La Quinta Inn & Suites by Wyndham Sweetwater East", "https://www.hotels.com/ho636049152/la-quinta-inn-suites-by-wyndham-sweetwater-east-sweetwater-united-states-of-america/"],
     ["Microtel Inn & Suites by Wyndham Sweetwater", "https://www.hotels.com/ho532248/microtel-inn-and-suites-by-wyndham-sweetwater-sweetwater-united-states-of-america/"],
   ]);
+  // Exact property listings are verified on Hotels.com and tied to official venue sources.
+  // Use the existing CJ deep-link gate and click telemetry; do not store prices or dates.
+  // No offering is published for the unfinished Leggett resort or legal explainer.
+  const CASINO_HOTEL_CHOICES = new Map([
+    ["/explore/casinos/kickapoo-lucky-eagle", Object.freeze([
+      { name: "Kickapoo Lucky Eagle Casino Hotel", destination: "https://www.hotels.com/ho440446/kickapoo-lucky-eagle-casino-hotel-eagle-pass-united-states-of-america/", sourceUrl: "https://luckyeagletexas.com/", context: "Hotel at the Eagle Pass gaming property" },
+    ])],
+    ["/explore/casinos/near-houston", Object.freeze([
+      { name: "Golden Nugget Lake Charles", destination: "https://www.hotels.com/ho483104/golden-nugget-lake-charles-lake-charles-united-states-of-america/", sourceUrl: "https://www.goldennugget.com/lake-charles/hotel/", context: "Louisiana resort hotel across the state line" },
+      { name: "L'Auberge Casino Resort Lake Charles", destination: "https://www.hotels.com/ho268798/l-auberge-casino-resort-lake-charles-lake-charles-united-states-of-america/", sourceUrl: "https://www.llakecharles.com/visit", context: "Lake Charles resort stay in Louisiana" },
+    ])],
+    ["/explore/casinos/near-dallas-fort-worth", Object.freeze([
+      { name: "Choctaw Casino & Resort Durant", destination: "https://www.hotels.com/ho576680/choctaw-casino-resort-durant-durant-united-states-of-america/", sourceUrl: "https://www.choctawcasinos.com/durant/", context: "Resort hotel in Durant, Oklahoma" },
+    ])],
+  ]);
+  function casinoHotelChoices(pathname = window.location.pathname) {
+    const normalized = String(pathname || "/").replace(/\/+$/, "") || "/";
+    return CASINO_HOTEL_CHOICES.get(normalized) || [];
+  }
+
   const FEATURED_GOLF_STAYS = new Map([
     ["/sports-venue/pga-frisco-fields-ranch", Object.freeze({
       name: "Omni PGA Frisco Resort & Spa",
@@ -66,7 +86,20 @@
       context: "IHG lists Memorial Park golf and tennis about two miles from this hotel, making it a practical lodging option for a Memorial Park Golf Course visit.",
     })],
   ]);
-  const HOTEL_FIRST_PATH = /^\/(?:event\/|events(?:\/|$)|sports-venue\/|sports-venues(?:\/|$)|texas-state-fair(?:\/|$))/;
+  // Exact verified Hotels.com hotel listing, restricted to the matching authority page.
+  // Reuse only TexasDefined's existing CJ deep-link builder and disclosure; no assumed commission.
+  const HOTEL_PASO_EXACT_STAY = Object.freeze({
+    name: "Hotel Paso Del Norte, Autograph Collection",
+    destination: "https://www.hotels.com/ho114680/hotel-paso-del-norte-autograph-collection-el-paso-united-states-of-america/",
+    sourceUrl: "https://www.hotelpdn.com/location",
+    verifiedAt: "2026-10-17",
+  });
+  function hotelPasoStay(pathname = window.location.pathname) {
+    const normalized = String(pathname || "/").replace(/\/+$/, "") || "/";
+    return normalized === "/destination/hotel-paso-del-norte" ? HOTEL_PASO_EXACT_STAY : null;
+  }
+
+  const HOTEL_FIRST_PATH = /^\/(?:event\/|events(?:\/|$)|sports-venue\/|horse-racing\/gillespie-county-fairgrounds(?:\/|$)|sports-venues(?:\/|$)|texas-state-fair(?:\/|$))/;
   const BOTH_PATH = /^\/(?:destination\/|explore(?:\/|$)|city\/|county\/|best-places-to-go-camping-in-texas(?:\/|$)|texas-college-towns(?:\/|$)|texas-tailgating-guide(?:\/|$)|texas-unique-lodging(?:\/|$)|texas-music-venues(?:\/|$)|texas-roadside-oddities(?:\/|$))/;
   const RVSHARE_PATH = /^\/(?:best-places-to-go-camping-in-texas(?:\/|$)|explore\/(?:rv-parks|state-parks|road-trips|outdoors)(?:\/|$))/;
   const OWNER_PATH = /^\/real-estate\/?$/;
@@ -156,19 +189,19 @@
     style.id = "td-stay-affiliate-styles";
     style.textContent = `
       .td-stay-affiliate-options,.td-vrbo-owner-referral{box-sizing:border-box;margin:0 auto;max-width:80rem;padding:0 1.25rem 1.75rem}
-      .td-stay-affiliate-panel,.td-vrbo-owner-panel{border:1px solid hsl(var(--border));background:hsl(var(--background));padding:1.25rem}
-      .td-stay-affiliate-eyebrow{margin:0 0 .35rem;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:hsl(var(--primary))}
-      .td-stay-affiliate-title{margin:0;font-family:inherit;font-size:clamp(1.35rem,2vw,1.75rem);font-weight:700;line-height:1.15;color:hsl(var(--foreground))}
-      .td-stay-affiliate-copy{margin:.65rem 0 0;max-width:56rem;font-size:.95rem;line-height:1.6;color:hsl(var(--muted-foreground))}
+      .td-stay-affiliate-panel,.td-vrbo-owner-panel{border:1px solid var(--border);background:var(--background);padding:1.25rem}
+      .td-stay-affiliate-eyebrow{margin:0 0 .35rem;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--primary)}
+      .td-stay-affiliate-title{margin:0;font-family:inherit;font-size:clamp(1.35rem,2vw,1.75rem);font-weight:700;line-height:1.15;color:var(--foreground)}
+      .td-stay-affiliate-copy{margin:.65rem 0 0;max-width:56rem;font-size:.95rem;line-height:1.6;color:var(--muted-foreground)}
       .td-stay-affiliate-actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1rem}
-      .td-stay-affiliate-button,.td-stay-affiliate-jump{display:inline-flex;min-height:2.75rem;align-items:center;justify-content:center;padding:.7rem 1rem;border:1px solid hsl(var(--border));font-size:.9rem;font-weight:700;text-decoration:none;transition:opacity .15s ease,background .15s ease}
+      .td-stay-affiliate-button,.td-stay-affiliate-jump{display:inline-flex;min-height:2.75rem;align-items:center;justify-content:center;padding:.7rem 1rem;border:1px solid var(--border);font-size:.9rem;font-weight:700;text-decoration:none;transition:opacity .15s ease,background .15s ease}
       .td-stay-affiliate-button:hover,.td-stay-affiliate-jump:hover{opacity:.88}
-      .td-stay-affiliate-button:focus-visible,.td-stay-affiliate-jump:focus-visible{outline:2px solid hsl(var(--foreground));outline-offset:3px}
-      .td-stay-affiliate-button--primary,.td-stay-affiliate-jump{border-color:hsl(var(--primary));background:hsl(var(--primary));color:hsl(var(--primary-foreground))}
-      .td-stay-affiliate-button--secondary{background:hsl(var(--background));color:hsl(var(--foreground))}
+      .td-stay-affiliate-button:focus-visible,.td-stay-affiliate-jump:focus-visible{outline:2px solid var(--foreground);outline-offset:3px}
+      .td-stay-affiliate-button--primary,.td-stay-affiliate-jump{border-color:var(--primary);background:var(--primary);color:var(--primary-foreground)}
+      .td-stay-affiliate-button--secondary{background:var(--background);color:var(--foreground)}
       .td-stay-affiliate-jump{flex:0 0 auto;cursor:pointer}
-      .td-stay-affiliate-disclosure,.td-stay-affiliate-source{margin:.85rem 0 0;font-size:.75rem;line-height:1.45;color:hsl(var(--muted-foreground))}
-      .td-stay-affiliate-source a{color:hsl(var(--foreground));text-underline-offset:2px}
+      .td-stay-affiliate-disclosure,.td-stay-affiliate-source{margin:.85rem 0 0;font-size:.75rem;line-height:1.45;color:var(--muted-foreground)}
+      .td-stay-affiliate-source a{color:var(--foreground);text-underline-offset:2px}
       .td-vrbo-owner-referral{padding-top:1.75rem;padding-bottom:2.5rem}
       @media (max-width:767px){.td-stay-nearby .td-stay-heading-row{align-items:stretch;flex-direction:column}.td-stay-affiliate-jump{width:100%}}
       @media (max-width:640px){.td-stay-affiliate-actions{display:grid;grid-template-columns:1fr}.td-stay-affiliate-button{width:100%}}
@@ -193,6 +226,8 @@
 
   function createBookingChoice(intent, exactPropertyFirst = false) {
     const featuredStay = exactPropertyFirst ? null : featuredGolfStay();
+    const hotelPasoExact = exactPropertyFirst ? null : hotelPasoStay();
+    const casinoStays = exactPropertyFirst ? [] : casinoHotelChoices();
     const showRvshare = rvshareEligible();
     const wrapper = document.createElement("aside");
     wrapper.id = CHOICE_ID;
@@ -208,11 +243,13 @@
 
     const heading = document.createElement("h2");
     heading.className = "td-stay-affiliate-title";
-    heading.textContent = featuredStay ? "A venue-linked stay to consider" : (exactPropertyFirst ? "More places to stay nearby" : (intent === "hotel-first" ? "Find places to stay near this event or venue" : "Find places to stay nearby"));
+    heading.textContent = hotelPasoExact ? "Compare Hotel Paso del Norte booking options" : casinoStays.length ? "Compare hotels for this trip" : featuredStay ? "A venue-linked stay to consider" : (exactPropertyFirst ? "More places to stay nearby" : (intent === "hotel-first" ? "Find places to stay near this event or venue" : "Find places to stay nearby"));
 
     const copy = document.createElement("p");
     copy.className = "td-stay-affiliate-copy";
-    copy.textContent = featuredStay
+    copy.textContent = hotelPasoExact
+      ? "Hotels.com has a verified listing for this exact hotel. Compare its current rates, fees and cancellation rules with the hotel operator\u2019s direct booking option above; no price or availability is guaranteed."
+      : featuredStay
       ? `${featuredStay.context} Compare that exact property or use the broader hotel choices below.`
       : (exactPropertyFirst
         ? (intent === "hotel-first"
@@ -221,11 +258,26 @@
         : (intent === "hotel-first"
           ? "Compare hotel availability close to the event or venue on Hotels.com or Orbitz. Broader leisure and destination guides also include vacation-rental options when they fit the trip."
           : "Compare hotel options on Hotels.com or Travelocity, or choose a vacation rental when extra space, a kitchen, or a group-friendly setup fits the trip better."));
+    if (window.location.pathname.replace(/\/+$/, "") === "/explore/near/mcallen/day-trips") {
+      eyebrow.textContent = "Compare lodging providers";
+      heading.textContent = "Hotel and vacation-rental choices";
+      copy.textContent = "Only staying overnight? Compare hotels and rentals; verify current prices, locations and cancellation rules with each booking provider.";
+    }
+    if (casinoStays.length) copy.textContent = "These specific properties have verified hotel listings. Compare dates, cancellation terms, fees and current availability directly with the booking provider. Other lodging options are available below.";
     if (showRvshare) copy.textContent += " For camping and road-trip planning, RVshare is the primary rental option when taking your lodging with you fits the trip.";
 
     const actions = document.createElement("div");
     actions.className = "td-stay-affiliate-actions";
     const choicePlacement = exactPropertyFirst ? "stay-nearby-choice-after-exact" : "stay-nearby-choice";
+    if (hotelPasoExact) {
+      actions.appendChild(createTrackedLink({
+        destination: hotelPasoExact.destination,
+        label: "Check Hotel Paso del Norte on Hotels.com",
+        variant: "primary",
+        ariaLabel: "Compare current Hotel Paso del Norte rooms and rates on Hotels.com in a new tab",
+        placement: "hotel-paso-exact-hotel-stay",
+      }));
+    }
     if (featuredStay) {
       actions.appendChild(createTrackedLink({
         destination: featuredStay.destination,
@@ -235,10 +287,20 @@
         placement: "stay-nearby-featured-golf",
       }));
     }
+    casinoStays.forEach((stay, index) => {
+      const slug = window.location.pathname.split("/").filter(Boolean).pop() || "casinos";
+      actions.appendChild(createTrackedLink({
+        destination: stay.destination,
+        label: `Check rooms: ${stay.name} on Hotels.com`,
+        variant: index === 0 ? "primary" : "secondary",
+        ariaLabel: `Check current rooms at ${stay.name} on Hotels.com in a new tab`,
+        placement: `casino-stay-${slug}-${index + 1}`,
+      }));
+    });
     actions.appendChild(createTrackedLink({
       destination: HOTELS_DESTINATION,
       label: exactPropertyFirst ? "Compare more hotels on Hotels.com" : "Find hotels on Hotels.com",
-      variant: featuredStay || showRvshare ? "secondary" : "primary",
+      variant: featuredStay || hotelPasoExact || showRvshare ? "secondary" : "primary",
       ariaLabel: exactPropertyFirst ? "Compare more hotels on Hotels.com in a new tab" : "Find hotels on Hotels.com in a new tab",
       placement: choicePlacement,
     }));
@@ -283,6 +345,18 @@
       : "Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com or Orbitz activity, at no additional cost to you. Availability, rates and booking terms are provided by the booking service.";
 
     panel.append(eyebrow, heading, copy, actions, disclosure);
+    if (hotelPasoExact) {
+      const sourceNote = document.createElement("p");
+      sourceNote.className = "td-stay-affiliate-source";
+      sourceNote.append("Exact-property listing verified on Hotels.com; operator identity checked against ");
+      const operator = document.createElement("a");
+      operator.href = hotelPasoExact.sourceUrl;
+      operator.target = "_blank";
+      operator.rel = "noopener noreferrer";
+      operator.textContent = "the hotel\u2019s official site ↗";
+      sourceNote.append(operator, ` · reviewed ${hotelPasoExact.verifiedAt}`);
+      panel.appendChild(sourceNote);
+    }
     if (featuredStay) {
       const sourceNote = document.createElement("p");
       sourceNote.className = "td-stay-affiliate-source";
@@ -294,6 +368,21 @@
       sourceLink.textContent = "the hotel’s official site ↗";
       sourceNote.append(sourceLink, ` · reviewed ${featuredStay.verifiedAt}`);
       panel.appendChild(sourceNote);
+    }
+    if (casinoStays.length) {
+      const reference = document.createElement("p");
+      reference.className = "td-stay-affiliate-source";
+      reference.append("Property identities checked against ");
+      casinoStays.forEach((stay, index) => {
+        if (index) reference.append(" · ");
+        const link = document.createElement("a");
+        link.href = stay.sourceUrl;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.textContent = stay.name + " official site ↗";
+        reference.appendChild(link);
+      });
+      panel.appendChild(reference);
     }
     wrapper.appendChild(panel);
     return wrapper;
@@ -419,6 +508,16 @@
 
   function placeBookingChoice(surface, choice, exactPropertyFirst) {
     choice.dataset.priority = exactPropertyFirst ? "exact-property-first" : "broad-search-first";
+    // One coherent overnight section on McAllen: preserve all affiliate choices
+    // but place them inside the existing Expedia container, not as a second section.
+    if (window.location.pathname.replace(/\/+$/, "") === "/explore/near/mcallen/day-trips") {
+      const parent = surface.querySelector(":scope > .mx-auto");
+      if (parent) {
+        if (choice.parentElement !== parent || choice !== parent.lastElementChild) parent.appendChild(choice);
+        if (surface.dataset.stayConsolidated !== "true") surface.dataset.stayConsolidated = "true";
+        return;
+      }
+    }
     if (exactPropertyFirst) {
       const scopedStyle = Array.from(surface.children).find((child) => child.tagName === "STYLE");
       if (scopedStyle) {
@@ -467,12 +566,17 @@
     const exactPropertyFirst = hasExactPropertyAffiliate(expediaSurface);
     const intent = bookingIntent();
     const choiceMode = exactPropertyFirst ? "after-exact" : "broad";
+    const casinoPath = window.location.pathname.replace(/\/+$/, "") || "/";
+    const resolvedChoiceMode = !exactPropertyFirst && casinoHotelChoices().length
+      ? `casino:${casinoPath}`
+      : (!exactPropertyFirst && hotelPasoStay() ? "hotel-paso-exact" : choiceMode);
     let choice = existing;
-    if (!(choice?.dataset.intent === intent && choice?.dataset.mode === choiceMode && choice.parentElement === expediaSurface)) {
+    if (!(choice?.dataset.intent === intent && choice?.dataset.mode === resolvedChoiceMode && choice.parentElement === expediaSurface)) {
       choice?.remove();
       choice = createBookingChoice(intent, exactPropertyFirst);
       choice.dataset.intent = intent;
       choice.dataset.mode = choiceMode;
+      if (resolvedChoiceMode !== choiceMode) choice.dataset.mode = resolvedChoiceMode;
     }
     placeBookingChoice(expediaSurface, choice, exactPropertyFirst);
 
@@ -496,8 +600,18 @@
   // The named county pages signal readiness before first-party affiliate DOM writes.
   function waitingForFootballCountyHydration() {
     const path = window.location.pathname.replace(/\/+$/, "");
-    return (path === "/county/van-zandt" || path === "/county/hill" || path === "/county/fort-bend" || path === "/county/jeff-davis" || path === "/county/tarrant")
-      && document.documentElement.dataset.tdFootballCountyHydrated !== "1";
+    // All county and city authority routes have a React hydration readiness
+    // signal; defer affiliate DOM changes until their route mounts.
+    const guardedRoute = /^\/(?:county|city)\/[a-z0-9-]+$/.test(path);
+    if (/^\/texas-state-fair\/?$/.test(path)) return document.documentElement.dataset.tdStateFairHydrated !== "1";
+    if (path === "/explore/near/mcallen/day-trips") {
+      return document.documentElement.dataset.tdMcAllenDayTripsHydrated !== "1";
+    }
+    // BB-35's lazy article must commit before booking options alter #main.
+    if (path === "/article/battleship-texas-bb-35-history-restoration") {
+      return document.documentElement.dataset.tdBattleshipArticleHydrated !== "1";
+    }
+    return guardedRoute && document.documentElement.dataset.tdFootballCountyHydrated !== "1";
   }
 
   function sync() {
@@ -521,6 +635,9 @@
     observer.observe(main, { childList: true, subtree: true });
     window.addEventListener("popstate", scheduleSync);
     window.addEventListener("texasdefined:county-hydrated", scheduleSync);
+    window.addEventListener("texasdefined:state-fair-hydrated", scheduleSync);
+    window.addEventListener("texasdefined:mcallen-day-trips-hydrated", scheduleSync);
+    window.addEventListener("texasdefined:battleship-article-hydrated", scheduleSync);
   }
 
   window.TexasDefinedStayAffiliateOptions = {
@@ -529,15 +646,25 @@
     comparisonHotelDestination,
     exactPropertyDestination,
     featuredGolfStay,
+    hotelPasoStay,
+    casinoHotelChoices,
     ownerEligible,
     rvshareEligible,
     promoteStaySurface,
     sync: scheduleSync,
   };
 
+  function installWhenHydrated() {
+    if (document.documentElement.dataset.tdRootHydrated === "1") {
+      install();
+    } else {
+      window.addEventListener("texasdefined:root-hydrated", install, { once: true });
+    }
+  }
+
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", install, { once: true });
+    document.addEventListener("DOMContentLoaded", installWhenHydrated, { once: true });
   } else {
-    install();
+    installWhenHydrated();
   }
 })();
