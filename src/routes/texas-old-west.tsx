@@ -13,8 +13,6 @@ const collectionItems = [
   ["Official Texas Longhorn Herd", "/destination/official-texas-longhorn-herd"],
   ["Goodnight Ranch", "/destination/goodnight-ranch"],
   ["Fort Griffin", "/destination/fort-griffin"],
-  ["Young County Museum of History & Culture", "/destination/young-county-museum-of-history-and-culture"],
-  ["Young County frontier history", "/article/young-county-graham-fort-belknap-brazos-cross-timbers-texas"],
   ["Texas dance halls and honky-tonks", "/texas-dance-halls-honky-tonks"],
   ["Texas rodeo and western venues", "/sports-venues/rodeo-western"],
   ["Texas two-step", "/texas-two-step"],
