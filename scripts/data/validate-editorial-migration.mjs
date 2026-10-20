@@ -56,16 +56,23 @@ for (const marker of [
   'HUD homebuying guidance',
 ]) if (!financeDepth.includes(marker)) errors.push(`Finance evergreen primary-source authority marker missing: ${marker}`);
 for (const marker of [
-  'import closingHeroAsset from "@/assets/generated/texas-courthouse-square.jpg"',
+  'import { salaryAffordabilityHero, homeClosingHero } from "./texas-home-finance-media"',
   'import electricityHeroAsset from "@/assets/generated/texas-electricity-plan.jpg"',
-  'import smallTown from "@/assets/small-town.jpg"',
-  'const closingHero: Article["hero"]',
   'const utilityHero: Article["hero"]',
-  'const salaryHero: Article["hero"]',
-  '"migration-finance-depth-closing", closingHero',
+  '"migration-finance-depth-closing", homeClosingHero',
   '"migration-finance-depth-utilities", utilityHero',
-  '"migration-finance-depth-salary", salaryHero',
+  '"migration-finance-depth-salary", salaryAffordabilityHero',
 ]) if (!financeDepth.includes(marker)) errors.push(`Finance evergreen topic-specific hero contract missing: ${marker}`);
+// The card registry must share the same media objects as the full articles.
+for (const marker of [
+  'hero: homeClosingHero',
+  'hero: salaryAffordabilityHero',
+]) if (!lazyMigrated.includes(marker)) errors.push(`Finance catalog hero mismatch: ${marker}`);
+const financePhotoMedia = read("src/data/fixtures/texas-home-finance-media.ts");
+for (const marker of [
+  'export const homeClosingHero: Article["hero"]',
+  'export const salaryAffordabilityHero: Article["hero"]',
+]) if (!financePhotoMedia.includes(marker)) errors.push(`Finance shared hero definition missing: ${marker}`);
 if (financeDepth.includes('import heroHillCountry from "@/assets/hero-hill-country.jpg"')) errors.push('Finance evergreen deep articles must not collapse back onto one generic Hill Country hero.');
 
 const financeDepth2Slugs = ['texas-house-down-payment-guide','should-you-refinance-texas-mortgage','texas-homeowners-insurance-guide'];
