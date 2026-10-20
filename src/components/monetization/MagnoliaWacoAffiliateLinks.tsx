@@ -30,6 +30,7 @@ export function MagnoliaWacoAffiliateLinks() {
             Official Magnolia hours and ticketed experiences ↗
           </a>
         </div>
+        <p className="mt-5 text-sm font-semibold"><a href="/waco-attractions" className="text-primary underline underline-offset-4">Full Waco attractions visitor-guide directory →</a></p>
         <nav aria-label="TexasDefined guides to seven Waco attractions" className="mt-8 border-t border-border pt-6">
           <h3 className="font-display text-xl">Explore seven Waco attractions</h3>
           <p className="mt-2 text-sm text-muted-foreground">Open our independent visitor guides for history, practical planning and official ticket details. Each guide distinguishes attraction overviews from bookable tours.</p>
