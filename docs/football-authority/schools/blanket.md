@@ -20,7 +20,9 @@ Contemporaneous Brownwood News directly quotes **head football coach Jalen Helms
 
 ## Acceptance definition
 
-Six original FAQs, five original school-specific paragraphs, independent sources, as-of-record and true six-man UIL data are authored on branch only. Requires dependent PR merges, protected canonical gate, target-specific desktop/mobile **real production Chrome** and SEO, JSON-LD/phone/map access, county linking and image-rights review. Do not promote registry above IMPLEMENTED, nor accept database nine-dimension checklist, until all evidence established. No unscoped full-site audit.
+The school-specific authority page is merged and deployed. [Batch 006 production Chrome run #39273758531](https://github.com/keeptxred/TexasDefined/actions/runs/39273758531) passed Blanket at 1366px desktop, 390px mobile and 320px reflow; the reciprocal Brown County check and Batch 006 sitemap cohort also passed on the same single Worker release. Those technical gates are complete.
+
+Blanket remains **DEPLOYED, not VERIFIED**. Preserve the sourced 4–3 snapshot and the Priddy-canceled-season qualification rather than inventing a forfeit; Jalen Helms is supported by contemporaneous local reporting; exact stadium gate/parking/ADA/ticket details and photo rights remain unverified; and a manual accessibility review plus final nine-dimension factual/editorial acceptance are still required. No unscoped full-site audit.
 
 
 ## October 19, 2026 — Priddy canceled the 2026 football season; do not invent Blanket final
