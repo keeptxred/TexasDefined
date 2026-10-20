@@ -99,6 +99,7 @@ import { statewideMuseumExpansionWave49Destinations } from "./museum-expansion-s
 import { statewideMuseumExpansionWave50Destinations } from "./museum-expansion-statewide-wave50";
 import { statewideMuseumExpansionWave51Destinations } from "./museum-expansion-statewide-wave51";
 import { youngCountyMuseumAuthorityDestinations } from "./young-county-museum-authority-destination";
+import { yoakumHeritageMuseumDestinations } from "./yoakum-heritage-museum-authority-destination";
 import { nacogdochesSanAugustineAuthorityDestinations } from "./nacogdoches-san-augustine-authority-destinations";
 import { nacogdochesSanAugustineForestDestinations } from "./nacogdoches-san-augustine-forest-destinations";
 import { nacogdochesDowntownHistoricDistrictDestinations } from "./nacogdoches-downtown-historic-district-destination";
@@ -338,6 +339,7 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   statewideMuseumExpansionWave50Destinations,
   statewideMuseumExpansionWave51Destinations,
   youngCountyMuseumAuthorityDestinations,
+  yoakumHeritageMuseumDestinations,
   nacogdochesSanAugustineAuthorityDestinations,
   nacogdochesSanAugustineForestDestinations,
   nacogdochesDowntownHistoricDistrictDestinations,
