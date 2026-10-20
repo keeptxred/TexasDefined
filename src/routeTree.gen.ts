@@ -374,6 +374,7 @@ import { Route as ExploreLandscapesRouteImport } from './routes/explore.landscap
 import { Route as ExploreInlandBeachesRouteImport } from './routes/explore.inland-beaches'
 import { Route as ExploreHillCountrySpringsRouteImport } from './routes/explore.hill-country-springs'
 import { Route as ExploreCasinosRouteImport } from './routes/explore.casinos'
+import { Route as ExploreBreweriesRouteImport } from './routes/explore.breweries'
 import { Route as ExploreAttractionsComparisonRouteImport } from './routes/explore.attractions-comparison'
 import { Route as ExploreAquariumsRouteImport } from './routes/explore.aquariums'
 import { Route as ExploreCategoryRouteImport } from './routes/explore.$category'
@@ -515,6 +516,7 @@ import { Route as ExploreInlandBeachesSlugRouteImport } from './routes/explore.i
 import { Route as ExploreCountyCountyRouteImport } from './routes/explore.county.$county'
 import { Route as ExploreCavernSlugRouteImport } from './routes/explore.cavern.$slug'
 import { Route as ExploreCasinosSlugRouteImport } from './routes/explore.casinos.$slug'
+import { Route as ExploreBreweriesSlugRouteImport } from './routes/explore.breweries_.$slug'
 import { Route as ApiPublicStoreProductsRouteImport } from './routes/api/public/store-products'
 import { Route as ApiPublicNetworkStripeWebhookRouteImport } from './routes/api.public.network-stripe-webhook'
 import { Route as ApiPublicNetworkCheckoutRouteImport } from './routes/api.public.network-checkout'
@@ -2851,6 +2853,13 @@ const ExploreCasinosRoute = ExploreCasinosRouteImport.update({
   path: '/explore/casinos',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ExploreBreweriesRoute = ExploreBreweriesRouteImport.update({
+  id: '/explore/breweries',
+  path: '/explore/breweries',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() =>
+  import('./routes/explore.breweries.lazy').then((d) => d.Route),
+)
 const ExploreAttractionsComparisonRoute =
   ExploreAttractionsComparisonRouteImport.update({
     id: '/explore/attractions-comparison',
@@ -3705,6 +3714,13 @@ const ExploreCasinosSlugRoute = ExploreCasinosSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => ExploreCasinosRoute,
 } as any)
+const ExploreBreweriesSlugRoute = ExploreBreweriesSlugRouteImport.update({
+  id: '/explore/breweries_/$slug',
+  path: '/explore/breweries/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() =>
+  import('./routes/explore.breweries_.$slug.lazy').then((d) => d.Route),
+)
 const ApiPublicStoreProductsRoute = ApiPublicStoreProductsRouteImport.update({
   id: '/api/public/store-products',
   path: '/api/public/store-products',
@@ -4118,6 +4134,7 @@ export interface FileRoutesByFullPath {
   '/explore/$category': typeof ExploreCategoryRoute
   '/explore/aquariums': typeof ExploreAquariumsRoute
   '/explore/attractions-comparison': typeof ExploreAttractionsComparisonRoute
+  '/explore/breweries': typeof ExploreBreweriesRoute
   '/explore/casinos': typeof ExploreCasinosRouteWithChildren
   '/explore/hill-country-springs': typeof ExploreHillCountrySpringsRoute
   '/explore/inland-beaches': typeof ExploreInlandBeachesRouteWithChildren
@@ -4300,6 +4317,7 @@ export interface FileRoutesByFullPath {
   '/api/public/network-checkout': typeof ApiPublicNetworkCheckoutRoute
   '/api/public/network-stripe-webhook': typeof ApiPublicNetworkStripeWebhookRoute
   '/api/public/store-products': typeof ApiPublicStoreProductsRoute
+  '/explore/breweries/$slug': typeof ExploreBreweriesSlugRoute
   '/explore/casinos/$slug': typeof ExploreCasinosSlugRoute
   '/explore/cavern/$slug': typeof ExploreCavernSlugRoute
   '/explore/county/$county': typeof ExploreCountyCountyRoute
@@ -4644,6 +4662,7 @@ export interface FileRoutesByTo {
   '/explore/$category': typeof ExploreCategoryRoute
   '/explore/aquariums': typeof ExploreAquariumsRoute
   '/explore/attractions-comparison': typeof ExploreAttractionsComparisonRoute
+  '/explore/breweries': typeof ExploreBreweriesRoute
   '/explore/hill-country-springs': typeof ExploreHillCountrySpringsRoute
   '/explore/inland-beaches': typeof ExploreInlandBeachesRouteWithChildren
   '/explore/landscapes': typeof ExploreLandscapesRouteWithChildren
@@ -4824,6 +4843,7 @@ export interface FileRoutesByTo {
   '/api/public/network-checkout': typeof ApiPublicNetworkCheckoutRoute
   '/api/public/network-stripe-webhook': typeof ApiPublicNetworkStripeWebhookRoute
   '/api/public/store-products': typeof ApiPublicStoreProductsRoute
+  '/explore/breweries/$slug': typeof ExploreBreweriesSlugRoute
   '/explore/casinos/$slug': typeof ExploreCasinosSlugRoute
   '/explore/cavern/$slug': typeof ExploreCavernSlugRoute
   '/explore/county/$county': typeof ExploreCountyCountyRoute
@@ -5172,6 +5192,7 @@ export interface FileRoutesById {
   '/explore/$category': typeof ExploreCategoryRoute
   '/explore/aquariums': typeof ExploreAquariumsRoute
   '/explore/attractions-comparison': typeof ExploreAttractionsComparisonRoute
+  '/explore/breweries': typeof ExploreBreweriesRoute
   '/explore/casinos': typeof ExploreCasinosRouteWithChildren
   '/explore/hill-country-springs': typeof ExploreHillCountrySpringsRoute
   '/explore/inland-beaches': typeof ExploreInlandBeachesRouteWithChildren
@@ -5354,6 +5375,7 @@ export interface FileRoutesById {
   '/api/public/network-checkout': typeof ApiPublicNetworkCheckoutRoute
   '/api/public/network-stripe-webhook': typeof ApiPublicNetworkStripeWebhookRoute
   '/api/public/store-products': typeof ApiPublicStoreProductsRoute
+  '/explore/breweries_/$slug': typeof ExploreBreweriesSlugRoute
   '/explore/casinos/$slug': typeof ExploreCasinosSlugRoute
   '/explore/cavern/$slug': typeof ExploreCavernSlugRoute
   '/explore/county/$county': typeof ExploreCountyCountyRoute
@@ -5703,6 +5725,7 @@ export interface FileRouteTypes {
     | '/explore/$category'
     | '/explore/aquariums'
     | '/explore/attractions-comparison'
+    | '/explore/breweries'
     | '/explore/casinos'
     | '/explore/hill-country-springs'
     | '/explore/inland-beaches'
@@ -5885,6 +5908,7 @@ export interface FileRouteTypes {
     | '/api/public/network-checkout'
     | '/api/public/network-stripe-webhook'
     | '/api/public/store-products'
+    | '/explore/breweries/$slug'
     | '/explore/casinos/$slug'
     | '/explore/cavern/$slug'
     | '/explore/county/$county'
@@ -6229,6 +6253,7 @@ export interface FileRouteTypes {
     | '/explore/$category'
     | '/explore/aquariums'
     | '/explore/attractions-comparison'
+    | '/explore/breweries'
     | '/explore/hill-country-springs'
     | '/explore/inland-beaches'
     | '/explore/landscapes'
@@ -6409,6 +6434,7 @@ export interface FileRouteTypes {
     | '/api/public/network-checkout'
     | '/api/public/network-stripe-webhook'
     | '/api/public/store-products'
+    | '/explore/breweries/$slug'
     | '/explore/casinos/$slug'
     | '/explore/cavern/$slug'
     | '/explore/county/$county'
@@ -6756,6 +6782,7 @@ export interface FileRouteTypes {
     | '/explore/$category'
     | '/explore/aquariums'
     | '/explore/attractions-comparison'
+    | '/explore/breweries'
     | '/explore/casinos'
     | '/explore/hill-country-springs'
     | '/explore/inland-beaches'
@@ -6938,6 +6965,7 @@ export interface FileRouteTypes {
     | '/api/public/network-checkout'
     | '/api/public/network-stripe-webhook'
     | '/api/public/store-products'
+    | '/explore/breweries_/$slug'
     | '/explore/casinos/$slug'
     | '/explore/cavern/$slug'
     | '/explore/county/$county'
@@ -7266,6 +7294,7 @@ export interface RootRouteChildren {
   ExploreCategoryRoute: typeof ExploreCategoryRoute
   ExploreAquariumsRoute: typeof ExploreAquariumsRoute
   ExploreAttractionsComparisonRoute: typeof ExploreAttractionsComparisonRoute
+  ExploreBreweriesRoute: typeof ExploreBreweriesRoute
   ExploreCasinosRoute: typeof ExploreCasinosRouteWithChildren
   ExploreHillCountrySpringsRoute: typeof ExploreHillCountrySpringsRoute
   ExploreInlandBeachesRoute: typeof ExploreInlandBeachesRouteWithChildren
@@ -7404,6 +7433,7 @@ export interface RootRouteChildren {
   ApiPublicNetworkCheckoutRoute: typeof ApiPublicNetworkCheckoutRoute
   ApiPublicNetworkStripeWebhookRoute: typeof ApiPublicNetworkStripeWebhookRoute
   ApiPublicStoreProductsRoute: typeof ApiPublicStoreProductsRoute
+  ExploreBreweriesSlugRoute: typeof ExploreBreweriesSlugRoute
   ExploreCavernSlugRoute: typeof ExploreCavernSlugRoute
   ExploreCountyCountyRoute: typeof ExploreCountyCountyRoute
   ExploreLakeSlugRoute: typeof ExploreLakeSlugRoute
@@ -9979,6 +10009,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExploreCasinosRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/explore/breweries': {
+      id: '/explore/breweries'
+      path: '/explore/breweries'
+      fullPath: '/explore/breweries'
+      preLoaderRoute: typeof ExploreBreweriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/explore/attractions-comparison': {
       id: '/explore/attractions-comparison'
       path: '/explore/attractions-comparison'
@@ -10965,6 +11002,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/explore/casinos/$slug'
       preLoaderRoute: typeof ExploreCasinosSlugRouteImport
       parentRoute: typeof ExploreCasinosRoute
+    }
+    '/explore/breweries_/$slug': {
+      id: '/explore/breweries_/$slug'
+      path: '/explore/breweries/$slug'
+      fullPath: '/explore/breweries/$slug'
+      preLoaderRoute: typeof ExploreBreweriesSlugRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/api/public/store-products': {
       id: '/api/public/store-products'
@@ -12026,6 +12070,7 @@ const rootRouteChildren: RootRouteChildren = {
   ExploreCategoryRoute: ExploreCategoryRoute,
   ExploreAquariumsRoute: ExploreAquariumsRoute,
   ExploreAttractionsComparisonRoute: ExploreAttractionsComparisonRoute,
+  ExploreBreweriesRoute: ExploreBreweriesRoute,
   ExploreCasinosRoute: ExploreCasinosRouteWithChildren,
   ExploreHillCountrySpringsRoute: ExploreHillCountrySpringsRoute,
   ExploreInlandBeachesRoute: ExploreInlandBeachesRouteWithChildren,
@@ -12207,6 +12252,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicNetworkCheckoutRoute: ApiPublicNetworkCheckoutRoute,
   ApiPublicNetworkStripeWebhookRoute: ApiPublicNetworkStripeWebhookRoute,
   ApiPublicStoreProductsRoute: ApiPublicStoreProductsRoute,
+  ExploreBreweriesSlugRoute: ExploreBreweriesSlugRoute,
   ExploreCavernSlugRoute: ExploreCavernSlugRoute,
   ExploreCountyCountyRoute: ExploreCountyCountyRoute,
   ExploreLakeSlugRoute: ExploreLakeSlugRoute,
@@ -12227,13 +12273,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

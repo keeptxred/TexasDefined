@@ -97,6 +97,7 @@ const INTENT_GROUPS = [
     body: "Plan around regional food traditions, destination meals, food history and festivals rather than a generic restaurant directory.",
     links: [
       { to: "/explore/food-bbq", label: "Food & barbecue" },
+      { to: "/explore/breweries", label: "Texas breweries directory" },
       { to: "/texas-food-trail", label: "Texas food trail" },
       { to: "/texas-food-history", label: "Texas food history" },
       { to: "/events", label: "Food festivals & events" },
