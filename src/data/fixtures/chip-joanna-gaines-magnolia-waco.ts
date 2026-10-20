@@ -39,6 +39,8 @@ export const chipJoannaGainesMagnoliaWacoArticle: Article = {
     { label: "Magnolia — About Chip and Joanna", url: "https://magnolia.com/blogs/article/about-chip-and-joanna" },
     { label: "Magnolia — About the company and its shows", url: "https://magnolia.com/pages/about" },
     { label: "Magnolia — Visit Waco: destinations, hours and parking", url: "https://magnolia.com/pages/visit" },
+    { label: "Magnolia Table — full-service restaurant", url: "https://magnolia.com/pages/magnolia-table" },
+    { label: "Magnolia Table at the Silos — take-away counter", url: "https://magnolia.com/pages/magnolia-table-at-the-silos" },
     { label: "Hotel 1928 — Magnolia and Waco visitor information", url: "https://www.hotel1928.com/explore/magnolia" },
     { label: "Wikimedia Commons — credited 2017 Silos photograph", url: "https://commons.wikimedia.org/wiki/File:Magnolia_Market,_Waco,_TX.jpg" }
   ],
@@ -82,14 +84,14 @@ export const chipJoannaGainesMagnoliaWacoArticle: Article = {
 
     h("What else does Magnolia operate in Waco?"),
     l(
-      "Magnolia Table — a sit-down restaurant away from the Silos, on Waco's historic traffic circle. It has a different address, parking setup and opening schedule from the market.",
+      "Magnolia Table — the full-service sit-down restaurant at 2132 S. Valley Mills Drive, about 2.3 miles from the Silos. A different Magnolia Table at the Silos counter at 400 S. 8th Street offers a limited take-away menu; check each location's hours.",
       "Silos Baking Co. — cupcakes and other bakery offerings on the Silos property.",
       "Magnolia Press — a coffee shop at the Silos.",
       "Magnolia Home and Shops at the Silos — home goods, furnishings and boutique-style retail on the main property.",
       "Hotel 1928 — a restored downtown hotel at 701 Washington Avenue, developed with AJ Capital Partners; its restaurants and rooftop hospitality are separate from Silos shopping.",
       "Magnolia vacation rentals and ticketed experiences — offerings and reservations vary; use the official Magnolia site for current inventory."
     ),
-    p("Magnolia Table is sometimes incorrectly described as being inside Magnolia Market. It is not. For a compact itinerary, keep the Silos as the walkable shopping-and-food centerpiece, treat Magnolia Table as a separate meal stop, and decide whether Hotel 1928 fits your budget and travel style."),
+    p("The full-service Magnolia Table restaurant is separate from Magnolia Market, while Magnolia Table at the Silos is a take-away counter. For a compact itinerary, keep the Silos as the walkable shopping-and-food centerpiece, make the separate drive for the full restaurant if desired, and decide whether Hotel 1928 fits your budget and travel style."),
 
     h("Plan a Chip-and-Joanna-inspired day in Waco"),
     l(
@@ -114,8 +116,8 @@ export const chipJoannaGainesMagnoliaWacoArticle: Article = {
     p("Visitors can ordinarily enter and walk around the Silos grounds during posted operating hours without buying a guided tour. Retail purchases and separately offered experiences cost extra, and special events can have their own ticketing rules."),
     h("Can visitors meet Chip and Joanna Gaines at the Silos?"),
     p("Do not count on meeting them. Magnolia Market is a business and tourism destination, not a scheduled meet-and-greet with its founders. Officially announced appearances, if any, should be verified through Magnolia."),
-    h("Is Magnolia Table inside the Silos?"),
-    p("No. Magnolia Table is a separate Waco restaurant. Magnolia Press and Silos Baking Co. are on the Silos property."),
+    h("Is Magnolia Table at the Silos the same as the sit-down restaurant?"),
+    p("No. Magnolia Table at the Silos is a take-away counter at 400 S. 8th Street with a limited menu, while the full-service Magnolia Table restaurant is at 2132 S. Valley Mills Drive. Magnolia Press and Silos Baking Co. also operate on the Silos property."),
     h("Are Magnolia locations open on Sundays?"),
     p("Most Magnolia entities are ordinarily closed Sundays, but the company sometimes opens for special events. Check Magnolia's live Visit page for the exact date before traveling."),
     h("Sources and further reading"),
