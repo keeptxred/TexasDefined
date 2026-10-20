@@ -212,7 +212,8 @@ for (const marker of ['id: live', "All blocking production verifiers passed nati
 }
 const baselineCompletion = "if: ${{ success() && steps.cloudflare.outcome == 'success' }}";
 const strongerFoliageCompletion = "if: ${{ success() && steps.cloudflare.outcome == 'success' && steps.live_east_texas_foliage.outcome == 'success' }}";
-if (!liveMarkerBlock.includes(baselineCompletion) && !liveMarkerBlock.includes(strongerFoliageCompletion)) {
+const district5ChromeCompletion = "if: ${{ success() && steps.cloudflare.outcome == 'success' && steps.live_district5_browser.outcome == 'success' }}";
+if (!liveMarkerBlock.includes(baselineCompletion) && !liveMarkerBlock.includes(strongerFoliageCompletion) && !liveMarkerBlock.includes(district5ChromeCompletion)) {
   failures.push('Live-completion marker must require successful Cloudflare deployment and all blocking verifiers.');
 }
 if (liveMarkerBlock.includes(strongerFoliageCompletion)) {
