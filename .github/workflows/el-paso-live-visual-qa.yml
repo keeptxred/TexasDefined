@@ -46,18 +46,18 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{ github.event.workflow_run.head_sha || github.sha }}
-          fetch-depth: 2
-      - name: Restrict screenshots to El Paso changes
+          fetch-depth: 8
+      - name: Restrict screenshots to recent El Paso changes after deployment
         id: scope
         shell: bash
         run: |
           set -euo pipefail
           if [[ "$GITHUB_EVENT_NAME" == 'workflow_dispatch' ]] ||
-             git diff --name-only HEAD^ HEAD -- 'src/components/content/ElPasoAreaAuthority.tsx' 'scripts/ci/verify-el-paso-live-visual.mjs' '.github/workflows/el-paso-live-visual-qa.yml' | grep -q .; then
+             # Successful production can follow a canceled deployment and a few\n             # unrelated pushes. Bound the check to six commits so El Paso QA\n             # still runs, but never becomes perpetual sitewide screenshot work.\n             git diff --name-only HEAD~6 HEAD -- 'src/components/content/ElPasoAreaAuthority.tsx' 'scripts/ci/verify-el-paso-live-visual.mjs' '.github/workflows/el-paso-live-visual-qa.yml' | grep -q .; then
             echo "changed=yes" >> "$GITHUB_OUTPUT"
           else
             echo "changed=no" >> "$GITHUB_OUTPUT"
-            echo "Unrelated deployment: no El Paso screenshot run."
+            echo "No El Paso changes within the last six released commits; no screenshot work."
           fi
       - name: Prepare Chrome already installed on GitHub runner
         if: steps.scope.outputs.changed == 'yes'
