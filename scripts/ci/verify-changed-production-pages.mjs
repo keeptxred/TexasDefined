@@ -1,5 +1,32 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
+// Both cache-busted release checks and ordinary visitor URLs must expose
+// the corrected data. A successful query-string check alone can hide stale
+// canonical HTML if the exact path was omitted from Cloudflare purge targets.
+function assertTexasDataContents(path, body) {
+  const requireText = (value) => {
+    if (!body.includes(value)) throw new Error('Texas Data production content missing: ' + value);
+  };
+  if (path === '/texas-data') {
+    for (const value of ['Texas at a glance', '4,357,000', 'August 2026 preliminary',
+      '$3,489', 'Search official data briefs', '/texas-data/texas-metro-payrolls-august-2026']) requireText(value);
+    if (body.includes('4,363,300 DFW nonfarm payrolls')) throw new Error('Texas Data hub still leads with June payrolls');
+  }
+  if (path === '/texas-data/texas-homeowners-premium-history') {
+    for (const value of ['$2,795', '$3,489', 'October 20, 2026']) requireText(value);
+    if (body.includes('$2,800')) throw new Error('Texas Data premiums still expose the incorrect 2023 value');
+  }
+  if (path === '/texas-data/texas-metro-payrolls-august-2026') {
+    for (const value of ['August 2026', '4,357,000', '3,495,300', 'metro_09302026.htm']) requireText(value);
+  }
+  if (path === '/texas-data/texas-metro-payrolls-june-2026') {
+    for (const value of ['June 2026', '4,363,300', 'metro_07292026.htm']) requireText(value);
+  }
+  if (path !== '/texas-data' && body.includes('No additional note.')) {
+    throw new Error('Texas Data brief still exposes missing-note placeholders');
+  }
+}
+
 export async function verifyChangedPages({ plan, head, fetchImpl = fetch }) {
 const redirectChecks = plan.redirectChecks ?? [];
 const downloadButtonPages = plan.downloadButtonPages ?? [];
@@ -59,30 +86,30 @@ for (const path of plan.selectedPaths) {
       if (downloadButtonPages.includes(path) && !/<button\b[^>]*>\s*Download CSV\s*<\/button>/i.test(html)) {
         throw new Error('Generic Texas Data brief is missing the server-rendered CSV download button');
       }
-      // Validate the content that was previously stale even after successful
-      // deployment. The cache-busted canonical request must show these source
-      // values, not merely a healthy HTML shell.
+      // Check both the new release through a cache-busted request and the
+      // ordinary, unmodified visitor URL. Do not use cache-control: no-cache
+      // for the second request; that would bypass the CDN response we must test.
       if (texasDataPages.includes(path)) {
-        const requireText = (value) => {
-          if (!html.includes(value)) throw new Error('Texas Data production content missing: ' + value);
-        };
-        if (path === '/texas-data') {
-          for (const value of ['Texas at a glance', '4,357,000', 'August 2026 preliminary',
-            '$3,489', 'Search official data briefs', '/texas-data/texas-metro-payrolls-august-2026']) requireText(value);
-          if (html.includes('4,363,300 DFW nonfarm payrolls')) throw new Error('Texas Data hub still leads with June payrolls');
+        assertTexasDataContents(path, html);
+        const visitorResponse = await fetchImpl(canonical, {
+          redirect: 'follow',
+          headers: { accept: 'text/html', 'user-agent': 'TexasDefined-Canonical-Visitor-Smoke/1.0' },
+          signal: AbortSignal.timeout(30000),
+        });
+        const visitorHtml = await visitorResponse.text();
+        if (!visitorResponse.ok || visitorResponse.headers.get('cf-mitigated') === 'challenge') {
+          throw new Error('Texas Data ordinary visitor URL failed: HTTP ' + visitorResponse.status);
         }
-        if (path === '/texas-data/texas-homeowners-premium-history') {
-          for (const value of ['$2,795', '$3,489', 'October 20, 2026']) requireText(value);
-          if (html.includes('$2,800')) throw new Error('Texas Data premiums still expose the incorrect 2023 value');
+        const visitorCanonicals = [...visitorHtml.matchAll(/<link\b[^>]*>/gi)]
+          .filter(match => /\brel=["']canonical["']/i.test(match[0]));
+        if (visitorCanonicals.length !== 1 ||
+            !visitorCanonicals[0][0].includes('href="' + canonical.href + '"')) {
+          throw new Error('Texas Data ordinary visitor URL has an unexpected canonical');
         }
-        if (path === '/texas-data/texas-metro-payrolls-august-2026') {
-          for (const value of ['August 2026', '4,357,000', '3,495,300', 'metro_09302026.htm']) requireText(value);
-        }
-        if (path === '/texas-data/texas-metro-payrolls-june-2026') {
-          for (const value of ['June 2026', '4,363,300', 'metro_07292026.htm']) requireText(value);
-        }
-        if (path !== '/texas-data' && html.includes('No additional note.')) {
-          throw new Error('Texas Data brief still exposes missing-note placeholders');
+        try {
+          assertTexasDataContents(path, visitorHtml);
+        } catch (error) {
+          throw new Error('Texas Data ordinary visitor URL still serves stale HTML: ' + error.message);
         }
       }
       // The vessel is CLOSED. Generic itineraries had reached production even

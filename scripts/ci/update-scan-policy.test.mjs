@@ -181,6 +181,37 @@ test('every production release verifies Texas Data content even after original P
   assert.ok(stale.every(item => !item.passed));
 });
 
+test('ordinary Texas Data URL must not serve stale HTML when query-string canary is fresh', async () => {
+  const page = '/texas-data/texas-homeowners-premium-history';
+  const plan = { head, selectedPaths: [page], texasDataPages: [page], redirectChecks: [] };
+  const fresh = '2023 $2,795 2025 $3,489 October 20, 2026';
+  const old = '2023 $2,800 2025 $3,489 October 20, 2026';
+  const requests = [];
+  const serve = (body, url) =>
+    new Response('<html><head><title>Premiums</title><link rel="canonical" href="https://texasdefined.com'
+      + url.pathname + '"></head><body>' + body + '</body></html>');
+  const healthy = await verifyChangedPages({ plan, head, fetchImpl: async url => {
+    requests.push(url.href);
+    return serve(fresh, url);
+  } });
+  assert.equal(healthy[0].passed, true);
+  assert.ok(requests.some(url => url.includes('deploy_smoke=')), 'release bust request required');
+  assert.ok(requests.includes('https://texasdefined.com' + page), 'ordinary visitor request required');
+
+  const stale = await verifyChangedPages({ plan, head, fetchImpl: async url =>
+    serve(url.searchParams.has('deploy_smoke') ? fresh : old, url) });
+  assert.equal(stale[0].passed, false);
+  assert.match(stale[0].error, /ordinary visitor URL still serves stale HTML/);
+
+  const purgeWorkflow = text('.github/workflows/deploy-production.yml');
+  for (const url of [
+    'https://texasdefined.com/texas-data',
+    'https://texasdefined.com/texas-data/texas-homeowners-premium-history',
+    'https://texasdefined.com/texas-data/texas-metro-payrolls-august-2026',
+    'https://texasdefined.com/texas-data/texas-metro-payrolls-june-2026',
+  ]) assert.ok(purgeWorkflow.includes('            ' + url + '\n'), 'missing precise purge target: ' + url);
+});
+
 test('Magoffin restoration edits require exact live SSR closure, FAQ and visitor center', async () => {
   const plan = buildChangePlan({ baseline, head, changedFiles: ['src/data/magoffin-home-authority.ts'] });
   assert.deepEqual(plan.selectedPaths, ['/destination/magoffin-home']);
