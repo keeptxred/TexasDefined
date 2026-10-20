@@ -694,6 +694,13 @@ jobs:
           TEXASDEFINED_BASE_URL: https://texasdefined.com
         run: node scripts/production/verify-sports-venue-editorial-production.mjs
 
+      - name: Verify District 21 hub and eight team scorecards on production
+        id: live_district21
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
+        env:
+          PRODUCTION_ORIGIN: https://texasdefined.com
+        run: node scripts/ci/verify-district21-football-production.mjs
+
       - name: Verify District 5-6A scorecard on direct Worker and canonical domain
         id: live_district5
         if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
@@ -874,7 +881,7 @@ jobs:
       - name: Mark live production verification complete
         id: live
         # Require completed, passing District 5 desktop/mobile Chrome acceptance.
-        if: ${{ success() && steps.cloudflare.outcome == 'success' && steps.live_district5_browser.outcome == 'success' }}
+        if: ${{ success() && steps.cloudflare.outcome == 'success' && steps.live_district5_browser.outcome == 'success' && steps.live_district21.outcome == 'success' }}
         run: echo 'All blocking production verifiers passed natively.'
       - name: Publish live verification result
         if: always()
