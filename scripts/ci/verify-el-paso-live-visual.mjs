@@ -38,8 +38,7 @@ const browser = await chromium.launch({
 try {
   for (const viewport of viewports) {
     const context = await browser.newContext({ viewport: { width: viewport.width, height: viewport.height },
-      isMobile: viewport.isMobile, hasTouch: viewport.isMobile, deviceScaleFactor: 1,
-      userAgent: 'TexasDefined-ElPaso-Visual-QA/1.0' });
+      isMobile: viewport.isMobile, hasTouch: viewport.isMobile, deviceScaleFactor: 1 });
     // Exclude measurement pings so synthetic acceptance does not pollute metrics.
     await context.route('**/*', route => {
       const url = route.request().url();
