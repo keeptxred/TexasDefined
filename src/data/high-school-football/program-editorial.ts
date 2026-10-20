@@ -2531,6 +2531,13 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "title": "Bogata Rivercrest Rebels Football 2026 | District, Scores & Visitor Guide",
       "description": "Rivercrest Rebels football: 2026 UIL 2A Division I District 9, 4–4 through October 16, Wolfe City overtime win, schedules and school contacts."
     },
+    "coach": {
+      "name": "Laytner Kennedy",
+      "title": "Head football coach listed on MaxPreps' current 2026 Rivercrest staff page; Rivercrest ISD separately lists Kennedy as boys athletic director",
+      "sourceUrl": "https://www.maxpreps.com/tx/bogata/rivercrest-rebels/football/staff/",
+      "sourceLabel": "MaxPreps Rivercrest varsity staff updated August 29, 2026 names Laytner Kennedy head coach; Rivercrest ISD current staff directory independently confirms Kennedy as boys athletic director. Older MaxPreps history entries naming Travis McClain are stale and conflict with McClain's current Mount Vernon role.",
+      "verifiedAt": "2026-10-20"
+    },
     "campus": {
       "address": "4100 US Highway 271 South, Bogata, TX 75417",
       "phone": "903-632-5204",
@@ -2623,6 +2630,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         }
       ]
     },
+    "venue": {
+      "name": "Rivercrest Rebel Stadium",
+      "address": "4100 US Highway 271 South, Bogata, TX 75417 (school campus orientation point; exact stadium gate not independently verified)",
+      "sourceUrl": "https://www.texasfootball.com/team/bogota-rivercrest-rebels",
+      "sourceLabel": "Dave Campbell's Texas Football identifies Rivercrest Rebel Stadium; Rivercrest ISD supplies the official school campus address separately",
+      "verifiedAt": "2026-10-20",
+      "note": "Dave Campbell's Texas Football identifies Rivercrest Rebel Stadium as the program's home stadium. TexasDefined uses Rivercrest ISD's 4100 US Highway 271 South school address only as an orientation point and does not claim it is the vehicle gate, ticket entrance, parking entrance or accessible-seating route. Confirm game-specific arrival details with Rivercrest ISD before travel."
+    },
     "development": {
       "title": "Rivercrest's 2019 11-win season and 2026 triple-overtime rebound",
       "body": "Dave Campbell's Texas Football season archive lists an 11–2 campaign in 2019 and an 8–3 campaign in 2024; these figures are third-party historical summaries, not official UIL title-game claims. DCTF lists Rivercrest with zero state titles and zero title-game appearances. After opening 2026 with three road wins and losing three straight, Rivercrest ended its skid October 9, beating Wolfe City 30–28 on a triple-overtime conversion. Contemporary MaxPreps individual final and a district schedule concur; the opponent's 2026 team is distinct from Wilson, Arkansas's Rivercrest Colts.",
@@ -2665,7 +2680,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "Rivercrest's recent football identity includes an 11–2 season in 2019 and 8–3 in 2024 according to Dave Campbell's Texas Football. Those third-party seasons are properly labeled historical and are not evidence of a state title; DCTF lists no state championship or title-game appearance for Rivercrest. The 2025 score indexes themselves disagree on overall totals, so this guide does not mistake partial archive statistics for a completed certified record.",
       "For 2026, the Rebels opened with three straight road wins over Maud, Simms James Bowie and Paris Chisum, then dropped games to Prairiland, Tom Bean and Whitewright. Their October 9 home game versus Wolfe City ended 30–28 after three overtimes, lifting Rivercrest to 4–3 through that date. The district result is corroborated by the MaxPreps individual game report, PigskinPrep District 9 schedule and the specialist Texas Prep index. This is a dated snapshot, not a final season result. Trenton defeated Rivercrest 21–17 on October 16; the reported 2026 record is now 4–4.",
       "Readers should watch two stale-data traps. MaxPreps' separate team-page summaries may show an older 3–0 or 3–3 standing and no Wolfe City final, whereas its current October 9 single-game record confirms 4–3. An older schedule gives the September 11 Chisum final as 49–42, while that game's dedicated box score and PigskinPrep say 56–42. This guide uses the corroborated game-specific 56–42 but discloses why older index totals differ rather than hiding the conflict.",
-      "Rivercrest High School's own website lists the campus at 4100 US Highway 271 South, Bogata, TX 75417, phone 903-632-5204. Other sports directories use 4126 US 271 South; the district's official location takes precedence for school contact but is not asserted as the stadium's ticket gate or accessible parking entrance. Game-specific venue, admission, ADA seating, the head coach's current district-confirmed appointment and rights-cleared stadium photos were not independently established. Consult the official school football page."
+      "Rivercrest High School's own website lists the campus at 4100 US Highway 271 South, Bogata, TX 75417, phone 903-632-5204. Other sports directories use 4126 US 271 South; the district's official location takes precedence for school contact but is not asserted as the stadium's ticket gate or accessible parking entrance. Rivercrest Rebel Stadium is identified by Dave Campbell's Texas Football, but the exact game-day gate, parking entrance, ticketing, ADA seating, a district-issued head-football appointment and rights-cleared stadium photos were not independently established. Consult the official school football page before travel."
     ],
     "faq": [
       {
