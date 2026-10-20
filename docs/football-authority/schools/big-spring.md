@@ -55,3 +55,7 @@ The authored Steers guide explains the historically significant 1953 title appea
 - Do not call `td_maintenance.accept_authority_page` until the full nine-dimension contract is genuinely supported. Registry marks IMPLEMENTED (unmerged branch), never VERIFIED without production acceptance.
 
 **Sources checked October 15, 2026:** UIL archival final, official 2026–28 UIL school alignment, Big Spring ISD athletics/football/venue/contacts and third-party MaxPreps schedule. Source retrieval does not establish complete human factual verification or photo licensing.
+
+## October 20, 2026 — eliminate stale “upcoming Seminole” wording
+The published overview previously called the **October 16 Seminole game upcoming** even though the same authority page's dated ledger and later paragraph already reported Big Spring **lost 16–43**, leaving the Steers **1–6** through October 16. The contradictory forward-looking sentence is now replaced with the recorded result and explicitly labels the remaining Monahans/Fort Stockton/Snyder games as scheduled only. The existing October 17 KCBD/FOX34 and Houston Chronicle reporting is the source for the final; no new score, school record, stadium or playoff outcome was generated.
+

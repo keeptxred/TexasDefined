@@ -39,3 +39,6 @@ The earlier cautious Blackwell page omitted the 2026 football head-coach name be
 
 The program's *authored coaching field* and newly added **school-specific coaching FAQ** now state Linman with dated original-report attribution and explain why old MaxPreps entries still naming Wiley Cummings are not current hire evidence. The previously unresolved Santa Anna exact point tally (win, disputed 52–6 versus 50–6), the official school contact address, parking and accessible-entry qualifiers, current game results, no borrowed logo/photography, and all nine-dimension approval requirements remain unchanged. This entry documents the source correction; it does not confer editor/rights/assistive-technology acceptance.
 
+## October 20, 2026 — replace obsolete “Trent remains future” sentence
+The Blackwell guide already records a **67–6 win over Trent on October 16** but its earlier 5–2 snapshot claimed that Trent remained future as of October 15. The dated old snapshot is preserved as historical context, while the outdated forward-looking sentence is updated to the reported Trent result and **6–2** through October 16. Panther Creek and Loraine remain scheduled. The page's unresolved September 4 Santa Anna **52–6 versus 50–6** source disagreement is unchanged.
+

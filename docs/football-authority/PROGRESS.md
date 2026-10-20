@@ -1,5 +1,13 @@
 # Football Authority — Execution Ledger
 
+## October 20, 2026 — four Batch 006 already-scored games no longer described as “upcoming” (protected PR candidate)
+A new 25-program, current-main editorial audit found four clear time-contradictions: an earlier school overview still called a **completed October 16 contest upcoming** despite the same school guide's current score table and dated reporting recording its final. Corrections were made in the actual published data source, not merely an audit:
+- **Big Spring:** Seminole **L 16–43** October 16, 2026; record **1–6** (the older October 9 1–5 snapshot remains dated).
+- **Blackwell:** Trent **W 67–6** October 16, 2026; record **6–2**; the separate Santa Anna points discrepancy remains disclosed.
+- **Boerne Greyhounds:** Liberty Hill **W 49–7** October 16, 2026; record **7–0**; Champion remains a different 2026 UIL team.
+- **Bloomington:** Danbury **W 42–0** October 16, 2026; record **3–5**; event-specific school Vanco no-cash information is preserved.
+All four results were **already independently sourced and present in their school's 2026 match rows** before this PR. This edit replaces outdated future-looking prose, not independently reports new scores. Their individual research dossiers each record the October 20 correction and remaining game dates as explicitly scheduled only. A **small regression guard** in existing football validator blocks restoration of the four superseded phrases. No new CI workflow, scores feed, invented future game result, media-license assertion or editorial acceptance promotion. Require protected Merge Gate and updated production Worker proof; keep 25 Batch 006 DEPLOYED and 0 individually VERIFIED until genuine editorial acceptance.
+
 ## October 19, 2026 — source-to-FAQ parity correction and ten-school Chrome coach coverage (protected PR candidate)
 
 - **Borden County:** Its dated [Lamesa Press-Reporter August 18, 2026 original football report](https://www.pressreporter.com/issues/2026-08-18/pages/25/) directly names Trey Richey as 2026 coach. The public source-backed `coach` object and `notice` were correct, but an old FAQ still said no current head coach could be identified. Correct the FAQ to match locally reported evidence, expressly preserve the competing Craig Steele directory as an unresolved conflict and do not imply first-party district appointment.

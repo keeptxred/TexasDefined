@@ -1420,6 +1420,22 @@ if (!errors.length) {
     }
   }
 
+  // A completed score can be right while older prose still calls that game
+  // 'upcoming'. These exact Batch 006 contradictions were fixed in October 2026.
+  // Fail closed on their return without adding a statewide scrape or paid feed.
+  const supersededPreFinalPhrases = [
+    ['big-spring', 'The upcoming Seminole, Monahans, Fort Stockton and Snyder contests'],
+    ['blackwell', 'The listed Trent, Panther Creek and Loraine dates remain future'],
+    ['boerne', 'Upcoming Liberty Hill, Veterans Memorial, New Braunfels and Legacy Ranch games'],
+    ['bloomington', 'The forthcoming Weimar away game and Ganado home finale were future fixtures as of October 15'],
+  ];
+  for (const [slug, obsolete] of supersededPreFinalPhrases) {
+    const program = footballEditorialRecord(slug);
+    if (program?.overview?.some(paragraph => paragraph.includes(obsolete))) {
+      errors.push('Batch 006 overview still calls a completed October 16 game upcoming: ' + slug);
+    }
+  }
+
   const outdatedCoachCaveats = [
     ['boerne', 'rather than assuming an unverified coach'],
     ['boerne', 'should not be mistaken for a formally verified current head-coach appointment'],
