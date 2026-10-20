@@ -1170,9 +1170,19 @@ if (!errors.length) {
     'formatFootballDate',
     '<time dateTime={game.date}>{formatFootballDate(game.date)}</time>',
     '<time dateTime={identity.verifiedAt}>{formatFootballDate(identity.verifiedAt)}</time>',
+    '<FootballHeroVisual',
+    'photo={editorial?.photo}',
+    'accentHex={editorial?.theme?.accentHex}',
+    'TexasDefined profile visual; not an official school logo or mark.',
+    'Mascot and colors are published only from the specifically cited identity source;',
+
   ]) requireText(featuredProfilePage, marker, 'Football school profile page');
   for (const forbidden of [
     '<td className="px-3 py-3 font-semibold">{game.date}</td>',
+    "slug === 'aubrey' && (",
+    'photo-1508209495879-445d5febf597',
+    'Mascot and colors are published only from a school or district source.',
+
     'Research beyond the score',
     'What families should check next',
     'Freshman, JV and varsity path',
