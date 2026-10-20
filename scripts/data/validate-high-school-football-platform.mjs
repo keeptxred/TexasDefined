@@ -1516,6 +1516,27 @@ if (!errors.length) {
     }
   }
 
+  const bishop = footballEditorialRecord('bishop');
+  if (bishop) {
+    const bishopMilestones = Array.isArray(bishop.milestones) ? bishop.milestones : [];
+    if (!bishopMilestones.some((milestone) =>
+      milestone?.title === 'Badger Stadium renamed George Luna Stadium' &&
+      milestone?.sourceUrl === 'https://www.kztv10.com/news/local-news/badger-stadium-renamed-after-former-bishop-athletic-director-george-luna'
+    )) {
+      errors.push('Bishop must retain the sourced George Luna Stadium renaming milestone.');
+    }
+    const bishopFaq = Array.isArray(bishop.faq) ? bishop.faq : [];
+    const bishopTicketAnswer = bishopFaq.find((item) => item?.question === 'Where can I check Bishop CISD football tickets for homecoming?')?.answer || '';
+    for (const source of [
+      'https://www.bishopcisd.net/athletics/ticket-sales',
+      'https://www.bishopcisd.net/parents-students/tickets-sales',
+    ]) {
+      if (!bishopTicketAnswer.includes(source)) {
+        errors.push('Bishop ticket FAQ must retain first-party source: ' + source);
+      }
+    }
+  }
+
   const currentCoachContracts = [
     ['big-sandy-harmony', 'Brian Mauk', 'kltv.com/story/26056195/harmony-eagles/'],
     ['bishop', 'Keith Talbert', 'maxpreps.com/tx/bishop/bishop-badgers/football/staff/'],
