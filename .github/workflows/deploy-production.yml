@@ -551,9 +551,13 @@ jobs:
           if-no-files-found: ignore
           retention-days: 14
 
+      # The district's HTML is checked on every deploy; its responsive browser check
+      # must also run on every deploy, not only when the broad sports change group fires.
+      # The previous change-scope condition skipped the visual gate on the exact
+      # deployment that introduced it (2026-10-18, run 39132892906).
       - name: Prepare District 5 responsive Chrome verification
         id: district5_browser_deps
-        if: ${{ always() && steps.live_district5.outcome == 'success' && steps.change_scope.outputs.sports == 'true' }}
+        if: ${{ always() && steps.live_district5.outcome == 'success' }}
         shell: bash
         run: |
           set -euo pipefail
