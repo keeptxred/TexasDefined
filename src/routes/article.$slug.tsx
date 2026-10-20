@@ -12,6 +12,7 @@ import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
 import { MagnoliaWacoAffiliateLinks } from "@/components/monetization/MagnoliaWacoAffiliateLinks";
+import { magnoliaPeopleSchemaForArticle } from "@/data/magnolia-people-schema";
 import { SchoolSupplyPartners } from "@/components/monetization/SchoolSupplyPartners";
 import { FootballFanOffers } from "@/components/sports/FootballFanOffers";
 import { articleInternalLinks } from "@/data/article-internal-links";
@@ -326,13 +327,7 @@ export const Route = createFileRoute("/article/$slug")({
           url: `${siteUrl}/texas-explained`,
         },
       } : {}),
-      about: [
-        ...(article.slug === "chip-and-joanna-gaines-magnolia-waco" ? [
-          { "@id": `${articleUrl}#chip-gaines` },
-          { "@id": `${articleUrl}#joanna-gaines` },
-        ] : []),
-        ...mentions.slice(0, 8).map((entity) => ({ "@id": `${siteUrl}${canonicalEntityPath(entity)}#entity` })),
-      ],
+      about: mentions.slice(0, 8).map((entity) => ({ "@id": `${siteUrl}${canonicalEntityPath(entity)}#entity` })),
       mentions: mentions.map((entity) => ({ "@type": schemaTypeForEntityKind(entity.kind), "@id": `${siteUrl}${canonicalEntityPath(entity)}#entity`, name: entity.name, url: `${siteUrl}${canonicalEntityPath(entity)}` })),
       ...(relatedDestinations.length ? {
         hasPart: relatedDestinations.map((destination) => ({
@@ -367,10 +362,8 @@ export const Route = createFileRoute("/article/$slug")({
         acceptedAnswer: { "@type": "Answer", text: answer },
       })),
     } : null;
-    const magnoliaPeopleSchema = article.slug === "chip-and-joanna-gaines-magnolia-waco" ? [
-      { "@type": "Person", "@id": `${articleUrl}#chip-gaines`, name: "Chip Gaines", description: "Entrepreneur, television personality and Magnolia co-founder based in Waco, Texas", sameAs: "https://magnolia.com/blogs/article/about-chip-and-joanna" },
-      { "@type": "Person", "@id": `${articleUrl}#joanna-gaines`, name: "Joanna Gaines", description: "Designer, author, television personality and Magnolia co-founder based in Waco, Texas", sameAs: "https://magnolia.com/blogs/article/about-chip-and-joanna" },
-    ] : [];
+    const magnoliaPeopleSchema = article.slug === "chip-and-joanna-gaines-magnolia-waco"
+      ? magnoliaPeopleSchemaForArticle(articleUrl) : [];
     const schemaGraph = [
       ...magnoliaPeopleSchema,
       webPageSchema,
