@@ -89,6 +89,10 @@ for (const [slug, required] of [
   ['borden-county', ['"name": "Coyote Stadium"', "Dave Campbell's Texas Football current Borden County program page identifies Coyote Stadium", 'exact stadium gate not independently verified']],
   ['borger', ['"name": "Bulldog Stadium"', 'Borger ISD 2026–27 back-to-school page identifies Bulldog Stadium', 'exact stadium gate not independently verified']],
   ['blackwell', ['"name": "Blackwell Hornets Field"', 'Six-Man Football current Blackwell team directory identifies Blackwell Hornets Field', 'exact field gate not independently verified']],
+  ['boling', ['"name": "Bulldog Stadium"', "Dave Campbell's Texas Football current Boling program page identifies Bulldog Stadium", 'exact stadium gate not independently verified']],
+  ['bowie', ['"name": "Jackrabbit Stadium"', "Dave Campbell's Texas Football current Bowie Jackrabbits program page identifies Jackrabbit Stadium", 'exact stadium gate not independently verified']],
+  ['boyd', ['"name": "Yellow Jacket Stadium"', "Dave Campbell's Texas Football current Boyd program page identifies Yellow Jacket Stadium", 'exact stadium gate not independently verified']],
+  ['boys-ranch', ['"name": "Roughrider Stadium"', "Dave Campbell's Texas Football current Boys Ranch program page identifies Roughrider Stadium", 'exact public gate/address not independently verified']],
 ]) {
   const schoolIndex = editor.indexOf('  "' + slug + '": {');
   assert.ok(schoolIndex >= 0, slug + ' school-specific editorial missing');
