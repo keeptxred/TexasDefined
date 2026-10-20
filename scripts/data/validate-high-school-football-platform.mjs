@@ -60,6 +60,7 @@ const footballCalendarGuidePath = 'src/data/fixtures/texas-high-school-football-
 const evergreenRegistryPath = 'src/data/fixtures/lazy-standalone-evergreen.ts';
 const obsoleteSeedListComponentPath = 'src/components/sports/FeaturedFootballResearchList.tsx';
 const productionSmokePath = 'scripts/ci/verify-friday-night-lights-production.mjs';
+const productionSurfaceSmokePath = 'scripts/ci/verify-production-surfaces.mjs';
 const footballAuthorityRegistryPath = 'docs/football-authority/REGISTRY.json';
 const legacyMetadataFiles = [
   'src/data/high-school-football/featured-programs.ts',
@@ -112,6 +113,7 @@ for (const file of [
   footballCalendarGuidePath,
   evergreenRegistryPath,
   productionSmokePath,
+  productionSurfaceSmokePath,
   footballAuthorityRegistryPath,
   ...legacyMetadataFiles,
 ]) {
@@ -173,6 +175,7 @@ if (!errors.length) {
   const footballCalendarGuide = read(footballCalendarGuidePath);
   const evergreenRegistry = read(evergreenRegistryPath);
   const productionSmoke = read(productionSmokePath);
+  const productionSurfaceSmoke = read(productionSurfaceSmokePath);
   const footballAuthorityRegistry = JSON.parse(read(footballAuthorityRegistryPath));
   const legacyProgramMetadata = read(legacyMetadataFiles[0]);
   const schoolIdentities = read(legacyMetadataFiles[1]);
@@ -271,6 +274,15 @@ if (!errors.length) {
     "'Shamrock ISD 2026 football schedule'",
     "texas-high-school-football-teams/shamrock</loc>",
   ]) requireText(productionSmoke, marker, 'Shamrock football live production contract');
+
+  for (const marker of [
+    "['football-district8-v2-hub', '/texas-high-school-football-districts/5a-division-ii-district-8'",
+    "['football-katy-district22-v2-hub', '/texas-high-school-football-districts/6a-district-22'",
+    "['football-katy-district22-6a-format', '/texas-high-school-football-districts/6a-district-22'",
+    "['football-1a-d1-district14-v2-hub', '/texas-high-school-football-districts/1a-division-i-district-14'",
+    "['football-1a-d1-district14-six-man', '/texas-high-school-football-districts/1a-division-i-district-14'",
+    "['football-1a-d1-district14-abbott-link', '/texas-high-school-football-districts/1a-division-i-district-14'",
+  ]) requireText(productionSurfaceSmoke, marker, 'Always-on football district variant production guards');
 
   for (const marker of [
     'UIL_FOOTBALL_PROGRAM_COUNT !== 1268',
