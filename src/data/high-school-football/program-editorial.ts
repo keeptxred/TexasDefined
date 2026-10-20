@@ -3641,7 +3641,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "date": "2026",
         "title": "Two opening-stage wins",
         "body": "Borger defeated Pampa and River Road before the current District 3 losses.",
-        "sourceUrl": "https://www.maxpreps.com/tx/borger/borger-bulldogs/football/25-26/schedule/",
+        "sourceUrl": "https://www.maxpreps.com/tx/borger/borger-bulldogs/football/schedule/",
         "sourceLabel": "Dated school / football historical source"
       }
     ],
@@ -3721,7 +3721,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "notice": {
       "title": "Verified facts and unresolved game-day claims",
-      "body": "A June 24 school notice names Reggie Patrick as the football contact, and MaxPreps labels him head coach. An August school announcement required online tickets for the September 3 Kerens away game only—not every home game. The official campus address is not a stadium-gate policy.",
+      "body": "Bosqueville ISD's June 24 school notice names Reggie Patrick the football contact, and the district lists him as athletic director; KWTX's October 7, 2026 interview expressly identifies Patrick as the Bulldogs' head football coach. The football-specific title has a dated firsthand source, rather than resting on the director title or a MaxPreps roster alone. An August school announcement required online tickets for the September 3 Kerens away game only—not every home game. The official campus address is not a stadium-gate policy.",
       "sourceUrl": "https://ms.bosquevilleisd.org/o/hs/live_feeds/12580232",
       "sourceLabel": "School material plus explicitly qualified unresolved venue/staff/score claims",
       "verifiedAt": "2026-10-17"
@@ -3815,14 +3815,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "date": "2026",
         "title": "District three-win start",
         "body": "Wins over Itasca, Valley Mills and Dawson were reported through October 16.",
-        "sourceUrl": "https://www.maxpreps.com/tx/waco/bosqueville-bulldogs/football/25-26/schedule/",
+        "sourceUrl": "https://www.maxpreps.com/tx/waco/bosqueville-bulldogs/football/schedule/",
         "sourceLabel": "Dated school / football historical source"
       }
     ],
     "overview": [
       "Bosqueville Bulldogs is Bosqueville ISD's 11-man football team in McLennan County. Its authoritative 2026–28 alignment is UIL 2A Division I District 8; that is different from older season divisions and similarly named programs.",
       "The separate Bosqueville ISD program went 7–4 in 2025, losing 29–69 to Frankston in the opening 2A Division I playoff round. In 2026, the Bulldogs opened District 8 with wins over Itasca 54–27, Valley Mills 28–7 and Dawson 56–14.",
-      "A June 24 school notice names Reggie Patrick as the football contact, and MaxPreps labels him head coach. An August school announcement required online tickets for the September 3 Kerens away game only—not every home game. The official campus address is not a stadium-gate policy."
+      "Bosqueville ISD's June 24 school notice names Reggie Patrick the football contact, and the district lists him as athletic director; KWTX's October 7, 2026 interview expressly identifies Patrick as the Bulldogs' head football coach. The football-specific title has a dated firsthand source, rather than resting on the director title or a MaxPreps roster alone. An August school announcement required online tickets for the September 3 Kerens away game only—not every home game. The official campus address is not a stadium-gate policy."
     ],
     "faq": [
       {
@@ -3856,10 +3856,10 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     ],
     "coach": {
       "name": "Reggie Patrick",
-      "title": "Football coaching appointment / varsity football contact",
-      "sourceUrl": "https://ms.bosquevilleisd.org/o/hs/live_feeds/12580232",
-      "sourceLabel": "Bosqueville ISD first-party athletics announcement",
-      "verifiedAt": "2026-10-17"
+      "title": "Bosqueville Bulldogs head football coach, directly interviewed by KWTX October 7, 2026; Bosqueville ISD lists Patrick as athletic director",
+      "sourceUrl": "https://www.kwtx.com/2026/10/07/classroom-champions-bosquevilles-dax-pharris/",
+      "sourceLabel": "KWTX Oct 7 2026 directly quotes Reggie Patrick as Bosqueville head football coach; Bosqueville ISD Athletics separately lists him athletic director, June 24 school notice names him the football contact",
+      "verifiedAt": "2026-10-20"
     }
   },
   "bovina": {
@@ -3983,7 +3983,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "date": "2026",
         "title": "District opener",
         "body": "Bovina lost a 44–38 contest at West Texas October 9.",
-        "sourceUrl": "https://www.maxpreps.com/tx/bovina/bovina-mustangs/football/25-26/schedule/",
+        "sourceUrl": "https://www.maxpreps.com/tx/bovina/bovina-mustangs/football/schedule/",
         "sourceLabel": "Dated school / football historical source"
       },
       {
@@ -4150,7 +4150,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "date": "2026",
         "title": "Three-game winning start",
         "body": "Callisburg, Bridgeport and Gainesville were the opening 2026 wins.",
-        "sourceUrl": "https://www.maxpreps.com/tx/bowie/bowie-jackrabbits/football/25-26/schedule/",
+        "sourceUrl": "https://www.maxpreps.com/tx/bowie/bowie-jackrabbits/football/schedule/",
         "sourceLabel": "Dated school / football historical source"
       }
     ],
