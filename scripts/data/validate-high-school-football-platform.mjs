@@ -1449,6 +1449,25 @@ if (!errors.length) {
     );
   }
 
+  const batch006VenueContracts = [
+    ['bishop', 'George Luna Stadium', 'bhs.bishopcisd.net/'],
+    ['blooming-grove', 'Lion Stadium', 'bgisd.org/apps/events/2026/10/'],
+    ['blue-ridge', 'Tiger Stadium', 'brisd.net/o/brisd/page/athletics'],
+  ];
+  for (const [slug, venueName, sourceFragment] of batch006VenueContracts) {
+    const program = footballEditorialRecord(slug);
+    if (!program) continue;
+    if (program.venue?.name !== venueName) {
+      errors.push('Batch 006 first-party venue identity missing or changed: ' + slug);
+    }
+    if (!program.venue?.sourceUrl?.includes(sourceFragment)) {
+      errors.push('Batch 006 venue must retain its school/district source: ' + slug);
+    }
+    if (!/gate|entrance/i.test(program.venue?.note || '')) {
+      errors.push('Batch 006 venue qualification must preserve entrance/gate limitations: ' + slug);
+    }
+  }
+
   const currentCoachContracts = [
     ['big-sandy-harmony', 'Brian Mauk', 'kltv.com/story/26056195/harmony-eagles/'],
     ['bishop', 'Keith Talbert', 'maxpreps.com/tx/bishop/bishop-badgers/football/staff/'],
