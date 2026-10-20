@@ -5,31 +5,45 @@ on:
     paths:
       - 'scripts/ci/verify-young-county-graham-browser.mjs'
       - '.github/workflows/verify-young-county-graham-browser.yml'
-  push:
-    branches: [main]
-    paths:
-      - 'scripts/ci/verify-young-county-graham-browser.mjs'
-      - '.github/workflows/verify-young-county-graham-browser.yml'
+  workflow_run:
+    workflows: ['Deploy TexasDefined production']
+    types: [completed]
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
   verify:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+      - name: Guard historical deployments before QA script existed
+        id: scope
+        run: |
+          if test -f scripts/ci/verify-young-county-graham-browser.mjs; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          fi
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: node --check scripts/ci/verify-young-county-graham-browser.mjs
+      - if: steps.scope.outputs.run == 'true'
+        run: node --check scripts/ci/verify-young-county-graham-browser.mjs
       - name: Install isolated browser driver
+        if: steps.scope.outputs.run == 'true'
         run: |
           CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
           test -n "$CHROME_BIN"
           echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
           npm install --prefix /tmp/texasdefined-young-county-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
       - name: Verify Graham museum photos and seven connected live pages
+        if: steps.scope.outputs.run == 'true'
+        env:
+          REQUIRE_CANONICAL_HISTORY: ${{ github.event_name == 'pull_request' && '0' || '1' }}
         run: node scripts/ci/verify-young-county-graham-browser.mjs
       - name: Retain desktop and mobile screenshots and acceptance results
         if: always()
