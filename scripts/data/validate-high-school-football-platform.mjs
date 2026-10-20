@@ -811,6 +811,54 @@ if (!errors.length) {
   const exactEnrollmentCount = (exactEnrollments.match(/^\s*"[^"]+": \{"enrollment":[0-9.]+,"submittedConference":"[1-6]A"\},$/gm) ?? []).length;
   if (exactEnrollmentCount !== 1268) errors.push(`Exact UIL football enrollment data expected 1,268 schools; found ${exactEnrollmentCount}.`);
 
+  const exactEnrollmentBySchool = new Map(
+    [...exactEnrollments.matchAll(/^\s*"([^"]+)": \{"enrollment":([0-9.]+),"submittedConference":"([1-6]A)"\},?$/gm)]
+      .map((match) => [match[1], { enrollment: Number(match[2]), submittedConference: match[3] }]),
+  );
+  const enrollmentBandSpecs = [
+    ['6A', null, 2215, null],
+    ['5A', 1, 1870, 2214],
+    ['5A', 2, 1305, 1869],
+    ['4A', 1, 896, 1304],
+    ['4A', 2, 550, 895],
+    ['3A', 1, 367, 549],
+    ['3A', 2, 246, 366.9],
+    ['2A', 1, 175.6, 245.9],
+    ['2A', 2, 105, 175.5],
+    ['1A', 1, 57.6, 104.9],
+    ['1A', 2, null, 57.5],
+  ];
+  const alignmentEnrollmentExceptions = [];
+  const submittedConferenceExceptions = [];
+  const missingEnrollmentRows = [];
+  for (const block of alignment.matchAll(/\{\s*classification:'([1-6]A)',\s*division:(1|2|null),\s*footballType:'[^']+',\s*sourceUrl:'[^']+',\s*districts:\[([\s\S]*?)\]\s*\}/g)) {
+    const classification = block[1];
+    const division = block[2] === 'null' ? null : Number(block[2]);
+    const districtRows = [...block[3].matchAll(/'([^']*)'|"([^"]*)"/g)].map((match) => match[1] ?? match[2]);
+    for (const districtRow of districtRows) {
+      for (const school of districtRow.split(';').map((value) => value.trim()).filter(Boolean)) {
+        const exact = exactEnrollmentBySchool.get(school);
+        if (!exact) {
+          missingEnrollmentRows.push(school);
+          continue;
+        }
+        const band = enrollmentBandSpecs.find(([bandClass, bandDivision]) => bandClass === classification && bandDivision === division);
+        if (band) {
+          const [, , min, max] = band;
+          const fits = (min == null || exact.enrollment >= min) && (max == null || exact.enrollment <= max);
+          if (!fits) alignmentEnrollmentExceptions.push(school);
+        }
+        if (exact.submittedConference !== classification) submittedConferenceExceptions.push(school);
+      }
+    }
+  }
+  if (missingEnrollmentRows.length) errors.push(`UIL alignment schools missing exact enrollment rows: ${missingEnrollmentRows.join(', ')}`);
+  if (alignmentEnrollmentExceptions.length !== 49) errors.push(`Expected 49 UIL programs whose enrollment falls outside the normal final-placement cutoff band; found ${alignmentEnrollmentExceptions.length}.`);
+  if (submittedConferenceExceptions.length !== 7) errors.push(`Expected 7 UIL programs whose submitted conference differs from final football classification; found ${submittedConferenceExceptions.length}.`);
+  for (const school of ['Shamrock', 'Boys Ranch', 'Garland', 'San Antonio Houston']) {
+    if (!alignmentEnrollmentExceptions.includes(school)) errors.push(`Known enrollment-placement exception missing from statewide guard: ${school}`);
+  }
+
   for (const marker of [
     'const EXPECTED_TOTAL = 1268',
     'Exact UIL school-name join failed',
@@ -833,6 +881,8 @@ if (!errors.length) {
     'https://www.uiltexas.org/athletics/conference-cutoffs',
     'uilFootballEnrollmentBand',
     'uilFootballConferenceBand',
+    'uilEnrollmentFallsWithinBand',
+    'uilFootballEnrollmentBandForEnrollment',
   ]) requireText(enrollmentBands, marker, 'UIL football enrollment bands');
 
   for (const marker of [
@@ -1076,6 +1126,10 @@ if (!errors.length) {
     'UIL enrollment band',
     'Official UIL 2026–28 enrollment cutoffs ↗',
     'uilFootballEnrollmentBand',
+    'uilFootballEnrollmentBandForEnrollment',
+    'Enrollment-based cutoff band',
+    'Enrollment and football placement are different here.',
+    'Final football placement',
     'UIL reported enrollment',
     'program.uilEnrollment',
     'Official UIL alphabetical enrollment listing ↗',
