@@ -1608,7 +1608,7 @@ if (!errors.length) {
       // A dated W–L claim in a search snippet must equal the played-game ledger.
       // Evergreen descriptions without a W–L claim remain valid; do not parse
       // historic state titles, district identifiers or reported point scores.
-      const seoRecord = seoDescription.match(/\\b(\\d+)[–-](\\d+)\\s+through\\s+(?:Oct\\.?|October|Sept\\.?|September|Nov\\.?|November)\\b/i);
+      const seoRecord = seoDescription.match(/\b(\d+)[–-](\d+)\s+through\s+(?:Oct\.?|October|Sept\.?|September|Nov\.?|November)\b/i);
       if (seoRecord && (Number(seoRecord[1]) !== wins || Number(seoRecord[2]) !== losses)) {
         errors.push('Batch 006 dated SEO W-L contradicts completed 2026 games: ' + slug);
       }
