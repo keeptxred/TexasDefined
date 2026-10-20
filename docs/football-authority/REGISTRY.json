@@ -21199,8 +21199,17 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/shamrock",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "DEPLOYED",
+      "batch": null,
+      "schoolNote": "docs/football-authority/schools/shamrock.md",
+      "auditCompletedAt": "2026-10-20",
+      "researchCompletedAt": "2026-10-20",
+      "implementedAt": "2026-10-09",
+      "mergedPr": 4422,
+      "mergedCommit": "f428e4c3126f4e0ad08797c1717ef64e6f7b7492",
+      "actualProductionVerified": false,
+      "historicalProductionSmokeRun": 38653480713,
+      "reviewScope": "Shamrock authority profile is deployed and previously passed its dedicated live production smoke. October 20 score/schedule and venue-address cleanup is pending a new merged production release; no individual media-rights, manual accessibility or nine-dimension editorial VERIFIED promotion is claimed."
     },
     {
       "id": "uil:sharyland-pioneer",
