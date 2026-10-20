@@ -225,6 +225,32 @@ test('planner change preserves bounded prior regression surfaces including data 
   assert.ok(plan.selectedPaths.length + plan.redirectChecks.length <= PAGE_BUDGET);
 });
 
+test('standalone article fixture uses the declared canonical slug when filename is different', async () => {
+  const path = 'src/data/fixtures/chip-joanna-gaines-magnolia-waco.ts';
+  const after = 'export const chipJoannaArticle: Article = { slug: "chip-and-joanna-gaines-magnolia-waco", title: "Magnolia", body: [] };';
+  const plan = buildChangePlan({ baseline, head, changedFiles: [path],
+    sources: { [path]: { before: '', after } },
+  });
+  const canonical = '/article/chip-and-joanna-gaines-magnolia-waco';
+  assert.deepEqual(plan.selectedPaths, [canonical]);
+  assert.ok(!plan.selectedPaths.includes('/destination/chip-and-joanna-gaines-magnolia-waco'));
+  const html = '<html><head><title>Chip and Joanna Gaines</title>'
+    + '<link rel="canonical" href="https://texasdefined.com' + canonical + '"></head><body>Magnolia</body></html>';
+  const good = await verifyChangedPages({ plan, head, fetchImpl: async url => new Response(html, { status: 200 }) });
+  assert.equal(good[0].passed, true, 'real canonical article must pass bounded changed-page verification');
+});
+
+test('article Link params in destination template do not invent destination URLs', () => {
+  const path = 'src/routes/destination.$slug.tsx';
+  const after = 'const panel = <Link to="/article/$slug" params={{ slug: "chip-and-joanna-gaines-magnolia-waco" }}>Read guide</Link>;';
+  const plan = buildChangePlan({ baseline, head, changedFiles: [path],
+    sources: { [path]: { before: '', after } },
+  });
+  assert.deepEqual(plan.selectedPaths, ['/destination/magoffin-home'], 'preserve existing exact destination smoke');
+  assert.ok(!plan.selectedPaths.includes('/destination/chip-and-joanna-gaines-magnolia-waco'),
+    'a link to a biography must never be inferred as a destination record');
+});
+
 test('standalone article fixture edits select the owner, not generic homepage samples', async () => {
   const path = 'src/data/fixtures/texas-regions-explained.ts';
   const before = 'export const texasRegionsExplainedArticle: Article = { slug: "texas-regions-explained", body: [] };';
