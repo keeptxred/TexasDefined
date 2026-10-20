@@ -20,7 +20,7 @@ const rightsByPath: Record<string, HeritagePhotoRights> = {
     licenseUrl: "https://creativecommons.org/licenses/by/2.0/",
   },
   "/article/texas-rural-wells-water-guide": {
-    sourceUrl: "https://commons.wikimedia.org/wiki/File:The_Well_(4679680189).jpg",
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Drilling_livestock_water_well_on_Walking_M_Ranch_in_Baylor_County,_Seymour,_Texas._(24490553073).jpg",
     licenseUrl: "https://creativecommons.org/licenses/by/2.0/",
   },
   "/article/moving-to-texas-renter-guide": {
