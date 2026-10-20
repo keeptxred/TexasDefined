@@ -180,9 +180,9 @@ const areaSeeds: Record<string, AreaSeed> = {
     base: "Alto and Nacogdoches", neighborhood: "The Caddo homeland and Piney Woods landscape are part of the interpretation, not merely a backdrop.", family: "The outdoor mounds and grounds help younger visitors understand scale and place.", sideTrip: link("Mission Tejas State Park", "mission-tejas-state-park", "Compare Indigenous and Spanish-colonial histories in the same region."),
   },
   "first-capitol-of-texas": {
-    intro: "West Columbia and nearby Brazoria County sites make a compact route through the first Republic government, Stephen F. Austin's final days and plantation history.",
+    intro: "The First Capitol State Historic Site is currently closed. Research its 1836 Republic government story, then build a separate outing around currently open West Columbia and Brazoria County historical destinations.",
     nearby: [link("Stephen F. Austin Memorial", "stephen-f-austin-memorial", "Add Austin's final chapter to the West Columbia route."), link("Varner-Hogg Plantation", "varner-hogg-plantation", "Adds slavery, emancipation, agriculture and later oil wealth to the county story.")],
-    base: "West Columbia and Lake Jackson", neighborhood: "The Brazos corridor helps explain why early political and commercial centers developed here.", family: "Combine the compact political-history stop with a larger historic property and grounds.", sideTrip: link("San Felipe de Austin", "san-felipe-de-austin", "Trace Austin's colony back to its earlier headquarters."),
+    base: "West Columbia and Lake Jackson", neighborhood: "The Brazos corridor helps explain why early political and commercial centers developed here.", family: "The First Capitol state property is not currently open. Families can use its documented history before visiting other independently open public museums and historical locations in Brazoria County.", sideTrip: link("San Felipe de Austin", "san-felipe-de-austin", "Trace Austin's colony back to its earlier headquarters."),
   },
   "varner-hogg-plantation": {
     intro: "Use Varner-Hogg as the deeper social-history stop in a Brazoria County route, adding labor, slavery, emancipation, agriculture and oil to nearby Republic landmarks.",
