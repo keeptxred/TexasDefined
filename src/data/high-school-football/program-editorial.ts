@@ -4064,6 +4064,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceUrl": "https://www.bowieisd.net/o/bhs/live-feed",
       "sourceLabel": "Bowie High School 2026 live feed names Jackrabbit Stadium for varsity football and publishes current spectator expectations",
       "verifiedAt": "2026-10-20",
+      "policyUrl": "https://www.bowieisd.net/o/bhs/live-feed",
       "note": "Bowie High School's 2026 live feed identifies Jackrabbit Stadium for current varsity football games and publishes stadium seating expectations. The school contact address is not automatically the public stadium entrance, and the evidence reviewed does not establish a separate gate address, parking map or full ADA seating plan."
     },
     "notice": {
