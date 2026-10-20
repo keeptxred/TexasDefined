@@ -50,3 +50,7 @@ The actual school page's dated milestone, visitor overview, notice and FAQ now e
 
 ## October 20, 2026 — direct Bishop CISD ticket purchase information
 The [Bishop CISD original athletics Ticket Sales page](https://www.bishopcisd.net/athletics/ticket-sales) and [parent/student HomeTown Ticket App guidance](https://www.bishopcisd.net/parents-students/tickets-sales) were independently located. A **seventh Bishop-specific public FAQ** now links visitors directly to those two first-party resources and Bishop CISD Athletics at **361-584-3591 ext. 319** for exact October 23 homecoming ticketing. The pages do not sufficiently certify a currently purchasable October 23 event, ticket price, accepted payment methods at the stadium, parking or ADA entrance; none is invented. Corpus Christi ISD's separate 2026 football ticket prices and policies must never be transferred to Bishop CISD.
+
+## October 20, 2026 — October 16 schedule-gap check (not a result)
+
+The [2026 Bishop Badgers dated varsity schedule](https://www.maxpreps.com/tx/bishop/bishop-badgers/football/schedule/) still shows **2–5 through October 9** and next lists **October 23 versus Santa Gertrudis Academy**. It lists **no October 16 Bishop game**. Retain the accurate dated season record; do not invent a bye award, forfeit, score, standings or playoff qualification merely to fill an empty calendar week. This is a third-party schedule observation, not an independently certified UIL no-game decision. An October 23 event's actual site, tickets and accessibility still need official game-day verification.
