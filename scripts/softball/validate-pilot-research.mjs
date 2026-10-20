@@ -10,6 +10,39 @@ import { SOFTBALL_RESEARCH_TOPICS } from './complete-first-release-audit.mjs';
 
 const root=resolve(import.meta.dirname,'../..');
 const get=(path)=>JSON.parse(readFileSync(resolve(root,path),'utf8'));
+
+const validDate = value => {
+  if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+  const d = new Date(value + 'T00:00:00Z');
+  return !Number.isNaN(d.valueOf()) && d.toISOString().slice(0,10) === value;
+};
+const researchDateValid = (value, last) =>
+  validDate(value) && value <= last &&
+  (Date.parse(last + 'T00:00:00Z') - Date.parse(value + 'T00:00:00Z')) <= 183 * 86400000;
+// Supports both academic sports seasons (2026-27, 1995-96) and explicit
+// multiyear historical periods (1988-1995). Do not misdate college coaching
+// history merely to fit a modern 20xx softball-season-only validator.
+const validSeasonOrHistoricalPeriod = value => {
+  const match = typeof value === 'string' ? value.match(/^((?:18|19|20)\d{2})-(\d{2}|(?:18|19|20)\d{2})$/) : null;
+  if (!match) return false;
+  const start = Number(match[1]);
+  const suffix = match[2];
+  let end = suffix.length === 2 ? Math.floor(start / 100) * 100 + Number(suffix) : Number(suffix);
+  if (suffix.length === 2 && end < start) end += 100;
+  return end >= start && end - start <= 25;
+};
+
+// Contract self-tests: no invalid dates, invented 2027 records, malformed or
+// truncated 1988–1995 coaching intervals, or future source-verification dates.
+assert.ok(validSeasonOrHistoricalPeriod('1988-1995'));
+assert.ok(validSeasonOrHistoricalPeriod('1995-96'));
+assert.ok(validSeasonOrHistoricalPeriod('2026-27'));
+for (const bad of ['unknown', '1991-', '1988-2090', '2027-2026', 'spring-2027', '2026-13-50'])
+  assert.equal(validSeasonOrHistoricalPeriod(bad),false,'Reject invalid season/tenure '+bad);
+assert.equal(validDate('2026-02-30'),false,'Reject impossible calendar dates');
+assert.equal(researchDateValid('2026-10-13','2026-10-12'),false,'Reject tomorrow as already researched');
+assert.equal(researchDateValid('2026-10-11','2026-10-12'),true,'Retain original per-source check date');
+
 const registry=get('src/data/softball/uil-2026-27-registry.json');
 const pilot=get('docs/softball/research/PILOT_DOSSIERS_2026-10-11.json');
 const approved=get('src/data/softball/published-team-profiles.json');
@@ -38,16 +71,18 @@ for(const p of pilot.pilotSchools){
     ids.add(s.id);
     const u=new URL(s.url);
     assert.equal(u.protocol,'https:','Official reference must be HTTPS');
-    assert.equal(s.checkedAt,pilot.lastReviewed,'Keep every source check version-stamped');
+    assert.ok(researchDateValid(s.checkedAt,pilot.lastReviewed),'Source must retain its ACTUAL valid checkedAt date, be no newer than lastReviewed and no older than 183 days');
   }
   for(const f of p.facts){
     assert.ok(f.claim.length>=60, 'Avoid terse generic historical claim '+p.name);
     assert.ok(Array.isArray(f.sourceIds)&&f.sourceIds.length>0&&f.sourceIds.every(id=>ids.has(id)),'Source ID missing in '+p.name);
-    assert.match(f.season,/^20\d\d-\d\d$/,'Every fact must say what season it concerns');
+    assert.ok(validSeasonOrHistoricalPeriod(f.season),'Facts must specify a real sports year (e.g. 2026-27 or 1995-96) or a full historical tenure (e.g. 1988-1995)');
   }
   assert.ok(!p.sources.some(s=>s.kind==='identity-disambiguation-ONLY' && !s.title.includes('WRONG SCHOOL')),
     'Disambiguation sources must state they are excluded');
-  assert.ok(!/READY TO PUBLISH|ready-to-publish/.test(p.programStatus),'No partial program page is ready');
+  // A documented 'not-ready-to-publish' status must not trigger a false positive.
+  // Reject only affirmative publication-ready statuses, never a negative research warning.
+  assert.ok(!/^ready(?:[- ]to[- ]publish)(?:$|[- ])/i.test(p.programStatus),'No partial program page is ready');
   researched[p.name]=[p.facts.length,p.sources.length,p.gaps.length];
   facts+=p.facts.length;
   sources+=p.sources.length;
@@ -62,6 +97,10 @@ const verifiedFact = (team, needle, sourceId) => {
 verifiedFact('Shiner', '2001, 2002, 2008, 2011, 2015, 2016, 2024 and 2026', 'uil-state-2026');
 verifiedFact('Shiner', 'Steven Cerny', 'uil-2017-team');
 verifiedFact('Shiner', 'runner-up', 'uil-2025-final');
+verifiedFact('Shiner','runner-up to Bosqueville in a 4–1 final','uil-2007-final');
+verifiedFact('Shiner','Bosqueville 11–1 in the state final','uil-2008-final');
+verifiedFact('Shiner','Brandon Siegel as head coach','uil-2011-team');
+verifiedFact('Shiner','tournament offensive benchmarks','uil-2011-recordbook');
 verifiedFact('Shiner', 'cutoff date', 'uil-2026-pairings');
 verifiedFact('Ganado', '2025–26 Ganado softball schedule', 'school-schedules');
 verifiedFact('Ganado', 'prefinal submitted tally', 'uil-2026-pairings');
@@ -71,8 +110,8 @@ verifiedFact('Pearland', "potentially inconsistent 'Game 3' opponent", 'school-2
 verifiedFact('Pearland', 'Michele Hyden', 'school-general-current');
 assert.ok(byName('Shiner').sources.some(s => s.url.includes('/historical-archives/athletics/archives/softball/state/00_01/')),
   'Preserve primary original 2001 Shiner championship source rather than generic third-party archive');
-assert.ok(byName('Pearland').gaps.some(g => g.includes('softball stadium/field')),
-  'Keep Pearland softball field unverified until official venue-specific evidence is found');
+assert.ok(byName('Pearland').gaps.some(g => g.includes('precise address/entrance') && g.includes('accessible spectator parking/gates')),
+  'Pearland historic complex name is verified; precise current entrance and visitor access must remain unresolved');
 
 // Every pilot program needs an independently attributed *facility status*,
 // not an assumed football stadium, campus office, city park, or generic venue.
@@ -96,7 +135,7 @@ for (const p of pilot.pilotSchools) {
 // separately issued a verified Spring 2027 roster/coaching appointment list.
 for(const p of pilot.pilotSchools) {
   const staff=p.coachingResearch;
-  assert.ok(staff && staff.schoolWebsiteAsOf===pilot.lastReviewed,
+  assert.ok(staff && researchDateValid(staff.schoolWebsiteAsOf,pilot.lastReviewed),
     p.name+': staff research must be current and dated');
   assert.ok(p.sources.some(source=>source.id===staff.schoolStaffPageSourceId&&source.kind==='official-school'),
     p.name+': present-tense staff evidence requires original school-owned source');
@@ -109,6 +148,26 @@ assert.equal(byName('Pearland').coachingResearch.listedHeadCoach,'Michele Hyden'
 assert.equal(byName('Katy').coachingResearch.listedHeadCoach,'Megan Vanetta');
 assert.equal(byName('Ganado').coachingResearch.listedHeadCoach,null,
   'Official Ganado faculty membership cannot prove 2027 softball coaching');
+// Amarillo Highland Park history was NOT generic: independent May 2024
+// interviews and a real 2024-25 schedule document its inaugural softball era.
+// They must never be repackaged as a Spring 2027 coach or finished venue.
+assert.equal(byName('Amarillo Highland Park').coachingResearch.historicalHeadCoach,'Eliza Martinez');
+assert.equal(byName('Amarillo Highland Park').coachingResearch.historicalAssistantCoach,'Mary Lieberknecht');
+assert.equal(byName('Amarillo Highland Park').coachingResearch.historyDate,'2024-2025');
+assert.ok(byName('Amarillo Highland Park').sources.some(s=>s.id==='presspass-may-2024-origin' && s.kind.includes('independent')),
+ 'First-program coaching and construction evidence must cite contemporary local reporter');
+assert.ok(byName('Amarillo Highland Park').sources.some(s=>s.id==='hpark-2025-coach-schedule' && s.kind.includes('mirrored')),
+ 'Mirrored 2024-25 softball schedule must not be elevated to an official school-hosted source');
+verifiedFact('Amarillo Highland Park','inaugural head SOFTBALL coach','presspass-may-2024-origin');
+verifiedFact('Amarillo Highland Park','assistant Mary Lieberknecht','hpark-2025-coach-schedule');
+verifiedFact('Amarillo Highland Park','$130 million school bond','presspass-may-2024-origin');
+verifiedFact('Amarillo Highland Park','completed March 22, 2025 varsity softball game','hpark-2025-game-results');
+verifiedFact('Amarillo Highland Park','SOUTH END OF THE EXISTING FOOTBALL FIELD','kfdanews-groundbreaking-2024');
+assert.ok(byName('Amarillo Highland Park').conflicts.some(c=>c.includes('Dallas Highland Park ISD hpisd.org 2024 bond')),
+  'Never cross-pollinate Dallas school 2024 bond project or Westchester field into Amarillo 2024 new program');
+assert.equal(byName('Amarillo Highland Park').venueResearch.physicalAddressVerified,false,
+ 'Groundbreaking does not verify built field coordinates or 2027 gate accessibility');
+
 assert.equal(byName('Amarillo Highland Park').coachingResearch.listedHeadCoach,null,
   'Do not use unverified third-party coach initial or Dallas staff');
 verifiedFact('Katy','Megan Vanetta','school-current-athletics-coaches');
@@ -119,9 +178,32 @@ verifiedFact('Amarillo Highland Park',"'two newest programs,' softball and baseb
 verifiedFact('Ganado','501 West Devers','ganado-campus-address');
 
 assert.equal(byName('Ganado').venueResearch.namedField,'Ganado Softball Field');
-assert.equal(byName('Katy').venueResearch.namedField,'KHS-Softball Field');
-assert.equal(byName('Pearland').venueResearch.nameVerified,false,'Pearland high school does not imply named varsity diamond');
-assert.equal(byName('Amarillo Highland Park').venueResearch.nameVerified,false,'Never import Dallas Scots venues');
+assert.ok(byName('Katy').venueResearch.namedField.includes('Kalum Haack'),
+ 'Post-July 2026 Katy field is named for retired longtime coach Kalum Haack; pre-2026 event label KHS-Softball Field is stale');
+verifiedFact('Katy','Kalum Haack','katy-2026-board-naming');
+verifiedFact('Katy','2015 state-champion softball team','katy-athletic-hall-2025');
+verifiedFact('Katy',"Kalum Haack was the Jayhawks' head coach every season from 1988 through 1995",'kansas-haack-original-records');
+assert.equal(byName('Katy').facts.find(f=>f.claim.includes("Kalum Haack was the Jayhawks' head coach every season"))?.season,'1988-1995','Historic Kansas coach career must show the COMPLETE 1988–1995 span, not a fabricated 1991–95 subset');
+verifiedFact('Katy','Gayle Luedke, not Kalum Haack, as the 1996 Jayhawks head coach','kansas-haack-original-records');
+assert.ok(byName('Katy').venueResearch.sourceIds.includes('katy-aug2026-field-name-report'),
+ 'Local independent account and July 27 school board item must accompany renamed Katy varsity venue');
+assert.equal(byName('Pearland').venueResearch.nameVerified,true,'Historic first-party Pearland camp flyer verifies the softball COMPLEX NAME, not the 2027 gate');
+assert.equal(byName('Pearland').venueResearch.namedField,'PHS Lady Oiler Softball Complex');
+assert.equal(byName('Pearland').venueResearch.physicalAddressVerified,false,
+  'Do not mistake an off-campus private camp payment address for the school girls softball field');
+verifiedFact('Pearland','PHS Lady Oiler Softball Complex','pearland-official-2023-camp-flyer');
+verifiedFact('Pearland','Laneigh Clark','pearland-official-2023-camp-flyer');
+verifiedFact('Pearland','older camp flyer must NEVER','pearland-official-2023-camp-flyer');
+assert.ok(byName('Pearland').conflicts.some(x=>x.includes('incorrect') || x.includes('misleading')),
+  'Older Pearland school flyer erroneously labels state-appearance years as championship wins');
+assert.ok(byName('Pearland').facts.filter(f=>f.sourceIds.includes('pearland-official-2023-camp-flyer'))
+   .every(f=>f.season==='2023-24'),'August 2023 camp material belongs to incoming 2023–24 academic-year context, never 2027');
+assert.equal(byName('Amarillo Highland Park').venueResearch.nameVerified,true,'Official 2025 school report now verifies historic HP Softball Field name');
+assert.equal(byName('Amarillo Highland Park').venueResearch.namedField,'HP Softball Field');
+assert.equal(byName('Amarillo Highland Park').venueResearch.physicalAddressVerified,false,'School ribbon cutting is not a published softball field street/gate address');
+verifiedFact('Amarillo Highland Park','Friday, March 28, 2025 ribbon cutting','amarillo-2025-ribbon-cutting');
+verifiedFact('Amarillo Highland Park',"'HP Softball Field'",'amarillo-2025-softball-camp-field');
+verifiedFact('Amarillo Highland Park','15–2 win over Follett','amarillo-2025-first-district-win');
 // Assert the actual UIL 2026 selection and award recipient, not the prose
 // label chosen by an editor ("all-star" and "all-tournament" are both fine).
 for (const [team, mvp] of [
@@ -186,7 +268,7 @@ assert.equal(honors.records.find(p=>p.champion==='Mont Belvieu Barbers Hill')?.r
 // but statewide UIL deadlines are not proof of any school's match schedule.
 const calendar=get('docs/softball/research/uil-2026-27-season-and-eligibility.json');
 assert.equal(calendar.season,'2026-27');
-assert.equal(calendar.verifiedAt,pilot.lastReviewed);
+assert.ok(researchDateValid(calendar.verifiedAt,pilot.lastReviewed),'Original statewide calendar source date must be retained, not advanced automatically');
 assert.equal(calendar.milestones.length,11,'UIL practice-through-state calendar must be fully captured');
 const calendarSources=new Map(calendar.source.map(x=>[x.id,x]));
 assert.equal(calendarSources.get('uil-softball-dates')?.url,'https://www.uiltexas.org/softball');
@@ -214,7 +296,7 @@ assert.ok(calendar.seasonSpecificExplanations.some(x=>x.id==='recruiting' && x.t
 // county: Katy High is the known regression case (NCES: Fort Bend; ISD: Harris).
 const campus=get('docs/softball/research/campus-identity-source-crosswalk.json');
 assert.equal(campus.version,1);
-assert.equal(campus.verifiedAt,pilot.lastReviewed);
+assert.ok(researchDateValid(campus.verifiedAt,pilot.lastReviewed),'Original census verification date must be retained');
 assert.equal(campus.schools.length,pilot.pilotSchools.length,'Pilot TEA campus identity census must be complete');
 const campusIds=new Set();
 for(const school of pilot.pilotSchools) {
