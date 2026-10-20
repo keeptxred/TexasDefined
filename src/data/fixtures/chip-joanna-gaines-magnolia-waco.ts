@@ -49,7 +49,6 @@ export const chipJoannaGainesMagnoliaWacoArticle: Article = {
   internalLinks: [
     { href: "/destination/magnolia-market-at-the-silos", label: "Magnolia Market at the Silos visitor guide", description: "Explore shops, food, operating considerations and parking at the Waco Silos." },
     { href: "/county/mclennan", label: "McLennan County guide", description: "Explore the county beyond its Magnolia-related attractions." },
-    { href: "/article/mclennan-county-waco-brazos-baylor-mammoths-texas", label: "The story of Waco and McLennan County", description: "Understand Waco's Brazos River, Baylor and preservation history." },
     { href: "/destination/dr-pepper-museum-waco", label: "Dr Pepper Museum in Waco", description: "A downtown museum pairing for a Magnolia afternoon." },
     { href: "/destination/waco-mammoth-national-monument", label: "Waco Mammoth National Monument", description: "Another distinctive Waco stop outside downtown." },
     { href: "/destination/texas-ranger-hall-of-fame-museum-waco", label: "Texas Ranger Hall of Fame and Museum", description: "Explore another part of Waco's history." }
