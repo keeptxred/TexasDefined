@@ -1218,7 +1218,7 @@ if (!errors.length) {
   for (const marker of [
     '"shamrock": {',
     '"name": "Nate Skelton"',
-    '"record": "1–4"',
+    '"record": "1–6 through October 16, 2026"',
     '"name": "El Paso Field"',
     '"question": "Why is Shamrock in 2A Division II with a UIL enrollment of 100.5?"',
   ]) requireText(footballProgramEditorial, marker, 'Shamrock football authority editorial');
