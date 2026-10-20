@@ -15,7 +15,8 @@ const browser = await chromium.launch({
   args: ['--no-sandbox', '--disable-dev-shm-usage'],
 });
 const providerScript = 'https://www.maxpreps.com/includes/js/widget/widget.compressed.js';
-const expectedBracketId = 'ade72ad3-0f62-42ef-a2cb-143bf425942b';
+const expectedD1BracketId = 'ade72ad3-0f62-42ef-a2cb-143bf425942b';
+const expectedD2BracketId = '412dffeb-8db4-405a-90d8-d835b3a6ca23';
 const expectedMemberId = '8ada50e8-19a3-462f-9a14-ca430a481250';
 async function checkViewport(name, viewport) {
   const page = await browser.newPage({ viewport, deviceScaleFactor: 1 });
@@ -50,21 +51,55 @@ async function checkViewport(name, viewport) {
       };
     });
     expect(first.scripts === 1, 'Provider JS should be loaded exactly once on initial mount');
-    expect(first.href.includes(expectedBracketId) || first.iframeCount > 0, 'No provider-generated bracket anchor or iframe');
+    expect(first.href.includes(expectedD1BracketId) || first.iframeCount > 0, 'No provider-generated 6A D1 bracket anchor or iframe');
     if (first.memberId) expect(first.memberId === expectedMemberId, 'Unexpected MaxPreps member ID');
     expect(first.canonical === origin + path, 'Canonical URL differs');
     expect(first.hasDirectLink, 'MaxPreps tournament fallback missing');
     expect(first.wholeDocumentWidth <= first.viewportWidth + 5, 'Body has horizontal overflow (widget should scroll inside its region)');
-    // Confirm other divisions do not accidentally display or inherit the verified 6A D1 widget.
+    // Both 6A divisions now have independently generated MaxPreps widget code,
+    // with the same provider-issued member ID but distinct bracket identifiers.
     await page.getByRole('button', { name: 'Division II' }).click();
     await page.locator('[data-official-playoff-bracket="6AD2"]').waitFor({ timeout: 12000 });
-    const other = await page.evaluate(() => {
+    await page.waitForTimeout(2200);
+    const second = await page.evaluate(() => {
       const el = document.querySelector('[data-official-playoff-bracket="6AD2"]');
-      return { hasWidgetAnchor: !!el?.querySelector('.maxpreps-widget-link'), text: el?.textContent || '' };
+      const anchor = el?.querySelector('.maxpreps-widget-link');
+      const link = el?.querySelector('a[href*="maxpreps.com/tournament"]');
+      return {
+        scripts: [...document.scripts].filter(s => s.src.includes('widget.compressed.js')).length,
+        href: anchor?.getAttribute('href') || '',
+        memberId: anchor?.getAttribute('data-member-id') || '',
+        iframeCount: el?.querySelectorAll('iframe').length || 0,
+        hasDirectLink: !!link,
+        text: el?.textContent?.slice(0, 400) || '',
+        scrollWidth: document.documentElement.scrollWidth,
+        width: innerWidth,
+      };
     });
-    expect(!other.hasWidgetAnchor, '6A D2 unexpectedly used 6A D1 generated widget');
-    expect(other.text.includes('View official 6A Division II bracket'), '6A D2 official bracket fallback missing');
-    await page.getByRole('button', { name: 'Division I', exact: true }).click();
+    expect(second.scripts === 1, '6A D2 provider script should load exactly once');
+    expect(second.href.includes(expectedD2BracketId) || second.iframeCount > 0, '6A D2 widget missing or using a different bracket');
+    expect(!second.href.includes(expectedD1BracketId), '6A D2 unexpectedly shows D1 bracket');
+    if (second.memberId) expect(second.memberId === expectedMemberId, '6A D2 widget member ID changed');
+    expect(second.hasDirectLink, '6A D2 MaxPreps fallback missing');
+    expect(second.scrollWidth <= second.width + 5, '6A D2 horizontal page overflow');
+
+    // Non-embedded divisions retain source links; switching away must clean
+    // up the externally loaded widget, even after MaxPreps modifies its DOM.
+    await page.getByRole('button', { name: '5A' }).click();
+    await page.locator('[data-official-playoff-bracket="5AD1"]').waitFor({ timeout: 12000 });
+    const fallback = await page.evaluate(() => {
+      const el = document.querySelector('[data-official-playoff-bracket="5AD1"]');
+      return {
+        text: el?.textContent || '',
+        hasWidgetAnchor: !!el?.querySelector('.maxpreps-widget-link'),
+        scripts: [...document.scripts].filter(s => s.src.includes('widget.compressed.js')).length,
+      };
+    });
+    expect(!fallback.hasWidgetAnchor, '5A D1 must not receive unverified widget code');
+    expect(fallback.text.includes('View official 5A Division I bracket'), '5A D1 official bracket fallback missing');
+    expect(fallback.scripts === 0, 'MaxPreps widget script not cleaned up on fallback division');
+
+    await page.getByRole('button', { name: '6A' }).click();
     await page.locator('[data-official-playoff-bracket="6AD1"]').waitFor({ timeout: 12000 });
     await page.waitForTimeout(1800);
     const after = await page.evaluate(() => ({
@@ -73,12 +108,12 @@ async function checkViewport(name, viewport) {
       scrollWidth: document.documentElement.scrollWidth,
       width: innerWidth,
     }));
-    expect(after.scriptCount === 1, 'Provider script duplicated or missing after switching away and back');
-    expect(after.hasWidget, '6A D1 widget failed to remount after returning from another bracket');
+    expect(after.scriptCount === 1, '6A D1 widget script duplicated or missing after selector changes');
+    expect(after.hasWidget, '6A D1 widget failed to remount after returning from another class');
     expect(after.scrollWidth <= after.width + 5, 'Horizontal overflow after switching brackets');
     const screenshot = `${output}/maxpreps-playoffs-${name}.png`;
     await page.screenshot({ path: screenshot, fullPage: true, animations: 'disabled', timeout: 30000 });
-    results.push({ name, status: errors.length ? 'FAIL' : 'PASS', errors, providerResponse, first: { ...first, htmlSnippet: first.htmlSnippet.slice(0, 700) }, other, after, screenshot });
+    results.push({ name, status: errors.length ? 'FAIL' : 'PASS', errors, providerResponse, first: { ...first, htmlSnippet: first.htmlSnippet.slice(0, 700) }, second, fallback, after, screenshot });
     console.log('MaxPreps playoff widget QA: ' + JSON.stringify(results.at(-1)));
     failures.push(...errors.map(error => `${name}: ${error}`));
   } catch (error) {
@@ -96,4 +131,4 @@ try {
   await browser.close();
 }
 await writeFile(`${output}/report.json`, JSON.stringify({ url: origin + path, checkedAt: new Date().toISOString(), results, failures }, null, 2));
-assert.deepEqual(failures, [], '6A D1 MaxPreps widget QA failed');
+assert.deepEqual(failures, [], '6A D1 and D2 MaxPreps widget QA failed');
