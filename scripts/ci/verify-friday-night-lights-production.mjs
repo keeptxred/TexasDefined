@@ -428,7 +428,7 @@ await fetchVerified(willsPointProfilePath, 'Wills Point football school profile'
     '786',
     'Current district',
     '/texas-high-school-football-districts/4a-division-ii-district-7',
-    '2026 schedule &amp; results sources',
+    'Live scores &amp; schedule links',
   ]) requireNeedle(body, needle, 'Wills Point football school profile');
   for (const forbidden of [
     "All $",
