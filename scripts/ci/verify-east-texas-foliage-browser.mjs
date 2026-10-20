@@ -38,6 +38,15 @@ try {
     try {
       const response = await page.goto(origin + "/article/east-texas-fall-colors?foliage_browser_qa=" + (process.env.GITHUB_SHA || "manual").slice(0,12), { waitUntil: "domcontentloaded", timeout: 45000 });
       if (response?.status() !== 200) throw new Error("HTTP " + response?.status());
+      const eastHero = page.locator('img[alt*="Orange and yellow autumn trees"]').first();
+      await eastHero.waitFor({ state: "attached", timeout: 15000 });
+      await eastHero.scrollIntoViewIfNeeded();
+      await eastHero.evaluate(image => image.decode().catch(() => {}));
+      if (await eastHero.evaluate(image => image.naturalWidth) < 300) throw new Error("Daingerfield autumn hero did not load");
+      const eastHeroSrc = await eastHero.getAttribute("src");
+      if (!eastHeroSrc?.includes("Daingerfield_sp_reflection.jpg")) throw new Error("East Texas hero is not the approved Daingerfield autumn photograph: " + eastHeroSrc);
+      if (!await page.getByText("The autumn-colored hero photograph shows Daingerfield State Park on October 24, 2014", { exact: false }).count()) throw new Error("East Texas historical hero caveat missing");
+
       await page.getByRole("heading", { name: "Explore the parks on a map" }).waitFor({ state: "visible", timeout: 20000 });
       const overview = page.locator('section[aria-labelledby="east-texas-all-parks-heading"]');
       await overview.getByRole("heading", { name: "All six parks on one map" }).waitFor({ state: "visible" });
