@@ -724,6 +724,11 @@ function Page() {
             {program?.teaDistrictProfileUrl && <a href={program.teaDistrictProfileUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">TEA district profile ↗</a>}
             {identity && <a href={identity.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">School identity source ↗</a>}
             {privateAlignment && <a href={privateAlignment.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Association alignment source ↗</a>}
+            {editorial?.coach && <a href={editorial.coach.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Coach source ↗</a>}
+            {editorial?.campus && <a href={editorial.campus.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Campus source ↗</a>}
+            {editorial?.schedule && <a href={editorial.schedule.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Team schedule source ↗</a>}
+            {editorial?.season && <a href={editorial.season.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Season snapshot source ↗</a>}
+            {editorial?.venue && <a href={editorial.venue.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Team venue source ↗</a>}
             {venueLinks.map((venue) => <a key={venue.officialUrl} href={venue.officialUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">{venue.venueName} source ↗</a>)}
             <a href="https://www.uiltexas.org/maxpreps/" target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">UIL Texas Scoreboard ↗</a>
           </div>
