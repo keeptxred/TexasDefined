@@ -1145,8 +1145,11 @@ if (!errors.length) {
     'profileSummary',
     'quickFacts',
     'faq',
+    'nextListedFixture',
+    'game.date >= editorial.season.verifiedAt',
   ]) requireText(featuredProfilePage, marker, 'Football school profile page');
   for (const forbidden of [
+    'find((game) => !game.result)',
     'Research beyond the score',
     'What families should check next',
     'Freshman, JV and varsity path',
