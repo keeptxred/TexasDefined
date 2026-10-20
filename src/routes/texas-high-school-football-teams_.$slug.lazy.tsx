@@ -264,37 +264,28 @@ function Page() {
       </nav>
 
       <header className="border-b border-border py-7 sm:py-10">
-        <div className={slug === 'aubrey' ? 'grid gap-8 lg:grid-cols-2' : undefined}>
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,24rem)] lg:items-start">
           <div>
             <p className="eyebrow text-primary">2026 Texas high school football</p>
             <h1 className="mt-3 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">{footballName}</h1>
-            <p className="mt-5 max-w-4xl text-lg leading-8 text-muted-foreground" style={slug === 'aubrey' ? { fontSize: '1rem', lineHeight: 1.6 } : undefined}>
-              {slug === 'aubrey'
-                ? 'Verified 2026 scores, remaining games, home tickets and Chaparral Stadium information.'
-                : editorial?.intro ?? profileSummary}
+            <p className="mt-5 max-w-4xl text-lg leading-8 text-muted-foreground">
+              {editorial?.intro ?? profileSummary}
             </p>
           </div>
-          {slug === 'aubrey' && (
-            <figure style={{ minWidth: 0 }}>
-              <div className="relative overflow-hidden border border-border" style={{ height: 'clamp(210px, 34vw, 330px)', backgroundColor: '#10243d' }}>
-                <img
-                  src="https://images.unsplash.com/photo-1508209495879-445d5febf597?auto=format&fit=crop&w=1400&q=78"
-                  alt="High school American football under stadium lights at dusk, pictured at a game in Aurora, Colorado, not an Aubrey game"
-                  width={1400}
-                  height={940}
-                  loading="eager"
-                  decoding="async"
-                  fetchPriority="high"
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 53%' }}
-                  />
-              </div>
-              <figcaption className="mt-2 text-xs text-muted-foreground" style={{ lineHeight: 1.5 }}>
-                Representative high-school football photo, not an Aubrey team or stadium image.{' '}
-                <a href="https://unsplash.com/photos/man-holding-football-field-post-on-side-of-field-Fbq47uCtXHI" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">Tim Mossholder / Unsplash</a>.{' '}
-                <a href="https://unsplash.com/license" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">Unsplash License</a>.
-              </figcaption>
-            </figure>
-          )}
+          <FootballHeroVisual
+            footballName={footballName}
+            mascot={identity?.mascot}
+            alignment={program
+              ? alignmentLabel(program)
+              : privateAlignment
+                ? privateAlignmentLabel(privateAlignment)
+                : [governingBodyHint, associationClassification].filter(Boolean).join(' ') || 'Texas high school football'}
+            district={program ? `District ${program.district}` : privateAlignment?.districtLabel}
+            footballType={program?.footballType || privateAlignment?.footballType}
+            location={program?.city ? [program.city, program.countyName].filter(Boolean).join(', ') : undefined}
+            photo={editorial?.photo}
+            accentHex={editorial?.theme?.accentHex}
+          />
         </div>
       </header>
 
@@ -448,13 +439,6 @@ function Page() {
             <span className="mx-2 text-muted-foreground">·</span>
             <a href="https://www.abileneisd.org/article/1525088" target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline underline-offset-4">District's historical rivalry results ↗</a>
           </div>}
-          {editorial.photo && <figure className="mt-7 overflow-hidden border border-border bg-surface">
-            <img src={editorial.photo.src} alt={editorial.photo.alt} width={editorial.photo.width} height={editorial.photo.height} loading={schoolName === 'Katy' || schoolName === 'Fort Davis' ? 'eager' : 'lazy'} decoding="async" className={editorial.photo.width < 400 ? "mx-auto block h-auto w-auto max-w-full object-contain" : "block h-auto w-full object-cover"} />
-            <figcaption className="p-4 text-xs leading-6 text-muted-foreground">
-              {editorial.photo.caption}{' '}Photo by <a href={editorial.photo.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">{editorial.photo.credit}</a>.{' '}
-              <a href={editorial.photo.licenseUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">{editorial.photo.license}</a>.
-            </figcaption>
-          </figure>}
           <div className="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">
             {editorial.coach && <a href={editorial.coach.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">{editorial.coach.sourceLabel} ↗</a>}
             {editorial.schedule && <a href={editorial.schedule.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">{editorial.schedule.label} ↗</a>}
@@ -835,6 +819,74 @@ function StepList({ steps }: { steps: Array<[string, string]> }) {
       <div><h3 className="font-display text-xl">{title}</h3><p className="mt-1 text-sm leading-7 text-muted-foreground">{body}</p></div>
     </li>)}
   </ol>;
+}
+
+function FootballHeroVisual({
+  footballName,
+  mascot,
+  alignment,
+  district,
+  footballType,
+  location,
+  photo,
+  accentHex,
+}: {
+  footballName: string;
+  mascot?: string;
+  alignment: string;
+  district?: string;
+  footballType?: string;
+  location?: string;
+  photo?: {
+    src: string;
+    width: number;
+    height: number;
+    alt: string;
+    caption: string;
+    credit: string;
+    sourceUrl: string;
+    license: string;
+    licenseUrl: string;
+  };
+  accentHex?: string;
+}) {
+  if (photo) {
+    return <figure className="min-w-0 overflow-hidden border border-border bg-surface">
+      <div className="relative overflow-hidden bg-muted" style={{ height: 'clamp(210px, 30vw, 330px)' }}>
+        <img
+          src={photo.src}
+          alt={photo.alt}
+          width={photo.width}
+          height={photo.height}
+          loading="eager"
+          decoding="async"
+          fetchPriority="high"
+          className={photo.width < 400 ? 'mx-auto block h-full w-auto max-w-full object-contain' : 'block h-full w-full object-cover'}
+        />
+      </div>
+      <figcaption className="p-4 text-xs leading-6 text-muted-foreground">
+        {photo.caption}{' '}Photo by <a href={photo.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">{photo.credit}</a>.{' '}
+        <a href={photo.licenseUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">{photo.license}</a>.
+      </figcaption>
+    </figure>;
+  }
+
+  return <aside
+    aria-label={`${footballName} profile identity`}
+    className="min-w-0 border border-border bg-surface p-6 sm:p-7"
+    style={accentHex ? { borderTopColor: accentHex, borderTopWidth: '0.4rem' } : undefined}
+  >
+    <p className="text-xs font-semibold uppercase tracking-[0.14em] text-primary">Team profile</p>
+    <p className="mt-3 font-display text-3xl leading-tight text-foreground">{footballName}</p>
+    <dl className="mt-6 grid gap-4 border-t border-border pt-5 text-sm sm:grid-cols-2 lg:grid-cols-1">
+      {mascot && <Fact label="Mascot" value={mascot} />}
+      <Fact label="Alignment" value={alignment} />
+      {district && <Fact label="District" value={district} />}
+      {footballType && <Fact label="Format" value={footballType} />}
+      {location && <Fact label="Location" value={location} />}
+    </dl>
+    <p className="mt-5 border-t border-border pt-4 text-xs leading-6 text-muted-foreground">TexasDefined profile visual; not an official school logo or mark.</p>
+  </aside>;
 }
 
 function Fact({ label, value }: { label: string; value?: string }) {
