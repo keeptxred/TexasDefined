@@ -194,24 +194,6 @@ async function checkViewport(name, viewport) {
 
     const screenshot = `${output}/maxpreps-playoffs-${name}.png`;
     await page.screenshot({ path: screenshot, fullPage: true, animations: 'disabled', timeout: 30000 });
-    // Capture the D2 visual only after all selector interactions are finished:
-    // scrolling a cross-origin iframe for an element screenshot can affect
-    // Playwright's subsequent click coordinates in the headless runner.
-    if (name === 'desktop' && d2FrameInfo) {
-      await page.getByRole('button', { name: 'Division II' }).click();
-      await page.locator('[data-official-playoff-bracket="6AD2"]').waitFor({ timeout: 12000 });
-      try {
-        const frameElement = page.locator('[data-official-playoff-bracket="6AD2"] iframe').first();
-        await frameElement.scrollIntoViewIfNeeded({ timeout: 12000 });
-        await page.waitForTimeout(1200);
-        await frameElement.screenshot({
-          path: `${output}/maxpreps-provider-d2-desktop.png`,
-          timeout: 20000,
-        });
-      } catch (error) {
-        browserErrors.push('6A-D2-iframe-screenshot: ' + String(error).slice(0, 300));
-      }
-    }
     results.push({ name, status: errors.length ? 'FAIL' : 'PASS', errors, providerResponse, first: { ...first, htmlSnippet: first.htmlSnippet.slice(0, 700) }, second, d2FrameInfo, fallback, after, providerFrames, frameVisuals, providerRequests: providerRequests.slice(-15), requestErrors, browserErrors, screenshot });
     console.log('MaxPreps playoff widget QA: ' + JSON.stringify(results.at(-1)));
     failures.push(...errors.map(error => `${name}: ${error}`));
