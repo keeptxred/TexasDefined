@@ -297,7 +297,7 @@
         placement: `casino-stay-${slug}-${index + 1}`,
       }));
     });
-    const isMagnoliaWacoGuide = window.location.pathname.replace(/\\/+$/, "") === "/article/chip-and-joanna-gaines-magnolia-waco";
+    const isMagnoliaWacoGuide = window.location.pathname.replace(/\/+$/, "") === "/article/chip-and-joanna-gaines-magnolia-waco";
     if (isMagnoliaWacoGuide) {
       heading.textContent = "Waco hotels and rentals near Magnolia";
       copy.textContent = "Choose a real Waco hotel listing or browse Waco vacation rentals. These independent booking links are not official Magnolia reservations. Check dates, price, location and cancellation rules on each provider.";
