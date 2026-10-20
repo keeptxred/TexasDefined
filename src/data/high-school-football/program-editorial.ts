@@ -561,6 +561,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         }
       ]
     },
+    "venue": {
+      "name": "George Luna Stadium",
+      "address": "100 Badger Lane, Bishop, TX 78343 (Bishop High campus orientation point; exact stadium gate not independently verified)",
+      "sourceUrl": "https://bhs.bishopcisd.net/",
+      "sourceLabel": "Bishop High School first-party October 23, 2026 homecoming event identifies George Luna Stadium",
+      "verifiedAt": "2026-10-20",
+      "note": "Bishop High School's current event listing places the October 23 varsity homecoming game at George Luna Stadium. TexasDefined uses the school campus address only as an orientation point and does not claim it is the public vehicle gate, parking entrance, ticket entrance or accessible-seating route. Confirm each game's venue and arrival details with Bishop CISD."
+    },
     "development": {
       "title": "The Badgers' 2024 district turnaround",
       "body": "KRIS 6 News documented Bishop's 40–22 senior-night win over Falfurrias and a 6–4 overall, 6–1 district regular-season finish after a prior 2–8 season. That notable rebound occurred in 2024, not 2026; it is not proof of a state championship or a current stadium name.",
@@ -1310,6 +1318,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceLabel": "Blooming Grove ISD first-party 2026 school and athletics events, including October12 homecoming at Lion Stadium",
       "verifiedAt": "2026-10-15"
     },
+    "venue": {
+      "name": "Lion Stadium",
+      "address": "212 West Grady Street, Blooming Grove, TX 76626 (high-school orientation point; exact stadium gate not independently verified)",
+      "sourceUrl": "https://www.bgisd.org/apps/events/2026/10/?id=0&id=2",
+      "sourceLabel": "Blooming Grove ISD official October 2026 calendar identifies Lion Stadium for homecoming events",
+      "verifiedAt": "2026-10-20",
+      "note": "Blooming Grove ISD identifies Lion Stadium in its 2026 homecoming calendar. The high-school address is provided only as an orientation point; TexasDefined does not infer the precise vehicle gate, parking entrance, ticket entrance or accessible-seating route from the campus address. Confirm event-specific details with the district."
+    },
     "development": {
       "title": "A 2026 coaching rebuild after a 2025 playoff appearance",
       "body": "Blooming Grove ISD directly announced Kevin Sherrill as athletic director/head football coach in early 2026, moving from Vernon where his teams had gone 10–3 in 2025 and 9–4 in 2024. Those records belong to Vernon, not the Lions. Blooming Grove's own 2025 program went 3–8, including a 59–6 first-round playoff loss to Blue Ridge in the Lone Star Football Network ledger. Through October 9 of Sherrill's first listed Blooming Grove season, six reported results showed 0–6, capped by a 68–0 road loss to Teague. Describing an active rebuilding challenge must not confuse the former district's wins with the current school's record.",
@@ -1697,6 +1713,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceUrl": "https://www.brisd.net/o/brisd/page/athletics",
       "sourceLabel": "Blue Ridge ISD Athletics first-party Tiger Stadium and schedule navigation",
       "verifiedAt": "2026-10-15"
+    },
+    "venue": {
+      "name": "Tiger Stadium",
+      "address": "11020 County Road 504, Blue Ridge, TX 75424 (high-school orientation point; exact stadium gate not independently verified)",
+      "sourceUrl": "https://www.brisd.net/o/brisd/page/athletics",
+      "sourceLabel": "Blue Ridge ISD Athletics directly references Tiger Stadium and current football schedule resources",
+      "verifiedAt": "2026-10-20",
+      "note": "Blue Ridge ISD's athletics page identifies Tiger Stadium. The high-school address is an orientation point only; the reviewed sources do not establish the stadium's vehicle gate, parking entrance, ticket entrance, cash policy or accessible-seating route. Confirm the actual game site and arrival details with BRISD."
     },
     "development": {
       "title": "Recent playoff-capable seasons and a 2026 district test",
