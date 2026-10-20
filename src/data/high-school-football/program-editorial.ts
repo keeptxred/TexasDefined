@@ -74,7 +74,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "label": "Independent TexasDefined editorial accent; school-owned marks and logos not reproduced"
     },
     "seo": {
-      "title": "Harmony Eagles Football | Big Sandy, 2026 Results, History & Eagle Stadium",
+      "title": "Harmony Eagles Football 2026 | Big Sandy, Scores & Eagle Stadium",
       "description": "Harmony ISD Eagles football in Big Sandy: 2026 scores, 2022 state-semifinal run, 3A Division II district, Eagle Stadium and verified Upshur County links."
     },
     "coach": {
@@ -268,7 +268,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "label": "Independently authored gold accent; no Big Spring ISD logo or mark reproduced"
     },
     "seo": {
-      "title": "Big Spring Steers Football 2026 | Memorial Stadium, Scores & 1953 History",
+      "title": "Big Spring Steers Football 2026 | Scores & Memorial Stadium",
       "description": "Big Spring Steers football: 2026 UIL District 2, 1–6 through October 16, Memorial Stadium, Stacey Martin and 1953 state runner-up history."
     },
     "coach": {
@@ -639,7 +639,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "label": "Original independent green accent; official team insignia not reproduced"
     },
     "seo": {
-      "title": "Blackwell Hornets Six-Man Football 2026 | UIL District, 2019 Semifinal & Scores",
+      "title": "Blackwell Hornets Six-Man Football 2026 | Scores & 2019 Run",
       "description": "Blackwell TX Hornets six-man football: UIL 1A Division II District 7, 6–2 through October 16, 2019 state-semifinal history and district contacts."
     },
     "coach": {
@@ -834,7 +834,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "label": "Independent TexasDefined Panther-green-inspired accent; no official school logo or intellectual-property claim"
     },
     "seo": {
-      "title": "Blanco Panthers Football 2026 | 2001 State Champions, Stadium & Results",
+      "title": "Blanco Panthers Football 2026 | 2001 State Title & Stadium",
       "description": "Blanco Panthers football: 2001 UIL state title, 2026 District 15, 5–3 through October 16 and official Panther Stadium visitor guidance."
     },
     "coach": {
@@ -1034,7 +1034,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "label": "Independent gold editorial accent (school colors black and gold); no official mascot or logo reproduced"
     },
     "seo": {
-      "title": "Blanket Tigers Six-Man Football 2026 | District 12, 4–3 Results & Game Guide",
+      "title": "Blanket Tigers Six-Man Football 2026 | Scores & District 12",
       "description": "Blanket Tigers six-man football in Brown County: UIL 2026 District 12, locally reported 4–3 through October 8, head coach Jalen Helms and school contacts."
     },
     "coach": {
@@ -1210,7 +1210,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "label": "Independent gold editorial accent; no licensed team artwork or crest reproduced"
     },
     "seo": {
-      "title": "Blooming Grove Lions Football 2026 | Coach Sherrill, District & Lion Stadium",
+      "title": "Blooming Grove Lions Football 2026 | Scores & Lion Stadium",
       "description": "Blooming Grove Lions 2026 football: head coach Kevin Sherrill, UIL 3A Division II District 11, 0–7 through October 16 and official campus visitor contact."
     },
     "coach": {
@@ -1388,7 +1388,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "label": "Independent Bobcats burgundy editorial accent; district-owned logos/photographs not reproduced"
     },
     "seo": {
-      "title": "Bloomington Bobcats Football 2026 | District 15, Shiner Result & Stadium Tickets",
+      "title": "Bloomington Bobcats Football 2026 | Scores & Stadium Tickets",
       "description": "Bloomington Bobcats in Victoria County: UIL 2A Division I District 15, 3–5 through October 16, school contacts and Bobcat Stadium ticketing sources."
     },
     "coach": {
@@ -1596,7 +1596,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "label": "Original school-inspired editorial accent only; no reproduced crest, official artwork or team photograph"
     },
     "seo": {
-      "title": "Blue Ridge Tigers Football 2026 | Coach Russell, District 7 & Tiger Stadium",
+      "title": "Blue Ridge Tigers Football 2026 | Scores & Tiger Stadium",
       "description": "Blue Ridge Texas Tigers football: UIL 2026 3A Division II District 7, officially identified coach Jason Russell, 3–5 through October 16, Tiger Stadium and schedules."
     },
     "coach": {
@@ -1769,7 +1769,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "label": "Independent forest-green editorial accent; no school marks, copyrighted photographs or official logos reused"
     },
     "seo": {
-      "title": "Bluff Dale Bobcats Six-Man Football 2026 | UIL District 11, Scores & School Guide",
+      "title": "Bluff Dale Bobcats Six-Man Football 2026 | Scores & District 11",
       "description": "Bluff Dale Bobcats football in Erath County: official 2026 six-man Division I District 11, source-checked results through October 15, coach and school contacts."
     },
     "coach": {
@@ -1946,7 +1946,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "label": "Independent green accent; no copied Blum Bobcats official logo or licensed photography"
     },
     "seo": {
-      "title": "Blum Bobcats Six-Man Football: 2019 UIL Champions, 2026 District 11 & Game Guide",
+      "title": "Blum Bobcats Six-Man Football 2026 | 2019 UIL Title & Scores",
       "description": "Blum Bobcats six-man football: 2019 UIL state champions, 2026 District 11, reported 2–6 after Avalon win 66–60, and official Blum ISD football contacts."
     },
     "coach": {
@@ -2335,7 +2335,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "label": "Independent editorial Charger-blue accent; Champion ISD official branding not reproduced"
     },
     "seo": {
-      "title": "Boerne Champion Chargers Football 2026 | Coach, UIL District & Game-Day Guide",
+      "title": "Boerne Champion Chargers Football 2026 | Scores & Stadium",
       "description": "Boerne Champion Chargers football: 2026 UIL 5A Division I District 13, 7–0 through October 16, Blane Ellis, official Boerne ISD Stadium tickets and 2025 postseason."
     },
     "coach": {
@@ -2528,7 +2528,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "label": "Independent Rebels maroon editorial accent; district marks and photos not reproduced"
     },
     "seo": {
-      "title": "Bogata Rivercrest Rebels Football 2026 | District, Scores & Visitor Guide",
+      "title": "Bogata Rivercrest Rebels Football 2026 | Scores & District",
       "description": "Rivercrest Rebels football: 2026 UIL 2A Division I District 9, 4–4 through October 16, Wolfe City overtime win, schedules and school contacts."
     },
     "campus": {
@@ -2888,7 +2888,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "label": "Independent purple editorial color, not an official Bonham ISD trademark or logo"
     },
     "seo": {
-      "title": "Bonham Purple Warriors Football 2026 | Ford, Warrior Stadium & UIL District",
+      "title": "Bonham Warriors Football 2026 | Coach Ford & Warrior Stadium",
       "description": "Bonham Warriors football in Fannin County: coach Aaron Ford, UIL 4A Division II District 7, 2026 scores through October 16, school contacts and Warrior Stadium guidance."
     },
     "coach": {
@@ -3283,7 +3283,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "label": "Independent Coyote-red editorial accent; no school-owned crest or historic image reproduced"
     },
     "seo": {
-      "title": "Borden County Coyotes Football 2026 | Five UIL Titles & Six-Man District 5",
+      "title": "Borden County Coyotes Football 2026 | Five UIL Titles & Scores",
       "description": "Gail Borden County Coyotes: five UIL six-man state championships, 2026 Division I District 5, 7–0 through October 16 and official visitor contacts."
     },
     "coach": {
@@ -3845,7 +3845,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "label": "Independent editorial accent; no district crest, school logo or photo copied"
     },
     "seo": {
-      "title": "Bovina Mustangs Football 2026 | UIL 2A Division II District 1 Scores, History & Guide",
+      "title": "Bovina Mustangs Football 2026 | 2A DII District 1 & Scores",
       "description": "Bovina Mustangs Texas football: 2026 2A Division II District 1, dated season results, Parmer County campus, school-specific program history and contact guidance."
     },
     "coach": {
@@ -4014,7 +4014,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "label": "Independent editorial accent; no district crest, school logo or photo copied"
     },
     "seo": {
-      "title": "Bowie Jackrabbits Football 2026 | UIL 3A Division I District 4 Scores, History & Guide",
+      "title": "Bowie Jackrabbits Football 2026 | 3A DI District 4 Scores",
       "description": "Bowie Jackrabbits Texas football: 2026 3A Division I District 4, dated season results, Montague County campus, school-specific program history and contact guidance."
     },
     "campus": {
@@ -4180,7 +4180,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "label": "Independent editorial accent; no district crest, school logo or photo copied"
     },
     "seo": {
-      "title": "Gold-Burg Bears Football 2026 | UIL 1A Division II District 10 Scores, History & Guide",
+      "title": "Gold-Burg Bears Six-Man Football 2026 | District 10 & Scores",
       "description": "Gold-Burg Bears Texas football: 2026 1A Division II District 10, dated season results, Montague County campus, school-specific program history and contact guidance."
     },
     "coach": {
@@ -4355,7 +4355,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "label": "Independent editorial accent; no district crest, school logo or photo copied"
     },
     "seo": {
-      "title": "Boyd Yellowjackets Football 2026 | UIL 3A Division I District 4 Scores, History & Guide",
+      "title": "Boyd Yellowjackets Football 2026 | 3A DI District 4 Scores",
       "description": "Boyd Yellowjackets Texas football: 2026 3A Division I District 4, dated season results, Wise County campus, school-specific program history and contact guidance."
     },
     "coach": {
