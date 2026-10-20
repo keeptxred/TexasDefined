@@ -11,13 +11,18 @@ import type { CategorySlug } from "@/data/types";
 import { unusualBusinessAnalyticsAttributes } from "@/lib/unusual-business-analytics";
 
 const WaterTowersPage = lazy(() => import("@/components/explore/WaterTowersPage").then((module) => ({ default: module.WaterTowersPage })));
+const CuratedTourismPage = lazy(() => import("@/components/explore/CuratedTourismPage").then((module) => ({ default: module.CuratedTourismPage })));
 const COMPARISON_CATEGORIES = new Set<ExploreComparisonKind>(['state-parks', 'lakes-rivers', 'small-towns', 'road-trips']);
 const PAINTED_CHURCH_CROSS_LINK_CATEGORIES = new Set(['historic-sites', 'road-trips', 'small-towns']);
 
 export const Route = createLazyFileRoute("/explore/$category")({ component: ExploreCategoryPage, notFoundComponent: CategoryNotFound });
 
 function ExploreCategoryPage() {
-  const { destinations, authorityHtml } = Route.useLoaderData();
+  const loaderData = Route.useLoaderData();
+  if ("curated" in loaderData && loaderData.curated && "existing" in loaderData && loaderData.existing) {
+    return <Suspense fallback={<Container className="py-24"><p className="eyebrow text-primary">Loading curated Texas destinations…</p></Container>}><CuratedTourismPage collection={loaderData.curated} existing={loaderData.existing} /></Suspense>;
+  }
+  const { destinations, authorityHtml } = loaderData;
   const { category: match } = Route.useLoaderData();
   if (match.slug === "water-towers") {
     return <Suspense fallback={<Container className="py-24"><p className="eyebrow text-primary">Loading roadside guide…</p></Container>}><WaterTowersPage /></Suspense>;
