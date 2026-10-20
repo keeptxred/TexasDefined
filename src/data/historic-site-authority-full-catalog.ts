@@ -700,7 +700,6 @@ export function enrichFullHistoricSiteAuthority(destination: Destination): Desti
     sources: authoritySources(seed.officialUrl, seed.name),
   };
 
-  const operatorVisit = OPERATOR_RESEARCH_VISIT_NOTES[seed.slug];
   return {
     ...destination,
     authorityGuide: guide,
