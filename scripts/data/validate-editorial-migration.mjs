@@ -68,7 +68,7 @@ for (const marker of [
   'hero: homeClosingHero',
   'hero: salaryAffordabilityHero',
 ]) if (!lazyMigrated.includes(marker)) errors.push(`Finance catalog hero mismatch: ${marker}`);
-const financePhotoMedia = read("src/data/fixtures/texas-home-finance-media.ts");
+const financePhotoMedia = fs.readFileSync("src/data/fixtures/texas-home-finance-media.ts", "utf8");
 for (const marker of [
   'export const homeClosingHero: Article["hero"]',
   'export const salaryAffordabilityHero: Article["hero"]',
