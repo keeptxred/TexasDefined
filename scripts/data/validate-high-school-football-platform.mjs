@@ -7,6 +7,9 @@ const errors = [];
 const requireText = (source, marker, label) => {
   if (!source.includes(marker)) errors.push(`${label} missing: ${marker}`);
 };
+const forbidText = (source, marker, label) => {
+  if (source.includes(marker)) errors.push(`${label} must not include retired copy: ${marker}`);
+};
 
 const files = [
   'src/data/high-school-football/uil-football-alignments-2026.server.ts',
@@ -936,6 +939,10 @@ if (!errors.length) {
     'Browse all 192 current UIL football districts',
     'Search all 1,268 UIL programs',
   ]) requireText(footballDistrictIndexPage, marker, 'Football district directory page');
+
+  forbidText(footballDistrictIndexPage, 'research profile', 'Football district directory page');
+  forbidText(classificationGuide, 'research profile', 'Football classifications guide');
+  forbidText(footballChampionshipPage, 'research profile', 'Football championship history page');
 
   for (const marker of [
     "createFileRoute('/texas-high-school-football-districts/$slug')",
