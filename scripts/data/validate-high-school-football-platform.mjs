@@ -60,6 +60,7 @@ const footballCalendarGuidePath = 'src/data/fixtures/texas-high-school-football-
 const evergreenRegistryPath = 'src/data/fixtures/lazy-standalone-evergreen.ts';
 const obsoleteSeedListComponentPath = 'src/components/sports/FeaturedFootballResearchList.tsx';
 const productionSmokePath = 'scripts/ci/verify-friday-night-lights-production.mjs';
+const footballAuthorityRegistryPath = 'docs/football-authority/REGISTRY.json';
 const legacyMetadataFiles = [
   'src/data/high-school-football/featured-programs.ts',
   'src/data/high-school-football/school-identities.ts',
@@ -111,6 +112,7 @@ for (const file of [
   footballCalendarGuidePath,
   evergreenRegistryPath,
   productionSmokePath,
+  footballAuthorityRegistryPath,
   ...legacyMetadataFiles,
 ]) {
   if (!fs.existsSync(path.join(root, file))) errors.push(`Missing high-school football platform file: ${file}`);
@@ -171,8 +173,24 @@ if (!errors.length) {
   const footballCalendarGuide = read(footballCalendarGuidePath);
   const evergreenRegistry = read(evergreenRegistryPath);
   const productionSmoke = read(productionSmokePath);
+  const footballAuthorityRegistry = JSON.parse(read(footballAuthorityRegistryPath));
   const legacyProgramMetadata = read(legacyMetadataFiles[0]);
   const schoolIdentities = read(legacyMetadataFiles[1]);
+  const verifiedIdentitySlugs = new Set(
+    [...schoolIdentities.matchAll(/slug:\s*['"]([^'"]+)['"]/g)].map((match) => match[1]),
+  );
+  const researchedFootballRecords = footballAuthorityRegistry.schoolRecords.filter((record) =>
+    ['VERIFIED', 'DEPLOYED', 'MERGED', 'IMPLEMENTED'].includes(record.status),
+  );
+  const researchedProgramsMissingVerifiedIdentity = researchedFootballRecords
+    .filter((record) => !verifiedIdentitySlugs.has(record.slug))
+    .map((record) => record.slug)
+    .sort();
+  if (researchedProgramsMissingVerifiedIdentity.length) {
+    errors.push(
+      `Researched/deployed football programs missing verified mascot identity records: ${researchedProgramsMissingVerifiedIdentity.join(', ')}`,
+    );
+  }
   const featuredProfileLoader = read(legacyMetadataFiles[2]);
   const featuredProfileRoute = read(legacyMetadataFiles[3]);
   const featuredProfilePage = read(legacyMetadataFiles[4]);
