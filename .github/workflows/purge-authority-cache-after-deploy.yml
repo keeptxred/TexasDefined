@@ -55,8 +55,8 @@ jobs:
           if jq -e --argjson original "$TRIGGERING_DEPLOY_RUN_ID" '
             [.workflow_runs[]
               | select(.name == "Deploy TexasDefined production")
-              | select(.id > $original)
-              | select(.status != "completed" or .conclusion == "success")
+              | select((.id > $original and (.status != "completed" or .conclusion == "success"))
+                or (.id == $original and .status != "completed"))
             ] | length > 0
           ' <<<"$response" >/dev/null; then
             echo "skip=true" >> "$GITHUB_OUTPUT"
