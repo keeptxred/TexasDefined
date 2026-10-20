@@ -136,7 +136,7 @@ try {
       hasTouch: viewport.isMobile,
       deviceScaleFactor: 1,
     });
-    await context.route(/(google-analytics|googletagmanager|connect\\.facebook\\.net|facebook\\.com\\/tr|\\/api\\/analytics|\\/api\\/track)/i, route => route.abort());
+    await context.route(/(google-analytics|googletagmanager|connect\.facebook\.net|facebook\.com\/tr|\/api\/analytics|\/api\/track)/i, route => route.abort());
     const page = await context.newPage();
     try {
       const response = await page.goto(origin + "/article/hill-country-fall-colors?foliage_browser_qa=" + (process.env.GITHUB_SHA || "manual").slice(0, 12), { waitUntil: "domcontentloaded", timeout: 45000 });
