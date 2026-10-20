@@ -7,8 +7,11 @@ function NetworkDirectory() {
   const {profiles} = Route.useLoaderData();
   const [query, setQuery] = useState("");
   useEffect(() => setQuery(new URLSearchParams(window.location.search).get("q") || ""), []);
+  // Sponsored placement changes only directory ordering, never the
+  // editorially published filter or matching search results.
   const results = profiles.filter(profile => [profile.business_name, profile.category, profile.city, profile.description]
-    .some(value => String(value || "").toLowerCase().includes(query.trim().toLowerCase())));
+    .some(value => String(value || "").toLowerCase().includes(query.trim().toLowerCase())))
+    .sort((left,right)=>Number(right.plan==='featured')-Number(left.plan==='featured'));
   const submitSearch = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     window.history.replaceState(null, "", "/network/directory?q=" + encodeURIComponent(query.trim()));
@@ -29,6 +32,7 @@ function NetworkDirectory() {
       {results.length === 0 ? <p className="text-muted-foreground">Verified network listings will appear here as they are approved.</p> :
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {results.map(profile => <article key={profile.slug} className="rounded-2xl border border-border bg-surface p-6">
+          {profile.plan==='featured'&&<p className="mb-3 text-xs font-semibold uppercase tracking-wider text-primary">Sponsored · Featured listing</p>}
           <p className="text-xs font-semibold uppercase tracking-wider text-primary">{profile.city} · {profile.category}</p>
           <h2 className="mt-3 font-display text-2xl">{profile.business_name}</h2>
           <p className="mt-3 line-clamp-3 text-sm leading-6 text-muted-foreground">{profile.description}</p>

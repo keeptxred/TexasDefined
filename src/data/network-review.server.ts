@@ -43,8 +43,15 @@ export async function listNetworkApplications(accessKey: string) {
   return { applications: enriched, generatedAt: new Date().toISOString() };
 }
 
+async function assertNetworkUnifiedLaunch():Promise<void>{
+ const {networkCustomerLaunchArmed}=await import('./network-atomic-launch-readiness.server.ts');
+ if(!networkCustomerLaunchArmed(process.env))
+  throw Error('Network full customer launch has not passed acceptance');
+}
+
 export async function setNetworkApplicationReview(accessKey:string,id:string,action:'approve'|'reject'|'reopen'){
  await assertNetworkAdminAccess(accessKey);
+ await assertNetworkUnifiedLaunch();
  const {data:current,error:lookupError}=await supabaseAdmin
   .from('texasdefined_network_applications')
   .select('id,status,intake_complete').eq('id',id).single();
@@ -88,6 +95,7 @@ export async function listNetworkRevisions(accessKey:string) {
 }
 export async function reviewNetworkRevision(accessKey:string,id:string,decision:'approve'|'reject') {
  await assertNetworkAdminAccess(accessKey);
+ await assertNetworkUnifiedLaunch();
  if(decision==='approve'&&process.env.NETWORK_PUBLICATION_ENABLED!=='true')
   throw Error('Network profile publication is not activated.');
  if(decision==='reject'){
@@ -163,6 +171,7 @@ export async function unpublishNetworkListing(accessKey:string,id:string){
 
 export async function publishApprovedNetworkListing(accessKey:string,id:string) {
  await assertNetworkAdminAccess(accessKey);
+ await assertNetworkUnifiedLaunch();
  if(process.env.NETWORK_PUBLICATION_ENABLED!=='true')throw Error('Network publication has not been activated.');
  const {data:app,error}=await supabaseAdmin.from('texasdefined_network_applications')
    .select('id,status,plan,business_name,category,description,city,address,phone,hours,website,social,services,faq,offer,logo_storage_path,gallery_storage_paths,paid_entitlement_active')
@@ -222,6 +231,7 @@ export async function provisionReviewedNetworkOwner(
  evidenceReference:string, reviewerLabel:string,
 ) {
  await assertNetworkAdminAccess(accessKey);
+ await assertNetworkUnifiedLaunch();
  if(!ownershipVerified)throw Error('Independent business ownership verification is mandatory');
  if(evidenceReference.trim().length<20||evidenceReference.trim().length>500||
    reviewerLabel.trim().length<3||reviewerLabel.trim().length>100)

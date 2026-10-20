@@ -61,7 +61,7 @@
 
 :root {
   --radius: 0.25rem;
-  --font-family-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
+  --font-family-display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
   --font-family-sans: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   --background: oklch(0.977 0.011 85);
   --foreground: oklch(0.268 0.028 52);

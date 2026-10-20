@@ -107,3 +107,37 @@ Data anticipated: contact/business information, owner Auth identity, proof-of-ow
 | Discovery | Only editorially approved and separately published listings indexable after launch authorization; private drafts/verification NEVER indexed; label paid promotion | Approve sponsor/featured disclosure and indexing launch timing |
 
 **Owner response required:** Mark each row `APPROVE` / `AMEND: …` / `DEFER`, assign exact Featured price or leave Featured disabled, and confirm whether sole-admin release permissions (SQL, staging, test mail, merge, live billing, indexing) are each individually granted. Absence of a response is **not** approval. Security revocation, hosted provider testing, and legal review remain release blockers regardless of commercial decisions.
+
+
+## Proposed Featured monthly price — 2026-10-11 continuation (NOT OWNER-APPROVED)
+
+**Proposed launch price: $49.95/month (USD).** The alternative $79.95/month should **not** be charged or advertised as the default at the initial Network launch unless the sole owner separately chooses it and the product demonstrably provides higher-value recurring distribution. This is a planning recommendation, **not** authorization to create a live Stripe price or charge anyone.
+
+**Existing verified Plus price:** $19.99/month, not $19.95. Do not silently change the existing customer price, price ID, or renewal disclosure. Basic remains free.
+
+**Featured's intended non-negotiable distinction from Plus, requiring real staged acceptance:**
+- All Plus fields, contact options, FAQ, gallery, and verified listing insights.
+- Expanded **Feature-tier** performance reporting with daily views, contact-channel breakdown and seven-day comparisons; no claims about unique people, leads, bookings or sales.
+- Independently reviewed owner-submitted revisions/media. Existing six-photo public gallery ceiling and revision-asset quota cannot be marketed as an enlarged published photo gallery until code, editorial processes and stage proof actually provide that benefit.
+- If sold as paid sponsored directory placement, it needs a real, repeatably testable, clearly labeled sponsored surface and eligibility rules, with no editorial-ranking or traffic guarantee.
+- Sponsored stories/extra promotions remain separately scoped and priced services; they are **not** automatically included in $49.95 membership unless the sole owner approves capacity and deliverables.
+
+**Currently missing:** Featured recurring Stripe product/price, owner-bound upgrade/Checkout/portal flow, invoice and entitlement reconciliation separate from Plus, final disclosure, tested downgrade/revocation behavior, real two-owner hosting/browser evidence, finalized sponsorship inventory. The present source only supports $19.99 Plus self-service and an administrator-managed Featured capability; it must not advertise the proposed $49.95 as already purchasable.
+
+**Owner decision remains required:** Explicitly approve $49.95 versus $79.95, term, taxes, refunds, cancellation, sponsorship allocation and included benefits. No unapproved public listing copy, automatic billing or production activation.
+
+
+## Hosted business-page positioning — proposed owner review
+
+**Customer need:** A small Texas business without an existing website can have a shareable **TexasDefined-hosted business page**, with no separate hosting account or hosting charge for that page. An existing website is not required to join. The page remains on a `texasdefined.com/network/business/...` URL and is reviewed before public indexing.
+
+**Terminology/limits:** Do **not** call this a standalone free business website. Basic provides a free hosted **listing**; Plus and Featured are billed for enhancements to their hosted profiles. The service currently does not provide a custom domain, customer-controlled site builder, arbitrary extra pages, hosting business email, ecommerce, booking/checkout for the listed business, or guaranteed Google rankings/traffic. Custom domain and website ownership are not conveyed.
+
+**Price/value decision:** $79.95/month is defensible only for a genuinely more complete and managed business-web-presence service—e.g. professional setup, supported owner revisions, robust pages/sections, managed content and tested premium promotion. It is **not defensible merely by claiming the business avoids an inexpensive hosting bill**, because Google offers a free Business Profile and independent website builders offer hosting at much lower prices. The existing $49.95 proposal remains unapproved; owner may approve $49.95 for the current sponsored hosted-profile service, or direct construction of a distinct fully functioning $79.95 managed web-presence offer. Do not silently set $79.95 as a live Stripe price, charge an owner, or promise a full website until implemented and independently accepted.
+
+**Safe draft wording:** "Don't have a website? Your approved TexasDefined business page gives you an online home to share. We host your page on TexasDefined, so there's no extra hosting bill for this page. It's not a standalone custom-domain website."
+
+
+## Four-tier Website expansion — supersedes prior $49.95 versus $79.95 either/or discussion
+
+The owner proposed **both** plans: Basic Free, Plus $19.99/month, Featured $49.95/month, and separate Website $79.95/month. This **replaces the earlier mutually exclusive either/or pricing discussion** while leaving all pricing and final commercial terms unapproved. The Website plan is an **actual limited five-page hosted microsite**, **not** simply priority placement and **not yet implemented or billable**. Apply `docs/network/FOUR_TIER_HOSTED_WEBSITE_LAUNCH_CONTRACT_2026-10-11.md` as the scope-and-acceptance proposal. The all-or-nothing release gate now includes `hostedWebsiteDelivered`; no production launch with an advertised but unavailable Website tier. No live Stripe price, production SQL, hosted stage or external email was created in this draft.

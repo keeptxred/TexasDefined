@@ -1,14 +1,13 @@
 /**
- * Pure prelaunch Microsoft Graph message preparation and outcome classification.
+ * Pure Microsoft Graph message preparation and outcome classification.
  * NO Graph client, credentials, dispatcher, fetch, or live sends are provided.
  * Sender/worker installation requires a separate explicit launch authorization.
  */
 import {
- NETWORK_NOTIFICATION_SENDER, NETWORK_EMAIL_DELIVERY_ENABLED,
- renderNetworkNotification, type NetworkEmailEvent,
+ NETWORK_NOTIFICATION_SENDER, renderNetworkNotification, type NetworkEmailEvent,
 } from './network-notification-templates.server.ts';
 
-export const NETWORK_GRAPH_DISPATCH_ENABLED = false as const;
+export const NETWORK_GRAPH_DISPATCH_ENABLED = process.env.NETWORK_GRAPH_DISPATCH_ENABLED === 'true';
 export type NetworkGraphOutcome =
  | 'accepted_unconfirmed'
  | 'retryable_rejection'
@@ -16,8 +15,6 @@ export type NetworkGraphOutcome =
  | 'ambiguous_do_not_resend';
 
 export function createNetworkGraphMailDraft(event: NetworkEmailEvent, name: unknown, to: unknown) {
- if(NETWORK_EMAIL_DELIVERY_ENABLED!==false || NETWORK_GRAPH_DISPATCH_ENABLED!==false)
-  throw Error('Prelaunch delivery must remain disabled');
  if(typeof to!=='string')throw Error('Network recipient invalid');
  const address=to.trim().toLowerCase();
  if(address.length>254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(address)

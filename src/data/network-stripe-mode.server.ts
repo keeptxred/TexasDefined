@@ -43,7 +43,12 @@ export function networkStripeExpectedLivemode():boolean|null {
  return config&&!config.livemode?false:null;
 }
 export function networkStripeWebhookSecret():string|null {
- if((process.env.NETWORK_STRIPE_MODE||'live')==='live')return process.env.STRIPE_WEBHOOK_SECRET||null;
+ if((process.env.NETWORK_STRIPE_MODE||'live')==='live'){
+  // Each webhook endpoint has its OWN Stripe signing secret.
+  // A generic legacy service webhook key must never authorize Network events.
+  const dedicated=process.env.NETWORK_STRIPE_WEBHOOK_SECRET||'';
+  return dedicated.startsWith('whsec_')?dedicated:null;
+ }
  if(!getNetworkStripeRuntime())return null;
  const secret=process.env.NETWORK_STRIPE_TEST_WEBHOOK_SECRET||'';
  return secret.startsWith('whsec_')?secret:null;

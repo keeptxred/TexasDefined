@@ -1,0 +1,50 @@
+> **SUPERSEDED October 12, 2026.** The prior bundled advertising-plus-website prices and one-page Business Presence plan in this historical draft are **not** the current direction. See [Independent advertising and website hosting](INDEPENDENT_ADVERTISING_AND_HOSTING_2026-10-12.md). Do not implement prices or bundled entitlements from this file.
+
+# TexasDefined Business Network — Four-tier hosted Business Presence launch contract
+
+**State:** Engineering proposal, October 11, 2026. Not approved commercial terms, not customer-facing production acceptance, and **not an implemented website**. PR #4660 is unmerged. The sole TexasDefined administrator retains final authority over pricing, terms and production release. The Network launches only once, with all four plans independently tested and operational.
+
+## Commercial architecture — owner direction, October 11, 2026
+
+| Plan | Monthly price | Intended value |
+| --- | ---: | --- |
+| Basic | Free | Reviewed TexasDefined business listing with identity, hours, description, location/service area and phone |
+| Plus | $19.99 (existing Stripe live price) | Expanded profile, services/photos/FAQs, links and basic aggregate contact and visitor statistics |
+| Featured | $49.95 (proposed; no checkout or entitlement yet) | Plus, transparently labeled sponsored directory position, reviewed owner updates and enhanced aggregate statistics |
+| **Business Presence** | **$79.99 (approved pricing direction; no checkout yet)** | Everything in Featured plus a polished **single TexasDefined-branded business page** generated from a self-service business information form with a logo, up to 12 photos and unlimited self-service content editing subject to safe publication controls |
+
+**Customer setup fee: $0.** This is a hosted TexasDefined **network presence**, not an independent standalone website, custom-domain hosting service or manual design agency. There is no two-content-edits-per-month limit. Self-service edits may be unlimited in frequency, while atomic asset quotas, safe content validation, ownership checks, rate limits and editorial publication safeguards remain necessary. An authorized representative can preview submitted information before it is approved for publication. Changes must not bypass quality or privacy checks.
+
+**Optional add-ons — not included, not billable, and not yet implemented:**
+- Standard domain registration and HTTPS URL forwarding to the canonical TexasDefined page, target $39.99 per year subject to availability and actual renewal/registrar quotes. Domain forwarding does not require separately hosted customer sites or substitute for branded DNS email records. Premium names require their own disclosed price.
+- Recognized-provider professional business email (currently evaluating Microsoft Exchange Online through authorized reseller/distributor) at an **illustrative** $6.99 per mailbox/month. No provider partnership, resale qualification, price, API access, or mailbox purchase has been confirmed. No promise of provisioning or checkout until actual terms and delivery are validated.
+- Both add-ons are separately selected, never prechecked or silently bundled; no separate setup fee. Domain registrant and portability rights, refund/renewal and transferable Microsoft tenant rights require owner-approved terms.
+
+## Business Presence tier boundaries
+
+1. **One canonical, editorially approved, shareable company URL on texasdefined.com** (business-specific slug). Approved components can include company story, services, hours, gallery, FAQs, contact links and calls to action. Not five separate pages, no outside site builder, no editing access to TexasDefined global site branding. Unified templates and existing directory/search/Explore placement remain within TexasDefined.
+2. **Automated owner form and page preview**, with verified account and business ownership. Owner enters facts, uploads a logo and up to 12 approved photos (limits applied atomically), and a consistent, mobile-friendly template renders the presence without manual bespoke design work.
+3. **Unlimited self-service content changes** (not unlimited images/storage/requests per second). Owners edit their own details, preview, submit and see validation/review state in their portal. Owner and editorial controls ensure only valid, approved, paid-plan content is publicly rendered; safe routine changes may be fast tracked after real operational verification.
+4. **SEO and accessibility:** canonical URL, entity-backed structured data, published-only sitemap, real 404/unpublished safety, semantic content, accessible image descriptions and mobile-first quality. Indexability means eligibility, not a guarantee of Google/Bing discovery or traffic. Listings can appear only in genuinely relevant city/county/Explore/search placements; no paid organic-ranking promises. Sponsored placements are labeled.
+5. **Subscription and portability:** no initial setup fee; Stripe plans remain independent. Customer has rights to original submitted content. Define cancellation, export, secure deletion and domain/email portable ownership through approved policies. Domain and email are optional, separate charges and must not be routed into the existing Plus-only checkout.
+6. **Service scope:** all site features are hosted within TexasDefined. No custom-domain hosting as a separate standalone website, customer email inbox operated by TexasDefined, unlimited storage, web store, booking engine, outside advertising, promised search-engine rankings or unbounded human support.
+
+## Non-negotiable system architecture before accepting a Business Presence subscriber
+
+- **Verified owner + editorial gate:** use the existing single-admin approval and independently verified business identity; two separate authenticated synthetic business owners must be tested. Private drafts and unverified owners never become publicly readable.
+- **Distinct tier and subscription:** add a versioned pending schema migration supporting `website` in application, owner and published plan policies, with secure verified transitions. Add independent $79.99 live/test Stripe products/prices, Checkout, Billing Portal, webhook price checks, idempotency, invoice/customer identity, failed-payment suspension, upgrade/downgrade and termination handling. Preserve the existing Plus $19.99 and proposed Featured $49.95 as separate entitlements. Never coerce a Business Presence subscription into Plus or issue its benefits based on client-input plan strings.
+- **Actual site storage/render:** a versioned, RLS-protected business-presence record with owner-only drafts, independently reviewed publication, immutable media references and atomic quotas, no arbitrary HTML/JS execution, and a single published canonical URL at a stable TexasDefined business slug. Test photo quota concurrency, edits, stale revisions, rejected unknown business slugs and unpublished visibility. Do not create a separate five-page site or page-per-section architecture.
+- **Reporting:** per-business anonymous aggregate page/display and contact actions with truthful counting; customer-only authorization, explicit tier reporting, defined 35-day retention and scheduled deletion. No persisted IP, device ID, visitor identity, raw browsing history or owner email in metrics.
+- **Operational safety:** scoped Graph messages, mailbox restrictions and independently confirmed delivery; payment/owner revocation immediately stops unreviewed page visibility; emergency unpublish must remain available. Hosted stage stays separate from production; never create billable branches without express permission.
+
+**Staging isolation:** Use a separate staging Supabase project (never the existing production project), a nonproduction Workers hostname, synthetic authenticated owners, Stripe test-mode billing and the controlled administrator mail sink. Do not provision a chargeable stage without explicit cost approval.
+
+## One-launch acceptance and evidence
+
+**A new fifteenth category, `hostedBusiness PresenceDelivered`, is added to `NETWORK_LAUNCH_EVIDENCE_KEYS`.** It must be supported by real two-owner staging/browser/database/Stripe evidence in addition to the existing fourteen categories. Do not mark this category passed based on CI, mocked fixtures, a pretty screenshot, a UI price card, a manually invented reference or a provider-free prototype.
+
+Minimum independently verifiable proof: all four tier application/onboarding journeys; a published templated Business Presence with accessible desktop/mobile content, media caps and unlimited owner edits; approved versus unapproved content visibility; two-owner RLS/Auth/Storage isolation; correct published-only SEO/sitemap and staging noindex; separate Stripe test-mode $49.95/$79.99 billing and rebinding/failure/recovery/cancellation; genuine Graph and Cron delivery; rollback and content portability; reviewed tax/refund/renewal terms; sole-owner final acceptance. The underlying fourteen launch categories remain fully binding.
+
+**Production release rule:** Do not merge or deploy the complete Network until the full Business Presence experience, Featured, Plus, Basic, provider flows, and all fifteen evidence categories pass on one exact reconciled commit. Do not solve incomplete Business Presence features by leaving the tier disabled in the final release. Until then, a **planned/pricing-inquiry** description in an unmerged draft is not a functioning service or authorization to charge.
+
+**Owner directions settled:** $79.99/month; $0 setup fee; one branded business page, self-service unlimited editing frequency with bounded storage; $39.99/year standard-domain target and provisional ~$6.99/month Microsoft mailbox estimate. **Still to be finalized:** business-name product title, detailed photo size constraints, contact-form scope, cancellation and data export, tax treatment, content-licensing terms, domain/email supplier quotes, permitted categories, sponsor placement policy, and final acceptance of the functioning system.

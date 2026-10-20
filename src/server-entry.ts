@@ -97,15 +97,117 @@ function withWorkerVersionHeader(response: Response, env: unknown) {
   });
 }
 
+/**
+ * Complete or bounded-cancel a rejected Network POST body before a 503/429.
+ * On Workers/Miniflare an unread request stream can poison the proxy bridge,
+ * causing unrelated later requests to fail despite a correctly returned 503.
+ * Do not read arbitrary uploads into RAM; 64 KiB is a strict maximum.
+ */
+async function drainRejectedNetworkPost(request:Request):Promise<void>{
+ if(request.method!=='POST'||!request.body)return;
+ const reader=request.body.getReader();
+ let size=0;
+ try{
+  while(true){
+   const next=await reader.read();
+   if(next.done)return;
+   size+=next.value.byteLength;
+   if(size>65536){await reader.cancel();return}
+  }
+ }catch{try{await reader.cancel()}catch{}}
+}
+
 export default {
+  async scheduled(_event: unknown, env: unknown, ctx: {waitUntil?: (promise: Promise<unknown>) => void}) {
+    // Cron is not exposed over HTTP; the complete Network release must be
+    // explicitly armed before any notification is claimed or sent.
+    const run=async()=>{
+      // Reporting maintenance is independent of Microsoft Graph. No failed
+      // mailbox scope or token acquisition may prevent bounded expiration of
+      // 35-day private business counter history.
+      const scopedEnv=env as Record<string,string|undefined>;
+      const {networkCustomerLaunchArmed}=await import("./data/network-atomic-launch-readiness.server");
+      if(networkCustomerLaunchArmed(scopedEnv)){
+        try{
+          const {supabaseAdmin}=await import("./integrations/supabase/client.server");
+          const db=supabaseAdmin as unknown as {rpc:(name:string)=>
+            Promise<{data:unknown;error:unknown}>};
+          const pruning=await db.rpc("prune_texasdefined_network_profile_metrics");
+          if(pruning.error || typeof pruning.data!=="number" ||
+             !Number.isInteger(pruning.data)||pruning.data<0||pruning.data>5000)
+             throw Error("Network aggregate retention RPC failed");
+          if(pruning.data)console.info("[network-cron] expired aggregate metric rows",pruning.data);
+        }catch{
+          // Fail loudly but do NOT hold customer notification reconciliation
+          // hostage to the independent metrics cleanup operation.
+          console.error("[network-cron] private aggregate retention failed; operator verification needed");
+        }
+      }
+      const {runNetworkNotificationCronOnWorker}=await import("./data/network-notification-cron.server");
+      const result=await runNetworkNotificationCronOnWorker(
+        env as Record<string,string|undefined>,
+      );
+      if(result)console.info("[network-cron] processed",{
+        claimed:result.claimed,verified:result.verified,
+        unconfirmed:result.unconfirmed,rejected:result.rejected,
+      });
+    };
+    const operation=run().catch(()=>{
+      console.error("[network-cron] provider or claim operation failed; no automatic resend");
+      throw Error("Network notification scheduled job did not complete");
+    });
+    if(typeof ctx?.waitUntil==='function')ctx.waitUntil(operation);
+    else await operation;
+  },
   async fetch(request: Request, env: unknown, ctx: unknown) {
+    // Validate the ACTUAL host before ANY dynamic handler, including TanStack
+    // server-function RPCs whose paths do not identify their Network origin.
+    // Staging configuration inadvertently deployed on texasdefined.com must
+    // fail closed for all requests, not just visibly named Network routes.
+    const customerPath=new URL(request.url).pathname;
+    if(env && typeof env==='object' &&
+       Reflect.get(env,"NETWORK_ISOLATED_STAGING")==="true"){
+      const {networkRequestHostAllowed}=await import("./data/network-atomic-launch-readiness.server");
+      if(!networkRequestHostAllowed(env as Record<string,string|undefined>,request.url)){
+        await drainRejectedNetworkPost(request);
+        return new Response("Isolated Network staging origin mismatch",{status:503,
+          headers:{"Cache-Control":"no-store"}});
+      }
+    }
+    if(customerPath.startsWith("/api/public/network-")
+      &&customerPath!=="/api/public/network-billing"
+      &&customerPath!=="/api/public/network-checkout"){
+      const {networkCustomerLaunchArmed}=await import("./data/network-atomic-launch-readiness.server");
+      if(!networkCustomerLaunchArmed(env as Record<string,string|undefined>)){
+        await drainRejectedNetworkPost(request);
+        return new Response("Network customer launch not accepted",{status:503,
+          headers:{"Cache-Control":"no-store"}});
+      }
+    }
+    if(request.method==="POST" && customerPath==="/api/public/network-metrics"){
+      // Counters are aggregate but otherwise publicly writable. Enforce a
+      // dedicated edge rate limiter, not the 3/min application/billing budget.
+      const limiter=env&&typeof env==='object'
+        ? Reflect.get(env,"TEXAS_DEFINED_NETWORK_METRICS_RATE_LIMITER"):null;
+      const limit=limiter&&typeof limiter==='object'?Reflect.get(limiter,"limit"):null;
+      if(typeof limit!=="function"){
+        await drainRejectedNetworkPost(request);
+        return new Response("Metrics unavailable",{status:503});
+      }
+      const identity=request.headers.get("cf-connecting-ip")||"unknown";
+      const result=await Reflect.apply(limit,limiter,[{key:"network-metrics:"+identity}]);
+      if(!result?.success){
+        await drainRejectedNetworkPost(request);
+        return new Response("Metrics rate limit reached",{status:429});
+      }
+    }
     if (request.method === "POST" && ["/api/public/network-application", "/api/public/network-checkout", "/api/public/network-billing"].includes(new URL(request.url).pathname)) {
       const limiter = typeof env === "object" && env !== null ? Reflect.get(env, "TEXAS_DEFINED_NETWORK_RATE_LIMITER") : null;
-      if (!limiter || typeof limiter !== "object") return new Response("Service temporarily unavailable", { status: 503 });
+      if (!limiter || typeof limiter !== "object"){await drainRejectedNetworkPost(request);return new Response("Service temporarily unavailable", { status: 503 });}
       const check = Reflect.get(limiter, "limit");
-      if (typeof check !== "function") return new Response("Service temporarily unavailable", { status: 503 });
+      if (typeof check !== "function"){await drainRejectedNetworkPost(request);return new Response("Service temporarily unavailable", { status: 503 });}
       const rate = await Reflect.apply(check, limiter, [{ key: new URL(request.url).pathname + ":" + (request.headers.get("cf-connecting-ip") || "unknown") }]);
-      if (!rate?.success) return new Response("Too many requests", { status: 429 });
+      if (!rate?.success){await drainRejectedNetworkPost(request);return new Response("Too many requests", { status: 429 });}
     }
     const newsletterApiResponse = await texasDefinedNewsletterApiResponse(request);
     if (newsletterApiResponse) return newsletterApiResponse;

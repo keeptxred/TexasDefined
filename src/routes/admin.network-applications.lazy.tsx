@@ -2,7 +2,7 @@ import "../network.css";
 import { createLazyFileRoute } from '@tanstack/react-router';
 import { useState } from 'react';
 import { Container } from '@/components/layout/Container';
-import { getNetworkApplications, reviewNetworkApplication, getNetworkRevisionQueue, reviewFeaturedRevision, publishNetworkListing, unpublishReviewedNetworkListing, provisionNetworkOwner, previewNetworkDraftCleanup, previewNetworkPublishedMediaCleanup } from '@/data/network-review.functions';
+import { getNetworkApplications, reviewNetworkApplication, getNetworkRevisionQueue, reviewFeaturedRevision, publishNetworkListing, unpublishReviewedNetworkListing, provisionNetworkOwner, previewNetworkDraftCleanup, previewNetworkPublishedMediaCleanup, getNetworkNotificationRecovery, reconcileNetworkNotification } from '@/data/network-review.functions';
 
 export const Route = createLazyFileRoute('/admin/network-applications')({component: NetworkReview});
 
@@ -18,6 +18,12 @@ function NetworkReview(){
  const [verificationMethods,setVerificationMethods]=useState<Record<string,'official_domain'|'registry_documents'|'verified_public_phone'|'in_person'|'other_documented'>>({});
  const [verificationEvidence,setVerificationEvidence]=useState<Record<string,string>>({});
  const [reviewerLabels,setReviewerLabels]=useState<Record<string,string>>({});
+ const [recoveryRows,setRecoveryRows]=useState<Array<{id:string;eventType:string;recipientMasked:string;status:string;attempts:number;claimedAt:string|null;errorCode:string|null}>|null>(null);
+ const [recoveryResolution,setRecoveryResolution]=useState<Record<string,'sent_verified'|'not_delivered_retry'|'failed_verified'|'suppress_uncertain'>>({});
+ const [recoveryEvidence,setRecoveryEvidence]=useState<Record<string,string>>({});
+ const [recoveryProviderId,setRecoveryProviderId]=useState<Record<string,string>>({});
+ const [recoveryReviewer,setRecoveryReviewer]=useState<Record<string,string>>({});
+ const [recoveryConfirmNoDelivery,setRecoveryConfirmNoDelivery]=useState<Record<string,boolean>>({});
  const [orphanDrafts,setOrphanDrafts]=useState<Array<{path:string;uploaded_at:string}>|null>(null);
  const [orphanPublishedMedia,setOrphanPublishedMedia]=useState<Array<{path:string;uploaded_at:string}>|null>(null);
  async function bindOwner(id:string) {
@@ -31,6 +37,28 @@ function NetworkReview(){
    await reload();
   } catch(e) {setError(e instanceof Error?e.message:'Owner provisioning failed')}
   finally {setBusy(false)}
+ }
+ async function loadRecovery(){
+  setBusy(true);setError('');
+  try{setRecoveryRows(await getNetworkNotificationRecovery({data:{accessKey:key}}))}
+  catch(e){setError(e instanceof Error?e.message:'Notification recovery unavailable')}
+  finally{setBusy(false)}
+ }
+ async function resolveNotice(id:string){
+  setBusy(true);setError('');
+  try{
+   const resolution=recoveryResolution[id]||'suppress_uncertain';
+   const result=await reconcileNetworkNotification({data:{
+    accessKey:key,id,resolution,
+    evidenceReference:recoveryEvidence[id]||'',
+    reviewerLabel:recoveryReviewer[id]||'',
+    verifiedProviderId:resolution==='sent_verified'?recoveryProviderId[id]||null:null,
+    confirmedNoDelivery:resolution==='not_delivered_retry'&&!!recoveryConfirmNoDelivery[id],
+   }});
+   setError('Audited notification recovery accepted: '+result.id+' ('+result.resolution+').');
+   setRecoveryRows(await getNetworkNotificationRecovery({data:{accessKey:key}}));
+  }catch(e){setError(e instanceof Error?e.message:'Notification recovery was not accepted')}
+  finally{setBusy(false)}
  }
  async function previewOrphans(){
   setBusy(true);setError('');
@@ -51,6 +79,45 @@ function NetworkReview(){
  async function moderateRevision(id:string,decision:'approve'|'reject'){setBusy(true);try{await reviewFeaturedRevision({data:{accessKey:key,id,decision}});await reload()}catch(e){setError(e instanceof Error?e.message:'Revision review failed')}finally{setBusy(false)}}
  return <div><Container className="py-12"><h1 className="font-display text-4xl">Network applications</h1><p className="mt-3 text-muted-foreground">Review business listings before publication. Approval alone does not publish or bill a customer.</p>
  {!rows?<form className="mt-8 flex flex-wrap gap-3" onSubmit={async e=>{e.preventDefault();setBusy(true);try{await reload();setError('')}catch(err){setError(err instanceof Error?err.message:'Access denied')}finally{setBusy(false)}}}><label>Dedicated Network admin key <input className="ml-2 border border-border p-3" type="password" minLength={32} value={key} onChange={e=>setKey(e.target.value)} required/></label><button className="bg-primary px-5 py-3 text-primary-foreground" disabled={busy}>Unlock</button></form>:<><select className="mt-6 border border-border p-3" value={status} onChange={e=>setStatus(e.target.value)}><option value="pending_review">Pending</option><option value="approved">Approved</option><option value="rejected">Rejected</option><option value="all">All</option></select>
+ <section className="mt-6 rounded-xl border border-border p-4" aria-label="Private Network notification recovery">
+  <div className="flex flex-wrap items-center gap-3"><h2 className="font-display text-xl">Unconfirmed email delivery</h2>
+    <button type="button" disabled={busy} onClick={()=>void loadRecovery()} className="rounded-lg border border-primary px-4 py-2 text-primary disabled:opacity-40">Inspect notification holds</button></div>
+  <p className="mt-2 text-sm text-muted-foreground">Administrator-only review. Graph acceptance alone is not proof of a sent message. Do not retry unless the provider independently confirms non-delivery. Evidence and each decision are recorded in an audit table.</p>
+  {recoveryRows!==null&&<div className="mt-4 space-y-5">
+    {recoveryRows.length===0?<p role="status" className="text-sm">No uncertain, suppressed, or failed email notices.</p>:recoveryRows.map(row=><article key={row.id} className="rounded-lg border border-border p-4">
+      <p className="text-sm"><strong>{row.eventType}</strong> · {row.recipientMasked} · {row.status} · attempts {row.attempts}</p>
+      <p className="mt-1 break-all text-xs text-muted-foreground">Outbox ID {row.id}{row.errorCode?' · '+row.errorCode:''}</p>
+      {['sending','suppressed'].includes(row.status)&&<div className="mt-3 grid gap-3">
+        <label className="text-sm">Provider reconciliation outcome
+          <select className="mt-1 block w-full rounded border border-border p-2" value={recoveryResolution[row.id]||'suppress_uncertain'} onChange={e=>setRecoveryResolution(p=>({...p,[row.id]:e.target.value as 'sent_verified'|'not_delivered_retry'|'failed_verified'|'suppress_uncertain'}))}>
+            <option value="suppress_uncertain">Keep suppressed—delivery uncertain</option>
+            <option value="sent_verified">Sent Items—exact header verified</option>
+            <option value="failed_verified">Provider failure independently confirmed</option>
+            <option value="not_delivered_retry">Confirmed not delivered—authorize one retry</option>
+          </select></label>
+        <label className="text-sm">Evidence reference (20–500 characters)
+          <textarea className="mt-1 block w-full rounded border border-border p-2" rows={2} maxLength={500} value={recoveryEvidence[row.id]||''} onChange={e=>setRecoveryEvidence(p=>({...p,[row.id]:e.target.value}))}/></label>
+        {(recoveryResolution[row.id]==='sent_verified')&&<label className="text-sm">Exact Graph Sent Items message ID
+          <input className="mt-1 block w-full rounded border border-border p-2" value={recoveryProviderId[row.id]||''} onChange={e=>{
+            const messageId=e.target.value;
+            setRecoveryProviderId(p=>({...p,[row.id]:messageId}));
+            setRecoveryEvidence(p=>({...p,[row.id]:'graph-sentitems-header-match/'+row.id+'/'+messageId}));
+          }}/>
+          <span className="mt-1 block text-xs text-muted-foreground">Requires independently matching message header, recipient and subject in the admin mailbox.</span></label>}
+        <label className="text-sm">Reviewer / initials
+          <input className="mt-1 block w-full rounded border border-border p-2" maxLength={100} value={recoveryReviewer[row.id]||''} onChange={e=>setRecoveryReviewer(p=>({...p,[row.id]:e.target.value}))}/></label>
+        {recoveryResolution[row.id]==='not_delivered_retry'&&<label className="flex gap-2 text-sm">
+          <input type="checkbox" checked={!!recoveryConfirmNoDelivery[row.id]} onChange={e=>setRecoveryConfirmNoDelivery(p=>({...p,[row.id]:e.target.checked}))}/>
+          I independently confirmed this notice was not accepted or delivered, and explicitly authorize its next attempt.</label>}
+        <button type="button" disabled={busy||(recoveryEvidence[row.id]||'').trim().length<20||(recoveryReviewer[row.id]||'').trim().length<3||
+          (recoveryResolution[row.id]==='sent_verified'&&!(recoveryProviderId[row.id]||''))||
+          (recoveryResolution[row.id]==='not_delivered_retry'&&!recoveryConfirmNoDelivery[row.id])}
+          onClick={()=>void resolveNotice(row.id)} className="rounded-lg border border-amber-700 px-4 py-2 text-amber-800 disabled:opacity-40">Record audited resolution</button>
+      </div>}
+      {row.status==='failed'&&<p className="mt-2 text-xs text-muted-foreground">Final failure: inspect provider logs; this page will not blindly resend it.</p>}
+    </article>)}
+  </div>}
+ </section>
  <section className="mt-6 rounded-xl border border-border p-4" aria-label="Private draft-media retention preview">
   <button type="button" disabled={busy} onClick={()=>void previewOrphans()} className="rounded-lg border border-primary px-4 py-2 text-primary disabled:opacity-40">Preview 45-day unused draft candidates</button>
   <p className="mt-2 text-xs text-muted-foreground">Read-only inventory. This screen never deletes files. Referenced and recent drafts are excluded.</p>

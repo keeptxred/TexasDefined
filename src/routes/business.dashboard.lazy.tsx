@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Container } from '@/components/layout/Container';
 import { supabase } from '@/integrations/supabase/client';
 import { wereNetworkUnsubmittedDraftsDeleted } from '@/data/network-owner-draft-cleanup';
+import {NetworkPerformancePanel} from '@/components/network/NetworkPerformancePanel';
 
 export const Route=createLazyFileRoute('/business/dashboard')({component:BusinessDashboard});
 type Account={id:string;application_id:string;access_enabled:boolean;membership_tier:'plus'|'featured'};
@@ -136,6 +137,10 @@ function BusinessDashboard(){
    </div>:<p className="mt-4 text-sm text-muted-foreground">No approved public profile is available yet.</p>}
    <h2 className="mt-8 font-display text-2xl">Preview proposed changes</h2>{fields.filter(([name])=>draft[name]?.trim()).map(([name,label])=><p key={name} className="mt-4 whitespace-pre-wrap"><strong>{label}:</strong> {draft[name]}</p>)}<h3 className="mt-8 font-display text-xl">Review history</h3>{revisions.map(r=><div key={r.id} className="mt-3 border-t border-border pt-3 text-sm">{r.review_status} · {new Date(r.created_at).toLocaleDateString()}</div>)}</div></aside></div>}
  </>}
+ {ownerPortalOpen&&account?.access_enabled&&published&&userId&&
+  <NetworkPerformancePanel key={userId+':'+account.id}
+   applicationId={account.application_id} userId={userId}
+   tier={account.membership_tier}/>}
  {message&&<p role="status" className="mt-6 rounded-xl border border-border p-4">{message}</p>}
  </Container></div>
 }

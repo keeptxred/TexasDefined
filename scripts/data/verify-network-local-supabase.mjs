@@ -82,6 +82,62 @@ for(const {id,email,app,account,name,city} of [
  "(id,application_id,owner_user_id,membership_tier,access_enabled) VALUES"+
  "('"+account+"','"+app+"','"+id+"','featured',true);");
 }
+
+/** Actual PostgREST + real GoTrue authorization boundary for the new
+ * metrics RPCs. All data remains in disposable unlinked local Supabase.
+ * This is NOT a web app browser or a hosted Stripe/Graph staging test. */
+const metricSlug1='network-local-metric-business-a';
+const metricSlug2='network-local-metric-business-b';
+const metricProfile1=JSON.stringify({business_name:'Synthetic Metrics One'});
+const metricProfile2=JSON.stringify({business_name:'Synthetic Metrics Two'});
+sql("INSERT INTO public.texasdefined_network_public_listings "+
+ "(application_id,slug,plan,profile,is_published) VALUES "+
+ "('"+app1+"','"+metricSlug1+"','plus','"+metricProfile1+"'::jsonb,true),"+
+ "('"+app2+"','"+metricSlug2+"','plus','"+metricProfile2+"'::jsonb,true);");
+const metricRecord=(token,slug,action)=>req('POST',
+ '/rest/v1/rpc/record_texasdefined_network_profile_metric',
+ token===service?service:anon,token,{p_slug:slug,p_action:action});
+const metricRead=(token,id)=>req('POST',
+ '/rest/v1/rpc/get_texasdefined_network_profile_metrics',
+ token===service?service:anon,token,{p_application_id:id});
+denied(await metricRecord(anon,metricSlug1,'profile_view'),'Anonymous cannot invoke metrics writer');
+denied(await metricRecord(one.token,metricSlug1,'profile_view'),'Signed-in owner cannot invoke service-only metrics writer');
+denied(await metricRead(one.token,app1),'Owner token cannot bypass protected report API through direct SQL RPC');
+denied(await metricRead(two.token,app1),'Second owner token cannot access private metrics RPC');
+allowed(await metricRecord(service,metricSlug1,'profile_view'),'Service can observe own published listing');
+allowed(await metricRecord(service,metricSlug1,'profile_view'),'Service can increment aggregate');
+allowed(await metricRecord(service,metricSlug1,'website_click'),'Service can count website click');
+allowed(await metricRecord(service,metricSlug2,'social_click'),'Service can observe second listing');
+const metricA=await metricRead(service,app1);
+const metricB=await metricRead(service,app2);
+allowed(metricA,'Service can retrieve listing A stats from actual PostgREST');
+allowed(metricB,'Service can retrieve listing B stats from actual PostgREST');
+assert.deepEqual(
+ metricA.json.map(row=>[row.action,Number(row.event_count)]).sort((a,b)=>String(a[0]).localeCompare(String(b[0]))),
+ [['profile_view',2],['website_click',1]],
+ 'Actual HTTP RPC listing A counts are incorrect or mixed with owner B');
+assert.deepEqual(metricB.json.map(row=>[row.action,Number(row.event_count)]),
+ [['social_click',1]],'Second owner metric rows leaked or were not recorded');
+sql("UPDATE public.texasdefined_network_public_listings SET is_published=false "+
+ "WHERE application_id='"+app2+"';");
+const hidden=await metricRecord(service,metricSlug2,'profile_view');
+allowed(hidden,'Unpublished metrics writer returns a fail-closed boolean');
+assert.equal(hidden.json,false,'Unpublished listing was improperly counted');
+// Maintenance RPC is callable only by service_role and does not alter
+// recent reports. It executes through real PostgREST, not a SQL stub.
+denied(await req('POST','/rest/v1/rpc/prune_texasdefined_network_profile_metrics',
+ anon,anon,{}),'Anonymous cannot prune private business history');
+denied(await req('POST','/rest/v1/rpc/prune_texasdefined_network_profile_metrics',
+ anon,one.token,{}),'Signed-in owner cannot prune private business history');
+const prune=await req('POST','/rest/v1/rpc/prune_texasdefined_network_profile_metrics',
+ service,service,{});
+allowed(prune,'Service-only aggregate retention RPC');
+assert.equal(prune.json,0,'Recent metrics must not be deleted');
+const afterHidden=await metricRead(service,app2);
+allowed(afterHidden,'Service read after unpublication');
+assert.equal(afterHidden.json.length,1,'Unpublished profile acquired an additional metric row');
+console.log('NETWORK REAL LOCAL PROFILE METRICS PASS: service-only PostgREST RPC, denied anon/owner and foreign-owner direct calls, per-business atomic counters and unpublish rejection. Zero live data.');
+
 async function rest(token,table,method='GET',body){
  return req(method,'/rest/v1/'+table+(method==='GET'?'?select=*':''),anon,token,body);
 }

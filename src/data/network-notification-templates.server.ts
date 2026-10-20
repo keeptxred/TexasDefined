@@ -1,9 +1,9 @@
 /**
- * Network prelaunch email content ONLY; no transport, mailbox credentials or sends.
+ * Network email templates. Sending is separately restricted to the guarded job handler.
  * A separate approved Microsoft 365 Graph sender and outbox dispatcher are required.
  */
 export const NETWORK_NOTIFICATION_SENDER = 'admin@texasdefined.com';
-export const NETWORK_EMAIL_DELIVERY_ENABLED = false as const;
+export const NETWORK_EMAIL_DELIVERY_ENABLED = process.env.NETWORK_EMAIL_DELIVERY_ENABLED === 'true';
 export type NetworkEmailEvent =
  | 'application_received' | 'application_approved' | 'application_rejected'
  | 'owner_enabled' | 'membership_active' | 'membership_inactive'

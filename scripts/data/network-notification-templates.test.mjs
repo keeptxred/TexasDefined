@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {NETWORK_EMAIL_DELIVERY_ENABLED,NETWORK_NOTIFICATION_SENDER,renderNetworkNotification} from '../../src/data/network-notification-templates.server.ts';
 
 const events=['application_received','application_approved','application_rejected','owner_enabled','membership_active','membership_inactive','revision_approved','revision_rejected'];
-test('Network email delivery is OFF until approved Office 365 integration',()=>{
+test('Network email delivery defaults off without an explicitly configured worker',()=>{
  assert.equal(NETWORK_EMAIL_DELIVERY_ENABLED,false);
  assert.equal(NETWORK_NOTIFICATION_SENDER,'admin@texasdefined.com');
 });

@@ -62,8 +62,17 @@ export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
       GET: async ({ request }) => {
+        const {networkCustomerLaunchArmed}=await import("@/data/network-atomic-launch-readiness.server");
+        const networkAccepted=networkCustomerLaunchArmed(process.env) && process.env.NETWORK_ISOLATED_STAGING!=='true';
         const edgeCache = getPrimarySitemapEdgeCache();
-        const cacheRequest = primarySitemapCacheRequest(request);
+        let cacheRequest = primarySitemapCacheRequest(request);
+        // Separate the cache namespace at the sole approved cutover; a stale
+        // prelaunch sitemap must not conceal newly indexable reviewed listings.
+        if(networkAccepted){
+          const cacheUrl=new URL(cacheRequest.url);
+          cacheUrl.searchParams.set("network-release","v1");
+          cacheRequest=new Request(cacheUrl.toString(),{method:"GET"});
+        }
         if (edgeCache) {
           try {
             const cached = await edgeCache.match(cacheRequest);
@@ -287,6 +296,27 @@ export const Route = createFileRoute("/sitemap.xml")({
           const path = normalizePublicPath(entry.path);
           return path ? { ...entry, path } : null;
         }).filter((entry): entry is SitemapEntry => Boolean(entry) && isIndexablePublicPath(entry.path) && isTexasDefinedOwnedStaticPath(entry.path)).map((entry) => [entry.path, entry])).values()];
+        if(networkAccepted){
+          // These dynamic Network routes deliberately remain excluded from
+          // unconditional static indexing; never ingest private intake rows.
+          uniqueEntries.push({path:"/network/join"});
+          const {supabaseAdmin}=await import("@/integrations/supabase/client.server");
+          const {data:networkProfiles,error:networkError}=await supabaseAdmin
+            .from("texasdefined_network_public_listings")
+            .select("slug,published_at").eq("is_published",true)
+            .order("published_at",{ascending:false}).limit(2000);
+          if(networkError)throw Error("Network published sitemap inventory unavailable");
+          if((networkProfiles||[]).length===2000)
+            throw Error("Network published sitemap inventory exceeds audited page cap");
+          const valid=(networkProfiles||[]).filter(row=>
+            typeof row.slug==="string" &&
+            /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(row.slug) &&row.slug.length<=120);
+          if(valid.length>0)uniqueEntries.push({path:"/network/directory"});
+          for(const row of valid)uniqueEntries.push({
+            path:"/network/business/"+row.slug,
+            lastmod:toDate(row.published_at??undefined),
+          });
+        }
 
         const body = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${uniqueEntries.map(({ path, lastmod }) => `  <url><loc>${escapeXml(`${origin}${path}`)}</loc>${lastmod ? `<lastmod>${lastmod}</lastmod>` : ""}</url>`).join("\n")}\n</urlset>`;
         const response = new Response(body, {
