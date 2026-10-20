@@ -659,7 +659,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Blackwell Hornets Six-Man Football 2026 | Scores & 2019 Run",
-      "description": "Blackwell TX Hornets six-man football: UIL 1A Division II District 7, 6–2 through October 16, 2019 state-semifinal history and district contacts."
+      "description": "Blackwell Hornets six-man football: 2026 UIL 1A Division II District 7, 6–2 through October 16, 2026, plus 2019 state-semifinal history."
     },
     "coach": {
       "name": "Clint Linman",
@@ -1416,7 +1416,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Bloomington Bobcats Football 2026 | Scores & Stadium Tickets",
-      "description": "Bloomington Bobcats in Victoria County: UIL 2A Division I District 15, 3–5 through October 16, school contacts and Bobcat Stadium ticketing sources."
+      "description": "Bloomington Bobcats football: 2026 UIL 2A Division I District 15, 3–5 through October 16, 2026, Victoria County school and Bobcat Stadium tickets."
     },
     "coach": {
       "name": "Lane Shands",
@@ -1624,7 +1624,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Blue Ridge Tigers Football 2026 | Scores & Tiger Stadium",
-      "description": "Blue Ridge Texas Tigers football: UIL 2026 3A Division II District 7, officially identified coach Jason Russell, 3–5 through October 16, Tiger Stadium and schedules."
+      "description": "Blue Ridge Tigers football: 2026 UIL 3A Division II District 7, coach Jason Russell, 3–5 through October 16, Tiger Stadium and schedule."
     },
     "coach": {
       "name": "Jason Russell",
@@ -2382,7 +2382,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Boerne Champion Chargers Football 2026 | Scores & Stadium",
-      "description": "Boerne Champion Chargers football: 2026 UIL 5A Division I District 13, 7–0 through October 16, Blane Ellis, official Boerne ISD Stadium tickets and 2025 postseason."
+      "description": "Boerne Champion Chargers football: 2026 UIL 5A Division I District 13, 7–0 through October 16, coach Blane Ellis and Boerne ISD Stadium."
     },
     "coach": {
       "name": "Blane Ellis",
@@ -2752,7 +2752,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Boling Bulldogs Football 2026 | 1972 State Champs, 2016 Final & Scores",
-      "description": "Boling Bulldogs in Wharton County: UIL 1972 Class 2A state champions and 2016 3A Division II runners-up, 2026 district 14, coach Kevin Urbanek and current results."
+      "description": "Boling Bulldogs football: 1972 UIL 2A state champions, 2016 3A Division II runners-up, 2026 District 14, coach Kevin Urbanek and results."
     },
     "coach": {
       "name": "Kevin Urbanek",
@@ -2935,7 +2935,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Bonham Warriors Football 2026 | Coach Ford & Warrior Stadium",
-      "description": "Bonham Warriors football in Fannin County: coach Aaron Ford, UIL 4A Division II District 7, 2026 scores through October 16, school contacts and Warrior Stadium guidance."
+      "description": "Bonham Warriors football: coach Aaron Ford, 2026 UIL 4A Division II District 7, results through October 16 and Warrior Stadium guidance."
     },
     "coach": {
       "name": "Aaron Ford",
@@ -3135,7 +3135,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Booker Kiowas Six-Man Football 2026 | UIL District, Scores & Coach",
-      "description": "Booker Kiowas six-man football: UIL 1A Division I District 1, 4–4 through October 16, coach David Biddler and 2025 district championship."
+      "description": "Booker Kiowas six-man football: 2026 UIL 1A Division I District 1, 4–4 through October 16, 2026, coach David Biddler and 2025 district title."
     },
     "coach": {
       "name": "David Biddler",
