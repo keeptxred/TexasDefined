@@ -2457,6 +2457,44 @@
           "label": "Witte Museum — 100 Years"
         }
       ]
+    },
+    {
+      "path": "/destination/yoakum-heritage-museum",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 9,
+      "sources": [
+        {
+          "sourceUrl": "https://atlas.thc.texas.gov/Details/4200000614",
+          "fetchUrl": "https://atlas.thc.texas.gov/Details/4200000614",
+          "label": "Texas Historical Commission 2021 directory hours and address"
+        },
+        {
+          "sourceUrl": "https://texastimetravel.com/directory/yoakum-heritage-museum-tour/",
+          "fetchUrl": "https://texastimetravel.com/directory/yoakum-heritage-museum-tour/",
+          "label": "Texas Time Travel interpretation of museum exhibits and house"
+        },
+        {
+          "sourceUrl": "https://texastimetravel.com/directory/yoakum-heritage-museum/",
+          "fetchUrl": "https://texastimetravel.com/directory/yoakum-heritage-museum/",
+          "label": "Texas heritage tourism permanent themes"
+        },
+        {
+          "sourceUrl": "https://texashistory.unt.edu/ark:/67531/metapth880869/m1/34/",
+          "fetchUrl": "https://texashistory.unt.edu/ark:/67531/metapth880869/m1/34/",
+          "label": "1987 community first-hand museum founding and home donation history"
+        },
+        {
+          "sourceUrl": "https://www.tshaonline.org/handbook/entries/yoakum-tx",
+          "fetchUrl": "https://www.tshaonline.org/handbook/entries/yoakum-tx",
+          "label": "Texas State Historical Association railway and leather history"
+        },
+        {
+          "sourceUrl": "https://texashighways.com/wp-content/uploads/2026/01/Travel-Guide-2026.pdf",
+          "fetchUrl": "https://texashighways.com/wp-content/uploads/2026/01/Travel-Guide-2026.pdf",
+          "label": "2026 Texas Highways statewide travel guide"
+        }
+      ]
     }
   ]
 }
