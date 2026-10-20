@@ -7,6 +7,22 @@
 type HeritagePhotoRights = { sourceUrl: string; licenseUrl: string };
 
 const rightsByPath: Record<string, HeritagePhotoRights> = {
+  "/article/salary-needed-to-buy-a-house-in-texas": {
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Independence_Heights_Residential_HIstoric_District_Houston_(HDR).jpg",
+    licenseUrl: "https://creativecommons.org/licenses/by/3.0/",
+  },
+  "/article/texas-closing-costs-guide": {
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Close-up_of_the_key_with_house_keychain.jpg",
+    licenseUrl: "https://creativecommons.org/licenses/by/2.0/",
+  },
+  "/article/texas-mortgage-payment-guide": {
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Property_Contract_Law_and_Mortgages.jpg",
+    licenseUrl: "https://creativecommons.org/licenses/by/2.0/",
+  },
+  "/article/texas-rural-wells-water-guide": {
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Drilling_livestock_water_well_on_Walking_M_Ranch_in_Baylor_County,_Seymour,_Texas._(24490553073).jpg",
+    licenseUrl: "https://creativecommons.org/licenses/by/2.0/",
+  },
   "/article/moving-to-texas-renter-guide": {
     sourceUrl: "https://commons.wikimedia.org/wiki/File:GulftonApartmentComplexes.JPG",
     licenseUrl: "https://creativecommons.org/publicdomain/mark/1.0/",
