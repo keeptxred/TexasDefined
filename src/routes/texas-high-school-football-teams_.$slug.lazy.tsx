@@ -495,7 +495,7 @@ function Page() {
               <Snapshot label="Football division" value={program.division ? `Division ${program.division === 1 ? 'I' : 'II'}` : 'Not pre-split in alignment'} />
               {program.uilEnrollment && <Snapshot label="UIL reported enrollment" value={program.uilEnrollment.toLocaleString('en-US')} />}
               {enrollmentFitsFinalBand !== false && <Snapshot label="UIL enrollment band" value={enrollmentBand?.label || conferenceBand || 'See current UIL cutoff table'} />}
-              {enrollmentFitsFinalBand === false && <Snapshot label="Enrollment-based conference range" value={submittedConferenceBand || 'See official UIL enrollment listing'} />}
+              {enrollmentFitsFinalBand === false && <Snapshot label="Submitted conference cutoff" value={submittedConferenceBand || 'See official UIL enrollment listing'} />}
               {enrollmentFitsFinalBand === false && <Snapshot label="Final football placement" value={alignmentLabel(program)} />}
               <Snapshot label="UIL district" value={String(program.district)} />
             </dl>
