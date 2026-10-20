@@ -9,7 +9,37 @@ import {
   uilEnrollmentFallsWithinBand,
   uilFootballConferenceBand,
   uilFootballEnrollmentBand,
+  uilFootballEnrollmentBandForEnrollment,
 } from '@/data/high-school-football/enrollment-bands';
+
+// Original data-derived visual results for Batch 006; no unlicensed logos or photos.
+const BATCH_006_GRAPHIC_SCHOOLS = new Set([
+  'big-sandy-harmony',
+  'big-spring',
+  'bishop',
+  'blackwell',
+  'blanco',
+  'blanket',
+  'blooming-grove',
+  'bloomington',
+  'blue-ridge',
+  'bluff-dale',
+  'blum',
+  'boerne',
+  'boerne-champion',
+  'bogata-rivercrest',
+  'boling',
+  'bonham',
+  'booker',
+  'borden-county',
+  'borger',
+  'bosqueville',
+  'bovina',
+  'bowie',
+  'bowie-gold-burg',
+  'boyd',
+  'boys-ranch',
+]);
 
 const UIL_ELIGIBILITY_URL = 'https://www.uiltexas.org/policy/eligibility';
 const UIL_DETAILED_ELIGIBILITY_URL = 'https://www.uiltexas.org/policy/constitution/general/eligibility';
@@ -44,8 +74,7 @@ function Page() {
   // Fall back to the reference directory for schools without an editorial title;
   // the optional TEA identity join may be unavailable in deployed SSR.
   const authoredFootballH1 = editorial?.seo?.title?.match(/^(.+?Football)/i)?.[1];
-  const footballName = slug === 'aubrey' ? 'Aubrey Chaparrals Football'
-    : authoredFootballH1 || (identity?.mascot ? `${displayName} ${identity.mascot} Football` : `${displayName} Football`);
+  const footballName = authoredFootballH1 || (identity?.mascot ? `${displayName} ${identity.mascot} Football` : `${displayName} Football`);
   // Summarize the verified editorial ledger before the deeper school reference sections.
   const latestResult = editorial?.season?.games.filter((game) => game.result).at(-1);
   const nextListedFixture = editorial?.season?.games.find((game) => !game.result);
@@ -250,8 +279,8 @@ function Page() {
   const enrollmentFitsFinalBand = program
     ? uilEnrollmentFallsWithinBand(program.uilEnrollment, enrollmentBand)
     : null;
-  const submittedConferenceBand = program?.uilSubmittedConference && /^[1-6]A$/.test(program.uilSubmittedConference)
-    ? uilFootballConferenceBand(program.uilSubmittedConference as '1A' | '2A' | '3A' | '4A' | '5A' | '6A')
+  const enrollmentBasedBand = program
+    ? uilFootballEnrollmentBandForEnrollment(program.uilEnrollment)
     : null;
 
   return <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
@@ -304,7 +333,7 @@ function Page() {
           <h2 className="mt-2 font-display text-3xl">{editorial.notice.title}</h2>
           <p className="mt-3 max-w-4xl text-sm leading-7 text-foreground">{editorial.notice.body}</p>
           <a href={editorial.notice.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-3 inline-block text-sm font-semibold text-surface-foreground underline underline-offset-4">{editorial.notice.sourceLabel} ↗</a>
-          <p className="mt-2 text-xs text-muted-foreground">Reporting checked {editorial.notice.verifiedAt}; consult the district for later changes.</p>
+          <p className="mt-2 text-xs text-muted-foreground">Reporting checked <time dateTime={editorial.notice.verifiedAt}>{formatFootballDate(editorial.notice.verifiedAt)}</time>; consult the district for later changes.</p>
         </div>
       </aside>}
 
@@ -317,16 +346,16 @@ function Page() {
           {latestResult && <div className="border-l-4 border-border bg-surface p-4">
             <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Most recent reported result</p>
             <p className="mt-2 font-semibold">{latestResult.result} · {latestResult.opponent}</p>
-            <p className="mt-1 text-xs text-muted-foreground">{latestResult.date}</p>
+            <p className="mt-1 text-xs text-muted-foreground"><time dateTime={latestResult.date}>{formatFootballDate(latestResult.date)}</time></p>
             {latestResult.matchupPath && <Link to={latestResult.matchupPath} className="mt-2 inline-block text-sm font-semibold text-primary underline underline-offset-4">Game details →</Link>}
           </div>}
           {nextListedFixture && <div className="border-l-4 border-border bg-surface p-4">
             <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Next listed 2026 fixture</p>
             <p className="mt-2 font-semibold">{nextListedFixture.opponent}</p>
-            <p className="mt-1 text-xs text-muted-foreground">{nextListedFixture.date} · {nextListedFixture.site}; verify kickoff</p>
+            <p className="mt-1 text-xs text-muted-foreground"><time dateTime={nextListedFixture.date}>{formatFootballDate(nextListedFixture.date)}</time> · {nextListedFixture.site}; verify kickoff</p>
             <a href="#football-current-season" className="mt-2 inline-block text-sm font-semibold text-primary underline underline-offset-4">Full schedule ↓</a>
           </div>}
-          <p className="text-xs leading-6 text-muted-foreground">Checked {editorial.season.verifiedAt}. Source-linked results are verified snapshots, not live game scores or certified district standings.</p>
+          <p className="text-xs leading-6 text-muted-foreground">Checked <time dateTime={editorial.season.verifiedAt}>{formatFootballDate(editorial.season.verifiedAt)}</time>. Source-linked results are verified snapshots, not live game scores or certified district standings.</p>
         </section>
       )}
 
@@ -367,15 +396,21 @@ function Page() {
       {program && !district21Team && (editorial?.season || !editorial?.notice) && <section id="football-current-season" className="scroll-mt-24 grid gap-8 border-b border-border py-8 sm:py-10 lg:grid-cols-[15rem_1fr]">
         <div>
           <p className="eyebrow text-primary">Current season</p>
-          <h2 className="mt-2 font-display text-3xl">{editorial?.season ? '2026 results & schedule' : '2026 schedule & results sources'}</h2>
-          {editorial?.season && <p className="mt-4 text-sm leading-7 text-muted-foreground">Season data checked {editorial.season.verifiedAt}. Recheck the school source before travel because kickoff times and venues can change.</p>}
+          <h2 className="mt-2 font-display text-3xl">{editorial?.season ? '2026 results & schedule' : 'Live scores & schedule links'}</h2>
+          {editorial?.season && <p className="mt-4 text-sm leading-7 text-muted-foreground">Season data checked <time dateTime={editorial.season.verifiedAt}>{formatFootballDate(editorial.season.verifiedAt)}</time>. Recheck the school source before travel because kickoff times and venues can change.</p>}
         </div>
         <div className="min-w-0">
           {editorial?.season ? <>
             <dl className="grid gap-px border border-border bg-border sm:grid-cols-2">
               <Snapshot label="Record when checked" value={editorial.season.record} />
-              <Snapshot label="Season data verified" value={editorial.season.verifiedAt} />
+              <Snapshot label="Season data verified" value={formatFootballDate(editorial.season.verifiedAt)} />
             </dl>
+            {BATCH_006_GRAPHIC_SCHOOLS.has(slug) && <ReportedFormIllustration
+              schoolName={footballName}
+              games={editorial.season.games}
+              sourceUrl={editorial.season.sourceUrl}
+              accent={editorial.theme?.accentHex || "#64748b"}
+            />}
             <div role="region" aria-label="Scrollable 2026 football results and schedule table" tabIndex={0} className="mt-5 w-full max-w-full overflow-x-auto border-y border-border focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">
               <table className="w-full min-w-[38rem] text-left text-sm">
                 <thead className="border-b border-border text-xs uppercase tracking-[0.1em] text-muted-foreground">
@@ -383,7 +418,7 @@ function Page() {
                 </thead>
                 <tbody className="divide-y divide-border">
                   {editorial.season.games.map((game) => <tr key={`${game.date}:${game.opponent}`}>
-                    <td className="px-3 py-3 font-semibold">{game.date}</td>
+                    <td className="px-3 py-3 font-semibold"><time dateTime={game.date}>{formatFootballDate(game.date)}</time></td>
                     <td className="px-3 py-3">{game.opponent}{game.district ? ' *' : ''}</td>
                     <td className="px-3 py-3 text-muted-foreground">{game.site}</td>
                     <td className="px-3 py-3">{game.matchupPath
@@ -396,7 +431,7 @@ function Page() {
             <p className="mt-3 text-xs leading-6 text-muted-foreground">* District game. This table is a dated editorial snapshot, not a live scoreboard.</p>
             <a href={editorial.season.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">{editorial.season.sourceLabel} ↗</a>
             {editorial.season.latestResultSourceUrl && <a href={editorial.season.latestResultSourceUrl} target="_blank" rel="noreferrer noopener" className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4">Verify latest recorded final ↗</a>}
-          </> : <p className="max-w-4xl text-sm leading-7 text-muted-foreground">TexasDefined does not publish a team-specific schedule here unless the current season has been separately verified. Use UIL’s Texas Scoreboard and the school’s own athletics information for the latest game dates and results. The UIL scoreboard is powered by information submitted through MaxPreps; completeness depends on school and coach submissions, and it is not an official district-standings table.</p>}
+          </> : <p className="max-w-4xl text-sm leading-7 text-muted-foreground">TexasDefined does not publish an unverified team-specific schedule. Use UIL’s Texas Scoreboard and the school’s official athletics source for current dates and results; the UIL feed is submission-based, and it is not an official district-standings table.</p>}
           <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">
             <a href="https://www.uiltexas.org/maxpreps/" target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">UIL Texas Scoreboard gateway ↗</a>
             {editorial?.schedule && <a href={editorial.schedule.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">{editorial.schedule.label} ↗</a>}
@@ -495,14 +530,19 @@ function Page() {
               <Snapshot label="Football division" value={program.division ? `Division ${program.division === 1 ? 'I' : 'II'}` : 'Not pre-split in alignment'} />
               {program.uilEnrollment && <Snapshot label="UIL reported enrollment" value={program.uilEnrollment.toLocaleString('en-US')} />}
               {enrollmentFitsFinalBand !== false && <Snapshot label="UIL enrollment band" value={enrollmentBand?.label || conferenceBand || 'See current UIL cutoff table'} />}
-              {enrollmentFitsFinalBand === false && <Snapshot label="Enrollment-based conference range" value={submittedConferenceBand || 'See official UIL enrollment listing'} />}
+              {enrollmentFitsFinalBand === false && <Snapshot
+                label="Enrollment-based cutoff band"
+                value={enrollmentBasedBand
+                  ? `${alignmentLabel(enrollmentBasedBand)} · ${enrollmentBasedBand.label}`
+                  : 'See official UIL cutoff table'}
+              />}
               {enrollmentFitsFinalBand === false && <Snapshot label="Final football placement" value={alignmentLabel(program)} />}
               <Snapshot label="UIL district" value={String(program.district)} />
             </dl>
             {enrollmentFitsFinalBand !== false ? <p className="mt-4 text-sm leading-7 text-muted-foreground">
               TexasDefined orders the statewide directory from 6A through 1A because UIL classifications generally reflect enrollment size. For the 2026–28 cycle, this program’s final football classification{program.division ? ' and football division' : ''} corresponds to an enrollment band of <strong className="text-foreground">{enrollmentBand?.label || conferenceBand}</strong>{program.uilEnrollment ? <> and UIL reports an enrollment of <strong className="text-foreground">{program.uilEnrollment.toLocaleString('en-US')}</strong></> : null}. That ordering is not a claim that a larger-classification football program is better than a smaller-classification program. District assignments and enrollment cutoffs can change at realignment.
             </p> : <div className="mt-4 border-l-4 border-primary bg-surface p-4 text-sm leading-7 text-muted-foreground">
-              <p><strong className="text-foreground">Enrollment and football placement are different here.</strong> UIL reports an enrollment of <strong className="text-foreground">{program.uilEnrollment?.toLocaleString('en-US')}</strong>{program.uilSubmittedConference ? <> and an enrollment submission in <strong className="text-foreground">{program.uilSubmittedConference}</strong></> : null}, while the final 2026–28 football alignment places the program in <strong className="text-foreground">{alignmentLabel(program)}</strong>. Because the reported enrollment falls outside the normal cutoff band for that final football placement, TexasDefined does not label that cutoff as this school's enrollment band. The final UIL alignment controls football competition placement.</p>
+              <p><strong className="text-foreground">Enrollment and football placement are different here.</strong> UIL reports an enrollment of <strong className="text-foreground">{program.uilEnrollment?.toLocaleString('en-US')}</strong>{enrollmentBasedBand ? <>, which falls in the published <strong className="text-foreground">{alignmentLabel(enrollmentBasedBand)} ({enrollmentBasedBand.label})</strong> cutoff band</> : null}{program.uilSubmittedConference ? <>; the alphabetical enrollment listing records a submitted conference of <strong className="text-foreground">{program.uilSubmittedConference}</strong></> : null}. The final 2026–28 football alignment instead places the program in <strong className="text-foreground">{alignmentLabel(program)}</strong>. TexasDefined shows both facts rather than relabeling the final-placement cutoff as the school's enrollment band. The final UIL alignment controls football competition placement.</p>
             </div>}
             {program.uilSubmittedConference && program.uilSubmittedConference !== program.classification && enrollmentFitsFinalBand !== false && <p className="mt-2 text-xs leading-6 text-muted-foreground">UIL’s alphabetical enrollment listing records a submitted conference of {program.uilSubmittedConference}; TexasDefined uses the final 2026–28 football alignment ({program.classification}) for competition placement.</p>}
             <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">
@@ -591,7 +631,7 @@ function Page() {
               <a href={venue.venuePath} className="text-primary underline underline-offset-4">Open TexasDefined stadium guide →</a>
               <a href={venue.officialUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Official venue source ↗</a>
             </div>
-            {venue.verifiedAt && <p className="mt-3 text-xs text-muted-foreground">Venue details last reviewed {venue.verifiedAt}.</p>}
+            {venue.verifiedAt && <p className="mt-3 text-xs text-muted-foreground">Venue details last reviewed <time dateTime={venue.verifiedAt}>{formatFootballDate(venue.verifiedAt)}</time>.</p>}
           </article>)}
         </div>
       </section>}
@@ -608,7 +648,7 @@ function Page() {
           </dl>
           <p className="mt-5 max-w-4xl text-sm leading-7 text-muted-foreground">{editorial.venue.note}</p>
           <a href={editorial.venue.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">{editorial.venue.sourceLabel} ↗</a>
-          <p className="mt-3 text-xs text-muted-foreground">Venue relationship reviewed {editorial.venue.verifiedAt}.</p>
+          <p className="mt-3 text-xs text-muted-foreground">Venue relationship reviewed <time dateTime={editorial.venue.verifiedAt}>{formatFootballDate(editorial.venue.verifiedAt)}</time>.</p>
         </div>
       </section>}
 
@@ -620,14 +660,14 @@ function Page() {
         <div>
           <p className="max-w-4xl text-sm leading-7 text-muted-foreground">{editorial.development.body}</p>
           <a href={editorial.development.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">{editorial.development.sourceLabel} ↗</a>
-          <p className="mt-3 text-xs text-muted-foreground">Source reviewed {editorial.development.verifiedAt}.</p>
+          <p className="mt-3 text-xs text-muted-foreground">Source reviewed <time dateTime={editorial.development.verifiedAt}>{formatFootballDate(editorial.development.verifiedAt)}</time>.</p>
         </div>
       </section>}
 
       {((program && enrollmentLink) || (!program && privateAdmissions)) && <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div>
-          <p className="eyebrow text-primary">School enrollment</p>
-          <h2 className="mt-2 font-display text-3xl">How to enroll at {schoolName}</h2>
+          <p className="eyebrow text-primary">Enrollment & eligibility</p>
+          <h2 className="mt-2 font-display text-3xl">School enrollment and football eligibility</h2>
         </div>
         <div>
           {program ? <PublicEnrollmentSteps schoolName={schoolName} districtName={program.districtName} enrollmentLink={enrollmentLink} /> : <NonUilEnrollmentSteps schoolName={schoolName} association={privateAlignment?.association ?? governingBodyHint} admissions={privateAdmissions} />}
@@ -651,7 +691,7 @@ function Page() {
             <Snapshot label="Mascot" value={identity.mascot} />
             <Snapshot label="School colors" value={identity.colors || 'Not listed by the verified source'} />
           </dl>
-          <p className="mt-4 text-xs leading-6 text-muted-foreground">Identity last reviewed {identity.verifiedAt}. Mascot and colors are published only from a school or district source.</p>
+          <p className="mt-4 text-xs leading-6 text-muted-foreground">Identity last reviewed <time dateTime={identity.verifiedAt}>{formatFootballDate(identity.verifiedAt)}</time>. Mascot and colors appear only when TexasDefined has a named source it can cite; the source may be the school or district, UIL, or independently corroborated reporting.</p>
           <a href={identity.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4">{identity.sourceLabel} ↗</a>
         </div>
       </section>}
@@ -700,21 +740,6 @@ function Page() {
 
       <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div>
-          <p className="eyebrow text-primary">Research beyond the score</p>
-          <h2 className="mt-2 font-display text-3xl">What families should check next</h2>
-        </div>
-        <div className="grid gap-px bg-border md:grid-cols-2">
-          {program?.footballType === '6-Man' ? <ResearchCard title="Six-man player development" body="Small six-man schools may not field separate freshman or JV teams. Ask the district what programs actually operate, how younger players develop and how multirole participation works." /> : <ResearchCard title="Freshman, JV and varsity path" body="Look beyond the varsity record. Ask how many teams the program fields, roster sizes, how younger players develop and whether position depth creates a realistic path to playing time." />}
-          <ResearchCard title="Coaching continuity" body="Check the current head coach and staff, how long the core staff has been in place and whether program systems remain stable across freshman, JV and varsity." />
-          <ResearchCard title="Schedule and district travel" body="The current district or association grouping tells you the competitive neighborhood. Review opponents, travel distance, rivalry games and the current schedule rather than relying on an old classification." />
-          <ResearchCard title="Academics and daily fit" body="Football is one piece of a four-year school experience. Compare academics, programs, commute, campus culture and student support alongside the football program." />
-          <ResearchCard title="Facilities and stadium" body="Some teams play on campus and others use shared district stadiums. Confirm practice facilities, game venue, parking and game-night logistics." />
-          <ResearchCard title="Transfers and eligibility" body="Ask the school about enrollment and transfer rules, then separately verify the athletic eligibility consequences with the governing association." />
-        </div>
-      </section>
-
-      <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
-        <div>
           <p className="eyebrow text-primary">Football FAQ</p>
           <h2 className="mt-2 font-display text-3xl">{displayName} football questions</h2>
         </div>
@@ -739,6 +764,11 @@ function Page() {
             {program?.teaDistrictProfileUrl && <a href={program.teaDistrictProfileUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">TEA district profile ↗</a>}
             {identity && <a href={identity.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">School identity source ↗</a>}
             {privateAlignment && <a href={privateAlignment.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Association alignment source ↗</a>}
+            {editorial?.coach && <a href={editorial.coach.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Coach source ↗</a>}
+            {editorial?.campus && <a href={editorial.campus.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Campus source ↗</a>}
+            {editorial?.schedule && <a href={editorial.schedule.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Team schedule source ↗</a>}
+            {editorial?.season && <a href={editorial.season.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Season snapshot source ↗</a>}
+            {editorial?.venue && <a href={editorial.venue.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Team venue source ↗</a>}
             {venueLinks.map((venue) => <a key={venue.officialUrl} href={venue.officialUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">{venue.venueName} source ↗</a>)}
             <a href="https://www.uiltexas.org/maxpreps/" target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">UIL Texas Scoreboard ↗</a>
           </div>
@@ -781,18 +811,16 @@ function PublicEnrollmentSteps({
 }) {
   const district = districtName || 'the school district';
   const steps = [
-    ['Verify the exact address', `Use an official district boundary or campus-assignment tool to confirm that the residence is served by ${schoolName}. A city name or ZIP code is not enough.`],
-    ['Start district registration', `Use ${district}'s official new-student registration process. Expect proof of residence, parent or guardian identification, student identity records, immunization records and prior school records as applicable.`],
-    ['Confirm the campus assignment', 'Before signing a lease or closing on a home because of a particular school, get the campus assignment confirmed by the district and ask whether boundary changes are pending.'],
-    ['Ask about transfers separately', 'If the address is outside the attendance zone, review the district’s current transfer or open-enrollment policy. Approval rules, capacity limits and renewal terms can change.'],
-    ['Verify athletic eligibility', 'After enrollment is settled, ask the school athletic office how UIL residency, transfer and previous-athletic-participation rules apply to this student’s specific situation.'],
+    ['Confirm the school assignment', `Use an official district boundary or campus-assignment tool to confirm that the residence is served by ${schoolName}. A city name or ZIP code is not enough.`],
+    ['Use the district’s current registration process', `Complete enrollment through ${district}'s official new-student process and verify the assigned campus directly with the district.`],
+    ['Verify football eligibility separately', 'Enrollment, transfer approval and varsity eligibility are different decisions. Ask the school athletic office how UIL residency, transfer and previous-participation rules apply to the student.'],
   ];
   if (!enrollmentLink) return null;
   return <>
     <div className="mb-6 border border-border p-5">
       <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">Official district enrollment</p>
       <p className="mt-2 text-sm leading-7 text-muted-foreground">
-        District enrollment source last reviewed {enrollmentLink.verifiedAt}{enrollmentLink.schoolYear ? ` for the ${enrollmentLink.schoolYear} school year` : ''}. Use the district page for current forms, deadlines and required documents.
+        District enrollment source last reviewed <time dateTime={enrollmentLink.verifiedAt}>{formatFootballDate(enrollmentLink.verifiedAt)}</time>{enrollmentLink.schoolYear ? ` for the ${enrollmentLink.schoolYear} school year` : ''}. Use the district page for current forms, deadlines and required documents.
       </p>
       <a href={enrollmentLink.enrollmentUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">
         Start with {enrollmentLink.sourceLabel} ↗
@@ -817,17 +845,15 @@ function NonUilEnrollmentSteps({
   } | null;
 }) {
   const steps = [
-    ['Use the school’s admissions office', `Start with ${schoolName}'s official admissions process rather than a public-school attendance-zone lookup.`],
-    ['Check application requirements', 'Confirm application dates, transcripts or records, recommendations, testing or interviews, grade-level availability and any tuition or financial-aid requirements.'],
-    ['Ask about admission timing', 'Private-school admission can depend on available seats and deadlines, so verify the intended entry year directly with the school.'],
-    ['Confirm the football program', `Verify that the school is fielding football in the intended season and confirm its current ${association ?? 'athletic association'} placement and schedule.`],
+    ['Use the school’s official admissions process', `Start with ${schoolName}'s admissions office for current dates, requirements, availability and fees.`],
+    ['Confirm the current football program', `Verify that the school is fielding football in the intended season and confirm its current ${association ?? 'athletic association'} placement and schedule.`],
     ['Verify athletic eligibility separately', 'Admission does not automatically establish athletic eligibility. Ask the school how transfer, age, residence, prior participation and association rules apply to the student.'],
   ];
   return <>
     {admissions && <div className="mb-6 border border-border p-5">
       <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">Official school admissions</p>
       <p className="mt-2 text-sm leading-7 text-muted-foreground">
-        TexasDefined verified this school admissions source on {admissions.verifiedAt}{admissions.applicationCycle ? ` for the ${admissions.applicationCycle} application cycle` : ''}. Use the school page for current application dates, requirements, availability and fees.
+        TexasDefined verified this school admissions source on <time dateTime={admissions.verifiedAt}>{formatFootballDate(admissions.verifiedAt)}</time>{admissions.applicationCycle ? ` for the ${admissions.applicationCycle} application cycle` : ''}. Use the school page for current application dates, requirements, availability and fees.
       </p>
       <a href={admissions.admissionsUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">
         Start with {admissions.sourceLabel} ↗
@@ -846,6 +872,45 @@ function StepList({ steps }: { steps: Array<[string, string]> }) {
   </ol>;
 }
 
+function ReportedFormIllustration({
+  schoolName,
+  games,
+  sourceUrl,
+  accent,
+}: {
+  schoolName: string;
+  games: Array<{ date: string; opponent: string; district?: boolean; result?: string }>;
+  sourceUrl: string;
+  accent: string;
+}) {
+  // Only source-attributed finals; an unreported or cancelled fixture cannot
+  // be presented as a result. Score disputes remain visible as written.
+  const finals = games.filter((game) => /^[WLT] /.test(game.result || ''));
+  if (finals.length === 0) return null;
+  return <figure className="mt-6 border border-border bg-surface p-4 sm:p-6" aria-label={schoolName + ': dated visual timeline of reported 2026 football finals'}>
+    <figcaption className="mb-4">
+      <span className="text-xs font-semibold uppercase text-muted-foreground">2026 results · visual snapshot</span>
+      <p className="mt-2 font-display text-xl font-semibold text-surface-foreground">The games behind the record</p>
+      <p className="mt-1 text-xs leading-5 text-muted-foreground">Original TexasDefined source-derived graphic. W = win, L = loss, T = tie. Not a live scoreboard or certified district standings.</p>
+    </figcaption>
+    <ol className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+      {finals.map((game) => {
+        const outcome = game.result?.[0] || '';
+        const label = outcome === 'W' ? 'Win' : outcome === 'L' ? 'Loss' : 'Tie';
+        return <li key={game.date + '-' + game.opponent} className="min-w-0 border border-border border-l-4 bg-background p-2" style={{ borderLeftColor: accent }} aria-label={game.date + ', ' + label + ' against ' + game.opponent + ', ' + game.result}>
+          <div className="flex items-center justify-between gap-1">
+            <span className="font-display text-2xl font-semibold text-foreground">{outcome}</span>
+            <span className="text-xs font-semibold text-muted-foreground">{game.date.slice(5)}</span>
+          </div>
+          <p className="mt-1 break-words text-xs font-semibold leading-5 text-foreground">{game.opponent}</p>
+          <p className="mt-1 break-words text-xs tabular-nums text-muted-foreground">{game.result?.slice(2)}{game.district ? ' · District' : ''}</p>
+        </li>;
+      })}
+    </ol>
+    <p className="mt-4 text-xs leading-5 text-muted-foreground">Shows only source-reported finals entered into this school record. Scheduled, cancelled and unverified games are excluded. <a href={sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Review the cited results source ↗</a></p>
+  </figure>;
+}
+
 function Fact({ label, value }: { label: string; value?: string }) {
   return value ? <div className="border-b border-border py-3 last:border-b-0 lg:first:pt-0"><dt className="text-[0.68rem] uppercase tracking-[0.14em] text-muted-foreground">{label}</dt><dd className="mt-1 font-medium">{value}</dd></div> : null;
 }
@@ -854,12 +919,21 @@ function Snapshot({ label, value }: { label: string; value: string }) {
   return <div className="bg-background p-5"><dt className="text-xs uppercase tracking-[0.1em] text-muted-foreground">{label}</dt><dd className="mt-2 font-semibold">{value}</dd></div>;
 }
 
-function ResearchCard({ title, body }: { title: string; body: string }) {
-  return <article className="bg-background p-6"><h3 className="font-display text-2xl">{title}</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">{body}</p></article>;
-}
-
 function Related({ href, title, body }: { href: string; title: string; body: string }) {
   return <a href={href} className="border-t-2 border-foreground pt-4"><h3 className="font-display text-2xl hover:text-primary">{title}</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">{body}</p></a>;
+}
+
+const FOOTBALL_DATE_FORMATTER = new Intl.DateTimeFormat('en-US', {
+  month: 'short',
+  day: 'numeric',
+  year: 'numeric',
+  timeZone: 'UTC',
+});
+
+function formatFootballDate(value: string) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return value;
+  const date = new Date(`${value}T12:00:00Z`);
+  return Number.isNaN(date.getTime()) ? value : FOOTBALL_DATE_FORMATTER.format(date);
 }
 
 function alignmentLabel(program: { classification: string; division: 1 | 2 | null }) {

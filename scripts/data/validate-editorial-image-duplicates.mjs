@@ -51,8 +51,40 @@ function resolveSrc(expression, imports) {
   return "";
 }
 
-function scanArticleLiterals(source, file) {
+// Local and cross-file hero aliases must participate in duplicate detection.
+// Otherwise a repeated "hero: moveHero" assignment escapes the inline-only scan.
+function imageAliases(source, imports) {
+  const aliases = new Map();
+  const regex = /\b(?:export\s+)?const\s+([A-Za-z_$][\w$]*)\s*(?::\s*Article\[\s*["']hero["']\s*\])?\s*=\s*\{\s*src\s*:\s*([^,\n}]+)/g;
+  for (const match of source.matchAll(regex)) {
+    const image = resolveSrc(match[2], imports);
+    if (image) aliases.set(match[1], image);
+  }
+  return aliases;
+}
+
+async function importedHeroAliases(source, file) {
+  const aliases = new Map();
+  const importPattern = /import\s*\{([^}]+)\}\s*from\s*["'](\.[^"']+)["']/g;
+  for (const match of source.matchAll(importPattern)) {
+    const importedFile = path.resolve(path.dirname(file), match[2] + (path.extname(match[2]) ? "" : ".ts"));
+    let imported;
+    try { imported = await fs.readFile(importedFile, "utf8"); } catch { continue; }
+    const exports = imageAliases(imported, importMap(imported));
+    for (const entry of match[1].split(",")) {
+      const names = entry.trim().split(/\s+as\s+/);
+      const exportedName = names[0]?.replace(/^type\s+/, "").trim();
+      const localName = names[1]?.trim() || exportedName;
+      if (exports.has(exportedName)) aliases.set(localName, exports.get(exportedName));
+    }
+  }
+  return aliases;
+}
+
+async function scanArticleLiterals(source, file) {
   const imports = importMap(source);
+  const aliases = imageAliases(source, imports);
+  for (const [name, image] of await importedHeroAliases(source, file)) aliases.set(name, image);
   const slugMatches = [...source.matchAll(/\bslug\s*:\s*["'`]([^"'`]+)["'`]/g)];
   const articles = [];
 
@@ -65,10 +97,10 @@ function scanArticleLiterals(source, file) {
     if (bodyAt < 0) continue;
 
     const beforeBody = segment.slice(0, bodyAt);
-    const hero = beforeBody.match(/\bhero\s*:\s*\{[\s\S]*?\bsrc\s*:\s*([^,\n}]+)/);
-    if (!hero) continue;
-
-    const image = resolveSrc(hero[1], imports);
+    const inlineHero = beforeBody.match(/\bhero\s*:\s*\{[\s\S]*?\bsrc\s*:\s*([^,\n}]+)/);
+    const aliasHero = beforeBody.match(/\bhero\s*:\s*([A-Za-z_$][\w$]*)\s*[,}]/);
+    const image = inlineHero ? resolveSrc(inlineHero[1], imports)
+      : (aliasHero ? aliases.get(aliasHero[1]) : "");
     if (!image) continue;
 
     articles.push({
@@ -140,7 +172,7 @@ const articles = [];
 const articlesByFile = new Map();
 for (const file of files) {
   const source = await fs.readFile(file, "utf8");
-  const rows = scanArticleLiterals(source, file);
+  const rows = await scanArticleLiterals(source, file);
   articles.push(...rows);
   articlesByFile.set(file, rows);
 }

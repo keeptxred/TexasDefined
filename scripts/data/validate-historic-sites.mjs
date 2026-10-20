@@ -24,6 +24,59 @@ const maybornAuthority = fs.readFileSync('src/components/editorial/MaybornMuseum
 const destinationRoute = fs.readFileSync('src/routes/destination.$slug.tsx', 'utf8');
 const cachePurge = fs.readFileSync('scripts/ci/purge-cloudflare-cache.mjs', 'utf8');
 const failures = [];
+const firstPartyDepth = fs.readFileSync('src/data/historic-site-depth-all.ts','utf8');
+const newVisitorUpgrades = fs.readFileSync('src/data/historic-site-visitor-upgrades-20261019.ts', 'utf8');
+for (const slug of ['eisenhower-birthplace', 'sam-rayburn-house', 'bush-family-home', 'san-felipe-de-austin']) {
+  if (!newVisitorUpgrades.includes(`"${slug}": {`)) failures.push(`2026 historic visitor-research upgrade missing: ${slug}`);
+}
+for (const requiredOperatorRecord of [
+  'plan-your-visit-eisenhower-birthplace',
+  'plan-your-visit-sam-rayburn-house',
+  'plan-your-visit-bush-family-home',
+  'plan-your-visit-san-felipe-de-austin',
+  'sourceCheckedAt: "2026-10-19"',
+]) if (!newVisitorUpgrades.includes(requiredOperatorRecord)) failures.push('October historic visitor research citation missing: '+requiredOperatorRecord);
+for (const marker of [
+  'import { applyHistoricVisitorUpgrades20261019 }',
+  'return applyHistoricVisitorUpgrades20261019(enrichResearchedHistoricSiteDepth(',
+  '.map(applyHistoricVisitorUpgrades20261019)',
+]) if (!runtime.includes(marker)) failures.push('New operator-backed visitor research not mounted in both destination paths: '+marker);
+
+const operatorResearch = fs.readFileSync('src/data/historic-site-authority-full-catalog.ts','utf8');
+const socorroEarlyHistory = firstPartyDepth.split('  "old-socorro-mission": [')[1]?.split('  "palmito-ranch-battlefield": [')[0] ?? '';
+if (!socorroEarlyHistory.includes('October 13, 1680') || !socorroEarlyHistory.includes('closed to the public')) {
+  failures.push('Old Socorro research must distinguish the original 1680/1691 archaeological site from the operating 1840s church.');
+}
+if (socorroEarlyHistory.includes('Plan this as a respectful religious-site visit') || socorroEarlyHistory.includes('congregation and ongoing religious use')) {
+  failures.push('Closed Old Socorro must not contain a visitor invitation to an active church.');
+}
+// Preserve site-specific research but never republish repeated seed filler or
+// suggest visiting a state historic site that the operator says is closed.
+for (const marker of [
+  'GENERIC_HISTORIC_PARAGRAPH_MARKERS',
+  'The value of the stop is not just the surviving building',
+  'A useful visit starts with the site',
+  'const sourceBody = destination.body.filter',
+  'sourceBody.length !== destination.body.length',
+  'destination.slug === "first-capitol-of-texas"',
+  'sourceCheckedAt: "2026-10-19"',
+  'question: "Is the First Capitol State Historic Site open?"',
+]) if (!firstPartyDepth.includes(marker)) failures.push('Historic boilerplate/closed site correction missing: ' + marker);
+for (const marker of [
+  'The First Capitol State Historic Site is currently closed',
+  'The First Capitol state property is not currently open',
+]) if (!primary.includes(marker)) failures.push('Closed First Capitol erroneously marketed as an on-site outing: ' + marker);
+
+if (!firstPartyDepth.includes('outdatedDescriptions') || !operatorResearch.includes('old-socorro-mission-history')) {
+  failures.push('Old Socorro research must actively remove obsolete generic visit prose and cite the exact THC chronology.');
+}
+for (const marker of [
+  'destination.slug === "old-socorro-mission"',
+  'destination = enrichResearchedHistoricSiteDepth(destination);',
+  'destination = enrichTexasHistoricSiteAuthority(destination);',
+  '"washington-on-the-brazos", "san-jacinto-battleground", "goliad-state-park"',
+]) if (!destinationRoute.includes(marker)) failures.push(`Canonical historic detail-route regression guard missing: ${marker}`);
+
 
 // Prevent a verified, time-sensitive visitor fact from regressing to generic
 // "check the operator" prose or losing its controlling Texas Historical Commission source.
@@ -568,6 +621,11 @@ if (!seeds.includes('lat: 31.76279, lng: -106.47706')) failures.push('Magoffin f
 if (!magoffinPairings.includes('"magoffin-home": ["el-paso-museum-of-art", "chamizal-national-memorial", "hotel-paso-del-norte"]')) failures.push('Magoffin local reciprocal links missing');
 if (!magoffinTimeline.includes('"magoffin-home": [')) failures.push('Magoffin cited chronology missing');
 if (!magoffinRoute.includes('destination.slug !== "magoffin-home" && isPrimaryTripPlannerDestination(destination)')) failures.push('Magoffin duplicate visit planner must remain suppressed');
+const builtWorkerSmoke = fs.readFileSync("scripts/ci/verify-built-worker-ssr-core.mjs", "utf8");
+if (!magoffinRoute.includes('destination = applyMagoffinHomeAuthority(destination);')) failures.push("Magoffin route must apply final authoritative restoration overlay after remote and local source resolution");
+for (const marker of ["Magoffin restoration alert is SSR-rendered", "Magoffin restored visitor FAQ replaces generic-only guide", "Magoffin current visitor-center arrival address is visible"]) {
+  if (!builtWorkerSmoke.includes(marker)) failures.push("Magoffin built-Worker SSR proof missing: " + marker);
+}
 
 if (failures.length) { console.error('Historic-sites validation failed:'); for (const failure of failures) console.error(`- ${failure}`); process.exit(1); }
 console.log(`Historic-sites validation passed: ${seedSlugs.length} statewide seeds, ${guideSlugs.size} destination-specific area guides, ${clusterIds.length} thematic clusters with valid seed links, ${exactHeroAliases.length + verifiedRemoteHeroes.length} exact verified hero mappings plus ${protectedNationalCemeteries.length} dedicated national-cemetery heroes, every protected hero matches a real seed, Lipantitlan geography is source-corrected, shared preserved-catalog publication, runtime enrichment, Texas History discovery and county cross-links are protected across eager and lazy route surfaces, and the Mayborn Museum dedicated authority route/data/current visitor guidance/post-purge regression contract is protected.`);

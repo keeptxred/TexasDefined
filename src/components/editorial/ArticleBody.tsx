@@ -160,7 +160,11 @@ export function ArticleBody({ blocks, entities = [], insertBeforeIndex, insertBe
           if (showLighthouseVisitPlanner && block.text === "Texas lighthouses at a glance: access, climbs and trip difficulty") {
             return <div key={index}><h2 id={articleHeadingId(block.text)} className="mb-4 mt-14 scroll-mt-28 font-display text-[2rem] font-semibold leading-[1.08] sm:mt-16 sm:text-[2.45rem]">{render(block.text, 2)}</h2><Suspense fallback={null}><LighthouseVisitPlanner /></Suspense></div>;
           }
-          if (articleSlug === "texas-high-school-football-playoffs-explained" && block.text.endsWith("?") && blocks.slice(0, index).some(item => item.type === "heading" && item.text === "Frequently asked questions")) {
+          if (block.text.endsWith("?") && (
+            (articleSlug === "chip-and-joanna-gaines-magnolia-waco" && blocks.slice(0, index).some(item => item.type === "heading" && item.text === "Frequently asked questions about Chip and Joanna Gaines"))
+            || (articleSlug === "texas-high-school-football-playoffs-explained" && blocks.slice(0, index).some(item => item.type === "heading" && item.text === "Frequently asked questions"))
+            || (articleSlug === "moving-to-el-paso-guide" && blocks.slice(0, index).some(item => item.type === "heading" && item.text === "Frequently asked questions about moving to El Paso"))
+          )) {
             return <h3 key={index} id={articleHeadingId(block.text)} className="mb-3 mt-8 scroll-mt-28 font-display text-xl font-semibold">{render(block.text, 2)}</h3>;
           }
           return <h2 key={index} id={articleHeadingId(block.text)} className="mb-4 mt-14 scroll-mt-28 font-display text-[2rem] font-semibold leading-[1.08] sm:mt-16 sm:text-[2.45rem]">{render(block.text, 2)}</h2>;

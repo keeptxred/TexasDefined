@@ -34,8 +34,10 @@ function WmaHuntingLinks() {
 export function DestinationViatorBooking({ destination }: { destination: Destination }) {
   const market = matchDestinationMarket(destination);
   const huntingLinks = destination.id.startsWith("texas-wma-") ? <WmaHuntingLinks /> : null;
-  // An unverified citywide ghost-tour affiliate link does not help visitors to this free NPS memorial.
-  if (destination.slug === "chamizal-national-memorial") return null;
+  // Citywide commercial tours should never appear to sell entry to a closed
+  // archaeological or state historic site. They also do not belong on a free
+  // NPS memorial when no site-specific bookable product exists.
+  if (["chamizal-national-memorial", "old-socorro-mission", "first-capitol-of-texas"].includes(destination.slug)) return null;
   if (!market) return huntingLinks;
 
   const hasDedicatedInventory = hasVerifiedViatorMarketUrl(market.slug);

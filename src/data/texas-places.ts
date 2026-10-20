@@ -6,10 +6,25 @@ const COUNTY_NAMES = `Anderson|Andrews|Angelina|Aransas|Archer|Armstrong|Atascos
 const slugify = (value: string) => value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
 // Texas county INCITS/FIPS codes are the odd three-digit sequence 001–507
-// in alphabetical county order. The state FIPS prefix is 48, so Anderson is
-// GEOID 48001 and Zavala is GEOID 48507.
-export const TEXAS_COUNTIES: TexasCounty[] = COUNTY_NAMES.map((name, index) => ({
-  code: String(index * 2 + 1).padStart(3, '0'),
+// in the Census Bureau's county-name order. Census FIPS places McCulloch,
+// McLennan and McMullen directly after Lynn, while our human-facing name list
+// uses display alphabetical order after Maverick. Never infer official FIPS
+// identity from the index of a display-sorted array.
+const CENSUS_FIPS_ORDER = COUNTY_NAMES.filter((name) => !['McCulloch', 'McLennan', 'McMullen'].includes(name));
+const afterLynn = CENSUS_FIPS_ORDER.indexOf('Lynn');
+if (afterLynn < 0) throw new Error('Cannot assemble Texas Census county FIPS order');
+CENSUS_FIPS_ORDER.splice(afterLynn + 1, 0, 'McCulloch', 'McLennan', 'McMullen');
+const CENSUS_COUNTY_FIPS_BY_NAME = new Map(
+  CENSUS_FIPS_ORDER.map((name, index) => [name, String(index * 2 + 1).padStart(3, '0')] as const),
+);
+if (CENSUS_COUNTY_FIPS_BY_NAME.size !== 254) throw new Error('Texas Census FIPS order must contain 254 unique counties');
+function fipsCountyCode(name: string): string {
+  const value = CENSUS_COUNTY_FIPS_BY_NAME.get(name);
+  if (!value) throw new Error(`Unmapped Texas Census county identity: ${name}`);
+  return value;
+}
+export const TEXAS_COUNTIES: TexasCounty[] = COUNTY_NAMES.map((name) => ({
+  code: fipsCountyCode(name),
   name: `${name} County`,
   slug: slugify(name),
   officialDirectoryUrl: 'https://www.texas.gov/texas-county-websites.html',

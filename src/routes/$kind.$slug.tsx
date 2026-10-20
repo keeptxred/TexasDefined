@@ -3,6 +3,7 @@ import { texasDefinedBrand } from '@/brand/texasdefined';
 import { loadCountyProfile } from '@/data/county-profile';
 import { loadCountySeriesArticle } from '@/data/county-series';
 import { getCitySocialImage } from '@/data/city-social-images';
+import { elPasoCountyHero } from '@/data/el-paso-county-hero';
 import {
   canonicalEntityPath,
   isIndexableEntityPage,
@@ -74,6 +75,7 @@ export const Route = createFileRoute('/$kind/$slug')({
     const canonicalPath = canonicalEntityPath(loaderData.entity);
     const countySeriesArticle = loaderData.countySeriesArticle;
     const citySocialImage = loaderData.entity.kind === 'city' ? getCitySocialImage(loaderData.entity.slug) : undefined;
+    const countyHeroImage = loaderData.entity.kind === 'county' && loaderData.entity.slug === 'el-paso' ? elPasoCountyHero : undefined;
     const metroSocialImage = loaderData.entity.kind === 'metro-area' && loaderData.entity.slug === 'el-paso-metro'
       ? { src: 'https://commons.wikimedia.org/wiki/Special:Redirect/file/El_Paso_skyline.jpg?width=1600', alt: 'Downtown El Paso skyline beneath the Franklin Mountains' }
       : undefined;
@@ -85,10 +87,10 @@ export const Route = createFileRoute('/$kind/$slug')({
         canonicalPath,
         title: searchIntentTitle(loaderData.entity),
         description,
-        image: countySeriesArticle?.hero.src ?? citySocialImage?.src ?? metroSocialImage?.src,
-        imageAlt: countySeriesArticle?.hero.alt ?? citySocialImage?.alt ?? metroSocialImage?.alt,
-        imageWidth: countySeriesArticle?.hero.width,
-        imageHeight: countySeriesArticle?.hero.height,
+        image: countyHeroImage?.src ?? countySeriesArticle?.hero.src ?? citySocialImage?.src ?? metroSocialImage?.src,
+        imageAlt: countyHeroImage?.alt ?? countySeriesArticle?.hero.alt ?? citySocialImage?.alt ?? metroSocialImage?.alt,
+        imageWidth: countyHeroImage?.width ?? countySeriesArticle?.hero.width,
+        imageHeight: countyHeroImage?.height ?? countySeriesArticle?.hero.height,
         type: countySeriesArticle ? 'article' : 'website',
         publishedTime: countySeriesArticle?.publishedAt,
         modifiedTime: countySeriesArticle?.updatedAt,

@@ -1,3 +1,4 @@
+import { privateWellEquipmentHero } from "./texas-home-finance-media";
 import type { Article } from "../types";
 
 export const texasAquifersSpringsGuideStub: Article = {
@@ -79,7 +80,7 @@ export const texasRuralWellsWaterGuideStub: Article = {
   title: "Private Wells in Texas: What Rural Land Buyers Should Check",
   dek: "A private well can make rural property possible, but a well is not a guarantee of unlimited or uniform water. Records, aquifers, depth, yield, quality, local groundwater rules and nearby land uses all matter before closing.",
   category: "real-estate",
-  hero: { src: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1600&q=82", alt: "Open rural Texas land under a wide sky", width: 1600, height: 1067 },
+  hero: privateWellEquipmentHero,
   authorId: "a-marisol",
   publishedAt: "2026-08-16",
   readingMinutes: 9,

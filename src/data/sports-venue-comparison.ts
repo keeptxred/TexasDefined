@@ -3,6 +3,12 @@ import { canonicalEntityPath } from './knowledge-graph/relationships';
 import { CURATED_KNOWLEDGE_GRAPH_SEED } from './knowledge-graph/seed';
 import type { TexasEntityRecord } from './knowledge-graph/types';
 import { getSportsVenueEnrichmentAll } from './sports-venue-enrichment-all';
+import { getSportsVenueGuideGalaxy } from './sports-venue-guide-galaxy';
+import { getSportsVenueGuidePilot } from './sports-venue-guide-pilots';
+import { getSportsVenueGuideWave4 } from './sports-venue-guide-wave4';
+import { getSportsVenueGuideWave5 } from './sports-venue-guide-wave5';
+import { getSportsVenueGuideWave6 } from './sports-venue-guide-wave6';
+import { getSportsVenueGuideWave7 } from './sports-venue-guide-wave7';
 
 export type SportsVenueComparisonRow = {
   venue: TexasEntityRecord;
@@ -27,6 +33,12 @@ const venueRecords = [...new Map(
 export const SPORTS_VENUE_COMPARISON_ROWS: readonly SportsVenueComparisonRow[] = venueRecords
   .map((venue) => {
     const enrichment = getSportsVenueEnrichmentAll(venue.slug);
+    const guide = getSportsVenueGuideGalaxy(venue.slug)
+      ?? getSportsVenueGuideWave7(venue.slug)
+      ?? getSportsVenueGuideWave6(venue.slug)
+      ?? getSportsVenueGuideWave5(venue.slug)
+      ?? getSportsVenueGuideWave4(venue.slug)
+      ?? getSportsVenueGuidePilot(venue.slug);
     return {
       venue,
       canonicalPath: canonicalEntityPath(venue),
@@ -34,9 +46,11 @@ export const SPORTS_VENUE_COMPARISON_ROWS: readonly SportsVenueComparisonRow[] =
       county: venue.countySlug ? `${titleCase(venue.countySlug)} County` : undefined,
       region: venue.region ? titleCase(venue.region) : undefined,
       type: sportsVenueComparisonType(venue),
-      capacity: enrichment?.capacity,
-      opened: enrichment?.opened,
-      verifiedAt: enrichment?.verifiedAt ?? venue.sourceCheckedAt,
+      // Prefer the deep visitor profile, then reuse the already source-reviewed
+      // guide fact instead of leaving comparison cells blank or duplicating data.
+      capacity: enrichment?.capacity ?? guide?.capacity,
+      opened: enrichment?.opened ?? guide?.opened,
+      verifiedAt: latestIsoDate([enrichment?.verifiedAt, guide?.reviewedAt, venue.sourceCheckedAt]),
       officialUrl: venue.officialUrl,
     };
   })
@@ -49,6 +63,14 @@ export const SPORTS_VENUE_COMPARISON_LATEST_REVIEW = SPORTS_VENUE_COMPARISON_ROW
   .filter((value): value is string => Boolean(value))
   .sort()
   .at(-1);
+
+function latestIsoDate(values: readonly (string | undefined)[]) {
+  return values
+    .map((value) => value?.slice(0, 10))
+    .filter((value): value is string => Boolean(value && /^\d{4}-\d{2}-\d{2}$/.test(value)))
+    .sort()
+    .at(-1);
+}
 
 export function sportsVenueComparisonType(venue: TexasEntityRecord) {
   const tags = new Set(venue.tags ?? []);

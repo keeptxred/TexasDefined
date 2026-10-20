@@ -93,7 +93,9 @@ test('slug-keyed article link changes verify actual source pages and newly added
 test('planner corrections retest previously missed editorial SSR links, not entire site', () => {
   const plan = buildChangePlan({ baseline, head, changedFiles: ['scripts/ci/production-change-scope.mjs'] });
   assert.deepEqual(plan.selectedPaths, [
-    '/destination/battleship-texas', '/destination/fredericksburg',
+    '/destination/battleship-texas', '/destination/fredericksburg', '/destination/magoffin-home',
+    '/texas-data', '/texas-data/texas-homeowners-premium-history',
+    '/texas-data/texas-metro-payrolls-august-2026', '/texas-data/texas-metro-payrolls-june-2026',
     '/article/texas-cultural-regions-explained', '/article/texas-regions-explained',
     '/explore/road-trips',
     '/fishing/species/black-crappie', '/fishing/species/bluegill',
@@ -106,6 +108,125 @@ test('planner corrections retest previously missed editorial SSR links, not enti
   assert.equal(plan.expectedHrefsByPage['/article/texas-cultural-regions-explained'][0], '/article/texas-oil-boom-wichita-falls-west-texas-rigs');
 });
 
+test('Texas Data release checks are bounded and reject stale SSR values', async () => {
+  const source = 'src/data/texas-data-center.server.ts';
+  const plan = buildChangePlan({ baseline, head, changedFiles: [source] });
+  const paths = [
+    '/texas-data',
+    '/texas-data/texas-homeowners-premium-history',
+    '/texas-data/texas-metro-payrolls-august-2026',
+    '/texas-data/texas-metro-payrolls-june-2026',
+  ];
+  assert.deepEqual(plan.selectedPaths, paths);
+  assert.deepEqual(plan.texasDataPages, paths);
+  assert.equal(plan.omittedCount, 0);
+  assert.ok(plan.selectedPaths.length <= PAGE_BUDGET);
+  const fresh = {
+    '/texas-data': 'Texas at a glance 4,357,000 August 2026 preliminary $3,489 Search official data briefs /texas-data/texas-metro-payrolls-august-2026',
+    '/texas-data/texas-homeowners-premium-history': '2023 $2,795 2025 $3,489 October 20, 2026',
+    '/texas-data/texas-metro-payrolls-august-2026': 'August 2026 4,357,000 3,495,300 metro_09302026.htm',
+    '/texas-data/texas-metro-payrolls-june-2026': 'June 2026 4,363,300 metro_07292026.htm',
+  };
+  const serve = (record) => async url => new Response(
+    '<html><head><title>Texas Data</title><link rel="canonical" href="https://texasdefined.com'
+      + url.pathname + '"></head><body>' + record[url.pathname] + '</body></html>',
+  );
+  const current = await verifyChangedPages({ plan, head, fetchImpl: serve(fresh) });
+  assert.equal(current.length, 4);
+  assert.ok(current.every(result => result.passed), JSON.stringify(current));
+
+  const stalePremium = { ...fresh, '/texas-data/texas-homeowners-premium-history': '2023 $2,800 2025 $3,489 October 20, 2026' };
+  const badPremium = await verifyChangedPages({ plan, head, fetchImpl: serve(stalePremium) });
+  assert.equal(badPremium.find(result => result.path.endsWith('premium-history')).passed, false);
+
+  const staleHub = { ...fresh, '/texas-data': 'Texas at a glance 4,363,300 DFW nonfarm payrolls June 2026 preliminary $3,489' };
+  const badHub = await verifyChangedPages({ plan, head, fetchImpl: serve(staleHub) });
+  assert.equal(badHub.find(result => result.path === '/texas-data').passed, false);
+
+  const badSource = { ...fresh, '/texas-data/texas-metro-payrolls-june-2026': 'June 2026 4,363,300 metro.t03.htm' };
+  const badArchive = await verifyChangedPages({ plan, head, fetchImpl: serve(badSource) });
+  assert.equal(badArchive.find(result => result.path.endsWith('june-2026')).passed, false);
+});
+
+test('every production release verifies Texas Data content even after original PR deployment is superseded', async () => {
+  const unrelated = ['docs/football-authority/PROGRESS.md'];
+  const ordinary = buildChangePlan({ baseline, head, changedFiles: unrelated });
+  assert.deepEqual(ordinary.texasDataPages, []);
+  const plan = buildChangePlan({ baseline, head, changedFiles: unrelated, enforceCriticalCanaries: true });
+  const canaries = [
+    '/texas-data',
+    '/texas-data/texas-homeowners-premium-history',
+    '/texas-data/texas-metro-payrolls-august-2026',
+    '/texas-data/texas-metro-payrolls-june-2026',
+  ];
+  assert.deepEqual(plan.selectedPaths, canaries);
+  assert.deepEqual(plan.texasDataPages, canaries);
+  assert.equal(plan.omittedCount, 0);
+  assert.ok(plan.selectedPaths.length <= PAGE_BUDGET);
+  const content = {
+    '/texas-data': 'Texas at a glance 4,357,000 August 2026 preliminary $3,489 Search official data briefs /texas-data/texas-metro-payrolls-august-2026',
+    '/texas-data/texas-homeowners-premium-history': '2023 $2,795 2025 $3,489 October 20, 2026',
+    '/texas-data/texas-metro-payrolls-august-2026': 'August 2026 4,357,000 3,495,300 metro_09302026.htm',
+    '/texas-data/texas-metro-payrolls-june-2026': 'June 2026 4,363,300 metro_07292026.htm',
+  };
+  const fetchImpl = async url => new Response(
+    '<html><head><title>Texas Data</title><link rel="canonical" href="https://texasdefined.com'
+      + url.pathname + '"></head><body>' + content[url.pathname] + '</body></html>',
+  );
+  const verified = await verifyChangedPages({ plan, head, fetchImpl });
+  assert.ok(verified.every(item => item.passed), JSON.stringify(verified));
+  const stale = await verifyChangedPages({ plan, head, fetchImpl: async url =>
+    new Response('<html><head><title>Texas Data</title><link rel="canonical" href="https://texasdefined.com'
+      + url.pathname + '"></head><body>$2,800 4,363,300 June 2026</body></html>') });
+  assert.ok(stale.every(item => !item.passed));
+});
+
+test('ordinary Texas Data URL must not serve stale HTML when query-string canary is fresh', async () => {
+  const page = '/texas-data/texas-homeowners-premium-history';
+  const plan = { head, selectedPaths: [page], texasDataPages: [page], redirectChecks: [] };
+  const fresh = '2023 $2,795 2025 $3,489 October 20, 2026';
+  const old = '2023 $2,800 2025 $3,489 October 20, 2026';
+  const requests = [];
+  const serve = (body, url) =>
+    new Response('<html><head><title>Premiums</title><link rel="canonical" href="https://texasdefined.com'
+      + url.pathname + '"></head><body>' + body + '</body></html>');
+  const healthy = await verifyChangedPages({ plan, head, fetchImpl: async url => {
+    requests.push(url.href);
+    return serve(fresh, url);
+  } });
+  assert.equal(healthy[0].passed, true);
+  assert.ok(requests.some(url => url.includes('deploy_smoke=')), 'release bust request required');
+  assert.ok(requests.includes('https://texasdefined.com' + page), 'ordinary visitor request required');
+
+  const stale = await verifyChangedPages({ plan, head, fetchImpl: async url =>
+    serve(url.searchParams.has('deploy_smoke') ? fresh : old, url) });
+  assert.equal(stale[0].passed, false);
+  assert.match(stale[0].error, /ordinary visitor URL still serves stale HTML/);
+
+  const purgeWorkflow = text('.github/workflows/deploy-production.yml');
+  for (const url of [
+    'https://texasdefined.com/texas-data',
+    'https://texasdefined.com/texas-data/texas-homeowners-premium-history',
+    'https://texasdefined.com/texas-data/texas-metro-payrolls-august-2026',
+    'https://texasdefined.com/texas-data/texas-metro-payrolls-june-2026',
+  ]) assert.ok(purgeWorkflow.includes('            ' + url + '\n'), 'missing precise purge target: ' + url);
+});
+
+test('Magoffin restoration edits require exact live SSR closure, FAQ and visitor center', async () => {
+  const plan = buildChangePlan({ baseline, head, changedFiles: ['src/data/magoffin-home-authority.ts'] });
+  assert.deepEqual(plan.selectedPaths, ['/destination/magoffin-home']);
+  assert.deepEqual(plan.magoffinHomePages, ['/destination/magoffin-home']);
+  const body = 'Historic home closed through 2027 · Magoffin Home visitor FAQ · 1117 Magoffin Avenue';
+  const html = text => '<html><head><title>Magoffin Home</title><link rel="canonical" href="https://texasdefined.com/destination/magoffin-home"></head><body>' + text + '</body></html>';
+  const success = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html(body)) });
+  assert.equal(success[0].passed, true);
+  const stale = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html('Old generic Magoffin guide')) });
+  assert.equal(stale[0].passed, false);
+  assert.match(stale[0].error, /Magoffin Home current authority SSR missing/);
+  const booking = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html(body + ' Tours and experiences near Magoffin Home State Historic Site')) });
+  assert.equal(booking[0].passed, false);
+  assert.match(booking[0].error, /generic tour booking component/);
+});
 test('football template changes verify only two real team pages and their live game-night paths', async () => {
   const plan = buildChangePlan({ baseline, head, changedFiles: ['src/routes/texas-high-school-football-teams_.$slug.lazy.tsx'] });
   assert.deepEqual(plan.selectedPaths, [
@@ -208,6 +329,25 @@ test('planner change preserves bounded prior regression surfaces including data 
   const plan = buildChangePlan({ baseline, head, changedFiles: ['scripts/ci/production-change-scope.mjs'] });
   assert.ok(plan.selectedPaths.includes('/texas-data/texas-population-and-migration-2025'));
   assert.ok(plan.selectedPaths.length + plan.redirectChecks.length <= PAGE_BUDGET);
+});
+
+test('destination route article links never masquerade as destination pages in production smoke', () => {
+  const routePath = 'src/routes/destination.$slug.tsx';
+  const before = 'const view = <div>Original destination detail</div>;';
+  const after = `const view = <div>Original destination detail<Link to="/article/\\$slug" params={{ slug: "chip-and-joanna-gaines-magnolia-waco" }}>Gaines</Link></div>;`;
+  const plan = buildChangePlan({ baseline, head, changedFiles: [routePath],
+    sources: { [routePath]: { before, after } } });
+  assert.ok(plan.selectedPaths.includes('/destination/magoffin-home'), 'shared destination route still has real Magoffin live canary');
+  assert.ok(!plan.selectedPaths.includes('/destination/chip-and-joanna-gaines-magnolia-waco'),
+    'outbound article link slug cannot fabricate a nonexistent destination');
+  const articlePath = 'src/data/fixtures/chip-and-joanna-gaines-magnolia-waco.ts';
+  const article = 'export const chipJoannaGainesMagnoliaWacoArticle: Article = { slug: "chip-and-joanna-gaines-magnolia-waco", body: [] };';
+  const combined = buildChangePlan({ baseline, head, changedFiles: [routePath, articlePath],
+    sources: { [routePath]: { before, after }, [articlePath]: { before: '', after: article } } });
+  assert.ok(combined.selectedPaths.includes('/article/chip-and-joanna-gaines-magnolia-waco'),
+    'the published article route must still get a live production smoke check');
+  assert.ok(!combined.selectedPaths.includes('/destination/chip-and-joanna-gaines-magnolia-waco'),
+    'combining route and published fixture must not reintroduce the phantom destination');
 });
 
 test('standalone article fixture edits select the owner, not generic homepage samples', async () => {

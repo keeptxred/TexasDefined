@@ -1,4 +1,5 @@
 import type { CategorySlug, Destination, GeoPoint } from "./types";
+import { getDallasSmallTownDrive, inDallasSmallTownDriveBand } from "./dallas-small-town-drives.ts";
 
 export const METRO_PROXIMITY_VERIFIED_AT = "2026-09-29";
 
@@ -592,6 +593,7 @@ export function selectMetroProximityDestinations(
   collection: MetroProximityCollection,
 ): MetroProximityResult[] {
   const mcallenDayTrips = metro.slug === "mcallen" && collection.slug === "day-trips";
+  const dallasRoadRing = metro.slug === "dallas" && /^small-towns-[123]-hours?$/.test(collection.slug);
   const minimumMiles = mcallenDayTrips ? 0 : collection.minimumMiles;
   const radiusMiles = mcallenDayTrips ? 108 : collection.radiusMiles;
   const seen = new Set<string>();
@@ -602,11 +604,23 @@ export function selectMetroProximityDestinations(
     .filter((destination) => !mcallenDayTrips || !MCALLEN_OVERNIGHT_COAST_EXCLUSIONS.has(destination.slug))
     .map((destination) => ({ destination, distanceMiles: distanceFromPointMiles(metro.center, destination) }))
     .filter((row): row is { destination: Destination; distanceMiles: number } => row.distanceMiles !== null)
-    .filter((row) => (minimumMiles === 0 ? row.distanceMiles >= 0 : row.distanceMiles > minimumMiles) && row.distanceMiles <= radiusMiles);
+    .filter((row) => {
+      if (dallasRoadRing) {
+        const drive = getDallasSmallTownDrive(row.destination.slug, row.destination.name, row.destination.nearestTown);
+        return Boolean(drive && inDallasSmallTownDriveBand(collection.slug, drive.minutes));
+      }
+      return (minimumMiles === 0 ? row.distanceMiles >= 0 : row.distanceMiles > minimumMiles) && row.distanceMiles <= radiusMiles;
+    });
   const rows = mcallenDayTrips
     ? selectMcAllenDayTrips(candidates, collection.maxResults)
     : collection.slug === "day-trips"
       ? selectDiverseDayTrips(candidates, collection)
+      : dallasRoadRing
+        ? candidates.sort((left, right) => {
+            const a = getDallasSmallTownDrive(left.destination.slug, left.destination.name, left.destination.nearestTown)!.minutes;
+            const b = getDallasSmallTownDrive(right.destination.slug, right.destination.name, right.destination.nearestTown)!.minutes;
+            return a - b || left.destination.name.localeCompare(right.destination.name);
+          }).slice(0, collection.maxResults)
       : candidates
         .sort((left, right) => left.distanceMiles - right.distanceMiles || left.destination.name.localeCompare(right.destination.name))
         .slice(0, collection.maxResults);

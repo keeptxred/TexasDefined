@@ -134,7 +134,7 @@ for (const marker of [
 ]) {
   if (!proximityCollectionRoute.includes(marker)) failures.push(`San Angelo proximity production-proof marker is missing: ${marker}`);
 }
-const dallasTwoHourTitle = 'Small-Town Day Trips From Dallas, Texas';
+const dallasTwoHourTitle = 'Small Towns About 1–2 Hours From Dallas, Texas';
 if (!proximityPresentation.includes('titlePrefix: "Small-Town Day Trips From"')) {
   failures.push('Metro proximity presentation must retain the shared Small-Town Day Trips From title contract for two-hour small-town pages.');
 }
@@ -212,7 +212,9 @@ for (const marker of ['id: live', "All blocking production verifiers passed nati
 }
 const baselineCompletion = "if: ${{ success() && steps.cloudflare.outcome == 'success' }}";
 const strongerFoliageCompletion = "if: ${{ success() && steps.cloudflare.outcome == 'success' && steps.live_east_texas_foliage.outcome == 'success' }}";
-if (!liveMarkerBlock.includes(baselineCompletion) && !liveMarkerBlock.includes(strongerFoliageCompletion)) {
+const district5ChromeCompletion = "if: ${{ success() && steps.cloudflare.outcome == 'success' && steps.live_district5_browser.outcome == 'success' }}";
+const district21Completion = "if: ${{ success() && steps.cloudflare.outcome == 'success' && steps.live_district5_browser.outcome == 'success' && steps.live_district21.outcome == 'success' }}";
+if (!liveMarkerBlock.includes(baselineCompletion) && !liveMarkerBlock.includes(strongerFoliageCompletion) && !liveMarkerBlock.includes(district5ChromeCompletion) && !liveMarkerBlock.includes(district21Completion)) {
   failures.push('Live-completion marker must require successful Cloudflare deployment and all blocking verifiers.');
 }
 if (liveMarkerBlock.includes(strongerFoliageCompletion)) {

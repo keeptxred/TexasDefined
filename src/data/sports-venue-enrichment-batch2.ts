@@ -166,10 +166,11 @@ export const SPORTS_VENUE_ENRICHMENT_BATCH2: Record<string, SportsVenueEnrichmen
   },
   'frost-bank-center': {
     city: 'San Antonio',
+    capacity: '18,354 for basketball',
     opened: '2002',
     primaryEvents: ['San Antonio Spurs home games', 'San Antonio Stock Show & Rodeo', 'Major concerts and arena events'],
     history: 'Frost Bank Center opened in 2002 and is home to the San Antonio Spurs and the San Antonio Stock Show & Rodeo. The arena underwent a major renovation in 2015 to improve the fan experience.',
-    parking: 'The arena offers on-site parking that can be purchased in advance. Event-day parking is cashless, and the venue publishes lot-specific exit routes plus a designated rideshare pickup zone in Lot 5.',
+    parking: 'The arena offers on-site parking that can be purchased in advance. Event-day parking is cashless, and the venue publishes current color-coded lot exit routes plus a designated rideshare pickup zone in the Pink Lot.',
     arrival: 'For Spurs games and major events, pre-purchasing parking simplifies arrival. Event-specific door times vary; premium and rodeo events may open on different schedules from concerts.',
     stayAndEat: 'The arena is east of downtown San Antonio, so visitors can either stay near the event corridor for convenience or use a downtown hotel and treat the game as one part of a broader city weekend.',
     nearby: 'Freeman Coliseum is next door, and downtown San Antonio attractions are a short drive away, making the venue useful within a larger sports-and-city itinerary.',
@@ -177,9 +178,12 @@ export const SPORTS_VENUE_ENRICHMENT_BATCH2: Record<string, SportsVenueEnrichmen
       { label: 'Frost Bank Center parking', url: 'https://www.frostbankcenter.com/parking' },
       { label: 'Arena information', url: 'https://www.frostbankcenter.com/arena/about' },
       { label: 'Arena policies', url: 'https://www.frostbankcenter.com/arena/arena-policies' },
+      { label: 'Bag policy', url: 'https://www.frostbankcenter.com/arena/bag-policy' },
+      { label: 'Accessibility guide', url: 'https://www.frostbankcenter.com/arena/accessibility-guide' },
+      { label: 'NBA arena capacity reference', url: 'https://www.nba.com/news/all-30-nba-arenas-by-team' },
     ],
     imageBrief: 'Exterior of a major San Antonio basketball arena at dusk with event-night atmosphere, clean Texas travel-editorial composition, no added logos or text.',
-    verifiedAt,
+    verifiedAt: '2026-10-19',
   },
 };
 

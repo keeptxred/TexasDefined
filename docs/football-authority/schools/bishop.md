@@ -26,7 +26,9 @@
 
 ## Implementation and pending gates
 
-Original content, original FAQs, season snapshots, critical visitor/source disagreements and UIL data implemented in program-editorial.ts. Needs protected canonical premerge gate, merge behind Big Spring PR #4970, exact-SHA desktop/mobile production Chrome checks (links, image governance, SEO, schema, accessibility), 2026 score updates, Nueces County reciprocal internal links and independent nine-dimension editorial acceptance. Retain NOT VERIFIED until then.
+Original content, original FAQs, season snapshots, critical visitor/source disagreements and UIL data are merged and deployed. [Batch 006 Chrome run #39273758531](https://github.com/keeptxred/TexasDefined/actions/runs/39273758531) passed Bishop at 1366px desktop, 390px mobile and 320px reflow; the reciprocal Nueces County check passed on the same single Worker release, and the Batch 006 sitemap cohort passed 25/25. Those technical gates are complete.
+
+Bishop remains **DEPLOYED, not VERIFIED** because the remaining issues are substantive rather than mechanical: Keith Talbert is still a dated third-party-attributed head-coach field rather than a Bishop CISD hiring notice; George Luna Stadium is source-supported for the October 23 school event but exact vehicle gate/parking/ADA access is not certified; no stadium/photo reuse rights are established; and a manual human accessibility plus final nine-dimension editorial review has not been completed.
 
 ## October 19, 2026 — first-party stadium and former-coach chronology clarified
 
@@ -41,3 +43,16 @@ The editorial now explains the school-issued October 23 George Luna venue and co
 
 Editorial decision: add Keith Talbert as a **dated, third-party-attributed current head-coach field** rather than leave a blank coach record in the presence of supporting contemporary roster data. This is **not** a claim of a school-issued appointment notice: official Bishop CISD hiring confirmation is still missing. No score, George Luna homecoming event, gate/parking/photo/ADA evidence or nine-dimension editorial status changed.
 
+
+
+## October 20, 2026 — 2024 stadium-renaming decision and 2026 homecoming venue verified separately
+[Local KZTV10 original reporting](https://www.kztv10.com/news/local-news/badger-stadium-renamed-after-former-bishop-athletic-director-george-luna) documents Bishop CISD's decision after a January 22, 2024 school-board agenda item to **rename Badger Stadium to George Luna Stadium** in honor of the district's longtime late athletic director George Luna. The [Bishop High School official events calendar](https://bhs.bishopcisd.net/) independently names **George Luna Stadium** for the **October 23, 2026, 7 p.m. varsity homecoming versus Santa Gertrudis Academy**. These separate dated original sources resolve the nomenclature; [Dave Campbell's archival stadium directory](https://txfb.sidev.co/team/bishop-badgers) still displays **Ed Gorny Stadium**, which does **not** supersede the school's 2026 venue listing or establish a current driving address.
+
+The actual school page's dated milestone, visitor overview, notice and FAQ now explain the naming history, linked to both local reporting and school events. The school contact address **100 Badger Lane** and Bishop CISD athletics office **719 East Sixth Street** are **not certified stadium vehicle-gate addresses**. No invented admission price, exact parking, ADA entrance, photographer license or change to the 2–5 October 9 football score snapshot. Historic news about the honoree is handled respectfully and without unnecessary personal medical details. No formal nine-dimension acceptance inferred.
+
+## October 20, 2026 — direct Bishop CISD ticket purchase information
+The [Bishop CISD original athletics Ticket Sales page](https://www.bishopcisd.net/athletics/ticket-sales) and [parent/student HomeTown Ticket App guidance](https://www.bishopcisd.net/parents-students/tickets-sales) were independently located. A **seventh Bishop-specific public FAQ** now links visitors directly to those two first-party resources and Bishop CISD Athletics at **361-584-3591 ext. 319** for exact October 23 homecoming ticketing. The pages do not sufficiently certify a currently purchasable October 23 event, ticket price, accepted payment methods at the stadium, parking or ADA entrance; none is invented. Corpus Christi ISD's separate 2026 football ticket prices and policies must never be transferred to Bishop CISD.
+
+## October 20, 2026 — October 16 schedule-gap check (not a result)
+
+The [2026 Bishop Badgers dated varsity schedule](https://www.maxpreps.com/tx/bishop/bishop-badgers/football/schedule/) still shows **2–5 through October 9** and next lists **October 23 versus Santa Gertrudis Academy**. It lists **no October 16 Bishop game**. Retain the accurate dated season record; do not invent a bye award, forfeit, score, standings or playoff qualification merely to fill an empty calendar week. This is a third-party schedule observation, not an independently certified UIL no-game decision. An October 23 event's actual site, tickets and accessibility still need official game-day verification.

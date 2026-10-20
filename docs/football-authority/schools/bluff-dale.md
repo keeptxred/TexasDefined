@@ -40,3 +40,20 @@ Create one unique Bluff Dale editorial object, full source links, original summa
 ## Release acceptance withheld
 
 Run canonical `node scripts/ci/run-premerge-validation.mjs` on reconciled branch through protected merge gate. Then independently verify deployment identity, HTTP/canonical/noindex, football schema, actual school title/2026 Division I, 2026 schedule source, Erath return links in both desktop and mobile, no horizontal overflow, broken images, or runtime errors, screenshot evidence, and accessible game info. **No VERIFIED promotion before exact deployed SHA and real production test.** No sitewide scan added.
+
+## October 20, 2026 — official school calendar closes missing varsity fixtures and 22/23 date dispute
+
+**Original first-party school evidence:** [Bluff Dale ISD's school calendar](https://bdisd.smartsiteshost.com/page/page_calendar?calID=136451) publishes:
+- **Friday, October 23, 7 p.m.** — varsity football **at Milford** (away, district)
+- **Thursday, October 29, 7 p.m.** — varsity football **vs Pinnacle Christian** (home, not classified district)
+- **Thursday, November 5, 7 p.m.** — varsity football **vs Avalon** (home, district)
+
+The originally merged program's scored schedule had seven completed games through October 15 and **only Avalon as an upcoming game**; it omitted the Milford road game discussed in its own overview and FAQ, as well as the newly school-published October 29 opponent. An older [MaxPreps schedule](https://www.maxpreps.com/tx/bluff-dale/bluff-dale-bobcats/football/schedule/) shows **Milford October 23**, but the specialist [Six-Man Football schedule](https://sixmanfootball.com/teams/bluff-dale-bobcats.1054/schedule/) and [Pigskin Prep 2026 district fixture](https://www.pigskinprep.com/showfreeschedules.asp?distID=139&yr=2026) show **Thursday October 22**. **Use the school-issued October 23 posting** for the published fixture, keep the source conflict visible, and defer to any future first-party change. The Oct 29 Pinnacle Christian fixture is **first-party-only** at this checkpoint and may reflect a late additional game; the guide labels it a **scheduled fixture**, not an independently verified completed game or official district contest. The coach's [Sept 30 Week 10 opponent request](https://sixmanfootball.com/threads/week-10-varsity.43312/) corroborates that week-10 booking was still being arranged. No final score, W/L, false playoff clinch, stadium entry/parking/accessibility claim or image licensing is inferred.
+
+**Actual editorial correction:** restore the complete 10-game chronological list (seven sourced completed finals + **three school-published future fixtures**), change the schedule source to the first-party district calendar, and align the overview/FAQ/notice on the Milford calendar discrepancy. The prior 4–3 through Oct 15 record remains correct and dated. Formal nine-dimension editorial/rights/manual-accessibility acceptance remains pending despite the older successful Batch006 Chrome structural run.
+
+## October 20, 2026 — acceptance-ledger source recheck
+Bluff Dale ISD's current Gaeron Cooley staff biography was rechecked and still explicitly states that Cooley is **Head Coach of Football** while also serving as athletic director. That first-party school evidence continues to support the coaching field and is stronger than stale generic sports-directory labels.
+
+The district page still identifies the school at 430 FM 2481 but does not establish the exact public football entrance, parking allocation, accessible seating, ticket rules, or reusable football photography rights. The school-issued October 23 Milford / October 29 Pinnacle Christian / November 5 Avalon schedule correction and the 4–3 through October 15 record remain unchanged. **Status stays DEPLOYED, not individually VERIFIED.**
+

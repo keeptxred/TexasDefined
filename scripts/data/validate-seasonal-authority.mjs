@@ -5,6 +5,9 @@ const authority = read("src/data/fixtures/seasonal-authority-articles.ts");
 const intents = read("src/data/fixtures/seasonal-intent-articles.ts");
 const authorityLazy = read("src/data/fixtures/lazy-seasonal-authority.ts");
 const intentLazy = read("src/data/fixtures/lazy-seasonal-intents.ts");
+const hillCountryFallHero = read("src/data/fixtures/hill-country-fall-colors-hero.ts");
+const eastTexasFallHero = read("src/data/fixtures/east-texas-fall-colors-hero.ts");
+const articleRoute = read("src/routes/article.$slug.tsx");
 const links = read("src/data/fixtures/seasonal-authority-links.ts");
 const countyRegistry = read("src/data/county-seasonal-links.ts");
 const countyLegacyLinks = read("src/data/fixtures/seasonal-county-links.ts");
@@ -36,6 +39,29 @@ for (const [group, slugs] of Object.entries(groups)) {
     if (!links.includes(`\"${slug}\"`)) fail(`${group}: missing reciprocal authority-link entry ${slug}`);
   }
 }
+
+// Protect the Hill Country fall guide from accidentally reusing a green park photo.
+// Both list/discovery and the full article must share the same verified autumn hero.
+for (const [name, source] of [["full article", intents], ["discovery stub", intentLazy]]) {
+  if (!source.includes('hero: hillCountryFallColorsHero')) fail(`Hill Country fall ${name} must use the verified autumn hero`);
+  if (!source.includes('import { hillCountryFallColorsHero } from "./hill-country-fall-colors-hero"')) fail(`Hill Country fall ${name} missing shared photo import`);
+}
+for (const marker of ["The_Lost_Maples_State_Park_-_Fall_Colors_in_Texas", "Golden-orange and rust-red autumn", "G. Lamar", "24 Nov 2012", "CC BY 2.0"]) {
+  if (!hillCountryFallHero.includes(marker) && !hillCountryFallHero.includes(marker.toLowerCase())) fail(`Hill Country autumn hero missing ${marker}`);
+}
+for (const marker of ["Hero photo: G. Lamar, November 2012", "creativecommons.org/licenses/by/2.0", "not a verified report of current foliage"]) {
+  if (!articleRoute.includes(marker)) fail(`Hill Country hero credit or historical caveat missing: ${marker}`);
+}
+
+// East Texas should also illustrate actual autumn foliage, not evergreen Caddo Lake.
+for (const [name, source] of [["full article", intents], ["discovery stub", intentLazy]]) {
+  if (!source.includes('hero: eastTexasFallColorsHero')) fail(`East Texas fall ${name} must use the authentic Daingerfield autumn hero`);
+  if (!source.includes('import { eastTexasFallColorsHero } from "./east-texas-fall-colors-hero"')) fail(`East Texas fall ${name} missing shared autumn photo import`);
+}
+for (const marker of ["Daingerfield_sp_reflection.jpg", "autumn trees", "Larry D. Moore", "24 Oct 2014", "CC BY 4.0"]) {
+  if (!eastTexasFallHero.includes(marker)) fail(`East Texas autumn hero missing ${marker}`);
+}
+if (!articleRoute.includes("The autumn-colored hero photograph shows Daingerfield State Park on October 24, 2014")) fail("East Texas autumn hero date and provenance missing");
 
 for (const [from, to] of Object.entries(retiredSeasonalRedirects)) {
   const retiredSlug = from.slice("/article/".length);

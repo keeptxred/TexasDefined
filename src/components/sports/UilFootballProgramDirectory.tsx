@@ -89,7 +89,7 @@ export function UilFootballProgramDirectory({ programs }: { programs: Program[] 
 
         <div className="mt-5 flex flex-wrap items-baseline justify-between gap-3 border-b border-border pb-3">
           <p className="font-display text-2xl">{visible.length.toLocaleString()} {visible.length === 1 ? 'program' : 'programs'}</p>
-          <p className="text-xs uppercase tracking-[0.12em] text-muted-foreground">6A → 1A · enrollment classification</p>
+          <p className="text-xs uppercase tracking-[0.12em] text-muted-foreground">6A → 1A · final UIL classification</p>
         </div>
 
         <div className="mt-2">
@@ -106,7 +106,7 @@ export function UilFootballProgramDirectory({ programs }: { programs: Program[] 
                   <div>
                     <p className="eyebrow text-primary">{item}</p>
                     <h3 className="mt-1 font-display text-3xl">{item} football programs</h3>
-                    <p className="mt-2 text-xs text-muted-foreground">UIL enrollment band: {uilFootballConferenceBand(item)}</p>
+                    <p className="mt-2 text-xs text-muted-foreground">Normal UIL enrollment band: {uilFootballConferenceBand(item)}</p>
                   </div>
                   <span className="text-sm text-muted-foreground">{classPrograms.length.toLocaleString()}</span>
                 </div>
@@ -140,7 +140,7 @@ export function UilFootballProgramDirectory({ programs }: { programs: Program[] 
         {!visible.length && <p className="border-b border-border py-6 text-sm text-muted-foreground">No current UIL program matched that search and classification filter.</p>}
 
         <p className="mt-5 max-w-4xl text-xs leading-6 text-muted-foreground">
-          UIL classifications are based on enrollment. A 6A school is listed above a 5A school because it is in the larger-enrollment classification, not because TexasDefined has rated its football program as better.
+          UIL classifications generally reflect enrollment, but the final UIL alignment controls football placement and some programs fall outside the normal published cutoff band. A 6A school is listed above a 5A school because of its final UIL classification, not because TexasDefined has rated its football program as better.
         </p>
         <a href={UIL_FOOTBALL_ENROLLMENT_BANDS_SOURCE.url} target="_blank" rel="noreferrer noopener" className="mt-3 inline-block text-xs font-semibold text-primary underline underline-offset-4">Official UIL 2026–28 enrollment cutoffs ↗</a>
       </div>

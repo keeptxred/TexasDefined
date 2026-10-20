@@ -54,11 +54,16 @@ const schools=slugs.map(slug=>({slug,county:county(slug),model:model(slug)}));
 // and hydrated UI omissions; don't invent coaching claims for unsettled programs.
 const coachCheckpoints={
  'big-sandy-harmony':'Brian Mauk',      // KLTV May 2026, former-coach correction PR #5317
- bishop:'Keith Talbert',                // MaxPreps Oct 13 staff; qualified third-party attribution
+ bishop:'Keith Talbert', blackwell:'Clint Linman',               // KLST Apr22 hiring plus Aug17 first-season interview
+                // MaxPreps Oct 13 staff; qualified third-party attribution
  blanco:'Kent Walker',                  // 2026 football roster, not inferred from AD role
  bloomington:'Lane Shands',             // Texas Football Feb 2026 analysis
  boerne:'Brett Sawyer',                 // Feb 2025 hiring + Sept 2026 Boerne Star
  'boys-ranch':'Louis Kelley III',        // Boys Ranch ISD head-coach directory + 2023 hiring
+ bovina:'Wade Wilson',                // KFDA August 2026 first-hand coach interview
+ boyd:'Shawn Sparks',                // NTX Varsity August 2026 first-hand interview
+ 'borden-county':'Trey Richey',      // Lamesa Press-Reporter August 2026 original sports report
+ 'bowie-gold-burg':'Austin Norman',  // Bowie News Oct 2026 game-day coaching interview
 };
 for(const school of schools){
  const checkpoint=coachCheckpoints[school.slug];
@@ -138,7 +143,9 @@ try{
    if(!expectedRecord||!pageData.body.includes(expectedRecord))errors.push('displayed W-L record differs from source record '+expectedRecord);
    if(coachCheckpoints[s.slug]){
     row.observedHeadCoaches=pageData.coaches;
-    if(pageData.coaches.length!==1||pageData.coaches[0]!==coachCheckpoints[s.slug])
+    // Desktop and mobile fact presentations may both render in the DOM. Every
+    // observed Head coach fact must agree; reject missing or contradictory values.
+    if(!pageData.coaches.length||pageData.coaches.some(name=>name!==coachCheckpoints[s.slug]))
      errors.push('rendered head-coach fact mismatch: expected '+coachCheckpoints[s.slug]
        +', observed '+JSON.stringify(pageData.coaches));
    }
@@ -256,7 +263,7 @@ console.log('B006 targeted production acceptance',JSON.stringify(result.summary)
 console.log('B006 observed Worker release headers',JSON.stringify(result.observedWorkerVersions));
 assert.equal(result.summary.schoolCases,75,'Never reduce 25 school x 3 viewport scope');
 assert.equal(result.summary.sitemapFail,0,'Every assigned school must be discoverable in the live production sitemap');
-assert.ok(workerVersions.size<=1,'Mixed Cloudflare Worker versions during one production browser acceptance: '+result.observedWorkerVersions.join(', '));
+assert.equal(workerVersions.size,1,'Production acceptance must identify exactly one Cloudflare Worker version; observed: '+(result.observedWorkerVersions.join(', ')||'none'));
 assert.equal(result.summary.screenshots,75,'Preserve every one of the 25 schools at all three viewport sizes');
 assert.equal(result.summary.countyScreenshots,result.summary.countyCases,'Preserve one screenshot per county for reciprocal-link diagnosis');
 assert.equal(result.summary.schoolFail,0,'Investigate school failures before technical acceptance');

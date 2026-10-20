@@ -22,8 +22,8 @@ describe('city-to-county relationship reference', () => {
     ['Mesquite', ['Dallas', 'Kaufman']],
     ['San Antonio', ['Bexar', 'Comal', 'Medina']],
     ['Port Arthur', ['Jefferson', 'Orange']],
-    ['Wichita Falls', ['Wichita', 'Archer', 'Clay']],
-    ['Grand Prairie', ['Dallas', 'Ellis', 'Tarrant']],
+    ['Wichita Falls', ['Wichita', 'Clay']],
+    ['Grand Prairie', ['Dallas', 'Ellis', 'Johnson', 'Tarrant']],
     ['The Woodlands', ['Montgomery', 'Harris']],
   ])('%s resolves every documented county', (name, expected) => {
     expect(byCity.get(name)?.counties.map(({ name }) => name)).toEqual(expected);

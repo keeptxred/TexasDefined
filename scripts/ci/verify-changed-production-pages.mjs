@@ -1,17 +1,54 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
+// Both cache-busted release checks and ordinary visitor URLs must expose
+// the corrected data. A successful query-string check alone can hide stale
+// canonical HTML if the exact path was omitted from Cloudflare purge targets.
+function assertTexasDataContents(path, body) {
+  const requireText = (value) => {
+    if (!body.includes(value)) throw new Error('Texas Data production content missing: ' + value);
+  };
+  if (path === '/texas-data') {
+    for (const value of ['Texas at a glance', '4,357,000', 'August 2026 preliminary',
+      '$3,489', 'Search official data briefs', '/texas-data/texas-metro-payrolls-august-2026']) requireText(value);
+    if (body.includes('4,363,300 DFW nonfarm payrolls')) throw new Error('Texas Data hub still leads with June payrolls');
+  }
+  if (path === '/texas-data/texas-homeowners-premium-history') {
+    for (const value of ['$2,795', '$3,489', 'October 20, 2026']) requireText(value);
+    if (body.includes('$2,800')) throw new Error('Texas Data premiums still expose the incorrect 2023 value');
+  }
+  if (path === '/texas-data/texas-metro-payrolls-august-2026') {
+    for (const value of ['August 2026', '4,357,000', '3,495,300', 'metro_09302026.htm']) requireText(value);
+  }
+  if (path === '/texas-data/texas-metro-payrolls-june-2026') {
+    for (const value of ['June 2026', '4,363,300', 'metro_07292026.htm']) requireText(value);
+  }
+  if (path !== '/texas-data' && body.includes('No additional note.')) {
+    throw new Error('Texas Data brief still exposes missing-note placeholders');
+  }
+}
+
 export async function verifyChangedPages({ plan, head, fetchImpl = fetch }) {
 const redirectChecks = plan.redirectChecks ?? [];
 const downloadButtonPages = plan.downloadButtonPages ?? [];
+const texasDataPages = plan.texasDataPages ?? [];
+const TEXAS_DATA_ROUTES = [
+  '/texas-data',
+  '/texas-data/texas-homeowners-premium-history',
+  '/texas-data/texas-metro-payrolls-august-2026',
+  '/texas-data/texas-metro-payrolls-june-2026',
+];
 const regionGuidePages = plan.regionGuidePages ?? [];
 const footballGameNightPages = plan.footballGameNightPages ?? [];
 const battleshipVisitorPages = plan.battleshipVisitorPages ?? [];
 const fredericksburgSitemapPaths = plan.fredericksburgSitemapPaths ?? [];
+const magoffinHomePages = plan.magoffinHomePages ?? [];
 if (!Array.isArray(footballGameNightPages) || footballGameNightPages.length > 2 || footballGameNightPages.some(p => !['/texas-high-school-football-teams/aledo', '/texas-high-school-football-teams/southlake-carroll'].includes(p) || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded football team smoke contract');
 if (!Array.isArray(regionGuidePages) || regionGuidePages.length > 1 || regionGuidePages.some(p => p !== '/article/texas-regions-explained' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid Texas regions guide smoke contract');
 if (!Array.isArray(downloadButtonPages) || downloadButtonPages.length > 1 || downloadButtonPages.some(p => p !== '/texas-data/texas-population-and-migration-2025' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid data-brief smoke contract');
+if (!Array.isArray(texasDataPages) || texasDataPages.length > 4 || texasDataPages.some(p => !TEXAS_DATA_ROUTES.includes(p) || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded Texas Data production contract');
 if (!Array.isArray(battleshipVisitorPages) || battleshipVisitorPages.length > 1 || battleshipVisitorPages.some(p => p !== '/destination/battleship-texas' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded Battleship visitor acceptance contract');
 if (!Array.isArray(fredericksburgSitemapPaths) || fredericksburgSitemapPaths.length > 1 || fredericksburgSitemapPaths.some(p => p !== '/destination/fredericksburg' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid Fredericksburg sitemap acceptance contract');
+if (!Array.isArray(magoffinHomePages) || magoffinHomePages.length > 1 || magoffinHomePages.some(p => p !== '/destination/magoffin-home' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid Magoffin Home live acceptance contract');
 if (plan.head !== head || !Array.isArray(plan.selectedPaths) || !Array.isArray(redirectChecks) || redirectChecks.length > 3 || plan.selectedPaths.length + redirectChecks.length > 40) throw new Error('Missing, stale or oversized production change plan');
 const origin = 'https://texasdefined.com';
 const results = [];
@@ -49,6 +86,32 @@ for (const path of plan.selectedPaths) {
       if (downloadButtonPages.includes(path) && !/<button\b[^>]*>\s*Download CSV\s*<\/button>/i.test(html)) {
         throw new Error('Generic Texas Data brief is missing the server-rendered CSV download button');
       }
+      // Check both the new release through a cache-busted request and the
+      // ordinary, unmodified visitor URL. Do not use cache-control: no-cache
+      // for the second request; that would bypass the CDN response we must test.
+      if (texasDataPages.includes(path)) {
+        assertTexasDataContents(path, html);
+        const visitorResponse = await fetchImpl(canonical, {
+          redirect: 'follow',
+          headers: { accept: 'text/html', 'user-agent': 'TexasDefined-Canonical-Visitor-Smoke/1.0' },
+          signal: AbortSignal.timeout(30000),
+        });
+        const visitorHtml = await visitorResponse.text();
+        if (!visitorResponse.ok || visitorResponse.headers.get('cf-mitigated') === 'challenge') {
+          throw new Error('Texas Data ordinary visitor URL failed: HTTP ' + visitorResponse.status);
+        }
+        const visitorCanonicals = [...visitorHtml.matchAll(/<link\b[^>]*>/gi)]
+          .filter(match => /\brel=["']canonical["']/i.test(match[0]));
+        if (visitorCanonicals.length !== 1 ||
+            !visitorCanonicals[0][0].includes('href="' + canonical.href + '"')) {
+          throw new Error('Texas Data ordinary visitor URL has an unexpected canonical');
+        }
+        try {
+          assertTexasDataContents(path, visitorHtml);
+        } catch (error) {
+          throw new Error('Texas Data ordinary visitor URL still serves stale HTML: ' + error.message);
+        }
+      }
       // The vessel is CLOSED. Generic itineraries had reached production even
       // after previous source-only tests passed; assert actual SSR copy.
       if (battleshipVisitorPages.includes(path)) {
@@ -65,6 +128,14 @@ for (const path of plan.selectedPaths) {
         if (guide < 0 || season <= guide || overview <= season) throw new Error('Football game-night or current-season SSR hierarchy missing');
         if (!html.includes('href="#football-current-season"')) throw new Error('Football schedule jump link missing from SSR');
         if (!html.includes('Browse the TexasDefined shop')) throw new Error('Football commerce link absent from SSR');
+      }
+      if (magoffinHomePages.includes(path)) {
+        for (const required of ['Historic home closed through 2027', 'Magoffin Home visitor FAQ', '1117 Magoffin Avenue']) {
+          if (!html.includes(required)) throw new Error('Magoffin Home current authority SSR missing: ' + required);
+        }
+        if (html.includes('Tours and experiences near Magoffin Home State Historic Site')) {
+          throw new Error('Magoffin Home still serves the generic tour booking component during house closure');
+        }
       }
       results.push({ path, passed: true, attempt }); failure = null; break;
     } catch (error) { failure = error.message; }

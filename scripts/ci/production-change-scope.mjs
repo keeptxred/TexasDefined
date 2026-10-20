@@ -60,7 +60,7 @@ function articleLinkRegistry(source) {
   return records;
 }
 
-export function buildChangePlan({ changedFiles, sources = {}, baseline = null, head = null }) {
+export function buildChangePlan({ changedFiles, sources = {}, baseline = null, head = null, enforceCriticalCanaries = false }) {
   const shared = baseline === null || changedFiles.some(p => sharedPattern.test(p));
   const candidates = new Set(shared ? REPRESENTATIVE_PATHS : []);
   const expectedHrefsByPage = {};
@@ -103,6 +103,19 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
     candidates.add(page);
     fredericksburgSitemapPaths.add(page);
   }
+  // Magoffin Home must be checked against live SSR when its researched overlay
+  // or shared destination detail route changes. Build success alone can hide
+  // a stale generic guide behind the public domain.
+  const magoffinHomePages = new Set();
+  if (changedFiles.some(path => [
+    'src/data/magoffin-home-authority.ts',
+    'src/routes/destination.$slug.tsx',
+    'scripts/ci/production-change-scope.mjs',
+  ].includes(path))) {
+    const page = '/destination/magoffin-home';
+    candidates.add(page);
+    magoffinHomePages.add(page);
+  }
   // A shared football template affects every profile, but two representative
   // verified teams provide a bounded production canary without a 1,268-page crawl.
   const footballGameNightPages = new Set();
@@ -115,6 +128,32 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
       const page = `/texas-high-school-football-teams/${slug}`;
       candidates.add(page);
       footballGameNightPages.add(page);
+    }
+  }
+  // Verify the corrected statewide source figures on the real public pages, not
+  // just a generic HTTP 200 or sitemap entry. Four fixed URLs, no catalog crawl.
+  // Deploy runs enforce these canaries even when a newer release supersedes the
+  // original Texas Data change; otherwise the changed-files baseline can skip
+  // the checks and certify stale cache content as healthy.
+  const texasDataPages = new Set();
+  if (enforceCriticalCanaries || changedFiles.some(path => [
+    'src/data/texas-data-center.server.ts',
+    'src/data/texas-data-center.ts',
+    'src/routes/texas-data.tsx',
+    'src/routes/texas-data.lazy.tsx',
+    'src/routes/texas-data.$datasetSlug.lazy.tsx',
+    'src/components/authority/CitationCollectionTrustRouter.tsx',
+    'scripts/ci/production-change-scope.mjs',
+    'scripts/ci/verify-changed-production-pages.mjs',
+  ].includes(path))) {
+    for (const page of [
+      '/texas-data',
+      '/texas-data/texas-homeowners-premium-history',
+      '/texas-data/texas-metro-payrolls-august-2026',
+      '/texas-data/texas-metro-payrolls-june-2026',
+    ]) {
+      candidates.add(page);
+      texasDataPages.add(page);
     }
   }
   const downloadButtonPages = new Set();
@@ -275,7 +314,10 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
     for (const [id, record] of records(after)) {
       if (oldRecords.get(id)?.text === record.text) continue;
       if (record.key !== 'slug' && publicPath(record.value)) candidates.add(record.value);
-      if (record.key === 'slug' && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(record.value)) {
+      // Slugs in route/components JSX (for example <Link params={{ slug: 'article-name' }}>)
+      // are outbound link arguments, not declarations of destination/article owners.
+      // Only editorial data records may generate inferred slug-based URLs.
+      if (record.key === 'slug' && path.startsWith('src/data/') && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(record.value)) {
         if (/articles?|core-articles/.test(path)) candidates.add(`/article/${record.value}`);
         else if (/destination/.test(path)) candidates.add(`/destination/${record.value}`);
       }
@@ -298,15 +340,17 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
   ];
   const allPaths = [...candidates].sort();
   // A deploy smoke is explicitly a bounded sample, never a full-content certification.
-  const selectedPaths = [...new Set([...REPRESENTATIVE_PATHS.filter(p => candidates.has(p)), ...battleshipVisitorPages, ...fredericksburgSitemapPaths, ...allPaths])].slice(0, PAGE_BUDGET - redirectChecks.length);
+  const selectedPaths = [...new Set([...REPRESENTATIVE_PATHS.filter(p => candidates.has(p)), ...battleshipVisitorPages, ...fredericksburgSitemapPaths, ...magoffinHomePages, ...texasDataPages, ...allPaths])].slice(0, PAGE_BUDGET - redirectChecks.length);
   const selectedExpectedHrefs = Object.fromEntries(selectedPaths.filter(p => expectedHrefsByPage[p]).map(p => [p, expectedHrefsByPage[p]]));
   const candidateCount = allPaths.length + redirectChecks.length;
   return { baseline, head, changedFiles, shared, selectedPaths, expectedHrefsByPage: selectedExpectedHrefs,
+    texasDataPages: selectedPaths.filter(p => texasDataPages.has(p)),
     downloadButtonPages: selectedPaths.filter(p => downloadButtonPages.has(p)),
     regionGuidePages: selectedPaths.filter(p => regionGuidePages.has(p)),
     footballGameNightPages: selectedPaths.filter(p => footballGameNightPages.has(p)),
     battleshipVisitorPages: selectedPaths.filter(p => battleshipVisitorPages.has(p)),
     fredericksburgSitemapPaths: selectedPaths.filter(p => fredericksburgSitemapPaths.has(p)),
+    magoffinHomePages: selectedPaths.filter(p => magoffinHomePages.has(p)),
     redirectChecks, candidateCount,
     omittedCount: Math.max(0, allPaths.length - selectedPaths.length), pageBudget: PAGE_BUDGET,
     coverage: candidateCount > PAGE_BUDGET ? 'representative sample; full coverage belongs to weekly local audits' : 'identified changed pages and representative dependencies',
@@ -347,7 +391,7 @@ async function main() {
     if (baseline) { try { before = git(['show', `${baseline}:${path}`]); } catch {} }
     sources[path] = { before, after };
   }
-  const plan = buildChangePlan({ baseline, head, changedFiles, sources });
+  const plan = buildChangePlan({ baseline, head, changedFiles, sources, enforceCriticalCanaries: true });
   mkdirSync('.artifacts', { recursive: true });
   writeFileSync('.artifacts/production-change-plan.json', JSON.stringify(plan, null, 2));
   if (process.env.GITHUB_OUTPUT) for (const [group, value] of Object.entries(plan.groups)) appendFileSync(process.env.GITHUB_OUTPUT, `${group}=${value}\n`);

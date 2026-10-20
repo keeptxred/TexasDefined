@@ -423,6 +423,11 @@ jobs:
           CLOUDFLARE_ZONE_NAME: texasdefined.com
           CLOUDFLARE_PURGE_METRO_PROXIMITY: 'true'
           CLOUDFLARE_PURGE_URLS: |
+            https://texasdefined.com/texas-data
+            https://texasdefined.com/texas-data/texas-homeowners-premium-history
+            https://texasdefined.com/texas-data/texas-metro-payrolls-august-2026
+            https://texasdefined.com/texas-data/texas-metro-payrolls-june-2026
+            https://texasdefined.com/destination/moody-gardens
             https://texasdefined.com/sports-venue/msr-houston
             https://texasdefined.com/sports-venues/motorsports
             https://texasdefined.com/texas-state-fair
@@ -430,6 +435,11 @@ jobs:
             https://texasdefined.com/county/ellis
             https://texasdefined.com/article/ellis-county-waxahachie-ennis-blackland-prairie-texas
             https://texasdefined.com/explore/painted-churches
+            https://texasdefined.com/destination/young-county-museum-of-history-and-culture
+            https://texasdefined.com/destination/old-post-office-museum-art-center-graham
+            https://texasdefined.com/explore/museums
+            https://texasdefined.com/county/young
+            https://texasdefined.com/destination/graham
             https://texasdefined.com/destination/ysleta-del-sur-pueblo-cultural-center-museum-el-paso
             https://texasdefined.com/city/el-paso
             https://texasdefined.com/county/el-paso
@@ -509,20 +519,21 @@ jobs:
           PRODUCTION_HEALTH_DISCOVER_ASSETS: ${{ steps.change_scope.outputs.images }}
         run: node scripts/ci/verify-production-health.mjs
 
-      # The homepage health probe cannot certify the federal directory or
-      # the exact Palo Alto battlefield photograph. Only NPS owner changes
-      # trigger these two-page, two-origin and single-image checks.
-      - name: Verify NPS directory and Palo Alto production authority
+      # The homepage health probe does not certify Chamizal, the complete federal
+      # directory, or the Palo Alto photograph. Every production deploy must run
+      # exact page checks; otherwise unrelated commits can silently serve stale HTML.
+      - name: Verify Moody Gardens production authority
+        id: live_moody_gardens
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
+        run: node scripts/production/verify-moody-gardens-production.mjs
+
+      - name: Verify NPS directory, Chamizal and Palo Alto production authority
         id: live_nps_authority
         if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
         shell: bash
         run: |
           set -euo pipefail
-          if git diff --name-only HEAD^ HEAD | grep -Eq '^(scripts/production/verify-nps-park-production\.mjs|src/components/editorial/(TexasNpsInventory\.tsx|CategoryPage\.tsx)|src/data/(texas-national-park-service-directory\.ts|texas-nps-directory-ssr-fallback\.ts|military-history-destinations\.ts|four-nps-visitor-authorities\.ts|remaining-six-nps-authorities\.ts)|\.github/workflows/deploy-production\.yml)$'; then
-            node scripts/production/verify-nps-park-production.mjs
-          else
-            echo "NPS source and photo unchanged; scoped acceptance skipped."
-          fi
+          node scripts/production/verify-nps-park-production.mjs
 
       - name: Preserve NPS live acceptance evidence
         if: ${{ always() && steps.live_nps_authority.outcome != 'skipped' }}
@@ -553,31 +564,6 @@ jobs:
           name: six-park-authority-live-${{ github.run_id }}
           path: .artifacts/six-park-authority-production.json
           if-no-files-found: ignore
-          retention-days: 14
-
-      - name: Prepare District 5 responsive Chrome verification
-        id: district5_browser_deps
-        if: ${{ always() && steps.live_district5.outcome == 'success' && steps.change_scope.outputs.sports == 'true' }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
-          test -n "$CHROME_BIN"
-          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
-          npm install --prefix /tmp/texasdefined-wp-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
-
-      - name: Verify District 5 desktop and mobile screenshots in Chrome
-        id: live_district5_browser
-        if: ${{ always() && steps.district5_browser_deps.outcome == 'success' }}
-        run: node scripts/ci/verify-district-5-responsive-browser.mjs
-
-      - name: Preserve District 5 responsive acceptance evidence
-        if: ${{ always() && steps.live_district5_browser.outcome != 'skipped' }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: district5-responsive-browser-${{ github.run_id }}
-          path: artifacts/district5-responsive-browser/
-          if-no-files-found: warn
           retention-days: 14
 
       # Six specifically updated public state-park guides, not a sitewide crawl.
@@ -717,10 +703,46 @@ jobs:
           TEXASDEFINED_BASE_URL: https://texasdefined.com
         run: node scripts/production/verify-sports-venue-editorial-production.mjs
 
+      - name: Verify District 21 hub and eight team scorecards on production
+        id: live_district21
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
+        env:
+          PRODUCTION_ORIGIN: https://texasdefined.com
+        run: node scripts/ci/verify-district21-football-production.mjs
+
       - name: Verify District 5-6A scorecard on direct Worker and canonical domain
         id: live_district5
         if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
         run: node scripts/ci/verify-district-5-production.mjs
+
+      # The district's HTML is checked on every deploy; its responsive browser check
+      # must also run on every deploy, not only when the broad sports change group fires.
+      # The previous change-scope condition skipped the visual gate on the exact
+      # deployment that introduced it (2026-10-18, run 39132892906).
+      - name: Prepare District 5 responsive Chrome verification
+        id: district5_browser_deps
+        if: ${{ always() && steps.live_district5.outcome == 'success' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-wp-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+
+      - name: Verify District 5 desktop and mobile screenshots in Chrome
+        id: live_district5_browser
+        if: ${{ always() && steps.district5_browser_deps.outcome == 'success' }}
+        run: node scripts/ci/verify-district-5-responsive-browser.mjs
+
+      - name: Preserve District 5 responsive acceptance evidence
+        if: ${{ always() && steps.live_district5_browser.outcome != 'skipped' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: district5-responsive-browser-${{ github.run_id }}
+          path: artifacts/district5-responsive-browser/
+          if-no-files-found: error
+          retention-days: 14
 
       - name: Verify East Texas foliage article freshness on direct Worker and canonical domain
         id: live_east_texas_foliage
@@ -867,7 +889,8 @@ jobs:
 
       - name: Mark live production verification complete
         id: live
-        if: ${{ success() && steps.cloudflare.outcome == 'success' }}
+        # Require completed, passing District 5 desktop/mobile Chrome acceptance.
+        if: ${{ success() && steps.cloudflare.outcome == 'success' && steps.live_district5_browser.outcome == 'success' && steps.live_district21.outcome == 'success' }}
         run: echo 'All blocking production verifiers passed natively.'
       - name: Publish live verification result
         if: always()

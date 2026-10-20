@@ -4,7 +4,9 @@ import { Container } from '@/components/layout/Container';
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 import { getFootballBracketGames, officialFootballBracketUrl, footballMatchupPath, footballSnapshotUpdatedAt, FOOTBALL_BRACKET_SOURCE } from '@/data/high-school-football/football-matchups';
-import { approvedMaxPrepsTournamentEmbedUrl } from '@/data/high-school-football/maxpreps-bracket-embeds';
+import { approvedMaxPrepsJsTournamentWidget, approvedMaxPrepsTournamentEmbedUrl } from '@/data/high-school-football/maxpreps-bracket-embeds';
+import { MaxPrepsTournamentWidget } from '@/components/sports/MaxPrepsTournamentWidget';
+import { officialMaxPrepsTournament2026 } from '@/data/high-school-football/maxpreps-2026-uil-tournaments';
 
 const canonicalPath = '/texas-high-school-football-playoff-brackets';
 const classes = ['1A','2A','3A','4A','5A','6A'] as const;
@@ -29,7 +31,9 @@ function Page() {
   const [division,setDivision] = useState<1|2>(1);
   const games = getFootballBracketGames(classification,division);
   const officialUrl = officialFootballBracketUrl(classification,division);
+  const maxPrepsTournament = officialMaxPrepsTournament2026(classification,division);
   const authorizedEmbedUrl = approvedMaxPrepsTournamentEmbedUrl(classification,division);
+  const authorizedJsWidget = approvedMaxPrepsJsTournamentWidget(classification,division);
   return <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
     <main className="mx-auto max-w-6xl" data-football-brackets="2026">
       <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground">
@@ -39,7 +43,7 @@ function Page() {
         <p className="eyebrow text-primary">2026 UIL postseason</p>
         <h1 className="mt-4 font-display text-5xl leading-tight sm:text-7xl">Texas high school football playoff brackets</h1>
         <p className="mt-5 max-w-4xl text-lg leading-8 text-muted-foreground">Select any of the 12 UIL playoff paths and follow its official MaxPreps-powered bracket. Bracket updates are maintained by UIL and MaxPreps; TexasDefined never invents playoff winners or scores.</p>
-        <p className="mt-4 text-sm text-muted-foreground">Official brackets can show scheduled pairings before TexasDefined has any independently sourced playoff results. Our separate matchup snapshot was last reviewed {footballSnapshotUpdatedAt}.</p>
+        <p className="mt-4 text-sm text-muted-foreground">UIL and MaxPreps publish the current tournament matchups, round assignments and reported results. Our own individually verified playoff-game records appear below when available.</p>
         <div className="mt-6 flex flex-wrap gap-5 text-sm font-semibold">
           <a href={FOOTBALL_BRACKET_SOURCE} target="_blank" rel="noopener noreferrer" className="text-primary">Open all official UIL brackets ↗</a>
           <Link to="/texas-high-school-football-matchups" className="text-primary">Football scores & matchups →</Link>
@@ -68,7 +72,7 @@ function Page() {
           <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
             UIL publishes and MaxPreps maintains this tournament bracket. The official source is the most current view of matchups, results and advancement.
           </p>
-          {authorizedEmbedUrl ? <div className="mt-5">
+          {authorizedJsWidget ? <MaxPrepsTournamentWidget widget={authorizedJsWidget} /> : authorizedEmbedUrl ? <div className="mt-5">
             <iframe
               key={classification + 'D' + division}
               src={authorizedEmbedUrl}
@@ -85,14 +89,20 @@ function Page() {
               View official {classification} Division {division === 1 ? 'I' : 'II'} bracket ↗
             </a>
             <p className="mt-3 text-xs leading-6 text-muted-foreground">
-              Opens the up-to-date official bracket on UIL. An on-page MaxPreps embed will appear once the provider-issued widget code is obtained and verified; this link is not a scraped or simulated live bracket.
+              Opens the official 2026 bracket maintained by UIL and MaxPreps. Scores and advancement shown there come from their published tournament, not our separate editorial game snapshot.
             </p>
           </div>}
+          {maxPrepsTournament && <p className="mt-4 text-sm">
+            <a href={maxPrepsTournament.tournamentUrl} target="_blank" rel="noopener noreferrer"
+              className="font-semibold text-primary underline underline-offset-4">
+              Or view this 2026 tournament directly on MaxPreps ↗
+            </a>
+          </p>}
         </div>
-        {games.length === 0 ? <div className="mt-7 border-l-4 border-primary bg-surface p-6">
-          <h3 className="font-display text-2xl">No independently verified bracket entries yet</h3>
-          <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">We will display rounds, scores and advancement only after matchups are supplied by a verified source. Do not interpret this placeholder as an empty official UIL bracket. Follow the UIL link above for the newest submitted bracket.</p>
-        </div> : <div className="mt-7 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        {games.length > 0 && <div className="mt-7">
+          <h3 className="font-display text-2xl">Separately verified TexasDefined playoff matchups</h3>
+          <p className="mt-3 text-sm leading-7 text-muted-foreground">Our editorial game snapshot was last reviewed {footballSnapshotUpdatedAt}. Use the official UIL / MaxPreps bracket above for source-managed advancement and corrections.</p>
+          <div className="mt-5 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {rounds.map((round) => {
             const entries=games.filter((game)=>game.round===round);
             return <section key={round} className="border border-border bg-surface p-5">
@@ -103,11 +113,12 @@ function Page() {
               </li>)}</ul>}
             </section>;
           })}
+          </div>
         </div>}
       </section>
       <section className="border-b border-border py-9" aria-labelledby="all-uil-brackets">
         <h2 id="all-uil-brackets" className="font-display text-3xl">All 12 official UIL brackets</h2>
-        <p className="mt-3 text-sm leading-7 text-muted-foreground">Each link opens the current 2026 postseason bracket published by UIL and powered by MaxPreps. No separate subscription or score-feed API is needed to follow these official pages.</p>
+        <p className="mt-3 text-sm leading-7 text-muted-foreground">Each link opens that conference and division's 2026 tournament bracket published by UIL using MaxPreps. These source links do not require a scores API.</p>
         <div className="mt-5 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
           {officialBrackets.map(({ classification: schoolClass, division: bracketDivision, href }) =>
             <a key={schoolClass + 'D' + bracketDivision} href={href} target="_blank" rel="noopener noreferrer"
@@ -120,7 +131,7 @@ function Page() {
       </section>
       <section className="grid gap-6 py-9 md:grid-cols-2">
         <div><h2 className="font-display text-3xl">How teams qualify</h2><p className="mt-4 text-sm leading-7 text-muted-foreground">1A six-man sends two schools per district. 2A–5A send four. In 6A, the four qualifiers split by enrollment into Division I and II. Advancement occurs only through verified postseason wins.</p></div>
-        <div><h2 className="font-display text-3xl">Freshness and accuracy</h2><p className="mt-4 text-sm leading-7 text-muted-foreground">UIL partners with MaxPreps for bracket publishing and updates. Our snapshot is editorial and not a live feed. Source corrections may take time to reach this page; check the official bracket before sharing a result or traveling.</p></div>
+        <div><h2 className="font-display text-3xl">Freshness and accuracy</h2><p className="mt-4 text-sm leading-7 text-muted-foreground">UIL and MaxPreps maintain the official postseason brackets. TexasDefined separately verifies any game results it publishes; its editorial snapshot is not a live score feed. Always check the official bracket for current pairings or corrections.</p></div>
       </section>
     </main>
   </Container>;

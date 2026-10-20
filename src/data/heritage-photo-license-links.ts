@@ -7,6 +7,62 @@
 type HeritagePhotoRights = { sourceUrl: string; licenseUrl: string };
 
 const rightsByPath: Record<string, HeritagePhotoRights> = {
+  "/article/salary-needed-to-buy-a-house-in-texas": {
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Independence_Heights_Residential_HIstoric_District_Houston_(HDR).jpg",
+    licenseUrl: "https://creativecommons.org/licenses/by/3.0/",
+  },
+  "/article/texas-closing-costs-guide": {
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Close-up_of_the_key_with_house_keychain.jpg",
+    licenseUrl: "https://creativecommons.org/licenses/by/2.0/",
+  },
+  "/article/texas-mortgage-payment-guide": {
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Property_Contract_Law_and_Mortgages.jpg",
+    licenseUrl: "https://creativecommons.org/licenses/by/2.0/",
+  },
+  "/article/texas-rural-wells-water-guide": {
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Drilling_livestock_water_well_on_Walking_M_Ranch_in_Baylor_County,_Seymour,_Texas._(24490553073).jpg",
+    licenseUrl: "https://creativecommons.org/licenses/by/2.0/",
+  },
+  "/article/moving-to-texas-renter-guide": {
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:GulftonApartmentComplexes.JPG",
+    licenseUrl: "https://creativecommons.org/publicdomain/mark/1.0/",
+  },
+  "/article/best-houston-suburbs-for-commuters": {
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:2025-09-14_16_24_08_View_north_along_Texas_State_Highway_99_(Grand_Parkway)_just_north_of_its_western_interchange_with_Interstate_10_(Katy_Freeway)_in_Houston,_Harris_County,_Texas.jpg",
+    licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+  },
+  "/article/best-dallas-suburbs-for-commuters": {
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:A_DART_(Dallas_Area_Rapid_Transit)_light-rail_train_leaves_the_Akard_Station_in_downtown_Dallas,_Texas.jpg",
+    licenseUrl: "https://creativecommons.org/publicdomain/mark/1.0/",
+  },
+  "/article/texas-property-taxes-for-new-residents": {
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Webb_County,_TX,_Appraisal_District_Office_IMG_2011.JPG",
+    licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0/",
+  },
+  "/article/corporate-relocation-to-texas": {
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:OneCongressPlazaAustinTX.JPG",
+    licenseUrl: "https://creativecommons.org/publicdomain/mark/1.0/",
+  },
+  "/article/employee-relocation-guide-to-texas": {
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Desk-office-workspace-coworking_(23699033283).jpg",
+    licenseUrl: "https://creativecommons.org/publicdomain/zero/1.0/",
+  },
+  "/article/renting-vs-buying-in-texas": {
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Wilson_House,_Houston,_TX.jpg",
+    licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+  },
+  "/article/how-to-verify-texas-moving-company": {
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Mayflower_Moving_Truck_Ypsilanti_Michigan.JPG",
+    licenseUrl: "https://creativecommons.org/licenses/by/3.0/",
+  },
+  "/article/health-insurance-when-moving-to-texas": {
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Doctor_consults_with_patient.jpg",
+    licenseUrl: "https://creativecommons.org/publicdomain/mark/1.0/",
+  },
+  "/article/military-family-moving-to-texas": {
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:BOSP_helps_single-parent_soldiers_manage_Army_and_family_life_120908-A-XZ708-003.jpg",
+    licenseUrl: "https://creativecommons.org/publicdomain/mark/1.0/",
+  },
   "/destination/magoffin-home": {
     sourceUrl: "https://commons.wikimedia.org/wiki/File:Magoffin_home_2009.jpg",
     licenseUrl: "https://creativecommons.org/licenses/by/4.0/",

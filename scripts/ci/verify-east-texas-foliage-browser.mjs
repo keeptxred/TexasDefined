@@ -39,6 +39,10 @@ try {
       const response = await page.goto(origin + "/article/east-texas-fall-colors?foliage_browser_qa=" + (process.env.GITHUB_SHA || "manual").slice(0,12), { waitUntil: "domcontentloaded", timeout: 45000 });
       if (response?.status() !== 200) throw new Error("HTTP " + response?.status());
       await page.getByRole("heading", { name: "Explore the parks on a map" }).waitFor({ state: "visible", timeout: 20000 });
+      const overview = page.locator('section[aria-labelledby="east-texas-all-parks-heading"]');
+      await overview.getByRole("heading", { name: "All six parks on one map" }).waitFor({ state: "visible" });
+      if (await overview.locator("svg circle").count() !== 6) throw new Error("All-six-park overview must show six map pins");
+      if (await overview.locator("svg polyline").count() !== 2) throw new Error("Both suggested itinerary lines must appear");
       const selector = page.getByRole("group", { name: "Choose park to locate on map" });
       // Server-rendered controls remain disabled until React hydration completes.
       // Verify the first real state transition before checking any initially selected park.
@@ -74,8 +78,8 @@ try {
       const gallery = page.locator('section[aria-labelledby="east-texas-foliage-gallery"]');
       await gallery.scrollIntoViewIfNeeded();
       const photos = gallery.locator("figure");
-      if (await photos.count() !== 5) throw new Error("Expected five independently credited photos");
-      for (let i = 0; i < 5; i++) {
+      if (await photos.count() !== 7) throw new Error("Expected seven licensed photos covering all six featured parks");
+      for (let i = 0; i < 7; i++) {
         const item = photos.nth(i);
         const photo = item.locator("img");
         await photo.scrollIntoViewIfNeeded();
@@ -90,11 +94,28 @@ try {
         if (!await item.getByRole("link", { name: "Wikimedia source" }).count()) throw new Error("Missing image provenance: " + i);
         if (!await item.getByRole("link", { name: "License terms" }).count()) throw new Error("Missing image license: " + i);
       }
+      // Validate the live replacement sources as well as their generic image load status.
+      // A fallback image may load successfully, but that must not masquerade as the
+      // intended park photograph or the dated October foliage example.
+      for (const [label, expectedSrc] of [
+        ["Martin Creek Lake State Park", "Docks_at_Martin_Creek_Lake_State_Park_2019.jpg"],
+        ["Daingerfield State Park — October lake reflection", "Daingerfield_sp_reflection.jpg"],
+      ]) {
+        const figure = gallery.locator("figure").filter({ has: page.getByText(label, { exact: true }) });
+        if (await figure.count() !== 1) throw new Error("Expected exactly one gallery image for " + label);
+        const actualSrc = await figure.locator("img").getAttribute("src");
+        if (!actualSrc?.includes(expectedSrc)) throw new Error("Unexpected photo source for " + label + ": " + actualSrc);
+      }
+      for (const label of ["Daingerfield State Park", "Caddo Lake State Park", "Lake Bob Sandlin State Park", "Tyler State Park", "Cooper Lake State Park (South Sulphur Unit)", "Martin Creek Lake State Park"]) {
+        if (!await gallery.getByText(label, { exact: true }).count()) throw new Error("Six-park image coverage missing " + label);
+      }
+      if (!await gallery.getByText("Martin Creek Lake State Park", { exact: true }).count()) throw new Error("Martin Creek lakeshore photograph missing");
+      if (!await gallery.getByText("Daingerfield State Park — October lake reflection", { exact: true }).count()) throw new Error("October Daingerfield photograph missing");
       if (await page.getByRole("heading", { name: "More stories to read next" }).count()) throw new Error("Unrelated magazine rail returned");
       const dimensions = await page.evaluate(() => ({ viewport: window.innerWidth, document: document.documentElement.scrollWidth }));
       if (dimensions.document > dimensions.viewport + 8) throw new Error("Horizontal overflow: " + (dimensions.document - dimensions.viewport));
       await page.screenshot({ path: output + "/" + viewport.label + ".png", fullPage: true, animations: "disabled" });
-      findings.push({ viewport: viewport.label, parks: selection, photos: 5, routes: 2, overflow: dimensions.document - dimensions.viewport, result: "pass" });
+      findings.push({ viewport: viewport.label, parks: selection, photos: 7, routes: 2, overflow: dimensions.document - dimensions.viewport, result: "pass" });
       console.log("PASS " + viewport.label + " foliage map, driving links, licensed gallery and related stories");
     } catch (error) {
       failures.push(viewport.label + ": " + String(error?.message || error));

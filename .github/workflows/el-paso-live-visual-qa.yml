@@ -1,0 +1,88 @@
+name: El Paso metro post-release visual QA
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'src/components/content/ElPasoAreaAuthority.tsx'
+      - 'scripts/ci/verify-el-paso-live-visual.mjs'
+      - '.github/workflows/el-paso-live-visual-qa.yml'
+  workflow_run:
+    workflows: ["Deploy TexasDefined production"]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: el-paso-live-visual-${{ github.event.workflow_run.head_sha || github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  scenario-contract:
+    if: github.event_name == 'pull_request'
+    name: El Paso two-viewport browser test contract
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify Chrome scenario source and bounded scope
+        run: |
+          node --check scripts/ci/verify-el-paso-live-visual.mjs
+          node scripts/ci/verify-el-paso-live-visual.mjs --self-test
+
+  bounded-production-chrome:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    name: El Paso hero and links desktop/mobile Chrome
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Check out exact released revision
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+          fetch-depth: 8
+      # Canceled deployments can be followed by unrelated commits, so inspect
+      # a bounded six-commit release window rather than only HEAD^.
+      - name: Restrict screenshots to recent El Paso changes after deployment
+        id: scope
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "$GITHUB_EVENT_NAME" == 'workflow_dispatch' ]] ||
+             git diff --name-only HEAD~6 HEAD -- 'src/components/content/ElPasoAreaAuthority.tsx' 'scripts/ci/verify-el-paso-live-visual.mjs' '.github/workflows/el-paso-live-visual-qa.yml' | grep -q .; then
+            echo "changed=yes" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=no" >> "$GITHUB_OUTPUT"
+            echo "No El Paso changes within the last six released commits; no screenshot work."
+          fi
+      - name: Prepare Chrome already installed on GitHub runner
+        if: steps.scope.outputs.changed == 'yes'
+        shell: bash
+        run: |
+          set -euo pipefail
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-el-paso-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+      - name: Check exact desktop/mobile scenario
+        if: steps.scope.outputs.changed == 'yes'
+        run: node scripts/ci/verify-el-paso-live-visual.mjs --self-test
+      - name: Inspect live El Paso skyline and reciprocal links
+        if: steps.scope.outputs.changed == 'yes'
+        env:
+          TARGET_DEPLOY_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+        run: node scripts/ci/verify-el-paso-live-visual.mjs
+      - name: Retain four screenshots and validation results
+        if: always() && steps.scope.outputs.changed == 'yes'
+        uses: actions/upload-artifact@v4
+        with:
+          name: el-paso-live-visual-${{ github.run_id }}
+          path: artifacts/el-paso-live-visual/
+          if-no-files-found: warn
+          retention-days: 14

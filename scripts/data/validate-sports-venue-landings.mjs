@@ -96,6 +96,9 @@ for (const marker of [
   "'@type': 'Answer'",
   "'@type': 'BreadcrumbList'",
   'buildQuickAnswers(landing, venues, lastReviewed)',
+  'getSportsVenueReviewDates',
+  'venueReviewDates[venue.slug] ?? venue.sourceCheckedAt',
+  'dateModified: lastReviewed',
   'Quick answers',
   'What travelers ask first',
   'Short answers drawn from the same verified venue inventory used by this guide.',
@@ -106,6 +109,8 @@ for (const marker of [
 ]) assert(route.includes(marker), `Sports venue landing route is missing SEO/AEO/discovery marker: ${marker}.`);
 
 assert(!route.includes('sports-venue-enrichment-all'), 'Sports venue landing pages must not import the full venue enrichment payload.');
+assert(route.includes("sports-venue-review-dates.functions"), 'Sports venue landing pages must use the lightweight server review-date boundary.');
+assert(!route.includes('.map((venue) => venue.sourceCheckedAt)'), 'Sports venue landing freshness must not rely only on stale seed review dates.');
 assert(!route.includes('loadTexasKnowledgeGraph'), 'Sports venue landing pages must remain on the static venue index path rather than loading the remote/full graph.');
 
 for (const marker of [

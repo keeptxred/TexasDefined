@@ -509,7 +509,7 @@ await fetchVerified(katyProfilePath, 'Katy football school profile', (body) => {
     'Current district',
     katyDistrictPath,
     'Open full district guide',
-    'How to enroll at',
+    'School enrollment and football eligibility',
     'UIL eligibility standards',
     'UIL reported enrollment',
     '3,401',
@@ -542,7 +542,7 @@ await fetchVerified(abbottProfilePath, 'Abbott football school profile', (body) 
     'Abbott High School football halfback',
     '1A',
     'Current district',
-    'How to enroll at',
+    'School enrollment and football eligibility',
     'UIL eligibility standards',
     'UIL reported enrollment',
     '91',
@@ -577,7 +577,7 @@ await fetchVerified(fortDavisProfilePath, 'Fort Davis individually researched fo
     'Fortguy',
     'CC BY-SA 4.0',
   ]) requireNeedle(body, needle, 'Fort Davis individual authority profile');
-  if (decodeHtml(body).includes('2026 schedule & results sources')) throw new Error('Fort Davis incorrectly promotes a canceled 2026 playing schedule');
+  if (/2026 results & schedule|Live scores & schedule links/i.test(decodeHtml(body))) throw new Error('Fort Davis incorrectly promotes a canceled 2026 playing schedule');
   if (/\bnoindex\b/i.test(body)) throw new Error('Fort Davis authority profile unexpectedly contains noindex');
 });
 
@@ -604,7 +604,7 @@ await fetchVerified(kellerProfilePath, 'Keller football school profile', (body) 
   for (const needle of [
     'Keller',
     '6A',
-    'How to enroll at',
+    'School enrollment and football eligibility',
     'Official district enrollment',
     'Keller ISD new student enrollment',
     'https://www.kellerisd.net/students-families/enrollment/why-kisd/new-student-enrollment',
@@ -648,9 +648,13 @@ await fetchVerified(shamrockProfilePath, 'Shamrock football authority profile', 
     'UIL reported enrollment',
     '100.5',
     'Enrollment and football placement are different here.',
+    'Enrollment-based cutoff band',
+    '1A Division I',
+    '57.6–104.9',
     'enrollment submission in',
     '1A',
     'Final football placement',
+    '2A Division II',
     '2026 results &amp; schedule',
     'Record when checked',
     '1–4',
@@ -673,7 +677,7 @@ for (const profile of universalProfileCases) {
       profile.name,
       profile.classification,
       'Current district',
-      'How to enroll at',
+      'School enrollment and football eligibility',
       'UIL eligibility standards',
       'UIL reported enrollment',
       profile.enrollment,

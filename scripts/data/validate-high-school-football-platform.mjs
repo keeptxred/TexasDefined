@@ -7,6 +7,9 @@ const errors = [];
 const requireText = (source, marker, label) => {
   if (!source.includes(marker)) errors.push(`${label} missing: ${marker}`);
 };
+const forbidText = (source, marker, label) => {
+  if (source.includes(marker)) errors.push(`${label} must not include retired copy: ${marker}`);
+};
 
 const files = [
   'src/data/high-school-football/uil-football-alignments-2026.server.ts',
@@ -57,6 +60,8 @@ const footballCalendarGuidePath = 'src/data/fixtures/texas-high-school-football-
 const evergreenRegistryPath = 'src/data/fixtures/lazy-standalone-evergreen.ts';
 const obsoleteSeedListComponentPath = 'src/components/sports/FeaturedFootballResearchList.tsx';
 const productionSmokePath = 'scripts/ci/verify-friday-night-lights-production.mjs';
+const productionSurfaceSmokePath = 'scripts/ci/verify-production-surfaces.mjs';
+const footballAuthorityRegistryPath = 'docs/football-authority/REGISTRY.json';
 const legacyMetadataFiles = [
   'src/data/high-school-football/featured-programs.ts',
   'src/data/high-school-football/school-identities.ts',
@@ -108,6 +113,8 @@ for (const file of [
   footballCalendarGuidePath,
   evergreenRegistryPath,
   productionSmokePath,
+  productionSurfaceSmokePath,
+  footballAuthorityRegistryPath,
   ...legacyMetadataFiles,
 ]) {
   if (!fs.existsSync(path.join(root, file))) errors.push(`Missing high-school football platform file: ${file}`);
@@ -168,8 +175,25 @@ if (!errors.length) {
   const footballCalendarGuide = read(footballCalendarGuidePath);
   const evergreenRegistry = read(evergreenRegistryPath);
   const productionSmoke = read(productionSmokePath);
+  const productionSurfaceSmoke = read(productionSurfaceSmokePath);
+  const footballAuthorityRegistry = JSON.parse(read(footballAuthorityRegistryPath));
   const legacyProgramMetadata = read(legacyMetadataFiles[0]);
   const schoolIdentities = read(legacyMetadataFiles[1]);
+  const verifiedIdentitySlugs = new Set(
+    [...schoolIdentities.matchAll(/slug:\s*['"]([^'"]+)['"]/g)].map((match) => match[1]),
+  );
+  const researchedFootballRecords = footballAuthorityRegistry.schoolRecords.filter((record) =>
+    ['VERIFIED', 'DEPLOYED', 'MERGED', 'IMPLEMENTED'].includes(record.status),
+  );
+  const researchedProgramsMissingVerifiedIdentity = researchedFootballRecords
+    .filter((record) => !verifiedIdentitySlugs.has(record.slug))
+    .map((record) => record.slug)
+    .sort();
+  if (researchedProgramsMissingVerifiedIdentity.length) {
+    errors.push(
+      `Researched/deployed football programs missing verified mascot identity records: ${researchedProgramsMissingVerifiedIdentity.join(', ')}`,
+    );
+  }
   const featuredProfileLoader = read(legacyMetadataFiles[2]);
   const featuredProfileRoute = read(legacyMetadataFiles[3]);
   const featuredProfilePage = read(legacyMetadataFiles[4]);
@@ -250,6 +274,15 @@ if (!errors.length) {
     "'Shamrock ISD 2026 football schedule'",
     "texas-high-school-football-teams/shamrock</loc>",
   ]) requireText(productionSmoke, marker, 'Shamrock football live production contract');
+
+  for (const marker of [
+    "['football-district8-v2-hub', '/texas-high-school-football-districts/5a-division-ii-district-8'",
+    "['football-katy-district22-v2-hub', '/texas-high-school-football-districts/6a-district-22'",
+    "['football-katy-district22-6a-format', '/texas-high-school-football-districts/6a-district-22'",
+    "['football-1a-d1-district14-v2-hub', '/texas-high-school-football-districts/1a-division-i-district-14'",
+    "['football-1a-d1-district14-six-man', '/texas-high-school-football-districts/1a-division-i-district-14'",
+    "['football-1a-d1-district14-abbott-link', '/texas-high-school-football-districts/1a-division-i-district-14'",
+  ]) requireText(productionSurfaceSmoke, marker, 'Always-on football district variant production guards');
 
   for (const marker of [
     'UIL_FOOTBALL_PROGRAM_COUNT !== 1268',
@@ -808,6 +841,54 @@ if (!errors.length) {
   const exactEnrollmentCount = (exactEnrollments.match(/^\s*"[^"]+": \{"enrollment":[0-9.]+,"submittedConference":"[1-6]A"\},$/gm) ?? []).length;
   if (exactEnrollmentCount !== 1268) errors.push(`Exact UIL football enrollment data expected 1,268 schools; found ${exactEnrollmentCount}.`);
 
+  const exactEnrollmentBySchool = new Map(
+    [...exactEnrollments.matchAll(/^\s*"([^"]+)": \{"enrollment":([0-9.]+),"submittedConference":"([1-6]A)"\},?$/gm)]
+      .map((match) => [match[1], { enrollment: Number(match[2]), submittedConference: match[3] }]),
+  );
+  const enrollmentBandSpecs = [
+    ['6A', null, 2215, null],
+    ['5A', 1, 1870, 2214],
+    ['5A', 2, 1305, 1869],
+    ['4A', 1, 896, 1304],
+    ['4A', 2, 550, 895],
+    ['3A', 1, 367, 549],
+    ['3A', 2, 246, 366.9],
+    ['2A', 1, 175.6, 245.9],
+    ['2A', 2, 105, 175.5],
+    ['1A', 1, 57.6, 104.9],
+    ['1A', 2, null, 57.5],
+  ];
+  const alignmentEnrollmentExceptions = [];
+  const submittedConferenceExceptions = [];
+  const missingEnrollmentRows = [];
+  for (const block of alignment.matchAll(/\{\s*classification:'([1-6]A)',\s*division:(1|2|null),\s*footballType:'[^']+',\s*sourceUrl:'[^']+',\s*districts:\[([\s\S]*?)\]\s*\}/g)) {
+    const classification = block[1];
+    const division = block[2] === 'null' ? null : Number(block[2]);
+    const districtRows = [...block[3].matchAll(/'([^']*)'|"([^"]*)"/g)].map((match) => match[1] ?? match[2]);
+    for (const districtRow of districtRows) {
+      for (const school of districtRow.split(';').map((value) => value.trim()).filter(Boolean)) {
+        const exact = exactEnrollmentBySchool.get(school);
+        if (!exact) {
+          missingEnrollmentRows.push(school);
+          continue;
+        }
+        const band = enrollmentBandSpecs.find(([bandClass, bandDivision]) => bandClass === classification && bandDivision === division);
+        if (band) {
+          const [, , min, max] = band;
+          const fits = (min == null || exact.enrollment >= min) && (max == null || exact.enrollment <= max);
+          if (!fits) alignmentEnrollmentExceptions.push(school);
+        }
+        if (exact.submittedConference !== classification) submittedConferenceExceptions.push(school);
+      }
+    }
+  }
+  if (missingEnrollmentRows.length) errors.push(`UIL alignment schools missing exact enrollment rows: ${missingEnrollmentRows.join(', ')}`);
+  if (alignmentEnrollmentExceptions.length !== 49) errors.push(`Expected 49 UIL programs whose enrollment falls outside the normal final-placement cutoff band; found ${alignmentEnrollmentExceptions.length}.`);
+  if (submittedConferenceExceptions.length !== 7) errors.push(`Expected 7 UIL programs whose submitted conference differs from final football classification; found ${submittedConferenceExceptions.length}.`);
+  for (const school of ['Shamrock', 'Boys Ranch', 'Garland', 'San Antonio Houston']) {
+    if (!alignmentEnrollmentExceptions.includes(school)) errors.push(`Known enrollment-placement exception missing from statewide guard: ${school}`);
+  }
+
   for (const marker of [
     'const EXPECTED_TOTAL = 1268',
     'Exact UIL school-name join failed',
@@ -830,6 +911,8 @@ if (!errors.length) {
     'https://www.uiltexas.org/athletics/conference-cutoffs',
     'uilFootballEnrollmentBand',
     'uilFootballConferenceBand',
+    'uilEnrollmentFallsWithinBand',
+    'uilFootballEnrollmentBandForEnrollment',
   ]) requireText(enrollmentBands, marker, 'UIL football enrollment bands');
 
   for (const marker of [
@@ -871,11 +954,14 @@ if (!errors.length) {
     'Show all {classPrograms.length.toLocaleString()} {item} programs',
     'Every current UIL football program gets the same directory and profile treatment.',
     'All 1,268',
-    '6A → 1A · enrollment classification',
-    'A 6A school is listed above a 5A school because it is in the larger-enrollment classification',
+    '6A → 1A · final UIL classification',
+    'UIL classifications generally reflect enrollment',
+    'the final UIL alignment controls football placement',
+    'some programs fall outside the normal published cutoff band',
+    'A 6A school is listed above a 5A school because of its final UIL classification',
     'Open team football guide →',
     'not because TexasDefined has rated its football program as better',
-    'UIL enrollment band:',
+    'Normal UIL enrollment band:',
     'Official UIL 2026–28 enrollment cutoffs ↗',
     'uilFootballConferenceBand',
     'uilEnrollment',
@@ -937,6 +1023,12 @@ if (!errors.length) {
     'Search all 1,268 UIL programs',
   ]) requireText(footballDistrictIndexPage, marker, 'Football district directory page');
 
+  forbidText(footballDistrictIndexPage, 'research profile', 'Football district directory page');
+  forbidText(classificationGuide, 'research profile', 'Football classifications guide');
+  forbidText(footballChampionshipPage, 'research profile', 'Football championship history page');
+  forbidText(scoresSchedulesGuide, 'research profile', 'Football scores and schedules guide');
+  forbidText(footballHub, 'research profile', 'Friday Night Lights hub');
+
   for (const marker of [
     "createFileRoute('/texas-high-school-football-districts/$slug')",
     'getFootballDistrictPage',
@@ -969,6 +1061,7 @@ if (!errors.length) {
     'district.enrollmentSourceUrl',
     'UIL_FOOTBALL_ENROLLMENT_BANDS_SOURCE.url',
   ]) requireText(footballDistrictPage, marker, 'Football district detail page durable contract');
+  forbidText(footballDistrictPage, 'research usability', 'Football district detail page');
 
   for (const marker of [
     'loadUilAllTimeFootballHistory',
@@ -1030,7 +1123,7 @@ if (!errors.length) {
 
   for (const marker of [
     "createLazyFileRoute('/texas-high-school-football-teams/$slug')",
-    'How to enroll at',
+    'School enrollment and football eligibility',
     'Official district enrollment',
     '((program && enrollmentLink) || (!program && privateAdmissions))',
     'District enrollment source last reviewed',
@@ -1039,7 +1132,7 @@ if (!errors.length) {
     'Start with {enrollmentLink.sourceLabel} ↗',
     'Mascot & identity',
     'All-time UIL state-final record',
-    'Freshman, JV and varsity path',
+    'Use the district’s current registration process',
     'Football eligibility is a separate question from school admission.',
     'UIL eligibility standards ↗',
     'UIL detailed eligibility rules ↗',
@@ -1049,6 +1142,7 @@ if (!errors.length) {
     'venueLinks.length > 0',
     'Venue details last reviewed',
     'Identity last reviewed',
+    'Mascot and colors appear only when TexasDefined has a named source it can cite',
     'identity &&',
     'Texas high schools often share district stadiums.',
     'Open TexasDefined stadium guide →',
@@ -1062,22 +1156,44 @@ if (!errors.length) {
     'districtPath',
     '/article/texas-high-school-football-scores-schedules',
     'Current scores & schedules',
+    'Live scores & schedule links',
+    'TexasDefined does not publish an unverified team-specific schedule.',
     'UIL Texas Scoreboard gateway ↗',
     'it is not an official district-standings table',
     'UIL enrollment band',
     'Official UIL 2026–28 enrollment cutoffs ↗',
     'uilFootballEnrollmentBand',
+    'uilFootballEnrollmentBandForEnrollment',
+    'Enrollment-based cutoff band',
+    'Enrollment and football placement are different here.',
+    'Final football placement',
     'UIL reported enrollment',
     'program.uilEnrollment',
     'Official UIL alphabetical enrollment listing ↗',
     'Quick answers',
     'Source trail',
+    'Coach source ↗',
+    'Campus source ↗',
+    'Team schedule source ↗',
+    'Season snapshot source ↗',
+    'Team venue source ↗',
     'Football FAQ',
     'profileSummary',
     'quickFacts',
     'faq',
+    "new Intl.DateTimeFormat('en-US'",
+    'formatFootballDate',
+    '<time dateTime={game.date}>{formatFootballDate(game.date)}</time>',
+    '<time dateTime={identity.verifiedAt}>{formatFootballDate(identity.verifiedAt)}</time>',
   ]) requireText(featuredProfilePage, marker, 'Football school profile page');
   for (const forbidden of [
+    'Mascot and colors are published only from a school or district source.',
+    '<td className="px-3 py-3 font-semibold">{game.date}</td>',
+    'Research beyond the score',
+    'What families should check next',
+    'Freshman, JV and varsity path',
+    '2026 schedule & results sources',
+    'TexasDefined does not publish a team-specific schedule here unless',
     'All ${program.districtName} football programs →',
     'TEA directory match pending',
     'Exact UIL enrollment pending',
@@ -1107,12 +1223,29 @@ if (!errors.length) {
   requireText(featuredProfilePage, '/article/texas-high-school-football-2026-season-calendar', 'Football school profile calendar discovery');
   requireText(featuredProfilePage, '2026 UIL season calendar →', 'Football school profile calendar discovery');
 
+  requireText(
+    footballProfileContent,
+    "TexasDefined's current sourced coach record identifies",
+    'Football coach FAQ source attribution',
+  );
+  if (footballProfileContent.includes('The current school-source entry used by TexasDefined')) {
+    errors.push('Football coach FAQ must not label third-party coach evidence as a school-source entry.');
+  }
+
   for (const marker of [
     'buildFootballProfileSummary',
     'buildFootballProfileQuickFacts',
     'buildFootballProfileFaq',
+    'uilFootballEnrollmentBandForEnrollment',
+    'The final alignment controls competition placement',
+    'The reported enrollment falls within the published cutoff band for its final football placement',
     'Classification is not a quality ranking.',
+    'That enrollment falls outside the normal published cutoff for',
+    'the final UIL football alignment controls competition placement.',
+    'Use the cited ${editorial.schedule.label} linked on this page',
+
   ]) requireText(footballProfileContent, marker, 'Football profile answer layer');
+  forbidText(footballProfileContent, 'Use the school-published ${editorial.schedule.label} linked on this page', 'Football profile schedule-source attribution');
   for (const marker of [
     'profileSummary: buildFootballProfileSummary',
     'quickFacts: buildFootballProfileQuickFacts',
@@ -1329,11 +1462,94 @@ if (!errors.length) {
     return null;
   };
 
+  const batch006IdentityContracts = [
+    ['big-sandy-harmony', 'Eagles'],
+    ['big-spring', 'Steers'],
+    ['bishop', 'Badgers'],
+    ['blackwell', 'Hornets'],
+    ['blanco', 'Panthers'],
+    ['blanket', 'Tigers'],
+    ['blooming-grove', 'Lions'],
+    ['bloomington', 'Bobcats'],
+    ['blue-ridge', 'Tigers'],
+    ['bluff-dale', 'Bobcats'],
+    ['blum', 'Bobcats'],
+    ['boerne', 'Greyhounds'],
+    ['boerne-champion', 'Chargers'],
+    ['bogata-rivercrest', 'Rebels'],
+    ['boling', 'Bulldogs'],
+    ['bonham', 'Purple Warriors'],
+    ['booker', 'Kiowas'],
+    ['borden-county', 'Coyotes'],
+    ['borger', 'Bulldogs'],
+    ['bosqueville', 'Bulldogs'],
+    ['bovina', 'Mustangs'],
+    ['bowie', 'Jackrabbits'],
+    ['bowie-gold-burg', 'Bears'],
+    ['boyd', 'Yellowjackets'],
+    ['boys-ranch', 'Roughriders'],
+  ];
+  for (const [slug, mascot] of batch006IdentityContracts) {
+    requireText(
+      schoolIdentities,
+      `slug: '${slug}', mascot: '${mascot}'`,
+      'Batch 006 verified school/district mascot identity',
+    );
+  }
+
+  const batch006VenueContracts = [
+    ['bishop', 'George Luna Stadium', 'bhs.bishopcisd.net/'],
+    ['blooming-grove', 'Lion Stadium', 'bgisd.org/apps/events/2026/10/'],
+    ['blue-ridge', 'Tiger Stadium', 'brisd.net/o/brisd/page/athletics'],
+  ];
+  for (const [slug, venueName, sourceFragment] of batch006VenueContracts) {
+    const program = footballEditorialRecord(slug);
+    if (!program) continue;
+    if (program.venue?.name !== venueName) {
+      errors.push('Batch 006 first-party venue identity missing or changed: ' + slug);
+    }
+    if (!program.venue?.sourceUrl?.includes(sourceFragment)) {
+      errors.push('Batch 006 venue must retain its school/district source: ' + slug);
+    }
+    if (!/gate|entrance/i.test(program.venue?.note || '')) {
+      errors.push('Batch 006 venue qualification must preserve entrance/gate limitations: ' + slug);
+    }
+  }
+
+  const bishop = footballEditorialRecord('bishop');
+  if (bishop) {
+    const bishopMilestones = Array.isArray(bishop.milestones) ? bishop.milestones : [];
+    if (!bishopMilestones.some((milestone) =>
+      milestone?.title === 'Badger Stadium renamed George Luna Stadium' &&
+      milestone?.sourceUrl === 'https://www.kztv10.com/news/local-news/badger-stadium-renamed-after-former-bishop-athletic-director-george-luna'
+    )) {
+      errors.push('Bishop must retain the sourced George Luna Stadium renaming milestone.');
+    }
+    const bishopFaq = Array.isArray(bishop.faq) ? bishop.faq : [];
+    const bishopTicketAnswer = bishopFaq.find((item) => item?.question === 'Where can I check Bishop CISD football tickets for homecoming?')?.answer || '';
+    for (const source of [
+      'https://www.bishopcisd.net/athletics/ticket-sales',
+      'https://www.bishopcisd.net/parents-students/tickets-sales',
+    ]) {
+      if (!bishopTicketAnswer.includes(source)) {
+        errors.push('Bishop ticket FAQ must retain first-party source: ' + source);
+      }
+    }
+  }
+
   const currentCoachContracts = [
     ['big-sandy-harmony', 'Brian Mauk', 'kltv.com/story/26056195/harmony-eagles/'],
+    ['bishop', 'Keith Talbert', 'maxpreps.com/tx/bishop/bishop-badgers/football/staff/'],
+    ['blackwell', 'Clint Linman', 'sports.yahoo.com/articles/blackwell-hornets-hire-football-coach-234440740.html'],
+    ['bogata-rivercrest', 'Laytner Kennedy', 'maxpreps.com/tx/bogata/rivercrest-rebels/football/staff/'],
+    ['boys-ranch', 'Louis Kelley III', 'boysranchisd.org/132207_2'],
     ['boerne', 'Brett Sawyer', 'boernestar.com/article/14105'],
     ['blanco', 'Kent Walker', 'maxpreps.com/tx/blanco/blanco-panthers/football/staff/'],
     ['bloomington', 'Lane Shands', 'texasfootball.com/article/2026/02/05/which-districts-have-the-best-head-coaches-after-realignment'],
+    ['bovina', 'Wade Wilson', 'newschannel10.com/2026/08/13/2026-countdown-kickoff-bovina-mustangs/'],
+    ['boyd', 'Shawn Sparks', 'ntxvarsitysports.com/boyd-looking-to-build-on-breakthrough-season/'],
+    ['borden-county', 'Trey Richey', 'pressreporter.com/issues/2026-08-18/pages/25/'],
+    ['bowie-gold-burg', 'Austin Norman', 'bowienewsonline.com/2026/10/gold-burg-gives-it-a-go-falls-to-perrin-35-32/'],
   ];
   for (const [slug, expectedCoach, sourceFragment] of currentCoachContracts) {
     const program = footballEditorialRecord(slug);
@@ -1350,6 +1566,14 @@ if (!errors.length) {
       errors.push('Batch 006 coach FAQ contradicts current sourced coach: ' + slug);
     }
   }
+  // The 2026 MaxPreps history still names Travis McClain at Rivercrest,
+  // despite the AFCA's Oct 8, 2026 profile documenting his Mount Vernon
+  // appointment in January 2025. Never promote that stale 2026 history field
+  // over the separately dated August 29 varsity staff list.
+  const rivercrest = footballEditorialRecord('bogata-rivercrest');
+  if (rivercrest?.coach?.name === 'Travis McClain') {
+    errors.push('Stale Rivercrest history must not identify Mount Vernon coach Travis McClain as Rivercrest 2026 head coach.');
+  }
   const harmony = footballEditorialRecord('big-sandy-harmony');
   if (harmony?.coach?.name === 'Jeremy Jenkins'
       || harmony?.coach?.sourceUrl?.includes('maxpreps.com/tx/big-sandy/harmony-eagles/football/staff/')) {
@@ -1365,15 +1589,37 @@ if (!errors.length) {
     errors.push('Batch 006 canonical football assignment must retain all 25 original school slugs');
   } else {
     const todayUtc = new Date().toISOString().slice(0, 10);
+    const batchSeoTitles = new Set();
     for (const slug of footballBatch006.slugs) {
       const program = footballEditorialRecord(slug);
       if (!program) continue;
+      // Bounded metadata budget: keep each school and year legible in search,
+      // while preserving unique program identity (Bowie versus Gold-Burg, etc.).
+      const seoTitle = (program.seo?.title || '').trim();
+      const seoDescription = (program.seo?.description || '').trim();
+      if (!seoTitle || seoTitle.length > 70 || !seoTitle.includes('2026')) {
+        errors.push('Batch 006 school SEO title absent, oversized or missing season: ' + slug);
+      }
+      if (batchSeoTitles.has(seoTitle)) {
+        errors.push('Batch 006 duplicate school-specific SEO title: ' + slug);
+      }
+      batchSeoTitles.add(seoTitle);
+      if (!seoDescription || seoDescription.length > 160 || !seoDescription.includes('2026')) {
+        errors.push('Batch 006 SEO description absent, over 160 characters, or missing 2026 season: ' + slug);
+      }
       const played = program.season?.games?.filter(({ result }) => Boolean(result)) || [];
       const wins = played.filter(({ result }) => result.startsWith('W ')).length;
       const losses = played.filter(({ result }) => result.startsWith('L ')).length;
       const record = program.season?.record?.match(/^(\d+)[–-](\d+)/);
       if (!record || Number(record[1]) !== wins || Number(record[2]) !== losses) {
         errors.push('Batch 006 2026 W-L summary contradicts scored game rows: ' + slug);
+      }
+      // A dated W–L claim in a search snippet must equal the played-game ledger.
+      // Evergreen descriptions without a W–L claim remain valid; do not parse
+      // historic state titles, district identifiers or reported point scores.
+      const seoRecord = seoDescription.match(/\b(\d+)[–-](\d+)\s+through\s+(?:Oct\.?|October|Sept\.?|September|Nov\.?|November)\b/i);
+      if (seoRecord && (Number(seoRecord[1]) !== wins || Number(seoRecord[2]) !== losses)) {
+        errors.push('Batch 006 dated SEO W-L contradicts completed 2026 games: ' + slug);
       }
       const games = program.season?.games || [];
       if (games.length < 7) errors.push('Batch 006 researched games unexpectedly sparse: ' + slug);
@@ -1389,13 +1635,119 @@ if (!errors.length) {
           errors.push('Batch 006 scored fixture has malformed or future-dated result: ' + slug);
         }
       }
+      // A milestone dated 2026 must never send readers to MaxPreps' prior
+      // 2025–26 season. Older 2025 history may still legitimately use that URL.
+      for (const milestone of program.milestones || []) {
+        if (/^2026(?:$|[-–])/.test(milestone.date || '') && /\/25-26\//.test(milestone.sourceUrl || '')) {
+          errors.push('Batch 006 2026 milestone links to an obsolete 2025 season: ' + slug);
+        }
+        if (!/^https:\/\//.test(milestone.sourceUrl || '')) {
+          errors.push('Batch 006 historical milestone lacks a clickable source URL: ' + slug);
+        }
+      }
       if ((program.faq || []).length < 5) {
         errors.push('Batch 006 source-backed school FAQ unexpectedly missing: ' + slug);
+      }
+      if ((program.faq || []).some(({ question }) => (question || '').includes(' for ' + slug + ' against '))) {
+        errors.push('Batch 006 public football FAQ exposes raw lowercase slug instead of school name: ' + slug);
       }
       const normalized = (program.faq || []).map(({ question }) => (question || '').trim().toLowerCase());
       if (new Set(normalized).size !== normalized.length) {
         errors.push('Batch 006 duplicate questions within a school profile: ' + slug);
       }
+    }
+  }
+
+  // These source-dated October 16 results already exist in the game ledgers.
+  // Protect the human-readable overview/FAQ too: correct table data is not
+  // sufficient when a search answer still calls a completed game "upcoming".
+  const october16NarrativeChecks = [
+    {
+      slug: 'big-sandy-harmony',
+      opponent: 'Edgewood',
+      score: 'L 0–48',
+      overview: ['Edgewood', '48–0'],
+      faq: ['0–8', 'October 16', 'Edgewood'],
+      rejected: ['The latest completed result independently checked was an October 9 loss to Quitman'],
+    },
+    {
+      slug: 'booker',
+      opponent: 'White Deer',
+      score: 'L 22–38',
+      overview: ['White Deer', '38–22', '4–4'],
+      rejected: ['White Deer, Wildorado and Boys Ranch are subsequent fixtures'],
+    },
+    {
+      slug: 'borden-county',
+      opponent: 'Westbrook',
+      score: 'W 54–28',
+      overview: ['Westbrook', '54–28', '7–0', 'August 18'],
+      rejected: ['Westbrook, Klondike, Ira and Sands are fixtures with no independently certified scores'],
+    },
+    {
+      slug: 'blanco',
+      opponent: 'Karnes City',
+      score: 'W 54–6',
+      overview: ['Karnes City', '54–6', '5–3'],
+      rejected: ['Remaining fixtures are schedules, not predicted outcomes.'],
+    },
+    {
+      slug: 'bloomington',
+      opponent: 'Danbury',
+      score: 'W 42–0',
+      overview: ['Danbury', '42–0', '3–5'],
+      rejected: [],
+    },
+  ];
+  for (const { slug, opponent, score, overview, faq = [], rejected } of october16NarrativeChecks) {
+    const program = footballEditorialRecord(slug);
+    if (!program) continue;
+    const match = (program.season?.games || []).find((game) =>
+      game.date === '2026-10-16' && game.opponent === opponent);
+    if (!match || match.result !== score) {
+      errors.push('Batch 006 October 16 game source changed or disappeared: ' + slug);
+    }
+    const overviewText = (program.overview || []).join(' ');
+    const faqText = (program.faq || []).map(({ question, answer }) => question + ' ' + answer).join(' ');
+    for (const phrase of overview) {
+      if (!overviewText.includes(phrase)) errors.push('Batch 006 October 16 overview stale: ' + slug + ' missing ' + phrase);
+    }
+    for (const phrase of faq) {
+      if (!faqText.includes(phrase)) errors.push('Batch 006 October 16 FAQ stale: ' + slug + ' missing ' + phrase);
+    }
+    for (const phrase of rejected) {
+      if ((overviewText + ' ' + faqText).includes(phrase)) {
+        errors.push('Batch 006 October 16 prose still contains superseded snapshot: ' + slug);
+      }
+    }
+  }
+
+  // The Bluff Dale school-issued 2026 calendar corrects an incomplete
+  // third-party season feed. Keep all three published varsity fixtures visible;
+  // each may gain a score later without breaking this source-integrity test.
+  const bluffDale = footballEditorialRecord('bluff-dale');
+  if (bluffDale) {
+    const originalCalendar = 'bdisd.smartsiteshost.com/page/page_calendar?calID=136451';
+    if (!bluffDale.schedule?.sourceUrl?.includes(originalCalendar)) {
+      errors.push('Bluff Dale 2026 season schedule must cite the first-party ISD calendar');
+    }
+    const originalVarsityFixtures = [
+      ['2026-10-23', 'Milford', 'Away', true],
+      ['2026-10-29', 'Pinnacle Christian', 'Home', false],
+      ['2026-11-05', 'Avalon', 'Home', true],
+    ];
+    for (const [date, opponent, site, district] of originalVarsityFixtures) {
+      const game = bluffDale.season?.games?.find(g => g.date === date && g.opponent === opponent);
+      if (!game || game.site !== site || Boolean(game.district) !== district) {
+        errors.push('Bluff Dale official 2026 game missing/misidentified: ' + date + ' ' + opponent);
+      }
+    }
+    const narrative = [
+      ...(bluffDale.overview || []),
+      ...(bluffDale.faq || []).map(({ answer }) => answer),
+    ].join(' ');
+    if (!narrative.includes('October 23') || !narrative.includes('October 22')) {
+      errors.push('Bluff Dale must preserve school-versus-specialist Milford date discrepancy');
     }
   }
 

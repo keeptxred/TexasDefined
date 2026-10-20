@@ -156,6 +156,7 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
   const hasExtendedAuthorityGuide = destination.slug !== "chamizal-national-memorial" && (isIndividuallyRegisteredAuthorityGuide ||
     (Boolean(destination.authorityGuide) && historicGuide));
   const isWhirlyBall = destination.slug === WHIRLYBALL_SLUG;
+  const isMoodyGardens = destination.slug === "moody-gardens";
   const hasCampingProfile = CAMPING_DESTINATION_SLUGS.has(destination.slug);
   const hasSamRayburnHouseContext = destination.slug === "sam-rayburn-house";
   const hasSamHoustonMuseumContext = destination.slug === SAM_HOUSTON_MUSEUM_SLUG;
@@ -165,13 +166,13 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
     : null;
 
   return <>
-    {destination.slug === "moody-gardens" ? <MoodyGardensSpotlights /> : null}
+    {isMoodyGardens ? <MoodyGardensSpotlights /> : null}
     {isWhirlyBall ? <Section tone="surface"><Container><UnusualBusinessAuthorityPanel slug={destination.slug} /></Container></Section> : null}
-    {topAttractionRank ? <Suspense fallback={authorityFallback}><DestinationAuthorityGuide destination={destination} /></Suspense> : null}
+    {topAttractionRank ? <Suspense fallback={authorityFallback}>{!isMoodyGardens ? <DestinationAuthorityGuide destination={destination} /> : null}</Suspense> : null}
     {!topAttractionRank && hasExtendedAuthorityGuide ? <Suspense fallback={authorityFallback}><DestinationAuthorityGuide destination={destination} showUnusualBusinessAuthority={!isWhirlyBall} /></Suspense> : null}
     <Suspense fallback={null}><MuseumAuthorityNetworkSection destination={destination} /></Suspense>
     {hasSamRayburnHouseContext ? <SamRayburnContext surface="house" /> : null}
-    {destination.slug !== "moody-gardens" ? <DestinationAreaGuideSection destination={destination} /> : null}
+    {!isMoodyGardens ? <DestinationAreaGuideSection destination={destination} /> : null}
 
     {pairedDestinations.length ? <Section tone="surface" className="py-10 sm:py-12 lg:py-14">
       <Container>

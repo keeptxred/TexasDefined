@@ -100,7 +100,7 @@
   }
 
   const HOTEL_FIRST_PATH = /^\/(?:event\/|events(?:\/|$)|sports-venue\/|horse-racing\/gillespie-county-fairgrounds(?:\/|$)|sports-venues(?:\/|$)|texas-state-fair(?:\/|$))/;
-  const BOTH_PATH = /^\/(?:destination\/|explore(?:\/|$)|city\/|county\/|best-places-to-go-camping-in-texas(?:\/|$)|texas-college-towns(?:\/|$)|texas-tailgating-guide(?:\/|$)|texas-unique-lodging(?:\/|$)|texas-music-venues(?:\/|$)|texas-roadside-oddities(?:\/|$))/;
+  const BOTH_PATH = /^\/(?:article\/chip-and-joanna-gaines-magnolia-waco(?:\/|$)|destination\/|explore(?:\/|$)|city\/|county\/|best-places-to-go-camping-in-texas(?:\/|$)|texas-college-towns(?:\/|$)|texas-tailgating-guide(?:\/|$)|texas-unique-lodging(?:\/|$)|texas-music-venues(?:\/|$)|texas-roadside-oddities(?:\/|$))/;
   const RVSHARE_PATH = /^\/(?:best-places-to-go-camping-in-texas(?:\/|$)|explore\/(?:rv-parks|state-parks|road-trips|outdoors)(?:\/|$))/;
   const OWNER_PATH = /^\/real-estate\/?$/;
   const TRAVEL_SECTION = /\b(?:travel|lodging|road trips?|weekend getaways?|events?)\b/i;
@@ -297,6 +297,25 @@
         placement: `casino-stay-${slug}-${index + 1}`,
       }));
     });
+    const isMagnoliaWacoGuide = window.location.pathname.replace(/\/+$/, "") === "/article/chip-and-joanna-gaines-magnolia-waco";
+    if (isMagnoliaWacoGuide) {
+      heading.textContent = "Waco hotels and rentals near Magnolia";
+      copy.textContent = "Choose a real Waco hotel listing or browse Waco vacation rentals. These independent booking links are not official Magnolia reservations. Check dates, price, location and cancellation rules on each provider.";
+      for (const name of ["Hotel 1928", "Hilton Waco", "Courtyard by Marriott Waco"]) {
+        actions.appendChild(createTrackedLink({
+          destination: VERIFIED_PROPERTY_DESTINATIONS.get(name),
+          label: `View ${name} on Hotels.com`,
+          variant: name === "Hotel 1928" ? "primary" : "secondary",
+          placement: "magnolia-waco-exact-hotel"
+        }));
+      }
+      actions.appendChild(createTrackedLink({
+        destination: "https://www.vrbo.com/en-ca/vacation-rentals/united-states/texas/mclennan-county/waco",
+        label: "Browse Waco vacation rentals on Vrbo",
+        variant: "secondary",
+        placement: "magnolia-waco-vrbo-rentals"
+      }));
+    } else {
     actions.appendChild(createTrackedLink({
       destination: HOTELS_DESTINATION,
       label: exactPropertyFirst ? "Compare more hotels on Hotels.com" : "Find hotels on Hotels.com",
@@ -326,6 +345,7 @@
       }));
     }
 
+    }
     if (showRvshare) {
       actions.appendChild(createTrackedLink({
         destination: RVSHARE_DESTINATION,

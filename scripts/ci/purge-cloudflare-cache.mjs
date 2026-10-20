@@ -56,8 +56,16 @@ const alwaysPurgeUrls = [
   `https://${zoneName}/article/ima-hogg-texas-legacy`,
   `https://${zoneName}/article/camping-in-texas-with-your-dog`,
   `https://${zoneName}/article/texas-high-school-football-scores-schedules`,
-  // District 22 uses a published game-week snapshot; stale HTML must not keep the old directory-only layout.
+  // Published football game-week snapshots and their linked school profiles
+  // share a sourced league ledger. Invalidate the whole local authority cluster
+  // after a verified deployment; do not leave old HTML pointing at new game data.
   `https://${zoneName}/texas-high-school-football-districts/6a-district-22`,
+  `https://${zoneName}/texas-high-school-football-districts/6a-district-21`,
+  ...[
+    'fort-bend-austin', 'fort-bend-bush', 'fort-bend-clements',
+    'fort-bend-elkins', 'fort-bend-hightower', 'fort-bend-ridge-point',
+    'fort-bend-travis', 'houston-strake-jesuit',
+  ].map((slug) => `https://${zoneName}/texas-high-school-football-teams/${slug}`),
   `https://${zoneName}/article/best-lighthouses-to-visit-in-texas`,
   `https://${zoneName}/article/texas-medal-of-honor-heroes`,
   `https://${zoneName}/article/texas-red-river-war-guide`,
@@ -66,6 +74,8 @@ const alwaysPurgeUrls = [
   `https://${zoneName}/article/texas-frontier-forts-road-trip`,
   `https://${zoneName}/article/texas-ecoregions-habitats-guide`,
   `https://${zoneName}/county/collin`,
+  // El Paso County guide uses a licensed first-party hero and must not retain cached pre-image HTML.
+  `https://${zoneName}/county/el-paso`,
   `https://${zoneName}/county/crockett`,
   `https://${zoneName}/county/dickens`,
   `https://${zoneName}/destination/zapata-county-museum-history`,

@@ -16,6 +16,7 @@ import {
   selectMetroProximityDestinations,
 } from "./metro-proximity";
 import { metroProximityCollectionPresentation } from "./metro-proximity-presentation";
+import { getDallasSmallTownDrive, DALLAS_DRIVES_VERIFIED_AT } from "./dallas-small-town-drives";
 import {
   isMetroProximityCollectionIndexReadyWithTownReferences,
   selectMetroProximityTownReferences,
@@ -244,12 +245,19 @@ export async function loadMetroProximityCollectionPageDataServer(metroSlug: stri
   const canonicalPath = metroProximityCanonicalPath(metro.slug, collection.slug);
   const presentation = metroProximityCollectionPresentation(collection);
   const isTexarkanaRoadTrips = metro.slug === "texarkana" && collection.slug === "road-trips";
+  const isDallasRoadRing = metro.slug === "dallas" && /^small-towns-[123]-hours?$/.test(collection.slug);
   const isAustinTwoHourGuide = metro.slug === "austin" && collection.slug === "small-towns-2-hours";
   const isMcAllenDayTrips = metro.slug === "mcallen" && collection.slug === "day-trips";
   const title = isTexarkanaRoadTrips
     ? "Best Road Trips From Texarkana, Texas"
     : isAustinTwoHourGuide
       ? `${optionCount} Small Towns About 1–2 Hours From Austin, Texas`
+      : isDallasRoadRing
+        ? collection.slug === "small-towns-1-hour"
+          ? "Small Towns About an Hour or Less From Dallas, Texas"
+          : collection.slug === "small-towns-2-hours"
+            ? "Small Towns About 1–2 Hours From Dallas, Texas"
+            : "Small Towns About 2–3 Hours From Dallas, Texas"
       : presentation.usesGeographicRing
         ? `${presentation.titlePrefix} ${metro.name}, Texas`
         : metroProximityTitle(metro, collection);
@@ -259,12 +267,15 @@ export async function loadMetroProximityCollectionPageDataServer(metroSlug: stri
       ? "Plan scenic drives and multi-stop road trips from Texarkana through the Piney Woods, Caddo country, historic East Texas towns, lakes and state parks, with route order, trip length, seasonal guidance and current driving links."
       : isAustinTwoHourGuide
       ? `Compare ${optionCount} worthwhile small-town day trips from Austin, with trip-planning guidance for Hill Country wine, Texas history, river towns, courthouse squares and heritage routes. Check live routing before you leave because Austin-area traffic can materially change drive times.`
+      : isDallasRoadRing
+        ? `Compare ${optionCount} Dallas small-town road trips screened by researched typical driving-time estimates, with official visitor sources, practical trip ideas and current driving links. Traffic and actual routes vary.`
       : presentation.usesGeographicRing
         ? `Compare ${optionCount} ${presentation.searchIntent} around ${metro.name}, screened by geographic distance with source-backed TexasDefined guides and official local references. Use the page's route links for current road mileage and driving time.`
         : metroProximityDescription(metro, collection, optionCount);
   const reviewedAt = latestReview([
     ...results.map((row) => row.destination.sourceCheckedAt),
     ...townReferences.map((row) => row.town.sourceCheckedAt),
+    ...(isDallasRoadRing ? [DALLAS_DRIVES_VERIFIED_AT] : []),
   ]);
   const image = results[0]?.destination.hero;
   const pageUrl = `${siteUrl}${canonicalPath}`;

@@ -23,6 +23,7 @@ import { Container } from "@/components/layout/Container";
 import YsletaDelSurMuseumAuthority from "@/components/editorial/YsletaDelSurMuseumAuthority";
 import OldSocorroMissionAuthority from "@/components/editorial/OldSocorroMissionAuthority";
 import { isPrimaryTripPlannerDestination } from "@/data/destination-availability";
+import { riverAuthorityLinksForDestination } from "@/data/river-authority-relations";
 import { destinationLocationAnswer } from "@/data/destination-location-answer";
 import { auditDestination } from "@/data/destination-audit";
 import { distanceMiles } from "@/data/destination-relationships";
@@ -178,6 +179,27 @@ export const Route = createFileRoute("/destination/$slug")({
       const { resolveCoastalHeritageAuthority } = await import("@/data/coastal-heritage-authority");
       destination = resolveCoastalHeritageAuthority(destination);
     }
+    // Always apply the authoritative closure and visitor-center overlay last.
+    // This also protects direct destination fallback reads that fail the general
+    // search-readiness gate before the runtime can apply the local override.
+    if (destination.slug === "magoffin-home") {
+      const { applyMagoffinHomeAuthority } = await import("@/data/magoffin-home-authority");
+      destination = applyMagoffinHomeAuthority(destination);
+    }
+    // These three historic places have primary published URLs in older
+    // state-park and destination collections. A specialized curator or remote
+    // fallback can replace part of their record after normal enrichment; apply
+    // the place-specific research and schedules on the final detail page too.
+    if (["washington-on-the-brazos", "san-jacinto-battleground", "goliad-state-park"].includes(destination.slug)) {
+      const { enrichTexasHistoricSiteAuthority } = await import("@/data/historic-site-authority-2026");
+      destination = enrichTexasHistoricSiteAuthority(destination);
+    }
+    // Site-specific closed-property cleanup must survive remote enrichment
+    // and must not suggest visiting the protected 1680 Socorro site.
+    if (destination.slug === "old-socorro-mission") {
+      const { enrichResearchedHistoricSiteDepth } = await import("@/data/historic-site-depth-all");
+      destination = enrichResearchedHistoricSiteDepth(destination);
+    }
     const [completeGraph, categories, relationshipGroups, regions, relatedArticles] = await Promise.all([
       loadTexasKnowledgeGraph(),
       context.queryClient.ensureQueryData(categoriesQuery()),
@@ -215,7 +237,7 @@ const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(des
     const validGeo = hasValidCoordinates(destination.coordinates.lat, destination.coordinates.lng);
     const relatedPlaces = [...new Map(relationshipGroups.flatMap((group) => group.destinations).map((item) => [item.slug, item])).values()];
     const webPageSchema = { "@type": "WebPage", "@id": url, url, name: destination.name, description: destination.summary, isPartOf: { "@id": `${siteUrl}/#website` }, ...(hasUsableHero ? { primaryImageOfPage: { "@id": `${url}#primaryimage` } } : {}), mainEntity: { "@id": `${url}#attraction` }, breadcrumb: { "@id": `${url}#breadcrumbs` }, ...(relatedPlaces.length > 0 ? { hasPart: { "@id": `${url}#related-places` } } : {}), ...(authorityCitations.length > 0 ? { citation: authorityCitations } : validExternalUrl(destination.officialUrl) ? { citation: destination.officialUrl } : {}), ...(authorityGuide ? { author: { "@type": "Organization", "@id": `${siteUrl}/authors/a-hollis#desk`, name: "Texas Defined Editorial Desk", url: `${siteUrl}/authors/a-hollis` }, ...(isTopTexasAttraction(destination.slug) ? { isBasedOn: `${siteUrl}/explore/top-attractions/methodology` } : {}) } : {}), ...(destination.sourceCheckedAt ? { dateModified: destination.sourceCheckedAt } : {}) };
-    const attractionSchema = { "@type": isOldSocorro ? "Place" : isHotelPasoDelNorte ? ["Hotel", "TouristAttraction"] : (isZapataMuseum || isYsletaMuseum || isYoungCountyMuseum || isAuthorityMuseum ? ["Museum", "TouristAttraction"] : "TouristAttraction"), "@id": `${url}#attraction`, url, mainEntityOfPage: { "@id": url }, name: destination.name, description: destination.summary, ...(isOldSocorro ? { publicAccess: false } : {}), ...(isHotelPasoDelNorte ? { telephone: "+1-915-534-3000" } : {}), ...(isZapataMuseum ? { telephone: "+1-956-765-8983", openingHoursSpecification: ["Tuesday", "Wednesday", "Thursday", "Friday"].map((dayOfWeek) => ({ "@type": "OpeningHoursSpecification", dayOfWeek, opens: "10:00", closes: "16:00" })) } : {}), ...(isYoungCountyMuseum ? { telephone: "+1-940-282-2887", openingHoursSpecification: ["Wednesday", "Thursday", "Friday", "Saturday"].map((dayOfWeek) => ({ "@type": "OpeningHoursSpecification", dayOfWeek, opens: "10:00", closes: "16:00" })) } : {}), ...(hasUsableHero && imageUrl ? { image: [{ "@type": "ImageObject", "@id": `${url}#primaryimage`, url: imageUrl, caption: destination.hero.alt, width: destination.hero.width, height: destination.hero.height, ...(destination.hero.credit ? { creditText: destination.hero.credit } : {}) }] } : {}), ...(validGeo ? { geo: { "@type": "GeoCoordinates", latitude: destination.coordinates.lat, longitude: destination.coordinates.lng } } : {}), address: { "@type": "PostalAddress", addressRegion: "TX", addressLocality: destination.nearestTown, addressCountry: "US", ...(destination.address ? { streetAddress: isZapataMuseum ? "805 N U.S. Highway 83" : isHotelPasoDelNorte ? "10 Henry Trost Ct" : destination.address, ...(isHotelPasoDelNorte ? { postalCode: "79901" } : {}) } : {}) }, containedInPlace: { "@type": "State", name: "Texas" }, touristType: categoryName, ...(destination.managingAuthority ? { provider: { "@type": "Organization", name: destination.managingAuthority } } : {}), ...(validExternalUrl(destination.officialUrl) ? { sameAs: destination.officialUrl } : {}) };
+    const attractionSchema = { "@type": isOldSocorro ? "Place" : isHotelPasoDelNorte ? ["Hotel", "TouristAttraction"] : (isZapataMuseum || isYsletaMuseum || isYoungCountyMuseum || isAuthorityMuseum ? ["Museum", "TouristAttraction"] : "TouristAttraction"), "@id": `${url}#attraction`, url, mainEntityOfPage: { "@id": url }, name: destination.name, description: destination.summary, ...(isOldSocorro ? { publicAccess: false } : {}), ...(isHotelPasoDelNorte ? { telephone: "+1-915-534-3000" } : {}), ...(isZapataMuseum ? { telephone: "+1-956-765-8983", openingHoursSpecification: ["Tuesday", "Wednesday", "Thursday", "Friday"].map((dayOfWeek) => ({ "@type": "OpeningHoursSpecification", dayOfWeek, opens: "10:00", closes: "16:00" })) } : {}), ...(isYoungCountyMuseum ? { telephone: "+1-940-282-2887", openingHoursSpecification: ["Wednesday", "Thursday", "Friday", "Saturday"].map((dayOfWeek) => ({ "@type": "OpeningHoursSpecification", dayOfWeek, opens: "10:00", closes: "16:00" })) } : {}), ...(hasUsableHero && imageUrl ? { image: [{ "@type": "ImageObject", "@id": `${url}#primaryimage`, url: imageUrl, caption: destination.hero.alt, width: destination.hero.width, height: destination.hero.height, ...(destination.hero.credit ? { creditText: destination.hero.credit } : {}) }] } : {}), ...(validGeo ? { geo: { "@type": "GeoCoordinates", latitude: destination.coordinates.lat, longitude: destination.coordinates.lng } } : {}), address: { "@type": "PostalAddress", addressRegion: "TX", addressLocality: destination.nearestTown, addressCountry: "US", ...(destination.address ? { streetAddress: isZapataMuseum ? "805 N U.S. Highway 83" : isHotelPasoDelNorte ? "10 Henry Trost Ct" : destination.address, ...(isHotelPasoDelNorte ? { postalCode: "79901" } : isZapataMuseum ? { postalCode: "78076" } : {}) } : {}) }, containedInPlace: { "@type": "State", name: "Texas" }, touristType: categoryName, ...(destination.managingAuthority ? { provider: { "@type": "Organization", name: destination.managingAuthority } } : {}), ...(validExternalUrl(destination.officialUrl) ? { sameAs: destination.officialUrl } : {}) };
     const relatedSchema = {
       "@type": "ItemList",
       "@id": `${url}#related-places`,
@@ -284,6 +306,7 @@ function DestinationPage() {
   const countySlug = countyRouteSlug(destination.county);
   const countyLabel = destination.county ? countyDisplayName(destination.county) : "";
   const isChokeCanyon = destination.slug === "choke-canyon-state-park";
+  const relatedRiverGuides = riverAuthorityLinksForDestination(destination.slug);
   const isHotelPasoDelNorte = destination.slug === "hotel-paso-del-norte";
 
   const locationAnswer = isChokeCanyon
@@ -477,11 +500,34 @@ function DestinationPage() {
             </li>)}
           </ul>
         </section>}
+        {destination.slug === "magnolia-market-at-the-silos" && <section className="mt-10 border-t border-border pt-8" aria-label="Chip and Joanna Gaines history and Magnolia visitor guide">
+          <p className="eyebrow text-primary">The people behind Magnolia</p>
+          <h2 className="mt-2 font-display text-3xl">Chip and Joanna Gaines: from Fixer Upper to the Silos</h2>
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Learn how the Baylor graduates built a Waco-based renovation, television, home and hospitality company, then plan the other Magnolia-related stops across town.</p>
+          <Link to="/article/$slug" params={{ slug: "chip-and-joanna-gaines-magnolia-waco" }} className="mt-5 inline-block border-b border-primary pb-1 font-semibold text-primary">Read our Chip and Joanna Gaines authority guide →</Link>
+        </section>}
         {destination.slug === "franklin-mountains-state-park" && <Suspense fallback={null}><FranklinMountainsAuthority /></Suspense>}
         {!isChokeCanyon && destination.slug !== "franklin-mountains-state-park" && destination.slug !== "magoffin-home" && <Suspense fallback={null}><DestinationViatorBooking destination={destination} /></Suspense>}
         {DESTINATION_LAKE_GUIDE_LINKS[destination.slug] ? <section className="mt-10 border-t border-border pt-8" aria-label="Related lake fishing and recreation guide"><p className="eyebrow text-primary">Explore this lake</p><h2 className="mt-3 font-display text-3xl">Fishing, boat ramps and lake conditions</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">This park is part of a larger lake trip. Our separate lake guide connects species, launch facilities, boating and nearby counties; confirm park admission, accessibility, overnight reservations and closures with the operator.</p><a href={`/fishing/lakes/${DESTINATION_LAKE_GUIDE_LINKS[destination.slug].slug}`} className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">{DESTINATION_LAKE_GUIDE_LINKS[destination.slug].name} visitor and fishing guide →</a></section> : null}
         {destination.slug === "dallas-arboretum-and-botanical-garden" ? <section className="mt-10 border-t border-border pt-8"><p className="eyebrow text-primary">Explore the lake next door</p><h2 className="mt-3 font-display text-3xl">White Rock Lake — fishing, paths and boating</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">The Arboretum overlooks White Rock Lake. The wider lake is a City of Dallas recreation area with fishing piers and boating restrictions; garden admission does not grant lake boat access or overnight camping. For launch locations, public park rules and lake history, use the dedicated lake guide.</p><a className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary" href="/fishing/lakes/white-rock-lake">Read the White Rock Lake visitor guide →</a></section> : null}
         {!isChokeCanyon && destination.slug !== "magoffin-home" && isPrimaryTripPlannerDestination(destination) && <div className="mt-10"><DestinationVisitPlanner destination={destination} /></div>}
+        {/* Curated historical/non-primary records and the special Choke Canyon
+            page do not mount the ordinary Trip Planner. Preserve their verified
+            river associations as visible, crawlable links without surfacing a
+            closed site as a normal recommended stop. */}
+        {(isChokeCanyon || destination.slug === "magoffin-home" || !isPrimaryTripPlannerDestination(destination)) && relatedRiverGuides.length > 0 && (
+          <nav aria-label={`Related river guides for ${destination.name}`} className="mt-10 border-t border-border pt-8">
+            <h2 className="font-display text-2xl">Related Texas river guides</h2>
+            <div className="mt-5 grid gap-5 sm:grid-cols-2">
+              {relatedRiverGuides.map((guide) => (
+                <div key={guide.href} className="border-l-2 border-primary pl-4">
+                  <Link to={guide.href} className="font-semibold underline decoration-primary/40 underline-offset-4">{guide.label}</Link>
+                  <p className="mt-2 text-sm leading-6 text-muted-foreground">{guide.description}</p>
+                </div>
+              ))}
+            </div>
+          </nav>
+        )}
         {destination.slug === "spoetzl-brewery" && <Suspense fallback={null}><ShinerBreweryAuthority /></Suspense>}
       </div>
 

@@ -60,6 +60,34 @@ test("small-town hour-intent rings are non-overlapping", () => {
   assert.ok(three.minimumMiles < three.radiusMiles);
 });
 
+
+test("Dallas town pages use independently sourced road time rather than straight-line radius", () => {
+  const dallas = getMetroProximityMetro("dallas")!;
+  const one = getMetroProximityCollection("small-towns-1-hour")!;
+  const two = getMetroProximityCollection("small-towns-2-hours")!;
+  const three = getMetroProximityCollection("small-towns-3-hours")!;
+  const rows = [
+    destination(2001, "small-towns", { slug: "canton", name: "Canton", nearestTown: "Canton", county: "Van Zandt", coordinates: { lat: 32.5565, lng: -95.8633 } }),
+    destination(2002, "small-towns", { slug: "clifton", name: "Clifton", nearestTown: "Clifton", county: "Bosque", coordinates: { lat: 31.7824, lng: -97.5767 } }),
+    destination(2003, "small-towns", { slug: "jefferson", name: "Jefferson", nearestTown: "Jefferson", county: "Marion", coordinates: { lat: 32.7574, lng: -94.3452 } }),
+    destination(2004, "small-towns", { slug: "unresearched-village", name: "Unresearched Village", nearestTown: "Unresearched Village", county: "Example", coordinates: { lat: 32.74, lng: -96.6 } }),
+  ];
+  assert.deepEqual(selectMetroProximityDestinations(rows, dallas, one).map((row) => row.destination.slug), ["canton"]);
+  assert.deepEqual(selectMetroProximityDestinations(rows, dallas, two).map((row) => row.destination.slug), ["clifton"]);
+  assert.deepEqual(selectMetroProximityDestinations(rows, dallas, three).map((row) => row.destination.slug), ["jefferson"]);
+  assert.ok(selectMetroProximityDestinations(rows, dallas, three)[0].distanceMiles > three.radiusMiles, "Jefferson belongs in the road-time band even when beyond the old geographic radius");
+  const close = selectMetroProximityTownReferences(dallas, one);
+  assert.ok(close.length >= 4, "Dallas one-hour page no longer has empty town inventory");
+  assert.ok(new Set(close.map((row) => row.town.county)).size >= 2, "Dallas close-in guide spans multiple counties");
+  const longer = selectMetroProximityTownReferences(dallas, three);
+  assert.ok(longer.some((row) => row.town.slug === "jefferson"), "Jefferson has an official source even if its authority destination is missing");
+  assert.equal(isMetroProximityCollectionIndexReadyWithTownReferences([], dallas, one), true, "official visitor sources meet the protected indexing floor");
+  assert.equal(isMetroProximityCollectionIndexReadyWithTownReferences([], dallas, two), true, "two-hour road trips stay index-eligible even when live catalog is sparse");
+  assert.equal(isMetroProximityCollectionIndexReadyWithTownReferences([], dallas, three), true, "three-hour road trips retain six distinct towns and three counties");
+  assert.ok(new Set(selectMetroProximityTownReferences(dallas, three).map((row) => row.town.county)).size >= 3);
+
+});
+
 test("duplicate destination slugs cannot inflate collection inventory", () => {
   const metro = getMetroProximityMetro("houston")!;
   const collection = getMetroProximityCollection("things-to-do")!;

@@ -80,4 +80,30 @@ assert.ok(weeklyAudit.includes("node scripts/assets/materialize-discover-overrid
   "strict image materialization/verification must always run before local Worker build");
 assert.ok(!weeklyAudit.includes("restore-keys:"), "a cross-fingerprint cache fallback is prohibited");
 
+
+// Cache repair belongs only to an actually successful production release.
+// Cancelled pushes may be replaced while the next Worker static-asset manifest
+// is still being uploaded; their workflow_run completed event is not a release.
+const cacheWorkflow = readFileSync(".github/workflows/purge-authority-cache-after-deploy.yml", "utf8");
+assert.ok(cacheWorkflow.includes("github.event.workflow_run.conclusion == 'success'"),
+  "the cache purge must ignore cancelled and failed production deployments");
+assert.ok(cacheWorkflow.includes("github.event.workflow_run.head_branch == 'main'"),
+  "the cache purge must remain restricted to protected main releases");
+assert.ok(cacheWorkflow.includes("github.event_name == 'workflow_dispatch'"),
+  "authorized manual cache repair must remain available");
+assert.ok(cacheWorkflow.includes("PURGE_OUTCOME") && cacheWorkflow.includes("!= 'success'"),
+  "cache purge verification must still fail closed for successful production releases");
+
+const purgeScript = readFileSync("scripts/ci/purge-cloudflare-cache.mjs", "utf8");
+for (const route of [
+  "texas-high-school-football-districts/6a-district-21",
+  "fort-bend-austin", "fort-bend-bush", "fort-bend-clements",
+  "fort-bend-elkins", "fort-bend-hightower", "fort-bend-ridge-point",
+  "fort-bend-travis", "houston-strake-jesuit",
+]) {
+  assert.ok(purgeScript.includes(route), `District 21 HTML invalidation is missing: ${route}`);
+}
+assert.ok(purgeScript.includes("Discover image failed live post-purge binary verification"),
+  "the required WebP response checks must not be bypassed by HTML cache repair");
+
 console.log("Discover artifact cache provenance, fresh local assets, change-scoped full live WebP delivery, image validation and strict deployment gates verified.");

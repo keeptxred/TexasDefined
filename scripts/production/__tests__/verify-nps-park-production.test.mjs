@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { verifyDirectoryHtml, verifyBattlefieldHtml, verifyChamizalHtml } from "../verify-nps-park-production.mjs";
+import sharp from "sharp";
+import { verifyDirectoryHtml, verifyBattlefieldHtml, verifyChamizalHtml, extractChamizalImageUrls, verifyDecodableImageBytes } from "../verify-nps-park-production.mjs";
 
 const codes=["alfl","amis","bibe","bith","blsc","buov","cham","elte","elca","foda","gumo","lamr","lyjo","pais","paal","rigr","saan","waco"];
 const directory=(links=codes.map(code=>'<a href="https://www.nps.gov/'+code+'/">Site</a>').join("")) =>
@@ -40,4 +41,38 @@ test("Chamizal production probe rejects outdated generic sections",()=>{
  for(const old of ["Chamizal National Memorial occupies a significant landscape within El Paso, commemorating",
  "Tours and experiences near Chamizal National Memorial","First-time focused visit"])
   assert.throws(()=>verifyChamizalHtml(chamizal+" "+old));
+});
+
+
+const photoHtml = [
+ '<html><main>',
+ '<figure class="main-hero"><img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Mural%20and%20Cultural%20Center.jpg%20%28d3498183-87fe-4a4f-854a-b1d4e2f5e815%29.jpg" alt="Chamizal National Memorial Cultural Center with the Nuestra Herencia mural" fetchPriority="high"></figure>',
+ '<section aria-labelledby="destination-photo-archive"><h2>Documentary photographs</h2>',
+ '<img src="/images/explore/historic-sites/chamizal-national-memorial.jpg" alt="Historical boundary marker at Chamizal National Memorial">',
+ '</section></main></html>',
+].join("");
+test("Chamizal hero and actual archive image are extracted from SSR image elements",()=>{
+ const result=extractChamizalImageUrls(photoHtml,"https://texasdefined.com");
+ assert.equal(result.galleryUrls.length,1);
+ assert.ok(result.heroUrl.includes("Mural%20and%20Cultural"));
+ assert.equal(result.galleryUrls[0],"https://texasdefined.com/images/explore/historic-sites/chamizal-national-memorial.jpg");
+});
+test("Chamizal fails closed on absent hero, empty archive, duplicate hero/gallery and unsafe image URL",()=>{
+ const base="https://texasdefined.com";
+ assert.throws(()=>extractChamizalImageUrls(photoHtml.replace('fetchPriority="high"','loading="lazy"'),base),/priority hero/);
+ assert.throws(()=>extractChamizalImageUrls(photoHtml.replace('src="/images/explore/historic-sites/chamizal-national-memorial.jpg"',''),base),/missing an image src/);
+ assert.throws(()=>extractChamizalImageUrls(photoHtml.replace('src="/images/explore/historic-sites/chamizal-national-memorial.jpg"','src="javascript:alert(1)"'),base),/insecure origin/);
+ assert.throws(()=>extractChamizalImageUrls(photoHtml.replace('src="/images/explore/historic-sites/chamizal-national-memorial.jpg"','src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Mural%20and%20Cultural%20Center.jpg%20%28d3498183-87fe-4a4f-854a-b1d4e2f5e815%29.jpg"'),base),/reuse the same image/);
+});
+test("Chamizal image verifier decodes actual JPEG pixels rather than trusting status and headers",async()=>{
+ const bytes=await sharp({create:{width:1000,height:650,channels:3,background:{r:80,g:125,b:150}}}).jpeg().toBuffer();
+ const report=await verifyDecodableImageBytes(bytes,"image/jpeg");
+ assert.equal(report.decoded,true);
+ assert.equal(report.width,1000);
+ assert.equal(report.height,650);
+ await assert.rejects(()=>verifyDecodableImageBytes(Buffer.alloc(1500,65),"image/jpeg"));
+ await assert.rejects(()=>verifyDecodableImageBytes(bytes,"text/html"));
+ await assert.rejects(()=>verifyDecodableImageBytes(bytes,"image/png"),/format\/dimensions/);
+ const tooSmall=await sharp({create:{width:100,height:100,channels:3,background:"red"}}).jpeg().toBuffer();
+ await assert.rejects(()=>verifyDecodableImageBytes(tooSmall,"image/jpeg"));
 });

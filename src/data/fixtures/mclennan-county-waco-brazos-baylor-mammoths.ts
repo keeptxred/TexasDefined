@@ -24,6 +24,7 @@ export const mclennanCountyWacoBrazosBaylorMammothsArticle: Article = {
   tags: ["McLennan County", "Waco", "Brazos River", "Baylor University", "Waco Suspension Bridge", "Waco Mammoth National Monument", "West", "Central Texas", "Texas counties"],
   featured: false,
   internalLinks: [
+    { href: "/article/chip-and-joanna-gaines-magnolia-waco", label: "Chip and Joanna Gaines and Magnolia in Waco", description: "Learn how the Fixer Upper founders built a destination business in McLennan County, and plan the Silos, hotel and restaurant stops." },
     { href: "/browse/counties", label: "Browse Texas counties", description: "Explore all 254 Texas county references and county guides." },
     { href: "/county/bell", label: "Explore Bell County", description: "Continue south along Interstate 35 toward Temple, Belton and Fort Hood." },
     { href: "/county/hill", label: "Explore Hill County", description: "Continue north toward Hillsboro and the northern Blackland Prairie." },

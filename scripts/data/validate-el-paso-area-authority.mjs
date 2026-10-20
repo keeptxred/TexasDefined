@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { readFileSync, statSync } from 'node:fs';
 
 const read = (path) => readFileSync(new URL('../../' + path, import.meta.url), 'utf8');
 const checks = [
@@ -27,10 +27,33 @@ const checks = [
     'Quintin Soloviev',
     'CC BY 4.0',
   ]],
+  ['scripts/ci/purge-cloudflare-cache.mjs', [
+    '\`https://\${zoneName}/county/el-paso\`',
+  ]],
+  ['src/data/el-paso-county-hero.ts', [
+    '/images/explore/historic-sites/hueco-tanks-state-park.jpg',
+    'Brian Stansberry',
+    'Hueco-tanks-east-mtn-tx1.jpg',
+    'creativecommons.org/licenses/by/3.0',
+  ]],
   ['src/routes/$kind.$slug.lazy.tsx', [
+    "entity.kind === 'county' && entity.slug === 'el-paso'",
+    'elPasoCountyHero.src',
+    'elPasoCountyHero.sourceUrl',
+    'elPasoCountyHero.licenseUrl',
+    'Hueco Tanks East Mountain in El Paso County',
+    'CC BY 3.0',
+    'fetchPriority="high"',
     '<ElPasoMetroGuide />',
     '<ElPasoAreaCrossLinks kind={entity.kind} slug={entity.slug} />',
     "entity.slug === 'el-paso-metro'",
+  ]],
+  ['src/lib/legacy-editorial-redirects.ts', [
+    'LEGACY_EDITORIAL_REDIRECTS["/destination/el-paso"] = "/city/el-paso";',
+  ]],
+  ['src/routes/$kind.$slug.tsx', [
+    "entity.slug === 'el-paso' ? elPasoCountyHero : undefined",
+    'countyHeroImage?.src ?? countySeriesArticle?.hero.src',
   ]],
   ['src/routes/destination.$slug.tsx', [
     'countySlug === "el-paso" ? <Container><ElPasoAreaCrossLinks',
@@ -62,6 +85,13 @@ if (!socorroFacts.includes('hero: missingDestinationHero(destination)')) failure
 if (socorroCounty.includes('Historic active church on the El Paso Mission Trail')) failures.push('El Paso county confuses original archaeology with operating church');
 if (['google.com/maps/', 'maps/search/', 'maps/dir/'].some((marker) => socorro.includes(marker))) failures.push('Closed Old Socorro guide links directly to travel directions');
 
+const localCountyHero = new URL('../../public/images/explore/historic-sites/hueco-tanks-state-park.jpg', import.meta.url);
+try {
+  const asset = statSync(localCountyHero);
+  if (!asset.isFile() || asset.size < 100_000) failures.push('El Paso County hero must be a substantive first-party photograph');
+} catch {
+  failures.push('El Paso County first-party hero asset is missing');
+}
 for (const [path, markers] of checks) {
   const content = read(path);
   for (const marker of markers) {

@@ -1,3 +1,5 @@
+import { editorialImageSrc } from '@/lib/editorial-image-delivery';
+
 /**
  * El Paso-area editorial navigation. Keep geography scoped to verified El Paso
  * destinations; the generic West Texas region is not a proximity signal.
@@ -49,7 +51,7 @@ function GuideCards({ items }: { items: readonly LinkRecord[] }) {
 export function ElPasoMetroGuide() {
   return <>
   <figure className="overflow-hidden border-b border-border py-8">
-    <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/El_Paso_skyline.jpg?width=1600"
+    <img src={editorialImageSrc("https://commons.wikimedia.org/wiki/Special:Redirect/file/El_Paso_skyline.jpg?width=1600")}
       alt="Downtown El Paso skyline beneath the Franklin Mountains"
       className="aspect-video w-full object-cover" loading="eager" decoding="async" />
     <figcaption className="mt-2 text-xs leading-5 text-muted-foreground">
