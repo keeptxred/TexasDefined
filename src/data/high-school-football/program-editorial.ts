@@ -1057,6 +1057,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceLabel": "Blanket ISD official district events; game final scores independently reported by Brownwood News",
       "verifiedAt": "2026-10-15"
     },
+    "venue": {
+      "name": "Tiger Stadium",
+      "address": "901 Avenue H, Blanket, TX 76432",
+      "sourceUrl": "https://www.blanketisd.org/event/cross-country-district-meet-high-school",
+      "sourceLabel": "Blanket ISD 2026 event page identifies Tiger Stadium at 901 Avenue H",
+      "verifiedAt": "2026-10-20",
+      "note": "Blanket ISD's current event system identifies Tiger Stadium at 901 Avenue H. An older third-party football directory used the name Switzer Field; TexasDefined gives the current district event listing precedence for the venue name and mapped address. Confirm the actual football game's assignment, spectator entrance, parking and accessible seating with Blanket ISD before travel."
+    },
     "notice": {
       "title": "Verify Blanket scores and the canceled Priddy 2026 season",
       "body": "The independently reported 2026 Blanket–Brookesmith final is Blanket W66–34, though an older MaxPreps feed wrongly records Blanket L34–66. Rochelle beat Blanket 68–22, not the 28–0 shown in another old snapshot. Brownwood News reported a late added Abilene X-Dot Academy match, and Blanket won 65–13 on October 8 after older calendars had displayed a bye. Brownwood News reported before kickoff that Priddy canceled its entire 2026 season. Although UIL realignment still assigns Priddy to District 12 and some external calendars list Blanket at Priddy on October 16, those listings do not establish that a varsity game was played. Do not award Blanket a win, forfeit or district result without school or district evidence. First-party football gate, parking and ADA access have not been independently certified; contact Blanket ISD for specific events.",
@@ -4036,6 +4044,13 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceUrl": "https://www.bowieisd.net/o/bhs/page/bowie-high-school-athletics",
       "sourceLabel": "School/district source for visitor details; separately cited football results",
       "verifiedAt": "2026-10-17"
+    },
+    "venue": {
+      "name": "Jackrabbit Stadium",
+      "sourceUrl": "https://www.bowieisd.net/o/bhs/live-feed",
+      "sourceLabel": "Bowie High School 2026 live feed names Jackrabbit Stadium for varsity football and publishes current spectator expectations",
+      "verifiedAt": "2026-10-20",
+      "note": "Bowie High School's 2026 live feed identifies Jackrabbit Stadium for current varsity football games and publishes stadium seating expectations. The school contact address is not automatically the public stadium entrance, and the evidence reviewed does not establish a separate gate address, parking map or full ADA seating plan."
     },
     "notice": {
       "title": "Verified facts and unresolved game-day claims",
