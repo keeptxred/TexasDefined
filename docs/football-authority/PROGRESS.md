@@ -1,5 +1,14 @@
 # Football Authority — Execution Ledger
 
+## October 20, 2026 — Batch 006 Bluff Dale / Blum / Boerne acceptance-ledger reconciliation
+Continued the active Batch 006 source-review sequence for schools 10–12.
+
+- **Bluff Dale:** Bluff Dale ISD's Gaeron Cooley staff biography still explicitly identifies him as **Head Coach of Football** and athletic director. The district school address remains a school locator, not a certified stadium gate. No new first-party entrance/parking/ADA/ticket/photo-rights evidence found. Preserve the school-issued October 23 Milford, October 29 Pinnacle Christian and November 5 Avalon schedule correction plus the 4–3 through Oct. 15 record.
+- **Blum:** Blum ISD's current High School Football page still explicitly lists **Cooper Thornhill — Head Football Coach**. No new first-party venue entrance/parking/ticket/ADA/photo-rights evidence found. Preserve the genuine 2019 UIL state title and the reported 66–60 Avalon result with its source-date discrepancy.
+- **Boerne:** Boerne High School still identifies Brett Sawyer as **Athletic Coordinator** rather than explicitly head football coach. Preserve the separate Boerne Star football-hiring/game evidence for the head-coach title and keep Boerne High distinct from Champion. No new first-party entrance/parking/ADA/photo-rights evidence found. Preserve 7–0 through Oct. 16.
+
+The prior single-release Batch 006 Chrome acceptance remains technically valid. None of these schools has complete nine-dimension human editorial/accessibility/media-rights acceptance, so registry remains **105 VERIFIED / 25 Batch006 DEPLOYED / 1,162 NOT_REVIEWED**, **0/25 Batch006 individually VERIFIED**.
+
 ## October 20, 2026 — Batch 006 Blooming Grove / Bloomington / Blue Ridge acceptance-ledger reconciliation
 Continued the active Batch 006 source-review sequence for schools 7–9 after Blackwell, Blanco and Blanket.
 
