@@ -288,7 +288,10 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
     for (const [id, record] of records(after)) {
       if (oldRecords.get(id)?.text === record.text) continue;
       if (record.key !== 'slug' && publicPath(record.value)) candidates.add(record.value);
-      if (record.key === 'slug' && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(record.value)) {
+      // Slugs in route/components JSX (for example <Link params={{ slug: 'article-name' }}>)
+      // are outbound link arguments, not declarations of destination/article owners.
+      // Only editorial data records may generate inferred slug-based URLs.
+      if (record.key === 'slug' && path.startsWith('src/data/') && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(record.value)) {
         if (/articles?|core-articles/.test(path)) candidates.add(`/article/${record.value}`);
         else if (/destination/.test(path)) candidates.add(`/destination/${record.value}`);
       }
