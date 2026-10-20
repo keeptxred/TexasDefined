@@ -1,0 +1,41 @@
+name: Verify Young County Graham production browser
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/ci/verify-young-county-graham-browser.mjs'
+      - '.github/workflows/verify-young-county-graham-browser.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/ci/verify-young-county-graham-browser.mjs'
+      - '.github/workflows/verify-young-county-graham-browser.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check scripts/ci/verify-young-county-graham-browser.mjs
+      - name: Install isolated browser driver
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-young-county-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+      - name: Verify Graham museum photos and seven connected live pages
+        run: node scripts/ci/verify-young-county-graham-browser.mjs
+      - name: Retain desktop and mobile screenshots and acceptance results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: young-county-graham-live-acceptance
+          path: artifacts/young-county-graham-browser/
+          if-no-files-found: warn
+          retention-days: 30
