@@ -61,7 +61,7 @@ function Page() {
         <div className="py-6">
           <p className="eyebrow text-primary">Current snapshot</p>
           <h2 id="snapshot-heading" className="mt-2 font-display text-3xl sm:text-4xl">Texas at a glance</h2>
-          <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">A few current statewide indicators from the official-source datasets below. Dates matter: each number is labeled with its data vintage rather than presented as a timeless fact.</p>
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">A few selected Texas statewide and metropolitan indicators from the official-source datasets below. Dates matter: each number is labeled with its data vintage rather than presented as a timeless fact.</p>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-5">
           {headlineStats.map((stat, index) => <Link key={stat.label} to={stat.to} className={`group border-t border-border py-6 sm:px-5 ${index > 0 ? 'lg:border-l' : ''}`}>
@@ -111,7 +111,7 @@ function Page() {
                 <h3 id={`category-${category.replaceAll(' ', '-').toLowerCase()}`} className="font-display text-3xl">{editorialLabel(category)}</h3>
               </div>
               <div className="grid sm:grid-cols-2">
-                {categoryDatasets.map((dataset) => <Link key={dataset.slug} to="/texas-data/$datasetSlug" params={{ datasetSlug: dataset.slug }} className="group border-b border-border py-6 sm:px-5">
+                {[...categoryDatasets].sort((a, b) => b.updated.localeCompare(a.updated)).map((dataset) => <Link key={dataset.slug} to="/texas-data/$datasetSlug" params={{ datasetSlug: dataset.slug }} className="group border-b border-border py-6 sm:px-5">
                   <p className="eyebrow text-primary">{dataset.year} data · Updated {dataset.updated}</p>
                   <h4 className="mt-2 font-display text-2xl leading-tight group-hover:text-primary">{dataset.title}</h4>
                   <p className="mt-3 text-sm leading-6 text-muted-foreground">{dataset.description}</p>
