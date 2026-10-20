@@ -144,6 +144,10 @@ export default function DavisHillAuthorityPage() {
             <section aria-labelledby="geology">
               <p className="eyebrow text-primary">Geology explained</p>
               <h2 id="geology" className="mt-3 font-display text-3xl">How a salt dome made a hill in a flat coastal plain</h2>
+              <figure className="mt-6 border border-border">
+                <img src="/images/state-parks/davis-hill-salt-dome-concept.svg" width={1600} height={900} loading="lazy" alt="Original conceptual diagram showing salt-dome uplift forming sandstone high ground beside Trinity River floodplain; not a photograph or surveyed map" className="w-full" />
+                <figcaption className="px-4 py-3 text-sm text-muted-foreground">Original TexasDefined schematic, not to scale. Explains the general geologic process documented by TPWD; it is not a park photograph, scientific survey, or public access map.</figcaption>
+              </figure>
               <p className="mt-5">The defining landform is a salt dome: deeply buried salt moves upward under pressure, deforming the rock above it. At Davis Hill, TPWD's natural-resources interview describes sandstone pushed up to roughly 280 feet above sea level. That figure is from agency interpretation of the hill's summit, <em>not</em> the elevation of the park boundary, a public overlook, or a published climbing route.</p>
               <p className="mt-4">This unusual rock-and-slope environment is a contrast with the low, flood-prone Trinity River bottomlands. Different soil, drainage, shade, and moisture conditions help explain why the hill and river margin support such different plant communities within one relatively small conservation area.</p>
               <div className="mt-6 border-y border-border py-5 text-sm leading-7 text-muted-foreground">
