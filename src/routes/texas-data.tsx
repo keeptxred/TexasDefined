@@ -48,6 +48,7 @@ export const featuredDataProducts = [
 ] as const;
 
 export const nextStops = [
+  ['Texas homeowners premiums vs. coverage', '/texas-data/research/texas-homeowners-premiums-vs-coverage', 'Explore the research behind Texas homeowners insurance premium and coverage comparisons.'],
   ['County housing costs', '/texas-data/county-housing-costs', 'Compare official ACS home values, rent, owner costs and household income across Texas counties.'],
   ['Find your county', '/browse/counties', 'Explore all 254 counties and continue into local guides, official resources and county-level context.'],
   ['Find a city', '/browse/cities', 'Browse major cities, regional centers and communities across Texas.'],
