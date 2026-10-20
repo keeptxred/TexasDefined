@@ -84,6 +84,11 @@ for (const [slug, required] of [
   ['bishop', ['"name": "George Luna Stadium"', 'Bishop High School first-party October 23, 2026 homecoming event identifies George Luna Stadium', 'exact stadium gate not independently verified']],
   ['blooming-grove', ['"name": "Lion Stadium"', 'Blooming Grove ISD official October 2026 calendar identifies Lion Stadium', 'exact stadium gate not independently verified']],
   ['blue-ridge', ['"name": "Tiger Stadium"', 'Blue Ridge ISD Athletics directly references Tiger Stadium', 'exact stadium gate not independently verified']],
+  ['blanket', ['"name": "Switzer Field"', "Dave Campbell's Texas Football current Blanket program page identifies Switzer Field", 'exact stadium gate not independently verified']],
+  ['booker', ['"name": "Kiowas Stadium"', "Dave Campbell's Texas Football current Booker program page identifies Kiowas Stadium", 'exact stadium gate not independently verified']],
+  ['borden-county', ['"name": "Coyote Stadium"', "Dave Campbell's Texas Football current Borden County program page identifies Coyote Stadium", 'exact stadium gate not independently verified']],
+  ['borger', ['"name": "Bulldog Stadium"', 'Borger ISD 2026–27 back-to-school page identifies Bulldog Stadium', 'exact stadium gate not independently verified']],
+  ['blackwell', ['"name": "Blackwell Hornets Field"', 'Six-Man Football current Blackwell team directory identifies Blackwell Hornets Field', 'exact field gate not independently verified']],
 ]) {
   const schoolIndex = editor.indexOf('  "' + slug + '": {');
   assert.ok(schoolIndex >= 0, slug + ' school-specific editorial missing');
