@@ -1,5 +1,14 @@
 # Football Authority — Execution Ledger
 
+## October 20, 2026 — Batch 006 Blooming Grove / Bloomington / Blue Ridge acceptance-ledger reconciliation
+Continued the active Batch 006 source-review sequence for schools 7–9 after Blackwell, Blanco and Blanket.
+
+- **Blooming Grove:** Blooming Grove ISD still explicitly lists Kevin Sherrill as **Athletic Director/Head Football** and retains the January 23, 2026 first-party hiring announcement. No new first-party entrance/parking/ADA/ticket/photo-rights evidence found. Keep the reported 0–7 through Oct. 16 result state.
+- **Bloomington:** Bloomington ISD still lists Lane Shands as **Athletic Director** rather than explicitly head football coach. Preserve the separately sourced football-specific attribution; do not upgrade the district directory into a head-coach appointment. No new first-party stadium access/media-rights evidence found. Keep 3–5 through Oct. 16 and the Shiner score discrepancy.
+- **Blue Ridge:** Blue Ridge ISD Athletics and the high-school staff directory both still explicitly list Jason Russell as **Athletic Director/Head Football Coach**. Tiger Stadium remains referenced, but exact public entrance/parking/ticket/ADA/photo-rights evidence remains incomplete. Keep the reported 3–5 through Oct. 16 result state.
+
+The successful single-release Batch 006 Chrome evidence remains intact, but no school receives final nine-dimension human editorial/accessibility/media-rights acceptance. Registry remains **105 VERIFIED / 25 Batch006 DEPLOYED / 1,162 NOT_REVIEWED**, **0/25 Batch006 individually VERIFIED**.
+
 ## October 20, 2026 — Batch 006 Blackwell / Blanco / Blanket acceptance-ledger reconciliation
 Rechecked the next three active Batch 006 schools after Big Sandy Harmony, Big Spring and Bishop against current first-party sources and the successful single-release production Chrome run #39273758531.
 
