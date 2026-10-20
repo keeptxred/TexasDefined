@@ -81,9 +81,13 @@ try {
         const path = '/article/' + river.slug;
         const record = await visit(page, path, river.slug, label);
         pages.push(record);
-        const img = page.locator('img[src*="' + river.image + '"]').first();
-        verify(await img.count() === 1, label + ': hero photo absent for ' + river.slug);
+        // Check the rendered hero element, not a raw CSS substring. Browsers
+        // can normalize Wikimedia %2C filenames to literal commas in src.
+        const img = page.locator('section.relative.isolate > img').first();
+        verify(await img.count() === 1, label + ': hero image element absent for ' + river.slug);
         const result = await inspectImage(page, img, label + ' hero ' + river.slug);
+        verify(decodeURIComponent(result.src).includes(decodeURIComponent(river.image)),
+          label + ': hero uses an unrelated photo: ' + river.slug + ' ' + result.src);
         verify(river.alt.test(result.alt), label + ': hero alt misidentifies ' + river.slug);
         record.images.push(result);
         await page.screenshot({ path: artifactDir + '/' + label + '-' + river.slug + '.png',
@@ -97,7 +101,8 @@ try {
           verify(await anchor.count() === 1, label + ': missing river card ' + river.slug + ' at ' + path);
           const img = anchor.locator('img').first();
           const result = await inspectImage(page, img, label + ' card ' + river.slug + ' at ' + path);
-          verify(result.src.includes(river.image), label + ': generic or mismatched image at ' + path + ' for ' + river.slug);
+          verify(decodeURIComponent(result.src).includes(decodeURIComponent(river.image)),
+            label + ': generic or mismatched image at ' + path + ' for ' + river.slug);
           verify(river.alt.test(result.alt), label + ': inaccurate card alt at ' + path);
           const outer = anchor.locator('..');
           const credit = await outer.innerText();
