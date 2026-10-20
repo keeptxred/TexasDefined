@@ -1215,7 +1215,19 @@ if (!errors.length) {
     'The final alignment controls competition placement',
     'The reported enrollment falls within the published cutoff band for its final football placement',
     'Classification is not a quality ranking.',
+    "' an eleven-man program'",
+    "' a six-man program'",
+    'The final UIL alignment controls competition placement',
+    'Does ${displayName} play six-man or eleven-man football?',
+    "program.footballType === '11-Man'",
+    "program.footballType === '6-Man'",
   ]) requireText(footballProfileContent, marker, 'Football profile answer layer');
+  for (const forbidden of [
+    ' a 11-man program',
+    ' a 6-man program',
+  ]) {
+    if (footballProfileContent.includes(forbidden)) errors.push(`Football profile summary has awkward numeric-format grammar: ${forbidden}`);
+  }
   for (const marker of [
     'profileSummary: buildFootballProfileSummary',
     'quickFacts: buildFootballProfileQuickFacts',
