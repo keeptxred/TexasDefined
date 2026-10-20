@@ -101,8 +101,16 @@ const additions: Record<string, ArticleInternalLink[]> = {
     { href: "/article/best-texas-state-parks-for-fall-colors", label: "Best state parks for fall", description: "Choose public parks by tree type, region and scenery." },
     { href: "/article/texas-fall-foliage-road-trip", label: "Texas fall foliage road trip", description: "Turn current color reports into a flexible multi-day itinerary." },
   ],
-  "east-texas-fall-colors": [fallHub, { href: "/article/caddo-lake-cypress-morning", label: "See Caddo Lake from the water", description: "Turn an East Texas foliage trip into a bayou and cypress experience." }],
-  "hill-country-fall-colors": [fallHub, { href: "/article/texas-fall-foliage-road-trip", label: "Drive the Hill Country fall route", description: "Link Garner, Lost Maples and the Guadalupe corridor." }],
+  "east-texas-fall-colors": [
+    fallHub,
+    { href: "/article/hill-country-fall-colors", label: "Compare Hill Country fall colors", description: "Contrast the Lost Maples canyon maples and river cypress with East Texas hardwood forests." },
+    { href: "/article/caddo-lake-cypress-morning", label: "See Caddo Lake from the water", description: "Turn an East Texas foliage trip into a bayou and cypress experience." },
+  ],
+  "hill-country-fall-colors": [
+    fallHub,
+    { href: "/article/east-texas-fall-colors", label: "Compare East Texas fall colors", description: "See how lakeside hardwood and cypress color differs from Lost Maples and the Frio River." },
+    { href: "/article/texas-fall-foliage-road-trip", label: "Drive the Hill Country fall route", description: "Link Garner, Lost Maples and the Guadalupe corridor." },
+  ],
   "best-texas-state-parks-for-fall-colors": [fallHub, { href: "/explore/state-parks", label: "Browse all Texas state parks", description: "Add camping, hiking and nearby parks to the foliage trip." }],
   "texas-fall-foliage-road-trip": [fallHub, { href: "/article/best-texas-state-parks-for-fall-colors", label: "Compare state-park foliage stops", description: "Swap route stops based on current reports and reservations." }],
 
