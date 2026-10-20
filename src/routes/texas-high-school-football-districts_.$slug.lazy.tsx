@@ -242,7 +242,7 @@ function Page() {
               <p className="mt-3 text-xs text-muted-foreground">Team page →</p>
             </a>)}
           </div>
-          <p className="mt-5 text-sm leading-7 text-muted-foreground">Member order is alphabetical for research usability; it is not a ranking, projected finish, or statement about team quality.</p>
+          <p className="mt-5 text-sm leading-7 text-muted-foreground">Teams are listed alphabetically; this is not a ranking, projected finish, or statement about team quality.</p>
           <p className="mt-2 text-sm leading-7 text-muted-foreground">Enrollment figures are the UIL 2026–28 realignment snapshot used for classification. They are not live campus headcounts.</p>
         </div>
       </section>
