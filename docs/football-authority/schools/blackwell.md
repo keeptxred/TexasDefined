@@ -42,3 +42,8 @@ The program's *authored coaching field* and newly added **school-specific coachi
 ## October 20, 2026 — replace obsolete “Trent remains future” sentence
 The Blackwell guide already records a **67–6 win over Trent on October 16** but its earlier 5–2 snapshot claimed that Trent remained future as of October 15. The dated old snapshot is preserved as historical context, while the outdated forward-looking sentence is updated to the reported Trent result and **6–2** through October 16. Panther Creek and Loraine remain scheduled. The page's unresolved September 4 Santa Anna **52–6 versus 50–6** source disagreement is unchanged.
 
+## October 20, 2026 — acceptance-ledger source recheck
+Blackwell CISD's current first-party staff pages were rechecked. The high-school and football staff listings still identify **Clint Linman as Athletic Director**, while Justin Bamlet and Garrett Watson remain listed generically as coaches; the district page does not independently label a varsity head-football coach. The previously documented April/August 2026 KLST reporting remains the dated evidence for Linman's head-football appointment, and the page should continue to distinguish that reporting from the district's current AD-only label.
+
+No first-party stadium vehicle entrance, parking plan, accessible-seating detail, ticket rule, or reusable football photography was found in this recheck. The existing 6–2 through October 16 record, unresolved Santa Anna 52–6 versus 50–6 discrepancy, and all prior technical Chrome evidence remain unchanged. **Status stays DEPLOYED, not individually VERIFIED.**
+
