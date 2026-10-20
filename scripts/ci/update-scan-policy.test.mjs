@@ -225,6 +225,25 @@ test('planner change preserves bounded prior regression surfaces including data 
   assert.ok(plan.selectedPaths.length + plan.redirectChecks.length <= PAGE_BUDGET);
 });
 
+test('destination route article links never masquerade as destination pages in production smoke', () => {
+  const routePath = 'src/routes/destination.$slug.tsx';
+  const before = 'const view = <div>Original destination detail</div>;';
+  const after = `const view = <div>Original destination detail<Link to="/article/\\$slug" params={{ slug: "chip-and-joanna-gaines-magnolia-waco" }}>Gaines</Link></div>;`;
+  const plan = buildChangePlan({ baseline, head, changedFiles: [routePath],
+    sources: { [routePath]: { before, after } } });
+  assert.ok(plan.selectedPaths.includes('/destination/magoffin-home'), 'shared destination route still has real Magoffin live canary');
+  assert.ok(!plan.selectedPaths.includes('/destination/chip-and-joanna-gaines-magnolia-waco'),
+    'outbound article link slug cannot fabricate a nonexistent destination');
+  const articlePath = 'src/data/fixtures/chip-and-joanna-gaines-magnolia-waco.ts';
+  const article = 'export const chipJoannaGainesMagnoliaWacoArticle: Article = { slug: "chip-and-joanna-gaines-magnolia-waco", body: [] };';
+  const combined = buildChangePlan({ baseline, head, changedFiles: [routePath, articlePath],
+    sources: { [routePath]: { before, after }, [articlePath]: { before: '', after: article } } });
+  assert.ok(combined.selectedPaths.includes('/article/chip-and-joanna-gaines-magnolia-waco'),
+    'the published article route must still get a live production smoke check');
+  assert.ok(!combined.selectedPaths.includes('/destination/chip-and-joanna-gaines-magnolia-waco'),
+    'combining route and published fixture must not reintroduce the phantom destination');
+});
+
 test('standalone article fixture edits select the owner, not generic homepage samples', async () => {
   const path = 'src/data/fixtures/texas-regions-explained.ts';
   const before = 'export const texasRegionsExplainedArticle: Article = { slug: "texas-regions-explained", body: [] };';
