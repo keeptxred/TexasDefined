@@ -30,6 +30,16 @@ assert.ok(school && school.batch === 6 && ['IMPLEMENTED','MERGED','DEPLOYED','VE
 assert.equal(school.county, 'Upshur County');
 assert.equal(school.campusCountySource, 'https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=482256002294');
 const editor = read('src/data/high-school-football/program-editorial.ts');
+const unsafeVenueAddressPattern = /confirm|not verified|unverified|not independently|not a verified|do not assume|entrance.*not|gate.*not|campus.*verify|current stadium entrance/i;
+for (const match of editor.matchAll(/"venue":\s*\{[\s\S]*?\n\s*\}/g)) {
+  const block = match[0];
+  const address = block.match(/"address":\s*"([^"]+)"/)?.[1];
+  if (!address) continue;
+  assert.ok(!unsafeVenueAddressPattern.test(address), 'Venue address must contain only the sourced address, not uncertainty/caveat prose: ' + address);
+  assert.ok(/\d/.test(address), 'Venue address must be a street-level address, not a city/county placeholder: ' + address);
+}
+assert.ok(!editor.includes('"address": "Shamrock, Texas — confirm'), 'Shamrock El Paso Field must not render a fake address row');
+
 const index = editor.indexOf('  "big-sandy-harmony": {');
 assert.ok(index >= 0, 'Harmony school-specific editorial missing');
 const next = editor.indexOf('\n  "', index + 4);
