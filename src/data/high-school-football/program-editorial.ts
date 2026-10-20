@@ -3128,7 +3128,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     ],
     "notice": {
       "title": "2026–27 home football tickets are online only",
-      "body": "Bonham ISD Athletics states that all junior high and high school HOME athletic-event tickets are online only for 2026–27, and links to the district's official Athletic Tickets page. Bonham ISD's Back-to-School guidance says a QR code at the entrance links to the online ticket purchase page, and existing senior passes remain valid at the gate. That is **not** an in-person cash-sale promise; buy tickets online or through the Hometown Fan app. Football sideline photographers and other media need advance district approval, ideally submitted a week before the game. The exact vehicle gate, parking and accessibility remain unverified.",
+      "body": "Bonham ISD Athletics states that all junior high and high school HOME athletic-event tickets are online only for 2026–27, and links to the district's official Athletic Tickets page. Bonham ISD's Back-to-School guidance says a QR code at the entrance links to the online ticket purchase page, and existing senior passes remain valid at the gate. That is not an in-person cash-sale promise; buy tickets online or through the Hometown Fan app. Football sideline photographers and other media need advance district approval, ideally submitted a week before the game. The exact vehicle gate, parking and accessibility remain unverified.",
       "sourceUrl": "https://www.bonhamisd.org/104427_2",
       "sourceLabel": "Bonham ISD Athletics first-party 2026–27 online-only ticket notice and official sideline media rules",
       "verifiedAt": "2026-10-17"
