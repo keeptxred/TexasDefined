@@ -87,10 +87,6 @@ export const Route = createFileRoute('/texas-data')({
         },
       })),
     ];
-    // Preserve the canonical cross-vertical dataset contract for downstream consumers.
-    const sportsComparisonDataset = { name: 'Texas Sports Venue Comparison', contentUrl: absoluteUrl(texasDefinedBrand, sportsComparisonCsvPath) };
-    void sportsComparisonDataset;
-
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath: '/texas-data',
