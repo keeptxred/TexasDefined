@@ -3883,6 +3883,13 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceLabel": "School/district source for visitor details; separately cited football results",
       "verifiedAt": "2026-10-17"
     },
+    "venue": {
+      "name": "Mustang Stadium",
+      "sourceUrl": "https://www.bovinaisd.org/live-feed?page_no=2",
+      "sourceLabel": "Bovina ISD 2026 live feed identifies Mustang Stadium for current varsity football",
+      "verifiedAt": "2026-10-20",
+      "note": "Bovina ISD's 2026 live feed places current varsity home football games at Mustang Stadium. A separate district graduation notice documents stadium gates and nearby parking, but those event-specific instructions are not automatically football policy; confirm the current football entrance, parking and accessibility details with Bovina ISD before travel."
+    },
     "notice": {
       "title": "Verified facts and unresolved game-day claims",
       "body": "Bovina ISD's current staff directory explicitly identifies Wade Wilson as athletic director; an August 2026 MaxPreps football staff page separately calls Wilson the varsity head coach. In addition, NewsChannel 10 interviewed Wilson as Bovina head football coach in August 2026 and described him as entering his second year; the dated original interview directly supports the coaching role without implying a new district-issued hiring document. On October 16, Gruver defeated Bovina 55–0, confirmed by October 17 regional football results. The school's 500 Halsell Street contact address is not a verified stadium gate or accessibility promise.",
