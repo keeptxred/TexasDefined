@@ -263,7 +263,7 @@ console.log('B006 targeted production acceptance',JSON.stringify(result.summary)
 console.log('B006 observed Worker release headers',JSON.stringify(result.observedWorkerVersions));
 assert.equal(result.summary.schoolCases,75,'Never reduce 25 school x 3 viewport scope');
 assert.equal(result.summary.sitemapFail,0,'Every assigned school must be discoverable in the live production sitemap');
-assert.ok(workerVersions.size<=1,'Mixed Cloudflare Worker versions during one production browser acceptance: '+result.observedWorkerVersions.join(', '));
+assert.equal(workerVersions.size,1,'Production acceptance must identify exactly one Cloudflare Worker version; observed: '+(result.observedWorkerVersions.join(', ')||'none'));
 assert.equal(result.summary.screenshots,75,'Preserve every one of the 25 schools at all three viewport sizes');
 assert.equal(result.summary.countyScreenshots,result.summary.countyCases,'Preserve one screenshot per county for reciprocal-link diagnosis');
 assert.equal(result.summary.schoolFail,0,'Investigate school failures before technical acceptance');
