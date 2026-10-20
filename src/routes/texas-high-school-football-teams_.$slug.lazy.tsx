@@ -640,7 +640,7 @@ function Page() {
             <Snapshot label="Mascot" value={identity.mascot} />
             <Snapshot label="School colors" value={identity.colors || 'Not listed by the verified source'} />
           </dl>
-          <p className="mt-4 text-xs leading-6 text-muted-foreground">Identity last reviewed <time dateTime={identity.verifiedAt}>{formatFootballDate(identity.verifiedAt)}</time>. Mascot and colors are published only from a school or district source.</p>
+          <p className="mt-4 text-xs leading-6 text-muted-foreground">Identity last reviewed <time dateTime={identity.verifiedAt}>{formatFootballDate(identity.verifiedAt)}</time>. Mascot and colors are published only from the specifically cited identity source; colors appear only when that source supports them.</p>
           <a href={identity.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4">{identity.sourceLabel} ↗</a>
         </div>
       </section>}
