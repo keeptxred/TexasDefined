@@ -179,7 +179,7 @@ export function buildFootballProfileFaq(input: FootballProfileContentInput): Foo
     items.push({
       question: `Where can I verify the current ${displayName} football schedule and scores?`,
       answer: editorial?.schedule
-        ? `Use the school-published ${editorial.schedule.label} linked on this page, then confirm scores through the UIL Texas Scoreboard and current school athletics information.`
+        ? `Use the sourced ${editorial.schedule.label} linked on this page, then confirm late changes with the school or district and scores through the UIL Texas Scoreboard.`
         : 'Use the UIL Texas Scoreboard and the school or district athletics source linked on this page. Game dates, kickoff times and venues can change during the season.',
     });
   }
