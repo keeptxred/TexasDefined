@@ -1,5 +1,4 @@
 import { buildViatorAffiliateUrl } from "@/lib/viator-affiliate";
-import { verifiedViatorMarketUrl } from "@/data/viator-destination-links";
 import { trackAffiliateClick } from "@/lib/affiliate-click";
 
 /** Existing approved Viator affiliate builder + sitewide governed stay widget.
@@ -7,17 +6,15 @@ import { trackAffiliateClick } from "@/lib/affiliate-click";
  */
 export function MagnoliaWacoAffiliateLinks() {
   const placement = "chip-joanna-magnolia-waco-visit";
-  const label = "See Waco tours and experiences";
-  const href = buildViatorAffiliateUrl(verifiedViatorMarketUrl("waco"), placement);
+  const label = "View Magnolia Market guided day tour from Dallas";
+  const href = buildViatorAffiliateUrl("https://www.viator.com/tours/Dallas/Waco-Texas-and-Magnolia-Market-at-the-Silos/d918-123176P6", placement);
   return (
     <>
       <section aria-labelledby="magnolia-waco-tours" className="my-10 border-y border-border bg-surface px-5 py-8 sm:px-8">
         <p className="eyebrow text-primary">Plan a Waco visit</p>
         <h2 id="magnolia-waco-tours" className="mt-2 font-display text-3xl">Guided tours and Magnolia-related experiences</h2>
         <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
-          Magnolia's own tours and workshops use its official booking calendar. For third-party guided Waco sightseeing,
-          compare current Viator inventory; this links to the verified Waco marketplace, not to a promised
-          meeting with Chip or Joanna or a guaranteed Silos entry ticket.
+          This independently operated private day tour includes Magnolia Market and other Waco stops, departing from the Dallas area—not Waco. Check available dates, pickup rules, total price and its nonrefundable cancellation policy before booking. This is not an official Magnolia experience, a meet-and-greet or a ticket to a paid Magnolia event.
         </p>
         <div className="mt-5 flex flex-wrap items-center gap-5">
           <a href={href} target="_blank" rel="sponsored nofollow noopener noreferrer"
