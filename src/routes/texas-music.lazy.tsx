@@ -180,7 +180,7 @@ function TexasMusicPage() {
               <p className="eyebrow text-primary">Texas artists</p>
               <h2 className="mt-3 font-display text-4xl font-semibold leading-tight sm:text-5xl">People who carry the story</h2>
               <p className="mt-5 text-base leading-7 text-muted-foreground">
-                Texas Defined is building source-reviewed profiles around artists whose Texas connection is central to their story. These names already have research records in the editorial system; profiles remain unpublished until their source, image-rights and internal-link reviews are complete.
+                These artists have Texas connections that matter to their stories, from hometown scenes and early venues to schools, collaborators and regional traditions. Use the place notes below as a starting point, then follow the deeper music and city guides for context.
               </p>
             </div>
             <div className="grid gap-px border border-border bg-border sm:grid-cols-2">
@@ -224,7 +224,7 @@ function TexasMusicPage() {
               <p className="eyebrow text-primary">How we source this guide</p>
               <h2 className="mt-3 font-display text-3xl font-semibold leading-tight sm:text-4xl">Built from Texas music authorities</h2>
               <p className="mt-5 text-sm leading-6 text-muted-foreground">
-                This hub is an editorial starting point, not a claim that every Texas sound fits neatly into one box. We use institutional and scholarly sources for historical framing and keep artist profiles behind review gates until their factual and image-rights checks are complete.
+                This hub is a starting point, not a claim that every Texas sound fits neatly into one box. Historical framing comes from institutional and scholarly sources, while current venue and visitor details should be checked with the organizations that operate them.
               </p>
             </div>
             <ul className="divide-y divide-border border-y border-border">
