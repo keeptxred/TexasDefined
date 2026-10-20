@@ -10406,6 +10406,17 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "accentHex": "#AE1C2A",
       "label": "Independent editorial colors; no official school logo reproduced"
     },
+    "photo": {
+      "src": "https://images.unsplash.com/photo-1508209495879-445d5febf597?auto=format&fit=crop&w=1400&q=78",
+      "width": 1400,
+      "height": 940,
+      "alt": "High school American football under stadium lights at dusk, pictured at a game in Aurora, Colorado, not an Aubrey game",
+      "caption": "Representative high-school football photo, not an Aubrey team or stadium image.",
+      "credit": "Tim Mossholder / Unsplash",
+      "sourceUrl": "https://unsplash.com/photos/man-holding-football-field-post-on-side-of-field-Fbq47uCtXHI",
+      "license": "Unsplash License",
+      "licenseUrl": "https://unsplash.com/license"
+    },
     "seo": {
       "title": "Aubrey Chaparrals Football (2026): Schedule, Scores & Tickets",
       "description": "Aubrey Chaparrals 2026 football: 4–3 overall, 4–0 district through October 16, schedule, 66–14 win over Ranchview, Chaparral Stadium policies and official tickets."
