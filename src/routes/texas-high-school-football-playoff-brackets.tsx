@@ -4,7 +4,8 @@ import { Container } from '@/components/layout/Container';
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 import { getFootballBracketGames, officialFootballBracketUrl, footballMatchupPath, footballSnapshotUpdatedAt, FOOTBALL_BRACKET_SOURCE } from '@/data/high-school-football/football-matchups';
-import { approvedMaxPrepsTournamentEmbedUrl } from '@/data/high-school-football/maxpreps-bracket-embeds';
+import { approvedMaxPrepsJsTournamentWidget, approvedMaxPrepsTournamentEmbedUrl } from '@/data/high-school-football/maxpreps-bracket-embeds';
+import { MaxPrepsTournamentWidget } from '@/components/sports/MaxPrepsTournamentWidget';
 import { officialMaxPrepsTournament2026 } from '@/data/high-school-football/maxpreps-2026-uil-tournaments';
 
 const canonicalPath = '/texas-high-school-football-playoff-brackets';
@@ -32,6 +33,7 @@ function Page() {
   const officialUrl = officialFootballBracketUrl(classification,division);
   const maxPrepsTournament = officialMaxPrepsTournament2026(classification,division);
   const authorizedEmbedUrl = approvedMaxPrepsTournamentEmbedUrl(classification,division);
+  const authorizedJsWidget = approvedMaxPrepsJsTournamentWidget(classification,division);
   return <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
     <main className="mx-auto max-w-6xl" data-football-brackets="2026">
       <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground">
@@ -70,7 +72,7 @@ function Page() {
           <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
             UIL publishes and MaxPreps maintains this tournament bracket. The official source is the most current view of matchups, results and advancement.
           </p>
-          {authorizedEmbedUrl ? <div className="mt-5">
+          {authorizedJsWidget ? <MaxPrepsTournamentWidget widget={authorizedJsWidget} /> : authorizedEmbedUrl ? <div className="mt-5">
             <iframe
               key={classification + 'D' + division}
               src={authorizedEmbedUrl}
