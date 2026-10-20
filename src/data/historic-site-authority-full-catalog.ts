@@ -493,6 +493,24 @@ export function enrichFullHistoricSiteAuthority(destination: Destination): Desti
   // authorityGuide, which must not bypass the closed-ship instructions.
   // Preserve normal first-writer precedence for every other historic site.
   const forceClosedBattleshipGuide = destination.slug === "battleship-texas";
+  const researchItineraries = OPERATOR_RESEARCH_ITINERARIES[destination.slug];
+  const operatorVisit = OPERATOR_RESEARCH_VISIT_NOTES[destination.slug];
+  // Preserve a richer existing guide while incorporating newly verified
+  // tour plans, official source links and practical access information.
+  if (researchItineraries && destination.authorityGuide) {
+    const operatorSources = authoritySources(destination.officialUrl || "", destination.name);
+    const existing = destination.authorityGuide.sources;
+    return {
+      ...destination,
+      ...operatorVisit,
+      sourceCheckedAt: "2026-10-19",
+      authorityGuide: {
+        ...destination.authorityGuide,
+        itineraries: researchItineraries,
+        sources: [...existing, ...operatorSources.filter((source) => !existing.some((item) => item.url === source.url))],
+      },
+    };
+  }
   if (!forceClosedBattleshipGuide && (destination.category !== "historic-sites" || destination.authorityGuide)) return destination;
   const establishedSeed = seeds.get(destination.slug);
   // Cover independently authored historic-site records outside the 46 seeds,
