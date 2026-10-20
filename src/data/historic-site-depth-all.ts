@@ -280,6 +280,58 @@ const GENERIC_HISTORIC_PARAGRAPH_MARKERS = [
   "Check current opening hours, tour schedules and any preservation-related closures before visiting",
 ];
 
+const WAVE2_VERIFIED_SLUGS = new Set(["sam-bell-maxey-house","starr-family-home","port-isabel-lighthouse","palmito-ranch-battlefield"]);
+const WAVE2_VISITOR_FAQS: Record<string, NonNullable<Destination["visitorFaqs"]>> = {
+  "sam-bell-maxey-house": [
+    {
+      "question": "When is the last tour of Sam Bell Maxey House?",
+      "answer": "The Texas Historical Commission says guided tours start on the hour, and the last starts at 3 p.m. Sunday has a noon–1 p.m. closure. Confirm the current schedule before going.",
+      "sourceUrl": "https://thc.texas.gov/historic-sites/sam-bell-maxey-house"
+    },
+    {
+      "question": "Can everyone tour the upstairs rooms?",
+      "answer": "No. The second floor requires stairs. The first floor has wheelchair access and the operator provides a photo notebook showing upstairs spaces.",
+      "sourceUrl": "https://thc.texas.gov/state-historic-sites/sam-bell-maxey-house/plan-your-visit-sam-bell-maxey-house"
+    }
+  ],
+  "starr-family-home": [
+    {
+      "question": "Does a free visit include the Starr family's house?",
+      "answer": "No. The grounds have free interpretive panels, while entry to the restored 1871 Maplecroft home uses the site's paid tour arrangements.",
+      "sourceUrl": "https://thc.texas.gov/state-historic-sites/starr-family-home/plan-your-visit-starr-family-home"
+    },
+    {
+      "question": "Is the entire house wheelchair accessible?",
+      "answer": "No. The grounds and principal public facilities are accessible, but the historic home's second floor is not.",
+      "sourceUrl": "https://thc.texas.gov/state-historic-sites/starr-family-home/plan-your-visit-starr-family-home"
+    }
+  ],
+  "port-isabel-lighthouse": [
+    {
+      "question": "How many steps are in the Port Isabel Lighthouse?",
+      "answer": "Climbing requires 75 winding stairs and three short ladders, so visitors unable to climb should plan on the ground-level visitor experience instead.",
+      "sourceUrl": "https://thc.texas.gov/historic-sites/port-isabel-lighthouse"
+    },
+    {
+      "question": "Can I carry a small child to the lighthouse top?",
+      "answer": "No. The operator requires children to be at least five years old and accompanied by a guardian; adults may not carry children up or down the lighthouse stairs.",
+      "sourceUrl": "https://thc.texas.gov/state-historic-sites/port-isabel-lighthouse/plan-your-visit-port-isabel-lighthouse"
+    }
+  ],
+  "palmito-ranch-battlefield": [
+    {
+      "question": "Does Palmito Ranch Battlefield have a museum or restrooms?",
+      "answer": "No. The Texas Historical Commission lists no public visitor facilities or services at the battlefield. Plan a short self-guided historical landscape visit and bring drinking water.",
+      "sourceUrl": "https://thc.texas.gov/historic-sites/palmito-ranch-battlefield"
+    },
+    {
+      "question": "What can I see at the Palmito Ranch battlefield?",
+      "answer": "There are on-site interpretation panels, nearby historical markers and two U.S. Fish and Wildlife Service viewing platforms with battlefield interpretation. Verify current access with the responsible agencies.",
+      "sourceUrl": "https://thc.texas.gov/historic-sites/palmito-ranch-battlefield"
+    }
+  ]
+};
+
 export function enrichResearchedHistoricSiteDepth(destination: Destination): Destination {
   const extra = SITE_DEPTH[destination.slug] ?? [];
   const verified = VERIFIED_VISIT_NOTES[destination.slug];
@@ -345,7 +397,8 @@ export function enrichResearchedHistoricSiteDepth(destination: Destination): Des
         address: "7066 FM 864, Fort McKavett, TX 76841",
         directions: "Remote Menard County location at 7066 FM 864. Plan fuel and water before traveling; check current highway routing and contact the historic site directly about mobility assistance.",
       } : {}),
-      sourceCheckedAt: destination.slug === "fort-mckavett" ? "2026-10-17" : destination.slug === "fulton-mansion" ? "2026-10-14" : "2026-10-12",
+      ...(WAVE2_VERIFIED_SLUGS.has(destination.slug) ? { visitorFaqs: WAVE2_VISITOR_FAQS[destination.slug] } : {}),
+      sourceCheckedAt: WAVE2_VERIFIED_SLUGS.has(destination.slug) ? "2026-10-20" : destination.slug === "fort-mckavett" ? "2026-10-17" : destination.slug === "fulton-mansion" ? "2026-10-14" : "2026-10-12",
     };
   }
   return additions.length || sourceBody.length !== destination.body.length
