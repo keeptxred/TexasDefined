@@ -1443,17 +1443,37 @@ if (!errors.length) {
 
   const currentCoachContracts = [
     ['big-sandy-harmony', 'Brian Mauk', 'kltv.com/story/26056195/harmony-eagles/'],
+    ['big-spring', 'Stacey Martin', 'firstalert7.com/2026/05/04/big-spring-isd-hires-stacey-martin-new-head-football-coach-athletic-director/'],
     ['bishop', 'Keith Talbert', 'maxpreps.com/tx/bishop/bishop-badgers/football/staff/'],
     ['blackwell', 'Clint Linman', 'sports.yahoo.com/articles/blackwell-hornets-hire-football-coach-234440740.html'],
-    ['boys-ranch', 'Louis Kelley III', 'boysranchisd.org/132207_2'],
-    ['boerne', 'Brett Sawyer', 'boernestar.com/article/14105'],
     ['blanco', 'Kent Walker', 'maxpreps.com/tx/blanco/blanco-panthers/football/staff/'],
+    ['blanket', 'Jalen Helms', 'brownwoodnews.com/wpb_gallery/blanket-rebounds-from-first-loss-hands-brookesmith-initial-defeat-66-34/'],
+    ['blooming-grove', 'Kevin Sherrill', 'bgisd.org/apps/news/article/2157034'],
     ['bloomington', 'Lane Shands', 'texasfootball.com/article/2026/02/05/which-districts-have-the-best-head-coaches-after-realignment'],
-    ['bovina', 'Wade Wilson', 'newschannel10.com/2026/08/13/2026-countdown-kickoff-bovina-mustangs/'],
-    ['boyd', 'Shawn Sparks', 'ntxvarsitysports.com/boyd-looking-to-build-on-breakthrough-season/'],
+    ['blue-ridge', 'Jason Russell', 'brisd.net/o/brisd/page/athletics'],
+    ['bluff-dale', 'Gaeron Cooley', 'bdisd.net/259637_2'],
+    ['blum', 'Cooper Thornhill', 'blumisd.net/cms/One.aspx?pageId=1794722'],
+    ['boerne', 'Brett Sawyer', 'boernestar.com/article/14105'],
+    ['boerne-champion', 'Blane Ellis', 'chs.boerneisd.net/437503_2'],
+    ['boling', 'Kevin Urbanek', 'bhs.bolingisd.net/apps/pages/index.jsp?pREC_ID=1422879'],
+    ['bonham', 'Aaron Ford', 'kxii.com/2026/04/21/bonham-names-new-high-school-football-coach/'],
+    ['booker', 'David Biddler', 'bookerisd.net/athletics'],
     ['borden-county', 'Trey Richey', 'pressreporter.com/issues/2026-08-18/pages/25/'],
+    ['borger', 'Jesus A. Villaseñor', 'borgerisd.net/69574_2'],
+    ['bosqueville', 'Reggie Patrick', 'ms.bosquevilleisd.org/o/hs/live_feeds/12580232'],
+    ['bovina', 'Wade Wilson', 'newschannel10.com/2026/08/13/2026-countdown-kickoff-bovina-mustangs/'],
+    ['bowie', 'Tyler Price', 'bowieisd.net/o/bhs/page/bowie-high-school-athletics'],
     ['bowie-gold-burg', 'Austin Norman', 'bowienewsonline.com/2026/10/gold-burg-gives-it-a-go-falls-to-perrin-35-32/'],
+    ['boyd', 'Shawn Sparks', 'ntxvarsitysports.com/boyd-looking-to-build-on-breakthrough-season/'],
+    ['boys-ranch', 'Louis Kelley III', 'boysranchisd.org/132207_2'],
   ];
+  if (currentCoachContracts.length !== 24) {
+    errors.push('Batch 006 coach contract must protect all 24 sourced coach records; Bogata Rivercrest remains deliberately unresolved.');
+  }
+  const unresolvedRivercrest = footballEditorialRecord('bogata-rivercrest');
+  if (unresolvedRivercrest?.coach) {
+    errors.push('Bogata Rivercrest coach must remain unresolved until conflicting 2026 source records are independently resolved.');
+  }
   for (const [slug, expectedCoach, sourceFragment] of currentCoachContracts) {
     const program = footballEditorialRecord(slug);
     if (!program) continue;
