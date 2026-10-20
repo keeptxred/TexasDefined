@@ -1,5 +1,11 @@
 # Football Authority — Execution Ledger
 
+## October 20, 2026 — Batch 006 SEO title length and uniqueness correction (protected PR candidate)
+
+A bounded audit of the 25 current Batch 006 school editorial entries found **18** overly long title strings (71–87 characters). The existing authored titles were individually shortened to **56–64 characters** while retaining each school's mascot or identifying school name, 2026 football context and distinctive history, district or stadium fact. Unchanged school titles already fit the 70-character editorial budget. The actual SEO source, not a generated tracking report, was updated. The existing normal premerge football validator now checks each of the 25 school's SEO title for a 70-character limit, 2026 reference and uniqueness; it also checks descriptions are present and at most 175 characters. All 25 candidate school records reparsed, W/L tallies reconciled, titles are distinct and <=70 characters, and all descriptions are <=169 characters. There are **zero candidate-contract failures**. This title budget is an internal editorial quality target, not a search-engine requirement or guaranteed display length.
+
+No original factual scores, match dates, coach records, photos, media rights, county links, ticket prices, school affiliations, 105 historical VERIFIED states or Batch 006 acceptance statuses were modified. Protected Merge Gate, production deployment and updated live browser SEO/H1/canonical are still needed; the prior successful browser run covers a different Worker release. No Batch 007 assignment, human-review impersonation, payment or new polling workflow.
+
 ## October 20, 2026 — four Batch 006 already-scored games no longer described as “upcoming” (protected PR candidate)
 A new 25-program, current-main editorial audit found four clear time-contradictions: an earlier school overview still called a **completed October 16 contest upcoming** despite the same school guide's current score table and dated reporting recording its final. Corrections were made in the actual published data source, not merely an audit:
 - **Big Spring:** Seminole **L 16–43** October 16, 2026; record **1–6** (the older October 9 1–5 snapshot remains dated).
