@@ -172,6 +172,26 @@ export const researchedHistoricSiteDepthSlugs = Object.keys(SITE_DEPTH);
 // Operator-verified access details from THC's October 2026 site and visit pages.
 // These are not generic template claims and must be refreshed on source change.
 const VERIFIED_VISIT_NOTES: Record<string, {entryNote:string;researchNote:string;accessibilityNotes?:string}> = {
+  "sam-bell-maxey-house": {
+  "entryNote": "THC currently lists Tuesday–Sunday 10 a.m.–4 p.m., with Sunday noon–1 p.m. closure and the final house tour starting at 3 p.m. Tours begin at the top of the hour; confirm an available tour directly with the operator before a long drive.",
+  "researchNote": "Built in 1868, the Paris home contains original Maxey-family furnishings, clothing, papers and restored interiors spanning three generations. Sam Bell Maxey served as a Confederate general and later a U.S. senator; interpret his political career and family household in the context of Reconstruction rather than treating the house as a Civil War battlefield.",
+  "accessibilityNotes": "THC describes wheelchair access on the first floor, with the second floor reached by stairs; visitors unable to climb may use a photo notebook. Garden brick paths can be uneven."
+},
+  "starr-family-home": {
+  "entryNote": "THC currently lists Tuesday–Saturday 10 a.m.–4 p.m. in Marshall. Ticketed visits inside the 1871 Maplecroft house differ from the free interpretive panels on the grounds; separately arranged group programs may require advance booking.",
+  "researchNote": "Starr Family Home interprets four generations of family history through the 1871 Greek Revival Maplecroft building, period clothing, furnishings and other objects. The Starr family's land and banking enterprises help explain nineteenth-century settlement and wealth in East Texas, while public interpretation should also explore the work sustaining these households.",
+  "accessibilityNotes": "THC identifies accessible public grounds and facilities but says the second floor of the historic Maplecroft house is not wheelchair accessible."
+},
+  "port-isabel-lighthouse": {
+  "entryNote": "THC describes daily lighthouse access subject to weather and seasonal schedules: off-season 9 a.m.–6 p.m.; a separate seasonal 10 a.m.–9 p.m. schedule is listed. The visitor center has its own daily 9 a.m.–5 p.m. hours. Climbers must negotiate 75 winding stairs and three short ladders; children must be at least 5 years old and cannot be carried. Recheck tower access before purchasing.",
+  "researchNote": "Built in 1852 to guide shipping near Brazos Island, the 72-foot Port Isabel Lighthouse was decommissioned in 1905 as local waterways and transportation patterns changed. The lighthouse received a third-order Fresnel lens in 2022 and was illuminated again. The keeper's cottage is reconstructed and now serves as a visitor center; it should not be presented as unchanged original fabric.",
+  "accessibilityNotes": "A lighthouse climb requires 75 winding steps and three short ladders and cannot be treated as wheelchair accessible. Travelers who cannot climb can view the tower and historic interpretation from ground level, subject to current operator access."
+},
+  "palmito-ranch-battlefield": {
+  "entryNote": "THC lists no public visitor center, ticket office, restrooms or other site facilities at this remote battlefield. Use the state history panels, nearby roadside markers and two U.S. Fish and Wildlife Service interpretive viewing platforms where access is permitted; do not expect a staffed tour or claim regular staffed opening hours.",
+  "researchNote": "Palmito Ranch's May 12–13, 1865 battle was the last land battle of the Civil War, fought after Lee's surrender but before the Trans-Mississippi army surrendered. THC separately identifies a September 1864 action in the same landscape. The relevant ground lies east of Brownsville near Boca Chica Highway; wildlife-refuge viewing platforms and historical radio interpretation on 1610 AM supplement the modest roadside exhibits.",
+  "accessibilityNotes": "This is an unstaffed battlefield and roadside-marker landscape, not an accessible museum building. Confirm legal parking, wildlife-refuge access and viewing-platform conditions with the responsible agencies before visiting."
+},
   "fulton-mansion": {
     "entryNote": "THC lists Fulton Mansion public admission Tuesday–Saturday 10 a.m.–4 p.m. and Sunday 1–4 p.m.; last ticket 3:15 p.m. Current admission: adults $7, senior/veteran/teacher/first-responder $6, ages 6–17 $4, ages 5 and under free, family ticket $14 for 2 adults and 1 child (each additional child $1). Public self-guided visits are walk-in only, with no advance reservation; group tours require separate planning. Confirm current fees before travel.",
     "researchNote": "Begin at Fulton Mansion's Education and History Center before its 1877 Victorian villa and gardens. The public 'Splendor on the Shore' visit takes roughly 45 minutes and explores George Fulton's engineering, gas lighting, indoor plumbing, coastal ranching wealth and the family household. Special school and adult group tours have distinct formats and fees; THC asks that group tour reservations be made at least two weeks in advance rather than confusing them with individual walk-ins.",
