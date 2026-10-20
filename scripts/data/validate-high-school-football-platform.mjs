@@ -1595,8 +1595,8 @@ if (!errors.length) {
         errors.push('Batch 006 duplicate school-specific SEO title: ' + slug);
       }
       batchSeoTitles.add(seoTitle);
-      if (!seoDescription || seoDescription.length > 175) {
-        errors.push('Batch 006 SEO description missing or unexpectedly long: ' + slug);
+      if (!seoDescription || seoDescription.length > 160 || !seoDescription.includes('2026')) {
+        errors.push('Batch 006 SEO description absent, over 160 characters, or missing 2026 season: ' + slug);
       }
       const played = program.season?.games?.filter(({ result }) => Boolean(result)) || [];
       const wins = played.filter(({ result }) => result.startsWith('W ')).length;
