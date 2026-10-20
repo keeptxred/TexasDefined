@@ -50,6 +50,11 @@ test('game-night panel uses sourced schedules and cannot invent times or ticket 
   assert.match(panel, /!game\.result/);
   assert.match(panel, /America\/Chicago/);
   assert.match(panel, /Schedule snapshot checked/);
+  assert.match(panel, /Source-checked season snapshot/);
+  assert.match(panel, /Next fixture in this dated schedule snapshot/);
+  assert.match(panel, /formatFootballDate/);
+  assert.match(panel, /<time dateTime=\{upcoming\.date\}>\{formatFootballDate\(upcoming\.date\)\}<\/time>/);
+  assert.match(panel, /<time dateTime=\{season\.verifiedAt\}>\{formatFootballDate\(season\.verifiedAt\)\}<\/time>/);
   assert.match(panel, /confirm.*directly before you travel/i);
   assert.match(panel, /Verify schedule and results/);
   assert.doesNotMatch(panel, /Buy tickets now|Tickets available|Tickets from \$/i);
