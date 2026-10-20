@@ -41,11 +41,13 @@ function Page() {
   } = Route.useLoaderData();
   const schoolName = displayName;
   const district21Team = program?.classification === '6A' && program.district === 21 && !editorial?.season && !editorial?.notice && hasDistrict21TeamScorecard(schoolName);
-  // Authored football-page titles contain the verified school-specific mascot.
-  // Fall back to the reference directory for schools without an editorial title;
-  // the optional TEA identity join may be unavailable in deployed SSR.
+  // A separately verified identity is the canonical source for the public team name.
+  // Only fall back to an authored SEO-title prefix when a mascot identity has not
+  // yet been verified for this school.
   const authoredFootballH1 = editorial?.seo?.title?.match(/^(.+?Football)/i)?.[1];
-  const footballName = authoredFootballH1 || (identity?.mascot ? `${displayName} ${identity.mascot} Football` : `${displayName} Football`);
+  const footballName = identity?.mascot
+    ? `${displayName} ${identity.mascot} Football`
+    : authoredFootballH1 || `${displayName} Football`;
   // Summarize the verified editorial ledger before the deeper school reference sections.
   const latestResult = editorial?.season?.games.filter((game) => game.result).at(-1);
   const nextListedFixture = editorial?.season?.games.find((game) => !game.result);
