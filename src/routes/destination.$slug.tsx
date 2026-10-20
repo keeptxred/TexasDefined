@@ -283,9 +283,9 @@ function DestinationPage() {
 
   // Share one suspense boundary across specialized museum guides, rather than
   // shipping a separate boundary for each route.
+  if (destination.slug === "ysleta-del-sur-pueblo-cultural-center-museum-el-paso") return <YsletaDelSurMuseumAuthority />;
   const museumGuide = destination.slug === "mayborn-museum-waco" ? <MaybornMuseumAuthority />
     : destination.slug === "zapata-county-museum-history" ? <ZapataCountyMuseumAuthority />
-    : destination.slug === "ysleta-del-sur-pueblo-cultural-center-museum-el-paso" ? <YsletaDelSurMuseumAuthority />
     : destination.slug === "young-county-museum-of-history-and-culture" ? <YoungCountyMuseumAuthority />
     : destination.slug === "yoakum-heritage-museum" ? <YoakumHeritageMuseumAuthority destination={destination} />
     : null;
