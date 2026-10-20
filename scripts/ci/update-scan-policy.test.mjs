@@ -148,6 +148,39 @@ test('Texas Data release checks are bounded and reject stale SSR values', async 
   assert.equal(badArchive.find(result => result.path.endsWith('june-2026')).passed, false);
 });
 
+test('every production release verifies Texas Data content even after original PR deployment is superseded', async () => {
+  const unrelated = ['docs/football-authority/PROGRESS.md'];
+  const ordinary = buildChangePlan({ baseline, head, changedFiles: unrelated });
+  assert.deepEqual(ordinary.texasDataPages, []);
+  const plan = buildChangePlan({ baseline, head, changedFiles: unrelated, enforceCriticalCanaries: true });
+  const canaries = [
+    '/texas-data',
+    '/texas-data/texas-homeowners-premium-history',
+    '/texas-data/texas-metro-payrolls-august-2026',
+    '/texas-data/texas-metro-payrolls-june-2026',
+  ];
+  assert.deepEqual(plan.selectedPaths, canaries);
+  assert.deepEqual(plan.texasDataPages, canaries);
+  assert.equal(plan.omittedCount, 0);
+  assert.ok(plan.selectedPaths.length <= PAGE_BUDGET);
+  const content = {
+    '/texas-data': 'Texas at a glance 4,357,000 August 2026 preliminary $3,489 Search official data briefs /texas-data/texas-metro-payrolls-august-2026',
+    '/texas-data/texas-homeowners-premium-history': '2023 $2,795 2025 $3,489 October 20, 2026',
+    '/texas-data/texas-metro-payrolls-august-2026': 'August 2026 4,357,000 3,495,300 metro_09302026.htm',
+    '/texas-data/texas-metro-payrolls-june-2026': 'June 2026 4,363,300 metro_07292026.htm',
+  };
+  const fetchImpl = async url => new Response(
+    '<html><head><title>Texas Data</title><link rel="canonical" href="https://texasdefined.com'
+      + url.pathname + '"></head><body>' + content[url.pathname] + '</body></html>',
+  );
+  const verified = await verifyChangedPages({ plan, head, fetchImpl });
+  assert.ok(verified.every(item => item.passed), JSON.stringify(verified));
+  const stale = await verifyChangedPages({ plan, head, fetchImpl: async url =>
+    new Response('<html><head><title>Texas Data</title><link rel="canonical" href="https://texasdefined.com'
+      + url.pathname + '"></head><body>$2,800 4,363,300 June 2026</body></html>') });
+  assert.ok(stale.every(item => !item.passed));
+});
+
 test('Magoffin restoration edits require exact live SSR closure, FAQ and visitor center', async () => {
   const plan = buildChangePlan({ baseline, head, changedFiles: ['src/data/magoffin-home-authority.ts'] });
   assert.deepEqual(plan.selectedPaths, ['/destination/magoffin-home']);
