@@ -240,6 +240,11 @@ if (!errors.length) {
 
   for (const marker of [
     "const shamrockProfilePath = '/texas-high-school-football-teams/shamrock'",
+    "const anthonyProfilePath = '/texas-high-school-football-teams/anthony'",
+    "const garlandProfilePath = '/texas-high-school-football-teams/garland'",
+    "await fetchVerified(anthonyProfilePath, 'Anthony football enrollment-placement exception'",
+    "await fetchVerified(garlandProfilePath, 'Garland football enrollment-placement exception'",
+    "'Submitted conference cutoff'",
     "await fetchVerified(shamrockProfilePath, 'Shamrock football authority profile'",
     "'Shamrock Fighting Irish Football'",
     "'Nate Skelton'",
@@ -253,6 +258,96 @@ if (!errors.length) {
     "'Shamrock ISD 2026 football schedule'",
     "texas-high-school-football-teams/shamrock</loc>",
   ]) requireText(productionSmoke, marker, 'Shamrock football live production contract');
+
+
+  // The 2026-28 UIL alignment includes schools whose final football placement
+  // does not fit the normal published enrollment cutoff for that exact
+  // classification/division. Parse the governed source modules directly so a
+  // future template change cannot silently reintroduce the Shamrock-style
+  // "this is your enrollment band" error on the other exception schools.
+  const alignmentProgramsForEnrollmentAudit = [];
+  const alignmentBlockPattern = /\{ classification:'([1-6]A)', division:(1|2|null), footballType:'[^']+', sourceUrl:'[^']+', districts:\[([\s\S]*?)\]\s*\}/g;
+  for (const match of alignment.matchAll(alignmentBlockPattern)) {
+    const classification = match[1];
+    const division = match[2] === 'null' ? null : Number(match[2]);
+    for (const line of match[3].split('\n')) {
+      const districtLine = line.match(/^\s*(['"])(.*)\1,?\s*$/);
+      if (!districtLine) continue;
+      for (const sourceSchoolName of districtLine[2].split(';')) {
+        alignmentProgramsForEnrollmentAudit.push({ sourceSchoolName, classification, division });
+      }
+    }
+  }
+
+  const exactEnrollmentRowsForAudit = new Map(
+    [...exactEnrollments.matchAll(/^\s*"([^"]+)": \{"enrollment":([0-9.]+),"submittedConference":"([1-6]A)"\},?$/gm)]
+      .map((match) => [match[1], { enrollment: Number(match[2]), submittedConference: match[3] }]),
+  );
+  const enrollmentBandsForAudit = new Map(
+    [...enrollmentBands.matchAll(/\{ classification: '([1-6]A)', division: (1|2|null), label: '[^']+', minEnrollment: (null|[0-9.]+), maxEnrollment: (null|[0-9.]+) \},/g)]
+      .map((match) => [
+        match[1] + ':' + match[2],
+        {
+          minEnrollment: match[3] === 'null' ? null : Number(match[3]),
+          maxEnrollment: match[4] === 'null' ? null : Number(match[4]),
+        },
+      ]),
+  );
+
+  if (alignmentProgramsForEnrollmentAudit.length !== 1268) {
+    errors.push(\`UIL enrollment-placement audit expected 1,268 alignment programs; found \${alignmentProgramsForEnrollmentAudit.length}.\`);
+  }
+  if (exactEnrollmentRowsForAudit.size !== 1268) {
+    errors.push(\`UIL enrollment-placement audit expected 1,268 exact enrollment rows; found \${exactEnrollmentRowsForAudit.size}.\`);
+  }
+
+  const enrollmentPlacementExceptions = [];
+  for (const program of alignmentProgramsForEnrollmentAudit) {
+    const exact = exactEnrollmentRowsForAudit.get(program.sourceSchoolName);
+    const band = enrollmentBandsForAudit.get(program.classification + ':' + String(program.division));
+    if (!exact) {
+      errors.push(\`UIL enrollment-placement audit missing exact enrollment for \${program.sourceSchoolName}.\`);
+      continue;
+    }
+    if (!band) {
+      errors.push(\`UIL enrollment-placement audit missing cutoff band for \${program.classification} division \${String(program.division)}.\`);
+      continue;
+    }
+    const fitsBand =
+      (band.minEnrollment == null || exact.enrollment >= band.minEnrollment)
+      && (band.maxEnrollment == null || exact.enrollment <= band.maxEnrollment);
+    const conferenceDiff = exact.submittedConference !== program.classification;
+    if (!fitsBand || conferenceDiff) {
+      enrollmentPlacementExceptions.push({ ...program, ...exact, fitsBand, conferenceDiff });
+    }
+  }
+
+  if (enrollmentPlacementExceptions.length !== 49) {
+    errors.push(\`UIL enrollment-placement audit expected 49 documented exception programs; found \${enrollmentPlacementExceptions.length}: \${enrollmentPlacementExceptions.map((item) => item.sourceSchoolName).join(', ')}\`);
+  }
+  const crossConferenceExceptionNames = enrollmentPlacementExceptions
+    .filter((item) => item.conferenceDiff)
+    .map((item) => item.sourceSchoolName)
+    .sort();
+  const expectedCrossConferenceExceptionNames = ['Boys Ranch', 'Crosbyton', "D'Hanis", 'Hull-Daisetta', 'Iraan', 'Ralls', 'Shamrock'].sort();
+  if (JSON.stringify(crossConferenceExceptionNames) !== JSON.stringify(expectedCrossConferenceExceptionNames)) {
+    errors.push(\`UIL cross-conference football exceptions changed unexpectedly: \${crossConferenceExceptionNames.join(', ')}\`);
+  }
+  for (const representative of ['Anthony', 'Garland', 'Shamrock']) {
+    if (!enrollmentPlacementExceptions.some((item) => item.sourceSchoolName === representative)) {
+      errors.push(\`UIL enrollment-placement representative exception missing: \${representative}.\`);
+    }
+  }
+
+  for (const marker of [
+    'uilEnrollmentFallsWithinBand',
+    'enrollmentFitsFinalBand === false',
+    'Submitted conference cutoff',
+    'Final football placement',
+    'Enrollment and football placement are different here.',
+    'enrollmentFitsFinalBand !== false && <Snapshot label="UIL enrollment band"',
+  ]) requireText(featuredProfilePage, marker, 'Football enrollment-placement exception rendering');
+  forbidText(featuredProfilePage, 'Enrollment-based conference range', 'Football enrollment-placement exception rendering');
 
   for (const marker of [
     'UIL_FOOTBALL_PROGRAM_COUNT !== 1268',
