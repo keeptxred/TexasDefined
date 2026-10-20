@@ -63,6 +63,22 @@ assert.ok(harmony.season.record.includes('through ' + mostRecentLabel), 'Record 
 assert.ok(harmony.season.sourceLabel.includes('October 16'), 'New October 16 final must have dated news attribution');
 
 assert.ok(section.includes('Brian Mauk') && section.includes('former athletic director') && section.includes('MaxPreps'), 'Require KLTV-attributed coach and official district correction of outdated roster');
+
+const rivercrestIndex = editor.indexOf('  "bogata-rivercrest": {');
+assert.ok(rivercrestIndex >= 0, 'Rivercrest school-specific editorial missing');
+const rivercrestNext = editor.indexOf('\n  "', rivercrestIndex + 4);
+const rivercrestSection = rivercrestNext > rivercrestIndex ? editor.slice(rivercrestIndex, rivercrestNext) : editor.slice(rivercrestIndex);
+for (const needle of [
+  '"name": "Laytner Kennedy"',
+  'MaxPreps Rivercrest varsity staff updated August 29, 2026',
+  'Rivercrest ISD current staff directory independently confirms Kennedy as boys athletic director',
+  '"name": "Rivercrest Rebel Stadium"',
+  'exact stadium gate not independently verified',
+  'does not claim it is the vehicle gate, ticket entrance, parking entrance or accessible-seating route',
+]) {
+  assert.ok(rivercrestSection.includes(needle), 'Rivercrest sourced coach/stadium evidence missing: ' + needle);
+}
+assert.ok(rivercrestSection.includes('Older MaxPreps history entries naming Travis McClain are stale'), 'Rivercrest must preserve the stale-coach conflict warning');
 assert.ok(!section.includes('Sources conflict: the 2026 MaxPreps staff listing names Jeremy Jenkins'), 'Never imply the deceased former athletic director could currently be head coach');
 const identity = read('src/data/high-school-football/school-identities.ts');
 assert.ok(identity.includes("slug: 'big-sandy-harmony', mascot: 'Eagles'"), 'Verify source-backed Eagles identity');
