@@ -3,6 +3,7 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import '../softball/validate-third-wave-champions.mjs';
 
 const root = resolve(import.meta.dirname, '../..');
 const read = (file) => readFileSync(resolve(root, file), 'utf8');
