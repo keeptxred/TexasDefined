@@ -53,7 +53,7 @@ export const texasHighSchoolFootballClassificationsArticle: Article = {
     {
       href: "/texas-high-school-football-districts",
       label: "Browse every current UIL football district",
-      description: "Open all 192 current 2026–28 UIL football districts and move from a district roster into each member school's research profile.",
+      description: "Open all 192 current 2026–28 UIL football districts and move from a district roster into each member school's team guide.",
     },
     {
       href: "/article/texas-high-school-football-playoffs-explained",
