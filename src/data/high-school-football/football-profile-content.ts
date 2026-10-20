@@ -1,3 +1,9 @@
+import {
+  uilEnrollmentFallsWithinBand,
+  uilFootballEnrollmentBand,
+  uilFootballEnrollmentBandForEnrollment,
+} from './enrollment-bands';
+
 export type FootballProfileContentInput = {
   displayName: string;
   program?: {
@@ -128,9 +134,17 @@ export function buildFootballProfileFaq(input: FootballProfileContentInput): Foo
       answer: `${displayName} is assigned to UIL District ${program.district} in ${program.division ? `${program.classification} Division ${program.division === 1 ? 'I' : 'II'}` : program.classification} for the 2026–28 alignment cycle.`,
     });
     if (program.uilEnrollment) {
+      const finalBand = uilFootballEnrollmentBand(program.classification, program.division);
+      const enrollmentFitsFinalBand = uilEnrollmentFallsWithinBand(program.uilEnrollment, finalBand);
+      const enrollmentBasedBand = uilFootballEnrollmentBandForEnrollment(program.uilEnrollment);
+      const enrollmentBasedPlacement = enrollmentBasedBand
+        ? `${enrollmentBasedBand.classification}${enrollmentBasedBand.division ? ` Division ${enrollmentBasedBand.division === 1 ? 'I' : 'II'}` : ''} (${enrollmentBasedBand.label})`
+        : null;
       items.push({
         question: `What enrollment does UIL list for ${displayName}?`,
-        answer: `UIL's 2026–28 realignment enrollment snapshot lists ${program.uilEnrollment.toLocaleString('en-US')} students for this program. That figure is used for classification and is not a live daily campus enrollment count.`,
+        answer: enrollmentFitsFinalBand === false
+          ? `UIL's 2026–28 realignment enrollment snapshot lists ${program.uilEnrollment.toLocaleString('en-US')} students. The published cutoff table places that enrollment in ${enrollmentBasedPlacement ?? 'a different enrollment band'}, while the final football alignment places the program in ${footballProfileAlignmentLabel(input)}. The final alignment controls competition placement; the enrollment snapshot is not a live daily campus count.`
+          : `UIL's 2026–28 realignment enrollment snapshot lists ${program.uilEnrollment.toLocaleString('en-US')} students for this program. The reported enrollment falls within the published cutoff band for its final football placement and is not a live daily campus enrollment count.`,
       });
     }
     if (program.districtName) {
