@@ -23,6 +23,18 @@ const rivers = [
 const pages = [];
 const failureNotes = [];
 const verify = (condition, message) => assert.ok(condition, message);
+function originalImageIdentity(value) {
+  // First-party /media/remote?url=... encodes the source once, and Wikimedia's
+  // punctuation may be encoded a second time inside that embedded source URL.
+  let normalized = String(value);
+  for (let i = 0; i < 4; i++) {
+    let next;
+    try { next = decodeURIComponent(normalized); } catch { break; }
+    if (next === normalized) break;
+    normalized = next;
+  }
+  return normalized;
+}
 
 async function inspectImage(page, img, title) {
   await img.scrollIntoViewIfNeeded({ timeout: 20_000 });
@@ -86,7 +98,7 @@ try {
         const img = page.locator('section.relative.isolate > img').first();
         verify(await img.count() === 1, label + ': hero image element absent for ' + river.slug);
         const result = await inspectImage(page, img, label + ' hero ' + river.slug);
-        verify(decodeURIComponent(result.src).includes(decodeURIComponent(river.image)),
+        verify(originalImageIdentity(result.src).includes(originalImageIdentity(river.image)),
           label + ': hero uses an unrelated photo: ' + river.slug + ' ' + result.src);
         verify(river.alt.test(result.alt), label + ': hero alt misidentifies ' + river.slug);
         record.images.push(result);
@@ -101,7 +113,7 @@ try {
           verify(await anchor.count() === 1, label + ': missing river card ' + river.slug + ' at ' + path);
           const img = anchor.locator('img').first();
           const result = await inspectImage(page, img, label + ' card ' + river.slug + ' at ' + path);
-          verify(decodeURIComponent(result.src).includes(decodeURIComponent(river.image)),
+          verify(originalImageIdentity(result.src).includes(originalImageIdentity(river.image)),
             label + ': generic or mismatched image at ' + path + ' for ' + river.slug);
           verify(river.alt.test(result.alt), label + ': inaccurate card alt at ' + path);
           const outer = anchor.locator('..');
