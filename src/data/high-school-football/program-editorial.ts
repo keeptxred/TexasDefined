@@ -13183,7 +13183,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Wildcat Stadium",
-      "address": "Wildcat Stadium, 1 Stadium Drive, Angleton, TX 77515 (per Angleton High official events)",
+      "address": "1 Stadium Drive, Angleton, TX 77515",
       "sourceUrl": "https://www.angletonisd.net/o/ahs/events",
       "sourceLabel": "Angleton High 2026 events venue listing and Angleton ISD varsity ticket guidance",
       "verifiedAt": "2026-10-09",
@@ -13517,7 +13517,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Owl Stadium",
-      "address": "Anderson, TX — verify official game gate at FM 149 campus",
       "sourceUrl": "https://www.texasfootball.com/team/anderson-shiro-fighting-owls",
       "sourceLabel": "DCTF stadium listing, not campus accessibility certificate",
       "verifiedAt": "2026-10-09",
@@ -14267,7 +14266,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Dick Bivins Stadium",
-      "address": "Dick Bivins Stadium, 3101 SE 10th Avenue, Amarillo, TX 79104 (for assigned Dick Bivins games)",
+      "address": "3101 SE 10th Avenue, Amarillo, TX 79104",
       "sourceUrl": "https://www.amaisd.org/133763_3",
       "sourceLabel": "Amarillo ISD primary 2026 ticket and Dick Bivins stadium policy",
       "verifiedAt": "2026-10-09",
@@ -14594,7 +14593,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Dick Bivins Stadium",
-      "address": "Dick Bivins Stadium, 3101 SE 10th Avenue, Amarillo, TX 79104 (for assigned Dick Bivins games)",
+      "address": "3101 SE 10th Avenue, Amarillo, TX 79104",
       "sourceUrl": "https://www.amaisd.org/133763_3",
       "sourceLabel": "Amarillo ISD official Athletics ticket and venue policy",
       "verifiedAt": "2026-10-09",
@@ -16360,7 +16359,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Eagle Stadium",
-      "address": "155 Rivercrest Boulevard, Allen, TX 75002 — official district football event address",
+      "address": "155 Rivercrest Boulevard, Allen, TX 75002",
       "sourceUrl": "https://www.allenisd.org/",
       "sourceLabel": "Allen ISD event calendar lists October 23 Eagle Stadium match address",
       "verifiedAt": "2026-10-09",
