@@ -16,6 +16,9 @@ import type { ParkingMapAsset } from "@/data/parking-map-model";
 import type { SportsVenueEnrichment } from "@/data/sports-venue-enrichment";
 import type { SportsVenueGuidePilot } from "@/data/sports-venue-guide-pilots";
 import { isGeneratedSportsVenueImage } from "@/data/sports-venue-image-attribution";
+import { wacoViatorAttractionForSlug } from "@/data/waco-viator-attraction-links";
+import { buildViatorAffiliateUrl } from "@/lib/viator-affiliate";
+import { trackAffiliateClick } from "@/lib/affiliate-click";
 import type { SportsVenuePhoto } from "@/data/sports-venue-images";
 import type { PublicSportsSponsorPlacement } from "@/data/sports-sponsorship.types";
 
@@ -246,6 +249,22 @@ export function SportsVenueGuidePage({
               <h2 className="mt-2 font-display text-2xl">Compare every licensed Texas horse-racing track</h2>
               <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Browse the four live-racing destinations, including the Gillespie County Fairgrounds in Fredericksburg, plus the history of inactive racing licenses. Live race dates vary by track.</p>
               <a href="/horse-racing" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Texas horse-racing authority directory →</a>
+            </section>
+          ) : null}
+
+          {guide.canonicalPath === "/sports-venue/mclane-stadium" && wacoViatorAttractionForSlug("mclane-stadium") ? (
+            <section className="border-b border-border py-10" aria-labelledby="mclane-viator-experiences">
+              <p className="eyebrow text-primary">Explore Waco</p>
+              <h2 id="mclane-viator-experiences" className="mt-2 font-display text-3xl">McLane Stadium on Viator</h2>
+              <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Viator's McLane Stadium attraction page is an overview, not an admission ticket or a guaranteed guided stadium tour. Baylor Athletics controls game tickets and stadium access. Browse independent Waco experiences separately on Viator.</p>
+              <a href={buildViatorAffiliateUrl(wacoViatorAttractionForSlug("mclane-stadium")!.viatorUrl, "viator-attraction-mclane-stadium")}
+                target="_blank" rel="sponsored nofollow noopener noreferrer"
+                data-affiliate-partner="viator" data-affiliate-placement="viator-attraction-mclane-stadium"
+                data-commercial-partner="viator" data-commercial-placement="viator-attraction-mclane-stadium"
+                onClick={() => trackAffiliateClick({ partner: "viator", label: "Read Viator McLane Stadium attraction overview", placement: "viator-attraction-mclane-stadium", module: "experiences" })}
+                className="mt-5 inline-block text-sm font-semibold text-primary underline underline-offset-4">Read Viator's stadium attraction overview ↗</a>
+              <p className="mt-4 text-xs leading-5 text-muted-foreground">Affiliate disclosure: TexasDefined may earn a commission from qualifying Viator bookings, at no additional cost to you.</p>
+              <p className="mt-4 text-sm leading-6"><a href="/city/waco" className="text-primary underline underline-offset-4">Explore Waco →</a> · <a href="/county/mclennan" className="text-primary underline underline-offset-4">McLennan County guide →</a></p>
             </section>
           ) : null}
 

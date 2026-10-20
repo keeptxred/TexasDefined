@@ -6,6 +6,10 @@ const cityViator = fs.readFileSync('public/city-experience-affiliate.js', 'utf8'
 const canonicalViatorLinks = fs.readFileSync('src/data/viator-destination-links.ts', 'utf8');
 const root = fs.readFileSync('src/routes/__root.tsx', 'utf8');
 const destinationViator = fs.readFileSync('src/components/editorial/DestinationViatorBooking.tsx', 'utf8');
+const wacoProductLinks = fs.readFileSync('src/data/waco-bookable-viator-experiences.ts', 'utf8');
+const wacoProductCards = fs.readFileSync('src/components/monetization/WacoViatorExperienceCards.tsx', 'utf8');
+const wacoGhostPage = fs.readFileSync('src/routes/waco-ghost-tours.tsx', 'utf8');
+const wacoDallasPage = fs.readFileSync('src/routes/dallas-to-waco-magnolia-tours.tsx', 'utf8');
 const statewideViator = fs.readFileSync('src/components/editorial/TexasExperienceMarkets.tsx', 'utf8');
 const errors = [];
 
@@ -74,6 +78,25 @@ for (const [needle, label] of [
   ['Affiliate disclosure: TexasDefined may earn a commission from qualifying Viator bookings', 'city Viator disclosure'],
   ['new MutationObserver(scheduleRender)', 'client-navigation reinsertion support'],
 ]) requireText(cityViator, needle, label);
+
+// Waco: verify real product IDs, first-party tracking, route discovery, and no stale price promises.
+for (const productCode of ['455209P1', '222222P107', '5555414P1']) {
+  requireText(wacoProductLinks, productCode, `Waco Viator product ${productCode}`);
+}
+for (const [needle, label] of [
+  ['buildViatorAffiliateUrl(experience.url, experience.campaign)', 'Waco product deep-link attribution'],
+  ['trackAffiliateClick', 'Waco product click analytics'],
+  ['data-affiliate-partner="viator"', 'Waco product partner metadata'],
+  ['data-commercial-partner="viator"', 'Waco commercial partner metadata'],
+  ['sponsored nofollow noopener noreferrer', 'Waco sponsored relationship'],
+  ['Affiliate disclosure: TexasDefined may earn a commission', 'Waco affiliate disclosure'],
+]) requireText(wacoProductCards, needle, label);
+requireText(destinationViator, '<WacoViatorExperienceCards kind="ghost"', 'Waco attraction contextual booking cards');
+requireText(wacoGhostPage, '<WacoViatorExperienceCards kind="ghost"', 'Waco ghost tour comparison');
+requireText(wacoDallasPage, '<WacoViatorExperienceCards kind="dallas"', 'Dallas to Waco day-trip guide');
+if (/\b(?:from|starting at)\s*\$\d+/i.test(wacoProductLinks + wacoProductCards)) {
+  errors.push('Waco Viator booking surfaces must not hard-code volatile supplier prices.');
+}
 
 const canonicalMarkets = parseCanonicalMarkets(canonicalViatorLinks);
 const cityBootstrapMarkets = parseCityBootstrapMarkets(cityViator);

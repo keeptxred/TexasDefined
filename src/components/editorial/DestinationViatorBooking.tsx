@@ -2,6 +2,8 @@ import { hasVerifiedViatorMarketUrl, verifiedViatorMarketUrl } from "@/data/viat
 import { VIATOR_RUNTIME_SIGNAL_REVIEWED_AT, viatorRuntimeMarketForSlug } from "@/data/viator-experience-runtime";
 import { viatorMarketsForPlace, type ViatorMatchMarket } from "@/data/viator-market-match";
 import type { Destination } from "@/data/types";
+import { wacoViatorAttractionForSlug } from "@/data/waco-viator-attraction-links";
+import { WacoViatorExperienceCards } from "@/components/monetization/WacoViatorExperienceCards";
 import { trackAffiliateClick } from "@/lib/affiliate-click";
 import { buildViatorAffiliateUrl } from "@/lib/viator-affiliate";
 
@@ -46,6 +48,9 @@ export function DestinationViatorBooking({ destination }: { destination: Destina
   const runtimeMarket = viatorRuntimeMarketForSlug(market.slug);
   const href = buildViatorAffiliateUrl(verifiedViatorMarketUrl(market.slug), `texasdefined-destination-${destination.slug}`);
   const commercialPlacement = `viator-destination-${destination.slug}`;
+  const wacoAttraction = wacoViatorAttractionForSlug(destination.slug);
+  const attractionPlacement = `viator-attraction-${destination.slug}`;
+  const attractionLabel = `Read Viator's ${wacoAttraction?.name ?? destination.name} attraction overview`;
   const ctaLabel = `See current experiences near ${destination.name}`;
 
   return <>
@@ -66,10 +71,34 @@ export function DestinationViatorBooking({ destination }: { destination: Destina
           onClick={() => trackAffiliateClick({ partner: "viator", label: ctaLabel, placement: commercialPlacement, module: "experiences" })}
           className="inline-flex items-center bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
         >{ctaLabel} ↗</a>
+        {wacoAttraction ? (
+          <a href={buildViatorAffiliateUrl(wacoAttraction.viatorUrl, attractionPlacement)}
+            target="_blank" rel="sponsored nofollow noopener noreferrer"
+            data-affiliate-partner="viator" data-affiliate-placement={attractionPlacement}
+            data-commercial-partner="viator" data-commercial-placement={attractionPlacement}
+            onClick={() => trackAffiliateClick({ partner: "viator", label: attractionLabel, placement: attractionPlacement, module: "experiences" })}
+            className="text-sm font-semibold text-primary underline decoration-primary/40 underline-offset-4">
+            {attractionLabel} ↗
+          </a>
+        ) : null}
         <a href="/explore#tours-experiences" className="text-sm font-semibold text-primary underline decoration-primary/40 underline-offset-4">Explore Texas experience markets →</a>
       </div>
+      {wacoAttraction ? <p className="mt-3 text-sm leading-6 text-muted-foreground">The linked Viator attraction overview is not an admission ticket or a confirmed guided tour. Check the operator’s official site for entry rules and actual tickets; browse Viator for independently bookable Waco experiences.</p> : null}
       <p className="mt-4 text-xs leading-5 text-muted-foreground">Affiliate disclosure: TexasDefined may earn a commission from qualifying Viator bookings, at no additional cost to you.</p>
     </section>
+    {["dr-pepper-museum-waco", "waco-suspension-bridge", "magnolia-market-at-the-silos"].includes(destination.slug) ? (
+      <div className="mt-6">
+        <WacoViatorExperienceCards kind="ghost" title="Book a Waco ghost or historic downtown walking experience" showDetails={false} />
+        <p className="mt-3 text-sm"><a className="font-semibold text-primary underline underline-offset-4" href="/waco-ghost-tours">Compare guided and self-guided ghost tours in our Waco planning guide →</a></p>
+      </div>
+    ) : null}
+    {wacoAttraction ? (
+      <nav aria-label="Related Waco experience guides" className="mt-6 flex flex-wrap gap-5 text-sm">
+        <a href="/waco-attractions" className="font-semibold text-primary underline underline-offset-4">All seven Waco attraction guides →</a>
+        <a href="/waco-ghost-tours" className="font-semibold text-primary underline underline-offset-4">Waco ghost-tour comparison →</a>
+        <a href="/dallas-to-waco-magnolia-tours" className="font-semibold text-primary underline underline-offset-4">Dallas-to-Waco guided day trip →</a>
+      </nav>
+    ) : null}
     {huntingLinks}
   </>;
 }
