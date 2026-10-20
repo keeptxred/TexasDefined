@@ -1,4 +1,5 @@
 import { buildViatorAffiliateUrl } from "@/lib/viator-affiliate";
+import { WACO_VIATOR_ATTRACTIONS } from "@/data/waco-viator-attraction-links";
 import { trackAffiliateClick } from "@/lib/affiliate-click";
 
 /** Existing approved Viator affiliate builder + sitewide governed stay widget.
