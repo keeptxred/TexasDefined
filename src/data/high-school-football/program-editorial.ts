@@ -11205,7 +11205,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       ]
     },
     "venue": {
-      "name": "Glaspie Field (historic directory listing)",
+      "name": "Glaspie Field",
       "sourceUrl": "https://www.texasfootball.com/team/arlington-martin-warriors",
       "sourceLabel": "DCTF listed Martin football stadium",
       "verifiedAt": "2026-10-09",
@@ -11381,7 +11381,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       ]
     },
     "venue": {
-      "name": "Cravens Field (historical program stadium)",
+      "name": "Cravens Field",
       "sourceUrl": "https://www.texasfootball.com/team/arlington-lamar-vikings",
       "sourceLabel": "DCTF varsity stadium listing",
       "verifiedAt": "2026-10-09",
@@ -13934,8 +13934,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       ]
     },
     "venue": {
-      "name": "Tascosa varsity home venue — confirm assigned site with Amarillo ISD",
-      "address": "Dick Bivins Stadium, 3101 SE 10th Avenue, Amarillo, TX 79104 (for assigned Dick Bivins games)",
+      "name": "Dick Bivins Stadium",
+      "address": "3101 SE 10th Avenue, Amarillo, TX 79104",
       "sourceUrl": "https://www.amaisd.org/133763_3",
       "sourceLabel": "Amarillo ISD Athletics official scheduling/tickets",
       "verifiedAt": "2026-10-09",
@@ -14935,13 +14935,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         }
       ]
     },
-    "venue": {
-      "name": "Alvord ISD home football field — exact current stadium name/gate not yet corroborated",
-      "sourceUrl": "https://www.alvordisd.net/athletics",
-      "sourceLabel": "Alvord ISD official athletics and football documents",
-      "verifiedAt": "2026-10-09",
-      "note": "Alvord ISD's current athletics page explicitly says home games are cash only, while a third-party October 9 Olney-away schedule displays an online 'buy tickets' link: these refer to different event hosts and are not inherently inconsistent. Check away-game tickets with the host district, and do not assume the school's 1049 West Bypass 287 mailing address is a stadium entrance or ADA route. Official site links its 2026 varsity/master schedule and roster."
-    },
     "overview": [
       "The Alvord Bulldogs play a distinctive small-school football schedule in Wise County. UIL places Alvord in Class 2A Division I District 6 for 2026–28, matching a district slate against Olney, Muenster, Tioga, Nocona and Chico. These are current alignment peers, not evidence of a historic named rivalry trophy.",
       "Alvord's 2025 football season was an important local benchmark: the MaxPreps final history shows 9–3 overall and a perfect 6–0 district record, with head coach Matt Fanning named for that year. In November the Bulldogs beat Hico 51–14 in the playoff opener before falling to Carlisle 41–23, a verified postseason narrative rather than a fabricated state-final appearance.",
@@ -15301,7 +15294,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       ]
     },
     "venue": {
-      "name": "Freedom Field — listed district venue",
+      "name": "Freedom Field",
       "sourceUrl": "https://www.texasfootball.com/team/iowa-colony-pioneers",
       "sourceLabel": "Dave Campbell's Iowa Colony team stadium directory",
       "verifiedAt": "2026-10-09",
@@ -16559,7 +16552,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       ]
     },
     "venue": {
-      "name": "McNair Stadium — school campus athletic venue",
+      "name": "McNair Stadium",
       "sourceUrl": "https://www.aseschool.org/about/campus-map",
       "sourceLabel": "Official All Saints campus map identifies McNair Stadium",
       "verifiedAt": "2026-10-09",
@@ -16748,7 +16741,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       ]
     },
     "venue": {
-      "name": "Crump Stadium — documented venue for Taylor–Memorial on Oct. 16, 2026",
+      "name": "Crump Stadium",
       "sourceUrl": "https://www.houstonmemorialfootball.com/schedule",
       "sourceLabel": "Memorial varsity 2026 venue schedule (Taylor away game at Crump)",
       "verifiedAt": "2026-10-16",
@@ -16850,8 +16843,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "verifiedAt": "2026-10-09"
     },
     "venue": {
-      "name": "Alief ISD Crump Stadium (confirm each Hastings game location)",
-      "address": "12321 Alief Clodine Road, Houston, TX 77072 — Alief district event address",
+      "name": "Crump Stadium",
+      "address": "12321 Alief Clodine Road, Houston, TX 77072",
       "sourceUrl": "https://www.aliefisd.net/o/fce/live-feed",
       "sourceLabel": "Alief ISD official Crump Stadium event announcement for October 2026",
       "verifiedAt": "2026-10-09",
@@ -16964,13 +16957,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceUrl": "https://www.maxpreps.com/tx/houston/alief-elsik-rams/football/schedule/",
       "sourceLabel": "MaxPreps UIL-partner dated schedule updated October 3",
       "verifiedAt": "2026-10-09"
-    },
-    "venue": {
-      "name": "Alief ISD scheduled football facility — verify event-specific stadium",
-      "sourceUrl": "https://www.maxpreps.com/tx/houston/alief-elsik-rams/football/schedule/",
-      "sourceLabel": "School-linked MaxPreps schedule for home versus away designation",
-      "verifiedAt": "2026-10-09",
-      "note": "A varsity listing may say 'home' without proving the game's spectator-stadium gate is on the high school campus. District football facilities, parking, tickets and accessible entry must be confirmed with Alief ISD athletics for the specific Elsik game. The postal campus listing is not a stadium entrance."
     },
     "overview": [
       "Alief Elsik High School's Rams represent the southwest Houston Alief community. This is a distinct football program from neighboring Alief Hastings Bears and Alief Taylor Lions. Its UIL history is most clearly documented through competitive 1990s playoff runs rather than a nonexistent state football title; the official all-time football championship table does not list an Elsik state crown.",
@@ -17705,7 +17691,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "verifiedAt": "2026-10-09"
     },
     "venue": {
-      "name": "Mustang Field (name reported by Texas football reference)",
+      "name": "Mustang Field",
       "sourceUrl": "https://www.texasfootball.com/team/sands-mustangs",
       "sourceLabel": "Dave Campbell's Texas Football — Sands Mustang Field venue reference",
       "verifiedAt": "2026-10-09",
@@ -17944,13 +17930,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceUrl": "https://www.maxpreps.com/tx/abilene/texas-leadership-of-abilene-eagles/football/schedule/",
       "sourceLabel": "MaxPreps UIL partner — Abilene TLCA 2026 schedule",
       "verifiedAt": "2026-10-09"
-    },
-    "venue": {
-      "name": "TLCA Abilene football — confirm each game's assigned field",
-      "sourceUrl": "https://www.texasleadershipabilene.com/athletics/coaching-staff",
-      "sourceLabel": "Texas Leadership of Abilene official athletics office and coach",
-      "verifiedAt": "2026-10-09",
-      "note": "Texas Leadership publishes a secondary campus at 3250 State Street, but no current primary-source stadium gate, field address, ticketing, parking or ADA access policies could be independently confirmed. The 2026 schedule includes both home and away games; the secondary campus postal address must not be represented as a guaranteed stadium gate. Contact athletic director/head football coach Webb Murphy through the official athletic staff directory (Webb.Murphy@tlca-ab.com) or the school at 325-480-3500 before traveling."
     },
     "overview": [
       "Texas Leadership of Abilene, often shortened to TLCA Abilene, fields the Eagles in eleven-man UIL football while operating as a tuition-free public charter school. This is a separate program from Abilene High Eagles, Abilene Cooper Cougars, Abilene Wylie Bulldogs and the San Angelo campus of the Texas Leadership network. School names should not be merged merely because 'Eagles' or 'Texas Leadership' appears in multiple city listings.",
