@@ -7,6 +7,34 @@
 type HeritagePhotoRights = { sourceUrl: string; licenseUrl: string };
 
 const rightsByPath: Record<string, HeritagePhotoRights> = {
+  "/article/moving-to-texas-renter-guide": {
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:GulftonApartmentComplexes.JPG",
+    licenseUrl: "https://creativecommons.org/publicdomain/mark/1.0/",
+  },
+  "/article/best-houston-suburbs-for-commuters": {
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:2025-09-14_16_24_08_View_north_along_Texas_State_Highway_99_(Grand_Parkway)_just_north_of_its_western_interchange_with_Interstate_10_(Katy_Freeway)_in_Houston,_Harris_County,_Texas.jpg",
+    licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+  },
+  "/article/best-dallas-suburbs-for-commuters": {
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:A_DART_(Dallas_Area_Rapid_Transit)_light-rail_train_leaves_the_Akard_Station_in_downtown_Dallas,_Texas.jpg",
+    licenseUrl: "https://creativecommons.org/publicdomain/mark/1.0/",
+  },
+  "/article/texas-property-taxes-for-new-residents": {
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Webb_County,_TX,_Appraisal_District_Office_IMG_2011.JPG",
+    licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0/",
+  },
+  "/article/corporate-relocation-to-texas": {
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:OneCongressPlazaAustinTX.JPG",
+    licenseUrl: "https://creativecommons.org/publicdomain/mark/1.0/",
+  },
+  "/article/employee-relocation-guide-to-texas": {
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Desk-office-workspace-coworking_(23699033283).jpg",
+    licenseUrl: "https://creativecommons.org/publicdomain/zero/1.0/",
+  },
+  "/article/renting-vs-buying-in-texas": {
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Wilson_House,_Houston,_TX.jpg",
+    licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+  },
   "/article/how-to-verify-texas-moving-company": {
     sourceUrl: "https://commons.wikimedia.org/wiki/File:Mayflower_Moving_Truck_Ypsilanti_Michigan.JPG",
     licenseUrl: "https://creativecommons.org/licenses/by/3.0/",
