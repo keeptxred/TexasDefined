@@ -58,6 +58,7 @@ const checks = [
   ['relocation-insurance-authority', 'CONTENT/AUTHORITY', 'Validate TDI relocation insurance authority', 'node', ['scripts/data/validate-relocation-insurance-authority.mjs']],
   ['relocation-city-comparison', 'CONTENT/AUTHORITY', 'Validate Texas city relocation comparison authority', 'node', ['scripts/data/validate-relocation-city-comparison.mjs']],
   ['relocation-freshness', 'DATA/FRESHNESS', 'Validate relocation source freshness and Census vintage', 'node', ['scripts/data/validate-relocation-freshness.mjs']],
+  ['texas-life-relocation-hero-uniqueness', 'IMAGE/QUALITY', 'Validate nine distinct Texas Life relocation article images and linked licenses', 'node', ['scripts/data/validate-texas-life-relocation-hero-uniqueness.mjs']],
   ['top-attraction-authority', 'CONTENT/AUTHORITY', 'Validate Top 25 attraction authority', 'node', ['scripts/data/validate-top-attraction-authority.mjs']],
   ['top-attraction-review-freshness', 'CONTENT/FRESHNESS', 'Validate Top 25 review freshness', 'node', ['scripts/data/validate-top-attraction-review-freshness.mjs']],
   ['article-discover-seo', 'SEO/DISCOVERY', 'Validate article discovery SEO', 'node', ['scripts/data/validate-article-discover-seo.mjs']],
@@ -113,7 +114,7 @@ const predeployIds = new Set([
   'texas-talent-flagship-depth-wave2', 'texas-talent-source-provenance', 'texas-talent-editorial-status',
   'texas-talent-content-depth', 'texas-talent-launch-metadata', 'texas-talent-reverse-links',
   'texas-talent-public-preview', 'texas-talent-music-authority',
-  'relocation-insurance-authority', 'relocation-city-comparison', 'relocation-freshness',
+  'relocation-insurance-authority', 'relocation-city-comparison', 'relocation-freshness', 'texas-life-relocation-hero-uniqueness',
   'fishing-authority', 'all-lake-authority-inventory', 'citypass-affiliate', 'governed-seo-duplicates',
 ]);
 
