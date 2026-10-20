@@ -39,9 +39,9 @@ export const homeEquityHero: Article["hero"] = {
 };
 
 export const privateWellEquipmentHero: Article["hero"] = {
-  src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/The_Well_(4679680189).jpg?width=1280",
-  alt: "Photograph of well-water pump, pressure tank and plumbing components, illustrating equipment rural buyers should inspect; example outside Texas",
+  src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Drilling_livestock_water_well_on_Walking_M_Ranch_in_Baylor_County,_Seymour,_Texas._(24490553073).jpg?width=1280",
+  alt: "Well drilling crew and equipment on Walking M Ranch in Baylor County near Seymour, Texas",
   width: 1280,
   height: 852,
-  credit: "Dwight Sipler · Wikimedia Commons · CC BY 2.0 (illustrative equipment photo, taken outside Texas; cropped for display)",
+  credit: "Mark Meyer / USDA NRCS Texas · Wikimedia Commons · CC BY 2.0 (cropped for display)",
 };
