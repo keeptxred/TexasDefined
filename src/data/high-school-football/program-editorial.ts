@@ -3569,9 +3569,9 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "notice": {
       "title": "Verified facts and unresolved game-day claims",
-      "body": "Borger ISD officially lists Jesus A. Villaseñor as athletic director and football coach (athletics office 806-273-1033). The school street address is not proven to be the Bulldog Stadium entrance. A 2013–15 facility project does not certify today's ADA arrangements.",
+      "body": "Borger ISD officially lists Jesus A. Villaseñor as athletic director and head football coach (athletics office 806-273-1033). Its Athletics page says VARSITY FOOTBALL ticket-booth purchases are CASH ONLY, priced at $7 reserved, $6 general and $4 student; it also links to Hometown Fan for digital ticket purchases and passes. Booth rules are specifically labeled varsity football and should not be extended to other sports or JV. The school street address is not proven to be Bulldog Stadium's entrance, and the facility's accessibility, parking and gate require game-specific confirmation.",
       "sourceUrl": "https://borgerisd.net/69574_2",
-      "sourceLabel": "School material plus explicitly qualified unresolved venue/staff/score claims",
+      "sourceLabel": "Borger ISD first-party Athletics head football coach, varsity ticket-booth cash-only rule and listed $7/$6/$4 prices; stadium entry remains unverified",
       "verifiedAt": "2026-10-17"
     },
     "season": {
@@ -3677,7 +3677,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "overview": [
       "Borger Bulldogs is Borger ISD's 11-man football team in Hutchinson County. Its authoritative 2026–28 alignment is UIL 4A Division II District 3; that is different from older season divisions and similarly named programs.",
       "In the 1962 Class 4A state championship, Borger finished runner-up after San Antonio Brackenridge won 30–26, as recorded by the UIL. Hall of Fame coach Gene Mayfield had guided an undefeated Bulldogs team into that final; Mayfield later coached Odessa Permian to its 1965 title, which is not a Borger championship. Borger's 2025 record is disputed by bookkeeping: MaxPreps lists 1–9 because it records the October 31 Levelland game as a forfeit win (W 46–12 FF), while Dave Campbell's Texas Football lists 0–10. The reported on-field score is Levelland 46, Borger 12; do not mistake the administrative forfeiture outcome for an on-field 46–12 win. In 2026, Borger defeated Pampa and River Road before entering the District 3 stretch.",
-      "Borger ISD officially lists Jesus A. Villaseñor as athletic director and football coach (athletics office 806-273-1033). The school street address is not proven to be the Bulldog Stadium entrance. A 2013–15 facility project does not certify today's ADA arrangements."
+      "Borger ISD officially lists Jesus A. Villaseñor as athletic director and head football coach (athletics office 806-273-1033). Its Athletics page says VARSITY FOOTBALL ticket-booth purchases are CASH ONLY, priced at $7 reserved, $6 general and $4 student; it also links to Hometown Fan for digital ticket purchases and passes. Booth rules are specifically labeled varsity football and should not be extended to other sports or JV. The school street address is not proven to be Bulldog Stadium's entrance, and the facility's accessibility, parking and gate require game-specific confirmation."
     ],
     "faq": [
       {
@@ -3715,6 +3715,10 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "Why do the 2025 Borger football records differ?",
         "answer": "MaxPreps counts a forfeiture victory over Levelland and reports 1–9, but the on-field 46–12 result favored Levelland; Dave Campbell's lists 0–10. The difference is recorded rather than silently reconciled."
+      },
+      {
+        "question": "Can I buy Borger varsity football tickets at the stadium, and what do they cost?",
+        "answer": "Borger ISD Athletics says the football VARSITY ticket booth accepts CASH ONLY and lists $7 reserved, $6 general and $4 student tickets. The district also links Hometown Fan for online tickets and passes. Verify current event rules and any fees with Borger ISD; this policy does not certify the stadium entrance or apply automatically to JV and other sports."
       }
     ],
     "coach": {
@@ -3743,9 +3747,9 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "verifiedAt": "2026-10-17"
     },
     "schedule": {
-      "label": "Bosqueville ISD current athletics information",
-      "sourceUrl": "https://ms.bosquevilleisd.org/o/hs/live_feeds/12580232",
-      "sourceLabel": "School/district source for visitor details; separately cited football results",
+      "label": "Bosqueville ISD Athletics schedules and coaching contacts",
+      "sourceUrl": "https://www.bosquevilleisd.org/page/athletics/",
+      "sourceLabel": "Bosqueville ISD first-party Athletics page provides Athletic Schedules, weekly schedule access and coaching directory; verify specific games with district",
       "verifiedAt": "2026-10-17"
     },
     "notice": {
@@ -3881,6 +3885,10 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "Where is the high school?",
         "answer": "The district lists 7636 Rock Creek Road in Waco; ask it about a particular stadium entrance."
+      },
+      {
+        "question": "Where does Bosqueville publish updated football and other athletic schedules?",
+        "answer": "Bosqueville ISD's Athletics page at https://www.bosquevilleisd.org/page/athletics/ links current Athletic Schedules and weekly schedules. Check for game-day changes. The September 3 Kerens away-game online-only ticket rule does not prove every home game is online-only."
       }
     ],
     "coach": {
@@ -3923,7 +3931,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "notice": {
       "title": "Verified facts and unresolved game-day claims",
-      "body": "Bovina ISD's current staff directory explicitly identifies Wade Wilson as athletic director; an August 2026 MaxPreps football staff page separately calls Wilson the varsity head coach. In addition, NewsChannel 10 interviewed Wilson as Bovina head football coach in August 2026 and described him as entering his second year; the dated original interview directly supports the coaching role without implying a new district-issued hiring document. On October 16, Gruver defeated Bovina 55–0, confirmed by October 17 regional football results. The school's 500 Halsell Street contact address is not a verified stadium gate or accessibility promise.",
+      "body": "Bovina ISD's current staff directory explicitly identifies Wade Wilson as athletic director; an August 2026 MaxPreps football staff page separately calls Wilson the varsity head coach. In addition, NewsChannel 10 interviewed Wilson as Bovina head football coach in August 2026 and described him as entering his second year; the dated original interview directly supports the coaching role without implying a new district-issued hiring document. On October 16, Gruver defeated Bovina 55–0, confirmed by October 17 regional football results. Bovina ISD's October 20 live feed announces the NEXT varsity matchup Thursday, October 22 AT Stratford at 7:00 p.m.; this is a future kickoff, not a final, and may be revised. The district's 500 Halsell Street contact address is not a verified stadium gate or accessibility promise.",
       "sourceUrl": "https://www.bovinaisd.org/staff",
       "sourceLabel": "Bovina ISD official staff directory: Wade Wilson athletic director; MaxPreps Aug 2026 staff listing independently attributes head-coach role",
       "verifiedAt": "2026-10-19"
@@ -4052,7 +4060,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "Where does Bovina ISD publish football information?",
-        "answer": "The district Athletics document library contains a Football 2026 section."
+        "answer": "The district Athletics document library contains a Football 2026 section. Its October 20 live feed also announces Bovina varsity at Stratford on Thursday, October 22 at 7:00 p.m. Verify any last-minute changes; this is not a completed result."
       },
       {
         "question": "Is Halsell Street the verified home-game entrance?",
