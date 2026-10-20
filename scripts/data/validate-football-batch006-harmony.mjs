@@ -49,6 +49,7 @@ for (const [slug, expectedVenue, expectedAddress] of [
   ['blanket', 'Tiger Stadium', '901 Avenue H, Blanket, TX 76432'],
   ['borger', 'Bulldog Stadium', undefined],
   ['bowie', 'Jackrabbit Stadium', undefined],
+  ['bovina', 'Mustang Stadium', undefined],
 ]) {
   const start = editor.indexOf('  "' + slug + '": {');
   assert.ok(start >= 0, slug + ' editorial must exist');
