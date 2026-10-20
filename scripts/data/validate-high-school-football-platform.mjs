@@ -1179,6 +1179,9 @@ if (!errors.length) {
     'buildFootballProfileSummary',
     'buildFootballProfileQuickFacts',
     'buildFootballProfileFaq',
+    'uilFootballEnrollmentBandForEnrollment',
+    'The final alignment controls competition placement',
+    'The reported enrollment falls within the published cutoff band for its final football placement',
     'Classification is not a quality ranking.',
   ]) requireText(footballProfileContent, marker, 'Football profile answer layer');
   for (const marker of [
