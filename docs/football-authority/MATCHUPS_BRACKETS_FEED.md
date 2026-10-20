@@ -24,6 +24,28 @@ Implementation: `src/data/high-school-football/maxpreps-bracket-embeds.ts` is in
 
 Do **not** iframe the ordinary UIL or MaxPreps web page or guess an embed endpoint: they can prohibit third-party framing. Do **not** scrape brackets or treat a MaxPreps widget as a licensed raw JSON feed. All result dates and qualifiers remain controlled by UIL and MaxPreps, and actual native TexasDefined matchup pages still require separate verified source data. No Cloudflare CPU, scheduled scans, or new service subscription is required to display the official links.
 
+
+### Verified 2026 provider-specific widget-creation links (October 19)
+
+Every link below was reached through the matching public MaxPreps tournament's **Add to My Site** control. Each is preselected to the correct 2026 UIL bracket. These links open the widget-creator screen, **not** an existing embed and not a no-cost pricing guarantee. MaxPreps requires an authenticated account to generate the actual widget HTML.
+
+| UIL bracket | MaxPreps Add to My Site |
+| --- | --- |
+| 1A D1 | [Open matching widget creator](https://www.maxpreps.com/widgets/create_tournament_widget.aspx?bracketid=bde6ec22-c928-4019-a011-ecbd6f1bae67&ssid=2286cd80-c46d-4739-8dd1-92a67ca8daa7&tournamentid=7a33d24f-4de2-43eb-aa37-7987d5c334ab) |
+| 1A D2 | [Open matching widget creator](https://www.maxpreps.com/widgets/create_tournament_widget.aspx?bracketid=02fd2729-c7dc-4a3b-9d19-cc492d9ce3db&ssid=2286cd80-c46d-4739-8dd1-92a67ca8daa7&tournamentid=7a33d24f-4de2-43eb-aa37-7987d5c334ab) |
+| 2A D1 | [Open matching widget creator](https://www.maxpreps.com/widgets/create_tournament_widget.aspx?bracketid=d558b0ac-9921-463a-baca-a73c26203e38&ssid=2286cd80-c46d-4739-8dd1-92a67ca8daa7&tournamentid=7a33d24f-4de2-43eb-aa37-7987d5c334ab) |
+| 2A D2 | [Open matching widget creator](https://www.maxpreps.com/widgets/create_tournament_widget.aspx?bracketid=68a6915d-fa00-4faa-8dae-1aa653502be4&ssid=2286cd80-c46d-4739-8dd1-92a67ca8daa7&tournamentid=7a33d24f-4de2-43eb-aa37-7987d5c334ab) |
+| 3A D1 | [Open matching widget creator](https://www.maxpreps.com/widgets/create_tournament_widget.aspx?bracketid=e3805d8a-fb1e-4bf0-ac81-193ab795180d&ssid=2286cd80-c46d-4739-8dd1-92a67ca8daa7&tournamentid=7a33d24f-4de2-43eb-aa37-7987d5c334ab) |
+| 3A D2 | [Open matching widget creator](https://www.maxpreps.com/widgets/create_tournament_widget.aspx?bracketid=4eecdfe3-1ecc-4aa8-a6b9-7127939288ae&ssid=2286cd80-c46d-4739-8dd1-92a67ca8daa7&tournamentid=7a33d24f-4de2-43eb-aa37-7987d5c334ab) |
+| 4A D1 | [Open matching widget creator](https://www.maxpreps.com/widgets/create_tournament_widget.aspx?bracketid=0723a324-be87-49da-9461-4063c2294e90&ssid=2286cd80-c46d-4739-8dd1-92a67ca8daa7&tournamentid=7a33d24f-4de2-43eb-aa37-7987d5c334ab) |
+| 4A D2 | [Open matching widget creator](https://www.maxpreps.com/widgets/create_tournament_widget.aspx?bracketid=b2d6af41-4c12-46c4-8008-1af85dde7341&ssid=2286cd80-c46d-4739-8dd1-92a67ca8daa7&tournamentid=7a33d24f-4de2-43eb-aa37-7987d5c334ab) |
+| 5A D1 | [Open matching widget creator](https://www.maxpreps.com/widgets/create_tournament_widget.aspx?bracketid=4cc4d252-d23d-41ad-b706-761d65cdfe58&ssid=2286cd80-c46d-4739-8dd1-92a67ca8daa7&tournamentid=7a33d24f-4de2-43eb-aa37-7987d5c334ab) |
+| 5A D2 | [Open matching widget creator](https://www.maxpreps.com/widgets/create_tournament_widget.aspx?bracketid=15f0b8b4-192d-4208-828c-4f26f39ce6a8&ssid=2286cd80-c46d-4739-8dd1-92a67ca8daa7&tournamentid=7a33d24f-4de2-43eb-aa37-7987d5c334ab) |
+| 6A D1 | [Open matching widget creator](https://www.maxpreps.com/widgets/create_tournament_widget.aspx?bracketid=ade72ad3-0f62-42ef-a2cb-143bf425942b&ssid=2286cd80-c46d-4739-8dd1-92a67ca8daa7&tournamentid=7a33d24f-4de2-43eb-aa37-7987d5c334ab) |
+| 6A D2 | [Open matching widget creator](https://www.maxpreps.com/widgets/create_tournament_widget.aspx?bracketid=412dffeb-8db4-405a-90d8-d835b3a6ca23&ssid=2286cd80-c46d-4739-8dd1-92a67ca8daa7&tournamentid=7a33d24f-4de2-43eb-aa37-7987d5c334ab) |
+
+The public tournament page and its matching provider widget-creation URL are also stored in `src/data/high-school-football/maxpreps-2026-uil-tournaments.ts` for exact source reference. Do not paste widget **creation** links into the iframe config. A signed-in MaxPreps account must supply the final generated HTML; if the widget requires payment, do not proceed without user approval.
+
 ## Daily score and bracket updates
 
 UIL uses MaxPreps for scores and championship brackets, but public display does not constitute a third-party redistribution license or a stable open data API. Do not scrape MaxPreps/UIL or infer postseason winners. Secure explicit permission for a machine-readable feed before enabling ingestion.
