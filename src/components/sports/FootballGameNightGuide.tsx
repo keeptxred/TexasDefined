@@ -56,6 +56,19 @@ export type FootballGameNightGuideProps = {
   summaryAlreadyShown?: boolean;
 };
 
+const FOOTBALL_DATE_FORMATTER = new Intl.DateTimeFormat('en-US', {
+  month: 'short',
+  day: 'numeric',
+  year: 'numeric',
+  timeZone: 'UTC',
+});
+
+function formatFootballDate(value: string) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return value;
+  const date = new Date(`${value}T12:00:00Z`);
+  return Number.isNaN(date.getTime()) ? value : FOOTBALL_DATE_FORMATTER.format(date);
+}
+
 /** Use the Texas calendar day; game dates are date-only editorial snapshots, not kickoff times. */
 function texasToday() {
   const parts = new Intl.DateTimeFormat('en-US', {
@@ -119,20 +132,20 @@ export function FootballGameNightGuide({
       {!summaryAlreadyShown && season?.record && (
         <div className="mt-5 flex flex-wrap items-center border-b border-border" style={{ columnGap: 24, rowGap: 8, paddingBlock: 16 }}>
           <div>
-            <p className="text-xs uppercase tracking-[0.12em] text-muted-foreground">Verified season snapshot</p>
+            <p className="text-xs uppercase tracking-[0.12em] text-muted-foreground">Source-checked season snapshot</p>
             <p className="mt-2 font-display text-2xl font-semibold">{season.record}</p>
           </div>
-          <p className="text-xs leading-6 text-muted-foreground">Checked {season.verifiedAt}. Results and standings are not live.</p>
+          <p className="text-xs leading-6 text-muted-foreground">Checked <time dateTime={season.verifiedAt}>{formatFootballDate(season.verifiedAt)}</time>. Results and standings are not live.</p>
         </div>
       )}
       {!summaryAlreadyShown && upcoming && season && (
         <div className="mt-5 border-l-4 border-primary bg-background p-4 sm:p-5">
-          <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">Next game listed in our dated schedule</p>
-          <p className="mt-2 font-display text-2xl">{upcoming.date} · {upcoming.opponent}</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">Next fixture in this dated schedule snapshot</p>
+          <p className="mt-2 font-display text-2xl"><time dateTime={upcoming.date}>{formatFootballDate(upcoming.date)}</time> · {upcoming.opponent}</p>
           <p className="mt-2 text-sm text-muted-foreground">
             Listed as {upcoming.site.toLowerCase()}{upcoming.district ? ' · district matchup' : ''}{upcoming.kickoff ? ` · Listed kickoff ${upcoming.kickoff}` : ''}. Confirm stadium, tickets and any changes with the host.
           </p>
-          <p className="mt-2 text-xs text-muted-foreground">Schedule snapshot checked {season.verifiedAt}; not a live game feed.</p>
+          <p className="mt-2 text-xs text-muted-foreground">Schedule snapshot checked <time dateTime={season.verifiedAt}>{formatFootballDate(season.verifiedAt)}</time>; not a live game feed.</p>
         </div>
       )}
 
