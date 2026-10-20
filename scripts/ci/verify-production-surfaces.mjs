@@ -119,7 +119,7 @@ const surfaces = [
   ['the-old-post-reciprocal-museum-link', '/destination/old-post-office-museum-art-center-graham', '/destination/young-county-museum-of-history-and-culture'],
   ['graham-museum-directory', '/explore/museums', 'The Old Post'],
   ['ysleta-pueblo-museum-authority', '/destination/ysleta-del-sur-pueblo-cultural-center-museum-el-paso', 'A museum about a people who are still here'],
-  ['ysleta-pueblo-museum-authentic-image', '/destination/ysleta-del-sur-pueblo-cultural-center-museum-el-paso', 'Tigua_Cultural_Center.jpg'],
+  ['ysleta-pueblo-museum-authentic-image', '/destination/ysleta-del-sur-pueblo-cultural-center-museum-el-paso', 'Wall_art_at_the_Tigua_Indian_Cultural_Center'],
   ['ysleta-pueblo-museum-source-review', '/destination/ysleta-del-sur-pueblo-cultural-center-museum-el-paso', 'Last fact-checked October 9, 2026'],
   ['ysleta-correct-mission-trail-resource', '/destination/ysleta-del-sur-pueblo-cultural-center-museum-el-paso', 'https://visitelpaso.com/epmissiontrail'],
   ['ysleta-reciprocal-borderlands', '/destination/ysleta-del-sur-pueblo-cultural-center-museum-el-paso', '/article/texas-borderlands-historic-sites-guide'],

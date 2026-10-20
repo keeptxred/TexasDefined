@@ -37,11 +37,42 @@ export function applyHistoricSiteFactCorrections(destination: Destination): Dest
   }
 
   if (destination.slug === "old-socorro-mission") {
-    // The Commons photo labeled Socorro Mission depicts the currently operating
-    // later mission church, NOT the restricted original archaeological site.
-    // Preserve truthful reference information but noindex the original-site page
-    // until a licensed, exact-original-site photograph is established.
-    return { ...destination, hero: missingDestinationHero(destination) };
+    // The original archaeological site is not the operating Socorro Mission.
+    // Keep the original-site photograph provenance gate: NPS photographs of
+    // the modern church may only appear as explicitly labeled comparisons.
+    return {
+      ...destination,
+      coordinates: { lat: 31.6510715, lng: -106.299106 }, // THC's official See map link
+      address: "10551 Nicholas Rd, Socorro, TX 79927 (CLOSED; not a public entrance)",
+      managingAuthority: "Texas Historical Commission",
+      sourceCheckedAt: "2026-10-19",
+      summary: "The closed Old Socorro Mission archaeological site preserves the history of a seventeenth-century church and Piro Pueblo settlement shaped by the 1680 Pueblo Revolt and Rio Grande floods. It is separate from today's operating Socorro Mission.",
+      bestSeason: "Not applicable — the original archaeological site is closed year-round.",
+      entryNote: "CLOSED TO THE PUBLIC. There are no public tours, facilities or visitor entrance. Do not use the original site's map pin for trip directions. Today's operating Socorro Mission at 328 S. Nevarez Road is a separate property.",
+      directions: undefined,
+      reservationUrl: undefined,
+      highlights: [
+        "Protected State Antiquities Landmark — closed to visitors",
+        "Piro Pueblo settlement after the 1680 Pueblo Revolt",
+        "Permanent mission church completed by 1691",
+        "Rio Grande floods and successive relocations",
+        "Excavations identified seventeenth-century church walls and artifacts",
+        "Present-day Socorro Mission is a separate, operating church",
+      ],
+      body: [
+        "The Pueblo Revolt of 1680 displaced Spanish settlers and some Piro, Tano and Jemez communities south into the El Paso del Norte region, where an early Socorro settlement took shape.",
+        "The Texas Historical Commission's overview identifies 1682 as the founding year, while its fuller chronology describes a Franciscan foundation in 1680, a temporary church at the known archaeological location by 1684 and a permanent church by 1691.",
+        "River flooding damaged and destroyed early mission buildings in the 1740s and 1829. Today's La Purísima Socorro Mission church was built in the 1840s at a different location.",
+        "Archaeological investigations associated with the University of Texas at El Paso in the early 1980s recovered church-wall remains in a cruciform plan and artifacts dating to the 1680s. The original location is protected and closed, with no visitor access.",
+      ],
+      visitorFaqs: [
+        { question: "Can you visit Old Socorro Mission?", answer: "No. The protected original archaeological site is closed to the public with no services or public tours.", sourceUrl: "https://thc.texas.gov/historic-sites/old-socorro-mission" },
+        { question: "Is the original site the same as the operating Socorro Mission?", answer: "No. The later active church is at 328 S. Nevarez Road and has separate visitor and worship arrangements.", sourceUrl: "https://www.nps.gov/places/socorro-mission.htm" },
+        { question: "When was the original mission founded?", answer: "THC's overview uses 1682, while its detailed history records a 1680 foundation, a temporary church at the known site by 1684, and a permanent one by 1691.", sourceUrl: "https://thc.texas.gov/state-historic-sites/old-socorro-mission/old-socorro-mission-history" },
+        { question: "What did the archaeology find?", answer: "The early 1980s investigations recorded cruciform church walls and artifacts dating to the 1680s.", sourceUrl: "https://thc.texas.gov/state-historic-sites/old-socorro-mission/old-socorro-mission-history" },
+      ],
+      hero: missingDestinationHero(destination),
+    };
   }
 
   if (destination.slug === "lipantitlan") {

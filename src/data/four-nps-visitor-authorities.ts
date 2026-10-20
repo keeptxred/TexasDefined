@@ -103,11 +103,11 @@ const SITE_PATCHES: Readonly<Record<string, NpsPatch>> = {
 },
   "chamizal-national-memorial": {
   "hero": {
-    "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Mural%20and%20Cultural%20Center.jpg%20%28d3498183-87fe-4a4f-854a-b1d4e2f5e815%29.jpg",
-    "alt": "Chamizal National Memorial Cultural Center with the Nuestra Herencia mural, walking path and El Paso landscape",
-    "width": 1269,
-    "height": 667,
-    "credit": "National Park Service · Public domain · Wikimedia Commons"
+    "src": "https://www.nps.gov/npgallery/GetAsset/d3498183-87fe-4a4f-854a-b1d4e2f5e815/proxy/hires",
+    "alt": "Actual Chamizal National Memorial grounds, pedestrian path and Cultural Center with Nuestra Herencia mural in El Paso",
+    "width": 1000,
+    "height": 526,
+    "credit": "National Park Service · NPGallery asset d3498183 · Public domain"
   },
   "gallery": [{
     "image": {

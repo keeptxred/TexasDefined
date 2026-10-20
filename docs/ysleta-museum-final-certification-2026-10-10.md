@@ -86,3 +86,10 @@ The **broader gift shop and Visit El Paso list daily 10 a.m.–4 p.m. hours**, w
 - **Visitor and external-source review:** the previously documented official Pueblo and Texas Historical Commission records, TSHA, NPS, Visit El Paso, Wikimedia credits and 1987-act citation were independently checked. Published address, phone, email and museum-specific hours are supported; differences in broader Cultural Center hours and public-program timing remain correctly flagged instead of presented as certainty.
 
 **Accessibility scope note:** the browser checks cover computed solid-background text contrast, accessible names and landmarks and real Chrome keyboard focus. They do not establish conformance with every WCAG criterion or replace a human screen-reader audit or pixel-level photographic-hero contrast assessment. No defect remains reproduced within this tested scope. Follow-up visitor-hour confirmation is ongoing editorial maintenance, not an incomplete implementation task.
+
+
+## October 19, 2026 visual correction (supersedes image portion of this certification)
+
+The October 10 certification confirmed **technical image loading**, not editorial photo quality. The previously used Sue Barnum Cultural Center photos show a service-side parking/delivery approach; they are no longer acceptable as visitor-facing hero or secondary panorama. The replacement uses an authentic 2014 Carol M. Highsmith photograph **of mural artwork at the actual Cultural Center** (Library of Congress item [2014630705](https://www.loc.gov/item/2014630705/); JPEG thumbnail from its individually licensed Wikimedia Commons source file). Library of Congress reports **no known publication restrictions on the photograph**, credits mural artists Bobby and Eddie Ortiz, Ricky V and Tigua '95. The site must label it as the **mural**, not the building entrance, and must not suggest that the Pueblo endorses the independent guide.
+
+The October 10 browser image assertions were revised to require the accurately labeled documentary mural image instead of both service-side views. Re-run production visual tests after deployment; the historical PASS does not certify this new revision.

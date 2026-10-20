@@ -60,14 +60,13 @@ async function inspectMuseum(page, viewport) {
   await record('after-fonts');
   await page.waitForTimeout(1200);
   await record('after-1200ms');
-  const hero = page.locator('img[alt*="Photograph of the actual Tigua Cultural Center"]');
-  const panorama = page.locator('img[alt*="Wide panoramic photograph"]');
-  await panorama.scrollIntoViewIfNeeded({ timeout: 20_000 });
-  await record('after-panorama-scroll');
+  const hero = page.locator('img[alt*="Painted Tigua cultural mural"]');
+  await hero.scrollIntoViewIfNeeded({ timeout: 20_000 });
+  await record('after-documentary-mural-scroll');
   let photoWait = null;
   try {
-    await page.waitForFunction(() => [...document.images].filter(img => /Tigua Cultural Center/.test(img.alt)).length === 2 &&
-      [...document.images].filter(img => /Tigua Cultural Center/.test(img.alt)).every(img => img.complete && img.naturalWidth >= 500),
+    await page.waitForFunction(() => [...document.images].filter(img => /Painted Tigua cultural mural/.test(img.alt)).length === 1 &&
+      [...document.images].filter(img => /Painted Tigua cultural mural/.test(img.alt)).every(img => img.complete && img.naturalWidth >= 500),
       null, { timeout: 25_000, polling: 350 });
   } catch (err) { photoWait = err instanceof Error ? err.message : String(err); }
   await record('after-images-loaded');
@@ -91,7 +90,7 @@ async function inspectMuseum(page, viewport) {
   check(data.text.includes('Wednesday–Sunday') && data.text.includes('Confirm directly') && data.text.includes('second and fourth Saturdays'), viewport + ': visitor claims/caveats missing');
   check(data.documentWidth <= data.viewportWidth + 10, viewport + ': horizontal overflow ' + data.documentWidth + '/' + data.viewportWidth);
   check(data.missingAlt.length === 0, viewport + ': images with missing alt ' + JSON.stringify(data.missingAlt));
-  for (const img of [hero, panorama]) {
+  for (const img of [hero]) {
     const state = await img.evaluate(e => ({ src: e.currentSrc || e.src, width: e.naturalWidth, complete: e.complete, rendered: e.getBoundingClientRect().width }));
     check(state.complete && state.width >= 500 && state.rendered <= data.viewportWidth + 10, viewport + ': failed exact-place licensed image ' + JSON.stringify(state) + ' wait=' + photoWait);
   }
@@ -140,7 +139,7 @@ try {
       // Also exercise lazy visibility and asynchronous scripts: React #418 has
       // occurred later in full acceptance even when short baseline probes pass.
       try {
-        await page.locator('img[alt*="Wide panoramic photograph"]').scrollIntoViewIfNeeded({ timeout: 15000 });
+        await page.locator('img[alt*="Painted Tigua cultural mural"]').scrollIntoViewIfNeeded({ timeout: 15000 });
       } catch { /* record hydration outcome regardless of photo availability */ }
       await page.waitForTimeout(1100);
       isolation.push({
@@ -202,7 +201,7 @@ try {
     } finally { await context.close(); }
   }
   await writeFile(artifacts + '/acceptance.json', JSON.stringify({ checkedAt: new Date().toISOString(), origin, passes: out }, null, 2) + '\n');
-  console.log('Ysleta museum real-browser acceptance PASS: responsive layouts, licensed images, SEO/indexability, primary visitor caveats, all four inbound page families; evidence saved.');
+  console.log('Ysleta museum real-browser acceptance PASS: responsive layouts, accurate subject-labeled mural, SEO/indexability, primary visitor caveats, all four inbound page families; evidence saved.');
 } catch (e) {
   await writeFile(artifacts + '/failure.json', JSON.stringify({ checkedAt: new Date().toISOString(), completed: out, failure: String(e?.stack || e) }, null, 2) + '\n');
   throw e;

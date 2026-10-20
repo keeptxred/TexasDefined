@@ -457,6 +457,13 @@ function authoritySources(officialUrl: string, siteName: string): DestinationAut
       scope: "Historical marker 9560 records the early Republic offices, 1837 transfer to Houston, the 1900 destruction of the original building, and construction of the 1976–77 replica. Not a claim of current visitor access.",
     }];
   }
+  if (officialUrl.includes("old-socorro-mission")) {
+    return [
+      primary,
+      { label: "THC — Old Socorro Mission history and archaeology", url: "https://thc.texas.gov/state-historic-sites/old-socorro-mission/old-socorro-mission-history", scope: "1680/1682 chronology, original adobe church, associated Piro Pueblo, Rio Grande floods and excavated remains." },
+      { label: "NPS — separate present-day Socorro Mission", url: "https://www.nps.gov/places/socorro-mission.htm", scope: "Modern operating mission church address and context; NOT the closed original archaeological property." },
+    ];
+  }
   if (officialUrl.includes("lipantitlan")) {
     return [primary, {
       label: "Handbook of Texas — Lipantitlán State Historic Site",
