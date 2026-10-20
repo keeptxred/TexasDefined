@@ -3,6 +3,7 @@ import { VIATOR_RUNTIME_SIGNAL_REVIEWED_AT, viatorRuntimeMarketForSlug } from "@
 import { viatorMarketsForPlace, type ViatorMatchMarket } from "@/data/viator-market-match";
 import type { Destination } from "@/data/types";
 import { wacoViatorAttractionForSlug } from "@/data/waco-viator-attraction-links";
+import { WacoViatorExperienceCards } from "@/components/monetization/WacoViatorExperienceCards";
 import { trackAffiliateClick } from "@/lib/affiliate-click";
 import { buildViatorAffiliateUrl } from "@/lib/viator-affiliate";
 
@@ -85,6 +86,18 @@ export function DestinationViatorBooking({ destination }: { destination: Destina
       {wacoAttraction ? <p className="mt-3 text-sm leading-6 text-muted-foreground">The linked Viator attraction overview is not an admission ticket or a confirmed guided tour. Check the operator’s official site for entry rules and actual tickets; browse Viator for independently bookable Waco experiences.</p> : null}
       <p className="mt-4 text-xs leading-5 text-muted-foreground">Affiliate disclosure: TexasDefined may earn a commission from qualifying Viator bookings, at no additional cost to you.</p>
     </section>
+    {["dr-pepper-museum-waco", "waco-suspension-bridge", "magnolia-market-at-the-silos"].includes(destination.slug) ? (
+      <div className="mt-6">
+        <WacoViatorExperienceCards kind="ghost" title="Book a Waco ghost or historic downtown walking experience" showDetails={false} />
+        <p className="mt-3 text-sm"><a className="font-semibold text-primary underline underline-offset-4" href="/waco-ghost-tours">Compare guided and self-guided ghost tours in our Waco planning guide →</a></p>
+      </div>
+    ) : null}
+    {wacoAttraction ? (
+      <nav aria-label="Related Waco experience guides" className="mt-6 flex flex-wrap gap-5 text-sm">
+        <a href="/waco-ghost-tours" className="font-semibold text-primary underline underline-offset-4">Waco ghost-tour comparison →</a>
+        <a href="/dallas-to-waco-magnolia-tours" className="font-semibold text-primary underline underline-offset-4">Dallas-to-Waco guided day trip →</a>
+      </nav>
+    ) : null}
     {huntingLinks}
   </>;
 }
