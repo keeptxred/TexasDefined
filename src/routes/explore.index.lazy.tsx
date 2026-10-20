@@ -8,6 +8,7 @@ import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { ExploreIntentPaths } from "@/components/editorial/ExploreIntentPaths";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
+import { CURATED_TOURISM_COLLECTIONS } from "@/data/curated-tourism-collections";
 import { METRO_PROXIMITY_METROS } from "@/data/metro-proximity";
 import { articlesQuery, categoriesQuery, destinationsQuery, regionsQuery } from "@/data/queries";
 import { recoverOrHideImage } from "@/lib/image-fallback";
@@ -80,6 +81,24 @@ function ExplorePage() {
         </a>
       </div>
     </Container>
+
+    <Section tone="surface">
+      <Container>
+        <SectionHeader eyebrow="Curated Texas attractions" title="Five memorable ways to explore Texas" description="Focused statewide shortlists—not sprawling directories. Discover heritage rail excursions, guest ranch stays, destination spas, drive-through wildlife parks and botanical gardens." />
+        <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {CURATED_TOURISM_COLLECTIONS.map((collection) => (
+            <li key={collection.slug} className="border-t-2 border-foreground pt-5">
+              <Link to="/explore/tourism/$collection" params={{ collection: collection.slug }} className="group block">
+                <p className="eyebrow text-primary">{collection.eyebrow}</p>
+                <h3 className="mt-2 font-display text-2xl leading-tight group-hover:text-primary">{collection.title}</h3>
+                <p className="mt-3 text-sm leading-7 text-muted-foreground">{collection.items.length} source-checked destinations with official visitor links, planning advice and county connections.</p>
+                <span className="mt-4 inline-block border-b border-primary text-sm font-semibold text-primary">View curated guide →</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </Container>
+    </Section>
 
     <Section>
       <Container>
