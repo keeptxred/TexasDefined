@@ -95,9 +95,20 @@ test('every District 21 school profile receives its own opponent-linked, source-
 const liveCheck = readFileSync(new URL('../../scripts/ci/verify-district21-football-production.mjs', import.meta.url), 'utf8');
 const liveWorkflow = readFileSync(new URL('../../.github/workflows/verify-district21-football-production.yml', import.meta.url), 'utf8');
 
-test('nine-page District 21 live QA runs only after successful production deployments', () => {
-  assert.ok(liveWorkflow.includes("github.event.workflow_run.conclusion == 'success'"), 'no checks against cancelled builds');
-  assert.ok(liveWorkflow.includes("github.event.workflow_run.head_branch == 'main'"), 'main-only releases');
+test('District 21 nine-page QA is a blocking step of the same successful production deployment', () => {
+  const workflow = readFileSync(new URL('../../.github/workflows/deploy-production.yml', import.meta.url), 'utf8');
+  const liveStep = workflow.indexOf('      - name: Verify District 21 hub and eight team scorecards on production');
+  const deployStep = workflow.indexOf('      - name: Deploy TexasDefined Worker');
+  const finalStep = workflow.indexOf('      - name: Mark live production verification complete');
+  assert.ok(deployStep >= 0 && liveStep > deployStep && finalStep > liveStep, 'District 21 acceptance must follow Worker deploy and precede live certification');
+  assert.ok(workflow.includes('id: live_district21'));
+  assert.ok(workflow.includes('node scripts/ci/verify-district21-football-production.mjs'));
+  assert.ok(workflow.includes("steps.live_district21.outcome == 'success'"), 'Cannot mark deployment successful if District 21 verification is skipped or fails');
+  assert.ok(!liveWorkflow.includes('workflow_run:'), 'Manual diagnostic must not duplicate automatic production acceptance');
+});
+
+test('nine-page District 21 diagnostic checker remains available manually', () => {
+  assert.ok(!liveWorkflow.includes('workflow_run:'), 'no duplicate production trigger');
   assert.ok(liveWorkflow.includes('workflow_dispatch:'), 'manual verification supported');
   assert.ok(liveWorkflow.includes('node --check scripts/ci/verify-district21-football-production.mjs'), 'check verifier syntax');
   assert.ok(liveWorkflow.includes('node scripts/ci/verify-district21-football-production.mjs'), 'run verifier');
