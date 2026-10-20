@@ -1492,9 +1492,24 @@ if (!errors.length) {
     errors.push('Batch 006 canonical football assignment must retain all 25 original school slugs');
   } else {
     const todayUtc = new Date().toISOString().slice(0, 10);
+    const batchSeoTitles = new Set();
     for (const slug of footballBatch006.slugs) {
       const program = footballEditorialRecord(slug);
       if (!program) continue;
+      // Bounded metadata budget: keep each school and year legible in search,
+      // while preserving unique program identity (Bowie versus Gold-Burg, etc.).
+      const seoTitle = (program.seo?.title || '').trim();
+      const seoDescription = (program.seo?.description || '').trim();
+      if (!seoTitle || seoTitle.length > 70 || !seoTitle.includes('2026')) {
+        errors.push('Batch 006 school SEO title absent, oversized or missing season: ' + slug);
+      }
+      if (batchSeoTitles.has(seoTitle)) {
+        errors.push('Batch 006 duplicate school-specific SEO title: ' + slug);
+      }
+      batchSeoTitles.add(seoTitle);
+      if (!seoDescription || seoDescription.length > 175) {
+        errors.push('Batch 006 SEO description missing or unexpectedly long: ' + slug);
+      }
       const played = program.season?.games?.filter(({ result }) => Boolean(result)) || [];
       const wins = played.filter(({ result }) => result.startsWith('W ')).length;
       const losses = played.filter(({ result }) => result.startsWith('L ')).length;
