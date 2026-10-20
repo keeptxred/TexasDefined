@@ -160,7 +160,8 @@ try {
       if (await page.getByRole("heading", { name: "More stories to read next" }).count()) throw new Error("Unrelated magazine rail on Hill Country article");
       const canonical = await page.locator('link[rel="canonical"]').getAttribute("href");
       if (canonical !== "https://texasdefined.com/article/hill-country-fall-colors") throw new Error("Hill Country canonical incorrect: " + canonical);
-      const robots = await page.locator('meta[name="robots"]').getAttribute("content");
+      const robotsMeta = page.locator('meta[name="robots"]');
+      const robots = (await robotsMeta.count()) ? await robotsMeta.first().getAttribute("content") : null;
       if (/noindex/i.test(robots || "")) throw new Error("Hill Country article unexpectedly noindex");
       const dimensions = await page.evaluate(() => ({ viewport: window.innerWidth, document: document.documentElement.scrollWidth }));
       if (dimensions.document > dimensions.viewport + 8) throw new Error("Hill Country horizontal overflow: " + (dimensions.document - dimensions.viewport));
