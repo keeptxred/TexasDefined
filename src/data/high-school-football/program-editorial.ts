@@ -4081,13 +4081,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "label": "Bowie ISD current athletics information",
       "sourceUrl": "https://www.bowieisd.net/o/bhs/page/bowie-high-school-athletics",
       "sourceLabel": "School/district source for visitor details; separately cited football results",
-      "verifiedAt": "2026-10-17"
+      "verifiedAt": "2026-10-17",
+      "ticketUrl": "https://www.bowieisd.net/page/bowie-isd-tickets/"
     },
     "notice": {
       "title": "Verified facts and unresolved game-day claims",
-      "body": "Bowie ISD explicitly lists Tyler Price as its current AD and football coach. Austin's different James Bowie school lists Jeff Ables; merging those coaching records would be a serious identity error. Paradise defeated Bowie 37–15 on October 16, leaving the Jackrabbits 4–4.",
+      "body": "Bowie ISD explicitly lists Tyler Price as its current AD and football coach. Austin's different James Bowie school lists Jeff Ables; merging those coaching records would be a serious identity error. Paradise defeated Bowie 37–15 on October 16, leaving the Jackrabbits 4–4. Bowie ISD also offers a dedicated official Event Tickets page linking to Hometown Ticketing for game admission; confirm individual-event availability, terms and prices with the district rather than assuming every game is sold out or online-only.",
       "sourceUrl": "https://www.bowieisd.net/o/bhs/page/bowie-high-school-athletics",
-      "sourceLabel": "School material plus explicitly qualified unresolved venue/staff/score claims",
+      "sourceLabel": "Bowie ISD first-party Athletics lists Tyler Price AD/head football coach; district Event Tickets page links Hometown Ticketing; visitor gate/ADA details remain unverified",
       "verifiedAt": "2026-10-17"
     },
     "season": {
@@ -4216,6 +4217,10 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "What about the October 16 Paradise result?",
         "answer": "The October 16 home game against Paradise ended in a reported 37–15 defeat, bringing Bowie to 4–4. The current MaxPreps Jackrabbits schedule includes the completed final."
+      },
+      {
+        "question": "Where can I buy Bowie Jackrabbits football tickets?",
+        "answer": "Montague County Bowie ISD maintains an official Event Tickets page at https://www.bowieisd.net/page/bowie-isd-tickets/ linking to Hometown Ticketing. Check availability and event terms with Bowie ISD. Do not confuse this with Austin, Arlington or another Bowie school; the district has not certified stadium vehicle gate, accessible parking or ticket prices in this source."
       }
     ],
     "coach": {
@@ -4598,7 +4603,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "notice": {
       "title": "Verified head coach and unresolved game-day details",
-      "body": "Boys Ranch ISD's official athletic directory expressly lists Louis Kelley as Head Football Coach, while its general staff listing only says HS/JH Coach. Dave Campbell's Texas Football May 16, 2023 hiring report identifies him as Louis Kelley III; a May 2026 Six-Man Football preview uses that suffix too. The school directory omits a suffix, and inconsistent MaxPreps Jr/II listings should not override the sourced III identification. Coach identity does not establish the current game-night entrance, admission rules or accessibility. The district office at River Road differs from the high-school address in sports directories; no football gate or accessible-seat certification is inferred.",
+      "body": "Boys Ranch ISD's official athletic directory expressly lists Louis Kelley as Head Football Coach, while its general staff listing only says HS/JH Coach. Dave Campbell's Texas Football May 16, 2023 hiring report identifies him as Louis Kelley III; a May 2026 Six-Man Football preview uses that suffix too. The school directory omits a suffix, and inconsistent MaxPreps Jr/II listings should not override the sourced III identification. Coach identity does not establish the current game-night entrance, admission rules or accessibility. The district office at River Road differs from the high-school address in sports directories; no football gate or accessible-seat certification is inferred. For game-day planning, Boys Ranch ISD Athletics publishes a document titled Varsity Football 2026 and a Tickets and Where to Watch section; check the school for any schedule or admission changes before traveling.",
       "sourceUrl": "https://www.boysranchisd.org/132207_2",
       "sourceLabel": "Boys Ranch ISD first-party Athletic Directory names Louis Kelley as Head Football Coach; venue and ticket limitations remain",
       "verifiedAt": "2026-10-17"
@@ -4719,7 +4724,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "answer": "The October 8 Wildorado result was an 82–24 Boys Ranch win."
       },
       {
-        "question": "Who is Boys Ranch\u0027s head football coach?",
+        "question": "Who is Boys Ranch's head football coach?",
         "answer": "Boys Ranch ISD officially lists Louis Kelley as head football coach without a suffix; Dave Campbell's Texas Football identifies the 2023 appointee as Louis Kelley III. This is specific coaching evidence, unlike an ambiguous third-party Jr/II roster. Confirm individual game-day arrangements with the district."
       },
       {
@@ -4733,6 +4738,10 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "Why is there no October 2 game at Miami in the 2026 results?",
         "answer": "An August 20 local preseason schedule listed Boys Ranch at Miami on October 2. On September 26 a Boys Ranch coaching account publicly sought a replacement Week 6 opponent; the later completed-team schedule lists neither a Miami final nor a verifiable replacement. The game status is unresolved, so it cannot be added as a win, loss, forfeit or assumed cancellation."
+      },
+      {
+        "question": "Where does Boys Ranch ISD publish its official 2026 varsity football schedule?",
+        "answer": "Boys Ranch ISD Athletics at https://www.boysranchisd.org/athletics-2 provides a document titled Varsity Football 2026 and a Tickets and Where to Watch BRISD Sports section. The district schedule is the source to recheck before traveling. No current event-specific ticket price, stadium vehicle gate or accessible parking is certified here."
       }
     ]
   },
