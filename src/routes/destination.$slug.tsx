@@ -71,8 +71,6 @@ const YoungCountyMuseumAuthority = lazy(() =>
 
 const DallasBlackHistoryAuthority = lazy(() => import("@/components/editorial/DallasBlackHistoryAuthority").then((m) => ({ default: m.DallasBlackHistoryAuthority })));
 const DavisHillAuthority = lazy(() => import("@/components/editorial/DavisHillAuthority"));
-const PRIMARY_EYEBROW = "eyebrow text-primary";
-const MUTED_EYEBROW = "eyebrow text-muted-foreground";
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
 function hasValidCoordinates(lat: number, lng: number) {
@@ -122,10 +120,10 @@ function countyRouteSlug(value?: string) {
 
 function destinationExperienceTitle(name: string, categoryName: string) {
   const category = categoryName.toLowerCase();
-  if (category.includes("outdoors") || category.includes("wildlife")) return `Exploring ${name}`;
-  if (category.includes("state park") || category.includes("natural area")) return `Visiting ${name}`;
-  if (category.includes("lake") || category.includes("river")) return `On the water at ${name}`;
-  if (category.includes("historic")) return `The story of ${name}`;
+  if (/outdoors|wildlife/.test(category)) return `Exploring ${name}`;
+  if (/state park|natural area/.test(category)) return `Visiting ${name}`;
+  if (/lake|river/.test(category)) return `On the water at ${name}`;
+  if (/historic/.test(category)) return `The story of ${name}`;
   return `What to know about ${name}`;
 }
 
@@ -143,9 +141,9 @@ const DESTINATION_EDITORIAL_SEO_TITLES: Readonly<Record<string,string>> = {
 
 function destinationSeoTitle(name: string, categoryName: string) {
   const category = categoryName.toLowerCase();
-  if (category.includes("state park") || category.includes("natural area")) return `${name} | Texas State Park Guide`;
-  if (category.includes("lake") || category.includes("river")) return `${name} | Texas Lake & River Guide`;
-  if (category.includes("historic")) return `${name} | Texas Historic Site Guide`;
+  if (/state park|natural area/.test(category)) return `${name} | Texas State Park Guide`;
+  if (/lake|river/.test(category)) return `${name} | Texas Lake & River Guide`;
+  if (/historic/.test(category)) return `${name} | Texas Historic Site Guide`;
   if (name.toLowerCase().includes("brewery")) return `${name}: Tours, Beers & Visitor Guide`;
   return `${name} | Texas Travel Guide`;
 }
@@ -274,7 +272,7 @@ const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(des
       scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@graph": [webPageSchema, attractionSchema, ...(relatedPlaces.length > 0 ? [relatedSchema] : []), ...(dallasHeritage ? [{ "@type": "FAQPage", "@id": `${url}#faq`, mainEntity: dallasHeritage.faqs.map((item) => ({ "@type": "Question", name: item.question, acceptedAnswer: { "@type": "Answer", text: item.answer } })) }] : []), ...(destination.slug === "franklin-mountains-state-park" && destination.visitorFaqs?.length ? [{ "@type": "FAQPage", "@id": `${url}#franklin-faq`, mainEntity: destination.visitorFaqs.map((item) => ({ "@type": "Question", name: item.question, acceptedAnswer: { "@type": "Answer", text: item.answer } })) }] : []), ...(destination.slug === "magoffin-home" && destination.visitorFaqs?.length ? [{ "@type": "FAQPage", "@id": `${url}#visitor-faq`, mainEntity: destination.visitorFaqs.map((item) => ({ "@type": "Question", name: item.question, acceptedAnswer: { "@type": "Answer", text: item.answer } })) }] : []), breadcrumbSchema] }) }],
     };
   },
-  notFoundComponent: () => <Container className="py-24"><p className={PRIMARY_EYEBROW}>Destination guide</p><h1 className="mt-3 font-display text-4xl">This place isn’t in our guide yet</h1><p className="mt-4 max-w-xl text-base leading-7 text-muted-foreground">Browse the places we have mapped in <Link to="/explore" className="border-b border-primary text-primary">Explore Texas</Link>.</p></Container>,
+  notFoundComponent: () => <Container className="py-24"><p className="eyebrow text-primary">Destination guide</p><h1 className="mt-3 font-display text-4xl">This place isn’t in our guide yet</h1><p className="mt-4 max-w-xl text-base leading-7 text-muted-foreground">Browse the places we have mapped in <Link to="/explore" className="border-b border-primary text-primary">Explore Texas</Link>.</p></Container>,
   component: DestinationPage,
 });
 
@@ -397,7 +395,7 @@ function DestinationPage() {
     {destination.slug === "magoffin-home" && destination.visitorFaqs?.length ? (
       <section id="visitor-faq" className="bg-surface py-10 sm:py-12" aria-labelledby="magoffin-visitor-faq-title">
         <Container>
-          <p className={PRIMARY_EYEBROW}>Restoration-aware questions</p>
+          <p className="eyebrow text-primary">Restoration-aware questions</p>
           <h2 id="magoffin-visitor-faq-title" className="mt-2 font-display text-3xl">Magoffin Home visitor FAQ</h2>
           <dl className="mt-6 grid gap-6 md:grid-cols-2">
             {destination.visitorFaqs.map((item) => <div key={item.question} className="border-t border-border pt-5">
@@ -432,7 +430,7 @@ function DestinationPage() {
             </figcaption>
           </figure>
           <div className="min-w-0">
-            <p className={PRIMARY_EYEBROW}>Inside the Dome Bar</p>
+            <p className="eyebrow text-primary">Inside the Dome Bar</p>
             <h2 id="hotel-paso-dome-photos" className="mt-3 font-display text-3xl leading-tight md:text-4xl">Two views of the historic stained-glass dome</h2>
             <p className="mt-4 text-base leading-7 text-foreground/90">
               The opening photo is a 2015 CC0 overhead view. This wider Library of Congress photograph, taken by Carol M. Highsmith in 2014, shows how the dome relates to the room's ornate interior. Both predate the hotel's 2020 restoration and should not be confused with current booking photographs.
@@ -452,13 +450,13 @@ function DestinationPage() {
     <Container className={isChokeCanyon ? "grid gap-8 py-12 lg:grid-cols-[minmax(0,1.65fr)_minmax(260px,.75fr)] lg:py-16" : "grid gap-10 py-12 lg:grid-cols-[minmax(0,1.65fr)_minmax(260px,.75fr)] lg:gap-12 lg:py-16"}>
       <div className="min-w-0">
         <section aria-labelledby="why-go" className="border-t border-border pt-8">
-          <p className={PRIMARY_EYEBROW}>The experience</p>
+          <p className="eyebrow text-primary">The experience</p>
           <h2 id="why-go" className="mt-3 font-display text-4xl leading-tight">{destinationExperienceTitle(destination.name, categoryName)}</h2>
           <div className="editorial-body mt-7 text-foreground/90">{destination.body.map((paragraph) => <p key={paragraph} className="mt-6 first:mt-0"><AutoEntityLinks text={paragraph} entities={graph} maxLinks={spend(4)} policy={destinationPolicy} /></p>)}</div>
         </section>
         {destination.gallery && destination.gallery.length > 0 && (
           <section aria-labelledby="destination-photo-archive" className="mt-12 border-t border-border pt-8">
-            <p className={PRIMARY_EYEBROW}>Documentary photographs</p>
+            <p className="eyebrow text-primary">Documentary photographs</p>
             <h2 id="destination-photo-archive" className="mt-3 font-display text-3xl">{isHotelPasoDelNorte ? "Hotel Paso del Norte: historic exterior and postcard" : destination.slug === "magoffin-home" ? "Magoffin family: historical portraits" : `Historical photographs of ${destination.name}`}</h2>
             <p className="mt-3 text-sm leading-6 text-muted-foreground">{destination.slug === "magoffin-home" ? "These public-domain nineteenth-century portraits document the family behind the adobe house. They do not depict current rooms or visitor access." : "Images are individually dated and licensed. Archival views do not establish current amenities, renovations or visitor access."}</p>
             <div className="mt-7 grid gap-6 sm:grid-cols-2">
@@ -477,21 +475,21 @@ function DestinationPage() {
         {dallasHeritage && <Suspense fallback={null}><DallasBlackHistoryAuthority slug={destination.slug} /></Suspense>}
         {(destination.category === "beaches-coast" || destination.slug === "galveston-island-state-park" || destination.slug === "goose-island-state-park") && <Suspense fallback={null}><CoastalBeachFieldGuide destinationSlug={destination.slug} /></Suspense>}
         <section aria-labelledby="before-you-go" className={isChokeCanyon ? "mt-10 border-t border-border pt-6" : "mt-16 border-t border-border pt-8"}>
-          <p className={PRIMARY_EYEBROW}>The details</p>
+          <p className="eyebrow text-primary">The details</p>
           <h2 id="before-you-go" className="mt-3 font-display text-3xl">Planning your visit</h2>
           <dl className="mt-8 grid border-y border-border sm:grid-cols-2">
-            <div className="border-b border-border py-5 sm:border-r sm:pr-6"><dt className={MUTED_EYEBROW}>Area</dt><dd className="mt-2 text-base"><AutoEntityLinks text={destination.nearestTown} entities={graph} maxLinks={spend(1)} policy={destinationPolicy} />, Texas</dd></div>
-            <div className="border-b border-border py-5 sm:pl-6"><dt className={MUTED_EYEBROW}>Best season</dt><dd className="mt-2 text-base">{destination.bestSeason}</dd></div>
-            {destination.county && <div className="border-b border-border py-5 sm:border-r sm:pr-6"><dt className={MUTED_EYEBROW}>{isChokeCanyon ? "Counties" : "County"}</dt><dd className="mt-2 text-base">{isChokeCanyon ? "McMullen County (Calliham) · Live Oak County (South Shore)" : countySlug ? <Link to="/$kind/$slug" params={{ kind: "county", slug: countySlug }} className="underline decoration-primary/40 underline-offset-4 hover:text-primary">{countyLabel}</Link> : countyLabel}</dd></div>}
-            {destination.address && <div className="border-b border-border py-5 sm:pl-6"><dt className={MUTED_EYEBROW}>Address</dt><dd className="mt-2 text-base">{destination.address}</dd></div>}
-            <div className="py-5 sm:col-span-2"><dt className={MUTED_EYEBROW}>Entry & reservations</dt><dd className="mt-2 text-base leading-7">{destination.entryNote}</dd></div>
-            {destination.accessibilityNotes && <div className="border-t border-border py-5 sm:col-span-2"><dt className={MUTED_EYEBROW}>Accessibility</dt><dd className="mt-2 text-base leading-7">{destination.accessibilityNotes}</dd></div>}
-            {destination.directions && <div className="border-t border-border py-5 sm:col-span-2"><dt className={MUTED_EYEBROW}>Getting there</dt><dd className="mt-2 text-base leading-7">{destination.directions}</dd></div>}
+            <div className="border-b border-border py-5 sm:border-r sm:pr-6"><dt className="eyebrow text-muted-foreground">Area</dt><dd className="mt-2 text-base"><AutoEntityLinks text={destination.nearestTown} entities={graph} maxLinks={spend(1)} policy={destinationPolicy} />, Texas</dd></div>
+            <div className="border-b border-border py-5 sm:pl-6"><dt className="eyebrow text-muted-foreground">Best season</dt><dd className="mt-2 text-base">{destination.bestSeason}</dd></div>
+            {destination.county && <div className="border-b border-border py-5 sm:border-r sm:pr-6"><dt className="eyebrow text-muted-foreground">{isChokeCanyon ? "Counties" : "County"}</dt><dd className="mt-2 text-base">{isChokeCanyon ? "McMullen County (Calliham) · Live Oak County (South Shore)" : countySlug ? <Link to="/$kind/$slug" params={{ kind: "county", slug: countySlug }} className="underline decoration-primary/40 underline-offset-4 hover:text-primary">{countyLabel}</Link> : countyLabel}</dd></div>}
+            {destination.address && <div className="border-b border-border py-5 sm:pl-6"><dt className="eyebrow text-muted-foreground">Address</dt><dd className="mt-2 text-base">{destination.address}</dd></div>}
+            <div className="py-5 sm:col-span-2"><dt className="eyebrow text-muted-foreground">Entry & reservations</dt><dd className="mt-2 text-base leading-7">{destination.entryNote}</dd></div>
+            {destination.accessibilityNotes && <div className="border-t border-border py-5 sm:col-span-2"><dt className="eyebrow text-muted-foreground">Accessibility</dt><dd className="mt-2 text-base leading-7">{destination.accessibilityNotes}</dd></div>}
+            {destination.directions && <div className="border-t border-border py-5 sm:col-span-2"><dt className="eyebrow text-muted-foreground">Getting there</dt><dd className="mt-2 text-base leading-7">{destination.directions}</dd></div>}
           </dl>
           <div className="mt-7 flex flex-wrap gap-6">{validExternalUrl(destination.reservationUrl) && <a href={destination.reservationUrl} target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-primary pb-1 text-primary">Reservations</a>}{validExternalUrl(destination.officialUrl) && <a href={destination.officialUrl} target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-primary pb-1 text-primary">Official visitor information</a>}{isChokeCanyon && <a href="https://tpwd.texas.gov/state-parks/choke-canyon/alert" target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-primary pb-1 text-primary">Current park alerts</a>}</div>
         </section>
         {authoritySourceLinks.length > 0 && destination.slug !== "magoffin-home" && <section aria-labelledby="destination-research-sources" className="mt-10 border-t border-border pt-8">
-          <p className={PRIMARY_EYEBROW}>{documentaryPhotoSource ? "Evidence and photo credits" : "Evidence and citations"}</p>
+          <p className="eyebrow text-primary">{documentaryPhotoSource ? "Evidence and photo credits" : "Evidence and citations"}</p>
           <h2 id="destination-research-sources" className="mt-3 font-display text-3xl">{documentaryPhotoSource ? "Research sources and image rights" : "Research sources"}</h2>
           <p className="mt-3 text-sm leading-6 text-muted-foreground">{documentaryPhotoSource ? "Read the original operator records, preservation research and documentary photography license for this guide." : "Read the original operator records and supporting research for this guide."}</p>
           <ul className="mt-6 grid gap-3 sm:grid-cols-2">
@@ -502,15 +500,15 @@ function DestinationPage() {
           </ul>
         </section>}
         {destination.slug === "magnolia-market-at-the-silos" && <section className="mt-10 border-t border-border pt-8" aria-label="Chip and Joanna Gaines history and Magnolia visitor guide">
-          <p className={PRIMARY_EYEBROW}>The people behind Magnolia</p>
+          <p className="eyebrow text-primary">The people behind Magnolia</p>
           <h2 className="mt-2 font-display text-3xl">Chip and Joanna Gaines: from Fixer Upper to the Silos</h2>
           <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Learn how the Baylor graduates built a Waco-based renovation, television, home and hospitality company, then plan the other Magnolia-related stops across town.</p>
           <Link to="/article/$slug" params={{ slug: "chip-and-joanna-gaines-magnolia-waco" }} className="mt-5 inline-block border-b border-primary pb-1 font-semibold text-primary">Read our Chip and Joanna Gaines authority guide →</Link>
         </section>}
         {destination.slug === "franklin-mountains-state-park" && <Suspense fallback={null}><FranklinMountainsAuthority /></Suspense>}
         {!isChokeCanyon && destination.slug !== "franklin-mountains-state-park" && destination.slug !== "magoffin-home" && <Suspense fallback={null}><DestinationViatorBooking destination={destination} /></Suspense>}
-        {DESTINATION_LAKE_GUIDE_LINKS[destination.slug] ? <section className="mt-10 border-t border-border pt-8" aria-label="Related lake fishing and recreation guide"><p className={PRIMARY_EYEBROW}>Explore this lake</p><h2 className="mt-3 font-display text-3xl">Fishing, boat ramps and lake conditions</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">This park is part of a larger lake trip. Our separate lake guide connects species, launch facilities, boating and nearby counties; confirm park admission, accessibility, overnight reservations and closures with the operator.</p><a href={`/fishing/lakes/${DESTINATION_LAKE_GUIDE_LINKS[destination.slug].slug}`} className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">{DESTINATION_LAKE_GUIDE_LINKS[destination.slug].name} visitor and fishing guide →</a></section> : null}
-        {destination.slug === "dallas-arboretum-and-botanical-garden" ? <section className="mt-10 border-t border-border pt-8"><p className={PRIMARY_EYEBROW}>Explore the lake next door</p><h2 className="mt-3 font-display text-3xl">White Rock Lake — fishing, paths and boating</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">The Arboretum overlooks White Rock Lake. The wider lake is a City of Dallas recreation area with fishing piers and boating restrictions; garden admission does not grant lake boat access or overnight camping. For launch locations, public park rules and lake history, use the dedicated lake guide.</p><a className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary" href="/fishing/lakes/white-rock-lake">Read the White Rock Lake visitor guide →</a></section> : null}
+        {DESTINATION_LAKE_GUIDE_LINKS[destination.slug] ? <section className="mt-10 border-t border-border pt-8" aria-label="Related lake fishing and recreation guide"><p className="eyebrow text-primary">Explore this lake</p><h2 className="mt-3 font-display text-3xl">Fishing, boat ramps and lake conditions</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">This park is part of a larger lake trip. Our separate lake guide connects species, launch facilities, boating and nearby counties; confirm park admission, accessibility, overnight reservations and closures with the operator.</p><a href={`/fishing/lakes/${DESTINATION_LAKE_GUIDE_LINKS[destination.slug].slug}`} className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">{DESTINATION_LAKE_GUIDE_LINKS[destination.slug].name} visitor and fishing guide →</a></section> : null}
+        {destination.slug === "dallas-arboretum-and-botanical-garden" ? <section className="mt-10 border-t border-border pt-8"><p className="eyebrow text-primary">Explore the lake next door</p><h2 className="mt-3 font-display text-3xl">White Rock Lake — fishing, paths and boating</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">The Arboretum overlooks White Rock Lake. The wider lake is a City of Dallas recreation area with fishing piers and boating restrictions; garden admission does not grant lake boat access or overnight camping. For launch locations, public park rules and lake history, use the dedicated lake guide.</p><a className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary" href="/fishing/lakes/white-rock-lake">Read the White Rock Lake visitor guide →</a></section> : null}
         {!isChokeCanyon && destination.slug !== "magoffin-home" && isPrimaryTripPlannerDestination(destination) && <div className="mt-10"><DestinationVisitPlanner destination={destination} /></div>}
         {/* Curated historical/non-primary records and the special Choke Canyon
             page do not mount the ordinary Trip Planner. Preserve their verified
@@ -533,10 +531,10 @@ function DestinationPage() {
       </div>
 
       <aside className={isChokeCanyon ? "space-y-6 lg:sticky lg:top-28 lg:self-start" : "space-y-8 lg:sticky lg:top-28 lg:self-start"}>
-        {isChokeCanyon && <div className="border-t-2 border-foreground pt-5"><p className={PRIMARY_EYEBROW}>Choose your unit</p><dl className="mt-5 divide-y divide-border text-sm"><div className="pb-4"><dt className="font-semibold">Calliham Unit</dt><dd className="mt-1 leading-6 text-muted-foreground">Park headquarters, camping, cabins and the broader set of developed facilities.</dd></div><div className="pt-4"><dt className="font-semibold">South Shore Unit</dt><dd className="mt-1 leading-6 text-muted-foreground">Separate day-use access for boating, fishing, birding and shoreline recreation.</dd></div></dl></div>}
+        {isChokeCanyon && <div className="border-t-2 border-foreground pt-5"><p className="eyebrow text-primary">Choose your unit</p><dl className="mt-5 divide-y divide-border text-sm"><div className="pb-4"><dt className="font-semibold">Calliham Unit</dt><dd className="mt-1 leading-6 text-muted-foreground">Park headquarters, camping, cabins and the broader set of developed facilities.</dd></div><div className="pt-4"><dt className="font-semibold">South Shore Unit</dt><dd className="mt-1 leading-6 text-muted-foreground">Separate day-use access for boating, fishing, birding and shoreline recreation.</dd></div></dl></div>}
         <MapPreview markers={mapMarkers} directionsLabel={isChokeCanyon ? "Choke Canyon State Park — Calliham Unit, Texas" : `${destination.name}, Texas`} />
         {!isChokeCanyon && <Suspense fallback={null}><CityPassContextualCallout surface="destination" slug={destination.slug} placement="rail" /></Suspense>}
-        {(validExternalUrl(destination.officialUrl) || verifiedLabel) && <div className="border-t border-border pt-5 text-sm"><p className={MUTED_EYEBROW}>Official information</p>{verifiedLabel && <p className="mt-3 leading-6 text-muted-foreground">Visitor details last reviewed {verifiedLabel}.</p>}{validExternalUrl(destination.officialUrl) && <a href={destination.officialUrl} target="_blank" rel="noreferrer noopener" className="eyebrow mt-4 inline-block border-b border-primary pb-1 text-primary">Official source</a>}</div>}
+        {(validExternalUrl(destination.officialUrl) || verifiedLabel) && <div className="border-t border-border pt-5 text-sm"><p className="eyebrow text-muted-foreground">Official information</p>{verifiedLabel && <p className="mt-3 leading-6 text-muted-foreground">Visitor details last reviewed {verifiedLabel}.</p>}{validExternalUrl(destination.officialUrl) && <a href={destination.officialUrl} target="_blank" rel="noreferrer noopener" className="eyebrow mt-4 inline-block border-b border-primary pb-1 text-primary">Official source</a>}</div>}
       </aside>
     </Container>
 
