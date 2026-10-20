@@ -1,5 +1,14 @@
 # Football Authority — Execution Ledger
 
+## October 20, 2026 — Batch 006 Blackwell / Blanco / Blanket acceptance-ledger reconciliation
+Rechecked the next three active Batch 006 schools after Big Sandy Harmony, Big Spring and Bishop against current first-party sources and the successful single-release production Chrome run #39273758531.
+
+- **Blackwell:** Blackwell CISD still lists Clint Linman as athletic director while its football staff page does not independently label a varsity head coach; retain the separately dated KLST 2026 hire/preseason reporting for Linman's head-football role. No first-party entrance/parking/ADA/photo-rights evidence found. Keep the 6–2 through Oct. 16 record and unresolved Santa Anna score discrepancy.
+- **Blanco:** Blanco ISD Athletics still confirms Kent Walker as athletic director, Panther Stadium at 604 Terri Lane and online-only Home Town tickets. The district page itself still does not label Walker head football coach, so preserve the separate 2026 team-staff attribution. No new first-party entrance/parking/ADA/photo-rights evidence found. Keep the 5–3 through Oct. 16 record.
+- **Blanket:** Blanket ISD's current High School Sports page explicitly identifies **Jalen Helms as High School Head Football**, upgrading the coaching claim to first-party school confirmation. The same page does not establish stadium entrance/parking/ADA details or reusable football photography rights. Preserve the seven played results through Oct. 8 and the separately sourced Priddy-season cancellation handling.
+
+No school is promoted: registry remains **105 VERIFIED / 25 Batch006 DEPLOYED / 1,162 NOT_REVIEWED** with **0/25 Batch006 individually VERIFIED**. The completed technical Chrome evidence remains valid; final nine-dimension human editorial/accessibility/media-rights acceptance is still required before status promotion.
+
 ## October 20, 2026 — Rivercrest 2026 coaching identity resolved with dated staff and AFCA career evidence
 The last school-specific unpopulated current-coach field among the 25 Batch 006 guides was **Bogata Rivercrest**. Its [August 29, 2026 MaxPreps varsity staff roster](https://www.maxpreps.com/tx/bogata/rivercrest-rebels/football/staff/) names **Laytner Kennedy head football coach**, while [Rivercrest High's first-party directory](https://www.rivercrestisd.net/o/rhs/staff?page_no=2) separately lists Kennedy **boys athletic director** (903-632-5204). The competing 2026 [MaxPreps football history](https://www.maxpreps.com/tx/bogata/rivercrest-rebels/football/history/) erroneously retains former coach **Travis McClain**. [The AFCA's October 8, 2026 original head-coach profile](https://www.afca.com/travis-mcclain-head-coach-mount-vernon-hs-tx/) verifies McClain left Rivercrest in **January 2025** for Mount Vernon, making his supposed 2026 Rivercrest designation stale rather than a valid conflicting current assignment.
 
