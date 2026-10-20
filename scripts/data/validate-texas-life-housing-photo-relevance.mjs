@@ -17,7 +17,7 @@ const expectations = [
   ["texas-closing-costs-guide", "homeClosingHero", ["finance","lazy"], "Close-up_of_the_key_with_house_keychain.jpg"],
   ["texas-mortgage-payment-guide", "mortgageFinancingHero", ["finance3","lazy"], "Property_Contract_Law_and_Mortgages.jpg"],
   ["texas-home-equity-heloc-guide", "homeEquityHero", ["finance3","lazy"], ""],
-  ["texas-rural-wells-water-guide", "privateWellEquipmentHero", ["wellStub","wellArticle"], "The_Well_(4679680189).jpg"],
+  ["texas-rural-wells-water-guide", "privateWellEquipmentHero", ["wellStub","wellArticle"], "Drilling_livestock_water_well_on_Walking_M_Ranch_in_Baylor_County,_Seymour,_Texas._(24490553073).jpg"],
 ];
 const fail = [];
 const images = new Map();
