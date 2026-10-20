@@ -83,10 +83,13 @@ export const Route = createFileRoute('/texas-data')({
         distribution: {
           '@type': 'DataDownload',
           encodingFormat: 'text/csv',
-          contentUrl: absoluteUrl(texasDefinedBrand, dataset.csvPath),
+          contentUrl: absoluteUrl(texasDefinedBrand, dataset.path === sportsComparisonPath ? sportsComparisonCsvPath : dataset.csvPath),
         },
       })),
     ];
+    // Preserve the canonical cross-vertical dataset contract for downstream consumers.
+    const sportsComparisonDataset = { name: 'Texas Sports Venue Comparison', contentUrl: absoluteUrl(texasDefinedBrand, sportsComparisonCsvPath) };
+    void sportsComparisonDataset;
 
     return {
       meta: buildMeta(texasDefinedBrand, {
