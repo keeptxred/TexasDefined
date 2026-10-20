@@ -1217,6 +1217,16 @@ if (!errors.length) {
     'Classification is not a quality ranking.',
   ]) requireText(footballProfileContent, marker, 'Football profile answer layer');
   for (const marker of [
+    'That enrollment falls outside the normal published cutoff for',
+    'the final UIL football alignment controls competition placement.',
+    'The current cited coaching source used by TexasDefined lists',
+    'Use the cited ${editorial.schedule.label} linked on this page',
+  ]) requireText(footballProfileContent, marker, 'Football profile source-policy copy');
+  for (const retired of [
+    'The current school-source entry used by TexasDefined lists',
+    'Use the school-published ${editorial.schedule.label} linked on this page',
+  ]) forbidText(footballProfileContent, retired, 'Football profile source-policy copy');
+  for (const marker of [
     'profileSummary: buildFootballProfileSummary',
     'quickFacts: buildFootballProfileQuickFacts',
     'faq: buildFootballProfileFaq',
