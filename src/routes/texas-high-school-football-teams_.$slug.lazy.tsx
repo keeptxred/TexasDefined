@@ -887,19 +887,19 @@ function ReportedFormIllustration({
   // be presented as a result. Score disputes remain visible as written.
   const finals = games.filter((game) => /^[WLT] /.test(game.result || ''));
   if (finals.length === 0) return null;
-  return <figure className="mt-6 min-w-0 border border-border bg-surface p-4 sm:p-6" aria-label={schoolName + ': dated visual timeline of reported 2026 football finals'}>
+  return <figure className="mt-6 border border-border bg-surface p-4 sm:p-6" aria-label={schoolName + ': dated visual timeline of reported 2026 football finals'}>
     <figcaption className="mb-4">
-      <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">2026 results · visual snapshot</span>
+      <span className="text-xs font-semibold uppercase text-muted-foreground">2026 results · visual snapshot</span>
       <p className="mt-2 font-display text-xl font-semibold text-surface-foreground">The games behind the record</p>
       <p className="mt-1 text-xs leading-5 text-muted-foreground">Original TexasDefined source-derived graphic. W = win, L = loss, T = tie. Not a live scoreboard or certified district standings.</p>
     </figcaption>
-    <ol className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
+    <ol className="grid grid-cols-2 gap-3 sm:grid-cols-3">
       {finals.map((game) => {
         const outcome = game.result?.[0] || '';
         const label = outcome === 'W' ? 'Win' : outcome === 'L' ? 'Loss' : 'Tie';
-        return <li key={game.date + '-' + game.opponent} className="min-w-0 border border-border border-l-4 bg-background p-2.5" style={{ borderLeftColor: accent }} aria-label={game.date + ', ' + label + ' against ' + game.opponent + ', ' + game.result}>
-          <div className="flex items-baseline justify-between gap-1">
-            <span className="font-display text-2xl font-bold text-foreground">{outcome}</span>
+        return <li key={game.date + '-' + game.opponent} className="min-w-0 border border-border border-l-4 bg-background p-2" style={{ borderLeftColor: accent }} aria-label={game.date + ', ' + label + ' against ' + game.opponent + ', ' + game.result}>
+          <div className="flex items-center justify-between gap-1">
+            <span className="font-display text-2xl font-semibold text-foreground">{outcome}</span>
             <span className="text-xs font-semibold text-muted-foreground">{game.date.slice(5)}</span>
           </div>
           <p className="mt-1 break-words text-xs font-semibold leading-5 text-foreground">{game.opponent}</p>
