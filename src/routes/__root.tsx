@@ -23,7 +23,7 @@ const ErrorScreen = lazy(() => import("@/components/RouteStatusScreens").then((m
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const defaultSocialImage = absoluteUrl(texasDefinedBrand, heroHillCountry);
-const defaultSocialImageAlt = "Texas Hill Country landscape at golden hour";
+const defaultSocialImageAlt = "Texas Hill Country at golden hour";
 const iconVersion = "20261010";
 const googleTagManagerId = "GTM-5DK7GCGV";
 const googleTagManagerHosts = JSON.stringify(TEXASDEFINED_ANALYTICS_HOSTS);
@@ -32,7 +32,7 @@ function GoogleTagManagerHead() {
   return (
     <script
       dangerouslySetInnerHTML={{
-        __html: `(function(w,d,h){var n=w.navigator||{};if(n.webdriver===true||/HeadlessChrome|Lighthouse|PageSpeed|TexasDefined-[^ ]*Smoke/i.test(n.userAgent||'')||!h.includes(w.location.hostname.toLowerCase()))return;w.dataLayer=w.dataLayer||[];w.dataLayer.push({'gtm.start':Date.now(),event:'gtm.js'});var j=d.createElement('script');j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id=${googleTagManagerId}';d.head.appendChild(j);})(window,document,${googleTagManagerHosts});`,
+        __html: `(function(w,d,h){var n=w.navigator;if(n.webdriver===true||/HeadlessChrome|Lighthouse|PageSpeed|TexasDefined-[^ ]*Smoke/i.test(n.userAgent)||!h.includes(w.location.hostname.toLowerCase()))return;(w.dataLayer||=[]).push({'gtm.start':Date.now(),event:'gtm.js'});d.head.appendChild(d.createElement('script')).src='https://www.googletagmanager.com/gtm.js?id=${googleTagManagerId}';})(window,document,${googleTagManagerHosts});`,
       }}
     />
   );
@@ -115,12 +115,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
             sameAs: texasDefinedBrand.identity.social.map((profile) => profile.href),
             contactPoint: [{
               "@type": "ContactPoint",
-              contactType: "editorial, corrections and general inquiries",
+              contactType: "Editorial inquiries and corrections",
               url: `${siteUrl}/partner-with-us`,
             }],
             publishingPrinciples: `${siteUrl}/editorial-policy`,
             areaServed: { "@type": "State", name: "Texas" },
-            knowsAbout: ["Texas travel", "Texas destinations", "Texas lifestyle", "Texas homes", "Texas property", "Texas history", "Texas heritage", "Texas events", "Texas sports", "Texas sports venues", "Texas fishing", "Texas fishing lakes", "Texas freshwater fish"],
+            knowsAbout: ["Texas travel", "Texas lifestyle", "Texas homes", "Texas property", "Texas history", "Texas heritage", "Texas events", "Texas sports", "Texas sports venues", "Texas fishing", "Texas fishing lakes"],
           },
           {
             "@type": "WebSite",

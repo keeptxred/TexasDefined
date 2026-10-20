@@ -31,6 +31,19 @@ for (const needle of [
 }
 
 const errors = [];
+// The Magnolia/Waco authority page must not send visitors to generic partner
+// homepages or a Canadian-dollar rental catalogue.
+for (const needle of [
+  'const isMagnoliaWacoGuide',
+  '"Hotel 1928", "Hilton Waco", "Courtyard by Marriott Waco"',
+  'https://www.vrbo.com/vacation-rentals/usa/texas/waco/waco-convention-center',
+  'Browse rentals near Waco Convention Center on Vrbo',
+]) {
+  if (!source.includes(needle)) errors.push('Magnolia Waco lodging destination guard missing: ' + needle);
+}
+if (source.includes('https://www.vrbo.com/en-ca/vacation-rentals/united-states/texas/mclennan-county/waco')) {
+  errors.push('Magnolia Waco Vrbo link must use a US-localized Waco destination, not the Canadian-dollar catalogue.');
+}
 if (!casinoHub.includes('data-stay-nearby-slot') || !casinoGuide.includes('data-stay-nearby-slot')) {
   errors.push('Casino travel routes must reuse the first-party Stay Nearby placement slot.');
 }

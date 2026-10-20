@@ -16,6 +16,8 @@ const surfaces = [
   ['gaines-magnolia-faq-answer', '/article/chip-and-joanna-gaines-magnolia-waco', 'Their Magnolia business is headquartered in Waco, Texas.'],
   ['gaines-magnolia-visit-plan', '/article/chip-and-joanna-gaines-magnolia-waco', 'Plan a Chip-and-Joanna-inspired day in Waco'],
   ['gaines-magnolia-viator', '/article/chip-and-joanna-gaines-magnolia-waco', 'Guided tours and Magnolia-related experiences'],
+  ['gaines-magnolia-viator-waco-tour', '/article/chip-and-joanna-gaines-magnolia-waco', 'See guided Fixer Upper homes tour in Waco'],
+  ['gaines-magnolia-viator-dallas-tour', '/article/chip-and-joanna-gaines-magnolia-waco', 'See Dallas-to-Magnolia private day tour'],
   ['gaines-magnolia-affiliate-disclosure', '/article/chip-and-joanna-gaines-magnolia-waco', 'Affiliate disclosure: TexasDefined may earn a commission on qualifying Viator bookings'],
   ['gaines-magnolia-hotels', '/article/chip-and-joanna-gaines-magnolia-waco', 'data-stay-nearby-slot'],
   ['gaines-magnolia-silos-reciprocal', '/destination/magnolia-market-at-the-silos', 'Read our Chip and Joanna Gaines authority guide'],
