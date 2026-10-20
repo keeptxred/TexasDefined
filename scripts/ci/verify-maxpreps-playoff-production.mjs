@@ -145,10 +145,43 @@ async function checkViewport(name, viewport) {
     const embeddedFrame = providerFrames.find(frame => /maxpreps\.com/i.test(frame.url));
     expect(!!embeddedFrame, 'Official widget never navigated to a MaxPreps frame');
     expect(!!embeddedFrame?.documentInfo && !('error' in embeddedFrame.documentInfo), 'Cannot inspect provider widget document');
-    expect((embeddedFrame?.documentInfo?.htmlLength || 0) > 200, 'MaxPreps widget frame is blank, not a rendered bracket');
+    expect((embeddedFrame?.documentInfo?.htmlLength || 0) > 200, 'MaxPreps widget frame has no HTML content');
+    // Nonempty DOM does not guarantee a painted iframe. Capture the iframe
+    // itself and the widget's computed visibility, not just its host region.
+    const providerFrame = page.frames().find(frame => /maxpreps\\.com\/widgets\/tournament\\.aspx/i.test(frame.url()));
+    const frameVisuals = providerFrame ? await providerFrame.evaluate(() => {
+      const body = document.body;
+      const main = document.querySelector('h1, h2, main, .bracket, .tournament');
+      const style = body ? getComputedStyle(body) : null;
+      const mainStyle = main ? getComputedStyle(main) : null;
+      return {
+        bodyDisplay: style?.display,
+        bodyVisibility: style?.visibility,
+        bodyOpacity: style?.opacity,
+        bodyBackground: style?.backgroundColor,
+        mainText: (main?.textContent || '').slice(0, 150),
+        mainDisplay: mainStyle?.display,
+        mainVisibility: mainStyle?.visibility,
+        bodyRect: body?.getBoundingClientRect().toJSON(),
+        mainRect: main?.getBoundingClientRect().toJSON(),
+        bodyScrollHeight: body?.scrollHeight,
+        bodyScrollWidth: body?.scrollWidth,
+      };
+    }) : null;
+    if (providerFrame) {
+      try {
+        await providerFrame.locator('body').screenshot({
+          path: `${output}/maxpreps-provider-frame-${name}.png`,
+          timeout: 20000,
+        });
+      } catch (error) {
+        browserErrors.push('provider-frame-screenshot: ' + String(error).slice(0, 300));
+      }
+    }
+
     const screenshot = `${output}/maxpreps-playoffs-${name}.png`;
     await page.screenshot({ path: screenshot, fullPage: true, animations: 'disabled', timeout: 30000 });
-    results.push({ name, status: errors.length ? 'FAIL' : 'PASS', errors, providerResponse, first: { ...first, htmlSnippet: first.htmlSnippet.slice(0, 700) }, second, fallback, after, providerFrames, providerRequests: providerRequests.slice(-15), requestErrors, browserErrors, screenshot });
+    results.push({ name, status: errors.length ? 'FAIL' : 'PASS', errors, providerResponse, first: { ...first, htmlSnippet: first.htmlSnippet.slice(0, 700) }, second, fallback, after, providerFrames, frameVisuals, providerRequests: providerRequests.slice(-15), requestErrors, browserErrors, screenshot });
     console.log('MaxPreps playoff widget QA: ' + JSON.stringify(results.at(-1)));
     failures.push(...errors.map(error => `${name}: ${error}`));
   } catch (error) {
