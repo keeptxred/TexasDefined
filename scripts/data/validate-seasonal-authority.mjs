@@ -5,6 +5,8 @@ const authority = read("src/data/fixtures/seasonal-authority-articles.ts");
 const intents = read("src/data/fixtures/seasonal-intent-articles.ts");
 const authorityLazy = read("src/data/fixtures/lazy-seasonal-authority.ts");
 const intentLazy = read("src/data/fixtures/lazy-seasonal-intents.ts");
+const hillCountryFallHero = read("src/data/fixtures/hill-country-fall-colors-hero.ts");
+const articleRoute = read("src/routes/article.$slug.tsx");
 const links = read("src/data/fixtures/seasonal-authority-links.ts");
 const countyRegistry = read("src/data/county-seasonal-links.ts");
 const countyLegacyLinks = read("src/data/fixtures/seasonal-county-links.ts");
@@ -35,6 +37,19 @@ for (const [group, slugs] of Object.entries(groups)) {
     if (!lazySource.includes(`slug: \"${slug}\"`)) fail(`${group}: missing discovery stub ${slug}`);
     if (!links.includes(`\"${slug}\"`)) fail(`${group}: missing reciprocal authority-link entry ${slug}`);
   }
+}
+
+// Protect the Hill Country fall guide from accidentally reusing a green park photo.
+// Both list/discovery and the full article must share the same verified autumn hero.
+for (const [name, source] of [["full article", intents], ["discovery stub", intentLazy]]) {
+  if (!source.includes('hero: hillCountryFallColorsHero')) fail(`Hill Country fall ${name} must use the verified autumn hero`);
+  if (!source.includes('import { hillCountryFallColorsHero } from "./hill-country-fall-colors-hero"')) fail(`Hill Country fall ${name} missing shared photo import`);
+}
+for (const marker of ["The_Lost_Maples_State_Park_-_Fall_Colors_in_Texas", "Golden-orange and rust-red autumn", "G. Lamar", "24 Nov 2012", "CC BY 2.0"]) {
+  if (!hillCountryFallHero.includes(marker) && !hillCountryFallHero.includes(marker.toLowerCase())) fail(`Hill Country autumn hero missing ${marker}`);
+}
+for (const marker of ["Hero photo: G. Lamar, November 2012", "creativecommons.org/licenses/by/2.0", "not a verified report of current foliage"]) {
+  if (!articleRoute.includes(marker)) fail(`Hill Country hero credit or historical caveat missing: ${marker}`);
 }
 
 for (const [from, to] of Object.entries(retiredSeasonalRedirects)) {
