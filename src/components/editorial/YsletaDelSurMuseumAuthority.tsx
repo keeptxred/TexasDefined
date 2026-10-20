@@ -64,7 +64,7 @@ export default function YsletaDelSurMuseumAuthority() {
     </Container>
 
     <section className="relative mt-5 isolate overflow-hidden bg-ink text-ink-foreground">
-      <img src={YSLETA_CULTURAL_CENTER_MURAL.src} width={YSLETA_CULTURAL_CENTER_MURAL.width} height={YSLETA_CULTURAL_CENTER_MURAL.height} fetchPriority="high" decoding="async" alt={YSLETA_CULTURAL_CENTER_MURAL.alt} className="absolute inset-0 h-full w-full object-cover object-[center_38%] opacity-70" />
+      <img src={YSLETA_CULTURAL_CENTER_MURAL.src} width={YSLETA_CULTURAL_CENTER_MURAL.width} height={YSLETA_CULTURAL_CENTER_MURAL.height} fetchPriority="high" decoding="async" alt={YSLETA_CULTURAL_CENTER_MURAL.alt} className="absolute inset-0 h-full w-full object-cover object-center opacity-70" />
       <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/15" />
       <Container className="relative flex flex-col justify-end pb-12 pt-24" style={{ minHeight: "clamp(26rem, 54vw, 35rem)" }}>
         <p className="eyebrow text-ink-foreground/85">El Paso · Indigenous Texas · Tribal museum</p>
