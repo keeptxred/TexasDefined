@@ -73,7 +73,7 @@ export const Route = createFileRoute('/texas-data')({
         creator: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#organization` },
         isBasedOn: dataset.sourceUrl,
       })),
-      ...featuredDataProducts.map((dataset) => ({
+      ...featuredDataProducts.filter((dataset) => dataset.path !== sportsComparisonPath).map((dataset) => ({
         '@type': 'Dataset',
         '@id': `${absoluteUrl(texasDefinedBrand, dataset.path)}#dataset`,
         name: dataset.title,
@@ -87,6 +87,12 @@ export const Route = createFileRoute('/texas-data')({
           contentUrl: absoluteUrl(texasDefinedBrand, dataset.path === sportsComparisonPath ? sportsComparisonCsvPath : dataset.csvPath),
         },
       })),
+      {
+        '@type': 'Dataset',
+        name: 'Texas Sports Venue Comparison',
+        url: absoluteUrl(texasDefinedBrand, sportsComparisonPath),
+        distribution: { '@type': 'DataDownload', encodingFormat: 'text/csv', contentUrl: absoluteUrl(texasDefinedBrand, sportsComparisonCsvPath) },
+      },
     ];
     return {
       meta: buildMeta(texasDefinedBrand, {
