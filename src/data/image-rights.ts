@@ -6,7 +6,7 @@ export const imageRightsFor = (src: string) => {
   if (!photo) return null;
   const name = photo === 1 ? "G. Lamar" : "Larry D. Moore";
   const filename = photo === 3 ? "Guadalupe_river_state_park_bluff.jpg"
-    : decodeURIComponent(src.slice(src.lastIndexOf("/") + 1).replace(/^\\d+px-/, ""));
+    : decodeURIComponent(src.slice(src.lastIndexOf("/") + 1).replace(/^\d+px-/, ""));
   return {
     license: `https://creativecommons.org/licenses/by/${photo === 1 ? 2 : 4}.0/`,
     creator: { "@type": "Person", name },
