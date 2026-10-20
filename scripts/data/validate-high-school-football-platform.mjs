@@ -1030,7 +1030,7 @@ if (!errors.length) {
 
   for (const marker of [
     "createLazyFileRoute('/texas-high-school-football-teams/$slug')",
-    'How to enroll at',
+    'School enrollment and football eligibility',
     'Official district enrollment',
     '((program && enrollmentLink) || (!program && privateAdmissions))',
     'District enrollment source last reviewed',
@@ -1039,7 +1039,7 @@ if (!errors.length) {
     'Start with {enrollmentLink.sourceLabel} ↗',
     'Mascot & identity',
     'All-time UIL state-final record',
-    'Freshman, JV and varsity path',
+    'Use the district’s current registration process',
     'Football eligibility is a separate question from school admission.',
     'UIL eligibility standards ↗',
     'UIL detailed eligibility rules ↗',
@@ -1062,6 +1062,8 @@ if (!errors.length) {
     'districtPath',
     '/article/texas-high-school-football-scores-schedules',
     'Current scores & schedules',
+    'Live scores & schedule links',
+    'TexasDefined does not publish an unverified team-specific schedule.',
     'UIL Texas Scoreboard gateway ↗',
     'it is not an official district-standings table',
     'UIL enrollment band',
@@ -1078,6 +1080,11 @@ if (!errors.length) {
     'faq',
   ]) requireText(featuredProfilePage, marker, 'Football school profile page');
   for (const forbidden of [
+    'Research beyond the score',
+    'What families should check next',
+    'Freshman, JV and varsity path',
+    '2026 schedule & results sources',
+    'TexasDefined does not publish a team-specific schedule here unless',
     'All ${program.districtName} football programs →',
     'TEA directory match pending',
     'Exact UIL enrollment pending',
