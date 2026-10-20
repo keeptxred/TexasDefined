@@ -1,24 +1,11 @@
-import roadTrip from "@/assets/road-trip.jpg";
-import smallTown from "@/assets/small-town.jpg";
+import { houstonCommuterHero, dallasCommuterHero, propertyTaxHero, corporateRelocationHero, employeeRelocationHero } from "./relocation-remaining-media";
 import type { Article, ArticleBlock } from "../types";
 
 const p = (text: string): ArticleBlock => ({ type: "paragraph", text });
 const h = (text: string): ArticleBlock => ({ type: "heading", text });
 const list = (...items: string[]): ArticleBlock => ({ type: "list", items });
 
-const moveHero: Article["hero"] = {
-  src: roadTrip,
-  alt: "A Texas highway leading toward a new city and a new home",
-  width: 1600,
-  height: 1067,
-};
 
-const suburbHero: Article["hero"] = {
-  src: smallTown,
-  alt: "A Texas community with homes, streets and a downtown district",
-  width: 1600,
-  height: 1067,
-};
 
 const base = (
   record: Omit<Article, "id" | "brandId" | "authorId" | "relatedCollections" | "relatedDestinations">,
@@ -38,7 +25,7 @@ const houstonCommuters = base({
   dek: "A practical Houston-area shortlist organized around the job corridor, transit option and daily trip—not a generic ranking of suburbs.",
   category: "moving-to-texas",
   region: "gulf-coast",
-  hero: suburbHero,
+  hero: houstonCommuterHero,
   publishedAt: "2026-09-29",
   readingMinutes: 8,
   tags: ["houston", "suburbs", "commuting", "relocation", "moving to texas"],
@@ -94,7 +81,7 @@ const dallasCommuters = base({
   dek: "A Dallas-area commuter guide built around the actual workplace, rail and road corridor, toll exposure and household budget instead of a one-size-fits-all suburb ranking.",
   category: "moving-to-texas",
   region: "prairies-lakes",
-  hero: suburbHero,
+  hero: dallasCommuterHero,
   publishedAt: "2026-09-29",
   readingMinutes: 8,
   tags: ["dallas", "dfw", "suburbs", "commuting", "relocation"],
@@ -149,7 +136,7 @@ const propertyTaxes = base({
   title: "Texas Property Taxes for New Residents",
   dek: "How Texas property taxes, appraisal districts, taxing units and homestead exemptions fit together when you buy a home after moving to the state.",
   category: "moving-to-texas",
-  hero: moveHero,
+  hero: propertyTaxHero,
   publishedAt: "2026-09-29",
   readingMinutes: 8,
   tags: ["property taxes", "homestead exemption", "homebuyer", "relocation", "moving to texas"],
@@ -201,7 +188,7 @@ const corporateRelocation = base({
   title: "Corporate Relocation to Texas: Employer & Site-Selection Guide",
   dek: "A practical Texas corporate-relocation framework for employers evaluating sites, workforce, registration, taxes, employee transition and household logistics.",
   category: "moving-to-texas",
-  hero: moveHero,
+  hero: corporateRelocationHero,
   publishedAt: "2026-09-29",
   readingMinutes: 9,
   tags: ["corporate relocation", "business", "workforce", "site selection", "texas economy"],
@@ -259,7 +246,7 @@ const employeeRelocation = base({
   title: "Employee Relocation Guide to Texas",
   dek: "A practical employee transfer guide for Texas: relocation benefits, housing, commute, taxes, utilities, vehicle registration, driver licensing and first-month tasks.",
   category: "moving-to-texas",
-  hero: moveHero,
+  hero: employeeRelocationHero,
   publishedAt: "2026-09-29",
   readingMinutes: 9,
   tags: ["employee relocation", "moving to texas", "corporate relocation", "new resident", "relocation benefits"],
