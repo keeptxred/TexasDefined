@@ -6396,6 +6396,89 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "reviewCycle": "monthly",
       "reviewed": "2026-10-13"
     }
-  ]
+  ],
+  "yoakum-heritage-museum": [
+    {
+      "question": "Where is Yoakum Heritage Museum, and is it in Yoakum County?",
+      "answer": "The museum is at 312 Simpson Street in the city of Yoakum, Lavaca County, TX 77995. The city extends into neighboring DeWitt County; the unrelated Yoakum County Heritage and Art Museum is in Plains in the South Plains region.",
+      "verificationUrl": "https://atlas.thc.texas.gov/Details/4200000614",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://texastimetravel.com/directory/yoakum-heritage-museum-tour/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-20"
+    },
+    {
+      "question": "What are the currently published Yoakum Heritage Museum hours?",
+      "answer": "The Texas Historical Commission's last published museum listing gives Sunday, Tuesday and Thursday 1–4 p.m. and Friday 10 a.m.–4 p.m. That listing was last updated August 8, 2021, so it does not establish today's hours or special holiday openings. Call 361-293-7022 before a trip.",
+      "verificationUrl": "https://atlas.thc.texas.gov/Details/4200000614",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://atlas.thc.texas.gov/Details/4200000614",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-20"
+    },
+    {
+      "question": "Is Yoakum Heritage Museum free or donation-based?",
+      "answer": "The current state directory does not independently verify an admission price, discount or donation policy. Older local sources discuss free admission, but that is historical information, not a promise about 2026. Ask museum staff what a visitor should expect to pay or donate.",
+      "verificationUrl": "https://atlas.thc.texas.gov/Details/4200000614",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://texashistory.unt.edu/ark:/67531/metapth880869/m1/34/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-20"
+    },
+    {
+      "question": "Does Yoakum Heritage Museum have railroad and saddle exhibits?",
+      "answer": "Yes. Texas Time Travel describes San Antonio and Aransas Pass Railway photographs and memorabilia, the Leather Room, and hand-tooled saddles and other local leather goods. Specific objects or rooms may be temporarily off view, so ask ahead about particular interests.",
+      "verificationUrl": "https://texastimetravel.com/directory/yoakum-heritage-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://texastimetravel.com/directory/yoakum-heritage-museum/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-20"
+    },
+    {
+      "question": "Why is the museum located in the Elkins-Browning house?",
+      "answer": "A local centennial history records a community museum charter in January 1982 and a separate house donation by Mary Bell Browning on December 1, 1986. The former J. K. Elkins home had been rebuilt around 1912, and its architecture is part of the historical experience.",
+      "verificationUrl": "https://texashistory.unt.edu/ark:/67531/metapth880869/m1/34/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://texashistory.unt.edu/ark:/67531/metapth880869/m1/34/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-20"
+    },
+    {
+      "question": "Can wheelchair users reach the upper exhibits in the historic house?",
+      "answer": "The building is a multi-story historic home, and we could not independently verify the museum's current accessible entrance, stair-lift operation or gallery-level accessibility policies. Contact the museum directly with the needs of your group rather than assuming step-free access.",
+      "verificationUrl": "https://atlas.thc.texas.gov/Details/4200000614",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://texastimetravel.com/directory/yoakum-heritage-museum-tour/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-20"
+    },
+    {
+      "question": "Is the Christmas Tree Forest open at Yoakum Heritage Museum this year?",
+      "answer": "The museum has been described as hosting a Christmas Tree Forest, but independently verified dates, admission terms and current 2026 exhibit details were not available from the primary sources reviewed. Check the museum-managed announcements or call before making a holiday visit.",
+      "verificationUrl": "https://atlas.thc.texas.gov/Details/4200000614",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://atlas.thc.texas.gov/Details/4200000614",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-20"
+    },
+    {
+      "question": "How long should families or school groups plan for a visit?",
+      "answer": "Allow around 45–90 minutes as an editorial estimate for the railroad, leather, military and house-history themes. School groups and visitors requesting interpretation or accessibility help should contact museum staff in advance; no standard booked tour duration is independently confirmed.",
+      "verificationUrl": "https://texastimetravel.com/directory/yoakum-heritage-museum-tour/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://texastimetravel.com/directory/yoakum-heritage-museum-tour/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-20"
+    },
+    {
+      "question": "Is there a restaurant, cafe, gift shop or free parking onsite?",
+      "answer": "The sources reviewed confirm the address and historical displays but do not establish an onsite cafe, full-service restaurant, gift shop, dedicated parking lot or current photography/pet rules. Make independent dining plans and ask staff about parking, photography and visitor services.",
+      "verificationUrl": "https://texashighways.com/wp-content/uploads/2026/01/Travel-Guide-2026.pdf",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://texashighways.com/wp-content/uploads/2026/01/Travel-Guide-2026.pdf",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-20"
+    }
+  ],
 };
 export const museumVisitorFaqFor = (slug: string): readonly MuseumVisitorFaq[] => museumVisitorFaqs[slug] ?? [];
