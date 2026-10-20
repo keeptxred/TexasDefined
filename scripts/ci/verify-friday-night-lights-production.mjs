@@ -27,6 +27,8 @@ const kellerProfilePath = '/texas-high-school-football-teams/keller';
 const friscoProfilePath = '/texas-high-school-football-teams/frisco';
 const springProfilePath = '/texas-high-school-football-teams/spring';
 const shamrockProfilePath = '/texas-high-school-football-teams/shamrock';
+const anthonyProfilePath = '/texas-high-school-football-teams/anthony';
+const garlandProfilePath = '/texas-high-school-football-teams/garland';
 const universalProfileCases = [
   { name: 'Lubbock Cooper', classification: '5A', enrollment: '1,663', path: '/texas-high-school-football-teams/lubbock-cooper' },
   { name: 'Huffman Hargrave', classification: '4A', enrollment: '1,168', path: '/texas-high-school-football-teams/huffman-hargrave' },
@@ -665,6 +667,40 @@ await fetchVerified(shamrockProfilePath, 'Shamrock football authority profile', 
     throw new Error('Shamrock profile incorrectly labels the normal 2A Division II cutoff as Shamrock’s enrollment band');
   }
   if (/\bnoindex\b/i.test(body)) throw new Error('Shamrock football authority profile unexpectedly contains noindex');
+});
+
+await fetchVerified(anthonyProfilePath, 'Anthony football enrollment-placement exception', (body) => {
+  for (const needle of [
+    'Anthony',
+    '3A Division II',
+    'UIL reported enrollment',
+    '235',
+    'Enrollment and football placement are different here.',
+    'Submitted conference cutoff',
+    '246–549',
+    'Final football placement',
+  ]) requireNeedle(body, needle, 'Anthony football enrollment-placement exception');
+  if (/UIL enrollment band<\/dt>[\s\S]{0,300}?246–366\.9/i.test(decodeHtml(body))) {
+    throw new Error('Anthony profile incorrectly labels the normal 3A Division II cutoff as Anthony’s enrollment band');
+  }
+  if (/\bnoindex\b/i.test(body)) throw new Error('Anthony football profile unexpectedly contains noindex');
+});
+
+await fetchVerified(garlandProfilePath, 'Garland football enrollment-placement exception', (body) => {
+  for (const needle of [
+    'Garland',
+    '6A',
+    'UIL reported enrollment',
+    '2,144',
+    'Enrollment and football placement are different here.',
+    'Submitted conference cutoff',
+    '2,215 and above',
+    'Final football placement',
+  ]) requireNeedle(body, needle, 'Garland football enrollment-placement exception');
+  if (/UIL enrollment band<\/dt>[\s\S]{0,300}?2,215 and above/i.test(decodeHtml(body))) {
+    throw new Error('Garland profile incorrectly labels the normal 6A cutoff as Garland’s enrollment band');
+  }
+  if (/\bnoindex\b/i.test(body)) throw new Error('Garland football profile unexpectedly contains noindex');
 });
 
 for (const profile of universalProfileCases) {
