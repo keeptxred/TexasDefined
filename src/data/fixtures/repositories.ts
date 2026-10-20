@@ -1,3 +1,4 @@
+import { chipJoannaGainesMagnoliaWacoArticle } from "./chip-joanna-gaines-magnolia-waco";
 import { rioGrandeWildScenicRiverAuthorityArticle } from "./rio-grande-wild-scenic-river-authority";
 import { texasNpsHistoricTrailGuides } from "./texas-nps-historic-trail-guides";
 import type {
@@ -41,6 +42,7 @@ import {
  */
 
 const editorialArticles = [
+  chipJoannaGainesMagnoliaWacoArticle,
   rioGrandeWildScenicRiverAuthorityArticle,
   ...texasNpsHistoricTrailGuides,
   ...exploreFeatureArticleStubs,
