@@ -6752,13 +6752,14 @@
         "/county/erath"
       ],
       "outboundCountyPath": "/county/erath",
-      "linkVerificationStatus": "BRANCH_CODE_PENDING_REAL_PRODUCTION_CHROME",
+      "linkVerificationStatus": "RECIPROCAL_COUNTY_BROWSER_PASS_BATCH006_2026_10_19",
       "actualProductionVerified": false,
-      "productionVerification": "NOT_DEPLOYED_NO_BROWSER_ACCEPTANCE",
+      "productionVerification": "BROWSER_PASS_BATCH006_75_SCHOOL_23_COUNTY_25_SITEMAP_2026_10_19",
       "mergedPr": 5070,
       "mergedCommit": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
       "deploymentRun": 39050440079,
-      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb"
+      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
+      "technicalBrowserRun": 39273758531
     },
     {
       "id": "uil:blum",
@@ -6782,13 +6783,14 @@
         "/county/hill"
       ],
       "outboundCountyPath": "/county/hill",
-      "linkVerificationStatus": "BRANCH_CODE_PENDING_REAL_PRODUCTION_CHROME",
+      "linkVerificationStatus": "RECIPROCAL_COUNTY_BROWSER_PASS_BATCH006_2026_10_19",
       "actualProductionVerified": false,
-      "productionVerification": "NOT_DEPLOYED_NO_BROWSER_ACCEPTANCE",
+      "productionVerification": "BROWSER_PASS_BATCH006_75_SCHOOL_23_COUNTY_25_SITEMAP_2026_10_19",
       "mergedPr": 5070,
       "mergedCommit": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
       "deploymentRun": 39050440079,
-      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb"
+      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
+      "technicalBrowserRun": 39273758531
     },
     {
       "id": "uil:boerne",
