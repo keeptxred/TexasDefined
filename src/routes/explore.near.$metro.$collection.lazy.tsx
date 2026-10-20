@@ -583,10 +583,10 @@ function DallasSmallTownsInteractiveMap({ towns }: { towns: DallasMapTown[] }) {
       <p className="eyebrow text-primary">Explore the map</p>
       <h2 id="dallas-small-town-map" className="mt-3 max-w-4xl font-display text-4xl sm:text-5xl">See where each small town is before you drive</h2>
       <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">Select a town to center the interactive map, then open live directions from Dallas. Markers identify approximate town centers, not exact parking or attraction entrances.</p>
-      <div className="mt-9 grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)]">
-        <div className="grid max-h-[450px] grid-cols-2 gap-2 overflow-y-auto pr-2" role="group" aria-label="Choose a Dallas small town on the map">
+      <div className="mt-9 grid gap-6 lg:grid-cols-2">
+        <div className="grid grid-cols-2 gap-2 overflow-y-auto pr-2" style={{ maxHeight: 450 }} role="group" aria-label="Choose a Dallas small town on the map">
           {towns.map((entry) => <button type="button" key={entry.slug} aria-pressed={selectedSlug === entry.slug} onClick={() => setSelectedSlug(entry.slug)}
-            className={`min-h-14 rounded-sm border px-3 py-3 text-left text-sm transition-colors ${selectedSlug === entry.slug ? "border-primary bg-primary text-primary-foreground" : "border-border bg-background hover:border-primary"}`}>
+            className={`min-h-11 border px-3 py-3 text-left text-sm transition-colors ${selectedSlug === entry.slug ? "border-primary bg-primary text-primary-foreground" : "border-border bg-background hover:border-primary"}`}>
             <span className="block font-semibold">{entry.name}</span><span className="mt-1 block text-xs">{dallasDriveLabel(entry.drive.minutes)}</span>
           </button>)}
         </div>
