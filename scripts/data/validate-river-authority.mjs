@@ -113,6 +113,11 @@ if(!photoCatalog.includes('licenseUrl') || !photoCatalog.includes('photographer'
  errors.push('River gallery photos must include reusable linked attribution and license metadata');
 if(!hub.includes('RIVER_AUTHORITY_CARD_PHOTOS') || !landscape.includes('RIVER_AUTHORITY_CARD_PHOTOS'))
  errors.push('Both statewide river navigation surfaces must share the rights-cleared photo catalog');
+for (const [label, source] of [['River atlas',hub],['River valleys',landscape]]) {
+ if (!source.includes('editorialImageSrc(photo?.src ?? river.image)'))
+  errors.push(label + ' gallery must deliver approved remote photos through /media/remote, not raw Wikimedia hotlinks');
+}
+
 // Three formerly representative-image basin entries must stay identified, credited
 // and consistent across their real guide and lazy stub. Live Chrome QA separately
 // verifies that the Wikimedia originals actually decode on public pages.
