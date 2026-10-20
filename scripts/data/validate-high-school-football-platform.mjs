@@ -1085,8 +1085,13 @@ if (!errors.length) {
     'profileSummary',
     'quickFacts',
     'faq',
+    "new Intl.DateTimeFormat('en-US'",
+    'formatFootballDate',
+    '<time dateTime={game.date}>{formatFootballDate(game.date)}</time>',
+    '<time dateTime={identity.verifiedAt}>{formatFootballDate(identity.verifiedAt)}</time>',
   ]) requireText(featuredProfilePage, marker, 'Football school profile page');
   for (const forbidden of [
+    '<td className="px-3 py-3 font-semibold">{game.date}</td>',
     'Research beyond the score',
     'What families should check next',
     'Freshman, JV and varsity path',
