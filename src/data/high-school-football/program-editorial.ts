@@ -44,7 +44,7 @@ export type FootballProgramEditorial = {
   };
   venue?: {
     name: string;
-    address: string;
+    address?: string;
     sourceUrl: string;
     sourceLabel: string;
     verifiedAt: string;
@@ -172,7 +172,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Harmony Eagle Stadium",
-      "address": "9788 SH 154 W, Big Sandy, TX 75755 (athletics campus address; confirm event gate)",
       "sourceUrl": "https://www.harmonyisd.net/o/ha",
       "sourceLabel": "Harmony ISD Athletics official Eagle Stadium and contact information",
       "verifiedAt": "2026-10-14",
@@ -482,6 +481,13 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceUrl": "https://www.bishopcisd.net/athletics/schedules",
       "sourceLabel": "Bishop CISD athletics schedule index; verify kickoff and field for each game",
       "verifiedAt": "2026-10-15"
+    },
+    "venue": {
+      "name": "George Luna Stadium",
+      "sourceUrl": "https://bhs.bishopcisd.net/bhs-calendar-events",
+      "sourceLabel": "Bishop High School 2026 calendar repeatedly assigns home football events to George Luna Stadium",
+      "verifiedAt": "2026-10-20",
+      "note": "Bishop High School's current 2026 calendar assigns varsity home football, including the October 23 homecoming game, to George Luna Stadium. This first-party schedule evidence resolves the venue-name conflict for current home events but does not establish the spectator entrance, parking map, ticket policy, ADA seating or a separate stadium street address."
     },
     "notice": {
       "title": "2026 homecoming uses George Luna Stadium; confirm individual game details",
@@ -1065,6 +1071,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceLabel": "Blanket ISD official district events; game final scores independently reported by Brownwood News",
       "verifiedAt": "2026-10-15"
     },
+    "venue": {
+      "name": "Tiger Stadium",
+      "address": "901 Avenue H, Blanket, TX 76432",
+      "sourceUrl": "https://www.blanketisd.org/event/cross-country-district-meet-high-school",
+      "sourceLabel": "Blanket ISD 2026 event page identifies Tiger Stadium at 901 Avenue H",
+      "verifiedAt": "2026-10-20",
+      "note": "Blanket ISD's current event system identifies Tiger Stadium at 901 Avenue H. An older third-party football directory used the name Switzer Field; TexasDefined gives the current district event listing precedence for the venue name and mapped address. Confirm the actual football game's assignment, spectator entrance, parking and accessible seating with Blanket ISD before travel."
+    },
     "notice": {
       "title": "Verify Blanket scores and the canceled Priddy 2026 season",
       "body": "The independently reported 2026 Blanket–Brookesmith final is Blanket W66–34, though an older MaxPreps feed wrongly records Blanket L34–66. Rochelle beat Blanket 68–22, not the 28–0 shown in another old snapshot. Brownwood News reported a late added Abilene X-Dot Academy match, and Blanket won 65–13 on October 8 after older calendars had displayed a bye. Brownwood News reported before kickoff that Priddy canceled its entire 2026 season. Although UIL realignment still assigns Priddy to District 12 and some external calendars list Blanket at Priddy on October 16, those listings do not establish that a varsity game was played. Do not award Blanket a win, forfeit or district result without school or district evidence. First-party football gate, parking and ADA access have not been independently certified; contact Blanket ISD for specific events.",
@@ -1240,6 +1254,13 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceUrl": "https://www.bgisd.org/apps/events/2026/10/?id=0&id=2",
       "sourceLabel": "Official district October 2026 calendar and individual fixture details; historical results sourced independently",
       "verifiedAt": "2026-10-15"
+    },
+    "venue": {
+      "name": "Lion Stadium",
+      "sourceUrl": "https://www.bgisd.org/apps/events/2026/10/?id=0&id=2",
+      "sourceLabel": "Blooming Grove ISD October 2026 calendar names Lion Stadium for homecoming events",
+      "verifiedAt": "2026-10-15",
+      "note": "Blooming Grove ISD's October 2026 calendar identifies Lion Stadium as a school event venue. The evidence reviewed does not establish the spectator vehicle entrance, parking layout, ADA seating or a separate stadium street address, so TexasDefined does not invent one; confirm game-specific access with the district."
     },
     "season": {
       "record": "0–7 through October 16, 2026 (Elkhart 40–0 reported final; season ongoing)",
@@ -1429,7 +1450,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Bobcat Stadium",
-      "address": "Bloomington ISD, Victoria County, Texas (stadium vehicle-gate address not independently confirmed)",
       "sourceUrl": "https://www.vancoevents.com/us/eventlist/bisdevents",
       "sourceLabel": "District-originated Vanco event listing identifies Bobcat Stadium, not an independently verified stadium street gate",
       "verifiedAt": "2026-10-15",
@@ -3009,7 +3029,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Warrior Stadium (Bonham ISD)",
-      "address": "Bonham ISD, Bonham, TX (venue confirmed; exact entrance address not independently verified)",
       "sourceUrl": "https://www.bonhamisd.org/104427_2",
       "sourceLabel": "Bonham ISD Athletics official Warrior Stadium media-credential and sideline policy",
       "verifiedAt": "2026-10-17",
@@ -3892,6 +3911,13 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceLabel": "School/district source for visitor details; separately cited football results",
       "verifiedAt": "2026-10-17"
     },
+    "venue": {
+      "name": "Mustang Stadium",
+      "sourceUrl": "https://www.bovinaisd.org/live-feed?page_no=2",
+      "sourceLabel": "Bovina ISD 2026 live feed identifies Mustang Stadium for current varsity football",
+      "verifiedAt": "2026-10-20",
+      "note": "Bovina ISD's 2026 live feed places current varsity home football games at Mustang Stadium. A separate district graduation notice documents stadium gates and nearby parking, but those event-specific instructions are not automatically football policy; confirm the current football entrance, parking and accessibility details with Bovina ISD before travel."
+    },
     "notice": {
       "title": "Verified facts and unresolved game-day claims",
       "body": "Bovina ISD's current staff directory explicitly identifies Wade Wilson as athletic director; an August 2026 MaxPreps football staff page separately calls Wilson the varsity head coach. In addition, NewsChannel 10 interviewed Wilson as Bovina head football coach in August 2026 and described him as entering his second year; the dated original interview directly supports the coaching role without implying a new district-issued hiring document. On October 16, Gruver defeated Bovina 55–0, confirmed by October 17 regional football results. The school's 500 Halsell Street contact address is not a verified stadium gate or accessibility promise.",
@@ -4053,6 +4079,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceUrl": "https://www.bowieisd.net/o/bhs/page/bowie-high-school-athletics",
       "sourceLabel": "School/district source for visitor details; separately cited football results",
       "verifiedAt": "2026-10-17"
+    },
+    "venue": {
+      "name": "Jackrabbit Stadium",
+      "sourceUrl": "https://www.bowieisd.net/o/bhs/live-feed",
+      "sourceLabel": "Bowie High School 2026 live feed names Jackrabbit Stadium for varsity football and publishes current spectator expectations",
+      "verifiedAt": "2026-10-20",
+      "policyUrl": "https://www.bowieisd.net/o/bhs/live-feed",
+      "note": "Bowie High School's 2026 live feed identifies Jackrabbit Stadium for current varsity football games and publishes stadium seating expectations. The school contact address is not automatically the public stadium entrance, and the evidence reviewed does not establish a separate gate address, parking map or full ADA seating plan."
     },
     "notice": {
       "title": "Verified facts and unresolved game-day claims",
@@ -8027,7 +8061,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Ben Grill Field (also called Benjamin Mustangs Field)",
-      "address": "Benjamin, Texas (precise stadium entrance unverified; school: 300 W. Hays Street)",
       "sourceUrl": "https://sixmanfootball.com/teams/benjamin-mustangs.1041/schedule/",
       "sourceLabel": "Six-Man Football stadium and team information; historical Ben Grill Field name corroborated by a 2006 local school board report",
       "verifiedAt": "2026-10-12",
@@ -8912,7 +8945,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Hornet Stadium",
-      "address": "Azle, Texas — confirm gate/parking with district",
       "sourceUrl": "https://www.azleisd.net/o/ahs/live_feeds/12904056",
       "sourceLabel": "Official Azle High 2026 football announcement",
       "verifiedAt": "2026-10-10",
@@ -10167,7 +10199,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "House Park",
-      "address": "Austin, Texas; confirm event venue with school",
       "sourceUrl": "https://www.texasfootball.com/team/default.aspx?url=austin-anderson-trojans",
       "sourceLabel": "Dave Campbell's Texas Football program venue",
       "verifiedAt": "2026-10-10",
@@ -11019,7 +11050,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Michael Glaspie Field (AISD Martin/Seguin competition venue)",
-      "address": "At Martin High School, Arlington, TX — confirm specific event venue and spectator gate",
       "sourceUrl": "https://www.aisd.net/bond2019/glaspie-field/",
       "sourceLabel": "Arlington ISD official Glaspie Field facility project",
       "verifiedAt": "2026-10-09",
@@ -11199,8 +11229,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       ]
     },
     "venue": {
-      "name": "Glaspie Field (historic directory listing)",
-      "address": "Arlington, Texas — use event-specific Arlington ISD match venue",
+      "name": "Glaspie Field",
       "sourceUrl": "https://www.texasfootball.com/team/arlington-martin-warriors",
       "sourceLabel": "DCTF listed Martin football stadium",
       "verifiedAt": "2026-10-09",
@@ -11376,8 +11405,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       ]
     },
     "venue": {
-      "name": "Cravens Field (historical program stadium)",
-      "address": "Arlington, TX — confirm ticket-specific entrance through Arlington ISD",
+      "name": "Cravens Field",
       "sourceUrl": "https://www.texasfootball.com/team/arlington-lamar-vikings",
       "sourceLabel": "DCTF varsity stadium listing",
       "verifiedAt": "2026-10-09",
@@ -11554,7 +11582,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Choctaw Stadium (multiple scheduled 2026 home games; Wilemon Field in historical listings)",
-      "address": "Choctaw Stadium, Arlington, Texas — verify event-specific entrance with Arlington ISD",
       "sourceUrl": "https://www.choctawstadium.com/event/high-school-football-20261105/",
       "sourceLabel": "Choctaw Stadium official 2026 high-school football calendar",
       "verifiedAt": "2026-10-09",
@@ -11661,7 +11688,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Choctaw Stadium (documented 2026 Bowie home fixtures); Wilemon Field in historic listings",
-      "address": "Choctaw Stadium, Arlington, Texas — check exact game-day entrance",
       "sourceUrl": "https://www.choctawstadium.com/event/high-school-football-20261105/",
       "sourceLabel": "Official Choctaw Stadium 2026 high-school football schedule",
       "verifiedAt": "2026-10-09",
@@ -12028,7 +12054,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Wildcat Stadium",
-      "address": "Archer City, Texas — verify game-day spectator gate with Archer City ISD",
       "sourceUrl": "https://txfb.sidev.co/team/archer-city-wildcats",
       "sourceLabel": "DCTF independent stadium record",
       "verifiedAt": "2026-10-09",
@@ -12336,7 +12361,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Cougar Stadium",
-      "address": "Aquilla, TX — current stadium entrance not independently verified",
       "sourceUrl": "https://www.texasfootball.com/team/aquilla-cougars",
       "sourceLabel": "DCTF team stadium directory",
       "verifiedAt": "2026-10-09",
@@ -12436,7 +12460,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Nelson Davis Stadium",
-      "address": "Apple Springs, Texas — spectator entrance and accessibility unverified",
       "sourceUrl": "https://www.texasfootball.com/team/apple-springs-eagles",
       "sourceLabel": "DCTF stadium name and historical 500 capacity",
       "verifiedAt": "2026-10-09",
@@ -12594,7 +12617,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Bulldog Stadium",
-      "address": "Anton, TX — spectator entrance unverified",
       "sourceUrl": "https://www.texasfootball.com/team/anton-bulldogs",
       "sourceLabel": "DCTF Anton Bulldogs stadium record",
       "verifiedAt": "2026-10-09",
@@ -12760,7 +12782,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Tommy Sanchez Memorial Stadium",
-      "address": "Anthony, Texas — verify stadium entrance with Anthony ISD",
       "sourceUrl": "https://www.texasfootball.com/team/anthony-wildcats",
       "sourceLabel": "DCTF Wildcats venue directory",
       "verifiedAt": "2026-10-09",
@@ -12927,7 +12948,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Tiger Stadium",
-      "address": "Anson, TX — exact game gate unverified",
       "sourceUrl": "https://www.texasfootball.com/team/default.aspx?url=anson-tigers",
       "sourceLabel": "Dave Campbell's Texas Football Tigers venue listing",
       "verifiedAt": "2026-10-09",
@@ -13187,7 +13207,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Wildcat Stadium",
-      "address": "Wildcat Stadium, 1 Stadium Drive, Angleton, TX 77515 (per Angleton High official events)",
+      "address": "1 Stadium Drive, Angleton, TX 77515",
       "sourceUrl": "https://www.angletonisd.net/o/ahs/events",
       "sourceLabel": "Angleton High 2026 events venue listing and Angleton ISD varsity ticket guidance",
       "verifiedAt": "2026-10-09",
@@ -13348,7 +13368,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Mustang Bowl",
-      "address": "Andrews, TX — verify exact match-day gate with Andrews ISD",
       "sourceUrl": "https://www.texasfootball.com/team/andrews-mustangs",
       "sourceLabel": "DCTF Mustang Bowl historical venue listing",
       "verifiedAt": "2026-10-09",
@@ -13522,7 +13541,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Owl Stadium",
-      "address": "Anderson, TX — verify official game gate at FM 149 campus",
       "sourceUrl": "https://www.texasfootball.com/team/anderson-shiro-fighting-owls",
       "sourceLabel": "DCTF stadium listing, not campus accessibility certificate",
       "verifiedAt": "2026-10-09",
@@ -13683,7 +13701,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Kyle White Stadium",
-      "address": "Anahuac, Texas — separate official spectator entrance not independently verified",
       "sourceUrl": "https://www.aisdpanthers.com/o/ahs/live-feed",
       "sourceLabel": "Anahuac ISD High School first-party October 2, 2026 Kyle White Stadium game notice",
       "verifiedAt": "2026-10-09",
@@ -13783,7 +13800,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Bulldog Stadium",
-      "address": "Amherst, TX — exact spectator entrance not independently verified",
       "sourceUrl": "https://www.texasfootball.com/team/amherst-bulldogs",
       "sourceLabel": "Dave Campbell's Texas Football historic program/venue listing",
       "verifiedAt": "2026-10-09",
@@ -13941,8 +13957,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       ]
     },
     "venue": {
-      "name": "Tascosa varsity home venue — confirm assigned site with Amarillo ISD",
-      "address": "Dick Bivins Stadium, 3101 SE 10th Avenue, Amarillo, TX 79104 (for assigned Dick Bivins games)",
+      "name": "Dick Bivins Stadium",
+      "address": "3101 SE 10th Avenue, Amarillo, TX 79104",
       "sourceUrl": "https://www.amaisd.org/133763_3",
       "sourceLabel": "Amarillo ISD Athletics official scheduling/tickets",
       "verifiedAt": "2026-10-09",
@@ -14107,7 +14123,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Wildcat Stadium",
-      "address": "Amarillo — official spectator entrance not confirmed",
       "sourceUrl": "https://www.texasfootball.com/team/amarillo-river-road-wildcats",
       "sourceLabel": "DCTF River Road Wildcats stadium record",
       "verifiedAt": "2026-10-09",
@@ -14275,7 +14290,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Dick Bivins Stadium",
-      "address": "Dick Bivins Stadium, 3101 SE 10th Avenue, Amarillo, TX 79104 (for assigned Dick Bivins games)",
+      "address": "3101 SE 10th Avenue, Amarillo, TX 79104",
       "sourceUrl": "https://www.amaisd.org/133763_3",
       "sourceLabel": "Amarillo ISD primary 2026 ticket and Dick Bivins stadium policy",
       "verifiedAt": "2026-10-09",
@@ -14434,7 +14449,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Hornet Stadium",
-      "address": "Amarillo, Texas — entrance unverified",
       "sourceUrl": "https://www.texasfootball.com/team/amarillo-highland-park-hornets",
       "sourceLabel": "DCTF independent program stadium directory",
       "verifiedAt": "2026-10-09",
@@ -14603,7 +14617,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Dick Bivins Stadium",
-      "address": "Dick Bivins Stadium, 3101 SE 10th Avenue, Amarillo, TX 79104 (for assigned Dick Bivins games)",
+      "address": "3101 SE 10th Avenue, Amarillo, TX 79104",
       "sourceUrl": "https://www.amaisd.org/133763_3",
       "sourceLabel": "Amarillo ISD official Athletics ticket and venue policy",
       "verifiedAt": "2026-10-09",
@@ -14763,7 +14777,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Dick Bivins Stadium",
-      "address": "Amarillo, Texas — verify match-day stadium gate, parking and accessibility with Amarillo ISD",
       "sourceUrl": "https://www.ahsfhs.org/national/teams/teampage.asp?Team=Amarillo",
       "sourceLabel": "Independent Amarillo Sandies team stadium directory",
       "verifiedAt": "2026-10-09",
@@ -14945,14 +14958,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         }
       ]
     },
-    "venue": {
-      "name": "Alvord ISD home football field — exact current stadium name/gate not yet corroborated",
-      "address": "Alvord, Wise County — verify entrance directly with school athletics",
-      "sourceUrl": "https://www.alvordisd.net/athletics",
-      "sourceLabel": "Alvord ISD official athletics and football documents",
-      "verifiedAt": "2026-10-09",
-      "note": "Alvord ISD's current athletics page explicitly says home games are cash only, while a third-party October 9 Olney-away schedule displays an online 'buy tickets' link: these refer to different event hosts and are not inherently inconsistent. Check away-game tickets with the host district, and do not assume the school's 1049 West Bypass 287 mailing address is a stadium entrance or ADA route. Official site links its 2026 varsity/master schedule and roster."
-    },
     "overview": [
       "The Alvord Bulldogs play a distinctive small-school football schedule in Wise County. UIL places Alvord in Class 2A Division I District 6 for 2026–28, matching a district slate against Olney, Muenster, Tioga, Nocona and Chico. These are current alignment peers, not evidence of a historic named rivalry trophy.",
       "Alvord's 2025 football season was an important local benchmark: the MaxPreps final history shows 9–3 overall and a perfect 6–0 district record, with head coach Matt Fanning named for that year. In November the Bulldogs beat Hico 51–14 in the playoff opener before falling to Carlisle 41–23, a verified postseason narrative rather than a fabricated state-final appearance.",
@@ -15127,7 +15132,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Freedom Field",
-      "address": "Alvin ISD, Pearland/Iowa Colony-area venue network — confirm game-specific event gate",
       "sourceUrl": "https://www.texasfootball.com/team/alvin-shadow-creek-sharks/",
       "sourceLabel": "Dave Campbell's Shadow Creek stadium listing",
       "verifiedAt": "2026-10-09",
@@ -15313,8 +15317,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       ]
     },
     "venue": {
-      "name": "Freedom Field — listed district venue",
-      "address": "Iowa Colony/Alvin ISD district athletic facilities; confirm field and ticket gate for each home game",
+      "name": "Freedom Field",
       "sourceUrl": "https://www.texasfootball.com/team/iowa-colony-pioneers",
       "sourceLabel": "Dave Campbell's Iowa Colony team stadium directory",
       "verifiedAt": "2026-10-09",
@@ -15501,7 +15504,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Memorial Stadium (Alvin)",
-      "address": "Alvin, Brazoria County — game-night entry address and parking not independently verified",
       "sourceUrl": "https://www.texasfootball.com/team/alvin-yellowjackets",
       "sourceLabel": "Dave Campbell's Alvin football program venue",
       "verifiedAt": "2026-10-09",
@@ -15687,7 +15689,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Charles Head Stadium",
-      "address": "Alvarado, Johnson County — spectator entrance requires local confirmation",
       "sourceUrl": "https://www.texasfootball.com/team/default.aspx?url=alvarado-indians",
       "sourceLabel": "Dave Campbell's Alvarado Indians stadium record",
       "verifiedAt": "2026-10-09",
@@ -15872,7 +15873,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Cam'Ron Matthews Field",
-      "address": "Alto, Cherokee County, Texas — football spectator gate not independently verified",
       "sourceUrl": "https://www.texasfootball.com/team/alto-yellowjackets",
       "sourceLabel": "Dave Campbell's Alto Yellowjackets program history and venue",
       "verifiedAt": "2026-10-09",
@@ -16057,7 +16057,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Rice Veterans' Memorial Stadium",
-      "address": "Altair, Texas — exact spectator gate and parking location not independently established",
       "sourceUrl": "https://www.texasfootball.com/team/rice-consolidated-raiders",
       "sourceLabel": "Dave Campbell's stadium and 2026 team history",
       "verifiedAt": "2026-10-09",
@@ -16206,7 +16205,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Buck Stadium",
-      "address": "Alpine, Texas — stadium spectator entrance and parking address unverified",
       "sourceUrl": "https://www.texasfootball.com/team/default.aspx?url=alpine-bucks",
       "sourceLabel": "Dave Campbell's Alpine Bucks venue and program record",
       "verifiedAt": "2026-10-09",
@@ -16385,7 +16383,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Eagle Stadium",
-      "address": "155 Rivercrest Boulevard, Allen, TX 75002 — official district football event address",
+      "address": "155 Rivercrest Boulevard, Allen, TX 75002",
       "sourceUrl": "https://www.allenisd.org/",
       "sourceLabel": "Allen ISD event calendar lists October 23 Eagle Stadium match address",
       "verifiedAt": "2026-10-09",
@@ -16577,8 +16575,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       ]
     },
     "venue": {
-      "name": "McNair Stadium — school campus athletic venue",
-      "address": "9700 Saints Circle, Fort Worth, TX 76108 (school campus; verify stadium entrance separately)",
+      "name": "McNair Stadium",
       "sourceUrl": "https://www.aseschool.org/about/campus-map",
       "sourceLabel": "Official All Saints campus map identifies McNair Stadium",
       "verifiedAt": "2026-10-09",
@@ -16767,8 +16764,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       ]
     },
     "venue": {
-      "name": "Crump Stadium — documented venue for Taylor–Memorial on Oct. 16, 2026",
-      "address": "Alief, Houston, Texas — verify your assigned entrance for each game",
+      "name": "Crump Stadium",
       "sourceUrl": "https://www.houstonmemorialfootball.com/schedule",
       "sourceLabel": "Memorial varsity 2026 venue schedule (Taylor away game at Crump)",
       "verifiedAt": "2026-10-16",
@@ -16870,8 +16866,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "verifiedAt": "2026-10-09"
     },
     "venue": {
-      "name": "Alief ISD Crump Stadium (confirm each Hastings game location)",
-      "address": "12321 Alief Clodine Road, Houston, TX 77072 — Alief district event address",
+      "name": "Crump Stadium",
+      "address": "12321 Alief Clodine Road, Houston, TX 77072",
       "sourceUrl": "https://www.aliefisd.net/o/fce/live-feed",
       "sourceLabel": "Alief ISD official Crump Stadium event announcement for October 2026",
       "verifiedAt": "2026-10-09",
@@ -16984,14 +16980,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceUrl": "https://www.maxpreps.com/tx/houston/alief-elsik-rams/football/schedule/",
       "sourceLabel": "MaxPreps UIL-partner dated schedule updated October 3",
       "verifiedAt": "2026-10-09"
-    },
-    "venue": {
-      "name": "Alief ISD scheduled football facility — verify event-specific stadium",
-      "address": "Houston / Alief ISD, Texas; do not assume school campus is the game venue",
-      "sourceUrl": "https://www.maxpreps.com/tx/houston/alief-elsik-rams/football/schedule/",
-      "sourceLabel": "School-linked MaxPreps schedule for home versus away designation",
-      "verifiedAt": "2026-10-09",
-      "note": "A varsity listing may say 'home' without proving the game's spectator-stadium gate is on the high school campus. District football facilities, parking, tickets and accessible entry must be confirmed with Alief ISD athletics for the specific Elsik game. The postal campus listing is not a stadium entrance."
     },
     "overview": [
       "Alief Elsik High School's Rams represent the southwest Houston Alief community. This is a distinct football program from neighboring Alief Hastings Bears and Alief Taylor Lions. Its UIL history is most clearly documented through competitive 1990s playoff runs rather than a nonexistent state football title; the official all-time football championship table does not list an Elsik state crown.",
@@ -17359,7 +17347,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Robert Nail Memorial Stadium — Denney Faith Field",
-      "address": "Historic gate near Central Street and North Walnut Street, Albany, Texas; confirm official game entrance and parking",
       "sourceUrl": "https://www.hmdb.org/m.asp?m=85275",
       "sourceLabel": "Texas historical marker at Albany's first public school and stadium gateway",
       "verifiedAt": "2026-10-09",
@@ -17601,7 +17588,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Agua Dulce ISD football field",
-      "address": "One Longhorn Drive, Agua Dulce, TX 78330; specific game entry and parking rules unverified",
       "sourceUrl": "https://www.tdlr.texas.gov/TABS/Search/Print/TABS2026016320",
       "sourceLabel": "Texas Department of Licensing and Regulation football-field bleacher project",
       "verifiedAt": "2026-10-09",
@@ -17728,8 +17714,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "verifiedAt": "2026-10-09"
     },
     "venue": {
-      "name": "Mustang Field (name reported by Texas football reference)",
-      "address": "Ackerly, Dawson County, Texas — confirm actual stadium gate directly with Sands CISD",
+      "name": "Mustang Field",
       "sourceUrl": "https://www.texasfootball.com/team/sands-mustangs",
       "sourceLabel": "Dave Campbell's Texas Football — Sands Mustang Field venue reference",
       "verifiedAt": "2026-10-09",
@@ -17969,14 +17954,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceLabel": "MaxPreps UIL partner — Abilene TLCA 2026 schedule",
       "verifiedAt": "2026-10-09"
     },
-    "venue": {
-      "name": "TLCA Abilene football — confirm each game's assigned field",
-      "address": "Secondary school: 3250 State Street, Abilene, TX 79603; football field entrance is NOT verified",
-      "sourceUrl": "https://www.texasleadershipabilene.com/athletics/coaching-staff",
-      "sourceLabel": "Texas Leadership of Abilene official athletics office and coach",
-      "verifiedAt": "2026-10-09",
-      "note": "Texas Leadership publishes a secondary campus at 3250 State Street, but no current primary-source stadium gate, field address, ticketing, parking or ADA access policies could be independently confirmed. The 2026 schedule includes both home and away games; the secondary campus postal address must not be represented as a guaranteed stadium gate. Contact athletic director/head football coach Webb Murphy through the official athletic staff directory (Webb.Murphy@tlca-ab.com) or the school at 325-480-3500 before traveling."
-    },
     "overview": [
       "Texas Leadership of Abilene, often shortened to TLCA Abilene, fields the Eagles in eleven-man UIL football while operating as a tuition-free public charter school. This is a separate program from Abilene High Eagles, Abilene Cooper Cougars, Abilene Wylie Bulldogs and the San Angelo campus of the Texas Leadership network. School names should not be merged merely because 'Eagles' or 'Texas Leadership' appears in multiple city listings.",
       "Unlike Abilene High's century of state championships, the TLCA Abilene 11-man program is relatively new. A local 2026 season preview describes this as the program's fifth 11-man football season; it also reports a winless 2025 campaign and a change in leadership for 2026. With no UIL state-final appearances in the authoritative UIL all-time list, this page focuses on program growth, its current staff and useful family logistics rather than inventing old title traditions.",
@@ -18092,7 +18069,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Shotwell Stadium / Shotwell Annex game-day district facilities",
-      "address": "Abilene, Texas — current game-specific venue and gate from Abilene ISD",
       "sourceUrl": "https://www.abileneisd.org/article/2937209",
       "sourceLabel": "Abilene ISD Shotwell and Shotwell Annex official event guidance",
       "verifiedAt": "2026-10-09",
@@ -18220,7 +18196,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Shotwell Stadium",
-      "address": "Abilene, Texas — confirm the specific event's stadium entrance with Abilene ISD",
       "sourceUrl": "https://www.abileneisd.org/article/2937209",
       "sourceLabel": "Abilene ISD 2026 Shotwell Stadium and Annex notice",
       "verifiedAt": "2026-10-09",
@@ -18341,7 +18316,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Abernathy ISD football stadium",
-      "address": "Abernathy, Texas — verify the game-day stadium gate with Abernathy ISD",
       "sourceUrl": "https://www.southernbleacher.com/listing/abernathy-independent-school-district/214/",
       "sourceLabel": "Southern Bleacher — Abernathy ISD stadium seating installation",
       "verifiedAt": "2026-10-09",
@@ -18426,99 +18400,152 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     ]
   },
   "shamrock": {
-    "slug": "shamrock",
-    "theme": {
-      "accentHex": "#1F6B45",
-      "label": "Green editorial accent inspired by Shamrock's Fighting Irish identity; not official team artwork"
-    },
-    "seo": {
-      "title": "Shamrock Fighting Irish Football: 2026 Schedule, Coach & UIL District",
-      "description": "Shamrock Fighting Irish football: Nate Skelton, 2026 results and schedule, 2A Division II District 5 opponents, UIL enrollment context and El Paso Field."
-    },
-    "coach": {
-      "name": "Nate Skelton",
-      "title": "Athletic director and head football coach",
-      "sourceUrl": "https://www.shamrockisd.net/47588_2",
-      "sourceLabel": "Shamrock ISD — Athletic Director",
-      "verifiedAt": "2026-10-09"
-    },
-    "schedule": {
-      "label": "Shamrock ISD 2026 football schedule",
-      "sourceUrl": "https://www.shamrockisd.net/34143_3",
-      "sourceLabel": "Shamrock ISD official athletic schedules",
-      "verifiedAt": "2026-10-09"
-    },
-    "season": {
-      "record": "1–4",
-      "verifiedAt": "2026-10-09",
-      "sourceUrl": "https://www.texasfootball.com/team/shamrock-irish",
-      "sourceLabel": "Dave Campbell's Texas Football — Shamrock 2026 schedule snapshot",
-      "games": [
-        { "date": "Aug. 27", "opponent": "Winters", "site": "Home", "result": "W 15–8" },
-        { "date": "Sept. 4", "opponent": "Stinnett West Texas", "site": "Home", "result": "L 13–61" },
-        { "date": "Sept. 11", "opponent": "Vega", "site": "Away", "result": "L 20–52" },
-        { "date": "Sept. 18", "opponent": "Seymour", "site": "Home", "result": "L 8–52" },
-        { "date": "Sept. 25", "opponent": "Olton", "site": "Away", "result": "L 0–64" },
-        { "date": "Oct. 9", "opponent": "Wellington", "site": "Away", "district": true },
-        { "date": "Oct. 16", "opponent": "Clarendon", "site": "Away", "district": true },
-        { "date": "Oct. 23", "opponent": "Quanah", "site": "Home", "district": true },
-        { "date": "Nov. 6", "opponent": "Wheeler", "site": "Home", "district": true }
+      "slug": "shamrock",
+      "theme": {
+          "accentHex": "#1F6B45",
+          "label": "Green editorial accent inspired by Shamrock's Fighting Irish identity; not official team artwork"
+      },
+      "seo": {
+          "title": "Shamrock Fighting Irish Football: 2026 Schedule, Coach & UIL District",
+          "description": "Shamrock Fighting Irish football: Nate Skelton, 1–6 through October 16, 2026 schedule, 2A Division II District 5, UIL enrollment context and El Paso Field."
+      },
+      "coach": {
+          "name": "Nate Skelton",
+          "title": "Athletic director and head football coach",
+          "sourceUrl": "https://www.shamrockisd.net/47588_2",
+          "sourceLabel": "Shamrock ISD — Athletic Director",
+          "verifiedAt": "2026-10-09"
+      },
+      "schedule": {
+          "label": "Shamrock ISD 2026 football schedule",
+          "sourceUrl": "https://www.shamrockisd.net/34143_3",
+          "sourceLabel": "Shamrock ISD official athletic schedules",
+          "verifiedAt": "2026-10-20"
+      },
+      "season": {
+          "record": "1–6 through October 16, 2026",
+          "verifiedAt": "2026-10-20",
+          "sourceUrl": "https://txprepfootball.com/schools/shamrock-irish/",
+          "sourceLabel": "Texas Prep Football current Shamrock results through October 16, cross-checked against Wellington and Clarendon reciprocal result pages",
+          "games": [
+              {
+                  "date": "2026-08-27",
+                  "opponent": "Winters",
+                  "site": "Neutral",
+                  "result": "W 15–8"
+              },
+              {
+                  "date": "2026-09-04",
+                  "opponent": "Stinnett West Texas",
+                  "site": "Home",
+                  "result": "L 13–61"
+              },
+              {
+                  "date": "2026-09-11",
+                  "opponent": "Vega",
+                  "site": "Away",
+                  "result": "L 20–52"
+              },
+              {
+                  "date": "2026-09-18",
+                  "opponent": "Seymour",
+                  "site": "Home",
+                  "result": "L 8–52"
+              },
+              {
+                  "date": "2026-09-25",
+                  "opponent": "Olton",
+                  "site": "Away",
+                  "result": "L 0–64"
+              },
+              {
+                  "date": "2026-10-09",
+                  "opponent": "Wellington",
+                  "site": "Away",
+                  "district": true,
+                  "result": "L 6–56"
+              },
+              {
+                  "date": "2026-10-16",
+                  "opponent": "Clarendon",
+                  "site": "Away",
+                  "district": true,
+                  "result": "L 32–58"
+              },
+              {
+                  "date": "2026-10-23",
+                  "opponent": "Quanah",
+                  "site": "Home",
+                  "district": true
+              },
+              {
+                  "date": "2026-10-30",
+                  "opponent": "Memphis",
+                  "site": "Away",
+                  "district": true
+              },
+              {
+                  "date": "2026-11-06",
+                  "opponent": "Wheeler",
+                  "site": "Home",
+                  "district": true
+              }
+          ],
+          "latestResultSourceUrl": "https://txprepfootball.com/schools/shamrock-irish/"
+      },
+      "campus": {
+          "address": "100 S Illinois Street, Shamrock, TX 79079",
+          "phone": "806-256-3492",
+          "sourceUrl": "https://www.shamrockisd.net/",
+          "sourceLabel": "Shamrock ISD official site",
+          "verifiedAt": "2026-10-09"
+      },
+      "venue": {
+          "name": "El Paso Field",
+          "sourceUrl": "https://www.texasfootball.com/team/shamrock-irish",
+          "sourceLabel": "Dave Campbell's Texas Football — Shamrock program history",
+          "verifiedAt": "2026-10-09",
+          "note": "Dave Campbell's Texas Football identifies El Paso Field as Shamrock's stadium and reports a capacity of 2,500. The source reviewed does not provide a verified gate address, parking map or accessibility instructions, so TexasDefined does not infer those details. Confirm the assigned venue and arrival information with Shamrock ISD before traveling."
+      },
+      "overview": [
+          "Shamrock's team identity is the Fighting Irish. Shamrock ISD's current coaching pages identify Nate Skelton as athletic director and head football coach and list the current football staff, including offensive coordinator Thomas Hays and defensive coordinator Larry McNew.",
+          "For the 2026–28 UIL cycle, Shamrock competes in Class 2A Division II, District 5 with Clarendon, Memphis, Quanah, Wellington and Wheeler. UIL's alphabetical enrollment file reports 100.5 students and a submitted conference of 1A, while the final football alignment places Shamrock in 2A Division II. TexasDefined therefore treats the enrollment figure and final football placement as separate facts rather than incorrectly calling 105–175.5 Shamrock's enrollment band.",
+          "The 2026 season snapshot was refreshed October 20 after reported district losses at Wellington (56–6) and Clarendon (58–32), leaving Shamrock 1–6 through October 16. The schedule also includes October 23 Quanah, October 30 at Memphis and November 6 Wheeler; future fixtures remain unscored until a final is reported."
+      ],
+      "milestones": [
+          {
+              "date": "2026",
+              "title": "Nate Skelton leads the program",
+              "body": "Shamrock ISD identifies Nate Skelton as athletic director and head football coach on its current athletics pages.",
+              "sourceUrl": "https://www.shamrockisd.net/47588_2",
+              "sourceLabel": "Shamrock ISD"
+          },
+          {
+              "date": "2026–28",
+              "title": "2A Division II, District 5",
+              "body": "The final UIL football alignment places Shamrock in 2A Division II, District 5 even though the alphabetical enrollment file reports 100.5 and a submitted conference of 1A.",
+              "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
+              "sourceLabel": "Official UIL football alignment"
+          }
+      ],
+      "faq": [
+          {
+              "question": "What is Shamrock's football team called?",
+              "answer": "Shamrock ISD identifies its athletics program as the Shamrock Fighting Irish."
+          },
+          {
+              "question": "Who is the Shamrock head football coach?",
+              "answer": "Shamrock ISD identifies Nate Skelton as athletic director and head football coach."
+          },
+          {
+              "question": "Why is Shamrock in 2A Division II with a UIL enrollment of 100.5?",
+              "answer": "UIL's alphabetical enrollment file reports 100.5 and a submitted conference of 1A, while the final 2026–28 football alignment places Shamrock in 2A Division II. TexasDefined treats those as separate official facts and uses the final alignment for competition placement instead of pretending the normal 2A Division II cutoff is Shamrock's enrollment band."
+          },
+          {
+              "question": "Where does Shamrock play home football games?",
+              "answer": "Dave Campbell's Texas Football identifies El Paso Field as Shamrock's stadium. Confirm the specific game venue, entrance and parking instructions with Shamrock ISD before travel."
+          }
       ]
-    },
-    "campus": {
-      "address": "100 S Illinois Street, Shamrock, TX 79079",
-      "phone": "806-256-3492",
-      "sourceUrl": "https://www.shamrockisd.net/",
-      "sourceLabel": "Shamrock ISD official site",
-      "verifiedAt": "2026-10-09"
-    },
-    "venue": {
-      "name": "El Paso Field",
-      "address": "Shamrock, Texas — confirm the current entrance and parking instructions with Shamrock ISD",
-      "sourceUrl": "https://www.texasfootball.com/team/shamrock-irish",
-      "sourceLabel": "Dave Campbell's Texas Football — Shamrock program history",
-      "verifiedAt": "2026-10-09",
-      "note": "Dave Campbell's Texas Football identifies El Paso Field as Shamrock's stadium and reports a capacity of 2,500. The source reviewed does not provide a verified gate address, parking map or accessibility instructions, so TexasDefined does not infer those details. Confirm the assigned venue and arrival information with Shamrock ISD before traveling."
-    },
-    "overview": [
-      "Shamrock's team identity is the Fighting Irish. Shamrock ISD's current coaching pages identify Nate Skelton as athletic director and head football coach and list the current football staff, including offensive coordinator Thomas Hays and defensive coordinator Larry McNew.",
-      "For the 2026–28 UIL cycle, Shamrock competes in Class 2A Division II, District 5 with Clarendon, Memphis, Quanah, Wellington and Wheeler. UIL's alphabetical enrollment file reports 100.5 students and a submitted conference of 1A, while the final football alignment places Shamrock in 2A Division II. TexasDefined therefore treats the enrollment figure and final football placement as separate facts rather than incorrectly calling 105–175.5 Shamrock's enrollment band.",
-      "The 2026 season snapshot was checked October 9 with Shamrock at 1–4 before district play. The schedule table on this profile is a dated editorial snapshot; Shamrock ISD's official athletic schedule remains the first place to confirm a changed kickoff or school-issued update."
-    ],
-    "milestones": [
-      {
-        "date": "2026",
-        "title": "Nate Skelton leads the program",
-        "body": "Shamrock ISD identifies Nate Skelton as athletic director and head football coach on its current athletics pages.",
-        "sourceUrl": "https://www.shamrockisd.net/47588_2",
-        "sourceLabel": "Shamrock ISD"
-      },
-      {
-        "date": "2026–28",
-        "title": "2A Division II, District 5",
-        "body": "The final UIL football alignment places Shamrock in 2A Division II, District 5 even though the alphabetical enrollment file reports 100.5 and a submitted conference of 1A.",
-        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
-        "sourceLabel": "Official UIL football alignment"
-      }
-    ],
-    "faq": [
-      {
-        "question": "What is Shamrock's football team called?",
-        "answer": "Shamrock ISD identifies its athletics program as the Shamrock Fighting Irish."
-      },
-      {
-        "question": "Who is the Shamrock head football coach?",
-        "answer": "Shamrock ISD identifies Nate Skelton as athletic director and head football coach."
-      },
-      {
-        "question": "Why is Shamrock in 2A Division II with a UIL enrollment of 100.5?",
-        "answer": "UIL's alphabetical enrollment file reports 100.5 and a submitted conference of 1A, while the final 2026–28 football alignment places Shamrock in 2A Division II. TexasDefined treats those as separate official facts and uses the final alignment for competition placement instead of pretending the normal 2A Division II cutoff is Shamrock's enrollment band."
-      },
-      {
-        "question": "Where does Shamrock play home football games?",
-        "answer": "Dave Campbell's Texas Football identifies El Paso Field as Shamrock's stadium. Confirm the specific game venue, entrance and parking instructions with Shamrock ISD before travel."
-      }
-    ]
   },
   "wills-point": {
     "slug": "wills-point",
@@ -18639,7 +18666,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Panther Field",
-      "address": "Abbott, Texas — confirm the stadium entry address with Abbott ISD",
       "sourceUrl": "https://www.texasfootball.com/team/abbott-panthers",
       "sourceLabel": "Dave Campbell's Texas Football — Abbott venue",
       "verifiedAt": "2026-10-08",
@@ -18825,7 +18851,6 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Bart Coan Field (historical Fort Davis home football venue)",
-      "address": "Fort Davis ISD campus area, Fort Davis — confirm access with the district; no 2026 football games scheduled",
       "sourceUrl": "https://www.fdisd.com/article/239245",
       "sourceLabel": "Fort Davis ISD's 2020 Bart Coan Football Field announcement",
       "verifiedAt": "2026-10-08",

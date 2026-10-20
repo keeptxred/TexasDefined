@@ -30,6 +30,19 @@ assert.ok(school && school.batch === 6 && ['IMPLEMENTED','MERGED','DEPLOYED','VE
 assert.equal(school.county, 'Upshur County');
 assert.equal(school.campusCountySource, 'https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=482256002294');
 const editor = read('src/data/high-school-football/program-editorial.ts');
+const unsafeVenueAddressPattern = /confirm|not verified|unverified|not independently|not a verified|do not assume|entrance.*not|gate.*not|campus.*verify|current stadium entrance/i;
+const unsafeVenueNamePattern = /confirm|verify|exact current stadium name|scheduled football facility|assigned field/i;
+for (const match of editor.matchAll(/"venue":\s*\{[\s\S]*?\n\s*\}/g)) {
+  const block = match[0];
+  const name = block.match(/"name":\s*"([^"]+)"/)?.[1];
+  const address = block.match(/"address":\s*"([^"]+)"/)?.[1];
+  if (name) assert.ok(!unsafeVenueNamePattern.test(name), 'Venue name must be a venue name, not verification instructions: ' + name);
+  if (!address) continue;
+  assert.ok(!unsafeVenueAddressPattern.test(address), 'Venue address must contain only the sourced address, not uncertainty/caveat prose: ' + address);
+  assert.ok(/\d/.test(address), 'Venue address must be a street-level address, not a city/county placeholder: ' + address);
+}
+assert.ok(!editor.includes('"address": "Shamrock, Texas — confirm'), 'Shamrock El Paso Field must not render a fake address row');
+
 const index = editor.indexOf('  "big-sandy-harmony": {');
 assert.ok(index >= 0, 'Harmony school-specific editorial missing');
 const next = editor.indexOf('\n  "', index + 4);
@@ -42,6 +55,26 @@ assert.equal((section.match(/"opponent":/g)||[]).length, 10, 'School must show t
 // Permanent score-integrity contract: avoid freezing the Oct 9 scorecard in
 // code. Future verified finals can progress without weakening source checks.
 const harmony = JSON.parse(section.slice(section.indexOf('{')).trim().replace(/,\s*$/, ''));
+
+for (const [slug, expectedVenue, expectedAddress] of [
+  ['blooming-grove', 'Lion Stadium', undefined],
+  ['blue-ridge', 'Tiger Stadium', undefined],
+  ['blanket', 'Tiger Stadium', '901 Avenue H, Blanket, TX 76432'],
+  ['borger', 'Bulldog Stadium', undefined],
+  ['bowie', 'Jackrabbit Stadium', undefined],
+  ['bovina', 'Mustang Stadium', undefined],
+  ['bishop', 'George Luna Stadium', undefined],
+  ['bosqueville', 'Bulldog Stadium', undefined],
+]) {
+  const start = editor.indexOf('  "' + slug + '": {');
+  assert.ok(start >= 0, slug + ' editorial must exist');
+  const end = editor.indexOf('\n  "', start + 4);
+  const source = end > start ? editor.slice(start, end) : editor.slice(start);
+  const entry = JSON.parse(source.slice(source.indexOf('{')).trim().replace(/,\s*$/, ''));
+  assert.equal(entry.venue?.name, expectedVenue, slug + ' must retain its first-party sourced venue name');
+  assert.equal(entry.venue?.address, expectedAddress, slug + ' venue address must remain exactly as established by the first-party source');
+  assert.ok(/entrance|parking|address/i.test(entry.venue?.note || ''), slug + ' venue note must preserve the unverified-access caveat');
+}
 const harmonyGames = harmony.season.games;
 assert.equal(harmonyGames.length, 10, 'Preserve the researched 2026 ten-fixture roster');
 const firstSeven = harmonyGames.filter(game => game.date <= '2026-10-09');
@@ -69,6 +102,10 @@ assert.ok(identity.includes("slug: 'big-sandy-harmony', mascot: 'Eagles'"), 'Ver
 const profile = read('src/data/high-school-football/football-program-profile.server.ts');
 assert.ok(profile.includes("'big-sandy-harmony': { officialSchoolName: 'Harmony High School', districtName: 'Harmony ISD', countyName: 'Upshur County'"), 'Do not confuse Harmony with other Big Sandy programs');
 const page = read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
+assert.ok(page.includes('aria-label="Independent editorial team accent"'), 'Researched football profiles must expose the rights-safe editorial accent in the header');
+assert.ok(page.includes('backgroundColor: editorial.theme.accentHex'), 'Football profile header must use the sourced editorial accent without requiring a logo or photo');
+assert.ok(page.includes('editorial?.intro ?? editorial?.overview?.[0] ?? profileSummary'), 'Researched football profiles must use authored overview copy before generic header fallback');
+assert.ok(page.includes('{editorial.theme.label}'), 'Football profile header must disclose the independent editorial accent provenance');
 const county = read('src/routes/$kind.$slug.lazy.tsx');
 assert.ok(page.includes("'big-sandy-harmony': 'upshur'"), 'Harmony must link out to Upshur County');
 assert.ok(county.includes("slug: 'big-sandy-harmony'"), 'Upshur County must reciprocate to Harmony');

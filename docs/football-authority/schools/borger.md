@@ -39,3 +39,7 @@ Borger ISD publishes 600 W First Street, Borger, TX 79007 and office 806-273-102
 The school page `/texas-high-school-football-teams/borger` links to `/county/hutchinson`, and the corresponding Hutchinson county guide adds a reciprocal football link. All original FAQs distinguish this particular school, its coaching and its actual sourced history. School-based football contact: [Jesus A. Villaseñor](https://borgerisd.net/69574_2). No school logo, team photo or facility image is reused without documented license. An actual school photo still requires rights validation; an unrelated stock image is never substituted.
 
 **Before acceptance:** canonical protected CI on reconciled main, successful exact-SHA production deployment, school/county targeted real Chrome desktop/390px/320px SEO/JSON-LD/FAQ/links/axe checks, game-day and photo-rights evidence, and real nine-dimension Supabase editorial acceptance. Registry stays IMPLEMENTED until these are proven. No broad audit and no synthetic editorial sign-off.
+
+## October 20, 2026 — Borger ISD confirms Bulldog Stadium name
+Borger ISD's 2026 back-to-school information schedules **Meet the Bulldogs** at **Bulldog Stadium**, providing first-party current venue-name evidence. The public football guide now publishes that stadium name without copying the Borger High School contact address into the stadium field. The source does not establish a public gate address, parking map or accessible-seating plan, so those details remain intentionally unclaimed.
+

@@ -37,3 +37,7 @@ The school page `/texas-high-school-football-teams/bowie` links to `/county/mont
 [MaxPreps' October 17 updated Bowie Jackrabbits schedule](https://www.maxpreps.com/tx/bowie/bowie-jackrabbits/football/schedule/) records **Paradise 37, Bowie 15**, bringing this **Montague County Bowie ISD** program to **4–4 through October 16**. This is not Austin Bowie, nor the unrelated Simms James Bowie Pirates. The existing 2026 school identity and coach evidence remain unchanged.
 
 This source-backed editorial correction does not establish a school-certified UIL final, image license, guaranteed stadium entrance, exact deployed commit or school-specific nine-dimension editorial/Chrome acceptance. Preserve this school's `DEPLOYED` status until acceptance evidence is recorded.
+
+## October 20, 2026 — Bowie High confirms Jackrabbit Stadium for current varsity games
+Bowie High School's 2026 live feed repeatedly identifies **Jackrabbit Stadium** for current varsity football games, including the August 28 Callisburg and September 4 Bridgeport home dates, and separately publishes current stadium spectator expectations. The public football guide now uses Jackrabbit Stadium as a first-party venue name while leaving a separate street/gate address unclaimed. The high-school contact address is not automatically treated as the spectator entrance; parking and full ADA seating details remain unverified.
+

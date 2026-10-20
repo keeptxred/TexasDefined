@@ -31,3 +31,7 @@ Bosqueville ISD publishes 7636 Rock Creek Road, Waco, TX 76708 and office 254-75
 The school page `/texas-high-school-football-teams/bosqueville` links to `/county/mclennan`, and the corresponding McLennan county guide adds a reciprocal football link. All original FAQs distinguish this particular school, its coaching and its actual sourced history. School-based football contact: [Reggie Patrick](https://ms.bosquevilleisd.org/o/hs/live_feeds/12580232). No school logo, team photo or facility image is reused without documented license. An actual school photo still requires rights validation; an unrelated stock image is never substituted.
 
 **Before acceptance:** canonical protected CI on reconciled main, successful exact-SHA production deployment, school/county targeted real Chrome desktop/390px/320px SEO/JSON-LD/FAQ/links/axe checks, game-day and photo-rights evidence, and real nine-dimension Supabase editorial acceptance. Registry stays IMPLEMENTED until these are proven. No broad audit and no synthetic editorial sign-off.
+
+## October 20, 2026 — Bosqueville ISD names Bulldog Stadium for football
+Bosqueville ISD's 2026 athletics live feed invites the community to kick off the season at **Bulldog Stadium** with its JV and varsity football teams, establishing the current first-party venue name. The public football guide now publishes Bulldog Stadium while leaving a separate public street address, spectator entrance, parking plan and accessible seating map unclaimed because those details were not established by the source reviewed.
+

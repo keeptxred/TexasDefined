@@ -271,8 +271,12 @@ function Page() {
             <p className="mt-5 max-w-4xl text-lg leading-8 text-muted-foreground" style={slug === 'aubrey' ? { fontSize: '1rem', lineHeight: 1.6 } : undefined}>
               {slug === 'aubrey'
                 ? 'Verified 2026 scores, remaining games, home tickets and Chaparral Stadium information.'
-                : editorial?.intro ?? profileSummary}
+                : editorial?.intro ?? editorial?.overview?.[0] ?? profileSummary}
             </p>
+            {editorial?.theme && slug !== 'aubrey' && <div className="mt-5 max-w-3xl" aria-label="Independent editorial team accent">
+              <div aria-hidden="true" className="h-1.5 w-28" style={{ backgroundColor: editorial.theme.accentHex }} />
+              <p className="mt-2 text-xs leading-6 text-muted-foreground">{editorial.theme.label}</p>
+            </div>}
           </div>
           {slug === 'aubrey' && (
             <figure style={{ minWidth: 0 }}>
@@ -468,7 +472,6 @@ function Page() {
           <p className="eyebrow text-primary">The program story</p>
           <h2 className="mt-2 font-display text-3xl">Milestones that shaped {displayName} football</h2>
           <p className="mt-4 text-sm leading-7 text-muted-foreground">Every moment is linked to its supporting source. Historical classifications, championship years and coaching records are separate from the current UIL alignment.</p>
-          {editorial.theme && editorial.photo && <p className="mt-4 text-xs text-muted-foreground">{editorial.theme.label}</p>}
         </div>
         <div className="grid gap-4 md:grid-cols-2">
           {editorial.milestones.map((milestone) => <article key={`${milestone.date}:${milestone.title}`} className="border-l-4 bg-surface p-5 sm:p-6" style={{ borderLeftColor: editorial.theme?.accentHex }}>
@@ -609,7 +612,7 @@ function Page() {
         <div>
           <dl className="grid gap-px border border-border bg-border sm:grid-cols-2">
             <Snapshot label="Venue" value={editorial.venue.name} />
-            <Snapshot label="Address" value={editorial.venue.address} />
+            {editorial.venue.address && <Snapshot label="Address" value={editorial.venue.address} />}
           </dl>
           <p className="mt-5 max-w-4xl text-sm leading-7 text-muted-foreground">{editorial.venue.note}</p>
           <a href={editorial.venue.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">{editorial.venue.sourceLabel} ↗</a>
