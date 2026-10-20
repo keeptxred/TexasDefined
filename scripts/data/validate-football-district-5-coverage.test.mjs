@@ -114,7 +114,7 @@ test('responsive District 5 Chrome acceptance cannot be skipped by broad sports 
     // Screenshot paths are assembled with each viewport label in the runner.
     assert.ok(browserScript.includes(marker) || (marker.startsWith('district5-') && browserScript.includes("'/district5-' + spec.label + '.png'")), marker);
   }
-  const deps = workflow.match(/- name: Prepare District 5 responsive Chrome verification\\n\\s+id: district5_browser_deps\\n\\s+if: ([^\\n]+)/);
+  const deps = workflow.match(/- name: Prepare District 5 responsive Chrome verification\n\s+id: district5_browser_deps\n\s+if: ([^\n]+)/);
   assert.ok(deps, 'District 5 browser dependency gate missing');
   assert.ok(deps[1].includes("steps.live_district5.outcome == 'success'"), 'Run after District 5 HTML smoke');
   assert.ok(!deps[1].includes('steps.change_scope.outputs.sports'), 'Do not skip District 5 browser on other changes');
