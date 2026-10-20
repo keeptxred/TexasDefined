@@ -875,7 +875,7 @@ jobs:
         # The earlier visual QA step could be skipped while GitHub still reported success.
         # Never certify this deployment without an actual passing District 5 Chrome run.
         if: ${{ success() && steps.cloudflare.outcome == 'success' && steps.live_district5_browser.outcome == 'success' }}
-        run: echo 'All blocking production verifiers passed natively, including District 5 desktop/mobile Chrome.'
+        run: echo 'All blocking production verifiers passed natively.'
       - name: Publish live verification result
         if: always()
         env:
