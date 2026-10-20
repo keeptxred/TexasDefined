@@ -4,7 +4,6 @@ import roadTrip from "@/assets/road-trip.jpg";
 import smallTown from "@/assets/small-town.jpg";
 
 import { canonicalizeSeasonalArticleLinks } from "../seasonal-article-redirects";
-import { stateParkHeroMap } from "../state-park-hero-map";
 import { lostMaplesAutumnHero } from "./lost-maples-autumn-hero";
 import type { Article, ImageRef } from "../types";
 import { blueHoleJasperCountyStoryArticle } from "./blue-hole-jasper-county-story";
