@@ -43,14 +43,20 @@ assert.equal((section.match(/"opponent":/g)||[]).length, 10, 'School must show t
 // code. Future verified finals can progress without weakening source checks.
 const harmony = JSON.parse(section.slice(section.indexOf('{')).trim().replace(/,\s*$/, ''));
 
-for (const [slug, expectedVenue] of [['blooming-grove', 'Lion Stadium'], ['blue-ridge', 'Tiger Stadium']]) {
+for (const [slug, expectedVenue, expectedAddress] of [
+  ['blooming-grove', 'Lion Stadium', undefined],
+  ['blue-ridge', 'Tiger Stadium', undefined],
+  ['blanket', 'Tiger Stadium', '901 Avenue H, Blanket, TX 76432'],
+  ['borger', 'Bulldog Stadium', undefined],
+  ['bowie', 'Jackrabbit Stadium', undefined],
+]) {
   const start = editor.indexOf('  "' + slug + '": {');
   assert.ok(start >= 0, slug + ' editorial must exist');
   const end = editor.indexOf('\n  "', start + 4);
   const source = end > start ? editor.slice(start, end) : editor.slice(start);
   const entry = JSON.parse(source.slice(source.indexOf('{')).trim().replace(/,\s*$/, ''));
   assert.equal(entry.venue?.name, expectedVenue, slug + ' must retain its first-party sourced venue name');
-  assert.equal(entry.venue?.address, undefined, slug + ' must not invent a stadium address when the source only establishes the venue name');
+  assert.equal(entry.venue?.address, expectedAddress, slug + ' venue address must remain exactly as established by the first-party source');
   assert.ok(/entrance|parking|address/i.test(entry.venue?.note || ''), slug + ' venue note must preserve the unverified-access caveat');
 }
 const harmonyGames = harmony.season.games;
