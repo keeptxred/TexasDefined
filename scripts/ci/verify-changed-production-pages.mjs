@@ -100,8 +100,8 @@ for (const path of plan.selectedPaths) {
         if (!visitorResponse.ok || visitorResponse.headers.get('cf-mitigated') === 'challenge') {
           throw new Error('Texas Data ordinary visitor URL failed: HTTP ' + visitorResponse.status);
         }
-        const visitorCanonicals = [...visitorHtml.matchAll(/<link\\b[^>]*>/gi)]
-          .filter(match => /\\brel=["']canonical["']/i.test(match[0]));
+        const visitorCanonicals = [...visitorHtml.matchAll(/<link\b[^>]*>/gi)]
+          .filter(match => /\brel=["']canonical["']/i.test(match[0]));
         if (visitorCanonicals.length !== 1 ||
             !visitorCanonicals[0][0].includes('href="' + canonical.href + '"')) {
           throw new Error('Texas Data ordinary visitor URL has an unexpected canonical');
