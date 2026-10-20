@@ -2861,6 +2861,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         }
       ]
     },
+    "venue": {
+      "name": "Bulldog Stadium",
+      "address": "407 Atlantic Street, Boling, TX 77420 (Boling High orientation point; exact stadium gate not independently verified)",
+      "sourceUrl": "https://www.texasfootball.com/team/boling-bulldogs",
+      "sourceLabel": "Dave Campbell's Texas Football current Boling program page identifies Bulldog Stadium",
+      "verifiedAt": "2026-10-20",
+      "note": "Dave Campbell's Texas Football identifies Bulldog Stadium as Boling's stadium. The high-school address is supplied only as an orientation point; TexasDefined does not infer the vehicle gate, parking entrance, ticket entrance or accessible-seating route. Confirm event-specific access with Boling ISD."
+    },
     "development": {
       "title": "Boling won the 1972 Class 2A football championship; returned to the final in 2016",
       "body": "UIL's official historical champions ledger names Boling as the 1972 Class 2A Texas champion after a 20–0 victory over Rockwall. In a different era and classification, the 2016 Class 3A Division II Bulldogs reached the championship game but lost 43–7 to Gunter. The UIL's 2016 Boling team file identifies Stephen Dorr as head coach for that historical season (current head coach Kevin Urbanek served as an assistant on that roster). These are different roles and years; don't misdescribe the 2016 runners-up as repeat champions.",
@@ -4186,6 +4194,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         }
       ]
     },
+    "venue": {
+      "name": "Jackrabbit Stadium",
+      "address": "341 East Highway 287 North, Bowie, TX 76230 (Bowie High orientation point; exact stadium gate not independently verified)",
+      "sourceUrl": "https://www.texasfootball.com/team/bowie-jackrabbits",
+      "sourceLabel": "Dave Campbell's Texas Football current Bowie Jackrabbits program page identifies Jackrabbit Stadium",
+      "verifiedAt": "2026-10-20",
+      "note": "Dave Campbell's Texas Football identifies Jackrabbit Stadium for the Bowie Jackrabbits. Bowie High's address is an orientation point only; TexasDefined does not claim the precise vehicle gate, parking entrance, ticket entrance or accessible-seating route. Confirm current game-day details with Bowie ISD."
+    },
     "development": {
       "title": "Bowie Jackrabbits: a specific program across distinct football seasons",
       "body": "These are the Montague County Bowie ISD Jackrabbits, not the Austin Bowie Bulldogs. Bowie entered 2026 after a 5–5 season and won its first three against Callisburg, Bridgeport and Gainesville, then beat City View before losses to Early and Peaster.",
@@ -4533,6 +4549,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         }
       ]
     },
+    "venue": {
+      "name": "Yellow Jacket Stadium",
+      "address": "700 Knox Avenue, Boyd, TX 76023 (Boyd High orientation point; exact stadium gate not independently verified)",
+      "sourceUrl": "https://www.texasfootball.com/team/boyd-yellowjackets",
+      "sourceLabel": "Dave Campbell's Texas Football current Boyd program page identifies Yellow Jacket Stadium",
+      "verifiedAt": "2026-10-20",
+      "note": "Dave Campbell's Texas Football identifies Yellow Jacket Stadium as Boyd's stadium. Boyd High's address is supplied only as an orientation point; TexasDefined does not infer the vehicle gate, parking entrance, ticket entrance or accessible-seating route. Confirm event-specific access with Boyd ISD."
+    },
     "development": {
       "title": "Boyd Yellowjackets: a specific program across distinct football seasons",
       "body": "The Yellowjackets earned genuine UIL titles in 1983 (Class 2A, 16–8 over Groveton) and 2004 (Class 2A Division I, 17–14 over Newton). The 2004 team is listed at 16–0 in the historical season index. Those championships are separate from today's 3A Division I classification.",
@@ -4690,6 +4714,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "district": true
         }
       ]
+    },
+    "venue": {
+      "name": "Roughrider Stadium",
+      "address": "Boys Ranch, TX 79010 (stadium name verified by program source; exact public gate/address not independently verified)",
+      "sourceUrl": "https://www.texasfootball.com/team/boys-ranch-roughriders",
+      "sourceLabel": "Dave Campbell's Texas Football current Boys Ranch program page identifies Roughrider Stadium",
+      "verifiedAt": "2026-10-20",
+      "note": "Dave Campbell's Texas Football identifies Roughrider Stadium as Boys Ranch's stadium. TexasDefined does not convert the district-office or third-party high-school address into a stadium gate and does not infer parking, ticketing or accessible-seating access. Confirm the actual game entrance with Boys Ranch ISD."
     },
     "development": {
       "title": "Boys Ranch Roughriders: a specific program across distinct football seasons",
