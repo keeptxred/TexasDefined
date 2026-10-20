@@ -642,6 +642,10 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "answer": "Bishop High's official October 23, 2026 homecoming event names George Luna Stadium for the Santa Gertrudis Academy varsity game. Local 2024 KZTV reporting confirms Bishop CISD renamed Badger Stadium in memory of athletic director George Luna; an old independent directory's Ed Gorny Stadium entry is not a reliable current name. Do not assume 100 Badger Lane (school contact) or 719 East Sixth Street (athletics office) is the stadium entrance. Verify parking, admissions and accessible facilities with Bishop CISD."
       },
       {
+        "question": "Where can I check Bishop CISD football tickets for homecoming?",
+        "answer": "Use Bishop Consolidated ISD's own Ticket Sales page at https://www.bishopcisd.net/athletics/ticket-sales or its HomeTown Ticket App guidance at https://www.bishopcisd.net/parents-students/tickets-sales. These are district resources, not evidence that a particular October 23 event is currently on sale, or of a confirmed ticket price, cash policy or gate location. Bishop CISD Athletics can confirm details at 361-584-3591 ext. 319."
+      },
+      {
         "question": "Who is Bishop's head football coach in 2026?",
         "answer": "Corpus Christi ISD publicly announced April 21, 2026 that then-Bishop coach David McHugh was leaving for Miller High in May. MaxPreps' October 13 Bishop staff list identifies Keith Talbert as head coach, but we have not located a Bishop CISD first-party appointment announcement confirming him. Bishop CISD names Mike Davila athletic director, a different role. Verify coaching changes with the district."
       }
