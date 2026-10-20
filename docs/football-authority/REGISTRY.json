@@ -6552,7 +6552,10 @@
       "mergedAt": "2026-10-15T18:50:13Z",
       "mergeCommit": "d3ba7ff9c4332757a9ad6701ac5d53707713474a",
       "deploymentRun": "https://github.com/keeptxred/TexasDefined/actions/runs/38792778982",
-      "deployedWithSha": "4fedab37c37d9fd8f4e72caeaf300e06e6e22c1b"
+      "deployedWithSha": "4fedab37c37d9fd8f4e72caeaf300e06e6e22c1b",
+      "productionVerification": "BROWSER_PASS_BATCH006_75_SCHOOL_23_COUNTY_25_SITEMAP_2026_10_19",
+      "linkVerificationStatus": "RECIPROCAL_COUNTY_BROWSER_PASS_BATCH006_2026_10_19",
+      "technicalBrowserRun": 39273758531
     },
     {
       "id": "uil:big-spring",
@@ -6574,7 +6577,10 @@
       "mergedPR": 4970,
       "mergedCommit": "8dd25feb2130587cc263f1d1a238576ee6e7a439",
       "deploymentRun": 38816010474,
-      "deploymentCommit": "68f9f0b99736ffa1fc2161d5624eee89111d2cf7"
+      "deploymentCommit": "68f9f0b99736ffa1fc2161d5624eee89111d2cf7",
+      "productionVerification": "BROWSER_PASS_BATCH006_75_SCHOOL_23_COUNTY_25_SITEMAP_2026_10_19",
+      "linkVerificationStatus": "RECIPROCAL_COUNTY_BROWSER_PASS_BATCH006_2026_10_19",
+      "technicalBrowserRun": 39273758531
     },
     {
       "id": "uil:bishop",
@@ -6596,7 +6602,10 @@
       "mergedPr": 5070,
       "mergedCommit": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
       "deploymentRun": 39050440079,
-      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb"
+      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
+      "productionVerification": "BROWSER_PASS_BATCH006_75_SCHOOL_23_COUNTY_25_SITEMAP_2026_10_19",
+      "linkVerificationStatus": "RECIPROCAL_COUNTY_BROWSER_PASS_BATCH006_2026_10_19",
+      "technicalBrowserRun": 39273758531
     },
     {
       "id": "uil:blackwell",
@@ -6618,7 +6627,10 @@
       "mergedPr": 5070,
       "mergedCommit": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
       "deploymentRun": 39050440079,
-      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb"
+      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
+      "productionVerification": "BROWSER_PASS_BATCH006_75_SCHOOL_23_COUNTY_25_SITEMAP_2026_10_19",
+      "linkVerificationStatus": "RECIPROCAL_COUNTY_BROWSER_PASS_BATCH006_2026_10_19",
+      "technicalBrowserRun": 39273758531
     },
     {
       "id": "uil:blanco",
@@ -6640,7 +6652,10 @@
       "mergedPr": 5070,
       "mergedCommit": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
       "deploymentRun": 39050440079,
-      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb"
+      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
+      "productionVerification": "BROWSER_PASS_BATCH006_75_SCHOOL_23_COUNTY_25_SITEMAP_2026_10_19",
+      "linkVerificationStatus": "RECIPROCAL_COUNTY_BROWSER_PASS_BATCH006_2026_10_19",
+      "technicalBrowserRun": 39273758531
     },
     {
       "id": "uil:blanket",
@@ -6662,7 +6677,10 @@
       "mergedPr": 5070,
       "mergedCommit": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
       "deploymentRun": 39050440079,
-      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb"
+      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
+      "productionVerification": "BROWSER_PASS_BATCH006_75_SCHOOL_23_COUNTY_25_SITEMAP_2026_10_19",
+      "linkVerificationStatus": "RECIPROCAL_COUNTY_BROWSER_PASS_BATCH006_2026_10_19",
+      "technicalBrowserRun": 39273758531
     },
     {
       "id": "uil:blooming-grove",
@@ -6684,7 +6702,10 @@
       "mergedPr": 5070,
       "mergedCommit": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
       "deploymentRun": 39050440079,
-      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb"
+      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
+      "productionVerification": "BROWSER_PASS_BATCH006_75_SCHOOL_23_COUNTY_25_SITEMAP_2026_10_19",
+      "linkVerificationStatus": "RECIPROCAL_COUNTY_BROWSER_PASS_BATCH006_2026_10_19",
+      "technicalBrowserRun": 39273758531
     },
     {
       "id": "uil:bloomington",
@@ -6706,7 +6727,10 @@
       "mergedPr": 5070,
       "mergedCommit": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
       "deploymentRun": 39050440079,
-      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb"
+      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
+      "productionVerification": "BROWSER_PASS_BATCH006_75_SCHOOL_23_COUNTY_25_SITEMAP_2026_10_19",
+      "linkVerificationStatus": "RECIPROCAL_COUNTY_BROWSER_PASS_BATCH006_2026_10_19",
+      "technicalBrowserRun": 39273758531
     },
     {
       "id": "uil:blue-ridge",
@@ -6728,7 +6752,10 @@
       "mergedPr": 5070,
       "mergedCommit": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
       "deploymentRun": 39050440079,
-      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb"
+      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
+      "productionVerification": "BROWSER_PASS_BATCH006_75_SCHOOL_23_COUNTY_25_SITEMAP_2026_10_19",
+      "linkVerificationStatus": "RECIPROCAL_COUNTY_BROWSER_PASS_BATCH006_2026_10_19",
+      "technicalBrowserRun": 39273758531
     },
     {
       "id": "uil:bluff-dale",
@@ -6812,7 +6839,10 @@
       "mergedPr": 5070,
       "mergedCommit": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
       "deploymentRun": 39050440079,
-      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb"
+      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
+      "productionVerification": "BROWSER_PASS_BATCH006_75_SCHOOL_23_COUNTY_25_SITEMAP_2026_10_19",
+      "linkVerificationStatus": "RECIPROCAL_COUNTY_BROWSER_PASS_BATCH006_2026_10_19",
+      "technicalBrowserRun": 39273758531
     },
     {
       "id": "uil:boerne-champion",
@@ -6834,7 +6864,10 @@
       "mergedPr": 5070,
       "mergedCommit": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
       "deploymentRun": 39050440079,
-      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb"
+      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
+      "productionVerification": "BROWSER_PASS_BATCH006_75_SCHOOL_23_COUNTY_25_SITEMAP_2026_10_19",
+      "linkVerificationStatus": "RECIPROCAL_COUNTY_BROWSER_PASS_BATCH006_2026_10_19",
+      "technicalBrowserRun": 39273758531
     },
     {
       "id": "uil:bogata-rivercrest",
@@ -6856,7 +6889,10 @@
       "mergedPr": 5070,
       "mergedCommit": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
       "deploymentRun": 39050440079,
-      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb"
+      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
+      "productionVerification": "BROWSER_PASS_BATCH006_75_SCHOOL_23_COUNTY_25_SITEMAP_2026_10_19",
+      "linkVerificationStatus": "RECIPROCAL_COUNTY_BROWSER_PASS_BATCH006_2026_10_19",
+      "technicalBrowserRun": 39273758531
     },
     {
       "id": "uil:boling",
@@ -6878,7 +6914,10 @@
       "mergedPr": 5070,
       "mergedCommit": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
       "deploymentRun": 39050440079,
-      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb"
+      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
+      "productionVerification": "BROWSER_PASS_BATCH006_75_SCHOOL_23_COUNTY_25_SITEMAP_2026_10_19",
+      "linkVerificationStatus": "RECIPROCAL_COUNTY_BROWSER_PASS_BATCH006_2026_10_19",
+      "technicalBrowserRun": 39273758531
     },
     {
       "id": "uil:bonham",
@@ -6900,7 +6939,10 @@
       "mergedPr": 5070,
       "mergedCommit": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
       "deploymentRun": 39050440079,
-      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb"
+      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
+      "productionVerification": "BROWSER_PASS_BATCH006_75_SCHOOL_23_COUNTY_25_SITEMAP_2026_10_19",
+      "linkVerificationStatus": "RECIPROCAL_COUNTY_BROWSER_PASS_BATCH006_2026_10_19",
+      "technicalBrowserRun": 39273758531
     },
     {
       "id": "uil:booker",
@@ -6922,7 +6964,10 @@
       "mergedPr": 5070,
       "mergedCommit": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
       "deploymentRun": 39050440079,
-      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb"
+      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
+      "productionVerification": "BROWSER_PASS_BATCH006_75_SCHOOL_23_COUNTY_25_SITEMAP_2026_10_19",
+      "linkVerificationStatus": "RECIPROCAL_COUNTY_BROWSER_PASS_BATCH006_2026_10_19",
+      "technicalBrowserRun": 39273758531
     },
     {
       "id": "uil:borden-county",
@@ -6944,7 +6989,10 @@
       "mergedPr": 5070,
       "mergedCommit": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
       "deploymentRun": 39050440079,
-      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb"
+      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
+      "productionVerification": "BROWSER_PASS_BATCH006_75_SCHOOL_23_COUNTY_25_SITEMAP_2026_10_19",
+      "linkVerificationStatus": "RECIPROCAL_COUNTY_BROWSER_PASS_BATCH006_2026_10_19",
+      "technicalBrowserRun": 39273758531
     },
     {
       "id": "uil:borger",
@@ -6966,7 +7014,10 @@
       "mergedPr": 5070,
       "mergedCommit": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
       "deploymentRun": 39050440079,
-      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb"
+      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
+      "productionVerification": "BROWSER_PASS_BATCH006_75_SCHOOL_23_COUNTY_25_SITEMAP_2026_10_19",
+      "linkVerificationStatus": "RECIPROCAL_COUNTY_BROWSER_PASS_BATCH006_2026_10_19",
+      "technicalBrowserRun": 39273758531
     },
     {
       "id": "uil:bosqueville",
@@ -6988,7 +7039,10 @@
       "mergedPr": 5070,
       "mergedCommit": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
       "deploymentRun": 39050440079,
-      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb"
+      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
+      "productionVerification": "BROWSER_PASS_BATCH006_75_SCHOOL_23_COUNTY_25_SITEMAP_2026_10_19",
+      "linkVerificationStatus": "RECIPROCAL_COUNTY_BROWSER_PASS_BATCH006_2026_10_19",
+      "technicalBrowserRun": 39273758531
     },
     {
       "id": "uil:bovina",
@@ -7010,7 +7064,10 @@
       "mergedPr": 5070,
       "mergedCommit": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
       "deploymentRun": 39050440079,
-      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb"
+      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
+      "productionVerification": "BROWSER_PASS_BATCH006_75_SCHOOL_23_COUNTY_25_SITEMAP_2026_10_19",
+      "linkVerificationStatus": "RECIPROCAL_COUNTY_BROWSER_PASS_BATCH006_2026_10_19",
+      "technicalBrowserRun": 39273758531
     },
     {
       "id": "uil:bowie",
@@ -7032,7 +7089,10 @@
       "mergedPr": 5070,
       "mergedCommit": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
       "deploymentRun": 39050440079,
-      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb"
+      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
+      "productionVerification": "BROWSER_PASS_BATCH006_75_SCHOOL_23_COUNTY_25_SITEMAP_2026_10_19",
+      "linkVerificationStatus": "RECIPROCAL_COUNTY_BROWSER_PASS_BATCH006_2026_10_19",
+      "technicalBrowserRun": 39273758531
     },
     {
       "id": "uil:bowie-gold-burg",
@@ -7054,7 +7114,10 @@
       "mergedPr": 5070,
       "mergedCommit": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
       "deploymentRun": 39050440079,
-      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb"
+      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
+      "productionVerification": "BROWSER_PASS_BATCH006_75_SCHOOL_23_COUNTY_25_SITEMAP_2026_10_19",
+      "linkVerificationStatus": "RECIPROCAL_COUNTY_BROWSER_PASS_BATCH006_2026_10_19",
+      "technicalBrowserRun": 39273758531
     },
     {
       "id": "uil:boyd",
@@ -7076,7 +7139,10 @@
       "mergedPr": 5070,
       "mergedCommit": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
       "deploymentRun": 39050440079,
-      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb"
+      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
+      "productionVerification": "BROWSER_PASS_BATCH006_75_SCHOOL_23_COUNTY_25_SITEMAP_2026_10_19",
+      "linkVerificationStatus": "RECIPROCAL_COUNTY_BROWSER_PASS_BATCH006_2026_10_19",
+      "technicalBrowserRun": 39273758531
     },
     {
       "id": "uil:boys-ranch",
@@ -7098,7 +7164,10 @@
       "mergedPr": 5070,
       "mergedCommit": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
       "deploymentRun": 39050440079,
-      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb"
+      "deployedWithSha": "018899c708dfb7422fa8be922f62c8215f7a2bbb",
+      "productionVerification": "BROWSER_PASS_BATCH006_75_SCHOOL_23_COUNTY_25_SITEMAP_2026_10_19",
+      "linkVerificationStatus": "RECIPROCAL_COUNTY_BROWSER_PASS_BATCH006_2026_10_19",
+      "technicalBrowserRun": 39273758531
     },
     {
       "id": "uil:brackettville-brackett",
