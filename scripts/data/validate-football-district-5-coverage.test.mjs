@@ -119,6 +119,19 @@ test('responsive District 5 Chrome acceptance cannot be skipped by broad sports 
   assert.ok(deps[1].includes("steps.live_district5.outcome == 'success'"), 'Run after District 5 HTML smoke');
   assert.ok(!deps[1].includes('steps.change_scope.outputs.sports'), 'Do not skip District 5 browser on other changes');
   assert.ok(workflow.includes("steps.district5_browser_deps.outcome == 'success'"));
+  const htmlGateIndex = workflow.indexOf('      - name: Verify District 5-6A scorecard on direct Worker and canonical domain');
+  const browserDepsIndex = workflow.indexOf('      - name: Prepare District 5 responsive Chrome verification');
+  const browserAcceptanceIndex = workflow.indexOf('      - name: Verify District 5 desktop and mobile screenshots in Chrome');
+  assert.ok(htmlGateIndex >= 0 && browserDepsIndex > htmlGateIndex,
+    'District 5 Chrome dependency step must run after its HTML verification (not before)');
+  assert.ok(browserAcceptanceIndex > browserDepsIndex,
+    'Chrome acceptance must run after its browser dependency installation');
   assert.ok(workflow.includes('live_district5_browser'));
   assert.ok(workflow.includes('district5-responsive-browser-${{ github.run_id }}'));
+  const successGate = workflow.match(/- name: Mark live production verification complete\n\s+id: live\n[\s\S]{0,420}?\s+if: ([^\n]+)/);
+  assert.ok(successGate, 'Missing protected final live-acceptance step');
+  assert.ok(successGate[1].includes("steps.live_district5_browser.outcome == 'success'"),
+    'Never approve production while District 5 Chrome was skipped or failed');
+  const visualArtifactStep = workflow.slice(workflow.indexOf('      - name: Preserve District 5 responsive acceptance evidence'));
+  assert.ok(visualArtifactStep.slice(0, 500).includes('if-no-files-found: error'), 'Fail if District 5 screenshots are absent');
 });
