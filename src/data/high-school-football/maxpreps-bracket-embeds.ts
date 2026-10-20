@@ -7,7 +7,7 @@ import type { MaxPrepsTournamentWidgetConfig } from '@/components/sports/MaxPrep
  * MaxPreps requires a signed-in account to generate a tournament widget.
  * Do not guess or derive embed URLs, scrape brackets, or proxy provider HTML.
  * Store only a provider-issued iframe src or generated JavaScript widget data.
- * The 2026 UIL 6A widgets use verified anchor attributes and the official script.
+ * The 2026 UIL 6A and 5A Division I widgets use verified anchor attributes and the official script.
  *
  * These public URLs are not credentials. Leave entries absent until verified.
  */
@@ -18,9 +18,9 @@ export type TexasFootballBracketKey =
  * Provider-generated codes pasted by the owner on 2026-10-20. These are
  * official MaxPreps JavaScript anchor widgets, NOT iframe URLs.
  *
- * The owner supplied both 6A D1 and 6A D2 snippets, including the same
- * member ID in both. Do not assume that ID for the remaining 10 brackets.
- * They retain official UIL / MaxPreps links until provider code is verified.
+ * The owner supplied 6A D1, 6A D2, and 5A D1 snippets, including the same
+ * explicitly generated member ID in all three. Do not infer that ID for the
+ * remaining nine brackets; keep official UIL / MaxPreps links until verified.
  */
 export const approvedMaxPrepsJsTournamentWidgets: Partial<
   Record<TexasFootballBracketKey, MaxPrepsTournamentWidgetConfig>
@@ -36,6 +36,14 @@ export const approvedMaxPrepsJsTournamentWidgets: Partial<
   '6AD2': {
     title: '2026 UIL Texas Football State Championships 2026 Football Conference 6A D2',
     href: 'https://www.maxpreps.com/tournament/view.aspx?tournamentid=7a33d24f-4de2-43eb-aa37-7987d5c334ab&ssid=2286cd80-c46d-4739-8dd1-92a67ca8daa7&bracketid=412dffeb-8db4-405a-90d8-d835b3a6ca23',
+    memberId: '8ada50e8-19a3-462f-9a14-ca430a481250',
+    width: 900,
+    height: 600,
+    allowScrollbar: true,
+  },
+  '5AD1': {
+    title: '2026 UIL Texas Football State Championships 2026 Football Conference 5A D1',
+    href: 'https://www.maxpreps.com/tournament/view.aspx?tournamentid=7a33d24f-4de2-43eb-aa37-7987d5c334ab&ssid=2286cd80-c46d-4739-8dd1-92a67ca8daa7&bracketid=4cc4d252-d23d-41ad-b706-761d65cdfe58',
     memberId: '8ada50e8-19a3-462f-9a14-ca430a481250',
     width: 900,
     height: 600,
