@@ -25,6 +25,23 @@ const destinationRoute = fs.readFileSync('src/routes/destination.$slug.tsx', 'ut
 const cachePurge = fs.readFileSync('scripts/ci/purge-cloudflare-cache.mjs', 'utf8');
 const failures = [];
 const firstPartyDepth = fs.readFileSync('src/data/historic-site-depth-all.ts','utf8');
+const newVisitorUpgrades = fs.readFileSync('src/data/historic-site-visitor-upgrades-20261019.ts', 'utf8');
+for (const slug of ['eisenhower-birthplace', 'sam-rayburn-house', 'bush-family-home', 'san-felipe-de-austin']) {
+  if (!newVisitorUpgrades.includes(`"${slug}": {`)) failures.push(`2026 historic visitor-research upgrade missing: ${slug}`);
+}
+for (const requiredOperatorRecord of [
+  'plan-your-visit-eisenhower-birthplace',
+  'plan-your-visit-sam-rayburn-house',
+  'plan-your-visit-bush-family-home',
+  'plan-your-visit-san-felipe-de-austin',
+  'sourceCheckedAt: "2026-10-19"',
+]) if (!newVisitorUpgrades.includes(requiredOperatorRecord)) failures.push('October historic visitor research citation missing: '+requiredOperatorRecord);
+for (const marker of [
+  'import { applyHistoricVisitorUpgrades20261019 }',
+  'return applyHistoricVisitorUpgrades20261019(enrichResearchedHistoricSiteDepth(',
+  '.map(applyHistoricVisitorUpgrades20261019)',
+]) if (!runtime.includes(marker)) failures.push('New operator-backed visitor research not mounted in both destination paths: '+marker);
+
 const operatorResearch = fs.readFileSync('src/data/historic-site-authority-full-catalog.ts','utf8');
 const socorroEarlyHistory = firstPartyDepth.split('  "old-socorro-mission": [')[1]?.split('  "palmito-ranch-battlefield": [')[0] ?? '';
 if (!socorroEarlyHistory.includes('October 13, 1680') || !socorroEarlyHistory.includes('closed to the public')) {
