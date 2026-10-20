@@ -285,7 +285,7 @@ function DestinationPage() {
   if (destination.slug === "zapata-county-museum-history") return <Suspense fallback={null}><ZapataCountyMuseumAuthority /></Suspense>;
   if (destination.slug === "ysleta-del-sur-pueblo-cultural-center-museum-el-paso") return <YsletaDelSurMuseumAuthority />;
   if (destination.slug === "young-county-museum-of-history-and-culture") return <Suspense fallback={null}><YoungCountyMuseumAuthority /></Suspense>;
-  if (destination.slug === "yoakum-heritage-museum") return <Suspense fallback={null}><YoakumHeritageMuseumAuthority /></Suspense>;
+  if (destination.slug === "yoakum-heritage-museum") return <Suspense fallback={null}><YoakumHeritageMuseumAuthority destination={destination} /></Suspense>;
 
   const region = regions.find((item) => item.id === destination.region);
   const categoryName = destination.category === "sports" ? "Texas Sports" : categories.find((category) => category.slug === destination.category)?.name ?? destination.category.replace(/-/g, " ");
