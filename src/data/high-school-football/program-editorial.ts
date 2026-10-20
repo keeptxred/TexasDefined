@@ -1812,9 +1812,9 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "schedule": {
       "label": "Bluff Dale ISD official athletics schedules and game-day information",
-      "sourceUrl": "https://www.bdisd.net/223835_2",
-      "sourceLabel": "Bluff Dale ISD athletics directory: Sport Schedules, athletics broadcast and coaches",
-      "verifiedAt": "2026-10-16"
+      "sourceUrl": "https://bdisd.smartsiteshost.com/page/page_calendar?calID=136451",
+      "sourceLabel": "Bluff Dale ISD first-party 2026 school calendar: Oct 23 varsity at Milford 7 PM, Oct 29 varsity home vs Pinnacle Christian 7 PM, Nov 5 varsity home vs Avalon 7 PM; district sports directory also links official schedules",
+      "verifiedAt": "2026-10-20"
     },
     "season": {
       "record": "4–3 through October 15, 2026 (independent published results; verify subsequent finals)",
@@ -1867,6 +1867,17 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "result": "W 54–6"
         },
         {
+          "date": "2026-10-23",
+          "opponent": "Milford",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-10-29",
+          "opponent": "Pinnacle Christian",
+          "site": "Home"
+        },
+        {
           "date": "2026-11-05",
           "opponent": "Avalon",
           "site": "Home",
@@ -1876,7 +1887,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "notice": {
       "title": "Check the UIL division, actual campus and live game details before traveling",
-      "body": "The governing UIL 2026–28 six-man alignment puts Bluff Dale in Class 1A Division I, District 11, not Division II as an older team directory suggests. Bluff Dale ISD publishes 430 FM 2481 as the school and office address, whereas a third-party football profile lists 710 Church Street; neither listing independently establishes the football entrance, parking or accessible seating. MaxPreps and Six-Man Football also differ on the date of the upcoming Milford away fixture. The October 15 Bluff Dale–Covington final is reported as 54–6 by NBC DFW, while an early third-party live feed reported a different score. Confirm the fixture and stadium gate with Bluff Dale ISD before leaving.",
+      "body": "The governing UIL 2026–28 six-man alignment puts Bluff Dale in Class 1A Division I, District 11, not Division II as an older team directory suggests. Bluff Dale ISD publishes 430 FM 2481 as the school and office address, whereas a third-party football profile lists 710 Church Street; neither listing independently establishes the football entrance, parking or accessible seating. Bluff Dale ISD's school calendar lists the varsity Milford away game for Friday October 23 at 7 PM, while Six-Man Football lists Thursday October 22; the school-issued calendar controls this guide unless the district revises it. The same official calendar adds a Thursday October 29 home varsity game against Pinnacle Christian at 7 PM that older third-party schedules omit. These are scheduled events, not reported finals. The October 15 Bluff Dale–Covington final is reported as 54–6 by NBC DFW, while an early third-party live feed reported a different score. Confirm the fixture and stadium gate with Bluff Dale ISD before leaving.",
       "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "sourceLabel": "Official UIL 2026–28 1A Division I six-man alignment, checked against Bluff Dale ISD and independent game reporting",
       "verifiedAt": "2026-10-16"
@@ -1930,7 +1941,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "Bluff Dale ISD provides the most appropriate starting point for current campus contacts and game arrangements. The district lists Bluff Dale School at 430 FM 2481, Bluff Dale, Texas 76433, telephone 254-728-3277. A third-party team profile instead lists 710 Church Street; those addresses should not be treated as interchangeable stadium entrances. Athletic broadcast, schedules, concussion resources and coach directory are linked from the district's athletics page. Neither an exact football parking gate nor a current ADA seating map was independently published in the sources reviewed.",
       "Bluff Dale's published 2026 completed ledger begins with a 7–66 loss to Texas Wind, a 67–22 victory over Stephenville FAITH, and defeats against Zephyr and Gordon. The Bobcats then beat Bryson 88–66 and Blum 69–20, the latter on October 8 in their district schedule. NBC 5 Dallas–Fort Worth subsequently published a 54–6 win over Covington on October 15. The seven recorded finals make a 4–3 snapshot as of October 16, not a prediction about late October or November fixtures.",
       "The program has distinct recent achievements without any reason to fabricate a state title: school history pages record 11–2 in 2022 and 10–2 in 2025. Bluff Dale's move in the 2026 alignment to six-man Division I provides real competitive context. A historical football index that omits postseason games or groups the Bobcats in their earlier Division II district should not replace dated verified season results or the current UIL classification.",
-      "Fans should use the official Bluff Dale ISD athletic schedule to confirm any specific Friday or Thursday game, tickets, venue, parking and accessible access. The independent schedules disagree whether the next Milford road fixture is on October 22 or 23, so this guide deliberately does not declare an exact kickoff for it. Erath County visitors can also consult TexasDefined's Erath County guide through the reciprocal school and county links; the county page is geographic context, not a substitute for district-issued directions."
+      "Fans should use the official Bluff Dale ISD athletic schedule to confirm any specific Friday or Thursday game, tickets, venue, parking and accessible access. Bluff Dale ISD's published school events calendar lists varsity football at Milford on Friday October 23 at 7 PM, despite a Thursday October 22 listing in the specialist Six-Man schedule. The district calendar also lists an additional home varsity fixture against Pinnacle Christian on October 29 at 7 PM. Treat these as school-issued scheduled events subject to change, not results; verify again with the ISD before travel. Erath County visitors can also consult TexasDefined's Erath County guide through the reciprocal school and county links; the county page is geographic context, not a substitute for district-issued directions."
     ],
     "faq": [
       {
@@ -1955,7 +1966,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       },
       {
         "question": "When is Bluff Dale's upcoming Milford district road game?",
-        "answer": "Independent football schedules differ between October 22 and October 23, 2026. Rather than invent a certain date or kickoff, check the Bluff Dale ISD sport schedule or district athletics contact for the latest official fixture and ticket instructions."
+        "answer": "Bluff Dale ISD's own school calendar lists the varsity road game at Milford for Friday, October 23, 2026 at 7 PM. Six-Man Football instead lists Thursday October 22. We follow the school calendar, while clearly flagging the discrepancy; confirm any last-minute change and tickets with Bluff Dale ISD."
       },
       {
         "question": "Where can I find game-day streams, medical forms and current schedule changes?",
