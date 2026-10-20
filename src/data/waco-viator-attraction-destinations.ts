@@ -38,6 +38,7 @@ const wacoViatorAttractionBaseDestinations: Destination[] = [
     reservationUrl: "https://magnolia.com/pages/tours",
     address: "3300 Austin Ave, Waco, TX 76710",
     directions: "The castle stands in Waco's Castle Heights neighborhood on Austin Avenue. Use the arrival and parking instructions attached to a confirmed Magnolia tour ticket; the residence is not an unscheduled walk-in attraction.",
+    accessibilityNotes: "Magnolia's ticketed Castle Tour uses multiple historic staircases and the operator says it cannot provide a wheelchair-accessible alternative route. Contact Magnolia before booking for any mobility or accommodation question.",
     visitorFaqs: [
       { question: "Can I walk through Cottonland Castle without a ticket?", answer: "No. Magnolia asks that only ticketed Castle Tour guests enter the property out of respect for the residential neighborhood.", sourceUrl: "https://help.magnolia.com/hc/en-us/articles/31170532641940-About-Magnolia-Castle-Tours" },
       { question: "How long is the official Cottonland Castle tour?", answer: "Magnolia describes the Castle Tour as a guided one-hour experience; check its booking calendar for current departure options.", sourceUrl: "https://magnolia.com/pages/tours" },
@@ -76,6 +77,7 @@ const wacoViatorAttractionBaseDestinations: Destination[] = [
     officialUrl: "https://www.waco-texas.com/Departments/Parks-Recreation/Suspension-Bridge-Riverwalk-Area",
     managingAuthority: "City of Waco Parks and Recreation",
     directions: "Reach the west end from Indian Spring Park near North University Parks Drive or the east end from Martin Luther King Jr. Park and Bridge Street. Walk the bridge; it is not a vehicle crossing.",
+    accessibilityNotes: "The public bridge is intended for pedestrians rather than vehicles. Access to adjoining Riverwalk ramps, paths or parking may vary during municipal repairs and events; check City of Waco accessibility resources and current posted restrictions before traveling.",
     visitorFaqs: [
       { question: "Can you drive across Waco Suspension Bridge?", answer: "No. The historic bridge is a pedestrian landmark; motorists should use current street crossings and designated parking.", sourceUrl: "https://www.waco-texas.com/Departments/Parks-Recreation/Suspension-Bridge-Riverwalk-Area" },
       { question: "Does the bridge charge admission?", answer: "The bridge is a public riverfront landmark, not a ticketed admission attraction. Special events or temporary closures may change access.", sourceUrl: "https://www.waco-texas.com/Departments/Parks-Recreation/Suspension-Bridge-Riverwalk-Area" },
@@ -114,6 +116,7 @@ const wacoViatorAttractionBaseDestinations: Destination[] = [
     managingAuthority: "City of Waco Parks and Recreation",
     address: "2601 N University Parks Dr, Waco, TX 76708",
     directions: "Use a specific trailhead or attraction in navigation: Lovers Leap, Jacob's Ladder, Pecan Bottoms and the zoo lead to different parking areas. Follow City of Waco trailhead signs and posted maps.",
+    accessibilityNotes: "Accessible park areas differ widely from steep, rocky natural-surface paths. Anniversary Park is identified as accessible by Destination Waco. The 88-step Jacob's Ladder and technical mountain-bike trails are not substitutes for a barrier-free walk. Choose the specific facility and trailhead that suit your group's needs.",
     visitorFaqs: [
       { question: "Is Cameron Park free?", answer: "The municipal park is open for public recreation without general admission. Cameron Park Zoo is a separate paid attraction.", sourceUrl: "https://destinationwaco.org/listing/cameron-park/" },
       { question: "How big is Cameron Park?", answer: "The City of Waco lists Cameron Park as 416 acres with an approximately 26-mile multi-use trail system.", sourceUrl: "https://www.waco-texas.com/Departments/Parks-Recreation/Cameron-Park/Cameron-Park-Trail-System-Rules" },
@@ -153,6 +156,7 @@ const wacoViatorAttractionBaseDestinations: Destination[] = [
     managingAuthority: "Cameron Park Zoo",
     address: "1701 North 4th Street, Waco, TX 76707",
     directions: "Navigate to 1701 North 4th Street for the zoo entrance, rather than to a general Cameron Park trailhead.",
+    accessibilityNotes: "Cameron Park Zoo states that its public zoo is accessible and offers a limited number of manual wheelchairs and electric mobility carts to rent, first come, first served. Contact the zoo for current equipment availability and assistance before visiting.",
     visitorFaqs: [
       { question: "Does Cameron Park Zoo require a ticket?", answer: "Yes. The zoo charges admission independently of free Cameron Park. Tickets are available through the zoo's official online ticket page.", sourceUrl: "https://www.cameronparkzoo.com/plan-your-visit/purchase-tickets/" },
       { question: "Can I bring food and drinks?", answer: "The zoo's current visitor rules allow outside food and drinks, and encourage reusable water bottles. Check the latest rules before visiting.", sourceUrl: "https://www.cameronparkzoo.com/plan-your-visit/hours-pricing/" },
