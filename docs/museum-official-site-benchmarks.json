@@ -1781,6 +1781,31 @@
         "https://www.samfa.org/fieldtrips",
         "https://www.samfa.org/familyday"
       ]
+    },
+    "yoakum-heritage-museum": {
+      "name": "Yoakum Heritage Museum",
+      "operatorStrengths": [
+        "Museum-managed Facebook channel for present visitor announcements and Christmas Tree Forest program",
+        "State tourism tour and directory describe the house, Leather Room, military and railroad displays",
+        "State agency museum registry provides the exact 312 Simpson Street address and telephone, but hours were last updated August 2021"
+      ],
+      "openGaps": [
+        "Museum operator needs to confirm current 2026–27 regular hours, closures, admission/donation policies and volunteer group tours",
+        "Confirm street/accessible parking, operating stair lift, restrooms and all physical-access limitations directly with staff",
+        "Verify onsite dining and shopping, photography, service-animal rules and Christmas Tree Forest 2026 dates rather than guessing",
+        "Run manual production desktop/mobile review, confirm image visibility and proper editorial-illustration disclaimer",
+        "Complete documented side-by-side visitor planning comparison with operator-managed pages and state tourism resources"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.facebook.com/YHMuseum/",
+        "https://atlas.thc.texas.gov/Details/4200000614",
+        "https://texastimetravel.com/directory/yoakum-heritage-museum-tour/",
+        "https://texastimetravel.com/directory/yoakum-heritage-museum/"
+      ]
     }
   },
   "baselineCollectedAt": "2026-10-12",
