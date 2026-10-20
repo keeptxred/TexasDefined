@@ -1541,6 +1541,7 @@ if (!errors.length) {
     ['big-sandy-harmony', 'Brian Mauk', 'kltv.com/story/26056195/harmony-eagles/'],
     ['bishop', 'Keith Talbert', 'maxpreps.com/tx/bishop/bishop-badgers/football/staff/'],
     ['blackwell', 'Clint Linman', 'sports.yahoo.com/articles/blackwell-hornets-hire-football-coach-234440740.html'],
+    ['bogata-rivercrest', 'Laytner Kennedy', 'maxpreps.com/tx/bogata/rivercrest-rebels/football/staff/'],
     ['boys-ranch', 'Louis Kelley III', 'boysranchisd.org/132207_2'],
     ['boerne', 'Brett Sawyer', 'boernestar.com/article/14105'],
     ['blanco', 'Kent Walker', 'maxpreps.com/tx/blanco/blanco-panthers/football/staff/'],
@@ -1564,6 +1565,14 @@ if (!errors.length) {
     if (!faq || !faq.answer.includes(expectedCoach)) {
       errors.push('Batch 006 coach FAQ contradicts current sourced coach: ' + slug);
     }
+  }
+  // The 2026 MaxPreps history still names Travis McClain at Rivercrest,
+  // despite the AFCA's Oct 8, 2026 profile documenting his Mount Vernon
+  // appointment in January 2025. Never promote that stale 2026 history field
+  // over the separately dated August 29 varsity staff list.
+  const rivercrest = footballEditorialRecord('bogata-rivercrest');
+  if (rivercrest?.coach?.name === 'Travis McClain') {
+    errors.push('Stale Rivercrest history must not identify Mount Vernon coach Travis McClain as Rivercrest 2026 head coach.');
   }
   const harmony = footballEditorialRecord('big-sandy-harmony');
   if (harmony?.coach?.name === 'Jeremy Jenkins'
