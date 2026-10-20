@@ -176,7 +176,7 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
     {pairedDestinations.length ? <Section tone="surface" className="py-10 sm:py-12 lg:py-14">
       <Container>
         <SectionHeader eyebrow="Plan the route" title="Explore related places" description={`Editorially paired stops near ${destination.name} appear first, followed by nearby destinations. Distances are approximate straight-line miles.`} />
-        <ul className="mt-8 grid auto-rows-fr gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {pairedDestinations.map((item) => {
             const miles = distanceMiles(destination, item);
             const roundedMiles = miles === null ? null : Math.max(1, Math.round(miles));
