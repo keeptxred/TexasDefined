@@ -561,6 +561,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         }
       ]
     },
+    "venue": {
+      "name": "George Luna Stadium",
+      "address": "Bishop, TX — event-specific venue; confirm public entrance with Bishop CISD",
+      "sourceUrl": "https://bhs.bishopcisd.net/",
+      "sourceLabel": "Bishop High School official October 2026 homecoming event listing",
+      "verifiedAt": "2026-10-19",
+      "note": "Bishop High School's own October 2026 event listing places the October 23 varsity homecoming game against Santa Gertrudis Academy at George Luna Stadium. TexasDefined does not generalize that event-specific source to every Bishop home game and does not infer a gate, parking route, ticket policy or ADA entrance from the school address."
+    },
     "development": {
       "title": "The Badgers' 2024 district turnaround",
       "body": "KRIS 6 News documented Bishop's 40–22 senior-night win over Falfurrias and a 6–4 overall, 6–1 district regular-season finish after a prior 2–8 season. That notable rebound occurred in 2024, not 2026; it is not proof of a state championship or a current stadium name.",
@@ -1310,6 +1318,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceLabel": "Blooming Grove ISD first-party 2026 school and athletics events, including October12 homecoming at Lion Stadium",
       "verifiedAt": "2026-10-15"
     },
+    "venue": {
+      "name": "Lion Stadium",
+      "address": "Blooming Grove, TX — confirm the event entrance with Blooming Grove ISD",
+      "sourceUrl": "https://www.bgisd.org/apps/events/2026/10/?id=0&id=2",
+      "sourceLabel": "Blooming Grove ISD official October 2026 homecoming event calendar",
+      "verifiedAt": "2026-10-15",
+      "note": "Blooming Grove ISD's October 2026 calendar names Lion Stadium as a homecoming parade and pep-rally venue. That first-party naming supports the venue identity, but it does not establish a football gate, current parking plan, ticket procedure, accessible-seating route or that every Lions home game uses the same entrance."
+    },
     "development": {
       "title": "A 2026 coaching rebuild after a 2025 playoff appearance",
       "body": "Blooming Grove ISD directly announced Kevin Sherrill as athletic director/head football coach in early 2026, moving from Vernon where his teams had gone 10–3 in 2025 and 9–4 in 2024. Those records belong to Vernon, not the Lions. Blooming Grove's own 2025 program went 3–8, including a 59–6 first-round playoff loss to Blue Ridge in the Lone Star Football Network ledger. Through October 9 of Sherrill's first listed Blooming Grove season, six reported results showed 0–6, capped by a 68–0 road loss to Teague. Describing an active rebuilding challenge must not confuse the former district's wins with the current school's record.",
@@ -1697,6 +1713,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceUrl": "https://www.brisd.net/o/brisd/page/athletics",
       "sourceLabel": "Blue Ridge ISD Athletics first-party Tiger Stadium and schedule navigation",
       "verifiedAt": "2026-10-15"
+    },
+    "venue": {
+      "name": "Tiger Stadium",
+      "address": "Blue Ridge, TX — confirm the spectator entrance with Blue Ridge ISD",
+      "sourceUrl": "https://www.brisd.net/o/brisd/page/athletics",
+      "sourceLabel": "Blue Ridge ISD official athletics page",
+      "verifiedAt": "2026-10-15",
+      "note": "Blue Ridge ISD's athletics page identifies Tiger Stadium and links the district's 2026 football schedules. The evidence reviewed does not establish the exact public vehicle gate, parking plan, ticket price, cashless policy or ADA seating route, so those details remain intentionally unclaimed."
     },
     "development": {
       "title": "Recent playoff-capable seasons and a 2026 district test",
