@@ -1128,6 +1128,7 @@ if (!errors.length) {
     'venueLinks.length > 0',
     'Venue details last reviewed',
     'Identity last reviewed',
+    'Mascot and colors appear only when TexasDefined has a named source it can cite',
     'identity &&',
     'Texas high schools often share district stadiums.',
     'Open TexasDefined stadium guide →',
@@ -1172,6 +1173,7 @@ if (!errors.length) {
     '<time dateTime={identity.verifiedAt}>{formatFootballDate(identity.verifiedAt)}</time>',
   ]) requireText(featuredProfilePage, marker, 'Football school profile page');
   for (const forbidden of [
+    'Mascot and colors are published only from a school or district source.',
     '<td className="px-3 py-3 font-semibold">{game.date}</td>',
     'Research beyond the score',
     'What families should check next',
