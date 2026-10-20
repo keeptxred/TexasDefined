@@ -22,7 +22,7 @@ function ExploreCategoryPage() {
   if ("curated" in loaderData && loaderData.curated && "existing" in loaderData && loaderData.existing) {
     return <Suspense fallback={<Container className="py-24"><p className="eyebrow text-primary">Loading curated Texas destinations…</p></Container>}><CuratedTourismPage collection={loaderData.curated} existing={loaderData.existing} /></Suspense>;
   }
-  const { destinations, authorityHtml } = loaderData;
+  const { destinations, authorityHtml } = Route.useLoaderData();
   const { category: match } = Route.useLoaderData();
   if (match.slug === "water-towers") {
     return <Suspense fallback={<Container className="py-24"><p className="eyebrow text-primary">Loading roadside guide…</p></Container>}><WaterTowersPage /></Suspense>;
