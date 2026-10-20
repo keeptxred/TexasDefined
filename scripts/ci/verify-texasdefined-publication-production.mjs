@@ -136,6 +136,31 @@ const elPasoResults = await Promise.all(elPasoLiveSurfaces.map(async ({ path, ma
 }));
 for (const result of elPasoResults) console.log(JSON.stringify({ surface: 'El Paso authority production', ...result, ok: true }));
 
+// The old El Paso destination must permanently redirect to the canonical city
+// authority, never expose a 404 or duplicate indexable destination.
+const legacyElPasoPath = '/destination/el-paso';
+const legacyElPasoToken = `${verifyToken}-el-paso-301`;
+const legacyElPasoUrl = new URL(legacyElPasoPath, origin);
+legacyElPasoUrl.searchParams.set('td_verify', legacyElPasoToken);
+const legacyElPasoResponse = await fetch(legacyElPasoUrl, {
+  redirect: 'manual', cache: 'no-store', signal: AbortSignal.timeout(20_000),
+  headers: { 'user-agent': userAgent, 'cache-control': 'no-cache' },
+});
+const legacyLocation = legacyElPasoResponse.headers.get('location');
+if (legacyElPasoResponse.status !== 301
+    || legacyElPasoResponse.headers.get('cf-mitigated')?.toLowerCase() === 'challenge'
+    || !legacyLocation) {
+  throw new Error(`${legacyElPasoPath} must return HTTP 301 to /city/el-paso; received ${legacyElPasoResponse.status}`);
+}
+const redirectedElPaso = new URL(legacyLocation, origin);
+if (redirectedElPaso.origin !== new URL(origin).origin
+    || redirectedElPaso.pathname !== '/city/el-paso'
+    || redirectedElPaso.searchParams.get('td_verify') !== legacyElPasoToken) {
+  throw new Error(`${legacyElPasoPath} redirected to an unexpected destination: ${redirectedElPaso.href}`);
+}
+console.log(JSON.stringify({ surface: legacyElPasoPath, status: 301, target: '/city/el-paso', queryPreserved: true, ok: true }));
+
+
 // Bounded El Paso destination/neighbor network acceptance. These are the
 // specific related authorities linked from the metro page, not a sitewide scan.
 // A title or county mention alone is insufficient: insist on the actual metro
