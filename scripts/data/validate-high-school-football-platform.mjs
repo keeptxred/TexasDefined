@@ -1207,6 +1207,15 @@ if (!errors.length) {
   requireText(featuredProfilePage, '/article/texas-high-school-football-2026-season-calendar', 'Football school profile calendar discovery');
   requireText(featuredProfilePage, '2026 UIL season calendar →', 'Football school profile calendar discovery');
 
+  requireText(
+    footballProfileContent,
+    "TexasDefined's current sourced coach record identifies",
+    'Football coach FAQ source attribution',
+  );
+  if (footballProfileContent.includes('The current school-source entry used by TexasDefined')) {
+    errors.push('Football coach FAQ must not label third-party coach evidence as a school-source entry.');
+  }
+
   for (const marker of [
     'buildFootballProfileSummary',
     'buildFootballProfileQuickFacts',
