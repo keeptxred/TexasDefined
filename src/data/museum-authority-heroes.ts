@@ -3,6 +3,13 @@ import { isDestinationPhotoPlaceholder } from "./explore-hero-reconciliation";
 
 /** Lightweight exact-site photo sources. Never bundle long museum research dossiers in core destination discovery. */
 export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
+  // Live Explore rows can outrank the preserved Graham record; recover the exact-building image after remote resolution.
+  "old-post-office-museum-art-center-graham": {
+    src: "https://upload.wikimedia.org/wikipedia/commons/4/47/United_States_Post_Office_Graham_Wiki_%281_of_1%29.jpg",
+    alt: "The Old Post Museum and Art Center in Graham's restored historic federal post office",
+    width: 1800, height: 1200,
+    credit: "Renelibrary · CC BY-SA 4.0 · Wikimedia Commons · United States Post Office Graham Wiki (1 of 1).jpg",
+  },
   "san-angelo-museum-of-fine-arts": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/San_Angelo_September_2019_44_(San_Angelo_Museum_of_Fine_Arts).jpg?width=1600",
     alt: "Actual San Angelo Museum of Fine Arts riverside building in September 2019, photographed by Michael Barera",
