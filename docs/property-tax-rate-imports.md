@@ -144,14 +144,31 @@ The City of Southside Place's official property-tax FAQ confirms its
 2024 total rate of 0.340896 (`101-115-03-101-101`). M&O and I&S
 components are unavailable and must remain null.
 
+## Additional 2024 city primary-source supplements (2026-10-21)
+
+Four more Comptroller `not-reported` city rows have independent adopted-rate
+evidence, verified against the exact jurisdiction identity and **not**
+substituted into the statewide database or parcel calculators:
+
+| City | Official 2024 total / $100 | M&O | I&S | Primary source |
+|---|---:|---:|---:|---|
+| Little River-Academy | 0.410001 | 0.410001 | 0.000000 | [Bell CAD 2024 chart](https://bellcad.org/wp-content/uploads/2024/11/2024_TAX_RATE_CHART-TLR.pdf), jurisdiction TLR |
+| Cooper | 0.649272 | 0.627046 | 0.022226 | [Delta CAD 2024 rate list](https://delta-cad.org/wp-content/uploads/2025/12/2024-Tax-Rates.pdf), Cooper City |
+| Miami (Roberts County, TX) | 0.870299 | unknown | unknown | [Roberts County 2020–2024 Truth in Taxation summary](https://www.co.roberts.tx.us/upload/page/9355/5%20year%20tax%20summary%202020-2024.pdf), 2024 adopted City of Miami |
+| Stafford | 0.000000 — no municipal levy | unknown / not levied | unknown / not levied | [City of Stafford tax structure](https://staffordtx.gov/479/Tax-Structure) and [2024 no-property-tax commitment](https://staffordtx.gov/Archive/ViewFile/Item/652) |
+
+Stafford is a genuinely **zero-city-tax** locality, not an unreported
+numeric observation. Label the verified city-level zero without suggesting
+that county, school, or other parcel-level taxes are zero. Miami's components
+remain null rather than fabricated. All evidence is a historical,
+display-only supplement.
+
 ## Remaining research candidates (not automatic overrides)
 
-The 2024 city records for Little-River Academy, Cooper, Miami, Poetry,
-Post Oak Bend, Scurry and Stafford were marked not-reported in the
-database on 2026-10-21. Stafford's city has officially reported no city
-property tax for 2024; any zero-rate representation should receive
-explicit zero-levy semantics rather than be confused with historical
-missing-component values. No automatic override was created.
+The 2024 city records for Poetry, Post Oak Bend and Scurry were still
+marked not-reported in the Comptroller dataset on 2026-10-21. Kaufman
+CAD's 2024 published rate list does not include a separately adopted
+municipal rate for these towns. No numerical supplement was invented.
 
 These are **research candidates only**; do not add a local rate unless
 the appropriate CAD/city provides sufficient official year-specific
