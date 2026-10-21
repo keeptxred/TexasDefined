@@ -62,7 +62,7 @@ for (const test of tests) {
         'www.thextremexperience.com/tracks/msr-houston',
       ].map(domain => !!document.querySelector('a[href*="' + domain + '"]')),
       photoAttribution: document.body.textContent?.includes('Ginodemeneghi') && document.body.textContent?.includes('CC BY-SA 4.0'),
-      event: [...document.querySelectorAll('h3')].some(el => /xtreme\\s*xperience/i.test(el.textContent || '')),
+      event: [...document.querySelectorAll('h3')].some(el => /xtreme\s*xperience/i.test(el.textContent || '')),
       internalLinks: !!document.querySelector('a[href="/destination/sea-center-texas"]') && !!document.querySelector('a[href="/destination/levi-jordan-plantation"]'),
     }));
     assert.equal(facts.h1.length, 1, 'Must have exactly one main heading');
