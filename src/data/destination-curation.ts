@@ -5,9 +5,7 @@ const TPWD = "Texas Parks and Wildlife Department";
 const curated: Record<string, Partial<Destination>> = {
   "sheldon-lake-state-park": {
     visitorFacts: [
-      { topic: "admission", label: "Admission", detail: "Entry is free. TPWD recommends reserving free day-use passes in advance because the park can reach capacity.", sourceUrl: "https://tpwd.texas.gov/state-parks/sheldon-lake", checkedAt: "2026-10-21" },
       { topic: "hours", label: "Park hours", detail: "Open daily, 8 a.m.–5 p.m., except Thanksgiving Day and December 24–25.", sourceUrl: "https://tpwd.texas.gov/state-parks/sheldon-lake", checkedAt: "2026-10-21" },
-      { topic: "accessibility", label: "Accessible visit", detail: "TPWD lists accessible facilities and mostly flat trails. Check the status of the observation-tower elevator before relying on it.", sourceUrl: "https://tpwd.texas.gov/state-parks/sheldon-lake/fees-facilities/accessibility-information-1", checkedAt: "2026-10-21" },
     ],
     hero: {
       src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Tower_Sheldon_Lake_SP_Harris_Co_Texas_2024.jpg?width=1600",

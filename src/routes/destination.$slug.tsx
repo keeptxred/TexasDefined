@@ -15,6 +15,7 @@ import { AnswerSummary } from "@/components/content/AnswerSummary";
 import { ArticleCard } from "@/components/editorial/ArticleCard";
 import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { DestinationRelationships } from "@/components/editorial/DestinationRelationships";
+import { DestinationVerifiedVisitorFacts } from "@/components/editorial/DestinationVerifiedVisitorFacts";
 import { ElPasoAreaCrossLinks } from "@/components/content/ElPasoAreaAuthority";
 import { MapPreview } from "@/components/editorial/MapPreview";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
@@ -396,6 +397,8 @@ function DestinationPage() {
         ...(destination.managingAuthority ? [{ question: `Who manages ${destination.name}?`, answer: destination.managingAuthority }] : []),
       ]}
     />
+
+    <DestinationVerifiedVisitorFacts destination={destination} />
 
     {destination.slug === "magoffin-home" && destination.visitorFaqs?.length ? (
       <section id="visitor-faq" className="bg-surface py-10 sm:py-12" aria-labelledby="magoffin-visitor-faq-title">
