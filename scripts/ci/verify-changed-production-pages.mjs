@@ -48,6 +48,7 @@ export async function verifyChangedPages({ plan, head, fetchImpl = fetch }) {
 const redirectChecks = plan.redirectChecks ?? [];
 const downloadButtonPages = plan.downloadButtonPages ?? [];
 const texasDataPages = plan.texasDataPages ?? [];
+const eventAuthorityPages = plan.eventAuthorityPages ?? [];
 const TEXAS_DATA_ROUTES = [
   '/texas-data',
   '/texas-data/texas-homeowners-premium-history',
@@ -64,6 +65,7 @@ if (!Array.isArray(footballGameNightPages) || footballGameNightPages.length > 2 
 if (!Array.isArray(regionGuidePages) || regionGuidePages.length > 1 || regionGuidePages.some(p => p !== '/article/texas-regions-explained' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid Texas regions guide smoke contract');
 if (!Array.isArray(downloadButtonPages) || downloadButtonPages.length > 1 || downloadButtonPages.some(p => p !== '/texas-data/texas-population-and-migration-2025' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid data-brief smoke contract');
 if (!Array.isArray(texasDataPages) || texasDataPages.length > 4 || texasDataPages.some(p => !TEXAS_DATA_ROUTES.includes(p) || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded Texas Data production contract');
+if (!Array.isArray(eventAuthorityPages) || eventAuthorityPages.length > 8 || eventAuthorityPages.some(p => !/^\/event\/[a-z0-9]+(?:-[a-z0-9]+)*$/.test(p) || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded event authority production contract');
 if (!Array.isArray(battleshipVisitorPages) || battleshipVisitorPages.length > 1 || battleshipVisitorPages.some(p => p !== '/destination/battleship-texas' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded Battleship visitor acceptance contract');
 if (!Array.isArray(fredericksburgSitemapPaths) || fredericksburgSitemapPaths.length > 1 || fredericksburgSitemapPaths.some(p => p !== '/destination/fredericksburg' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid Fredericksburg sitemap acceptance contract');
 if (!Array.isArray(magoffinHomePages) || magoffinHomePages.length > 1 || magoffinHomePages.some(p => p !== '/destination/magoffin-home' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid Magoffin Home live acceptance contract');
@@ -97,6 +99,27 @@ for (const path of plan.selectedPaths) {
           .map(href => href.replace(/&amp;/g, '&')));
         for (const href of expectedHrefs) {
           if (!/^\/(?!\/)/.test(href) || !anchors.has(href)) throw new Error('Expected changed internal link is missing from SSR anchors: '+href);
+        }
+      }
+      if (eventAuthorityPages.includes(path)) {
+        for (const required of ['Planning your visit', 'Official event links', 'data-event-discovery-tail="true"']) {
+          if (!html.includes(required)) throw new Error('Event guide SSR missing authority content: ' + required);
+        }
+        // The ordinary visitor URL must also serve the current page, not a cached
+        // 404 or stale non-event document masked by a cache-busted release check.
+        const visitor = await fetchImpl(canonical, {
+          redirect: 'follow',
+          headers: { accept: 'text/html', 'user-agent': 'TexasDefined-Event-Visitor-Smoke/1.0' },
+          signal: AbortSignal.timeout(30000),
+        });
+        const visitorHtml = await visitor.text();
+        if (!visitor.ok || visitor.headers.get('cf-mitigated') === 'challenge') {
+          throw new Error('Event guide ordinary visitor URL failed: HTTP ' + visitor.status);
+        }
+        if (!visitorHtml.includes('Planning your visit') || !visitorHtml.includes('Official event links')
+          || !visitorHtml.includes('data-event-discovery-tail="true"')
+          || !visitorHtml.includes('href="' + canonical.href + '"')) {
+          throw new Error('Event guide ordinary visitor URL lacks canonical SSR authority content');
         }
       }
       if (regionGuidePages.includes(path) && !/<h[2-4]\b[^>]*>\s*How to use the seven regions when planning a trip\s*<\/h[2-4]>/i.test(html)) {
