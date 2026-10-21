@@ -89,7 +89,7 @@ export function auditDestination(input: Destination): DestinationAuditResult {
     issues.push({ code: "hero-placeholder", severity: "error", message: "Destination still uses a placeholder hero image." });
   }
   if (usesTemporaryRepresentativeAiHero(destination)) {
-    issues.push({ code: "hero-representative-ai", severity: "error", message: "Replace this generic AI hero with an exact-place licensed photo or a fact-grounded depiction before indexing." });
+    issues.push({ code: "hero-representative-ai", severity: "error", message: "Destination still uses a generic representative AI hero. Replace it with a rights-cleared exact-location image or a photorealistic AI depiction grounded in verified facts about the named place before indexing." });
   }
   if (!destination.hero.alt || destination.hero.alt.trim().length < 20) {
     issues.push({ code: "hero-alt", severity: "warning", message: "Hero image needs descriptive alt text." });
@@ -101,10 +101,10 @@ export function auditDestination(input: Destination): DestinationAuditResult {
     issues.push({ code: "nearest-town", severity: "warning", message: "Destination lacks a useful nearest-town value." });
   }
   if (!usefulUrl(destination.officialUrl)) {
-    issues.push({ code: "official-source", severity: "error", message: "Add an HTTPS official visitor source for this place." });
+    issues.push({ code: "official-source", severity: "error", message: "Destination needs a destination-specific HTTPS official visitor-information source before indexing." });
   }
   if (!destination.sourceCheckedAt) {
-    issues.push({ code: "source-review-missing", severity: "warning", message: "Record the date this official source was reviewed." });
+    issues.push({ code: "source-review-missing", severity: "warning", message: "Destination has an official source but does not yet record when that source was reviewed." });
   } else if (!sourceReviewIsFresh(destination.sourceCheckedAt)) {
     issues.push({ code: "source-freshness", severity: "error", message: `Source review invalid or older than ${SOURCE_MAX_AGE_DAYS} days; recheck before indexing.` });
   }
