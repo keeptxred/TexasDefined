@@ -11,6 +11,7 @@ on:
       - 'scripts/ci/property-tax-sync-contract.test.mjs'
       - 'scripts/ci/property-tax-change-ledger-contract.test.mjs'
       - 'scripts/ci/property-tax-history-integrity.test.mjs'
+      - 'scripts/ci/verify-local-tax-source-reconciliation*.mjs'
       - 'scripts/ci/property-tax-zero-levy-contract.test.mjs'
       - 'scripts/ci/verify-local-financial-production.mjs'
       - '.github/workflows/verify-property-tax-import.yml'
@@ -31,5 +32,7 @@ jobs:
       - uses: denoland/setup-deno@v2
         with:
           deno-version: v2.x
+      - name: Verify local-rate source reconciliation without network calls
+        run: node --test scripts/ci/verify-local-tax-source-reconciliation.test.mjs
       - name: Check shared Edge and runner TypeScript importer
         run: deno check --node-modules-dir=none supabase/functions/import-texas-property-tax-rates/index.ts
