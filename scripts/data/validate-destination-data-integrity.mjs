@@ -93,13 +93,15 @@ for (const marker of [
   if (!destinationAudit.includes(marker)) errors.push(`Destination fallback-copy audit marker missing: ${marker}.`);
 }
 
-for (const sourceMarker of [
+// The indexing audit still detects legacy synthetic copy, but the catalog
+// transformer must not manufacture any of that copy for new or existing pages.
+for (const staleCopy of [
   'is a Texas destination',
   'Those details make it easier to decide whether this stop fits a quick outing',
   'works best as part of a trip built around the surrounding region',
   'Use the official visitor-information link on this page for the latest details',
 ]) {
-  if (!destinationQuality.includes(sourceMarker)) errors.push(`Destination quality fallback source marker changed without updating the indexing audit: ${sourceMarker}.`);
+  if (destinationQuality.includes(staleCopy)) errors.push(`Synthetic destination filler must not be generated: ${staleCopy}.`);
 }
 
 for (const feature of [
