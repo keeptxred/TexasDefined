@@ -98,8 +98,8 @@ export default function DavisHillAuthorityPage() {
               Research and agency development listing checked {verified}.
             </p>
           </div>
-          <div className="mt-8 max-w-5xl border-l-4 border-primary bg-background px-5 py-5 sm:px-7" role="note" aria-label="Visitor access warning">
-            <p className="text-xs font-bold uppercase tracking-widest text-primary">Public access: not open for ordinary visits</p>
+          <div className="mt-8 max-w-5xl border-l-4 border-primary bg-background px-5 py-5 sm:px-6" role="note" aria-label="Visitor access warning">
+            <p className="text-xs font-bold uppercase tracking-wide text-primary">Public access: not open for ordinary visits</p>
             <p className="mt-2 text-base leading-7">
               Do not plan a hike, campsite, river launch, or driving visit here. TPWD lists Davis Hill among future parks;
               its published development overview describes the property as inaccessible pending access work.
@@ -114,7 +114,7 @@ export default function DavisHillAuthorityPage() {
               ["Acquired", "1983"],
               ["Area", "About 1,700 acres"],
             ].map(([term, detail]) => (
-              <div key={term} className="border-t-2 border-foreground/70 pt-4">
+              <div key={term} className="border-t-2 border-foreground pt-4">
                 <dt className="eyebrow text-muted-foreground">{term}</dt>
                 <dd className="mt-2 text-base font-semibold">{detail}</dd>
               </div>
@@ -124,8 +124,8 @@ export default function DavisHillAuthorityPage() {
       </section>
 
       <Container className="py-10 sm:py-16">
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:gap-14">
-          <article className="min-w-0 space-y-12 text-base leading-8">
+        <div className="grid gap-10 lg:grid-cols-3 lg:gap-12">
+          <article className="min-w-0 space-y-12 lg:col-span-2 text-base leading-8">
             <section aria-labelledby="answer">
               <p className="eyebrow text-primary">The short answer</p>
               <h2 id="answer" className="mt-3 font-display text-3xl sm:text-4xl">What exactly is Davis Hill?</h2>
@@ -242,7 +242,7 @@ export default function DavisHillAuthorityPage() {
             </section>
           </article>
 
-          <aside className="space-y-6 lg:self-start lg:sticky lg:top-28">
+          <aside className="space-y-6 lg:self-start lg:sticky lg:top-24">
             <section className="border-t-2 border-foreground pt-4">
               <p className="eyebrow text-primary">At a glance</p>
               <dl className="mt-4 divide-y divide-border text-sm leading-6">
