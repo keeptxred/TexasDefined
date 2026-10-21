@@ -1,6 +1,16 @@
 name: Verify Zapata museum production
 
 on:
+  # Certify the actual published museum page after every successful production release.
+  # This must remain separate from the PR source check; the live page can still
+  # contain the previous release while a PR is being reviewed.
+  workflow_run:
+    workflows:
+      - Deploy TexasDefined production
+    branches:
+      - main
+    types:
+      - completed
   workflow_dispatch:
   pull_request:
     paths:
