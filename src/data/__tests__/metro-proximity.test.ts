@@ -79,6 +79,11 @@ test("Dallas town pages use independently sourced road time rather than straight
   const close = selectMetroProximityTownReferences(dallas, one);
   assert.ok(close.length >= 4, "Dallas one-hour page no longer has empty town inventory");
   assert.ok(new Set(close.map((row) => row.town.county)).size >= 2, "Dallas close-in guide spans multiple counties");
+  const midrange = selectMetroProximityTownReferences(dallas, two);
+  const clifton = midrange.find((row) => row.town.slug === "clifton");
+  assert.ok(clifton, "Clifton has an official source when the full destination catalog is unavailable");
+  assert.ok(clifton.town.officialUrl.startsWith("https://visitclifton.org/"));
+  assert.equal(selectMetroProximityTownReferences(dallas, two, selectMetroProximityDestinations(rows, dallas, two)).some((row) => row.town.slug === "clifton"), false, "Clifton must never be duplicated when a destination guide is available");
   const longer = selectMetroProximityTownReferences(dallas, three);
   assert.ok(longer.some((row) => row.town.slug === "jefferson"), "Jefferson has an official source even if its authority destination is missing");
   assert.equal(isMetroProximityCollectionIndexReadyWithTownReferences([], dallas, one), true, "official visitor sources meet the protected indexing floor");
