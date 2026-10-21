@@ -7,7 +7,7 @@ const root = process.cwd();
 const source = path.join(root, 'src/data/generated/ticketmaster-events.json');
 const destination = path.join(root, 'ops/editorial/ticketmaster-authority-candidates.json');
 const snapshot = JSON.parse(fs.readFileSync(source, 'utf8'));
-const signal = /\b(festival|fest|fair|rodeo|parade|marathon|championship|convention|expo|oktoberfest|fiesta|jubilee|powwow|gathering|balloon|comic.con|air.show|market)\b/i;
+const signal = /\b(festival|fest|fair|rodeo|parade|marathon|championship|convention|expo|oktoberfest|fiesta|jubilee|powwow|gathering|balloon (?:glow|rally)|comic.con|air.show|market)\b/i;
 const child = /\b(add.on|parking|vip|meet.and.greet|aftershow|fest nights|session|prelims|day pass|weekend pass)\b/i;
 if (!snapshot || typeof snapshot.fetchedAt !== 'string' || !Number.isFinite(Date.parse(snapshot.fetchedAt)) || !Array.isArray(snapshot.events) || snapshot.events.length === 0) {
   throw new Error('Ticketmaster authority queue requires a valid complete event snapshot');
