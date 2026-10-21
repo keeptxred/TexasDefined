@@ -91,7 +91,7 @@ function MetroProximityCollectionPage() {
       {isDallasRoadRing && collection.slug === "small-towns-1-hour" && <section className="mx-auto grid w-full max-w-7xl items-center gap-10 px-5 py-12 sm:px-8 lg:grid-cols-2">
         <figure>
           <img
-            src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Ellis_County_Courthouse%2C_Waxahachie%2C_Texas_%286884671962%29.jpg"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Ellis_County_Courthouse%2C_Waxahachie%2C_Texas_%286884671962%29.jpg/1280px-Ellis_County_Courthouse%2C_Waxahachie%2C_Texas_%286884671962%29.jpg"
             alt="Red sandstone Ellis County Courthouse and clock tower in downtown Waxahachie, Texas"
             loading="lazy" decoding="async" width={1280} height={990}
             className="aspect-[4/3] w-full object-cover"
