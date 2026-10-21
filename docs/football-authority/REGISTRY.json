@@ -40,7 +40,7 @@
       "bryan-rudder",
       "bryson"
     ],
-    "state": "BATCH_007_FOURTEEN_SCHOOL_SOURCE_IMPLEMENTATION_PENDING_QA",
+    "state": "BATCH_007_15_SCHOOL_SOURCE_IMPLEMENTATION_PENDING_QA",
     "dateAssigned": "2026-10-20",
     "selectionRule": "First 25 NOT_REVIEWED and unassigned canonical schoolRecords in stable order following 130 production VERIFIED through completed Batch 006; outstanding PR and branch conflicts checked.",
     "individuallyVerified": 0,
@@ -50,10 +50,10 @@
     "maxSchoolsPerBatch": 25,
     "currentSchool": "brownsville-lopez",
     "nextSchool": "brownsville-pace",
-    "implementedOnBranch": 14,
-    "remainingToImplement": 11,
+    "implementedOnBranch": 15,
+    "remainingToImplement": 10,
     "remainingToVerify": 25,
-    "notes": "14/25 individually source-researched/implemented on draft PR 5525, 11 remaining, 0 actually production verified; Brownsville Hanna different from other BISD schools and Corpus Christi Veterans Memorial opposing school; separate school vs rotating football stadiums."
+    "notes": "15/25 individual school authority implementations on unmerged PR #5525, 10 school records still NOT_REVIEWED, 0 Batch 007 records deployed/production VERIFIED. Brownwood documentation reconciles coach, UIL finals and sourced Oct16 score; next canonical untouched school brownsville-lopez. No repeat CI/Cloudflare polls."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -7641,8 +7641,17 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/brownwood",
-      "status": "NOT_REVIEWED",
-      "batch": 7
+      "status": "IMPLEMENTED",
+      "batch": 7,
+      "audit": "docs/football-authority/schools/brownwood.md",
+      "auditCompletedAt": "2026-10-21",
+      "researchCompletedAt": "2026-10-21",
+      "implementedAt": "2026-10-21",
+      "implementedOnBranch": "football-authority-batch-007-20261020",
+      "actualProductionVerified": false,
+      "mediaStatus": "Original 2026 Brownwood Lions source-derived score-result graphic with independent maroon identity; school/team/athlete photo rights not presumed",
+      "implementationNotes": "UIL seven Brownwood football titles (1960, 1965, 1967, 1969, 1970, 1978, 1981) from 8 finals with 1977 Dickinson runner-up, Gordon Wood 1965 undefeated team; current Jeryl Brixey not Sammy Burnett; 2026 sourced 2–5 through Oct16 against stale 2–3; 7,500-capacity Gordon Wood Stadium 3206 Milam vs HS 2100 Slayden; 2026 ticket system changed to Hudl; 9 distinct milestones, 7 FAQs, original graphic, Brown County two-way links",
+      "technicalVerification": "PENDING TypeScript CI, protected merge, Cloudflare deployment provenance and 1366/390/320 live browser sitemap/canonical/FAQ/county acceptance"
     },
     {
       "id": "uil:bruceville-eddy",
