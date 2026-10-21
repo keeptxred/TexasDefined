@@ -26,3 +26,20 @@ Join the run ID to texas_tax_import_runs to obtain source fingerprints,
 URLs, dates and import result. Raw original source observations remain
 in texas_tax_import_source_rows. Never automatically restore an older rate
 without reviewing the official source and the applicable tax year.
+
+## Automated historical source archive integrity
+
+The monthly GitHub import now follows the local-supplement identity check
+with an additional **read-only** audit of the retained Comptroller source
+archive. For every published year from 2021 onward, it verifies the exact
+normalized record count and original parsed workbook-row count against the
+last completed import, confirms that each retained source row uses that
+run's fingerprint, checks all four workbook classes are present and their
+counts reconcile, and requires all **254 county** taxing units. Missing
+retained years or an archive mismatch fail the job; no rate or calculator
+value is changed. This uses the same GitHub runner and Supabase credentials,
+with no additional service or recurring workflow.
+
+The archive retains parsed original workbook rows and signatures, **not**
+binary XLSX files. The audit flags corruption or partial loss but does not
+reconstruct missing sources automatically.

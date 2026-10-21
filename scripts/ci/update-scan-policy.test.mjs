@@ -75,6 +75,43 @@ test('one edited article selects that record, not its unchanged siblings', () =>
   assert.ok(Object.values(plan.groups).every(v => v === false));
 });
 
+test('statewide Mardi Gras hub must be live, indexable by default, and link to real guides on the visitor URL', async () => {
+  const plan = buildChangePlan({ baseline, head, changedFiles: ['src/routes/events.mardi-gras.tsx'] });
+  assert.deepEqual(plan.mardiGrasHubPages, ['/events/mardi-gras']);
+  assert.ok(plan.selectedPaths.includes('/events/mardi-gras'));
+  assert.equal(plan.selectedPaths.length, 1);
+  const guides = [
+    '/event/mardi-gras-galveston',
+    '/event/mardi-gras-port-arthur',
+    '/event/cowboy-mardi-gras-bandera',
+    '/event/kemah-yachty-gras',
+  ];
+  const html = (fresh = true) => '<html><head><title>Mardi Gras in Texas</title>'
+    + '<link rel="canonical" href="https://texasdefined.com/events/mardi-gras"></head><body>'
+    + (fresh ? '<h1>Mardi Gras in Texas</h1><p>2027 dates</p>'
+        + guides.map(href => '<a href="' + href + '">Guide</a>').join('') : '<p>Stale listing 2027</p>')
+    + '</body></html>';
+  const requests = [];
+  const good = await verifyChangedPages({ plan, head, fetchImpl: async url => {
+    requests.push(url.href);
+    return new Response(html());
+  } });
+  assert.equal(good.length, 1);
+  assert.equal(good[0].passed, true, JSON.stringify(good));
+  assert.ok(requests.includes('https://texasdefined.com/events/mardi-gras'), 'must verify exact visitor URL');
+  const stale = await verifyChangedPages({ plan, head, fetchImpl: async url =>
+    new Response(html(url.searchParams.has('deploy_smoke'))) });
+  assert.equal(stale[0].passed, false);
+  assert.match(stale[0].error, /Mardi Gras hub ordinary visitor URL lacks live guide/);
+  const broken = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html(false)) });
+  assert.equal(broken[0].passed, false);
+  assert.match(broken[0].error, /Expected changed internal link is missing from SSR anchors/);
+  const deindexed = await verifyChangedPages({ plan, head, fetchImpl: async () =>
+    new Response(html().replace('</head>', '<meta name="robots" content="noindex, follow"></head>')) });
+  assert.equal(deindexed[0].passed, false);
+  assert.match(deindexed[0].error, /Mardi Gras hub release is unexpectedly noindex/);
+});
+
 test('a changed event authority record creates a bounded, cache-aware production acceptance', async () => {
   const file = 'src/data/major-event-expanded-authority-tranche54.server.ts';
   const old = `const records = [{ slug: "existing-festival", name: "Previous festival", planningSections: [] }, { slug: "unchanged-festival", name: "Keep", planningSections: [] }];`;
