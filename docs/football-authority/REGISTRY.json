@@ -53,7 +53,7 @@
     "implementedOnBranch": 25,
     "remainingToImplement": 0,
     "remainingToVerify": 25,
-    "notes": "All 25 program-specific guides and source-derived result illustrations are published. New live Chrome run #39532328953: 75/75 school, 75/75 graphics, 23/23 counties, 25/25 sitemap, 0 JS failures; overall job FAILED single-Worker consistency because three observed 100% Cloudflare deployments overlapped run; do not misstate job as success. Publication workstream complete, formal editorial photo-rights/manual WCAG/source acceptance open (0/25). Prior 105 VERIFIED preserved.",
+    "notes": "All 25 original school guides and results graphics PUBLISHED. Exact 25-school post-graphics live Chrome success #39532328953 (attempt 2): 75/75 school desktop/390px/320px, 75/75 graphics, 23/23 counties, 25/25 sitemap, zero JS failures, exactly ONE Worker version 2b087e5b. Screenshot artifact #12318402912. Earlier attempt failed while concurrent releases were active and is separately documented. Publication workstream COMPLETE; nine-dimensional reviewer/media-rights/manual WCAG acceptance still 0/25, statuses remain DEPLOYED. Protect prior 105 VERIFIED.",
     "technicalBrowserAcceptance": {
       "runId": 39273758531,
       "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/39273758531",
@@ -94,24 +94,32 @@
       "graphicCodeMergeSha": "5eea5af958d55180101dab48565df52e4bc46b79",
       "postGraphicsChromeRun": 39532328953,
       "postGraphicsChromeUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/39532328953",
-      "postGraphicsEvidenceArtifact": 12315713105,
+      "postGraphicsEvidenceArtifact": 12318402912,
       "schoolViewCasesPassed": 75,
       "graphicCasesPassed": 75,
       "graphicScreenshots": 75,
       "countyLinksPassed": 23,
       "sitemapEntriesPassed": 25,
       "firstPartyJavaScriptErrors": 0,
-      "strictSingleWorkerVersionPassed": false,
-      "strictRunConclusion": "failure",
+      "strictSingleWorkerVersionPassed": true,
+      "strictRunConclusion": "success",
       "observedWorkerVersions": [
-        "0cee8040-509e-4623-b92a-afabd0b46a29",
-        "1cc62935-9f46-4cef-8dcf-2f1f7f8d651d",
-        "b5527744-d73b-45a5-8db6-36697dfaae72"
+        "2b087e5b-4f3f-4628-b1a0-294de67cd0ff"
       ],
-      "failureExplanation": "Three separately confirmed Cloudflare 100%-traffic deployments occurred during the live Chrome run; all content/graphics/county/sitemap checks passed but required single-Worker-version consistency did not.",
       "individualEditorialAccepted": 0,
       "remainingManualEditorialReviews": 25,
-      "notEquivalentToVerified": true
+      "notEquivalentToVerified": true,
+      "strictRunAttempt": 2,
+      "strictRunCompletedAt": "2026-10-21T03:21:24Z",
+      "initialFailedAttempt": {
+        "artifactId": 12315713105,
+        "workerVersions": [
+          "0cee8040-509e-4623-b92a-afabd0b46a29",
+          "1cc62935-9f46-4cef-8dcf-2f1f7f8d651d",
+          "b5527744-d73b-45a5-8db6-36697dfaae72"
+        ],
+        "reason": "Mixed Cloudflare Workers during concurrent production deployments (first run); not a content/graphic/county/sitemap defect"
+      }
     }
   },
   "statusValues": [
