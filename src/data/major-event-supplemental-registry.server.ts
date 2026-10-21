@@ -190,6 +190,15 @@ export const supplementalMajorEventSlugs = [
   "thunder-over-east-texas-athens",
   "caf-high-sky-wing-airsho",
   "dallas-warbird-weekend",
+  "old-settlers-music-festival",
+  "texas-fleece-fiber-festival",
+  "zestfest",
+  "brazos-nights-waco",
+  "east-texas-poultry-festival",
+  "houston-jazz-festival",
+  "texas-music-festival-university-of-houston",
+  "austin-coffee-festival",
+  "legends-of-texas-whiskey-festival",
 ] as const;
 
 export function loadSupplementalMajorEventRecordsServer() {
