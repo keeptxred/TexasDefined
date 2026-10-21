@@ -4,6 +4,9 @@ import { isRecurrenceDerivedMajorEventSlug } from "./major-event-date-confidence
 import { hasExpiredConfirmedEventOccurrence } from "./event-occurrence-lifecycle";
 import { loadTicketmasterEventsServer } from "./events/ticketmaster-events.server";
 import { resolveEventTicketCta } from "./events/ticketing";
+import { expandFestivalGuide } from "./festival-visitor-guide-extras.server";
+import { buildViatorAffiliateUrl } from "../lib/viator-affiliate";
+import { verifiedViatorMarketUrl, hasVerifiedViatorMarketUrl } from "./viator-destination-links";
 import { getMajorEventAuthorityServer } from "./major-event-authority.server";
 import { getExpandedMajorEventAuthorityServer } from "./major-event-expanded-authority.server";
 import { getExpandedMajorEventAuthorityTranche3Server } from "./major-event-expanded-authority-tranche3.server";
@@ -167,7 +170,7 @@ export function getMajorEventRecordServer(slug: string) {
     ?? getExpandedMajorEventAuthorityTranche51Server(slug);
   if (!event) return event;
   if (event.slug === "texas-renaissance-festival") {
-    return {
+    return expandFestivalGuide({
       ...event,
       countySlug: "grimes",
       countyName: "Grimes County",
@@ -185,7 +188,7 @@ export function getMajorEventRecordServer(slug: string) {
         ...event.sources,
         { label: "Grimes County local governments — City of Todd Mission", url: "https://grimescountytexas.gov/index.asp?DE=3022B303-9FE9-41DE-A0CF-258F294C1D5F&SEC=FCB69960-DFD0-4FC5-BD10-AF5392EB0EF8" },
       ],
-    };
+    });
   }
   if (event.slug === "mardi-gras-galveston") {
     return {
@@ -197,7 +200,7 @@ export function getMajorEventRecordServer(slug: string) {
       ],
     };
   }
-  return event;
+  return expandFestivalGuide(event);
 }
 
 const officialAirshowTicketPages: Record<string, string> = {
@@ -206,6 +209,26 @@ const officialAirshowTicketPages: Record<string, string> = {
   "texas-capital-air-show": "https://texascapitalairshow.com/tickets/",
   "bluebonnet-airshow": "https://www.bluebonnetairshow.com/",
 };
+
+// Only verified Viator city catalogs are eligible. These are complementary local
+// activities, never event tickets or a claim that a festival is sold on Viator.
+const festivalExperienceMarkets: Record<string, { marketSlug: string; cityLabel: string; idea: string }> = {
+  "houston-livestock-show-rodeo": { marketSlug: "houston", cityLabel: "Houston", idea: "sightseeing, museums and city experiences before or after the rodeo" },
+  "san-antonio-stock-show-rodeo": { marketSlug: "san-antonio", cityLabel: "San Antonio", idea: "historical tours and missions experiences on a separate day" },
+  "sxsw": { marketSlug: "austin", cityLabel: "Austin", idea: "city and culture tours between conference commitments" },
+  "austin-city-limits-music-festival": { marketSlug: "austin", cityLabel: "Austin", idea: "sightseeing outside your festival days" },
+  "fiesta-san-antonio": { marketSlug: "san-antonio", cityLabel: "San Antonio", idea: "local heritage and missions experiences between Fiesta events" },
+  "texas-sandfest": { marketSlug: "port-aransas", cityLabel: "Port Aransas", idea: "island and coastal experiences outside the sculpture grounds" },
+  "dickens-on-the-strand": { marketSlug: "galveston", cityLabel: "Galveston", idea: "historic neighborhood tours and other island attractions" },
+  "galveston-juneteenth-celebrations": { marketSlug: "galveston", cityLabel: "Galveston", idea: "African American history and other local heritage experiences" },
+};
+
+function buildFestivalNearbyExperiencesMarkupServer(slug: string) {
+  const match = festivalExperienceMarkets[slug];
+  if (!match || !hasVerifiedViatorMarketUrl(match.marketSlug)) return "";
+  const href = buildViatorAffiliateUrl(verifiedViatorMarketUrl(match.marketSlug), `td-festival-${slug}`);
+  return `<section data-festival-nearby-experiences class="mt-10 border-y border-border py-8"><p class="eyebrow text-primary">Explore beyond the festival</p><h2 class="mt-2 font-display text-3xl">Tours and experiences in ${esc(match.cityLabel)}</h2><p class="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">Consider ${esc(match.idea)}. These independent Viator listings are <strong>not festival tickets</strong>; operators, availability, prices, meeting points and accessibility must be checked before booking.</p><p class="mt-5"><a class="inline-flex min-h-11 items-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90" href="${esc(href)}" target="_blank" rel="sponsored nofollow noopener noreferrer" data-affiliate-partner="viator" data-affiliate-placement="festival-nearby-experiences" data-commercial-partner="viator" data-commercial-placement="festival-nearby-experiences">Explore ${esc(match.cityLabel)} tours on Viator →</a></p><p class="mt-3 text-xs text-muted-foreground">Affiliate disclosure: TexasDefined may earn a commission from qualifying bookings. Admission to the festival itself is not included.</p></section>`;
+}
 
 function buildOfficialAirshowTicketMarkupServer(slug: string) {
   const href = officialAirshowTicketPages[slug];
@@ -234,10 +257,22 @@ export function buildMajorEventTicketingMarkupServer(slug: string) {
   }
 
   if (actionable.length > 1) {
+    const upcoming = actionable
+      .filter(({ record }) => record.startDate >= new Date().toISOString().slice(0, 10))
+      .sort((a, b) => a.record.startDate.localeCompare(b.record.startDate))
+      .slice(0, 6);
+    if (!upcoming.length) return "";
     const dates = actionable.map(({ record }) => record.startDate).sort();
-    const start = dates[0];
-    const end = dates.at(-1) ?? start;
-    return `<section data-event-ticketing class="mt-10 border-y border-border py-8"><p class="eyebrow text-primary">Tickets</p><h2 class="mt-2 font-display text-3xl">Multiple ticketed sessions</h2><p class="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">This parent event currently has multiple ticketed days or sessions. Compare the live listings before choosing a ticket so you land on the correct date or session.</p><p class="mt-5"><a class="font-semibold text-primary underline" href="/events?start=${esc(start)}&amp;end=${esc(end)}">Compare ticketed sessions →</a></p></section>`;
+    const first = dates[0];
+    const last = dates.at(-1) ?? first;
+    const rows = upcoming.map(({ record, cta }) => {
+      const tracking = cta.isAffiliate
+        ? ` data-affiliate-partner="${esc(cta.provider)}" data-affiliate-placement="major-event-guide-session" data-commercial-partner="${esc(cta.provider)}" data-commercial-placement="major-event-guide-session"`
+        : "";
+      return `<li class="flex flex-col gap-2 border-b border-border py-3 sm:flex-row sm:items-center sm:justify-between"><span><strong>${esc(record.startDate)}</strong> · ${esc(record.title)}</span><a class="font-semibold text-primary underline" href="${esc(cta.href)}" target="_blank" rel="${esc(cta.rel)}"${tracking}>${esc(cta.label)}</a></li>`;
+    }).join("");
+    const hasAffiliate = upcoming.some(({ cta }) => cta.isAffiliate);
+    return `<section data-event-ticketing class="mt-10 border-y border-border py-8"><p class="eyebrow text-primary">Tickets</p><h2 class="mt-2 font-display text-3xl">Choose the exact ticketed session</h2><p class="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">The current live event feed contains multiple sessions. Confirm the artist, date, venue and ticket type before checkout; a parking pass is not arena admission.</p><ul class="mt-5">${rows}</ul><p class="mt-4"><a class="font-semibold text-primary underline" href="/events?start=${esc(first)}&amp;end=${esc(last)}">Compare all ticketed sessions →</a></p>${hasAffiliate ? '<p class="mt-3 text-xs text-muted-foreground">Affiliate links · ticket checkout is handled by the provider. TexasDefined may earn a commission from qualifying purchases.</p>' : ""}</section>`;
   }
 
   return "";
@@ -249,6 +284,7 @@ export function loadMajorEventPageServer(slug: string) {
   const occurrenceWindows = getMajorEventOccurrenceWindowsServer(event);
   const dateLabel = formatMajorEventDateLabelServer(event);
   const ticketingMarkup = buildMajorEventTicketingMarkupServer(event.slug) || buildOfficialAirshowTicketMarkupServer(event.slug);
+  const nearbyExperiencesMarkup = buildFestivalNearbyExperiencesMarkupServer(event.slug);
   const eventYear = new Date(occurrenceWindows[0]?.startDate ?? event.startDate).getUTCFullYear();
   const canonicalUrl = `${siteUrl}/event/${event.slug}`;
   const placeLine = [event.city && `${event.city}, Texas`, event.countyName].filter(Boolean).join(" · ");
@@ -341,7 +377,7 @@ export function loadMajorEventPageServer(slug: string) {
   const sourceReviewMarkup = event.sourceCheckedAt
     ? `<p class="mt-4 text-xs text-muted-foreground">Event facts last source-checked ${esc(event.sourceCheckedAt)}. Recheck the official organizer before traveling because dates, prices, access rules and lineups can change.</p>`
     : "";
-  const html = `<nav class="mb-8 text-sm text-muted-foreground"><a href="/">Front page</a> / <a href="/events">Texas Events</a> / ${esc(event.name)}</nav><header class="border-b border-border pb-8"><p class="eyebrow text-primary">Major Texas event</p><h1 class="mt-3 font-display text-5xl sm:text-6xl">${esc(event.name)}</h1><p class="mt-5 text-lg text-muted-foreground">${esc(dateLabel)} · ${esc(placeLine)}</p>${dateConfidenceMarkup}${event.dateNote ? `<p class="mt-4 text-sm text-muted-foreground">${esc(event.dateNote)}</p>` : ""}<p class="mt-5"><a class="font-semibold text-primary underline" href="${esc(event.officialUrl)}" target="_blank" rel="noreferrer noopener">Visit the official event site ↗</a></p></header>${snapshotMarkup}${quickFactsMarkup}${heroImageMarkup}${ticketingMarkup}<section class="mt-12"><h2 class="font-display text-3xl">About ${esc(event.name)}</h2><p class="mt-4 leading-7 text-muted-foreground">${esc(event.whyItMatters)}</p></section>${enrichmentMarkup}${stayNearbyMarkup}<section class="mt-12 border-t border-border pt-8"><h2 class="font-display text-3xl">Planning your visit</h2>${planning}</section><section data-event-discovery-tail="true" class="mt-12 border-t border-border pt-8"><h2 class="font-display text-3xl">More to do in ${esc(event.city)}</h2><ul class="mt-4 space-y-3">${related}</ul></section><section class="mt-10 border-t border-border pt-8"><h2 class="font-display text-3xl">Official event links</h2><ul class="mt-4 space-y-3">${sources}</ul>${sourceReviewMarkup}</section>`;
+  const html = `<nav class="mb-8 text-sm text-muted-foreground"><a href="/">Front page</a> / <a href="/events">Texas Events</a> / ${esc(event.name)}</nav><header class="border-b border-border pb-8"><p class="eyebrow text-primary">Major Texas event</p><h1 class="mt-3 font-display text-5xl sm:text-6xl">${esc(event.name)}</h1><p class="mt-5 text-lg text-muted-foreground">${esc(dateLabel)} · ${esc(placeLine)}</p>${dateConfidenceMarkup}${event.dateNote ? `<p class="mt-4 text-sm text-muted-foreground">${esc(event.dateNote)}</p>` : ""}<p class="mt-5"><a class="font-semibold text-primary underline" href="${esc(event.officialUrl)}" target="_blank" rel="noreferrer noopener">Visit the official event site ↗</a></p></header>${snapshotMarkup}${quickFactsMarkup}${heroImageMarkup}${ticketingMarkup}<section class="mt-12"><h2 class="font-display text-3xl">About ${esc(event.name)}</h2><p class="mt-4 leading-7 text-muted-foreground">${esc(event.whyItMatters)}</p></section>${enrichmentMarkup}${stayNearbyMarkup}${nearbyExperiencesMarkup}<section class="mt-12 border-t border-border pt-8"><h2 class="font-display text-3xl">Planning your visit</h2>${planning}</section><section data-event-discovery-tail="true" class="mt-12 border-t border-border pt-8"><h2 class="font-display text-3xl">More to do in ${esc(event.city)}</h2><ul class="mt-4 space-y-3">${related}</ul></section><section class="mt-10 border-t border-border pt-8"><h2 class="font-display text-3xl">Official event links</h2><ul class="mt-4 space-y-3">${sources}</ul>${sourceReviewMarkup}</section>`;
   const venueGuide = resolveSportsVenueEventLink(event.venue);
   const defaultLocation = {
     "@type": "Place",
