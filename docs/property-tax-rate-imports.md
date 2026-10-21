@@ -168,9 +168,14 @@ local tax-rate supplement against its year, unit type, slug and official
 taxing-unit ID in the newly published Comptroller data. This read-only
 audit validates HTTPS evidence attribution, component reconciliation and
 explicit classifications (supplement, corroboration or disagreement).
-If a source revision causes an orphaned identity or invalid documented
-rate, the scheduled job fails rather than silently dropping the displayed
-supplement; no statewide rows or calculator values are changed.
+If a source revision causes an orphaned identity, invalid documented
+rate, or **newly conflicting official/local rate**, the scheduled job fails
+rather than silently dropping the displayed supplement or accepting a newly
+contradictory figure. Only the exact documented **2022 Union Valley**
+Hunt CAD 0.000000 versus Comptroller 0.287248 difference (official
+unit 116-111-03, Hunt CAD source host) may pass as an explicit known
+conflict; changed rates, years, official identities, or purported evidence
+cause review. No statewide rows or calculator values are changed.
 
 The check uses the existing Supabase service credential and the already
 installed Deno runtime, with no extra paid service, new key, or additional
