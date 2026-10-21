@@ -157,7 +157,7 @@ export function MSRHoustonAuthoritySections() {
     </nav>
 
     <section className="border-b border-border py-7" aria-labelledby="msr-contact">
-      <div className="grid gap-5 border border-border p-5 md:grid-cols-[minmax(0,1fr)_auto] md:items-center">
+      <div className="flex flex-wrap items-center justify-between gap-5 border border-border p-5">
         <div>
           <h2 id="msr-contact" className="font-display text-2xl">Before you go: contact the track</h2>
           <p className="mt-2 text-sm leading-7 text-muted-foreground">MSR Houston, 1 Performance Drive, Angleton, TX 77515. Call the office to confirm event access, waivers, accessibility, camping or the correct gate for your activity. For a supercar drive, book with the experience operator instead.</p>
