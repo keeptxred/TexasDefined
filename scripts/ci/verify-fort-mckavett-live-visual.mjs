@@ -159,6 +159,15 @@ try {
           actionTexts: actions,
           expediaButton: Boolean(expediaAction && expediaAction.tagName === "BUTTON"),
           actionSequence,
+          bookingRow: (() => {
+            const buttons = [...(actionRow?.children || [])];
+            const expedia = buttons.find(el => el.dataset.expediaStaysSearch === "true");
+            const vrbo = buttons.find(el => el.dataset.affiliatePartner === "vrbo");
+            if (!expedia || !vrbo) return null;
+            const a = expedia.getBoundingClientRect(), b = vrbo.getBoundingClientRect();
+            return { expediaLeft: a.left, expediaRight: a.right, expediaTop: a.top,
+              expediaBottom: a.bottom, vrboLeft: b.left, vrboTop: b.top };
+          })(),
           widgetInsidePanel: Boolean(choices?.querySelector(".td-stay-affiliate-panel > .td-stay-widget-host")),
           duplicateBookingContainer: Boolean(surface?.querySelector(":scope > .mx-auto")),
           disclosures: surface?.querySelectorAll(".td-stay-affiliate-disclosure,[data-expedia-disclosure]")?.length || 0,
@@ -180,6 +189,14 @@ try {
         && stayLayout.expediaButton && stayLayout.widgetInsidePanel
         && !stayLayout.duplicateBookingContainer && stayLayout.disclosures === 1,
         JSON.stringify(stayLayout));
+      verify('Expedia is visually left of Vrbo on desktop, above on mobile',
+        viewport.mobile
+          ? Boolean(stayLayout.bookingRow &&
+              stayLayout.bookingRow.expediaBottom <= stayLayout.bookingRow.vrboTop + 3)
+          : Boolean(stayLayout.bookingRow &&
+              Math.abs(stayLayout.bookingRow.expediaTop - stayLayout.bookingRow.vrboTop) <= 3
+              && stayLayout.bookingRow.expediaRight <= stayLayout.bookingRow.vrboLeft + 3),
+        JSON.stringify(stayLayout.bookingRow));
       const stayPath = outputDir + '/' + viewport.name + '-stay.png';
       await stay.screenshot({ path: stayPath, animations: 'disabled', timeout: 25000 });
       record.screenshots.push(stayPath);
