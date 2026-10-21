@@ -67,6 +67,214 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "brownsville-hanna": {
+    "slug": "brownsville-hanna",
+    "intro": "Brownsville Hanna's Golden Eagles trace their campus to the 1967 Brownsville High School building, renamed Hanna High School in 1974 for local educator Homer Hanna. The 2026 football team plays 5A Division I District 15 under school-confirmed coach Mark Guess, rather than the 6A alignment in older historical rosters. Independent results through the October 15 Weslaco East game report a 2–5 record, including a narrow 21–22 defeat and a 22–16 district victory over Harlingen South. This independent guide separates home school at 2615 East Price Road from Brownsville ISD's multiple stadium sites and distinguishes the six BISD teams.",
+    "theme": {
+      "accentHex": "#986625",
+      "label": "Independent TexasDefined golden-brown score visual inspired by Hanna Early College High School's first-party Gold/Brown colors; no licensed Golden Eagle logo or photograph"
+    },
+    "seo": {
+      "title": "Brownsville Hanna Golden Eagles Football | 2026 Mark Guess & Games",
+      "description": "Hanna Golden Eagles 2026 5A Division I football: Mark Guess, 2–5 through Oct 15, 18 historical playoff trips, official schedule/tickets and stadium details."
+    },
+    "coach": {
+      "name": "Mark Guess",
+      "title": "Hanna High School athletic coordinator and head football coach confirmed by 2026 athletics staff directory",
+      "sourceUrl": "https://www.hannagoldeneaglesathletics.net/Staff/Bio/23802",
+      "sourceLabel": "Official Hanna High Athletics bio Mark Guess head football coach / athletic coordinator; school current coaches directory also confirms",
+      "verifiedAt": "2026-10-20"
+    },
+    "campus": {
+      "address": "2615 East Price Road, Brownsville, TX 78521 — Hanna Early College High School (not a game-stadium entrance)",
+      "phone": "956-548-7600",
+      "sourceUrl": "https://hannaechs.bisd.us/page/contact/",
+      "sourceLabel": "Brownsville ISD first-party Hanna ECHS campus 2615 E Price Rd 78521, mascot Golden Eagle, colors Gold / Brown. MaxPreps says 78520, inconsistent.",
+      "verifiedAt": "2026-10-20"
+    },
+    "schedule": {
+      "label": "Hanna Golden Eagles first-party 2026–27 varsity football calendar with individual game stadiums; BISD GoFan season-ticket announcements",
+      "sourceUrl": "https://www.hannagoldeneaglesathletics.net/sport/football/boys/",
+      "sourceLabel": "School athletics live first-party 2026 varsity date/opponent/venue fixture list; BISD live feed announces Hanna, Lopez, Pace, Porter, Rivera, Veterans Memorial GoFan tickets",
+      "verifiedAt": "2026-10-20",
+      "officialScheduleUrl": "https://www.hannagoldeneaglesathletics.net/sport/football/boys/",
+      "ticketUrl": "https://www.bisd.us/live-feed?page_no=1"
+    },
+    "season": {
+      "record": "2–5 overall / 1–2 district through October 15, 2026 (reported MaxPreps; official game calendar shows no filled results)",
+      "verifiedAt": "2026-10-20",
+      "sourceUrl": "https://www.maxpreps.com/tx/brownsville/hanna-golden-eagles/football/schedule/",
+      "sourceLabel": "MaxPreps Hanna Oct 16 updated 2026 posted 2–5 record and seven finals through Oct15; school athletics first-party fixture list confirms opponents and venue but still reads 0–0 official scores",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Edinburg",
+          "site": "Home",
+          "result": "L 8–17"
+        },
+        {
+          "date": "2026-09-03",
+          "opponent": "Sharyland",
+          "site": "Away",
+          "result": "L 28–34"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Edinburg North",
+          "site": "Away",
+          "result": "W 52–21"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Brownsville Veterans Memorial (separate BISD school)",
+          "site": "Home",
+          "result": "L 20–21"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Corpus Christi Veterans Memorial (different school from Brownsville Veterans Memorial)",
+          "site": "Home",
+          "district": true,
+          "result": "L 0–34"
+        },
+        {
+          "date": "2026-10-02",
+          "opponent": "Harlingen South",
+          "site": "Away",
+          "district": true,
+          "result": "W 22–16"
+        },
+        {
+          "date": "2026-10-15",
+          "opponent": "Weslaco East",
+          "site": "Home",
+          "district": true,
+          "result": "L 21–22"
+        },
+        {
+          "date": "2026-10-22",
+          "opponent": "Corpus Christi Carroll",
+          "site": "Away",
+          "district": true,
+          "kickoff": "7:00 PM"
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Corpus Christi Flour Bluff",
+          "site": "Home",
+          "district": true,
+          "kickoff": "7:00 PM"
+        },
+        {
+          "date": "2026-11-07",
+          "opponent": "Brownsville Rivera (rival BISD campus; game in Brownsville)",
+          "site": "Away",
+          "district": true,
+          "kickoff": "7:00 PM"
+        }
+      ]
+    },
+    "venue": {
+      "name": "Sams Memorial Stadium (a BISD varsity venue, not identical to Hanna campus)",
+      "address": "Brownsville, TX — specific spectator gate/address not first-party established by this school fixture listing",
+      "sourceUrl": "https://www.hannagoldeneaglesathletics.net/sport/football/boys/",
+      "sourceLabel": "Hanna Athletics official 2026 game-site listing explicitly places Aug28 Edinburg, Sep18 BVeteransMemorial, Oct30 Flour Bluff at SAMS Stadium; Sep25 CCVM and Oct15 Weslaco East at Veterans Memorial Stadium",
+      "verifiedAt": "2026-10-20",
+      "note": "Hanna's home-designated games occur at multiple Brownsville ISD stadiums, including Sams Memorial Stadium and Veterans Memorial Stadium; the official calendar determines the stadium for each fixture. October22 Carroll is away at Corpus Christi Cabaniss Stadium, and final November7 rival Rivera game is listed under Rivera away despite Sams venue in Brownsville. Verify BISD stadium policy, ADA gate, parking and actual GoFan event tickets."
+    },
+    "development": {
+      "title": "A 1967 school, 1974 Hanna naming and distinct 2026 football alignment",
+      "body": "Brownsville ISD's official history reports that a new Brownsville High campus opened at Price Road in 1967, was renamed Hanna High School in 1974 for educator Homer Hanna, and later developed into Hanna Early College High School. Dave Campbell football program archive lists 18 all-time football playoff appearances, no championship-game appearances or football state titles, and a 9–2 2018 season, followed by 2025 2–8. In 2026 UIL has Hanna in 5A Division I District 15, not the previous 6A program grouping. Head coach Mark Guess is confirmed by Hanna's first-party athletics bio. A 2026 reported 2–5 start includes one-point city/rival losses, with different Veterans Memorial school identities (Brownsville vs Corpus Christi) needing clear naming.",
+      "sourceUrl": "https://hannaechs.bisd.us/about-us/history",
+      "sourceLabel": "Brownsville ISD school history 1967/1974; DCTF Brownsville Hanna Golden Eagles program archive, 2026 UIL realignment and current athletics first-party coach",
+      "verifiedAt": "2026-10-20"
+    },
+    "milestones": [
+      {
+        "date": "1967",
+        "title": "The new Brownsville High School Price Road campus opens",
+        "body": "BISD school history dates the 1967 move of approximately 2,500 students to the newly built Price Road campus, the later home of Hanna ECHS.",
+        "sourceUrl": "https://hannaechs.bisd.us/about-us/history",
+        "sourceLabel": "Official Brownsville ISD Hanna ECHS History"
+      },
+      {
+        "date": "1974",
+        "title": "Brownsville High is renamed Hanna High School",
+        "body": "BISD's first-party campus history says Hanna High School was named in 1974 to honor Brownsville administrator Homer Hanna. This school history is not a 1974 football state title.",
+        "sourceUrl": "https://hannaechs.bisd.us/about-us/history",
+        "sourceLabel": "Hanna Early College High School school history"
+      },
+      {
+        "date": "2018",
+        "title": "A 9–2 football season highlights recent playoff-era success",
+        "body": "DCTF lists 2018 Hanna at 9–2, distinct from 2024 1–9 and 2025 2–8 rebuilding seasons.",
+        "sourceUrl": "https://www.texasfootball.com/team/brownsville-hanna-eagles",
+        "sourceLabel": "Dave Campbell Texas Football 2018 9–2 and recent team ledger"
+      },
+      {
+        "date": "2026",
+        "title": "Mark Guess leads Golden Eagles in 5A Division I",
+        "body": "The official Hanna athletics staff director calls Mark Guess head football coach/athletic coordinator. The 2026 UIL realignment registry places Hanna in 5A Division I District 15, superseding prior 6A classifications.",
+        "sourceUrl": "https://www.hannagoldeneaglesathletics.net/Staff/Bio/23802",
+        "sourceLabel": "Hanna official coach bio and UIL 2026 5AD1 district schedule"
+      },
+      {
+        "date": "September 18, 2026",
+        "title": "Brownsville Veterans Memorial survives 21–20 in same-city showdown",
+        "body": "A school-to-school local varsity game listed by both Hanna and Brownsville Veterans Memorial score services ended Veterans Memorial 21, Hanna 20; not the Sep25 game against CORPUS CHRISTI Veterans Memorial.",
+        "sourceUrl": "https://www.maxpreps.com/tx/brownsville/hanna-golden-eagles/football/schedule/",
+        "sourceLabel": "MaxPreps Hanna 2026 week-four final and school first-party venue/opponent"
+      },
+      {
+        "date": "October 2, 2026",
+        "title": "22–16 district victory away to Harlingen South",
+        "body": "The posted 2026 Golden Eagles score results list a 22–16 district win at Harlingen South. The school official schedule locates this away at Harlingen Boggus Stadium.",
+        "sourceUrl": "https://www.maxpreps.com/tx/brownsville/hanna-golden-eagles/football/schedule/",
+        "sourceLabel": "Reported MaxPreps six-game results and Hanna official first-party schedule"
+      },
+      {
+        "date": "October 15, 2026",
+        "title": "A one-point 21–22 loss to Weslaco East places Hanna 2–5",
+        "body": "A 21–22 home-listed loss to Weslaco East at Veterans Memorial Stadium brought Hanna to 2–5 overall, 1–2 district based on externally reported Oct16 update.",
+        "sourceUrl": "https://www.maxpreps.com/tx/brownsville/hanna-golden-eagles/football/schedule/",
+        "sourceLabel": "Hanna Oct15 game, verified source-dated 2026 MaxPreps team listing"
+      }
+    ],
+    "overview": [
+      "Hanna's Golden Eagles belong to Brownsville ISD in Cameron County, not the University of Texas at Brownsville and not any of the five other BISD varsity football teams. The school-run Hanna ECHS website lists 2615 East Price Road, 78521, the mascot Golden Eagle and school colors Gold and Brown. Third-party MaxPreps lists ZIP 78520; when visiting campus use the first-party district contact.",
+      "School name history gives the page a distinctive timeline: a new Brownsville High building opened on Price Road in 1967 and was renamed Hanna High School in 1974. The campus later became Hanna Early College High School. That name story is supported by BISD's own history, not inferred from football statistics.",
+      "Dave Campbell's all-time football file gives the Golden Eagles 18 playoff appearances and no state football title-game appearance, plus a 9–2 2018 season. More recently Hanna finished 2025 at 2–8. The 2026 UIL 5A Division I District 15 classification differs from past 6A seasons, so rankings/district rivals must be treated by the actual competition year.",
+      "Current coach Mark Guess is identified by the first-party Hanna Athletics directory and biography. BISD publishes 2026 season-ticket options across all six schools through GoFan; fans must use the actual Hanna-specific event link and school policy rather than an invented single generic checkout.",
+      "Hanna's 2026 reported seven played games through October 15 show 2–5, including a 52–21 win at Edinburg North and a 22–16 district win at Harlingen South, with one-point losses to Brownsville Veterans Memorial 20–21 and Weslaco East 21–22. The team was also shut out 0–34 by Corpus Christi Veterans Memorial. These are **different** Veterans Memorial high schools and must never be merged.",
+      "Brownsville ISD rotates football among Sams Memorial Stadium and Veterans Memorial Stadium. Official Hanna varsity fixtures give the venue for each game, including Oct22 at Corpus Christi Carroll's Cabaniss Stadium, Oct30 home-designated Flour Bluff at Sams, and Nov7 at Brownsville Rivera listed away though still inside Brownsville. Hanna ECHS's Price Road address is not a stadium gate, and game-day parking/ADA/pricing remain event-specific."
+    ],
+    "faq": [
+      {
+        "question": "Who coaches Brownsville Hanna's varsity football in 2026?",
+        "answer": "Mark Guess is named head football coach and athletic coordinator in the official Hanna Athletics staff directory and individual coach bio, corroborated by current MaxPreps roster. This differs from leadership at other Brownsville ISD schools."
+      },
+      {
+        "question": "Is Hanna playing 6A or 5A Division I football in 2026?",
+        "answer": "5A Division I District 15 under the 2026 UIL alignment and TexasDefined registry. Older Hanna results, including MaxPreps past-season history, show 6A because the classification changed; historical classifications should retain their original season."
+      },
+      {
+        "question": "What is Hanna's football record through October 15, 2026?",
+        "answer": "Reported 2–5 overall and 1–2 in district, with a 21–22 loss to Weslaco East on October 15. These are date-attributed third-party scores; Hanna's first-party 2026–27 calendar lists opponents and stadium sites but score cells remained empty when checked October 20."
+      },
+      {
+        "question": "Are Brownsville Veterans Memorial and Corpus Christi Veterans Memorial the same opponent?",
+        "answer": "No. Hanna played Brownsville Veterans Memorial on September 18 (a 20–21 reported loss) and Corpus Christi Veterans Memorial on September 25 (a 0–34 reported loss). They are separate schools in separate cities."
+      },
+      {
+        "question": "Where are Hanna's football games and campus located?",
+        "answer": "Hanna Early College High School is at 2615 East Price Road, Brownsville TX 78521. Football home-designated games use BISD venues such as Sams Memorial Stadium or Veterans Memorial Stadium; the school's official varsity calendar specifies the stadium separately for each game. Public gate and ADA parking must be checked per event."
+      },
+      {
+        "question": "Where are official tickets and Hanna's current football schedule?",
+        "answer": "Hanna High School's school-operated football athletics site lists the 2026 fixtures and stadiums, and Brownsville ISD announced phased 2026 season tickets exclusively through GoFan for Hanna plus five other BISD football schools. Confirm the specific school's game link, price and venue policy before purchase."
+      }
+    ]
+  },
   "brownsboro": {
     "slug": "brownsboro",
     "intro": "Brownsboro Bears football changed leadership in May 2026: Brownsboro ISD elevated Ryan Hood, its former offensive coordinator, to head football coach and athletic director after Lance Connot left for Hubbard. Older athletic-provider pages still identify Connot, but the school-run 2026–27 football page explicitly lists Hood. The Bears rebounded from an 0–2 opening with three consecutive victories and stood at a third-party-reported 3–4 through the October 16 Canton defeat. Fans should heed a dated venue notice: the varsity visit to Van was moved to Thursday, October 22, although an older schedule vendor still shows Friday.",
