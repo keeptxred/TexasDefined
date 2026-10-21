@@ -43,12 +43,12 @@ function fail(label, message) {
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-async function fetchProduction(path) {
+async function fetchProduction(path, baseOrigin = origin) {
   let lastError;
 
   for (let attempt = 1; attempt <= FETCH_ATTEMPTS; attempt += 1) {
     const separator = path.includes('?') ? '&' : '?';
-    const url = `${origin}${path}${separator}verify=${encodeURIComponent(`${sha}-${runId}-${attempt}`)}`;
+    const url = `${baseOrigin}${path}${separator}verify=${encodeURIComponent(`${sha}-${runId}-${attempt}`)}`;
 
     try {
       const response = await fetch(url, {
@@ -204,6 +204,44 @@ async function verifyPropertyTax(page) {
   }
 }
 
+// A prior statewide importer mapped empty historical M&O / I&S fields to zero.
+// Keep the affected Escobares city history source-qualified on both production
+// entry points, including the independently documented 2024 local supplement.
+async function verifyEscobaresTaxingUnit() {
+  const path = '/property-tax/taxing-unit/escobares';
+  for (const [label, baseOrigin] of [
+    ['canonical', origin],
+    ['direct-worker', 'https://texasdefined-site.freddy-coppola.workers.dev'],
+  ]) {
+    const check = `taxing-unit:escobares:${label}`;
+    try {
+      const { response, body } = await fetchProduction(path, baseOrigin);
+      const required = [
+        'Escobares property tax rate',
+        'Annual tax rates, with source distinctions',
+        '0.340447',
+        '0.263594',
+        '0.076853',
+        '0.314658',
+        '2024-tax-rates-2.pdf',
+        'Starr CAD report',
+        'Locally verified',
+      ];
+      const missing = required.filter((needle) => !body.includes(needle));
+      if (!response.ok) fail(check, `HTTP ${response.status}`);
+      else if (hasNoindex(body)) fail(check, 'unexpected robots noindex');
+      else if (missing.length) fail(check, `missing verified content: ${missing.join(', ')}`);
+      else if (body.includes('>0.000000<')) fail(check, 'legacy missing historical components still rendered as zero');
+      else {
+        console.log(`[${check}] verified local 2024 total, M&O, I&S and source evidence (HTTP ${response.status})`);
+        appendSummary(`| ✅ pass | ${check} | 2024 0.340447 = 0.263594 + 0.076853; local source cited; no legacy zero components |\n`);
+      }
+    } catch (error) {
+      fail(check, error instanceof Error ? error.message : String(error));
+    }
+  }
+}
+
 appendSummary('\n## Local financial production verification\n\n');
 appendSummary('| Result | Surface | Contract |\n|---|---|---|\n');
 
@@ -211,6 +249,7 @@ await runWithConcurrency(affordabilityPages, verifyAffordability);
 await runWithConcurrency(costOfLivingPages, verifyCostOfLiving);
 await runWithConcurrency(salaryNeededPages, verifySalaryNeeded);
 await runWithConcurrency(propertyTaxSamples, verifyPropertyTax);
+await verifyEscobaresTaxingUnit();
 
 try {
   const { response, body } = await fetchProduction('/sitemap.xml');
