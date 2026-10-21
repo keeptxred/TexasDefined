@@ -15,19 +15,25 @@ export const majorEventSchemaEnrichmentBatch1: MajorEventSchemaEnrichment[] = [
   {
     slug: "grapefest",
     organizer: organization("Grapevine Convention & Visitors Bureau", "https://www.grapevinetexasusa.com/"),
-    offers: [
-      usdOffer("Adult daily admission", 12, "https://www.grapevinetexasusa.com/grapefest/purchase-tickets/"),
-      usdOffer("Senior 62+ daily admission", 6, "https://www.grapevinetexasusa.com/grapefest/purchase-tickets/"),
-      usdOffer("Child age 6–12 daily admission", 6, "https://www.grapevinetexasusa.com/grapefest/purchase-tickets/"),
-      usdOffer("Weekend pass", 25, "https://www.grapevinetexasusa.com/grapefest/purchase-tickets/"),
-    ],
-    performers: [group("Tojo"), group("80s Mix Tape"), group("Heartbreak Petty"), group("Milagro")],
+    // The 2026 ticket/performer details must not be promoted into the
+    // organizer-confirmed September 2027 dates. Ticket sale is not live yet.
+    // Keep organizer metadata only until first-party 2027 offers are published.
+    image: {
+      url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ac/Downtown_Grapevine_Wiki_2_%281_of_1%29.jpg/1280px-Downtown_Grapevine_Wiki_2_%281_of_1%29.jpg",
+      alt: "Historic Main Street storefronts in Grapevine, Texas, photographed in 2021, the downtown area hosting GrapeFest—not a photograph of the 2027 festival",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Downtown_Grapevine_Wiki_2_(1_of_1).jpg",
+      sourceType: "wikimedia",
+      licenseName: "Creative Commons Attribution-ShareAlike 4.0 International",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+      rightsNote: "Photo by Renelibrary, 2021; CC BY-SA 4.0. Historic downtown venue context, not GrapeFest attendance imagery.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
     sources: [
-      { label: "GrapeFest official general information", url: "https://www.grapevinetexasusa.com/grapefest/general-information/" },
-      { label: "GrapeFest official ticket sales", url: "https://www.grapevinetexasusa.com/grapefest/purchase-tickets/" },
-      { label: "GrapeFest official entertainment lineup", url: "https://www.grapevinetexasusa.com/grapefest/entertainment/" },
+      { label: "GrapeFest 2027 dates and admission policy", url: "https://www.grapevinetexasusa.com/grapefest/general-information/" },
+      { label: "GrapeFest official 2027 ticket sale status", url: "https://www.grapevinetexasusa.com/grapefest/purchase-tickets/" },
     ],
-    verifiedAt: "2026-09-01",
+    verifiedAt: "2026-10-21",
   },
   {
     slug: "wurstfest",
