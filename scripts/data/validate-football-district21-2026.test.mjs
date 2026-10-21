@@ -68,7 +68,8 @@ test('The District 21 page does not link its matchup section to District 20 game
   assert.ok(head.includes('District 21-6A Football: 2026 Scores, Standings & Schedule'));
   assert.ok(integration.includes("slug === '6a-district-21'"));
   assert.ok(integration.includes('DISTRICT_21_2026_GAMES'));
-  assert.ok(template.includes('!district21Pilot && !district16Pilot && <FootballFanOffers'));
+  assert.ok(template.includes('<FootballFanOffers slug={`district-${district.slug}`}'), 'preserve a single disclosed promotion');
+  assert.ok(template.indexOf('data-football-district-section="official-sources"') < template.lastIndexOf('<FootballFanOffers slug='), 'District 21 coverage and official links appear before promotion');
 });
 
 const teamPage = readFileSync(new URL('../../src/routes/texas-high-school-football-teams_.$slug.lazy.tsx', import.meta.url), 'utf8');
