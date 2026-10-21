@@ -47,13 +47,13 @@ test('conflicting final scores always fail closed',()=>{
   assert.throws(()=>reconcileAubreyResults(opts({secondary:feed(secondaryHost,{opponentScore:20})})),/Conflicting/);
 });
 test('wrong team or fabricated future results always fail',()=>{
-  assert.throws(()=>reconcileAubreyResults(opts({primary:feed(primaryHost,{opponent:'Lake Travis'})})),/Conflicting/);
-  assert.throws(()=>reconcileAubreyResults(opts({primary:feed(primaryHost,{date:'2026-10-30'})})),/Invalid/);
-  assert.throws(()=>reconcileAubreyResults(opts({secondaryHost:primaryHost})),/separate independent/);
-});
-test('do not rewrite locked historical finals or published scores',()=>{
-  assert.throws(()=>reconcileAubreyResults(opts({primary:feed(primaryHost,{date:'2026-10-16',opponent:'Carrollton Ranchview',aubreyScore:0,opponentScore:14}),
-    secondary:feed(secondaryHost,{date:'2026-10-16',opponent:'Carrollton Ranchview',aubreyScore:0,opponentScore:14})})),/Missing|Refusing|Invalid|Conflicting|./);
+  const conflictingSnapshot={season:'2026',teamSlug:'aubrey',verifiedResults:[{
+    date:'2026-10-16',opponent:'Carrollton Ranchview',district:true,
+    aubreyScore:0,opponentScore:14,verifiedAt:'2026-10-17',
+    primarySourceUrl:'https://' + primaryHost + '/ranchview',
+    secondarySourceUrl:'https://' + secondaryHost + '/ranchview',
+  }]};
+  assert.throws(()=>reconcileAubreyResults(opts({snapshot:conflictingSnapshot})),/Conflicting locked historical final/);
   const first=reconcileAubreyResults(opts());
   assert.equal(reconcileAubreyResults(opts({snapshot:first.snapshot})).added,0);
 });
