@@ -78,6 +78,8 @@ test('year-specific official local evidence and verification date are visible on
   assert.match(route,/record\.localVerifiedOn/);
   assert.match(route,/dateTime=\{record\.localVerifiedOn\}/);
   assert.match(route,/These source notes do not authorize using local figures/);
+  assert.match(smoke,/How the locally sourced rates were verified/);
+  assert.match(smoke,/Evidence last checked by Texas Defined/);
 });
 
 test('Woodlands production H1 verification tolerates SSR text nodes without dropping history checks',()=>{
