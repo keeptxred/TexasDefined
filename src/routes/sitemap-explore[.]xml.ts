@@ -181,6 +181,7 @@ async function emergencyExploreSitemapResponse(error: unknown) {
     "/explore/top-attractions",
     "/explore/top-attractions/methodology",
     "/explore/top-attractions/road-trips",
+    "/explore/big-bend-scenic-drives",
     "/explore/route-66/texas-road-trip",
     "/explore/landscapes",
     ...EXPLORE_REGION_SLUGS.map((regionSlug) => `/explore/region/${regionSlug}`),

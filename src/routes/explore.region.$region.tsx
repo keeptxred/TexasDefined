@@ -98,6 +98,7 @@ function RegionPage() {
       </div>
     </Container>
 
+    {region.slug === "big-bend" && <Container className="py-10"><section className="border-y border-border py-7"><p className="eyebrow text-primary">Plan the road first</p><h2 className="mt-2 font-display text-3xl">Five Big Bend scenic driving choices</h2><p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Compare Ross Maxwell, Chisos Basin Road, FM 170 River Road, the eastern desert and rugged backcountry roads before committing to a remote itinerary.</p><Link to="/explore/big-bend-scenic-drives" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Big Bend scenic drives guide →</Link></section></Container>}
     <RegionAuthorityGuide region={region} />
     <RegionalHubSections destinations={destinations} region={region} allRegions={regions} />
     <TopAttractionCollectionLinks destinations={destinations} contextLabel={region.name} />

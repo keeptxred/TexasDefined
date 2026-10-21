@@ -455,6 +455,7 @@ export const REDIRECT_ONLY_PATHS = [
   "/explore/texas-lakes-guide",
   "/explore/texas-camping-guide",
   "/explore/texas-scenic-drives",
+  "/explore/big-bend-scenic-drives",
   "/explore/texas-wildflower-seasons",
   "/explore/national-wildlife-refuges",
   "/explore/wildlife-management-areas",
