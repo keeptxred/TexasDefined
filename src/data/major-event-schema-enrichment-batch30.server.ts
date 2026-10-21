@@ -1,7 +1,7 @@
 import type { MajorEventSchemaEnrichment } from "./major-event-schema-enrichment.server";
 
 // Texas Onion Fest 2026 organizer reviewed. Past 2026 admission is not a current ticket offer.
-export const majorEventSchemaEnrichmentBatch29: MajorEventSchemaEnrichment[] = [
+export const majorEventSchemaEnrichmentBatch30: MajorEventSchemaEnrichment[] = [
   {
     slug: "texas-onion-fest",
     organizer: { type: "Organization", name: "Weslaco Area Chamber of Commerce", url: "https://www.weslaco.com/texasonionfest/" },

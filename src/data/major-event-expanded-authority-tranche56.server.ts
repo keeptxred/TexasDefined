@@ -103,4 +103,4 @@ const records: MajorEventAuthorityRecord[] = [
 ];
 
 const bySlug = new Map(records.map((event) => [event.slug, event]));
-export function getExpandedMajorEventAuthorityTranche55Server(slug: string): MajorEventAuthorityRecord | null { return bySlug.get(slug) ?? null; }
+export function getExpandedMajorEventAuthorityTranche56Server(slug: string): MajorEventAuthorityRecord | null { return bySlug.get(slug) ?? null; }
