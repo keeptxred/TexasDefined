@@ -77,7 +77,7 @@ export function auditDestination(input: Destination): DestinationAuditResult {
     issues.push({ code: "summary-long", severity: "warning", message: "Summary is unusually long for metadata and card surfaces." });
   }
   if (destination.body.length < 3 || bodyText.length < 450 || uniqueBody.size < 3) {
-    issues.push({ code: "body-thin", severity: "error", message: "Destination needs at least three genuinely substantive, non-duplicate editorial paragraphs." });
+    issues.push({ code: "body-thin", severity: "error", message: "Write at least three distinct, substantive editorial paragraphs." });
   }
   if (containsGeneratedFallbackCopy(summary, bodyText)) {
     issues.push({ code: "generic-fallback-copy", severity: "error", message: "Destination still depends on generated fallback boilerplate and must be hand-curated before indexing." });
@@ -89,30 +89,30 @@ export function auditDestination(input: Destination): DestinationAuditResult {
     issues.push({ code: "hero-placeholder", severity: "error", message: "Destination still uses a placeholder hero image." });
   }
   if (usesTemporaryRepresentativeAiHero(destination)) {
-    issues.push({ code: "hero-representative-ai", severity: "error", message: "Destination still uses a generic representative AI hero. Replace it with a rights-cleared exact-location image or a photorealistic AI depiction grounded in verified facts about the named place before indexing." });
+    issues.push({ code: "hero-representative-ai", severity: "error", message: "Replace this generic AI hero with an exact-place licensed photo or a fact-grounded depiction before indexing." });
   }
   if (!destination.hero.alt || destination.hero.alt.trim().length < 20) {
     issues.push({ code: "hero-alt", severity: "warning", message: "Hero image needs descriptive alt text." });
   }
   if (!validCoordinates(destination)) {
-    issues.push({ code: "coordinates", severity: "error", message: "Destination coordinates are missing or outside the expected Texas area." });
+    issues.push({ code: "coordinates", severity: "error", message: "Coordinates are invalid or outside Texas." });
   }
   if (!destination.nearestTown || destination.nearestTown.trim().toLowerCase() === "texas") {
     issues.push({ code: "nearest-town", severity: "warning", message: "Destination lacks a useful nearest-town value." });
   }
   if (!usefulUrl(destination.officialUrl)) {
-    issues.push({ code: "official-source", severity: "error", message: "Destination needs a destination-specific HTTPS official visitor-information source before indexing." });
+    issues.push({ code: "official-source", severity: "error", message: "Add an HTTPS official visitor source for this place." });
   }
   if (!destination.sourceCheckedAt) {
-    issues.push({ code: "source-review-missing", severity: "warning", message: "Destination has an official source but does not yet record when that source was reviewed." });
+    issues.push({ code: "source-review-missing", severity: "warning", message: "Record the date this official source was reviewed." });
   } else if (!sourceReviewIsFresh(destination.sourceCheckedAt)) {
-    issues.push({ code: "source-freshness", severity: "error", message: `Destination source review is invalid or older than ${SOURCE_MAX_AGE_DAYS} days and must be rechecked before indexing.` });
+    issues.push({ code: "source-freshness", severity: "error", message: `Source review invalid or older than ${SOURCE_MAX_AGE_DAYS} days; recheck before indexing.` });
   }
   if (!destination.bestSeason || destination.bestSeason.trim().toLowerCase() === GENERIC_BEST_SEASON) {
-    issues.push({ code: "best-season", severity: "warning", message: "Destination still has generic seasonal guidance." });
+    issues.push({ code: "best-season", severity: "warning", message: "Replace generic seasonal advice." });
   }
   if (!destination.entryNote || destination.entryNote.trim().toLowerCase().startsWith(GENERIC_ENTRY)) {
-    issues.push({ code: "entry-note", severity: "warning", message: "Destination still has generic arrival, fee or reservation guidance." });
+    issues.push({ code: "entry-note", severity: "warning", message: "Replace generic arrival and ticket advice." });
   }
 
   const errors = issues.filter((issue) => issue.severity === "error").length;
