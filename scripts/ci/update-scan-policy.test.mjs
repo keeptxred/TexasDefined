@@ -151,7 +151,7 @@ test('event authority production smoke remains within eight semantic canaries ev
   });
   assert.equal(plan.eventAuthorityPages.length, 8);
   assert.ok(plan.eventAuthorityPages.every(p => plan.selectedPaths.includes(p)));
-  assert.ok(plan.eventAuthorityPages.every(p => /^\\/event\\/[a-z0-9-]+$/.test(p)));
+  assert.ok(plan.eventAuthorityPages.every(p => p.startsWith('/event/') && /^[a-z0-9-]+$/.test(p.slice(7))));
   assert.ok(plan.selectedPaths.length <= PAGE_BUDGET);
   // Capped semantic checks do not discard changed routes from the generic
   // production HTTP/SEO sampling, where the page budget has capacity.
