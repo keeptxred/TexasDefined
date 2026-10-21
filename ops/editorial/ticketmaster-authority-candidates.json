@@ -5,6 +5,7 @@
       "name": "Austin Championship",
       "city": "Austin",
       "dates": [
+        "2026-11-12",
         "2026-11-13",
         "2026-11-14",
         "2026-11-15"
@@ -15,35 +16,13 @@
       "ticketmasterIds": [
         "G5dIZ_kRZQHmN",
         "G5dIZ_kRZ_imp",
+        "G5dIZ_kRZbjm8",
         "G5dIZ_kRZhHmi"
       ],
       "officialTicketUrls": [
         "https://www.ticketmaster.com/austin-championship-friday-austin-texas-11-13-2026/event/3A00646BC066CB96",
         "https://www.ticketmaster.com/austin-championship-saturday-austin-texas-11-14-2026/event/3A00646BC06BCBA3",
-        "https://www.ticketmaster.com/austin-championship-sunday-austin-texas-11-15-2026/event/3A00646BC06FCBAC"
-      ],
-      "status": "requires-organizer-verification",
-      "evidence": {
-        "organizerUrl": null,
-        "recurrenceVerified": false,
-        "currentScheduleVerified": false,
-        "imageRightsVerified": false
-      },
-      "publicationAllowed": false
-    },
-    {
-      "name": "Austin Championship - Thursday",
-      "city": "Austin",
-      "dates": [
-        "2026-11-12"
-      ],
-      "venues": [
-        "Omni Barton Creek Resort & Spa Fazio Canyons Golf Course"
-      ],
-      "ticketmasterIds": [
-        "G5dIZ_kRZbjm8"
-      ],
-      "officialTicketUrls": [
+        "https://www.ticketmaster.com/austin-championship-sunday-austin-texas-11-15-2026/event/3A00646BC06FCBAC",
         "https://www.ticketmaster.com/austin-championship-thursday-austin-texas-11-12-2026/event/3A00646BC061CB90"
       ],
       "status": "requires-organizer-verification",
@@ -953,33 +932,6 @@
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7Kj6",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7Kje",
         "https://www.ticketmaster.com/event/Z7r9jZ1AAvPq3"
-      ],
-      "status": "requires-organizer-verification",
-      "evidence": {
-        "organizerUrl": null,
-        "recurrenceVerified": false,
-        "currentScheduleVerified": false,
-        "imageRightsVerified": false
-      },
-      "publicationAllowed": false
-    },
-    {
-      "name": "Tank and The Bangas: The Last Balloon Tour w/ Ariel J. & ZEUS",
-      "city": "Austin",
-      "dates": [
-        "2026-11-19",
-        "2026-11-20"
-      ],
-      "venues": [
-        "Antone's Nightclub"
-      ],
-      "ticketmasterIds": [
-        "G5dIZ_6GZR_Xe",
-        "G5dIZ_6GZmyWg"
-      ],
-      "officialTicketUrls": [
-        "https://www.ticketmaster.com/tank-and-the-bangas-the-last-austin-texas-11-19-2026/event/3A00647300BB9F75",
-        "https://www.ticketmaster.com/tank-and-the-bangas-the-last-austin-texas-11-20-2026/event/3A00647300BD9F82"
       ],
       "status": "requires-organizer-verification",
       "evidence": {
