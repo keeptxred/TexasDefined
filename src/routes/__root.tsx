@@ -76,11 +76,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:locale", content: texasDefinedBrand.identity.locale.replace("-", "_") },
       { property: "og:image", content: defaultSocialImage },
       { property: "og:image:alt", content: defaultSocialImageAlt },
+      // Twitter cards fall back to the equivalent Open Graph title, description and image alt.
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: texasDefinedBrand.seo.defaultTitle },
-      { name: "twitter:description", content: texasDefinedBrand.seo.defaultDescription },
       { name: "twitter:image", content: defaultSocialImage },
-      { name: "twitter:image:alt", content: defaultSocialImageAlt },
       { name: "twitter:site", content: texasDefinedBrand.seo.twitterSite ?? "" },
     ],
     links: [
