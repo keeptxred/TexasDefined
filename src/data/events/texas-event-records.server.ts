@@ -6,6 +6,7 @@ import { loadMajorEventGuideDirectoryServer, type MajorEventGuideDirectoryItem }
 import { getMajorEventRecordServer } from "../major-event-page.server";
 import {
   getMajorEventSchemaEnrichmentServer,
+  isCompliantMajorEventImage,
   getMajorEventSchemaOccurrenceEnrichmentServer,
   type EventSchemaOffer,
   type MajorEventSchemaEnrichment,
@@ -68,12 +69,20 @@ function buildTicketing(offers: EventSchemaOffer[] | undefined, lastVerifiedAt: 
 
 function buildEventImage(enrichment: MajorEventSchemaEnrichment | null): TexasEventImageMetadata | undefined {
   if (!enrichment?.image) return undefined;
+  // Authority-page imagery already passes the event source/rights/exact-location
+  // validator. Reuse the SAME decision for calendar and carousel cards; neither
+  // blindly suppress approved imagery nor infer permission from an image URL.
+  const image = enrichment.image;
+  const approved = isCompliantMajorEventImage(image);
   return {
-    url: enrichment.image.url,
-    alt: enrichment.image.alt,
-    sourceUrl: enrichment.image.sourceUrl,
-    rightsStatus: "unknown",
-    displayAllowed: false,
+    url: image.url,
+    alt: image.alt,
+    sourceUrl: image.sourceUrl,
+    rightsStatus: approved ? "verified-reusable" : "unknown",
+    licenseName: approved ? image.licenseName : undefined,
+    licenseUrl: approved ? image.licenseUrl : undefined,
+    credit: approved ? image.rightsNote : undefined,
+    displayAllowed: approved,
   };
 }
 
