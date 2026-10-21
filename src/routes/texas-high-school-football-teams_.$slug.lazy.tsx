@@ -123,6 +123,7 @@ function Page() {
     'bryan': 'brazos', // Bryan ISD first-party campus 3450 Campus Drive in Brazos County; Merrill Green Stadium 3310 Oak Ridge Dr is distinct.
     'bryan-rudder': 'brazos', // Rudder High Bryan ISD at 3251 Austin's Colony Pkwy in Brazos County; shared Merrill Green Stadium is 3310 Oak Ridge.
     'brownwood': 'brown', // Brownwood HS 2100 Slayden campus in Brown County; Gordon Wood Stadium separate at 3206 Milam Dr.
+    'brownsville-lopez': 'cameron', // Brownsville ISD Lopez campus 3205 S Dakota Ave, Cameron County, not Sams Stadium spectator gates.
     'brownsville-hanna': 'cameron', // BISD first-party Hanna ECHS 2615 E Price Road in Cameron County, not a stadium spectator entrance.
     'brownsboro': 'henderson', // BISD official Brownsboro HS 13942 State Hwy 31 E, Henderson County; district office 14134 is distinct.
     'brownfield': 'terry', // Brownfield High first-party 702 Cub Drive campus Terry County; MaxPreps has conflicting 701 number and stadium gate unverified.
