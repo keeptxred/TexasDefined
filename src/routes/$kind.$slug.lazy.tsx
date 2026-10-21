@@ -173,6 +173,7 @@ const batch001FootballCountyLinks: Record<string, { name: string; href: string; 
 // Independently researched Batch 002 and Batch 003 county links. Lists retain
 // multiple teams in the same county rather than replacing an existing card.
 const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: string; context: string }>> = {
+  'henderson': [{ name: 'Brownsboro Bears', slug: 'brownsboro', context: 'Brownsboro ISD Bears: new 2026 coach Ryan Hood, 25 football playoff appearances, updated October results and official moved-to-Thursday Van game warning' }],
   'terry': [{ name: 'Brownfield Cubs', slug: 'brownfield', context: 'Brownfield ISD 3A Division I football: 27 historical playoff appearances, current Lawrence Johnson athletic office, Cub Stadium and 2026 reported results' }],
   'coke': [{ name: 'Bronte Longhorns', slug: 'bronte', context: 'Bronte ISD six-man football: 2025 outright district championship, new 2026 Julian Helms coach, 1A Division I District 7 and live local score guide' }],
   'parker': [{ name: 'Brock Eagles', slug: 'brock', context: 'Brock ISD football established 2011: 2015 UIL state title, four final appearances, coach Billy Mathis and 2026 first-party schedule' }],
