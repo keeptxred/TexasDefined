@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { StateParkVisitorEssentials } from "./StateParkVisitorEssentials";
 import { BookingCarRentalCard } from "@/components/monetization/BookingCarRentalCard";
 import { DestinationAuthoritySections } from "@/components/editorial/DestinationAuthoritySections";
+import { DestinationVerifiedVisitorFacts } from "@/components/editorial/DestinationVerifiedVisitorFacts";
 import { destinationEditorialLinks } from "@/data/destination-editorial-links";
 import { townAuthorityContextualLinks } from "@/data/town-authority-links";
 import type { Destination } from "@/data/types";
@@ -27,6 +28,7 @@ export function DestinationVisitPlanner({ destination }: Props) {
       {destination.slug !== "fort-mckavett" && (
         <div data-stay-nearby-slot aria-label={`Places to stay near ${destination.name}`} />
       )}
+      <DestinationVerifiedVisitorFacts destination={destination} />
       <StateParkVisitorEssentials destination={destination} />
       {showRentalCarOption ? (
         <BookingCarRentalCard

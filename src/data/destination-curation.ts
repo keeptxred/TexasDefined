@@ -3,7 +3,20 @@ import type { Destination } from "./types";
 const TPWD = "Texas Parks and Wildlife Department";
 
 const curated: Record<string, Partial<Destination>> = {
+  "chamizal-national-memorial": {
+    visitorFacts: [
+      { topic: "admission", label: "Admission", detail: "Free entry to the memorial and its facilities. Independent theater performances may charge their own admission.", sourceUrl: "https://www.nps.gov/cham/planyourvisit/fees.htm", checkedAt: "2026-10-21" },
+      { topic: "hours", label: "Memorial grounds", detail: "Grounds and entrance gates are open daily, 7 a.m.–7 p.m. The entire memorial closes for Thanksgiving, Christmas and New Year's Day.", sourceUrl: "https://www.nps.gov/cham/planyourvisit/hours.htm", checkedAt: "2026-10-21" },
+      { topic: "hours", label: "Cultural Center", detail: "Regular visitor services and exhibits are available Tuesday–Saturday, 10 a.m.–5 p.m.; closed Sunday and Monday. Special events may have different access.", sourceUrl: "https://www.nps.gov/cham/planyourvisit/hours.htm", checkedAt: "2026-10-21" },
+      { topic: "parking", label: "Parking", detail: "Enter by the park gates at South San Marcial Street or Delta Drive. Overnight parking is prohibited; vehicles left after the gates close may be towed.", sourceUrl: "https://www.nps.gov/cham/planyourvisit/directions.htm", checkedAt: "2026-10-21" },
+    ],
+  },
   "sheldon-lake-state-park": {
+    visitorFacts: [
+      { topic: "admission", label: "Admission", detail: "Entry is free. TPWD recommends reserving free day-use passes in advance because the park can reach capacity.", sourceUrl: "https://tpwd.texas.gov/state-parks/sheldon-lake", checkedAt: "2026-10-21" },
+      { topic: "hours", label: "Park hours", detail: "Open daily, 8 a.m.–5 p.m., except Thanksgiving Day and December 24–25.", sourceUrl: "https://tpwd.texas.gov/state-parks/sheldon-lake", checkedAt: "2026-10-21" },
+      { topic: "accessibility", label: "Accessible visit", detail: "TPWD lists accessible facilities and mostly flat trails. Check the status of the observation-tower elevator before relying on it.", sourceUrl: "https://tpwd.texas.gov/state-parks/sheldon-lake/fees-facilities/accessibility-information-1", checkedAt: "2026-10-21" },
+    ],
     hero: {
       src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Tower_Sheldon_Lake_SP_Harris_Co_Texas_2024.jpg?width=1600",
       alt: "John Jacob Observation Tower above the wetlands and prairie at Sheldon Lake State Park",

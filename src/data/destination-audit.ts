@@ -9,6 +9,7 @@ import { applyRvParkCuratedPublicWave10 } from "./rv-parks/curated-public-wave10
 import { applyRvParkCuratedPublicWave11 } from "./rv-parks/curated-public-wave11";
 import { applyRvParkCuratedPublicWave12 } from "./rv-parks/curated-public-wave12";
 import type { Destination } from "./types";
+import { reviewDestinationVisitorFacts } from "./destination-visitor-facts";
 
 export type DestinationAuditIssue = {
   code: string;
@@ -107,6 +108,11 @@ export function auditDestination(input: Destination): DestinationAuditResult {
     issues.push({ code: "source-review-missing", severity: "warning", message: "Destination has an official source but does not yet record when that source was reviewed." });
   } else if (!sourceReviewIsFresh(destination.sourceCheckedAt)) {
     issues.push({ code: "source-freshness", severity: "error", message: `Destination source review is invalid or older than ${SOURCE_MAX_AGE_DAYS} days and must be rechecked before indexing.` });
+  }
+  // Every publishing pathway that calls auditDestination shares this gate.
+  // No visitor-specific amenity is required merely because the page is a destination.
+  for (const issue of reviewDestinationVisitorFacts(destination.visitorFacts).issues) {
+    issues.push({ code: issue.code, severity: issue.severity, message: issue.message });
   }
   if (!destination.bestSeason || destination.bestSeason.trim().toLowerCase() === GENERIC_BEST_SEASON) {
     issues.push({ code: "best-season", severity: "warning", message: "Destination still has generic seasonal guidance." });
