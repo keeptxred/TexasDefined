@@ -67,6 +67,213 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "bronte": {
+    "slug": "bronte",
+    "intro": "Bronte's Longhorns play six-man football, not 11-man football. In 2025 they earned their first outright district title since 2011 under veteran Rocky Rawls, then began 2026 with new coach and athletics director Julian Helms, coming from Oglesby. A small roster and UIL realignment into 1A Division I District 7 make this a distinctly different season. By October 20 local newspaper standings confirmed the Longhorns at 2–5 overall and 0–2 in district; the school's own live calendar should remain the authority for future kickoff changes.",
+    "theme": {
+      "accentHex": "#89283D",
+      "label": "Original TexasDefined dark-red Longhorns editorial accent; non-official colors, no school trademark, photo or logo copied."
+    },
+    "seo": {
+      "title": "Bronte Longhorns Six-Man Football | Julian Helms & 2026 Results",
+      "description": "Bronte Longhorns 2026 six-man football: Julian Helms takes over after 2025 district title, 2–5 through Oct 16, Coke County, official calendar and Stephenson Stadium guidance."
+    },
+    "coach": {
+      "name": "Julian Helms",
+      "title": "Bronte ISD 2026 head football coach and athletics director — contemporary local district hiring coverage",
+      "sourceUrl": "https://sanangelolive.com/news/sports/2026-03-12/bronte-names-julian-helms-new-head-football-coach",
+      "sourceLabel": "March 12 2026 San Angelo Live reporting Bronte ISD announced Julian Helms as head coach/AD, corroborated by Aug 20 direct coach interview",
+      "verifiedAt": "2026-10-20"
+    },
+    "campus": {
+      "address": "210 South Jefferson Street, Bronte, TX 76933 (Bronte ISD campus/office; not stadium admission entrance)",
+      "phone": "325-473-2511",
+      "sourceUrl": "https://www.bronteisd.net/contact-us",
+      "sourceLabel": "Bronte ISD official 210 S Jefferson Street, Bronte TX 76933 and district telephone",
+      "verifiedAt": "2026-10-20"
+    },
+    "schedule": {
+      "label": "Bronte ISD Longhorns football schedules and school-run live event calendar (subject to change)",
+      "sourceUrl": "https://www.bronteisd.net/football",
+      "sourceLabel": "Official Bronte ISD football page directs fans to live homepage calendar for latest kickoff changes; first-party athletic schedules calendar",
+      "verifiedAt": "2026-10-20",
+      "officialScheduleUrl": "https://www.bronteisd.net/athletic-schedules"
+    },
+    "season": {
+      "record": "2–5 overall / 0–2 district through October 16, 2026 (local Oct 20 district standings corroborate seven reported scores)",
+      "verifiedAt": "2026-10-20",
+      "sourceUrl": "https://www.maxpreps.com/tx/bronte/bronte-longhorns/football/schedule/",
+      "sourceLabel": "MaxPreps 2026 seven-game 2–5 reported schedule, independently corroborated by San Angelo Live Oct 20 District 7-1A Division I standings and Oct 16 Baird 57–8",
+      "latestResultSourceUrl": "https://sanangelolive.com/news/sports/2026-10-20/west-texas-football-district-standings-week-9",
+      "games": [
+        {
+          "date": "2026-08-27",
+          "opponent": "Menard",
+          "site": "Away",
+          "result": "L 0–60"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Eden",
+          "site": "Home",
+          "result": "W 42–28"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Veribest",
+          "site": "Home",
+          "result": "L 14–60"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Irion County",
+          "site": "Away",
+          "result": "L 16–61"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Rotan",
+          "site": "Away",
+          "result": "W 68–66"
+        },
+        {
+          "date": "2026-10-10",
+          "opponent": "Highland (Roscoe)",
+          "site": "Home",
+          "district": true,
+          "result": "L 28–69"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Baird",
+          "site": "Home",
+          "district": true,
+          "result": "L 8–57"
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Paint Rock",
+          "site": "Away",
+          "district": true,
+          "kickoff": "7:30 PM"
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Santa Anna",
+          "site": "Home",
+          "district": true,
+          "kickoff": "7:30 PM"
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Robert Lee",
+          "site": "Away",
+          "district": true,
+          "kickoff": "7:30 PM"
+        }
+      ]
+    },
+    "venue": {
+      "name": "Stephenson Stadium (listed by DCTF as Bronte football home venue)",
+      "address": "Bronte, Coke County, TX — stadium street address and spectator entry not independently confirmed",
+      "sourceUrl": "https://www.texasfootball.com/team/bronte-longhorns",
+      "sourceLabel": "Dave Campbell's Texas Football identifies Stephenson Stadium as the Longhorns home, capacity 1,547; official Bronte ISD source provides district campus/office but not confirmed gate",
+      "verifiedAt": "2026-10-20",
+      "note": "Do not give the school 210 S Jefferson address as a verified stadium gate. Confirm current Bronte home fixture details, accessibility, public entrances and tickets on the district's live calendar or by calling the school; 2026 away games go to the listed opponent sites."
+    },
+    "development": {
+      "title": "An outright 2025 district crown, a new coach, and a move into 1A Division I",
+      "body": "Bronte's 2025 Longhorns went 7–4 and won an outright district championship for the first time since 2011 under veteran Rocky Rawls, before a first-round Grandfalls playoff defeat. Rawls retired; Bronte ISD hired Julian Helms as head coach/AD in March 2026 from Oglesby, where he had worked as defensive coordinator on the 2023 state-finalist staff. Bronte moved up to 1A Division I District 7, with six-man neighbors Highland, Baird, Paint Rock, Santa Anna and Robert Lee. The program is not a recorded UIL state championship-game participant; DCTF counts 24 historical playoff appearances but zero football state titles.",
+      "sourceUrl": "https://www.sanangelolive.com/news/sports/2026-08-20/bronte-longhorns-turn-page-new-coach-new-district",
+      "sourceLabel": "August 20 contemporary coach interview, March 12 hiring report, DCTF historical playoff appearance table and official ISD calendar",
+      "verifiedAt": "2026-10-20"
+    },
+    "milestones": [
+      {
+        "date": "2011",
+        "title": "Historical district-title benchmark for Bronte six-man football",
+        "body": "San Angelo Live's contemporary coaching coverage says the 2025 team captured Bronte's first outright football district title since 2011. This is a district honor, not a state championship.",
+        "sourceUrl": "https://sanangelolive.com/news/sports/2026-03-12/bronte-names-julian-helms-new-head-football-coach",
+        "sourceLabel": "Contemporary Mar 12 2026 report on Rocky Rawls tenure and prior district crown"
+      },
+      {
+        "date": "2023",
+        "title": "Helms coaches defense on Oglesby's state-finalist staff",
+        "body": "Julian Helms was defensive coordinator at Oglesby during its 2023 state-final run, not Bronte's football head coach that year.",
+        "sourceUrl": "https://www.sanangelolive.com/news/sports/2026-08-20/bronte-longhorns-turn-page-new-coach-new-district",
+        "sourceLabel": "Aug 20 2026 first-person coach interview/biography"
+      },
+      {
+        "date": "2025",
+        "title": "Rocky Rawls leads 7–4 Longhorns to outright district title",
+        "body": "A 7–4 season included a first undisputed district championship since 2011, then a Grandfalls defeat in the opening playoff round. This is the context for the coaching transition, not proof of a state championship.",
+        "sourceUrl": "https://sanangelolive.com/news/sports/2026-03-12/bronte-names-julian-helms-new-head-football-coach",
+        "sourceLabel": "Local contemporaneous 2025 season retrospective"
+      },
+      {
+        "date": "March 2026",
+        "title": "Bronte ISD selects Julian Helms coach and AD",
+        "body": "Local reporting says the district announced Helms's hiring March 12 to succeed Rocky Rawls; he previously served five years at Oglesby and played six-man football at Grandfalls.",
+        "sourceUrl": "https://sanangelolive.com/news/sports/2026-03-12/bronte-names-julian-helms-new-head-football-coach",
+        "sourceLabel": "Mar 12 2026 direct hiring announcement coverage"
+      },
+      {
+        "date": "2026",
+        "title": "2026 realignment into Region II District 7, Division I six-man",
+        "body": "The Longhorns moved to 1A Division I District 7 against Robert Lee, Highland, Baird, Santa Anna and Paint Rock. This classification does not convert the program into 11-man football.",
+        "sourceUrl": "https://www.texasfootball.com/team/bronte-longhorns",
+        "sourceLabel": "Dave Campbell Texas Football 2026 Division I six-man classification and district listing"
+      },
+      {
+        "date": "September 25, 2026",
+        "title": "Two-point thriller at Rotan gives Bronte second win",
+        "body": "Bronte won an entertaining 68–66 reported six-man game at Rotan. Such a result is possible under six-man scoring; don't apply 11-man assumptions or merge this with 2025 results.",
+        "sourceUrl": "https://www.maxpreps.com/tx/bronte/bronte-longhorns/football/schedule/",
+        "sourceLabel": "MaxPreps 2026 reported varsity game log"
+      },
+      {
+        "date": "October 16, 2026",
+        "title": "Baird wins 57–8; local standings show Bronte 2–5",
+        "body": "On October 20 San Angelo Live's West Texas District 7 standings listed Bronte 0–2 district/2–5 total following a reported 57–8 loss to Baird.",
+        "sourceUrl": "https://sanangelolive.com/news/sports/2026-10-20/west-texas-football-district-standings-week-9",
+        "sourceLabel": "San Angelo Live Oct 20 2026 District 7 1A Division I result and table"
+      }
+    ],
+    "overview": [
+      "Bronte plays small-school six-man football in Coke County and should never be presented using the 11-man rules. Dave Campbell's Texas Football tracks 24 historical playoff appearances but zero UIL football state finals or championships; separately, 2025 yielded an outright district title for the first time since 2011.",
+      "The 2025 Longhorns finished 7–4 under Rocky Rawls, who stepped away following that district championship and a first-round playoff loss to Grandfalls. Bronte ISD hired Julian Helms in March 2026 as its football coach and athletics director, which local reporting reaffirmed in an August preseason interview.",
+      "Helms brought experience coordinating Oglesby's defense during its 2023 state-final season, and recalled winning a six-man state title as a Grandfalls player in 2013. That title was earned by Grandfalls, not Bronte; do not transfer achievements from a coach's previous school to the Longhorns.",
+      "Bronte entered UIL 1A Division I District 7 with Robert Lee, Highland, Baird, Paint Rock and Santa Anna. One August account reported only approximately 15 players in the program, making player availability especially important in this small roster. In six-man, conversion and mercy-rule differences alter score interpretation; offer a link to TexasDefined's separate six-man explainer.",
+      "Third-party reported 2026 finals through October 16 show 2–5 overall, including a 68–66 win at Rotan and losses to Highland 69–28 and Baird 57–8. San Angelo Live's October 20 league table independently confirms 0–2 in district. DCTF's historical 2–3 season listing is simply stale and must not override dated post-October game reports.",
+      "Bronte ISD's football page says schedules are subject to change and directs supporters to its live calendar. The school/district office at 210 S Jefferson is not a verified Stephenson Stadium gate; verify game-night venue, parking, accessible areas and entry policy directly. Paint Rock October 23, Santa Anna October 30 and Robert Lee November 6 remain upcoming as of this research checkpoint."
+    ],
+    "faq": [
+      {
+        "question": "Does Bronte play 6-man or 11-man football?",
+        "answer": "Six-man. The 2026 UIL alignment and Dave Campbell's Texas Football list Bronte in Conference 1A Division I, District 7, with other six-man schools; it is not an 11-man program."
+      },
+      {
+        "question": "Who is Bronte's 2026 head football coach?",
+        "answer": "Julian Helms, appointed head football coach and athletic director in March 2026 after Rocky Rawls retired. San Angelo Live's August 20, 2026 coach interview corroborates the assignment."
+      },
+      {
+        "question": "Did Bronte win a state football title in 2025?",
+        "answer": "No. The Longhorns won an outright district championship, their first undisputed district title since 2011, and lost in the first round of the 2025 playoffs. That district title is distinct from a UIL state football championship."
+      },
+      {
+        "question": "What is Bronte's current reported 2026 football record?",
+        "answer": "Bronte was 2–5 overall and 0–2 in district following its October 16 loss to Baird, as confirmed by the October 20 San Angelo Live District 7 standings and MaxPreps's seven posted finals. Later games are not counted until played."
+      },
+      {
+        "question": "Where is Bronte's home football stadium?",
+        "answer": "Dave Campbell's Texas Football lists Stephenson Stadium as the Longhorns' home venue. Official district contact is 210 S Jefferson Street, Bronte; a specific stadium gate, accessible parking and event admission entrance have not been independently verified. Check the school live calendar and call district athletics."
+      },
+      {
+        "question": "What changed for Bronte football in 2026?",
+        "answer": "Rocky Rawls retired after the 2025 7–4 district-title year, Julian Helms arrived from Oglesby as head coach and AD, and the Longhorns moved into UIL 1A Division I District 7 against five regional six-man opponents."
+      }
+    ]
+  },
   "brock": {
     "slug": "brock",
     "intro": "Brock ISD began football at junior high in 2011 and went from its first playoff-eligible varsity season in 2014 to the 2015 Class 3A Division I state championship. The Eagles went on to three more UIL state finals (2017, 2021 and 2022). For 2026, the official coaching directory names Billy Mathis head football coach and Chad Massey athletic director; separate reported scores place the Eagles at 6–1 through October 16. This independent guide distinguishes Brock's 400 Eagle Spirit Lane campus from unverified game-day stadium gates.",
