@@ -278,7 +278,14 @@ async function verifyFiestaLeaf() {
   assert(event.organizer?.name === 'Fiesta San Antonio Commission', 'Fiesta organizer must match repository-reviewed evidence');
   assert(asArray(event.offers).length === 0, 'Fiesta 2027 schema must intentionally omit unreleased offers');
   assert(asArray(event.performer).length === 0, 'Fiesta 2027 schema must intentionally omit unannounced performers');
-  assert(asArray(event.image).length === 0, 'Fiesta schema must not substitute generic fallback imagery');
+  // Fiesta now has a documented public-domain photograph of the actual
+  // 2014 Battle of Flowers Parade; do not confuse an approved historical
+  // scene with generic image fallback. Pin the exact reviewed image so an
+  // unrelated stock/placeholder URL cannot silently enter Event JSON-LD.
+  const approvedFiestaImage = 'https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f1/Scene_from_the_%22Battle_of_Flowers%22_parade_28832v.jpg/960px-Scene_from_the_%22Battle_of_Flowers%22_parade_28832v.jpg';
+  const fiestaImages = asArray(event.image);
+  assert(fiestaImages.length === 1 && fiestaImages[0] === approvedFiestaImage,
+    'Fiesta Event schema must use only the reviewed Fiesta Battle of Flowers photograph');
   console.log('[fiesta-san-antonio] organizer plus future-year omission policy verified');
 }
 
