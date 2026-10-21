@@ -146,7 +146,7 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
   return <>
     {isMoodyGardens ? <MoodyGardensSpotlights /> : null}
     {isWhirlyBall ? <Section tone="surface"><Container><UnusualBusinessAuthorityPanel slug={destination.slug} /></Container></Section> : null}
-    {topAttractionRank ? <Suspense fallback={authorityFallback}>{!isMoodyGardens ? <DestinationAuthorityGuide destination={destination} /> : null}</Suspense> : null}
+    {topAttractionRank && hasExtendedAuthorityGuide ? <Suspense fallback={authorityFallback}><DestinationAuthorityGuide destination={destination} /></Suspense> : null}
     {!topAttractionRank && hasExtendedAuthorityGuide ? <Suspense fallback={authorityFallback}><DestinationAuthorityGuide destination={destination} showUnusualBusinessAuthority={!isWhirlyBall} /></Suspense> : null}
     <Suspense fallback={null}><MuseumAuthorityNetworkSection destination={destination} /></Suspense>
     {hasSamRayburnHouseContext ? <SamRayburnContext surface="house" /> : null}
