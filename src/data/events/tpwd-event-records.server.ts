@@ -28,7 +28,7 @@ export function loadTpwdEventRecordsServer(now = new Date()): TexasEventRecord[]
   const result: TexasEventRecord[] = [];
   for (const item of catalog.events as TpwdItem[]) {
     if (!/^\d{4}-\d{2}-\d{2}$/.test(item.startDate) || item.startDate < today) continue;
-    if (!/^https:\/\/tpwd\.texas\.gov\/calendar\/[a-z0-9-]+\/[a-z0-9-]+\/20\d{2}-\d{2}-\d{2}$/.test(item.officialUrl)) continue;
+    if (!/^https:\/\/tpwd\.texas\.gov\/calendar\/[a-z0-9-]+\/[^/?#]+\/20\d{2}-\d{2}-\d{2}$/.test(item.officialUrl)) continue;
     const park = matchPark(item.parkKey);
     if (!park) continue;
     const countyName = park.county?.replace(/\s+County$/i, "");
