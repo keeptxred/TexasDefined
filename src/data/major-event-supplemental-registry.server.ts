@@ -1,6 +1,18 @@
 import { getMajorEventRecordServer } from "./major-event-page.server";
 
 export const supplementalMajorEventSlugs = [
+  "diwalisa-san-antonio",
+  "homestead-fair-waco",
+  "waco-wonderland",
+  "whooping-crane-festival",
+  "old-settlers-music-festival",
+  "dallas-international-film-festival",
+  "worldfest-houston",
+  "waco-independent-film-festival",
+  "texas-international-fishing-tournament",
+  "texas-food-truck-showdown",
+  "brazos-nights-waco",
+  "san-jacinto-day-celebration",
   "dobie-dichos",
   "dallas-holiday-parade",
   "schulenburg-festival",
