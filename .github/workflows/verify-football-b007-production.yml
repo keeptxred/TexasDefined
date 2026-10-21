@@ -9,7 +9,9 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: football-b007-live-acceptance
+  # Share the production deployment mutex: prevent Worker replacement during
+  # the strict 25-school Chrome acceptance window.
+  group: texasdefined-production
   cancel-in-progress: false
 jobs:
   chrome:
@@ -28,11 +30,6 @@ jobs:
           test -n "$CHROME_BIN"
           echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
           npm install --prefix /tmp/td-b007-chrome --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
-      - name: Give GitHub protected main deploy its normal release window once
-        run: |
-          # One fixed staging interval is not a repeated status poll.
-          # The real browser run still rejects missing graphics or mixed releases.
-          sleep 360
       - name: Verify exact 25 school, 75 viewport, county, graphic, sitemap and release cases
         env:
           GITHUB_SHA: ${{ github.sha }}
