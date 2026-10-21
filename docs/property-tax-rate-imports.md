@@ -110,10 +110,28 @@ GitHub-to-Cloudflare deployment to publish the server-rendered page.
 Verify page data, SQL counts, and the scheduled workflow without requesting
 Cloudflare reauthorization or cache purging.
 
-## Existing audit targets (not automatic overrides)
+## Additional official 2024 supplements
+
+Starr CAD's 2024 entity-tax-rate list supports these additional
+individually identified city taxing units:
+- Roma: 0.567900 total = 0.499077 M&O + 0.068823 I&S
+  (`214-101-03-214-214`).
+- Rio Grande City: 0.521090 total = 0.372960 M&O + 0.148130 I&S
+  (`214-102-03-214-214`, named City of Rio Grande in the CAD list).
+
+The City of Southside Place's official property-tax FAQ confirms its
+2024 total rate of 0.340896 (`101-115-03-101-101`). M&O and I&S
+components are unavailable and must remain null.
+
+## Remaining research candidates (not automatic overrides)
 
 The 2024 city records for Little-River Academy, Cooper, Miami, Poetry,
-Post Oak Bend, Rio Grande City, Roma, Scurry, Southside Place, and
-Stafford were marked not-reported in the database on 2026-10-21.
+Post Oak Bend, Scurry and Stafford were marked not-reported in the
+database on 2026-10-21. Stafford's city has officially reported no city
+property tax for 2024; any zero-rate representation should receive
+explicit zero-levy semantics rather than be confused with historical
+missing-component values. No automatic override was created.
+
 These are **research candidates only**; do not add a local rate unless
-the appropriate CAD/city provides adequate official evidence.
+the appropriate CAD/city provides sufficient official year-specific
+evidence and exact taxing-unit identity.
