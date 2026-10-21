@@ -34,10 +34,15 @@ export const Route = createFileRoute('/property-tax/taxing-unit/$unit')({
         url: pageUrl,
         temporalCoverage: `${history[0]?.year}/${history.at(-1)?.year}`,
         creator: { '@type': 'Organization', name: 'Texas Defined' },
-        citation: [latest.sourceUrl, ...history.flatMap((record) =>
-          record.localVerification
+        // Cite every yearly Comptroller workbook as well as any separately
+        // sourced local-rate evidence; do not imply the latest source covers
+        // years it does not report.
+        citation: [...new Set(history.flatMap((record) => [
+          record.sourceUrl,
+          ...(record.localVerification
             ? [record.localVerification.sourceUrl, ...(record.localVerification.componentSourceUrl ? [record.localVerification.componentSourceUrl] : [])]
-            : [])],
+            : []),
+        ]))],
         publisher: { '@type': 'Organization', name: 'Texas Defined' },
         variableMeasured: ['Total property-tax rate', 'Maintenance and operations rate', 'Debt-service / I&S rate', 'Reported levy'],
       })],
