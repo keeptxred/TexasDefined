@@ -44,7 +44,23 @@ export function checkVerifiedLocalRate(local, officialRows) {
     return 'supplement';
   }
   if (!Number.isFinite(officialRate)) throw new Error(identity + ': nonnumeric official rate');
-  return Math.abs(officialRate - localRate) <= 0.000001 ? 'corroborated' : 'conflict';
+  if (Math.abs(officialRate - localRate) <= 0.00000001) return 'corroborated';
+  // Only the exact independently investigated Union Valley 2022 source
+  // disagreement may pass unattended. Every new or changed contradiction
+  // is actionable and must fail the monthly job without changing either rate.
+  const knownUnionValleyConflict = Number(local.tax_year) === 2022
+    && local.unit_type === 'city'
+    && local.slug === 'city-of-union-valley'
+    && local.official_unit_id === '116-111-03'
+    && Math.abs(localRate) <= 0.00000001
+    && Math.abs(officialRate - 0.287248) <= 0.00000001
+    && new URL(local.source_url).hostname.toLowerCase() === 'hunt-cad.org';
+  if (!knownUnionValleyConflict) {
+    throw new Error(identity + ': NEW official/local rate disagreement ('+
+      localRate.toFixed(8) + ' local versus ' + officialRate.toFixed(8) +
+      ' Comptroller). Review original year-specific sources; no override was made');
+  }
+  return 'conflict';
 }
 
 async function restRead(baseUrl, serviceKey, table, query) {
