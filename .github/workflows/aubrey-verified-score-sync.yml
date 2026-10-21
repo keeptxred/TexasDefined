@@ -4,7 +4,9 @@ on:
   schedule:
     - cron: '10 9 * 8-12 *'
 permissions:
-  contents: read
+  contents: write
+  pull-requests: write
+  issues: write
 jobs:
   validate:
     runs-on: ubuntu-latest
@@ -14,3 +16,11 @@ jobs:
         with:
           node-version: '22'
       - run: node --test scripts/ci/test-aubrey-verified-results.mjs
+      - name: Import matching licensed scores
+        id: import
+        env:
+          AUBREY_SCORE_FEED_PRIMARY_URL: ${{ vars.AUBREY_SCORE_FEED_PRIMARY_URL }}
+          AUBREY_SCORE_FEED_SECONDARY_URL: ${{ vars.AUBREY_SCORE_FEED_SECONDARY_URL }}
+          AUBREY_SCORE_FEED_PRIMARY_TOKEN: ${{ secrets.AUBREY_SCORE_FEED_PRIMARY_TOKEN }}
+          AUBREY_SCORE_FEED_SECONDARY_TOKEN: ${{ secrets.AUBREY_SCORE_FEED_SECONDARY_TOKEN }}
+        run: node scripts/data/update-aubrey-verified-results.mjs
