@@ -124,13 +124,13 @@ test('Texas Data release checks are bounded and reject stale SSR values', async 
   assert.equal(plan.omittedCount, 0);
   assert.ok(plan.selectedPaths.length <= PAGE_BUDGET);
   const fresh = {
-    '/texas-data': 'Texas at a glance 4,357,000 August 2026 preliminary $3,489 Search official data briefs /texas-data/texas-metro-payrolls-august-2026 Major Texas metro payrolls Texas Defined insurance research not an exhaustive list of every incorporated municipality',
+    '/texas-data': '<h1>Texas by the Numbers</h1> Texas at a glance 4,357,000 August 2026 preliminary $3,489 Search official data briefs /texas-data/texas-metro-payrolls-august-2026 Major Texas metro payrolls Texas Defined insurance research not an exhaustive list of every incorporated municipality',
     '/texas-data/texas-homeowners-premium-history': '2023 $2,795 2025 $3,489 October 20, 2026',
     '/texas-data/texas-metro-payrolls-august-2026': 'August 2026 4,357,000 3,495,300 metro_09302026.htm',
     '/texas-data/texas-metro-payrolls-june-2026': 'June 2026 4,363,300 metro_07292026.htm',
   };
   const serve = (record) => async url => new Response(
-    '<html><head><title>Texas Data</title><link rel="canonical" href="https://texasdefined.com'
+    '<html><head><title>Texas by the Numbers: Population, Housing, Jobs & Counties</title><link rel="canonical" href="https://texasdefined.com'
       + url.pathname + '"></head><body>' + record[url.pathname] + '</body></html>',
   );
   const current = await verifyChangedPages({ plan, head, fetchImpl: serve(fresh) });
@@ -140,6 +140,10 @@ test('Texas Data release checks are bounded and reject stale SSR values', async 
   const stalePremium = { ...fresh, '/texas-data/texas-homeowners-premium-history': '2023 $2,800 2025 $3,489 October 20, 2026' };
   const badPremium = await verifyChangedPages({ plan, head, fetchImpl: serve(stalePremium) });
   assert.equal(badPremium.find(result => result.path.endsWith('premium-history')).passed, false);
+
+  const staleHeading = { ...fresh, '/texas-data': fresh['/texas-data'].replace('<h1>Texas by the Numbers</h1>', '<h1>Texas Data & Statistics</h1>') };
+  const badHeading = await verifyChangedPages({ plan, head, fetchImpl: serve(staleHeading) });
+  assert.equal(badHeading.find(result => result.path === '/texas-data').passed, false, 'old H1 must fail production canary');
 
   const staleHub = { ...fresh, '/texas-data': 'Texas at a glance 4,363,300 DFW nonfarm payrolls June 2026 preliminary $3,489' };
   const badHub = await verifyChangedPages({ plan, head, fetchImpl: serve(staleHub) });
@@ -166,19 +170,19 @@ test('every production release verifies Texas Data content even after original P
   assert.equal(plan.omittedCount, 0);
   assert.ok(plan.selectedPaths.length <= PAGE_BUDGET);
   const content = {
-    '/texas-data': 'Texas at a glance 4,357,000 August 2026 preliminary $3,489 Search official data briefs /texas-data/texas-metro-payrolls-august-2026 Major Texas metro payrolls Texas Defined insurance research not an exhaustive list of every incorporated municipality',
+    '/texas-data': '<h1>Texas by the Numbers</h1> Texas at a glance 4,357,000 August 2026 preliminary $3,489 Search official data briefs /texas-data/texas-metro-payrolls-august-2026 Major Texas metro payrolls Texas Defined insurance research not an exhaustive list of every incorporated municipality',
     '/texas-data/texas-homeowners-premium-history': '2023 $2,795 2025 $3,489 October 20, 2026',
     '/texas-data/texas-metro-payrolls-august-2026': 'August 2026 4,357,000 3,495,300 metro_09302026.htm',
     '/texas-data/texas-metro-payrolls-june-2026': 'June 2026 4,363,300 metro_07292026.htm',
   };
   const fetchImpl = async url => new Response(
-    '<html><head><title>Texas Data</title><link rel="canonical" href="https://texasdefined.com'
+    '<html><head><title>Texas by the Numbers: Population, Housing, Jobs & Counties</title><link rel="canonical" href="https://texasdefined.com'
       + url.pathname + '"></head><body>' + content[url.pathname] + '</body></html>',
   );
   const verified = await verifyChangedPages({ plan, head, fetchImpl });
   assert.ok(verified.every(item => item.passed), JSON.stringify(verified));
   const stale = await verifyChangedPages({ plan, head, fetchImpl: async url =>
-    new Response('<html><head><title>Texas Data</title><link rel="canonical" href="https://texasdefined.com'
+    new Response('<html><head><title>Texas by the Numbers: Population, Housing, Jobs & Counties</title><link rel="canonical" href="https://texasdefined.com'
       + url.pathname + '"></head><body>$2,800 4,363,300 June 2026</body></html>') });
   assert.ok(stale.every(item => !item.passed));
 });
