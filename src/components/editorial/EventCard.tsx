@@ -20,6 +20,7 @@ const permanentEventGuideSlugs = new Set([
 ]);
 const legacyGuideSlugs: Record<string, string> = {
   "houston-livestock-rodeo": "houston-livestock-show-rodeo",
+  "houston-livestock-show-and-rodeo": "houston-livestock-show-rodeo",
   "wurstfest-new-braunfels": "wurstfest",
 };
 
