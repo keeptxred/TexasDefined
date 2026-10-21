@@ -173,6 +173,9 @@ const batch001FootballCountyLinks: Record<string, { name: string; href: string; 
 // Independently researched Batch 002 and Batch 003 county links. Lists retain
 // multiple teams in the same county rather than replacing an existing card.
 const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: string; context: string }>> = {
+  'kinney': [{ name: 'Brackett Tigers', slug: 'brackettville-brackett', context: 'Brackett ISD in Brackettville: official 2026 varsity schedule, 2025 postseason history and Tiger Stadium visitor-source cautions' }],
+  'mcculloch': [{ name: 'Brady Bulldogs', slug: 'brady', context: 'Brady High School: 1956/1957 finals, unusual forfeiture-awarded 1959 UIL title and official 2026 ticket details' }],
+  'stephens': [{ name: 'Breckenridge Buckaroos', slug: 'breckenridge', context: 'Breckenridge High School: six UIL title awards including two co-champion ties, and Buckaroo Stadium guide' }],
   'victoria': [{ name: 'Bloomington Bobcats', slug: 'bloomington', context: 'Victoria County Bloomington ISD; first-party Bobcat Stadium home event details' }],
   'navarro': [{ name: 'Blooming Grove Lions', slug: 'blooming-grove', context: 'Navarro County Blooming Grove ISD; official 2026 district assignment' }],
   'blanco': [{ name: 'Blanco Panthers', slug: 'blanco', context: 'Blanco ISD campus in Blanco County; 2001 UIL state championship' }],
