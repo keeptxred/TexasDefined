@@ -95,7 +95,7 @@ const records: MajorEventAuthorityRecord[] = [
     category: "culture",
     startDate: "2027-02-05",
     endDate: "2027-02-07",
-    venue: "Historic downtown Jefferson / The Alley",
+    venue: "The Alley, 113 West Austin, historic downtown Jefferson",
     officialUrl: "https://mardigrasupriver.com/events/",
     sourceCheckedAt: "2026-10-21",
     whyItMatters: "Jefferson's Krewe of Hebe gives East Texas a Mardi Gras weekend in a compact historic river town. The organizer confirms February 5–7, 2027, with a Viva Las Vegas theme; the earlier Queen Mab Ball is a separate January 23 occasion. Jefferson is appealing for travelers who want small-town heritage alongside the parade rather than a coastal entertainment district.",
@@ -128,7 +128,7 @@ const records: MajorEventAuthorityRecord[] = [
       },
       {
         title: "Make the historic district your base",
-        body: "The public festival centers on walkable downtown Jefferson. Reserve lodging according to the parade day and allow extra walking time when downtown streets are blocked. Check organizer updates for vehicle access and avoid relying on normal curbside parking."
+        body: "The organizer identifies The Alley at 113 West Austin, Jefferson, TX 75657 as the 2027 festival venue. The public festival takes place in walkable historic downtown; reserve lodging according to your parade day and allow extra walking time when streets close. Check the organizer for the precise route and accessible arrival options."
       },
       {
         title: "Confirm each 2027 parade before choosing a viewing spot",
@@ -375,6 +375,10 @@ const records: MajorEventAuthorityRecord[] = [
       {
         label: "Other krewe parade",
         value: "Krewes Into Kemah remains tentative (Jan. 16 or Jan. 23)"
+      },
+      {
+        label: "Boat entry only",
+        value: "$95 boat registration, mandatory skippers meeting February 6 at 10 a.m.; not a spectator ticket"
       }
     ],
     planningSections: [
@@ -384,7 +388,7 @@ const records: MajorEventAuthorityRecord[] = [
       },
       {
         title: "Waterfront views are location-specific",
-        body: "The Yachty Gras organizer describes boats beginning in Clear Lake, passing Kemah Boardwalk, turning in Galveston Bay and heading back. A boat parade does not necessarily pass every restaurant patio or dock on the same schedule. Confirm the final boat route and start time at yachtygras.com; do not enter private docks or assume a restaurant reservation includes parade access."
+        body: "Yachty Gras says boats begin in Clear Lake, pass Kemah Boardwalk, turn in Galveston Bay and head back. Spectators should use the published public viewing recommendations rather than private docks. Boat entrants have a different process: the 2027 registration lists a $95 skipper fee and a mandatory February 6, 10 a.m. meeting at Sundance Grill, 800 Mariners Drive. That fee is for registered boats, not a spectator admission charge."
       },
       {
         title: "Prepare for Kemah Boardwalk crowding",
@@ -418,6 +422,7 @@ const records: MajorEventAuthorityRecord[] = [
     ],
     sources: [
       { label: "Yachty Gras official 2027 boat parade, route and events", url: "https://www.yachtygras.com/" },
+      { label: "Yachty Gras 2027 boat entry fee and mandatory skipper meeting", url: "https://www.yachtygras.com/register-your-boat-1" },
       { label: "Krewe du Lac official 2027 street parade calendar", url: "https://krewedulac.net/events" }
     ]
   },
