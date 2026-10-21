@@ -41,10 +41,19 @@ const majorEventAuthorityDetails: MajorEventAuthorityDetails[] = [
   {
     slug: "texas-renaissance-festival",
     whyItMatters: "This repeat-weekend destination can shape an entire fall trip, and the themed-weekend structure means the best weekend depends on the visitor.",
+    quickFacts: [
+      { label: "2026 season", value: "October 10–November 29, weekends plus Thanksgiving Friday" },
+      { label: "Festival hours", value: "9 a.m.–8 p.m.; last entry 7 p.m., per 2026 organizer" },
+      { label: "Venue", value: "21778 FM 1774, Todd Mission, Texas" },
+      { label: "Camping", value: "Separate camping pass; festival admission is not included" },
+      { label: "Planning choice", value: "Choose a themed weekend, not merely a date inside the season" },
+    ],
     planningSections: [
-      { title: "Pick the theme first", body: "Start with the official themed-weekend calendar instead of assuming every weekend is interchangeable." },
-      { title: "Plan for a full outdoor day", body: "Comfortable footwear, weather planning and a realistic arrival window matter across the large festival footprint." },
-      { title: "Recheck operating days", body: "The published start and end dates mark the season boundary; the organizer's calendar remains authoritative for individual operating days." },
+      { title: "Drive to Todd Mission, not downtown Austin", body: "The Texas Renaissance Festival is held at 21778 FM 1774 in Todd Mission, northwest of Houston. Avoid online lists that incorrectly place it in Austin. Allow for rural approach traffic and follow the organizer's current parking directions rather than a generic city-center route." },
+      { title: "Choose the weekend's theme", body: "The 2026 season is open Saturdays and Sundays October 10–November 29, plus Thanksgiving Friday. Each themed weekend has different entertainment, costumes and activities. The range in the calendar does not mean the gates open Monday through Thursday." },
+      { title: "Know the entrance cutoff", body: "The 2026 organizer lists 9 a.m. to 8 p.m. festival hours with no entry after 7 p.m. That matters for visitors hoping to arrive after another Houston-area attraction. Confirm any holiday-specific variation and show times before departure." },
+      { title: "Separate camping from admission", body: "The Fields of New Market campground has separately sold weekend passes, and an ordinary camping pass does not include admission to the festival. A bundled Stay and Play package is different. Check rules for vehicles, quiet hours and campsite services directly with the operator." },
+      { title: "Plan for a long day on foot", body: "The village blends stages, shops, jousting, food and family activities across a large outdoor footprint. Comfortable shoes, water, shade, accessible route information and weather contingencies matter more than checking off every act. Buy admission through official channels and verify costume and prop rules in advance." },
     ],
     relatedLinks: [
       { href: "/event/grapefest", label: "GrapeFest", description: "Compare another major North Texas fall festival." },
@@ -67,10 +76,19 @@ const majorEventAuthorityDetails: MajorEventAuthorityDetails[] = [
   {
     slug: "wurstfest",
     whyItMatters: "Wurstfest connects a current travel event to the deeper German-Texan story visible across Hill Country towns, dance halls, food traditions and historic communities.",
+    quickFacts: [
+      { label: "2026 dates", value: "November 6–15, 2026" },
+      { label: "City", value: "New Braunfels, Comal County" },
+      { label: "Focus", value: "German-Texan music, food and cultural traditions" },
+      { label: "Admission", value: "Current-day tickets, discounts and hours vary by date" },
+      { label: "Planning", value: "Weekdays and weekends have different crowd conditions" },
+    ],
     planningSections: [
-      { title: "Choose weekday or weekend", body: "The ten-day run gives visitors flexibility; choose the day before arranging lodging and other New Braunfels stops." },
-      { title: "Use it as a heritage gateway", body: "Leave time for New Braunfels beyond the festival grounds and connect the visit to the region's German-Texan history." },
-      { title: "Check the daily schedule", body: "Entertainment, admission details and operating hours vary; use the organizer's current schedule for your exact day." },
+      { title: "Pick a day based on the experience", body: "Wurstfest's ten-day run is not a single uniform party: stage schedules, admission terms, food vendor offerings and dance-hall crowds vary between weekdays and weekends. Use the current year's day-by-day lineup before choosing a trip." },
+      { title: "Understand what admission does and does not buy", body: "Entry to the festival and purchases from food or beverage vendors are separate considerations. Confirm current advance-admission, group and age policies from Wurstfest; do not rely on an old per-day price or a generic event resale ticket." },
+      { title: "Plan for food, dance halls and music", body: "The core visitor experience combines German-influenced Texas dishes, polka and other live music, and indoor/outdoor gathering spaces. Families can enjoy music and heritage activities without trying to attend every evening entertainment block." },
+      { title: "Explore New Braunfels beyond the grounds", body: "Historic downtown, the Comal River and German-Texan history sites are natural complements; check seasonal opening hours and the weather if combining the festival with outdoor recreation in November." },
+      { title: "Know the arrival and accessibility tradeoffs", body: "The grounds and surrounding streets can be busy on weekends. Consult official parking, shuttle and accessibility information, especially if traveling with a stroller or mobility aid, rather than assuming curbside access close to the entry gate." },
     ],
     relatedLinks: [
       { href: "/event/texas-renaissance-festival", label: "Texas Renaissance Festival", description: "Compare another repeat-weekend Texas fall event." },
@@ -80,10 +98,19 @@ const majorEventAuthorityDetails: MajorEventAuthorityDetails[] = [
   {
     slug: "fort-worth-stock-show-rodeo",
     whyItMatters: "It supports several kinds of visits, from a single arena night to a full day built around the stock-show grounds and Fort Worth attractions.",
+    quickFacts: [
+      { label: "2027 show dates", value: "January 15–February 6, 2027" },
+      { label: "Rodeo venue", value: "Dickies Arena, 1911 Montgomery Street" },
+      { label: "Stock-show venue", value: "Will Rogers Memorial Center and associated grounds" },
+      { label: "2027 grounds hours", value: "8 a.m.–10:30 p.m. daily, per official FAQ" },
+      { label: "Rodeo admission", value: "Rodeo ticket includes same-day showgrounds admission" },
+    ],
     planningSections: [
-      { title: "Choose rodeo night or stock-show day", body: "Start with the specific performance, livestock competition or grounds activity you care about because arrival time and ticket needs differ." },
-      { title: "Use the cultural district", body: "Pair the event with nearby museums, dining and other Tarrant County stops instead of making a separate cross-city trip." },
-      { title: "Recheck final logistics", body: "Grounds hours, rodeo entry and other operational details can change; use the organizer's current visitor information." },
+      { title: "Choose a particular kind of rodeo", body: "The 2027 Dickies Arena program ranges from Best of the West Ranch Rodeo and Best of Mexico Celebración to Cowboys of Color, Bulls Night Out, PRORODEO tournament events and championship finals. Choose the format first rather than assuming all arena evenings show the same rodeo competition." },
+      { title: "Know what admission covers", body: "The organizer confirms a Dickies Arena rodeo ticket includes same-day admission to the Stock Show grounds. A grounds-only ticket is not a reserved seat for the arena. Other paid experiences and the carnival have their own admission or coupon rules." },
+      { title: "Allow time for livestock and trade exhibits", body: "The 2027 grounds are scheduled to operate 8 a.m.–10:30 p.m. each day; show times and trade exhibits differ. Review the livestock and horse-show calendar to avoid arriving on the wrong day for a specific class, sale or judging event." },
+      { title: "Navigate two connected but different venues", body: "Dickies Arena and Will Rogers Memorial Center are in the Fort Worth Cultural District. Your rodeo seat and a livestock-building destination can use different entrances and parking approaches. Consult the specific performance's parking and accessible entrance instructions." },
+      { title: "Make it a Cultural District day", body: "The Stock Show is near Fort Worth's museums, gardens and local dining. Leave enough time to move between exhibitions and a fixed arena start, especially on busy weekends. The organizer's approved Ticketmaster ticketing channel, not a generic resale listing, controls the actual seats available." },
     ],
     relatedLinks: [
       { href: "/event/san-antonio-stock-show-rodeo", label: "San Antonio Stock Show & Rodeo", description: "Compare another major Texas stock show and rodeo." },{ href: "/browse/counties#county-tarrant", label: "Explore Tarrant County", description: "Plan more of the Fort Worth trip." }, { href: "/events", label: "Texas events calendar", description: "Compare other rodeos and winter events." }],
@@ -92,10 +119,19 @@ const majorEventAuthorityDetails: MajorEventAuthorityDetails[] = [
   {
     slug: "san-antonio-stock-show-rodeo",
     whyItMatters: "The event can be the centerpiece of a San Antonio weekend or one major night inside a broader city trip, linking event, county and destination planning.",
+    quickFacts: [
+      { label: "2027 season", value: "February 11–28, 2027" },
+      { label: "Arena setting", value: "Frost Bank Center, San Antonio" },
+      { label: "Grounds", value: "Freeman Coliseum and neighboring fairgrounds" },
+      { label: "Admission", value: "Check separate concert/rodeo and fairgrounds entitlements" },
+      { label: "Schedule", value: "Confirm the specific performance date and livestock show" },
+    ],
     planningSections: [
-      { title: "Start with the performance", body: "Pick the concert or rodeo performance first, then plan lodging and other San Antonio activities around that fixed time." },
-      { title: "Budget time for the grounds", body: "If livestock exhibits, fair attractions or food are part of the plan, arrive early enough to use the grounds before the performance." },
-      { title: "Use official day-of information", body: "Recheck parking, entry rules, show times and ticket availability with the organizer before attending." },
+      { title: "Start with the rodeo and concert you want", body: "The winter program includes different arena performances, entertainers and livestock activities across February. Choose your specific arena date first; do not assume a 2026 entertainer or admission promotion returns in 2027." },
+      { title: "Distinguish arena seats from the grounds", body: "The Frost Bank Center is the rodeo arena while many exhibits, shops and attractions use the nearby Freeman Coliseum grounds. Ticket packages can differ; review exactly what the official checkout includes for an arena performance versus grounds admission." },
+      { title: "Choose the right day for livestock exhibits", body: "Junior and open livestock classes, horse events and agricultural exhibits follow their own schedules. Families interested in a particular animal, school competition or educational showcase need the published daily program, not just the overall February 11–28 event window." },
+      { title: "Plan parking and security around your venue", body: "Arena, coliseum and outdoor entry points can have different traffic patterns, accessibility paths, screening and bag rules. Check the organizers' current campus map and ride pickup zones rather than assuming downtown San Antonio parking guidance applies." },
+      { title: "Extend the trip thoughtfully", body: "The stock show grounds sit northeast of central San Antonio; the Alamo, River Walk and missions are a separate city itinerary. Build in transport time and avoid pairing too many timed attractions with a fixed evening rodeo." },
     ],
     relatedLinks: [
       { href: "/event/fort-worth-stock-show-rodeo", label: "Fort Worth Stock Show & Rodeo", description: "Compare another major Texas stock show and rodeo." },{ href: "/browse/counties#county-bexar", label: "Explore Bexar County", description: "Build a larger San Antonio visit." }, { href: "/events", label: "Texas events calendar", description: "Compare major Texas rodeos." }],
@@ -104,10 +140,19 @@ const majorEventAuthorityDetails: MajorEventAuthorityDetails[] = [
   {
     slug: "sxsw",
     whyItMatters: "SXSW changes the normal rhythm of central Austin, so visitors need to plan around credentials, distributed venues, transportation and unusually high demand.",
+    quickFacts: [
+      { label: "2027 conferences and festivals", value: "March 15–21, 2027" },
+      { label: "SXSW EDU", value: "March 13–16, 2027 (a separate overlapping program)" },
+      { label: "Innovation Conference", value: "March 15–20, 2027" },
+      { label: "Film & TV and Music", value: "March 15–21, 2027" },
+      { label: "Comedy Festival", value: "March 17–20, 2027" },
+    ],
     planningSections: [
-      { title: "Know which SXSW you are attending", body: "Start with the badge, festival or program that matters to you, then build the day around its official schedule." },
-      { title: "Plan for venue changes", body: "Programming is distributed across downtown; walking time, transit and schedule gaps are part of the event experience." },
-      { title: "Book around event demand", body: "Lodging location and transportation strategy can matter as much as the session list when several days of programming are involved." },
+      { title: "Choose the right SXSW credential", body: "SXSW is several overlapping programs, not a single all-access concert ticket. Innovation, Film & TV, Music and Comedy have different admission levels and priority rules. Confirm which programming a badge, wristband or individual screening ticket actually admits before paying." },
+      { title: "Separate SXSW EDU from SXSW week", body: "The official 2027 schedule puts SXSW EDU on March 13–16 and the Conferences & Festivals on March 15–21. The overlapping March 15–16 days are not evidence that every EDU attendee can enter all other programs without additional credentials." },
+      { title: "Build an itinerary by venue and program", body: "Film screenings, panels, music showcases and comedy events use changing downtown Austin locations. Prioritize reservations or access queues where required and leave travel buffers. A downtown convention-center pin is not a reliable location for every performance." },
+      { title: "Understand the different program dates", body: "The 2027 Innovation Conference runs March 15–20, the Film & TV and Music programs extend through March 21, and Comedy runs March 17–20. The SXSW-wide March 15–21 window does not guarantee every track is active every day." },
+      { title: "Book around peak downtown demand", body: "If multiple programs matter, choose accommodation and transportation with venue clusters and late-night travel in mind. Check official hotel and transportation policies, disability access and age restrictions, and avoid affiliate ticket offers unless the partner is officially authorized." },
     ],
     relatedLinks: [
       { href: "/event/texas-sandfest", label: "Texas SandFest", description: "Compare another destination-scale Texas spring event." },{ href: "/browse/counties#county-travis", label: "Explore Travis County", description: "Connect SXSW with a broader Austin-area visit." }, { href: "/events", label: "Texas events calendar", description: "See other major cultural events." }],
