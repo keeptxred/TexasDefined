@@ -109,6 +109,10 @@ try {
         const record = await visit(page, path, path, label);
         pages.push(record);
         for (const river of rivers) {
+          // The major-basin atlas has 15 basin photo cards; Frio and Llano are
+          // contextual tributary text links there. River Valleys has all 20 cards.
+          if (path === '/article/texas-rivers-explained' &&
+            (river.slug === 'texas-frio-river-guide' || river.slug === 'texas-llano-river-guide')) continue;
           const anchor = page.locator('a[href="/article/' + river.slug + '"]').filter({ has: page.locator('img') }).first();
           verify(await anchor.count() === 1, label + ': missing river card ' + river.slug + ' at ' + path);
           const img = anchor.locator('img').first();
@@ -145,4 +149,4 @@ try {
   }, null, 2));
   await browser?.close();
 }
-console.log('River photo acceptance passed: nine live guide heroes and eighteen directory cards at mobile and desktop widths.');
+console.log('River photo acceptance passed: nine live guide heroes, seven basin-atlas cards and nine River Valleys cards at mobile and desktop widths.');
