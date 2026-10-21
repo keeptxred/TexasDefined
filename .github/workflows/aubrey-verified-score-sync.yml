@@ -38,6 +38,17 @@ jobs:
           AUBREY_SCORE_FEED_PRIMARY_TOKEN: ${{ secrets.AUBREY_SCORE_FEED_PRIMARY_TOKEN }}
           AUBREY_SCORE_FEED_SECONDARY_TOKEN: ${{ secrets.AUBREY_SCORE_FEED_SECONDARY_TOKEN }}
         run: node scripts/data/update-aubrey-verified-results.mjs
+      - name: Flag overdue games that still lack both matching confirmations
+        if: ${{ steps.import.outputs.needs_review == 'true' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title='Aubrey football: independent source confirmation needed'
+          if ! gh issue list --state open --limit 100 --json title --jq '.[].title' | grep -Fxq "$title"; then
+            gh issue create --title "$title" --body 'The scheduled two-provider importer found at least one overdue Aubrey fixture without two independently matching final reports. No invented result was published. Check both licensed provider feeds and the game-day source, then rerun the bounded importer.'
+          fi
       - name: Open a protected score update PR
         if: ${{ steps.import.outputs.changed == 'true' }}
         env:
