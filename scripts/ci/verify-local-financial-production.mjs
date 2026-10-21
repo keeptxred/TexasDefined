@@ -216,8 +216,10 @@ async function verifyEscobaresTaxingUnit() {
     const check = `taxing-unit:escobares:${label}`;
     try {
       const { response, body } = await fetchProduction(path, baseOrigin);
+      const heading = body.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i)?.[1] ?? '';
+      const headingText = heading.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').toLowerCase();
+      const validHeading = headingText.includes('escobares') && headingText.includes('property tax rate');
       const required = [
-        'Escobares property tax rate',
         'Annual tax rates, with source distinctions',
         '0.340447',
         '0.263594',
@@ -230,6 +232,7 @@ async function verifyEscobaresTaxingUnit() {
       const missing = required.filter((needle) => !body.includes(needle));
       if (!response.ok) fail(check, `HTTP ${response.status}`);
       else if (hasNoindex(body)) fail(check, 'unexpected robots noindex');
+      else if (!validHeading) fail(check, 'expected Escobares property tax rate H1 is missing');
       else if (missing.length) fail(check, `missing verified content: ${missing.join(', ')}`);
       else if (body.includes('>0.000000<')) fail(check, 'legacy missing historical components still rendered as zero');
       else {
