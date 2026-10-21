@@ -79,3 +79,44 @@ test('shared template does not mislabel a partial scorecard as official standing
   assert.ok(template.includes('data-football-district-section="teams"'));
   assert.ok(template.includes('data-football-district-section="official-sources"'));
 });
+
+
+const district16Data = readFileSync(new URL('../../src/data/high-school-football/football-district16-2026.ts', import.meta.url), 'utf8');
+const district16Component = readFileSync(new URL('../../src/components/sports/District16Coverage.tsx', import.meta.url), 'utf8');
+
+test('District 16 standings snapshot is internally consistent and strictly source-dated', () => {
+  const rows = [...district16Data.matchAll(/\{ name: '([^']+)', match: '([^']+)', won: (\d+), lost: (\d+), pf: (\d+), pa: (\d+), overall: '([^']+)' \}/g)]
+    .map((m) => ({ name: m[1], won: +m[3], lost: +m[4], pf: +m[5], pa: +m[6] }));
+  assert.equal(rows.length, 8, 'all 8 CFISD district schools');
+  assert.equal(new Set(rows.map((r) => r.name)).size, 8, 'no duplicate entries');
+  assert.ok(rows.every((r) => r.won + r.lost === 4), 'same four district games per team as of October 18');
+  assert.equal(rows.reduce((sum, r) => sum + r.won, 0), 16);
+  assert.equal(rows.reduce((sum, r) => sum + r.lost, 0), 16);
+  assert.equal(rows.reduce((sum, r) => sum + r.pf, 0), rows.reduce((sum, r) => sum + r.pa, 0));
+  assert.ok(district16Data.includes("DISTRICT_16_STANDINGS_AS_OF = 'October 18, 2026'"));
+  assert.ok(district16Data.includes('NOT a live feed'));
+});
+
+test('District 16 next-round schedule and four Week 8 finals remain separate from its standings snapshot', () => {
+  assert.equal([...district16Data.matchAll(/date: '2026-10-(?:15|16|17)'/g)].length, 4);
+  assert.equal([...district16Data.matchAll(/date: '2026-10-(?:22|23|24)'/g)].length, 4);
+  assert.equal([...district16Data.matchAll(/\{ date: '2026-(?:10|11)-\d\d', kickoff:/g)].length, 12, 'full 12-match run-in');
+  assert.ok(district16Data.includes("kickoff: 'Kickoff unconfirmed'"), 'do not invent uncertain November 7 kickoff');
+  for (const key of ['Cypress Woods', 'Cypress Falls', 'Cypress Lakes', 'Langham Creek', 'Jersey Village', 'Cy-Fair', 'Cypress Creek', 'Cypress Ridge']) {
+    assert.ok(district16Data.includes(key), key);
+  }
+  for (const marker of [
+    'data-football-district-section="district-16-2026"',
+    'data-football-district-records="reported-standings-snapshot"',
+    'not a continuously updated scoreboard',
+    'not every game played',
+    'All twelve remaining district fixtures',
+    'DISTRICT_16_CFISD_TICKETS_URL',
+    'DISTRICT_16_CFISD_SCHEDULE_URL',
+    'teamHref',
+  ]) assert.ok(district16Component.includes(marker), marker);
+  assert.ok(template.includes('<District16Coverage schools={district.programs} />'));
+  assert.ok(template.includes('district16Pilot ? <Related href="#district-16-results"'));
+  assert.ok(template.includes('!district16Pilot && (katyPilot || district5Pilot || games.length > 0)'));
+  assert.ok(head.includes('District 16-6A Football: 2026 Standings, Scores & Schedule'));
+});
