@@ -17,7 +17,7 @@ for (const href of [
   assert(registry.includes(`href: \"${href}\"`), `Port Isabel destination must discover ${href}`);
 }
 assert(planner.includes('destinationEditorialLinks(destination.slug)'), "Destination visit planner must resolve destination editorial links");
-assert(planner.includes("Go deeper"), "Destination visit planner editorial discovery heading is missing");
-assert(planner.includes("Editorial guides for"), "Destination editorial discovery navigation landmark is missing");
+assert(planner.includes("Plan your next stop"), "Destination visit planner editorial discovery heading is missing");
+assert(planner.includes("Related editorial guides for"), "Destination editorial discovery navigation landmark is missing");
 
 console.log("Port Isabel destination-to-lighthouse editorial discovery is protected.");
