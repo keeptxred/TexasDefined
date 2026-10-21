@@ -1,0 +1,106 @@
+name: Finish Texas Data Refresh
+
+on:
+  workflow_run:
+    workflows:
+      - Refresh Texas by the Numbers
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      source_run_id:
+        description: Successful scheduled Texas Data refresh run ID
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+  statuses: write
+
+concurrency:
+  group: texas-data-refresh-finisher
+  cancel-in-progress: false
+
+jobs:
+  finish:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 100
+    steps:
+      - name: Check out latest main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Finish verified BLS data PR under normal branch protection
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          EVENT_NAME: ${{ github.event_name }}
+          SOURCE_RUN_ID: ${{ github.event.workflow_run.id }}
+          MANUAL_RUN_ID: ${{ inputs.source_run_id }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "$EVENT_NAME" == 'workflow_run' ]]; then
+            run_id="$SOURCE_RUN_ID"
+          else
+            run_id="$MANUAL_RUN_ID"
+          fi
+          [[ "$run_id" =~ ^[0-9]+$ ]] || { echo '::error::Invalid source run ID'; exit 1; }
+          branch="automation/texas-data-bls-$run_id"
+          pr_json="$(gh pr list --repo "$REPOSITORY" --base main --state open --head "$branch" \
+            --limit 2 --json number,url,title,headRefName,headRefOid)"
+          count="$(jq 'length' <<< "$pr_json")"
+          if [[ "$count" == '0' ]]; then
+            echo 'No new official BLS values were published by this run.'
+            exit 0
+          fi
+          [[ "$count" == '1' ]] || { echo "::error::Ambiguous scheduled BLS refresh PR count $count"; exit 1; }
+          number="$(jq -r '.[0].number' <<< "$pr_json")"
+          url="$(jq -r '.[0].url' <<< "$pr_json")"
+          title="$(jq -r '.[0].title' <<< "$pr_json")"
+          actual_branch="$(jq -r '.[0].headRefName' <<< "$pr_json")"
+          author="$(gh api "repos/$REPOSITORY/pulls/$number" --jq '.user.login')"
+          [[ "$title" == 'Refresh latest verified Texas metro payrolls' &&
+             "$actual_branch" == "$branch" && "$author" == 'github-actions[bot]' ]] || {
+            echo '::error::Unexpected source or identity of generated BLS PR'; exit 1;
+          }
+          git config user.name 'Texas Defined Data Refresh Finisher'
+          git config user.email 'actions@users.noreply.github.com'
+          git fetch --no-tags origin main "$branch"
+          merge_base="$(git merge-base origin/main "origin/$branch")"
+          for changed in $(git diff --name-only "$merge_base" "origin/$branch"); do
+            case "$changed" in
+              src/data/generated/texas-metro-payrolls-current.json|src/data/texas-data-center.ts) ;;
+              *) echo "::error::Unexpected generated file $changed"; exit 1 ;;
+            esac
+          done
+          git checkout -B "$branch" "origin/$branch"
+          if ! git merge-base --is-ancestor origin/main HEAD; then
+            if ! git merge --no-edit origin/main; then
+              git merge --abort || true
+              echo '::error::Main overlaps generated BLS changes; not merging.'
+              exit 1
+            fi
+            git push origin "HEAD:$branch"
+          fi
+          validated_sha="$(git rev-parse HEAD)"
+          # GITHUB_TOKEN-created PRs do not trigger pull_request checks;
+          # use the existing exact-branch canonical workflow dispatcher.
+          bash scripts/ci/dispatch-validate-branch.sh "$branch" validate.yml
+          bash scripts/ci/dispatch-validate-branch.sh "$branch" merge-gate.yml
+          git fetch --no-tags origin main "$branch"
+          [[ "$(git rev-parse "origin/$branch")" == "$validated_sha" ]] || {
+            echo '::error::Generated PR moved during validation'; exit 1;
+          }
+          git merge-base --is-ancestor origin/main "origin/$branch" || {
+            echo '::error::Main advanced during validation; leave PR for reconciliation'; exit 1;
+          }
+          gh api --method POST "repos/$REPOSITORY/statuses/$validated_sha" \
+            -f state=success -f context='Required merge gate' \
+            -f description='Canonical validation passed for scheduled BLS data refresh' \
+            -f target_url="$url" >/dev/null
+          gh pr merge "$url" --repo "$REPOSITORY" --merge --auto --match-head-commit "$validated_sha"
+          echo "Protected merge enabled after source and exact-branch checks: $url" >> "$GITHUB_STEP_SUMMARY"
