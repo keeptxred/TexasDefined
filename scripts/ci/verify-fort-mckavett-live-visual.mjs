@@ -130,6 +130,42 @@ try {
         }
         record.pictures.push(picture);
       }
+      // One combined affiliate module belongs to the visitor planning flow,
+      // not beneath citations, and must not repeat a second accommodation H2.
+      const staySlot = page.locator('[data-stay-nearby-slot]');
+      verify('one explicit Fort McKavett lodging slot', await staySlot.count() === 1);
+      const stay = staySlot.locator('#expedia-travel-surface');
+      await stay.locator('#td-stay-affiliate-options').waitFor({ state: 'attached', timeout: 20000 });
+      const stayLayout = await page.evaluate(() => {
+        const planning = document.getElementById('before-you-go')?.closest('section');
+        const sources = document.getElementById('destination-research-sources')?.closest('section');
+        const slot = document.querySelector('[data-stay-nearby-slot]');
+        const surface = slot?.querySelector('#expedia-travel-surface');
+        const choices = surface?.querySelector('#td-stay-affiliate-options');
+        const headings = [...(surface?.querySelectorAll('h2') || [])].map(h => h.textContent?.trim());
+        const actions = [...(choices?.querySelectorAll('a') || [])].map(a => a.textContent?.trim());
+        return {
+          planningNextIsSlot: planning?.nextElementSibling === slot,
+          slotBeforeSources: Boolean(slot && sources && (slot.compareDocumentPosition(sources) & Node.DOCUMENT_POSITION_FOLLOWING)),
+          placedInsideSlot: surface?.parentElement === slot,
+          headingTexts: headings,
+          actionTexts: actions,
+          expediaButton: [...(surface?.querySelectorAll('button') || [])].some(b => /Search Expedia stays/i.test(b.textContent || '')),
+          affiliateDisclosure: Boolean(surface?.querySelector('#td-stay-affiliate-options .td-stay-affiliate-disclosure')),
+        };
+      });
+      verify('stay module follows Planning your visit before Research Sources',
+        stayLayout.planningNextIsSlot && stayLayout.slotBeforeSources && stayLayout.placedInsideSlot,
+        JSON.stringify(stayLayout));
+      verify('single Where to stay heading without redundant Expedia title',
+        stayLayout.headingTexts.length === 1 && stayLayout.headingTexts[0] === 'Find places to stay nearby',
+        JSON.stringify(stayLayout.headingTexts));
+      verify('Hotels.com, Travelocity, Vrbo and Expedia search choices retained',
+        ['Hotels.com', 'Travelocity', 'Vrbo'].every(provider => stayLayout.actionTexts.some(label => label?.includes(provider)))
+        && stayLayout.expediaButton && stayLayout.affiliateDisclosure, JSON.stringify(stayLayout));
+      const stayPath = outputDir + '/' + viewport.name + '-stay.png';
+      await stay.screenshot({ path: stayPath, animations: 'disabled', timeout: 25000 });
+      record.screenshots.push(stayPath);
       const bounds = await page.evaluate(() => ({
         documentWidth: document.documentElement.scrollWidth,
         viewportWidth: window.innerWidth,
