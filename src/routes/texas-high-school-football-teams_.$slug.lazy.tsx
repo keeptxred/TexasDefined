@@ -922,15 +922,15 @@ function ReportedFormIllustration({
   sourceUrl: string;
   accent: string;
 }) {
-  // Only source-attributed finals; an unreported or cancelled fixture cannot
-  // be presented as a result. Score disputes remain visible as written.
+  // Only source-attributed game results and administrative awards; unreported or cancelled
+  // fixtures cannot be presented as played. Forfeits are expressly labeled as non-played.
   const finals = games.filter((game) => /^[WLT] /.test(game.result || ''));
   if (finals.length === 0) return null;
   return <figure className="mt-6 border border-border bg-surface p-4 sm:p-6" aria-label={schoolName + ': dated visual timeline of reported 2026 football finals'}>
     <figcaption className="mb-4">
       <span className="text-xs font-semibold uppercase text-muted-foreground">2026 results · visual snapshot</span>
       <p className="mt-2 font-display text-xl font-semibold text-surface-foreground">The games behind the record</p>
-      <p className="mt-1 text-xs leading-5 text-muted-foreground">Original TexasDefined source-derived graphic. W = win, L = loss, T = tie. Not a live scoreboard or certified district standings.</p>
+      <p className="mt-1 text-xs leading-5 text-muted-foreground">Original TexasDefined source-derived graphic. W = win, L = loss, T = tie. Any expressly labeled forfeit is an awarded administrative outcome, not a played score. Not a live scoreboard or certified district standings.</p>
     </figcaption>
     <ol className="grid grid-cols-2 gap-3 sm:grid-cols-3">
       {finals.map((game) => {
@@ -946,7 +946,7 @@ function ReportedFormIllustration({
         </li>;
       })}
     </ol>
-    <p className="mt-4 text-xs leading-5 text-muted-foreground">Shows only source-reported finals entered into this school record. Scheduled, cancelled and unverified games are excluded. <a href={sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Review the cited results source ↗</a></p>
+    <p className="mt-4 text-xs leading-5 text-muted-foreground">Shows source-reported completed and awarded outcomes entered into this school record. Forfeits are labeled, not actual played scores; scheduled, cancelled and unverified games are excluded. <a href={sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Review the cited results source ↗</a></p>
   </figure>;
 }
 
