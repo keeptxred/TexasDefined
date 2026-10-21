@@ -27,6 +27,7 @@ const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([
   'brookesmith',
   'brownfield',
   'brownsboro',
+  'brownsville-hanna',
   'big-sandy-harmony',
   'big-spring',
   'bishop',
