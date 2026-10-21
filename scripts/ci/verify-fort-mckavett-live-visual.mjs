@@ -144,13 +144,24 @@ try {
         const choices = surface?.querySelector('#td-stay-affiliate-options');
         const headings = [...(surface?.querySelectorAll('h2') || [])].map(h => h.textContent?.trim());
         const actions = [...(choices?.querySelectorAll('a') || [])].map(a => a.textContent?.trim());
+        const actionRow = choices?.querySelector(".td-stay-affiliate-actions");
+        const actionSequence = [...(actionRow?.children || [])].map(el => ({
+          tag: el.tagName,
+          text: el.textContent?.trim(),
+          partner: el.dataset.affiliatePartner || (el.dataset.expediaStaysSearch === "true" ? "expedia" : ""),
+        }));
+        const expediaAction = actionRow?.querySelector('[data-expedia-stays-search="true"]');
         return {
           planningNextIsSlot: planning?.nextElementSibling === slot,
           slotBeforeSources: Boolean(slot && sources && (slot.compareDocumentPosition(sources) & Node.DOCUMENT_POSITION_FOLLOWING)),
           placedInsideSlot: surface?.parentElement === slot,
           headingTexts: headings,
           actionTexts: actions,
-          expediaButton: [...(surface?.querySelectorAll('button') || [])].some(b => /Search Expedia stays/i.test(b.textContent || '')),
+          expediaButton: Boolean(expediaAction && expediaAction.tagName === "BUTTON"),
+          actionSequence,
+          widgetInsidePanel: Boolean(choices?.querySelector(".td-stay-affiliate-panel > .td-stay-widget-host")),
+          duplicateBookingContainer: Boolean(surface?.querySelector(":scope > .mx-auto")),
+          disclosures: surface?.querySelectorAll(".td-stay-affiliate-disclosure,[data-expedia-disclosure]")?.length || 0,
           affiliateDisclosure: Boolean(surface?.querySelector('#td-stay-affiliate-options .td-stay-affiliate-disclosure')),
         };
       });
@@ -163,9 +174,22 @@ try {
       verify('Hotels.com, Travelocity, Vrbo and Expedia search choices retained',
         ['Hotels.com', 'Travelocity', 'Vrbo'].every(provider => stayLayout.actionTexts.some(label => label?.includes(provider)))
         && stayLayout.expediaButton && stayLayout.affiliateDisclosure, JSON.stringify(stayLayout));
+      const order = stayLayout.actionSequence.map(a => a.partner);
+      verify('one booking box with Expedia immediately before Vrbo',
+        order.join(',') === 'hotels.com,travelocity,expedia,vrbo'
+        && stayLayout.expediaButton && stayLayout.widgetInsidePanel
+        && !stayLayout.duplicateBookingContainer && stayLayout.disclosures === 1,
+        JSON.stringify(stayLayout));
       const stayPath = outputDir + '/' + viewport.name + '-stay.png';
       await stay.screenshot({ path: stayPath, animations: 'disabled', timeout: 25000 });
       record.screenshots.push(stayPath);
+      // The actual moved Expedia button must still open the deferred search
+      // within the same box, without triggering vendor loading before a click.
+      verify('Expedia widget waits for user click',
+        await stay.locator('.td-stay-widget-host').isHidden());
+      await stay.locator('button[data-expedia-stays-search="true"]').click();
+      verify('moved Expedia search button opens the original widget',
+        await stay.locator('.td-stay-widget-host').isVisible());
       const bounds = await page.evaluate(() => ({
         documentWidth: document.documentElement.scrollWidth,
         viewportWidth: window.innerWidth,
