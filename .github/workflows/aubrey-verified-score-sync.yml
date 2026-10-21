@@ -16,7 +16,21 @@ jobs:
         with:
           node-version: '22'
       - run: node --test scripts/ci/test-aubrey-verified-results.mjs
+      - name: Record missing independent source licenses
+        if: ${{ vars.AUBREY_SCORE_FEED_PRIMARY_URL == '' || vars.AUBREY_SCORE_FEED_SECONDARY_URL == '' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title='BLOCKED: Aubrey football auto-score source connections'
+          if ! gh issue list --state open --limit 100 --json title --jq '.[].title' | grep -Fxq "$title"; then
+            gh issue create --title "$title" --body 'Two separately hosted licensed machine-readable feeds are required. Add repository variables AUBREY_SCORE_FEED_PRIMARY_URL and AUBREY_SCORE_FEED_SECONDARY_URL and optional bearer-token secrets of the same names ending TOKEN. Source schema and safeguards: docs/football-authority/AUBREY_AUTO_SCORES.md. Never scrape MaxPreps or publish an unconfirmed final.'
+          fi
+          echo '::error title=Licensed score feeds unavailable::Aubrey scores cannot update until two authorized providers are configured.'
+          exit 1
       - name: Import matching licensed scores
+        if: ${{ vars.AUBREY_SCORE_FEED_PRIMARY_URL != '' && vars.AUBREY_SCORE_FEED_SECONDARY_URL != '' }}
         id: import
         env:
           AUBREY_SCORE_FEED_PRIMARY_URL: ${{ vars.AUBREY_SCORE_FEED_PRIMARY_URL }}
