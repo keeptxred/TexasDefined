@@ -2,7 +2,8 @@ import type { MajorEventAuthorityRecord } from "./major-event-authority.server";
 
 // Individually researched annual-event guides added October 21, 2026.
 // Past-edition dates intentionally remain expired until organizers announce a new occurrence.
-const records: MajorEventAuthorityRecord[] = [
+type FestivalEventRecord = MajorEventAuthorityRecord & { occurrenceWindows?: Array<{label?: string; startDate: string; endDate?: string}> };
+const records: FestivalEventRecord[] = [
   {
     "slug": "diwalisa-san-antonio",
     "name": "DiwaliSA Festival of Lights",
@@ -68,6 +69,11 @@ const records: MajorEventAuthorityRecord[] = [
         "href": "/event/houston-diwali-festival-of-lights",
         "label": "Houston Diwali",
         "description": "Compare another verified Texas Festival of Lights event."
+      },
+      {
+        "href": "/events/dia-de-los-muertos",
+        "label": "Texas cultural celebrations",
+        "description": "Explore other distinct statewide cultural traditions."
       }
     ],
     "sources": [
@@ -857,6 +863,24 @@ const records: MajorEventAuthorityRecord[] = [
         "label": "Brazos Nights visit information",
         "url": "https://www.brazosnightswaco.com/info"
       }
+    ],
+    "occurrenceWindows": [
+      {
+        "label": "April concert",
+        "startDate": "2026-04-17"
+      },
+      {
+        "label": "May concert",
+        "startDate": "2026-05-08"
+      },
+      {
+        "label": "June concert",
+        "startDate": "2026-06-19"
+      },
+      {
+        "label": "Fourth on the Brazos",
+        "startDate": "2026-07-04"
+      }
     ]
   },
   {
@@ -925,6 +949,11 @@ const records: MajorEventAuthorityRecord[] = [
         "href": "/event/washington-on-the-brazos-texas-independence-day",
         "label": "Texas Independence Day at Washington-on-the-Brazos",
         "description": "Compare a different chapter of Texas independence history."
+      },
+      {
+        "href": "/events/texas-independence",
+        "label": "Texas Independence commemorations",
+        "description": "Compare March 2 heritage events and San Jacinto observances."
       }
     ],
     "sources": [
