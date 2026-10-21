@@ -1,12 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-
 const canonicalPath = "/events/mardi-gras";
-
-export const Route = createFileRoute("/events/mardi-gras")({
+export const Route = createFileRoute(canonicalPath)({
   head: () => ({
     meta: [
-      { title: "Texas Mardi Gras 2027: Dates & Parades | Texas Defined" },
-      { name: "description", content: "Compare verified Texas Mardi Gras 2027 parades, official schedules, free viewing, tickets and travel tips." },
+      { title: "Mardi Gras in Texas 2027 | Texas Defined" },
+      { name: "description", content: "2027 Texas Mardi Gras parades, official dates, routes and travel guides." },
     ],
     links: [{ rel: "canonical", href: "https://texasdefined.com" + canonicalPath }],
   }),
