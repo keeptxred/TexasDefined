@@ -82,8 +82,23 @@ try {
   assert.equal(all.totalCount, 301);
   assert.deepEqual(loadTicketmasterEventsServer(catalog, new Date(now.getTime() + 49 * 3600000)), []);
   assert.deepEqual(loadTicketmasterEventsServer({ ...catalog, events: [{ ...event, status: 'cancelled' }] }, now), []);
+  // Correct local-day boundary and no stale ticket inventory, even when the
+  // Ticketmaster snapshot itself was refreshed only moments ago.
+  const texasMorning = new Date('2026-10-21T03:00:00Z'); // Oct 20 at 10pm in Texas
+  const midnightCatalog = { fetchedAt: texasMorning.toISOString(), events: [
+    { ...event, id: 'yesterday', startDate: '2026-10-19' },
+    { ...event, id: 'texas-today', startDate: '2026-10-20' },
+    { ...event, id: 'tomorrow', startDate: '2026-10-21' },
+    { ...event, id: 'invalid', startDate: 'not-a-date' },
+  ] };
+  assert.deepEqual(loadTicketmasterEventsServer(midnightCatalog, texasMorning).map(item => item.id),
+    ['ticketmaster:texas-today', 'ticketmaster:tomorrow'], 'Texas-local today remains bookable near UTC midnight');
+  const nextTexasMorning = new Date('2026-10-21T15:00:00Z');
+  const recentCatalog = { ...midnightCatalog, fetchedAt: nextTexasMorning.toISOString() };
+  assert.deepEqual(loadTicketmasterEventsServer(recentCatalog, nextTexasMorning).map(item => item.id),
+    ['ticketmaster:tomorrow'], 'expired tickets must disappear while fresh future tickets remain');
   assert.deepEqual(loadTicketmasterEventsServer({ ...catalog, events: [{ ...event, city: 'Unknown city' }] }, now), []);
   const offsale = loadTicketmasterEventsServer({ ...catalog, events: [{ ...event, status: 'offsale' }] }, now);
   assert.equal(buildTexasEventCarouselItemsServer(offsale)[0].ticketCta, null);
-  console.log('PASS: Ticketmaster records use shared venue/calendar CTA, disclosure, and stale inventory safeguards.');
+  console.log('PASS: Ticketmaster records preserve approved affiliate CTAs and reject expired dates with Texas-local time.');
 } finally { await server.close(); }
