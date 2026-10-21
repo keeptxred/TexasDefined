@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import type { Destination } from "@/data/types";
+import tpwdCalendar from "@/data/generated/tpwd-events.json";
 import { isTexasStateParkDestination, stateParkOfficialResources, VERIFIED_PARK_FACILITIES } from "@/data/state-park-authority";
 
 /**
@@ -11,6 +12,25 @@ export function StateParkVisitorEssentials({ destination }: { destination: Desti
   const links = stateParkOfficialResources(destination);
   if (!links) return null;
   const verified = VERIFIED_PARK_FACILITIES[destination.slug];
+  const parkCalendarKey = (destination.officialUrl ?? "").replace(/\/$/, "").split("/").at(-1);
+  const checkedAt = Date.parse(tpwdCalendar.generatedAt);
+  const calendarFresh = Number.isFinite(checkedAt) && Math.abs(Date.now() - checkedAt) <= 7 * 86400000;
+  const today = new Date().toISOString().slice(0, 10);
+  const parkOccurrences = calendarFresh && parkCalendarKey
+    ? tpwdCalendar.events.filter(event => event.parkKey === parkCalendarKey && event.startDate >= today)
+      .sort((a, b) => a.startDate.localeCompare(b.startDate)).slice(0, 24)
+    : [];
+  const activityGroups = new Map<string, { title: string; dates: string[]; officialUrl: string }>();
+  for (const event of parkOccurrences) {
+    const key = event.title.toLowerCase();
+    const group = activityGroups.get(key);
+    if (group) group.dates.push(event.startDate);
+    else activityGroups.set(key, { title: event.title, dates: [event.startDate], officialUrl: event.officialUrl });
+  }
+  const upcomingActivities = [...activityGroups.values()].slice(0, 4);
+  const displayDay = (day: string) => new Intl.DateTimeFormat("en-US", {
+    month: "short", day: "numeric", timeZone: "UTC",
+  }).format(new Date(day + "T12:00:00Z"));
   const entries = [
     { title: destination.slug === "franklin-mountains-state-park" ? "Restrooms; no verified showers" : "Restrooms and showers", detail: verified?.restrooms },
     { title: "Parking, entrance and access", detail: verified?.parking },
@@ -52,6 +72,17 @@ export function StateParkVisitorEssentials({ destination }: { destination: Desti
     <p className="mt-5 text-sm">
       <Link to="/explore/$category" params={{ category: "state-parks" }} className="font-semibold text-primary underline underline-offset-4">Explore Texas state parks</Link>
     </p>
+    {upcomingActivities.length > 0 && <section aria-labelledby="tpwd-activities" className="mt-8 border-t border-border pt-6">
+      <p className="eyebrow text-primary">Upcoming TPWD programs</p>
+      <h3 id="tpwd-activities" className="mt-2 font-display text-2xl">Activities scheduled at this park</h3>
+      <p className="mt-2 text-sm text-muted-foreground">These dates come from the Texas Parks and Wildlife calendar. Check the official listing for registration, meeting place, admission and any changes.</p>
+      <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+        {upcomingActivities.map(activity => <li key={activity.officialUrl} className="rounded-lg border border-border p-4">
+          <a href={activity.officialUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">{activity.title} ↗</a>
+          <p className="mt-1 text-sm text-muted-foreground">{activity.dates.slice(0, 4).map(displayDay).join(", ")}{activity.dates.length > 4 ? " and more" : ""}</p>
+        </li>)}
+      </ul>
+    </section>}
     <nav aria-label={`Official visitor resources for ${destination.name}`} className="mt-6 grid gap-3 sm:grid-cols-2">
       <a href={links.map} rel="noopener noreferrer" target="_blank" className="text-sm font-semibold text-primary underline underline-offset-4">Official park, parking and trails maps ↗</a>
       <a href={links.feesAndFacilities} rel="noopener noreferrer" target="_blank" className="text-sm font-semibold text-primary underline underline-offset-4">Admission, day-use and facility details ↗</a>
