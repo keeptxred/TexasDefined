@@ -40,7 +40,7 @@
       "bryan-rudder",
       "bryson"
     ],
-    "state": "BATCH_007_22_SCHOOL_SOURCE_IMPLEMENTATION_PENDING_QA",
+    "state": "BATCH_007_23_SCHOOL_SOURCE_IMPLEMENTATION_PENDING_QA",
     "dateAssigned": "2026-10-20",
     "selectionRule": "First 25 NOT_REVIEWED and unassigned canonical schoolRecords in stable order following 130 production VERIFIED through completed Batch 006; outstanding PR and branch conflicts checked.",
     "individuallyVerified": 0,
@@ -48,12 +48,12 @@
     "assignmentBranch": "football-authority-batch-007-20261020",
     "repositoryMainAtAssignment": "78157bb07d856f40d21e813fd3f886cd54e2b20e",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "brownsville-veterans-memorial",
-    "nextSchool": "bruceville-eddy",
-    "implementedOnBranch": 22,
-    "remainingToImplement": 3,
+    "currentSchool": "bruceville-eddy",
+    "nextSchool": "bruni",
+    "implementedOnBranch": 23,
+    "remainingToImplement": 2,
     "remainingToVerify": 25,
-    "notes": "22/25 individual source-backed guides implemented on draft branch with original dated score art. Rivera current school coach Johnny Garza vs stale Alberto Leal conflicting bio, FM802 vs FM801 typo, and Oct23 CC Veterans Memorial TBA all explicitly protected; 3 remain, 0 verified on production."
+    "notes": "23/25 source-backed individual guides implemented on branch, 2 remaining, zero production verified. Brownsville Veterans 2023 semifinal and first-party JC Ramirez resolved, Monterrey score explicitly disputed. Continue individually Bruceville-Eddy and Bruni."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -7663,8 +7663,17 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/brownsville-veterans-memorial",
-      "status": "NOT_REVIEWED",
-      "batch": 7
+      "status": "IMPLEMENTED",
+      "batch": 7,
+      "audit": "docs/football-authority/schools/brownsville-veterans-memorial.md",
+      "auditCompletedAt": "2026-10-21",
+      "researchCompletedAt": "2026-10-21",
+      "implementedAt": "2026-10-21",
+      "implementedOnBranch": "football-authority-batch-007-20261020",
+      "actualProductionVerified": false,
+      "mediaStatus": "Original source-derived football score graphic with first-party red/white/blue school colors; no team-photo or copied copyrighted crest",
+      "implementationNotes": "Brownsville Chargers, distinct from Corpus Christi/Mission Veterans, 2023 12–3 state semifinal NOT final; official coach JC Ramirez; 2026 6A District32 reported 5–2 through Oct16, Monterrey 2026 Sept11 reported L score dispute 10–63 MaxPreps vs 3–49 DCTF, first party stadium schedule Sams versus Veterans Memorial, campus address conflict, Cameron reciprocal links and 8 historic milestones/6FAQs",
+      "technicalVerification": "Pending protected CI, merge/deploy, 1366/390/320 actual live Chrome, canonical FAQ/sitemap/county, final-source and rights QA"
     },
     {
       "id": "uil:brownwood",
