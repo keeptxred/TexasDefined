@@ -4,7 +4,6 @@ import type { Destination } from "./types";
 // Canonical guide-placement contract. Both destination rendering surfaces must
 // use this one predicate to avoid repeating significance, itineraries and sources.
 const SAM_HOUSTON_MUSEUM_SLUG = "sam-houston-memorial-museum-republic-texas-presidential-library-huntsville";
-const WHIRLYBALL_SLUG = "whirlyball-hurst";
 
 const AUTHORITY_GUIDE_DESTINATION_SLUGS = new Set([
   SAM_HOUSTON_MUSEUM_SLUG,
