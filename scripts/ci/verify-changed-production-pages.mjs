@@ -42,6 +42,7 @@ const footballGameNightPages = plan.footballGameNightPages ?? [];
 const battleshipVisitorPages = plan.battleshipVisitorPages ?? [];
 const fredericksburgSitemapPaths = plan.fredericksburgSitemapPaths ?? [];
 const magoffinHomePages = plan.magoffinHomePages ?? [];
+const davisHillPages = plan.davisHillPages ?? [];
 if (!Array.isArray(footballGameNightPages) || footballGameNightPages.length > 2 || footballGameNightPages.some(p => !['/texas-high-school-football-teams/aledo', '/texas-high-school-football-teams/southlake-carroll'].includes(p) || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded football team smoke contract');
 if (!Array.isArray(regionGuidePages) || regionGuidePages.length > 1 || regionGuidePages.some(p => p !== '/article/texas-regions-explained' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid Texas regions guide smoke contract');
 if (!Array.isArray(downloadButtonPages) || downloadButtonPages.length > 1 || downloadButtonPages.some(p => p !== '/texas-data/texas-population-and-migration-2025' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid data-brief smoke contract');
@@ -49,6 +50,7 @@ if (!Array.isArray(texasDataPages) || texasDataPages.length > 4 || texasDataPage
 if (!Array.isArray(battleshipVisitorPages) || battleshipVisitorPages.length > 1 || battleshipVisitorPages.some(p => p !== '/destination/battleship-texas' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded Battleship visitor acceptance contract');
 if (!Array.isArray(fredericksburgSitemapPaths) || fredericksburgSitemapPaths.length > 1 || fredericksburgSitemapPaths.some(p => p !== '/destination/fredericksburg' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid Fredericksburg sitemap acceptance contract');
 if (!Array.isArray(magoffinHomePages) || magoffinHomePages.length > 1 || magoffinHomePages.some(p => p !== '/destination/magoffin-home' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid Magoffin Home live acceptance contract');
+if (!Array.isArray(davisHillPages) || davisHillPages.length > 1 || davisHillPages.some(p => p !== '/destination/davis-hill-state-park' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded Davis Hill image acceptance contract');
 if (plan.head !== head || !Array.isArray(plan.selectedPaths) || !Array.isArray(redirectChecks) || redirectChecks.length > 3 || plan.selectedPaths.length + redirectChecks.length > 40) throw new Error('Missing, stale or oversized production change plan');
 const origin = 'https://texasdefined.com';
 const results = [];
@@ -135,6 +137,32 @@ for (const path of plan.selectedPaths) {
         }
         if (html.includes('Tours and experiences near Magoffin Home State Historic Site')) {
           throw new Error('Magoffin Home still serves the generic tour booking component during house closure');
+        }
+      }
+      if (davisHillPages.includes(path)) {
+        // The old Davis Hill build had image metadata but no visible hero.
+        // Assert the deployed HTML itself exposes TWO distinct article images.
+        for (const asset of ['davis-hill-conservation-landscape.svg', 'davis-hill-salt-dome-concept.svg']) {
+          const src = '/images/state-parks/' + asset;
+          if (!html.includes(src)) throw new Error('Davis Hill SSR missing visible editorial image: ' + asset);
+          const imageResponse = await fetchImpl(new URL(src, origin), {
+            headers: { 'user-agent': 'TexasDefined-Davis-Hill-Image-Smoke/1.0', accept: 'image/svg+xml' },
+            signal: AbortSignal.timeout(20000),
+          });
+          const body = await imageResponse.text();
+          if (!imageResponse.ok || imageResponse.headers.get('cf-mitigated') === 'challenge'
+            || !/image\/svg\+xml/i.test(imageResponse.headers.get('content-type') || '')
+            || !body.includes('<svg ') || body.length < 500) {
+            throw new Error('Davis Hill image not publicly accessible as SVG: ' + asset + ' (HTTP ' + imageResponse.status + ')');
+          }
+        }
+        if (html.indexOf('davis-hill-conservation-landscape.svg') >= html.indexOf('davis-hill-salt-dome-concept.svg')) {
+          throw new Error('Davis Hill hero does not precede the inline geology image');
+        }
+        const ordinary = await fetchImpl(canonical, { headers: { 'user-agent': 'TexasDefined-Davis-Hill-Visitor-Smoke/1.0' }, signal: AbortSignal.timeout(20000) });
+        const ordinaryHtml = await ordinary.text();
+        if (!ordinary.ok || !ordinaryHtml.includes('/images/state-parks/davis-hill-conservation-landscape.svg')) {
+          throw new Error('Davis Hill canonical visitor URL still lacks the visible hero');
         }
       }
       results.push({ path, passed: true, attempt }); failure = null; break;

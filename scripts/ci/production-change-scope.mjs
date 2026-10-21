@@ -64,6 +64,23 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
   const shared = baseline === null || changedFiles.some(p => sharedPattern.test(p));
   const candidates = new Set(shared ? REPRESENTATIVE_PATHS : []);
   const expectedHrefsByPage = {};
+  // A missing Davis Hill hero survived source checks because the editorial route
+  // bypasses the generic destination image. Test the live HTML and both SVGs
+  // whenever its component, image assets, or release verifier changes.
+  const davisHillPages = new Set();
+  if (changedFiles.some(path => [
+    'src/components/editorial/DavisHillAuthority.tsx',
+    'src/data/davis-hill-authority-fallback.ts',
+    'src/data/destination-curation-batch12.ts',
+    'public/images/state-parks/davis-hill-conservation-landscape.svg',
+    'public/images/state-parks/davis-hill-salt-dome-concept.svg',
+    'scripts/ci/production-change-scope.mjs',
+    'scripts/ci/verify-changed-production-pages.mjs',
+  ].includes(path))) {
+    const page = '/destination/davis-hill-state-park';
+    candidates.add(page);
+    davisHillPages.add(page);
+  }
   // The Road Trips category is rendered by a shared dynamic lazy route,
   // so no concrete URL is discoverable from its createFileRoute declaration.
   // Verify only the changed category page and its three editorial links.
@@ -340,7 +357,7 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
   ];
   const allPaths = [...candidates].sort();
   // A deploy smoke is explicitly a bounded sample, never a full-content certification.
-  const selectedPaths = [...new Set([...REPRESENTATIVE_PATHS.filter(p => candidates.has(p)), ...battleshipVisitorPages, ...fredericksburgSitemapPaths, ...magoffinHomePages, ...texasDataPages, ...allPaths])].slice(0, PAGE_BUDGET - redirectChecks.length);
+  const selectedPaths = [...new Set([...REPRESENTATIVE_PATHS.filter(p => candidates.has(p)), ...battleshipVisitorPages, ...fredericksburgSitemapPaths, ...magoffinHomePages, ...davisHillPages, ...texasDataPages, ...allPaths])].slice(0, PAGE_BUDGET - redirectChecks.length);
   const selectedExpectedHrefs = Object.fromEntries(selectedPaths.filter(p => expectedHrefsByPage[p]).map(p => [p, expectedHrefsByPage[p]]));
   const candidateCount = allPaths.length + redirectChecks.length;
   return { baseline, head, changedFiles, shared, selectedPaths, expectedHrefsByPage: selectedExpectedHrefs,
@@ -351,6 +368,7 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
     battleshipVisitorPages: selectedPaths.filter(p => battleshipVisitorPages.has(p)),
     fredericksburgSitemapPaths: selectedPaths.filter(p => fredericksburgSitemapPaths.has(p)),
     magoffinHomePages: selectedPaths.filter(p => magoffinHomePages.has(p)),
+    davisHillPages: selectedPaths.filter(p => davisHillPages.has(p)),
     redirectChecks, candidateCount,
     omittedCount: Math.max(0, allPaths.length - selectedPaths.length), pageBudget: PAGE_BUDGET,
     coverage: candidateCount > PAGE_BUDGET ? 'representative sample; full coverage belongs to weekly local audits' : 'identified changed pages and representative dependencies',
