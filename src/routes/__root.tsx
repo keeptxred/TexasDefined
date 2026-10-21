@@ -165,10 +165,7 @@ function RootComponent() {
     let installed = false;
     let analyticsPromise: Promise<typeof import("@/platform/analytics")> | undefined;
 
-    const loadAnalytics = () => {
-      analyticsPromise ??= import("@/platform/analytics");
-      return analyticsPromise;
-    };
+    const loadAnalytics = () => analyticsPromise ??= import("@/platform/analytics");
 
     const ensureAnalyticsInstalled = async () => {
       const analytics = await loadAnalytics();
@@ -179,36 +176,37 @@ function RootComponent() {
       return analytics;
     };
 
+    const unbindEarlyClick = () => document.removeEventListener("click", earlyCommercialClick, true);
+
     const earlyCommercialClick = (event: MouseEvent) => {
       if (!active || installed) return;
       const anchor = (event.target as Element | null)?.closest("a[data-commercial-partner]") as HTMLAnchorElement | null;
       const resourceId = anchor?.dataset.commercialPartner;
       if (!anchor || !resourceId) return;
 
-      const entityKind = anchor.dataset.commercialPlacement || "unspecified";
+      const attributes = anchor.dataset;
+      const entityKind = attributes.commercialPlacement || "unspecified";
       const destination = anchor.href;
-      const shouldRecordImpression = anchor.dataset.commercialImpressionRecorded !== "1";
-      if (shouldRecordImpression) anchor.dataset.commercialImpressionRecorded = "1";
+      const shouldRecordImpression = attributes.commercialImpressionRecorded !== "1";
+      if (shouldRecordImpression) attributes.commercialImpressionRecorded = "1";
       const details = { resourceId, entityKind, destination };
       void ensureAnalyticsInstalled().then((analytics) => {
         if (!active) return;
         if (shouldRecordImpression) analytics.trackTexasDefinedOutcome("partner_referral_shown", details);
         analytics.trackTexasDefinedOutcome("partner_referral_clicked", details);
-        document.removeEventListener("click", earlyCommercialClick, true);
+        unbindEarlyClick();
       });
     };
 
     document.addEventListener("click", earlyCommercialClick, true);
     const id = window.setTimeout(() => {
-      void ensureAnalyticsInstalled().then(() => {
-        document.removeEventListener("click", earlyCommercialClick, true);
-      });
+      void ensureAnalyticsInstalled().then(unbindEarlyClick);
     }, 1500);
 
     return () => {
       active = false;
       window.clearTimeout(id);
-      document.removeEventListener("click", earlyCommercialClick, true);
+      unbindEarlyClick();
       cleanup?.();
     };
   }, []);
