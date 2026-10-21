@@ -62,7 +62,7 @@ for (const test of tests) {
         'www.thextremexperience.com/tracks/msr-houston',
       ].map(domain => !!document.querySelector('a[href*="' + domain + '"]')),
       photoAttribution: document.body.textContent?.includes('Ginodemeneghi') && document.body.textContent?.includes('CC BY-SA 4.0'),
-      event: document.body.textContent?.includes('Xtreme Xperience supercar driving and ride-alongs'),
+      event: [...document.querySelectorAll('h3')].some(el => /xtreme\\s*xperience/i.test(el.textContent || '')),
       internalLinks: !!document.querySelector('a[href="/destination/sea-center-texas"]') && !!document.querySelector('a[href="/destination/levi-jordan-plantation"]'),
     }));
     assert.equal(facts.h1.length, 1, 'Must have exactly one main heading');
@@ -86,7 +86,7 @@ for (const test of tests) {
     // even if the main event carousel contains other events.
     const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Chicago', year: 'numeric', month: '2-digit', day: '2-digit' })
       .format(new Date());
-    if (today <= '2026-11-01') assert.ok(facts.event || await page.getByText(/Xtreme Xperience supercar driving and ride-alongs/).count(), 'Verified Xtreme Xperience date disappeared behind site calendar');
+    if (today <= '2026-11-01') assert.ok(facts.event, 'Verified Xtreme Xperience event must be visible in curated highlights or the live calendar');
 
     await page.screenshot({ path: outputDir + '/' + test.name + '.png', fullPage: true, animations: 'disabled', timeout: 30000 });
     results.push({ viewport: test.name, url, width: facts.width, viewportWidth: facts.viewport, accessibleTable: true, hotelLinks: 3, licensedPhoto: true, anchorNavigation: true });
