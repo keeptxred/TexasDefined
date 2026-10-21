@@ -11,7 +11,7 @@ import { pathToFileURL } from "node:url";
 const SOURCE = "https://tpwd.texas.gov/calendar";
 const OUTPUT = resolve("src/data/generated/tpwd-events.json");
 const DAY_MS = 86400000;
-const INCLUSION = /\b(hike|walk|trail|tour|bird|hawk|star|sky|moon|telescope|paddl|kayak|canoe|fish|archer|campfire|wildlife|nature|animal|bison|longhorn|fossil|cav|cave|ranger|geocach|photograph|bike|cycling|history|historic|archeolog|heritage|craft|festiv|story|yoga|bat|owl|reptile|tree|plant|insect|astronom|meteor)\w*/i;
+const INCLUSION = /\b(hike|walk|trail|tour|bird|hawk|star|sky|moon|telescope|paddl|kayak|canoe|fish|archer|campfire|wildlife|nature|animal|bison|longhorn|fossil|cav|cave|ranger|geocach|photograph|bike|cycling|history|historic|archeolog|heritage|craft|festiv|music|concert|story|yoga|bat|owl|reptile|tree|plant|insect|astronom|meteor|park day)\w*/i;
 const EXCLUSION = /visitor cent(er|re)|nature center$|education center|office hours|park store|gift shop|recruit|job fair|public meeting|commission|closed|volunteer|self.guided viewing|staff training|teacher workshop|instructor workshop|administrative/i;
 
 function clean(value) {
@@ -36,7 +36,8 @@ export function parseTpwdCalendar(html, now = new Date()) {
     if (parts.length !== 4 || parts[0] !== "calendar") continue;
     const [ , parkKey, , date ] = parts;
     if (!/^[a-z0-9-]+$/.test(parkKey) || !/^\d{4}-\d{2}-\d{2}$/.test(date)) continue;
-    if (new Date(date + "T12:00:00Z").toISOString().slice(0, 10) !== date) continue;
+    const parsedDate = new Date(date + "T12:00:00Z");
+    if (Number.isNaN(parsedDate.getTime()) || parsedDate.toISOString().slice(0, 10) !== date) continue;
     if (date < min || date > horizon) continue;
     const title = clean(match[3]);
     if (title.length < 5 || title.length > 120 || EXCLUSION.test(title) || !INCLUSION.test(title)) continue;
