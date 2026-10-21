@@ -600,6 +600,24 @@ for (const [area, input, markers] of [
   for (const marker of markers) if (!input.includes(marker)) failures.push(`Fort McKavett ${area} missing ${marker}`);
 }
 
+// Source-verified images: each exact Fort McKavett gallery photograph must
+// retain file-level attribution, permission and its place in the destination.
+const fortGalleryCatalog = fs.readFileSync('src/data/historic-sites.ts', 'utf8');
+const fortGallery = fortGalleryCatalog.split('const fortMcKavettGallery:')[1]?.split('export const historicSiteDestinations:')[0] || '';
+for (const file of [
+  'Fort_McKavett_Hospital.jpg',
+  'Fort_McKavett_HQ.jpg',
+  'Fort_McKavett_Commander%27s_house.jpg',
+  'Fort_McKavett_hospital_medical_supplies.jpg',
+  'Fort_McKavett_Cannon.jpg',
+  'Buffalo_Soldiers_at_the_Fort_McKavett_State_Historic_Site.jpg',
+]) if (!fortGallery.includes(file)) failures.push(`Fort McKavett gallery missing ${file}`);
+if ((fortGallery.match(/sourceUrl: "https:\/\/commons\.wikimedia\.org\/wiki\/File:/g) || []).length !== 6) failures.push('Fort McKavett gallery needs six Commons source URLs');
+if ((fortGallery.match(/CC BY-SA [34]\.0/g) || []).length !== 6) failures.push('Fort McKavett gallery needs per-image license credits');
+if (!fortGalleryCatalog.includes('site.slug === "fort-mckavett" ? { gallery: fortMcKavettGallery }')) failures.push('Fort McKavett gallery is not attached to its destination');
+const fortGalleryPage = fs.readFileSync('src/routes/destination.$slug.tsx', 'utf8');
+if (!fortGalleryPage.includes('Fort McKavett: buildings, exhibits and historical interpretation')) failures.push('Fort McKavett gallery label missing from canonical page');
+
 // Magoffin Home 2026 restoration visitor contract: do not silently revert to
 // standard house-tour advice, bad map coordinates or generic statewide itineraries.
 const magoffinAuthority = fs.readFileSync('src/data/magoffin-home-authority.ts', 'utf8');
