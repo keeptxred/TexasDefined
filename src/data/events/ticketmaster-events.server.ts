@@ -50,9 +50,9 @@ export function ticketmasterAuthorityGuidePath(name: string, city: string) {
   // Exact city + normalized organizer event name only. Never guess from a
   // city-wide title substring or from overlapping dates alone.
   const normalizeName = (value: string) => value.toLocaleLowerCase('en-US')
-    .replace(/\\b20\\d{2}\\b/g, '')
+    .replace(/\b20\d{2}\b/g, '')
     .replace(/[^a-z0-9]+/g, ' ')
-    .replace(/\\s+/g, ' ').trim();
+    .replace(/\s+/g, ' ').trim();
   const canonical = normalizeName(name);
   const indexed = majorEventIndexRecords.find((event) =>
     event.city.toLocaleLowerCase('en-US') === normalizedCity
