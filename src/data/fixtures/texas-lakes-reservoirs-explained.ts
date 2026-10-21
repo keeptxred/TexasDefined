@@ -170,7 +170,7 @@ export const texasLakesReservoirsExplainedArticle: Article = {
     p("The words lake and reservoir are not reliable clues to origin. Lake Travis is a reservoir. Lake Texoma is a reservoir. Canyon Lake is a reservoir. Sam Rayburn Reservoir is also a reservoir; its name simply says so. A man-made reservoir need not lie on the river it stores water from, as off-channel storage projects show."),
     p("In everyday Texas usage, 'lake' often sounds friendlier and more recreational, while 'reservoir' sounds technical or utilitarian. Naming traditions vary by agency, community and project. The underlying distinction is how the water body formed, not its name. A river backed up by a dam is an on-channel reservoir; an engineered basin filled by diversion or pumping may be an off-channel reservoir even though it does not impound the main river."),
     h("A reservoir has an invisible landscape underneath it"),
-    p("Every large impoundment creates a before-and-after geography. Before the dam, there was a river channel, floodplain, tributary network, roads, property lines and often homes or farms. After filling, the former valley becomes the lake floor."),
+    p("For an on-channel reservoir, impoundment creates a before-and-after geography. Before the dam, there was a river channel, floodplain, tributary network, roads, property lines and often homes or farms. After filling, the former valley becomes the lake floor. Off-channel projects can flood or excavate a separate basin instead."),
     p("That is why reservoir shorelines can have strange shapes. Long narrow arms often trace tributary valleys. Deep water may follow the old river channel. A sudden point or cove can mirror terrain that was obvious before flooding. Anglers routinely use old creek channels, roadbeds and submerged structure because the pre-reservoir landscape still influences fish habitat."),
     p("Thinking this way makes a lake map easier to understand. What looks like a random blue shape is really a topographic map filled with water to a particular elevation."),
     h("Reservoir levels are supposed to move"),
@@ -190,7 +190,7 @@ export const texasLakesReservoirsExplainedArticle: Article = {
     h("How to read a Texas lake like a Texan"),
     list(
       "Find the dam or storage embankment. It identifies an on-channel impoundment, but the deepest part depends on submerged terrain. Off-channel reservoirs may not block the main river.",
-      "Find the river. The old channel usually forms the lake's main spine, even when it is hidden beneath deep water.",
+      "For an on-channel lake, find the former river channel. It often forms the lake's main spine beneath the water; for off-channel storage, follow the diversion route instead.",
       "Look upstream. Reservoir conditions depend on rainfall across the watershed, not just weather at the marina.",
       "Check who operates it. Federal agencies, river authorities, cities and water districts can have different missions and operating rules.",
       "Do not assume a full lake is always the sole goal. Flood-control space, downstream releases and water-supply strategy can require changing levels.",
