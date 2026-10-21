@@ -61,13 +61,26 @@ export function ticketmasterAuthorityGuidePath(name: string, city: string) {
   return indexed ? `/event/${indexed.slug}` : undefined;
 }
 
+// Provider dates are interpreted in the event's Texas-local calendar, not in
+// UTC. A fresh API snapshot can still contain completed one-day events.
+// Never treat a past event as a live/affiliate ticket offer.
+function texasTodayIso(now: Date) {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/Chicago", year: "numeric", month: "2-digit", day: "2-digit",
+  }).formatToParts(now);
+  const value = (kind: "year" | "month" | "day") => parts.find((part) => part.type === kind)?.value ?? "00";
+  return `${value("year")}-${value("month")}-${value("day")}`;
+}
+
 export function loadTicketmasterEventsServer(catalog: TicketmasterSnapshot = snapshot, now = new Date()): TexasEventRecord[] {
   const fetchedAt = catalog.fetchedAt;
   // Hide stale commercial inventory if the daily refresh stops succeeding.
   if (!fetchedAt || !Number.isFinite(Date.parse(fetchedAt)) || now.getTime() - Date.parse(fetchedAt) > 48 * 3600000 || Date.parse(fetchedAt) > now.getTime()) return [];
+  const today = texasTodayIso(now);
   return catalog.events.flatMap((event): TexasEventRecord[] => {
     const region = geographyForPlace(event.city)?.travelRegionIds[0];
-    if (!region || ['cancelled', 'postponed', 'rescheduled'].includes(event.status)) return [];
+    if (!region || !/^\d{4}-\d{2}-\d{2}$/.test(event.startDate) || event.startDate < today
+      || ['cancelled', 'postponed', 'rescheduled'].includes(event.status)) return [];
     const venue = resolveSportsVenueEventLink(event.venue);
     const venueSlug = venue?.href.split('/').at(-1);
     const saleStatus: TexasEventTicketSaleStatus = event.status === 'offsale' ? 'off-sale'
