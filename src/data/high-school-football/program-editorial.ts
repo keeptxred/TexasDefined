@@ -67,6 +67,217 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "bridgeland": {
+    "slug": "bridgeland",
+    "intro": "At Bridgeland in Cypress, the Bears' recent postseason story is a 2020 breakthrough playoff run and a 12–2 season in 2024 that reached the UIL Class 6A Division I quarterfinal against Duncanville. The 2026 program, coached by Lonnie Madison, entered the October 23 Cypress Park matchup 6–1 according to the October 20 MaxPreps snapshot. CFISD—not a generic third-party listing—provides the staff, official orange-and-navy school colors, ticketing, accessibility and venue-specific entrance information.",
+    "theme": {
+      "accentHex": "#D8611C",
+      "label": "Original TexasDefined orange editorial accent informed by CFISD-published Bridgeland Bears orange-and-navy colors; not the official Bears logo or branded school graphics"
+    },
+    "seo": {
+      "title": "Bridgeland Bears Football | 2026 Scores, Lonnie Madison & Tickets",
+      "description": "Bridgeland Bears football guide: 2020 playoff breakthrough, 2024 6A quarterfinal, 2026 6–1 reported scores, Lonnie Madison and CFISD home-game tickets."
+    },
+    "coach": {
+      "name": "Lonnie Madison",
+      "title": "Bridgeland High School head football coach and athletic coordinator (official 2026 CFISD listing)",
+      "sourceUrl": "https://bridgeland.cfisd.net/athletics/athletics-staff",
+      "sourceLabel": "Bridgeland HS Athletics Staff: Football head coach Lonnie Madison; first-party offensive/defensive staff listings",
+      "verifiedAt": "2026-10-20"
+    },
+    "campus": {
+      "address": "10707 Mason Road, Cypress, TX 77433 (school campus, not football stadium)",
+      "phone": "832-349-7600",
+      "sourceUrl": "https://bridgeland.cfisd.net/",
+      "sourceLabel": "Bridgeland High School official contact footer, school address and main office",
+      "verifiedAt": "2026-10-20"
+    },
+    "schedule": {
+      "label": "Bridgeland football tickets and district-managed 2026 game-day venue and stadium rules",
+      "sourceUrl": "https://berrycenter.cfisd.net/events/cfisd-football-2026",
+      "sourceLabel": "CFISD Berry Center official 2026 stadium event-by-event guide: Bridgeland versus Cypress Park, home parking/entrances and ticket link",
+      "verifiedAt": "2026-10-20",
+      "officialScheduleUrl": "https://bridgeland.cfisd.net/athletics/athletics-staff",
+      "ticketUrl": "https://berrycenter.cfisd.net/events/cfisd-football-2026"
+    },
+    "season": {
+      "record": "6–1 overall, 4–0 district through October 16, 2026 (reported MaxPreps, checked Oct 20; subject to official corrections)",
+      "verifiedAt": "2026-10-20",
+      "sourceUrl": "https://www.maxpreps.com/tx/cypress/bridgeland-bears/football/",
+      "sourceLabel": "MaxPreps 2026 Bridgeland team page current as of Oct 20; 6–1, 4–0 district; individual scores and future game previews. Houston Chronicle separately reports Oct 16 49–7 win.",
+      "latestResultSourceUrl": "https://www.houstonchronicle.com/sports/high-school/football/article/texas-scores-friday-week-16-22481255.php",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "The Woodlands",
+          "site": "Away",
+          "result": "W 31–30"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Katy Tompkins",
+          "site": "Away",
+          "result": "W 35–7"
+        },
+        {
+          "date": "2026-09-10",
+          "opponent": "Ridge Point",
+          "site": "Home",
+          "result": "L 35–56"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Cypress Ranch",
+          "site": "Away",
+          "district": true,
+          "result": "W 31–14"
+        },
+        {
+          "date": "2026-10-03",
+          "opponent": "Cypress Springs",
+          "site": "Home",
+          "district": true,
+          "result": "W 37–21"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "George Ranch",
+          "site": "Home",
+          "district": true,
+          "result": "W 49–8"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Fulshear",
+          "site": "Away",
+          "district": true,
+          "result": "W 49–7"
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Cypress Park",
+          "site": "Home",
+          "district": true,
+          "kickoff": "7:00 PM"
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Waller",
+          "site": "Away",
+          "district": true,
+          "kickoff": "7:00 PM"
+        },
+        {
+          "date": "2026-11-05",
+          "opponent": "Foster",
+          "site": "Away",
+          "district": true,
+          "kickoff": "6:30 PM"
+        }
+      ]
+    },
+    "venue": {
+      "name": "Cy-Fair FCU Stadium at the Berry Center — Bridgeland vs Cypress Park on October 23, 2026",
+      "address": "8877 Barker Cypress Road, Cypress, TX 77433 (stadium event; NOT Bridgeland High School campus)",
+      "sourceUrl": "https://berrycenter.cfisd.net/events/cfisd-football-2026",
+      "sourceLabel": "Official CFISD Berry Center 2026: home Bridgeland West Road entry, lots E/F, entrances 5 or 6; away visitors Barker Cypress entry, lots A/H, entrances 7 or 8",
+      "verifiedAt": "2026-10-20",
+      "note": "This venue and home-side instructions are specific to the listed October 23 Cypress Park fixture, not every Bridgeland football game. Berry Center stadium policies include clear bags, metal detectors and event-specific ticket purchase. Check current accessibility information and game listing before travelling.",
+      "policyUrl": "https://berrycenter.cfisd.net/plan-your-visit/stadium-rules"
+    },
+    "development": {
+      "title": "A newer 6A program with deep playoff runs, not a state-title claim",
+      "body": "Texas Football's December 2020 playoff preview documented Bridgeland entering the Klein Collins playoff matchup 10–0 and seeking the first postseason football win in program history. The recorded 2020 season continued through a 47–44 four-overtime win against Dekaney before Rockwall-Heath ended the run 48–24. A later 2024 Bears team went 12–2, losing 31–13 to Duncanville on December 7 in a UIL 6A Division I quarterfinal. These are playoff achievements, not UIL championship-game appearances; the UIL state-final all-time archive does not list Bridgeland.",
+      "sourceUrl": "https://www.texasfootball.com/article/2020/12/02/2020-texas-high-school-football-playoffs-6a-5a-bi-district-preview",
+      "sourceLabel": "2020 Dave Campbell Texas Football postseason preview; MaxPreps 2020 and December 7 2024 schedules/quarterfinal game; UIL all-time football final appearance list",
+      "verifiedAt": "2026-10-20"
+    },
+    "milestones": [
+      {
+        "date": "2017",
+        "title": "Bridgeland High School becomes the home of the Bears",
+        "body": "The CFISD school in Cypress is a relatively new varsity program; the official campus, 10707 Mason Road, and school-run athletic staff are distinct from its district-run game stadiums.",
+        "sourceUrl": "https://bridgeland.cfisd.net/",
+        "sourceLabel": "Official Bridgeland High School school-site identification, campus and athletics links"
+      },
+      {
+        "date": "2020",
+        "title": "The undefeated 10–0 regular season sets up a first playoff victory opportunity",
+        "body": "Dave Campbell's Texas Football reported the Bears entering the Klein Collins first-round game 10–0 with the first varsity playoff win still ahead, a notable early program milestone.",
+        "sourceUrl": "https://www.texasfootball.com/article/2020/12/02/2020-texas-high-school-football-playoffs-6a-5a-bi-district-preview",
+        "sourceLabel": "Dave Campbell's Texas Football Dec 2 2020 playoff preview"
+      },
+      {
+        "date": "2020",
+        "title": "Four-overtime 47–44 win over Dekaney extends the breakthrough run",
+        "body": "In the unusual extended 2020 football season, reported results record Bridgeland's 47–44 four-overtime playoff victory over Dekaney on December 17; Rockwall-Heath won 48–24 on December 26.",
+        "sourceUrl": "https://www.maxpreps.com/tx/cypress/bridgeland-bears/football/20-21/schedule/",
+        "sourceLabel": "MaxPreps 2020–21 Bears game-by-game scoreboard"
+      },
+      {
+        "date": "2024",
+        "title": "A 12–2 season reaches the 6A Division I state quarterfinals",
+        "body": "The Bears' playoff season ended December 7 with a 31–13 neutral-site defeat against Duncanville. The quarterfinal finish is a postseason run, not a state-final or state-title appearance.",
+        "sourceUrl": "https://www.maxpreps.com/contest/?c=f21ee905-e0dc-4758-a1e8-c6a7c81634a1&contestid=f21ee905-e0dc-4758-a1e8-c6a7c81634a1",
+        "sourceLabel": "MaxPreps 2024 Bridgeland vs Duncanville UIL state championship quarterfinal game"
+      },
+      {
+        "date": "2026",
+        "title": "Lonnie Madison leads the Bears and CFISD confirms their identity",
+        "body": "The school's own athletics staff lists Lonnie Madison as head football coach, and district mascot/color directory confirms Bears and orange-and-navy school colors. This independent site does not reproduce school-owned logo artwork.",
+        "sourceUrl": "https://bridgeland.cfisd.net/athletics/athletics-staff",
+        "sourceLabel": "School staff directory and CFISD official mascot/colors list"
+      },
+      {
+        "date": "October 16, 2026",
+        "title": "49–7 over Fulshear builds a reported 6–1 start",
+        "body": "The Houston Chronicle regional scoreboard and MaxPreps both report the 49–7 game; the third-party 6–1 season record is dated and may differ when school statistics are updated.",
+        "sourceUrl": "https://www.houstonchronicle.com/sports/high-school/football/article/texas-scores-friday-week-16-22481255.php",
+        "sourceLabel": "Oct 16 2026 Houston Chronicle Week 8 scoreboard; MaxPreps season snapshot"
+      },
+      {
+        "date": "October 23, 2026",
+        "title": "Official district venue instructions: Bridgeland hosts Cypress Park",
+        "body": "CFISD's 2026 game guide identifies Bridgeland as the home team, with West Road entry, lots E and F, and stadium entrances 5/6; the guide separately identifies visitor entrances. These facts apply to this listed game and can change.",
+        "sourceUrl": "https://berrycenter.cfisd.net/events/cfisd-football-2026",
+        "sourceLabel": "Official CFISD Berry Center 2026 event guide for Bridgeland vs Cypress Park"
+      }
+    ],
+    "overview": [
+      "Bridgeland is CFISD's Bears program in Cypress, Harris County. The district publishes both its mascot and its orange-and-navy official color pairing. Those colors inform only an original TexasDefined visual accent; no district seal, licensed mascot illustration or MaxPreps photography is reproduced.",
+      "School-run information belongs in the guide: the Bridgeland athletics staff directory independently names Lonnie Madison head football coach and shows named coordinators, while the district-wide Berry Center event guide provides 2026 ticket access and separate game venue policies.",
+      "The 2020 season is a documented turning point rather than a state title: after entering the Klein Collins matchup 10–0 in search of an initial playoff victory, the Bears went on to a 47–44 four-overtime Dekaney result and a Rockwall-Heath postseason defeat.",
+      "In 2024 the Bears reached 12–2 and a UIL 6A Division I quarterfinal against Duncanville; the 31–13 loss was not a state championship game. The official UIL all-time championship-final directory does not list a Bridgeland championship appearance.",
+      "The 2026 reported season stood at 6–1 overall through October 16 after a 49–7 win over Fulshear. A MaxPreps Oct 4 schedule archive still shows 4–1 because of update lag; the more recent live team page is explicitly dated and is the source for the later totals. Never display future Cypress Park, Waller or Foster fixtures as completed.",
+      "Bridgeland's high school campus on Mason Road is NOT interchangeable with a varsity football game venue. For the October 23 home designation against Cypress Park, CFISD specifically lists Cy-Fair FCU Stadium at Berry Center on Barker Cypress Road; home spectators are directed from West Road to lots E/F and entrances 5/6. Stadium policies cover clear bags and metal detection; confirm event timing and accessibility with CFISD before departure."
+    ],
+    "faq": [
+      {
+        "question": "Who is Bridgeland's 2026 varsity head football coach?",
+        "answer": "Lonnie Madison. The school's official athletics staff directory identifies him as head football coach and athletic coordinator. That first-party listing takes precedence over old roster pages or third-party profiles."
+      },
+      {
+        "question": "Has Bridgeland won a UIL football state championship?",
+        "answer": "No UIL football title or championship-game appearance for Bridgeland is shown in UIL's official all-time state-final directory through the archive checked October 20, 2026. The 2024 team reached the 6A Division I quarterfinal, not the state final."
+      },
+      {
+        "question": "What is Bridgeland's 2026 football record?",
+        "answer": "The MaxPreps live 2026 school page reported 6–1 overall and 4–0 in district through the October 16 victory over Fulshear, checked October 20. These are attributed and date-qualified reported figures, not a permanent season-ending record."
+      },
+      {
+        "question": "Where is the October 23, 2026 Bridgeland–Cypress Park game?",
+        "answer": "CFISD's 2026 Berry Center guide lists Bridgeland as home team at Cy-Fair FCU Stadium, 8877 Barker Cypress Road, Cypress, with home-side West Road entry, parking lots E/F and entrances 5/6. These directions are specific to the listed match; the school campus is 10707 Mason Road."
+      },
+      {
+        "question": "Where can fans find legitimate Bridgeland tickets and accessibility guidance?",
+        "answer": "Start with CFISD's Berry Center 2026 football events and the Bridgeland Athletics ticket page. The district's stadium policies and event listing cover clear-bag screening, metal detectors and accessibility rather than a third-party ticket resale link."
+      },
+      {
+        "question": "What are Bridgeland's mascot and school colors?",
+        "answer": "The official CFISD School Mascots & Colors directory identifies Bridgeland High School's mascot as the Bears, and its colors as orange and navy. TexasDefined is an independent editorial outlet, not school-endorsed merchandise or artwork."
+      }
+    ]
+  },
   "bridge-city": {
     "slug": "bridge-city",
     "intro": "Bridge City's Cardinals have a documented 1966 UIL Class 3A state championship following a 1965 runner-up finish—two distinct championship-game seasons often obscured by generic football directory summaries. Bridge City High School publishes the current Josh Smalley coaching staff, a 2026 schedule and school-run game-ticket options. This independent guide separates historical UIL records, district notices and reported recent scores.",
