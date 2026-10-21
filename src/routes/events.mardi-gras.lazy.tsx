@@ -7,7 +7,7 @@ type ConfirmedCelebration = {
   date: string; kind: string; family: string; description: string; official: string;
 };
 type PendingCelebration = {
-  name: string; city: string; status: string; detail: string; url: string;
+  name: string; city: string; status: string; detail: string; url: string; guide?: string;
 };
 
 const confirmed: ConfirmedCelebration[] = [
@@ -102,6 +102,7 @@ const confirmed: ConfirmedCelebration[] = [
 ];
 const pending: PendingCelebration[] = [
   {
+    "guide": "/event/mardi-gras-on-the-sabine-orange",
     "name": "Mardi Gras on the Sabine",
     "city": "Orange",
     "status": "2027 date not yet announced",
@@ -109,6 +110,7 @@ const pending: PendingCelebration[] = [
     "url": "https://orangetexas.gov/407/Mardi-Gras-on-the-Sabine"
   },
   {
+    "guide": "/event/mardi-gras-southeast-texas-beaumont",
     "name": "Mardi Gras of Southeast Texas",
     "city": "Beaumont",
     "status": "2027 organizer schedule unconfirmed",
@@ -116,6 +118,7 @@ const pending: PendingCelebration[] = [
     "url": "https://www.beaumontcvb.com/blog/stories/post/5-things-you-can-do-every-day-at-mardi-gras-no-matter-when-you-come/"
   },
   {
+    "guide": "/event/oak-cliff-mardi-gras-parade",
     "name": "Oak Cliff Mardi Gras Parade",
     "city": "Dallas",
     "status": "2027 date not yet confirmed",
@@ -238,6 +241,7 @@ function MardiGrasTexasPage() {
             <h3 className="mt-2 font-display text-2xl">{event.name}</h3>
             <p className="mt-3 text-sm font-semibold">{event.status}</p>
             <p className="mt-3 leading-7 text-muted-foreground">{event.detail}</p>
+            {event.guide ? <a href={event.guide} className="mt-5 mr-5 inline-block font-semibold text-primary underline">Evergreen visitor guide →</a> : null}
             <a href={event.url} target="_blank" rel="noopener noreferrer" className="mt-5 inline-block font-semibold text-primary underline">Current source and organizer updates ↗</a>
           </article>)}
         </div>
