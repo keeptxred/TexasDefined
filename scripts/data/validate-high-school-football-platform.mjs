@@ -197,6 +197,15 @@ if (!errors.length) {
   const featuredProfileLoader = read(legacyMetadataFiles[2]);
   const featuredProfileRoute = read(legacyMetadataFiles[3]);
   const featuredProfilePage = read(legacyMetadataFiles[4]);
+  // School-specific football FAQs sometimes cite original district ticket and
+  // athletics URLs inline. Keep those safe sources clickable instead of showing
+  // unlinked raw URLs, without altering the underlying FAQ JSON-LD answer text.
+  for (const required of [
+    'function renderFootballFaqAnswer(answer: string)',
+    "if (!part.startsWith('https://')) return part;",
+    'rel="noopener noreferrer nofollow"',
+    '{renderFootballFaqAnswer(item.answer)}',
+  ]) requireText(featuredProfilePage, required, 'Clickable HTTPS football FAQ source');
   const sitemap = read(legacyMetadataFiles[5]);
 
   for (const marker of [
