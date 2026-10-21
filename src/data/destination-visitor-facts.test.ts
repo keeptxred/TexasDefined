@@ -143,7 +143,9 @@ test("ten additional TPWD state parks preserve site-specific exact-source visito
     assert.equal(fresh.visible.length, count, slug);
     assert.ok(fresh.visible.every(({ sourceUrl, checkedAt }) =>
       sourceUrl.startsWith("https://tpwd.texas.gov/state-parks/") && checkedAt === "2026-10-21"), slug);
-    assert.equal(reviewDestinationVisitorFacts(destination.visitorFacts, "2027-03-01").visible.length, 0, slug);
+    const afterFourMonths = reviewDestinationVisitorFacts(destination.visitorFacts, "2027-03-01").visible;
+    assert.deepEqual(afterFourMonths.map(({ topic }) => topic), slug === "longhorn-cavern-state-park" ? ["camping"] : [], slug);
+    assert.equal(reviewDestinationVisitorFacts(destination.visitorFacts, "2027-10-23").visible.length, 0, slug);
   }
 });
 
