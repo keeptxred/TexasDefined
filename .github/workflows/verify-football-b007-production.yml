@@ -1,0 +1,47 @@
+name: Football Batch 007 live production acceptance
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/ci/verify-football-b007-targeted-production.mjs'
+      - '.github/workflows/verify-football-b007-production.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: football-b007-live-acceptance
+  cancel-in-progress: false
+jobs:
+  chrome:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate exact-scope Batch 007 acceptance script
+        run: node --check scripts/ci/verify-football-b007-targeted-production.mjs
+      - name: Install isolated system Chrome driver
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/td-b007-chrome --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+      - name: Give GitHub protected main deploy its normal release window once
+        run: |
+          # One fixed staging interval is not a repeated status poll.
+          # The real browser run still rejects missing graphics or mixed releases.
+          sleep 360
+      - name: Verify exact 25 school, 75 viewport, county, graphic, sitemap and release cases
+        env:
+          GITHUB_SHA: ${{ github.sha }}
+        run: node scripts/ci/verify-football-b007-targeted-production.mjs
+      - name: Preserve run evidence and 75 school plus 75 original-graphic screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: football-b007-source-derived-production-chrome
+          path: artifacts/b007-targeted-browser/
+          retention-days: 21
+          if-no-files-found: warn

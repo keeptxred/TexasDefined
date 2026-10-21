@@ -40,7 +40,7 @@
       "bryan-rudder",
       "bryson"
     ],
-    "state": "BATCH_007_ALL_25_IMPLEMENTED_ON_BRANCH_PENDING_RELEASE",
+    "state": "BATCH_007_ALL_25_PUBLISHED_PENDING_STRICT_LIVE_BROWSER",
     "dateAssigned": "2026-10-20",
     "selectionRule": "First 25 NOT_REVIEWED and unassigned canonical schoolRecords in stable order following 130 production VERIFIED through completed Batch 006; outstanding PR and branch conflicts checked.",
     "individuallyVerified": 0,
@@ -53,7 +53,11 @@
     "implementedOnBranch": 25,
     "remainingToImplement": 0,
     "remainingToVerify": 25,
-    "notes": "All 25 schools individually researched and branch implemented on draft PR #5525, with school-level audit dossiers, editorial, identity, county and original dated-result graphic code. No Batch 007 school merged or production VERIFIED. Main has advanced independently; release requires reconciliation, protected CI, merge, deploy and bounded live desktop/mobile QA without polling loops."
+    "notes": "All 25 distinct school authority edits have been protected-merged (PR 5525) and confirmed in a successful production deploy on a descendant of the merge (Actions run 39634362154), with sources and original graphics for 23 scored schools plus 2 separately scoped historic visual timelines in follow-up. Zero schools independently production Chrome VERIFIED pending post-release 25x3 and county/sitemap strict run. Manual owner approval remains optional, not falsely certified.",
+    "sourceMergePr": 5525,
+    "sourceMergeCommit": "bcf1e62178d3a6a363ccef47fe670e710826728b",
+    "productionDeployRun": 39634362154,
+    "productionDeployGitSha": "6a3369ace066a9516b9ba75fbc4bd9ab8ece02e0"
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -7249,7 +7253,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/brackettville-brackett",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 7,
       "audit": "docs/football-authority/schools/brackettville-brackett.md",
       "auditCompletedAt": "2026-10-20",
@@ -7259,7 +7263,13 @@
       "actualProductionVerified": false,
       "implementationNotes": "School-specific research with dated cited historic records, unique editorial milestones, mascot, schedule and visitor information, six unique FAQs and rights-safe visual accents. Branch changes only; protected CI, merge, live deployment and production browser verification outstanding.",
       "mediaStatus": "No documentary school-owned imagery copied. School-specific editorial identity/achievement presentation; photo rights unresolved.",
-      "technicalVerification": "PENDING: protected tests, protected merge, exact-sha production deploy and multi-viewport browser check."
+      "technicalVerification": "Protected Batch007 source merged PR #5525 commit bcf1e621 and successfully deployed on descendant 6a3369a via Actions #39634362154. Await individual 1366/390/320 Chrome, media/graphic, H1/FAQ/canonical, county reciprocity, sitemap, worker-version acceptance. Do not count VERIFIED until evidence passes.",
+      "sourceMergedAt": "2026-10-21",
+      "sourceMergePr": 5525,
+      "sourceMergeCommit": "bcf1e62178d3a6a363ccef47fe670e710826728b",
+      "deployedAt": "2026-10-21",
+      "productionDeployRun": 39634362154,
+      "productionDeployGitSha": "6a3369ace066a9516b9ba75fbc4bd9ab8ece02e0"
     },
     {
       "id": "uil:brady",
@@ -7272,7 +7282,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/brady",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 7,
       "audit": "docs/football-authority/schools/brady.md",
       "auditCompletedAt": "2026-10-20",
@@ -7282,7 +7292,13 @@
       "actualProductionVerified": false,
       "implementationNotes": "School-specific research with dated cited historic records, unique editorial milestones, mascot, schedule and visitor information, six unique FAQs and rights-safe visual accents. Branch changes only; protected CI, merge, live deployment and production browser verification outstanding.",
       "mediaStatus": "No documentary school-owned imagery copied. School-specific editorial identity/achievement presentation; photo rights unresolved.",
-      "technicalVerification": "PENDING: protected tests, protected merge, exact-sha production deploy and multi-viewport browser check."
+      "technicalVerification": "Protected Batch007 source merged PR #5525 commit bcf1e621 and successfully deployed on descendant 6a3369a via Actions #39634362154. Await individual 1366/390/320 Chrome, media/graphic, H1/FAQ/canonical, county reciprocity, sitemap, worker-version acceptance. Do not count VERIFIED until evidence passes.",
+      "sourceMergedAt": "2026-10-21",
+      "sourceMergePr": 5525,
+      "sourceMergeCommit": "bcf1e62178d3a6a363ccef47fe670e710826728b",
+      "deployedAt": "2026-10-21",
+      "productionDeployRun": 39634362154,
+      "productionDeployGitSha": "6a3369ace066a9516b9ba75fbc4bd9ab8ece02e0"
     },
     {
       "id": "uil:breckenridge",
@@ -7295,7 +7311,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/breckenridge",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 7,
       "audit": "docs/football-authority/schools/breckenridge.md",
       "auditCompletedAt": "2026-10-20",
@@ -7305,7 +7321,13 @@
       "actualProductionVerified": false,
       "implementationNotes": "School-specific research with dated cited historic records, unique editorial milestones, mascot, schedule and visitor information, six unique FAQs and rights-safe visual accents. Branch changes only; protected CI, merge, live deployment and production browser verification outstanding.",
       "mediaStatus": "No documentary school-owned imagery copied. School-specific editorial identity/achievement presentation; photo rights unresolved.",
-      "technicalVerification": "PENDING: protected tests, protected merge, exact-sha production deploy and multi-viewport browser check."
+      "technicalVerification": "Protected Batch007 source merged PR #5525 commit bcf1e621 and successfully deployed on descendant 6a3369a via Actions #39634362154. Await individual 1366/390/320 Chrome, media/graphic, H1/FAQ/canonical, county reciprocity, sitemap, worker-version acceptance. Do not count VERIFIED until evidence passes.",
+      "sourceMergedAt": "2026-10-21",
+      "sourceMergePr": 5525,
+      "sourceMergeCommit": "bcf1e62178d3a6a363ccef47fe670e710826728b",
+      "deployedAt": "2026-10-21",
+      "productionDeployRun": 39634362154,
+      "productionDeployGitSha": "6a3369ace066a9516b9ba75fbc4bd9ab8ece02e0"
     },
     {
       "id": "uil:bremond",
@@ -7318,7 +7340,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bremond",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 7,
       "audit": "docs/football-authority/schools/bremond.md",
       "auditCompletedAt": "2026-10-20",
@@ -7328,7 +7350,13 @@
       "actualProductionVerified": false,
       "mediaStatus": "Rights-safe independent editorial identity only; school-photo permissions and distinct graphical acceptance pending",
       "implementationNotes": "UIL four championship seasons and four other runner-up finals; official Bremond ISD schedule and athletics links, sourced 2026 scores/score conflict, unique milestones and FAQs; Robertson County reciprocal links.",
-      "technicalVerification": "PENDING CI, protected merge, Cloudflare deployment, 1366/390/320 live Chrome checks."
+      "technicalVerification": "Protected Batch007 source merged PR #5525 commit bcf1e621 and successfully deployed on descendant 6a3369a via Actions #39634362154. Await individual 1366/390/320 Chrome, media/graphic, H1/FAQ/canonical, county reciprocity, sitemap, worker-version acceptance. Do not count VERIFIED until evidence passes.",
+      "sourceMergedAt": "2026-10-21",
+      "sourceMergePr": 5525,
+      "sourceMergeCommit": "bcf1e62178d3a6a363ccef47fe670e710826728b",
+      "deployedAt": "2026-10-21",
+      "productionDeployRun": 39634362154,
+      "productionDeployGitSha": "6a3369ace066a9516b9ba75fbc4bd9ab8ece02e0"
     },
     {
       "id": "uil:brenham",
@@ -7341,7 +7369,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/brenham",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 7,
       "audit": "docs/football-authority/schools/brenham.md",
       "auditCompletedAt": "2026-10-20",
@@ -7351,7 +7379,13 @@
       "actualProductionVerified": false,
       "mediaStatus": "Rights-safe independent editorial identity only; school-photo permissions and distinct graphical acceptance pending",
       "implementationNotes": "Three UIL football state-final appearances with no football title; official Cubs current varsity schedule and Cub Stadium, source-dated 2026 results including reported score conflict, unique milestones and FAQs; Washington County reciprocal links.",
-      "technicalVerification": "PENDING CI, protected merge, Cloudflare deployment, 1366/390/320 live Chrome checks."
+      "technicalVerification": "Protected Batch007 source merged PR #5525 commit bcf1e621 and successfully deployed on descendant 6a3369a via Actions #39634362154. Await individual 1366/390/320 Chrome, media/graphic, H1/FAQ/canonical, county reciprocity, sitemap, worker-version acceptance. Do not count VERIFIED until evidence passes.",
+      "sourceMergedAt": "2026-10-21",
+      "sourceMergePr": 5525,
+      "sourceMergeCommit": "bcf1e62178d3a6a363ccef47fe670e710826728b",
+      "deployedAt": "2026-10-21",
+      "productionDeployRun": 39634362154,
+      "productionDeployGitSha": "6a3369ace066a9516b9ba75fbc4bd9ab8ece02e0"
     },
     {
       "id": "uil:bridge-city",
@@ -7364,7 +7398,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bridge-city",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 7,
       "audit": "docs/football-authority/schools/bridge-city.md",
       "auditCompletedAt": "2026-10-20",
@@ -7374,7 +7408,13 @@
       "actualProductionVerified": false,
       "mediaStatus": "Rights-safe school-identity accent only, not a licensed stadium photo; additional original source-based graphic/photo decision outstanding",
       "implementationNotes": "School-specific 1965/1966 UIL final history, 2025 source-backed postseason, 2026 sourced third-party results, current Josh Smalley staff and official ticket links, original 5 milestones and 6 tailored FAQs; Orange County reciprocal navigation. Draft unmerged; production QA pending.",
-      "technicalVerification": "PENDING CI, protected merge, Cloudflare and exact released 1366/390/320 Chrome."
+      "technicalVerification": "Protected Batch007 source merged PR #5525 commit bcf1e621 and successfully deployed on descendant 6a3369a via Actions #39634362154. Await individual 1366/390/320 Chrome, media/graphic, H1/FAQ/canonical, county reciprocity, sitemap, worker-version acceptance. Do not count VERIFIED until evidence passes.",
+      "sourceMergedAt": "2026-10-21",
+      "sourceMergePr": 5525,
+      "sourceMergeCommit": "bcf1e62178d3a6a363ccef47fe670e710826728b",
+      "deployedAt": "2026-10-21",
+      "productionDeployRun": 39634362154,
+      "productionDeployGitSha": "6a3369ace066a9516b9ba75fbc4bd9ab8ece02e0"
     },
     {
       "id": "uil:bridgeland",
@@ -7387,7 +7427,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bridgeland",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 7,
       "audit": "docs/football-authority/schools/bridgeland.md",
       "auditCompletedAt": "2026-10-20",
@@ -7397,7 +7437,13 @@
       "actualProductionVerified": false,
       "mediaStatus": "Original source-derived school-specific 2026 reported-finals graphic uses CFISD-verified orange color; no team-photo or logo rights claimed",
       "implementationNotes": "Official CFISD Bears orange/navy, coach Lonnie Madison, campus vs Cy-Fair FCU Stadium distinction, game-specific 2026 home entrance/ticket guide, 2020 first playoff win context, 2024 12–2 quarterfinal and current reported 6–1, seven documented milestones, six tailored FAQs, reciprocal Harris County football card",
-      "technicalVerification": "PENDING protected branch CI, final merge/deploy, production sitemap and real Chrome desktop/390/320 acceptance"
+      "technicalVerification": "Protected Batch007 source merged PR #5525 commit bcf1e621 and successfully deployed on descendant 6a3369a via Actions #39634362154. Await individual 1366/390/320 Chrome, media/graphic, H1/FAQ/canonical, county reciprocity, sitemap, worker-version acceptance. Do not count VERIFIED until evidence passes.",
+      "sourceMergedAt": "2026-10-21",
+      "sourceMergePr": 5525,
+      "sourceMergeCommit": "bcf1e62178d3a6a363ccef47fe670e710826728b",
+      "deployedAt": "2026-10-21",
+      "productionDeployRun": 39634362154,
+      "productionDeployGitSha": "6a3369ace066a9516b9ba75fbc4bd9ab8ece02e0"
     },
     {
       "id": "uil:bridgeport",
@@ -7410,7 +7456,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bridgeport",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 7,
       "audit": "docs/football-authority/schools/bridgeport.md",
       "auditCompletedAt": "2026-10-20",
@@ -7420,7 +7466,13 @@
       "actualProductionVerified": false,
       "mediaStatus": "Original school-specific, source-derived maroon 2026 reported-results graphic; no license for authentic school football photo/crest",
       "implementationNotes": "Bridgeport varsity Bulls official coach Aaron Cupp and coordinators; Wise County; 22 historic DCTF football playoff appearances, no football state final; 2026 1–6 through Oct 16 carefully sourced against stale 1–4 listing; Bull Memorial Stadium 702 17th St distinct from campus; new turf Oct 1 public-use restriction does not automatically cancel home games; 8 individual milestones/6 FAQs plus county two-way links.",
-      "technicalVerification": "Pending CI, merge, Cloudflare deploy and real Chrome 1366/390/320 source/SEO/FAQ/county/sitemap checks"
+      "technicalVerification": "Protected Batch007 source merged PR #5525 commit bcf1e621 and successfully deployed on descendant 6a3369a via Actions #39634362154. Await individual 1366/390/320 Chrome, media/graphic, H1/FAQ/canonical, county reciprocity, sitemap, worker-version acceptance. Do not count VERIFIED until evidence passes.",
+      "sourceMergedAt": "2026-10-21",
+      "sourceMergePr": 5525,
+      "sourceMergeCommit": "bcf1e62178d3a6a363ccef47fe670e710826728b",
+      "deployedAt": "2026-10-21",
+      "productionDeployRun": 39634362154,
+      "productionDeployGitSha": "6a3369ace066a9516b9ba75fbc4bd9ab8ece02e0"
     },
     {
       "id": "uil:brock",
@@ -7433,7 +7485,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/brock",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 7,
       "audit": "docs/football-authority/schools/brock.md",
       "auditCompletedAt": "2026-10-20",
@@ -7443,7 +7495,13 @@
       "actualProductionVerified": false,
       "mediaStatus": "Original sourced-report data visual, no unlicensed Brock football photograph or logo used",
       "implementationNotes": "2011 program founding, 2015 16–0 UIL 3A Division I title, four UIL final appearances (2017, 2021, 2022 runner-up), official 2026 Billy Mathis coach vs Chad Massey AD, source-dated 6–1 through Oct 16, first-party Monterrey Tech game identity, school/campus gate distinction, Parker County reciprocal links and 8 milestones/6 FAQs",
-      "technicalVerification": "PENDING branch validator+CI, protected merge, production deployment, Chrome 1366/390/320, canonical/FAQ/sitemap/county and rights checks"
+      "technicalVerification": "Protected Batch007 source merged PR #5525 commit bcf1e621 and successfully deployed on descendant 6a3369a via Actions #39634362154. Await individual 1366/390/320 Chrome, media/graphic, H1/FAQ/canonical, county reciprocity, sitemap, worker-version acceptance. Do not count VERIFIED until evidence passes.",
+      "sourceMergedAt": "2026-10-21",
+      "sourceMergePr": 5525,
+      "sourceMergeCommit": "bcf1e62178d3a6a363ccef47fe670e710826728b",
+      "deployedAt": "2026-10-21",
+      "productionDeployRun": 39634362154,
+      "productionDeployGitSha": "6a3369ace066a9516b9ba75fbc4bd9ab8ece02e0"
     },
     {
       "id": "uil:bronte",
@@ -7456,7 +7514,7 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bronte",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 7,
       "audit": "docs/football-authority/schools/bronte.md",
       "auditCompletedAt": "2026-10-20",
@@ -7466,7 +7524,13 @@
       "actualProductionVerified": false,
       "mediaStatus": "Original 7-game source-derived six-man football results graphic; school-owned photo/logo unused; public rights not yet certified",
       "implementationNotes": "Source-backed Bronte six-man coach change from Rocky Rawls to Julian Helms in March 2026, 2025 7–4 outright district crown not state title, 2026 2–5 0–2 through Oct16, six-man 1A Division I District 7, DCTF Stephenson Stadium venue no gate verified, seven milestones/six unique FAQs, Coke County reciprocal links.",
-      "technicalVerification": "Pending protected checks, merge, production deploy, source/site SEO/mobile live Chrome QA, exact stadium and photo-rights checks"
+      "technicalVerification": "Protected Batch007 source merged PR #5525 commit bcf1e621 and successfully deployed on descendant 6a3369a via Actions #39634362154. Await individual 1366/390/320 Chrome, media/graphic, H1/FAQ/canonical, county reciprocity, sitemap, worker-version acceptance. Do not count VERIFIED until evidence passes.",
+      "sourceMergedAt": "2026-10-21",
+      "sourceMergePr": 5525,
+      "sourceMergeCommit": "bcf1e62178d3a6a363ccef47fe670e710826728b",
+      "deployedAt": "2026-10-21",
+      "productionDeployRun": 39634362154,
+      "productionDeployGitSha": "6a3369ace066a9516b9ba75fbc4bd9ab8ece02e0"
     },
     {
       "id": "uil:brookesmith",
@@ -7479,7 +7543,7 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/brookesmith",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 7,
       "audit": "docs/football-authority/schools/brookesmith.md",
       "auditCompletedAt": "2026-10-20",
@@ -7489,7 +7553,13 @@
       "actualProductionVerified": false,
       "mediaStatus": "Original independent sourced-score graphic explicitly labels Oct 2 Olfen forfeited/non-played game; no unlicensed school photo/seal",
       "implementationNotes": "UIL Division II six-man. Coach Blake Hood independent listing and school Athletics official; 2026 6–2 through Oct16 includes 1–0 administrative Olfen forfeit (five played wins), Oct16 Richland Springs L62–6; score conflict Blanket 66–34 won confirmed by both teams MaxPreps and SI vs reversed aggregator; 9 historical DCTF playoff berths/no state final; discordant stadium name not fabricated; 7 milestones/6 FAQs plus Brown County backlinks preserving existing Bangs/Blanket.",
-      "technicalVerification": "PENDING source validation/TypeScript, CI, protected merge, Cloudflare production 1366/390/320 Chrome, canonical/FAQ/sitemap/county; school field naming/coach and image rights outstanding"
+      "technicalVerification": "Protected Batch007 source merged PR #5525 commit bcf1e621 and successfully deployed on descendant 6a3369a via Actions #39634362154. Await individual 1366/390/320 Chrome, media/graphic, H1/FAQ/canonical, county reciprocity, sitemap, worker-version acceptance. Do not count VERIFIED until evidence passes.",
+      "sourceMergedAt": "2026-10-21",
+      "sourceMergePr": 5525,
+      "sourceMergeCommit": "bcf1e62178d3a6a363ccef47fe670e710826728b",
+      "deployedAt": "2026-10-21",
+      "productionDeployRun": 39634362154,
+      "productionDeployGitSha": "6a3369ace066a9516b9ba75fbc4bd9ab8ece02e0"
     },
     {
       "id": "uil:brownfield",
@@ -7502,7 +7572,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/brownfield",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 7,
       "audit": "docs/football-authority/schools/brownfield.md",
       "auditCompletedAt": "2026-10-20",
@@ -7512,7 +7582,13 @@
       "actualProductionVerified": false,
       "mediaStatus": "Original source-attributed 2026 Cubs results graphic; no licensed actual Cub Stadium/team photo",
       "implementationNotes": "Brownfield official school address 702 Cub Dr vs third-party 701, AD Lawrence Johnson school-confirmed while HC only MaxPreps-confirmed; 2024/25 0–11 and 27 historical playoff berths, 2026 1–7 through Oct16 with independently corroborated Dalhart 48–6 and Denver City 50–14; 7 individual milestones, 6 FAQs, Terry County reciprocal links.",
-      "technicalVerification": "Pending TypeScript/source checks, protected CI, merge/production deployment, screenshot and Chrome 1366/390/320, canonical/FAQ/sitemap/county, school-specific media rights"
+      "technicalVerification": "Protected Batch007 source merged PR #5525 commit bcf1e621 and successfully deployed on descendant 6a3369a via Actions #39634362154. Await individual 1366/390/320 Chrome, media/graphic, H1/FAQ/canonical, county reciprocity, sitemap, worker-version acceptance. Do not count VERIFIED until evidence passes.",
+      "sourceMergedAt": "2026-10-21",
+      "sourceMergePr": 5525,
+      "sourceMergeCommit": "bcf1e62178d3a6a363ccef47fe670e710826728b",
+      "deployedAt": "2026-10-21",
+      "productionDeployRun": 39634362154,
+      "productionDeployGitSha": "6a3369ace066a9516b9ba75fbc4bd9ab8ece02e0"
     },
     {
       "id": "uil:brownsboro",
@@ -7525,7 +7601,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/brownsboro",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 7,
       "audit": "docs/football-authority/schools/brownsboro.md",
       "auditCompletedAt": "2026-10-20",
@@ -7535,7 +7611,13 @@
       "actualProductionVerified": false,
       "mediaStatus": "Original TexasDefined blue 2026 reported-finals visual, no licensed Bears school photo, stadium photo or district emblem",
       "implementationNotes": "2026 head coach/AD Ryan Hood school-run + KLTV May5, superseding stale Lance Connot vendor; first-party 2026 Van game CHANGED Oct22 Thursday vs old Oct23; 2026 reported 3–4 through Canton Oct16; 25 DCTF playoff berths no state football title; Brownsboro high-school campus 13942 vs admin/athletic office 14134 State Hwy 31; seven source-specific milestones/six FAQs; Henderson County reciprocal links.",
-      "technicalVerification": "Pending source validators, CI/build, protected merge, Cloudflare production deploy + 1366/390/320 real Chrome/canonical/structured data/sitemap/county; ticket/parking/photo rights independently unverified"
+      "technicalVerification": "Protected Batch007 source merged PR #5525 commit bcf1e621 and successfully deployed on descendant 6a3369a via Actions #39634362154. Await individual 1366/390/320 Chrome, media/graphic, H1/FAQ/canonical, county reciprocity, sitemap, worker-version acceptance. Do not count VERIFIED until evidence passes.",
+      "sourceMergedAt": "2026-10-21",
+      "sourceMergePr": 5525,
+      "sourceMergeCommit": "bcf1e62178d3a6a363ccef47fe670e710826728b",
+      "deployedAt": "2026-10-21",
+      "productionDeployRun": 39634362154,
+      "productionDeployGitSha": "6a3369ace066a9516b9ba75fbc4bd9ab8ece02e0"
     },
     {
       "id": "uil:brownsville-hanna",
@@ -7548,7 +7630,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/brownsville-hanna",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 7,
       "audit": "docs/football-authority/schools/brownsville-hanna.md",
       "auditCompletedAt": "2026-10-20",
@@ -7558,7 +7640,13 @@
       "actualProductionVerified": false,
       "mediaStatus": "Original score-derived Gold/Brown school-referenced graphic; no BISD-owned player photo/mascot seal licensing",
       "implementationNotes": "Hanna Golden Eagles distinct from five other BISD teams; official school 1967 new Price Road campus/1974 Hanna renaming, 2615 E Price Rd ZIP 78521, coach Mark Guess first-party, UIL 2026 5A DI District15 not old 6A, 18 DCTF historic playoff trips no state final, Oct15 2026 reported 2–5 including two separate Brownsville/Corpus Christi Veterans Memorial opponents, first-party stadium-by-game Sams and Veterans Memorial, district GoFan season notices, 7 milestones/6 FAQs, Cameron County links.",
-      "technicalVerification": "Pending source validation and CI, merge, Cloudflare production deployment, true Chrome 1366/390/320 with canonical/FAQ/sitemap/county, photo/gates/ADA/ticket checks"
+      "technicalVerification": "Protected Batch007 source merged PR #5525 commit bcf1e621 and successfully deployed on descendant 6a3369a via Actions #39634362154. Await individual 1366/390/320 Chrome, media/graphic, H1/FAQ/canonical, county reciprocity, sitemap, worker-version acceptance. Do not count VERIFIED until evidence passes.",
+      "sourceMergedAt": "2026-10-21",
+      "sourceMergePr": 5525,
+      "sourceMergeCommit": "bcf1e62178d3a6a363ccef47fe670e710826728b",
+      "deployedAt": "2026-10-21",
+      "productionDeployRun": 39634362154,
+      "productionDeployGitSha": "6a3369ace066a9516b9ba75fbc4bd9ab8ece02e0"
     },
     {
       "id": "uil:brownsville-lopez",
@@ -7571,7 +7659,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/brownsville-lopez",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 7,
       "audit": "docs/football-authority/schools/brownsville-lopez.md",
       "auditCompletedAt": "2026-10-21",
@@ -7581,7 +7669,13 @@
       "actualProductionVerified": false,
       "mediaStatus": "Original football-results timeline drawn from source-backed scores; no reused copyrighted football photo or Lopez mascot artwork",
       "implementationNotes": "Official Lopez varsity fixture and 3205 S Dakota campus verified; DCTF 7 playoff berths, 2024 7–4 and 35–21 Pioneer postseason, 2026 reported 2–5 Oct8 vs stale score pages, Shaun Tarantola attributed only to MaxPreps staff; Sams Stadium separate venue, BISD online tickets and Cameron County reciprocal links; 7 milestones, 6 FAQs",
-      "technicalVerification": "Awaiting CI, merge, deployed Chrome 1366/390/320/sitemap/schema and individual source rights/gate checks"
+      "technicalVerification": "Protected Batch007 source merged PR #5525 commit bcf1e621 and successfully deployed on descendant 6a3369a via Actions #39634362154. Await individual 1366/390/320 Chrome, media/graphic, H1/FAQ/canonical, county reciprocity, sitemap, worker-version acceptance. Do not count VERIFIED until evidence passes.",
+      "sourceMergedAt": "2026-10-21",
+      "sourceMergePr": 5525,
+      "sourceMergeCommit": "bcf1e62178d3a6a363ccef47fe670e710826728b",
+      "deployedAt": "2026-10-21",
+      "productionDeployRun": 39634362154,
+      "productionDeployGitSha": "6a3369ace066a9516b9ba75fbc4bd9ab8ece02e0"
     },
     {
       "id": "uil:brownsville-pace",
@@ -7594,7 +7688,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/brownsville-pace",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 7,
       "audit": "docs/football-authority/schools/brownsville-pace.md",
       "auditCompletedAt": "2026-10-21",
@@ -7604,7 +7698,13 @@
       "actualProductionVerified": false,
       "mediaStatus": "Original source-derived football results graphic with BISD green/white verified school identity; no copyrighted team photo or trademark reused",
       "implementationNotes": "Individual BISD Pace Vikings 1975 school origin, official green/white, 16 football playoff appearances no titles/finals; 2025 Mission (NOT Brownsville) Veterans Memorial postseason; 2026 reported 3–5 through Oct16 Mercedes result versus stale 3–4 MaxPreps; MaxPreps-attributed coach Daniel Pardo; exact 2026 Sams/Veterans Memorial stadium and online ticket rules, 8 milestones/6 FAQs, Cameron county reciprocity",
-      "technicalVerification": "Pending protected CI, merged deployment and production 1366/390/320, canonical, FAQ schema, original graphical/source/gate tests"
+      "technicalVerification": "Protected Batch007 source merged PR #5525 commit bcf1e621 and successfully deployed on descendant 6a3369a via Actions #39634362154. Await individual 1366/390/320 Chrome, media/graphic, H1/FAQ/canonical, county reciprocity, sitemap, worker-version acceptance. Do not count VERIFIED until evidence passes.",
+      "sourceMergedAt": "2026-10-21",
+      "sourceMergePr": 5525,
+      "sourceMergeCommit": "bcf1e62178d3a6a363ccef47fe670e710826728b",
+      "deployedAt": "2026-10-21",
+      "productionDeployRun": 39634362154,
+      "productionDeployGitSha": "6a3369ace066a9516b9ba75fbc4bd9ab8ece02e0"
     },
     {
       "id": "uil:brownsville-porter",
@@ -7617,7 +7717,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/brownsville-porter",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 7,
       "audit": "docs/football-authority/schools/brownsville-porter.md",
       "auditCompletedAt": "2026-10-21",
@@ -7627,7 +7727,13 @@
       "actualProductionVerified": false,
       "mediaStatus": "Original school-specific source-derived 2026 reported-final graphic in editorial blue; no reused photography, team logo or school copyrighted mark",
       "implementationNotes": "Brownsville BISD Porter (not outside city) 1974 school founded for Gladys Sams Porter, 3 historical football playoff appearances, 2025 first-round loss Sharyland 7–56 and unresolved 2024 1–9 vs 0–10 conflict; 2026 attributed reported 2–6 through Oct15 vs stale 2–4, no fabricated head coach; Nov5 Mercedes home Veterans Memorial separate from Oct22 Lopez at Sams; 9 milestones,6 FAQs Cameron County links",
-      "technicalVerification": "Source QA, CI, protected merge/Cloudflare and exact same release real Chrome 1366/390/320, ticket/gate/canonical/FAQ/sitemap verification PENDING"
+      "technicalVerification": "Protected Batch007 source merged PR #5525 commit bcf1e621 and successfully deployed on descendant 6a3369a via Actions #39634362154. Await individual 1366/390/320 Chrome, media/graphic, H1/FAQ/canonical, county reciprocity, sitemap, worker-version acceptance. Do not count VERIFIED until evidence passes.",
+      "sourceMergedAt": "2026-10-21",
+      "sourceMergePr": 5525,
+      "sourceMergeCommit": "bcf1e62178d3a6a363ccef47fe670e710826728b",
+      "deployedAt": "2026-10-21",
+      "productionDeployRun": 39634362154,
+      "productionDeployGitSha": "6a3369ace066a9516b9ba75fbc4bd9ab8ece02e0"
     },
     {
       "id": "uil:brownsville-rivera",
@@ -7640,7 +7746,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/brownsville-rivera",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 7,
       "audit": "docs/football-authority/schools/brownsville-rivera.md",
       "auditCompletedAt": "2026-10-21",
@@ -7650,7 +7756,13 @@
       "actualProductionVerified": false,
       "mediaStatus": "Original individualized dated reported-results scorecard, no school copyrighted logo or player photos used",
       "implementationNotes": "Rivera 1988 historic founding, 10 reported football postseason qualifications; critical 2026 current coach Johnny Garza per first-party staff, superseding embedded outdated Alberto Leal/32-6A caption; 2026 5A DI District15, 2–5 through Oct9 with Oct16 bye; Oct23 Corpus Christi Veterans Memorial (NOT Brownsville) event venue first-party TBA; school address FM802 vs athletic typo FM801, Cameron County two-way, 8 milestones/6 FAQs",
-      "technicalVerification": "PENDING CI, merge, actual same-release Cloudflare Chrome desktop/390/320, canonical, schema, sitemap and official TBA event venue/ADA checks"
+      "technicalVerification": "Protected Batch007 source merged PR #5525 commit bcf1e621 and successfully deployed on descendant 6a3369a via Actions #39634362154. Await individual 1366/390/320 Chrome, media/graphic, H1/FAQ/canonical, county reciprocity, sitemap, worker-version acceptance. Do not count VERIFIED until evidence passes.",
+      "sourceMergedAt": "2026-10-21",
+      "sourceMergePr": 5525,
+      "sourceMergeCommit": "bcf1e62178d3a6a363ccef47fe670e710826728b",
+      "deployedAt": "2026-10-21",
+      "productionDeployRun": 39634362154,
+      "productionDeployGitSha": "6a3369ace066a9516b9ba75fbc4bd9ab8ece02e0"
     },
     {
       "id": "uil:brownsville-veterans-memorial",
@@ -7663,7 +7775,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/brownsville-veterans-memorial",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 7,
       "audit": "docs/football-authority/schools/brownsville-veterans-memorial.md",
       "auditCompletedAt": "2026-10-21",
@@ -7673,7 +7785,13 @@
       "actualProductionVerified": false,
       "mediaStatus": "Original source-derived football score graphic with first-party red/white/blue school colors; no team-photo or copied copyrighted crest",
       "implementationNotes": "Brownsville Chargers, distinct from Corpus Christi/Mission Veterans, 2023 12–3 state semifinal NOT final; official coach JC Ramirez; 2026 6A District32 reported 5–2 through Oct16, Monterrey 2026 Sept11 reported L score dispute 10–63 MaxPreps vs 3–49 DCTF, first party stadium schedule Sams versus Veterans Memorial, campus address conflict, Cameron reciprocal links and 8 historic milestones/6FAQs",
-      "technicalVerification": "Pending protected CI, merge/deploy, 1366/390/320 actual live Chrome, canonical FAQ/sitemap/county, final-source and rights QA"
+      "technicalVerification": "Protected Batch007 source merged PR #5525 commit bcf1e621 and successfully deployed on descendant 6a3369a via Actions #39634362154. Await individual 1366/390/320 Chrome, media/graphic, H1/FAQ/canonical, county reciprocity, sitemap, worker-version acceptance. Do not count VERIFIED until evidence passes.",
+      "sourceMergedAt": "2026-10-21",
+      "sourceMergePr": 5525,
+      "sourceMergeCommit": "bcf1e62178d3a6a363ccef47fe670e710826728b",
+      "deployedAt": "2026-10-21",
+      "productionDeployRun": 39634362154,
+      "productionDeployGitSha": "6a3369ace066a9516b9ba75fbc4bd9ab8ece02e0"
     },
     {
       "id": "uil:brownwood",
@@ -7686,7 +7804,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/brownwood",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 7,
       "audit": "docs/football-authority/schools/brownwood.md",
       "auditCompletedAt": "2026-10-21",
@@ -7696,7 +7814,13 @@
       "actualProductionVerified": false,
       "mediaStatus": "Original 2026 Brownwood Lions source-derived score-result graphic with independent maroon identity; school/team/athlete photo rights not presumed",
       "implementationNotes": "UIL seven Brownwood football titles (1960, 1965, 1967, 1969, 1970, 1978, 1981) from 8 finals with 1977 Dickinson runner-up, Gordon Wood 1965 undefeated team; current Jeryl Brixey not Sammy Burnett; 2026 sourced 2–5 through Oct16 against stale 2–3; 7,500-capacity Gordon Wood Stadium 3206 Milam vs HS 2100 Slayden; 2026 ticket system changed to Hudl; 9 distinct milestones, 7 FAQs, original graphic, Brown County two-way links",
-      "technicalVerification": "PENDING TypeScript CI, protected merge, Cloudflare deployment provenance and 1366/390/320 live browser sitemap/canonical/FAQ/county acceptance"
+      "technicalVerification": "Protected Batch007 source merged PR #5525 commit bcf1e621 and successfully deployed on descendant 6a3369a via Actions #39634362154. Await individual 1366/390/320 Chrome, media/graphic, H1/FAQ/canonical, county reciprocity, sitemap, worker-version acceptance. Do not count VERIFIED until evidence passes.",
+      "sourceMergedAt": "2026-10-21",
+      "sourceMergePr": 5525,
+      "sourceMergeCommit": "bcf1e62178d3a6a363ccef47fe670e710826728b",
+      "deployedAt": "2026-10-21",
+      "productionDeployRun": 39634362154,
+      "productionDeployGitSha": "6a3369ace066a9516b9ba75fbc4bd9ab8ece02e0"
     },
     {
       "id": "uil:bruceville-eddy",
@@ -7709,7 +7833,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bruceville-eddy",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 7,
       "audit": "docs/football-authority/schools/bruceville-eddy.md",
       "auditCompletedAt": "2026-10-21",
@@ -7719,7 +7843,13 @@
       "actualProductionVerified": false,
       "mediaStatus": "Original seven-game source-derived result graphic, no unlicensed photo or logo.",
       "implementationNotes": "Marcial Chapa 2026 Slot-T KWTX and school-confirmed 39-8 Moody victory; 5-2 after seven dated scores, 2019 9-2, 2025 1-9; 7 historic playoff berths; 8 milestones, 6 bespoke FAQ, source-derived visual and McLennan County backlinks.",
-      "technicalVerification": "PENDING protected CI, fresh-main reconciliation, merge, deploy, live Chrome 1366/390/320, structured data, county, sitemap and image checks."
+      "technicalVerification": "Protected Batch007 source merged PR #5525 commit bcf1e621 and successfully deployed on descendant 6a3369a via Actions #39634362154. Await individual 1366/390/320 Chrome, media/graphic, H1/FAQ/canonical, county reciprocity, sitemap, worker-version acceptance. Do not count VERIFIED until evidence passes.",
+      "sourceMergedAt": "2026-10-21",
+      "sourceMergePr": 5525,
+      "sourceMergeCommit": "bcf1e62178d3a6a363ccef47fe670e710826728b",
+      "deployedAt": "2026-10-21",
+      "productionDeployRun": 39634362154,
+      "productionDeployGitSha": "6a3369ace066a9516b9ba75fbc4bd9ab8ece02e0"
     },
     {
       "id": "uil:bruni",
@@ -7732,7 +7862,7 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bruni",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 7,
       "audit": "docs/football-authority/schools/bruni.md",
       "auditCompletedAt": "2026-10-21",
@@ -7742,7 +7872,13 @@
       "actualProductionVerified": false,
       "mediaStatus": "Original six-man source-derived result graphic; colors/stadium gate/photo rights unresolved.",
       "implementationNotes": "Bruni 2025 11-man cancellation and independent six-man schedule, 2026 UIL 1A D1 District16, 0-7 thru Oct 16, Federico Lujan KGNS interview with conflicting third-party coach data, 17 pre-transition playoff berths, eight milestones, six bespoke FAQs and Webb County links.",
-      "technicalVerification": "PENDING protected CI, fresh-main reconciliation, merge, deploy, live Chrome 1366/390/320, structured data, county, sitemap and image checks."
+      "technicalVerification": "Protected Batch007 source merged PR #5525 commit bcf1e621 and successfully deployed on descendant 6a3369a via Actions #39634362154. Await individual 1366/390/320 Chrome, media/graphic, H1/FAQ/canonical, county reciprocity, sitemap, worker-version acceptance. Do not count VERIFIED until evidence passes.",
+      "sourceMergedAt": "2026-10-21",
+      "sourceMergePr": 5525,
+      "sourceMergeCommit": "bcf1e62178d3a6a363ccef47fe670e710826728b",
+      "deployedAt": "2026-10-21",
+      "productionDeployRun": 39634362154,
+      "productionDeployGitSha": "6a3369ace066a9516b9ba75fbc4bd9ab8ece02e0"
     },
     {
       "id": "uil:bryan",
@@ -7755,7 +7891,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bryan",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 7,
       "audit": "docs/football-authority/schools/bryan.md",
       "auditCompletedAt": "2026-10-21",
@@ -7765,7 +7901,13 @@
       "actualProductionVerified": false,
       "mediaStatus": "Independently styled source-derived 2026 results graphic; no school logos, photos, mascots copied or athlete permissions claimed",
       "implementationNotes": "Historical Bryan 1921 UIL All Schools state championship 35–13 Oak Cliff, 9–1–1 Charles Hudson squad; 2026 Blake Joseph first-party Bryan ISD coach vs stale R Tullos, 1–7 through Oct15, disputed Oct2 Copperas Cove score attributed as MaxPreps 49–14 vs Brazos 56–14, 2026 Bryan Rudder separate school and September 18 opponent, Merrill Green Stadium 3310 Oak Ridge vs BHS 3450 Campus, ticket and student rules, nine milestones seven unique FAQs, original results graphic and Brazos County reciprocal links.",
-      "technicalVerification": "Pending protected PR CI, merge, final Cloudflare release and exact 1366/390/320 browser graphic, canonical, FAQ, sitemap and county QA"
+      "technicalVerification": "Protected Batch007 source merged PR #5525 commit bcf1e621 and successfully deployed on descendant 6a3369a via Actions #39634362154. Await individual 1366/390/320 Chrome, media/graphic, H1/FAQ/canonical, county reciprocity, sitemap, worker-version acceptance. Do not count VERIFIED until evidence passes.",
+      "sourceMergedAt": "2026-10-21",
+      "sourceMergePr": 5525,
+      "sourceMergeCommit": "bcf1e62178d3a6a363ccef47fe670e710826728b",
+      "deployedAt": "2026-10-21",
+      "productionDeployRun": 39634362154,
+      "productionDeployGitSha": "6a3369ace066a9516b9ba75fbc4bd9ab8ece02e0"
     },
     {
       "id": "uil:bryan-rudder",
@@ -7778,7 +7920,7 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bryan-rudder",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 7,
       "audit": "docs/football-authority/schools/bryan-rudder.md",
       "auditCompletedAt": "2026-10-21",
@@ -7788,7 +7930,13 @@
       "actualProductionVerified": false,
       "mediaStatus": "Original school-specific source-derived 2026 results graphic with independent deep-green accent; no school photograph, student-photo consent or seal/logo license claimed",
       "implementationNotes": "Bryan Rudder (5A DII District 8), distinct from 6A Bryan High but shares Merrill Green Stadium: 2026 Ezar/Toliver/George school-run coaching, KBTX 2025 2–8, DCTF 0 title/0 final, 2026 4–3 through Oct16 after 42–15 Belton and 55–7 Brenham defeats omitted by older 4–1 archives, Rudder campus 3251 Austin's Colony vs Merrill Green 3310 Oak Ridge, stadium backpacks/adult student supervision/no cash ticketing, 9 milestones/7 bespoke FAQs, Brazos County reciprocal link and rights-safe source-results graphic.",
-      "technicalVerification": "PENDING CI + protected merge + Cloudflare deploy provenance and live 1366/390/320, FAQ/H1/canonical, score graphic/sitemap/county acceptance"
+      "technicalVerification": "Protected Batch007 source merged PR #5525 commit bcf1e621 and successfully deployed on descendant 6a3369a via Actions #39634362154. Await individual 1366/390/320 Chrome, media/graphic, H1/FAQ/canonical, county reciprocity, sitemap, worker-version acceptance. Do not count VERIFIED until evidence passes.",
+      "sourceMergedAt": "2026-10-21",
+      "sourceMergePr": 5525,
+      "sourceMergeCommit": "bcf1e62178d3a6a363ccef47fe670e710826728b",
+      "deployedAt": "2026-10-21",
+      "productionDeployRun": 39634362154,
+      "productionDeployGitSha": "6a3369ace066a9516b9ba75fbc4bd9ab8ece02e0"
     },
     {
       "id": "uil:bryson",
@@ -7801,7 +7949,7 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bryson",
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "batch": 7,
       "audit": "docs/football-authority/schools/bryson.md",
       "auditCompletedAt": "2026-10-21",
@@ -7811,7 +7959,13 @@
       "actualProductionVerified": false,
       "mediaStatus": "Source-derived school-specific six-man 2026 results figure (blue and gold from first-party school song), no school photos or marks reused",
       "implementationNotes": "Bryson ISD Blue/Gold Cowboys, Jack County, 1A D1 six-man District9; 1995 UIL eleven-man playoff vs Gorman/Hico kept distinct; six-man 2015–17 playoff streak; 2025 5–5; 2026 4–4 through Oct16 after Perrin-Whitt 46–22, Whiteface opener played at Jayton neutral; contradictory coach Kevin Ray (ISD confirms AD only, MaxPreps calls HC) vs Justin Ramirez (Six-ManFootball/PigskinPrep) explicitly left unverified; 8 milestones/6 FAQs/10-game schedule, official Oct30 First Responders Night, original results figure and reciprocal Jack County.",
-      "technicalVerification": "PENDING source coach confirmation, school-photo licensing decision, exact gate/ADA, CI, protected merge, deployment and 1366/390/320 live QA"
+      "technicalVerification": "Protected Batch007 source merged PR #5525 commit bcf1e621 and successfully deployed on descendant 6a3369a via Actions #39634362154. Await individual 1366/390/320 Chrome, media/graphic, H1/FAQ/canonical, county reciprocity, sitemap, worker-version acceptance. Do not count VERIFIED until evidence passes.",
+      "sourceMergedAt": "2026-10-21",
+      "sourceMergePr": 5525,
+      "sourceMergeCommit": "bcf1e62178d3a6a363ccef47fe670e710826728b",
+      "deployedAt": "2026-10-21",
+      "productionDeployRun": 39634362154,
+      "productionDeployGitSha": "6a3369ace066a9516b9ba75fbc4bd9ab8ece02e0"
     },
     {
       "id": "uil:buckholts",
