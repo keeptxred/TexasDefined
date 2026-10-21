@@ -37,6 +37,14 @@ test('historical sync does not exit after one successful import',()=>{
   assert.match(workflow,/failures=\$\(\(failures\+1\)\)/);
   assert.doesNotMatch(workflow,/Imported finalized[\s\S]*exit 0/);
 });
+test('annual and manually requested historical sweeps retain 2021 coverage',()=>{
+  assert.match(workflow,/full_history:/);
+  assert.match(workflow,/FORCE_FULL_TAX_HISTORY/);
+  assert.ok(workflow.includes('date -u +%m'));
+  assert.match(workflow,/oldest=2021/);
+  assert.match(workflow,/year>=oldest/);
+});
+
 test('local supplement does not silently mutate statewide calculator values',()=>{
   assert.match(schema,/2024,'city','escobares','214-103-03-214-214',0\.340447,0\.263594,0\.076853/);
   assert.match(schema,/2024,'city','roma','214-101-03-214-214',0\.567900,0\.499077,0\.068823/);

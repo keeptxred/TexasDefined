@@ -37,6 +37,12 @@ GitHub Actions \`.github/workflows/sync-property-tax-rates.yml\` runs on
 the **3rd of each month at 11:23 UTC**, or via workflow_dispatch. The
 \`RATE_HISTORY_LOOKBACK_YEARS\` repository variable defaults to 5:
 in 2026 this checks **2026 down through 2021**, independently.
+Every **January 3** scheduled run rechecks **all retained years starting
+in 2021**, even after the oldest years fall outside the default rolling
+monthly lookback. The existing manual workflow dispatch offers a
+`full_history` checkbox to run that complete sweep at any time.
+All other monthly runs keep the configured rolling lookback to reduce
+network requests and runner time.
 The importer returns \`unavailable\` when an official workbook is absent.
 An unavailable current year is an expected publication delay; a missing
 previously published year, HTTP/download failure, incomplete workbook,
@@ -149,10 +155,27 @@ rounded **0.133025**. Genuine six-decimal numbers retain their
 six-decimal formatting, including a genuine zero city levy.
 
 The deployment's existing local-financial smoke suite now checks
-all eleven recorded local supplements, their government sources,
+all fifteen recorded local supplements, their government sources,
 and both production entry points. It also checks a five-year
 nonduplicated Woodlands history. Add new verified supplements to
 those source-qualified checks without inventing numeric values.
+
+## Unattended verification of local rate evidence
+
+After every successful scheduled or manually dispatched official tax-rate
+import, the **same GitHub runner** also checks every currently verified
+local tax-rate supplement against its year, unit type, slug and official
+taxing-unit ID in the newly published Comptroller data. This read-only
+audit validates HTTPS evidence attribution, component reconciliation and
+explicit classifications (supplement, corroboration or disagreement).
+If a source revision causes an orphaned identity or invalid documented
+rate, the scheduled job fails rather than silently dropping the displayed
+supplement; no statewide rows or calculator values are changed.
+
+The check uses the existing Supabase service credential and the already
+installed Deno runtime, with no extra paid service, new key, or additional
+schedule. Unit tests include genuine zero-levy cases and a source
+disagreement. GitHub job summaries expose only counts, not secrets.
 
 ## Complete source attribution and regression coverage
 
@@ -259,11 +282,23 @@ type, slug and official ID with no calculator or Comptroller-data changes:
 
 ## Remaining research candidates (not automatic overrides)
 
-The 2024 city records for Poetry, Post Oak Bend and Scurry were still
-marked not-reported in the Comptroller dataset on 2026-10-21. Kaufman
-CAD's 2024 published rate list does not include a separately adopted
-municipal rate for these towns. No numerical supplement was invented.
+The **2024 Poetry and Scurry** city records remain not-reported
+in the official Comptroller workbook, without independently verified
+adopted-rate numbers. The Kaufman CAD published 2024 municipal list
+does not establish numeric city rates for either town. Do not infer a
+zero municipal rate from omission. Unlike those unresolved cases,
+**Post Oak Bend 2024 now has independently documented evidence of
+no city levy**, stored only as a clearly labeled local supplement;
+the original Comptroller row remains not-reported.
 
-These are **research candidates only**; do not add a local rate unless
-the appropriate CAD/city provides sufficient official year-specific
-evidence and exact taxing-unit identity.
+The [Town of Poetry's ordinance register](https://www.poetrytexas.org/ordinances)
+records an April 18, 2024 ordinance related to ad valorem taxation
+and its repeal on September 17, 2026 (Ordinance 2026-09-17-01).
+Neither the presence nor repeal of that ordinance supplies a reliable
+**2023 or 2024 adopted rate**, or proves the city imposed a levy.
+The source is useful context for future verification, not permission
+to invent a numeric value.
+
+These are **research candidates only**; add a numerical local rate
+only after establishing primary-source adopted-rate evidence for
+the specific year and jurisdiction.
