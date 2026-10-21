@@ -2,6 +2,8 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { reviewDestinationVisitorFacts } from "./destination-visitor-facts.ts";
 import { applyCuratedDestination } from "./destination-curation.ts";
+import { applyCuratedDestinationBatch2 } from "./destination-curation-batch2.ts";
+import { applyCuratedDestinationBatch4 } from "./destination-curation-batch4.ts";
 import { applyCuratedDestinationBatch26 } from "./destination-curation-batch26.ts";
 import type { Destination } from "./types.ts";
 
@@ -91,4 +93,36 @@ test("six researched state park records provide two independently sourced, expir
     assert.ok(visible.every(({ sourceUrl }) => sourceUrl.startsWith("https://tpwd.texas.gov/state-parks/")), slug);
     assert.equal(reviewDestinationVisitorFacts(destination.visitorFacts, "2027-03-01").visible.length, 0, slug);
   }
+});
+
+test("nine more individually verified TPWD parks retain their exact visitor details and freshness rules", () => {
+  const parks: Array<[string, (destination: Destination) => Destination, number]> = [
+    ["enchanted-rock-state-natural-area", applyCuratedDestinationBatch2, 3],
+    ["palo-duro-canyon-state-park", applyCuratedDestinationBatch2, 2],
+    ["caddo-lake-state-park", applyCuratedDestinationBatch2, 2],
+    ["balmorhea-state-park", applyCuratedDestinationBatch2, 2],
+    ["guadalupe-river-state-park", applyCuratedDestinationBatch2, 2],
+    ["inks-lake-state-park", applyCuratedDestinationBatch2, 2],
+    ["lost-maples-state-natural-area", applyCuratedDestinationBatch2, 2],
+    ["monahans-sandhills-state-park", applyCuratedDestinationBatch2, 2],
+    ["mckinney-falls-state-park", applyCuratedDestinationBatch4, 2],
+  ];
+  for (const [slug, apply, total] of parks) {
+    const destination = apply({ slug } as Destination);
+    const facts = destination.visitorFacts;
+    const { visible, issues } = reviewDestinationVisitorFacts(facts, "2026-10-21");
+    assert.equal(visible.length, total, slug);
+    assert.deepEqual(issues, [], slug);
+    assert.ok(visible.some(({ topic }) => topic === "admission"), slug);
+    assert.ok(visible.every(({ sourceUrl, checkedAt }) =>
+      sourceUrl.startsWith("https://tpwd.texas.gov/state-parks/") && checkedAt === "2026-10-21"), slug);
+    assert.equal(reviewDestinationVisitorFacts(facts, "2027-03-01").visible.length, 0, slug);
+  }
+});
+
+test("Balmorhea timed pool entry and Enchanted Rock gate hours are not replaced by generic park hours", () => {
+  const balm = applyCuratedDestinationBatch2({ slug: "balmorhea-state-park" } as Destination);
+  assert.ok(balm.visitorFacts?.some((fact) => fact.topic === "access" && fact.detail.includes("3 p.m.") && fact.detail.includes("early entry")));
+  const rock = applyCuratedDestinationBatch2({ slug: "enchanted-rock-state-natural-area" } as Destination);
+  assert.ok(rock.visitorFacts?.some((fact) => fact.topic === "hours" && fact.detail.includes("6:30 a.m.") && fact.detail.includes("8 p.m.")));
 });
