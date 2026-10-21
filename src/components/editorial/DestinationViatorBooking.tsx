@@ -10,12 +10,16 @@ function uniqueMarkets(markets: ViatorMatchMarket[]) {
 }
 
 function matchDestinationMarket(destination: Destination) {
-  const matches = uniqueMarkets([
+  // For an ordinary named museum, park or attraction, a county-wide tour is
+  // not a relevant ticket to that destination. Town and road-trip pages have
+  // broader travel intent and may link to the verified local experience market.
+  const markets = uniqueMarkets([
     ...viatorMarketsForPlace(destination.name),
-    ...viatorMarketsForPlace(destination.nearestTown),
-    ...(destination.county ? viatorMarketsForPlace(destination.county) : []),
+    ...(["small-towns", "road-trips"].includes(destination.category)
+      ? viatorMarketsForPlace(destination.nearestTown)
+      : []),
   ]);
-  return matches.find((market) => hasVerifiedViatorMarketUrl(market.slug)) ?? matches[0];
+  return markets.find((market) => hasVerifiedViatorMarketUrl(market.slug));
 }
 
 function WmaHuntingLinks() {

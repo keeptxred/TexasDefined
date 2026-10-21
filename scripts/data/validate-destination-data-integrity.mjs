@@ -114,23 +114,19 @@ if (!queryImplementation.replace(/\s+/g, "").replace(/,\)/g, ")").includes(exact
 if (!queries.includes('await import("./destination-query-runtime")')) errors.push('Destination query resolution must remain behind the dynamic runtime boundary.');
 
 for (const feature of [
-  'function unique(values: string[])',
-  'activityPattern.test(item)',
-  'facilityPattern.test(item)',
-  '!activities.includes(item)',
-  '!facilities.includes(item)',
   'data-stay-nearby-slot',
+  'StateParkVisitorEssentials',
+  'DestinationAuthoritySections',
+  'destinationEditorialLinks(destination.slug)',
+  'townAuthorityContextualLinks(destination)',
   'BookingCarRentalCard',
-  'drivingIntentPattern',
+  'destination.category === "road-trips"',
   'showRentalCarOption',
-  'While you’re there',
-  'Things to do and see',
-  '{ title: "Highlights", items: unique([...activities, ...otherHighlights]) }',
-  '{ title: "Visitor facilities", items: facilities }',
-  'groups.map((group, index)',
-  'group.items.map((item)',
 ]) {
-  if (!destinationPlanner.includes(feature)) errors.push(`Destination visit-planner integrity feature missing: ${feature}.`);
+  if (!destinationPlanner.includes(feature)) errors.push(`Destination planner lacks visitor-led feature: ${feature}.`);
+}
+for (const stale of ['Things to do and see', 'Visitor facilities', 'groups.map((group, index)']) {
+  if (destinationPlanner.includes(stale)) errors.push(`Redundant visitor-planner content must not return: ${stale}.`);
 }
 for (const stale of [
   'const practicalTips = unique([',
