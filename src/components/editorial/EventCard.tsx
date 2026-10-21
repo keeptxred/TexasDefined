@@ -34,6 +34,7 @@ export function EventCard({ event, regionLabel }: { event: TexasEvent; regionLab
   const brand = useBrand();
   const venueGuide = resolveSportsVenueEventLink(event.venue);
   const guideSlug = canonicalEventGuideSlug(event.slug);
+  const guidePath = event.slug === "state-fair-of-texas" ? "/texas-state-fair" : guideSlug ? `/event/${guideSlug}` : null;
 
   return (
     <article className="grid gap-4 border-t border-border py-7 sm:grid-cols-[9rem_1fr] sm:gap-7">
@@ -47,7 +48,7 @@ export function EventCard({ event, regionLabel }: { event: TexasEvent; regionLab
         <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground">{event.blurb}</p>
         {venueGuide && <p className="mt-4 text-sm text-muted-foreground">Venue: <a href={venueGuide.href} className="border-b border-primary text-primary">{venueGuide.venueName} guide →</a></p>}
         <div className="flex flex-wrap gap-5">
-          {guideSlug && <a href={`/event/${guideSlug}`} className="eyebrow mt-5 inline-flex border-b border-primary pb-1 text-primary">Texas Defined visitor guide →</a>}
+          {guidePath && <a href={guidePath} className="eyebrow mt-5 inline-flex border-b border-primary pb-1 text-primary">Texas Defined visitor guide →</a>}
           {event.officialUrl && <a href={event.officialUrl} target="_blank" rel="noreferrer noopener" className="eyebrow mt-5 inline-flex border-b border-primary pb-1 text-primary">Official event site ↗</a>}
           {venueGuide && <a href={venueGuide.href} className="eyebrow mt-5 inline-flex border-b border-primary pb-1 text-primary">Plan the venue →</a>}
         </div>
