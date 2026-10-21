@@ -35,6 +35,10 @@ for (const needle of [
 const errors = [];
 // Fort McKavett is a history-and-visitor guide, so lodging belongs with
 // practical visit planning. Avoid two near-identical hotel headings at page end.
+if (!destinationPlanner.includes('destination.slug !== "fort-mckavett" && (') ||
+    !destinationPlanner.includes('<div data-stay-nearby-slot aria-label={`Places to stay near ${destination.name}`} />')) {
+  errors.push('Destination Visit Planner must not duplicate Fort McKavett\'s earlier contextual lodging slot.');
+}
 if (!destinationRouteSource.includes('destination.slug === "fort-mckavett" && <div data-stay-nearby-slot')) {
   errors.push('Fort McKavett destination guide must explicitly place Stay Nearby immediately after Planning your visit.');
 }

@@ -22,7 +22,11 @@ export function DestinationVisitPlanner({ destination }: Props) {
 
   return (
     <>
-      <div data-stay-nearby-slot aria-label={`Places to stay near ${destination.name}`} />
+      {/* Fort McKavett already has its single lodging slot between visit
+          planning and research sources, rather than down in this planner. */}
+      {destination.slug !== "fort-mckavett" && (
+        <div data-stay-nearby-slot aria-label={`Places to stay near ${destination.name}`} />
+      )}
       <StateParkVisitorEssentials destination={destination} />
       {showRentalCarOption ? (
         <BookingCarRentalCard
