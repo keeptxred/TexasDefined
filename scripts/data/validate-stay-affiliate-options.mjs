@@ -52,6 +52,19 @@ for (const snippet of [
   errors.push('Fort McKavett consolidated lodging heading or late-hydration repositioning missing: ' + snippet);
 }
 
+// The Expedia button must be the SAME click-loaded button, inside the CJ
+// action row before Vrbo, and not a duplicate second lodging box.
+for (const [sourceText, needle, label] of [
+  [expediaBootstrap, 'search.dataset.expediaStaysSearch = "true"', 'original Expedia search control marked for relocation'],
+  [expediaBootstrap, 'disclosure.dataset.expediaDisclosure = "true"', 'original Expedia disclosure identified for consolidation'],
+  [expediaBootstrap, '? "py-2" : "border-y border-border py-8"', 'avoid double-bordered Fort McKavett lodging boxes'],
+  [source, 'function unifyFortMcKavettBookingActions(surface, choice)', 'Fort McKavett one-panel integration'],
+  [source, 'actions.insertBefore(expediaButton, vrbo);', 'Expedia button immediately before Vrbo'],
+  [source, 'panel.appendChild(widgetHost)', 'Expedia widget inside same booking panel'],
+  [source, 'surface.querySelector(\'[data-expedia-disclosure="true"]\')?.remove();', 'single consolidated affiliate disclosure'],
+  [source, 'unifyFortMcKavettBookingActions(expediaSurface, choice);', 'one-panel integration is invoked'],
+]) if (!sourceText.includes(needle)) errors.push('Fort McKavett unified lodging regression: ' + label);
+
 if (!casinoHub.includes('data-stay-nearby-slot') || !casinoGuide.includes('data-stay-nearby-slot')) {
   errors.push('Casino travel routes must reuse the first-party Stay Nearby placement slot.');
 }
