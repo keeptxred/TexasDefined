@@ -49,6 +49,11 @@ if (globalStyles.includes(".ec-") || globalStyles.includes(".ev-")) failures.pus
 for (const token of ["validateSearch", "location:", "start:", "end:", "category:", "venue:", "getMajorEventLandingDirectory", 'import("@/data/major-event-calendar")', 'import("@/data/major-event-directory")', 'import("@/data/queries")', "data: deps.search", "filtered: deps.filtered", "head: ({ loaderData }) => loaderData?.head ?? {}"] ) requireText(route, token, "events route search/SEO contract");
 if (route.includes('import { getEventsPageHead } from "@/data/major-event-directory"')) failures.push("events route must keep the event-head server-function facade behind the loader boundary");
 if (route.includes('import { eventsQuery, regionsQuery } from "@/data/queries"')) failures.push("events route must keep query helpers behind the loader boundary");
+const carouselOffset = landing.indexOf('<Container><TexasEventCarousel');
+const calendarOffset = landing.indexOf('<GlobalEventCalendar calendarView={calendarView}');
+const editorialOffset = landing.indexOf('<DiscoverySection eyebrow="Plan by time"');
+if (!(carouselOffset >= 0 && calendarOffset > carouselOffset && editorialOffset > calendarOffset)) failures.push("interactive monthly calendar must follow upcoming carousel and precede editorial discovery collections");
+
 for (const token of ["TexasEventCarousel", "GlobalEventCalendar", "calendarView.calendarDays", "calendarView.previousHref", "calendarView.todayHref", "calendarView.nextHref", "Previous", "Today", "Next", "Jump to next event", 'name="location"', 'name="category"', 'name="venue"', "aria-current", "Official event site", "Last verified", "calendarView.results.length", "calendarView.totalCount"]) requireText(routeSurface, token, "global calendar UX");
 
 for (const token of ["createServerFn", "loadUpcomingTexasEventRecordsServer", "buildTexasEventCarouselItemsServer", "getSportsVenuePhoto", "venueId = `sports-venue:${data.slug}`", "limit: 9", "const photo = getSportsVenuePhoto(data.slug)", "event.image.url === photo.imageUrl", "event.image.sourceUrl === photo.sourcePage", "eventWithoutVenueHeroFallback", "events,", "calendarHref:"]) requireText(venueEventFacade, token, "venue event server boundary");
