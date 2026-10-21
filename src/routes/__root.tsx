@@ -184,11 +184,10 @@ function RootComponent() {
       const resourceId = anchor?.dataset.commercialPartner;
       if (!anchor || !resourceId) return;
 
-      const attributes = anchor.dataset;
-      const entityKind = attributes.commercialPlacement || "unspecified";
+      const entityKind = anchor.dataset.commercialPlacement || "unspecified";
       const destination = anchor.href;
-      const shouldRecordImpression = attributes.commercialImpressionRecorded !== "1";
-      if (shouldRecordImpression) attributes.commercialImpressionRecorded = "1";
+      const shouldRecordImpression = anchor.dataset.commercialImpressionRecorded !== "1";
+      if (shouldRecordImpression) anchor.dataset.commercialImpressionRecorded = "1";
       const details = { resourceId, entityKind, destination };
       void ensureAnalyticsInstalled().then((analytics) => {
         if (!active) return;
