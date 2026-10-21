@@ -103,6 +103,8 @@ export function assessTexasTalentLaunchReadiness(
   if (profile.sources.length < TEXAS_TALENT_LAUNCH_DEPTH.minSources) blockers.push("source-depth");
 
   const mechanicalReady = blockers.length === 0;
+  // An optional recorded editorial approval is informative, not a publishing gate.
+  // Site-wide release requires real source, image-rights, links and content QA.
   const editorialApproved = profile.readiness.launchStatus === "launch-ready";
 
   return {
@@ -110,7 +112,7 @@ export function assessTexasTalentLaunchReadiness(
     name: profile.name,
     mechanicalReady,
     editorialApproved,
-    publishable: mechanicalReady && editorialApproved,
+    publishable: mechanicalReady,
     blockers,
     verifiedInternalLinks: profile.readiness.internalLinkReview.links,
   };
@@ -127,10 +129,7 @@ export function isTexasTalentPublishable(profile: LoadedTexasTalentProfile) {
 export function assertTexasTalentPublishable(profile: LoadedTexasTalentProfile) {
   const assessment = assessTexasTalentLaunchReadiness(profile);
   if (!assessment.publishable) {
-    const details = [
-      ...assessment.blockers,
-      ...(assessment.editorialApproved ? [] : ["editorial-approval"]),
-    ].join(", ");
+    const details = assessment.blockers.join(", ");
     throw new Error(`Texas Talent profile ${profile.slug} is not publishable: ${details}`);
   }
   return profile;

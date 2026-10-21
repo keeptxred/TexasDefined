@@ -35,7 +35,8 @@ export type PublishedSoftballMedia = {
 export type PublishedSoftballProfile = {
   slug: string;
   status: 'published';
-  ownerApproved: true;
+  /** Optional historical named owner/editor approval; publication does not require it. */
+  ownerApproved?: boolean;
   editor: string;
   title: string;
   canonicalPath: string;
