@@ -60,6 +60,6 @@ test('large workbook imports run in GitHub Actions Deno CPU budget',()=>{
   assert.match(importer,/const runTaxImport=async/);
   assert.match(importer,/Deno\.serve\(runTaxImport\)/);
   assert.match(workflow,/denoland\/setup-deno@v2/);
-  assert.match(workflow,/TEXAS_TAX_IMPORT_YEAR="\$year" deno run -A/);
+  assert.match(workflow,/TEXAS_TAX_IMPORT_YEAR="\$year" deno run --node-modules-dir=none -A/);
   assert.doesNotMatch(workflow,/curl --silent --show-error --max-time/);
 });
