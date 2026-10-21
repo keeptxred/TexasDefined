@@ -5,6 +5,18 @@ import type { MajorEventSchemaEnrichment } from "./major-event-schema-enrichment
 export const majorEventSchemaEnrichmentBatch27: MajorEventSchemaEnrichment[] = [
   {
     slug: "diwalisa-san-antonio",
+    image: {
+      url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/86/San_Antonio_River_Walk_July_2017_10_%28Arneson_River_Theater%29.jpg/1280px-San_Antonio_River_Walk_July_2017_10_%28Arneson_River_Theater%29.jpg",
+      alt: "Arneson River Theater stage beside the San Antonio River Walk, photographed in 2017 before the DiwaliSA event",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:San_Antonio_River_Walk_July_2017_10_(Arneson_River_Theater).jpg",
+      sourceType: "wikimedia",
+      licenseName: "Creative Commons Attribution-ShareAlike 4.0 International",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+      rightsNote: "Michael Barera, 2017; CC BY-SA 4.0. Historical view of an actual event venue, not festival imagery.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
+
     organizer: { type: "Organization", name: "AnujaSA", url: "https://anujasa.com/" },
     sources: [
       { label: "Anuja SA 2026 event and hours", url: "https://anujasa.com/diwalisa" },
@@ -43,6 +55,18 @@ export const majorEventSchemaEnrichmentBatch27: MajorEventSchemaEnrichment[] = [
   },
   {
     slug: "old-settlers-music-festival",
+    image: {
+      url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1c/Ralph_Stanley_-_Ralph_Stanley_II_-_Ron_Baker_2008.jpg/960px-Ralph_Stanley_-_Ralph_Stanley_II_-_Ron_Baker_2008.jpg",
+      alt: "Ralph Stanley and Ralph Stanley II performing at the 2008 Old Settler's Music Festival, archival photograph; not a 2027 lineup announcement",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Ralph_Stanley_-_Ralph_Stanley_II_-_Ron_Baker_2008.jpg",
+      sourceType: "wikimedia",
+      licenseName: "Creative Commons Attribution-ShareAlike 4.0 International",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+      rightsNote: "Ron Baker, Old Settler's Music Festival 2008, CC BY-SA 4.0. Archival performance; no 2027 booking implied.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
+
     organizer: { type: "Organization", name: "Old Settler's Music Festival", url: "https://oldsettlersmusicfest.org/" },
     sources: [
       { label: "Old Settler's organizer 2027 schedule and site", url: "https://oldsettlersmusicfest.org/" },
@@ -124,6 +148,18 @@ export const majorEventSchemaEnrichmentBatch27: MajorEventSchemaEnrichment[] = [
   },
   {
     slug: "cliburn-international-young-pianists-competition",
+    image: {
+      url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b8/Dallas_Meyerson_Center_01.jpg/1280px-Dallas_Meyerson_Center_01.jpg",
+      alt: "Morton H. Meyerson Symphony Center in Dallas, photographed in 2009; announced final-round venue for the 2027 Cliburn Young Pianists Competition",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Dallas_Meyerson_Center_01.jpg",
+      sourceType: "wikimedia",
+      licenseName: "Creative Commons Attribution 3.0 Unported",
+      licenseUrl: "https://creativecommons.org/licenses/by/3.0/",
+      rightsNote: "Andreas Praefcke, October 2009; CC BY 3.0. Historical exterior photo of the announced 2027 finals venue.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
+
     organizer: { type: "Organization", name: "The Cliburn", url: "https://cliburn.org/" },
     sources: [
       { label: "The Cliburn 2027 competition overview, dates and venues", url: "https://cliburn.org/competitions/2027-young-pianists" },
