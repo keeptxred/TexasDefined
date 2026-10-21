@@ -35,7 +35,7 @@ export const Route = createFileRoute('/property-tax/taxing-unit/$unit')({
         temporalCoverage: `${history[0]?.year}/${history.at(-1)?.year}`,
         creator: { '@type': 'Organization', name: 'Texas Defined' },
         citation: latest.slug === 'escobares' && latest.type === 'city'
-          ? [latest.sourceUrl, STARR_CAD_REPORT_URL]
+          ? [latest.sourceUrl, STARR_CAD_REPORT_URL, STARR_CAD_2024_COMPONENTS_URL]
           : latest.sourceUrl,
         publisher: { '@type': 'Organization', name: 'Texas Defined' },
         variableMeasured: ['Total property-tax rate', 'Maintenance and operations rate', 'Debt-service / I&S rate', 'Reported levy'],
@@ -48,6 +48,7 @@ export const Route = createFileRoute('/property-tax/taxing-unit/$unit')({
 // Starr CAD's published 2024 local rate fills a statewide reporting gap for display only.
 // The Comptroller-derived database record remains "not-reported" for source integrity.
 const STARR_CAD_REPORT_URL = 'https://starrcad.org/wp-content/uploads/2025/08/2025-ANNUAL-REPORT.pdf';
+const STARR_CAD_2024_COMPONENTS_URL = 'https://starrcad.org/wp-content/uploads/2024/10/2024-tax-rates-2.pdf';
 
 function Page() {
   const { latest, history } = Route.useLoaderData();
@@ -56,6 +57,8 @@ function Page() {
     return {
       ...record,
       displayTotalRate: locallyVerified ? 0.340447 : record.totalRate,
+      displayOperationsRate: locallyVerified ? 0.263594 : record.maintenanceOperationsRate,
+      displayDebtRate: locallyVerified ? 0.076853 : record.debtServiceRate,
       localSourceUrl: locallyVerified ? STARR_CAD_REPORT_URL : null,
     };
   });
@@ -93,17 +96,17 @@ function Page() {
         <tbody>{[...displayHistory].reverse().map((record) => <tr key={record.id} className="border-b border-border">
           <td className="py-3 font-semibold">{record.year}</td>
           <td className="tabular-nums">{record.displayTotalRate?.toFixed(6) ?? '—'}</td>
-          <td className="tabular-nums">{record.maintenanceOperationsRate?.toFixed(6) ?? '—'}</td>
-          <td className="tabular-nums">{record.debtServiceRate?.toFixed(6) ?? '—'}</td>
-          <td>{record.localSourceUrl ? <><span>Locally verified; absent from statewide file. </span><a className="font-semibold text-primary underline underline-offset-2" href={record.localSourceUrl} target="_blank" rel="noopener noreferrer">Starr CAD report, p. 16 ↗</a></> : record.totalRate != null && (record.maintenanceOperationsRate == null || record.debtServiceRate == null) ? 'Finalized total; components unavailable' : statusLabel(record.sourceStatus, record.variableRate)}</td>
+          <td className="tabular-nums">{record.displayOperationsRate?.toFixed(6) ?? '—'}</td>
+          <td className="tabular-nums">{record.displayDebtRate?.toFixed(6) ?? '—'}</td>
+          <td>{record.localSourceUrl ? <><span>Locally verified; absent from statewide file. </span><a className="font-semibold text-primary underline underline-offset-2" href={record.localSourceUrl} target="_blank" rel="noopener noreferrer">Starr CAD report, p. 16 ↗</a><span> · </span><a className="font-semibold text-primary underline underline-offset-2" href={STARR_CAD_2024_COMPONENTS_URL} target="_blank" rel="noopener noreferrer">2024 M&amp;O and I&amp;S ↗</a></> : record.totalRate != null && (record.maintenanceOperationsRate == null || record.debtServiceRate == null) ? 'Finalized total; components unavailable' : statusLabel(record.sourceStatus, record.variableRate)}</td>
           <td>{record.levy != null ? money(record.levy) : '—'}</td>
         </tr>)}</tbody></table></div>
-      {latest.slug === 'escobares' && latest.type === 'city' ? <p className="mt-4 text-sm leading-6 text-muted-foreground">The Comptroller did not report Escobares’ 2024 rate. Starr CAD lists 0.340447 in its 2025 Annual Report (p. 16). This local supplement does not change the statewide record or calculator.</p> : null}
+      {latest.slug === 'escobares' && latest.type === 'city' ? <p className="mt-4 text-sm leading-6 text-muted-foreground">The Comptroller did not report Escobares’ 2024 rate. Starr CAD confirms a 2024 total of 0.340447, comprising 0.263594 for M&amp;O and 0.076853 for debt service. These local figures are attributed separately and do not modify statewide records or calculator inputs.</p> : null}
     </section>
 
     <section className="grid gap-6 border-b border-border py-10 md:grid-cols-3"><a href="/texas-property-tax-estimator" className="border border-border p-5 hover:border-primary"><strong className="font-display text-xl">Property-tax estimator</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Combine this rate with the other taxing units serving a parcel.</span></a><a href="/texas-property-tax-rate-history" className="border border-border p-5 hover:border-primary"><strong className="font-display text-xl">Rate history explorer</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Search and compare another Texas taxing unit.</span></a><a href="/texas-property-tax-bill-breakdown" className="border border-border p-5 hover:border-primary"><strong className="font-display text-xl">Bill breakdown</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">See the share attributable to every selected taxing unit.</span></a></section>
 
-    <section className="pt-8 text-sm leading-6 text-muted-foreground"><p><strong className="text-foreground">Sources and methodology:</strong> Texas Comptroller Tax Rates and Levies, plus individually labeled local sources. Rates are per $100 taxable. Parcel jurisdiction and exemptions vary; levy is not collected revenue. Missing or conflicting state rates are excluded from calculators.</p><div className="mt-3 flex flex-wrap gap-x-6 gap-y-3"><a href={latest.sourceUrl} target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">Latest Comptroller source workbook ↗</a>{latest.slug === 'escobares' && latest.type === 'city' ? <><a href="https://starrcad.org/" target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">Starr Central Appraisal District ↗</a><a href={STARR_CAD_REPORT_URL} target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">Starr CAD 2025 Annual Report ↗</a></> : null}</div></section>
+    <section className="pt-8 text-sm leading-6 text-muted-foreground"><p><strong className="text-foreground">Sources and methodology:</strong> Texas Comptroller Tax Rates and Levies, plus individually labeled local sources. Rates are per $100 taxable. Parcel jurisdiction and exemptions vary; levy is not collected revenue. Missing or conflicting state rates are excluded from calculators.</p><div className="mt-3 flex flex-wrap gap-x-6 gap-y-3"><a href={latest.sourceUrl} target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">Latest Comptroller source workbook ↗</a>{latest.slug === 'escobares' && latest.type === 'city' ? <><a href="https://starrcad.org/" target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">Starr Central Appraisal District ↗</a><a href={STARR_CAD_REPORT_URL} target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">Starr CAD 2025 Annual Report ↗</a><a href={STARR_CAD_2024_COMPONENTS_URL} target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">Escobares 2024 tax-rate breakdown ↗</a></> : null}</div></section>
   </article></Container>;
 }
 
