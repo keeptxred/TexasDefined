@@ -30,6 +30,12 @@ try {
     });
     assert.ok(result.documentWidth <= width + 1, `page overflows at ${width}px: ${result.documentWidth}`);
     assert.equal(result.canonical, origin + path);
+    const guideText = await page.locator('[data-playoffs-reference="2026"]').innerText();
+    assert.ok(guideText.includes("View all 2026 playoff brackets"), "prominent bracket CTA missing");
+    assert.ok(guideText.includes("1A six-man · five rounds"), "five-round six-man diagram missing");
+    assert.ok(guideText.includes("2A–6A · six rounds"), "six-round diagram missing");
+    assert.ok(guideText.includes("Division I · larger qualifiers"), "6A split diagram missing");
+    assert.ok(await page.locator('a[href="/texas-high-school-football-playoff-brackets"]').count() > 0, "bracket finder link missing");
     assert.equal(result.faqCount, 6);
     if (width < 640) {
       assert.ok(result.tableWidth > result.tableViewport);
