@@ -31,6 +31,7 @@ const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([
   'brownwood',
   'bryan',
   'bryan-rudder',
+  'bryson',
   'big-sandy-harmony',
   'big-spring',
   'bishop',
