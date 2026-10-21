@@ -4,6 +4,7 @@ import { reviewDestinationVisitorFacts } from "./destination-visitor-facts.ts";
 import { applyCuratedDestination } from "./destination-curation.ts";
 import { applyCuratedDestinationBatch2 } from "./destination-curation-batch2.ts";
 import { applyCuratedDestinationBatch4 } from "./destination-curation-batch4.ts";
+import { applyCuratedDestinationBatch5 } from "./destination-curation-batch5.ts";
 import { applyCuratedDestinationBatch26 } from "./destination-curation-batch26.ts";
 import type { Destination } from "./types.ts";
 
@@ -125,4 +126,38 @@ test("Balmorhea timed pool entry and Enchanted Rock gate hours are not replaced 
   assert.ok(balm.visitorFacts?.some((fact) => fact.topic === "access" && fact.detail.includes("3 p.m.") && fact.detail.includes("early entry")));
   const rock = applyCuratedDestinationBatch2({ slug: "enchanted-rock-state-natural-area" } as Destination);
   assert.ok(rock.visitorFacts?.some((fact) => fact.topic === "hours" && fact.detail.includes("6:30 a.m.") && fact.detail.includes("8 p.m.")));
+});
+
+test("ten additional TPWD state parks preserve site-specific exact-source visitor guidance", () => {
+  const parkFacts: Array<[string, number]> = [
+    ["mother-neff-state-park", 3], ["lockhart-state-park", 3],
+    ["longhorn-cavern-state-park", 3], ["martin-dies-jr-state-park", 2],
+    ["mission-tejas-state-park", 2], ["meridian-state-park", 2],
+    ["martin-creek-lake-state-park", 2], ["atlanta-state-park", 2],
+    ["bonham-state-park", 2], ["buescher-state-park", 2],
+  ];
+  for (const [slug, count] of parkFacts) {
+    const destination = applyCuratedDestinationBatch5({ slug } as Destination);
+    const fresh = reviewDestinationVisitorFacts(destination.visitorFacts, "2026-10-21");
+    assert.deepEqual(fresh.issues, [], slug);
+    assert.equal(fresh.visible.length, count, slug);
+    assert.ok(fresh.visible.every(({ sourceUrl, checkedAt }) =>
+      sourceUrl.startsWith("https://tpwd.texas.gov/state-parks/") && checkedAt === "2026-10-21"), slug);
+    assert.equal(reviewDestinationVisitorFacts(destination.visitorFacts, "2027-03-01").visible.length, 0, slug);
+  }
+});
+
+test("Longhorn Cavern does not invent a standard park admission or campground", () => {
+  const destination = applyCuratedDestinationBatch5({ slug: "longhorn-cavern-state-park" } as Destination);
+  const facts = destination.visitorFacts ?? [];
+  assert.equal(facts.filter((fact) => fact.topic === "admission").length, 0);
+  assert.ok(facts.some((fact) => fact.topic === "camping" && fact.detail.includes("no overnight camping")));
+  assert.ok(facts.some((fact) => fact.topic === "reservations" && fact.detail.includes("tour operator")));
+});
+
+test("Mother Neff south gate and Lockhart seasonal office schedule remain visible", () => {
+  const neff = applyCuratedDestinationBatch5({ slug: "mother-neff-state-park" } as Destination);
+  assert.ok(neff.visitorFacts?.some((fact) => fact.topic === "access" && fact.detail.includes("closed indefinitely")));
+  const lockhart = applyCuratedDestinationBatch5({ slug: "lockhart-state-park" } as Destination);
+  assert.ok(lockhart.visitorFacts?.some((fact) => fact.topic === "hours" && fact.detail.includes("October–February")));
 });
