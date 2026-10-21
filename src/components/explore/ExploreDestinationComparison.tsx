@@ -50,7 +50,7 @@ const COPY: Record<ExploreComparisonKind, { title: string; description: string; 
 
 function sourceDate(destinations: DestinationComparisonRecord[]) {
   const values = destinations.map((destination) => destination.sourceCheckedAt).filter((value): value is string => Boolean(value)).sort();
-  return values.at(-1) ?? 'Per-destination source verification date not available for every record';
+  return values.length === destinations.length ? values[0] : 'Verification dates incomplete; check individual rows';
 }
 
 function activityText(destination: DestinationComparisonRecord & { body?: string[] }) {
@@ -72,13 +72,12 @@ function officialSources(destinations: DestinationComparisonRecord[]) {
 }
 
 export function ExploreDestinationComparison({ destinations, kind }: { destinations: Array<DestinationComparisonRecord & { body?: string[] }>; kind: ExploreComparisonKind }) {
+  const [visibleCount, setVisibleCount] = useState(kind === 'attractions' ? 100 : destinations.length);
   if (!destinations.length) return null;
   const isParks = kind === 'state-parks';
   const showCategory = kind === 'attractions';
   const copy = COPY[kind];
   const sorted = [...destinations].sort((a, b) => a.name.localeCompare(b.name));
-  const pageSize = kind === 'attractions' ? 100 : sorted.length;
-  const [visibleCount, setVisibleCount] = useState(pageSize);
   const visibleDestinations = sorted.slice(0, visibleCount);
 
   return (
