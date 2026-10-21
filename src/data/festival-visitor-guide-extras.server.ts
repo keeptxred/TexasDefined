@@ -95,7 +95,7 @@ const festivalGuideExtras: readonly Extras[] = [
     "planningSections": [
       {
         "title": "Which 2026 day offers the best value?",
-        "body": "The published 2026 calendar makes Monday–Thursday admission free, with gates opening at 5 p.m. Fridays and Sundays are $15 online or $20 at the gate; Saturdays are $25 online or $30 at the gate. The final Sunday becomes free after 3 p.m. These are entry prices, not an all-inclusive food or drink pass; verify before purchasing."
+        "body": "The published 2026 calendar makes Monday–Thursday admission free, with free weekday gates opening at 5 p.m. are $15 online or $20 at the gate; Saturdays are $25 online or $30 at the gate. The final Sunday becomes free after 3 p.m. These are entry prices, not an all-inclusive food or drink pass; verify before purchasing."
       },
       {
         "title": "Plan around the entertainment—not just the gate",
