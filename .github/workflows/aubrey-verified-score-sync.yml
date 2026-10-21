@@ -1,0 +1,16 @@
+name: Aubrey verified scores
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '10 9 * 8-12 *'
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test scripts/ci/test-aubrey-verified-results.mjs
