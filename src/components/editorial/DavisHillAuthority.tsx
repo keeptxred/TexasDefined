@@ -133,6 +133,21 @@ export default function DavisHillAuthorityPage() {
               Research and agency development listing checked {verified}.
             </p>
           </div>
+          <figure className="mt-8 max-w-5xl border border-border">
+            <img
+              src="/images/state-parks/davis-hill-conservation-landscape.svg"
+              width={1600}
+              height={900}
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
+              alt="Original editorial illustration of an East Texas forested upland descending toward the Trinity River bottomlands; interpretive scenery, not an actual photograph of Davis Hill"
+              className="w-full"
+            />
+            <figcaption className="px-4 py-3 text-sm text-muted-foreground">
+              Original TexasDefined editorial landscape illustration — an interpretation of the habitats described by TPWD, not a verified view of Davis Hill, a photographic record, or a route map. For an authentic site image, see <OfficialLink href={sources[3].url}>TPWD’s published Davis Hill photograph</OfficialLink>.
+            </figcaption>
+          </figure>
           <div className="mt-8 max-w-5xl border-l-4 border-primary bg-background px-5 py-5 sm:px-6" role="note" aria-label="Visitor access warning">
             <p className="text-xs font-bold uppercase tracking-wide text-primary">Public access: not open for ordinary visits</p>
             <p className="mt-2 text-base leading-7">
