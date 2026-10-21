@@ -12,120 +12,48 @@
     "total": 1292
   },
   "batch": {
-    "number": 6,
+    "number": 7,
     "slugs": [
-      "big-sandy-harmony",
-      "big-spring",
-      "bishop",
-      "blackwell",
-      "blanco",
-      "blanket",
-      "blooming-grove",
-      "bloomington",
-      "blue-ridge",
-      "bluff-dale",
-      "blum",
-      "boerne",
-      "boerne-champion",
-      "bogata-rivercrest",
-      "boling",
-      "bonham",
-      "booker",
-      "borden-county",
-      "borger",
-      "bosqueville",
-      "bovina",
-      "bowie",
-      "bowie-gold-burg",
-      "boyd",
-      "boys-ranch"
+      "brackettville-brackett",
+      "brady",
+      "breckenridge",
+      "bremond",
+      "brenham",
+      "bridge-city",
+      "bridgeland",
+      "bridgeport",
+      "brock",
+      "bronte",
+      "brookesmith",
+      "brownfield",
+      "brownsboro",
+      "brownsville-hanna",
+      "brownsville-lopez",
+      "brownsville-pace",
+      "brownsville-porter",
+      "brownsville-rivera",
+      "brownsville-veterans-memorial",
+      "brownwood",
+      "bruceville-eddy",
+      "bruni",
+      "bryan",
+      "bryan-rudder",
+      "bryson"
     ],
-    "state": "VERIFIED_BATCH_006_COMPLETE",
-    "dateAssigned": "2026-10-14",
-    "selectionRule": "Next 25 NOT_REVIEWED unassigned canonical football schools after verified Batch 005; protect all 105 VERIFIED.",
-    "individuallyVerified": 25,
-    "remainingAssigned": 0,
-    "assignmentBranch": "football-authority-batch-006-harmony-20261014",
-    "repositoryMainAtAssignment": "76ae6dfe17176649213c6a1cec3fd58ac97099dd",
+    "state": "ASSIGNED_BATCH_007_IN_PROGRESS",
+    "dateAssigned": "2026-10-20",
+    "selectionRule": "First 25 NOT_REVIEWED and unassigned canonical schoolRecords in stable order following 130 production VERIFIED through completed Batch 006; outstanding PR and branch conflicts checked.",
+    "individuallyVerified": 0,
+    "remainingAssigned": 25,
+    "assignmentBranch": "football-authority-batch-007-20261020",
+    "repositoryMainAtAssignment": "78157bb07d856f40d21e813fd3f886cd54e2b20e",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": null,
-    "nextSchool": null,
-    "implementedOnBranch": 25,
-    "remainingToImplement": 0,
-    "remainingToVerify": 0,
-    "notes": "ALL 25 Batch006 researched team authority guides and original graphics published. Passed exact production Chrome run #39532328953 attempt 2 (75/75 school desktop/390px/320px, 75/75 accessible graphics, 23/23 counties, 25/25 sitemap, 0 JS failures, one Worker version 2b087e5b; evidence #12318402912). On owner's Oct20 policy change, optional nine-dimensional human editorial/media/manual WCAG checks no longer block technical VERIFIED or Batch007. Earlier 105 VERIFIED preserved. No purported reviewer, photo reuse license, stadium gate approval or school endorsement.",
-    "technicalBrowserAcceptance": {
-      "runId": 39273758531,
-      "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/39273758531",
-      "checkedAt": "2026-10-19T15:01:49Z",
-      "schoolCasesPassed": 75,
-      "schoolCasesFailed": 0,
-      "schoolCount": 25,
-      "checkedViewports": [
-        1366,
-        390,
-        320
-      ],
-      "countyCasesPassed": 23,
-      "countyCasesFailed": 0,
-      "sitemapUrlsPassed": 25,
-      "screenshotsSaved": 98,
-      "screenshotArtifactId": 12196591822,
-      "javascriptChunkErrors": 0,
-      "observedWorkerVersions": [
-        "b4c9dfca-7f43-4e3d-a24b-22bc16a2a48f"
-      ],
-      "workerVersionMatchesDeploy": true,
-      "productionDeploymentRun": 39269777322,
-      "productionDeploymentGitSha": "a20871abf93259a78d69ebd47fa0d1f8f951d93f",
-      "acceptanceHarnessMergePr": 5222,
-      "acceptanceHarnessMergeSha": "ffbf48b4a906f26c87834ef4d4b0ad23a7df5ebe",
-      "editorialAcceptedSchools": 0,
-      "formalNineDimensionAcceptanceCompleted": false,
-      "schoolPhotoRightsIndividuallyAccepted": false,
-      "individualStatusPromotion": false,
-      "limitation": "Bounded real-Chrome structural/SEO/schema/current-record/county/sitemap tests. Does not independently certify every factual claim, image right, human WCAG test or reviewer signoff."
-    },
-    "publicationDelivery": {
-      "status": "PUBLISHED_COMPLETE",
-      "publishedSchools": 25,
-      "asOf": "2026-10-20",
-      "graphicCodeMergePr": 5441,
-      "graphicCodeMergeSha": "5eea5af958d55180101dab48565df52e4bc46b79",
-      "postGraphicsChromeRun": 39532328953,
-      "postGraphicsChromeUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/39532328953",
-      "postGraphicsEvidenceArtifact": 12318402912,
-      "schoolViewCasesPassed": 75,
-      "graphicCasesPassed": 75,
-      "graphicScreenshots": 75,
-      "countyLinksPassed": 23,
-      "sitemapEntriesPassed": 25,
-      "firstPartyJavaScriptErrors": 0,
-      "strictSingleWorkerVersionPassed": true,
-      "strictRunConclusion": "success",
-      "observedWorkerVersions": [
-        "2b087e5b-4f3f-4628-b1a0-294de67cd0ff"
-      ],
-      "individualEditorialAccepted": 0,
-      "remainingManualEditorialReviews": 25,
-      "strictRunAttempt": 2,
-      "strictRunCompletedAt": "2026-10-21T03:21:24Z",
-      "initialFailedAttempt": {
-        "artifactId": 12315713105,
-        "workerVersions": [
-          "0cee8040-509e-4623-b92a-afabd0b46a29",
-          "1cc62935-9f46-4cef-8dcf-2f1f7f8d651d",
-          "b5527744-d73b-45a5-8db6-36697dfaae72"
-        ],
-        "reason": "Mixed Cloudflare Workers during concurrent production deployments (first run); not a content/graphic/county/sitemap defect"
-      },
-      "manualEditorialReviewRequiredForCompletion": false,
-      "optionalEditorialReviewsOutstanding": 25,
-      "technicalVerificationIsNotHumanEditorialAcceptance": true
-    },
-    "completedAt": "2026-10-21T03:21:24Z",
-    "completionBasis": "Owner-directed source-supported technical live-production verification; independent manual nine-dimension editorial signoff removed as a required gate, not represented as performed",
-    "manualEditorialReviewRequiredForCompletion": false
+    "currentSchool": "brackettville-brackett",
+    "nextSchool": "brady",
+    "implementedOnBranch": 0,
+    "remainingToImplement": 25,
+    "remainingToVerify": 25,
+    "notes": "Assigned only; no individual 007 program research, production work or deploy verified at assignment. Owner-approved optional manual editorial signoff policy remains distinct from mandatory factual, rights and production technical checks."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -7322,7 +7250,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/brackettville-brackett",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 7
     },
     {
       "id": "uil:brady",
@@ -7336,7 +7264,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/brady",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 7
     },
     {
       "id": "uil:breckenridge",
@@ -7350,7 +7278,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/breckenridge",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 7
     },
     {
       "id": "uil:bremond",
@@ -7364,7 +7292,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bremond",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 7
     },
     {
       "id": "uil:brenham",
@@ -7378,7 +7306,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/brenham",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 7
     },
     {
       "id": "uil:bridge-city",
@@ -7392,7 +7320,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bridge-city",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 7
     },
     {
       "id": "uil:bridgeland",
@@ -7406,7 +7334,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bridgeland",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 7
     },
     {
       "id": "uil:bridgeport",
@@ -7420,7 +7348,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bridgeport",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 7
     },
     {
       "id": "uil:brock",
@@ -7434,7 +7362,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/brock",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 7
     },
     {
       "id": "uil:bronte",
@@ -7448,7 +7376,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bronte",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 7
     },
     {
       "id": "uil:brookesmith",
@@ -7462,7 +7390,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/brookesmith",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 7
     },
     {
       "id": "uil:brownfield",
@@ -7476,7 +7404,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/brownfield",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 7
     },
     {
       "id": "uil:brownsboro",
@@ -7490,7 +7418,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/brownsboro",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 7
     },
     {
       "id": "uil:brownsville-hanna",
@@ -7504,7 +7432,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/brownsville-hanna",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 7
     },
     {
       "id": "uil:brownsville-lopez",
@@ -7518,7 +7446,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/brownsville-lopez",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 7
     },
     {
       "id": "uil:brownsville-pace",
@@ -7532,7 +7460,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/brownsville-pace",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 7
     },
     {
       "id": "uil:brownsville-porter",
@@ -7546,7 +7474,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/brownsville-porter",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 7
     },
     {
       "id": "uil:brownsville-rivera",
@@ -7560,7 +7488,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/brownsville-rivera",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 7
     },
     {
       "id": "uil:brownsville-veterans-memorial",
@@ -7574,7 +7502,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/brownsville-veterans-memorial",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 7
     },
     {
       "id": "uil:brownwood",
@@ -7588,7 +7516,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/brownwood",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 7
     },
     {
       "id": "uil:bruceville-eddy",
@@ -7602,7 +7530,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bruceville-eddy",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 7
     },
     {
       "id": "uil:bruni",
@@ -7616,7 +7544,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bruni",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 7
     },
     {
       "id": "uil:bryan",
@@ -7630,7 +7558,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bryan",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 7
     },
     {
       "id": "uil:bryan-rudder",
@@ -7644,7 +7572,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bryan-rudder",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 7
     },
     {
       "id": "uil:bryson",
@@ -7658,7 +7586,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bryson",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 7
     },
     {
       "id": "uil:buckholts",
