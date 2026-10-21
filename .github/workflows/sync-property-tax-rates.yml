@@ -11,6 +11,12 @@ on:
   schedule:
     - cron: '23 11 3 * *'
   workflow_dispatch:
+    inputs:
+      full_history:
+        description: 'Check every retained official tax year since 2021'
+        type: boolean
+        required: false
+        default: false
 
 permissions:
   contents: read
@@ -27,6 +33,7 @@ jobs:
       SUPABASE_URL: ${{ secrets.SUPABASE_URL || 'https://ftkznprjljkhymknvhye.supabase.co' }}
       SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY || secrets.KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY }}
       RATE_HISTORY_LOOKBACK_YEARS: ${{ vars.RATE_HISTORY_LOOKBACK_YEARS || '5' }}
+      FORCE_FULL_TAX_HISTORY: ${{ inputs.full_history || 'false' }}
       TEXAS_TAX_IMPORT_CLI: '1'
     steps:
       - uses: actions/checkout@v4
@@ -50,6 +57,12 @@ jobs:
           (( lookback <= 15 )) || { echo "::error::Historical lookback exceeds safety limit (15 years)"; exit 1; }
           oldest=$((current_year-lookback))
           if (( oldest < 2021 )); then oldest=2021; fi
+          # Annual recheck catches revisions to tax years outside the rolling
+          # monthly lookback, rather than silently abandoning older records.
+          if [[ "$(date -u +%m)" == "01" || "$FORCE_FULL_TAX_HISTORY" == "true" ]]; then
+            oldest=2021
+            echo "Running complete historical audit from 2021 through $current_year"
+          fi
           failures=0
           published=0
           echo "## Texas property tax source synchronization" >> "$GITHUB_STEP_SUMMARY"
