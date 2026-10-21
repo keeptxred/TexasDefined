@@ -5,7 +5,7 @@ import {verifyArchiveYear} from './verify-texas-tax-source-archive.mjs';
 const run={tax_year:2025,source_signature:'a'.repeat(64),
   expected_count:4800,expected_raw_count:5734};
 const counts={published:4800,source:5734,matchingSignature:5734,counties:254,
-  byCategory:{county:254,city:1092,'school-district':1013,'special-district':3375}};
+  byCategory:{county:254,city:1244,'school-district':1549,'special-district':2687}};
 test('five official source archive invariants accept a reconciled year',()=>{
   assert.equal(verifyArchiveYear(run,counts),true);
 });
