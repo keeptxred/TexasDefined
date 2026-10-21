@@ -98,19 +98,31 @@ export function parseMetroTable(html) {
 // not-seasonally-adjusted BLS metro employment series. Use only matching vintages
 // and all 13 named series, never mix adjusted/annual/unrelated data.
 export function parseFredCsv(csv, previous, checkedAt = new Date().toISOString().slice(0, 10)) {
-  const lines = csv.replace(/^\uFEFF/, '').trim().split(/\r?\n/).map(line => line.split(','));
-  const header = lines.shift()?.map(x => x.trim().replace(/^"|"$/g, ''));
-  if (!header || !['observation_date', 'DATE'].includes(header[0])) throw new Error('Unrecognized FRED CSV date header');
+  const lines = csv.replace(/^\uFEFF/, '').trim().split(/\r?\n/).map(line =>
+    line.split(',').map(x => x.trim().replace(/^"|"$/g, '')));
+  const header = lines.shift();
+  if (!header || !['observation_date', 'date'].includes(header[0].trim().toLowerCase().replace(/\s+/g, '_'))) {
+    const label = String(header?.[0] ?? 'missing').slice(0, 80);
+    if (/<(?:!doctype|html|head|body)\b/i.test(csv.slice(0, 300))) {
+      throw new Error('FRED returned HTML rather than official CSV (possibly an access challenge)');
+    }
+    throw new Error('Unrecognized FRED CSV date header: ' + JSON.stringify(label));
+  }
+  const seriesHeaders = header.slice(1);
   if (header.length !== fredSeries.length + 1 ||
-      !fredSeries.every((id, i) => header[i + 1] === id)) {
+      new Set(seriesHeaders).size !== fredSeries.length ||
+      !fredSeries.every(id => seriesHeaders.includes(id))) {
     throw new Error('FRED source changed the required 13 monthly BLS series');
   }
   const candidates = lines.filter(fields => /^\d{4}-\d{2}-01$/.test(fields[0]) &&
     fields.length === header.length && fields.slice(1).every(n => /^\d+(?:\.\d+)?$/.test(n)));
-  const record = candidates.at(-1);
+  const record = candidates.sort((a, b) => a[0].localeCompare(b[0])).at(-1);
   if (!record) throw new Error('FRED BLS source returned no complete monthly Texas observation');
   const month = record[0].slice(0, 7);
-  const rows = record.slice(1).map((n, i) => ({ label: canonicalAreas[i][0], value: Math.round(Number(n) * 1000) }));
+  const rows = fredSeries.map((id, i) => ({
+    label: canonicalAreas[i][0],
+    value: Math.round(Number(record[header.indexOf(id)]) * 1000),
+  }));
   const same = month === previous.releaseMonth && rows.every((row, i) =>
     previous.rows[i]?.label === row.label && previous.rows[i]?.value === row.value);
   return {
