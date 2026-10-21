@@ -40,7 +40,7 @@
       "bryan-rudder",
       "bryson"
     ],
-    "state": "BATCH_007_FIRST_THREE_IMPLEMENTED_PENDING_PR_CI",
+    "state": "BATCH_007_SIX_SCHOOL_SOURCE_IMPLEMENTATION_PENDING_QA",
     "dateAssigned": "2026-10-20",
     "selectionRule": "First 25 NOT_REVIEWED and unassigned canonical schoolRecords in stable order following 130 production VERIFIED through completed Batch 006; outstanding PR and branch conflicts checked.",
     "individuallyVerified": 0,
@@ -48,12 +48,12 @@
     "assignmentBranch": "football-authority-batch-007-20261020",
     "repositoryMainAtAssignment": "78157bb07d856f40d21e813fd3f886cd54e2b20e",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "bremond",
-    "nextSchool": "bridgeland",
-    "implementedOnBranch": 4,
-    "remainingToImplement": 21,
+    "currentSchool": "bridgeland",
+    "nextSchool": "bridgeport",
+    "implementedOnBranch": 6,
+    "remainingToImplement": 19,
     "remainingToVerify": 25,
-    "notes": "4 individually implemented and ledger-recorded school authority entries on draft branch, including Bridge City (1966 title, 2026 coach/tickets, Orange County links); no Batch 007 school independently production VERIFIED. Two additional Brenham/Bremond research dossiers and editorial code have appeared from concurrent branch work but have NOT been promoted here without their progress reconciliation. Resume any NOT_REVIEWED records in stable batch order; avoid writing duplicates."
+    "notes": "Six individual source-backed profiles implemented on Batch007 draft branch (including reconciled Bremond and Brenham); no protected merge, deployment or production VERIFIED. Move to Bridgeland; preserve source-dated conflicting score reporting and outstanding school-photo/graphical review. Avoid polling loops."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -7318,8 +7318,17 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bremond",
-      "status": "NOT_REVIEWED",
-      "batch": 7
+      "status": "IMPLEMENTED",
+      "batch": 7,
+      "audit": "docs/football-authority/schools/bremond.md",
+      "auditCompletedAt": "2026-10-20",
+      "researchCompletedAt": "2026-10-20",
+      "implementedAt": "2026-10-20",
+      "implementedOnBranch": "football-authority-batch-007-20261020",
+      "actualProductionVerified": false,
+      "mediaStatus": "Rights-safe independent editorial identity only; school-photo permissions and distinct graphical acceptance pending",
+      "implementationNotes": "UIL four championship seasons and four other runner-up finals; official Bremond ISD schedule and athletics links, sourced 2026 scores/score conflict, unique milestones and FAQs; Robertson County reciprocal links.",
+      "technicalVerification": "PENDING CI, protected merge, Cloudflare deployment, 1366/390/320 live Chrome checks."
     },
     {
       "id": "uil:brenham",
@@ -7332,8 +7341,17 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/brenham",
-      "status": "NOT_REVIEWED",
-      "batch": 7
+      "status": "IMPLEMENTED",
+      "batch": 7,
+      "audit": "docs/football-authority/schools/brenham.md",
+      "auditCompletedAt": "2026-10-20",
+      "researchCompletedAt": "2026-10-20",
+      "implementedAt": "2026-10-20",
+      "implementedOnBranch": "football-authority-batch-007-20261020",
+      "actualProductionVerified": false,
+      "mediaStatus": "Rights-safe independent editorial identity only; school-photo permissions and distinct graphical acceptance pending",
+      "implementationNotes": "Three UIL football state-final appearances with no football title; official Cubs current varsity schedule and Cub Stadium, source-dated 2026 results including reported score conflict, unique milestones and FAQs; Washington County reciprocal links.",
+      "technicalVerification": "PENDING CI, protected merge, Cloudflare deployment, 1366/390/320 live Chrome checks."
     },
     {
       "id": "uil:bridge-city",
