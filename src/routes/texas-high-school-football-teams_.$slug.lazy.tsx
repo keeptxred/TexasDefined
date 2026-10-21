@@ -112,6 +112,7 @@ function Page() {
   // Campus-county mapping for individually sourced Batch 002 profiles;
   // city names and district service areas are not dependable campus-county proxies.
   const researchedCampusCounty: Record<string, string> = {
+    'brownfield': 'terry', // Brownfield High first-party 702 Cub Drive campus Terry County; MaxPreps has conflicting 701 number and stadium gate unverified.
     'brookesmith': 'brown', // Brookesmith ISD official 13400 FM 586 S campus in Brown County; stadium field/gate unverified.
     'bronte': 'coke', // Bronte ISD official 210 S Jefferson Street high school campus in Coke County, separate from unconfirmed Stephenson Stadium gate.
     'brock': 'parker', // Brock ISD 400 Eagle Spirit Lane football campus in Parker County; visitor stadium entrance remains unverified.
