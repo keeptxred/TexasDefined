@@ -158,8 +158,9 @@ if (!/^\d{4}-\d{2}$/.test(currentBls.releaseMonth) ||
     currentBls.rows.some(row => !Number.isInteger(row.value) || row.value < 50_000)) {
   failures.push('Rolling BLS metro data must contain 13 distinct plausible official job counts and release provenance.');
 }
-if (!String(currentBls.sourceUrl).startsWith('https://www.bls.gov/news.release/archives/metro_')) {
-  failures.push('Rolling BLS metro data must cite the official archived release.');
+if (!(String(currentBls.sourceUrl).startsWith('https://www.bls.gov/news.release/archives/metro_') ||
+    String(currentBls.sourceUrl).startsWith('https://fred.stlouisfed.org/graph/fredgraph.csv?id='))) {
+  failures.push('Rolling BLS metro data must cite the official BLS release or Federal Reserve distribution of the same BLS series.');
 }
 if (!serverRegistry.includes("slug: 'texas-metro-payrolls-latest'") ||
     !bridge.includes("slug: 'texas-metro-payrolls-latest'") ||

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { parseCurrentRelease, parseMetroTable, validateFresh } from './refresh-texas-metro-payrolls.mjs';
+import { parseCurrentRelease, parseMetroTable, parseFredCsv, validateFresh } from './refresh-texas-metro-payrolls.mjs';
 
 const areas = [
   ['Dallas-Fort Worth-Arlington', 4357.0], ['Houston-Pasadena-The Woodlands', 3495.3],
@@ -46,4 +46,30 @@ test('Refuse stale release, missing source provenance and implausible changes', 
   assert.throws(() => validateFresh({ ...old, releaseMonth: '2026-07' }, old), /older/);
   assert.throws(() => validateFresh({ ...old, sourceUrl: 'https://example.com' }, old), /provenance/);
   assert.throws(() => validateFresh({ ...old, rows: old.rows.map((r, i) => i === 0 ? { ...r, value: 1500000 } : r) }, old), /beyond controlled/);
+});
+
+
+test('Federal Reserve BLS fallback verifies all 13 NSA series, synchronized month, and magnitude', () => {
+  const ids = ['DALL148NAN','HOUS448NAN','AUST448NAN','SANA748NAN','ELPA348NAN',
+    'MCAL548NAN','CORP548NAN','LUBB148NAN','BROW148NAN','COLL748NAN',
+    'WACO348NAN','AMAR148NAN','TYLE348NAN'];
+  const old = { releaseMonth: '2026-08', publishedDate: '2026-09-30',
+    sourceUrl: 'https://www.bls.gov/news.release/archives/metro_09302026.htm',
+    rows: parseMetroTable(table(areas)) };
+  const makeCsv = (header = ids, data = areas.map(([, n]) => String(n))) =>
+    'observation_date,' + header.join(',') + '\n' +
+    '2026-08-01,' + data.join(',') + '\n';
+  const data = parseFredCsv(makeCsv(), old);
+  assert.equal(data.releaseMonth, '2026-08');
+  assert.equal(data.rows.length, 13);
+  assert.equal(data.rows[0].value, 4357000);
+  assert.equal(data.publishedDate, '2026-09-30', 'same data must not invent a new publication date');
+  assert.match(data.sourceUrl, /^https:\/\/fred\.stlouisfed\.org\/graph\//);
+  validateFresh(data, old);
+  assert.throws(() => parseFredCsv(makeCsv(ids.slice(1)), old), /changed the required/);
+  assert.throws(() => parseFredCsv(makeCsv(ids, areas.slice(0, 12).map(([, n]) => String(n))), old), /no complete/);
+  const newest = parseFredCsv(makeCsv(ids, areas.map(([, n]) => String(n+1))), old, '2026-10-21');
+  assert.equal(newest.publishedDate, '2026-10-21');
+  assert.throws(() => validateFresh({ ...newest, rows: newest.rows.map((r, i) =>
+    i === 0 ? { ...r, value: 10_000 } : r) }, old), /beyond controlled/);
 });
