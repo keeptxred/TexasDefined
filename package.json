@@ -22,7 +22,7 @@
     "county-property:validate": "node scripts/data/validate-county-property-enrichment.mjs && node scripts/data/validate-county-property-calculator-flow.mjs",
     "performance:validate": "node scripts/data/validate-client-bundle-budget.mjs",
     "check:fishing-technique-images": "node scripts/data/validate-fishing-technique-image-readiness.mjs",
-    "major-events:validate": "node scripts/data/validate-major-event-authority.mjs && node scripts/data/validate-global-event-calendar.mjs && node scripts/data/validate-sports-venue-phase2.mjs",
+    "major-events:validate": "node scripts/data/validate-major-event-authority.mjs && node scripts/data/validate-global-event-calendar.mjs && node scripts/data/validate-sports-venue-phase2.mjs && node scripts/data/validate-top-texas-event-coverage.mjs",
     "fishing:authority:audit": "node scripts/data/audit-texas-lake-authority.mjs",
     "fishing:county-links:validate": "node scripts/data/validate-fishing-county-authority-links.mjs",
     "fishing:city-links:validate": "node scripts/data/validate-fishing-city-authority-links.mjs",
