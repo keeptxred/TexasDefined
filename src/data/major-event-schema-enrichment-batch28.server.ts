@@ -6,6 +6,17 @@ export const majorEventSchemaEnrichmentBatch28: MajorEventSchemaEnrichment[] = [
   {
     slug: "old-settlers-music-festival",
     organizer: { type: "Organization", name: "Old Settler's Music Festival", url: "https://oldsettlersmusicfest.org/" },
+    image: {
+      url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1c/Ralph_Stanley_-_Ralph_Stanley_II_-_Ron_Baker_2008.jpg/960px-Ralph_Stanley_-_Ralph_Stanley_II_-_Ron_Baker_2008.jpg",
+      alt: "Ralph Stanley and Ralph Stanley II performing at the 2008 Old Settler's Music Festival, archival photograph; not a 2027 lineup announcement",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Ralph_Stanley_-_Ralph_Stanley_II_-_Ron_Baker_2008.jpg",
+      sourceType: "wikimedia",
+      licenseName: "Creative Commons Attribution-ShareAlike 4.0 International",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+      rightsNote: "Ron Baker, Old Settler's Music Festival 2008, CC BY-SA 4.0. Archival performance; no 2027 booking implied.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
     sources: [{ label: "Official organizer identity and event details", url: "https://oldsettlersmusicfest.org/" }],
     verifiedAt: "2026-10-21",
   },

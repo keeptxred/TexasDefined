@@ -125,6 +125,8 @@ export const INDEXABLE_STATIC_PATHS = [
   "/sports-venues/soccer",
   "/sports-venue/jones-att-stadium",
   "/events",
+  "/events/dia-de-los-muertos",
+  "/events/texas-independence",
   "/events/air-shows",
   "/events/mardi-gras",
   "/events/rodeos",
