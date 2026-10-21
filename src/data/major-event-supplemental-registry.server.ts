@@ -85,6 +85,7 @@ export const supplementalMajorEventSlugs = [
   "texas-jazz-festival",
   "red-steagall-cowboy-gathering",
   "texas-rice-festival",
+  "texas-onion-fest",
   "international-quilt-festival-houston",
   "original-greek-festival-houston",
   "san-antonio-muertos-fest",
