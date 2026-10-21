@@ -9,9 +9,9 @@ on:
 permissions:
   contents: read
 concurrency:
-  # Share the production deployment mutex: prevent Worker replacement during
-  # the strict 25-school Chrome acceptance window.
-  group: texasdefined-production
+  # Do not share a workflow-level group with production deploys: GitHub
+  # cancels an older pending run when a new pending run enters that group.
+  group: football-b007-live-acceptance
   cancel-in-progress: false
 jobs:
   chrome:
