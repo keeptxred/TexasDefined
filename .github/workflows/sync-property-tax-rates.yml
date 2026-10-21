@@ -110,3 +110,7 @@ jobs:
             exit 1
           fi
           echo "All eligible tax years checked independently; unchanged datasets retained."
+
+      - name: Verify local government rate source identities and evidence
+        shell: bash
+        run: deno run --allow-env --allow-net --allow-write scripts/ci/verify-texas-tax-local-sources.mjs
