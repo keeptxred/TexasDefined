@@ -158,17 +158,7 @@ function Page() {
           </div>
           <div>
             <p className="max-w-3xl text-sm leading-7 text-muted-foreground">Texas Defined uses sources including the U.S. Census Bureau, U.S. Bureau of Labor Statistics, Texas Comptroller, Texas Department of Insurance and Texas Department of Transportation. Dataset pages identify the responsible source, methodology, data vintage and update date. For official decisions, deadlines, eligibility or current legal requirements, follow the source link to the responsible agency.</p>
-            <ul className="mt-5 grid gap-2 text-sm sm:grid-cols-2">
-              {[
-                ['U.S. Census Bureau', 'https://www.census.gov/'],
-                ['U.S. Bureau of Labor Statistics', 'https://www.bls.gov/'],
-                ['Texas Comptroller', 'https://comptroller.texas.gov/'],
-                ['Texas Department of Insurance', 'https://www.tdi.texas.gov/'],
-                ['Texas Department of Transportation', 'https://www.txdot.gov/'],
-                ['Texas State Library and Archives Commission', 'https://www.tsl.texas.gov/'],
-              ].map(([name, url]) => <li key={url}><a href={url} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">{name} ↗</a></li>)}
-            </ul>
-            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Catalog links describe source organizations, not proof that every record was checked today. Each brief's last-updated date applies only to that dataset; source publication date and last verification are distinct. Where independent Texas Defined research is used, its methods and limitations are documented on the research page.</p>
+            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">The source registry below links the responsible agencies; a listed source does not mean every record was checked today. Each brief's last-updated date applies only to that dataset; source publication date and last verification are distinct. Where independent Texas Defined research is used, its methods and limitations are documented on the research page.</p>
             <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">A newer publication can supersede an older estimate. Texas Defined keeps historical briefs when they add comparison value, but labels their year and methodology rather than silently presenting old data as current.</p>
           </div>
         </div>
