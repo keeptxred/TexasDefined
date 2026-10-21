@@ -18,3 +18,11 @@ Original Bracket/title discrepancy explainer, five sourced milestones, Scott App
 
 ## Remaining
 Exact sports venue/address/entry, ticket status and ADA, primary confirmation of school colors, school-specific photography with rights, reciprocal McCulloch County/Brady links, 320px/mobile/desktop browser screenshots, sitemap, SEO, JSON-LD checks, tests, protected merge and real production QA. Retain discrepancy in all future revisions.
+
+## October 21, 2026 — missing 2026 varsity season and source-derived results restored
+The original individual authority research included Brady's UIL 1959 *administrative forfeit-awarded* title, Jaron Roberts, official tickets and the school-issued schedule, but omitted the structured `season.games` object completely. This meant the public page and its source-derived visual results strip had no authored varsity finals despite dated third-party results being available.
+
+Added an **0–7** explicitly *source-reported, not district-certified* snapshot through Friday October 16: Comfort L29–32 (8/28), Ingram Moore L0–41 (9/4), Hamilton L17–34 (9/11), Ballinger L35–40 (9/18), Llano L13–45 (10/2), Coleman L14–40 (10/9), Johnson City L7–33 (10/16). School's next dated fixtures are Bangs October 23, Mason October 30 and San Saba November 6; none assigned a future result. [Brady 2026 MaxPreps schedule](https://www.maxpreps.com/tx/brady/brady-bulldogs/football/schedule/) lists the first six finals; [MaxPreps October 16 recap](https://www.maxpreps.com/news/5u5tfHf30U2RI2dfp0km8g/football-recap-tough-loss-for-brady.htm) and [Texas Prep opponent result](https://txprepfootball.com/schools/johnson-city-eagles/) independently support the 33–7 Johnson City game (the older October 13 schedule still lists it unplayed). This is a date-qualified editorial snapshot, not a claim of current playoff elimination or UIL certification.
+
+The existing school-only milestone and historic 1959 UIL champions interpretation remain unchanged. Exact ticket inventory, licensed school photography, parking, stadium entrance and manual WCAG are not inferred. Main-branch merge, a successful deployment and targeted 1366/390/320 real browser evidence are still needed before Batch 007 status promotion.
+
