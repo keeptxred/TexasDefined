@@ -67,6 +67,190 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "bridge-city": {
+    "slug": "bridge-city",
+    "intro": "Bridge City's Cardinals have a documented 1966 UIL Class 3A state championship following a 1965 runner-up finish—two distinct championship-game seasons often obscured by generic football directory summaries. Bridge City High School publishes the current Josh Smalley coaching staff, a 2026 schedule and school-run game-ticket options. This independent guide separates historical UIL records, district notices and reported recent scores.",
+    "theme": {
+      "accentHex": "#9F2734",
+      "label": "Original TexasDefined cardinal-red editorial accent based on BCHS's publicly stated Friday WEAR RED tradition; not an official seal, artwork or unlicensed logo"
+    },
+    "seo": {
+      "title": "Bridge City Cardinals Football | 1966 UIL Title & 2026 Guide",
+      "description": "Bridge City Cardinals: 1965 state-final appearance, 1966 UIL championship, Josh Smalley, 2025 playoff season, 2026 reported scores and official tickets."
+    },
+    "coach": {
+      "name": "Josh Smalley",
+      "title": "Bridge City High School head football coach named on the 2026 official athletics coaching page",
+      "sourceUrl": "https://bchs.bridgecityisd.net/77061",
+      "sourceLabel": "Bridge City High School official Athletics/Football 2026 coaching staff lists Josh Smalley head coach, Chris Theriot defensive coordinator and Aaron Manous offensive coordinator",
+      "verifiedAt": "2026-10-20"
+    },
+    "campus": {
+      "address": "2690 Texas Avenue, Bridge City, TX 77611 (high school, not a verified stadium entrance)",
+      "phone": "409-735-1600",
+      "sourceUrl": "https://bchs.bridgecityisd.net/312355_2",
+      "sourceLabel": "Bridge City High School official About BCHS page gives 2690 Texas Ave and phone; game-day venue gates remain independently unconfirmed",
+      "verifiedAt": "2026-10-20"
+    },
+    "schedule": {
+      "label": "Bridge City High School official 2026 football schedule, visitor ticket links and student/senior pass details",
+      "sourceUrl": "https://bchs.bridgecityisd.net/77061",
+      "sourceLabel": "BCHS first-party Athletics page presents 2026 Football Schedule, individual HOME game online tickets, student HS athletic pass and senior citizen pass application",
+      "verifiedAt": "2026-10-20",
+      "officialScheduleUrl": "https://bchs.bridgecityisd.net/77061",
+      "ticketUrl": "https://bchs.bridgecityisd.net/77061"
+    },
+    "season": {
+      "record": "3–5 through October 16, 2026 (seven third-party archived scores plus Oct 16 local newspaper result; not school-certified)",
+      "verifiedAt": "2026-10-20",
+      "sourceUrl": "https://www.maxpreps.com/tx/bridge-city/bridge-city-cardinals/football/schedule/",
+      "sourceLabel": "MaxPreps Bridge City 2026 varsity schedule last updated Oct 15 lists 2–5 through Oct 9; Beaumont Enterprise's Oct 16 regional scoreboard separately reports 25–22 win over Livingston",
+      "latestResultSourceUrl": "https://www.beaumontenterprise.com/sports/high-school/article/see-week-8-high-school-football-scores-southeast-22481285.php",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Kirbyville",
+          "site": "Away",
+          "result": "W 35–12"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Orangefield",
+          "site": "Home",
+          "result": "L 16–18"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "West Orange-Stark",
+          "site": "Away",
+          "result": "L 0–42"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Silsbee",
+          "site": "Home",
+          "result": "L 0–39"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Lumberton",
+          "site": "Home",
+          "district": true,
+          "result": "W 31–10"
+        },
+        {
+          "date": "2026-10-02",
+          "opponent": "Vidor",
+          "site": "Away",
+          "district": true,
+          "result": "L 3–27"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Huffman Hargrave",
+          "site": "Home",
+          "district": true,
+          "result": "L 33–48"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Livingston",
+          "site": "Away",
+          "district": true,
+          "result": "W 25–22"
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Liberty",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Little Cypress–Mauriceville",
+          "site": "Away",
+          "district": true
+        }
+      ]
+    },
+    "development": {
+      "title": "From the 1965 runner-up to the 1966 state champions",
+      "body": "UIL's official state-final archive records Brownwood 14, Bridge City 0 in the 1965 Class 3A state final, followed one season later by Bridge City's 30–6 championship victory over McKinney in the 1966 Class 3A state final. Those are the Cardinals' two UIL title-game appearances, with one championship. In 2025, third-party scores document an 11–2 year including a 28–27 win over Navasota before a 34–0 postseason loss to Kilgore; UIL's official 2025 Kilgore team archive independently lists Bridge City as a 34–0 playoff opponent.",
+      "sourceUrl": "https://www.uiltexas.org/football/archives/P528",
+      "sourceLabel": "UIL official 1965–66 state-final archive and 2025 Kilgore UIL playoff-team archive; MaxPreps 2025 Bridge City postseason results",
+      "verifiedAt": "2026-10-20"
+    },
+    "milestones": [
+      {
+        "date": "1965",
+        "title": "The Cardinals reached the Class 3A championship game",
+        "body": "Bridge City finished runner-up after a 14–0 loss to Brownwood in the 1965 UIL Class 3A football final. The following year's triumph should not be misdated to 1965.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives/P528",
+        "sourceLabel": "UIL Football State Archives 1965–66"
+      },
+      {
+        "date": "1966",
+        "title": "30–6 over McKinney gives Bridge City its UIL football state title",
+        "body": "UIL records Bridge City's victory over McKinney as the 1966 Class 3A state championship; no second football title is listed in the official all-time appearances table.",
+        "sourceUrl": "https://www.uiltexas.org/football/all-time-appearances",
+        "sourceLabel": "UIL all-time state final appearances and state champions"
+      },
+      {
+        "date": "2025",
+        "title": "A 2025 playoff run ends against Kilgore",
+        "body": "MaxPreps reports an 11–2 season, playoff victories against Chapel Hill and Navasota, and a 34–0 loss to Kilgore; the opponent/score is independently repeated in UIL's Kilgore 2025 championship-team archive.",
+        "sourceUrl": "https://www.uiltexas.org/football/state-team-mp/kilgore-2025-2026-football",
+        "sourceLabel": "UIL Kilgore 2025 playoff ledger; independent MaxPreps Bridge City 2025 season schedule"
+      },
+      {
+        "date": "2026",
+        "title": "Smalley coaching staff and school-operated ticket links",
+        "body": "The BCHS athletics site identifies Josh Smalley as head football coach, Chris Theriot defensive coordinator and Aaron Manous offensive coordinator, posts the 2026 schedule, and provides per-home-event online tickets plus student and senior passes.",
+        "sourceUrl": "https://bchs.bridgecityisd.net/77061",
+        "sourceLabel": "BCHS official Football and HOME Tickets information 2026"
+      },
+      {
+        "date": "2026-10-16",
+        "title": "Narrow win in district play at Livingston",
+        "body": "The local Beaumont Enterprise regional scoreboard reports Bridge City edging Livingston 25–22 on October 16, following MaxPreps' older October 15 third-party 2–5 snapshot. That independently reported final remains source-attributed rather than misrepresented as a BCHS-certified score.",
+        "sourceUrl": "https://www.beaumontenterprise.com/sports/high-school/article/see-week-8-high-school-football-scores-southeast-22481285.php",
+        "sourceLabel": "Beaumont Enterprise Week 8 Southeast Texas high school results, October 2026"
+      }
+    ],
+    "overview": [
+      "The Cardinals are Bridge City ISD's football program in Orange County, southeast Texas. Bridge City High's first-party address is 2690 Texas Avenue. It is an orientation point for the school, not independently verified as a stadium vehicle entrance; verify gates and accessibility for an individual game.",
+      "The program won its 1966 UIL Class 3A championship over McKinney one year after the 1965 Class 3A runner-up finish against Brownwood. The 1960s Class 3A designations are historical and are not equivalent to today's 2026 UIL 4A Division I, District 9 alignment.",
+      "Bridge City High School's official 2026 Athletics page identifies head coach Josh Smalley with coordinators Chris Theriot and Aaron Manous. It separately offers an online purchase link for individual home games, a student HS athletic pass and a senior-citizen-pass application. Those products have event-specific terms; none establishes guaranteed admission.",
+      "The high school's official About page celebrates a campus-wide Friday WEAR RED Cardinal pride tradition. This is the documented local community connection behind the editorial accent, not evidence of any privately owned logo-licensing permission.",
+      "The 2025 Cardinals posted 11–2 according to their dated MaxPreps season archive before Kilgore ended the playoff run; the 2026 fixture/results table is a separate season. The reported October 16 25–22 Livingston game comes from local contemporary press after the score archive's Oct 15 update, and the remaining October games are not fabricated as finals."
+    ],
+    "faq": [
+      {
+        "question": "Did Bridge City football win a Texas state championship?",
+        "answer": "Yes. UIL records Bridge City's 30–6 win over McKinney in the 1966 Class 3A state football championship. The Cardinals also finished runner-up to Brownwood in the 1965 Class 3A final."
+      },
+      {
+        "question": "Who is Bridge City football's 2026 head coach?",
+        "answer": "Bridge City High School's official athletics staff page lists Josh Smalley as head football coach, Chris Theriot as defensive coordinator and Aaron Manous as offensive coordinator."
+      },
+      {
+        "question": "Where can I buy Bridge City Cardinals varsity football tickets?",
+        "answer": "Use the Bridge City High School Athletics page under HOME Tickets; it links per-home-game online purchase. The same page separately describes student athletic home passes and a senior citizen pass application. Confirm each game's ticket terms there."
+      },
+      {
+        "question": "Does Bridge City have a school football schedule for 2026?",
+        "answer": "Yes. The school's Athletics/Football section publishes its 2026 Football Schedule. Check school postings for late changes; reported final scores here are date-stamped independent summaries where school confirmation is absent."
+      },
+      {
+        "question": "Where is Bridge City High School and what about stadium parking?",
+        "answer": "Bridge City High School is listed by the district at 2690 Texas Ave, Bridge City, TX 77611. No independently confirmed precise stadium entrance, visitor parking map or accessible-seat inventory was found in the reviewed public source; contact the school for event-specific logistics."
+      },
+      {
+        "question": "How far did Bridge City advance in the 2025 football playoffs?",
+        "answer": "The MaxPreps 2025 season schedule records 11–2 overall with wins over Chapel Hill and Navasota, followed by a 34–0 elimination against Kilgore; UIL's Kilgore team archive separately corroborates the final opponent and score."
+      }
+    ]
+  },
   "bremond": {
     "slug": "bremond",
     "intro": "Bremond's Fighting Tigers are a Robertson County program whose modern football identity is built around an exceptional state-title sequence and a school-published 2026 varsity schedule. The four UIL championship years include an early 1981 victory and a 2014–2016 three-peat, each documented separately rather than collapsed into an unsourced dynasty slogan.",
