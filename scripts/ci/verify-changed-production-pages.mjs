@@ -116,7 +116,7 @@ for (const path of plan.selectedPaths) {
           if (!body.includes('Mardi Gras in Texas') || !body.includes('2027')) {
             throw new Error('Mardi Gras hub ' + surface + ' lacks current statewide heading and season');
           }
-          if (/<meta\\b[^>]*\\bname=["']robots["'][^>]*\\bnoindex\\b/i.test(body)) {
+          if (/<meta\b[^>]*\bname=["']robots["'][^>]*\bnoindex\b/i.test(body)) {
             throw new Error('Mardi Gras hub ' + surface + ' is unexpectedly noindex');
           }
           for (const guide of expectedGuides) {
