@@ -72,3 +72,23 @@ test("actual Sheldon Lake and Chamizal curated facts pass the same display gate"
     assert.deepEqual(issues, [], slug);
   }
 });
+
+test("six researched state park records provide two independently sourced, expiring visitor answers each", () => {
+  const parks = [
+    "brazos-bend-state-park",
+    "garner-state-park",
+    "dinosaur-valley-state-park",
+    "pedernales-falls-state-park",
+    "colorado-bend-state-park",
+    "caprock-canyons-state-park",
+  ];
+  for (const slug of parks) {
+    const destination = applyCuratedDestination({ slug } as Destination);
+    const { visible, issues } = reviewDestinationVisitorFacts(destination.visitorFacts, "2026-10-21");
+    assert.deepEqual(issues, [], slug);
+    assert.deepEqual(new Set(visible.map(({ topic }) => topic)), new Set(["admission", "hours"]), slug);
+    assert.equal(visible.length, 2, slug);
+    assert.ok(visible.every(({ sourceUrl }) => sourceUrl.startsWith("https://tpwd.texas.gov/state-parks/")), slug);
+    assert.equal(reviewDestinationVisitorFacts(destination.visitorFacts, "2027-03-01").visible.length, 0, slug);
+  }
+});
