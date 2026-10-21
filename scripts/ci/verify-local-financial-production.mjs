@@ -245,6 +245,78 @@ async function verifyEscobaresTaxingUnit() {
   }
 }
 
+// Production contract: all evidence-backed local tax-rate supplements and
+// the cross-workbook Woodlands classification must remain correct on both
+// canonical and direct-Worker responses.
+const verifiedLocalTaxingUnits = [
+  { slug: 'city-of-little-river-academy', year: 2024, rate: '0.410001', agency: 'Bell County Appraisal District' },
+  { slug: 'cooper', year: 2024, rate: '0.649272', agency: 'Delta County Appraisal District' },
+  { slug: 'escobares', year: 2024, rate: '0.340447', agency: 'Starr Central Appraisal District' },
+  { slug: 'miami', year: 2024, rate: '0.870299', agency: 'Roberts County Tax Assessor-Collector' },
+  { slug: 'rio-grande-city', year: 2024, rate: '0.521090', agency: 'Starr Central Appraisal District' },
+  { slug: 'roma', year: 2024, rate: '0.567900', agency: 'Starr Central Appraisal District' },
+  { slug: 'southside-place', year: 2024, rate: '0.340896', agency: 'City of Southside Place' },
+  { slug: 'stafford', year: 2024, rate: '0.000000', agency: 'City of Stafford', zeroCity: true },
+  { slug: 'culberson-county', year: 2025, rate: '0.1330247', agency: 'Culberson County Appraisal District', latest: true },
+  { slug: 'post-oak-bend', year: 2025, rate: '0.000000', agency: 'City of Post Oak Bend', zeroCity: true, latest: true },
+  { slug: 'van-horn', year: 2025, rate: '0.492123', agency: 'Culberson County Appraisal District', latest: true },
+];
+const taxHistoryOrigins = [
+  ['canonical', origin],
+  ['direct-worker', 'https://texasdefined-site.freddy-coppola.workers.dev'],
+];
+
+async function verifySourcedTaxingUnit({ slug, year, rate, agency, latest, zeroCity }) {
+  const path = '/property-tax/taxing-unit/' + slug;
+  for (const [target, host] of taxHistoryOrigins) {
+    const label = 'tax-unit:' + slug + ':' + target;
+    try {
+      const { response, body } = await fetchProduction(path, host);
+      const required = [
+        'Annual tax rates, with source distinctions',
+        'Locally verified', agency, rate, String(year), 'display-only',
+        origin + path,
+      ];
+      if (latest) required.push('Latest independently verified local rate (display only)');
+      if (zeroCity) required.push('A zero <strong>city</strong> rate does not mean');
+      if (slug === 'culberson-county') required.push('separately levied local districts or road/F&amp;M taxes');
+      const missing = required.filter((needle) => !body.includes(needle));
+      if (!response.ok) fail(label, 'HTTP ' + response.status);
+      else if (missing.length) fail(label, 'missing source-qualified rate details: ' + missing.join(', '));
+      else {
+        console.log('[' + label + '] verified ' + year + ' source-qualified rate ' + rate);
+        appendSummary('| ✅ pass | ' + label + ' | ' + year + ': ' + rate + '/$100, agency cited, display-only |\n');
+      }
+    } catch (error) {
+      fail(label, error instanceof Error ? error.message : String(error));
+    }
+  }
+}
+
+async function verifyWoodlandsClassification() {
+  const path = '/property-tax/taxing-unit/the-woodlands-township';
+  for (const [target, host] of taxHistoryOrigins) {
+    const label = 'tax-unit:the-woodlands-township:' + target;
+    try {
+      const { response, body } = await fetchProduction(path, host);
+      const required = [
+        'The Woodlands Township property tax rate',
+        'Annual tax rates, with source distinctions',
+        '5 of 5', 'Harris County', 'Montgomery County', origin + path,
+      ];
+      const missing = required.filter((needle) => !body.includes(needle));
+      if (!response.ok) fail(label, 'HTTP ' + response.status);
+      else if (missing.length) fail(label, 'mixed or missing histories: ' + missing.join(', '));
+      else {
+        console.log('[' + label + '] confirmed one classification across five annual rates');
+        appendSummary('| ✅ pass | ' + label + ' | five tax years, single classification, two counties |\n');
+      }
+    } catch (error) {
+      fail(label, error instanceof Error ? error.message : String(error));
+    }
+  }
+}
+
 appendSummary('\n## Local financial production verification\n\n');
 appendSummary('| Result | Surface | Contract |\n|---|---|---|\n');
 
@@ -253,6 +325,8 @@ await runWithConcurrency(costOfLivingPages, verifyCostOfLiving);
 await runWithConcurrency(salaryNeededPages, verifySalaryNeeded);
 await runWithConcurrency(propertyTaxSamples, verifyPropertyTax);
 await verifyEscobaresTaxingUnit();
+await runWithConcurrency(verifiedLocalTaxingUnits, verifySourcedTaxingUnit);
+await verifyWoodlandsClassification();
 
 try {
   const { response, body } = await fetchProduction('/sitemap.xml');

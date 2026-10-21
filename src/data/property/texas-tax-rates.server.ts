@@ -144,8 +144,20 @@ export async function getTaxingUnitRateHistoryServer(slug: string, type?: TexasT
   if (type) query = query.eq('type', type);
   const { data, error } = await query;
   if (error) throw error;
-  const records = ((data ?? []) as TaxRateRow[]).map(mapTaxRateRow);
+  let records = ((data ?? []) as TaxRateRow[]).map(mapTaxRateRow);
   if (!records.length) return records;
+  // A slug is not guaranteed unique across source-workbook types. The Woodlands
+  // Township appears as both a city and a special district for 2021–2023,
+  // but only as a special district for 2024–2025. Never interleave two
+  // classified sources into a single year-by-year history or count a year twice.
+  if (!type && new Set(records.map((record) => record.type)).size > 1) {
+    const newestYear = Math.max(...records.map((record) => record.year));
+    const latestTypes = [...new Set(records.filter((record) => record.year === newestYear).map((record) => record.type))];
+    if (latestTypes.length !== 1) {
+      throw new Error(`Ambiguous taxing-unit classification for slug "${slug}"; specify type explicitly`);
+    }
+    records = records.filter((record) => record.type === latestTypes[0]);
+  }
   // Local supplements are only joined to detailed taxing-unit history pages.
   // County rollups, statewide insights, and parcel calculators continue to
   // consume original Comptroller records without an implicit override.

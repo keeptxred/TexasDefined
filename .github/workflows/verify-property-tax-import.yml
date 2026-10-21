@@ -10,6 +10,8 @@ on:
       - 'src/routes/property-tax.taxing-unit.$unit.tsx'
       - 'scripts/ci/property-tax-sync-contract.test.mjs'
       - 'scripts/ci/property-tax-change-ledger-contract.test.mjs'
+      - 'scripts/ci/property-tax-history-integrity.test.mjs'
+      - 'scripts/ci/verify-local-financial-production.mjs'
       - '.github/workflows/verify-property-tax-import.yml'
 
 permissions:
@@ -24,7 +26,7 @@ jobs:
         with:
           node-version: '22'
       - name: Verify importer rollback, provenance and override invariants
-        run: node --test scripts/ci/property-tax-sync-contract.test.mjs scripts/ci/property-tax-change-ledger-contract.test.mjs
+        run: node --test scripts/ci/property-tax-sync-contract.test.mjs scripts/ci/property-tax-change-ledger-contract.test.mjs scripts/ci/property-tax-history-integrity.test.mjs
       - uses: denoland/setup-deno@v2
         with:
           deno-version: v2.x
