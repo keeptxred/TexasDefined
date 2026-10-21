@@ -192,7 +192,7 @@ export function TexasRiversAfterArticle() {
         <div className="max-w-3xl">
           <p className="eyebrow text-primary">Keep exploring</p>
           <h2 id="river-profiles-heading" className="mt-2 font-display text-2xl sm:text-3xl">Explore All 15 Major Texas River Basins</h2>
-          <p className="mt-3 text-sm leading-6 text-muted-foreground">The statewide guide gives you the big picture. Every major basin recognized by the Texas Water Development Board now has a dedicated TexasDefined guide explaining where the river runs, what feeds it, its major reservoirs and what visitors should know. Some photos are representative rather than pictures of the exact named river, so always verify current water conditions and public access with the responsible agency.</p>
+          <p className="mt-3 text-sm leading-6 text-muted-foreground">The statewide guide gives you the big picture. Every major basin recognized by the Texas Water Development Board now has a dedicated TexasDefined guide explaining where the river runs, what feeds it, its major reservoirs and what visitors should know. Each river card now identifies a photograph of its named river or main tributary and credits the source and reuse license. Other destination photography may illustrate a related park or reservoir rather than a specific river reach. For current water conditions and legal public access, consult the responsible agency before visiting.</p>
         </div>
         <RiverProfileCards />
       </section>
