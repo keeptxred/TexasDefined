@@ -40,7 +40,7 @@
       "boyd",
       "boys-ranch"
     ],
-    "state": "ALL_25_DEPLOYED_AWAITING_INDIVIDUAL_ACCEPTANCE",
+    "state": "ALL_25_PUBLISHED_DELIVERED_EDITORIAL_FOLLOWUPS_OPEN",
     "dateAssigned": "2026-10-14",
     "selectionRule": "Next 25 NOT_REVIEWED unassigned canonical football schools after verified Batch 005; protect all 105 VERIFIED.",
     "individuallyVerified": 0,
@@ -53,7 +53,7 @@
     "implementedOnBranch": 25,
     "remainingToImplement": 0,
     "remainingToVerify": 25,
-    "notes": "All 25 school pages DEPLOYED. Full Batch006 Chrome run #39273758531 on October 19 PASS: 75/75 school viewports, 23/23 county links, 25/25 sitemap entries, 98 screenshots, zero chunk errors, exactly one observed Worker version b4c9dfca. Version matches production deploy #39269777322 (git a20871a). Harness PR #5222 protected-merged ffbf48b. Separately, individual nine-dimension factual/editorial/rights/human-accessibility approval remains 0/25: do not promote any school to VERIFIED. Prior 105 VERIFIED protected. No Batch007.",
+    "notes": "All 25 program-specific guides and source-derived result illustrations are published. New live Chrome run #39532328953: 75/75 school, 75/75 graphics, 23/23 counties, 25/25 sitemap, 0 JS failures; overall job FAILED single-Worker consistency because three observed 100% Cloudflare deployments overlapped run; do not misstate job as success. Publication workstream complete, formal editorial photo-rights/manual WCAG/source acceptance open (0/25). Prior 105 VERIFIED preserved.",
     "technicalBrowserAcceptance": {
       "runId": 39273758531,
       "runUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/39273758531",
@@ -85,6 +85,33 @@
       "schoolPhotoRightsIndividuallyAccepted": false,
       "individualStatusPromotion": false,
       "limitation": "Bounded real-Chrome structural/SEO/schema/current-record/county/sitemap tests. Does not independently certify every factual claim, image right, human WCAG test or reviewer signoff."
+    },
+    "publicationDelivery": {
+      "status": "PUBLISHED_COMPLETE",
+      "publishedSchools": 25,
+      "asOf": "2026-10-20",
+      "graphicCodeMergePr": 5441,
+      "graphicCodeMergeSha": "5eea5af958d55180101dab48565df52e4bc46b79",
+      "postGraphicsChromeRun": 39532328953,
+      "postGraphicsChromeUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/39532328953",
+      "postGraphicsEvidenceArtifact": 12315713105,
+      "schoolViewCasesPassed": 75,
+      "graphicCasesPassed": 75,
+      "graphicScreenshots": 75,
+      "countyLinksPassed": 23,
+      "sitemapEntriesPassed": 25,
+      "firstPartyJavaScriptErrors": 0,
+      "strictSingleWorkerVersionPassed": false,
+      "strictRunConclusion": "failure",
+      "observedWorkerVersions": [
+        "0cee8040-509e-4623-b92a-afabd0b46a29",
+        "1cc62935-9f46-4cef-8dcf-2f1f7f8d651d",
+        "b5527744-d73b-45a5-8db6-36697dfaae72"
+      ],
+      "failureExplanation": "Three separately confirmed Cloudflare 100%-traffic deployments occurred during the live Chrome run; all content/graphics/county/sitemap checks passed but required single-Worker-version consistency did not.",
+      "individualEditorialAccepted": 0,
+      "remainingManualEditorialReviews": 25,
+      "notEquivalentToVerified": true
     }
   },
   "statusValues": [
