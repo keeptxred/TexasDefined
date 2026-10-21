@@ -553,6 +553,41 @@
     surface.prepend(choice);
   }
 
+  function unifyFortMcKavettBookingActions(surface, choice) {
+    // The two booking integrations share one real panel on this historic-site
+    // route. Move the original Expedia button (including its existing click
+    // handler), NOT a clone or new unaudited affiliate link.
+    if (window.location.pathname.replace(/\\/+$/, "") !== "/destination/fort-mckavett") return;
+    const panel = choice.querySelector(".td-stay-affiliate-panel");
+    const actions = panel?.querySelector(".td-stay-affiliate-actions");
+    const vrbo = actions?.querySelector('a[data-affiliate-partner="vrbo"]');
+    const expediaButton = surface.querySelector('button[data-expedia-stays-search="true"]');
+    if (!panel || !actions || !vrbo || !expediaButton) return;
+
+    if (!expediaButton.classList.contains("td-stay-affiliate-button")) {
+      expediaButton.className = "td-stay-affiliate-button td-stay-affiliate-button--secondary";
+      expediaButton.textContent = "Search Expedia stays";
+      expediaButton.setAttribute("aria-label", "Search Expedia stays on this page");
+    }
+    if (expediaButton.parentElement !== actions || expediaButton.nextElementSibling !== vrbo)
+      actions.insertBefore(expediaButton, vrbo);
+
+    // Reveal Expedia's real deferred search inside the same booking box.
+    const widgetHost = surface.querySelector(".td-stay-widget-host");
+    if (widgetHost && widgetHost.parentElement !== panel) panel.appendChild(widgetHost);
+
+    const disclosure = panel.querySelector(".td-stay-affiliate-disclosure");
+    if (disclosure) {
+      const fullDisclosure = "Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com, Travelocity, Vrbo or Expedia bookings, at no additional cost to you. Availability, rates and booking terms are provided by each booking service.";
+      if (disclosure.textContent !== fullDisclosure) disclosure.textContent = fullDisclosure;
+    }
+    // One disclosure and one bordered box. The Expedia host is preserved
+    // until a visitor chooses to search; no vendor library loads automatically.
+    surface.querySelector('[data-expedia-disclosure="true"]')?.remove();
+    const emptyFallback = surface.querySelector(":scope > .mx-auto");
+    if (emptyFallback && !emptyFallback.children.length) emptyFallback.remove();
+  }
+
   function upgradeExactPropertyCards(surface) {
     if (!surface || surface.dataset.surfaceType !== "curated") return;
     for (const card of surface.querySelectorAll(".td-stay-card")) {
@@ -599,6 +634,7 @@
       if (resolvedChoiceMode !== choiceMode) choice.dataset.mode = resolvedChoiceMode;
     }
     placeBookingChoice(expediaSurface, choice, exactPropertyFirst);
+    unifyFortMcKavettBookingActions(expediaSurface, choice);
 
     promoteStaySurface(expediaSurface);
     ensureProminentStayCta(expediaSurface);
