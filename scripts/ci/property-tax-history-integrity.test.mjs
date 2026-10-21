@@ -68,6 +68,18 @@ test('JSON-LD attribution includes every historical Comptroller workbook, not ju
   assert.doesNotMatch(route,/citation: \[latest\.sourceUrl/);
 });
 
+test('year-specific official local evidence and verification date are visible on tax pages',()=>{
+  assert.match(server,/verified_on:|verifiedOn: local\.verified_on/);
+  assert.match(server,/evidenceNote: local\.evidence_note/);
+  assert.match(route,/localEvidenceNote: local\?\.evidenceNote/);
+  assert.match(route,/localVerifiedOn: local\?\.verifiedOn/);
+  assert.match(route,/How the locally sourced rates were verified/);
+  assert.match(route,/record\.localEvidenceNote/);
+  assert.match(route,/record\.localVerifiedOn/);
+  assert.match(route,/dateTime=\{record\.localVerifiedOn\}/);
+  assert.match(route,/These source notes do not authorize using local figures/);
+});
+
 test('Woodlands production H1 verification tolerates SSR text nodes without dropping history checks',()=>{
   assert.match(smoke,/async function verifyWoodlandsClassification\(\)/);
   assert.match(smoke,/heading\.replace\(\/<\[\^>\]\*>\//);
