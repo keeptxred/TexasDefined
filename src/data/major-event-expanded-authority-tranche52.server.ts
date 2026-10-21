@@ -578,7 +578,267 @@ const records: MajorEventAuthorityRecord[] = [
         "url": "https://www.southeasttexascircleofhope.com/event-details/beaumont-pardi-gras-2027"
       }
     ]
+  },
+
+  {
+    "slug": "mardi-gras-on-the-sabine-orange",
+    "name": "Mardi Gras on the Sabine — Orange",
+    "city": "Orange",
+    "countySlug": "orange",
+    "countyName": "Orange County",
+    "region": "gulf-coast",
+    "category": "culture",
+    "startDate": "2026-02-07",
+    "endDate": "2026-02-07",
+    "dateNote": "Historical occurrence only: Saturday February 7, 2026. The City of Orange explicitly states that 2027 information will be published later; no future date is currently confirmed.",
+    "venue": "Riverfront Boardwalk & Pavilion, Downtown Orange",
+    "officialUrl": "https://orangetexas.gov/407/Mardi-Gras-on-the-Sabine",
+    "sourceCheckedAt": "2026-10-21",
+    "whyItMatters": "Orange's riverfront Mardi Gras combines Cajun food and music with the Krewe of Krewes procession, second-line participation and a parade for children. The city verifies its February 7, 2026 festival but explicitly says 2027 dates and details will be announced later. This is a historic planning guide, not an announced 2027 event.",
+    "quickFacts": [
+      {
+        "label": "Next 2027 festival",
+        "value": "Date not announced by City of Orange as of October 21, 2026"
+      },
+      {
+        "label": "Most recently verified festival",
+        "value": "February 7, 2026 — already completed"
+      },
+      {
+        "label": "Historic festival location",
+        "value": "Riverfront Boardwalk & Pavilion, downtown Orange"
+      },
+      {
+        "label": "2026 entry",
+        "value": "City listed free public admission; 2027 terms not yet confirmed"
+      }
+    ],
+    "planningSections": [
+      {
+        "title": "2027 is pending — do not reuse the 2026 Saturday",
+        "body": "The City's official event page specifically says 2027 information will be updated later. February 7 was the 2026 event date, not a template for the next Carnival weekend. Wait for a year-specific announcement before reserving a nonrefundable trip."
+      },
+      {
+        "title": "Understand the riverfront event layout",
+        "body": "In 2026 the main festival occupied the Boardwalk and Pavilion near downtown Orange's parade corridor. A second-line march and Krewe de Kids procession complemented the larger Krewe of Krewes parade. Verify that the 2027 site layout and procession order have not changed."
+      },
+      {
+        "title": "Think about family participation versus spectatorship",
+        "body": "The 2026 city program let children join a parade with decorated wagons or strollers after registration, and promoted participation in a brass-band second line. Similar opportunities are not yet promised for 2027; check entry rules, registration deadlines and age guidance on the next official schedule."
+      },
+      {
+        "title": "Don't infer admission or concert headliners from last year",
+        "body": "Orange called the 2026 festival free, with concerts at its Riverfront Pavilion. These were specifics of the completed event. The city must reconfirm 2027 tickets, hours, performers, vendor policies and accessible pathways."
+      },
+      {
+        "title": "Build a Sabine River day trip",
+        "body": "Historic downtown Orange, nearby museums and the riverfront can support a visit once the date is official. Parking, road closures, event-day traffic and weather contingency should be checked close to travel."
+      }
+    ],
+    "relatedLinks": [
+      {
+        "href": "/events/mardi-gras",
+        "label": "Mardi Gras across Texas",
+        "description": "See 2027 dates already confirmed elsewhere."
+      },
+      {
+        "href": "/county/orange",
+        "label": "Orange County",
+        "description": "Explore other Orange-area experiences."
+      },
+      {
+        "href": "/event/mardi-gras-port-arthur",
+        "label": "Port Arthur Mardi Gras",
+        "description": "Compare the separately confirmed southeast Texas festival."
+      }
+    ],
+    "sources": [
+      {
+        "label": "City of Orange official Mardi Gras on the Sabine page",
+        "url": "https://orangetexas.gov/407/Mardi-Gras-on-the-Sabine"
+      },
+      {
+        "label": "City of Orange 2026 FAQ (historical details only)",
+        "url": "https://orangetexas.gov/m/faq?cat=31"
+      }
+    ]
+  },
+  {
+    "slug": "oak-cliff-mardi-gras-parade",
+    "name": "Oak Cliff Mardi Gras Parade — Dallas",
+    "city": "Dallas",
+    "countySlug": "dallas",
+    "countyName": "Dallas County",
+    "region": "prairies-lakes",
+    "category": "culture",
+    "startDate": "2026-02-15",
+    "endDate": "2026-02-15",
+    "dateNote": "Completed historical 2026 parade: Sunday, February 15 at 1 p.m. The Go Oak Cliff organizer has not yet posted a confirmed 2027 date.",
+    "venue": "West Davis Street, Oak Cliff",
+    "officialUrl": "https://gooakcliff.org/mardigras",
+    "sourceCheckedAt": "2026-10-21",
+    "whyItMatters": "Oak Cliff celebrates Mardi Gras with a major neighborhood parade down Davis Street, drawing floats, bands, costumes and families to Dallas's Bishop Arts area. Go Oak Cliff confirms that the previous edition ran Sunday, February 15, 2026 at 1 p.m.; no 2027 date was posted when this guide was researched.",
+    "quickFacts": [
+      {
+        "label": "2027 parade date",
+        "value": "Not yet confirmed by Go Oak Cliff"
+      },
+      {
+        "label": "Most recent organizer-confirmed date",
+        "value": "Sunday, February 15, 2026 — completed"
+      },
+      {
+        "label": "Previous parade corridor",
+        "value": "Davis Street, from Nova near the Kessler Theater toward Bishop Arts"
+      },
+      {
+        "label": "Transportation advice",
+        "value": "Organizer recommends transit, bikes or rideshares; road closures vary"
+      }
+    ],
+    "planningSections": [
+      {
+        "title": "Wait for Go Oak Cliff's 2027 route and date",
+        "body": "The organizer's active site still presents the 2026 parade on Sunday, February 15. That is not permission to publish a 2027 parade date or starting time. Use the current organizer page before planning a specific visit."
+      },
+      {
+        "title": "The Davis Street corridor is the draw",
+        "body": "In 2026 the parade began near Nova and the Kessler Theater, traveled along Davis Street and headed toward Bishop Arts. It is a walkable neighborhood celebration, not a downtown Dallas stadium event. Updated road closures and any new route map take precedence over that previous pattern."
+      },
+      {
+        "title": "Use transit or park outside restrictive blocks",
+        "body": "Go Oak Cliff recommended biking, rideshare and transit for the 2026 crowd. It also identified past legal parking options, but residential permit zones and temporary restrictions can change; do not reuse old lot availability as a guarantee."
+      },
+      {
+        "title": "Plan a family-friendly viewing spot",
+        "body": "The organizer promoted its prior parade as family-friendly. Find a public viewing place early, keep children away from floats and streets, and confirm stroller accessibility and public facilities on the 2027 map when available."
+      },
+      {
+        "title": "Make it a Bishop Arts day",
+        "body": "Restaurants, shops and neighborhood arts near Bishop Arts make a natural complement. Business hours and walkability can change during road closures, so book meals and plan return transportation according to the current event map."
+      }
+    ],
+    "relatedLinks": [
+      {
+        "href": "/events/mardi-gras",
+        "label": "Texas Mardi Gras hub",
+        "description": "See confirmed 2027 celebrations while Dallas dates remain pending."
+      },
+      {
+        "href": "/county/dallas",
+        "label": "Explore Dallas County",
+        "description": "Plan Bishop Arts and Oak Cliff experiences."
+      },
+      {
+        "href": "/event/mardi-gras-upriver-jefferson",
+        "label": "Jefferson Mardi Gras",
+        "description": "Compare a confirmed East Texas festival."
+      }
+    ],
+    "sources": [
+      {
+        "label": "Go Oak Cliff — official Mardi Gras organizer page",
+        "url": "https://gooakcliff.org/mardigras"
+      },
+      {
+        "label": "Go Oak Cliff — 2026 parade registration and route (historical)",
+        "url": "https://www.eventeny.com/events/vendor/?id=37313"
+      }
+    ]
+  },
+  {
+    "slug": "mardi-gras-southeast-texas-beaumont",
+    "name": "Mardi Gras of Southeast Texas — Beaumont",
+    "city": "Beaumont",
+    "countySlug": "jefferson",
+    "countyName": "Jefferson County",
+    "region": "gulf-coast",
+    "category": "culture",
+    "startDate": "2026-02-12",
+    "endDate": "2026-02-15",
+    "dateNote": "Historical 2026 dates only: February 12–15, 2026 at Doggett Ford Park, Beaumont. The organizer has not yet posted a verified 2027 schedule.",
+    "venue": "Doggett Ford Park, Beaumont (2026 venue)",
+    "officialUrl": "https://mardigrastx.com/",
+    "sourceCheckedAt": "2026-10-21",
+    "whyItMatters": "Mardi Gras of Southeast Texas is an established nonprofit festival with large parades, concerts, food vendors, carnival activities and community participation. After decades in Port Arthur it moved to Beaumont. Its most recent clearly verified run was February 12–15, 2026 at Doggett Ford Park, and its 2027 program should not be confused with the separately announced Mardi Gras Port Arthur reboot.",
+    "quickFacts": [
+      {
+        "label": "2027 festival",
+        "value": "Organizer-confirmed dates not yet found as of October 21, 2026"
+      },
+      {
+        "label": "Last verified festival",
+        "value": "February 12–15, 2026 — completed"
+      },
+      {
+        "label": "Previous venue",
+        "value": "Doggett Ford Park, Beaumont"
+      },
+      {
+        "label": "Event type",
+        "value": "Parades plus ticketed festival entertainment; individual access policies differ"
+      }
+    ],
+    "planningSections": [
+      {
+        "title": "Confirm the festival's venue and dates afresh",
+        "body": "The organization's website still centers on its February 2026 event. Its prior home was Port Arthur, but the more recent festival moved to Beaumont. It is inaccurate to route 2027 visitors to the original Port Arthur site or to assign the new Port Arthur event to this organizer."
+      },
+      {
+        "title": "Parade viewing versus festival gate access",
+        "body": "Beaumont tourism has described public parade viewing outside festival gates and paid entertainment inside. Actual 2027 gate fees, pass options, concert seating and free areas must come from the next organizer schedule, not from an outdated ticket table."
+      },
+      {
+        "title": "Families have multiple kinds of entertainment",
+        "body": "The established event has included carnival rides, marching units, a children's procession and family activities. These are historical offerings, not a 2027 promise. Confirm the upcoming lineup and children's rules before buying tickets."
+      },
+      {
+        "title": "Allow time for a regional festival",
+        "body": "Concert stages, vendors and major parade routes can mean multiple parking and access points. Check the specific published year's ground plan, accessible parking, shuttles and entry controls rather than trusting maps from a previous venue."
+      },
+      {
+        "title": "Do not mix up Southeast Texas's three Mardi Gras events",
+        "body": "Mardi Gras of Southeast Texas is a separate organization from 2027 Mardi Gras Port Arthur and Southeast Texas Circle of Hope's January 23, 2027 Beaumont Pardi Gras fundraiser. Distinguish exact host, venue and ticket site when comparing the festivals."
+      }
+    ],
+    "relatedLinks": [
+      {
+        "href": "/events/mardi-gras",
+        "label": "Mardi Gras in Texas",
+        "description": "Compare verified 2027 dates and events still awaiting schedules."
+      },
+      {
+        "href": "/county/jefferson",
+        "label": "Jefferson County",
+        "description": "Explore Beaumont and Port Arthur."
+      },
+      {
+        "href": "/event/mardi-gras-port-arthur",
+        "label": "Mardi Gras Port Arthur",
+        "description": "See the confirmed, independently organized 2027 revival."
+      },
+      {
+        "href": "/event/beaumont-pardi-gras",
+        "label": "Beaumont Pardi Gras benefit",
+        "description": "Compare the January charity event with the large festival."
+      }
+    ],
+    "sources": [
+      {
+        "label": "Mardi Gras of Southeast Texas official organizer site (2026)",
+        "url": "https://mardigrastx.com/"
+      },
+      {
+        "label": "Tour Texas — February 12–15, 2026 historical listing",
+        "url": "https://www.tourtexas.com/all-events/56238/Mardi-Gras-Southeast-Texas%2C-Inc."
+      },
+      {
+        "label": "Beaumont CVB — distinction between parade and gated festival admission",
+        "url": "https://www.beaumontcvb.com/blog/stories/post/5-things-you-can-do-every-day-at-mardi-gras-no-matter-when-you-come/"
+      }
+    ]
   }
+
 ];
 
 const bySlug = new Map(records.map(event => [event.slug, event]));
