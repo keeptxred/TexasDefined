@@ -40,7 +40,7 @@
       "bryan-rudder",
       "bryson"
     ],
-    "state": "BATCH_007_16_SCHOOL_SOURCE_IMPLEMENTATION_PENDING_QA",
+    "state": "BATCH_007_17_SCHOOL_SOURCE_IMPLEMENTATION_PENDING_QA",
     "dateAssigned": "2026-10-20",
     "selectionRule": "First 25 NOT_REVIEWED and unassigned canonical schoolRecords in stable order following 130 production VERIFIED through completed Batch 006; outstanding PR and branch conflicts checked.",
     "individuallyVerified": 0,
@@ -50,10 +50,10 @@
     "maxSchoolsPerBatch": 25,
     "currentSchool": "brownsville-lopez",
     "nextSchool": "brownsville-pace",
-    "implementedOnBranch": 16,
-    "remainingToImplement": 9,
+    "implementedOnBranch": 17,
+    "remainingToImplement": 8,
     "remainingToVerify": 25,
-    "notes": "16/25 school-specific source implementations in unmerged draft PR 5525; 9 remaining. Bryan's 1921 title and 2026 first-party coach reconciled, score conflict documented; future games remain unplayed. 0 Batch007 live VERIFIED."
+    "notes": "17 of 25 source-researched and implementation-committed school authority pages, 8 unimplemented; Bryan & Rudder separate school identity and shared Merrill Green venue protections recorded, Oct 2026 updated results source-attributed. 0 production VERIFIED."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -7715,8 +7715,17 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bryan-rudder",
-      "status": "NOT_REVIEWED",
-      "batch": 7
+      "status": "IMPLEMENTED",
+      "batch": 7,
+      "audit": "docs/football-authority/schools/bryan-rudder.md",
+      "auditCompletedAt": "2026-10-21",
+      "researchCompletedAt": "2026-10-21",
+      "implementedAt": "2026-10-21",
+      "implementedOnBranch": "football-authority-batch-007-20261020",
+      "actualProductionVerified": false,
+      "mediaStatus": "Original school-specific source-derived 2026 results graphic with independent deep-green accent; no school photograph, student-photo consent or seal/logo license claimed",
+      "implementationNotes": "Bryan Rudder (5A DII District 8), distinct from 6A Bryan High but shares Merrill Green Stadium: 2026 Ezar/Toliver/George school-run coaching, KBTX 2025 2–8, DCTF 0 title/0 final, 2026 4–3 through Oct16 after 42–15 Belton and 55–7 Brenham defeats omitted by older 4–1 archives, Rudder campus 3251 Austin's Colony vs Merrill Green 3310 Oak Ridge, stadium backpacks/adult student supervision/no cash ticketing, 9 milestones/7 bespoke FAQs, Brazos County reciprocal link and rights-safe source-results graphic.",
+      "technicalVerification": "PENDING CI + protected merge + Cloudflare deploy provenance and live 1366/390/320, FAQ/H1/canonical, score graphic/sitemap/county acceptance"
     },
     {
       "id": "uil:bryson",
