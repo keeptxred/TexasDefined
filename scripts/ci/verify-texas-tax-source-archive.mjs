@@ -35,7 +35,7 @@ async function readRows(base,key,table,query){
 
 async function exactCount(base,key,table,filters){
   const url=new URL('/rest/v1/'+table,base);
-  url.searchParams.set('select','id');
+  url.searchParams.set('select',table==='texas_property_tax_rates'?'id':'tax_year');
   url.searchParams.set('limit','1');
   for(const [k,v] of Object.entries(filters))url.searchParams.set(k,String(v));
   // Only the server-side service key can read restricted archive tables.
