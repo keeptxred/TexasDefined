@@ -152,7 +152,7 @@ for (const path of plan.selectedPaths) {
           const body = await imageResponse.text();
           if (!imageResponse.ok || imageResponse.headers.get('cf-mitigated') === 'challenge'
             || !/image\/svg\+xml/i.test(imageResponse.headers.get('content-type') || '')
-            || !/<svg\\b/.test(body) || body.length < 500) {
+            || !body.includes('<svg ') || body.length < 500) {
             throw new Error('Davis Hill image not publicly accessible as SVG: ' + asset + ' (HTTP ' + imageResponse.status + ')');
           }
         }
