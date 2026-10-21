@@ -67,6 +67,210 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "bryson": {
+    "slug": "bryson",
+    "intro": "Bryson Cowboys six-man football belongs to a small Jack County school with its own blue-and-gold song, a documented 1995 eleven-man playoff win, and three straight six-man playoff appearances recorded for 2015–17. In 2026, the Cowboys' October 16 reported 46–22 win at Perrin-Whitt brought them to 4–4, a fuller picture than the school-listing sites frozen earlier in October. This independent profile also flags conflicting published head-coach assignments instead of guessing, and distinguishes Bryson ISD's 300 North McCloud address from an unverified stadium spectator gate.",
+    "theme": {
+      "accentHex": "#2059A2",
+      "label": "Original TexasDefined blue editorial graphic informed by Bryson ISD's own Cowboys blue-and-gold school song; not an official school seal, Cowboys mascot illustration or school-owned photo"
+    },
+    "seo": {
+      "title": "Bryson Cowboys Six-Man Football | 2026 Results & School Guide",
+      "description": "Bryson Cowboys football: 2026 4–4 through Oct 16, blue-and-gold identity, 1995 11-man playoff history, 2015–17 playoff run and official Bryson ISD game notices."
+    },
+    "campus": {
+      "address": "300 North McCloud Street, Bryson, TX 76427 (official Bryson ISD mailing/school contact; stadium entry not verified)",
+      "phone": "940-392-3281",
+      "sourceUrl": "https://www.brysonisd.net/",
+      "sourceLabel": "Bryson ISD first-party website footer gives 300 N McCloud St and main office; MaxPreps says 305 and PigskinPrep names 309 as stadium but neither is verified spectator gate",
+      "verifiedAt": "2026-10-21"
+    },
+    "notice": {
+      "title": "2026 football head-coach sources conflict; ask Bryson ISD for current confirmation",
+      "body": "Bryson ISD's own administration page lists Kevin Ray as athletic director, but does not explicitly list a 2026 varsity football head coach. MaxPreps lists Kevin Ray as head coach and Justin Ramirez as assistant, whereas Six-ManFootball and PigskinPrep identify Justin Ramirez as head coach. These are conflicting third-party assignments, so this page does not certify a current head coach. For up-to-date coaching and game access, contact Bryson ISD Athletics at 940-392-3281.",
+      "sourceUrl": "https://www.brysonisd.net/vnews/display.v/ART/4b83fbdd13380",
+      "sourceLabel": "First-party Bryson ISD administration Kevin Ray athletic director; competing MaxPreps / Six-ManFootball / PigskinPrep coach records reviewed October 21",
+      "verifiedAt": "2026-10-21"
+    },
+    "schedule": {
+      "label": "Bryson ISD official school events and 2026 six-man varsity home football dates",
+      "sourceUrl": "https://www.brysonisd.net/",
+      "sourceLabel": "Bryson ISD first-party calendar names Oct 9 Oglesby away and Oct 30 Northside home at 7:30pm, First Responders Night; MaxPreps schedule names Nov 6 Newcastle home at 7:30pm",
+      "verifiedAt": "2026-10-21",
+      "officialScheduleUrl": "https://www.brysonisd.net/"
+    },
+    "season": {
+      "record": "4–4 overall through October 16, 2026 (reported third-party six-man scores, including updated Perrin-Whitt 46–22; not a school-certified final record)",
+      "verifiedAt": "2026-10-21",
+      "sourceUrl": "https://usaprepfootball.com/team/bryson-cowboys/",
+      "sourceLabel": "Texas Prep/USAPrep 2026 complete 8-game Bryson ledger; Oct 17 MaxPreps game recap reports 46–22 Perrin-Whitt and 4–4; Oct 3 MaxPreps schedule remains incomplete at 3–3",
+      "latestResultSourceUrl": "https://www.maxpreps.com/m/news/re-yqYX6vEGcqTXOluao-g/football-recap-bryson-adds-another-dominant-win-to-their-ledger.htm",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Whiteface (at Jayton)",
+          "site": "Neutral",
+          "result": "L 0–64"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Harrold",
+          "site": "Away",
+          "result": "W 94–71"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Aspermont",
+          "site": "Away",
+          "result": "L 20–69"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Rule",
+          "site": "Home",
+          "result": "W 68–24"
+        },
+        {
+          "date": "2026-09-24",
+          "opponent": "Bluff Dale",
+          "site": "Away",
+          "result": "L 66–88"
+        },
+        {
+          "date": "2026-10-02",
+          "opponent": "Woodson",
+          "site": "Home",
+          "result": "W 70–22"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Oglesby",
+          "site": "Away",
+          "result": "L 14–61"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Perrin-Whitt",
+          "site": "Away",
+          "district": true,
+          "result": "W 46–22"
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Vernon Northside",
+          "site": "Home",
+          "district": true,
+          "kickoff": "7:30 PM"
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Newcastle",
+          "site": "Home",
+          "district": true,
+          "kickoff": "7:30 PM"
+        }
+      ]
+    },
+    "development": {
+      "title": "Bryson has played different formats across its history",
+      "body": "The original UIL 1995 Conference 1A eleven-man playoffs archive records Bryson defeating Gorman 12–8 in a bi-district game before losing 26–6 to Hico in the area round. That is an older 11-man bracket: Bryson is now a six-man Class 1A Division I District 9 school, not a 2026 eleven-man qualifier. Six-ManFootball's separately tracked program history records three consecutive six-man postseasons in 2015–17 and six consecutive district victories during 2016–17. Recent MaxPreps 2025 results give a 5–5 season. None of those postseason facts imply a UIL state championship; an independent modern database reports zero football state titles.",
+      "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/playoff_text/95at_bfb.html",
+      "sourceLabel": "UIL original 1995 11-man bracket for Bryson; Six-ManFootball longitudinal team records; 2025 MaxPreps season and 2026 Texas Prep source",
+      "verifiedAt": "2026-10-21"
+    },
+    "milestones": [
+      {
+        "date": "1995",
+        "title": "Bryson wins a UIL 11-man bi-district playoff game",
+        "body": "In the original UIL Conference 1A eleven-man bracket, Bryson beat Gorman 12–8 in bi-district play then lost 26–6 to Hico at area. This historical participation occurred in 11-man football, not the current six-man division.",
+        "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/playoff_text/95at_bfb.html",
+        "sourceLabel": "1995 UIL original Class A football 11-man postseason bracket"
+      },
+      {
+        "date": "2015–2017",
+        "title": "Three consecutive six-man football playoff years",
+        "body": "Six-ManFootball's team database identifies 2015, 2016 and 2017 as a three-season consecutive playoff streak for Bryson; do not treat this streak as evidence of an appearance in the state championship game.",
+        "sourceUrl": "https://sixmanfootball.com/teams/bryson-cowboys.1071/",
+        "sourceLabel": "Six-ManFootball Bryson Cowboys historical program summary"
+      },
+      {
+        "date": "2016–2017",
+        "title": "Six consecutive district football victories",
+        "body": "The Six-ManFootball program-records page tracks a six-game consecutive district winning streak spanning 2016–17. The site has its own historical coverage limits, so it is not an all-time UIL title assertion.",
+        "sourceUrl": "https://sixmanfootball.com/teams/bryson-cowboys.1071/",
+        "sourceLabel": "Six-ManFootball Bryson individual all-era team records"
+      },
+      {
+        "date": "2025",
+        "title": "Cowboys finish 5–5 after high-scoring district matchups",
+        "body": "MaxPreps' 2025 full 10-game result list records a 5–5 overall season, including a 70–72 defeat at Perrin-Whitt and 63–54 home victory over Knox City.",
+        "sourceUrl": "https://www.maxpreps.com/tx/bryson/bryson-cowboys/football/25-26/schedule/",
+        "sourceLabel": "MaxPreps 2025-26 final school football schedule"
+      },
+      {
+        "date": "August 28, 2026",
+        "title": "Six-man opener against Whiteface is played at Jayton",
+        "body": "The opponent's Six-ManFootball first-week record says 'at Jayton', Whiteface 64, Bryson 0. The venue is a neutral location rather than automatically being Bryson's own home stadium, even though some team schedule pages mark Bryson as home.",
+        "sourceUrl": "https://sixmanfootball.com/teams/whiteface-antelopes.1661/schedule/",
+        "sourceLabel": "Whiteface Antelopes 2026 six-man Week 1 result with explicit Jayton location"
+      },
+      {
+        "date": "September 4, 2026",
+        "title": "The Cowboys score 94 in a 94–71 victory at Harrold",
+        "body": "Bryson's unusual six-man score is reported as 94–71 over Harrold, a useful example of six-man football's different scoring pace. It is not a school enrollment figure or title-game record.",
+        "sourceUrl": "https://www.maxpreps.com/tx/bryson/bryson-cowboys/football/schedule/",
+        "sourceLabel": "MaxPreps 2026 game-by-game scores and 2026 complete Texas Prep results"
+      },
+      {
+        "date": "October 16, 2026",
+        "title": "46–22 win at Perrin-Whitt evens reported record at 4–4",
+        "body": "MaxPreps' October 17 game recap confirms the varsity Bryson Cowboys won 46–22 over Perrin-Whitt in an away district contest and rose to 4–4. The Oct 3 static schedule omits this final and October 9 loss.",
+        "sourceUrl": "https://www.maxpreps.com/m/news/re-yqYX6vEGcqTXOluao-g/football-recap-bryson-adds-another-dominant-win-to-their-ledger.htm",
+        "sourceLabel": "MaxPreps Oct 17 2026 game recap; corroborated by Perrin-Whitt Texas Prep results"
+      },
+      {
+        "date": "October 30, 2026",
+        "title": "First Responders Night home game with Vernon Northside",
+        "body": "Bryson ISD's own calendar announces varsity football vs Northside on October 30, 7:30pm, as First Responders Night. That official school event is separate from San Antonio Northside ISD's much larger football network.",
+        "sourceUrl": "https://www.brysonisd.net/",
+        "sourceLabel": "Bryson ISD October 2026 first-party events calendar"
+      }
+    ],
+    "overview": [
+      "The Bryson Cowboys are Bryson ISD's Jack County six-man football team, competing in UIL Class 1A Division I District 9 in the 2026–28 alignment. The school's own school song identifies Cowboys in blue and gold, and its administrative contact address is 300 North McCloud Street, Bryson TX 76427. That is not independently proved to be a stadium ticket gate or visitor parking entrance.",
+      "The history is more interesting than the contemporary schedule. The original UIL 1995 Class A **eleven-man** playoff bracket lists Bryson beating Gorman 12–8 before a 26–6 loss to Hico. Later the program participated in **six-man** football; Six-ManFootball tracks three straight playoff years in 2015–17 and six consecutive district wins during 2016–17. Neither is a state-title claim, and a historical girls basketball appearance must not be mislabeled football.",
+      "Bryson's current 2026 head-coaching attribution conflicts in ways directory aggregators conceal. Its own ISD administration page names Kevin Ray as athletic director. MaxPreps says Kevin Ray head football coach and Justin Ramirez assistant; Six-ManFootball and PigskinPrep say Justin Ramirez head coach. No first-party 2026 football-specific confirmation was identified. Contact Bryson ISD before listing a person as verified head coach; Kevin Ray remains identifiable as ISD athletics director.",
+      "The Cowboys finished the 2025 football season 5–5 according to the complete MaxPreps schedule. Their first eight 2026 results total 4–4 through the October 16 Perrin-Whitt 46–22 win. Some Oct 3 MaxPreps pages were stuck at six results, while a freshly published October 17 game recap independently reports 4–4; future Vernon Northside and Newcastle contests should not be invented as scores.",
+      "The 2026 six-man calendar includes exceptional scoring variations: 94–71 at Harrold, 66–88 at Bluff Dale, and 70–22 over Woodson. The August 28 Whiteface match was listed at Jayton according to its opponent's schedule, while MaxPreps' earlier home/away page used a misleading home designation. The sourced game-by-game visual avoids converting the neutral-site opener into a home stadium claim.",
+      "Bryson ISD's official calendar names the October 30 Vernon Northside home fixture as First Responders Night at 7:30 p.m. and MaxPreps lists Newcastle on November 6 at 7:30 p.m. The ISD campus address (300 N McCloud) differs from a third-party venue listing (309 McCloud), and the exact public gate, accessibility, restrooms, ticket sale and parking data could not be confirmed. Readers should call the district before attending rather than relying on guessed stadium logistics."
+    ],
+    "faq": [
+      {
+        "question": "Is Bryson football six-man or 11-man in 2026?",
+        "answer": "Bryson is a 2026 UIL Class 1A Division I six-man team in District 9. UIL's authentic 1995 archive also documents earlier Conference 1A 11-man playoff games for Bryson. Those historical bracket results do not mean it currently plays 11-man football."
+      },
+      {
+        "question": "What is Bryson Cowboys football's 2026 record?",
+        "answer": "Reported results through the Friday October 16 win at Perrin-Whitt put Bryson at 4–4 overall, per the October 17 MaxPreps game recap and corroborating Texas Prep game ledger. Older MaxPreps schedule pages show only six games and are not current as of October 21."
+      },
+      {
+        "question": "Who is Bryson's 2026 head football coach?",
+        "answer": "The sources conflict. Bryson ISD officially lists Kevin Ray as athletic director; MaxPreps labels him football head coach and Justin Ramirez assistant, but Six-ManFootball and PigskinPrep list Justin Ramirez as head coach. The school has not independently certified the current football head-coach role in the first-party material reviewed. Ask Bryson ISD at 940-392-3281 for a definitive name."
+      },
+      {
+        "question": "Has Bryson won a UIL state football championship?",
+        "answer": "No state football title is recorded for Bryson in the checked UIL all-time state-final and independently maintained Texas Prep results. Its 1995 eleven-man area round and 2015–17 three-year six-man playoff streak should not be counted as state title-game wins."
+      },
+      {
+        "question": "Where is Bryson High School and its home football field?",
+        "answer": "Bryson ISD's official school/contact address is 300 North McCloud Street, Bryson TX 76427. PigskinPrep lists the Cowboys field as 309 McCloud and MaxPreps 305 McCloud, but neither source confirms public spectator gates or accessibility, so the official district contact should be used for current field directions."
+      },
+      {
+        "question": "Where can I find future Bryson football games and tickets?",
+        "answer": "Bryson ISD's own calendar lists October 30, 2026 home vs Vernon Northside as First Responders Night at 7:30 p.m. MaxPreps lists Newcastle at Bryson November 6 at 7:30 p.m. No verified current online ticket provider, game-gate cash policy or accessible parking guide was identified; contact Bryson ISD for exact game-day access."
+      }
+    ]
+  },
   "bryan-rudder": {
     "slug": "bryan-rudder",
     "intro": "Bryan Rudder's Rangers are a separate Bryan ISD football program from the Bryan High Vikings, though both host varsity games at district-run Merrill Green Stadium. Rudder's 2026 program under longtime head coach Eric Ezar entered the October 23 Waco University fixture 4–3 after an early 40–34 win over Bryan High and consecutive 42–15 and 55–7 district defeats. The Rangers' more recent football history is a single documented playoff appearance, not a claimed UIL state-title pedigree.",
