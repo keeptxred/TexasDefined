@@ -45,6 +45,23 @@ const UIL_ELIGIBILITY_URL = 'https://www.uiltexas.org/policy/eligibility';
 const UIL_DETAILED_ELIGIBILITY_URL = 'https://www.uiltexas.org/policy/constitution/general/eligibility';
 const UIL_EXACT_ENROLLMENT_URL = 'https://www.uiltexas.org/files/alignments/Alpha_26-28.pdf';
 
+// Turn authored HTTPS references in football FAQ answers into keyboard-accessible
+// source links. Retain the original question/answer text for FAQ JSON-LD parity;
+// never interpret arbitrary markup or permit javascript:/http: destinations.
+function renderFootballFaqAnswer(answer: string) {
+  return answer.split(/(https:\/\/[^\s)]+)/g).map((part, index) => {
+    if (!part.startsWith('https://')) return part;
+    const href = part.replace(/[.,;!]+$/, '');
+    const punctuation = part.slice(href.length);
+    return (
+      <span key={index}>
+        <a href={href} target="_blank" rel="noopener noreferrer nofollow" className="break-all text-primary underline underline-offset-4">{href}</a>
+        {punctuation}
+      </span>
+    );
+  });
+}
+
 export const Route = createLazyFileRoute('/texas-high-school-football-teams/$slug')({ component: Page });
 
 function Page() {
@@ -746,7 +763,7 @@ function Page() {
         <div className="divide-y divide-border border-y border-border">
           {faq.map((item) => <article key={item.question} className="py-5">
             <h3 className="font-display text-2xl">{item.question}</h3>
-            <p className="mt-2 max-w-4xl text-sm leading-7 text-muted-foreground">{item.answer}</p>
+            <p className="mt-2 max-w-4xl text-sm leading-7 text-muted-foreground">{renderFootballFaqAnswer(item.answer)}</p>
           </article>)}
         </div>
       </section>
