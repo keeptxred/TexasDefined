@@ -17,6 +17,18 @@ export const majorEventSchemaEnrichmentBatch27: MajorEventSchemaEnrichment[] = [
   },
   {
     slug: "cowboy-mardi-gras-bandera",
+    image: {
+      url: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Everybody%2C%20and%20we%20mean%20everybody%2C%20dresses%20up%20for%20Mardi%20Gras%2C%20Texas%20style%2C%20in%20little%20Bandera%2C%20the%20%22Cowboy%20Capital%20of%20Texas%2C%22%20west%20of%20San%20Antonio%2C%20Texas%20LCCN2014631491.tif?width=1600",
+      alt: "Costumed revelers at Bandera's historic Cowboy Mardi Gras in 2014; archival photograph, not the 2027 celebration",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Everybody%2C%20and%20we%20mean%20everybody%2C%20dresses%20up%20for%20Mardi%20Gras%2C%20Texas%20style%2C%20in%20little%20Bandera%2C%20the%20%22Cowboy%20Capital%20of%20Texas%2C%22%20west%20of%20San%20Antonio%2C%20Texas%20LCCN2014631491.tif",
+      sourceType: "wikimedia",
+      licenseName: "Public domain — Carol M. Highsmith / Library of Congress",
+      licenseUrl: "https://www.loc.gov/rr/print/res/482_high.html",
+      rightsNote: "Carol M. Highsmith photographed the actual Bandera Cowboy Mardi Gras in 2014 for the Library of Congress Lyda Hill Texas Collection. Her photographs are in the public domain; archival image does not depict the 2027 parade.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
+
     organizer: { type: "Organization", name: "11th Street Cowboy Bar", url: "https://www.banderacowboycapital.com/events/2026/cowboy-mardi-gras" },
     sources: [{ label: "Official organizer or state tourism event reference", url: "https://www.banderacowboycapital.com/events/2026/cowboy-mardi-gras" }],
     verifiedAt: "2026-10-21",
@@ -29,8 +41,12 @@ export const majorEventSchemaEnrichmentBatch27: MajorEventSchemaEnrichment[] = [
   },
   {
     slug: "kemah-yachty-gras",
-    organizer: { type: "Organization", name: "Krewe du Lac", url: "https://krewedulac.net/events" },
-    sources: [{ label: "Official organizer or state tourism event reference", url: "https://krewedulac.net/events" }],
+    // Two independently organized parade occurrences: do not assign the boat
+    // event's organizer to the street event or vice versa in Event JSON-LD.
+    sources: [
+      { label: "Yachty Gras — official 28th annual February 6, 2027 boat parade", url: "https://www.yachtygras.com/" },
+      { label: "Krewe du Lac — official February 9, 2027 Grand Mardi Gras street parade", url: "https://krewedulac.net/events" },
+    ],
     verifiedAt: "2026-10-21",
   },
   {

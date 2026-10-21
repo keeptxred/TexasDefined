@@ -358,7 +358,7 @@ const records: MajorEventAuthorityRecord[] = [
     venue: "Kemah waterfront and Kemah Boardwalk",
     officialUrl: "https://krewedulac.net/events",
     sourceCheckedAt: "2026-10-21",
-    whyItMatters: "Kemah's Krewe du Lac keeps Carnival traditions on the water as well as on land. Its 2027 calendar confirms the 28th Yachty Gras boat parade on February 6 and the Grand Mardi Gras street parade on Fat Tuesday, February 9, at Kemah Boardwalk. Visitors need to choose between two distinct viewing experiences rather than assume an all-weekend festival.",
+    whyItMatters: "Two different Kemah organizations put Carnival on the water and in the streets. Yachty Gras independently confirms its 28th annual night boat parade for February 6, 2027, while Krewe du Lac lists the Grand Mardi Gras street parade for Fat Tuesday, February 9, at Kemah Boardwalk. Plan for two separately organized parades, not a continuous four-day festival.",
     quickFacts: [
       {
         label: "Boat parade",
@@ -370,7 +370,7 @@ const records: MajorEventAuthorityRecord[] = [
       },
       {
         label: "Organizer",
-        value: "Krewe du Lac — Kemah"
+        value: "Yachty Gras (boats); Krewe du Lac (street parade)"
       },
       {
         label: "Other krewe parade",
@@ -380,11 +380,11 @@ const records: MajorEventAuthorityRecord[] = [
     planningSections: [
       {
         title: "Choose the right parade — water versus street",
-        body: "The February 6 Yachty Gras event features decorated vessels viewed from suitable waterfront locations. The February 9 Grand Mardi Gras Parade is a street procession at Kemah Boardwalk that the krewe lists for 11 a.m. These are separate experiences and require different arrival planning."
+        body: "The independent Yachty Gras organization confirms February 6 for its 28th annual illuminated boat parade through Clear Lake toward Kemah Boardwalk. Krewe du Lac confirms February 9 at 11 a.m. for its Grand Mardi Gras street parade at the Boardwalk. These are separately organized experiences requiring different viewing and travel plans."
       },
       {
         title: "Waterfront views are location-specific",
-        body: "A boat parade does not necessarily pass every restaurant patio or dock on the same schedule. Check the krewe's final boat route, launch time and public viewing recommendations. Do not enter private docks or assume a restaurant reservation includes parade access."
+        body: "The Yachty Gras organizer describes boats beginning in Clear Lake, passing Kemah Boardwalk, turning in Galveston Bay and heading back. A boat parade does not necessarily pass every restaurant patio or dock on the same schedule. Confirm the final boat route and start time at yachtygras.com; do not enter private docks or assume a restaurant reservation includes parade access."
       },
       {
         title: "Prepare for Kemah Boardwalk crowding",
@@ -417,10 +417,8 @@ const records: MajorEventAuthorityRecord[] = [
       }
     ],
     sources: [
-      {
-        label: "Krewe du Lac official 2027 event calendar",
-        url: "https://krewedulac.net/events"
-      }
+      { label: "Yachty Gras official 2027 boat parade, route and events", url: "https://www.yachtygras.com/" },
+      { label: "Krewe du Lac official 2027 street parade calendar", url: "https://krewedulac.net/events" }
     ]
   },
   {
