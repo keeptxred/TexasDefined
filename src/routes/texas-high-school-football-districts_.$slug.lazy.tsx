@@ -70,7 +70,7 @@ function Page() {
 
       {district16Pilot && <District16Coverage schools={district.programs} />}
 
-      {!district16Pilot && (katyPilot || district5Pilot || games.length > 0) && <section id={district21Pilot ? "district-21-results" : undefined} data-football-district-section="coverage" className="border-b border-border py-10">
+      {!district16Pilot && (katyPilot || district5Pilot || games.length > 0) && <section id={district21Pilot ? "district-21-results" : "district-game-coverage"} data-football-district-section="coverage" className="border-b border-border py-10">
         <div className="mb-7 flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="eyebrow text-primary">2026 varsity football</p>
@@ -228,8 +228,6 @@ function Page() {
         <p className="mt-4 text-xs leading-6 text-muted-foreground">All listed times are local Central time. Do not rely on a school profile address for parking, accessible entrances or visiting-side seating; verify those details with the host before departure. These links are not affiliate tickets.</p>
       </section>}
 
-      {!district21Pilot && !district16Pilot && <FootballFanOffers slug={`district-${district.slug}`} hasUpcomingAwayTravel={false} showTravelPlanning />}
-
       <section data-football-district-section="teams" className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div>
           <p className="eyebrow text-primary">The teams</p>
@@ -258,7 +256,7 @@ function Page() {
         <div className="grid gap-5 sm:grid-cols-2">
           {district21Pilot ? <Related href="#district-21-results" title="District 21 games & results" body="Jump to every sourced 2026 league final and the remaining games in this district, rather than an unrelated statewide directory." />
             : district16Pilot ? <Related href="#district-16-results" title="District 16 scores, records and next games" body="Jump to our sourced District 16 standings snapshot, verified recent results and official CFISD game-day links." />
-            : <Related href="/texas-high-school-football-matchups" title="Documented matchups" body="See dated games, reported final scores and verified source links." />}
+            : games.length ? <Related href="#district-game-coverage" title="This district's sourced games" body="View only the dated results and fixtures actually documented for this district. Missing final scores are not assumed." /> : <p className="border-t-2 border-foreground pt-4 text-sm leading-7 text-muted-foreground">No independently verified district matchups are published here yet. Check the UIL scoreboard and school schedules; this page does not invent results.</p>}
           <Related href="/texas-high-school-football-playoff-brackets" title="2026 postseason brackets" body="Choose from twelve UIL class/division brackets and view independently verified playoff results." />
           <Related href="https://www.uiltexas.org/maxpreps/" title="Current scores & schedules" body="Open the UIL Texas Scoreboard for the latest school-submitted scores and weekly schedules. It is not an official district-standings table." external />
           <Related href="/article/texas-high-school-football-2026-season-calendar" title="2026 season calendar" body="Track district play, playoff rounds and the December state championship dates." />
@@ -297,8 +295,6 @@ function Page() {
         </div>
       </section>
 
-      {(district21Pilot || district16Pilot) && <FootballFanOffers slug={`district-${district.slug}`} hasUpcomingAwayTravel={false} showTravelPlanning />}
-
       <section data-football-district-section="official-sources" className="py-10">
         <p className="eyebrow text-primary">Official data</p>
         <h2 className="mt-2 font-display text-3xl">University Interscholastic League sources</h2>
@@ -308,6 +304,8 @@ function Page() {
           <a href={district.enrollmentSourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">UIL enrollment source ↗</a>
         </div>
       </section>
+
+      <FootballFanOffers slug={`district-${district.slug}`} hasUpcomingAwayTravel={false} showTravelPlanning />
     </article>
   </Container>;
 }

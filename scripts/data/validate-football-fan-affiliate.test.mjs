@@ -44,7 +44,8 @@ test('football explainer affiliates are limited to sourced planning topics', () 
 test('district profiles render a generic offer without inventing away fixtures', () => {
   const district = readFileSync('src/routes/texas-high-school-football-districts_.$slug.lazy.tsx', 'utf8');
   assert.match(district, /FootballFanOffers slug=\{`district-\$\{district\.slug\}`\} hasUpcomingAwayTravel=\{false\} showTravelPlanning/);
-  assert.ok(district.indexOf('<FootballFanOffers') < district.indexOf('data-football-district-section="teams"'));
+  assert.ok(district.indexOf('<FootballFanOffers') > district.indexOf('data-football-district-section="official-sources"'), 'essential game-day and official sources must precede generic affiliate offers');
+  assert.equal((district.match(/<FootballFanOffers slug=/g) || []).length, 1, 'one commercial block per district hub');
 });
 
 test('approved RVshare CJ deep link is a real second football offer with truthful parking caveat', () => {
