@@ -59,6 +59,12 @@ test('Federal Reserve BLS fallback verifies all 13 NSA series, synchronized mont
   const makeCsv = (header = ids, data = areas.map(([, n]) => String(n))) =>
     'observation_date,' + header.join(',') + '\n' +
     '2026-08-01,' + data.join(',') + '\n';
+  const alternate = parseFredCsv(makeCsv().replace('observation_date', 'Date'), old);
+  assert.deepEqual(alternate.rows, parseFredCsv(makeCsv(), old).rows);
+  const reorder = [...ids].reverse();
+  const reversed = parseFredCsv(makeCsv(reorder, areas.map(([, n]) => String(n)).reverse()), old);
+  assert.deepEqual(reversed.rows, alternate.rows, 'series identity must survive CSV column reordering');
+  assert.throws(() => parseFredCsv('<html><body>Access denied</body></html>', old), /HTML rather than official CSV/);
   const data = parseFredCsv(makeCsv(), old);
   assert.equal(data.releaseMonth, '2026-08');
   assert.equal(data.rows.length, 13);
