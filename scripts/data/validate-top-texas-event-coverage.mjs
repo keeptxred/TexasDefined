@@ -12,12 +12,9 @@ const musical = read("src/data/major-event-expanded-authority-tranche22.server.t
 
 // Public home cards must lead with our permanent guide, without removing the official source.
 for (const token of [
-  "canonicalEventGuideSlug", "majorEventIndexRecords", "legacyGuideSlugs",
-  '"houston-livestock-rodeo": "houston-livestock-show-rodeo"',
-  '"houston-livestock-show-and-rodeo": "houston-livestock-show-rodeo"',
-  '"wurstfest-new-braunfels": "wurstfest"',
+  'base.startsWith("houston-livestock-")', 'base === "wurstfest-new-braunfels"',
   '"viva-el-paso"', '"texas-outdoor-musical"', '"/texas-state-fair"',
-  'Texas Defined visitor guide →', 'Official event site ↗',
+  'Visitor guide →', 'Official site ↗',
 ]) assert(card.includes(token), `Homepage event guide navigation missing: ${token}`);
 assert(!card.includes('Event details ↗'), "Event cards must not send the primary guide CTA off-site");
 
@@ -41,7 +38,8 @@ for (const token of ["NIOSA", "April 19", "April 23", "April 24", "March 2-21, 2
 for (const token of ["McKelligon Canyon", "/destination/chamizal-national-memorial", "/metro-area/el-paso-metro"]) {
   assert(viva.includes(token), `Viva! El Paso needs ${token}`);
 }
-for (const token of ["check back in January", "/state-park/palo-duro-canyon-state-park", "2027 dates"]) {
+for (const token of ["check back in January", "/destination/palo-duro-canyon-state-park", "2027 dates"]) {
   assert(musical.includes(token), `TEXAS Outdoor Musical needs ${token}`);
 }
+assert(!musical.includes('href: "/state-park/palo-duro-canyon-state-park"'), "Redirect-only park paths must not be linked");
 console.log("Key Texas event authority coverage and homepage link regression checks passed.");
