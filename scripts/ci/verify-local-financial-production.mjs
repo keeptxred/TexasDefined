@@ -230,9 +230,9 @@ async function verifyEscobaresTaxingUnit() {
       // React SSR may split visible phrases with hydration comments or nested tags.
       // Compare readable text as well as raw HTML without relaxing numeric/source checks.
       const readableText = body
-        .replace(/<!--[\\s\\S]*?-->/g, '')
+        .replace(/<!--[\s\S]*?-->/g, '')
         .replace(/<[^>]*>/g, ' ')
-        .replace(/\\s+/g, ' ');
+        .replace(/\s+/g, ' ');
       const missing = required.filter((needle) => !body.includes(needle) && !readableText.includes(needle));
       if (!response.ok) fail(check, `HTTP ${response.status}`);
       else if (hasNoindex(body)) fail(check, 'unexpected robots noindex');
