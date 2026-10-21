@@ -35,6 +35,11 @@ export function EventsLandingPage({ data, search, breadcrumb }: { data: EventsLa
   const { events, regions, majorEventGuides, eventTimingLinks, eventTopicLinks, eventRegionLinks, featuredVenueGuide, featuredDateLabel, upcomingEventRecords, calendarView } = data;
   const regionName = (id: string) => regions.find((item) => item.id === id)?.name;
   const featured = events[0];
+  const featuredBaseSlug = featured?.slug.replace(/-\d{4}-\d{2}-\d{2}$/, "");
+  const featuredCanonicalSlug = featuredBaseSlug?.startsWith("houston-livestock-")
+    ? "houston-livestock-show-rodeo"
+    : featuredBaseSlug === "wurstfest-new-braunfels" ? "wurstfest" : featuredBaseSlug;
+  const featuredGuide = majorEventGuides.find(({ slug }) => slug === featuredCanonicalSlug);
   return <>
     <section className="ev-hero">
       <img src={bluebonnets} alt="Bluebonnets running to a fence line in a Texas spring field" width={1600} height={1067} className="ev-hero-img" />
@@ -44,14 +49,14 @@ export function EventsLandingPage({ data, search, breadcrumb }: { data: EventsLa
         <p className="eyebrow ev-kicker">The Texas Calendar</p>
         <h1 className="ev-h1">What’s happening across Texas</h1>
         <p className="ev-intro">{routeDescription}</p>
-        {featured && <div id={featured.id} className="ev-feature"><p className="eyebrow ev-feature-k">Featured event · {EVENT_LABELS[featured.category]}</p><h2>{featured.name}</h2><p className="ev-feature-copy">{featured.blurb}</p><p className="ev-feature-meta">{featuredDateLabel} · {featured.city}{regionName(featured.region) ? ` · ${regionName(featured.region)}` : ""}</p>{featuredVenueGuide && <p className="ev-venue">Venue: <a href={featuredVenueGuide.href}>{featuredVenueGuide.venueName} guide →</a></p>}<div className="ev-hero-links">{featured.officialUrl && <a href={featured.officialUrl} target="_blank" rel="noreferrer noopener" className="eyebrow ev-hero-link">Event details ↗</a>}{featuredVenueGuide && <a href={featuredVenueGuide.href} className="eyebrow ev-hero-link">Plan the venue →</a>}</div></div>}
+        {featured && <div id={featured.id} className="ev-feature"><p className="eyebrow ev-feature-k">Featured event · {EVENT_LABELS[featured.category]}</p><h2>{featured.name}</h2><p className="ev-feature-copy">{featured.blurb}</p><p className="ev-feature-meta">{featuredDateLabel} · {featured.city}{regionName(featured.region) ? ` · ${regionName(featured.region)}` : ""}</p>{featuredVenueGuide && <p className="ev-venue">Venue: <a href={featuredVenueGuide.href}>{featuredVenueGuide.venueName} guide →</a></p>}<div className="ev-hero-links">{featuredGuide && <a href={featuredGuide.href} className="eyebrow ev-hero-link">Texas Defined event guide →</a>}{featured.officialUrl && <a href={featured.officialUrl} target="_blank" rel="noreferrer noopener" className="eyebrow ev-hero-link">Event details ↗</a>}{featuredVenueGuide && <a href={featuredVenueGuide.href} className="eyebrow ev-hero-link">Plan the venue →</a>}</div></div>}
       </Container>
     </section>
 
     <Container><TexasEventCarousel events={upcomingEventRecords} title="Upcoming events across Texas" eyebrow="Verified statewide calendar" viewAllHref="/events#calendar" /></Container>
 
     <section className="ev-section ev-surface"><Container><div className="ev-split"><div><p className="eyebrow ev-e">Understand the tradition</p><h2 className="ev-title">The culture behind the calendar</h2></div><div className="ev-grid4">
-      <EditorialLink href="/texas-state-fair" title="State Fair of Texas 2026" text="Dates, Fair Park, Big Tex, food, rides and practical planning for the Dallas fair." />
+      <EditorialLink href="/texas-state-fair" title="State Fair of Texas" text="Dates, Fair Park, Big Tex, food, rides and practical planning for the Dallas fair." />
       <EditorialLink href="/texas-dance-halls-honky-tonks" title="Dance halls & honky-tonks" text="Two-step culture, Western swing, historic community halls and how to plan a live-music weekend." />
       <EditorialLink href="/texas-homecoming-mums" title="Texas homecoming mums" text="How a school flower became an oversized wearable tradition tied to football, clubs and homecoming week." />
       <EditorialLink href="/german-czech-texas-towns" title="German & Czech Texas heritage" text="Connect festivals and music to the towns, churches, bakeries and halls that preserve the deeper history." />
