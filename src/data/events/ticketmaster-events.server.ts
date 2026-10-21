@@ -1,4 +1,5 @@
 import snapshot from '../generated/ticketmaster-events.json';
+import { majorEventIndexRecords } from '../major-event-index';
 import { geographyForPlace } from '../geography-knowledge-graph';
 import { resolveSportsVenueEventLink } from '../sports-venue-event-links';
 import type { TexasEventRecord, TexasEventTicketSaleStatus } from './texas-event-record';
@@ -45,7 +46,19 @@ export function ticketmasterAuthorityGuidePath(name: string, city: string) {
     candidate.city.toLocaleLowerCase("en-US") === normalizedCity
     && normalizedName.startsWith(candidate.prefix),
   );
-  return match ? `/event/${match.slug}` : undefined;
+  if (match) return `/event/${match.slug}`;
+  // Exact city + normalized organizer event name only. Never guess from a
+  // city-wide title substring or from overlapping dates alone.
+  const normalizeName = (value: string) => value.toLocaleLowerCase('en-US')
+    .replace(/\b20\d{2}\b/g, '')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .replace(/\s+/g, ' ').trim();
+  const canonical = normalizeName(name);
+  const indexed = majorEventIndexRecords.find((event) =>
+    event.city.toLocaleLowerCase('en-US') === normalizedCity
+    && normalizeName(event.name) === canonical,
+  );
+  return indexed ? `/event/${indexed.slug}` : undefined;
 }
 
 // Provider dates are interpreted in the event's Texas-local calendar, not in

@@ -42,6 +42,8 @@ try {
   assert.equal(ticketmasterAuthorityGuidePath('Beer Around The World 2026 - Fiesta De Palmas McAllen TX', 'McAllen'), '/event/fiesta-de-palmas');
   assert.equal(ticketmasterAuthorityGuidePath('Bill Pickett Invitational Rodeo', 'Fort Worth'), '/event/bill-pickett-rodeo-fort-worth');
   assert.equal(ticketmasterAuthorityGuidePath('Hollydays Market Corpus Christi Fri. 11-6 through Sun. 11-8, 2026', 'Corpus Christi'), '/event/hollydays-market-corpus-christi');
+  assert.equal(ticketmasterAuthorityGuidePath('Wurstfest 2026', 'New Braunfels'), '/event/wurstfest');
+  assert.equal(ticketmasterAuthorityGuidePath('Wurstfest', 'Austin'), undefined);
   assert.equal(ticketmasterAuthorityGuidePath('Example concert', 'San Antonio'), undefined);
   for (const slug of [
     'fiesta-de-palmas',
