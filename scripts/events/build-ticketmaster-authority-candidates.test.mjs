@@ -31,6 +31,10 @@ test('authority discovery groups sessions and never approves publication', () =>
     assert.deepEqual(candidates[0].evidence, { organizerUrl: null, recurrenceVerified: false, currentScheduleVerified: false, imageRightsVerified: false });
     spawnSync(process.execPath, [script], { cwd: dir, encoding: 'utf8' });
     assert.equal(readFileSync(join(dir, 'ops/editorial/ticketmaster-authority-candidates.json'), 'utf8'), output);
+    writeFileSync(join(dir, 'src/data/generated/ticketmaster-events.json'), JSON.stringify({ fetchedAt: fixture.fetchedAt, events: [] }));
+    const failed = spawnSync(process.execPath, [script], { cwd: dir, encoding: 'utf8' });
+    assert.notEqual(failed.status, 0);
+    assert.equal(readFileSync(join(dir, 'ops/editorial/ticketmaster-authority-candidates.json'), 'utf8'), output);
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }
