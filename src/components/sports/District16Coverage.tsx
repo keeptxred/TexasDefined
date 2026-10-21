@@ -105,7 +105,7 @@ export function District16Coverage({ schools }: Props) {
           </p>
         </div>
         <div>
-          <h3 className="border-b border-border pb-3 font-display text-2xl">Next district matchups · Oct. 22–24</h3>
+          <h3 className="border-b border-border pb-3 font-display text-2xl">Remaining district games · Oct. 22–Nov. 7</h3>
           <div className="divide-y divide-border">
             {DISTRICT_16_NEXT_GAMES.map((game) => (
               <div key={game.date + game.home} className="py-4 text-sm">
@@ -115,8 +115,8 @@ export function District16Coverage({ schools }: Props) {
             ))}
           </div>
           <p className="mt-3 text-xs leading-6 text-muted-foreground">
-            The next four scheduled district games, not the entire remaining season.
-            Dates, kickoffs and stadium assignments can change.
+            All twelve remaining district fixtures in the October 20 published-schedule snapshot.
+            One November 7 kickoff is unconfirmed; dates, times and stadium assignments can change.
             See <a href={DISTRICT_16_CFISD_SCHEDULE_URL} target="_blank" rel="noopener noreferrer"
               className="text-primary underline underline-offset-4">CFISD's complete official varsity calendar ↗</a> for the rest.
           </p>
