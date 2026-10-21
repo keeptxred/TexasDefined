@@ -60,7 +60,16 @@ console.log('PASS: complete synthetic acceptance fixture, and no mass publishing
 
 rejected('incorrect UIL football-style district',p=>{p.identity.district=4},'exact match');
 rejected('unknown club/football sport',p=>{p.sport='football'},'sport must be');
-rejected('unapproved research draft',p=>{p.ownerApproved=false},'sign-off');
+// Publication may omit the separate human/owner approval form site-wide.
+const withoutOwnerApproval=valid();
+delete withoutOwnerApproval.ownerApproved;
+assert.deepEqual(validateProfile(withoutOwnerApproval,registry,now),[],
+  'No ownerApproved field must not block otherwise sourced, rights-safe softball publication');
+const withoutSignedApproval=valid();
+withoutSignedApproval.ownerApproved=false;
+assert.deepEqual(validatePublishedManifest({version:1,pages:[withoutSignedApproval]},registry,now),[],
+  'Optional missing owner signoff must not block the complete researched manifest');
+rejected('unpublished research draft',p=>{p.status='draft'},'published manifest');
 rejected('uncited claims',p=>{p.claims[0].sourceIds=[]},'every fact');
 rejected('undated historical facts',p=>{p.claims[2].asOf='unknown'},'dated');
 rejected('duplicate fact claims',p=>{p.claims[2].text=p.claims[1].text},'duplicate sourced fact');
@@ -93,4 +102,4 @@ duplicate.canonicalPath='/sports/softball/'+duplicate.slug;
 const errors=validatePublishedManifest({version:1,pages:[fixture,duplicate]},registry,now);
 assert.ok(errors.some(x=>x.includes('Same school-season')),'No school-season may generate two pages');
 assert.ok(errors.some(x=>x.includes('boilerplate duplicate')),'Entire shared articles must not pass as unique research');
-console.log('PASS: 26 individual negative cases plus duplicate-school and duplicated-article gates, including every first-release research topic');
+console.log('PASS: 26 individual negative cases and 2 optional-approval positives plus duplicate-school and duplicated-article gates, including every first-release research topic');
