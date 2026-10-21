@@ -251,6 +251,17 @@ export const majorEventSchemaEnrichmentBatch2: MajorEventSchemaEnrichment[] = [
   },
   {
     slug: "dickens-on-the-strand",
+    image: {
+      url: "https://upload.wikimedia.org/wikipedia/commons/6/6d/Ye_Olde_Scurvy_Dogs_%286311736019%29.jpg",
+      alt: "Costumed Victorian-era and pirate-themed festivalgoers on the Strand in Galveston during Dickens on The Strand in 2008",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Ye_Olde_Scurvy_Dogs_(6311736019).jpg",
+      sourceType: "wikimedia",
+      licenseName: "CC BY-SA 2.0",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/2.0/",
+      rightsNote: "Photo: BFS Man / Wikimedia Commons (2008); licensed CC BY-SA 2.0; cropped to fit when displayed",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
     organizer: organization("Galveston Historical Foundation", "https://www.galvestonhistory.org/"),
     sources: [
       { label: "Galveston Historical Foundation official Dickens on The Strand page", url: "https://www.galvestonhistory.org/events/dickens-on-the-strand" },
