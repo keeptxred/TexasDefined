@@ -18,6 +18,7 @@ if (process.argv.includes('--source-only')) {
     'English and Spanish',
     'https://zapatamuseum.com/index.php/contact-us',
     'Texas Historical Commission’s Zapata museum listing',
+    'Directory-link advisory (October 21, 2026)',
   ];
   const missing = expected.filter((value) => !component.includes(value));
   if (missing.length) throw new Error('Zapata museum source contract failed: ' + missing.join(', '));
@@ -26,6 +27,9 @@ if (process.argv.includes('--source-only')) {
   }
   if (!destinationRoute.includes('isZapataMuseum ? { postalCode: "78076" }')) {
     throw new Error('Zapata museum structured-data address is missing its verified ZIP code');
+  }
+  if (component.includes('https://www.zapatamuseum.org/') || component.includes('https://zapatamuseum.org/')) {
+    throw new Error('Museum guide must not link readers to the outdated promotional-content domain');
   }
   if (!catalog.includes('src: "/images/zapata-county-museum-history-editorial.svg"')) {
     throw new Error('Museum social/structured-data hero must match the rights-safe local illustration');
@@ -63,6 +67,7 @@ function verifyMuseumHtml(html) {
     '805 N U.S. Highway 83',
     'Museum tour overview',
     'Original TexasDefined editorial illustration',
+    'Directory-link advisory (October 21, 2026)',
     'Texas Historical Commission’s Zapata museum listing',
     '"postalCode":"78076"',
     'last tour begins at 3:30 p.m.',

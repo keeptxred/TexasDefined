@@ -168,6 +168,7 @@ export default function ZapataCountyMuseumAuthority() {
         <ul className="mt-6 grid gap-3 sm:grid-cols-2">
           {sources.map((source) => <li key={source.href}><a className="text-sm underline text-primary" href={source.href} target="_blank" rel="noopener noreferrer">{source.label} ↗</a></li>)}
         </ul>
+        <p className="mt-6 max-w-3xl border-l-2 border-primary pl-4 text-sm leading-7 text-muted-foreground"><strong>Directory-link advisory (October 21, 2026):</strong> Some older government and heritage directory listings link to a museum web address that now displays unrelated promotional content. Use those listings for historical context only; for visiting details, rely on the <a href={visitorUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">museum's visitor-information page</a> or call <a href="tel:+19567658983" className="underline">(956) 765-8983</a>. TexasDefined does not link directly to the outdated site.</p>
         <p className="mt-8 text-xs text-muted-foreground">Recommended citation: TexasDefined. “Zapata County Museum of History: Exhibits, Hours &amp; Admission.” Verified October 19, 2026. https://texasdefined.com/destination/zapata-county-museum-history</p>
       </Container>
     </section>
