@@ -37,6 +37,12 @@ GitHub Actions \`.github/workflows/sync-property-tax-rates.yml\` runs on
 the **3rd of each month at 11:23 UTC**, or via workflow_dispatch. The
 \`RATE_HISTORY_LOOKBACK_YEARS\` repository variable defaults to 5:
 in 2026 this checks **2026 down through 2021**, independently.
+Every **January 3** scheduled run rechecks **all retained years starting
+in 2021**, even after the oldest years fall outside the default rolling
+monthly lookback. The existing manual workflow dispatch offers a
+`full_history` checkbox to run that complete sweep at any time.
+All other monthly runs keep the configured rolling lookback to reduce
+network requests and runner time.
 The importer returns \`unavailable\` when an official workbook is absent.
 An unavailable current year is an expected publication delay; a missing
 previously published year, HTTP/download failure, incomplete workbook,
@@ -149,7 +155,7 @@ rounded **0.133025**. Genuine six-decimal numbers retain their
 six-decimal formatting, including a genuine zero city levy.
 
 The deployment's existing local-financial smoke suite now checks
-all eleven recorded local supplements, their government sources,
+all fifteen recorded local supplements, their government sources,
 and both production entry points. It also checks a five-year
 nonduplicated Woodlands history. Add new verified supplements to
 those source-qualified checks without inventing numeric values.
