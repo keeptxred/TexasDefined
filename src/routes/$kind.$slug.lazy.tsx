@@ -173,6 +173,7 @@ const batch001FootballCountyLinks: Record<string, { name: string; href: string; 
 // Independently researched Batch 002 and Batch 003 county links. Lists retain
 // multiple teams in the same county rather than replacing an existing card.
 const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: string; context: string }>> = {
+  'jack': [{ name: 'Bryson Cowboys', slug: 'bryson', context: 'Jack County Bryson ISD blue-and-gold six-man Cowboys: 1995 eleven-man playoff archive, 2015–17 six-man playoff streak and source-dated October 2026 4–4 record; 2026 coaching conflict disclosed' }],
   'brazos': [{ name: 'Bryan High Vikings', slug: 'bryan', context: 'Bryan ISD Vikings: UIL 1921 all-schools football champion, new 2026 coach Blake Joseph, separate Merrill Green Stadium and school ticket rules; not Bryan Rudder' }, { name: 'Bryan Rudder Rangers', slug: 'bryan-rudder', context: 'Bryan ISD distinct Rangers program: Eric Ezar 2026 staff, reported 4–3 through Oct 16, shared Merrill Green game venue, separate Rudder campus and ticket instructions' }],
   'cameron': [{ name: 'Brownsville Hanna Golden Eagles', slug: 'brownsville-hanna', context: 'Brownsville ISD Golden Eagles: 1967 campus origin, 1974 Hanna name, Mark Guess 2026 football leadership, 5A Division I and separate Sams/Veterans Memorial venues' }],
   'henderson': [{ name: 'Brownsboro Bears', slug: 'brownsboro', context: 'Brownsboro ISD Bears: new 2026 coach Ryan Hood, 25 football playoff appearances, updated October results and official moved-to-Thursday Van game warning' }],
