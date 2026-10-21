@@ -36,6 +36,8 @@ const smokeTargets = [
   { path: '/event/kemah-yachty-gras', requiredText: 'Yachty Gras', label: 'Kemah two-organizer Mardi Gras guide SSR renders' },
   { path: '/event/kemah-yachty-gras', requiredText: 'yachtygras.com', label: 'Kemah boat-parade source remains distinct from street event' },
   { path: '/event/cowboy-mardi-gras-bandera', requiredText: 'Carol M. Highsmith', label: 'Bandera actual-event archival photo attribution is visible' },
+  { path: '/event/mardi-gras-galveston', requiredText: 'A Yee', label: 'Galveston original-event licensed photograph credit SSR renders' },
+  { path: '/event/mardi-gras-galveston', requiredText: '2013 Mardi Gras', label: 'Galveston hero is accurately labeled as archival, not 2027' },
   // El Paso authority acceptance: real SSR must publish the researched metro guide
   // and crawlable city / relocation backlinks, not the old statewide fallback.
   { path: '/metro-area/el-paso-metro', requiredText: 'What counts as the El Paso metro?', label: 'El Paso metro includes researched two-county guide' },
