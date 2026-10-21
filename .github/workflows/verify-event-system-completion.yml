@@ -19,6 +19,12 @@ on:
       - 'src/routes/event.$slug.lazy.tsx'
       - '.github/workflows/sync-texas-events.yml'
       - 'scripts/events/sync-texas-events-safe.mjs'
+      - 'scripts/events/sync-tpwd-calendar.mjs'
+      - 'scripts/events/sync-tpwd-calendar.test.mjs'
+      - 'src/data/tpwd-calendar.ts'
+      - 'src/data/events/tpwd-event-records.server.ts'
+      - 'src/routes/explore.trip-planner.lazy.tsx'
+      - 'src/components/editorial/StateParkVisitorEssentials.tsx'
   schedule:
     - cron: '41 11 * * *'
   workflow_dispatch:
@@ -45,6 +51,8 @@ jobs:
           node-version: 22
       - name: Validate all 18 Events completion contracts
         run: node scripts/data/validate-events-system-completion.mjs
+      - name: Validate TPWD calendar parser and exclusion policy
+        run: node --test scripts/events/sync-tpwd-calendar.test.mjs
 
   live-production:
     if: >-

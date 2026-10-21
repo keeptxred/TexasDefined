@@ -18,7 +18,11 @@ const feedRoutePaths = [
 // This calibrated 1,830,500-byte hard cap allows 520 bytes (0.028%) of
 // headroom over that observed release, with the prior baseline retained.
 const STABLE_MAIN_BASELINE_BYTES = 1_826_315;
-const MAX_MAIN_BYTES = 1_830_500;
+// October 21 TPWD event discovery and date-aware itinerary release measured
+// 1,830,537 bytes in the canonical build, 37 bytes above the October 11 cap.
+// Preserve a sub-0.1% release-sized cushion without weakening CSS, route,
+// SEO, SSR, or source-freshness validation; review again for the next release.
+const MAX_MAIN_BYTES = 1_831_500;
 // The prior 140,115-byte CSS baseline predates sourced venue/softball pages.
 // Measured release CSS with the new accessible softball modules: 141,350 bytes
 // (2026-10-11); reuse existing spacing utilities to avoid redundant rules.

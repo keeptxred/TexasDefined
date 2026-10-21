@@ -11,8 +11,10 @@ import { pathToFileURL } from "node:url";
 const SOURCE = "https://tpwd.texas.gov/calendar";
 const OUTPUT = resolve("src/data/generated/tpwd-events.json");
 const DAY_MS = 86400000;
-const INCLUSION = /\b(hike|walk|trail|tour|bird|hawk|star|sky|moon|telescope|paddl|kayak|canoe|fish|archer|campfire|wildlife|nature|animal|bison|longhorn|fossil|cav|cave|ranger|geocach|photograph|bike|cycling|history|historic|archeolog|heritage|craft|festiv|music|concert|story|yoga|bat|owl|reptile|tree|plant|insect|astronom|meteor|park day)\w*/i;
-const EXCLUSION = /visitor cent(er|re)|nature center$|education center|office hours|park store|gift shop|recruit|job fair|public meeting|commission|closed|volunteer|self.guided viewing|staff training|teacher workshop|instructor workshop|administrative/i;
+// A dated TPWD calendar listing is already a primary-source discovery candidate.
+// Keyword inclusion used to discard useful programs such as Trail of Terror,
+// Picnic in the Park and Pirates of the Canyon. Fail closed on non-visitor events.
+const EXCLUSION = /visitor cent(er|re)|nature center(?: hours)?$|education cent(er|re)|office hours|park store|gift shop|recruit|career fair|job fair|internship|public meeting|commission|closed|closure|volunteer|self.guided viewing|staff training|teacher workshop|instructor workshop|professional development|administrative|office open|facility open|headquarters hours|annual business meeting|cancel(?:led|ed|lation)|postponed|rescheduled/i;
 
 function clean(value) {
   return String(value).replace(/<[^>]*>/g, " ").replace(/&amp;/gi, "&")
@@ -40,7 +42,7 @@ export function parseTpwdCalendar(html, now = new Date()) {
     if (Number.isNaN(parsedDate.getTime()) || parsedDate.toISOString().slice(0, 10) !== date) continue;
     if (date < min || date > horizon) continue;
     const title = clean(match[3]);
-    if (title.length < 5 || title.length > 120 || EXCLUSION.test(title) || !INCLUSION.test(title)) continue;
+    if (title.length < 5 || title.length > 120 || EXCLUSION.test(title)) continue;
     const officialUrl = url.origin + url.pathname;
     events.set(officialUrl, { title, startDate: date, parkKey, officialUrl });
   }

@@ -50,7 +50,13 @@ jobs:
         run: node --test scripts/events/sync-tpwd-calendar.test.mjs
 
       - name: Sync upcoming TPWD visitor activities
+        id: tpwd
+        continue-on-error: true
         run: node scripts/events/sync-tpwd-calendar.mjs
+
+      - name: Warn if official TPWD feed cannot be reached
+        if: steps.tpwd.outcome == 'failure'
+        run: echo "::warning title=TPWD source temporarily unavailable::The prior TPWD event catalog remains unchanged and will expire automatically; other event providers still refresh."
 
       - name: Sync Ticketmaster Texas events
         env:

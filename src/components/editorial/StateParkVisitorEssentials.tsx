@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import type { Destination } from "@/data/types";
-import tpwdCalendar from "@/data/generated/tpwd-events.json";
+import { getTpwdActivitiesForDestination } from "@/data/tpwd-calendar";
 import { isTexasStateParkDestination, stateParkOfficialResources, VERIFIED_PARK_FACILITIES } from "@/data/state-park-authority";
 
 /**
@@ -12,14 +12,7 @@ export function StateParkVisitorEssentials({ destination }: { destination: Desti
   const links = stateParkOfficialResources(destination);
   if (!links) return null;
   const verified = VERIFIED_PARK_FACILITIES[destination.slug];
-  const parkCalendarKey = (destination.officialUrl ?? "").replace(/\/$/, "").split("/").at(-1);
-  const checkedAt = Date.parse(tpwdCalendar.generatedAt);
-  const calendarFresh = Number.isFinite(checkedAt) && Math.abs(Date.now() - checkedAt) <= 7 * 86400000;
-  const today = new Date().toISOString().slice(0, 10);
-  const parkOccurrences = calendarFresh && parkCalendarKey
-    ? tpwdCalendar.events.filter(event => event.parkKey === parkCalendarKey && event.startDate >= today)
-      .sort((a, b) => a.startDate.localeCompare(b.startDate)).slice(0, 24)
-    : [];
+  const parkOccurrences = getTpwdActivitiesForDestination(destination);
   const activityGroups = new Map<string, { title: string; dates: string[]; officialUrl: string }>();
   for (const event of parkOccurrences) {
     const key = event.title.toLowerCase();
@@ -76,6 +69,7 @@ export function StateParkVisitorEssentials({ destination }: { destination: Desti
       <p className="eyebrow text-primary">Upcoming TPWD programs</p>
       <h3 id="tpwd-activities" className="mt-2 font-display text-2xl">Activities scheduled at this park</h3>
       <p className="mt-2 text-sm text-muted-foreground">These dates come from the Texas Parks and Wildlife calendar. Check the official listing for registration, meeting place, admission and any changes.</p>
+      <a href="/events?category=tpwd#calendar" className="mt-2 inline-block text-sm font-semibold text-primary underline underline-offset-4">Browse upcoming TPWD programs statewide →</a>
       <ul className="mt-4 grid gap-3 sm:grid-cols-2">
         {upcomingActivities.map(activity => <li key={activity.officialUrl} className="rounded-lg border border-border p-4">
           <a href={activity.officialUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">{activity.title} ↗</a>

@@ -1,12 +1,18 @@
 {
-  "generatedAt": "2026-10-21T18:47:00.000Z",
+  "generatedAt": "2026-10-21T19:18:11.081Z",
   "sourceUrl": "https://tpwd.texas.gov/calendar",
   "events": [
     {
-      "title": "Tiny Trailblazers",
+      "title": "Sky Island Yoga",
+      "startDate": "2026-10-21",
+      "parkKey": "davis-mountains",
+      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/mountain-yoga/2026-10-21"
+    },
+    {
+      "title": "Electric Tram Tour",
       "startDate": "2026-10-22",
-      "parkKey": "lake-somerville-birch-creek",
-      "officialUrl": "https://tpwd.texas.gov/calendar/lake-somerville-birch-creek/tiny-trailblazers-1/2026-10-22"
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/electric-tram-tour/2026-10-22"
     },
     {
       "title": "Forest Trail Hike",
@@ -21,10 +27,1102 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/bentsen-rio-grande-valley/spring-hawk-watch/2026-10-22"
     },
     {
-      "title": "Electric Tram Tour",
+      "title": "Tiny Trailblazers",
       "startDate": "2026-10-22",
+      "parkKey": "lake-somerville-birch-creek",
+      "officialUrl": "https://tpwd.texas.gov/calendar/lake-somerville-birch-creek/tiny-trailblazers-1/2026-10-22"
+    },
+    {
+      "title": "Butterfly and Dragonfly Tours",
+      "startDate": "2026-10-23",
       "parkKey": "estero-llano-grande",
-      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/electric-tram-tour/2026-10-22"
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/butterfly-and-dragonfly-walks/2026-10-23"
+    },
+    {
+      "title": "Discovery Tram Tour (PM)",
+      "startDate": "2026-10-23",
+      "parkKey": "bentsen-rio-grande-valley",
+      "officialUrl": "https://tpwd.texas.gov/calendar/bentsen-rio-grande-valley/copy6_of_birding-tram-tour/2026-10-23"
+    },
+    {
+      "title": "Hawk Watch",
+      "startDate": "2026-10-23",
+      "parkKey": "bentsen-rio-grande-valley",
+      "officialUrl": "https://tpwd.texas.gov/calendar/bentsen-rio-grande-valley/spring-hawk-watch/2026-10-23"
+    },
+    {
+      "title": "Indian Lodge Tour",
+      "startDate": "2026-10-23",
+      "parkKey": "davis-mountains",
+      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/indian-lodge-tour-1/2026-10-23"
+    },
+    {
+      "title": "Master Naturalist Hike",
+      "startDate": "2026-10-23",
+      "parkKey": "davis-mountains",
+      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/Master%20Naturalist%20Hike%20-%20Friday/2026-10-23"
+    },
+    {
+      "title": "Meet The Longhorns",
+      "startDate": "2026-10-23",
+      "parkKey": "copper-breaks",
+      "officialUrl": "https://tpwd.texas.gov/calendar/copper-breaks/copy_of_meet-the-longhorns-march-23/2026-10-23"
+    },
+    {
+      "title": "Pollinator Arts & Crafts",
+      "startDate": "2026-10-23",
+      "parkKey": "choke-canyon",
+      "officialUrl": "https://tpwd.texas.gov/calendar/choke-canyon/art-in-the-park-1/2026-10-23"
+    },
+    {
+      "title": "Tails on the Trails",
+      "startDate": "2026-10-23",
+      "parkKey": "eisenhower",
+      "officialUrl": "https://tpwd.texas.gov/calendar/eisenhower/tails-on-the-trails/2026-10-23"
+    },
+    {
+      "title": "All About Us: a Guided Hike",
+      "startDate": "2026-10-24",
+      "parkKey": "brazos-bend",
+      "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/all-about-us_08-15-26/2026-10-24"
+    },
+    {
+      "title": "Art in the Park - Halloween Crafting",
+      "startDate": "2026-10-24",
+      "parkKey": "daingerfield",
+      "officialUrl": "https://tpwd.texas.gov/calendar/daingerfield/art-in-the-park-leaf-printing/2026-10-24"
+    },
+    {
+      "title": "B.A.R.K. Ranger Hike",
+      "startDate": "2026-10-24",
+      "parkKey": "brazos-bend",
+      "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/bark-ranger-hike_09-16-26/2026-10-24"
+    },
+    {
+      "title": "Enchanting Junior Ranger Academy",
+      "startDate": "2026-10-24",
+      "parkKey": "enchanted-rock",
+      "officialUrl": "https://tpwd.texas.gov/calendar/enchanted-rock/enchanting-junior-ranger-academy/2026-10-24"
+    },
+    {
+      "title": "Hawk Watch",
+      "startDate": "2026-10-24",
+      "parkKey": "bentsen-rio-grande-valley",
+      "officialUrl": "https://tpwd.texas.gov/calendar/bentsen-rio-grande-valley/spring-hawk-watch/2026-10-24"
+    },
+    {
+      "title": "Island Trail Hike",
+      "startDate": "2026-10-24",
+      "parkKey": "martin-dies-jr",
+      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/island-trail-hike-1/2026-10-24"
+    },
+    {
+      "title": "Meet The Longhorns",
+      "startDate": "2026-10-24",
+      "parkKey": "copper-breaks",
+      "officialUrl": "https://tpwd.texas.gov/calendar/copper-breaks/copy_of_meet-the-longhorns-march-23/2026-10-24"
+    },
+    {
+      "title": "Mission History Tour",
+      "startDate": "2026-10-24",
+      "parkKey": "goliad",
+      "officialUrl": "https://tpwd.texas.gov/calendar/goliad/copy3_of_guided-history-tour/2026-10-24"
+    },
+    {
+      "title": "Mission History Tour",
+      "startDate": "2026-10-24",
+      "parkKey": "goliad",
+      "officialUrl": "https://tpwd.texas.gov/calendar/goliad/copy_of_guided-history-tour-1/2026-10-24"
+    },
+    {
+      "title": "Saturday Honey Creek Guided Walk--Registration Required",
+      "startDate": "2026-10-24",
+      "parkKey": "guadalupe-river",
+      "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/copy4_of_honey-creek-nature-hike/2026-10-24"
+    },
+    {
+      "title": "Star Party with the San Antonio Astronomical Association",
+      "startDate": "2026-10-24",
+      "parkKey": "guadalupe-river",
+      "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/star-party-with-the-san-antonio-astronomical-association/2026-10-24"
+    },
+    {
+      "title": "World Birding Center Birding Tours",
+      "startDate": "2026-10-24",
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/bird-walk/2026-10-24"
+    },
+    {
+      "title": "All About Nature",
+      "startDate": "2026-10-25",
+      "parkKey": "lake-livingston",
+      "officialUrl": "https://tpwd.texas.gov/calendar/lake-livingston/all-about-nature-1/2026-10-25"
+    },
+    {
+      "title": "All About Us: a Guided Hike",
+      "startDate": "2026-10-25",
+      "parkKey": "brazos-bend",
+      "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/all-about-us_08-15-26/2026-10-25"
+    },
+    {
+      "title": "Birding with a Ranger",
+      "startDate": "2026-10-25",
+      "parkKey": "choke-canyon",
+      "officialUrl": "https://tpwd.texas.gov/calendar/choke-canyon/birding-with-a-ranger/2026-10-25"
+    },
+    {
+      "title": "Discovery Tram Tour (PM)",
+      "startDate": "2026-10-25",
+      "parkKey": "bentsen-rio-grande-valley",
+      "officialUrl": "https://tpwd.texas.gov/calendar/bentsen-rio-grande-valley/copy6_of_birding-tram-tour/2026-10-25"
+    },
+    {
+      "title": "Discovery Walk Sundays",
+      "startDate": "2026-10-25",
+      "parkKey": "stephen-f-austin",
+      "officialUrl": "https://tpwd.texas.gov/calendar/stephen-f-austin/discovery-walk-sundays/2026-10-25"
+    },
+    {
+      "title": "Guided Bird Walk at Honey Creek State Natural Area *Registration Required*",
+      "startDate": "2026-10-25",
+      "parkKey": "guadalupe-river",
+      "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/guided-bird-walk-at-honey-creek-ranch/2026-10-25"
+    },
+    {
+      "title": "Hawk Watch",
+      "startDate": "2026-10-25",
+      "parkKey": "bentsen-rio-grande-valley",
+      "officialUrl": "https://tpwd.texas.gov/calendar/bentsen-rio-grande-valley/spring-hawk-watch/2026-10-25"
+    },
+    {
+      "title": "Mission History Tour",
+      "startDate": "2026-10-25",
+      "parkKey": "goliad",
+      "officialUrl": "https://tpwd.texas.gov/calendar/goliad/copy3_of_guided-history-tour/2026-10-25"
+    },
+    {
+      "title": "Mission History Tour",
+      "startDate": "2026-10-25",
+      "parkKey": "goliad",
+      "officialUrl": "https://tpwd.texas.gov/calendar/goliad/copy_of_guided-history-tour-1/2026-10-25"
+    },
+    {
+      "title": "October Trail Crew Work Days!",
+      "startDate": "2026-10-25",
+      "parkKey": "hueco-tanks",
+      "officialUrl": "https://tpwd.texas.gov/calendar/hueco-tanks/october-volunteer-trail-crew-work-day/2026-10-25"
+    },
+    {
+      "title": "Sunday Honey Creek Guided Walk--Registration Required",
+      "startDate": "2026-10-25",
+      "parkKey": "guadalupe-river",
+      "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/copy3_of_Sunday_honey-creek-nature-hike/2026-10-25"
+    },
+    {
+      "title": "Sunday Stroll - Guided Hike",
+      "startDate": "2026-10-25",
+      "parkKey": "stephen-f-austin",
+      "officialUrl": "https://tpwd.texas.gov/calendar/stephen-f-austin/sunday-stroll-guided-hike/2026-10-25"
+    },
+    {
+      "title": "Hawk Watch",
+      "startDate": "2026-10-26",
+      "parkKey": "bentsen-rio-grande-valley",
+      "officialUrl": "https://tpwd.texas.gov/calendar/bentsen-rio-grande-valley/spring-hawk-watch/2026-10-26"
+    },
+    {
+      "title": "Hawk Watch",
+      "startDate": "2026-10-27",
+      "parkKey": "bentsen-rio-grande-valley",
+      "officialUrl": "https://tpwd.texas.gov/calendar/bentsen-rio-grande-valley/spring-hawk-watch/2026-10-27"
+    },
+    {
+      "title": "Birding with a Ranger",
+      "startDate": "2026-10-28",
+      "parkKey": "choke-canyon",
+      "officialUrl": "https://tpwd.texas.gov/calendar/choke-canyon/birding-with-a-ranger/2026-10-28"
+    },
+    {
+      "title": "Hawk Watch",
+      "startDate": "2026-10-28",
+      "parkKey": "bentsen-rio-grande-valley",
+      "officialUrl": "https://tpwd.texas.gov/calendar/bentsen-rio-grande-valley/spring-hawk-watch/2026-10-28"
+    },
+    {
+      "title": "Morning Nature Walk",
+      "startDate": "2026-10-28",
+      "parkKey": "davis-mountains",
+      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/birding-walk-1/2026-10-28"
+    },
+    {
+      "title": "World Birding Center Birding Tours",
+      "startDate": "2026-10-28",
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/bird-walk/2026-10-28"
+    },
+    {
+      "title": "Electric Tram Tour",
+      "startDate": "2026-10-29",
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/electric-tram-tour/2026-10-29"
+    },
+    {
+      "title": "Hawk Watch",
+      "startDate": "2026-10-29",
+      "parkKey": "bentsen-rio-grande-valley",
+      "officialUrl": "https://tpwd.texas.gov/calendar/bentsen-rio-grande-valley/spring-hawk-watch/2026-10-29"
+    },
+    {
+      "title": "Hike With Homeless Dogs",
+      "startDate": "2026-10-29",
+      "parkKey": "davis-mountains",
+      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/hike-with-homeless-dogs/2026-10-29"
+    },
+    {
+      "title": "Island Trail Hike",
+      "startDate": "2026-10-29",
+      "parkKey": "martin-dies-jr",
+      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/island-trail-hike-1/2026-10-29"
+    },
+    {
+      "title": "Nature Hike",
+      "startDate": "2026-10-29",
+      "parkKey": "lake-livingston",
+      "officialUrl": "https://tpwd.texas.gov/calendar/lake-livingston/nature-hike-1/2026-10-29"
+    },
+    {
+      "title": "Tiny Trailblazers",
+      "startDate": "2026-10-29",
+      "parkKey": "lake-somerville-state-park-nails-creek-unit",
+      "officialUrl": "https://tpwd.texas.gov/calendar/lake-somerville-state-park-nails-creek-unit/tiny-trailblazers-1/2026-10-29"
+    },
+    {
+      "title": "Birding For Beginners",
+      "startDate": "2026-10-30",
+      "parkKey": "davis-mountains",
+      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/birding-for-beginners/2026-10-30"
+    },
+    {
+      "title": "Butterfly and Dragonfly Tours",
+      "startDate": "2026-10-30",
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/butterfly-and-dragonfly-walks/2026-10-30"
+    },
+    {
+      "title": "Creepy Crawlies After Dark: Night Hike 🕸️🦂",
+      "startDate": "2026-10-30",
+      "parkKey": "barton-warnock",
+      "officialUrl": "https://tpwd.texas.gov/calendar/barton-warnock/creepy-crawlies-after-dark-night-hike-1f578fe0f1f982/2026-10-30"
+    },
+    {
+      "title": "Hawk Watch",
+      "startDate": "2026-10-30",
+      "parkKey": "bentsen-rio-grande-valley",
+      "officialUrl": "https://tpwd.texas.gov/calendar/bentsen-rio-grande-valley/spring-hawk-watch/2026-10-30"
+    },
+    {
+      "title": "Meet The Longhorns",
+      "startDate": "2026-10-30",
+      "parkKey": "copper-breaks",
+      "officialUrl": "https://tpwd.texas.gov/calendar/copper-breaks/copy_of_meet-the-longhorns-march-23/2026-10-30"
+    },
+    {
+      "title": "Pollinator Arts & Crafts",
+      "startDate": "2026-10-30",
+      "parkKey": "choke-canyon",
+      "officialUrl": "https://tpwd.texas.gov/calendar/choke-canyon/art-in-the-park-1/2026-10-30"
+    },
+    {
+      "title": "Tails on the Trails",
+      "startDate": "2026-10-30",
+      "parkKey": "eisenhower",
+      "officialUrl": "https://tpwd.texas.gov/calendar/eisenhower/tails-on-the-trails/2026-10-30"
+    },
+    {
+      "title": "All About Us: a Guided Hike",
+      "startDate": "2026-10-31",
+      "parkKey": "brazos-bend",
+      "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/all-about-us_08-15-26/2026-10-31"
+    },
+    {
+      "title": "Archery 101",
+      "startDate": "2026-10-31",
+      "parkKey": "choke-canyon",
+      "officialUrl": "https://tpwd.texas.gov/calendar/choke-canyon/archery-101/2026-10-31"
+    },
+    {
+      "title": "Forest Trail Hike",
+      "startDate": "2026-10-31",
+      "parkKey": "martin-dies-jr",
+      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/forest-trail-hike/2026-10-31"
+    },
+    {
+      "title": "Hawk Watch",
+      "startDate": "2026-10-31",
+      "parkKey": "bentsen-rio-grande-valley",
+      "officialUrl": "https://tpwd.texas.gov/calendar/bentsen-rio-grande-valley/spring-hawk-watch/2026-10-31"
+    },
+    {
+      "title": "Meet The Longhorns",
+      "startDate": "2026-10-31",
+      "parkKey": "copper-breaks",
+      "officialUrl": "https://tpwd.texas.gov/calendar/copper-breaks/copy_of_meet-the-longhorns-march-23/2026-10-31"
+    },
+    {
+      "title": "Mission History Tour",
+      "startDate": "2026-10-31",
+      "parkKey": "goliad",
+      "officialUrl": "https://tpwd.texas.gov/calendar/goliad/copy3_of_guided-history-tour/2026-10-31"
+    },
+    {
+      "title": "Mission History Tour",
+      "startDate": "2026-10-31",
+      "parkKey": "goliad",
+      "officialUrl": "https://tpwd.texas.gov/calendar/goliad/copy_of_guided-history-tour-1/2026-10-31"
+    },
+    {
+      "title": "Reptiles with a Ranger",
+      "startDate": "2026-10-31",
+      "parkKey": "lake-brownwood",
+      "officialUrl": "https://tpwd.texas.gov/calendar/lake-brownwood/reptiles-with-a-ranger/2026-10-31"
+    },
+    {
+      "title": "Saturday Honey Creek Guided Walk--Registration Required",
+      "startDate": "2026-10-31",
+      "parkKey": "guadalupe-river",
+      "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/copy4_of_honey-creek-nature-hike/2026-10-31"
+    },
+    {
+      "title": "All About Us: a Guided Hike",
+      "startDate": "2026-11-01",
+      "parkKey": "brazos-bend",
+      "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/all-about-us_08-15-26/2026-11-01"
+    },
+    {
+      "title": "Birding Hike",
+      "startDate": "2026-11-01",
+      "parkKey": "brazos-bend",
+      "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/birding-hike_all-26/2026-11-01"
+    },
+    {
+      "title": "Forest Bathing",
+      "startDate": "2026-11-01",
+      "parkKey": "stephen-f-austin",
+      "officialUrl": "https://tpwd.texas.gov/calendar/stephen-f-austin/forest-bathing/2026-11-01"
+    },
+    {
+      "title": "Pictograph Tours (Reservations Required)",
+      "startDate": "2026-11-01",
+      "parkKey": "hueco-tanks",
+      "officialUrl": "https://tpwd.texas.gov/calendar/hueco-tanks/pictograph-1-tour/2026-11-01"
+    },
+    {
+      "title": "Morning Nature Walk",
+      "startDate": "2026-11-04",
+      "parkKey": "davis-mountains",
+      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/birding-walk-1/2026-11-04"
+    },
+    {
+      "title": "Reading With a Ranger",
+      "startDate": "2026-11-05",
+      "parkKey": "martin-dies-jr",
+      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/reading-with-a-ranger/2026-11-05"
+    },
+    {
+      "title": "Birding Hike",
+      "startDate": "2026-11-06",
+      "parkKey": "brazos-bend",
+      "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/birding-hike_all-26/2026-11-06"
+    },
+    {
+      "title": "Indian Lodge Tour",
+      "startDate": "2026-11-06",
+      "parkKey": "davis-mountains",
+      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/indian-lodge-tour-1/2026-11-06"
+    },
+    {
+      "title": "Master Naturalist Hike",
+      "startDate": "2026-11-06",
+      "parkKey": "davis-mountains",
+      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/copy_of_Master%20Naturalist%20Hike%20-%20Friday/2026-11-06"
+    },
+    {
+      "title": "Meet The Longhorns",
+      "startDate": "2026-11-06",
+      "parkKey": "copper-breaks",
+      "officialUrl": "https://tpwd.texas.gov/calendar/copper-breaks/copy_of_meet-the-longhorns-march-23/2026-11-06"
+    },
+    {
+      "title": "Pollinator Arts & Crafts",
+      "startDate": "2026-11-06",
+      "parkKey": "choke-canyon",
+      "officialUrl": "https://tpwd.texas.gov/calendar/choke-canyon/art-in-the-park-1/2026-11-06"
+    },
+    {
+      "title": "All About Us: a Guided Hike",
+      "startDate": "2026-11-07",
+      "parkKey": "brazos-bend",
+      "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/all-about-us_08-15-26/2026-11-07"
+    },
+    {
+      "title": "Archery 101",
+      "startDate": "2026-11-07",
+      "parkKey": "choke-canyon",
+      "officialUrl": "https://tpwd.texas.gov/calendar/choke-canyon/archery-101/2026-11-07"
+    },
+    {
+      "title": "Lake Hike",
+      "startDate": "2026-11-07",
+      "parkKey": "abilene",
+      "officialUrl": "https://tpwd.texas.gov/calendar/abilene/copy3_of_first-day-fitness-hike/2026-11-07"
+    },
+    {
+      "title": "Meet The Longhorns",
+      "startDate": "2026-11-07",
+      "parkKey": "copper-breaks",
+      "officialUrl": "https://tpwd.texas.gov/calendar/copper-breaks/copy_of_meet-the-longhorns-march-23/2026-11-07"
+    },
+    {
+      "title": "Star Party in the Borderlands *Reservations Required*",
+      "startDate": "2026-11-07",
+      "parkKey": "barton-warnock",
+      "officialUrl": "https://tpwd.texas.gov/calendar/barton-warnock/copy6_of_star-party-in-the-borderlands-reservations-required/2026-11-07"
+    },
+    {
+      "title": "All About Us: a Guided Hike",
+      "startDate": "2026-11-08",
+      "parkKey": "brazos-bend",
+      "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/all-about-us_08-15-26/2026-11-08"
+    },
+    {
+      "title": "Basic Fishing",
+      "startDate": "2026-11-08",
+      "parkKey": "galveston-island",
+      "officialUrl": "https://tpwd.texas.gov/calendar/galveston-island/basic-fishing/2026-11-08"
+    },
+    {
+      "title": "Discovery Walk Sundays",
+      "startDate": "2026-11-08",
+      "parkKey": "stephen-f-austin",
+      "officialUrl": "https://tpwd.texas.gov/calendar/stephen-f-austin/discovery-walk-sundays/2026-11-08"
+    },
+    {
+      "title": "Island Trail Hike",
+      "startDate": "2026-11-09",
+      "parkKey": "martin-dies-jr",
+      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/island-trail-hike-1/2026-11-09"
+    },
+    {
+      "title": "Nature's Classroom Homeschool Program",
+      "startDate": "2026-11-10",
+      "parkKey": "davis-mountains",
+      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/home-school-program/2026-11-10"
+    },
+    {
+      "title": "Morning Nature Walk",
+      "startDate": "2026-11-11",
+      "parkKey": "davis-mountains",
+      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/birding-walk-1/2026-11-11"
+    },
+    {
+      "title": "Miles of Stars",
+      "startDate": "2026-11-12",
+      "parkKey": "davis-mountains",
+      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/miles-of-stars/2026-11-12"
+    },
+    {
+      "title": "Scenic Overlook Nature Walk",
+      "startDate": "2026-11-12",
+      "parkKey": "guadalupe-river",
+      "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/scenic-overlook-nature-hike/2026-11-12"
+    },
+    {
+      "title": "Indian Lodge Tour",
+      "startDate": "2026-11-13",
+      "parkKey": "davis-mountains",
+      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/indian-lodge-tour-1/2026-11-13"
+    },
+    {
+      "title": "Meet The Longhorns",
+      "startDate": "2026-11-13",
+      "parkKey": "copper-breaks",
+      "officialUrl": "https://tpwd.texas.gov/calendar/copper-breaks/copy_of_meet-the-longhorns-march-23/2026-11-13"
+    },
+    {
+      "title": "Pollinator Arts & Crafts",
+      "startDate": "2026-11-13",
+      "parkKey": "choke-canyon",
+      "officialUrl": "https://tpwd.texas.gov/calendar/choke-canyon/art-in-the-park-1/2026-11-13"
+    },
+    {
+      "title": "All About Us: a Guided Hike",
+      "startDate": "2026-11-14",
+      "parkKey": "brazos-bend",
+      "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/all-about-us_08-15-26/2026-11-14"
+    },
+    {
+      "title": "Archery 101",
+      "startDate": "2026-11-14",
+      "parkKey": "choke-canyon",
+      "officialUrl": "https://tpwd.texas.gov/calendar/choke-canyon/archery-101/2026-11-14"
+    },
+    {
+      "title": "Bird Outing",
+      "startDate": "2026-11-14",
+      "parkKey": "lake-arrowhead",
+      "officialUrl": "https://tpwd.texas.gov/calendar/lake-arrowhead/bird-outing-13/2026-11-14"
+    },
+    {
+      "title": "Birding For Beginners",
+      "startDate": "2026-11-14",
+      "parkKey": "davis-mountains",
+      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/birding-for-beginners/2026-11-14"
+    },
+    {
+      "title": "Coffee with the Bison",
+      "startDate": "2026-11-14",
+      "parkKey": "caprock-canyons",
+      "officialUrl": "https://tpwd.texas.gov/calendar/caprock-canyons/coffee-with-the-bison-1/2026-11-14"
+    },
+    {
+      "title": "Living History Days",
+      "startDate": "2026-11-14",
+      "parkKey": "fort-richardson",
+      "officialUrl": "https://tpwd.texas.gov/calendar/fort-richardson/living-history-days/2026-11-14"
+    },
+    {
+      "title": "Meet The Longhorns",
+      "startDate": "2026-11-14",
+      "parkKey": "copper-breaks",
+      "officialUrl": "https://tpwd.texas.gov/calendar/copper-breaks/copy_of_meet-the-longhorns-march-23/2026-11-14"
+    },
+    {
+      "title": "Reptiles with a Ranger",
+      "startDate": "2026-11-14",
+      "parkKey": "lake-brownwood",
+      "officialUrl": "https://tpwd.texas.gov/calendar/lake-brownwood/reptiles-with-a-ranger/2026-11-14"
+    },
+    {
+      "title": "All About Us: a Guided Hike",
+      "startDate": "2026-11-15",
+      "parkKey": "brazos-bend",
+      "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/all-about-us_08-15-26/2026-11-15"
+    },
+    {
+      "title": "Guided Bird Walk at Honey Creek State Natural Area *Registration Required*",
+      "startDate": "2026-11-15",
+      "parkKey": "guadalupe-river",
+      "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/guided-bird-walk-at-honey-creek-ranch/2026-11-15"
+    },
+    {
+      "title": "Basic Fishing",
+      "startDate": "2026-11-18",
+      "parkKey": "galveston-island",
+      "officialUrl": "https://tpwd.texas.gov/calendar/galveston-island/basic-fishing/2026-11-18"
+    },
+    {
+      "title": "Morning Nature Walk",
+      "startDate": "2026-11-18",
+      "parkKey": "davis-mountains",
+      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/birding-walk-1/2026-11-18"
+    },
+    {
+      "title": "Reading Ranger",
+      "startDate": "2026-11-18",
+      "parkKey": "buescher",
+      "officialUrl": "https://tpwd.texas.gov/calendar/buescher/reading-ranger/2026-11-18"
+    },
+    {
+      "title": "Hike on Wildlife Trail",
+      "startDate": "2026-11-19",
+      "parkKey": "martin-dies-jr",
+      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/hike-on-wildlife-trail/2026-11-19"
+    },
+    {
+      "title": "Scenic Overlook Nature Walk",
+      "startDate": "2026-11-19",
+      "parkKey": "guadalupe-river",
+      "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/scenic-overlook-nature-hike/2026-11-19"
+    },
+    {
+      "title": "Tiny Trailblazers",
+      "startDate": "2026-11-19",
+      "parkKey": "lake-somerville-birch-creek",
+      "officialUrl": "https://tpwd.texas.gov/calendar/lake-somerville-birch-creek/tiny-trailblazers-2/2026-11-19"
+    },
+    {
+      "title": "Master Naturalist Hike",
+      "startDate": "2026-11-20",
+      "parkKey": "davis-mountains",
+      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/copy_of_Master%20Naturalist%20Hike%20-%20Friday/2026-11-20"
+    },
+    {
+      "title": "Meet The Longhorns",
+      "startDate": "2026-11-20",
+      "parkKey": "copper-breaks",
+      "officialUrl": "https://tpwd.texas.gov/calendar/copper-breaks/copy_of_meet-the-longhorns-march-23/2026-11-20"
+    },
+    {
+      "title": "Pollinator Arts & Crafts",
+      "startDate": "2026-11-20",
+      "parkKey": "choke-canyon",
+      "officialUrl": "https://tpwd.texas.gov/calendar/choke-canyon/art-in-the-park-1/2026-11-20"
+    },
+    {
+      "title": "All About Us: a Guided Hike",
+      "startDate": "2026-11-21",
+      "parkKey": "brazos-bend",
+      "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/all-about-us_08-15-26/2026-11-21"
+    },
+    {
+      "title": "Archery 101",
+      "startDate": "2026-11-21",
+      "parkKey": "choke-canyon",
+      "officialUrl": "https://tpwd.texas.gov/calendar/choke-canyon/archery-101/2026-11-21"
+    },
+    {
+      "title": "B.A.R.K. Ranger Hike",
+      "startDate": "2026-11-21",
+      "parkKey": "brazos-bend",
+      "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/bark-ranger-hike_09-16-26/2026-11-21"
+    },
+    {
+      "title": "Guided Paddle",
+      "startDate": "2026-11-21",
+      "parkKey": "martin-dies-jr",
+      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/guided-paddle/2026-11-21"
+    },
+    {
+      "title": "Island Trail Hike",
+      "startDate": "2026-11-21",
+      "parkKey": "martin-dies-jr",
+      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/island-trail-hike-1/2026-11-21"
+    },
+    {
+      "title": "Meet The Longhorns",
+      "startDate": "2026-11-21",
+      "parkKey": "copper-breaks",
+      "officialUrl": "https://tpwd.texas.gov/calendar/copper-breaks/copy_of_meet-the-longhorns-march-23/2026-11-21"
+    },
+    {
+      "title": "Predators of the Pines - Guided Hike",
+      "startDate": "2026-11-21",
+      "parkKey": "bastrop",
+      "officialUrl": "https://tpwd.texas.gov/calendar/bastrop/predators-of-the-pines-guided-hike/2026-11-21"
+    },
+    {
+      "title": "All About Us: a Guided Hike",
+      "startDate": "2026-11-22",
+      "parkKey": "brazos-bend",
+      "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/all-about-us_08-15-26/2026-11-22"
+    },
+    {
+      "title": "Basic Fishing",
+      "startDate": "2026-11-22",
+      "parkKey": "galveston-island",
+      "officialUrl": "https://tpwd.texas.gov/calendar/galveston-island/basic-fishing/2026-11-22"
+    },
+    {
+      "title": "Discovery Walk Sundays",
+      "startDate": "2026-11-22",
+      "parkKey": "stephen-f-austin",
+      "officialUrl": "https://tpwd.texas.gov/calendar/stephen-f-austin/discovery-walk-sundays/2026-11-22"
+    },
+    {
+      "title": "Morning Nature Walk",
+      "startDate": "2026-11-25",
+      "parkKey": "davis-mountains",
+      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/birding-walk-1/2026-11-25"
+    },
+    {
+      "title": "Indian Lodge Tour",
+      "startDate": "2026-11-27",
+      "parkKey": "davis-mountains",
+      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/indian-lodge-tour-1/2026-11-27"
+    },
+    {
+      "title": "Meet The Longhorns",
+      "startDate": "2026-11-27",
+      "parkKey": "copper-breaks",
+      "officialUrl": "https://tpwd.texas.gov/calendar/copper-breaks/copy_of_meet-the-longhorns-march-23/2026-11-27"
+    },
+    {
+      "title": "Pollinator Arts & Crafts",
+      "startDate": "2026-11-27",
+      "parkKey": "choke-canyon",
+      "officialUrl": "https://tpwd.texas.gov/calendar/choke-canyon/art-in-the-park-1/2026-11-27"
+    },
+    {
+      "title": "Star Party in the Borderlands *Reservations Required*",
+      "startDate": "2026-11-27",
+      "parkKey": "barton-warnock",
+      "officialUrl": "https://tpwd.texas.gov/calendar/barton-warnock/copy6_of_star-party-in-the-borderlands-reservations-required/2026-11-27"
+    },
+    {
+      "title": "Archery 101",
+      "startDate": "2026-11-28",
+      "parkKey": "choke-canyon",
+      "officialUrl": "https://tpwd.texas.gov/calendar/choke-canyon/archery-101/2026-11-28"
+    },
+    {
+      "title": "Coffee with the Bison",
+      "startDate": "2026-11-28",
+      "parkKey": "caprock-canyons",
+      "officialUrl": "https://tpwd.texas.gov/calendar/caprock-canyons/coffee-with-the-bison-1/2026-11-28"
+    },
+    {
+      "title": "Island Trail Hike",
+      "startDate": "2026-11-28",
+      "parkKey": "martin-dies-jr",
+      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/island-trail-hike-1/2026-11-28"
+    },
+    {
+      "title": "Meet The Longhorns",
+      "startDate": "2026-11-28",
+      "parkKey": "copper-breaks",
+      "officialUrl": "https://tpwd.texas.gov/calendar/copper-breaks/copy_of_meet-the-longhorns-march-23/2026-11-28"
+    },
+    {
+      "title": "Reptiles with a Ranger",
+      "startDate": "2026-11-28",
+      "parkKey": "lake-brownwood",
+      "officialUrl": "https://tpwd.texas.gov/calendar/lake-brownwood/reptiles-with-a-ranger/2026-11-28"
+    },
+    {
+      "title": "Trail Mix: Edible Plants Guided Hike",
+      "startDate": "2026-11-28",
+      "parkKey": "buescher",
+      "officialUrl": "https://tpwd.texas.gov/calendar/buescher/master-naturalist-guided-hike-1/2026-11-28"
+    },
+    {
+      "title": "Winter Birding",
+      "startDate": "2026-11-28",
+      "parkKey": "galveston-island",
+      "officialUrl": "https://tpwd.texas.gov/calendar/galveston-island/winter-birding-1/2026-11-28"
+    },
+    {
+      "title": "Pictograph Tours (Reservations Required)",
+      "startDate": "2026-12-01",
+      "parkKey": "hueco-tanks",
+      "officialUrl": "https://tpwd.texas.gov/calendar/hueco-tanks/pictograph-1-tour/2026-12-01"
+    },
+    {
+      "title": "Morning Nature Walk",
+      "startDate": "2026-12-02",
+      "parkKey": "davis-mountains",
+      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/birding-walk-1/2026-12-02"
+    },
+    {
+      "title": "Hike on Wildlife Trail",
+      "startDate": "2026-12-03",
+      "parkKey": "martin-dies-jr",
+      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/hike-on-wildlife-trail/2026-12-03"
+    },
+    {
+      "title": "Miles of Stars",
+      "startDate": "2026-12-03",
+      "parkKey": "davis-mountains",
+      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/miles-of-stars/2026-12-03"
+    },
+    {
+      "title": "Reading With a Ranger",
+      "startDate": "2026-12-03",
+      "parkKey": "martin-dies-jr",
+      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/reading-with-a-ranger/2026-12-03"
+    },
+    {
+      "title": "Birding Hike",
+      "startDate": "2026-12-04",
+      "parkKey": "brazos-bend",
+      "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/birding-hike_all-26/2026-12-04"
+    },
+    {
+      "title": "Indian Lodge Tour",
+      "startDate": "2026-12-04",
+      "parkKey": "davis-mountains",
+      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/indian-lodge-tour-1/2026-12-04"
+    },
+    {
+      "title": "Master Naturalist Hike",
+      "startDate": "2026-12-04",
+      "parkKey": "davis-mountains",
+      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/copy_of_Master%20Naturalist%20Hike%20-%20Friday/2026-12-04"
+    },
+    {
+      "title": "Meet The Longhorns",
+      "startDate": "2026-12-04",
+      "parkKey": "copper-breaks",
+      "officialUrl": "https://tpwd.texas.gov/calendar/copper-breaks/copy_of_meet-the-longhorns-march-23/2026-12-04"
+    },
+    {
+      "title": "Pollinator Arts & Crafts",
+      "startDate": "2026-12-04",
+      "parkKey": "choke-canyon",
+      "officialUrl": "https://tpwd.texas.gov/calendar/choke-canyon/art-in-the-park-1/2026-12-04"
+    },
+    {
+      "title": "Star Party in the Borderlands *Reservations Required*",
+      "startDate": "2026-12-04",
+      "parkKey": "barton-warnock",
+      "officialUrl": "https://tpwd.texas.gov/calendar/barton-warnock/copy6_of_star-party-in-the-borderlands-reservations-required/2026-12-04"
+    },
+    {
+      "title": "Lake Hike",
+      "startDate": "2026-12-05",
+      "parkKey": "abilene",
+      "officialUrl": "https://tpwd.texas.gov/calendar/abilene/copy3_of_first-day-fitness-hike/2026-12-05"
+    },
+    {
+      "title": "Meet The Longhorns",
+      "startDate": "2026-12-05",
+      "parkKey": "copper-breaks",
+      "officialUrl": "https://tpwd.texas.gov/calendar/copper-breaks/copy_of_meet-the-longhorns-march-23/2026-12-05"
+    },
+    {
+      "title": "Park 2 Park Hike",
+      "startDate": "2026-12-05",
+      "parkKey": "davis-mountains",
+      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/park-2-park-hike/2026-12-05"
+    },
+    {
+      "title": "Star Party",
+      "startDate": "2026-12-05",
+      "parkKey": "abilene",
+      "officialUrl": "https://tpwd.texas.gov/calendar/abilene/star-party-3/2026-12-05"
+    },
+    {
+      "title": "Guided Bird Walk at Honey Creek State Natural Area *Registration Required*",
+      "startDate": "2026-12-06",
+      "parkKey": "guadalupe-river",
+      "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/guided-bird-walk-at-honey-creek-ranch/2026-12-06"
+    },
+    {
+      "title": "Nature's Classroom Homeschool Program",
+      "startDate": "2026-12-08",
+      "parkKey": "davis-mountains",
+      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/home-school-program/2026-12-08"
+    },
+    {
+      "title": "Miles of Stars",
+      "startDate": "2026-12-10",
+      "parkKey": "davis-mountains",
+      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/miles-of-stars/2026-12-10"
+    },
+    {
+      "title": "Indian Lodge Tour",
+      "startDate": "2026-12-11",
+      "parkKey": "davis-mountains",
+      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/indian-lodge-tour-1/2026-12-11"
+    },
+    {
+      "title": "Meet The Longhorns",
+      "startDate": "2026-12-11",
+      "parkKey": "copper-breaks",
+      "officialUrl": "https://tpwd.texas.gov/calendar/copper-breaks/copy_of_meet-the-longhorns-march-23/2026-12-11"
+    },
+    {
+      "title": "Pollinator Arts & Crafts",
+      "startDate": "2026-12-11",
+      "parkKey": "choke-canyon",
+      "officialUrl": "https://tpwd.texas.gov/calendar/choke-canyon/art-in-the-park-1/2026-12-11"
+    },
+    {
+      "title": "A Crafty Caddo Christmas",
+      "startDate": "2026-12-12",
+      "parkKey": "caddo-lake",
+      "officialUrl": "https://tpwd.texas.gov/calendar/caddo-lake/a-crafty-caddo-christmas/2026-12-12"
+    },
+    {
+      "title": "Bird Outing",
+      "startDate": "2026-12-12",
+      "parkKey": "lake-arrowhead",
+      "officialUrl": "https://tpwd.texas.gov/calendar/lake-arrowhead/bird-outing-13/2026-12-12"
+    },
+    {
+      "title": "Meet The Longhorns",
+      "startDate": "2026-12-12",
+      "parkKey": "copper-breaks",
+      "officialUrl": "https://tpwd.texas.gov/calendar/copper-breaks/copy_of_meet-the-longhorns-march-23/2026-12-12"
+    },
+    {
+      "title": "Reptiles with a Ranger",
+      "startDate": "2026-12-12",
+      "parkKey": "lake-brownwood",
+      "officialUrl": "https://tpwd.texas.gov/calendar/lake-brownwood/reptiles-with-a-ranger/2026-12-12"
+    },
+    {
+      "title": "Star Party",
+      "startDate": "2026-12-12",
+      "parkKey": "dinosaur-valley",
+      "officialUrl": "https://tpwd.texas.gov/calendar/dinosaur-valley/star-party-12/2026-12-12"
+    },
+    {
+      "title": "Trail Mix: Edible Plants Guided Hike",
+      "startDate": "2026-12-12",
+      "parkKey": "buescher",
+      "officialUrl": "https://tpwd.texas.gov/calendar/buescher/master-naturalist-guided-hike-1/2026-12-12"
+    },
+    {
+      "title": "Morning Nature Walk",
+      "startDate": "2026-12-16",
+      "parkKey": "davis-mountains",
+      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/birding-walk-1/2026-12-16"
+    },
+    {
+      "title": "Reading Ranger",
+      "startDate": "2026-12-16",
+      "parkKey": "buescher",
+      "officialUrl": "https://tpwd.texas.gov/calendar/buescher/reading-ranger/2026-12-16"
+    },
+    {
+      "title": "Master Naturalist Hike",
+      "startDate": "2026-12-18",
+      "parkKey": "davis-mountains",
+      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/copy_of_Master%20Naturalist%20Hike%20-%20Friday/2026-12-18"
+    },
+    {
+      "title": "Meet The Longhorns",
+      "startDate": "2026-12-18",
+      "parkKey": "copper-breaks",
+      "officialUrl": "https://tpwd.texas.gov/calendar/copper-breaks/copy_of_meet-the-longhorns-march-23/2026-12-18"
+    },
+    {
+      "title": "Pollinator Arts & Crafts",
+      "startDate": "2026-12-18",
+      "parkKey": "choke-canyon",
+      "officialUrl": "https://tpwd.texas.gov/calendar/choke-canyon/art-in-the-park-1/2026-12-18"
+    },
+    {
+      "title": "Archery 101",
+      "startDate": "2026-12-19",
+      "parkKey": "choke-canyon",
+      "officialUrl": "https://tpwd.texas.gov/calendar/choke-canyon/archery-101/2026-12-19"
+    },
+    {
+      "title": "Guided Paddle",
+      "startDate": "2026-12-19",
+      "parkKey": "martin-dies-jr",
+      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/guided-paddle/2026-12-19"
+    },
+    {
+      "title": "Meet The Longhorns",
+      "startDate": "2026-12-19",
+      "parkKey": "copper-breaks",
+      "officialUrl": "https://tpwd.texas.gov/calendar/copper-breaks/copy_of_meet-the-longhorns-march-23/2026-12-19"
+    },
+    {
+      "title": "Trail of Lights",
+      "startDate": "2026-12-19",
+      "parkKey": "lake-mineral-wells",
+      "officialUrl": "https://tpwd.texas.gov/calendar/lake-mineral-wells/trail-of-lights/2026-12-19"
+    },
+    {
+      "title": "Fishing with a Ranger",
+      "startDate": "2026-12-20",
+      "parkKey": "brazos-bend",
+      "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/fishing-with-a-ranger_11-15-256/2026-12-20"
+    },
+    {
+      "title": "Rise of the Wild Prairie Guided Hike",
+      "startDate": "2026-12-20",
+      "parkKey": "galveston-island",
+      "officialUrl": "https://tpwd.texas.gov/calendar/galveston-island/copy2_of_prairie-adventure-hike/2026-12-20"
+    },
+    {
+      "title": "Morning Nature Walk",
+      "startDate": "2026-12-23",
+      "parkKey": "davis-mountains",
+      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/birding-walk-1/2026-12-23"
+    },
+    {
+      "title": "Meet The Longhorns",
+      "startDate": "2026-12-25",
+      "parkKey": "copper-breaks",
+      "officialUrl": "https://tpwd.texas.gov/calendar/copper-breaks/copy_of_meet-the-longhorns-march-23/2026-12-25"
+    },
+    {
+      "title": "Meet The Longhorns",
+      "startDate": "2026-12-26",
+      "parkKey": "copper-breaks",
+      "officialUrl": "https://tpwd.texas.gov/calendar/copper-breaks/copy_of_meet-the-longhorns-march-23/2026-12-26"
+    },
+    {
+      "title": "Reptiles with a Ranger",
+      "startDate": "2026-12-26",
+      "parkKey": "lake-brownwood",
+      "officialUrl": "https://tpwd.texas.gov/calendar/lake-brownwood/reptiles-with-a-ranger/2026-12-26"
+    },
+    {
+      "title": "Winter Birding",
+      "startDate": "2026-12-26",
+      "parkKey": "galveston-island",
+      "officialUrl": "https://tpwd.texas.gov/calendar/galveston-island/winter-birding-1/2026-12-26"
+    },
+    {
+      "title": "Morning Nature Walk",
+      "startDate": "2026-12-30",
+      "parkKey": "davis-mountains",
+      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/birding-walk-1/2026-12-30"
+    },
+    {
+      "title": "Star Party in the Borderlands *Reservations Required*",
+      "startDate": "2026-12-30",
+      "parkKey": "barton-warnock",
+      "officialUrl": "https://tpwd.texas.gov/calendar/barton-warnock/copy6_of_star-party-in-the-borderlands-reservations-required/2026-12-30"
+    },
+    {
+      "title": "First Day Hike - Self-Guided",
+      "startDate": "2027-01-01",
+      "parkKey": "lake-brownwood",
+      "officialUrl": "https://tpwd.texas.gov/calendar/lake-brownwood/first-day-hike-self-guided/2027-01-01"
+    },
+    {
+      "title": "Mile - High First Day Hike",
+      "startDate": "2027-01-01",
+      "parkKey": "davis-mountains",
+      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/mile-high-1st-day-hike/2027-01-01"
+    },
+    {
+      "title": "Pictograph Tours (Reservations Required)",
+      "startDate": "2027-01-01",
+      "parkKey": "hueco-tanks",
+      "officialUrl": "https://tpwd.texas.gov/calendar/hueco-tanks/pictograph-1-tour/2027-01-01"
+    },
+    {
+      "title": "Reading With a Ranger",
+      "startDate": "2027-01-07",
+      "parkKey": "martin-dies-jr",
+      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/reading-with-a-ranger/2027-01-07"
+    },
+    {
+      "title": "Reptiles with a Ranger",
+      "startDate": "2027-01-09",
+      "parkKey": "lake-brownwood",
+      "officialUrl": "https://tpwd.texas.gov/calendar/lake-brownwood/reptiles-with-a-ranger/2027-01-09"
+    },
+    {
+      "title": "Winter Birding",
+      "startDate": "2027-01-09",
+      "parkKey": "galveston-island",
+      "officialUrl": "https://tpwd.texas.gov/calendar/galveston-island/winter-birding-1/2027-01-09"
+    },
+    {
+      "title": "Nature's Classroom Homeschool Program",
+      "startDate": "2027-01-12",
+      "parkKey": "davis-mountains",
+      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/home-school-program/2027-01-12"
+    },
+    {
+      "title": "Guided Paddle",
+      "startDate": "2027-01-16",
+      "parkKey": "martin-dies-jr",
+      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/guided-paddle/2027-01-16"
+    },
+    {
+      "title": "Fishing with a Ranger",
+      "startDate": "2027-01-17",
+      "parkKey": "brazos-bend",
+      "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/fishing-with-a-ranger_11-15-256/2027-01-17"
     }
   ]
 }

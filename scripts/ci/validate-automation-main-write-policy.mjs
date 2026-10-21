@@ -67,7 +67,7 @@ for (const contract of [
   'automation/texas-events-sync-${sync_run_id}',
   'Refresh authoritative Texas events catalog',
   'github-actions[bot]',
-  'src/data/generated/texas-events.ts|src/data/generated/ticketmaster-events.json',
+  'src/data/generated/texas-events.ts|src/data/generated/ticketmaster-events.json|src/data/generated/tpwd-events.json',
   'git merge --no-edit origin/main',
   'git push origin "HEAD:$BRANCH"',
   'bash scripts/ci/dispatch-validate-branch.sh "$BRANCH" validate.yml',
