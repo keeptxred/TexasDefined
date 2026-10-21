@@ -23,7 +23,7 @@ function TexasDmvPage() {
         <p className="mt-4 max-w-3xl leading-7 text-muted-foreground">Texas does not have one office for every driving task. DPS issues driving credentials; TxDMV oversees titles and registration; county tax assessor-collectors handle many title and registration transactions. Choose your task below before scheduling an appointment.</p>
         <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((service) => (
-            <Link key={service.href} to={service.href} className="group border border-border p-5 transition-colors hover:bg-muted/30 focus-visible:ring-2 focus-visible:ring-primary">
+            <Link key={service.href} to={service.href} className="group border border-border p-5 transition-colors hover:bg-muted/30 focus-visible:underline">
               <span className="text-xs font-semibold uppercase tracking-wide text-primary">{service.agency}</span>
               <h3 className="mt-2 font-display text-xl text-foreground">{service.title}</h3>
               <p className="mt-3 text-sm leading-6 text-muted-foreground">{service.detail}</p>
