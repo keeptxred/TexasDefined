@@ -55,6 +55,8 @@ export function EventsLandingPage({ data, search, breadcrumb }: { data: EventsLa
 
     <Container><TexasEventCarousel events={upcomingEventRecords} title="Upcoming events across Texas" eyebrow="Verified statewide calendar" viewAllHref="/events#calendar" /></Container>
 
+    <Section><Container><SectionHeader eyebrow="Browse the calendar" title="Find something worth the trip" description="Choose a month or day, then narrow by location, event type or venue. Every filtered view has a shareable URL." /><GlobalEventCalendar calendarView={calendarView} regions={regions} search={search} /></Container></Section>
+
     <section className="ev-section ev-surface"><Container><div className="ev-split"><div><p className="eyebrow ev-e">Understand the tradition</p><h2 className="ev-title">The culture behind the calendar</h2></div><div className="ev-grid4">
       <EditorialLink href="/texas-state-fair" title="State Fair of Texas" text="Dates, Fair Park, Big Tex, food, rides and practical planning for the Dallas fair." />
       <EditorialLink href="/texas-dance-halls-honky-tonks" title="Dance halls & honky-tonks" text="Two-step culture, Western swing, historic community halls and how to plan a live-music weekend." />
@@ -73,7 +75,6 @@ export function EventsLandingPage({ data, search, breadcrumb }: { data: EventsLa
 
     <section className="ev-section"><Container><div className="ev-split"><div><p className="eyebrow ev-e">Plan the anchor event</p><h2 className="ev-title">Major Texas event guides</h2><p className="ev-copy">Confirmed or clearly labeled projected dates, official sources and practical trip-planning context for events large enough to shape a Texas weekend.</p></div><div className="ev-grid4">{majorEventGuides.map(({ slug, href, name, detail }) => href === `/event/${slug}` ? <Link key={`${slug}:${href}`} to="/event/$slug" params={{ slug }} className="ev-card"><strong>{name}</strong><span className="ev-card-copy">{detail}</span><span className="ev-card-go">Plan the event →</span></Link> : <a key={`${slug}:${href}`} href={href} className="ev-card"><strong>{name}</strong><span className="ev-card-copy">{detail}</span><span className="ev-card-go">Plan the event →</span></a>)}</div></div></Container></section>
 
-    <Section><Container><SectionHeader eyebrow="Browse the calendar" title="Find something worth the trip" description="Choose a month or day, then narrow by location, event type or venue. Every filtered view has a shareable URL." /><GlobalEventCalendar calendarView={calendarView} regions={regions} search={search} /></Container></Section>
   </>;
 }
 
