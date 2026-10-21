@@ -40,7 +40,7 @@
       "bryan-rudder",
       "bryson"
     ],
-    "state": "BATCH_007_TEN_SCHOOL_SOURCE_IMPLEMENTATION_PENDING_QA",
+    "state": "BATCH_007_ELEVEN_SCHOOL_SOURCE_IMPLEMENTATION_PENDING_QA",
     "dateAssigned": "2026-10-20",
     "selectionRule": "First 25 NOT_REVIEWED and unassigned canonical schoolRecords in stable order following 130 production VERIFIED through completed Batch 006; outstanding PR and branch conflicts checked.",
     "individuallyVerified": 0,
@@ -48,12 +48,12 @@
     "assignmentBranch": "football-authority-batch-007-20261020",
     "repositoryMainAtAssignment": "78157bb07d856f40d21e813fd3f886cd54e2b20e",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "brookesmith",
-    "nextSchool": "brownfield",
-    "implementedOnBranch": 10,
-    "remainingToImplement": 15,
+    "currentSchool": "brownfield",
+    "nextSchool": "brownsboro",
+    "implementedOnBranch": 11,
+    "remainingToImplement": 14,
     "remainingToVerify": 25,
-    "notes": "10 individually researched/implemented source-backed school profiles on draft branch PR5525; 15 remaining individual implementations; none production-VERIFIED and no CI/Cloudflare polling. Latest Bronte sources reflect Oct20 contemporary district standing."
+    "notes": "11 individually implemented on unmerged PR 5525, 14 remaining. No live production VERIFIED. One administratively awarded forfeit displayed with proper explanation; Blanket aggregate score conflict documented for Brookesmith."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -7479,8 +7479,17 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/brookesmith",
-      "status": "NOT_REVIEWED",
-      "batch": 7
+      "status": "IMPLEMENTED",
+      "batch": 7,
+      "audit": "docs/football-authority/schools/brookesmith.md",
+      "auditCompletedAt": "2026-10-20",
+      "researchCompletedAt": "2026-10-20",
+      "implementedAt": "2026-10-20",
+      "implementedOnBranch": "football-authority-batch-007-20261020",
+      "actualProductionVerified": false,
+      "mediaStatus": "Original independent sourced-score graphic explicitly labels Oct 2 Olfen forfeited/non-played game; no unlicensed school photo/seal",
+      "implementationNotes": "UIL Division II six-man. Coach Blake Hood independent listing and school Athletics official; 2026 6–2 through Oct16 includes 1–0 administrative Olfen forfeit (five played wins), Oct16 Richland Springs L62–6; score conflict Blanket 66–34 won confirmed by both teams MaxPreps and SI vs reversed aggregator; 9 historical DCTF playoff berths/no state final; discordant stadium name not fabricated; 7 milestones/6 FAQs plus Brown County backlinks preserving existing Bangs/Blanket.",
+      "technicalVerification": "PENDING source validation/TypeScript, CI, protected merge, Cloudflare production 1366/390/320 Chrome, canonical/FAQ/sitemap/county; school field naming/coach and image rights outstanding"
     },
     {
       "id": "uil:brownfield",
