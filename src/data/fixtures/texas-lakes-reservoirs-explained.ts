@@ -115,13 +115,13 @@ export const texasLakesReservoirsExplainedArticle: Article = {
     p("It did not. Most of the large inland lakes Texans know are man-made reservoirs. Many impound rivers and creeks behind dams; others store water diverted into a separate off-channel basin. Texas Parks and Wildlife describes the predominance of man-made lakes, while the Texas Water Development Board publishes reservoir inventories and watershed data. Those familiar blue shapes on the map are, in large part, infrastructure."),
     h("Texas lakes and reservoirs at a glance"),
     list(
-      "196 major reservoirs? TWDB's major-reservoir overview count; a major reservoir has at least 5,000 acre-feet of storage capacity at normal operating level. This does not count every pond or named lake.",
-      "15 major river basins? The principal watershed systems draining Texas.",
-      "8 coastal basins? Additional watersheds between the major river basins.",
-      "More than half? TWDB's estimate of the available SURFACE-water supply provided by reservoirs, not a share of all water including groundwater.",
-      "Today's lake levels? Check the dated storage readings at Water Data for Texas instead of assuming yesterday's level remains current."
+      "How many major reservoirs? TWDB's published overview lists 196, defining a major reservoir as an impoundment with at least 5,000 acre-feet of storage capacity at normal operating level. This is an agency overview figure, not a verified current census.",
+      "How many major river basins? Texas has 15 principal river basins.",
+      "How many coastal basins? Texas also has eight designated coastal drainage basins.",
+      "How much water comes from reservoirs? TWDB's reservoir-history overview attributes more than half of the state's available surface-water supply to reservoirs, not a share of surface water plus groundwater.",
+      "Where are today's lake levels? Use the date-stamped readings at Water Data for Texas rather than a fixed percentage in this guide."
     ),
-    p("The counts depend on the definition. A statewide inventory of all major reservoirs is not the same as the count of water-supply reservoirs or the number of lakes monitored for daily storage. Official sources and data tools appear below."),
+    p("Important count caveat: TWDB's River Basins & Reservoirs overview displays a statewide total of 196 major reservoirs, but elsewhere on that same overview it lists 188 major water-supply reservoirs plus more than 20 additional major reservoirs without a water-supply function. Those published figures cannot all describe the same inventory. We retain 196 only as TWDB's stated overview figure, not an independently confirmed 2026 census. Counts also differ between all major reservoirs and those monitored for daily water levels. For research or policy decisions, verify the date and scope of the relevant official inventory."),
     h("Why Texas has so few large natural lakes"),
     p("The absence of large natural lakes begins with geology. Many of the world's famous natural lakes occupy basins carved by glaciers, blocked by landslides, formed by volcanic activity or created by major tectonic movement. Texas has not had the same recent glacial history that left lake-filled landscapes across parts of the northern United States and Canada."),
     p("Texas certainly has natural ponds, oxbow lakes, playa lakes, coastal lagoons and other natural bodies of water. Rivers also abandon old channels and leave curved oxbows behind. But those features are different from the large permanent inland lakes most people picture when they hear the word lake."),
