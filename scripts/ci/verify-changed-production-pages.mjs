@@ -15,7 +15,12 @@ function assertTexasDataContents(path, body) {
     if (visibleHeading !== 'Texas by the Numbers') {
       throw new Error('Texas Data hub opening H1 is stale: ' + (visibleHeading || 'missing'));
     }
-    requireText('Texas by the Numbers: Population, Housing, Jobs & Counties');
+    // HTML escapes the ampersand in <title>; decode common entity forms before checking.
+    const titleMarkup = body.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i)?.[1] ?? '';
+    const documentTitle = titleMarkup.replace(/&amp;|&#38;|&#x26;/gi, '&');
+    if (!documentTitle.includes('Texas by the Numbers: Population, Housing, Jobs & Counties')) {
+      throw new Error('Texas Data hub browser title is stale or missing');
+    }
     for (const value of ['Texas at a glance', '4,357,000', 'August 2026 preliminary',
       '$3,489', 'Search official data briefs', '/texas-data/texas-metro-payrolls-august-2026',
       'Major Texas metro payrolls', 'Texas Defined insurance research',
