@@ -15,6 +15,8 @@ const references = {
   karting: "https://msrhouston.com/karting/",
   schools: "https://msrhouston.com/schools/",
   location: "https://msrhouston.com/about/location/",
+  supercars: "https://www.thextremexperience.com/tracks/msr-houston",
+  angletonTourism: "https://www.angleton.tx.us/287/Tourism",
 };
 
 const experiences = [
@@ -35,6 +37,12 @@ const experiences = [
     access: "Register for a specific organizer's event; each organizer sets eligibility, instruction, schedule and costs",
     action: "Find an event on the road-course calendar, then register with the organizer",
     href: references.calendar,
+  },
+  {
+    name: "Instructor-led supercar drive or ride-along",
+    access: "Prebook a scheduled Xtreme Xperience session; car, age, license, guest and pricing rules are program-specific",
+    action: "Check upcoming MSR Houston dates and book with Xtreme Xperience",
+    href: references.supercars,
   },
   {
     name: "Driving instruction / racing school",
@@ -143,9 +151,23 @@ export function MSRHoustonAuthoritySections() {
       <a href="#msr-track-facts" className="underline underline-offset-4 hover:text-primary">Track specifications</a>
       <a href="#msr-safety" className="underline underline-offset-4 hover:text-primary">Safety & fees</a>
       <a href="#msr-checklist" className="underline underline-offset-4 hover:text-primary">Trip checklist</a>
+      <a href="#msr-contact" className="underline underline-offset-4 hover:text-primary">Contact & directions</a>
       <a href="#msr-history" className="underline underline-offset-4 hover:text-primary">History</a>
       <a href="#msr-logistics" className="underline underline-offset-4 hover:text-primary">Camping & amenities</a>
     </nav>
+
+    <section className="border-b border-border py-7" aria-labelledby="msr-contact">
+      <div className="flex flex-wrap items-center justify-between gap-5 border border-border p-5">
+        <div>
+          <h2 id="msr-contact" className="font-display text-2xl">Before you go: contact the track</h2>
+          <p className="mt-2 text-sm leading-7 text-muted-foreground">MSR Houston, 1 Performance Drive, Angleton, TX 77515. Call the office to confirm event access, waivers, accessibility, camping or the correct gate for your activity. For a supercar drive, book with the experience operator instead.</p>
+        </div>
+        <div className="flex flex-col gap-2 text-sm font-semibold">
+          <a href="tel:+12813690677" className="inline-flex min-h-11 items-center justify-center border border-border px-5 py-3 hover:border-primary hover:text-primary">Call office: 281-369-0677</a>
+          <SourceLink href={references.faqs}>Official visitor FAQ</SourceLink>
+        </div>
+      </div>
+    </section>
 
     <section className="border-b border-border py-10" aria-labelledby="msr-access">
       <SectionHeading kicker="Choose your experience" id="msr-access" title="Can you actually drive at MSR Houston?">
@@ -170,6 +192,7 @@ export function MSRHoustonAuthoritySections() {
         committing to a membership. A club's HPDE is driver education, not automatically a race or a timed qualifying
         session. The organizer controls eligibility, instruction and registration. <SourceLink href={references.schools}>Driving programs</SourceLink>
       </p>
+      <p className="mt-3 text-sm leading-7 text-muted-foreground">Xtreme Xperience advertises instructor-guided supercar drives and ride-alongs on a 1.30-mile event configuration, not automatic access to the full 2.38-mile MSR road course. Check program age and license requirements, bookable dates and total prices directly with the <SourceLink href={references.supercars}>experience operator</SourceLink>.</p>
     </section>
 
     <section className="border-b border-border py-10" aria-labelledby="msr-track-facts">
@@ -258,6 +281,7 @@ export function MSRHoustonAuthoritySections() {
           <p className="mt-3 text-sm leading-7 text-muted-foreground">The operator does not publish a universal accessibility and accessible-parking map across every event. Ask the track and organizer about suitable viewing locations, accessible restrooms, mobility needs and gate routes before purchasing admission or scheduling a family visit.</p>
         </div>
       </div>
+      <p className="mt-6 text-sm leading-7 text-muted-foreground">If your event does not permit overnight camping, compare lodging in <strong>Angleton</strong> for track access or <strong>Lake Jackson</strong> for a longer Brazoria County trip. Hotel availability and rates change; the <SourceLink href={references.angletonTourism}>City of Angleton tourism office</SourceLink> provides visitor and accommodation assistance. Do not assume MSR itself provides hotel rooms.</p>
       <p className="mt-7 text-sm"><SourceLink href={references.faqs}>Operator FAQ covering camping, fuel, pets, food and weather</SourceLink></p>
     </section>
 
@@ -296,7 +320,7 @@ export function MSRHoustonAuthoritySections() {
         <a href="/sports-venues" className="border border-border px-4 py-3 hover:border-primary hover:text-primary">Compare Texas sports venues →</a>
         <a href="/explore/road-trips" className="border border-border px-4 py-3 hover:border-primary hover:text-primary">Texas road trips →</a>
       </div>
-      <p className="mt-6 text-xs leading-6 text-muted-foreground">Research method: Texas Defined independently synthesized primary venue information, checked Oct. 9, 2026. Static dimensions and historical details are attributed to the operator. Closures, event schedules, prices and public access must be rechecked. This guide is not affiliated with MSR Houston.</p>
+      <p className="mt-6 text-xs leading-6 text-muted-foreground">Research method: Texas Defined independently synthesized venue information, with core operator claims checked Oct. 9, 2026 and visitor experience, contact and local-planning additions checked Oct. 20, 2026. Static dimensions and historical details are attributed to the operator. Closures, event schedules, prices and public access must be rechecked. This guide is not affiliated with MSR Houston or Xtreme Xperience.</p>
     </section>
   </div>;
 }

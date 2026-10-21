@@ -318,6 +318,11 @@ function VenuePhoto({ photo, venueName, fallbackImageUrl }: { photo?: SportsVenu
   // when the proxy fails, and show no-image text if that source also fails.
   const [failedUrl, setFailedUrl] = useState<string | null>(null);
   const [failedFallback, setFailedFallback] = useState(false);
+  const historicalPhotoCaption = venueName === "MSR Houston" ? (
+    <figcaption className="px-4 py-3 text-xs leading-6 text-muted-foreground">
+      Historical aerial, February 10, 2015 · U.S. Geological Survey, public domain. This is not a live view of current track conditions.
+    </figcaption>
+  ) : null;
   if (!photo || (failedUrl === photo.imageUrl && (!fallbackImageUrl || failedFallback))) {
     return (
       <div
@@ -343,6 +348,7 @@ function VenuePhoto({ photo, venueName, fallbackImageUrl }: { photo?: SportsVenu
           className="block h-auto w-full object-contain"
           onError={() => setFailedFallback(true)}
         />
+        {historicalPhotoCaption}
       </figure>
     );
   }
@@ -359,6 +365,7 @@ function VenuePhoto({ photo, venueName, fallbackImageUrl }: { photo?: SportsVenu
         className="block h-auto w-full object-contain"
         onError={() => setFailedUrl(photo.imageUrl)}
       />
+      {historicalPhotoCaption}
     </figure>
   );
 }
