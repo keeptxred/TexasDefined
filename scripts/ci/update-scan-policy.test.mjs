@@ -75,6 +75,38 @@ test('one edited article selects that record, not its unchanged siblings', () =>
   assert.ok(Object.values(plan.groups).every(v => v === false));
 });
 
+test('a changed event authority record creates a bounded, cache-aware production acceptance', async () => {
+  const file = 'src/data/major-event-expanded-authority-tranche54.server.ts';
+  const old = `const records = [{ slug: "existing-festival", name: "Previous festival", planningSections: [] }, { slug: "unchanged-festival", name: "Keep", planningSections: [] }];`;
+  const updated = `const records = [{ slug: "existing-festival", name: "Improved festival", planningSections: [] }, { slug: "unchanged-festival", name: "Keep", planningSections: [] }, { slug: "new-festival", name: "New verified", planningSections: [] }];`;
+  const plan = buildChangePlan({ baseline, head, changedFiles: [file],
+    sources: { [file]: { before: old, after: updated } } });
+  assert.deepEqual(plan.selectedPaths, ['/event/existing-festival', '/event/new-festival']);
+  assert.deepEqual(plan.eventAuthorityPages, plan.selectedPaths);
+  assert.ok(plan.selectedPaths.length <= PAGE_BUDGET);
+  const html = (url, current = true) => '<html><head><title>Texas festival</title><link rel="canonical" href="https://texasdefined.com'
+    + url.pathname + '"></head><body>' + (current
+      ? '<section>Planning your visit</section><section data-event-discovery-tail="true">More to do</section><section>Official event links</section>'
+      : '<section>Stale generic article</section>') + '</body></html>';
+  const requests = [];
+  const good = await verifyChangedPages({ plan, head, fetchImpl: async url => {
+    requests.push(url.href);
+    return new Response(html(url));
+  } });
+  assert.ok(good.every(result => result.passed), JSON.stringify(good));
+  assert.ok(requests.includes('https://texasdefined.com/event/new-festival'), 'must check actual visitor URL');
+
+  const stale = await verifyChangedPages({ plan, head, fetchImpl: async url =>
+    new Response(html(url, url.searchParams.has('deploy_smoke'))) });
+  assert.ok(stale.every(result => !result.passed && /ordinary visitor URL/.test(result.error)));
+});
+
+test('major event shared resolver uses two bounded production canaries', () => {
+  const plan = buildChangePlan({ baseline, head, changedFiles: ['src/data/major-event-page.server.ts'] });
+  assert.deepEqual(plan.eventAuthorityPages, ['/event/texas-book-festival', '/event/zestfest']);
+  assert.ok(plan.selectedPaths.length <= PAGE_BUDGET);
+});
+
 test('slug-keyed article link changes verify actual source pages and newly added SSR anchors', async () => {
   const path = 'src/data/article-internal-links.ts';
   const before = 'export const articleInternalLinks = { "texas-regions-explained": [{ href: "/texas-explained" }], "texas-trees-guide": [] };';

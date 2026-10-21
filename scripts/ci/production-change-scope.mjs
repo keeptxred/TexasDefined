@@ -64,6 +64,7 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
   const shared = baseline === null || changedFiles.some(p => sharedPattern.test(p));
   const candidates = new Set(shared ? REPRESENTATIVE_PATHS : []);
   const expectedHrefsByPage = {};
+  const eventAuthorityPages = new Set();
   // A missing Davis Hill hero survived source checks because the editorial route
   // bypasses the generic destination image. Test the live HTML and both SVGs
   // whenever its component, image assets, or release verifier changes.
@@ -295,6 +296,39 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
   let contentFallback = false;
   for (const path of changedFiles) {
     const { before = '', after = '' } = sources[path] || {};
+    // Permanent /event/:slug guides are data-owned, not filename-owned routes.
+    // Diff AST records so only changed guides are verified. A bounded sample
+    // protects release costs when a bulk tranche contains hundreds of entries.
+    if (/^src\/data\/(?:major-event-(?:authority|expanded-authority(?:-tranche\d+)?|schema-enrichment-batch\d+)|festival-visitor-guide-extras)\.server\.ts$/.test(path)) {
+      const previous = records(before);
+      for (const [id, record] of records(after)) {
+        if (eventAuthorityPages.size >= 8) break;
+        if (record.key !== 'slug' || previous.get(id)?.text === record.text
+          || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(record.value)) continue;
+        const href = '/event/' + record.value;
+        candidates.add(href);
+        eventAuthorityPages.add(href);
+      }
+    }
+    if (path === 'src/data/major-event-supplemental-registry.server.ts') {
+      const extract = source => new Set([...source.matchAll(/^\s*"([a-z0-9]+(?:-[a-z0-9]+)*)",?\s*$/gm)].map(match => match[1]));
+      const previous = extract(before);
+      for (const slug of extract(after)) {
+        if (eventAuthorityPages.size >= 8) break;
+        if (previous.has(slug)) continue;
+        const href = '/event/' + slug;
+        candidates.add(href);
+        eventAuthorityPages.add(href);
+      }
+    }
+    if (path === 'src/data/major-event-page.server.ts') {
+      // Route-layer changes also need a real 200/canonical SSR acceptance.
+      for (const slug of ['texas-book-festival', 'zestfest']) {
+        const href = '/event/' + slug;
+        candidates.add(href);
+        eventAuthorityPages.add(href);
+      }
+    }
     if (path.startsWith('src/routes/')) {
       for (const match of after.matchAll(/createFileRoute\(["']([^"']+)["']\)/g)) {
         const route = match[1].split('/').map(p => p.replace(/_$/, '')).join('/');
@@ -357,11 +391,12 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
   ];
   const allPaths = [...candidates].sort();
   // A deploy smoke is explicitly a bounded sample, never a full-content certification.
-  const selectedPaths = [...new Set([...REPRESENTATIVE_PATHS.filter(p => candidates.has(p)), ...battleshipVisitorPages, ...fredericksburgSitemapPaths, ...magoffinHomePages, ...davisHillPages, ...texasDataPages, ...allPaths])].slice(0, PAGE_BUDGET - redirectChecks.length);
+  const selectedPaths = [...new Set([...REPRESENTATIVE_PATHS.filter(p => candidates.has(p)), ...battleshipVisitorPages, ...fredericksburgSitemapPaths, ...magoffinHomePages, ...davisHillPages, ...texasDataPages, ...eventAuthorityPages, ...allPaths])].slice(0, PAGE_BUDGET - redirectChecks.length);
   const selectedExpectedHrefs = Object.fromEntries(selectedPaths.filter(p => expectedHrefsByPage[p]).map(p => [p, expectedHrefsByPage[p]]));
   const candidateCount = allPaths.length + redirectChecks.length;
   return { baseline, head, changedFiles, shared, selectedPaths, expectedHrefsByPage: selectedExpectedHrefs,
     texasDataPages: selectedPaths.filter(p => texasDataPages.has(p)),
+    eventAuthorityPages: selectedPaths.filter(p => eventAuthorityPages.has(p)),
     downloadButtonPages: selectedPaths.filter(p => downloadButtonPages.has(p)),
     regionGuidePages: selectedPaths.filter(p => regionGuidePages.has(p)),
     footballGameNightPages: selectedPaths.filter(p => footballGameNightPages.has(p)),
