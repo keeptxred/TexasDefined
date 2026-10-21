@@ -3,7 +3,7 @@ import type { Article, ArticleBlock } from "../types";
 const p = (text: string): ArticleBlock => ({ type: "paragraph", text });
 const h = (text: string): ArticleBlock => ({ type: "heading", text });
 const list = (...items: string[]): ArticleBlock => ({ type: "list", items });
-const quote = (text: string): ArticleBlock => ({ type: "quote", text });
+const image = (src: string, alt: string, width: number, height: number, caption: string, credit?: string): ArticleBlock => ({ type: "image", image: { src, alt, width, height, ...(credit ? { credit } : {}) }, caption });
 
 export const texasLakesReservoirsExplainedArticle: Article = {
   id: "evergreen-texas-lakes-reservoirs-explained",
@@ -20,7 +20,8 @@ export const texasLakesReservoirsExplainedArticle: Article = {
   },
   authorId: "a-marisol",
   publishedAt: "2026-08-13",
-  readingMinutes: 15,
+  updatedAt: "2026-10-20",
+  readingMinutes: 17,
   tags: [
     "texas lakes",
     "texas reservoirs",
@@ -34,7 +35,22 @@ export const texasLakesReservoirsExplainedArticle: Article = {
   featured: true,
   sourceName: "Texas Water Development Board",
   sourceUrl: "https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/index.asp",
+  sources: [
+    { label: "TWDB — Texas river basins and major-reservoir definitions", url: "https://www.twdb.texas.gov/surfacewater/rivers/" },
+    { label: "TWDB — Texas reservoir construction history", url: "https://www.twdb.texas.gov/surfacewater/rivers/reservoirs/index.asp" },
+    { label: "Water Data for Texas — live reservoir levels", url: "https://waterdatafortexas.org/reservoirs/statewide" },
+    { label: "TWDB — 2027 State Water Plan and official reservoir maps", url: "https://www.twdb.texas.gov/waterplanning/swp/2027/" },
+    { label: "TWDB — Arbuckle / Lane City off-channel reservoir", url: "https://www.twdb.texas.gov/innovativewater/asr/projects/LCRA/index.asp" },
+    { label: "TPWD — Caddo Lake history and the Great Raft", url: "https://tpwd.texas.gov/state-parks/caddo-lake/history" },
+    { label: "TCEQ — definitions of on- and off-channel reservoirs", url: "https://www.tceq.texas.gov/downloads/permitting/water-rights/forms/10214a.pdf" },
+  ],
   internalLinks: [
+    { href: "/fishing/lakes", label: "Compare Texas lake guides", description: "Browse dedicated fishing lakes and official recreation information." },
+    { href: "/fishing/lakes/lake-conroe", label: "Lake Conroe guide", description: "Water supply, access and fishing near Houston." },
+    { href: "/fishing/lakes/lake-livingston", label: "Lake Livingston guide", description: "Recreation and fishing on the Trinity River reservoir." },
+    { href: "/fishing/lakes/sam-rayburn-reservoir", label: "Sam Rayburn Reservoir guide", description: "Fishing and recreation on the Angelina River reservoir." },
+    { href: "/article/texas-river-basins-guide", label: "Texas river basins and watersheds", description: "Explore the drainage systems that feed the lakes." },
+
     {
       href: "/explore/lakes-rivers",
       label: "Explore Texas lakes and rivers",
@@ -81,11 +97,6 @@ export const texasLakesReservoirsExplainedArticle: Article = {
       description: "See how Texas and Louisiana share a huge Sabine River reservoir for water and power.",
     },
     {
-      href: "/explore/lakes-rivers",
-      label: "Texas lakes guide",
-      description: "Turn the statewide reservoir story into lake-by-lake trip planning and recreation ideas.",
-    },
-    {
       href: "/article/texas-major-springs-clear-water-guide",
       label: "Texas springs and clear water",
       description: "Compare reservoir water with the spring-fed rivers and swimming places that emerge from Texas aquifers.",
@@ -101,13 +112,24 @@ export const texasLakesReservoirsExplainedArticle: Article = {
   body: [
     p("Look at a highway map of Texas and the state appears to be covered with lakes. Lake Travis, Lake Texoma, Lake Livingston, Sam Rayburn Reservoir, Canyon Lake, Lake Conroe, Lake Meredith and dozens more seem to fill nearly every region. It is easy to assume that Texas simply inherited an abundance of natural lakes."),
     p("It did not. Almost all of the inland lakes Texans know are reservoirs: sections of rivers and creeks impounded by dams. Texas Parks and Wildlife teaches the point plainly in its aquatic-science material, and the Texas Water Development Board maintains a statewide inventory of major reservoirs. The familiar blue shapes on the map are, in large part, infrastructure."),
-    quote("Texas did not begin with a landscape full of big lakes. Texans built a lake system to manage a landscape full of unpredictable water."),
+    h("Texas lakes and reservoirs at a glance"),
+    list(
+      "196 major reservoirs? TWDB's major-reservoir overview count; a major reservoir has at least 5,000 acre-feet of storage capacity at normal operating level. This does not count every pond or named lake.",
+      "15 major river basins? The principal watershed systems draining Texas.",
+      "8 coastal basins? Additional watersheds between the major river basins.",
+      "More than half? TWDB's estimate of the available SURFACE-water supply provided by reservoirs, not a share of all water including groundwater.",
+      "Today's lake levels? Check the dated storage readings at Water Data for Texas instead of assuming yesterday's level remains current."
+    ),
+    p("The counts depend on the definition. A statewide inventory of all major reservoirs is not the same as the count of water-supply reservoirs or the number of lakes monitored for daily storage. Official sources and data tools appear below."),
     h("Why Texas has so few large natural lakes"),
     p("The absence of large natural lakes begins with geology. Many of the world's famous natural lakes occupy basins carved by glaciers, blocked by landslides, formed by volcanic activity or created by major tectonic movement. Texas has not had the same recent glacial history that left lake-filled landscapes across parts of the northern United States and Canada."),
     p("Texas certainly has natural ponds, oxbow lakes, playa lakes, coastal lagoons and other natural bodies of water. Rivers also abandon old channels and leave curved oxbows behind. But those features are different from the large permanent inland lakes most people picture when they hear the word lake."),
-    p("The best-known exception is Caddo Lake in East Texas and Louisiana. Its natural origins are associated with log jams and the complicated hydrology of the Red River and Cypress Bayou system. Even Caddo is not untouched wilderness in a hydrologic sense: dams and other human alterations have helped regulate its water level. That makes Caddo both the famous natural-lake exception and a reminder that the line between natural water body and managed water body can become blurry."),
+    p("The best-known example is Caddo Lake in East Texas and Louisiana. Texas Parks and Wildlife traces its natural formation to the Great Raft, a giant Red River logjam that backed water into the Cypress Valley around 1800. Navigation work and later dams altered the lake, so its natural origin should not be confused with an entirely unregulated water level today."),
+    image("/images/state-parks/caddo-lake-state-park.jpg", "Bald cypress and Spanish moss at Caddo Lake State Park in East Texas", 1600, 867, "Caddo Lake originated naturally but has since been modified. Its history differs from a river valley flooded by a new dam."),
     h("What turns a Texas river into a lake"),
-    p("A reservoir begins with a dam. Engineers build a barrier across a river, creek or drainage. Water backs up behind it, spreading across the valley until the new pool reaches its operating level. Tributaries that once joined a flowing river now empty into arms and coves. Hills become peninsulas and islands. Roads, farms and former bottomlands may disappear beneath the new waterline."),
+    p("Many Texas reservoirs are on-channel impoundments: engineers build a dam across a river or creek, water backs up into a valley, tributaries become coves, and former roads, farms or floodplains may become lake bottom."),
+    p("Others are off-channel reservoirs, built away from the main river and supplied partly or primarily by diverted or pumped water. The Arbuckle Reservoir (originally Lane City Reservoir) in Wharton County is a TWDB-documented example that receives water from the Colorado River. Some projects combine runoff from their own drainage with water pumped from another source."),
+    image("/images/illustrations/texas-reservoir-on-off-channel.svg", "Original side-by-side diagram comparing a river dam and an off-channel storage basin supplied by water diversion", 1400, 660, "On-channel versus off-channel storage (simplified schematic, not a map).", "TexasDefined original illustration; explanatory basis: TWDB and TCEQ"),
     p("The river does not stop being a river just because the map label changes. Lake Travis is part of the Colorado River system. Canyon Lake impounds the Guadalupe. Lake Texoma sits on the Red River. Lake Livingston impounds the Trinity. Toledo Bend occupies the Sabine River along the Texas-Louisiana line. Amistad and Falcon are enormous reservoirs on the Rio Grande."),
     p("That is why reservoir levels respond to events far beyond the shoreline. Rain falling many counties upstream may eventually raise a lake. A dry local month may matter less than whether the watershed above the reservoir received rain. Dam releases can change river conditions downstream even when the sky at the lake is clear."),
     h("Texas needed a way to save floodwater for dry years"),
@@ -147,7 +169,8 @@ export const texasLakesReservoirsExplainedArticle: Article = {
     p("Thinking this way makes a lake map easier to understand. What looks like a random blue shape is really a topographic map filled with water to a particular elevation."),
     h("Reservoir levels are supposed to move"),
     p("Texans often talk about a lake being 'down' as though the reservoir is malfunctioning. Sometimes low levels are a serious drought signal, but fluctuation itself is normal. Inflows change with rainfall. Cities withdraw water. Farmers and industries may use stored supply. Operators release water downstream. Evaporation removes water directly from the surface."),
-    p("A reservoir's conservation pool is the portion generally used for water supply and other regular purposes. Some projects also reserve flood-storage space above normal operating levels. During major storms, the lake may rise into that flood pool and later be drawn back down through controlled releases."),
+    p("Conservation storage generally measures stored water below the reservoir's normal conservation-pool level, excluding dead-pool and flood-control storage. Some multipurpose reservoirs reserve flood-control space above that level; others have no designated flood pool. A lake can temporarily rise above conservation-pool level after storms, but Water Data for Texas's statewide 'percent full' specifically describes conservation storage divided by conservation capacity, not all water held during a flood."),
+    image("/images/illustrations/texas-reservoir-conservation-flood-pools.svg", "Original labeled reservoir cross section with conservation storage and optional flood-control space above it", 1400, 660, "Conservation storage versus flood-control storage (simplified schematic; not every reservoir has both pools).", "TexasDefined original illustration; terminology: TWDB"),
     p("The exact operating rules differ from lake to lake, which is why a statewide percentage can never tell you everything about a particular reservoir. A small water-supply lake and a giant multipurpose federal reservoir may respond very differently to the same season."),
     h("The lake is infrastructure, but the ecosystem becomes real"),
     p("Calling a reservoir man-made does not mean it lacks ecological value. Once flooded, reservoirs create extensive aquatic habitat. Fisheries develop. Shoreline wetlands form. Migrating birds use open water and coves. Parks and wildlife-management areas grow around the new shoreline."),
@@ -156,16 +179,25 @@ export const texasLakesReservoirsExplainedArticle: Article = {
     h("Texas is not building giant reservoirs at the pace it once did"),
     p("The great reservoir-building era slowed after the 1960s and 1970s. The Texas Water Development Board has pointed to several reasons: the best dam sites are limited, projects are expensive, environmental review is more complex and permitting can be difficult. New reservoirs still appear in long-range water plans, but building one is a much larger undertaking than drawing a blue shape on a planning map."),
     p("That makes existing reservoirs increasingly important. Maintaining dams, protecting storage capacity from sediment, coordinating water rights and moving water efficiently can matter as much as building something new. Texas is also expanding other strategies, including groundwater management, conservation, reuse, desalination and transfers between systems."),
+    image("/images/explore/lakes-rivers/amistad-national-recreation-area.jpg", "Amistad Reservoir water and the arid landscape of the Rio Grande basin", 1600, 1067, "In drier landscapes, a managed reservoir changes both the water system and the recreational geography."),
     p("The story is visible in smaller city reservoirs too. Lake Stamford began impounding Paint Creek in 1953 to serve municipal water needs and became a Haskell County fishing and camping destination. Lake Sweetwater began as a 1930 water-supply reservoir and later supported a municipal park, but drought and golden-alga impacts can make its fishing and launching conditions very different from historic photographs. Each has a dedicated TexasDefined lake guide linked below, with dated sources and current-agency checks."),
     h("How to read a Texas lake like a Texan"),
     list(
-      "Find the dam. It immediately tells you which end of the lake is deepest and confirms that the lake is an impoundment.",
+      "Find the dam or storage embankment. It identifies an on-channel impoundment, but the deepest part depends on submerged terrain. Off-channel reservoirs may not block the main river.",
       "Find the river. The old channel usually forms the lake's main spine, even when it is hidden beneath deep water.",
       "Look upstream. Reservoir conditions depend on rainfall across the watershed, not just weather at the marina.",
       "Check who operates it. Federal agencies, river authorities, cities and water districts can have different missions and operating rules.",
       "Do not assume a full lake is always the sole goal. Flood-control space, downstream releases and water-supply strategy can require changing levels.",
       "Treat exposed shoreline during drought as temporary geography. A ramp, road or old foundation visible today may be underwater again after the next wet cycle.",
       "Remember that recreation is often a secondary benefit of infrastructure built first for water supply, flood control or both."
+    ),
+    h("Official reservoir maps and current Texas lake levels"),
+    p("The TWDB 2027 State Water Plan, adopted July 23, 2026, provides maps of existing major water-supply reservoirs and recommended future reservoirs. Proposed reservoirs on a planning map are not the same as operating lakes. Water Data for Texas publishes dated reservoir storage and conservation-pool percentages. Check the individual lake and responsible operator for flood-control releases or recreation conditions."),
+    list(
+      "Reservoir inventory and major-basin statistics: TWDB River Basins & Reservoirs.",
+      "Existing and proposed reservoir maps: TWDB 2027 State Water Plan.",
+      "Dated statewide and individual reservoir levels: Water Data for Texas.",
+      "Current ramp availability, releases and restrictions: check the lake's own managing agency."
     ),
     h("The lake map is really a map of how Texas learned to live with water"),
     p("Texas reservoirs are so familiar that they feel ancient. Families have vacationed on them for generations. Towns market themselves around them. Waterfront neighborhoods, state parks and fishing traditions have grown into mature local cultures."),

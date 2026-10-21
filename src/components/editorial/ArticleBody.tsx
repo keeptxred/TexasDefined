@@ -170,9 +170,9 @@ export function ArticleBody({ blocks, entities = [], insertBeforeIndex, insertBe
           return <h2 key={index} id={articleHeadingId(block.text)} className="mb-4 mt-14 scroll-mt-28 font-display text-[2rem] font-semibold leading-[1.08] sm:mt-16 sm:text-[2.45rem]">{render(block.text, 2)}</h2>;
         case "quote": return <PullQuote key={index} text={block.text} entities={available()} {...(block.attribution ? { attribution: block.attribution } : {})} />;
         case "list":
-          if (articleSlug === "texas-rivers-explained"
-            && blocks[index - 1]?.type === "heading"
-            && blocks[index - 1]?.text === "Texas Rivers at a Glance") {
+          if (((articleSlug === "texas-rivers-explained" && blocks[index - 1]?.text === "Texas Rivers at a Glance")
+            || (articleSlug === "texas-lakes-reservoirs-explained" && blocks[index - 1]?.text === "Texas lakes and reservoirs at a glance"))
+            && blocks[index - 1]?.type === "heading") {
             return (
               <dl key={index} className="my-8 grid gap-3 sm:grid-cols-2">
                 {block.items.map((item) => {

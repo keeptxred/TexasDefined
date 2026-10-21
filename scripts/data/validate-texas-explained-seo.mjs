@@ -28,7 +28,35 @@ const homepage = readRouteSurface('src/routes/index.tsx');
 const brand = read('src/brand/texasdefined.ts');
 const queries = read('src/data/queries.ts');
 const searchRoute = read('src/routes/search.tsx');
+const lakesAuthority = read('src/data/fixtures/texas-lakes-reservoirs-explained.ts');
+const lakesAuthorityStub = read('src/data/fixtures/texas-lakes-reservoirs-explained-stub.ts');
 const errors = [];
+
+// Keep the statewide reservoirs explainer grounded, illustrated and synchronized with its lazy stub.
+for (const marker of [
+  '196 major reservoirs?', '15 major river basins?', '8 coastal basins?',
+  'off-channel reservoirs', 'Arbuckle Reservoir', 'Conservation storage',
+  '2027 State Water Plan', 'waterdatafortexas.org/reservoirs/statewide',
+  'tpwd.texas.gov/state-parks/caddo-lake/history',
+  'images/illustrations/texas-reservoir-on-off-channel.svg',
+  'images/illustrations/texas-reservoir-conservation-flood-pools.svg',
+  '/fishing/lakes/lake-conroe', '/fishing/lakes/lake-livingston',
+  '/fishing/lakes/sam-rayburn-reservoir',
+]) {
+  if (!lakesAuthority.includes(marker)) errors.push(`Texas reservoirs authority guide missing: ${marker}`);
+}
+for (const image of [
+  'public/images/illustrations/texas-reservoir-on-off-channel.svg',
+  'public/images/illustrations/texas-reservoir-conservation-flood-pools.svg',
+]) {
+  const svg = read(image);
+  if (!svg.includes('<svg ') || !svg.includes('<title ') || !svg.includes('<desc ') || !svg.includes('</svg>')) {
+    errors.push(`Texas reservoirs diagram missing accessible SVG structure: ${image}`);
+  }
+}
+if (!lakesAuthority.includes('updatedAt: "2026-10-20"') || !lakesAuthorityStub.includes('updatedAt: "2026-10-20"')) {
+  errors.push('Texas reservoirs article and stub update dates must agree.');
+}
 
 const pillars = [
   'texas-rivers-explained',
