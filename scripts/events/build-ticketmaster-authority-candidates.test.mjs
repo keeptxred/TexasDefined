@@ -13,6 +13,7 @@ test('authority discovery groups sessions and never approves publication', () =>
       { id: 'one', name: 'Texas Balloon Festival - Friday', city: 'Austin', startDate: '2026-11-06', venue: 'Park', officialUrl: 'https://www.ticketmaster.com/festival/event/ABC123' },
       { id: 'two', name: 'Texas Balloon Festival - Saturday', city: 'Austin', startDate: '2026-11-07', venue: 'Park' },
       { id: 'three', name: 'Texas Balloon Festival VIP add-on', city: 'Austin', startDate: '2026-11-07' },
+      { id: 'weekday', name: 'Texas Balloon Festival - Thursday', city: 'Austin', startDate: '2026-11-05', venue: 'Park' },
       { id: 'four', name: 'Ordinary concert', city: 'Dallas', startDate: '2026-11-08' },
       { id: 'five', name: 'Cancelled County Fair', city: 'Dallas', startDate: '2026-11-08', status: 'cancelled' },
       { id: 'six', name: 'Downtown Fest', city: 'Houston', startDate: 'not-a-date' },
@@ -24,7 +25,7 @@ test('authority discovery groups sessions and never approves publication', () =>
     const output = readFileSync(join(dir, 'ops/editorial/ticketmaster-authority-candidates.json'), 'utf8');
     const candidates = JSON.parse(output).candidates;
     assert.equal(candidates.length, 1);
-    assert.deepEqual(candidates[0].ticketmasterIds, ['one', 'two']);
+    assert.deepEqual(candidates[0].ticketmasterIds, ['one', 'two', 'weekday']);
     assert.equal(candidates[0].publicationAllowed, false);
     assert.deepEqual(candidates[0].officialTicketUrls, ['https://www.ticketmaster.com/festival/event/ABC123']);
     assert.equal(candidates[0].status, 'requires-organizer-verification');
