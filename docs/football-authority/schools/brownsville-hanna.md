@@ -32,3 +32,7 @@ School-specific intro/development/overview, first-party current coach/contact/ti
 ## Remaining QA
 
 Verify game-day GoFan event details, first-party final scores when possible, correct stadium spectator gates/ADA and student-photo rights, protected branch typebuild/CI, merge/Cloudflare production Worker version and 1366/390/320 Chrome canonical/meta/FAQ/sitemap/county/accessibility checks. **Status IMPLEMENTED, not VERIFIED**.
+
+## October 21, 2026 — direct latest 2026 Hanna result verification link
+The existing Brownsville Hanna school model correctly records its **October 15 Weslaco East home 21–22 loss** and 2–5 season snapshot, but lacked the optional `season.latestResultSourceUrl` that powers the explicit reader action to verify the most recently reported game. Added the exact [October 16 published Weslaco East–Hanna dated recap](https://www.maxpreps.com/news/Zzg6lEGxOk67J-nbLAj7vQ/football-recap-weslaco-east-comes-from-behind-to-top-hanna.htm), corroborated by [Weslaco East's 2026 MaxPreps varsity listing](https://www.maxpreps.com/tx/weslaco/weslaco-east-wildcats/football/) showing **22–21 on October 15**. This does not make the underlying third-party database an official certified UIL scoreboard. No schedule/score/coach/venue/county or logo claim was modified, and the school remains one of 25 assigned Batch 007 `IMPLEMENTED` records until protected release QA.
+
