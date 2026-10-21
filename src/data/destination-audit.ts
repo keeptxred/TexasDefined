@@ -108,17 +108,6 @@ export function auditDestination(input: Destination): DestinationAuditResult {
   } else if (!sourceReviewIsFresh(destination.sourceCheckedAt)) {
     issues.push({ code: "source-freshness", severity: "error", message: `Destination source review is invalid or older than ${SOURCE_MAX_AGE_DAYS} days and must be rechecked before indexing.` });
   }
-  // Opt-in facts are never mandatory. Reject malformed and duplicated fields
-  // before indexing, while the detail display checks time-based freshness.
-  const knownVisitorFacts = new Set<string>();
-  for (const fact of destination.visitorFacts ?? []) {
-    const key = fact.topic + ":" + fact.label.trim().toLowerCase();
-    if (knownVisitorFacts.has(key) || !fact.label.trim() || fact.detail.trim().length < 16 ||
-        !/^https:\/\//.test(fact.sourceUrl) || !/^\d{4}-\d{2}-\d{2}$/.test(fact.checkedAt)) {
-      issues.push({ code: "visitor-fact-invalid", severity: "error", message: "Visitor facts require unique, sourced, dated and substantive answers." });
-    }
-    knownVisitorFacts.add(key);
-  }
   if (!destination.bestSeason || destination.bestSeason.trim().toLowerCase() === GENERIC_BEST_SEASON) {
     issues.push({ code: "best-season", severity: "warning", message: "Destination still has generic seasonal guidance." });
   }

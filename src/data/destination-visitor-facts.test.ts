@@ -1,6 +1,9 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { reviewDestinationVisitorFacts } from "./destination-visitor-facts.ts";
+import { applyCuratedDestination } from "./destination-curation.ts";
+import { applyCuratedDestinationBatch26 } from "./destination-curation-batch26.ts";
+import type { Destination } from "./types.ts";
 
 const fact = {
   topic: "hours" as const,
@@ -55,4 +58,17 @@ test("calendar dates must be real Gregorian dates", () => {
   const result = reviewDestinationVisitorFacts([{ ...fact, checkedAt: "2026-02-30" }], "2026-10-21");
   assert.equal(result.visible.length, 0);
   assert.equal(result.issues[0]?.code, "visitor-fact-date");
+});
+
+test("actual Sheldon Lake and Chamizal curated facts pass the same display gate", () => {
+  for (const [slug, apply] of [
+    ["sheldon-lake-state-park", applyCuratedDestination],
+    ["chamizal-national-memorial", applyCuratedDestinationBatch26],
+  ] as const) {
+    const destination = apply({ slug } as Destination);
+    assert.equal(destination.visitorFacts?.length, 1, slug + " should not repeat existing logistics");
+    const { visible, issues } = reviewDestinationVisitorFacts(destination.visitorFacts, "2026-10-21");
+    assert.equal(visible.length, 1, slug);
+    assert.deepEqual(issues, [], slug);
+  }
 });
