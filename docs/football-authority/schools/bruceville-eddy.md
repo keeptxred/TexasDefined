@@ -1,0 +1,22 @@
+# Bruceville-Eddy Eagles — individually researched Batch 007 authority guide
+
+**Source and branch checkpoint:** October 21, 2026. Canonical target: https://texasdefined.com/texas-high-school-football-teams/bruceville-eddy. **IMPLEMENTED on draft PR #5525; not merged, deployed, or live-production VERIFIED.**
+
+## Deficiencies, fact reconciliations and individual features
+
+The generic UIL directory profile did not show the 2026 coaching and offensive overhaul, the unusual 8–3 Marlin game, October 16 win against Moody that some scorecards failed to post, seven earlier football playoff appearances, the 9–2 2019 season, actual 2025 1–9 rebuilding year, McLennan County identity, first-party vs third-party source roles, accessible original school results illustration, or context-appropriate stadium information.
+
+The new editorial adds an original introduction and school-specific story; eight documented milestones; source-dated 2026 final-score and remaining schedule; six bespoke FAQs; modern county two-way links; independent sourced score illustration; relevant SEO. No team logo, school-owned athlete photo or other unlicensed creative used.
+
+## Research and safeguards
+
+- [Bruceville-Eddy ISD official website](https://www.beisd.net/en-US) calls the Eagles by school identity, locates the fall scrimmage at the *Eagles Nest*, and its dated October 18, 2026 bulletin expressly says **Eagles beat Moody 39–8**. Verify district-post timestamp; social-feed chronology may change.
+- [Official athletics portal](https://www.beisdathletics.com/) identifies **1 Eagle Dr, Eddy TX 76524**, 254-859-5848. That school contact location does not certify parking, stadium entrance or ADA seating; athletics portal intermittently responds with errors.
+- [KWTX's August 20, 2026 2-A-DAYS interview](https://www.kwtx.com/2026/08/20/2-a-days-2026-bruceville-eddy/?outputType=amp): head coach **Marcial Chapa**; change from spread to Slot-T offense, 14 returning starters (7 offense, 7 defense); team was **1–9** and 0–5 district in 2025; supplies entire 2026 varsity schedule. [Current MaxPreps roster](https://www.maxpreps.com/tx/eddy/bruceville-eddy-eagles/football/) also names M. Chapa. [Texas Prep Football](https://txprepfootball.com/schools/bruceville-eddy-eagles/) instead displays *Mike Chaney* under coaching; treat this as a current-source conflict, do not silently overwrite 2026 KWTX reporting. Official district head-coach role still a follow-up.
+- [MaxPreps 2026 schedule](https://www.maxpreps.com/tx/eddy/bruceville-eddy-eagles/football/schedule/) was last updated October 10 and stands at **4–2** through October 9, after unusual **8–3** home victory over Marlin. It still has Moody as upcoming. District-first-party [Oct 18 post](https://www.beisd.net/en-US) and [High School On SI statewide October 16 finals](https://www.si.com/high-school/texas/texas-high-school-football-final-scores-results-october-16-01m53bh2k5w8) establish **39–8** victory over Moody; therefore seven listed finals **5–2 through October 16**, not a certified school season-end record.
+- [Dave Campbell's Texas Football program archive](https://www.texasfootball.com/team/bruceville-eddy-eagles): **seven** historical football playoff berths; **zero** title-game berths/titles; 2019 season **9–2**, 2025 **1–9**; [Eagle Field](https://www.texasfootball.com/team/bruceville-eddy-eagles) stadium name and historical 1,500 capacity (not an ADA/ticket certification).
+- [TEA Bruceville-Eddy ISD campus account](https://rptsvr1.tea.texas.gov/cgi/sas/broker?_debug=0&_program=perfrept.perfmast.sas&_service=marykay&ccyy=2026&id=161919042&lev=C&prgopt=reports%2Facct%2Fcomparison_group.sas) places the ISD in **McLennan County**, not Bell County. Campus and football field spectator address should not be conflated.
+
+## Remaining checks
+
+First-party confirmation of Coach Chapa's exact role against misleading aggregators; precise Eagle Field entrance, accessible parking and ticket policies; verify all dates and latest result on game day. Protected branch CI, TS build, structured-data and image QA, merge, published Worker version and browser viewport (1366 / 390 / 320), internal Harris-free McLennan County backlink, sitemap, canonical and runtime errors still unverified. The original result graphic is not a professional team photo; sourcing a licensed school-specific photo is a separate decision. **Status IMPLEMENTED, not VERIFIED.**
