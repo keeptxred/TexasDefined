@@ -309,6 +309,7 @@ assert.equal(workerVersions.size,1,'Production acceptance must identify exactly 
 assert.equal(result.summary.screenshots,75,'Preserve every one of the 25 schools at all three viewport sizes');
 assert.equal(result.summary.graphicScreenshots,75,'Capture all 25 distinct published source-derived graphics at each of three responsive widths');
 assert.equal(result.summary.graphicFail,0,'Every displayed school result graphic must match the authored finals and accessible labels');
+assert.equal(result.summary.graphicPass,75,'All 25 school graphics must pass authored-final, source and accessible-label checks at all three widths');
 assert.equal(result.summary.countyScreenshots,result.summary.countyCases,'Preserve one screenshot per county for reciprocal-link diagnosis');
 assert.equal(result.summary.schoolFail,0,'Investigate school failures before technical acceptance');
 assert.equal(result.summary.countyFail,0,'Investigate missing reciprocal county links');
