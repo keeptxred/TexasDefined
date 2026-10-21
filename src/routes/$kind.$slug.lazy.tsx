@@ -173,6 +173,7 @@ const batch001FootballCountyLinks: Record<string, { name: string; href: string; 
 // Independently researched Batch 002 and Batch 003 county links. Lists retain
 // multiple teams in the same county rather than replacing an existing card.
 const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: string; context: string }>> = {
+  'brazos': [{ name: 'Bryan High Vikings', slug: 'bryan', context: 'Bryan ISD Vikings: UIL 1921 all-schools football champion, new 2026 coach Blake Joseph, separate Merrill Green Stadium and school ticket rules; not Bryan Rudder' }],
   'cameron': [{ name: 'Brownsville Hanna Golden Eagles', slug: 'brownsville-hanna', context: 'Brownsville ISD Golden Eagles: 1967 campus origin, 1974 Hanna name, Mark Guess 2026 football leadership, 5A Division I and separate Sams/Veterans Memorial venues' }],
   'henderson': [{ name: 'Brownsboro Bears', slug: 'brownsboro', context: 'Brownsboro ISD Bears: new 2026 coach Ryan Hood, 25 football playoff appearances, updated October results and official moved-to-Thursday Van game warning' }],
   'terry': [{ name: 'Brownfield Cubs', slug: 'brownfield', context: 'Brownfield ISD 3A Division I football: 27 historical playoff appearances, current Lawrence Johnson athletic office, Cub Stadium and 2026 reported results' }],
