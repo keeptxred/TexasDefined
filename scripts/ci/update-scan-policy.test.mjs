@@ -94,6 +94,7 @@ test('planner corrections retest previously missed editorial SSR links, not enti
   const plan = buildChangePlan({ baseline, head, changedFiles: ['scripts/ci/production-change-scope.mjs'] });
   assert.deepEqual(plan.selectedPaths, [
     '/destination/battleship-texas', '/destination/fredericksburg', '/destination/magoffin-home',
+    '/destination/davis-hill-state-park',
     '/texas-data', '/texas-data/texas-homeowners-premium-history',
     '/texas-data/texas-metro-payrolls-august-2026', '/texas-data/texas-metro-payrolls-june-2026',
     '/article/texas-cultural-regions-explained', '/article/texas-regions-explained',
@@ -102,6 +103,7 @@ test('planner corrections retest previously missed editorial SSR links, not enti
     '/fishing/species/freshwater-drum', '/fishing/species/white-crappie',
     '/texas-data/texas-population-and-migration-2025',
   ]);
+  assert.deepEqual(plan.davisHillPages, ['/destination/davis-hill-state-park']);
   assert.deepEqual(plan.downloadButtonPages, ['/texas-data/texas-population-and-migration-2025']);
   assert.deepEqual(plan.regionGuidePages, ['/article/texas-regions-explained']);
   assert.equal(plan.expectedHrefsByPage['/article/texas-regions-explained'][0], '/article/texas-gulf-coast-erosion-shoreline-retreat-guide');
