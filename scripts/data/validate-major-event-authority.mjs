@@ -99,6 +99,8 @@ for (const slug of ledgerSlugs) {
 }
 
 const requiredCollectionPaths = [
+  "/events/dia-de-los-muertos",
+  "/events/texas-independence",
   "/events/rodeos",
   "/events/food-festivals",
   "/events/music-festivals",
