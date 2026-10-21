@@ -38,9 +38,12 @@ export function EntityDepthSections({ entity, related }: { entity: TexasEntityRe
 
   const countyName = entity.countySlug ? `${title(entity.countySlug)} County` : null;
   const regionName = entity.region ? title(entity.region) : null;
-  const contextItems = buildContextItems(entity, countyName, regionName);
-  const practicalItems = practicalChecklist(entity);
-  const questions = quickAnswers(entity, countyName, regionName);
+  // Generic attraction/museum boilerplate is not evidence about the place.
+  // Keep decision-specific jurisdiction and relocation help for cities and offices.
+  const needsServiceDecisionGuidance = entity.kind === 'city' || governmentKinds.has(entity.kind);
+  const contextItems = needsServiceDecisionGuidance ? buildContextItems(entity, countyName, regionName) : [];
+  const practicalItems = needsServiceDecisionGuidance ? practicalChecklist(entity) : [];
+  const questions = needsServiceDecisionGuidance ? quickAnswers(entity, countyName, regionName) : [];
   const cityRelatedItems = entity.kind === 'city'
     ? related.filter((item) => isLocalCityRelationship(item) && !governmentKinds.has(item.entity.kind))
     : [];
@@ -60,7 +63,7 @@ export function EntityDepthSections({ entity, related }: { entity: TexasEntityRe
     : null;
 
   return <>
-    <section className="border-b border-border py-12" aria-labelledby="entity-context-heading">
+    {contextItems.length > 0 ? <section className="border-b border-border py-12" aria-labelledby="entity-context-heading">
       <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">
         <div>
           <p className="eyebrow text-primary">Use this guide</p>
@@ -70,7 +73,7 @@ export function EntityDepthSections({ entity, related }: { entity: TexasEntityRe
           {contextItems.map((item) => <p key={item}>{item}</p>)}
         </div>
       </div>
-    </section>
+    </section> : null}
 
     {cityProfile ? <section className="border-b border-border py-12" aria-labelledby="city-systems-heading">
       <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">
@@ -274,7 +277,7 @@ export function EntityDepthSections({ entity, related }: { entity: TexasEntityRe
       </div>
     </section> : null}
 
-    <section className="border-b border-border py-12" aria-labelledby="entity-practical-heading">
+    {practicalItems.length > 0 ? <section className="border-b border-border py-12" aria-labelledby="entity-practical-heading">
       <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">
         <div>
           <p className="eyebrow text-primary">Practical details</p>
@@ -287,7 +290,7 @@ export function EntityDepthSections({ entity, related }: { entity: TexasEntityRe
           </ul>
         </div>
       </div>
-    </section>
+    </section> : null}
 
     {cityRelocationHref ? <section className="border-b border-border py-12" aria-labelledby="city-relocation-heading">
       <div className="grid gap-8 lg:grid-cols-[14rem_1fr]">

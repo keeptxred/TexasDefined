@@ -393,7 +393,8 @@ if (!eventRoute.includes('LEGACY_PLAN_VISIT_HEADING') || !eventRoute.includes('"
 for (const [needle, label] of [
   ['data-stay-nearby-slot', 'destination in-content Stay Nearby slot'],
   ['Places to stay near ${destination.name}', 'destination stay-slot accessibility label'],
-  ['Things to do and see', 'destination planning adjacency'],
+  ['destinationEditorialLinks(destination.slug)', 'destination-specific planning adjacency'],
+  ['Related editorial guides for ${destination.name}', 'accessible related-guide navigation'],
 ]) requireText(destinationPlanner, needle, label);
 
 for (const [needle, label] of [
