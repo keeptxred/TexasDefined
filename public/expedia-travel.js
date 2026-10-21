@@ -523,7 +523,10 @@
   function buildGenericSurface() {
     const section = document.createElement("section");
     section.id = SURFACE_ID;
-    section.className = "border-y border-border py-8";
+    // The Fort McKavett CJ panel provides the single bordered lodging box.
+    // Avoid a second outer box while keeping every other travel route unchanged.
+    section.className = normalizePath() === "/destination/fort-mckavett"
+      ? "py-2" : "border-y border-border py-8";
     section.dataset.surfaceType = "generic";
     section.dataset.monetizationEligible = "true";
     const container = document.createElement("div");
@@ -539,6 +542,9 @@
     search.type = "button";
     search.className = "mt-5 inline-flex min-h-11 items-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90";
     search.textContent = "Search Expedia stays →";
+    // The CJ integration reuses this same Expedia button on Fort McKavett,
+    // preserving its intent-gated vendor widget and analytics listener.
+    if (normalizePath() === "/destination/fort-mckavett") search.dataset.expediaStaysSearch = "true";
     search.addEventListener("click", () => {
       trackStayAction({ provider: "expedia", label: "Search Expedia stays", placement: "stay-nearby-end-fallback" });
       activateWidget(section);
@@ -546,6 +552,7 @@
     const disclosure = document.createElement("p");
     disclosure.className = "mt-3 text-xs text-muted-foreground";
     disclosure.textContent = DISCLOSURE;
+    if (normalizePath() === "/destination/fort-mckavett") disclosure.dataset.expediaDisclosure = "true";
 
     // The Fort McKavett contextual slot already receives the CJ-managed
     // "Where to stay" heading. Keep Expedia's search option in the same

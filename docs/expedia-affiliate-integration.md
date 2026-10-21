@@ -100,9 +100,11 @@ Lodging must be visible where a visitor is planning the trip, not buried after t
 **Fort McKavett exception (October 21, 2026):** The standalone historic-site
 page places its explicit `data-stay-nearby-slot` directly after **Planning
 your visit** and before **Research sources**. The CJ comparison panel owns the
-single visible **Where to stay / Find places to stay nearby** heading. The
-underlying Expedia fallback keeps its search action and affiliate disclosure,
-but does not repeat the generic lodging heading on that exact destination.
+single visible **Where to stay / Find places to stay nearby** heading. The Expedia search button is moved intact (preserving its existing click
+handler and tracking) into the same CJ action row **directly before Vrbo**.
+Its on-demand search widget opens inside the same bordered panel, and the
+single combined affiliate disclosure names all four providers. No separate
+Expedia callout, heading, or second bordered hotel box remains on this route.
 If the destination slot appears after the bootstrap starts, relocate the
 existing fallback into it without remounting or dropping provider links.
 
