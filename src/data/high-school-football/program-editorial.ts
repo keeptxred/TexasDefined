@@ -67,6 +67,223 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "brownsville-pace": {
+    "slug": "brownsville-pace",
+    "intro": "Brownsville's James Pace Early College High School opened in 1975 and fields the green-and-white Vikings. Its football history includes 16 recorded playoff appearances without a state-title-game berth, and a 2025 playoff season. In 2026, the Vikings rallied from 1–4 to consecutive District 15-5A Division II wins over Lopez and Porter, before a reported 41–7 loss at Mercedes on October 16 left Pace 3–5. This guide uses the school's official location-specific schedule and distinguishes third-party scores from school-certified results.",
+    "theme": {
+      "accentHex": "#277347",
+      "label": "Original independent TexasDefined green-and-white Vikings editorial treatment based on first-party Pace school colors, not a copied school logo or mascot"
+    },
+    "seo": {
+      "title": "Brownsville Pace Vikings Football | 2026 Results & Sams Stadium",
+      "description": "Pace Vikings football: 1975 campus founding, 16 postseason appearances, reported 3–5 through Oct 16, Daniel Pardo staff attribution and official 2026 Sams tickets."
+    },
+    "coach": {
+      "name": "Daniel Pardo",
+      "title": "Reported 2026 head football coach on MaxPreps September 26 roster; first-party school staff role pending independent verification",
+      "sourceUrl": "https://www.maxpreps.com/tx/brownsville/pace-vikings/football/staff/",
+      "sourceLabel": "MaxPreps 2026 Pace Vikings roster names Daniel Pardo head coach, Robert Ortiz, Carlos Tefertiller, Rodney Morales assistants; school schedule does not publish football staff roles",
+      "verifiedAt": "2026-10-21"
+    },
+    "campus": {
+      "address": "314 West Los Ebanos Boulevard, Brownsville, TX 78520 (Pace school campus, not football stadium)",
+      "phone": "956-548-7700",
+      "sourceUrl": "https://paceechs.bisd.us/contact",
+      "sourceLabel": "First-party Pace ECHS BISD Contact: address, opening 1975, Vikings mascot, Green / White school colors; official school phone",
+      "verifiedAt": "2026-10-21"
+    },
+    "schedule": {
+      "label": "Official Pace Vikings 2026 varsity schedule and Brownsville ISD athletics online event-ticket links",
+      "sourceUrl": "https://www.pacevikingsathletics.net/sport/football/boys/?tab=schedule",
+      "sourceLabel": "BISD-controlled 2026 Pace varsity games by venue, including Sams Stadium and Veterans Memorial Stadium; official score cells are blank",
+      "verifiedAt": "2026-10-21",
+      "officialScheduleUrl": "https://www.pacevikingsathletics.net/sport/football/boys/?tab=schedule",
+      "ticketUrl": "https://www.bisd.us/departments/a-i/athletics"
+    },
+    "season": {
+      "record": "3–5 through October 16, 2026 (MaxPreps reported 3–4 through Oct 8 plus corroborated Mercedes 41–7 final; not district-certified)",
+      "verifiedAt": "2026-10-21",
+      "sourceUrl": "https://www.maxpreps.com/tx/brownsville/pace-vikings/football/schedule/",
+      "sourceLabel": "MaxPreps Oct 9 schedule verifies 3–4 through Porter Oct 8; Texas Prep Football and independent Mercedes PrepsFB report Oct 16 Mercedes 41, Pace 7",
+      "latestResultSourceUrl": "https://txprepfootball.com/schools/pace-vikings/",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Rio Hondo",
+          "site": "Home",
+          "result": "L 0–56"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "PSJA Memorial",
+          "site": "Home",
+          "result": "L 13–20"
+        },
+        {
+          "date": "2026-09-10",
+          "opponent": "La Joya",
+          "site": "Away",
+          "result": "L 21–48"
+        },
+        {
+          "date": "2026-09-17",
+          "opponent": "Valley View",
+          "site": "Home",
+          "result": "W 44–6"
+        },
+        {
+          "date": "2026-09-24",
+          "opponent": "Corpus Christi Ray",
+          "site": "Home",
+          "district": true,
+          "result": "L 0–49"
+        },
+        {
+          "date": "2026-10-02",
+          "opponent": "Brownsville Lopez",
+          "site": "Away",
+          "district": true,
+          "result": "W 45–21"
+        },
+        {
+          "date": "2026-10-08",
+          "opponent": "Brownsville Porter",
+          "site": "Home",
+          "district": true,
+          "result": "W 36–33"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Mercedes",
+          "site": "Away",
+          "district": true,
+          "result": "L 7–41"
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Donna",
+          "site": "Home",
+          "district": true,
+          "kickoff": "7:00 PM"
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Gregory-Portland",
+          "site": "Away",
+          "district": true,
+          "kickoff": "7:00 PM"
+        }
+      ]
+    },
+    "venue": {
+      "name": "Sams Memorial Stadium — district-managed Pace home venue for October 23, 2026 Donna game",
+      "address": "1 Boulevard of Champions, Brownsville, TX 78520 (venue; school campus on Los Ebanos Blvd separate)",
+      "sourceUrl": "https://www.pacevikingsathletics.net/sport/football/boys/?tab=schedule",
+      "sourceLabel": "Pace official fixture calendar lists Oct 23 Donna at SAMS Stadium; first-party campus school at 314 W Los Ebanos; TDLR Texas facility lists Sams 1 Boulevard of Champions",
+      "verifiedAt": "2026-10-21",
+      "note": "Do not route every Pace varsity game to Sams. BISD's August 28 Rio Hondo home listing uses Veterans Memorial Stadium, while Oct 23 Donna uses Sams; away games use opponent venues. Exact gates, ADA, home seating, ticket inventory, parking and weather cancellations require first-party confirmation.",
+      "policyUrl": "https://www.bisd.us/departments/l-w/policesecurity-services/graduation-policy"
+    },
+    "development": {
+      "title": "Vikings football history, 2025 postseason and a 2026 district recovery",
+      "body": "Dave Campbell's Texas Football Pace program profile lists 16 football playoff appearances but no UIL state football championship-game appearance, with a 6–5 season in 2024 and 4–7 in 2025. The 2025 extra game is a first-round playoff loss, 41–14 at Mission Veterans Memorial November 13, as recorded by MaxPreps; it must not be confused with Brownsville Veterans Memorial, another Brownsville ISD program. In 2026 the Vikings opened 1–4, earned consecutive district wins 45–21 at Lopez and 36–33 versus Porter, then lost 7–41 at Mercedes, according to independent Oct 16 result trackers. These are time-dated reported finals, not entered in BISD's official results column.",
+      "sourceUrl": "https://www.texasfootball.com/team/brownsville-pace-vikings",
+      "sourceLabel": "DCTF Pace program historical 16 playoffs, no title finals and recent seasons; 2025 MaxPreps first round and 2026 MaxPreps/Texas Prep scoreboard",
+      "verifiedAt": "2026-10-21"
+    },
+    "milestones": [
+      {
+        "date": "1975",
+        "title": "James Pace High School opens in Brownsville",
+        "body": "The school district's Pace ECHS Contact page gives 1975 as the opening year, school mascot Vikings, and school colors green and white; the academic campus is on West Los Ebanos Boulevard.",
+        "sourceUrl": "https://paceechs.bisd.us/contact",
+        "sourceLabel": "BISD Pace ECHS first-party school history"
+      },
+      {
+        "date": "Program record",
+        "title": "Sixteen UIL-era football playoff qualifications",
+        "body": "Dave Campbell's Texas Football lists 16 postseason appearances but no state football title or state-final appearance for Brownsville Pace. Championship records from other Pace sports do not apply to varsity football.",
+        "sourceUrl": "https://www.texasfootball.com/team/brownsville-pace-vikings",
+        "sourceLabel": "DCTF Pace Vikings football program history"
+      },
+      {
+        "date": "2024",
+        "title": "Pace reaches a 6–5 football season",
+        "body": "DCTF historical season table shows a 6–5 campaign in 2024. A season with an eleventh game indicates postseason competition, not a state-final appearance.",
+        "sourceUrl": "https://www.texasfootball.com/team/brownsville-pace-vikings",
+        "sourceLabel": "DCTF Pace year-by-year results"
+      },
+      {
+        "date": "November 13, 2025",
+        "title": "2025 postseason ends 41–14 against Mission Veterans Memorial",
+        "body": "Pace finished 4–7 and fell in its playoff game at Mission Veterans Memorial. This opponent is the Mission school, not Brownsville Veterans Memorial Chargers, a separate program in Cameron County.",
+        "sourceUrl": "https://www.maxpreps.com/tx/brownsville/pace-vikings/football/25-26/schedule/",
+        "sourceLabel": "MaxPreps complete 2025–26 Pace Vikings football results"
+      },
+      {
+        "date": "October 2, 2026",
+        "title": "The Vikings win 45–21 at crosstown Lopez",
+        "body": "Independent score reports show Pace defeating Lopez 45–21 to begin a two-game district winning run, with BISD's own fixture calendar confirming that the matchup was an away assignment at shared Sams Stadium.",
+        "sourceUrl": "https://www.maxpreps.com/tx/brownsville/pace-vikings/football/schedule/",
+        "sourceLabel": "MaxPreps 2026 Pace schedule and first-party BISD fixture site"
+      },
+      {
+        "date": "October 8, 2026",
+        "title": "36–33 over Porter puts the reported Vikings record at 3–4",
+        "body": "The Oct 8 Porter win was a three-point result. The static Oct 9 MaxPreps source stopped at 3–4 as a plausible source snapshot; the later Mercedes game must be included separately.",
+        "sourceUrl": "https://www.maxpreps.com/tx/brownsville/pace-vikings/football/schedule/",
+        "sourceLabel": "MaxPreps Oct 9 last-updated 2026 results and standings"
+      },
+      {
+        "date": "October 16, 2026",
+        "title": "Mercedes defeats Pace 41–7 in dated reported result",
+        "body": "Texas Prep Football's Pace game page and Mercedes' season table agree on 41–7. This is the eighth recorded game, yielding 3–5 through Oct 16, but the school athletics site leaves official scores blank.",
+        "sourceUrl": "https://txprepfootball.com/schools/pace-vikings/",
+        "sourceLabel": "Texas Prep football Pace Oct 16 result corroborated by Mercedes PrepsFB"
+      },
+      {
+        "date": "October 23, 2026",
+        "title": "Pace hosts Donna at BISD's Sams Memorial Stadium",
+        "body": "Pace Athletics' official schedule assigns Donna on October 23 at 7:00 PM to Sams Stadium in Brownsville. The state TDLR stadium listing gives 1 Boulevard of Champions; use BISD's online event tickets rather than assuming gate cash.",
+        "sourceUrl": "https://www.pacevikingsathletics.net/sport/football/boys/?tab=schedule",
+        "sourceLabel": "Pace first-party 2026 varsity schedule and BISD event-ticket policy"
+      }
+    ],
+    "overview": [
+      "James Pace Early College High School, located at 314 West Los Ebanos Boulevard in Cameron County, opened in 1975 and identifies its team as the Vikings. Its official BISD school colors are green and white. The sourced theme and 2026 results chart on TexasDefined are original editorial visualization, not a district logo or official Viking artwork.",
+      "Dave Campbell's football-specific program history lists 16 playoff appearances without a Texas UIL state championship-game berth. In 2024 Pace went 6–5 and in 2025 reached 4–7 after a 41–14 postseason loss to **Mission** Veterans Memorial. The opponent name matters: the Mission school differs from Brownsville Veterans Memorial Chargers.",
+      "Coaching cannot be responsibly asserted from an unrelated Pace University football website. The 2026 MaxPreps high-school roster names Daniel Pardo head coach and three assistants, but Pace ISD's own 2026 athletics schedule does not display those assignments. The coach block is therefore explicitly attributed to the third-party roster.",
+      "The 2026 Vikings had a 1–4 start, defeated Brownsville Lopez 45–21 and Brownsville Porter 36–33 in successive district games, then fell 7–41 to Mercedes on October 16. An older MaxPreps schedule stops at 3–4 after Porter; two independent October 16 Mercedes/Pace score sources confirm the additional loss. This guide reports 3–5 as a dated third-party total, not school-entered standings.",
+      "The official BISD 2026 varsity event guide names different home football sites: August 28 Rio Hondo at Veterans Memorial Stadium and October 23 Donna at Sams Memorial Stadium. Fans who simply navigate to Pace High on Los Ebanos can arrive at the wrong place. Check exact event, district ticket availability, weather updates and entrance/ADA information.",
+      "Brownsville ISD Athletics states that athletic tickets are online-only through TicketsPicket. Sams Memorial Stadium has an official district policy page; the stadium address is independently documented by the State of Texas as 1 Boulevard of Champions. No price, seating guarantee, livestream status or parking entitlement has been invented."
+    ],
+    "faq": [
+      {
+        "question": "When did Pace High School open, and what are the football team colors?",
+        "answer": "Brownsville ISD's official Pace Early College High School Contact page says the school opened in 1975. Its mascot is the Viking and official school colors are Green and White."
+      },
+      {
+        "question": "What is the Pace Vikings football record as of October 16, 2026?",
+        "answer": "The reported record is 3–5 through October 16. MaxPreps' October 9 archived schedule accounts for seven games (3–4), and independent October 16 Pace/Mercedes final trackers corroborate the subsequent 7–41 defeat. BISD's official football calendar does not yet enter final scores."
+      },
+      {
+        "question": "Who is the Pace Vikings head football coach in 2026?",
+        "answer": "The 2026 MaxPreps roster last updated September 26 identifies Daniel Pardo as head coach. This is attributed to a third-party football staff record because the official Pace football schedule does not independently establish the appointment."
+      },
+      {
+        "question": "Is Pace's 2026 football stadium located at the school campus?",
+        "answer": "No. Pace Early College High School is at 314 West Los Ebanos Blvd. Its official calendar puts the October 23 Donna game at Sams Memorial Stadium, 1 Boulevard of Champions, and used Veterans Memorial Stadium for the August 28 Rio Hondo home designation. Always verify the particular game."
+      },
+      {
+        "question": "How do I get tickets for Pace varsity home games?",
+        "answer": "Follow the official Brownsville ISD athletics online-ticket page, which directs BISD athletics buyers to TicketsPicket. School fixture listings and a venue assignment do not guarantee ticket inventory or show cash gate options."
+      },
+      {
+        "question": "Has Brownsville Pace ever played for a UIL football state title?",
+        "answer": "DCTF's football program history lists 16 postseason appearances and zero state championship-game appearances. Pace played a first-round playoff game against Mission Veterans Memorial in 2025; do not confuse Mission Veterans Memorial with the separate Brownsville Veterans Memorial high school."
+      }
+    ]
+  },
   "brownsville-lopez": {
     "slug": "brownsville-lopez",
     "intro": "Brownsville Lopez Early College High School's Lobos offer a useful 2024 football turnaround and a clearly documented 2026 home-game schedule: the 7–4 playoff season ended 35–21 against Mission Pioneer, while the 2026 campaign began with two victories but stood at a third-party-reported 2–5 by October 8. Lopez hosts selected varsity games at Brownsville ISD's Sams Memorial Stadium, a different address from its South Dakota Avenue campus. This independent guide separates current school schedules, historical football-only records and time-stamped outside scores.",
