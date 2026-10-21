@@ -9,8 +9,10 @@ function assertTexasDataContents(path, body) {
   };
   if (path === '/texas-data') {
     for (const value of ['Texas at a glance', '4,357,000', 'August 2026 preliminary',
-      '$3,489', 'Search official data briefs', '/texas-data/texas-metro-payrolls-august-2026']) requireText(value);
-    if (body.includes('4,363,300 DFW nonfarm payrolls')) throw new Error('Texas Data hub still leads with June payrolls');
+      '$3,489', 'Search official data briefs', '/texas-data/texas-metro-payrolls-august-2026',
+      'Major Texas metro payrolls', 'Texas Defined insurance research',
+      'not an exhaustive list of every incorporated municipality']) requireText(value);
+    if (body.includes('DFW nonfarm payrolls')) throw new Error('Texas Data hub still serves the superseded DFW-only snapshot');
   }
   if (path === '/texas-data/texas-homeowners-premium-history') {
     for (const value of ['$2,795', '$3,489', 'October 20, 2026']) requireText(value);
