@@ -20,7 +20,17 @@ required(head, 'const indexable = audit.readyForIndexing && (isPrimaryTripPlanne
 required(head, 'import("@/components/editorial/DavisHillAuthority")');
 required(resolver, 'slug === "davis-hill-state-park"');
 required(fallback, 'brandId:"texasdefined"');
-required(fallback, '/images/state-parks/davis-hill-salt-dome-concept.svg');
+required(fallback, '/images/state-parks/davis-hill-conservation-landscape.svg');
+required(curation, '/images/state-parks/davis-hill-conservation-landscape.svg');
+const landscape = read("public/images/state-parks/davis-hill-conservation-landscape.svg");
+const geology = read("public/images/state-parks/davis-hill-salt-dome-concept.svg");
+required(landscape, '<svg xmlns="http://www.w3.org/2000/svg"');
+required(geology, '<svg xmlns="http://www.w3.org/2000/svg"');
+required(guide, '<img');
+required(guide, 'src="/images/state-parks/davis-hill-conservation-landscape.svg"');
+required(guide, 'loading="eager"');
+required(guide, 'src="/images/state-parks/davis-hill-salt-dome-concept.svg"');
+assert.ok(guide.indexOf('src="/images/state-parks/davis-hill-conservation-landscape.svg"') < guide.indexOf('src="/images/state-parks/davis-hill-salt-dome-concept.svg"'), "Hero must precede the inline geology image");
 required(guide, '/images/state-parks/davis-hill-salt-dome-concept.svg');
 required(head, '"battleship-texas", "davis-hill-state-park"');
 required(head, "canonicalLink(texasDefinedBrand, canonicalPath)");
