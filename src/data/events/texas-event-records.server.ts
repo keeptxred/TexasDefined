@@ -1,6 +1,7 @@
 import { getGeneratedTexasEvents } from "../events-generated";
 import { loadTicketmasterEventsServer } from "./ticketmaster-events.server";
 import { getOfficialVenueEventSnapshots } from "./official-venue-events.server";
+import { loadTpwdEventRecordsServer } from "./tpwd-event-records.server";
 import { loadMajorEventGuideDirectoryServer, type MajorEventGuideDirectoryItem } from "../major-event-directory.server";
 import { getMajorEventRecordServer } from "../major-event-page.server";
 import {
@@ -188,6 +189,17 @@ export function loadTexasEventRecordsServer(): TexasEventRecord[] {
       records.push(snapshot);
       knownEvents.add(key);
     }
+  }
+
+  // TPWD activities live inside the shared calendar and on known park destinations.
+  // These short-lived factual links never create thin standalone event routes.
+  const knownActivities = new Set(records.map(record =>
+    `${eventIdentity(record.title, record.city)}:${record.startDate}`));
+  for (const activity of loadTpwdEventRecordsServer()) {
+    const key = `${eventIdentity(activity.title, activity.city)}:${activity.startDate}`;
+    if (knownActivities.has(key)) continue;
+    records.push(activity);
+    knownActivities.add(key);
   }
 
   // Preserve the reviewed editorial record when Ticketmaster has the same event,
