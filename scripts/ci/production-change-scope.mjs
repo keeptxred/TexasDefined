@@ -404,14 +404,18 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
     ...(changedFiles.some(path => path === 'src/lib/legacy-editorial-redirects.ts' || path === 'src/data/destination-availability.ts')
       ? [{ path: '/destination/museum-south-texas-history-edinburg', target: '/destination/museum-of-south-texas-history-edinburg' }] : []),
   ];
+  // The resolver can append fixed event canaries after eight newly discovered
+  // events. Keep its semantic smoke sample within the verifier's eight-route
+  // contract; any other selected event URLs still receive generic HTTP/SEO checks.
+  const boundedEventAuthorityPages = new Set([...eventAuthorityPages].slice(0, 8));
   const allPaths = [...candidates].sort();
   // A deploy smoke is explicitly a bounded sample, never a full-content certification.
-  const selectedPaths = [...new Set([...REPRESENTATIVE_PATHS.filter(p => candidates.has(p)), ...battleshipVisitorPages, ...fredericksburgSitemapPaths, ...magoffinHomePages, ...davisHillPages, ...texasDataPages, ...mardiGrasHubPages, ...eventAuthorityPages, ...allPaths])].slice(0, PAGE_BUDGET - redirectChecks.length);
+  const selectedPaths = [...new Set([...REPRESENTATIVE_PATHS.filter(p => candidates.has(p)), ...battleshipVisitorPages, ...fredericksburgSitemapPaths, ...magoffinHomePages, ...davisHillPages, ...texasDataPages, ...mardiGrasHubPages, ...boundedEventAuthorityPages, ...allPaths])].slice(0, PAGE_BUDGET - redirectChecks.length);
   const selectedExpectedHrefs = Object.fromEntries(selectedPaths.filter(p => expectedHrefsByPage[p]).map(p => [p, expectedHrefsByPage[p]]));
   const candidateCount = allPaths.length + redirectChecks.length;
   return { baseline, head, changedFiles, shared, selectedPaths, expectedHrefsByPage: selectedExpectedHrefs,
     texasDataPages: selectedPaths.filter(p => texasDataPages.has(p)),
-    eventAuthorityPages: selectedPaths.filter(p => eventAuthorityPages.has(p)),
+    eventAuthorityPages: selectedPaths.filter(p => boundedEventAuthorityPages.has(p)),
     mardiGrasHubPages: selectedPaths.filter(p => mardiGrasHubPages.has(p)),
     downloadButtonPages: selectedPaths.filter(p => downloadButtonPages.has(p)),
     regionGuidePages: selectedPaths.filter(p => regionGuidePages.has(p)),
