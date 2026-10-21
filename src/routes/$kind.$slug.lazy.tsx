@@ -173,6 +173,7 @@ const batch001FootballCountyLinks: Record<string, { name: string; href: string; 
 // Independently researched Batch 002 and Batch 003 county links. Lists retain
 // multiple teams in the same county rather than replacing an existing card.
 const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: string; context: string }>> = {
+  'coke': [{ name: 'Bronte Longhorns', slug: 'bronte', context: 'Bronte ISD six-man football: 2025 outright district championship, new 2026 Julian Helms coach, 1A Division I District 7 and live local score guide' }],
   'parker': [{ name: 'Brock Eagles', slug: 'brock', context: 'Brock ISD football established 2011: 2015 UIL state title, four final appearances, coach Billy Mathis and 2026 first-party schedule' }],
   'wise': [{ name: 'Bridgeport Bulls', slug: 'bridgeport', context: 'Bridgeport ISD Bulls 2026 official coach Aaron Cupp, 22 football playoff appearances and Bull Memorial Stadium turf notice; 1–6 reported through October 16' }],
   'harris': [{ name: 'Bridgeland Bears', slug: 'bridgeland', context: 'CFISD Bridgeland Bears: 2020 first-playoff-win era, 2024 UIL quarterfinal, 2026 Lonnie Madison staff and specific Berry Center spectator directions' }],
