@@ -170,6 +170,33 @@ Union Valley's 2021 zero and 2022 state/local disagreement, and a
 nonduplicated five-year history for The Woodlands Township. Do not
 add inferred annual figures to satisfy these tests.
 
+## Automatic local/Comptroller source discrepancy checks
+
+Once the monthly workflow finishes checking all applicable official years,
+the existing GitHub Actions runner executes
+`scripts/ci/verify-local-tax-source-reconciliation.mjs --execute`.
+It makes read-only PostgREST requests using the **existing** repository
+Supabase service-role secret (server-side only) to verify each currently
+approved local supplement against its exact official tax year, unit
+classification, slug, and official jurisdiction ID.
+
+The workflow distinguishes a missing/not-reported Comptroller row
+(`supplement`), an exactly corroborated numeric rate, and a newly
+conflicting value. It explicitly recognizes one **documented** historic
+discrepancy: the Hunt CAD 2022 zero Union Valley municipal rate versus
+the Comptroller's 0.287248. This exemption only applies to those exact
+source/year/id/rates; any later source change triggers investigation.
+
+The cross-check fails the workflow with a taxing-unit ID and status
+if a verified local source becomes stale, an official row disappears,
+the source identity changes, or an unknown rate disagreement appears.
+A failing check **never rewrites the Comptroller rate** or
+the calculator's source data. GitHub's job summary distinguishes
+documented conflicts from new issues. Review the affected original
+CAD and state reports, correct the evidence status or documentation
+through a protected PR, and rerun the normal workflow when resolved.
+Do not suppress an unknown conflict merely to make the job green.
+
 ## Recovery procedure
 
 1. Open the failed GitHub workflow and check the **per-year outcomes**.
