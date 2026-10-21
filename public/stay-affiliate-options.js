@@ -561,7 +561,8 @@
     if (window.location.pathname.replace(/\/+$/, "") !== "/destination/fort-mckavett") return;
     const panel = choice.querySelector(".td-stay-affiliate-panel");
     const actions = panel?.querySelector(".td-stay-affiliate-actions");
-    const vrbo = actions?.querySelector('a[data-affiliate-partner="vrbo"]');
+    const vrbo = Array.from(actions?.querySelectorAll("a") || [])
+      .find((link) => link.dataset.affiliatePartner === "vrbo");
     const expediaButton = surface.querySelector('button[data-expedia-stays-search="true"]');
     if (!panel || !actions || !vrbo || !expediaButton) return;
     actions.classList.add("td-stay-affiliate-actions--fort-mckavett");
