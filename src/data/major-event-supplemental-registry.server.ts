@@ -1,6 +1,7 @@
 import { getMajorEventRecordServer } from "./major-event-page.server";
 
 export const supplementalMajorEventSlugs = [
+  "cliburn-international-young-pianists-competition",
   "diwalisa-san-antonio",
   "homestead-fair-waco",
   "waco-wonderland",
