@@ -28,5 +28,5 @@ const candidates = [...families.values()].map(family => ({
   publicationAllowed: false,
 })).sort((a,b) => a.name.localeCompare(b.name) || a.city.localeCompare(b.city));
 fs.mkdirSync(path.dirname(destination), { recursive: true });
-fs.writeFileSync(destination, JSON.stringify({ fetchedAt: snapshot.fetchedAt, generatedAt: new Date().toISOString(), candidates }, null, 2) + '\n');
+fs.writeFileSync(destination, JSON.stringify({ fetchedAt: snapshot.fetchedAt, candidates }, null, 2) + '\n');
 console.log('Ticketmaster authority candidates: ' + candidates.length + ' (unverified; no auto-publication)');
