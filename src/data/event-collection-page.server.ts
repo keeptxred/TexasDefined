@@ -5,7 +5,7 @@ import {
   shouldIndexEvergreenEventCollection,
   shouldIndexTournamentCollection,
 } from "./event-collection-indexability";
-import { EVENT_COLLECTIONS, EVENT_COLLECTION_BY_SLUG, type EventCollectionDefinition } from "./event-collections";
+import { EVENT_COLLECTIONS, EVENT_COLLECTION_BY_SLUG, EVENT_TOPIC_SLUGS, type EventCollectionDefinition } from "./event-collections";
 import {
   TEMPORAL_EVENT_COLLECTIONS,
   resolveTemporalEventCollectionServer,
@@ -143,7 +143,9 @@ export function loadEventCollectionPageServer(slug: string) {
       : directory.filter((event) =>
           evergreen!.kind === "category"
             ? event.category === evergreen!.value
-            : event.region === evergreen!.value,
+            : evergreen!.kind === "region"
+              ? event.region === evergreen!.value
+              : (EVENT_TOPIC_SLUGS[evergreen!.value] ?? []).includes(event.slug),
         );
   const shouldIndex = tournament
     ? shouldIndexTournamentCollection(items.length)
