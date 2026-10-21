@@ -49,7 +49,7 @@ const UIL_EXACT_ENROLLMENT_URL = 'https://www.uiltexas.org/files/alignments/Alph
 // source links. Retain the original question/answer text for FAQ JSON-LD parity;
 // never interpret arbitrary markup or permit javascript:/http: destinations.
 function renderFootballFaqAnswer(answer: string) {
-  return answer.split(/(https:\/\/[^\\s)]+)/g).map((part, index) => {
+  return answer.split(/(https:\/\/[^\s)]+)/g).map((part, index) => {
     if (!part.startsWith('https://')) return part;
     const href = part.replace(/[.,;!]+$/, '');
     const punctuation = part.slice(href.length);
