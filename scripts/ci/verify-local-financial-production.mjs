@@ -226,7 +226,7 @@ async function verifyEscobaresTaxingUnit() {
         '0.076853',
         '0.314658',
         '2024-tax-rates-2.pdf',
-        'Starr CAD report',
+        'Starr Central Appraisal District report',
         'Locally verified',
       ];
       const missing = required.filter((needle) => !body.includes(needle));
