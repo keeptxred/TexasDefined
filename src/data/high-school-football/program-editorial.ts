@@ -67,6 +67,220 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "brownsboro": {
+    "slug": "brownsboro",
+    "intro": "Brownsboro Bears football changed leadership in May 2026: Brownsboro ISD elevated Ryan Hood, its former offensive coordinator, to head football coach and athletic director after Lance Connot left for Hubbard. Older athletic-provider pages still identify Connot, but the school-run 2026–27 football page explicitly lists Hood. The Bears rebounded from an 0–2 opening with three consecutive victories and stood at a third-party-reported 3–4 through the October 16 Canton defeat. Fans should heed a dated venue notice: the varsity visit to Van was moved to Thursday, October 22, although an older schedule vendor still shows Friday.",
+    "theme": {
+      "accentHex": "#234B9A",
+      "label": "Original independent TexasDefined blue Bears editorial accent based on Brownsboro school athletics color reporting (blue/gold); no district-owned Bears emblem or photograph reused"
+    },
+    "seo": {
+      "title": "Brownsboro Bears Football | 2026 Ryan Hood, Scores & Van Update",
+      "description": "Brownsboro Bears: new 2026 head coach Ryan Hood, 3–4 reported record, Oct 22 Van schedule change, Bear Stadium, 25 historic playoff trips and tickets."
+    },
+    "coach": {
+      "name": "Ryan Hood",
+      "title": "Brownsboro ISD head football coach and athletic director appointed May 2026",
+      "sourceUrl": "https://brownsboroathletics.gobearsgo.net/teams-schedules/football",
+      "sourceLabel": "Current first-party Brownsboro athletics 2026–27 football page lists Athletic Director/Head Football Coach Ryan Hood; May 5 KLTV report confirms replacing Lance Connot, whose older vendor bio is stale",
+      "verifiedAt": "2026-10-20"
+    },
+    "campus": {
+      "address": "13942 State Highway 31 East, Brownsboro, TX 75756 (high-school campus; distinct from district office at 14134 State Hwy 31 E)",
+      "phone": "903-852-2321",
+      "sourceUrl": "https://bhs.gobearsgo.net/about-us/contact-us",
+      "sourceLabel": "Official Brownsboro ISD Contact Us distinguishes high school at 13942 and administration/athletics office at 14134; MaxPreps ZIP 75758 is not school first-party",
+      "verifiedAt": "2026-10-20"
+    },
+    "schedule": {
+      "label": "Brownsboro ISD official varsity football calendar and specific Thursday October 22 Van rescheduling notice",
+      "sourceUrl": "https://brownsboroathletics.gobearsgo.net/calendar",
+      "sourceLabel": "Official current Brownsboro Athletics October 2026 calendar flags 'CHANGED: Game is being played on Thursday night' for varsity at Van Oct 22; old bbearsports vendor still labels Oct 23",
+      "verifiedAt": "2026-10-20",
+      "officialScheduleUrl": "https://brownsboroathletics.gobearsgo.net/teams-schedules/football"
+    },
+    "season": {
+      "record": "3–4 overall / 0–2 district through October 16, 2026 (externally reported, not current school-certified scorebook)",
+      "verifiedAt": "2026-10-20",
+      "sourceUrl": "https://www.maxpreps.com/tx/brownsboro/brownsboro-bears/football/schedule/",
+      "sourceLabel": "MaxPreps Oct 6 aggregate lists 3–2 through Sep 25, but game-specific Oct 9 Athens 70–14 and Oct 17 Canton 55–0 recap confirms Brownsboro 3–4; official school calendar has fixtures but no filled finals",
+      "latestResultSourceUrl": "https://www.maxpreps.com/news/kFE6WgNyfEW0vuCoVM4PCA/football-recap-tough-loss-for-brownsboro.htm",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Bullard Brook Hill",
+          "site": "Away",
+          "result": "L 3–45"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Palestine",
+          "site": "Home",
+          "result": "L 20–55"
+        },
+        {
+          "date": "2026-09-10",
+          "opponent": "Wills Point",
+          "site": "Away",
+          "result": "W 27–0"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Mabank",
+          "site": "Home",
+          "result": "W 56–27"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Paris North Lamar (Homecoming)",
+          "site": "Home",
+          "result": "W 21–6"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Athens",
+          "site": "Away",
+          "district": true,
+          "result": "L 14–70"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Canton (Military Appreciation)",
+          "site": "Home",
+          "district": true,
+          "result": "L 0–55"
+        },
+        {
+          "date": "2026-10-22",
+          "opponent": "Van — moved to Thursday, see current school calendar",
+          "site": "Away",
+          "district": true,
+          "kickoff": "7:30 PM"
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Rusk",
+          "site": "Away",
+          "district": true,
+          "kickoff": "7:30 PM"
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Madisonville (Senior Night)",
+          "site": "Home",
+          "district": true,
+          "kickoff": "7:30 PM"
+        }
+      ]
+    },
+    "venue": {
+      "name": "Bear Stadium — Brownsboro ISD official football home venue",
+      "address": "13942 State Hwy 31 E, Brownsboro, TX 75756 (KLTV stadium listing and first-party high school address; specific public gate/accessibility not independently confirmed)",
+      "sourceUrl": "https://brownsboroathletics.gobearsgo.net/teams-schedules/football",
+      "sourceLabel": "Brownsboro Athletics official home-event listing identifies Bear Stadium; KLTV June 2026 program profile gives stadium 13942 State Hwy 31 E, and first-party HS page also gives 13942",
+      "verifiedAt": "2026-10-20",
+      "note": "School campus 13942 State Hwy 31 E, athletic/district office 14134 State Hwy 31 E. Distinguish their entrances; Bear Stadium public parking, gate, cashless ticket policy and accessible seating were not separately confirmed. Official varsity Van trip Oct 22 is AWAY, not at Bear Stadium."
+    },
+    "notice": {
+      "title": "Van varsity game moved to Thursday, October 22",
+      "body": "Brownsboro Athletics' current October 2026 calendar specifically announces 'CHANGED: Game is being played on Thursday night' for the Oct 22 varsity game at Van (7:30 PM). The separately hosted older bbearsports.com provider still displays Friday Oct 23; follow the first-party live athletics calendar and recheck immediately before travel.",
+      "sourceUrl": "https://brownsboroathletics.gobearsgo.net/calendar",
+      "sourceLabel": "First-party date-change alert for Van varsity and Oct 21 JV/freshman (vs stale Oct 23 provider listing)",
+      "verifiedAt": "2026-10-20"
+    },
+    "development": {
+      "title": "25 playoff appearances, new coach, and a 2026 three-game response",
+      "body": "Dave Campbell's Texas Football lists Brownsboro's program with 25 football playoff appearances, zero state-title-game appearances and no UIL football state title. The 2025 Bears went 2–9 and 2024 finished 1–9. In May 2026 Brownsboro ISD named former OC Ryan Hood head coach and AD after Lance Connot left for Hubbard; Hood had previously coached on two Daingerfield state championship teams, which are not Brownsboro titles. The new 2026 squad lost to Brook Hill and Palestine, then won three straight against Wills Point (27–0), Mabank (56–27) and North Lamar (21–6), before Athens and Canton district defeats left the Bears 3–4 through October 16.",
+      "sourceUrl": "https://www.kltv.com/2026/05/05/brownsboro-isd-hires-athletic-director-head-football-coach/",
+      "sourceLabel": "KLTV first-party hiring report May 5, current BISD staff site, Dave Campbell Brownsboro program-history and 2026 dated results",
+      "verifiedAt": "2026-10-20"
+    },
+    "milestones": [
+      {
+        "date": "Program history",
+        "title": "25 Brownsboro football playoff appearances without a UIL football state title",
+        "body": "Dave Campbell's Texas Football program archive counts 25 playoff appearances, zero championship-game appearances and zero state football championships. Basketball trophies belong to a different sport and should never be reassigned.",
+        "sourceUrl": "https://txfb.sidev.co/team/brownsboro-bears",
+        "sourceLabel": "Dave Campbell Texas Football Brownsboro Bears program history"
+      },
+      {
+        "date": "2024",
+        "title": "Brownsboro finishes 1–9 in an early rebuilding year",
+        "body": "DCTF football season-by-season history gives the Bears a 1–9 record, distinct from other sports' performance.",
+        "sourceUrl": "https://txfb.sidev.co/team/brownsboro-bears",
+        "sourceLabel": "DCTF past seasons table"
+      },
+      {
+        "date": "2025",
+        "title": "A 2–9 playoff-qualifying season under the previous staff",
+        "body": "KLTV June 2026 local program profile identifies Brownsboro's 2025 2–9 season and notes its playoff appearance before Connot's exit; the result is not a state title.",
+        "sourceUrl": "https://www.kltv.com/story/26133818/brownsboro-bears/",
+        "sourceLabel": "KLTV updated June 2 2026 Bears 2025 season retrospective"
+      },
+      {
+        "date": "May 2026",
+        "title": "Brownsboro ISD hires Ryan Hood after Lance Connot leaves",
+        "body": "KLTV directly reports ISD's May 5 announcement: Hood became head coach and athletic director, replacing Connot, who moved to Hubbard. Older bbearsports.com and historical MaxPreps still list Connot.",
+        "sourceUrl": "https://www.kltv.com/2026/05/05/brownsboro-isd-hires-athletic-director-head-football-coach/",
+        "sourceLabel": "KLTV May 5 new appointment report, corroborated by current gobearsgo district site"
+      },
+      {
+        "date": "September 10–25, 2026",
+        "title": "Three straight victories follow an 0–2 start",
+        "body": "After losses to Brook Hill and Palestine, Brownsboro beat Wills Point 27–0, Mabank 56–27 and North Lamar 21–6. September 25 was designated Homecoming by current BISD varsity schedule.",
+        "sourceUrl": "https://www.maxpreps.com/tx/brownsboro/brownsboro-bears/football/schedule/",
+        "sourceLabel": "MaxPreps posted results and official 2026 school varsity calendar"
+      },
+      {
+        "date": "October 16, 2026",
+        "title": "Canton wins 55–0; Bears move to a reported 3–4",
+        "body": "An October 17 Brownsboro-specific game recap records Canton 55–0 and Brownsboro 3–4 through that seventh completed game. The official varsity calendar has not filled scores.",
+        "sourceUrl": "https://www.maxpreps.com/news/kFE6WgNyfEW0vuCoVM4PCA/football-recap-tough-loss-for-brownsboro.htm",
+        "sourceLabel": "MaxPreps Oct 17 posted game recap corroborated by SI 2026 game stats"
+      },
+      {
+        "date": "October 22, 2026",
+        "title": "Current district calendar moves Van varsity road game to Thursday",
+        "body": "Brownsboro Athletics explicitly marks the trip to Van 'CHANGED' to Thursday Oct 22 at 7:30 PM, resolving the older bbearsports provider's October 23 date in favor of district's current event alert.",
+        "sourceUrl": "https://brownsboroathletics.gobearsgo.net/calendar",
+        "sourceLabel": "Brownsboro Athletics first-party calendar 2026 game-change alert"
+      }
+    ],
+    "overview": [
+      "Brownsboro High School's Bears represent Brownsboro ISD in Henderson County. The school is at 13942 State Highway 31 East, Brownsboro TX 75756; the distinct ISD administration/athletic office is at 14134 State Hwy 31 E. An outdated MaxPreps footer says 75758, but the official district contact directory uses 75756.",
+      "Leadership changed in 2026, and this matters more than a generic team table. Current Brownsboro ISD football Athletics calls Ryan Hood its head coach and athletic director. He replaced Lance Connot after Connot left for Hubbard; the legacy bbearsports.com staff list and MaxPreps historical coaching screen still show Connot, contradicting official current personnel and May 2026 hiring coverage.",
+      "The program has a documented 25 historic football playoff appearances but no UIL football state championship game according to DCTF. Hood's previous Daingerfield state championships do not become Brownsboro championships just because he took the head-coaching role. The 2024 1–9 and 2025 2–9 seasons supply the program's recent backdrop.",
+      "On-field reporting through September 25 recorded two early losses followed by wins against Wills Point, Mabank and North Lamar. The October 6 aggregate MaxPreps schedule has an old 3–2 mark and unplayed Athens/Canton fixtures; individual October 9 Athens 70–14 and October 16 Canton 55–0 results now place the Bears at a reported 3–4 overall and 0–2 in District 9 as of Oct 16.",
+      "Game logistics change: the currently maintained Brownsboro Athletics calendar directly warns that the varsity road trip at Van moved to Thursday, October 22, 2026, and moved the JV/freshman Van games to Wednesday October 21. A separate vendor with an older Lance Connot staff page still says Friday October 23; the district's first-party game-change alert is the safer source.",
+      "Bear Stadium is the official Brownsboro home football venue. KLTV lists 13942 State Hwy 31 E as the stadium address, matching the high-school address, but this is not separate proof of a specific public gate, parking allocation or ADA route. The season ends with away Rusk on October 30 and Senior Night home Madisonville on November 6; only the district calendar should determine last-minute ticket and schedule changes."
+    ],
+    "faq": [
+      {
+        "question": "Who is Brownsboro's 2026 head football coach and athletic director?",
+        "answer": "Ryan Hood. The current school-operated football page explicitly lists him head coach/AD; KLTV reported Brownsboro ISD hired him May 5, 2026 after Lance Connot left for Hubbard. A separate older athletics vendor page still calls Connot head coach and is outdated."
+      },
+      {
+        "question": "Is Brownsboro's game at Van October 22 or October 23, 2026?",
+        "answer": "The current Brownsboro ISD Athletics calendar clearly flags a varsity date change to Thursday, October 22 at Van, 7:30 PM. An older alternate athletics provider still shows Friday October 23; rely on the first-party change announcement and recheck the school calendar for later edits."
+      },
+      {
+        "question": "What was the Brownsboro Bears 2026 record on October 20?",
+        "answer": "The latest completed game was an October 16 55–0 loss to Canton, leaving a reported 3–4 overall and 0–2 in district. The team had opened 0–2 and then won three straight before consecutive district losses; future fixtures are not included."
+      },
+      {
+        "question": "Has Brownsboro won a football state championship?",
+        "answer": "Dave Campbell's Texas Football credits Brownsboro with 25 football playoff appearances but zero football state championship titles or title-game appearances. Coach Ryan Hood's past Daingerfield titles and Brownsboro basketball championships are not Bears football titles."
+      },
+      {
+        "question": "Where is Brownsboro High School and Bear Stadium?",
+        "answer": "Official Brownsboro High School is at 13942 State Hwy 31 E, Brownsboro TX 75756; the district's separate administration office is at 14134 State Hwy 31 E. The school calls its varsity home venue Bear Stadium. Stadium event parking, public entrance and accessible seating still require direct confirmation."
+      },
+      {
+        "question": "Where are current Brownsboro tickets, schedules and staff updates?",
+        "answer": "Start with the Brownsboro ISD 'gobearsgo' Athletics Football page and its live calendar, which show current Ryan Hood staff and actual date-change notices. The older bbearsports athletics provider may contain stale coaching and Oct 23 Van fixture data."
+      }
+    ]
+  },
   "brownfield": {
     "slug": "brownfield",
     "intro": "Brownfield's Cubs are a Terry County 3A Division I football program working through consecutive winless 2024 and 2025 seasons. The 2026 opening 36–26 road win at Morton snapped that run, but separate dated reports show the Cubs at 1–7 following October 9 losses to Dalhart and October 16 at Denver City. Brownfield High's first-party athletics page identifies Lawrence Johnson as athletic director, while the current independent team coach ledger identifies him as head football coach. The high school's published campus address is 702 Cub Drive—not the 701 number on some third-party listings.",
