@@ -194,6 +194,7 @@
       .td-stay-affiliate-title{margin:0;font-family:inherit;font-size:clamp(1.35rem,2vw,1.75rem);font-weight:700;line-height:1.15;color:var(--foreground)}
       .td-stay-affiliate-copy{margin:.65rem 0 0;max-width:56rem;font-size:.95rem;line-height:1.6;color:var(--muted-foreground)}
       .td-stay-affiliate-actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1rem}
+      .td-stay-affiliate-actions--fort-mckavett{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
       .td-stay-affiliate-button,.td-stay-affiliate-jump{display:inline-flex;min-height:2.75rem;align-items:center;justify-content:center;padding:.7rem 1rem;border:1px solid var(--border);font-size:.9rem;font-weight:700;text-decoration:none;transition:opacity .15s ease,background .15s ease}
       .td-stay-affiliate-button:hover,.td-stay-affiliate-jump:hover{opacity:.88}
       .td-stay-affiliate-button:focus-visible,.td-stay-affiliate-jump:focus-visible{outline:2px solid var(--foreground);outline-offset:3px}
@@ -204,7 +205,7 @@
       .td-stay-affiliate-source a{color:var(--foreground);text-underline-offset:2px}
       .td-vrbo-owner-referral{padding-top:1.75rem;padding-bottom:2.5rem}
       @media (max-width:767px){.td-stay-nearby .td-stay-heading-row{align-items:stretch;flex-direction:column}.td-stay-affiliate-jump{width:100%}}
-      @media (max-width:640px){.td-stay-affiliate-actions{display:grid;grid-template-columns:1fr}.td-stay-affiliate-button{width:100%}}
+      @media (max-width:640px){.td-stay-affiliate-actions{display:grid;grid-template-columns:1fr}.td-stay-affiliate-button{width:100%}.td-stay-affiliate-actions--fort-mckavett{grid-template-columns:1fr}}
       @media (prefers-reduced-motion:reduce){.td-stay-affiliate-button,.td-stay-affiliate-jump{transition:none}}
     `;
     (target || document.head || document.documentElement).appendChild(style);
@@ -563,6 +564,7 @@
     const vrbo = actions?.querySelector('a[data-affiliate-partner="vrbo"]');
     const expediaButton = surface.querySelector('button[data-expedia-stays-search="true"]');
     if (!panel || !actions || !vrbo || !expediaButton) return;
+    actions.classList.add("td-stay-affiliate-actions--fort-mckavett");
 
     if (!expediaButton.classList.contains("td-stay-affiliate-button")) {
       expediaButton.className = "td-stay-affiliate-button td-stay-affiliate-button--secondary";
