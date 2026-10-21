@@ -4,6 +4,13 @@ import path from 'node:path';
 const root = process.cwd();
 const route = fs.readFileSync(path.join(root, 'src/routes/explore.$category.tsx'), 'utf8');
 const errors = [];
+// Keep shared Explore comparison behavior safe for empty collections and mixed source freshness.
+const comparison = fs.readFileSync(path.join(root, 'src/components/explore/ExploreDestinationComparison.tsx'), 'utf8');
+const hookIndex = comparison.indexOf('const [visibleCount, setVisibleCount] = useState(');
+const emptyReturnIndex = comparison.indexOf('if (!destinations.length) return null;');
+if (hookIndex < 0 || emptyReturnIndex < 0 || hookIndex > emptyReturnIndex) errors.push('Comparison component must call hooks before conditional returns.');
+if (!comparison.includes('values.length === destinations.length ? values[0]')) errors.push('Comparison source freshness must use oldest complete verification date.');
+if (!comparison.includes('Verification dates incomplete; check individual rows')) errors.push('Comparison must disclose missing source verification dates.');
 const slugs = ['major-springs', 'swimming-holes-river-tubing', 'state-parks', 'national-parks', 'historic-sites', 'road-trips', 'food-bbq'];
 
 const htmlWordCount = (html) => (html.replace(/<[^>]+>/g, ' ').match(/[A-Za-z0-9]+(?:['’][A-Za-z0-9]+)*/g) ?? []).length;
