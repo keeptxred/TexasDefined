@@ -106,6 +106,10 @@ test('statewide Mardi Gras hub must be live, indexable by default, and link to r
   const broken = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html(false)) });
   assert.equal(broken[0].passed, false);
   assert.match(broken[0].error, /Mardi Gras hub release lacks live guide/);
+  const deindexed = await verifyChangedPages({ plan, head, fetchImpl: async () =>
+    new Response(html().replace('</head>', '<meta name="robots" content="noindex, follow"></head>')) });
+  assert.equal(deindexed[0].passed, false);
+  assert.match(deindexed[0].error, /Mardi Gras hub release is unexpectedly noindex/);
 });
 
 test('a changed event authority record creates a bounded, cache-aware production acceptance', async () => {
