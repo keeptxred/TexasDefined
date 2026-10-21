@@ -6,6 +6,7 @@ import { applyCuratedDestinationBatch2 } from "./destination-curation-batch2.ts"
 import { applyCuratedDestinationBatch4 } from "./destination-curation-batch4.ts";
 import { applyCuratedDestinationBatch5 } from "./destination-curation-batch5.ts";
 import { applyCuratedDestinationBatch6 } from "./destination-curation-batch6.ts";
+import { applyCuratedDestinationBatch7 } from "./destination-curation-batch7.ts";
 import { applyCuratedDestinationBatch26 } from "./destination-curation-batch26.ts";
 import type { Destination } from "./types.ts";
 
@@ -230,4 +231,51 @@ test("Goliad historic buildings and Hill Country backcountry closures remain dis
   assert.ok(goliad.visitorFacts?.some((fact) => fact.topic === "hours" && fact.detail.includes("historic buildings")));
   const hill = applyCuratedDestinationBatch6({ slug: "hill-country-state-natural-area" } as Destination);
   assert.ok(hill.visitorFacts?.some((fact) => fact.topic === "access" && fact.detail.includes("poor weather")));
+});
+
+test("lake-heavy park batch preserves distinct TPWD lake, lodge and history access information", () => {
+  const parks: Array<[string, number]> = [
+    ["lake-bob-sandlin-state-park", 3],
+    ["lake-brownwood-state-park", 2],
+    ["lake-casa-blanca-international-state-park", 3],
+    ["lake-corpus-christi-state-park", 2],
+    ["lake-livingston-state-park", 3],
+    ["lake-somerville-state-park", 2],
+    ["lake-whitney-state-park", 2],
+    ["lyndon-b-johnson-state-park-and-historic-site", 3],
+    ["palmetto-state-park", 2],
+    ["possum-kingdom-state-park", 2],
+  ];
+  for (const [slug, count] of parks) {
+    const destination = applyCuratedDestinationBatch7({ slug } as Destination);
+    const result = reviewDestinationVisitorFacts(destination.visitorFacts, "2026-10-21");
+    assert.deepEqual(result.issues, [], slug);
+    assert.equal(result.visible.length, count, slug);
+    assert.ok(result.visible.every(({ sourceUrl }) =>
+      sourceUrl.startsWith("https://tpwd.texas.gov/state-parks/")), slug);
+    assert.equal(reviewDestinationVisitorFacts(destination.visitorFacts, "2027-03-01").visible.length, 0, slug);
+  }
+});
+
+test("Lake Casa Blanca fee seasons and late arrivals cannot become a generic single admission", () => {
+  const park = applyCuratedDestinationBatch7({ slug: "lake-casa-blanca-international-state-park" } as Destination);
+  assert.ok(park.visitorFacts?.some((fact) => fact.topic === "admission" && fact.detail.includes("$4") && fact.detail.includes("$5")));
+  assert.ok(park.visitorFacts?.some((fact) => fact.topic === "access" && fact.detail.includes("late arrival")));
+  assert.ok(park.visitorFacts?.some((fact) => fact.topic === "hours" && fact.detail.includes("October–January")));
+});
+
+test("free LBJ historic site has distinct farm hours and closures", () => {
+  const park = applyCuratedDestinationBatch7({ slug: "lyndon-b-johnson-state-park-and-historic-site" } as Destination);
+  assert.ok(park.visitorFacts?.some((fact) => fact.topic === "admission" && fact.detail.includes("no entrance fee")));
+  assert.ok(park.visitorFacts?.some((fact) => fact.topic === "hours" && fact.detail.includes("last Tuesday")));
+  assert.ok(park.visitorFacts?.some((fact) => fact.topic === "access" && fact.detail.includes("Thanksgiving")));
+});
+
+test("lake rentals and Bob Sandlin late-arrival code are not invented or generalized", () => {
+  for (const slug of ["lake-livingston-state-park", "lake-corpus-christi-state-park"]) {
+    const park = applyCuratedDestinationBatch7({ slug } as Destination);
+    assert.ok(park.visitorFacts?.some((fact) => fact.topic === "access" && fact.detail.includes("no longer rents watercraft")), slug);
+  }
+  const bob = applyCuratedDestinationBatch7({ slug: "lake-bob-sandlin-state-park" } as Destination);
+  assert.ok(bob.visitorFacts?.some((fact) => fact.topic === "access" && fact.detail.includes("gate code")));
 });
