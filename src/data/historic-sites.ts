@@ -106,6 +106,73 @@ const magoffinHomeVerifiedBody = [
   "The operator currently states that the historic house is closed for restoration through 2027. The visitor center is open, but a visitor-center stop must never be advertised as a house tour or as confirmation that rooms inside the historic residence are accessible. For updated access, programs, reservations and hours consult the Texas Historical Commission's Magoffin Home site-specific notice linked on this guide before traveling. The operator also offers a virtual tour for people who want to explore the interior while restoration work continues.",
 ];
 
+// All six Fort McKavett photographs depict the actual Menard County state historic
+// site. Wikimedia Commons file records, photographer and CC BY-SA reuse terms were
+// individually verified on October 20, 2026. The six 960px previews also returned
+// HTTP 200 / image/jpeg via TexasDefined's production image proxy.
+const fortMcKavettGallery: NonNullable<Destination["gallery"]> = [
+  {
+    image: {
+      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Fort_McKavett_Hospital.jpg?width=960",
+      alt: "Historic Fort McKavett hospital building, now used as the site's visitor center",
+      width: 5312, height: 2988,
+      credit: "Articseahorse · CC BY-SA 4.0 · Wikimedia Commons · photographed 2017",
+    },
+    caption: "The 1874 post hospital, the present-day visitor-center building. Photograph from June 2017; check the operator for current exhibits and access.",
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Fort_McKavett_Hospital.jpg",
+  },
+  {
+    image: {
+      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Fort_McKavett_HQ.jpg?width=960",
+      alt: "Headquarters building at Fort McKavett State Historic Site",
+      width: 5312, height: 2988,
+      credit: "Articseahorse · CC BY-SA 4.0 · Wikimedia Commons · photographed 2017",
+    },
+    caption: "The fort headquarters helps explain how a remote Army post was organized and administered. Photograph from June 2017.",
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Fort_McKavett_HQ.jpg",
+  },
+  {
+    image: {
+      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Fort_McKavett_Commander%27s_house.jpg?width=960",
+      alt: "Commanding officer's house site at Fort McKavett",
+      width: 5312, height: 2988,
+      credit: "Articseahorse · CC BY-SA 4.0 · Wikimedia Commons · photographed 2017",
+    },
+    caption: "The commanding officer's house site is part of the surviving fort landscape; its condition should be interpreted as photographed in 2017, not as a current access guarantee.",
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Fort_McKavett_Commander%27s_house.jpg",
+  },
+  {
+    image: {
+      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Fort_McKavett_hospital_medical_supplies.jpg?width=960",
+      alt: "Medical-supply interpretation displayed at the Fort McKavett hospital",
+      width: 5312, height: 2988,
+      credit: "Articseahorse · CC BY-SA 4.0 · Wikimedia Commons · photographed 2017",
+    },
+    caption: "Medical-supply display documenting the Army hospital's historical role. The June 2017 exhibit photograph does not establish which objects are on display today.",
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Fort_McKavett_hospital_medical_supplies.jpg",
+  },
+  {
+    image: {
+      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Fort_McKavett_Cannon.jpg?width=960",
+      alt: "Historic cannon displayed at Fort McKavett State Historic Site",
+      width: 5312, height: 2988,
+      credit: "Articseahorse · CC BY-SA 4.0 · Wikimedia Commons · photographed 2017",
+    },
+    caption: "A cannon display at Fort McKavett, photographed in June 2017. This is an on-site exhibit, not a claim the gun was fired at the fort.",
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Fort_McKavett_Cannon.jpg",
+  },
+  {
+    image: {
+      src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Buffalo_Soldiers_at_the_Fort_McKavett_State_Historic_Site.jpg?width=960",
+      alt: "Historical information sign about Buffalo Soldiers at Fort McKavett State Historic Site",
+      width: 3264, height: 2448,
+      credit: "Pi3.124 · CC BY-SA 3.0 · Wikimedia Commons · photographed 2013",
+    },
+    caption: "An interpretive sign about Buffalo Soldier service at Fort McKavett, photographed in November 2013. The photograph shows interpretation, not a historical photograph of soldiers.",
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Buffalo_Soldiers_at_the_Fort_McKavett_State_Historic_Site.jpg",
+  },
+];
+
 export const historicSiteDestinations: Destination[] = historicSiteSeeds.map((site, index) => ({
   id: `historic-site-${index + 1}`,
   brandId: BRAND,
@@ -137,6 +204,7 @@ export const historicSiteDestinations: Destination[] = historicSiteSeeds.map((si
   entryNote: site.slug === "magoffin-home" ? "Texas Historical Commission currently reports that the historic home is closed through 2027 for restoration, while the visitor center remains open. No house tour should be assumed. Check current visitor-center hours and program details before traveling." : site.slug === "fort-martin-scott" ? "THC currently lists staffed hours Tue–Sat 9 a.m.–5 p.m., grounds daily 8 a.m.–8 p.m., and adult admission $10 (reduced rates for seniors and ages 5–17). THC pages conflict about guided tours (main listing: requested tours; Plan Your Visit: self-guided only). Confirm directly before relying on a guided visit." : "Check the official visitor page before departure for current hours, tours, fees, closures and accessibility details.",
   highlights: [...site.themes],
   body: site.slug === "magoffin-home" ? magoffinHomeVerifiedBody : site.slug === "fort-martin-scott" ? fortMartinScottVerifiedBody : historicBody(site),
+  ...(site.slug === "fort-mckavett" ? { gallery: fortMcKavettGallery } : {}),
   ...(site.slug === "fort-martin-scott" ? { visitorFaqs: fortMartinScottVisitorFaqs, accessibilityNotes: "THC lists the visitor center and most grounds as wheelchair accessible with restrooms at the visitor center. Historic buildings, replicas and the nature trail are not ADA accessible; much walking is on gravel/dirt. Contact 830-304-1848 for accommodations.", address: "1606 E Main St, Fredericksburg, TX 78624" } : {}),
   managingAuthority: site.officialUrl.includes("thc.texas.gov") ? "Texas Historical Commission" : site.officialUrl.includes("cem.va.gov") ? "U.S. Department of Veterans Affairs — National Cemetery Administration" : undefined,
   officialUrl: site.officialUrl,
