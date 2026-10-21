@@ -894,8 +894,8 @@ export const events: TexasEvent[] = [
     blurb: "Twenty days of rodeo, livestock judging and stadium concerts on a scale only Texas attempts.",
     city: "Houston",
     region: "gulf-coast",
-    startDate: "2027-02-23",
-    endDate: "2027-03-14",
+    startDate: "2027-03-02",
+    endDate: "2027-03-21",
     category: "rodeo",
   },
   {
