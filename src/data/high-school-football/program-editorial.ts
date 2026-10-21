@@ -67,6 +67,240 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "bryan-rudder": {
+    "slug": "bryan-rudder",
+    "intro": "Bryan Rudder's Rangers are a separate Bryan ISD football program from the Bryan High Vikings, though both host varsity games at district-run Merrill Green Stadium. Rudder's 2026 program under longtime head coach Eric Ezar entered the October 23 Waco University fixture 4–3 after an early 40–34 win over Bryan High and consecutive 42–15 and 55–7 district defeats. The Rangers' more recent football history is a single documented playoff appearance, not a claimed UIL state-title pedigree.",
+    "theme": {
+      "accentHex": "#167047",
+      "label": "Original TexasDefined deep-green visual accent reflecting publicly documented Rudder Rangers green-and-black program identity; not school logo artwork or a licensed photo"
+    },
+    "seo": {
+      "title": "Bryan Rudder Rangers Football | 2026 Scores, Coach & Tickets",
+      "description": "Bryan Rudder Rangers: 2026 Eric Ezar staff, 4–3 through Oct 16, separate Bryan Vikings rivalry, Merrill Green Stadium, ticket rules and source-backed football history."
+    },
+    "coach": {
+      "name": "Eric Ezar",
+      "title": "Rudder High School current head football coach and campus athletic coordinator (school's own current staff)",
+      "sourceUrl": "https://www.rudderrangers.net/directory",
+      "sourceLabel": "Official Rudder Rangers Athletics Staff Directory confirms Eric Ezar Head Football Coach, Terrance Toliver offensive coordinator, Timothy George defensive coordinator; school staff directory also confirms",
+      "verifiedAt": "2026-10-21"
+    },
+    "campus": {
+      "address": "3251 Austin's Colony Parkway, Bryan, TX 77808 (Rudder High School, not stadium address)",
+      "phone": "979-209-7900",
+      "sourceUrl": "https://www.bryanisd.org/o/Rudder",
+      "sourceLabel": "Rudder High first-party site lists campus and main telephone; school athletics lists 979-209-7927 sports office",
+      "verifiedAt": "2026-10-21"
+    },
+    "schedule": {
+      "label": "Rudder High official 2026–27 varsity football fixtures including named home theme nights, Bryan rivalry and individual tickets",
+      "sourceUrl": "https://www.rudderrangers.net/sport/football/boys/",
+      "sourceLabel": "First-party Rudder 2026–27 football schedule: Sep 18 Bryan High, Sep 24 Elgin homecoming, Oct 16 Brenham Pink Out; Oct 23 Waco University, Oct 30 Waco, Nov 6 Killeen Ellison Senior Night",
+      "verifiedAt": "2026-10-21",
+      "officialScheduleUrl": "https://www.rudderrangers.net/sport/football/boys/",
+      "ticketUrl": "https://www.bryanisdsports.net/upcoming-events-ticketing-information"
+    },
+    "season": {
+      "record": "4–3 overall, 0–2 district through October 16, 2026 (MaxPreps and Texas Prep reported, official Rudder grid is fixture-only)",
+      "verifiedAt": "2026-10-21",
+      "sourceUrl": "https://txprepfootball.com/schools/rudder-rangers/",
+      "sourceLabel": "Texas Prep Football and published MaxPreps Oct17 Brenham 55–7 report reconcile 4–3 despite stale Sept28 MaxPreps and DCTF 4–1 records. School-run schedule gives events and no scores.",
+      "latestResultSourceUrl": "https://www.maxpreps.com/news/QzzhKkaHgE6SypXdTZhMLA/football-recap-tough-loss-for-rudder--how-to-watch.htm",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Houston Kashmere",
+          "site": "Away",
+          "result": "W 39–0"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Fort Bend Thomas",
+          "site": "Home",
+          "result": "W 30–13"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Jacksonville",
+          "site": "Away",
+          "result": "L 20–28"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Bryan High",
+          "site": "Home",
+          "result": "W 40–34"
+        },
+        {
+          "date": "2026-09-24",
+          "opponent": "Elgin",
+          "site": "Home",
+          "result": "W 63–19"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Belton",
+          "site": "Away",
+          "district": true,
+          "result": "L 15–42"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Brenham",
+          "site": "Home",
+          "district": true,
+          "result": "L 7–55"
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Waco University",
+          "site": "Away",
+          "district": true,
+          "kickoff": "7:00 PM"
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Waco",
+          "site": "Away",
+          "district": true,
+          "kickoff": "7:00 PM"
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Killeen Ellison",
+          "site": "Home",
+          "district": true,
+          "kickoff": "7:00 PM"
+        }
+      ]
+    },
+    "venue": {
+      "name": "Merrill Green Stadium (shared Bryan ISD home stadium for Rudder and Bryan)",
+      "address": "3310 Oak Ridge Drive, Bryan, TX 77802 (stadium; Rudder academic campus is across town at 3251 Austin's Colony Parkway)",
+      "sourceUrl": "https://www.bryanisdsports.net/facilities",
+      "sourceLabel": "Bryan ISD athletics official facility address and Bryan Texas Utilities dual-school home football scheduling confirm both Bryan High and Rudder use Merrill Green Stadium",
+      "verifiedAt": "2026-10-21",
+      "note": "For Rudder home fixtures, district stadium policies prohibit backpacks and require middle-school spectators to attend with responsible adults. Student-tickets require corresponding participating-school ID; ticketing is school-specific even when both teams share a venue. Ask Bryan ISD for exact ADA reserved parking, wheelchair entrance and spectator gate for the date.",
+      "policyUrl": "https://www.bryanisdsports.net/merrill-green-stadium-policies"
+    },
+    "notice": {
+      "title": "The Rudder academic campus is NOT Merrill Green Stadium",
+      "body": "Rudder's own official campus is 3251 Austin's Colony Parkway in Bryan; Bryan ISD's designated varsity football stadium is at 3310 Oak Ridge Drive. Bryan High and Rudder share this stadium, but tickets, home-side seating, student ID and events are not interchangeable. The district's current event-ticketing page says no cash tickets are sold at the gate and identifies advance walk-in Rudder tickets at Rudder High School Field House Monday through Thursday.",
+      "sourceUrl": "https://www.bryanisdsports.net/upcoming-events-ticketing-information",
+      "sourceLabel": "Official district ticketing page plus Rudder High School contact and Merrill Green Stadium facility/policy links",
+      "verifiedAt": "2026-10-21"
+    },
+    "development": {
+      "title": "A younger Rangers program with one reported playoff berth",
+      "body": "The Rudder Rangers are a comparatively recent Bryan ISD school football program: KBTX's August 2026 report describes Eric Ezar's eighth year coaching and the prior 2025 2–8 record, while Dave Campbell's Texas Football lists one historical playoff appearance, zero football title-game berths and zero state football championships. In 2026 Rudder won a local September 18 matchup against Bryan High 40–34, reached 4–1 after the September 24 win over Elgin, then lost 42–15 at Belton October 9 and 55–7 against Brenham October 16. Those later results are missing from static September school data; they yield a source-attributed 4–3, 0–2 district record.",
+      "sourceUrl": "https://www.texasfootball.com/team/bryan-rudder-rangers",
+      "sourceLabel": "Dave Campbell's Rudder football program-history counts; Aug 2026 KBTX Ezar interview and up-to-date October 9/16 results",
+      "verifiedAt": "2026-10-21"
+    },
+    "milestones": [
+      {
+        "date": "2007",
+        "title": "Rudder opens as a distinct Bryan ISD campus",
+        "body": "Bryan ISD's historical district magazine says Rudder High School's Rangers were competing from 2007; Rudder now operates a separate campus at 3251 Austin's Colony Parkway, not as a section of Bryan High.",
+        "sourceUrl": "https://user-35215390377.cld.bz/Bryan-ISD-September-2024/Cover",
+        "sourceLabel": "Bryan ISD 2024 district school history and current Rudder campus"
+      },
+      {
+        "date": "2019",
+        "title": "Eric Ezar appointed Rudder's football head coach",
+        "body": "Bryan ISD's board approved Ezar, who took over from Greg Morgan, in spring 2019. The district's first-party Rudder sports directory and 2026 KBTX team report independently identify him in the current head-coaching role.",
+        "sourceUrl": "https://www.rudderrangers.net/news/54753",
+        "sourceLabel": "Official Rudder Athletics hosts 2019 Eagle appointment report and 2026 Rudder current staff"
+      },
+      {
+        "date": "2021",
+        "title": "Rangers' rare postseason football history",
+        "body": "Dave Campbell's Rudder team history currently totals one football playoff appearance but no state-title final or championship; a 2021 seven-win season appears in program result archives. Do not misread the district name or UIL playoff participation as a state-final appearance.",
+        "sourceUrl": "https://www.texasfootball.com/team/bryan-rudder-rangers",
+        "sourceLabel": "DCTF current Rudder historical playoff/title appearance counts"
+      },
+      {
+        "date": "2025",
+        "title": "A 2–8 reset before the 2026 returning group",
+        "body": "KBTX's August 24 2026 preview verifies 2–8 for 2025 and describes an experienced returning 2026 core. The team finished 2025 with a 35–16 win over Waco, not a winning overall season.",
+        "sourceUrl": "https://www.kbtx.com/2026/08/24/2026-hometown-heroes-rudder-rangers/",
+        "sourceLabel": "KBTX 2026 preseason Rudder source reporting"
+      },
+      {
+        "date": "September 18, 2026",
+        "title": "40–34 victory over nearby Bryan High",
+        "body": "In a school-city rivalry of independent programs, Rudder beat Bryan 40–34 at shared Merrill Green Stadium. Both district-published schedules identify the teams separately and set Rudder as host for the September 18 meeting.",
+        "sourceUrl": "https://www.rudderrangers.net/sport/football/boys/",
+        "sourceLabel": "Official Rudder 2026 schedule plus MaxPreps reported 40–34 match"
+      },
+      {
+        "date": "September 24, 2026",
+        "title": "Homecoming offensive outburst: Rudder 63–19 Elgin",
+        "body": "Rudder's official 2026 game grid explicitly labels Elgin as Homecoming, while updated DCTF and MaxPreps scores show a 63–19 Rangers win; the result raised their reported record to 4–1.",
+        "sourceUrl": "https://www.texasfootball.com/team/bryan-rudder-rangers",
+        "sourceLabel": "DCTF 2026 Rudder published results and school first-party homecoming label"
+      },
+      {
+        "date": "October 9, 2026",
+        "title": "Belton wins 42–15 in Rudder's first 2026 district game",
+        "body": "Belton High's own athletics news and MaxPreps match recap both record Belton's 42–15 win. Older source pages frozen after the September 24 victory should not still report the Rangers as 4–1.",
+        "sourceUrl": "https://www.beltontigers.com/news/118968",
+        "sourceLabel": "First-party Belton varsity athletics October 11 game recap"
+      },
+      {
+        "date": "October 16, 2026",
+        "title": "Brenham's 55–7 victory leaves Rangers 4–3",
+        "body": "Updated MaxPreps 10/17 postgame recap and Texas Prep score ledger both report Brenham 55, Rudder 7. Rudder's own school calendar names this a Merrill Green Pink Out home event but does not post the result.",
+        "sourceUrl": "https://www.maxpreps.com/news/QzzhKkaHgE6SypXdTZhMLA/football-recap-tough-loss-for-rudder--how-to-watch.htm",
+        "sourceLabel": "October 17 2026 MaxPreps source-dated Rudder vs Brenham recap"
+      },
+      {
+        "date": "November 6, 2026",
+        "title": "Senior Night home game scheduled against Killeen Ellison",
+        "body": "Rudder High Athletics lists Ellison as a Friday November 6 Merrill Green Senior Night 7 p.m. event; as of the Oct 21 review it is a future fixture with no result.",
+        "sourceUrl": "https://www.rudderrangers.net/sport/football/boys/",
+        "sourceLabel": "Rudder Athletics 2026 first-party future football event and venue calendar"
+      }
+    ],
+    "overview": [
+      "Rudder High School is James Earl Rudder High in Bryan ISD, distinct from Bryan High School. The Rangers' football history is much shorter than Bryan High's 1921 championship history: Dave Campbell's current Rudder program ledger lists zero football state championships, zero state finals and a single playoff appearance; none of Bryan High's state history belongs to the Rudder school.",
+      "The school's official 2026 football staff is headed by Eric Ezar, who also serves as campus athletic coordinator. Rudder Athletics lists Terrance Toliver on offense and Timothy George on defense; KBTX's August 2026 interview identified Ezar entering his eighth Rudder coaching season after 2025's 2–8 campaign.",
+      "Rudder's 2026 season had a fast September start, winning at Kashmere 39–0, at home against LC Thomas 30–13, and hosting Bryan High 40–34 and Elgin 63–19 after a 20–28 Jacksonville loss. By September 24 the Rangers were a reported 4–1, but static score pages that stop there omit later district results.",
+      "The October 9 road 15–42 loss at Belton and October 16 home 7–55 loss to Brenham brought Rudder to 4–3 overall, 0–2 in District 8-5A Division II. The Brenham game was marked Pink Out on the school's official schedule; the reported final comes from dated MaxPreps postgame reports and independent Texas Prep results, not a claimed certified school scorebook.",
+      "For fans, Rudder High School's address is 3251 Austin's Colony Parkway, but its football stadium is Merrill Green Stadium at 3310 Oak Ridge Drive. Bryan High's Vikings also play home fixtures at this same district facility: game-specific home/away designation, gates and student ID privileges cannot be inferred from the building's school name alone.",
+      "Bryan ISD's stadium ticket rules prohibit backpacks, require responsible adults to accompany middle-school fans and limit student entry based on school credentials. For Rudder walk-in presales, the district points to Rudder High Field House Monday–Thursday rather than Merrill Green Field House. Check the district event page for currently posted tickets and ADA arrangements before attending upcoming University, Waco or Ellison games."
+    ],
+    "faq": [
+      {
+        "question": "Is Bryan Rudder football the same as Bryan High Vikings football?",
+        "answer": "No. Rudder High Rangers and Bryan High Vikings are two different Bryan ISD schools. They share Merrill Green Stadium for varsity home games but have separate campuses, current coaches, classifications and statistics. Rudder won their September 18, 2026 matchup 40–34."
+      },
+      {
+        "question": "Who coaches the Rudder Rangers in 2026?",
+        "answer": "Eric Ezar is identified as Rudder High head football coach and campus athletic coordinator in the school's current athletics staff directory, corroborated by KBTX's August 24 2026 preseason profile. Official staff also names Terrance Toliver offensive coordinator and Timothy George defensive coordinator."
+      },
+      {
+        "question": "What is Rudder's record in 2026 football?",
+        "answer": "MaxPreps published October 17 2026 a 55–7 home loss to Brenham, bringing Rudder to 4–3 through October 16 with an 0–2 start to District 8-5A Division II. The older Sept 28 MaxPreps schedule and Dave Campbell season card frozen at 4–1 have not incorporated these losses."
+      },
+      {
+        "question": "Has Bryan Rudder won a UIL football state title?",
+        "answer": "No. Dave Campbell's Texas Football Rudder program ledger reports zero UIL football state championships and zero title-game appearances, with one historical playoff appearance. Bryan High's 1921 championship is not a Rudder achievement."
+      },
+      {
+        "question": "Where does Bryan Rudder host home football games?",
+        "answer": "Merrill Green Stadium, 3310 Oak Ridge Drive in Bryan, is the Bryan ISD football venue for Rudder Rangers home games. Rudder High School's campus is at 3251 Austin's Colony Parkway. Check event-specific gates and accessible seating with Bryan ISD."
+      },
+      {
+        "question": "Where can I purchase Rudder football tickets?",
+        "answer": "Bryan ISD's official athletic-ticket page lists advance tickets for Rudder and Davila fans at Rudder High School Field House, Monday–Thursday 9 a.m.–3 p.m., and says no cash is sold at the stadium gate. The district's current policy sets adult supervision and school-specific ID rules."
+      },
+      {
+        "question": "When is Rudder's next football home game?",
+        "answer": "From the 2026 schedule checked October 21, Rudder's next remaining home varsity game is Friday November 6 against Killeen Ellison, designated Senior Night at Merrill Green Stadium at 7 p.m. Earlier October 23 and October 30 games are away at Waco University and Waco. Times and tickets may change."
+      }
+    ]
+  },
   "bryan": {
     "slug": "bryan",
     "intro": "Bryan High School's Vikings connect modern District 12-6A football to a rare piece of Texas UIL history: a 35–13 championship win over Dallas Oak Cliff in 1921, with Charles Hudson coaching a 9–1–1 team. The current 2026 Vikings are a separate football chapter under first-year head coach and Bryan High alumnus Blake Joseph, whom Bryan ISD formally appointed in January. This guide distinguishes Bryan High from Bryan Rudder, separates its 3450 Campus Drive school from Merrill Green Stadium, and gives date-stamped 2026 results instead of relying on an October 4 stale schedule.",
