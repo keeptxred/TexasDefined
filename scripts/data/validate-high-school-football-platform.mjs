@@ -1550,6 +1550,8 @@ if (!errors.length) {
     ['boyd', 'Shawn Sparks', 'ntxvarsitysports.com/boyd-looking-to-build-on-breakthrough-season/'],
     ['borden-county', 'Trey Richey', 'pressreporter.com/issues/2026-08-18/pages/25/'],
     ['bowie-gold-burg', 'Austin Norman', 'bowienewsonline.com/2026/10/gold-burg-gives-it-a-go-falls-to-perrin-35-32/'],
+    ['borger', 'Jesus A. Villaseñor', 'borgerisd.net/69574_2'],
+    ['bosqueville', 'Reggie Patrick', 'kwtx.com/2026/10/07/classroom-champions-bosquevilles-dax-pharris/'],
   ];
   for (const [slug, expectedCoach, sourceFragment] of currentCoachContracts) {
     const program = footballEditorialRecord(slug);
@@ -1654,6 +1656,21 @@ if (!errors.length) {
       const normalized = (program.faq || []).map(({ question }) => (question || '').trim().toLowerCase());
       if (new Set(normalized).size !== normalized.length) {
         errors.push('Batch 006 duplicate questions within a school profile: ' + slug);
+      }
+      // Prevent prior-year varsity schedules from masquerading as evidence
+      // for the current 2026 season. Keep actual 2025 history links intact.
+      for (const milestone of program.milestones || []) {
+        if (/^2026(?:$|[-/])/.test(milestone.date || '')
+            && (milestone.sourceUrl || '').includes('/25-26/schedule/')) {
+          errors.push('Batch 006 2026 milestone cites prior season schedule: ' + slug
+            + ' / ' + milestone.title);
+        }
+      }
+      // School-owned/press photo assets require affirmative provenance.
+      // Original CSS/SVG data visualizations are not documentary photos.
+      if (program.photo && (!program.photo.license || !program.photo.sourceUrl
+          || !program.photo.credit || !program.photo.alt)) {
+        errors.push('Batch 006 football photo lacks reuse rights/credit/alt evidence: ' + slug);
       }
     }
   }
