@@ -1,0 +1,80 @@
+name: Refresh Texas by the Numbers
+
+on:
+  schedule:
+    - cron: '41 12 5 * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/refresh-texas-data.yml'
+      - 'scripts/data/refresh-texas-metro-payrolls.mjs'
+      - 'scripts/data/refresh-texas-metro-payrolls.test.mjs'
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+
+concurrency:
+  group: texas-data-scheduled-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - name: Check out current main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Test BLS data extractor and safety bounds
+        run: node --test scripts/data/refresh-texas-metro-payrolls.test.mjs
+      - name: Review official BLS monthly metro payroll release
+        run: node scripts/data/refresh-texas-metro-payrolls.mjs
+      - name: Detect verified new official-source values
+        id: changes
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- src/data/generated/texas-metro-payrolls-current.json src/data/texas-data-center.ts; then
+            echo "changed=no" >> "$GITHUB_OUTPUT"
+            echo "No newer verified BLS metro payroll values. Historical pages unchanged." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "changed=yes" >> "$GITHUB_OUTPUT"
+            git diff --stat -- src/data/generated/texas-metro-payrolls-current.json src/data/texas-data-center.ts >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Create isolated verified data branch
+        if: steps.changes.outputs.changed == 'yes'
+        id: branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          branch="automation/texas-data-bls-${GITHUB_RUN_ID}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add src/data/generated/texas-metro-payrolls-current.json src/data/texas-data-center.ts
+          git commit -m "data: refresh official BLS metro payrolls"
+          git push origin "$branch"
+          echo "name=$branch" >> "$GITHUB_OUTPUT"
+      - name: Open protected official data refresh PR
+        if: steps.changes.outputs.changed == 'yes'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ steps.branch.outputs.name }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh pr create \
+            --base main \
+            --head "$BRANCH" \
+            --title "Refresh latest verified Texas metro payrolls" \
+            --body "Scheduled official BLS metropolitan area Table 3 refresh. Both the BLS release date and source table are verified; all 13 Texas metro rows pass source and magnitude checks. Dated historical snapshots remain unchanged. The owner-side GitHub finisher validates the exact PR head against current main and protected CI before merging; no user approval is needed."
+          echo "Refresh PR opened; protected GitHub finisher handles merging." >> "$GITHUB_STEP_SUMMARY"
