@@ -14,7 +14,7 @@ const DAY_MS = 86400000;
 // A dated TPWD calendar listing is already a primary-source discovery candidate.
 // Keyword inclusion used to discard useful programs such as Trail of Terror,
 // Picnic in the Park and Pirates of the Canyon. Fail closed on non-visitor events.
-const EXCLUSION = /visitor cent(er|re)|nature center$|education center|office hours|park store|gift shop|recruit|job fair|public meeting|commission|closed|volunteer|self.guided viewing|staff training|teacher workshop|instructor workshop|administrative/i;
+const EXCLUSION = /visitor cent(er|re)|nature center(?: hours)?$|education cent(er|re)|office hours|park store|gift shop|recruit|career fair|job fair|internship|public meeting|commission|closed|closure|volunteer|self.guided viewing|staff training|teacher workshop|instructor workshop|professional development|administrative|office open|facility open|headquarters hours|annual business meeting/i;
 
 function clean(value) {
   return String(value).replace(/<[^>]*>/g, " ").replace(/&amp;/gi, "&")
