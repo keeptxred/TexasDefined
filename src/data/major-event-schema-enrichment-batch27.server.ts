@@ -103,6 +103,18 @@ export const majorEventSchemaEnrichmentBatch27: MajorEventSchemaEnrichment[] = [
   },
   {
     slug: "san-jacinto-day-celebration",
+    image: {
+      url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/San_jacinto_reenactment.jpg/1280px-San_jacinto_reenactment.jpg",
+      alt: "Historic photo of Battle of San Jacinto reenactors at the San Jacinto site, April 2022 (not a 2027 schedule or lineup)",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:San_jacinto_reenactment.jpg",
+      sourceType: "wikimedia",
+      licenseName: "Creative Commons Attribution-ShareAlike 4.0 International",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+      rightsNote: "Photo by Til midnight (2022); CC BY-SA 4.0, displayed unmodified with attribution.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
+
     organizer: { type: "Organization", name: "San Jacinto Museum and Battlefield Association", url: "https://www.sanjacinto-museum.org/" },
     sources: [
       { label: "San Jacinto Museum official 2026 celebration and reenactment", url: "https://www.sanjacinto-museum.org/Visit/Calendar/San_Jacinto_Day_Celebration/" },
