@@ -40,7 +40,7 @@
       "bryan-rudder",
       "bryson"
     ],
-    "state": "ASSIGNED_BATCH_007_IN_PROGRESS",
+    "state": "BATCH_007_FIRST_THREE_IMPLEMENTED_PENDING_PR_CI",
     "dateAssigned": "2026-10-20",
     "selectionRule": "First 25 NOT_REVIEWED and unassigned canonical schoolRecords in stable order following 130 production VERIFIED through completed Batch 006; outstanding PR and branch conflicts checked.",
     "individuallyVerified": 0,
@@ -48,12 +48,12 @@
     "assignmentBranch": "football-authority-batch-007-20261020",
     "repositoryMainAtAssignment": "78157bb07d856f40d21e813fd3f886cd54e2b20e",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "brackettville-brackett",
-    "nextSchool": "brady",
-    "implementedOnBranch": 0,
-    "remainingToImplement": 25,
+    "currentSchool": "bremond",
+    "nextSchool": "brenham",
+    "implementedOnBranch": 3,
+    "remainingToImplement": 22,
     "remainingToVerify": 25,
-    "notes": "Assigned only; no individual 007 program research, production work or deploy verified at assignment. Owner-approved optional manual editorial signoff policy remains distinct from mandatory factual, rights and production technical checks."
+    "notes": "Three individually researched school editorial entries and identity sources + three dossiers committed on Batch007 branch (Brackett, Brady, Breckenridge). They are IMPLEMENTED on branch only, not MERGED/DEPLOYED/VERIFIED. 22 remaining unreviewed; 25 require production verification. Source-dated titles, 1959 Brady forfeiture and Breckenridge tied championships preserved. Original rights-safe graphics/identity panel from existing architecture; no unlicensed third-party photos copied."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -7249,8 +7249,17 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/brackettville-brackett",
-      "status": "NOT_REVIEWED",
-      "batch": 7
+      "status": "IMPLEMENTED",
+      "batch": 7,
+      "audit": "docs/football-authority/schools/brackettville-brackett.md",
+      "auditCompletedAt": "2026-10-20",
+      "researchCompletedAt": "2026-10-20",
+      "implementedAt": "2026-10-20",
+      "implementedOnBranch": "football-authority-batch-007-20261020",
+      "actualProductionVerified": false,
+      "implementationNotes": "School-specific research with dated cited historic records, unique editorial milestones, mascot, schedule and visitor information, six unique FAQs and rights-safe visual accents. Branch changes only; protected CI, merge, live deployment and production browser verification outstanding.",
+      "mediaStatus": "No documentary school-owned imagery copied. School-specific editorial identity/achievement presentation; photo rights unresolved.",
+      "technicalVerification": "PENDING: protected tests, protected merge, exact-sha production deploy and multi-viewport browser check."
     },
     {
       "id": "uil:brady",
@@ -7263,8 +7272,17 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/brady",
-      "status": "NOT_REVIEWED",
-      "batch": 7
+      "status": "IMPLEMENTED",
+      "batch": 7,
+      "audit": "docs/football-authority/schools/brady.md",
+      "auditCompletedAt": "2026-10-20",
+      "researchCompletedAt": "2026-10-20",
+      "implementedAt": "2026-10-20",
+      "implementedOnBranch": "football-authority-batch-007-20261020",
+      "actualProductionVerified": false,
+      "implementationNotes": "School-specific research with dated cited historic records, unique editorial milestones, mascot, schedule and visitor information, six unique FAQs and rights-safe visual accents. Branch changes only; protected CI, merge, live deployment and production browser verification outstanding.",
+      "mediaStatus": "No documentary school-owned imagery copied. School-specific editorial identity/achievement presentation; photo rights unresolved.",
+      "technicalVerification": "PENDING: protected tests, protected merge, exact-sha production deploy and multi-viewport browser check."
     },
     {
       "id": "uil:breckenridge",
@@ -7277,8 +7295,17 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/breckenridge",
-      "status": "NOT_REVIEWED",
-      "batch": 7
+      "status": "IMPLEMENTED",
+      "batch": 7,
+      "audit": "docs/football-authority/schools/breckenridge.md",
+      "auditCompletedAt": "2026-10-20",
+      "researchCompletedAt": "2026-10-20",
+      "implementedAt": "2026-10-20",
+      "implementedOnBranch": "football-authority-batch-007-20261020",
+      "actualProductionVerified": false,
+      "implementationNotes": "School-specific research with dated cited historic records, unique editorial milestones, mascot, schedule and visitor information, six unique FAQs and rights-safe visual accents. Branch changes only; protected CI, merge, live deployment and production browser verification outstanding.",
+      "mediaStatus": "No documentary school-owned imagery copied. School-specific editorial identity/achievement presentation; photo rights unresolved.",
+      "technicalVerification": "PENDING: protected tests, protected merge, exact-sha production deploy and multi-viewport browser check."
     },
     {
       "id": "uil:bremond",
