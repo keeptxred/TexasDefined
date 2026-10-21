@@ -178,6 +178,8 @@ const requiredLiveSteps = [
   ['Verify direct Worker health', 'live_direct_health'],
   ['Verify canonical production health', 'live_canonical_health'],
   ['Verify sports venue editorial production', 'live_sports_venue_editorial'],
+  ['Verify District 16 scorecards and official links on direct Worker and canonical domain', 'live_district16'],
+  ['Verify District 16 mobile and desktop rendered layout', 'live_district16_browser'],
   ['Verify direct Worker discovery', 'live_direct_worker'],
   ['Verify base production surfaces', 'live_base'],
   ['Verify Event structured-data production', 'live_events'],
@@ -227,7 +229,8 @@ const baselineCompletion = "if: ${{ success() && steps.cloudflare.outcome == 'su
 const strongerFoliageCompletion = "if: ${{ success() && steps.cloudflare.outcome == 'success' && steps.live_east_texas_foliage.outcome == 'success' }}";
 const district5ChromeCompletion = "if: ${{ success() && steps.cloudflare.outcome == 'success' && steps.live_district5_browser.outcome == 'success' }}";
 const district21Completion = "if: ${{ success() && steps.cloudflare.outcome == 'success' && steps.live_district5_browser.outcome == 'success' && steps.live_district21.outcome == 'success' }}";
-if (!liveMarkerBlock.includes(baselineCompletion) && !liveMarkerBlock.includes(strongerFoliageCompletion) && !liveMarkerBlock.includes(district5ChromeCompletion) && !liveMarkerBlock.includes(district21Completion)) {
+const district16Completion = "if: ${{ success() && steps.cloudflare.outcome == 'success' && steps.live_district5_browser.outcome == 'success' && steps.live_district16.outcome == 'success' && steps.live_district16_browser.outcome == 'success' && steps.live_district21.outcome == 'success' }}";
+if (!liveMarkerBlock.includes(baselineCompletion) && !liveMarkerBlock.includes(strongerFoliageCompletion) && !liveMarkerBlock.includes(district5ChromeCompletion) && !liveMarkerBlock.includes(district21Completion) && !liveMarkerBlock.includes(district16Completion)) {
   failures.push('Live-completion marker must require successful Cloudflare deployment and all blocking verifiers.');
 }
 if (liveMarkerBlock.includes(strongerFoliageCompletion)) {
