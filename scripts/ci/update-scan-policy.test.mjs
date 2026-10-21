@@ -138,6 +138,26 @@ test('a changed event authority record creates a bounded, cache-aware production
   assert.ok(stale.every(result => !result.passed && /ordinary visitor URL/.test(result.error)));
 });
 
+test('event authority production smoke remains within eight semantic canaries even with concurrent event batches', () => {
+  const changed = 'src/data/major-event-authority.server.ts';
+  const resolver = 'src/data/major-event-page.server.ts';
+  const slugs = Array.from({ length: 12 }, (_, i) => 'festival-batch-' + i);
+  const after = 'export const annualEvents = ' + JSON.stringify(slugs.map(slug => ({
+    slug, name: slug, planningSections: ['Official event guide']
+  }))) + ';';
+  const plan = buildChangePlan({
+    baseline, head, changedFiles: [changed, resolver],
+    sources: { [changed]: { before: 'export const annualEvents = [];', after } }
+  });
+  assert.equal(plan.eventAuthorityPages.length, 8);
+  assert.ok(plan.eventAuthorityPages.every(p => plan.selectedPaths.includes(p)));
+  assert.ok(plan.eventAuthorityPages.every(p => /^\\/event\\/[a-z0-9-]+$/.test(p)));
+  assert.ok(plan.selectedPaths.length <= PAGE_BUDGET);
+  // Capped semantic checks do not discard changed routes from the generic
+  // production HTTP/SEO sampling, where the page budget has capacity.
+  assert.ok(plan.selectedPaths.filter(p => p.startsWith('/event/')).length > 8);
+});
+
 test('major event shared resolver uses two bounded production canaries', () => {
   const plan = buildChangePlan({ baseline, head, changedFiles: ['src/data/major-event-page.server.ts'] });
   assert.deepEqual(plan.eventAuthorityPages, ['/event/texas-book-festival', '/event/zestfest']);
