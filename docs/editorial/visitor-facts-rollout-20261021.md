@@ -47,3 +47,20 @@ Do not treat dated verification as a promise of live availability. Confirm activ
 ### Coverage limitations
 
 These new fields apply to the `/destination/:slug` family via the existing curated destination registry. They are not an automatic update for standalone event, historic-site, museum, city/county, article, itinerary, or raw Supabase-imported templates. The curation scanner covers literal fact arrays inside `destination-curation*.ts`, not dynamically constructed facts or every page family. The full statewide inventory and future ingestion upgrades remain open.
+
+## State-park batch three: verified individual entries (October 21, 2026)
+
+Eight more curated parks receive 19 exact, TPWD-backed visitor facts: fees, hours and relevant office/access restrictions. Official links are recorded per fact; changing information expires from display after 120 days. This is an increment to the curated destination corpus, not a claim of statewide or other-page-family completion.
+
+| Park | Official TPWD source | Specific planning distinctions |
+| --- | --- | --- |
+| Tyler | https://tpwd.texas.gov/state-parks/tyler | HQ hours, different store/boat-rental opening days |
+| Stephen F. Austin | https://tpwd.texas.gov/state-parks/stephen-f-austin | Friday office hours differ; holiday office exceptions |
+| Village Creek | https://tpwd.texas.gov/state-parks/village-creek | 8 a.m.–10 p.m. gate and daily park admission |
+| Sea Rim | https://tpwd.texas.gov/state-parks/sea-rim | Different weekday/weekend office hours and late-arrival camping procedure |
+| Goose Island | https://tpwd.texas.gov/state-parks/goose-island | Daily 6 a.m.–10 p.m. park access |
+| Seminole Canyon | https://tpwd.texas.gov/state-parks/seminole-canyon | Office 8:15 a.m.–4:15 p.m.; Thanksgiving and Christmas closure |
+| Kickapoo Cavern | https://tpwd.texas.gov/state-parks/kickapoo-cavern | Closed Tuesday–Thursday; no unauthorized cave entry |
+| Lake Tawakoni | https://tpwd.texas.gov/state-parks/lake-tawakoni | Daily 6 a.m.–10 p.m. park hours |
+
+Operator information is subject to change and must be checked on the linked primary page before traveling. The verification timestamp is evidence of an editorial review as of that day, **not live hours or a reservation guarantee**.
