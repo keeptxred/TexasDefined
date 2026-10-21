@@ -22,7 +22,21 @@ export async function loadProTeamLiveServer(team: TeamLiveInput) {
     } catch { /* cache is optional */ }
     const response = await fetch(url, { signal, headers: { accept: 'application/json' } });
     if (!response.ok) throw new Error(`Sports source returned ${response.status}`);
-    const value = { retrievedAt: new Date().toISOString(), payload: await response.json() };
+    const reader = response.body?.getReader();
+    if (!reader) throw new Error('Sports source response has no body');
+    const chunks: Uint8Array[] = [];
+    let bytes = 0;
+    for (;;) {
+      const { value: chunk, done } = await reader.read();
+      if (done) break;
+      bytes += chunk.byteLength;
+      if (bytes > 1000000) { await reader.cancel(); throw new Error('Sports source response exceeds byte limit'); }
+      chunks.push(chunk);
+    }
+    const body = new Uint8Array(bytes);
+    let offset = 0;
+    for (const chunk of chunks) { body.set(chunk, offset); offset += chunk.byteLength; }
+    const value = { retrievedAt: new Date().toISOString(), payload: JSON.parse(new TextDecoder().decode(body)) };
     try { await cache?.put(key, new Response(JSON.stringify(value), { headers: { 'content-type': 'application/json', 'cache-control': 'public, max-age=900' } })); } catch { /* source result remains usable */ }
     return value;
   }

@@ -4,7 +4,7 @@ import { Container } from '@/components/layout/Container';
 export const Route = createLazyFileRoute('/sports/teams')({ component: TeamsRoute });
 function TeamsRoute() {
   const pathname = useRouterState({ select: (state) => state.location.pathname });
-  const teams = Route.useLoaderData();
+  const { teams } = Route.useLoaderData();
   if (pathname.replace(/\/$/, '') !== '/sports/teams') return <Outlet />;
   return <Container className="py-12 sm:py-20"><article className="mx-auto max-w-6xl">
     <nav aria-label="Breadcrumb" className="text-sm"><a href="/sports" className="underline">Texas sports</a> / Pro teams</nav>

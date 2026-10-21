@@ -21,6 +21,7 @@ export function selectMajorTeamUpdates(articles: { headline?: string; published?
     try { const parsed = new URL(url ?? ''); safe = parsed.protocol === 'https:' && (parsed.hostname === 'www.espn.com' || parsed.hostname === 'espn.com'); } catch { /* absent or invalid source */ }
     return safe && Number.isFinite(age) && age >= 0 && age <= 21 * 86400000
       && major.test(article.headline ?? '') && !/\b(rumou?rs?|could|might|mock draft|predictions?|fantasy|betting|odds)\b/i.test(article.headline ?? '')
+      && new Set(article.categories?.filter((category) => category.type === 'team').map((category) => String(category.teamId))).size <= 2
       && article.categories?.some((category) => category.type === 'team' && String(category.teamId) === teamId);
   }).sort((a, b) => Date.parse(b.published!) - Date.parse(a.published!))
     .filter((article, index, all) => all.findIndex((other) => other.links?.web?.href === article.links?.web?.href) === index)

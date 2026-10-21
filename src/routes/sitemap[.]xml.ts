@@ -243,7 +243,9 @@ export const Route = createFileRoute("/sitemap.xml")({
           import("@/data/local-salary-needed"),
         ]);
 
+        const { default: proTeams } = await import("@/data/pro-teams.json");
         const entries: SitemapEntry[] = [
+          ...proTeams.map((team) => ({ path: `/sports/teams/${team.slug}`, lastmod: "2026-10-21" })),
           { path: "/destination/davis-hill-state-park", lastmod: "2026-10-20" },
           ...INDEXABLE_STATIC_PATHS.filter((path) => !isExploreSitemapOwnedPath(path)).filter((path) => !isEvergreenEventCollectionPath(path)).filter((path) => isTexasDefinedOwnedStaticPath(path)).map((path) => ({ path, lastmod: STATIC_LASTMOD_BY_PATH[path] })),
           ...AUTHORITY_STATIC_PATHS.map((path) => ({ path, lastmod: AUTHORITY_LASTMOD })),
