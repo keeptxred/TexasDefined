@@ -19,9 +19,9 @@ const formattedDate = (iso: string) =>
 
 export function District16Coverage({ schools }: Props) {
   const teamHref = (match: string) => schools.find((school) =>
-    school.schoolName.toLowerCase().includes(
-      (match === 'Cy-Fair' ? 'Cypress Fairbanks' : match).toLowerCase(),
-    ))?.profilePath;
+    school.schoolName.toLowerCase().includes(match.toLowerCase())
+    || (match === 'Cy-Fair' && school.schoolName.toLowerCase().includes('cypress fairbanks'))
+  )?.profilePath;
 
   const schoolLink = (name: string) => {
     const href = teamHref(name);
