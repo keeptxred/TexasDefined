@@ -30,7 +30,7 @@ for (const test of tests) {
   const context = await browser.newContext({
     viewport: test.viewport, deviceScaleFactor: 1, isMobile: test.isMobile, hasTouch: test.isMobile,
   });
-  await context.route(/(google-analytics|googletagmanager|facebook\\.com\\/tr|connect\\.facebook\\.net|analytics\\.google|\\/api\\/analytics|\\/api\\/track)/i, route => route.abort());
+  await context.route(/(google-analytics|googletagmanager|facebook\.com\/tr|connect\.facebook\.net|analytics\.google|\/api\/analytics|\/api\/track)/i, route => route.abort());
   const page = await context.newPage();
   try {
     const response = await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 45000 });
