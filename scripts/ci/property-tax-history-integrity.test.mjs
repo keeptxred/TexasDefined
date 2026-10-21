@@ -29,7 +29,7 @@ test('rate labels never round documented seven-decimal values to six',()=>{
   assert.doesNotMatch(route,/record\.displayTotalRate\.toFixed\(6\)/);
 });
 test('live release gate audits every primary-source local rate and Woodlands',()=>{
-  const matches=[...smoke.matchAll(/\{ slug: '([^']+)', year: 202[45], rate: '[^']+', agency: '[^']+'/g)];
+  const matches=[...smoke.matchAll(/\{ slug: '([^']+)', year: 202[1-5], rate: '[^']+', agency: '[^']+'/g)];
   assert.equal(matches.length,13);
   assert.equal(new Set(matches.map((m)=>m[1])).size,12);
   assert.match(smoke,/async function verifySourcedTaxingUnit/);
