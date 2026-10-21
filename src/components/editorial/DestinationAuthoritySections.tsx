@@ -1,5 +1,6 @@
 import type { Destination } from "@/data/types";
 import { verifiedLocalParkCredit } from "@/data/verified-local-state-park-photo-credits";
+import { shouldRenderFullDestinationAuthorityGuide } from "@/data/destination-authority-presentation";
 
 type Props = { destination: Destination };
 
@@ -40,13 +41,18 @@ function commonsPhotoCredit(destination: Destination) {
 export function DestinationAuthoritySections({ destination }: Props) {
   const guide = destination.authorityGuide;
   const imageCredit = commonsPhotoCredit(destination) ?? verifiedLocalParkCredit(destination.hero);
-  if (!guide && !destination.visitorFaqs?.length) return null;
+  // The complete authority guide is rendered later by DestinationRelationships.
+  // Retain distinct FAQs and licensed photo credits here, but do not print the
+  // same editorial significance, three itineraries and citations twice.
+  const hasSeparateAuthorityGuide = shouldRenderFullDestinationAuthorityGuide(destination);
+  if ((!guide && !destination.visitorFaqs?.length) ||
+    (hasSeparateAuthorityGuide && !imageCredit && !destination.visitorFaqs?.length)) return null;
 
   return <div data-destination-authority-sections className="mt-12 space-y-12">
     {imageCredit && <section aria-label="Photograph attribution" className="border-t border-border pt-5 text-xs leading-6 text-muted-foreground">
       <p>Hero image: {imageCredit.credit}. <a href={imageCredit.fileUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">Photograph and creator details ↗</a>{imageCredit.licenseUrl && <> · <a href={imageCredit.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">{imageCredit.licenseCode} license ↗</a></>}{imageCredit.note && <> · {imageCredit.note}</>}.</p>
     </section>}
-    {guide && <section aria-labelledby="destination-authority-assessment" className="border-t border-border pt-8">
+    {guide && !hasSeparateAuthorityGuide && <section aria-labelledby="destination-authority-assessment" className="border-t border-border pt-8">
       <p className="eyebrow text-primary">Independent Texas Defined research</p>
       <h2 id="destination-authority-assessment" className="mt-3 font-display text-3xl">Why this place matters</h2>
       <p className="mt-5 leading-8 text-foreground/90">{guide.whyItMatters}</p>
@@ -89,7 +95,7 @@ export function DestinationAuthoritySections({ destination }: Props) {
       </dl>
     </section>}
 
-    {guide && destination.slug !== "chamizal-national-memorial" && guide.sources.length > 0 && <section aria-labelledby="destination-authority-sources" className="border-t border-border pt-8">
+    {guide && !hasSeparateAuthorityGuide && destination.slug !== "chamizal-national-memorial" && guide.sources.length > 0 && <section aria-labelledby="destination-authority-sources" className="border-t border-border pt-8">
       <p className="eyebrow text-primary">Verify before you travel</p>
       <h2 id="destination-authority-sources" className="mt-3 font-display text-3xl">Primary sources and fact checks</h2>
       <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Our itineraries and recommendations are independent editorial judgments. Hours, ticket prices, access, closures and conditions belong to the official operators and can change after our most recent review.</p>
