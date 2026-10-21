@@ -488,6 +488,9 @@ function DestinationPage() {
           </dl>
           <div className="mt-7 flex flex-wrap gap-6">{validExternalUrl(destination.reservationUrl) && <a href={destination.reservationUrl} target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-primary pb-1 text-primary">Reservations</a>}{validExternalUrl(destination.officialUrl) && <a href={destination.officialUrl} target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-primary pb-1 text-primary">Official visitor information</a>}{isChokeCanyon && <a href="https://tpwd.texas.gov/state-parks/choke-canyon/alert" target="_blank" rel="noreferrer noopener" className="eyebrow border-b border-primary pb-1 text-primary">Current park alerts</a>}</div>
         </section>
+        {/* Keep this contextual hotel module with the visitor planning information;
+            without a dedicated slot both commercial layers fall to the guide footer. */}
+        {destination.slug === "fort-mckavett" && <div data-stay-nearby-slot aria-label="Places to stay when visiting Fort McKavett" />}
         {authoritySourceLinks.length > 0 && destination.slug !== "magoffin-home" && <section aria-labelledby="destination-research-sources" className="mt-10 border-t border-border pt-8">
           <p className="eyebrow text-primary">{documentaryPhotoSource ? "Evidence and photo credits" : "Evidence and citations"}</p>
           <h2 id="destination-research-sources" className="mt-3 font-display text-3xl">{documentaryPhotoSource ? "Research sources and image rights" : "Research sources"}</h2>

@@ -15,6 +15,8 @@ const integrationDocs = fs.readFileSync('docs/expedia-affiliate-integration.md',
 const casinoHub = fs.readFileSync('src/routes/explore.casinos.index.tsx', 'utf8');
 const casinoGuide = fs.readFileSync('src/routes/explore.casinos.$slug.tsx', 'utf8');
 const expediaBootstrap = fs.readFileSync('public/expedia-travel.js', 'utf8');
+const destinationRouteSource = fs.readFileSync('src/routes/destination.$slug.tsx', 'utf8');
+
 // Expedia owns async DOM placement. The CJ layer must be explicitly notified
 // after insertion and route updates, rather than relying on main subtree timing.
 const cjRefreshBridge = 'window.TexasDefinedStayAffiliateOptions?.sync?.();';
@@ -31,6 +33,25 @@ for (const needle of [
 }
 
 const errors = [];
+// Fort McKavett is a history-and-visitor guide, so lodging belongs with
+// practical visit planning. Avoid two near-identical hotel headings at page end.
+if (!destinationRouteSource.includes('destination.slug === "fort-mckavett" && <div data-stay-nearby-slot')) {
+  errors.push('Fort McKavett destination guide must explicitly place Stay Nearby immediately after Planning your visit.');
+}
+const routePlanning = destinationRouteSource.indexOf('id="before-you-go"');
+const routeSlot = destinationRouteSource.indexOf('destination.slug === "fort-mckavett" && <div data-stay-nearby-slot');
+const routeResearch = destinationRouteSource.indexOf('id="destination-research-sources"');
+if (!(routePlanning >= 0 && routePlanning < routeSlot && routeSlot < routeResearch)) {
+  errors.push('Fort McKavett lodging slot must be after visitor planning and before research citations.');
+}
+for (const snippet of [
+  'if (normalizePath() !== "/destination/fort-mckavett") container.append(eyebrow, heading);',
+  'if (normalizePath() === "/destination/fort-mckavett") {',
+  'if (slot && current.parentElement !== slot) placeSurface(current, main);',
+]) if (!expediaBootstrap.includes(snippet)) {
+  errors.push('Fort McKavett consolidated lodging heading or late-hydration repositioning missing: ' + snippet);
+}
+
 if (!casinoHub.includes('data-stay-nearby-slot') || !casinoGuide.includes('data-stay-nearby-slot')) {
   errors.push('Casino travel routes must reuse the first-party Stay Nearby placement slot.');
 }
