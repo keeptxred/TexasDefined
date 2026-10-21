@@ -67,6 +67,229 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "brownsville-veterans-memorial": {
+    "slug": "brownsville-veterans-memorial",
+    "intro": "Brownsville Veterans Memorial's Chargers became a statewide football story in 2023, finishing 12–3 and advancing to the Class 5A Division I state semifinals before a 49–21 loss to Smithson Valley—not to the championship game. The school identifies its mascot as the Chargers and its colors as red, white and blue. In 2026 the program is in UIL 6A District 32 with JC Ramirez on the first-party coaching staff; reported results show 5–2 through October 16. A September 11 exhibition against the Monterrey Tigres has conflicting third-party final scores, so this guide makes the disagreement visible instead of inventing a definitive number.",
+    "theme": {
+      "accentHex": "#28599A",
+      "label": "Original independently designed TexasDefined blue accent from BISD first-party red/white/blue Chargers colors; not an official Chargers insignia, campus art or sports photograph"
+    },
+    "seo": {
+      "title": "Brownsville Veterans Memorial Chargers Football | 2026 & 2023 Semifinal",
+      "description": "Brownsville Veterans Memorial Chargers: historic 2023 12–3 state semifinal, 2026 reported 5–2, coach JC Ramirez, official Sams Stadium fixtures and BISD tickets."
+    },
+    "coach": {
+      "name": "JC Ramirez",
+      "title": "Athletic Coordinator and Head Football Coach on Brownsville Veterans Memorial 2026 official athletics directory",
+      "sourceUrl": "https://www.veteransmemorialathletics.net/directory",
+      "sourceLabel": "First-party Veterans Memorial Chargers Athletics: JC Ramirez head coach; Pedro Lozano offensive coordinator, Juan Ayala defensive coordinator; MaxPreps J.C. Ramirez supports",
+      "verifiedAt": "2026-10-21"
+    },
+    "campus": {
+      "address": "1000 Charger Lane, Brownsville, TX 78520 (BISD school About Us physical campus; athletics schedule footer separately lists 4550 US Hwy 281)",
+      "phone": "956-574-5600",
+      "sourceUrl": "https://veteransmemorialechs.bisd.us/about-us",
+      "sourceLabel": "First-party BISD Veterans Memorial ECHS About Us school motto Home of the Brave, Chargers, Red White Blue, address 1000 Charger Lane and main phone; athletics 2026 calendar footer lists 4550 US Hwy 281 and separate phone",
+      "verifiedAt": "2026-10-21"
+    },
+    "schedule": {
+      "label": "Official Brownsville Veterans Memorial 2026 varsity schedule and stadium-by-game sites, plus BISD digital ticket purchase information",
+      "sourceUrl": "https://www.veteransmemorialathletics.net/sport/football/boys/?tab=schedule",
+      "sourceLabel": "BISD school-controlled 2026 Chargers varsity schedule: Sep4 Rivera at Veterans Memorial Stadium, Oct16 PSJA and Nov6 PSJA North at Sams Stadium, Oct23 at Harlingen Boggus Stadium; season score cells blank",
+      "verifiedAt": "2026-10-21",
+      "officialScheduleUrl": "https://www.veteransmemorialathletics.net/sport/football/boys/?tab=schedule",
+      "ticketUrl": "https://www.bisd.us/departments/a-i/athletics"
+    },
+    "season": {
+      "record": "5–2 overall, 1–1 district through October 16, 2026 (MaxPreps live snapshot; one September Monterrey game score disputed)",
+      "verifiedAt": "2026-10-21",
+      "sourceUrl": "https://www.maxpreps.com/tx/brownsville/veterans-memorial-chargers/football/",
+      "sourceLabel": "MaxPreps live 2026 Brownsville Chargers 5–2 after Oct16 W 48–28 PSJA, Oct9 L 14–17 San Benito; DCTF stale 4–1 through Sep25. Sep11 Monterrey matchup different score claims: MaxPreps L 10–63, DCTF L 3–49.",
+      "latestResultSourceUrl": "https://txprepfootball.com/schools/veterans-memorial-chargers/",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Brownsville St. Joseph Academy",
+          "site": "Away",
+          "result": "W 32–21"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Brownsville Rivera",
+          "site": "Home",
+          "result": "W 44–20"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Monterrey Tigres (Mexico; non-Texas opponent)",
+          "site": "Home",
+          "result": "L 10–63 MaxPreps / 3–49 DCTF (disputed)"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Brownsville Hanna",
+          "site": "Away",
+          "result": "W 21–20"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "La Joya",
+          "site": "Home",
+          "result": "W 56–49"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "San Benito",
+          "site": "Away",
+          "district": true,
+          "result": "L 14–17"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Pharr-San Juan-Alamo",
+          "site": "Home",
+          "district": true,
+          "result": "W 48–28"
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Harlingen",
+          "site": "Away",
+          "district": true,
+          "kickoff": "7:30 PM"
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Los Fresnos",
+          "site": "Away",
+          "district": true,
+          "kickoff": "7:30 PM"
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "PSJA North",
+          "site": "Home",
+          "district": true,
+          "kickoff": "7:30 PM"
+        }
+      ]
+    },
+    "venue": {
+      "name": "Sams Memorial Stadium — Brownsville Veterans Memorial's Nov 6 2026 home varsity matchup against PSJA North",
+      "address": "1 Boulevard of Champions, Brownsville TX (Sams Stadium; separate from BISD Veterans Memorial ECHS campus and Veterans Memorial Stadium)",
+      "sourceUrl": "https://www.veteransmemorialathletics.net/sport/football/boys/?tab=schedule",
+      "sourceLabel": "First-party Chargers athletics schedule specifically assigns Nov6 PSJA North home and Oct16 PSJA home to Sams; Sep4 Rivera and Sep11 Monterrey home games to Veterans Memorial Stadium; Oct23 Harlingen game away at Boggus Stadium",
+      "verifiedAt": "2026-10-21",
+      "note": "Brownsville Chargers use multiple sites: some home games at Sams, some at Veterans Memorial Stadium; the academic campus has its own address, and away matches are elsewhere. Don't assume every event is at Sams. Verify ticket inventory, accessibility, gate and game-day weather independently.",
+      "policyUrl": "https://www.bisd.us/departments/a-i/athletics"
+    },
+    "notice": {
+      "title": "Do not conflate three Veterans Memorial programs or two stadiums",
+      "body": "This is Brownsville ISD Veterans Memorial Chargers (red/white/blue), 2026 Class 6A District 32. Corpus Christi Veterans Memorial Eagles are a different school, as are Mission Veterans Memorial Patriots. Brownsville's Veterans Memorial Stadium and Sams Stadium are two separate venue names used by this program. School About Us address 1000 Charger Lane conflicts with official athletic page footer 4550 US Hwy 281; treat either as campus contact, never guaranteed spectator gate.",
+      "sourceUrl": "https://veteransmemorialechs.bisd.us/about-us",
+      "sourceLabel": "First-party BISD campus and 2026 schedule; school identity, district and venue distinctions",
+      "verifiedAt": "2026-10-21"
+    },
+    "development": {
+      "title": "2023 Class 5A DI semifinal breakthrough—and what it was not",
+      "body": "The 2023 Chargers finished 12–3, with UIL playoff wins including Corpus Christi Veterans Memorial 17–7 and Corpus Christi Miller 35–28. Brownsville city government's Dec4 report says the regional-final victory over Miller propelled Brownsville Veterans Memorial to a 5A DI state semifinal against Smithson Valley in Corpus Christi; tickets for that 2023 semifinal sold out quickly. On December 8, Smithson Valley beat the Chargers 49–21. The Chargers did not reach the UIL 2023 state *championship game*, and DCTF's program history confirms zero state-final appearances. Football-only program history shows 10 UIL-era playoff appearances, 2024 8–4, 2025 7–4. For 2026, 5–2 through Oct16 includes a uniquely disputed Monterrey matchup result and is an explicitly attributed third-party snapshot.",
+      "sourceUrl": "https://www.brownsvilletx.gov/m/newsflash/home/detail/1716",
+      "sourceLabel": "City of Brownsville first-party Dec4 2023 Smithson Valley semifinal notice and Miller regional-final win; MaxPreps 2023 12–3 bracket; DCTF football history",
+      "verifiedAt": "2026-10-21"
+    },
+    "milestones": [
+      {
+        "date": "Program history",
+        "title": "Ten football postseason appearances without a state title-game berth",
+        "body": "DCTF Brownsville Veterans Memorial Chargers program file counts 10 football UIL playoff appearances and zero state championship games/titles. This archive concerns the Brownsville Chargers, not Corpus Christi Eagles or Mission Patriots.",
+        "sourceUrl": "https://www.texasfootball.com/team/brownsville-veterans-memorial-chargers",
+        "sourceLabel": "DCTF Brownsville Veterans Memorial football history"
+      },
+      {
+        "date": "2023",
+        "title": "A 12–3 season reaches the 5A Division I state semifinals",
+        "body": "A five-game playoff run followed the 2023 regular season: the Chargers beat Corpus Christi Veterans Memorial 17–7, PSJA North 45–28, Corpus Christi Miller 35–28, then lost 21–49 to Smithson Valley in December8 semifinal. The semifinal is not the state championship final.",
+        "sourceUrl": "https://www.maxpreps.com/tx/brownsville/veterans-memorial-chargers/football/23-24/schedule/",
+        "sourceLabel": "MaxPreps 2023 12–3 season with 5A DI bracket"
+      },
+      {
+        "date": "December 4, 2023",
+        "title": "Brownsville celebrates the semifinal matchup and warns tickets sold out",
+        "body": "Brownsville municipal government announced a 5A Division I semifinal against Smithson Valley and noted all presale/game-day tickets sold quickly. That *historical 2023 event* must not be advertised as 2026 ticket availability.",
+        "sourceUrl": "https://www.brownsvilletx.gov/m/newsflash/home/detail/1716",
+        "sourceLabel": "City of Brownsville Dec 4 2023 semifinal ticket report"
+      },
+      {
+        "date": "2025",
+        "title": "A 7–4 football year ends in a postseason defeat at Edinburg",
+        "body": "The 2025 Chargers went 7–4 and ended November13 with a 13–24 football playoff loss at Edinburg. This is a separate season from the 2023 state semifinal.",
+        "sourceUrl": "https://www.maxpreps.com/tx/brownsville/veterans-memorial-chargers/football/25-26/schedule/",
+        "sourceLabel": "MaxPreps 2025 Brownsville Chargers 7–4 playoffs"
+      },
+      {
+        "date": "September 11, 2026",
+        "title": "Mexican Monterrey Tigres match has unresolved final-score conflict",
+        "body": "BISD's official varsity schedule lists Monterrey Tigres at Brownsville Veterans Memorial Stadium. MaxPreps reports a 10–63 loss against 'Non Varsity Opponent'; DCTF calls the opponent UANL Monterrey, Mexico and reports 3–49. Do not treat either disputed exact final as verified by the school.",
+        "sourceUrl": "https://www.veteransmemorialathletics.net/sport/football/boys/?tab=schedule",
+        "sourceLabel": "First-party Sep11 Monterrey opponent and venue; DCTF and MaxPreps mutually conflicting scores"
+      },
+      {
+        "date": "October 9, 2026",
+        "title": "San Benito wins close 17–14 District 32-6A game",
+        "body": "The reported Chargers loss to San Benito was 14–17 and came before the Oct16 PSJA victory. The schedule's home/away assignment is first-party at San Benito Bobby Morrow Stadium.",
+        "sourceUrl": "https://txprepfootball.com/schools/veterans-memorial-chargers/",
+        "sourceLabel": "Texas Prep Football Chargers Oct9 San Benito reported game final"
+      },
+      {
+        "date": "October 16, 2026",
+        "title": "Chargers beat PSJA 48–28, now 5–2 reported",
+        "body": "MaxPreps live Brownsville Veterans Memorial varsity feed and Texas Prep Football agree 48–28 against PSJA Oct16, producing a 5–2 overall and 1–1 district snapshot through Week8.",
+        "sourceUrl": "https://www.maxpreps.com/tx/brownsville/veterans-memorial-chargers/football/",
+        "sourceLabel": "MaxPreps live Oct16 PSJA 48–28 and source-dated 5–2"
+      },
+      {
+        "date": "October 23, 2026",
+        "title": "Chargers scheduled at Harlingen's Boggus Stadium",
+        "body": "The official BISD athletics varsity calendar lists Oct23 at Harlingen High at Boggus Stadium at 7:30 PM. This road event is not at either Brownsville home stadium and must remain upcoming as of October21.",
+        "sourceUrl": "https://www.veteransmemorialathletics.net/sport/football/boys/?tab=schedule",
+        "sourceLabel": "Brownsville Veterans official 2026 varsity fixture"
+      }
+    ],
+    "overview": [
+      "Brownsville Veterans Memorial Early College High School's Chargers are an independent 6A program in Cameron County. First-party school About Us explicitly gives the mascot Chargers, school colors red/white/blue and school motto 'Home of the Brave.' Do not confuse this Brownsville program with Corpus Christi Veterans Memorial Eagles or Mission Veterans Memorial Patriots; they play in different districts and have different football histories.",
+      "The exact high-school address itself is inconsistent across school-run sites: BISD school About Us shows 1000 Charger Lane, while the official athletics schedule footer still prints 4550 US Hwy 281. Neither campus listing is a spectator stadium entrance. The district's football calendar distinguishes Sams Memorial Stadium, Veterans Memorial Stadium, San Benito Bobby Morrow, Harlingen Boggus and Los Fresnos Leo Aguilar by matchup.",
+      "JC Ramirez appears on the *current first-party* Brownsville Veterans Memorial Athletics directory as athletic coordinator/head football coach, supported by Pedro Lozano offensive coordinator and Juan Ayala defensive coordinator. The site uses red/white/blue school colors; TexasDefined's independent score visualization does not copy school marks or student portraits.",
+      "The program's best-known football breakthrough was the 2023 12–3 UIL 5A Division I state semifinal. City of Brownsville's municipal report documents the Dec8 semifinal versus Smithson Valley, but the Chargers lost 21–49; they did not play in the state final. DCTF's title-game archive still counts zero football state-final appearances, despite 10 playoff berths.",
+      "Reported 2026 results reach 5–2 through Oct16 after the PSJA 48–28 victory. One game is disputed: the Sept11 Monterrey Tigres contest appears in the official fixtures, but MaxPreps and DCTF disagree on both score (10–63 vs 3–49) and opponent classification. The page describes that discrepancy and does not state either numerical result as school-certified.",
+      "The October23 game at Harlingen's Boggus Stadium and October30 at Los Fresnos's Leo Aguilar Stadium are road games; November6 versus PSJA North is an official Sams Stadium home assignment. BISD athletics ticketing is digital via first-party links; no 2023 sold-out claim applies to current 2026 tickets."
+    ],
+    "faq": [
+      {
+        "question": "Did Brownsville Veterans Memorial win the 2023 Texas football state championship?",
+        "answer": "No. The Chargers reached the UIL 5A Division I state semifinals in 2023 after finishing a 12–3 campaign, beating Corpus Christi Miller 35–28 in the regional final, and losing to Smithson Valley 21–49 December8. A semifinal is not the championship game."
+      },
+      {
+        "question": "Who is the 2026 Brownsville Veterans Memorial head football coach?",
+        "answer": "The school's own current Veterans Memorial Athletics staff directory lists JC Ramirez as Athletic Coordinator / Football Head Coach, with Pedro Lozano offensive coordinator and Juan Ayala defensive coordinator."
+      },
+      {
+        "question": "What is the Chargers' reported 2026 football record?",
+        "answer": "MaxPreps' live Brownsville Chargers page reports 5–2 overall and 1–1 district through October16, including the 48–28 win over Pharr–San Juan–Alamo and an October9 14–17 loss at San Benito. The September11 Monterrey matchup score remains disputed between sources."
+      },
+      {
+        "question": "Why are September11 Monterrey football scores inconsistent?",
+        "answer": "The first-party BISD schedule lists Monterrey Tigres. MaxPreps reports a 10–63 loss against a generic Non Varsity Opponent; DCTF lists UANL Monterrey (Mexico) and 3–49. Both report a loss, but neither exact final score is independently certified by the school in the current first-party results cells."
+      },
+      {
+        "question": "Where is Brownsville Veterans Memorial's next football game?",
+        "answer": "The official varsity schedule lists Friday October23, 2026, 7:30 PM away at Harlingen High School's Boggus Stadium. October30 is also away, at Los Fresnos. November6 home against PSJA North is assigned to Sams Memorial Stadium, a separate venue from the academic campus and Veterans Memorial Stadium."
+      },
+      {
+        "question": "How is Brownsville Veterans Memorial different from the other Veterans Memorial schools?",
+        "answer": "This page is for BISD's **Brownsville Chargers** (2026 UIL 6A District32). Corpus Christi Veterans Memorial are Eagles and Mission Veterans Memorial are Patriots. Each has different historic playoff records and official schedules; shared naming must not merge their opponents, scores, locations or ticket links."
+      }
+    ]
+  },
   "brownsville-rivera": {
     "slug": "brownsville-rivera",
     "intro": "Brownsville ISD's Simón Rivera Jr. Early College High School opened in 1988, honoring former BISD assistant superintendent Simón Rivera Jr. The Raiders' current school athletics staff lists head coach and athletic coordinator Johnny Garza, not the Alberto Leal still named in a stale social-media embed. Rivera plays 2026 football in 5A Division I District 15 after a previous 6A period; its seven reported 2026 games yielded 2–5 through October 9, with a bye October 16. Future Corpus Christi Veterans Memorial and Brownsville Hanna games are distinct opponents. The school provides an event-specific schedule but leaves some stadium venues unresolved as TBA.",
