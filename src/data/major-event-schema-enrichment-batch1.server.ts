@@ -15,19 +15,14 @@ export const majorEventSchemaEnrichmentBatch1: MajorEventSchemaEnrichment[] = [
   {
     slug: "grapefest",
     organizer: organization("Grapevine Convention & Visitors Bureau", "https://www.grapevinetexasusa.com/"),
-    offers: [
-      usdOffer("Adult daily admission", 12, "https://www.grapevinetexasusa.com/grapefest/purchase-tickets/"),
-      usdOffer("Senior 62+ daily admission", 6, "https://www.grapevinetexasusa.com/grapefest/purchase-tickets/"),
-      usdOffer("Child age 6–12 daily admission", 6, "https://www.grapevinetexasusa.com/grapefest/purchase-tickets/"),
-      usdOffer("Weekend pass", 25, "https://www.grapevinetexasusa.com/grapefest/purchase-tickets/"),
-    ],
-    performers: [group("Tojo"), group("80s Mix Tape"), group("Heartbreak Petty"), group("Milagro")],
+    // The 2026 ticket/performer details must not be promoted into the
+    // organizer-confirmed September 2027 dates. Ticket sale is not live yet.
+    // Keep organizer metadata only until first-party 2027 offers are published.
     sources: [
-      { label: "GrapeFest official general information", url: "https://www.grapevinetexasusa.com/grapefest/general-information/" },
-      { label: "GrapeFest official ticket sales", url: "https://www.grapevinetexasusa.com/grapefest/purchase-tickets/" },
-      { label: "GrapeFest official entertainment lineup", url: "https://www.grapevinetexasusa.com/grapefest/entertainment/" },
+      { label: "GrapeFest 2027 dates and admission policy", url: "https://www.grapevinetexasusa.com/grapefest/general-information/" },
+      { label: "GrapeFest official 2027 ticket sale status", url: "https://www.grapevinetexasusa.com/grapefest/purchase-tickets/" },
     ],
-    verifiedAt: "2026-09-01",
+    verifiedAt: "2026-10-21",
   },
   {
     slug: "wurstfest",
