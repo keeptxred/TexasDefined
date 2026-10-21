@@ -69,11 +69,6 @@ const records: FestivalEventRecord[] = [
         href: "/event/houston-diwali-festival-of-lights",
         label: "Houston Diwali",
         description: "Compare another verified Texas Festival of Lights event."
-      },
-      {
-        href: "/events/dia-de-los-muertos",
-        label: "Texas cultural celebrations",
-        description: "Explore other distinct statewide cultural traditions."
       }
     ],
     sources: [
