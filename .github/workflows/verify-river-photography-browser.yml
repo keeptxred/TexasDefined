@@ -1,4 +1,4 @@
-name: Verify three river photos in Chrome
+name: Verify river photos in Chrome
 
 on:
   pull_request:
@@ -18,7 +18,7 @@ concurrency:
 jobs:
   verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 18
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -30,7 +30,7 @@ jobs:
           test -n "$CHROME_BIN"
           echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
           npm install --prefix /tmp/td-river-images-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
-      - name: Test exact river photographs and licensing on five pages, two viewports
+      - name: Test nine river photographs across guides and directories in both viewports
         run: node scripts/ci/verify-river-photography-browser.mjs
       - name: Save browser screenshots and image request evidence
         if: always()
