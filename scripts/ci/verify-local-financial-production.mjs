@@ -279,6 +279,8 @@ async function verifySourcedTaxingUnit({ slug, year, rate, agency, latest, zeroC
       const required = [
         'Annual tax rates, with source distinctions',
         'Locally verified', agency, rate, String(year), 'display-only',
+        'How the locally sourced rates were verified',
+        'Evidence last checked by Texas Defined',
         origin + path,
       ];
       if (latest) required.push('Latest independently verified local rate (display only)');

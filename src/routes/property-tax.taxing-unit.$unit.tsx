@@ -65,6 +65,7 @@ function Page() {
       localComponentSourceUrl: local?.componentSourceUrl ?? null,
       localSourceAgency: local?.sourceAgency ?? null,
       localEvidenceNote: local?.evidenceNote ?? null,
+      localVerifiedOn: local?.verifiedOn ?? null,
       localMode: local?.mode ?? null,
       localTotalRate: local?.totalRate ?? null,
     };
@@ -112,6 +113,12 @@ function Page() {
           <td>{record.localSourceUrl ? <><span>{record.localMode === 'conflict' ? `Local and statewide reports disagree (local ${record.localTotalRate == null ? 'unknown' : formatTaxRate(record.localTotalRate)} vs statewide ${record.totalRate == null ? 'unavailable' : formatTaxRate(record.totalRate)}); statewide record retained. ` : record.localMode === 'corroborated' ? 'Locally corroborated. ' : 'Locally verified; absent from statewide file. '}</span><a className="font-semibold text-primary underline underline-offset-2" href={record.localSourceUrl} target="_blank" rel="noopener noreferrer">{record.localSourceAgency} report ↗</a>{record.localComponentSourceUrl ? <><span> · </span><a className="font-semibold text-primary underline underline-offset-2" href={record.localComponentSourceUrl} target="_blank" rel="noopener noreferrer">M&amp;O and I&amp;S documentation ↗</a></> : null}</> : record.totalRate != null && (record.maintenanceOperationsRate == null || record.debtServiceRate == null) ? 'Finalized total; components unavailable' : statusLabel(record.sourceStatus, record.variableRate)}</td>
           <td>{record.levy != null ? money(record.levy) : '—'}</td>
         </tr>)}</tbody></table></div>
+      {displayHistory.some((record) => record.localSourceUrl) ? <details className="mt-6 border-t border-border pt-4 text-sm">
+        <summary className="cursor-pointer font-semibold text-foreground">How the locally sourced rates were verified</summary>
+        <div className="mt-4 space-y-4 text-muted-foreground">{displayHistory.filter((record) => record.localSourceUrl).map((record) =>
+          <p key={record.id}><strong className="text-foreground">{record.year} · {record.localSourceAgency}:</strong> {record.localEvidenceNote || 'Reviewed against the cited official local source.'} {record.localVerifiedOn ? <>Evidence last checked by Texas Defined on <time dateTime={record.localVerifiedOn}>{record.localVerifiedOn}</time>.</> : null} These source notes do not authorize using local figures in statewide comparisons or parcel tax calculators.</p>
+        )}</div>
+      </details> : null}
       {displayHistory.filter((record) => record.localMode === 'supplement').map((record) => <p key={record.id} className="mt-4 text-sm leading-6 text-muted-foreground">The Comptroller did not report {record.name}’s {record.year} rate. {record.displayTotalRate === 0 ? <>{record.localSourceAgency} independently confirms that the city did not levy municipal property tax that year. A zero <strong>city</strong> rate does not mean the parcel's complete property-tax bill was zero: county, school, and other applicable taxing units can still levy taxes.</> : <>{record.localSourceAgency} independently publishes a {(record.displayTotalRate == null ? undefined : formatTaxRate(record.displayTotalRate))} rate per $100 of taxable value{record.displayOperationsRate != null && record.displayDebtRate != null ? `, comprising ${formatTaxRate(record.displayOperationsRate)} for M&O and ${formatTaxRate(record.displayDebtRate)} for debt service` : ''}.{record.type === 'county' ? ' The county general rate may not include separately levied local districts or road/F&M taxes.' : ''}</>} These documented local figures are display-only and are not substituted into statewide records or parcel calculators.</p>)}
     </section>
 
