@@ -115,6 +115,7 @@ function Page() {
   // Campus-county mapping for individually sourced Batch 002 profiles;
   // city names and district service areas are not dependable campus-county proxies.
   const researchedCampusCounty: Record<string, string> = {
+    'brownwood': 'brown', // Brownwood HS 2100 Slayden campus in Brown County; Gordon Wood Stadium separate at 3206 Milam Dr.
     'brownsville-hanna': 'cameron', // BISD first-party Hanna ECHS 2615 E Price Road in Cameron County, not a stadium spectator entrance.
     'brownsboro': 'henderson', // BISD official Brownsboro HS 13942 State Hwy 31 E, Henderson County; district office 14134 is distinct.
     'brownfield': 'terry', // Brownfield High first-party 702 Cub Drive campus Terry County; MaxPreps has conflicting 701 number and stadium gate unverified.
