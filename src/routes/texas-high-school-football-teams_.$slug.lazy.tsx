@@ -14,6 +14,8 @@ import {
 
 // Original, school-specific source-derived visual finals; no unlicensed school photos, logos or seals.
 const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([
+  'bruceville-eddy',
+  'bruni',
   'brackettville-brackett',
   'brady',
   'breckenridge',
