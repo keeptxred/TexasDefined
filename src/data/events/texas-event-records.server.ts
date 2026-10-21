@@ -194,9 +194,9 @@ export function loadTexasEventRecordsServer(): TexasEventRecord[] {
   // TPWD activities live inside the shared calendar and on known park destinations.
   // These short-lived factual links never create thin standalone event routes.
   const knownActivities = new Set(records.map(record =>
-    `${eventIdentity(record.title, record.city)}:${record.startDate}`));
+    `${eventIdentity(record.title, record.city)}:${record.startDate}:${record.venueId ?? ""}`));
   for (const activity of loadTpwdEventRecordsServer()) {
-    const key = `${eventIdentity(activity.title, activity.city)}:${activity.startDate}`;
+    const key = `${eventIdentity(activity.title, activity.city)}:${activity.startDate}:${activity.venueId ?? ""}`;
     if (knownActivities.has(key)) continue;
     records.push(activity);
     knownActivities.add(key);

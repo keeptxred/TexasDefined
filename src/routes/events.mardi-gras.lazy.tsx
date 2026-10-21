@@ -4,7 +4,7 @@ import { BookingCarRentalCard } from "@/components/monetization/BookingCarRental
 
 type ConfirmedCelebration = {
   slug: string; name: string; city: string; region: string;
-  date: string; kind: string; family: string; description: string; official: string;
+  date: string; kind: string; family: string; description: string; official: string; secondaryOfficial?: string;
 };
 type PendingCelebration = {
   name: string; city: string; status: string; detail: string; url: string; guide?: string;
@@ -96,8 +96,9 @@ const confirmed: ConfirmedCelebration[] = [
     "date": "February 6 and 9, 2027",
     "kind": "Boat + street celebrations",
     "family": "Waterfront viewing or street parade",
-    "description": "A February 6 decorated-boat procession and a separate 11 a.m. February 9 street parade at Kemah Boardwalk. They do not run continuously.",
-    "official": "https://krewedulac.net/events"
+    "description": "Yachty Gras organizes the February 6 lighted boat parade. Krewe du Lac separately runs the February 9, 11 a.m. street parade. These are not a four-day continuous festival.",
+    "official": "https://www.yachtygras.com/",
+    "secondaryOfficial": "https://krewedulac.net/events"
   }
 ];
 const pending: PendingCelebration[] = [
@@ -196,6 +197,7 @@ function MardiGrasTexasPage() {
             <div className="mt-6 flex flex-wrap gap-x-5 gap-y-3 text-sm font-semibold">
               <a href={"/event/" + event.slug} className="text-primary underline">Full visitor guide →</a>
               <a href={event.official} className="underline" target="_blank" rel="noopener noreferrer">Official schedule ↗</a>
+              {event.secondaryOfficial ? <a href={event.secondaryOfficial} className="underline" target="_blank" rel="noopener noreferrer">Street parade organizer ↗</a> : null}
             </div>
           </article>)}
         </div>

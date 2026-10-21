@@ -123,7 +123,7 @@ jobs:
 
           allowed_path() {
             case "$1" in
-              src/data/generated/texas-events.ts|src/data/generated/ticketmaster-events.json) return 0 ;;
+              src/data/generated/texas-events.ts|src/data/generated/ticketmaster-events.json|src/data/generated/tpwd-events.json) return 0 ;;
               *) return 1 ;;
             esac
           }
@@ -136,7 +136,7 @@ jobs:
               [[ -z "$path" ]] && continue
               found=1
               if ! allowed_path "$path"; then
-                echo "::error title=Unexpected generated refresh path::$path is outside the two governed event catalogs."
+                echo "::error title=Unexpected generated refresh path::$path is outside the three governed event catalogs."
                 return 1
               fi
             done < <(git diff --name-only "$base" "$head")

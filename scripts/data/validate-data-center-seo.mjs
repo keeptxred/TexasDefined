@@ -15,6 +15,10 @@ const schoolRates = read('src/data/school-district-tax-rates.ts');
 const taxImporter = read('supabase/functions/import-texas-property-tax-rates/index.ts');
 const bridge = read('src/data/texas-data-center.ts');
 const serverRegistry = read('src/data/texas-data-center.server.ts');
+const currentBls = JSON.parse(read('src/data/generated/texas-metro-payrolls-current.json'));
+const scheduledBls = read('.github/workflows/refresh-texas-data.yml');
+const finishingBls = read('.github/workflows/finish-texas-data-refresh.yml');
+
 
 const checks = [
   [sitemap, 'TEXAS_DATASETS.map((dataset)', 'Sitemap must enumerate Texas dataset routes'],
@@ -144,6 +148,35 @@ if (hub.includes("from '@/data/sports-venue-comparison'")) {
 }
 if (hub.includes('getSportsVenueEnrichmentAll') || hub.includes('CURATED_KNOWLEDGE_GRAPH_SEED')) {
   failures.push('Texas data hub must not import sports venue enrichment or the statewide knowledge seed just to advertise the comparison dataset.');
+}
+
+
+if (!/^\d{4}-\d{2}$/.test(currentBls.releaseMonth) ||
+    !/^\d{4}-\d{2}-\d{2}$/.test(currentBls.publishedDate) ||
+    currentBls.rows?.length !== 13 ||
+    new Set(currentBls.rows.map(row => row.label)).size !== 13 ||
+    currentBls.rows.some(row => !Number.isInteger(row.value) || row.value < 50_000)) {
+  failures.push('Rolling BLS metro data must contain 13 distinct plausible official job counts and release provenance.');
+}
+if (!String(currentBls.sourceUrl).startsWith('https://www.bls.gov/news.release/archives/metro_')) {
+  failures.push('Rolling BLS metro data must cite the official archived release.');
+}
+if (!serverRegistry.includes("slug: 'texas-metro-payrolls-latest'") ||
+    !bridge.includes("slug: 'texas-metro-payrolls-latest'") ||
+    !hub.includes("'texas-metro-payrolls-latest'")) {
+  failures.push('Latest BLS dataset must be discoverable on the canonical hub, sitemap and SSR registry.');
+}
+for (const source of [scheduledBls, finishingBls]) {
+  for (const required of ['workflow_dispatch:', 'pull-requests: write', 'main']) {
+    if (!source.includes(required)) failures.push('BLS scheduled publication workflow missing: ' + required);
+  }
+}
+if (!scheduledBls.includes("cron: '41 12 5 * *'") ||
+    !scheduledBls.includes('scripts/data/refresh-texas-metro-payrolls.mjs') ||
+    !scheduledBls.includes('gh pr create') ||
+    !finishingBls.includes('bash scripts/ci/dispatch-validate-branch.sh "$branch" merge-gate.yml') ||
+    !finishingBls.includes('gh pr merge "$url"')) {
+  failures.push('GitHub-owned monthly BLS refresh and protected exact-branch finisher must remain connected.');
 }
 
 if (failures.length) {

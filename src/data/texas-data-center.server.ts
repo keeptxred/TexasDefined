@@ -1,3 +1,5 @@
+import currentMetroPayrolls from '@/data/generated/texas-metro-payrolls-current.json';
+
 export type TexasDataset = {
   slug: string;
   title: string;
@@ -185,6 +187,22 @@ export const TEXAS_DATASETS: TexasDataset[] = [
       { label: 'Permanent continuous traffic monitoring stations', value: 350, note: 'TxDOT states that it maintains more than 350 permanent monitoring stations.' },
       { label: 'Texas counties covered by DISCOS statistics', value: 254, note: 'TxDOT publishes annual district and county statistics across every Texas county.' },
     ],
+  },
+
+  {
+    slug: 'texas-metro-payrolls-latest',
+    title: 'Texas Metro Nonfarm Payroll Employment — ' +
+      new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' })
+        .format(new Date(currentMetroPayrolls.releaseMonth + '-01T00:00:00Z')),
+    description: 'Most recently verified monthly BLS Table 3 total nonfarm payroll job estimates for major Texas metro areas. The source and release month are explicitly dated.',
+    category: 'Jobs',
+    year: Number(currentMetroPayrolls.releaseMonth.slice(0, 4)),
+    updated: currentMetroPayrolls.publishedDate,
+    unit: 'count',
+    sourceName: 'U.S. Bureau of Labor Statistics — Metropolitan Area Employment and Unemployment, Table 3',
+    sourceUrl: currentMetroPayrolls.sourceUrl,
+    methodology: 'Most recent verified BLS metropolitan Table 3 nonfarm payroll jobs, not seasonally adjusted; source rows report thousands and are multiplied by 1,000. Monthly data are preliminary and revised in later releases. This rolling snapshot does not replace the separately retained historic monthly briefs.',
+    rows: currentMetroPayrolls.rows,
   },
 ];
 

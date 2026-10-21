@@ -93,6 +93,34 @@ components exist, save the source agency/URLs/verification date and
 document the reporting discrepancy. Do not infer rates. Unverified candidates
 remain unaltered. Source changes or conflicts need re-review.
 
+## Union Valley 2021–2022 official-source disagreement
+
+Hunt County Appraisal District's published [2021](https://hunt-cad.org/wp-content/uploads/2022/01/2021-Tax-Rates.pdf)
+and [2022](https://hunt-cad.org/wp-content/uploads/2022/10/2022-Tax-Rates.pdf)
+adopted rate charts each list the City of Union Valley (`CUV`) city
+property-tax rate as **0.000000** in both the Quinlan ISD and Royse City
+ISD portions. Taxes from the county, schools, and other taxing districts
+are separate.
+
+The Comptroller's 2021 raw workbook lists the city unit as
+`not-reported`. Its **2022** city workbook instead lists
+**0.287248** with a small reported levy. This is an actual
+source-level disagreement, **not** a formatting problem.
+
+The 2021 documented local zero may be shown as a display-only
+supplement. For 2022, retain the Comptroller's 0.287248 original
+record and show an explicit **local 0.000000 vs statewide 0.287248**
+conflict, including the local primary-source link. Do not silently
+override statewide data, apply either figure automatically to a
+tax calculator, or assume which filing was authoritative without
+further source investigation.
+
+The 2023 Hunt CAD record also shows zero but the normalized
+Comptroller dataset has no 2023 Union Valley taxing-unit row.
+Do not fabricate an official 2023 normalized record or a nonexistent
+history entry. If more authoritative year-specific documents become
+available, investigate and document them separately.
+
 ## Cross-workbook taxing-unit identity and display precision
 
 Historical source categories are not necessarily unique by slug. A live
@@ -125,6 +153,22 @@ all eleven recorded local supplements, their government sources,
 and both production entry points. It also checks a five-year
 nonduplicated Woodlands history. Add new verified supplements to
 those source-qualified checks without inventing numeric values.
+
+## Complete source attribution and regression coverage
+
+The Dataset structured data of a taxing-unit rate-history page now lists a
+deduplicated `citation` for **every underlying Comptroller year workbook**
+represented in that page, plus all primary locally verified supplements.
+Citing only the latest workbook is misleading when that workbook contains
+no observation for a previous year. The source metadata does not imply
+that a local supplement replaces the Comptroller record.
+
+The canonical-domain and direct-Worker local-financial release gate covers
+**15 year-specific primary-source observations across 12 unique slugs**,
+including Post Oak Bend's 2021, 2024 and 2025 zero city tax records,
+Union Valley's 2021 zero and 2022 state/local disagreement, and a
+nonduplicated five-year history for The Woodlands Township. Do not
+add inferred annual figures to satisfy these tests.
 
 ## Recovery procedure
 
