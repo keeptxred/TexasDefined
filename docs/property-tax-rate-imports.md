@@ -163,6 +163,23 @@ that county, school, or other parcel-level taxes are zero. Miami's components
 remain null rather than fabricated. All evidence is a historical,
 display-only supplement.
 
+## Additional 2025 county and city supplements
+
+Independent 2025 records were also documented, using the exact year,
+type, slug and official ID with no calculator or Comptroller-data changes:
+
+- Town of Van Horn, Culberson County: **0.4921230** adopted city rate.
+  Source: [Culberson CAD 2021–2025 historical rates](https://culbersoncad.org/Forms/GetDocument?fileName=1777645674_Countywide+Tax+Rate+History.pdf&subPath=Data+Records).
+- Culberson County general rate: **0.1330247**. The same CAD document
+  separately lists **0.0198770 F&M** (farm-to-market), which must not
+  be silently merged into the county general rate or presented as an
+  entire parcel's total property-tax rate. Individual components are
+  intentionally null when not explicitly identified.
+- Post Oak Bend, Kaufman County: **0.000000 city levy**. Its official
+  [mayor's statement](https://postoakbend.org/mayor/) confirms the city
+  does not levy property tax and funds services from sales tax. It
+  cannot be interpreted as zero parcel-wide property taxes.
+
 ## Remaining research candidates (not automatic overrides)
 
 The 2024 city records for Poetry, Post Oak Bend and Scurry were still

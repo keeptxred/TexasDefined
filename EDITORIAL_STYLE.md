@@ -201,3 +201,13 @@ Before publishing, ask:
 5. Could this sentence appear in a good regional magazine without feeling out of place?
 6. Does the article contain useful, verified internal links to related Texas Defined content?
 7. Should any older related story be updated to link back to this new article?
+
+## Verified travel facts
+
+- Give readers the answer before the citation when an operator-sourced answer exists: actual fee, separate hours for grounds and buildings, booking steps, closure or access rule.
+- Choose only facts that matter to that particular place. A museum does not need camping or RV hookup rows, and a river or beach needs different safety information from a historic house.
+- Attach each factual, changeable answer to the **direct official page** and the real date it was checked. Do not make up dates, prices, capacity, hours, access features, or amenities to populate a grid.
+- For destination records authored in the curated data layers, use the optional typed `visitorFacts` fields; do not put the same fact in a second curation file. The shared display hides time-sensitive facts after 120 days without confirmation, and the audit catches invalid sources or duplicated labels.
+- Leave unavailable optional fields absent. Do not replace an unknown price with a false "free" claim, or a missing accessibility source with an unsupported assurance.
+- Preserve temporary closure notices with their effective periods and source URLs. Keep stable historical narrative separate from changing visitor logistics.
+- Before release, run the canonical premerge contract and verify representative public pages; the presence of a source URL alone does not establish that its claims are current.
