@@ -557,7 +557,7 @@
     // The two booking integrations share one real panel on this historic-site
     // route. Move the original Expedia button (including its existing click
     // handler), NOT a clone or new unaudited affiliate link.
-    if (window.location.pathname.replace(/\\/+$/, "") !== "/destination/fort-mckavett") return;
+    if (window.location.pathname.replace(/\/+$/, "") !== "/destination/fort-mckavett") return;
     const panel = choice.querySelector(".td-stay-affiliate-panel");
     const actions = panel?.querySelector(".td-stay-affiliate-actions");
     const vrbo = actions?.querySelector('a[data-affiliate-partner="vrbo"]');
