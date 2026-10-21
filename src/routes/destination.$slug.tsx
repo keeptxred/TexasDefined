@@ -70,6 +70,7 @@ const YoungCountyMuseumAuthority = lazy(() =>
 );
 
 const DallasBlackHistoryAuthority = lazy(() => import("@/components/editorial/DallasBlackHistoryAuthority").then((m) => ({ default: m.DallasBlackHistoryAuthority })));
+const DavisHillAuthority = lazy(() => import("@/components/editorial/DavisHillAuthority"));
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 
 function hasValidCoordinates(lat: number, lng: number) {
@@ -221,7 +222,7 @@ export const Route = createFileRoute("/destination/$slug")({
     const authorityGuide = destination.authorityGuide;
     const authorityCitations = [...(authorityGuide?.sources.map((source) => source.url) ?? []), ...(dallasHeritage?.sources.map((source) => source.url) ?? [])].filter(validExternalUrl);
     const audit = auditDestination(destination);
-    const isHistoricalMuseumReference = ["1940-air-terminal-museum-houston", "elisabet-ney-museum-austin", "buffalo-soldiers-national-museum-houston", "first-capitol-of-texas", "battleship-texas"].includes(destination.slug);
+    const isHistoricalMuseumReference = ["1940-air-terminal-museum-houston", "elisabet-ney-museum-austin", "buffalo-soldiers-national-museum-houston", "first-capitol-of-texas", "battleship-texas", "davis-hill-state-park"].includes(destination.slug);
 // This closed museum's researched historical guide is indexable even though the
 // institution must remain excluded from visit planning and attraction recommendations.
 // The normal editorial quality gate still applies; this is NOT a trip-planner override.
@@ -277,6 +278,7 @@ const indexable = audit.readyForIndexing && (isPrimaryTripPlannerDestination(des
 
 function DestinationPage() {
   const { destination, graph, categories, regions, relatedArticles, relationshipGroups, dallasHeritage } = Route.useLoaderData();
+  if (destination.slug === "davis-hill-state-park") return <Suspense fallback={null}><DavisHillAuthority /></Suspense>;
 
   if (destination.slug === "mayborn-museum-waco") return <Suspense fallback={null}><MaybornMuseumAuthority /></Suspense>;
   if (destination.slug === "zapata-county-museum-history") return <Suspense fallback={null}><ZapataCountyMuseumAuthority /></Suspense>;
