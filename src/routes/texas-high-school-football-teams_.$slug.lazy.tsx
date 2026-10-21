@@ -101,6 +101,7 @@ function Page() {
   // Campus-county mapping for individually sourced Batch 002 profiles;
   // city names and district service areas are not dependable campus-county proxies.
   const researchedCampusCounty: Record<string, string> = {
+    'bridge-city': 'orange', // Bridge City ISD first-party BCHS 2690 Texas Ave campus, Orange County; stadium gate unverified.
     bremond: 'robertson', // Bremond ISD 601 W Collins campus in Robertson County, not a football stadium gate.
     brenham: 'washington', // Brenham ISD varsity campus 525 A.H. Ehrig in Washington County.
     'brackettville-brackett': 'kinney', // NCES Brackett High physical campus 481107000572, not an assumed stadium gate.
