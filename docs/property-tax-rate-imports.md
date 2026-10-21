@@ -282,11 +282,23 @@ type, slug and official ID with no calculator or Comptroller-data changes:
 
 ## Remaining research candidates (not automatic overrides)
 
-The 2024 city records for Poetry, Post Oak Bend and Scurry were still
-marked not-reported in the Comptroller dataset on 2026-10-21. Kaufman
-CAD's 2024 published rate list does not include a separately adopted
-municipal rate for these towns. No numerical supplement was invented.
+The **2024 Poetry and Scurry** city records remain not-reported
+in the official Comptroller workbook, without independently verified
+adopted-rate numbers. The Kaufman CAD published 2024 municipal list
+does not establish numeric city rates for either town. Do not infer a
+zero municipal rate from omission. Unlike those unresolved cases,
+**Post Oak Bend 2024 now has independently documented evidence of
+no city levy**, stored only as a clearly labeled local supplement;
+the original Comptroller row remains not-reported.
 
-These are **research candidates only**; do not add a local rate unless
-the appropriate CAD/city provides sufficient official year-specific
-evidence and exact taxing-unit identity.
+The [Town of Poetry's ordinance register](https://www.poetrytexas.org/ordinances)
+records an April 18, 2024 ordinance related to ad valorem taxation
+and its repeal on September 17, 2026 (Ordinance 2026-09-17-01).
+Neither the presence nor repeal of that ordinance supplies a reliable
+**2023 or 2024 adopted rate**, or proves the city imposed a levy.
+The source is useful context for future verification, not permission
+to invent a numeric value.
+
+These are **research candidates only**; add a numerical local rate
+only after establishing primary-source adopted-rate evidence for
+the specific year and jurisdiction.
