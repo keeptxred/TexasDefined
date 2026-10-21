@@ -89,7 +89,7 @@ test('statewide Mardi Gras hub must be live, indexable by default, and link to r
   const html = (fresh = true) => '<html><head><title>Mardi Gras in Texas</title>'
     + '<link rel="canonical" href="https://texasdefined.com/events/mardi-gras"></head><body>'
     + (fresh ? '<h1>Mardi Gras in Texas</h1><p>2027 dates</p>'
-        + guides.map(href => '<a href="' + href + '">Guide</a>').join('') : '<p>Stale listing</p>')
+        + guides.map(href => '<a href="' + href + '">Guide</a>').join('') : '<p>Stale listing 2027</p>')
     + '</body></html>';
   const requests = [];
   const good = await verifyChangedPages({ plan, head, fetchImpl: async url => {
