@@ -1,0 +1,87 @@
+name: Fort McKavett post-release photo visual QA
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/ci/verify-fort-mckavett-live-visual.mjs'
+      - '.github/workflows/fort-mckavett-live-visual-qa.yml'
+  workflow_run:
+    workflows: ["Deploy TexasDefined production"]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: fort-mckavett-photo-visual-${{ github.event.workflow_run.head_sha || github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  contract:
+    if: github.event_name == 'pull_request'
+    name: Exact-site Chrome scenario contract
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate bounded test source
+        run: |
+          node --check scripts/ci/verify-fort-mckavett-live-visual.mjs
+          node scripts/ci/verify-fort-mckavett-live-visual.mjs --self-test
+
+  production-chrome:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    name: Verify all seven Fort McKavett photos in desktop/mobile Chrome
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    steps:
+      - name: Check out exact deployed main revision
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+          fetch-depth: 12
+      - name: Limit Chrome QA to relevant release window
+        id: scope
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" ]] ||
+             git diff --name-only HEAD~8 HEAD -- 'scripts/ci/verify-fort-mckavett-live-visual.mjs' '.github/workflows/fort-mckavett-live-visual-qa.yml' 'src/data/historic-sites.ts' 'src/routes/destination.$slug.tsx' | grep -q .; then
+            echo "changed=yes" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=no" >> "$GITHUB_OUTPUT"
+            echo "No recent Fort McKavett image/QA changes, skip unrelated deploy."
+          fi
+      - name: Install isolated Chrome browser driver
+        if: steps.scope.outputs.changed == 'yes'
+        shell: bash
+        run: |
+          set -euo pipefail
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-fort-mckavett-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+      - name: Check scenario contract
+        if: steps.scope.outputs.changed == 'yes'
+        run: |
+          node --check scripts/ci/verify-fort-mckavett-live-visual.mjs
+          node scripts/ci/verify-fort-mckavett-live-visual.mjs --self-test
+      - name: Capture real mobile and desktop gallery and hero evidence
+        if: steps.scope.outputs.changed == 'yes'
+        env:
+          TARGET_DEPLOY_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+        run: node scripts/ci/verify-fort-mckavett-live-visual.mjs
+      - name: Retain four screenshots and browser results
+        if: always() && steps.scope.outputs.changed == 'yes'
+        uses: actions/upload-artifact@v4
+        with:
+          name: fort-mckavett-photo-visual-${{ github.run_id }}
+          path: artifacts/fort-mckavett-live-visual/
+          retention-days: 30
+          if-no-files-found: warn
