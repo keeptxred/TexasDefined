@@ -34,7 +34,7 @@ export function EventCard({ event, regionLabel }: { event: TexasEvent; regionLab
   const brand = useBrand();
   const venueGuide = resolveSportsVenueEventLink(event.venue);
   const guideSlug = canonicalEventGuideSlug(event.slug);
-  const guidePath = event.slug === "state-fair-of-texas" ? "/texas-state-fair" : guideSlug ? `/event/${guideSlug}` : null;
+  const guidePath = event.slug.replace(/-\d{4}-\d{2}-\d{2}$/, "") === "state-fair-of-texas" ? "/texas-state-fair" : guideSlug ? `/event/${guideSlug}` : null;
 
   return (
     <article className="grid gap-4 border-t border-border py-7 sm:grid-cols-[9rem_1fr] sm:gap-7">
