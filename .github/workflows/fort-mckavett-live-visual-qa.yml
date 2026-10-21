@@ -52,7 +52,7 @@ jobs:
         run: |
           set -euo pipefail
           if [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" ]] ||
-             git diff --name-only HEAD~8 HEAD -- 'scripts/ci/verify-fort-mckavett-live-visual.mjs' '.github/workflows/fort-mckavett-live-visual-qa.yml' 'src/data/historic-sites.ts' 'src/routes/destination.$slug.tsx' | grep -q .; then
+             git diff --name-only HEAD~8 HEAD -- 'scripts/ci/verify-fort-mckavett-live-visual.mjs' '.github/workflows/fort-mckavett-live-visual-qa.yml' 'src/data/historic-sites.ts' 'src/routes/destination.$slug.tsx' 'src/components/editorial/DestinationVisitPlanner.tsx' | grep -q .; then
             echo "changed=yes" >> "$GITHUB_OUTPUT"
           else
             echo "changed=no" >> "$GITHUB_OUTPUT"
