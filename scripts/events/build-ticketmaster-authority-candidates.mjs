@@ -14,9 +14,10 @@ for (const event of snapshot.events ?? []) {
   if (!signal.test(event.name) || child.test(event.name) || !event.city || !event.startDate) continue;
   const familyName = event.name.replace(/\b20\d{2}\b/g, '').replace(/\s*[-–:]\s*(day \d+|friday|saturday|sunday).*$/i, '').trim();
   const key = familyName.toLowerCase() + '|' + event.city.toLowerCase();
-  const existing = families.get(key) ?? { name: familyName, city: event.city, dates: new Set(), ticketmasterIds: new Set(), venues: new Set() };
+  const existing = families.get(key) ?? { name: familyName, city: event.city, dates: new Set(), ticketmasterIds: new Set(), venues: new Set(), officialTicketUrls: new Set() };
   existing.dates.add(event.startDate);
   existing.ticketmasterIds.add(event.id);
+  if (typeof event.officialUrl === 'string' && /^https:\/\/([a-z0-9-]+\.)?ticketmaster\.com\//i.test(event.officialUrl)) existing.officialTicketUrls.add(event.officialUrl);
   if (event.venue) existing.venues.add(event.venue);
   families.set(key, existing);
 }
@@ -24,6 +25,7 @@ const candidates = [...families.values()].map(family => ({
   name: family.name, city: family.city,
   dates: [...family.dates].sort(), venues: [...family.venues].sort(),
   ticketmasterIds: [...family.ticketmasterIds].sort(),
+  officialTicketUrls: [...family.officialTicketUrls].sort(),
   status: 'requires-organizer-verification',
   publicationAllowed: false,
 })).sort((a,b) => a.name.localeCompare(b.name) || a.city.localeCompare(b.city));
