@@ -30,6 +30,7 @@ const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([
   'brownsville-hanna',
   'brownsville-lopez',
   'brownsville-pace',
+  'brownsville-porter',
   'brownwood',
   'bryan',
   'bryan-rudder',
