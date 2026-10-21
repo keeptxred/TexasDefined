@@ -67,6 +67,229 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "bridgeport": {
+    "slug": "bridgeport",
+    "intro": "Bridgeport's Bulls are a Wise County football program whose home field has a first-party address and a current stadium-turf access notice—details generic scores pages miss. The school's official 2026 staff identifies Aaron Cupp as head coach/athletic director, Jeff Oliver on offense and Lane Pinkston on defense. Historical football records list 22 playoff appearances but no UIL state final, while the reported October 16, 2026 77–0 result at Brock places the Bulls at 1–6; the school's own score cells remain blank.",
+    "theme": {
+      "accentHex": "#74263D",
+      "label": "Original TexasDefined maroon editorial accent based on Bridgeport High School official maroon/white colors. No school trademark, mascot drawing, photography or seal copied."
+    },
+    "seo": {
+      "title": "Bridgeport Bulls Football | 2026 Results, Bull Memorial Stadium",
+      "description": "Bridgeport Bulls: official Aaron Cupp staff, 22 playoff appearances without a state title, 2026 reported 1–6 results and Bull Memorial Stadium visitor guidance."
+    },
+    "coach": {
+      "name": "Aaron Cupp",
+      "title": "Bridgeport High School football head coach and athletics director, official 2026 roster",
+      "sourceUrl": "https://www.bridgeportisdathletics.com/sport/football/boys/?tab=staff",
+      "sourceLabel": "Bridgeport ISD Athletics official 2026–27 football staff: Aaron Cupp HEAD COACH/ATHLETIC DIRECTOR; Jeff Oliver OC/OL; Lane Pinkston DC",
+      "verifiedAt": "2026-10-20"
+    },
+    "campus": {
+      "address": "1 Maroon Drive, Bridgeport, TX 76426 (Bridgeport High School campus; not the stadium entry address)",
+      "phone": "940-683-4064",
+      "sourceUrl": "https://high.bridgeportisd.net/about",
+      "sourceLabel": "Bridgeport High official About: One Maroon Dr campus, phone, Bulls and Sissies mascot, maroon/white colors",
+      "verifiedAt": "2026-10-20"
+    },
+    "schedule": {
+      "label": "Bridgeport ISD's official 2026–27 varsity football game calendar; school-run venue and athletics announcements",
+      "sourceUrl": "https://www.bridgeportisdathletics.com/sport/football/boys/?tab=schedule",
+      "sourceLabel": "Bridgeport High School official 2026–27 boys varsity football fixtures, Bull Memorial Stadium home venue and time; official scores blank despite passed games",
+      "verifiedAt": "2026-10-20",
+      "officialScheduleUrl": "https://www.bridgeportisdathletics.com/sport/football/boys/?tab=schedule",
+      "ticketUrl": "https://www.bridgeportisdathletics.com/"
+    },
+    "season": {
+      "record": "1–6 through October 16, 2026, third-party reported (MaxPreps Oct 17 recap; official varsity scores not filled in)",
+      "verifiedAt": "2026-10-20",
+      "sourceUrl": "https://www.maxpreps.com/tx/bridgeport/bridgeport-bulls/football/schedule/",
+      "sourceLabel": "MaxPreps 2026 schedule frozen Oct 6 at 1–4; MaxPreps Oct 9 Graham 68–7 game and Oct 17 Brock 77–0 recap confirm two subsequently played losses. Official Bridgeport athletics calendar has no recorded scores. Reported total 1–6 is not an ISD-certified record.",
+      "latestResultSourceUrl": "https://www.maxpreps.com/news/5lqeKO0QbUuUr4fG2FnLtw/football-recap-tough-loss-for-bridgeport.htm",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Gainesville",
+          "site": "Home",
+          "result": "W 38–0"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Bowie",
+          "site": "Away",
+          "result": "L 6–54"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Whitesboro",
+          "site": "Away",
+          "result": "L 0–51"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Ponder",
+          "site": "Home",
+          "result": "L 0–58"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Henrietta",
+          "site": "Away",
+          "result": "L 14–37"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Graham",
+          "site": "Home",
+          "district": true,
+          "result": "L 7–68"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Brock",
+          "site": "Away",
+          "district": true,
+          "result": "L 0–77"
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Mineral Wells",
+          "site": "Home",
+          "district": true,
+          "kickoff": "7:00 PM"
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Iowa Park",
+          "site": "Away",
+          "district": true,
+          "kickoff": "7:00 PM"
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Burkburnett",
+          "site": "Home",
+          "district": true,
+          "kickoff": "7:00 PM"
+        }
+      ]
+    },
+    "venue": {
+      "name": "Bull Memorial Stadium (Bridgeport ISD official football facility)",
+      "address": "702 17th Street, Bridgeport, TX 76426 (stadium; distinct from 1 Maroon Dr high school campus)",
+      "sourceUrl": "https://www.bridgeportisdathletics.com/facilities",
+      "sourceLabel": "Official Bridgeport High School Athletics Facilities directory identifies Bull Memorial Stadium and 702 17th St; Oct 23 varsity Mineral Wells listed there",
+      "verifiedAt": "2026-10-20",
+      "note": "Bridgeport ISD restricts general public access to the stadium from October 1 to protect newly installed turf; that is a public/open-use restriction, not an official cancellation of ticketed varsity home games. Consult the exact event listing for entry and tickets; public gate, accessible parking and pricing have not been verified.",
+      "policyUrl": "https://www.bridgeportisd.net/departments/facilities-maintenance"
+    },
+    "notice": {
+      "title": "Updated stadium access: new field turf and October 1 public-use restriction",
+      "body": "Bridgeport ISD advises that general public access to Bull Memorial Stadium is restricted from October 1 to protect new field turf. The 2026 varsity calendar still schedules October 23 Mineral Wells and November 6 Burkburnett at the venue. Do not interpret open-access restriction as a ticketed-game closure; contact Bridgeport ISD for current event access and ADA arrangements.",
+      "sourceUrl": "https://www.bridgeportisd.net/departments/facilities-maintenance",
+      "sourceLabel": "Bridgeport ISD official Facilities & Maintenance new turf access notice",
+      "verifiedAt": "2026-10-20"
+    },
+    "development": {
+      "title": "A 22-playoff-appearance program rebuilding under Aaron Cupp",
+      "body": "Dave Campbell's Texas Football current Bridgeport Bulls program file counts 22 historic football playoff appearances without a state-title-game appearance, and identifies Bull Memorial Stadium as home. The 2025 MaxPreps full season record was 1–9, which should not be blended with DCTF's incomplete nine-result 2025 archive. In 2026 Bridgeport opened with a reported 38–0 win over Gainesville, then six straight reported defeats, including 68–7 to Graham October 9 and 77–0 to Brock October 16. The official district website provides game sites and staff but does not supply those scores, so each current season figure remains source-attributed.",
+      "sourceUrl": "https://www.texasfootball.com/team/bridgeport-bulls",
+      "sourceLabel": "Dave Campbell's Texas Football: 22 playoff appearances, 0 state titles or finals; MaxPreps 2025 complete schedule and 2026 reports",
+      "verifiedAt": "2026-10-20"
+    },
+    "milestones": [
+      {
+        "date": "Program history",
+        "title": "22 UIL-era football playoff appearances, no state championship-game berth",
+        "body": "Dave Campbell's Texas Football's Bridgeport Bulls program profile counts 22 football postseason appearances, zero UIL title-game appearances and zero football state championships. Do not substitute the school's separately prominent soccer or basketball achievements.",
+        "sourceUrl": "https://www.texasfootball.com/team/bridgeport-bulls",
+        "sourceLabel": "Dave Campbell's Texas Football Bridgeport Bulls Program History"
+      },
+      {
+        "date": "2024",
+        "title": "Bridgeport 3–7 football season in the contemporary program ledger",
+        "body": "Dave Campbell's Texas Football lists 3–7 for Bridgeport in 2024, with subsequent rebuilding seasons. This is football only and should not be mistaken for the school's 2026 soccer achievements.",
+        "sourceUrl": "https://www.texasfootball.com/team/bridgeport-bulls",
+        "sourceLabel": "DCTF Bridgeport season-by-season football history"
+      },
+      {
+        "date": "2025",
+        "title": "The 2025 Bulls finish 1–9 in the complete MaxPreps schedule",
+        "body": "MaxPreps' complete 2025 game-by-game record lists 1–9; Dave Campbell's partial archive shows 1–8. The editorial uses the 10-game scorebook and acknowledges the source coverage difference.",
+        "sourceUrl": "https://www.maxpreps.com/tx/bridgeport/bridgeport-bulls/football/25-26/schedule/",
+        "sourceLabel": "Complete MaxPreps Bridgeport 2025 10-game schedule"
+      },
+      {
+        "date": "2026",
+        "title": "Aaron Cupp directs the varsity staff",
+        "body": "The high school's official 2026–27 football staff names Aaron Cupp head coach and athletic director, Jeff Oliver offensive coordinator/offensive line coach and Lane Pinkston defensive coordinator.",
+        "sourceUrl": "https://www.bridgeportisdathletics.com/sport/football/boys/?tab=staff",
+        "sourceLabel": "Official Bridgeport ISD Athletics 2026–27 football staff"
+      },
+      {
+        "date": "August 28, 2026",
+        "title": "Bulls open their 2026 campaign 38–0 over Gainesville",
+        "body": "Both MaxPreps and Dave Campbell's schedule record a 38–0 season-opening win against Gainesville. Third-party results, not first-party school score certification.",
+        "sourceUrl": "https://www.maxpreps.com/tx/bridgeport/bridgeport-bulls/football/schedule/",
+        "sourceLabel": "MaxPreps Bridgeport 2026 and DCTF team results"
+      },
+      {
+        "date": "October 1, 2026",
+        "title": "District announces reduced general public stadium access to protect turf",
+        "body": "Bridgeport ISD's own Facilities & Maintenance page restricts unsupervised general public access to Bull Memorial Stadium beginning October 1; this must not be described as cancelling ticketed varsity games.",
+        "sourceUrl": "https://www.bridgeportisd.net/departments/facilities-maintenance",
+        "sourceLabel": "Bridgeport ISD new Bull Memorial Stadium field turf public access notice"
+      },
+      {
+        "date": "October 16, 2026",
+        "title": "Reported 77–0 loss at Brock moves Bridgeport to 1–6",
+        "body": "An October 17 MaxPreps game recap and independent Texas Prep Football table agree that Brock won 77–0; the school-owned 2026 scoreboard hasn't posted any final scores. Future results should never be pre-filled.",
+        "sourceUrl": "https://www.maxpreps.com/news/5lqeKO0QbUuUr4fG2FnLtw/football-recap-tough-loss-for-bridgeport.htm",
+        "sourceLabel": "Oct 17 MaxPreps postgame recap corroborated by Texas Prep Football"
+      },
+      {
+        "date": "October 23, 2026",
+        "title": "Mineral Wells scheduled at school-confirmed Bull Memorial Stadium",
+        "body": "First-party athletics lists Mineral Wells varsity at Bull Memorial Stadium October 23 at 7:00 PM. The school facility directory places the stadium at 702 17th Street; game-day access, tickets, ADA and entrances should be reconfirmed.",
+        "sourceUrl": "https://www.bridgeportisdathletics.com/sport/football/boys/?tab=schedule",
+        "sourceLabel": "Bridgeport ISD official varsity home game timetable and stadium listing"
+      }
+    ],
+    "overview": [
+      "The Bridgeport Bulls program belongs to Bridgeport High School in Wise County. Its actual first-party mascot/colors listing is Bulls & Sissies and maroon/white across the school, but the football team's varsity nickname is specifically the Bulls. TexasDefined independently uses a maroon accent without reproducing the district's official imagery.",
+      "Bridgeport High School's athletic department runs a full 2026–27 football staff list, naming head coach and athletic director Aaron Cupp, offensive coordinator Jeff Oliver and defensive coordinator Lane Pinkston. The official schedule provides fixtures but blank final results—so third-party results are labeled as such.",
+      "The program's historical record should not be confused with its successful teams in other sports. Dave Campbell's football-specific history counts 22 playoff appearances and no UIL football championship final. The 2025 source discrepancy (complete MaxPreps 1–9 versus partial DCTF 1–8) should not be buried or turned into a 2026 prediction.",
+      "In 2026 the Bulls began with a reported 38–0 victory against Gainesville, then lost to Bowie, Whitesboro, Ponder, Henrietta, Graham and Brock. MaxPreps' static October 6 schedule still displays 1–4 even after newer October 9 and October 16 final reports. The updated 1–6 through October 16 snapshot is explicitly third-party, never presented as a district-certified year-end record.",
+      "For visitors, the football stadium and high school are different addresses. Official Bridgeport ISD Athletics puts Bull Memorial Stadium at **702 17th Street**, while the high school is **One Maroon Drive**. Use the stadium address for the October 23 Mineral Wells fixture, confirm current gates and accessible parking with the athletics office, and do not assume the campus entrance is a spectator gate.",
+      "Bridgeport ISD reports new field turf and an October 1 general public access restriction at Bull Memorial Stadium. This is especially relevant for casual visits, but the varsity schedule still lists home games there. School-managed field availability, event tickets, visitor restrictions and handicap access are different questions: check the official event and district notice before arriving."
+    ],
+    "faq": [
+      {
+        "question": "Who coaches the Bridgeport Bulls football team in 2026?",
+        "answer": "Aaron Cupp is listed as head coach and athletics director in Bridgeport High School's official 2026–27 football staff directory. The same page lists Jeff Oliver as offensive coordinator and Lane Pinkston as defensive coordinator."
+      },
+      {
+        "question": "What is Bridgeport's 2026 varsity football record?",
+        "answer": "Source-dated third-party score reporting shows 1–6 through October 16, 2026, including the 77–0 loss to Brock and the 7–68 result against Graham. Bridgeport ISD's official varsity calendar provides game times but has no filled-in 2026 final scores in the reviewed snapshot."
+      },
+      {
+        "question": "Where is Bull Memorial Stadium, and is it the high-school campus?",
+        "answer": "The official Bridgeport ISD facilities directory lists Bull Memorial Stadium at 702 17th Street, Bridgeport, TX 76426. Bridgeport High School's academic campus is at 1 Maroon Drive. They are not interchangeable directions."
+      },
+      {
+        "question": "Does the October 1 public access restriction mean Bridgeport football games were cancelled?",
+        "answer": "No cancellation is asserted. Bridgeport ISD restricts general public use of Bull Memorial Stadium starting October 1 to protect turf, while its varsity calendar still lists home games October 23 and November 6. Confirm spectator ticketing, gates and accessibility before attending."
+      },
+      {
+        "question": "How many state football titles has Bridgeport won?",
+        "answer": "Dave Campbell's Texas Football program history lists zero state football championships and zero football state-final appearances, with 22 playoff appearances. State championships earned by Bridgeport teams in other sports should not be applied to football."
+      },
+      {
+        "question": "Where can fans check the current 2026 Bridgeport schedule?",
+        "answer": "The Bridgeport ISD athletics 2026–27 boys varsity football schedule is the primary listing for scheduled opponents, dates, start times and Bull Memorial Stadium venue. Check individual event and ticket details against the school before departure."
+      }
+    ]
+  },
   "bridgeland": {
     "slug": "bridgeland",
     "intro": "At Bridgeland in Cypress, the Bears' recent postseason story is a 2020 breakthrough playoff run and a 12–2 season in 2024 that reached the UIL Class 6A Division I quarterfinal against Duncanville. The 2026 program, coached by Lonnie Madison, entered the October 23 Cypress Park matchup 6–1 according to the October 20 MaxPreps snapshot. CFISD—not a generic third-party listing—provides the staff, official orange-and-navy school colors, ticketing, accessibility and venue-specific entrance information.",
