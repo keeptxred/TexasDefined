@@ -69,6 +69,7 @@ export function StateParkVisitorEssentials({ destination }: { destination: Desti
       <p className="eyebrow text-primary">Upcoming TPWD programs</p>
       <h3 id="tpwd-activities" className="mt-2 font-display text-2xl">Activities scheduled at this park</h3>
       <p className="mt-2 text-sm text-muted-foreground">These dates come from the Texas Parks and Wildlife calendar. Check the official listing for registration, meeting place, admission and any changes.</p>
+      <a href="/events?category=tpwd#calendar" className="mt-2 inline-block text-sm font-semibold text-primary underline underline-offset-4">Browse upcoming TPWD programs statewide →</a>
       <ul className="mt-4 grid gap-3 sm:grid-cols-2">
         {upcomingActivities.map(activity => <li key={activity.officialUrl} className="rounded-lg border border-border p-4">
           <a href={activity.officialUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">{activity.title} ↗</a>
