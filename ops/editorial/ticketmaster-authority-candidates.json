@@ -1,0 +1,970 @@
+{
+  "fetchedAt": "2026-10-21T21:36:41.556Z",
+  "candidates": [
+    {
+      "name": "Austin Championship",
+      "city": "Austin",
+      "dates": [
+        "2026-11-12",
+        "2026-11-13",
+        "2026-11-14",
+        "2026-11-15"
+      ],
+      "venues": [
+        "Omni Barton Creek Resort & Spa Fazio Canyons Golf Course"
+      ],
+      "ticketmasterIds": [
+        "G5dIZ_kRZQHmN",
+        "G5dIZ_kRZ_imp",
+        "G5dIZ_kRZbjm8",
+        "G5dIZ_kRZhHmi"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/austin-championship-friday-austin-texas-11-13-2026/event/3A00646BC066CB96",
+        "https://www.ticketmaster.com/austin-championship-saturday-austin-texas-11-14-2026/event/3A00646BC06BCBA3",
+        "https://www.ticketmaster.com/austin-championship-sunday-austin-texas-11-15-2026/event/3A00646BC06FCBAC",
+        "https://www.ticketmaster.com/austin-championship-thursday-austin-texas-11-12-2026/event/3A00646BC061CB90"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "Austin Food + Wine Festival",
+      "city": "Austin",
+      "dates": [
+        "2026-11-06",
+        "2026-11-07",
+        "2026-11-08"
+      ],
+      "venues": [
+        "Auditorium Shores"
+      ],
+      "ticketmasterIds": [
+        "Z7r9jZ1AAv6Gd",
+        "Z7r9jZ1AAv6Ge",
+        "Z7r9jZ1AAv6Gv"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/event/Z7r9jZ1AAv6Gd",
+        "https://www.ticketmaster.com/event/Z7r9jZ1AAv6Ge",
+        "https://www.ticketmaster.com/event/Z7r9jZ1AAv6Gv"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "Bands Of America: San Antonio Super Regional Championship Finals",
+      "city": "San Antonio",
+      "dates": [
+        "2026-11-07"
+      ],
+      "venues": [
+        "Alamodome"
+      ],
+      "ticketmasterIds": [
+        "G5dIZ_2MN0LQ5"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/bands-of-america-san-antonio-super-san-antonio-texas-11-07-2026/event/3A0064FDE391F68B"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "Big 12 Football Championship",
+      "city": "Arlington",
+      "dates": [
+        "2026-12-04"
+      ],
+      "venues": [
+        "AT&T Stadium"
+      ],
+      "ticketmasterIds": [
+        "Z7r9jZ1AAZNAU"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/event/Z7r9jZ1AAZNAU"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "Breakaway Music Festival",
+      "city": "Houston",
+      "dates": [
+        "2026-11-13",
+        "2026-11-14"
+      ],
+      "venues": [
+        "Shell Energy Stadium"
+      ],
+      "ticketmasterIds": [
+        "Z7r9jZ1A70-09",
+        "Z7r9jZ1A70aZJ"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/event/Z7r9jZ1A70-09",
+        "https://www.ticketmaster.com/event/Z7r9jZ1A70aZJ"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "Card Expo",
+      "city": "Hidalgo",
+      "dates": [
+        "2026-12-05",
+        "2026-12-06"
+      ],
+      "venues": [
+        "Payne Arena"
+      ],
+      "ticketmasterIds": [
+        "G5dIZ_35oE6Hz",
+        "G5dIZ_35oJ6H-"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/card-expo-hidalgo-texas-12-05-2026/event/3A006522D1987F21",
+        "https://www.ticketmaster.com/card-expo-hidalgo-texas-12-06-2026/event/3A006522D19C7F38"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "Carousel Club Burlesque Presents Rhinestone Rodeo (Ages 18 & Up)",
+      "city": "Fort Worth",
+      "dates": [
+        "2026-11-21"
+      ],
+      "venues": [
+        "Tannahill's Music Hall & Lounge"
+      ],
+      "ticketmasterIds": [
+        "vvG1YZ_3DmtmLH"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/carousel-club-burlesque-presents-rhinestone-rodeo-fort-worth-texas-11-21-2026/event/0C00652EEEA6E7FC"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "CUMBIA FEST - TEJANO VS COAHUILA",
+      "city": "Lufkin",
+      "dates": [
+        "2026-10-23"
+      ],
+      "venues": [
+        "Rodeo Disko"
+      ],
+      "ticketmasterIds": [
+        "rZ7HnEZ1AfGAu7"
+      ],
+      "officialTicketUrls": [],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "Day of the Dead River Parade at Hard Rock Cafe",
+      "city": "San Antonio",
+      "dates": [
+        "2026-10-23"
+      ],
+      "venues": [
+        "Hard Rock Cafe - San Antonio"
+      ],
+      "ticketmasterIds": [
+        "rZ7HnEZ1Af78af"
+      ],
+      "officialTicketUrls": [],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "Fiesta SATX Film Festival",
+      "city": "San Antonio",
+      "dates": [
+        "2026-11-20"
+      ],
+      "venues": [
+        "Jo Long Theatre"
+      ],
+      "ticketmasterIds": [
+        "G5dIZ_49G_oI_"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/fiesta-satx-film-festival-san-antonio-texas-11-20-2026/event/3A006555CC651A19"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "Ford Holiday River Parade & Lighting Ceremony",
+      "city": "San Antonio",
+      "dates": [
+        "2026-11-27"
+      ],
+      "venues": [
+        "Hard Rock Cafe - San Antonio"
+      ],
+      "ticketmasterIds": [
+        "rZ7HnEZ1Af78uV"
+      ],
+      "officialTicketUrls": [],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "Fright Fest DaBaby and Friends",
+      "city": "Garland",
+      "dates": [
+        "2026-10-31"
+      ],
+      "venues": [
+        "Curtis Culwell Center"
+      ],
+      "ticketmasterIds": [
+        "Z7r9jZ1AAvSvS"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/event/Z7r9jZ1AAvSvS"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "FWSSR: Best Of The West Ranch Rodeo",
+      "city": "Fort Worth",
+      "dates": [
+        "2027-01-15",
+        "2027-01-16"
+      ],
+      "venues": [
+        "Dickies Arena"
+      ],
+      "ticketmasterIds": [
+        "vvG1YZ_o2LUDmT",
+        "vvG1YZ_o2LgDmW"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/fwssr-best-of-the-west-ranch-fort-worth-texas-01-15-2027/event/0C006513DFD7BBBD",
+        "https://www.ticketmaster.com/fwssr-best-of-the-west-ranch-fort-worth-texas-01-16-2027/event/0C006513DFDBBBBF"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "Grand Prairie Comedy Festival",
+      "city": "Grand Prairie",
+      "dates": [
+        "2026-10-24"
+      ],
+      "venues": [
+        "Texas Trust CU Theatre"
+      ],
+      "ticketmasterIds": [
+        "Z7r9jZ1A7J3uJ"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/event/Z7r9jZ1A7J3uJ"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "Hollydays Market Corpus Christi Fri. 11-6 through Sun. 11-8,",
+      "city": "Corpus Christi",
+      "dates": [
+        "2026-11-06"
+      ],
+      "venues": [
+        "Hilliard Center Exhibit Hall"
+      ],
+      "ticketmasterIds": [
+        "G5dIZ_89h5u_P"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/hollydays-market-corpus-christi-fri-116-corpus-christi-texas-11-06-2026/event/3A006505DB2CD665"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "Houston Ballet: Jubilee of Dance M.A.W",
+      "city": "Houston",
+      "dates": [
+        "2026-12-04"
+      ],
+      "venues": [
+        "Brown Theatre-Wortham Center"
+      ],
+      "ticketmasterIds": [
+        "Z7r9jZ1AAvtZE"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/event/Z7r9jZ1AAvtZE"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "iScream Fest",
+      "city": "Dallas",
+      "dates": [
+        "2026-11-14"
+      ],
+      "venues": [
+        "Three Links Deep Ellum"
+      ],
+      "ticketmasterIds": [
+        "rZ7HnEZ1AfGAq0"
+      ],
+      "officialTicketUrls": [],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "KING OF CARS CUSTOM CAR SHOW & CULTURE FEST",
+      "city": "Houston",
+      "dates": [
+        "2026-11-22"
+      ],
+      "venues": [
+        "Reliant Arena"
+      ],
+      "ticketmasterIds": [
+        "G5dIZ_35I4rvI"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/king-of-cars-custom-car-show-houston-texas-11-22-2026/event/3A006522E855E068"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "Lights All Night Festival - Ages 18+",
+      "city": "Dallas",
+      "dates": [
+        "2026-12-30",
+        "2026-12-31"
+      ],
+      "venues": [
+        "Fair Park"
+      ],
+      "ticketmasterIds": [
+        "Z7r9jZ1A7JF-N",
+        "Z7r9jZ1A7JFAY",
+        "Z7r9jZ1A7Pg_Z"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/event/Z7r9jZ1A7JF-N",
+        "https://www.ticketmaster.com/event/Z7r9jZ1A7JFAY",
+        "https://www.ticketmaster.com/event/Z7r9jZ1A7Pg_Z"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "Mcallen Holiday Parade    Presented By Heb",
+      "city": "McAllen",
+      "dates": [
+        "2026-12-05"
+      ],
+      "venues": [
+        "McAllen Veterans Memorial Stadium"
+      ],
+      "ticketmasterIds": [
+        "G5dIZ_2mcABPt"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/mcallen-holiday-parade-2026-presented-by-mcallen-texas-12-05-2026/event/3A0064FBAD17A969"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "NCAA Division I Women's Volleyball National Championship",
+      "city": "San Antonio",
+      "dates": [
+        "2026-12-20"
+      ],
+      "venues": [
+        "Alamodome"
+      ],
+      "ticketmasterIds": [
+        "G5dIZ_ChhKlOh"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/2026-ncaa-division-i-womens-volleyball-san-antonio-texas-12-20-2026/event/3A0064E6DB4EB81B"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "Nutcracker Market Early Bird: Thurs & Fri 8:30am, Sat & Sun 10:00am",
+      "city": "Houston",
+      "dates": [
+        "2026-11-12"
+      ],
+      "venues": [
+        "Reliant Center"
+      ],
+      "ticketmasterIds": [
+        "G5dIZ_82to2GU"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/nutcracker-market-early-bird-thurs-fri-houston-texas-11-12-2026/event/3A006503E944F336"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "Nutcracker Market General Admission: Good for ONE Entry",
+      "city": "Houston",
+      "dates": [
+        "2026-11-12"
+      ],
+      "venues": [
+        "Reliant Center"
+      ],
+      "ticketmasterIds": [
+        "G5dIZ_82xmrPQ"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/nutcracker-market-general-admission-good-for-houston-texas-11-12-2026/event/3A006503E2B9E95A"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "Nutcracker Market SUNDAY ONLY: Valid For One Entry On Sunday Only",
+      "city": "Houston",
+      "dates": [
+        "2026-11-15"
+      ],
+      "venues": [
+        "Reliant Center"
+      ],
+      "ticketmasterIds": [
+        "G5dIZ_8Ke75wh"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/nutcracker-market-sunday-only-valid-for-houston-texas-11-15-2026/event/3A006504C210BC9B"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "Premier Womens Rodeo",
+      "city": "Fort Worth",
+      "dates": [
+        "2026-12-20"
+      ],
+      "venues": [
+        "Cowtown Coliseum"
+      ],
+      "ticketmasterIds": [
+        "Z7r9jZ1A70g86"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/event/Z7r9jZ1A70g86"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "Red Steagall Cowboy Gathering",
+      "city": "Fort Worth",
+      "dates": [
+        "2026-10-23",
+        "2026-10-24"
+      ],
+      "venues": [
+        "Cowtown Coliseum"
+      ],
+      "ticketmasterIds": [
+        "Z7r9jZ1A70oO4",
+        "Z7r9jZ1A70oO9",
+        "Z7r9jZ1A70oOb"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/event/Z7r9jZ1A70oO4",
+        "https://www.ticketmaster.com/event/Z7r9jZ1A70oO9",
+        "https://www.ticketmaster.com/event/Z7r9jZ1A70oOb"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "San Antonio Stock Show & Rodeo Friday Qualifier",
+      "city": "Uvalde",
+      "dates": [
+        "2026-11-20"
+      ],
+      "venues": [
+        "Uvalde County Fairplex"
+      ],
+      "ticketmasterIds": [
+        "G5dIZ_o5HpNiz"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/san-antonio-stock-show-rodeo-friday-uvalde-texas-11-20-2026/event/3A006512FC5A3B38"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "San Antonio Stock Show & Rodeo Haunted Hayrides",
+      "city": "San Antonio",
+      "dates": [
+        "2026-10-22",
+        "2026-10-23",
+        "2026-10-24"
+      ],
+      "venues": [
+        "San Antonio Stock Show & Rodeo Fairgrounds"
+      ],
+      "ticketmasterIds": [
+        "G5dIZ_o5NURjV",
+        "G5dIZ_o5NV2jJ",
+        "G5dIZ_o5NgLjR"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/san-antonio-stock-show-rodeo-haunted-san-antonio-texas-10-22-2026/event/3A006512E3D0F726",
+        "https://www.ticketmaster.com/san-antonio-stock-show-rodeo-haunted-san-antonio-texas-10-23-2026/event/3A006512E3D5F72F",
+        "https://www.ticketmaster.com/san-antonio-stock-show-rodeo-haunted-san-antonio-texas-10-24-2026/event/3A006512E3DAF734"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "San Antonio Stock Show & Rodeo Saturday Qualifier",
+      "city": "Uvalde",
+      "dates": [
+        "2026-11-21"
+      ],
+      "venues": [
+        "Uvalde County Fairplex"
+      ],
+      "ticketmasterIds": [
+        "G5dIZ_o5Hbdcu"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/san-antonio-stock-show-rodeo-saturday-uvalde-texas-11-21-2026/event/3A006512FC603B4D"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "Sick New World Festival Forth Worth",
+      "city": "Fort Worth",
+      "dates": [
+        "2026-10-24"
+      ],
+      "venues": [
+        "Texas Motor Speedway"
+      ],
+      "ticketmasterIds": [
+        "Z7r9jZ1A7q_Jf"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/event/Z7r9jZ1A7q_Jf"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "South Pole Illuminated Festival  - McAllen Convention Center",
+      "city": "McAllen",
+      "dates": [
+        "2026-11-27",
+        "2026-11-28",
+        "2026-11-29"
+      ],
+      "venues": [
+        "McAllen Convention Center"
+      ],
+      "ticketmasterIds": [
+        "G5dIZ_2Ri1sI1",
+        "G5dIZ_2RiFsES",
+        "G5dIZ_2RiasEH"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/south-pole-illuminated-festival-2026-mcallen-mcallen-texas-11-27-2026/event/3A0064FBEC2319F3",
+        "https://www.ticketmaster.com/south-pole-illuminated-festival-2026-mcallen-mcallen-texas-11-28-2026/event/3A0064FBEC2719FC",
+        "https://www.ticketmaster.com/south-pole-illuminated-festival-2026-mcallen-mcallen-texas-11-29-2026/event/3A0064FBEC2B1A0A"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "Spirit of Mexico Rodeo",
+      "city": "Fort Worth",
+      "dates": [
+        "2026-11-15"
+      ],
+      "venues": [
+        "Cowtown Coliseum"
+      ],
+      "ticketmasterIds": [
+        "Z7r9jZ1A7OZ_A",
+        "Z7r9jZ1A7OZ_k"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/event/Z7r9jZ1A7OZ_A",
+        "https://www.ticketmaster.com/event/Z7r9jZ1A7OZ_k"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "Stockyards Championship Rodeo",
+      "city": "Fort Worth",
+      "dates": [
+        "2026-10-30",
+        "2026-10-31",
+        "2026-11-01",
+        "2026-11-05",
+        "2026-11-06",
+        "2026-11-07",
+        "2026-11-13",
+        "2026-11-14",
+        "2026-11-20",
+        "2026-11-21",
+        "2026-11-27",
+        "2026-11-28",
+        "2026-11-29",
+        "2026-12-05",
+        "2026-12-06",
+        "2026-12-12",
+        "2026-12-13",
+        "2026-12-18",
+        "2026-12-19",
+        "2026-12-26",
+        "2026-12-27",
+        "2027-01-01",
+        "2027-01-02",
+        "2027-01-03",
+        "2027-01-08",
+        "2027-01-09",
+        "2027-01-10",
+        "2027-01-15",
+        "2027-01-16",
+        "2027-01-17"
+      ],
+      "venues": [
+        "Cowtown Coliseum"
+      ],
+      "ticketmasterIds": [
+        "Z7r9jZ1A7OY4E",
+        "Z7r9jZ1A7OY4I",
+        "Z7r9jZ1A7OY4M",
+        "Z7r9jZ1A7OY4U",
+        "Z7r9jZ1A7OY4V",
+        "Z7r9jZ1A7OY4s",
+        "Z7r9jZ1A7OY4t",
+        "Z7r9jZ1A7OY4z",
+        "Z7r9jZ1A7OYp6",
+        "Z7r9jZ1A7OYp7",
+        "Z7r9jZ1A7OYpA",
+        "Z7r9jZ1A7OYpF",
+        "Z7r9jZ1A7OYpZ",
+        "Z7r9jZ1A7OYpa",
+        "Z7r9jZ1A7OYpk",
+        "Z7r9jZ1A7OYpv",
+        "Z7r9jZ1A7OpP-",
+        "Z7r9jZ1A7OpP0",
+        "Z7r9jZ1A7OpPE",
+        "Z7r9jZ1A7OpPI",
+        "Z7r9jZ1A7OpPJ",
+        "Z7r9jZ1A7OpPN",
+        "Z7r9jZ1A7OpPO",
+        "Z7r9jZ1A7OpPP",
+        "Z7r9jZ1A7OpPY",
+        "Z7r9jZ1A7OpP_",
+        "Z7r9jZ1A7OpPs",
+        "Z7r9jZ1A7OpPt",
+        "Z7r9jZ1A7OpPx",
+        "Z7r9jZ1AA7-F6",
+        "Z7r9jZ1AA7-FF",
+        "Z7r9jZ1AA7-Fa",
+        "Z7r9jZ1AA74PM",
+        "Z7r9jZ1AA74Pw",
+        "Z7r9jZ1AA7KQ4",
+        "Z7r9jZ1AA7KQ9",
+        "Z7r9jZ1AA7KQ_",
+        "Z7r9jZ1AA7KQb",
+        "Z7r9jZ1AA7Kj6",
+        "Z7r9jZ1AA7Kje",
+        "Z7r9jZ1AAvPq3"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/event/Z7r9jZ1A7OY4E",
+        "https://www.ticketmaster.com/event/Z7r9jZ1A7OY4I",
+        "https://www.ticketmaster.com/event/Z7r9jZ1A7OY4M",
+        "https://www.ticketmaster.com/event/Z7r9jZ1A7OY4U",
+        "https://www.ticketmaster.com/event/Z7r9jZ1A7OY4V",
+        "https://www.ticketmaster.com/event/Z7r9jZ1A7OY4s",
+        "https://www.ticketmaster.com/event/Z7r9jZ1A7OY4t",
+        "https://www.ticketmaster.com/event/Z7r9jZ1A7OY4z",
+        "https://www.ticketmaster.com/event/Z7r9jZ1A7OYp6",
+        "https://www.ticketmaster.com/event/Z7r9jZ1A7OYp7",
+        "https://www.ticketmaster.com/event/Z7r9jZ1A7OYpA",
+        "https://www.ticketmaster.com/event/Z7r9jZ1A7OYpF",
+        "https://www.ticketmaster.com/event/Z7r9jZ1A7OYpZ",
+        "https://www.ticketmaster.com/event/Z7r9jZ1A7OYpa",
+        "https://www.ticketmaster.com/event/Z7r9jZ1A7OYpk",
+        "https://www.ticketmaster.com/event/Z7r9jZ1A7OYpv",
+        "https://www.ticketmaster.com/event/Z7r9jZ1A7OpP-",
+        "https://www.ticketmaster.com/event/Z7r9jZ1A7OpP0",
+        "https://www.ticketmaster.com/event/Z7r9jZ1A7OpPE",
+        "https://www.ticketmaster.com/event/Z7r9jZ1A7OpPI",
+        "https://www.ticketmaster.com/event/Z7r9jZ1A7OpPJ",
+        "https://www.ticketmaster.com/event/Z7r9jZ1A7OpPN",
+        "https://www.ticketmaster.com/event/Z7r9jZ1A7OpPO",
+        "https://www.ticketmaster.com/event/Z7r9jZ1A7OpPP",
+        "https://www.ticketmaster.com/event/Z7r9jZ1A7OpPY",
+        "https://www.ticketmaster.com/event/Z7r9jZ1A7OpP_",
+        "https://www.ticketmaster.com/event/Z7r9jZ1A7OpPs",
+        "https://www.ticketmaster.com/event/Z7r9jZ1A7OpPt",
+        "https://www.ticketmaster.com/event/Z7r9jZ1A7OpPx",
+        "https://www.ticketmaster.com/event/Z7r9jZ1AA7-F6",
+        "https://www.ticketmaster.com/event/Z7r9jZ1AA7-FF",
+        "https://www.ticketmaster.com/event/Z7r9jZ1AA7-Fa",
+        "https://www.ticketmaster.com/event/Z7r9jZ1AA74PM",
+        "https://www.ticketmaster.com/event/Z7r9jZ1AA74Pw",
+        "https://www.ticketmaster.com/event/Z7r9jZ1AA7KQ4",
+        "https://www.ticketmaster.com/event/Z7r9jZ1AA7KQ9",
+        "https://www.ticketmaster.com/event/Z7r9jZ1AA7KQ_",
+        "https://www.ticketmaster.com/event/Z7r9jZ1AA7KQb",
+        "https://www.ticketmaster.com/event/Z7r9jZ1AA7Kj6",
+        "https://www.ticketmaster.com/event/Z7r9jZ1AA7Kje",
+        "https://www.ticketmaster.com/event/Z7r9jZ1AAvPq3"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "Texas Mariachi Festival",
+      "city": "Arlington",
+      "dates": [
+        "2026-11-08"
+      ],
+      "venues": [
+        "Arlington Music Hall"
+      ],
+      "ticketmasterIds": [
+        "Z7r9jZ1A7J607"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/event/Z7r9jZ1A7J607"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    }
+  ]
+}
