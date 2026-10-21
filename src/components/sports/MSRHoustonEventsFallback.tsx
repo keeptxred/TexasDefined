@@ -19,13 +19,21 @@ function currentCentralDate() {
   return [fields.year, fields.month, fields.day].join("-");
 }
 
-export function MSRHoustonEventsFallback() {
-  const upcoming = events.filter((event) => event.lastDate >= currentCentralDate());
+export function MSRHoustonEventsFallback({ featuredOnly = false, omitXtreme = false }: { featuredOnly?: boolean; omitXtreme?: boolean } = {}) {
+  const upcoming = events.filter((event) =>
+    event.lastDate >= currentCentralDate()
+    && (!featuredOnly || event.title.startsWith("Xtreme Xperience"))
+    && (!omitXtreme || !event.title.startsWith("Xtreme Xperience"))
+  );
+  // When the live event feed has other events, keep the independently verified
+  // experience visible, but never duplicate it when the live feed lists it.
+  if (featuredOnly && upcoming.length === 0) return null;
   return <section aria-labelledby="msr-events-heading" className="border-b border-border py-10 sm:py-12">
     <p className="eyebrow text-primary">Official calendar highlights</p>
-    <h2 id="msr-events-heading" className="mt-2 font-display text-3xl sm:text-4xl">Upcoming events at MSR Houston</h2>
+    <h2 id="msr-events-heading" className="mt-2 font-display text-3xl sm:text-4xl">{featuredOnly ? "Featured supercar experience at MSR Houston" : "Upcoming events at MSR Houston"}</h2>
     <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
-      Independently selected from operator listings checked October 9, 2026; the October 29–November 1 experience was cross-checked with MSR Houston and Xtreme Xperience on October 20.
+      {featuredOnly ? "This separate, independently verified event remains visible even when Texas Defined has other calendar entries. " : "Independently selected from operator listings checked October 9, 2026. "}
+      The October 29–November 1 experience was cross-checked with MSR Houston and Xtreme Xperience on October 20.
       These are dated excerpts, not real-time registration or ticket availability. Entries automatically
       disappear after their listed dates; always verify with the organizer.
     </p>

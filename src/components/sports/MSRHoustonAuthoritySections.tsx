@@ -16,7 +16,11 @@ const references = {
   schools: "https://msrhouston.com/schools/",
   location: "https://msrhouston.com/about/location/",
   supercars: "https://www.thextremexperience.com/tracks/msr-houston",
-  angletonTourism: "https://www.angleton.tx.us/287/Tourism",
+  angletonTourism: "https://angleton.tx.us/331/Accommodations",
+  operatorLocalInfo: "https://msrhouston.com/about/local-information/",
+  laQuinta: "https://www.wyndhamhotels.com/en-ca/laquinta/angleton-texas/la-quinta-angleton/overview",
+  bestWestern: "https://www.bestwestern.com/en-us/book/hotel/44522",
+  comfortSuites: "https://www.choicehotels.com/texas/lake%20jackson/comfort-suites-hotels/tx516",
 };
 
 const experiences = [
@@ -147,13 +151,13 @@ export function MSRHoustonStatusNotice() {
 export function MSRHoustonAuthoritySections() {
   return <div className="border-b border-border" aria-label="MSR Houston independent motorsports guide">
     <nav aria-label="MSR Houston guide sections" className="flex flex-wrap gap-x-5 gap-y-3 border-b border-border py-6 text-sm font-semibold">
+      <a href="#msr-contact" className="underline underline-offset-4 hover:text-primary">Contact & directions</a>
       <a href="#msr-access" className="underline underline-offset-4 hover:text-primary">How to participate</a>
       <a href="#msr-track-facts" className="underline underline-offset-4 hover:text-primary">Track specifications</a>
       <a href="#msr-safety" className="underline underline-offset-4 hover:text-primary">Safety & fees</a>
       <a href="#msr-checklist" className="underline underline-offset-4 hover:text-primary">Trip checklist</a>
-      <a href="#msr-contact" className="underline underline-offset-4 hover:text-primary">Contact & directions</a>
+      <a href="#msr-logistics" className="underline underline-offset-4 hover:text-primary">Lodging & amenities</a>
       <a href="#msr-history" className="underline underline-offset-4 hover:text-primary">History</a>
-      <a href="#msr-logistics" className="underline underline-offset-4 hover:text-primary">Camping & amenities</a>
     </nav>
 
     <section className="border-b border-border py-7" aria-labelledby="msr-contact">
@@ -175,10 +179,12 @@ export function MSRHoustonAuthoritySections() {
         guest sessions, organizer-run track days, competition events and formal schools are distinct ways to use the
         venue. <SourceLink href={references.membership}>Membership & guest policy</SourceLink></p>
       </SectionHeading>
-      <div className="overflow-x-auto rounded-sm border border-border">
+      <p id="msr-table-help" className="mb-2 text-xs leading-6 text-muted-foreground">On narrow screens, swipe across the participation table to view the full requirements.</p>
+      <div role="region" aria-label="MSR Houston participation options" aria-describedby="msr-table-help" tabIndex={0} className="overflow-x-auto rounded-sm border border-border focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
         <table className="w-full min-w-[680px] border-collapse text-left text-sm leading-6">
+          <caption className="sr-only">How to participate in different activities at MSR Houston, with booking requirements and direct source links.</caption>
           <thead className="bg-muted/40">
-            <tr><th className="p-4 font-semibold">Experience</th><th className="p-4 font-semibold">Access requirements</th><th className="p-4 font-semibold">Next step</th></tr>
+            <tr><th scope="col" className="p-4 font-semibold">Experience</th><th scope="col" className="p-4 font-semibold">Access requirements</th><th scope="col" className="p-4 font-semibold">Next step</th></tr>
           </thead>
           <tbody>{experiences.map((item) => <tr key={item.name} className="border-t border-border align-top">
             <th scope="row" className="p-4 font-semibold">{item.name}</th>
@@ -281,7 +287,34 @@ export function MSRHoustonAuthoritySections() {
           <p className="mt-3 text-sm leading-7 text-muted-foreground">The operator does not publish a universal accessibility and accessible-parking map across every event. Ask the track and organizer about suitable viewing locations, accessible restrooms, mobility needs and gate routes before purchasing admission or scheduling a family visit.</p>
         </div>
       </div>
-      <p className="mt-6 text-sm leading-7 text-muted-foreground">If your event does not permit overnight camping, compare lodging in <strong>Angleton</strong> for track access or <strong>Lake Jackson</strong> for a longer Brazoria County trip. Hotel availability and rates change; the <SourceLink href={references.angletonTourism}>City of Angleton tourism office</SourceLink> provides visitor and accommodation assistance. Do not assume MSR itself provides hotel rooms.</p>
+      <div className="mt-7 border-t border-border pt-5" aria-labelledby="msr-hotels">
+        <h3 id="msr-hotels" className="font-display text-2xl">Where to stay for an MSR Houston track weekend</h3>
+        <p className="mt-3 text-sm leading-7 text-muted-foreground">
+          MSR Houston lists these three hotels on its <SourceLink href={references.operatorLocalInfo}>operator's lodging page</SourceLink>.
+          Angleton makes a practical local base; Lake Jackson is an alternative for a longer Brazoria County visit.
+          Use each hotel's direct reservation page for actual availability, accessibility needs and cancellation rules.
+        </p>
+        <ul className="mt-5 grid gap-4 md:grid-cols-3">
+          <li className="border border-border p-4">
+            <h4 className="font-semibold">La Quinta Inn &amp; Suites by Wyndham Angleton</h4>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">2400 W. Mulberry Street, Angleton · (979) 864-3383</p>
+            <p className="mt-3 text-sm"><SourceLink href={references.laQuinta}>Check rooms and rates</SourceLink></p>
+          </li>
+          <li className="border border-border p-4">
+            <h4 className="font-semibold">Best Western Angleton Inn</h4>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">1809 N. Velasco Street, Angleton · (979) 849-5822</p>
+            <p className="mt-3 text-sm"><SourceLink href={references.bestWestern}>Check rooms and rates</SourceLink></p>
+          </li>
+          <li className="border border-border p-4">
+            <h4 className="font-semibold">Comfort Suites Lake Jackson Clute</h4>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">296 Abner Jackson Parkway, Lake Jackson · (979) 297-5545</p>
+            <p className="mt-3 text-sm"><SourceLink href={references.comfortSuites}>Check rooms and rates</SourceLink></p>
+          </li>
+        </ul>
+        <p className="mt-4 text-xs leading-6 text-muted-foreground">
+          Rates and MSR-specific promotions are not guaranteed by Texas Defined. See the <SourceLink href={references.angletonTourism}>City of Angleton accommodations directory</SourceLink> for more options. These are editorial hotel links, not advertised affiliate rates.
+        </p>
+      </div>
       <p className="mt-7 text-sm"><SourceLink href={references.faqs}>Operator FAQ covering camping, fuel, pets, food and weather</SourceLink></p>
     </section>
 
