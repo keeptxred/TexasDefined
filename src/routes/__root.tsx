@@ -23,7 +23,7 @@ const ErrorScreen = lazy(() => import("@/components/RouteStatusScreens").then((m
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const defaultSocialImage = absoluteUrl(texasDefinedBrand, heroHillCountry);
-const defaultSocialImageAlt = "Texas Hill Country landscape at golden hour";
+const defaultSocialImageAlt = "Hill Country landscape";
 const iconVersion = "20261010";
 const googleTagManagerId = "GTM-5DK7GCGV";
 const googleTagManagerHosts = JSON.stringify(TEXASDEFINED_ANALYTICS_HOSTS);
@@ -32,13 +32,13 @@ function GoogleTagManagerHead() {
   return (
     <script
       dangerouslySetInnerHTML={{
-        __html: `(function(w,h){var n=w.navigator||{};if(n.webdriver===true||/HeadlessChrome|Lighthouse|PageSpeed|TexasDefined-[^ ]*Smoke/i.test(n.userAgent||'')||!h.includes(w.location.hostname.toLowerCase()))return;(w.dataLayer||=[]).push({'gtm.start':Date.now(),event:'gtm.js'});var s=document.createElement('script');s.src='https://www.googletagmanager.com/gtm.js?id=${googleTagManagerId}';document.head.append(s)})(window,${googleTagManagerHosts});`,
+        __html: `(function(w,h){var n=w.navigator;if(n.webdriver||/HeadlessChrome|Lighthouse|PageSpeed|TexasDefined-[^ ]*Smoke/i.test(n.userAgent)||!h.includes(w.location.hostname))return;(w.dataLayer||=[]).push({'gtm.start':Date.now(),event:'gtm.js'});var s=document.createElement('script');s.src='https://www.googletagmanager.com/gtm.js?id=${googleTagManagerId}';document.head.append(s)})(window,${googleTagManagerHosts});`,
       }}
     />
   );
 }
 
-const statusFallback = <div className="flex min-h-[35vh] items-center justify-center px-6 py-16 text-sm text-muted-foreground" role="status">Loading page…</div>;
+const statusFallback = <div className="flex min-h-[35vh] items-center justify-center px-6 py-16 text-sm text-muted-foreground" role="status">Loading</div>;
 
 function NotFoundComponent() {
   return <Suspense fallback={statusFallback}><NotFoundScreen /></Suspense>;
