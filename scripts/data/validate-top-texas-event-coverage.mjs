@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 
 const read = (path) => fs.readFileSync(path, "utf8");
 const card = read("src/components/editorial/EventCard.tsx");
+const eventsHub = read("src/components/events/EventsLandingPage.tsx");
 const fixtures = read("src/data/fixtures/texas.ts");
 const index = read("src/data/major-event-index.ts");
 const authority = read("src/data/major-event-authority.server.ts");
@@ -17,6 +18,12 @@ for (const token of [
   'Visitor guide →', 'Official site ↗',
 ]) assert(card.includes(token), `Homepage event guide navigation missing: ${token}`);
 assert(!card.includes('Event details ↗'), "Event cards must not send the primary guide CTA off-site");
+
+// The statewide calendar hero must also lead to the permanent in-site guide.
+for (const token of ["featuredCanonicalSlug", "featuredGuide.href", "Texas Defined event guide →", "Event details ↗"]) {
+  assert(eventsHub.includes(token), `Event hub featured guide missing: ${token}`);
+}
+assert(!eventsHub.includes('title="State Fair of Texas 2026"'), "Evergreen event hub must not hardcode a concluded fair year");
 
 // Past wrong dates must never be republished by fixture fallback.
 assert(fixtures.includes('startDate: "2027-03-02"') && fixtures.includes('endDate: "2027-03-21"'), "Houston 2027 fixture dates are wrong");
