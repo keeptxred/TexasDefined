@@ -173,6 +173,7 @@ const batch001FootballCountyLinks: Record<string, { name: string; href: string; 
 // Independently researched Batch 002 and Batch 003 county links. Lists retain
 // multiple teams in the same county rather than replacing an existing card.
 const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: string; context: string }>> = {
+  'harris': [{ name: 'Bridgeland Bears', slug: 'bridgeland', context: 'CFISD Bridgeland Bears: 2020 first-playoff-win era, 2024 UIL quarterfinal, 2026 Lonnie Madison staff and specific Berry Center spectator directions' }],
   'orange': [{ name: 'Bridge City Cardinals', slug: 'bridge-city', context: 'Bridge City ISD Cardinals: 1965 runner-up, 1966 UIL champion, 2026 Smalley staff and first-party home game tickets' }],
   'robertson': [{ name: 'Bremond Tigers', slug: 'bremond', context: 'Bremond ISD Tigers: 1981 UIL title, Jeff Kasowski 2014–16 three-peat and dated 2026 season with first-party schedule' }],
   'washington': [{ name: 'Brenham Cubs', slug: 'brenham', context: 'Brenham High School: 2002, 2009 and 2013 UIL title-game runs, 2026 Cub Stadium varsity schedule and sources' }],
