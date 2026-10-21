@@ -61,29 +61,75 @@ const serverSlugs = extractSlugs(serverRegistry);
 if (JSON.stringify(bridgeSlugs) !== JSON.stringify(serverSlugs)) {
   failures.push('Sitemap-safe Texas dataset metadata must stay in exact slug parity with the full server registry.');
 }
-// Data integrity regressions must fail before stale or misquoted figures reach the hub.
+// Data integrity regressions must fail before stale or misquoted figures reach
+// the catalog. Values below are transcribed from dated official source releases;
+// these are historical snapshots, not a request to freeze future new datasets.
 const premiumBrief = serverRegistry.slice(serverRegistry.indexOf("slug: 'texas-homeowners-premium-history'"), serverRegistry.indexOf("slug: 'texas-metro-payrolls-june-2026'"));
-if (!premiumBrief.includes("{ label: '2023', value: 2795 }") || !premiumBrief.includes("{ label: '2025', value: 3489")) {
-  failures.push('Homeowners brief must agree with TDI published 2023 ($2,795) and preliminary 2025 ($3,489) annual premiums.');
-}
 const juneBrief = serverRegistry.slice(serverRegistry.indexOf("slug: 'texas-metro-payrolls-june-2026'"), serverRegistry.indexOf("slug: 'texas-metro-payrolls-august-2026'"));
+const augustBrief = serverRegistry.slice(serverRegistry.indexOf("slug: 'texas-metro-payrolls-august-2026'"), serverRegistry.indexOf("slug: 'texas-traffic-monitoring-coverage'"));
+
+// Confirm every published row and prevent silent additions/duplicates in the
+// original archival snapshots. A new BLS monthly release gets a new dated slug.
+function validateOfficialSnapshot(section, label, expected) {
+  const found = [...section.matchAll(/\{\s*label:\s*'([^']+)',\s*value:\s*(\d+)/g)]
+    .map((match) => [match[1], Number(match[2])]);
+  const actual = new Map(found);
+  if (found.length !== expected.length || actual.size !== expected.length) {
+    failures.push(label + ': unexpected row count or duplicate metro/year label; expected ' + expected.length);
+  }
+  for (const [rowLabel, value] of expected) {
+    if (actual.get(rowLabel) !== value) {
+      failures.push(label + ': official-source value differs for ' + rowLabel + '; expected ' + value);
+    }
+  }
+}
+
+validateOfficialSnapshot(premiumBrief, 'TDI homeowners annual average premiums (2019–2025)', [
+  ["2019", 1961],
+  ["2020", 1987],
+  ["2021", 2124],
+  ["2022", 2374],
+  ["2023", 2795],
+  ["2024", 3291],
+  ["2025", 3489],
+]);
+validateOfficialSnapshot(juneBrief, 'BLS June 2026 original Table 3 nonfarm payrolls', [
+  ["Amarillo", 131400],
+  ["Austin–Round Rock–San Marcos", 1432100],
+  ["Brownsville–Harlingen", 159900],
+  ["College Station–Bryan", 143900],
+  ["Corpus Christi", 203200],
+  ["Dallas–Fort Worth–Arlington", 4363300],
+  ["El Paso", 365100],
+  ["Houston–Pasadena–The Woodlands", 3521500],
+  ["Lubbock", 176500],
+  ["McAllen–Edinburg–Mission", 309700],
+  ["San Antonio–New Braunfels", 1196800],
+  ["Tyler", 122100],
+  ["Waco", 143300],
+]);
+validateOfficialSnapshot(augustBrief, 'BLS August 2026 original Table 3 nonfarm payrolls', [
+  ["Amarillo", 130700],
+  ["Austin–Round Rock–San Marcos", 1415900],
+  ["Brownsville–Harlingen", 159500],
+  ["College Station–Bryan", 142100],
+  ["Corpus Christi", 202300],
+  ["Dallas–Fort Worth–Arlington", 4357000],
+  ["El Paso", 363500],
+  ["Houston–Pasadena–The Woodlands", 3495300],
+  ["Lubbock", 176300],
+  ["McAllen–Edinburg–Mission", 308100],
+  ["San Antonio–New Braunfels", 1191700],
+  ["Tyler", 122600],
+  ["Waco", 142900],
+]);
 if (!juneBrief.includes('https://www.bls.gov/news.release/archives/metro_07292026.htm')) {
   failures.push('Historical June 2026 metro payrolls must link to its original BLS archive, not the rolling table.');
 }
-const augustBrief = serverRegistry.slice(serverRegistry.indexOf("slug: 'texas-metro-payrolls-august-2026'"), serverRegistry.indexOf("slug: 'texas-traffic-monitoring-coverage'"));
 if (!augustBrief.includes('https://www.bls.gov/news.release/archives/metro_09302026.htm')) {
   failures.push('Current August 2026 metro payrolls must link to the dated September 30 BLS release.');
 }
-for (const [label, value] of [
-  ['Dallas–Fort Worth–Arlington', 4357000],
-  ['Houston–Pasadena–The Woodlands', 3495300],
-  ['Austin–Round Rock–San Marcos', 1415900],
-  ['San Antonio–New Braunfels', 1191700],
-]) {
-  if (!augustBrief.includes(`{ label: '${label}', value: ${value} }`)) {
-    failures.push(`August 2026 BLS Table 3 payroll mismatch: ${label}`);
-  }
-}
+
 if (!hub.includes("texas-metro-payrolls-august-2026")) {
   failures.push('Texas Data hub must feature the latest verified metro payroll snapshot.');
 }
