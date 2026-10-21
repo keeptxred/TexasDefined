@@ -40,7 +40,7 @@
       "bryan-rudder",
       "bryson"
     ],
-    "state": "BATCH_007_18_SCHOOL_SOURCE_IMPLEMENTATION_PENDING_QA",
+    "state": "BATCH_007_19_SCHOOL_SOURCE_IMPLEMENTATION_PENDING_QA",
     "dateAssigned": "2026-10-20",
     "selectionRule": "First 25 NOT_REVIEWED and unassigned canonical schoolRecords in stable order following 130 production VERIFIED through completed Batch 006; outstanding PR and branch conflicts checked.",
     "individuallyVerified": 0,
@@ -48,12 +48,12 @@
     "assignmentBranch": "football-authority-batch-007-20261020",
     "repositoryMainAtAssignment": "78157bb07d856f40d21e813fd3f886cd54e2b20e",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "brownsville-lopez",
-    "nextSchool": "brownsville-pace",
-    "implementedOnBranch": 18,
-    "remainingToImplement": 7,
+    "currentSchool": "brownsville-pace",
+    "nextSchool": "brownsville-porter",
+    "implementedOnBranch": 19,
+    "remainingToImplement": 6,
     "remainingToVerify": 25,
-    "notes": "18/25 individually source-backed school authorities implemented in unmerged PR #5525; 7 left. Bryson six-man format and first-party colors, 4–4, 1995 eleven-man historical playoff, coach role conflict recorded. No current Batch007 production VERIFIED."
+    "notes": "19/25 individually researched and branch-implemented; 6 remain source implementation, 0 confirmed production VERIFIED. Lopez source-dated 2026 2–5 + 2024 football postseason and stadium/campus distinction audited. Avoid polling GitHub Actions/Cloudflare repeatedly."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -7571,8 +7571,17 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/brownsville-lopez",
-      "status": "NOT_REVIEWED",
-      "batch": 7
+      "status": "IMPLEMENTED",
+      "batch": 7,
+      "audit": "docs/football-authority/schools/brownsville-lopez.md",
+      "auditCompletedAt": "2026-10-21",
+      "researchCompletedAt": "2026-10-21",
+      "implementedAt": "2026-10-21",
+      "implementedOnBranch": "football-authority-batch-007-20261020",
+      "actualProductionVerified": false,
+      "mediaStatus": "Original football-results timeline drawn from source-backed scores; no reused copyrighted football photo or Lopez mascot artwork",
+      "implementationNotes": "Official Lopez varsity fixture and 3205 S Dakota campus verified; DCTF 7 playoff berths, 2024 7–4 and 35–21 Pioneer postseason, 2026 reported 2–5 Oct8 vs stale score pages, Shaun Tarantola attributed only to MaxPreps staff; Sams Stadium separate venue, BISD online tickets and Cameron County reciprocal links; 7 milestones, 6 FAQs",
+      "technicalVerification": "Awaiting CI, merge, deployed Chrome 1366/390/320/sitemap/schema and individual source rights/gate checks"
     },
     {
       "id": "uil:brownsville-pace",
