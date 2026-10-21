@@ -42,6 +42,7 @@ function runCheck({ classification, label, command, args = [], dependsOnBuild = 
 }
 
 const prebuildChecks = [
+  ['DATA/BLS', 'Validate fail-closed scheduled BLS table parser and release freshness rules', 'node', ['--test', 'scripts/data/refresh-texas-metro-payrolls.test.mjs']],
   ['CONTENT/VISITOR-FACTS', 'Scan curated visitor answers for malformed provenance, duplicate labels and expiration', 'node', ['scripts/data/validate-destination-visitor-fact-catalog.mjs']],
   ['CONTENT/VISITOR-FACTS', 'Verify source-dated practical visitor facts, conditional rendering and stale-claim suppression', 'node', ['--experimental-strip-types', '--test', 'src/data/destination-visitor-facts.test.ts']],
   ['HISTORY/CAMINO-REAL', 'Verify factual accuracy, primary sources, indexability and SSR map for El Camino Real', 'node', ['--test', 'scripts/ci/camino-real-factcheck.test.mjs']],

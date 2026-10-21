@@ -16,6 +16,17 @@ const dataCenter = [
 const metro = read('src/components/relocation/MetroRelocationAuthority.tsx');
 const censusMigrationReview = read('docs/verification/acs-state-to-state-2024-review.md');
 const blsMetroReview = read('docs/verification/bls-metro-august-2026-review.md');
+const currentMetro = JSON.parse(read('src/data/generated/texas-metro-payrolls-current.json'));
+if (!/^\d{4}-\d{2}$/.test(currentMetro.releaseMonth) ||
+    !Array.isArray(currentMetro.rows) || currentMetro.rows.length !== 13 ||
+    !String(currentMetro.sourceUrl).startsWith('https://www.bls.gov/news.release/archives/metro_')) {
+  failures.push('Latest rolling BLS metro snapshot has incomplete official-source provenance.');
+}
+const lastMetroRelease = Date.parse(currentMetro.releaseMonth + '-01T00:00:00Z');
+if (Number.isFinite(lastMetroRelease) && todayUtc - lastMetroRelease > 100 * 86_400_000) {
+  console.warn('Latest BLS snapshot is more than 100 days old; check the monthly source refresh workflow. Never relabel the old data as current.');
+}
+
 
 const reviewWindows = [
   {
@@ -27,11 +38,6 @@ const reviewWindows = [
     id: 'acs-state-to-state-2024',
     reviewBy: '2027-02-15',
     reason: 'The October 1 review confirmed 2024 remains the newest official Census state-to-state flow table; recheck during the next annual release window.',
-  },
-  {
-    id: 'bls-metro-august-2026',
-    reviewBy: '2026-10-29',
-    reason: 'August 2026 BLS metropolitan employment was reviewed October 1; recheck after the September 2026 release scheduled October 28.',
   },
   {
     id: 'tdi-homeowners-2025-preliminary',
