@@ -23,6 +23,7 @@ jobs:
       - uses: actions/checkout@v5
         with:
           ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+          fetch-depth: 2
       - uses: actions/setup-node@v5
         with:
           node-version: 24
@@ -40,3 +41,25 @@ jobs:
           echo "TEXASDEFINED_AUTO_PUBLISH_ENABLED_PRESENT=false"
       - name: Verify live news, published article canonicals and sitemap XML
         run: node scripts/ci/verify-texasdefined-publication-production.mjs
+      - name: Detect scoped Texas Data publication changes
+        id: texas_data_scope
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --name-only HEAD^ HEAD -- \
+            src/routes/texas-data.lazy.tsx src/routes/texas-data.tsx \
+            src/data/texas-data-center.server.ts \
+            scripts/ci/verify-texas-data-production.mjs \
+            scripts/ci/verify-changed-production-pages.mjs \
+            .github/workflows/texasdefined-publication-production-smoke.yml | grep -q .; then
+            echo 'changed=yes' >> "$GITHUB_OUTPUT"
+          else
+            echo 'changed=no' >> "$GITHUB_OUTPUT"
+            echo 'Texas Data unaffected by this deployment; scoped download audit skipped.'
+          fi
+      - name: Check scoped Texas Data acceptance syntax
+        if: steps.texas_data_scope.outputs.changed == 'yes'
+        run: node --check scripts/ci/verify-texas-data-production.mjs
+      - name: Validate published Texas Data hub and all four CSV exports
+        if: steps.texas_data_scope.outputs.changed == 'yes'
+        run: node scripts/ci/verify-texas-data-production.mjs
