@@ -1,0 +1,152 @@
+import type { MajorEventSchemaEnrichment } from "./major-event-schema-enrichment.server";
+
+// Optional structured data and verification provenance. No speculative offers,
+// artist lineups, image rights or cross-year recurring dates are published.
+export const majorEventSchemaEnrichmentBatch29: MajorEventSchemaEnrichment[] = [
+  {
+    slug: "diwalisa-san-antonio",
+    image: {
+      url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/86/San_Antonio_River_Walk_July_2017_10_%28Arneson_River_Theater%29.jpg/1280px-San_Antonio_River_Walk_July_2017_10_%28Arneson_River_Theater%29.jpg",
+      alt: "Arneson River Theater stage beside the San Antonio River Walk, photographed in 2017 before the DiwaliSA event",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:San_Antonio_River_Walk_July_2017_10_(Arneson_River_Theater).jpg",
+      sourceType: "wikimedia",
+      licenseName: "Creative Commons Attribution-ShareAlike 4.0 International",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+      rightsNote: "Michael Barera, 2017; CC BY-SA 4.0. Historical view of an actual event venue, not festival imagery.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
+
+    organizer: { type: "Organization", name: "AnujaSA", url: "https://anujasa.com/" },
+    sources: [
+      { label: "Anuja SA 2026 event and hours", url: "https://anujasa.com/diwalisa" },
+      { label: "Visit San Antonio 2026 listing", url: "https://www.visitsanantonio.com/event/diwalisa-2026/12629/" },
+    ],
+    verifiedAt: "2026-10-21",
+  },
+  {
+    slug: "homestead-fair-waco",
+    organizer: { type: "Organization", name: "Homestead Heritage", url: "https://www.homesteadfair.com/" },
+    sources: [
+      { label: "Homestead Fair official program, dates and admission", url: "https://www.homesteadfair.com/" },
+      { label: "Homestead Fair preliminary schedule", url: "https://www.homesteadfair.com/schedule/" },
+      { label: "Official parking and ticket details", url: "https://www.homesteadfair.com/tickets/" },
+    ],
+    verifiedAt: "2026-10-21",
+  },
+  {
+    slug: "waco-wonderland",
+    organizer: { type: "Organization", name: "City of Waco", url: "https://www.wacowonderland.com/" },
+    sources: [
+      { label: "Official Waco Wonderland event and attractions", url: "https://www.wacowonderland.com/" },
+      { label: "Official accessibility, admission and ride details", url: "https://www.wacowonderland.com/contact" },
+      { label: "Baylor Waco listing confirming 2026 dates", url: "https://waco.web.baylor.edu/event/2026/1557149" },
+    ],
+    verifiedAt: "2026-10-21",
+  },
+  {
+    slug: "whooping-crane-festival",
+    organizer: { type: "Organization", name: "Port Aransas Tourism Bureau", url: "https://www.portaransas.org/whooping-crane-festival/" },
+    image: {
+      url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/02/Whooping_cranes_over_Aransas_Refuge_%285120922351%29.jpg/960px-Whooping_cranes_over_Aransas_Refuge_%285120922351%29.jpg",
+      alt: "Two whooping cranes in flight at Aransas National Wildlife Refuge in Texas, photographed in 2010; illustrative coastal habitat, not a 2027 festival program photo",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Whooping_cranes_over_Aransas_Refuge_(5120922351).jpg",
+      sourceType: "wikimedia",
+      licenseName: "Creative Commons Attribution 2.0 Generic",
+      licenseUrl: "https://creativecommons.org/licenses/by/2.0/",
+      rightsNote: "Steve Hillebrand/U.S. Fish and Wildlife Service, 2010; CC BY 2.0. Actual Texas winter habitat, not a photographed festival outing.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
+    sources: [
+      { label: "Port Aransas Tourism Bureau 2027 festival", url: "https://www.portaransas.org/whooping-crane-festival/the-2027-festival/" },
+      { label: "Port Aransas Whooping Crane Festival overview", url: "https://www.portaransas.org/whooping-crane-festival/" },
+    ],
+    verifiedAt: "2026-10-21",
+  },
+  {
+    slug: "dallas-international-film-festival",
+    organizer: { type: "Organization", name: "DIFF Dallas", url: "https://diffdallas.org/" },
+    sources: [
+      { label: "DIFF Dallas official 2027 dates and festival mission", url: "https://diffdallas.org/" },
+    ],
+    verifiedAt: "2026-10-21",
+  },
+  {
+    slug: "worldfest-houston",
+    organizer: { type: "Organization", name: "WorldFest-Houston", url: "https://www.worldfest.org/" },
+    sources: [
+      { label: "WorldFest official 60th-edition dates and nonprofit organizer", url: "https://www.worldfest.org/" },
+      { label: "WorldFest 2027 submissions and deadlines", url: "https://www.worldfest.org/film-submission" },
+    ],
+    verifiedAt: "2026-10-21",
+  },
+  {
+    slug: "waco-independent-film-festival",
+    organizer: { type: "Organization", name: "Waco Independent Film Festival", url: "https://www.wacoindie.com/" },
+    sources: [
+      { label: "Waco Indie organizer and 2027 public dates", url: "https://www.wacoindie.com/" },
+      { label: "Official submission platform confirming 2027 edition", url: "https://filmfreeway.com/WacoIndie" },
+    ],
+    verifiedAt: "2026-10-21",
+  },
+  {
+    slug: "texas-international-fishing-tournament",
+    organizer: { type: "Organization", name: "Texas International Fishing Tournament", url: "https://www.tift.org/" },
+    sources: [
+      { label: "Texas International Fishing Tournament organizer and 2027 dates", url: "https://www.tift.org/" },
+    ],
+    verifiedAt: "2026-10-21",
+  },
+  {
+    slug: "texas-food-truck-showdown",
+    organizer: { type: "Organization", name: "Greater Waco Chamber of Commerce", url: "https://thetexasfoodtruckshowdown.com/" },
+    sources: [
+      { label: "Greater Waco Chamber 2026 event details", url: "https://business.wacochamber.com/events/Details/2026-texas-food-truck-showdown-1646517" },
+      { label: "Official Showdown organizer and competition schedule", url: "https://thetexasfoodtruckshowdown.com/schedule-of-events/" },
+    ],
+    verifiedAt: "2026-10-21",
+  },
+  {
+    slug: "san-jacinto-day-celebration",
+    image: {
+      url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/San_jacinto_reenactment.jpg/1280px-San_jacinto_reenactment.jpg",
+      alt: "Historic photo of Battle of San Jacinto reenactors at the San Jacinto site, April 2022 (not a 2027 schedule or lineup)",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:San_jacinto_reenactment.jpg",
+      sourceType: "wikimedia",
+      licenseName: "Creative Commons Attribution-ShareAlike 4.0 International",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+      rightsNote: "Photo by Til midnight (2022); CC BY-SA 4.0, displayed unmodified with attribution.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
+
+    organizer: { type: "Organization", name: "San Jacinto Museum and Battlefield Association", url: "https://www.sanjacinto-museum.org/" },
+    sources: [
+      { label: "San Jacinto Museum official 2026 celebration and reenactment", url: "https://www.sanjacinto-museum.org/Visit/Calendar/San_Jacinto_Day_Celebration/" },
+      { label: "Texas Historical Commission San Jacinto Battleground", url: "https://thc.texas.gov/historic-sites/san-jacinto-battleground" },
+    ],
+    verifiedAt: "2026-10-21",
+  },
+  {
+    slug: "cliburn-international-young-pianists-competition",
+    image: {
+      url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b8/Dallas_Meyerson_Center_01.jpg/1280px-Dallas_Meyerson_Center_01.jpg",
+      alt: "Morton H. Meyerson Symphony Center in Dallas, photographed in 2009; announced final-round venue for the 2027 Cliburn Young Pianists Competition",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Dallas_Meyerson_Center_01.jpg",
+      sourceType: "wikimedia",
+      licenseName: "Creative Commons Attribution 3.0 Unported",
+      licenseUrl: "https://creativecommons.org/licenses/by/3.0/",
+      rightsNote: "Andreas Praefcke, October 2009; CC BY 3.0. Historical exterior photo of the announced 2027 finals venue.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
+
+    organizer: { type: "Organization", name: "The Cliburn", url: "https://cliburn.org/" },
+    sources: [
+      { label: "The Cliburn 2027 competition overview, dates and venues", url: "https://cliburn.org/competitions/2027-young-pianists" },
+      { label: "Cliburn official rules and schedule", url: "https://cliburn.org/competitions/2027-young-pianists/application-and-rules" },
+    ],
+    verifiedAt: "2026-10-21",
+  }
+];

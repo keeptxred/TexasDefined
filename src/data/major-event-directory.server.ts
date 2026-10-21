@@ -68,6 +68,8 @@ const eventTimingLinks: EventDiscoveryLink[] = [
 ];
 
 const eventTopicLinks: EventDiscoveryLink[] = [
+  { href: "/events/dia-de-los-muertos", title: "Día de los Muertos in Texas", description: "Compare separate San Antonio, Houston and Austin celebrations with verified city-specific schedules." },
+  { href: "/events/texas-independence", title: "Texas Independence & San Jacinto", description: "March 2 and April 21 heritage commemorations with distinct event guides and official sources." },
   { href: "/events/mardi-gras", title: "Mardi Gras in Texas", description: "Source-confirmed 2027 Texas Mardi Gras parades and city-by-city travel guides, with unannounced traditions clearly separated." },
   { href: "/events/air-shows", title: "Texas air shows", description: "Confirmed jet-team shows, warbird exhibitions, military-base air shows and verified fly-in weekends with practical travel guides." },
   { href: "/events/tournaments", title: "Texas tournaments", description: "Browse 250 competition seeds across 22 sports and activity categories, with county connections where the supplied location is clear." },

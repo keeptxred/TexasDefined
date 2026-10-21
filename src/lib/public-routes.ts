@@ -127,6 +127,8 @@ export const INDEXABLE_STATIC_PATHS = [
   "/events",
   "/events/air-shows",
   "/events/mardi-gras",
+  "/events/dia-de-los-muertos",
+  "/events/texas-independence",
   "/events/rodeos",
   "/events/food-festivals",
   "/events/music-festivals",
