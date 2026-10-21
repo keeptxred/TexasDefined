@@ -3867,7 +3867,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "overview": [
       "Bosqueville Bulldogs is Bosqueville ISD's 11-man football team in McLennan County. Its authoritative 2026–28 alignment is UIL 2A Division I District 8; that is different from older season divisions and similarly named programs.",
       "The separate Bosqueville ISD program went 7–4 in 2025, losing 29–69 to Frankston in the opening 2A Division I playoff round. In 2026, the Bulldogs opened District 8 with wins over Itasca 54–27, Valley Mills 28–7 and Dawson 56–14.",
-      "Bosqueville ISD's June 24 school notice names Reggie Patrick the football contact, and the district lists him as athletic director; KWTX's October 7, 2026 interview expressly identifies Patrick as the Bulldogs' head football coach. The football-specific title has a dated firsthand source, rather than resting on the director title or a MaxPreps roster alone. An August school announcement required online tickets for the September 3 Kerens away game only—not every home game. The official campus address is not a stadium-gate policy."
+      "Bosqueville ISD's June 24 school notice names Reggie Patrick the football contact, and the district lists him as athletic director; KWTX's October 7, 2026 interview expressly identifies Patrick as the Bulldogs' head football coach. The football-specific title has a dated firsthand source, rather than resting on the director title or a MaxPreps roster alone. An August school announcement required online tickets for the September 3 Kerens away game only—not every home game. The official campus address is not a stadium-gate policy.",
+      "For schedule changes, Bosqueville ISD's first-party Athletics hub links the season's Athletic Schedules and weekly notices, and identifies Reggie Patrick as athletic director and Melissa Farney as athletic administrative assistant. The district's published switchboard is 254-757-3113; the separately listed high-school phone is 254-752-8513. Call for event-specific kickoff, opponent venue, ticket or accessible-entrance questions rather than assuming an away-game rule applies at home."
     ],
     "faq": [
       {
@@ -3901,6 +3902,10 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "Where does Bosqueville publish updated football and other athletic schedules?",
         "answer": "Bosqueville ISD's Athletics page at https://www.bosquevilleisd.org/page/athletics/ links current Athletic Schedules and weekly schedules. Check for game-day changes. The September 3 Kerens away-game online-only ticket rule does not prove every home game is online-only."
+      },
+      {
+        "question": "Who can help Bosqueville fans confirm a game-day schedule change?",
+        "answer": "Bosqueville ISD's official Athletics page lists Athletic Schedules and weekly schedules, Reggie Patrick as athletic director and Melissa Farney as athletic administrative assistant. The district switchboard is 254-757-3113; the high-school phone is separately listed as 254-752-8513. Verify the specific game and its spectator details with the district."
       }
     ],
     "coach": {
@@ -4106,7 +4111,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "notice": {
       "title": "Verified facts and unresolved game-day claims",
-      "body": "Bowie ISD explicitly lists Tyler Price as its current AD and football coach. Austin's different James Bowie school lists Jeff Ables; merging those coaching records would be a serious identity error. Paradise defeated Bowie 37–15 on October 16, leaving the Jackrabbits 4–4. Bowie ISD also offers a dedicated official Event Tickets page linking to Hometown Ticketing for game admission; confirm individual-event availability, terms and prices with the district rather than assuming every game is sold out or online-only.",
+      "body": "Bowie ISD explicitly lists Tyler Price as its current AD and football coach. Austin's different James Bowie school lists Jeff Ables; merging those coaching records would be a serious identity error. Paradise defeated Bowie 37–15 on October 16, leaving the Jackrabbits 4–4. Bowie ISD also offers a dedicated official Event Tickets page linking to Hometown Ticketing for game admission; confirm individual-event availability, terms and prices with the district rather than assuming every game is sold out or online-only. Bowie High School's August 2026 school-issued home-opener announcement explicitly called the August 28 Callisburg venue Jackrabbit Stadium, and its later school notices offered an online all-sports pass. Neither report independently certifies a vehicle gate, accessible seating or the pass's coverage for a specific upcoming game.",
       "sourceUrl": "https://www.bowieisd.net/o/bhs/page/bowie-high-school-athletics",
       "sourceLabel": "Bowie ISD first-party Athletics lists Tyler Price AD/head football coach; district Event Tickets page links Hometown Ticketing; visitor gate/ADA details remain unverified",
       "verifiedAt": "2026-10-17"
@@ -4203,12 +4208,20 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "body": "Callisburg, Bridgeport and Gainesville were the opening 2026 wins.",
         "sourceUrl": "https://www.maxpreps.com/tx/bowie/bowie-jackrabbits/football/schedule/",
         "sourceLabel": "Dated school / football historical source"
+      },
+      {
+        "date": "2026-08-28",
+        "title": "Official home-opening event names Jackrabbit Stadium",
+        "body": "Bowie High School's 2026 school news announced the Callisburg home opener for August 28 at 7:30 p.m. at Jackrabbit Stadium. This is firsthand evidence of the stadium's name for that game, not a first-party vehicle-gate or accessibility map.",
+        "sourceUrl": "https://www.bowieisd.net/o/bhs/live-feed?page_no=1",
+        "sourceLabel": "Bowie High School first-party August 2026 live-feed game and venue announcement"
       }
     ],
     "overview": [
       "Bowie Jackrabbits is Bowie ISD's 11-man football team in Montague County. Its authoritative 2026–28 alignment is UIL 3A Division I District 4; that is different from older season divisions and similarly named programs.",
       "These are the Montague County Bowie ISD Jackrabbits, not the Austin Bowie Bulldogs. Bowie entered 2026 after a 5–5 season and won its first three against Callisburg, Bridgeport and Gainesville, then beat City View before losses to Early and Peaster.",
-      "Bowie ISD explicitly lists Tyler Price as its current AD and football coach. Austin's different James Bowie school lists Jeff Ables; merging those coaching records would be a serious identity error. Paradise defeated Bowie 37–15 on October 16, leaving the Jackrabbits 4–4."
+      "Bowie ISD explicitly lists Tyler Price as its current AD and football coach. Austin's different James Bowie school lists Jeff Ables; merging those coaching records would be a serious identity error. Paradise defeated Bowie 37–15 on October 16, leaving the Jackrabbits 4–4.",
+      "Bowie High School's own August 28, 2026 home-opener announcement called the Friday contest with Callisburg a Jackrabbit Stadium game at 7:30 p.m. The district separately offers single-event tickets through Hometown Ticketing and promoted an online all-sports pass for the school year. Spectators should read the ticket/pass terms for the exact game; the school campus highway address has not been certified as the stadium's vehicle or accessible entrance."
     ],
     "faq": [
       {
@@ -4242,6 +4255,10 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "Where can I buy Bowie Jackrabbits football tickets?",
         "answer": "Montague County Bowie ISD maintains an official Event Tickets page at https://www.bowieisd.net/page/bowie-isd-tickets/ linking to Hometown Ticketing. Check availability and event terms with Bowie ISD. Do not confuse this with Austin, Arlington or another Bowie school; the district has not certified stadium vehicle gate, accessible parking or ticket prices in this source."
+      },
+      {
+        "question": "Does Bowie ISD offer a season-long athletic pass?",
+        "answer": "Bowie High School advertised an online All Sports Pass through the district's Hometown Ticketing service for 2026. Check current pass terms, which events it covers and availability directly with Bowie ISD; it is separate from a confirmed ticket to any particular future game."
       }
     ],
     "coach": {
@@ -4452,10 +4469,12 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "verifiedAt": "2026-10-17"
     },
     "schedule": {
-      "label": "Boyd ISD current athletics information",
-      "sourceUrl": "https://boydisd.net/highschool",
-      "sourceLabel": "School/district source for visitor details; separately cited football results",
-      "verifiedAt": "2026-10-17"
+      "label": "Boyd ISD Yellowjacket Football official varsity/JV schedules and school athletics news",
+      "sourceUrl": "https://boydisd.net/yellowjacketfootball",
+      "sourceLabel": "Boyd ISD first-party Yellowjacket Football section links varsity and JV schedules; district Pay Online page separately lists athletic ticket and stream entry points",
+      "verifiedAt": "2026-10-17",
+      "officialScheduleUrl": "https://boydisd.net/yellowjacketfootball",
+      "ticketUrl": "https://www.boydisd.net/payonline"
     },
     "notice": {
       "title": "Verified facts and unresolved game-day claims",
@@ -4560,7 +4579,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "overview": [
       "Boyd Yellowjackets is Boyd ISD's 11-man football team in Wise County. Its authoritative 2026–28 alignment is UIL 3A Division I District 4; that is different from older season divisions and similarly named programs.",
       "The Yellowjackets earned genuine UIL titles in 1983 (Class 2A, 16–8 over Groveton) and 2004 (Class 2A Division I, 17–14 over Newton). The 2004 team is listed at 16–0 in the historical season index. Those championships are separate from today's 3A Division I classification.",
-      "Boyd ISD's official district leadership roster calls Shawn Sparks its athletic director, and a 2026 MaxPreps staff roster separately calls Sparks head football coach. NTX Varsity Sports also interviewed and identified Sparks as Boyd head football coach in August 2026; that dated report supports the football-specific role independently from the school AD title, without claiming a district-issued hire announcement. The October 16 home match ended in a reported 44–13 loss to Peaster, leaving Boyd 2–5."
+      "Boyd ISD's official district leadership roster calls Shawn Sparks its athletic director, and a 2026 MaxPreps staff roster separately calls Sparks head football coach. NTX Varsity Sports also interviewed and identified Sparks as Boyd head football coach in August 2026; that dated report supports the football-specific role independently from the school AD title, without claiming a district-issued hire announcement. The October 16 home match ended in a reported 44–13 loss to Peaster, leaving Boyd 2–5.",
+      "For 2026 game-day planning, use Boyd ISD's Yellowjacket Football section for varsity and JV schedule updates instead of treating the campus phone as a stadium gate. The district's Pay Online menu separately offers 'Purchase Athletic Event Tickets' and 'Subscribe To Livestream Games'. These are entry points, not proof that a specific Friday game's tickets or stream are available or free. Confirm that game, entry and accessible seating with Boyd ISD."
     ],
     "faq": [
       {
@@ -4590,6 +4610,10 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       {
         "question": "Is Knox Avenue the stadium gate?",
         "answer": "The address is for Boyd High School; verify the game gate and ADA access with Boyd ISD."
+      },
+      {
+        "question": "Where can Boyd supporters find athletic tickets and livestream options?",
+        "answer": "Boyd ISD's official Pay Online menu provides 'Purchase Athletic Event Tickets' and 'Subscribe To Livestream Games', while the district's Yellowjacket Football section links varsity and JV schedules. Check each event's actual ticket listing, pass acceptance, price and stream availability directly; no blanket free-stream or ticket policy is asserted."
       }
     ]
   },
