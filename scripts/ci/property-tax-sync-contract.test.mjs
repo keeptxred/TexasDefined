@@ -49,5 +49,5 @@ test('source statuses and missing components are not coerced to zero',()=>{
   assert.match(importer,/total_rate:rateUnavailable\?null/);
   assert.match(importer,/maintenance_operations_rate:rateUnavailable\?null/);
   assert.match(schema,/texas_tax_local_verified_components_check/);
-  assert.equal(0.263594+0.076853,0.340447);
+  assert.ok(Math.abs(0.263594+0.076853-0.340447) < 1e-10);
 });
