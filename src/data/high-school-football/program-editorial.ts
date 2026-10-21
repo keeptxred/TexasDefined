@@ -67,6 +67,397 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "bremond": {
+    "slug": "bremond",
+    "intro": "Bremond's Fighting Tigers are a Robertson County program whose modern football identity is built around an exceptional state-title sequence and a school-published 2026 varsity schedule. The four UIL championship years include an early 1981 victory and a 2014–2016 three-peat, each documented separately rather than collapsed into an unsourced dynasty slogan.",
+    "theme": {
+      "accentHex": "#B33136",
+      "label": "TexasDefined editorial red accent reflecting UIL's 2015 historical red/white Tigers identity; not a license or official school mark"
+    },
+    "seo": {
+      "title": "Bremond Tigers Football 2026 | Four UIL Titles & Schedule",
+      "description": "Bremond Fighting Tigers: 1981 and 2014–16 UIL football titles, Jeff Kasowski history, 2026 official schedule, Oct. 16 results and Robertson County guide."
+    },
+    "coach": {
+      "name": "Jeff Kasowski",
+      "title": "2026 Bremond ISD athletic director and historically verified head football coach; school 2024 schedule explicitly says AD/Head Football and MaxPreps 2026 lists J. Kasowski (confirm current title with campus)",
+      "sourceUrl": "https://www.bremondisd.net/athletics",
+      "sourceLabel": "Bremond ISD 2026–27 athletics leadership names AD Jeff Kasowski; first-party 2024 schedule identifies AD/Head Football and current MaxPreps 2026 staff lists J. Kasowski",
+      "verifiedAt": "2026-10-20"
+    },
+    "campus": {
+      "address": "601 W Collins Street, Bremond, TX 76629 (district/school address; football gate not verified)",
+      "phone": "254-746-7145",
+      "sourceUrl": "https://www.bremondisd.net/athletics",
+      "sourceLabel": "Bremond ISD official campus contact and first-party 2026 varsity schedule portal",
+      "verifiedAt": "2026-10-20"
+    },
+    "schedule": {
+      "label": "Bremond ISD official 2026 varsity Tigers football schedule",
+      "sourceUrl": "https://www.bremondisd.net/athletics",
+      "sourceLabel": "Bremond ISD Athletics document library separately publishes 2026 varsity and JV/JH schedules; confirm kickoffs and ticket rules directly",
+      "verifiedAt": "2026-10-20",
+      "officialScheduleUrl": "https://www.bremondisd.net/athletics"
+    },
+    "season": {
+      "record": "7–0 through October 16, 2026 (seven third-party reported finals; confirm with Bremond ISD for corrections)",
+      "verifiedAt": "2026-10-20",
+      "sourceUrl": "https://www.maxpreps.com/tx/bremond/bremond-tigers/football/",
+      "sourceLabel": "MaxPreps Bremond varsity October 19 updated page includes October 16 Snook 63–0; its older schedule tab last updated October 11 omits that final",
+      "latestResultSourceUrl": "https://www.maxpreps.com/tx/bremond/bremond-tigers/football/",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Hamilton",
+          "site": "Home",
+          "result": "W 26–21",
+          "kickoff": "7:30 PM"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Marlin",
+          "site": "Away",
+          "result": "W 51–14",
+          "kickoff": "7:30 PM"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Hearne",
+          "site": "Home",
+          "result": "W 42–18",
+          "kickoff": "7:30 PM"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Somerville",
+          "site": "Away",
+          "district": true,
+          "result": "W 63–20",
+          "kickoff": "7:00 PM"
+        },
+        {
+          "date": "2026-10-02",
+          "opponent": "Milano",
+          "site": "Home",
+          "district": true,
+          "result": "W 59–0",
+          "kickoff": "7:00 PM"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Bartlett",
+          "site": "Away",
+          "district": true,
+          "result": "W 55–6",
+          "kickoff": "7:00 PM"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Snook",
+          "site": "Home",
+          "district": true,
+          "result": "W 63–0",
+          "kickoff": "7:00 PM"
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Burton",
+          "site": "Away",
+          "district": true,
+          "kickoff": "7:00 PM"
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Holland",
+          "site": "Away",
+          "district": true,
+          "kickoff": "7:00 PM"
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Chilton",
+          "site": "Home",
+          "district": true,
+          "kickoff": "7:00 PM"
+        }
+      ]
+    },
+    "development": {
+      "title": "Four championships across two eras: 1981 and the 2014–16 three-peat",
+      "body": "UIL football all-time appearances awards Bremond four titles across eight championship-game appearances, specifically 1981, 2014, 2015 and 2016. The 1981 Class 1A final was a 12–9 victory over Wink, while 1983, 1987, 1993 and 2007 ended as runner-up appearances. UIL's 2014–15 and 2015–16 official Bremond rosters identify Jeff Kasowski as coach, with 2014 posted at 14–0 and 2015 at 15–0. The 2015 UIL championship ended 35–20 over Albany; these are year-specific sourced achievements, not interchangeable season records.",
+      "sourceUrl": "https://www.uiltexas.org/football/all-time-appearances",
+      "sourceLabel": "UIL official all-time Bremond titles and appearances; individual 2014/2015 UIL state-team pages and archived 1981 championship result",
+      "verifiedAt": "2026-10-20"
+    },
+    "milestones": [
+      {
+        "date": "1981",
+        "title": "Bremond's first football state championship",
+        "body": "The UIL's historic football champions table reports Bremond defeating Wink 12–9 in the Class 1A final.",
+        "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/champions.html",
+        "sourceLabel": "UIL historical state champions 1981"
+      },
+      {
+        "date": "1983–2007",
+        "title": "Four further championship-game appearances without a title",
+        "body": "UIL records Bremond as finalists in 1983, 1987, 1993 and 2007. This era is part of the Tigers' eight title-game appearances, not four additional championships.",
+        "sourceUrl": "https://www.uiltexas.org/football/all-time-appearances",
+        "sourceLabel": "UIL all-time football final appearances table"
+      },
+      {
+        "date": "2014",
+        "title": "Perfect 14–0 state title",
+        "body": "Bremond's UIL state-team archive names head coach Jeff Kasowski and 14–0 season, first of a modern three-title run.",
+        "sourceUrl": "https://www.uiltexas.org/football/state-team/bremond-2014-2015-football",
+        "sourceLabel": "UIL Bremond 2014–2015 official football state team"
+      },
+      {
+        "date": "2015",
+        "title": "Second title: undefeated 15–0",
+        "body": "The UIL state team roster records the Tigers 15–0 under Kasowski and a 35–20 title-game win over Albany.",
+        "sourceUrl": "https://www.uiltexas.org/football/state-team/bremond-2015-2016-football",
+        "sourceLabel": "UIL Bremond 2015–16 state team and championship record"
+      },
+      {
+        "date": "2016",
+        "title": "Third consecutive championship",
+        "body": "UIL all-time appearances includes 2016 as Bremond's fourth overall state title, completing 2014–16 in sequence.",
+        "sourceUrl": "https://www.uiltexas.org/football/all-time-appearances",
+        "sourceLabel": "UIL all-time Bremond football state titles"
+      },
+      {
+        "date": "2026",
+        "title": "School posts separate varsity football and JV/JH schedules",
+        "body": "The official Bremond ISD athletics portal lists 2026 varsity, JV and junior-high schedules and separately identifies athletic director Jeff Kasowski.",
+        "sourceUrl": "https://www.bremondisd.net/athletics",
+        "sourceLabel": "Bremond ISD 2026–27 Athletics document library"
+      }
+    ],
+    "overview": [
+      "Bremond ISD serves Bremond in Robertson County. The 2026–28 UIL alignment places Bremond in Class 2A Division II, District 13; that modern eleven-man alignment is distinct from the historical 1981 Class 1A title class.",
+      "The Tigers' eight state-final appearances include the four losses in 1983, 1987, 1993 and 2007. The three-peat under Jeff Kasowski made Bremond a multiple-generation championship program, not simply a 2010s dynasty.",
+      "UIL's 2015 state-team roster lists red-and-white school colors at that date and names Kasowski's staff and player roster, including quarterback Roshauud Paul. The color graphic on this TexasDefined page is independent editorial design, not a copied mascot or logo.",
+      "The 2026 MaxPreps school landing page records the October 16 63–0 Snook final. Its older schedule subpage still reports only 6–0 through October 9. This guide uses the later dated seven-result ledger and labels the discrepancy instead of claiming those two pages agree.",
+      "Bremond ISD's official athletics page is the primary resource for 2026 fixtures, coach/district contact and event changes. The 601 W Collins campus address is a contact/navigation reference only; exact football field entrance, public parking, ADA arrangements and ticket availability remain unverified."
+    ],
+    "faq": [
+      {
+        "question": "How many Texas UIL football titles has Bremond won?",
+        "answer": "UIL's all-time record lists four: 1981, 2014, 2015 and 2016. The last three formed a consecutive championship run."
+      },
+      {
+        "question": "How many Bremond state-final appearances were runner-up finishes?",
+        "answer": "Four: 1983, 1987, 1993 and 2007, according to UIL. This makes eight finals and four championship wins."
+      },
+      {
+        "question": "Who was the coach during Bremond's three-peat?",
+        "answer": "UIL's official 2014 and 2015 state-team records name Jeff Kasowski as head coach. The 2026 district athletics directory still lists him as AD; verify his present football assignment directly with Bremond ISD."
+      },
+      {
+        "question": "Where is the official 2026 Bremond varsity schedule?",
+        "answer": "Bremond ISD's Athletics page posts the 2026 varsity schedule separately from its JV/JH schedule. Confirm latest kickoff, tickets and school announcements there."
+      },
+      {
+        "question": "Why does Bremond's 2026 record show 7–0 here?",
+        "answer": "MaxPreps' October 19 team page reports the October 16 Snook shutout and seven wins, but its older October 11 schedule table still shows only six games. This is a dated third-party ledger, not an official final 2026 season record."
+      },
+      {
+        "question": "Can I use 601 W Collins as the stadium parking entrance?",
+        "answer": "No. Bremond ISD lists 601 W Collins as the campus contact address; a precise football spectator gate, event parking and accessible entry were not verified. Contact the school before traveling."
+      }
+    ]
+  },
+  "brenham": {
+    "slug": "brenham",
+    "intro": "Brenham Cubs football combines a 2026 undefeated reported start with a notably different historic profile from nearby championship programs: UIL documents three football state-final appearances but no state-title wins. Brenham High School runs a dedicated official varsity athletics site with a game-by-game Cub Stadium calendar, 2026 schedule files and school-issued announcements.",
+    "theme": {
+      "accentHex": "#207C43",
+      "label": "Independent TexasDefined green editorial accent reflecting school/Cubs identity; not a licensed school mark or certified school color"
+    },
+    "seo": {
+      "title": "Brenham Cubs Football 2026 | 3 UIL Finals & Cub Stadium",
+      "description": "Brenham Cubs football: 2002, 2009 and 2013 UIL state finals, 2026 varsity results, Danny Youngs, Cub Stadium, official tickets and Washington County links."
+    },
+    "coach": {
+      "name": "Danny Youngs",
+      "title": "2026 Brenham head football coach and athletic director; school lists Youngs on football staff and as director of athletics, independent September 2026 interview states head-coach role",
+      "sourceUrl": "https://www.brenhamcubs.net/sport/football/boys/?tab=staff",
+      "sourceLabel": "Brenham High School official 2026 football staff roster lists Danny Youngs, and Brenham ISD lists him AD; Sept 2026 Beyond the Lights interview explicitly identifies him head coach",
+      "verifiedAt": "2026-10-20"
+    },
+    "campus": {
+      "address": "525 A.H. Ehrig Drive, Brenham, TX 77833 (high school athletics campus; exact stadium gate not verified)",
+      "phone": "979-277-6570",
+      "sourceUrl": "https://www.brenhamcubs.net/sport/football/boys/?tab=schedule",
+      "sourceLabel": "Official Brenham High School Athletics contact and 2026 varsity football schedule",
+      "verifiedAt": "2026-10-20"
+    },
+    "schedule": {
+      "label": "Brenham High School official Cubs varsity football calendar and 2026 schedule download",
+      "sourceUrl": "https://www.brenhamcubs.net/sport/football/boys/?tab=schedule",
+      "sourceLabel": "Brenham High School Athletics 2026–27 varsity calendar with named stadium sites, scores and separate PDF schedule, subject to school changes",
+      "verifiedAt": "2026-10-20",
+      "officialScheduleUrl": "https://www.brenhamcubs.net/sport/football/boys/?tab=schedule"
+    },
+    "season": {
+      "record": "7–0 through October 16, 2026 on dated reported results; school official portal shows only six posted finals",
+      "verifiedAt": "2026-10-20",
+      "sourceUrl": "https://www.maxpreps.com/tx/brenham/brenham-cubs/football/schedule/",
+      "sourceLabel": "MaxPreps October 17 posted 55–7 Rudder final; first-party Brenham Cubs Athletics still displays 6–0 and Oct 16 Rudder as blank, and disagrees on East View score",
+      "latestResultSourceUrl": "https://www.maxpreps.com/tx/brenham/brenham-cubs/football/schedule/",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Huntsville",
+          "site": "Home",
+          "result": "W 49–14",
+          "kickoff": "7:00 PM"
+        },
+        {
+          "date": "2026-09-03",
+          "opponent": "Georgetown East View",
+          "site": "Away",
+          "result": "W 59–16",
+          "kickoff": "7:00 PM"
+        },
+        {
+          "date": "2026-09-10",
+          "opponent": "Richmond Tomas",
+          "site": "Away",
+          "result": "W 58–7",
+          "kickoff": "6:30 PM"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Port Neches-Groves",
+          "site": "Home",
+          "result": "W 45–14",
+          "kickoff": "7:00 PM"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Bastrop",
+          "site": "Home",
+          "result": "W 40–3",
+          "kickoff": "7:00 PM"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Waco University",
+          "site": "Away",
+          "district": true,
+          "result": "W 59–0",
+          "kickoff": "7:00 PM"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Bryan Rudder",
+          "site": "Away",
+          "district": true,
+          "result": "W 55–7",
+          "kickoff": "7:00 PM"
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Waco",
+          "site": "Home",
+          "district": true,
+          "kickoff": "7:00 PM"
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Killeen Ellison",
+          "site": "Away",
+          "district": true,
+          "kickoff": "7:00 PM"
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Belton",
+          "site": "Home",
+          "district": true,
+          "kickoff": "7:00 PM"
+        }
+      ]
+    },
+    "development": {
+      "title": "Three state-final runs with no recorded football state title",
+      "body": "UIL all-time appearances lists Brenham in the Class 5A Division II football finals in 2002, 2009 and 2013, with zero championship wins across the three. That is a football-specific record; Brenham has had other successful high-school sports, but baseball championship numbers should never migrate into its football trophy case. The Cubs' 2025 third-party season archive separately reports an 11–2 finish, not a state final.",
+      "sourceUrl": "https://www.uiltexas.org/football/all-time-appearances",
+      "sourceLabel": "UIL authoritative Brenham 0 state football titles / 3 final appearances in 2002, 2009 and 2013; MaxPreps 2025 school season archive for recent background",
+      "verifiedAt": "2026-10-20"
+    },
+    "milestones": [
+      {
+        "date": "2002",
+        "title": "First listed 5A Division II title-game appearance",
+        "body": "UIL's all-time football final index lists Brenham's 2002 season as a state-final appearance. It does not award the Cubs a championship.",
+        "sourceUrl": "https://www.uiltexas.org/football/all-time-appearances",
+        "sourceLabel": "UIL football all-time appearances — Brenham"
+      },
+      {
+        "date": "2009",
+        "title": "Cubs return to the state final",
+        "body": "UIL all-time titles/appearances table lists another Brenham state-final season in 2009, with the program still without a recorded football state championship.",
+        "sourceUrl": "https://www.uiltexas.org/football/all-time-appearances",
+        "sourceLabel": "UIL all-time state-final record"
+      },
+      {
+        "date": "2013",
+        "title": "Third 5A Division II state title-game run",
+        "body": "Brenham's third listed final appearance occurred in 2013; do not misidentify a separate 2013 district title as a state championship.",
+        "sourceUrl": "https://www.uiltexas.org/football/all-time-appearances",
+        "sourceLabel": "UIL all-time state-final record"
+      },
+      {
+        "date": "2025",
+        "title": "Two-deep postseason season before current reclassification",
+        "body": "MaxPreps' season history lists Brenham at 11–2 in 2025 under Danny Youngs, separate from 2026–28 District 8 realignment.",
+        "sourceUrl": "https://www.maxpreps.com/tx/brenham/brenham-cubs/football/history/",
+        "sourceLabel": "MaxPreps 2025–26 archived Brenham football results"
+      },
+      {
+        "date": "2026",
+        "title": "Current varsity program and school-run Cub Stadium schedule",
+        "body": "Brenham High School publishes an official 2026–27 varsity schedule, linked PDF, staff directory and Cub Stadium event locations. Its October 18 announcement also provides a specific week-of-October-19 update.",
+        "sourceUrl": "https://www.brenhamcubs.net/sport/football/boys/?tab=schedule",
+        "sourceLabel": "Official Brenham High School Athletics 2026 varsity schedule and 10/18 announcement"
+      }
+    ],
+    "overview": [
+      "Brenham High School's Cubs are in Brenham, Washington County. UIL's current 2026–28 placement is Class 5A Division II District 8; historic 2002, 2009 and 2013 UIL final appearances must not be mislabeled as 2026 conference titles.",
+      "The program's championship history is important precisely because all three recorded title-game appearances were runner-up finishes. UIL's football all-time table shows 0 titles and 3 appearances. Separate baseball success or unrelated sports achievements should never inflate football trophy graphics.",
+      "Current head coach Danny Youngs is listed by Brenham High School's 2026 football staff page and identified as director of athletics on the district administration roster. A September 21, 2026 interview independently confirms Youngs as current head football coach, rather than merely assuming every school AD coaches football.",
+      "The school-run BrenhamCubs.net official athletics site lists individual varsity fixtures and locations. In 2026 it names Cub Stadium for home opponents including Huntsville, PN-G, Bastrop and Waco. The official 525 A.H. Ehrig Drive athletics contact is a school campus address, not independently proven to be the exact parking lot or accessible stadium gate.",
+      "Careful live scoring note: the official athletics table still lists the Cubs at 6–0, leaves the October 16 Bryan Rudder game unscored and calls its September East View final 59–16. MaxPreps' separately dated October 17 schedule reports October 16 Rudder as a 55–7 Brenham win, yielding 7–0, and calls the East View score 59–15. TexasDefined keeps the **school-issued East View 59–16** and labels the newer third-party Rudder result, rather than pretending the two sources agree."
+    ],
+    "faq": [
+      {
+        "question": "Has Brenham won a UIL football state championship?",
+        "answer": "UIL's all-time football appearances registry lists none. The Cubs reached three state championship games (2002, 2009 and 2013) but finished as runners-up."
+      },
+      {
+        "question": "Who is the Brenham Cubs head football coach for 2026?",
+        "answer": "Danny Youngs is listed on the school-run 2026 varsity football staff directory and by Brenham ISD as director of athletics. A September 2026 coach interview separately identifies him as head football coach."
+      },
+      {
+        "question": "Where is the official Brenham football schedule?",
+        "answer": "The school's official BrenhamCubs.net Boys Football varsity schedule includes 2026–27 games, named venues and the school-hosted downloadable 2026 football schedule. Confirm changes directly there."
+      },
+      {
+        "question": "Why do official Brenham Cubs and MaxPreps records differ?",
+        "answer": "The school athletics calendar shows 6–0 and no October 16 Rudder final, while a newer MaxPreps entry records a 55–7 Cubs win that would make 7–0. They also differ 59–16 versus 59–15 on September's East View game. This guide favors the official East View score and explicitly attributes the newer Rudder result."
+      },
+      {
+        "question": "Do Brenham home games take place at Cub Stadium?",
+        "answer": "The 2026 official school varsity calendar names Cub Stadium for listed home football games. Use the specific event listing; game-day parking entrance, ADA route, seating availability and tickets were not independently verified here."
+      },
+      {
+        "question": "What classification does Brenham football play in for 2026?",
+        "answer": "UIL's 2026–28 alignment places Brenham in 5A Division II, District 8. Its 2002, 2009 and 2013 title-game appearances are historical and not present-day district placements."
+      }
+    ]
+  },
   "brackettville-brackett": {
     "slug": "brackettville-brackett",
     "intro": "Brackett's Tigers represent Brackett ISD in Brackettville, Kinney County. The school posts its own 2026 varsity schedule; the UIL places Brackettville Brackett in 2A Division II, District 14. This independently researched guide separates the school's official schedule from third-party result reporting and identifies what a visiting supporter still needs to confirm.",
