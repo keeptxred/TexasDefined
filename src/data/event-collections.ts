@@ -1,6 +1,6 @@
 import type { TexasEvent, TexasRegion } from "./types";
 
-export type EventCollectionKind = "category" | "region";
+export type EventCollectionKind = "category" | "region" | "topic";
 
 export interface EventCollectionDefinition {
   slug: string;
@@ -13,11 +13,53 @@ export interface EventCollectionDefinition {
   planningIntro: string;
   planningPoints: [string, string, string];
   kind: EventCollectionKind;
-  value: TexasEvent["category"] | TexasRegion;
+  value: TexasEvent["category"] | TexasRegion | "dia-de-los-muertos" | "texas-independence";
   relatedPaths: string[];
 }
 
+// Reviewed permanent guides only. The topic hubs do not invent a single statewide
+// multi-city Event occurrence; each linked celebration has its own organizer and date.
+export const EVENT_TOPIC_SLUGS: Record<string, readonly string[]> = {
+  "dia-de-los-muertos": [
+    "san-antonio-muertos-fest", "meca-dia-de-muertos-festival",
+    "viva-la-vida-festival-parade", "los-muertos-bailan",
+  ],
+  "texas-independence": [
+    "washington-on-the-brazos-texas-independence-day", "san-jacinto-day-celebration",
+  ],
+};
+
 export const EVENT_COLLECTIONS: EventCollectionDefinition[] = [
+  {
+    slug: "dia-de-los-muertos", path: "/events/dia-de-los-muertos",
+    title: "Día de los Muertos Festivals in Texas", eyebrow: "City-by-city cultural celebrations",
+    description: "Compare Texas Día de los Muertos celebrations in San Antonio, Houston and Austin with verified organizer dates, parade information and local visitor guidance.",
+    lead: "Día de los Muertos is a tradition of honoring loved ones who have died; it is not interchangeable with Halloween. Public observances differ substantially between cities: San Antonio hosts several independent events, Houston's MECA organizes its own cultural gathering, and Austin's Viva la Vida has a different parade schedule. This directory links to separate verified event guides rather than treating the celebrations as one traveling festival.",
+    planningTitle: "Choose the city and the particular event, not merely the holiday",
+    planningIntro: "Most observances cluster around late October and November 1–2, but the parade, market, altar exhibit and ceremonial hours depend on each local organizer and can change between annual editions.",
+    planningPoints: [
+      "Find the actual organizer and event venue; San Antonio's River Parade, Muertos Fest and other community programs are not one shared admission or street-closure plan.",
+      "Respect altars and personal memorials: do not move offerings, ask before photographing participants, and check rules for candle use, pets and crowded parade routes.",
+      "Use the published city-specific dates before arranging travel, then check each event's current accessibility, street closure and ticket information.",
+    ],
+    kind: "topic", value: "dia-de-los-muertos",
+    relatedPaths: ["/events/arts-culture", "/events/seasonal-events", "/events/south-texas-events", "/events/gulf-coast-events"],
+  },
+  {
+    slug: "texas-independence", path: "/events/texas-independence",
+    title: "Texas Independence Day & San Jacinto Heritage Events", eyebrow: "Texas history and living-history events",
+    description: "Plan Texas Independence Day celebrations around March 2 and San Jacinto commemorations around April 21, with official event sources and historic-site visitor guides.",
+    lead: "Texas Independence Day marks the March 2, 1836 adoption of the Texas Declaration of Independence at Washington-on-the-Brazos. The Battle of San Jacinto occurred April 21, 1836, and special reenactment weekends may fall on nearby dates. They are distinct commemorations and should never share an invented generic annual schedule.",
+    planningTitle: "Know which historical moment you are visiting",
+    planningIntro: "A state holiday or battle anniversary is not itself proof of a particular publicly scheduled reenactment. Historic-site operating hours, ceremony admission and special-program dates must all be checked separately.",
+    planningPoints: [
+      "For March 2 heritage, begin with Washington-on-the-Brazos and the organizer's current Independence Day program; ordinary historic-site tickets are not necessarily event admission.",
+      "For San Jacinto, distinguish April 21, the historical battle anniversary, from any separately announced public living-history weekend and reenactment times.",
+      "Choose a visit based on accessibility, site preservation rules, age-appropriate interpretation and current museum opening hours—not on assumptions from last year's event.",
+    ],
+    kind: "topic", value: "texas-independence",
+    relatedPaths: ["/events/arts-culture", "/events/seasonal-events", "/texas-history", "/events/gulf-coast-events"],
+  },
   {
     slug: "rodeos",
     path: "/events/rodeos",
