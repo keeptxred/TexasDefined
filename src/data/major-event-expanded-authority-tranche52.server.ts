@@ -254,24 +254,6 @@ const records: MajorEventAuthorityRecord[] = [
     "officialUrl": "https://www.brazosnightswaco.com/brazos-nights",
     "sourceCheckedAt": "2026-10-21",
     "dateNote": "The four 2026 concerts were April 17, May 8, June 19 and July 4, not a continuous April–July festival. All dates are completed; 2027 dates remain unannounced.",
-    "occurrenceWindows": [
-      {
-        "label": "Spring concert",
-        "startDate": "2026-04-17"
-      },
-      {
-        "label": "Spring concert",
-        "startDate": "2026-05-08"
-      },
-      {
-        "label": "Summer concert",
-        "startDate": "2026-06-19"
-      },
-      {
-        "label": "Fourth on the Brazos",
-        "startDate": "2026-07-04"
-      }
-    ],
     "whyItMatters": "City of Waco's long-running free concert series pairs live music with food vendors and evenings along the Brazos River. Most concerts happen at Indian Spring Park by the historic Suspension Bridge; the July Fourth finale uses a different venue near McLane Stadium. Visitors need the correct date and location, not a single misleading continuous festival window.",
     "quickFacts": [
       {
