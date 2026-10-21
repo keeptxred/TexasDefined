@@ -573,6 +573,32 @@ function Page() {
           {editorial.theme && editorial.photo && <p className="mt-4 text-xs text-muted-foreground">{editorial.theme.label}</p>}
         </div>
         <div className="grid gap-4 md:grid-cols-2">
+          {['brady', 'breckenridge'].includes(slug) && (
+            <figure
+              className="min-w-0 border border-border bg-surface p-4 sm:p-6 md:col-span-2"
+              aria-label={`${footballName}: sourced historical football milestones graphic`}
+            >
+              <figcaption className="mb-4">
+                <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Historical football · source-derived graphic</p>
+                <p className="mt-1 font-display text-xl font-semibold">The documented years, not invented 2026 scores</p>
+                <p className="mt-1 text-xs leading-5 text-muted-foreground">Original TexasDefined chronological visual. Each entry links to its attributed history source below; no school-owned logo or photograph.</p>
+              </figcaption>
+              <ol className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {editorial.milestones.map((milestone) => (
+                  <li
+                    key={milestone.date + milestone.title}
+                    className="min-w-0 border border-border border-l-4 bg-background p-3"
+                    style={{ borderLeftColor: editorial.theme?.accentHex || '#64748b' }}
+                    aria-label={`${milestone.date}: ${milestone.title}`}
+                  >
+                    <span className="font-display text-xl font-semibold text-foreground">{milestone.date}</span>
+                    <p className="mt-1 break-words text-sm font-medium leading-6 text-foreground">{milestone.title}</p>
+                    <a href={milestone.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-2 inline-block text-xs underline underline-offset-4">Historical source ↗</a>
+                  </li>
+                ))}
+              </ol>
+            </figure>
+          )}
           {editorial.milestones.map((milestone) => <article key={`${milestone.date}:${milestone.title}`} className="border-l-4 bg-surface p-5 sm:p-6" style={{ borderLeftColor: editorial.theme?.accentHex }}>
             <p className="font-display text-2xl font-semibold text-surface-foreground">{milestone.date}</p>
             <h3 className="mt-3 font-display text-2xl leading-tight">{milestone.title}</h3>
