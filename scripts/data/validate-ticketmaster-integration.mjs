@@ -79,6 +79,11 @@ try {
   const view = buildGlobalEventCalendarServer(largeCatalog, { featured: '', location: 'city:San Antonio', start: '', end: '', category: '', venue: '' });
   assert.equal(view.results.length, 1);
   assert.equal(view.results[0].id, records[0].id);
+  const guideOnly = buildGlobalEventCalendarServer([
+    { ...records[0], id: 'guide-example', guidePath: '/event/example' },
+    { ...records[0], id: 'calendar-example', guidePath: '/events?start=' + date },
+  ], { featured: '', location: '', start: '', end: '', category: 'guides', venue: '' });
+  assert.deepEqual(guideOnly.results.map(row => row.id), ['guide-example']);
   const all = buildGlobalEventCalendarServer(largeCatalog, { featured: '', location: '', start: '', end: '', category: '', venue: '' });
   assert.equal(all.results.length, 48);
   assert.equal(all.totalCount, 301);
