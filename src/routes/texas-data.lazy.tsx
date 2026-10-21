@@ -29,14 +29,14 @@ function Page() {
   const populationGrowth = currentPopulation?.rows.find((row) => row.label.includes('Numeric population growth'))?.value;
   const domesticMigration = currentPopulation?.rows.find((row) => row.label === 'Net domestic migration')?.value;
   const homeownersPremium = homeowners?.rows.find((row) => row.label === '2025')?.value;
-  const dfwPayrolls = payrolls?.rows.find((row) => row.label === 'Dallas–Fort Worth–Arlington')?.value;
+  const majorMetroPayrolls = payrolls?.rows.filter((row) => ['Dallas–Fort Worth–Arlington', 'Houston–Pasadena–The Woodlands', 'Austin–Round Rock–San Marcos', 'San Antonio–New Braunfels'].includes(row.label)) ?? [];
 
   const headlineStats = [
     population ? { value: numberFormatter.format(population), label: 'Texas population', note: 'July 1, 2025 Census estimate', to: '/texas-data/texas-population-and-migration-2025' } : null,
     populationGrowth ? { value: `+${numberFormatter.format(populationGrowth)}`, label: 'Population growth', note: 'July 2024 to July 2025', to: '/texas-data/texas-population-and-migration-2025' } : null,
     domesticMigration ? { value: `+${numberFormatter.format(domesticMigration)}`, label: 'Net domestic migration', note: 'July 2024 to July 2025', to: '/texas-data/texas-population-and-migration-2025' } : null,
     homeownersPremium ? { value: currencyFormatter.format(homeownersPremium), label: 'Average homeowners premium', note: '2025 preliminary statewide average', to: '/texas-data/texas-homeowners-premium-history' } : null,
-    dfwPayrolls ? { value: numberFormatter.format(dfwPayrolls), label: 'DFW nonfarm payrolls', note: 'August 2026 preliminary', to: '/texas-data/texas-metro-payrolls-august-2026' } : null,
+
   ].filter(Boolean) as Array<{ value: string; label: string; note: string; to: string }>;
 
   const normalizedQuery = searchQuery.trim().toLowerCase();
@@ -63,13 +63,22 @@ function Page() {
           <h2 id="snapshot-heading" className="mt-2 font-display text-3xl sm:text-4xl">Texas at a glance</h2>
           <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">A few selected Texas statewide and metropolitan indicators from the official-source datasets below. Dates matter: each number is labeled with its data vintage rather than presented as a timeless fact.</p>
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-5">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4">
           {headlineStats.map((stat, index) => <Link key={stat.label} to={stat.to} className={`group border-t border-border py-6 sm:px-5 ${index > 0 ? 'lg:border-l' : ''}`}>
             <p className="font-display text-3xl leading-none sm:text-4xl">{stat.value}</p>
             <h3 className="mt-3 text-sm font-semibold group-hover:text-primary">{stat.label}</h3>
             <p className="mt-1 text-xs leading-5 text-muted-foreground">{stat.note}</p>
           </Link>)}
         </div>
+      </section>}
+
+      {majorMetroPayrolls.length > 0 && <section aria-labelledby="metro-snapshot-heading" className="border-b border-border py-10">
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <div><p className="eyebrow text-primary">Comparable metro employment</p><h2 id="metro-snapshot-heading" className="mt-2 font-display text-3xl">Major Texas metro payrolls</h2></div>
+          <Link to="/texas-data/$datasetSlug" params={{ datasetSlug: 'texas-metro-payrolls-august-2026' }} className="text-sm font-semibold text-primary underline underline-offset-4">Full dataset & methodology →</Link>
+        </div>
+        <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">August 2026 preliminary BLS nonfarm payroll jobs, not resident workers or a measure of job quality. Compare metros using the same source and month.</p>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{majorMetroPayrolls.map((metro) => <div key={metro.label} className="border-t border-border pt-4"><p className="font-display text-2xl">{numberFormatter.format(metro.value)}</p><p className="mt-2 text-sm text-muted-foreground">{metro.label}</p></div>)}</div>
       </section>}
 
       <section className="py-12" aria-labelledby="featured-heading">
@@ -85,6 +94,7 @@ function Page() {
             <h3 className="mt-2 font-display text-3xl leading-tight"><Link to={dataset.path} className="hover:text-primary">{dataset.title}</Link></h3>
             <p className="mt-3 text-sm leading-7 text-muted-foreground">{dataset.description}</p>
             <p className="mt-4 text-xs leading-5 text-muted-foreground">Source: {dataset.source}</p>
+            {dataset.path === '/texas-data/city-county-relationships' && <p className="mt-2 text-xs leading-5 text-muted-foreground">Coverage: entries currently maintained by Texas Defined, not an exhaustive list of every incorporated municipality or census-designated place in Texas. See the dataset for its current record count.</p>}
             {dataset.path === '/sports-venues/compare' && <p className="mt-2 text-xs leading-5 text-muted-foreground">Capacity and opening fields remain blank when the verified profile does not contain a usable value.</p>}
             <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
               <Link to={dataset.path} className="border-b border-primary text-primary">Explore dataset →</Link>
@@ -148,12 +158,34 @@ function Page() {
           </div>
           <div>
             <p className="max-w-3xl text-sm leading-7 text-muted-foreground">Texas Defined uses sources including the U.S. Census Bureau, U.S. Bureau of Labor Statistics, Texas Comptroller, Texas Department of Insurance and Texas Department of Transportation. Dataset pages identify the responsible source, methodology, data vintage and update date. For official decisions, deadlines, eligibility or current legal requirements, follow the source link to the responsible agency.</p>
+            <ul className="mt-5 grid gap-2 text-sm sm:grid-cols-2">
+              {[
+                ['U.S. Census Bureau', 'https://www.census.gov/'],
+                ['U.S. Bureau of Labor Statistics', 'https://www.bls.gov/'],
+                ['Texas Comptroller', 'https://comptroller.texas.gov/'],
+                ['Texas Department of Insurance', 'https://www.tdi.texas.gov/'],
+                ['Texas Department of Transportation', 'https://www.txdot.gov/'],
+                ['Texas State Library and Archives Commission', 'https://www.tsl.texas.gov/'],
+              ].map(([name, url]) => <li key={url}><a href={url} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">{name} ↗</a></li>)}
+            </ul>
+            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Catalog links describe source organizations, not proof that every record was checked today. Each brief's last-updated date applies only to that dataset; source publication date and last verification are distinct. Where independent Texas Defined research is used, its methods and limitations are documented on the research page.</p>
             <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">A newer publication can supersede an older estimate. Texas Defined keeps historical briefs when they add comparison value, but labels their year and methodology rather than silently presenting old data as current.</p>
           </div>
         </div>
       </section>
 
-      <section className="border-t border-border py-12" aria-labelledby="research-heading"><h2 id="research-heading" className="font-display text-3xl">Insurance research</h2><Link to="/texas-data/research/texas-homeowners-premiums-vs-coverage" className="mt-3 inline-block border-b border-primary text-primary">Texas homeowners premiums vs. coverage →</Link></section>
+      <section className="border-t border-border py-12" aria-labelledby="research-heading">
+        <div className="grid gap-8 lg:grid-cols-[15rem_1fr]">
+          <div><p className="eyebrow text-primary">Original analysis</p><h2 id="research-heading" className="mt-2 font-display text-4xl">Texas Defined insurance research</h2></div>
+          <div><h3 className="font-display text-3xl">Homeowners premiums versus coverage</h3>
+            <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Explore the historical relationship between statewide homeowners premiums and reported coverage levels. The 2025 premium is preliminary, and an average is not an individual household quote. Review source methodology, definitions and limits before making comparisons.</p>
+            <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
+              <Link to="/texas-data/research/texas-homeowners-premiums-vs-coverage" className="border-b border-primary text-primary">Read original analysis →</Link>
+              <Link to="/texas-data/$datasetSlug" params={{datasetSlug: 'texas-homeowners-premium-history'}} className="border-b border-primary text-primary">See TDI premium history →</Link>
+            </div>
+          </div>
+        </div>
+      </section>
       <section className="border-t border-border py-12" aria-labelledby="help-heading">
         <div className="grid gap-8 lg:grid-cols-[15rem_1fr]">
           <div><p className="eyebrow text-primary">Use the numbers</p><h2 id="help-heading" className="mt-2 font-display text-4xl">Where to go next</h2></div>
