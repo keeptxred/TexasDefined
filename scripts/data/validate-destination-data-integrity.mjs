@@ -20,7 +20,11 @@ const map = fs.readFileSync(path.join(root, 'src/components/editorial/MapPreview
 const remote = fs.readFileSync(path.join(root, 'src/data/explore-remote.ts'), 'utf8');
 // Destination layout regressions belong in this existing integrity gate so spacing fixes cannot silently drift.
 
- // Rendering a complete authority guide twice repeats the same research,
+
+
+const errors = [];
+
+// Rendering a complete authority guide twice repeats the same research,
  // itineraries and sources, and makes real visitor answers harder to find.
  // Both existing and future destinations must share one routing decision.
  for (const [name, source, required] of [
@@ -34,6 +38,7 @@ const remote = fs.readFileSync(path.join(root, 'src/data/explore-remote.ts'), 'u
    ['relationship full-guide slot', authorityRelationships, [
      'const hasExtendedAuthorityGuide = shouldRenderFullDestinationAuthorityGuide(destination)',
      '<DestinationAuthorityGuide destination={destination}',
+     'topAttractionRank && hasExtendedAuthorityGuide',
    ]],
    ['inline guide sections', authoritySections, [
      'const hasSeparateAuthorityGuide = shouldRenderFullDestinationAuthorityGuide(destination)',
@@ -48,8 +53,6 @@ const remote = fs.readFileSync(path.join(root, 'src/data/explore-remote.ts'), 'u
    }
  }
 
-
-const errors = [];
 
 for (const feature of [
   'function hasValidCoordinates',
