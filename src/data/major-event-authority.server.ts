@@ -27,11 +27,18 @@ export type MajorEventAuthorityRecord = MajorEventIndexRecord & Omit<MajorEventA
 const majorEventAuthorityDetails: MajorEventAuthorityDetails[] = [
   {
     slug: "grapefest",
-    whyItMatters: "The festival is a strong North Texas fall-travel anchor because it combines a walkable historic downtown with a large scheduled event.",
+    whyItMatters: "The 41st GrapeFest is scheduled for September 16–19, 2027 in historic downtown Grapevine, turning the walkable Main Street district into a four-day celebration of Texas and international wine, live entertainment and food. Unlike a general winery tour, tasting sessions can require separately timed purchases in addition to festival admission.",
+    quickFacts: [
+      { label: "2027 dates", value: "September 16–19, 2027" },
+      { label: "Venue", value: "Historic Main Street, Grapevine" },
+      { label: "Thursday", value: "Organizer currently advertises free entry" },
+      { label: "Saturday admission", value: "Organizer lists adult $12; reconfirm before purchase" },
+    ],
     planningSections: [
-      { title: "Choose the day first", body: "Admission rules and hours vary by day. Decide whether you want Thursday, Friday evening or the heavier weekend crowd before locking in lodging and arrival time." },
-      { title: "Treat downtown as the venue", body: "Build in walking time and use the organizer's current parking and transportation instructions before leaving home." },
-      { title: "Make it a weekend", body: "Keep the festival as the fixed point, then add Main Street, dining and other Tarrant County stops around the hours you plan to attend." },
+      { title: "Understand the daily admission pattern", body: "The organizer currently posts complimentary admission Thursday, paid Friday entry after 5 p.m., and paid weekend admission. The 2027 web table contains a contradictory Sunday date that conflicts with its confirmed September 16–19 festival header, so check the final posted hours and any corrections before traveling." },
+      { title: "Budget separately for tastings", body: "The People's Choice and other wine experiences are special festival sessions rather than unlimited tastings included with a general gate ticket. Check session start times, ID requirements, availability, designated-driver options and the organizer's current ticket rules." },
+      { title: "Use walkable historic downtown as your base", body: "Historic Main Street is the festival footprint, which affects vehicle access and parking. Arrive with a current street map or published shuttle plan; if staying in Grapevine, choose a base that lets your group travel safely after evening tastings." },
+      { title: "Plan for families and non-drinkers too", body: "GrapeFest also brings food, performers and downtown atmosphere. Wine tastings are age-restricted, but a family visit may focus on live entertainment or the Main Street environment. Confirm specific children's programming and festival accessibility details before setting your schedule." },
     ],
     relatedLinks: [
       { href: "/event/texas-rose-festival", label: "Texas Rose Festival", description: "Compare another major North and East Texas fall festival weekend." },
