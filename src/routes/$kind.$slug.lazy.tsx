@@ -173,6 +173,8 @@ const batch001FootballCountyLinks: Record<string, { name: string; href: string; 
 // Independently researched Batch 002 and Batch 003 county links. Lists retain
 // multiple teams in the same county rather than replacing an existing card.
 const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: string; context: string }>> = {
+  'robertson': [{ name: 'Bremond Tigers', slug: 'bremond', context: 'Bremond ISD Tigers: 1981 UIL title, Jeff Kasowski 2014–16 three-peat and dated 2026 season with first-party schedule' }],
+  'washington': [{ name: 'Brenham Cubs', slug: 'brenham', context: 'Brenham High School: 2002, 2009 and 2013 UIL title-game runs, 2026 Cub Stadium varsity schedule and sources' }],
   'kinney': [{ name: 'Brackett Tigers', slug: 'brackettville-brackett', context: 'Brackett ISD in Brackettville: official 2026 varsity schedule, 2025 postseason history and Tiger Stadium visitor-source cautions' }],
   'mcculloch': [{ name: 'Brady Bulldogs', slug: 'brady', context: 'Brady High School: 1956/1957 finals, unusual forfeiture-awarded 1959 UIL title and official 2026 ticket details' }],
   'stephens': [{ name: 'Breckenridge Buckaroos', slug: 'breckenridge', context: 'Breckenridge High School: six UIL title awards including two co-champion ties, and Buckaroo Stadium guide' }],
