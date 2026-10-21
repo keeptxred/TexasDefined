@@ -16,7 +16,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: dallas-visual-\${{ github.event.workflow_run.head_sha || github.sha }}
+  group: dallas-visual-${{ github.event.workflow_run.head_sha || github.sha }}
   cancel-in-progress: true
 
 jobs:
@@ -44,7 +44,7 @@ jobs:
       - name: Check out exact successful production commit
         uses: actions/checkout@v4
         with:
-          ref: \${{ github.event.workflow_run.head_sha || github.sha }}
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
           fetch-depth: 2
       - name: Scope browser visits to Dallas-related releases only
         id: scope
@@ -78,7 +78,7 @@ jobs:
       - name: Verify six desktop and mobile Dallas page scenarios
         if: steps.scope.outputs.changed == 'yes'
         env:
-          TARGET_DEPLOY_SHA: \${{ github.event.workflow_run.head_sha || github.sha }}
+          TARGET_DEPLOY_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
         run: |
           node --check scripts/ci/verify-dallas-hour-guides-browser.mjs
           node scripts/ci/verify-dallas-hour-guides-browser.mjs --self-test
@@ -87,7 +87,7 @@ jobs:
         if: always() && steps.scope.outputs.changed == 'yes'
         uses: actions/upload-artifact@v4
         with:
-          name: dallas-hour-guides-visual-\${{ github.run_id }}
+          name: dallas-hour-guides-visual-${{ github.run_id }}
           path: artifacts/dallas-hour-guides-browser/
           if-no-files-found: warn
           retention-days: 14
