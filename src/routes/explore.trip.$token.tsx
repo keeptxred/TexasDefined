@@ -195,7 +195,7 @@ function LegacySharedTripPage() {
           <ul className="mt-3 flex flex-wrap gap-2">
             {trip.days.map((day, index) => (
               <li key={`${day.day}-${index}`}>
-                <a href={`#trip-day-${index + 1}`} className="inline-flex rounded-md border px-3 py-2 text-sm text-primary hover:bg-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2">
+                <a href={`#trip-day-${index + 1}`} className="inline-flex rounded-md border px-3 py-2 text-sm text-primary hover:bg-muted">
                   Day {day.day} · {day.stops.length} {day.stops.length === 1 ? "stop" : "stops"}
                 </a>
               </li>
@@ -205,7 +205,7 @@ function LegacySharedTripPage() {
 
         <div className="mt-10 space-y-10">
           {trip.days.map((day, index) => (
-            <section id={`trip-day-${index + 1}`} key={`${day.day}-${index}-${day.date || "undated"}`} className="scroll-mt-6">
+            <section id={`trip-day-${index + 1}`} key={`${day.day}-${index}-${day.date || "undated"}`}>
               <h2 className="border-b pb-2 font-display text-3xl">
                 Day {day.day}{day.date ? ` · ${formatDate(day.date)}` : ""}
               </h2>
