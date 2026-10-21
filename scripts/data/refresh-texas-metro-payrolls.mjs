@@ -142,7 +142,11 @@ async function fredSource() {
     const body = await response.text();
     // FRED sometimes responds with an HTML graph to a combined id= request.
     // Do not treat an HTML 200 as a successful data response.
-    if (/^(?:observation_date|DATE|Date),/i.test(body.trimStart().replace(/^\uFEFF/, ''))) {
+    const fields = body.trimStart().replace(/^\uFEFF/, '').split(/\r?\n/, 1)[0]
+      .split(',').map(value => value.trim().replace(/^"|"$/g, ''));
+    if (fields.length === fredSeries.length + 1 &&
+        ['date', 'observation_date'].includes(fields[0]?.toLowerCase()) &&
+        fredSeries.every(id => fields.slice(1).includes(id))) {
       return body;
     }
   }
