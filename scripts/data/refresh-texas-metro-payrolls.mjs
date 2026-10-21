@@ -14,6 +14,16 @@ const fredSeries = [
   'COLL748NAN', 'WACO348NAN', 'AMAR148NAN', 'TYLE348NAN',
 ];
 const fredCsvUrl = 'https://fred.stlouisfed.org/graph/fredgraph.csv?id=' + fredSeries.join(',');
+const officialApiUrl = 'https://api.bls.gov/publicAPI/v2/timeseries/data/';
+// These are the official BLS Texas published Current Employment Statistics
+// metro total-nonfarm, not-seasonally-adjusted, thousands-of-jobs series.
+const blsMetroSeries = [
+  'SMU48191000000000001', 'SMU48264200000000001', 'SMU48124200000000001',
+  'SMU48417000000000001', 'SMU48213400000000001', 'SMU48325800000000001',
+  'SMU48185800000000001', 'SMU48311800000000001', 'SMU48151800000000001',
+  'SMU48177800000000001', 'SMU48473800000000001', 'SMU48111000000000001',
+  'SMU48463400000000001',
+];
 
 const canonicalAreas = [
   ['Dallas–Fort Worth–Arlington','Dallas-Fort Worth-Arlington'],
@@ -185,10 +195,61 @@ async function fredSource() {
     date + ',' + entries.map(row => row.value).join(',') + '\n';
 }
 
+
+export function parseBlsApiResponse(payload, previous, checkedAt = new Date().toISOString().slice(0, 10)) {
+  if (payload?.status !== 'REQUEST_SUCCEEDED' || !Array.isArray(payload.Results?.series) ||
+      payload.Results.series.length !== blsMetroSeries.length) {
+    throw new Error('Official BLS API did not return exactly 13 successful metro series');
+  }
+  const byId = new Map(payload.Results.series.map(item => [item.seriesID, item]));
+  if (byId.size !== blsMetroSeries.length || blsMetroSeries.some(id => !byId.has(id))) {
+    throw new Error('Official BLS API metro series identities incomplete');
+  }
+  const latest = blsMetroSeries.map(id => {
+    const source = byId.get(id);
+    const values = source.data?.filter(d => /^M(0[1-9]|1[0-2])$/.test(d.period) &&
+      /^\d{4}$/.test(d.year) && /^\d+(?:\.\d+)?$/.test(String(d.value).replace(/,/g, '')))
+      .map(d => ({ month: d.year + '-' + d.period.slice(1), value: Math.round(Number(String(d.value).replace(/,/g, '')) * 1000) }))
+      .sort((a, b) => a.month.localeCompare(b.month));
+    const newest = values?.at(-1);
+    if (!newest) throw new Error('Official BLS metro has no valid monthly observation: ' + id);
+    return newest;
+  });
+  if (latest.some(row => row.month !== latest[0].month)) {
+    throw new Error('Official BLS metro series have mismatched release months');
+  }
+  const rows = latest.map((row, i) => ({ label: canonicalAreas[i][0], value: row.value }));
+  const same = latest[0].month === previous.releaseMonth &&
+    rows.every((row, i) => previous.rows[i]?.label === row.label && previous.rows[i]?.value === row.value);
+  return {
+    releaseMonth: latest[0].month,
+    publishedDate: same ? previous.publishedDate : checkedAt,
+    sourceUrl: officialApiUrl,
+    units: 'total nonfarm payroll jobs, not seasonally adjusted',
+    rows,
+  };
+}
+async function blsApiSource(previous) {
+  const response = await fetch(officialApiUrl, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json', accept: 'application/json' },
+    body: JSON.stringify({
+      seriesid: blsMetroSeries,
+      startyear: String(new Date().getUTCFullYear() - 1),
+      endyear: String(new Date().getUTCFullYear()),
+    }),
+    signal: AbortSignal.timeout(25_000),
+  });
+  if (response.status !== 200) throw new Error('Official BLS public API HTTP ' + response.status);
+  const payload = await response.json();
+  return parseBlsApiResponse(payload, previous);
+}
+
 export function validateFresh(data, previous) {
   if (!/^\d{4}-\d{2}$/.test(data.releaseMonth) || !/^\d{4}-\d{2}-\d{2}$/.test(data.publishedDate) ||
       !(data.sourceUrl.startsWith('https://www.bls.gov/news.release/archives/metro_') ||
-        data.sourceUrl.startsWith('https://fred.stlouisfed.org/graph/fredgraph.csv?id='))) {
+        data.sourceUrl.startsWith('https://fred.stlouisfed.org/graph/fredgraph.csv?id=') ||
+        data.sourceUrl === officialApiUrl)) {
     throw new Error('Malformed BLS period or provenance');
   }
   if (data.releaseMonth < previous.releaseMonth) throw new Error('New BLS release is older than the published snapshot');
@@ -222,14 +283,24 @@ export async function refresh({ fetchSource = official, read = p => fs.readFile(
     data = { ...release, units: 'total nonfarm payroll jobs, not seasonally adjusted', rows };
   } catch (error) {
     console.warn('Direct BLS source failed; checking Federal Reserve BLS-series distribution: ' + String(error));
-    data = parseFredCsv(await fredSource(), previous);
+    try {
+      data = parseFredCsv(await fredSource(), previous);
+    } catch (fredError) {
+      console.warn('Federal Reserve source failed; checking official BLS public API: ' + String(fredError));
+      data = await blsApiSource(previous);
+    }
   }
   validateFresh(data, previous);
-  if (JSON.stringify(data) === JSON.stringify(previous)) {
+  // Same validated observation does not require another deploy just because
+  // it was retrieved from a different official endpoint.
+  const valuesUnchanged = data.releaseMonth === previous.releaseMonth &&
+    data.rows.every((row, index) => row.label === previous.rows[index]?.label &&
+      row.value === previous.rows[index]?.value);
+  if (valuesUnchanged) {
     console.log('BLS metros reviewed; unchanged ' + data.releaseMonth + ' (' + data.rows.length + ' metros)');
     return false;
   }
-  const updated = release.publishedDate;
+  const updated = data.publishedDate;
   const bridge = await read(bridgePath);
   const match = bridge.match(/(\{ slug: 'texas-metro-payrolls-latest', updated: ')(\d{4}-\d{2}-\d{2})(' \})/);
   if (!match) throw new Error('Texas Data sitemap latest BLS updated marker missing');
