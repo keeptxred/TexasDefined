@@ -67,6 +67,241 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "bryan": {
+    "slug": "bryan",
+    "intro": "Bryan High School's Vikings connect modern District 12-6A football to a rare piece of Texas UIL history: a 35–13 championship win over Dallas Oak Cliff in 1921, with Charles Hudson coaching a 9–1–1 team. The current 2026 Vikings are a separate football chapter under first-year head coach and Bryan High alumnus Blake Joseph, whom Bryan ISD formally appointed in January. This guide distinguishes Bryan High from Bryan Rudder, separates its 3450 Campus Drive school from Merrill Green Stadium, and gives date-stamped 2026 results instead of relying on an October 4 stale schedule.",
+    "theme": {
+      "accentHex": "#234F87",
+      "label": "Independent TexasDefined navy-blue accent reflecting the Bryan Viking Club's public school blue-and-silver cheer and Bryan ISD Viking identity; not an official logo or licensed mark"
+    },
+    "seo": {
+      "title": "Bryan Vikings Football | 1921 UIL Title, 2026 Scores & Stadium",
+      "description": "Bryan High Vikings: UIL's 1921 state title 35–13, 2026 coach Blake Joseph, 1–7 reported record, Merrill Green Stadium and official Bryan ISD football tickets."
+    },
+    "coach": {
+      "name": "Blake Joseph",
+      "title": "Bryan ISD-appointed 2026 Bryan High head football coach and campus athletic coordinator; 2005 Bryan High graduate",
+      "sourceUrl": "https://www.bryanisd.org/o/bisd/article/2639498",
+      "sourceLabel": "Bryan ISD January 16 2026 first-party appointment announcement; overrides MaxPreps older R. Tullos staff listing",
+      "verifiedAt": "2026-10-21"
+    },
+    "campus": {
+      "address": "3450 Campus Drive, Bryan, TX 77802 (Bryan High School, not Merrill Green spectator gate)",
+      "phone": "979-209-2400",
+      "sourceUrl": "https://bryanhs.bryanisd.org/",
+      "sourceLabel": "Official Bryan High School 2026 site footer with current campus address and phone",
+      "verifiedAt": "2026-10-21"
+    },
+    "schedule": {
+      "label": "Bryan Vikings first-party 2026 varsity football schedule and Bryan ISD-managed Merrill Green home-game admission",
+      "sourceUrl": "https://www.bryanvikings.net/sport/football/boys/",
+      "sourceLabel": "Bryan High School Athletics 2026–27 varsity fixture grid, with unfinished scores, times and game locations; Bryan ISD Sports 2026 ticketing portal and venue policies",
+      "verifiedAt": "2026-10-21",
+      "officialScheduleUrl": "https://www.bryanvikings.net/sport/football/boys/",
+      "ticketUrl": "https://www.bryanisdsports.net/upcoming-events-ticketing-information"
+    },
+    "season": {
+      "record": "1–7 overall, 0–4 in District 12-6A through October 15, 2026 (reported third-party scores; Bryan ISD first-party event grid is incomplete)",
+      "verifiedAt": "2026-10-21",
+      "sourceUrl": "https://www.maxpreps.com/tx/bryan/bryan-vikings/football/",
+      "sourceLabel": "MaxPreps Oct 16 updated Bryan Vikings snapshot 1–7 through 10/15, plus Brazos Valley reporting; official Bryan High events site contains stale 0–3 record and missing finals. October 2 Copperas Cove score source conflict requires caution.",
+      "latestResultSourceUrl": "https://www.houstonchronicle.com/sports/high-school/football/article/texas-high-school-football-scores-thursday-22479594.php",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Magnolia West",
+          "site": "Home",
+          "result": "L 24–56"
+        },
+        {
+          "date": "2026-09-03",
+          "opponent": "Belton",
+          "site": "Home",
+          "result": "L 23–48"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Waco",
+          "site": "Away",
+          "result": "W 14–0"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Bryan Rudder",
+          "site": "Away",
+          "result": "L 34–40"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Killeen Chaparral",
+          "site": "Home",
+          "district": true,
+          "result": "L 21–27"
+        },
+        {
+          "date": "2026-10-02",
+          "opponent": "Copperas Cove",
+          "site": "Away",
+          "district": true,
+          "result": "L 14–49"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Hewitt Midway",
+          "site": "Home",
+          "district": true,
+          "result": "L 10–62"
+        },
+        {
+          "date": "2026-10-15",
+          "opponent": "Killeen Harker Heights",
+          "site": "Away",
+          "district": true,
+          "result": "L 7–73"
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Lake Belton",
+          "site": "Home",
+          "district": true,
+          "kickoff": "7:00 PM"
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Temple",
+          "site": "Away",
+          "district": true,
+          "kickoff": "7:00 PM"
+        }
+      ]
+    },
+    "venue": {
+      "name": "Merrill Green Stadium (Bryan ISD football home stadium)",
+      "address": "3310 Oak Ridge Drive, Bryan, TX 77802 (stadium and field house; not Bryan High School campus on Campus Drive)",
+      "sourceUrl": "https://www.bryanisdsports.net/facilities",
+      "sourceLabel": "Official Bryan ISD Athletics Merrill Green Stadium facilities directory supplies 3310 Oak Ridge Drive; BTU Aug 21 2026 schedule confirms both Bryan Vikings and Rudder Rangers as shared home users",
+      "verifiedAt": "2026-10-21",
+      "note": "Bryan ISD stadium rules prohibit backpacks, require school-playing-team IDs for student ticket holders and require middle-school students to enter with a responsible adult. Students from another high school use general-admission entrances at the corner of Oak Ridge and Campus Drive. Precise wheelchair access and on-site parking allocation are not confirmed by the cited page; obtain accommodation details directly from district athletics.",
+      "policyUrl": "https://www.bryanisdsports.net/merrill-green-stadium-policies"
+    },
+    "notice": {
+      "title": "Ticketing: no cash sold at Merrill Green stadium gates",
+      "body": "Bryan ISD's first-party ticket guidance says tickets for BHS and SFA home events can be bought in advance at Merrill Green Field House Mondays–Thursdays 9 a.m.–3 p.m., with cash or card there, but no cash tickets at the game gate. The page advertises $10 after noon on game day; event inventory and pricing can change, so check the current Bryan ISD athletics event page before travel. Middle-school attendees need an accompanying responsible adult; backpacks are prohibited.",
+      "sourceUrl": "https://www.bryanisdsports.net/upcoming-events-ticketing-information",
+      "sourceLabel": "Official Bryan ISD Sports upcoming-event ticketing policy and separate Merrill Green spectator rules",
+      "verifiedAt": "2026-10-21"
+    },
+    "development": {
+      "title": "The 1921 title belongs to Bryan High's long football history",
+      "body": "UIL's original historical champions archive lists Bryan 35, Dallas Oak Cliff 13 in the 1921 single-division state final; UIL's 100 Greatest Teams profile names Coach Charles Hudson and gives the 1921 team a 9–1–1 season. Do not claim the 1921 players used today's Vikings branding unless documented independently. Bryan ISD's January 2026 first-party hiring announcement named alumnus Blake Joseph head varsity coach, while archived MaxPreps pages still display earlier staff. The 2026 Bryan High first-party football site lists dates but stale 0–3 results, whereas newer independently reported October 9 Midway 62–10 and October 15 Harker Heights 73–7 losses place the Vikings at 1–7 after their September 11 Waco 14–0 victory.",
+      "sourceUrl": "https://www.uiltexas.org/100/football-teams",
+      "sourceLabel": "UIL 100 1921 Bryan team history, original UIL championship final, 2026 Bryan ISD coach statement and current reported scores",
+      "verifiedAt": "2026-10-21"
+    },
+    "milestones": [
+      {
+        "date": "1921",
+        "title": "Bryan wins the all-schools UIL state final 35–13 against Dallas Oak Cliff",
+        "body": "UIL's historical football champions and original archive identify the 1921 champion as Bryan and runner-up as Dallas Oak Cliff, 35–13. It predates the contemporary 6A football conference system.",
+        "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/champions.html",
+        "sourceLabel": "UIL original football state championship archive"
+      },
+      {
+        "date": "1921",
+        "title": "Charles Hudson coaches Bryan's 9–1–1 champion squad",
+        "body": "The UIL centennial 100 Greatest Football Teams listing identifies Bryan's 1921 head coach Charles Hudson, a 9–1–1 season and 397–26 aggregate scoring. These are historical football facts, not 2026 Viking roster stats.",
+        "sourceUrl": "https://www.uiltexas.org/100/football-teams",
+        "sourceLabel": "UIL 100 official 1921 Bryan season profile"
+      },
+      {
+        "date": "January 16, 2026",
+        "title": "Alumnus Blake Joseph takes over the Vikings program",
+        "body": "Bryan ISD announced former 2005 Vikings quarterback Blake Joseph as new head football coach and campus athletic coordinator after coaching Magnolia West and North Texas; older coach listings are superseded.",
+        "sourceUrl": "https://www.bryanisd.org/o/bisd/article/2639498",
+        "sourceLabel": "Bryan ISD January 16 2026 head coach hiring announcement"
+      },
+      {
+        "date": "August 21, 2026",
+        "title": "2026 schedule confirms shared Merrill Green Stadium home field",
+        "body": "Bryan Texas Utilities' first-party service-area schedule identifies Bryan Vikings and Rudder Rangers separately, both using Merrill Green Stadium for home games. Rudder is a distinct school and September 18 opponent.",
+        "sourceUrl": "https://www.btutilities.com/news/2026-bryan-high-school-football-schedules",
+        "sourceLabel": "BTU August 21 2026 Bryan and Rudder schedules"
+      },
+      {
+        "date": "September 11, 2026",
+        "title": "The Vikings record a 14–0 shutout at Waco High",
+        "body": "The 2026 recorded win over Waco is Bryan's reported first victory, checked against MaxPreps game entry; the game took place at Waco ISD Stadium, not Merrill Green.",
+        "sourceUrl": "https://www.maxpreps.com/tx/bryan/bryan-vikings/football/",
+        "sourceLabel": "MaxPreps 2026 Bryan live program score page"
+      },
+      {
+        "date": "September 18, 2026",
+        "title": "Bryan falls 40–34 to cross-town Rudder",
+        "body": "Bryan and Bryan Rudder played as separate varsity schools on Sept 18; reported results show Rudder 40, Bryan 34. Since both teams use Merrill Green Stadium, the away/home designation remains important.",
+        "sourceUrl": "https://www.btutilities.com/news/2026-bryan-high-school-football-schedules",
+        "sourceLabel": "BTU schedule and corroborating 2026 MaxPreps results"
+      },
+      {
+        "date": "October 2, 2026",
+        "title": "Copperas Cove final requires source reconciliation",
+        "body": "The MaxPreps dated team schedule reports a 49–14 Copperas Cove win over Bryan, while Brazos Valley current standings show 56–14. Both indicate a loss, but the numerical discrepancy must be resolved against a first-party scorebook before describing either as official.",
+        "sourceUrl": "https://www.maxpreps.com/tx/bryan/bryan-vikings/football/schedule/",
+        "sourceLabel": "MaxPreps Bryan 2026 schedule 49–14; BrazosFootball.com 2026 schedule 56–14"
+      },
+      {
+        "date": "October 9–15, 2026",
+        "title": "Two additional district losses push reported overall record to 1–7",
+        "body": "Midway beat Bryan 62–10 on October 9 and Harker Heights won 73–7 on October 15. MaxPreps live record lists 1–7 and the October 15 score is independently corroborated by an AP Texas scoreboard.",
+        "sourceUrl": "https://www.maxpreps.com/tx/bryan/bryan-vikings/football/",
+        "sourceLabel": "MaxPreps updated team snapshot and October 15 AP statewide football scores"
+      },
+      {
+        "date": "October 23, 2026",
+        "title": "Bryan hosts Lake Belton in upcoming district home fixture",
+        "body": "The August 21 BTU schedule and school-run athletics fixture grid identify Lake Belton at Bryan October 23 at 7 p.m. This is future as of October 21; verify current venue, tickets and entrances through school channels.",
+        "sourceUrl": "https://www.btutilities.com/news/2026-bryan-high-school-football-schedules",
+        "sourceLabel": "Bryan Texas Utilities 2026 dated local schools football schedule"
+      }
+    ],
+    "overview": [
+      "Bryan High's football lineage includes UIL's 1921 single-division Texas state championship—Bryan 35, Dallas Oak Cliff 13. The historical champion was led by Charles Hudson and appears in UIL's 100 Great Teams collection with a 9–1–1 record. This achievement belongs to Bryan High's institutional football history, while the current 'Vikings' team nickname is a modern school identity and is not independently attested for 1921.",
+      "In January 2026 Bryan ISD appointed its 2005 alumnus Blake Joseph as the Bryan High football head coach and campus athletics coordinator. School district first-party information takes precedence over a third-party page that still calls R. Tullos head coach. Bryan High School at 3450 Campus Drive and Bryan Rudder High School are different schools and must not have seasons merged.",
+      "For 2026 Bryan is competing in UIL 6A District 12. Its reported game-by-game totals through the October 15 Harker Heights result stand at 1–7 overall, 0–4 district. Bryan beat Waco 14–0 on September 11, then lost to Rudder 40–34, Chaparral 27–21, Copperas Cove (disputed 49–14 vs 56–14 third-party score), Midway 62–10 and Harker Heights 73–7. The first-party Bryan Athletics schedule is an official list of fixtures, but its 0–3 displayed score summary is stale.",
+      "Bryan Texas Utilities' published August 2026 schedule is useful for hometown distinctions: the Bryan Vikings and Bryan Rudder Rangers are separately named teams, and each uses Merrill Green Stadium for home games. Bryan High's academic address, 3450 Campus Drive, is not the football stadium address, 3310 Oak Ridge Drive, per the Bryan ISD Athletics facilities directory.",
+      "Bryan ISD's stadium spectator policies are unusually specific. Middle-school fans need an adult; backpacks are barred; students need relevant playing-school ID for student-ticket entry; visiting students from other high schools must purchase general admission and enter at the Oak Ridge/Campus Drive corner. Tickets can be bought in advance at Merrill Green Field House, with no cash gate ticket sales under the published policy. Confirm individual game access and actual accessible seating with athletic staff.",
+      "The October 23 Lake Belton home game and October 30 Temple away game remain listed but unplayed as of this October 21 checkpoint. Source-linked first-party tickets, official athletics and locality links help fans distinguish fixture listings, pregame access rules and third-party scoreboard reporting without implying a live or endorsed official school website."
+    ],
+    "faq": [
+      {
+        "question": "Did Bryan High win the 1921 Texas football championship?",
+        "answer": "Yes. UIL's original champions archive lists Bryan beating Dallas Oak Cliff 35–13 in 1921. UIL's century-team history identifies Charles Hudson as head coach and a 9–1–1 championship season. The 1921 All Schools conference structure was unlike current Class 6A."
+      },
+      {
+        "question": "Who is the Bryan Vikings head football coach in 2026?",
+        "answer": "Blake Joseph, hired by Bryan ISD January 16, 2026 as head football coach and campus athletic coordinator. The school district's announcement documents his Bryan High graduation in 2005. Older online R. Tullos rosters should not overwrite the current coach appointment."
+      },
+      {
+        "question": "What is Bryan High's 2026 football record?",
+        "answer": "The updated MaxPreps 2026 team snapshot shows 1–7 overall and 0–4 in UIL District 12-6A through the October 15 game at Killeen Harker Heights, reported as a 73–7 defeat. The school's own 2026 score grid lagged at 0–3, so these totals are explicitly attributed third-party information."
+      },
+      {
+        "question": "What is the difference between Bryan High and Bryan Rudder football?",
+        "answer": "Bryan High's Vikings and Bryan Rudder's Rangers are separate schools in Bryan ISD. Bryan High's campus is 3450 Campus Drive; Rudder's is at 3251 Austins Colony Parkway. Both use Merrill Green Stadium as a home venue, and their September 18, 2026 match ended Rudder 40, Bryan 34."
+      },
+      {
+        "question": "Where is Merrill Green Stadium?",
+        "answer": "Bryan ISD's athletics facilities page lists Merrill Green Stadium at 3310 Oak Ridge Drive, Bryan, TX 77802. It is a football venue separate from Bryan High's school address at 3450 Campus Drive. Check current individual game gates, parking and accessibility with Bryan ISD."
+      },
+      {
+        "question": "Can I pay cash for Bryan Vikings tickets at the stadium gate?",
+        "answer": "Bryan ISD's ticket guidance says no cash is sold at the stadium gate. It advertises advance cash/card ticket assistance for Bryan High fans at Merrill Green Field House Monday through Thursday 9 a.m.–3 p.m. Confirm current sale periods and per-game prices at the official Bryan ISD Sports ticket information page."
+      },
+      {
+        "question": "Do Bryan ISD football games allow middle-school students without adults?",
+        "answer": "Merrill Green Stadium policy requires middle-school students to enter with a parent or other responsible adult, not just a school-age sibling. It also bars backpacks and sets student ID rules for school-affiliated seating; the full current district policy controls."
+      }
+    ]
+  },
   "brownwood": {
     "slug": "brownwood",
     "intro": "Brownwood Lions football carries one of Texas's best-documented UIL title histories: seven championships in eight state-final appearances, with its 1977 runner-up season too often lost between 1970 and 1978. The program moved into 4A Division II District 13 for 2026 under second-year head coach Jeryl Brixey, and its October 16, 2026 reported loss at Robinson left the Lions 2–5. The official Brownwood ISD guide separates the high-school campus from 7,500-seat Gordon Wood Stadium, and the district switched its 2026 ticketing to Hudl.",
