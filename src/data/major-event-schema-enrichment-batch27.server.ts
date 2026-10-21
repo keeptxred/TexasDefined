@@ -47,6 +47,17 @@ export const majorEventSchemaEnrichmentBatch27: MajorEventSchemaEnrichment[] = [
   {
     slug: "whooping-crane-festival",
     organizer: { type: "Organization", name: "Port Aransas Tourism Bureau", url: "https://www.portaransas.org/whooping-crane-festival/" },
+    image: {
+      url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/02/Whooping_cranes_over_Aransas_Refuge_%285120922351%29.jpg/960px-Whooping_cranes_over_Aransas_Refuge_%285120922351%29.jpg",
+      alt: "Two whooping cranes in flight at Aransas National Wildlife Refuge in Texas, photographed in 2010; illustrative coastal habitat, not a 2027 festival program photo",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Whooping_cranes_over_Aransas_Refuge_(5120922351).jpg",
+      sourceType: "wikimedia",
+      licenseName: "Creative Commons Attribution 2.0 Generic",
+      licenseUrl: "https://creativecommons.org/licenses/by/2.0/",
+      rightsNote: "Steve Hillebrand/U.S. Fish and Wildlife Service, 2010; CC BY 2.0. Actual Texas winter habitat, not a photographed festival outing.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
     sources: [
       { label: "Port Aransas Tourism Bureau 2027 festival", url: "https://www.portaransas.org/whooping-crane-festival/the-2027-festival/" },
       { label: "Port Aransas Whooping Crane Festival overview", url: "https://www.portaransas.org/whooping-crane-festival/" },
