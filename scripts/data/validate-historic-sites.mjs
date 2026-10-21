@@ -99,6 +99,12 @@ if (!fullCatalog.includes('last ticket at 3:15 p.m.')) failures.push('Fulton Man
 if (!visitDepth.includes('destination.slug === "fulton-mansion" ? "2026-10-14"')) failures.push('Fulton Mansion verified visitor date missing');
 
 
+const authorityPresentationPolicy = fs.readFileSync('src/data/destination-authority-presentation.ts', 'utf8');
+const destinationRelationshipsPolicy = fs.readFileSync('src/components/editorial/DestinationRelationships.tsx', 'utf8');
+if (!destinationRelationshipsPolicy.includes('shouldRenderFullDestinationAuthorityGuide(destination)') ||
+    !destinationRelationshipsPolicy.includes('<DestinationAuthorityGuide destination={destination}')) {
+  failures.push('Historic authority must mount the complete guide through the shared eligibility policy.');
+}
 const expandedHistoricSlugs = [
   'fort-davis-national-historic-site',
   'san-jacinto-battleground',
@@ -113,7 +119,7 @@ const expandedHistoricSlugs = [
 ];
 for (const slug of expandedHistoricSlugs) {
   if (!authorityExpansion.includes(`"${slug}": {`)) failures.push(`Historical authority expansion missing ${slug}.`);
-  if (!destinationRoute.includes(`"${slug}"`) && !fs.readFileSync('src/components/editorial/DestinationRelationships.tsx', 'utf8').includes(`"${slug}"`)) {
+  if (!destinationRoute.includes(`"${slug}"`) && !destinationRelationshipsPolicy.includes(`"${slug}"`) && !authorityPresentationPolicy.includes(`"${slug}"`)) {
     failures.push(`Historic-site authority component not enabled for ${slug}.`);
   }
 }
@@ -205,7 +211,11 @@ const sourceRoute = fs.readFileSync('src/routes/destination.$slug.tsx', 'utf8');
 if (!runtime.includes('enrichFullHistoricSiteAuthority(enrichTexasHistoricSiteAuthority(enriched))') ||
     !runtime.includes('.map(enrichFullHistoricSiteAuthority)')) failures.push('Full historic authority must apply in both resolution paths.');
 if (!fullAuthorityFile.includes('historicSiteSeeds.map') || !fullAuthorityFile.includes('const seeds = new Map(historicSiteSeeds')) failures.push('All historic seeds must share the complete-catalog authority adapter.');
-if (!relationshipsComponent.includes('destination.category === "historic-sites"')) failures.push('Historic authority template must render all eligible historic destination pages.');
+if (!relationshipsComponent.includes('destination.category === "historic-sites"') &&
+    !(relationshipsComponent.includes('shouldRenderFullDestinationAuthorityGuide(destination)') &&
+      authorityPresentationPolicy.includes('destination.category === "historic-sites"'))) {
+  failures.push('Historic authority template must render all eligible historic destination pages.');
+}
 if (!crosslinksText.includes('fullHistoricSiteCrosslinks(slug)') || !fullCrosslinkFile.includes('degrees.set(pair.left.slug')) failures.push('Statewide reciprocal county and thematic crosslink graph missing.');
 for (const [duplicate, primary] of Object.entries({
   "goliad-state-park-and-historic-site": "goliad-state-park",
