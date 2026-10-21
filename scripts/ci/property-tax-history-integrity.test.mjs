@@ -30,7 +30,7 @@ test('rate labels never round documented seven-decimal values to six',()=>{
 });
 test('live release gate audits every primary-source local rate and Woodlands',()=>{
   const matches=[...smoke.matchAll(/\{ slug: '([^']+)', year: 202[1-5], rate: '[^']+', agency: '[^']+'/g)];
-  assert.equal(matches.length,13);
+  assert.equal(matches.length,15);
   assert.equal(new Set(matches.map((m)=>m[1])).size,12);
   assert.match(smoke,/async function verifySourcedTaxingUnit/);
   assert.match(smoke,/async function verifyWoodlandsClassification/);
@@ -54,4 +54,16 @@ test('locally verified zero city rate and state/local 2022 disagreement are expl
   assert.match(route,/The statewide record is retained unchanged/);
   assert.match(smoke,/city-of-union-valley', year: 2022, rate: '0\.000000'/);
   assert.match(smoke,/if \(conflict\) required\.push\('Unresolved official-source discrepancy\.'/);
+});
+
+test('Post Oak Bend 2021 and 2024 rates are verified on both production entry points',()=>{
+  assert.match(smoke,/post-oak-bend', year: 2021, rate: '0\.000000', agency: 'Kaufman County Appraisal District'/);
+  assert.match(smoke,/post-oak-bend', year: 2024, rate: '0\.000000', agency: 'City of Post Oak Bend'/);
+  assert.match(smoke,/post-oak-bend', year: 2025, rate: '0\.000000', agency: 'City of Post Oak Bend'/);
+});
+test('JSON-LD attribution includes every historical Comptroller workbook, not just latest',()=>{
+  assert.match(route,/citation: \[\.\.\.new Set\(history\.flatMap\(\(record\) => \[/);
+  assert.match(route,/record\.sourceUrl/);
+  assert.match(route,/record\.localVerification\.componentSourceUrl/);
+  assert.doesNotMatch(route,/citation: \[latest\.sourceUrl/);
 });
