@@ -53,7 +53,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          node scripts/data/validate-destination-visitor-fact-catalog.mjs | tee "$RUNNER_TEMP/destination-facts-audit.log"
+          node scripts/data/validate-destination-visitor-fact-catalog.mjs 2>&1 | tee "$RUNNER_TEMP/destination-facts-audit.log"
           issue_title='Destination visitor facts: source refresh needed'
           issue_number="$(gh issue list --state all --search '"Destination visitor facts: source refresh needed" in:title' --limit 100 --json number,title --jq '.[] | select(.title == "Destination visitor facts: source refresh needed") | .number' | head -n 1)"
           if ! grep -q '^STALE ' "$RUNNER_TEMP/destination-facts-audit.log"; then
