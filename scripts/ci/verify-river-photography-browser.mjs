@@ -113,6 +113,8 @@ try {
           verify(await anchor.count() === 1, label + ': missing river card ' + river.slug + ' at ' + path);
           const img = anchor.locator('img').first();
           const result = await inspectImage(page, img, label + ' card ' + river.slug + ' at ' + path);
+          verify(new URL(result.src).pathname === '/media/remote',
+            label + ': river card bypasses the cached first-party image delivery: ' + river.slug + ' at ' + path);
           verify(originalImageIdentity(result.src).includes(originalImageIdentity(river.image)),
             label + ': generic or mismatched image at ' + path + ' for ' + river.slug);
           verify(river.alt.test(result.alt), label + ': inaccurate card alt at ' + path);
