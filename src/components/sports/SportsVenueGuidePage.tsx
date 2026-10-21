@@ -53,6 +53,7 @@ export function SportsVenueGuidePage({
   eventCalendarHref = "/events",
   sponsorPlacement,
 }: SportsVenueGuidePageProps) {
+  const teamGuides = [["Houston Texans","houston-texans"],["Dallas Cowboys","dallas-cowboys"],["Houston Astros","houston-astros"],["Texas Rangers","texas-rangers"],["Houston Rockets","houston-rockets"],["Dallas Mavericks","dallas-mavericks"],["San Antonio Spurs","san-antonio-spurs"],["Dallas Stars","dallas-stars"],["Austin FC","austin-fc"],["Houston Dynamo FC","houston-dynamo"],["FC Dallas","fc-dallas"],["Houston Dash","houston-dash"],["Dallas Wings","dallas-wings"]].filter(([name]) => guide.homeTeam?.includes(name));
   const canonicalUrl = `${siteUrl}${guide.canonicalPath}`;
   const officialUrl = guide.officialUrl ?? entity.officialUrl;
   const directionsUrl = buildDirectionsUrl(entity, guide);
@@ -255,6 +256,7 @@ export function SportsVenueGuidePage({
             </section>
           ) : null}
 
+          {teamGuides.length > 0 && <section className="border-t border-border py-8"><h2 className="font-display text-3xl">Build a game weekend</h2><p className="mt-3 leading-7">Choose the team for home games, tickets, team history and a plan for the rest of your stay.</p><div className="mt-4 flex flex-wrap gap-5">{teamGuides.map(([name, slug]) => <a key={slug} href={`/sports/teams/${slug}`} className="font-semibold text-primary">{name} weekend guide →</a>)}</div></section>}
           <div data-stay-nearby-slot />
 
           {guide.canonicalPath === "/sports-venue/msr-houston" ? <MSRHoustonAuthoritySections /> : null}

@@ -4,7 +4,7 @@
   const STAY_DATA_URL = "/stay-nearby-hotels.json";
   const DESTINATION_STAY_DATA_URL = "/stay-nearby-destination-hotels.json";
   const PAINTED_CHURCHES_STAY_DATA_URL = "/stay-nearby-painted-churches-hotels.json";
-  const TRAVEL_PATH = /^\/(?:article\/chip-and-joanna-gaines-magnolia-waco(?:\/|$)|explore(?:\/|$)|destination\/|city\/|county\/|sports-venue\/|horse-racing\/gillespie-county-fairgrounds(?:\/|$)|sports-venues\/(?!compare(?:\.csv)?(?:\/|$))|sports-venues$|event\/|events(?:\/|$)|texas-state-fair(?:\/|$)|best-places-to-go-camping-in-texas(?:\/|$)|texas-college-towns(?:\/|$)|texas-tailgating-guide(?:\/|$)|texas-unique-lodging(?:\/|$)|texas-music-venues(?:\/|$)|texas-roadside-oddities(?:\/|$))/;
+  const TRAVEL_PATH = /^\/(?:article\/chip-and-joanna-gaines-magnolia-waco(?:\/|$)|explore(?:\/|$)|destination\/|city\/|county\/|sports-venue\/|sports\/teams\/|horse-racing\/gillespie-county-fairgrounds(?:\/|$)|sports-venues\/(?!compare(?:\.csv)?(?:\/|$))|sports-venues$|event\/|events(?:\/|$)|texas-state-fair(?:\/|$)|best-places-to-go-camping-in-texas(?:\/|$)|texas-college-towns(?:\/|$)|texas-tailgating-guide(?:\/|$)|texas-unique-lodging(?:\/|$)|texas-music-venues(?:\/|$)|texas-roadside-oddities(?:\/|$))/;
   const TRAVEL_ARTICLE_SECTION = /\b(?:travel|lodging|road trips?|weekend getaways?|events?)\b/i;
   const CONTEXT_PATHS = [
     { kind: "destination", key: "texas-ranger-hall-of-fame-museum-waco", pattern: /^\/article\/chip-and-joanna-gaines-magnolia-waco\/?$/ },
@@ -111,6 +111,11 @@
   }
 
   function contextFromPath(pathname = window.location.pathname) {
+    if (/^\/sports\/teams\/[a-z0-9-]+\/?$/.test(pathname)) {
+      const key = document.querySelector("[data-pro-team-stay-venue]")?.dataset.proTeamStayVenue;
+      if (key && /^[a-z0-9-]+$/.test(key)) return { kind: "venue", key };
+      return null;
+    }
     for (const candidate of CONTEXT_PATHS) {
       const match = pathname.match(candidate.pattern);
       if (!match) continue;
@@ -609,6 +614,7 @@
   }
 
   async function syncSurface() {
+    if (/^\/sports\/teams\/[a-z0-9-]+\/?$/.test(window.location.pathname) && !document.querySelector('[data-pro-team-hydrated="true"]')) return;
     // React's State Fair content lazy-hydrates after RootShell. Never mutate
     // the empty affiliate slot before its owning component has committed.
     if (stateFairSlotPending()) return;

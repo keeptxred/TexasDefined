@@ -19,6 +19,7 @@ function SportsPage() {
     <CategoryPage category="sports" eyebrow="Texas Sports" title="Texas sports: the games, rituals and rivalries that matter here" intro={description} />
     <Container className="pb-16 sm:pb-24">
       <div className="mx-auto max-w-6xl">
+        <section className="border-t border-border py-10"><p className="eyebrow text-primary">Worth the trip</p><h2 className="mt-3 font-display text-4xl">Pick a team. Build a game weekend.</h2><p className="mt-4 max-w-3xl leading-8">Explore 13 Texas pro teams, from the Texans and Cowboys to the Dash and Wings, with home games, tickets, team history and a plan for the rest of your stay.</p><a href="/sports/teams" className="mt-5 inline-block font-semibold text-primary">Find your Texas team and weekend guide →</a></section>
         <section className="border-t border-border pt-10" aria-labelledby="sports-culture-reading">
           <div className="grid gap-8 lg:grid-cols-[15rem_1fr]">
             <div>

@@ -99,7 +99,7 @@
     return normalized === "/destination/hotel-paso-del-norte" ? HOTEL_PASO_EXACT_STAY : null;
   }
 
-  const HOTEL_FIRST_PATH = /^\/(?:event\/|events(?:\/|$)|sports-venue\/|horse-racing\/gillespie-county-fairgrounds(?:\/|$)|sports-venues(?:\/|$)|texas-state-fair(?:\/|$))/;
+  const HOTEL_FIRST_PATH = /^\/(?:sports\/teams\/|event\/|events(?:\/|$)|sports-venue\/|horse-racing\/gillespie-county-fairgrounds(?:\/|$)|sports-venues(?:\/|$)|texas-state-fair(?:\/|$))/;
   const BOTH_PATH = /^\/(?:article\/chip-and-joanna-gaines-magnolia-waco(?:\/|$)|destination\/|explore(?:\/|$)|city\/|county\/|best-places-to-go-camping-in-texas(?:\/|$)|texas-college-towns(?:\/|$)|texas-tailgating-guide(?:\/|$)|texas-unique-lodging(?:\/|$)|texas-music-venues(?:\/|$)|texas-roadside-oddities(?:\/|$))/;
   const RVSHARE_PATH = /^\/(?:best-places-to-go-camping-in-texas(?:\/|$)|explore\/(?:rv-parks|state-parks|road-trips|outdoors)(?:\/|$))/;
   const OWNER_PATH = /^\/real-estate\/?$/;
@@ -675,6 +675,7 @@
 
   function sync() {
     scheduled = false;
+    if (/^\/sports\/teams\/[a-z0-9-]+\/?$/.test(window.location.pathname) && !document.querySelector('[data-pro-team-hydrated="true"]')) return;
     if (waitingForFootballCountyHydration()) return;
     addStyles();
     syncBookingChoice();
