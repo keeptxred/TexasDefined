@@ -88,6 +88,28 @@ values
    '2025 annual report p. 16 and official 2024 local M&O/I&S tax-rate document.', 'verified')
 on conflict (tax_year,unit_type,slug) do nothing;
 
+-- Additional 2024 locality evidence verified against exact official unit IDs.
+-- The statewide not-reported rows remain intact for all three jurisdictions.
+insert into public.texas_tax_local_verified_rates
+  (tax_year,unit_type,slug,official_unit_id,total_rate,maintenance_operations_rate,
+   debt_service_rate,source_url,component_source_url,source_agency,verified_on,evidence_note,status)
+values
+  (2024,'city','roma','214-101-03-214-214',0.567900,0.499077,0.068823,
+   'https://starrcad.org/wp-content/uploads/2024/10/2024-tax-rates-2.pdf',
+   'https://starrcad.org/wp-content/uploads/2024/10/2024-tax-rates-2.pdf',
+   'Starr Central Appraisal District',date '2026-10-21',
+   'Starr CAD 2024 entity-tax-rate list shows City of Roma total, M&O and I&S.', 'verified'),
+  (2024,'city','rio-grande-city','214-102-03-214-214',0.521090,0.372960,0.148130,
+   'https://starrcad.org/wp-content/uploads/2024/10/2024-tax-rates-2.pdf',
+   'https://starrcad.org/wp-content/uploads/2024/10/2024-tax-rates-2.pdf',
+   'Starr Central Appraisal District',date '2026-10-21',
+   'Starr CAD 2024 entity-tax-rate list identifies City of Rio Grande with rate components.', 'verified'),
+  (2024,'city','southside-place','101-115-03-101-101',0.340896,null,null,
+   'https://www.southsideplacetx.gov/m/faq?cat=50',null,
+   'City of Southside Place',date '2026-10-21',
+   'Official city FAQ identifies its adopted 2024 property-tax rate; components not established.', 'verified')
+on conflict (tax_year,unit_type,slug) do nothing;
+
 create or replace function public.finalize_texas_tax_import(p_run_id uuid, p_simulate_failure boolean default false)
 returns jsonb
 language plpgsql
