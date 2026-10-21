@@ -79,9 +79,9 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "description": "Brackettville Brackett Tigers: 2026 District 14 schedule, reported results, 2025 playoff run, Tiger Stadium research and Brackett ISD links."
     },
     "campus": {
-      "address": "400 Ann Street, Brackettville, TX 78832 (school campus, not a confirmed spectator gate)",
-      "sourceUrl": "https://www.maxpreps.com/tx/brackettville/brackett-tigers/football/schedule/",
-      "sourceLabel": "Brackett High School campus address published in 2026 MaxPreps schedule; stadium gate and parking not confirmed",
+      "address": "201 N Ann Street, Brackettville, TX 78832 (NCES physical campus; not a confirmed stadium spectator gate)",
+      "sourceUrl": "https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=481107000572&Search=1",
+      "sourceLabel": "NCES Brackett High School 2025–26 physical-address and Kinney County campus listing; separate football gate unverified",
       "verifiedAt": "2026-10-20"
     },
     "schedule": {
@@ -204,7 +204,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ],
     "overview": [
-      "The Brackett Tigers are Kinney County's Brackett ISD football program, not a generic Brackettville tourism team. The campus and stadium are distinct visitor questions: Brackett High School is listed at 400 Ann Street, while the precise football entrance, accessible-seating arrangements and public parking must be confirmed for each event.",
+      "The Brackett Tigers are Kinney County's Brackett ISD football program, not a generic Brackettville tourism team. The campus and stadium are distinct visitor questions: Brackett High School is listed at 201 N Ann Street, while the precise football entrance, accessible-seating arrangements and public parking must be confirmed for each event.",
       "Brackett ISD maintains an official Athletics Department library with the varsity Tigers schedule, a separate junior-high schedule and school calendar. That first-party schedule takes priority when kickoff details change; external score services are historical reporting sources, not official ticketing authorities.",
       "Texas football historian Dave Campbell's team listing names Tiger Stadium and chronicles multiple decades of playoff appearances. The publisher's stadium capacity listing is a reference estimate, not independently confirmed present-day seating. No photograph from that site is reproduced here because image-use rights were not established.",
       "The source-dated October 9 Harper away result follows the older October 6 update on MaxPreps' published schedule. The 2026 record shown here combines separately cited reported finals rather than implying the district has approved every score. The October 23 D'Hanis, October 30 La Pryor and November 6 Center Point games were future fixtures when reviewed on October 20."
@@ -212,7 +212,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     "faq": [
       {
         "question": "Where does Brackett Tigers football play?",
-        "answer": "Dave Campbell's Texas Football identifies Tiger Stadium in Brackettville; the high-school address of 400 Ann Street is an orientation address, not a verified spectator gate. Confirm the event site, entrance, accessible seating and parking with Brackett ISD before traveling."
+        "answer": "Dave Campbell's Texas Football identifies Tiger Stadium in Brackettville; the high-school address of 201 N Ann Street is an orientation address, not a verified spectator gate. Confirm the event site, entrance, accessible seating and parking with Brackett ISD before traveling."
       },
       {
         "question": "Where can I find the official 2026 Brackett football schedule?",
