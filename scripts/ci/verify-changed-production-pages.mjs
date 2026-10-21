@@ -154,7 +154,7 @@ for (const path of plan.selectedPaths) {
         });
         const heroBytes = await heroResponse.arrayBuffer();
         if (!heroResponse.ok || heroResponse.headers.get('cf-mitigated') === 'challenge'
-          || !/image\\/jpeg/i.test(heroResponse.headers.get('content-type') || '') || heroBytes.byteLength < 10000) {
+          || !(heroResponse.headers.get('content-type') || '').toLowerCase().includes('image/jpeg') || heroBytes.byteLength < 10000) {
           throw new Error('Davis Hill licensed photographic hero is unavailable: HTTP ' + heroResponse.status);
         }
         const inline = '/images/state-parks/davis-hill-salt-dome-concept.svg';
@@ -164,7 +164,7 @@ for (const path of plan.selectedPaths) {
           signal: AbortSignal.timeout(20000),
         });
         const inlineBody = await inlineResponse.text();
-        if (!inlineResponse.ok || !/image\\/svg\\+xml/i.test(inlineResponse.headers.get('content-type') || '')
+        if (!inlineResponse.ok || !(inlineResponse.headers.get('content-type') || '').toLowerCase().includes('image/svg+xml')
           || !inlineBody.includes('<svg ') || inlineBody.length < 500) {
           throw new Error('Davis Hill interior geology image is missing: HTTP ' + inlineResponse.status);
         }
