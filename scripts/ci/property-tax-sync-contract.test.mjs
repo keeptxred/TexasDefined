@@ -63,3 +63,19 @@ test('large workbook imports run in GitHub Actions Deno CPU budget',()=>{
   assert.match(workflow,/TEXAS_TAX_IMPORT_YEAR="\$year" deno run --node-modules-dir=none -A/);
   assert.doesNotMatch(workflow,/curl --silent --show-error --max-time/);
 });
+
+test('2024 additional municipal supplements are sourced, reconciled and source-isolated',()=>{
+  const supplement = readFileSync('supabase/migrations/20261021190000_add_2024_verified_city_tax_supplements.sql','utf8');
+  assert.match(supplement,/2024,'city','city-of-little-river-academy','014-113-03-014-014'/);
+  assert.match(supplement,/0\.410001,0\.410001,0\.000000/);
+  assert.match(supplement,/2024,'city','cooper','060-101-03-060-060'/);
+  assert.match(supplement,/0\.649272,0\.627046,0\.022226/);
+  assert.match(supplement,/2024,'city','miami','197-101-03-197-197'/);
+  assert.match(supplement,/0\.870299,null,null/);
+  assert.match(supplement,/2024,'city','stafford','079-105-03-079-079'/);
+  assert.match(supplement,/0\.000000,null,null/);
+  assert.match(supplement,/r\.source_status='not-reported'/);
+  assert.match(supplement,/and r\.total_rate is null/);
+  assert.match(route,/A zero <strong>city<\/strong> rate does not mean/);
+  assert.ok(Math.abs((0.627046 + 0.022226) - 0.649272)<1e-10);
+});

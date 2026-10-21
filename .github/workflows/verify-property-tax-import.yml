@@ -4,7 +4,7 @@ on:
   pull_request:
     paths:
       - 'supabase/functions/import-texas-property-tax-rates/**'
-      - 'supabase/migrations/*tax_rate*'
+      - 'supabase/migrations/*tax*'
       - '.github/workflows/sync-property-tax-rates.yml'
       - 'src/data/property/texas-tax-rates*'
       - 'src/routes/property-tax.taxing-unit.$unit.tsx'
