@@ -1,11 +1,12 @@
 /**
- * Human-verified MSR Houston calendar excerpts checked 2026-10-09.
+ * Human-verified MSR Houston calendar excerpts checked 2026-10-09; Xtreme Xperience added 2026-10-20.
  * Unlike an inferred recurring event series, these are exact dated operator
  * listings. Expire the excerpts automatically; never show them as a live feed.
  */
 const events = [
   { title: "RideSmart motorcycle school", dates: "October 10–11, 2026", lastDate: "2026-10-11", description: "An instructed motorcycle track-day program. This is rider education, not a road race.", source: "https://msrhouston.com/calendar/" },
   { title: "CMRA motorcycle races", dates: "October 17–18, 2026", lastDate: "2026-10-18", description: "A Central Motorcycle Roadracing Association race weekend. Spectator access and paddock rules depend on the organizer.", source: "https://msrhouston.com/events/" },
+  { title: "Xtreme Xperience supercar driving and ride-alongs", dates: "October 29–November 1, 2026", lastDate: "2026-11-01", description: "The independent experience operator advertises prebooked instructed supercar drives and ride-alongs on its 1.30-mile event layout. Check eligibility, price and available sessions directly with Xtreme Xperience.", source: "https://www.thextremexperience.com/tracks/msr-houston" },
   { title: "24 Hours of LeMons", dates: "November 7–8, 2026", lastDate: "2026-11-08", description: "Amateur endurance racing; verify entry, spectator rules and session times before attending.", source: "https://msrhouston.com/events/" },
   { title: "Teen Driving Safety School", dates: "November 21, 2026", lastDate: "2026-11-21", description: "Scheduled driver-safety instruction; contact the school about age requirements, registration and capacity.", source: "https://msrhouston.com/events/" },
 ] as const;
@@ -24,7 +25,7 @@ export function MSRHoustonEventsFallback() {
     <p className="eyebrow text-primary">Official calendar highlights</p>
     <h2 id="msr-events-heading" className="mt-2 font-display text-3xl sm:text-4xl">Upcoming events at MSR Houston</h2>
     <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
-      Independently selected from MSR Houston's official listings and checked October 9, 2026.
+      Independently selected from operator listings checked October 9, 2026; the October 29–November 1 experience was cross-checked with MSR Houston and Xtreme Xperience on October 20.
       These are dated excerpts, not real-time registration or ticket availability. Entries automatically
       disappear after their listed dates; always verify with the organizer.
     </p>
