@@ -32,7 +32,7 @@ function GoogleTagManagerHead() {
   return (
     <script
       dangerouslySetInnerHTML={{
-        __html: `(function(w,h){var n=w.navigator||{};if(n.webdriver===true||/HeadlessChrome|Lighthouse|PageSpeed|TexasDefined-[^ ]*Smoke/i.test(n.userAgent||'')||!h.includes(w.location.hostname.toLowerCase()))return;(w.dataLayer||=[]).push({'gtm.start':Date.now(),event:'gtm.js'});var s=document.createElement('script');s.src='https://www.googletagmanager.com/gtm.js?id=${googleTagManagerId}';document.head.append(s)})(window,${googleTagManagerHosts});`,
+        __html: `(function(w,h){var n=w.navigator;if(n.webdriver||/HeadlessChrome|Lighthouse|PageSpeed|TexasDefined-[^ ]*Smoke/i.test(n.userAgent)||!h.includes(w.location.hostname))return;(w.dataLayer||=[]).push({'gtm.start':Date.now(),event:'gtm.js'});var s=document.createElement('script');s.src='https://www.googletagmanager.com/gtm.js?id=${googleTagManagerId}';document.head.append(s)})(window,${googleTagManagerHosts});`,
       }}
     />
   );
@@ -118,7 +118,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
             }],
             publishingPrinciples: `${siteUrl}/editorial-policy`,
             areaServed: { "@type": "State", name: "Texas" },
-            knowsAbout: ["Texas travel", "Texas destinations", "Texas lifestyle", "Texas homes and property", "Texas history and heritage", "Texas events", "Texas sports and venues", "Texas fishing and freshwater fish"],
+            knowsAbout: ["Texas travel and destinations", "Texas history and heritage", "Texas lifestyle and property", "Texas events and sports", "Texas fishing lakes and species"],
           },
           {
             "@type": "WebSite",
