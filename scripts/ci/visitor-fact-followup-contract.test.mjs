@@ -17,6 +17,7 @@ test("source research is weekly and PR checks remain strictly read only", () => 
 test("expired operator answers create one deduplicated issue, without changing verification dates", () => {
   const reviewer = workflow.split("  editorial-followup:")[1];
   assert.match(reviewer, /node scripts\/data\/validate-destination-visitor-fact-catalog\.mjs/);
+  assert.match(reviewer, /2>&1 \| tee/, "stale facts are emitted on stderr and must be captured");
   assert.match(reviewer, /gh issue list --state all/);
   assert.match(reviewer, /gh issue edit/);
   assert.match(reviewer, /gh issue reopen/);
