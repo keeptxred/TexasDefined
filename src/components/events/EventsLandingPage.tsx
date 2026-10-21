@@ -15,7 +15,7 @@ const EVENT_LABELS: Record<TexasEvent["category"], string> = { music: "Live Musi
 export type EventSearch = { featured: string; location: string; start: string; end: string; category: string; venue: string };
 type CalendarView = {
   monthLabel: string; totalCount: number; dateSummary: string; resultsHeading: string; truncated: boolean; showClearDates: boolean;
-  previousHref: string; todayHref: string; nextHref: string; clearDatesHref: string; nextEventHref: string;
+  previousHref: string; todayHref: string; nextWeekHref: string; nextHref: string; clearDatesHref: string; nextEventHref: string;
   categories: TexasEvent["category"][]; cityOptions: string[]; countyOptions: Array<[string, string]>; venueOptions: Array<[string, string]>;
   calendarDays: Array<{ date: string; dayNumber: number; count: number; inMonth: boolean; selected: boolean; href: string; ariaLabel: string }>;
   results: Array<{ id: string; category: TexasEvent["category"]; guidePath: string; title: string; city: string; countyName?: string; venueName?: string; venuePath?: string; summary: string; officialEventUrl: string; dateLabel: string; lastVerifiedLabel: string; ticketCta: ResolvedEventTicketCta | null }>;
@@ -88,7 +88,7 @@ function GlobalEventCalendar({ calendarView, regions, search }: { calendarView: 
       <div className="ev-filter-actions"><button type="submit" className="eyebrow ev-filter-action">Apply filters →</button>{(search.location || search.category || search.venue || search.start || search.end) && <a href="/events#calendar" className="eyebrow ev-filter-action ev-filter-clear">Clear all</a>}</div>
     </form>
     <div className="ev-cal-layout"><div>
-      <div className="ev-cal-head"><div><p className="eyebrow ev-e">Interactive calendar</p><h2 className="ev-cal-month">{calendarView.monthLabel}</h2></div><div className="ev-cal-nav"><a href={calendarView.previousHref} className="ev-nav">← Previous</a><a href={calendarView.todayHref} className="ev-nav">Today</a><a href={calendarView.nextHref} className="ev-nav">Next →</a></div></div>
+      <div className="ev-cal-head"><div><p className="eyebrow ev-e">Interactive calendar</p><h2 className="ev-cal-month">{calendarView.monthLabel}</h2></div><div className="ev-cal-nav"><a href={calendarView.previousHref} className="ev-nav">← Previous</a><a href={calendarView.todayHref} className="ev-nav">Today</a><a href={calendarView.nextWeekHref} className="ev-nav">Next 7 days</a><a href={calendarView.nextHref} className="ev-nav">Next →</a></div></div>
       <div className="ev-weekdays">{["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => <span key={day} className="ev-weekday">{day}</span>)}</div>
       <div className="ev-days">{calendarView.calendarDays.map((day) => <a key={day.date} href={day.href} aria-current={day.selected ? "date" : undefined} aria-label={day.ariaLabel} className={`ev-day${day.inMonth ? "" : " ev-day-dim"}${day.selected ? " ev-day-selected" : ""}`}><span className="ev-day-num">{day.dayNumber}</span>{day.count > 0 && <span className="ev-day-count">{day.count} {day.count === 1 ? "event" : "events"}</span>}</a>)}</div>
       <div className="ev-cal-tools">{calendarView.showClearDates && <a href={calendarView.clearDatesHref} className="ev-link">Clear dates</a>}{calendarView.nextEventHref && <a href={calendarView.nextEventHref} className="ev-link">Jump to next event →</a>}</div>
