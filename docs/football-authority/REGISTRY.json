@@ -40,7 +40,7 @@
       "bryan-rudder",
       "bryson"
     ],
-    "state": "BATCH_007_23_SCHOOL_SOURCE_IMPLEMENTATION_PENDING_QA",
+    "state": "BATCH_007_ALL_25_IMPLEMENTED_ON_BRANCH_PENDING_RELEASE",
     "dateAssigned": "2026-10-20",
     "selectionRule": "First 25 NOT_REVIEWED and unassigned canonical schoolRecords in stable order following 130 production VERIFIED through completed Batch 006; outstanding PR and branch conflicts checked.",
     "individuallyVerified": 0,
@@ -48,12 +48,12 @@
     "assignmentBranch": "football-authority-batch-007-20261020",
     "repositoryMainAtAssignment": "78157bb07d856f40d21e813fd3f886cd54e2b20e",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "bruceville-eddy",
-    "nextSchool": "bruni",
-    "implementedOnBranch": 23,
-    "remainingToImplement": 2,
+    "currentSchool": null,
+    "nextSchool": null,
+    "implementedOnBranch": 25,
+    "remainingToImplement": 0,
     "remainingToVerify": 25,
-    "notes": "23/25 source-backed individual guides implemented on branch, 2 remaining, zero production verified. Brownsville Veterans 2023 semifinal and first-party JC Ramirez resolved, Monterrey score explicitly disputed. Continue individually Bruceville-Eddy and Bruni."
+    "notes": "All 25 schools individually researched and branch implemented on draft PR #5525, with school-level audit dossiers, editorial, identity, county and original dated-result graphic code. No Batch 007 school merged or production VERIFIED. Main has advanced independently; release requires reconciliation, protected CI, merge, deploy and bounded live desktop/mobile QA without polling loops."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -7709,8 +7709,17 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bruceville-eddy",
-      "status": "NOT_REVIEWED",
-      "batch": 7
+      "status": "IMPLEMENTED",
+      "batch": 7,
+      "audit": "docs/football-authority/schools/bruceville-eddy.md",
+      "auditCompletedAt": "2026-10-21",
+      "researchCompletedAt": "2026-10-21",
+      "implementedAt": "2026-10-21",
+      "implementedOnBranch": "football-authority-batch-007-20261020",
+      "actualProductionVerified": false,
+      "mediaStatus": "Original seven-game source-derived result graphic, no unlicensed photo or logo.",
+      "implementationNotes": "Marcial Chapa 2026 Slot-T KWTX and school-confirmed 39-8 Moody victory; 5-2 after seven dated scores, 2019 9-2, 2025 1-9; 7 historic playoff berths; 8 milestones, 6 bespoke FAQ, source-derived visual and McLennan County backlinks.",
+      "technicalVerification": "PENDING protected CI, fresh-main reconciliation, merge, deploy, live Chrome 1366/390/320, structured data, county, sitemap and image checks."
     },
     {
       "id": "uil:bruni",
@@ -7723,8 +7732,17 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bruni",
-      "status": "NOT_REVIEWED",
-      "batch": 7
+      "status": "IMPLEMENTED",
+      "batch": 7,
+      "audit": "docs/football-authority/schools/bruni.md",
+      "auditCompletedAt": "2026-10-21",
+      "researchCompletedAt": "2026-10-21",
+      "implementedAt": "2026-10-21",
+      "implementedOnBranch": "football-authority-batch-007-20261020",
+      "actualProductionVerified": false,
+      "mediaStatus": "Original six-man source-derived result graphic; colors/stadium gate/photo rights unresolved.",
+      "implementationNotes": "Bruni 2025 11-man cancellation and independent six-man schedule, 2026 UIL 1A D1 District16, 0-7 thru Oct 16, Federico Lujan KGNS interview with conflicting third-party coach data, 17 pre-transition playoff berths, eight milestones, six bespoke FAQs and Webb County links.",
+      "technicalVerification": "PENDING protected CI, fresh-main reconciliation, merge, deploy, live Chrome 1366/390/320, structured data, county, sitemap and image checks."
     },
     {
       "id": "uil:bryan",
