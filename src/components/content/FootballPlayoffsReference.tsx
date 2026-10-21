@@ -93,7 +93,7 @@ export function FootballPlayoffsReference() {
           { label: "1A six-man · five rounds (no area round)", rounds: sixManRounds },
         ].map(({ label, rounds }) => (
           <div key={label}>
-            <figcaption className="mb-3 text-sm font-semibold">{label}</figcaption>
+            <h3 className="mb-3 text-sm font-semibold">{label}</h3>
             <ol className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6">
               {rounds.map((round, index) => (
                 <li key={round} className={"min-w-0 rounded-lg border p-3 text-sm " + (index === rounds.length - 1 ? "border-primary bg-primary/10" : "border-border bg-surface")}>
