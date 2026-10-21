@@ -37,7 +37,7 @@ const additional = [
   'texas-pecos-river-guide', 'texas-comal-river-guide',
   'texas-san-marcos-river-guide',
 ];
-const escapeRegex = value => String(value).replace(/[-/\\^$*+?.()|[\]{}]/g, '\\const pages = [];');
+const includesText = value => ({ test: rendered => String(rendered).toLowerCase().includes(String(value).toLowerCase()) });
 for (const slug of additional) {
   assert.ok(!alreadyTested.has(slug), 'Duplicate photo test ' + slug);
   const photo = catalog['/article/' + slug];
@@ -47,9 +47,9 @@ for (const slug of additional) {
   const riverName = slug.replace(/^texas-/, '').replace(/-river(?:-basin)?-guide$/, '').replace(/-/g, ' ');
   rivers.push({
     slug, image: imageName,
-    alt: new RegExp(escapeRegex(riverName), 'i'),
-    license: new RegExp(escapeRegex(photo.license), 'i'),
-    author: new RegExp(escapeRegex(photo.photographer), 'i'),
+    alt: includesText(riverName),
+    license: includesText(photo.license),
+    author: includesText(photo.photographer),
   });
 }
 const catalogSlugs = Object.keys(catalog).filter(href => href.startsWith('/article/'));
