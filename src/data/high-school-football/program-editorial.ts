@@ -2538,6 +2538,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "verifiedAt": "2026-10-20",
       "sourceUrl": "https://www.maxpreps.com/tx/brownsville/hanna-golden-eagles/football/schedule/",
       "sourceLabel": "MaxPreps Hanna Oct 16 updated 2026 posted 2–5 record and seven finals through Oct15; school athletics first-party fixture list confirms opponents and venue but still reads 0–0 official scores",
+      "latestResultSourceUrl": "https://www.maxpreps.com/news/Zzg6lEGxOk67J-nbLAj7vQ/football-recap-weslaco-east-comes-from-behind-to-top-hanna.htm",
       "games": [
         {
           "date": "2026-08-28",
@@ -4942,7 +4943,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Brady Bulldogs Football 2026 | 1959 UIL Title & Tickets",
-      "description": "Brady Bulldogs 2026 football: official schedule, coach Jaron Roberts, 1956–59 title-game history, 1959 UIL forfeiture explanation and school ticket guidance."
+      "description": "Brady Bulldogs football: Jaron Roberts, 0–7 through October 16, 2026, official varsity schedule, 1959 UIL forfeiture-awarded title and tickets."
     },
     "coach": {
       "name": "Jaron Roberts",
@@ -4972,6 +4973,77 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceUrl": "https://hs.bradyisd.org/index.php?articleID=83253908&pageID=smartSiteFeed&psqFeed=true",
       "sourceLabel": "Brady High School first-party football reserved-ticket bulletin, dated July 29, 2026",
       "verifiedAt": "2026-10-20"
+    },
+    "season": {
+      "record": "0–7 through October 16, 2026 (dated MaxPreps and reciprocal Johnson City result; season ongoing)",
+      "verifiedAt": "2026-10-21",
+      "sourceUrl": "https://www.maxpreps.com/tx/brady/brady-bulldogs/football/schedule/",
+      "sourceLabel": "MaxPreps Brady 2026 roster through October 9 reports six losses; Oct16 Johnson City 33–7 final corroborated by MaxPreps Oct16 team result recap and Texas Prep reciprocal schedule, unlike stale Oct13 fixtures snapshot",
+      "latestResultSourceUrl": "https://www.maxpreps.com/news/5u5tfHf30U2RI2dfp0km8g/football-recap-tough-loss-for-brady.htm",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Comfort",
+          "site": "Away",
+          "result": "L 29–32"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Ingram Moore",
+          "site": "Away",
+          "result": "L 0–41"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Hamilton",
+          "site": "Home",
+          "result": "L 17–34"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Ballinger",
+          "site": "Away",
+          "result": "L 35–40"
+        },
+        {
+          "date": "2026-10-02",
+          "opponent": "Llano",
+          "site": "Home",
+          "result": "L 13–45"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Coleman",
+          "site": "Home",
+          "district": true,
+          "result": "L 14–40"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Johnson City",
+          "site": "Away",
+          "district": true,
+          "result": "L 7–33"
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Bangs",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Mason",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "San Saba",
+          "site": "Home",
+          "district": true
+        }
+      ]
     },
     "development": {
       "title": "The 1959 awarded title requires an on-field versus official-record explanation",
@@ -5018,6 +5090,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ],
     "overview": [
+      "The Bulldogs' 2026 regular-season result snapshot was 0–7 through the reported October 16 loss 7–33 at Johnson City. MaxPreps' October 13 schedule screen lagged the outcome; the later dated MaxPreps recap and independent Johnson City result history corroborate it. The October 23, 30 and November 6 games are future fixtures, not reported finals or an automatic playoff forecast.",
       "Brady High School is the Bulldogs' campus in Brady, McCulloch County. Its current football classification comes from the UIL 2026–28 realignment (2A Division I, District 7), not the Class 2A label used for the 1950s title games.",
       "Brady appeared in three state finals in a four-season span (1956, 1957 and 1959). The 1959 historical title record is unusual: UIL's champions table awards Brady the title following Stamford's ineligible-player forfeit but also states the actual 19–14 loss. Its all-time appearances table reports zero wins; neither count should be silently substituted for the other.",
       "Brady product Scott Appleton appears in the UIL's statewide historical player list for his 1959 senior season; this is a sourced Bulldogs alumnus link rather than an inferred professional-career claim for other players.",
@@ -5060,7 +5133,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "seo": {
       "title": "Breckenridge Buckaroos Football | 6 UIL Titles & 2026 Guide",
-      "description": "Breckenridge Buckaroos history: six UIL title awards, 1950s dynasty, coach Casey Pearce, Buckaroo Stadium location, 2026 tickets and school livestreams."
+      "description": "Breckenridge Buckaroos football: 1–6 through October 16, 2026, coach Casey Pearce, six UIL title awards, Buckaroo Stadium and schedules."
     },
     "coach": {
       "name": "Casey Pearce",
@@ -5091,6 +5164,77 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceLabel": "Breckenridge ISD official September 4, 2026 varsity homecoming event identifies Buckaroo Stadium at 706 N Smith St",
       "verifiedAt": "2026-10-20",
       "note": "School-issued varsity homecoming and JV event pages confirm the stadium address. Breckenridge ISD publishes a first-party online ticketing link, spectator expectations and a Buckaroo YouTube livestream gateway. The event venue street address is not a promise of a specific accessible gate, parking entrance, admission price or broadcast availability for every game."
+    },
+    "season": {
+      "record": "1–6 through October 16, 2026 (MaxPreps 2026 completed finals; Oct16 Jacksboro reciprocal corroboration)",
+      "verifiedAt": "2026-10-21",
+      "sourceUrl": "https://www.maxpreps.com/tx/breckenridge/breckenridge-buckaroos/football/",
+      "sourceLabel": "MaxPreps 2026 Breckenridge varsity and schedule feed includes 55–23 City View Oct9 while old Oct5 schedule tab omits it; Oct16 Jacksboro 38–6 corroborated by independent High School On SI score and Texas Prep opponent and school records",
+      "latestResultSourceUrl": "https://www.si.com/high-school/stats/texas/football/games/6876962-jacksboro-vs-breckenridge",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Comanche",
+          "site": "Away",
+          "result": "L 6–28"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Early",
+          "site": "Home",
+          "result": "L 18–47"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Cisco",
+          "site": "Away",
+          "result": "L 6–42"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Clyde",
+          "site": "Home",
+          "result": "L 18–42"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Anson",
+          "site": "Away",
+          "result": "L 19–43"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Wichita Falls City View",
+          "site": "Home",
+          "district": true,
+          "result": "W 55–23"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Jacksboro",
+          "site": "Home",
+          "district": true,
+          "result": "L 6–38"
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Holliday",
+          "site": "Away",
+          "district": true
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Merkel",
+          "site": "Home",
+          "district": true
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Henrietta",
+          "site": "Away",
+          "district": true
+        }
+      ]
     },
     "development": {
       "title": "Six UIL title awards, including two co-champion ties",
@@ -5137,6 +5281,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       }
     ],
     "overview": [
+      "The Buckaroos were 1–6 through October 16, 2026 after an independently corroborated 6–38 home loss to Jacksboro. A 55–23 win over City View on October 9 was already published on the updated MaxPreps team page, even though its older October 5 schedule snapshot omitted it. The October 23, 30 and November 6 games remain scheduled rather than marked final; reported results are not a UIL-certified postseason determination.",
       "Breckenridge High School's Buckaroos play in Stephens County. For the 2026–28 cycle UIL aligns the program in Class 3A Division II District 4, a different classification than the historic major-class title years; championships and district placement must not be conflated.",
       "UIL credits Breckenridge with six football title awards: four outright championship final victories (1951, 1952, 1954 and 1958) and two co-champion ties (1929, 1959). Unlike a generic six-ring graphic, this history distinguishes shared 0–0 and 20–20 finals from wins on the field.",
       "Coach Emory Bellard led Breckenridge during its late-1950s championship period according to the UIL centennial coaching archive. The present athletic director/head football coach is Casey Pearce, named by the high school's own staff directory; one name must not be substituted for the other.",
