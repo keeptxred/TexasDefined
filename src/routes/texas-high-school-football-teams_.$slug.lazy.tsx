@@ -124,6 +124,8 @@ function Page() {
   // Campus-county mapping for individually sourced Batch 002 profiles;
   // city names and district service areas are not dependable campus-county proxies.
   const researchedCampusCounty: Record<string, string> = {
+    'bruceville-eddy': 'mclennan', // TEA 161919 confirms Eddy ISD physical campus in McLennan County, not nearby Bell County.
+    'bruni': 'webb', // Webb CISD first-party Bruni campus 619 Avenue F, southern Webb County; six-man spectator gates not verified.
     'bryson': 'jack', // NCES school district 4811820: 300 N McCloud St physical campus in Jack County; 305/309 third-party field listings are not a proven gate.
     'bryan': 'brazos', // Bryan ISD first-party campus 3450 Campus Drive in Brazos County; Merrill Green Stadium 3310 Oak Ridge Dr is distinct.
     'bryan-rudder': 'brazos', // Rudder High Bryan ISD at 3251 Austin's Colony Pkwy in Brazos County; shared Merrill Green Stadium is 3310 Oak Ridge.
