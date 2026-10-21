@@ -175,13 +175,17 @@ try {
           verify(originalImageIdentity(result.src).includes(originalImageIdentity(river.image)),
             label + ': generic or mismatched image at ' + path + ' for ' + river.slug);
           verify(river.alt.test(result.alt), label + ': inaccurate card alt at ' + path);
-          const outer = anchor.locator('..');
-          const credit = await outer.innerText();
-          verify(river.license.test(credit), label + ': missing visible photo license at ' + path + ' for ' + river.slug);
-          if (river.author) verify(river.author.test(credit), label + ': missing correct photo creator at ' + path + ' for ' + river.slug);
-          verify(await outer.locator('a[href*="commons.wikimedia.org/wiki/File:"]').count() >= 1,
+          // The image link and its attribution are siblings inside one card.
+          // Assert that exact sibling rather than the parent text or a
+          // broader page element containing unrelated citations.
+          const attribution = anchor.locator('xpath=following-sibling::p[1]');
+          verify(await attribution.count() === 1, label + ': missing image credit block on card ' + river.slug + ' at ' + path);
+          const credit = await attribution.innerText();
+          verify(river.license.test(credit), label + ': photo license mismatch at ' + path + ' for ' + river.slug + '; rendered credit: ' + JSON.stringify(credit));
+          if (river.author) verify(river.author.test(credit), label + ': photo creator mismatch at ' + path + ' for ' + river.slug + '; credit: ' + JSON.stringify(credit));
+          verify(await attribution.locator('a[href*="commons.wikimedia.org/wiki/File:"]').count() >= 1,
             label + ': photo original source permalink absent at ' + path + ' for ' + river.slug);
-          verify(await outer.locator('a[href^="https://creativecommons.org/licenses/"]').count() >= 1,
+          verify(await attribution.locator('a[href^="https://creativecommons.org/licenses/"]').count() >= 1,
             label + ': Creative Commons license permalink absent at ' + path + ' for ' + river.slug);
           record.images.push({ river: river.slug, ...result, credited: true });
         }
