@@ -1,0 +1,30 @@
+{
+  "generatedAt": "2026-10-21T18:47:00.000Z",
+  "sourceUrl": "https://tpwd.texas.gov/calendar",
+  "events": [
+    {
+      "title": "Tiny Trailblazers",
+      "startDate": "2026-10-22",
+      "parkKey": "lake-somerville-birch-creek",
+      "officialUrl": "https://tpwd.texas.gov/calendar/lake-somerville-birch-creek/tiny-trailblazers-1/2026-10-22"
+    },
+    {
+      "title": "Forest Trail Hike",
+      "startDate": "2026-10-22",
+      "parkKey": "martin-dies-jr",
+      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/forest-trail-hike/2026-10-22"
+    },
+    {
+      "title": "Hawk Watch",
+      "startDate": "2026-10-22",
+      "parkKey": "bentsen-rio-grande-valley",
+      "officialUrl": "https://tpwd.texas.gov/calendar/bentsen-rio-grande-valley/spring-hawk-watch/2026-10-22"
+    },
+    {
+      "title": "Electric Tram Tour",
+      "startDate": "2026-10-22",
+      "parkKey": "estero-llano-grande",
+      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/electric-tram-tour/2026-10-22"
+    }
+  ]
+}
