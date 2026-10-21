@@ -68,6 +68,41 @@ const questions = [
 
 
 
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://texasdefined.com/destination/davis-hill-state-park#webpage",
+      url: "https://texasdefined.com/destination/davis-hill-state-park",
+      name: "Davis Hill State Natural Area: Access, History and Conservation",
+      dateModified: "2026-10-20",
+      inLanguage: "en-US",
+      isAccessibleForFree: true,
+      citation: sources.map((source) => source.url),
+      mainEntity: { "@id": "https://texasdefined.com/destination/davis-hill-state-park#place" },
+      author: { "@type": "Organization", name: "Texas Defined Editorial Desk", url: "https://texasdefined.com/about" },
+    },
+    {
+      "@type": "Place",
+      "@id": "https://texasdefined.com/destination/davis-hill-state-park#place",
+      name: "Davis Hill State Natural Area",
+      alternateName: "Davis Hill State Park",
+      description: "Undeveloped Texas Parks and Wildlife Department conservation property, listed as a future state natural area without general public visitor access.",
+      address: { "@type": "PostalAddress", addressLocality: "Liberty County", addressRegion: "TX", addressCountry: "US" },
+      additionalProperty: { "@type": "PropertyValue", name: "Visitor access", value: "No general public access or opening date published" },
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://texasdefined.com/" },
+        { "@type": "ListItem", position: 2, name: "State Parks", item: "https://texasdefined.com/explore/state-parks" },
+        { "@type": "ListItem", position: 3, name: "Davis Hill State Natural Area", item: "https://texasdefined.com/destination/davis-hill-state-park" },
+      ],
+    },
+  ],
+};
+
 const citationClass = "font-semibold text-primary underline underline-offset-4 hover:text-foreground";
 function OfficialLink({ href, children }: { href: string; children: ReactNode }) {
   return <a className={citationClass} href={href} target="_blank" rel="noopener noreferrer">{children}</a>;
