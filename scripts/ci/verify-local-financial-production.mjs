@@ -249,6 +249,8 @@ async function verifyEscobaresTaxingUnit() {
 // the cross-workbook Woodlands classification must remain correct on both
 // canonical and direct-Worker responses.
 const verifiedLocalTaxingUnits = [
+  { slug: 'city-of-union-valley', year: 2021, rate: '0.000000', agency: 'Hunt County Appraisal District', zeroCity: true },
+  { slug: 'city-of-union-valley', year: 2022, rate: '0.000000', agency: 'Hunt County Appraisal District', conflict: true, zeroCity: true },
   { slug: 'city-of-little-river-academy', year: 2024, rate: '0.410001', agency: 'Bell County Appraisal District' },
   { slug: 'cooper', year: 2024, rate: '0.649272', agency: 'Delta County Appraisal District' },
   { slug: 'escobares', year: 2024, rate: '0.340447', agency: 'Starr Central Appraisal District' },
@@ -266,7 +268,7 @@ const taxHistoryOrigins = [
   ['direct-worker', 'https://texasdefined-site.freddy-coppola.workers.dev'],
 ];
 
-async function verifySourcedTaxingUnit({ slug, year, rate, agency, latest, zeroCity }) {
+async function verifySourcedTaxingUnit({ slug, year, rate, agency, latest, zeroCity, conflict }) {
   const path = '/property-tax/taxing-unit/' + slug;
   for (const [target, host] of taxHistoryOrigins) {
     const label = 'tax-unit:' + slug + ':' + target;
@@ -278,6 +280,7 @@ async function verifySourcedTaxingUnit({ slug, year, rate, agency, latest, zeroC
         origin + path,
       ];
       if (latest) required.push('Latest independently verified local rate (display only)');
+      if (conflict) required.push('Unresolved official-source discrepancy.', '0.287248', '2022');
       if (zeroCity) required.push('A zero <strong>city</strong> rate does not mean');
       if (slug === 'culberson-county') required.push('separately levied local districts or road/F&amp;M taxes');
       const missing = required.filter((needle) => !body.includes(needle));
