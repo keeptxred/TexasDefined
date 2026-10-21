@@ -40,7 +40,7 @@
       "bryan-rudder",
       "bryson"
     ],
-    "state": "BATCH_007_TWELVE_SCHOOL_SOURCE_IMPLEMENTATION_PENDING_QA",
+    "state": "BATCH_007_THIRTEEN_SCHOOL_SOURCE_IMPLEMENTATION_PENDING_QA",
     "dateAssigned": "2026-10-20",
     "selectionRule": "First 25 NOT_REVIEWED and unassigned canonical schoolRecords in stable order following 130 production VERIFIED through completed Batch 006; outstanding PR and branch conflicts checked.",
     "individuallyVerified": 0,
@@ -48,12 +48,12 @@
     "assignmentBranch": "football-authority-batch-007-20261020",
     "repositoryMainAtAssignment": "78157bb07d856f40d21e813fd3f886cd54e2b20e",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "brownsboro",
-    "nextSchool": "brownsville-hanna",
-    "implementedOnBranch": 12,
-    "remainingToImplement": 13,
+    "currentSchool": "brownsville-hanna",
+    "nextSchool": "brownsville-lopez",
+    "implementedOnBranch": 13,
+    "remainingToImplement": 12,
     "remainingToVerify": 25,
-    "notes": "12/25 source-researched branch-implemented profiles, 13 remaining; none actual production VERIFIED. Newly added Brownfield specific 2026 1–7 and school address conflict 702 vs 701 plus county and graphic."
+    "notes": "13/25 individually researched, edited, identity/county linked, original source-derived results visual and dossier on unmerged PR #5525; 12 unimplemented and none production VERIFIED. Brownsboro legacy vs live athletics coaching and rescheduled Van game carefully distinguished."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -7525,8 +7525,17 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/brownsboro",
-      "status": "NOT_REVIEWED",
-      "batch": 7
+      "status": "IMPLEMENTED",
+      "batch": 7,
+      "audit": "docs/football-authority/schools/brownsboro.md",
+      "auditCompletedAt": "2026-10-20",
+      "researchCompletedAt": "2026-10-20",
+      "implementedAt": "2026-10-20",
+      "implementedOnBranch": "football-authority-batch-007-20261020",
+      "actualProductionVerified": false,
+      "mediaStatus": "Original TexasDefined blue 2026 reported-finals visual, no licensed Bears school photo, stadium photo or district emblem",
+      "implementationNotes": "2026 head coach/AD Ryan Hood school-run + KLTV May5, superseding stale Lance Connot vendor; first-party 2026 Van game CHANGED Oct22 Thursday vs old Oct23; 2026 reported 3–4 through Canton Oct16; 25 DCTF playoff berths no state football title; Brownsboro high-school campus 13942 vs admin/athletic office 14134 State Hwy 31; seven source-specific milestones/six FAQs; Henderson County reciprocal links.",
+      "technicalVerification": "Pending source validators, CI/build, protected merge, Cloudflare production deploy + 1366/390/320 real Chrome/canonical/structured data/sitemap/county; ticket/parking/photo rights independently unverified"
     },
     {
       "id": "uil:brownsville-hanna",
