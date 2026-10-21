@@ -135,6 +135,17 @@ export const majorEventSchemaEnrichmentBatch1: MajorEventSchemaEnrichment[] = [
   },
   {
     slug: "fiesta-san-antonio",
+    image: {
+      url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f1/Scene_from_the_%22Battle_of_Flowers%22_parade_28832v.jpg/960px-Scene_from_the_%22Battle_of_Flowers%22_parade_28832v.jpg",
+      alt: "Young women performing rope routines in the 2014 Battle of Flowers Parade during Fiesta San Antonio",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Scene_from_the_%22Battle_of_Flowers%22_parade_28832v.jpg",
+      sourceType: "wikimedia",
+      licenseName: "Public domain — Carol M. Highsmith",
+      licenseUrl: "https://commons.wikimedia.org/wiki/Template:PD-Highsmith",
+      rightsNote: "Photo: Carol M. Highsmith / Library of Congress (2014); public domain; cropped to fit when displayed",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
     organizer: organization("Fiesta San Antonio Commission", "https://fiestasanantonio.org/"),
     sources: [
       { label: "Fiesta San Antonio Commission official site", url: "https://fiestasanantonio.org/" },
