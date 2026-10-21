@@ -35,7 +35,7 @@ export const Route = createFileRoute('/property-tax/taxing-unit/$unit')({
         temporalCoverage: `${history[0]?.year}/${history.at(-1)?.year}`,
         creator: { '@type': 'Organization', name: 'Texas Defined' },
         citation: latest.slug === 'escobares' && latest.type === 'city'
-          ? [latest.sourceUrl, STARR_CAD_REPORT_URL, STARR_CAD_2024_COMPONENTS_URL]
+          ? [latest.sourceUrl, STARR_CAD_REPORT_URL]
           : latest.sourceUrl,
         publisher: { '@type': 'Organization', name: 'Texas Defined' },
         variableMeasured: ['Total property-tax rate', 'Maintenance and operations rate', 'Debt-service / I&S rate', 'Reported levy'],
