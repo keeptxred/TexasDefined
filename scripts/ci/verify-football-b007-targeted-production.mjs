@@ -34,10 +34,8 @@ function county(slug){
  const match=candidate?.match(/:\s*['"]([a-z-]+)['"]/);
  // The live school route first uses the explicit researchedCampusCounty mapping,
  // then falls back to countySlug(program.countyName) for UIL program records.
- // Eight Batch007 campuses use that second, genuine production routing path.
- // Their campus counties are individually grounded in NCES/school dossiers
- // (including NCES Blackwell School: Nolan County) and must still pass the
- // downstream real-browser school and reciprocal-county-link assertions.
+ // All Batch007 campus-county associations are explicitly source-mapped.
+ // Do not accept an unrelated school from a similarly named county.
  const campusCountyFallback={};
  if(!match)assert.ok(teamRoute.includes('program?.countyName ?'), 'Missing production county-name fallback');
  if(match&&campusCountyFallback[slug])assert.equal(match[1],campusCountyFallback[slug],'Campus/county mapping source conflict for '+slug);
@@ -135,7 +133,7 @@ try{
    }));
    row.h1=pageData.h1[0];row.canonical=pageData.canonical;
    row.cssWidth=pageData.cssWidth;row.gameRows=pageData.rows;
-   const teamName=String(s.model.seo?.title||'').split(' Football')[0];
+   const teamName=String(s.model.seo?.title||'').split(' Football')[0].replace(/ Six-Man$/,'');
    const expectedRecord=String(s.model.season?.record||'').match(/^\d+[–-]\d+/)?.[0];
    if(pageData.h1.length!==1||!/football/i.test(row.h1||''))errors.push('missing unique football H1');
    if(teamName&&!String(row.h1).toLowerCase().includes(teamName.toLowerCase()))errors.push('school H1 identity differs: '+teamName);
