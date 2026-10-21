@@ -171,7 +171,14 @@ function LegacySharedTripPage() {
   return (
     <main className="py-12">
       <Container>
-        <nav aria-label="Breadcrumb" className="mb-5 text-sm text-muted-foreground">\n          <Link to="/explore" className="underline-offset-4 hover:underline">Explore Texas</Link>\n          <span aria-hidden="true"> / </span>\n          <Link to="/explore/trip-planner" className="underline-offset-4 hover:underline">Trip planner</Link>\n          <span aria-hidden="true"> / </span>\n          <span aria-current="page">Shared itinerary</span>\n        </nav>\n        <p className="eyebrow text-primary">Shared Texas itinerary</p>
+        <nav aria-label="Breadcrumb" className="mb-5 text-sm text-muted-foreground">
+          <Link to="/explore" className="underline-offset-4 hover:underline">Explore Texas</Link>
+          <span aria-hidden="true"> / </span>
+          <Link to="/explore/trip-planner" className="underline-offset-4 hover:underline">Trip planner</Link>
+          <span aria-hidden="true"> / </span>
+          <span aria-current="page">Shared itinerary</span>
+        </nav>
+        <p className="eyebrow text-primary">Shared Texas itinerary</p>
         <h1 className="mt-3 font-display text-4xl md:text-5xl">{trip.title}</h1>
         {(start || end) && (
           <p className="mt-3 text-sm text-muted-foreground">
@@ -182,9 +189,23 @@ function LegacySharedTripPage() {
           {trip.verificationReminder}
         </p>
 
-        <nav aria-label="Itinerary days" className="mt-8 rounded-lg border p-4">\n          <p className="font-semibold">Your trip at a glance</p>\n          <p className="mt-1 text-sm text-muted-foreground">{trip.days.length} {trip.days.length === 1 ? "day" : "days"} · {trip.days.reduce((total, day) => total + day.stops.length, 0)} stops</p>\n          <ul className="mt-3 flex flex-wrap gap-2">\n            {trip.days.map((day, index) => (\n              <li key={`${day.day}-${index}`}>\n                <a href={`#trip-day-${index + 1}`} className="inline-flex rounded-md border px-3 py-2 text-sm text-primary hover:bg-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2">\n                  Day {day.day} · {day.stops.length} {day.stops.length === 1 ? "stop" : "stops"}\n                </a>\n              </li>\n            ))}\n          </ul>\n        </nav>\n\n        <div className="mt-10 space-y-10">
-          {trip.days.map((day) => (
-            <section key={`${day.day}-${day.date || "undated"}`}>
+        <nav aria-label="Itinerary days" className="mt-8 rounded-lg border p-4">
+          <p className="font-semibold">Your trip at a glance</p>
+          <p className="mt-1 text-sm text-muted-foreground">{trip.days.length} {trip.days.length === 1 ? "day" : "days"} · {trip.days.reduce((total, day) => total + day.stops.length, 0)} stops</p>
+          <ul className="mt-3 flex flex-wrap gap-2">
+            {trip.days.map((day, index) => (
+              <li key={`${day.day}-${index}`}>
+                <a href={`#trip-day-${index + 1}`} className="inline-flex rounded-md border px-3 py-2 text-sm text-primary hover:bg-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2">
+                  Day {day.day} · {day.stops.length} {day.stops.length === 1 ? "stop" : "stops"}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <div className="mt-10 space-y-10">
+          {trip.days.map((day, index) => (
+            <section id={`trip-day-${index + 1}`} key={`${day.day}-${index}-${day.date || "undated"}`} className="scroll-mt-6">
               <h2 className="border-b pb-2 font-display text-3xl">
                 Day {day.day}{day.date ? ` · ${formatDate(day.date)}` : ""}
               </h2>
