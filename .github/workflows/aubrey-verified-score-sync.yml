@@ -24,3 +24,18 @@ jobs:
           AUBREY_SCORE_FEED_PRIMARY_TOKEN: ${{ secrets.AUBREY_SCORE_FEED_PRIMARY_TOKEN }}
           AUBREY_SCORE_FEED_SECONDARY_TOKEN: ${{ secrets.AUBREY_SCORE_FEED_SECONDARY_TOKEN }}
         run: node scripts/data/update-aubrey-verified-results.mjs
+      - name: Open a protected score update PR
+        if: ${{ steps.import.outputs.changed == 'true' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          branch="automation/aubrey-results-${GITHUB_RUN_ID}"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git checkout -b "$branch"
+          git add src/data/high-school-football/aubrey-auto-results.snapshot.json
+          git commit -m 'Update independently confirmed Aubrey football results'
+          git push origin "$branch"
+          gh pr create --base main --head "$branch" --title 'Publish independently verified Aubrey football finals' --body 'Two independent authorized score feeds agreed on exact game identities and scores. Only the Aubrey generated result snapshot changes. Protected merge gate and automated finisher must verify before publication.'
