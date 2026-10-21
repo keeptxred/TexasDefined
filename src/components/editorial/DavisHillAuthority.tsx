@@ -159,8 +159,8 @@ export default function DavisHillAuthorityPage() {
       </section>
 
       <Container className="py-10 sm:py-16">
-        <div className="grid gap-10 lg:grid-cols-3 lg:gap-12">
-          <article className="min-w-0 space-y-12 lg:col-span-2 text-base leading-8">
+        <div className="grid gap-10 lg:grid-cols-2 lg:gap-12">
+          <article className="min-w-0 space-y-12 text-base leading-8">
             <section aria-labelledby="answer">
               <p className="eyebrow text-primary">The short answer</p>
               <h2 id="answer" className="mt-3 font-display text-3xl sm:text-4xl">What exactly is Davis Hill?</h2>
@@ -277,7 +277,7 @@ export default function DavisHillAuthorityPage() {
             </section>
           </article>
 
-          <aside className="space-y-6 lg:self-start lg:sticky lg:top-24">
+          <aside className="space-y-6 lg:self-start">
             <section className="border-t-2 border-foreground pt-4">
               <p className="eyebrow text-primary">At a glance</p>
               <dl className="mt-4 divide-y divide-border text-sm leading-6">
