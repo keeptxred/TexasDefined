@@ -1,6 +1,13 @@
 name: Sync Texas property tax rates
 
 on:
+  # Verify the importer once when its source or synchronization workflow changes.
+  # Scheduled monthly checks remain the regular unattended update mechanism.
+  push:
+    branches: [main]
+    paths:
+      - 'supabase/functions/import-texas-property-tax-rates/index.ts'
+      - '.github/workflows/sync-property-tax-rates.yml'
   schedule:
     - cron: '23 11 3 * *'
   workflow_dispatch:

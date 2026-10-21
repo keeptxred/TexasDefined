@@ -73,6 +73,7 @@ grant all on public.texas_tax_import_runs, public.texas_tax_import_stage,
   public.texas_tax_import_raw_stage, public.texas_tax_import_source_rows,
   public.texas_tax_local_verified_rates to service_role;
 grant select on public.texas_tax_local_verified_rates to anon, authenticated;
+drop policy if exists "Public may read documented verified local supplements" on public.texas_tax_local_verified_rates;
 create policy "Public may read documented verified local supplements"
   on public.texas_tax_local_verified_rates for select to anon, authenticated
   using (status = 'verified');
