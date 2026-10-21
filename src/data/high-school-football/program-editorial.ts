@@ -67,6 +67,412 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "brackettville-brackett": {
+    "slug": "brackettville-brackett",
+    "intro": "Brackett's Tigers represent Brackett ISD in Brackettville, Kinney County. The school posts its own 2026 varsity schedule; the UIL places Brackettville Brackett in 2A Division II, District 14. This independently researched guide separates the school's official schedule from third-party result reporting and identifies what a visiting supporter still needs to confirm.",
+    "theme": {
+      "accentHex": "#A87824",
+      "label": "Independent TexasDefined amber editorial accent; not a verified uniform color, school seal or official mark"
+    },
+    "seo": {
+      "title": "Brackett Tigers Football 2026 | Schedule, History & Tiger Stadium",
+      "description": "Brackettville Brackett Tigers: 2026 District 14 schedule, reported results, 2025 playoff run, Tiger Stadium research and Brackett ISD links."
+    },
+    "campus": {
+      "address": "400 Ann Street, Brackettville, TX 78832 (school campus, not a confirmed spectator gate)",
+      "sourceUrl": "https://www.maxpreps.com/tx/brackettville/brackett-tigers/football/schedule/",
+      "sourceLabel": "Brackett High School campus address published in 2026 MaxPreps schedule; stadium gate and parking not confirmed",
+      "verifiedAt": "2026-10-20"
+    },
+    "schedule": {
+      "label": "Brackett ISD official 2026 varsity Tigers football schedule (posted August 19, 2026)",
+      "sourceUrl": "https://www.brackettisd.net/athletics-department/",
+      "sourceLabel": "Brackett ISD Athletics Document Library includes a distinct 2026 varsity Brackett Tigers football schedule PDF; confirm revisions with district calendar",
+      "verifiedAt": "2026-10-20",
+      "officialScheduleUrl": "https://www.brackettisd.net/athletics-department/"
+    },
+    "season": {
+      "record": "1–6 through October 9, 2026 (source-dated published game results; later games not presumed final)",
+      "verifiedAt": "2026-10-20",
+      "sourceUrl": "https://www.maxpreps.com/tx/brackettville/brackett-tigers/football/schedule/",
+      "sourceLabel": "MaxPreps 2026 six reported finals through October 2; independent October 9 Harper result separately checked against Texas Prep Football",
+      "latestResultSourceUrl": "https://txprepfootball.com/schools/brackett-tigers/2026/",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Ozona",
+          "site": "Away",
+          "result": "L 27–64",
+          "kickoff": "7:00 PM"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Eldorado",
+          "site": "Away",
+          "result": "L 28–37",
+          "kickoff": "7:00 PM"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "New Home",
+          "site": "Away",
+          "result": "L 7–40",
+          "kickoff": "7:00 PM"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Falls City",
+          "site": "Home",
+          "result": "L 20–42",
+          "kickoff": "7:00 PM"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Sabinal",
+          "site": "Away",
+          "district": true,
+          "result": "W 18–14",
+          "kickoff": "7:00 PM"
+        },
+        {
+          "date": "2026-10-02",
+          "opponent": "Junction",
+          "site": "Home",
+          "district": true,
+          "result": "L 19–35",
+          "kickoff": "7:00 PM"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Harper",
+          "site": "Away",
+          "district": true,
+          "result": "L 34–49",
+          "kickoff": "7:00 PM"
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "D'Hanis",
+          "site": "Home",
+          "district": true,
+          "kickoff": "7:00 PM"
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "La Pryor",
+          "site": "Home",
+          "district": true,
+          "kickoff": "7:00 PM"
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Center Point",
+          "site": "Home",
+          "district": true,
+          "kickoff": "7:00 PM"
+        }
+      ]
+    },
+    "development": {
+      "title": "A recent playoff run, not a manufactured championship pedigree",
+      "body": "Dave Campbell's Texas Football identifies 34 program playoff appearances but no state-title game or state championship; that cumulative count is a publisher's historical database snapshot, not a UIL audit. In the 2025 postseason, independent MaxPreps coverage identifies the Brackett Tigers' playoff victory over Burton and subsequent 19–55 elimination against Shiner. Brackettville Brackett also appears by that full UIL school name in the league's 2006–07 official playoff bracket. Separate these dated achievements from the 2026 conference assignment.",
+      "sourceUrl": "https://www.texasfootball.com/team/brackettville-tigers",
+      "sourceLabel": "Dave Campbell's Texas Football team history, cross-checked against UIL 2006–07 bracket and MaxPreps 2025 postseason",
+      "verifiedAt": "2026-10-20"
+    },
+    "milestones": [
+      {
+        "date": "2006",
+        "title": "UIL bracket documents Brackettville Brackett",
+        "body": "The official 2006–07 Conference 1A Division I playoff bracket explicitly lists Brackettville Brackett. It is postseason participation evidence, not evidence of a state title.",
+        "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/playoff_brackets/06_07/1A_bracket/1A_elev_man_div1.html",
+        "sourceLabel": "UIL archived 2006–07 football playoff bracket"
+      },
+      {
+        "date": "2025",
+        "title": "Tigers advance in the 2A Division II playoffs",
+        "body": "MaxPreps documents a Brackett win over Burton and a later 19–55 postseason loss to Shiner on November 21, 2025; do not translate this into a 2026 playoff claim.",
+        "sourceUrl": "https://www.maxpreps.com/tx/brackettville/brackett-tigers/football/",
+        "sourceLabel": "MaxPreps Brackett Tigers 2025 postseason results"
+      },
+      {
+        "date": "2026",
+        "title": "School-published varsity schedule and new UIL District 14",
+        "body": "Brackett ISD released the 2026 varsity schedule on August 19; UIL 2026–28 realignment places the school in 2A Division II District 14.",
+        "sourceUrl": "https://www.brackettisd.net/athletics-department/",
+        "sourceLabel": "Brackett ISD official athletics and UIL 2026–28 alignment"
+      }
+    ],
+    "overview": [
+      "The Brackett Tigers are Kinney County's Brackett ISD football program, not a generic Brackettville tourism team. The campus and stadium are distinct visitor questions: Brackett High School is listed at 400 Ann Street, while the precise football entrance, accessible-seating arrangements and public parking must be confirmed for each event.",
+      "Brackett ISD maintains an official Athletics Department library with the varsity Tigers schedule, a separate junior-high schedule and school calendar. That first-party schedule takes priority when kickoff details change; external score services are historical reporting sources, not official ticketing authorities.",
+      "Texas football historian Dave Campbell's team listing names Tiger Stadium and chronicles multiple decades of playoff appearances. The publisher's stadium capacity listing is a reference estimate, not independently confirmed present-day seating. No photograph from that site is reproduced here because image-use rights were not established.",
+      "The source-dated October 9 Harper away result follows the older October 6 update on MaxPreps' published schedule. The 2026 record shown here combines separately cited reported finals rather than implying the district has approved every score. The October 23 D'Hanis, October 30 La Pryor and November 6 Center Point games were future fixtures when reviewed on October 20."
+    ],
+    "faq": [
+      {
+        "question": "Where does Brackett Tigers football play?",
+        "answer": "Dave Campbell's Texas Football identifies Tiger Stadium in Brackettville; the high-school address of 400 Ann Street is an orientation address, not a verified spectator gate. Confirm the event site, entrance, accessible seating and parking with Brackett ISD before traveling."
+      },
+      {
+        "question": "Where can I find the official 2026 Brackett football schedule?",
+        "answer": "Brackett ISD's Athletics Department document library posts a PDF explicitly titled 2026 Brackett Tigers Football Schedule (updated August 19, 2026). School calendar notices should be checked for changes."
+      },
+      {
+        "question": "Has Brackettville Brackett won a UIL state football title?",
+        "answer": "Dave Campbell's Texas Football currently lists no football state title or title-game appearance for the Tigers. UIL's historic 2006–07 bracket and independent postseason reporting do document playoff participation."
+      },
+      {
+        "question": "Why do some websites show different 2026 records?",
+        "answer": "Published third-party football score pages have different update dates. MaxPreps' October 6 schedule had not incorporated the October 9 Harper final. TexasDefined labels the 1–6 record through October 9 as a dated synthesis, not an official district-certified final season record."
+      },
+      {
+        "question": "Are tickets, parking and accessible seating guaranteed at Tiger Stadium?",
+        "answer": "No. Current per-event ticket inventory, gate location, parking and accessibility arrangements were not verified in the public sources reviewed. Check with Brackett ISD before attending."
+      },
+      {
+        "question": "What league and district is Brackett football in for 2026?",
+        "answer": "UIL 2026–28 football alignment lists Brackettville Brackett as a Class 2A Division II, District 14 eleven-man program; that is a current alignment, not the historical bracket classification."
+      }
+    ]
+  },
+  "brady": {
+    "slug": "brady",
+    "intro": "Brady Bulldogs football links a documented 1950s state-final tradition with useful, first-party 2026 game-day resources. The 1959 championship is particularly easy to misstate: the UIL's champions archive records an administrative title award after Stamford's forfeiture even though Brady lost the game on the field.",
+    "theme": {
+      "accentHex": "#AD8231",
+      "label": "Independent TexasDefined editorial gold accent; no school crest, logo or officially certified color claim"
+    },
+    "seo": {
+      "title": "Brady Bulldogs Football 2026 | 1959 UIL Title & Tickets",
+      "description": "Brady Bulldogs 2026 football: official schedule, coach Jaron Roberts, 1956–59 title-game history, 1959 UIL forfeiture explanation and school ticket guidance."
+    },
+    "coach": {
+      "name": "Jaron Roberts",
+      "title": "Athletic Director and Head Football Coach (Brady ISD 2026–27 athletics roster)",
+      "sourceUrl": "https://www.bradyisd.org/athletics-schedules",
+      "sourceLabel": "Brady ISD official Athletics Schedules staff directory, listing Jaron Roberts as Athletic Director/Head Football Coach",
+      "verifiedAt": "2026-10-20"
+    },
+    "campus": {
+      "address": "2301 Highway 190, Brady, TX 76825 (Brady High School campus; not a confirmed stadium spectator entrance)",
+      "phone": "325-597-2491",
+      "sourceUrl": "https://hs.bradyisd.org/",
+      "sourceLabel": "Brady High School official campus contact details",
+      "verifiedAt": "2026-10-20"
+    },
+    "schedule": {
+      "label": "Brady ISD official 2026 Bulldogs football schedules",
+      "sourceUrl": "https://www.bradyisd.org/football",
+      "sourceLabel": "Brady ISD Football page with varsity and sub-varsity schedule material, posted for 2026",
+      "verifiedAt": "2026-10-20",
+      "officialScheduleUrl": "https://www.bradyisd.org/football",
+      "ticketUrl": "https://www.bradyisd.org/athletics-schedules"
+    },
+    "notice": {
+      "title": "2026 Brady home-game ticket options are school-issued and date-sensitive",
+      "body": "A July 29 district bulletin quoted $35 reserved season tickets for five 2026 home games, first offered to returning holders August 17–28 and to the general public beginning August 31; school-issued senior passes remain valid for home UIL events. Those purchase windows and prices are historical 2026 notices, not a promise that seats are currently available. Check the official Brady ISD box office for each game.",
+      "sourceUrl": "https://hs.bradyisd.org/index.php?articleID=83253908&pageID=smartSiteFeed&psqFeed=true",
+      "sourceLabel": "Brady High School first-party football reserved-ticket bulletin, dated July 29, 2026",
+      "verifiedAt": "2026-10-20"
+    },
+    "development": {
+      "title": "The 1959 awarded title requires an on-field versus official-record explanation",
+      "body": "UIL's historical champions archive lists Brady as the 1959 Class 2A champion after Stamford forfeited for using an ineligible player. The game itself ended Stamford 19, Brady 14. The UIL's separate all-time title-appearance table lists Brady at zero championship wins across its three appearance years (1956, 1957 and 1959), reflecting an apparent recordkeeping difference in how the forfeiture is counted. TexasDefined preserves both primary-source statements instead of inventing an undefeated championship game.",
+      "sourceUrl": "https://wwwprod.uiltexas.org/historical-archives/athletics/archives/football/champions.html",
+      "sourceLabel": "UIL champions archive explicitly reports the 1959 forfeiture and on-field score; UIL all-time appearances separately tabulates 0 titles",
+      "verifiedAt": "2026-10-20"
+    },
+    "milestones": [
+      {
+        "date": "1956",
+        "title": "Bulldogs reach the Class 2A title game",
+        "body": "UIL's official historic champions listing records Brady's 13–26 loss to Stamford in the 1956 Class 2A state final.",
+        "sourceUrl": "https://wwwprod.uiltexas.org/historical-archives/athletics/archives/football/champions.html",
+        "sourceLabel": "UIL historical state champions, 1956"
+      },
+      {
+        "date": "1957",
+        "title": "Second consecutive state final",
+        "body": "Terrell defeated Brady 41–6 in the 1957 Class 2A championship game, as recorded in the UIL archives.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives/P624",
+        "sourceLabel": "UIL official Football State Archives, 1957–58"
+      },
+      {
+        "date": "1959",
+        "title": "Championship title awarded after Stamford forfeit",
+        "body": "Stamford won the field contest 19–14; UIL records Brady as administrative 2A champion after a later ineligible-player forfeit. UIL all-time-appearances counts the Bulldogs' three finals differently; both facts remain visible.",
+        "sourceUrl": "https://wwwprod.uiltexas.org/historical-archives/athletics/archives/football/champions.html",
+        "sourceLabel": "UIL official 1959 state champions and forfeiture footnote"
+      },
+      {
+        "date": "1959",
+        "title": "Scott Appleton's Brady senior season",
+        "body": "UIL's 100 greatest Texas high-school-player list names Brady offensive lineman Scott Appleton, who later played at Texas and professionally, with 1959 as his final high-school season.",
+        "sourceUrl": "https://www.uiltexas.org/100/football/1000",
+        "sourceLabel": "UIL centennial list of notable players, Scott Appleton entry"
+      },
+      {
+        "date": "2026",
+        "title": "Official Bulldogs schedule, staff and reserved ticket guidance",
+        "body": "Brady ISD publishes an official football schedule, lists head coach Jaron Roberts and issued a season-ticket bulletin for five home games with rules for longstanding senior passes.",
+        "sourceUrl": "https://www.bradyisd.org/athletics-schedules",
+        "sourceLabel": "Brady ISD official Athletics Schedules and July 29 ticket bulletin"
+      }
+    ],
+    "overview": [
+      "Brady High School is the Bulldogs' campus in Brady, McCulloch County. Its current football classification comes from the UIL 2026–28 realignment (2A Division I, District 7), not the Class 2A label used for the 1950s title games.",
+      "Brady appeared in three state finals in a four-season span (1956, 1957 and 1959). The 1959 historical title record is unusual: UIL's champions table awards Brady the title following Stamford's ineligible-player forfeit but also states the actual 19–14 loss. Its all-time appearances table reports zero wins; neither count should be silently substituted for the other.",
+      "Brady product Scott Appleton appears in the UIL's statewide historical player list for his 1959 senior season; this is a sourced Bulldogs alumnus link rather than an inferred professional-career claim for other players.",
+      "Brady ISD's official football page provides 2026 schedules, while the separate athletics page identifies head coach Jaron Roberts and the school box-office resource. Fans should confirm gate opening, current ticket inventory, parking and accessibility at the actual home event, not assume the main campus office is the game entrance.",
+      "Brady's high-school mailing/physical campus location at 2301 Highway 190 should not be confused with Brady ISD's administration office at 1003 West 11th Street, where the 2026 season-ticket bulletin directed in-person sales."
+    ],
+    "faq": [
+      {
+        "question": "Did Brady win the 1959 Texas state football championship?",
+        "answer": "UIL's champions archive officially credits Brady with the 1959 Class 2A title because Stamford later forfeited after a 19–14 on-field win for using an ineligible player. Its separate all-time final-appearance table records Brady as 0 championships in three appearances. Both should be noted instead of presenting the game as a Brady on-field victory."
+      },
+      {
+        "question": "Who coaches Brady Bulldogs football in 2026?",
+        "answer": "Brady ISD's official 2026 athletics staff directory lists Jaron Roberts as athletic director and head football coach."
+      },
+      {
+        "question": "Where do I find the real Brady varsity schedule?",
+        "answer": "Use the Football page on Brady ISD's official website. The campus athletics-schedules directory also links official schedules and the Brady High School athletics box office."
+      },
+      {
+        "question": "Are Brady season tickets still $35 and available for sale?",
+        "answer": "Brady High School's July 29, 2026 notice listed $35 for five reserved home games and specified August purchase windows. That announcement is dated and does not prove current availability or a single-game price; use the school box office for up-to-date inventory."
+      },
+      {
+        "question": "Can senior citizens attend home Brady football games with a pass?",
+        "answer": "Brady ISD's 2026 ticket bulletin says senior passes from prior years remained valid for home UIL activities and could be obtained at the district administration office. Check directly with Brady ISD for later policy changes."
+      },
+      {
+        "question": "How many UIL state-title games has Brady played?",
+        "answer": "UIL's all-time appearances register lists three final appearances: 1956, 1957 and 1959. The 1959 postgame administrative forfeiture creates a known discrepancy between the UIL's championship-award listing and its all-time win-count table."
+      }
+    ]
+  },
+  "breckenridge": {
+    "slug": "breckenridge",
+    "intro": "Breckenridge Buckaroos football spans a six-title UIL historical legacy, early state-final ties and a very modern school-run visitor operation. The district publishes named Buckaroo Stadium directions, ticketing, 2026 game information and livestream resources—more useful to visiting fans than an unsourced generic venue address.",
+    "theme": {
+      "accentHex": "#176A49",
+      "label": "Independent TexasDefined green editorial accent informed by Breckenridge ISD's 2026 green-and-white public athletics language; no official school marks reproduced"
+    },
+    "seo": {
+      "title": "Breckenridge Buckaroos Football | 6 UIL Titles & 2026 Guide",
+      "description": "Breckenridge Buckaroos history: six UIL title awards, 1950s dynasty, coach Casey Pearce, Buckaroo Stadium location, 2026 tickets and school livestreams."
+    },
+    "coach": {
+      "name": "Casey Pearce",
+      "title": "Breckenridge High School athletic director and head football coach (2026 school-issued staff listing)",
+      "sourceUrl": "https://bhs.breckenridgeisd.org/",
+      "sourceLabel": "Breckenridge High School official current staff directory names Casey Pearce Athletic Director & Head Football Coach",
+      "verifiedAt": "2026-10-20"
+    },
+    "campus": {
+      "address": "500 W. Lindsey Street, Breckenridge, TX 76424 (high school; stadium at a different address)",
+      "phone": "254-212-4730",
+      "sourceUrl": "https://bhs.breckenridgeisd.org/",
+      "sourceLabel": "Official Breckenridge High School campus address and staff listing",
+      "verifiedAt": "2026-10-20"
+    },
+    "schedule": {
+      "label": "Breckenridge ISD 2026 Buckaroo and Bronco football schedules",
+      "sourceUrl": "https://www.breckenridgeisd.org/241825_2",
+      "sourceLabel": "Breckenridge ISD official Buckaroo & Bronco Athletics hub includes fall 2026 football schedules, ticketing and livestream resources",
+      "verifiedAt": "2026-10-20",
+      "officialScheduleUrl": "https://www.breckenridgeisd.org/241825_2",
+      "ticketUrl": "https://www.breckenridgeisd.org/241825_2"
+    },
+    "venue": {
+      "name": "Buckaroo Stadium",
+      "address": "706 N Smith Street, Breckenridge, TX 76424 (official event venue; verify spectator gates and parking)",
+      "sourceUrl": "https://breckenridgeisd.org/event_view?calIDref=breckenridgeisd.org_h4llnoav3dul2j3dlpa1lo2ers%40group.calendar.google.com&eventDate=2026-09-04&event_id=4mn6v88rmj527o07afbthg5bpm&feed_type=google",
+      "sourceLabel": "Breckenridge ISD official September 4, 2026 varsity homecoming event identifies Buckaroo Stadium at 706 N Smith St",
+      "verifiedAt": "2026-10-20",
+      "note": "School-issued varsity homecoming and JV event pages confirm the stadium address. Breckenridge ISD publishes a first-party online ticketing link, spectator expectations and a Buckaroo YouTube livestream gateway. The event venue street address is not a promise of a specific accessible gate, parking entrance, admission price or broadcast availability for every game."
+    },
+    "development": {
+      "title": "Six UIL title awards, including two co-champion ties",
+      "body": "UIL's all-time appearances register credits Breckenridge with six championships in six listed title appearances. The 1929 title game against Port Arthur ended 0–0 and was recorded as co-champions; the 1959 3A championship against Cleburne ended 20–20 as co-champions. Four wins outright came in 1951 (20–14 over Temple), 1952 (28–20 over Temple), 1954 (20–7 over Port Neches) and 1958 (42–14 over Kingsville). The 1958–59 titles were coached by Emory Bellard according to the UIL centennial coaches collection, not an invented single-coach dynasty spanning all six titles.",
+      "sourceUrl": "https://www.uiltexas.org/football/all-time-appearances",
+      "sourceLabel": "UIL official all-time appearances and title record, cross-checked against UIL historical champions and UIL centennial coaches list",
+      "verifiedAt": "2026-10-20"
+    },
+    "milestones": [
+      {
+        "date": "1929",
+        "title": "Breckenridge and Port Arthur co-champions",
+        "body": "The UIL champions archive records a 0–0 championship tie; both were designated co-champions. Breckenridge's historic total includes this shared award.",
+        "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/champions.html",
+        "sourceLabel": "UIL state football champions archive, 1929"
+      },
+      {
+        "date": "1951–1952",
+        "title": "Back-to-back championship victories against Temple",
+        "body": "Breckenridge beat Temple 20–14 in 1951 and 28–20 in 1952. UIL lists two separate final wins, not a single composite postseason.",
+        "sourceUrl": "https://wwwprod.uiltexas.org/historical-archives/athletics/archives/football/champions.html",
+        "sourceLabel": "UIL historical champions list, 1951 and 1952"
+      },
+      {
+        "date": "1954",
+        "title": "Third postwar title",
+        "body": "The Buckaroos defeated Port Neches 20–7 in the Class 3A title game.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives/P648",
+        "sourceLabel": "UIL Football State Archives 1954–55 championship record"
+      },
+      {
+        "date": "1958–1959",
+        "title": "Bellard-era title and co-championship",
+        "body": "UIL records a 42–14 win over Kingsville King in 1958 and a 20–20 title-game tie against Cleburne in 1959. UIL's centennial coach record names Emory Bellard head coach at Breckenridge during this period.",
+        "sourceUrl": "https://www.uiltexas.org/100/football",
+        "sourceLabel": "UIL centennial coach Emory Bellard record and UIL championship results"
+      },
+      {
+        "date": "2026",
+        "title": "School-operated visitor information and homecoming",
+        "body": "Breckenridge ISD advertised the September 4, 2026 Early varsity homecoming at Buckaroo Stadium (706 N Smith), including a homecoming court presentation and an official school livestream reference; current individual games still require schedule and ticket checks.",
+        "sourceUrl": "https://breckenridgeisd.org/event_view?calIDref=breckenridgeisd.org_h4llnoav3dul2j3dlpa1lo2ers%40group.calendar.google.com&eventDate=2026-09-04&event_id=4mn6v88rmj527o07afbthg5bpm&feed_type=google",
+        "sourceLabel": "Breckenridge ISD first-party September 4 homecoming event"
+      }
+    ],
+    "overview": [
+      "Breckenridge High School's Buckaroos play in Stephens County. For the 2026–28 cycle UIL aligns the program in Class 3A Division II District 4, a different classification than the historic major-class title years; championships and district placement must not be conflated.",
+      "UIL credits Breckenridge with six football title awards: four outright championship final victories (1951, 1952, 1954 and 1958) and two co-champion ties (1929, 1959). Unlike a generic six-ring graphic, this history distinguishes shared 0–0 and 20–20 finals from wins on the field.",
+      "Coach Emory Bellard led Breckenridge during its late-1950s championship period according to the UIL centennial coaching archive. The present athletic director/head football coach is Casey Pearce, named by the high school's own staff directory; one name must not be substituted for the other.",
+      "Buckaroo Stadium is at 706 N Smith Street according to Breckenridge ISD's first-party varsity and junior-varsity event entries. Breckenridge High School itself lists 500 W Lindsey Street; those are not interchangeable navigation instructions for a football visitor.",
+      "Breckenridge ISD publishes 2026 athletics schedules, ticketing, spectator-expectations and school-run Buckaroo YouTube livestream resources, including an individual 2026 homecoming entry. Whether a particular future game's stream is free or a gate is accessible must be verified for that event; prior event notices are not permanent policies."
+    ],
+    "faq": [
+      {
+        "question": "How many football championships has Breckenridge won?",
+        "answer": "UIL counts six title awards: 1929 and 1959 were shared titles after championship ties; 1951, 1952, 1954 and 1958 were outright final victories. Each is documented in UIL's historical archive."
+      },
+      {
+        "question": "Where is Buckaroo Stadium?",
+        "answer": "Breckenridge ISD's official varsity homecoming entry puts Buckaroo Stadium at 706 N Smith Street, Breckenridge, TX 76424. The high school campus is at 500 W Lindsey Street; confirm gate, parking and accessible entry for your event."
+      },
+      {
+        "question": "Who is Breckenridge's 2026 head football coach?",
+        "answer": "The current Breckenridge High School staff directory identifies Casey Pearce as athletic director and head football coach. Emory Bellard is a historically significant former Buckaroos coach associated with 1958–59 titles."
+      },
+      {
+        "question": "Are Breckenridge home tickets sold online?",
+        "answer": "Yes. The official Breckenridge ISD Athletics hub lists Athletic Online Ticketing, alongside fan expectations and football schedules. Admission price, capacity and current event inventory depend on the individual game."
+      },
+      {
+        "question": "Where can I watch Breckenridge Buckaroos football?",
+        "answer": "The district's official Athletics hub links the Buckaroo YouTube channel and its football livestream gateway. A first-party school event confirmed a livestream for September 2026; don't assume every future varsity game is broadcast or free."
+      },
+      {
+        "question": "Are the 1929 and 1959 titles counted as outright Breckenridge wins?",
+        "answer": "No. UIL's champions archive shows 1929 versus Port Arthur finished 0–0 and 1959 versus Cleburne 20–20; both were recorded as co-championships."
+      }
+    ]
+  },
   "big-sandy-harmony": {
     "slug": "big-sandy-harmony",
     "theme": {
