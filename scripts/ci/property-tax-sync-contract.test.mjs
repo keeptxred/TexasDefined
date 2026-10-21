@@ -92,3 +92,10 @@ test('2025 Culberson CAD and Post Oak Bend local source supplements stay distinc
   assert.match(supplement,/on conflict \(tax_year,unit_type,slug\) do nothing/);
   assert.match(route,/separately levied local districts/);
 });
+
+test('latest local supplement is prominent but never offered as a statewide calculation rate',()=>{
+  assert.match(route,/latest\.localVerification\?\.mode === 'supplement'/);
+  assert.match(route,/Latest independently verified local rate \(display only\)/);
+  assert.match(route,/href=\{latestLocal\.sourceUrl\}/);
+  assert.match(route,/latest\.totalRate == null \? 'Not reported \/ withheld from calculation'/);
+});
