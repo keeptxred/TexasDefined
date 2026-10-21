@@ -224,6 +224,64 @@ if (!skylineResponse.ok || !skylineType.startsWith('image/') || skylineBytes.len
 console.log(JSON.stringify({ surface: 'El Paso skyline real image bytes', status: skylineResponse.status,
   type: skylineType, bytes: skylineBytes.length, ok: true }));
 
+// Regression guard for the Oct 2026 reservoir authority upgrade. This verifies
+// actual production HTML and SVG responses, not just the merged source fixture.
+// Query-busted requests avoid reading an unrelated old HTML cache entry.
+const reservoirPath = '/article/texas-lakes-reservoirs-explained';
+const reservoirHtml = await fetchHealthy(reservoirPath, 'Texas lakes and reservoirs at a glance');
+for (const expected of [
+  '196 major reservoirs?',
+  'Arbuckle Reservoir',
+  'off-channel reservoirs',
+  '2027 State Water Plan',
+  'waterdatafortexas.org/reservoirs/statewide',
+  'Sources and further reading',
+  '/fishing/lakes/lake-conroe',
+  '/images/illustrations/texas-reservoir-on-off-channel.svg',
+  '/images/illustrations/texas-reservoir-conservation-flood-pools.svg',
+]) {
+  if (!reservoirHtml.body.includes(expected)) {
+    throw new Error(`${reservoirPath} is missing deployed authority content: ${expected}`);
+  }
+}
+for (const stale of [
+  'Texas did not begin with a landscape full of big lakes',
+  'Find the dam. It immediately tells you which end of the lake is deepest',
+  'A reservoir begins with a dam. Engineers build a barrier',
+]) {
+  if (reservoirHtml.body.includes(stale)) {
+    throw new Error(`${reservoirPath} still serves obsolete text: ${stale}`);
+  }
+}
+for (const imageName of [
+  'texas-reservoir-on-off-channel.svg',
+  'texas-reservoir-conservation-flood-pools.svg',
+]) {
+  const imagePath = `/images/illustrations/${imageName}`;
+  const imageResponse = await fetch(`${origin}${imagePath}?td_verify=${encodeURIComponent(verifyToken)}`, {
+    redirect: 'follow', cache: 'no-store', signal: AbortSignal.timeout(30_000),
+    headers: { 'user-agent': userAgent, accept: 'image/svg+xml' },
+  });
+  const imageType = (imageResponse.headers.get('content-type') || '').toLowerCase();
+  const svg = await imageResponse.text();
+  if (!imageResponse.ok || !imageType.includes('image/svg+xml')
+      || !svg.includes('<svg ') || !svg.includes('<title ') || !svg.includes('<desc ')
+      || !svg.includes('</svg>')) {
+    throw new Error(`Reservoir diagram failed actual asset delivery: ${imagePath} ${JSON.stringify({
+      status: imageResponse.status, contentType: imageType, length: svg.length,
+    })}`);
+  }
+  console.log(JSON.stringify({ surface: imagePath, status: imageResponse.status, type: imageType, bytes: svg.length, ok: true }));
+}
+console.log(JSON.stringify({
+  surface: reservoirPath,
+  status: reservoirHtml.status,
+  sourcedFacts: true,
+  diagrams: 2,
+  staleTextAbsent: true,
+  ok: true,
+}));
+
 const liveNewsPath = firstPublishedNewsPath(news.body);
 if (!liveNewsPath) {
   console.log(JSON.stringify({ verified: true, newsStatus: news.status, publishedNewsPresent: false, reason: 'No routed published news is currently exposed; auto-publication remains disabled.' }));
