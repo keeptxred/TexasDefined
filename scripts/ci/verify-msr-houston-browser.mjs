@@ -79,8 +79,17 @@ for (const test of tests) {
     const tableRegion = page.locator('[role="region"][aria-label="MSR Houston participation options"]');
     await tableRegion.focus();
     assert.equal(await tableRegion.evaluate(el => el === document.activeElement), true, 'Participation table not keyboard-focusable');
-    await page.locator('nav[aria-label="MSR Houston guide sections"] a[href="#msr-logistics"]').click();
-    assert.equal(new URL(page.url()).hash, '#msr-logistics', 'Section navigation did not update hash');
+    // Mobile React hydration or same-document scroll restoration can settle after
+    // Playwright's click resolves. Wait for the *actual* URL fragment change, but
+    // still fail closed if anchor navigation does not work.
+    const logisticsLink = page.locator('nav[aria-label="MSR Houston guide sections"] a[href="#msr-logistics"]');
+    await logisticsLink.click();
+    await page.waitForURL(current => current.pathname === '/sports-venue/msr-houston' && current.hash === '#msr-logistics', {
+      timeout: 10000,
+    });
+    await page.waitForTimeout(300);
+    assert.equal(new URL(page.url()).hash, '#msr-logistics', 'Section navigation did not retain hash after the route settled');
+    assert.equal(await page.locator('#msr-logistics').count(), 1, 'Navigation destination heading is missing');
 
     // The October 2026 spotlight must be independently visible while active,
     // even if the main event carousel contains other events.
