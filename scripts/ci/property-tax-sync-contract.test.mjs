@@ -79,3 +79,16 @@ test('2024 additional municipal supplements are sourced, reconciled and source-i
   assert.match(route,/A zero <strong>city<\/strong> rate does not mean/);
   assert.ok(Math.abs((0.627046 + 0.022226) - 0.649272)<1e-10);
 });
+
+test('2025 Culberson CAD and Post Oak Bend local source supplements stay distinct from statewide data',()=>{
+  const supplement = readFileSync('supabase/migrations/20261021193000_add_2025_culberson_postoakbend_verified_tax.sql','utf8');
+  assert.match(supplement,/2025,'city','van-horn','055-101-03-055-055'/);
+  assert.match(supplement,/0\.4921230,null,null/);
+  assert.match(supplement,/2025,'county','culberson-county','055-000-00-055-055'/);
+  assert.match(supplement,/0\.1330247,null,null/);
+  assert.match(supplement,/2025,'city','post-oak-bend','129-110-03-129-129'/);
+  assert.match(supplement,/0\.000000,null,null/);
+  assert.match(supplement,/source_status='not-reported'/);
+  assert.match(supplement,/on conflict \(tax_year,unit_type,slug\) do nothing/);
+  assert.match(route,/separately levied local districts/);
+});
