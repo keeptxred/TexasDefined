@@ -27,6 +27,7 @@ const fail = (message) => {
 };
 
 const loader = read(loaderPath);
+if (!loader.includes('slug === "big-12-football-championship"') || !loader.includes('SeatGeek as its official primary public ticketing channel')) fail('Big 12 ticket provider disclaimer must distinguish official primary seller from Ticketmaster commercial listings');
 const registry = read(registryPath);
 const ledger = read(ledgerPath);
 const collections = read(collectionsPath);
