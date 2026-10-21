@@ -44,6 +44,7 @@ export const texasLakesReservoirsExplainedArticle: Article = {
     { label: "TWDB — existing major water-supply reservoirs map (PDF, approximately 23 MB)", url: "https://www.twdb.texas.gov/waterplanning/swp/2027/docs/Existing_Major_Water_Supply_Reservoirs_042026.pdf" },
     { label: "TWDB — recommended new reservoirs map (conceptual sites; PDF, approximately 22 MB)", url: "https://www.twdb.texas.gov/waterplanning/swp/2027/docs/Recommended_New_Major_Water_Supply_Reservoirs_042026.pdf" },
     { label: "TWDB — Arbuckle / Lane City off-channel reservoir", url: "https://www.twdb.texas.gov/innovativewater/asr/projects/LCRA/index.asp" },
+    { label: "TPWD — Texas Aquatic Science, Lakes and Ponds", url: "https://tpwd.texas.gov/education/resources/aquatic-science/tas/chapters/chapter-9/" },
     { label: "TPWD — Caddo Lake history and the Great Raft", url: "https://tpwd.texas.gov/state-parks/caddo-lake/history" },
     { label: "Caddo Lake photograph — William L. Farr, CC BY-SA 4.0, Wikimedia Commons", url: "https://commons.wikimedia.org/wiki/File:Big_Cypress_Bayou,_Caddo_Lake_State_Park,_Harrison_County,_Texas,_USA_(April_2017).jpg" },
     { label: "Caddo Lake photograph — Creative Commons BY-SA 4.0 license", url: "https://creativecommons.org/licenses/by-sa/4.0/" },
