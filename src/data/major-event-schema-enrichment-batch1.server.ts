@@ -31,6 +31,17 @@ export const majorEventSchemaEnrichmentBatch1: MajorEventSchemaEnrichment[] = [
   },
   {
     slug: "wurstfest",
+    image: {
+      url: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Blasmusik_Texas%21.jpg/1280px-Blasmusik_Texas%21.jpg",
+      alt: "New Braunfels Wurstfest community brass musicians performing beneath the festival tent in 2022",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Blasmusik_Texas!.jpg",
+      sourceType: "wikimedia",
+      licenseName: "CC BY-SA 4.0",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+      rightsNote: "Photo: STALPHONSUS17 / Wikimedia Commons (2022); licensed CC BY-SA 4.0; cropped to fit when displayed",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
     organizer: organization("Wurstfest Association of New Braunfels", "https://wurstfest.com/"),
     offers: [
       usdOffer("Online Friday or Sunday admission", 15, "https://ticketing.roninpos.app/events/wfesttickets"),
@@ -52,6 +63,17 @@ export const majorEventSchemaEnrichmentBatch1: MajorEventSchemaEnrichment[] = [
   },
   {
     slug: "texas-renaissance-festival",
+    image: {
+      url: "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2d/Texas_Renaissance_Festival_%288224029025%29.jpg/1280px-Texas_Renaissance_Festival_%288224029025%29.jpg",
+      alt: "Costumed visitors dance together at the Texas Renaissance Festival in Todd Mission in 2012",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Texas_Renaissance_Festival_(8224029025).jpg",
+      sourceType: "wikimedia",
+      licenseName: "CC BY-SA 2.0",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/2.0/",
+      rightsNote: "Photo: MarkScottAustinTX / Wikimedia Commons (2012); licensed CC BY-SA 2.0; cropped to fit when displayed",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
     organizer: organization("Texas Renaissance Festival", "https://www.texrenfest.com/"),
     occurrences: {
       "Weekend 1": { offers: [usdOffer("Weekend 1 — Enjoy the Weekend pass", 35.10, "https://www.texrenfest.com/p/ticket-info/weekend-pass")] },
