@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 
@@ -19,6 +20,47 @@ const rivers = [
   { slug: 'texas-frio-river-guide', image: 'Garner_state_park.jpg', alt: /Frio River/i, license: /CC BY 4\.0/i, author: /Larry D\. Moore/i },
   { slug: 'texas-llano-river-guide', image: 'Llano_River_in_Junction%2C_TX_IMG_4345', alt: /Llano River/i, license: /CC BY-SA 3\.0/i, author: /Billy Hathorn/i },
 ];
+
+// The browser acceptance must cover the entire published river registry, not
+// only its first nine photographs. Real-image licensing remains catalog-led.
+const catalogSource = readFileSync('src/data/river-authority-photo-catalog.ts', 'utf8');
+const catalogAt = catalogSource.indexOf('\n{\n');
+assert.ok(catalogAt > -1, 'No parseable river photo catalog');
+const catalogJson = catalogSource.slice(catalogAt + 1).trim().replace(/;\s*$/, '').replace(/,\s*}/g, '}');
+const catalog = JSON.parse(catalogJson);
+const alreadyTested = new Set(rivers.map(item => item.slug));
+const additional = [
+  'texas-brazos-river-guide', 'texas-colorado-river-guide',
+  'texas-guadalupe-river-guide', 'texas-trinity-river-guide',
+  'texas-rio-grande-river-guide', 'texas-canadian-river-guide',
+  'texas-san-antonio-river-guide', 'texas-nueces-river-guide',
+  'texas-pecos-river-guide', 'texas-comal-river-guide',
+  'texas-san-marcos-river-guide',
+];
+const escapeRegex = value => String(value).replace(/[-/\\^$*+?.()|[\]{}]/g, '\\const pages = [];');
+for (const slug of additional) {
+  assert.ok(!alreadyTested.has(slug), 'Duplicate photo test ' + slug);
+  const photo = catalog['/article/' + slug];
+  assert.ok(photo, 'Missing catalog photo ' + slug);
+  const pathname = decodeURIComponent(new URL(photo.sourceUrl).pathname);
+  const imageName = pathname.slice(pathname.indexOf('File:') + 5);
+  const riverName = slug.replace(/^texas-/, '').replace(/-river(?:-basin)?-guide$/, '').replace(/-/g, ' ');
+  rivers.push({
+    slug, image: imageName,
+    alt: new RegExp(escapeRegex(riverName), 'i'),
+    license: new RegExp(escapeRegex(photo.license), 'i'),
+    author: new RegExp(escapeRegex(photo.photographer), 'i'),
+  });
+}
+const catalogSlugs = Object.keys(catalog).filter(href => href.startsWith('/article/'));
+assert.equal(catalogSlugs.length, 20, '20 registered guides must have photos');
+assert.equal(rivers.length, 20, 'All 20 river guides must pass Chrome');
+assert.deepEqual(new Set(rivers.map(item => item.slug)), new Set(catalogSlugs.map(href => href.split('/').at(-1))));
+const atlasSlugs = new Set([
+  ...readFileSync('src/data/fixtures/texas-explained-river-profiles.ts', 'utf8').matchAll(/slug:\s*"([^"]+-guide)"/g),
+  ...readFileSync('src/data/fixtures/texas-explained-river-profiles-remaining.ts', 'utf8').matchAll(/slug:\s*"([^"]+-guide)"/g),
+].map(match => match[1]));
+assert.equal(atlasSlugs.size, 15, 'The major basin atlas must contain 15 guides');
 
 const pages = [];
 const failureNotes = [];
@@ -109,10 +151,9 @@ try {
         const record = await visit(page, path, path, label);
         pages.push(record);
         for (const river of rivers) {
-          // The major-basin atlas has 15 basin photo cards; Frio and Llano are
-          // contextual tributary text links there. River Valleys has all 20 cards.
-          if (path === '/article/texas-rivers-explained' &&
-            (river.slug === 'texas-frio-river-guide' || river.slug === 'texas-llano-river-guide')) continue;
+          // The major-basin atlas has 15 basin cards; five recreation guides
+          // are text links there. River Valleys has all 20 photo cards.
+          if (path === '/article/texas-rivers-explained' && !atlasSlugs.has(river.slug)) continue;
           const anchor = page.locator('a[href="/article/' + river.slug + '"]').filter({ has: page.locator('img') }).first();
           verify(await anchor.count() === 1, label + ': missing river card ' + river.slug + ' at ' + path);
           const img = anchor.locator('img').first();
