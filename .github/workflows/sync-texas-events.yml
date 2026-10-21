@@ -13,6 +13,7 @@ on:
       - "scripts/events/sync-ticketmaster-events.mjs"
       - "scripts/events/ticketmaster-discovery.mjs"
       - "scripts/events/build-ticketmaster-authority-candidates.mjs"
+      - "scripts/events/build-ticketmaster-authority-candidates.test.mjs"
       - "src/data/events-generated.ts"
       - "src/data/events-remote.ts"
   schedule:
@@ -64,6 +65,9 @@ jobs:
           TICKETMASTER_API_KEY: ${{ secrets.TICKETMASTER_API_KEY }}
           TICKETMASTER_IMPACT_BASE_URL: https://ticketmaster.evyy.net/c/7758914/264167/4272?subId1=texasdefined&partnerpropertyid=8837726&MediaPartnerPropertyId=8837726
         run: node scripts/events/sync-ticketmaster-events.mjs
+
+      - name: Test Ticketmaster authority candidate classification
+        run: node --test scripts/events/build-ticketmaster-authority-candidates.test.mjs
 
       - name: Build Ticketmaster authority research queue
         run: node scripts/events/build-ticketmaster-authority-candidates.mjs
