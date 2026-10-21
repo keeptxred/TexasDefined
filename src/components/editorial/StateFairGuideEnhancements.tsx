@@ -3,6 +3,8 @@ import { useEffect } from "react";
 
 import { Container } from "@/components/layout/Container";
 import { editorialImageSrc } from "@/lib/editorial-image-delivery";
+import { buildViatorAffiliateUrl } from "@/lib/viator-affiliate";
+import { verifiedViatorMarketUrl } from "@/data/viator-destination-links";
 
 type FairPhoto = {
   file: string;
@@ -181,6 +183,16 @@ export function StateFairPlanningStrip() {
             <div data-stay-nearby-slot data-state-fair-stay-slot aria-label="Places to stay for the State Fair of Texas" />
           </div>
 
+          <div className="mt-8 border-y border-border py-7" data-state-fair-dallas-experiences>
+            <p className="eyebrow text-primary">Add a Dallas day</p>
+            <h3 className="mt-2 font-display text-2xl">Explore Dallas outside Fair Park</h3>
+            <p className="mt-3 max-w-3xl leading-7 text-muted-foreground">Fair admission, Cotton Bowl game tickets and independently booked Dallas tours are three different purchases. The 2026 Fair is over; use our Dallas guide for neighborhood ideas and check current operator listings if you want a museum, history or city tour on a separate day.</p>
+            <div className="mt-4 flex flex-wrap items-center gap-5">
+              <Link to="/county/dallas" className="font-semibold text-primary underline">Explore Dallas County →</Link>
+              <a href={buildViatorAffiliateUrl(verifiedViatorMarketUrl("dallas"), "td-state-fair-dallas")} target="_blank" rel="sponsored nofollow noopener noreferrer" className="font-semibold text-primary underline" data-affiliate-partner="viator" data-affiliate-placement="state-fair-dallas-experiences" data-commercial-partner="viator" data-commercial-placement="state-fair-dallas-experiences">Browse Dallas tours on Viator ↗</a>
+            </div>
+            <p className="mt-3 text-xs text-muted-foreground">Affiliate disclosure: TexasDefined may earn a commission on qualifying Viator bookings; these experiences do not include State Fair admission.</p>
+          </div>
           <div className="mt-10" data-state-fair-featured-gallery>
             <div className="flex items-end justify-between gap-6">
               <div><p className="eyebrow text-primary">State Fair photo carousel</p><h2 className="mt-2 font-display text-3xl md:text-4xl">Big Tex, the Midway and Fair Park</h2></div>
