@@ -126,3 +126,33 @@ test("Balmorhea timed pool entry and Enchanted Rock gate hours are not replaced 
   const rock = applyCuratedDestinationBatch2({ slug: "enchanted-rock-state-natural-area" } as Destination);
   assert.ok(rock.visitorFacts?.some((fact) => fact.topic === "hours" && fact.detail.includes("6:30 a.m.") && fact.detail.includes("8 p.m.")));
 });
+
+test("eight more researched state park guides carry official facts with expiry and no generic defaults", () => {
+  const parks: Array<[string, number]> = [
+    ["tyler-state-park", 3],
+    ["stephen-f-austin-state-park", 2],
+    ["village-creek-state-park", 2],
+    ["sea-rim-state-park", 3],
+    ["goose-island-state-park", 2],
+    ["seminole-canyon-state-park-historic-site", 2],
+    ["kickapoo-cavern-state-park", 3],
+    ["lake-tawakoni-state-park", 2],
+  ];
+  for (const [slug, count] of parks) {
+    const destination = applyCuratedDestinationBatch4({ slug } as Destination);
+    const verified = reviewDestinationVisitorFacts(destination.visitorFacts, "2026-10-21");
+    assert.equal(verified.visible.length, count, slug);
+    assert.deepEqual(verified.issues, [], slug);
+    assert.ok(verified.visible.some(({ topic }) => topic === "admission"), slug);
+    assert.ok(verified.visible.every(({ sourceUrl }) => sourceUrl.startsWith("https://tpwd.texas.gov/state-parks/")), slug);
+    assert.equal(reviewDestinationVisitorFacts(destination.visitorFacts, "2027-03-01").visible.length, 0, slug);
+  }
+});
+
+test("coastal beach and cave visit schedules preserve venue-specific limitations", () => {
+  const seaRim = applyCuratedDestinationBatch4({ slug: "sea-rim-state-park" } as Destination);
+  assert.ok(seaRim.visitorFacts?.some(({ topic, detail }) => topic === "access" && detail.includes("Late-arriving campers")));
+  const kickapoo = applyCuratedDestinationBatch4({ slug: "kickapoo-cavern-state-park" } as Destination);
+  assert.ok(kickapoo.visitorFacts?.some(({ topic, detail }) => topic === "hours" && detail.includes("closed Tuesday through Thursday")));
+  assert.ok(kickapoo.visitorFacts?.some(({ topic, detail }) => topic === "access" && detail.includes("without authorization")));
+});
