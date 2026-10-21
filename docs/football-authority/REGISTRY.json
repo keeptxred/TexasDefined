@@ -40,7 +40,7 @@
       "bryan-rudder",
       "bryson"
     ],
-    "state": "BATCH_007_EIGHT_SCHOOL_SOURCE_IMPLEMENTATION_PENDING_QA",
+    "state": "BATCH_007_NINE_SCHOOL_SOURCE_IMPLEMENTATION_PENDING_QA",
     "dateAssigned": "2026-10-20",
     "selectionRule": "First 25 NOT_REVIEWED and unassigned canonical schoolRecords in stable order following 130 production VERIFIED through completed Batch 006; outstanding PR and branch conflicts checked.",
     "individuallyVerified": 0,
@@ -48,12 +48,12 @@
     "assignmentBranch": "football-authority-batch-007-20261020",
     "repositoryMainAtAssignment": "78157bb07d856f40d21e813fd3f886cd54e2b20e",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "brock",
-    "nextSchool": "bronte",
-    "implementedOnBranch": 8,
-    "remainingToImplement": 17,
+    "currentSchool": "bronte",
+    "nextSchool": "brookesmith",
+    "implementedOnBranch": 9,
+    "remainingToImplement": 16,
     "remainingToVerify": 25,
-    "notes": "8/25 researched/implemented on unmerged draft PR branch, 17 remaining implementations; source-derived graphics for all eight; none actual production VERIFIED; Bridgeport's updated 1–6 sources documented and stadium access caveat preserved."
+    "notes": "9 of 25 school profiles on draft branch individually researched/implemented with source-derived score graphics; 16 still need individual implementation, 25 still need production verification. Never confuse 2015 Brock coach Chad Worrell with 2026 Billy Mathis."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -7433,8 +7433,17 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/brock",
-      "status": "NOT_REVIEWED",
-      "batch": 7
+      "status": "IMPLEMENTED",
+      "batch": 7,
+      "audit": "docs/football-authority/schools/brock.md",
+      "auditCompletedAt": "2026-10-20",
+      "researchCompletedAt": "2026-10-20",
+      "implementedAt": "2026-10-20",
+      "implementedOnBranch": "football-authority-batch-007-20261020",
+      "actualProductionVerified": false,
+      "mediaStatus": "Original sourced-report data visual, no unlicensed Brock football photograph or logo used",
+      "implementationNotes": "2011 program founding, 2015 16–0 UIL 3A Division I title, four UIL final appearances (2017, 2021, 2022 runner-up), official 2026 Billy Mathis coach vs Chad Massey AD, source-dated 6–1 through Oct 16, first-party Monterrey Tech game identity, school/campus gate distinction, Parker County reciprocal links and 8 milestones/6 FAQs",
+      "technicalVerification": "PENDING branch validator+CI, protected merge, production deployment, Chrome 1366/390/320, canonical/FAQ/sitemap/county and rights checks"
     },
     {
       "id": "uil:bronte",
