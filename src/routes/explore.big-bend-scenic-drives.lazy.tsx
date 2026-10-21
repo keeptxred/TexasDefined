@@ -62,8 +62,19 @@ const sources = [
   { name: "NPS: visitor safety and driving", url: "https://www.nps.gov/bibe/planyourvisit/safety.htm" }
 ] as const;
 
+const structuredData = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "Big Bend Scenic Drives",
+  url: "https://texasdefined.com/explore/big-bend-scenic-drives",
+  description: "Five sourced scenic driving options in and near Big Bend National Park",
+  dateModified: "2026-10-20",
+  citation: sources.map((source) => source.url),
+});
+
 function BigBendScenicDrives() {
   return <main>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: structuredData }} />
     <Container className="pb-8 pt-10 sm:pt-14">
       <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground"><Link to="/explore">Explore</Link> / <Link to="/explore/region/$region" params={{ region: "big-bend" }}>Big Bend</Link> / <span aria-current="page">Scenic drives</span></nav>
       <header className="max-w-5xl py-10">

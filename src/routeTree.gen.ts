@@ -4127,8 +4127,8 @@ export interface FileRoutesByFullPath {
   '/explore/$category': typeof ExploreCategoryRoute
   '/explore/aquariums': typeof ExploreAquariumsRoute
   '/explore/attractions-comparison': typeof ExploreAttractionsComparisonRoute
-  '/explore/casinos': typeof ExploreCasinosRouteWithChildren
   '/explore/big-bend-scenic-drives': typeof ExploreBigBendScenicDrivesRoute
+  '/explore/casinos': typeof ExploreCasinosRouteWithChildren
   '/explore/hill-country-springs': typeof ExploreHillCountrySpringsRoute
   '/explore/inland-beaches': typeof ExploreInlandBeachesRouteWithChildren
   '/explore/landscapes': typeof ExploreLandscapesRouteWithChildren
@@ -5183,8 +5183,8 @@ export interface FileRoutesById {
   '/explore/$category': typeof ExploreCategoryRoute
   '/explore/aquariums': typeof ExploreAquariumsRoute
   '/explore/attractions-comparison': typeof ExploreAttractionsComparisonRoute
-  '/explore/casinos': typeof ExploreCasinosRouteWithChildren
   '/explore/big-bend-scenic-drives': typeof ExploreBigBendScenicDrivesRoute
+  '/explore/casinos': typeof ExploreCasinosRouteWithChildren
   '/explore/hill-country-springs': typeof ExploreHillCountrySpringsRoute
   '/explore/inland-beaches': typeof ExploreInlandBeachesRouteWithChildren
   '/explore/landscapes': typeof ExploreLandscapesRouteWithChildren
@@ -5715,8 +5715,8 @@ export interface FileRouteTypes {
     | '/explore/$category'
     | '/explore/aquariums'
     | '/explore/attractions-comparison'
-    | '/explore/casinos'
     | '/explore/big-bend-scenic-drives'
+    | '/explore/casinos'
     | '/explore/hill-country-springs'
     | '/explore/inland-beaches'
     | '/explore/landscapes'
@@ -6770,8 +6770,8 @@ export interface FileRouteTypes {
     | '/explore/$category'
     | '/explore/aquariums'
     | '/explore/attractions-comparison'
-    | '/explore/casinos'
     | '/explore/big-bend-scenic-drives'
+    | '/explore/casinos'
     | '/explore/hill-country-springs'
     | '/explore/inland-beaches'
     | '/explore/landscapes'
@@ -7281,8 +7281,8 @@ export interface RootRouteChildren {
   ExploreCategoryRoute: typeof ExploreCategoryRoute
   ExploreAquariumsRoute: typeof ExploreAquariumsRoute
   ExploreAttractionsComparisonRoute: typeof ExploreAttractionsComparisonRoute
-  ExploreCasinosRoute: typeof ExploreCasinosRouteWithChildren
   ExploreBigBendScenicDrivesRoute: typeof ExploreBigBendScenicDrivesRoute
+  ExploreCasinosRoute: typeof ExploreCasinosRouteWithChildren
   ExploreHillCountrySpringsRoute: typeof ExploreHillCountrySpringsRoute
   ExploreInlandBeachesRoute: typeof ExploreInlandBeachesRouteWithChildren
   ExploreLandscapesRoute: typeof ExploreLandscapesRouteWithChildren
@@ -12049,8 +12049,8 @@ const rootRouteChildren: RootRouteChildren = {
   ExploreCategoryRoute: ExploreCategoryRoute,
   ExploreAquariumsRoute: ExploreAquariumsRoute,
   ExploreAttractionsComparisonRoute: ExploreAttractionsComparisonRoute,
-  ExploreCasinosRoute: ExploreCasinosRouteWithChildren,
   ExploreBigBendScenicDrivesRoute: ExploreBigBendScenicDrivesRoute,
+  ExploreCasinosRoute: ExploreCasinosRouteWithChildren,
   ExploreHillCountrySpringsRoute: ExploreHillCountrySpringsRoute,
   ExploreInlandBeachesRoute: ExploreInlandBeachesRouteWithChildren,
   ExploreLandscapesRoute: ExploreLandscapesRouteWithChildren,
