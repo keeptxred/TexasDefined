@@ -615,6 +615,12 @@ for (const file of [
 if ((fortGallery.match(/sourceUrl: "https:\/\/commons\.wikimedia\.org\/wiki\/File:/g) || []).length !== 6) failures.push('Fort McKavett gallery needs six Commons source URLs');
 if ((fortGallery.match(/CC BY-SA [34]\.0/g) || []).length !== 6) failures.push('Fort McKavett gallery needs per-image license credits');
 if (!fortGalleryCatalog.includes('site.slug === "fort-mckavett" ? { gallery: fortMcKavettGallery }')) failures.push('Fort McKavett gallery is not attached to its destination');
+for (const requiredPhotoDescription of [
+  'alt: "Historic hospital-room interior at Fort McKavett with a bed, desk and furnishings"',
+  'An interior hospital-room exhibit at Fort McKavett',
+  'This is not an exterior photograph',
+]) if (!fortGallery.includes(requiredPhotoDescription)) failures.push('Fort McKavett hospital interior photo description regressed: ' + requiredPhotoDescription);
+if (fortGallery.includes('alt: "Historic Fort McKavett hospital building, now used as the site')) failures.push('Fort McKavett interior still labeled a hospital exterior');
 const fortGalleryPage = fs.readFileSync('src/routes/destination.$slug.tsx', 'utf8');
 if (!fortGalleryPage.includes('Fort McKavett: buildings, exhibits and historical interpretation')) failures.push('Fort McKavett gallery label missing from canonical page');
 

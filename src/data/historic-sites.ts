@@ -114,11 +114,11 @@ const fortMcKavettGallery: NonNullable<Destination["gallery"]> = [
   {
     image: {
       src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Fort_McKavett_Hospital.jpg?width=960",
-      alt: "Historic Fort McKavett hospital building, now used as the site's visitor center",
+      alt: "Historic hospital-room interior at Fort McKavett with a bed, desk and furnishings",
       width: 5312, height: 2988,
       credit: "Articseahorse · CC BY-SA 4.0 · Wikimedia Commons · photographed 2017",
     },
-    caption: "The 1874 post hospital, the present-day visitor-center building. Photograph from June 2017; check the operator for current exhibits and access.",
+    caption: "An interior hospital-room exhibit at Fort McKavett, with a bed and furnishings, photographed in June 2017. This is not an exterior photograph or evidence of which exhibits are accessible today.",
     sourceUrl: "https://commons.wikimedia.org/wiki/File:Fort_McKavett_Hospital.jpg",
   },
   {
