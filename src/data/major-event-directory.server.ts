@@ -68,6 +68,8 @@ const eventTimingLinks: EventDiscoveryLink[] = [
 ];
 
 const eventTopicLinks: EventDiscoveryLink[] = [
+  { href: "/events/dia-de-los-muertos", title: "Día de los Muertos in Texas", description: "Compare separate verified San Antonio, Houston and Austin celebrations without confusing local parade schedules." },
+  { href: "/events/texas-independence", title: "Texas Independence & San Jacinto", description: "March 2 and April 21 commemorations, living-history celebrations and official visitor sources." },
   { href: "/events/air-shows", title: "Texas air shows", description: "Confirmed jet-team shows, warbird exhibitions, military-base air shows and verified fly-in weekends with practical travel guides." },
   { href: "/events/tournaments", title: "Texas tournaments", description: "Browse 250 competition seeds across 22 sports and activity categories, with county connections where the supplied location is clear." },
   { href: "/events/rodeos", title: "Rodeos & western events", description: "Stock shows, county fairs and rodeo weekends with permanent sourced planning guides." },
