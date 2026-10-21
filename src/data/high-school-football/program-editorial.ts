@@ -67,6 +67,240 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "brownwood": {
+    "slug": "brownwood",
+    "intro": "Brownwood Lions football carries one of Texas's best-documented UIL title histories: seven championships in eight state-final appearances, with its 1977 runner-up season too often lost between 1970 and 1978. The program moved into 4A Division II District 13 for 2026 under second-year head coach Jeryl Brixey, and its October 16, 2026 reported loss at Robinson left the Lions 2–5. The official Brownwood ISD guide separates the high-school campus from 7,500-seat Gordon Wood Stadium, and the district switched its 2026 ticketing to Hudl.",
+    "theme": {
+      "accentHex": "#74233B",
+      "label": "Original TexasDefined maroon editorial accent reflecting Brownwood ISD's public Lions venue identity; no district lion logo, athlete photograph or seal reused."
+    },
+    "seo": {
+      "title": "Brownwood Lions Football | 7 UIL Titles, 2026 Scores & Stadium",
+      "description": "Brownwood Lions football guide: all seven UIL titles and 1977 runner-up, Jeryl Brixey, 2026 2–5 reported results, Gordon Wood Stadium and official Hudl tickets."
+    },
+    "coach": {
+      "name": "Jeryl Brixey",
+      "title": "2026 Brownwood Lions head football coach, second season; locally corroborated after 2025 Brownwood ISD appointment",
+      "sourceUrl": "https://www.brownwoodnews.com/2026/07/31/lions-begin-second-campaign-under-brixey-brace-for-unfamiliar-territory/",
+      "sourceLabel": "Brownwood News July 31 2026 individual team report explicitly confirms Jeryl Brixey entering second campaign; 2024 school handbook still names superseded Sammy Burnett and is not current",
+      "verifiedAt": "2026-10-21"
+    },
+    "campus": {
+      "address": "2100 Slayden, Brownwood, TX 76801 (Brownwood High School; not the football stadium entrance)",
+      "phone": "325-646-9549",
+      "sourceUrl": "https://bhs.brownwoodisd.org/",
+      "sourceLabel": "Official Brownwood High School first-party 2026 school footer and contact details",
+      "verifiedAt": "2026-10-21"
+    },
+    "schedule": {
+      "label": "Official Brownwood ISD 2026 football schedule, Gordon Wood Stadium directions and event-specific tickets",
+      "sourceUrl": "https://www.brownwoodisd.org/155676_3",
+      "sourceLabel": "Brownwood ISD 2026 football PDF available from athletics schedules; school athletics home links current tickets, game maps and streaming information",
+      "verifiedAt": "2026-10-21",
+      "officialScheduleUrl": "https://www.brownwoodisd.org/155676_3",
+      "ticketUrl": "https://www.brownwoodisd.org/tickets"
+    },
+    "season": {
+      "record": "2–5 overall, 0–2 District 13-4A Division II through October 16, 2026 (source-attributed reported games; not a final season record)",
+      "verifiedAt": "2026-10-21",
+      "sourceUrl": "https://www.maxpreps.com/tx/brownwood/brownwood-lions/football/schedule/",
+      "sourceLabel": "MaxPreps 2026 archived through Oct 6 at 2–3; later MaxPreps 2026 team Oct 9 La Vega 49–14 and October 16 match page plus local KOXE and statewide AP Robinson 20–14 support updated 2–5",
+      "latestResultSourceUrl": "https://www.koxe.com/2026/10/17/lions-carry-lead-into-fourth-quarter-but-robinson-prevails-20-14/",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Abilene Wylie",
+          "site": "Away",
+          "result": "W 13–7"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Stephenville",
+          "site": "Home",
+          "result": "L 24–28"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Springtown",
+          "site": "Home",
+          "result": "L 6–54"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Graham",
+          "site": "Away",
+          "result": "L 9–64"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "China Spring",
+          "site": "Away",
+          "result": "W 42–21"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Waco La Vega",
+          "site": "Home",
+          "district": true,
+          "result": "L 14–49"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Robinson",
+          "site": "Away",
+          "district": true,
+          "result": "L 14–20"
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Gatesville",
+          "site": "Home",
+          "district": true,
+          "kickoff": "7:00 PM"
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Waco Connally",
+          "site": "Away",
+          "district": true,
+          "kickoff": "7:00 PM"
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Salado",
+          "site": "Home",
+          "district": true,
+          "kickoff": "7:00 PM"
+        }
+      ]
+    },
+    "venue": {
+      "name": "Gordon Wood Stadium",
+      "address": "3206 Milam Drive, Brownwood, TX 76801 (football stadium; distinct from Brownwood High School campus)",
+      "sourceUrl": "https://www.brownwoodisd.org/gordon-wood-stadium",
+      "sourceLabel": "Official Brownwood ISD Gordon Wood Stadium page: owned by district, 7,500 seats, artificial surface, good general wheelchair-access rating, new bathroom facilities, video scoreboard",
+      "verifiedAt": "2026-10-21",
+      "note": "Brownwood ISD's stadium record gives general wheelchair access as 'Good,' but does not supply specific accessible entrances, assigned parking, lift access or companion-seating inventory. Its 2025 student ticket notice requires grades 8-and-below to have an adult ticket holder and high school attendees without adults to present school ID; ask the district whether those policies apply unchanged to 2026. District moved to Hudl Ticketing in 2026.",
+      "policyUrl": "https://www.brownwoodisd.org/gwsstudenttickets"
+    },
+    "notice": {
+      "title": "2026 tickets changed platforms; do not rely on old 2025 stadium prices",
+      "body": "Brownwood ISD moved to Hudl Ticketing for the 2026 football season, with season seats and parking options sold through the official Brownwood ISD tickets page. School-reported 2026 season-reserved pricing ($60 seat-back, $50 bench for the full five-game home slate) was a summer offer, not the price of an October 23 individual ticket. The district's older 2025 guide lists different at-gate prices; those figures are not current 2026 admission prices. The district directs fans to athletics event links for real-time ticketing, streams and maps.",
+      "sourceUrl": "https://www.brownwoodnews.com/2026/07/20/bisd-announces-2026-lions-football-season-ticket-sales-new-ticketing-platform/",
+      "sourceLabel": "July 20 2026 Brownwood News quoting Brownwood ISD 2026 Hudl rollout; official ticket link brownwoodisd.org/tickets and athletics home",
+      "verifiedAt": "2026-10-21"
+    },
+    "development": {
+      "title": "Seven crowns, eight finals, and a new 2026 chapter under Brixey",
+      "body": "UIL's original all-time appearance archive gives Brownwood seven football state championships (1960, 1965, 1967, 1969, 1970, 1978 and 1981) from eight championship games. The eighth was the 1977 runner-up, losing 40–28 to Dickinson. The 1965 Gordon Wood-coached team finished 14–0 and blanked Bridge City 14–0; UIL's centennial football team profile documents that championship team. After a 2025 7–5 season and fourth straight first-round playoff victory reported locally, the Lions began 2026 in a new 4A Division II District 13 alignment under coach Jeryl Brixey. Their first five 2026 games ended 2–3, then reported La Vega and Robinson losses brought the October 16 total to 2–5—not 2–3 from older MaxPreps static snapshots.",
+      "sourceUrl": "https://www.uiltexas.org/football/all-time-appearances",
+      "sourceLabel": "UIL football all-time team finals; UIL 1977 and 1965 state archive, Brownwood News 2026 Lions coaching/2025 record, dated MaxPreps and local results",
+      "verifiedAt": "2026-10-21"
+    },
+    "milestones": [
+      {
+        "date": "1960",
+        "title": "Brownwood's first of seven UIL football state crowns",
+        "body": "UIL archives record Brownwood 26, Port Lavaca 6 in the 1960 Class 3A championship. The year belongs in the official seven-title count.",
+        "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/champions.html",
+        "sourceLabel": "UIL original year-by-year official state champions"
+      },
+      {
+        "date": "1965",
+        "title": "Gordon Wood's 14–0 champions shut out Bridge City",
+        "body": "The UIL centennial team archive records Brownwood 14–0 overall, 305–43 scoring across the season, and a 14–0 title-game win over Bridge City. Gordon Wood was the coach.",
+        "sourceUrl": "https://www.uiltexas.org/100/football-teams",
+        "sourceLabel": "UIL 100: 1965 Brownwood official championship team profile"
+      },
+      {
+        "date": "1967, 1969, 1970",
+        "title": "Three additional crowns in four seasons",
+        "body": "UIL title records list 1967 Brownwood 36–12 El Campo, 1969 Brownwood 34–16 West Columbia, and 1970 Brownwood 14–0 Cuero. Modern conference numbering cannot be back-applied to those seasons.",
+        "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/champions.html",
+        "sourceLabel": "UIL official historical football champions results 1967–70"
+      },
+      {
+        "date": "1977",
+        "title": "The eighth state-final season was a runner-up finish",
+        "body": "Brownwood lost the 1977 3A title game to Dickinson 40–28. UIL counts eight title-game appearances but seven championships: 1977 is the exception, not an omitted crown.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives/P432",
+        "sourceLabel": "UIL 1977–78 state championship archive"
+      },
+      {
+        "date": "1978",
+        "title": "21–12 over Gainesville returns the title to Brownwood",
+        "body": "UIL archives record Brownwood 21, Gainesville 12 for the 1978 Class 3A championship following the previous year's final defeat.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives/P432",
+        "sourceLabel": "UIL original 1978–79 state championship archive"
+      },
+      {
+        "date": "1981",
+        "title": "24–9 over Willowridge delivers the seventh title",
+        "body": "Brownwood's final UIL football title through 2026 came in the 1981 Class 4A final, 24–9 over Sugar Land Willowridge, per UIL's original champions archive.",
+        "sourceUrl": "https://www.uiltexas.org/historical-archives/athletics/archives/football/champions.html",
+        "sourceLabel": "UIL historical football champions 1981"
+      },
+      {
+        "date": "2025–26",
+        "title": "Jeryl Brixey inherits the Lions tradition and new classification",
+        "body": "Brownwood local 2026 reporting identifies Brixey's second season, 2025 7–5 with area round playoff finish, and move to 4A Division II Region IV / District 13 in 2026, not the former Sammy Burnett role.",
+        "sourceUrl": "https://www.brownwoodnews.com/2026/07/31/lions-begin-second-campaign-under-brixey-brace-for-unfamiliar-territory/",
+        "sourceLabel": "Brownwood News July 2026 individual coaching/realignment feature"
+      },
+      {
+        "date": "October 16, 2026",
+        "title": "Robinson rallies 20–14; source-dated record becomes 2–5",
+        "body": "Local KOXE postgame report says Brownwood held a 14–7 lead entering the fourth quarter before Robinson scored 13 unanswered points; MaxPreps match and AP statewide scores also give 20–14. The Lions' Sept and Oct reports yield 2–5 through this date.",
+        "sourceUrl": "https://www.koxe.com/2026/10/17/lions-carry-lead-into-fourth-quarter-but-robinson-prevails-20-14/",
+        "sourceLabel": "KOXE October 17 2026 Brownwood at Robinson first-hand/local recap"
+      },
+      {
+        "date": "October 23, 2026",
+        "title": "Homecoming versus Gatesville at Gordon Wood Stadium",
+        "body": "The district's 2026 varsity schedule names the Gatesville home contest Friday October 23 at 7:00 p.m.; Brownwood's 2026 Gordon Wood Hall of Champions honorees are to be recognized during the Lions' homecoming game. Ticket status and ceremony times require first-party recheck.",
+        "sourceUrl": "https://www.brownwoodnews.com/2026/07/24/gordon-wood-hall-of-champions-announces-2026-inductees/",
+        "sourceLabel": "Brownwood News 2026 Hall of Champions Brownwood/Gatesville homecoming event and official BISD schedule"
+      }
+    ],
+    "overview": [
+      "The Brownwood Lions compete for Brownwood High School in Brown County, historically connected to Gordon Wood's football coaching dynasty. The official UIL ledger credits seven titles across eight championship-game appearances: 1960, 1965, 1967, 1969, 1970, 1978 and 1981 championships; 1977 runner-up. Those are football-specific results, not a fabricated eighth title.",
+      "The 1965 championship was a 14–0 undefeated season under Gordon Wood, who became the namesake of the football stadium. UIL's original season profile and archives explicitly show the 14–0 shutout victory against Bridge City; the 1977 defeat against Dickinson is the sole championship-game loss among Brownwood's eight appearances.",
+      "The 2026 football program is coached by Jeryl Brixey, entering his second season after Brownwood went 7–5 in 2025 and won a fourth straight first-round playoff game. Sammy Burnett appeared on older 2024 district material but left the football head-coach role before Brixey; the older name must not be displayed as 2026 coach. The Lions compete in UIL 4A Division II District 13 in 2026.",
+      "Through October 16 the Lions stood 2–5, not 2–3: a cached MaxPreps schedule was last updated before games against Waco La Vega and Robinson. Local KOXE reported the late Robinson rally to a 20–14 score, with independent MaxPreps and AP score corroboration. Scheduled Gatesville, Connally and Salado games are still future and should not carry inferred wins.",
+      "The Brownwood High School teaching campus, 2100 Slayden, is separate from Gordon Wood Stadium, 3206 Milam Drive. The school district itself identifies the 7,500-seat stadium, artificial surface, and a general wheelchair access rating as 'Good,' but gives no safe basis here to promise reserved disabled parking, dedicated lifts or accessible seating count. For a specific game use Brownwood ISD athletics links.",
+      "Brownwood ISD moved to Hudl Ticketing for 2026, and an earlier 2025 stadium guide shows no-reentry and student-entry requirements. Ticket prices or entrance restrictions may change between seasons: point readers to the current official tickets site and contact athletic office to confirm age/ID policies rather than copying historical admission figures. The 2026 October 23 game also coincides with Gordon Wood Hall of Champions recognition."
+    ],
+    "faq": [
+      {
+        "question": "How many UIL football state championships has Brownwood won?",
+        "answer": "Seven, according to the UIL's original football all-time finals: 1960, 1965, 1967, 1969, 1970, 1978 and 1981. Brownwood also reached the state final in 1977 but lost 40–28 to Dickinson, making eight appearances and seven titles."
+      },
+      {
+        "question": "Who is Brownwood's head football coach in 2026?",
+        "answer": "Jeryl Brixey. Brownwood News' July 2026 preseason report identifies his second year as Lions head coach after leading the 2025 team to 7–5. Do not use the former Sammy Burnett name from a 2024 district handbook."
+      },
+      {
+        "question": "Where is Gordon Wood Stadium and is it the same as the high-school campus?",
+        "answer": "Gordon Wood Stadium is at 3206 Milam Drive, Brownwood, TX 76801, per the district's official stadium directory. Brownwood High School is at 2100 Slayden. The official stadium listing estimates 7,500 seats and notes general wheelchair access, but specific accessible entrance and parking arrangements should be confirmed with the district."
+      },
+      {
+        "question": "What is Brownwood's current 2026 football record?",
+        "answer": "Brownwood stood 2–5 overall and 0–2 in district after October 16, 2026 reported final scores: La Vega beat Brownwood 49–14 October 9 and Robinson won 20–14 October 16. The October 6 MaxPreps fixture archive shows only the older 2–3 pre-district result and must not be mistaken for a complete 2026 snapshot."
+      },
+      {
+        "question": "How do fans buy Brownwood home-football tickets for 2026?",
+        "answer": "Brownwood ISD moved to Hudl Ticketing before the 2026 season. Start at brownwoodisd.org/tickets or the district athletics event links, where exact October-game inventory, gate and streaming links may be available. Old 2025 seat and student ticket prices should not be treated as current."
+      },
+      {
+        "question": "What was Gordon Wood's role in the Lions' championship years?",
+        "answer": "Gordon Wood coached the 1965 Brownwood undefeated 14–0 state championship team, as identified in UIL's centennial archive. The town's current stadium bears his name and is operated by Brownwood ISD, not by an outside ticket platform."
+      },
+      {
+        "question": "Is there an October 23, 2026 Brownwood homecoming game?",
+        "answer": "Brownwood's 2026 football schedule lists Gatesville at Gordon Wood Stadium on Friday, October 23 at 7 p.m. Brownwood's Gordon Wood Hall of Champions also plans to recognize its 2026 class during the Lions homecoming game. Confirm current game time, ticketing and stadium gate instructions directly with Brownwood ISD."
+      }
+    ]
+  },
   "brownsville-hanna": {
     "slug": "brownsville-hanna",
     "intro": "Brownsville Hanna's Golden Eagles trace their campus to the 1967 Brownsville High School building, renamed Hanna High School in 1974 for local educator Homer Hanna. The 2026 football team plays 5A Division I District 15 under school-confirmed coach Mark Guess, rather than the 6A alignment in older historical rosters. Independent results through the October 15 Weslaco East game report a 2–5 record, including a narrow 21–22 defeat and a 22–16 district victory over Harlingen South. This independent guide separates home school at 2615 East Price Road from Brownsville ISD's multiple stadium sites and distinguishes the six BISD teams.",
