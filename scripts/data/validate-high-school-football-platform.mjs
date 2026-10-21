@@ -1335,15 +1335,25 @@ if (!errors.length) {
   for (const marker of [
     'How Do the Texas High School Football Playoffs Work?',
     'https://www.uiltexas.org/football/playoff-brackets',
-    'top two teams from each 1A six-man district',
-    'top four teams from each district advance in 2A through 6A',
-    'the two schools with the larger enrollments go to the Division I bracket',
     'What does bi-district mean in Texas high school football?',
     'It does not mean a team won two district championships.',
     '/texas-high-school-football-playoff-brackets',
     'first round in 5A and 6A',
     '/texas-high-school-football-teams',
   ]) requireText(playoffGuide, marker, 'Football playoff guide');
+  // Qualification facts are presented once in the responsive comparison and
+  // illustrated enrollment-split reference, rather than duplicated in body copy.
+  // Assert the public-facing, composed page's source retains each UIL rule.
+  const playoffReference = read('src/components/content/FootballPlayoffsReference.tsx');
+  for (const [marker, label] of [
+    ['["1A six-man", "Top two"', '1A district advances top two'],
+    ['["2A–5A", "Top four"', '2A–5A district advances top four'],
+    ['["6A", "Top four"', '6A district advances top four'],
+    ['Two larger qualifiers to I; two smaller to II', '6A two larger qualifiers enter Division I'],
+    ['Only the four qualifying schools are compared.', '6A division selection is limited to qualifiers'],
+    ['Division I · larger qualifiers', '6A larger qualifiers visual'],
+    ['Division II · smaller qualifiers', '6A smaller qualifiers visual'],
+  ]) requireText(playoffReference, marker, 'Football playoff guide: ' + label);
   requireText(playoffGuide, '/article/texas-six-man-football-rules-explained', 'Football playoff guide six-man discovery');
   requireText(playoffGuide, '/article/texas-high-school-football-scores-schedules', 'Football playoff guide scores discovery');
   requireText(playoffGuide, '/article/texas-high-school-football-2026-season-calendar', 'Football playoff guide calendar discovery');
