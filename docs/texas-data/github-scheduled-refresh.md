@@ -14,7 +14,7 @@ The publication authority remains `keeptxred/TexasDefined`, with protected GitHu
 
 ## Official-source BLS update safeguards
 
-- Independently read the BLS metropolitan release summary and Table 3 (13 named Texas metro values, nonseasonally-adjusted **jobs**, values in thousands).
+- Prefer the BLS metropolitan summary and Table 3 directly. When BLS returns an access-denied response to the GitHub runner, use the Federal Reserve Bank of St. Louis FRED CSV containing the **same 13 named BLS monthly, not-seasonally-adjusted, total-nonfarm-payroll series**. Validate a complete common observation month, source identity, number units, and reasonable change bounds. Do not use similarly named seasonal or annual series.
 - Reject missing releases, changed table structure, missing/duplicate Texas metros, invalid source date, a backwards release month, or suspicious changes above 20% for a metro. Do not replace verified content when a source fails.
 - The generated file is `src/data/generated/texas-metro-payrolls-current.json`. A stable `/texas-data/texas-metro-payrolls-latest` detail page and the four-metro hub comparison use it. Archived June and August 2026 briefs remain unchanged.
 - Update the sitemap-safe date in `src/data/texas-data-center.ts` only after the source data is verified.
