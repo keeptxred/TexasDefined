@@ -138,8 +138,9 @@ begin
     where r.year=run_data.tax_year
   ) o
   full outer join (
-    select s.record_id,s.record as new_full,
-      s.record-'imported_at' as new_compared
+    select s.record_id,
+      to_jsonb(jsonb_populate_record(null::public.texas_property_tax_rates,s.record)) as new_full,
+      to_jsonb(jsonb_populate_record(null::public.texas_property_tax_rates,s.record))-'imported_at' as new_compared
     from public.texas_tax_import_stage s
     where s.run_id=p_run_id
   ) n on n.record_id=o.id
