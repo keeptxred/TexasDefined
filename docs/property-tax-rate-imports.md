@@ -160,6 +160,23 @@ and both production entry points. It also checks a five-year
 nonduplicated Woodlands history. Add new verified supplements to
 those source-qualified checks without inventing numeric values.
 
+## Unattended verification of local rate evidence
+
+After every successful scheduled or manually dispatched official tax-rate
+import, the **same GitHub runner** also checks every currently verified
+local tax-rate supplement against its year, unit type, slug and official
+taxing-unit ID in the newly published Comptroller data. This read-only
+audit validates HTTPS evidence attribution, component reconciliation and
+explicit classifications (supplement, corroboration or disagreement).
+If a source revision causes an orphaned identity or invalid documented
+rate, the scheduled job fails rather than silently dropping the displayed
+supplement; no statewide rows or calculator values are changed.
+
+The check uses the existing Supabase service credential and the already
+installed Deno runtime, with no extra paid service, new key, or additional
+schedule. Unit tests include genuine zero-levy cases and a source
+disagreement. GitHub job summaries expose only counts, not secrets.
+
 ## Complete source attribution and regression coverage
 
 The Dataset structured data of a taxing-unit rate-history page now lists a
