@@ -34,12 +34,12 @@ for (const slug of ["wurstfest", "sxsw", "texas-sandfest", "houston-livestock-sh
 assert(index.includes('startDate: "2027-04-16"') && index.includes('endDate: "2027-04-18"'), "SandFest 2027 dates must remain verified");
 assert(index.includes('startDate: "2027-04-15"') && index.includes('endDate: "2027-04-25"'), "Fiesta 2027 dates must remain verified");
 assert(!index.includes('slug: "fiesta-de-la-flor"'), "Discontinued Fiesta de la Flor must not be in active events");
-for (const token of ["November 6-15, 2026", "beach markers", "shuttle route", "accessible parking", "badge-only"]) {
+for (const token of ["November 6–15, 2026", "beach markers", "shuttle route", "accessible parking", "badge-only"]) {
   // Content intent may use alternate capitalization; check against all current major guides.
   const combined = (authority + expanded).toLowerCase();
   assert(combined.includes(token.toLowerCase()), `Missing actionable event detail: ${token}`);
 }
-for (const token of ["NIOSA", "April 19", "April 23", "April 24", "March 2-21, 2027", "February 25-27"]) {
+for (const token of ["NIOSA", "April 19", "April 23", "April 24", "March 2–21, 2027", "February 25-27"]) {
   assert(expanded.includes(token), `Missing confirmed Rodeo/Fiesta update: ${token}`);
 }
 for (const token of ["McKelligon Canyon", "/destination/chamizal-national-memorial", "/metro-area/el-paso-metro"]) {
