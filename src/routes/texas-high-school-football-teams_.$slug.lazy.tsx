@@ -108,6 +108,7 @@ function Page() {
   // Campus-county mapping for individually sourced Batch 002 profiles;
   // city names and district service areas are not dependable campus-county proxies.
   const researchedCampusCounty: Record<string, string> = {
+    'bridgeport': 'wise', // Bridgeport High official One Maroon Dr campus in Wise County; Bull Memorial Stadium 702 17th St is separate.
     'bridgeland': 'harris', // Official CFISD campus 10707 Mason Road in Cypress, Harris County; Oct 23 game venue on Barker Cypress is separate.
     'bridge-city': 'orange', // Bridge City ISD first-party BCHS 2690 Texas Ave campus, Orange County; stadium gate unverified.
     bremond: 'robertson', // Bremond ISD 601 W Collins campus in Robertson County, not a football stadium gate.
