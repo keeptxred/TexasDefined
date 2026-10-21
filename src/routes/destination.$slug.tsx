@@ -16,11 +16,6 @@ import { ArticleCard } from "@/components/editorial/ArticleCard";
 import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { DestinationRelationships } from "@/components/editorial/DestinationRelationships";
 import { ElPasoAreaCrossLinks } from "@/components/content/ElPasoAreaAuthority";
-// This substantial below-the-fold visitor guide streams on demand rather than
-// inflating the site-wide client entry bundle with destination-only logic.
-const DestinationVisitPlanner = lazy(() =>
-  import("@/components/editorial/DestinationVisitPlanner").then((module) => ({ default: module.DestinationVisitPlanner })),
-);
 import { MapPreview } from "@/components/editorial/MapPreview";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
@@ -42,6 +37,12 @@ import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 import { INTERNAL_LINK_POLICIES, policyForSurface } from "@/platform/internal-link-policies";
 
 const CoastalBeachFieldGuide = lazy(() => import("@/components/content/CoastalBeachFieldGuide"));
+
+// This substantial below-the-fold visitor guide streams on demand rather than
+// inflating the site-wide client entry bundle with destination-only logic.
+const DestinationVisitPlanner = lazy(() =>
+  import("@/components/editorial/DestinationVisitPlanner").then((module) => ({ default: module.DestinationVisitPlanner })),
+);
 
 const FranklinMountainsAuthority = lazy(() => import("@/components/editorial/FranklinMountainsAuthority"));
 
