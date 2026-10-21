@@ -39,6 +39,9 @@ test('historical sync does not exit after one successful import',()=>{
 });
 test('local supplement does not silently mutate statewide calculator values',()=>{
   assert.match(schema,/2024,'city','escobares','214-103-03-214-214',0\.340447,0\.263594,0\.076853/);
+  assert.match(schema,/2024,'city','roma','214-101-03-214-214',0\.567900,0\.499077,0\.068823/);
+  assert.match(schema,/2024,'city','rio-grande-city','214-102-03-214-214',0\.521090,0\.372960,0\.148130/);
+  assert.match(schema,/2024,'city','southside-place','101-115-03-101-101',0\.340896,null,null/);
   assert.match(server,/record\.localVerification =/);
   assert.match(server,/getTaxingUnitRateHistoryServer/);
   assert.doesNotMatch(route,/const STARR_CAD_2024_COMPONENTS_URL/);
