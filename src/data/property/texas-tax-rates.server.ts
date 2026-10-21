@@ -144,7 +144,42 @@ export async function getTaxingUnitRateHistoryServer(slug: string, type?: TexasT
   if (type) query = query.eq('type', type);
   const { data, error } = await query;
   if (error) throw error;
-  return ((data ?? []) as TaxRateRow[]).map(mapTaxRateRow);
+  const records = ((data ?? []) as TaxRateRow[]).map(mapTaxRateRow);
+  if (!records.length) return records;
+  // Local supplements are only joined to detailed taxing-unit history pages.
+  // County rollups, statewide insights, and parcel calculators continue to
+  // consume original Comptroller records without an implicit override.
+  const { data: localRows, error: localError } = await db
+    .from('texas_tax_local_verified_rates')
+    .select('tax_year,unit_type,slug,official_unit_id,total_rate,maintenance_operations_rate,debt_service_rate,source_url,component_source_url,source_agency,verified_on,evidence_note')
+    .eq('slug', slug)
+    .eq('status', 'verified');
+  if (localError) throw localError;
+  for (const record of records) {
+    const local = (localRows ?? []).find((row: any) =>
+      row.tax_year === record.year &&
+      row.unit_type === record.type &&
+      record.officialTaxingUnitIds.includes(row.official_unit_id)
+    );
+    if (!local) continue;
+    const localTotal = numeric(local.total_rate)!;
+    const localMo = numeric(local.maintenance_operations_rate);
+    const localDebt = numeric(local.debt_service_rate);
+    const mode = record.totalRate == null ? 'supplement'
+      : Math.abs(record.totalRate - localTotal) > 0.000001 ? 'conflict' : 'corroborated';
+    record.localVerification = {
+      totalRate: localTotal,
+      maintenanceOperationsRate: localMo,
+      debtServiceRate: localDebt,
+      sourceUrl: local.source_url,
+      componentSourceUrl: local.component_source_url,
+      sourceAgency: local.source_agency,
+      verifiedOn: local.verified_on,
+      evidenceNote: local.evidence_note,
+      mode,
+    };
+  }
+  return records;
 }
 
 export async function getTaxRateDatasetCountServer() {

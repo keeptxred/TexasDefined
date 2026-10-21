@@ -45,4 +45,99 @@ function cellMap(headers:string[],row:unknown[]){const m=new Map<string,unknown>
 function pick(m:Map<string,unknown>,ks:string[]){for(const k of ks)if(m.has(k))return m.get(k);return null}
 function parseWorkbook(type:UnitType,sourceUrl:string,bytes:Uint8Array):RawRecord[]{const{headers,rows}=locateRows(bytes);const out:RawRecord[]=[];for(const row of rows){const m=cellMap(headers,row);const countyRaw=clean(pick(m,["COUNTY NAME","COUNTY"]));const countyName=cleanCounty(countyRaw);const oid=clean(pick(m,["TAXING UNIT ID"]));if(!countyName||!oid)continue;const unitRaw=type==="county"?countyRaw:clean(pick(m,["TAXING UNIT NAME","TU NAME","DISTRICT NAME","CITY NAME"]));const unavailable=hasSingleStar(unitRaw);const name=type==="county"?`${countyName} County`:stripTrailingStars(unitRaw);if(!name)continue;const totalRate=numberValue(pick(m,type==="county"?["TOTAL COUNTY TAX RATE","TOTAL TAX RATE"]:["TOTAL TAX RATE"]));const moRate=type==="county"?sumKnown([numberValue(pick(m,["GF M&O TAX RATE"])),numberValue(pick(m,["R&B M&O TAX RATE"])),numberValue(pick(m,["FMFC M&O RATE"]))]):numberValue(pick(m,["M&O RATE","M&O TAX RATE"]));const debtRate=type==="county"?sumKnown([numberValue(pick(m,["GF I&S TAX RATE"])),numberValue(pick(m,["R&B I&S TAX RATE"])),numberValue(pick(m,["FMFC I&S RATE"]))]):numberValue(pick(m,["I&S RATE","I&S TAX RATE"]));out.push({type,name,baseSlug:slugify(name),countySlug:slugify(countyName),officialId:oid,officialBase:officialBase(oid),unavailable,totalRate,moRate,debtRate,levy:numberValue(pick(m,["CALCULATED LEVY","LEVY"])),sourceUrl})}return out}
 function normalizeYear(raw:RawRecord[],year:number){const groups=new Map<string,RawRecord[]>();for(const r of raw){const k=`${r.type}:${r.officialBase}`;const g=groups.get(k)??[];g.push(r);groups.set(k,g)}const units:any[]=[];for(const group of groups.values()){const usable=group.filter(r=>!r.unavailable);const rateUnavailable=usable.length===0;const totals=uniqueNumbers(usable.map(r=>r.totalRate));const mos=uniqueNumbers(usable.map(r=>r.moRate));const debts=uniqueNumbers(usable.map(r=>r.debtRate));const names=uniqueStrings(group.map(r=>r.name));const name=names.sort((a,b)=>a.length-b.length||a.localeCompare(b))[0];const levies=usable.map(r=>r.levy).filter((v):v is number=>v!=null);units.push({year,type:group[0].type,name,baseSlug:slugify(name),officialBase:group[0].officialBase,county_slugs:uniqueStrings(group.map(r=>r.countySlug)),total_rate:rateUnavailable?null:(totals.length===1?totals[0]:null),maintenance_operations_rate:rateUnavailable?null:(mos.length===1?mos[0]:null),debt_service_rate:rateUnavailable?null:(debts.length===1?debts[0]:null),levy:rateUnavailable?null:(levies.length?levies.reduce((a,b)=>a+b,0):null),source_url:group[0].sourceUrl,source_status:rateUnavailable?"not-reported":(usable.length<group.length?"partial-reporting":"reported-final"),variable_rate:!rateUnavailable&&totals.length>1,rate_variants:rateUnavailable?[]:totals,official_taxing_unit_ids:uniqueStrings(group.map(r=>r.officialId)),split_across_cads:uniqueStrings(group.map(r=>r.countySlug)).length>1,rate_unavailable:rateUnavailable,imported_at:new Date().toISOString()})}const collisions=new Map<string,any[]>();for(const u of units){const k=`${u.type}:${u.baseSlug}`;const g=collisions.get(k)??[];g.push(u);collisions.set(k,g)}for(const u of units){if(u.total_rate!=null&&u.total_rate>0&&u.maintenance_operations_rate!=null&&u.debt_service_rate!=null&&Math.abs(u.total_rate-u.maintenance_operations_rate-u.debt_service_rate)>0.000001){/* Preserve the adopted total, but never publish components that do not reconcile. */u.maintenance_operations_rate=null;u.debt_service_rate=null}const coll=collisions.get(`${u.type}:${u.baseSlug}`)??[];u.slug=coll.length>1?`${u.baseSlug}-${slugify(u.officialBase)}`:u.baseSlug;u.id=`${year}:${u.type}:${u.slug}`;applyKnown2025SchoolRateCorrection(u);if(year===2025&&u.type==="school-district"&&!u.rate_unavailable&&u.maintenance_operations_rate!=null&&u.maintenance_operations_rate<TEA_2025_MINIMUM_MCR){u.source_status="cross-source-conflict";u.rate_unavailable=true}delete u.baseSlug;delete u.officialBase}return units}
-Deno.serve(async(req:Request)=>{const url=new URL(req.url);const year=Number(url.searchParams.get("year")??String(new Date().getUTCFullYear()));const currentYear=new Date().getUTCFullYear();if(!Number.isInteger(year)||year<2021||year>currentYear)return Response.json({error:`year must be between 2021 and ${currentYear}`},{status:400});try{const raw:RawRecord[]=[];const diagnostics:any[]=[];for(const type of Object.keys(FILES) as UnitType[]){const sourceUrl=`https://comptroller.texas.gov/taxes/property-tax/docs/${year}-${FILES[type]}`;const response=await fetch(sourceUrl,{headers:{"user-agent":"TexasDefined tax-rate importer/4.1"}});if(!response.ok)throw new Error(`${type}: HTTP ${response.status}`);const records=parseWorkbook(type,sourceUrl,new Uint8Array(await response.arrayBuffer()));raw.push(...records);diagnostics.push({type,rawRows:records.length})}const normalized=normalizeYear(raw,year);const unresolvedSchoolConflicts=normalized.filter(r=>r.type==="school-district"&&r.source_status==="cross-source-conflict");if(year===2025&&unresolvedSchoolConflicts.length){return Response.json({ok:false,year,error:"Refusing to replace production data while unresolved 2025 school-rate conflicts remain.",conflicts:unresolvedSchoolConflicts.map(r=>({slug:r.slug,name:r.name,totalRate:r.total_rate,moRate:r.maintenance_operations_rate,debtRate:r.debt_service_rate,sourceUrl:r.source_url}))},{status:422,headers:{"cache-control":"no-store"}})}const{error:de}=await supabase.from("texas_property_tax_rates").delete().eq("year",year);if(de)throw de;for(let i=0;i<normalized.length;i+=400){const{error}=await supabase.from("texas_property_tax_rates").upsert(normalized.slice(i,i+400),{onConflict:"id"});if(error)throw error}return Response.json({ok:true,year,rawCount:raw.length,normalizedCount:normalized.length,knownSchoolRateCorrectionCount:normalized.filter(r=>Object.values(KNOWN_2025_SCHOOL_RATE_CORRECTIONS).some(c=>c.sourceUrl===r.source_url)).length,notReportedCount:normalized.filter(r=>r.source_status==="not-reported").length,crossSourceConflictCount:normalized.filter(r=>r.source_status==="cross-source-conflict").length,partialCount:normalized.filter(r=>r.source_status==="partial-reporting").length,variableCount:normalized.filter(r=>r.variable_rate).length,multiCountyCount:normalized.filter(r=>r.split_across_cads).length,diagnostics},{headers:{"cache-control":"no-store"}})}catch(error){return Response.json({ok:false,year,error:error instanceof Error?error.message:String(error)},{status:500})}});
+// Never touch published rates until all official workbooks are downloaded,
+// independently hashed, normalized, validated, and completely staged.
+const sha256 = async (bytes: Uint8Array) => [...new Uint8Array(await crypto.subtle.digest("SHA-256", bytes))].map(b=>b.toString(16).padStart(2,"0")).join("");
+const json = (body:unknown,status=200)=>Response.json(body,{status,headers:{"cache-control":"no-store"}});
+function validateYear(records:any[],raw:RawRecord[],year:number,diagnostics:any[]){
+  if(diagnostics.length!==4||diagnostics.some(d=>!d.rawRows||!d.sha256))throw new Error("All four original source files are required");
+  const minimums:Record<UnitType,number>={"county":200,"city":500,"school-district":500,"special-district":500};
+  for(const type of Object.keys(minimums) as UnitType[]){
+    if(raw.filter(r=>r.type===type).length<minimums[type])throw new Error(type+": incomplete official workbook");
+    if(records.filter(r=>r.type===type).length<Math.floor(minimums[type]*0.8))throw new Error(type+": unexpectedly few jurisdictions");
+  }
+  const ids=new Set<string>();
+  const natural=new Set<string>();
+  for(const record of records){
+    if(record.year!==year||!record.id||!record.slug||!record.name||!record.source_url.startsWith("https://"))throw new Error("Malformed tax-year identity or source");
+    if(ids.has(record.id))throw new Error("Duplicate normalized record "+record.id);
+    ids.add(record.id);
+    const key=record.year+":"+record.type+":"+record.slug;
+    if(natural.has(key))throw new Error("Duplicate taxing unit "+key);
+    natural.add(key);
+    if(record.total_rate!=null&&(!Number.isFinite(record.total_rate)||record.total_rate<0||record.total_rate>10))throw new Error("Invalid total rate "+record.id);
+    if(record.maintenance_operations_rate!=null&&record.debt_service_rate!=null&&record.total_rate!=null&&Math.abs(record.total_rate-record.maintenance_operations_rate-record.debt_service_rate)>0.000001)throw new Error("Components do not reconcile for "+record.id);
+    if(record.source_status==="not-reported"&&record.total_rate!==null)throw new Error("Unreported record contains rate "+record.id);
+    if(!Array.isArray(record.official_taxing_unit_ids)||!record.official_taxing_unit_ids.length)throw new Error("Missing official identity "+record.id);
+  }
+  if(records.length<3000)throw new Error("Refusing incomplete statewide dataset");
+}
+Deno.serve(async(req:Request)=>{
+  const url=new URL(req.url);
+  const year=Number(url.searchParams.get("year")??String(new Date().getUTCFullYear()));
+  const currentYear=new Date().getUTCFullYear();
+  if(!Number.isInteger(year)||year<2021||year>currentYear)return json({ok:false,error:"Unsupported tax year"},400);
+  const diagnostics:Array<{type:UnitType;rawRows:number;sha256:string;sourceUrl:string}>=[];
+  const raw:RawRecord[]=[];
+  try{
+    for(const type of Object.keys(FILES) as UnitType[]){
+      const sourceUrl=`https://comptroller.texas.gov/taxes/property-tax/docs/${year}-${FILES[type]}`;
+      const response=await fetch(sourceUrl,{headers:{"user-agent":"TexasDefined tax-rate importer/5.0"}});
+      if(response.status===404)return json({ok:true,status:"unavailable",year,reason:"Official workbook not yet published or missing",workbook:type,sourceUrl});
+      if(!response.ok)throw new Error(type+": source download returned HTTP "+response.status);
+      const bytes=new Uint8Array(await response.arrayBuffer());
+      if(bytes.byteLength<5000)throw new Error(type+": truncated official workbook");
+      const digest=await sha256(bytes);
+      const records=parseWorkbook(type,sourceUrl,bytes);
+      if(!records.length)throw new Error(type+": empty or unparseable workbook");
+      raw.push(...records);
+      diagnostics.push({type,rawRows:records.length,sha256:digest,sourceUrl});
+    }
+    const normalized=normalizeYear(raw,year);
+    validateYear(normalized,raw,year,diagnostics);
+    const unresolved=normalized.filter(r=>r.type==="school-district"&&r.source_status==="cross-source-conflict");
+    if(year===2025&&unresolved.length)return json({ok:false,status:"validation-failed",year,error:"Unresolved school-source conflicts",conflicts:unresolved.map(r=>({id:r.id,name:r.name}))},422);
+    const signature=await sha256(new TextEncoder().encode("normalization-rules-v5|"+year+"|"+diagnostics.map(d=>d.type+":"+d.sha256).sort().join("|")));
+    const {data:prior,error:priorError}=await supabase.from("texas_tax_import_runs")
+      .select("id,source_signature,expected_count").eq("tax_year",year).eq("status","completed")
+      .order("finished_at",{ascending:false}).limit(1);
+    if(priorError)throw priorError;
+    if(prior?.[0]?.source_signature===signature){
+      const {count,error}=await supabase.from("texas_property_tax_rates").select("id",{head:true,count:"exact"}).eq("year",year);
+      if(error)throw error;
+      if(count===normalized.length)return json({ok:true,status:"unchanged",year,count,sourceSignature:signature,diagnostics});
+    }
+    // Keep failed staging from accumulating indefinitely without touching completed audit history.
+    const expiredBefore=new Date(Date.now()-14*24*60*60*1000).toISOString();
+    const {error:cleanupError}=await supabase.from("texas_tax_import_runs")
+      .delete().eq("status","staging").lt("started_at",expiredBefore);
+    if(cleanupError)console.warn("Could not prune expired tax import staging:",cleanupError.code);
+    const runId=crypto.randomUUID();
+    const now=new Date().toISOString();
+    const {error:runError}=await supabase.from("texas_tax_import_runs").insert({
+      id:runId,tax_year:year,source_signature:signature,
+      sources:diagnostics,expected_count:normalized.length,expected_raw_count:raw.length
+    });
+    if(runError)throw runError;
+    for(let i=0;i<normalized.length;i+=300){
+      const stage=normalized.slice(i,i+300).map(record=>({run_id:runId,record_id:record.id,record:{...record,imported_at:now}}));
+      const {error}=await supabase.from("texas_tax_import_stage").insert(stage);
+      if(error)throw error;
+    }
+    for(let i=0;i<raw.length;i+=300){
+      const stage=raw.slice(i,i+300).map((record,index)=>({run_id:runId,unit_type:record.type,
+        ordinal:i+index,record}));
+      const {error}=await supabase.from("texas_tax_import_raw_stage").insert(stage);
+      if(error)throw error;
+    }
+    const {data:result,error:finalizeError}=await supabase.rpc("finalize_texas_tax_import",{p_run_id:runId});
+    if(finalizeError)throw finalizeError;
+    return json({ok:true,...result,sourceSignature:signature,diagnostics,
+      knownSchoolRateCorrectionCount:normalized.filter(r=>Object.values(KNOWN_2025_SCHOOL_RATE_CORRECTIONS).some(c=>c.sourceUrl===r.source_url)).length,
+      notReportedCount:normalized.filter(r=>r.source_status==="not-reported").length});
+  }catch(e){
+    const message=e instanceof Error?e.message:String(e);
+    console.error("Texas tax import failed for year",year,message);
+    return json({ok:false,status:"error",year,error:message.slice(0,400),diagnostics},500);
+  }
+});

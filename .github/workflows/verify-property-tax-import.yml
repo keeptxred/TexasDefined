@@ -1,0 +1,26 @@
+name: Verify property tax import contract
+
+on:
+  pull_request:
+    paths:
+      - 'supabase/functions/import-texas-property-tax-rates/**'
+      - 'supabase/migrations/*tax_rate*'
+      - '.github/workflows/sync-property-tax-rates.yml'
+      - 'src/data/property/texas-tax-rates*'
+      - 'src/routes/property-tax.taxing-unit.$unit.tsx'
+      - 'scripts/ci/property-tax-sync-contract.test.mjs'
+      - '.github/workflows/verify-property-tax-import.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  tax-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify importer rollback, provenance and override invariants
+        run: node --test scripts/ci/property-tax-sync-contract.test.mjs

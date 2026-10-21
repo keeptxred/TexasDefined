@@ -15,43 +15,74 @@ concurrency:
 jobs:
   sync:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 45
     env:
-      # Match the already-authorized production deployment credential fallback.
-      # A missing primary repository secret must not stop the scheduled importer.
       SUPABASE_URL: ${{ secrets.SUPABASE_URL || 'https://ftkznprjljkhymknvhye.supabase.co' }}
       SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY || secrets.KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY }}
+      RATE_HISTORY_LOOKBACK_YEARS: ${{ vars.RATE_HISTORY_LOOKBACK_YEARS || '5' }}
     steps:
-      - name: Require Supabase repository secrets
+      - name: Require existing Supabase credentials
         shell: bash
         run: |
-          test -n "$SUPABASE_URL" || { echo "SUPABASE_URL is not configured"; exit 1; }
-          test -n "$SUPABASE_SERVICE_ROLE_KEY" || { echo "SUPABASE_SERVICE_ROLE_KEY is not configured"; exit 1; }
+          test -n "$SUPABASE_URL" || { echo "::error::SUPABASE_URL is not configured"; exit 1; }
+          test -n "$SUPABASE_SERVICE_ROLE_KEY" || { echo "::error::Existing Supabase service-role secret is missing"; exit 1; }
 
-      - name: Import newest published Comptroller tax-rate workbooks
+      - name: Check every eligible published year, including historic revisions
         shell: bash
         run: |
           set -euo pipefail
           current_year="$(date -u +%Y)"
-          previous_year="$((current_year - 1))"
-
-          for year in "$current_year" "$previous_year"; do
-            echo "Trying Texas property-tax rate import for $year"
+          lookback="$RATE_HISTORY_LOOKBACK_YEARS"
+          [[ "$lookback" =~ ^[0-9]+$ ]] || { echo "::error::RATE_HISTORY_LOOKBACK_YEARS must be a nonnegative integer"; exit 1; }
+          (( lookback <= 15 )) || { echo "::error::Historical lookback exceeds safety limit (15 years)"; exit 1; }
+          oldest=$((current_year-lookback))
+          if (( oldest < 2021 )); then oldest=2021; fi
+          failures=0
+          published=0
+          echo "## Texas property tax source synchronization" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Year | Outcome | Records | Changes |" >> "$GITHUB_STEP_SUMMARY"
+          echo "|---|---|---:|---|" >> "$GITHUB_STEP_SUMMARY"
+          for ((year=current_year;year>=oldest;year--)); do
             response_file="$(mktemp)"
-            status="$(curl --silent --show-error \
+            echo "Checking official workbooks for $year"
+            if ! status="$(curl --silent --show-error --max-time 240 \
               --output "$response_file" \
               --write-out '%{http_code}' \
               --header "Authorization: Bearer $SUPABASE_SERVICE_ROLE_KEY" \
               --header "apikey: $SUPABASE_SERVICE_ROLE_KEY" \
-              "$SUPABASE_URL/functions/v1/import-texas-property-tax-rates?year=$year")"
-            cat "$response_file"
-            echo
-            if [ "$status" -ge 200 ] && [ "$status" -lt 300 ]; then
-              echo "Imported finalized/publicly available $year statewide rate workbooks."
-              exit 0
+              "$SUPABASE_URL/functions/v1/import-texas-property-tax-rates?year=$year")"; then
+              echo "::error::Year $year: request to importer failed"
+              echo "| $year | request error | — | — |" >> "$GITHUB_STEP_SUMMARY"
+              failures=$((failures+1))
+              rm -f "$response_file"
+              continue
             fi
-            echo "Year $year is not importable yet (HTTP $status); trying the prior year."
+            outcome="$(jq -r '.status // "error"' "$response_file" 2>/dev/null || echo error)"
+            good="$(jq -r '.ok // false' "$response_file" 2>/dev/null || echo false)"
+            count="$(jq -r '.count // .normalizedCount // "—"' "$response_file" 2>/dev/null || echo '—')"
+            changes="$(jq -r 'if .added != null then "added: \(.added), removed: \(.removed), modified: \(.modified)" else "—" end' "$response_file" 2>/dev/null || echo '—')"
+            reason="$(jq -r '.error // .reason // ""' "$response_file" 2>/dev/null | head -c 300 || true)"
+            if [[ "$status" == 2?? && "$good" == true && "$outcome" == imported ]]; then
+              published=$((published+1))
+              echo "$year: imported ($count records; $changes)"
+            elif [[ "$status" == 2?? && "$good" == true && "$outcome" == unchanged ]]; then
+              published=$((published+1))
+              echo "$year: unchanged; preserving current records"
+            elif [[ "$status" == 2?? && "$good" == true && "$outcome" == unavailable && "$year" == "$current_year" ]]; then
+              echo "$year: official current-year workbooks not yet available (expected publication delay)"
+            else
+              echo "::error::Year $year: HTTP $status, $outcome. $reason"
+              failures=$((failures+1))
+            fi
+            echo "| $year | $outcome (HTTP $status) | $count | $changes |" >> "$GITHUB_STEP_SUMMARY"
+            rm -f "$response_file"
           done
-
-          echo "No current or prior-year statewide rate set could be imported."
-          exit 1
+          if (( published==0 )); then
+            echo "::error::No published historical year was successfully checked"
+            failures=$((failures+1))
+          fi
+          if (( failures>0 )); then
+            echo "::error::$failures property-tax sync checks failed; see yearly summary"
+            exit 1
+          fi
+          echo "All eligible tax years checked independently; unchanged datasets retained."
