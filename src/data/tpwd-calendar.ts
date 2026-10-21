@@ -46,7 +46,7 @@ export function getTpwdActivitiesForDestination(
     .filter(event => (!options.onDate || event.startDate === options.onDate)
       && event.startDate >= today
       && matchesTpwdPark(destination, event.parkKey)
-      && /^https:\/\/tpwd\.texas\.gov\/calendar\/[a-z0-9-]+\/[a-z0-9-]+\/\d{4}-\d{2}-\d{2}$/.test(event.officialUrl))
+      && /^https:\/\/tpwd\.texas\.gov\/calendar\/[a-z0-9-]+\/[^/?#]+\/\d{4}-\d{2}-\d{2}$/.test(event.officialUrl))
     .sort((a, b) => a.startDate.localeCompare(b.startDate) || a.title.localeCompare(b.title))
     .slice(0, Math.min(Math.max(options.limit ?? 24, 1), 250));
 }
