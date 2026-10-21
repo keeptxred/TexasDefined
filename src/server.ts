@@ -376,8 +376,27 @@ function applyMetroProximityEdgeCachePolicy(request: Request, response: Response
   });
 }
 
+// This evergreen guide had been served from stale edge HTML after a successful
+// deploy, despite updated fixture assets. Keep its canonical SSR HTML uncacheable;
+// the existing targeted deployment purge invalidates any older cached copy.
+function applyPlayoffGuideEdgeCachePolicy(request: Request, response: Response): Response {
+  const url = new URL(request.url);
+  if (request.method !== "GET" && request.method !== "HEAD") return response;
+  if (url.pathname !== "/article/texas-high-school-football-playoffs-explained") return response;
+  const headers = new Headers(response.headers);
+  headers.set("Cache-Control", "no-store, max-age=0");
+  headers.set("CDN-Cache-Control", "no-store");
+  headers.set("Cloudflare-CDN-Cache-Control", "no-store");
+  headers.delete("age");
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers,
+  });
+}
+
 async function addBingVerificationMeta(request: Request, response: Response): Promise<Response> {
-  const cacheSafeResponse = applyMetroProximityEdgeCachePolicy(request, response);
+  const cacheSafeResponse = applyPlayoffGuideEdgeCachePolicy(request, applyMetroProximityEdgeCachePolicy(request, response));
   const url = new URL(request.url);
   if (request.method !== "GET" || url.pathname !== "/") return cacheSafeResponse;
   const contentType = cacheSafeResponse.headers.get("content-type") ?? "";
