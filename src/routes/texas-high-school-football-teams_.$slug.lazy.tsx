@@ -101,6 +101,9 @@ function Page() {
   // Campus-county mapping for individually sourced Batch 002 profiles;
   // city names and district service areas are not dependable campus-county proxies.
   const researchedCampusCounty: Record<string, string> = {
+    'brackettville-brackett': 'kinney', // NCES Brackett High physical campus 481107000572, not an assumed stadium gate.
+    brady: 'mcculloch', // Brady High School 2301 Hwy 190 in Brady, McCulloch County; venue entry unconfirmed.
+    breckenridge: 'stephens', // Breckenridge High School 500 W Lindsey, distinct from Buckaroo Stadium.
     boerne: 'kendall', // First-party Boerne High School located in Boerne, Kendall County.
     'boerne-champion': 'kendall', // Samuel V. Champion High School's official 201 Charger Blvd campus is in Kendall County.
     'bogata-rivercrest': 'red-river', // TEA campus 194903001 / NCES identify Rivercrest High in Red River County.
