@@ -55,7 +55,7 @@ export function District16Coverage({ schools }: Props) {
             className="text-sm font-semibold text-primary underline underline-offset-4">Check current standings ↗</a>
         </div>
         <div className="mt-5 overflow-x-auto">
-          <table className="w-full min-w-[530px] text-left text-sm">
+          <table className="w-full text-left text-sm">
             <thead className="border-b border-border text-xs text-muted-foreground">
               <tr>
                 <th scope="col" className="py-2">Team (grouped by reported record)</th>
