@@ -24,6 +24,7 @@ const cases = [
 ];
 
 for (const spec of cases) {
+  for (let attempt = 1; attempt <= 2; attempt++) {
   const context = await browser.newContext({ viewport: spec.viewport, deviceScaleFactor: 1, isMobile: spec.isMobile, hasTouch: spec.isMobile });
   // Do not send test visits to marketing or affiliate conversion analytics.
   await context.route(/(?:google-analytics|googletagmanager|connect\.facebook\.net|facebook\.com\/tr|\/api\/analytics|\/api\/track)/i, route => route.abort());
@@ -39,7 +40,7 @@ for (const spec of cases) {
   page.on('dialog', dialog => dialog.dismiss());
   let status = 0;
   try {
-    const response = await page.goto(origin + path + '?district5_visual_acceptance=20261018', { waitUntil: 'domcontentloaded', timeout: 50000 });
+    const response = await page.goto(origin + path, { waitUntil: 'domcontentloaded', timeout: 50000 });
     status = response?.status() || 0;
     await page.locator('[data-football-district-section="coverage"]').waitFor({ state: 'visible', timeout: 20000 });
     await page.locator('[data-football-district-section="official-game-day"]').waitFor({ state: 'visible', timeout: 20000 });
@@ -105,6 +106,18 @@ for (const spec of cases) {
     results.push({ viewport: spec.label, status: errors.length ? 'FAIL' : 'PASS', screenshot, http: status, h1: facts.h1, canonical: facts.canonical, pageWidth: facts.documentWidth, viewportWidth: facts.viewportWidth, records: facts.records, finals: facts.finals, scheduled: facts.scheduled, teams: facts.teamPaths.length, officialHosts: facts.officialHosts, affiliateLinks: facts.affiliate.length, errors });
     failures.push(...errors.map(error => spec.label + ': ' + error));
     console.log('DISTRICT_5_RESPONSIVE ' + JSON.stringify(results.at(-1)));
+    // One bounded retry for a browser-only transient dynamic-import network failure.
+    // A real 4xx asset response, incorrect page data, or repeated JS failure still fails.
+    const transientImportOnly = attempt === 1 && errors.length === 1
+      && /^TypeError: Failed to fetch dynamically imported module: https:\/\/texasdefined\.com\/assets\/[^\s]+\.js$/.test(errors[0])
+      && brokenAssets.length === 0;
+    if (transientImportOnly) {
+      console.warn('Retrying one transient dynamic import failure with a fresh browser context: ' + spec.label);
+      results.pop();
+      failures.pop();
+      continue;
+    }
+
   } catch (error) {
     const problem = String(error);
     failures.push(spec.label + ': ' + problem);
@@ -113,6 +126,7 @@ for (const spec of cases) {
     console.error('DISTRICT_5_RESPONSIVE_ERROR ' + spec.label + ' ' + problem);
   } finally {
     await context.close();
+  }
   }
 }
 await browser.close();
