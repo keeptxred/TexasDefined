@@ -40,7 +40,7 @@
       "bryan-rudder",
       "bryson"
     ],
-    "state": "BATCH_007_19_SCHOOL_SOURCE_IMPLEMENTATION_PENDING_QA",
+    "state": "BATCH_007_20_SCHOOL_SOURCE_IMPLEMENTATION_PENDING_QA",
     "dateAssigned": "2026-10-20",
     "selectionRule": "First 25 NOT_REVIEWED and unassigned canonical schoolRecords in stable order following 130 production VERIFIED through completed Batch 006; outstanding PR and branch conflicts checked.",
     "individuallyVerified": 0,
@@ -48,12 +48,12 @@
     "assignmentBranch": "football-authority-batch-007-20261020",
     "repositoryMainAtAssignment": "78157bb07d856f40d21e813fd3f886cd54e2b20e",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "brownsville-pace",
-    "nextSchool": "brownsville-porter",
-    "implementedOnBranch": 19,
-    "remainingToImplement": 6,
+    "currentSchool": "brownsville-porter",
+    "nextSchool": "brownsville-rivera",
+    "implementedOnBranch": 20,
+    "remainingToImplement": 5,
     "remainingToVerify": 25,
-    "notes": "19/25 individually researched and branch-implemented; 6 remain source implementation, 0 confirmed production VERIFIED. Lopez source-dated 2026 2–5 + 2024 football postseason and stadium/campus distinction audited. Avoid polling GitHub Actions/Cloudflare repeatedly."
+    "notes": "20/25 school-specific research profiles branch-implemented, 5 remain. Lopez and Pace individually sourced, no Batch007 production Verified; unmerged PR #5525. No repeated CI/polling."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -7594,8 +7594,17 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/brownsville-pace",
-      "status": "NOT_REVIEWED",
-      "batch": 7
+      "status": "IMPLEMENTED",
+      "batch": 7,
+      "audit": "docs/football-authority/schools/brownsville-pace.md",
+      "auditCompletedAt": "2026-10-21",
+      "researchCompletedAt": "2026-10-21",
+      "implementedAt": "2026-10-21",
+      "implementedOnBranch": "football-authority-batch-007-20261020",
+      "actualProductionVerified": false,
+      "mediaStatus": "Original source-derived football results graphic with BISD green/white verified school identity; no copyrighted team photo or trademark reused",
+      "implementationNotes": "Individual BISD Pace Vikings 1975 school origin, official green/white, 16 football playoff appearances no titles/finals; 2025 Mission (NOT Brownsville) Veterans Memorial postseason; 2026 reported 3–5 through Oct16 Mercedes result versus stale 3–4 MaxPreps; MaxPreps-attributed coach Daniel Pardo; exact 2026 Sams/Veterans Memorial stadium and online ticket rules, 8 milestones/6 FAQs, Cameron county reciprocity",
+      "technicalVerification": "Pending protected CI, merged deployment and production 1366/390/320, canonical, FAQ schema, original graphical/source/gate tests"
     },
     {
       "id": "uil:brownsville-porter",
