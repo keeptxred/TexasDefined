@@ -54,3 +54,12 @@ test('source statuses and missing components are not coerced to zero',()=>{
   assert.match(schema,/texas_tax_local_verified_components_check/);
   assert.ok(Math.abs(0.263594+0.076853-0.340447) < 1e-10);
 });
+
+test('large workbook imports run in GitHub Actions Deno CPU budget',()=>{
+  assert.match(importer,/TEXAS_TAX_IMPORT_CLI/);
+  assert.match(importer,/const runTaxImport=async/);
+  assert.match(importer,/Deno\.serve\(runTaxImport\)/);
+  assert.match(workflow,/denoland\/setup-deno@v2/);
+  assert.match(workflow,/TEXAS_TAX_IMPORT_YEAR="\$year" deno run -A/);
+  assert.doesNotMatch(workflow,/curl --silent --show-error --max-time/);
+});
