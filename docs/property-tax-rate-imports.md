@@ -93,6 +93,39 @@ components exist, save the source agency/URLs/verification date and
 document the reporting discrepancy. Do not infer rates. Unverified candidates
 remain unaltered. Source changes or conflicts need re-review.
 
+## Cross-workbook taxing-unit identity and display precision
+
+Historical source categories are not necessarily unique by slug. A live
+database audit on 2026-10-21 found **The Woodlands Township** in both
+the *city* and *special-district* Comptroller source workbooks for
+2021–2023; both rows use identical rates for each of those years but
+different per-county official taxing-unit IDs. For 2024–2025, only the
+special-district classification remains, with Harris and Montgomery
+counties joined to the same unit.
+
+The single public history URL must not show eight records as eight
+separate tax years or treat it as two independent overlapping taxes.
+When a slug has conflicting historical types, the public history
+selects the unique type used in its latest recorded year. An explicit
+API \`type\` filter still retrieves either original source classification;
+the statewide source rows are never altered. If multiple types exist
+in the latest year, the server fails closed and requires an explicit
+type rather than inventing a conflation. Future new cross-type
+collisions should receive a source-identity review.
+
+Verified local rates can carry **seven or eight decimals** whereas
+standard Comptroller records currently use six. The user-facing
+history and latest-rate facts must preserve extra documented
+precision, e.g. **Culberson County 2025 = 0.1330247** and not a
+rounded **0.133025**. Genuine six-decimal numbers retain their
+six-decimal formatting, including a genuine zero city levy.
+
+The deployment's existing local-financial smoke suite now checks
+all eleven recorded local supplements, their government sources,
+and both production entry points. It also checks a five-year
+nonduplicated Woodlands history. Add new verified supplements to
+those source-qualified checks without inventing numeric values.
+
 ## Recovery procedure
 
 1. Open the failed GitHub workflow and check the **per-year outcomes**.
