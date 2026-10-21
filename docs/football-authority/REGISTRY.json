@@ -40,7 +40,7 @@
       "bryan-rudder",
       "bryson"
     ],
-    "state": "BATCH_007_15_SCHOOL_SOURCE_IMPLEMENTATION_PENDING_QA",
+    "state": "BATCH_007_16_SCHOOL_SOURCE_IMPLEMENTATION_PENDING_QA",
     "dateAssigned": "2026-10-20",
     "selectionRule": "First 25 NOT_REVIEWED and unassigned canonical schoolRecords in stable order following 130 production VERIFIED through completed Batch 006; outstanding PR and branch conflicts checked.",
     "individuallyVerified": 0,
@@ -50,10 +50,10 @@
     "maxSchoolsPerBatch": 25,
     "currentSchool": "brownsville-lopez",
     "nextSchool": "brownsville-pace",
-    "implementedOnBranch": 15,
-    "remainingToImplement": 10,
+    "implementedOnBranch": 16,
+    "remainingToImplement": 9,
     "remainingToVerify": 25,
-    "notes": "15/25 individual school authority implementations on unmerged PR #5525, 10 school records still NOT_REVIEWED, 0 Batch 007 records deployed/production VERIFIED. Brownwood documentation reconciles coach, UIL finals and sourced Oct16 score; next canonical untouched school brownsville-lopez. No repeat CI/Cloudflare polls."
+    "notes": "16/25 school-specific source implementations in unmerged draft PR 5525; 9 remaining. Bryan's 1921 title and 2026 first-party coach reconciled, score conflict documented; future games remain unplayed. 0 Batch007 live VERIFIED."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -7692,8 +7692,17 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bryan",
-      "status": "NOT_REVIEWED",
-      "batch": 7
+      "status": "IMPLEMENTED",
+      "batch": 7,
+      "audit": "docs/football-authority/schools/bryan.md",
+      "auditCompletedAt": "2026-10-21",
+      "researchCompletedAt": "2026-10-21",
+      "implementedAt": "2026-10-21",
+      "implementedOnBranch": "football-authority-batch-007-20261020",
+      "actualProductionVerified": false,
+      "mediaStatus": "Independently styled source-derived 2026 results graphic; no school logos, photos, mascots copied or athlete permissions claimed",
+      "implementationNotes": "Historical Bryan 1921 UIL All Schools state championship 35–13 Oak Cliff, 9–1–1 Charles Hudson squad; 2026 Blake Joseph first-party Bryan ISD coach vs stale R Tullos, 1–7 through Oct15, disputed Oct2 Copperas Cove score attributed as MaxPreps 49–14 vs Brazos 56–14, 2026 Bryan Rudder separate school and September 18 opponent, Merrill Green Stadium 3310 Oak Ridge vs BHS 3450 Campus, ticket and student rules, nine milestones seven unique FAQs, original results graphic and Brazos County reciprocal links.",
+      "technicalVerification": "Pending protected PR CI, merge, final Cloudflare release and exact 1366/390/320 browser graphic, canonical, FAQ, sitemap and county QA"
     },
     {
       "id": "uil:bryan-rudder",
