@@ -15,7 +15,6 @@ import { AnswerSummary } from "@/components/content/AnswerSummary";
 import { ArticleCard } from "@/components/editorial/ArticleCard";
 import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { DestinationRelationships } from "@/components/editorial/DestinationRelationships";
-import { DestinationVerifiedVisitorFacts } from "@/components/editorial/DestinationVerifiedVisitorFacts";
 import { ElPasoAreaCrossLinks } from "@/components/content/ElPasoAreaAuthority";
 import { MapPreview } from "@/components/editorial/MapPreview";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
@@ -38,6 +37,10 @@ import { absoluteUrl, buildMeta, canonicalLink } from "@/lib/seo";
 import { INTERNAL_LINK_POLICIES, policyForSurface } from "@/platform/internal-link-policies";
 
 const CoastalBeachFieldGuide = lazy(() => import("@/components/content/CoastalBeachFieldGuide"));
+
+const DestinationVerifiedVisitorFacts = lazy(() =>
+  import("@/components/editorial/DestinationVerifiedVisitorFacts").then((module) => ({ default: module.DestinationVerifiedVisitorFacts })),
+);
 
 // This substantial below-the-fold visitor guide streams on demand rather than
 // inflating the site-wide client entry bundle with destination-only logic.
@@ -398,7 +401,7 @@ function DestinationPage() {
       ]}
     />
 
-    <DestinationVerifiedVisitorFacts destination={destination} />
+    <Suspense fallback={null}><DestinationVerifiedVisitorFacts destination={destination} /></Suspense>
 
     {destination.slug === "magoffin-home" && destination.visitorFaqs?.length ? (
       <section id="visitor-faq" className="bg-surface py-10 sm:py-12" aria-labelledby="magoffin-visitor-faq-title">
