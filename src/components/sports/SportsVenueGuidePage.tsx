@@ -184,15 +184,21 @@ export function SportsVenueGuidePage({
             </div>
           ) : null}
 
-          {guide.canonicalPath === "/sports-venue/msr-houston" && upcomingEvents.length === 0
-            ? <MSRHoustonEventsFallback />
-            : <TexasEventCarousel
+          {guide.canonicalPath === "/sports-venue/msr-houston" ? (
+            <MSRHoustonEventsFallback
+              featuredOnly={upcomingEvents.length > 0}
+              omitXtreme={upcomingEvents.some((event) => /xtreme\\s*xperience/i.test(event.title))}
+            />
+          ) : null}
+          {guide.canonicalPath !== "/sports-venue/msr-houston" || upcomingEvents.length > 0 ? (
+            <TexasEventCarousel
               events={upcomingEvents}
               eyebrow="Upcoming events"
               title={`What’s happening at ${entity.name}`}
               viewAllHref={eventCalendarHref}
               emptyMessage={`Texas Defined does not currently have a source-verified event listing in its calendar for ${entity.name}. This does not mean the venue has no events. Consult the official venue schedule.`}
-            />}
+            />
+          ) : null}
 
           {officialEventCalendarUrl ? (
             <div className="border-b border-border pb-7">
