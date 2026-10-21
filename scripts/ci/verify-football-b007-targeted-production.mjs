@@ -79,6 +79,7 @@ for(const school of schools){
   'Dated 2026 Batch007 coach identity/source mismatch for '+school.slug);
 }
 for(const school of schools)assert.ok(school.model.season?.games?.length>=6&&school.model.faq?.length>=5,'Missing authored source content '+school.slug);
+const reviewUtcDate=new Date().toISOString().slice(0,10);
 for (const school of schools) {
  const m=school.model;
  assert.ok(m.season?.sourceUrl?.startsWith('https://'), 'Missing 2026 source URL for '+school.slug);
@@ -93,7 +94,7 @@ for (const school of schools) {
  assert.equal(new Set(dates).size,dates.length, 'Duplicate game dates for '+school.slug);
  for(const game of m.season.games){
   assert.ok(/^2026-\d{2}-\d{2}$/.test(game.date), 'Invalid 2026 date '+school.slug);
-  if(game.result)assert.ok(game.date<='2026-10-21', 'Future 2026 game marked final '+school.slug);
+  if(game.result)assert.ok(game.date<=reviewUtcDate, 'Future 2026 game marked final '+school.slug);
  }
 }
 
