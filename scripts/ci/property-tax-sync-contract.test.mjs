@@ -40,7 +40,7 @@ test('historical sync does not exit after one successful import',()=>{
 test('annual and manually requested historical sweeps retain 2021 coverage',()=>{
   assert.match(workflow,/full_history:/);
   assert.match(workflow,/FORCE_FULL_TAX_HISTORY/);
-  assert.match(workflow,/date -u \\+%m/);
+  assert.ok(workflow.includes('date -u +%m'));
   assert.match(workflow,/oldest=2021/);
   assert.match(workflow,/year>=oldest/);
 });
