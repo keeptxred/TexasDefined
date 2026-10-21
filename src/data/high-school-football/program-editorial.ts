@@ -67,6 +67,442 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "bruceville-eddy": {
+    "slug": "bruceville-eddy",
+    "intro": "Bruceville-Eddy's Eagles are a McLennan County Class 2A Division I program with a distinctive 2026 comeback: after a 1–9 campaign in 2025, the school publicly celebrated a 39–8 October 16 win over Moody. A local preseason report identifies head coach Marcial Chapa's move from the spread offense to the Slot-T. The reported 2026 5–2 start, documented 2019 9–2 season and the McLennan-versus-Bell county distinction deserve their own sourced guide rather than a generic results directory.",
+    "theme": {
+      "accentHex": "#365B91",
+      "label": "Original TexasDefined blue editorial treatment, not a certified school color, school-owned logo or official mascot illustration."
+    },
+    "seo": {
+      "title": "Bruceville-Eddy Eagles Football | 2026 Scores, Slot-T & Eagle Field",
+      "description": "Bruceville-Eddy Eagles football: 2026 Marcial Chapa Slot-T change, 39–8 win at Moody, 5–2 reported start, Eagle Field, 2019 playoff history and sources."
+    },
+    "coach": {
+      "name": "Marcial Chapa",
+      "title": "2026 Eagles head football coach named in August 20 KWTX team preview; secondary-source attribution",
+      "sourceUrl": "https://www.kwtx.com/2026/08/20/2-a-days-2026-bruceville-eddy/?outputType=amp",
+      "sourceLabel": "KWTX local 2026 preseason interview identifies Coach Marcial Chapa; MaxPreps 2026 current team and history agree, while Texas Prep Football erroneously names Mike Chaney",
+      "verifiedAt": "2026-10-21"
+    },
+    "campus": {
+      "address": "1 Eagle Drive, Eddy, TX 76524 (school mailing/athletic complex; specific stadium spectator gate not verified)",
+      "phone": "254-859-5848",
+      "sourceUrl": "https://www.beisdathletics.com/",
+      "sourceLabel": "Bruceville-Eddy High School official athletics portal identifies 1 Eagle Dr and telephone; page intermittently yields fetch errors",
+      "verifiedAt": "2026-10-21"
+    },
+    "schedule": {
+      "label": "Official Bruceville-Eddy ISD athletics and 2026 football coverage",
+      "sourceUrl": "https://www.beisd.net/en-US",
+      "sourceLabel": "Bruceville-Eddy ISD first-party current posts, including its October 16 Moody result; KWTX August 2026 preview contains full 2026 schedule",
+      "verifiedAt": "2026-10-21",
+      "officialScheduleUrl": "https://www.kwtx.com/2026/08/20/2-a-days-2026-bruceville-eddy/?outputType=amp"
+    },
+    "season": {
+      "record": "5–2 overall through October 16, 2026 (six dated third-party scores plus district-confirmed 39–8 Moody final; pending school scorebook)",
+      "verifiedAt": "2026-10-21",
+      "sourceUrl": "https://www.maxpreps.com/tx/eddy/bruceville-eddy-eagles/football/schedule/",
+      "sourceLabel": "MaxPreps 4–2 through October 9; Bruceville-Eddy ISD first-party October 18 post says 39–8 over Moody; SBLive 2026 Oct 16 statewide list corroborates; combined source-dated 5–2 not district-certified cumulative record",
+      "latestResultSourceUrl": "https://www.si.com/high-school/texas/texas-high-school-football-final-scores-results-october-16-01m53bh2k5w8",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Cross Plains",
+          "site": "Away",
+          "result": "L 26–27"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Milano",
+          "site": "Home",
+          "result": "W 48–0"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Cross Roads",
+          "site": "Away",
+          "result": "W 24–0"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Hubbard",
+          "site": "Away",
+          "result": "W 48–6"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Rosebud-Lott",
+          "site": "Away",
+          "district": true,
+          "result": "L 7–40"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Marlin",
+          "site": "Home",
+          "district": true,
+          "result": "W 8–3"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Moody",
+          "site": "Away",
+          "district": true,
+          "result": "W 39–8"
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Hearne",
+          "site": "Home",
+          "district": true,
+          "kickoff": "7:00 PM"
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Granger",
+          "site": "Away",
+          "district": true,
+          "kickoff": "7:00 PM"
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Thorndale",
+          "site": "Home",
+          "district": true,
+          "kickoff": "7:00 PM"
+        }
+      ]
+    },
+    "venue": {
+      "name": "Eagle Field / Eagles Nest (school-associated football field, public gate not independently verified)",
+      "address": "Bruceville-Eddy ISD campus area, 1 Eagle Drive, Eddy, TX 76524 — use official school event instructions for parking/entrances",
+      "sourceUrl": "https://www.texasfootball.com/team/bruceville-eddy-eagles",
+      "sourceLabel": "Dave Campbell's Texas Football independently identifies Eagle Field and 1,500 capacity; campus address from Bruceville-Eddy official athletics portal, not certified stadium spectator gate",
+      "verifiedAt": "2026-10-21",
+      "note": "The district's own school website calls its August 2026 scrimmage location the 'Eagles Nest'. This is not proof of the exact 2026 ticketed-varsity stadium entrance or accessible seating. No unverified parking/ticket claims."
+    },
+    "development": {
+      "title": "The 2026 Slot-T change after a 1–9 year",
+      "body": "KWTX's August 20 preseason preview interviews the Eagles and reports a switch from the spread to a Slot-T offense under head coach Marcial Chapa after the 2025 team finished 1–9 and winless in district. The 2026 schedule began with an overtime 27–26 loss at Cross Plains before a run of three wins, a setback at Rosebud-Lott and a notable 8–3 defensive win over Marlin. An October 16 district-confirmed win at Moody made five reported victories. For historical perspective, Dave Campbell's independently reports the 2019 team was 9–2 and the school has seven football playoff appearances, no UIL state title-game appearance.",
+      "sourceUrl": "https://www.kwtx.com/2026/08/20/2-a-days-2026-bruceville-eddy/?outputType=amp",
+      "sourceLabel": "KWTX Aug 20 2026 coaching/preseason interview; DCTF Bruceville-Eddy program history; BEISD district Oct 16 result",
+      "verifiedAt": "2026-10-21"
+    },
+    "milestones": [
+      {
+        "date": "Program archive",
+        "title": "Seven postseason appearances without a UIL state final",
+        "body": "DCTF's Bruceville-Eddy football history counts seven playoff appearances, zero state football finals and zero titles. Do not infer a state crown from 2019's good record.",
+        "sourceUrl": "https://www.texasfootball.com/team/bruceville-eddy-eagles",
+        "sourceLabel": "Dave Campbell's Texas Football Eagles program history"
+      },
+      {
+        "date": "2019",
+        "title": "The Eagles post a 9–2 football season",
+        "body": "The program's most successful recently documented season in DCTF's visible summary ended 9–2 in 2019, a contrast with its 2025 rebuilding record.",
+        "sourceUrl": "https://www.texasfootball.com/team/bruceville-eddy-eagles",
+        "sourceLabel": "DCTF historical season records"
+      },
+      {
+        "date": "2025",
+        "title": "A 1–9 campaign precedes the new offensive approach",
+        "body": "Local television and DCTF both list the 2025 Eagles at 1–9; KWTX says 0–5 in district. Do not confuse the 2025 season with 2026 improvement.",
+        "sourceUrl": "https://www.kwtx.com/2026/08/20/2-a-days-2026-bruceville-eddy/?outputType=amp",
+        "sourceLabel": "KWTX Aug 20 2026 2-A-Days preview"
+      },
+      {
+        "date": "August 2026",
+        "title": "Coach Marcial Chapa plans a Slot-T offense",
+        "body": "KWTX reports the Eagles leaving the spread offense for the Slot-T with 14 returning starters, seven on either side of the ball.",
+        "sourceUrl": "https://www.kwtx.com/2026/08/20/2-a-days-2026-bruceville-eddy/?outputType=amp",
+        "sourceLabel": "KWTX preseason coach/returning starters interview"
+      },
+      {
+        "date": "September 4, 2026",
+        "title": "48–0 over Milano starts a three-game winning run",
+        "body": "After a one-point overtime setback at Cross Plains, third-party results list shutout wins against Milano 48–0 and Cross Roads 24–0, followed by a 48–6 Hubbard victory.",
+        "sourceUrl": "https://www.maxpreps.com/tx/eddy/bruceville-eddy-eagles/football/schedule/",
+        "sourceLabel": "MaxPreps 2026 Eagles game scoreboard"
+      },
+      {
+        "date": "October 9, 2026",
+        "title": "Eagles edge Marlin by an unusual football score, 8–3",
+        "body": "Reported score is 8–3 against Marlin, a defensive district win whose low aggregate points should not be substituted by a baseball result.",
+        "sourceUrl": "https://www.maxpreps.com/tx/eddy/bruceville-eddy-eagles/football/schedule/",
+        "sourceLabel": "MaxPreps 2026 district matchup"
+      },
+      {
+        "date": "October 16, 2026",
+        "title": "District itself confirms 39–8 win over Moody",
+        "body": "An October 18 school district homepage social update states the Eagles won 39–8 at Moody. High School On SI's statewide October 16 final-score roundup separately lists the same final; an older MaxPreps page still leaves the game unplayed.",
+        "sourceUrl": "https://www.beisd.net/en-US",
+        "sourceLabel": "BEISD first-party Oct 18 win bulletin; SBLive Oct 16 2026 statewide results"
+      },
+      {
+        "date": "October 23, 2026",
+        "title": "Hearne home district matchup still ahead",
+        "body": "The KWTX preseason schedule lists Bruceville-Eddy hosting Hearne at 7 p.m. on Oct 23. As of the Oct 21 research checkpoint, do not pre-fill an outcome or claim stadium gate details.",
+        "sourceUrl": "https://www.kwtx.com/2026/08/20/2-a-days-2026-bruceville-eddy/?outputType=amp",
+        "sourceLabel": "KWTX 2026 week-by-week varsity schedule"
+      }
+    ],
+    "overview": [
+      "Bruceville-Eddy High School competes in UIL Class 2A Division I, District 13 and serves a McLennan County campus in Eddy along the Waco–Temple I-35 corridor. This school is not incorrectly assigned to Bell County just because Temple is nearby.",
+      "The district uses the Eagles identity on its own homepage and athletics portal, while Dave Campbell's identifies its football venue as Eagle Field and its historical stadium capacity as 1,500. The school's 1 Eagle Drive contact address is not proof of game-night gates or parking rules.",
+      "KWTX's 2026 team preview identifies Marcial Chapa as head football coach and describes a move from spread to Slot-T with 14 returning starters. A third-party Texas Prep coach field lists a different name, so the contemporaneous reporting and current MaxPreps staff are cited, not a guess from an older coach.",
+      "History is more than a zero-state-title fact: DCTF counts seven playoff berths and a 9–2 2019 campaign, while KWTX says the 2025 team finished 1–9 (0–5 district). This contrast explains why the 2026 start matters.",
+      "The 2026 Eagles have a reported 5–2 through Oct 16 score ledger: three straight early wins, the low-scoring 8–3 Marlin result and the district's expressly confirmed 39–8 Moody victory. A static MaxPreps scoreboard remains 4–2 through Oct 9; the final record is a date-bounded combined source view, not an official final-season summary.",
+      "Spectators should use BEISD and current event information for tickets, correct field entrances and accessibility rather than presuming the school office address or football field's informal Eagles Nest nickname is a visitor gate."
+    ],
+    "faq": [
+      {
+        "question": "Who coaches Bruceville-Eddy football in 2026?",
+        "answer": "Marcial Chapa, according to KWTX's August 20, 2026 preseason team report and the current MaxPreps Eagles team staff. A separate Texas Prep Football coach field lists a different name, so official district coaching confirmation remains a follow-up."
+      },
+      {
+        "question": "What is the Eagles' 2026 football record as of October 16?",
+        "answer": "Five wins and two losses are supported by six MaxPreps results through October 9 and Bruceville-Eddy ISD's own 39–8 October 16 win over Moody. This is a dated, transparently combined result, not school-certified year-end standings."
+      },
+      {
+        "question": "Where is Bruceville-Eddy located and which county is it in?",
+        "answer": "Bruceville-Eddy High School is in Eddy, McLennan County, Texas, with its school athletics contact at 1 Eagle Drive. McLennan County is supported by TEA's Bruceville-Eddy ISD campus listing, not proximity to Temple/Bell County."
+      },
+      {
+        "question": "Has Bruceville-Eddy won a UIL football state title?",
+        "answer": "Dave Campbell's Texas Football credits Bruceville-Eddy with seven football playoff appearances, but no football state final or championship. The 2019 team had a 9–2 record, which is not a championship title."
+      },
+      {
+        "question": "Why is the Eagles' October 16 Moody game missing from some schedule sites?",
+        "answer": "Some third-party schedules were last updated October 10 and still show Moody as a future fixture. The school district itself published an October 18 post celebrating a 39–8 win; independent statewide October 16 results agree."
+      },
+      {
+        "question": "Where can fans find home game, tickets and accessibility information?",
+        "answer": "Start with Bruceville-Eddy ISD's official homepage and athletics contact at 254-859-5848. Eagle Field is named by DCTF but the exact spectator entrance, parking and wheelchair access are not independently confirmed, so avoid assuming the campus office is a game gate."
+      }
+    ]
+  },
+  "bruni": {
+    "slug": "bruni",
+    "intro": "Bruni High School's Badgers in Webb County have undergone an unusually consequential football change: after canceling the planned 2025 eleven-man season because of low roster numbers, the program played an independent six-man slate before entering UIL 1A Division I District 16 in 2026. Local television identifies Federico Lujan as the new 2026 coach. The October 16 47–6 defeat against Nueces Canyon left the team at a reported 0–7; its official district football page still points to old 2025 material and cannot substitute for a 2026 scoreboard.",
+    "theme": {
+      "accentHex": "#27638C",
+      "label": "Original independent TexasDefined blue accent for Bruni's documented Badgers identity; exact current official school colors, logo and photo rights not certified."
+    },
+    "seo": {
+      "title": "Bruni Badgers Football | Why Bruni Switched to Six-Man in 2026",
+      "description": "Bruni Badgers football: 2025 cancellation of 11-man schedule, six-man transition, 2026 District 16, Federico Lujan coaching interview and dated scores."
+    },
+    "coach": {
+      "name": "Federico Lujan",
+      "title": "2026 incoming Bruni six-man head coach, personally quoted in KGNS August 23 2026 reporting (district direct roster not published)",
+      "sourceUrl": "https://www.kgns.tv/2026/08/24/badgers-look-ahead-life-6-man/",
+      "sourceLabel": "KGNS Aug 23 2026 video/interview explicitly names Federico Lujan replacing Paul Veirs; SixManFootball roster says Freddie Lujan, while MaxPreps season-history field says Williams Calderon; preserve disagreement",
+      "verifiedAt": "2026-10-21"
+    },
+    "campus": {
+      "address": "619 Avenue F, Bruni, TX 78344 (Webb CISD official campus/contact, not a verified stadium entrance)",
+      "phone": "361-747-5415",
+      "sourceUrl": "https://www.webbcisd.org/41271_2",
+      "sourceLabel": "Webb Consolidated ISD's official Football page footer address and phone",
+      "verifiedAt": "2026-10-21"
+    },
+    "schedule": {
+      "label": "Webb CISD first-party football hub links a 2025 file; third-party 2026 six-man varsity schedule used with disclosure",
+      "sourceUrl": "https://www.webbcisd.org/41271_2",
+      "sourceLabel": "School district football page currently lacks a confirmed 2026 schedule, links 2025 BHS/BMS sheet and a MaxPreps account; no false first-party 2026 ticket claim",
+      "verifiedAt": "2026-10-21",
+      "officialScheduleUrl": "https://www.webbcisd.org/41271_2"
+    },
+    "season": {
+      "record": "0–7 through October 16, 2026 (MaxPreps reported seven six-man losses, verified October 21; first-party district scorebook not available)",
+      "verifiedAt": "2026-10-21",
+      "sourceUrl": "https://www.maxpreps.com/tx/bruni/bruni-badgers/football/schedule/",
+      "sourceLabel": "MaxPreps 2026 six-man 0–7 through Oct 16 with all seven opponent/results; Texas Prep Football independently reports Oct 16 47–6 loss to Nueces Canyon",
+      "latestResultSourceUrl": "https://txprepfootball.com/schools/bruni-badgers/",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Hermleigh",
+          "site": "Home",
+          "result": "L 0–50"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Annapolis Christian Academy",
+          "site": "Home",
+          "result": "L 0–51"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Benavides",
+          "site": "Home",
+          "result": "L 12–26"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Victoria Gators Homeschool",
+          "site": "Away",
+          "result": "L 6–56"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "St. Augustine",
+          "site": "Home",
+          "result": "L 25–31"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Prairie Lea",
+          "site": "Away",
+          "district": true,
+          "result": "L 25–45"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Nueces Canyon",
+          "site": "Home",
+          "district": true,
+          "result": "L 6–47"
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Leakey",
+          "site": "Away",
+          "district": true,
+          "kickoff": "7:00 PM"
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Knippa",
+          "site": "Home",
+          "district": true,
+          "kickoff": "7:30 PM"
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Medina",
+          "site": "Away",
+          "district": true,
+          "kickoff": "7:00 PM"
+        }
+      ]
+    },
+    "venue": {
+      "name": "Bruni Badgers Field / historic Badger Stadium (specific six-man game venue not district-confirmed)",
+      "address": "Bruni, Texas (official Webb CISD campus 619 Avenue F; exact spectator entrance, parking and venue relationship unverified)",
+      "sourceUrl": "https://sixmanfootball.com/teams/bruni-badgers.19280/",
+      "sourceLabel": "SixManFootball identifies Bruni Badgers Field for six-man program; DCTF historic pre-transition Badger Stadium may not describe 2026 layout, no confirmed gate",
+      "verifiedAt": "2026-10-21",
+      "note": "Historic DCTF 1,600-seat Badger Stadium listing is from eleven-man program years. Do not assume six-man field dimensions, stadium entrance, accessibility or tickets are unchanged."
+    },
+    "notice": {
+      "title": "2026 football is six-man, not the former 11-man schedule",
+      "body": "Dave Campbell's Texas Football reported August 2025 that Bruni canceled its planned UIL 11-man season because just 12 athletes reported and played a non-district six-man season. KGNS' August 2026 follow-up confirms the Badgers joined UIL 1A Division I District 16 and identifies a new coaching assignment. Webb CISD football hub still displays a 2025 file, so use a dated 2026 fixture source and independently verify school admissions.",
+      "sourceUrl": "https://www.texasfootball.com/article/2025/08/14/breaking-uil-bruni-cancels-2025-season-due-to-low-numbers",
+      "sourceLabel": "DCTF August 14 2025 program transition investigation; KGNS August 23 2026 on new league",
+      "verifiedAt": "2026-10-21"
+    },
+    "development": {
+      "title": "From 11-man regional finalists to a six-man reboot",
+      "body": "Bruni formerly competed as a very small Class 2A eleven-man school, and Dave Campbell's 2025 investigation says it reached consecutive regional-finals rounds in 2015 and 2016. Its published long-term DCTF program history counts 17 historical football playoff berths, none a championship game. In 2025, only 12 players appeared for fall work; Bruni therefore canceled its planned 11-man schedule and instead played an out-of-district six-man slate. Its new 2026 home is UIL Class 1A Six-Man Division I District 16, and KGNS quotes new coach Federico Lujan about continuity of an offense learned in 2025. Those old 11-man appearances must not be mislabeled six-man state titles.",
+      "sourceUrl": "https://www.texasfootball.com/article/2025/08/14/breaking-uil-bruni-cancels-2025-season-due-to-low-numbers",
+      "sourceLabel": "DCTF original August 2025 reporting, DCTF Bruni program history; KGNS Aug 2026 new 1A District 16 interview",
+      "verifiedAt": "2026-10-21"
+    },
+    "milestones": [
+      {
+        "date": "2015–2016",
+        "title": "Bruni advanced to consecutive 11-man regional finals",
+        "body": "According to Matt Stepp's DCTF 2025 original reporting, Bruni reached 2A eleven-man regional-final rounds in both 2015 and 2016. Regional final is not a UIL state football final.",
+        "sourceUrl": "https://www.texasfootball.com/article/2025/08/14/breaking-uil-bruni-cancels-2025-season-due-to-low-numbers",
+        "sourceLabel": "Dave Campbell's Texas Football Aug 14 2025 reporting"
+      },
+      {
+        "date": "2023",
+        "title": "A reported 5–6 season ends the last winning stretch",
+        "body": "DCTF's historical program list records a 5–6 2023 season following a 6–4 campaign in 2022. Records pertain to the prior eleven-man era, not the 2026 six-man district.",
+        "sourceUrl": "https://www.texasfootball.com/team/bruni-badgers",
+        "sourceLabel": "DCTF Bruni past-seasons table"
+      },
+      {
+        "date": "August 14, 2025",
+        "title": "The school cancels 11-man season after roster shortage",
+        "body": "Original DCTF reporting states only 12 athletes reported for fall workouts and Bruni dropped its planned 2025 11-man league schedule, pursuing a six-man alternative. Do not label all football canceled.",
+        "sourceUrl": "https://www.texasfootball.com/article/2025/08/14/breaking-uil-bruni-cancels-2025-season-due-to-low-numbers",
+        "sourceLabel": "DCTF original Aug 2025 roster shortage investigation"
+      },
+      {
+        "date": "2025",
+        "title": "Outlaw six-man fixtures create a transition year",
+        "body": "The 2025 program played a six-man schedule outside a UIL six-man district. Media mentions a 2025 eleven-man cancellation; that does not mean Bruni did not play any football that autumn.",
+        "sourceUrl": "https://www.kgns.tv/2026/08/24/badgers-look-ahead-life-6-man/",
+        "sourceLabel": "KGNS 2026 recap of Bruni's independent 2025 six-man season"
+      },
+      {
+        "date": "August 23, 2026",
+        "title": "Federico Lujan leads the new six-man district entry",
+        "body": "KGNS reports Bruni's new coach Federico Lujan replacing Paul Veirs for UIL District 16-1A six-man. It quotes Lujan explaining the decision to retain offensive calls familiar to players from 2025.",
+        "sourceUrl": "https://www.kgns.tv/2026/08/24/badgers-look-ahead-life-6-man/",
+        "sourceLabel": "KGNS Aug 23 2026 interview with Lujan"
+      },
+      {
+        "date": "October 9, 2026",
+        "title": "Prairie Lea wins 45–25 in six-man district play",
+        "body": "MaxPreps records Bruni's 45–25 defeat at Prairie Lea in the new six-man District 16. This is distinct from the old 2A eleven-man schedule.",
+        "sourceUrl": "https://www.maxpreps.com/tx/bruni/bruni-badgers/football/schedule/",
+        "sourceLabel": "MaxPreps 2026 date-scoped Bruni season score table"
+      },
+      {
+        "date": "October 16, 2026",
+        "title": "Nueces Canyon 47–6; Badgers reported 0–7",
+        "body": "MaxPreps and Texas Prep Football each report Nueces Canyon's 47–6 win at Bruni; MaxPreps updated October 17 to 0–7 overall and 0–2 new 1A district.",
+        "sourceUrl": "https://www.maxpreps.com/tx/bruni/bruni-badgers/football/schedule/",
+        "sourceLabel": "MaxPreps Oct 17 2026 Bruni schedule; Texas Prep Football independent result"
+      },
+      {
+        "date": "October 23, 2026",
+        "title": "Leakey road matchup still scheduled",
+        "body": "MaxPreps lists Bruni at Leakey on October 23 at 7 p.m. This is a future 2026 six-man district fixture as of the October 21 checkpoint, not an already played score.",
+        "sourceUrl": "https://www.maxpreps.com/tx/bruni/bruni-badgers/football/schedule/",
+        "sourceLabel": "MaxPreps unplayed Oct 23 2026 schedule"
+      }
+    ],
+    "overview": [
+      "Bruni is Webb CISD's Badgers program in southern Webb County at a small public high school in Bruni, Texas. The district itself publishes 619 Avenue F and phone 361-747-5415 on its official football page, but that page links a 2025 document rather than certifying a complete 2026 six-man schedule.",
+      "The key story is a format change. In 2025 Dave Campbell's confirmed Bruni canceled the eleven-man schedule because enrollment and player numbers fell, with only 12 at fall workouts. The Badgers still played independent six-man football, before entering UIL 1A Division I District 16 in 2026.",
+      "This history prevents misleading templates. Dave Campbell's lists 17 historical football playoff appearances and 2015/2016 regional finals, but those belong to the former eleven-man era; neither the two regional rounds nor past playoff entries are six-man state championships.",
+      "Local broadcaster KGNS personally quotes Federico Lujan as the 2026 new Bruni head coach after Paul Veirs. Another third-party MaxPreps history field names Williams Calderon and SixManFootball abbreviates the new coach as Freddie Lujan, so the KGNS interview governs attribution and any unconfirmed administrative status remains flagged.",
+      "Seven 2026 reported six-man game results through Oct 16 show a 0–7 start, last a 47–6 home loss to Nueces Canyon. MaxPreps's season page was updated Oct 17 and Texas Prep independently corroborates the final. The Oct 23 Leakey and later Knippa/Medina fixtures remain future dates at this checkpoint.",
+      "Travel details matter: the school campus address is not confirmed as the Bruni six-man field entrance. The old eleven-man Badger Stadium capacity listed by DCTF may be obsolete after the 2025 format switch; seek school stadium, ticket, ADA and parking instructions from Webb CISD directly."
+    ],
+    "faq": [
+      {
+        "question": "Does Bruni play eleven-man or six-man football in 2026?",
+        "answer": "Six-man. Bruni canceled its planned 2025 UIL eleven-man season because too few players reported, competed on an independent six-man schedule in 2025, and joined UIL Class 1A Six-Man Division I District 16 in 2026, as reported by Dave Campbell's and KGNS."
+      },
+      {
+        "question": "Who coaches Bruni's 2026 Badgers?",
+        "answer": "KGNS interviewed and identified Federico Lujan as Bruni's new 2026 six-man head coach replacing Paul Veirs. SixManFootball calls him Freddie Lujan, while MaxPreps's season-history coach field disagrees, so the media interview is cited and the role should be rechecked with Webb CISD."
+      },
+      {
+        "question": "What is Bruni's 2026 varsity football record?",
+        "answer": "The MaxPreps schedule updated October 17 lists zero wins and seven defeats through the Oct 16 47–6 loss to Nueces Canyon. This is source-dated reported six-man scoring, not a Webb CISD certified final season record."
+      },
+      {
+        "question": "Why does the school's official football page show an old schedule?",
+        "answer": "Webb CISD's current Football hub has a MaxPreps link and 2025 BHS/BMS file; it does not independently publish a dated 2026 six-man fixture chart in the reviewed snapshot. For current times see the 2026 MaxPreps schedule and verify tickets or cancellations with the school."
+      },
+      {
+        "question": "Did Bruni win state titles in its old eleven-man era?",
+        "answer": "No UIL football championship-game appearance or state title is shown in Dave Campbell's historical program summary, although it records 17 earlier playoff appearances and notes regional-final runs in 2015 and 2016. A regional final is not a state final."
+      },
+      {
+        "question": "Where is Bruni High and what should six-man football visitors know?",
+        "answer": "Webb CISD's official mailing/contact address is 619 Avenue F, Bruni, TX 78344, phone 361-747-5415. The exact six-man field, public gate, wheelchair access and ticket policy have not been independently established; use school instructions, not the old eleven-man stadium-capacity listing."
+      }
+    ]
+  },
   "brownsville-veterans-memorial": {
     "slug": "brownsville-veterans-memorial",
     "intro": "Brownsville Veterans Memorial's Chargers became a statewide football story in 2023, finishing 12–3 and advancing to the Class 5A Division I state semifinals before a 49–21 loss to Smithson Valley—not to the championship game. The school identifies its mascot as the Chargers and its colors as red, white and blue. In 2026 the program is in UIL 6A District 32 with JC Ramirez on the first-party coaching staff; reported results show 5–2 through October 16. A September 11 exhibition against the Monterrey Tigres has conflicting third-party final scores, so this guide makes the disagreement visible instead of inventing a definitive number.",
