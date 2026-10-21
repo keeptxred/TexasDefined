@@ -260,6 +260,8 @@ const verifiedLocalTaxingUnits = [
   { slug: 'southside-place', year: 2024, rate: '0.340896', agency: 'City of Southside Place' },
   { slug: 'stafford', year: 2024, rate: '0.000000', agency: 'City of Stafford', zeroCity: true },
   { slug: 'culberson-county', year: 2025, rate: '0.1330247', agency: 'Culberson County Appraisal District', latest: true },
+  { slug: 'post-oak-bend', year: 2021, rate: '0.000000', agency: 'Kaufman County Appraisal District', zeroCity: true },
+  { slug: 'post-oak-bend', year: 2024, rate: '0.000000', agency: 'City of Post Oak Bend', zeroCity: true },
   { slug: 'post-oak-bend', year: 2025, rate: '0.000000', agency: 'City of Post Oak Bend', zeroCity: true, latest: true },
   { slug: 'van-horn', year: 2025, rate: '0.492123', agency: 'Culberson County Appraisal District', latest: true },
 ];
