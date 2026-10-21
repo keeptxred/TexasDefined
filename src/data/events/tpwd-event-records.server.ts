@@ -25,7 +25,11 @@ function matchPark(key: string) {
 export function loadTpwdEventRecordsServer(now = new Date()): TexasEventRecord[] {
   if (!catalog.generatedAt || !Number.isFinite(Date.parse(catalog.generatedAt))) return [];
   if (Math.abs(now.getTime() - Date.parse(catalog.generatedAt)) > 7 * 86400000) return [];
-  const today = now.toLocaleDateString("en-CA", { timeZone: "America/Chicago" });
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/Chicago", year: "numeric", month: "2-digit", day: "2-digit",
+  }).formatToParts(now);
+  const part = (type: string) => parts.find(p => p.type === type)?.value ?? "00";
+  const today = part("year") + "-" + part("month") + "-" + part("day");
   const result: TexasEventRecord[] = [];
   for (const item of catalog.events as TpwdItem[]) {
     if (!/^\d{4}-\d{2}-\d{2}$/.test(item.startDate) || item.startDate < today) continue;
