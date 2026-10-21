@@ -25,6 +25,8 @@ jobs:
           node-version: '22'
       - name: Detect unsupported, duplicate and stale visitor answers
         run: node scripts/data/validate-destination-visitor-fact-catalog.mjs
+      - name: Verify read-only freshness audit and scheduled follow-up policy
+        run: node --test scripts/ci/visitor-fact-followup-contract.test.mjs
 
   editorial-followup:
     # PRs only audit source facts. Only the trusted weekly or manual run may write issues.
