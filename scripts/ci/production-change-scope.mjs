@@ -65,6 +65,21 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
   const candidates = new Set(shared ? REPRESENTATIVE_PATHS : []);
   const expectedHrefsByPage = {};
   const eventAuthorityPages = new Set();
+  // The statewide Mardi Gras hub has a static route and its own event-directory
+  // links. Verify it on production when either of its route files changes.
+  const mardiGrasHubPages = new Set();
+  if (changedFiles.some(path => path === 'src/routes/events.mardi-gras.tsx'
+    || path === 'src/routes/events.mardi-gras.lazy.tsx')) {
+    const page = '/events/mardi-gras';
+    candidates.add(page);
+    mardiGrasHubPages.add(page);
+    expectedHrefsByPage[page] = [
+      '/event/mardi-gras-galveston',
+      '/event/mardi-gras-port-arthur',
+      '/event/cowboy-mardi-gras-bandera',
+      '/event/kemah-yachty-gras',
+    ];
+  }
   // A missing Davis Hill hero survived source checks because the editorial route
   // bypasses the generic destination image. Test the live HTML and both SVGs
   // whenever its component, image assets, or release verifier changes.
@@ -391,12 +406,13 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
   ];
   const allPaths = [...candidates].sort();
   // A deploy smoke is explicitly a bounded sample, never a full-content certification.
-  const selectedPaths = [...new Set([...REPRESENTATIVE_PATHS.filter(p => candidates.has(p)), ...battleshipVisitorPages, ...fredericksburgSitemapPaths, ...magoffinHomePages, ...davisHillPages, ...texasDataPages, ...eventAuthorityPages, ...allPaths])].slice(0, PAGE_BUDGET - redirectChecks.length);
+  const selectedPaths = [...new Set([...REPRESENTATIVE_PATHS.filter(p => candidates.has(p)), ...battleshipVisitorPages, ...fredericksburgSitemapPaths, ...magoffinHomePages, ...davisHillPages, ...texasDataPages, ...mardiGrasHubPages, ...eventAuthorityPages, ...allPaths])].slice(0, PAGE_BUDGET - redirectChecks.length);
   const selectedExpectedHrefs = Object.fromEntries(selectedPaths.filter(p => expectedHrefsByPage[p]).map(p => [p, expectedHrefsByPage[p]]));
   const candidateCount = allPaths.length + redirectChecks.length;
   return { baseline, head, changedFiles, shared, selectedPaths, expectedHrefsByPage: selectedExpectedHrefs,
     texasDataPages: selectedPaths.filter(p => texasDataPages.has(p)),
     eventAuthorityPages: selectedPaths.filter(p => eventAuthorityPages.has(p)),
+    mardiGrasHubPages: selectedPaths.filter(p => mardiGrasHubPages.has(p)),
     downloadButtonPages: selectedPaths.filter(p => downloadButtonPages.has(p)),
     regionGuidePages: selectedPaths.filter(p => regionGuidePages.has(p)),
     footballGameNightPages: selectedPaths.filter(p => footballGameNightPages.has(p)),

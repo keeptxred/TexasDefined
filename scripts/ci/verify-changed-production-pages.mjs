@@ -49,6 +49,7 @@ const redirectChecks = plan.redirectChecks ?? [];
 const downloadButtonPages = plan.downloadButtonPages ?? [];
 const texasDataPages = plan.texasDataPages ?? [];
 const eventAuthorityPages = plan.eventAuthorityPages ?? [];
+const mardiGrasHubPages = plan.mardiGrasHubPages ?? [];
 const TEXAS_DATA_ROUTES = [
   '/texas-data',
   '/texas-data/texas-homeowners-premium-history',
@@ -66,6 +67,7 @@ if (!Array.isArray(regionGuidePages) || regionGuidePages.length > 1 || regionGui
 if (!Array.isArray(downloadButtonPages) || downloadButtonPages.length > 1 || downloadButtonPages.some(p => p !== '/texas-data/texas-population-and-migration-2025' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid data-brief smoke contract');
 if (!Array.isArray(texasDataPages) || texasDataPages.length > 4 || texasDataPages.some(p => !TEXAS_DATA_ROUTES.includes(p) || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded Texas Data production contract');
 if (!Array.isArray(eventAuthorityPages) || eventAuthorityPages.length > 8 || eventAuthorityPages.some(p => !/^\/event\/[a-z0-9]+(?:-[a-z0-9]+)*$/.test(p) || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded event authority production contract');
+if (!Array.isArray(mardiGrasHubPages) || mardiGrasHubPages.length > 1 || mardiGrasHubPages.some(p => p !== '/events/mardi-gras' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded Mardi Gras hub production contract');
 if (!Array.isArray(battleshipVisitorPages) || battleshipVisitorPages.length > 1 || battleshipVisitorPages.some(p => p !== '/destination/battleship-texas' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded Battleship visitor acceptance contract');
 if (!Array.isArray(fredericksburgSitemapPaths) || fredericksburgSitemapPaths.length > 1 || fredericksburgSitemapPaths.some(p => p !== '/destination/fredericksburg' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid Fredericksburg sitemap acceptance contract');
 if (!Array.isArray(magoffinHomePages) || magoffinHomePages.length > 1 || magoffinHomePages.some(p => p !== '/destination/magoffin-home' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid Magoffin Home live acceptance contract');
@@ -100,6 +102,42 @@ for (const path of plan.selectedPaths) {
         for (const href of expectedHrefs) {
           if (!/^\/(?!\/)/.test(href) || !anchors.has(href)) throw new Error('Expected changed internal link is missing from SSR anchors: '+href);
         }
+      }
+      if (mardiGrasHubPages.includes(path)) {
+        // Check both the cache-busted release and the actual visitor URL:
+        // a new hub is not accepted if the CDN still serves an old listing.
+        const expectedGuides = [
+          '/event/mardi-gras-galveston',
+          '/event/mardi-gras-port-arthur',
+          '/event/cowboy-mardi-gras-bandera',
+          '/event/kemah-yachty-gras',
+        ];
+        const checkHub = (body, surface) => {
+          if (!body.includes('Mardi Gras in Texas') || !body.includes('2027')) {
+            throw new Error('Mardi Gras hub ' + surface + ' lacks current statewide heading and season');
+          }
+          if (/<meta\b[^>]*\bname=["']robots["'][^>]*\bnoindex\b/i.test(body)) {
+            throw new Error('Mardi Gras hub ' + surface + ' is unexpectedly noindex');
+          }
+          for (const guide of expectedGuides) {
+            if (!body.includes('href="' + guide + '"')) {
+              throw new Error('Mardi Gras hub ' + surface + ' lacks live guide: ' + guide);
+            }
+          }
+          if (!body.includes('href="' + canonical.href + '"')) {
+            throw new Error('Mardi Gras hub ' + surface + ' lacks correct canonical link');
+          }
+        };
+        checkHub(html, 'release');
+        const visitor = await fetchImpl(canonical, {
+          redirect: 'follow',
+          headers: { accept: 'text/html', 'user-agent': 'TexasDefined-Mardi-Gras-Visitor-Smoke/1.0' },
+          signal: AbortSignal.timeout(30000),
+        });
+        if (!visitor.ok || visitor.headers.get('cf-mitigated') === 'challenge') {
+          throw new Error('Mardi Gras hub ordinary visitor URL failed: HTTP ' + visitor.status);
+        }
+        checkHub(await visitor.text(), 'ordinary visitor URL');
       }
       if (eventAuthorityPages.includes(path)) {
         for (const required of ['Planning your visit', 'Official event links', 'data-event-discovery-tail="true"']) {
