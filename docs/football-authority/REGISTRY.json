@@ -40,7 +40,7 @@
       "bryan-rudder",
       "bryson"
     ],
-    "state": "BATCH_007_NINE_SCHOOL_SOURCE_IMPLEMENTATION_PENDING_QA",
+    "state": "BATCH_007_TEN_SCHOOL_SOURCE_IMPLEMENTATION_PENDING_QA",
     "dateAssigned": "2026-10-20",
     "selectionRule": "First 25 NOT_REVIEWED and unassigned canonical schoolRecords in stable order following 130 production VERIFIED through completed Batch 006; outstanding PR and branch conflicts checked.",
     "individuallyVerified": 0,
@@ -48,12 +48,12 @@
     "assignmentBranch": "football-authority-batch-007-20261020",
     "repositoryMainAtAssignment": "78157bb07d856f40d21e813fd3f886cd54e2b20e",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "bronte",
-    "nextSchool": "brookesmith",
-    "implementedOnBranch": 9,
-    "remainingToImplement": 16,
+    "currentSchool": "brookesmith",
+    "nextSchool": "brownfield",
+    "implementedOnBranch": 10,
+    "remainingToImplement": 15,
     "remainingToVerify": 25,
-    "notes": "9 of 25 school profiles on draft branch individually researched/implemented with source-derived score graphics; 16 still need individual implementation, 25 still need production verification. Never confuse 2015 Brock coach Chad Worrell with 2026 Billy Mathis."
+    "notes": "10 individually researched/implemented source-backed school profiles on draft branch PR5525; 15 remaining individual implementations; none production-VERIFIED and no CI/Cloudflare polling. Latest Bronte sources reflect Oct20 contemporary district standing."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -7456,8 +7456,17 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bronte",
-      "status": "NOT_REVIEWED",
-      "batch": 7
+      "status": "IMPLEMENTED",
+      "batch": 7,
+      "audit": "docs/football-authority/schools/bronte.md",
+      "auditCompletedAt": "2026-10-20",
+      "researchCompletedAt": "2026-10-20",
+      "implementedAt": "2026-10-20",
+      "implementedOnBranch": "football-authority-batch-007-20261020",
+      "actualProductionVerified": false,
+      "mediaStatus": "Original 7-game source-derived six-man football results graphic; school-owned photo/logo unused; public rights not yet certified",
+      "implementationNotes": "Source-backed Bronte six-man coach change from Rocky Rawls to Julian Helms in March 2026, 2025 7–4 outright district crown not state title, 2026 2–5 0–2 through Oct16, six-man 1A Division I District 7, DCTF Stephenson Stadium venue no gate verified, seven milestones/six unique FAQs, Coke County reciprocal links.",
+      "technicalVerification": "Pending protected checks, merge, production deploy, source/site SEO/mobile live Chrome QA, exact stadium and photo-rights checks"
     },
     {
       "id": "uil:brookesmith",
