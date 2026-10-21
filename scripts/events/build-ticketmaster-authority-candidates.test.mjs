@@ -14,6 +14,7 @@ test('authority discovery groups sessions and never approves publication', () =>
       { id: 'two', name: 'Texas Balloon Festival - Saturday', city: 'Austin', startDate: '2026-11-07', venue: 'Park' },
       { id: 'three', name: 'Texas Balloon Festival VIP add-on', city: 'Austin', startDate: '2026-11-07' },
       { id: 'weekday', name: 'Texas Balloon Festival - Thursday', city: 'Austin', startDate: '2026-11-05', venue: 'Park' },
+      { id: 'tour', name: 'Tank and the Bangas: The Last Balloon Tour', city: 'Austin', startDate: '2026-11-08' },
       { id: 'four', name: 'Ordinary concert', city: 'Dallas', startDate: '2026-11-08' },
       { id: 'five', name: 'Cancelled County Fair', city: 'Dallas', startDate: '2026-11-08', status: 'cancelled' },
       { id: 'six', name: 'Downtown Fest', city: 'Houston', startDate: 'not-a-date' },
