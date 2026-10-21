@@ -67,6 +67,230 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "brownsville-rivera": {
+    "slug": "brownsville-rivera",
+    "intro": "Brownsville ISD's Simón Rivera Jr. Early College High School opened in 1988, honoring former BISD assistant superintendent Simón Rivera Jr. The Raiders' current school athletics staff lists head coach and athletic coordinator Johnny Garza, not the Alberto Leal still named in a stale social-media embed. Rivera plays 2026 football in 5A Division I District 15 after a previous 6A period; its seven reported 2026 games yielded 2–5 through October 9, with a bye October 16. Future Corpus Christi Veterans Memorial and Brownsville Hanna games are distinct opponents. The school provides an event-specific schedule but leaves some stadium venues unresolved as TBA.",
+    "theme": {
+      "accentHex": "#A02E39",
+      "label": "Original independent TexasDefined Raider-red editorial accent reflecting published red/black school identity; not an official logo or reproduced athletic photo"
+    },
+    "seo": {
+      "title": "Brownsville Rivera Raiders Football | Johnny Garza, 2026 & Stadiums",
+      "description": "Rivera Raiders Brownsville football: 1988 school history, 10 postseason berths, Johnny Garza first-party staff, reported 2–5 through Oct 9 and 2026 stadium cautions."
+    },
+    "coach": {
+      "name": "Johnny Garza",
+      "title": "Rivera High School athletics director / head football coach on current official staff directory; older social account description incorrectly still names Alberto Leal",
+      "sourceUrl": "https://www.riveraraidersathletics.net/directory",
+      "sourceLabel": "Current Rivera Athletics staff directory explicitly lists Johnny Garza 'Athletic Coordinator | Head Football Coach', Raul Marraboto DC, Armando Medrano OC; official embedded old 32-6A X bio still says Alberto Leal",
+      "verifiedAt": "2026-10-21"
+    },
+    "campus": {
+      "address": "6955 FM 802, Brownsville, TX 78526 (first-party Rivera ECHS site; football athletics footer incorrectly says FM 801; MaxPreps uses Coffeeport Rd)",
+      "phone": "956-831-8700",
+      "sourceUrl": "https://riveraechs.bisd.us/about-us/history",
+      "sourceLabel": "Official Rivera Early College High School school history footer 6955 FM 802 Brownsville TX 78526; conflicting athletics page says FM 801/78521, not separately verified spectator route",
+      "verifiedAt": "2026-10-21"
+    },
+    "schedule": {
+      "label": "Rivera Raiders official 2026–27 varsity football calendar with explicitly unresolved TBA sites and BISD online tickets",
+      "sourceUrl": "https://www.riveraraidersathletics.net/sport/football/boys/?tab=schedule",
+      "sourceLabel": "First-party Rivera Athletics 2026 varsity fixtures: Oct23 Corpus Christi Veterans Memorial TBA venue, Oct30 Harlingen South Boggus Stadium, Nov7 Hanna Sams Stadium; no entered final scores",
+      "verifiedAt": "2026-10-21",
+      "officialScheduleUrl": "https://www.riveraraidersathletics.net/sport/football/boys/?tab=schedule",
+      "ticketUrl": "https://www.bisd.us/departments/a-i/athletics"
+    },
+    "season": {
+      "record": "2–5 overall, 0–3 district through October 9, 2026, no game October 16 (attributed MaxPreps/Pigskin; school result cells blank)",
+      "verifiedAt": "2026-10-21",
+      "sourceUrl": "https://www.maxpreps.com/tx/brownsville/rivera-raiders/football/schedule/",
+      "sourceLabel": "MaxPreps 2026 Rivera updated Oct15 lists 2–5 through Oct9 Flour Bluff loss; Pigskin Prep schedule corroborates Oct16 open and Oct23 CC Veterans fixture",
+      "latestResultSourceUrl": "https://www.pigskinprep.com/showfreeschedules.asp?distID=392&yr=2026",
+      "games": [
+        {
+          "date": "2026-08-27",
+          "opponent": "Brownsville Lopez",
+          "site": "Home",
+          "result": "W 26–20"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Brownsville Veterans Memorial",
+          "site": "Away",
+          "result": "L 20–44"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Brownsville St. Joseph Academy",
+          "site": "Home",
+          "result": "W 35–20"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Edinburg",
+          "site": "Away",
+          "result": "L 13–37"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Weslaco East",
+          "site": "Away",
+          "district": true,
+          "result": "L 10–65"
+        },
+        {
+          "date": "2026-10-02",
+          "opponent": "Corpus Christi Carroll",
+          "site": "Home",
+          "district": true,
+          "result": "L 20–64"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Corpus Christi Flour Bluff",
+          "site": "Away",
+          "district": true,
+          "result": "L 0–59"
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Corpus Christi Veterans Memorial",
+          "site": "Home",
+          "district": true,
+          "kickoff": "7:00 PM"
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Harlingen South",
+          "site": "Away",
+          "district": true,
+          "kickoff": "7:00 PM"
+        },
+        {
+          "date": "2026-11-07",
+          "opponent": "Brownsville Hanna",
+          "site": "Home",
+          "district": true,
+          "kickoff": "7:00 PM"
+        }
+      ]
+    },
+    "venue": {
+      "name": "Sams Memorial Stadium for explicitly listed Rivera home games; October 23 Corpus Christi Veterans venue pending BISD assignment",
+      "address": "Sams Memorial Stadium: 1 Boulevard of Champions, Brownsville TX (NOT guaranteed venue for October 23; official calendar says TBA)",
+      "sourceUrl": "https://www.riveraraidersathletics.net/sport/football/boys/?tab=schedule",
+      "sourceLabel": "Rivera official 2026 school fixture site lists Aug27 Lopez, Sep11 St Joseph and Nov7 Hanna at SAMS; Oct2 Carroll and Oct23 Corpus Christi Veterans Memorial TBA; stadium address per state TDLR listing",
+      "verifiedAt": "2026-10-21",
+      "note": "The first-party Oct23 Corpus Christi Veterans Memorial game venue is TBA—do NOT assert Sams, Veterans Memorial, Brownsville Veterans Memorial campus, or a ticket gate for that event. Oct30 Harlingen South explicitly Boggus Stadium. School campus and shared BISD stadium are different places.",
+      "policyUrl": "https://www.bisd.us/departments/a-i/athletics"
+    },
+    "notice": {
+      "title": "2026 coach and district correction: school athletic directory overrides stale social bio",
+      "body": "Current official Rivera Athletics staff directory names Johnny Garza head coach and athletic coordinator. The same website's legacy X/social description still mentions Alberto Leal and former 32-6A—historical, not a reliable 2026 appointment or classification. The canonical 2026 UIL alignment is 5A Division I District 15. Oct23 Corpus Christi Veterans Memorial is an opponent different from Brownsville Veterans Memorial, and stadium is first-party TBA.",
+      "sourceUrl": "https://www.riveraraidersathletics.net/directory",
+      "sourceLabel": "Rivera first-party 2026 athletics staff directory; old social embed and 2026 UIL alignment conflict documented",
+      "verifiedAt": "2026-10-21"
+    },
+    "development": {
+      "title": "1988 Rivera school origin, ten playoff berths and the 2026 district reset",
+      "body": "Brownsville ISD's Rivera school history says the high school opened in 1988, two years after educator Simón Rivera Jr.'s 1986 death, with Bill Gutierrez first principal. Dave Campbell's varsity football archive gives 10 playoff appearances but no football state-title-game or UIL title. Rivera's 2025 record was 1–9. For 2026 the team began with wins over Brownsville Lopez and St Joseph Academy but dropped its next four games through Oct9; football scoreboard records show 2–5 and no game on Oct16. The school athletics page includes old class 6A social metadata but the current UIL grouping is 5A Division I. Present only actual current staffing and classified 2026 status.",
+      "sourceUrl": "https://riveraechs.bisd.us/about-us/history",
+      "sourceLabel": "BISD Rivera School History: 1988 founding; DCTF ten football playoff appearances; current MaxPreps/Pigskin and school staff",
+      "verifiedAt": "2026-10-21"
+    },
+    "milestones": [
+      {
+        "date": "1986–1988",
+        "title": "Rivera ECHS opens to honor Simón Rivera Jr.",
+        "body": "BISD says educator/assistant superintendent Simón Rivera Jr. died in 1986 and the fourth Brownsville public high school opened two years later under his name, with principal Bill Gutierrez.",
+        "sourceUrl": "https://riveraechs.bisd.us/about-us/history",
+        "sourceLabel": "BISD Rivera ECHS official history"
+      },
+      {
+        "date": "Program history",
+        "title": "Ten postseason football appearances but no championship final",
+        "body": "Dave Campbell's football program summary lists ten UIL-era football playoff appearances and zero state title games or championships for Brownsville Rivera.",
+        "sourceUrl": "https://www.texasfootball.com/team/brownsville-rivera-raiders",
+        "sourceLabel": "DCTF Brownsville Rivera football archive"
+      },
+      {
+        "date": "2024",
+        "title": "The Raiders return to a 5A football classification",
+        "body": "The school's own 2024 article announces reclassification from 6A to 5A. In 2026 the official current assignment is 5A Division I District 15, not the obsolete 32-6A carried in an old embedded social account bio.",
+        "sourceUrl": "https://www.riveraraidersathletics.net/news/93058",
+        "sourceLabel": "Rivera Athletics KRGV 2024 reclassification news"
+      },
+      {
+        "date": "2025",
+        "title": "A 1–9 varsity season provides the baseline before 2026",
+        "body": "DCTF's annual Rivera football history records 1–9 in 2025 after earlier 2–8 seasons. The number is a school football statistic, not another Brownsville 5A team.",
+        "sourceUrl": "https://www.texasfootball.com/team/brownsville-rivera-raiders",
+        "sourceLabel": "DCTF 2025 Rivera Raiders football season"
+      },
+      {
+        "date": "2026",
+        "title": "Current school directory identifies Johnny Garza as head varsity coach",
+        "body": "Rivera's live athletics directory says Johnny Garza is the athletic coordinator/head football coach, Raul Marraboto defensive coordinator, and Armando Medrano offensive coordinator. MaxPreps older histories place Garza with 2025 and Leal with 2024, matching the need to reject the stale embedded social bio.",
+        "sourceUrl": "https://www.riveraraidersathletics.net/directory",
+        "sourceLabel": "Rivera Athletics staff directory current roles"
+      },
+      {
+        "date": "August 27, 2026",
+        "title": "Raiders defeat crosstown Brownsville Lopez 26–20",
+        "body": "The first-party athletics calendar schedules the season opener at shared Sams Memorial Stadium; independent 2026 football score listing gives Rivera 26, Lopez 20.",
+        "sourceUrl": "https://www.maxpreps.com/tx/brownsville/rivera-raiders/football/schedule/",
+        "sourceLabel": "MaxPreps 2026 Rivera results and BISD school schedule"
+      },
+      {
+        "date": "October 9, 2026",
+        "title": "Flour Bluff 59–0 loss brings the 2026 record to 2–5",
+        "body": "Rivera's seventh reported 2026 game was at Corpus Christi Flour Bluff. Pigskin Prep and MaxPreps both show the 0–59 loss; October16 is a bye, not an unreported defeat.",
+        "sourceUrl": "https://www.pigskinprep.com/showfreeschedules.asp?distID=392&yr=2026",
+        "sourceLabel": "Pigskin Prep 2026 5A DI District 15 games and bye"
+      },
+      {
+        "date": "October 23, 2026",
+        "title": "Corpus Christi Veterans Memorial visits, but first-party venue remains TBA",
+        "body": "Rivera hosts Corpus Christi Veterans Memorial (NOT Brownsville Veterans Memorial) in the school schedule, with venue TBA; do not invent Sams Stadium, tickets or a gate until BISD assigns them.",
+        "sourceUrl": "https://www.riveraraidersathletics.net/sport/football/boys/?tab=schedule",
+        "sourceLabel": "First-party Rivera Athletics exact date and unresolved 2026 event venue"
+      }
+    ],
+    "overview": [
+      "Simón Rivera Jr. Early College High School is Brownsville ISD's Raiders campus in Cameron County. The district's own 1988 school-opening narrative honors former Central Intermediate principal and BISD administrator Simón Rivera Jr. The official school history address is 6955 FM 802; the athletic-site footer incorrectly says FM 801 and third-party directories use Coffeeport Road. This independent guide labels the conflict rather than issuing unverified precise gate directions.",
+      "Football and school identities are separable from stale social captions. The current first-party Rivera athletics directory names Johnny Garza head football coach and AD; an old embedded team social profile still says Alberto Leal and District 32-6A. The school switched classifications after 2024, and its 2026 alignment is UIL 5A Division I District 15. Rely on current staff listing and current UIL alignment.",
+      "Dave Campbell's historical team page lists ten playoff appearances, zero football state title-game appearances and no state football championships. The documented 2025 season was 1–9; achievements from another Rivera school or from soccer do not belong in the football title count.",
+      "In 2026 the Raiders defeated Lopez 26–20 and St Joseph Academy 35–20, then lost to Brownsville Veterans Memorial, Edinburg, Weslaco East, Corpus Christi Carroll and Flour Bluff through October9. The 2–5 overall / 0–3 district reported record is dated. Independent schedule record says no Rivera football game October16; do not add an imaginary final.",
+      "The school's official 2026 fixture page assigns the November7 Hanna home fixture to Sams Memorial Stadium, while leaving the October23 home contest against **Corpus Christi** Veterans Memorial as TBA. That opponent is not the local Brownsville Veterans Memorial Chargers, which the Raiders actually played September4. The next away game at Harlingen South is specifically Boggus Stadium.",
+      "For every BISD stadium outing, the school campus and venue must be treated as different places. Brownsville ISD sells athletic tickets via first-party online links; venue assignment, accessibility, entry gate, home/visitor seats and weather cancellations should be verified against the particular school's current event before travel."
+    ],
+    "faq": [
+      {
+        "question": "Who is the current Brownsville Rivera Raiders head football coach?",
+        "answer": "Rivera High School's official athletic staff directory identifies Johnny Garza as Athletic Coordinator and Head Football Coach, supported by current first-party coaches listings. An older embedded X profile still says Alberto Leal and the old 32-6A district, so that account caption should not override the staff directory."
+      },
+      {
+        "question": "When did Rivera Early College High School open?",
+        "answer": "Brownsville ISD's official history says the fourth Brownsville public high school opened in 1988 to honor educator and former school administrator Simón Rivera Jr.; its first principal was Bill Gutierrez."
+      },
+      {
+        "question": "What is Brownsville Rivera's 2026 football record?",
+        "answer": "The reported 2026 record was 2–5 (0–3 district) through the 0–59 loss at Flour Bluff on October9. October16 was a bye, per Pigskin Prep's 2026 varsity calendar. These results are third-party and are not populated in the school fixture's official score fields."
+      },
+      {
+        "question": "Where will Rivera play Corpus Christi Veterans Memorial on October 23, 2026?",
+        "answer": "The official Rivera schedule lists a 7 PM home game against **Corpus Christi Veterans Memorial**, but still marks the stadium/site TBA. Do not confuse this opponent with Brownsville Veterans Memorial Chargers or assume a spectator entrance until the district issues a venue."
+      },
+      {
+        "question": "Does Rivera still play in UIL District 32-6A?",
+        "answer": "No. An old official embedded social-media description mentions 32-6A; the 2026 football UIL alignment places Rivera in 5A Division I District 15. The athletic site itself announced the earlier 2024 reclassification from 6A to 5A."
+      },
+      {
+        "question": "How many football state championships does Brownsville Rivera have?",
+        "answer": "Dave Campbell's football archive lists 0 state football titles and 0 state championship-game appearances for Rivera, with ten historical playoff appearances. A playoff qualification is not a title-game berth."
+      }
+    ]
+  },
   "brownsville-porter": {
     "slug": "brownsville-porter",
     "intro": "Brownsville's Gladys Porter Early College High School opened in 1974 as the city's second public high school, named for civic leader Gladys Sams Porter. Its football team is the Cowboys, not the similarly named Porter Spartans outside Brownsville. Dave Campbell's football archive counts three postseason appearances and no state-title game. The 2025 Cowboys reached a UIL playoff but fell 56–7 at Sharyland; in 2026, publicly reported game finals stood at 2–6 through October 15, even though an older schedule only displays 2–4. The official BISD varsity fixtures distinguish the shared Sams and Veterans Memorial Stadium locations.",
