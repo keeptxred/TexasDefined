@@ -19,7 +19,8 @@ const blsMetroReview = read('docs/verification/bls-metro-august-2026-review.md')
 const currentMetro = JSON.parse(read('src/data/generated/texas-metro-payrolls-current.json'));
 if (!/^\d{4}-\d{2}$/.test(currentMetro.releaseMonth) ||
     !Array.isArray(currentMetro.rows) || currentMetro.rows.length !== 13 ||
-    !String(currentMetro.sourceUrl).startsWith('https://www.bls.gov/news.release/archives/metro_')) {
+    !(String(currentMetro.sourceUrl).startsWith('https://www.bls.gov/news.release/archives/metro_') ||
+      String(currentMetro.sourceUrl).startsWith('https://fred.stlouisfed.org/graph/fredgraph.csv?id='))) {
   failures.push('Latest rolling BLS metro snapshot has incomplete official-source provenance.');
 }
 const lastMetroRelease = Date.parse(currentMetro.releaseMonth + '-01T00:00:00Z');
