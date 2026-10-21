@@ -64,3 +64,11 @@ Eight more curated parks receive 19 exact, TPWD-backed visitor facts: fees, hour
 | Lake Tawakoni | https://tpwd.texas.gov/state-parks/lake-tawakoni | Daily 6 a.m.–10 p.m. park hours |
 
 Operator information is subject to change and must be checked on the linked primary page before traveling. The verification timestamp is evidence of an editorial review as of that day, **not live hours or a reservation guarantee**.
+
+## State-park batch four: source-verified special cases (October 21, 2026)
+
+Ten existing state-park entries gain 23 additional individual facts with official TPWD URLs and short review windows. Unlike generic state-park templates, this batch separates changing fee and gate hours from site-specific issues: Mother Neff's closed south entrance, Lockhart's seasonal office hours and pool season, Longhorn Cavern's independently booked tour and lack of camping, and Martin Dies Jr.'s headquarters midday closure.
+
+Official operator source registry: [Mother Neff](https://tpwd.texas.gov/state-parks/mother-neff), [Lockhart](https://tpwd.texas.gov/state-parks/lockhart), [Longhorn Cavern](https://tpwd.texas.gov/state-parks/longhorn-cavern), [Martin Dies, Jr.](https://tpwd.texas.gov/state-parks/martin-dies-jr), [Mission Tejas](https://tpwd.texas.gov/state-parks/mission-tejas), [Meridian](https://tpwd.texas.gov/state-parks/meridian), [Martin Creek Lake](https://tpwd.texas.gov/state-parks/martin-creek-lake), [Atlanta](https://tpwd.texas.gov/state-parks/atlanta), [Bonham](https://tpwd.texas.gov/state-parks/bonham), [Buescher](https://tpwd.texas.gov/state-parks/buescher).
+
+Review method: official public TPWD park overview per exact location on October 21, 2026. A tour with separate operator charges is never mislabeled as a standard entry ticket; information changes should expire under the existing visitor-fact freshness policy rather than be silently restamped. Deployment/production visibility remains subject to protected CI and release verification.
