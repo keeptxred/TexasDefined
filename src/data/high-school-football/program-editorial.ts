@@ -67,6 +67,212 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "brookesmith": {
+    "slug": "brookesmith",
+    "intro": "Brookesmith's Mustangs play Class 1A Division II six-man football in Brown County. The reported 2026 start—six wins and two losses through October 16—includes a key accounting exception: October 2 against Olfen was awarded as a 1–0 forfeit and was not an on-field 1–0 football score. The Mustangs subsequently lost district games to Rochelle and Richland Springs. The district's own athletics page also hosts the athletic handbook and fan-behavior guidance, while the reported head coach Blake Hood appears on independent 2026 team listings.",
+    "theme": {
+      "accentHex": "#1E54A8",
+      "label": "Independent TexasDefined blue editorial treatment, informed by contemporary Brookesmith team listings; not an authorized Mustang graphic, school seal or team photo."
+    },
+    "seo": {
+      "title": "Brookesmith Mustangs Six-Man Football | 2026 6–2 & Forfeit Note",
+      "description": "Brookesmith Mustangs 2026 six-man football: 6–2 including Olfen forfeit, Blake Hood, Rochelle/Richland Springs district results, schedule, field and Brown County."
+    },
+    "coach": {
+      "name": "Blake Hood",
+      "title": "2026 head football coach according to independent team listings; first-party district staff confirmation pending",
+      "sourceUrl": "https://sixmanfootball.com/teams/brookesmith-mustangs.1066/schedule/",
+      "sourceLabel": "SixManFootball current Brookesmith Mustangs team page lists head coach Blake Hood, corroborated by MaxPreps 2026 football team",
+      "verifiedAt": "2026-10-20"
+    },
+    "campus": {
+      "address": "13400 FM 586 South, Brookesmith, TX 76827 (district school/office; field gate not established)",
+      "phone": "325-643-3023",
+      "sourceUrl": "https://brookesmithisd.net/contact",
+      "sourceLabel": "Brookesmith ISD first-party physical street address, phone and PO Box 706 mailing-address distinction",
+      "verifiedAt": "2026-10-20"
+    },
+    "schedule": {
+      "label": "Brookesmith ISD Athletics school notices, sports schedule section and fan policies; independent six-man 2026 varsity opponent list",
+      "sourceUrl": "https://brookesmithisd.net/athletics",
+      "sourceLabel": "Brookesmith ISD official Athletics page includes football heading, fan behavior, athletic handbook; current online 2026 opponent/score schedule is corroborated by MaxPreps",
+      "verifiedAt": "2026-10-20",
+      "officialScheduleUrl": "https://brookesmithisd.net/athletics"
+    },
+    "season": {
+      "record": "6–2 overall, 0–2 district through October 16, 2026 (includes a 1–0 forfeit win over Olfen; five victories were on-field)",
+      "verifiedAt": "2026-10-20",
+      "sourceUrl": "https://www.maxpreps.com/tx/brookesmith/brookesmith-mustangs/football/schedule/",
+      "sourceLabel": "MaxPreps detailed 2026 schedule 6–2 with Oct 2 'W 1–0 (FF)' vs Olfen, Oct 9 Rochelle 38–71 and Oct 16 Richland Springs 6–62; site SixManFootball incorrectly reverses the Sep 10 Blanket final",
+      "latestResultSourceUrl": "https://www.maxpreps.com/tx/football/game/brookesmith-vs-richland-springs/10-16-2026/?c=06f623d6-c7cc-4dab-b8fd-6acaa1adb2d0",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Trent",
+          "site": "Home",
+          "result": "W 82–70"
+        },
+        {
+          "date": "2026-09-03",
+          "opponent": "Rising Star",
+          "site": "Home",
+          "result": "W 64–39"
+        },
+        {
+          "date": "2026-09-10",
+          "opponent": "Blanket (two MaxPreps team pages and SI verify Brookesmith won)",
+          "site": "Away",
+          "result": "W 66–34"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Evant",
+          "site": "Away",
+          "result": "W 56–43"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Santa Anna",
+          "site": "Away",
+          "result": "W 50–47"
+        },
+        {
+          "date": "2026-10-02",
+          "opponent": "Olfen — administrative forfeit; no game played",
+          "site": "Home",
+          "result": "W 1–0 (forfeit; not an actual game score)"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Rochelle",
+          "site": "Home",
+          "district": true,
+          "result": "L 38–71"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Richland Springs",
+          "site": "Away",
+          "district": true,
+          "result": "L 6–62"
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Lohn",
+          "site": "Home",
+          "district": true,
+          "kickoff": "7:30 PM"
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Cherokee",
+          "site": "Away",
+          "district": true,
+          "kickoff": "7:00 PM"
+        }
+      ]
+    },
+    "venue": {
+      "name": "Brookesmith Mustangs Field / Dillingham Field (independent directories disagree on name)",
+      "address": "Brookesmith, Brown County, TX; district campus 13400 FM 586 S (not confirmed football visitor gate)",
+      "sourceUrl": "https://www.texasfootball.com/team/brookesmith-mustangs",
+      "sourceLabel": "DCTF lists Dillingham Field capacity 250; SixManFootball lists 'Brookesmith Mustangs Field'. Venue naming and public gate not first-party validated.",
+      "verifiedAt": "2026-10-20",
+      "note": "The two independent stadium sources use different names. Don't assert the venue's correct official name, exact gate or accessible parking from these listings. Consult Brookesmith ISD school athletics and current game organizer for directions and spectator access."
+    },
+    "development": {
+      "title": "The 2026 six-man start is five played wins plus one awarded forfeit",
+      "body": "SixManFootball's schedule shows historical seasons including a 9–2 campaign in 2019 and a 6–3 2020 season; Dave Campbell's Texas Football credits Brookesmith with nine football playoff appearances but no football state-final berth or title. On September 10, MaxPreps's Brookesmith and Blanket team reports and Sports Illustrated's high school score page show Brookesmith beat Blanket 66–34, while the SixManFootball and DCTF historical/aggregated tables mistakenly reverse that score. Brookesmith started 5–0 in games actually played, received an October 2 non-district win via Olfen forfeit (1–0 for recordkeeping, not play), then lost district games October 9 and 16, leaving 6–2 overall by the reported Oct 16 Richland Springs final.",
+      "sourceUrl": "https://www.maxpreps.com/tx/brookesmith/brookesmith-mustangs/football/schedule/",
+      "sourceLabel": "MaxPreps Oct 17 record and verified explicit forfeiture; head-to-head team reports and SI score archive resolve Blanket direction against reversed aggregator records",
+      "verifiedAt": "2026-10-20"
+    },
+    "milestones": [
+      {
+        "date": "1994–2025",
+        "title": "A long-running six-man program with nine playoff berths",
+        "body": "DCTF counts nine UIL football playoff appearances and no state-final appearances in Brookesmith program history; a distinct team ledger shows 9–2 in 2019, but state titles should never be borrowed from other Mustangs teams.",
+        "sourceUrl": "https://www.texasfootball.com/team/brookesmith-mustangs",
+        "sourceLabel": "Dave Campbell Texas Football Brookesmith program history and six-man schedule"
+      },
+      {
+        "date": "2019",
+        "title": "Brookesmith finishes a reported 9–2 campaign",
+        "body": "SixManFootball's team-specific historical 2019 season record is 9–2; this is an on-field regular/postseason season total, not a state championship.",
+        "sourceUrl": "https://sixmanfootball.com/teams/brookesmith-mustangs.1066/schedule/",
+        "sourceLabel": "SixManFootball Brookesmith team historical season ledger"
+      },
+      {
+        "date": "August 28, 2026",
+        "title": "Brookesmith opens with a high-scoring win over Trent",
+        "body": "The 2026 Mustangs opened with an 82–70 reported six-man victory over Trent. The score illustrates why comparing six-man scoring directly to 11-man can mislead.",
+        "sourceUrl": "https://www.maxpreps.com/tx/brookesmith/brookesmith-mustangs/football/schedule/",
+        "sourceLabel": "MaxPreps dated six-man schedule"
+      },
+      {
+        "date": "September 10, 2026",
+        "title": "Independent cross-check confirms Brookesmith 66, Blanket 34",
+        "body": "Both sides' MaxPreps pages and a Sports Illustrated game result call this a Brookesmith victory, even though DCTF and SixManFootball present the 66–34 winner backwards. Treat team-side evidence as stronger while awaiting school confirmation.",
+        "sourceUrl": "https://www.si.com/high-school/stats/texas/football/games/6589070-brookesmith-vs-blanket",
+        "sourceLabel": "SI high-school score, Sep 11 MaxPreps recaps on both teams; conflicting 3rd-party aggregators preserved in dossier"
+      },
+      {
+        "date": "September 25, 2026",
+        "title": "A narrow 50–47 road win at Santa Anna",
+        "body": "The Mustangs beat Santa Anna by three points during their unbeaten start—another reported 2026 six-man result distinct from the later forfeit award.",
+        "sourceUrl": "https://www.maxpreps.com/tx/brookesmith/brookesmith-mustangs/football/schedule/",
+        "sourceLabel": "MaxPreps Sep 25 game summary"
+      },
+      {
+        "date": "October 2, 2026",
+        "title": "Brookesmith awarded a 1–0 forfeit victory over Olfen",
+        "body": "The contest was not played. MaxPreps explicitly tags 'FF' and the October 3 recap says Brookesmith won by forfeit. The 1–0 figure represents an administrative record entry, not a one-point football contest.",
+        "sourceUrl": "https://www.maxpreps.com/tx/football/game/brookesmith-vs-olfen-rowena/10-2-2026/?c=d1cf6dcf-b478-454c-8ec2-476d296db223",
+        "sourceLabel": "Individual MaxPreps Oct 2 matchup declares Olfen forfeit"
+      },
+      {
+        "date": "October 16, 2026",
+        "title": "Richland Springs 62–6 sends Brookesmith to 6–2",
+        "body": "An individual game report confirms the road loss at Richland Springs; Brookesmith is 0–2 in UIL Division II District 8, with upcoming home Lohn Oct 23 and away Cherokee Oct 30.",
+        "sourceUrl": "https://www.maxpreps.com/tx/football/game/brookesmith-vs-richland-springs/10-16-2026/?c=06f623d6-c7cc-4dab-b8fd-6acaa1adb2d0",
+        "sourceLabel": "MaxPreps Oct 16 individual game final and updated 2026 standings"
+      }
+    ],
+    "overview": [
+      "Brookesmith ISD's Mustangs play UIL Division II six-man football in Brown County, not 11-man. The campus/district headquarters is 13400 FM 586 S, Brookesmith, TX, with PO Box 706 as its separate mailing address. The official school athletics page has fan-behavior guidelines and its athletic handbook, but it does not presently expose a school-verified game-by-game 2026 scoreboard.",
+      "Brookesmith's history is deeper than the generic high-school listing: DCTF counts nine playoff berths and no UIL football title-game appearance; SixManFootball logs a 9–2 2019 season and 6–3 2020 season. Those are independent summaries and must not be confused with the UIL championship records of other Brown County six-man schools.",
+      "The 2026 Mustangs reported five on-field victories before their first district losses: Trent 82–70, Rising Star 64–39, Blanket 66–34, Evant 56–43, and Santa Anna 50–47. Two competing score aggregators accidentally label Blanket the winner; separately, MaxPreps's Brookesmith and Blanket team pages, the Sep 11 postgame accounts and SI all show Brookesmith won 66–34.",
+      "On October 2 the planned Olfen–Brookesmith game was forfeited by Olfen. The data provider displays 'W 1–0 (FF)'; this is a league-record administrative win, not a 1–0 six-man football match. It brings the official *reported* win count to six, but only five victories were earned in completed on-field games. Any record graphic must clearly identify the forfeit.",
+      "Bronte is a Division I six-man program, whereas Brookesmith is Division II, so neither the conferences nor the current standings should be combined merely because both are small West/Central Texas programs. In 2026 Brookesmith plays District 8 opponents Rochelle, Richland Springs, Lohn and Cherokee, losing 71–38 and 62–6 to the first two by October 16.",
+      "Reported coach Blake Hood appears on the current independent Brookesmith team listings, not a school-run staff announcement. Independent stadium records conflict: Dave Campbell lists Dillingham Field, SixManFootball calls it Brookesmith Mustangs Field. Avoid confident assertions about the current field's official signage, exact stadium entrance, ticket access or ADA seating until district verification."
+    ],
+    "faq": [
+      {
+        "question": "Does Brookesmith play six-man football?",
+        "answer": "Yes. The Mustangs are a UIL Class 1A Division II six-man program, listed in 2026 District 8 with Rochelle, Richland Springs, Lohn and Cherokee. Six-man rules differ from 11-man scoring and field rules."
+      },
+      {
+        "question": "What is Brookesmith's 2026 record through October 16?",
+        "answer": "Reported record is 6–2 overall and 0–2 district, according to MaxPreps. One of the six wins is an administrative forfeit awarded October 2 against Olfen, so the played-game record is five victories and two losses; the 1–0 notation is not an actual football score."
+      },
+      {
+        "question": "Who won the September 10, 2026 Brookesmith–Blanket game?",
+        "answer": "Independent MaxPreps match recaps for both schools and the SI score archive report Brookesmith won 66–34. DCTF and SixManFootball aggregate pages reverse the score/winner; the team-specific consistent reports are used pending district verification."
+      },
+      {
+        "question": "Who is Brookesmith's head football coach in 2026?",
+        "answer": "Blake Hood is listed as the 2026 Mustangs head coach by independent MaxPreps and SixManFootball team pages. The current Brookesmith ISD public athletics page has no first-party coach appointment confirmation."
+      },
+      {
+        "question": "Where does Brookesmith play home football games?",
+        "answer": "The independent venues disagree on the name: DCTF calls the football venue Dillingham Field while SixManFootball lists Brookesmith Mustangs Field. The district's campus address is 13400 FM 586 S, but stadium gate/parking/accessibility and confirmed venue naming should be verified with Brookesmith ISD."
+      },
+      {
+        "question": "Where do parents and fans find Brookesmith school athletics rules?",
+        "answer": "The district's official Athletics page links the Athletic Handbook, fan-behavior guidance, UIL paperwork and school sports schedules. Use its current contact number 325-643-3023 for tickets, accessible entries and exact home-field information."
+      }
+    ]
+  },
   "bronte": {
     "slug": "bronte",
     "intro": "Bronte's Longhorns play six-man football, not 11-man football. In 2025 they earned their first outright district title since 2011 under veteran Rocky Rawls, then began 2026 with new coach and athletics director Julian Helms, coming from Oglesby. A small roster and UIL realignment into 1A Division I District 7 make this a distinctly different season. By October 20 local newspaper standings confirmed the Longhorns at 2–5 overall and 0–2 in district; the school's own live calendar should remain the authority for future kickoff changes.",
