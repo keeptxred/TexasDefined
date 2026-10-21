@@ -16,7 +16,7 @@ const families = new Map();
 for (const event of snapshot.events ?? []) {
   if (!event || typeof event.name !== 'string' || !signal.test(event.name) || child.test(event.name) || !event.city || !/^\d{4}-\d{2}-\d{2}$/.test(event.startDate ?? '')) continue;
   if (['cancelled', 'postponed', 'rescheduled'].includes(event.status)) continue;
-  const familyName = event.name.replace(/\b20\d{2}\b/g, '').replace(/\s*[-–:]\s*(day \d+|friday|saturday|sunday).*$/i, '').trim();
+  const familyName = event.name.replace(/\b20\d{2}\b/g, '').replace(/\s*[-–:]\s*(day \d+|monday|tuesday|wednesday|thursday|friday|saturday|sunday).*$/i, '').trim();
   const key = familyName.toLowerCase() + '|' + event.city.toLowerCase();
   const existing = families.get(key) ?? { name: familyName, city: event.city, dates: new Set(), ticketmasterIds: new Set(), venues: new Set(), officialTicketUrls: new Set() };
   existing.dates.add(event.startDate);
