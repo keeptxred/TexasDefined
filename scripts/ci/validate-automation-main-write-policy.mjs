@@ -47,6 +47,7 @@ for (const contract of [
   'actions: write',
   'automation/texas-events-sync-${GITHUB_RUN_ID}',
   'gh pr create',
+  'git add -N -- ops/editorial/ticketmaster-authority-candidates.json',
   'Prevalidate generated refresh branch',
   'bash scripts/ci/dispatch-validate-branch.sh "$BRANCH"',
   'owner-side event-refresh finisher',
