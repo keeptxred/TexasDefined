@@ -58,3 +58,10 @@ test('soccer draws and NHL overtime losses retain their actual statistical meani
   const stars = parseTeamSeason({ team: hockey }, ['Dallas Stars'], 'https://www.espn.com/', now, 'hockey/nhl');
   assert.equal(stars.record, '4–1–2'); assert.equal(stars.recordLabel, 'Wins–losses–overtime losses');
 });
+
+test('published team copy and guide templates contain no encoding replacement or control characters', () => {
+  for (const path of ['src/data/pro-teams.json', 'src/routes/sports.teams.lazy.tsx', 'src/routes/sports.teams.$slug.lazy.tsx']) {
+    const text = readFileSync(path, 'utf8');
+    assert.doesNotMatch(text, /[\uFFFD\u0000-\u0008\u000B\u000C\u000E-\u001F]/u, path);
+  }
+});
