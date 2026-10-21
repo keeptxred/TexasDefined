@@ -349,8 +349,7 @@ function VenuePhoto({ photo, venueName, fallbackImageUrl }: { photo?: SportsVenu
           onError={() => setFailedFallback(true)}
         />
         {historicalPhotoCaption}
-        {historicalPhotoCaption}
-    </figure>
+      </figure>
     );
   }
   return (
@@ -366,6 +365,7 @@ function VenuePhoto({ photo, venueName, fallbackImageUrl }: { photo?: SportsVenu
         className="block h-auto w-full object-contain"
         onError={() => setFailedUrl(photo.imageUrl)}
       />
+      {historicalPhotoCaption}
     </figure>
   );
 }
