@@ -30,8 +30,8 @@ test('rate labels never round documented seven-decimal values to six',()=>{
 });
 test('live release gate audits every primary-source local rate and Woodlands',()=>{
   const matches=[...smoke.matchAll(/\{ slug: '([^']+)', year: 202[45], rate: '[^']+', agency: '[^']+'/g)];
-  assert.equal(matches.length,11);
-  assert.equal(new Set(matches.map((m)=>m[1])).size,11);
+  assert.equal(matches.length,13);
+  assert.equal(new Set(matches.map((m)=>m[1])).size,12);
   assert.match(smoke,/async function verifySourcedTaxingUnit/);
   assert.match(smoke,/async function verifyWoodlandsClassification/);
   assert.match(smoke,/await runWithConcurrency\(verifiedLocalTaxingUnits, verifySourcedTaxingUnit\)/);
@@ -40,4 +40,18 @@ test('live release gate audits every primary-source local rate and Woodlands',()
   assert.match(smoke,/5 of 5/);
   assert.match(smoke,/0\.1330247/);
   assert.match(smoke,/Latest independently verified local rate \(display only\)/);
+});
+
+test('locally verified zero city rate and state/local 2022 disagreement are explicit',()=>{
+  const local=readFileSync('supabase/migrations/20261021210000_union_valley_2021_2022_local_rate_discrepancy.sql','utf8');
+  assert.match(local,/2021,'city','city-of-union-valley','116-111-03',0\.000000,null,null/);
+  assert.match(local,/2022,'city','city-of-union-valley','116-111-03',0\.000000,null,null/);
+  assert.match(local,/2022,'116-111-03','reported-final',0\.287248::numeric/);
+  assert.match(local,/r\.total_rate is not distinct from e\.source_total/);
+  assert.match(local,/on conflict \(tax_year,unit_type,slug\) do nothing/);
+  assert.match(route,/latestConflict/);
+  assert.match(route,/Unresolved official-source discrepancy/);
+  assert.match(route,/The statewide record is retained unchanged/);
+  assert.match(smoke,/city-of-union-valley', year: 2022, rate: '0\.000000'/);
+  assert.match(smoke,/if \(conflict\) required\.push\('Unresolved official-source discrepancy\.'/);
 });
