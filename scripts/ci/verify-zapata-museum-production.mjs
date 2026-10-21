@@ -14,6 +14,8 @@ if (process.argv.includes('--source-only')) {
     '<img src="/images/zapata-county-museum-history-editorial.svg"',
     'not a photograph of the museum',
     'last tour begins at 3:30 p.m.',
+    'Language of the exhibits:',
+    'English and Spanish',
     'https://zapatamuseum.com/index.php/contact-us',
     'Texas Historical Commission’s Zapata museum listing',
   ];
@@ -64,6 +66,8 @@ function verifyMuseumHtml(html) {
     'Texas Historical Commission’s Zapata museum listing',
     '"postalCode":"78076"',
     'last tour begins at 3:30 p.m.',
+    'Language of the exhibits:',
+    'English and Spanish',
     'application/ld+json',
   ];
   if (!html.includes('src="/images/zapata-county-museum-history-editorial.svg"')) {
