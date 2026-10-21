@@ -10,13 +10,14 @@ export const texasLakesReservoirsExplainedArticle: Article = {
   brandId: "texasdefined",
   slug: "texas-lakes-reservoirs-explained",
   title: "Why Almost All Texas Lakes Are Man-Made",
-  dek: "Texas looks like a lake-rich state on the map, but nearly every familiar inland lake is really a river or creek held behind a dam. The reason is a Texas story about drought, floods, fast-growing cities and the enormous water system built between them.",
+  dek: "Texas has relatively few large natural inland lakes. Most familiar Texas lakes are engineered reservoirs: many hold rivers behind dams, while others store water diverted into off-channel basins. Droughts, floods and growing cities explain why Texans built them.",
   category: "lakes-rivers",
   hero: {
     src: "/images/explore/lakes-rivers/ray-roberts-lake-isle-du-bois-unit.jpg",
     alt: "Ray Roberts Lake in North Texas, one of the state's many reservoirs created by damming a river or creek",
     width: 1600,
     height: 1067,
+    credit: "U.S. Army Corps of Engineers · Public domain",
   },
   authorId: "a-marisol",
   publishedAt: "2026-08-13",
@@ -111,7 +112,7 @@ export const texasLakesReservoirsExplainedArticle: Article = {
   relatedDestinations: [],
   body: [
     p("Look at a highway map of Texas and the state appears to be covered with lakes. Lake Travis, Lake Texoma, Lake Livingston, Sam Rayburn Reservoir, Canyon Lake, Lake Conroe, Lake Meredith and dozens more seem to fill nearly every region. It is easy to assume that Texas simply inherited an abundance of natural lakes."),
-    p("It did not. Almost all of the inland lakes Texans know are reservoirs: sections of rivers and creeks impounded by dams. Texas Parks and Wildlife teaches the point plainly in its aquatic-science material, and the Texas Water Development Board maintains a statewide inventory of major reservoirs. The familiar blue shapes on the map are, in large part, infrastructure."),
+    p("It did not. Most of the large inland lakes Texans know are man-made reservoirs. Many impound rivers and creeks behind dams; others store water diverted into a separate off-channel basin. Texas Parks and Wildlife describes the predominance of man-made lakes, while the Texas Water Development Board publishes reservoir inventories and watershed data. Those familiar blue shapes on the map are, in large part, infrastructure."),
     h("Texas lakes and reservoirs at a glance"),
     list(
       "196 major reservoirs? TWDB's major-reservoir overview count; a major reservoir has at least 5,000 acre-feet of storage capacity at normal operating level. This does not count every pond or named lake.",
@@ -161,7 +162,7 @@ export const texasLakesReservoirsExplainedArticle: Article = {
     p("Canyon Lake on the Guadalupe River is both a flood-control and water-supply project and one of Central Texas's major recreation destinations. Choke Canyon Reservoir and Lake Corpus Christi are central to the Coastal Bend water system. Medina Lake, when water levels allow, is a familiar recreational landmark west of San Antonio while also reflecting the region's long history of irrigation and water management."),
     p("The multiple-use nature of these reservoirs explains many local debates. Boaters care about ramps and water levels. Cities care about supply. Farmers care about releases. Property owners care about shoreline access. Flood managers care about incoming storms. Wildlife managers care about habitat and downstream flows. Everyone may be talking about the same lake while meaning something different by 'healthy.'"),
     h("Why some are called lakes and others reservoirs"),
-    p("The words lake and reservoir are not reliable clues to origin. Lake Travis is a reservoir. Lake Texoma is a reservoir. Canyon Lake is a reservoir. Sam Rayburn Reservoir is also a reservoir; its name simply says so."),
+    p("The words lake and reservoir are not reliable clues to origin. Lake Travis is a reservoir. Lake Texoma is a reservoir. Canyon Lake is a reservoir. Sam Rayburn Reservoir is also a reservoir; its name simply says so. A man-made reservoir need not lie on the river it stores water from, as off-channel storage projects show."),
     p("In everyday Texas usage, 'lake' often sounds friendlier and more recreational, while 'reservoir' sounds technical or utilitarian. Naming traditions vary by agency, community and project. The underlying test is not the label. If a dam created the permanent pool by impounding a stream or river, the body of water is a reservoir regardless of what the sign at the boat ramp calls it."),
     h("A reservoir has an invisible landscape underneath it"),
     p("Every large impoundment creates a before-and-after geography. Before the dam, there was a river channel, floodplain, tributary network, roads, property lines and often homes or farms. After filling, the former valley becomes the lake floor."),
