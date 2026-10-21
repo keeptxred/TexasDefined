@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { mkdir, writeFile } from 'node:fs/promises';
+import { readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
 const { chromium } = require('/tmp/texasdefined-playoffs-qa/node_modules/playwright-core');
@@ -8,6 +9,19 @@ const path = '/article/texas-high-school-football-playoffs-explained';
 const output = 'artifacts/football-playoffs-qa';
 await mkdir(output, { recursive: true });
 const browser = await chromium.launch({ executablePath: process.env.CHROME_BIN, headless: true, args: ['--no-sandbox'] });
+const referenceSource = readFileSync('src/components/content/FootballPlayoffsReference.tsx', 'utf8');
+const routeSource = readFileSync('src/routes/article.$slug.tsx', 'utf8');
+const articleSource = readFileSync('src/data/fixtures/texas-high-school-football-playoffs.ts', 'utf8');
+for (const [source, needle] of [
+  [referenceSource, 'View all 2026 playoff brackets'],
+  [referenceSource, '1A six-man · five rounds'],
+  [referenceSource, '2A–6A · six rounds'],
+  [referenceSource, 'Division I · larger qualifiers'],
+  [routeSource, 'CC BY-SA 4.0 license'],
+  [articleSource, 'Celina_High_School%2C_Friday_Night_Football.jpg'],
+]) {
+  assert.ok(source.includes(needle), 'PR source missing upgrade: ' + needle);
+}
 const evidence = [];
 try {
   for (const width of [320, 375, 390, 1440]) {
@@ -30,6 +44,17 @@ try {
     });
     assert.ok(result.documentWidth <= width + 1, `page overflows at ${width}px: ${result.documentWidth}`);
     assert.equal(result.canonical, origin + path);
+    const guideText = await page.locator('[data-playoffs-reference="2026"]').innerText();
+    const upgradeDeployed = guideText.includes("View all 2026 playoff brackets");
+    result.upgradeDeployed = upgradeDeployed;
+    if (upgradeDeployed) {
+      assert.ok(guideText.includes("1A six-man · five rounds"), "five-round six-man diagram missing");
+      assert.ok(guideText.includes("2A–6A · six rounds"), "six-round diagram missing");
+      assert.ok(guideText.includes("Division I · larger qualifiers"), "6A split diagram missing");
+      assert.ok(await page.locator('a[href="/texas-high-school-football-playoff-brackets"]').count() > 0, "bracket finder link missing");
+    } else {
+      console.log("Pre-deployment production baseline; new guide UI assertions deferred until deployment.");
+    }
     assert.equal(result.faqCount, 6);
     if (width < 640) {
       assert.ok(result.tableWidth > result.tableViewport);
@@ -50,6 +75,6 @@ try {
     evidence.push(result);
     await page.close();
   }
-  await writeFile(`${output}/acceptance.json`, JSON.stringify({ passed: true, checkedAt: new Date().toISOString(), evidence }, null, 2));
+  await writeFile(`${output}/acceptance.json`, JSON.stringify({ passed: true, upgradeDeployed: evidence.every(item => item.upgradeDeployed), checkedAt: new Date().toISOString(), evidence }, null, 2));
   console.log('Playoff guide mobile/desktop acceptance passed:', JSON.stringify(evidence));
 } finally { await browser.close(); }

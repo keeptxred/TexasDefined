@@ -52,7 +52,7 @@ const STATIC_LASTMOD_BY_PATH: Readonly<Record<string, string>> = {
   "/sourcing-methodology": "2026-09-01",
 };
 const ARTICLE_LASTMOD_BY_SLUG: Readonly<Record<string, string>> = {
-  "texas-high-school-football-playoffs-explained": "2026-10-16",
+  "texas-high-school-football-playoffs-explained": "2026-10-20",
   "history-of-the-texas-flag": "2026-08-20",
   "texas-flag-etiquette-display-guide": "2026-08-20",
   "texas-rivers-explained": "2026-10-18",

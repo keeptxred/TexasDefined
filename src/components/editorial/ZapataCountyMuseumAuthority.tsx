@@ -117,6 +117,7 @@ export default function ZapataCountyMuseumAuthority() {
       <p className="eyebrow text-primary">Collections and exhibits</p>
       <h2 className="mt-3 font-display text-4xl">What you can explore inside</h2>
       <p className="mt-5 max-w-3xl leading-8">The museum combines community-history objects with broader natural and cultural history. The subjects below come from its published exhibit descriptions; installations may change.</p>
+      <p className="mt-5 max-w-3xl leading-8"><strong>Language of the exhibits:</strong> The museum describes its historical storyline as presented in English and Spanish, with artifacts and interactive displays. Confirm directly with staff if you need a guided tour or other assistance in a particular language. <a className="text-primary underline underline-offset-4" href={aboutUrl} target="_blank" rel="noopener noreferrer">Museum’s description of its exhibits ↗</a></p>
       <p className="mt-5 max-w-3xl leading-8"><strong>Start with the introduction:</strong> The museum says escorted visitors begin in a theater near the entrance with an eight-minute film spanning the region’s geologic origins through the present. Ask staff how this presentation fits your visit, particularly if you have limited time. <a className="text-primary underline underline-offset-4" href={aboutUrl} target="_blank" rel="noopener noreferrer">Museum tour overview ↗</a></p>
       <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {galleries.map((item, index) => <article key={item.title} className="border border-border p-6">

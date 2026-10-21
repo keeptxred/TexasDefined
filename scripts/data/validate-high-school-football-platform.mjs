@@ -1335,15 +1335,25 @@ if (!errors.length) {
   for (const marker of [
     'How Do the Texas High School Football Playoffs Work?',
     'https://www.uiltexas.org/football/playoff-brackets',
-    'top two teams from each 1A six-man district',
-    'top four teams from each district advance in 2A through 6A',
-    'the two schools with the larger enrollments go to the Division I bracket',
     'What does bi-district mean in Texas high school football?',
     'It does not mean a team won two district championships.',
     '/texas-high-school-football-playoff-brackets',
     'first round in 5A and 6A',
     '/texas-high-school-football-teams',
   ]) requireText(playoffGuide, marker, 'Football playoff guide');
+  // Qualification facts are presented once in the responsive comparison and
+  // illustrated enrollment-split reference, rather than duplicated in body copy.
+  // Assert the public-facing, composed page's source retains each UIL rule.
+  const playoffReference = read('src/components/content/FootballPlayoffsReference.tsx');
+  for (const [marker, label] of [
+    ['["1A six-man", "Top two"', '1A district advances top two'],
+    ['["2A–5A", "Top four"', '2A–5A district advances top four'],
+    ['["6A", "Top four"', '6A district advances top four'],
+    ['Two larger qualifiers to I; two smaller to II', '6A two larger qualifiers enter Division I'],
+    ['Only the four qualifying schools are compared.', '6A division selection is limited to qualifiers'],
+    ['Division I · larger qualifiers', '6A larger qualifiers visual'],
+    ['Division II · smaller qualifiers', '6A smaller qualifiers visual'],
+  ]) requireText(playoffReference, marker, 'Football playoff guide: ' + label);
   requireText(playoffGuide, '/article/texas-six-man-football-rules-explained', 'Football playoff guide six-man discovery');
   requireText(playoffGuide, '/article/texas-high-school-football-scores-schedules', 'Football playoff guide scores discovery');
   requireText(playoffGuide, '/article/texas-high-school-football-2026-season-calendar', 'Football playoff guide calendar discovery');
@@ -1550,6 +1560,8 @@ if (!errors.length) {
     ['boyd', 'Shawn Sparks', 'ntxvarsitysports.com/boyd-looking-to-build-on-breakthrough-season/'],
     ['borden-county', 'Trey Richey', 'pressreporter.com/issues/2026-08-18/pages/25/'],
     ['bowie-gold-burg', 'Austin Norman', 'bowienewsonline.com/2026/10/gold-burg-gives-it-a-go-falls-to-perrin-35-32/'],
+    ['borger', 'Jesus A. Villaseñor', 'borgerisd.net/69574_2'],
+    ['bosqueville', 'Reggie Patrick', 'kwtx.com/2026/10/07/classroom-champions-bosquevilles-dax-pharris/'],
   ];
   for (const [slug, expectedCoach, sourceFragment] of currentCoachContracts) {
     const program = footballEditorialRecord(slug);
@@ -1654,6 +1666,21 @@ if (!errors.length) {
       const normalized = (program.faq || []).map(({ question }) => (question || '').trim().toLowerCase());
       if (new Set(normalized).size !== normalized.length) {
         errors.push('Batch 006 duplicate questions within a school profile: ' + slug);
+      }
+      // Prevent prior-year varsity schedules from masquerading as evidence
+      // for the current 2026 season. Keep actual 2025 history links intact.
+      for (const milestone of program.milestones || []) {
+        if (/^2026(?:$|[-/])/.test(milestone.date || '')
+            && (milestone.sourceUrl || '').includes('/25-26/schedule/')) {
+          errors.push('Batch 006 2026 milestone cites prior season schedule: ' + slug
+            + ' / ' + milestone.title);
+        }
+      }
+      // School-owned/press photo assets require affirmative provenance.
+      // Original CSS/SVG data visualizations are not documentary photos.
+      if (program.photo && (!program.photo.license || !program.photo.sourceUrl
+          || !program.photo.credit || !program.photo.alt)) {
+        errors.push('Batch 006 football photo lacks reuse rights/credit/alt evidence: ' + slug);
       }
     }
   }

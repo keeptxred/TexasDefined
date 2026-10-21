@@ -34,17 +34,43 @@ const errors = [];
 
 // Keep the statewide reservoirs explainer grounded, illustrated and synchronized with its lazy stub.
 for (const marker of [
-  '196 major reservoirs?', '15 major river basins?', '8 coastal basins?',
+  'How many major reservoirs?', 'How many major river basins?', 'How many coastal basins?',
   'off-channel reservoirs', 'Arbuckle Reservoir', 'Conservation storage',
   '2027 State Water Plan', 'waterdatafortexas.org/reservoirs/statewide',
   'tpwd.texas.gov/state-parks/caddo-lake/history',
+  'tpwd.texas.gov/education/resources/aquatic-science/tas/chapters/chapter-9/',
   'images/illustrations/texas-reservoir-on-off-channel.svg',
   'images/illustrations/texas-reservoir-conservation-flood-pools.svg',
   '/fishing/lakes/lake-conroe', '/fishing/lakes/lake-livingston',
   '/fishing/lakes/sam-rayburn-reservoir',
+  '188 major water-supply reservoirs',
+  'cannot all describe the same inventory',
+  'Existing_Major_Water_Supply_Reservoirs_042026.pdf',
+  'Recommended_New_Major_Water_Supply_Reservoirs_042026.pdf',
+  'William L. Farr', 'CC BY-SA 4.0',
+  'Big_Cypress_Bayou,_Caddo_Lake_State_Park',
+  'Creative Commons BY-SA 4.0 license',
 ]) {
   if (!lakesAuthority.includes(marker)) errors.push(`Texas reservoirs authority guide missing: ${marker}`);
 }
+const obsoleteReservoirClaims = [
+  'nearly every familiar inland lake is really a river or creek held behind a dam',
+  'If a dam created the permanent pool by impounding a stream or river',
+];
+for (const claim of obsoleteReservoirClaims) {
+  if (lakesAuthority.includes(claim) || lakesAuthorityStub.includes(claim)) {
+    errors.push(`Texas reservoirs guide still includes inaccurate on-channel-only claim: ${claim}`);
+  }
+}
+if (!lakesAuthority.includes('credit: "U.S. Army Corps of Engineers · Public domain"')
+  || !lakesAuthorityStub.includes('credit: "U.S. Army Corps of Engineers · Public domain"')) {
+  errors.push('Reservoir guide and stub must credit the U.S. Army Corps of Engineers hero image.');
+}
+if (!lakesAuthority.includes('Texas has relatively few large natural inland lakes.')
+  || !lakesAuthorityStub.includes('Texas has relatively few large natural inland lakes.')) {
+  errors.push('Reservoir guide and discovery summary must keep the same off-channel-aware lead.');
+}
+
 for (const image of [
   'public/images/illustrations/texas-reservoir-on-off-channel.svg',
   'public/images/illustrations/texas-reservoir-conservation-flood-pools.svg',

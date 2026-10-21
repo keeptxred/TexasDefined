@@ -96,7 +96,6 @@ const schoolSupplyArticleSlugs = new Set(["texas-school-districts-explained", "t
 // Only football planning explainers get the generic overnight-travel offer.
 // No event, venue or hotel proximity is claimed for these editorial pages.
 const footballTravelArticleSlugs = new Set([
-  "texas-high-school-football-playoffs-explained",
   "texas-high-school-football-newcomers",
   "texas-high-school-football-scores-schedules",
   "texas-high-school-football-classifications-1a-6a",
@@ -547,7 +546,12 @@ function ArticlePage() {
         </Suspense>
       ) : null}
       {hasSchoolSupplyRail ? <SchoolSupplyPartners className="school-supply-bottom" /> : null}
-      {article.hero.credit && <p className="mt-10 break-words text-xs text-muted-foreground">Image credit: {corridorHeroRights ? <a href={corridorHeroRights.sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-2">{article.hero.credit}</a> : article.hero.credit}{corridorHeroRights && <> · <a href={corridorHeroRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">License terms</a></>}</p>}
+      {article.hero.credit && <p className="mt-10 break-words text-xs text-muted-foreground">Image credit: {article.slug === "texas-high-school-football-playoffs-explained" ? <>
+        <a href="https://commons.wikimedia.org/wiki/File:Celina_High_School,_Friday_Night_Football.jpg" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-2">Heidi Knapp · original photograph</a>
+        {" · "}
+        <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">CC BY-SA 4.0 license</a>
+        {" · Responsive display may crop the photograph"}
+      </> : corridorHeroRights ? <a href={corridorHeroRights.sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-2">{article.hero.credit}</a> : article.hero.credit}{corridorHeroRights && <> · <a href={corridorHeroRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">License terms</a></>}</p>}
       {primarySource && <p className="mt-4 text-xs leading-6 text-muted-foreground">Primary source: <a href={primarySource.url} target="_blank" rel="noreferrer" className="font-semibold text-foreground underline decoration-border underline-offset-4 hover:text-primary">{primarySource.label} ↗</a></p>}
       {isTexasRiversArticle && <nav aria-label="Editorial standards" className="mt-5 flex flex-wrap gap-x-5 gap-y-2 border-t border-border pt-4 text-xs text-muted-foreground">
         <a href="/editorial-policy" className="py-1 underline decoration-border underline-offset-4 hover:text-primary">Editorial policy</a>

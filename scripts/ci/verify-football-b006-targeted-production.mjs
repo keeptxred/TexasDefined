@@ -71,7 +71,7 @@ for(const school of schools){
   'Dated 2026 Batch006 coach identity/source mismatch for '+school.slug);
 }
 for(const school of schools)assert.ok(school.model.season?.games?.length>=6&&school.model.faq?.length>=5,'Missing authored source content '+school.slug);
-const result={schema:'football-b006-targeted-browser-v2',method:'Production live HTTPS, precisely 25 schools at 1366/390/320 CSS pixels, 25 sitemap entries and reciprocal county links',candidateSha:process.env.GITHUB_SHA||null,productionSha:'not independently identified from HTML',editorialAccepted:false,photoRightsAccepted:false,schools:[],counties:[],sitemap:{status:0,checked:slugs.length,missing:[],error:null},observedWorkerVersions:[],summary:{schoolCases:0,schoolPass:0,schoolFail:0,countyCases:0,countyPass:0,countyFail:0,sitemapPass:0,sitemapFail:0,screenshots:0,countyScreenshots:0,chunkErrors:0}};
+const result={schema:'football-b006-targeted-browser-v2',method:'Production live HTTPS, precisely 25 schools at 1366/390/320 CSS pixels, 25 sitemap entries and reciprocal county links',candidateSha:process.env.GITHUB_SHA||null,productionSha:'not independently identified from HTML',editorialAccepted:false,photoRightsAccepted:false,schools:[],counties:[],sitemap:{status:0,checked:slugs.length,missing:[],error:null},observedWorkerVersions:[],summary:{schoolCases:0,schoolPass:0,schoolFail:0,countyCases:0,countyPass:0,countyFail:0,sitemapPass:0,sitemapFail:0,screenshots:0,graphicScreenshots:0,graphicPass:0,graphicFail:0,countyScreenshots:0,chunkErrors:0}};
 // A complete 25-school browser PASS without discoverable production sitemap URLs
 // is not a valid acceptance. This is one bounded fetch, not a crawl or poll.
 try {
@@ -122,6 +122,16 @@ try{
     bodyWidth:document.body.scrollWidth,
     ld:[...document.querySelectorAll('script[type="application/ld+json"]')].map(x=>x.textContent).join('\n'),
     rows:document.querySelectorAll('main tbody tr').length,
+    graphic:(()=>{
+     // Require the actual source-derived figure, not a matching body string,
+     // generic school photo, off-site image or raw unhydrated SSR text.
+     const f=document.querySelector('main figure[aria-label*="dated visual timeline of reported 2026 football finals"]');
+     const cards=[...f?.querySelectorAll('ol > li')||[]];
+     return {present:!!f,title:f?.textContent?.includes('The games behind the record')||false,
+      count:cards.length,cardLabels:cards.map(x=>x.getAttribute('aria-label')||''),
+      sourceLinks:[...f?.querySelectorAll('a[href]')||[]].map(a=>a.href),
+      width:f?.getBoundingClientRect().width||0};
+    })(),
     links:[...document.querySelectorAll('main a[href]')].map(x=>x.getAttribute('href')),
     broken:[...document.images].filter(i=>i.getBoundingClientRect().width&&i.complete&&!i.naturalWidth).map(i=>i.currentSrc),
     noAlt:[...document.images].filter(i=>i.getBoundingClientRect().width&&!i.hasAttribute('alt')).map(i=>i.currentSrc),
@@ -152,6 +162,28 @@ try{
    if(!pageData.ld.includes('SportsTeam'))errors.push('SportsTeam JSON-LD absent');
    if(!pageData.ld.includes('FAQPage'))errors.push('FAQPage JSON-LD absent');
    if(pageData.rows<6)errors.push('insufficient dated game rows');
+   const finals=s.model.season.games.filter(game=>/^[WLT] /.test(game.result||''));
+   row.graphicCardCount=pageData.graphic.count;
+   row.expectedGraphicFinals=finals.length;
+   if(!pageData.graphic.present||!pageData.graphic.title)
+    errors.push('Batch006 original school results graphic absent');
+   if(pageData.graphic.count!==finals.length)
+    errors.push('graphic finals count differs from source: '+pageData.graphic.count+' / '+finals.length);
+   for(const game of finals){
+    const outcome=game.result?.[0],label=outcome==='W'?'Win':outcome==='L'?'Loss':'Tie';
+    const caption=game.date+', '+label+' against '+game.opponent+', '+game.result;
+    if(!pageData.graphic.cardLabels.includes(caption))
+     errors.push('missing or mislabeled visual result: '+caption.slice(0,140));
+   }
+   if(!pageData.graphic.sourceLinks.includes(s.model.season.sourceUrl))
+    errors.push('results graphic lacks the documented individual season source link');
+   if(pageData.graphic.width>width+8)
+    errors.push('graphic overflows '+pageData.graphic.width+'px on '+width+'px viewport');
+   if(!pageData.graphic.cardLabels.every(x=>/\b(?:Win|Loss|Tie) against\b/.test(x)))
+    errors.push('graphic contains a result without an accessible W/L/T label');
+   if(!errors.some(x=>x.includes('graphic')||x.includes('visual result')))
+    result.summary.graphicPass++;
+   else result.summary.graphicFail++;
    if(!pageData.links.some(x=>x?.replace(/\/$/,'')==='/county/'+s.county))errors.push('school county link missing');
    if(pageData.cssWidth>width+8||pageData.bodyWidth>width+8)errors.push('overflow '+pageData.cssWidth+'/'+pageData.bodyWidth);
    if(pageData.broken.length)errors.push('broken image '+pageData.broken.join(',').slice(0,100));
@@ -161,6 +193,16 @@ try{
    {
     await page.screenshot({path:out+'/'+device+'-'+s.slug+'.png',fullPage:false,animations:'disabled',timeout:15000});
     result.summary.screenshots++;
+   }
+   // Capture the actual visual results strip at each device width.
+   // Existing school-top screenshots above are preserved, not overwritten.
+   const graphic=page.locator('main figure[aria-label*="dated visual timeline of reported 2026 football finals"]').first();
+   if(await graphic.count()){
+    await graphic.scrollIntoViewIfNeeded({timeout:6000});
+    await graphic.screenshot({path:out+'/graphic-'+device+'-'+s.slug+'.png',animations:'disabled',timeout:15000});
+    result.summary.graphicScreenshots++;
+   }else{
+    errors.push('missing screenshot target: school results graphic');
    }
   }catch(e){errors.push(String(e.message||e).slice(0,350))}
   finally{
@@ -265,6 +307,8 @@ assert.equal(result.summary.schoolCases,75,'Never reduce 25 school x 3 viewport 
 assert.equal(result.summary.sitemapFail,0,'Every assigned school must be discoverable in the live production sitemap');
 assert.equal(workerVersions.size,1,'Production acceptance must identify exactly one Cloudflare Worker version; observed: '+(result.observedWorkerVersions.join(', ')||'none'));
 assert.equal(result.summary.screenshots,75,'Preserve every one of the 25 schools at all three viewport sizes');
+assert.equal(result.summary.graphicScreenshots,75,'Capture all 25 distinct published source-derived graphics at each of three responsive widths');
+assert.equal(result.summary.graphicFail,0,'Every displayed school result graphic must match the authored finals and accessible labels');
 assert.equal(result.summary.countyScreenshots,result.summary.countyCases,'Preserve one screenshot per county for reciprocal-link diagnosis');
 assert.equal(result.summary.schoolFail,0,'Investigate school failures before technical acceptance');
 assert.equal(result.summary.countyFail,0,'Investigate missing reciprocal county links');

@@ -230,7 +230,14 @@ console.log(JSON.stringify({ surface: 'El Paso skyline real image bytes', status
 const reservoirPath = '/article/texas-lakes-reservoirs-explained';
 const reservoirHtml = await fetchHealthy(reservoirPath, 'Texas lakes and reservoirs at a glance');
 for (const expected of [
-  '196 major reservoirs?',
+  'How many major reservoirs?',
+  '188 major water-supply reservoirs',
+  'cannot all describe the same inventory',
+  'William L. Farr',
+  'CC BY-SA 4.0',
+  'Big_Cypress_Bayou,_Caddo_Lake_State_Park',
+  'Existing_Major_Water_Supply_Reservoirs_042026.pdf',
+  'Recommended_New_Major_Water_Supply_Reservoirs_042026.pdf',
   'Arbuckle Reservoir',
   'off-channel reservoirs',
   '2027 State Water Plan',
@@ -248,6 +255,8 @@ for (const stale of [
   'Texas did not begin with a landscape full of big lakes',
   'Find the dam. It immediately tells you which end of the lake is deepest',
   'A reservoir begins with a dam. Engineers build a barrier',
+  'nearly every familiar inland lake is really a river or creek held behind a dam',
+  'If a dam created the permanent pool by impounding a stream or river',
 ]) {
   if (reservoirHtml.body.includes(stale)) {
     throw new Error(`${reservoirPath} still serves obsolete text: ${stale}`);
