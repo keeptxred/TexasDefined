@@ -216,8 +216,8 @@ async function verifyEscobaresTaxingUnit() {
     const check = `taxing-unit:escobares:${label}`;
     try {
       const { response, body } = await fetchProduction(path, baseOrigin);
-      const heading = body.match(/<h1\\b[^>]*>([\\s\\S]*?)<\\/h1>/i)?.[1] ?? '';
-      const headingText = heading.replace(/<[^>]*>/g, ' ').replace(/\\s+/g, ' ').toLowerCase();
+      const heading = body.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i)?.[1] ?? '';
+      const headingText = heading.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').toLowerCase();
       const validHeading = headingText.includes('escobares') && headingText.includes('property tax rate');
       const required = [
         'Annual tax rates, with source distinctions',
