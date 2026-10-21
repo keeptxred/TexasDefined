@@ -1,5 +1,14 @@
 # Football Authority — Execution Ledger
 
+## October 20, 2026 — OWNER POLICY CHANGE: Batch 006 technically VERIFIED, mandatory human signoff retired
+
+The owner removed **formal nine-dimensional human editorial approval** as a blocking prerequisite for football authority batch completion. Preserve individual school research/source quality, documented uncertainties, photo-use legality, automated accessibility checks, protected PR and real production browser checks. Do **not** claim the 25 optional reviewer forms were submitted or that any unlicensed photography/gate/ADA detail has been approved. The original 25 source/visitor guides and data-derived graphics were delivered via protected merges (#5441, #5471, #5473, #5476 and subsequent corrections).
+
+**Independent, strict post-graphics evidence is green:** [GitHub Actions #39532328953, attempt 2](https://github.com/keeptxred/TexasDefined/actions/runs/39532328953) `SUCCESS`; [174-file screenshot and machine-readable evidence #12318402912](https://github.com/keeptxred/TexasDefined/actions/runs/39532328953/artifacts/12318402912). **75/75** school viewport render/metadata/sourced-score cases at 1366/390/320; **75/75** original school results graphics, **23/23** county reciprocal pages, **25/25** sitemap entries, zero JS chunk errors; **one** Worker ID `2b087e5b-4f3f-4628-b1a0-294de67cd0ff`. The previous first attempt failed during overlapping deployments and remains historical, not claimed to pass.
+
+**Canonical registry after this change:** **130 VERIFIED** total (original 105 + Batch006 25); zero Batch006 outstanding for *technical publication completion*. `completedBatches` preserves Batch006, 25/25; school records now have the actual successful production run, clear technical acceptance scope and explicit **no human signoff**. This is not a new fact-check, media license or manual ADA/WCAG certification. The independently maintained Supabase editorial-review rows can stay `in_progress` for optional research/rights work but **do not block assigning the next 25**. Earlier dated statements imposing nine-dimensional signoff as a gate are superseded by the owner's explicit new policy in MASTER.md.
+
+
 ## October 20, 2026 — three school-specific official visitor-information upgrades (protected PR candidate)
 Follow-on first-party research found useful under-documented 2026 visiting-fan answers in three already-deployed Batch006 profiles:
 - **Bosqueville**: district's [Athletics hub](https://www.bosquevilleisd.org/page/athletics/) lists actual athletic schedules, weekly notices, AD/football coach Reggie Patrick and admin assistant Melissa Farney. The district office 254-757-3113 and high-school office 254-752-8513 differ. Add accurate schedule/athletics contact guidance without falsely converting the [Kerens Sep3 away-game-only online-ticket policy](https://www.bosquevilleisd.org/live_feeds/12968070) to an all-event rule.
