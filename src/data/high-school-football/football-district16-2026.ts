@@ -28,11 +28,21 @@ export const DISTRICT_16_RECENT_FINALS = [
   { date: '2026-10-17', away: 'Cypress Ridge', home: 'Langham Creek', awayScore: 13, homeScore: 59, sourceUrl: 'https://www.maxpreps.com/news/DXwR4ZFSUES3X2Vq9QvKSA/football-recap-langham-creek-piles-up-the-points-against-cypress-ridge--how-to-watch.htm' },
 ] as const;
 
-// Official CFISD/Berry Center calendar, reviewed October 20. Times are local CDT.
+// Published CFISD/Berry Center calendar and current school/team schedules reviewed October 20.
+// Times are local CDT through October and CST in November. One November 7 kickoff is
+// withheld because the third-party display is inconsistent; verify with CFISD.
 // Venue assignments, entrances and dates can change; check the linked host calendar.
 export const DISTRICT_16_NEXT_GAMES = [
   { date: '2026-10-22', kickoff: '6:30 p.m. CDT', away: 'Jersey Village', home: 'Cy-Fair' },
   { date: '2026-10-22', kickoff: '6:30 p.m. CDT', away: 'Cypress Lakes', home: 'Cypress Creek' },
   { date: '2026-10-23', kickoff: '7:00 p.m. CDT', away: 'Cypress Woods', home: 'Cypress Ridge' },
   { date: '2026-10-24', kickoff: '11:00 a.m. CDT', away: 'Langham Creek', home: 'Cypress Falls' },
+  { date: '2026-10-29', kickoff: '6:30 p.m. CDT', away: 'Cypress Falls', home: 'Cypress Ridge' },
+  { date: '2026-10-30', kickoff: '7:00 p.m. CDT', away: 'Cypress Creek', home: 'Jersey Village' },
+  { date: '2026-10-30', kickoff: '7:00 p.m. CDT', away: 'Cy-Fair', home: 'Langham Creek' },
+  { date: '2026-10-31', kickoff: '11:00 a.m. CDT', away: 'Cypress Lakes', home: 'Cypress Woods' },
+  { date: '2026-11-05', kickoff: '6:30 p.m. CST', away: 'Cypress Ridge', home: 'Cy-Fair' },
+  { date: '2026-11-06', kickoff: '7:00 p.m. CST', away: 'Jersey Village', home: 'Cypress Lakes' },
+  { date: '2026-11-07', kickoff: 'Kickoff unconfirmed', away: 'Langham Creek', home: 'Cypress Creek' },
+  { date: '2026-11-07', kickoff: '11:00 a.m. CST', away: 'Cypress Woods', home: 'Cypress Falls' },
 ] as const;
