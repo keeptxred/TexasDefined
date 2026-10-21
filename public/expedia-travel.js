@@ -523,7 +523,10 @@
   function buildGenericSurface() {
     const section = document.createElement("section");
     section.id = SURFACE_ID;
-    section.className = "border-y border-border py-8";
+    // The Fort McKavett CJ panel provides the single bordered lodging box.
+    // Avoid a second outer box while keeping every other travel route unchanged.
+    section.className = normalizePath() === "/destination/fort-mckavett"
+      ? "py-2" : "border-y border-border py-8";
     section.dataset.surfaceType = "generic";
     section.dataset.monetizationEligible = "true";
     const container = document.createElement("div");
