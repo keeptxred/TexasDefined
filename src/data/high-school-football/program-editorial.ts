@@ -67,6 +67,216 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "brownsville-lopez": {
+    "slug": "brownsville-lopez",
+    "intro": "Brownsville Lopez Early College High School's Lobos offer a useful 2024 football turnaround and a clearly documented 2026 home-game schedule: the 7–4 playoff season ended 35–21 against Mission Pioneer, while the 2026 campaign began with two victories but stood at a third-party-reported 2–5 by October 8. Lopez hosts selected varsity games at Brownsville ISD's Sams Memorial Stadium, a different address from its South Dakota Avenue campus. This independent guide separates current school schedules, historical football-only records and time-stamped outside scores.",
+    "theme": {
+      "accentHex": "#162B64",
+      "label": "Original TexasDefined navy editorial accent based on the documented Lobos navy-and-gold football identity; no school-owned Lobos crest, photography or mascot illustration copied"
+    },
+    "seo": {
+      "title": "Brownsville Lopez Lobos Football | 2026 Results, Sams Stadium & Tickets",
+      "description": "Lopez Lobos 2026 football: third-party 2–5 through Oct 8, 2024 playoff season, Shaun Tarantola listed roster, 2026 BISD schedule, Sams Stadium and online tickets."
+    },
+    "coach": {
+      "name": "Shaun Tarantola",
+      "title": "Head football coach on the September 26, 2026 MaxPreps varsity staff list; school-site staff designation not independently confirmed",
+      "sourceUrl": "https://www.maxpreps.com/tx/brownsville/lopez-lobos/football/staff/",
+      "sourceLabel": "MaxPreps 2026 staff profile lists Shaun Tarantola head coach and Jesse Martinez, Victor Hugo Martinez, Ricardo Alaniz assistants; no first-party school staff role verified",
+      "verifiedAt": "2026-10-21"
+    },
+    "campus": {
+      "address": "3205 South Dakota Avenue, Brownsville, TX 78521 (Lopez ECHS academic campus; not Sams Stadium)",
+      "phone": "956-982-7400",
+      "sourceUrl": "https://lopezechs.bisd.us/",
+      "sourceLabel": "Official Lopez Early College High School current Find Us campus 3205 South Dakota Avenue, (956) 982-7400; legacy Contact page inconsistently shows another phone",
+      "verifiedAt": "2026-10-21"
+    },
+    "schedule": {
+      "label": "Official Lopez High School Athletics 2026–27 varsity football schedule and district-managed game tickets",
+      "sourceUrl": "https://www.lopezlobosathletics.net/sport/football/boys/?tab=schedule",
+      "sourceLabel": "Lopez athletics official 2026 varsity calendar includes game-by-game Sams Memorial and Cabaniss Stadium sites; 2026 scores omitted. Brownsville ISD ticket policy says event tickets online via TicketsPicket.",
+      "verifiedAt": "2026-10-21",
+      "officialScheduleUrl": "https://www.lopezlobosathletics.net/sport/football/boys/?tab=schedule",
+      "ticketUrl": "https://www.bisd.us/departments/a-i/athletics"
+    },
+    "season": {
+      "record": "2–5 overall, 0–3 district through October 8, 2026 (reported MaxPreps as checked October 21; not BISD-certified)",
+      "verifiedAt": "2026-10-21",
+      "sourceUrl": "https://www.maxpreps.com/tx/brownsville/lopez-lobos/football/",
+      "sourceLabel": "Live MaxPreps Lopez 2026 team page 2–5, October 8 Corpus Christi Ray final 0–57; its stale Oct 3 schedule only shows 2–4, and DCTF only 2–3 as of Sep 25",
+      "latestResultSourceUrl": "https://txprepfootball.com/schools/lopez-lobos/",
+      "games": [
+        {
+          "date": "2026-08-27",
+          "opponent": "Brownsville Rivera",
+          "site": "Away",
+          "result": "L 20–26"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Hidalgo Early College",
+          "site": "Away",
+          "result": "W 17–14"
+        },
+        {
+          "date": "2026-09-10",
+          "opponent": "Donna North",
+          "site": "Home",
+          "result": "W 48–14"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Juarez-Lincoln",
+          "site": "Away",
+          "result": "L 19–24"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Gregory-Portland",
+          "site": "Away",
+          "district": true,
+          "result": "L 7–64"
+        },
+        {
+          "date": "2026-10-02",
+          "opponent": "Brownsville Pace",
+          "site": "Home",
+          "district": true,
+          "result": "L 21–45"
+        },
+        {
+          "date": "2026-10-08",
+          "opponent": "Corpus Christi Ray",
+          "site": "Away",
+          "district": true,
+          "result": "L 0–57"
+        },
+        {
+          "date": "2026-10-22",
+          "opponent": "Brownsville Porter",
+          "site": "Home",
+          "district": true,
+          "kickoff": "7:00 PM"
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Mercedes",
+          "site": "Away",
+          "district": true,
+          "kickoff": "7:00 PM"
+        },
+        {
+          "date": "2026-11-05",
+          "opponent": "Donna",
+          "site": "Home",
+          "district": true,
+          "kickoff": "7:00 PM"
+        }
+      ]
+    },
+    "venue": {
+      "name": "Sams Memorial Stadium — official BISD home venue for October 22 Lopez–Porter game",
+      "address": "1 Boulevard of Champions, Brownsville, TX 78520 (stadium / athletics department, not Lopez school campus)",
+      "sourceUrl": "https://www.lopezlobosathletics.net/sport/football/boys/?tab=schedule",
+      "sourceLabel": "Lopez first-party varsity schedule assigns SAMS Stadium to Porter Oct 22 and Donna Nov 5, while Sep 25/Oct 8 road matches use Corpus Christi Cabaniss Stadium; TDLR project lists Sams at 1 Boulevard of Champions.",
+      "verifiedAt": "2026-10-21",
+      "note": "Multiple Brownsville ISD teams share Sams Stadium; campus locations are separate. Exact gate, ADA parking, home seating and ticket-sale deadline may change by event. Tickets are sold online under BISD policy, not presumed at the gate.",
+      "policyUrl": "https://www.bisd.us/departments/l-w/policesecurity-services/graduation-policy"
+    },
+    "development": {
+      "title": "A 2024 return to the postseason without a football state-title claim",
+      "body": "Dave Campbell's program history counts seven UIL-era playoff berths for Lopez and zero state football title-game appearances. In 2024 the Lobos went 7–4 after a difficult 2023 1–9 season; a November 15 playoff against Mission Pioneer ended 35–21. That football turnaround should not be blended with the school's successes in other sports. In 2025 Lopez was 4–6. For 2026, the first-party calendar is the definitive fixture/venue source but leaves actual final-score cells blank; current 2–5 is an attributed third-party snapshot.",
+      "sourceUrl": "https://dev.texasfootball.com/team/brownsville-lopez-lobos",
+      "sourceLabel": "DCTF program history 7 playoff appearances/no UIL football finals; MaxPreps 2024 7–4 schedule with Mission Pioneer postseason 35–21",
+      "verifiedAt": "2026-10-21"
+    },
+    "milestones": [
+      {
+        "date": "Program history",
+        "title": "Seven football playoff qualifications, no state-title-game berth",
+        "body": "Dave Campbell's independent Lopez history lists 7 playoff appearances, 0 UIL football final appearances and 0 football state championships. It is important not to import achievements from different school sports.",
+        "sourceUrl": "https://dev.texasfootball.com/team/brownsville-lopez-lobos",
+        "sourceLabel": "DCTF Lopez football program history and year-by-year seasons"
+      },
+      {
+        "date": "2023",
+        "title": "The Lobos post 1–9 before a 2024 turnaround",
+        "body": "DCTF and MaxPreps historical seasons record 1–9 for 2023, followed by a significantly better 2024 record. This is a program trend, not a forecast for 2026.",
+        "sourceUrl": "https://www.maxpreps.com/tx/brownsville/lopez-lobos/football/history/",
+        "sourceLabel": "MaxPreps Lopez football historical results"
+      },
+      {
+        "date": "November 15, 2024",
+        "title": "7–4 postseason team loses 35–21 to Mission Pioneer",
+        "body": "The last match of the 2024 7–4 season was a UIL postseason game against Pioneer; its 35–21 loss is documented in the final-score record. A playoff berth must not be mislabeled a football state-final berth.",
+        "sourceUrl": "https://www.maxpreps.com/tx/football/game/lopez-brownsville-vs-pioneer-mission/11-15-2024/?c=2871621c-1815-4938-bd50-031097237463&tab=Matchup",
+        "sourceLabel": "November 15 2024 UIL playoff matchup scores"
+      },
+      {
+        "date": "2025",
+        "title": "DCTF records a 4–6 Lobos season",
+        "body": "The 2025 football season finished 4–6 in DCTF's program history, separate from the subsequent reported 2026 results and from the 2024 playoff year.",
+        "sourceUrl": "https://dev.texasfootball.com/team/brownsville-lopez-lobos",
+        "sourceLabel": "DCTF year-by-year football record"
+      },
+      {
+        "date": "September 10, 2026",
+        "title": "48–14 victory over Donna North follows a close road win",
+        "body": "Third-party score records give Lopez a 17–14 win at Hidalgo on September 4 and 48–14 over Donna North on September 10; the district-operated schedule independently lists those fixtures and venues but not scores.",
+        "sourceUrl": "https://www.maxpreps.com/tx/brownsville/lopez-lobos/football/schedule/",
+        "sourceLabel": "MaxPreps 2026 Lopez game finals and first-party Lopez varsity schedule"
+      },
+      {
+        "date": "October 8, 2026",
+        "title": "0–57 loss at Corpus Christi Ray is the seventh reported game",
+        "body": "A more recent live MaxPreps team page and Texas Prep Football confirm the Ray result; its archived October 3 full schedule remains at 2–4 before Ray, while DCTF is still 2–3 before Pace. Date-qualify the 2–5 rather than conceal the lag.",
+        "sourceUrl": "https://txprepfootball.com/schools/lopez-lobos/",
+        "sourceLabel": "Texas Prep Football October 8 Lopez at Ray 0–57 game and MaxPreps updated 2026 live record"
+      },
+      {
+        "date": "October 22, 2026",
+        "title": "Lopez–Porter home fixture at shared Sams Stadium",
+        "body": "The Lopez and Porter official 2026 schedules independently show the Lobos hosting Brownsville Porter on October 22 at 7:00 PM at Sams Stadium. Check BISD online tickets, stadium policy and weather alerts on the day.",
+        "sourceUrl": "https://www.lopezlobosathletics.net/sport/football/boys/?tab=schedule",
+        "sourceLabel": "Lopez official 2026 calendar; Porter athletics 2026 schedule corroborates Sams Stadium"
+      }
+    ],
+    "overview": [
+      "Lopez Early College High School is a Brownsville ISD campus in Cameron County. Its football program is the Lobos, and the school address is 3205 South Dakota Avenue. Football games are regularly played at the district's shared Sams Memorial Stadium, not at the high-school office building. When traveling, follow the first-party event venue, not the campus route.",
+      "History matters most when it is football-specific. Dave Campbell's counts seven football playoff appearances, without a state championship-game appearance. In 2024, the Lobos rebounded from a 1–9 2023 record to a 7–4 football season ending in a Mission Pioneer 35–21 playoff defeat. These facts do not confer a football state title.",
+      "MaxPreps' 2026 staff profile identifies Shaun Tarantola as head coach and names several assistants, but the accessible school football calendar does not independently certify current coaching assignments; the title is consequently transparently cited to the third party.",
+      "Lopez's 2026 first-party official football schedule provides venue-specific fixtures: selected home games at Sams Stadium, road games at Corpus Christi's Cabaniss Stadium or opponent campus sites. The calendar's results column is blank for past games. MaxPreps' live team page updates the season to 2–5, but an archived schedule remains 2–4 and DCTF 2–3, so the snapshot through Oct 8 is credited to the live team/results sources.",
+      "By October 8, seven reported finals include wins over Hidalgo and Donna North and losses to Rivera, Juarez-Lincoln, Gregory-Portland, Pace and Corpus Christi Ray. A separate October 22 Porter home game is still a future fixture as of this checkpoint. No result or paid-ticket availability is invented.",
+      "BISD's ticket policy routes district sports to online TicketsPicket purchasing, and the university/state TDLR project listing records Sams Memorial Stadium at 1 Boulevard of Champions. The stadium has a dedicated district policy; for gates, seating, accessibility, weather cancellations or prices, readers should open the official stadium/event notice."
+    ],
+    "faq": [
+      {
+        "question": "Who coaches Brownsville Lopez football in 2026?",
+        "answer": "MaxPreps' roster last updated September 26, 2026 lists Shaun Tarantola as head coach, with Jesse Martinez, Victor Hugo Martinez and Ricardo Alaniz assistant coaches. This coaching role is sourced to the roster service, not independently to a school staff appointment."
+      },
+      {
+        "question": "What was the Lopez Lobos' most recent reported 2026 record?",
+        "answer": "The October 21 review of MaxPreps' live team listing shows 2–5 through October 8, 2026 (0–3 district), including the 0–57 loss at Corpus Christi Ray. Older MaxPreps and DCTF schedule archives lag; the official BISD calendar lists fixtures but leaves score fields blank."
+      },
+      {
+        "question": "Where is the 2026 Lopez–Porter game played?",
+        "answer": "The Lopez first-party varsity schedule says Thursday, October 22 at 7 PM at shared Brownsville ISD Sams Memorial Stadium, 1 Boulevard of Champions. That stadium is different from Lopez High School's campus at 3205 South Dakota Avenue."
+      },
+      {
+        "question": "Where can I buy tickets to Lopez football home games?",
+        "answer": "BISD athletics says district athletic event tickets are sold online through TicketsPicket, linked on its first-party Athletics page. A school calendar matchup listing alone does not guarantee ticket inventory or a walk-up gate sale."
+      },
+      {
+        "question": "Have the Lopez Lobos won a football state championship?",
+        "answer": "No football state title or championship-game appearance appears in DCTF's current Lopez history, which records seven football playoff appearances. The team's 2024 7–4 season ended in a first-round playoff loss to Mission Pioneer, not a UIL title game."
+      },
+      {
+        "question": "Did Lopez reach the football playoffs in 2024?",
+        "answer": "Yes. MaxPreps documents a November 15, 2024 playoff match: Mission Pioneer 35, Brownsville Lopez 21. The Lobos finished 7–4. That is distinct from Lopez achievements in soccer or other sports."
+      }
+    ]
+  },
   "bryson": {
     "slug": "bryson",
     "intro": "Bryson Cowboys six-man football belongs to a small Jack County school with its own blue-and-gold song, a documented 1995 eleven-man playoff win, and three straight six-man playoff appearances recorded for 2015–17. In 2026, the Cowboys' October 16 reported 46–22 win at Perrin-Whitt brought them to 4–4, a fuller picture than the school-listing sites frozen earlier in October. This independent profile also flags conflicting published head-coach assignments instead of guessing, and distinguishes Bryson ISD's 300 North McCloud address from an unverified stadium spectator gate.",
