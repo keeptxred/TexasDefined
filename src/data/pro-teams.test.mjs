@@ -49,3 +49,12 @@ test('major updates require exact team category, HTTPS ESPN source, recent date 
   const result = selectMajorTeamUpdates([item, item, { ...item, categories: [{ type: 'team', teamId: 6 }] }, { ...item, headline: 'Houston Texans could trade for a star' }, { ...item, published: '2026-01-01' }, { ...item, published: '2027-01-01' }, { ...item, links: { web: { href: 'javascript:alert(1)' } } }], '34', now);
   assert.equal(result.length, 1); assert.equal(result[0].url, item.links.web.href);
 });
+
+test('soccer draws and NHL overtime losses retain their actual statistical meaning', () => {
+  const team = { displayName: 'Houston Dash', record: { items: [{ type: 'total', summary: '8-6-14', stats: [{ name: 'wins', value: 8 }, { name: 'ties', value: 6 }, { name: 'losses', value: 14 }] }] } };
+  const result = parseTeamSeason({ team }, ['Houston Dash'], 'https://www.espn.com/', now, 'soccer/usa.nwsl');
+  assert.equal(result.record, '8–6–14'); assert.equal(result.recordLabel, 'Wins–draws–losses');
+  const hockey = { displayName: 'Dallas Stars', record: { items: [{ type: 'total', summary: '4-1-2', stats: [{ name: 'wins', value: 4 }, { name: 'losses', value: 1 }, { name: 'OTLosses', value: 2 }] }] } };
+  const stars = parseTeamSeason({ team: hockey }, ['Dallas Stars'], 'https://www.espn.com/', now, 'hockey/nhl');
+  assert.equal(stars.record, '4–1–2'); assert.equal(stars.recordLabel, 'Wins–losses–overtime losses');
+});

@@ -48,7 +48,7 @@ export async function loadProTeamLiveServer(team: TeamLiveInput) {
     if (!found || !/^\d+$/.test(found.id)) return { season: null, updates: [] };
     const [detail, news] = await Promise.allSettled([json(`${root}/teams/${found.id}`), json(`${root}/news?team=${found.id}&limit=20`)]);
     const season = detail.status === 'fulfilled'
-      ? parseTeamSeason(detail.value.payload as Parameters<typeof parseTeamSeason>[0], team.apiNames, `https://www.espn.com/${team.apiLeague.startsWith('soccer/') ? 'soccer' : team.apiLeague.split('/')[1]}/team/_/id/${found.id}`, new Date(detail.value.retrievedAt)) : null;
+      ? parseTeamSeason(detail.value.payload as Parameters<typeof parseTeamSeason>[0], team.apiNames, `https://www.espn.com/${team.apiLeague.startsWith('soccer/') ? 'soccer' : team.apiLeague.split('/')[1]}/team/_/id/${found.id}`, new Date(detail.value.retrievedAt), team.apiLeague) : null;
     const updates = news.status === 'fulfilled'
       ? selectMajorTeamUpdates((news.value.payload as { articles?: Parameters<typeof selectMajorTeamUpdates>[0] }).articles ?? [], found.id) : [];
     return { season, updates };

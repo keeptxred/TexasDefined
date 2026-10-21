@@ -1,6 +1,6 @@
 # Texas pro-team weekend guides
 
-Thirteen independently authored guides live at /sports/teams/{slug}, discovered through /sports, the team index, professional venue guides and the primary sitemap. Only the hub is in the static route registry; the 13 detail URLs come from the server-side team registry.
+Thirteen independently authored guides live at /sports/teams/{slug}, discovered through /sports, the team index, the sports hub and the primary sitemap. Only the hub is in the static route registry; the 13 detail URLs come from the server-side team registry.
 
 ## Commercial behavior
 Home games reuse the canonical event registry and EventTicketCta. Selection requires the correct sports venue, complete team name and a fixture-style title; concerts, parking passes, deposits, tours and cancelled/postponed events cannot become home games. Filtering precedes the 12-game display limit. Existing ticket-provider freshness and affiliate attribution rules remain authoritative. Official team schedules remain available when inventory is missing. No new ticket partnership or fabricated affiliate URL is introduced.

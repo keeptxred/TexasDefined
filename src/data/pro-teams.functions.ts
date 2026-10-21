@@ -2,7 +2,7 @@ import { createServerFn } from '@tanstack/react-start';
 
 export const getProTeamsIndex = createServerFn({ method: 'GET' }).handler(async () => {
   const { default: teams } = await import('./pro-teams.json');
-  const { proTeamsIndexHead } = await import('./pro-team-seo.server');
+  const { proTeamsIndexMetadata } = await import('./pro-team-seo.server');
   return { teams: teams.map(({ slug, name, league, city, intro, color }) => ({ slug, name, league, city, intro, color })), seo: proTeamsIndexHead() };
 });
 
@@ -21,7 +21,7 @@ export const getProTeamGuide = createServerFn({ method: 'GET' })
       .filter((event, index, all) => all.findIndex((other) => other.id === event.id) === index)
       .sort((a, b) => a.startDate.localeCompare(b.startDate)).slice(0, 12);
     const live = await loadProTeamLiveServer(team);
-    const primaryVenue = records[0]?.venueId?.replace('sports-venue:', '') ?? (team.slug === 'dallas-wings' && new Date().getFullYear() >= 2027 ? 'american-airlines-center' : team.venues[0]);
+    const primaryVenue = team.slug === 'san-antonio-spurs' ? 'frost-bank-center' : records[0]?.venueId?.replace('sports-venue:', '') ?? (team.slug === 'dallas-wings' && new Date().getFullYear() >= 2027 ? 'american-airlines-center' : team.venues[0]);
     const photo = getSportsVenuePhoto(primaryVenue) ?? null;
     const { proTeamGuideHead } = await import('./pro-team-seo.server');
     return { team, primaryVenue, photo, seo: proTeamGuideHead(team, photo), games: buildTexasEventCarouselItemsServer(records).map((event) => { const card = { ...event }; delete card.image; return card; }), ...live };

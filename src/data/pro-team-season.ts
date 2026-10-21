@@ -1,14 +1,23 @@
-export type TeamSeason = { record?: string; standing?: string; season?: string; retrievedAt: string; sourceUrl: string };
-type ProviderTeam = { id?: string; displayName?: string; record?: { items?: { type?: string; name?: string; summary?: string }[] }; standingSummary?: string };
+export type TeamSeason = { record?: string; recordLabel?: string; standing?: string; season?: string; retrievedAt: string; sourceUrl: string };
+type ProviderTeam = { id?: string; displayName?: string; record?: { items?: { type?: string; name?: string; summary?: string; stats?: { name: string; value: number }[] }[] }; standingSummary?: string };
 export function normalizeTeamName(value: string) { return value.toLowerCase().replace(/[^a-z0-9]/g, ''); }
-export function parseTeamSeason(payload: { team?: ProviderTeam; season?: { displayName?: string; year?: number } }, names: readonly string[], sourceUrl: string, now = new Date()): TeamSeason | null {
+export function parseTeamSeason(payload: { team?: ProviderTeam; season?: { displayName?: string; year?: number } }, names: readonly string[], sourceUrl: string, now = new Date(), league = ''): TeamSeason | null {
   const team = payload?.team;
   if (!team?.displayName || !names.some((name) => normalizeTeamName(name) === normalizeTeamName(team.displayName!))) return null;
   const item = team.record?.items?.find((row) => row.type === 'total' || row.name === 'overall');
-  const record = item?.summary && /^\d{1,3}\s*-\s*\d{1,3}(?:\s*-\s*\d{1,3})?$/.test(item.summary) ? item.summary : undefined;
+  let record = item?.summary && /^\d{1,3}\s*-\s*\d{1,3}(?:\s*-\s*\d{1,3})?$/.test(item.summary) ? item.summary : undefined;
+  const count = (name: string) => { const value = item?.stats?.find((stat) => stat.name === name)?.value; return typeof value === 'number' && Number.isInteger(value) && value >= 0 ? value : undefined; };
+  const wins = count('wins'), losses = count('losses');
+  const draws = count('ties') ?? count('draws'), overtime = count('OTLosses');
+  let recordLabel: string | undefined;
+  if (wins !== undefined && losses !== undefined) {
+    if (league.startsWith('soccer/') && draws !== undefined) { record = `${wins}–${draws}–${losses}`; recordLabel = 'Wins–draws–losses'; }
+    else if (league === 'hockey/nhl' && overtime !== undefined) { record = `${wins}–${losses}–${overtime}`; recordLabel = 'Wins–losses–overtime losses'; }
+    else if (!league.startsWith('soccer/') && league !== 'hockey/nhl') { record = `${wins}–${losses}${draws ? `–${draws}` : ''}`; recordLabel = draws ? 'Wins–losses–ties' : 'Wins–losses'; }
+  }
   const standing = typeof team.standingSummary === 'string' && team.standingSummary.length <= 140 ? team.standingSummary : undefined;
   if (!record && !standing) return null;
-  return { record, standing, season: payload.season?.displayName ?? (payload.season?.year ? String(payload.season.year) : undefined), retrievedAt: now.toISOString(), sourceUrl };
+  return { record, recordLabel, standing, season: payload.season?.displayName ?? (payload.season?.year ? String(payload.season.year) : undefined), retrievedAt: now.toISOString(), sourceUrl };
 }
 
 export type MajorTeamUpdate = { label: string; url: string; publishedAt: string };

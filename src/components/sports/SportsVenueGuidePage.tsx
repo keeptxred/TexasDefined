@@ -255,7 +255,6 @@ export function SportsVenueGuidePage({
             </section>
           ) : null}
 
-          {(entity.tags ?? []).includes("professional") && <p className="my-6"><a href="/sports/teams" className="font-semibold text-primary">Build a game weekend: Texas pro-team guides →</a></p>}
           <div data-stay-nearby-slot />
 
           {guide.canonicalPath === "/sports-venue/msr-houston" ? <MSRHoustonAuthoritySections /> : null}
