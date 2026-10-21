@@ -18,24 +18,19 @@ const permanentEventGuideSlugs = new Set([
   "viva-el-paso",
   "texas-outdoor-musical",
 ]);
-const legacyGuideSlugs: Record<string, string> = {
-  "houston-livestock-rodeo": "houston-livestock-show-rodeo",
-  "houston-livestock-show-and-rodeo": "houston-livestock-show-rodeo",
-  "wurstfest-new-braunfels": "wurstfest",
-};
-
 function canonicalEventGuideSlug(slug: string): string | null {
-  // Generated event instances append a date; send readers to the evergreen guide.
-  const baseSlug = slug.replace(/-\d{4}-\d{2}-\d{2}$/, "");
-  const canonical = legacyGuideSlugs[baseSlug] ?? baseSlug;
-  return permanentEventGuideSlugs.has(canonical) ? canonical : null;
+  const base = slug.replace(/-\d{4}-\d{2}-\d{2}$/, "");
+  if (base === "state-fair-of-texas") return "/texas-state-fair";
+  const canonical = base === "wurstfest-new-braunfels"
+    ? "wurstfest"
+    : base.startsWith("houston-livestock-") ? "houston-livestock-show-rodeo" : base;
+  return permanentEventGuideSlugs.has(canonical) ? `/event/${canonical}` : null;
 }
 
 export function EventCard({ event, regionLabel }: { event: TexasEvent; regionLabel?: string | undefined }) {
   const brand = useBrand();
   const venueGuide = resolveSportsVenueEventLink(event.venue);
-  const guideSlug = canonicalEventGuideSlug(event.slug);
-  const guidePath = event.slug.replace(/-\d{4}-\d{2}-\d{2}$/, "") === "state-fair-of-texas" ? "/texas-state-fair" : guideSlug ? `/event/${guideSlug}` : null;
+  const guidePath = canonicalEventGuideSlug(event.slug);
 
   return (
     <article className="grid gap-4 border-t border-border py-7 sm:grid-cols-[9rem_1fr] sm:gap-7">
@@ -49,8 +44,8 @@ export function EventCard({ event, regionLabel }: { event: TexasEvent; regionLab
         <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground">{event.blurb}</p>
         {venueGuide && <p className="mt-4 text-sm text-muted-foreground">Venue: <a href={venueGuide.href} className="border-b border-primary text-primary">{venueGuide.venueName} guide →</a></p>}
         <div className="flex flex-wrap gap-5">
-          {guidePath && <a href={guidePath} className="eyebrow mt-5 inline-flex border-b border-primary pb-1 text-primary">Texas Defined visitor guide →</a>}
-          {event.officialUrl && <a href={event.officialUrl} target="_blank" rel="noreferrer noopener" className="eyebrow mt-5 inline-flex border-b border-primary pb-1 text-primary">Official event site ↗</a>}
+          {guidePath && <a href={guidePath} className="eyebrow mt-5 inline-flex border-b border-primary pb-1 text-primary">Visitor guide →</a>}
+          {event.officialUrl && <a href={event.officialUrl} target="_blank" rel="noreferrer noopener" className="eyebrow mt-5 inline-flex border-b border-primary pb-1 text-primary">Official site ↗</a>}
           {venueGuide && <a href={venueGuide.href} className="eyebrow mt-5 inline-flex border-b border-primary pb-1 text-primary">Plan the venue →</a>}
         </div>
       </div>
