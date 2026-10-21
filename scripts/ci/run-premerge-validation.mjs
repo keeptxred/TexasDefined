@@ -102,6 +102,7 @@ const prebuildChecks = [
   ['NETWORK/BILLING', 'Verify Stripe staging mode is isolated from live credentials, prices and website origin', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-stripe-isolated-mode.test.mjs']],
   ['CALCULATOR/PLATFORM', 'Validate calculator math and shared architecture', 'node', ['--experimental-strip-types', 'scripts/data/validate-calculator-platform.ts']],
   ['EVENT/TICKETMASTER', 'Validate Ticketmaster ingestion and tracking', 'node', ['--test', 'scripts/events/ticketmaster-discovery.test.mjs']],
+  ['EVENT/TICKETMASTER', 'Validate authority candidate queue and publishing safeguards', 'node', ['--test', 'scripts/events/build-ticketmaster-authority-candidates.test.mjs']],
   ['EVENT/TICKETMASTER', 'Validate Ticketmaster calendar integration', 'node', ['scripts/data/validate-ticketmaster-integration.mjs']],
   ['EVENT/TICKETING', 'Validate shared ticket architecture', 'node', ['scripts/data/validate-event-ticketing-architecture.mjs']],
   ['EVENT/TICKETING', 'Validate canonical official ticket fallback', 'node', ['scripts/data/validate-event-ticket-positive-path.mjs']],
