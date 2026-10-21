@@ -40,7 +40,7 @@
       "bryan-rudder",
       "bryson"
     ],
-    "state": "BATCH_007_ELEVEN_SCHOOL_SOURCE_IMPLEMENTATION_PENDING_QA",
+    "state": "BATCH_007_TWELVE_SCHOOL_SOURCE_IMPLEMENTATION_PENDING_QA",
     "dateAssigned": "2026-10-20",
     "selectionRule": "First 25 NOT_REVIEWED and unassigned canonical schoolRecords in stable order following 130 production VERIFIED through completed Batch 006; outstanding PR and branch conflicts checked.",
     "individuallyVerified": 0,
@@ -48,12 +48,12 @@
     "assignmentBranch": "football-authority-batch-007-20261020",
     "repositoryMainAtAssignment": "78157bb07d856f40d21e813fd3f886cd54e2b20e",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "brownfield",
-    "nextSchool": "brownsboro",
-    "implementedOnBranch": 11,
-    "remainingToImplement": 14,
+    "currentSchool": "brownsboro",
+    "nextSchool": "brownsville-hanna",
+    "implementedOnBranch": 12,
+    "remainingToImplement": 13,
     "remainingToVerify": 25,
-    "notes": "11 individually implemented on unmerged PR 5525, 14 remaining. No live production VERIFIED. One administratively awarded forfeit displayed with proper explanation; Blanket aggregate score conflict documented for Brookesmith."
+    "notes": "12/25 source-researched branch-implemented profiles, 13 remaining; none actual production VERIFIED. Newly added Brownfield specific 2026 1–7 and school address conflict 702 vs 701 plus county and graphic."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -7502,8 +7502,17 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/brownfield",
-      "status": "NOT_REVIEWED",
-      "batch": 7
+      "status": "IMPLEMENTED",
+      "batch": 7,
+      "audit": "docs/football-authority/schools/brownfield.md",
+      "auditCompletedAt": "2026-10-20",
+      "researchCompletedAt": "2026-10-20",
+      "implementedAt": "2026-10-20",
+      "implementedOnBranch": "football-authority-batch-007-20261020",
+      "actualProductionVerified": false,
+      "mediaStatus": "Original source-attributed 2026 Cubs results graphic; no licensed actual Cub Stadium/team photo",
+      "implementationNotes": "Brownfield official school address 702 Cub Dr vs third-party 701, AD Lawrence Johnson school-confirmed while HC only MaxPreps-confirmed; 2024/25 0–11 and 27 historical playoff berths, 2026 1–7 through Oct16 with independently corroborated Dalhart 48–6 and Denver City 50–14; 7 individual milestones, 6 FAQs, Terry County reciprocal links.",
+      "technicalVerification": "Pending TypeScript/source checks, protected CI, merge/production deployment, screenshot and Chrome 1366/390/320, canonical/FAQ/sitemap/county, school-specific media rights"
     },
     {
       "id": "uil:brownsboro",
