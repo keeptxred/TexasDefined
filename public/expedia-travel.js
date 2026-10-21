@@ -547,7 +547,11 @@
     disclosure.className = "mt-3 text-xs text-muted-foreground";
     disclosure.textContent = DISCLOSURE;
 
-    container.append(eyebrow, heading, search, createWidgetHost(), disclosure);
+    // The Fort McKavett contextual slot already receives the CJ-managed
+    // "Where to stay" heading. Keep Expedia's search option in the same
+    // section without repeating the category title directly underneath.
+    if (normalizePath() !== "/destination/fort-mckavett") container.append(eyebrow, heading);
+    container.append(search, createWidgetHost(), disclosure);
     section.appendChild(container);
     return section;
   }
@@ -621,7 +625,16 @@
     // When a destination has zero curated stays, keep the same generic surface.
     // Removing/replacing it on every mutation also deletes the independently
     // managed CJ booking choices nested inside it (including Hotel Paso del Norte).
-    if (context && current?.dataset.surfaceType === "generic" && current.dataset.stayContext === expectedContext) return;
+    if (context && current?.dataset.surfaceType === "generic" && current.dataset.stayContext === expectedContext) {
+      // A destination can hydrate its explicit slot after the bootstrap first
+      // created the fallback at #main's end. Move the existing surface rather
+      // than rebuilding it (which would drop the CJ affiliate choices).
+      if (normalizePath() === "/destination/fort-mckavett") {
+        const slot = main.querySelector(SLOT_SELECTOR);
+        if (slot && current.parentElement !== slot) placeSurface(current, main);
+      }
+      return;
+    }
     if (!context && current?.dataset.surfaceType === "generic") {
       // The swimming guide can stream/hydrate after the lodging surface mounts.
       // A fallback attached to an initially empty #main must move behind the
