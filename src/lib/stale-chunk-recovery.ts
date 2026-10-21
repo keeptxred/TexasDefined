@@ -1,23 +1,4 @@
 /** Client-only early bootstrap. Head must register before Vite module scripts. */
 export const staleChunkRecoveryScript = String.raw`
-(function () {
-var key = 'td:stale-chunk-reload-at:v1';
-var cooldownMs = 120000;
-window.addEventListener('vite:preloadError', function (event) {
-var payload = event && event.payload;
-var message = String(payload && (payload.message || payload) || '');
-if (!/Failed to fetch dynamically imported module|Importing a module script failed|Failed to load module script/i.test(message)) return;
-if (navigator.onLine === false) return;
-try {
-var previous = Number(window.sessionStorage.getItem(key) || '0');
-var now = Date.now();
-if (!Number.isFinite(previous) || (previous > 0 && now - previous < cooldownMs)) return;
-window.sessionStorage.setItem(key, String(now));
-} catch (_unavailableStorage) {
-return;
-}
-event.preventDefault();
-window.location.reload();
-});
-})();
+(()=>{let k="td:stale-chunk-reload-at:v1";window.addEventListener("vite:preloadError",e=>{let p=e.payload,m=String(p&&(p.message||p)||"");if(navigator.onLine===false||!/Failed to fetch dynamically imported module|Importing a module script failed|Failed to load module script/i.test(m))return;try{let t=Date.now(),s=Number(window.sessionStorage.getItem(k)||0);if(!Number.isFinite(s)||s>0&&t-s<120000)return;window.sessionStorage.setItem(k,String(t))}catch(_){return}e.preventDefault();window.location.reload()})})();
 `;
