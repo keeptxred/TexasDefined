@@ -377,6 +377,7 @@ import { Route as ExploreCasinosRouteImport } from './routes/explore.casinos'
 import { Route as ExploreAttractionsComparisonRouteImport } from './routes/explore.attractions-comparison'
 import { Route as ExploreAquariumsRouteImport } from './routes/explore.aquariums'
 import { Route as ExploreCategoryRouteImport } from './routes/explore.$category'
+import { Route as EventsMardiGrasRouteImport } from './routes/events.mardi-gras'
 import { Route as EventsAirShowsRouteImport } from './routes/events.air-shows'
 import { Route as EventsCollectionRouteImport } from './routes/events.$collection'
 import { Route as EventSlugRouteImport } from './routes/event.$slug'
@@ -2869,6 +2870,13 @@ const ExploreCategoryRoute = ExploreCategoryRouteImport.update({
 } as any).lazy(() =>
   import('./routes/explore.$category.lazy').then((d) => d.Route),
 )
+const EventsMardiGrasRoute = EventsMardiGrasRouteImport.update({
+  id: '/mardi-gras',
+  path: '/mardi-gras',
+  getParentRoute: () => EventsRoute,
+} as any).lazy(() =>
+  import('./routes/events.mardi-gras.lazy').then((d) => d.Route),
+)
 const EventsAirShowsRoute = EventsAirShowsRouteImport.update({
   id: '/air-shows',
   path: '/air-shows',
@@ -4115,6 +4123,7 @@ export interface FileRoutesByFullPath {
   '/event/$slug': typeof EventSlugRoute
   '/events/$collection': typeof EventsCollectionRoute
   '/events/air-shows': typeof EventsAirShowsRoute
+  '/events/mardi-gras': typeof EventsMardiGrasRoute
   '/explore/$category': typeof ExploreCategoryRoute
   '/explore/aquariums': typeof ExploreAquariumsRoute
   '/explore/attractions-comparison': typeof ExploreAttractionsComparisonRoute
@@ -4641,6 +4650,7 @@ export interface FileRoutesByTo {
   '/event/$slug': typeof EventSlugRoute
   '/events/$collection': typeof EventsCollectionRoute
   '/events/air-shows': typeof EventsAirShowsRoute
+  '/events/mardi-gras': typeof EventsMardiGrasRoute
   '/explore/$category': typeof ExploreCategoryRoute
   '/explore/aquariums': typeof ExploreAquariumsRoute
   '/explore/attractions-comparison': typeof ExploreAttractionsComparisonRoute
@@ -5169,6 +5179,7 @@ export interface FileRoutesById {
   '/event/$slug': typeof EventSlugRoute
   '/events/$collection': typeof EventsCollectionRoute
   '/events/air-shows': typeof EventsAirShowsRoute
+  '/events/mardi-gras': typeof EventsMardiGrasRoute
   '/explore/$category': typeof ExploreCategoryRoute
   '/explore/aquariums': typeof ExploreAquariumsRoute
   '/explore/attractions-comparison': typeof ExploreAttractionsComparisonRoute
@@ -5700,6 +5711,7 @@ export interface FileRouteTypes {
     | '/event/$slug'
     | '/events/$collection'
     | '/events/air-shows'
+    | '/events/mardi-gras'
     | '/explore/$category'
     | '/explore/aquariums'
     | '/explore/attractions-comparison'
@@ -6226,6 +6238,7 @@ export interface FileRouteTypes {
     | '/event/$slug'
     | '/events/$collection'
     | '/events/air-shows'
+    | '/events/mardi-gras'
     | '/explore/$category'
     | '/explore/aquariums'
     | '/explore/attractions-comparison'
@@ -6753,6 +6766,7 @@ export interface FileRouteTypes {
     | '/event/$slug'
     | '/events/$collection'
     | '/events/air-shows'
+    | '/events/mardi-gras'
     | '/explore/$category'
     | '/explore/aquariums'
     | '/explore/attractions-comparison'
@@ -10000,6 +10014,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExploreCategoryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/events/mardi-gras': {
+      id: '/events/mardi-gras'
+      path: '/mardi-gras'
+      fullPath: '/events/mardi-gras'
+      preLoaderRoute: typeof EventsMardiGrasRouteImport
+      parentRoute: typeof EventsRoute
+    }
     '/events/air-shows': {
       id: '/events/air-shows'
       path: '/air-shows'
@@ -11178,12 +11199,14 @@ const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 interface EventsRouteChildren {
   EventsCollectionRoute: typeof EventsCollectionRoute
   EventsAirShowsRoute: typeof EventsAirShowsRoute
+  EventsMardiGrasRoute: typeof EventsMardiGrasRoute
   EventsIndexRoute: typeof EventsIndexRoute
 }
 
 const EventsRouteChildren: EventsRouteChildren = {
   EventsCollectionRoute: EventsCollectionRoute,
   EventsAirShowsRoute: EventsAirShowsRoute,
+  EventsMardiGrasRoute: EventsMardiGrasRoute,
   EventsIndexRoute: EventsIndexRoute,
 }
 
