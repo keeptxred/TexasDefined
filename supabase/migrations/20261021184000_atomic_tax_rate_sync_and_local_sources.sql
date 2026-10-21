@@ -105,6 +105,9 @@ declare
   added_count integer;
   removed_count integer;
   modified_count integer;
+  newly_unavailable integer;
+  newly_available integer;
+  unavailable_count integer;
 begin
   select * into run_data from public.texas_tax_import_runs where id=p_run_id for update;
   if not found or run_data.status <> 'staging' then
@@ -177,6 +180,14 @@ begin
         'debt',(s.record->>'debt_service_rate')::numeric,
         'source',s.record->>'source_status',
         'unavailable',(s.record->>'rate_unavailable')::boolean);
+  select count(*) into newly_unavailable from public.texas_tax_import_stage s
+    where s.run_id=p_run_id and (s.record->>'rate_unavailable')::boolean
+      and coalesce((previous_rows->s.record_id->>'unavailable')::boolean,false)=false;
+  select count(*) into newly_available from public.texas_tax_import_stage s
+    where s.run_id=p_run_id and coalesce((s.record->>'rate_unavailable')::boolean,false)=false
+      and coalesce((previous_rows->s.record_id->>'unavailable')::boolean,false)=true;
+  select count(*) into unavailable_count from public.texas_tax_import_stage s
+    where s.run_id=p_run_id and (s.record->>'rate_unavailable')::boolean;
   delete from public.texas_property_tax_rates where year=run_data.tax_year;
   if p_simulate_failure then
     raise exception 'Simulated import failure after delete: verifying transaction rollback';
@@ -193,7 +204,8 @@ begin
     from public.texas_tax_import_raw_stage where run_id=p_run_id;
   summary:=jsonb_build_object('status','imported','year',run_data.tax_year,
       'count',stage_count,'rawCount',raw_count,'previousCount',prior_count,
-      'added',added_count,'removed',removed_count,'modified',modified_count);
+      'added',added_count,'removed',removed_count,'modified',modified_count,
+      'unavailable',unavailable_count,'becameUnavailable',newly_unavailable,'becameAvailable',newly_available);
   update public.texas_tax_import_runs
     set status='completed',finished_at=now(),results=summary where id=p_run_id;
   delete from public.texas_tax_import_stage where run_id=p_run_id;
