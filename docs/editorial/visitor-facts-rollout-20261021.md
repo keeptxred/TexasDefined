@@ -4,7 +4,7 @@ As of October 21, 2026, curated `Destination` entries can carry an optional `vis
 
 ## State and coverage
 
-- **Live existing content:** Two individually source-checked destination entries were seeded: `/destination/sheldon-lake-state-park` (TPWD) and `/destination/chamizal-national-memorial` (NPS). Public verification is required after merge before calling either deployed.
+- **Curated existing content:** The initial merge populated 8 destinations (14 individually source-backed facts); the second batch adds nine state parks (19 further facts) subject to green CI, merge, and production verification. These are curated coverage counts, not a guarantee that every URL is deployed. Existing source dates must not be refreshed automatically without substantive re-verification.
 - **Published destinations generally:** The shared `DestinationVisitPlanner` displays any valid `visitorFacts` attached to a published eligible destination. Other site pages receive no invented rows.
 - **Future curated content:** A future curated record can add specific facts using `DestinationVisitorFact` in `src/data/types.ts`. The shared `reviewDestinationVisitorFacts` gate rejects duplicates, blank or unsupported answers, invalid HTTPS source URLs and missing/future dates.
 - **Freshness:** Hours, admission, reservations, access and swimming information is withheld after 120 days; other fact topics after 365 days. Stale facts create an audit warning. Editors must refresh evidence rather than merely changing the date.
@@ -25,3 +25,25 @@ As of October 21, 2026, curated `Destination` entries can carry an optional `vis
 3. Trace Supabase/draft imports and generator instructions; add safe source and date storage and validation without forcing a generic checklist on all records.
 4. Scan repeated FAQ text, boilerplate and image appropriateness in destination and page-family validators.
 5. Run the canonical validation, merge only green, and verify the production deployment and representative pages. Document exceptions explicitly.
+
+## State-park batch two: exact operator sources (October 21, 2026)
+
+The 9 destination records have individually checked entry and access details, not copied generalized facility defaults. All cite the exact TPWD park page and carry `checkedAt: "2026-10-21"`.
+
+| Destination | Official operator source | Important distinction |
+| --- | --- | --- |
+| Enchanted Rock State Natural Area | https://tpwd.texas.gov/state-parks/enchanted-rock | Park, gate, backcountry hours and reservation advice differ |
+| Palo Duro Canyon State Park | https://tpwd.texas.gov/state-parks/palo-duro-canyon | Gate and office hours differ; weather can close trails |
+| Caddo Lake State Park | https://tpwd.texas.gov/state-parks/caddo-lake | TPWD's listed daily hours are distinct from late arrivals |
+| Balmorhea State Park | https://tpwd.texas.gov/state-parks/balmorhea | Day-use entry windows at 8 a.m. and 3 p.m.; no early entry |
+| Guadalupe River State Park | https://tpwd.texas.gov/state-parks/guadalupe-river | Seasonal headquarters schedule differs from gate hours |
+| Inks Lake State Park | https://tpwd.texas.gov/state-parks/inks-lake | Park hours differ from headquarters/store hours |
+| Lost Maples State Natural Area | https://tpwd.texas.gov/state-parks/lost-maples | October/November capacity and reservations are especially important |
+| Monahans Sandhills State Park | https://tpwd.texas.gov/state-parks/monahans-sandhills | Separate daily gate hours |
+| McKinney Falls State Park | https://tpwd.texas.gov/state-parks/mckinney-falls/ | Gate, office and weekend visitor-center hours differ |
+
+Do not treat dated verification as a promise of live availability. Confirm active closures and capacity with TPWD. The existing `reviewDestinationVisitorFacts` removes time-sensitive answers from display after 120 days rather than silently aging them into evergreen copy.
+
+### Coverage limitations
+
+These new fields apply to the `/destination/:slug` family via the existing curated destination registry. They are not an automatic update for standalone event, historic-site, museum, city/county, article, itinerary, or raw Supabase-imported templates. The curation scanner covers literal fact arrays inside `destination-curation*.ts`, not dynamically constructed facts or every page family. The full statewide inventory and future ingestion upgrades remain open.

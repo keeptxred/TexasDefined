@@ -4,6 +4,11 @@ const TPWD = "Texas Parks and Wildlife Department";
 
 const curatedBatch2: Record<string, Partial<Destination>> = {
   "enchanted-rock-state-natural-area": {
+    visitorFacts: [
+      { topic: "admission", label: "Day-use admission", detail: "Adults 13 and older: $8 per day; children 12 and younger: free.", sourceUrl: "https://tpwd.texas.gov/state-parks/enchanted-rock", checkedAt: "2026-10-21" },
+      { topic: "hours", label: "Park and gate hours", detail: "Park open daily 6:30 a.m.–10 p.m.; entrance gate 6:30 a.m.–8 p.m. Backcountry access is 8 a.m.–6 p.m.", sourceUrl: "https://tpwd.texas.gov/state-parks/enchanted-rock", checkedAt: "2026-10-21" },
+      { topic: "reservations", label: "Plan your entry", detail: "Advance day-use reservations are strongly recommended; trails and granite summit may close in wet weather.", sourceUrl: "https://tpwd.texas.gov/state-parks/enchanted-rock", checkedAt: "2026-10-21" },
+    ],
     summary: "A massive pink-granite dome north of Fredericksburg with nearly 21 miles of hiking, a famous summit climb, rock climbing, stargazing and a newly opened backcountry trail system.",
     nearestTown: "Fredericksburg",
     bestSeason: "Fall through spring for cooler hiking; summer heat and exposed granite can be intense",
@@ -23,6 +28,10 @@ const curatedBatch2: Record<string, Partial<Destination>> = {
     officialUrl: "https://tpwd.texas.gov/state-parks/enchanted-rock",
   },
   "palo-duro-canyon-state-park": {
+    visitorFacts: [
+      { topic: "admission", label: "Day-use admission", detail: "Adults 13 and older: $8 per day; children 12 and younger: free.", sourceUrl: "https://tpwd.texas.gov/state-parks/palo-duro-canyon", checkedAt: "2026-10-21" },
+      { topic: "hours", label: "Gate and office hours", detail: "Park gate open daily 7:30 a.m.–10 p.m.; office 7:30 a.m.–5:30 p.m.", sourceUrl: "https://tpwd.texas.gov/state-parks/palo-duro-canyon", checkedAt: "2026-10-21" },
+    ],
     summary: "Texas Panhandle canyon country where a steep park road drops from the plains to red-and-cream cliffs, CCC history and the iconic Lighthouse formation on one of the state’s best-known trails.",
     nearestTown: "Canyon",
     bestSeason: "Spring and fall for hiking; summer temperatures on the canyon floor can be dangerous",
@@ -43,6 +52,10 @@ const curatedBatch2: Record<string, Partial<Destination>> = {
     accessibilityNotes: "The park has an all-terrain wheelchair available by reservation; contact the park before arrival for current availability.",
   },
   "caddo-lake-state-park": {
+    visitorFacts: [
+      { topic: "admission", label: "Day-use admission", detail: "Adults 13 and older: $4 per day; children 12 and younger: free.", sourceUrl: "https://tpwd.texas.gov/state-parks/caddo-lake", checkedAt: "2026-10-21" },
+      { topic: "hours", label: "Published daily hours", detail: "Texas Parks and Wildlife lists daily hours of 8:15 a.m.–4:45 p.m.; confirm late arrival arrangements with the park.", sourceUrl: "https://tpwd.texas.gov/state-parks/caddo-lake", checkedAt: "2026-10-21" },
+    ],
     summary: "A cypress-and-Spanish-moss East Texas park on the maze-like waters of Caddo Lake, with paddling, fishing, CCC cabins and easy access to one of the state’s most distinctive wetland landscapes.",
     nearestTown: "Karnack",
     bestSeason: "Fall through spring for cooler paddling and hiking; spring is especially good for birding",
@@ -62,6 +75,10 @@ const curatedBatch2: Record<string, Partial<Destination>> = {
     officialUrl: "https://tpwd.texas.gov/state-parks/caddo-lake",
   },
   "balmorhea-state-park": {
+    visitorFacts: [
+      { topic: "admission", label: "Day-use admission", detail: "Adults 13 and older: $7 per day; children 12 and younger: free.", sourceUrl: "https://tpwd.texas.gov/state-parks/balmorhea", checkedAt: "2026-10-21" },
+      { topic: "access", label: "Timed day-pass entry", detail: "Day-pass reservations use 8 a.m. or 3 p.m. entry windows; early entry is not allowed. Park closes at 7:30 p.m. or sunset, whichever is earlier.", sourceUrl: "https://tpwd.texas.gov/state-parks/balmorhea", checkedAt: "2026-10-21" },
+    ],
     summary: "A West Texas oasis built around San Solomon Springs and the world’s largest spring-fed swimming pool, where clear 72-to-76-degree water fills a historic CCC-era park in the desert.",
     nearestTown: "Balmorhea",
     bestSeason: "Year-round for the spring-fed pool; summer is busiest, while spring and fall pair swimming with milder desert weather",
@@ -81,6 +98,10 @@ const curatedBatch2: Record<string, Partial<Destination>> = {
     officialUrl: "https://tpwd.texas.gov/state-parks/balmorhea",
   },
   "guadalupe-river-state-park": {
+    visitorFacts: [
+      { topic: "admission", label: "Day-use admission", detail: "Adults 13 and older: $7 per day; children 12 and younger: free.", sourceUrl: "https://tpwd.texas.gov/state-parks/guadalupe-river", checkedAt: "2026-10-21" },
+      { topic: "hours", label: "Gate and headquarters hours", detail: "Gate open daily 8 a.m.–10 p.m.; headquarters September–May 8 a.m.–4:30 p.m. daily, with extended weekend hours June–August.", sourceUrl: "https://tpwd.texas.gov/state-parks/guadalupe-river", checkedAt: "2026-10-21" },
+    ],
     summary: "Four miles of Guadalupe River frontage between San Antonio and the Hill Country, pairing cypress-lined swimming and paddling water with trails, camping and access to the protected Honey Creek landscape.",
     nearestTown: "Spring Branch",
     bestSeason: "Late spring through early fall for river time; fall through spring for comfortable hiking",
@@ -101,6 +122,10 @@ const curatedBatch2: Record<string, Partial<Destination>> = {
     accessibilityNotes: "The park offers accessible facilities and an all-terrain wheelchair by request; contact the park before arrival for availability.",
   },
   "inks-lake-state-park": {
+    visitorFacts: [
+      { topic: "admission", label: "Day-use admission", detail: "Adults 13 and older: $7 per day; children 12 and younger: free.", sourceUrl: "https://tpwd.texas.gov/state-parks/inks-lake", checkedAt: "2026-10-21" },
+      { topic: "hours", label: "Park and store hours", detail: "Park open daily 6 a.m.–10 p.m.; headquarters and park store open 8:30 a.m.–5 p.m.", sourceUrl: "https://tpwd.texas.gov/state-parks/inks-lake", checkedAt: "2026-10-21" },
+    ],
     summary: "A constant-level Highland Lakes park northwest of Austin with pink granite outcrops, more than 12 miles of trails and the popular Devil’s Waterhole swimming and paddling area.",
     nearestTown: "Burnet",
     bestSeason: "Spring through fall for water activities; cooler months are excellent for hiking and camping",
@@ -121,6 +146,10 @@ const curatedBatch2: Record<string, Partial<Destination>> = {
     accessibilityNotes: "The park has accessible campsites and an all-terrain wheelchair available by request; contact the park for current availability.",
   },
   "lost-maples-state-natural-area": {
+    visitorFacts: [
+      { topic: "admission", label: "Day-use admission", detail: "Adults 13 and older: $6 per day; children 12 and younger: free.", sourceUrl: "https://tpwd.texas.gov/state-parks/lost-maples", checkedAt: "2026-10-21" },
+      { topic: "hours", label: "Published daily hours", detail: "Open daily 8:30 a.m.–4:30 p.m.; fall weekends can reach capacity, so reserve entry in advance.", sourceUrl: "https://tpwd.texas.gov/state-parks/lost-maples", checkedAt: "2026-10-21" },
+    ],
     summary: "A rugged Sabinal River canyon preserve west of San Antonio protecting rare Uvalde bigtooth maples, with more than 10 miles of trails, steep overlooks and one of Texas’s most anticipated fall-color displays.",
     nearestTown: "Vanderpool",
     coordinates: { lat: 29.807719, lng: -99.570697 },
@@ -143,6 +172,10 @@ const curatedBatch2: Record<string, Partial<Destination>> = {
     officialUrl: "https://tpwd.texas.gov/state-parks/lost-maples",
   },
   "monahans-sandhills-state-park": {
+    visitorFacts: [
+      { topic: "admission", label: "Day-use admission", detail: "Adults 13 and older: $4 per day; children 12 and younger: free.", sourceUrl: "https://tpwd.texas.gov/state-parks/monahans-sandhills", checkedAt: "2026-10-21" },
+      { topic: "hours", label: "Gate hours", detail: "Open daily; gate hours are 7 a.m.–10 p.m.", sourceUrl: "https://tpwd.texas.gov/state-parks/monahans-sandhills", checkedAt: "2026-10-21" },
+    ],
     summary: "A West Texas field of wind-shaped dunes where visitors can roam without marked trails, rent sand discs, camp beneath wide skies and watch the landscape change after every strong wind.",
     nearestTown: "Monahans",
     bestSeason: "Fall through spring for comfortable dune exploration; summer sand and air temperatures can be extreme",
