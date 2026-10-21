@@ -72,10 +72,15 @@ function validateYear(records:any[],raw:RawRecord[],year:number,diagnostics:any[
   }
   if(records.length<3000)throw new Error("Refusing incomplete statewide dataset");
 }
-Deno.serve(async(req:Request)=>{
+const runTaxImport=async(req:Request):Promise<Response>=>{
   const url=new URL(req.url);
   const year=Number(url.searchParams.get("year")??String(new Date().getUTCFullYear()));
   const currentYear=new Date().getUTCFullYear();
+  // Supabase Edge isolates have strict CPU budgets; parsing larger XLSX data
+  // must happen on the existing GitHub Actions runner, using THIS SAME importer.
+  if(Deno.env.get("TEXAS_TAX_IMPORT_CLI")!=="1"&&year>=2023)
+    return json({ok:false,status:"runner-required",year,
+      error:"For this tax year run the existing GitHub Actions Sync Texas property tax rates workflow; Edge runtime CPU is insufficient."},409);
   if(!Number.isInteger(year)||year<2021||year>currentYear)return json({ok:false,error:"Unsupported tax year"},400);
   const diagnostics:Array<{type:UnitType;rawRows:number;sha256:string;sourceUrl:string}>=[];
   const raw:RawRecord[]=[];
@@ -140,4 +145,17 @@ Deno.serve(async(req:Request)=>{
     console.error("Texas tax import failed for year",year,message);
     return json({ok:false,status:"error",year,error:message.slice(0,400),diagnostics},500);
   }
-});
+};
+
+// GitHub Actions invokes this same importer in a Deno CLI process with a
+// normal runner CPU budget. Edge HTTP remains available for lightweight paths.
+if(Deno.env.get("TEXAS_TAX_IMPORT_CLI")==="1"){
+  const yearText=Deno.env.get("TEXAS_TAX_IMPORT_YEAR")??"";
+  if(!/^\d{4}$/.test(yearText))throw new Error("Missing TEXAS_TAX_IMPORT_YEAR");
+  const response=await runTaxImport(new Request("https://localhost/import?year="+yearText));
+  const result=await response.json();
+  console.log(JSON.stringify(result));
+  if(!response.ok||result?.ok!==true)Deno.exit(1);
+}else{
+  Deno.serve(runTaxImport);
+}
