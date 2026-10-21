@@ -154,8 +154,20 @@ try {
           // The major-basin atlas has 15 basin cards; five recreation guides
           // are text links there. River Valleys has all 20 photo cards.
           if (path === '/article/texas-rivers-explained' && !atlasSlugs.has(river.slug)) continue;
-          const anchor = page.locator('a[href="/article/' + river.slug + '"]').filter({ has: page.locator('img') }).first();
-          verify(await anchor.count() === 1, label + ': missing river card ' + river.slug + ' at ' + path);
+          // River guides may have other linked teasers earlier in the article.
+          // Match the *source photo* as well as the river link so the credit
+          // assertion targets the real shared river directory card.
+          const anchors = page.locator('a[href="/article/' + river.slug + '"]').filter({ has: page.locator('img') });
+          let anchor = null;
+          for (let i = 0; i < await anchors.count(); i++) {
+            const candidate = anchors.nth(i);
+            const candidateSrc = await candidate.locator('img').first().getAttribute('src') || '';
+            if (originalImageIdentity(candidateSrc).includes(originalImageIdentity(river.image))) {
+              anchor = candidate;
+              break;
+            }
+          }
+          verify(anchor !== null, label + ': missing exact river photo card ' + river.slug + ' at ' + path);
           const img = anchor.locator('img').first();
           const result = await inspectImage(page, img, label + ' card ' + river.slug + ' at ' + path);
           verify(new URL(result.src).pathname === '/media/remote',
