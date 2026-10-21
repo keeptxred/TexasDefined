@@ -13,3 +13,8 @@ export function proTeamGuideHead(team: { slug: string; name: string; sport: stri
     { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Texas Sports', item: 'https://texasdefined.com/sports' }, { '@type': 'ListItem', position: 2, name: 'Pro teams', item: 'https://texasdefined.com/sports/teams' }, { '@type': 'ListItem', position: 3, name: team.name, item: url }] },
   ] }) }] };
 }
+
+export function proTeamsIndexHead() {
+  const metadata = proTeamsIndexMetadata();
+  return { metadata, seo: { meta: buildMeta(texasDefinedBrand, metadata), links: [canonicalLink(texasDefinedBrand, metadata.canonicalPath)] } };
+}

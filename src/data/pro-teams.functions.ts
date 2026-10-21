@@ -5,8 +5,8 @@ export const getProTeamGuide = createServerFn({ method: 'GET' })
   .handler(async ({ data }) => {
     const { default: teams } = await import('./pro-teams.json');
     if (!data.slug) {
-      const { proTeamsIndexMetadata } = await import('./pro-team-seo.server');
-      return { index: { teams: teams.map(({ slug, name, league, city, intro, color }) => ({ slug, name, league, city, intro, color })), metadata: proTeamsIndexMetadata() }, guide: null };
+      const { proTeamsIndexHead } = await import('./pro-team-seo.server');
+      return { index: { teams: teams.map(({ slug, name, league, city, intro, color }) => ({ slug, name, league, city, intro, color })), ...proTeamsIndexHead() }, guide: null };
     }
     const team = teams.find((entry) => entry.slug === data.slug);
     if (!team) return { index: null, guide: null };
