@@ -966,6 +966,84 @@ const records: FestivalEventRecord[] = [
         "url": "https://thc.texas.gov/historic-sites/san-jacinto-battleground"
       }
     ]
+  },
+  {
+    "slug": "cliburn-international-young-pianists-competition",
+    "name": "Cliburn International Competition for Young Pianists",
+    "city": "Dallas",
+    "countySlug": "dallas",
+    "countyName": "Dallas County",
+    "region": "prairies-lakes",
+    "category": "culture",
+    "startDate": "2027-06-10",
+    "endDate": "2027-06-19",
+    "venue": "Southern Methodist University and Morton H. Meyerson Symphony Center",
+    "officialUrl": "https://cliburn.org/competitions/2027-young-pianists",
+    "sourceCheckedAt": "2026-10-21",
+    "whyItMatters": "The Cliburn's 2027 Dallas competition showcases outstanding young pianists ages 13–17 in a sequence of juried recitals and a final with the Dallas Symphony Orchestra. This is a distinct competition from the main Van Cliburn International Piano Competition, which is not an annual Fort Worth event.",
+    "quickFacts": [
+      {
+        "label": "Confirmed competition",
+        "value": "June 10–19, 2027"
+      },
+      {
+        "label": "Age eligibility",
+        "value": "Competition for pianists 13–17"
+      },
+      {
+        "label": "Preliminary and semifinal",
+        "value": "SMU campus, Dallas"
+      },
+      {
+        "label": "Final round",
+        "value": "Meyerson Symphony Center with Dallas Symphony Orchestra"
+      }
+    ],
+    "planningSections": [
+      {
+        "title": "Choose the competition round to attend",
+        "body": "Preliminary and semifinal recitals are scheduled on the SMU campus while the six finalists appear with the Dallas Symphony Orchestra at the Morton H. Meyerson Symphony Center. This is not one continuous concert at a single building; confirm the published round-by-round visitor program."
+      },
+      {
+        "title": "Do not confuse contestant applications with tickets",
+        "body": "The organizer's current page emphasizes pianist applications, due November 17, 2026, while visitor tickets are expected to go on sale in January 2027. An application deadline does not mean an audience seat is available for purchase yet."
+      },
+      {
+        "title": "Plan different transport for the SMU and Meyerson venues",
+        "body": "SMU's Caruth Auditorium and the downtown Arts District's Meyerson Symphony Center require separate route and parking decisions. Read each venue's accessible seating and ticket policies before buying a multi-round visit."
+      },
+      {
+        "title": "Follow the young musicians respectfully",
+        "body": "The competition includes fellowships and adjudicated performances for minors. Respect photography and recording rules, quiet during recitals and the organizer's child-protection policies; do not treat rehearsals or private workshops as public access."
+      }
+    ],
+    "relatedLinks": [
+      {
+        "href": "/county/dallas",
+        "label": "Dallas County guide",
+        "description": "Find nearby arts venues and trip-planning stops."
+      },
+      {
+        "href": "/events/arts-culture",
+        "label": "Texas cultural events",
+        "description": "Compare other major film, arts and performance competitions."
+      },
+      {
+        "href": "/event/dallas-international-film-festival",
+        "label": "Dallas International Film Festival",
+        "description": "Explore a different Dallas arts festival with its own dates and ticket program."
+      }
+    ],
+    "sources": [
+      {
+        "label": "The Cliburn 2027 competition overview, dates and venues",
+        "url": "https://cliburn.org/competitions/2027-young-pianists"
+      },
+      {
+        "label": "Cliburn official rules and schedule",
+        "url": "https://cliburn.org/competitions/2027-young-pianists/application-and-rules"
+      }
+    ]
   }
 ];
 
