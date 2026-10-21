@@ -33,8 +33,8 @@ const wranglerReadyMarker = `Ready on ${origin}`;
 const smokeTargets = [
   { path: '/sports/teams', requiredText: 'Pick the game.', label: 'Pro-team index renders its actual loader and 13-team guide' },
   { path: '/sports/teams', requiredText: 'https://texasdefined.com/sports/teams', label: 'Pro-team index includes server-supplied canonical metadata' },
-  { path: '/sports/teams/houston-texans', requiredText: 'Your Houston Texans weekend', label: 'Texans weekend guide renders real nested loaders' },
-  { path: '/sports/teams/dallas-cowboys', requiredText: 'Where to stay for a Dallas Cowboys trip', label: 'Cowboys guide renders lodging planning rather than parent hub' },
+  { path: '/sports/teams/houston-texans', requiredText: 'data-pro-team-guide="houston-texans"', label: 'Texans weekend guide renders real nested loaders' },
+  { path: '/sports/teams/dallas-cowboys', requiredText: 'data-pro-team-guide="dallas-cowboys"', label: 'Cowboys guide renders lodging planning rather than parent hub' },
 
   { path: '/events/mardi-gras', requiredText: 'Mardi Gras in Texas', label: 'Statewide Mardi Gras authority hub SSR renders' },
   { path: '/events/mardi-gras', requiredText: '/event/kemah-yachty-gras', label: 'Mardi Gras hub links to verified Kemah parade guide' },
