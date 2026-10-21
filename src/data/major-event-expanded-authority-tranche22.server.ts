@@ -99,8 +99,7 @@ const records: MajorEventAuthorityRecord[] = [
     ],
     relatedLinks: [
       { href: "/browse/counties#county-randall", label: "Explore Randall County", description: "Connect the production to Canyon and the surrounding Panhandle." },
-      { href: "/state-park/palo-duro-canyon-state-park", label: "Palo Duro Canyon State Park", description: "Check park entry and outdoor recreation conditions." },
-      { href: "/destination/palo-duro-canyon", label: "Palo Duro Canyon", description: "Plan time at the canyon before the performance." },
+      { href: "/destination/palo-duro-canyon-state-park", label: "Palo Duro Canyon State Park", description: "Check park entry and outdoor recreation conditions." },
       { href: "/events", label: "Texas events calendar", description: "Compare other Texas summer arts and heritage events." },
     ],
     sources: [
