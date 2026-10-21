@@ -53,7 +53,7 @@ function Page() {
     <DepartmentHero
       current="Texas Data"
       eyebrow="Texas at a glance"
-      title="Texas Data & Statistics"
+      title="Texas by the Numbers"
       description={description}
     />
     <Container className="py-12 sm:py-16">

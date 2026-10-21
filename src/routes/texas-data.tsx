@@ -92,7 +92,7 @@ export const Route = createFileRoute('/texas-data')({
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath: '/texas-data',
-        title: 'Texas Data & Statistics: Population, Housing, Jobs & Counties',
+        title: 'Texas by the Numbers: Population, Housing, Jobs & Counties',
         description,
       }),
       links: [canonicalLink(texasDefinedBrand, '/texas-data')],
@@ -103,7 +103,7 @@ export const Route = createFileRoute('/texas-data')({
             '@type': ['CollectionPage', 'DataCatalog'],
             '@id': `${pageUrl}#page`,
             url: pageUrl,
-            name: 'Texas Data & Statistics',
+            name: 'Texas by the Numbers',
             description,
             publisher: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#organization` },
             isPartOf: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#website` },
