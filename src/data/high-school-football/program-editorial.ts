@@ -67,6 +67,222 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "brownsville-porter": {
+    "slug": "brownsville-porter",
+    "intro": "Brownsville's Gladys Porter Early College High School opened in 1974 as the city's second public high school, named for civic leader Gladys Sams Porter. Its football team is the Cowboys, not the similarly named Porter Spartans outside Brownsville. Dave Campbell's football archive counts three postseason appearances and no state-title game. The 2025 Cowboys reached a UIL playoff but fell 56–7 at Sharyland; in 2026, publicly reported game finals stood at 2–6 through October 15, even though an older schedule only displays 2–4. The official BISD varsity fixtures distinguish the shared Sams and Veterans Memorial Stadium locations.",
+    "theme": {
+      "accentHex": "#21539C",
+      "label": "Independently authored TexasDefined blue football editorial accent; school colors Blue/Silver/White in Texas Athletics Department directory and Brownsville Porter Cowboys identity; no copied school crest"
+    },
+    "seo": {
+      "title": "Brownsville Porter Cowboys Football | 2026 Results & BISD Tickets",
+      "description": "Porter Cowboys Brownsville: 1974 school opening, 2025 playoffs, 2026 reported 2–6, Ray and Pace scores, Sams/Veterans Stadium guide and official tickets."
+    },
+    "campus": {
+      "address": "3500 International Boulevard, Brownsville, TX 78521 (Porter ECHS academic campus, distinct from shared BISD football stadiums)",
+      "phone": "956-548-7800",
+      "sourceUrl": "https://porterechs.bisd.us/about-us/history",
+      "sourceLabel": "First-party Porter ECHS history and school contact: founded 1974; named for Gladys Sams Porter; 3500 International Blvd (956)548-7800",
+      "verifiedAt": "2026-10-21"
+    },
+    "schedule": {
+      "label": "Brownsville Porter Cowboys official 2026–27 varsity schedule including different Brownsville stadium sites",
+      "sourceUrl": "https://www.portercowboysathletics.net/sport/football/boys/?tab=schedule",
+      "sourceLabel": "BISD Porter Athletics schedule distinguishes Oct22 Lopez AWAY at Sams Stadium from Nov5 Mercedes HOME at Veterans Memorial Stadium. Official results cells are empty.",
+      "verifiedAt": "2026-10-21",
+      "officialScheduleUrl": "https://www.portercowboysathletics.net/sport/football/boys/?tab=schedule",
+      "ticketUrl": "https://www.bisd.us/departments/a-i/athletics"
+    },
+    "season": {
+      "record": "2–6 overall, 0–4 district through October 15, 2026 (reported Pigskin Prep, not district-certified; outdated MaxPreps 2–4 through October 1)",
+      "verifiedAt": "2026-10-21",
+      "sourceUrl": "https://www.texashighschoolfootballhistory.com/showfreeschedules.asp?distID=408&yr=2026",
+      "sourceLabel": "2026 Pigskin Prep 5A district 15 scoreboard includes Oct8 Porter 33 Pace 36 and Oct15 Porter 0 Corpus Christi Ray 69, 2–6. MaxPreps schedule last updated Oct3 remained 2–4; first-party site does not enter finals.",
+      "latestResultSourceUrl": "https://www.texashighschoolfootballhistory.com/showfreeschedules.asp?distID=408&yr=2026",
+      "games": [
+        {
+          "date": "2026-08-27",
+          "opponent": "Donna North",
+          "site": "Home",
+          "result": "W 27–14"
+        },
+        {
+          "date": "2026-09-03",
+          "opponent": "Valley View",
+          "site": "Home",
+          "result": "W 34–12"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Juarez-Lincoln",
+          "site": "Away",
+          "result": "L 13–14"
+        },
+        {
+          "date": "2026-09-17",
+          "opponent": "Lyford",
+          "site": "Away",
+          "result": "L 0–48"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Donna",
+          "site": "Away",
+          "district": true,
+          "result": "L 10–40"
+        },
+        {
+          "date": "2026-10-01",
+          "opponent": "Gregory-Portland",
+          "site": "Home",
+          "district": true,
+          "result": "L 0–85"
+        },
+        {
+          "date": "2026-10-08",
+          "opponent": "Brownsville Pace",
+          "site": "Away",
+          "district": true,
+          "result": "L 33–36"
+        },
+        {
+          "date": "2026-10-15",
+          "opponent": "Corpus Christi Ray",
+          "site": "Home",
+          "district": true,
+          "result": "L 0–69"
+        },
+        {
+          "date": "2026-10-22",
+          "opponent": "Brownsville Lopez",
+          "site": "Away",
+          "district": true,
+          "kickoff": "7:00 PM"
+        },
+        {
+          "date": "2026-11-05",
+          "opponent": "Mercedes",
+          "site": "Home",
+          "district": true,
+          "kickoff": "7:00 PM"
+        }
+      ]
+    },
+    "venue": {
+      "name": "Veterans Memorial Stadium — November 5 Porter vs Mercedes official home fixture; Sams Stadium for Oct22 Lopez road fixture",
+      "address": "Veterans Memorial Stadium, Brownsville, TX (precise spectator gate/address not first-party verified for Nov 5; Sams Stadium separate 1 Boulevard of Champions)",
+      "sourceUrl": "https://www.portercowboysathletics.net/sport/football/boys/?tab=schedule",
+      "sourceLabel": "First-party Porter 2026 fixture lists Nov5 home Mercedes at Veterans Memorial Stadium and Oct22 Lopez away at Sams Stadium. Other Porter 2026 home games were at Sams.",
+      "verifiedAt": "2026-10-21",
+      "note": "Do not publish an unverified precise street address for Veterans Memorial Stadium or route users to the high school at 3500 International Blvd as game entrance. BISD athletics tickets are online-only via district link; event time/ADA and parking must be checked."
+    },
+    "development": {
+      "title": "Brownsville's 1974 Cowboys and the 2025 football postseason return",
+      "body": "BISD traces Gladys Porter High's opening to 1974 and its name to philanthropic community leader Gladys Sams Porter. DCTF records three football playoff berths and no UIL title game; its 2025 3–8 season includes a 56–7 first-round football postseason loss against Sharyland. The 2024 annual record conflicts across databases (DCTF lists 1–9, while an older MaxPreps ten-game schedule lists 0–10), so this guide avoids stating an unverified 2024 total as historical fact. In 2026 Porter opened 2–0 over Donna North and Valley View, then independent Pigskin Prep reporting records six defeats to Oct15, including one-possession losses 13–14 to Juarez-Lincoln and 33–36 to crosstown Pace. Head coach not independently verified from a current first-party 2026 football staff page; no name should be fabricated.",
+      "sourceUrl": "https://porterechs.bisd.us/about-us/history",
+      "sourceLabel": "First-party BISD school origin; DCTF football history and MaxPreps 2025 UIL postseason; Pigskin Prep 2026 scoreboard",
+      "verifiedAt": "2026-10-21"
+    },
+    "milestones": [
+      {
+        "date": "October 2, 1973",
+        "title": "Board chooses school mascot and colors ahead of the new Porter campus",
+        "body": "The official BISD history places the school-board selection of Porter colors/mascot on Oct2 1973. Secondary school athletics directory currently lists Cowboys and Cowgirls with blue, silver and white.",
+        "sourceUrl": "https://porterechs.bisd.us/about-us/history",
+        "sourceLabel": "Gladys Porter first-party ECHS history"
+      },
+      {
+        "date": "1974",
+        "title": "Gladys Porter High School opens as Brownsville's second public high school",
+        "body": "The BISD school history says Porter opened in 1974 to relieve overcrowding at Brownsville High (now Hanna) and was named for philanthropist Gladys Sams Porter; Tony Ortiz its first principal.",
+        "sourceUrl": "https://www.bisd.us/about/museum-and-history",
+        "sourceLabel": "BISD Museum & History Porter High entry"
+      },
+      {
+        "date": "Program history",
+        "title": "Three football playoff appearances, no football state championship final",
+        "body": "DCTF Porter Cowboys historical football profile records 3 postseason appearances, 0 title-game appearances, 0 football state titles. This must never be confused with school achievements in non-football sports.",
+        "sourceUrl": "https://dev.texasfootball.com/team/brownsville-porter-cowboys",
+        "sourceLabel": "DCTF Porter Cowboys football history"
+      },
+      {
+        "date": "2024",
+        "title": "Conflicting 2024 season totals merit transparent caution",
+        "body": "DCTF reports 1–9 in 2024, whereas the archived MaxPreps ten-game football schedule reports 0–10. Without first-party scorebook reconciliation, the guide does not claim an exact 2024 final record.",
+        "sourceUrl": "https://www.maxpreps.com/tx/brownsville/porter-cowboys/football/24-25/schedule/",
+        "sourceLabel": "MaxPreps 2024 schedule contrasted with DCTF Porter past seasons"
+      },
+      {
+        "date": "November 13, 2025",
+        "title": "Porter 3–8 football season ends at Sharyland in UIL playoffs",
+        "body": "The 2025 Cowboys made the 5A Division II football postseason and lost 7–56 at Sharyland November 13, ending a 3–8 season; the 2026 Cowboys must not be described as 2025 playoffs still live.",
+        "sourceUrl": "https://www.maxpreps.com/tx/brownsville/porter-cowboys/football/25-26/schedule/",
+        "sourceLabel": "MaxPreps 2025 3–8 and Sharyland postseason game"
+      },
+      {
+        "date": "August 27–September 3, 2026",
+        "title": "Cowboys open the season 2–0",
+        "body": "Reported 2026 finals give Porter 27–14 against Donna North and 34–12 against Valley View. The official Porter schedule corroborates opponents and assigns Valley View at Sams Stadium.",
+        "sourceUrl": "https://www.maxpreps.com/tx/brownsville/porter-cowboys/football/schedule/",
+        "sourceLabel": "MaxPreps 2026 scores and Porter official fixture calendar"
+      },
+      {
+        "date": "October 8, 2026",
+        "title": "Pace edges Porter 36–33 in Brownsville district play",
+        "body": "Pigskin Prep's current district table reports Porter 33, Pace 36, leaving Porter 2–5 before Ray. Pace's first-party varsity calendar independently places the match at Sams Stadium.",
+        "sourceUrl": "https://www.texashighschoolfootballhistory.com/showfreeschedules.asp?distID=408&yr=2026",
+        "sourceLabel": "Pigskin Prep 2026 updated 5A DII District 15 table"
+      },
+      {
+        "date": "October 15, 2026",
+        "title": "Corpus Christi Ray wins 69–0; 2–6 reported snapshot",
+        "body": "Pigskin Prep district scoreboard explicitly records Porter 0, Ray 69, and 2–6 overall. MaxPreps' Oct3 2–4 page is stale and its archived Ray matchup offers a preview only. The school official results cells are blank.",
+        "sourceUrl": "https://www.texashighschoolfootballhistory.com/showfreeschedules.asp?distID=408&yr=2026",
+        "sourceLabel": "Pigskin Prep Oct15 Ray/Porter final 69–0"
+      },
+      {
+        "date": "October 22/November 5, 2026",
+        "title": "Lopez away game at Sams; Mercedes home at Veterans Memorial Stadium",
+        "body": "The Porter BISD 2026 varsity schedule distinctly names October22 at Lopez at Sams Stadium and November5 home Mercedes at Veterans Memorial Stadium. These are future fixtures as of this October21 audit.",
+        "sourceUrl": "https://www.portercowboysathletics.net/sport/football/boys/?tab=schedule",
+        "sourceLabel": "Porter first-party 2026 varsity fixture site, date and kickoff"
+      }
+    ],
+    "overview": [
+      "Porter Early College High School is the football Cowboys program at 3500 International Boulevard in Brownsville, Cameron County. Its campus opened in 1974, named for civic benefactor Gladys Sams Porter. Brownsville ISD's museum and school history document the founding date and the 1973 district mascot/color choice; contemporary athletics directory identifies Cowboys with a blue, silver and white palette.",
+      "This is not the New Caney/Porter, Texas Spartans football program. All records, fixtures, stadium notices and school links belong to Brownsville ISD. A current first-party football coach assignment is not publicly established by the accessible official roster, so the profile does not invent a head coach.",
+      "Porter has three recorded football postseason qualifications but no UIL state football final or title. In 2025 the Cowboys finished 3–8 after the 5A Division II first-round 56–7 Sharyland loss. Separate historic sites disagree about 2024 total: DCTF 1–9 versus MaxPreps 0–10; this disputed record is explicitly disclosed, not presented as resolved.",
+      "The 2026 Cowboys beat Donna North 27–14 and Valley View 34–12, then lost six straight through Oct15, including 33–36 against crosstown Pace and 0–69 against Corpus Christi Ray. Pigskin Prep's Oct 2026 district sheet is a newer, fully dated third-party source; MaxPreps stopped updating its schedule Oct3 at 2–4. The official Porter varsity calendar records fixtures but no posted game finals, so the displayed 2–6 is attributed.",
+      "Porter is one of several BISD campuses using more than one athletics stadium. Its own schedule lists home games at Sams Stadium (including early 2026 fixtures) but places the November5 Mercedes home fixture at Veterans Memorial Stadium. The Oct22 Porter at Lopez game uses Sams Stadium. Do not substitute the 3500 International Blvd classroom address for a spectator stadium entrance.",
+      "Brownsville ISD Athletics directs athletic event buyers to online TicketsPicket links and has a distinct Sams Stadium policy. The exact November5 Veterans Memorial spectator gate and parking/accessibility were not independently located in a reliable first-party resource as of this research; readers should confirm the specific varsity event before driving."
+    ],
+    "faq": [
+      {
+        "question": "When did Gladys Porter High School in Brownsville open?",
+        "answer": "Brownsville ISD's own historical records say Gladys Porter High School opened in 1974 as the city's second public high school and was named for Brownsville community leader Gladys Sams Porter. School mascot and colors were chosen October 2, 1973."
+      },
+      {
+        "question": "What was the Brownsville Porter Cowboys reported 2026 record as of October 15?",
+        "answer": "An updated Pigskin Prep 2026 District 15-5A Division II results table lists Porter 2–6, following a 33–36 loss at Pace October 8 and 0–69 against Corpus Christi Ray October 15. The MaxPreps October 3 listing still says 2–4; the school official schedule leaves score cells blank."
+      },
+      {
+        "question": "What happened in Porter's 2025 football playoffs?",
+        "answer": "Brownsville Porter's 2025 Cowboys went 3–8 overall after losing 7–56 at Sharyland in a November 13 first-round UIL 5A Division II postseason match. That postseason appearance is not a football state title."
+      },
+      {
+        "question": "Which stadium hosts Porter home football games?",
+        "answer": "It depends on the specific fixture. BISD Porter's 2026 calendar lists October 22 at Lopez at Sams Stadium in Brownsville and November 5 versus Mercedes at Veterans Memorial Stadium. Other Porter home games used Sams Stadium. School campus at 3500 International Blvd is not the default spectator stadium."
+      },
+      {
+        "question": "Who is the 2026 Brownsville Porter varsity head coach?",
+        "answer": "The reviewed 2026 school athletics football listing does not publish a first-party head coach appointment. Its coach/staff directory only supplies unrelated athletic personnel or assistant titles. The guide does not invent a current head coach and recommends contacting Porter Athletics for the current varsity staff."
+      },
+      {
+        "question": "How many Texas UIL football state titles does Brownsville Porter have?",
+        "answer": "Dave Campbell's Texas Football Porter-specific archive lists 3 football playoff appearances, 0 football title-game appearances and 0 state football championships. School sports awards outside football are separate."
+      }
+    ]
+  },
   "brownsville-pace": {
     "slug": "brownsville-pace",
     "intro": "Brownsville's James Pace Early College High School opened in 1975 and fields the green-and-white Vikings. Its football history includes 16 recorded playoff appearances without a state-title-game berth, and a 2025 playoff season. In 2026, the Vikings rallied from 1–4 to consecutive District 15-5A Division II wins over Lopez and Porter, before a reported 41–7 loss at Mercedes on October 16 left Pace 3–5. This guide uses the school's official location-specific schedule and distinguishes third-party scores from school-certified results.",
