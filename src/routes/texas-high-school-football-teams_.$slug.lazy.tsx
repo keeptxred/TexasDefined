@@ -21,6 +21,7 @@ const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([
   'brenham',
   'bridge-city',
   'bridgeland',
+  'bridgeport',
   'big-sandy-harmony',
   'big-spring',
   'bishop',
