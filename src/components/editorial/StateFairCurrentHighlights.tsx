@@ -104,9 +104,9 @@ export function StateFairCurrentHighlights() {
           ))}
         </div>
 
-        <section className="mt-12" aria-labelledby="state-fair-five-experiences" data-state-fair-five-experiences>
+        <section className="mt-10" aria-labelledby="state-fair-five-experiences" data-state-fair-five-experiences>
           <p className="eyebrow text-primary">Five ways to explore the Fair</p>
-          <h3 id="state-fair-five-experiences" className="mt-2 font-display text-2xl md:text-3xl">
+          <h3 id="state-fair-five-experiences" className="mt-2 font-display text-3xl md:text-4xl">
             One Fair, five very different experiences
           </h3>
           <p className="mt-4 max-w-3xl leading-7 text-muted-foreground">
@@ -117,15 +117,15 @@ export function StateFairCurrentHighlights() {
             {fairExperiences.map((item) => (
               <article key={item.title} className="border border-border bg-background p-5">
                 <h4 className="font-display text-xl">{item.title}</h4>
-                <p className="mt-3 text-sm leading-7 text-muted-foreground">{item.body}</p>
-                <p className="mt-3 text-sm leading-7 text-muted-foreground"><strong className="text-foreground">Before you go:</strong> {item.usefulToKnow}</p>
-                <a href={item.source} target="_blank" rel="noopener noreferrer" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">
+                <p className="mt-4 text-sm leading-7 text-muted-foreground">{item.body}</p>
+                <p className="mt-4 text-sm leading-7 text-muted-foreground"><strong>Before you go:</strong> {item.usefulToKnow}</p>
+                <a href={item.source} target="_blank" rel="noopener noreferrer" className="mt-4 text-sm font-semibold text-primary underline underline-offset-4">
                   {item.sourceLabel} ↗
                 </a>
               </article>
             ))}
           </div>
-          <p className="mt-5 text-sm leading-6 text-muted-foreground">
+          <p className="mt-4 text-sm leading-6 text-muted-foreground">
             Comparing fair food specifically? Read our{" "}
             <Link to="/article/state-fair-texas-2026-new-foods-guide" className="font-semibold text-primary underline underline-offset-4">
               2026 State Fair food guide
