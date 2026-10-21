@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { texasDefinedBrand } from '@/brand/texasdefined';
-import { getProTeamsIndex } from '@/data/pro-teams.functions';
+import { getProTeamGuide } from '@/data/pro-teams.functions';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 export const Route = createFileRoute('/sports/teams')({
   loader: () => getProTeamsIndex(),
