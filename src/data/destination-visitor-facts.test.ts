@@ -5,6 +5,7 @@ import { applyCuratedDestination } from "./destination-curation.ts";
 import { applyCuratedDestinationBatch2 } from "./destination-curation-batch2.ts";
 import { applyCuratedDestinationBatch4 } from "./destination-curation-batch4.ts";
 import { applyCuratedDestinationBatch5 } from "./destination-curation-batch5.ts";
+import { applyCuratedDestinationBatch6 } from "./destination-curation-batch6.ts";
 import { applyCuratedDestinationBatch26 } from "./destination-curation-batch26.ts";
 import type { Destination } from "./types.ts";
 
@@ -192,4 +193,41 @@ test("Mother Neff south gate and Lockhart seasonal office schedule remain visibl
   assert.ok(neff.visitorFacts?.some((fact) => fact.topic === "access" && fact.detail.includes("closed indefinitely")));
   const lockhart = applyCuratedDestinationBatch5({ slug: "lockhart-state-park" } as Destination);
   assert.ok(lockhart.visitorFacts?.some((fact) => fact.topic === "hours" && fact.detail.includes("October–February")));
+});
+
+test("nine TPWD destinations use exact operator visitor rules rather than generic park defaults", () => {
+  const parks: Array<[string, number]> = [
+    ["bastrop-state-park", 2], ["blanco-state-park", 2],
+    ["copper-breaks-state-park", 2], ["devils-sinkhole-state-natural-area", 3],
+    ["fort-parker-state-park", 2], ["galveston-island-state-park", 2],
+    ["goliad-state-park-and-historic-site", 2], ["hill-country-state-natural-area", 3],
+    ["indian-lodge", 2],
+  ];
+  for (const [slug, count] of parks) {
+    const destination = applyCuratedDestinationBatch6({ slug } as Destination);
+    const fresh = reviewDestinationVisitorFacts(destination.visitorFacts, "2026-10-21");
+    assert.deepEqual(fresh.issues, [], slug);
+    assert.equal(fresh.visible.length, count, slug);
+    assert.ok(fresh.visible.every(({ sourceUrl }) => sourceUrl.startsWith("https://tpwd.texas.gov/state-parks/")), slug);
+    assert.ok(fresh.visible.every(({ checkedAt }) => checkedAt === "2026-10-21"), slug);
+    assert.equal(reviewDestinationVisitorFacts(destination.visitorFacts, "2027-03-01").visible.length, 0, slug);
+  }
+});
+
+test("Devil's Sinkhole remains tour-only and Indian Lodge is treated as lodging rather than day use", () => {
+  const sinkhole = applyCuratedDestinationBatch6({ slug: "devils-sinkhole-state-natural-area" } as Destination);
+  const facts = sinkhole.visitorFacts ?? [];
+  assert.ok(facts.some((fact) => fact.topic === "access" && fact.detail.includes("reserved guided tour")));
+  assert.ok(facts.some((fact) => fact.topic === "reservations" && fact.detail.includes("830-683-2287")));
+  assert.equal(facts.filter((fact) => fact.topic === "hours").length, 0);
+  const lodge = applyCuratedDestinationBatch6({ slug: "indian-lodge" } as Destination);
+  assert.ok(lodge.visitorFacts?.some((fact) => fact.topic === "admission" && fact.detail.includes("Overnight rooms")));
+  assert.ok(lodge.visitorFacts?.some((fact) => fact.topic === "hours" && fact.detail.includes("Black Bear Restaurant")));
+});
+
+test("Goliad historic buildings and Hill Country backcountry closures remain distinct from gate hours", () => {
+  const goliad = applyCuratedDestinationBatch6({ slug: "goliad-state-park-and-historic-site" } as Destination);
+  assert.ok(goliad.visitorFacts?.some((fact) => fact.topic === "hours" && fact.detail.includes("historic buildings")));
+  const hill = applyCuratedDestinationBatch6({ slug: "hill-country-state-natural-area" } as Destination);
+  assert.ok(hill.visitorFacts?.some((fact) => fact.topic === "access" && fact.detail.includes("poor weather")));
 });
