@@ -67,6 +67,220 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "brock": {
+    "slug": "brock",
+    "intro": "Brock ISD began football at junior high in 2011 and went from its first playoff-eligible varsity season in 2014 to the 2015 Class 3A Division I state championship. The Eagles went on to three more UIL state finals (2017, 2021 and 2022). For 2026, the official coaching directory names Billy Mathis head football coach and Chad Massey athletic director; separate reported scores place the Eagles at 6–1 through October 16. This independent guide distinguishes Brock's 400 Eagle Spirit Lane campus from unverified game-day stadium gates.",
+    "theme": {
+      "accentHex": "#275FAD",
+      "label": "Independent TexasDefined blue editorial accent inspired by UIL-documented Royal & Gold school colors; no school logo or unlicensed team photograph."
+    },
+    "seo": {
+      "title": "Brock Eagles Football | 2015 UIL Title, Four State Finals & 2026",
+      "description": "Brock Eagles: football began in 2011, 2015 UIL 3A title and 2017/2021/2022 finals, coach Billy Mathis, reported 6–1 in 2026 and official schedule."
+    },
+    "coach": {
+      "name": "Billy Mathis",
+      "title": "Brock ISD 2026 head football coach (Chad Massey is athletic director)",
+      "sourceUrl": "https://www.brockisdathletics.com/directory",
+      "sourceLabel": "Brock ISD official athletics directory distinctly lists Billy Mathis Head Football Coach and Chad Massey Athletic Director",
+      "verifiedAt": "2026-10-20"
+    },
+    "campus": {
+      "address": "400 Eagle Spirit Lane, Brock, TX 76087 — high school campus, not independently established as stadium spectator gate",
+      "phone": "817-596-7425",
+      "sourceUrl": "https://hs.brockisd.net/",
+      "sourceLabel": "Brock High School official footer and contact information",
+      "verifiedAt": "2026-10-20"
+    },
+    "schedule": {
+      "label": "Brock Athletics first-party 2026 varsity schedule including scrimmages and the actual home/away sites",
+      "sourceUrl": "https://www.brockisdathletics.com/sport/football/boys/",
+      "sourceLabel": "Brock ISD first-party 2026–27 varsity opponents, home/away, exact dates, times and empty results columns",
+      "verifiedAt": "2026-10-20",
+      "officialScheduleUrl": "https://www.brockisdathletics.com/sport/football/boys/"
+    },
+    "season": {
+      "record": "6–1 through October 16, 2026 (independent reported game results; school schedule has no populated finals)",
+      "verifiedAt": "2026-10-20",
+      "sourceUrl": "https://www.maxpreps.com/tx/brock/brock-eagles/football/schedule/",
+      "sourceLabel": "MaxPreps 2026 through Oct 2 schedule is stale at 4–1; separately dated Oct 9 Glen Rose and Oct 17 Brock–Bridgeport game reports establish 6–1, and official Brock ISD schedule verifies game/opponent dates",
+      "latestResultSourceUrl": "https://www.maxpreps.com/m/news/yDszgS6HrkS8TlDIPF9gOg/football-recap-brock-piles-up-the-points-against-bridgeport.htm",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Springtown",
+          "site": "Home",
+          "result": "W 42–20"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Anna",
+          "site": "Away",
+          "result": "L 27–38"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Midland Christian",
+          "site": "Home",
+          "result": "W 52–10"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Monterrey Tech (official Brock ISD listing; MaxPreps says Varsity Opponent)",
+          "site": "Home",
+          "result": "W 63–7"
+        },
+        {
+          "date": "2026-10-02",
+          "opponent": "Burkburnett",
+          "site": "Home",
+          "district": true,
+          "result": "W 72–7"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Glen Rose",
+          "site": "Away",
+          "result": "W 56–17"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Bridgeport",
+          "site": "Home",
+          "district": true,
+          "result": "W 77–0"
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Iowa Park",
+          "site": "Away",
+          "district": true,
+          "kickoff": "7:00 PM"
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Graham",
+          "site": "Home",
+          "district": true,
+          "kickoff": "7:00 PM"
+        },
+        {
+          "date": "2026-11-06",
+          "opponent": "Mineral Wells",
+          "site": "Away",
+          "district": true,
+          "kickoff": "7:00 PM"
+        }
+      ]
+    },
+    "venue": {
+      "name": "Brock ISD varsity home football field — exact visitor gate unconfirmed",
+      "address": "Brock, TX (Brock High School campus 400 Eagle Spirit Lane is a contact address, not certified gate/parking instructions)",
+      "sourceUrl": "https://www.brockisdathletics.com/sport/football/boys/",
+      "sourceLabel": "First-party Brock varsity calendar lists home field 'Brock, TX', Oct 30 Graham Senior Night; detailed stadium addresses link to third-party directory",
+      "verifiedAt": "2026-10-20",
+      "note": "Official home games are in Brock. Confirm actual spectator entrance, parking, accessible seating, current ticketing and stadium entrance with the athletic office rather than relying on campus mailing address."
+    },
+    "development": {
+      "title": "From 2011 new-program launch to four UIL title-game appearances",
+      "body": "Brock ISD dates the launch of football at junior-high level to 2011, a JV 2012 campaign, a non-playoff-eligible 8–2 varsity season in 2013 and a 12–2 district-eligible quarterfinal run in 2014. In 2015 Brock finished 16–0 and beat Cameron Yoe 43–33 for the 3A Division I crown. UIL all-time state-final history records four appearances: 2015 title plus runner-up to Rockdale in 2017 (45–29), Lorena in 2021 (35–18) and Franklin in 2022 (17–14). The official district history is shorter but UIL's full archive takes precedence.",
+      "sourceUrl": "https://www.uiltexas.org/football/all-time-appearances",
+      "sourceLabel": "UIL all-time football finals count plus Brock ISD first-party program chronology and UIL annual championship archives",
+      "verifiedAt": "2026-10-20"
+    },
+    "milestones": [
+      {
+        "date": "2011",
+        "title": "Football begins with junior-high players",
+        "body": "Brock ISD official football history begins the program in 2011, followed by high-school JV in 2012 rather than a longstanding UIL varsity legacy.",
+        "sourceUrl": "https://www.brockisdathletics.com/football-history-%26-championships",
+        "sourceLabel": "Official Brock ISD Football History and Championships"
+      },
+      {
+        "date": "2014",
+        "title": "First playoff-eligible varsity campaign finishes 12–2",
+        "body": "Following a non-eligible varsity 2013 schedule, Brock's 2014 first UIL district/playoff-eligible team reached the state quarterfinals.",
+        "sourceUrl": "https://www.brockisdathletics.com/football-history-%26-championships",
+        "sourceLabel": "Brock ISD program chronology"
+      },
+      {
+        "date": "2015",
+        "title": "Perfect 16–0 season ends 43–33 against Cameron Yoe",
+        "body": "Brock won its first UIL football state championship in Class 3A Division I. The 2015–16 UIL team roster lists Chad Worrell as that season's coach, not Billy Mathis.",
+        "sourceUrl": "https://www.uiltexas.org/football/state-team/brock-2015-2016-football",
+        "sourceLabel": "UIL 2015 Brock championship team roster and first-party district history"
+      },
+      {
+        "date": "2017",
+        "title": "Brock returns to the UIL final against Rockdale",
+        "body": "Rockdale beat the Eagles 45–29 in the Class 3A Division I championship. The 2017 runner-up appearance is part of the UIL four-final history, even when omitted from abbreviated summaries.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives/P98",
+        "sourceLabel": "UIL 2017–18 official 3A Division I champions archive"
+      },
+      {
+        "date": "2021",
+        "title": "Lorena wins the 3A Division I title 35–18 over Brock",
+        "body": "Billy Mathis coached Brock's 2021 state-final season, which ended as runner-up to Lorena according to UIL.",
+        "sourceUrl": "https://www.uiltexas.org/football/archives/P46",
+        "sourceLabel": "UIL 2021–22 championship final and Brock state-team coaching roster"
+      },
+      {
+        "date": "2022",
+        "title": "Fourth title-game season finishes runner-up to Franklin",
+        "body": "Franklin's 17–14 3A Division I win leaves Brock at one state title in four final appearances through 2022.",
+        "sourceUrl": "https://www.uiltexas.org/football/all-time-appearances",
+        "sourceLabel": "UIL football all-time appearances and 2022 result"
+      },
+      {
+        "date": "2026",
+        "title": "School-run directory identifies Mathis coach and Massey AD",
+        "body": "The current Brock ISD staff listing explicitly separates Billy Mathis Head Football Coach from athletic director Chad Massey.",
+        "sourceUrl": "https://www.brockisdathletics.com/directory",
+        "sourceLabel": "Official Brock athletics coaches directory"
+      },
+      {
+        "date": "October 16, 2026",
+        "title": "Brock defeats Bridgeport 77–0 in its school-scheduled homecoming game",
+        "body": "An October 17 game recap calls Brock 6–1 and Bridgeport 1–6. The school scheduled the Oct 16 Bridgeport homecoming fixture but has yet to publish scores in its calendar.",
+        "sourceUrl": "https://www.maxpreps.com/m/news/yDszgS6HrkS8TlDIPF9gOg/football-recap-brock-piles-up-the-points-against-bridgeport.htm",
+        "sourceLabel": "MaxPreps Oct 17 football recap plus Brock ISD school schedule"
+      }
+    ],
+    "overview": [
+      "Brock's early years need chronology, not generic traditions: Brock ISD established a junior-high program in 2011, scheduled junior varsity in 2012, and gave varsity a non-playoff 8–2 introduction in 2013. The first eligible 2014 team went 12–2 and reached the quarterfinals; 2015 yielded the state championship.",
+      "The 2015 title was 43–33 over Cameron Yoe after a 16–0 Brock season. The UIL championship count is one and its state-title-game appearance count is four: 2015, 2017, 2021 and 2022. The UIL's record overrides shorter district tables that focus only on 2015 and one later finalist year.",
+      "Historical coaches are not current staff: Chad Worrell coached the 2015 champions, while Brock ISD's October 2026 staff directory names Billy Mathis head football coach and Chad Massey athletic director. The historic UIL 2021 team file confirms Mathis's role then too.",
+      "The 2026 varsity schedule lists Brownwood and Stephenville scrimmages before August 28; those scrimmages are not regular-season wins or losses. Brock's actual posted game calendar identifies Monterrey Tech September 25, whereas the third-party scores ledger anonymizes it as Varsity Opponent. The result is 63–7, but school opponent identity is preferred.",
+      "MaxPreps's Oct 8 aggregate schedule stops at a 4–1 record, despite individual posts confirming Brock 56–17 at Glen Rose on October 9 and 77–0 against Bridgeport on October 16. These complete reported scores add up to 6–1 through Oct 16; school-managed schedule has no final scores. They are dated external reports, not an official certified Brock ISD scorebook.",
+      "The October 23 visit to Iowa Park, October 30 Graham Senior Night game in Brock, and November 6 away game at Mineral Wells remain future fixtures as of Oct 20. Official campus address is 400 Eagle Spirit Lane, but stadium parking/entrances and ADA access must be confirmed with Brock ISD for each event; a campus address is not automatically a public stadium gate."
+    ],
+    "faq": [
+      {
+        "question": "How many UIL football state titles and championship-game appearances does Brock have?",
+        "answer": "One title and four final appearances. Brock beat Cameron Yoe 43–33 in the 2015 3A Division I final and finished runner-up in 2017 against Rockdale, 2021 against Lorena and 2022 against Franklin, according to UIL."
+      },
+      {
+        "question": "When did Brock High School start playing football?",
+        "answer": "Brock ISD launched junior-high football in 2011, junior-varsity high school play in 2012 and a varsity but non-playoff-eligible schedule in 2013. The 2014 team was its first UIL playoff-eligible varsity campaign."
+      },
+      {
+        "question": "Who is Brock's head football coach in 2026?",
+        "answer": "Billy Mathis, per Brock ISD's current athletics directory. Chad Massey is the listed athletics director. Chad Worrell coached the 2015 state champions, a different historical period."
+      },
+      {
+        "question": "What is Brock's 2026 football record through October 16?",
+        "answer": "Six wins and one loss from reported finals through October 16, including 56–17 at Glen Rose and 77–0 against Bridgeport. The first-party Brock calendar has not published its own finals, and an older MaxPreps Oct 8 snapshot remains 4–1."
+      },
+      {
+        "question": "Where is Brock's home football game venue?",
+        "answer": "The first-party Brock Athletics calendar lists home fixtures in Brock, Texas; the high school's campus is 400 Eagle Spirit Lane. Public stadium entrances, event parking, ADA and current ticket policy should be checked with the athletic office rather than inferred from the campus postal address."
+      },
+      {
+        "question": "What does Brock list for the September 25, 2026 opponent?",
+        "answer": "The official Brock ISD varsity calendar says Monterrey Tech, while MaxPreps labels its 63–7 opponent generically 'Varsity Opponent.' TexasDefined uses the school-controlled opponent identity and reports the third-party label discrepancy."
+      }
+    ]
+  },
   "bridgeport": {
     "slug": "bridgeport",
     "intro": "Bridgeport's Bulls are a Wise County football program whose home field has a first-party address and a current stadium-turf access notice—details generic scores pages miss. The school's official 2026 staff identifies Aaron Cupp as head coach/athletic director, Jeff Oliver on offense and Lane Pinkston on defense. Historical football records list 22 playoff appearances but no UIL state final, while the reported October 16, 2026 77–0 result at Brock places the Bulls at 1–6; the school's own score cells remain blank.",
