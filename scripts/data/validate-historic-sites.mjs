@@ -476,7 +476,10 @@ for (const [slug, label] of [
 
 const exploreSitemapSource = fs.readFileSync('src/routes/sitemap-explore[.]xml.ts', 'utf8');
 if (!exploreSitemapSource.includes(').map(applyHistoricSiteFactCorrections)') || !exploreSitemapSource.includes('import("@/data/historic-site-fact-corrections")')) failures.push("Explore sitemap does not apply resolved historic-site photo and closure corrections before indexability gating.");
-if (!destinationRoute.includes('isPrimaryTripPlannerDestination(destination) && <div className="mt-10"><DestinationVisitPlanner')) failures.push("Destination visit planner still promotes inaccessible historic sites as ordinary visitor stops.");
+// The same closed-site trip-planner gate applies with either eager rendering or
+// the performance-safe lazy Suspense boundary used for below-the-fold content.
+const hasGuardedVisitorPlanner = /isPrimaryTripPlannerDestination\(destination\)\s*&&\s*<div className="mt-10">\s*(?:<Suspense fallback=\{null\}>)?\s*<DestinationVisitPlanner\b/.test(destinationRoute);
+if (!hasGuardedVisitorPlanner) failures.push("Destination visit planner still promotes inaccessible historic sites as ordinary visitor stops.");
 if (!fullAuthorityFile.includes('File:Kreische_Brewery_Ruins_Lower_View.jpg') || !fullAuthorityFile.includes('File:Monument_hill_monument.jpg')) failures.push("Original licensed file-level photo attribution links missing from public historic authority guide sources.");
 
 const exactHeroAliases = ['barrington-living-history-farm','fanthorp-inn','kreische-brewery','monument-hill','san-jacinto-battleground','washington-on-the-brazos'];

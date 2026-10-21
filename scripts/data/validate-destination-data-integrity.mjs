@@ -53,6 +53,7 @@ for (const required of [
   'function countyDisplayName(value: string)',
   'function countyRouteSlug(value?: string)',
   'eyebrow="Quick trip facts"',
+  '<DestinationVerifiedVisitorFacts destination={destination} />',
   'minHeight: "clamp(24rem, 52vw, 32rem)"',
 ]) {
   if (!destinationRoute.includes(required)) errors.push(`Destination compact-layout safeguard missing: ${required}.`);

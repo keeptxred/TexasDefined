@@ -139,7 +139,20 @@ export interface DestinationAuthorityGuide {
   sources: DestinationAuthoritySource[];
 }
 
-export interface Destination { gallery?: Array<{ image: ImageRef; caption: string; sourceUrl: string }>; id: string; brandId: BrandId; slug: Slug; name: string; summary: string; category: CategorySlug; region: TexasRegion; geography?: TexasGeographyAssignment; nearestTown: string; coordinates: GeoPoint; hero: ImageRef; bestSeason: string; entryNote: string; highlights: string[]; body: string[]; managingAuthority?: string; officialUrl?: string; sourceCheckedAt?: string; reservationUrl?: string; county?: string; address?: string; directions?: string; accessibilityNotes?: string; areaGuide?: DestinationAreaGuide; authorityGuide?: DestinationAuthorityGuide; visitorFaqs?: Array<{ question: string; answer: string; sourceUrl?: string }>; featured?: boolean; }
+/** Optional, individually verified visitor answers. Never synthesize missing fields. */
+export type DestinationVisitorFactTopic =
+  | "admission" | "hours" | "reservations" | "parking"
+  | "access" | "accessibility" | "pets" | "swimming" | "camping" | "transit";
+export interface DestinationVisitorFact {
+  topic: DestinationVisitorFactTopic;
+  label: string;
+  detail: string;
+  /** Direct destination-specific primary-source URL for this exact fact. */
+  sourceUrl: string;
+  /** ISO calendar day on which an editor last confirmed the statement. */
+  checkedAt: string;
+}
+export interface Destination { visitorFacts?: DestinationVisitorFact[]; gallery?: Array<{ image: ImageRef; caption: string; sourceUrl: string }>; id: string; brandId: BrandId; slug: Slug; name: string; summary: string; category: CategorySlug; region: TexasRegion; geography?: TexasGeographyAssignment; nearestTown: string; coordinates: GeoPoint; hero: ImageRef; bestSeason: string; entryNote: string; highlights: string[]; body: string[]; managingAuthority?: string; officialUrl?: string; sourceCheckedAt?: string; reservationUrl?: string; county?: string; address?: string; directions?: string; accessibilityNotes?: string; areaGuide?: DestinationAreaGuide; authorityGuide?: DestinationAuthorityGuide; visitorFaqs?: Array<{ question: string; answer: string; sourceUrl?: string }>; featured?: boolean; }
 
 export interface ProductVariant { id: number; title: string; price: number; image?: string | null; images?: string[]; color?: string; is_enabled?: boolean; }
 export interface Product {
