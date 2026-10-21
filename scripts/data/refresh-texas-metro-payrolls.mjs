@@ -138,10 +138,47 @@ async function fredSource() {
     signal: AbortSignal.timeout(25_000),
     headers: { accept: 'text/csv' },
   });
-  if (response.status !== 200) throw new Error('Federal Reserve BLS-series source unavailable: HTTP ' + response.status);
-  const body = await response.text();
-  if (body.length < 300) throw new Error('Federal Reserve BLS-series CSV unexpectedly short');
-  return body;
+  if (response.status === 200) {
+    const body = await response.text();
+    // FRED sometimes responds with an HTML graph to a combined id= request.
+    // Do not treat an HTML 200 as a successful data response.
+    if (/^(?:observation_date|DATE|Date),/i.test(body.trimStart().replace(/^\uFEFF/, ''))) {
+      return body;
+    }
+  }
+  console.warn('Combined Federal Reserve BLS data download was not CSV; using individual series downloads');
+  const entries = [];
+  // Small bounded batches avoid creating 13 concurrent requests to FRED.
+  for (let start = 0; start < fredSeries.length; start += 3) {
+    const ids = fredSeries.slice(start, start + 3);
+    const batch = await Promise.all(ids.map(async id => {
+      const url = 'https://fred.stlouisfed.org/graph/fredgraph.csv?id=' + id;
+      const resp = await fetch(url, {
+        signal: AbortSignal.timeout(25_000),
+        headers: { accept: 'text/csv' },
+      });
+      if (resp.status !== 200) throw new Error('Federal Reserve individual series ' + id + ' HTTP ' + resp.status);
+      const body = (await resp.text()).replace(/^\uFEFF/, '').trim();
+      const records = body.split(/\r?\n/).map(line => line.split(',').map(v => v.trim().replace(/^"|"$/g, '')));
+      const header = records.shift();
+      if (!header || header.length !== 2 || !['date','observation_date'].includes(header[0].toLowerCase()) ||
+          header[1] !== id) {
+        throw new Error('Federal Reserve individual series ' + id + ' did not return official two-column CSV');
+      }
+      const valid = records.filter(row => row.length === 2 && /^\d{4}-\d{2}-01$/.test(row[0]) &&
+        /^\d+(?:\.\d+)?$/.test(row[1]));
+      const latest = valid.sort((a, b) => a[0].localeCompare(b[0])).at(-1);
+      if (!latest) throw new Error('Federal Reserve individual series ' + id + ' has no valid observation');
+      return { id, date: latest[0], value: latest[1] };
+    }));
+    entries.push(...batch);
+  }
+  const date = entries[0]?.date;
+  if (!date || entries.some(row => row.date !== date)) {
+    throw new Error('Federal Reserve monthly BLS series do not share one release month');
+  }
+  return 'observation_date,' + fredSeries.join(',') + '\n' +
+    date + ',' + entries.map(row => row.value).join(',') + '\n';
 }
 
 export function validateFresh(data, previous) {
