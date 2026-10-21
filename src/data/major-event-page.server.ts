@@ -189,6 +189,15 @@ export function getMajorEventRecordServer(slug: string) {
       ],
     };
   }
+  if (event.slug === "kemah-yachty-gras") {
+    return {
+      ...event,
+      occurrenceWindows: [
+        { label: "Yachty Gras boat parade", startDate: "2027-02-06", endDate: "2027-02-06" },
+        { label: "Grand Mardi Gras street parade", startDate: "2027-02-09", endDate: "2027-02-09" },
+      ],
+    };
+  }
   if (event.slug === "mardi-gras-galveston") {
     return {
       ...event,
