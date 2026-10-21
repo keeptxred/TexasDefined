@@ -12,8 +12,15 @@ import {
   uilFootballEnrollmentBandForEnrollment,
 } from '@/data/high-school-football/enrollment-bands';
 
-// Original data-derived visual results for Batch 006; no unlicensed logos or photos.
-const BATCH_006_GRAPHIC_SCHOOLS = new Set([
+// Original, school-specific source-derived visual finals; no unlicensed school photos, logos or seals.
+const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([
+  'brackettville-brackett',
+  'brady',
+  'breckenridge',
+  'bremond',
+  'brenham',
+  'bridge-city',
+  'bridgeland',
   'big-sandy-harmony',
   'big-spring',
   'bishop',
@@ -429,7 +436,7 @@ function Page() {
               <Snapshot label="Record when checked" value={editorial.season.record} />
               <Snapshot label="Season data verified" value={formatFootballDate(editorial.season.verifiedAt)} />
             </dl>
-            {BATCH_006_GRAPHIC_SCHOOLS.has(slug) && <ReportedFormIllustration
+            {FOOTBALL_SOURCE_GRAPHIC_SCHOOLS.has(slug) && <ReportedFormIllustration
               schoolName={footballName}
               games={editorial.season.games}
               sourceUrl={editorial.season.sourceUrl}
