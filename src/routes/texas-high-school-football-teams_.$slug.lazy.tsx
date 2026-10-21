@@ -23,6 +23,7 @@ const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([
   'bridgeland',
   'bridgeport',
   'brock',
+  'bronte',
   'big-sandy-harmony',
   'big-spring',
   'bishop',
