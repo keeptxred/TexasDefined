@@ -12,8 +12,33 @@ import {
   uilFootballEnrollmentBandForEnrollment,
 } from '@/data/high-school-football/enrollment-bands';
 
-// Original data-derived visual results for Batch 006; no unlicensed logos or photos.
-const BATCH_006_GRAPHIC_SCHOOLS = new Set([
+// Original, school-specific source-derived visual finals; no unlicensed school photos, logos or seals.
+const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([
+  'bruceville-eddy',
+  'bruni',
+  'brackettville-brackett',
+  'brady',
+  'breckenridge',
+  'bremond',
+  'brenham',
+  'bridge-city',
+  'bridgeland',
+  'bridgeport',
+  'brock',
+  'bronte',
+  'brookesmith',
+  'brownfield',
+  'brownsboro',
+  'brownsville-hanna',
+  'brownsville-lopez',
+  'brownsville-pace',
+  'brownsville-porter',
+  'brownsville-rivera',
+  'brownsville-veterans-memorial',
+  'brownwood',
+  'bryan',
+  'bryan-rudder',
+  'bryson',
   'big-sandy-harmony',
   'big-spring',
   'bishop',
@@ -101,6 +126,31 @@ function Page() {
   // Campus-county mapping for individually sourced Batch 002 profiles;
   // city names and district service areas are not dependable campus-county proxies.
   const researchedCampusCounty: Record<string, string> = {
+    'bruceville-eddy': 'mclennan', // TEA 161919 confirms Eddy ISD physical campus in McLennan County, not nearby Bell County.
+    'bruni': 'webb', // Webb CISD first-party Bruni campus 619 Avenue F, southern Webb County; six-man spectator gates not verified.
+    'bryson': 'jack', // NCES school district 4811820: 300 N McCloud St physical campus in Jack County; 305/309 third-party field listings are not a proven gate.
+    'bryan': 'brazos', // Bryan ISD first-party campus 3450 Campus Drive in Brazos County; Merrill Green Stadium 3310 Oak Ridge Dr is distinct.
+    'bryan-rudder': 'brazos', // Rudder High Bryan ISD at 3251 Austin's Colony Pkwy in Brazos County; shared Merrill Green Stadium is 3310 Oak Ridge.
+    'brownwood': 'brown', // Brownwood HS 2100 Slayden campus in Brown County; Gordon Wood Stadium separate at 3206 Milam Dr.
+    'brownsville-veterans-memorial': 'cameron', // First-party Brownsville BISD Veterans ECHS campus 1000 Charger Lane conflicts with athletic site US Hwy281 footer; neither is stadium gate.
+    'brownsville-rivera': 'cameron', // BISD Rivera school history identifies campus 6955 FM 802 in Brownsville Cameron County; football site footer says FM801 in conflict.
+    'brownsville-porter': 'cameron', // BISD 3500 International Blvd Brownsville Porter academic campus; uses multiple stadiums, not campus gate.
+    'brownsville-pace': 'cameron', // Official Pace ECHS 314 W Los Ebanos in Cameron County; football at Sams or Veterans Memorial by event.
+    'brownsville-lopez': 'cameron', // Brownsville ISD Lopez campus 3205 S Dakota Ave, Cameron County, not Sams Stadium spectator gates.
+    'brownsville-hanna': 'cameron', // BISD first-party Hanna ECHS 2615 E Price Road in Cameron County, not a stadium spectator entrance.
+    'brownsboro': 'henderson', // BISD official Brownsboro HS 13942 State Hwy 31 E, Henderson County; district office 14134 is distinct.
+    'brownfield': 'terry', // Brownfield High first-party 702 Cub Drive campus Terry County; MaxPreps has conflicting 701 number and stadium gate unverified.
+    'brookesmith': 'brown', // Brookesmith ISD official 13400 FM 586 S campus in Brown County; stadium field/gate unverified.
+    'bronte': 'coke', // Bronte ISD official 210 S Jefferson Street high school campus in Coke County, separate from unconfirmed Stephenson Stadium gate.
+    'brock': 'parker', // Brock ISD 400 Eagle Spirit Lane football campus in Parker County; visitor stadium entrance remains unverified.
+    'bridgeport': 'wise', // Bridgeport High official One Maroon Dr campus in Wise County; Bull Memorial Stadium 702 17th St is separate.
+    'bridgeland': 'harris', // Official CFISD campus 10707 Mason Road in Cypress, Harris County; Oct 23 game venue on Barker Cypress is separate.
+    'bridge-city': 'orange', // Bridge City ISD first-party BCHS 2690 Texas Ave campus, Orange County; stadium gate unverified.
+    bremond: 'robertson', // Bremond ISD 601 W Collins campus in Robertson County, not a football stadium gate.
+    brenham: 'washington', // Brenham ISD varsity campus 525 A.H. Ehrig in Washington County.
+    'brackettville-brackett': 'kinney', // NCES Brackett High physical campus 481107000572, not an assumed stadium gate.
+    brady: 'mcculloch', // Brady High School 2301 Hwy 190 in Brady, McCulloch County; venue entry unconfirmed.
+    breckenridge: 'stephens', // Breckenridge High School 500 W Lindsey, distinct from Buckaroo Stadium.
     boerne: 'kendall', // First-party Boerne High School located in Boerne, Kendall County.
     'boerne-champion': 'kendall', // Samuel V. Champion High School's official 201 Charger Blvd campus is in Kendall County.
     'bogata-rivercrest': 'red-river', // TEA campus 194903001 / NCES identify Rivercrest High in Red River County.
@@ -422,7 +472,7 @@ function Page() {
               <Snapshot label="Record when checked" value={editorial.season.record} />
               <Snapshot label="Season data verified" value={formatFootballDate(editorial.season.verifiedAt)} />
             </dl>
-            {BATCH_006_GRAPHIC_SCHOOLS.has(slug) && <ReportedFormIllustration
+            {FOOTBALL_SOURCE_GRAPHIC_SCHOOLS.has(slug) && <ReportedFormIllustration
               schoolName={footballName}
               games={editorial.season.games}
               sourceUrl={editorial.season.sourceUrl}
@@ -900,15 +950,15 @@ function ReportedFormIllustration({
   sourceUrl: string;
   accent: string;
 }) {
-  // Only source-attributed finals; an unreported or cancelled fixture cannot
-  // be presented as a result. Score disputes remain visible as written.
+  // Only source-attributed game results and administrative awards; unreported or cancelled
+  // fixtures cannot be presented as played. Forfeits are expressly labeled as non-played.
   const finals = games.filter((game) => /^[WLT] /.test(game.result || ''));
   if (finals.length === 0) return null;
   return <figure className="mt-6 border border-border bg-surface p-4 sm:p-6" aria-label={schoolName + ': dated visual timeline of reported 2026 football finals'}>
     <figcaption className="mb-4">
       <span className="text-xs font-semibold uppercase text-muted-foreground">2026 results · visual snapshot</span>
       <p className="mt-2 font-display text-xl font-semibold text-surface-foreground">The games behind the record</p>
-      <p className="mt-1 text-xs leading-5 text-muted-foreground">Original TexasDefined source-derived graphic. W = win, L = loss, T = tie. Not a live scoreboard or certified district standings.</p>
+      <p className="mt-1 text-xs leading-5 text-muted-foreground">Original TexasDefined source-derived graphic. W = win, L = loss, T = tie. Any expressly labeled forfeit is an awarded administrative outcome, not a played score. Not a live scoreboard or certified district standings.</p>
     </figcaption>
     <ol className="grid grid-cols-2 gap-3 sm:grid-cols-3">
       {finals.map((game) => {
@@ -924,7 +974,7 @@ function ReportedFormIllustration({
         </li>;
       })}
     </ol>
-    <p className="mt-4 text-xs leading-5 text-muted-foreground">Shows only source-reported finals entered into this school record. Scheduled, cancelled and unverified games are excluded. <a href={sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Review the cited results source ↗</a></p>
+    <p className="mt-4 text-xs leading-5 text-muted-foreground">Shows source-reported completed and awarded outcomes entered into this school record. Forfeits are labeled, not actual played scores; scheduled, cancelled and unverified games are excluded. <a href={sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Review the cited results source ↗</a></p>
   </figure>;
 }
 

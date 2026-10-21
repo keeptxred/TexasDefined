@@ -1,0 +1,23 @@
+# Bruni Badgers — individually researched Batch 007 six-man football authority guide
+
+**Source and branch checkpoint:** October 21, 2026. Canonical target: https://texasdefined.com/texas-high-school-football-teams/bruni. **IMPLEMENTED on draft Batch 007 PR #5525, NOT production merged or VERIFIED.**
+
+## Fundamental correction and new original features
+
+Bruni is one of the easiest UIL records to misstate: the small Webb County program canceled its **2025 eleven-man** season, **not all football**, and instead played a six-man schedule outside a UIL six-man district. **2026 is the new six-man district era: UIL 1A Division I District 16.** Historic 17 football playoff appearances and 2015–16 regional final finishes refer to earlier eleven-man years, not six-man state crowns. The existing school website's football hub still links old 2025 material, not a 2026 date-complete scorebook.
+
+A unique source-based guide now includes an original historical transition narrative, eight milestones and six tailored FAQs, 2026 seven reported finals and three unplayed matches, attributed coach and mismatched coaching directory caveat, first-party Webb CISD contact, stadium uncertainty, Webb County reciprocal link and original source-derived results illustration. No unlicensed athlete photos, school seals, images or mascots copied.
+
+## Primary, period and contemporary sources
+
+- [Webb CISD official school football hub](https://www.webbcisd.org/41271_2): school 619 Avenue F, Bruni, Texas 78344, phone 361-747-5415. The hub links a 2025 BHS/BMS document and MaxPreps; it **does not** certify a live 2026 varsity scores or ticket feed.
+- [Dave Campbell's August 14, 2025 original report](https://www.texasfootball.com/article/2025/08/14/breaking-uil-bruni-cancels-2025-season-due-to-low-numbers): only **12** students at fall football workouts; Bruni canceled **11-man schedule**, played independent six-man in 2025, aimed to join six-man UIL district in 2026. Historical 2015 and 2016 **regional finals** on 11-man side; previous roster ~81 and projected enrollment ~66.
+- [KGNS August 23, 2026 interview](https://www.kgns.tv/2026/08/24/badgers-look-ahead-life-6-man/) confirms UIL District **16-1A six-man** and directly identifies **Federico Lujan** as new coach replacing Paul Veirs. [SixManFootball](https://sixmanfootball.com/teams/bruni-badgers.19280/) abbreviates *Freddie Lujan*, while [MaxPreps history](https://www.maxpreps.com/tx/bruni/bruni-badgers/football/history/) says **Williams Calderon** under the 2026 coach field. For contemporary coaching identity KGNS's interview takes precedence; exact district employment paperwork requires direct school check.
+- [UIL 2026 football realignments](https://www.uiltexas.org/football/alignments) and [SixManFootball school profile](https://sixmanfootball.com/teams/bruni-badgers.19280/) identify Bruni as a UIL Class 1A Division I six-man program in District 16. Do not use 2025 2A eleven-man district or Badger Stadium as a certainty for 2026.
+- [MaxPreps 2026 complete 10-game schedule](https://www.maxpreps.com/tx/bruni/bruni-badgers/football/schedule/), last updated October 17, records **0–7, 0–2 district** through October 16: Hermleigh **L 0–50**, Annapolis Christian **L 0–51**, Benavides **L 12–26**, Victoria Gators **L 6–56**, St Augustine **L 25–31**, Prairie Lea **L 25–45**, Nueces Canyon **L 6–47**. [Texas Prep Football](https://txprepfootball.com/schools/bruni-badgers/) independently confirms last game. Future Oct 23 at Leakey, Oct 30 Knippa, Nov 6 Medina are unplayed at checkpoint.
+- [Dave Campbell's Bruni history](https://www.texasfootball.com/team/bruni-badgers) counts **17** historic playoff appearances and **no** football title game, and names a historic *Badger Stadium* with 1,600 capacity. [SixManFootball](https://sixmanfootball.com/teams/bruni-badgers.19280/) uses *Bruni Badgers Field*. Neither proves the 2026 six-man spectator gate, parking, ticketing or accessibility.
+- School colors show conflicting third-party values across sources; editorial uses an independent blue accent only, **not an asserted officially licensed school palette**.
+
+## QA still required
+
+Validate the 2026 coach and sport-format source fields, venue and ADA/parking with Webb CISD; watch the exact Leakey fixture, never invent school stadium gate. Run bounded technical source checks, browser and score graphics at 1366px/390px/320px, canonical/FAQ and Webb County reciprocity, protected merge, production deploy and single release version confirmation before VERIFIED. **No football photo or logo permission represented.**
