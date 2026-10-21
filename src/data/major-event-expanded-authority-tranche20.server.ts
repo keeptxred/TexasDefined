@@ -49,9 +49,15 @@ const records: MajorEventAuthorityRecord[] = [
       { title: "Choose a specific Friday or Saturday performance", body: "The official 2026 schedule listed 8 p.m. shows on Fridays and Saturdays from June 19 through August 1, weather permitting. Future visitors should use the organizer's next published season schedule rather than extrapolating from the discovery inventory." },
       { title: "Plan for an outdoor canyon venue", body: "McKelligon Canyon is part of the experience. Check the current weather policy, arrival guidance and ticket information before traveling, and allow extra time for venue access compared with an indoor downtown theater." },
       { title: "Use the show as an El Paso history anchor", body: "The production is designed around four centuries and multiple cultures in the El Paso region. Pair the performance with local historic districts, museums or Franklin Mountains stops to give the stage narrative geographic context." },
+      { title: "Choose seating and timing for the canyon", body: "A 2026 evening production was offered on Fridays and Saturdays, but 2027 dates are not yet confirmed. Confirm seating categories, entry policy, show time and any weather notices with the current organizer before buying. Do not assume amphitheater access or temperature will match a downtown indoor theater." },
+      { title: "Account for driving and arrival in McKelligon Canyon", body: "The amphitheater is within McKelligon Canyon, north of central El Paso. Plan transportation before the show and allow extra time to reach the venue and find the proper entrance; use the latest official guidance for parking and accessible seating." },
+      { title: "Build a two-part El Paso culture day", body: "Use a daytime museum or historic-site visit to provide context for the region's Indigenous, Spanish, Mexican and U.S. histories, then attend the show as the evening anchor. Leave enough time between stops for El Paso traffic and summer heat." },
     ],
     relatedLinks: [
       { href: "/browse/counties#county-el-paso", label: "Explore El Paso County", description: "Build a broader El Paso history and culture itinerary." },
+      { href: "/destination/chamizal-national-memorial", label: "Chamizal National Memorial", description: "Explore the borderland cultural history before the show." },
+      { href: "/destination/magoffin-home", label: "Magoffin Home", description: "Connect regional history to a preserved historic home." },
+      { href: "/metro-area/el-paso-metro", label: "El Paso Metro", description: "Plan a longer stay with nearby attractions." },
       { href: "/events", label: "Texas events calendar", description: "Compare other Texas summer arts and heritage events." },
     ],
     sources: [
