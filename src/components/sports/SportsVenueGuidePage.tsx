@@ -187,7 +187,7 @@ export function SportsVenueGuidePage({
           {guide.canonicalPath === "/sports-venue/msr-houston" ? (
             <MSRHoustonEventsFallback
               featuredOnly={upcomingEvents.length > 0}
-              omitXtreme={upcomingEvents.some((event) => /xtreme\\s*xperience/i.test(event.title))}
+              omitXtreme={upcomingEvents.some((event) => /xtreme\s*xperience/i.test(event.title))}
             />
           ) : null}
           {guide.canonicalPath !== "/sports-venue/msr-houston" || upcomingEvents.length > 0 ? (
