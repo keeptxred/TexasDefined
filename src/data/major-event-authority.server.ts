@@ -71,10 +71,13 @@ const majorEventAuthorityDetails: MajorEventAuthorityDetails[] = [
       { title: "Choose weekday or weekend", body: "The ten-day run gives visitors flexibility; choose the day before arranging lodging and other New Braunfels stops." },
       { title: "Use it as a heritage gateway", body: "Leave time for New Braunfels beyond the festival grounds and connect the visit to the region's German-Texan history." },
       { title: "Check the daily schedule", body: "Entertainment, admission details and operating hours vary; use the organizer's current schedule for your exact day." },
+      { title: "Plan the 2026 weekend, not just the festival dates", body: "Wurstfest runs November 6-15, 2026. Choose your show and meal window first: entertainment and operating hours vary by day, and a weekend visit can require more waiting and higher nearby lodging demand than a quieter weekday." },
+      { title: "Check admission, arrival, and accessibility together", body: "Use the official 2026 ticketing, parking, entertainment and accessibility information for the exact day. Do not assume parking is included with admission or that every stage and attraction has identical access conditions." },
+      { title: "Turn the festival into a New Braunfels weekend", body: "Pair food and music with a separate daylight visit to New Braunfels' historic downtown or Gruene. Keep the nonfestival stops flexible so entertainment schedules and traffic do not force a rushed itinerary." },
     ],
     relatedLinks: [
       { href: "/event/texas-renaissance-festival", label: "Texas Renaissance Festival", description: "Compare another repeat-weekend Texas fall event." },
-      { href: "/event/texas-rose-festival", label: "Texas Rose Festival", description: "Compare another heritage-focused fall festival." },{ href: "/german-czech-texas-towns", label: "German and Czech Texas towns", description: "Connect Wurstfest to the larger heritage story." }, { href: "/browse/counties#county-comal", label: "Explore Comal County", description: "Build a broader Hill Country itinerary." }, { href: "/events", label: "Texas events calendar", description: "Compare other major fall events." }],
+      { href: "/event/texas-rose-festival", label: "Texas Rose Festival", description: "Compare another heritage-focused fall festival." },{ href: "/german-czech-texas-towns", label: "German and Czech Texas towns", description: "Connect Wurstfest to the larger heritage story." }, { href: "/browse/counties#county-comal", label: "Explore Comal County", description: "Build a broader Hill Country itinerary." }, { href: "/county/comal", label: "Comal County guide", description: "Compare nearby lodging bases and other New Braunfels-area stops." }, { href: "/events", label: "Texas events calendar", description: "Compare other major fall events." }],
     sources: [{ label: "Wurstfest official site", url: "https://wurstfest.com/" }],
   },
   {
@@ -108,9 +111,12 @@ const majorEventAuthorityDetails: MajorEventAuthorityDetails[] = [
       { title: "Know which SXSW you are attending", body: "Start with the badge, festival or program that matters to you, then build the day around its official schedule." },
       { title: "Plan for venue changes", body: "Programming is distributed across downtown; walking time, transit and schedule gaps are part of the event experience." },
       { title: "Book around event demand", body: "Lodging location and transportation strategy can matter as much as the session list when several days of programming are involved." },
+      { title: "Separate badge-only programming from public activities", body: "SXSW conference sessions, film screenings, official showcases and public brand activations do not necessarily share one admission credential. Confirm the access requirements for each activity before paying for a badge, pass or individual ticket." },
+      { title: "Build a walkable 2027 daily route", body: "The 2027 dates are March 15-21. Cluster events geographically, allow for security lines, and check whether a session requires advance RSVP even when the broader program is included in your credential." },
+      { title: "Compare lodging by movement rather than advertised distance", body: "A less expensive room outside central Austin can lose its advantage through event-week transportation, parking and ride-share surcharges. Compare total trip costs and late-night return options before booking nonrefundable lodging." },
     ],
     relatedLinks: [
-      { href: "/event/texas-sandfest", label: "Texas SandFest", description: "Compare another destination-scale Texas spring event." },{ href: "/browse/counties#county-travis", label: "Explore Travis County", description: "Connect SXSW with a broader Austin-area visit." }, { href: "/events", label: "Texas events calendar", description: "See other major cultural events." }],
+      { href: "/event/texas-sandfest", label: "Texas SandFest", description: "Compare another destination-scale Texas spring event." },{ href: "/browse/counties#county-travis", label: "Explore Travis County", description: "Connect SXSW with a broader Austin-area visit." }, { href: "/county/travis", label: "Travis County guide", description: "Combine SXSW with other Austin destinations." }, { href: "/events", label: "Texas events calendar", description: "See other major cultural events." }],
     sources: [{ label: "SXSW official 2027 dates announcement", url: "https://sxsw.com/news/2026/south-by-southwest-2027-dates-announced/" }, { label: "SXSW official site", url: "https://sxsw.com/" }],
   },
   {
@@ -120,10 +126,14 @@ const majorEventAuthorityDetails: MajorEventAuthorityDetails[] = [
       { title: "Plan the island stay first", body: "Decide whether to stay on the island or drive in before choosing arrival time; the festival adds traffic and pedestrian demand." },
       { title: "Check prohibited items", body: "The organizer publishes current guidance on pets, coolers, shade structures, wagons and other items, so check the list while packing." },
       { title: "Give the sculptures time", body: "Leave a broad viewing window, then place beach time, meals and other Port Aransas stops around the festival." },
+      { title: "Use the 2027 beach markers and event-day hours", body: "Texas SandFest is April 16-18, 2027, 9 a.m.-7:30 p.m. each day, on Port Aransas beach between markers 13 and 17. The north gate is at marker 13 and the south gate at marker 17. Confirm entrance procedures and wristband sales hours before leaving." },
+      { title: "Know the transit and parking alternatives", body: "The organizer lists a dedicated free SandFest shuttle route, distinct from fare-charging regular transit routes. Review the current parking and shuttles instructions before driving onto the island or toward the beach; oversized vehicles face restrictions in festival lots." },
+      { title: "Plan beach accessibility before booking", body: "This is an event on sand rather than pavement. The organizer lists limited accessible parking near marker 12.5, accessible portable toilets, and a limited supply of reserve-ahead beach wheelchairs. Confirm availability and current reservation terms with the festival." },
+      { title: "Pack to the event rules", body: "The 2027 organizer guidance permits service animals but not ordinary pets, and prohibits outside coolers and alcohol. Check shade structures, wagons and mobility-device rules rather than assuming standard beach-day rules apply inside the festival." },
     ],
     relatedLinks: [
-      { href: "/event/sxsw", label: "SXSW", description: "Compare another destination-scale Texas spring event." },{ href: "/browse/counties#county-nueces", label: "Explore Nueces County", description: "Expand the Gulf Coast trip beyond the festival." }, { href: "/events", label: "Texas events calendar", description: "Compare other spring events." }],
-    sources: [{ label: "Texas SandFest official site", url: "https://www.texassandfest.org/" }, { label: "Texas SandFest know-before-you-go guide", url: "https://www.texassandfest.org/knowbeforeyougo" }],
+      { href: "/event/sxsw", label: "SXSW", description: "Compare another destination-scale Texas spring event." },{ href: "/browse/counties#county-nueces", label: "Explore Nueces County", description: "Expand the Gulf Coast trip beyond the festival." }, { href: "/explore/beaches-coast", label: "Texas beaches and coast", description: "Add nearby coastal experiences without duplicating the festival guide." }, { href: "/county/nueces", label: "Nueces County guide", description: "Explore the wider Corpus Christi and Port Aransas coast." }, { href: "/events", label: "Texas events calendar", description: "Compare other spring events." }],
+    sources: [{ label: "Texas SandFest accessibility and beach wheelchair details", url: "https://www.texassandfest.org/accessibility" }, { label: "Texas SandFest FAQ and shuttles", url: "https://www.texassandfest.org/faq" }, { label: "Texas SandFest official site", url: "https://www.texassandfest.org/" }, { label: "Texas SandFest know-before-you-go guide", url: "https://www.texassandfest.org/knowbeforeyougo" }],
   },
 ];
 
