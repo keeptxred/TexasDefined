@@ -40,7 +40,7 @@
       "bryan-rudder",
       "bryson"
     ],
-    "state": "BATCH_007_THIRTEEN_SCHOOL_SOURCE_IMPLEMENTATION_PENDING_QA",
+    "state": "BATCH_007_FOURTEEN_SCHOOL_SOURCE_IMPLEMENTATION_PENDING_QA",
     "dateAssigned": "2026-10-20",
     "selectionRule": "First 25 NOT_REVIEWED and unassigned canonical schoolRecords in stable order following 130 production VERIFIED through completed Batch 006; outstanding PR and branch conflicts checked.",
     "individuallyVerified": 0,
@@ -48,12 +48,12 @@
     "assignmentBranch": "football-authority-batch-007-20261020",
     "repositoryMainAtAssignment": "78157bb07d856f40d21e813fd3f886cd54e2b20e",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "brownsville-hanna",
-    "nextSchool": "brownsville-lopez",
-    "implementedOnBranch": 13,
-    "remainingToImplement": 12,
+    "currentSchool": "brownsville-lopez",
+    "nextSchool": "brownsville-pace",
+    "implementedOnBranch": 14,
+    "remainingToImplement": 11,
     "remainingToVerify": 25,
-    "notes": "13/25 individually researched, edited, identity/county linked, original source-derived results visual and dossier on unmerged PR #5525; 12 unimplemented and none production VERIFIED. Brownsboro legacy vs live athletics coaching and rescheduled Van game carefully distinguished."
+    "notes": "14/25 individually source-researched/implemented on draft PR 5525, 11 remaining, 0 actually production verified; Brownsville Hanna different from other BISD schools and Corpus Christi Veterans Memorial opposing school; separate school vs rotating football stadiums."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -7548,8 +7548,17 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/brownsville-hanna",
-      "status": "NOT_REVIEWED",
-      "batch": 7
+      "status": "IMPLEMENTED",
+      "batch": 7,
+      "audit": "docs/football-authority/schools/brownsville-hanna.md",
+      "auditCompletedAt": "2026-10-20",
+      "researchCompletedAt": "2026-10-20",
+      "implementedAt": "2026-10-20",
+      "implementedOnBranch": "football-authority-batch-007-20261020",
+      "actualProductionVerified": false,
+      "mediaStatus": "Original score-derived Gold/Brown school-referenced graphic; no BISD-owned player photo/mascot seal licensing",
+      "implementationNotes": "Hanna Golden Eagles distinct from five other BISD teams; official school 1967 new Price Road campus/1974 Hanna renaming, 2615 E Price Rd ZIP 78521, coach Mark Guess first-party, UIL 2026 5A DI District15 not old 6A, 18 DCTF historic playoff trips no state final, Oct15 2026 reported 2–5 including two separate Brownsville/Corpus Christi Veterans Memorial opponents, first-party stadium-by-game Sams and Veterans Memorial, district GoFan season notices, 7 milestones/6 FAQs, Cameron County links.",
+      "technicalVerification": "Pending source validation and CI, merge, Cloudflare production deployment, true Chrome 1366/390/320 with canonical/FAQ/sitemap/county, photo/gates/ADA/ticket checks"
     },
     {
       "id": "uil:brownsville-lopez",
