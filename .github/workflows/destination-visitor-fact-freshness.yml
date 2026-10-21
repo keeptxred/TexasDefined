@@ -72,7 +72,7 @@ jobs:
             echo ''
             echo '### Expired entries'
             echo '~~~text'
-            grep '^STALE ' "$RUNNER_TEMP/destination-facts-audit.log" | head -n 300
+            grep '^STALE ' "$RUNNER_TEMP/destination-facts-audit.log" | sed -n '1,300p'
             echo '~~~'
             echo ''
             echo 'Research and correct the precise curation records on a new branch; preserve source URLs, document material operator changes and only then update `checkedAt`. Never restamp by schedule, bypass the 120/365-day policy or invent amenities. Merge through the existing protected CI and verify live rendering.'
