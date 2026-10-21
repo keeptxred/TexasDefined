@@ -60,6 +60,8 @@ for (const [sourceText, needle, label] of [
   [expediaBootstrap, '? "py-2" : "border-y border-border py-8"', 'avoid double-bordered Fort McKavett lodging boxes'],
   [source, 'function unifyFortMcKavettBookingActions(surface, choice)', 'Fort McKavett one-panel integration'],
   [source, 'actions.insertBefore(expediaButton, vrbo);', 'Expedia button immediately before Vrbo'],
+  [source, 'td-stay-affiliate-actions--fort-mckavett{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}', 'Expedia and Vrbo adjacent in a two-column desktop grid'],
+  [source, 'td-stay-affiliate-actions--fort-mckavett{grid-template-columns:1fr}', 'one-column mobile stay actions'],
   [source, 'panel.appendChild(widgetHost)', 'Expedia widget inside same booking panel'],
   [source, 'surface.querySelector(\'[data-expedia-disclosure="true"]\')?.remove();', 'single consolidated affiliate disclosure'],
   [source, 'unifyFortMcKavettBookingActions(expediaSurface, choice);', 'one-panel integration is invoked'],
