@@ -139,7 +139,14 @@ export interface DestinationAuthorityGuide {
   sources: DestinationAuthoritySource[];
 }
 
-export interface Destination { gallery?: Array<{ image: ImageRef; caption: string; sourceUrl: string }>; id: string; brandId: BrandId; slug: Slug; name: string; summary: string; category: CategorySlug; region: TexasRegion; geography?: TexasGeographyAssignment; nearestTown: string; coordinates: GeoPoint; hero: ImageRef; bestSeason: string; entryNote: string; highlights: string[]; body: string[]; managingAuthority?: string; officialUrl?: string; sourceCheckedAt?: string; reservationUrl?: string; county?: string; address?: string; directions?: string; accessibilityNotes?: string; areaGuide?: DestinationAreaGuide; authorityGuide?: DestinationAuthorityGuide; visitorFaqs?: Array<{ question: string; answer: string; sourceUrl?: string }>; featured?: boolean; }
+export interface DestinationEditorialDisplay {
+  /** Explicitly show or hide seasonal advice on this destination. */
+  showSeason?: boolean;
+  /** Explicitly show or hide advance-planning advice. */
+  showEntryPlanning?: boolean;
+}
+
+export interface Destination { gallery?: Array<{ image: ImageRef; caption: string; sourceUrl: string }>; id: string; brandId: BrandId; slug: Slug; name: string; summary: string; category: CategorySlug; region: TexasRegion; geography?: TexasGeographyAssignment; nearestTown: string; coordinates: GeoPoint; hero: ImageRef; bestSeason: string; entryNote: string; highlights: string[]; body: string[]; managingAuthority?: string; officialUrl?: string; sourceCheckedAt?: string; reservationUrl?: string; county?: string; address?: string; directions?: string; accessibilityNotes?: string; areaGuide?: DestinationAreaGuide; authorityGuide?: DestinationAuthorityGuide; editorialDisplay?: DestinationEditorialDisplay; visitorFaqs?: Array<{ question: string; answer: string; sourceUrl?: string }>; featured?: boolean; }
 
 export interface ProductVariant { id: number; title: string; price: number; image?: string | null; images?: string[]; color?: string; is_enabled?: boolean; }
 export interface Product {
