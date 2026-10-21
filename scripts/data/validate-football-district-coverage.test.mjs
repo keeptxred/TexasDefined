@@ -120,3 +120,21 @@ test('District 16 next-round schedule and four Week 8 finals remain separate fro
   assert.ok(template.includes('!district16Pilot && (katyPilot || district5Pilot || games.length > 0)'));
   assert.ok(head.includes('District 16-6A Football: 2026 Standings, Scores & Schedule'));
 });
+
+test('generic districts never advertise unrelated statewide matchups or front-load affiliate offers', () => {
+ assert.ok(template.includes('games.length ? <Related href="#district-game-coverage"'));
+ assert.ok(template.includes('No independently verified district matchups are published here yet'));
+ assert.ok(!template.includes('href="/texas-high-school-football-matchups" title="Documented matchups"'));
+ assert.ok(template.indexOf('data-football-district-section="official-sources"') < template.lastIndexOf('<FootballFanOffers slug='));
+ assert.equal((template.match(/<FootballFanOffers slug=/g) || []).length, 1);
+});
+test('District 16 production verifies actual standings, fixtures, mobile and desktop', () => {
+ const workflow=readFileSync(new URL('../../.github/workflows/deploy-production.yml',import.meta.url),'utf8');
+ const prod=readFileSync(new URL('../../scripts/ci/verify-district16-production.mjs',import.meta.url),'utf8');
+ assert.ok(workflow.includes('node scripts/ci/verify-district16-production.mjs'));
+ assert.ok(workflow.includes('node scripts/ci/verify-district16-responsive-browser.mjs'));
+ assert.ok(prod.includes('no-cache, no-store'));
+ assert.ok(prod.includes('CFISD tickets, stadiums and game-day logistics'));
+ assert.ok(district16Component.includes('data-district16-result="final"'));
+ assert.ok(district16Component.includes('data-district16-result="scheduled"'));
+});

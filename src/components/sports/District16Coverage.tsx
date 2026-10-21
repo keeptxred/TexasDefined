@@ -90,7 +90,7 @@ export function District16Coverage({ schools }: Props) {
           <h3 className="border-b border-border pb-3 font-display text-2xl">Latest verified district finals</h3>
           <div className="divide-y divide-border">
             {DISTRICT_16_RECENT_FINALS.map((game) => (
-              <div key={game.date + game.home} className="py-4 text-sm">
+              <div key={game.date + game.home} data-district16-result="final" className="py-4 text-sm">
                 <p className="mb-2 text-xs text-muted-foreground">{formattedDate(game.date)} · Final</p>
                 <div className="flex justify-between gap-3"><span>{schoolLink(game.away)} at {schoolLink(game.home)}</span>
                   <strong className="shrink-0 tabular-nums">{game.awayScore}–{game.homeScore}</strong></div>
@@ -108,7 +108,7 @@ export function District16Coverage({ schools }: Props) {
           <h3 className="border-b border-border pb-3 font-display text-2xl">Remaining district games · Oct. 22–Nov. 7</h3>
           <div className="divide-y divide-border">
             {DISTRICT_16_NEXT_GAMES.map((game) => (
-              <div key={game.date + game.home} className="py-4 text-sm">
+              <div key={game.date + game.home} data-district16-result="scheduled" className="py-4 text-sm">
                 <p className="mb-2 text-xs text-muted-foreground">{formattedDate(game.date)} · {game.kickoff}</p>
                 <p>{schoolLink(game.away)} at {schoolLink(game.home)}</p>
               </div>
