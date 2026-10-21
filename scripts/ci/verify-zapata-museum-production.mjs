@@ -10,6 +10,7 @@ if (process.argv.includes('--source-only')) {
   const component = readFileSync(new URL('../../src/components/editorial/ZapataCountyMuseumAuthority.tsx', import.meta.url), 'utf8');
   const catalog = readFileSync(new URL('../../src/data/museum-expansion-statewide-wave9.ts', import.meta.url), 'utf8');
   const destinationRoute = readFileSync(new URL('../../src/routes/destination.$slug.tsx', import.meta.url), 'utf8');
+  const museumWorkflow = readFileSync(new URL('../../.github/workflows/verify-zapata-museum-production.yml', import.meta.url), 'utf8');
   const expected = [
     '<img src="/images/zapata-county-museum-history-editorial.svg"',
     'not a photograph of the museum',
@@ -29,6 +30,17 @@ if (process.argv.includes('--source-only')) {
   }
   if (!catalog.includes('src: "/images/zapata-county-museum-history-editorial.svg"')) {
     throw new Error('Museum social/structured-data hero must match the rights-safe local illustration');
+  }
+  const requiredWorkflow = [
+    'workflow_run:',
+    'Deploy TexasDefined production',
+    'types:',
+    'completed',
+    "github.event.workflow_run.conclusion == 'success'",
+  ];
+  const missingWorkflow = requiredWorkflow.filter((value) => !museumWorkflow.includes(value));
+  if (missingWorkflow.length) {
+    throw new Error('Automatic post-deployment Zapata museum verification is disabled: ' + missingWorkflow.join(', '));
   }
   console.log('PASS: Zapata museum illustration and source contract are rights-safe and consistent.');
   process.exit(0);
