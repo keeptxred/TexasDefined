@@ -25,9 +25,26 @@ try {
   if (item.ticketCta.label !== "Official Tickets →") throw new Error(`unexpected GrapeFest CTA label: ${item.ticketCta.label}`);
   if (item.ticketCta.href !== expectedTicketUrl) throw new Error(`unexpected GrapeFest CTA URL: ${item.ticketCta.href}`);
   if (item.ticketCta.isAffiliate) throw new Error("official GrapeFest ticket source must not be marked affiliate");
+
+  // A reviewed exact-venue photograph is not an unlicensed generic stock image.
+  // The event page and the shared calendar MUST honor the same commercial-use gate.
+  const fiesta = records.find((event) => event.slug === "fiesta-de-palmas");
+  if (!fiesta) throw new Error("Fiesta de Palmas event fixture missing");
+  if (!fiesta.image?.displayAllowed || fiesta.image.rightsStatus !== "verified-reusable") {
+    throw new Error("Fiesta de Palmas reviewed Wikimedia photograph was suppressed on the event carousel");
+  }
+  if (!fiesta.image.sourceUrl.includes("commons.wikimedia.org/wiki/File:McAllen_Convention_Center.jpg")
+    || fiesta.image.licenseName !== "CC BY-SA 4.0"
+    || !fiesta.image.licenseUrl?.endsWith("/by-sa/4.0/")
+    || !fiesta.image.credit?.includes("Joel Pacheco")) {
+    throw new Error("Fiesta de Palmas carousel is missing required image source/license/credit attribution");
+  }
+  const fiestaCard = calendarModule.buildTexasEventCarouselItemsServer([fiesta])[0];
+  if (!fiestaCard.image?.displayAllowed) throw new Error("Event carousel projection lost approved image");
+
 } finally {
   await server.close();
 }
 
-console.log("PASS: canonical GrapeFest event record deduplicates official ticket URLs and resolves Official Tickets CTA.");
+console.log("PASS: canonical GrapeFest ticket CTA and approved Fiesta de Palmas Wikimedia image credit survive shared event projection.");
 process.exit(0);
