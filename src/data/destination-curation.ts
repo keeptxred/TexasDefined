@@ -5,7 +5,7 @@ const TPWD = "Texas Parks and Wildlife Department";
 const curated: Record<string, Partial<Destination>> = {
   "sheldon-lake-state-park": {
     visitorFacts: [
-      { topic: "hours", label: "Park hours", detail: "Open daily, 8 a.m.–5 p.m., except Thanksgiving Day and December 24–25.", sourceUrl: "https://tpwd.texas.gov/state-parks/sheldon-lake", checkedAt: "2026-10-21" },
+      { topic: "hours", label: "Park hours", detail: "Daily 8 a.m.–5 p.m.; closed Thanksgiving and Dec. 24–25.", sourceUrl: "https://tpwd.texas.gov/state-parks/sheldon-lake", checkedAt: "2026-10-21" },
     ],
     hero: {
       src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Tower_Sheldon_Lake_SP_Harris_Co_Texas_2024.jpg?width=1600",
