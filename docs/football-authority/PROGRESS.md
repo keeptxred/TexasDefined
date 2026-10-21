@@ -2,6 +2,12 @@
 
 ## October 20, 2026 — Batch 007 canonical 25-school assignment (research in progress)
 
+### Bridge City source-backed fourth school checkpoint — October 20, 2026
+
+[Bridge City Cardinals individual research dossier](schools/bridge-city.md) and code are now committed on the Batch 007 draft PR branch. **Not merged, not deployed, not browser-verified.** Research covers two UIL finals (1965 Brownwood 14–0 runner-up; 1966 Bridge City 30–6 over McKinney state title); 2025 11–2 postseason and 34–0 Kilgore exit; current school athletics names head football coach Josh Smalley and publishes varsity 2026 schedule, online HOME tickets, passes and school-identity Friday WEAR RED context. The published 2026 third-party snapshot was 2–5 through Oct 9; Beaumont Enterprise independently reports 25–22 over Livingston Oct 16, so editorial explicitly labels source-synthesized 3–5 through Oct 16, not a school-certified final. Adds five original school-specific milestones, six FAQs, accurate 2026 4A Division I District 9, independent red accent, Orange County in/out links; school-owned photographic media rights remain unclaimed. Exact stadium gates, parking and accessibility are intentionally left unverified. No CI passes or release claimed.
+
+**Current canonical registry statuses:** 4 Batch007 records `IMPLEMENTED`, 21 `NOT_REVIEWED`, **0 `VERIFIED`** in Batch007. Two concurrent-branch Bremond and Brenham dossiers and school-specific program data are present; their registry status still needs reconciliation before any duplicate edits. The draft branch remains PR [#5525](https://github.com/keeptxred/TexasDefined/pull/5525), and the next registry-stable unfinished record is Bremond. No repetitive CI polling initiated; run bounded checks before advancing to production.
+
 ### Batch 007 first individually researched implementation checkpoint — October 20, 2026
 
 **Three school-specific implementations saved to the Batch 007 branch, zero merged/deployed/production verified.** Preserve their source-dated assertions and source conflicts:
