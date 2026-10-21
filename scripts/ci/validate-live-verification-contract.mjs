@@ -134,6 +134,19 @@ for (const marker of [
 ]) {
   if (!proximityCollectionRoute.includes(marker)) failures.push(`San Angelo proximity production-proof marker is missing: ${marker}`);
 }
+const dallasRoadTimeProductionChecks = [
+  ['metro-dallas-small-towns-1-hour', '/explore/near/dallas/small-towns-1-hour', 'Small Towns About an Hour or Less From Dallas, Texas'],
+  ['metro-dallas-small-towns-1-hour-ennis', '/explore/near/dallas/small-towns-1-hour', 'Ennis'],
+  ['metro-dallas-small-towns-2-hours-clifton', '/explore/near/dallas/small-towns-2-hours', 'Clifton'],
+  ['metro-dallas-small-towns-3-hours', '/explore/near/dallas/small-towns-3-hours', 'Small Towns About 2–3 Hours From Dallas, Texas'],
+  ['metro-dallas-small-towns-3-hours-jefferson', '/explore/near/dallas/small-towns-3-hours', 'Jefferson'],
+  ['metro-dallas-small-towns-3-hours-salado', '/explore/near/dallas/small-towns-3-hours', 'Salado'],
+  ['metro-dallas-small-towns-roadtime-explainer', '/explore/near/dallas/small-towns-3-hours', 'published typical Dallas driving-time estimates'],
+];
+for (const [label, path, expectedText] of dallasRoadTimeProductionChecks) {
+  const tuple = `['${label}', '${path}', '${expectedText}']`;
+  if (!productionSurfaces.includes(tuple)) failures.push(`Dallas road-time production verifier drift: missing ${label}`);
+}
 const dallasTwoHourTitle = 'Small Towns About 1–2 Hours From Dallas, Texas';
 if (!proximityPresentation.includes('titlePrefix: "Small-Town Day Trips From"')) {
   failures.push('Metro proximity presentation must retain the shared Small-Town Day Trips From title contract for two-hour small-town pages.');
