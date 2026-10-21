@@ -97,7 +97,7 @@ Deno.serve(async(req:Request)=>{
     validateYear(normalized,raw,year,diagnostics);
     const unresolved=normalized.filter(r=>r.type==="school-district"&&r.source_status==="cross-source-conflict");
     if(year===2025&&unresolved.length)return json({ok:false,status:"validation-failed",year,error:"Unresolved school-source conflicts",conflicts:unresolved.map(r=>({id:r.id,name:r.name}))},422);
-    const signature=await sha256(new TextEncoder().encode(diagnostics.map(d=>d.type+":"+d.sha256).sort().join("|")));
+    const signature=await sha256(new TextEncoder().encode("normalization-rules-v5|"+year+"|"+diagnostics.map(d=>d.type+":"+d.sha256).sort().join("|")));
     const {data:prior,error:priorError}=await supabase.from("texas_tax_import_runs")
       .select("id,source_signature,expected_count").eq("tax_year",year).eq("status","completed")
       .order("finished_at",{ascending:false}).limit(1);
@@ -107,6 +107,11 @@ Deno.serve(async(req:Request)=>{
       if(error)throw error;
       if(count===normalized.length)return json({ok:true,status:"unchanged",year,count,sourceSignature:signature,diagnostics});
     }
+    // Keep failed staging from accumulating indefinitely without touching completed audit history.
+    const expiredBefore=new Date(Date.now()-14*24*60*60*1000).toISOString();
+    const {error:cleanupError}=await supabase.from("texas_tax_import_runs")
+      .delete().eq("status","staging").lt("started_at",expiredBefore);
+    if(cleanupError)console.warn("Could not prune expired tax import staging:",cleanupError.code);
     const runId=crypto.randomUUID();
     const now=new Date().toISOString();
     const {error:runError}=await supabase.from("texas_tax_import_runs").insert({
