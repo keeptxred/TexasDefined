@@ -82,6 +82,7 @@ try {
   const guideOnly = buildGlobalEventCalendarServer([
     { ...records[0], id: 'guide-example', guidePath: '/event/example' },
     { ...records[0], id: 'calendar-example', guidePath: '/events?start=' + date },
+    { ...records[0], id: 'collection-example', guidePath: '/events/this-weekend' },
   ], { featured: '', location: '', start: '', end: '', category: 'guides', venue: '' });
   assert.deepEqual(guideOnly.results.map(row => row.id), ['guide-example']);
   const all = buildGlobalEventCalendarServer(largeCatalog, { featured: '', location: '', start: '', end: '', category: '', venue: '' });
