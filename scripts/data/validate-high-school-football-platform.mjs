@@ -1626,6 +1626,15 @@ if (!errors.length) {
       if (!record || Number(record[1]) !== wins || Number(record[2]) !== losses) {
         errors.push('Batch 006 2026 W-L summary contradicts scored game rows: ' + slug);
       }
+      // A verified result must be directly traceable from the public school page.
+      // The school UI renders "Verify latest recorded final" only if this link
+      // is populated; without it, the date-qualified score has no per-result CTA.
+      // A 2026 final may link to its dated report or current 2026 team result ledger,
+      // not a prior-season MaxPreps /25-26/ schedule.
+      if (played.length > 0 && (!/^https:\/\//.test(program.season?.latestResultSourceUrl || '')
+        || /\/25-26\//.test(program.season?.latestResultSourceUrl || ''))) {
+        errors.push('Batch 006 completed season lacks current clickable latest-result evidence: ' + slug);
+      }
       // A dated W–L claim in a search snippet must equal the played-game ledger.
       // Evergreen descriptions without a W–L claim remain valid; do not parse
       // historic state titles, district identifiers or reported point scores.

@@ -559,7 +559,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "site": "Home",
           "district": true
         }
-      ]
+      ],
+      "latestResultSourceUrl": "https://www.maxpreps.com/tx/football/game/bishop-vs-rio-hondo/10-9-2026/?c=8bcb15e2-2aa6-41c4-bce8-2ea706352a25"
     },
     "venue": {
       "name": "George Luna Stadium",
@@ -1149,7 +1150,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "site": "Home",
           "district": true
         }
-      ]
+      ],
+      "latestResultSourceUrl": "https://www.brownwoodnews.com/2026/10/10/local-high-school-football-standings-after-week-7/"
     },
     "development": {
       "title": "The Tigers' 2026 rebound, rebuilt after a difficult week",
@@ -1320,7 +1322,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "site": "Away",
           "district": true
         }
-      ]
+      ],
+      "latestResultSourceUrl": "https://www.maxpreps.com/news/s1pJrwmNrkCdU5qR8UOdtw/football-recap-tough-loss-for-blooming-grove.htm"
     },
     "notice": {
       "title": "Lion Stadium is listed for homecoming; its vehicle entrance is not verified",
@@ -1716,7 +1719,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "site": "Away",
           "district": true
         }
-      ]
+      ],
+      "latestResultSourceUrl": "https://www.maxpreps.com/tx/football/game/blue-ridge-vs-leonard/10-16-2026/?c=dbbca0ec-f682-4209-a595-17c2aae0fffa"
     },
     "notice": {
       "title": "Tiger Stadium: use the official game schedule before traveling",
@@ -1894,7 +1898,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "site": "Home",
           "district": true
         }
-      ]
+      ],
+      "latestResultSourceUrl": "https://www.nbcdfw.com/news/sports/hs-sports/big-game-friday-texas-high-school-football-scores-for-oct-15-17/4091560/"
     },
     "notice": {
       "title": "Check the UIL division, actual campus and live game details before traveling",
@@ -2083,7 +2088,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "site": "Away",
           "district": true
         }
-      ]
+      ],
+      "latestResultSourceUrl": "https://sixmanfootball.com/scores/"
     },
     "notice": {
       "title": "Avoid incorrect state-title counts and conflicting 2026 score dates",
@@ -2490,7 +2496,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "site": "Away",
           "district": true
         }
-      ]
+      ],
+      "latestResultSourceUrl": "https://seguintoday.com/2026/10/17/fast-starting-champion-hands-seguin-57-7-defeat/"
     },
     "development": {
       "title": "2025 Chargers won two playoff games; 2026 began 6–0",
@@ -2674,7 +2681,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "site": "Away",
           "district": true
         }
-      ]
+      ],
+      "latestResultSourceUrl": "https://www.maxpreps.com/tx/bogata/rivercrest-rebels/football/schedule/"
     },
     "development": {
       "title": "Rivercrest's 2019 11-win season and 2026 triple-overtime rebound",
@@ -2857,7 +2865,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "site": "Away",
           "district": true
         }
-      ]
+      ],
+      "latestResultSourceUrl": "https://www.maxpreps.com/news/rVpbgHUcI0KCpu1rfIHFYA/football-recap-bolings-offense-hits-a-season-high-in-victory-over-industrial.htm"
     },
     "development": {
       "title": "Boling won the 1972 Class 2A football championship; returned to the final in 2016",
@@ -3034,7 +3043,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "site": "Home",
           "district": true
         }
-      ]
+      ],
+      "latestResultSourceUrl": "https://www.maxpreps.com/tx/bonham/bonham-warriors/football/"
     },
     "venue": {
       "name": "Warrior Stadium (Bonham ISD)",
@@ -3642,7 +3652,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "site": "Away",
           "district": true
         }
-      ]
+      ],
+      "latestResultSourceUrl": "https://www.maxpreps.com/tx/borger/borger-bulldogs/football/"
     },
     "development": {
       "title": "1962 Class 4A state runner-up under Gene Mayfield; 2025 forfeit-record caveat",
@@ -3827,7 +3838,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "site": "Home",
           "district": true
         }
-      ]
+      ],
+      "latestResultSourceUrl": "https://www.maxpreps.com/tx/waco/bosqueville-bulldogs/football/schedule/"
     },
     "development": {
       "title": "Bosqueville Bulldogs: a specific program across distinct football seasons",
@@ -4167,7 +4179,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "site": "Home",
           "district": true
         }
-      ]
+      ],
+      "latestResultSourceUrl": "https://www.maxpreps.com/tx/bowie/bowie-jackrabbits/football/schedule/"
     },
     "development": {
       "title": "Bowie Jackrabbits: a specific program across distinct football seasons",
@@ -4518,7 +4531,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "site": "Away",
           "district": true
         }
-      ]
+      ],
+      "latestResultSourceUrl": "https://www.maxpreps.com/news/fUut-PcoIkG0vnA3SOiEbg/football-recap-tough-loss-for-boyd.htm"
     },
     "development": {
       "title": "Boyd Yellowjackets: a specific program across distinct football seasons",
@@ -4676,7 +4690,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
           "site": "Home",
           "district": true
         }
-      ]
+      ],
+      "latestResultSourceUrl": "https://www.maxpreps.com/tx/boys-ranch/boys-ranch-roughriders/football/schedule/"
     },
     "development": {
       "title": "Boys Ranch Roughriders: a specific program across distinct football seasons",
