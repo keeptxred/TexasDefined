@@ -130,7 +130,7 @@ test('Texas Data release checks are bounded and reject stale SSR values', async 
     '/texas-data/texas-metro-payrolls-june-2026': 'June 2026 4,363,300 metro_07292026.htm',
   };
   const serve = (record) => async url => new Response(
-    '<html><head><title>Texas by the Numbers: Population, Housing, Jobs & Counties</title><link rel="canonical" href="https://texasdefined.com'
+    '<html><head><title>Texas by the Numbers: Population, Housing, Jobs &amp; Counties</title><link rel="canonical" href="https://texasdefined.com'
       + url.pathname + '"></head><body>' + record[url.pathname] + '</body></html>',
   );
   const current = await verifyChangedPages({ plan, head, fetchImpl: serve(fresh) });
@@ -176,13 +176,13 @@ test('every production release verifies Texas Data content even after original P
     '/texas-data/texas-metro-payrolls-june-2026': 'June 2026 4,363,300 metro_07292026.htm',
   };
   const fetchImpl = async url => new Response(
-    '<html><head><title>Texas by the Numbers: Population, Housing, Jobs & Counties</title><link rel="canonical" href="https://texasdefined.com'
+    '<html><head><title>Texas by the Numbers: Population, Housing, Jobs &amp; Counties</title><link rel="canonical" href="https://texasdefined.com'
       + url.pathname + '"></head><body>' + content[url.pathname] + '</body></html>',
   );
   const verified = await verifyChangedPages({ plan, head, fetchImpl });
   assert.ok(verified.every(item => item.passed), JSON.stringify(verified));
   const stale = await verifyChangedPages({ plan, head, fetchImpl: async url =>
-    new Response('<html><head><title>Texas by the Numbers: Population, Housing, Jobs & Counties</title><link rel="canonical" href="https://texasdefined.com'
+    new Response('<html><head><title>Texas by the Numbers: Population, Housing, Jobs &amp; Counties</title><link rel="canonical" href="https://texasdefined.com'
       + url.pathname + '"></head><body>$2,800 4,363,300 June 2026</body></html>') });
   assert.ok(stale.every(item => !item.passed));
 });
