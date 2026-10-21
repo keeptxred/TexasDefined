@@ -57,6 +57,7 @@ export function StateParkVisitorEssentials({ destination }: { destination: Desti
       <a href={links.feesAndFacilities} rel="noopener noreferrer" target="_blank" className="text-sm font-semibold text-primary underline underline-offset-4">Admission, day-use and facility details ↗</a>
       <a href={links.official} rel="noopener noreferrer" target="_blank" className="text-sm font-semibold text-primary underline underline-offset-4">Current alerts, access and park hours ↗</a>
       <a href={links.reservations} rel="noopener noreferrer" target="_blank" className="text-sm font-semibold text-primary underline underline-offset-4">Tickets, passes and reservations ↗</a>
+      <a href="https://tpwd.texas.gov/calendar" rel="noopener noreferrer" target="_blank" className="text-sm font-semibold text-primary underline underline-offset-4">Upcoming ranger programs and park activities ↗</a>
     </nav>
   </section>;
 }
