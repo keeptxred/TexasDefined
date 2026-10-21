@@ -34,6 +34,7 @@ const temporalCollections = read(temporalCollectionsPath);
 const temporalSitemap = read(temporalSitemapPath);
 const collectionLoader = read(collectionLoaderPath);
 const directory = read(directoryPath);
+const evergreenSitemap = read(path.join(dataDir, "event-evergreen-sitemap.server.ts"));
 const collectionRoute = read(collectionRoutePath);
 const eventsLayoutRoute = read(eventsLayoutRoutePath);
 const eventsLayoutLazyRoute = read(eventsLayoutLazyRoutePath);
@@ -139,7 +140,7 @@ if (collectionPaths.length !== requiredCollectionPaths.length) {
   fail(`expected ${requiredCollectionPaths.length} event authority collections, found ${collectionPaths.length}`);
 }
 if (new Set(collectionPaths).size !== collectionPaths.length) fail("event authority collection paths must be unique");
-if (!collections.includes('kind: "topic"') || !collections.includes("EVENT_TOPIC_SLUGS") || !collectionLoader.includes("EVENT_TOPIC_SLUGS[evergreen!.value]")) {
+if (!collections.includes('kind: "topic"') || !collections.includes("EVENT_TOPIC_SLUGS") || !collectionLoader.includes("EVENT_TOPIC_SLUGS[evergreen!.value]") || !evergreenSitemap.includes("EVENT_TOPIC_SLUGS[collection.value]")) {
   fail("reviewed statewide topic collections must filter by named verified event-guide slugs");
 }
 for (const routePath of requiredCollectionPaths) {
