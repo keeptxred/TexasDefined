@@ -124,7 +124,7 @@ test('Texas Data release checks are bounded and reject stale SSR values', async 
   assert.equal(plan.omittedCount, 0);
   assert.ok(plan.selectedPaths.length <= PAGE_BUDGET);
   const fresh = {
-    '/texas-data': 'Texas at a glance 4,357,000 August 2026 preliminary $3,489 Search official data briefs /texas-data/texas-metro-payrolls-august-2026',
+    '/texas-data': 'Texas at a glance 4,357,000 August 2026 preliminary $3,489 Search official data briefs /texas-data/texas-metro-payrolls-august-2026 Major Texas metro payrolls Texas Defined insurance research not an exhaustive list of every incorporated municipality',
     '/texas-data/texas-homeowners-premium-history': '2023 $2,795 2025 $3,489 October 20, 2026',
     '/texas-data/texas-metro-payrolls-august-2026': 'August 2026 4,357,000 3,495,300 metro_09302026.htm',
     '/texas-data/texas-metro-payrolls-june-2026': 'June 2026 4,363,300 metro_07292026.htm',
@@ -166,7 +166,7 @@ test('every production release verifies Texas Data content even after original P
   assert.equal(plan.omittedCount, 0);
   assert.ok(plan.selectedPaths.length <= PAGE_BUDGET);
   const content = {
-    '/texas-data': 'Texas at a glance 4,357,000 August 2026 preliminary $3,489 Search official data briefs /texas-data/texas-metro-payrolls-august-2026',
+    '/texas-data': 'Texas at a glance 4,357,000 August 2026 preliminary $3,489 Search official data briefs /texas-data/texas-metro-payrolls-august-2026 Major Texas metro payrolls Texas Defined insurance research not an exhaustive list of every incorporated municipality',
     '/texas-data/texas-homeowners-premium-history': '2023 $2,795 2025 $3,489 October 20, 2026',
     '/texas-data/texas-metro-payrolls-august-2026': 'August 2026 4,357,000 3,495,300 metro_09302026.htm',
     '/texas-data/texas-metro-payrolls-june-2026': 'June 2026 4,363,300 metro_07292026.htm',
