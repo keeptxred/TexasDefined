@@ -304,13 +304,18 @@ async function verifyWoodlandsClassification() {
     const label = 'tax-unit:the-woodlands-township:' + target;
     try {
       const { response, body } = await fetchProduction(path, host);
+      // React SSR can split visible heading text across nodes. Compare
+      // normalized H1 text, not an exact raw-HTML string.
+      const heading = body.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i)?.[1] ?? '';
+      const headingText = heading.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().toLowerCase();
+      const validHeading = headingText.includes('the woodlands township') && headingText.includes('property tax rate');
       const required = [
-        'The Woodlands Township property tax rate',
         'Annual tax rates, with source distinctions',
         '5 of 5', 'Harris County', 'Montgomery County', origin + path,
       ];
       const missing = required.filter((needle) => !body.includes(needle));
       if (!response.ok) fail(label, 'HTTP ' + response.status);
+      else if (!validHeading) fail(label, 'expected Woodlands property tax rate H1 is missing');
       else if (missing.length) fail(label, 'mixed or missing histories: ' + missing.join(', '));
       else {
         console.log('[' + label + '] confirmed one classification across five annual rates');

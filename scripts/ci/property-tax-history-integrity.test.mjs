@@ -67,3 +67,16 @@ test('JSON-LD attribution includes every historical Comptroller workbook, not ju
   assert.match(route,/record\.localVerification\.componentSourceUrl/);
   assert.doesNotMatch(route,/citation: \[latest\.sourceUrl/);
 });
+
+test('Woodlands production H1 verification tolerates SSR text nodes without dropping history checks',()=>{
+  assert.match(smoke,/async function verifyWoodlandsClassification\(\)/);
+  assert.match(smoke,/heading\.replace\(\/<\[\^>\]\*>\//);
+  assert.match(smoke,/headingText\.includes\('the woodlands township'\)/);
+  assert.match(smoke,/headingText\.includes\('property tax rate'\)/);
+  assert.match(smoke,/else if \(!validHeading\) fail\(label,/);
+  assert.match(smoke,/5 of 5/);
+  assert.match(smoke,/Harris County/);
+  assert.match(smoke,/Montgomery County/);
+  const woodlands=smoke.slice(smoke.indexOf('async function verifyWoodlandsClassification'),smoke.indexOf("appendSummary('\\n## Local financial production verification"));
+  assert.doesNotMatch(woodlands,/body\.includes\('The Woodlands Township property tax rate'\)/);
+});
