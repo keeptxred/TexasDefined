@@ -148,7 +148,7 @@ const SPORTS_VENUE_GUIDE_WAVE7: Record<string, SportsVenueGuidePilot> = {
     nearbyPlaces: [
       { label: 'Sea Center Texas', detail: 'Lake Jackson · Free marine aquariums and coastal fisheries exhibits; hatchery tours have separate arrangements', href: '/destination/sea-center-texas' },
       { label: 'Varner-Hogg Plantation', detail: 'West Columbia · Layered Texas plantation, emancipation and oil-era history; confirm historic-site hours', href: '/destination/varner-hogg-plantation' },
-      { label: 'First Capitol of Texas', detail: 'West Columbia · See the historic setting associated with the Republic of Texas first capital', href: '/destination/first-capitol-of-texas' },
+      { label: 'Levi Jordan Plantation', detail: 'Brazoria · State historic site interpreting the people who lived and labored on a 19th-century plantation; check tour hours', href: '/destination/levi-jordan-plantation' },
       { label: 'Brazoria National Wildlife Refuge', detail: 'Coastal birdwatching and wildlife drives · Choose a recreation area and check gates before departure', href: 'https://www.fws.gov/refuge/brazoria/visit-us' },
       { label: 'Angleton lodging and tourism', detail: 'Ask the city tourism office for hotel and visitor options; compare Angleton and Lake Jackson overnight bases', href: 'https://www.angleton.tx.us/287/Tourism' },
       { label: 'Brazoria County', detail: 'Explore more nearby museums, nature destinations and communities', href: '/county/brazoria' },
