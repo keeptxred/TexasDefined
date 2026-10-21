@@ -189,6 +189,7 @@ export function buildGlobalEventCalendarServer(
     showClearDates: Boolean(search.start || search.end),
     previousHref: calendarHref(search, monthBounds(shiftMonth(monthKey, -1))),
     todayHref: calendarHref(search, { start: today, end: today }),
+    nextWeekHref: calendarHref(search, { start: today, end: new Date(Date.parse(`${today}T12:00:00Z`) + 6 * 86400000).toISOString().slice(0, 10) }),
     nextHref: calendarHref(search, monthBounds(shiftMonth(monthKey, 1))),
     clearDatesHref: calendarHref(search, { start: "", end: "" }),
     nextEventHref: nextEvent ? calendarHref(search, { start: nextEvent.startDate, end: nextEvent.startDate }) : "",
