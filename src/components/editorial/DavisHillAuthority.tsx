@@ -135,17 +135,18 @@ export default function DavisHillAuthorityPage() {
           </div>
           <figure className="mt-8 max-w-5xl border border-border">
             <img
-              src="/images/state-parks/davis-hill-conservation-landscape.svg"
-              width={1600}
-              height={900}
+              src="https://upload.wikimedia.org/wikipedia/commons/d/d1/Trinity_River_National_Wildlife_Refuge%2C_Page_Unit%2C_Bottomland_Hardwood_Forest.jpg"
+              width={1800}
+              height={1200}
               loading="eager"
               decoding="async"
               fetchPriority="high"
-              alt="Original editorial illustration of an East Texas forested upland descending toward the Trinity River bottomlands; interpretive scenery, not an actual photograph of Davis Hill"
-              className="w-full"
+              alt="Photograph of bottomland hardwood forest in Trinity River National Wildlife Refuge, Liberty County, Texas, illustrating the nearby habitat; not a photograph taken at Davis Hill"
+              className="w-full object-cover"
+              style={{ aspectRatio: "16 / 9" }}
             />
             <figcaption className="px-4 py-3 text-sm text-muted-foreground">
-              Original TexasDefined editorial landscape illustration — an interpretation of the habitats described by TPWD, not a verified view of Davis Hill, a photographic record, or a route map. For an authentic site image, see <OfficialLink href={sources[3].url}>TPWD’s published Davis Hill photograph</OfficialLink>.
+              Real photograph of bottomland hardwood forest in the Page Unit of Trinity River National Wildlife Refuge, Liberty County — <OfficialLink href="https://commons.wikimedia.org/wiki/File:Trinity_River_National_Wildlife_Refuge,_Page_Unit,_Bottomland_Hardwood_Forest.jpg">William L. Farr / Wikimedia Commons</OfficialLink>, <OfficialLink href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</OfficialLink>. This shows protected habitat nearby, <strong>not Davis Hill itself</strong>. For a photograph from the Davis Hill property, see <OfficialLink href={sources[3].url}>TPWD’s published Davis Hill coverage</OfficialLink>.
             </figcaption>
           </figure>
           <div className="mt-8 max-w-5xl border-l-4 border-primary bg-background px-5 py-5 sm:px-6" role="note" aria-label="Visitor access warning">

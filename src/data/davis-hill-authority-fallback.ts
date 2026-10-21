@@ -7,7 +7,7 @@ export const davisHillFallback: Destination = {
   summary:"Davis Hill is an undeveloped TPWD natural area in Liberty County near the Trinity River. Acquired in 1983, this approximately 1,700-acre protected property is not open for general visits, camping or day-use reservations.",
   category:"state-parks",region:"piney-woods",nearestTown:"Tarkington Prairie",county:"Liberty",
   coordinates:{lat:30.31684,lng:-94.8226},
-  hero:{src:"/images/state-parks/davis-hill-conservation-landscape.svg",alt:"Original TexasDefined editorial landscape illustration of forested uplands and Trinity River bottomlands near Davis Hill; not a photograph or access map",width:1600,height:900},
+  hero:{src:"https://upload.wikimedia.org/wikipedia/commons/d/d1/Trinity_River_National_Wildlife_Refuge%2C_Page_Unit%2C_Bottomland_Hardwood_Forest.jpg",alt:"Photograph of bottomland hardwood forest at Trinity River National Wildlife Refuge in Liberty County near Davis Hill; not the Davis Hill property",width:1800,height:1200,credit:"William L. Farr · CC BY 4.0 · Wikimedia Commons; nearby Trinity River National Wildlife Refuge, not Davis Hill"},
   bestSeason:"Not open to general visitation",
   entryNote:"No public trailheads, campgrounds, entrance, reservation program or opening date are published. Do not enter private property or follow unofficial maps to the site.",
   highlights:["Salt dome and sandstone uplift","Trinity River bottomland hardwood forest","Rare plants and ecological conservation"],

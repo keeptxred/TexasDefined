@@ -144,26 +144,36 @@ for (const path of plan.selectedPaths) {
       if (davisHillPages.includes(path)) {
         // The old Davis Hill build had image metadata but no visible hero.
         // Assert the deployed HTML itself exposes TWO distinct article images.
-        for (const asset of ['davis-hill-conservation-landscape.svg', 'davis-hill-salt-dome-concept.svg']) {
-          const src = '/images/state-parks/' + asset;
-          if (!html.includes(src)) throw new Error('Davis Hill SSR missing visible editorial image: ' + asset);
-          const imageResponse = await fetchImpl(new URL(src, origin), {
-            headers: { 'user-agent': 'TexasDefined-Davis-Hill-Image-Smoke/1.0', accept: 'image/svg+xml' },
-            signal: AbortSignal.timeout(20000),
-          });
-          const body = await imageResponse.text();
-          if (!imageResponse.ok || imageResponse.headers.get('cf-mitigated') === 'challenge'
-            || !/image\/svg\+xml/i.test(imageResponse.headers.get('content-type') || '')
-            || !body.includes('<svg ') || body.length < 500) {
-            throw new Error('Davis Hill image not publicly accessible as SVG: ' + asset + ' (HTTP ' + imageResponse.status + ')');
-          }
+        const heroUrl = 'https://upload.wikimedia.org/wikipedia/commons/d/d1/Trinity_River_National_Wildlife_Refuge%2C_Page_Unit%2C_Bottomland_Hardwood_Forest.jpg';
+        if (!html.includes(heroUrl) || !html.includes('Trinity River National Wildlife Refuge') || !html.includes('CC BY 4.0')) {
+          throw new Error('Davis Hill SSR is missing the licensed photographic hero or required location/rights attribution');
         }
-        if (html.indexOf('davis-hill-conservation-landscape.svg') >= html.indexOf('davis-hill-salt-dome-concept.svg')) {
-          throw new Error('Davis Hill hero does not precede the inline geology image');
+        const heroResponse = await fetchImpl(heroUrl, {
+          headers: { accept: 'image/jpeg', 'user-agent': 'TexasDefined-Davis-Hill-Image-Smoke/1.0' },
+          signal: AbortSignal.timeout(30000),
+        });
+        const heroBytes = await heroResponse.arrayBuffer();
+        if (!heroResponse.ok || heroResponse.headers.get('cf-mitigated') === 'challenge'
+          || !(heroResponse.headers.get('content-type') || '').toLowerCase().includes('image/jpeg') || heroBytes.byteLength < 10000) {
+          throw new Error('Davis Hill licensed photographic hero is unavailable: HTTP ' + heroResponse.status);
+        }
+        const inline = '/images/state-parks/davis-hill-salt-dome-concept.svg';
+        if (!html.includes(inline)) throw new Error('Davis Hill article is missing the separate geology figure');
+        const inlineResponse = await fetchImpl(new URL(inline, origin), {
+          headers: { accept: 'image/svg+xml', 'user-agent': 'TexasDefined-Davis-Hill-Image-Smoke/1.0' },
+          signal: AbortSignal.timeout(20000),
+        });
+        const inlineBody = await inlineResponse.text();
+        if (!inlineResponse.ok || !(inlineResponse.headers.get('content-type') || '').toLowerCase().includes('image/svg+xml')
+          || !inlineBody.includes('<svg ') || inlineBody.length < 500) {
+          throw new Error('Davis Hill interior geology image is missing: HTTP ' + inlineResponse.status);
+        }
+        if (html.indexOf(heroUrl) >= html.indexOf(inline)) {
+          throw new Error('Davis Hill photo hero does not precede the inline geology image');
         }
         const ordinary = await fetchImpl(canonical, { headers: { 'user-agent': 'TexasDefined-Davis-Hill-Visitor-Smoke/1.0' }, signal: AbortSignal.timeout(20000) });
         const ordinaryHtml = await ordinary.text();
-        if (!ordinary.ok || !ordinaryHtml.includes('/images/state-parks/davis-hill-conservation-landscape.svg')) {
+        if (!ordinary.ok || !ordinaryHtml.includes('https://upload.wikimedia.org/wikipedia/commons/d/d1/Trinity_River_National_Wildlife_Refuge%2C_Page_Unit%2C_Bottomland_Hardwood_Forest.jpg')) {
           throw new Error('Davis Hill canonical visitor URL still lacks the visible hero');
         }
       }
