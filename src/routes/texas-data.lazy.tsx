@@ -23,7 +23,8 @@ function Page() {
   const [searchQuery, setSearchQuery] = useState('');
   const currentPopulation = datasets.find((dataset) => dataset.slug === 'texas-population-and-migration-2025');
   const homeowners = datasets.find((dataset) => dataset.slug === 'texas-homeowners-premium-history');
-  const payrolls = datasets.find((dataset) => dataset.slug === 'texas-metro-payrolls-august-2026');
+  const payrolls = datasets.find((dataset) => dataset.slug === 'texas-metro-payrolls-latest')
+    ?? datasets.find((dataset) => dataset.slug === 'texas-metro-payrolls-august-2026');
 
   const population = currentPopulation?.rows.find((row) => row.label.includes('July 1, 2025'))?.value;
   const populationGrowth = currentPopulation?.rows.find((row) => row.label.includes('Numeric population growth'))?.value;
@@ -75,9 +76,9 @@ function Page() {
       {majorMetroPayrolls.length > 0 && <section aria-labelledby="metro-snapshot-heading" className="border-b border-border py-10">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div><p className="eyebrow text-primary">Comparable metro employment</p><h2 id="metro-snapshot-heading" className="mt-2 font-display text-3xl">Major Texas metro payrolls</h2></div>
-          <Link to="/texas-data/$datasetSlug" params={{ datasetSlug: 'texas-metro-payrolls-august-2026' }} className="text-sm font-semibold text-primary underline underline-offset-4">Full dataset & methodology →</Link>
+          <Link to="/texas-data/$datasetSlug" params={{ datasetSlug: payrolls?.slug ?? 'texas-metro-payrolls-august-2026' }} className="text-sm font-semibold text-primary underline underline-offset-4">Full dataset & methodology →</Link>
         </div>
-        <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">August 2026 preliminary BLS nonfarm payroll jobs, not resident workers or a measure of job quality. Compare metros using the same source and month.</p>
+        <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">{payrolls?.title}. Latest verified BLS nonfarm payroll jobs (not seasonally adjusted), not resident workers or a measure of job quality. This is a dated preliminary release subject to revision; compare metros using the same source and month.</p>
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{majorMetroPayrolls.map((metro) => <div key={metro.label} className="border-t border-border pt-4"><p className="font-display text-2xl">{numberFormatter.format(metro.value)}</p><p className="mt-2 text-sm text-muted-foreground">{metro.label}</p></div>)}</div>
       </section>}
 
