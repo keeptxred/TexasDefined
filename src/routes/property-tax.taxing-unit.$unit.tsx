@@ -15,7 +15,7 @@ export const Route = createFileRoute('/property-tax/taxing-unit/$unit')({
     const { latest, history } = loaderData;
     const canonicalPath = `/property-tax/taxing-unit/${latest.slug}`;
     const description = `${latest.name} property-tax rate history, latest finalized rate, maintenance-and-operations and debt-service components when reported, counties served and official Texas Comptroller source.`;
-    const indexable = history.length >= 3;
+    const indexable = history.filter((record) => !record.rateUnavailable && record.totalRate != null).length >= 3;
     const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
     return {
       meta: buildMeta(texasDefinedBrand, {
@@ -33,7 +33,10 @@ export const Route = createFileRoute('/property-tax/taxing-unit/$unit')({
         description,
         url: pageUrl,
         temporalCoverage: `${history[0]?.year}/${history.at(-1)?.year}`,
-        creator: { '@type': 'Organization', name: 'Texas Comptroller of Public Accounts' },
+        creator: { '@type': 'Organization', name: 'Texas Defined' },
+        citation: latest.slug === 'escobares' && latest.type === 'city'
+          ? [latest.sourceUrl, STARR_CAD_REPORT_URL]
+          : latest.sourceUrl,
         publisher: { '@type': 'Organization', name: 'Texas Defined' },
         variableMeasured: ['Total property-tax rate', 'Maintenance and operations rate', 'Debt-service / I&S rate', 'Reported levy'],
       })],
@@ -42,27 +45,65 @@ export const Route = createFileRoute('/property-tax/taxing-unit/$unit')({
   component: Page,
 });
 
+// Starr CAD's published 2024 local rate fills a statewide reporting gap for display only.
+// The Comptroller-derived database record remains "not-reported" for source integrity.
+const STARR_CAD_REPORT_URL = 'https://starrcad.org/wp-content/uploads/2025/08/2025-ANNUAL-REPORT.pdf';
+
 function Page() {
   const { latest, history } = Route.useLoaderData();
+  const displayHistory = history.map((record) => {
+    const locallyVerified = latest.type === 'city' && latest.slug === 'escobares' && record.year === 2024 && record.totalRate == null;
+    return {
+      ...record,
+      displayTotalRate: locallyVerified ? 0.340447 : record.totalRate,
+      localSourceUrl: locallyVerified ? STARR_CAD_REPORT_URL : null,
+    };
+  });
+  const rateCount = displayHistory.filter((record) => record.displayTotalRate != null).length;
+  const chartMaximum = Math.max(0.01, ...displayHistory.map((record) => record.displayTotalRate ?? 0));
   const first = history[0];
   const rateChange = latest.totalRate != null && first?.totalRate != null ? latest.totalRate - first.totalRate : null;
   const countyLinks = latest.countySlugs.map((slug) => ({ slug, name: title(slug) + ' County' }));
 
   return <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16"><article className="mx-auto max-w-6xl">
     <nav className="border-b border-border pb-4 text-xs uppercase tracking-[0.14em] text-muted-foreground"><Link to="/">Front page</Link><span className="mx-2">/</span><Link to="/property">Property</Link><span className="mx-2">/</span><Link to="/property-tax-calculators">Property tax</Link><span className="mx-2">/</span>{latest.name}</nav>
-    <header className="grid gap-8 border-b border-border py-10 lg:grid-cols-[minmax(0,1fr)_19rem] lg:items-end"><div><p className="eyebrow text-primary">{latest.type.replaceAll('-', ' ')}</p><h1 className="mt-3 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">{latest.name} property tax rate</h1><p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Finalized annual property-tax rate history reported through the Texas Comptroller statewide Tax Rates and Levies files. Parcel membership, taxable value and exemptions still determine whether and how this rate applies to a particular property.</p></div><dl className="border-l border-border pl-6 text-sm"><Fact label="Latest finalized year" value={String(latest.year)}/><Fact label="Latest total rate" value={latest.totalRate == null ? 'Not reported / withheld from calculation' : `${latest.totalRate.toFixed(6)} / $100`}/><Fact label="Years retained" value={String(history.length)}/></dl></header>
+    <header className="grid gap-8 border-b border-border py-10 lg:grid-cols-[minmax(0,1fr)_19rem] lg:items-end"><div><p className="eyebrow text-primary">{latest.type === 'city' ? 'Municipal taxing unit' : latest.type.replaceAll('-', ' ')}</p><h1 className="mt-3 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">{latest.name} property tax rate</h1><p className="mt-6 max-w-3xl text-lg leading-8 text-muted-foreground">Annual property-tax rate history from the Texas Comptroller. Separately verified local rates are identified when statewide data is missing. This is the {latest.type === 'city' ? 'municipal rate, not the combined property-tax rate' : 'rate for this taxing unit, not a combined property-tax rate'}; only the units serving a specific parcel should be combined.</p></div><dl className="border-l border-border pl-6 text-sm"><Fact label="Latest finalized year" value={String(latest.year)}/><Fact label={latest.type === 'city' ? 'Latest municipal rate' : 'Latest unit rate'} value={latest.totalRate == null ? 'Not reported / withheld from calculation' : `${latest.totalRate.toFixed(6)} per $100`}/><Fact label="Years with verified rates" value={`${rateCount} of ${history.length}`}/></dl></header>
 
     {latest.rateUnavailable ? <section className="border-b border-border py-7"><p className="max-w-3xl text-sm leading-6 text-muted-foreground"><strong className="text-foreground">Rate not used for calculation.</strong> {statusMessage(latest.sourceStatus)} TexasDefined keeps the taxing-unit reference visible for research but does not substitute an unverified numeric rate.</p></section> : null}
 
-    <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]"><div><p className="eyebrow text-primary">Latest rate</p><h2 className="mt-2 font-display text-3xl">What the reported rate contains</h2></div><div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"><RateFact label="Total rate" value={latest.totalRate}/><RateFact label="Operations (M&O)" value={latest.maintenanceOperationsRate}/><RateFact label="Debt service (I&S)" value={latest.debtServiceRate}/><div className="border-t border-border pt-3"><span className="text-xs uppercase tracking-[.12em] text-muted-foreground">Change since {first?.year ?? latest.year}</span><strong className="mt-1 block font-display text-2xl">{rateChange == null ? 'Not comparable' : `${rateChange >= 0 ? '+' : ''}${rateChange.toFixed(6)}`}</strong></div></div></section>
+    <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]"><div><p className="eyebrow text-primary">Latest rate</p><h2 className="mt-2 font-display text-3xl">What the reported rate contains</h2></div><div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"><RateFact label="Total rate" value={latest.totalRate}/><RateFact label="Operations (M&O)" value={latest.maintenanceOperationsRate}/><RateFact label="Debt service (I&S)" value={latest.debtServiceRate}/><div className="border-t border-border pt-3"><span className="text-xs uppercase tracking-[.12em] text-muted-foreground">Change since {first?.year ?? latest.year}</span><strong className="mt-1 block font-display text-2xl">{rateChange == null ? 'Not comparable' : `${rateChange >= 0 ? '+' : ''}${rateChange.toFixed(6)}`}</strong><span className="text-xs text-muted-foreground">per $100 of taxable value</span></div></div></section>
 
     <section className="border-b border-border py-10"><p className="eyebrow text-primary">Counties associated with this taxing unit</p><h2 className="mt-2 font-display text-3xl">Local county context</h2><div className="mt-5 flex flex-wrap gap-3">{countyLinks.map(({slug,name}) => <a key={slug} href={`/property-tax/county/${slug}`} className="border border-border px-4 py-2 text-sm font-semibold hover:border-primary">{name}</a>)}</div><p className="mt-4 max-w-3xl text-sm leading-6 text-muted-foreground">County association narrows the geography but does not prove that every parcel in the county belongs to this taxing unit. Verify the exact account before combining rates.</p></section>
 
-    <section className="border-b border-border py-10"><p className="eyebrow text-primary">Rate history</p><h2 className="mt-2 font-display text-3xl">Finalized statewide records</h2><div className="mt-6 overflow-x-auto"><table className="w-full min-w-[42rem] text-left text-sm"><thead><tr className="border-b border-border"><th className="py-3">Year</th><th>Total rate</th><th>Operations (M&O)</th><th>Debt service (I&S)</th><th>Status</th><th>Reported levy</th></tr></thead><tbody>{[...history].reverse().map((record) => <tr key={record.id} className="border-b border-border"><td className="py-3 font-semibold">{record.year}</td><td>{record.totalRate?.toFixed(6) ?? '—'}</td><td>{record.maintenanceOperationsRate?.toFixed(6) ?? '—'}</td><td>{record.debtServiceRate?.toFixed(6) ?? '—'}</td><td>{statusLabel(record.sourceStatus, record.variableRate)}</td><td>{record.levy != null ? money(record.levy) : '—'}</td></tr>)}</tbody></table></div></section>
+    <section className="border-b border-border py-10">
+      <p className="eyebrow text-primary">Rate history</p>
+      <h2 className="mt-2 font-display text-3xl">Annual tax rates, with source distinctions</h2>
+      <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">All rates below are dollars per $100 of taxable value. A local appraisal-district value is clearly marked if the statewide Comptroller record is missing. Missing M&amp;O or debt components are not zero, and a reported levy is not necessarily the amount collected.</p>
+      <div className="mt-6 space-y-3" aria-label="Historical taxing-unit rates visualized by year">
+        {displayHistory.map((record) => <div key={record.id} className="grid grid-cols-[3.5rem_minmax(0,1fr)_6rem] items-center gap-3 text-sm">
+          <span className="font-semibold">{record.year}</span>
+          <div className="h-4 overflow-hidden rounded-sm bg-muted" role="img" aria-label={record.displayTotalRate == null ? `${record.year}: rate unavailable` : `${record.year}: ${record.displayTotalRate.toFixed(6)} dollars per 100 dollars of taxable value`}>
+            {record.displayTotalRate != null ? <div className="h-full bg-primary" style={{ width: `${(record.displayTotalRate / chartMaximum) * 100}%` }} /> : null}
+          </div>
+          <span className="text-right tabular-nums">{record.displayTotalRate?.toFixed(6) ?? 'Unavailable'}</span>
+        </div>)}
+      </div>
+      <div className="mt-6 overflow-x-auto"><table className="w-full min-w-[42rem] text-left text-sm">
+        <thead><tr className="border-b border-border"><th className="py-3">Year</th><th>Total / $100</th><th>Operations (M&amp;O)</th><th>Debt service (I&amp;S)</th><th>Status / source</th><th>Reported levy</th></tr></thead>
+        <tbody>{[...displayHistory].reverse().map((record) => <tr key={record.id} className="border-b border-border">
+          <td className="py-3 font-semibold">{record.year}</td>
+          <td className="tabular-nums">{record.displayTotalRate?.toFixed(6) ?? '—'}</td>
+          <td className="tabular-nums">{record.maintenanceOperationsRate?.toFixed(6) ?? '—'}</td>
+          <td className="tabular-nums">{record.debtServiceRate?.toFixed(6) ?? '—'}</td>
+          <td>{record.localSourceUrl ? <><span>Locally verified; absent from statewide file. </span><a className="font-semibold text-primary underline underline-offset-2" href={record.localSourceUrl} target="_blank" rel="noopener noreferrer">Starr CAD report, p. 16 ↗</a></> : record.totalRate != null && (record.maintenanceOperationsRate == null || record.debtServiceRate == null) ? 'Finalized total; components unavailable' : statusLabel(record.sourceStatus, record.variableRate)}</td>
+          <td>{record.levy != null ? money(record.levy) : '—'}</td>
+        </tr>)}</tbody></table></div>
+      {latest.slug === 'escobares' && latest.type === 'city' ? <p className="mt-4 text-sm leading-6 text-muted-foreground">For 2024, the statewide file marks Escobares as not reported. Starr Central Appraisal District independently published the city rate as 0.340447 in its 2025 Annual Report (2024 Tax Rates table, page 16). The local figure is displayed for research, without changing the statewide record or silently adding it to tax calculations.</p> : null}
+    </section>
 
     <section className="grid gap-6 border-b border-border py-10 md:grid-cols-3"><a href="/texas-property-tax-estimator" className="border border-border p-5 hover:border-primary"><strong className="font-display text-xl">Property-tax estimator</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Combine this rate with the other taxing units serving a parcel.</span></a><a href="/texas-property-tax-rate-history" className="border border-border p-5 hover:border-primary"><strong className="font-display text-xl">Rate history explorer</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Search and compare another Texas taxing unit.</span></a><a href="/texas-property-tax-bill-breakdown" className="border border-border p-5 hover:border-primary"><strong className="font-display text-xl">Bill breakdown</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">See the share attributable to every selected taxing unit.</span></a></section>
 
-    <section className="pt-8 text-sm leading-6 text-muted-foreground"><p><strong className="text-foreground">Source:</strong> Texas Comptroller of Public Accounts, Property Tax Assistance Division, Tax Rates and Levies. Rates are dollars per $100 of taxable value. Texas Defined retains annual statewide files for historical comparison and does not use conflicting or missing rates in calculators.</p><a href={latest.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-3 inline-block font-semibold text-primary underline decoration-primary/40 underline-offset-4">Open the official source workbook ↗</a></section>
+    <section className="pt-8 text-sm leading-6 text-muted-foreground"><p><strong className="text-foreground">Sources and methodology:</strong> Texas Comptroller of Public Accounts, Property Tax Assistance Division, Tax Rates and Levies; separately marked local supplemental records where available. Rates are per $100 of taxable value. The total rate is only one jurisdiction's share. Historical boundaries, exemptions and taxable values may differ from today's. Reported levies are estimates or calculated levies, not actual tax collections. Missing or conflicting statewide rates are excluded from automatic calculations.</p><div className="mt-3 flex flex-wrap gap-x-6 gap-y-3"><a href={latest.sourceUrl} target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">Latest Comptroller source workbook ↗</a>{latest.slug === 'escobares' && latest.type === 'city' ? <><a href="https://starrcad.org/" target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">Starr Central Appraisal District ↗</a><a href={STARR_CAD_REPORT_URL} target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">Starr CAD 2025 Annual Report ↗</a></> : null}</div></section>
   </article></Container>;
 }
 
