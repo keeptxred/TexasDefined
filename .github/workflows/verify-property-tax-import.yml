@@ -28,4 +28,4 @@ jobs:
         with:
           deno-version: v2.x
       - name: Check shared Edge and runner TypeScript importer
-        run: deno check supabase/functions/import-texas-property-tax-rates/index.ts
+        run: deno check --node-modules-dir=none supabase/functions/import-texas-property-tax-rates/index.ts
