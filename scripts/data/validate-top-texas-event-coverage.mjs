@@ -14,6 +14,7 @@ const musical = read("src/data/major-event-expanded-authority-tranche22.server.t
 for (const token of [
   "canonicalEventGuideSlug", "majorEventIndexRecords", "legacyGuideSlugs",
   '"houston-livestock-rodeo": "houston-livestock-show-rodeo"',
+  '"houston-livestock-show-and-rodeo": "houston-livestock-show-rodeo"',
   '"wurstfest-new-braunfels": "wurstfest"',
   '"viva-el-paso"', '"texas-outdoor-musical"', '"/texas-state-fair"',
   'Texas Defined visitor guide →', 'Official event site ↗',
