@@ -10,7 +10,7 @@ test('authority discovery groups sessions and never approves publication', () =>
   try {
     mkdirSync(join(dir, 'src/data/generated'), { recursive: true });
     const fixture = { fetchedAt: '2026-10-21T00:00:00.000Z', events: [
-      { id: 'one', name: 'Texas Balloon Festival - Friday', city: 'Austin', startDate: '2026-11-06', venue: 'Park' },
+      { id: 'one', name: 'Texas Balloon Festival - Friday', city: 'Austin', startDate: '2026-11-06', venue: 'Park', officialUrl: 'https://www.ticketmaster.com/festival/event/ABC123' },
       { id: 'two', name: 'Texas Balloon Festival - Saturday', city: 'Austin', startDate: '2026-11-07', venue: 'Park' },
       { id: 'three', name: 'Texas Balloon Festival VIP add-on', city: 'Austin', startDate: '2026-11-07' },
       { id: 'four', name: 'Ordinary concert', city: 'Dallas', startDate: '2026-11-08' },
@@ -24,6 +24,7 @@ test('authority discovery groups sessions and never approves publication', () =>
     assert.equal(candidates.length, 1);
     assert.deepEqual(candidates[0].ticketmasterIds, ['one', 'two']);
     assert.equal(candidates[0].publicationAllowed, false);
+    assert.deepEqual(candidates[0].officialTicketUrls, ['https://www.ticketmaster.com/festival/event/ABC123']);
     assert.equal(candidates[0].status, 'requires-organizer-verification');
     spawnSync(process.execPath, [script], { cwd: dir, encoding: 'utf8' });
     assert.equal(readFileSync(join(dir, 'ops/editorial/ticketmaster-authority-candidates.json'), 'utf8'), output);
