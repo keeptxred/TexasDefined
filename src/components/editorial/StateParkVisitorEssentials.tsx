@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import type { Destination } from "@/data/types";
-import tpwdCalendar from "@/data/generated/tpwd-events.json";
+import { getTpwdActivitiesForDestination } from "@/data/tpwd-calendar";
 import { isTexasStateParkDestination, stateParkOfficialResources, VERIFIED_PARK_FACILITIES } from "@/data/state-park-authority";
 
 /**
@@ -12,14 +12,7 @@ export function StateParkVisitorEssentials({ destination }: { destination: Desti
   const links = stateParkOfficialResources(destination);
   if (!links) return null;
   const verified = VERIFIED_PARK_FACILITIES[destination.slug];
-  const parkCalendarKey = (destination.officialUrl ?? "").replace(/\/$/, "").split("/").at(-1);
-  const checkedAt = Date.parse(tpwdCalendar.generatedAt);
-  const calendarFresh = Number.isFinite(checkedAt) && Math.abs(Date.now() - checkedAt) <= 7 * 86400000;
-  const today = new Date().toISOString().slice(0, 10);
-  const parkOccurrences = calendarFresh && parkCalendarKey
-    ? tpwdCalendar.events.filter(event => event.parkKey === parkCalendarKey && event.startDate >= today)
-      .sort((a, b) => a.startDate.localeCompare(b.startDate)).slice(0, 24)
-    : [];
+  const parkOccurrences = getTpwdActivitiesForDestination(destination);
   const activityGroups = new Map<string, { title: string; dates: string[]; officialUrl: string }>();
   for (const event of parkOccurrences) {
     const key = event.title.toLowerCase();
