@@ -24,3 +24,8 @@ jobs:
           node-version: '22'
       - name: Verify importer rollback, provenance and override invariants
         run: node --test scripts/ci/property-tax-sync-contract.test.mjs
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - name: Check shared Edge and runner TypeScript importer
+        run: deno check --node-modules-dir=none supabase/functions/import-texas-property-tax-rates/index.ts

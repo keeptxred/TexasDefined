@@ -47,7 +47,13 @@ function parseWorkbook(type:UnitType,sourceUrl:string,bytes:Uint8Array):RawRecor
 function normalizeYear(raw:RawRecord[],year:number){const groups=new Map<string,RawRecord[]>();for(const r of raw){const k=`${r.type}:${r.officialBase}`;const g=groups.get(k)??[];g.push(r);groups.set(k,g)}const units:any[]=[];for(const group of groups.values()){const usable=group.filter(r=>!r.unavailable);const rateUnavailable=usable.length===0;const totals=uniqueNumbers(usable.map(r=>r.totalRate));const mos=uniqueNumbers(usable.map(r=>r.moRate));const debts=uniqueNumbers(usable.map(r=>r.debtRate));const names=uniqueStrings(group.map(r=>r.name));const name=names.sort((a,b)=>a.length-b.length||a.localeCompare(b))[0];const levies=usable.map(r=>r.levy).filter((v):v is number=>v!=null);units.push({year,type:group[0].type,name,baseSlug:slugify(name),officialBase:group[0].officialBase,county_slugs:uniqueStrings(group.map(r=>r.countySlug)),total_rate:rateUnavailable?null:(totals.length===1?totals[0]:null),maintenance_operations_rate:rateUnavailable?null:(mos.length===1?mos[0]:null),debt_service_rate:rateUnavailable?null:(debts.length===1?debts[0]:null),levy:rateUnavailable?null:(levies.length?levies.reduce((a,b)=>a+b,0):null),source_url:group[0].sourceUrl,source_status:rateUnavailable?"not-reported":(usable.length<group.length?"partial-reporting":"reported-final"),variable_rate:!rateUnavailable&&totals.length>1,rate_variants:rateUnavailable?[]:totals,official_taxing_unit_ids:uniqueStrings(group.map(r=>r.officialId)),split_across_cads:uniqueStrings(group.map(r=>r.countySlug)).length>1,rate_unavailable:rateUnavailable,imported_at:new Date().toISOString()})}const collisions=new Map<string,any[]>();for(const u of units){const k=`${u.type}:${u.baseSlug}`;const g=collisions.get(k)??[];g.push(u);collisions.set(k,g)}for(const u of units){if(u.total_rate!=null&&u.total_rate>0&&u.maintenance_operations_rate!=null&&u.debt_service_rate!=null&&Math.abs(u.total_rate-u.maintenance_operations_rate-u.debt_service_rate)>0.000001){/* Preserve the adopted total, but never publish components that do not reconcile. */u.maintenance_operations_rate=null;u.debt_service_rate=null}const coll=collisions.get(`${u.type}:${u.baseSlug}`)??[];u.slug=coll.length>1?`${u.baseSlug}-${slugify(u.officialBase)}`:u.baseSlug;u.id=`${year}:${u.type}:${u.slug}`;applyKnown2025SchoolRateCorrection(u);if(year===2025&&u.type==="school-district"&&!u.rate_unavailable&&u.maintenance_operations_rate!=null&&u.maintenance_operations_rate<TEA_2025_MINIMUM_MCR){u.source_status="cross-source-conflict";u.rate_unavailable=true}delete u.baseSlug;delete u.officialBase}return units}
 // Never touch published rates until all official workbooks are downloaded,
 // independently hashed, normalized, validated, and completely staged.
-const sha256 = async (bytes: Uint8Array) => [...new Uint8Array(await crypto.subtle.digest("SHA-256", bytes))].map(b=>b.toString(16).padStart(2,"0")).join("");
+const sha256 = async (bytes: Uint8Array) => {
+  // Deno 2.9 WebCrypto requires an owned ArrayBuffer (not ArrayBufferLike).
+  const owned = new Uint8Array(bytes.byteLength);
+  owned.set(bytes);
+  return [...new Uint8Array(await crypto.subtle.digest("SHA-256", owned))]
+    .map(b=>b.toString(16).padStart(2,"0")).join("");
+};
 const json = (body:unknown,status=200)=>Response.json(body,{status,headers:{"cache-control":"no-store"}});
 function validateYear(records:any[],raw:RawRecord[],year:number,diagnostics:any[]){
   if(diagnostics.length!==4||diagnostics.some(d=>!d.rawRows||!d.sha256))throw new Error("All four original source files are required");
@@ -72,10 +78,15 @@ function validateYear(records:any[],raw:RawRecord[],year:number,diagnostics:any[
   }
   if(records.length<3000)throw new Error("Refusing incomplete statewide dataset");
 }
-Deno.serve(async(req:Request)=>{
+const runTaxImport=async(req:Request):Promise<Response>=>{
   const url=new URL(req.url);
   const year=Number(url.searchParams.get("year")??String(new Date().getUTCFullYear()));
   const currentYear=new Date().getUTCFullYear();
+  // Supabase Edge isolates have strict CPU budgets; parsing larger XLSX data
+  // must happen on the existing GitHub Actions runner, using THIS SAME importer.
+  if(Deno.env.get("TEXAS_TAX_IMPORT_CLI")!=="1"&&year>=2023)
+    return json({ok:false,status:"runner-required",year,
+      error:"For this tax year run the existing GitHub Actions Sync Texas property tax rates workflow; Edge runtime CPU is insufficient."},409);
   if(!Number.isInteger(year)||year<2021||year>currentYear)return json({ok:false,error:"Unsupported tax year"},400);
   const diagnostics:Array<{type:UnitType;rawRows:number;sha256:string;sourceUrl:string}>=[];
   const raw:RawRecord[]=[];
@@ -140,4 +151,17 @@ Deno.serve(async(req:Request)=>{
     console.error("Texas tax import failed for year",year,message);
     return json({ok:false,status:"error",year,error:message.slice(0,400),diagnostics},500);
   }
-});
+};
+
+// GitHub Actions invokes this same importer in a Deno CLI process with a
+// normal runner CPU budget. Edge HTTP remains available for lightweight paths.
+if(Deno.env.get("TEXAS_TAX_IMPORT_CLI")==="1"){
+  const yearText=Deno.env.get("TEXAS_TAX_IMPORT_YEAR")??"";
+  if(!/^\d{4}$/.test(yearText))throw new Error("Missing TEXAS_TAX_IMPORT_YEAR");
+  const response=await runTaxImport(new Request("https://localhost/import?year="+yearText));
+  const result=await response.json();
+  console.log(JSON.stringify(result));
+  if(!response.ok||result?.ok!==true)Deno.exit(1);
+}else{
+  Deno.serve(runTaxImport);
+}

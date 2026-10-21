@@ -13,6 +13,24 @@ Production data is read through \`src/data/property/texas-tax-rates.server.ts\`,
 and the published taxing-unit page is
 \`src/routes/property-tax.taxing-unit.$unit.tsx\`.
 
+## Runtime and CPU-limit protection
+
+A prior import attempted to parse the four 2023–2025 XLSX files inside
+a Supabase Edge isolate and returned HTTP 546 with `CPU Time exceeded`
+(2026-10-21); the historical 2021 and 2022 requests succeeded.
+The existing GitHub Actions sync now checks out this repository, installs
+Deno v2 via `denoland/setup-deno@v2`, then executes **the very same**
+`supabase/functions/import-texas-property-tax-rates/index.ts` with
+`TEXAS_TAX_IMPORT_CLI=1` and `TEXAS_TAX_IMPORT_YEAR` for each year.
+This avoids the Edge isolate's CPU budget without duplicating parsing rules
+or weakening the transactional SQL finalizer.
+
+For tax years 2023 onward, direct Edge HTTP calls return
+`runner-required` with HTTP 409; to force a sync, use GitHub Actions
+workflow_dispatch. JWT verification remains enabled on the Edge function.
+The CLI uses the existing GitHub repository service-role secret, never a
+client-side key.
+
 ## Routine monthly run
 
 GitHub Actions \`.github/workflows/sync-property-tax-rates.yml\` runs on
@@ -25,7 +43,7 @@ previously published year, HTTP/download failure, incomplete workbook,
 failed validation or database/RPC failure is a failed GitHub Actions run.
 Check its per-year workflow summary. Do not run destructive manual SQL.
 
-Each run downloads all four official XLSX files **before staging any data**,
+Each runner iteration downloads all four official XLSX files **before staging any data**,
 stores SHA-256 checksums and source URLs, validates jurisdiction counts,
 identities, duplicate keys, allowed years, rates, source statuses and
 component reconciliation, and preserves original parsed source rows.
@@ -82,17 +100,20 @@ remain unaltered. Source changes or conflicts need re-review.
    all four workbooks; do not force a partial import.
 3. For historical \`unavailable\`, HTTP failures or workbook-format changes,
    recheck official URLs and parsing without modifying published data.
-4. For validation errors, inspect the reported year/type/IDs, source
+4. For `HTTP 546` / Edge CPU limit errors, confirm GitHub Actions is running
+   the pinned importer via Deno CLI rather than calling heavy workbook
+   parsing through the Edge HTTP endpoint.
+5. For validation errors, inspect the reported year/type/IDs, source
    provenance, minimum-record guard and reconciliation. Do not disable gates
    to make a red workflow green.
-5. For SQL errors, inspect \`texas_tax_import_runs\` and staging counts using
+6. For SQL errors, inspect \`texas_tax_import_runs\` and staging counts using
    a privileged server-side/admin connection. A failed finalization leaves
    the previous published year intact. Fix the root cause and rerun workflow.
-6. To confirm status, query the official rates grouped by year, last
+7. To confirm status, query the official rates grouped by year, last
    completed import source signature, raw-source row counts, and missing/
    inconsistent components. Use the existing production smoke verification
    for the Escobares page and direct Worker.
-7. Never delete or manually overwrite \`texas_property_tax_rates\` to recover;
+8. Never delete or manually overwrite \`texas_property_tax_rates\` to recover;
    run the validated importer once the source and database issues are fixed.
 
 Rollback testing is supported by the \`p_simulate_failure\` argument to the

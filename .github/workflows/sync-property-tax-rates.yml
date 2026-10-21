@@ -27,7 +27,13 @@ jobs:
       SUPABASE_URL: ${{ secrets.SUPABASE_URL || 'https://ftkznprjljkhymknvhye.supabase.co' }}
       SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY || secrets.KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY }}
       RATE_HISTORY_LOOKBACK_YEARS: ${{ vars.RATE_HISTORY_LOOKBACK_YEARS || '5' }}
+      TEXAS_TAX_IMPORT_CLI: '1'
     steps:
+      - uses: actions/checkout@v4
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
       - name: Require existing Supabase credentials
         shell: bash
         run: |
@@ -52,17 +58,15 @@ jobs:
           for ((year=current_year;year>=oldest;year--)); do
             response_file="$(mktemp)"
             echo "Checking official workbooks for $year"
-            if ! status="$(curl --silent --show-error --max-time 240 \
-              --output "$response_file" \
-              --write-out '%{http_code}' \
-              --header "Authorization: Bearer $SUPABASE_SERVICE_ROLE_KEY" \
-              --header "apikey: $SUPABASE_SERVICE_ROLE_KEY" \
-              "$SUPABASE_URL/functions/v1/import-texas-property-tax-rates?year=$year")"; then
-              echo "::error::Year $year: request to importer failed"
-              echo "| $year | request error | — | — |" >> "$GITHUB_STEP_SUMMARY"
-              failures=$((failures+1))
-              rm -f "$response_file"
-              continue
+            # Heavy workbook parsing runs in the GitHub runner, not inside a
+            # short-CPU-budget Supabase Edge isolate. Same pinned source module.
+            if TEXAS_TAX_IMPORT_YEAR="$year" deno run --node-modules-dir=none -A \
+              supabase/functions/import-texas-property-tax-rates/index.ts \
+              > "$response_file"; then
+              status=200
+            else
+              status=500
+              echo "::error::Year $year: importer process failed (see failure details below)"
             fi
             outcome="$(jq -r '.status // "error"' "$response_file" 2>/dev/null || echo error)"
             good="$(jq -r '.ok // false' "$response_file" 2>/dev/null || echo false)"
