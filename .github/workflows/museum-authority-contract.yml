@@ -75,9 +75,9 @@ jobs:
       # npm ci on Linux; preserve the locked version and repair only that case.
       - name: Confirm native Cloudflare workerd dependency
         run: |
-          if ! node -e 'require.resolve("@cloudflare/workerd-linux-64")' >/dev/null 2>&1; then
+          if ! test -d node_modules/@cloudflare/workerd-linux-64 >/dev/null 2>&1; then
             npm install --no-save --package-lock=false --ignore-scripts --no-audit --no-fund @cloudflare/workerd-linux-64@1.20260811.1
           fi
-          node -e 'require.resolve("@cloudflare/workerd-linux-64")'
+          test -d node_modules/@cloudflare/workerd-linux-64
       - name: Build production application (canonical release check)
         run: npm run build
