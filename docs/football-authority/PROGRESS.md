@@ -1,5 +1,13 @@
 # Football Authority — Execution Ledger
 
+## October 20, 2026 — Batch 007 canonical 25-school assignment (research in progress)
+
+Protected current `main` at assignment: `78157bb07d856f40d21e813fd3f886cd54e2b20e`. Batch 006 is **25/25 VERIFIED** under the currently published owner technical-and-source acceptance policy, totaling **130 VERIFIED / 1,162 NOT_REVIEWED** from 1,292 school records. No Batch 007 branch/PR was found at selection. This assignment does not assert audits, content, production deployments or verification have occurred. Existing general football UI PRs were identified but are not considered individual school authority completions.
+
+**Assigned Batch 007 (stable registry order; 25 max):** Brackettville Brackett (`brackettville-brackett`), Brady (`brady`), Breckenridge (`breckenridge`), Bremond (`bremond`), Brenham (`brenham`), Bridge City (`bridge-city`), Bridgeland (`bridgeland`), Bridgeport (`bridgeport`), Brock (`brock`), Bronte (`bronte`), Brookesmith (`brookesmith`), Brownfield (`brownfield`), Brownsboro (`brownsboro`), Brownsville Hanna (`brownsville-hanna`), Brownsville Lopez (`brownsville-lopez`), Brownsville Pace (`brownsville-pace`), Brownsville Porter (`brownsville-porter`), Brownsville Rivera (`brownsville-rivera`), Brownsville Veterans Memorial (`brownsville-veterans-memorial`), Brownwood (`brownwood`), Bruceville-Eddy (`bruceville-eddy`), Bruni (`bruni`), Bryan (`bryan`), Bryan Rudder (`bryan-rudder`), Bryson (`bryson`).
+
+**GitHub checkpoint:** `football-authority-batch-007-20261020`; `REGISTRY.json` contains all 25 `batch: 7` assignments, retaining original `NOT_REVIEWED` status until each real individual audit. Research dossiers, unique code changes, rights decisions, page-specific test and actual production results are recorded separately as they become available. **25 unfinished at initial assignment**; do not assign Batch 008.
+
 ## October 20, 2026 — OWNER POLICY CHANGE: Batch 006 technically VERIFIED, mandatory human signoff retired
 
 The owner removed **formal nine-dimensional human editorial approval** as a blocking prerequisite for football authority batch completion. Preserve individual school research/source quality, documented uncertainties, photo-use legality, automated accessibility checks, protected PR and real production browser checks. Do **not** claim the 25 optional reviewer forms were submitted or that any unlicensed photography/gate/ADA detail has been approved. The original 25 source/visitor guides and data-derived graphics were delivered via protected merges (#5441, #5471, #5473, #5476 and subsequent corrections).
