@@ -67,6 +67,212 @@ export type FootballProgramEditorial = {
 };
 
 const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "brownfield": {
+    "slug": "brownfield",
+    "intro": "Brownfield's Cubs are a Terry County 3A Division I football program working through consecutive winless 2024 and 2025 seasons. The 2026 opening 36–26 road win at Morton snapped that run, but separate dated reports show the Cubs at 1–7 following October 9 losses to Dalhart and October 16 at Denver City. Brownfield High's first-party athletics page identifies Lawrence Johnson as athletic director, while the current independent team coach ledger identifies him as head football coach. The high school's published campus address is 702 Cub Drive—not the 701 number on some third-party listings.",
+    "theme": {
+      "accentHex": "#9B2635",
+      "label": "TexasDefined original Cubs-red editorial accent informed by school-run red Cub athletics imagery; not a copied paw print, school emblem or licensed stadium photo"
+    },
+    "seo": {
+      "title": "Brownfield Cubs Football | 2026 Scores, Coach & Cub Stadium",
+      "description": "Brownfield Cubs football: 2026 1–7 reported results, Morton opening win after winless 2024–25, coach Lawrence Johnson, Cub Stadium and official Terry County links."
+    },
+    "coach": {
+      "name": "Lawrence Johnson",
+      "title": "Brownfield athletics director per school; varsity football head coach per 2026 MaxPreps history (school confirmation outstanding)",
+      "sourceUrl": "https://bhs.brownfieldisd.net/athletics-home",
+      "sourceLabel": "School first-party Athletics Home lists Lawrence Johnson as Athletic Director; MaxPreps 2026 head-coach archive names him football coach",
+      "verifiedAt": "2026-10-20"
+    },
+    "campus": {
+      "address": "702 Cub Drive, Brownfield, TX 79316 — official Brownfield High School address; stadium spectator gate unverified",
+      "phone": "806-637-4523",
+      "sourceUrl": "https://bhs.brownfieldisd.net/athletics-home",
+      "sourceLabel": "BHS first-party official site says 702 Cub Drive; MaxPreps separately gives 701 Cub Dr; school first-party preferred",
+      "verifiedAt": "2026-10-20"
+    },
+    "schedule": {
+      "label": "Brownfield ISD official varsity and middle-school Cubs football schedule resource",
+      "sourceUrl": "https://www.brownfieldisd.net/athletic-schedules",
+      "sourceLabel": "Brownfield ISD Athletics Schedules includes HS/MS Cubs Football Schedule; school athletics home links Cubs Football and athletics calendar",
+      "verifiedAt": "2026-10-20",
+      "officialScheduleUrl": "https://www.brownfieldisd.net/athletic-schedules"
+    },
+    "season": {
+      "record": "1–7 overall / 0–2 district through October 16, 2026 (reported; district's own scorebook not fully accessible)",
+      "verifiedAt": "2026-10-20",
+      "sourceUrl": "https://www.maxpreps.com/tx/brownfield/brownfield-cubs/football/schedule/",
+      "sourceLabel": "Oct 8 2026 MaxPreps aggregate shows stale 1–5; Oct 9 KCBD local news and Oct 10 MaxPreps Dalhart game confirms 48–6, Oct 17 Denver City game report confirms 50–14, totaling 1–7",
+      "latestResultSourceUrl": "https://www.maxpreps.com/news/tMwB4WnHXEuH5x-rLJwlFw/football-recap-denver-city-piles-up-the-points-against-brownfield.htm",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Morton",
+          "site": "Away",
+          "result": "W 36–26"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Coahoma",
+          "site": "Home",
+          "result": "L 0–37"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Lubbock Roosevelt",
+          "site": "Away",
+          "result": "L 0–37"
+        },
+        {
+          "date": "2026-09-17",
+          "opponent": "Tulia",
+          "site": "Away",
+          "result": "L 30–55"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Crane",
+          "site": "Home",
+          "result": "L 18–48"
+        },
+        {
+          "date": "2026-10-02",
+          "opponent": "Friona",
+          "site": "Home",
+          "result": "L 16–76"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Dalhart",
+          "site": "Home",
+          "district": true,
+          "result": "L 6–48"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Denver City",
+          "site": "Away",
+          "district": true,
+          "result": "L 14–50"
+        },
+        {
+          "date": "2026-10-23",
+          "opponent": "Shallowater",
+          "site": "Home",
+          "district": true,
+          "kickoff": "7:00 PM"
+        },
+        {
+          "date": "2026-10-30",
+          "opponent": "Bushland",
+          "site": "Away",
+          "district": true,
+          "kickoff": "7:00 PM"
+        }
+      ]
+    },
+    "venue": {
+      "name": "Cub Stadium (Dave Campbell football program facility listing)",
+      "address": "Brownfield, TX (specific Cub Stadium public spectator gate not independently verified; BHS is 702 Cub Drive)",
+      "sourceUrl": "https://www.texasfootball.com/team/brownfield-cubs",
+      "sourceLabel": "DCTF Brownfield Cubs program history lists Cub Stadium and capacity 4,000; BHS official school-site address is 702 Cub Drive",
+      "verifiedAt": "2026-10-20",
+      "note": "The school campus number differs between first-party BHS (702 Cub Drive) and MaxPreps (701 Cub Dr). Neither should be passed off as stadium gate/accessible parking without current game-day confirmation. Brownfield ISD's HS/MS football schedule and athletic director's office are primary sources for event policies."
+    },
+    "development": {
+      "title": "A long-standing playoff program amid a recent rebuilding stretch",
+      "body": "Dave Campbell's Texas Football credits Brownfield with 27 all-time UIL football playoff appearances but no football state championship game. More recently MaxPreps and DCTF both show 0–11 varsity seasons in 2024 and 2025. The Cubs opened 2026 with a 36–26 reported win against Morton and stood at 1–7 following Oct 9 Dalhart 48–6 and Oct 16 Denver City 50–14 reports. This is a current rebuilding trajectory, not a claim that the earlier title-free historical program never made the playoffs. The 2026 division/district is 3A Division I District 1 with Dalhart, Denver City, Shallowater and Bushland.",
+      "sourceUrl": "https://www.texasfootball.com/team/brownfield-cubs",
+      "sourceLabel": "DCTF Brownfield Cubs 27 playoff berths/historic 0 titles and recent seasons; MaxPreps 2024–26 game logs and dated October results",
+      "verifiedAt": "2026-10-20"
+    },
+    "milestones": [
+      {
+        "date": "Historical",
+        "title": "Twenty-seven Brownfield football playoff appearances",
+        "body": "Dave Campbell's current football program record attributes 27 postseason appearances to the Cubs but no state title-game appearance or state championship.",
+        "sourceUrl": "https://www.texasfootball.com/team/brownfield-cubs",
+        "sourceLabel": "DCTF Brownfield program history"
+      },
+      {
+        "date": "2022",
+        "title": "Cubs make an 8–3 season",
+        "body": "DCTF lists Brownfield 8–3 in 2022, a different competitive period from the winless 2024 and 2025 programs. It does not imply a 2022 UIL football championship.",
+        "sourceUrl": "https://www.texasfootball.com/team/brownfield-cubs",
+        "sourceLabel": "DCTF school football historical season listing"
+      },
+      {
+        "date": "2024–25",
+        "title": "Consecutive 0–11 results create the 2026 rebuilding backdrop",
+        "body": "Both the 2024 and 2025 MaxPreps team season histories show Brownfield 0–11; avoid masking this or using another Cub sports program's titles.",
+        "sourceUrl": "https://www.maxpreps.com/tx/brownfield/brownfield-cubs/football/history/",
+        "sourceLabel": "MaxPreps 2024–25 Brownfield football history archive"
+      },
+      {
+        "date": "2026",
+        "title": "School confirms AD Lawrence Johnson",
+        "body": "Official Brownfield High School athletics home directs football and other inquiries to Athletics Director Lawrence Johnson; current MaxPreps team history additionally identifies him as head football coach.",
+        "sourceUrl": "https://bhs.brownfieldisd.net/athletics-home",
+        "sourceLabel": "Brownfield High first-party athletics administration"
+      },
+      {
+        "date": "August 28, 2026",
+        "title": "36–26 road win at Morton gives the Cubs a win",
+        "body": "After two winless seasons the 2026 team beat Morton 36–26, according to posted football results. This is an early-week result, not a final-season record.",
+        "sourceUrl": "https://www.maxpreps.com/tx/brownfield/brownfield-cubs/football/schedule/",
+        "sourceLabel": "MaxPreps 2026 posted varsity results"
+      },
+      {
+        "date": "October 9, 2026",
+        "title": "Dalhart wins 48–6 in the district opener",
+        "body": "Local KCBD Oct 9 South Plains scoreboard and the individual opponent-reported matchup agree Brownfield fell 48–6 to Dalhart. The aggregate Brownfield schedule still displayed this as upcoming after the game.",
+        "sourceUrl": "https://www.kcbd.com/2026/10/10/end-zone-final-scores-friday-oct-9/",
+        "sourceLabel": "KCBD Oct 10 regional high-school finals (independent of MaxPreps report)"
+      },
+      {
+        "date": "October 16, 2026",
+        "title": "Denver City 50–14 puts Brownfield at 1–7",
+        "body": "An Oct 17 MaxPreps game recap reports the 50–14 loss and Brownfield season mark 1–7, making the older 1–5 aggregate listing stale. Shallowater remains scheduled for Oct 23.",
+        "sourceUrl": "https://www.maxpreps.com/news/tMwB4WnHXEuH5x-rLJwlFw/football-recap-denver-city-piles-up-the-points-against-brownfield.htm",
+        "sourceLabel": "Dated 2026 Denver City vs Brownfield postgame report"
+      }
+    ],
+    "overview": [
+      "Brownfield High School's Cubs represent Terry County in UIL Class 3A Division I District 1. The school-run Athletics Home page confirms Cub Athletics, its current director Lawrence Johnson and Brownfield's own high-school contact details. Brownfield ISD's district Athletic Schedules page links a real HS/MS Cubs football schedule; it should be the first stop for future games.",
+      "The school's first-party physical campus is 702 Cub Drive, phone 806-637-4523; third-party MaxPreps lists 701 Cub Dr instead. Report the divergence rather than inventing a correct stadium entrance. Dave Campbell calls the football facility Cub Stadium, but does not independently verify the visitor gate or ADA parking.",
+      "Brownfield's history is not uniformly poor: Dave Campbell reports 27 all-time football playoff appearances and an 8–3 2022 season, though the UIL football state-final archive has no Brownfield title-game berth. The 2024 and 2025 0–11 seasons make 2026 an important rebuilding year, not evidence that the program never reached the postseason.",
+      "On August 28, 2026 Brownfield beat Morton 36–26. Reported losses to Coahoma, Roosevelt, Tulia, Crane and Friona left them 1–5 by October 2. A stale MaxPreps Brownfield aggregate page stopped here, so its district 0–0 placeholder should not be presented as current.",
+      "On October 9 KCBD independently reported Dalhart 48, Brownfield 6. October 17 MaxPreps recap records Denver City 50, Brownfield 14 on October 16. The complete reported season therefore stood at 1–7 and 0–2 in district through October 16; those two dates and independent source levels must be labeled.",
+      "The Brownfield Cubs are an 11-man football team, separate from the small six-man programs elsewhere in the batch. The 2026 District 1 opponents are Dalhart, Denver City, Shallowater (home October 23) and Bushland (away October 30); start times and ticket policies should be checked on the official district schedule."
+    ],
+    "faq": [
+      {
+        "question": "Who is Brownfield's 2026 football coach?",
+        "answer": "The 2026–27 MaxPreps football history lists Lawrence Johnson as Brownfield head coach. The school-run Brownfield High Athletics Home separately identifies him as athletic director, but does not itself explicitly confirm the head-coach assignment, so that role is labeled third-party."
+      },
+      {
+        "question": "What is the Cubs' record through October 16, 2026?",
+        "answer": "Reported 1–7 overall and 0–2 in 3A Division I District 1. Brownfield's October 9 loss to Dalhart was 6–48 (also covered by KCBD), and the October 16 loss to Denver City was 14–50. The MaxPreps Oct 8 aggregate is stale at 1–5."
+      },
+      {
+        "question": "Did Brownfield really finish winless in both 2024 and 2025?",
+        "answer": "The game-by-game high-school football records list 0–11 for 2024 and 0–11 for 2025. The 2026 opener at Morton was a reported 36–26 victory, distinct from those seasons."
+      },
+      {
+        "question": "Has Brownfield won a UIL football state title?",
+        "answer": "No. Dave Campbell's Texas Football attributes 27 historical playoff berths but zero UIL football state championship-game appearances and titles to the Brownfield Cubs. Football statistics should not include achievements in other school sports."
+      },
+      {
+        "question": "Where is Brownfield High School, and is that the stadium?",
+        "answer": "The school's own Athletics Home says 702 Cub Drive, Brownfield TX 79316; some third-party score pages say 701 Cub Dr. Dave Campbell lists Cub Stadium, but the precise spectator entrance and accessible parking are not independently certified. Confirm with Brownfield ISD before visiting."
+      },
+      {
+        "question": "Where can I find legitimate Brownfield football schedules or game tickets?",
+        "answer": "Use Brownfield ISD's official Athletic Schedules page and its HS/MS Cubs Football Schedule link, or contact the BHS athletics department. Tickets and public entrances may vary by host venue; third-party Buy Tickets buttons are not universally official."
+      }
+    ]
+  },
   "brookesmith": {
     "slug": "brookesmith",
     "intro": "Brookesmith's Mustangs play Class 1A Division II six-man football in Brown County. The reported 2026 start—six wins and two losses through October 16—includes a key accounting exception: October 2 against Olfen was awarded as a 1–0 forfeit and was not an on-field 1–0 football score. The Mustangs subsequently lost district games to Rochelle and Richland Springs. The district's own athletics page also hosts the athletic handbook and fan-behavior guidance, while the reported head coach Blake Hood appears on independent 2026 team listings.",
