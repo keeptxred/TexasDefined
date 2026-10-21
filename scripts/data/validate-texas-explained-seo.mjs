@@ -38,6 +38,7 @@ for (const marker of [
   'off-channel reservoirs', 'Arbuckle Reservoir', 'Conservation storage',
   '2027 State Water Plan', 'waterdatafortexas.org/reservoirs/statewide',
   'tpwd.texas.gov/state-parks/caddo-lake/history',
+  'tpwd.texas.gov/education/resources/aquatic-science/tas/chapters/chapter-9/',
   'images/illustrations/texas-reservoir-on-off-channel.svg',
   'images/illustrations/texas-reservoir-conservation-flood-pools.svg',
   '/fishing/lakes/lake-conroe', '/fishing/lakes/lake-livingston',
