@@ -33,8 +33,8 @@ export const EVENT_COLLECTIONS: EventCollectionDefinition[] = [
   {
     slug: "dia-de-los-muertos", path: "/events/dia-de-los-muertos",
     title: "Día de los Muertos Festivals in Texas", eyebrow: "City-by-city cultural celebrations",
-    description: "Compare Texas Día de los Muertos celebrations in San Antonio, Houston and Austin with verified organizer dates, parade information and local visitor guidance.",
-    lead: "Día de los Muertos is a tradition of honoring loved ones who have died; it is not interchangeable with Halloween. Public observances differ substantially between cities: San Antonio hosts several independent events, Houston's MECA organizes its own cultural gathering, and Austin's Viva la Vida has a different parade schedule. This directory links to separate verified event guides rather than treating the celebrations as one traveling festival.",
+    description: "Compare Texas Día de los Muertos celebrations in San Antonio, Houston, Austin and the Rio Grande Valley with verified organizer dates, parade information and local visitor guidance.",
+    lead: "Día de los Muertos is a tradition of honoring loved ones who have died; it is not interchangeable with Halloween. Public observances differ substantially between cities: San Antonio hosts several independent events, Houston's MECA organizes its own cultural gathering, Austin's Viva la Vida has a different parade schedule, and Edinburg hosts its own Valley celebration. This directory links to separate verified event guides rather than treating the celebrations as one traveling festival.",
     planningTitle: "Choose the city and the particular event, not merely the holiday",
     planningIntro: "Most observances cluster around late October and November 1–2, but the parade, market, altar exhibit and ceremonial hours depend on each local organizer and can change between annual editions.",
     planningPoints: [
