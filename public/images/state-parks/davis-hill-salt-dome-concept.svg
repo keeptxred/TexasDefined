@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+<title id="title">Davis Hill conceptual salt dome and Trinity River bottomlands cross-section</title>
+<desc id="desc">Educational diagram of salt uplift raising sandstone into a hill above lower wooded floodplain and river. Schematic is not a surveyed geologic section or a public-access map.</desc>
+<rect width="1600" height="900" fill="#f5f0e6"/>
+<rect x="60" y="62" width="1480" height="760" rx="18" fill="#fffcf7" stroke="#d4c5a6" stroke-width="2"/>
+<text x="115" y="135" fill="#183b39" font-family="Arial, sans-serif" font-size="53" font-weight="700">How Davis Hill rises above the coastal plain</text>
+<text x="115" y="189" fill="#615a50" font-family="Arial, sans-serif" font-size="26">Conceptual landscape and geology · Liberty County, Texas</text>
+<path d="M90 490 Q270 485 370 392 Q480 266 590 335 Q700 426 820 478 Q1000 489 1130 490 L1490 490 L1490 746 L90 746 Z" fill="#d5a66e" stroke="#986735" stroke-width="6"/>
+<path d="M90 490 Q270 485 370 392 Q480 266 590 335 Q700 426 820 478 Q1000 489 1130 490 L1490 490" fill="none" stroke="#42653f" stroke-width="16"/>
+<path d="M90 548 Q290 555 430 503 Q556 463 686 531 Q860 611 1025 568 Q1192 525 1490 553 L1490 746 L90 746Z" fill="#ca9364" opacity=".75"/>
+<path d="M90 630 Q270 618 420 590 Q561 565 728 634 Q951 706 1163 642 Q1332 602 1490 614 L1490 748 L90 748 Z" fill="#b27651" opacity=".8"/>
+<path d="M525 745 Q531 627 504 573 Q479 503 486 426 Q472 373 482 334 L553 343 Q539 383 552 439 Q562 515 575 582 Q608 664 616 745 Z" fill="#f7dfae" stroke="#946b4e" stroke-width="5"/>
+<path d="M488 441 Q513 423 554 447 M491 511 Q530 492 563 522 M512 586 Q552 570 579 598" fill="none" stroke="#cfb98e" stroke-width="8"/>
+<path d="M1194 485 Q1248 472 1325 487 Q1394 502 1490 488 L1490 515 Q1390 529 1326 516 Q1244 502 1194 514 Z" fill="#77b6cc"/>
+<path d="M1120 493 Q1135 448 1161 490 M1090 490 Q1110 459 1128 490 M1061 490 Q1080 452 1097 490" stroke="#47744c" stroke-width="6" fill="none"/>
+<g fill="#365d3d"><path d="M230 478 l14 -90 l14 90z"/><path d="M260 474 l12 -78 l12 78z"/><path d="M950 488 l15 -83 l15 83z"/><path d="M989 490 l13 -63 l14 63z"/><path d="M1042 487 l13 -72 l12 72z"/><path d="M1408 489 l13 -71 l14 71z"/></g>
+<line x1="485" y1="282" x2="426" y2="238" stroke="#183b39" stroke-width="3"/>
+<rect x="220" y="218" width="295" height="65" rx="12" fill="#e5eddf" stroke="#b2c4ac"/>
+<text x="239" y="258" font-family="Arial, sans-serif" font-size="26" fill="#23472c" font-weight="700">Elevated sandstone hill</text>
+<line x1="555" y1="646" x2="733" y2="701" stroke="#82563c" stroke-width="3"/>
+<rect x="697" y="677" width="390" height="60" rx="10" fill="#fff9ef" stroke="#c8a683"/>
+<text x="715" y="715" font-family="Arial, sans-serif" font-size="26" fill="#835836" font-weight="700">Deep salt dome uplift</text>
+<rect x="968" y="327" width="445" height="65" rx="12" fill="#e5eddf" stroke="#b2c4ac"/>
+<text x="989" y="369" font-family="Arial, sans-serif" font-size="25" fill="#23472c" font-weight="700">Trinity River floodplain forest</text>
+<line x1="1188" y1="392" x2="1188" y2="466" stroke="#37615b" stroke-width="3"/>
+<rect x="1216" y="551" width="218" height="53" rx="10" fill="#e0eef5" stroke="#92bfcf"/>
+<text x="1234" y="585" font-family="Arial, sans-serif" font-size="25" fill="#245c6c" font-weight="700">Trinity River</text>
+<path d="M1277 551 L1333 518" fill="none" stroke="#245c6c" stroke-width="3"/>
+<rect x="110" y="773" width="1380" height="34" fill="#fff8ed"/>
+<text x="128" y="796" font-family="Arial, sans-serif" font-size="21" fill="#645849">Original editorial schematic · NOT TO SCALE · Not a surveyed cross-section, trail map or public entrance</text>
+</svg>
