@@ -139,6 +139,9 @@ if (collectionPaths.length !== requiredCollectionPaths.length) {
   fail(`expected ${requiredCollectionPaths.length} event authority collections, found ${collectionPaths.length}`);
 }
 if (new Set(collectionPaths).size !== collectionPaths.length) fail("event authority collection paths must be unique");
+if (!collections.includes('kind: "topic"') || !collections.includes("EVENT_TOPIC_SLUGS") || !collectionLoader.includes("EVENT_TOPIC_SLUGS[evergreen!.value]")) {
+  fail("reviewed statewide topic collections must filter by named verified event-guide slugs");
+}
 for (const routePath of requiredCollectionPaths) {
   if (!collectionPaths.includes(routePath)) fail(`event collection registry is missing ${routePath}`);
   if (!directory.includes(`href: "${routePath}"`)) fail(`Texas Events server discovery directory does not expose ${routePath}`);
