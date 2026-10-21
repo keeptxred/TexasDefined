@@ -35,6 +35,7 @@ test("includes unique festivals and interpretive programs that lack generic keyw
     link("Picnic in the Park", "/calendar/buescher/picnic-in-the-park/2026-10-22"),
     link("Texas A&M Galveston Career Fair", "/calendar/galveston/career/2026-10-22"),
     link("Education Center Open", "/calendar/martin-dies-jr/education-center-open/2026-10-22"),
+    link("*Canceled* Taylor Site Guided Hike", "/calendar/guadalupe-river/taylor-site-guided-hike/2026-10-22"),
   ].join("");
   assert.deepEqual(parseTpwdCalendar(html, NOW).map(item => item.title), [
     "Picnic in the Park", "TRAIL OF TERROR", "Pirates of the Canyon",
