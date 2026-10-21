@@ -165,10 +165,7 @@ function RootComponent() {
     let installed = false;
     let analyticsPromise: Promise<typeof import("@/platform/analytics")> | undefined;
 
-    const loadAnalytics = () => {
-      analyticsPromise ??= import("@/platform/analytics");
-      return analyticsPromise;
-    };
+    const loadAnalytics = () => analyticsPromise ??= import("@/platform/analytics");
 
     const ensureAnalyticsInstalled = async () => {
       const analytics = await loadAnalytics();
@@ -178,6 +175,8 @@ function RootComponent() {
       }
       return analytics;
     };
+
+    const unbindEarlyClick = () => document.removeEventListener("click", earlyCommercialClick, true);
 
     const earlyCommercialClick = (event: MouseEvent) => {
       if (!active || installed) return;
@@ -194,21 +193,19 @@ function RootComponent() {
         if (!active) return;
         if (shouldRecordImpression) analytics.trackTexasDefinedOutcome("partner_referral_shown", details);
         analytics.trackTexasDefinedOutcome("partner_referral_clicked", details);
-        document.removeEventListener("click", earlyCommercialClick, true);
+        unbindEarlyClick();
       });
     };
 
     document.addEventListener("click", earlyCommercialClick, true);
     const id = window.setTimeout(() => {
-      void ensureAnalyticsInstalled().then(() => {
-        document.removeEventListener("click", earlyCommercialClick, true);
-      });
+      void ensureAnalyticsInstalled().then(unbindEarlyClick);
     }, 1500);
 
     return () => {
       active = false;
       window.clearTimeout(id);
-      document.removeEventListener("click", earlyCommercialClick, true);
+      unbindEarlyClick();
       cleanup?.();
     };
   }, []);
