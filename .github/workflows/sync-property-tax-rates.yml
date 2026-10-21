@@ -34,6 +34,10 @@ jobs:
         with:
           deno-version: v2.x
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
       - name: Require existing Supabase credentials
         shell: bash
         run: |
@@ -97,3 +101,7 @@ jobs:
             exit 1
           fi
           echo "All eligible tax years checked independently; unchanged datasets retained."
+
+      - name: Reconcile verified local rate evidence after official-year sync
+        shell: bash
+        run: node scripts/ci/verify-local-tax-source-reconciliation.mjs --execute
