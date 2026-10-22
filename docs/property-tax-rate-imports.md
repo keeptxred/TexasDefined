@@ -235,6 +235,25 @@ specific Git commit was deployed, and does not replace the protected
 production deployment gate. Cancelled deployments do not trigger an
 independent tax check.
 
+## Daily independent verification of live taxing-unit pages
+
+The separate GitHub workflow `.github/workflows/verify-property-tax-production.yml`
+now runs automatically each day at **10:17 UTC**, as well as on demand and
+after a failed production deployment. The main deployment pipeline may
+legitimately skip local-financial smoke when unrelated routes change;
+a successful build or Cloudflare publish therefore is **not** proof that
+the 15 primary-source local-rate observations are displayed correctly.
+
+This independent read-only workflow checks the **currently served**
+canonical `https://texasdefined.com` and direct
+`texasdefined-site.freddy-coppola.workers.dev` tax-history pages for
+all 15 verified year-specific local observations, source attribution,
+explicit discrepancies and zero-city-tax cautions, evidence notes and
+verification dates, plus the Woodlands classification guard.
+It does not modify tax database records, calculator inputs, or Worker deployments.
+Failures are visible in GitHub Actions. It requires no Cloudflare
+reconnection or separate paid monitoring service.
+
 ## Recovery procedure
 
 1. Open the failed GitHub workflow and check the **per-year outcomes**.

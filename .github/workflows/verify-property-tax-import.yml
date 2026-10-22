@@ -19,6 +19,7 @@ on:
       - 'scripts/ci/verify-local-financial-production.mjs'
       - '.github/workflows/verify-property-tax-import.yml'
       - '.github/workflows/verify-property-tax-production.yml'
+      - '.github/workflows/verify-property-tax-production.yml'
 
 permissions:
   contents: read

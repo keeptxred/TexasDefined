@@ -1,23 +1,35 @@
 name: Verify Texas tax pages independently
 
 on:
+  # Verify the currently served Worker immediately when this read-only
+  # production test itself changes; avoids waiting until the daily sweep.
+  # App routes are intentionally excluded to avoid racing deployments.
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/verify-property-tax-production.yml'
   # A failed deployment can still publish a healthy Worker before an
   # unrelated editorial/event gate fails. Audit property-tax pages separately.
   workflow_run:
     workflows: ['Deploy TexasDefined production']
     types: [completed]
   workflow_dispatch:
+  # Regular read-only validation catches stale or corrupted public pages
+  # even when the site's deployment pipeline skips the financial smoke suite.
+  schedule:
+    - cron: '17 10 * * *'
 
 permissions:
   contents: read
 
 concurrency:
-  group: texasdefined-tax-live-independent
+  # Skipped deployment events must not cancel an independently scheduled check.
+  group: texasdefined-tax-live-independent-${{ github.event_name }}
   cancel-in-progress: true
 
 jobs:
   verify:
-    if: ${{ github.event_name == 'workflow_dispatch' || (github.event.workflow_run.head_branch == 'main' && github.event.workflow_run.conclusion == 'failure') }}
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event_name == 'push' || github.event_name == 'schedule' || (github.event.workflow_run.head_branch == 'main' && github.event.workflow_run.conclusion == 'failure') }}
     runs-on: ubuntu-latest
     timeout-minutes: 8
     steps:
@@ -29,7 +41,7 @@ jobs:
         run: |
           echo "## Independent Texas property-tax live verification" >> "$GITHUB_STEP_SUMMARY"
           echo "This checks the **currently served** canonical and direct-Worker pages, not whether the triggering commit was published." >> "$GITHUB_STEP_SUMMARY"
-          echo "An unrelated failed event/SEO check must not hide tax-site availability." >> "$GITHUB_STEP_SUMMARY"
+          echo "An unrelated failed event/SEO check must not hide tax-site availability. A daily scheduled read-only check fills in when successful deployments skip local financial verification." >> "$GITHUB_STEP_SUMMARY"
       - name: Verify verified local-rate histories and Woodlands on both origins
         env:
           TEXAS_TAX_VERIFY_ONLY: '1'
