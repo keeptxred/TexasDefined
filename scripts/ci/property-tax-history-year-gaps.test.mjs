@@ -34,6 +34,11 @@ test('interactive explorer labels unavailable official rates separately from loc
   assert.match(route,/Comptroller not reported; local/);
   assert.match(route,/localVerification\?\.mode === 'conflict'/);
   assert.match(route,/State\/local source disagreement/);
+  assert.match(route,/item\.localVerification\?\.mode !== 'conflict'/);
+  assert.match(route,/a\.localVerification\?\.mode !== 'conflict'/);
+  assert.match(route,/b\.localVerification\?\.mode !== 'conflict'/);
+  assert.doesNotMatch(route,/\.toFixed\(6\)/);
+
   assert.match(route,/Separate local evidence is shown below but excluded from the trend/);
   assert.match(route,/localVerification\.sourceUrl/);
   assert.doesNotMatch(route,/const yearChanges = comparable\.slice\(1\)\.map/);
