@@ -120,14 +120,18 @@ export async function getCountyTaxRateSummaryServer(countySlug: string, year: nu
   };
 }
 
-export async function searchTaxingUnitsServer(query: string, year: number, limit = 100): Promise<{ records: TexasTaxRateRecord[]; generatedAt: string | null }> {
+export async function searchTaxingUnitsServer(query: string, year: number, limit = 100, type?: TexasTaxingUnitType): Promise<{ records: TexasTaxRateRecord[]; generatedAt: string | null }> {
   const safeQuery = query.replace(/[%_]/g, ' ').replace(/\s+/g, ' ').trim();
   if (!safeQuery) return { records: [], generatedAt: null };
-  const { data, error } = await db
+  let dbQuery = db
     .from('texas_property_tax_rates')
     .select('*')
     .eq('year', year)
-    .ilike('name', `%${safeQuery}%`)
+    .ilike('name', `%${safeQuery}%`);
+  // Filter the official category BEFORE applying the result cap; filtering
+  // a mixed workbook result client-side can silently omit requested units.
+  if (type) dbQuery = dbQuery.eq('type', type);
+  const { data, error } = await dbQuery
     .order('name', { ascending: true })
     .limit(Math.max(1, Math.min(100, limit)));
   if (error) throw error;
