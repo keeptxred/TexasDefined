@@ -189,7 +189,7 @@ function LegacySharedTripPage() {
           {trip.verificationReminder}
         </p>
 
-        <nav aria-label="Itinerary days" className="mt-8 rounded-lg border p-4">
+        {trip.days.length > 0 ? <nav aria-label="Itinerary days" className="mt-8 rounded-lg border p-4">
           <p className="font-semibold">Your trip at a glance</p>
           <p className="mt-1 text-sm text-muted-foreground">{trip.days.length} {trip.days.length === 1 ? "day" : "days"} · {trip.days.reduce((total, day) => total + day.stops.length, 0)} stops</p>
           <ul className="mt-3 flex flex-wrap gap-2">
@@ -201,7 +201,7 @@ function LegacySharedTripPage() {
               </li>
             ))}
           </ul>
-        </nav>
+        </nav> : <p className="mt-8 text-sm text-muted-foreground">This shared itinerary has no available stops. Open the current trip planner to build a new itinerary.</p>}
 
         <div className="mt-10 space-y-10">
           {trip.days.map((day, index) => (
