@@ -94,3 +94,18 @@ test('Woodlands production H1 verification tolerates SSR text nodes without drop
   const woodlands=smoke.slice(smoke.indexOf('async function verifyWoodlandsClassification'),smoke.indexOf("appendSummary('\\n## Local financial production verification"));
   assert.doesNotMatch(woodlands,/body\.includes\('The Woodlands Township property tax rate'\)/);
 });
+
+test('isolated tax authority smoke can verify a failed production release independently',()=>{
+  const workflow=readFileSync('.github/workflows/verify-property-tax-production.yml','utf8');
+  assert.match(workflow,/workflow_run:/);
+  assert.match(workflow,/Deploy TexasDefined production/);
+  assert.match(workflow,/workflow_run.conclusion == 'failure'/);
+  assert.match(workflow,/workflow_dispatch:/);
+  assert.match(workflow,/TEXAS_TAX_VERIFY_ONLY: '1'/);
+  assert.match(workflow,/verify-local-financial-production.mjs/);
+  assert.match(smoke,/const TAX_ONLY = process.env.TEXAS_TAX_VERIFY_ONLY === '1'/);
+  assert.match(smoke,/if \(!TAX_ONLY\) \{/);
+  assert.match(smoke,/await runWithConcurrency\(verifiedLocalTaxingUnits, verifySourcedTaxingUnit\)/);
+  assert.match(smoke,/await verifyWoodlandsClassification\(\)/);
+  assert.match(smoke,/Independent live Texas tax-rate verification passed/);
+});

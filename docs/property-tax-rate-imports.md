@@ -198,6 +198,28 @@ Union Valley's 2021 zero and 2022 state/local disagreement, and a
 nonduplicated five-year history for The Woodlands Township. Do not
 add inferred annual figures to satisfy these tests.
 
+## Independently verifiable tax authority during unrelated deployment failures
+
+The default production deployment already verifies the 15 source-qualified
+local observations, historical Woodlands classification, and both public
+entry points. If the Worker deploy succeeds but an unrelated events or
+editorial check subsequently fails, the overall release becomes red even
+though the tax pages may still be available.
+
+The `.github/workflows/verify-property-tax-production.yml` action now
+runs a **read-only, tax-only** verification after a failed main-branch
+production workflow. It also supports `workflow_dispatch` for on-demand
+verification without rebuilding the site. It uses the same existing
+canonical/direct-Worker smoke script, excluding unrelated affordability,
+cost-of-living, salary and sitemap tests. This does not touch Supabase,
+Cloudflare settings, credentials, or calculator data.
+
+An independently green check proves the **currently served** tax pages are
+healthy on both endpoints. It cannot prove that the failed release's
+specific Git commit was deployed, and does not replace the protected
+production deployment gate. Cancelled deployments do not trigger an
+independent tax check.
+
 ## Recovery procedure
 
 1. Open the failed GitHub workflow and check the **per-year outcomes**.
