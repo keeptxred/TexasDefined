@@ -16,7 +16,8 @@ permissions:
   contents: read
 
 concurrency:
-  group: texasdefined-tax-live-independent
+  # Skipped deployment events must not cancel an independently scheduled check.
+  group: texasdefined-tax-live-independent-${{ github.event_name }}
   cancel-in-progress: true
 
 jobs:
