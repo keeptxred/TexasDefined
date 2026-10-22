@@ -341,6 +341,21 @@ type, slug and official ID with no calculator or Comptroller-data changes:
   does not levy property tax and funds services from sales tax. It
   cannot be interpreted as zero parcel-wide property taxes.
 
+## Poetry 2023 independently certified zero municipal rate
+
+Kaufman CAD's [2023 Certified Totals, page 102](https://kaufman-cad.org/wp-content/uploads/2023/07/2023-Certified-Totals-Partial-Exemption-List.pdf)
+explicitly identifies `TP - TOWN OF POETRY`, lists 378 accounts,
+a taxable value of $43,459,008, a municipal rate of **0.000000 per $100**,
+and an approximate municipal levy of $0.00. The original 2023
+Comptroller `not-reported` row is preserved, while independently
+certified 2023 city-only evidence appears solely in the history display.
+Other taxing units may still levy taxes on a property.
+
+This **does not establish Poetry's final 2024 adopted municipal rate**.
+The town's April and May 2024 newsletters say there were zero city
+property taxes at that time, but do not settle whether the city
+subsequently adopted a rate for the 2024 tax year. Do not extrapolate.
+
 ## Remaining research candidates (not automatic overrides)
 
 The **2024 Poetry and Scurry** city records remain not-reported
@@ -356,7 +371,7 @@ The [Town of Poetry's ordinance register](https://www.poetrytexas.org/ordinances
 records an April 18, 2024 ordinance related to ad valorem taxation
 and its repeal on September 17, 2026 (Ordinance 2026-09-17-01).
 Neither the presence nor repeal of that ordinance supplies a reliable
-**2023 or 2024 adopted rate**, or proves the city imposed a levy.
+**2024 adopted rate**, or proves the city imposed a levy.
 The source is useful context for future verification, not permission
 to invent a numeric value.
 
