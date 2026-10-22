@@ -1,6 +1,13 @@
 name: Verify Texas tax pages independently
 
 on:
+  # Verify the currently served Worker immediately when this read-only
+  # production test itself changes; avoids waiting until the daily sweep.
+  # App routes are intentionally excluded to avoid racing deployments.
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/verify-property-tax-production.yml'
   # A failed deployment can still publish a healthy Worker before an
   # unrelated editorial/event gate fails. Audit property-tax pages separately.
   workflow_run:
@@ -22,7 +29,7 @@ concurrency:
 
 jobs:
   verify:
-    if: ${{ github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || (github.event.workflow_run.head_branch == 'main' && github.event.workflow_run.conclusion == 'failure') }}
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event_name == 'push' || github.event_name == 'schedule' || (github.event.workflow_run.head_branch == 'main' && github.event.workflow_run.conclusion == 'failure') }}
     runs-on: ubuntu-latest
     timeout-minutes: 8
     steps:
