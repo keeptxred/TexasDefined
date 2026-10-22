@@ -78,6 +78,7 @@ export function ExploreDestinationComparison({ destinations, kind }: { destinati
   const showCategory = kind === 'attractions';
   const copy = COPY[kind];
   const sorted = [...destinations].sort((a, b) => a.name.localeCompare(b.name));
+  const pageSize = kind === 'attractions' ? 100 : sorted.length;
   const visibleDestinations = sorted.slice(0, visibleCount);
 
   return (
