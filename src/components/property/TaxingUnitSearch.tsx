@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { TexasTaxRateRecord, TexasTaxingUnitType } from '@/data/property/texas-tax-rates.generated';
+import { formatOfficialTaxRate } from '@/lib/financial/property-tax-history';
 
 type SearchResponse = { results?: TexasTaxRateRecord[]; message?: string };
 
@@ -30,7 +31,7 @@ export function TaxingUnitSearch({
     setLoading(true);
     setStatus('');
     try {
-      const response = await fetch(`/api/property-tax-rates?q=${encodeURIComponent(trimmed)}`);
+      const response = await fetch(`/api/property-tax-rates?q=${encodeURIComponent(trimmed)}${type ? `&type=${encodeURIComponent(type)}` : ''}`);
       const body = await response.json() as SearchResponse;
       if (!response.ok) throw new Error(body.message || `Search failed (${response.status})`);
       const filtered = (body.results ?? []).filter((record) => !type || record.type === type);
@@ -53,9 +54,9 @@ export function TaxingUnitSearch({
       const rateLabel = record.rateUnavailable
         ? record.sourceStatus === 'cross-source-conflict' ? 'conflicting state records — verify locally' : 'rate not reported — verify locally'
         : applicable
-          ? `${record.totalRate!.toFixed(6)} per $100`
+          ? `${formatOfficialTaxRate(record.totalRate!)} per $100`
           : record.rateVariants.length
-            ? `variable rates: ${record.rateVariants.map((rate) => rate.toFixed(6)).join(', ')} — verify parcel`
+            ? `variable rates: ${record.rateVariants.map(formatOfficialTaxRate).join(', ')} — verify parcel`
             : 'parcel-specific rate — verify locally';
       return <button key={record.id} type="button" disabled={!selectable} onClick={() => onSelect(record)} className="block w-full border-b border-border px-0 py-3 text-left last:border-b-0 hover:text-primary disabled:cursor-not-allowed disabled:opacity-60"><strong className="block text-sm">{record.name}</strong><span className="mt-1 block text-xs text-muted-foreground">{record.type.replaceAll('-', ' ')} · {rateLabel} · {record.year}</span></button>;
     })}</div> : null}

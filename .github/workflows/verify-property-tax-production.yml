@@ -1,13 +1,15 @@
 name: Verify Texas tax pages independently
 
 on:
-  # Verify the currently served Worker immediately when this read-only
-  # production test itself changes; avoids waiting until the daily sweep.
+  # Verify the currently served Worker when this independent verification
+  # workflow or its live validator changes; avoids waiting for the daily run.
   # App routes are intentionally excluded to avoid racing deployments.
   push:
     branches: [main]
     paths:
       - '.github/workflows/verify-property-tax-production.yml'
+      - 'scripts/ci/verify-local-financial-production.mjs'
+      - 'scripts/ci/tax-history-row-contract.mjs'
   # A failed deployment can still publish a healthy Worker before an
   # unrelated editorial/event gate fails. Audit property-tax pages separately.
   workflow_run:

@@ -148,6 +148,9 @@ test('independent tax production smoke checks run daily, even after unrelated de
   assert.match(standalone,/workflow_run\.conclusion == 'failure'/);
   assert.ok(standalone.includes('group: texasdefined-tax-live-independent-${{ github.event_name }}'));
   assert.match(standalone,/TEXAS_TAX_VERIFY_ONLY: '1'/);
+  assert.ok(standalone.includes("'scripts/ci/verify-local-financial-production.mjs'"));
+  assert.ok(standalone.includes("'scripts/ci/tax-history-row-contract.mjs'"));
+  assert.ok(!standalone.includes("'src/routes/property-tax.taxing-unit.$unit.tsx'"),'avoid running verifier before site route deploy');
   assert.match(standalone,/node scripts\/ci\/verify-local-financial-production\.mjs/);
   assert.match(smoke,/const taxHistoryOrigins = \[/);
   assert.match(smoke,/direct-worker/);
