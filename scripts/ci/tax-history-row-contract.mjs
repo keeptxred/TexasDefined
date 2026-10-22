@@ -19,7 +19,7 @@ export function checkYearSpecificTaxRateRow(html, { year, rate, agency, conflict
     return {ok:false,reason:'rate-history table or column headers missing'};
 
   const tbody=table.match(/<tbody\b[^>]*>([\s\S]*?)<\/tbody>/i)?.[1];
-  if(!tbody)return {ok:false,reason:'rate-history table has no body'};
+  if(tbody == null)return {ok:false,reason:'rate-history table has no body'};
   const matches=[];
   for(const tr of tbody.matchAll(/<tr\b[^>]*>([\s\S]*?)<\/tr>/gi)){
     const cells=[...tr[1].matchAll(/<td\b[^>]*>([\s\S]*?)<\/td>/gi)].map(m=>visibleText(m[1]));
