@@ -256,7 +256,7 @@ async function verifyEscobaresTaxingUnit() {
 // canonical and direct-Worker responses.
 const verifiedLocalTaxingUnits = [
   { slug: 'city-of-union-valley', year: 2021, rate: '0.000000', agency: 'Hunt County Appraisal District', zeroCity: true },
-  { slug: 'city-of-union-valley', year: 2022, rate: '0.000000', statewideRate: '0.287248', agency: 'Hunt County Appraisal District', conflict: true, zeroCity: true },
+  { slug: 'city-of-union-valley', year: 2022, rate: '0.000000', agency: 'Hunt County Appraisal District', statewideRate: '0.287248', conflict: true, zeroCity: true },
   { slug: 'city-of-little-river-academy', year: 2024, rate: '0.410001', agency: 'Bell County Appraisal District' },
   { slug: 'cooper', year: 2024, rate: '0.649272', agency: 'Delta County Appraisal District' },
   { slug: 'escobares', year: 2024, rate: '0.340447', agency: 'Starr Central Appraisal District' },
