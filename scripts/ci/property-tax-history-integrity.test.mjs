@@ -34,6 +34,14 @@ test('missing latest Comptroller year is not mislabeled as a finalized rate',()=
   assert.match(route,/Not reported \/ withheld from calculation/);
 });
 
+test('Escobares smoke binds a concrete year and source instead of undefined loop variables',()=>{
+  const block=smoke.slice(smoke.indexOf('async function verifyEscobaresTaxingUnit()'),
+    smoke.indexOf('const verifiedLocalTaxingUnits ='));
+  assert.match(block,/checkYearSpecificTaxRateRow\(body,\{/);
+  assert.match(block,/year: 2024, rate: '0\.340447', agency: 'Starr Central Appraisal District'/);
+  assert.doesNotMatch(block,/checkYearSpecificTaxRateRow\(body,\{year,rate,agency,conflict\}/);
+});
+
 test('rate labels never round documented seven-decimal values to six',()=>{
   const match=route.match(/function formatTaxRate\(value: number\): string \{([\s\S]*?)\n\}/);
   assert.ok(match,'a pure source-aware tax formatter is required');
@@ -53,6 +61,7 @@ test('live release gate audits every primary-source local rate and Woodlands',()
   assert.equal(matches.length,15);
   assert.equal(new Set(matches.map((m)=>m[1])).size,12);
   assert.match(smoke,/async function verifySourcedTaxingUnit/);
+  assert.match(smoke,/checkYearSpecificTaxRateRow\(body,\{year,rate,agency,conflict,statewideRate\}\)/);
   assert.match(smoke,/async function verifyWoodlandsClassification/);
   assert.match(smoke,/await runWithConcurrency\(verifiedLocalTaxingUnits, verifySourcedTaxingUnit\)/);
   assert.match(smoke,/await verifyWoodlandsClassification\(\)/);
@@ -139,6 +148,9 @@ test('independent tax production smoke checks run daily, even after unrelated de
   assert.match(standalone,/workflow_run\.conclusion == 'failure'/);
   assert.ok(standalone.includes('group: texasdefined-tax-live-independent-${{ github.event_name }}'));
   assert.match(standalone,/TEXAS_TAX_VERIFY_ONLY: '1'/);
+  assert.ok(standalone.includes("'scripts/ci/verify-local-financial-production.mjs'"));
+  assert.ok(standalone.includes("'scripts/ci/tax-history-row-contract.mjs'"));
+  assert.ok(!standalone.includes("'src/routes/property-tax.taxing-unit.$unit.tsx'"),'avoid running verifier before site route deploy');
   assert.match(standalone,/node scripts\/ci\/verify-local-financial-production\.mjs/);
   assert.match(smoke,/const taxHistoryOrigins = \[/);
   assert.match(smoke,/direct-worker/);
