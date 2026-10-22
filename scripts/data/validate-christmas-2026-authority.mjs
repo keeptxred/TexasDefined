@@ -27,8 +27,8 @@ if (!legacy.includes('slug: "ford-holiday-river-parade"')) issues.push("Existing
 if (!links.includes('"/event/ford-holiday-river-parade"')) issues.push("Existing Ford River Parade missing Christmas hub link");
 if (!resolver.includes('getExpandedMajorEventAuthorityTranche57Server(slug)')) issues.push("Christmas authority resolver not wired");
 for (const [path,marker] of [
-  ["src/routes/holiday.magical-winter-lights.tsx","2026–27 dates not yet verified"],
-  ["src/routes/holiday.enchant-christmas-arlington.tsx","No 2026 Arlington/Dallas event announced"],
+  ["src/routes/holiday.magical-winter-lights.lazy.tsx","2026–27 dates not yet verified"],
+  ["src/routes/holiday.enchant-christmas-arlington.lazy.tsx","No 2026 Arlington/Dallas event announced"],
 ]) {
   const page = read(path);
   if (!page.includes(marker)) issues.push(`Unverified Texas event improperly represented: ${path}`);
