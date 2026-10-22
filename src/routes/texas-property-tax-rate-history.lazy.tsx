@@ -3,7 +3,7 @@ import { createLazyFileRoute, Link } from '@tanstack/react-router';
 import { TaxingUnitSearch } from '@/components/property/TaxingUnitSearch';
 import { Container } from '@/components/layout/Container';
 import type { TexasTaxRateRecord } from '@/data/property/texas-tax-rates.generated';
-import { consecutiveRateChanges, formatOfficialTaxRate, taxHistoryYearPosition } from '@/lib/financial/property-tax-history';
+import { consecutiveRateChanges, contiguousTaxYearSegments, formatOfficialTaxRate, taxHistoryYearPosition } from '@/lib/financial/property-tax-history';
 
 type StatewideInsights = {
   year: number;
@@ -219,7 +219,7 @@ function Page() {
               <span className="text-xs text-muted-foreground">rate per $100 taxable value</span>
             </div>
             <RateTrendChart records={comparable} />
-            <p className="mt-3 text-xs leading-5 text-muted-foreground">Horizontal spacing follows calendar years, including gaps where no comparable statewide rate exists. Separate local evidence is shown below but excluded from the trend and one-year comparisons.</p>
+            <p className="mt-3 text-xs leading-5 text-muted-foreground">Horizontal spacing follows calendar years, and line segments break where comparable statewide rates are missing. Separate local evidence is shown below but excluded from the trend and one-year comparisons.</p>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-1">
             <MiniFact label="Lowest comparable rate" value={minRate == null ? '—' : formatOfficialTaxRate(minRate)} />
@@ -387,14 +387,15 @@ function RateTrendChart({ records }: { records: TexasTaxRateRecord[] }) {
   const points = records.map((record) => {
     const x = taxHistoryYearPosition(record.year, records[0].year, records[records.length - 1].year, left, chartWidth);
     const y = top + (max - record.totalRate!) / span * chartHeight;
-    return { x, y, record };
+    return { x, y, year: record.year, record };
   });
-  const polyline = points.map((point) => `${point.x},${point.y}`).join(' ');
+  // Do not draw an implied rate through years omitted or marked unavailable.
+  const contiguousSegments = contiguousTaxYearSegments(points).filter((segment) => segment.length > 1);
 
   return <div>
     <svg viewBox={`0 0 ${width} ${height}`} role="img" aria-label="Historical property tax rate trend" className="h-auto w-full">
       <line x1={left} y1={top + chartHeight} x2={width - right} y2={top + chartHeight} stroke="currentColor" className="text-border" strokeWidth="2" />
-      {points.length > 1 ? <polyline points={polyline} fill="none" stroke="currentColor" className="text-primary" strokeWidth="5" strokeLinejoin="round" strokeLinecap="round" /> : null}
+      {contiguousSegments.map((segment) => <polyline key={segment[0].year} points={segment.map((point) => `${point.x},${point.y}`).join(' ')} fill="none" stroke="currentColor" className="text-primary" strokeWidth="5" strokeLinejoin="round" strokeLinecap="round" />)}
       {points.map(({ x, y, record }) => <g key={record.id}>
         <circle cx={x} cy={y} r="7" fill="currentColor" className="text-primary" />
         <text x={x} y={height - 10} textAnchor="middle" className="fill-muted-foreground text-xl">{record.year}</text>
