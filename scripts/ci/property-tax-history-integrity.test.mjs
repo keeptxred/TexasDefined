@@ -58,8 +58,8 @@ test('rate labels never round documented seven-decimal values to six',()=>{
 });
 test('live release gate audits every primary-source local rate and Woodlands',()=>{
   const matches=[...smoke.matchAll(/\{ slug: '([^']+)', year: 202[1-5], rate: '[^']+', agency: '[^']+'/g)];
-  assert.equal(matches.length,15);
-  assert.equal(new Set(matches.map((m)=>m[1])).size,12);
+  assert.equal(matches.length,16);
+  assert.equal(new Set(matches.map((m)=>m[1])).size,13);
   assert.match(smoke,/async function verifySourcedTaxingUnit/);
   assert.match(smoke,/checkYearSpecificTaxRateRow\(body,\{year,rate,agency,conflict,statewideRate\}\)/);
   assert.match(smoke,/async function verifyWoodlandsClassification/);
@@ -155,4 +155,13 @@ test('independent tax production smoke checks run daily, even after unrelated de
   assert.match(smoke,/const taxHistoryOrigins = \[/);
   assert.match(smoke,/direct-worker/);
   assert.match(smoke,/How the locally sourced rates were verified/);
+});
+
+test('Poetry 2023 CAD-certified zero city rate is source-backed and calculator-isolated',()=>{
+  const sql=readFileSync('supabase/migrations/20261022134000_poetry_2023_verified_zero_city_tax.sql','utf8');
+  assert.match(sql,/2023,'city','poetry','129-112-03',0\.000000,null,null/);
+  assert.match(sql,/2023-Certified-Totals-Partial-Exemption-List\.pdf/);
+  assert.match(sql,/source_status='not-reported' and total_rate is null/);
+  assert.match(sql,/on conflict \(tax_year,unit_type,slug\) do nothing/);
+  assert.match(smoke,/poetry', year: 2023, rate: '0\.000000', agency: 'Kaufman County Appraisal District', zeroCity: true/);
 });
