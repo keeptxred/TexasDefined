@@ -11,7 +11,7 @@ function visibleText(html) {
     .replace(/\s+/g, ' ').trim();
 }
 
-export function checkYearSpecificTaxRateRow(html, { year, rate, agency, conflict = false }) {
+export function checkYearSpecificTaxRateRow(html, { year, rate, agency, conflict = false, statewideRate = null }) {
   const anchor=html.indexOf('Annual tax rates, with source distinctions');
   if(anchor<0)return {ok:false,reason:'historical rate table heading missing'};
   const table=html.slice(anchor).match(/<table\b[^>]*>([\s\S]*?)<\/table>/i)?.[1];
@@ -32,7 +32,11 @@ export function checkYearSpecificTaxRateRow(html, { year, rate, agency, conflict
   if(!row[4].includes(agency))
     return {ok:false,reason:'the '+year+' source cell does not identify '+agency};
   if(conflict){
-    const required='Local and statewide reports disagree (local '+rate+' vs statewide ';
+    if(typeof statewideRate!=='string' || !/^\\d+\\.\\d{6,8}$/.test(statewideRate))
+      return {ok:false,reason:'conflict requires a verified year-specific statewide rate'};
+    if(row[1]!==statewideRate)
+      return {ok:false,reason:'year-specific displayed statewide total '+row[1]+' differs from '+statewideRate};
+    const required='Local and statewide reports disagree (local '+rate+' vs statewide '+statewideRate+')';
     if(!row[4].includes(required))
       return {ok:false,reason:'year-specific source conflict not disclosed as local '+rate};
   } else {
