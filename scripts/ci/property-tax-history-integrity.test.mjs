@@ -125,6 +125,7 @@ test('independent tax production smoke checks run daily, even after unrelated de
   assert.match(standalone,/schedule:\s*\n\s*- cron: '17 10 \* \* \*'/);
   assert.match(standalone,/github\.event_name == 'schedule'/);
   assert.match(standalone,/workflow_run\.conclusion == 'failure'/);
+  assert.match(standalone,/group: texasdefined-tax-live-independent-\\\$\\{\\{ github\\.event_name \\}\\}/);
   assert.match(standalone,/TEXAS_TAX_VERIFY_ONLY: '1'/);
   assert.match(standalone,/node scripts\/ci\/verify-local-financial-production\.mjs/);
   assert.match(smoke,/const taxHistoryOrigins = \[/);
