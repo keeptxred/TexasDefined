@@ -167,6 +167,47 @@ function GenericCollectionPage({ page }: { page: any }) {
         <section><p className="eyebrow text-primary">Source policy</p><h2 className="mt-3 font-display text-3xl">{page.sourcePolicyTitle}</h2><div className="mt-5 space-y-4 text-sm leading-7 text-muted-foreground">{page.sourcePolicyParagraphs.map((paragraph: string) => <p key={paragraph}>{paragraph}</p>)}</div></section>
       </div>
 
+      {page.path === "/events/christmas-events" && page.christmasPerformances?.length ? (
+        <section className="pt-12" aria-labelledby="christmas-2026-shows">
+          <div className="flex flex-wrap items-end justify-between gap-4 border-b border-border pb-6">
+            <div>
+              <p className="eyebrow text-primary">2026 · confirmed performances</p>
+              <h2 id="christmas-2026-shows" className="mt-2 font-display text-4xl">Holiday events and concerts in Texas (2026)</h2>
+            </div>
+            <a href="/events?start=2026-11-15&end=2026-12-31#calendar" className="text-sm font-semibold text-primary">See November–December events on the calendar →</a>
+          </div>
+          <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">
+            Verified dates from theaters, venues and official ticket listings. These are scheduled shows rather than
+            multi-week light displays; some productions offer additional performances. Times shown are venue-local.
+            Recheck the organizer before traveling or purchasing. Paid tickets are handled by the external provider.
+          </p>
+          <ol className="mt-6 divide-y divide-border border-y border-border">
+            {page.christmasPerformances.map((show: any) => (
+              <li key={show.id} className="grid gap-4 py-5 md:grid-cols-[11rem_minmax(0,1fr)_auto] md:items-start">
+                <div>
+                  <p className="font-semibold text-foreground">{show.dateLabel}</p>
+                  <p className="mt-1 text-sm text-muted-foreground">{show.timeLabel}</p>
+                </div>
+                <div>
+                  <h3 className="font-display text-xl leading-tight">{show.name}</h3>
+                  <p className="mt-1 text-sm font-medium">{show.venue} · {show.city}, Texas</p>
+                  <p className="mt-2 max-w-3xl text-sm leading-6 text-muted-foreground">{show.description}</p>
+                  <a href={show.sourceUrl} target="_blank" rel="noopener noreferrer" className="mt-2 inline-block text-xs underline underline-offset-2 text-muted-foreground">
+                    Schedule source: {show.sourceName} ↗
+                  </a>
+                </div>
+                <div className="md:text-right">
+                  <a href={show.ticket.href} rel={show.ticket.rel} target="_blank" className="inline-flex min-h-10 items-center border border-primary px-4 py-2 text-sm font-semibold text-primary hover:bg-surface">
+                    {show.ticket.label}
+                  </a>
+                  {show.ticket.isAffiliate && <p className="mt-2 max-w-56 text-xs leading-5 text-muted-foreground">Affiliate link · checkout is handled by the ticket provider.</p>}
+                </div>
+              </li>
+            ))}
+          </ol>
+        </section>
+      ) : null}
+
       <section className="pt-12">
         <div className="flex flex-wrap items-end justify-between gap-4 border-b border-border pb-6"><div><p className="eyebrow text-primary">{page.itemsEyebrow}</p><h2 className="mt-2 font-display text-4xl">{page.itemsTitle}</h2></div><a href="/events" className="text-sm font-semibold text-primary">Full Texas calendar →</a></div>
         {page.items.length ? <ul className="grid gap-px border-x border-b border-border bg-border sm:grid-cols-2 lg:grid-cols-3">{page.items.map((event: any) => <li key={event.slug} className="bg-background p-6"><p className="eyebrow text-muted-foreground">{event.city}{event.countyName ? ` · ${event.countyName}` : ""}</p><h3 className="mt-3 font-display text-2xl leading-tight">{isTournamentCollection ? event.name : <EventGuideLink event={event} className="hover:text-primary">{event.name}</EventGuideLink>}</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{event.detail}</p>{isTournamentCollection ? <a href={event.href} className="mt-5 inline-block text-sm font-semibold text-primary">{isTournamentHub ? "Browse category →" : "Tournament directory →"}</a> : <EventGuideLink event={event} className="mt-5 inline-block text-sm font-semibold text-primary">Open guide →</EventGuideLink>}</li>)}</ul> : <p className="border-x border-b border-border p-8 text-sm leading-7 text-muted-foreground">{page.emptyMessage}</p>}
