@@ -3,6 +3,7 @@ import { createLazyFileRoute, Link } from '@tanstack/react-router';
 import { TaxingUnitSearch } from '@/components/property/TaxingUnitSearch';
 import { Container } from '@/components/layout/Container';
 import type { TexasTaxRateRecord } from '@/data/property/texas-tax-rates.generated';
+import { consecutiveRateChanges, formatOfficialTaxRate, taxHistoryYearPosition } from '@/lib/financial/property-tax-history';
 
 type StatewideInsights = {
   year: number;
@@ -17,12 +18,18 @@ export const Route = createLazyFileRoute('/texas-property-tax-rate-history')({ c
 
 function displayRate(record: TexasTaxRateRecord | undefined) {
   if (!record) return '—';
+  if (record.localVerification?.mode === 'conflict') {
+    return `Comptroller ${record.totalRate == null ? 'not reported' : formatOfficialTaxRate(record.totalRate)}; local ${formatOfficialTaxRate(record.localVerification.totalRate)} — disputed`;
+  }
   if (record.rateUnavailable) {
-    if (record.totalRate != null) return `Reported ${record.totalRate.toFixed(6)} — verify`;
+    if (record.localVerification?.mode === 'supplement') {
+      return `Comptroller not reported; local ${formatOfficialTaxRate(record.localVerification.totalRate)} (display only)`;
+    }
+    if (record.totalRate != null) return `Reported ${formatOfficialTaxRate(record.totalRate)} — verify`;
     return 'Not reported';
   }
-  if (record.totalRate != null && !record.variableRate) return record.totalRate.toFixed(6);
-  return record.rateVariants.length ? `Varies: ${record.rateVariants.map((rate) => rate.toFixed(6)).join(' / ')}` : 'Verify parcel';
+  if (record.totalRate != null && !record.variableRate) return formatOfficialTaxRate(record.totalRate);
+  return record.rateVariants.length ? `Varies: ${record.rateVariants.map(formatOfficialTaxRate).join(' / ')}` : 'Verify parcel';
 }
 
 function Page() {
@@ -106,6 +113,7 @@ function Page() {
     }
   }
 
+  // The chart and all statewide comparisons intentionally exclude display-only local supplements.
   const comparable = useMemo(
     () => history.filter((item) => !item.rateUnavailable && item.totalRate != null && !item.variableRate),
     [history],
@@ -118,10 +126,8 @@ function Page() {
   const minRate = comparable.length ? Math.min(...comparable.map((item) => item.totalRate!)) : null;
   const maxRate = comparable.length ? Math.max(...comparable.map((item) => item.totalRate!)) : null;
   const avgRate = comparable.length ? comparable.reduce((sum, item) => sum + item.totalRate!, 0) / comparable.length : null;
-  const yearChanges = comparable.slice(1).map((item, index) => ({
-    year: item.year,
-    delta: item.totalRate! - comparable[index].totalRate!,
-  }));
+  // Only adjacent source years qualify for the one-year change superlatives.
+  const yearChanges = consecutiveRateChanges(comparable);
   const biggestIncrease = yearChanges.length ? yearChanges.reduce((best, item) => item.delta > best.delta ? item : best) : null;
   const biggestDecrease = yearChanges.length ? yearChanges.reduce((best, item) => item.delta < best.delta ? item : best) : null;
 
@@ -195,20 +201,21 @@ function Page() {
               <span className="text-xs text-muted-foreground">rate per $100 taxable value</span>
             </div>
             <RateTrendChart records={comparable} />
+            <p className="mt-3 text-xs leading-5 text-muted-foreground">Horizontal spacing follows calendar years, including gaps where no comparable statewide rate exists. Separate local evidence is shown below but excluded from the trend and one-year comparisons.</p>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-1">
             <MiniFact label="Lowest comparable rate" value={minRate == null ? '—' : minRate.toFixed(6)} />
             <MiniFact label="Highest comparable rate" value={maxRate == null ? '—' : maxRate.toFixed(6)} />
             <MiniFact label="Average comparable rate" value={avgRate == null ? '—' : avgRate.toFixed(6)} />
-            <MiniFact label="Largest one-year increase" value={biggestIncrease && biggestIncrease.delta > 0 ? `+${biggestIncrease.delta.toFixed(6)} in ${biggestIncrease.year}` : 'No comparable increase'} />
-            <MiniFact label="Largest one-year decrease" value={biggestDecrease && biggestDecrease.delta < 0 ? `${biggestDecrease.delta.toFixed(6)} in ${biggestDecrease.year}` : 'No comparable decrease'} />
+            <MiniFact label="Largest one-year increase" value={biggestIncrease && biggestIncrease.delta > 0 ? `+${formatOfficialTaxRate(biggestIncrease.delta)} in ${biggestIncrease.year}` : 'No adjacent-year increase'} />
+            <MiniFact label="Largest one-year decrease" value={biggestDecrease && biggestDecrease.delta < 0 ? `${formatOfficialTaxRate(biggestDecrease.delta)} in ${biggestDecrease.year}` : 'No adjacent-year decrease'} />
           </div>
         </div> : null}
 
         <div className="mt-10 overflow-x-auto">
           <table className="w-full min-w-[48rem] text-left text-sm">
             <thead><tr className="border-b border-border"><th className="py-3">Year</th><th>Tax rate</th><th>Operations (M&O)</th><th>Debt service (I&S)</th><th>Status</th><th>Reported levy</th></tr></thead>
-            <tbody>{history.map((item) => <tr key={`${item.id}-row`} className="border-b border-border"><td className="py-3">{item.year}</td><td>{displayRate(item)}</td><td>{item.maintenanceOperationsRate?.toFixed(6) ?? '—'}</td><td>{item.debtServiceRate?.toFixed(6) ?? '—'}</td><td>{item.sourceStatus.replaceAll('-', ' ')}</td><td>{item.levy != null ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(item.levy) : '—'}</td></tr>)}</tbody>
+            <tbody>{history.map((item) => <tr key={`${item.id}-row`} className="border-b border-border"><td className="py-3">{item.year}</td><td>{displayRate(item)}{item.localVerification ? <a href={item.localVerification.sourceUrl} target="_blank" rel="noopener noreferrer" className="mt-1 block text-xs font-semibold text-primary underline underline-offset-2">{item.localVerification.sourceAgency} source ↗</a> : null}</td><td>{item.maintenanceOperationsRate == null ? '—' : formatOfficialTaxRate(item.maintenanceOperationsRate)}</td><td>{item.debtServiceRate == null ? '—' : formatOfficialTaxRate(item.debtServiceRate)}</td><td>{item.localVerification?.mode === 'conflict' ? 'State/local source disagreement' : item.localVerification?.mode === 'supplement' ? 'Local evidence (display only); state not reported' : item.sourceStatus.replaceAll('-', ' ')}</td><td>{item.levy != null ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(item.levy) : '—'}</td></tr>)}</tbody>
           </table>
         </div>
       </section> : null}
@@ -359,8 +366,8 @@ function RateTrendChart({ records }: { records: TexasTaxRateRecord[] }) {
   const right = 24;
   const chartHeight = height - top - bottom;
   const chartWidth = width - left - right;
-  const points = records.map((record, index) => {
-    const x = records.length === 1 ? width / 2 : left + index / (records.length - 1) * chartWidth;
+  const points = records.map((record) => {
+    const x = taxHistoryYearPosition(record.year, records[0].year, records[records.length - 1].year, left, chartWidth);
     const y = top + (max - record.totalRate!) / span * chartHeight;
     return { x, y, record };
   });
@@ -376,8 +383,8 @@ function RateTrendChart({ records }: { records: TexasTaxRateRecord[] }) {
       </g>)}
     </svg>
     <div className="mt-2 flex items-center justify-between text-xs text-muted-foreground">
-      <span>Low {min.toFixed(6)}</span>
-      <span>High {max.toFixed(6)}</span>
+      <span>Low {formatOfficialTaxRate(min)}</span>
+      <span>High {formatOfficialTaxRate(max)}</span>
     </div>
   </div>;
 }
