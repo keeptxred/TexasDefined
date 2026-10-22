@@ -13,6 +13,7 @@ on:
       - 'scripts/ci/property-tax-history-integrity.test.mjs'
       - 'scripts/ci/property-tax-history-year-gaps.test.mjs'
       - 'src/routes/texas-property-tax-rate-history.lazy.tsx'
+      - 'src/components/property/TaxingUnitSearch.tsx'
       - 'src/lib/financial/property-tax-history.ts'
       - 'scripts/ci/property-tax-zero-levy-contract.test.mjs'
       - 'scripts/ci/verify-texas-tax-local-sources.mjs'
