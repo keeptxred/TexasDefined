@@ -33,10 +33,18 @@ test('rate elsewhere on the page cannot validate the target annual row',()=>{
 test('2022 Union Valley conflict remains source-qualified and cannot mask statewide value',()=>{
   const conflict='Local and statewide reports disagree (local 0.000000 vs statewide 0.287248); statewide record retained. Hunt County Appraisal District report ↗';
   const good=history([{year:2022,rate:'0.287248',source:conflict}]);
-  assert.equal(checkYearSpecificTaxRateRow(good,{year:2022,rate:'0.000000',agency:'Hunt County Appraisal District',conflict:true}).ok,true);
+  assert.equal(checkYearSpecificTaxRateRow(good,{year:2022,rate:'0.000000',agency:'Hunt County Appraisal District',conflict:true,statewideRate:'0.287248'}).ok,true);
   const wrong=history([{year:2022,rate:'0.287248',source:'Locally corroborated. Hunt County Appraisal District report ↗'}]);
-  assert.match(checkYearSpecificTaxRateRow(wrong,{year:2022,rate:'0.000000',agency:'Hunt County Appraisal District',conflict:true}).reason,/not disclosed/);
+  assert.match(checkYearSpecificTaxRateRow(wrong,{year:2022,rate:'0.000000',agency:'Hunt County Appraisal District',conflict:true,statewideRate:'0.287248'}).reason,/not disclosed/);
 });
+test('conflicting 2022 local rates never excuse wrong statewide totals or mismatched source text',()=>{
+  const statement='Local and statewide reports disagree (local 0.000000 vs statewide 0.287248); statewide record retained. Hunt County Appraisal District report ↗';
+  const args={year:2022,rate:'0.000000',agency:'Hunt County Appraisal District',conflict:true,statewideRate:'0.287248'};
+  assert.match(checkYearSpecificTaxRateRow(history([{year:2022,rate:'0.500000',source:statement}]),args).reason,/displayed statewide total/);
+  assert.match(checkYearSpecificTaxRateRow(history([{year:2022,rate:'0.287248',source:'Local and statewide reports disagree (local 0.000000 vs statewide 0.500000); Hunt County Appraisal District report ↗'}]),args).reason,/not disclosed/);
+  assert.match(checkYearSpecificTaxRateRow(history([{year:2022,rate:'0.287248',source:statement}]),{...args,statewideRate:null}).reason,/requires/);
+});
+
 test('missing, duplicated year rows and missing locally verified label fail closed',()=>{
   const expected={year:2024,rate:'0.410001',agency:'Bell County Appraisal District'};
   assert.match(checkYearSpecificTaxRateRow(history([]),expected).reason,/found 0/);
