@@ -24,6 +24,16 @@ test('three independently documented tax years can be indexed without overriding
   assert.match(route,/robots: indexable \? undefined : 'noindex, follow, max-image-preview:large'/);
 });
 
+test('missing latest Comptroller year is not mislabeled as a finalized rate',()=>{
+  assert.match(route,/Latest Comptroller workbook year/);
+  assert.match(route,/Years with numeric source records/);
+  assert.match(route,/What the Comptroller reported/);
+  assert.match(route,/distinguishing finalized statewide figures from separately verified local records/);
+  assert.doesNotMatch(route,/Latest finalized year/);
+  assert.doesNotMatch(route,/What the reported rate contains/);
+  assert.match(route,/Not reported \/ withheld from calculation/);
+});
+
 test('rate labels never round documented seven-decimal values to six',()=>{
   const match=route.match(/function formatTaxRate\(value: number\): string \{([\s\S]*?)\n\}/);
   assert.ok(match,'a pure source-aware tax formatter is required');
