@@ -64,7 +64,7 @@ try{
     }
     await page.screenshot({path:output+"/"+viewport.label+"-"+slug+"-hero.png",animations:"disabled",timeout:30000});
     if(viewport.label==="mobile"){
-     await page.locator("#destination-visitor-faqs").scrollIntoViewIfNeeded();
+     await page.evaluate(() => { const faq = document.querySelector("#destination-visitor-faqs"); if (!faq || faq.getBoundingClientRect().width === 0) throw new Error("Park FAQ disappeared before screenshot"); faq.scrollIntoView({block:"center",behavior:"instant"}); });
      await page.screenshot({path:output+"/mobile-"+slug+"-faq.png",animations:"disabled",timeout:30000});
     }
     results.push({slug,viewport:viewport.label,status:"passed",...facts});
