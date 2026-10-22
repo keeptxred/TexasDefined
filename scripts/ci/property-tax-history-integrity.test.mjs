@@ -43,7 +43,7 @@ test('live release gate audits every primary-source local rate and Woodlands',()
   assert.equal(matches.length,15);
   assert.equal(new Set(matches.map((m)=>m[1])).size,12);
   assert.match(smoke,/async function verifySourcedTaxingUnit/);
-  assert.match(smoke,/checkYearSpecificTaxRateRow\(body,\{year,rate,agency,conflict\}\)/);
+  assert.match(smoke,/checkYearSpecificTaxRateRow\(body,\{year,rate,agency,conflict,statewideRate\}\)/);
   assert.match(smoke,/async function verifyWoodlandsClassification/);
   assert.match(smoke,/await runWithConcurrency\(verifiedLocalTaxingUnits, verifySourcedTaxingUnit\)/);
   assert.match(smoke,/await verifyWoodlandsClassification\(\)/);
