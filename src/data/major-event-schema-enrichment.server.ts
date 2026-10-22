@@ -28,8 +28,9 @@ import { majorEventSchemaEnrichmentBatch27 } from "./major-event-schema-enrichme
 import { majorEventSchemaEnrichmentBatch28 } from "./major-event-schema-enrichment-batch28.server";
 import { majorEventSchemaEnrichmentBatch29 } from "./major-event-schema-enrichment-batch29.server";
 import { majorEventSchemaEnrichmentBatch30 } from "./major-event-schema-enrichment-batch30.server";
-import { majorEventSchemaEnrichmentOverrides } from "./major-event-schema-enrichment-overrides.server";
 import { majorEventSchemaEnrichmentBatch31 } from "./major-event-schema-enrichment-batch31.server";
+import { majorEventSchemaEnrichmentBatch32 } from "./major-event-schema-enrichment-batch32.server";
+import { majorEventSchemaEnrichmentOverrides } from "./major-event-schema-enrichment-overrides.server";
 
 export type EventSchemaEntityType = "Organization" | "Person" | "PerformingGroup";
 export type EventSchemaLifecycleStatus = "scheduled" | "cancelled" | "postponed" | "rescheduled";
@@ -233,8 +234,9 @@ const records: MajorEventSchemaEnrichment[] = [
   ...majorEventSchemaEnrichmentBatch28,
   ...majorEventSchemaEnrichmentBatch29,
   ...majorEventSchemaEnrichmentBatch30,
-  ...majorEventSchemaEnrichmentOverrides,
   ...majorEventSchemaEnrichmentBatch31,
+  ...majorEventSchemaEnrichmentBatch32,
+  ...majorEventSchemaEnrichmentOverrides,
 ];
 
 const bySlug = new Map(records.map((record) => [record.slug, record]));

@@ -1,66 +1,61 @@
 import type { MajorEventSchemaEnrichment } from "./major-event-schema-enrichment.server";
 
-// Batch 31: two separately verified official 2026 Polar Express depots.
-// CC-licensed exact-location photos predate the 2026 holiday rides.
+// October 21, 2026 official organizer review: event-specific organizer and
+// dates verified in long-form guides. No unlicensed/representative hero images,
+// unverified admission offers, or invented performer credits are published.
 export const majorEventSchemaEnrichmentBatch31: MajorEventSchemaEnrichment[] = [
   {
-    slug: "polar-express-galveston",
-    organizer: {
-      type: "Organization",
-      name: "Galveston Railroad Museum",
-      url: "https://galvestonrrmuseum.org/"
-    },
-    image: {
-      url: "https://commons.wikimedia.org/wiki/Special:FilePath/20190226_55_Galveston_Railroad_Museum.jpg?width=1600",
-      alt: "Galveston Railroad Museum rail equipment at the historic site, photographed in 2019 before the holiday event",
-      sourceUrl: "https://commons.wikimedia.org/wiki/File:20190226_55_Galveston_Railroad_Museum.jpg",
-      sourceType: "wikimedia",
-      licenseName: "CC BY 2.0",
-      licenseUrl: "https://creativecommons.org/licenses/by/2.0/",
-      rightsNote: "Photo: David Wilson (2019), CC BY 2.0. Historic venue photo, not a 2026 Polar Express depiction; no changes.",
-      exactLocation: true,
-      approvedForCommercialUse: true
-    },
-    sources: [
-      {
-        label: "Galveston Railroad Museum 2026 event page",
-        url: "https://galvestonrrmuseum.org/event/the-polar-express/"
-      },
-      {
-        label: "Licensed venue image and photographer credit",
-        url: "https://commons.wikimedia.org/wiki/File:20190226_55_Galveston_Railroad_Museum.jpg"
-      }
-    ],
-    verifiedAt: "2026-10-21"
+    slug: "grapevine-christmas-capital-of-texas",
+    organizer: { type: "Organization", name: "Grapevine Convention & Visitors Bureau", url: "https://www.grapevinetexasusa.com/christmas-capital-of-texas/" },
+    sources: [{ label: "Grapevine Convention & Visitors Bureau official holiday event", url: "https://www.grapevinetexasusa.com/christmas-capital-of-texas/" }],
+    verifiedAt: "2026-10-21",
   },
   {
-    slug: "polar-express-palestine",
-    organizer: {
-      type: "Organization",
-      name: "Texas State Railroad",
-      url: "https://texasstaterailroad.net/"
-    },
-    image: {
-      url: "https://commons.wikimedia.org/wiki/Special:FilePath/Palestine_August_2017_55_(Texas_State_Railroad_Palestine_Depot).jpg?width=1600",
-      alt: "Historic Texas State Railroad Palestine Depot building in 2017 before the Polar Express holiday season",
-      sourceUrl: "https://commons.wikimedia.org/wiki/File:Palestine_August_2017_55_(Texas_State_Railroad_Palestine_Depot).jpg",
-      sourceType: "wikimedia",
-      licenseName: "CC BY-SA 4.0",
-      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
-      rightsNote: "Photo: Michael Barera (2017), CC BY-SA 4.0. Exact Palestine Depot; historic daytime photo, not a 2026 train-ride scene; no changes.",
-      exactLocation: true,
-      approvedForCommercialUse: true
-    },
-    sources: [
-      {
-        label: "Texas State Railroad 2026 program",
-        url: "https://texasstaterailroad.net/the-polar-express-train-ride/"
-      },
-      {
-        label: "Licensed Palestine Depot image and photographer credit",
-        url: "https://commons.wikimedia.org/wiki/File:Palestine_August_2017_55_(Texas_State_Railroad_Palestine_Depot).jpg"
-      }
-    ],
-    verifiedAt: "2026-10-21"
-  }
+    slug: "austin-trail-of-lights",
+    organizer: { type: "Organization", name: "Trail of Lights Foundation", url: "https://austintrailoflights.org/event-faqs" },
+    sources: [{ label: "Trail of Lights Foundation official holiday event", url: "https://austintrailoflights.org/event-faqs" }],
+    verifiedAt: "2026-10-21",
+  },
+  {
+    slug: "santas-wonderland-college-station",
+    organizer: { type: "Organization", name: "Santa's Wonderland", url: "https://www.santas-wonderland.com/" },
+    sources: [{ label: "Santa's Wonderland official holiday event", url: "https://www.santas-wonderland.com/" }],
+    verifiedAt: "2026-10-21",
+  },
+  {
+    slug: "houston-zoo-lights",
+    organizer: { type: "Organization", name: "Houston Zoo", url: "https://www.houstonzoo.org/events/zoolights/" },
+    sources: [{ label: "Houston Zoo official holiday event", url: "https://www.houstonzoo.org/events/zoolights/" }],
+    verifiedAt: "2026-10-21",
+  },
+  {
+    slug: "moody-gardens-ice-land",
+    organizer: { type: "Organization", name: "Moody Gardens", url: "https://www.moodygardens.com/holiday-season/ice-land" },
+    sources: [{ label: "Moody Gardens official holiday event", url: "https://www.moodygardens.com/holiday-season/ice-land" }],
+    verifiedAt: "2026-10-21",
+  },
+  {
+    slug: "holiday-at-the-dallas-arboretum",
+    organizer: { type: "Organization", name: "Dallas Arboretum and Botanical Garden", url: "https://www.dallasarboretum.org/events-activities/holiday-at-the-arboretum/" },
+    sources: [{ label: "Dallas Arboretum and Botanical Garden official holiday event", url: "https://www.dallasarboretum.org/events-activities/holiday-at-the-arboretum/" }],
+    verifiedAt: "2026-10-21",
+  },
+  {
+    slug: "galaxy-lights-space-center-houston",
+    organizer: { type: "Organization", name: "Space Center Houston", url: "https://spacecenter.org/galaxy-lights/" },
+    sources: [{ label: "Space Center Houston official holiday event", url: "https://spacecenter.org/galaxy-lights/" }],
+    verifiedAt: "2026-10-21",
+  },
+  {
+    slug: "concho-christmas-tour-of-lights",
+    organizer: { type: "Organization", name: "Concho Christmas Celebration", url: "https://www.conchochristmascelebration.com/tour-of-lights" },
+    sources: [{ label: "Concho Christmas Celebration official holiday event", url: "https://www.conchochristmascelebration.com/tour-of-lights" }],
+    verifiedAt: "2026-10-21",
+  },
+  {
+    slug: "main-street-bethlehem-burnet",
+    organizer: { type: "Organization", name: "First Baptist Church Burnet", url: "https://www.fbcburnet.org/main-street-bethlehem" },
+    sources: [{ label: "First Baptist Church Burnet official holiday event", url: "https://www.fbcburnet.org/main-street-bethlehem" }],
+    verifiedAt: "2026-10-21",
+  },
 ];
