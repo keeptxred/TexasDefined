@@ -287,6 +287,7 @@ import { Route as StateParkBalmorheaStateParkRouteImport } from './routes/state-
 import { Route as StateParkAtlantaStateParkRouteImport } from './routes/state-park.atlanta-state-park'
 import { Route as StateParkAbileneStateParkRouteImport } from './routes/state-park.abilene-state-park'
 import { Route as StateParkSlugRouteImport } from './routes/state-park.$slug'
+import { Route as SportsTeamsRouteImport } from './routes/sports.teams'
 import { Route as SportsFridayNightLightsRouteImport } from './routes/sports.friday-night-lights'
 import { Route as SportsVenuesCompareDotcsvRouteImport } from './routes/sports-venues.compare[.]csv'
 import { Route as SportsVenuesCompareRouteImport } from './routes/sports-venues.compare'
@@ -463,6 +464,7 @@ import { Route as KindSlugRouteImport } from './routes/$kind.$slug'
 import { Route as ExploreWaterParksIndexRouteImport } from './routes/explore.water-parks.index'
 import { Route as ExploreCasinosIndexRouteImport } from './routes/explore.casinos.index'
 import { Route as TexasDataResearchTexasHomeownersPremiumsVsCoverageRouteImport } from './routes/texas-data.research.texas-homeowners-premiums-vs-coverage'
+import { Route as SportsTeamsSlugRouteImport } from './routes/sports.teams.$slug'
 import { Route as SportsSoftballChar123TeamChar125RouteImport } from './routes/sports.softball.{-$team}'
 import { Route as ShopProductProductIdRouteImport } from './routes/shop.product.$productId'
 import { Route as PropertyTaxTaxingUnitUnitRouteImport } from './routes/property-tax.taxing-unit.$unit'
@@ -2348,6 +2350,11 @@ const StateParkSlugRoute = StateParkSlugRouteImport.update({
   path: '/state-park/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SportsTeamsRoute = SportsTeamsRouteImport.update({
+  id: '/teams',
+  path: '/teams',
+  getParentRoute: () => SportsRoute,
+} as any).lazy(() => import('./routes/sports.teams.lazy').then((d) => d.Route))
 const SportsFridayNightLightsRoute = SportsFridayNightLightsRouteImport.update({
   id: '/friday-night-lights',
   path: '/friday-night-lights',
@@ -3394,6 +3401,13 @@ const TexasDataResearchTexasHomeownersPremiumsVsCoverageRoute =
       (d) => d.Route,
     ),
   )
+const SportsTeamsSlugRoute = SportsTeamsSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => SportsTeamsRoute,
+} as any).lazy(() =>
+  import('./routes/sports.teams.$slug.lazy').then((d) => d.Route),
+)
 const SportsSoftballChar123TeamChar125Route =
   SportsSoftballChar123TeamChar125RouteImport.update({
     id: '/softball/{-$team}',
@@ -4236,6 +4250,7 @@ export interface FileRoutesByFullPath {
   '/sports-venues/compare': typeof SportsVenuesCompareRoute
   '/sports-venues/compare.csv': typeof SportsVenuesCompareDotcsvRoute
   '/sports/friday-night-lights': typeof SportsFridayNightLightsRoute
+  '/sports/teams': typeof SportsTeamsRouteWithChildren
   '/state-park/$slug': typeof StateParkSlugRoute
   '/state-park/abilene-state-park': typeof StateParkAbileneStateParkRoute
   '/state-park/atlanta-state-park': typeof StateParkAtlantaStateParkRoute
@@ -4386,6 +4401,7 @@ export interface FileRoutesByFullPath {
   '/property-tax/taxing-unit/$unit': typeof PropertyTaxTaxingUnitUnitRoute
   '/shop/product/$productId': typeof ShopProductProductIdRoute
   '/sports/softball/{-$team}': typeof SportsSoftballChar123TeamChar125Route
+  '/sports/teams/$slug': typeof SportsTeamsSlugRoute
   '/texas-data/research/texas-homeowners-premiums-vs-coverage': typeof TexasDataResearchTexasHomeownersPremiumsVsCoverageRoute
   '/explore/casinos/': typeof ExploreCasinosIndexRoute
   '/explore/water-parks/': typeof ExploreWaterParksIndexRoute
@@ -4763,6 +4779,7 @@ export interface FileRoutesByTo {
   '/sports-venues/compare': typeof SportsVenuesCompareRoute
   '/sports-venues/compare.csv': typeof SportsVenuesCompareDotcsvRoute
   '/sports/friday-night-lights': typeof SportsFridayNightLightsRoute
+  '/sports/teams': typeof SportsTeamsRouteWithChildren
   '/state-park/$slug': typeof StateParkSlugRoute
   '/state-park/abilene-state-park': typeof StateParkAbileneStateParkRoute
   '/state-park/atlanta-state-park': typeof StateParkAtlantaStateParkRoute
@@ -4913,6 +4930,7 @@ export interface FileRoutesByTo {
   '/property-tax/taxing-unit/$unit': typeof PropertyTaxTaxingUnitUnitRoute
   '/shop/product/$productId': typeof ShopProductProductIdRoute
   '/sports/softball/{-$team}': typeof SportsSoftballChar123TeamChar125Route
+  '/sports/teams/$slug': typeof SportsTeamsSlugRoute
   '/texas-data/research/texas-homeowners-premiums-vs-coverage': typeof TexasDataResearchTexasHomeownersPremiumsVsCoverageRoute
   '/explore/casinos': typeof ExploreCasinosIndexRoute
   '/explore/water-parks': typeof ExploreWaterParksIndexRoute
@@ -5296,6 +5314,7 @@ export interface FileRoutesById {
   '/sports-venues/compare': typeof SportsVenuesCompareRoute
   '/sports-venues/compare.csv': typeof SportsVenuesCompareDotcsvRoute
   '/sports/friday-night-lights': typeof SportsFridayNightLightsRoute
+  '/sports/teams': typeof SportsTeamsRouteWithChildren
   '/state-park/$slug': typeof StateParkSlugRoute
   '/state-park/abilene-state-park': typeof StateParkAbileneStateParkRoute
   '/state-park/atlanta-state-park': typeof StateParkAtlantaStateParkRoute
@@ -5446,6 +5465,7 @@ export interface FileRoutesById {
   '/property-tax/taxing-unit/$unit': typeof PropertyTaxTaxingUnitUnitRoute
   '/shop/product/$productId': typeof ShopProductProductIdRoute
   '/sports/softball/{-$team}': typeof SportsSoftballChar123TeamChar125Route
+  '/sports/teams/$slug': typeof SportsTeamsSlugRoute
   '/texas-data/research/texas-homeowners-premiums-vs-coverage': typeof TexasDataResearchTexasHomeownersPremiumsVsCoverageRoute
   '/explore/casinos/': typeof ExploreCasinosIndexRoute
   '/explore/water-parks/': typeof ExploreWaterParksIndexRoute
@@ -5830,6 +5850,7 @@ export interface FileRouteTypes {
     | '/sports-venues/compare'
     | '/sports-venues/compare.csv'
     | '/sports/friday-night-lights'
+    | '/sports/teams'
     | '/state-park/$slug'
     | '/state-park/abilene-state-park'
     | '/state-park/atlanta-state-park'
@@ -5980,6 +6001,7 @@ export interface FileRouteTypes {
     | '/property-tax/taxing-unit/$unit'
     | '/shop/product/$productId'
     | '/sports/softball/{-$team}'
+    | '/sports/teams/$slug'
     | '/texas-data/research/texas-homeowners-premiums-vs-coverage'
     | '/explore/casinos/'
     | '/explore/water-parks/'
@@ -6357,6 +6379,7 @@ export interface FileRouteTypes {
     | '/sports-venues/compare'
     | '/sports-venues/compare.csv'
     | '/sports/friday-night-lights'
+    | '/sports/teams'
     | '/state-park/$slug'
     | '/state-park/abilene-state-park'
     | '/state-park/atlanta-state-park'
@@ -6507,6 +6530,7 @@ export interface FileRouteTypes {
     | '/property-tax/taxing-unit/$unit'
     | '/shop/product/$productId'
     | '/sports/softball/{-$team}'
+    | '/sports/teams/$slug'
     | '/texas-data/research/texas-homeowners-premiums-vs-coverage'
     | '/explore/casinos'
     | '/explore/water-parks'
@@ -6889,6 +6913,7 @@ export interface FileRouteTypes {
     | '/sports-venues/compare'
     | '/sports-venues/compare.csv'
     | '/sports/friday-night-lights'
+    | '/sports/teams'
     | '/state-park/$slug'
     | '/state-park/abilene-state-park'
     | '/state-park/atlanta-state-park'
@@ -7039,6 +7064,7 @@ export interface FileRouteTypes {
     | '/property-tax/taxing-unit/$unit'
     | '/shop/product/$productId'
     | '/sports/softball/{-$team}'
+    | '/sports/teams/$slug'
     | '/texas-data/research/texas-homeowners-premiums-vs-coverage'
     | '/explore/casinos/'
     | '/explore/water-parks/'
@@ -9418,6 +9444,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StateParkSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sports/teams': {
+      id: '/sports/teams'
+      path: '/teams'
+      fullPath: '/sports/teams'
+      preLoaderRoute: typeof SportsTeamsRouteImport
+      parentRoute: typeof SportsRoute
+    }
     '/sports/friday-night-lights': {
       id: '/sports/friday-night-lights'
       path: '/friday-night-lights'
@@ -10650,6 +10683,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TexasDataResearchTexasHomeownersPremiumsVsCoverageRouteImport
       parentRoute: typeof TexasDataResearchRoute
     }
+    '/sports/teams/$slug': {
+      id: '/sports/teams/$slug'
+      path: '/$slug'
+      fullPath: '/sports/teams/$slug'
+      preLoaderRoute: typeof SportsTeamsSlugRouteImport
+      parentRoute: typeof SportsTeamsRoute
+    }
     '/sports/softball/{-$team}': {
       id: '/sports/softball/{-$team}'
       path: '/softball/{-$team}'
@@ -11480,13 +11520,27 @@ const ShopRouteChildren: ShopRouteChildren = {
 
 const ShopRouteWithChildren = ShopRoute._addFileChildren(ShopRouteChildren)
 
+interface SportsTeamsRouteChildren {
+  SportsTeamsSlugRoute: typeof SportsTeamsSlugRoute
+}
+
+const SportsTeamsRouteChildren: SportsTeamsRouteChildren = {
+  SportsTeamsSlugRoute: SportsTeamsSlugRoute,
+}
+
+const SportsTeamsRouteWithChildren = SportsTeamsRoute._addFileChildren(
+  SportsTeamsRouteChildren,
+)
+
 interface SportsRouteChildren {
   SportsFridayNightLightsRoute: typeof SportsFridayNightLightsRoute
+  SportsTeamsRoute: typeof SportsTeamsRouteWithChildren
   SportsSoftballChar123TeamChar125Route: typeof SportsSoftballChar123TeamChar125Route
 }
 
 const SportsRouteChildren: SportsRouteChildren = {
   SportsFridayNightLightsRoute: SportsFridayNightLightsRoute,
+  SportsTeamsRoute: SportsTeamsRouteWithChildren,
   SportsSoftballChar123TeamChar125Route: SportsSoftballChar123TeamChar125Route,
 }
 

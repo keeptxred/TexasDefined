@@ -75,6 +75,7 @@ export const INDEXABLE_STATIC_PATHS = [
   "/hunting",
   "/dogs",
   "/sports",
+  "/sports/teams",
   "/sports/friday-night-lights",
   "/sports/softball",
   "/sports/softball/schools",
