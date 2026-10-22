@@ -194,7 +194,7 @@ const records: ChristmasAuthorityRecord[] = [
   },
   {
     slug: "santas-wonderland-college-station",
-    name: "Santa's Wonderland 2026–27",
+    name: "Santa's Wonderland Christmas Experience 2026–27",
     city: "College Station",
     countySlug: "brazos",
     countyName: "Brazos County",
@@ -374,7 +374,7 @@ const records: ChristmasAuthorityRecord[] = [
   },
   {
     slug: "moody-gardens-ice-land",
-    name: "ICE LAND at Moody Gardens 2026–27",
+    name: "Moody Gardens ICE LAND: Caribbean Christmas 2026–27",
     city: "Galveston",
     countySlug: "galveston",
     countyName: "Galveston County",
@@ -724,7 +724,7 @@ const records: ChristmasAuthorityRecord[] = [
   },
   {
     slug: "main-street-bethlehem-burnet",
-    name: "Main Street Bethlehem Burnet 2026",
+    name: "Main Street Bethlehem Christmas Nativity — Burnet 2026",
     city: "Burnet",
     countySlug: "burnet",
     countyName: "Burnet County",
