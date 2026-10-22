@@ -372,4 +372,4 @@ if (TAX_ONLY) {
   console.log(`Independent live Texas tax-rate verification passed on canonical and direct Worker endpoints (${verifiedLocalTaxingUnits.length} official local observations and Woodlands classification).`);
 } else {
 console.log(`Local financial production verification passed (${affordabilityPages.length} affordability pages, ${costOfLivingPages.length} cost-of-living pages, ${salaryNeededPages.length} salary-needed pages, ${propertyTaxSamples.length} property-tax samples, sitemap membership).`);
-
+}
