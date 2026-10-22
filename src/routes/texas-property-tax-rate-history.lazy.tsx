@@ -115,7 +115,7 @@ function Page() {
 
   // The chart and all statewide comparisons intentionally exclude display-only local supplements.
   const comparable = useMemo(
-    () => history.filter((item) => !item.rateUnavailable && item.totalRate != null && !item.variableRate),
+    () => history.filter((item) => !item.rateUnavailable && item.totalRate != null && !item.variableRate && item.localVerification?.mode !== 'conflict'),
     [history],
   );
   const first = history[0];
@@ -393,7 +393,7 @@ function ComparisonTable({ firstName, firstHistory, secondName, secondHistory }:
   const years = [...new Set([...firstHistory.map((item) => item.year), ...secondHistory.map((item) => item.year)])].sort((a, b) => b - a);
   const firstByYear = new Map(firstHistory.map((item) => [item.year, item]));
   const secondByYear = new Map(secondHistory.map((item) => [item.year, item]));
-  return <div className="mt-7 overflow-x-auto"><table className="w-full min-w-full text-left text-sm"><thead><tr className="border-b border-border"><th className="py-3">Year</th><th>{firstName}</th><th>{secondName}</th><th>Difference</th></tr></thead><tbody>{years.map((year) => { const a = firstByYear.get(year); const b = secondByYear.get(year); const av = a && !a.rateUnavailable && !a.variableRate ? a.totalRate : null; const bv = b && !b.rateUnavailable && !b.variableRate ? b.totalRate : null; const diff = av != null && bv != null ? av - bv : null; return <tr key={year} className="border-b border-border"><td className="py-3 font-semibold">{year}</td><td>{displayRate(a)}</td><td>{displayRate(b)}</td><td>{diff == null ? 'Not comparable' : `${diff >= 0 ? '+' : ''}${formatOfficialTaxRate(diff)}`}</td></tr>; })}</tbody></table></div>;
+  return <div className="mt-7 overflow-x-auto"><table className="w-full min-w-full text-left text-sm"><thead><tr className="border-b border-border"><th className="py-3">Year</th><th>{firstName}</th><th>{secondName}</th><th>Difference</th></tr></thead><tbody>{years.map((year) => { const a = firstByYear.get(year); const b = secondByYear.get(year); const av = a && !a.rateUnavailable && !a.variableRate && a.localVerification?.mode !== 'conflict' ? a.totalRate : null; const bv = b && !b.rateUnavailable && !b.variableRate && b.localVerification?.mode !== 'conflict' ? b.totalRate : null; const diff = av != null && bv != null ? av - bv : null; return <tr key={year} className="border-b border-border"><td className="py-3 font-semibold">{year}</td><td>{displayRate(a)}</td><td>{displayRate(b)}</td><td>{diff == null ? 'Not comparable' : `${diff >= 0 ? '+' : ''}${formatOfficialTaxRate(diff)}`}</td></tr>; })}</tbody></table></div>;
 }
 
 function InsightList({ title, records }: { title: string; records: TexasTaxRateRecord[] }) {
