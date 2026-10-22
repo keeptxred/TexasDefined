@@ -147,6 +147,7 @@ import { wildlifeManagementAreaWave7Destinations } from "./wildlife-management-a
 import { wildlifeManagementAreaWave8Destinations } from "./wildlife-management-area-destinations-wave8";
 import { wildlifeManagementAreaWave9Destinations } from "./wildlife-management-area-destinations-wave9";
 import type { Destination } from "./types";
+import { indianLodgeAuthorityDestination } from "./indian-lodge-authority-destination";
 
 const newBraunfelsSeasonalFallback: Destination = {
   id: "preserved-new-braunfels",
@@ -384,4 +385,5 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   [shinerTownDestination],
   [newBraunfelsSeasonalFallback],
   [sanMarcosWaterGatewayFallback],
+  [indianLodgeAuthorityDestination],
 ).map(enrichMuseumMedia).map(enrichSanAntonioHeritageAuthority);
