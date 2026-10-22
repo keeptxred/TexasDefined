@@ -155,7 +155,7 @@ rounded **0.133025**. Genuine six-decimal numbers retain their
 six-decimal formatting, including a genuine zero city levy.
 
 The deployment's existing local-financial smoke suite now checks
-all fifteen recorded local supplements, their government sources,
+all sixteen recorded local supplements, their government sources,
 and both production entry points. It also checks a five-year
 nonduplicated Woodlands history. Add new verified supplements to
 those source-qualified checks without inventing numeric values.
@@ -207,7 +207,7 @@ no observation for a previous year. The source metadata does not imply
 that a local supplement replaces the Comptroller record.
 
 The canonical-domain and direct-Worker local-financial release gate covers
-**15 year-specific primary-source observations across 12 unique slugs**,
+**16 year-specific primary-source observations across 13 unique slugs**,
 including Post Oak Bend's 2021, 2024 and 2025 zero city tax records,
 Union Valley's 2021 zero and 2022 state/local disagreement, and a
 nonduplicated five-year history for The Woodlands Township. Do not
