@@ -60,7 +60,7 @@ function Page() {
     return () => controller.abort();
   }, []);
 
-  async function loadHistory(record: TexasTaxRateRecord) {
+  async function loadHistory(record: Pick<TexasTaxRateRecord, 'slug' | 'type'>) {
     const response = await fetch(`/api/property-tax-rates?unit=${encodeURIComponent(record.slug)}&type=${encodeURIComponent(record.type)}`);
     const body = await response.json() as { history?: TexasTaxRateRecord[]; error?: string };
     if (!response.ok) throw new Error(body.error || `History lookup failed (${response.status})`);
@@ -83,6 +83,24 @@ function Page() {
     } catch (error) {
       setHistory([]);
       setStatus(error instanceof Error ? error.message : 'History lookup failed.');
+    }
+  }
+
+  async function chooseRecent(record: RecentUnit) {
+    setStatus('Loading previously viewed taxing unit…');
+    try {
+      // The slug AND Comptroller unit type are needed: a name by itself
+      // can identify different reporting classifications across years.
+      const records = await loadHistory(record);
+      const latestRecord = records.at(-1);
+      if (!latestRecord) throw new Error('Previously viewed taxing unit no longer has a matching history.');
+      setSelected(latestRecord);
+      setHistory(records);
+      remember(latestRecord);
+      setStatus('');
+    } catch (error) {
+      setStatus(error instanceof Error ? error.message : 'Previous taxing-unit history unavailable.');
+      setHistory([]);
     }
   }
 
@@ -167,7 +185,7 @@ function Page() {
             <div className="mt-5 flex flex-wrap gap-2">
               {['Harris County', 'Dallas County', 'Travis County', 'Bexar County', 'Fort Bend County', 'Katy ISD'].map((name) => <button key={name} type="button" onClick={() => void quickLookup(name)} className="border border-border px-3 py-2 text-xs font-semibold hover:border-primary hover:text-primary">{name}</button>)}
             </div>
-            {recentUnits.length ? <div className="mt-5"><p className="text-xs font-semibold uppercase tracking-[.12em] text-muted-foreground">Recently viewed</p><div className="mt-2 flex flex-wrap gap-x-4 gap-y-2">{recentUnits.map((item) => <button key={`${item.type}-${item.slug}`} type="button" onClick={() => void quickLookup(item.name)} className="text-sm font-semibold text-primary hover:underline">{item.name}</button>)}</div></div> : null}
+            {recentUnits.length ? <div className="mt-5"><p className="text-xs font-semibold uppercase tracking-[.12em] text-muted-foreground">Recently viewed</p><div className="mt-2 flex flex-wrap gap-x-4 gap-y-2">{recentUnits.map((item) => <button key={`${item.type}-${item.slug}`} type="button" onClick={() => void chooseRecent(item)} className="text-sm font-semibold text-primary hover:underline">{item.name}</button>)}</div></div> : null}
             {selected ? <p className="mt-4 text-sm"><strong>{selected.name}</strong> · {selected.type.replaceAll('-', ' ')}</p> : null}
             {status ? <p className="mt-3 text-sm text-muted-foreground">{status}</p> : null}
           </div>
