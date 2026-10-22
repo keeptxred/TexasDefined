@@ -9,6 +9,7 @@ const FETCH_ATTEMPTS = 3;
 const FETCH_TIMEOUT_MS = 15_000;
 const FETCH_RETRY_DELAY_MS = 1_500;
 const VERIFY_CONCURRENCY = 4;
+const TAX_ONLY = process.env.TEXAS_TAX_VERIFY_ONLY === '1';
 
 const cityMappings = [
   { slug: 'houston', name: 'Houston', tax: '/property-tax-calculator/houston', relocation: '/article/moving-to-houston-address-checklist' },
@@ -332,14 +333,17 @@ async function verifyWoodlandsClassification() {
 appendSummary('\n## Local financial production verification\n\n');
 appendSummary('| Result | Surface | Contract |\n|---|---|---|\n');
 
-await runWithConcurrency(affordabilityPages, verifyAffordability);
-await runWithConcurrency(costOfLivingPages, verifyCostOfLiving);
-await runWithConcurrency(salaryNeededPages, verifySalaryNeeded);
-await runWithConcurrency(propertyTaxSamples, verifyPropertyTax);
+if (!TAX_ONLY) {
+  await runWithConcurrency(affordabilityPages, verifyAffordability);
+  await runWithConcurrency(costOfLivingPages, verifyCostOfLiving);
+  await runWithConcurrency(salaryNeededPages, verifySalaryNeeded);
+  await runWithConcurrency(propertyTaxSamples, verifyPropertyTax);
+}
 await verifyEscobaresTaxingUnit();
 await runWithConcurrency(verifiedLocalTaxingUnits, verifySourcedTaxingUnit);
 await verifyWoodlandsClassification();
 
+if (!TAX_ONLY) {
 try {
   const { response, body } = await fetchProduction('/sitemap.xml');
   if (!response.ok) fail('sitemap', `HTTP ${response.status}`);
@@ -361,5 +365,11 @@ try {
   fail('sitemap', error instanceof Error ? error.message : String(error));
 }
 
+}
+
 if (process.exitCode) process.exit(process.exitCode);
+if (TAX_ONLY) {
+  console.log(`Independent live Texas tax-rate verification passed on canonical and direct Worker endpoints (${verifiedLocalTaxingUnits.length} official local observations and Woodlands classification).`);
+} else {
 console.log(`Local financial production verification passed (${affordabilityPages.length} affordability pages, ${costOfLivingPages.length} cost-of-living pages, ${salaryNeededPages.length} salary-needed pages, ${propertyTaxSamples.length} property-tax samples, sitemap membership).`);
+
