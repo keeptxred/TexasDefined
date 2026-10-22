@@ -1,24 +1,12 @@
 {
-  "generatedAt": "2026-10-21T21:36:41.512Z",
+  "generatedAt": "2026-10-22T15:54:33.841Z",
   "sourceUrl": "https://tpwd.texas.gov/calendar",
   "events": [
-    {
-      "title": "Sky Island Yoga",
-      "startDate": "2026-10-21",
-      "parkKey": "davis-mountains",
-      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/mountain-yoga/2026-10-21"
-    },
     {
       "title": "Electric Tram Tour",
       "startDate": "2026-10-22",
       "parkKey": "estero-llano-grande",
       "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/electric-tram-tour/2026-10-22"
-    },
-    {
-      "title": "Forest Trail Hike",
-      "startDate": "2026-10-22",
-      "parkKey": "martin-dies-jr",
-      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/forest-trail-hike/2026-10-22"
     },
     {
       "title": "Hawk Watch",
@@ -31,12 +19,6 @@
       "startDate": "2026-10-22",
       "parkKey": "martin-dies-jr",
       "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/slippery-serpents/2026-10-22"
-    },
-    {
-      "title": "Tiny Trailblazers",
-      "startDate": "2026-10-22",
-      "parkKey": "lake-somerville-birch-creek",
-      "officialUrl": "https://tpwd.texas.gov/calendar/lake-somerville-birch-creek/tiny-trailblazers-1/2026-10-22"
     },
     {
       "title": "Awesome Opossums",
@@ -1621,6 +1603,12 @@
       "startDate": "2027-01-17",
       "parkKey": "brazos-bend",
       "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/fishing-with-a-ranger_11-15-256/2027-01-17"
+    },
+    {
+      "title": "Reading Ranger",
+      "startDate": "2027-01-20",
+      "parkKey": "buescher",
+      "officialUrl": "https://tpwd.texas.gov/calendar/buescher/reading-ranger/2027-01-20"
     }
   ]
 }
