@@ -171,6 +171,13 @@ function LegacySharedTripPage() {
   return (
     <main className="py-12">
       <Container>
+        <nav aria-label="Breadcrumb" className="mb-5 text-sm text-muted-foreground">
+          <Link to="/explore" className="underline-offset-4 hover:underline">Explore Texas</Link>
+          <span aria-hidden="true"> / </span>
+          <Link to="/explore/trip-planner" className="underline-offset-4 hover:underline">Trip planner</Link>
+          <span aria-hidden="true"> / </span>
+          <span aria-current="page">Shared itinerary</span>
+        </nav>
         <p className="eyebrow text-primary">Shared Texas itinerary</p>
         <h1 className="mt-3 font-display text-4xl md:text-5xl">{trip.title}</h1>
         {(start || end) && (
@@ -182,9 +189,23 @@ function LegacySharedTripPage() {
           {trip.verificationReminder}
         </p>
 
+        <nav aria-label="Itinerary days" className="mt-8 rounded-lg border p-4">
+          <p className="font-semibold">Your trip at a glance</p>
+          <p className="mt-1 text-sm text-muted-foreground">{trip.days.length} {trip.days.length === 1 ? "day" : "days"} · {trip.days.reduce((total, day) => total + day.stops.length, 0)} stops</p>
+          <ul className="mt-3 flex flex-wrap gap-2">
+            {trip.days.map((day, index) => (
+              <li key={`${day.day}-${index}`}>
+                <a href={`#trip-day-${index + 1}`} className="inline-flex rounded-md border px-3 py-2 text-sm text-primary hover:bg-muted">
+                  Day {day.day} · {day.stops.length} {day.stops.length === 1 ? "stop" : "stops"}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
         <div className="mt-10 space-y-10">
-          {trip.days.map((day) => (
-            <section key={`${day.day}-${day.date || "undated"}`}>
+          {trip.days.map((day, index) => (
+            <section id={`trip-day-${index + 1}`} key={`${day.day}-${index}-${day.date || "undated"}`}>
               <h2 className="border-b pb-2 font-display text-3xl">
                 Day {day.day}{day.date ? ` · ${formatDate(day.date)}` : ""}
               </h2>
