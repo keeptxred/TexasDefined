@@ -64,6 +64,7 @@ import { getExpandedMajorEventAuthorityTranche54Server } from "./major-event-exp
 import { getExpandedMajorEventAuthorityTranche55Server } from "./major-event-expanded-authority-tranche55.server";
 import { getExpandedMajorEventAuthorityTranche56Server } from "./major-event-expanded-authority-tranche56.server";
 import { getExpandedMajorEventAuthorityTranche57Server } from "./major-event-expanded-authority-tranche57.server";
+import { getExpandedMajorEventAuthorityTranche58Server } from "./major-event-expanded-authority-tranche58.server";
 import {
   eventSchemaStatusUrl,
   getMajorEventSchemaEnrichmentServer,
@@ -179,7 +180,8 @@ export function getMajorEventRecordServer(slug: string) {
     ?? getExpandedMajorEventAuthorityTranche54Server(slug)
     ?? getExpandedMajorEventAuthorityTranche55Server(slug)
     ?? getExpandedMajorEventAuthorityTranche56Server(slug)
-    ?? getExpandedMajorEventAuthorityTranche57Server(slug);
+    ?? getExpandedMajorEventAuthorityTranche57Server(slug)
+    ?? getExpandedMajorEventAuthorityTranche58Server(slug);
   if (!event) return event;
   if (event.slug === "texas-renaissance-festival") {
     return expandFestivalGuide({
@@ -241,6 +243,7 @@ const festivalExperienceMarkets: Record<string, { marketSlug: string; cityLabel:
   "fiesta-san-antonio": { marketSlug: "san-antonio", cityLabel: "San Antonio", idea: "local heritage and missions experiences between Fiesta events" },
   "texas-sandfest": { marketSlug: "port-aransas", cityLabel: "Port Aransas", idea: "island and coastal experiences outside the sculpture grounds" },
   "dickens-on-the-strand": { marketSlug: "galveston", cityLabel: "Galveston", idea: "historic neighborhood tours and other island attractions" },
+  "polar-express-galveston": { marketSlug: "galveston", cityLabel: "Galveston", idea: "historic downtown tours and family-friendly activities before or after your separately ticketed train ride" },
   "galveston-juneteenth-celebrations": { marketSlug: "galveston", cityLabel: "Galveston", idea: "African American history and other local heritage experiences" },
   // Verified city-level Viator inventories complement holiday outings; never mislabel city tours as event admission.
   "grapevine-christmas-capital-of-texas": { marketSlug: "dallas", cityLabel: "Dallas", idea: "Dallas sightseeing on a separate DFW trip day; this is not Grapevine festival admission" },

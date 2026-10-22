@@ -220,6 +220,8 @@ export const supplementalMajorEventSlugs = [
   "texas-music-festival-university-of-houston",
   "austin-coffee-festival",
   "legends-of-texas-whiskey-festival",
+  "polar-express-galveston",
+  "polar-express-palestine",
 ] as const;
 
 export function loadSupplementalMajorEventRecordsServer() {
