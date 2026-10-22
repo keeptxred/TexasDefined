@@ -12,6 +12,10 @@ const smoke = fs.readFileSync('scripts/ci/verify-built-worker-ssr.mjs', 'utf8');
 const productionSurfaces = fs.readFileSync('scripts/ci/verify-production-surfaces.mjs', 'utf8');
 const cloudflareGitBuildWait = fs.readFileSync('scripts/ci/wait-for-cloudflare-git-build.mjs', 'utf8');
 const failures = [];
+for (const [source, label] of [[workflow, 'canonical deployment'], [restore, 'verified Worker recovery']]) {
+  if (!source.includes('CLOUDFLARE_API_TOKEN: '+String.fromCharCode(36)+'{{ secrets.CLOUDFLARE_DEPLOY_API_TOKEN }}')) failures.push(label + ' must use dedicated production deployment token.');
+  if (source.includes('secrets.CLOUDFLARE_DEPLOY_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN')) failures.push(label + ' must never fall back to general Cloudflare credentials.');
+}
 const packageManifest = JSON.parse(fs.readFileSync('package.json', 'utf8'));
 if (/\bwrangler\s+(?:deploy|rollback|versions\s+(?:upload|deploy))\b|\bnpm\s+run\s+build\s*&&\s*wrangler\b/i.test(packageManifest.scripts?.deploy ?? '')) {
   failures.push('The npm deploy shortcut must not publish or roll back the production Worker outside the canonical GitHub workflow.');
