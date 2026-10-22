@@ -123,6 +123,8 @@ test('isolated tax authority smoke can verify a failed production release indepe
 test('independent tax production smoke checks run daily, even after unrelated deploy success',()=>{
   const standalone=readFileSync('.github/workflows/verify-property-tax-production.yml','utf8');
   assert.match(standalone,/schedule:\s*\n\s*- cron: '17 10 \* \* \*'/);
+  assert.match(standalone,/github\.event_name == 'push'/);
+  assert.match(standalone,/\.github\/workflows\/verify-property-tax-production\.yml/);
   assert.match(standalone,/github\.event_name == 'schedule'/);
   assert.match(standalone,/workflow_run\.conclusion == 'failure'/);
   assert.ok(standalone.includes('group: texasdefined-tax-live-independent-${{ github.event_name }}'));
