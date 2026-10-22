@@ -149,7 +149,7 @@ const records: MajorEventAuthorityRecord[] = [
     dateNote: "The organizer publishes the overall 2027 celebration as January 29-February 9 and describes seven days of revelry. Scheduled programming is concentrated on January 29-31, February 5-7 and Fat Tuesday, February 9; do not interpret the date span as continuous daily programming.",
     venue: "Historic Downtown Galveston and island parade routes",
     officialUrl: "https://www.mardigrasgalveston.com/",
-    sourceCheckedAt: "2026-08-29",
+    sourceCheckedAt: "2026-10-21",
     whyItMatters: "Mardi Gras! Galveston is the island's long-running pre-Lenten celebration, with the organizer advertising more than 20 parades, more than 20 concerts and seven programmed days across two weekends and Fat Tuesday in 2027.",
     quickFacts: [
       {
