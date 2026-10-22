@@ -112,6 +112,30 @@ test('statewide Mardi Gras hub must be live, indexable by default, and link to r
   assert.match(deindexed[0].error, /Mardi Gras hub release is unexpectedly noindex/);
 });
 
+test('Galveston Mardi Gras archival photo and 2027 source date must reach both visitor and release HTML', async () => {
+  const file = 'src/data/major-event-expanded-authority-tranche25.server.ts';
+  const before = 'const events = [{ slug: "mardi-gras-galveston", sourceCheckedAt: "2026-08-29" }];';
+  const after = 'const events = [{ slug: "mardi-gras-galveston", sourceCheckedAt: "2026-10-21" }];';
+  const plan = buildChangePlan({ baseline, head, changedFiles: [file], sources: { [file]: { before, after } } });
+  assert.ok(plan.eventAuthorityPages.includes('/event/mardi-gras-galveston'));
+  const html = (fresh = true, noindex = false) =>
+    '<html><head><title>Mardi Gras! Galveston</title>'
+    + '<link rel="canonical" href="https://texasdefined.com/event/mardi-gras-galveston">'
+    + (noindex ? '<meta name="robots" content="noindex, follow">' : '')
+    + '</head><body><h1>Mardi Gras! Galveston</h1><section>Planning your visit</section>'
+    + '<section>Official event links</section><section data-event-discovery-tail="true">Explore</section>'
+    + (fresh ? 'Last reviewed 2026-10-21 Event facts last source-checked 2026-10-21 A Yee 2013 Mardi Gras'
+      : 'Last reviewed 2026-09-02 Event facts last source-checked 2026-08-29')
+    + '</body></html>';
+  const ok = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html()) });
+  assert.ok(ok.every(result => result.passed), JSON.stringify(ok));
+  const staleVisitor = await verifyChangedPages({ plan, head, fetchImpl: async url =>
+    new Response(html(url.searchParams.has('deploy_smoke'))) });
+  assert.ok(staleVisitor.every(result => !result.passed && /ordinary visitor URL missing verified current content/.test(result.error)));
+  const notIndexable = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html(true, true)) });
+  assert.ok(notIndexable.every(result => !result.passed && /unexpectedly noindex/.test(result.error)));
+});
+
 test('a changed event authority record creates a bounded, cache-aware production acceptance', async () => {
   const file = 'src/data/major-event-expanded-authority-tranche54.server.ts';
   const old = `const records = [{ slug: "existing-festival", name: "Previous festival", planningSections: [] }, { slug: "unchanged-festival", name: "Keep", planningSections: [] }];`;

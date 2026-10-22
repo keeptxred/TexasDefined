@@ -159,6 +159,25 @@ for (const path of plan.selectedPaths) {
           || !visitorHtml.includes('href="' + canonical.href + '"')) {
           throw new Error('Event guide ordinary visitor URL lacks canonical SSR authority content');
         }
+        if (path === '/event/mardi-gras-galveston') {
+          // A successful cache-busted URL must not mask a stale visitor-facing
+          // page without its exact-event licensed image and 2027 source review.
+          for (const [surface, body] of [['release', html], ['ordinary visitor URL', visitorHtml]]) {
+            for (const required of [
+              'Last reviewed 2026-10-21',
+              'Event facts last source-checked 2026-10-21',
+              'A Yee',
+              '2013 Mardi Gras',
+            ]) {
+              if (!body.includes(required)) {
+                throw new Error('Galveston Mardi Gras ' + surface + ' missing verified current content: ' + required);
+              }
+            }
+            if (/<meta\b[^>]*\bname=["']robots["'][^>]*\bnoindex\b/i.test(body)) {
+              throw new Error('Galveston Mardi Gras ' + surface + ' is unexpectedly noindex despite licensed exact-location hero');
+            }
+          }
+        }
       }
       if (regionGuidePages.includes(path) && !/<h[2-4]\b[^>]*>\s*How to use the seven regions when planning a trip\s*<\/h[2-4]>/i.test(html)) {
         throw new Error('Texas regions guide is missing its reader-facing SSR heading');
