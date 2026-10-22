@@ -132,7 +132,7 @@ function Page() {
   const biggestDecrease = yearChanges.length ? yearChanges.reduce((best, item) => item.delta < best.delta ? item : best) : null;
 
   const summary = selected && comparableFirst && comparableLast
-    ? `${selected.name} has ${comparable.length} comparable annual rate record${comparable.length === 1 ? '' : 's'} from ${comparableFirst.year} through ${comparableLast.year}. Across those comparable years, the reported rate ${change == null || Math.abs(change) < 0.0000005 ? 'was essentially unchanged' : change > 0 ? `rose by ${change.toFixed(6)}` : `fell by ${Math.abs(change).toFixed(6)}`}.`
+    ? `${selected.name} has ${comparable.length} comparable annual rate record${comparable.length === 1 ? '' : 's'} from ${comparableFirst.year} through ${comparableLast.year}. Across those comparable years, the reported rate ${change == null || Math.abs(change) < 0.0000005 ? 'was essentially unchanged' : change > 0 ? `rose by ${formatOfficialTaxRate(change)}` : `fell by ${formatOfficialTaxRate(Math.abs(change))}`}.`
     : '';
 
   return <Container className="pb-16 pt-10 sm:pb-24 sm:pt-14">
@@ -187,7 +187,7 @@ function Page() {
         <div className="mt-7 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           <Fact label="First available year" value={first ? `${first.year}: ${displayRate(first)}` : '—'} />
           <Fact label="Latest available year" value={last ? `${last.year}: ${displayRate(last)}` : '—'} />
-          <Fact label="Comparable net change" value={change == null ? 'Not comparable' : `${change >= 0 ? '+' : ''}${change.toFixed(6)}`} />
+          <Fact label="Comparable net change" value={change == null ? 'Not comparable' : `${change >= 0 ? '+' : ''}${formatOfficialTaxRate(change)}`} />
           <Fact label="Comparable years" value={String(comparable.length)} />
         </div>
 
@@ -204,9 +204,9 @@ function Page() {
             <p className="mt-3 text-xs leading-5 text-muted-foreground">Horizontal spacing follows calendar years, including gaps where no comparable statewide rate exists. Separate local evidence is shown below but excluded from the trend and one-year comparisons.</p>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-1">
-            <MiniFact label="Lowest comparable rate" value={minRate == null ? '—' : minRate.toFixed(6)} />
-            <MiniFact label="Highest comparable rate" value={maxRate == null ? '—' : maxRate.toFixed(6)} />
-            <MiniFact label="Average comparable rate" value={avgRate == null ? '—' : avgRate.toFixed(6)} />
+            <MiniFact label="Lowest comparable rate" value={minRate == null ? '—' : formatOfficialTaxRate(minRate)} />
+            <MiniFact label="Highest comparable rate" value={maxRate == null ? '—' : formatOfficialTaxRate(maxRate)} />
+            <MiniFact label="Average comparable rate" value={avgRate == null ? '—' : formatOfficialTaxRate(avgRate)} />
             <MiniFact label="Largest one-year increase" value={biggestIncrease && biggestIncrease.delta > 0 ? `+${formatOfficialTaxRate(biggestIncrease.delta)} in ${biggestIncrease.year}` : 'No adjacent-year increase'} />
             <MiniFact label="Largest one-year decrease" value={biggestDecrease && biggestDecrease.delta < 0 ? `${formatOfficialTaxRate(biggestDecrease.delta)} in ${biggestDecrease.year}` : 'No adjacent-year decrease'} />
           </div>
@@ -393,11 +393,11 @@ function ComparisonTable({ firstName, firstHistory, secondName, secondHistory }:
   const years = [...new Set([...firstHistory.map((item) => item.year), ...secondHistory.map((item) => item.year)])].sort((a, b) => b - a);
   const firstByYear = new Map(firstHistory.map((item) => [item.year, item]));
   const secondByYear = new Map(secondHistory.map((item) => [item.year, item]));
-  return <div className="mt-7 overflow-x-auto"><table className="w-full min-w-full text-left text-sm"><thead><tr className="border-b border-border"><th className="py-3">Year</th><th>{firstName}</th><th>{secondName}</th><th>Difference</th></tr></thead><tbody>{years.map((year) => { const a = firstByYear.get(year); const b = secondByYear.get(year); const av = a && !a.rateUnavailable && !a.variableRate ? a.totalRate : null; const bv = b && !b.rateUnavailable && !b.variableRate ? b.totalRate : null; const diff = av != null && bv != null ? av - bv : null; return <tr key={year} className="border-b border-border"><td className="py-3 font-semibold">{year}</td><td>{displayRate(a)}</td><td>{displayRate(b)}</td><td>{diff == null ? 'Not comparable' : `${diff >= 0 ? '+' : ''}${diff.toFixed(6)}`}</td></tr>; })}</tbody></table></div>;
+  return <div className="mt-7 overflow-x-auto"><table className="w-full min-w-full text-left text-sm"><thead><tr className="border-b border-border"><th className="py-3">Year</th><th>{firstName}</th><th>{secondName}</th><th>Difference</th></tr></thead><tbody>{years.map((year) => { const a = firstByYear.get(year); const b = secondByYear.get(year); const av = a && !a.rateUnavailable && !a.variableRate ? a.totalRate : null; const bv = b && !b.rateUnavailable && !b.variableRate ? b.totalRate : null; const diff = av != null && bv != null ? av - bv : null; return <tr key={year} className="border-b border-border"><td className="py-3 font-semibold">{year}</td><td>{displayRate(a)}</td><td>{displayRate(b)}</td><td>{diff == null ? 'Not comparable' : `${diff >= 0 ? '+' : ''}${formatOfficialTaxRate(diff)}`}</td></tr>; })}</tbody></table></div>;
 }
 
 function InsightList({ title, records }: { title: string; records: TexasTaxRateRecord[] }) {
-  return <div><h3 className="font-display text-2xl">{title}</h3><div className="mt-3 divide-y divide-border border-y border-border">{records.map((record) => <a key={record.id} href={`/property-tax/taxing-unit/${record.slug}`} className="flex items-center justify-between gap-4 py-3 text-sm hover:text-primary"><span><strong className="block">{record.name}</strong><span className="text-xs text-muted-foreground">{record.type.replaceAll('-', ' ')}</span></span><strong>{record.totalRate?.toFixed(6) ?? '—'}</strong></a>)}</div></div>;
+  return <div><h3 className="font-display text-2xl">{title}</h3><div className="mt-3 divide-y divide-border border-y border-border">{records.map((record) => <a key={record.id} href={`/property-tax/taxing-unit/${record.slug}`} className="flex items-center justify-between gap-4 py-3 text-sm hover:text-primary"><span><strong className="block">{record.name}</strong><span className="text-xs text-muted-foreground">{record.type.replaceAll('-', ' ')}</span></span><strong>{record.totalRate == null ? '—' : formatOfficialTaxRate(record.totalRate)}</strong></a>)}</div></div>;
 }
 
 function TexasContextMap() {
