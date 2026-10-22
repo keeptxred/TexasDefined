@@ -4,6 +4,8 @@ import publishedSoftballIndex from '@/data/softball/published-team-index.json';
 export const INDEXABLE_STATIC_PATHS = [
   "/",
   "/explore",
+  "/holiday/magical-winter-lights",
+  "/holiday/enchant-christmas-arlington",
   "/explore/lighthouses",
   "/explore/water-towers",
   "/explore/landscapes",

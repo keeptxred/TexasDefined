@@ -326,6 +326,8 @@ import { Route as LearnAgriculturalValuationRouteImport } from './routes/learn.a
 import { Route as LakesLakeConroeDothtmlRouteImport } from './routes/lakes.lake-conroe[.]html'
 import { Route as HuntingSlugRouteImport } from './routes/hunting.$slug'
 import { Route as HorseRacingSlugRouteImport } from './routes/horse-racing_.$slug'
+import { Route as HolidayMagicalWinterLightsRouteImport } from './routes/holiday.magical-winter-lights'
+import { Route as HolidayEnchantChristmasArlingtonRouteImport } from './routes/holiday.enchant-christmas-arlington'
 import { Route as HistoricSiteWashingtonOnTheBrazosStateHistoricSiteRouteImport } from './routes/historic-site.washington-on-the-brazos-state-historic-site'
 import { Route as HistoricSiteSeminoleCanyonStateParkStateHistoricSiteRouteImport } from './routes/historic-site.seminole-canyon-state-park-state-historic-site'
 import { Route as HistoricSiteMonumentHillKreischeBreweryStateHistoricSiteRouteImport } from './routes/historic-site.monument-hill-kreische-brewery-state-historic-site'
@@ -2579,6 +2581,24 @@ const HorseRacingSlugRoute = HorseRacingSlugRouteImport.update({
 } as any).lazy(() =>
   import('./routes/horse-racing_.$slug.lazy').then((d) => d.Route),
 )
+const HolidayMagicalWinterLightsRoute =
+  HolidayMagicalWinterLightsRouteImport.update({
+    id: '/holiday/magical-winter-lights',
+    path: '/holiday/magical-winter-lights',
+    getParentRoute: () => rootRouteImport,
+  } as any).lazy(() =>
+    import('./routes/holiday.magical-winter-lights.lazy').then((d) => d.Route),
+  )
+const HolidayEnchantChristmasArlingtonRoute =
+  HolidayEnchantChristmasArlingtonRouteImport.update({
+    id: '/holiday/enchant-christmas-arlington',
+    path: '/holiday/enchant-christmas-arlington',
+    getParentRoute: () => rootRouteImport,
+  } as any).lazy(() =>
+    import('./routes/holiday.enchant-christmas-arlington.lazy').then(
+      (d) => d.Route,
+    ),
+  )
 const HistoricSiteWashingtonOnTheBrazosStateHistoricSiteRoute =
   HistoricSiteWashingtonOnTheBrazosStateHistoricSiteRouteImport.update({
     id: '/historic-site/washington-on-the-brazos-state-historic-site',
@@ -4175,6 +4195,8 @@ export interface FileRoutesByFullPath {
   '/historic-site/monument-hill-kreische-brewery-state-historic-site': typeof HistoricSiteMonumentHillKreischeBreweryStateHistoricSiteRoute
   '/historic-site/seminole-canyon-state-park-state-historic-site': typeof HistoricSiteSeminoleCanyonStateParkStateHistoricSiteRoute
   '/historic-site/washington-on-the-brazos-state-historic-site': typeof HistoricSiteWashingtonOnTheBrazosStateHistoricSiteRoute
+  '/holiday/enchant-christmas-arlington': typeof HolidayEnchantChristmasArlingtonRoute
+  '/holiday/magical-winter-lights': typeof HolidayMagicalWinterLightsRoute
   '/horse-racing/$slug': typeof HorseRacingSlugRoute
   '/hunting/$slug': typeof HuntingSlugRoute
   '/lakes/lake-conroe.html': typeof LakesLakeConroeDothtmlRoute
@@ -4700,6 +4722,8 @@ export interface FileRoutesByTo {
   '/historic-site/monument-hill-kreische-brewery-state-historic-site': typeof HistoricSiteMonumentHillKreischeBreweryStateHistoricSiteRoute
   '/historic-site/seminole-canyon-state-park-state-historic-site': typeof HistoricSiteSeminoleCanyonStateParkStateHistoricSiteRoute
   '/historic-site/washington-on-the-brazos-state-historic-site': typeof HistoricSiteWashingtonOnTheBrazosStateHistoricSiteRoute
+  '/holiday/enchant-christmas-arlington': typeof HolidayEnchantChristmasArlingtonRoute
+  '/holiday/magical-winter-lights': typeof HolidayMagicalWinterLightsRoute
   '/horse-racing/$slug': typeof HorseRacingSlugRoute
   '/hunting/$slug': typeof HuntingSlugRoute
   '/lakes/lake-conroe.html': typeof LakesLakeConroeDothtmlRoute
@@ -5231,6 +5255,8 @@ export interface FileRoutesById {
   '/historic-site/monument-hill-kreische-brewery-state-historic-site': typeof HistoricSiteMonumentHillKreischeBreweryStateHistoricSiteRoute
   '/historic-site/seminole-canyon-state-park-state-historic-site': typeof HistoricSiteSeminoleCanyonStateParkStateHistoricSiteRoute
   '/historic-site/washington-on-the-brazos-state-historic-site': typeof HistoricSiteWashingtonOnTheBrazosStateHistoricSiteRoute
+  '/holiday/enchant-christmas-arlington': typeof HolidayEnchantChristmasArlingtonRoute
+  '/holiday/magical-winter-lights': typeof HolidayMagicalWinterLightsRoute
   '/horse-racing_/$slug': typeof HorseRacingSlugRoute
   '/hunting/$slug': typeof HuntingSlugRoute
   '/lakes/lake-conroe.html': typeof LakesLakeConroeDothtmlRoute
@@ -5763,6 +5789,8 @@ export interface FileRouteTypes {
     | '/historic-site/monument-hill-kreische-brewery-state-historic-site'
     | '/historic-site/seminole-canyon-state-park-state-historic-site'
     | '/historic-site/washington-on-the-brazos-state-historic-site'
+    | '/holiday/enchant-christmas-arlington'
+    | '/holiday/magical-winter-lights'
     | '/horse-racing/$slug'
     | '/hunting/$slug'
     | '/lakes/lake-conroe.html'
@@ -6288,6 +6316,8 @@ export interface FileRouteTypes {
     | '/historic-site/monument-hill-kreische-brewery-state-historic-site'
     | '/historic-site/seminole-canyon-state-park-state-historic-site'
     | '/historic-site/washington-on-the-brazos-state-historic-site'
+    | '/holiday/enchant-christmas-arlington'
+    | '/holiday/magical-winter-lights'
     | '/horse-racing/$slug'
     | '/hunting/$slug'
     | '/lakes/lake-conroe.html'
@@ -6818,6 +6848,8 @@ export interface FileRouteTypes {
     | '/historic-site/monument-hill-kreische-brewery-state-historic-site'
     | '/historic-site/seminole-canyon-state-park-state-historic-site'
     | '/historic-site/washington-on-the-brazos-state-historic-site'
+    | '/holiday/enchant-christmas-arlington'
+    | '/holiday/magical-winter-lights'
     | '/horse-racing_/$slug'
     | '/hunting/$slug'
     | '/lakes/lake-conroe.html'
@@ -7314,6 +7346,8 @@ export interface RootRouteChildren {
   HistoricSiteMonumentHillKreischeBreweryStateHistoricSiteRoute: typeof HistoricSiteMonumentHillKreischeBreweryStateHistoricSiteRoute
   HistoricSiteSeminoleCanyonStateParkStateHistoricSiteRoute: typeof HistoricSiteSeminoleCanyonStateParkStateHistoricSiteRoute
   HistoricSiteWashingtonOnTheBrazosStateHistoricSiteRoute: typeof HistoricSiteWashingtonOnTheBrazosStateHistoricSiteRoute
+  HolidayEnchantChristmasArlingtonRoute: typeof HolidayEnchantChristmasArlingtonRoute
+  HolidayMagicalWinterLightsRoute: typeof HolidayMagicalWinterLightsRoute
   HorseRacingSlugRoute: typeof HorseRacingSlugRoute
   LakesLakeConroeDothtmlRoute: typeof LakesLakeConroeDothtmlRoute
   LearnAgriculturalValuationRoute: typeof LearnAgriculturalValuationRoute
@@ -9655,6 +9689,20 @@ declare module '@tanstack/react-router' {
       path: '/horse-racing/$slug'
       fullPath: '/horse-racing/$slug'
       preLoaderRoute: typeof HorseRacingSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/holiday/magical-winter-lights': {
+      id: '/holiday/magical-winter-lights'
+      path: '/holiday/magical-winter-lights'
+      fullPath: '/holiday/magical-winter-lights'
+      preLoaderRoute: typeof HolidayMagicalWinterLightsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/holiday/enchant-christmas-arlington': {
+      id: '/holiday/enchant-christmas-arlington'
+      path: '/holiday/enchant-christmas-arlington'
+      fullPath: '/holiday/enchant-christmas-arlington'
+      preLoaderRoute: typeof HolidayEnchantChristmasArlingtonRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/historic-site/washington-on-the-brazos-state-historic-site': {
@@ -12093,6 +12141,8 @@ const rootRouteChildren: RootRouteChildren = {
     HistoricSiteSeminoleCanyonStateParkStateHistoricSiteRoute,
   HistoricSiteWashingtonOnTheBrazosStateHistoricSiteRoute:
     HistoricSiteWashingtonOnTheBrazosStateHistoricSiteRoute,
+  HolidayEnchantChristmasArlingtonRoute: HolidayEnchantChristmasArlingtonRoute,
+  HolidayMagicalWinterLightsRoute: HolidayMagicalWinterLightsRoute,
   HorseRacingSlugRoute: HorseRacingSlugRoute,
   LakesLakeConroeDothtmlRoute: LakesLakeConroeDothtmlRoute,
   LearnAgriculturalValuationRoute: LearnAgriculturalValuationRoute,
