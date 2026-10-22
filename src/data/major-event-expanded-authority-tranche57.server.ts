@@ -1,7 +1,11 @@
 import type { MajorEventAuthorityRecord } from "./major-event-authority.server";
 
 // Individually sourced 2026–27 holiday guides; never substitute for live admission checkout.
-const records: MajorEventAuthorityRecord[] = [
+interface ChristmasAuthorityRecord extends MajorEventAuthorityRecord {
+  occurrenceWindows?: Array<{ label?: string; startDate: string; endDate?: string }>;
+}
+
+const records: ChristmasAuthorityRecord[] = [
   {
     "slug": "grapevine-christmas-capital-of-texas",
     "name": "Grapevine Christmas Capital of Texas 2026",
@@ -167,7 +171,12 @@ const records: MajorEventAuthorityRecord[] = [
         "description": "Compare other seasonal events, dates and destinations."
       },
       {
-        "href": "/event/ford-holiday-river-parade",
+        "href": "/holiday/enchant-christmas-arlington",
+      "label": "Enchant Arlington 2026 status",
+      "description": "Read why the historic DFW event has no verified local 2026 dates."
+    },
+    {
+      "href": "/event/ford-holiday-river-parade",
         "label": "San Antonio Holiday River Parade",
         "description": "Compare another signature Texas holiday night."
       }
@@ -625,7 +634,7 @@ const records: MajorEventAuthorityRecord[] = [
     "city": "San Angelo",
     "countySlug": "tom-green",
     "countyName": "Tom Green County",
-    "region": "panhandle-plains",
+    "region": "panhandle",
     "category": "seasonal",
     "startDate": "2026-12-05",
     "endDate": "2026-12-31",
