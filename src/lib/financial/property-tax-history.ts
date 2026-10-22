@@ -12,6 +12,19 @@ export function consecutiveRateChanges<T extends ComparableRatePoint>(records: r
   });
 }
 
+export function contiguousTaxYearSegments<T extends {year: number}>(records: readonly T[]): T[][] {
+  const segments: T[][] = [];
+  for (const record of records) {
+    const tail = segments.at(-1);
+    if (!tail?.length || record.year !== tail[tail.length - 1].year + 1) {
+      segments.push([record]);
+    } else {
+      tail.push(record);
+    }
+  }
+  return segments;
+}
+
 export function taxHistoryYearPosition(year: number, firstYear: number, lastYear: number, left: number, width: number) {
   if (!Number.isFinite(year) || !Number.isFinite(firstYear) || !Number.isFinite(lastYear) ||
       !Number.isFinite(left) || !Number.isFinite(width)) throw new Error('Invalid tax chart year/geometry');
