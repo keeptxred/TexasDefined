@@ -6,6 +6,7 @@ const resolver = read("src/data/major-event-page.server.ts");
 const registry = read("src/data/major-event-supplemental-registry.server.ts");
 const links = read("src/data/fixtures/seasonal-authority-links.ts");
 const legacy = read("src/data/major-event-expanded-authority-tranche35.server.ts");
+const media = read("src/data/major-event-schema-enrichment-batch31.server.ts");
 const issues = [];
 const required = [
   "grapevine-christmas-capital-of-texas",
@@ -43,6 +44,21 @@ for (const url of ["https://www.houstonzoo.org/events/zoolights/","https://austi
 }
 if (!authority.includes('startDate: "2026-12-04"') || !authority.includes('startDate: "2026-12-11"')) issues.push("Bethlehem two-weekend date windows missing");
 if (!authority.includes("ChristmasAuthorityRecord")) issues.push("Christmas typed occurrence windows missing");
+// The image-quality gate remains strict. These two illustrations are independently
+// verified: an actual historic Trail of Lights photo with Creative Commons rights,
+// and a historical Galaxy Lights photo accompanied by the organizer's journalism
+// media-use policy. Do not waive the gate for the seven pending image reviews.
+for (const [slug, sourceMarker, rightsMarker] of [
+  ["austin-trail-of-lights", "Aust" + "in_Trail_of_Lights_Zilker_Park.JPG", "CC BY-SA 3.0"],
+  ["galaxy-lights-space-center-houston", "GL25-carousel-6.jpg", "journalistic editorial coverage only"],
+]) {
+  const at = media.indexOf(`slug: "${slug}"`);
+  const next = media.indexOf("    slug: ", at + 8);
+  const record = at < 0 ? "" : media.slice(at, next < 0 ? undefined : next);
+  for (const text of ["image: {", "sourceUrl:", "rightsNote:", "exactLocation: true", "approvedForCommercialUse: true", sourceMarker, rightsMarker]) {
+    if (!record.includes(text)) issues.push(`Missing vetted holiday image documentation: ${slug} / ${text}`);
+  }
+}
 if (issues.length) {
   console.error(issues.join("\n"));
   process.exitCode = 1;
