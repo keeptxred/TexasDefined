@@ -53,6 +53,9 @@ function applyEventSchemaConfidencePolicy<T extends {
   jsonLd: string;
 }>(page: T, occurrence: EventOccurrenceDateShape | null): T {
   const shouldWithholdScheduledEventSchema = isRecurrenceDerivedMajorEventSlug(page.slug)
+    // Season-level rail pages represent many individually ticketed departures, not one event occurrence.
+    || page.slug === "polar-express-galveston"
+    || page.slug === "polar-express-palestine"
     || Boolean(occurrence && hasExpiredConfirmedEventOccurrence(occurrence))
     || hasMultipleConfirmedOccurrenceWindows(occurrence);
   if (!shouldWithholdScheduledEventSchema) return page;
