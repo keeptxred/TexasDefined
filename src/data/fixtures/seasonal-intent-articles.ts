@@ -164,7 +164,7 @@ const baseSeasonalIntentArticles: Article[] = [
   },
   {
     id: "si-8", brandId: BRAND, slug: "texas-christmas-train-rides", title: "Christmas Train Rides in Texas",
-    dek: "Compare the two licensed Polar Express train rides in Galveston and Palestine with Grapevine's differently branded North Pole Express; 2026 schedules, seating and booking considerations.", category: "events", hero: christmas, authorId: "a-marisol", publishedAt: "2026-08-20", updatedAt: "2026-10-21", readingMinutes: 10,
+    dek: "Compare the two licensed Polar Express train rides in Galveston and Palestine with Grapevine's differently branded North Pole Express; 2026 schedules, seating and booking considerations.", category: "events", hero: christmas, authorId: "a-marisol", publishedAt: "2026-08-20", updatedAt: "2026-10-21", readingMinutes: 9,
     tags: ["Texas Christmas train rides", "Polar Express Texas 2026", "Galveston Polar Express", "Palestine Polar Express", "Grapevine North Pole Express"], relatedCollections: [], relatedDestinations: [],
     sourceName: "Galveston Railroad Museum and Texas State Railroad",
     sourceUrl: "https://galvestonrrmuseum.org/event/the-polar-express/",
