@@ -12,6 +12,10 @@ const smoke = fs.readFileSync('scripts/ci/verify-built-worker-ssr.mjs', 'utf8');
 const productionSurfaces = fs.readFileSync('scripts/ci/verify-production-surfaces.mjs', 'utf8');
 const cloudflareGitBuildWait = fs.readFileSync('scripts/ci/wait-for-cloudflare-git-build.mjs', 'utf8');
 const failures = [];
+const packageManifest = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+if (/\bwrangler\s+(?:deploy|rollback|versions\s+(?:upload|deploy))\b|\bnpm\s+run\s+build\s*&&\s*wrangler\b/i.test(packageManifest.scripts?.deploy ?? '')) {
+  failures.push('The npm deploy shortcut must not publish or roll back the production Worker outside the canonical GitHub workflow.');
+}
 if (!premerge.includes("'scripts/ci/wait-for-cloudflare-git-build.test.mjs'")) {
   failures.push('Canonical premerge validation no longer runs the Cloudflare check-run retry regression tests.');
 }
