@@ -27,10 +27,6 @@ on:
       - 'src/components/editorial/StateParkVisitorEssentials.tsx'
   schedule:
     - cron: '41 11 * * *'
-  workflow_run:
-    workflows:
-      - Deploy TexasDefined production
-    types: [completed]
   workflow_dispatch:
 
 permissions:
