@@ -241,6 +241,7 @@ const festivalExperienceMarkets: Record<string, { marketSlug: string; cityLabel:
   "fiesta-san-antonio": { marketSlug: "san-antonio", cityLabel: "San Antonio", idea: "local heritage and missions experiences between Fiesta events" },
   "texas-sandfest": { marketSlug: "port-aransas", cityLabel: "Port Aransas", idea: "island and coastal experiences outside the sculpture grounds" },
   "dickens-on-the-strand": { marketSlug: "galveston", cityLabel: "Galveston", idea: "historic neighborhood tours and other island attractions" },
+  "polar-express-galveston": { marketSlug: "galveston", cityLabel: "Galveston", idea: "historic downtown tours and family-friendly activities before or after your separately ticketed train ride" },
   "galveston-juneteenth-celebrations": { marketSlug: "galveston", cityLabel: "Galveston", idea: "African American history and other local heritage experiences" },
 };
 
