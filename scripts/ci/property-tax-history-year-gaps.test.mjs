@@ -52,3 +52,10 @@ test('recent tax lookup restores exact saved unit type, not an ambiguous name-on
   assert.match(route,/type=\$\{encodeURIComponent\(record.type\)\}/);
   assert.doesNotMatch(route,/onClick=\{\(\) => void quickLookup\(item.name\)\}/);
 });
+
+test('taxing-unit search does not round documented seven-decimal source figures',()=>{
+  const search=readFileSync('src/components/property/TaxingUnitSearch.tsx','utf8');
+  assert.match(search,/formatOfficialTaxRate\(record\.totalRate!\)/);
+  assert.match(search,/record\.rateVariants\.map\(formatOfficialTaxRate\)/);
+  assert.doesNotMatch(search,/\.toFixed\(6\)/);
+});
