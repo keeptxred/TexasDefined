@@ -25,3 +25,64 @@ jobs:
           node-version: '22'
       - name: Detect unsupported, duplicate and stale visitor answers
         run: node scripts/data/validate-destination-visitor-fact-catalog.mjs
+      - name: Verify read-only freshness audit and scheduled follow-up policy
+        run: node --test scripts/ci/visitor-fact-followup-contract.test.mjs
+
+  editorial-followup:
+    # PRs only audit source facts. Only the trusted weekly or manual run may write issues.
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      issues: write
+    concurrency:
+      group: texasdefined-destination-visitor-fact-review
+      cancel-in-progress: false
+    steps:
+      - name: Check out published destination curation
+        uses: actions/checkout@v4
+      - name: Set up Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Open or reconcile the one expired-visitor-fact research issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/data/validate-destination-visitor-fact-catalog.mjs 2>&1 | tee "$RUNNER_TEMP/destination-facts-audit.log"
+          issue_title='Destination visitor facts: source refresh needed'
+          issue_number="$(gh issue list --state all --search '"Destination visitor facts: source refresh needed" in:title' --limit 100 --json number,title --jq '.[] | select(.title == "Destination visitor facts: source refresh needed") | .number' | head -n 1)"
+          if ! grep -q '^STALE ' "$RUNNER_TEMP/destination-facts-audit.log"; then
+            if [[ -n "$issue_number" && "$(gh issue view "$issue_number" --json state --jq '.state')" == 'OPEN' ]]; then
+              gh issue close "$issue_number" --comment 'Scheduled curation audit now reports zero expired visitor facts. This closes the research review; it does not change source-checked dates.'
+            fi
+            echo 'No visitor facts have expired; no research issue needed.'
+            exit 0
+          fi
+          {
+            echo '## Source-research backlog from weekly published curation audit'
+            echo ''
+            echo 'These visitor answers are **already suppressed** from the site by the runtime freshness gate; do not publish them as current without checking each primary operator source again.'
+            echo ''
+            echo "**Audit date:** $(date -u +%Y-%m-%d)"
+            echo ''
+            echo '### Expired entries'
+            echo '~~~text'
+            grep '^STALE ' "$RUNNER_TEMP/destination-facts-audit.log" | sed -n '1,300p'
+            echo '~~~'
+            echo ''
+            echo 'Research and correct the precise curation records on a new branch; preserve source URLs, document material operator changes and only then update `checkedAt`. Never restamp by schedule, bypass the 120/365-day policy or invent amenities. Merge through the existing protected CI and verify live rendering.'
+          } > "$RUNNER_TEMP/destination-facts-research.md"
+          if [[ -n "$issue_number" ]]; then
+            gh issue edit "$issue_number" --body-file "$RUNNER_TEMP/destination-facts-research.md"
+            if [[ "$(gh issue view "$issue_number" --json state --jq '.state')" == 'CLOSED' ]]; then
+              gh issue reopen "$issue_number"
+            fi
+            echo "Updated existing visitor-fact research issue #$issue_number."
+          else
+            gh issue create --title "$issue_title" --body-file "$RUNNER_TEMP/destination-facts-research.md"
+          fi
