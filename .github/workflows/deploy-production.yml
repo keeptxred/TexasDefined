@@ -23,7 +23,7 @@ jobs:
     environment: texasdefined-publication
     env:
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_DEPLOY_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_DEPLOY_API_TOKEN }}
       CLOUDFLARE_DEPLOY_TOKEN_PRESENT: ${{ secrets.CLOUDFLARE_DEPLOY_API_TOKEN != '' }}
       CLOUDFLARE_CACHE_TOKEN_PRESENT: ${{ secrets.CLOUDFLARE_CACHE_API_TOKEN != '' }}
       GH_TOKEN: ${{ github.token }}
@@ -95,7 +95,8 @@ jobs:
           if [[ "$CLOUDFLARE_DEPLOY_TOKEN_PRESENT" == 'true' ]]; then
             echo 'Production deployment will use CLOUDFLARE_DEPLOY_API_TOKEN.'
           else
-            echo '::warning title=Dedicated Cloudflare deploy token unavailable::Production deployment is falling back to CLOUDFLARE_API_TOKEN. If that token lacks Workers Scripts write access, deployment will fail closed.'
+            echo '::error title=Dedicated Cloudflare deploy token missing::Configure CLOUDFLARE_DEPLOY_API_TOKEN in the texasdefined-publication environment; production will not use a general token.'
+            exit 1
           fi
 
       - name: Publish validation pending
