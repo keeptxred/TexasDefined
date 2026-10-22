@@ -14,6 +14,16 @@ test('slug histories never combine two Comptroller source classifications',()=>{
   assert.match(server,/records = records\.filter\(\(record\) => record\.type === latestTypes\[0\]\)/);
   assert.match(server,/if \(type\) query = query\.eq\('type', type\)/);
 });
+test('three independently documented tax years can be indexed without overriding statewide data',()=>{
+  assert.match(route,/const indexable = history\.filter/);
+  assert.match(route,/!record\.rateUnavailable && record\.totalRate != null/);
+  assert.match(route,/record\.localVerification\?\.mode === 'supplement'/);
+  assert.match(route,/record\.localVerification\.sourceUrl\.startsWith\('https:\/\/'\)/);
+  assert.match(route,/\.length >= 3/);
+  assert.doesNotMatch(route,/record\.localVerification\?\.mode === 'conflict'\s*\|\|/);
+  assert.match(route,/robots: indexable \? undefined : 'noindex, follow, max-image-preview:large'/);
+});
+
 test('rate labels never round documented seven-decimal values to six',()=>{
   const match=route.match(/function formatTaxRate\(value: number\): string \{([\s\S]*?)\n\}/);
   assert.ok(match,'a pure source-aware tax formatter is required');

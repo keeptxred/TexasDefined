@@ -182,6 +182,21 @@ installed Deno runtime, with no extra paid service, new key, or additional
 schedule. Unit tests include genuine zero-levy cases and a source
 disagreement. GitHub job summaries expose only counts, not secrets.
 
+## SEO treatment of independently verified historical city rates
+
+A taxing-unit history is indexable when it has at least **three distinct
+source-qualified annual rate records**, including primary-source local
+supplements where the corresponding Comptroller workbook explicitly
+did not report a rate. This recognizes local authority pages such as
+Post Oak Bend's independently documented zero-city-tax years 2021,
+2024 and 2025 without claiming the city imposed a parcel-wide zero bill.
+A local-vs-Comptroller **conflict never counts as an additional
+independently verified observation**; it must remain visibly disputed.
+
+Thin histories stay `noindex, follow`. Local historical supplements
+remain strictly **display-only**: statewide summaries and tax calculators
+still use the untouched original Comptroller rows.
+
 ## Complete source attribution and regression coverage
 
 The Dataset structured data of a taxing-unit rate-history page now lists a
