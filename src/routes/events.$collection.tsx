@@ -183,7 +183,7 @@ function GenericCollectionPage({ page }: { page: any }) {
           </p>
           <ol className="mt-6 divide-y divide-border border-y border-border">
             {page.christmasPerformances.map((show: any) => (
-              <li key={show.id} className="grid gap-4 py-5 md:grid-cols-[11rem_minmax(0,1fr)_auto] md:items-start">
+              <li key={show.id} className="grid gap-4 py-5 lg:grid-cols-3 md:items-start">
                 <div>
                   <p className="font-semibold text-foreground">{show.dateLabel}</p>
                   <p className="mt-1 text-sm text-muted-foreground">{show.timeLabel}</p>
@@ -192,15 +192,15 @@ function GenericCollectionPage({ page }: { page: any }) {
                   <h3 className="font-display text-xl leading-tight">{show.name}</h3>
                   <p className="mt-1 text-sm font-medium">{show.venue} · {show.city}, Texas</p>
                   <p className="mt-2 max-w-3xl text-sm leading-6 text-muted-foreground">{show.description}</p>
-                  <a href={show.sourceUrl} target="_blank" rel="noopener noreferrer" className="mt-2 inline-block text-xs underline underline-offset-2 text-muted-foreground">
+                  <a href={show.sourceUrl} target="_blank" rel="noopener noreferrer" className="mt-2 inline-block text-xs underline text-muted-foreground">
                     Schedule source: {show.sourceName} ↗
                   </a>
                 </div>
                 <div className="md:text-right">
-                  <a href={show.ticket.href} rel={show.ticket.rel} target="_blank" className="inline-flex min-h-10 items-center border border-primary px-4 py-2 text-sm font-semibold text-primary hover:bg-surface">
+                  <a href={show.ticket.href} rel={show.ticket.rel} target="_blank" className="inline-flex items-center border border-primary px-4 py-2 text-sm font-semibold text-primary hover:bg-surface">
                     {show.ticket.label}
                   </a>
-                  {show.ticket.isAffiliate && <p className="mt-2 max-w-56 text-xs leading-5 text-muted-foreground">Affiliate link · checkout is handled by the ticket provider.</p>}
+                  {show.ticket.isAffiliate && <p className="mt-2 max-w-xs text-xs leading-5 text-muted-foreground">Affiliate link · checkout is handled by the ticket provider.</p>}
                 </div>
               </li>
             ))}
