@@ -1,6 +1,8 @@
 name: Validate TexasDefined
 
 on:
+  push:
+    branches: [repair/production-publisher-coordination]
   workflow_dispatch:
 
 permissions:
