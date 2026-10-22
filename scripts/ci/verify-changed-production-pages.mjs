@@ -173,7 +173,7 @@ for (const path of plan.selectedPaths) {
                 throw new Error('Galveston Mardi Gras ' + surface + ' missing verified current content: ' + required);
               }
             }
-            if (/<meta\\b[^>]*\\bname=[\"']robots[\"'][^>]*\\bnoindex\\b/i.test(body)) {
+            if (/<meta\b[^>]*\bname=["']robots["'][^>]*\bnoindex\b/i.test(body)) {
               throw new Error('Galveston Mardi Gras ' + surface + ' is unexpectedly noindex despite licensed exact-location hero');
             }
           }
