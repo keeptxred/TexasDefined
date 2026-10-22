@@ -43,3 +43,12 @@ test('interactive explorer labels unavailable official rates separately from loc
   assert.match(route,/localVerification\.sourceUrl/);
   assert.doesNotMatch(route,/const yearChanges = comparable\.slice\(1\)\.map/);
 });
+
+test('recent tax lookup restores exact saved unit type, not an ambiguous name-only search',()=>{
+  const route=readFileSync('src/routes/texas-property-tax-rate-history.lazy.tsx','utf8');
+  assert.match(route,/async function chooseRecent\(record: RecentUnit\)/);
+  assert.match(route,/const records = await loadHistory\(record\)/);
+  assert.match(route,/onClick=\{\(\) => void chooseRecent\(item\)\}/);
+  assert.match(route,/type=\$\{encodeURIComponent\(record.type\)\}/);
+  assert.doesNotMatch(route,/onClick=\{\(\) => void quickLookup\(item.name\)\}/);
+});
