@@ -15,7 +15,14 @@ export const Route = createFileRoute('/property-tax/taxing-unit/$unit')({
     const { latest, history } = loaderData;
     const canonicalPath = `/property-tax/taxing-unit/${latest.slug}`;
     const description = `${latest.name} property-tax rate history, latest finalized rate, maintenance-and-operations and debt-service components when reported, counties served and official Texas Comptroller source.`;
-    const indexable = history.filter((record) => !record.rateUnavailable && record.totalRate != null).length >= 3;
+    // A credible history can include a fully evidenced local supplement when
+    // the Comptroller marked a year as not-reported. A source disagreement
+    // never creates an extra verified observation or an indexability shortcut.
+    const indexable = history.filter((record) =>
+      (!record.rateUnavailable && record.totalRate != null)
+      || (record.localVerification?.mode === 'supplement'
+        && record.localVerification.sourceUrl.startsWith('https://'))
+    ).length >= 3;
     const pageUrl = absoluteUrl(texasDefinedBrand, canonicalPath);
     return {
       meta: buildMeta(texasDefinedBrand, {
