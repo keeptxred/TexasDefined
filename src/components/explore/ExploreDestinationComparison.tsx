@@ -88,7 +88,7 @@ export function ExploreDestinationComparison({ destinations, kind }: { destinati
         <h2 id={`${kind}-comparison-heading`} className="mt-2 font-display text-4xl">{copy.title}</h2>
         <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">{copy.description}</p>
 
-        <p id={`${kind}-comparison-scroll-hint`} className="mt-5 text-xs text-muted-foreground sm:hidden">Swipe horizontally to see all comparison columns. Destination names link to full visitor guides.</p>
+        <p id={`${kind}-comparison-scroll-hint`} className="mt-4 text-sm text-muted-foreground">Swipe horizontally to see all comparison columns. Destination names link to full visitor guides.</p>
         <div className="mt-7 overflow-x-auto border-y border-border" tabIndex={0} role="region" aria-label={`${kind.replace(/-/g, " ")} destination comparison table`} aria-describedby={`${kind}-comparison-scroll-hint`}>
           <table className="w-full min-w-[1040px] text-left text-sm">
             <caption className="sr-only">{copy.title}. Compare planning information from maintained destination records; follow official links to verify current conditions.</caption>
