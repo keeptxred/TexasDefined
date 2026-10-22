@@ -107,3 +107,15 @@ test('latest local supplement is prominent but never offered as a statewide calc
   assert.match(route,/href=\{latestLocal\.sourceUrl\}/);
   assert.match(route,/latest\.totalRate == null \? 'Not reported \/ withheld from calculation'/);
 });
+
+test('type-specific tax-unit search is restricted at source before results are capped',()=>{
+  const api = readFileSync('src/routes/api.property-tax-rates.ts','utf8');
+  assert.match(server,/searchTaxingUnitsServer\(query: string, year: number, limit = 100, type\?: TexasTaxingUnitType\)/);
+  const start=server.indexOf('export async function searchTaxingUnitsServer');
+  const end=server.indexOf('export async function getTaxingUnitRateHistoryServer',start);
+  const search=server.slice(start,end);
+  assert.match(search,/if \(type\) dbQuery = dbQuery\.eq\('type', type\)/);
+  assert.ok(search.indexOf("dbQuery.eq('type', type)") < search.indexOf('.limit(Math.max(1, Math.min(100, limit)))'));
+  assert.match(api,/searchTaxingUnitsServer\(query, year, 100, searchType\)/);
+  assert.match(api,/\['county', 'city', 'school-district', 'special-district'\]\.includes\(type\)/);
+});
