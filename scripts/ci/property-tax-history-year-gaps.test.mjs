@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { consecutiveRateChanges, taxHistoryYearPosition, formatOfficialTaxRate } from '../../src/lib/financial/property-tax-history.ts';
+import { consecutiveRateChanges, contiguousTaxYearSegments, taxHistoryYearPosition, formatOfficialTaxRate } from '../../src/lib/financial/property-tax-history.ts';
 
 const available = [{year:2021,totalRate:0.5},{year:2022,totalRate:0.4},{year:2024,totalRate:0.8},{year:2025,totalRate:0.7}];
 test('one-year change detection excludes gaps across missing/unreported years',()=>{
@@ -14,6 +14,12 @@ test('one-year change detection excludes gaps across missing/unreported years',(
 test('one-year comparison rejects a null rate even on adjacent years',()=>{
   assert.deepEqual(consecutiveRateChanges([{year:2022,totalRate:0.4},{year:2023,totalRate:null}]),[]);
 });
+test('line segments never interpolate through unreported tax years',()=>{
+  const segments = contiguousTaxYearSegments(available);
+  assert.deepEqual(segments.map((items)=>items.map((item)=>item.year)),[[2021,2022],[2024,2025]]);
+  assert.deepEqual(contiguousTaxYearSegments([{year:2021},{year:2024}]).map((seg)=>seg.map((i)=>i.year)),[[2021],[2024]]);
+});
+
 test('chart spacing maps calendar years proportionally and handles one observation',()=>{
   assert.equal(taxHistoryYearPosition(2021,2021,2025,24,952),24);
   assert.equal(taxHistoryYearPosition(2022,2021,2025,24,952),262);
@@ -30,6 +36,8 @@ test('interactive explorer labels unavailable official rates separately from loc
   const route=readFileSync('src/routes/texas-property-tax-rate-history.lazy.tsx','utf8');
   assert.match(route,/consecutiveRateChanges\(comparable\)/);
   assert.match(route,/taxHistoryYearPosition\(record\.year/);
+  assert.match(route,/contiguousTaxYearSegments\(points\)/);
+  assert.match(route,/contiguousSegments\.map/);
   assert.match(route,/localVerification\?\.mode === 'supplement'/);
   assert.match(route,/Comptroller not reported; local/);
   assert.match(route,/localVerification\?\.mode === 'conflict'/);
