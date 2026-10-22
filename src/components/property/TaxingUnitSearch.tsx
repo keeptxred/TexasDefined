@@ -31,7 +31,7 @@ export function TaxingUnitSearch({
     setLoading(true);
     setStatus('');
     try {
-      const response = await fetch(`/api/property-tax-rates?q=${encodeURIComponent(trimmed)}`);
+      const response = await fetch(`/api/property-tax-rates?q=${encodeURIComponent(trimmed)}${type ? `&type=${encodeURIComponent(type)}` : ''}`);
       const body = await response.json() as SearchResponse;
       if (!response.ok) throw new Error(body.message || `Search failed (${response.status})`);
       const filtered = (body.results ?? []).filter((record) => !type || record.type === type);
