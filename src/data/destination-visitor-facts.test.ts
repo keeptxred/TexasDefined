@@ -6,6 +6,7 @@ import { applyCuratedDestinationBatch2 } from "./destination-curation-batch2.ts"
 import { applyCuratedDestinationBatch4 } from "./destination-curation-batch4.ts";
 import { applyCuratedDestinationBatch5 } from "./destination-curation-batch5.ts";
 import { applyCuratedDestinationBatch6 } from "./destination-curation-batch6.ts";
+import { indianLodgeAuthorityDestination } from "./indian-lodge-authority-destination.ts";
 import { applyCuratedDestinationBatch7 } from "./destination-curation-batch7.ts";
 import { applyCuratedDestinationBatch26 } from "./destination-curation-batch26.ts";
 import type { Destination } from "./types.ts";
@@ -202,7 +203,7 @@ test("nine TPWD destinations use exact operator visitor rules rather than generi
     ["copper-breaks-state-park", 2], ["devils-sinkhole-state-natural-area", 3],
     ["fort-parker-state-park", 2], ["galveston-island-state-park", 2],
     ["goliad-state-park-and-historic-site", 2], ["hill-country-state-natural-area", 3],
-    ["indian-lodge", 2],
+    ["indian-lodge", 3],
   ];
   for (const [slug, count] of parks) {
     const destination = applyCuratedDestinationBatch6({ slug } as Destination);
@@ -278,4 +279,21 @@ test("lake rentals and Bob Sandlin late-arrival code are not invented or general
   }
   const bob = applyCuratedDestinationBatch7({ slug: "lake-bob-sandlin-state-park" } as Destination);
   assert.ok(bob.visitorFacts?.some((fact) => fact.topic === "access" && fact.detail.includes("gate code")));
+});
+
+test("canonical Indian Lodge fallback has exact-place licensed media and fail-closed January closure", () => {
+  const base = indianLodgeAuthorityDestination;
+  assert.equal(base.slug, "indian-lodge");
+  assert.equal(base.name, "Indian Lodge");
+  assert.equal(base.category, "historic-sites");
+  assert.ok(base.hero.src.endsWith("/indian-lodge-state-park-lodge.jpg"));
+  assert.match(base.hero.credit ?? "", /Larry D\. Moore.*CC BY 4\.0/);
+  assert.equal(base.sourceCheckedAt, "2026-10-21");
+  assert.equal(base.officialUrl, "https://tpwd.texas.gov/state-parks/indian-lodge");
+  const final = applyCuratedDestinationBatch6(base);
+  assert.match(final.entryNote, /closed for all of January 2027/);
+  assert.ok(final.body.join(" ").includes("closed throughout January 2027"));
+  const access = final.visitorFacts?.find(fact => fact.topic === "access");
+  assert.equal(access?.sourceUrl, "https://tpwd.texas.gov/state-parks/indian-lodge/alert");
+  assert.ok(reviewDestinationVisitorFacts(final.visitorFacts, "2026-10-21").issues.length === 0);
 });
