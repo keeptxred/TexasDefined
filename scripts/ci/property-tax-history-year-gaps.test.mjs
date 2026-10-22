@@ -65,5 +65,6 @@ test('taxing-unit search does not round documented seven-decimal source figures'
   const search=readFileSync('src/components/property/TaxingUnitSearch.tsx','utf8');
   assert.match(search,/formatOfficialTaxRate\(record\.totalRate!\)/);
   assert.match(search,/record\.rateVariants\.map\(formatOfficialTaxRate\)/);
+  assert.match(search,/type \? `&type=\$\{encodeURIComponent\(type\)\}` : ''/);
   assert.doesNotMatch(search,/\.toFixed\(6\)/);
 });
