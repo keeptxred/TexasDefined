@@ -1,4 +1,5 @@
 import { appendFileSync } from 'node:fs';
+import { checkYearSpecificTaxRateRow } from './tax-history-row-contract.mjs';
 
 const origin = process.env.PRODUCTION_ORIGIN ?? 'https://texasdefined.com';
 const sha = process.env.GITHUB_SHA ?? 'local';
@@ -231,6 +232,8 @@ async function verifyEscobaresTaxingUnit() {
         'Locally verified',
       ];
       const missing = required.filter((needle) => !body.includes(needle));
+      const yearRow = checkYearSpecificTaxRateRow(body,{year,rate,agency,conflict});
+      if(!yearRow.ok) missing.push('year-specific history row: '+yearRow.reason);
       if (!response.ok) fail(check, `HTTP ${response.status}`);
       else if (hasNoindex(body)) fail(check, 'unexpected robots noindex');
       else if (!validHeading) fail(check, 'expected Escobares property tax rate H1 is missing');
