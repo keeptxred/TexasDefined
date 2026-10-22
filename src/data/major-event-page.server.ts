@@ -239,6 +239,8 @@ const festivalExperienceMarkets: Record<string, { marketSlug: string; cityLabel:
   "fiesta-san-antonio": { marketSlug: "san-antonio", cityLabel: "San Antonio", idea: "local heritage and missions experiences between Fiesta events" },
   "texas-sandfest": { marketSlug: "port-aransas", cityLabel: "Port Aransas", idea: "island and coastal experiences outside the sculpture grounds" },
   "dickens-on-the-strand": { marketSlug: "galveston", cityLabel: "Galveston", idea: "historic neighborhood tours and other island attractions" },
+  // These are nearby experiences, NOT Mardi Gras festival admissions or parade tickets.
+  "mardi-gras-galveston": { marketSlug: "galveston", cityLabel: "Galveston", idea: "historic Strand walking tours and island sightseeing before or after your chosen parade day" },
   "galveston-juneteenth-celebrations": { marketSlug: "galveston", cityLabel: "Galveston", idea: "African American history and other local heritage experiences" },
 };
 
