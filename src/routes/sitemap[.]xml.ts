@@ -45,6 +45,8 @@ const STATIC_LASTMOD_BY_PATH: Readonly<Record<string, string>> = {
   "/texas-vs-every-state": PRIORITY_SEO_LASTMOD,
   "/texas-history": "2026-08-20",
   "/dallas-black-history": "2026-10-13",
+  "/holiday/magical-winter-lights": "2026-10-21",
+  "/holiday/enchant-christmas-arlington": "2026-10-21",
   "/texas-historic-landmarks": "2026-10-12",
   "/texas-symbols": "2026-08-20",
   "/editorial-policy": "2026-09-01",
