@@ -32,7 +32,7 @@ export function checkYearSpecificTaxRateRow(html, { year, rate, agency, conflict
   if(!row[4].includes(agency))
     return {ok:false,reason:'the '+year+' source cell does not identify '+agency};
   if(conflict){
-    if(typeof statewideRate!=='string' || !/^\\d+\\.\\d{6,8}$/.test(statewideRate))
+    if(typeof statewideRate!=='string' || !/^\d+\.\d{6,8}$/.test(statewideRate))
       return {ok:false,reason:'conflict requires a verified year-specific statewide rate'};
     if(row[1]!==statewideRate)
       return {ok:false,reason:'year-specific displayed statewide total '+row[1]+' differs from '+statewideRate};
