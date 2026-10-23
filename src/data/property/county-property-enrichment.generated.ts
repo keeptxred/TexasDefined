@@ -585,7 +585,7 @@ export const COUNTY_PROPERTY_ENRICHMENT: Record<string, CountyPropertyEnrichment
     lastVerifiedAt: '2026-10-19',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/dawson.php', 'https://www.dawsoncad.org/', 'https://www.co.dawson.tx.us/']
   },
-  deaf-smith: {
+  'deaf-smith': {
     appraisalDistrict: {
       name: 'Mark Powers',
       websiteUrl: 'https://deafsmithcad.org/',
@@ -731,7 +731,7 @@ export const COUNTY_PROPERTY_ENRICHMENT: Record<string, CountyPropertyEnrichment
     lastVerifiedAt: '2026-10-19',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/foard.php', 'https://www.foardcad.org/', 'https://www.foardcounty.texas.gov/']
   },
-  fort-bend: {
+  'fort-bend': {
     appraisalDistrict: {
       name: 'Jordan Wise',
       websiteUrl: 'https://www.fbcad.org/',
@@ -1085,7 +1085,7 @@ export const COUNTY_PROPERTY_ENRICHMENT: Record<string, CountyPropertyEnrichment
     lastVerifiedAt: '2026-10-19',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/jack.php', 'https://www.jackcad.org/', 'https://www.jackcounty.org/']
   },
-  jim-hogg: {
+  'jim-hogg': {
     appraisalDistrict: {
       name: 'Celina Sauceda',
       websiteUrl: 'https://jimhogg-cad.org/',
@@ -2019,7 +2019,7 @@ export const COUNTY_PROPERTY_ENRICHMENT: Record<string, CountyPropertyEnrichment
     lastVerifiedAt: '2026-08-16',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/sabine.php', 'https://www.southwestdatasolution.com/webindex.aspx?dbkey=SABINECAD', 'https://www.co.sabine.tx.us'],
   },
-  san-augustine: {
+  'san-augustine': {
     appraisalDistrict: {
       name: 'Evelyn Watts',
       websiteUrl: 'https://www.sanaugustinecad.org/',
@@ -2045,7 +2045,7 @@ export const COUNTY_PROPERTY_ENRICHMENT: Record<string, CountyPropertyEnrichment
     lastVerifiedAt: '2026-10-19',
     sourceUrls: ['https://comptroller.texas.gov/taxes/property-tax/county-directory/sanaugustine.php', 'https://www.sanaugustinecad.org/', 'https://www.co.san-augustine.tx.us/']
   },
-  san-patricio: {
+  'san-patricio': {
     appraisalDistrict: {
       name: 'Jordan Light',
       websiteUrl: 'https://sanpatcad.org/',
