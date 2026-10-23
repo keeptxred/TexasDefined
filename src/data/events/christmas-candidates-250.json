@@ -674,7 +674,10 @@
       "intakeId": 94,
       "title": "Ennis Lights Fest",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "ennis-lights-of-ennis-parade-2026"
+      ]
     },
     {
       "intakeId": 95,
@@ -779,13 +782,20 @@
       "intakeId": 110,
       "title": "The Woodlands Winter Wonderland",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "woodlands-ice-rink-2026"
+      ],
+      "researchNote": "Canonical 2026 venue is the indoor Woodlands Ice Rink; supplied 'outdoor Winter Wonderland' description is incorrect."
     },
     {
       "intakeId": 111,
       "title": "The Woodlands Lighting of the Doves",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "woodlands-lighting-of-the-doves-2026"
+      ]
     },
     {
       "intakeId": 112,
@@ -1132,7 +1142,8 @@
       "intakeId": 167,
       "title": "McAllen Christmas Fiesta",
       "submittedRegion": "South Texas & Alamo Region",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "The city publishes the South Pole Illuminated Festival's 2026 operating nights, but no evidence yet that this is the same event as the submitted 'McAllen Christmas Fiesta'; preserve as separate supplemental calendar event."
     },
     {
       "intakeId": 168,
@@ -1665,8 +1676,8 @@
   ],
   "reconciliation": {
     "asOf": "2026-10-23",
-    "calendarCandidates": 39,
+    "calendarCandidates": 42,
     "authorityCandidates": 12,
-    "remainingCandidates": 199
+    "remainingCandidates": 196
   }
 }
