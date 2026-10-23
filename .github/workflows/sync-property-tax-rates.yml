@@ -118,3 +118,7 @@ jobs:
       - name: Verify original source workbook archive and import fingerprints
         shell: bash
         run: deno run --allow-env --allow-net --allow-write scripts/ci/verify-texas-tax-source-archive.mjs
+
+      - name: Summarize unresolved official tax-rate gaps for source research
+        shell: bash
+        run: deno run --allow-env --allow-net --allow-write scripts/ci/report-texas-tax-source-gaps.mjs

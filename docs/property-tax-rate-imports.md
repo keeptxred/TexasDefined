@@ -376,6 +376,36 @@ Neither the presence nor repeal of that ordinance supplies a reliable
 The source is useful context for future verification, not permission
 to invent a numeric value.
 
+**Do not confuse two different places named Scurry.** The
+[Texas Comptroller's Kaufman County directory](https://comptroller.texas.gov/taxes/property-tax/county-directory/kaufman.php)
+identifies **City of Scurry** as Kaufman County taxing unit
+`129-114-03`. The tax records for **Scurry County** and the City of
+Snyder, in West Texas, are unrelated and must never be used to fill
+Kaufman County's missing municipal rates. The
+[Kaufman CAD taxing-entities directory](https://kaufman-cad.org/kaufman-cads-taxing-entities/)
+and its 2024 tax-rate list should be checked first; absence of a
+City of Scurry rate from that list alone does not prove zero tax.
+
 These are **research candidates only**; add a numerical local rate
 only after establishing primary-source adopted-rate evidence for
 the specific year and jurisdiction.
+
+
+## Monthly research inventory of unreported municipal rates
+
+After a successful official source sync, local-evidence identity audit, and
+source-archive integrity check, the same GitHub Actions run produces an
+informational **read-only research queue** of Comptroller source rows with
+`not-reported` rates. For each retained tax year, the job summary includes
+the number of unavailable city, county, school and special-district records,
+which have a separately documented local supplement, and how many remain
+without corroborating local evidence. It lists up to 20 unresolved city
+and county observations for later primary-source research.
+
+An unreported statewide rate is **not** a zero municipal levy; zero is
+reported only if independently established for that tax year. The research
+queue creates **no new tax records**, no changes to calculator inputs, and
+no automatic local-rate assumptions. The verified 2022 Union Valley
+state-versus-local disagreement is shown separately elsewhere and is not
+misclassified as a missing Comptroller source rate. Source gaps in a not-yet-
+published current-year workbook are not fabricated or flagged as omissions.
