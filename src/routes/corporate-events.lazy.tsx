@@ -222,7 +222,7 @@ function CorporateEventsPage() {
       <Container className="py-12 sm:py-20">
         <p className="eyebrow text-background/70">Texas Defined • Group experiences</p>
         <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[1.05] sm:text-6xl lg:text-7xl">Plan a company event worth leaving the office for.</h1>
-        <p className="mt-6 max-w-3xl text-lg leading-8 text-background/80">Compare company outings and team-building experiences across Houston, Dallas–Fort Worth, Austin and San Antonio by group size. Shortlist options and create a proposal to share with your boss.</p>
+        <p className="mt-6 max-w-3xl text-lg leading-8 text-background/80">Compare company outings and team-building experiences across nine Texas markets, from Houston and Dallas–Fort Worth to El Paso, the Gulf Coast, Waco and Lubbock. Shortlist options and create a proposal to share with your boss.</p>
         <div className="mt-8 flex flex-wrap gap-4 text-sm text-background/80"><span className="inline-flex items-center gap-2"><Users className="size-4" /> Group-size aware</span><span className="inline-flex items-center gap-2"><ClipboardList className="size-4" /> Shareable shortlist</span><span className="inline-flex items-center gap-2"><Check className="size-4" /> Official venue sources</span></div>
       </Container>
     </section>
@@ -234,7 +234,7 @@ function CorporateEventsPage() {
           <div className="mt-5 space-y-5">
             <label className="block text-sm font-semibold">City in Texas
               <input value={city} onChange={(event) => setCity(event.target.value)} placeholder="Houston" maxLength={90} className={'mt-2 ' + controlClass} />
-              <span className="mt-1 block text-xs font-normal text-muted-foreground">Browse Houston, Dallas–Fort Worth, Austin and San Antonio; enter a city name.</span>
+              <span className="mt-1 block text-xs font-normal text-muted-foreground">Browse Houston, DFW, Austin, San Antonio, El Paso, Corpus Christi, Galveston, Waco or Lubbock.</span>
             </label>
             <label className="block text-sm font-semibold">Number of guests
               <input type="number" min={2} max={3000} value={headcount} onChange={(event) => setHeadcount(Number(event.target.value))} className={'mt-2 ' + controlClass} />
@@ -272,7 +272,7 @@ function CorporateEventsPage() {
             <ProviderCard key={provider.slug} provider={provider} selected={selected.includes(provider.slug)} onToggle={() => toggleSelected(provider.slug)} />
           )}</div> : <div className="mt-6 border border-border bg-surface p-8">
             <Search className="size-8 text-primary" aria-hidden /><h3 className="mt-4 font-display text-3xl">No sourced matches yet.</h3>
-            <p className="mt-3 max-w-xl leading-7 text-muted-foreground">Our Texas venue coverage is growing. Try Houston, Dallas, Austin or San Antonio, or send us your event brief. Try Houston, adjust the filters, or submit your event requirements below so we can understand demand in your area.</p>
+            <p className="mt-3 max-w-xl leading-7 text-muted-foreground">Our Texas venue coverage is growing. Try one of the nine currently sourced markets, adjust group size or category, or send us your event requirements so we can plan future city additions.</p>
             <button type="button" onClick={() => { setCity('Houston'); setHeadcount(45); setBudget(''); setIncludeOtherTypes(false); }} className="mt-5 border border-primary px-5 py-3 text-sm font-semibold text-primary">See Houston options</button>
           </div>}
           {matches.length > 0 ? <p className="mt-5 text-xs leading-6 text-muted-foreground">This is an independent editorial directory. No venue shown is represented as a paid TexasDefined partner. Prices are provider-published starting points only; no availability, discounts, or booking is guaranteed.</p> : null}

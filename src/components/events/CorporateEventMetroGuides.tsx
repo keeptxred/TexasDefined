@@ -17,6 +17,26 @@ const cityGuides = [
     title: 'San Antonio corporate group activities',
     intro: 'Browse group-friendly San Antonio options for business celebrations, client entertainment and collaborative team days. Private-event formats may need coordinated slots for larger groups.',
     tip: 'Request written details on group transportation, dietary needs, activity duration and any exclusivity or private-event fee.' },
+  { key: 'El Paso', slug: 'el-paso', city: 'El Paso',
+    title: 'El Paso team outings & corporate events',
+    intro: 'Book golf experiences, escape-room teamwork or facilitated challenges in the Sun City. Verify whether a posted capacity describes one private event room or simultaneous team rotations.',
+    tip: 'For a company of 45, request a complete package quote and confirm travel, indoor climate control and group timing.' },
+  { key: 'Corpus Christi', slug: 'corpus-christi', city: 'Corpus Christi',
+    title: 'Corpus Christi waterfront company events',
+    intro: 'Compare aquarium receptions, museum spaces and a historic aircraft carrier for a Gulf Coast company off-site. Some large published capacities apply only to specific rooms or full-venue events.',
+    tip: 'Confirm weather exposure, accessible routes, catering rules and overnight hotel coordination.' },
+  { key: 'Galveston', slug: 'galveston', city: 'Galveston',
+    title: 'Galveston company gatherings & retreats',
+    intro: 'Find island-area corporate meeting space, boardwalk celebrations and after-hours historic museum receptions. Published group sizes can differ substantially between individual rooms and venue-wide buyouts.',
+    tip: 'Verify event days, coastal weather backup options, off-site transit and minimum lodging or catering spends.' },
+  { key: 'Waco', slug: 'waco', city: 'Waco',
+    title: 'Waco creative team-building & company days',
+    intro: 'Choose organized mobile team challenges, hands-on painting sessions or a custom activity. Some venues serve larger groups by splitting participants across consecutive activity sessions.',
+    tip: 'Ask exactly how 45 attendees will rotate between activities and whether the package includes facilitation and setup.' },
+  { key: 'Lubbock', slug: 'lubbock', city: 'Lubbock',
+    title: 'Lubbock group activities & corporate socials',
+    intro: 'Explore facilitated park activities, outdoor paintball and escape-room challenges. Compare indoor-outdoor options and confirm how many participants can participate at once.',
+    tip: 'For group sports, ask about equipment, safety requirements, waivers, weather alternatives and minimum deposits.' },
 ] as const;
 
 export function CorporateEventMetroGuides() {
@@ -37,7 +57,8 @@ export function CorporateEventMetroGuides() {
         {cityGuides.map((guide) => {
           const venues = corporateEventProviders.filter((provider) =>
             provider.city === guide.key || provider.metro === guide.key);
-          const link = '/corporate-events?city=' + encodeURIComponent(guide.city) + '&guests=45&type=team-building';
+          const recommendedCategory = guide.slug === 'corpus-christi' || guide.slug === 'galveston' ? 'company-parties' : 'team-building';
+          const link = '/corporate-events?city=' + encodeURIComponent(guide.city) + '&guests=45&type=' + recommendedCategory;
           return <article key={guide.slug} id={'corporate-events-' + guide.slug}
             className="scroll-mt-28 border border-border bg-background p-5 sm:p-7">
             <h3 className="font-display text-2xl sm:text-3xl">{guide.title}</h3>
