@@ -3,9 +3,6 @@ import { createLazyFileRoute } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
 import { WacoViatorExperienceCards } from "@/components/monetization/WacoViatorExperienceCards";
 
-const path = "/waco-ghost-tours";
-const description = "Compare Waco guided ghost walks and self-guided haunted audio routes, including the Dr Pepper Museum meeting point, Magnolia Market and Suspension Bridge, with direct booking links.";
-const sourceCheckedAt = "2026-10-20";
 const sources = [
   { label: "Live guided ghost walking tour", href: "https://www.viator.com/tours/Waco/Waco-Ghosts/d50076-455209P1" },
   { label: "Self-guided haunted walking tour", href: "https://www.viator.com/tours/Waco/Haunted-Private-App-Guided-Ghost-Walking-Tour-in-Waco/d50076-222222P107" },
