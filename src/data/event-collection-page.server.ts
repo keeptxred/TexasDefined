@@ -19,6 +19,7 @@ import {
 } from "./texas-tournament-collections";
 import { loadTournamentCollectionItemsServer } from "./texas-tournaments.server";
 import { loadTexasThisWeekendDigestServer } from "./texas-this-weekend.server";
+import { getChristmasPerformances2026Server } from "./events/christmas-performances-2026.server";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 type CollectionDefinition = EventCollectionDefinition | TemporalEventCollectionDefinition | TournamentCollectionDefinition;
@@ -172,10 +173,12 @@ export function loadEventCollectionPageServer(slug: string) {
     .map(({ path, title, description }) => ({ path, title, description }));
 
   const weekendDigest = temporal?.slug === "this-weekend" ? loadTexasThisWeekendDigestServer() : null;
+  const christmasPerformances = temporal?.slug === "christmas-events" ? getChristmasPerformances2026Server() : [];
 
   return {
     ...collection,
     weekendDigest,
+    christmasPerformances,
     relatedCollections,
     itemCount: items.length,
     latestSourceCheck,
