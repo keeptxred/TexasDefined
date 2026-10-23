@@ -71,6 +71,10 @@ export function buildFootballProfileSummary(input: FootballProfileContentInput) 
     // Notices include venue construction, access, and schedule advisories.
     // Never convert their mere presence into a fabricated season cancellation.
     const place = [program.city, program.countyName].filter(Boolean).join(', ');
+    const format = program.footballType === '11-Man' ? ' an eleven-man program' : program.footballType === '6-Man' ? ' a six-man program' : program.footballType ? ` a ${program.footballType.toLowerCase()} program` : ' a UIL football program';
+    const districtInfo = program.districtName ? ` The school is matched to ${program.districtName}.` : '';
+    const schoolIdentity = identity?.mascot ? ` Its independently verified mascot is the ${identity.mascot}${identity.colors ? `, and the recorded school colors are ${identity.colors}` : ''}.` : '';
+
     const enrollment = program.uilEnrollment
       ? ` UIL reports ${program.uilEnrollment.toLocaleString('en-US')} students for the 2026–28 realignment snapshot.`
       : '';
@@ -84,7 +88,7 @@ export function buildFootballProfileSummary(input: FootballProfileContentInput) 
       : '';
     const coach = editorial?.coach ? ` The current sourced head coach is ${editorial.coach.name}.` : '';
     const notice = editorial?.notice ? ` ${editorial.notice.title}: ${editorial.notice.body}` : '';
-    return `${team} football competes in ${alignment}${place ? ` from ${place}` : ''}.${enrollment}${placementException}${coach}${notice} This page ties the current UIL placement to school, district, venue, history and schedule sources. Classification is not a quality ranking.`;
+    return `${team} football is${format} in ${alignment}${place ? ` from ${place}` : ''}.${districtInfo}${schoolIdentity}${enrollment}${placementException}${coach}${notice} The final UIL alignment controls competition placement. Classification is not a quality ranking.`;
   }
 
   if (privateAlignment) {
@@ -161,6 +165,10 @@ export function buildFootballProfileFaq(input: FootballProfileContentInput): Foo
         answer: `TexasDefined's TEA AskTED match places ${displayName} in ${program.districtName}. Families should still verify attendance-zone assignment for a specific address with the district.`,
       });
     }
+    if (program.footballType) items.push({
+      question: `Does ${displayName} play six-man or eleven-man football?`,
+      answer: `${displayName} is listed as a ${program.footballType} program in the current 2026–28 UIL football alignment. This is a competition format, not a ranking of team quality.`,
+    });
   } else if (privateAlignment) {
     items.push({
       question: `What association does ${displayName} football compete in?`,
