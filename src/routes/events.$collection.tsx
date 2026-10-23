@@ -183,7 +183,7 @@ function GenericCollectionPage({ page }: { page: any }) {
           </p>
           <ol className="mt-6 divide-y divide-border border-y border-border">
             {page.christmasPerformances.map((show: any) => (
-              <li key={show.id} className="grid gap-4 py-5 lg:grid-cols-3 md:items-start">
+              <li key={show.id} className="grid gap-4 py-5 lg:grid-cols-3">
                 <div>
                   <p className="font-semibold text-foreground">{show.dateLabel}</p>
                   <p className="mt-1 text-sm text-muted-foreground">{show.timeLabel}</p>
@@ -196,7 +196,7 @@ function GenericCollectionPage({ page }: { page: any }) {
                     Schedule source: {show.sourceName} ↗
                   </a>
                 </div>
-                <div className="md:text-right">
+                <div className="text-right">
                   <a href={show.ticket.href} rel={show.ticket.rel} target="_blank" className="inline-flex items-center border border-primary px-4 py-2 text-sm font-semibold text-primary hover:bg-surface">
                     {show.ticket.label}
                   </a>
