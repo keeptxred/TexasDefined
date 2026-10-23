@@ -7,6 +7,12 @@ const adapter = read("src/data/events/texas-event-records.server.ts");
 const collection = read("src/data/event-collection-page.server.ts");
 const page = read("src/routes/events.$collection.tsx");
 const premerge = read("scripts/ci/run-premerge-validation.mjs");
+const authority = read("src/data/major-event-expanded-authority-tranche59.server.ts");
+const resolver = read("src/data/major-event-page.server.ts");
+const registry = read("src/data/major-event-supplemental-registry.server.ts");
+const hubLinks = read("src/data/fixtures/seasonal-authority-links.ts");
+const majorIndex = read("src/data/major-event-index.ts");
+const candidates = JSON.parse(read("src/data/events/christmas-candidates-250.json"));
 
 const start = eventFile.indexOf("const verifiedOccurrences");
 const end = eventFile.indexOf("\n];", start);
@@ -69,4 +75,42 @@ for (const [file, source, required] of [
 assert.ok(page.includes('rel="sponsored nofollow noopener noreferrer"'), "Commercial links require disclosure attributes");
 assert.ok(eventFile.includes('category: "seasonal" as const'), "Calendar category is missing");
 assert.ok(eventFile.includes('filter((occurrence) => (occurrence.endDate ?? occurrence.startDate) >= today)'), "Past holiday dates must expire automatically");
-console.log(`Christmas calendar verified: ${events.length} dated occurrences, disjoint schedules, first-party sources, affiliate disclosures, county links and premerge gate.`);
+
+const majorAuthoritySlugs = [
+  "gaylord-texan-ice-harry-potter",
+  "grand-prairie-prairie-lights",
+  "moody-gardens-holiday-in-the-gardens",
+  "grapevine-north-pole-express",
+  "dallas-zoo-lights",
+];
+for (const slug of majorAuthoritySlugs) {
+  assert.ok(authority.includes(`"slug": "${slug}"`), `Missing destination-scale Christmas guide ${slug}`);
+  assert.ok(registry.includes(`"${slug}"`), `Missing guide directory/sitemap registration ${slug}`);
+  assert.ok(hubLinks.includes(`"/event/${slug}"`), `Missing Christmas pillar bidirectional link ${slug}`);
+  assert.ok(resolver.includes("getExpandedMajorEventAuthorityTranche59Server(slug)"), "Guide resolver tranche59 disconnected");
+}
+for (const slug of ["grapevine-north-pole-express", "dallas-zoo-lights"]) {
+  assert.ok(adapter.includes(`"${slug}"`), `Disjoint ${slug} must use verified occurrence windows`);
+}
+for (const slug of [
+  "grapevine-north-pole-express-nov",
+  "grapevine-north-pole-express-dec",
+  "grapevine-north-pole-express-final",
+  "fort-worth-north-pole-express-dec3",
+  "dallas-zoo-lights-opening", "dallas-zoo-lights-final",
+]) {
+  assert.ok(eventFile.includes(`"${slug}":`), `Operating window lacks planning guide: ${slug}`);
+}
+assert.ok(majorIndex.includes('startDate: "2026-11-27", endDate: "2027-01-03"'), "Johnson City dates must match organizer");
+assert.ok(!majorIndex.includes('startDate: "2026-11-28", endDate: "2027-01-04"'), "Stale Johnson City dates remain");
+assert.ok(!read("src/data/major-event-expanded-authority-tranche57.server.ts").includes("December 3, 24 and 25 listed as closed"), "Grapevine December 3 departures must not be hidden");
+assert.equal(candidates.candidateCount, 250, "250-item intake missing");
+assert.equal(candidates.candidates.length, 250, "250-item research catalog truncated");
+assert.equal(candidates.candidates[0].intakeId, 1);
+assert.equal(candidates.candidates.at(-1).intakeId, 250);
+assert.equal(candidates.reconciliation.calendarCandidates, 25, "Source-qualified intake counts changed unexpectedly");
+assert.equal(candidates.reconciliation.authorityCandidates, 10, "Existing authority intake counts changed unexpectedly");
+assert.equal(candidates.reconciliation.remainingCandidates, 215, "Do not silently publish unverified Christmas names");
+assert.ok(events.length >= 44, "Dated Christmas inventory shrank unexpectedly");
+console.log(`Christmas calendar and five authority guides verified: ${events.length} dated occurrences, 250 candidates reconciled, affiliate disclosures, county crosslinks and premerge gate.`);
+
