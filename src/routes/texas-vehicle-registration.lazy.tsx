@@ -36,7 +36,7 @@ function TexasVehicleRegistrationPage() {
         <div className="mt-6 grid gap-6 md:grid-cols-2">
           <div className="border border-border p-5">
             <h3 className="font-display text-xl">Buyer checklist</h3>
-            <ol className="mt-3 list-decimal space-y-2 pl-5 text-sm leading-6 text-muted-foreground">
+            <ol className="mt-3 list-decimal space-y-3 pl-5 text-sm leading-6 text-muted-foreground">
               <li>Compare the VIN on the title, vehicle and supporting paperwork; ask about liens and title brands.</li>
               <li>Confirm the title assignment is complete and obtain any required lien release and odometer disclosure.</li>
               <li>Prepare the Application for Texas Title and/or Registration (Form 130-U), proof of insurance and required identification.</li>
@@ -45,7 +45,7 @@ function TexasVehicleRegistrationPage() {
           </div>
           <div className="border border-border p-5">
             <h3 className="font-display text-xl">Seller checklist</h3>
-            <ol className="mt-3 list-decimal space-y-2 pl-5 text-sm leading-6 text-muted-foreground">
+            <ol className="mt-3 list-decimal space-y-3 pl-5 text-sm leading-6 text-muted-foreground">
               <li>Resolve outstanding liens and correctly assign the original title to the buyer.</li>
               <li>Retain a record of the buyer, transaction date, VIN and signed paperwork.</li>
               <li>Submit a vehicle transfer notification to TxDMV to help document the change of possession.</li>
@@ -63,7 +63,7 @@ function TexasVehicleRegistrationPage() {
       <section id="ownership-fraud-prevention" aria-labelledby="ownership-fraud-heading" className="mx-auto max-w-6xl border-t border-border px-4 py-10 sm:px-6 lg:px-8">
         <p className="eyebrow text-primary">Protect your transaction</p>
         <h2 id="ownership-fraud-heading" className="mt-2 font-display text-3xl">Avoid common Texas used-car title problems</h2>
-        <div className="mt-5 grid gap-5 md:grid-cols-2">
+        <div className="mt-5 grid gap-6 md:grid-cols-2">
           <article className="border border-border p-5"><h3 className="font-display text-xl">Title does not match the seller</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">Compare the seller's identification and title ownership information. Be cautious when someone is selling a vehicle titled to an unrelated person or asks you to leave buyer information blank. Resolve ownership questions before paying.</p></article>
           <article className="border border-border p-5"><h3 className="font-display text-xl">Outstanding loan or lien</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">A lienholder may have a legal interest in the vehicle. Confirm how the lien will be satisfied and what release documentation the county office requires; do not assume the seller's statement alone clears the lien.</p></article>
           <article className="border border-border p-5"><h3 className="font-display text-xl">VIN or odometer discrepancy</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">Compare the VIN in multiple places and investigate inconsistencies in the title, vehicle history and odometer disclosure. Stop the transaction when the identity of the vehicle cannot be established.</p></article>
@@ -91,13 +91,13 @@ function TexasVehicleRegistrationPage() {
         <p className="eyebrow text-primary">Accessible parking</p>
         <h2 id="disabled-parking-heading" className="mt-2 font-display text-3xl">Texas disabled parking placards and plates</h2>
         <p className="mt-3 max-w-3xl leading-7 text-muted-foreground">Texas issues qualifying disabled parking placards and license plates through the TxDMV system and county tax assessor-collector offices. The Application for Persons with Disabilities Parking Placard and/or License Plate (Form VTR-214) explains medical certification and applicant requirements. Eligibility, expiration and renewal rules depend on the credential and circumstances.</p>
-        <ol className="mt-4 max-w-3xl list-decimal space-y-2 pl-5 leading-7">
+        <ol className="mt-4 max-w-3xl list-decimal space-y-3 pl-5 leading-7">
           <li>Read the current VTR-214 eligibility criteria and identify whether a placard, plate or both are appropriate.</li>
           <li>Arrange any required certification by an authorized medical professional using the current form and submission rules.</li>
           <li>Submit the completed application to the appropriate county tax office and verify current fees, expiration and renewal procedures.</li>
           <li>Review Texas rules governing who may use the placard or plate and when accessible parking privileges apply.</li>
         </ol>
-        <a href="https://www.txdmv.gov/motorists/disabled-parking-placards-plates" target="_blank" rel="noopener noreferrer" className="mt-5 inline-block border border-border px-4 py-2 text-sm font-semibold hover:bg-muted/30">Official TxDMV disabled parking information</a>
+        <a href="https://www.txdmv.gov/motorists/disabled-parking-placards-plates" target="_blank" rel="noopener noreferrer" className="mt-5 border border-border px-4 py-2 text-sm font-semibold hover:bg-muted/30">Official TxDMV disabled parking information</a>
       </section>
       <section id="texas-vehicle-inspections" aria-labelledby="vehicle-inspections-heading" className="mx-auto max-w-6xl border-t border-border px-4 py-10 sm:px-6 lg:px-8">
         <p className="eyebrow text-primary">Registration requirements</p>
@@ -133,14 +133,14 @@ function TexasVehicleRegistrationPage() {
         <p className="eyebrow text-primary">License plate options</p>
         <h2 id="personalized-plates-heading" className="mt-2 font-display text-3xl">Personalized and specialty Texas license plates</h2>
         <p className="mt-3 max-w-3xl leading-7 text-muted-foreground">Texas offers standard-issue, specialty and personalized plate options. Not every design permits the same character combinations or eligibility, and certain plates require proof of military service, disability status or other qualifications.</p>
-        <ol className="mt-5 max-w-3xl list-decimal space-y-2 pl-5 leading-7">
+        <ol className="mt-5 max-w-3xl list-decimal space-y-3 pl-5 leading-7">
           <li>Choose between a general-issue replacement, specialty design or personalized configuration.</li>
           <li>Review the design's current eligibility, personalization rules, availability and price on the official TxDMV plate pages or its authorized plate provider.</li>
           <li>Confirm whether your request is a new registration, replacement, transfer or renewal; each may require different paperwork.</li>
           <li>Check the ordering and pickup instructions before submitting payment, particularly if your vehicle has an existing registration or lien.</li>
         </ol>
         <p className="mt-4 text-sm leading-6 text-muted-foreground">Plate availability and fees change. An available combination at the start of an order is not a guarantee of approval.</p>
-        <a href="https://www.txdmv.gov/motorists/license-plates" target="_blank" rel="noopener noreferrer" className="mt-5 inline-block border border-border px-4 py-2 text-sm font-semibold hover:bg-muted/30">Official TxDMV license plates and ordering information</a>
+        <a href="https://www.txdmv.gov/motorists/license-plates" target="_blank" rel="noopener noreferrer" className="mt-5 border border-border px-4 py-2 text-sm font-semibold hover:bg-muted/30">Official TxDMV license plates and ordering information</a>
       </section>
       <section id="title-transfer" className="mx-auto max-w-6xl border-t border-border px-4 py-10 sm:px-6 lg:px-8">
         <p className="eyebrow text-primary">Buying or selling</p>
