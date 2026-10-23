@@ -59,6 +59,15 @@ export function verifyChamizalHtml(raw) {
  for(const needle of forbidden)if(html.includes(needle))throw new Error("Stale Chamizal content survives: "+needle.slice(0,60));
  return {checked:required.length,staleMarkersRemoved:true};
 }
+export function verifyAmistadHtml(raw){
+ const html=unescapeAttributes(raw);
+ if(!/<h1\b[^>]*>\s*Amistad National Recreation Area\s*<\/h1>/i.test(html))throw new Error("Amistad federal destination H1 missing");
+ if(!html.includes("www.nps.gov/amis/"))throw new Error("Amistad original NPS source not linked");
+ if(!html.includes("/images/explore/lakes-rivers/amistad-national-recreation-area.jpg"))throw new Error("Specific Amistad landscape hero not present");
+ if(!html.includes("National Park Service")||!html.includes("Public domain"))throw new Error("NPS ownership or public-domain Amistad photo credit missing");
+ if(!html.includes("Lake Use Pass"))throw new Error("Amistad boat permitting authority guidance missing from live page");
+ return {park:"Amistad National Recreation Area",officialSource:"nps.gov/amis",image:"/images/explore/lakes-rivers/amistad-national-recreation-area.jpg"};
+}
 const headers=()=>({"cache-control":"no-cache, no-store, max-age=0",pragma:"no-cache","user-agent":"TexasDefined-NPS-Authority-Acceptance/1.0"});
 
 /** Select real SSR <img> elements, never a metadata URL or script-string match. */
@@ -129,7 +138,7 @@ async function fetchHtml(origin,path,kind){
    if(response.status!==200||response.headers.get("cf-mitigated")==="challenge")throw new Error("HTTP "+response.status+" or edge challenge");
    if(!response.headers.get("content-type")?.includes("text/html"))throw new Error("Not HTML");
    const body=await response.text();
-   const result=kind==="directory"?verifyDirectoryHtml(body):kind==="battlefield"?verifyBattlefieldHtml(body):verifyChamizalHtml(body);
+   const result=kind==="directory"?verifyDirectoryHtml(body):kind==="battlefield"?verifyBattlefieldHtml(body):kind==="amistad"?verifyAmistadHtml(body):verifyChamizalHtml(body);
    if(kind==="chamizal"){
     const images=extractChamizalImageUrls(body,origin);
     await verifyChamizalImage(origin,"hero",images.heroUrl);
@@ -152,11 +161,20 @@ async function verifyPhotoBytes(){
  }
  evidence.checked.push({kind:"official-photo-bytes",photo:photoUrl,status:response.status,mime:type,bytes:bytes.length});
 }
+async function verifyAmistadPhotoBytes(origin){
+ const path="/images/explore/lakes-rivers/amistad-national-recreation-area.jpg";
+ const response=await fetch(new URL(path,origin),{cache:"no-store",redirect:"follow",headers:{...headers(),range:"bytes=0-65535"},signal:AbortSignal.timeout(16000)});
+ if(!response.ok||response.headers.get("cf-mitigated")==="challenge")throw new Error("Amistad exact-site photo HTTP "+response.status+" at "+origin);
+ const mime=(response.headers.get("content-type")||"").toLowerCase(),bytes=new Uint8Array(await response.arrayBuffer());
+ if(!mime.includes("image/jpeg")||bytes.length<1024||bytes[0]!==255||bytes[1]!==216||bytes[2]!==255)throw new Error("Amistad photo does not return valid JPEG bytes at "+origin+" mime="+mime+" length="+bytes.length);
+ evidence.checked.push({kind:"amistad-photo-bytes",origin,path,status:response.status,mime,bytes:bytes.length});
+}
 export async function main(){
  for(const origin of origins){
-  for(const [path,kind] of [["/explore/national-parks","directory"],["/destination/palo-alto-battlefield-national-historical-park","battlefield"],["/destination/chamizal-national-memorial","chamizal"]]){
+  for(const [path,kind] of [["/explore/national-parks","directory"],["/destination/palo-alto-battlefield-national-historical-park","battlefield"],["/destination/chamizal-national-memorial","chamizal"],["/destination/amistad-national-recreation-area","amistad"]]){
    try{await fetchHtml(origin,path,kind);}catch(e){evidence.failures.push(String(e?.message||e));}
   }
+  try{await verifyAmistadPhotoBytes(origin);}catch(e){evidence.failures.push(String(e?.message||e));}
  }
  try{await verifyPhotoBytes();}catch(e){evidence.failures.push(String(e?.message||e));}
  mkdirSync(".artifacts",{recursive:true});
