@@ -12,7 +12,8 @@ export function classifyCorporateSourceStatus(status, finalUrl, error) {
   } catch {
     return { state: 'broken', reason: 'Invalid redirect destination' };
   }
-  if (status >= 200 && status < 400) return { state: 'reachable', reason: null };
+  if (status >= 200 && status < 300) return { state: 'reachable', reason: null };
+  if (status >= 300 && status < 400) return { state: 'manual-review', reason: 'Redirect requires manual review' };
   if (status === 404 || status === 410) return { state: 'broken', reason: 'HTTP ' + status };
   return { state: 'manual-review', reason: 'HTTP ' + status };
 }
@@ -44,7 +45,7 @@ async function checkUrl(url) {
     // crawlers and HEAD requests. Such answers require manual review, not a
     // fabricated claim that their business closed.
     const response = await fetch(url, {
-      method: 'HEAD', redirect: 'follow',
+      method: 'HEAD', redirect: 'manual',
       headers: { 'User-Agent': 'TexasDefined-EditorialSourceCheck/1.0 (+https://texasdefined.com/corrections-policy)' },
       signal: AbortSignal.timeout(timeoutMs),
     });
