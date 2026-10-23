@@ -47,21 +47,58 @@ const schools=slugs.map(slug=>({slug,county:county(slug),model:model(slug)}));
 // Dated, individually sourced 2026 coaching identities. Catch mistaken school data
 // and hydrated UI omissions; don't invent coaching claims for unsettled programs.
 const coachCheckpoints={
-  brady:'Jaron Roberts', breckenridge:'Casey Pearce',
-  'bridge-city':'Josh Smalley', bridgeland:'Lonnie Madison',
-  bridgeport:'Aaron Cupp', brock:'Billy Mathis',
-  brenham:'Danny Youngs', 'brownsville-lopez':'Shaun Tarantola'
+ "brady": "Jaron Roberts",
+ "breckenridge": "Casey Pearce",
+ "bremond": "Jeff Kasowski",
+ "brenham": "Danny Youngs",
+ "bridge-city": "Josh Smalley",
+ "bridgeland": "Lonnie Madison",
+ "bridgeport": "Aaron Cupp",
+ "brock": "Billy Mathis",
+ "bronte": "Julian Helms",
+ "brookesmith": "Blake Hood",
+ "brownfield": "Lawrence Johnson",
+ "brownsboro": "Ryan Hood",
+ "brownsville-hanna": "Mark Guess",
+ "brownsville-lopez": "Shaun Tarantola",
+ "brownsville-pace": "Daniel Pardo",
+ "brownsville-rivera": "Johnny Garza",
+ "brownsville-veterans-memorial": "JC Ramirez",
+ "brownwood": "Jeryl Brixey",
+ "bruceville-eddy": "Marcial Chapa",
+ "bruni": "Federico Lujan",
+ "bryan": "Blake Joseph",
+ "bryan-rudder": "Eric Ezar",
 };
 for(const school of schools){
  const checkpoint=coachCheckpoints[school.slug];
  if(checkpoint)assert.equal(school.model.coach?.name,checkpoint,
   'Dated 2026 Batch007 coach identity/source mismatch for '+school.slug);
 }
+// All 25 Batch 007 schools have authored source-dated game data after PR #5548.
+// An older acceptance exception for Brady/Breckenridge is no longer acceptable.
+const reviewUtcDate=new Date().toISOString().slice(0,10);
 for(const school of schools){
- assert.ok(school.model.faq?.length>=5,'Missing authored school-specific FAQ '+school.slug);
- if(school.model.season)assert.ok(school.model.season.games?.length>=6,'Insufficient school-specific 2026 fixtures '+school.slug);
- else assert.ok(['brady','breckenridge'].includes(school.slug)&&school.model.milestones?.length>=5,'Unexplained missing season or sourced historical program milestones '+school.slug);
+ const m=school.model, games=m.season?.games;
+ assert.ok(m.faq?.length>=5,'Missing authored school-specific FAQ '+school.slug);
+ assert.equal(games?.length,10,'All Batch 007 schools require ten sourced 2026 fixtures '+school.slug);
+ assert.ok(m.season.sourceUrl?.startsWith('https://'),'2026 season source URL absent '+school.slug);
+ assert.ok(m.season.latestResultSourceUrl?.startsWith('https://'),'Latest 2026 reported final evidence missing '+school.slug);
+ const wins=games.filter(g=>/^W\s/.test(g.result||'')).length;
+ const losses=games.filter(g=>/^L\s/.test(g.result||'')).length;
+ const match=m.season.record?.match(/^(\d+)[–-](\d+)/);
+ assert.ok(match&&Number(match[1])===wins&&Number(match[2])===losses,'Reported 2026 W-L disagrees with dated finals '+school.slug);
+ const dates=games.map(g=>g.date);
+ assert.deepEqual(dates,[...dates].sort(),'Batch 007 game dates out of order '+school.slug);
+ assert.equal(new Set(dates).size,dates.length,'Duplicate dated school fixture '+school.slug);
+ for(const game of games){
+  assert.ok(/^2026-\d{2}-\d{2}$/.test(game.date)&&game.opponent,'Invalid fixture date or missing opponent '+school.slug);
+  if(game.result)assert.ok(game.date<=reviewUtcDate&&/^[WLT]\s/.test(game.result),'Future/malformed 2026 completed result '+school.slug);
+ }
+ const questions=m.faq.map(x=>(x.question||'').trim().toLowerCase());
+ assert.equal(new Set(questions).size,questions.length,'Duplicated school-specific FAQ question '+school.slug);
 }
+
 const result={schema:'football-b007-targeted-browser-v2',method:'Production live HTTPS, precisely 25 schools at 1366/390/320 CSS pixels, 25 sitemap entries and reciprocal county links',candidateSha:process.env.GITHUB_SHA||null,productionSha:'not independently identified from HTML',editorialAccepted:false,photoRightsAccepted:false,schools:[],counties:[],sitemap:{status:0,checked:slugs.length,missing:[],error:null},observedWorkerVersions:[],summary:{schoolCases:0,schoolPass:0,schoolFail:0,countyCases:0,countyPass:0,countyFail:0,sitemapPass:0,sitemapFail:0,screenshots:0,graphicScreenshots:0,graphicPass:0,graphicFail:0,countyScreenshots:0,chunkErrors:0}};
 // A complete 25-school browser PASS without discoverable production sitemap URLs
 // is not a valid acceptance. This is one bounded fetch, not a crawl or poll.
