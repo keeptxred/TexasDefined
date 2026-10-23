@@ -16,7 +16,7 @@ function PrivacyPolicyPage() {
           <p className="mt-5 max-w-3xl text-base leading-8 text-muted-foreground">
             This policy explains the information Texas Defined handles when you use the site, submit a form, shop, use interactive tools, or encounter advertising and analytics technologies.
           </p>
-          <p className="mt-4 text-sm text-muted-foreground">Last updated October 15, 2026.</p>
+          <p className="mt-4 text-sm text-muted-foreground">Last updated October 23, 2026.</p>
         </Container>
       </section>
 
@@ -35,6 +35,22 @@ function PrivacyPolicyPage() {
             </p>
             <p className="mt-3">
               The site can also use browser storage and analytics events to support features such as saved shop picks, session measurement, page and resource interaction measurement, search usage, and visits to official external resources. Texas Defined does not describe an analytics or advertising service as active unless it is actually configured on the site.
+            </p>
+          </section>
+
+          <section className="border-t border-border pt-6">
+            <h2 className="font-display text-3xl text-foreground">Company Event Planning and Venue Applications</h2>
+            <p className="mt-4">
+              If you submit a corporate-event planning request, Texas Defined collects the contact name, email, company, event city, group size, event category, and any optional phone number, preferred date, budget, shortlisted venues, or planning notes you choose to supply. We use this information to review your request and contact you about the event planning service.
+            </p>
+            <p className="mt-3">
+              A planning request is not a reservation or a quote request automatically sent to a venue. The requested contact information is stored in an access-restricted internal review system; Texas Defined does not automatically forward the planner&apos;s contact information to listed venues. Additional consent would be required before venue-specific outreach on the planner&apos;s behalf.
+            </p>
+            <p className="mt-3">
+              Business applicants may submit representative contact information, business name, website, group capacity, offered packages, and proposed offer codes and terms. Applications and proposed codes are reviewed internally; submitting an application does not make the contact information or unapproved promotion public. If approved, a limited business offer may be shown publicly with its commercial relationship identified.
+            </p>
+            <p className="mt-3">
+              Please avoid entering sensitive personal information about employees or guests in open-text fields. To inquire about correction or deletion of information submitted through these forms, use the privacy contact instructions below.
             </p>
           </section>
 

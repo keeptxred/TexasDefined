@@ -26,7 +26,12 @@ export const submitGroupEventRequest = createServerFn({ method: 'POST' })
     const validSlugs = new Set(corporateEventProviders.map((provider) => provider.slug));
     const allowedSlugs = [...new Set(data.providerSlugs)].filter((slug) => validSlugs.has(slug));
     if (allowedSlugs.length !== data.providerSlugs.length) throw new Error('Please refresh the page and select venues again.');
-    if (data.eventDate && Number.isNaN(Date.parse(data.eventDate + 'T12:00:00Z'))) throw new Error('Please use a valid event date.');
+    if (data.eventDate) {
+      const { isUpcomingCorporateEventDate } = await import('@/data/corporate-event-dates');
+      if (!isUpcomingCorporateEventDate(data.eventDate)) {
+        throw new Error('Choose a real event date that is today or later in Texas.');
+      }
+    }
 
     const { saveGroupEventRequest } = await import('@/data/corporate-events.server');
     await saveGroupEventRequest({

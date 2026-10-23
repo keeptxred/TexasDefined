@@ -71,7 +71,7 @@ export function GroupEventPartnerApplication() {
             <div className="sm:col-span-2">
               {status === 'error' ? <p role="alert" className="text-sm text-destructive">{error}</p> : null}
               <button disabled={status === 'sending'} type="submit" className="mt-3 min-h-12 w-full bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground disabled:opacity-50">{status === 'sending' ? 'Submitting…' : 'Submit business for review'}</button>
-              <p className="mt-3 text-xs leading-6 text-muted-foreground">Information is stored for internal review. Please see our <a href="/about#privacy-terms" className="underline">privacy terms</a>.</p>
+              <p className="mt-3 text-xs leading-6 text-muted-foreground">Information is stored for internal review. Please see our <a href="/privacy" className="underline">privacy terms</a>.</p>
             </div>
           </form>}
         </div>
