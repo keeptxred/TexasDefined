@@ -18,6 +18,7 @@ import { FootballFanOffers } from "@/components/sports/FootballFanOffers";
 import { articleInternalLinks } from "@/data/article-internal-links";
 import { riverAuthorityLinksForArticleMetadata } from "@/data/river-authority-relations";
 import { isDestinationPhotoPlaceholder } from "@/data/explore-hero-reconciliation";
+import { showSeasonDecision } from "@/data/destination-editorial-relevance";
 import { shouldNoindexTexasGatewayArticle } from "@/data/fixtures/texas-gateway-index-readiness";
 import { imageRightsFor } from "@/data/image-rights";
 import { articleQuery, articlesQuery, authorsQuery, categoriesQuery } from "@/data/queries";
@@ -581,7 +582,7 @@ function ArticlePage() {
       <p className="eyebrow text-primary">{destination.nearestTown || destination.region.replace(/-/g, " ")}</p>
       <h3 className="mt-2 font-display text-2xl"><Link to="/destination/$slug" params={{ slug: destination.slug }} className="hover:text-primary">{destination.name}</Link></h3>
       <p className="mt-3 text-sm leading-7 text-muted-foreground">{destination.summary}</p>
-      {destination.bestSeason && <p className="mt-4 text-xs uppercase tracking-[0.08em] text-muted-foreground">Best season: {destination.bestSeason}</p>}
+      {showSeasonDecision(destination) && <p className="mt-4 text-xs uppercase tracking-[0.08em] text-muted-foreground">Best season: {destination.bestSeason}</p>}
       <Link to="/destination/$slug" params={{ slug: destination.slug }} className="eyebrow mt-5 inline-block border-b border-primary pb-1 text-primary">Explore this place →</Link>
     </article>
   : <DestinationCard destination={destination} />}</li>)}</ul></Container></Section>}
