@@ -25,7 +25,6 @@ on:
       - 'scripts/ci/tax-history-row-contract.test.mjs'
       - '.github/workflows/verify-property-tax-import.yml'
       - '.github/workflows/verify-property-tax-production.yml'
-      - '.github/workflows/verify-property-tax-production.yml'
 
 permissions:
   contents: read

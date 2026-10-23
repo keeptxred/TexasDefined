@@ -215,15 +215,16 @@ add inferred annual figures to satisfy these tests.
 
 ## Independently verifiable tax authority during unrelated deployment failures
 
-The default production deployment already verifies the 15 source-qualified
-local observations, historical Woodlands classification, and both public
-entry points. If the Worker deploy succeeds but an unrelated events or
+The production deployment can conditionally skip its local-financial
+smoke suite when unrelated site routes change. A successful deployment
+alone therefore does not establish that the source-qualified local tax
+observations are displayed correctly on both public entry points. If the Worker deploy succeeds but an unrelated events or
 editorial check subsequently fails, the overall release becomes red even
 though the tax pages may still be available.
 
 The `.github/workflows/verify-property-tax-production.yml` action now
-runs a **read-only, tax-only** verification after a failed main-branch
-production workflow. It also supports `workflow_dispatch` for on-demand
+runs a **read-only, tax-only** verification after both successful and failed
+main-branch production workflows. It also supports `workflow_dispatch` for on-demand
 verification without rebuilding the site. It uses the same existing
 canonical/direct-Worker smoke script, excluding unrelated affordability,
 cost-of-living, salary and sitemap tests. This does not touch Supabase,
@@ -239,15 +240,15 @@ independent tax check.
 
 The separate GitHub workflow `.github/workflows/verify-property-tax-production.yml`
 now runs automatically each day at **10:17 UTC**, as well as on demand and
-after a failed production deployment. The main deployment pipeline may
+after successful or failed main-branch production deployments. The main deployment pipeline may
 legitimately skip local-financial smoke when unrelated routes change;
 a successful build or Cloudflare publish therefore is **not** proof that
-the 15 primary-source local-rate observations are displayed correctly.
+the 16 primary-source local-rate observations are displayed correctly.
 
 This independent read-only workflow checks the **currently served**
 canonical `https://texasdefined.com` and direct
 `texasdefined-site.freddy-coppola.workers.dev` tax-history pages for
-all 15 verified year-specific local observations, source attribution,
+all 16 verified year-specific local observations, source attribution,
 explicit discrepancies and zero-city-tax cautions, evidence notes and
 verification dates, plus the Woodlands classification guard.
 It does not modify tax database records, calculator inputs, or Worker deployments.
