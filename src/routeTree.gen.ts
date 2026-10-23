@@ -1717,14 +1717,13 @@ const CorpusChristiMusicHistoryRoute =
   } as any).lazy(() =>
     import('./routes/corpus-christi-music-history.lazy').then((d) => d.Route),
   )
-const CorporateEventsRoute =
-  CorporateEventsRouteImport.update({
-    id: '/corporate-events',
-    path: '/corporate-events',
-    getParentRoute: () => rootRouteImport,
-  } as any).lazy(() =>
-    import('./routes/corporate-events.lazy').then((d) => d.Route),
-  )
+const CorporateEventsRoute = CorporateEventsRouteImport.update({
+  id: '/corporate-events',
+  path: '/corporate-events',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() =>
+  import('./routes/corporate-events.lazy').then((d) => d.Route),
+)
 const ContinentalClubAustinHistoryRoute =
   ContinentalClubAustinHistoryRouteImport.update({
     id: '/continental-club-austin-history',
