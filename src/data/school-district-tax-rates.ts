@@ -39,9 +39,23 @@ const loadSchoolDistrictTaxRateData = createServerFn({ method: 'GET' }).handler(
   const priorYear = Math.max(2021, year - 1);
 
   const loadYear = async (targetYear: number) => {
-    const { data, error } = await db.from('texas_property_tax_rates').select('*').eq('year', targetYear).eq('type', 'school-district').order('name', { ascending: true });
-    if (error) throw error;
-    const rows = data ?? [];
+    // PostgREST defaults to a 1,000-row response cap; the finalized Texas
+    // school-district workbook contains over 1,000 records. Fetch every row,
+    // including those beyond the initial page, before publishing/CSV export.
+    // A stable unique ID ordering prevents dropped or duplicated districts.
+    const pageSize = 1000;
+    const rows: any[] = [];
+    for (let offset = 0; offset < 3000; offset += pageSize) {
+      const { data, error } = await db.from('texas_property_tax_rates')
+        .select('*').eq('year', targetYear).eq('type', 'school-district')
+        .order('id', { ascending: true }).range(offset, offset + pageSize - 1);
+      if (error) throw error;
+      const page = data ?? [];
+      rows.push(...page);
+      if (page.length < pageSize) break;
+      if (rows.length >= 3000) throw new Error('School district rate inventory exceeded the safety page limit');
+    }
+    if (new Set(rows.map((row) => row.id)).size !== rows.length) throw new Error('Duplicate school district tax records in paginated source');
     return { records: rows.map((row: any) => mapTaxRateRow(row)), generatedAt: rows.reduce((latest: string | null, row: any) => !latest || row.imported_at > latest ? row.imported_at : latest, null) };
   };
 
