@@ -118,7 +118,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
             }],
             publishingPrinciples: `${siteUrl}/editorial-policy`,
             areaServed: { "@type": "State", name: "Texas" },
-            knowsAbout: ["Texas travel", "Texas destinations", "Texas history", "Texas events", "Texas sports", "Texas sports venues", "Texas fishing"],
+            knowsAbout: ["Texas travel", "Texas history", "Texas events", "Texas sports", "Texas fishing", "Texas fishing lakes", "Texas freshwater fish"],
           },
           {
             "@type": "WebSite",
