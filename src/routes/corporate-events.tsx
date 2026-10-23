@@ -9,7 +9,7 @@ export const Route = createFileRoute('/corporate-events')({
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath,
       title: 'Texas Corporate Events & Team Building Finder',
-      description: 'Compare sourced Houston group activities and corporate venues by headcount, event type and budget. Build a team shortlist and share a proposal.',
+      description: 'Compare sourced Texas group activities and corporate venues in Houston, Dallas–Fort Worth, Austin and San Antonio by headcount, event type and budget. Build a team shortlist and share a proposal.',
     }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
   }),
