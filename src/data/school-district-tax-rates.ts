@@ -3,6 +3,8 @@ import { createServerFn } from '@tanstack/react-start';
 export type SchoolDistrictTaxRateRow = {
   name: string;
   slug: string;
+  /** Official school-district county-district number, when unambiguous in Comptroller IDs. */
+  officialCdn: string | null;
   countySlugs: string[];
   rate: number | null;
   priorRate: number | null;
@@ -60,9 +62,13 @@ const loadSchoolDistrictTaxRateData = createServerFn({ method: 'GET' }).handler(
     officialCorrectionCount: current.records.filter((record) => record.sourceUrl !== sourceWorkbook).length,
     rows: current.records.map((record) => {
       const previous = priorBySlug.get(record.slug);
+      const cdns = [...new Set(record.officialTaxingUnitIds
+        .map((id) => id.match(/^(\d{3}-\d{3}-02)(?:-|$)/)?.[1] ?? null)
+        .filter((value): value is string => value !== null))];
       return {
         name: record.name,
         slug: record.slug,
+        officialCdn: cdns.length === 1 ? cdns[0] : null,
         countySlugs: record.countySlugs,
         rate: record.totalRate,
         priorRate: previous?.totalRate ?? null,
