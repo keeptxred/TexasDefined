@@ -17,7 +17,7 @@ type PartnerSearch = {
 function sanitizePartnerSource(value: unknown) {
   if (typeof value !== 'string') return canonicalPath;
   if (value === '/sports-venues' || value === '/things-unique-to-texas/texas-brands') return value;
-  if (/^\/(?:sports-venue|events?)\/[a-z0-9-]+$/.test(value)) return value;
+  if (/^\/sports-venue\/[a-z0-9-]+$/.test(value)) return value;
   return canonicalPath;
 }
 
