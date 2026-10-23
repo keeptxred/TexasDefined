@@ -187,6 +187,23 @@ const currentVisitNotes = fs.readFileSync('src/data/historic-site-depth-all.ts',
 for (const slug of ['old-socorro-mission', 'caddo-mounds-state-historic-site', 'fanthorp-inn', 'landmark-inn', 'fort-griffin', 'barrington-living-history-farm', 'fort-mckavett', 'fort-lancaster', 'mission-dolores', 'acton-state-historic-site', 'goodnight-ranch', 'french-legation', 'fannin-battleground', 'kreische-brewery', 'confederate-reunion-grounds']) {
   if (!currentVisitNotes.includes(`"${slug}": {`)) failures.push(`Missing site-specific current visitor/access guidance: ${slug}`);
 }
+for (const slug of [
+  'sam-bell-maxey-house', 'starr-family-home',
+  'port-isabel-lighthouse', 'palmito-ranch-battlefield',
+]) {
+  if (!currentVisitNotes.includes(`"${slug}": {`)) {
+    failures.push(`Missing reviewed visiting guidance for historic-site wave 2: ${slug}`);
+  }
+}
+for (const sourceUrl of [
+  'https://thc.texas.gov/state-historic-sites/port-isabel-lighthouse/plan-your-visit-port-isabel-lighthouse',
+  'https://thc.texas.gov/state-historic-sites/palmito-ranch-battlefield/palmito-ranch-battlefield-history',
+]) if (!fullAuthorityFile.includes(sourceUrl)) {
+  failures.push(`Historic authority missing linked second-wave official evidence: ${sourceUrl}`);
+}
+for (const caution of ['75 winding stairs', 'three short ladders', 'no staffed services']) {
+  if (!currentVisitNotes.includes(caution)) failures.push(`Second-wave visitor constraints missing: ${caution}`);
+}
 if (!fullAuthorityFile.includes('oldSocorroHistoryItineraries') || !fullAuthorityFile.includes('closedSiteItineraries')) {
   failures.push('Closed First Capitol and Old Socorro must not receive ordinary public-access itineraries.');
 }
@@ -605,7 +622,7 @@ const fortTimeline = fs.readFileSync('src/data/historic-site-authority-timelines
 const fortImageProvenance = fs.readFileSync('docs/historic-sites/IMAGE_PROVENANCE.md', 'utf8');
 for (const [area, input, markers] of [
   ['visitor depth', fortDepth, ['8 a.m.–5 p.m.', '8 a.m.–4 p.m.', 'family admission $8', '$5 golf-cart']],
-  ['resolved destination details', visitDepth, ['7066 FM 864', 'sourceCheckedAt: destination.slug === "fort-mckavett" ? "2026-10-17"']],
+  ['resolved destination details', visitDepth, ['7066 FM 864', 'destination.slug === "fort-mckavett" ? "2026-10-17"']],
   ['historical interpretation', fortAuthority, ['Sgt. Emanuel Stance', 'laundresses', '1973', 'fort-mckavett-history']],
   ['historical timeline', fortTimeline, ['1859–April 1862', '1968–1973', 'fort-mckavett-history']],
   ['image provenance', fortImageProvenance, ['## 7. Fort McKavett', 'SimpleeRandom', 'CC0 1.0', 'File:Fort_McKavett,_Texas.jpg']],

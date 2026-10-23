@@ -309,13 +309,13 @@ const SITE_VISIT_PROFILES: Record<string, Pick<DestinationEditorialAssessment, "
     "physicalEffort": "Low",
     "weatherExposure": "Fully outdoors",
     "planningLevel": "Moderate",
-    "recommendedVisit": "This is a remote landscape-and-marker visit; use reliable directions, water and historical maps rather than expecting staffed indoor exhibits."
+    "recommendedVisit": "There are no staffed services, toilets, ticket desk or visitor center. Consult THC's 1864/1865 battle history, roadside markers, two Fish and Wildlife Service interpretive viewing platforms, and the 1610 AM recorded guide where available. Confirm refuge access and bring water."
   },
   "port-isabel-lighthouse": {
     "physicalEffort": "Moderate to high",
     "weatherExposure": "Mostly outdoors",
     "planningLevel": "Moderate",
-    "recommendedVisit": "A tower climb is physically different from viewing the lighthouse at ground level; verify whether climbing is permitted and consider stair tolerance."
+    "recommendedVisit": "Climb only if physically able to manage 75 winding stairs and three short ladders. Tower access is weather-dependent, children must be age five or older and may not be carried, and the visitor center has separate hours. Budget 1–1.5 hours if combining keeper's-cottage interpretation and a climb."
   },
   "sabine-pass-battleground": {
     "physicalEffort": "Low",
@@ -407,6 +407,13 @@ function authoritySources(officialUrl: string, siteName: string): DestinationAut
     ],
     "varner-hogg-plantation": [
       {label:"THC — Varner-Hogg public tours, group bookings and accessible spaces",url:"https://thc.texas.gov/state-historic-sites/varner-hogg-plantation/plan-your-visit-varner-hogg-plantation",scope:"90-minute self-guided visit, four-week adult group reservation, accessible outbuildings and entrance steps to the main house."},
+    ],
+    "port-isabel-lighthouse": [
+      { label: "THC — Port Isabel Lighthouse visit and climb requirements", url: "https://thc.texas.gov/state-historic-sites/port-isabel-lighthouse/plan-your-visit-port-isabel-lighthouse", scope: "Current visitor center and seasonal tower times, 75 stairs and three ladders, guardian and age-five rules, weather closures and distinct group-booking requirements." },
+      { label: "THC — Port Isabel Lighthouse history", url: "https://thc.texas.gov/state-historic-sites/port-isabel-lighthouse/port-isabel-lighthouse-history", scope: "1852 maritime navigation, 1905 decommissioning, Keeper's Cottage reconstruction, 2022 lighting and historic preservation." },
+    ],
+    "palmito-ranch-battlefield": [
+      { label: "THC — Palmito Ranch Battlefield history", url: "https://thc.texas.gov/state-historic-sites/palmito-ranch-battlefield/palmito-ranch-battlefield-history", scope: "May 12–13, 1865 chronology, the Union and Confederate commands, earlier border conflict and the aftermath of surrender." },
     ],
     "starr-family-home": [
       {label:"THC — Starr Family Home public tours, grounds and accessibility",url:"https://thc.texas.gov/state-historic-sites/starr-family-home/plan-your-visit-starr-family-home",scope:"Thirty-minute self-guided visits, 45-minute guided tours, two-week group reservations, free grounds panels and inaccessible second floor."},
