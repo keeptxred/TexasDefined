@@ -161,9 +161,7 @@ function RootComponent() {
     let active = true;
     let cleanup: (() => void) | undefined;
     let installed = false;
-    let analyticsPromise: Promise<typeof import("@/platform/analytics")> | undefined;
-
-    const loadAnalytics = () => analyticsPromise ??= import("@/platform/analytics");
+    const loadAnalytics = () => import("@/platform/analytics");
 
     const ensureAnalyticsInstalled = async () => {
       const analytics = await loadAnalytics();
