@@ -469,6 +469,14 @@ test('destination route article links never masquerade as destination pages in p
     'combining route and published fixture must not reintroduce the phantom destination');
 });
 
+test('standalone Article fixture smoke uses declared canonical slug instead of filename', () => {
+  const path = 'src/data/fixtures/chip-joanna-gaines-magnolia-waco.ts';
+  const after = 'export const magnoliaArticle: Article = { slug: "chip-and-joanna-gaines-magnolia-waco", title: "Magnolia", body: [] };';
+  const plan = buildChangePlan({ baseline, head, changedFiles: [path], sources: { [path]: { before: '', after } } });
+  assert.deepEqual(plan.selectedPaths, ['/article/chip-and-joanna-gaines-magnolia-waco']);
+  assert.ok(!plan.selectedPaths.includes('/destination/chip-and-joanna-gaines-magnolia-waco'));
+});
+
 test('standalone article fixture edits select the owner, not generic homepage samples', async () => {
   const path = 'src/data/fixtures/texas-regions-explained.ts';
   const before = 'export const texasRegionsExplainedArticle: Article = { slug: "texas-regions-explained", body: [] };';
