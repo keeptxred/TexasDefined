@@ -6,6 +6,17 @@ type ResourceGroup = { title: string; links: ReadonlyArray<readonly [string, str
 
 const description = 'A practical starting point for moving, driving, buying and owning a home, finding Texas state agencies and navigating everyday life across the state.';
 
+const popularTasks: ReadonlyArray<readonly [string,string,string]> = [
+  ['Driver license and ID','/texas-drivers-license','Renew, replace and understand Texas license and ID requirements.'],
+  ['Vehicle registration','/texas-vehicle-registration','Registration, renewal and the appropriate county office.'],
+  ['Find my county','/find-my-county','Identify a county from an address before looking up local offices.'],
+  ['Find my school district','/find-my-school-district','Find the public school district associated with an address.'],
+  ['Property taxes','/decide/property-taxes','Research rates, exemptions and local filing paths.'],
+  ['Start a business','/start-a-business-in-texas','Understand Texas business registration and tax-account basics.'],
+  ['Moving to Texas','/moving-to-texas','Organize the practical stages of relocation.'],
+  ['Find my DMV office','/find-my-dmv','Find the right place for a vehicle-service task.'],
+];
+
 const groups: ReadonlyArray<ResourceGroup> = [
   {
     title: 'Everyday Texas services',
@@ -133,6 +144,18 @@ function Page() {
           <p className="eyebrow text-primary">How to use this page</p>
           <p className="mt-3">Start with the task in front of you. These Texas Defined guides connect practical explanations with reference pages for the state agencies, official offices and records that matter when details need verification.</p>
         </aside>
+        <section className="mt-9" aria-labelledby="texas-resources-popular">
+          <h2 id="texas-resources-popular" className="font-display text-3xl">Common Texas tasks</h2>
+          <p className="mt-2 max-w-3xl text-sm leading-7 text-muted-foreground">Start with the action you need to take, then follow the linked guide to confirm details with the appropriate official agency.</p>
+          <div className="mt-5 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            {popularTasks.map(([label,to,detail]) => (
+              <Link key={to} to={to} className="group border border-border bg-surface p-5 hover:border-primary">
+                <h3 className="font-display text-xl group-hover:text-primary">{label} →</h3>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">{detail}</p>
+              </Link>
+            ))}
+          </div>
+        </section>
         <div className="mt-8 divide-y divide-border">
           {groups.map((group, groupIndex) => (
             <section key={group.title} className="grid gap-7 py-10 lg:grid-cols-[15rem_1fr]">
