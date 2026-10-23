@@ -98,7 +98,7 @@ const additions: Record<string, ArticleInternalLink[]> = {
     { href: "/event/galaxy-lights-space-center-houston", label: "Galaxy Lights" },
     { href: "/event/concho-christmas-tour-of-lights", label: "Concho Christmas Lights" },
     { href: "/event/main-street-bethlehem-burnet", label: "Main Street Bethlehem" },
-    { href: "/event/gaylord-texan-ice-harry-potter", label: "Gaylord Texan ICE! 2026" },
+    { href: "/event/gaylord-texan-ice", label: "Gaylord Texan ICE! 2026" },
     { href: "/event/grand-prairie-prairie-lights", label: "Grand Prairie Prairie Lights" },
     { href: "/event/moody-gardens-holiday-in-the-gardens", label: "Moody Gardens Holiday in the Gardens" },
     { href: "/event/grapevine-north-pole-express", label: "Grapevine North Pole Express" },
