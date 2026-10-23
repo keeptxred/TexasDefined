@@ -13,6 +13,8 @@ const registry = read("src/data/major-event-supplemental-registry.server.ts");
 const hubLinks = read("src/data/fixtures/seasonal-authority-links.ts");
 const majorIndex = read("src/data/major-event-index.ts");
 const candidates = JSON.parse(read("src/data/events/christmas-candidates-250.json"));
+const partnerRoute = read("src/routes/partner-with-us.tsx");
+const monetizationPolicy = read("docs/holidays/christmas-2026-monetization.md");
 const schemaRegistry = read("src/data/major-event-schema-enrichment.server.ts");
 const schemaBatch = read("src/data/major-event-schema-enrichment-batch33.server.ts");
 
@@ -70,7 +72,7 @@ for (const [file, source, required] of [
   ["hotel affiliate disclosure", page, "Affiliate disclosure: TexasDefined may earn a commission"],
   ["hotel affiliate sponsored link", page, 'data-affiliate-placement="christmas-hub-hotel-search"'],
   ["Viator affiliate sponsored link", page, 'data-affiliate-placement="christmas-community-nearby-experiences"'],
-  ["business sponsorship CTA", page, 'href="/partner-with-us"'],
+  ["business sponsorship CTA", page, 'href="/partner-with-us?type=brand-retail'],
   ["premerge validation", premerge, "validate-christmas-community-2026.mjs"],
 ]) assert.ok(source.includes(required), `${file}: missing ${required}`);
 
@@ -126,7 +128,16 @@ assert.equal(
   250, "Every submitted Christmas candidate must be accounted for",
 );
 assert.ok(candidates.reconciliation.remainingCandidates > 0, "Do not auto-verify all holiday candidates without sources");
-assert.ok(events.length >= 64, "Dated Christmas inventory shrank unexpectedly");
+assert.ok(events.length >= 82, "Dated Christmas inventory shrank unexpectedly");
+assert.ok(collection.includes('"San Antonio": "san-antonio"'), "Source-approved San Antonio holiday experience referral missing");
+assert.ok(collection.includes('"Austin": "austin"'), "Source-approved Austin holiday experience referral missing");
+assert.ok(collection.includes('"Dallas": "dallas"'), "Source-approved Dallas holiday experience referral missing");
+assert.ok(collection.includes('"Galveston": "galveston"'), "Source-approved Galveston holiday experience referral missing");
+assert.ok(collection.includes("christmasOfferCities.has(event.city)"), "Avoid repeated city-level affiliate links on calendar cards");
+assert.ok(page.includes("source=%2Fevents%2Fchristmas-events"), "Seasonal advertiser inquiry must retain Christmas origin");
+assert.ok(partnerRoute.includes('(?:event|events)'), "Event advertiser source tracking must accept approved event route paths");
+assert.ok(!page.includes("adsbygoogle"), "Do not activate unapproved AdSense units in Christmas pages");
+assert.ok(monetizationPolicy.includes("AdSense is not approved"), "Ads approval status must remain documented");
 assert.ok(schemaRegistry.includes("...majorEventSchemaEnrichmentBatch33,"), "Reviewed Christmas organizer schema batch missing from runtime registry");
 assert.ok(adapter.includes("getMajorEventOccurrenceWindowsServer(authority)"), "Date-scoped seasonal guides must not pad closed nights");
 assert.ok(read("src/data/major-event-expanded-authority-tranche57.server.ts").includes('label: "After Dec 9 closure"'), "Houston Zoo Lights holiday closures must remain excluded");
@@ -138,5 +149,5 @@ check("amarillo-electric-light-parade", "2026-12-04");
 check("richardson-santas-village-week1", "2026-12-05", "2026-12-06");
 check("richardson-santas-village-week2", "2026-12-11", "2026-12-13");
 check("richardson-santas-village-week3", "2026-12-18", "2026-12-20");
-console.log(`Christmas calendar and five authority guides verified: ${events.length} dated occurrences, 250 candidates reconciled, affiliate disclosures, county crosslinks and premerge gate.`);
+console.log(`Christmas calendar and five authority guides verified: ${events.length} dated occurrences, 250 candidates reconciled, approved city-level affiliate inventory, direct sponsorship origins and no AdSense ads.`);
 
