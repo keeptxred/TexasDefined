@@ -63,3 +63,24 @@ jobs:
       - name: Validate published Texas Data hub and all four CSV exports
         if: steps.texas_data_scope.outputs.changed == 'yes'
         run: node scripts/ci/verify-texas-data-production.mjs
+
+      - name: Detect scoped Zapata museum authority changes
+        id: zapata_museum_scope
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --name-only HEAD^ HEAD -- \
+            src/components/editorial/ZapataCountyMuseumAuthority.tsx \
+            src/data/museum-expansion-statewide-wave9.ts \
+            'src/routes/destination.$slug.tsx' \
+            public/images/zapata-county-museum-history-editorial.svg \
+            scripts/ci/verify-zapata-museum-production.mjs \
+            .github/workflows/texasdefined-publication-production-smoke.yml | grep -q .; then
+            echo 'changed=yes' >> "$GITHUB_OUTPUT"
+          else
+            echo 'changed=no' >> "$GITHUB_OUTPUT"
+            echo 'Zapata museum untouched; optional live smoke skipped.'
+          fi
+      - name: Verify scoped Zapata museum live authority
+        if: steps.zapata_museum_scope.outputs.changed == 'yes'
+        run: node scripts/ci/verify-zapata-museum-production.mjs
