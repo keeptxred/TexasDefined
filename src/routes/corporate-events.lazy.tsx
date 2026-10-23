@@ -6,6 +6,7 @@ import { Container } from '@/components/layout/Container';
 import { corporateEventCategories, corporateEventProviders, type GroupEventCategory, type CorporateEventProvider } from '@/data/corporate-events';
 import { submitGroupEventRequest } from '@/data/corporate-events.functions';
 import { GroupEventPartnerApplication } from '@/components/events/GroupEventPartnerApplication';
+import { ApprovedCorporateEventOffers } from '@/components/events/ApprovedCorporateEventOffers';
 
 const categoryLabel = (id: GroupEventCategory) => corporateEventCategories.find((item) => item.value === id)?.label ?? id;
 const dollars = (value: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(value);
@@ -257,6 +258,8 @@ function CorporateEventsPage() {
         </> : <div className="mt-6 border border-dashed border-border bg-background p-6 text-sm text-muted-foreground">Choose Compare on any listing to add it to your shortlist. You can also send a planning request below without choosing venues.</div>}
       </Container>
     </section>
+
+    <ApprovedCorporateEventOffers />
 
     <section id="planning-request" className="scroll-mt-24">
       <Container className="py-12 sm:py-16">
