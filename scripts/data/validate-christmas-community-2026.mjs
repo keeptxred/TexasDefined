@@ -9,9 +9,9 @@ const page = read("src/routes/events.$collection.tsx");
 const premerge = read("scripts/ci/run-premerge-validation.mjs");
 
 const start = eventFile.indexOf("const verifiedOccurrences");
-const end = eventFile.indexOf("\n\nfunction texasTodayIso", start);
+const end = eventFile.indexOf("\n];", start);
 assert.ok(start >= 0 && end > start, "Source-qualified Christmas manifest was not found");
-const json = eventFile.slice(eventFile.indexOf("= [", start) + 2, eventFile.lastIndexOf(";", end)).trim();
+const json = eventFile.slice(eventFile.indexOf("= [", start) + 2, end + 2).trim();
 const events = JSON.parse(json);
 assert.ok(events.length >= 30, "A verified community Christmas event wave is missing");
 assert.equal(events.length, new Set(events.map((event) => event.slug)).size, "Duplicate Christmas community slugs");
