@@ -11,7 +11,7 @@ function visibleText(html) {
     .replace(/\s+/g, ' ').trim();
 }
 
-export function checkYearSpecificTaxRateRow(html, { year, rate, agency, conflict = false, statewideRate = null }) {
+export function checkYearSpecificTaxRateRow(html, { year, rate, agency, conflict = false, corroborated = false, statewideRate = null }) {
   const anchor=html.indexOf('Annual tax rates, with source distinctions');
   if(anchor<0)return {ok:false,reason:'historical rate table heading missing'};
   const table=html.slice(anchor).match(/<table\b[^>]*>([\s\S]*?)<\/table>/i)?.[1];
@@ -42,8 +42,9 @@ export function checkYearSpecificTaxRateRow(html, { year, rate, agency, conflict
   } else {
     if(row[1]!==String(rate))
       return {ok:false,reason:'year-specific displayed total rate '+row[1]+' does not match verified '+rate};
-    if(!row[4].includes('Locally verified; absent from statewide file.'))
-      return {ok:false,reason:'year-specific local supplement was not labeled'};
+    const label = corroborated ? 'Locally corroborated.' : 'Locally verified; absent from statewide file.';
+    if(!row[4].includes(label))
+      return {ok:false,reason:'year-specific local source classification was not labeled as ' + label};
   }
   return {ok:true,reason:null};
 }
