@@ -23,7 +23,7 @@ const ErrorScreen = lazy(() => import("@/components/RouteStatusScreens").then((m
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const defaultSocialImage = absoluteUrl(texasDefinedBrand, heroHillCountry);
-const defaultSocialImageAlt = "Hill Country landscape";
+const defaultSocialImageAlt = "Texas Hill Country";
 const iconVersion = "20261010";
 const googleTagManagerId = "GTM-5DK7GCGV";
 const googleTagManagerHosts = JSON.stringify(TEXASDEFINED_ANALYTICS_HOSTS);
@@ -113,7 +113,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
             sameAs: texasDefinedBrand.identity.social.map((profile) => profile.href),
             contactPoint: [{
               "@type": "ContactPoint",
-              contactType: "editorial, corrections and general inquiries",
+              contactType: "editorial and corrections",
               url: `${siteUrl}/partner-with-us`,
             }],
             publishingPrinciples: `${siteUrl}/editorial-policy`,
