@@ -1032,21 +1032,6 @@ function FootballIdentityPanel({
         className="relative overflow-hidden border border-border bg-foreground text-background"
         style={accentHex ? { minHeight: 240, borderTopWidth: 6, borderTopColor: accentHex } : { minHeight: 240, borderTopWidth: 6 }}
       >
-        <svg
-          aria-hidden="true"
-          viewBox="0 0 640 360"
-          className="absolute inset-0 h-full w-full" style={{ opacity: 0.2 }}
-          preserveAspectRatio="xMidYMid slice"
-        >
-          <rect width="640" height="360" fill="currentColor" opacity="0.06" />
-          {Array.from({ length: 11 }, (_, index) => {
-            const x = 20 + index * 60;
-            return <line key={x} x1={x} x2={x} y1="24" y2="336" stroke="currentColor" strokeWidth="2" />;
-          })}
-          <line x1="20" x2="620" y1="180" y2="180" stroke="currentColor" strokeWidth="4" />
-          <rect x="20" y="24" width="600" height="312" fill="none" stroke="currentColor" strokeWidth="4" />
-          <circle cx="320" cy="180" r="54" fill="none" stroke="currentColor" strokeWidth="3" />
-        </svg>
         <div className="relative flex flex-col justify-between p-6" style={{ minHeight: 240 }}>
           <p className="text-xs font-semibold uppercase tracking-[0.12em] text-background">TexasDefined football profile</p>
           <div>
@@ -1060,7 +1045,7 @@ function FootballIdentityPanel({
         </div>
       </div>
       <figcaption className="mt-2 text-xs leading-5 text-muted-foreground">
-        Original TexasDefined field graphic. No school logo, mascot artwork or school-owned photograph is reproduced.
+        Original TexasDefined typographic football identity panel. No school logo, mascot artwork or school-owned photograph is reproduced.
       </figcaption>
     </figure>
   );
