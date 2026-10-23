@@ -387,6 +387,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The 47th annual Grapevine Parade of Lights runs Thursday, December 3 at 7 p.m. along Main Street. Check the parade route, traffic closures and parking guidance; this is a distinct scheduled parade inside Grapevine's broader Christmas Capital season."
   },
   {
+    "slug": "jefferson-candlelight-tour-dec3",
+    "title": "Jefferson Candlelight Tour of Homes · first weekend",
+    "city": "Jefferson",
+    "region": "piney-woods",
+    "countySlug": "marion",
+    "countyName": "Marion County",
+    "startDate": "2026-12-03",
+    "endDate": "2026-12-05",
+    "venueName": "Historic Jefferson tour homes",
+    "officialEventUrl": "https://jeffersoncandlelight.com/",
+    "sourceName": "Historic Jefferson Foundation / Candlelight Tour",
+    "summary": "A ticketed self-guided tour of historic Jefferson homes with dates December 3–5. Thursday hours 3–7 p.m.; Friday and Saturday 4–8 p.m. Tickets work on any operating date, but homes and checkout conditions should be verified."
+  },
+  {
     "slug": "fort-worth-north-pole-express-dec3",
     "title": "North Pole Express · special Fort Worth Stockyards departures",
     "city": "Fort Worth",
@@ -441,6 +455,33 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "One of four published Winter Lightfest operating windows, December 4–6. This is a ticketed walk-through, not a nightly all-December display."
   },
   {
+    "slug": "amarillo-electric-light-parade",
+    "title": "Amarillo Center City Electric Light Parade",
+    "city": "Amarillo",
+    "region": "panhandle",
+    "countySlug": "potter",
+    "countyName": "Potter County",
+    "startDate": "2026-12-04",
+    "venueName": "Downtown Amarillo · Polk Street",
+    "officialEventUrl": "https://centercity.org/lightparade/",
+    "sourceName": "Center City of Amarillo",
+    "summary": "The 2026 Center City Electric Light Parade begins December 4 at 6 p.m., traveling Polk Street from 11th Avenue to 4th Avenue. Theme: Christmas on Route 66."
+  },
+  {
+    "slug": "amarillo-civic-holiday-market",
+    "title": "Amarillo Civic Holiday Market",
+    "city": "Amarillo",
+    "region": "panhandle",
+    "countySlug": "potter",
+    "countyName": "Potter County",
+    "startDate": "2026-12-04",
+    "endDate": "2026-12-06",
+    "venueName": "Santa Fe Depot pavilion",
+    "officialEventUrl": "https://centercity.org/lightparade/",
+    "sourceName": "Center City of Amarillo",
+    "summary": "A three-day outdoor holiday market at the Santa Fe Depot pavilion accompanies downtown Amarillo's electric light parade: December 4–6 with paid adult admission and free admission for children 12 and under."
+  },
+  {
     "slug": "brenham-christmas-stroll-parade",
     "title": "Brenham Christmas Stroll and Lighted Parade · first weekend",
     "city": "Brenham",
@@ -453,6 +494,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "sourceName": "City of Brenham",
     "summary": "December 4–5 shopping and markets culminate in the lighted downtown parade at 6 p.m. Saturday December 5; some Breakfast with Santa sessions require reservations.",
     "endDate": "2026-12-05"
+  },
+  {
+    "slug": "san-angelo-christmas-old-fort-concho",
+    "title": "Christmas at Old Fort Concho",
+    "city": "San Angelo",
+    "region": "prairies-lakes",
+    "countySlug": "tom-green",
+    "countyName": "Tom Green County",
+    "startDate": "2026-12-04",
+    "endDate": "2026-12-06",
+    "venueName": "Fort Concho National Historic Landmark",
+    "officialEventUrl": "https://www.sanangelo.gov/299/Christmas-at-Old-Fort-Concho",
+    "sourceName": "City of San Angelo",
+    "summary": "December 4–6 holiday living-history festival at Old Fort Concho, including reenactors, crafts, period traders and indoor markets. Daily operating times differ: Friday 3–8 p.m., Saturday 9 a.m.–7 p.m., Sunday 11 a.m.–4 p.m."
   },
   {
     "slug": "cleburne-whistle-stop-parade",
@@ -496,6 +551,32 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The organizer confirms trains on every date December 4–23, with varied boarding times. December 3 departures instead use Fort Worth Stockyards Station; December 24–25 have no service."
   },
   {
+    "slug": "greenville-christmas-parade-of-lights",
+    "title": "Greenville Christmas Parade of Lights",
+    "city": "Greenville",
+    "region": "prairies-lakes",
+    "countySlug": "hunt",
+    "countyName": "Hunt County",
+    "startDate": "2026-12-04",
+    "venueName": "Downtown Greenville · Lee and Washington streets",
+    "officialEventUrl": "https://www.greenvilletx.gov/986/Christmas-Parade",
+    "sourceName": "City of Greenville",
+    "summary": "The city confirms Friday December 4 at 6 p.m. for the 2026 Christmas Parade of Lights, a lighted downtown parade with floats, bands and Santa; street closure and viewing arrangements may change."
+  },
+  {
+    "slug": "lufkin-christmas-in-the-pines-friday",
+    "title": "Lufkin Christmas in the Pines · opening evening",
+    "city": "Lufkin",
+    "region": "piney-woods",
+    "countySlug": "angelina",
+    "countyName": "Angelina County",
+    "startDate": "2026-12-04",
+    "venueName": "Downtown Lufkin",
+    "officialEventUrl": "https://www.lufkintexas.org/2026/07/27/lufkin-announces-2026-theme-for-lufkins-lighted-christmas-parade/",
+    "sourceName": "Lufkin/Angelina County Chamber of Commerce",
+    "summary": "Christmas in the Pines begins Friday December 4 with the Lighting of Rudolph the Red-Nosed Pumping Unit in downtown Lufkin. The annual lighted Christmas Parade is scheduled separately for Saturday December 5."
+  },
+  {
     "slug": "salado-christmas-stroll-first",
     "title": "Salado Christmas Stroll · first weekend",
     "city": "Salado",
@@ -535,6 +616,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "sourceName": "Visit Fredericksburg",
     "summary": "Christmas Pyramid and tree-lighting countdown each evening at Marktplatz. December 4 and December 31 are exceptions, so they are excluded from this calendar window.",
     "endDate": "2026-12-30"
+  },
+  {
+    "slug": "lufkin-christmas-lighted-parade",
+    "title": "Lufkin Lighted Christmas Parade",
+    "city": "Lufkin",
+    "region": "piney-woods",
+    "countySlug": "angelina",
+    "countyName": "Angelina County",
+    "startDate": "2026-12-05",
+    "venueName": "Downtown Lufkin",
+    "officialEventUrl": "https://www.lufkintexas.org/2026/07/27/lufkin-announces-2026-theme-for-lufkins-lighted-christmas-parade/",
+    "sourceName": "Lufkin/Angelina County Chamber of Commerce",
+    "summary": "The 2026 'Red, White & Bright' downtown Lufkin illuminated parade takes place Saturday December 5 during Christmas in the Pines weekend. Check official parade route and time before traveling."
   },
   {
     "slug": "richardson-santas-village-week1",
@@ -577,6 +671,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.dallaszoo.com/event/lights/",
     "sourceName": "Dallas Zoo",
     "summary": "The Zoo lists December 9–13 as ticketed 5:30–9 p.m. light-show nights. The event is not scheduled December 7–8."
+  },
+  {
+    "slug": "jefferson-candlelight-tour-dec10",
+    "title": "Jefferson Candlelight Tour of Homes · second weekend",
+    "city": "Jefferson",
+    "region": "piney-woods",
+    "countySlug": "marion",
+    "countyName": "Marion County",
+    "startDate": "2026-12-10",
+    "endDate": "2026-12-12",
+    "venueName": "Historic Jefferson tour homes",
+    "officialEventUrl": "https://jeffersoncandlelight.com/",
+    "sourceName": "Historic Jefferson Foundation / Candlelight Tour",
+    "summary": "The second verified home-tour window is December 10–12, not the intervening weekdays. Thursday viewing 3–7 p.m.; Friday and Saturday 4–8 p.m. Check official visitor instructions and house access."
   },
   {
     "slug": "san-marcos-sights-sounds-week2",
@@ -718,6 +826,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The final confirmed Winter Lightfest 2026 operating window is December 18–23; it does not run on December 24–25. Gates open at 5:30 p.m. and the walking trail is ticketed."
   },
   {
+    "slug": "san-angelo-ewetide-christmas",
+    "title": "Ewetide Christmas in Downtown San Angelo",
+    "city": "San Angelo",
+    "region": "prairies-lakes",
+    "countySlug": "tom-green",
+    "countyName": "Tom Green County",
+    "startDate": "2026-12-18",
+    "endDate": "2026-12-20",
+    "venueName": "Bart Dewitt Park · Downtown San Angelo",
+    "officialEventUrl": "https://www.downtownsanangelo.com/ewetide-christmas",
+    "sourceName": "Downtown San Angelo",
+    "summary": "A separately scheduled downtown December 18–20 holiday festival, 2–9 p.m., featuring skating, cocoa, glowing displays and live reindeer. Ticketing details remain subject to organizer announcement."
+  },
+  {
     "slug": "richardson-santas-village-week3",
     "title": "Richardson Santa's Village · December 18–20",
     "city": "Richardson",
@@ -773,7 +895,7 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The final five January evenings of the 2026–27 Marktplatz lighting program; December 31 is omitted because the special New Year's Eve event replaces the regular countdown.",
     "endDate": "2027-01-05"
   }
-];;;
+];;;;
 
 // Reuse comprehensive guides where they exist. The dated occurrence remains
 // an independent calendar record, so closing days are never falsely listed.
