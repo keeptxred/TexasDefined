@@ -3,6 +3,7 @@ import { type FormEvent, useEffect, useMemo, useState } from 'react';
 
 import { Container } from '@/components/layout/Container';
 import { CorporateEventOpsPanel } from '@/components/events/CorporateEventOpsPanel';
+import { CorporateEventQuotePrepPanel } from '@/components/events/CorporateEventQuotePrepPanel';
 import { createAdvertiserAgreementOffer } from '@/data/advertiser-agreement.functions';
 import { getAdvertiserLeadDashboard, setAdvertiserLeadStatus } from '@/data/advertiser-leads.functions';
 import type { AdvertiserLead, AdvertiserLeadDashboard, AdvertiserLeadStatus } from '@/data/advertiser-leads.types';
@@ -191,6 +192,7 @@ function AdvertiserLeadsPage() {
         success={success}
       />}
       {dashboard ? <CorporateEventOpsPanel accessKey={accessKey} /> : null}
+      {dashboard ? <CorporateEventQuotePrepPanel accessKey={accessKey} /> : null}
     </main>
   </Container>;
 }
