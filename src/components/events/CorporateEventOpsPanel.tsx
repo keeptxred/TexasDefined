@@ -4,6 +4,7 @@ import {
   changeCorporateEventOfferStatus, draftCorporateEventOffer, getCorporateEventOperations,
 } from '@/data/corporate-events.admin.functions';
 import { corporateEventProviders } from '@/data/corporate-events';
+import { corporateEventTexasToday } from '@/data/corporate-event-dates';
 
 type LeadStatus = 'new' | 'reviewing' | 'contacted' | 'closed' | 'spam';
 type ApplicationStatus = 'pending' | 'reviewing' | 'approved' | 'rejected' | 'spam';
@@ -72,7 +73,7 @@ export function CorporateEventOpsPanel({ accessKey }: { accessKey: string }) {
   const counts = useMemo(() => ({
     leads: data?.leads.filter((item) => !['closed', 'spam'].includes(item.status)).length ?? 0,
     applications: data?.applications.filter((item) => !['rejected', 'spam'].includes(item.status)).length ?? 0,
-    offers: data?.offers.filter((item) => item.status === 'approved' && item.ends_on >= new Date().toISOString().slice(0, 10)).length ?? 0,
+    offers: data?.offers.filter((item) => item.status === 'approved' && item.ends_on >= corporateEventTexasToday()).length ?? 0,
   }), [data]);
 
   async function updateLead(id: string, status: LeadStatus) {
