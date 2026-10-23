@@ -361,7 +361,7 @@ function Page() {
       </nav>
 
       <header className="border-b border-border py-7 sm:py-10">
-        <div className="grid items-start gap-8 lg:grid-cols-2">
+        <div className="grid gap-8 lg:grid-cols-2">
           <div>
             <p className="eyebrow text-primary">2026 Texas high school football</p>
             <h1 className="mt-3 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">{footballName}</h1>
@@ -1029,8 +1029,8 @@ function FootballIdentityPanel({
   return (
     <figure className="min-w-0">
       <div
-        className="relative min-h-[15rem] overflow-hidden border border-border bg-foreground text-background"
-        style={accentHex ? { borderTopWidth: 6, borderTopColor: accentHex } : { borderTopWidth: 6 }}
+        className="relative overflow-hidden border border-border bg-foreground text-background"
+        style={accentHex ? { minHeight: 240, borderTopWidth: 6, borderTopColor: accentHex } : { minHeight: 240, borderTopWidth: 6 }}
       >
         <svg
           aria-hidden="true"
@@ -1047,11 +1047,11 @@ function FootballIdentityPanel({
           <rect x="20" y="24" width="600" height="312" fill="none" stroke="currentColor" strokeWidth="4" />
           <circle cx="320" cy="180" r="54" fill="none" stroke="currentColor" strokeWidth="3" />
         </svg>
-        <div className="relative flex min-h-[15rem] flex-col justify-between p-6 sm:p-8">
-          <p className="text-xs font-semibold uppercase tracking-wide text-background">TexasDefined football profile</p>
+        <div className="relative flex flex-col justify-between p-6" style={{ minHeight: 240 }}>
+          <p className="text-xs font-semibold uppercase tracking-[0.12em] text-background">TexasDefined football profile</p>
           <div>
-            <p className="max-w-xl font-display text-3xl leading-tight sm:text-4xl">{footballName}</p>
-            <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-xs font-semibold uppercase tracking-[0.12em] text-background">
+            <p className="max-w-3xl font-display text-3xl leading-tight sm:text-4xl">{footballName}</p>
+            <div className="mt-4 flex flex-wrap gap-4 gap-y-2 text-xs font-semibold uppercase tracking-[0.12em] text-background">
               <span>{alignment}</span>
               {footballType && <span>{footballType}</span>}
               {mascot && <span>Verified mascot: {mascot}</span>}
