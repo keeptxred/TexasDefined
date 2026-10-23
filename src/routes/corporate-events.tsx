@@ -89,7 +89,7 @@ function CorporateEventsPage() {
   const [category, setCategory] = useState<GroupEventCategory>('team-building');
   const [budget, setBudget] = useState('');
   const [selected, setSelected] = useState<string[]>([]);
-  const [includeOtherTypes, setIncludeOtherTypes] = useState(true);
+  const [includeOtherTypes, setIncludeOtherTypes] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState('');
@@ -102,7 +102,12 @@ function CorporateEventsPage() {
     const cityTerm = city.trim().toLowerCase();
     if (!validHeadcount || !cityTerm) return [];
     return corporateEventProviders.filter((provider) => {
-      if (cityTerm !== 'texas' && cityTerm !== 'tx' && !provider.city.toLowerCase().includes(cityTerm)) return false;
+      const requestedCity = cityTerm.replace(/,?\\s+(?:tx|texas)$/i, '').trim();
+      const isHoustonZip = /^77(?:0|2)\\d{2}$/.test(cityTerm);
+      const inRequestedMarket = cityTerm === 'texas' || cityTerm === 'tx'
+        || (isHoustonZip && provider.city === 'Houston')
+        || provider.city.toLowerCase().includes(requestedCity);
+      if (!inRequestedMarket) return false;
       if (provider.maxGroup != null && headcount > provider.maxGroup) return false;
       if (provider.minGroup != null && headcount < provider.minGroup) return false;
       if (!includeOtherTypes && !provider.categories.includes(category)) return false;
@@ -234,7 +239,7 @@ function CorporateEventsPage() {
           )}</div> : <div className="mt-6 border border-border bg-surface p-8">
             <Search className="size-8 text-primary" aria-hidden /><h3 className="mt-4 font-display text-3xl">No sourced matches yet.</h3>
             <p className="mt-3 max-w-xl leading-7 text-muted-foreground">We're launching with Houston and adding Texas cities as providers and group sizes are checked. Try Houston, adjust the filters, or submit your event requirements below so we can understand demand in your area.</p>
-            <button type="button" onClick={() => { setCity('Houston'); setHeadcount(45); setBudget(''); setIncludeOtherTypes(true); }} className="mt-5 border border-primary px-5 py-3 text-sm font-semibold text-primary">See Houston options</button>
+            <button type="button" onClick={() => { setCity('Houston'); setHeadcount(45); setBudget(''); setIncludeOtherTypes(false); }} className="mt-5 border border-primary px-5 py-3 text-sm font-semibold text-primary">See Houston options</button>
           </div>}
           {matches.length > 0 ? <p className="mt-5 text-xs leading-6 text-muted-foreground">This is an independent editorial directory. No venue shown is represented as a paid TexasDefined partner. Prices are provider-published starting points only; no availability, discounts, or booking is guaranteed.</p> : null}
         </div>
