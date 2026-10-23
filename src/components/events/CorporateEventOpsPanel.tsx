@@ -23,6 +23,7 @@ type Application = {
   business_name: string; city: string; website: string;
   published_capacity: number | null; proposal: string | null;
   proposed_promo_code: string | null; notes: string | null;
+  identity_verified_at: string | null; identity_verified_by: string | null; identity_verification_note: string | null;
 };
 type Offer = {
   id: string; created_at: string; status: OfferStatus;
@@ -87,12 +88,24 @@ export function CorporateEventOpsPanel({ accessKey }: { accessKey: string }) {
     finally { setBusy(''); }
   }
   async function updateApplication(id: string, status: ApplicationStatus) {
+    let verificationNote = '';
+    let verifiedIdentity = false;
+    if (status === 'approved') {
+      if (!window.confirm('Have you independently verified that this applicant represents this business through an official published business contact channel? Approval does NOT publish any discount.')) return;
+      const evidence = window.prompt('Record how you independently verified the business and applicant. Include the method and contact channel, but not passwords or other sensitive information (20–500 characters):', '');
+      if (!evidence || evidence.trim().length < 20 || evidence.trim().length > 500) {
+        setError('Approval requires written evidence (20–500 characters) of independent business identity verification.');
+        return;
+      }
+      verificationNote = evidence.trim();
+      verifiedIdentity = true;
+    }
     setBusy(id); setError(''); setMessage('');
     try {
-      await changeCorporateEventApplicationStatus({ data: { accessKey, id, status } });
+      await changeCorporateEventApplicationStatus({ data: { accessKey, id, status, verifiedIdentity, verificationNote } });
       await refresh();
       setMessage('Business application status updated. A listing was not published.');
-    } catch { setError('Could not update business application.'); }
+    } catch { setError('Could not update business application. Approval requires documented independent verification.'); }
     finally { setBusy(''); }
   }
   async function updateOffer(id: string, status: OfferStatus) {
@@ -195,6 +208,10 @@ export function CorporateEventOpsPanel({ accessKey }: { accessKey: string }) {
                 {applicationStatuses.map((state) => <option key={state} value={state}>{state}</option>)}
               </select></label>
             </div>
+            {app.identity_verified_at ? <p className="mt-4 border border-border bg-surface p-3 text-xs leading-6 text-muted-foreground">
+              Internal business identity verification: {fmt(app.identity_verified_at)} by {app.identity_verified_by}. Evidence: {app.identity_verification_note || 'No evidence recorded'}.
+              Approval does not publish a listing, commission agreement or customer discount.
+            </p> : null}
             {app.proposal ? <p className="mt-4 whitespace-pre-wrap text-sm leading-7">Group package: {app.proposal}</p> : null}
             {app.proposed_promo_code ? <p className="mt-3 text-sm">Proposed code (not live): <code>{app.proposed_promo_code}</code></p> : null}
             {app.notes ? <p className="mt-3 whitespace-pre-wrap text-sm leading-7">Submitted terms: {app.notes}</p> : null}
