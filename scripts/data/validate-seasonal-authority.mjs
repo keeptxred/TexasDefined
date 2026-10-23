@@ -17,6 +17,7 @@ const destinationLinks = read("src/data/destination-editorial-links.ts");
 const newest = read("src/data/fixtures/lazy-newest-evergreen.ts");
 const exploreIntents = read("src/components/editorial/ExploreIntentPaths.tsx");
 const server = read("src/server.ts");
+const imageRights = read("src/data/image-rights.ts");
 
 const groups = {
   bluebonnets: ["texas-bluebonnets-complete-guide", "best-places-to-see-bluebonnets-in-texas", "texas-bluebonnet-road-trip", "bluebonnets-near-austin", "bluebonnets-near-houston", "bluebonnets-near-dallas-fort-worth", "bluebonnets-near-san-antonio", "texas-bluebonnet-festivals", "is-it-illegal-to-pick-bluebonnets-in-texas"],
@@ -49,7 +50,7 @@ for (const [name, source] of [["full article", intents], ["discovery stub", inte
 for (const marker of ["The_Lost_Maples_State_Park_-_Fall_Colors_in_Texas", "Golden-orange and rust-red autumn", "G. Lamar", "24 Nov 2012", "CC BY 2.0"]) {
   if (!hillCountryFallHero.includes(marker) && !hillCountryFallHero.includes(marker.toLowerCase())) fail(`Hill Country autumn hero missing ${marker}`);
 }
-for (const marker of ["Hero photo: G. Lamar, November 2012", "creativecommons.org/licenses/by/2.0", "not a verified report of current foliage"]) {
+for (const marker of ["Hero photo: G. Lamar, November 2012", "CC BY 2.0 license", "foliageHeroRights?.license", "not a verified report of current foliage"]) {
   if (!articleRoute.includes(marker)) fail(`Hill Country hero credit or historical caveat missing: ${marker}`);
 }
 
@@ -62,6 +63,21 @@ for (const marker of ["Daingerfield_sp_reflection.jpg", "autumn trees", "Larry D
   if (!eastTexasFallHero.includes(marker)) fail(`East Texas autumn hero missing ${marker}`);
 }
 if (!articleRoute.includes("The autumn-colored hero photograph shows Daingerfield State Park on October 24, 2014")) fail("East Texas autumn hero date and provenance missing");
+
+// Photo rights metadata must identify authentic locations, both creators,
+// both CC licenses and the original Commons file pages.
+for (const token of [
+  "29567585500",
+  "Daingerfield_sp_reflection",
+  "G. Lamar",
+  "Larry D. Moore",
+  "creativecommons.org/licenses/by/",
+  "commons.wikimedia.org/wiki/File:",
+  "decodeURIComponent",
+  "acquireLicensePage",
+  "creator:",
+]) if (!imageRights.includes(token)) fail(`Fall image structured-data provenance missing ${token}`);
+
 
 for (const [from, to] of Object.entries(retiredSeasonalRedirects)) {
   const retiredSlug = from.slice("/article/".length);

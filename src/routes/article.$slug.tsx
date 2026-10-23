@@ -5,7 +5,7 @@ import { lazy, Suspense, useEffect } from "react";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { heritagePhotoRightsForPath } from "@/data/heritage-photo-license-links";
 import { ArticleBody, Byline } from "@/components/editorial/ArticleBody";
-import { EastTexasFoliageParkMap, EastTexasFoliagePhotoGallery } from "@/components/editorial/EastTexasFoliageMedia";
+
 import { ArticleCard } from "@/components/editorial/ArticleCard";
 import type { Article } from "@/data/types";
 import { DestinationCard } from "@/components/editorial/DestinationCard";
@@ -33,6 +33,15 @@ import { absoluteUrl, buildMeta, canonicalLink, schemaTypeForEntityKind } from "
 import { unusualBusinessAnalyticsAttributes } from "@/lib/unusual-business-analytics";
 import { FootballPlayoffsReference } from "@/components/content/FootballPlayoffsReference";
 import { TexasCitiesComparison } from "@/components/content/TexasCitiesComparison";
+
+// The foliage map and photo gallery are exclusive to one seasonal article.
+// Defer their code until that article mounts instead of loading it on every article.
+const EastTexasFoliageParkMap = lazy(() =>
+  import("@/components/editorial/EastTexasFoliageMedia").then((m) => ({ default: m.EastTexasFoliageParkMap })),
+);
+const EastTexasFoliagePhotoGallery = lazy(() =>
+  import("@/components/editorial/EastTexasFoliageMedia").then((m) => ({ default: m.EastTexasFoliagePhotoGallery })),
+);
 
 const TexasWaterSearchResource = lazy(() =>
   import("@/components/content/TexasWaterSearchResource").then((module) => ({ default: module.TexasWaterSearchResource })),
@@ -446,6 +455,7 @@ function ArticlePage() {
   const hasSchoolSupplyRail = schoolSupplyArticleSlugs.has(article.slug);
   const isTexasRiversArticle = article.slug === "texas-rivers-explained";
   const isCaminoRealArticle = article.slug === "el-camino-real-de-tierra-adentro-national-historic-trail";
+  const foliageHeroRights = imageRightsFor(article.hero.src);
   const hideGenericRelatedRail = article.slug === "hill-country-fall-colors" || article.slug === "east-texas-fall-colors" || article.slug === "texas-ecoregions-habitats-guide" || article.slug === "texas-high-school-football-playoffs-explained";
   const articleDisplayTitle = isTexasRiversArticle ? "Texas Rivers Explained" : article.title;
   const isSixManFootballArticle = article.slug === "texas-six-man-football-rules-explained";
@@ -588,7 +598,7 @@ function ArticlePage() {
   : <DestinationCard destination={destination} />}</li>)}</ul></Container></Section>}
     {article.slug === "east-texas-fall-colors" && <Section tone="surface"><Container>
       <SectionHeader eyebrow="Plan your fall trip" title="Six places to compare" />
-      <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">The autumn-colored hero photograph shows Daingerfield State Park on October 24, 2014, not verified current-season conditions. Photo: <a href="https://commons.wikimedia.org/wiki/File:Daingerfield_sp_reflection.jpg" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Larry D. Moore via Wikimedia Commons ↗</a> · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">CC BY 4.0 license (cropped to layout) ↗</a>.</p>
+      <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">The autumn-colored hero photograph shows Daingerfield State Park on October 24, 2014, not verified current-season conditions. Photo: <a href={foliageHeroRights?.acquireLicensePage} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Larry D. Moore via Wikimedia Commons ↗</a> · <a href={foliageHeroRights?.license} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">CC BY 4.0 license (cropped to layout) ↗</a>.</p>
 
       <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These are evergreen planning suggestions, not live leaf-color reports. Select a park to see its official alerts, trails and reservation information. Color varies within and between parks.</p>
       <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -608,8 +618,10 @@ function ArticlePage() {
           </div>
         </article>)}
       </div>
-      <EastTexasFoliageParkMap />
-      <EastTexasFoliagePhotoGallery />
+      <Suspense fallback={<section aria-label="Loading East Texas foliage map and photographs" className="my-6" />}>
+        <EastTexasFoliageParkMap />
+        <EastTexasFoliagePhotoGallery />
+      </Suspense>
       <nav aria-label="Regional foliage planning" className="mt-8 flex flex-wrap gap-4 border-t border-border pt-5 text-sm">
         <a href="https://www.openstreetmap.org/#map=8/32.65/-94.95" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Explore the East Texas region on a map ↗</a>
         <a href="/article/texas-fall-foliage-road-trip" className="font-semibold text-primary underline underline-offset-4">Texas fall foliage road trip →</a>
@@ -628,8 +640,8 @@ function ArticlePage() {
         <a href="https://tpwd.texas.gov/state-parks/lost-maples/foliage-reports" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Official 2026 Lost Maples foliage report ↗</a>
         <a href="https://tpwd.texas.gov/state-parks/lost-maples/images/foliage" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Official TPWD foliage photographs ↗</a>
         <a href="https://tpwd.texas.gov/state-parks/lost-maples" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Lost Maples access and alerts ↗</a>
-        <a href="https://commons.wikimedia.org/wiki/File:The_Lost_Maples_State_Park_-_Fall_Colors_in_Texas_(29567585500).jpg" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Hero photo: G. Lamar, November 2012 ↗</a>
-        <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">CC BY 2.0 license (image adapted for layout) ↗</a>
+        <a href={foliageHeroRights?.acquireLicensePage} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Hero photo: G. Lamar, November 2012 ↗</a>
+        <a href={foliageHeroRights?.license} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">CC BY 2.0 license (image adapted for layout) ↗</a>
       </nav>
     </Container></Section>}
     {!isTexasRiversArticle && !hideGenericRelatedRail && <Section tone="surface"><Container><SectionHeader eyebrow={isSixManFootballArticle ? "Keep exploring" : "From the magazine"} title={isSixManFootballArticle ? "More Texas high school football" : "More stories to read next"} /><ul className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">{relatedWithDistinctHeroImages(related, article).map((item) => <li key={item.id}><ArticleCard article={item} size="compact" /></li>)}</ul><nav aria-label="Continue through this section" className="mt-10 border-t border-border pt-6"><div className="flex flex-wrap gap-x-7 gap-y-3"><Link to={department.path} className="eyebrow border-b border-primary py-1 text-primary">More from {department.name} →</Link>{department.usesExploreCategory && <Link to="/explore/$category" params={{ category: article.category }} className="eyebrow border-b border-primary py-1 text-primary">Browse {categoryName} →</Link>}</div></nav></Container></Section>}
