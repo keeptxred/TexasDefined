@@ -118,15 +118,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
             }],
             publishingPrinciples: `${siteUrl}/editorial-policy`,
             areaServed: { "@type": "State", name: "Texas" },
-            knowsAbout: ["Texas travel", "Texas history", "Texas events", "Texas sports", "Texas fishing", "Texas fishing lakes", "Texas freshwater fish"],
+            knowsAbout: ["Texas travel", "Texas destinations", "Texas history", "Texas events", "Texas sports", "Texas sports venues", "Texas fishing", "Texas fishing lakes", "Texas freshwater fish"],
           },
           {
             "@type": "WebSite",
             "@id": `${siteUrl}/#website`,
             name: texasDefinedBrand.identity.name,
-            alternateName: "TexasDefined",
             url: siteUrl,
-            description: texasDefinedBrand.seo.defaultDescription,
             inLanguage: texasDefinedBrand.identity.locale,
             publisher: { "@id": `${siteUrl}/#organization` },
             potentialAction: {
