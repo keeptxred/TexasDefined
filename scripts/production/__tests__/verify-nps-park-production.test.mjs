@@ -15,10 +15,10 @@ test("missing federal unit and duplicate code are caught, even if string appears
  assert.throws(()=>verifyDirectoryHtml(directory(codes.slice(1).map(c=>'<a href="https://www.nps.gov/'+c+'/">Site</a>').join(""))+"<script>https://www.nps.gov/alfl/</script>"));
  assert.throws(()=>verifyDirectoryHtml(directory(codes.map(c=>'<a href="https://www.nps.gov/'+(c==="alfl"?"bibe":c)+'/">Site</a>').join(""))));
 });
-test("no rendered inventory, two inventories, or invented Amistad link fail",()=>{
+test("no rendered inventory, two inventories, or missing official Amistad guide link fail",()=>{
  assert.throws(()=>verifyDirectoryHtml('<html><p>2 places mapped</p></html>'));
  assert.throws(()=>verifyDirectoryHtml(directory()+directory()));
- assert.throws(()=>verifyDirectoryHtml(directory().replace('TexasDefined guide','<a href="/destination/amistad-national-recreation-area">TexasDefined guide</a>')));
+ assert.throws(()=>verifyDirectoryHtml(directory().replace('<a href="/destination/amistad-national-recreation-area">TexasDefined guide</a>','')));
 });
 test("field-gun NPS credited Palo Alto source and subject must be in HTML",()=>{
  assert.ok(verifyBattlefieldHtml(battlefield).credited);

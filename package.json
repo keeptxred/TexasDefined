@@ -57,7 +57,7 @@
     "metro-proximity:audit": "node scripts/data/run-metro-proximity-audit.mjs",
     "research:homeowners:validate": "node scripts/data/validate-homeowners-premium-research.mjs",
     "san-antonio:authority:validate": "node scripts/data/validate-san-antonio-heritage-cluster.mjs",
-    "state-parks:validate": "node scripts/data/validate-state-park-authority.mjs",
+    "state-parks:validate": "node scripts/data/validate-state-park-authority.mjs && node --test scripts/production/__tests__/verify-six-park-authority-production.test.mjs scripts/production/__tests__/verify-nps-park-production.test.mjs",
     "state-parks:readiness": "node scripts/data/run-state-park-publication-readiness.mjs"
   },
   "dependencies": {
