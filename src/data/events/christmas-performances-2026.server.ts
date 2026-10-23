@@ -49,8 +49,8 @@ const verified: readonly ChristmasPerformance[] = [
     id: "christmas-story-conroe-2026", name: "A Christmas Story",
     date: "2026-12-13", timeLabel: "2:00 PM · additional dates Dec. 4–20",
     city: "Conroe", venue: "Crighton Theatre",
-    sourceUrl: "https://www.crightontheatre.org/",
-    sourceName: "Crighton Theatre official production calendar", ticketmasterNeedle: "a christmas story",
+    sourceUrl: "https://www.etix.com/ticket/v/32639/crighton-theatre",
+    sourceName: "Crighton Theatre linked ticketing (Etix)", ticketmasterNeedle: "a christmas story",
     description: "Stage adaptation of the Ralphie Parker story; other performances are available in the run.",
   },
   {
