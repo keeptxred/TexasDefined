@@ -52,7 +52,7 @@ export const texasDefinedBrand: BrandConfig = {
     viewAll: "View the full guide",
     searchPlaceholder: "Search towns, parks, lakes, music, stories and guides",
     searchEmpty: "No match yet. Try a town, landmark, park, lake, musician or broader Texas subject.",
-    emptyState: "There is nothing in this section yet. More Texas Defined coverage is on the way.",
+    emptyState: "No stories yet. Explore more Texas guides.",
     comingSoon: "Coming soon",
     comingSoonBody: "We are still gathering and checking the details for this guide.",
     shopCta: "Visit the shop",
