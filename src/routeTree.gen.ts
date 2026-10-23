@@ -188,6 +188,7 @@ import { Route as DallasBlackHistoryRouteImport } from './routes/dallas-black-hi
 import { Route as CountyRouteImport } from './routes/county'
 import { Route as CorrectionsPolicyRouteImport } from './routes/corrections-policy'
 import { Route as CorpusChristiMusicHistoryRouteImport } from './routes/corpus-christi-music-history'
+import { Route as CorporateEventsRouteImport } from './routes/corporate-events'
 import { Route as ContinentalClubAustinHistoryRouteImport } from './routes/continental-club-austin-history'
 import { Route as CompareTexasCitiesRouteImport } from './routes/compare-texas-cities'
 import { Route as CitationGuideRouteImport } from './routes/citation-guide'
@@ -1716,6 +1717,11 @@ const CorpusChristiMusicHistoryRoute =
   } as any).lazy(() =>
     import('./routes/corpus-christi-music-history.lazy').then((d) => d.Route),
   )
+const CorporateEventsRoute = CorporateEventsRouteImport.update({
+  id: '/corporate-events',
+  path: '/corporate-events',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContinentalClubAustinHistoryRoute =
   ContinentalClubAustinHistoryRouteImport.update({
     id: '/continental-club-austin-history',
@@ -3907,6 +3913,7 @@ export interface FileRoutesByFullPath {
   '/citation-guide': typeof CitationGuideRoute
   '/compare-texas-cities': typeof CompareTexasCitiesRoute
   '/continental-club-austin-history': typeof ContinentalClubAustinHistoryRoute
+  '/corporate-events': typeof CorporateEventsRoute
   '/corpus-christi-music-history': typeof CorpusChristiMusicHistoryRoute
   '/corrections-policy': typeof CorrectionsPolicyRoute
   '/county': typeof CountyRoute
@@ -4442,6 +4449,7 @@ export interface FileRoutesByTo {
   '/citation-guide': typeof CitationGuideRoute
   '/compare-texas-cities': typeof CompareTexasCitiesRoute
   '/continental-club-austin-history': typeof ContinentalClubAustinHistoryRoute
+  '/corporate-events': typeof CorporateEventsRoute
   '/corpus-christi-music-history': typeof CorpusChristiMusicHistoryRoute
   '/corrections-policy': typeof CorrectionsPolicyRoute
   '/county': typeof CountyRoute
@@ -4973,6 +4981,7 @@ export interface FileRoutesById {
   '/citation-guide': typeof CitationGuideRoute
   '/compare-texas-cities': typeof CompareTexasCitiesRoute
   '/continental-club-austin-history': typeof ContinentalClubAustinHistoryRoute
+  '/corporate-events': typeof CorporateEventsRoute
   '/corpus-christi-music-history': typeof CorpusChristiMusicHistoryRoute
   '/corrections-policy': typeof CorrectionsPolicyRoute
   '/county': typeof CountyRoute
@@ -5510,6 +5519,7 @@ export interface FileRouteTypes {
     | '/citation-guide'
     | '/compare-texas-cities'
     | '/continental-club-austin-history'
+    | '/corporate-events'
     | '/corpus-christi-music-history'
     | '/corrections-policy'
     | '/county'
@@ -6045,6 +6055,7 @@ export interface FileRouteTypes {
     | '/citation-guide'
     | '/compare-texas-cities'
     | '/continental-club-austin-history'
+    | '/corporate-events'
     | '/corpus-christi-music-history'
     | '/corrections-policy'
     | '/county'
@@ -6575,6 +6586,7 @@ export interface FileRouteTypes {
     | '/citation-guide'
     | '/compare-texas-cities'
     | '/continental-club-austin-history'
+    | '/corporate-events'
     | '/corpus-christi-music-history'
     | '/corrections-policy'
     | '/county'
@@ -7111,6 +7123,7 @@ export interface RootRouteChildren {
   CitationGuideRoute: typeof CitationGuideRoute
   CompareTexasCitiesRoute: typeof CompareTexasCitiesRoute
   ContinentalClubAustinHistoryRoute: typeof ContinentalClubAustinHistoryRoute
+  CorporateEventsRoute: typeof CorporateEventsRoute
   CorpusChristiMusicHistoryRoute: typeof CorpusChristiMusicHistoryRoute
   CorrectionsPolicyRoute: typeof CorrectionsPolicyRoute
   CountyRoute: typeof CountyRoute
@@ -8765,6 +8778,13 @@ declare module '@tanstack/react-router' {
       path: '/corpus-christi-music-history'
       fullPath: '/corpus-christi-music-history'
       preLoaderRoute: typeof CorpusChristiMusicHistoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/corporate-events': {
+      id: '/corporate-events'
+      path: '/corporate-events'
+      fullPath: '/corporate-events'
+      preLoaderRoute: typeof CorporateEventsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/continental-club-austin-history': {
@@ -11903,6 +11923,7 @@ const rootRouteChildren: RootRouteChildren = {
   CitationGuideRoute: CitationGuideRoute,
   CompareTexasCitiesRoute: CompareTexasCitiesRoute,
   ContinentalClubAustinHistoryRoute: ContinentalClubAustinHistoryRoute,
+  CorporateEventsRoute: CorporateEventsRoute,
   CorpusChristiMusicHistoryRoute: CorpusChristiMusicHistoryRoute,
   CorrectionsPolicyRoute: CorrectionsPolicyRoute,
   CountyRoute: CountyRoute,
