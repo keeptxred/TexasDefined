@@ -110,6 +110,12 @@ export const Route = createFileRoute("/explore/$category")({
     }
   },
   loader: async ({ context, params }) => {
+    if (["scenic-trains", "dude-ranches", "spa-retreats", "wildlife-safaris", "botanical-gardens"].includes(params.category)) {
+      const { loadCuratedTourismCategory } = await import("@/data/curated-tourism-category-loader");
+      const collection = await loadCuratedTourismCategory(params.category);
+      if (!collection) throw notFound();
+      return collection;
+    }
     if (params.category === "water-towers") {
       const { waterTowersCategory } = await import("@/data/water-towers");
       return { category: waterTowersCategory, articles: [], destinations: [], authorityHtml: null };
@@ -147,6 +153,7 @@ export const Route = createFileRoute("/explore/$category")({
     return { category, articles, destinations, authorityHtml };
   },
   head: ({ loaderData, params }) => {
+    if (loaderData && "curatedHead" in loaderData) return loaderData.curatedHead;
     if (!loaderData) return { meta: [{ title: "Not found" }, { name: "robots", content: "noindex" }] };
     const canonicalPath = `/explore/${params.category}`;
     const categoryUrl = `${siteUrl}${canonicalPath}`;
