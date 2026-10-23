@@ -1330,7 +1330,11 @@
       "intakeId": 202,
       "title": "Jefferson Candlelight Tour of Homes",
       "submittedRegion": "East Texas Piney Woods",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "jefferson-candlelight-tour-dec3",
+        "jefferson-candlelight-tour-dec10"
+      ]
     },
     {
       "intakeId": 203,
@@ -1348,7 +1352,11 @@
       "intakeId": 205,
       "title": "Lufkin Christmas In the Pines",
       "submittedRegion": "East Texas Piney Woods",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "lufkin-christmas-in-the-pines-friday",
+        "lufkin-christmas-lighted-parade"
+      ]
     },
     {
       "intakeId": 206,
@@ -1396,7 +1404,10 @@
       "intakeId": 213,
       "title": "Greenville Christmas Parade",
       "submittedRegion": "East Texas Piney Woods",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "greenville-christmas-parade-of-lights"
+      ]
     },
     {
       "intakeId": 214,
@@ -1453,7 +1464,10 @@
       "intakeId": 222,
       "title": "Amarillo Center City Electric Light Parade",
       "submittedRegion": "West Texas & Panhandle Plains",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "amarillo-electric-light-parade"
+      ]
     },
     {
       "intakeId": 223,
@@ -1637,8 +1651,8 @@
   ],
   "reconciliation": {
     "asOf": "2026-10-23",
-    "calendarCandidates": 32,
+    "calendarCandidates": 36,
     "authorityCandidates": 12,
-    "remainingCandidates": 206
+    "remainingCandidates": 202
   }
 }
