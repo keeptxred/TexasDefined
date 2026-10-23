@@ -23,10 +23,12 @@ export const changeCorporateEventLeadStatus = createServerFn({ method: 'POST' })
   });
 
 export const changeCorporateEventApplicationStatus = createServerFn({ method: 'POST' })
-  .inputValidator(z.object({ accessKey: key, id, status: applicationStatuses }))
+  .inputValidator(z.object({ accessKey: key, id, status: applicationStatuses,
+    verifiedIdentity: z.boolean().default(false), verificationNote: z.string().trim().max(500).default(''),
+  }))
   .handler(async ({ data }) => {
     const { setCorporateEventApplicationStatus } = await import('@/data/corporate-events.admin.server');
-    return setCorporateEventApplicationStatus(data.accessKey, data.id, data.status);
+    return setCorporateEventApplicationStatus(data.accessKey, data.id, data.status, data.verifiedIdentity, data.verificationNote);
   });
 
 export const draftCorporateEventOffer = createServerFn({ method: 'POST' })

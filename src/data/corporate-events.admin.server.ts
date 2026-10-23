@@ -25,6 +25,7 @@ export type CorporateEventApplicationRecord = {
   contact_name: string; email: string; phone: string | null; business_name: string;
   city: string; website: string; published_capacity: number | null;
   proposal: string | null; proposed_promo_code: string | null; notes: string | null;
+  identity_verified_at: string | null; identity_verified_by: string | null; identity_verification_note: string | null;
 };
 export type CorporateEventOfferRecord = {
   id: string; created_at: string; status: CorporateEventOfferStatus;
@@ -43,7 +44,7 @@ export async function loadCorporateEventOperations(accessKey: string) {
       .select('id,created_at,status,contact_name,email,company,phone,city,group_size,event_category,event_date,budget_per_person,provider_slugs,notes,allow_provider_outreach,provider_outreach_consented_at')
       .order('created_at', { ascending: false }).limit(MAX_ROWS + 1),
     client.from('texasdefined_group_event_partner_applications')
-      .select('id,created_at,status,contact_name,email,phone,business_name,city,website,published_capacity,proposal,proposed_promo_code,notes')
+      .select('id,created_at,status,contact_name,email,phone,business_name,city,website,published_capacity,proposal,proposed_promo_code,notes,identity_verified_at,identity_verified_by,identity_verification_note')
       .order('created_at', { ascending: false }).limit(MAX_ROWS + 1),
     client.from('texasdefined_group_event_offers')
       .select('id,created_at,status,partner_application_id,provider_slug,title,benefit,code,redemption_url,starts_on,ends_on,reviewed_by,reviewed_at')
@@ -89,10 +90,28 @@ export async function setCorporateEventLeadStatus(accessKey: string, id: string,
   return { id: String(data.id), status: String(data.status) };
 }
 
-export async function setCorporateEventApplicationStatus(accessKey: string, id: string, status: CorporateEventApplicationStatus) {
+export async function setCorporateEventApplicationStatus(
+  accessKey: string, id: string, status: CorporateEventApplicationStatus,
+  verifiedIdentity: boolean, verificationNote: string,
+) {
   await assertSportsPartnerAccess(accessKey);
   if (!applicationStatuses.includes(status)) throw new Error('Unknown application status.');
-  const { data, error } = await client.from('texasdefined_group_event_partner_applications').update({ status }).eq('id', id).select('id,status').maybeSingle();
+  // Approval records staff's independently verified business identity.
+  // A typed note alone is not proof: the staff operator must actually check
+  // the official venue's published business contact channels first.
+  if (status === 'approved' && (!verifiedIdentity || verificationNote.trim().length < 20 || verificationNote.length > 500)) {
+    throw new Error('To approve a partner, verify its identity using the official venue contact channel and record at least 20 characters of evidence.');
+  }
+  const updates = status === 'approved'
+    ? {
+        status,
+        identity_verified_at: new Date().toISOString(),
+        identity_verified_by: 'TexasDefined corporate event operations',
+        identity_verification_note: verificationNote.trim(),
+      }
+    : { status };
+  const { data, error } = await client.from('texasdefined_group_event_partner_applications')
+    .update(updates).eq('id', id).select('id,status').maybeSingle();
   if (error || !data?.id) throw new Error('Application status could not be updated.');
   return { id: String(data.id), status: String(data.status) };
 }
@@ -107,9 +126,9 @@ export async function proposeCorporateEventOffer(accessKey: string, data: Corpor
   const record = corporateEventProviders.find((provider) => provider.slug === data.providerSlug);
   if (!record) throw new Error('Add and source the provider in the editorial directory before creating an offer.');
   const applicationQuery = await client.from('texasdefined_group_event_partner_applications')
-    .select('id,business_name,website,status').eq('id', data.applicationId).maybeSingle();
+    .select('id,business_name,website,status,identity_verified_at,identity_verification_note').eq('id', data.applicationId).maybeSingle();
   const application = applicationQuery.data;
-  if (applicationQuery.error || !application || application.status !== 'approved') {
+  if (applicationQuery.error || !application || application.status !== 'approved' || !application.identity_verified_at || !application.identity_verification_note) {
     throw new Error('Business application must be approved first.');
   }
   const business = String(application.business_name).toLowerCase().replace(/[^a-z0-9]/g, '');
@@ -144,8 +163,8 @@ export async function setCorporateEventOfferStatus(accessKey: string, id: string
   if (lookupError || !offer?.id) throw new Error('Offer not found.');
   if (status === 'approved') {
     const { data: partner, error } = await client.from('texasdefined_group_event_partner_applications')
-      .select('status').eq('id', offer.partner_application_id).maybeSingle();
-    if (error || partner?.status !== 'approved') throw new Error('Only vetted partners may have approved offers.');
+      .select('status,identity_verified_at,identity_verification_note').eq('id', offer.partner_application_id).maybeSingle();
+    if (error || partner?.status !== 'approved' || !partner.identity_verified_at || !partner.identity_verification_note) throw new Error('Only identity-verified partners may have approved offers.');
     const today = corporateEventTexasToday();
     if (String(offer.ends_on) < today || String(offer.starts_on) > String(offer.ends_on)) throw new Error('Offer date window is invalid or expired.');
   }
