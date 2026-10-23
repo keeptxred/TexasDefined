@@ -1,0 +1,158 @@
+import { loadTicketmasterEventsServer } from "./ticketmaster-events.server";
+import { resolveEventTicketCta } from "./ticketing";
+
+/**
+ * Date-specific, source-checked 2026 performances for the permanent Christmas hub.
+ * This editorial list supplements (but does not duplicate) the normal Ticketmaster
+ * calendar ingestion. The list expires naturally; 2026 is never projected to 2027.
+ * Only the existing, fresh Ticketmaster snapshot may supply affiliate links.
+ */
+interface ChristmasPerformance {
+  id: string;
+  name: string;
+  date: string;
+  timeLabel: string;
+  city: string;
+  venue: string;
+  sourceUrl: string;
+  sourceName: string;
+  description: string;
+  ticketmasterNeedle?: string;
+}
+
+const verified: readonly ChristmasPerformance[] = [
+  {
+    id: "grinch-dallas-2026", name: "Dr. Seuss' How the Grinch Stole Christmas! The Musical",
+    date: "2026-11-27", timeLabel: "11:00 AM, 3:00 PM & 7:00 PM · run Nov. 25–29",
+    city: "Dallas", venue: "Music Hall at Fair Park",
+    sourceUrl: "https://broadwaydallas.org/shows/dr-seuss-how-the-grinch-stole-christmas-the-musical/",
+    sourceName: "Broadway Dallas",
+    description: "Touring stage musical; select an exact performance before buying. Every attendee requires a ticket.",
+    // Multiple separate showtimes: link to the official performance selector rather
+    // than falsely attaching an affiliate ticket for one time to all three.
+  },
+  {
+    id: "king-country-fort-worth-2026", name: "for KING + COUNTRY: A Drummer Boy Christmas",
+    date: "2026-12-05", timeLabel: "7:00 PM", city: "Fort Worth", venue: "Dickies Arena",
+    sourceUrl: "https://www.livenation.com/event/vvG1YZ_Cx4afyp/for-king-country-a-drummer-boy-christmas",
+    sourceName: "Live Nation", ticketmasterNeedle: "drummer boy christmas",
+    description: "Holiday arena concert by the Christian pop duo; plan arena parking and arrival before showtime.",
+  },
+  {
+    id: "christmas-kwanzaa-dallas-2026", name: "Promising Young Artist Series: 33rd Annual Christmas/Kwanzaa Concert",
+    date: "2026-12-11", timeLabel: "7:30 PM", city: "Dallas", venue: "Bruton Theatre",
+    sourceUrl: "https://www.ticketmaster.com/bruton-theatre-tickets-dallas/venue/98316",
+    sourceName: "Ticketmaster venue schedule", ticketmasterNeedle: "33rd annual christmas kwanzaa",
+    description: "Annual arts and music program presented at the Bruton Theatre.",
+  },
+  {
+    id: "christmas-story-conroe-2026", name: "A Christmas Story",
+    date: "2026-12-13", timeLabel: "2:00 PM · additional dates Dec. 4–20",
+    city: "Conroe", venue: "Crighton Theatre",
+    sourceUrl: "https://lakeconroe.com/events/a-christmas-story-6/",
+    sourceName: "Lake Conroe event listing", ticketmasterNeedle: "a christmas story",
+    description: "Stage adaptation of the Ralphie Parker story; other performances are available in the run.",
+  },
+  {
+    id: "pentatonix-fort-worth-2026", name: "Pentatonix: Christmas in the City Tour",
+    date: "2026-12-16", timeLabel: "7:00 PM", city: "Fort Worth", venue: "Dickies Arena",
+    sourceUrl: "https://www.livenation.com/event/vvG1YZ_Cn4lA0M/pentatonix-christmas-in-the-city-tour",
+    sourceName: "Live Nation", ticketmasterNeedle: "pentatonix",
+    description: "Holiday concert with the acclaimed a cappella group.",
+  },
+  {
+    id: "jazzy-christmas-dallas-2026", name: "A Jazzy Christmas Concert",
+    date: "2026-12-17", timeLabel: "7:00 PM", city: "Dallas", venue: "Bruton Theatre",
+    sourceUrl: "https://www.ticketmaster.com/bruton-theatre-tickets-dallas/venue/98316",
+    sourceName: "Ticketmaster venue schedule", ticketmasterNeedle: "a jazzy christmas concert",
+    description: "Holiday jazz concert at the Bruton Theatre.",
+  },
+  {
+    id: "very-merry-symphony-cedar-park-2026", name: "A Very Merry Symphony featuring Austin Symphony Orchestra",
+    date: "2026-12-20", timeLabel: "7:00 PM · doors 6:00 PM",
+    city: "Cedar Park", venue: "H-E-B Center at Cedar Park",
+    sourceUrl: "https://www.hebcenter.com/events/detail/a-very-merry-symphony",
+    sourceName: "H-E-B Center", ticketmasterNeedle: "a very merry symphony",
+    description: "Full-orchestra holiday program; consult arena bag and parking policies.",
+  },
+  {
+    id: "celtic-christmas-mcallen-2026", name: "A Celtic Christmas by A Taste of Ireland",
+    date: "2026-12-20", timeLabel: "4:00 PM", city: "McAllen",
+    venue: "McAllen Performing Arts Center",
+    sourceUrl: "https://experiencemcallen.com/event/a-celtic-christmas-mcallen-2026/",
+    sourceName: "Experience McAllen", ticketmasterNeedle: "a celtic christmas",
+    description: "Touring Irish dance, live music and seasonal performance in the Rio Grande Valley.",
+  },
+  {
+    id: "grand-ol-christmas-houston-2026", name: "The Grand Ol' Christmas Show",
+    date: "2026-12-22", timeLabel: "7:00 PM", city: "Houston", venue: "House of Blues Houston",
+    sourceUrl: "https://www.livenation.com/event/G5dIZ_GluCTsV/grand-ol-christmas",
+    sourceName: "Live Nation", ticketmasterNeedle: "grand ol christmas",
+    description: "Retro holiday variety show featuring Blue Water Highway Band.",
+  },
+  {
+    id: "grand-ol-christmas-dallas-2026", name: "The Grand Ol' Christmas Show",
+    date: "2026-12-23", timeLabel: "6:00 PM show · doors at 5:00 PM",
+    city: "Dallas", venue: "House of Blues Dallas",
+    sourceUrl: "https://www.livenation.com/venue/KovZpZAEAF7A/house-of-blues-dallas-events",
+    sourceName: "Live Nation venue schedule", ticketmasterNeedle: "grand ol christmas",
+    description: "Holiday variety show. The 5 p.m. listing is the event/door time, not the performance start.",
+  },
+  {
+    id: "cirque-musica-cedar-park-2026", name: "Cirque Musica Holiday Wonderland",
+    date: "2026-12-24", timeLabel: "2:00 PM · doors 1:00 PM",
+    city: "Cedar Park", venue: "H-E-B Center at Cedar Park",
+    sourceUrl: "https://www.hebcenter.com/events/detail/cirque-musica-holiday-wonderland-2026",
+    sourceName: "H-E-B Center", ticketmasterNeedle: "cirque musica holiday wonderland",
+    description: "Christmas Eve circus and live-music show; separate VIP add-ons are not admission tickets.",
+  },
+  {
+    id: "christmas-carol-houston-2026", name: "A Christmas Carol",
+    date: "2026-12-27", timeLabel: "See performance schedule · run Nov. 15–Dec. 27",
+    city: "Houston", venue: "Alley Theatre · Hubbard Theatre",
+    sourceUrl: "https://www.alleytheatre.org/plays/christmas-carol-2026/",
+    sourceName: "Alley Theatre",
+    description: "The final scheduled day of the Alley Theatre's 2026 holiday run; children under six are not admitted.",
+    // Multiple dates and showtimes: let the theatre's selector handle exact choice.
+  },
+];
+
+function texasToday(now: Date): string {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/Chicago", year: "numeric", month: "2-digit", day: "2-digit",
+  }).formatToParts(now);
+  const get = (kind: "year" | "month" | "day") => parts.find((part) => part.type === kind)?.value ?? "00";
+  return [get("year"), get("month"), get("day")].join("-");
+}
+
+function normalized(value: string) {
+  return value.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+}
+
+export function getChristmasPerformances2026Server(now = new Date()) {
+  const today = texasToday(now);
+  if (today > "2026-12-27") return [];
+  const ticketmaster = loadTicketmasterEventsServer(undefined, now);
+  return verified.filter((show) => show.date >= today).map((show) => {
+    const match = show.ticketmasterNeedle
+      ? ticketmaster.find((event) =>
+        event.startDate === show.date
+        && normalized(event.city) === normalized(show.city)
+        && normalized(event.title).includes(normalized(show.ticketmasterNeedle!))
+        && normalized(event.venueName ?? "").includes(normalized(show.venue.split(" · ")[0]))
+      ) : undefined;
+    const ticketCta = resolveEventTicketCta(match?.ticketing, now);
+    const dateLabel = new Intl.DateTimeFormat("en-US", {
+      timeZone: "UTC", month: "short", day: "numeric", year: "numeric",
+    }).format(new Date(show.date + "T12:00:00Z"));
+    return {
+      ...show,
+      dateLabel,
+      ticket: ticketCta ?? {
+        href: show.sourceUrl, label: "Official event details →",
+        rel: "noopener noreferrer", isAffiliate: false,
+        disclosure: undefined,
+      },
+    };
+  });
+}
