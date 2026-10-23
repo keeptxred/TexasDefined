@@ -136,7 +136,11 @@
       "intakeId": 17,
       "title": "Zilker Holiday Tree",
       "submittedRegion": "Hill Country & Central Texas",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "austin-zilker-holiday-tree-2026",
+        "austin-zilker-holiday-tree-lighting"
+      ]
     },
     {
       "intakeId": 18,
@@ -160,7 +164,8 @@
       "intakeId": 20,
       "title": "Austin Peppermint Parkway",
       "submittedRegion": "Hill Country & Central Texas",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "The operator currently publishes 2025 ticket dates and describes the attraction as a walk-through rather than the supplied drive-through; do not invent its 2026 calendar dates."
     },
     {
       "intakeId": 21,
@@ -659,7 +664,11 @@
       "intakeId": 93,
       "title": "Waxahachie Bethlehem Revisited",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "waxahachie-bethlehem-revisited-first",
+        "waxahachie-bethlehem-revisited-second"
+      ]
     },
     {
       "intakeId": 94,
@@ -1022,7 +1031,10 @@
       "intakeId": 151,
       "title": "San Antonio River Walk Holiday Lights",
       "submittedRegion": "South Texas & Alamo Region",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "san-antonio-river-walk-holiday-lights"
+      ]
     },
     {
       "intakeId": 152,
@@ -1150,7 +1162,8 @@
       "intakeId": 172,
       "title": "Brownsville Holiday Village",
       "submittedRegion": "South Texas & Alamo Region",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "The operator's public schedule still references 2025; an exact 2026 Holiday Village calendar has not been established."
     },
     {
       "intakeId": 173,
@@ -1324,7 +1337,8 @@
       "intakeId": 201,
       "title": "Marshall Wonderland of Lights",
       "submittedRegion": "East Texas Piney Woods",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "The city listing includes dates from a prior season; 2026 season dates must be confirmed on the new official calendar."
     },
     {
       "intakeId": 202,
@@ -1651,8 +1665,8 @@
   ],
   "reconciliation": {
     "asOf": "2026-10-23",
-    "calendarCandidates": 36,
+    "calendarCandidates": 39,
     "authorityCandidates": 12,
-    "remainingCandidates": 202
+    "remainingCandidates": 199
   }
 }
