@@ -15,6 +15,7 @@ import {
 import {
   isMetroProximityCollectionIndexReadyWithTownReferences,
   selectMetroProximityTownReferences,
+  METRO_PROXIMITY_TOWN_REFERENCES,
 } from "../metro-proximity-town-references.ts";
 import type { CategorySlug, Destination } from "../types.ts";
 import { applyCuratedDestinationBatch9 } from "../destination-curation-batch9.ts";
@@ -440,7 +441,7 @@ test("things-to-do event selection stays geographic, fresh, useful without ticke
     { destination: galveston, distanceMiles: 47, distanceBand: "easy-day-trip" },
   ];
   const noTicket = { ...metroEvent("free", "Free Festival", "Houston"), ticketCta: null };
-  const selected = selectMetroProximityAffiliateEvents(metro, collection, results, [
+  const selected = selectMetroProximityAffiliateEvents(metro, collection, results, [], [
     metroEvent("houston", "Houston Show", "Houston"),
     metroEvent("galveston-a", "Island Festival", "Galveston"),
     metroEvent("galveston-b", "Island Festival", "Galveston"),
@@ -458,11 +459,24 @@ test("things-to-do event selection stays geographic, fresh, useful without ticke
   assert.equal(selected.find((item) => item.id === "free")?.ticketCta, null);
 });
 
+test("sourced weekend town references can surface a relevant dated event without a thin destination", () => {
+  const metro = getMetroProximityMetro("dallas")!;
+  const collection = getMetroProximityCollection("weekend-trips")!;
+  const town = METRO_PROXIMITY_TOWN_REFERENCES.find((item) => item.slug === "clifton")!;
+  assert.ok(town);
+  const references = [{ town, distanceMiles: 92, distanceBand: "easy-day-trip" as const }];
+  const selected = selectMetroProximityAffiliateEvents(metro, collection, [], references, [
+    metroEvent("clifton", "Clifton Festival", "Clifton"),
+    metroEvent("unrelated", "Austin Festival", "Austin"),
+  ], { todayIso: "2026-09-30", horizonIso: "2026-10-14" });
+  assert.deepEqual(selected.map((item) => item.id), ["clifton"]);
+});
+
 test("ongoing metro events remain eligible when their end date is current", () => {
   const metro = getMetroProximityMetro("houston")!;
   const collection = getMetroProximityCollection("things-to-do")!;
   const ongoing = { ...metroEvent("ongoing", "Ongoing Fair", "Houston", true, "https://tickets.example.com/ongoing", "2026-09-28"), endDate: "2026-10-02" };
-  const selected = selectMetroProximityAffiliateEvents(metro, collection, [], [ongoing], { todayIso: "2026-09-30", horizonIso: "2026-10-14" });
+  const selected = selectMetroProximityAffiliateEvents(metro, collection, [], [], [ongoing], { todayIso: "2026-09-30", horizonIso: "2026-10-14" });
   assert.deepEqual(selected.map((item) => item.id), ["ongoing"]);
 });
 
@@ -478,6 +492,6 @@ test("weekend-trip events stay in represented destination towns and unrelated in
     metroEvent("houston", "Houston Show", "Houston"),
     metroEvent("brenham", "Brenham Festival", "Brenham"),
   ];
-  assert.deepEqual(selectMetroProximityAffiliateEvents(metro, weekend, results, candidates).map((item) => item.id), ["brenham"]);
-  assert.deepEqual(selectMetroProximityAffiliateEvents(metro, dayTrips, results, candidates), []);
+  assert.deepEqual(selectMetroProximityAffiliateEvents(metro, weekend, results, [], candidates).map((item) => item.id), ["brenham"]);
+  assert.deepEqual(selectMetroProximityAffiliateEvents(metro, dayTrips, results, [], candidates), []);
 });
