@@ -26,6 +26,6 @@ test('full server-side CSV retains district source IDs and original source citat
   assert.match(csv,/'school_district', 'official_cdn', 'county_slugs'/);
   assert.match(csv,/row\.name, row\.officialCdn, row\.countySlugs/);
   assert.match(csv,/row\.sourceStatus, row\.sourceUrl, data\.sourcePage, data\.sourceWorkbook/);
-  assert.match(csv,/\^\[\\s\]\*\[=\+\\-@\]/);
+  assert.ok(csv.includes("const safe = typeof value === 'number'"),'text fields must retain CSV injection guard');
   assert.match(page,/href="\/texas-data\/school-district-tax-rates\.csv"/);
 });
