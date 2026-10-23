@@ -409,3 +409,48 @@ no automatic local-rate assumptions. The verified 2022 Union Valley
 state-versus-local disagreement is shown separately elsewhere and is not
 misclassified as a missing Comptroller source rate. Source gaps in a not-yet-
 published current-year workbook are not fabricated or flagged as omissions.
+
+## Source-verified municipal research still outstanding (2026-10-22)
+
+The source-gap reporter lists **not-reported** official observations without
+pretending that missing values are zero. Follow-up source research is separate
+from the archived state source and from the parcel calculator.
+
+- **Poetry 2024** (Comptroller city ID `129-112-03-129-129`):
+  Kaufman CAD's [adopted 2024 local tax-rate sheet](https://kaufman-cad.org/wp-content/uploads/2024/10/2024-Tax-Rates.pdf)
+  lists neither Poetry nor an explicitly applicable municipal rate for this
+  year. The independently verified **2023** certified-totals zero does **not**
+  prove a 2024 zero. Remains unresolved.
+- **Scurry 2024 and 2025** (city ID `129-114-03-129-129`):
+  the 2024 Kaufman CAD tax-rate sheet lists **Scurry-Rosser ISD** and
+  **Kaufman County ESD #5 (Scurry)**, but **not** an adopted *municipal*
+  City of Scurry tax rate. Neither another district's rate nor Scurry
+  County's records can establish the City of Scurry rate. The 2025 city
+  amount is also not established by that 2024 document. Both remain
+  unresolved until year-specific city or CAD evidence is obtained.
+- **Taft — Deannexed 2023** (city ID `205-111-03`):
+  the [City of Taft 2022 council agenda](https://www.tafttx.gov/transparency-files/198-agenda-20220927-city-council-regular-meeting.pdf)
+  documents the special deannexed-Southwest-TaFT-area *2022* debt-service
+  rate of **0.192366**. The [San Patricio County tax office's rate and TNT archive](https://www.sanpatriciocountytx.gov/page/tax.assessor.collector)
+  lists a 2022 Taft Deannexed worksheet, but its 2023 index does not
+  establish a separately applicable deannexed-area rate. Do not reuse
+  2022 or the normal City of Taft 2023 rate for this distinct unit.
+  The 2023 row stays not-reported.
+
+The **2022 Union Valley** 0.000000 local / 0.287248 Comptroller disagreement
+remains unresolved and labeled. The [Comptroller annual rate publication](https://comptroller.texas.gov/taxes/property-tax/rates/)
+still shows 2025 as the latest available statewide collection at this review:
+no speculative 2026 source rows are permitted.
+
+### Continuous verification of future local rate evidence
+
+In addition to the fixed 16-observation regression corpus, the independent
+daily and post-deploy production verifier now **reads all currently verified
+local observations from Supabase** using the already existing server-side
+GitHub secret, checks their exact year/type/slug/official unit ID against
+the official row, reconciles components, and verifies rate/source/evidence
+presentation independently on the canonical and direct Worker sites.
+Future records require no manual edit to this dynamic production inventory.
+The fixed regression corpus stays in place to catch accidental changes to
+historically reviewed figures. Service-role credentials never reach public
+pages or live HTML, and all checks remain read-only.
