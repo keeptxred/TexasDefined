@@ -1056,7 +1056,12 @@
       "intakeId": 147,
       "title": "Beaumont Christmas at the McFaddin-Ward House",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "beaumont-mcfaddin-ward-holiday-open-house-2026",
+        "beaumont-mcfaddin-ward-christmas-past-workshop-2026"
+      ],
+      "researchNote": "Admission-free main holiday open-house Dec5–6 and separate age-restricted Dec15 workshop, both from museum's official 2026 schedule."
     },
     {
       "intakeId": 148,
@@ -1737,8 +1742,8 @@
   ],
   "reconciliation": {
     "asOf": "2026-10-23",
-    "calendarCandidates": 52,
+    "calendarCandidates": 53,
     "authorityCandidates": 12,
-    "remainingCandidates": 186
+    "remainingCandidates": 185
   }
 }
