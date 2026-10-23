@@ -89,7 +89,10 @@ function PartnerWithUsPage() {
         desiredStartDate: String(form.get('desiredStartDate') || ''),
         objectives: String(form.get('objectives') || ''),
         notes: String(form.get('notes') || ''),
-        sourcePath: search.sourcePath,
+        // Attribution is decoded lazily so the existing sports publisher shell remains byte-stable.
+        sourcePath: new URLSearchParams(window.location.search).get('source') === '/events/christmas-events'
+          ? '/events/christmas-events'
+          : search.sourcePath,
         addressLine2: String(form.get('addressLine2') || ''),
       } });
       setStatus('sent');
