@@ -200,7 +200,7 @@ function GenericCollectionPage({ page }: { page: any }) {
                   <a href={show.ticket.href} rel={show.ticket.rel} target="_blank" className="inline-flex items-center border border-primary px-4 py-2 text-sm font-semibold text-primary hover:bg-surface">
                     {show.ticket.label}
                   </a>
-                  {show.ticket.isAffiliate && <p className="mt-2 max-w-xs text-xs leading-5 text-muted-foreground">Affiliate link · checkout is handled by the ticket provider.</p>}
+                  {show.ticket.isAffiliate && <p className="mt-2 text-xs leading-5 text-muted-foreground">Affiliate link · checkout is handled by the ticket provider.</p>}
                 </div>
               </li>
             ))}
