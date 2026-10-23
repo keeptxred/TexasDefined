@@ -6,6 +6,7 @@ const resolver = read("src/data/major-event-page.server.ts");
 const registry = read("src/data/major-event-supplemental-registry.server.ts");
 const links = read("src/data/fixtures/seasonal-authority-links.ts");
 const legacy = read("src/data/major-event-expanded-authority-tranche35.server.ts");
+const media = read("src/data/major-event-schema-enrichment-batch31.server.ts");
 const issues = [];
 const required = [
   "grapevine-christmas-capital-of-texas",
@@ -43,6 +44,12 @@ for (const url of ["https://www.houstonzoo.org/events/zoolights/","https://austi
 }
 if (!authority.includes('startDate: "2026-12-04"') || !authority.includes('startDate: "2026-12-11"')) issues.push("Bethlehem two-weekend date windows missing");
 if (!authority.includes("ChristmasAuthorityRecord")) issues.push("Christmas typed occurrence windows missing");
+const at = media.indexOf('slug: "austin-trail-of-lights"');
+const endAt = media.indexOf('    slug: ', at + 8);
+const photo = at < 0 ? '' : media.slice(at, endAt < 0 ? undefined : endAt);
+for (const marker of ['image: {', 'Austin_Trail_of_Lights_Zilker_Park.JPG', 'CC BY-SA 3.0', 'Photo: Klugheit', 'exactLocation: true', 'approvedForCommercialUse: true']) {
+  if (!photo.includes(marker)) issues.push('Austin Trail of Lights verified historic photo rights missing: ' + marker);
+}
 if (issues.length) {
   console.error(issues.join("\n"));
   process.exitCode = 1;
