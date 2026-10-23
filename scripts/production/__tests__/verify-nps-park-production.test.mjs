@@ -1,11 +1,11 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import sharp from "sharp";
-import { verifyDirectoryHtml, verifyBattlefieldHtml, verifyChamizalHtml, extractChamizalImageUrls, verifyDecodableImageBytes } from "../verify-nps-park-production.mjs";
+import { verifyDirectoryHtml, verifyBattlefieldHtml, verifyAmistadHtml, verifyChamizalHtml, extractChamizalImageUrls, verifyDecodableImageBytes } from "../verify-nps-park-production.mjs";
 
 const codes=["alfl","amis","bibe","bith","blsc","buov","cham","elte","elca","foda","gumo","lamr","lyjo","pais","paal","rigr","saan","waco"];
 const directory=(links=codes.map(code=>'<a href="https://www.nps.gov/'+code+'/">Site</a>').join("")) =>
- '<html><body><section id="complete-texas-nps-inventory"><h2>All 18 National Park Service designations</h2>'+links+'<a href="/destination/palo-alto-battlefield-national-historical-park">TexasDefined guide</a></section></body></html>';
+ '<html><body><section id="complete-texas-nps-inventory"><h2>All 18 National Park Service designations</h2>'+links+'<a href="/destination/palo-alto-battlefield-national-historical-park">TexasDefined guide</a><a href="/destination/amistad-national-recreation-area">TexasDefined guide</a></section></body></html>';
 const battlefield='<html><img src="https://www.nps.gov/common/uploads/structured_data/3C792376-1DD8-B71B-0BFE87475AD26DCA.jpg" alt="Blue Mexican eight-pound field gun"><p>Palo Alto Battlefield National Historical Park · National Park Service</p></html>';
 
 test("exact real federal NPS official links in one SSR section pass",()=>{
@@ -75,4 +75,11 @@ test("Chamizal image verifier decodes actual JPEG pixels rather than trusting st
  await assert.rejects(()=>verifyDecodableImageBytes(bytes,"image/png"),/format\/dimensions/);
  const tooSmall=await sharp({create:{width:100,height:100,channels:3,background:"red"}}).jpeg().toBuffer();
  await assert.rejects(()=>verifyDecodableImageBytes(tooSmall,"image/jpeg"));
+});
+
+const amistad='<html><h1>Amistad National Recreation Area</h1><a href="https://www.nps.gov/amis/">Official NPS</a><img alt="Amistad" src="/images/explore/lakes-rivers/amistad-national-recreation-area.jpg"><p>National Park Service Public domain Lake Use Pass</p></html>';
+test('Amistad federal guide uses exact NPS source, licensed hero and boat-permit facts',()=>{
+ assert.equal(verifyAmistadHtml(amistad).officialSource,'nps.gov/amis');
+ for(const phrase of ['Amistad National Recreation Area</h1>','www.nps.gov/amis/','/images/explore/lakes-rivers/amistad-national-recreation-area.jpg','Public domain','Lake Use Pass'])
+  assert.throws(()=>verifyAmistadHtml(amistad.replace(phrase,'REMOVED')));
 });

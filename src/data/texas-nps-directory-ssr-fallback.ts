@@ -8,6 +8,7 @@ import { TEXAS_NPS_DIRECTORY } from "./texas-national-park-service-directory";
  * The card gate stays strict: the index does not certify all 18 authority pages.
  */
 export const NPS_LOCAL_GUIDES: Readonly<Record<string, string>> = {
+  "amistad-national-recreation-area": "/destination/amistad-national-recreation-area",
   "alibates-flint-quarries-national-monument": "/destination/alibates-flint-quarries-national-monument",
   "chamizal-national-memorial": "/destination/chamizal-national-memorial",
   "fort-davis-national-historic-site": "/destination/fort-davis-national-historic-site",
