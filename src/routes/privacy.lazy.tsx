@@ -50,6 +50,9 @@ function PrivacyPolicyPage() {
               Business applicants may submit representative contact information, business name, website, group capacity, offered packages, and proposed offer codes and terms. Applications and proposed codes are reviewed internally; submitting an application does not make the contact information or unapproved promotion public. If approved, a limited business offer may be shown publicly with its commercial relationship identified.
             </p>
             <p className="mt-3">
+              When you select an approved company-event partner offer and open its destination website, we may increment a daily aggregate count for that offer. The event-offer click-count ledger stores the offer identifier, Texas calendar date, and number of link activations; it does not retain visitors&apos; names, email addresses, IP addresses, cookies, device identifiers, or session identifiers. These counts do not prove sales, reservations, unique visitors, or commissions. Other standard site security and hosting logs are governed by the remaining provisions of this policy.
+            </p>
+            <p className="mt-3">
               Please avoid entering sensitive personal information about employees or guests in open-text fields. To inquire about correction or deletion of information submitted through these forms, use the privacy contact instructions below.
             </p>
           </section>
