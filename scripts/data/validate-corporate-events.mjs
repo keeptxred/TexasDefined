@@ -10,7 +10,10 @@ const brand = readFileSync('src/brand/texasdefined.ts', 'utf8');
 const events = readFileSync('src/routes/events.index.lazy.tsx', 'utf8');
 const categories = new Set(corporateEventCategories.map((item) => item.value));
 
-assert(corporateEventProviders.length >= 10);
+assert(corporateEventProviders.length >= 30, 'Statewide expansion should contain at least 30 official-source venues');
+for (const metro of ['Houston', 'Dallas', 'Austin', 'San Antonio']) {
+  assert(corporateEventProviders.filter((p) => p.city === metro || p.metro?.includes(metro)).length >= 3, 'Insufficient metro coverage: ' + metro);
+}
 assert(corporateEventProviders.filter((p) => p.city === 'Houston' && p.maxGroup >= 45 && (!p.minGroup || p.minGroup <= 45)).length >= 8);
 assert.equal(new Set(corporateEventProviders.map((p) => p.slug)).size, corporateEventProviders.length);
 for (const p of corporateEventProviders) {
@@ -24,6 +27,8 @@ assert(lazyRoute.includes("createLazyFileRoute('/corporate-events')"));
 assert(lazyRoute.includes('submitGroupEventRequest'));
 assert(lazyRoute.includes('application/ld+json'), 'The lazy page must SSR its sourced ItemList schema');
 assert(lazyRoute.includes('navigator.clipboard.writeText'));
+assert(lazyRoute.includes("url.searchParams.set('venues', selected.join(','))"), 'Shortlists must preserve public venue slugs');
+assert(lazyRoute.includes('provider.metro?.toLowerCase().includes(requestedCity)'), 'Metropolitan searches must cover suburbs');
 assert(api.includes('consentContact'));
 assert(registry.includes('"/corporate-events"'));
 assert(brand.includes('to: "/corporate-events"'));
