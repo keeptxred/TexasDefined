@@ -5,8 +5,8 @@ import { buildSeoHead } from "@/lib/seo";
 const canonicalPath = "/waco-ghost-tours";
 export const Route = createFileRoute("/waco-ghost-tours")({
   head: () => buildSeoHead(texasDefinedBrand, {
-    title: "Waco Ghost Tours: Night Walks, History & Booking Guide";
-    description: "Compare Waco ghost walks and historical nighttime tours, departure details, tour durations, accessibility considerations and verified booking options.";
+    title: "Waco Ghost Tours: Night Walks, History & Booking Guide",
+    description: "Compare Waco ghost walks and historical nighttime tours, departure details, tour durations, accessibility considerations and verified booking options.",
     canonicalPath,
   }),
 });
