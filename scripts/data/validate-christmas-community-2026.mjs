@@ -135,7 +135,9 @@ assert.ok(collection.includes('"Dallas": "dallas"'), "Source-approved Dallas hol
 assert.ok(collection.includes('"Galveston": "galveston"'), "Source-approved Galveston holiday experience referral missing");
 assert.ok(collection.includes("christmasOfferCities.has(event.city)"), "Avoid repeated city-level affiliate links on calendar cards");
 assert.ok(page.includes("source=%2Fevents%2Fchristmas-events"), "Seasonal advertiser inquiry must retain Christmas origin");
-assert.ok(partnerRoute.includes('(?:sports-venue|events?)'), "Event advertiser source tracking must accept safe, consolidated event routes");
+assert.ok(partnerRoute.includes('sports-venue'), "Preserve sports lead-source safety contract");
+assert.ok(read("src/routes/partner-with-us.lazy.tsx").includes("sourcePath: new URLSearchParams(window.location.search).get('source') === '/events/christmas-events'"), "Lazily decode exact Christmas advertiser source without growing main bundle");
+assert.ok(read("src/data/partner-inquiry.functions.ts").includes("z.literal('/events/christmas-events')"), "Server schema must whitelist Christmas sponsor source");
 assert.ok(!page.includes("adsbygoogle"), "Do not activate unapproved AdSense units in Christmas pages");
 assert.ok(monetizationPolicy.includes("AdSense is not approved"), "Ads approval status must remain documented");
 assert.ok(schemaRegistry.includes("...majorEventSchemaEnrichmentBatch33,"), "Reviewed Christmas organizer schema batch missing from runtime registry");
