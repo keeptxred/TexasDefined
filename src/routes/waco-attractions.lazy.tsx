@@ -48,11 +48,21 @@ const guideNotes: Readonly<Record<string, { bestFor: string; entry: string; timi
   },
 };
 
+const wacoSeo = { title: "Seven Waco Attractions: Full Visitor Guides and Tours", description: "Seven independent Waco attraction authority guides: Dr Pepper Museum, Cottonland Castle, Suspension Bridge, Cameron Park, Texas Ranger Hall of Fame, McLane Stadium and Cameron Park Zoo.", url: "https://texasdefined.com/waco-attractions" };
+function WacoSeoMetadata() {
+  const structured = { '@context':'https://schema.org', '@graph': [
+    { '@type':'CollectionPage', '@id':wacoSeo.url+'#page', url:wacoSeo.url, name:"Seven Waco attractions: independent visitor guides", description:wacoSeo.description, dateModified:'2026-10-20' , mainEntity: { '@type': 'ItemList', itemListElement: WACO_VIATOR_ATTRACTIONS.map((a,i)=>({ '@type':'ListItem', position:i+1,name:a.name,url:'https://texasdefined.com'+a.href })) }},
+    { '@type':'BreadcrumbList', itemListElement:[{ '@type':'ListItem', position:1,name:'TexasDefined',item:'https://texasdefined.com/' },{ '@type':'ListItem', position:2,name:"Seven Waco attractions: independent visitor guides",item:wacoSeo.url }] }
+  ]};
+  return <><title>{wacoSeo.title}</title><meta name="description" content={wacoSeo.description}/><link rel="canonical" href={wacoSeo.url}/><meta property="og:title" content={wacoSeo.title}/><meta property="og:description" content={wacoSeo.description}/><meta property="og:url" content={wacoSeo.url}/><meta name="twitter:card" content="summary_large_image"/><script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(structured)}}/></>;
+}
+
 export const Route = createLazyFileRoute("/waco-attractions")({ component: WacoAttractionsAuthorityDirectory });
 
 function WacoAttractionsAuthorityDirectory() {
   return (
     <main>
+      <WacoSeoMetadata />
       <Container className="pb-16 pt-10 sm:pb-24 sm:pt-14">
         <nav aria-label="Breadcrumb" className="border-b border-border pb-4 text-xs uppercase tracking-wider text-muted-foreground">
           <a href="/" className="underline underline-offset-4">TexasDefined</a> / Waco attractions
