@@ -1,0 +1,97 @@
+import { corporateEventProviders } from '@/data/corporate-events';
+import { supabaseAdmin } from '@/integrations/supabase/client.server';
+
+/** Public subset only: never include a partner's contact details or unapproved draft. */
+export type PublicCorporateEventOffer = {
+  providerSlug: string;
+  title: string;
+  benefit: string;
+  code: string | null;
+  redemptionUrl: string;
+  endsOn: string;
+};
+
+type ApprovedOfferRow = {
+  partner_application_id: string;
+  provider_slug: string;
+  title: string;
+  benefit: string;
+  code: string | null;
+  redemption_url: string;
+  starts_on: string;
+  ends_on: string;
+  reviewed_at: string | null;
+};
+type ApprovedBusiness = {
+  id: string;
+  status: string;
+  business_name: string;
+  website: string;
+};
+function normalizedBusinessName(name: string) {
+  return name.toLowerCase().replace(/[^a-z0-9]/g, '');
+}
+function approvedRedemptionUrl(redemptionUrl: string, businessWebsite: string) {
+  try {
+    const redemption = new URL(redemptionUrl);
+    const business = new URL(businessWebsite);
+    if (redemption.protocol !== 'https:' || business.protocol !== 'https:') return false;
+    const host = redemption.hostname.toLowerCase();
+    const businessHost = business.hostname.toLowerCase();
+    return host === businessHost || host.endsWith('.' + businessHost);
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * An approved internal offer is not automatically public. The active date
+ * window, reviewer stamp, approved applicant, verified directory identity,
+ * and HTTPS partner-hosted redemption destination must ALL still match.
+ */
+export async function loadPublicCorporateEventOffers(): Promise<PublicCorporateEventOffer[]> {
+  const client = supabaseAdmin as any;
+  const today = new Date().toISOString().slice(0, 10);
+  const { data: offers, error: offersError } = await client
+    .from('texasdefined_group_event_offers')
+    .select('partner_application_id,provider_slug,title,benefit,code,redemption_url,starts_on,ends_on,reviewed_at')
+    .eq('status', 'approved')
+    .lte('starts_on', today)
+    .gte('ends_on', today)
+    .not('reviewed_at', 'is', null)
+    .limit(100);
+  if (offersError) throw new Error('Approved event offers are unavailable.');
+  if (!Array.isArray(offers) || !offers.length) return [];
+
+  const applicationIds = [...new Set((offers as ApprovedOfferRow[]).map((offer) => offer.partner_application_id))];
+  const { data: businesses, error: businessError } = await client
+    .from('texasdefined_group_event_partner_applications')
+    .select('id,status,business_name,website')
+    .in('id', applicationIds)
+    .eq('status', 'approved')
+    .limit(100);
+  if (businessError) throw new Error('Partner approval verification is unavailable.');
+  const approvedBusinesses = new Map<string, ApprovedBusiness>(
+    ((businesses ?? []) as ApprovedBusiness[]).map((business) => [business.id, business]),
+  );
+  const directory = new Map(corporateEventProviders.map((provider) => [provider.slug, provider]));
+  const verified: PublicCorporateEventOffer[] = [];
+  for (const offer of offers as ApprovedOfferRow[]) {
+    const business = approvedBusinesses.get(offer.partner_application_id);
+    const provider = directory.get(offer.provider_slug);
+    if (!business || !provider || !offer.reviewed_at) continue;
+    if (normalizedBusinessName(provider.name) !== normalizedBusinessName(business.business_name)) continue;
+    if (!approvedRedemptionUrl(offer.redemption_url, business.website)) continue;
+    if (offer.starts_on > today || offer.ends_on < today) continue;
+    verified.push({
+      providerSlug: provider.slug,
+      title: offer.title,
+      benefit: offer.benefit,
+      code: offer.code,
+      redemptionUrl: offer.redemption_url,
+      endsOn: offer.ends_on,
+    });
+  }
+  // Editorial ordering stays independent of commercial offers.
+  return verified.sort((a, b) => a.providerSlug.localeCompare(b.providerSlug) || a.endsOn.localeCompare(b.endsOn));
+}
