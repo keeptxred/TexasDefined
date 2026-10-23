@@ -623,6 +623,24 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
   }
 ];
 
+// Reuse comprehensive guides where they exist. The dated occurrence remains
+// an independent calendar record, so closing days are never falsely listed.
+const publishedGuides: Readonly<Record<string, string>> = {
+  "grand-prairie-prairie-lights": "grand-prairie-prairie-lights",
+  "moody-gardens-holiday-lights-trail": "moody-gardens-holiday-in-the-gardens",
+  "johnson-city-lights-spectacular": "johnson-city-christmas-lights-spectacular",
+  "grapevine-north-pole-express-nov": "grapevine-north-pole-express",
+  "grapevine-north-pole-express-dec": "grapevine-north-pole-express",
+  "grapevine-north-pole-express-final": "grapevine-north-pole-express",
+  "fort-worth-north-pole-express-dec3": "grapevine-north-pole-express",
+  "dallas-zoo-lights-opening": "dallas-zoo-lights",
+  "dallas-zoo-lights-november": "dallas-zoo-lights",
+  "dallas-zoo-lights-dec-early": "dallas-zoo-lights",
+  "dallas-zoo-lights-dec-mid": "dallas-zoo-lights",
+  "dallas-zoo-lights-dec-late": "dallas-zoo-lights",
+  "dallas-zoo-lights-final": "dallas-zoo-lights",
+};
+
 function texasTodayIso(now = new Date()): string {
   const parts = new Intl.DateTimeFormat("en-US", {
     timeZone: "America/Chicago", year: "numeric", month: "2-digit", day: "2-digit",
@@ -638,7 +656,7 @@ export function getVerifiedChristmasCommunityEvents2026(now = new Date()): Texas
     .map((occurrence) => ({
       ...occurrence,
       id: `christmas-community:${occurrence.slug}:${occurrence.startDate}`,
-      guidePath: `/events/christmas-events#christmas-community-${occurrence.slug}`,
+      guidePath: publishedGuides[occurrence.slug] ? `/event/${publishedGuides[occurrence.slug]}` : `/events/christmas-events#christmas-community-${occurrence.slug}`,
       category: "seasonal" as const,
       status: "scheduled" as const,
       lastVerifiedAt: "2026-10-23",
