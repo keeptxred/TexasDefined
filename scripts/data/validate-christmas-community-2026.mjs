@@ -15,6 +15,7 @@ const majorIndex = read("src/data/major-event-index.ts");
 const candidates = JSON.parse(read("src/data/events/christmas-candidates-250.json"));
 const partnerRoute = read("src/routes/partner-with-us.tsx");
 const monetizationPolicy = read("docs/holidays/christmas-2026-monetization.md");
+const productionVerifier = read("scripts/ci/verify-event-temporal-production.mjs");
 const schemaRegistry = read("src/data/major-event-schema-enrichment.server.ts");
 const schemaBatch = read("src/data/major-event-schema-enrichment-batch33.server.ts");
 
@@ -153,6 +154,7 @@ assert.ok(collection.includes("christmasOfferCities.has(event.city)"), "Avoid re
 assert.ok(page.includes("source=%2Fevents%2Fchristmas-events"), "Seasonal advertiser inquiry must retain Christmas origin");
 assert.ok(partnerRoute.includes('(?:sports-venue|events?)'), "Event advertiser source tracking must accept safe, consolidated event routes");
 assert.ok(!page.includes("adsbygoogle"), "Do not activate unapproved AdSense units in Christmas pages");
+assert.ok(productionVerifier.includes("Christmas production is missing source-qualified 2026 coverage"), "Live Christmas calendar smoke must fail closed on stale production");
 assert.ok(monetizationPolicy.includes("AdSense is not approved"), "Ads approval status must remain documented");
 assert.ok(schemaRegistry.includes("...majorEventSchemaEnrichmentBatch33,"), "Reviewed Christmas organizer schema batch missing from runtime registry");
 assert.ok(adapter.includes("getMajorEventOccurrenceWindowsServer(authority)"), "Date-scoped seasonal guides must not pad closed nights");
