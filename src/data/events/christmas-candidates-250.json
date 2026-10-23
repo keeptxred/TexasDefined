@@ -431,7 +431,12 @@
       "intakeId": 57,
       "title": "Arlington Christkindlmarket",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "arlington-texas-christkindl-market-opening-2026",
+        "arlington-texas-christkindl-market-season-2026"
+      ],
+      "researchNote": "Market main 2026 calendar dates Nov20–22 plus Nov27–Dec23; secondary market page unexpectedly says Nov20–23, so Nov23 excluded until confirmed."
     },
     {
       "intakeId": 58,
@@ -464,7 +469,8 @@
       "intakeId": 61,
       "title": "Dallas Vitruvian Lights",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "Vitruvian Park tourism site confirms a 2026 return but still lacks exact 2026 opening/closing dates as of review. Hold calendar window."
     },
     {
       "intakeId": 62,
@@ -604,7 +610,11 @@
       "intakeId": 80,
       "title": "Mansfield Hometown Holidays",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "mansfield-hometown-holidays-2026"
+      ],
+      "researchNote": "City's flagship Hometown Holidays on Dec4 only; other town holiday activities occur on separate dates and are not part of this day-scoped record."
     },
     {
       "intakeId": 81,
@@ -1727,8 +1737,8 @@
   ],
   "reconciliation": {
     "asOf": "2026-10-23",
-    "calendarCandidates": 50,
+    "calendarCandidates": 52,
     "authorityCandidates": 12,
-    "remainingCandidates": 188
+    "remainingCandidates": 186
   }
 }
