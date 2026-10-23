@@ -294,7 +294,7 @@ const records: ChristmasAuthorityRecord[] = [
     endDate: "2027-01-03",
     venue: "Houston Zoo, Hermann Park",
     officialUrl: "https://www.houstonzoo.org/events/zoolights/",
-    sourceCheckedAt: "2026-10-21",
+    sourceCheckedAt: "2026-10-23",
     whyItMatters: "Houston Zoo's seasonal light walk makes an accessible-in-city evening outing centered on illuminated animal scenes, themed displays and conservation storytelling. It is a separate nighttime ticket, not simply a continuation of ordinary daytime admission.",
     quickFacts: [
       {
@@ -374,6 +374,13 @@ const records: ChristmasAuthorityRecord[] = [
         label: "Houston Zoo October 14 release",
         url: "https://www.houstonzoo.org/about/newsroom/txu-energy-presents-zoo-lights-tickets-now-available/"
       }
+    ],
+    // The operator separately calls out Dec 9 and Dec 24 closures; do
+    // not count those days as operating nights in the shared calendar.
+    occurrenceWindows: [
+      { label: "Before Dec 9 closure", startDate: "2026-11-19", endDate: "2026-12-08" },
+      { label: "After Dec 9 closure", startDate: "2026-12-10", endDate: "2026-12-23" },
+      { label: "Christmas Day through Jan 3", startDate: "2026-12-25", endDate: "2027-01-03" },
     ]
   },
   {
