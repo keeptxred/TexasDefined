@@ -123,6 +123,16 @@ assert.equal(
   250, "Every submitted Christmas candidate must be accounted for",
 );
 assert.ok(candidates.reconciliation.remainingCandidates > 0, "Do not auto-verify all holiday candidates without sources");
-assert.ok(events.length >= 46, "Dated Christmas inventory shrank unexpectedly");
+assert.ok(events.length >= 64, "Dated Christmas inventory shrank unexpectedly");
+assert.ok(adapter.includes("getMajorEventOccurrenceWindowsServer(authority)"), "Date-scoped seasonal guides must not pad closed nights");
+assert.ok(read("src/data/major-event-expanded-authority-tranche57.server.ts").includes('label: "After Dec 9 closure"'), "Houston Zoo Lights holiday closures must remain excluded");
+check("santas-ranch-new-braunfels", "2026-11-06", "2027-01-03");
+check("sugar-land-holiday-lights-constellation-field", "2026-11-20", "2027-01-03");
+check("jefferson-candlelight-tour-dec3", "2026-12-03", "2026-12-05");
+check("jefferson-candlelight-tour-dec10", "2026-12-10", "2026-12-12");
+check("amarillo-electric-light-parade", "2026-12-04");
+check("richardson-santas-village-week1", "2026-12-05", "2026-12-06");
+check("richardson-santas-village-week2", "2026-12-11", "2026-12-13");
+check("richardson-santas-village-week3", "2026-12-18", "2026-12-20");
 console.log(`Christmas calendar and five authority guides verified: ${events.length} dated occurrences, 250 candidates reconciled, affiliate disclosures, county crosslinks and premerge gate.`);
 
