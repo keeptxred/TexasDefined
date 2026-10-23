@@ -53,7 +53,7 @@ const records: ChristmasAuthorityRecord[] = [
       },
       {
         title: "Book North Pole Express separately",
-        body: "The seasonal train runs November 27 through December 30, with December 3, 24 and 25 listed as closed. Train tickets have departure slots and should be booked before flights or hotel commitments; arriving downtown does not confer a train seat."
+        body: "The seasonal train runs November 27 through December 30, but December 3 departures are special excursions from Historic Stockyards Station in Fort Worth rather than Grapevine. No trains operate December 24 or 25. Select the correct station and dated departure before arranging travel; arriving downtown does not confer a train seat."
       },
       {
         title: "Use free parking and avoid closure traps",
@@ -93,6 +93,10 @@ const records: ChristmasAuthorityRecord[] = [
       {
         label: "Grapevine CVB holiday hub",
         url: "https://www.grapevinetexasusa.com/christmas-capital-of-texas/"
+      },
+      {
+        label: "Grapevine CVB 2026 North Pole Express date-by-date and special Fort Worth December 3 schedule",
+        url: "https://www.grapevinetexasusa.com/christmas-capital-of-texas/north-pole-express/dates-times/"
       }
     ],
     dateNote: "The published 40-day holiday season begins November 23. Dates above represent the wider festive season, not nightly operation of every paid event."
