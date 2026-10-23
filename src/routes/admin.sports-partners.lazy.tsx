@@ -2,6 +2,7 @@ import { createLazyFileRoute } from '@tanstack/react-router';
 import { type FormEvent, useEffect, useMemo, useState } from 'react';
 
 import { Container } from '@/components/layout/Container';
+import { CorporateEventOpsPanel } from '@/components/events/CorporateEventOpsPanel';
 import { createAdvertiserAgreementOffer } from '@/data/advertiser-agreement.functions';
 import { getAdvertiserLeadDashboard, setAdvertiserLeadStatus } from '@/data/advertiser-leads.functions';
 import type { AdvertiserLead, AdvertiserLeadDashboard, AdvertiserLeadStatus } from '@/data/advertiser-leads.types';
@@ -189,6 +190,7 @@ function AdvertiserLeadsPage() {
         error={error}
         success={success}
       />}
+      {dashboard ? <CorporateEventOpsPanel accessKey={accessKey} /> : null}
     </main>
   </Container>;
 }
