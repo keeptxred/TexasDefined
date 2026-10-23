@@ -66,6 +66,7 @@ export const museumAuthoritySlugs: ReadonlySet<string> = new Set([
   "el-paso-holocaust-museum",
   "el-paso-museum-of-archaeology",
   "johnny-nelson-katy-heritage-museum",
+  "yoakum-heritage-museum",
   "corpus-christi-museum-science-history",
   "port-isabel-historical-museum",
   "historic-brownsville-museum",
