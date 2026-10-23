@@ -17,7 +17,8 @@
       "intakeId": 2,
       "title": "Fredericksburg Eisbahn",
       "submittedRegion": "Hill Country & Central Texas",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "No official 2026 Fredericksburg TX Eisbahn date verified; search results also return a different Fredericksburg in Virginia and outdated 2025 rink announcements. Do not publish an invented ice-rink calendar run."
     },
     {
       "intakeId": 3,
@@ -1116,7 +1117,11 @@
       "intakeId": 156,
       "title": "San Antonio Natural Bridge Caverns Christmas",
       "submittedRegion": "South Texas & Alamo Region",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "natural-bridge-christmas-caverns-opening-2026"
+      ],
+      "researchNote": "2026 Christmas at the Caverns season runs Dec 5–23 on select nights, but official event list does not enumerate all open dates. Only verified opening date listed."
     },
     {
       "intakeId": 157,
@@ -1128,7 +1133,11 @@
       "intakeId": 158,
       "title": "San Antonio Lightscape at the Botanical Garden",
       "submittedRegion": "South Texas & Alamo Region",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "san-antonio-garden-illuminate-opening-2026"
+      ],
+      "researchNote": "The Garden's actual 2026 exhibit is Illuminate, not Lightscape; dated timed-entry tickets are required and only opening date is a confirmed calendar occurrence."
     },
     {
       "intakeId": 159,
@@ -1718,8 +1727,8 @@
   ],
   "reconciliation": {
     "asOf": "2026-10-23",
-    "calendarCandidates": 48,
+    "calendarCandidates": 50,
     "authorityCandidates": 12,
-    "remainingCandidates": 190
+    "remainingCandidates": 188
   }
 }
