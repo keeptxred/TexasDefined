@@ -89,7 +89,11 @@ function PartnerWithUsPage() {
         desiredStartDate: String(form.get('desiredStartDate') || ''),
         objectives: String(form.get('objectives') || ''),
         notes: String(form.get('notes') || ''),
-        sourcePath: search.sourcePath,
+        // This exact, server-whitelisted Christmas origin is read lazily.
+        // Keep the shared route's main bundle at its protected byte budget.
+        sourcePath: new URLSearchParams(window.location.search).get('source') === '/events/christmas-events'
+          ? '/events/christmas-events'
+          : search.sourcePath,
         addressLine2: String(form.get('addressLine2') || ''),
       } });
       setStatus('sent');
