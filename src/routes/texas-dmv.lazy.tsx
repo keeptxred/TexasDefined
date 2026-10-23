@@ -27,7 +27,7 @@ function TexasDmvPage() {
               <span className="text-xs font-semibold text-primary">{service.agency}</span>
               <h3 className="mt-2 font-display text-xl text-foreground">{service.title}</h3>
               <p className="mt-3 text-sm leading-6 text-muted-foreground">{service.detail}</p>
-              <span className="mt-4 inline-block text-sm font-semibold text-primary">Open guide →</span>
+              <span className="mt-4 text-sm font-semibold text-primary">Open guide →</span>
             </Link>
           ))}
         </div>
@@ -35,7 +35,7 @@ function TexasDmvPage() {
       <section aria-labelledby="dmv-official-sources" className="mx-auto max-w-6xl border-t border-border px-4 py-10 sm:px-6 lg:px-8">
         <h2 id="dmv-official-sources" className="font-display text-2xl">Verify with the agency responsible</h2>
         <p className="mt-3 max-w-3xl leading-7 text-muted-foreground">Official rules, eligibility, fees, forms, and appointment procedures may change. Check the responsible agency before applying or paying.</p>
-        <ul className="mt-4 list-disc space-y-2 pl-5">
+        <ul className="mt-4 list-disc space-y-3 pl-5">
           <li><a className="underline underline-offset-4" href="https://www.txdmv.gov/" target="_blank" rel="noopener noreferrer">Texas Department of Motor Vehicles</a> — titles, registration, license plates, dealer and motor carrier services</li>
           <li><a className="underline underline-offset-4" href="https://www.dps.texas.gov/section/driver-license" target="_blank" rel="noopener noreferrer">Texas Department of Public Safety</a> — driver licenses, IDs, CDL and appointments</li>
           <li><a className="underline underline-offset-4" href="https://comptroller.texas.gov/taxes/motor-vehicle/" target="_blank" rel="noopener noreferrer">Texas Comptroller</a> — motor vehicle sales and use tax</li>
