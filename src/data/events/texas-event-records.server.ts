@@ -165,7 +165,14 @@ export function loadTexasEventRecordsServer(): TexasEventRecord[] {
     if (record) records.push(record);
   }
 
+  // These destination guides are indexable, but have non-contiguous ticketed
+  // operating nights. The separate community occurrence records below are the
+  // authoritative day-by-day calendar; never fill in the closed nights between.
+  const occurrenceWindowOnlyGuides = new Set([
+    "grapevine-north-pole-express", "dallas-zoo-lights",
+  ]);
   for (const guide of guides) {
+    if (occurrenceWindowOnlyGuides.has(guide.slug)) continue;
     if (seenGuides.has(guide.slug)) continue;
     const authority = getMajorEventRecordServer(guide.slug);
     const officialUrl = authority?.officialUrl;
@@ -193,7 +200,15 @@ export function loadTexasEventRecordsServer(): TexasEventRecord[] {
   // date-scoped calendar pipeline as major event guides. These are calendar
   // occurrences, not thin automatically generated authority pages.
   const knownCommunity = new Set(records.map((record) => `${eventIdentity(record.title, record.city)}:${record.startDate}`));
+  // These attractions already have a single continuous-season authority record.
+  // Do not show a duplicate ticketed attraction from the calendar-first intake.
+  const authorityCoveredCommunity = new Set([
+    "johnson-city-lights-spectacular",
+    "grand-prairie-prairie-lights",
+    "moody-gardens-holiday-lights-trail",
+  ]);
   for (const holiday of getVerifiedChristmasCommunityEvents2026()) {
+    if (authorityCoveredCommunity.has(holiday.slug)) continue;
     const key = `${eventIdentity(holiday.title, holiday.city)}:${holiday.startDate}`;
     if (knownCommunity.has(key)) continue;
     records.push(holiday);
