@@ -37,6 +37,17 @@ for (const [needle, label] of [
   ['VALID SECONDARY ROUTE PENDING CLEAN TRACKED LINK', 'Discount School Supply activation state'],
 ]) requireText(portfolio, needle, label);
 
+const articleRoute = fs.readFileSync('src/routes/article.$slug.tsx', 'utf8');
+if ((articleRoute.match(/<SchoolSupplyPartners\b/g) ?? []).length !== 1) {
+  errors.push('Informational articles must render exactly one school-supply partner block in SSR markup.');
+}
+for (const token of ['2xl:absolute','2xl:left-full','2xl:ml-8','2xl:top-10','2xl:w-72']) {
+  requireText(articleRoute, token, 'School-supply module retains responsive desktop rail placement');
+}
+if (articleRoute.includes('school-supply-bottom') || articleRoute.includes('school-supply-rail')) {
+  errors.push('CSS-hidden duplicate affiliate placements must not return.');
+}
+
 if (source.includes('email.cj.com/')) {
   errors.push('School-supply affiliate component must never use CJ email-wrapper URLs as shopper-facing affiliate destinations.');
 }
