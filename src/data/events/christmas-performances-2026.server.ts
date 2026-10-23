@@ -41,16 +41,16 @@ const verified: readonly ChristmasPerformance[] = [
   {
     id: "christmas-kwanzaa-dallas-2026", name: "Promising Young Artist Series: 33rd Annual Christmas/Kwanzaa Concert",
     date: "2026-12-11", timeLabel: "7:30 PM", city: "Dallas", venue: "Bruton Theatre",
-    sourceUrl: "https://www.ticketmaster.com/bruton-theatre-tickets-dallas/venue/98316",
-    sourceName: "Ticketmaster venue schedule", ticketmasterNeedle: "33rd annual christmas kwanzaa",
+    sourceUrl: "https://www.ticketmaster.com/promising-young-artist-series-33rd-annual-dallas-texas-12-11-2026/event/0C00653DBA7FA947",
+    sourceName: "Ticketmaster official event ticket page", ticketmasterNeedle: "33rd annual christmas kwanzaa",
     description: "Annual arts and music program presented at the Bruton Theatre.",
   },
   {
     id: "christmas-story-conroe-2026", name: "A Christmas Story",
     date: "2026-12-13", timeLabel: "2:00 PM · additional dates Dec. 4–20",
     city: "Conroe", venue: "Crighton Theatre",
-    sourceUrl: "https://lakeconroe.com/events/a-christmas-story-6/",
-    sourceName: "Lake Conroe event listing", ticketmasterNeedle: "a christmas story",
+    sourceUrl: "https://www.crightontheatre.org/",
+    sourceName: "Crighton Theatre official production calendar", ticketmasterNeedle: "a christmas story",
     description: "Stage adaptation of the Ralphie Parker story; other performances are available in the run.",
   },
   {
@@ -63,8 +63,8 @@ const verified: readonly ChristmasPerformance[] = [
   {
     id: "jazzy-christmas-dallas-2026", name: "A Jazzy Christmas Concert",
     date: "2026-12-17", timeLabel: "7:00 PM", city: "Dallas", venue: "Bruton Theatre",
-    sourceUrl: "https://www.ticketmaster.com/bruton-theatre-tickets-dallas/venue/98316",
-    sourceName: "Ticketmaster venue schedule", ticketmasterNeedle: "a jazzy christmas concert",
+    sourceUrl: "https://www.ticketmaster.com/a-jazzy-christmas-concert-dallas-texas-12-17-2026/event/0C00653DB901A616",
+    sourceName: "Ticketmaster official event ticket page", ticketmasterNeedle: "a jazzy christmas concert",
     description: "Holiday jazz concert at the Bruton Theatre.",
   },
   {
@@ -94,8 +94,8 @@ const verified: readonly ChristmasPerformance[] = [
     id: "grand-ol-christmas-dallas-2026", name: "The Grand Ol' Christmas Show",
     date: "2026-12-23", timeLabel: "6:00 PM show · doors at 5:00 PM",
     city: "Dallas", venue: "House of Blues Dallas",
-    sourceUrl: "https://www.livenation.com/venue/KovZpZAEAF7A/house-of-blues-dallas-events",
-    sourceName: "Live Nation venue schedule", ticketmasterNeedle: "grand ol christmas",
+    sourceUrl: "https://www.ticketmaster.com/grand-ol-christmas-dallas-texas-12-23-2026/event/0C0064CA0668F4BE",
+    sourceName: "Ticketmaster official event ticket page", ticketmasterNeedle: "grand ol christmas",
     description: "Holiday variety show. The 5 p.m. listing is the event/door time, not the performance start.",
   },
   {
