@@ -2,6 +2,8 @@ import fs from 'node:fs';
 
 const snapshotPath = 'src/data/property/county-property-enrichment.generated.ts';
 const snapshot = fs.readFileSync(snapshotPath, 'utf8');
+const additionalSnapshot = fs.readFileSync('src/data/property/county-property-supplement.server.ts', 'utf8');
+const allSnapshots = snapshot + '\n' + additionalSnapshot;
 const localVerification = fs.readFileSync('src/data/property/county-property-local-verification.ts', 'utf8');
 const dataset = fs.readFileSync('src/data/property/county-property-data.ts', 'utf8');
 const schema = fs.readFileSync('src/data/property/county-property-schema.ts', 'utf8');
@@ -166,17 +168,17 @@ if (!legacyStandaloneProtection && !centralizedProtection) {
 if (/lastVerifiedAt:\s*['"]?\s*['"]?\s*,/.test(snapshot)) failures.push('Snapshot contains an empty verification date.');
 if (/websiteUrl:\s*['"]http:\/\//.test(snapshot)) failures.push('Snapshot contains an insecure office website URL.');
 
-const recordMatches = [...snapshot.matchAll(/^  (?:(?:"([a-z0-9-]+)")|([a-z0-9-]+)):\s*\{/gm)];
+const recordMatches = [...allSnapshots.matchAll(/^  (?:(?:["']([a-z0-9-]+)["'])|([a-z0-9-]+)):\s*\{/gm)];
 const recordSlugs = recordMatches.map((match) => match[1] || match[2]).filter(Boolean);
 if (recordSlugs.length === 0) failures.push('Snapshot must contain at least one verified county record.');
 if (recordSlugs.length > 254) failures.push(`Snapshot contains ${recordSlugs.length} county records; maximum is 254.`);
 if (new Set(recordSlugs).size !== recordSlugs.length) failures.push('Snapshot contains duplicate top-level county slugs.');
 
-const comptrollerPages = [...snapshot.matchAll(/https:\/\/comptroller\.texas\.gov\/taxes\/property-tax\/county-directory\/([a-z0-9-]+)\.php/g)].map((match) => match[1]);
+const comptrollerPages = [...allSnapshots.matchAll(/https:\/\/comptroller\.texas\.gov\/taxes\/property-tax\/county-directory\/([a-z0-9-]+)\.php/g)].map((match) => match[1]);
 const uniqueComptrollerPages = new Set(comptrollerPages);
 if (uniqueComptrollerPages.size < recordSlugs.length) failures.push('Every snapshot county must retain its own county-specific Comptroller source URL.');
 
-const verificationDates = [...snapshot.matchAll(/lastVerifiedAt:\s*['"](\d{4}-\d{2}-\d{2})['"]/g)].map((match) => match[1]);
+const verificationDates = [...allSnapshots.matchAll(/lastVerifiedAt:\s*['"](\d{4}-\d{2}-\d{2})['"]/g)].map((match) => match[1]);
 if (verificationDates.length < recordSlugs.length) failures.push('Every snapshot county must have a verification date.');
 for (const value of verificationDates) {
   const timestamp = Date.parse(value);
@@ -184,7 +186,7 @@ for (const value of verificationDates) {
   else if (timestamp > Date.now() + 24 * 60 * 60 * 1000) failures.push(`Snapshot contains a future verification date: ${value}`);
 }
 
-const upstreamFreshness = [...snapshot.matchAll(/sourceUpdatedAt:\s*\{\s*appraisalDistrict:\s*['"](\d{4}-\d{2}-\d{2})['"],\s*taxOffice:\s*['"](\d{4}-\d{2}-\d{2})['"]\s*\}/g)];
+const upstreamFreshness = [...allSnapshots.matchAll(/sourceUpdatedAt:\s*\{\s*appraisalDistrict:\s*['"](\d{4}-\d{2}-\d{2})['"],\s*taxOffice:\s*['"](\d{4}-\d{2}-\d{2})['"]\s*\}/g)];
 if (upstreamFreshness.length < recordSlugs.length) failures.push('Every snapshot county must persist both upstream office update dates.');
 for (const match of upstreamFreshness) {
   for (const value of [match[1], match[2]]) {
