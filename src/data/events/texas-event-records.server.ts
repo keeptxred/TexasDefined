@@ -1,9 +1,10 @@
 import { getGeneratedTexasEvents } from "../events-generated";
 import { loadTicketmasterEventsServer } from "./ticketmaster-events.server";
 import { getOfficialVenueEventSnapshots } from "./official-venue-events.server";
+import { getVerifiedChristmasCommunityEvents2026 } from "./christmas-community-2026.server";
 import { loadTpwdEventRecordsServer } from "./tpwd-event-records.server";
 import { loadMajorEventGuideDirectoryServer, type MajorEventGuideDirectoryItem } from "../major-event-directory.server";
-import { getMajorEventRecordServer } from "../major-event-page.server";
+import { getMajorEventRecordServer, getMajorEventOccurrenceWindowsServer } from "../major-event-page.server";
 import {
   getMajorEventSchemaEnrichmentServer,
   isCompliantMajorEventImage,
@@ -164,7 +165,14 @@ export function loadTexasEventRecordsServer(): TexasEventRecord[] {
     if (record) records.push(record);
   }
 
+  // These destination guides are indexable, but have non-contiguous ticketed
+  // operating nights. The separate community occurrence records below are the
+  // authoritative day-by-day calendar; never fill in the closed nights between.
+  const occurrenceWindowOnlyGuides = new Set([
+    "grapevine-north-pole-express", "dallas-zoo-lights",
+  ]);
   for (const guide of guides) {
+    if (occurrenceWindowOnlyGuides.has(guide.slug)) continue;
     if (seenGuides.has(guide.slug)) continue;
     const authority = getMajorEventRecordServer(guide.slug);
     const officialUrl = authority?.officialUrl;
@@ -186,6 +194,47 @@ export function loadTexasEventRecordsServer(): TexasEventRecord[] {
       sourceCheckedAt: authority?.sourceCheckedAt ?? guide.sourceCheckedAt,
     }, guide);
     if (record) records.push(record);
+  }
+
+  // A season envelope is NOT evidence of operation every day inside it.
+  // Expand sourced multi-window seasonal authorities into their exact
+  // date windows before the shared calendar counts days or accepts tickets.
+  // This also fixes Main Street Bethlehem's two discrete December weekends.
+  const windowScopedRecords = records.flatMap((record) => {
+    if (record.category !== "seasonal") return [record];
+    const authority = getMajorEventRecordServer(record.slug);
+    if (!authority) return [record];
+    const windows = getMajorEventOccurrenceWindowsServer(authority);
+    if (windows.length <= 1) return [record];
+    return windows.map((window, index) => ({
+      ...record,
+      id: `${record.id}:verified-window-${index + 1}`,
+      startDate: window.startDate,
+      endDate: window.endDate,
+      // A single scheduled event time must never be projected onto every
+      // holiday date window, where the operating hours can be different.
+      startTime: undefined,
+    }));
+  });
+  records.splice(0, records.length, ...windowScopedRecords);
+
+  // Small-town and community holiday attractions use the same verified,
+  // date-scoped calendar pipeline as major event guides. These are calendar
+  // occurrences, not thin automatically generated authority pages.
+  const knownCommunity = new Set(records.map((record) => `${eventIdentity(record.title, record.city)}:${record.startDate}`));
+  // These attractions already have a single continuous-season authority record.
+  // Do not show a duplicate ticketed attraction from the calendar-first intake.
+  const authorityCoveredCommunity = new Set([
+    "johnson-city-lights-spectacular",
+    "grand-prairie-prairie-lights",
+    "moody-gardens-holiday-lights-trail",
+  ]);
+  for (const holiday of getVerifiedChristmasCommunityEvents2026()) {
+    if (authorityCoveredCommunity.has(holiday.slug)) continue;
+    const key = `${eventIdentity(holiday.title, holiday.city)}:${holiday.startDate}`;
+    if (knownCommunity.has(key)) continue;
+    records.push(holiday);
+    knownCommunity.add(key);
   }
 
   // Curated primary-source event snapshots fill documented gaps in the

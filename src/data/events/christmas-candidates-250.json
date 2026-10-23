@@ -1,0 +1,1658 @@
+{
+  "schemaVersion": 1,
+  "source": "User-supplied Texas Christmas 250-location inventory, October 23 2026",
+  "policy": "Editorial research leads only. None is a verified 2026 event or entitlement to a page until reconciled against a first-party schedule, canonical existing coverage and source rights. Duplicate, renamed, fabricated, cancelled and nonseasonal items must be resolved before date publication.",
+  "candidateCount": 250,
+  "candidates": [
+    {
+      "intakeId": 1,
+      "title": "Johnson City Lights Spectacular",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "johnson-city-lights-spectacular"
+      ]
+    },
+    {
+      "intakeId": 2,
+      "title": "Fredericksburg Eisbahn",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 3,
+      "title": "Fredericksburg Christmas Pyramid",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "fredericksburg-nights-of-lights-opening",
+        "fredericksburg-nights-of-lights-main",
+        "fredericksburg-nights-of-lights-final"
+      ]
+    },
+    {
+      "intakeId": 4,
+      "title": "Wimberley Trail of Lights",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "wimberley-trail-of-lights"
+      ]
+    },
+    {
+      "intakeId": 5,
+      "title": "Marble Falls Walkway of Lights",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "marble-falls-walkway-of-lights"
+      ]
+    },
+    {
+      "intakeId": 6,
+      "title": "Llano Starry Starry Nights",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "llano-starry-starry-nights"
+      ]
+    },
+    {
+      "intakeId": 7,
+      "title": "Burnet Main Street Bethlehem",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "existing-authority",
+      "guidePath": "/event/main-street-bethlehem-burnet"
+    },
+    {
+      "intakeId": 8,
+      "title": "Gruene Hall Holiday Market",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 9,
+      "title": "New Braunfels Santa's Ranch",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "santas-ranch-new-braunfels"
+      ]
+    },
+    {
+      "intakeId": 10,
+      "title": "San Marcos Sights & Sounds of Christmas",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "san-marcos-sights-sounds-week1",
+        "san-marcos-sights-sounds-week2"
+      ]
+    },
+    {
+      "intakeId": 11,
+      "title": "Boerne Parade of Lights",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 12,
+      "title": "Boerne Dickens on Main",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "boerne-dickens-on-main"
+      ]
+    },
+    {
+      "intakeId": 13,
+      "title": "Kerrville Holiday Light Show",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 14,
+      "title": "Georgetown Christmas Stroll",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "georgetown-christmas-stroll"
+      ]
+    },
+    {
+      "intakeId": 15,
+      "title": "Round Rock Hometown Christmas",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 16,
+      "title": "Austin Trail of Lights",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "existing-authority",
+      "guidePath": "/event/austin-trail-of-lights"
+    },
+    {
+      "intakeId": 17,
+      "title": "Zilker Holiday Tree",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 18,
+      "title": "Austin Armadillo Christmas Bazaar",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "armadillo-christmas-bazaar-austin"
+      ]
+    },
+    {
+      "intakeId": 19,
+      "title": "Austin Mozart’s Light Show",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "austin-mozarts-festival-of-lights"
+      ]
+    },
+    {
+      "intakeId": 20,
+      "title": "Austin Peppermint Parkway",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 21,
+      "title": "Bastrop Lost Pines Christmas",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 22,
+      "title": "Salado Christmas Stroll",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "salado-christmas-stroll-first",
+        "salado-lighted-christmas-parade"
+      ]
+    },
+    {
+      "intakeId": 23,
+      "title": "Belton Winter Wonderland",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 24,
+      "title": "Temple Nature In Lights",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 25,
+      "title": "Waco Homestead Heritage Christmas",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 26,
+      "title": "Waco Wild Lights",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 27,
+      "title": "Waco Silobration Holiday Markets",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 28,
+      "title": "Bryan Downtown Holiday Stroll",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 29,
+      "title": "College Station Santa's Wonderland",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "existing-authority",
+      "guidePath": "/event/santas-wonderland-college-station"
+    },
+    {
+      "intakeId": 30,
+      "title": "Caldwell Christmas on the Square",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 31,
+      "title": "Hearne Holiday Train Display",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 32,
+      "title": "Navasota Home for the Holidays",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 33,
+      "title": "Brenham Christmas Stroll",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "brenham-christmas-stroll-parade",
+        "brenham-cold-nights-holiday-tunes-2026"
+      ]
+    },
+    {
+      "intakeId": 34,
+      "title": "Chappell Hill Christmas Market",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 35,
+      "title": "Giddings Holiday Lights",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 36,
+      "title": "La Grange Hostyn Hill Christmas",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 37,
+      "title": "La Grange Monument Hill Trail of Lights",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 38,
+      "title": "Schulenburg Festival of Trees",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 39,
+      "title": "Weimar holiday market",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 40,
+      "title": "Columbus Courthouse Christmas",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 41,
+      "title": "Seguin Holiday Holiday Parade",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 42,
+      "title": "Gonzales Winter Fest",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 43,
+      "title": "Lockhart Dickens Christmas",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 44,
+      "title": "Luling Yule Trail",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 45,
+      "title": "San Saba Christmas Park",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 46,
+      "title": "Lampasas Carol of Lights",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 47,
+      "title": "Goldthwaite Holiday Fest",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 48,
+      "title": "Mason Country Christmas",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 49,
+      "title": "Brady Heart of Texas Christmas",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 50,
+      "title": "Comfort Christmas in Comfort",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "christmas-in-comfort-2026"
+      ]
+    },
+    {
+      "intakeId": 51,
+      "title": "Grapevine Christmas Capital of Texas",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "existing-authority",
+      "guidePath": "/event/grapevine-christmas-capital-of-texas"
+    },
+    {
+      "intakeId": 52,
+      "title": "Grapevine Vintage Railroad North Pole Express",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "grapevine-north-pole-express-nov",
+        "grapevine-north-pole-express-dec",
+        "grapevine-north-pole-express-final",
+        "fort-worth-north-pole-express-dec3"
+      ]
+    },
+    {
+      "intakeId": 53,
+      "title": "Grapevine Gaylord Texan ICE! Exhibit",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "existing-authority",
+      "guidePath": "/event/gaylord-texan-ice"
+    },
+    {
+      "intakeId": 54,
+      "title": "Grapevine Great Wolf Lodge Snowland",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 55,
+      "title": "Arlington Interlochen Lights",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 56,
+      "title": "Arlington Holiday Lights at Six Flags",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 57,
+      "title": "Arlington Christkindlmarket",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 58,
+      "title": "Dallas Holiday at the Arboretum",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "existing-authority",
+      "guidePath": "/event/holiday-at-the-dallas-arboretum"
+    },
+    {
+      "intakeId": 59,
+      "title": "Dallas Zoo Lights",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "dallas-zoo-lights-opening",
+        "dallas-zoo-lights-november",
+        "dallas-zoo-lights-dec-early",
+        "dallas-zoo-lights-dec-mid",
+        "dallas-zoo-lights-dec-late",
+        "dallas-zoo-lights-final"
+      ]
+    },
+    {
+      "intakeId": 60,
+      "title": "Dallas Snider Plaza Tree Lighting",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 61,
+      "title": "Dallas Vitruvian Lights",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 62,
+      "title": "Fort Worth Parade of Lights",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "fort-worth-parade-of-lights"
+      ]
+    },
+    {
+      "intakeId": 63,
+      "title": "Fort Worth Stockyards Cowboy Santa",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "fort-worth-stockyards-cowboy-santa-arrival"
+      ]
+    },
+    {
+      "intakeId": 64,
+      "title": "Fort Worth Gift of Lights",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "fort-worth-gift-of-lights"
+      ]
+    },
+    {
+      "intakeId": 65,
+      "title": "Frisco Christmas in the Square",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "frisco-christmas-in-the-square"
+      ]
+    },
+    {
+      "intakeId": 66,
+      "title": "Plano Lights at Legacy",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 67,
+      "title": "Plano Deerfield Holiday Lights",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 68,
+      "title": "McKinney Home for the Holidays",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "mckinney-home-for-holidays"
+      ]
+    },
+    {
+      "intakeId": 69,
+      "title": "Allen Celebration of Lights",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 70,
+      "title": "Richardson Santa’s Village",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "richardson-santas-village-week1",
+        "richardson-santas-village-week2",
+        "richardson-santas-village-week3",
+        "richardson-santas-village-walk1",
+        "richardson-santas-village-walk2"
+      ]
+    },
+    {
+      "intakeId": 71,
+      "title": "Garland Firewheel Town Center Lights",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 72,
+      "title": "Mesquite Christmas in the Park",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 73,
+      "title": "Rockwall Christmas Celebration",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 74,
+      "title": "Rowlett Holiday Parade",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 75,
+      "title": "Grand Prairie Prairie Lights",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "grand-prairie-prairie-lights"
+      ]
+    },
+    {
+      "intakeId": 76,
+      "title": "Irving Las Colinas Holiday Lights",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 77,
+      "title": "Southlake Home for the Holidays",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 78,
+      "title": "Colleyville Christmas Tree Lighting",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 79,
+      "title": "Keller Holly Days",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 80,
+      "title": "Mansfield Hometown Holidays",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 81,
+      "title": "Burleson Christmas Market",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 82,
+      "title": "Cleburne Whistle Stop Christmas",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "cleburne-whistle-stop-christmas",
+        "cleburne-whistle-stop-parade"
+      ]
+    },
+    {
+      "intakeId": 83,
+      "title": "Weatherford Christmas on the Square",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 84,
+      "title": "Granbury Night of Lights",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 85,
+      "title": "Stephenville Cowboy Christmas",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 86,
+      "title": "Mineral Wells Merry Wells",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 87,
+      "title": "Gainesville Holiday Tour of Homes",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 88,
+      "title": "Denton Holiday Lighting Festival",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "denton-holiday-lighting-festival-2026"
+      ]
+    },
+    {
+      "intakeId": 89,
+      "title": "Lewisville Holiday at the Hall",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 90,
+      "title": "Flower Mound Christmas Tree Lighting",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 91,
+      "title": "Highland Village Celebrate the Holidays",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 92,
+      "title": "Coppell Holiday Lighting",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 93,
+      "title": "Waxahachie Bethlehem Revisited",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 94,
+      "title": "Ennis Lights Fest",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 95,
+      "title": "Corsicana Palace Theatre Holiday Shows",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 96,
+      "title": "Kaufman Holiday Celebration",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 97,
+      "title": "Terrell Christmas Parade",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 98,
+      "title": "Rockwall Harbor Lights",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 99,
+      "title": "Wylie Bluegrass Christmas",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 100,
+      "title": "Forney Christmas in the Park",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 101,
+      "title": "Galveston Dickens on The Strand",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "existing-authority",
+      "guidePath": "/event/dickens-on-the-strand"
+    },
+    {
+      "intakeId": 102,
+      "title": "Galveston Moody Gardens Festival of Lights",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "moody-gardens-holiday-lights-trail"
+      ]
+    },
+    {
+      "intakeId": 103,
+      "title": "Galveston Holiday Ice Land",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "existing-authority",
+      "guidePath": "/event/moody-gardens-ice-land"
+    },
+    {
+      "intakeId": 104,
+      "title": "Houston Zoo Lights",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "existing-authority",
+      "guidePath": "/event/houston-zoo-lights"
+    },
+    {
+      "intakeId": 105,
+      "title": "Houston Magical Winter Lights",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 106,
+      "title": "Houston Alley Theatre A Christmas Carol",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 107,
+      "title": "Houston Downtown Lantern Spectacular",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 108,
+      "title": "Houston Cistern Holiday Illumination",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 109,
+      "title": "Sugar Land Holiday Lights",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "sugar-land-holiday-lights-constellation-field"
+      ]
+    },
+    {
+      "intakeId": 110,
+      "title": "The Woodlands Winter Wonderland",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 111,
+      "title": "The Woodlands Lighting of the Doves",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 112,
+      "title": "Katy Light Tall Pines",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 113,
+      "title": "Tomball German Christmas Market",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "tomball-german-christmas-market"
+      ]
+    },
+    {
+      "intakeId": 114,
+      "title": "Spring Old Town Spring Home for the Holidays",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 115,
+      "title": "Conroe Christmas Boat Parade",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 116,
+      "title": "Richmond George Ranch Christmas",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 117,
+      "title": "Rosenberg Christmas Nights",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 118,
+      "title": "Baytown Christmas Past & Present",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 119,
+      "title": "Pasadena Holiday Festival",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 120,
+      "title": "Deer Park Reindeer Dash",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 121,
+      "title": "La Porte Christmas on the Coast",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 122,
+      "title": "Kemah Boardwalk Christmas",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 123,
+      "title": "Seabrook Illuminated Boat Lane Parade",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 124,
+      "title": "Clear Lake Holiday Boat Lane Parade",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 125,
+      "title": "League City Holiday Magic",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 126,
+      "title": "Friendswood Santa in the Park",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 127,
+      "title": "Alvin Holiday Train at Crossroads",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 128,
+      "title": "Pearland Festival of Lights",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 129,
+      "title": "Lake Jackson Festival of Lights",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 130,
+      "title": "Angleton Austin Town Christmas",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 131,
+      "title": "Freeport Holiday Parade",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 132,
+      "title": "Palacios Christmas on the Bayside",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 133,
+      "title": "Port Lavaca Festival of Trees",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 134,
+      "title": "Victoria Christmas Parade of Lights",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 135,
+      "title": "Cuero's Christmas in the Park",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "cuero-christmas-in-the-park"
+      ]
+    },
+    {
+      "intakeId": 136,
+      "title": "El Campo Holiday Market",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 137,
+      "title": "Wharton Courtyard Christmas",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 138,
+      "title": "Needville Farm Holiday Harvest",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 139,
+      "title": "Bellville Newman's Castle Holiday Tours",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 140,
+      "title": "Hempstead Festival of Fountains",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 141,
+      "title": "Waller Holiday Festival",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 142,
+      "title": "Prairie View Winter Concerts",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 143,
+      "title": "Navasota Blues Christmas",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 144,
+      "title": "Liberty Christmas in the Woods",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 145,
+      "title": "Dayton Holiday Parade",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 146,
+      "title": "Anahuac Coastal Christmas",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 147,
+      "title": "Beaumont Christmas at the McFaddin-Ward House",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 148,
+      "title": "Port Arthur Holiday Light Show",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 149,
+      "title": "Orange Christmas Heritage Festival",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 150,
+      "title": "Nederland Windmill Christmas",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 151,
+      "title": "San Antonio River Walk Holiday Lights",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 152,
+      "title": "San Antonio Ford Holiday River Parade",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "existing-authority",
+      "guidePath": "/event/ford-holiday-river-parade"
+    },
+    {
+      "intakeId": 153,
+      "title": "San Antonio Fiesta de las Luminarias",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 154,
+      "title": "San Antonio SeaWorld Christmas Celebration",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 155,
+      "title": "San Antonio Six Flags Fiesta Texas Holiday",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 156,
+      "title": "San Antonio Natural Bridge Caverns Christmas",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 157,
+      "title": "San Antonio Pearl Brewery Holiday Markets",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 158,
+      "title": "San Antonio Lightscape at the Botanical Garden",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 159,
+      "title": "Helotes Christmas Marketplace",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 160,
+      "title": "Castroville Old World Christmas Market",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 161,
+      "title": "Hondo Cowboy Christmas",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 162,
+      "title": "Uvalde Plaza Christmas",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 163,
+      "title": "Del Rio Winter Fest",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 164,
+      "title": "Eagle Pass International Holiday Parade",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 165,
+      "title": "Laredo Under the Stars",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 166,
+      "title": "McAllen Holiday Parade",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "existing-authority",
+      "guidePath": "/event/mcallen-holiday-parade"
+    },
+    {
+      "intakeId": 167,
+      "title": "McAllen Christmas Fiesta",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 168,
+      "title": "Edinburg Night of Lights",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 169,
+      "title": "Pharr Winter Wonderland",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 170,
+      "title": "Weslaco Holiday Street Market",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 171,
+      "title": "Harlingen Winter Texan Fiesta",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 172,
+      "title": "Brownsville Holiday Village",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 173,
+      "title": "South Padre Island Holiday Sandcastle Trail",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 174,
+      "title": "Port Isabel Lighthouse Christmas",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 175,
+      "title": "Corpus Christi Harbor Lights Festival",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 176,
+      "title": "Corpus Christi Texas State Aquarium Scuba Santa",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 177,
+      "title": "Rockport Christmas Tropicale",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 178,
+      "title": "Fulton Mansion Candlelit Tours",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 179,
+      "title": "Aransas Pass Holiday Market",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 180,
+      "title": "Kingsville Ranch Hand Festival",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 181,
+      "title": "Alice Holiday Parade",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 182,
+      "title": "Falfurrias Heritage Christmas",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 183,
+      "title": "Beeville Courthouse Christmas",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 184,
+      "title": "Kenedy Flax Fest Holidays",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 185,
+      "title": "Karnes City Holiday Parade",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 186,
+      "title": "Floresville Peanut Festival Holidays",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 187,
+      "title": "Pleasanton Cowboy Christmas",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 188,
+      "title": "Jourdanton Holiday Lights",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 189,
+      "title": "Pearsall Winter Festival",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 190,
+      "title": "Cotulla Frontier Christmas",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 191,
+      "title": "Carrizo Springs Holiday Market",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 192,
+      "title": "Crystal City Spinach Festival Holidays",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 193,
+      "title": "Mathis Lake Christmas",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 194,
+      "title": "Sinton Holiday Parade",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 195,
+      "title": "Refugio Historic Tour of Churches",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 196,
+      "title": "Goliad Christmas Mission Tours",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 197,
+      "title": "Kenedy Starry Nights",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 198,
+      "title": "George West Storyfest Holidays",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 199,
+      "title": "Three Rivers Holiday Lights",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 200,
+      "title": "Tilden Frontier Winter",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 201,
+      "title": "Marshall Wonderland of Lights",
+      "submittedRegion": "East Texas Piney Woods",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 202,
+      "title": "Jefferson Candlelight Tour of Homes",
+      "submittedRegion": "East Texas Piney Woods",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "jefferson-candlelight-tour-dec3",
+        "jefferson-candlelight-tour-dec10"
+      ]
+    },
+    {
+      "intakeId": 203,
+      "title": "Jefferson Holiday Express Train",
+      "submittedRegion": "East Texas Piney Woods",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 204,
+      "title": "Nacogdoches Nine Flags Festival",
+      "submittedRegion": "East Texas Piney Woods",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 205,
+      "title": "Lufkin Christmas In the Pines",
+      "submittedRegion": "East Texas Piney Woods",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "lufkin-christmas-in-the-pines-friday",
+        "lufkin-christmas-lighted-parade"
+      ]
+    },
+    {
+      "intakeId": 206,
+      "title": "Tyler Rose Garden Holiday Lights",
+      "submittedRegion": "East Texas Piney Woods",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 207,
+      "title": "Longview Christmas Train",
+      "submittedRegion": "East Texas Piney Woods",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 208,
+      "title": "Kilgore Christmas Derrick Lighting",
+      "submittedRegion": "East Texas Piney Woods",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 209,
+      "title": "Texarkana Twice as Nice Festival",
+      "submittedRegion": "East Texas Piney Woods",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 210,
+      "title": "Paris Christmas on the Square",
+      "submittedRegion": "East Texas Piney Woods",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 211,
+      "title": "Mount Pleasant Holiday Market",
+      "submittedRegion": "East Texas Piney Woods",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 212,
+      "title": "Sulphur Springs Celebration of Lights",
+      "submittedRegion": "East Texas Piney Woods",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 213,
+      "title": "Greenville Christmas Parade",
+      "submittedRegion": "East Texas Piney Woods",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "greenville-christmas-parade-of-lights"
+      ]
+    },
+    {
+      "intakeId": 214,
+      "title": "Athens Christmas Park",
+      "submittedRegion": "East Texas Piney Woods",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 215,
+      "title": "Palestine Christmas Dogwood Trails",
+      "submittedRegion": "East Texas Piney Woods",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 216,
+      "title": "Crockett Candlelit Christmas",
+      "submittedRegion": "East Texas Piney Woods",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 217,
+      "title": "Rusk Holiday Pine Caravan",
+      "submittedRegion": "East Texas Piney Woods",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 218,
+      "title": "Jacksonville Tomato Bowl Holidays",
+      "submittedRegion": "East Texas Piney Woods",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 219,
+      "title": "Henderson Heritage Syrup Festival Winter",
+      "submittedRegion": "East Texas Piney Woods",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 220,
+      "title": "Carthage Country Christmas",
+      "submittedRegion": "East Texas Piney Woods",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 221,
+      "title": "Lubbock Candlelight at the Ranch",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "lubbock-candlelight-at-the-ranch"
+      ]
+    },
+    {
+      "intakeId": 222,
+      "title": "Amarillo Center City Electric Light Parade",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "amarillo-electric-light-parade"
+      ]
+    },
+    {
+      "intakeId": 223,
+      "title": "Canyon Panhandle-Plains Museum Christmas",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 224,
+      "title": "Abilene Winter Lightfest",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "abilene-winter-lightfest-opening",
+        "abilene-winter-lightfest-week1",
+        "abilene-winter-lightfest-week2",
+        "abilene-winter-lightfest-week3"
+      ]
+    },
+    {
+      "intakeId": 225,
+      "title": "San Angelo Concho Christmas Celebration",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "existing-authority",
+      "guidePath": "/event/concho-christmas-tour-of-lights"
+    },
+    {
+      "intakeId": 226,
+      "title": "Midland Starry Starry Night",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 227,
+      "title": "Odessa Holiday Tree Lighting",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 228,
+      "title": "El Paso WinterFest",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "el-paso-winterfest-lights",
+        "el-paso-winterfest-kickoff"
+      ]
+    },
+    {
+      "intakeId": 229,
+      "title": "Alpine Holiday Mountain Market",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 230,
+      "title": "Marfa Desert Holiday Illuminations",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 231,
+      "title": "Fort Davis Candlelight Tours",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 232,
+      "title": "Plainview Holiday Parade",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 233,
+      "title": "Levelland Mosaic Christmas",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 234,
+      "title": "Lamesa Farm Holiday Market",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 235,
+      "title": "Brownfield Winter Wine Trail",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 236,
+      "title": "Snyder Holiday Festival",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 237,
+      "title": "Sweetwater Pioneer Christmas",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 238,
+      "title": "Big Spring Comanche Trail Lights",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 239,
+      "title": "Monahans Sandhills Christmas",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 240,
+      "title": "Pecos Frontier Christmas",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 241,
+      "title": "Van Horn Mountain Holiday Stroll",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 242,
+      "title": "Fort Stockton Historic Candlelight Stroll",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 243,
+      "title": "Ballinger Winter Market",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 244,
+      "title": "Coleman Country Christmas",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 245,
+      "title": "Cisco Holiday Festival",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 246,
+      "title": "Eastland Majestic Theatre Holiday",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 247,
+      "title": "Breckenridge Holiday Lights",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 248,
+      "title": "Graham America's Largest Square Christmas",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 249,
+      "title": "Mineral Wells Holiday Festival",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 250,
+      "title": "Vernon Santa's West Texas Workshop",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    }
+  ],
+  "reconciliation": {
+    "asOf": "2026-10-23",
+    "calendarCandidates": 36,
+    "authorityCandidates": 12,
+    "remainingCandidates": 202
+  }
+}

@@ -1,0 +1,142 @@
+import fs from "node:fs";
+import assert from "node:assert/strict";
+
+const read = (path) => fs.readFileSync(path, "utf8");
+const eventFile = read("src/data/events/christmas-community-2026.server.ts");
+const adapter = read("src/data/events/texas-event-records.server.ts");
+const collection = read("src/data/event-collection-page.server.ts");
+const page = read("src/routes/events.$collection.tsx");
+const premerge = read("scripts/ci/run-premerge-validation.mjs");
+const authority = read("src/data/major-event-expanded-authority-tranche59.server.ts");
+const resolver = read("src/data/major-event-page.server.ts");
+const registry = read("src/data/major-event-supplemental-registry.server.ts");
+const hubLinks = read("src/data/fixtures/seasonal-authority-links.ts");
+const majorIndex = read("src/data/major-event-index.ts");
+const candidates = JSON.parse(read("src/data/events/christmas-candidates-250.json"));
+const schemaRegistry = read("src/data/major-event-schema-enrichment.server.ts");
+const schemaBatch = read("src/data/major-event-schema-enrichment-batch33.server.ts");
+
+const start = eventFile.indexOf("const verifiedOccurrences");
+const end = eventFile.indexOf("\n];", start);
+assert.ok(start >= 0 && end > start, "Source-qualified Christmas manifest was not found");
+const json = eventFile.slice(eventFile.indexOf("= [", start) + 2, end + 2).trim();
+const events = JSON.parse(json);
+assert.ok(events.length >= 30, "A verified community Christmas event wave is missing");
+assert.equal(events.length, new Set(events.map((event) => event.slug)).size, "Duplicate Christmas community slugs");
+
+const validDate = /^20\d{2}-\d{2}-\d{2}$/;
+for (const event of events) {
+  for (const key of ["slug", "title", "city", "region", "countySlug", "startDate",
+    "venueName", "officialEventUrl", "sourceName", "summary"]) {
+    assert.ok(event[key], `${event.slug}: missing ${key}`);
+  }
+  assert.match(event.startDate, validDate, `${event.slug}: invalid starting date`);
+  if (event.endDate) {
+    assert.match(event.endDate, validDate, `${event.slug}: invalid ending date`);
+    assert.ok(event.endDate >= event.startDate, `${event.slug}: inverted date range`);
+  }
+  assert.ok(event.startDate >= "2026-11-01", `${event.slug}: source record predates holiday season`);
+  assert.match(event.officialEventUrl, /^https:\/\/[^/]+\//, `${event.slug}: invalid first-party source`);
+  assert.ok(!event.officialEventUrl.includes("ticketmaster.evyy.net"), "Affiliate links must not masquerade as first-party event sources");
+  assert.ok(!event.summary.includes("2025 dates"), "Do not publish stale edition information");
+}
+
+const bySlug = new Map(events.map((event) => [event.slug, event]));
+const check = (slug, date, endDate) => {
+  const event = bySlug.get(slug);
+  assert.ok(event, `Missing source-qualified occurrence: ${slug}`);
+  assert.equal(event.startDate, date, `Unexpected source date for ${slug}`);
+  if (endDate !== undefined) assert.equal(event.endDate, endDate, `Unexpected end date for ${slug}`);
+};
+check("wimberley-trail-of-lights", "2026-11-28", "2026-12-26");
+check("grand-prairie-prairie-lights", "2026-11-26", "2026-12-31");
+check("georgetown-christmas-stroll", "2026-12-04", "2026-12-06");
+check("marble-falls-walkway-of-lights", "2026-11-29", "2027-01-02");
+check("abilene-winter-lightfest-opening", "2026-11-28");
+check("abilene-winter-lightfest-week1", "2026-12-04", "2026-12-06");
+check("abilene-winter-lightfest-week2", "2026-12-11", "2026-12-13");
+check("abilene-winter-lightfest-week3", "2026-12-18", "2026-12-23");
+check("brenham-cold-nights-holiday-tunes-2026", "2026-12-11");
+assert.ok(!bySlug.has("brenham-home-for-holidays-weekend2"), "Unsupported December 12 performance must not return");
+assert.ok(!bySlug.has("enchant-christmas-arlington"), "Do not restore unannounced 2026 Enchant Arlington as a calendar event");
+assert.ok(!bySlug.has("magical-winter-lights"), "Do not restore unannounced 2026 Magical Winter Lights as a calendar event");
+
+for (const [file, source, required] of [
+  ["shared calendar adapter", adapter, "getVerifiedChristmasCommunityEvents2026()"],
+  ["holiday hub server model", collection, "christmasCommunityEvents"],
+  ["holiday hub source links", page, "Official event schedule"],
+  ["holiday hub venue geo links", page, "countyPath"],
+  ["holiday hub source date anchor", page, "christmas-community-"],
+  ["hotel affiliate disclosure", page, "Affiliate disclosure: TexasDefined may earn a commission"],
+  ["hotel affiliate sponsored link", page, 'data-affiliate-placement="christmas-hub-hotel-search"'],
+  ["Viator affiliate sponsored link", page, 'data-affiliate-placement="christmas-community-nearby-experiences"'],
+  ["business sponsorship CTA", page, 'href="/partner-with-us"'],
+  ["premerge validation", premerge, "validate-christmas-community-2026.mjs"],
+]) assert.ok(source.includes(required), `${file}: missing ${required}`);
+
+assert.ok(page.includes('rel="sponsored nofollow noopener noreferrer"'), "Commercial links require disclosure attributes");
+assert.ok(eventFile.includes('category: "seasonal" as const'), "Calendar category is missing");
+assert.ok(eventFile.includes('filter((occurrence) => (occurrence.endDate ?? occurrence.startDate) >= today)'), "Past holiday dates must expire automatically");
+
+const majorAuthoritySlugs = [
+  "gaylord-texan-ice",
+  "grand-prairie-prairie-lights",
+  "moody-gardens-holiday-in-the-gardens",
+  "grapevine-north-pole-express",
+  "dallas-zoo-lights",
+];
+for (const slug of majorAuthoritySlugs) {
+  assert.ok(authority.includes(`slug: "${slug}"`), `Missing destination-scale Christmas guide ${slug}`);
+  assert.ok(registry.includes(`"${slug}"`), `Missing guide directory/sitemap registration ${slug}`);
+  assert.ok(schemaBatch.includes(`slug: "${slug}"`), `Missing approved optional-schema review for ${slug}`);
+  assert.ok(hubLinks.includes(`"/event/${slug}"`), `Missing Christmas pillar bidirectional link ${slug}`);
+  assert.ok(resolver.includes("getExpandedMajorEventAuthorityTranche59Server(slug)"), "Guide resolver tranche59 disconnected");
+}
+for (const slug of ["grapevine-north-pole-express", "dallas-zoo-lights"]) {
+  assert.ok(adapter.includes(`"${slug}"`), `Disjoint ${slug} must use verified occurrence windows`);
+}
+for (const slug of [
+  "grapevine-north-pole-express-nov",
+  "grapevine-north-pole-express-dec",
+  "grapevine-north-pole-express-final",
+  "fort-worth-north-pole-express-dec3",
+  "dallas-zoo-lights-opening", "dallas-zoo-lights-final",
+]) {
+  assert.ok(eventFile.includes(`"${slug}":`), `Operating window lacks planning guide: ${slug}`);
+}
+assert.ok(majorIndex.includes('startDate: "2026-11-27", endDate: "2027-01-03"'), "Johnson City dates must match organizer");
+assert.ok(!majorIndex.includes('startDate: "2026-11-28", endDate: "2027-01-04"'), "Stale Johnson City dates remain");
+assert.ok(!read("src/data/major-event-expanded-authority-tranche57.server.ts").includes("December 3, 24 and 25 listed as closed"), "Grapevine December 3 departures must not be hidden");
+assert.equal(candidates.candidateCount, 250, "250-item intake missing");
+assert.equal(candidates.candidates.length, 250, "250-item research catalog truncated");
+assert.equal(candidates.candidates[0].intakeId, 1);
+assert.equal(candidates.candidates.at(-1).intakeId, 250);
+for (const [status, field] of [
+  ["sourced-calendar", "calendarCandidates"],
+  ["existing-authority", "authorityCandidates"],
+  ["candidate-needs-source-reconciliation", "remainingCandidates"],
+]) {
+  const actual = candidates.candidates.filter((record) => record.status === status).length;
+  assert.equal(candidates.reconciliation[field], actual, `Reconciliation summary drift for ${status}`);
+}
+assert.equal(
+  candidates.reconciliation.calendarCandidates +
+    candidates.reconciliation.authorityCandidates +
+    candidates.reconciliation.remainingCandidates,
+  250, "Every submitted Christmas candidate must be accounted for",
+);
+assert.ok(candidates.reconciliation.remainingCandidates > 0, "Do not auto-verify all holiday candidates without sources");
+assert.ok(events.length >= 64, "Dated Christmas inventory shrank unexpectedly");
+assert.ok(schemaRegistry.includes("...majorEventSchemaEnrichmentBatch33,"), "Reviewed Christmas organizer schema batch missing from runtime registry");
+assert.ok(adapter.includes("getMajorEventOccurrenceWindowsServer(authority)"), "Date-scoped seasonal guides must not pad closed nights");
+assert.ok(read("src/data/major-event-expanded-authority-tranche57.server.ts").includes('label: "After Dec 9 closure"'), "Houston Zoo Lights holiday closures must remain excluded");
+check("santas-ranch-new-braunfels", "2026-11-06", "2027-01-03");
+check("sugar-land-holiday-lights-constellation-field", "2026-11-20", "2027-01-03");
+check("jefferson-candlelight-tour-dec3", "2026-12-03", "2026-12-05");
+check("jefferson-candlelight-tour-dec10", "2026-12-10", "2026-12-12");
+check("amarillo-electric-light-parade", "2026-12-04");
+check("richardson-santas-village-week1", "2026-12-05", "2026-12-06");
+check("richardson-santas-village-week2", "2026-12-11", "2026-12-13");
+check("richardson-santas-village-week3", "2026-12-18", "2026-12-20");
+console.log(`Christmas calendar and five authority guides verified: ${events.length} dated occurrences, 250 candidates reconciled, affiliate disclosures, county crosslinks and premerge gate.`);
+

@@ -53,7 +53,7 @@ const records: ChristmasAuthorityRecord[] = [
       },
       {
         title: "Book North Pole Express separately",
-        body: "The seasonal train runs November 27 through December 30, with December 3, 24 and 25 listed as closed. Train tickets have departure slots and should be booked before flights or hotel commitments; arriving downtown does not confer a train seat."
+        body: "The seasonal train runs November 27 through December 30, but December 3 departures are special excursions from Historic Stockyards Station in Fort Worth rather than Grapevine. No trains operate December 24 or 25. Select the correct station and dated departure before arranging travel; arriving downtown does not confer a train seat."
       },
       {
         title: "Use free parking and avoid closure traps",
@@ -93,6 +93,10 @@ const records: ChristmasAuthorityRecord[] = [
       {
         label: "Grapevine CVB holiday hub",
         url: "https://www.grapevinetexasusa.com/christmas-capital-of-texas/"
+      },
+      {
+        label: "Grapevine CVB 2026 North Pole Express date-by-date and special Fort Worth December 3 schedule",
+        url: "https://www.grapevinetexasusa.com/christmas-capital-of-texas/north-pole-express/dates-times/"
       }
     ],
     dateNote: "The published 40-day holiday season begins November 23. Dates above represent the wider festive season, not nightly operation of every paid event."
@@ -290,7 +294,7 @@ const records: ChristmasAuthorityRecord[] = [
     endDate: "2027-01-03",
     venue: "Houston Zoo, Hermann Park",
     officialUrl: "https://www.houstonzoo.org/events/zoolights/",
-    sourceCheckedAt: "2026-10-21",
+    sourceCheckedAt: "2026-10-23",
     whyItMatters: "Houston Zoo's seasonal light walk makes an accessible-in-city evening outing centered on illuminated animal scenes, themed displays and conservation storytelling. It is a separate nighttime ticket, not simply a continuation of ordinary daytime admission.",
     quickFacts: [
       {
@@ -370,6 +374,13 @@ const records: ChristmasAuthorityRecord[] = [
         label: "Houston Zoo October 14 release",
         url: "https://www.houstonzoo.org/about/newsroom/txu-energy-presents-zoo-lights-tickets-now-available/"
       }
+    ],
+    // The operator separately calls out Dec 9 and Dec 24 closures; do
+    // not count those days as operating nights in the shared calendar.
+    occurrenceWindows: [
+      { label: "Before Dec 9 closure", startDate: "2026-11-19", endDate: "2026-12-08" },
+      { label: "After Dec 9 closure", startDate: "2026-12-10", endDate: "2026-12-23" },
+      { label: "Christmas Day through Jan 3", startDate: "2026-12-25", endDate: "2027-01-03" },
     ]
   },
   {

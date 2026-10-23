@@ -65,6 +65,7 @@ import { getExpandedMajorEventAuthorityTranche55Server } from "./major-event-exp
 import { getExpandedMajorEventAuthorityTranche56Server } from "./major-event-expanded-authority-tranche56.server";
 import { getExpandedMajorEventAuthorityTranche57Server } from "./major-event-expanded-authority-tranche57.server";
 import { getExpandedMajorEventAuthorityTranche58Server } from "./major-event-expanded-authority-tranche58.server";
+import { getExpandedMajorEventAuthorityTranche59Server } from "./major-event-expanded-authority-tranche59.server";
 import {
   eventSchemaStatusUrl,
   getMajorEventSchemaEnrichmentServer,
@@ -181,7 +182,8 @@ export function getMajorEventRecordServer(slug: string) {
     ?? getExpandedMajorEventAuthorityTranche55Server(slug)
     ?? getExpandedMajorEventAuthorityTranche56Server(slug)
     ?? getExpandedMajorEventAuthorityTranche57Server(slug)
-    ?? getExpandedMajorEventAuthorityTranche58Server(slug);
+    ?? getExpandedMajorEventAuthorityTranche58Server(slug)
+    ?? getExpandedMajorEventAuthorityTranche59Server(slug);
   if (!event) return event;
   if (event.slug === "texas-renaissance-festival") {
     return expandFestivalGuide({
@@ -253,6 +255,11 @@ const festivalExperienceMarkets: Record<string, { marketSlug: string; cityLabel:
   "holiday-at-the-dallas-arboretum": { marketSlug: "dallas", cityLabel: "Dallas", idea: "Dallas city tours beyond the Arboretum admission" },
   "galaxy-lights-space-center-houston": { marketSlug: "houston", cityLabel: "Houston", idea: "Houston sightseeing outside the space-themed evening event" },
   "ford-holiday-river-parade": { marketSlug: "san-antonio", cityLabel: "San Antonio", idea: "River Walk, mission and history tours on a separate day from the parade" },
+  "gaylord-texan-ice": { marketSlug: "dallas", cityLabel: "Dallas", idea: "independent Dallas-area tours on another day, not resort or ICE! admission" },
+  "grand-prairie-prairie-lights": { marketSlug: "dallas", cityLabel: "Dallas", idea: "Dallas-area sightseeing before a separately ticketed Grand Prairie lights drive" },
+  "moody-gardens-holiday-in-the-gardens": { marketSlug: "galveston", cityLabel: "Galveston", idea: "historic Galveston tours separate from Moody Gardens holiday attraction admission" },
+  "grapevine-north-pole-express": { marketSlug: "dallas", cityLabel: "Dallas", idea: "DFW history or sightseeing outside your separately timed Grapevine train excursion" },
+  "dallas-zoo-lights": { marketSlug: "dallas", cityLabel: "Dallas", idea: "Dallas history and sightseeing on a different part of the holiday trip" },
 };
 
 function buildFestivalNearbyExperiencesMarkupServer(slug: string) {
