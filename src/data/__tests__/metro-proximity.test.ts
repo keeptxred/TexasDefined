@@ -15,6 +15,7 @@ import {
 import {
   isMetroProximityCollectionIndexReadyWithTownReferences,
   selectMetroProximityTownReferences,
+  METRO_PROXIMITY_TOWN_REFERENCES,
 } from "../metro-proximity-town-references.ts";
 import type { CategorySlug, Destination } from "../types.ts";
 import { applyCuratedDestinationBatch9 } from "../destination-curation-batch9.ts";
@@ -456,6 +457,19 @@ test("things-to-do event selection stays geographic, fresh, useful without ticke
   assert.equal(selected.find((item) => item.id === "official")?.ticketCta, null);
   assert.equal(selected.find((item) => item.id === "unsafe")?.ticketCta, null);
   assert.equal(selected.find((item) => item.id === "free")?.ticketCta, null);
+});
+
+test("sourced weekend town references can surface a relevant dated event without a thin destination", () => {
+  const metro = getMetroProximityMetro("dallas")!;
+  const collection = getMetroProximityCollection("weekend-trips")!;
+  const town = METRO_PROXIMITY_TOWN_REFERENCES.find((item) => item.slug === "clifton")!;
+  assert.ok(town);
+  const references = [{ town, distanceMiles: 92, distanceBand: "easy-day-trip" as const }];
+  const selected = selectMetroProximityAffiliateEvents(metro, collection, [], references, [
+    metroEvent("clifton", "Clifton Festival", "Clifton"),
+    metroEvent("unrelated", "Austin Festival", "Austin"),
+  ], { todayIso: "2026-09-30", horizonIso: "2026-10-14" });
+  assert.deepEqual(selected.map((item) => item.id), ["clifton"]);
 });
 
 test("ongoing metro events remain eligible when their end date is current", () => {
