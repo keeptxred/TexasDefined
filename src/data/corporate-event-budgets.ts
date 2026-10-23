@@ -11,7 +11,7 @@ export function groupEventPlanningAmounts(
   const validBudget = perPersonBudget != null && Number.isFinite(perPersonBudget) && perPersonBudget > 0;
   const validRate = publishedStartingRate != null && Number.isFinite(publishedStartingRate) && publishedStartingRate > 0;
   return {
-    budgetCeiling: validGroup && validBudget ? Math.round(groupSize * perPersonBudget * 100) / 100 : null,
-    indicativeStartingTotal: validGroup && validRate ? Math.round(groupSize * publishedStartingRate * 100) / 100 : null,
+    budgetCeiling: validGroup && validBudget ? Math.round(groupSize * (perPersonBudget ?? 0) * 100) / 100 : null,
+    indicativeStartingTotal: validGroup && validRate ? Math.round(groupSize * (publishedStartingRate ?? 0) * 100) / 100 : null,
   };
 }
