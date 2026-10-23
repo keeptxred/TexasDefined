@@ -22,7 +22,7 @@ export function verifyDirectoryHtml(raw){
  if(links.length!==18||new Set(links).size!==18)throw new Error("Expected 18 distinct rendered official NPS links; found "+links.length);
  for(const code of codes)if(!links.includes(code))throw new Error("Missing Texas NPS unit "+code);
  if(!section.includes("TexasDefined guide"))throw new Error("Existing internal federal guide links absent");
- if(section.includes('href="/destination/amistad-national-recreation-area"'))throw new Error("Unverified Amistad local guide incorrectly linked");
+ if(!section.includes('href="/destination/amistad-national-recreation-area"'))throw new Error("Amistad NPS local guide must appear in official inventory");
  return {uniqueFederalLinks:links.length,localGuideMentions:(section.match(/TexasDefined guide/g)||[]).length};
 }
 export function verifyBattlefieldHtml(raw){
