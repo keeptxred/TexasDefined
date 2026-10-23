@@ -8,7 +8,7 @@ interface ChristmasExtendedRecord extends MajorEventAuthorityRecord {
 
 const records: ChristmasExtendedRecord[] = [
   {
-    "slug": "gaylord-texan-ice",
+    slug: "gaylord-texan-ice",
     "name": "Gaylord Texan ICE! featuring Harry Potter 2026–27",
     "city": "Grapevine",
     "countySlug": "tarrant",
@@ -106,7 +106,7 @@ const records: ChristmasExtendedRecord[] = [
     "dateNote": "This is the published resort season window; use the hotel’s date-specific availability and official checkout for ICE! tickets."
   },
   {
-    "slug": "grand-prairie-prairie-lights",
+    slug: "grand-prairie-prairie-lights",
     "name": "Prairie Lights in Grand Prairie 2026",
     "city": "Grand Prairie",
     "countySlug": "dallas",
@@ -204,7 +204,7 @@ const records: ChristmasExtendedRecord[] = [
     "dateNote": "The City of Grand Prairie confirms every night November 26–December 31, 6–10 p.m.; recheck weather, traffic and ticket details."
   },
   {
-    "slug": "moody-gardens-holiday-in-the-gardens",
+    slug: "moody-gardens-holiday-in-the-gardens",
     "name": "Moody Gardens Holiday in the Gardens 2026–27",
     "city": "Galveston",
     "countySlug": "galveston",
@@ -310,7 +310,7 @@ const records: ChristmasExtendedRecord[] = [
     "dateNote": "The overall festival season spans these dates. Always check the separate operating times for ICE LAND, lights, shows, skating and dining."
   },
   {
-    "slug": "grapevine-north-pole-express",
+    slug: "grapevine-north-pole-express",
     "name": "Grapevine Santa's North Pole Express 2026",
     "city": "Grapevine",
     "countySlug": "tarrant",
@@ -437,7 +437,7 @@ const records: ChristmasExtendedRecord[] = [
     ]
   },
   {
-    "slug": "dallas-zoo-lights",
+    slug: "dallas-zoo-lights",
     "name": "Dallas Zoo Lights 2026–27",
     "city": "Dallas",
     "countySlug": "dallas",
