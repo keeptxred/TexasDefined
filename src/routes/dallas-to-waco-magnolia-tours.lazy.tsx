@@ -3,8 +3,6 @@ import { createLazyFileRoute } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
 import { WacoViatorExperienceCards } from "@/components/monetization/WacoViatorExperienceCards";
 
-const path = "/dallas-to-waco-magnolia-tours";
-const description = "Plan a guided Dallas-to-Waco Magnolia Market day trip, including the actual Dallas pickup, Dr Pepper Museum admission exclusions, Cottonland Castle access and direct Viator booking links.";
 
 export const Route = createLazyFileRoute("/dallas-to-waco-magnolia-tours")({ component: DallasToWacoTourPage });
 
