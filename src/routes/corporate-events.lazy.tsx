@@ -9,6 +9,7 @@ import { groupEventPlanningAmounts } from '@/data/corporate-event-budgets';
 import { corporateEventMarketMatches } from '@/data/corporate-event-market-search';
 import { GroupEventPartnerApplication } from '@/components/events/GroupEventPartnerApplication';
 import { ApprovedCorporateEventOffers } from '@/components/events/ApprovedCorporateEventOffers';
+import { CorporateEventMetroGuides } from '@/components/events/CorporateEventMetroGuides';
 
 const categoryLabel = (id: GroupEventCategory) => corporateEventCategories.find((item) => item.value === id)?.label ?? id;
 const dollars = (value: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(value);
@@ -277,6 +278,8 @@ function CorporateEventsPage() {
         </div>
       </div>
     </Container>
+
+    <CorporateEventMetroGuides />
 
     <section id="proposal" className="scroll-mt-24 border-y border-border bg-surface">
       <Container className="py-12">
