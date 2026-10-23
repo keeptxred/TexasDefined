@@ -121,7 +121,7 @@ export const supplementalMajorEventSlugs = [
   "galaxy-lights-space-center-houston",
   "concho-christmas-tour-of-lights",
   "main-street-bethlehem-burnet",
-  "gaylord-texan-ice-harry-potter",
+  "gaylord-texan-ice",
   "grand-prairie-prairie-lights",
   "moody-gardens-holiday-in-the-gardens",
   "grapevine-north-pole-express",
