@@ -52,15 +52,15 @@ function TexasDriversLicensePage() {
         </div>
         <h3 className="mt-8 font-display text-2xl">Common CDL endorsements and restrictions</h3>
         <div className="mt-4 overflow-x-auto">
-          <table className="w-full text-left text-sm">
-            <thead><tr className="border-b border-border"><th scope="col" className="py-3 pr-4">Code</th><th scope="col" className="py-3">Purpose</th></tr></thead>
+          <table className="w-full text-sm">
+            <thead><tr className="border-b border-border"><th scope="col" className="py-3">Code</th><th scope="col" className="py-3">Purpose</th></tr></thead>
             <tbody>
-              <tr className="border-b border-border"><th scope="row" className="py-3 pr-4">H</th><td className="py-3">Hazardous materials; separate federal security screening applies.</td></tr>
-              <tr className="border-b border-border"><th scope="row" className="py-3 pr-4">N</th><td className="py-3">Tank vehicles.</td></tr>
-              <tr className="border-b border-border"><th scope="row" className="py-3 pr-4">P</th><td className="py-3">Passenger transport.</td></tr>
-              <tr className="border-b border-border"><th scope="row" className="py-3 pr-4">S</th><td className="py-3">School bus; generally requires passenger qualifications as well.</td></tr>
-              <tr className="border-b border-border"><th scope="row" className="py-3 pr-4">T</th><td className="py-3">Double/triple trailers.</td></tr>
-              <tr><th scope="row" className="py-3 pr-4">X</th><td className="py-3">Combination tank and hazardous-material endorsements.</td></tr>
+              <tr className="border-b border-border"><th scope="row" className="py-3">H</th><td className="py-3">Hazardous materials; separate federal security screening applies.</td></tr>
+              <tr className="border-b border-border"><th scope="row" className="py-3">N</th><td className="py-3">Tank vehicles.</td></tr>
+              <tr className="border-b border-border"><th scope="row" className="py-3">P</th><td className="py-3">Passenger transport.</td></tr>
+              <tr className="border-b border-border"><th scope="row" className="py-3">S</th><td className="py-3">School bus; generally requires passenger qualifications as well.</td></tr>
+              <tr className="border-b border-border"><th scope="row" className="py-3">T</th><td className="py-3">Double/triple trailers.</td></tr>
+              <tr><th scope="row" className="py-3">X</th><td className="py-3">Combination tank and hazardous-material endorsements.</td></tr>
             </tbody>
           </table>
         </div>
