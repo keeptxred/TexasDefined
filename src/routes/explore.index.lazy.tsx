@@ -31,6 +31,7 @@ function ExplorePage() {
     <DepartmentHero current="Explore" eyebrow="The Texas guide" title="Explore Texas, one good road at a time" description={description} />
 
     <ExploreIntentPaths />
+    <Container className="py-6"><aside aria-label="Corporate group experiences" className="flex flex-wrap items-center justify-between gap-4 border border-border bg-surface p-5 sm:p-6"><div><h2 className="font-display text-2xl">Exploring Texas with your team?</h2><p className="mt-2 max-w-2xl text-sm leading-7 text-muted-foreground">Compare corporate outing options, venue group capacities and management-ready proposals across nine Texas markets.</p></div><Link to="/corporate-events" className="inline-flex min-h-11 items-center border border-primary px-4 text-sm font-semibold text-primary">Plan a corporate group experience →</Link></aside></Container>
     <Container className="pb-4 pt-8">
       <div className="grid border-y border-border lg:grid-cols-3">
         <Link to="/explore/top-attractions" className="group flex items-center justify-between gap-5 py-5 lg:border-r lg:pr-8"><div><p className="eyebrow text-primary">Texas essentials</p><h2 className="mt-1 font-display text-2xl group-hover:text-primary">Explore the Top 25 Texas attractions</h2><p className="mt-2 text-sm leading-6 text-muted-foreground">Start with 25 landmark experiences, each with a full visit guide, nearby stops and direct Trip Planner handoff.</p></div><span className="shrink-0 font-semibold text-primary">Top 25 →</span></Link>
