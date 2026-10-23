@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-10-22T15:54:33.882Z",
+  "fetchedAt": "2026-10-23T15:46:10.360Z",
   "candidates": [
     {
       "name": "Austin Championship",
@@ -679,7 +679,6 @@
       "name": "San Antonio Stock Show & Rodeo Haunted Hayrides",
       "city": "San Antonio",
       "dates": [
-        "2026-10-22",
         "2026-10-23",
         "2026-10-24"
       ],
@@ -688,11 +687,9 @@
       ],
       "ticketmasterIds": [
         "G5dIZ_o5NURjV",
-        "G5dIZ_o5NV2jJ",
         "G5dIZ_o5NgLjR"
       ],
       "officialTicketUrls": [
-        "https://www.ticketmaster.com/san-antonio-stock-show-rodeo-haunted-san-antonio-texas-10-22-2026/event/3A006512E3D0F726",
         "https://www.ticketmaster.com/san-antonio-stock-show-rodeo-haunted-san-antonio-texas-10-23-2026/event/3A006512E3D5F72F",
         "https://www.ticketmaster.com/san-antonio-stock-show-rodeo-haunted-san-antonio-texas-10-24-2026/event/3A006512E3DAF734"
       ],
