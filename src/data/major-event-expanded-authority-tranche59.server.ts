@@ -2,7 +2,11 @@ import type { MajorEventAuthorityRecord } from "./major-event-authority.server";
 
 // Organizer-reviewed, destination-scale Christmas attractions. The 2026–27
 // event season is dated; ticket pricing, availability and time slots are not.
-const records: MajorEventAuthorityRecord[] = [
+interface ChristmasExtendedRecord extends MajorEventAuthorityRecord {
+  occurrenceWindows?: Array<{ label?: string; startDate: string; endDate?: string }>;
+}
+
+const records: ChristmasExtendedRecord[] = [
   {
     "slug": "gaylord-texan-ice-harry-potter",
     "name": "Gaylord Texan ICE! featuring Harry Potter 2026–27",
