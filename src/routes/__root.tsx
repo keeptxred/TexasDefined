@@ -109,7 +109,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
               width: 1825,
               height: 382,
             },
-            image: { "@id": `${siteUrl}/#logo` },
             sameAs: texasDefinedBrand.identity.social.map((profile) => profile.href),
             contactPoint: [{
               "@type": "ContactPoint",
@@ -118,7 +117,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
             }],
             publishingPrinciples: `${siteUrl}/editorial-policy`,
             areaServed: { "@type": "State", name: "Texas" },
-            knowsAbout: ["Texas travel", "Texas destinations", "Texas history", "Texas events", "Texas sports", "Texas sports venues", "Texas fishing", "Texas fishing lakes", "Texas freshwater fish"],
+            knowsAbout: ["Texas travel", "Texas history", "Texas events", "Texas sports", "Texas sports venues", "Texas fishing", "Texas fishing lakes", "Texas freshwater fish"],
           },
           {
             "@type": "WebSite",
