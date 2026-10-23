@@ -255,7 +255,7 @@ const festivalExperienceMarkets: Record<string, { marketSlug: string; cityLabel:
   "holiday-at-the-dallas-arboretum": { marketSlug: "dallas", cityLabel: "Dallas", idea: "Dallas city tours beyond the Arboretum admission" },
   "galaxy-lights-space-center-houston": { marketSlug: "houston", cityLabel: "Houston", idea: "Houston sightseeing outside the space-themed evening event" },
   "ford-holiday-river-parade": { marketSlug: "san-antonio", cityLabel: "San Antonio", idea: "River Walk, mission and history tours on a separate day from the parade" },
-  "gaylord-texan-ice-harry-potter": { marketSlug: "dallas", cityLabel: "Dallas", idea: "independent Dallas-area tours on another day, not resort or ICE! admission" },
+  "gaylord-texan-ice": { marketSlug: "dallas", cityLabel: "Dallas", idea: "independent Dallas-area tours on another day, not resort or ICE! admission" },
   "grand-prairie-prairie-lights": { marketSlug: "dallas", cityLabel: "Dallas", idea: "Dallas-area sightseeing before a separately ticketed Grand Prairie lights drive" },
   "moody-gardens-holiday-in-the-gardens": { marketSlug: "galveston", cityLabel: "Galveston", idea: "historic Galveston tours separate from Moody Gardens holiday attraction admission" },
   "grapevine-north-pole-express": { marketSlug: "dallas", cityLabel: "Dallas", idea: "DFW history or sightseeing outside your separately timed Grapevine train excursion" },
