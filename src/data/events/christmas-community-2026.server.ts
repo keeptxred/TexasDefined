@@ -1054,6 +1054,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The 2026 'Red, White & Bright' downtown Lufkin illuminated parade takes place Saturday December 5 during Christmas in the Pines weekend. Check official parade route and time before traveling."
   },
   {
+    "slug": "beaumont-mcfaddin-ward-holiday-open-house-2026",
+    "title": "McFaddin-Ward House Museum Holiday Open House Weekend",
+    "city": "Beaumont",
+    "countySlug": "jefferson",
+    "countyName": "Jefferson County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-05",
+    "endDate": "2026-12-06",
+    "venueName": "McFaddin-Ward House Museum · 1906 Calder Avenue",
+    "officialEventUrl": "https://mcfaddin-ward.org/events/month/2026-12/",
+    "sourceName": "McFaddin-Ward House Museum",
+    "summary": "The museum's 2026 organizer calendar confirms an admission-free Holiday Open House Saturday–Sunday December 5–6, 5–7 p.m., with decorated first-floor historic-house visits, refreshments, carolers, children's crafts and family photos. Access to upper levels is governed by the museum's separate tour rules."
+  },
+  {
     "slug": "natural-bridge-christmas-caverns-opening-2026",
     "title": "Natural Bridge Caverns Christmas at the Caverns · opening night",
     "city": "San Antonio",
@@ -1358,6 +1372,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The city advertises a viewing-only village stroll December 14–17; family activity houses, photos with Santa and live performances are offered on the separately scheduled Santa's Village weekends."
   },
   {
+    "slug": "beaumont-mcfaddin-ward-christmas-past-workshop-2026",
+    "title": "McFaddin-Ward Christmas Past · homeschool workshop",
+    "city": "Beaumont",
+    "countySlug": "jefferson",
+    "countyName": "Jefferson County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-15",
+    "venueName": "McFaddin-Ward House Visitor Center · 1906 Calder Avenue",
+    "officialEventUrl": "https://mcfaddin-ward.org/events/month/2026-12/",
+    "sourceName": "McFaddin-Ward House Museum",
+    "summary": "A separate free, age-restricted Christmas Past homeschool workshop is listed for Tuesday December 15, 10–11:30 a.m., for ages 8–12. The workshop is not a second open-house date; confirm any advance registration with the museum."
+  },
+  {
     "slug": "dallas-zoo-lights-dec-late",
     "title": "Dallas Zoo Lights · December 16–23",
     "city": "Dallas",
@@ -1553,7 +1580,7 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The final five January evenings of the 2026–27 Marktplatz lighting program; December 31 is omitted because the special New Year's Eve event replaces the regular countdown.",
     "endDate": "2027-01-05"
   }
-];;;;;;;;;;
+];;;;;;;;;;;
 
 // Reuse comprehensive guides where they exist. The dated occurrence remains
 // an independent calendar record, so closing days are never falsely listed.
