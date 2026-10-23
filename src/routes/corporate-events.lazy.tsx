@@ -6,6 +6,7 @@ import { Container } from '@/components/layout/Container';
 import { corporateEventCategories, corporateEventProviders, type GroupEventCategory, type CorporateEventProvider } from '@/data/corporate-events';
 import { submitGroupEventRequest } from '@/data/corporate-events.functions';
 import { groupEventPlanningAmounts } from '@/data/corporate-event-budgets';
+import { corporateEventMarketMatches } from '@/data/corporate-event-market-search';
 import { GroupEventPartnerApplication } from '@/components/events/GroupEventPartnerApplication';
 import { ApprovedCorporateEventOffers } from '@/components/events/ApprovedCorporateEventOffers';
 
@@ -112,12 +113,7 @@ function CorporateEventsPage() {
     const cityTerm = city.trim().toLowerCase();
     if (!validHeadcount || !cityTerm) return [];
     return corporateEventProviders.filter((provider) => {
-      const requestedCity = cityTerm.replace(/,?\\s+(?:tx|texas)$/i, '').trim();
-      const isHoustonZip = /^77(?:0|2)\\d{2}$/.test(cityTerm);
-      const inRequestedMarket = cityTerm === 'texas' || cityTerm === 'tx'
-        || (isHoustonZip && provider.city === 'Houston')
-        || provider.city.toLowerCase().includes(requestedCity)
-        || provider.metro?.toLowerCase().includes(requestedCity);
+      const inRequestedMarket = corporateEventMarketMatches(provider, cityTerm);
       if (!inRequestedMarket) return false;
       if (provider.maxGroup != null && headcount > provider.maxGroup) return false;
       if (provider.minGroup != null && headcount < provider.minGroup) return false;
