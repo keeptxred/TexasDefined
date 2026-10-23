@@ -1445,6 +1445,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The final 2026 North Pole Express Grapevine departure dates are December 26–30. The first day has later boarding times; select the exact date and session at checkout."
   },
   {
+    "slug": "san-antonio-fiesta-texas-new-years-2026",
+    "title": "Six Flags Fiesta Texas Holiday in the Park · New Year's celebrations",
+    "city": "San Antonio",
+    "countySlug": "bexar",
+    "countyName": "Bexar County",
+    "region": "south-texas",
+    "startDate": "2026-12-26",
+    "endDate": "2027-01-04",
+    "venueName": "Six Flags Fiesta Texas · 17000 I-10 West",
+    "officialEventUrl": "https://www.visitsanantonio.com/event/six-flags-holiday-in-the-park/13246/",
+    "sourceName": "Visit San Antonio — official dated 2026 holiday schedule",
+    "summary": "Visit San Antonio explicitly lists each December 26, 2026–January 4, 2027 date for Six Flags Fiesta Texas' holiday and New Year's programs, including special New Year's 360 festivities December 31. Check the operating calendar and separate admission ticket before visiting."
+  },
+  {
     "slug": "fredericksburg-nights-of-lights-final",
     "title": "Fredericksburg Christmas Nights of Lights · final nights",
     "city": "Fredericksburg",
@@ -1458,7 +1472,7 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The final five January evenings of the 2026–27 Marktplatz lighting program; December 31 is omitted because the special New Year's Eve event replaces the regular countdown.",
     "endDate": "2027-01-05"
   }
-];;;;;;;
+];;;;;;;;
 
 // Reuse comprehensive guides where they exist. The dated occurrence remains
 // an independent calendar record, so closing days are never falsely listed.
