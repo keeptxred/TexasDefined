@@ -306,6 +306,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "endDate": "2026-11-29"
   },
   {
+    "slug": "san-antonio-river-walk-holiday-lights",
+    "title": "San Antonio River Walk Holiday Lights",
+    "city": "San Antonio",
+    "region": "south-texas",
+    "countySlug": "bexar",
+    "countyName": "Bexar County",
+    "startDate": "2026-11-27",
+    "endDate": "2026-12-31",
+    "venueName": "Downtown San Antonio River Walk",
+    "officialEventUrl": "https://www.thesanantonioriverwalk.com/events/holiday-lights-on-the-river-walk-free/",
+    "sourceName": "San Antonio River Walk Association",
+    "summary": "Free seasonal cypress-tree holiday lights start Friday November 27 with the Ford Holiday River Parade and continue nightly into early January. The official source has no definitive final January date yet, so this verified date range deliberately stops December 31; recheck the organizer for January dates. The parade itself is a separate November 27 event."
+  },
+  {
     "slug": "abilene-winter-lightfest-opening",
     "title": "Abilene Winter Lightfest · opening evening",
     "city": "Abilene",
@@ -346,6 +360,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "endDate": "2026-12-26"
   },
   {
+    "slug": "austin-zilker-holiday-tree-2026",
+    "title": "Austin Zilker Holiday Tree · seasonal display",
+    "city": "Austin",
+    "region": "hill-country",
+    "countySlug": "travis",
+    "countyName": "Travis County",
+    "startDate": "2026-11-29",
+    "endDate": "2027-01-01",
+    "venueName": "Zilker Park · 2100 Barton Springs Road",
+    "officialEventUrl": "https://www.austintexas.gov/parks/programs/zilker-holiday-tree",
+    "sourceName": "City of Austin Parks and Recreation",
+    "summary": "The City of Austin confirms its Zilker Holiday Tree season November 29, 2026–January 1, 2027, with evening viewing 6–10 p.m. Drive-up parking differs from the independently ticketed Trail of Lights. Check date-specific road restrictions and parking before traveling."
+  },
+  {
     "slug": "marble-falls-walkway-of-lights",
     "title": "Marble Falls Walkway of Lights",
     "city": "Marble Falls",
@@ -358,6 +386,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://visitmarblefalls.org/christmas-season/",
     "sourceName": "Visit Marble Falls",
     "summary": "Visit Marble Falls lists the Walkway of Lights at Lakeside Park & Beach for November 29, 2026–January 2, 2027. Confirm individual viewing hours and weather procedures before visiting. The separate Light Up Parade is December 4."
+  },
+  {
+    "slug": "austin-zilker-holiday-tree-lighting",
+    "title": "Zilker Holiday Tree · official lighting ceremony",
+    "city": "Austin",
+    "region": "hill-country",
+    "countySlug": "travis",
+    "countyName": "Travis County",
+    "startDate": "2026-11-29",
+    "venueName": "Zilker Park · south side of 2100 Barton Springs Road",
+    "officialEventUrl": "https://www.austintexas.gov/parks/programs/zilker-holiday-tree",
+    "sourceName": "City of Austin Parks and Recreation",
+    "summary": "The 2026 free Zilker Holiday Tree lighting ceremony begins Sunday November 29 at 6 p.m., with Austin Civic Wind Ensemble music from 5:15 p.m. Seasonal nightly tree viewing follows separately through January 1."
   },
   {
     "slug": "dallas-zoo-lights-dec-early",
@@ -591,6 +632,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The first December weekend of the historic Salado Christmas Stroll runs December 4–6, with holiday markets, entertainment and a lighted village; confirm activity-by-activity hours with the Chamber."
   },
   {
+    "slug": "waxahachie-bethlehem-revisited-first",
+    "title": "Waxahachie Bethlehem Revisited · December 4–6",
+    "city": "Waxahachie",
+    "region": "prairies-lakes",
+    "countySlug": "ellis",
+    "countyName": "Ellis County",
+    "startDate": "2026-12-04",
+    "endDate": "2026-12-06",
+    "venueName": "402 N. College Street · behind Central Presbyterian Church",
+    "officialEventUrl": "https://www.waxahachiecvb.com/events/2026/bethlehem-revisited2222",
+    "sourceName": "Waxahachie Convention & Visitors Bureau",
+    "summary": "The first of two 2026 walk-through living-history nativity weekends operates December 4–6, Friday–Sunday 6–9 p.m. (not the intervening weekdays). Biblical-era street scenes repeat roughly every 30 minutes; check the event organizer's latest arrival guidance."
+  },
+  {
     "slug": "denton-holiday-lighting-festival-2026",
     "title": "Denton Holiday Lighting Festival",
     "city": "Denton",
@@ -756,6 +811,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The second family program weekend runs December 11–13, 6–9 p.m. Interactive buildings, music and free Santa photos are scheduled separately from the daytime/weekday walk-through-only periods."
   },
   {
+    "slug": "san-antonio-river-walk-december-artisan-show",
+    "title": "San Antonio River Walk December Artisan Show",
+    "city": "San Antonio",
+    "region": "south-texas",
+    "countySlug": "bexar",
+    "countyName": "Bexar County",
+    "startDate": "2026-12-11",
+    "endDate": "2026-12-13",
+    "venueName": "Downtown San Antonio River Walk",
+    "officialEventUrl": "https://www.thesanantonioriverwalk.com/events/",
+    "sourceName": "San Antonio River Walk Association",
+    "summary": "The official free December Artisan Show runs December 11–13 with artists and handmade gifts along the downtown River Walk. Check current artisan show hours separately from the nightly tree lights and restaurant operations."
+  },
+  {
     "slug": "tomball-german-christmas-market",
     "title": "Tomball German Christmas Market",
     "city": "Tomball",
@@ -770,6 +839,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The 18th annual Christmas market runs Friday December 11 6–10 p.m., Saturday December 12 10 a.m.–10 p.m., and Sunday December 13 10 a.m.–6 p.m. Organizers list free admission and parking."
   },
   {
+    "slug": "waxahachie-bethlehem-revisited-second",
+    "title": "Waxahachie Bethlehem Revisited · December 11–13",
+    "city": "Waxahachie",
+    "region": "prairies-lakes",
+    "countySlug": "ellis",
+    "countyName": "Ellis County",
+    "startDate": "2026-12-11",
+    "endDate": "2026-12-13",
+    "venueName": "402 N. College Street · behind Central Presbyterian Church",
+    "officialEventUrl": "https://www.waxahachiecvb.com/events/2026/bethlehem-revisited2222",
+    "sourceName": "Waxahachie Convention & Visitors Bureau",
+    "summary": "The second confirmed 2026 Bethlehem Revisited weekend runs December 11–13, Friday–Sunday 6–9 p.m. Scenes and characters appear in the recreated village; December 7–10 are not advertised public dates."
+  },
+  {
     "slug": "armadillo-christmas-bazaar-austin",
     "title": "Armadillo Christmas Bazaar 2026",
     "city": "Austin",
@@ -782,6 +865,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://armadillobazaar.com/info/",
     "sourceName": "Armadillo Christmas Bazaar organizer",
     "summary": "Ten ticketed days of holiday fine-art shopping and live music December 12–21, with about 200 curated artists. Hours vary by day; the official organizer says children 12 and under receive free admission."
+  },
+  {
+    "slug": "san-antonio-river-of-lights",
+    "title": "River of Lights · San Antonio Museum Reach",
+    "city": "San Antonio",
+    "region": "south-texas",
+    "countySlug": "bexar",
+    "countyName": "Bexar County",
+    "startDate": "2026-12-12",
+    "venueName": "San Antonio River Lock & Dam · Museum Reach",
+    "officialEventUrl": "https://www.sariverauthority.org/river-of-lights/",
+    "sourceName": "San Antonio River Authority",
+    "summary": "The official free River of Lights festival is Saturday December 12, 2026, 4–8 p.m. at the Museum Reach Lock & Dam, including a snow play area, seasonal entertainment, food trucks and holiday market. This is not the Ford Holiday River Parade."
   },
   {
     "slug": "richardson-santas-village-walk2",
@@ -854,6 +950,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The final confirmed Santa's Village program weekend is December 18–20, 6–9 p.m. The City of Richardson advertises free admission, free parking, interactive dwellings and photos with Santa."
   },
   {
+    "slug": "san-antonio-river-walk-holiday-artisan-show",
+    "title": "San Antonio River Walk Holiday Artisan Show",
+    "city": "San Antonio",
+    "region": "south-texas",
+    "countySlug": "bexar",
+    "countyName": "Bexar County",
+    "startDate": "2026-12-18",
+    "endDate": "2026-12-20",
+    "venueName": "Downtown San Antonio River Walk",
+    "officialEventUrl": "https://www.thesanantonioriverwalk.com/events/",
+    "sourceName": "San Antonio River Walk Association",
+    "summary": "The official holiday shopping artisan show runs December 18–20 on the downtown River Walk with regional artists and makers. It is free to visit, while purchases, sightseeing excursions, and river cruises are separate."
+  },
+  {
     "slug": "dallas-zoo-lights-final",
     "title": "Dallas Zoo Lights · December 26–January 3",
     "city": "Dallas",
@@ -895,7 +1005,7 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The final five January evenings of the 2026–27 Marktplatz lighting program; December 31 is omitted because the special New Year's Eve event replaces the regular countdown.",
     "endDate": "2027-01-05"
   }
-];;;;
+];;;;;
 
 // Reuse comprehensive guides where they exist. The dated occurrence remains
 // an independent calendar record, so closing days are never falsely listed.
