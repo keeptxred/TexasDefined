@@ -9,6 +9,7 @@ const checks = [
   ['fishing-county-authority-links', 'INTERNAL-LINKING', 'Validate every lake guide has source-derived county discovery links', 'node', ['scripts/data/validate-fishing-county-authority-links.mjs']],
   ['fishing-city-authority-links', 'INTERNAL-LINKING', 'Validate complete lake guides are discoverable from relevant city pages', 'node', ['scripts/data/validate-fishing-city-authority-links.mjs']],
   ['county-property-enrichment', 'CODE/CONTENT', 'Validate county property enrichment', 'node', ['scripts/data/validate-county-property-enrichment.mjs']],
+  ['county-property-verified-directory', 'CODE/CONTENT', 'Protect verified 91-county directory merge', 'node', ['--test','scripts/ci/county-property-pr5289-reconciliation.test.mjs']],
   ['destination-indexing-policy', 'SEO/INDEXING', 'Validate destination indexing policy', 'node', ['scripts/data/validate-destination-indexing-policy.mjs']],
   ['homeowners-premium-research', 'SOURCE/QUALITY', 'Validate Texas homeowners premiums research', 'node', ['scripts/data/validate-homeowners-premium-research.mjs']],
   ['public-route-governance', 'ROUTING/GOVERNANCE', 'Validate public route governance', 'node', ['scripts/data/validate-public-route-governance.mjs']],
