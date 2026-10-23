@@ -153,7 +153,27 @@ function CorporateEventsPage() {
     }
   }
 
+  const structuredData = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    '@id': 'https://texasdefined.com/corporate-events#page',
+    name: 'Texas Corporate Events & Team Building Finder',
+    url: 'https://texasdefined.com/corporate-events',
+    description: 'Source-backed corporate events and team-building venues in Texas.',
+    isPartOf: { '@id': 'https://texasdefined.com/#website' },
+    mainEntity: {
+      '@type': 'ItemList',
+      name: 'Houston group event providers',
+      numberOfItems: corporateEventProviders.length,
+      itemListElement: corporateEventProviders.map((provider, index) => ({
+        '@type': 'ListItem', position: index + 1,
+        name: provider.name, url: provider.officialUrl,
+      })),
+    },
+  });
+
   return <main id="main">
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: structuredData }} />
     <section className="bg-foreground text-background">
       <Container className="py-12 sm:py-20">
         <p className="eyebrow text-background/70">Texas Defined • Group experiences</p>
