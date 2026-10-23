@@ -1566,6 +1566,7 @@ if (!errors.length) {
     "slug: 'borden-county', mascot: 'Coyotes', colors: 'Columbia blue, red and white'",
   ]) requireText(schoolIdentities, token, 'Official Batch 006 school colors');
 
+  requireText(read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx'), 'game.date >= editorial.season.verifiedAt', 'Prevent stale next football fixture');
   const currentCoachContracts = [
     ['big-sandy-harmony', 'Brian Mauk', 'kltv.com/story/26056195/harmony-eagles/'],
     ['bishop', 'Keith Talbert', 'maxpreps.com/tx/bishop/bishop-badgers/football/staff/'],
