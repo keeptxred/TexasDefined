@@ -32,7 +32,7 @@ function GoogleTagManagerHead() {
   return (
     <script
       dangerouslySetInnerHTML={{
-        __html: `(function(w,h){var n=w.navigator;if(n.webdriver===true||/HeadlessChrome|Lighthouse|PageSpeed|TexasDefined-[^ ]*Smoke/i.test(n.userAgent)||!h.includes(w.location.hostname.toLowerCase()))return;(w.dataLayer||=[]).push({'gtm.start':Date.now(),event:'gtm.js'});var s=document.createElement('script');s.src='https://www.googletagmanager.com/gtm.js?id=${googleTagManagerId}';document.head.append(s)})(window,${googleTagManagerHosts});`,
+        __html: `(function(w,h){var n=w.navigator;if(n.webdriver||/HeadlessChrome|Lighthouse|PageSpeed|TexasDefined-[^ ]*Smoke/i.test(n.userAgent)||!h.includes(location.hostname))return;(w.dataLayer||=[]).push({'gtm.start':Date.now(),event:'gtm.js'});document.head.appendChild(document.createElement('script')).src='https://www.googletagmanager.com/gtm.js?id=${googleTagManagerId}'})(window,${googleTagManagerHosts});`,
       }}
     />
   );
@@ -113,7 +113,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
             sameAs: texasDefinedBrand.identity.social.map((profile) => profile.href),
             contactPoint: [{
               "@type": "ContactPoint",
-              contactType: "editorial and corrections",
+              contactType: "editorial, corrections and general inquiries",
               url: `${siteUrl}/partner-with-us`,
             }],
             publishingPrinciples: `${siteUrl}/editorial-policy`,
