@@ -41,7 +41,7 @@ const articleRoute = fs.readFileSync('src/routes/article.$slug.tsx', 'utf8');
 if ((articleRoute.match(/<SchoolSupplyPartners\b/g) ?? []).length !== 1) {
   errors.push('Informational articles must render exactly one school-supply partner block in SSR markup.');
 }
-for (const token of ['2xl:absolute','2xl:left-full','2xl:ml-8','2xl:top-10','2xl:w-72']) {
+for (const token of ['school-supply-responsive','@media(min-width:1536px)','position:absolute','left:calc(100% + 2rem)','width:18rem']) {
   requireText(articleRoute, token, 'School-supply module retains responsive desktop rail placement');
 }
 if (articleRoute.includes('school-supply-bottom') || articleRoute.includes('school-supply-rail')) {
