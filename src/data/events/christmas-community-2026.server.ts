@@ -29,6 +29,33 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "Santa's Ranch confirms its drive-through light park opens every night November 6–January 3, including holidays and rain. Sunday–Thursday 6–10 p.m.; Friday–Saturday 6–11 p.m. Admission is per vehicle; verify height/length restrictions before entering."
   },
   {
+    "slug": "gruene-cowboy-kringle-1",
+    "title": "Gruene Cowboy Kringle · photo sessions 1",
+    "city": "Gruene",
+    "countySlug": "comal",
+    "countyName": "Comal County",
+    "region": "hill-country",
+    "startDate": "2026-11-07",
+    "endDate": "2026-11-08",
+    "venueName": "Historic Gruene · breezeway between Grapevine and Gruene General Store",
+    "officialEventUrl": "https://www.gruenetexas.com/kringle-photos/",
+    "sourceName": "Historic Gruene / Cowboy Kringle",
+    "summary": "The official 2026 Cowboy Kringle dates include this operating weekend. Photos are appointment-only, with advance booking required; walk-up visits are not guaranteed. This is a separate attraction from Gruene Hall ticketed shows."
+  },
+  {
+    "slug": "san-antonio-seaworld-christmas-2026-opening",
+    "title": "SeaWorld San Antonio Christmas Celebration · opening date",
+    "city": "San Antonio",
+    "countySlug": "bexar",
+    "countyName": "Bexar County",
+    "region": "south-texas",
+    "startDate": "2026-11-12",
+    "venueName": "SeaWorld San Antonio",
+    "officialEventUrl": "https://seaworld.com/san-antonio/events/",
+    "sourceName": "SeaWorld San Antonio",
+    "summary": "SeaWorld confirms its Christmas Celebration begins November 12, 2026, with select dates through January 3, 2027. This record represents only the confirmed opening date; check the park's actual date calendar and daily hours for additional visits."
+  },
+  {
     "slug": "dallas-zoo-lights-opening",
     "title": "Dallas Zoo Lights · November 13–15",
     "city": "Dallas",
@@ -41,6 +68,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.dallaszoo.com/event/lights/",
     "sourceName": "Dallas Zoo",
     "summary": "The first three confirmed ticketed Dallas Zoo Lights nights are November 13–15, 5:30–9 p.m. The full series operates on selected nights rather than every night."
+  },
+  {
+    "slug": "gruene-cowboy-kringle-2",
+    "title": "Gruene Cowboy Kringle · photo sessions 2",
+    "city": "Gruene",
+    "countySlug": "comal",
+    "countyName": "Comal County",
+    "region": "hill-country",
+    "startDate": "2026-11-14",
+    "endDate": "2026-11-15",
+    "venueName": "Historic Gruene · breezeway between Grapevine and Gruene General Store",
+    "officialEventUrl": "https://www.gruenetexas.com/kringle-photos/",
+    "sourceName": "Historic Gruene / Cowboy Kringle",
+    "summary": "The official 2026 Cowboy Kringle dates include this operating weekend. Photos are appointment-only, with advance booking required; walk-up visits are not guaranteed. This is a separate attraction from Gruene Hall ticketed shows."
   },
   {
     "slug": "dallas-zoo-lights-november",
@@ -126,6 +167,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "WinterFest launches November 21 with the Scherr Legate Lights Parade at 6 p.m. The wider season continues afterward; confirm individual attraction dates on the organizer calendar."
   },
   {
+    "slug": "gruene-cowboy-kringle-3",
+    "title": "Gruene Cowboy Kringle · photo sessions 3",
+    "city": "Gruene",
+    "countySlug": "comal",
+    "countyName": "Comal County",
+    "region": "hill-country",
+    "startDate": "2026-11-21",
+    "endDate": "2026-11-22",
+    "venueName": "Historic Gruene · breezeway between Grapevine and Gruene General Store",
+    "officialEventUrl": "https://www.gruenetexas.com/kringle-photos/",
+    "sourceName": "Historic Gruene / Cowboy Kringle",
+    "summary": "The official 2026 Cowboy Kringle dates include this operating weekend. Photos are appointment-only, with advance booking required; walk-up visits are not guaranteed. This is a separate attraction from Gruene Hall ticketed shows."
+  },
+  {
     "slug": "woodlands-holiday-on-waterway",
     "title": "Holiday on The Waterway",
     "city": "The Woodlands",
@@ -181,6 +236,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The 16th annual waterfront light-show season runs November 21–January 3. Synchronized shows begin nightly at 6 p.m.; check the date-specific tickets and seating options before visiting."
   },
   {
+    "slug": "san-antonio-fiesta-texas-holiday-1",
+    "title": "Six Flags Fiesta Texas Holiday in the Park · window 1",
+    "city": "San Antonio",
+    "countySlug": "bexar",
+    "countyName": "Bexar County",
+    "region": "south-texas",
+    "startDate": "2026-11-21",
+    "endDate": "2026-11-25",
+    "venueName": "Six Flags Fiesta Texas · 17000 I-10 West",
+    "officialEventUrl": "https://www.visitsanantonio.com/event/six-flags-holiday-in-the-park/13246/",
+    "sourceName": "Visit San Antonio / Six Flags Fiesta Texas",
+    "summary": "Six Flags Holiday in the Park is ticketed and runs selected 2026 dates. This window follows Visit San Antonio's day-by-day list rather than assuming daily park operation. Current park admission covers many shows and select rides; extras cost more. The December 26–New Year program has separate scheduling."
+  },
+  {
     "slug": "fort-worth-parade-of-lights",
     "title": "GM Financial Parade of Lights",
     "city": "Fort Worth",
@@ -192,6 +261,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.fortworthparadeoflights.org/",
     "sourceName": "Downtown Fort Worth Initiatives",
     "summary": "Downtown Fort Worth's illuminated parade begins at 6 p.m. November 22. Street closures start earlier; reserved viewing seats are a separate paid option."
+  },
+  {
+    "slug": "arlington-six-flags-holiday-2026-opening",
+    "title": "Six Flags Over Texas Holiday in the Park · opening date",
+    "city": "Arlington",
+    "countySlug": "tarrant",
+    "countyName": "Tarrant County",
+    "region": "prairies-lakes",
+    "startDate": "2026-11-22",
+    "venueName": "Six Flags Over Texas · Arlington",
+    "officialEventUrl": "https://www.sixflags.com/overtexas/events/holiday-in-the-park",
+    "sourceName": "Six Flags Over Texas",
+    "summary": "Six Flags confirms a 2026 holiday season on selected dates November 22–December 30. The day-scoped listing marks only the confirmed opening date; consult official dated park hours for other operating nights. Admission and ride extras are separately ticketed."
   },
   {
     "slug": "cleburne-whistle-stop-christmas",
@@ -278,6 +360,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "endDate": "2026-11-28"
   },
   {
+    "slug": "waco-wild-lights-2026-1",
+    "title": "Cameron Park Zoo Wild Lights · verified window 1",
+    "city": "Waco",
+    "countySlug": "mclennan",
+    "countyName": "McLennan County",
+    "region": "prairies-lakes",
+    "startDate": "2026-11-27",
+    "endDate": "2026-11-29",
+    "venueName": "Cameron Park Zoo · 1701 North 4th Street",
+    "officialEventUrl": "https://www.cameronparkzoo.com/event/wild-lights-2026/",
+    "sourceName": "Cameron Park Zoo",
+    "summary": "Zoo Wild Lights 2026 is ticketed for Thursday–Sunday nights, with evening entry 6–9 p.m. and last admission around 8 p.m. This block is inside both the operator's displayed event date and published operating-day schedule. The zoo's page conflicts on December 23 versus December 30 as final date, so later dates remain under review."
+  },
+  {
     "slug": "fort-worth-stockyards-cowboy-santa-arrival",
     "title": "Fort Worth Stockyards Cowboy Santa Grand Arrival",
     "city": "Fort Worth",
@@ -303,6 +399,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.grapevinetexasusa.com/christmas-capital-of-texas/north-pole-express/dates-times/",
     "sourceName": "Grapevine Convention & Visitors Bureau",
     "summary": "The organizer lists daily North Pole Express train departures November 27–December 2. Tickets require a dated train boarding time; arrive more than an hour early for parking and check-in."
+  },
+  {
+    "slug": "gruene-cowboy-kringle-4",
+    "title": "Gruene Cowboy Kringle · photo sessions 4",
+    "city": "Gruene",
+    "countySlug": "comal",
+    "countyName": "Comal County",
+    "region": "hill-country",
+    "startDate": "2026-11-27",
+    "endDate": "2026-11-29",
+    "venueName": "Historic Gruene · breezeway between Grapevine and Gruene General Store",
+    "officialEventUrl": "https://www.gruenetexas.com/kringle-photos/",
+    "sourceName": "Historic Gruene / Cowboy Kringle",
+    "summary": "The official 2026 Cowboy Kringle dates include this operating weekend. Photos are appointment-only, with advance booking required; walk-up visits are not guaranteed. This is a separate attraction from Gruene Hall ticketed shows."
   },
   {
     "slug": "johnson-city-lights-spectacular",
@@ -347,6 +457,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "endDate": "2026-11-29"
   },
   {
+    "slug": "mineral-wells-merry-wells-tree-lighting",
+    "title": "Merry Wells Christmas Tree Lighting",
+    "city": "Mineral Wells",
+    "countySlug": "palo-pinto",
+    "countyName": "Palo Pinto County",
+    "region": "prairies-lakes",
+    "startDate": "2026-11-27",
+    "venueName": "Downtown Mineral Wells",
+    "officialEventUrl": "https://visitmineralwells.org/merry-wells-christmas-festival",
+    "sourceName": "Visit Mineral Wells",
+    "summary": "The official Visit Mineral Wells page confirms tree lighting Friday November 27, 2026, beginning the Merry Wells Christmas weekend. The next day's festival and lighted parade have their own date."
+  },
+  {
     "slug": "san-antonio-river-walk-holiday-lights",
     "title": "San Antonio River Walk Holiday Lights",
     "city": "San Antonio",
@@ -359,6 +482,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.thesanantonioriverwalk.com/events/holiday-lights-on-the-river-walk-free/",
     "sourceName": "San Antonio River Walk Association",
     "summary": "Free seasonal cypress-tree holiday lights start Friday November 27 with the Ford Holiday River Parade and continue nightly into early January. The official source has no definitive final January date yet, so this verified date range deliberately stops December 31; recheck the organizer for January dates. The parade itself is a separate November 27 event."
+  },
+  {
+    "slug": "san-antonio-fiesta-texas-holiday-2",
+    "title": "Six Flags Fiesta Texas Holiday in the Park · window 2",
+    "city": "San Antonio",
+    "countySlug": "bexar",
+    "countyName": "Bexar County",
+    "region": "south-texas",
+    "startDate": "2026-11-27",
+    "endDate": "2026-11-29",
+    "venueName": "Six Flags Fiesta Texas · 17000 I-10 West",
+    "officialEventUrl": "https://www.visitsanantonio.com/event/six-flags-holiday-in-the-park/13246/",
+    "sourceName": "Visit San Antonio / Six Flags Fiesta Texas",
+    "summary": "Six Flags Holiday in the Park is ticketed and runs selected 2026 dates. This window follows Visit San Antonio's day-by-day list rather than assuming daily park operation. Current park admission covers many shows and select rides; extras cost more. The December 26–New Year program has separate scheduling."
   },
   {
     "slug": "abilene-winter-lightfest-opening",
@@ -399,6 +536,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.southpoleoftexas.com/",
     "sourceName": "City of McAllen / South Pole Illuminated Festival",
     "summary": "The official 2026 South Pole Illuminated Festival runs November 28–December 28, with posted Wednesday–Sunday evening operating hours. This is one of the explicitly open published weekday/weekend windows; Monday and Tuesday are omitted. Check holiday exceptions and dated tickets with the city before travel."
+  },
+  {
+    "slug": "mineral-wells-merry-wells-festival",
+    "title": "Merry Wells Christmas Festival and Lighted Parade",
+    "city": "Mineral Wells",
+    "countySlug": "palo-pinto",
+    "countyName": "Palo Pinto County",
+    "region": "prairies-lakes",
+    "startDate": "2026-11-28",
+    "venueName": "Downtown Mineral Wells",
+    "officialEventUrl": "https://visitmineralwells.org/merry-wells-christmas-festival",
+    "sourceName": "Visit Mineral Wells",
+    "summary": "The Merry Wells Christmas Festival operates Saturday November 28, 2026 from 11 a.m.–5 p.m., with the lighted Christmas parade at 6 p.m. Downtown shops and vendors operate on their own schedules."
   },
   {
     "slug": "wimberley-trail-of-lights",
@@ -482,6 +632,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.southpoleoftexas.com/",
     "sourceName": "City of McAllen / South Pole Illuminated Festival",
     "summary": "The official 2026 South Pole Illuminated Festival runs November 28–December 28, with posted Wednesday–Sunday evening operating hours. This is one of the explicitly open published weekday/weekend windows; Monday and Tuesday are omitted. Check holiday exceptions and dated tickets with the city before travel."
+  },
+  {
+    "slug": "waco-wild-lights-2026-2",
+    "title": "Cameron Park Zoo Wild Lights · verified window 2",
+    "city": "Waco",
+    "countySlug": "mclennan",
+    "countyName": "McLennan County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-03",
+    "endDate": "2026-12-06",
+    "venueName": "Cameron Park Zoo · 1701 North 4th Street",
+    "officialEventUrl": "https://www.cameronparkzoo.com/event/wild-lights-2026/",
+    "sourceName": "Cameron Park Zoo",
+    "summary": "Zoo Wild Lights 2026 is ticketed for Thursday–Sunday nights, with evening entry 6–9 p.m. and last admission around 8 p.m. This block is inside both the operator's displayed event date and published operating-day schedule. The zoo's page conflicts on December 23 versus December 30 as final date, so later dates remain under review."
   },
   {
     "slug": "grapevine-parade-of-lights-2026",
@@ -728,6 +892,32 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The first of two 2026 walk-through living-history nativity weekends operates December 4–6, Friday–Sunday 6–9 p.m. (not the intervening weekdays). Biblical-era street scenes repeat roughly every 30 minutes; check the event organizer's latest arrival guidance."
   },
   {
+    "slug": "fort-worth-christmas-in-stockyards-2026",
+    "title": "25th Annual Christmas in the Stockyards",
+    "city": "Fort Worth",
+    "countySlug": "tarrant",
+    "countyName": "Tarrant County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-05",
+    "venueName": "Fort Worth Stockyards National Historic District",
+    "officialEventUrl": "https://fortworthstockyards.com/events/christmas-in-the-stockyards-6/",
+    "sourceName": "Fort Worth Stockyards operator",
+    "summary": "Official 2026 Christmas in the Stockyards runs Saturday December 5, 11 a.m.–8 p.m., including free festive district activities and the 4 p.m. Christmas parade. Rodeo tickets and photo packages are separately priced."
+  },
+  {
+    "slug": "gruene-christmas-town-lighting",
+    "title": "43rd Annual Gruene Town Lighting",
+    "city": "Gruene",
+    "countySlug": "comal",
+    "countyName": "Comal County",
+    "region": "hill-country",
+    "startDate": "2026-12-05",
+    "venueName": "Historic Gruene District",
+    "officialEventUrl": "https://www.gruenetexas.com/events/month/2026-12/",
+    "sourceName": "Historic Gruene district organizer",
+    "summary": "Official Gruene event calendar lists the 43rd Annual Town Lighting Saturday December 5, with brass-band music and Cowboy Kringle's arrival. The ceremony is free and separate from ticketed holiday photo appointments."
+  },
+  {
     "slug": "denton-holiday-lighting-festival-2026",
     "title": "Denton Holiday Lighting Festival",
     "city": "Denton",
@@ -755,6 +945,34 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "endDate": "2026-12-30"
   },
   {
+    "slug": "gruene-christmas-market-days",
+    "title": "Gruene Christmas Market Days",
+    "city": "Gruene",
+    "countySlug": "comal",
+    "countyName": "Comal County",
+    "region": "hill-country",
+    "startDate": "2026-12-05",
+    "endDate": "2026-12-06",
+    "venueName": "Historic Gruene District market stalls",
+    "officialEventUrl": "https://www.gruenetexas.com/events/month/2026-12/",
+    "sourceName": "Historic Gruene district organizer",
+    "summary": "Gruene's official 2026 calendar lists Christmas Market Days December 5–6, 10 a.m.–5 p.m., with around 100 holiday vendors. Free market admission; individual purchases and ticketed Gruene Hall concerts are separate."
+  },
+  {
+    "slug": "gruene-cowboy-kringle-5",
+    "title": "Gruene Cowboy Kringle · photo sessions 5",
+    "city": "Gruene",
+    "countySlug": "comal",
+    "countyName": "Comal County",
+    "region": "hill-country",
+    "startDate": "2026-12-05",
+    "endDate": "2026-12-06",
+    "venueName": "Historic Gruene · breezeway between Grapevine and Gruene General Store",
+    "officialEventUrl": "https://www.gruenetexas.com/kringle-photos/",
+    "sourceName": "Historic Gruene / Cowboy Kringle",
+    "summary": "The official 2026 Cowboy Kringle dates include this operating weekend. Photos are appointment-only, with advance booking required; walk-up visits are not guaranteed. This is a separate attraction from Gruene Hall ticketed shows."
+  },
+  {
     "slug": "lufkin-christmas-lighted-parade",
     "title": "Lufkin Lighted Christmas Parade",
     "city": "Lufkin",
@@ -780,6 +998,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.cor.net/departments/parks-recreation/community-events/santa-s-village-at-huffhines-park",
     "sourceName": "City of Richardson",
     "summary": "The first official free Santa's Village activity weekend runs December 5–6, 6–9 p.m., with photos with Santa, live music, interactive holiday buildings and free parking."
+  },
+  {
+    "slug": "san-antonio-fiesta-texas-holiday-3",
+    "title": "Six Flags Fiesta Texas Holiday in the Park · window 3",
+    "city": "San Antonio",
+    "countySlug": "bexar",
+    "countyName": "Bexar County",
+    "region": "south-texas",
+    "startDate": "2026-12-05",
+    "endDate": "2026-12-06",
+    "venueName": "Six Flags Fiesta Texas · 17000 I-10 West",
+    "officialEventUrl": "https://www.visitsanantonio.com/event/six-flags-holiday-in-the-park/13246/",
+    "sourceName": "Visit San Antonio / Six Flags Fiesta Texas",
+    "summary": "Six Flags Holiday in the Park is ticketed and runs selected 2026 dates. This window follows Visit San Antonio's day-by-day list rather than assuming daily park operation. Current park admission covers many shows and select rides; extras cost more. The December 26–New Year program has separate scheduling."
   },
   {
     "slug": "richardson-santas-village-walk1",
@@ -822,6 +1054,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.southpoleoftexas.com/",
     "sourceName": "City of McAllen / South Pole Illuminated Festival",
     "summary": "The official 2026 South Pole Illuminated Festival runs November 28–December 28, with posted Wednesday–Sunday evening operating hours. This is one of the explicitly open published weekday/weekend windows; Monday and Tuesday are omitted. Check holiday exceptions and dated tickets with the city before travel."
+  },
+  {
+    "slug": "waco-wild-lights-2026-3",
+    "title": "Cameron Park Zoo Wild Lights · verified window 3",
+    "city": "Waco",
+    "countySlug": "mclennan",
+    "countyName": "McLennan County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-10",
+    "endDate": "2026-12-13",
+    "venueName": "Cameron Park Zoo · 1701 North 4th Street",
+    "officialEventUrl": "https://www.cameronparkzoo.com/event/wild-lights-2026/",
+    "sourceName": "Cameron Park Zoo",
+    "summary": "Zoo Wild Lights 2026 is ticketed for Thursday–Sunday nights, with evening entry 6–9 p.m. and last admission around 8 p.m. This block is inside both the operator's displayed event date and published operating-day schedule. The zoo's page conflicts on December 23 versus December 30 as final date, so later dates remain under review."
   },
   {
     "slug": "jefferson-candlelight-tour-dec10",
@@ -976,6 +1222,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "Arlington's free December 12, 2026 holiday festival begins family activities at 2 p.m. and stages a lighted parade at 6 p.m., followed by the downtown tree lighting. This is not the neighborhood Interlochen drive-through light route."
   },
   {
+    "slug": "gruene-cowboy-kringle-6",
+    "title": "Gruene Cowboy Kringle · photo sessions 6",
+    "city": "Gruene",
+    "countySlug": "comal",
+    "countyName": "Comal County",
+    "region": "hill-country",
+    "startDate": "2026-12-12",
+    "endDate": "2026-12-13",
+    "venueName": "Historic Gruene · breezeway between Grapevine and Gruene General Store",
+    "officialEventUrl": "https://www.gruenetexas.com/kringle-photos/",
+    "sourceName": "Historic Gruene / Cowboy Kringle",
+    "summary": "The official 2026 Cowboy Kringle dates include this operating weekend. Photos are appointment-only, with advance booking required; walk-up visits are not guaranteed. This is a separate attraction from Gruene Hall ticketed shows."
+  },
+  {
     "slug": "san-antonio-river-of-lights",
     "title": "River of Lights · San Antonio Museum Reach",
     "city": "San Antonio",
@@ -987,6 +1247,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.sariverauthority.org/river-of-lights/",
     "sourceName": "San Antonio River Authority",
     "summary": "The official free River of Lights festival is Saturday December 12, 2026, 4–8 p.m. at the Museum Reach Lock & Dam, including a snow play area, seasonal entertainment, food trucks and holiday market. This is not the Ford Holiday River Parade."
+  },
+  {
+    "slug": "san-antonio-fiesta-texas-holiday-4",
+    "title": "Six Flags Fiesta Texas Holiday in the Park · window 4",
+    "city": "San Antonio",
+    "countySlug": "bexar",
+    "countyName": "Bexar County",
+    "region": "south-texas",
+    "startDate": "2026-12-12",
+    "endDate": "2026-12-13",
+    "venueName": "Six Flags Fiesta Texas · 17000 I-10 West",
+    "officialEventUrl": "https://www.visitsanantonio.com/event/six-flags-holiday-in-the-park/13246/",
+    "sourceName": "Visit San Antonio / Six Flags Fiesta Texas",
+    "summary": "Six Flags Holiday in the Park is ticketed and runs selected 2026 dates. This window follows Visit San Antonio's day-by-day list rather than assuming daily park operation. Current park admission covers many shows and select rides; extras cost more. The December 26–New Year program has separate scheduling."
   },
   {
     "slug": "richardson-santas-village-walk2",
@@ -1029,6 +1303,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.southpoleoftexas.com/",
     "sourceName": "City of McAllen / South Pole Illuminated Festival",
     "summary": "The official 2026 South Pole Illuminated Festival runs November 28–December 28, with posted Wednesday–Sunday evening operating hours. This is one of the explicitly open published weekday/weekend windows; Monday and Tuesday are omitted. Check holiday exceptions and dated tickets with the city before travel."
+  },
+  {
+    "slug": "waco-wild-lights-2026-4",
+    "title": "Cameron Park Zoo Wild Lights · verified window 4",
+    "city": "Waco",
+    "countySlug": "mclennan",
+    "countyName": "McLennan County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-17",
+    "endDate": "2026-12-20",
+    "venueName": "Cameron Park Zoo · 1701 North 4th Street",
+    "officialEventUrl": "https://www.cameronparkzoo.com/event/wild-lights-2026/",
+    "sourceName": "Cameron Park Zoo",
+    "summary": "Zoo Wild Lights 2026 is ticketed for Thursday–Sunday nights, with evening entry 6–9 p.m. and last admission around 8 p.m. This block is inside both the operator's displayed event date and published operating-day schedule. The zoo's page conflicts on December 23 versus December 30 as final date, so later dates remain under review."
   },
   {
     "slug": "abilene-winter-lightfest-week3",
@@ -1087,6 +1375,34 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The official holiday shopping artisan show runs December 18–20 on the downtown River Walk with regional artists and makers. It is free to visit, while purchases, sightseeing excursions, and river cruises are separate."
   },
   {
+    "slug": "san-antonio-fiesta-texas-holiday-5",
+    "title": "Six Flags Fiesta Texas Holiday in the Park · window 5",
+    "city": "San Antonio",
+    "countySlug": "bexar",
+    "countyName": "Bexar County",
+    "region": "south-texas",
+    "startDate": "2026-12-18",
+    "endDate": "2026-12-23",
+    "venueName": "Six Flags Fiesta Texas · 17000 I-10 West",
+    "officialEventUrl": "https://www.visitsanantonio.com/event/six-flags-holiday-in-the-park/13246/",
+    "sourceName": "Visit San Antonio / Six Flags Fiesta Texas",
+    "summary": "Six Flags Holiday in the Park is ticketed and runs selected 2026 dates. This window follows Visit San Antonio's day-by-day list rather than assuming daily park operation. Current park admission covers many shows and select rides; extras cost more. The December 26–New Year program has separate scheduling."
+  },
+  {
+    "slug": "gruene-cowboy-kringle-7",
+    "title": "Gruene Cowboy Kringle · photo sessions 7",
+    "city": "Gruene",
+    "countySlug": "comal",
+    "countyName": "Comal County",
+    "region": "hill-country",
+    "startDate": "2026-12-19",
+    "endDate": "2026-12-20",
+    "venueName": "Historic Gruene · breezeway between Grapevine and Gruene General Store",
+    "officialEventUrl": "https://www.gruenetexas.com/kringle-photos/",
+    "sourceName": "Historic Gruene / Cowboy Kringle",
+    "summary": "The official 2026 Cowboy Kringle dates include this operating weekend. Photos are appointment-only, with advance booking required; walk-up visits are not guaranteed. This is a separate attraction from Gruene Hall ticketed shows."
+  },
+  {
     "slug": "mcallen-south-pole-illuminated-5",
     "title": "McAllen South Pole Illuminated Festival · operating window 5",
     "city": "McAllen",
@@ -1142,7 +1458,7 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The final five January evenings of the 2026–27 Marktplatz lighting program; December 31 is omitted because the special New Year's Eve event replaces the regular countdown.",
     "endDate": "2027-01-05"
   }
-];;;;;;
+];;;;;;;
 
 // Reuse comprehensive guides where they exist. The dated occurrence remains
 // an independent calendar record, so closing days are never falsely listed.
