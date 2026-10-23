@@ -45,33 +45,33 @@ const records: ChristmasExtendedRecord[] = [
         "value": "Choose a dated admission slot; resort rooms and other activities are separate products"
       }
     ],
-    "planningSections": [
+    planningSections: [
       {
-        "title": "Book the exact ICE! time, not just the holiday resort visit",
+        title: "Book the exact ICE! time, not just the holiday resort visit",
         "body": "The published November–January season does not imply unlimited daily capacity. Select a dated entry from the official Gaylord Texan ticket options and confirm ticket type, age limits, cancellation rules and taxes before relying on a reservation. A hotel room is not automatically admission to ICE!."
       },
       {
-        "title": "Prepare for the cold-room experience",
+        title: "Prepare for the cold-room experience",
         "body": "The icy exhibit is maintained around 9°F. The ICE! attraction provides signature parkas, but closed-toe shoes, full-length trousers and warm layers are still appropriate. Young children may need extra insulation. Guests sensitive to cold or needing accessibility accommodations should consult the event's current access guidelines."
       },
       {
-        "title": "Compare resort attractions as separate purchases",
+        title: "Compare resort attractions as separate purchases",
         "body": "The holiday event can include other seasonal activities and packages beyond ICE!. Check whether a bundle genuinely covers your preferred activities and dates; do not treat every decorating, show, photograph, skating or hotel amenity as included with one ticket."
       },
       {
-        "title": "Use the right Grapevine base",
+        title: "Use the right Grapevine base",
         "body": "Gaylord Texan is located at Lake Grapevine rather than on Historic Main Street. Determine whether you will visit the resort only, or also downtown Grapevine and the North Pole Express; allocate realistic driving, parking and check-in time."
       },
       {
-        "title": "Plan a family day without double-booking",
+        title: "Plan a family day without double-booking",
         "body": "A sensible visit uses one scheduled indoor anchor—ICE!—and a separate downtown or resort activity if energy allows. Weekends close to Christmas and school breaks can be crowded; verify parking, transportation and stroller accommodations directly."
       },
       {
-        "title": "Compare lodging without implying event access",
+        title: "Compare lodging without implying event access",
         "body": "Hotel stays may simplify a late holiday evening but are optional. Compare Gaylord packages to other Grapevine/DFW lodging based on the actual night and group requirements. General hotel affiliate links elsewhere on TexasDefined are not ICE! admission."
       }
     ],
-    "relatedLinks": [
+    relatedLinks: [
       {
         "href": "/event/grapevine-christmas-capital-of-texas",
         "label": "Grapevine Christmas Capital of Texas",
@@ -143,33 +143,33 @@ const records: ChristmasExtendedRecord[] = [
         "value": "Ticketed per current city/operator checkout; check vehicle category and current price"
       }
     ],
-    "planningSections": [
+    planningSections: [
       {
-        "title": "Treat this as a car-based evening",
+        title: "Treat this as a car-based evening",
         "body": "This display is primarily experienced by driving through a controlled light route. Confirm any pedestrian or midway activities on the current event site before planning to park and walk. The route length and slow moving cars require more time than a typical park drive."
       },
       {
-        "title": "Choose arrival timing before deciding on dinner",
+        title: "Choose arrival timing before deciding on dinner",
         "body": "Entry lanes can be busy around holiday weekends. Allow extra time for the drive-in queue, food stops and the actual circuit; do not combine the night with another timed DFW performance unless the gap is generous."
       },
       {
-        "title": "Check the ticket's vehicle terms",
+        title: "Check the ticket's vehicle terms",
         "body": "Published pricing can depend on vehicle type, purchase timing or add-on experiences. Verify the permitted occupancy and whether online booking is required. The city's listing confirms the dates but does not promise a fixed all-season price."
       },
       {
-        "title": "Follow Lynn Creek Park entrance guidance",
+        title: "Follow Lynn Creek Park entrance guidance",
         "body": "The official address is 5610 Lake Ridge Parkway. Use the current Prairie Lights traffic and entrance instructions rather than relying on a generic park trailhead pin, particularly during peak nights."
       },
       {
-        "title": "Bring the family comfortable and safe",
+        title: "Bring the family comfortable and safe",
         "body": "The evening is vehicle centered, so pack snacks, water and whatever young children need for a potentially slow queue. Keep drivers attentive and follow the event's rules on windows, headlights and stopping for photos."
       },
       {
-        "title": "Pair with Grand Prairie and Arlington sensibly",
+        title: "Pair with Grand Prairie and Arlington sensibly",
         "body": "An earlier daytime stop near Joe Pool Lake, Grand Prairie or Arlington can make a good day trip. Nearby hotel searching only makes sense for groups traveling from farther away, not every local family driving in for an hour."
       }
     ],
-    "relatedLinks": [
+    relatedLinks: [
       {
         "href": "/event/grapevine-christmas-capital-of-texas",
         "label": "Grapevine Christmas Capital",
@@ -241,37 +241,37 @@ const records: ChristmasExtendedRecord[] = [
         "value": "Single-attraction or multi-attraction Holiday Pass; not all products cover the same experiences"
       }
     ],
-    "planningSections": [
+    planningSections: [
       {
-        "title": "Pick a lights-only visit or the Holiday Pass",
+        title: "Pick a lights-only visit or the Holiday Pass",
         "body": "The Holiday Lights Trail, ICE LAND, skating, movies and other programs may be ticketed separately or included in specific bundled products. A pass marketed for after-4-p.m. use should not be assumed valid earlier in the day."
       },
       {
-        "title": "Know the ICE LAND temperature",
+        title: "Know the ICE LAND temperature",
         "body": "ICE LAND's 2026 Caribbean theme is inside a 9°F exhibit. Wear cold-weather layers and closed shoes even if the rest of Galveston is mild. Recheck child age limits and current ice-slide rules."
       },
       {
-        "title": "Leave enough time for the full bayfront route",
+        title: "Leave enough time for the full bayfront route",
         "body": "The light display extends about a mile. Weather, accessibility needs and the age of children can change how quickly the group moves. A simple trail ticket requires less time than adding several indoor films or skating."
       },
       {
-        "title": "Use the official event calendar, not a season-long guess",
+        title: "Use the official event calendar, not a season-long guess",
         "body": "Moody Gardens markets the season from November 21 to January 2, with light-trail operating hours published separately. Individual films, dining events and holiday shows can have selected days and showtimes."
       },
       {
-        "title": "Compare tickets directly with organizers",
+        title: "Compare tickets directly with organizers",
         "body": "The site publishes 2026 prices and Holiday Pass options, but promotional offers may expire and change. Use the linked operator ticket page for live date pricing, inclusions and refunds rather than relying on stale third-party listings."
       },
       {
-        "title": "Make a Galveston coastal holiday itinerary",
+        title: "Make a Galveston coastal holiday itinerary",
         "body": "Pair an afternoon at the island's historic district, Seawall or attractions with a fixed Moody Gardens evening; return to the island for Dickens on The Strand only if your travel dates overlap."
       },
       {
-        "title": "Parking and overnight considerations",
+        title: "Parking and overnight considerations",
         "body": "Moody Gardens advertises free parking for the season. The resort hotel offers separately priced rooms and packages, while other Galveston lodging may be more practical for travelers visiting multiple island neighborhoods."
       }
     ],
-    "relatedLinks": [
+    relatedLinks: [
       {
         "href": "/event/moody-gardens-ice-land",
         "label": "Moody Gardens ICE LAND",
@@ -347,37 +347,37 @@ const records: ChristmasExtendedRecord[] = [
         "value": "Begins about 20 minutes before boarding; arrive more than an hour early for parking and activities"
       }
     ],
-    "planningSections": [
+    planningSections: [
       {
-        "title": "Buy the precise boarding time from Grapevine's approved ticketing",
+        title: "Buy the precise boarding time from Grapevine's approved ticketing",
         "body": "Use the city's official Grapevine Christmas or railroad ticketing sites. The organizer cautions against unofficial resale and does not guarantee third-party tickets. A generic Grapevine Main Street event page is not proof of a train seat."
       },
       {
-        "title": "December 3 has a different departure station",
+        title: "December 3 has a different departure station",
         "body": "The 2026 dated departures page identifies Historic Stockyards Station in Fort Worth for December 3 trains. Do not arrive at Grapevine's normal departure location for that special date. Check the printed station and current ticket confirmation."
       },
       {
-        "title": "Do not book for Christmas Eve or Christmas Day",
+        title: "Do not book for Christmas Eve or Christmas Day",
         "body": "The 2026 schedule skips December 24–25; the final departures are on December 26–30. Date-specific sessions and space can sell out independently even when the broader Christmas Capital celebration continues."
       },
       {
-        "title": "Arrive earlier than the boarding time",
+        title: "Arrive earlier than the boarding time",
         "body": "The operator recommends more than an hour early for parking, ticket collection, market activities and photographs. Train check-in begins around 20 minutes before departure and doors close five minutes before it; late guests cannot board."
       },
       {
-        "title": "Compare with The Polar Express before buying",
+        title: "Compare with The Polar Express before buying",
         "body": "Texas has distinct holiday railroad products with different operators and departure depots. The North Pole Express is Grapevine's themed train; the licensed Polar Express rides in Galveston and Palestine are not interchangeable tickets."
       },
       {
-        "title": "Combine the train with downtown Grapevine carefully",
+        title: "Combine the train with downtown Grapevine carefully",
         "body": "Choose one train departure as the fixed anchor. Historic Main Street decorations and free-to-walk surroundings can extend the visit, but holiday closures, weather and crowds affect parking and restaurant plans."
       },
       {
-        "title": "Know inclusions and extras",
+        title: "Know inclusions and extras",
         "body": "The organizer lists songs, elves, treats and Santa-related experiences with varying ticket products. Check the exact 2026 ticket detail for photo or souvenir inclusions and do not infer that every market purchase is included."
       }
     ],
-    "relatedLinks": [
+    relatedLinks: [
       {
         "href": "/event/grapevine-christmas-capital-of-texas",
         "label": "Grapevine Christmas Capital",
@@ -474,37 +474,37 @@ const records: ChristmasExtendedRecord[] = [
         "value": "No Zoo Lights December 24–25"
       }
     ],
-    "planningSections": [
+    planningSections: [
       {
-        "title": "Use the dated Zoo Lights calendar, not the continuous range",
+        title: "Use the dated Zoo Lights calendar, not the continuous range",
         "body": "The zoo lists exact nights in November, December and January. There are breaks between windows, including November 16–17 and December 24–25, so do not assume the attraction opens simply because the date is between launch and closing."
       },
       {
-        "title": "Understand the evening ticket",
+        title: "Understand the evening ticket",
         "body": "Zoo Lights is a ticketed nighttime light experience. A regular daytime general admission ticket is different from evening admission; the Zoo also advertises a combined visit option for guests who want to see animals earlier in the day."
       },
       {
-        "title": "Animals generally are not part of the evening visit",
+        title: "Animals generally are not part of the evening visit",
         "body": "The operator says most animals are resting before the lights begin. The walk-through area uses Main Entrance, ZooNorth and the tunnel; don't market Zoo Lights as a nighttime animal safari."
       },
       {
-        "title": "Plan parking or the DART Red Line",
+        title: "Plan parking or the DART Red Line",
         "body": "The Zoo advertises public parking for a fee while some membership tiers park free. During popular nights parking may fill; the Zoo specifically suggests considering DART Red Line access. Double-check public transport frequency for your preferred ending time."
       },
       {
-        "title": "Compare timed add-on extras separately",
+        title: "Compare timed add-on extras separately",
         "body": "Holiday igloos, packages, souvenirs, photo opportunities and food can be optional purchases. Confirm what's included in the basic ticket rather than assuming featured promotions are automatically bundled."
       },
       {
-        "title": "Check group mobility and outdoor weather",
+        title: "Check group mobility and outdoor weather",
         "body": "Guests will walk through exterior exhibits at night. Allow time for a loop, mobility access, food breaks and cold/rain considerations. Consult the Zoo's official guest guidance for stroller and accessibility policies."
       },
       {
-        "title": "Build a Dallas holiday afternoon",
+        title: "Build a Dallas holiday afternoon",
         "body": "A daytime city stop or an earlier zoo visit can pair with the evening lights, but choose one neighborhood and avoid trying to reach another major DFW holiday attraction across rush-hour traffic."
       }
     ],
-    "relatedLinks": [
+    relatedLinks: [
       {
         "href": "/event/holiday-at-the-dallas-arboretum",
         "label": "Holiday at the Dallas Arboretum",
