@@ -2,12 +2,13 @@ import { createFileRoute } from "@tanstack/react-router";
 
 const title = "Waco Attractions: Museums, Magnolia, Parks & Day Trips";
 const description = "Explore Waco attractions, museums, the Suspension Bridge, Cameron Park and Magnolia, with official visit details and distinct ticket options.";
-const canonical = "https://texasdefined.com/waco-attractions";
+const canonicalPath = "/waco-attractions";
+const canonical = "https://texasdefined.com" + canonicalPath;
 
 export const Route = createFileRoute("/waco-attractions")({
   head: () => ({
     meta: [
-      { title },
+      { title: title },
       { name: "description", content: description },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
