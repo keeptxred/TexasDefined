@@ -241,7 +241,7 @@ export async function loadMetroProximityCollectionPageDataServer(metroSlug: stri
   const townReferences = selectMetroProximityTownReferences(metro, collection, results);
   const optionCount = results.length + townReferences.length;
   const indexReady = isMetroProximityCollectionIndexReadyWithTownReferences(destinations, metro, collection);
-  const eventContext = buildMetroProximityEventContextServer(metro, collection, results);
+  const eventContext = buildMetroProximityEventContextServer(metro, collection, results, townReferences);
   const canonicalPath = metroProximityCanonicalPath(metro.slug, collection.slug);
   const presentation = metroProximityCollectionPresentation(collection);
   const isTexarkanaRoadTrips = metro.slug === "texarkana" && collection.slug === "road-trips";
