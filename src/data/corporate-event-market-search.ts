@@ -2,7 +2,7 @@ import type { CorporateEventProvider } from './corporate-events';
 
 /** Normalize Texas locations without confusing the state itself with a city. */
 export function normalizeCorporateEventMarketQuery(input: string): string {
-  const query = input.trim().toLowerCase().replace(/[–—/]/g, ' ').replace(/\s+/g, ' ');
+  const query = input.trim().toLowerCase().replace(/[–—\/]/g, ' ').replace(/\s+/g, ' ');
   if (query === 'texas' || query === 'tx') return 'texas';
   const withoutState = query.replace(/,?\s+(?:tx|texas)$/, '').trim();
   return withoutState.replace(/,/g, '').replace(/\s+/g, ' ');
