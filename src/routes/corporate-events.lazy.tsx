@@ -187,7 +187,7 @@ function CorporateEventsPage() {
       } });
       setSubmitted(true);
     } catch {
-      setFormError('Your request could not be saved. Please check your information and try again.');
+      setFormError('Your request could not be saved. Verify your contact information and choose a valid upcoming event date, then try again.');
     } finally {
       setSubmitting(false);
     }
@@ -323,7 +323,7 @@ function CorporateEventsPage() {
                 <div className="hidden" aria-hidden="true"><label>Office address line 2<input tabIndex={-1} name="companyAddress2" autoComplete="off" /></label></div>
                 <label className="flex items-start gap-2 text-sm leading-6 sm:col-span-2"><input type="checkbox" name="consentContact" required className="mt-1.5" /><span>I agree TexasDefined may use this information to contact me about this request. It will not be sent to venues without further permission. *</span></label>
                 <div className="sm:col-span-2">
-                  <p className="text-xs leading-6 text-muted-foreground">Request: {validHeadcount ? headcount : 'Invalid group size'} people near {city || 'unspecified city'}, {chosenCategoryLabel.toLowerCase()}. {selected.length} selected venues. See <a className="underline" href="/about#privacy-terms">privacy & site terms</a>.</p>
+                  <p className="text-xs leading-6 text-muted-foreground">Request: {validHeadcount ? headcount : 'Invalid group size'} people near {city || 'unspecified city'}, {chosenCategoryLabel.toLowerCase()}. {selected.length} selected venues. See <a className="underline" href="/privacy">privacy & site terms</a>.</p>
                   {formError && <p role="alert" className="mt-2 text-sm text-destructive">{formError}</p>}
                   <button type="submit" disabled={submitting || !validHeadcount || !city.trim()} className="mt-4 min-h-12 w-full bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground disabled:cursor-not-allowed disabled:opacity-50">{submitting ? 'Saving request…' : 'Send planning request to TexasDefined'}</button>
                 </div>
