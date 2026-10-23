@@ -15,7 +15,7 @@ test('port older verified county source facts without moving them to global clie
   assert.equal(extraSlugs.length,91,'preserve every non-overlapping #5289 county');
   assert.equal(new Set([...curatedSlugs,...extraSlugs]).size,108,'no overlapping taxing-unit county contacts');
   for(const name of ['anderson','aransas','bandera','zapata'])assert.ok(extraSlugs.includes(name));
-  for(const name of ['bell','bexar','harris'])assert.ok(curatedSlugs.includes(name));
+  for(const name of ['bell','bexar','travis'])assert.ok(curatedSlugs.includes(name));
   assert.match(extras,/import type \{ CountyPropertyEnrichment \}/);
   assert.match(loader,/import\('\.\/county-property-supplement\.server'\)/);
   assert.match(loader,/local\?\.appraisalDistrict/);
