@@ -1048,10 +1048,10 @@ function FootballIdentityPanel({
           <circle cx="320" cy="180" r="54" fill="none" stroke="currentColor" strokeWidth="3" />
         </svg>
         <div className="relative flex min-h-[15rem] flex-col justify-between p-6 sm:p-8">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-background/70">TexasDefined football profile</p>
+          <p className="text-xs font-semibold uppercase tracking-wide text-background">TexasDefined football profile</p>
           <div>
             <p className="max-w-xl font-display text-3xl leading-tight sm:text-4xl">{footballName}</p>
-            <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-xs font-semibold uppercase tracking-[0.12em] text-background/75">
+            <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-xs font-semibold uppercase tracking-[0.12em] text-background">
               <span>{alignment}</span>
               {footballType && <span>{footballType}</span>}
               {mascot && <span>Verified mascot: {mascot}</span>}
