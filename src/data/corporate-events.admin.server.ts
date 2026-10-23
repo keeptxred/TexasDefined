@@ -17,6 +17,7 @@ export type CorporateEventLeadRecord = {
   contact_name: string; email: string; company: string; phone: string | null;
   city: string; group_size: number; event_category: string; event_date: string | null;
   budget_per_person: number | null; provider_slugs: string[]; notes: string | null;
+  allow_provider_outreach: boolean; provider_outreach_consented_at: string | null;
 };
 export type CorporateEventApplicationRecord = {
   id: string; created_at: string; status: CorporateEventApplicationStatus;
@@ -36,7 +37,7 @@ export async function loadCorporateEventOperations(accessKey: string) {
   await assertSportsPartnerAccess(accessKey);
   const [leadQuery, applicationQuery, offerQuery] = await Promise.all([
     client.from('texasdefined_group_event_requests')
-      .select('id,created_at,status,contact_name,email,company,phone,city,group_size,event_category,event_date,budget_per_person,provider_slugs,notes')
+      .select('id,created_at,status,contact_name,email,company,phone,city,group_size,event_category,event_date,budget_per_person,provider_slugs,notes,allow_provider_outreach,provider_outreach_consented_at')
       .order('created_at', { ascending: false }).limit(MAX_ROWS + 1),
     client.from('texasdefined_group_event_partner_applications')
       .select('id,created_at,status,contact_name,email,phone,business_name,city,website,published_capacity,proposal,proposed_promo_code,notes')
