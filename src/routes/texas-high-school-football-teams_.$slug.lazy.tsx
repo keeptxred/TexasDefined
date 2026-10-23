@@ -119,7 +119,10 @@ function Page() {
   const footballName = authoredFootballH1 || (identity?.mascot ? `${displayName} ${identity.mascot} Football` : `${displayName} Football`);
   // Summarize the verified editorial ledger before the deeper school reference sections.
   const latestResult = editorial?.season?.games.filter((game) => game.result).at(-1);
-  const nextListedFixture = editorial?.season?.games.find((game) => !game.result);
+  // Use the dated editorial source snapshot, never an unresolved earlier fixture.
+  const nextListedFixture = editorial?.season?.games.find(
+    (game) => !game.result && game.date >= editorial.season.verifiedAt,
+  );
   // UIL team names are stable while optional TEA directory joins can fail in production.
   // Abbott's Hill County association is independently documented by the school
   // and the Batch 001 registry, so retain its reciprocal link on degraded lookups.
