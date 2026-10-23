@@ -3,6 +3,7 @@ import path from 'node:path';
 
 const DIRECTORY_URL = 'https://comptroller.texas.gov/taxes/property-tax/county-directory/';
 const OUTPUT = path.join(process.cwd(), 'src', 'data', 'property', 'county-property-enrichment.generated.ts');
+const SUPPLEMENT_OUTPUT = path.join(process.cwd(), 'src', 'data', 'property', 'county-property-supplement.server.ts');
 const USER_AGENT = 'TexasDefined county property verifier/1.0';
 const CONCURRENCY = 8;
 const AUDIT_ONLY = process.argv.includes('--audit-only');
@@ -92,11 +93,12 @@ if (AUDIT_ONLY) {
   if (rows.length !== 254 && !requested) process.exitCode = 1;
   // Do not write the generated property dataset in read-only audit mode.
 } else {
-let merged = {};
-try {
-  const existing = await fs.readFile(OUTPUT, 'utf8');
-  merged = parseExistingSnapshot(existing);
-} catch {}
+let curated = {};
+let supplement = {};
+try { curated = parseExistingSnapshot(await fs.readFile(OUTPUT,'utf8')); } catch {}
+try { supplement = parseExistingSnapshot(await fs.readFile(SUPPLEMENT_OUTPUT,'utf8'), 'COUNTY_PROPERTY_SUPPLEMENT'); } catch {}
+let merged = { ...supplement, ...curated };
+const curatedSlugs = new Set(Object.keys(curated));
 const previousCount = Object.keys(merged).length;
 
 for (const { county, fetched, enrichment } of results) {
@@ -110,7 +112,17 @@ if (!requested && previousCount >= 4 && nextCount < Math.floor(previousCount * M
   throw new Error(`Refusing statewide county-property refresh that would shrink verified coverage from ${previousCount} to ${nextCount}. This likely indicates an upstream markup/parser failure; investigate before accepting a large withdrawal.`);
 }
 
-await fs.writeFile(OUTPUT, renderSnapshot(ordered));
+// Keep the high-traffic curated county contacts in the small client module;
+ // new source-backed counties belong to a server-only module for property-tax
+ // loaders. Publishing the entire state directory in the global module would
+ // violate the existing main-client performance budget.
+const nextCurated = Object.fromEntries(Object.entries(ordered).filter(([slug])=>curatedSlugs.has(slug)));
+const nextExtra = Object.fromEntries(Object.entries(ordered).filter(([slug])=>!curatedSlugs.has(slug)));
+if (curatedSlugs.size && Object.keys(nextCurated).length < curatedSlugs.size * MIN_RETAINED_RATIO) {
+  throw new Error('Refusing to silently withdraw too many curated county sources');
+}
+await fs.writeFile(OUTPUT, renderSnapshot(nextCurated));
+await fs.writeFile(SUPPLEMENT_OUTPUT, renderSupplement(nextExtra));
 const refreshed = results.filter((item) => item.enrichment).length;
 const withdrawn = results.filter((item) => item.fetched && !item.enrichment).length;
 console.log(`County property snapshot now contains ${nextCount} verified counties; refreshed ${refreshed}; withheld or withdrew ${withdrawn} because required office data was missing or stale.`);
@@ -279,8 +291,8 @@ function extractStreetAddress(section) {
   return cleanText(stripHtml(after.slice(0, end >= 0 ? end : undefined)));
 }
 
-function parseExistingSnapshot(text) {
-  const marker = 'export const COUNTY_PROPERTY_ENRICHMENT';
+function parseExistingSnapshot(text, name = 'COUNTY_PROPERTY_ENRICHMENT') {
+  const marker = 'export const ' + name;
   if (!text.includes(marker)) return {};
   const body = text.slice(text.indexOf('= {', text.indexOf(marker)) + 2, text.lastIndexOf('\n};') + 2);
   const jsonLike = body
@@ -324,10 +336,24 @@ function renderSnapshot(records) {
     'export const COUNTY_PROPERTY_ENRICHMENT: Record<string, CountyPropertyEnrichment> = {',
   ];
   for (const [slug, record] of Object.entries(records)) {
-    lines.push(`  ${slug}: ${renderTypescriptValue(record, 1)},`);
+    lines.push(`  ${/^[a-z][a-z0-9_]*$/.test(slug) ? slug : JSON.stringify(slug)}: ${renderTypescriptValue(record, 1)},`);
   }
   lines.push('};', '');
   return lines.join('\n');
+}
+
+function renderSupplement(records) {
+  const lines = [
+    "import type { CountyPropertyEnrichment } from './county-property-enrichment.generated';",
+    '',
+    '// Server-only annual county-directory evidence; do not import into global client bundles.',
+    'export const COUNTY_PROPERTY_SUPPLEMENT: Record<string, CountyPropertyEnrichment> = {',
+  ];
+  for (const [slug, record] of Object.entries(records)) {
+    lines.push(`  ${/^[a-z][a-z0-9_]*$/.test(slug) ? slug : JSON.stringify(slug)}: ${renderTypescriptValue(record, 1)},`);
+  }
+  lines.push('};', '');
+  return lines.join('\\n');
 }
 
 async function fetchText(url) {
