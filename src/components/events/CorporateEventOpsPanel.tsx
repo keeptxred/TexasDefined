@@ -33,6 +33,7 @@ type Offer = {
 };
 type Snapshot = {
   generatedAt: string; leads: Lead[]; applications: Application[]; offers: Offer[];
+  offerClickStats: { outboundClicks30Days: number; truncated: boolean; byOffer: {offerId: string; clicks: number}[] };
   truncated: { leads: boolean; applications: boolean; offers: boolean };
 };
 const leadStatuses: LeadStatus[] = ['new', 'reviewing', 'contacted', 'closed', 'spam'];
@@ -137,11 +138,13 @@ export function CorporateEventOpsPanel({ accessKey }: { accessKey: string }) {
     {error ? <p role="alert" className="mt-4 border border-destructive p-4 text-sm">{error}</p> : null}
     {message ? <p role="status" className="mt-4 border border-border bg-surface p-4 text-sm">{message}</p> : null}
     {data ? <>
-      <div className="mt-6 grid gap-3 sm:grid-cols-3">
+      <div className="mt-6 grid gap-3 sm:grid-cols-4">
         <Metric title="Open planner requests" value={counts.leads} />
         <Metric title="Business applications" value={counts.applications} />
         <Metric title="Current approved offers" value={counts.offers} />
+        <Metric title="Offer outbound clicks (30d)" value={data.offerClickStats.outboundClicks30Days} />
       </div>
+      <p className="mt-3 text-xs leading-6 text-muted-foreground">Aggregated offer outbound link activations, not unique visitors, bookings or revenue. No click-level visitor identity is retained.{data.offerClickStats.truncated ? " More than 1,000 daily offer records exist; this is a partial lower-bound count." : ""}</p>
       <div className="mt-6 flex flex-wrap gap-2" role="tablist" aria-label="Corporate event review queues">
         {(['leads', 'applications', 'offers'] as const).map((key) =>
           <button key={key} role="tab" aria-selected={tab === key} onClick={() => setTab(key)} type="button"
@@ -228,6 +231,7 @@ export function CorporateEventOpsPanel({ accessKey }: { accessKey: string }) {
                 {offer.code ? <p className="mt-2 text-sm">Code: <code>{offer.code}</code></p> : null}
                 <a href={offer.redemption_url} className="mt-2 block text-sm text-primary underline" target="_blank" rel="noopener noreferrer">Review redemption URL ↗</a>
                 {offer.reviewed_at ? <p className="mt-3 text-xs text-muted-foreground">Approved {fmt(offer.reviewed_at)} by {offer.reviewed_by}</p> : null}
+                <p className="mt-3 text-xs text-muted-foreground">Recorded outbound link activations (30d): {data.offerClickStats.byOffer.find((entry) => entry.offerId === offer.id)?.clicks ?? 0}. Not attributable conversions.</p>
               </div>
               <label className="text-xs font-semibold">Review state<select disabled={busy === offer.id} className={'ml-2 ' + input} value={offer.status} onChange={(event) => void updateOffer(offer.id, event.target.value as OfferStatus)}>
                 {offerStatuses.map((state) => <option key={state} value={state}>{state}</option>)}

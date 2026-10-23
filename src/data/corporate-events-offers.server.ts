@@ -4,6 +4,7 @@ import { supabaseAdmin } from '@/integrations/supabase/client.server';
 
 /** Public subset only: never include a partner's contact details or unapproved draft. */
 export type PublicCorporateEventOffer = {
+  id: string;
   providerSlug: string;
   title: string;
   benefit: string;
@@ -13,6 +14,7 @@ export type PublicCorporateEventOffer = {
 };
 
 type ApprovedOfferRow = {
+  id: string;
   partner_application_id: string;
   provider_slug: string;
   title: string;
@@ -55,7 +57,7 @@ export async function loadPublicCorporateEventOffers(): Promise<PublicCorporateE
   const today = corporateEventTexasToday();
   const { data: offers, error: offersError } = await client
     .from('texasdefined_group_event_offers')
-    .select('partner_application_id,provider_slug,title,benefit,code,redemption_url,starts_on,ends_on,reviewed_at')
+    .select('id,partner_application_id,provider_slug,title,benefit,code,redemption_url,starts_on,ends_on,reviewed_at')
     .eq('status', 'approved')
     .lte('starts_on', today)
     .gte('ends_on', today)
@@ -85,6 +87,7 @@ export async function loadPublicCorporateEventOffers(): Promise<PublicCorporateE
     if (!approvedRedemptionUrl(offer.redemption_url, business.website)) continue;
     if (offer.starts_on > today || offer.ends_on < today) continue;
     verified.push({
+      id: offer.id,
       providerSlug: provider.slug,
       title: offer.title,
       benefit: offer.benefit,

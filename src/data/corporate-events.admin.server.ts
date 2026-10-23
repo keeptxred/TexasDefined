@@ -36,7 +36,9 @@ export type CorporateEventOfferRecord = {
 
 export async function loadCorporateEventOperations(accessKey: string) {
   await assertSportsPartnerAccess(accessKey);
-  const [leadQuery, applicationQuery, offerQuery] = await Promise.all([
+  const cutoff = new Date(corporateEventTexasToday() + 'T12:00:00Z');
+  cutoff.setUTCDate(cutoff.getUTCDate() - 29);
+  const [leadQuery, applicationQuery, offerQuery, clickQuery] = await Promise.all([
     client.from('texasdefined_group_event_requests')
       .select('id,created_at,status,contact_name,email,company,phone,city,group_size,event_category,event_date,budget_per_person,provider_slugs,notes,allow_provider_outreach,provider_outreach_consented_at')
       .order('created_at', { ascending: false }).limit(MAX_ROWS + 1),
@@ -46,18 +48,31 @@ export async function loadCorporateEventOperations(accessKey: string) {
     client.from('texasdefined_group_event_offers')
       .select('id,created_at,status,partner_application_id,provider_slug,title,benefit,code,redemption_url,starts_on,ends_on,reviewed_by,reviewed_at')
       .order('created_at', { ascending: false }).limit(MAX_ROWS + 1),
+    client.from('texasdefined_group_event_offer_click_totals')
+      .select('offer_id,clicks').gte('clicked_on', cutoff.toISOString().slice(0, 10)).limit(1001),
   ]);
-  if (leadQuery.error || applicationQuery.error || offerQuery.error) {
+  if (leadQuery.error || applicationQuery.error || offerQuery.error || clickQuery.error) {
     throw new Error('Corporate event dashboard data is temporarily unavailable.');
   }
   const leads = (leadQuery.data ?? []) as CorporateEventLeadRecord[];
   const applications = (applicationQuery.data ?? []) as CorporateEventApplicationRecord[];
   const offers = (offerQuery.data ?? []) as CorporateEventOfferRecord[];
+  const clickRows = (clickQuery.data ?? []) as { offer_id: string; clicks: number }[];
+  const offerClicks = new Map<string, number>();
+  for (const row of clickRows.slice(0, 1000)) {
+    offerClicks.set(row.offer_id, (offerClicks.get(row.offer_id) ?? 0) + row.clicks);
+  }
+  const outboundClicks30Days = [...offerClicks.values()].reduce((total, clicks) => total + clicks, 0);
   return {
     generatedAt: new Date().toISOString(),
     leads: leads.slice(0, MAX_ROWS),
     applications: applications.slice(0, MAX_ROWS),
     offers: offers.slice(0, MAX_ROWS),
+    offerClickStats: {
+      outboundClicks30Days,
+      truncated: clickRows.length > 1000,
+      byOffer: [...offerClicks].map(([offerId, clicks]) => ({ offerId, clicks })),
+    },
     truncated: {
       leads: leads.length > MAX_ROWS,
       applications: applications.length > MAX_ROWS,
