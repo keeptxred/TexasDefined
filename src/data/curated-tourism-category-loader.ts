@@ -11,7 +11,7 @@ export async function loadCuratedTourismCategory(slug: string) {
   const curated = getCuratedTourismCollection(slug);
   if (!curated) return null;
 
-  const slugs = curated.items.flatMap((item) => "destinationSlug" in item ? [item.destinationSlug] : []);
+  const slugs = [...new Set(curated.items.flatMap((item) => "destinationSlug" in item ? [item.destinationSlug] : []))];
   const resolved = slugs.length ? await getDestinationsBySlugs({ data: { slugs } }) : [];
   const category: Category = {
     slug: curated.slug as CategorySlug,
