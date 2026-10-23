@@ -26,7 +26,23 @@ export const submitGroupEventRequest = createServerFn({ method: 'POST' })
     const validSlugs = new Set(corporateEventProviders.map((provider) => provider.slug));
     const allowedSlugs = [...new Set(data.providerSlugs)].filter((slug) => validSlugs.has(slug));
     if (allowedSlugs.length !== data.providerSlugs.length) throw new Error('Please refresh the page and select venues again.');
-    if (data.eventDate && Number.isNaN(Date.parse(data.eventDate + 'T12:00:00Z'))) throw new Error('Please use a valid event date.');
+    // Use the local Texas calendar date, not the UTC day near midnight.
+    // Reject both historical dates and impossible dates such as February 30.
+    if (data.eventDate) {
+      const [year, month, day] = data.eventDate.split('-').map(Number);
+      const resolved = new Date(Date.UTC(year, month - 1, day));
+      if (Number.isNaN(resolved.getTime()) || resolved.toISOString().slice(0, 10) !== data.eventDate) {
+        throw new Error('Choose a real calendar date.');
+      }
+      const texasParts = new Intl.DateTimeFormat('en-US', {
+        timeZone: 'America/Chicago',
+        year: 'numeric', month: '2-digit', day: '2-digit',
+      }).formatToParts(new Date());
+      const find = (type: string) => texasParts.find((part) => part.type === type)?.value ?? '';
+      const texasToday = find('year') + '-' + find('month') + '-' + find('day');
+      if (data.eventDate < texasToday) throw new Error('The event date must be today or later.');
+    }
+
 
     const { saveGroupEventRequest } = await import('@/data/corporate-events.server');
     await saveGroupEventRequest({
