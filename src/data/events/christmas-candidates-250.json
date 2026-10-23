@@ -52,7 +52,10 @@
       "intakeId": 6,
       "title": "Llano Starry Starry Nights",
       "submittedRegion": "Hill Country & Central Texas",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "llano-starry-starry-nights"
+      ]
     },
     {
       "intakeId": 7,
@@ -139,7 +142,10 @@
       "intakeId": 18,
       "title": "Austin Armadillo Christmas Bazaar",
       "submittedRegion": "Hill Country & Central Texas",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "armadillo-christmas-bazaar-austin"
+      ]
     },
     {
       "intakeId": 19,
@@ -343,7 +349,10 @@
       "intakeId": 50,
       "title": "Comfort Christmas in Comfort",
       "submittedRegion": "Hill Country & Central Texas",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "christmas-in-comfort-2026"
+      ]
     },
     {
       "intakeId": 51,
@@ -495,7 +504,14 @@
       "intakeId": 70,
       "title": "Richardson Santa’s Village",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "richardson-santas-village-week1",
+        "richardson-santas-village-week2",
+        "richardson-santas-village-week3",
+        "richardson-santas-village-walk1",
+        "richardson-santas-village-walk2"
+      ]
     },
     {
       "intakeId": 71,
@@ -610,7 +626,10 @@
       "intakeId": 88,
       "title": "Denton Holiday Lighting Festival",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "denton-holiday-lighting-festival-2026"
+      ]
     },
     {
       "intakeId": 89,
@@ -1618,8 +1637,8 @@
   ],
   "reconciliation": {
     "asOf": "2026-10-23",
-    "calendarCandidates": 27,
+    "calendarCandidates": 32,
     "authorityCandidates": 12,
-    "remainingCandidates": 211
+    "remainingCandidates": 206
   }
 }
