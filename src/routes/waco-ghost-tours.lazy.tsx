@@ -9,11 +9,21 @@ const sources = [
   { label: "Waco Suspension Bridge — City of Waco", href: "https://www.waco-texas.com/Departments/Parks-Recreation/Suspension-Bridge-Riverwalk-Area" },
 ];
 
+const wacoSeo = { title: "Waco Ghost Tours: Guided Walk vs. Self-Guided Audio Tour", description: "Compare Waco guided ghost walks and self-guided haunted audio routes, including the Dr Pepper Museum meeting point, Magnolia Market and Suspension Bridge, with direct booking links.", url: "https://texasdefined.com/waco-ghost-tours" };
+function WacoSeoMetadata() {
+  const structured = { '@context':'https://schema.org', '@graph': [
+    { '@type':'CollectionPage', '@id':wacoSeo.url+'#page', url:wacoSeo.url, name:"Waco ghost tours: guided and self-guided", description:wacoSeo.description, dateModified:'2026-10-20' },
+    { '@type':'BreadcrumbList', itemListElement:[{ '@type':'ListItem', position:1,name:'TexasDefined',item:'https://texasdefined.com/' },{ '@type':'ListItem', position:2,name:"Waco ghost tours: guided and self-guided",item:wacoSeo.url }] }
+  ]};
+  return <><title>{wacoSeo.title}</title><meta name="description" content={wacoSeo.description}/><link rel="canonical" href={wacoSeo.url}/><meta property="og:title" content={wacoSeo.title}/><meta property="og:description" content={wacoSeo.description}/><meta property="og:url" content={wacoSeo.url}/><meta name="twitter:card" content="summary_large_image"/><script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(structured)}}/></>;
+}
+
 export const Route = createLazyFileRoute("/waco-ghost-tours")({ component: WacoGhostToursPage });
 
 function WacoGhostToursPage() {
   return (
     <main>
+      <WacoSeoMetadata />
       <Container className="pb-16 pt-10 sm:pb-24 sm:pt-14">
         <nav aria-label="Breadcrumb" className="border-b border-border pb-4 text-xs uppercase tracking-wider text-muted-foreground">
           <a href="/" className="underline underline-offset-4">TexasDefined</a> / Waco ghost tours
