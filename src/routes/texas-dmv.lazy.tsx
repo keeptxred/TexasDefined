@@ -21,11 +21,11 @@ function TexasDmvPage() {
         <p className="eyebrow text-primary">Start with the correct agency</p>
         <h2 id="dmv-task-finder" className="mt-2 font-display text-3xl">Choose your Texas vehicle or driver service</h2>
         <p className="mt-4 max-w-3xl leading-7 text-muted-foreground">Texas does not have one office for every driving task. DPS issues driving credentials; TxDMV oversees titles and registration; county tax assessor-collectors handle many title and registration transactions. Choose your task below before scheduling an appointment.</p>
-        <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-2">
           {services.map((service) => (
-            <Link key={service.href} to={service.href} className="group border border-border p-5 transition-colors hover:bg-muted/30 focus-visible:underline">
+            <Link key={service.href} to={service.href} className="group border border-border p-5  hover:bg-muted/30 ">
               <span className="text-xs font-semibold text-primary">{service.agency}</span>
-              <h3 className="mt-2 font-display text-xl text-foreground">{service.title}</h3>
+              <h3 className="mt-2 font-display text-2xl text-foreground">{service.title}</h3>
               <p className="mt-3 text-sm leading-6 text-muted-foreground">{service.detail}</p>
               <span className="mt-4 text-sm font-semibold text-primary">Open guide →</span>
             </Link>
