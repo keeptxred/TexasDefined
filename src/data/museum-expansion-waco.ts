@@ -1,9 +1,8 @@
 import type { Destination } from "./types";
-import { applyWacoMuseumAuthority } from "./waco-museum-authority-upgrades";
 
 const SOURCE_CHECKED_AT = "2026-08-30";
 
-const wacoMuseumBaseDestinations: Destination[] = [
+export const wacoMuseumDestinations: Destination[] = [
   {
     id: "museum-expansion-dr-pepper-waco",
     brandId: "texasdefined",
@@ -160,5 +159,3 @@ const wacoMuseumBaseDestinations: Destination[] = [
     sourceCheckedAt: SOURCE_CHECKED_AT,
   },
 ];
-
-export const wacoMuseumDestinations: Destination[] = wacoMuseumBaseDestinations.map(applyWacoMuseumAuthority);
