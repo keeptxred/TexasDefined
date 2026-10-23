@@ -10,8 +10,8 @@ const brand = readFileSync('src/brand/texasdefined.ts', 'utf8');
 const events = readFileSync('src/routes/events.index.lazy.tsx', 'utf8');
 const categories = new Set(corporateEventCategories.map((item) => item.value));
 
-assert(corporateEventProviders.length >= 30, 'Statewide expansion should contain at least 30 official-source venues');
-for (const metro of ['Houston', 'Dallas', 'Austin', 'San Antonio']) {
+assert(corporateEventProviders.length >= 46, 'Nine-market expansion should contain at least 46 official-source venues');
+for (const metro of ['Houston', 'Dallas', 'Austin', 'San Antonio', 'El Paso', 'Corpus Christi', 'Galveston', 'Waco', 'Lubbock']) {
   assert(corporateEventProviders.filter((p) => p.city === metro || p.metro?.includes(metro)).length >= 3, 'Insufficient metro coverage: ' + metro);
 }
 assert(corporateEventProviders.filter((p) => p.city === 'Houston' && p.maxGroup >= 45 && (!p.minGroup || p.minGroup <= 45)).length >= 8);
