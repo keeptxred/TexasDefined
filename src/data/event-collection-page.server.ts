@@ -189,6 +189,7 @@ export function loadEventCollectionPageServer(slug: string) {
         return {
           id: event.id,
           slug: event.slug,
+          guidePath: event.guidePath.startsWith("/event/") ? event.guidePath : "",
           title: event.title,
           summary: event.summary,
           startDate: event.startDate,
