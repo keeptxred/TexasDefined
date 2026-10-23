@@ -6,7 +6,7 @@ import {readFileSync} from 'node:fs';
 // from the smaller current snapshot. Port only the non-overlapping counties;
 // keep hand-curated high-traffic county contact and payment links authoritative.
 const text=readFileSync('src/data/property/county-property-enrichment.generated.ts','utf8');
-const slugs=[...text.matchAll(/^  ([a-z][a-z-]*): \{$/gm)].map(match=>match[1]);
+const slugs=[...text.matchAll(/^  '?(\w[\w-]*)'?: \{$/gm)].map(match=>match[1]);
 
 test('county property-tax directory port includes unique facts without duplicate counties',()=>{
   assert.equal(slugs.length,new Set(slugs).size);
