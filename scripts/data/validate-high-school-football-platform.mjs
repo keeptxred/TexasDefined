@@ -1195,6 +1195,8 @@ if (!errors.length) {
     'profileSummary',
     'quickFacts',
     'faq',
+    'nextListedFixture',
+    'game.date >= editorial.season.verifiedAt',
     "new Intl.DateTimeFormat('en-US'",
     'formatFootballDate',
     '<time dateTime={game.date}>{formatFootballDate(game.date)}</time>',
