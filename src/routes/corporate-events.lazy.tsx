@@ -10,6 +10,7 @@ import { corporateEventMarketMatches } from '@/data/corporate-event-market-searc
 import { GroupEventPartnerApplication } from '@/components/events/GroupEventPartnerApplication';
 import { ApprovedCorporateEventOffers } from '@/components/events/ApprovedCorporateEventOffers';
 import { CorporateEventMetroGuides } from '@/components/events/CorporateEventMetroGuides';
+import { CorporateEventRelatedResources } from '@/components/events/CorporateEventRelatedResources';
 
 const categoryLabel = (id: GroupEventCategory) => corporateEventCategories.find((item) => item.value === id)?.label ?? id;
 const dollars = (value: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(value);
@@ -310,6 +311,8 @@ function CorporateEventsPage() {
         </> : <div className="mt-6 border border-dashed border-border bg-background p-6 text-sm text-muted-foreground">Choose Compare on any listing to add it to your shortlist. You can also send a planning request below without choosing venues.</div>}
       </Container>
     </section>
+
+    <CorporateEventRelatedResources />
 
     <ApprovedCorporateEventOffers />
 
