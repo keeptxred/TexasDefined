@@ -196,7 +196,7 @@ function GenericCollectionPage({ page }: { page: any }) {
                     Schedule source: {show.sourceName} ↗
                   </a>
                 </div>
-                <div className="md:text-right">
+                <div className="text-right">
                   <a href={show.ticket.href} rel={show.ticket.rel} target="_blank" className="inline-flex items-center border border-primary px-4 py-2 text-sm font-semibold text-primary hover:bg-surface">
                     {show.ticket.label}
                   </a>
