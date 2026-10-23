@@ -128,7 +128,8 @@ assert.equal(
   250, "Every submitted Christmas candidate must be accounted for",
 );
 assert.ok(candidates.reconciliation.remainingCandidates > 0, "Do not auto-verify all holiday candidates without sources");
-assert.ok(events.length >= 105, "Dated Christmas inventory shrank unexpectedly");
+assert.ok(events.length >= 106, "Dated Christmas inventory shrank unexpectedly");
+check("san-antonio-fiesta-texas-new-years-2026", "2026-12-26", "2027-01-04");
 check("gruene-christmas-market-days", "2026-12-05", "2026-12-06");
 check("waco-wild-lights-2026-1", "2026-11-27", "2026-11-29");
 check("waco-wild-lights-2026-4", "2026-12-17", "2026-12-20");
