@@ -1,5 +1,5 @@
 import { createLazyFileRoute } from '@tanstack/react-router';
-import { useMemo, useState, type FormEvent } from 'react';
+import { useEffect, useMemo, useState, type FormEvent } from 'react';
 import { ArrowUpRight, Check, ClipboardList, Copy, Filter, MapPin, Printer, Search, Users, X } from 'lucide-react';
 
 import { Container } from '@/components/layout/Container';
@@ -64,9 +64,47 @@ function CorporateEventsPage() {
   const [submitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState('');
   const [copyMessage, setCopyMessage] = useState('');
+  const [shareLinkMessage, setShareLinkMessage] = useState('');
   const [eventDate, setEventDate] = useState('');
 
   const validHeadcount = Number.isInteger(headcount) && headcount >= 2 && headcount <= 3000;
+
+  // Shared shortlists contain public planning preferences, never contact details.
+  // Hydrate from URL after mount to preserve the initial server-rendered HTML.
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const chosenCity = params.get('city')?.trim();
+    if (chosenCity && chosenCity.length <= 90) setCity(chosenCity);
+    const guests = Number(params.get('guests'));
+    if (Number.isInteger(guests) && guests >= 2 && guests <= 3000) setHeadcount(guests);
+    const type = params.get('type');
+    if (corporateEventCategories.some((entry) => entry.value === type)) setCategory(type as GroupEventCategory);
+    const price = params.get('budget');
+    if (price === '50' || price === '100' || price === '200' || price === '500') setBudget(price);
+    const date = params.get('date');
+    if (date && /^\d{4}-\d{2}-\d{2}$/.test(date)) setEventDate(date);
+    const allowed = new Set(corporateEventProviders.map((provider) => provider.slug));
+    const slugs = (params.get('venues') || '').split(',').filter((slug) => allowed.has(slug));
+    if (slugs.length) setSelected([...new Set(slugs)].slice(0, 5));
+  }, []);
+
+  async function copyShareLink() {
+    const url = new URL('/corporate-events', window.location.origin);
+    url.searchParams.set('city', city.trim() || 'Houston');
+    if (validHeadcount) url.searchParams.set('guests', String(headcount));
+    url.searchParams.set('type', category);
+    if (budget) url.searchParams.set('budget', budget);
+    if (eventDate) url.searchParams.set('date', eventDate);
+    url.searchParams.set('venues', selected.join(','));
+    try {
+      await navigator.clipboard.writeText(url.toString());
+      setShareLinkMessage('Shareable shortlist link copied. Anyone with the link can compare these public venue options.');
+    } catch {
+      setShareLinkMessage('Clipboard unavailable. Copy the venue proposal instead.');
+    }
+  }
+
+
   const priceCeiling = budget === '' ? null : Number(budget);
   const matches = useMemo(() => {
     const cityTerm = city.trim().toLowerCase();
@@ -231,9 +269,11 @@ function CorporateEventsPage() {
           </div>
           <div className="mt-5 flex flex-wrap gap-3 print:hidden">
             <button type="button" onClick={copyProposal} className="inline-flex min-h-11 items-center gap-2 bg-primary px-5 text-sm font-semibold text-primary-foreground"><Copy className="size-4" /> Copy proposal</button>
+            <button type="button" onClick={copyShareLink} className="inline-flex min-h-11 items-center gap-2 border border-border bg-background px-5 text-sm font-semibold"><Copy className="size-4" /> Copy share link</button>
             <button type="button" onClick={() => window.print()} className="inline-flex min-h-11 items-center gap-2 border border-border bg-background px-5 text-sm font-semibold"><Printer className="size-4" /> Print / Save PDF</button>
           </div>
           {copyMessage && <p className="mt-3 text-sm" role="status">{copyMessage}</p>}
+          {shareLinkMessage && <p className="mt-3 text-sm" role="status">{shareLinkMessage}</p>}
           <div className="mt-6 hidden whitespace-pre-wrap border-t border-border pt-6 font-mono text-xs leading-6 print:block">{proposalText}</div>
         </> : <div className="mt-6 border border-dashed border-border bg-background p-6 text-sm text-muted-foreground">Choose Compare on any listing to add it to your shortlist. You can also send a planning request below without choosing venues.</div>}
       </Container>
