@@ -1,4 +1,5 @@
 import type { MetroProximityCollection, MetroProximityMetro, MetroProximityResult } from "./metro-proximity.ts";
+import type { MetroProximityTownResult } from "./metro-proximity-town-references";
 
 export interface MetroProximityEventCandidate {
   id: string;
@@ -27,12 +28,14 @@ function normalizePlace(value: string) {
     .trim();
 }
 
-function destinationTownKeys(results: readonly MetroProximityResult[]) {
-  return results
-    .flatMap((row) => [
+function representedTownKeys(results: readonly MetroProximityResult[], townReferences: readonly MetroProximityTownResult[]) {
+  return [
+    ...results.flatMap((row) => [
       row.destination.nearestTown,
       row.destination.category === "small-towns" ? row.destination.name : "",
-    ])
+    ]),
+    ...townReferences.map((row) => row.town.name),
+  ]
     .filter(Boolean)
     .map(normalizePlace)
     .filter(Boolean);
@@ -62,12 +65,13 @@ export function selectMetroProximityAffiliateEvents<T extends MetroProximityEven
   metro: MetroProximityMetro,
   collection: MetroProximityCollection,
   results: readonly MetroProximityResult[],
+  townReferences: readonly MetroProximityTownResult[],
   events: readonly T[],
   window: MetroProximityEventWindow = {},
 ) {
   if (collection.slug !== "things-to-do" && collection.slug !== "weekend-trips") return [] as T[];
 
-  const resultTownKeys = new Set(destinationTownKeys(results));
+  const resultTownKeys = new Set(representedTownKeys(results, townReferences));
   const metroKeys = new Set([metro.name, metro.shortName].map(normalizePlace));
   const seen = new Set<string>();
 
