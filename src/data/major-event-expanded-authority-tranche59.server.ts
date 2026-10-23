@@ -8,7 +8,7 @@ interface ChristmasExtendedRecord extends MajorEventAuthorityRecord {
 
 const records: ChristmasExtendedRecord[] = [
   {
-    "slug": "gaylord-texan-ice-harry-potter",
+    "slug": "gaylord-texan-ice",
     "name": "Gaylord Texan ICE! featuring Harry Potter 2026–27",
     "city": "Grapevine",
     "countySlug": "tarrant",
@@ -186,7 +186,7 @@ const records: ChristmasExtendedRecord[] = [
         "description": "Build a DFW family outing"
       },
       {
-        "href": "/event/gaylord-texan-ice-harry-potter",
+        "href": "/event/gaylord-texan-ice",
         "label": "Gaylord Texan ICE!",
         "description": "Contrast an indoor ice-sculpture attraction with outdoor driving lights"
       }
@@ -389,7 +389,7 @@ const records: ChristmasExtendedRecord[] = [
         "description": "Compare Grapevine with Galveston and Palestine rail excursions"
       },
       {
-        "href": "/event/gaylord-texan-ice-harry-potter",
+        "href": "/event/gaylord-texan-ice",
         "label": "Gaylord Texan ICE!",
         "description": "Pair a resort holiday attraction with a rail trip"
       },
