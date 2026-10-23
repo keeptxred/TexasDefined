@@ -16,6 +16,7 @@ const requestSchema = z.object({
   providerSlugs: z.array(z.string().max(100)).max(5),
   notes: z.string().trim().max(3000).default(''),
   consentContact: z.literal(true),
+  consentSelectedVenues: z.boolean().default(false),
   companyAddress2: z.string().max(200).default(''),
 });
 
@@ -26,6 +27,7 @@ export const submitGroupEventRequest = createServerFn({ method: 'POST' })
     const validSlugs = new Set(corporateEventProviders.map((provider) => provider.slug));
     const allowedSlugs = [...new Set(data.providerSlugs)].filter((slug) => validSlugs.has(slug));
     if (allowedSlugs.length !== data.providerSlugs.length) throw new Error('Please refresh the page and select venues again.');
+    if (data.consentSelectedVenues && allowedSlugs.length === 0) throw new Error('Choose at least one shortlisted venue before authorizing outreach.');
     if (data.eventDate) {
       const { isUpcomingCorporateEventDate } = await import('@/data/corporate-event-dates');
       if (!isUpcomingCorporateEventDate(data.eventDate)) {
@@ -47,6 +49,8 @@ export const submitGroupEventRequest = createServerFn({ method: 'POST' })
       provider_slugs: allowedSlugs,
       notes: data.notes || null,
       consent_contact: true,
+      allow_provider_outreach: data.consentSelectedVenues,
+      provider_outreach_consented_at: data.consentSelectedVenues ? new Date().toISOString() : null,
       source_path: '/corporate-events',
     });
     return { ok: true };

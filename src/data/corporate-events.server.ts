@@ -13,6 +13,8 @@ export type GroupEventRequest = {
   provider_slugs: string[];
   notes: string | null;
   consent_contact: true;
+  allow_provider_outreach: boolean;
+  provider_outreach_consented_at: string | null;
   source_path: '/corporate-events';
 };
 

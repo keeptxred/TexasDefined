@@ -1,0 +1,27 @@
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+const read = (path) => readFileSync(path, 'utf8');
+const migration = read('supabase/migrations/20261023184500_group_event_venue_outreach_consent.sql');
+const handler = read('src/data/corporate-events.functions.ts');
+const model = read('src/data/corporate-events.server.ts');
+const planner = read('src/routes/corporate-events.lazy.tsx');
+const adminModel = read('src/data/corporate-events.admin.server.ts');
+const adminPanel = read('src/components/events/CorporateEventOpsPanel.tsx');
+const all = [handler, model, planner, adminModel, adminPanel].join('\n');
+
+assert(migration.includes('allow_provider_outreach boolean not null default false'), 'Sharing must default off');
+assert(migration.includes('cardinality(provider_slugs) > 0'), 'Consent must name selected venues');
+assert(migration.includes('provider_outreach_consented_at is not null'), 'Consent timestamp is required');
+assert(migration.includes('provider_outreach_consented_at is null'), 'No timestamp when not consenting');
+assert(handler.includes('consentSelectedVenues: z.boolean().default(false)'), 'Server must default optional sharing consent off');
+assert(handler.includes('data.consentSelectedVenues && allowedSlugs.length === 0'), 'No unspecific sharing');
+assert(handler.includes('provider_outreach_consented_at: data.consentSelectedVenues ? new Date().toISOString() : null'), 'Server, not user, records consent time');
+assert(planner.includes('name="consentSelectedVenues"'), 'Must capture separate optional permission');
+assert(!planner.includes('name="consentSelectedVenues" checked'), 'Permission cannot be prechecked');
+assert(planner.includes('selected.length > 0 ? <label'), 'Venue permission must require a shortlist');
+assert(planner.includes('I may leave this unchecked'), 'Explain that optional consent is not a condition of service');
+assert(adminModel.includes('allow_provider_outreach,provider_outreach_consented_at'), 'Protected admin inbox must surface actual consent state');
+assert(adminPanel.includes('No venue-sharing consent. Do not forward'), 'Operators must not assume contact-sharing consent');
+assert(adminPanel.includes('No message was sent by this system'), 'Avoid claiming that any venue was contacted');
+assert(!all.includes("sendEmail(") && !all.includes("smtpTransport"), 'No automated distribution of private planner data');
+console.log('Corporate-event optional venue quote-sharing consent contract PASSED.');

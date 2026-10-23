@@ -14,6 +14,7 @@ type Lead = {
   city: string; group_size: number; event_category: string;
   event_date: string | null; budget_per_person: number | null;
   provider_slugs: string[]; notes: string | null;
+  allow_provider_outreach: boolean; provider_outreach_consented_at: string | null;
 };
 type Application = {
   id: string; created_at: string; status: ApplicationStatus;
@@ -165,6 +166,11 @@ export function CorporateEventOpsPanel({ accessKey }: { accessKey: string }) {
               </select></label>
             </div>
             {lead.provider_slugs?.length ? <p className="mt-3 text-sm text-muted-foreground">Preferred venues: {lead.provider_slugs.join(', ')}</p> : null}
+            <p className={'mt-3 border px-3 py-2 text-xs leading-6 ' + (lead.allow_provider_outreach ? 'border-primary text-foreground' : 'border-border text-muted-foreground')}>
+              {lead.allow_provider_outreach
+                ? 'Optional sharing approved for the selected venues only, recorded ' + (lead.provider_outreach_consented_at ? fmt(lead.provider_outreach_consented_at) : 'without a readable timestamp') + '. Review venue identity and partner terms before taking any manual outreach action. No message was sent by this system.'
+                : 'No venue-sharing consent. Do not forward this planner’s personal contact details to businesses.'}
+            </p>
             {lead.notes ? <p className="mt-3 whitespace-pre-wrap border-t border-border pt-3 text-sm leading-7">{lead.notes}</p> : null}
           </article>
         )}
