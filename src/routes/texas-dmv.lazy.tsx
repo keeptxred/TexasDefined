@@ -17,7 +17,7 @@ function TexasDmvPage() {
   return (
     <>
       <PrioritySearchPage data={Route.useLoaderData()} />
-      <section aria-labelledby="dmv-task-finder" className="mx-auto max-w-6xl border-t border-border px-4 py-12 sm:px-6 lg:px-8">
+      <section aria-labelledby="dmv-task-finder" className="mx-auto max-w-6xl border-t border-border px-4 py-10 sm:px-6 lg:px-8">
         <p className="eyebrow text-primary">Start with the correct agency</p>
         <h2 id="dmv-task-finder" className="mt-2 font-display text-3xl">Choose your Texas vehicle or driver service</h2>
         <p className="mt-4 max-w-3xl leading-7 text-muted-foreground">Texas does not have one office for every driving task. DPS issues driving credentials; TxDMV oversees titles and registration; county tax assessor-collectors handle many title and registration transactions. Choose your task below before scheduling an appointment.</p>
