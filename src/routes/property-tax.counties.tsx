@@ -14,8 +14,8 @@ const popularCountySlugs = ['comal', 'travis', 'denton', 'bexar', 'harris', 'wal
 
 export const Route = createFileRoute('/property-tax/counties')({
   loader: async () => {
-    const [{ COUNTY_PROPERTY_RECORDS }, { TEXAS_COUNTIES }, countyRateDataset] = await Promise.all([
-      import('@/data/property/county-property-data'),
+    const [COUNTY_PROPERTY_RECORDS, { TEXAS_COUNTIES }, countyRateDataset] = await Promise.all([
+      import('@/data/property/county-property-complete.functions').then((module) => module.getCompleteCountyPropertyRecords()),
       import('@/data/texas-places'),
       getTexasDataset('county-property-tax-rates'),
     ]);
