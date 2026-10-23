@@ -71,7 +71,10 @@
       "intakeId": 9,
       "title": "New Braunfels Santa's Ranch",
       "submittedRegion": "Hill Country & Central Texas",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "santas-ranch-new-braunfels"
+      ]
     },
     {
       "intakeId": 10,
@@ -365,7 +368,8 @@
       "intakeId": 53,
       "title": "Grapevine Gaylord Texan ICE! Exhibit",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "existing-authority",
+      "guidePath": "/event/gaylord-texan-ice-harry-potter"
     },
     {
       "intakeId": 54,
@@ -684,7 +688,8 @@
       "intakeId": 101,
       "title": "Galveston Dickens on The Strand",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "existing-authority",
+      "guidePath": "/event/dickens-on-the-strand"
     },
     {
       "intakeId": 102,
@@ -737,7 +742,10 @@
       "intakeId": 109,
       "title": "Sugar Land Holiday Lights",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "sugar-land-holiday-lights-constellation-field"
+      ]
     },
     {
       "intakeId": 110,
@@ -1610,8 +1618,8 @@
   ],
   "reconciliation": {
     "asOf": "2026-10-23",
-    "calendarCandidates": 25,
-    "authorityCandidates": 10,
-    "remainingCandidates": 215
+    "calendarCandidates": 27,
+    "authorityCandidates": 12,
+    "remainingCandidates": 211
   }
 }
