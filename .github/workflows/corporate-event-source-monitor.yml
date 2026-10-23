@@ -1,0 +1,31 @@
+name: Corporate event editorial source monitoring
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 9 * * 1'
+
+permissions:
+  contents: read
+
+jobs:
+  venue-source-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify source audit classifier
+        run: node --experimental-strip-types scripts/data/validate-corporate-event-sources.mjs
+      - name: Review 90-day source freshness and official HTTPS URL reachability
+        run: node --experimental-strip-types scripts/data/audit-corporate-event-sources.mjs
+      - name: Preserve source review report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: corporate-event-editorial-source-audit
+          path: .artifacts/corporate-event-source-audit.json
+          if-no-files-found: warn
+          retention-days: 30
