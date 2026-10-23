@@ -311,8 +311,8 @@
         }));
       }
       actions.appendChild(createTrackedLink({
-        destination: "https://www.vrbo.com/en-ca/vacation-rentals/united-states/texas/mclennan-county/waco",
-        label: "Browse Waco vacation rentals on Vrbo",
+        destination: "https://www.vrbo.com/vacation-rentals/usa/texas/waco/waco-convention-center",
+        label: "Browse rentals near Waco Convention Center on Vrbo",
         variant: "secondary",
         placement: "magnolia-waco-vrbo-rentals"
       }));
