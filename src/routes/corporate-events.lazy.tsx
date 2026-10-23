@@ -217,6 +217,28 @@ function CorporateEventsPage() {
   });
 
   return <main id="main">
+    <style>{`@media print {
+      body:has(#proposal) * { visibility: hidden !important; }
+      body:has(#proposal) #proposal, body:has(#proposal) #proposal * { visibility: visible !important; }
+      body:has(#proposal) #proposal {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        background: white !important;
+        color: black !important;
+        border: none !important;
+      }
+      body:has(#proposal) #proposal .td-print-hide { display: none !important; }
+      body:has(#proposal) #proposal .td-print-summary {
+        display: block !important;
+        font: 11pt/1.5 monospace !important;
+        white-space: pre-wrap !important;
+        overflow-wrap: anywhere !important;
+        color: black !important;
+      }
+      @page { size: letter; margin: 0.7in; }
+    }`}</style>
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: structuredData }} />
     <section className="bg-foreground text-background">
       <Container className="py-12 sm:py-20">
@@ -286,14 +308,14 @@ function CorporateEventsPage() {
       <Container className="py-12">
         <p className="eyebrow text-primary">Management-ready proposal</p>
         <h2 className="mt-2 font-display text-4xl">Your event shortlist</h2>
-        <p className="mt-3 max-w-3xl leading-7 text-muted-foreground">Compare up to five options, copy a summary into an email, or print / save it as a PDF. Options here have not been reserved.</p>
+        <p className="mt-3 max-w-3xl leading-7 text-muted-foreground td-print-hide">Compare up to five options, copy a summary into an email, or print / save it as a PDF. Options here have not been reserved.</p>
         {shortlist.length ? <>
-          <div className="mt-6 border border-border bg-background p-5">
+          <div className="mt-6 border border-border bg-background p-5 td-print-hide">
             <p className="text-xs font-semibold uppercase tracking-widest text-primary">Group planning budget</p>
             <p className="mt-2 font-display text-3xl">{planningAmounts.budgetCeiling == null ? 'Not specified' : dollars(planningAmounts.budgetCeiling)}</p>
             <p className="mt-2 text-sm leading-7 text-muted-foreground">{validHeadcount ? headcount + ' guests' : 'Enter a valid group size'} · {priceCeiling == null ? 'Flexible per-person budget' : dollars(priceCeiling) + ' per-person ceiling'}. Your planning target is not a vendor quote. Actual costs may include taxes, catering, rentals and other fees.</p>
           </div>
-          <div className="mt-6 grid gap-3 md:grid-cols-2">
+          <div className="mt-6 grid gap-3 md:grid-cols-2 td-print-hide">
             {shortlist.map((provider, index) => <div key={provider.slug} className="flex items-start justify-between gap-3 border border-border bg-background p-4">
               <div><p className="eyebrow text-primary">Option {index + 1}</p><h3 className="mt-1 font-display text-xl">{provider.name}</h3><p className="mt-1 text-sm text-muted-foreground">{provider.area} · {provider.format}</p><p className="mt-1 text-xs text-muted-foreground">{provider.startingPricePerPerson == null ? 'Price on request' : 'From ' + dollars(provider.startingPricePerPerson) + '/guest'}</p><p className="mt-2 text-xs text-muted-foreground">{provider.startingPricePerPerson == null || !validHeadcount ? 'Group total requires a quote' : 'Illustrative starting total: ' + dollars(groupEventPlanningAmounts(headcount, null, provider.startingPricePerPerson).indicativeStartingTotal!)} (not all-inclusive)</p></div>
               <button type="button" onClick={() => toggleSelected(provider.slug)} aria-label={'Remove ' + provider.name} className="flex size-10 items-center justify-center border border-border print:hidden"><X className="size-4" /></button>
@@ -306,7 +328,7 @@ function CorporateEventsPage() {
           </div>
           {copyMessage && <p className="mt-3 text-sm" role="status">{copyMessage}</p>}
           {shareLinkMessage && <p className="mt-3 text-sm" role="status">{shareLinkMessage}</p>}
-          <div className="mt-6 hidden whitespace-pre-wrap border-t border-border pt-6 font-mono text-xs leading-6 print:block">{proposalText}</div>
+          <div className="mt-6 hidden whitespace-pre-wrap border-t border-border pt-6 font-mono text-xs leading-6 print:block td-print-summary">{proposalText}</div>
         </> : <div className="mt-6 border border-dashed border-border bg-background p-6 text-sm text-muted-foreground">Choose Compare on any listing to add it to your shortlist. You can also send a planning request below without choosing venues.</div>}
       </Container>
     </section>
