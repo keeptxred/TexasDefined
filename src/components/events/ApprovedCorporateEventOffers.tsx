@@ -2,8 +2,10 @@ import { useEffect, useMemo, useState } from 'react';
 import { ArrowUpRight, Copy } from 'lucide-react';
 import { corporateEventProviders } from '@/data/corporate-events';
 import { getPublicCorporateEventOffers } from '@/data/corporate-events-offers.functions';
+import { recordCorporateEventOfferOutboundClick } from '@/data/corporate-event-offer-clicks.functions';
 
 type PublicOffer = {
+  id: string;
   providerSlug: string;
   title: string;
   benefit: string;
@@ -45,12 +47,12 @@ export function ApprovedCorporateEventOffers() {
     <div className="mx-auto max-w-[1200px] px-5 py-12 sm:px-7">
       <p className="eyebrow text-primary">Clearly labeled commercial partnerships</p>
       <h2 className="mt-2 font-display text-3xl sm:text-4xl">Current company-group offers</h2>
-      <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">These offers come from reviewed TexasDefined venue partners and may contain negotiated commercial terms. They do not affect independent directory selection or order. Check dates, group minimums, prices, and restrictions with each partner before committing.</p>
+      <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">These offers come from reviewed TexasDefined venue partners and may contain negotiated commercial terms. They do not affect independent directory selection or order. Check dates, group minimums, prices, and restrictions with each partner before committing. We count daily outbound offer-link activations in aggregate without storing a visitor identity; clicking does not mean a purchase or reservation.</p>
       <div className="mt-6 grid gap-4 md:grid-cols-2">
         {offers.map((offer) => {
           const provider = sourceDirectory.get(offer.providerSlug);
           if (!provider) return null;
-          return <article key={offer.providerSlug + ':' + offer.title} className="border border-border bg-background p-5">
+          return <article key={offer.id} className="border border-border bg-background p-5">
             <p className="text-xs font-semibold uppercase tracking-[0.1em] text-primary">TexasDefined partner offer · Commercial</p>
             <h3 className="mt-2 font-display text-2xl">{offer.title}</h3>
             <p className="mt-1 text-sm font-semibold">{provider.name} · {provider.city}</p>
@@ -63,6 +65,7 @@ export function ApprovedCorporateEventOffers() {
               </button>
             </div> : null}
             <a href={offer.redemptionUrl} target="_blank" rel="sponsored nofollow noopener noreferrer"
+              onClick={() => { void recordCorporateEventOfferOutboundClick({ data: { offerId: offer.id } }).catch(() => undefined); }}
               className="mt-5 inline-flex min-h-11 items-center gap-2 bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground">
               Review offer with partner <ArrowUpRight className="size-4" aria-hidden />
             </a>
