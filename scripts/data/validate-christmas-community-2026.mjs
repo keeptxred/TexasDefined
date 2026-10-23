@@ -77,7 +77,7 @@ assert.ok(eventFile.includes('category: "seasonal" as const'), "Calendar categor
 assert.ok(eventFile.includes('filter((occurrence) => (occurrence.endDate ?? occurrence.startDate) >= today)'), "Past holiday dates must expire automatically");
 
 const majorAuthoritySlugs = [
-  "gaylord-texan-ice-harry-potter",
+  "gaylord-texan-ice",
   "grand-prairie-prairie-lights",
   "moody-gardens-holiday-in-the-gardens",
   "grapevine-north-pole-express",
