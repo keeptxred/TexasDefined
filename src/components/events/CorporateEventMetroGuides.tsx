@@ -57,7 +57,8 @@ export function CorporateEventMetroGuides() {
         {cityGuides.map((guide) => {
           const venues = corporateEventProviders.filter((provider) =>
             provider.city === guide.key || provider.metro === guide.key);
-          const link = '/corporate-events?city=' + encodeURIComponent(guide.city) + '&guests=45&type=team-building';
+          const recommendedCategory = guide.slug === 'corpus-christi' || guide.slug === 'galveston' ? 'company-parties' : 'team-building';
+          const link = '/corporate-events?city=' + encodeURIComponent(guide.city) + '&guests=45&type=' + recommendedCategory;
           return <article key={guide.slug} id={'corporate-events-' + guide.slug}
             className="scroll-mt-28 border border-border bg-background p-5 sm:p-7">
             <h3 className="font-display text-2xl sm:text-3xl">{guide.title}</h3>
