@@ -1,0 +1,25 @@
+name: Corporate-event print proposal contract
+on:
+  pull_request:
+    paths:
+      - 'src/routes/corporate-events.lazy.tsx'
+      - 'scripts/data/validate-corporate-event-print.mjs'
+      - '.github/workflows/validate-corporate-event-print.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/routes/corporate-events.lazy.tsx'
+      - 'scripts/data/validate-corporate-event-print.mjs'
+      - '.github/workflows/validate-corporate-event-print.yml'
+permissions:
+  contents: read
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node scripts/data/validate-corporate-event-print.mjs

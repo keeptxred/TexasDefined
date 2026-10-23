@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+const page = readFileSync('src/routes/corporate-events.lazy.tsx','utf8');
+assert(page.includes('body:has(#proposal) * { visibility: hidden'), 'Hide unrelated document content when printing a management proposal');
+assert(page.includes('body:has(#proposal) #proposal * { visibility: visible'), 'Keep only proposal content visible');
+assert(page.includes('position: absolute !important'), 'Position the proposal at the top of the printed page');
+assert(page.includes('td-print-hide'), 'Do not print duplicate visible cards or controls');
+assert(page.includes('td-print-summary'), 'The itemized copyable management proposal must print');
+assert(page.includes('@page { size: letter; margin:'), 'Print layout should allow US Letter paper and readable margins');
+assert(page.includes('onClick={() => window.print()}'), 'Browser save-as-PDF flow still works');
+assert(page.includes("'Total planning ceiling: '"), 'Printed proposal still includes management budget');
+assert(page.includes("'Website: ' + provider.officialUrl"), 'Proposal includes direct supplier review links');
+assert(page.includes('NOT verified quotes'), 'Print export must not imply confirmed group rate');
+console.log('Corporate-event print layout: isolated management proposal, no full site print and pricing caveats PASSED.');
