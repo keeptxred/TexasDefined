@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs';
 import { corporateEventProviders, corporateEventCategories } from '../../src/data/corporate-events.ts';
 
 const route = readFileSync('src/routes/corporate-events.tsx', 'utf8');
+const lazyRoute = readFileSync('src/routes/corporate-events.lazy.tsx', 'utf8');
 const api = readFileSync('src/data/corporate-events.functions.ts', 'utf8');
 const registry = readFileSync('src/lib/public-routes.ts', 'utf8');
 const brand = readFileSync('src/brand/texasdefined.ts', 'utf8');
@@ -18,8 +19,9 @@ for (const p of corporateEventProviders) {
   assert(p.categories.every((category) => categories.has(category)));
 }
 assert(route.includes('createFileRoute("/corporate-events")'));
-assert(route.includes('submitGroupEventRequest'));
-assert(route.includes('navigator.clipboard.writeText'));
+assert(lazyRoute.includes("createLazyFileRoute('/corporate-events')"));
+assert(lazyRoute.includes('submitGroupEventRequest'));
+assert(lazyRoute.includes('navigator.clipboard.writeText'));
 assert(api.includes('consentContact'));
 assert(registry.includes('"/corporate-events"'));
 assert(brand.includes('to: "/corporate-events"'));
