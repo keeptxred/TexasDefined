@@ -33,7 +33,16 @@ on:
       - 'scripts/ci/verify-texas-tax-live-observations.mjs'
       - 'scripts/ci/verify-texas-tax-live-observations.test.mjs'
       - 'scripts/ci/texas-school-tax-identity-and-pagination.test.mjs'
-      - 'scripts/ci/county-property-pr5289-reconciliation.test.mjs'
+      - 'scripts/ci/county-property-pr5289-reconciliation.test.mjs scripts/data/county-property-snapshot-codec.test.mjs'
+      - 'src/data/property/county-property-supplement.server.ts'
+      - 'src/data/property/county-property-complete.functions.ts'
+      - 'scripts/data/sync-county-property-data.mjs'
+      - 'scripts/data/county-property-snapshot-codec.mjs'
+      - 'scripts/data/county-property-snapshot-codec.test.mjs'
+      - 'src/routes/property-tax.county.$county.tsx'
+      - 'src/routes/property-tax.counties.tsx'
+      - 'scripts/data/validate-county-property-enrichment.mjs'
+      - '.github/workflows/sync-county-property-data.yml'
 
 permissions:
   contents: read
