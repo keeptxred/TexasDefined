@@ -24,10 +24,10 @@ function TexasDmvPage() {
         <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((service) => (
             <Link key={service.href} to={service.href} className="group border border-border p-5 transition-colors hover:bg-muted/30 focus-visible:underline">
-              <span className="text-xs font-semibold uppercase tracking-wide text-primary">{service.agency}</span>
+              <span className="text-xs font-semibold text-primary">{service.agency}</span>
               <h3 className="mt-2 font-display text-xl text-foreground">{service.title}</h3>
               <p className="mt-3 text-sm leading-6 text-muted-foreground">{service.detail}</p>
-              <span className="mt-4 inline-block text-sm font-semibold text-primary group-hover:underline">Open guide →</span>
+              <span className="mt-4 inline-block text-sm font-semibold text-primary">Open guide →</span>
             </Link>
           ))}
         </div>
