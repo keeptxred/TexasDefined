@@ -129,7 +129,9 @@ assert.equal(
   250, "Every submitted Christmas candidate must be accounted for",
 );
 assert.ok(candidates.reconciliation.remainingCandidates > 0, "Do not auto-verify all holiday candidates without sources");
-assert.ok(events.length >= 112, "Dated Christmas inventory shrank unexpectedly");
+assert.ok(events.length >= 114, "Dated Christmas inventory shrank unexpectedly");
+check("beaumont-mcfaddin-ward-holiday-open-house-2026", "2026-12-05", "2026-12-06");
+check("beaumont-mcfaddin-ward-christmas-past-workshop-2026", "2026-12-15");
 check("arlington-texas-christkindl-market-opening-2026", "2026-11-20", "2026-11-22");
 check("arlington-texas-christkindl-market-season-2026", "2026-11-27", "2026-12-23");
 check("mansfield-hometown-holidays-2026", "2026-12-04");
