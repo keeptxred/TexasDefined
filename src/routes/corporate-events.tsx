@@ -13,7 +13,7 @@ const description = 'Find and compare real Texas corporate event venues, team-bu
 const categoryLabel = (id: GroupEventCategory) => corporateEventCategories.find((item) => item.value === id)?.label ?? id;
 const dollars = (value: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(value);
 
-export const Route = createFileRoute(path)({
+export const Route = createFileRoute("/corporate-events")({
   head: () => ({
     meta: buildMeta(texasDefinedBrand, { canonicalPath: path, title: 'Texas Corporate Events & Team Building Finder', description }),
     links: [canonicalLink(texasDefinedBrand, path)],
@@ -73,7 +73,7 @@ function ProviderCard({ provider, selected, onToggle }: { provider: CorporateEve
           className={'inline-flex min-h-11 items-center justify-center gap-1.5 px-3 text-sm font-semibold ' + (selected ? 'bg-foreground text-background' : 'border border-primary text-primary')}>
           {selected ? <Check className="size-4" aria-hidden /> : <ClipboardList className="size-4" aria-hidden />}{selected ? 'Shortlisted' : 'Compare'}
         </button>
-        <a href={provider.officialUrl} target="_blank" rel="noopener noreferrer" data-commercial-partner={undefined}
+        <a href={provider.officialUrl} target="_blank" rel="noopener noreferrer"
           className="inline-flex min-h-11 items-center justify-center gap-1.5 border border-border px-3 text-center text-sm font-semibold hover:border-primary">
           Venue website <ArrowUpRight className="size-4" aria-hidden />
         </a>
@@ -167,7 +167,7 @@ function CorporateEventsPage() {
         budgetPerPerson: priceCeiling,
         providerSlugs: selected,
         notes: String(form.get('notes') ?? ''),
-        consentContact: form.get('consentContact') === 'on' as true,
+        consentContact: (form.get('consentContact') === 'on') as true,
         companyAddress2: String(form.get('companyAddress2') ?? ''),
       } });
       setSubmitted(true);
