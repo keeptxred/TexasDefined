@@ -29,6 +29,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "Santa's Ranch confirms its drive-through light park opens every night November 6–January 3, including holidays and rain. Sunday–Thursday 6–10 p.m.; Friday–Saturday 6–11 p.m. Admission is per vehicle; verify height/length restrictions before entering."
   },
   {
+    "slug": "frisco-light-park-riders-field-2026",
+    "title": "The Light Park · Frisco Riders Field drive-through",
+    "city": "Frisco",
+    "countySlug": "collin",
+    "countyName": "Collin County",
+    "region": "prairies-lakes",
+    "startDate": "2026-11-06",
+    "endDate": "2027-01-03",
+    "venueName": "Riders Field · 7300 RoughRiders Trail",
+    "officialEventUrl": "https://www.visitfrisco.com/events/light-park-riders-field/6824",
+    "sourceName": "Visit Frisco",
+    "summary": "Frisco's The Light Park ticketed drive-through operates daily November 6, 2026–January 3, 2027 at Riders Field, generally 5:30–10 p.m. Sunday–Thursday and 5:30–11 p.m. Friday–Saturday. This is a separate attraction from the free synchronized lights at Frisco Square."
+  },
+  {
     "slug": "gruene-cowboy-kringle-1",
     "title": "Gruene Cowboy Kringle · photo sessions 1",
     "city": "Gruene",
@@ -137,6 +151,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.sugarlandholidaylights.com/",
     "sourceName": "Sugar Land Holiday Lights / Sugar Land Space Cowboys",
     "summary": "The stadium walk-through holiday lights experience operates November 20–January 3, with more than 3.5 million lights, skating, vendors and selected carnival operations. Organizers say the carnival operates November 27–January 1; admission and extras are distinct."
+  },
+  {
+    "slug": "arlington-texas-christkindl-market-opening-2026",
+    "title": "Texas Christkindl Market Arlington · opening weekend",
+    "city": "Arlington",
+    "countySlug": "tarrant",
+    "countyName": "Tarrant County",
+    "region": "prairies-lakes",
+    "startDate": "2026-11-20",
+    "endDate": "2026-11-22",
+    "venueName": "Globe Life Field North Plaza · 1650 E Randol Mill Road",
+    "officialEventUrl": "https://txchristkindlmarket.com/",
+    "sourceName": "Texas Christkindl Market organizer",
+    "summary": "The organizer's main 2026 program confirms a free German-inspired Christmas market Friday–Sunday, November 20–22, 11 a.m.–8 p.m., at Globe Life Field North Plaza. A secondary organizer page inconsistently lists November 23; that date is intentionally excluded pending clarification."
   },
   {
     "slug": "woodlands-ice-rink-2026",
@@ -511,6 +539,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "Six Flags Holiday in the Park is ticketed and runs selected 2026 dates. This window follows Visit San Antonio's day-by-day list rather than assuming daily park operation. Current park admission covers many shows and select rides; extras cost more. The December 26–New Year program has separate scheduling."
   },
   {
+    "slug": "arlington-texas-christkindl-market-season-2026",
+    "title": "Texas Christkindl Market Arlington · main season",
+    "city": "Arlington",
+    "countySlug": "tarrant",
+    "countyName": "Tarrant County",
+    "region": "prairies-lakes",
+    "startDate": "2026-11-27",
+    "endDate": "2026-12-23",
+    "venueName": "Globe Life Field North Plaza · 1650 E Randol Mill Road",
+    "officialEventUrl": "https://txchristkindlmarket.com/",
+    "sourceName": "Texas Christkindl Market organizer",
+    "summary": "The market returns daily November 27–December 23, 2026, 11 a.m.–8 p.m., with artisan gift vendors and food. Admission is free, but purchases and nearby ticketed entertainment are separate. Venue parking directions may change for nearby sporting events."
+  },
+  {
     "slug": "abilene-winter-lightfest-opening",
     "title": "Abilene Winter Lightfest · opening evening",
     "city": "Abilene",
@@ -875,6 +917,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.lufkintexas.org/2026/07/27/lufkin-announces-2026-theme-for-lufkins-lighted-christmas-parade/",
     "sourceName": "Lufkin/Angelina County Chamber of Commerce",
     "summary": "Christmas in the Pines begins Friday December 4 with the Lighting of Rudolph the Red-Nosed Pumping Unit in downtown Lufkin. The annual lighted Christmas Parade is scheduled separately for Saturday December 5."
+  },
+  {
+    "slug": "mansfield-hometown-holidays-2026",
+    "title": "Mansfield Hometown Holidays 2026",
+    "city": "Mansfield",
+    "countySlug": "tarrant",
+    "countyName": "Tarrant County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-04",
+    "venueName": "Mansfield City Hall · 1200 E Broad Street",
+    "officialEventUrl": "https://www.mansfieldtexas.gov/789/Hometown-Holidays",
+    "sourceName": "City of Mansfield",
+    "summary": "The 2026 main Hometown Holidays festival is Friday December 4, 5–9 p.m., at Mansfield City Hall. Tree lighting, fireworks, market vendors, performances and family activities are planned; additional citywide holiday events run on other independently advertised dates."
   },
   {
     "slug": "salado-christmas-stroll-first",
@@ -1498,7 +1553,7 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The final five January evenings of the 2026–27 Marktplatz lighting program; December 31 is omitted because the special New Year's Eve event replaces the regular countdown.",
     "endDate": "2027-01-05"
   }
-];;;;;;;;;
+];;;;;;;;;;
 
 // Reuse comprehensive guides where they exist. The dated occurrence remains
 // an independent calendar record, so closing days are never falsely listed.
