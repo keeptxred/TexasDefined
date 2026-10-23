@@ -235,6 +235,7 @@ function GenericCollectionPage({ page }: { page: any }) {
                 <p className="mt-2 text-sm text-muted-foreground">{event.venueName ? `${event.venueName} · ` : ""}{event.city}, Texas</p>
                 <p className="mt-4 flex-1 text-sm leading-6 text-muted-foreground">{event.summary}</p>
                 <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">
+                  {event.guidePath ? <a href={event.guidePath} className="text-primary underline">Full event planning guide →</a> : null}
                   <a href={event.officialEventUrl} target="_blank" rel="noopener noreferrer" className="text-primary underline">Official event schedule ↗</a>
                   {event.countyPath ? <a href={event.countyPath} className="text-primary underline">Explore {event.countyName || event.city} →</a> : null}
                 </div>
