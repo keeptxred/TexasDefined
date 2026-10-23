@@ -33,7 +33,7 @@ function TexasVehicleRegistrationPage() {
         <p className="eyebrow text-primary">Private-party transactions</p>
         <h2 id="sale-checklists-heading" className="mt-2 font-display text-3xl">Buying or selling a used vehicle in Texas</h2>
         <p className="mt-3 max-w-3xl leading-7 text-muted-foreground">A signed bill of sale alone is not a substitute for a properly assigned vehicle title. Before exchanging payment, verify the VIN on the vehicle against the title, confirm the seller's ownership and any lien release, and check whether the vehicle has a branded or rebuilt title.</p>
-        <div className="mt-6 grid gap-6 md:grid-cols-2">
+        <div className="mt-6 grid gap-4 md:grid-cols-2">
           <div className="border border-border p-5">
             <h3 className="font-display text-2xl">Buyer checklist</h3>
             <ol className="mt-3 list-disc space-y-3 pl-5 text-sm leading-6 text-muted-foreground">
@@ -63,7 +63,7 @@ function TexasVehicleRegistrationPage() {
       <section id="ownership-fraud-prevention" aria-labelledby="ownership-fraud-heading" className="mx-auto max-w-6xl border-t border-border px-4 py-10 sm:px-6 lg:px-8">
         <p className="eyebrow text-primary">Protect your transaction</p>
         <h2 id="ownership-fraud-heading" className="mt-2 font-display text-3xl">Avoid common Texas used-car title problems</h2>
-        <div className="mt-5 grid gap-6 md:grid-cols-2">
+        <div className="mt-5 grid gap-4 md:grid-cols-2">
           <article className="border border-border p-5"><h3 className="font-display text-2xl">Title does not match the seller</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">Compare the seller's identification and title ownership information. Be cautious when someone is selling a vehicle titled to an unrelated person or asks you to leave buyer information blank. Resolve ownership questions before paying.</p></article>
           <article className="border border-border p-5"><h3 className="font-display text-2xl">Outstanding loan or lien</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">A lienholder may have a legal interest in the vehicle. Confirm how the lien will be satisfied and what release documentation the county office requires; do not assume the seller's statement alone clears the lien.</p></article>
           <article className="border border-border p-5"><h3 className="font-display text-2xl">VIN or odometer discrepancy</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">Compare the VIN in multiple places and investigate inconsistencies in the title, vehicle history and odometer disclosure. Stop the transaction when the identity of the vehicle cannot be established.</p></article>
