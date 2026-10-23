@@ -1,4 +1,5 @@
 import { corporateEventProviders } from '@/data/corporate-events';
+import { corporateEventTexasToday } from '@/data/corporate-event-dates';
 import { supabaseAdmin } from '@/integrations/supabase/client.server';
 
 /** Public subset only: never include a partner's contact details or unapproved draft. */
@@ -51,7 +52,7 @@ function approvedRedemptionUrl(redemptionUrl: string, businessWebsite: string) {
  */
 export async function loadPublicCorporateEventOffers(): Promise<PublicCorporateEventOffer[]> {
   const client = supabaseAdmin as any;
-  const today = new Date().toISOString().slice(0, 10);
+  const today = corporateEventTexasToday();
   const { data: offers, error: offersError } = await client
     .from('texasdefined_group_event_offers')
     .select('partner_application_id,provider_slug,title,benefit,code,redemption_url,starts_on,ends_on,reviewed_at')

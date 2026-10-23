@@ -1,6 +1,7 @@
 import { assertSportsPartnerAccess } from '@/data/sports-partner-leads.server';
 import { supabaseAdmin } from '@/integrations/supabase/client.server';
 import { corporateEventProviders } from '@/data/corporate-events';
+import { corporateEventTexasToday } from '@/data/corporate-event-dates';
 
 export type CorporateEventLeadStatus = 'new' | 'reviewing' | 'contacted' | 'closed' | 'spam';
 export type CorporateEventApplicationStatus = 'pending' | 'reviewing' | 'approved' | 'rejected' | 'spam';
@@ -130,7 +131,7 @@ export async function setCorporateEventOfferStatus(accessKey: string, id: string
     const { data: partner, error } = await client.from('texasdefined_group_event_partner_applications')
       .select('status').eq('id', offer.partner_application_id).maybeSingle();
     if (error || partner?.status !== 'approved') throw new Error('Only vetted partners may have approved offers.');
-    const today = new Date().toISOString().slice(0, 10);
+    const today = corporateEventTexasToday();
     if (String(offer.ends_on) < today || String(offer.starts_on) > String(offer.ends_on)) throw new Error('Offer date window is invalid or expired.');
   }
   // Approved offers require a reviewer and timestamp. No public publication occurs here.
