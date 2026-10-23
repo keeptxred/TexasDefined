@@ -1,6 +1,7 @@
 import { getGeneratedTexasEvents } from "../events-generated";
 import { loadTicketmasterEventsServer } from "./ticketmaster-events.server";
 import { getOfficialVenueEventSnapshots } from "./official-venue-events.server";
+import { getVerifiedChristmasCommunityEvents2026 } from "./christmas-community-2026.server";
 import { loadTpwdEventRecordsServer } from "./tpwd-event-records.server";
 import { loadMajorEventGuideDirectoryServer, type MajorEventGuideDirectoryItem } from "../major-event-directory.server";
 import { getMajorEventRecordServer } from "../major-event-page.server";
@@ -186,6 +187,17 @@ export function loadTexasEventRecordsServer(): TexasEventRecord[] {
       sourceCheckedAt: authority?.sourceCheckedAt ?? guide.sourceCheckedAt,
     }, guide);
     if (record) records.push(record);
+  }
+
+  // Small-town and community holiday attractions use the same verified,
+  // date-scoped calendar pipeline as major event guides. These are calendar
+  // occurrences, not thin automatically generated authority pages.
+  const knownCommunity = new Set(records.map((record) => `${eventIdentity(record.title, record.city)}:${record.startDate}`));
+  for (const holiday of getVerifiedChristmasCommunityEvents2026()) {
+    const key = `${eventIdentity(holiday.title, holiday.city)}:${holiday.startDate}`;
+    if (knownCommunity.has(key)) continue;
+    records.push(holiday);
+    knownCommunity.add(key);
   }
 
   // Curated primary-source event snapshots fill documented gaps in the
