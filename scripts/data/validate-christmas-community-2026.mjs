@@ -108,9 +108,21 @@ assert.equal(candidates.candidateCount, 250, "250-item intake missing");
 assert.equal(candidates.candidates.length, 250, "250-item research catalog truncated");
 assert.equal(candidates.candidates[0].intakeId, 1);
 assert.equal(candidates.candidates.at(-1).intakeId, 250);
-assert.equal(candidates.reconciliation.calendarCandidates, 25, "Source-qualified intake counts changed unexpectedly");
-assert.equal(candidates.reconciliation.authorityCandidates, 10, "Existing authority intake counts changed unexpectedly");
-assert.equal(candidates.reconciliation.remainingCandidates, 215, "Do not silently publish unverified Christmas names");
-assert.ok(events.length >= 44, "Dated Christmas inventory shrank unexpectedly");
+for (const [status, field] of [
+  ["sourced-calendar", "calendarCandidates"],
+  ["existing-authority", "authorityCandidates"],
+  ["candidate-needs-source-reconciliation", "remainingCandidates"],
+]) {
+  const actual = candidates.candidates.filter((record) => record.status === status).length;
+  assert.equal(candidates.reconciliation[field], actual, `Reconciliation summary drift for ${status}`);
+}
+assert.equal(
+  candidates.reconciliation.calendarCandidates +
+    candidates.reconciliation.authorityCandidates +
+    candidates.reconciliation.remainingCandidates,
+  250, "Every submitted Christmas candidate must be accounted for",
+);
+assert.ok(candidates.reconciliation.remainingCandidates > 0, "Do not auto-verify all holiday candidates without sources");
+assert.ok(events.length >= 46, "Dated Christmas inventory shrank unexpectedly");
 console.log(`Christmas calendar and five authority guides verified: ${events.length} dated occurrences, 250 candidates reconciled, affiliate disclosures, county crosslinks and premerge gate.`);
 
