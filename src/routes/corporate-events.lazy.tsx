@@ -76,7 +76,8 @@ function CorporateEventsPage() {
       const isHoustonZip = /^77(?:0|2)\\d{2}$/.test(cityTerm);
       const inRequestedMarket = cityTerm === 'texas' || cityTerm === 'tx'
         || (isHoustonZip && provider.city === 'Houston')
-        || provider.city.toLowerCase().includes(requestedCity);
+        || provider.city.toLowerCase().includes(requestedCity)
+        || provider.metro?.toLowerCase().includes(requestedCity);
       if (!inRequestedMarket) return false;
       if (provider.maxGroup != null && headcount > provider.maxGroup) return false;
       if (provider.minGroup != null && headcount < provider.minGroup) return false;
@@ -158,7 +159,7 @@ function CorporateEventsPage() {
       <Container className="py-12 sm:py-20">
         <p className="eyebrow text-background/70">Texas Defined • Group experiences</p>
         <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[1.05] sm:text-6xl lg:text-7xl">Plan a company event worth leaving the office for.</h1>
-        <p className="mt-6 max-w-3xl text-lg leading-8 text-background/80">Compare Houston team-building activities, company outings, private dining and corporate venues by your group's size. Shortlist options and create a proposal to share with your boss.</p>
+        <p className="mt-6 max-w-3xl text-lg leading-8 text-background/80">Compare company outings and team-building experiences across Houston, Dallas–Fort Worth, Austin and San Antonio by group size. Shortlist options and create a proposal to share with your boss.</p>
         <div className="mt-8 flex flex-wrap gap-4 text-sm text-background/80"><span className="inline-flex items-center gap-2"><Users className="size-4" /> Group-size aware</span><span className="inline-flex items-center gap-2"><ClipboardList className="size-4" /> Shareable shortlist</span><span className="inline-flex items-center gap-2"><Check className="size-4" /> Official venue sources</span></div>
       </Container>
     </section>
@@ -170,7 +171,7 @@ function CorporateEventsPage() {
           <div className="mt-5 space-y-5">
             <label className="block text-sm font-semibold">City in Texas
               <input value={city} onChange={(event) => setCity(event.target.value)} placeholder="Houston" maxLength={90} className={'mt-2 ' + controlClass} />
-              <span className="mt-1 block text-xs font-normal text-muted-foreground">Houston listings are available now. Other cities are being researched.</span>
+              <span className="mt-1 block text-xs font-normal text-muted-foreground">Browse Houston, Dallas–Fort Worth, Austin and San Antonio; enter a city name.</span>
             </label>
             <label className="block text-sm font-semibold">Number of guests
               <input type="number" min={2} max={3000} value={headcount} onChange={(event) => setHeadcount(Number(event.target.value))} className={'mt-2 ' + controlClass} />
@@ -201,14 +202,14 @@ function CorporateEventsPage() {
 
         <div>
           <div className="flex flex-wrap items-end justify-between gap-4 border-b border-border pb-5">
-            <div><p className="eyebrow text-primary">Curated launch directory</p><h2 className="mt-2 font-display text-3xl sm:text-4xl">{matches.length} group event {matches.length === 1 ? 'option' : 'options'}</h2><p className="mt-2 text-sm text-muted-foreground">{city.trim() || 'Your location'} · {validHeadcount ? headcount + ' guests' : 'Enter a valid group size'} · Sourced October 23, 2026</p></div>
+            <div><p className="eyebrow text-primary">Sourced Texas directory</p><h2 className="mt-2 font-display text-3xl sm:text-4xl">{matches.length} group event {matches.length === 1 ? 'option' : 'options'}</h2><p className="mt-2 text-sm text-muted-foreground">{city.trim() || 'Your location'} · {validHeadcount ? headcount + ' guests' : 'Enter a valid group size'} · Sourced October 23, 2026</p></div>
             {selected.length ? <a href="#proposal" className="inline-flex min-h-11 items-center gap-2 border border-primary px-4 text-sm font-semibold text-primary">{selected.length}/5 shortlisted <ClipboardList className="size-4" /></a> : null}
           </div>
           {matches.length ? <div className="mt-6 grid gap-5 md:grid-cols-2">{matches.map((provider) =>
             <ProviderCard key={provider.slug} provider={provider} selected={selected.includes(provider.slug)} onToggle={() => toggleSelected(provider.slug)} />
           )}</div> : <div className="mt-6 border border-border bg-surface p-8">
             <Search className="size-8 text-primary" aria-hidden /><h3 className="mt-4 font-display text-3xl">No sourced matches yet.</h3>
-            <p className="mt-3 max-w-xl leading-7 text-muted-foreground">We're launching with Houston and adding Texas cities as providers and group sizes are checked. Try Houston, adjust the filters, or submit your event requirements below so we can understand demand in your area.</p>
+            <p className="mt-3 max-w-xl leading-7 text-muted-foreground">Our verified Texas venue coverage is growing. Try Houston, Dallas, Austin or San Antonio, or send us your event brief. Try Houston, adjust the filters, or submit your event requirements below so we can understand demand in your area.</p>
             <button type="button" onClick={() => { setCity('Houston'); setHeadcount(45); setBudget(''); setIncludeOtherTypes(false); }} className="mt-5 border border-primary px-5 py-3 text-sm font-semibold text-primary">See Houston options</button>
           </div>}
           {matches.length > 0 ? <p className="mt-5 text-xs leading-6 text-muted-foreground">This is an independent editorial directory. No venue shown is represented as a paid TexasDefined partner. Prices are provider-published starting points only; no availability, discounts, or booking is guaranteed.</p> : null}
