@@ -376,6 +376,16 @@ Neither the presence nor repeal of that ordinance supplies a reliable
 The source is useful context for future verification, not permission
 to invent a numeric value.
 
+**Do not confuse two different places named Scurry.** The
+[Texas Comptroller's Kaufman County directory](https://comptroller.texas.gov/taxes/property-tax/county-directory/kaufman.php)
+identifies **City of Scurry** as Kaufman County taxing unit
+`129-114-03`. The tax records for **Scurry County** and the City of
+Snyder, in West Texas, are unrelated and must never be used to fill
+Kaufman County's missing municipal rates. The
+[Kaufman CAD taxing-entities directory](https://kaufman-cad.org/kaufman-cads-taxing-entities/)
+and its 2024 tax-rate list should be checked first; absence of a
+City of Scurry rate from that list alone does not prove zero tax.
+
 These are **research candidates only**; add a numerical local rate
 only after establishing primary-source adopted-rate evidence for
 the specific year and jurisdiction.
