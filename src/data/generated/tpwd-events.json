@@ -1,25 +1,7 @@
 {
-  "generatedAt": "2026-10-22T15:54:33.841Z",
+  "generatedAt": "2026-10-23T15:46:10.318Z",
   "sourceUrl": "https://tpwd.texas.gov/calendar",
   "events": [
-    {
-      "title": "Electric Tram Tour",
-      "startDate": "2026-10-22",
-      "parkKey": "estero-llano-grande",
-      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/electric-tram-tour/2026-10-22"
-    },
-    {
-      "title": "Hawk Watch",
-      "startDate": "2026-10-22",
-      "parkKey": "bentsen-rio-grande-valley",
-      "officialUrl": "https://tpwd.texas.gov/calendar/bentsen-rio-grande-valley/spring-hawk-watch/2026-10-22"
-    },
-    {
-      "title": "Slippery Serpents",
-      "startDate": "2026-10-22",
-      "parkKey": "martin-dies-jr",
-      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/slippery-serpents/2026-10-22"
-    },
     {
       "title": "Awesome Opossums",
       "startDate": "2026-10-23",
@@ -63,12 +45,6 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/indian-lodge-tour-1/2026-10-23"
     },
     {
-      "title": "Master Naturalist Hike",
-      "startDate": "2026-10-23",
-      "parkKey": "davis-mountains",
-      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/Master%20Naturalist%20Hike%20-%20Friday/2026-10-23"
-    },
-    {
       "title": "Meet The Longhorns",
       "startDate": "2026-10-23",
       "parkKey": "copper-breaks",
@@ -79,12 +55,6 @@
       "startDate": "2026-10-23",
       "parkKey": "choke-canyon",
       "officialUrl": "https://tpwd.texas.gov/calendar/choke-canyon/art-in-the-park-1/2026-10-23"
-    },
-    {
-      "title": "Tails on the Trails",
-      "startDate": "2026-10-23",
-      "parkKey": "eisenhower",
-      "officialUrl": "https://tpwd.texas.gov/calendar/eisenhower/tails-on-the-trails/2026-10-23"
     },
     {
       "title": "All About Us: a Guided Hike",
