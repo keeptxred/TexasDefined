@@ -52,7 +52,7 @@ function TexasDriversLicensePage() {
         </div>
         <h3 className="mt-8 font-display text-2xl">Common CDL endorsements and restrictions</h3>
         <div className="mt-4 overflow-x-auto">
-          <table className="w-full border-collapse text-left text-sm">
+          <table className="w-full text-left text-sm">
             <thead><tr className="border-b border-border"><th scope="col" className="py-3 pr-4">Code</th><th scope="col" className="py-3">Purpose</th></tr></thead>
             <tbody>
               <tr className="border-b border-border"><th scope="row" className="py-3 pr-4">H</th><td className="py-3">Hazardous materials; separate federal security screening applies.</td></tr>
