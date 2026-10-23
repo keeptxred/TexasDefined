@@ -20,6 +20,9 @@ import {
 import { loadTournamentCollectionItemsServer } from "./texas-tournaments.server";
 import { loadTexasThisWeekendDigestServer } from "./texas-this-weekend.server";
 import { getChristmasPerformances2026Server } from "./events/christmas-performances-2026.server";
+import { getVerifiedChristmasCommunityEvents2026 } from "./events/christmas-community-2026.server";
+import { buildViatorAffiliateUrl } from "../lib/viator-affiliate";
+import { hasVerifiedViatorMarketUrl, verifiedViatorMarketUrl } from "./viator-destination-links";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 type CollectionDefinition = EventCollectionDefinition | TemporalEventCollectionDefinition | TournamentCollectionDefinition;
@@ -174,11 +177,42 @@ export function loadEventCollectionPageServer(slug: string) {
 
   const weekendDigest = temporal?.slug === "this-weekend" ? loadTexasThisWeekendDigestServer() : null;
   const christmasPerformances = temporal?.slug === "christmas-events" ? getChristmasPerformances2026Server() : [];
+  // Calendar-first local Christmas traditions have verified occurrence dates
+  // and primary-source links, but do not require thin individual authority pages.
+  const christmasMarketByCity: Record<string, string> = {
+    "El Paso": "el-paso", "Fort Worth": "fort-worth",
+    "Fredericksburg": "fredericksburg",
+  };
+  const christmasCommunityEvents = temporal?.slug === "christmas-events"
+    ? getVerifiedChristmasCommunityEvents2026().map((event) => {
+        const market = christmasMarketByCity[event.city];
+        return {
+          id: event.id,
+          slug: event.slug,
+          title: event.title,
+          summary: event.summary,
+          startDate: event.startDate,
+          endDate: event.endDate,
+          city: event.city,
+          countyName: event.countyName,
+          countyPath: event.countySlug ? `/county/${event.countySlug}` : "",
+          venueName: event.venueName,
+          officialEventUrl: event.officialEventUrl,
+          sourceName: event.sourceName,
+          verifiedAt: event.lastVerifiedAt,
+          nearbyExperiencesUrl: market && hasVerifiedViatorMarketUrl(market)
+            ? buildViatorAffiliateUrl(verifiedViatorMarketUrl(market), `td-christmas-community-${event.slug}`)
+            : "",
+        };
+      })
+    : [];
+
 
   return {
     ...collection,
     weekendDigest,
     christmasPerformances,
+    christmasCommunityEvents,
     relatedCollections,
     itemCount: items.length,
     latestSourceCheck,
@@ -187,7 +221,7 @@ export function loadEventCollectionPageServer(slug: string) {
     indexabilityNote,
     itemCountLabel: tournament
       ? `${items.length.toLocaleString("en-US")} tournament and competition entries · ${verifiedTournamentCount.toLocaleString("en-US")} verified guides`
-      : `${items.length.toLocaleString("en-US")} verified event guides${latestSourceCheck ? ` · Latest source check: ${latestSourceCheck}` : ""}`,
+      : `${items.length.toLocaleString("en-US")} verified event guides${christmasCommunityEvents.length ? ` · ${christmasCommunityEvents.length} verified community Christmas calendar entries` : ""}${latestSourceCheck ? ` · Latest source check: ${latestSourceCheck}` : ""}`,
     itemsEyebrow: tournament ? "Texas tournament directory" : "Permanent planning pages",
     itemsTitle: tournament ? (tournament.value ? tournament.title : "250 Texas tournaments & competitions") : "Verified event guides",
     emptyMessage: tournament
