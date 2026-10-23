@@ -1,0 +1,81 @@
+{
+  "generatedAt": "2026-10-22T00:53:14.862Z",
+  "reviewedLeaves": 255,
+  "compliantBefore": 33,
+  "pendingBefore": 222,
+  "requestedSlugs": [
+    "addison-oktoberfest",
+    "heart-o-texas-fair-rodeo",
+    "homestead-fair-waco",
+    "waco-wonderland",
+    "dallas-international-film-festival",
+    "worldfest-houston",
+    "waco-independent-film-festival",
+    "texas-international-fishing-tournament",
+    "texas-food-truck-showdown"
+  ],
+  "scopedPendingBefore": 9,
+  "attempted": 9,
+  "resolved": 9,
+  "unresolved": [],
+  "remainingAfterThisRun": 213,
+  "remainingRequestedAfterThisRun": [],
+  "model": "@cf/black-forest-labs/flux-1-schnell",
+  "policy": "Missing Event heroes remain fail-closed until generated assets and structured provenance are reviewed and merged.",
+  "images": [
+    {
+      "slug": "addison-oktoberfest",
+      "file": "major-event-schema-enrichment-batch2.server.ts",
+      "asset": "public/images/events/addison-oktoberfest.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "heart-o-texas-fair-rodeo",
+      "file": "major-event-schema-enrichment-batch11.server.ts",
+      "asset": "public/images/events/heart-o-texas-fair-rodeo.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "homestead-fair-waco",
+      "file": "major-event-schema-enrichment-batch29.server.ts",
+      "asset": "public/images/events/homestead-fair-waco.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "waco-wonderland",
+      "file": "major-event-schema-enrichment-batch29.server.ts",
+      "asset": "public/images/events/waco-wonderland.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "dallas-international-film-festival",
+      "file": "major-event-schema-enrichment-batch29.server.ts",
+      "asset": "public/images/events/dallas-international-film-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "worldfest-houston",
+      "file": "major-event-schema-enrichment-batch29.server.ts",
+      "asset": "public/images/events/worldfest-houston.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "waco-independent-film-festival",
+      "file": "major-event-schema-enrichment-batch29.server.ts",
+      "asset": "public/images/events/waco-independent-film-festival.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "texas-international-fishing-tournament",
+      "file": "major-event-schema-enrichment-batch29.server.ts",
+      "asset": "public/images/events/texas-international-fishing-tournament.jpg",
+      "sourceType": "ai-generated"
+    },
+    {
+      "slug": "texas-food-truck-showdown",
+      "file": "major-event-schema-enrichment-batch29.server.ts",
+      "asset": "public/images/events/texas-food-truck-showdown.jpg",
+      "sourceType": "ai-generated"
+    }
+  ]
+}
