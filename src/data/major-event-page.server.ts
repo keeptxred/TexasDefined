@@ -285,7 +285,10 @@ export function buildMajorEventTicketingMarkupServer(slug: string) {
     const disclosure = cta.disclosure
       ? `<p class="mt-3 text-xs text-muted-foreground">${esc(cta.disclosure)}</p>`
       : "";
-    return `<section data-event-ticketing class="mt-10 border-y border-border py-8"><p class="eyebrow text-primary">Tickets</p><h2 class="mt-2 font-display text-3xl">Current ticket availability</h2><p class="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">The live event feed currently has one actionable ticket listing for ${esc(record.title)}. Checkout is handled by the ticket provider.</p><p class="mt-5"><a class="inline-flex min-h-11 items-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90" href="${esc(cta.href)}" target="_blank" rel="${esc(cta.rel)}"${affiliateAttributes}>${esc(cta.label)}</a></p>${disclosure}</section>`;
+    const officialPrimaryNote = slug === "big-12-football-championship"
+      ? '<p class="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">The Big 12 Conference identifies SeatGeek as its official primary public ticketing channel. This Ticketmaster listing is an additional commercial option, not a representation that Ticketmaster is the conference\'s primary box office. Compare seller terms and ticket availability with the conference\'s official ticket page before purchasing.</p>'
+      : "";
+    return `<section data-event-ticketing class="mt-10 border-y border-border py-8"><p class="eyebrow text-primary">Tickets</p><h2 class="mt-2 font-display text-3xl">Current ticket availability</h2><p class="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">The live event feed currently has one actionable ticket listing for ${esc(record.title)}. Checkout is handled by the ticket provider.</p><p class="mt-5"><a class="inline-flex min-h-11 items-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90" href="${esc(cta.href)}" target="_blank" rel="${esc(cta.rel)}"${affiliateAttributes}>${esc(cta.label)}</a></p>${officialPrimaryNote}${disclosure}</section>`;
   }
 
   if (actionable.length > 1) {
