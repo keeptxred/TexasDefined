@@ -13,6 +13,8 @@ const registry = read("src/data/major-event-supplemental-registry.server.ts");
 const hubLinks = read("src/data/fixtures/seasonal-authority-links.ts");
 const majorIndex = read("src/data/major-event-index.ts");
 const candidates = JSON.parse(read("src/data/events/christmas-candidates-250.json"));
+const schemaRegistry = read("src/data/major-event-schema-enrichment.server.ts");
+const schemaBatch = read("src/data/major-event-schema-enrichment-batch33.server.ts");
 
 const start = eventFile.indexOf("const verifiedOccurrences");
 const end = eventFile.indexOf("\n];", start);
@@ -84,8 +86,9 @@ const majorAuthoritySlugs = [
   "dallas-zoo-lights",
 ];
 for (const slug of majorAuthoritySlugs) {
-  assert.ok(authority.includes(`"slug": "${slug}"`), `Missing destination-scale Christmas guide ${slug}`);
+  assert.ok(authority.includes(`slug: "${slug}"`), `Missing destination-scale Christmas guide ${slug}`);
   assert.ok(registry.includes(`"${slug}"`), `Missing guide directory/sitemap registration ${slug}`);
+  assert.ok(schemaBatch.includes(`slug: "${slug}"`), `Missing approved optional-schema review for ${slug}`);
   assert.ok(hubLinks.includes(`"/event/${slug}"`), `Missing Christmas pillar bidirectional link ${slug}`);
   assert.ok(resolver.includes("getExpandedMajorEventAuthorityTranche59Server(slug)"), "Guide resolver tranche59 disconnected");
 }
@@ -124,6 +127,7 @@ assert.equal(
 );
 assert.ok(candidates.reconciliation.remainingCandidates > 0, "Do not auto-verify all holiday candidates without sources");
 assert.ok(events.length >= 64, "Dated Christmas inventory shrank unexpectedly");
+assert.ok(schemaRegistry.includes("...majorEventSchemaEnrichmentBatch33,"), "Reviewed Christmas organizer schema batch missing from runtime registry");
 assert.ok(adapter.includes("getMajorEventOccurrenceWindowsServer(authority)"), "Date-scoped seasonal guides must not pad closed nights");
 assert.ok(read("src/data/major-event-expanded-authority-tranche57.server.ts").includes('label: "After Dec 9 closure"'), "Houston Zoo Lights holiday closures must remain excluded");
 check("santas-ranch-new-braunfels", "2026-11-06", "2027-01-03");
