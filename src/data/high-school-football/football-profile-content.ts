@@ -88,7 +88,7 @@ export function buildFootballProfileSummary(input: FootballProfileContentInput) 
       : '';
     const coach = editorial?.coach ? ` The current sourced head coach is ${editorial.coach.name}.` : '';
     const notice = editorial?.notice ? ` ${editorial.notice.title}: ${editorial.notice.body}` : '';
-    return `${team} football is${format} in ${alignment}${place ? ` from ${place}` : ''}.${districtInfo}${schoolIdentity}${enrollment}${placementException}${coach}${notice} The final UIL alignment controls competition placement; classification is not a quality ranking.`;
+    return `${team} football is${format} in ${alignment}${place ? ` from ${place}` : ''}.${districtInfo}${schoolIdentity}${enrollment}${placementException}${coach}${notice} The final UIL alignment controls competition placement. Classification is not a quality ranking.`;
   }
 
   if (privateAlignment) {
