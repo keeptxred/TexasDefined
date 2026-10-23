@@ -27,6 +27,13 @@ function EventGuideLink({ event, className, children, trackId }: { event: { slug
   return <a href={event.href} className={className} {...tracking}>{children}</a>;
 }
 
+function holidayDateLabel(start: string, end?: string) {
+  const format = (value: string) => new Intl.DateTimeFormat("en-US", {
+    month: "short", day: "numeric", year: "numeric", timeZone: "UTC",
+  }).format(new Date(`${value}T12:00:00Z`));
+  return !end || end === start ? format(start) : `${format(start)} – ${format(end)}`;
+}
+
 function weekendCardImage(event: any) {
   if (event.image?.url) return { src: event.image.url, alt: event.image.alt || "" };
   if (event.category === "sport") return { src: highSchoolFootballHero, alt: "Texas football field used as contextual Texas sports imagery" };
@@ -205,6 +212,59 @@ function GenericCollectionPage({ page }: { page: any }) {
               </li>
             ))}
           </ol>
+        </section>
+      ) : null}
+
+      {page.path === "/events/christmas-events" && page.christmasCommunityEvents?.length ? (
+        <section className="pt-12" aria-labelledby="christmas-community-events">
+          <div className="flex flex-wrap items-end justify-between gap-4 border-b border-border pb-6">
+            <div>
+              <p className="eyebrow text-primary">Source-verified local traditions</p>
+              <h2 id="christmas-community-events" className="mt-2 font-display text-4xl">Christmas lights, parades and community festivals</h2>
+            </div>
+            <a href="/events?start=2026-11-01&end=2027-01-05#calendar" className="text-sm font-semibold text-primary">Open the full holiday date calendar →</a>
+          </div>
+          <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">
+            These are independently verified 2026–27 event dates, not a claim that every one of the 250 candidate attractions is scheduled this year. Some displays run nightly while other festivals have only one day or a few operating weekends. Always confirm hours and closures with the linked organizer. Smaller attractions remain calendar listings rather than duplicate authority pages.
+          </p>
+          <ol className="mt-6 grid gap-px border border-border bg-border sm:grid-cols-2 xl:grid-cols-3">
+            {page.christmasCommunityEvents.map((event: any) => (
+              <li key={event.id} id={`christmas-community-${event.slug}`} className="flex scroll-mt-28 flex-col bg-background p-6">
+                <p className="text-xs font-semibold uppercase tracking-wide text-primary">{holidayDateLabel(event.startDate, event.endDate)}</p>
+                <h3 className="mt-3 font-display text-2xl leading-tight">{event.title}</h3>
+                <p className="mt-2 text-sm text-muted-foreground">{event.venueName ? `${event.venueName} · ` : ""}{event.city}, Texas</p>
+                <p className="mt-4 flex-1 text-sm leading-6 text-muted-foreground">{event.summary}</p>
+                <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">
+                  <a href={event.officialEventUrl} target="_blank" rel="noopener noreferrer" className="text-primary underline">Official event schedule ↗</a>
+                  {event.countyPath ? <a href={event.countyPath} className="text-primary underline">Explore {event.countyName || event.city} →</a> : null}
+                </div>
+                {event.nearbyExperiencesUrl ? (
+                  <div className="mt-4 border-t border-border pt-3">
+                    <a href={event.nearbyExperiencesUrl} target="_blank" rel="sponsored nofollow noopener noreferrer" data-affiliate-partner="viator" data-affiliate-placement="christmas-community-nearby-experiences" data-commercial-partner="viator" data-commercial-placement="christmas-community-nearby-experiences" className="text-sm font-semibold text-primary underline">
+                      Explore independent {event.city} tours →
+                    </a>
+                    <p className="mt-1 text-xs leading-5 text-muted-foreground">Affiliate link · these nearby activities are not admission to the Christmas event. TexasDefined may earn a commission from qualifying bookings.</p>
+                  </div>
+                ) : null}
+                <p className="mt-3 text-xs text-muted-foreground">Organizer checked {event.verifiedAt}.</p>
+              </li>
+            ))}
+          </ol>
+          <aside className="mt-8 grid gap-6 border-y border-border py-6 lg:grid-cols-2" aria-label="Plan a Christmas day trip or weekend">
+            <div>
+              <p className="eyebrow text-primary">Build a holiday weekend</p>
+              <h3 className="mt-2 font-display text-2xl">Compare overnight stays</h3>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">Popular event evenings can mean full hotels. Choose the event and city first, then compare lodging dates independently; the linked hotel search is not an event admission ticket.</p>
+              <a href="https://www.anrdoezrs.net/links/101876465/type/dlg/https://www.hotels.com/" rel="sponsored nofollow noopener noreferrer" data-affiliate-partner="hotels.com" data-affiliate-placement="christmas-hub-hotel-search" data-commercial-partner="hotels.com" data-commercial-placement="christmas-hub-hotel-search" target="_blank" className="mt-4 inline-block text-sm font-semibold text-primary underline">Search hotels on Hotels.com →</a>
+              <p className="mt-2 text-xs text-muted-foreground">Affiliate disclosure: TexasDefined may earn a commission on qualifying hotel bookings.</p>
+            </div>
+            <div>
+              <p className="eyebrow text-primary">Holiday business partnerships</p>
+              <h3 className="mt-2 font-display text-2xl">Reach Christmas travelers</h3>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">Local hotels, restaurants, attractions and visitor businesses may inquire about separately approved, clearly labeled seasonal sponsorships. Advertising never determines which events qualify or their editorial order.</p>
+              <a href="/partner-with-us" className="mt-4 inline-block text-sm font-semibold text-primary underline">Explore TexasDefined advertising →</a>
+            </div>
+          </aside>
         </section>
       ) : null}
 
