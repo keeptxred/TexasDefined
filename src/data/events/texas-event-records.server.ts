@@ -4,7 +4,7 @@ import { getOfficialVenueEventSnapshots } from "./official-venue-events.server";
 import { getVerifiedChristmasCommunityEvents2026 } from "./christmas-community-2026.server";
 import { loadTpwdEventRecordsServer } from "./tpwd-event-records.server";
 import { loadMajorEventGuideDirectoryServer, type MajorEventGuideDirectoryItem } from "../major-event-directory.server";
-import { getMajorEventRecordServer } from "../major-event-page.server";
+import { getMajorEventRecordServer, getMajorEventOccurrenceWindowsServer } from "../major-event-page.server";
 import {
   getMajorEventSchemaEnrichmentServer,
   isCompliantMajorEventImage,
@@ -195,6 +195,28 @@ export function loadTexasEventRecordsServer(): TexasEventRecord[] {
     }, guide);
     if (record) records.push(record);
   }
+
+  // A season envelope is NOT evidence of operation every day inside it.
+  // Expand sourced multi-window seasonal authorities into their exact
+  // date windows before the shared calendar counts days or accepts tickets.
+  // This also fixes Main Street Bethlehem's two discrete December weekends.
+  const windowScopedRecords = records.flatMap((record) => {
+    if (record.category !== "seasonal") return [record];
+    const authority = getMajorEventRecordServer(record.slug);
+    if (!authority) return [record];
+    const windows = getMajorEventOccurrenceWindowsServer(authority);
+    if (windows.length <= 1) return [record];
+    return windows.map((window, index) => ({
+      ...record,
+      id: `${record.id}:verified-window-${index + 1}`,
+      startDate: window.startDate,
+      endDate: window.endDate,
+      // A single scheduled event time must never be projected onto every
+      // holiday date window, where the operating hours can be different.
+      startTime: undefined,
+    }));
+  });
+  records.splice(0, records.length, ...windowScopedRecords);
 
   // Small-town and community holiday attractions use the same verified,
   // date-scoped calendar pipeline as major event guides. These are calendar
