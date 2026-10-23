@@ -183,7 +183,7 @@ function GenericCollectionPage({ page }: { page: any }) {
           </p>
           <ol className="mt-6 divide-y divide-border border-y border-border">
             {page.christmasPerformances.map((show: any) => (
-              <li key={show.id} className="grid gap-4 py-5 lg:grid-cols-3 md:items-start">
+              <li key={show.id} className="grid gap-4 py-5 lg:grid-cols-3">
                 <div>
                   <p className="font-semibold text-foreground">{show.dateLabel}</p>
                   <p className="mt-1 text-sm text-muted-foreground">{show.timeLabel}</p>
