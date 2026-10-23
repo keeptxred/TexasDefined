@@ -23,7 +23,7 @@ const ErrorScreen = lazy(() => import("@/components/RouteStatusScreens").then((m
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const defaultSocialImage = absoluteUrl(texasDefinedBrand, heroHillCountry);
-const defaultSocialImageAlt = "Texas Hill Country";
+const defaultSocialImageAlt = "Hill Country landscape";
 const iconVersion = "20261010";
 const googleTagManagerId = "GTM-5DK7GCGV";
 const googleTagManagerHosts = JSON.stringify(TEXASDEFINED_ANALYTICS_HOSTS);
@@ -32,7 +32,7 @@ function GoogleTagManagerHead() {
   return (
     <script
       dangerouslySetInnerHTML={{
-        __html: `(function(w,h){var n=w.navigator;if(n.webdriver===true||/HeadlessChrome|Lighthouse|PageSpeed|TexasDefined-[^ ]*Smoke/i.test(n.userAgent)||!h.includes(w.location.hostname.toLowerCase()))return;(w.dataLayer||=[]).push({'gtm.start':Date.now(),event:'gtm.js'});document.head.appendChild(document.createElement('script')).src='https://www.googletagmanager.com/gtm.js?id=${googleTagManagerId}'})(window,${googleTagManagerHosts});`,
+        __html: `(function(w,h){var n=w.navigator;if(n.webdriver===true||/HeadlessChrome|Lighthouse|PageSpeed|TexasDefined-[^ ]*Smoke/i.test(n.userAgent)||!h.includes(w.location.hostname.toLowerCase()))return;(w.dataLayer||=[]).push({'gtm.start':Date.now(),event:'gtm.js'});var s=document.createElement('script');s.src='https://www.googletagmanager.com/gtm.js?id=${googleTagManagerId}';document.head.append(s)})(window,${googleTagManagerHosts});`,
       }}
     />
   );
@@ -118,7 +118,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
             }],
             publishingPrinciples: `${siteUrl}/editorial-policy`,
             areaServed: { "@type": "State", name: "Texas" },
-            knowsAbout: ["Texas travel", "Texas destinations", "Texas history", "Texas events", "Texas sports", "Texas sports venues", "Texas fishing", "Texas fishing lakes", "Texas freshwater fish"],
+            knowsAbout: ["Texas travel", "Texas destinations", "Texas history", "Texas events", "Texas sports", "Texas sports venues", "Texas fishing"],
           },
           {
             "@type": "WebSite",
