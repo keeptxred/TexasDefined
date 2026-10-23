@@ -112,6 +112,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The free synchronized music-and-light show runs nightly 6–10 p.m. from November 20 through January 4, 2027. Any additional activities, private events or vendors have separate schedules."
   },
   {
+    "slug": "san-antonio-garden-illuminate-opening-2026",
+    "title": "San Antonio Botanical Garden Illuminate · opening night",
+    "city": "San Antonio",
+    "countySlug": "bexar",
+    "countyName": "Bexar County",
+    "region": "south-texas",
+    "startDate": "2026-11-20",
+    "venueName": "San Antonio Botanical Garden · 555 Funston Place",
+    "officialEventUrl": "https://sabgtx.org/exhibition/illuminate/",
+    "sourceName": "San Antonio Botanical Garden",
+    "summary": "The Botanical Garden confirms its 2026–27 light experience is named Illuminate, not Lightscape, and runs November 20–January 10 on ticketed timed-entry dates. This entry records the season's confirmed opening date only; use the operator's live ticket calendar to choose another valid 5:30–9:30 p.m. entry night."
+  },
+  {
     "slug": "sugar-land-holiday-lights-constellation-field",
     "title": "Sugar Land Holiday Lights at Constellation Field",
     "city": "Sugar Land",
@@ -986,6 +999,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The 2026 'Red, White & Bright' downtown Lufkin illuminated parade takes place Saturday December 5 during Christmas in the Pines weekend. Check official parade route and time before traveling."
   },
   {
+    "slug": "natural-bridge-christmas-caverns-opening-2026",
+    "title": "Natural Bridge Caverns Christmas at the Caverns · opening night",
+    "city": "San Antonio",
+    "countySlug": "comal",
+    "countyName": "Comal County",
+    "region": "hill-country",
+    "startDate": "2026-12-05",
+    "venueName": "Natural Bridge Caverns · 26495 Natural Bridge Caverns Road",
+    "officialEventUrl": "https://www.naturalbridgecaverns.com/event/christmas-at-the-caverns/",
+    "sourceName": "Natural Bridge Caverns",
+    "summary": "The operator's 2026 Christmas at the Caverns promotion confirms a December 5–23 holiday season on select dates, with underground caroling, lights and optional ticket tiers. This event record marks the confirmed opening date only; select other nights using the official dated reservation calendar."
+  },
+  {
     "slug": "richardson-santas-village-week1",
     "title": "Richardson Santa's Village · December 5–6",
     "city": "Richardson",
@@ -1472,7 +1498,7 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The final five January evenings of the 2026–27 Marktplatz lighting program; December 31 is omitted because the special New Year's Eve event replaces the regular countdown.",
     "endDate": "2027-01-05"
   }
-];;;;;;;;
+];;;;;;;;;
 
 // Reuse comprehensive guides where they exist. The dated occurrence remains
 // an independent calendar record, so closing days are never falsely listed.
