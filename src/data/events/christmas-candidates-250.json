@@ -8,7 +8,10 @@
       "intakeId": 1,
       "title": "Johnson City Lights Spectacular",
       "submittedRegion": "Hill Country & Central Texas",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "johnson-city-lights-spectacular"
+      ]
     },
     {
       "intakeId": 2,
@@ -20,19 +23,30 @@
       "intakeId": 3,
       "title": "Fredericksburg Christmas Pyramid",
       "submittedRegion": "Hill Country & Central Texas",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "fredericksburg-nights-of-lights-opening",
+        "fredericksburg-nights-of-lights-main",
+        "fredericksburg-nights-of-lights-final"
+      ]
     },
     {
       "intakeId": 4,
       "title": "Wimberley Trail of Lights",
       "submittedRegion": "Hill Country & Central Texas",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "wimberley-trail-of-lights"
+      ]
     },
     {
       "intakeId": 5,
       "title": "Marble Falls Walkway of Lights",
       "submittedRegion": "Hill Country & Central Texas",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "marble-falls-walkway-of-lights"
+      ]
     },
     {
       "intakeId": 6,
@@ -44,7 +58,8 @@
       "intakeId": 7,
       "title": "Burnet Main Street Bethlehem",
       "submittedRegion": "Hill Country & Central Texas",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "existing-authority",
+      "guidePath": "/event/main-street-bethlehem-burnet"
     },
     {
       "intakeId": 8,
@@ -62,7 +77,11 @@
       "intakeId": 10,
       "title": "San Marcos Sights & Sounds of Christmas",
       "submittedRegion": "Hill Country & Central Texas",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "san-marcos-sights-sounds-week1",
+        "san-marcos-sights-sounds-week2"
+      ]
     },
     {
       "intakeId": 11,
@@ -74,7 +93,10 @@
       "intakeId": 12,
       "title": "Boerne Dickens on Main",
       "submittedRegion": "Hill Country & Central Texas",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "boerne-dickens-on-main"
+      ]
     },
     {
       "intakeId": 13,
@@ -86,7 +108,10 @@
       "intakeId": 14,
       "title": "Georgetown Christmas Stroll",
       "submittedRegion": "Hill Country & Central Texas",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "georgetown-christmas-stroll"
+      ]
     },
     {
       "intakeId": 15,
@@ -98,7 +123,8 @@
       "intakeId": 16,
       "title": "Austin Trail of Lights",
       "submittedRegion": "Hill Country & Central Texas",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "existing-authority",
+      "guidePath": "/event/austin-trail-of-lights"
     },
     {
       "intakeId": 17,
@@ -116,7 +142,10 @@
       "intakeId": 19,
       "title": "Austin Mozart’s Light Show",
       "submittedRegion": "Hill Country & Central Texas",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "austin-mozarts-festival-of-lights"
+      ]
     },
     {
       "intakeId": 20,
@@ -134,7 +163,11 @@
       "intakeId": 22,
       "title": "Salado Christmas Stroll",
       "submittedRegion": "Hill Country & Central Texas",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "salado-christmas-stroll-first",
+        "salado-lighted-christmas-parade"
+      ]
     },
     {
       "intakeId": 23,
@@ -176,7 +209,8 @@
       "intakeId": 29,
       "title": "College Station Santa's Wonderland",
       "submittedRegion": "Hill Country & Central Texas",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "existing-authority",
+      "guidePath": "/event/santas-wonderland-college-station"
     },
     {
       "intakeId": 30,
@@ -200,7 +234,11 @@
       "intakeId": 33,
       "title": "Brenham Christmas Stroll",
       "submittedRegion": "Hill Country & Central Texas",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "brenham-christmas-stroll-parade",
+        "brenham-cold-nights-holiday-tunes-2026"
+      ]
     },
     {
       "intakeId": 34,
@@ -308,13 +346,20 @@
       "intakeId": 51,
       "title": "Grapevine Christmas Capital of Texas",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "existing-authority",
+      "guidePath": "/event/grapevine-christmas-capital-of-texas"
     },
     {
       "intakeId": 52,
       "title": "Grapevine Vintage Railroad North Pole Express",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "grapevine-north-pole-express-nov",
+        "grapevine-north-pole-express-dec",
+        "grapevine-north-pole-express-final",
+        "fort-worth-north-pole-express-dec3"
+      ]
     },
     {
       "intakeId": 53,
@@ -350,13 +395,22 @@
       "intakeId": 58,
       "title": "Dallas Holiday at the Arboretum",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "existing-authority",
+      "guidePath": "/event/holiday-at-the-dallas-arboretum"
     },
     {
       "intakeId": 59,
       "title": "Dallas Zoo Lights",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "dallas-zoo-lights-opening",
+        "dallas-zoo-lights-november",
+        "dallas-zoo-lights-dec-early",
+        "dallas-zoo-lights-dec-mid",
+        "dallas-zoo-lights-dec-late",
+        "dallas-zoo-lights-final"
+      ]
     },
     {
       "intakeId": 60,
@@ -374,25 +428,37 @@
       "intakeId": 62,
       "title": "Fort Worth Parade of Lights",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "fort-worth-parade-of-lights"
+      ]
     },
     {
       "intakeId": 63,
       "title": "Fort Worth Stockyards Cowboy Santa",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "fort-worth-stockyards-cowboy-santa-arrival"
+      ]
     },
     {
       "intakeId": 64,
       "title": "Fort Worth Gift of Lights",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "fort-worth-gift-of-lights"
+      ]
     },
     {
       "intakeId": 65,
       "title": "Frisco Christmas in the Square",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "frisco-christmas-in-the-square"
+      ]
     },
     {
       "intakeId": 66,
@@ -410,7 +476,10 @@
       "intakeId": 68,
       "title": "McKinney Home for the Holidays",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "mckinney-home-for-holidays"
+      ]
     },
     {
       "intakeId": 69,
@@ -452,7 +521,10 @@
       "intakeId": 75,
       "title": "Grand Prairie Prairie Lights",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "grand-prairie-prairie-lights"
+      ]
     },
     {
       "intakeId": 76,
@@ -494,7 +566,11 @@
       "intakeId": 82,
       "title": "Cleburne Whistle Stop Christmas",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "cleburne-whistle-stop-christmas",
+        "cleburne-whistle-stop-parade"
+      ]
     },
     {
       "intakeId": 83,
@@ -614,19 +690,24 @@
       "intakeId": 102,
       "title": "Galveston Moody Gardens Festival of Lights",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "moody-gardens-holiday-lights-trail"
+      ]
     },
     {
       "intakeId": 103,
       "title": "Galveston Holiday Ice Land",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "existing-authority",
+      "guidePath": "/event/moody-gardens-ice-land"
     },
     {
       "intakeId": 104,
       "title": "Houston Zoo Lights",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "existing-authority",
+      "guidePath": "/event/houston-zoo-lights"
     },
     {
       "intakeId": 105,
@@ -680,7 +761,10 @@
       "intakeId": 113,
       "title": "Tomball German Christmas Market",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "tomball-german-christmas-market"
+      ]
     },
     {
       "intakeId": 114,
@@ -812,7 +896,10 @@
       "intakeId": 135,
       "title": "Cuero's Christmas in the Park",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "cuero-christmas-in-the-park"
+      ]
     },
     {
       "intakeId": 136,
@@ -914,7 +1001,8 @@
       "intakeId": 152,
       "title": "San Antonio Ford Holiday River Parade",
       "submittedRegion": "South Texas & Alamo Region",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "existing-authority",
+      "guidePath": "/event/ford-holiday-river-parade"
     },
     {
       "intakeId": 153,
@@ -998,7 +1086,8 @@
       "intakeId": 166,
       "title": "McAllen Holiday Parade",
       "submittedRegion": "South Texas & Alamo Region",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "existing-authority",
+      "guidePath": "/event/mcallen-holiday-parade"
     },
     {
       "intakeId": 167,
@@ -1328,7 +1417,10 @@
       "intakeId": 221,
       "title": "Lubbock Candlelight at the Ranch",
       "submittedRegion": "West Texas & Panhandle Plains",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "lubbock-candlelight-at-the-ranch"
+      ]
     },
     {
       "intakeId": 222,
@@ -1346,13 +1438,20 @@
       "intakeId": 224,
       "title": "Abilene Winter Lightfest",
       "submittedRegion": "West Texas & Panhandle Plains",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "abilene-winter-lightfest-opening",
+        "abilene-winter-lightfest-week1",
+        "abilene-winter-lightfest-week2",
+        "abilene-winter-lightfest-week3"
+      ]
     },
     {
       "intakeId": 225,
       "title": "San Angelo Concho Christmas Celebration",
       "submittedRegion": "West Texas & Panhandle Plains",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "existing-authority",
+      "guidePath": "/event/concho-christmas-tour-of-lights"
     },
     {
       "intakeId": 226,
@@ -1370,7 +1469,11 @@
       "intakeId": 228,
       "title": "El Paso WinterFest",
       "submittedRegion": "West Texas & Panhandle Plains",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "el-paso-winterfest-lights",
+        "el-paso-winterfest-kickoff"
+      ]
     },
     {
       "intakeId": 229,
@@ -1504,5 +1607,11 @@
       "submittedRegion": "West Texas & Panhandle Plains",
       "status": "candidate-needs-source-reconciliation"
     }
-  ]
+  ],
+  "reconciliation": {
+    "asOf": "2026-10-23",
+    "calendarCandidates": 25,
+    "authorityCandidates": 10,
+    "remainingCandidates": 215
+  }
 }
