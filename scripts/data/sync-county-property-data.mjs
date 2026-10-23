@@ -353,7 +353,7 @@ function renderSupplement(records) {
     lines.push(`  ${/^[a-z][a-z0-9_]*$/.test(slug) ? slug : JSON.stringify(slug)}: ${renderTypescriptValue(record, 1)},`);
   }
   lines.push('};', '');
-  return lines.join('\\n');
+  return lines.join('\n');
 }
 
 async function fetchText(url) {
