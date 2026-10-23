@@ -128,7 +128,16 @@ assert.equal(
   250, "Every submitted Christmas candidate must be accounted for",
 );
 assert.ok(candidates.reconciliation.remainingCandidates > 0, "Do not auto-verify all holiday candidates without sources");
-assert.ok(events.length >= 82, "Dated Christmas inventory shrank unexpectedly");
+assert.ok(events.length >= 105, "Dated Christmas inventory shrank unexpectedly");
+check("gruene-christmas-market-days", "2026-12-05", "2026-12-06");
+check("waco-wild-lights-2026-1", "2026-11-27", "2026-11-29");
+check("waco-wild-lights-2026-4", "2026-12-17", "2026-12-20");
+check("mineral-wells-merry-wells-tree-lighting", "2026-11-27");
+check("mineral-wells-merry-wells-festival", "2026-11-28");
+check("san-antonio-fiesta-texas-holiday-1", "2026-11-21", "2026-11-25");
+check("san-antonio-seaworld-christmas-2026-opening", "2026-11-12");
+check("arlington-six-flags-holiday-2026-opening", "2026-11-22");
+assert.ok(!bySlug.has("waco-wild-lights-2026-late-december"), "Conflicted final Waco Zoo operating nights must not be invented");
 assert.ok(collection.includes('"San Antonio": "san-antonio"'), "Source-approved San Antonio holiday experience referral missing");
 assert.ok(collection.includes('"Austin": "austin"'), "Source-approved Austin holiday experience referral missing");
 assert.ok(collection.includes('"Dallas": "dallas"'), "Source-approved Dallas holiday experience referral missing");
