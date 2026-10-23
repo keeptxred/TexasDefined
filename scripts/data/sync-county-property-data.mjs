@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { parseExistingCountySnapshot } from './county-property-snapshot-codec.mjs';
 
 const DIRECTORY_URL = 'https://comptroller.texas.gov/taxes/property-tax/county-directory/';
 const OUTPUT = path.join(process.cwd(), 'src', 'data', 'property', 'county-property-enrichment.generated.ts');
@@ -93,10 +94,8 @@ if (AUDIT_ONLY) {
   // Do not write the generated property dataset in read-only audit mode.
 } else {
 let merged = {};
-try {
-  const existing = await fs.readFile(OUTPUT, 'utf8');
-  merged = parseExistingSnapshot(existing);
-} catch {}
+try { merged = parseExistingCountySnapshot(await fs.readFile(OUTPUT,'utf8')); }
+catch(error) { if(error?.code !== 'ENOENT') throw error; }
 const previousCount = Object.keys(merged).length;
 
 for (const { county, fetched, enrichment } of results) {
@@ -277,16 +276,6 @@ function extractStreetAddress(section) {
   const after = section.slice(marker.index + marker[0].length);
   const end = after.search(/<h4[^>]*>|<h3[^>]*>/i);
   return cleanText(stripHtml(after.slice(0, end >= 0 ? end : undefined)));
-}
-
-function parseExistingSnapshot(text) {
-  const marker = 'export const COUNTY_PROPERTY_ENRICHMENT';
-  if (!text.includes(marker)) return {};
-  const body = text.slice(text.indexOf('= {', text.indexOf(marker)) + 2, text.lastIndexOf('\n};') + 2);
-  const jsonLike = body
-    .replace(/([,{]\s*)([a-z][a-z0-9-]*):/gi, '$1"$2":')
-    .replace(/'([^'\\]*(?:\\.[^'\\]*)*)'/g, (_, value) => JSON.stringify(value.replace(/\\'/g, "'")));
-  try { return JSON.parse(jsonLike); } catch { return {}; }
 }
 
 function renderTypescriptValue(value, depth = 0) {
