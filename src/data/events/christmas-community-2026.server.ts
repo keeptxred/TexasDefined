@@ -85,6 +85,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The stadium walk-through holiday lights experience operates November 20–January 3, with more than 3.5 million lights, skating, vendors and selected carnival operations. Organizers say the carnival operates November 27–January 1; admission and extras are distinct."
   },
   {
+    "slug": "woodlands-ice-rink-2026",
+    "title": "The Woodlands Ice Rink 2026–27",
+    "city": "The Woodlands",
+    "countySlug": "montgomery",
+    "countyName": "Montgomery County",
+    "region": "gulf-coast",
+    "startDate": "2026-11-20",
+    "endDate": "2027-01-18",
+    "venueName": "The Woodlands Township Ice Rink · Cynthia Woods Mitchell Pavilion Event Center",
+    "officialEventUrl": "https://www.visitthewoodlands.com/events/holiday/",
+    "sourceName": "Visit The Woodlands",
+    "summary": "The indoor Woodlands Ice Rink operates November 20, 2026–January 18, 2027 in timed skating sessions. Book an admission time; this is not an outdoor rink. The visitor bureau advertises a separate qualifying hotel Stay & Skate offer, with participation rules set by each hotel."
+  },
+  {
     "slug": "el-paso-winterfest-lights",
     "title": "El Paso WinterFest · downtown lights and holiday attractions",
     "city": "El Paso",
@@ -110,6 +124,33 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.epwinterfest.com/",
     "sourceName": "El Paso WinterFest organizer",
     "summary": "WinterFest launches November 21 with the Scherr Legate Lights Parade at 6 p.m. The wider season continues afterward; confirm individual attraction dates on the organizer calendar."
+  },
+  {
+    "slug": "woodlands-holiday-on-waterway",
+    "title": "Holiday on The Waterway",
+    "city": "The Woodlands",
+    "countySlug": "montgomery",
+    "countyName": "Montgomery County",
+    "region": "gulf-coast",
+    "startDate": "2026-11-21",
+    "endDate": "2027-01-03",
+    "venueName": "The Woodlands Waterway",
+    "officialEventUrl": "https://www.visitthewoodlands.com/events/holiday/",
+    "sourceName": "Visit The Woodlands",
+    "summary": "Visit The Woodlands confirms seasonal light displays along the Waterway from November 21, 2026 through January 3, 2027. The illuminated walking route is separate from ticketed Ice Rink skating sessions and themed boat rentals."
+  },
+  {
+    "slug": "woodlands-lighting-of-the-doves-2026",
+    "title": "Lighting of the Doves",
+    "city": "The Woodlands",
+    "countySlug": "montgomery",
+    "countyName": "Montgomery County",
+    "region": "gulf-coast",
+    "startDate": "2026-11-21",
+    "venueName": "Town Green Park · The Woodlands Waterway",
+    "officialEventUrl": "https://www.visitthewoodlands.com/events/holiday/",
+    "sourceName": "Visit The Woodlands",
+    "summary": "The official 2026 Lighting of the Doves festival runs Saturday November 21, with illuminated holiday doves, music, children's crafts, snow slides and Waterway activities. Check exact presentation times and weather guidance with the organizers."
   },
   {
     "slug": "moody-gardens-holiday-lights-trail",
@@ -346,6 +387,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The town's one-day holiday market and festival is Saturday November 28 from approximately 10 a.m.–9 p.m., with 100+ vendors and live music, 7 p.m. illuminated parade and fireworks following."
   },
   {
+    "slug": "mcallen-south-pole-illuminated-1",
+    "title": "McAllen South Pole Illuminated Festival · operating window 1",
+    "city": "McAllen",
+    "countySlug": "hidalgo",
+    "countyName": "Hidalgo County",
+    "region": "south-texas",
+    "startDate": "2026-11-28",
+    "endDate": "2026-11-29",
+    "venueName": "McAllen Convention Center · 700 Convention Center Blvd.",
+    "officialEventUrl": "https://www.southpoleoftexas.com/",
+    "sourceName": "City of McAllen / South Pole Illuminated Festival",
+    "summary": "The official 2026 South Pole Illuminated Festival runs November 28–December 28, with posted Wednesday–Sunday evening operating hours. This is one of the explicitly open published weekday/weekend windows; Monday and Tuesday are omitted. Check holiday exceptions and dated tickets with the city before travel."
+  },
+  {
     "slug": "wimberley-trail-of-lights",
     "title": "Wimberley Trail of Lights",
     "city": "Wimberley",
@@ -415,6 +470,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "Ticketed Zoo Lights viewing operates December 2–6, 5:30–9 p.m., based on the Zoo's official date-by-date calendar."
   },
   {
+    "slug": "mcallen-south-pole-illuminated-2",
+    "title": "McAllen South Pole Illuminated Festival · operating window 2",
+    "city": "McAllen",
+    "countySlug": "hidalgo",
+    "countyName": "Hidalgo County",
+    "region": "south-texas",
+    "startDate": "2026-12-02",
+    "endDate": "2026-12-06",
+    "venueName": "McAllen Convention Center · 700 Convention Center Blvd.",
+    "officialEventUrl": "https://www.southpoleoftexas.com/",
+    "sourceName": "City of McAllen / South Pole Illuminated Festival",
+    "summary": "The official 2026 South Pole Illuminated Festival runs November 28–December 28, with posted Wednesday–Sunday evening operating hours. This is one of the explicitly open published weekday/weekend windows; Monday and Tuesday are omitted. Check holiday exceptions and dated tickets with the city before travel."
+  },
+  {
     "slug": "grapevine-parade-of-lights-2026",
     "title": "Grapevine Parade of Lights",
     "city": "Grapevine",
@@ -440,6 +509,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://jeffersoncandlelight.com/",
     "sourceName": "Historic Jefferson Foundation / Candlelight Tour",
     "summary": "A ticketed self-guided tour of historic Jefferson homes with dates December 3–5. Thursday hours 3–7 p.m.; Friday and Saturday 4–8 p.m. Tickets work on any operating date, but homes and checkout conditions should be verified."
+  },
+  {
+    "slug": "ennis-lights-of-ennis-parade-2026",
+    "title": "Lights of Ennis Parade and Block Party",
+    "city": "Ennis",
+    "countySlug": "ellis",
+    "countyName": "Ellis County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-03",
+    "venueName": "Historic Downtown Ennis",
+    "officialEventUrl": "https://www.visitennistexas.com/lightsofennis",
+    "sourceName": "Ennis Convention & Visitors Bureau",
+    "summary": "The City of Ennis tourism office confirms its downtown Lights of Ennis Parade and Block Party for Thursday December 3, 2026. Follow the visitor bureau for the final parade route, lighting schedule and road closures."
   },
   {
     "slug": "fort-worth-north-pole-express-dec3",
@@ -728,6 +810,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The Zoo lists December 9–13 as ticketed 5:30–9 p.m. light-show nights. The event is not scheduled December 7–8."
   },
   {
+    "slug": "mcallen-south-pole-illuminated-3",
+    "title": "McAllen South Pole Illuminated Festival · operating window 3",
+    "city": "McAllen",
+    "countySlug": "hidalgo",
+    "countyName": "Hidalgo County",
+    "region": "south-texas",
+    "startDate": "2026-12-09",
+    "endDate": "2026-12-13",
+    "venueName": "McAllen Convention Center · 700 Convention Center Blvd.",
+    "officialEventUrl": "https://www.southpoleoftexas.com/",
+    "sourceName": "City of McAllen / South Pole Illuminated Festival",
+    "summary": "The official 2026 South Pole Illuminated Festival runs November 28–December 28, with posted Wednesday–Sunday evening operating hours. This is one of the explicitly open published weekday/weekend windows; Monday and Tuesday are omitted. Check holiday exceptions and dated tickets with the city before travel."
+  },
+  {
     "slug": "jefferson-candlelight-tour-dec10",
     "title": "Jefferson Candlelight Tour of Homes · second weekend",
     "city": "Jefferson",
@@ -867,6 +963,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "Ten ticketed days of holiday fine-art shopping and live music December 12–21, with about 200 curated artists. Hours vary by day; the official organizer says children 12 and under receive free admission."
   },
   {
+    "slug": "arlington-holiday-lights-parade-2026",
+    "title": "Downtown Arlington Holiday Lights Parade",
+    "city": "Arlington",
+    "countySlug": "tarrant",
+    "countyName": "Tarrant County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-12",
+    "venueName": "Downtown Arlington · Levitt Pavilion and West Abram Street",
+    "officialEventUrl": "https://www.arlington.org/event/holiday-lights-festivities-and-parade/29431/",
+    "sourceName": "Arlington Convention & Visitors Bureau",
+    "summary": "Arlington's free December 12, 2026 holiday festival begins family activities at 2 p.m. and stages a lighted parade at 6 p.m., followed by the downtown tree lighting. This is not the neighborhood Interlochen drive-through light route."
+  },
+  {
     "slug": "san-antonio-river-of-lights",
     "title": "River of Lights · San Antonio Museum Reach",
     "city": "San Antonio",
@@ -906,6 +1015,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.dallaszoo.com/event/lights/",
     "sourceName": "Dallas Zoo",
     "summary": "The Zoo lists December 16–23 as ticketed light-show nights, 5:30–9 p.m. The Zoo Lights experience is explicitly closed December 24–25."
+  },
+  {
+    "slug": "mcallen-south-pole-illuminated-4",
+    "title": "McAllen South Pole Illuminated Festival · operating window 4",
+    "city": "McAllen",
+    "countySlug": "hidalgo",
+    "countyName": "Hidalgo County",
+    "region": "south-texas",
+    "startDate": "2026-12-16",
+    "endDate": "2026-12-20",
+    "venueName": "McAllen Convention Center · 700 Convention Center Blvd.",
+    "officialEventUrl": "https://www.southpoleoftexas.com/",
+    "sourceName": "City of McAllen / South Pole Illuminated Festival",
+    "summary": "The official 2026 South Pole Illuminated Festival runs November 28–December 28, with posted Wednesday–Sunday evening operating hours. This is one of the explicitly open published weekday/weekend windows; Monday and Tuesday are omitted. Check holiday exceptions and dated tickets with the city before travel."
   },
   {
     "slug": "abilene-winter-lightfest-week3",
@@ -964,6 +1087,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The official holiday shopping artisan show runs December 18–20 on the downtown River Walk with regional artists and makers. It is free to visit, while purchases, sightseeing excursions, and river cruises are separate."
   },
   {
+    "slug": "mcallen-south-pole-illuminated-5",
+    "title": "McAllen South Pole Illuminated Festival · operating window 5",
+    "city": "McAllen",
+    "countySlug": "hidalgo",
+    "countyName": "Hidalgo County",
+    "region": "south-texas",
+    "startDate": "2026-12-23",
+    "endDate": "2026-12-27",
+    "venueName": "McAllen Convention Center · 700 Convention Center Blvd.",
+    "officialEventUrl": "https://www.southpoleoftexas.com/",
+    "sourceName": "City of McAllen / South Pole Illuminated Festival",
+    "summary": "The official 2026 South Pole Illuminated Festival runs November 28–December 28, with posted Wednesday–Sunday evening operating hours. This is one of the explicitly open published weekday/weekend windows; Monday and Tuesday are omitted. Check holiday exceptions and dated tickets with the city before travel."
+  },
+  {
     "slug": "dallas-zoo-lights-final",
     "title": "Dallas Zoo Lights · December 26–January 3",
     "city": "Dallas",
@@ -1005,7 +1142,7 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The final five January evenings of the 2026–27 Marktplatz lighting program; December 31 is omitted because the special New Year's Eve event replaces the regular countdown.",
     "endDate": "2027-01-05"
   }
-];;;;;
+];;;;;;
 
 // Reuse comprehensive guides where they exist. The dated occurrence remains
 // an independent calendar record, so closing days are never falsely listed.
