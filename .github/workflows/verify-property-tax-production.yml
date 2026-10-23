@@ -49,3 +49,9 @@ jobs:
         env:
           TEXAS_TAX_VERIFY_ONLY: '1'
         run: node scripts/ci/verify-local-financial-production.mjs
+
+      - name: Verify all currently verified local tax-rate observations on both production origins
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL || 'https://ftkznprjljkhymknvhye.supabase.co' }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY || secrets.KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY }}
+        run: node scripts/ci/verify-texas-tax-live-observations.mjs
