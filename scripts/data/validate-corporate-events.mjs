@@ -28,7 +28,7 @@ assert(lazyRoute.includes('submitGroupEventRequest'));
 assert(lazyRoute.includes('application/ld+json'), 'The lazy page must SSR its sourced ItemList schema');
 assert(lazyRoute.includes('navigator.clipboard.writeText'));
 assert(lazyRoute.includes("url.searchParams.set('venues', selected.join(','))"), 'Shortlists must preserve public venue slugs');
-assert(lazyRoute.includes('provider.metro?.toLowerCase().includes(requestedCity)'), 'Metropolitan searches must cover suburbs');
+assert(lazyRoute.includes('corporateEventMarketMatches(provider, cityTerm)'), 'Metropolitan and Texas city searches must use the tested matcher');
 assert(api.includes('consentContact'));
 assert(registry.includes('"/corporate-events"'));
 assert(brand.includes('to: "/corporate-events"'));
