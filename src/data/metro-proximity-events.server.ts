@@ -3,6 +3,7 @@ import { loadUpcomingTexasCalendarRecordsServer } from "@/data/events/texas-even
 
 import type { MetroProximityCollection, MetroProximityMetro, MetroProximityResult } from "./metro-proximity";
 import { selectMetroProximityAffiliateEvents } from "./metro-proximity-event-selection";
+import type { MetroProximityTownResult } from "./metro-proximity-town-references";
 
 function texasTodayIso(now = new Date()) {
   const parts = new Intl.DateTimeFormat("en-US", {
@@ -29,6 +30,7 @@ export function buildMetroProximityEventContextServer(
   metro: MetroProximityMetro,
   collection: MetroProximityCollection,
   results: readonly MetroProximityResult[],
+  townReferences: readonly MetroProximityTownResult[],
 ) {
   if (collection.slug !== "things-to-do" && collection.slug !== "weekend-trips") {
     return { kind: "none" as const, events: [] };
@@ -39,7 +41,7 @@ export function buildMetroProximityEventContextServer(
   const upcomingRecords = loadUpcomingTexasCalendarRecordsServer()
     .filter((event) => event.startDate <= horizonIso);
   const projectedEvents = buildTexasEventCarouselItemsServer(upcomingRecords);
-  const events = selectMetroProximityAffiliateEvents(metro, collection, results, projectedEvents, {
+  const events = selectMetroProximityAffiliateEvents(metro, collection, results, townReferences, projectedEvents, {
     todayIso,
     horizonIso,
   });
