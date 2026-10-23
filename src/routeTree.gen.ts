@@ -377,6 +377,7 @@ import { Route as ExploreLandscapesRouteImport } from './routes/explore.landscap
 import { Route as ExploreInlandBeachesRouteImport } from './routes/explore.inland-beaches'
 import { Route as ExploreHillCountrySpringsRouteImport } from './routes/explore.hill-country-springs'
 import { Route as ExploreCasinosRouteImport } from './routes/explore.casinos'
+import { Route as ExploreBigBendScenicDrivesRouteImport } from './routes/explore.big-bend-scenic-drives'
 import { Route as ExploreAttractionsComparisonRouteImport } from './routes/explore.attractions-comparison'
 import { Route as ExploreAquariumsRouteImport } from './routes/explore.aquariums'
 import { Route as ExploreCategoryRouteImport } from './routes/explore.$category'
@@ -2879,6 +2880,14 @@ const ExploreCasinosRoute = ExploreCasinosRouteImport.update({
   path: '/explore/casinos',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ExploreBigBendScenicDrivesRoute =
+  ExploreBigBendScenicDrivesRouteImport.update({
+    id: '/explore/big-bend-scenic-drives',
+    path: '/explore/big-bend-scenic-drives',
+    getParentRoute: () => rootRouteImport,
+  } as any).lazy(() =>
+    import('./routes/explore.big-bend-scenic-drives.lazy').then((d) => d.Route),
+  )
 const ExploreAttractionsComparisonRoute =
   ExploreAttractionsComparisonRouteImport.update({
     id: '/explore/attractions-comparison',
@@ -4161,6 +4170,7 @@ export interface FileRoutesByFullPath {
   '/explore/$category': typeof ExploreCategoryRoute
   '/explore/aquariums': typeof ExploreAquariumsRoute
   '/explore/attractions-comparison': typeof ExploreAttractionsComparisonRoute
+  '/explore/big-bend-scenic-drives': typeof ExploreBigBendScenicDrivesRoute
   '/explore/casinos': typeof ExploreCasinosRouteWithChildren
   '/explore/hill-country-springs': typeof ExploreHillCountrySpringsRoute
   '/explore/inland-beaches': typeof ExploreInlandBeachesRouteWithChildren
@@ -4692,6 +4702,7 @@ export interface FileRoutesByTo {
   '/explore/$category': typeof ExploreCategoryRoute
   '/explore/aquariums': typeof ExploreAquariumsRoute
   '/explore/attractions-comparison': typeof ExploreAttractionsComparisonRoute
+  '/explore/big-bend-scenic-drives': typeof ExploreBigBendScenicDrivesRoute
   '/explore/hill-country-springs': typeof ExploreHillCountrySpringsRoute
   '/explore/inland-beaches': typeof ExploreInlandBeachesRouteWithChildren
   '/explore/landscapes': typeof ExploreLandscapesRouteWithChildren
@@ -5225,6 +5236,7 @@ export interface FileRoutesById {
   '/explore/$category': typeof ExploreCategoryRoute
   '/explore/aquariums': typeof ExploreAquariumsRoute
   '/explore/attractions-comparison': typeof ExploreAttractionsComparisonRoute
+  '/explore/big-bend-scenic-drives': typeof ExploreBigBendScenicDrivesRoute
   '/explore/casinos': typeof ExploreCasinosRouteWithChildren
   '/explore/hill-country-springs': typeof ExploreHillCountrySpringsRoute
   '/explore/inland-beaches': typeof ExploreInlandBeachesRouteWithChildren
@@ -5761,6 +5773,7 @@ export interface FileRouteTypes {
     | '/explore/$category'
     | '/explore/aquariums'
     | '/explore/attractions-comparison'
+    | '/explore/big-bend-scenic-drives'
     | '/explore/casinos'
     | '/explore/hill-country-springs'
     | '/explore/inland-beaches'
@@ -6292,6 +6305,7 @@ export interface FileRouteTypes {
     | '/explore/$category'
     | '/explore/aquariums'
     | '/explore/attractions-comparison'
+    | '/explore/big-bend-scenic-drives'
     | '/explore/hill-country-springs'
     | '/explore/inland-beaches'
     | '/explore/landscapes'
@@ -6824,6 +6838,7 @@ export interface FileRouteTypes {
     | '/explore/$category'
     | '/explore/aquariums'
     | '/explore/attractions-comparison'
+    | '/explore/big-bend-scenic-drives'
     | '/explore/casinos'
     | '/explore/hill-country-springs'
     | '/explore/inland-beaches'
@@ -7338,6 +7353,7 @@ export interface RootRouteChildren {
   ExploreCategoryRoute: typeof ExploreCategoryRoute
   ExploreAquariumsRoute: typeof ExploreAquariumsRoute
   ExploreAttractionsComparisonRoute: typeof ExploreAttractionsComparisonRoute
+  ExploreBigBendScenicDrivesRoute: typeof ExploreBigBendScenicDrivesRoute
   ExploreCasinosRoute: typeof ExploreCasinosRouteWithChildren
   ExploreHillCountrySpringsRoute: typeof ExploreHillCountrySpringsRoute
   ExploreInlandBeachesRoute: typeof ExploreInlandBeachesRouteWithChildren
@@ -10074,6 +10090,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExploreCasinosRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/explore/big-bend-scenic-drives': {
+      id: '/explore/big-bend-scenic-drives'
+      path: '/explore/big-bend-scenic-drives'
+      fullPath: '/explore/big-bend-scenic-drives'
+      preLoaderRoute: typeof ExploreBigBendScenicDrivesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/explore/attractions-comparison': {
       id: '/explore/attractions-comparison'
       path: '/explore/attractions-comparison'
@@ -12151,6 +12174,7 @@ const rootRouteChildren: RootRouteChildren = {
   ExploreCategoryRoute: ExploreCategoryRoute,
   ExploreAquariumsRoute: ExploreAquariumsRoute,
   ExploreAttractionsComparisonRoute: ExploreAttractionsComparisonRoute,
+  ExploreBigBendScenicDrivesRoute: ExploreBigBendScenicDrivesRoute,
   ExploreCasinosRoute: ExploreCasinosRouteWithChildren,
   ExploreHillCountrySpringsRoute: ExploreHillCountrySpringsRoute,
   ExploreInlandBeachesRoute: ExploreInlandBeachesRouteWithChildren,
