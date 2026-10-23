@@ -546,7 +546,7 @@ function ArticlePage() {
           <TexasWaterSearchResource active={waterTopic} />
         </Suspense>
       ) : null}
-      {hasSchoolSupplyRail ? <SchoolSupplyPartners className="2xl:absolute 2xl:left-full 2xl:ml-8 2xl:top-10 2xl:mt-0 2xl:w-72 2xl:border 2xl:border-border 2xl:bg-surface 2xl:p-5" /> : null}
+      {hasSchoolSupplyRail ? <><style>{`@media(min-width:1536px){.school-supply-responsive{position:absolute;left:calc(100% + 2rem);top:2.5rem;width:18rem;margin-top:0}}`}</style><SchoolSupplyPartners className="school-supply-responsive mt-8 border border-border bg-surface p-5" /></> : null}
       {article.hero.credit && <p className="mt-10 break-words text-xs text-muted-foreground">Image credit: {article.slug === "texas-high-school-football-playoffs-explained" ? <>
         <a href="https://commons.wikimedia.org/wiki/File:Celina_High_School,_Friday_Night_Football.jpg" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-2">Heidi Knapp · original photograph</a>
         {" · "}
