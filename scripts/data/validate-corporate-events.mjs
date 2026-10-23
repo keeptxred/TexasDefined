@@ -18,9 +18,11 @@ for (const p of corporateEventProviders) {
   assert(p.verifiedOn === '2026-10-23');
   assert(p.categories.every((category) => categories.has(category)));
 }
-assert(route.includes('createFileRoute("/corporate-events")'));
+assert(route.includes("createFileRoute('/corporate-events')"));
+assert(!route.includes('corporateEventProviders'), 'Keep the provider catalog out of the main client bundle');
 assert(lazyRoute.includes("createLazyFileRoute('/corporate-events')"));
 assert(lazyRoute.includes('submitGroupEventRequest'));
+assert(lazyRoute.includes('application/ld+json'), 'The lazy page must SSR its sourced ItemList schema');
 assert(lazyRoute.includes('navigator.clipboard.writeText'));
 assert(api.includes('consentContact'));
 assert(registry.includes('"/corporate-events"'));
