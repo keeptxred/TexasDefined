@@ -8,7 +8,9 @@ const a1='33333333-3333-4333-8333-333333333333',
 a2='44444444-4444-4444-8444-444444444444';
 const r1='55555555-5555-4555-8555-555555555555',
 r2='66666666-6666-4666-8666-666666666666';
-const jwt=(nonce,sub,role='authenticated',exp=Math.floor(Date.now()/1000)+3600)=>[
+// Keep two-owner synthetic JWTs stable across second boundaries during CI.
+const fixtureExpiresAt=Math.floor(Date.now()/1000)+3600;
+const jwt=(nonce,sub,role='authenticated',exp=fixtureExpiresAt)=>[
  Buffer.from('{"alg":"HS256","typ":"JWT"}').toString('base64url'),
  Buffer.from(JSON.stringify({sub,role,exp,nonce})).toString('base64url'),
  'syntheticSignature'+nonce.repeat(30)
