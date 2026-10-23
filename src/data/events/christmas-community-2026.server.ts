@@ -15,6 +15,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
   "region" | "startDate" | "endDate" | "venueName" | "officialEventUrl" | "sourceName"
 >> = [
   {
+    "slug": "santas-ranch-new-braunfels",
+    "title": "Santa's Ranch Christmas Drive-Through Lights",
+    "city": "New Braunfels",
+    "region": "hill-country",
+    "countySlug": "comal",
+    "countyName": "Comal County",
+    "startDate": "2026-11-06",
+    "endDate": "2027-01-03",
+    "venueName": "Santa's Ranch · 9561 I-35 North",
+    "officialEventUrl": "https://santasranch.com/",
+    "sourceName": "Santa's Ranch operator",
+    "summary": "Santa's Ranch confirms its drive-through light park opens every night November 6–January 3, including holidays and rain. Sunday–Thursday 6–10 p.m.; Friday–Saturday 6–11 p.m. Admission is per vehicle; verify height/length restrictions before entering."
+  },
+  {
     "slug": "dallas-zoo-lights-opening",
     "title": "Dallas Zoo Lights · November 13–15",
     "city": "Dallas",
@@ -55,6 +69,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.visitfrisco.com/events/christmas-square/6842",
     "sourceName": "Visit Frisco",
     "summary": "The free synchronized music-and-light show runs nightly 6–10 p.m. from November 20 through January 4, 2027. Any additional activities, private events or vendors have separate schedules."
+  },
+  {
+    "slug": "sugar-land-holiday-lights-constellation-field",
+    "title": "Sugar Land Holiday Lights at Constellation Field",
+    "city": "Sugar Land",
+    "region": "gulf-coast",
+    "countySlug": "fort-bend",
+    "countyName": "Fort Bend County",
+    "startDate": "2026-11-20",
+    "endDate": "2027-01-03",
+    "venueName": "Constellation Field",
+    "officialEventUrl": "https://www.sugarlandholidaylights.com/",
+    "sourceName": "Sugar Land Holiday Lights / Sugar Land Space Cowboys",
+    "summary": "The stadium walk-through holiday lights experience operates November 20–January 3, with more than 3.5 million lights, skating, vendors and selected carnival operations. Organizers say the carnival operates November 27–January 1; admission and extras are distinct."
   },
   {
     "slug": "el-paso-winterfest-lights",
@@ -621,7 +649,7 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The final five January evenings of the 2026–27 Marktplatz lighting program; December 31 is omitted because the special New Year's Eve event replaces the regular countdown.",
     "endDate": "2027-01-05"
   }
-];
+];;
 
 // Reuse comprehensive guides where they exist. The dated occurrence remains
 // an independent calendar record, so closing days are never falsely listed.
