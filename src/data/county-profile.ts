@@ -120,7 +120,8 @@ async function fetchCountyProfile(slug: string, countyName: string): Promise<Cou
   const longitude = censusFacts.longitude ?? fallbackGeography?.longitude;
   const usedGeographyFallback = fallbackGeography != null && (censusFacts.latitude == null || censusFacts.longitude == null);
   const majorCommunities = Array.from(new Set([countySeatName, ...(VERIFIED_COUNTY_COMMUNITIES[slug] ?? knownCommunities)].filter((value): value is string => Boolean(value))));
-  // 2020 decennial Census, FIPS 48309: McLennan County 260,579 residents.
+  // Census QuickFacts 2020, FIPS 48309: McLennan County 260,579 residents.
+  // Source: https://www.census.gov/quickfacts/fact/table/mclennancountytexas/PST045225
   const population2020 = slug === 'mclennan' ? 260579 : censusFacts.population2020;
   const populationDensityPerSquareMile = density(population2020, censusFacts.landAreaSquareMiles);
   const waterSharePercent = waterShare(censusFacts.landAreaSquareMiles, censusFacts.waterAreaSquareMiles);
@@ -140,7 +141,6 @@ async function fetchCountyProfile(slug: string, countyName: string): Promise<Cou
     sourceUrls: [
       TSL_COUNTY_SEATS_URL,
       CENSUS_TIGERWEB_SOURCE_URL,
-      ...(slug === 'mclennan' ? ['https://www.census.gov/quickfacts/fact/table/mclennancountytexas/PST045225'] : []),
       ...(usedGeographyFallback ? [CENSUS_TIGERWEB_COUNTY_SNAPSHOT_URL] : []),
       ...(slug === 'van-zandt' ? ['https://www.tshaonline.org/handbook/entries/van-zandt-county', 'https://www.census.gov/quickfacts/fact/table/vanzandtcountytexas/PST045225', 'https://www.vanzandtcounty.org/upload/page/2695/2025%20DOCS/VanZandtCountyWallMap11292023.pdf'] : []),
       ...(slug === 'el-paso' ? ['https://www.census.gov/quickfacts/fact/table/elpasocountytexas/PST045225', 'https://epcountyvotestx.gov/maps/municipalities', 'https://www.twdb.texas.gov/board/2022/01/Board/Brd06.pdf'] : []),
