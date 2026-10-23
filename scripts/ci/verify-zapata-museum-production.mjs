@@ -38,9 +38,8 @@ if (process.argv.includes('--source-only')) {
   const requiredWorkflow = [
     'workflow_run:',
     'Deploy TexasDefined production',
-    'zapata_museum_scope',
     'scripts/ci/verify-zapata-museum-production.mjs',
-    'Verify scoped Zapata museum live authority',
+    'Verify Zapata museum live authority after every successful production release',
   ];
   const missingWorkflow = requiredWorkflow.filter((value) => !museumWorkflow.includes(value));
   if (missingWorkflow.length) throw new Error('Scoped post-deployment Zapata museum verification is disabled: ' + missingWorkflow.join(', '));
