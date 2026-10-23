@@ -278,6 +278,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "endDate": "2027-01-03"
   },
   {
+    "slug": "llano-starry-starry-nights",
+    "title": "Llano Starry Starry Nights Lighted Christmas Park",
+    "city": "Llano",
+    "region": "hill-country",
+    "countySlug": "llano",
+    "countyName": "Llano County",
+    "startDate": "2026-11-27",
+    "endDate": "2026-12-31",
+    "venueName": "Badu Park",
+    "officialEventUrl": "https://www.llanochamber.org/calendar",
+    "sourceName": "Llano Chamber of Commerce",
+    "summary": "The Llano Chamber lists Starry Starry Nights Lighted Christmas Park from November 27 through December 31 at Badu Park. Verify the specific light-viewing hours and any special programs before traveling."
+  },
+  {
     "slug": "mckinney-home-for-holidays",
     "title": "McKinney Home for the Holidays",
     "city": "McKinney",
@@ -303,6 +317,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://unitedwayabilene.org/winterlightfest/",
     "sourceName": "United Way of Abilene",
     "summary": "The first confirmed 2026 Winter Lightfest walking-trail evening is November 28. Gates open at 5:30 p.m. and trail hours are 6–10 p.m.; admission is ticketed."
+  },
+  {
+    "slug": "christmas-in-comfort-2026",
+    "title": "Christmas in Comfort",
+    "city": "Comfort",
+    "region": "hill-country",
+    "countySlug": "kendall",
+    "countyName": "Kendall County",
+    "startDate": "2026-11-28",
+    "venueName": "Historic Downtown Comfort",
+    "officialEventUrl": "https://www.comfortchamber.com/christmas-in-comfort",
+    "sourceName": "Comfort Chamber of Commerce",
+    "summary": "The town's one-day holiday market and festival is Saturday November 28 from approximately 10 a.m.–9 p.m., with 100+ vendors and live music, 7 p.m. illuminated parade and fireworks following."
   },
   {
     "slug": "wimberley-trail-of-lights",
@@ -483,6 +510,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The first December weekend of the historic Salado Christmas Stroll runs December 4–6, with holiday markets, entertainment and a lighted village; confirm activity-by-activity hours with the Chamber."
   },
   {
+    "slug": "denton-holiday-lighting-festival-2026",
+    "title": "Denton Holiday Lighting Festival",
+    "city": "Denton",
+    "region": "prairies-lakes",
+    "countySlug": "denton",
+    "countyName": "Denton County",
+    "startDate": "2026-12-05",
+    "venueName": "Quakertown Park · 215 E McKinney Street",
+    "officialEventUrl": "https://www.discoverdenton.com/events/annual-events/denton-holiday-lighting-festival/",
+    "sourceName": "Discover Denton",
+    "summary": "Denton's official tourism office lists the 2026 holiday lighting festival for Saturday December 5, 3–9 p.m. at Quakertown Park. Seasonal vendors, performances and toy drive are subject to published program details."
+  },
+  {
     "slug": "fredericksburg-nights-of-lights-main",
     "title": "Fredericksburg Christmas Nights of Lights · December nights",
     "city": "Fredericksburg",
@@ -495,6 +535,34 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "sourceName": "Visit Fredericksburg",
     "summary": "Christmas Pyramid and tree-lighting countdown each evening at Marktplatz. December 4 and December 31 are exceptions, so they are excluded from this calendar window.",
     "endDate": "2026-12-30"
+  },
+  {
+    "slug": "richardson-santas-village-week1",
+    "title": "Richardson Santa's Village · December 5–6",
+    "city": "Richardson",
+    "region": "prairies-lakes",
+    "countySlug": "dallas",
+    "countyName": "Dallas County",
+    "startDate": "2026-12-05",
+    "endDate": "2026-12-06",
+    "venueName": "Huffhines Park",
+    "officialEventUrl": "https://www.cor.net/departments/parks-recreation/community-events/santa-s-village-at-huffhines-park",
+    "sourceName": "City of Richardson",
+    "summary": "The first official free Santa's Village activity weekend runs December 5–6, 6–9 p.m., with photos with Santa, live music, interactive holiday buildings and free parking."
+  },
+  {
+    "slug": "richardson-santas-village-walk1",
+    "title": "Richardson Santa's Village · lights-only stroll December 7–9",
+    "city": "Richardson",
+    "region": "prairies-lakes",
+    "countySlug": "dallas",
+    "countyName": "Dallas County",
+    "startDate": "2026-12-07",
+    "endDate": "2026-12-09",
+    "venueName": "Huffhines Park",
+    "officialEventUrl": "https://www.cor.net/departments/parks-recreation/community-events/santa-s-village-at-huffhines-park",
+    "sourceName": "City of Richardson",
+    "summary": "The city advertises Santa's Village as open to stroll through and view December 7–9. Full interactive programs and Santa visits are not advertised for this window; use separately listed weekend programs for those activities."
   },
   {
     "slug": "dallas-zoo-lights-dec-mid",
@@ -566,6 +634,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The 48th Candlelight at the Ranch takes place Friday and Saturday December 11–12, 6:30–9 p.m. General admission is free with a suggested donation; optional premium experiences cost extra."
   },
   {
+    "slug": "richardson-santas-village-week2",
+    "title": "Richardson Santa's Village · December 11–13",
+    "city": "Richardson",
+    "region": "prairies-lakes",
+    "countySlug": "dallas",
+    "countyName": "Dallas County",
+    "startDate": "2026-12-11",
+    "endDate": "2026-12-13",
+    "venueName": "Huffhines Park",
+    "officialEventUrl": "https://www.cor.net/departments/parks-recreation/community-events/santa-s-village-at-huffhines-park",
+    "sourceName": "City of Richardson",
+    "summary": "The second family program weekend runs December 11–13, 6–9 p.m. Interactive buildings, music and free Santa photos are scheduled separately from the daytime/weekday walk-through-only periods."
+  },
+  {
     "slug": "tomball-german-christmas-market",
     "title": "Tomball German Christmas Market",
     "city": "Tomball",
@@ -578,6 +660,34 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://tomballgermanfest.org/info/",
     "sourceName": "Tomball German Festival organizer",
     "summary": "The 18th annual Christmas market runs Friday December 11 6–10 p.m., Saturday December 12 10 a.m.–10 p.m., and Sunday December 13 10 a.m.–6 p.m. Organizers list free admission and parking."
+  },
+  {
+    "slug": "armadillo-christmas-bazaar-austin",
+    "title": "Armadillo Christmas Bazaar 2026",
+    "city": "Austin",
+    "region": "hill-country",
+    "countySlug": "travis",
+    "countyName": "Travis County",
+    "startDate": "2026-12-12",
+    "endDate": "2026-12-21",
+    "venueName": "Palmer Events Center · 900 Barton Springs Road",
+    "officialEventUrl": "https://armadillobazaar.com/info/",
+    "sourceName": "Armadillo Christmas Bazaar organizer",
+    "summary": "Ten ticketed days of holiday fine-art shopping and live music December 12–21, with about 200 curated artists. Hours vary by day; the official organizer says children 12 and under receive free admission."
+  },
+  {
+    "slug": "richardson-santas-village-walk2",
+    "title": "Richardson Santa's Village · lights-only stroll December 14–17",
+    "city": "Richardson",
+    "region": "prairies-lakes",
+    "countySlug": "dallas",
+    "countyName": "Dallas County",
+    "startDate": "2026-12-14",
+    "endDate": "2026-12-17",
+    "venueName": "Huffhines Park",
+    "officialEventUrl": "https://www.cor.net/departments/parks-recreation/community-events/santa-s-village-at-huffhines-park",
+    "sourceName": "City of Richardson",
+    "summary": "The city advertises a viewing-only village stroll December 14–17; family activity houses, photos with Santa and live performances are offered on the separately scheduled Santa's Village weekends."
   },
   {
     "slug": "dallas-zoo-lights-dec-late",
@@ -606,6 +716,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://unitedwayabilene.org/winterlightfest/",
     "sourceName": "United Way of Abilene",
     "summary": "The final confirmed Winter Lightfest 2026 operating window is December 18–23; it does not run on December 24–25. Gates open at 5:30 p.m. and the walking trail is ticketed."
+  },
+  {
+    "slug": "richardson-santas-village-week3",
+    "title": "Richardson Santa's Village · December 18–20",
+    "city": "Richardson",
+    "region": "prairies-lakes",
+    "countySlug": "dallas",
+    "countyName": "Dallas County",
+    "startDate": "2026-12-18",
+    "endDate": "2026-12-20",
+    "venueName": "Huffhines Park",
+    "officialEventUrl": "https://www.cor.net/departments/parks-recreation/community-events/santa-s-village-at-huffhines-park",
+    "sourceName": "City of Richardson",
+    "summary": "The final confirmed Santa's Village program weekend is December 18–20, 6–9 p.m. The City of Richardson advertises free admission, free parking, interactive dwellings and photos with Santa."
   },
   {
     "slug": "dallas-zoo-lights-final",
@@ -649,7 +773,7 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The final five January evenings of the 2026–27 Marktplatz lighting program; December 31 is omitted because the special New Year's Eve event replaces the regular countdown.",
     "endDate": "2027-01-05"
   }
-];;
+];;;
 
 // Reuse comprehensive guides where they exist. The dated occurrence remains
 // an independent calendar record, so closing days are never falsely listed.
