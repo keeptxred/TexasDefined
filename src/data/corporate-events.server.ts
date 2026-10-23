@@ -31,3 +31,36 @@ export async function saveGroupEventRequest(payload: GroupEventRequest) {
   const { error } = await admin.from('texasdefined_group_event_requests').insert(payload);
   if (error) throw new Error('Could not save the request. Please try again.');
 }
+
+
+export type GroupEventPartnerApplication = {
+  contact_name: string;
+  email: string;
+  phone: string | null;
+  business_name: string;
+  city: string;
+  website: string;
+  published_capacity: number | null;
+  proposal: string | null;
+  proposed_promo_code: string | null;
+  notes: string | null;
+  consent_contact: true;
+};
+
+export async function saveGroupEventPartnerApplication(value: GroupEventPartnerApplication) {
+  const admin = supabaseAdmin as unknown as {
+    from(table: string): {
+      select(columns: string): any;
+      insert(payload: GroupEventPartnerApplication): PromiseLike<{ error: { message: string } | null }>;
+    };
+  };
+  const recent = await admin.from('texasdefined_group_event_partner_applications')
+    .select('id')
+    .eq('email', value.email)
+    .gte('created_at', new Date(Date.now() - 60 * 60 * 1000).toISOString())
+    .limit(2);
+  if (recent.error) throw new Error('Business application verification is unavailable.');
+  if ((recent.data ?? []).length >= 2) throw new Error('Too many applications from this address; please try again later.');
+  const { error } = await admin.from('texasdefined_group_event_partner_applications').insert(value);
+  if (error) throw new Error('We could not save the business application. Please try again.');
+}
