@@ -110,6 +110,7 @@ function DallasToWacoTourPage() {
             </ul>
           </div>
         </section>
+        <p className="mt-8 text-sm leading-7 text-muted-foreground">Plan additional self-guided stops using the <a href="/waco-attractions" className="font-semibold text-primary underline underline-offset-4">Waco attractions and visitor guide</a>, with independent museum, food, and family itinerary information.</p>
         <section className="mt-12 border-t border-border pt-8">
           <h2 className="font-display text-3xl">Source and review</h2>
           <p className="mt-3 text-sm leading-7 text-muted-foreground">
