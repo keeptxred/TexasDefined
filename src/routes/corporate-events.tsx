@@ -7,6 +7,7 @@ import { texasDefinedBrand } from '@/brand/texasdefined';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 import { corporateEventCategories, corporateEventProviders, type GroupEventCategory, type CorporateEventProvider } from '@/data/corporate-events';
 import { submitGroupEventRequest } from '@/data/corporate-events.functions';
+import { GroupEventPartnerApplication } from '@/components/events/GroupEventPartnerApplication';
 
 const path = '/corporate-events';
 const description = 'Find and compare real Texas corporate event venues, team-building activities and private group experiences by city, headcount and budget. Start with Houston and build a shareable event shortlist.';
@@ -276,7 +277,7 @@ function CorporateEventsPage() {
             <h2 className="mt-3 font-display text-4xl leading-tight">Tell us what your company needs.</h2>
             <p className="mt-5 leading-8 text-muted-foreground">Save your group size, location, date and shortlisted venues with TexasDefined. Our team may contact you to discuss planning needs as this service expands.</p>
             <p className="mt-4 text-sm leading-7 text-muted-foreground">Submitting this form does not request a quote from a venue, book an event, or authorize us to share your contact information with a third party. For immediate pricing, use the venue's official website.</p>
-            <a href="/partner-with-us" className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary underline underline-offset-4">Own a group event business? Contact TexasDefined <ArrowUpRight className="size-4" aria-hidden /></a>
+            <a href="#list-your-business" className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary underline underline-offset-4">Own a group event business? Apply for a listing <ArrowUpRight className="size-4" aria-hidden /></a>
           </div>
           <div className="border border-border bg-surface p-5 sm:p-7">
             {submitted ? <div role="status" className="py-12"><Check className="size-10 text-primary" /><h3 className="mt-4 font-display text-3xl">Your planning request was saved.</h3><p className="mt-3 leading-7 text-muted-foreground">TexasDefined has your details for internal review. No booking or venue outreach has been made. For time-sensitive needs, please contact a provider directly.</p></div> :
@@ -298,6 +299,8 @@ function CorporateEventsPage() {
         </div>
       </Container>
     </section>
+
+    <GroupEventPartnerApplication />
 
     <section className="border-t border-border bg-surface">
       <Container className="py-10">
