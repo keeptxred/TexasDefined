@@ -25,6 +25,8 @@ assert(route.includes('createFileRoute("/corporate-events")'));
 assert(lazyRoute.includes("createLazyFileRoute('/corporate-events')"));
 assert(lazyRoute.includes('submitGroupEventRequest'));
 assert(lazyRoute.includes('navigator.clipboard.writeText'));
+assert(lazyRoute.includes("url.searchParams.set('venues', selected.join(','))"), 'Shortlist links must preserve vetted venue IDs');
+assert(!lazyRoute.includes("url.searchParams.set('email'"), 'Shareable links may not include contact data');
 assert(lazyRoute.includes('provider.metro?.toLowerCase().includes(requestedCity)'), 'Metro filtering must include real suburbs without mislabeling city');
 assert(api.includes('consentContact'));
 assert(registry.includes('"/corporate-events"'));
