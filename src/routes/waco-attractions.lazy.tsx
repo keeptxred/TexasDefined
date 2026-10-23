@@ -3,8 +3,6 @@ import { createLazyFileRoute } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
 import { WACO_VIATOR_ATTRACTIONS } from "@/data/waco-viator-attraction-links";
 
-const path = "/waco-attractions";
-const description = "Seven independent Waco attraction authority guides: Dr Pepper Museum, Cottonland Castle, Suspension Bridge, Cameron Park, Texas Ranger Hall of Fame, McLane Stadium and Cameron Park Zoo.";
 const guideNotes: Readonly<Record<string, { bestFor: string; entry: string; timing: string; tip: string }>> = {
   "dr-pepper-museum-waco": {
     bestFor: "Industrial, drink and advertising history",
