@@ -361,7 +361,7 @@ function Page() {
       </nav>
 
       <header className="border-b border-border py-7 sm:py-10">
-        <div className={slug === 'aubrey' ? 'grid gap-8 lg:grid-cols-2' : undefined}>
+        <div className="grid items-start gap-8 lg:grid-cols-2">
           <div>
             <p className="eyebrow text-primary">2026 Texas high school football</p>
             <h1 className="mt-3 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">{footballName}</h1>
@@ -371,7 +371,7 @@ function Page() {
                 : editorial?.intro ?? profileSummary}
             </p>
           </div>
-          {slug === 'aubrey' && (
+          {slug === 'aubrey' ? (
             <figure style={{ minWidth: 0 }}>
               <div className="relative overflow-hidden border border-border" style={{ height: 'clamp(210px, 34vw, 330px)', backgroundColor: '#10243d' }}>
                 <img
@@ -391,6 +391,14 @@ function Page() {
                 <a href="https://unsplash.com/license" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">Unsplash License</a>.
               </figcaption>
             </figure>
+          ) : (
+            <FootballIdentityPanel
+              footballName={footballName}
+              alignment={program ? `${alignmentLabel(program)} · District ${program.district}` : privateAlignment ? privateAlignmentLabel(privateAlignment) : governingBodyHint || 'Texas football program'}
+              footballType={program?.footballType || privateAlignment?.footballType}
+              mascot={identity?.mascot}
+              accentHex={editorial?.theme?.accentHex}
+            />
           )}
         </div>
       </header>
@@ -1003,6 +1011,59 @@ function ReportedFormIllustration({
     </ol>
     <p className="mt-4 text-xs leading-5 text-muted-foreground">Shows source-reported completed and awarded outcomes entered into this school record. Forfeits are labeled, not actual played scores; scheduled, cancelled and unverified games are excluded. <a href={sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Review the cited results source ↗</a></p>
   </figure>;
+}
+
+function FootballIdentityPanel({
+  footballName,
+  alignment,
+  footballType,
+  mascot,
+  accentHex,
+}: {
+  footballName: string;
+  alignment: string;
+  footballType?: string;
+  mascot?: string;
+  accentHex?: string;
+}) {
+  return (
+    <figure className="min-w-0">
+      <div
+        className="relative min-h-[15rem] overflow-hidden border border-border bg-foreground text-background"
+        style={accentHex ? { borderTopWidth: 6, borderTopColor: accentHex } : { borderTopWidth: 6 }}
+      >
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 640 360"
+          className="absolute inset-0 h-full w-full opacity-20"
+          preserveAspectRatio="xMidYMid slice"
+        >
+          <rect width="640" height="360" fill="currentColor" opacity="0.06" />
+          {Array.from({ length: 11 }, (_, index) => {
+            const x = 20 + index * 60;
+            return <line key={x} x1={x} x2={x} y1="24" y2="336" stroke="currentColor" strokeWidth="2" />;
+          })}
+          <line x1="20" x2="620" y1="180" y2="180" stroke="currentColor" strokeWidth="4" />
+          <rect x="20" y="24" width="600" height="312" fill="none" stroke="currentColor" strokeWidth="4" />
+          <circle cx="320" cy="180" r="54" fill="none" stroke="currentColor" strokeWidth="3" />
+        </svg>
+        <div className="relative flex min-h-[15rem] flex-col justify-between p-6 sm:p-8">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-background/70">TexasDefined football profile</p>
+          <div>
+            <p className="max-w-xl font-display text-3xl leading-tight sm:text-4xl">{footballName}</p>
+            <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-xs font-semibold uppercase tracking-[0.12em] text-background/75">
+              <span>{alignment}</span>
+              {footballType && <span>{footballType}</span>}
+              {mascot && <span>Verified mascot: {mascot}</span>}
+            </div>
+          </div>
+        </div>
+      </div>
+      <figcaption className="mt-2 text-xs leading-5 text-muted-foreground">
+        Original TexasDefined field graphic. No school logo, mascot artwork or school-owned photograph is reproduced.
+      </figcaption>
+    </figure>
+  );
 }
 
 function Fact({ label, value }: { label: string; value?: string }) {
