@@ -103,6 +103,7 @@ function WacoGhostToursPage() {
           </div>
         </section>
 
+        <p className="mt-8 text-sm leading-7 text-muted-foreground">Compare locally researched stops in the <a href="/waco-attractions" className="font-semibold text-primary underline underline-offset-4">Waco attractions and visitor guide</a>, with independent museum, food, and family itinerary information.</p>
         <section className="mt-12 border-t border-border pt-8">
           <h2 className="font-display text-3xl">Before you book</h2>
           <dl className="mt-6 grid gap-6 md:grid-cols-2">
