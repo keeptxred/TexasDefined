@@ -1035,7 +1035,7 @@ function FootballIdentityPanel({
         <svg
           aria-hidden="true"
           viewBox="0 0 640 360"
-          className="absolute inset-0 h-full w-full opacity-20"
+          className="absolute inset-0 h-full w-full" style={{ opacity: 0.2 }}
           preserveAspectRatio="xMidYMid slice"
         >
           <rect width="640" height="360" fill="currentColor" opacity="0.06" />
@@ -1050,7 +1050,7 @@ function FootballIdentityPanel({
         <div className="relative flex flex-col justify-between p-6" style={{ minHeight: 240 }}>
           <p className="text-xs font-semibold uppercase tracking-[0.12em] text-background">TexasDefined football profile</p>
           <div>
-            <p className="max-w-3xl font-display text-3xl leading-tight sm:text-4xl">{footballName}</p>
+            <p className="max-w-3xl font-display text-3xl leading-tight">{footballName}</p>
             <div className="mt-4 flex flex-wrap gap-4 gap-y-2 text-xs font-semibold uppercase tracking-[0.12em] text-background">
               <span>{alignment}</span>
               {footballType && <span>{footballType}</span>}
