@@ -4,11 +4,21 @@ import { Container } from "@/components/layout/Container";
 import { WacoViatorExperienceCards } from "@/components/monetization/WacoViatorExperienceCards";
 
 
+const wacoSeo = { title: "Dallas to Waco & Magnolia Market: Guided Day Trips Compared", description: "Plan a guided Dallas-to-Waco Magnolia Market day trip, including the actual Dallas pickup, Dr Pepper Museum admission exclusions, Cottonland Castle access and direct Viator booking links.", url: "https://texasdefined.com/dallas-to-waco-magnolia-tours" };
+function WacoSeoMetadata() {
+  const structured = { '@context':'https://schema.org', '@graph': [
+    { '@type':'CollectionPage', '@id':wacoSeo.url+'#page', url:wacoSeo.url, name:"Dallas to Waco Magnolia tours", description:wacoSeo.description, dateModified:'2026-10-20' },
+    { '@type':'BreadcrumbList', itemListElement:[{ '@type':'ListItem', position:1,name:'TexasDefined',item:'https://texasdefined.com/' },{ '@type':'ListItem', position:2,name:"Dallas to Waco Magnolia tours",item:wacoSeo.url }] }
+  ]};
+  return <><title>{wacoSeo.title}</title><meta name="description" content={wacoSeo.description}/><link rel="canonical" href={wacoSeo.url}/><meta property="og:title" content={wacoSeo.title}/><meta property="og:description" content={wacoSeo.description}/><meta property="og:url" content={wacoSeo.url}/><meta name="twitter:card" content="summary_large_image"/><script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(structured)}}/></>;
+}
+
 export const Route = createLazyFileRoute("/dallas-to-waco-magnolia-tours")({ component: DallasToWacoTourPage });
 
 function DallasToWacoTourPage() {
   return (
     <main>
+      <WacoSeoMetadata />
       <Container className="pb-16 pt-10 sm:pb-24 sm:pt-14">
         <nav aria-label="Breadcrumb" className="border-b border-border pb-4 text-xs uppercase tracking-wider text-muted-foreground">
           <a href="/" className="underline underline-offset-4">TexasDefined</a> / Dallas to Waco tours
