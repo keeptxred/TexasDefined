@@ -183,6 +183,7 @@ function CorporateEventsPage() {
         providerSlugs: selected,
         notes: String(form.get('notes') ?? ''),
         consentContact: (form.get('consentContact') === 'on') as true,
+        consentSelectedVenues: selected.length > 0 && form.get('consentSelectedVenues') === 'on',
         companyAddress2: String(form.get('companyAddress2') ?? ''),
       } });
       setSubmitted(true);
@@ -321,7 +322,11 @@ function CorporateEventsPage() {
                 <label className="block text-sm font-semibold">Phone (optional)<input name="phone" maxLength={50} type="tel" autoComplete="tel" className={'mt-2 ' + controlClass} /></label>
                 <label className="block text-sm font-semibold sm:col-span-2">Planning details<textarea name="notes" maxLength={3000} rows={4} className={'mt-2 ' + controlClass} placeholder="Accessibility, food, schedule, team goals or budget constraints" /></label>
                 <div className="hidden" aria-hidden="true"><label>Office address line 2<input tabIndex={-1} name="companyAddress2" autoComplete="off" /></label></div>
-                <label className="flex items-start gap-2 text-sm leading-6 sm:col-span-2"><input type="checkbox" name="consentContact" required className="mt-1.5" /><span>I agree TexasDefined may use this information to contact me about this request. It will not be sent to venues without further permission. *</span></label>
+                <label className="flex items-start gap-2 text-sm leading-6 sm:col-span-2"><input type="checkbox" name="consentContact" required className="mt-1.5" /><span>I agree TexasDefined may use this information to contact me about this request. Sharing my details with any venue requires the separate, optional permission below. *</span></label>
+                {selected.length > 0 ? <label className="flex items-start gap-2 border border-border bg-background p-4 text-sm leading-6 sm:col-span-2">
+                  <input type="checkbox" name="consentSelectedVenues" className="mt-1.5" />
+                  <span><strong>Optional venue-quote sharing permission.</strong> I authorize TexasDefined staff, after review, to share this event brief and my contact details with the specific venues I shortlisted ({selected.length}) so they may contact me with proposals. No message is sent automatically, and this is not a reservation or a guarantee of quotes. I may leave this unchecked and still submit the planning request.</span>
+                </label> : <p className="text-xs text-muted-foreground sm:col-span-2">To authorize optional venue quote outreach, first shortlist at least one venue. No contact information is forwarded automatically.</p>}
                 <div className="sm:col-span-2">
                   <p className="text-xs leading-6 text-muted-foreground">Request: {validHeadcount ? headcount : 'Invalid group size'} people near {city || 'unspecified city'}, {chosenCategoryLabel.toLowerCase()}. {selected.length} selected venues. See <a className="underline" href="/about#privacy-terms">privacy & site terms</a>.</p>
                   {formError && <p role="alert" className="mt-2 text-sm text-destructive">{formError}</p>}
