@@ -25,6 +25,9 @@ on:
       - 'scripts/ci/verify-local-financial-production.mjs'
       - 'scripts/ci/tax-history-row-contract.mjs'
       - 'scripts/ci/tax-history-row-contract.test.mjs'
+      - 'scripts/ci/texas-school-tax-identity-and-pagination.test.mjs'
+      - 'src/data/school-district-tax-rates.ts'
+      - 'src/data/texas-data-download.ts'
       - 'scripts/ci/verify-texas-tax-live-observations.mjs'
       - 'scripts/ci/verify-texas-tax-live-observations.test.mjs'
       - '.github/workflows/verify-property-tax-import.yml'
@@ -42,7 +45,7 @@ jobs:
         with:
           node-version: '22'
       - name: Verify importer rollback, provenance and override invariants
-        run: node --experimental-strip-types --test scripts/ci/property-tax-history-year-gaps.test.mjs scripts/ci/property-tax-sync-contract.test.mjs scripts/ci/property-tax-change-ledger-contract.test.mjs scripts/ci/property-tax-history-integrity.test.mjs scripts/ci/property-tax-zero-levy-contract.test.mjs scripts/ci/verify-texas-tax-local-sources.test.mjs scripts/ci/verify-texas-tax-source-archive.test.mjs scripts/ci/tax-history-row-contract.test.mjs scripts/ci/verify-texas-tax-live-observations.test.mjs
+        run: node --experimental-strip-types --test scripts/ci/property-tax-history-year-gaps.test.mjs scripts/ci/property-tax-sync-contract.test.mjs scripts/ci/property-tax-change-ledger-contract.test.mjs scripts/ci/property-tax-history-integrity.test.mjs scripts/ci/property-tax-zero-levy-contract.test.mjs scripts/ci/verify-texas-tax-local-sources.test.mjs scripts/ci/verify-texas-tax-source-archive.test.mjs scripts/ci/tax-history-row-contract.test.mjs scripts/ci/verify-texas-tax-live-observations.test.mjs scripts/ci/texas-school-tax-identity-and-pagination.test.mjs
       - uses: denoland/setup-deno@v2
         with:
           deno-version: v2.x
