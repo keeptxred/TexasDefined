@@ -89,8 +89,7 @@ function PartnerWithUsPage() {
         desiredStartDate: String(form.get('desiredStartDate') || ''),
         objectives: String(form.get('objectives') || ''),
         notes: String(form.get('notes') || ''),
-        // This exact, server-whitelisted Christmas origin is read lazily.
-        // Keep the shared route's main bundle at its protected byte budget.
+        // Attribution is decoded lazily so the existing sports publisher shell remains byte-stable.
         sourcePath: new URLSearchParams(window.location.search).get('source') === '/events/christmas-events'
           ? '/events/christmas-events'
           : search.sourcePath,

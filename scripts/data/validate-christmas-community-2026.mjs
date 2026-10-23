@@ -15,6 +15,7 @@ const majorIndex = read("src/data/major-event-index.ts");
 const candidates = JSON.parse(read("src/data/events/christmas-candidates-250.json"));
 const partnerRoute = read("src/routes/partner-with-us.tsx");
 const monetizationPolicy = read("docs/holidays/christmas-2026-monetization.md");
+const productionVerifier = read("scripts/ci/verify-event-temporal-production.mjs");
 const schemaRegistry = read("src/data/major-event-schema-enrichment.server.ts");
 const schemaBatch = read("src/data/major-event-schema-enrichment-batch33.server.ts");
 
@@ -128,7 +129,25 @@ assert.equal(
   250, "Every submitted Christmas candidate must be accounted for",
 );
 assert.ok(candidates.reconciliation.remainingCandidates > 0, "Do not auto-verify all holiday candidates without sources");
-assert.ok(events.length >= 82, "Dated Christmas inventory shrank unexpectedly");
+assert.ok(events.length >= 114, "Dated Christmas inventory shrank unexpectedly");
+check("beaumont-mcfaddin-ward-holiday-open-house-2026", "2026-12-05", "2026-12-06");
+check("beaumont-mcfaddin-ward-christmas-past-workshop-2026", "2026-12-15");
+check("arlington-texas-christkindl-market-opening-2026", "2026-11-20", "2026-11-22");
+check("arlington-texas-christkindl-market-season-2026", "2026-11-27", "2026-12-23");
+check("mansfield-hometown-holidays-2026", "2026-12-04");
+check("frisco-light-park-riders-field-2026", "2026-11-06", "2027-01-03");
+check("san-antonio-garden-illuminate-opening-2026", "2026-11-20");
+check("natural-bridge-christmas-caverns-opening-2026", "2026-12-05");
+check("san-antonio-fiesta-texas-new-years-2026", "2026-12-26", "2027-01-04");
+check("gruene-christmas-market-days", "2026-12-05", "2026-12-06");
+check("waco-wild-lights-2026-1", "2026-11-27", "2026-11-29");
+check("waco-wild-lights-2026-4", "2026-12-17", "2026-12-20");
+check("mineral-wells-merry-wells-tree-lighting", "2026-11-27");
+check("mineral-wells-merry-wells-festival", "2026-11-28");
+check("san-antonio-fiesta-texas-holiday-1", "2026-11-21", "2026-11-25");
+check("san-antonio-seaworld-christmas-2026-opening", "2026-11-12");
+check("arlington-six-flags-holiday-2026-opening", "2026-11-22");
+assert.ok(!bySlug.has("waco-wild-lights-2026-late-december"), "Conflicted final Waco Zoo operating nights must not be invented");
 assert.ok(collection.includes('"San Antonio": "san-antonio"'), "Source-approved San Antonio holiday experience referral missing");
 assert.ok(collection.includes('"Austin": "austin"'), "Source-approved Austin holiday experience referral missing");
 assert.ok(collection.includes('"Dallas": "dallas"'), "Source-approved Dallas holiday experience referral missing");
@@ -136,9 +155,10 @@ assert.ok(collection.includes('"Galveston": "galveston"'), "Source-approved Galv
 assert.ok(collection.includes("christmasOfferCities.has(event.city)"), "Avoid repeated city-level affiliate links on calendar cards");
 assert.ok(page.includes("source=%2Fevents%2Fchristmas-events"), "Seasonal advertiser inquiry must retain Christmas origin");
 assert.ok(partnerRoute.includes('sports-venue'), "Preserve sports lead-source safety contract");
-assert.ok(read("src/routes/partner-with-us.lazy.tsx").includes("sourcePath: new URLSearchParams(window.location.search).get('source') === '/events/christmas-events'"), "Lazily decode exact Christmas advertiser source without growing main bundle");
-assert.ok(read("src/data/partner-inquiry.functions.ts").includes("z.literal('/events/christmas-events')"), "Server schema must whitelist Christmas sponsor source");
+assert.ok(read("src/routes/partner-with-us.lazy.tsx").includes("sourcePath: new URLSearchParams(window.location.search).get('source') === '/events/christmas-events'"), "Lazily decode exact Christmas sponsor source without growing main bundle");
+assert.ok(read("src/data/partner-inquiry.functions.ts").includes("z.literal('/events/christmas-events')"), "Server must whitelist Christmas sponsor source");
 assert.ok(!page.includes("adsbygoogle"), "Do not activate unapproved AdSense units in Christmas pages");
+assert.ok(productionVerifier.includes("Christmas production is missing source-qualified 2026 coverage"), "Live Christmas calendar smoke must fail closed on stale production");
 assert.ok(monetizationPolicy.includes("AdSense is not approved"), "Ads approval status must remain documented");
 assert.ok(schemaRegistry.includes("...majorEventSchemaEnrichmentBatch33,"), "Reviewed Christmas organizer schema batch missing from runtime registry");
 assert.ok(adapter.includes("getMajorEventOccurrenceWindowsServer(authority)"), "Date-scoped seasonal guides must not pad closed nights");
