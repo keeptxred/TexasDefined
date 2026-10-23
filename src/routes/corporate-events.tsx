@@ -4,7 +4,7 @@ import { texasDefinedBrand } from '@/brand/texasdefined';
 import { buildMeta, canonicalLink } from '@/lib/seo';
 
 const canonicalPath = '/corporate-events';
-const description = 'Find and compare real Texas corporate event venues, team-building activities and private group experiences by city, headcount and budget. Start with Houston and build a shareable event shortlist.';
+const description = 'Find and compare real Texas corporate event venues, team-building activities and private group experiences by city, headcount and budget. Explore Houston, Dallas–Fort Worth, Austin and San Antonio and build a shareable event shortlist.';
 
 export const Route = createFileRoute('/corporate-events')({
   // Keep the verified venue catalog out of the global route bundle.
@@ -32,7 +32,7 @@ export const Route = createFileRoute('/corporate-events')({
           isPartOf: { '@id': 'https://texasdefined.com/#website' },
           mainEntity: {
             '@type': 'ItemList',
-            name: 'Houston corporate group event providers',
+            name: 'Texas corporate group event providers',
             numberOfItems: providers.length,
             itemListElement: providers.map((provider, index) => ({
               '@type': 'ListItem', position: index + 1,
