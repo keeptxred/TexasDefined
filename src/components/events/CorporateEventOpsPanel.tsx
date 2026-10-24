@@ -5,6 +5,7 @@ import {
 } from '@/data/corporate-events.admin.functions';
 import { corporateEventProviders } from '@/data/corporate-events';
 import { corporateEventTexasToday } from '@/data/corporate-event-dates';
+import { summarizeCorporateEventResponseTimes, isCorporateEventLeadOverdue } from '@/data/corporate-event-response-sla';
 import { findCorporatePlannerDuplicates } from '@/data/corporate-event-duplicate-review';
 
 type LeadStatus = 'new' | 'reviewing' | 'contacted' | 'closed' | 'spam';
@@ -17,6 +18,7 @@ type Lead = {
   event_date: string | null; budget_per_person: number | null;
   provider_slugs: string[]; notes: string | null;
   allow_provider_outreach: boolean; provider_outreach_consented_at: string | null;
+  first_contacted_at: string | null;
 };
 type Application = {
   id: string; created_at: string; status: ApplicationStatus;
@@ -74,6 +76,7 @@ export function CorporateEventOpsPanel({ accessKey }: { accessKey: string }) {
   }, [accessKey]);
 
   const duplicateLeads = useMemo(() => findCorporatePlannerDuplicates(data?.leads ?? []), [data]);
+  const responseMetrics = useMemo(() => summarizeCorporateEventResponseTimes(data?.leads ?? []), [data]);
   const counts = useMemo(() => ({
     leads: data?.leads.filter((item) => !['closed', 'spam'].includes(item.status)).length ?? 0,
     applications: data?.applications.filter((item) => !['rejected', 'spam'].includes(item.status)).length ?? 0,
@@ -81,6 +84,7 @@ export function CorporateEventOpsPanel({ accessKey }: { accessKey: string }) {
   }), [data]);
 
   async function updateLead(id: string, status: LeadStatus) {
+    if (status === 'contacted' && !window.confirm('Confirm that you actually contacted this planner through an authorized business channel. This only records the first-contact time; TexasDefined will NOT send an email automatically.')) return;
     setBusy(id); setError(''); setMessage('');
     try {
       await changeCorporateEventLeadStatus({ data: { accessKey, id, status } });
@@ -153,13 +157,15 @@ export function CorporateEventOpsPanel({ accessKey }: { accessKey: string }) {
     {error ? <p role="alert" className="mt-4 border border-destructive p-4 text-sm">{error}</p> : null}
     {message ? <p role="status" className="mt-4 border border-border bg-surface p-4 text-sm">{message}</p> : null}
     {data ? <>
-      <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+      <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
         <Metric title="Open planner requests" value={counts.leads} />
+        <Metric title="Awaiting first contact >48h" value={responseMetrics.overdueFirstContact} />
         <Metric title="Business applications" value={counts.applications} />
         <Metric title="Current approved offers" value={counts.offers} />
         <Metric title="Offer outbound clicks (30d)" value={data.offerClickStats.outboundClicks30Days} />
         <Metric title="Potential repeat planner requests" value={duplicateLeads.size} />
       </div>
+      <p className="mt-3 text-xs leading-6 text-muted-foreground">Internal response target is 48 hours; {responseMetrics.awaitingFirstContact} visible request(s) remain without a recorded first contact, {responseMetrics.contactedWithinTarget} have contact documented within 48 hours, and {responseMetrics.contactedAfterTarget} after that target. These are staff-recorded actions, not email delivery receipts. Only the most recent 120 requests are shown here.</p>
       <p className="mt-3 text-xs leading-6 text-muted-foreground">Aggregated offer outbound link activations, not unique visitors, bookings or revenue. No click-level visitor identity is retained.{data.offerClickStats.truncated ? " More than 1,000 daily offer records exist; this is a partial lower-bound count." : ""}</p>
       <div className="mt-6 flex flex-wrap gap-2" role="tablist" aria-label="Corporate event review queues">
         {(['leads', 'applications', 'offers'] as const).map((key) =>
@@ -194,6 +200,12 @@ export function CorporateEventOpsPanel({ accessKey }: { accessKey: string }) {
                 ? 'Optional sharing approved for the selected venues only, recorded ' + (lead.provider_outreach_consented_at ? fmt(lead.provider_outreach_consented_at) : 'without a readable timestamp') + '. Review venue identity and partner terms before taking any manual outreach action. No message was sent by this system.'
                 : 'No venue-sharing consent. Do not forward this planner’s personal contact details to businesses.'}
             </p>
+            {isCorporateEventLeadOverdue(lead) ? <p className="mt-3 border border-border bg-surface p-3 text-xs font-semibold text-foreground">
+              Follow-up priority: more than 48 hours since this planner's request without a recorded first contact.
+            </p> : null}
+            {lead.first_contacted_at ? <p className="mt-2 text-xs text-muted-foreground">
+              Staff-recorded first contact: {fmt(lead.first_contacted_at)}. This records operator confirmation, not proof of delivery.
+            </p> : null}
             {lead.notes ? <p className="mt-3 whitespace-pre-wrap border-t border-border pt-3 text-sm leading-7">{lead.notes}</p> : null}
           </article>
         )}
