@@ -3,6 +3,8 @@ on:
   pull_request:
     paths:
       - 'src/data/corporate-events.ts'
+      - 'src/data/corporate-event-market-search.ts'
+      - 'src/routes/corporate-events.lazy.tsx'
       - 'scripts/data/validate-corporate-events.mjs'
       - 'scripts/data/validate-corporate-houston-depth.mjs'
       - 'scripts/data/validate-corporate-houston-second-wave.mjs'
@@ -11,6 +13,8 @@ on:
     branches: [main]
     paths:
       - 'src/data/corporate-events.ts'
+      - 'src/data/corporate-event-market-search.ts'
+      - 'src/routes/corporate-events.lazy.tsx'
       - 'scripts/data/validate-corporate-events.mjs'
       - 'scripts/data/validate-corporate-houston-depth.mjs'
       - '.github/workflows/corporate-houston-depth.yml'
