@@ -60,7 +60,7 @@ function assertCorporateEventContents(html, type) {
     'Request a quote',
     'Submitting this form does not request a quote from a venue',
     'I agree TexasDefined may use this information to contact me',
-    'Group capacity unverified',
+    'Capacity is not live availability.',
     'BreadcrumbList',
     'ItemList',
     'application/ld+json',
