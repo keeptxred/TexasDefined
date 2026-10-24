@@ -14,6 +14,80 @@ export interface MuseumVisitorFaq {
   reviewed: string;
 }
 export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
+  "barrington-living-history-farm": [
+    {
+      "question": "When can I tour Barrington Living History Farm rather than just the grounds?",
+      "answer": "The Texas Historical Commission currently posts farm and townsite visits on Wednesday through Sunday, 10 a.m. to 4:30 p.m. Visitor-center and general grounds access on Monday or Tuesday does not mean the farm buildings and interpreters are open. Confirm holidays or weather closures before setting out.",
+      "verificationUrl": "https://thc.texas.gov/historic-sites/barrington-living-history-farm",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thc.texas.gov/historic-sites/barrington-living-history-farm",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "What are the current adult and family ticket prices at Barrington?",
+      "answer": "The operator lists standard admission at $10 for adults, $6 for visitors aged 6 to 17 and free for children five and under; discount categories cost $8. A family option for two adults and one child is $22 plus $1 for each additional child. Group rates and program tickets have different conditions.",
+      "verificationUrl": "https://thc.texas.gov/historic-sites/washington-brazos",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thc.texas.gov/historic-sites/washington-brazos",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Is Anson Jones's home original or rebuilt for the museum?",
+      "answer": "The Jones house is a surviving historical structure associated with his residence, but other farm buildings and enslaved-quarters displays have been reconstructed as an interpretive 1850s landscape. Visitors should distinguish actual surviving material from structures based on historical research instead of calling every cabin original.",
+      "verificationUrl": "https://thc.texas.gov/state-historic-sites/barrington-living-history-farm/barrington-living-history-farm-history",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thc.texas.gov/state-historic-sites/barrington-living-history-farm/barrington-living-history-farm-history",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Does Barrington tell the stories of the people held in slavery there?",
+      "answer": "The Texas Historical Commission interprets the cotton farm's enslaved residents, work routines and living quarters using Jones-era records, not merely the biography of the final Republic president. The kitchen, quarters, crops and household must be understood in the context of labor coerced from enslaved people.",
+      "verificationUrl": "https://thc.texas.gov/state-historic-sites/barrington-living-history-farm/barrington-living-history-farm-history",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thc.texas.gov/state-historic-sites/barrington-living-history-farm/barrington-living-history-farm-history",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Are Barrington's farm paths and buildings all wheelchair accessible?",
+      "answer": "The historical landscape includes outdoor dirt paths, and some tours involve stairs or historic thresholds. The Texas Historical Commission asks group organizers to identify ramp requirements before arrival. Contact visitor staff at 936-878-2214 for precise current access; online descriptions do not establish that every building is barrier-free.",
+      "verificationUrl": "https://thc.texas.gov/washington-brazos-complex/plan-your-visit-washington-brazos",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thc.texas.gov/washington-brazos-complex/plan-your-visit-washington-brazos",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "How early should a group schedule a tour of Barrington?",
+      "answer": "The Texas Historical Commission advises reserving adult groups about four weeks ahead and arranging payment a week before the visit. Ask explicitly for the farm and tell staff about mobility requirements. The published adult-group price differs from normal family and child admission, so do not assume a drop-in group receives the same program.",
+      "verificationUrl": "https://thc.texas.gov/washington-brazos-complex/plan-your-visit-washington-brazos",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thc.texas.gov/washington-brazos-complex/plan-your-visit-washington-brazos",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Are all farm and livestock demonstrations shown every day?",
+      "answer": "Period cooking, field work, livestock care and other demonstrations follow the farm's agricultural calendar, staff and weather. The operator does not promise every activity at a fixed hourly schedule, so visitors should confirm an advertised event if a specific demonstration is essential to their trip.",
+      "verificationUrl": "https://thc.texas.gov/historic-sites/barrington-living-history-farm",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thc.texas.gov/historic-sites/barrington-living-history-farm",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Do Barrington tours continue when thunderstorms approach?",
+      "answer": "The Texas Historical Commission says Barrington's outdoor visits close for thunder or lightning within eight miles and resume only after an appropriate clear period. Farm access is therefore not guaranteed merely because the visitor center is open; check actual site alerts on stormy days.",
+      "verificationUrl": "https://thc.texas.gov/washington-brazos-complex/plan-your-visit-washington-brazos",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thc.texas.gov/washington-brazos-complex/plan-your-visit-washington-brazos",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    }
+  ],
   "bastrop-county-museum-visitor-center": [
     {
       "question": "Where is the Bastrop County Museum and Visitor Center located?",
