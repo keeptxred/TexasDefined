@@ -604,7 +604,37 @@
   "ownerInventoryCheckpoint": {
     "schemaVersion": 1,
     "batchSequence": 0,
-    "entries": {}
+    "entries": {
+      "admiralnimitzgallery": {
+        "submittedName": "Admiral Nimitz Gallery",
+        "rawOccurrence": 6,
+        "batchId": "museum-owner-evidence-reconciliation-20261024",
+        "status": "existing-guide-component",
+        "canonicalSlug": "national-museum-pacific-war",
+        "reason": "Operator describes Admiral Nimitz Gallery as permanent collection/campus gallery of National Museum of the Pacific War; admission is to overall museum. Do not create competing standalone destination.",
+        "evidence": [
+          "https://www.pacificwarmuseum.org/visit/exhibits/admiral-nimitz-gallery-1",
+          "https://www.pacificwarmuseum.org/visit/campus",
+          "https://www.pacificwarmuseum.org/visit"
+        ],
+        "reviewedAt": "2026-10-24"
+      },
+      "abileneheritagesquare": {
+        "submittedName": "Abilene Heritage Square",
+        "rawOccurrence": 5,
+        "batchId": "museum-owner-evidence-reconciliation-20261024",
+        "status": "excluded-not-standalone-museum",
+        "canonicalSlug": null,
+        "relatedCanonicalSlug": "grace-museum-abilene",
+        "reason": "Abilene Heritage Square is a campus containing the Abilene public library, event center, and separate Spark Science Center run by The Grace Museum. The site as a whole is not a distinct museum institution. Spark remains a research opportunity for distinct visitor coverage, not automatically excluded.",
+        "evidence": [
+          "https://www.abileneheritagesquare.org/",
+          "https://www.abileneheritagesquare.org/sparksciencecenter/",
+          "https://thegracemuseum.org/exhibitions/spark/"
+        ],
+        "reviewedAt": "2026-10-24"
+      }
+    }
   },
   "currentRecovery20261024": {
     "observedOn": "2026-10-24",
@@ -653,6 +683,13 @@
       14136
     ],
     "productionBrowserImageAndMobileCertified": false,
-    "productionSnapshotVerifiedDate": "2026-10-24"
+    "productionSnapshotVerifiedDate": "2026-10-24",
+    "ownerInventoryEvidenceDispositions": [
+      "admiralnimitzgallery",
+      "abileneheritagesquare"
+    ],
+    "ownerInventoryRawNameOccurrences": 669,
+    "ownerInventoryProvisionalDistinctNames": 668,
+    "ownerInventoryStillUnverified": true
   }
 }
