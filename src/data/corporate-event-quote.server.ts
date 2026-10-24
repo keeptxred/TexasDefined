@@ -2,6 +2,7 @@ import { assertSportsPartnerAccess } from '@/data/sports-partner-leads.server';
 import { corporateEventProviders } from '@/data/corporate-events';
 import { isUpcomingCorporateEventDate, corporateEventTexasToday } from '@/data/corporate-event-dates';
 import { supabaseAdmin } from '@/integrations/supabase/client.server';
+import { corporateEventOfficialDomainMatches } from '@/data/corporate-event-offer-provenance';
 
 const client = supabaseAdmin as any;
 
@@ -10,17 +11,9 @@ function normalizeBusinessName(name: string): string {
 }
 
 function verifiedBusinessDomain(website: string, officialUrl: string): boolean {
-  try {
-    const applicant = new URL(website);
-    const official = new URL(officialUrl);
-    if (applicant.protocol !== 'https:' || official.protocol !== 'https:') return false;
-    const host = (url: URL) => url.hostname.toLowerCase().replace(/^www\./, '');
-    const a = host(applicant);
-    const b = host(official);
-    return a === b || a.endsWith('.' + b) || b.endsWith('.' + a);
-  } catch {
-    return false;
-  }
+  // Venue-scoped; an ancestor host of the official source or an unrelated
+  // domain is not adequate business identity evidence for forwarding PII.
+  return corporateEventOfficialDomainMatches(website, officialUrl);
 }
 
 /** Staff-only manual draft. Never sends mail or routes customer details automatically. */
