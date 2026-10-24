@@ -1,0 +1,575 @@
+{
+  "schema_version": 1,
+  "initiative": "TexasDefined fishing apparel launch 2026",
+  "created_at": "2026-10-24",
+  "phase": 1,
+  "source_repo": "keeptxred/TexasDefined",
+  "branch": "merch/texasdefined-fishing-phase1-20261024",
+  "website": "texasdefined",
+  "printify_shop_id": 28098650,
+  "etsy_channel_display_name": "The Official shop of KeepTXRed.com",
+  "separation_rule": "TexasDefined lifestyle listings only; never include KeepTXRed political branding and set website=texasdefined",
+  "source_main_commit_at_inspection": "ac28de66daa0fece7b3b375bd504ed470cd56256",
+  "recovered_state": {
+    "heartland_catalog_checked": true,
+    "shirt_saved_template": "6a466888b706a0bfc50e0a2e",
+    "shirt_blueprint_id": 145,
+    "shirt_provider_id": 99,
+    "shirt_expected_variant_count": 16,
+    "shirt_template_px": [
+      3852,
+      4398
+    ],
+    "shirt_retail_price_usd": 28,
+    "shirt_position": "front",
+    "shirt_decoration": "dtg",
+    "known_shirt_403": "Historical 403 on blueprint 145/provider 99. Not retested in this phase: no approved individual production artwork; do not imply connection disconnected.",
+    "alternate_existing_template": "6a763c699519879479041976",
+    "alternate_blueprint_id": 6,
+    "alternate_provider_id": 99,
+    "duplicates": "No exact six proposed titles in Heartland template titles or matching titles in public.products query on 2026-10-24. This is not an Etsy seller-inventory audit.",
+    "database_table": "public.products",
+    "brand_field": "publish_texasdefined",
+    "other_brand_field": "publish_keeptxred",
+    "image_generation": "One six-up concept image generated, gen_id a79c10fe-34ac-477d-88b9-64367c2aee28; split 512px concept previews. Do NOT treat upscaled concepts as print ready.",
+    "etsylive_section_fishing_shirts": "unverified",
+    "etsy_seller_management": "not available through installed Etsy buyer connector",
+    "public_printify_ids_verified": 0,
+    "public_etsy_urls_verified": 0,
+    "products_published": 0
+  },
+  "artwork_requirements": {
+    "print_master": "Real transparent PNG with organic edges; no square haze, photo rectangle or opaque/semisolid poster background.",
+    "final_target_px": [
+      3852,
+      4398
+    ],
+    "front_dtg": true,
+    "check": "Verify full-resolution edges, alpha, type, fish anatomy, print readability, black/white/third-color mockups before asking for artwork approval.",
+    "failed_qa": "Six 512px raster concept excerpts derived from a composite, with residual gradient and insufficient original native resolution; NOT FINAL."
+  },
+  "workflow": {
+    "prepare": "Heartland prepare_products only on individually user-approved production artwork, products=['shirt'], website='texasdefined', stable job IDs, up to 12 supported tags.",
+    "publish": "Heartland publish_products only after separate explicit approval of each prepared plan/approval_token. Never record a sale or Etsy listing as live without verified response.",
+    "etsy": "Create 13th tag with real authorized Etsy seller-management interface; Heartland currently supports max 12 tags. Ensure separate shop section Fishing Shirts if it exists or create without duplication when seller-management available.",
+    "prevent_duplicates": "Reconcile Printify/Etsy/TD records before any retries. No new job IDs on uncertain operations."
+  },
+  "collection_status": "CONCEPTS_READY_AWAITING_PRODUCTION_ART_AND_APPROVAL",
+  "designs": [
+    {
+      "id": "TD-FISH-01",
+      "name": "Texas Bass Co.",
+      "phase": 1,
+      "title_draft": "Texas Bass Co. Bass Fishing T-Shirt | Vintage Texas Largemouth Graphic Tee",
+      "description_draft": "A leaping largemouth bass and a splash of freshwater give this Texas Bass Co. graphic tee a classic fishing-camp feel. The illustrated reeds and outdoor details are designed for anglers who would rather be on the water.\n\nThis original Texas Defined design is intended for bass fishermen, lake weekends, fishing trips and everyday outdoor wear. The flowing graphic is designed without a rectangular poster border.\n\nBefore publication, confirm the actual garment material, size chart, colors, care instructions, print provider, processing time and shipping rates from the selected Printify variant.",
+      "etsy_tags_draft": [
+        "texas bass shirt",
+        "bass fishing tee",
+        "largemouth bass",
+        "fishing t shirt",
+        "texas angler",
+        "fishing gift",
+        "bass fisherman",
+        "lake life shirt",
+        "outdoor graphic tee",
+        "freshwater fishing",
+        "bass fishing gift",
+        "fisherman apparel",
+        "texas fishing"
+      ],
+      "heartland_tags_draft": [
+        "texas bass shirt",
+        "bass fishing tee",
+        "largemouth bass",
+        "fishing t shirt",
+        "texas angler",
+        "fishing gift",
+        "bass fisherman",
+        "lake life shirt",
+        "outdoor graphic tee",
+        "freshwater fishing",
+        "bass fishing gift",
+        "fisherman apparel"
+      ],
+      "outstanding_etsy_13th_tag": "texas fishing",
+      "etsy_category": "Clothing > Unisex Adult Clothing > Tops & Tees > T-shirts (taxonomy verification pending)",
+      "etsy_shop_section": "Fishing Shirts (not yet verified or assigned)",
+      "mockup_alt_text_draft": "Texas Bass Co. graphic T-shirt with original Texas Defined fishing artwork",
+      "pricing_policy": "Use saved $28 only if verified from approved template; no price change authorized.",
+      "stable_job_id": "TDFISH2026P1_01",
+      "artwork": {
+        "concept_preview_chat_path": "/mnt/data/texasdefined_fishing_phase1/TD-FISH-01_concept_preview.png",
+        "concept_source_gen_id": "a79c10fe-34ac-477d-88b9-64367c2aee28",
+        "persistent_production_uri": null,
+        "approved": false,
+        "quality_status": "concept_only_fails_print_readiness"
+      },
+      "printify": {
+        "prepared": false,
+        "template_selected": null,
+        "product_id": null,
+        "variant_ids": null,
+        "artwork_upload_id": null,
+        "publication_verified": false
+      },
+      "etsy": {
+        "listing_id": null,
+        "url": null,
+        "listing_verified": false,
+        "actual_tag_count": null,
+        "production_partner_disclosure_verified": false
+      },
+      "texasdefined": {
+        "sync_verified": false,
+        "product_id": null,
+        "url": null
+      },
+      "blockers": [
+        "Original 512px concept cannot be declared print-ready",
+        "User artwork approval required",
+        "Heartland prepared-plan publication approval required",
+        "Etsy seller-management access for 13th tag/section unverified"
+      ]
+    },
+    {
+      "id": "TD-FISH-02",
+      "name": "Chasing Largemouth",
+      "phase": 1,
+      "title_draft": "Chasing Largemouth Bass Fishing T-Shirt | Texas Freshwater Angler Tee",
+      "description_draft": "For the early launch, the topwater strike and the fish that almost pulled the rod from your hand. Chasing Largemouth features an energetic bass, fishing lure and flowing aquatic plants rather than a framed scenic print.\n\nA Texas Defined fishing graphic for freshwater anglers and anyone who spends weekends chasing bass. A distinctive gift idea for a fishing buddy, tournament spectator or lake-trip companion.\n\nFabric, sizing, care, available garment colors, fulfillment partner and delivery details must be verified from the actual product configuration before listing.",
+      "etsy_tags_draft": [
+        "chasing largemouth",
+        "largemouth shirt",
+        "bass fishing shirt",
+        "bass fishing gift",
+        "fishing lure tee",
+        "freshwater angler",
+        "fisherman tee",
+        "lake day shirt",
+        "trophy bass",
+        "texas fishing",
+        "outdoor apparel",
+        "angler gift",
+        "fishing graphic"
+      ],
+      "heartland_tags_draft": [
+        "chasing largemouth",
+        "largemouth shirt",
+        "bass fishing shirt",
+        "bass fishing gift",
+        "fishing lure tee",
+        "freshwater angler",
+        "fisherman tee",
+        "lake day shirt",
+        "trophy bass",
+        "texas fishing",
+        "outdoor apparel",
+        "angler gift"
+      ],
+      "outstanding_etsy_13th_tag": "fishing graphic",
+      "etsy_category": "Clothing > Unisex Adult Clothing > Tops & Tees > T-shirts (taxonomy verification pending)",
+      "etsy_shop_section": "Fishing Shirts (not yet verified or assigned)",
+      "mockup_alt_text_draft": "Chasing Largemouth graphic T-shirt with original Texas Defined fishing artwork",
+      "pricing_policy": "Use saved $28 only if verified from approved template; no price change authorized.",
+      "stable_job_id": "TDFISH2026P1_02",
+      "artwork": {
+        "concept_preview_chat_path": "/mnt/data/texasdefined_fishing_phase1/TD-FISH-02_concept_preview.png",
+        "concept_source_gen_id": "a79c10fe-34ac-477d-88b9-64367c2aee28",
+        "persistent_production_uri": null,
+        "approved": false,
+        "quality_status": "concept_only_fails_print_readiness"
+      },
+      "printify": {
+        "prepared": false,
+        "template_selected": null,
+        "product_id": null,
+        "variant_ids": null,
+        "artwork_upload_id": null,
+        "publication_verified": false
+      },
+      "etsy": {
+        "listing_id": null,
+        "url": null,
+        "listing_verified": false,
+        "actual_tag_count": null,
+        "production_partner_disclosure_verified": false
+      },
+      "texasdefined": {
+        "sync_verified": false,
+        "product_id": null,
+        "url": null
+      },
+      "blockers": [
+        "Original 512px concept cannot be declared print-ready",
+        "User artwork approval required",
+        "Heartland prepared-plan publication approval required",
+        "Etsy seller-management access for 13th tag/section unverified"
+      ]
+    },
+    {
+      "id": "TD-FISH-03",
+      "name": "Lake Weekend",
+      "phase": 1,
+      "title_draft": "Lake Weekend T-Shirt | Vintage Texas Lake Boat and Sunset Graphic Tee",
+      "description_draft": "A fishing boat, quiet water and a warm Texas sunset capture that first evening after pulling into the lake. Lake Weekend is a relaxed outdoor graphic designed for fishing trips, cabins and time away from the weekday routine.\n\nMade as original Texas Defined artwork with organic illustration edges, not a boxed postcard image. It pairs naturally with a lake trip, boating weekend or casual outdoor outfit.\n\nThe final live listing must use verified fabric, sizes, color swatches, care, production-partner disclosure and current processing/shipping information.",
+      "etsy_tags_draft": [
+        "lake weekend tee",
+        "lake life shirt",
+        "texas lake shirt",
+        "fishing boat tee",
+        "lake cabin gift",
+        "weekend fishing",
+        "outdoors tee",
+        "sunset lake",
+        "lake trip shirt",
+        "camping lake shirt",
+        "fishing gift",
+        "texas weekend",
+        "boating shirt"
+      ],
+      "heartland_tags_draft": [
+        "lake weekend tee",
+        "lake life shirt",
+        "texas lake shirt",
+        "fishing boat tee",
+        "lake cabin gift",
+        "weekend fishing",
+        "outdoors tee",
+        "sunset lake",
+        "lake trip shirt",
+        "camping lake shirt",
+        "fishing gift",
+        "texas weekend"
+      ],
+      "outstanding_etsy_13th_tag": "boating shirt",
+      "etsy_category": "Clothing > Unisex Adult Clothing > Tops & Tees > T-shirts (taxonomy verification pending)",
+      "etsy_shop_section": "Fishing Shirts (not yet verified or assigned)",
+      "mockup_alt_text_draft": "Lake Weekend graphic T-shirt with original Texas Defined fishing artwork",
+      "pricing_policy": "Use saved $28 only if verified from approved template; no price change authorized.",
+      "stable_job_id": "TDFISH2026P1_03",
+      "artwork": {
+        "concept_preview_chat_path": "/mnt/data/texasdefined_fishing_phase1/TD-FISH-03_concept_preview.png",
+        "concept_source_gen_id": "a79c10fe-34ac-477d-88b9-64367c2aee28",
+        "persistent_production_uri": null,
+        "approved": false,
+        "quality_status": "concept_only_fails_print_readiness"
+      },
+      "printify": {
+        "prepared": false,
+        "template_selected": null,
+        "product_id": null,
+        "variant_ids": null,
+        "artwork_upload_id": null,
+        "publication_verified": false
+      },
+      "etsy": {
+        "listing_id": null,
+        "url": null,
+        "listing_verified": false,
+        "actual_tag_count": null,
+        "production_partner_disclosure_verified": false
+      },
+      "texasdefined": {
+        "sync_verified": false,
+        "product_id": null,
+        "url": null
+      },
+      "blockers": [
+        "Original 512px concept cannot be declared print-ready",
+        "User artwork approval required",
+        "Heartland prepared-plan publication approval required",
+        "Etsy seller-management access for 13th tag/section unverified"
+      ]
+    },
+    {
+      "id": "TD-FISH-04",
+      "name": "Texas Tackle Club",
+      "phase": 1,
+      "title_draft": "Texas Tackle Club T-Shirt | Vintage Fishing Lure and Tackle Graphic Tee",
+      "description_draft": "For anglers who know every scratch on their favorite crankbait. Texas Tackle Club brings classic fishing lures, a spool of line and heritage tackle-shop lettering into a single detailed graphic with an irregular outline.\n\nThe design is intended for tackle collectors, bass fishermen and fishing friends who appreciate the art of the gear as much as the catch. An original Texas Defined outdoor apparel concept.\n\nConfirm exact garment fabric, sizes, colors, care details, supplier, processing and shipping before publishing the final Etsy listing.",
+      "etsy_tags_draft": [
+        "texas tackle club",
+        "fishing tackle tee",
+        "vintage lures",
+        "topwater lure",
+        "fishing gear shirt",
+        "crankbait shirt",
+        "angler shirt",
+        "lure collector",
+        "tackle box gift",
+        "texas fishing",
+        "outdoor tee",
+        "fisherman gift",
+        "fishing club"
+      ],
+      "heartland_tags_draft": [
+        "texas tackle club",
+        "fishing tackle tee",
+        "vintage lures",
+        "topwater lure",
+        "fishing gear shirt",
+        "crankbait shirt",
+        "angler shirt",
+        "lure collector",
+        "tackle box gift",
+        "texas fishing",
+        "outdoor tee",
+        "fisherman gift"
+      ],
+      "outstanding_etsy_13th_tag": "fishing club",
+      "etsy_category": "Clothing > Unisex Adult Clothing > Tops & Tees > T-shirts (taxonomy verification pending)",
+      "etsy_shop_section": "Fishing Shirts (not yet verified or assigned)",
+      "mockup_alt_text_draft": "Texas Tackle Club graphic T-shirt with original Texas Defined fishing artwork",
+      "pricing_policy": "Use saved $28 only if verified from approved template; no price change authorized.",
+      "stable_job_id": "TDFISH2026P1_04",
+      "artwork": {
+        "concept_preview_chat_path": "/mnt/data/texasdefined_fishing_phase1/TD-FISH-04_concept_preview.png",
+        "concept_source_gen_id": "a79c10fe-34ac-477d-88b9-64367c2aee28",
+        "persistent_production_uri": null,
+        "approved": false,
+        "quality_status": "concept_only_fails_print_readiness"
+      },
+      "printify": {
+        "prepared": false,
+        "template_selected": null,
+        "product_id": null,
+        "variant_ids": null,
+        "artwork_upload_id": null,
+        "publication_verified": false
+      },
+      "etsy": {
+        "listing_id": null,
+        "url": null,
+        "listing_verified": false,
+        "actual_tag_count": null,
+        "production_partner_disclosure_verified": false
+      },
+      "texasdefined": {
+        "sync_verified": false,
+        "product_id": null,
+        "url": null
+      },
+      "blockers": [
+        "Original 512px concept cannot be declared print-ready",
+        "User artwork approval required",
+        "Heartland prepared-plan publication approval required",
+        "Etsy seller-management access for 13th tag/section unverified"
+      ]
+    },
+    {
+      "id": "TD-FISH-05",
+      "name": "Sunrise Cast",
+      "phase": 1,
+      "title_draft": "Sunrise Cast Fishing T-Shirt | Texas Morning Lake Angler Graphic Tee",
+      "description_draft": "The water is still, the sun is just clearing the trees and it's time for the first cast. Sunrise Cast illustrates a lone angler on a Texas lake, with the sweep of the fishing line forming part of the artwork.\n\nA calm, atmospheric Texas Defined fishing shirt concept for early risers, boat anglers and anyone who treasures a quiet morning on the water. Designed as an illustration rather than a rectangular sunset photograph.\n\nFinal sizes, care, garment materials, print provider, production times and shipping must come from validated Printify product information.",
+      "etsy_tags_draft": [
+        "sunrise cast shirt",
+        "fishing at sunrise",
+        "angler graphic tee",
+        "sunrise fishing",
+        "morning fishing",
+        "texas lake shirt",
+        "boat fishing",
+        "lake morning",
+        "fisherman gift",
+        "outdoor lifestyle",
+        "fishing shirt",
+        "fishing weekend",
+        "quiet lake"
+      ],
+      "heartland_tags_draft": [
+        "sunrise cast shirt",
+        "fishing at sunrise",
+        "angler graphic tee",
+        "sunrise fishing",
+        "morning fishing",
+        "texas lake shirt",
+        "boat fishing",
+        "lake morning",
+        "fisherman gift",
+        "outdoor lifestyle",
+        "fishing shirt",
+        "fishing weekend"
+      ],
+      "outstanding_etsy_13th_tag": "quiet lake",
+      "etsy_category": "Clothing > Unisex Adult Clothing > Tops & Tees > T-shirts (taxonomy verification pending)",
+      "etsy_shop_section": "Fishing Shirts (not yet verified or assigned)",
+      "mockup_alt_text_draft": "Sunrise Cast graphic T-shirt with original Texas Defined fishing artwork",
+      "pricing_policy": "Use saved $28 only if verified from approved template; no price change authorized.",
+      "stable_job_id": "TDFISH2026P1_05",
+      "artwork": {
+        "concept_preview_chat_path": "/mnt/data/texasdefined_fishing_phase1/TD-FISH-05_concept_preview.png",
+        "concept_source_gen_id": "a79c10fe-34ac-477d-88b9-64367c2aee28",
+        "persistent_production_uri": null,
+        "approved": false,
+        "quality_status": "concept_only_fails_print_readiness"
+      },
+      "printify": {
+        "prepared": false,
+        "template_selected": null,
+        "product_id": null,
+        "variant_ids": null,
+        "artwork_upload_id": null,
+        "publication_verified": false
+      },
+      "etsy": {
+        "listing_id": null,
+        "url": null,
+        "listing_verified": false,
+        "actual_tag_count": null,
+        "production_partner_disclosure_verified": false
+      },
+      "texasdefined": {
+        "sync_verified": false,
+        "product_id": null,
+        "url": null
+      },
+      "blockers": [
+        "Original 512px concept cannot be declared print-ready",
+        "User artwork approval required",
+        "Heartland prepared-plan publication approval required",
+        "Etsy seller-management access for 13th tag/section unverified"
+      ]
+    },
+    {
+      "id": "TD-FISH-06",
+      "name": "Texas Coastal Angler",
+      "phase": 1,
+      "title_draft": "Texas Coastal Angler Redfish T-Shirt | Gulf Coast Saltwater Fishing Tee",
+      "description_draft": "A copper-bronze redfish with its distinctive spotted tail cuts through marsh water in this Gulf Coast fishing graphic. Texas Coastal Angler celebrates the bays, flats and coastal wetlands that make Texas saltwater fishing memorable.\n\nThe design uses a naturally flowing composition intended for anglers who love chasing red drum, exploring tidal marshes and spending time along the Texas coast. An original, nonpolitical Texas Defined apparel concept.\n\nUse supplier-confirmed garment fabric, sizing, colors, care instructions, production partner and shipping rates in the final Etsy listing; do not infer these from the illustration.",
+      "etsy_tags_draft": [
+        "texas coastal tee",
+        "redfish shirt",
+        "saltwater fishing",
+        "gulf coast tee",
+        "red drum fishing",
+        "coastal angler",
+        "texas redfish",
+        "fishing gift",
+        "marsh fishing",
+        "flats fishing",
+        "shoreline tee",
+        "inshore fishing",
+        "saltwater angler"
+      ],
+      "heartland_tags_draft": [
+        "texas coastal tee",
+        "redfish shirt",
+        "saltwater fishing",
+        "gulf coast tee",
+        "red drum fishing",
+        "coastal angler",
+        "texas redfish",
+        "fishing gift",
+        "marsh fishing",
+        "flats fishing",
+        "shoreline tee",
+        "inshore fishing"
+      ],
+      "outstanding_etsy_13th_tag": "saltwater angler",
+      "etsy_category": "Clothing > Unisex Adult Clothing > Tops & Tees > T-shirts (taxonomy verification pending)",
+      "etsy_shop_section": "Fishing Shirts (not yet verified or assigned)",
+      "mockup_alt_text_draft": "Texas Coastal Angler graphic T-shirt with original Texas Defined fishing artwork",
+      "pricing_policy": "Use saved $28 only if verified from approved template; no price change authorized.",
+      "stable_job_id": "TDFISH2026P1_06",
+      "artwork": {
+        "concept_preview_chat_path": "/mnt/data/texasdefined_fishing_phase1/TD-FISH-06_concept_preview.png",
+        "concept_source_gen_id": "a79c10fe-34ac-477d-88b9-64367c2aee28",
+        "persistent_production_uri": null,
+        "approved": false,
+        "quality_status": "concept_only_fails_print_readiness"
+      },
+      "printify": {
+        "prepared": false,
+        "template_selected": null,
+        "product_id": null,
+        "variant_ids": null,
+        "artwork_upload_id": null,
+        "publication_verified": false
+      },
+      "etsy": {
+        "listing_id": null,
+        "url": null,
+        "listing_verified": false,
+        "actual_tag_count": null,
+        "production_partner_disclosure_verified": false
+      },
+      "texasdefined": {
+        "sync_verified": false,
+        "product_id": null,
+        "url": null
+      },
+      "blockers": [
+        "Original 512px concept cannot be declared print-ready",
+        "User artwork approval required",
+        "Heartland prepared-plan publication approval required",
+        "Etsy seller-management access for 13th tag/section unverified"
+      ]
+    }
+  ],
+  "phase2_reservations": [
+    {
+      "id": "TD-FISH-07",
+      "name": "Lake Fork",
+      "phase": 2,
+      "status": "reserved_not_created",
+      "stable_job_id": "TDFISH2026P2_07",
+      "printify_product_id": null,
+      "etsy_listing_id": null
+    },
+    {
+      "id": "TD-FISH-08",
+      "name": "Sam Rayburn",
+      "phase": 2,
+      "status": "reserved_not_created",
+      "stable_job_id": "TDFISH2026P2_08",
+      "printify_product_id": null,
+      "etsy_listing_id": null
+    },
+    {
+      "id": "TD-FISH-09",
+      "name": "Toledo Bend",
+      "phase": 2,
+      "status": "reserved_not_created",
+      "stable_job_id": "TDFISH2026P2_09",
+      "printify_product_id": null,
+      "etsy_listing_id": null
+    },
+    {
+      "id": "TD-FISH-10",
+      "name": "Caddo Lake",
+      "phase": 2,
+      "status": "reserved_not_created",
+      "stable_job_id": "TDFISH2026P2_10",
+      "printify_product_id": null,
+      "etsy_listing_id": null
+    }
+  ],
+  "verification_log": [
+    {
+      "date": "2026-10-24",
+      "check": "Connected shop and defaults",
+      "result": "verified via Heartland publisher_catalog"
+    },
+    {
+      "date": "2026-10-24",
+      "check": "Matching title in Supabase product catalog",
+      "result": "No matches in public.products; no insert made"
+    },
+    {
+      "date": "2026-10-24",
+      "check": "Current main",
+      "result": "Fetched main ac28de66..."
+    },
+    {
+      "date": "2026-10-24",
+      "check": "Production image QA",
+      "result": "Not passed; concept previews only"
+    },
+    {
+      "date": "2026-10-24",
+      "check": "Printify / Etsy publication",
+      "result": "Not attempted: prerequisites unmet"
+    }
+  ]
+}
