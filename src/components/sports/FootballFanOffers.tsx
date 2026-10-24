@@ -37,15 +37,34 @@ function isVerifiedProductUrl(url: string) {
 
 export function FootballFanOffers({ slug, hasUpcomingAwayTravel, showTravelPlanning = false }: { slug: string; hasUpcomingAwayTravel: boolean; showTravelPlanning?: boolean }) {
   const showHotels = hasUpcomingAwayTravel || showTravelPlanning;
+  const isStateChampionshipGuide = slug === 'texas-high-school-football-playoffs-explained';
   const gearOffers = VERIFIED_FOOTBALL_GEAR_OFFERS.filter((offer) => isVerifiedProductUrl(offer.trackedUrl));
 
   return (
     <section aria-label="Football fan shopping and travel" className="mt-6 border-t border-border pt-5">
-      <h3 className="font-display text-2xl leading-tight">Friday-night fan essentials</h3>
+      <h3 className="font-display text-2xl leading-tight">{isStateChampionshipGuide ? 'Plan your Texas playoff trip' : 'Friday-night fan essentials'}</h3>
       <p className="mt-2 max-w-3xl text-sm leading-6 text-muted-foreground">
         For the stands: consider a padded bleacher seat, warm layers, rain protection and a portable charger.
         Check your game's bag, seat and food rules with the actual host venue before buying.
       </p>
+      {isStateChampionshipGuide && showHotels && (
+        <div className="mt-4 border-l-2 border-primary bg-surface p-4">
+          <p className="font-semibold">2026 state finals: Arlington, December 16–19</p>
+          <p className="mt-2 text-sm leading-6 text-muted-foreground">
+            UIL lists the state championship games at AT&amp;T Stadium in Arlington. That is the confirmed finals venue, not the location of earlier playoff rounds. Verify the date and game with UIL before booking a stay.
+          </p>
+          <a href="https://www.uiltexas.org/football/state" target="_blank" rel="noopener noreferrer"
+            className="mt-3 inline-flex min-h-11 items-center text-sm font-semibold text-primary underline underline-offset-4">
+            Official UIL championship schedule and ticket information ↗
+          </a>
+        </div>
+      )}
+      {showHotels || gearOffers.length > 0 ? (
+        <p className="mt-4 text-xs leading-5 text-muted-foreground">
+          Affiliate disclosure: TexasDefined may earn a commission from qualifying purchases, hotel bookings or RV reservations, at no additional cost to you.
+          TexasDefined is not affiliated with the schools and these are not official team offers.
+        </p>
+      ) : null}
       {gearOffers.length > 0 && (
         <div className="mt-6 flex flex-wrap gap-3">
           {gearOffers.map((offer) => (
@@ -94,12 +113,6 @@ export function FootballFanOffers({ slug, hasUpcomingAwayTravel, showTravelPlann
           </a>
         </div>
       )}
-      {showHotels || gearOffers.length > 0 ? (
-        <p className="mt-3 text-xs leading-5 text-muted-foreground">
-          Affiliate disclosure: TexasDefined may earn a commission from qualifying purchases, hotel bookings or RV reservations, at no additional cost to you.
-          TexasDefined is not affiliated with the schools and these are not official team offers.
-        </p>
-      ) : null}
     </section>
   );
 }

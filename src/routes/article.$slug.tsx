@@ -101,7 +101,23 @@ const footballTravelArticleSlugs = new Set([
   "texas-high-school-football-scores-schedules",
   "texas-high-school-football-classifications-1a-6a",
   "texas-six-man-football-rules-explained",
+  "texas-high-school-football-playoffs-explained",
 ]);
+
+// Keep existing reviewed evergreen guides eligible, and allow new high-school
+// football guides only when the actual editorial body has an explicit travel
+// planning section. This rule covers future relevant articles without turning
+// every football explainer or unrelated sports story into a shopping page.
+function isFootballTravelPlanningArticle(article: Article): boolean {
+  if (article.category !== "sports") return false;
+  if (footballTravelArticleSlugs.has(article.slug)) return true;
+  const topic = `${article.slug.replace(/-/g, " ")} ${article.title}`;
+  if (!/\b(?:high school football|six man football)\b/i.test(topic)) return false;
+  return article.body.some((block) =>
+    block.type === "heading"
+      && /\b(?:before you travel|travel planning|planning (?:your|a) (?:football )?(?:trip|visit|weekend)|road.trip planning|where to stay|championship weekend|game.day travel)\b/i.test(block.text ?? ""),
+  );
+}
 
 type FaqEntry = { question: string; answer: string };
 type FaqBlock = { type: string; text?: string; items?: string[] };
@@ -449,6 +465,16 @@ function ArticlePage() {
   const hideGenericRelatedRail = article.slug === "hill-country-fall-colors" || article.slug === "east-texas-fall-colors" || article.slug === "texas-ecoregions-habitats-guide" || article.slug === "texas-high-school-football-playoffs-explained";
   const articleDisplayTitle = isTexasRiversArticle ? "Texas Rivers Explained" : article.title;
   const isSixManFootballArticle = article.slug === "texas-six-man-football-rules-explained";
+  const showFootballTravelOffers = isFootballTravelPlanningArticle(article) && !shouldNoindexTexasGatewayArticle(article);
+  // Position the offer after useful planning guidance, before FAQs and sources.
+  // Other eligible guides without those headings use the after-body fallback.
+  const footballTravelInsertIndex = showFootballTravelOffers
+    ? article.body.findIndex((block) => block.type === "heading"
+      && /^(?:frequently asked questions|sources and verification|sources and further reading)\b/i.test(block.text?.trim() ?? ""))
+    : -1;
+  const footballTravelOffer = showFootballTravelOffers
+    ? <FootballFanOffers slug={article.slug} hasUpcomingAwayTravel={false} showTravelPlanning />
+    : null;
   const riverBasinHeadingIndex = isTexasRiversArticle
     ? article.body.findIndex((block) => block.type === "heading" && block.text === "How a Texas River Is Born")
     : -1;
@@ -535,11 +561,15 @@ function ArticlePage() {
             insertBeforeIndex={riverBasinInsertIndex > 0 ? riverBasinInsertIndex : undefined}
             insertBefore={<Suspense fallback={<section className="my-10 border-y border-border py-8" style={{ minHeight: "18rem" }} aria-label="Loading Texas river basin reference" />}><TexasRiverBasinReference /></Suspense>}
           />
+        ) : footballTravelInsertIndex >= 0 ? (
+          <ArticleBody blocks={article.body} entities={graph}
+            insertBeforeIndex={footballTravelInsertIndex}
+            insertBefore={footballTravelOffer} />
         ) : <ArticleBody blocks={article.body} entities={graph} />}
       </div>
       {article.slug === "chip-and-joanna-gaines-magnolia-waco" && <MagnoliaWacoAffiliateLinks />}
       <ElPasoAreaCrossLinks kind="article" slug={article.slug} />
-      {footballTravelArticleSlugs.has(article.slug) ? <FootballFanOffers slug={article.slug} hasUpcomingAwayTravel={false} showTravelPlanning /> : null}
+      {showFootballTravelOffers && footballTravelInsertIndex < 0 ? footballTravelOffer : null}
       {isTexasRiversArticle ? <Suspense fallback={null}><TexasRiversAfterArticle /></Suspense> : null}
       {waterTopic ? (
         <Suspense fallback={<section className="mt-8 border-y border-border bg-surface" style={{ minHeight: "10rem" }} aria-label="Loading Texas water reference" />}>
