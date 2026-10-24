@@ -8,6 +8,7 @@ const api = readFileSync('src/data/corporate-events.functions.ts', 'utf8');
 const registry = readFileSync('src/lib/public-routes.ts', 'utf8');
 const brand = readFileSync('src/brand/texasdefined.ts', 'utf8');
 const events = readFileSync('src/routes/events.index.lazy.tsx', 'utf8');
+const categoryGuides = readFileSync('src/components/events/CorporateEventCategoryGuides.tsx', 'utf8');
 const categories = new Set(corporateEventCategories.map((item) => item.value));
 
 assert(corporateEventProviders.length >= 122, 'Corporate event venue directory requires 122 sourced venues across 19 Texas markets');
@@ -39,4 +40,16 @@ assert(api.includes('consentContact'));
 assert(registry.includes('"/corporate-events"'));
 assert(brand.includes('to: "/corporate-events"'));
 assert(events.includes('to="/corporate-events"'));
+assert(lazyRoute.includes('<CorporateEventCategoryGuides />'), 'Category authority guidance must render on the canonical SSR page');
+assert(lazyRoute.includes("import { CorporateEventCategoryGuides }"), 'Category guide component must be imported');
+assert(lazyRoute.includes("'@type': 'BreadcrumbList'"), 'Corporate events structured data must include canonical breadcrumbs');
+assert(lazyRoute.includes('aria-label="Breadcrumb"'), 'Visible breadcrumbs must accompany structured data');
+assert(categoryGuides.includes('corporateEventProviders.filter((provider) => provider.categories.includes(value))'), 'Guides must derive examples from the actual directory');
+assert(categoryGuides.includes('href={provider.officialUrl}'), 'Category venue examples must link to the sourced official URLs');
+assert(categoryGuides.includes("corporateEventCategories.map"), 'Future category guides must remain data driven');
+assert(categoryGuides.includes('Group capacity unverified') && categoryGuides.includes('This is not date availability'), 'Unknown capacities and date availability must never be advertised as confirmed');
+for (const category of corporateEventCategories) {
+  assert(categoryGuides.includes("'"+category.value+"':") || categoryGuides.includes(category.value + ':'),
+    'Missing authored planning guidance for '+category.value);
+}
 console.log('Corporate events MVP contract checks passed');

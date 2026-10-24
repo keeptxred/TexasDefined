@@ -102,6 +102,7 @@ const prebuildChecks = [
   ['NETWORK/BILLING', 'Require Stripe billing portal session to match owning customer, runtime mode and return host', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-stripe-portal-binding.test.mjs']],
   ['NETWORK/BILLING', 'Verify Stripe staging mode is isolated from live credentials, prices and website origin', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-stripe-isolated-mode.test.mjs']],
   ['CALCULATOR/PLATFORM', 'Validate calculator math and shared architecture', 'node', ['--experimental-strip-types', 'scripts/data/validate-calculator-platform.ts']],
+  ['EVENT/CORPORATE', 'Validate corporate-event source directory, category guides, and SEO breadcrumbs', 'node', ['--experimental-strip-types', 'scripts/data/validate-corporate-events.mjs']],
   ['EVENT/CORPORATE/SECURITY', 'Enforce atomic private planner and partner intake limits', 'node', ['scripts/data/validate-corporate-event-atomic-intake.mjs']],
   ['EVENT/CHRISTMAS', 'Validate source-qualified Christmas community calendar and affiliate disclosures', 'node', ['scripts/data/validate-christmas-community-2026.mjs']],
   ['EVENT/TICKETMASTER', 'Validate Ticketmaster ingestion and tracking', 'node', ['--test', 'scripts/events/ticketmaster-discovery.test.mjs']],
