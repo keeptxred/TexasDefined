@@ -21,3 +21,8 @@ Scope: independent venue listing facts, not real-time booking availability or an
 **Editorial rules preserved:** never infer simultaneous room availability from different published capacities, and never promote a standard ticket rate as a bespoke corporate group rate. Unknown maximum means unverified, not unavailable. Dates represent genuine page review on the stated day, not venue's promise of an opening. No sponsored partner is implied by inclusion. For inaccessible upstream pages, do not change their verification timestamp without evidence.
 
 Follow-up: keep periodic source-monitoring in place. Source revisions, closures, package changes, direct addresses, accessibility and individual room suitability should be rechecked before claiming live inventory or adding verified geocoded radius results.
+
+## Additional operator rechecks — October 24, 2026
+
+- **PKL Social:** https://pklsocial.com/private-events/ explicitly invites groups of **20–250**, including full buyouts. The Stage capacity 25–50, Courtside Patio 50–75 and Fieldhouse up to 150 are distinct individual spaces; a 250-person company event is NOT a 250-person Fieldhouse room claim. Directory previously limited the whole venue to 150. Date and fees remain quote-required.
+- **Space Center Houston:** https://spacecenter.org/host-an-event/venue-information/ explicitly distinguishes **Full Center Experience, maximum 8,000** throughout the 250,000-square-foot complex from Independence Plaza maximum 5,400, Main Plaza maximum 675 standing/400 seated, Food Lab 500 seated and Boardroom 34. The old maximum 5,400 was Independence Plaza alone. Full facility reservations, space access and simultaneous setup are NOT booked or guaranteed.
