@@ -56,7 +56,7 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
       { label: "Washington County guide", href: "/county/washington", reason: "Plan a Washington County historical itinerary" },
       { label: "Washington-on-the-Brazos", href: "/destination/washington-on-the-brazos", reason: "Connect Barrington's everyday life with Republic-era political history" },
       { label: "Star of the Republic Museum", href: "/destination/star-of-the-republic-museum", reason: "Pair the outdoor farm with a separately interpreted museum visit" }
-    ]
+    ],
   },
   "bastrop-county-museum-visitor-center": {
     name: "Bastrop County Museum & Visitor Center", slug: "bastrop-county-museum-visitor-center", county: "Bastrop", city: "Bastrop", reviewed: "2026-10-24",
@@ -87,7 +87,7 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
       { label: "Bastrop County", href: "/county/bastrop", reason: "Connect artifacts and local history to Bastrop County" },
       { label: "Bastrop State Park", href: "/destination/bastrop-state-park", reason: "Experience the Lost Pines habitat interpreted by the museum" },
       { label: "Texas history", href: "/texas-history", reason: "Understand El Camino Real and Bastrop history in a statewide context" }
-    ]
+    ],
   },
   "austin-history-center-austin": {
     name: "Austin History Center, Faulk Building", slug: "austin-history-center-austin", county: "Travis", city: "Austin", reviewed: "2026-10-24",
