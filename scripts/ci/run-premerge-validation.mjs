@@ -113,6 +113,7 @@ const prebuildChecks = [
   ['EVENT/CORPORATE/OFFER-DATES', 'Require Texas-local active offer window', 'node', ['--experimental-strip-types', 'scripts/data/validate-corporate-event-offer-local-date.mjs']],
   ['EVENT/CORPORATE/OFFER-ATTRIBUTION', 'Protect aggregate approved partner offer click and no PII attribution', 'node', ['scripts/data/validate-corporate-offer-attribution.mjs']],
   ['EVENT/CORPORATE/BROWSER', 'Enforce GET-only real Chrome mobile/tablet/desktop acceptance contract', 'node', ['scripts/ci/validate-corporate-event-responsive-production.mjs']],
+  ['EVENT/CORPORATE/CLIENT-PII', 'Test built-client privacy scanner with synthetic data', 'node', ['--test', 'scripts/ci/validate-corporate-client-privacy.test.mjs']],
   ['EVENT/CORPORATE/CONSENT', 'Require irreversible verified organizer consent withdrawal', 'node', ['scripts/data/validate-corporate-event-consent-withdrawal.mjs']],
   ['EVENT/CORPORATE/SOURCES', 'Maintain dated official-source re-review for all independent venues', 'node', ['scripts/data/validate-corporate-event-source-review.mjs']],
   ['EVENT/CORPORATE/EVIDENCE-GAPS', 'Separate missing published capacity/price from genuine 45-person group fit', 'node', ['--experimental-strip-types', 'scripts/data/validate-corporate-event-evidence-gaps.mjs']],
@@ -224,6 +225,14 @@ runCheck({
   label: 'Smoke-test built Worker SSR locally',
   command: 'node',
   args: ['scripts/ci/verify-built-worker-ssr.mjs'],
+  dependsOnBuild: true,
+}, buildPassed);
+
+runCheck({
+  classification: 'EVENT/CORPORATE/CLIENT-PII',
+  label: 'Reject server-only corporate group ledgers and private evidence from compiled public JS',
+  command: 'node',
+  args: ['scripts/ci/validate-corporate-client-privacy.mjs'],
   dependsOnBuild: true,
 }, buildPassed);
 
