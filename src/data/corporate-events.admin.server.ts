@@ -20,7 +20,6 @@ export type CorporateEventLeadRecord = {
   budget_per_person: number | null; provider_slugs: string[]; notes: string | null;
   allow_provider_outreach: boolean; provider_outreach_consented_at: string | null;
   first_contacted_at: string | null;
-  first_contact_evidence_reference: string | null;
 };
 export type CorporateEventApplicationRecord = {
   id: string; created_at: string; status: CorporateEventApplicationStatus;
@@ -49,7 +48,7 @@ export async function loadCorporateEventOperations(accessKey: string) {
   cutoff.setUTCDate(cutoff.getUTCDate() - 29);
   const [leadQuery, applicationQuery, offerQuery, clickQuery] = await Promise.all([
     client.from('texasdefined_group_event_requests')
-      .select('id,created_at,status,contact_name,email,company,phone,city,group_size,event_category,event_date,budget_per_person,provider_slugs,notes,allow_provider_outreach,provider_outreach_consented_at,first_contacted_at,first_contact_evidence_reference')
+      .select('id,created_at,status,contact_name,email,company,phone,city,group_size,event_category,event_date,budget_per_person,provider_slugs,notes,allow_provider_outreach,provider_outreach_consented_at,first_contacted_at')
       .order('created_at', { ascending: false }).limit(MAX_ROWS + 1),
     client.from('texasdefined_group_event_partner_applications')
       .select('id,created_at,status,contact_name,email,phone,business_name,city,website,published_capacity,proposal,proposed_promo_code,notes,identity_verified_at,identity_verified_by,identity_verification_note,commercial_agreement_verified_at,commercial_agreement_verified_by,commercial_agreement_reference,commercial_agreement_covers_offers,commercial_agreement_covers_quote_routing,commercial_agreement_expires_on')
