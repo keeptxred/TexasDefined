@@ -15,6 +15,14 @@ const categories = new Set(corporateEventCategories.map((item) => item.value));
 
 assert(corporateEventProviders.length >= 136, 'Corporate event directory requires at least 136 independently sourced venues including 50+ in Houston proper');
 assert(corporateEventProviders.filter((p) => p.city === 'Houston').length >= 50, 'Houston proper must maintain 50+ distinct source-backed venues, not just suburban listings');
+// The operator's official directions give 6749 FM 2920, Spring, TX 77379;
+// Houston marketing language describes its metro market, not its city address.
+const geronimo = corporateEventProviders.find(p => p.slug === 'geronimo-adventure-park');
+assert.equal(geronimo?.city, 'Spring', 'Geronimo is physically in Spring, not Houston city');
+assert.equal(geronimo?.metro, 'Houston', 'Spring still belongs in the Houston metro search');
+assert(geronimo?.area.includes('FM 2920'), 'Display a location-specific Spring area label');
+assert.equal(geronimo?.sourceUrl, 'https://www.geronimoadventurepark.com/groups-and-events', 'Preserve cited group-capacity source');
+
 for (const metro of ['Houston', 'Dallas', 'Austin', 'San Antonio', 'El Paso', 'Corpus Christi', 'Galveston', 'Waco', 'Lubbock', 'Bryan/College Station', 'Tyler', 'Beaumont', 'Amarillo', 'McAllen', 'Midland/Odessa', 'Abilene', 'Killeen/Temple', 'New Braunfels', 'Fredericksburg']) {
   assert(corporateEventProviders.filter((p) => p.city === metro || p.metro?.includes(metro)).length >= 3, 'Insufficient metro coverage: ' + metro);
 }
