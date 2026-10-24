@@ -87,7 +87,7 @@ export const corporateEventProviders: CorporateEventProvider[] = [
     sourceUrl: 'https://www.houstonzoo.org/host-an-event/corporate-events/', verifiedOn: '2026-10-23',
   },
   {
-    slug: 'geronimo-adventure-park', name: 'Geronimo Adventure Park', city: 'Houston', area: 'Spring / North Houston',
+    slug: 'geronimo-adventure-park', name: 'Geronimo Adventure Park', city: 'Spring', metro: 'Houston', area: 'Spring / FM 2920',
     categories: ['team-building', 'outdoor-adventure', 'company-parties'],
     description: 'Facilitated team challenges, ziplining, axe throwing and outdoor activities for corporate groups.',
     format: 'Outdoor adventure', minGroup: 10, maxGroup: 300,
