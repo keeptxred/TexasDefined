@@ -2,6 +2,7 @@ import { assertSportsPartnerAccess } from '@/data/sports-partner-leads.server';
 import { supabaseAdmin } from '@/integrations/supabase/client.server';
 import { corporateEventProviders } from '@/data/corporate-events';
 import { corporateEventTexasToday } from '@/data/corporate-event-dates';
+import { dueLatestCorporateVenueFollowups } from '@/data/corporate-event-partner-followups';
 
 const client = supabaseAdmin as any;
 const EVENT_LIMIT = 120;
@@ -93,12 +94,16 @@ export async function loadCorporateVenueOutreach(accessKey: string) {
   const rows = (data ?? []) as CorporateVenueOutreachRow[];
   const today = corporateEventTexasToday();
   const events = rows.slice(0, EVENT_LIMIT);
+  // One due task per venue: a newer real response/meeting/package supersedes
+  // the previous follow-up. We do not claim this bounded view is exhaustive.
+  const dueFollowups = dueLatestCorporateVenueFollowups(events, today);
   return {
     events,
     truncated: rows.length > EVENT_LIMIT,
     maxDisplayed: EVENT_LIMIT,
-    followupsDueInVisibleRows: events.filter(e=>e.followup_on !== null && e.followup_on <= today).length,
+    followupsDueInVisibleRows: dueFollowups.length,
+    dueFollowupEventIds: dueFollowups.map(event => event.id),
     today,
-    disclosure: 'Only independently evidenced, manually entered business conversations. This is a bounded recent-event view, not all-time distinct business counts, verified sponsorships, quote requests, bookings or revenue.',
+    disclosure: 'Only independently evidenced, manually entered business conversations. Due follow-ups refer only to each venue\'s latest interaction in the 120 most recently recorded entries; subsequent evidence clears the earlier reminder. Truncation can hide older tasks. This is not an all-time contact, booking, partner or revenue total.',
   };
 }
