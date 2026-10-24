@@ -179,13 +179,25 @@ export function loadEventCollectionPageServer(slug: string) {
   const christmasPerformances = temporal?.slug === "christmas-events" ? getChristmasPerformances2026Server() : [];
   // Calendar-first local Christmas traditions have verified occurrence dates
   // and primary-source links, but do not require thin individual authority pages.
-  const christmasMarketByCity: Record<string, string> = {
+  const christmasMarketByCity: Readonly<Record<string, string>> = {
     "El Paso": "el-paso", "Fort Worth": "fort-worth",
-    "Fredericksburg": "fredericksburg",
+    "Fredericksburg": "fredericksburg", "Austin": "austin",
+    "San Antonio": "san-antonio", "Dallas": "dallas",
+    "Galveston": "galveston", "Houston": "houston",
+    "Waco": "waco", "Corpus Christi": "corpus-christi",
+    "Amarillo": "amarillo-palo-duro",
+    "South Padre Island": "south-padre-island",
   };
+  // One verified travel offer per city on this hub prevents repetitive
+  // affiliate placements from crowding the official event schedules.
+  const christmasOfferCities = new Set<string>();
   const christmasCommunityEvents = temporal?.slug === "christmas-events"
     ? getVerifiedChristmasCommunityEvents2026().map((event) => {
         const market = christmasMarketByCity[event.city];
+        const nearbyExperiencesUrl = market && !christmasOfferCities.has(event.city) && hasVerifiedViatorMarketUrl(market)
+          ? buildViatorAffiliateUrl(verifiedViatorMarketUrl(market), `td-christmas-community-${event.slug}`)
+          : "";
+        if (nearbyExperiencesUrl) christmasOfferCities.add(event.city);
         return {
           id: event.id,
           slug: event.slug,
@@ -201,9 +213,7 @@ export function loadEventCollectionPageServer(slug: string) {
           officialEventUrl: event.officialEventUrl,
           sourceName: event.sourceName,
           verifiedAt: event.lastVerifiedAt,
-          nearbyExperiencesUrl: market && hasVerifiedViatorMarketUrl(market)
-            ? buildViatorAffiliateUrl(verifiedViatorMarketUrl(market), `td-christmas-community-${event.slug}`)
-            : "",
+          nearbyExperiencesUrl,
         };
       })
     : [];

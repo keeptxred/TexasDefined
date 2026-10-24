@@ -263,7 +263,7 @@ function GenericCollectionPage({ page }: { page: any }) {
               <p className="eyebrow text-primary">Holiday business partnerships</p>
               <h3 className="mt-2 font-display text-2xl">Reach Christmas travelers</h3>
               <p className="mt-2 text-sm leading-6 text-muted-foreground">Local hotels, restaurants, attractions and visitor businesses may inquire about separately approved, clearly labeled seasonal sponsorships. Advertising never determines which events qualify or their editorial order.</p>
-              <a href="/partner-with-us" className="mt-4 inline-block text-sm font-semibold text-primary underline">Explore TexasDefined advertising →</a>
+              <a href="/partner-with-us?type=brand-retail&amp;source=%2Fevents%2Fchristmas-events&amp;focus=contact" className="mt-4 inline-block text-sm font-semibold text-primary underline">Explore Christmas travel sponsorships →</a>
             </div>
           </aside>
         </section>
