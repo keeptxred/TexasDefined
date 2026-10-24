@@ -56,6 +56,32 @@ for (const [slug, upperLimit] of verifiedHouston20261024) {
 assert(!corporateEventProviders.some((venue) => /the rustic.*downtown/i.test(venue.name)),
   'Exclude The Rustic Houston Downtown until the operator confirms reopening from its temporary relocation closure');
 
+
+const reviewedCorporateVenueFacts = [
+  ['houston-zoo-events', 1200, null, 'Masihara Pavilion'],
+  ['sam-houston-race-park', 5000, 10, '10–5,000 guests'],
+  ['puttshack-houston-corporate', 670, 13, 'up to 670 people'],
+];
+for (const [slug, maxGroup, minGroup, evidence] of reviewedCorporateVenueFacts) {
+  const venue = corporateEventProviders.find((item) => item.slug === slug);
+  assert(venue, 'Missing source-reviewed group venue: ' + slug);
+  assert.equal(venue.maxGroup, maxGroup, 'Do not substitute a single room cap for published sitewide event inventory: ' + slug);
+  assert.equal(venue.minGroup ?? null, minGroup, 'Keep supported group booking minimum distinct from party/package limits: ' + slug);
+  assert(venue.capacityDetail.includes(evidence), 'Capacity needs a format-specific source caveat: ' + slug);
+  assert.equal(venue.verifiedOn, '2026-10-24');
+  assert.equal(venue.startingPricePerPerson, null, 'Venue-wide corporate starting price is not verified: ' + slug);
+}
+const puttshackReview = corporateEventProviders.find((item) => item.slug === 'puttshack-houston-corporate');
+assert.equal(puttshackReview?.sourceUrl, 'https://www.puttshack.com/parties/houston/',
+  'Puttshack source URL must link to an active operator event page, not a defunct 404');
+assert.equal(puttshackReview?.ageLimit ?? null, null,
+  'Puttshack Houston allows all ages under the operator booking policy; do not reintroduce an evening-only restriction');
+const cidercadeReview = corporateEventProviders.find((item) => item.slug === 'cidercade-houston-team-events');
+assert.equal(cidercadeReview?.ageLimit, 'All ages until 9 PM; 18+ from 9 PM.',
+  'Cidercade evening age rules must be visible, not buried in generic capacity details');
+assert.equal(cidercadeReview?.startingPricePerPerson, null,
+  'General arcade admission is not a sourced private corporate event quote');
+
 assert.equal(new Set(corporateEventProviders.map((p) => p.slug)).size, corporateEventProviders.length);
 for (const p of corporateEventProviders) {
   assert(p.officialUrl.startsWith('https://') && p.sourceUrl.startsWith('https://'));

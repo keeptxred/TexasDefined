@@ -429,7 +429,7 @@ function CorporateEventsPage() {
           <a href="/explore/trip-planner" className="border border-border bg-background px-4 py-3">Trip planner ↗</a>
           <a href="/partner-with-us" className="border border-border bg-background px-4 py-3">Business partnerships ↗</a>
         </div>
-        <p className="mt-6 text-xs leading-6 text-muted-foreground">Editorial methodology: independently curated entries from the linked official venue pages, checked October 23, 2026. Published capacity is venue-specific; event availability, accessibility, cost and group format require direct confirmation. Request a correction through <a className="underline" href="/corrections-policy">our corrections policy</a>.</p>
+        <p className="mt-6 text-xs leading-6 text-muted-foreground">Editorial methodology: independently curated entries from linked official venue pages. Individual cards show the last source-review date; capacities and formats may change. Published capacity is venue-specific; event availability, accessibility, cost and group format require direct confirmation. Request a correction through <a className="underline" href="/corrections-policy">our corrections policy</a>.</p>
       </Container>
     </section>
   </main>;
