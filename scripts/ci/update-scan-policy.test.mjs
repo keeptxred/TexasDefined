@@ -335,6 +335,11 @@ test('Magoffin restoration and actual ImageObject license survive live SSR', asy
   const plan = buildChangePlan({ baseline, head, changedFiles: ['src/data/magoffin-home-authority.ts'] });
   assert.deepEqual(plan.selectedPaths, ['/destination/magoffin-home']);
   assert.deepEqual(plan.magoffinHomePages, ['/destination/magoffin-home']);
+  const verifierEdit = buildChangePlan({ baseline, head, changedFiles: ['scripts/ci/verify-changed-production-pages.mjs'] });
+  assert.ok(verifierEdit.selectedPaths.includes('/destination/magoffin-home'),
+    'updating the live Magoffin schema verifier must execute it against the actual public page');
+  assert.deepEqual(verifierEdit.magoffinHomePages, ['/destination/magoffin-home']);
+
   const pageUrl = 'https://texasdefined.com/destination/magoffin-home';
   const authority = 'Historic home closed through 2027 · Magoffin Home visitor FAQ · 1117 Magoffin Avenue';
   const image = {
