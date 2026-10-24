@@ -28,6 +28,36 @@ export interface MuseumAuthorityDossier {
 
 /** Links are to exact, existing destinations or stable topic hubs, not guessed paths. */
 export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
+  "barrington-living-history-farm": {
+    name: "Barrington Living History Farm", slug: "barrington-living-history-farm", county: "Washington", city: "Washington", reviewed: "2026-10-24",
+    topics: ["republic-history", "living-history", "enslaved-labor", "agricultural-history"],
+    whyVisit: "Barrington preserves and interprets the residence and working farm of Anson Jones, the last president of the Republic of Texas. Visitors explore an original historic house and a reconstructed 1850s farm environment, learning not only about Jones but also about crop production, households and the enslaved people whose coerced labor sustained the farm.",
+    visitorStrategy: "Use the Texas Historical Commission listing for 23100 Barrington Lane, Washington. The farm and outdoor interpretation normally operate Wednesday through Sunday, 10 a.m. to 4:30 p.m. Monday and Tuesday access to the wider grounds does not include the farm structures. In October 2026 the operator lists adults $10, ages 6–17 $6, under six free, qualified discounts and family options. Allow about an hour or longer for the farm and separate additional time for the adjoining Washington Townsite and Star of the Republic Museum.",
+    accessibility: "Barrington's outdoor working-history landscape involves uneven dirt paths and some building steps. The Texas Historical Commission explicitly requests advance accessibility-ramp notice for group tours. Neither a photographed entrance nor an online map guarantees step-free access to every structure, so contact the staff at 936-878-2214 to plan current accessible routes and facilities.",
+    familiesAndGroups: "Living-history staff interpret period livestock, cultivation, kitchens and household tasks, with demonstrations changing by weather and season. Adult group tours generally require reservations about four weeks in advance; advance payment deadlines also apply. Teachers and family visitors should distinguish the operator's discounted group rate from the normal family ticket and give children age-appropriate context about forced labor.",
+    researchValue: "The Texas Historical Commission uses Anson Jones's records and surviving buildings to interpret the lives and work of the Jones household and enslaved residents. The 1850 farm illustrates the cotton economy, food production and livestock work of the era, while recreated quarters must be understood as interpretive reconstructions rather than untouched structures. The site also clarifies how presidential history intersected with inequality in early Texas.",
+    exhibits: [
+      { heading: "Original house of Anson Jones", detail: "A historic Jones family home is the core of Barrington; compare it with reconstructed kitchens, cabins and other working structures rather than treating every building as equally original." },
+      { heading: "Work and quarters of enslaved residents", detail: "Reconstructed living spaces and sourced personal and farm records foreground the people held in slavery who planted crops, cooked, tended animals and maintained the household." },
+      { heading: "Seasonal 1850s agricultural demonstrations", detail: "Farming, livestock and cooking programs vary with season and weather; visitors may see different labor and crop activities on different dates." }
+    ],
+    routes: [
+      { label: "Focused farm visit", steps: ["Confirm the farm itself is open, not just the free grounds", "Tour the surviving Jones house and identify the reconstructed farm buildings", "Include the enslaved-quarter history and outdoor cultivation landscape"] },
+      { label: "Republic history half-day", steps: ["Start with Barrington's household and farm interpretation", "Explore the separately managed Washington Townsite", "Visit the Star of the Republic Museum on the complex's current ticket terms"] },
+      { label: "School and adult group experience", steps: ["Request group tours four weeks ahead and confirm accessibility needs", "Compare the lives of the Jones family and enslaved workers", "Check seasonal demonstrations and postpone outdoor touring during lightning closures"] }
+    ],
+    sources: [
+      { label: "THC Barrington current visitor listing", url: "https://thc.texas.gov/historic-sites/barrington-living-history-farm", use: "Operating days, ticket categories and current visitor location" },
+      { label: "THC Barrington history", url: "https://thc.texas.gov/state-historic-sites/barrington-living-history-farm/barrington-living-history-farm-history", use: "Original house, Jones diary, agriculture and enslaved workers" },
+      { label: "THC Washington complex visitor and group rules", url: "https://thc.texas.gov/washington-brazos-complex/plan-your-visit-washington-brazos", use: "Group booking, outdoor accessibility and lightning closure" },
+      { label: "THC Washington complex context", url: "https://thc.texas.gov/historic-sites/washington-brazos", use: "Separate farm, townsite and museum experiences" }
+    ],
+    connections: [
+      { label: "Washington County guide", href: "/county/washington", reason: "Plan a Washington County historical itinerary" },
+      { label: "Washington-on-the-Brazos", href: "/destination/washington-on-the-brazos", reason: "Connect Barrington's everyday life with Republic-era political history" },
+      { label: "Star of the Republic Museum", href: "/destination/star-of-the-republic-museum", reason: "Pair the outdoor farm with a separately interpreted museum visit" }
+    ]
+  },
   "bastrop-county-museum-visitor-center": {
     name: "Bastrop County Museum & Visitor Center", slug: "bastrop-county-museum-visitor-center", county: "Bastrop", city: "Bastrop", reviewed: "2026-10-24",
     topics: ["local-history", "el-camino-real", "lost-pines", "heritage-tourism"],
