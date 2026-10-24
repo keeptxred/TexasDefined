@@ -14,6 +14,80 @@ export interface MuseumVisitorFaq {
   reviewed: string;
 }
 export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
+  "austin-history-center-austin": [
+    {
+      "question": "Where is the Austin History Center located now?",
+      "answer": "As of the 2025 move, the Austin History Center is inside the John Henry Faulk Building at 800 Guadalupe Street, not the original history center building at 810 Guadalupe. The Austin Public Library says the first floor holds exhibits and the second floor contains the Reading Room and meeting space. Use the 800 Guadalupe entrance for current public services.",
+      "verificationUrl": "https://library.austintexas.gov/austin-history-center",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://library.austintexas.gov/austin-history-center",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "When can I visit the Austin History Center in 2026?",
+      "answer": "The official Faulk Building listing posts public hours Wednesday through Saturday, noon to 5 p.m., with Sunday, Monday and Tuesday closed. This is the historical collections facility, not the Austin Public Library Central Library downtown at 710 W Cesar Chavez. Holidays and temporary exhibition arrangements can change; verify the operator's current listing.",
+      "verificationUrl": "https://library.austintexas.gov/austin-history-center",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://library.austintexas.gov/austin-history-center",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Do I need an appointment to use the Austin History Center Reading Room?",
+      "answer": "The operator explicitly says no appointment is needed for ordinary Reading Room access during open hours. An important exception applies to unappraised City records and photographs stored in cold storage: contact the archive at least two weeks ahead so staff can prepare those materials. Large research projects may need repeated visits.",
+      "verificationUrl": "https://library.austintexas.gov/ahc/plan-your-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://library.austintexas.gov/ahc/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "What must I do before examining original archival materials?",
+      "answer": "Sign in at the desk, leave bags and cases in provided lockers, use pencils rather than pens, and request original materials with staff assistance. The Reading Room allows a limited number of loose notes and silent cameras or laptops. Archival materials remain onsite and cannot be borrowed or checked out like circulating library books.",
+      "verificationUrl": "https://library.austintexas.gov/ahc/plan-your-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://library.austintexas.gov/ahc/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Can I visit with children or a school group?",
+      "answer": "The Austin History Center welcomes children in the Reading Room when they are supervised and quiet enough to protect fragile records and allow others to study. Exhibits may be easier for younger visitors than a long archival research session. Ask the city's staff about school-group experiences and any dedicated programs rather than assuming unguided group access.",
+      "verificationUrl": "https://library.austintexas.gov/ahc/plan-your-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://library.austintexas.gov/ahc/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Are there public exhibits, or is the center only an archive?",
+      "answer": "The public Faulk Building has exhibit space on the first floor and archive consultation on the second. In October 2026, the library features In Circulation: A Century of the Austin Public Library, an exhibition scheduled September 22, 2026 through April 22, 2027. These dates describe a temporary exhibit, not permanent admission hours or a promise every display is always available.",
+      "verificationUrl": "https://library.austintexas.gov/ahc",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://library.austintexas.gov/ahc",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "What collections are useful for researching Austin people or buildings?",
+      "answer": "The archive offers city directories, neighborhood files, historical newspapers, photographs, maps, oral histories, municipal records, genealogy and property research guides. Search the online collections catalogs first, then bring known names, addresses and approximate dates. Research staff can point to materials but do not perform unlimited full investigations for visitors.",
+      "verificationUrl": "https://library.austintexas.gov/ahc/research",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://library.austintexas.gov/ahc/research",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "How do parking and accessibility work at the current history center?",
+      "answer": "Austin Public Library identifies the public facility at 800 Guadalupe Street and historically lists nearby metered street parking and multiple bus routes. Do not confuse access to the Faulk Building with the former 810 Guadalupe site. The operator does not provide a complete public inventory of every wheelchair route and archive assistive setup on the Faulk listing; call 512-974-7480 to confirm arrival and access needs.",
+      "verificationUrl": "https://library.austintexas.gov/austin-history-center",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://library.austintexas.gov/austin-history-center",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    }
+  ],
   "alley-log-cabin-museum-columbus": [
     {
       "question": "Can I visit the Alley Log Cabin without an appointment?",

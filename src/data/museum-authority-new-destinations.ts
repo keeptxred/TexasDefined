@@ -9,6 +9,33 @@ import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
  */
 export const museumAuthorityDestinations: Destination[] = [
   {
+    id: "museum-authority-austin-history-center-austin",
+    brandId: "texasdefined",
+    slug: "austin-history-center-austin",
+    name: "Austin History Center",
+    summary: "Austin Public Library's city-history archive and public exhibits, now at the John Henry Faulk Building. Discover neighborhood photographs and maps, then explore local records in a supervised reading room.",
+    category: "historic-sites",
+    region: "central-texas",
+    nearestTown: "Austin",
+    county: "Travis County",
+    coordinates: { lat: 30.271709981, lng: -97.74589002 },
+    hero: museumLicensedHeroes["austin-history-center-austin"],
+    bestSeason: "Year-round indoor exhibits and research; Wednesday–Saturday afternoon hours only, with holiday variations.",
+    entryNote: "John Henry Faulk Building, 800 Guadalupe St, Austin, TX 78701. Wednesday–Saturday noon–5 p.m.; Sunday–Tuesday closed. Ordinary Reading Room access needs no appointment, but special unappraised City records and cold-storage photos require two weeks' notice. Phone 512-974-7480.",
+    highlights: ["Changing Austin local-history exhibitions", "City of Austin municipal and neighborhood archives", "Historic maps, city directories, photographs and oral histories", "Research Reading Room on the second floor"],
+    body: [
+      "The Austin History Center is the local-history division and official city archive of Austin Public Library. Since its origins in 1955, it has expanded from neighborhood reference files to collections illuminating the people, buildings, politics, schools, businesses and cultural communities of Austin and Travis County.",
+      "The visitor location changed in 2025: today's exhibits and Reading Room occupy the renovated John Henry Faulk Building at 800 Guadalupe Street. Older photographs and maps sometimes identify the 1933 historic Austin Public Library next door at 810 Guadalupe as the Austin History Center. That is its former home; visitors should use the current entrance instead.",
+      "A visit has two distinct forms. The first-floor public displays interpret selected archival subjects, such as the temporary 2026–27 library centennial exhibit; the second-floor reading room lets anyone request on-site access to archival records. Browsing a gallery does not give unsupervised entry to the climate-controlled stacks.",
+      "Plan practical research: consult the catalog, bring questions and names, sign in, store bags in lockers and use pencils. Most ordinary reading-room access needs no appointment, but selected cold-stored or unappraised materials require two weeks' lead time. Avoid assuming a same-day short visit will yield all desired records.",
+    ],
+    officialUrl: "https://library.austintexas.gov/austin-history-center",
+    managingAuthority: "City of Austin — Austin Public Library",
+    address: "800 Guadalupe St, Austin, TX 78701",
+    sourceCheckedAt: "2026-10-24",
+    accessibilityNotes: "Exhibits are on the first floor and archival use on the second. For current elevator, wheelchair entry, assistance and accessible parking details at the Faulk Building, call 512-974-7480. Nearby street parking is metered.",
+  },
+  {
     id: "museum-authority-alley-log-cabin-museum-columbus",
     brandId: "texasdefined",
     slug: "alley-log-cabin-museum-columbus",

@@ -14,6 +14,30 @@
     ]
   },
   "museums": {
+    "austin-history-center-austin": {
+      "name": "Austin History Center",
+      "operatorStrengths": [
+        "Current Faulk Building address, current public Wednesday–Saturday hours and historic 2025 move",
+        "Detailed archive handling rules, two-week lead time, collection scope and changing first-floor exhibits"
+      ],
+      "openGaps": [
+        "Independently test live responsive building photo, alt text and linked original CC BY-SA 4.0 credit",
+        "Confirm current exhibit opening and holiday hours before marketing temporary 2026–27 display",
+        "Call operator to verify exact Faulk accessibility/parking arrangements rather than infer from renovated library building",
+        "Check independent visitor guide experience versus current operator help and verify on production before certification"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://library.austintexas.gov/austin-history-center",
+        "https://library.austintexas.gov/ahc/plan-your-visit",
+        "https://library.austintexas.gov/ahc/research",
+        "https://library.austintexas.gov/ahc/about-us",
+        "https://library.austintexas.gov/ahc"
+      ]
+    },
     "alley-log-cabin-museum-columbus": {
       "name": "Alley Log Cabin & Antique Tool Museum",
       "operatorStrengths": [

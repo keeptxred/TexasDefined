@@ -3,6 +3,39 @@
   "description": "Production museum visitor-guide sources for the existing TexasDefined Supabase authority verification registry; no collection replicas.",
   "museums": [
     {
+      "path": "/destination/austin-history-center-austin",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://library.austintexas.gov/austin-history-center",
+          "fetchUrl": "https://library.austintexas.gov/austin-history-center",
+          "label": "Austin City Library: Faulk hours and location"
+        },
+        {
+          "sourceUrl": "https://library.austintexas.gov/ahc/plan-your-visit",
+          "fetchUrl": "https://library.austintexas.gov/ahc/plan-your-visit",
+          "label": "Austin Public Library: Reading Room visit rules and advance notices"
+        },
+        {
+          "sourceUrl": "https://library.austintexas.gov/ahc/research",
+          "fetchUrl": "https://library.austintexas.gov/ahc/research",
+          "label": "Austin City Archives: holdings, research and maps"
+        },
+        {
+          "sourceUrl": "https://library.austintexas.gov/ahc/about-us",
+          "fetchUrl": "https://library.austintexas.gov/ahc/about-us",
+          "label": "Austin Public Library: institutional history and 2025 move"
+        },
+        {
+          "sourceUrl": "https://library.austintexas.gov/ahc",
+          "fetchUrl": "https://library.austintexas.gov/ahc",
+          "label": "Austin Public Library: current temporary history exhibits"
+        }
+      ]
+    },
+    {
       "path": "/destination/alley-log-cabin-museum-columbus",
       "topic": "museum-visitor-guide",
       "cadenceDays": 30,

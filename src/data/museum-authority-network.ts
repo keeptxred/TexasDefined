@@ -28,6 +28,35 @@ export interface MuseumAuthorityDossier {
 
 /** Links are to exact, existing destinations or stable topic hubs, not guessed paths. */
 export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
+  "austin-history-center-austin": {
+    name: "Austin History Center, Faulk Building", slug: "austin-history-center-austin", county: "Travis", city: "Austin", reviewed: "2026-10-24",
+    topics: ["local-history", "archives", "photography", "exhibitions"],
+    whyVisit: "Austin's public history archive is also a visitable city-history learning space, with changing first-floor exhibitions and a staffed reading room upstairs. Its collection captures changing communities, neighborhoods, civic institutions and the built landscape through photographs, maps, papers and oral histories. The address matters: in 2025 the center moved out of the landmark 1933 former library at 810 Guadalupe and into the renovated John Henry Faulk Building at 800 Guadalupe.",
+    visitorStrategy: "Visit the John Henry Faulk Building at 800 Guadalupe Street, not the 810 Guadalupe historic exterior or the newer Central Library at 710 W Cesar Chavez. Current public hours are Wednesday through Saturday, noon to 5 p.m.; other days are closed. Exhibits are on floor one, while supervised archive consultation takes place on floor two. No advance appointment is required for normal Reading Room use, but unappraised City material and photos in cold storage need two weeks' notice. Allow 30–60 minutes for a focused exhibit, and reserve several hours for independent archival research; food and drink are prohibited in the Reading Room.",
+    accessibility: "Public exhibitions occupy the first floor and the Reading Room is on floor two of the renovated Faulk library building, but the official center page does not enumerate every accessible entrance, elevator location, seating or adapted equipment available on a particular day. Contact Austin History Center at 512-974-7480 about mobility and assistive access. Reading-room visitors must check in, secure bags in lockers, avoid pens and handle fragile documents under staff supervision.",
+    familiesAndGroups: "The site's first-floor changing exhibits introduce local history without requiring a full research project, making a shorter visit plausible for school-age families. The operator permits supervised children in its quiet Reading Room, but a large educational group must arrange expectations directly with staff. For a student project, begin with public exhibits and online finding aids, then plan targeted record requests rather than expecting children to browse archival stacks.",
+    researchValue: "This is the City of Austin's official archive, not a general-admission artifact museum. Its collection is especially strong for Austin and Travis County genealogy, community organizations, property research, city directories, historic photos and newspapers. The Austin Public Library reports over 1,700 archival collections, thousands of subject files and extensive digital holdings. Archival photographs and primary records can test or complicate familiar narratives of Austin's growth; visitors should compare multiple communities' sources and remember that archival gaps themselves require explanation.",
+    exhibits: [
+      { heading: "Changing local-history exhibitions", detail: "First-floor displays interpret Austin's institutions, communities and documents. In Circulation: A Century of the Austin Public Library is scheduled for September 22, 2026–April 22, 2027; verify the current calendar for later travel." },
+      { heading: "Second-floor supervised Reading Room", detail: "Request archival materials from staff, use original records on-site with pencils and lockers, and plan ahead for photographic cold-storage or unappraised City collections." },
+      { heading: "Maps, city directories and neighborhood collections", detail: "Explore historic property and genealogy questions through subject files, city directories, photographs, newspaper runs, oral histories and online collection finding aids." },
+    ],
+    routes: [
+      { label: "Quick city-history exhibits", steps: ["Enter the current Faulk Building at 800 Guadalupe during posted hours", "Explore the first-floor rotating history exhibition", "Browse the public research guides if a topic catches your interest"] },
+      { label: "Half-day archives appointment-free visit", steps: ["Search the digital catalog and formulate research questions before leaving home", "Check in and secure bags at the second-floor Reading Room", "Request available materials and make limited onsite notes or copies"] },
+      { label: "Austin architecture and archives", steps: ["Start with the exhibitions at the present Faulk Building", "Compare the adjacent historic 1933 library exterior at 810 Guadalupe (separate site)", "Continue with independently confirmed downtown historic attractions or city records"] },
+    ],
+    sources: [
+      { label: "Austin Public Library — current Faulk Building location and hours", url: "https://library.austintexas.gov/austin-history-center", use: "Authoritative street address, visitor hours, exhibit floor and contact" },
+      { label: "Austin Public Library — Reading Room visitor rules", url: "https://library.austintexas.gov/ahc/plan-your-visit", use: "Appointments, storage lead time, materials handling and school visitors" },
+      { label: "Austin Public Library — collections and research", url: "https://library.austintexas.gov/ahc/research", use: "Archive holdings, municipal maps, city directories and reference support" },
+      { label: "Austin Public Library — historical institution and move", url: "https://library.austintexas.gov/ahc/about-us", use: "Distinguish the 2025 Faulk move from original 1933 landmark building" },
+    ],
+    connections: [
+      { label: "Travis County", href: "/county/travis", reason: "Extend Austin neighborhood and research questions into county context." },
+      { label: "Texas exploration", href: "/explore", reason: "See other Austin-area museums, historical sites and public attractions." },
+    ],
+  },
   "alley-log-cabin-museum-columbus": {
     name: "Alley Log Cabin & Antique Tool Museum", slug: "alley-log-cabin-museum-columbus", county: "Colorado", city: "Columbus", reviewed: "2026-10-24",
     topics: ["pioneer-history", "early-texas", "agricultural-tools", "preservation"],
