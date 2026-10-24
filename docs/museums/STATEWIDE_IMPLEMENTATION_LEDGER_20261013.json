@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "asOf": "2026-10-19",
+  "asOf": "2026-10-24",
   "repository": "keeptxred/TexasDefined",
   "production": "https://texasdefined.com",
   "supabaseProjectId": "ftkznprjljkhymknvhye",
@@ -600,5 +600,47 @@
       "Enroll new two guides and twelve official/source-license URLs in existing Supabase source monitoring",
       "Side-by-side independent visitor-guide certification"
     ]
+  },
+  "ownerInventoryCheckpoint": {
+    "schemaVersion": 1,
+    "batchSequence": 0,
+    "entries": {}
+  },
+  "currentRecovery20261024": {
+    "observedOn": "2026-10-24",
+    "repositoryMainMuseumManifestEntries": 82,
+    "repositoryMainSourceDefinitions": 360,
+    "repositoryMainIndependentSiteBenchmarks": 82,
+    "repositoryMainMuseumFaqRecords": 691,
+    "supabaseMuseumVerificationRegistryEntries": 82,
+    "supabaseMuseumSourceRowsIncludingPreservedHistorical": 384,
+    "supabaseSourcesWithLastHttp200": 383,
+    "supabaseSourcesWithLastHttp403": 1,
+    "supabaseSourcesPendingRequests": 0,
+    "registryReviewStatusCounts": {
+      "verified_source_status": 63,
+      "awaiting_editorial_verification": 16,
+      "source_changed": 2,
+      "source_unreachable": 1
+    },
+    "sourceChangedPaths": [
+      "/destination/african-american-museum-dallas-fair-park",
+      "/destination/texas-maritime-museum-rockport"
+    ],
+    "sourceUnreachablePath": "/destination/johnny-nelson-katy-heritage-museum",
+    "citationStatus": "Connected GitHub main file reads and read-only Supabase queries; not a fresh complete production, browser image or editorial certification.",
+    "currentProductionManifestReverified": false,
+    "carthagePhotoLinkObservation": "A retrieved production page snapshot contains Wikimedia Commons source and linked CC BY-SA 3.0 license; cached crawl snapshot, not same-day browser visual certification.",
+    "bryanMuseumProductionPhotoLinksReverified": false,
+    "photoRightsBlocksUnchanged": [
+      "museum-of-the-gulf-coast-port-arthur",
+      "el-paso-holocaust-museum",
+      "texas-broadcast-museum-kilgore",
+      "johnny-nelson-katy-heritage-museum"
+    ],
+    "independentAuthorityCertifications": 0,
+    "ownerInventoryFullyReconciled": false,
+    "ownerInventoryBatching": "The existing audit script now provides read-only --next-batch and working-tree --reserve-batch. Reservations must merge to main through protected checks before another chat can rely on them.",
+    "authorityDisclaimer": "Registry status=verified and successful HTTP source monitoring mean source-connection health only, never visitor-guide editorial certification."
   }
 }
