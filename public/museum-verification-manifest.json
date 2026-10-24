@@ -3,6 +3,29 @@
   "description": "Production museum visitor-guide sources for the existing TexasDefined Supabase authority verification registry; no collection replicas.",
   "museums": [
     {
+      "path": "/destination/alley-log-cabin-museum-columbus",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+          "fetchUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+          "label": "Columbus preservation trust: official cabin visitor/tour and history"
+        },
+        {
+          "sourceUrl": "https://www.columbushpt.com/",
+          "fetchUrl": "https://www.columbushpt.com/",
+          "label": "Nonprofit operator and related historic attractions"
+        },
+        {
+          "sourceUrl": "https://atlas.thc.texas.gov/Details/5089008827",
+          "fetchUrl": "https://atlas.thc.texas.gov/Details/5089008827",
+          "label": "Texas Historical Commission Abram Alley landmark"
+        }
+      ]
+    },
+    {
       "path": "/destination/1919-san-augustine-county-jail-museum",
       "topic": "museum-visitor-guide",
       "cadenceDays": 30,
