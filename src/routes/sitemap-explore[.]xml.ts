@@ -158,6 +158,25 @@ async function auditedFredericksburgSitemapEntry(): Promise<string | null> {
   }
 }
 
+// Keep Magoffin's indexable canonical guide discoverable when an enriched Explore
+// row is stale, thin, or absent. Apply the same reviewed restoration authority
+// used by the live detail page, then enforce the ordinary indexability gate.
+async function auditedMagoffinSitemapEntry(): Promise<string | null> {
+  try {
+    const [{ preservedExploreDestinations }, { applyMagoffinHomeAuthority }] = await Promise.all([
+      import("@/data/destination-preserved-catalog"),
+      import("@/data/magoffin-home-authority"),
+    ]);
+    const source = preservedExploreDestinations.find((destination) => destination.slug === "magoffin-home");
+    if (!source) return null;
+    const canonical = applyMagoffinHomeAuthority(source);
+    if (!isPrimaryTripPlannerDestination(canonical) || !auditDestination(canonical).readyForIndexing) return null;
+    return entry(`/destination/${canonical.slug}`, canonical.sourceCheckedAt);
+  } catch (error) {
+    console.error("Magoffin Home audited sitemap source unavailable", error);
+    return null;
+  }
+}
 async function emergencyExploreSitemapResponse(error: unknown) {
   console.error("Explore sitemap generation failed; serving governed static fallback", error);
   const fallbackPaths = [
@@ -195,6 +214,7 @@ async function emergencyExploreSitemapResponse(error: unknown) {
   const entries = [
     ...[...new Set(fallbackPaths)].map((path) => entry(path)),
     await auditedFredericksburgSitemapEntry(),
+    await auditedMagoffinSitemapEntry(),
   ]
     .filter((item): item is string => Boolean(item))
     .join("\n");
@@ -435,6 +455,12 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         const auditedFredericksburgEntry = await auditedFredericksburgSitemapEntry();
         if (auditedFredericksburgEntry && !destinationEntries.some((item) => item.includes(`<loc>${BASE_URL}/destination/fredericksburg</loc>`))) {
           destinationEntries.push(auditedFredericksburgEntry);
+        }
+        // Match the detail loader's audited Magoffin overlay without publishing a
+        // second XML record when its canonical URL is already in the catalog.
+        const auditedMagoffinEntry = await auditedMagoffinSitemapEntry();
+        if (auditedMagoffinEntry && !destinationEntries.some((item) => item.includes(`<loc>${BASE_URL}/destination/magoffin-home</loc>`))) {
+          destinationEntries.push(auditedMagoffinEntry);
         }
         const { loadMetroProximitySitemapEntriesServer } = await import("@/data/metro-proximity-page-data.server");
         // Proximity sitemap eligibility intentionally resolves through the same
