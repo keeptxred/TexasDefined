@@ -1,5 +1,5 @@
 # TexasDefined — McAllen Day Trips Completion Record
-Updated: October 19, 2026.
+Updated: October 24, 2026.
 
 ## Target
 - Production: https://texasdefined.com/explore/near/mcallen/day-trips
@@ -36,3 +36,11 @@ Updated: October 19, 2026.
 - Inspect PR #5325 and its protected check; resolve actual image/map failures in scoped changes if they appear.
 - Once merged/deployed, inspect its screenshot artifact visually at desktop 1365×900 and mobile 390×844 and update this record with the new verification run, issues found, and final status.
 - Do not enter workflow-status polling loops; pursue independent tasks if CI remains active.
+
+## October 24 current-state reconciliation and blocker
+- GitHub `main` baseline at the start of this work: `d5d044af8d0a1cef8e320aa2dbc75724b94dddc5`. Relevant PRs #5004, #5011, #5250, #5251, #5252, #5261, #5264, #5296 and #5325 are merged. No competing open McAllen PR was found.
+- Latest production deploy https://github.com/keeptxred/TexasDefined/actions/runs/40128558317 completed successfully, but its follow-up McAllen workflow run https://github.com/keeptxred/TexasDefined/actions/runs/40129034952 ran **no Chrome scenario** because the unrelated change was out of scope. Workflow success does not imply new visual QA.
+- The latest executing focused Chrome run before this change, https://github.com/keeptxred/TexasDefined/actions/runs/39517773352, reported 46/47 desktop + 46/47 mobile checks. All featured photos loaded on scroll; both fails were the **Leaflet-only map-tile selector**. Artifact `mcallen-day-trips-visual-39517773352` ID `12308481912`, screenshots personally inspected: iframe appears empty in full-page screenshots while all ten featured image panels render.
+- Confirmed external change: OpenStreetMap migrated `/export/embed.html` from Leaflet to MapLibre with https://github.com/openstreetmap/openstreetmap-website/pull/6804 (merged April 4, 2026). The old `img.leaflet-tile-loaded` probe is no longer sufficient.
+- Current focused repair: verify MapLibre canvas *or* Leaflet imagery; capture standalone iframe screenshot while visible; require nonblank map screenshot evidence. Provide an external OpenStreetMap view for cases where third-party embedding is blocked. No paid mapping API added.
+- **Acceptance remains open** until protected checks, new production Chrome job with actual execution (not skipped), and inspection of its two full-page + two standalone-map screenshots. Update this record with final run/deployment/visual evidence after success.
