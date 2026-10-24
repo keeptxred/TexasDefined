@@ -44,6 +44,7 @@ for (const guard of [
   'corporateEventEvidenceTimestampIsValid(partner.identity_verified_at)',
   'corporateEventEvidenceTimestampIsValid(partner.commercial_agreement_verified_at)',
   'when.getTime() < Date.parse(String(verified[0].identity_verified_at))',
+  'isValidCorporateEventCalendarDate(String(partner.commercial_agreement_expires_on))',
 ]) assert(server.includes(guard), 'Outcome evidence must require genuinely verified identity, agreement and official venue source: ' + guard);
 assert(!server.includes("officialHost.endsWith('.' + businessHost)"),
   'Parent-domain identity spoofing must not authorize settlement or booking evidence');
