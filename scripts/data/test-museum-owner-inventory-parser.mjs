@@ -32,4 +32,24 @@ assert.ok(report.flagged.some(row => row.submittedName === "Art Museum of the Am
 const scurry = report.rows.filter(row => row.submittedName === "Scurry County Museum");
 assert.ok(scurry.length >= 2, "Repeated Scurry County Museum entries must be preserved");
 assert.ok(scurry.some(row => row.duplicateOfOccurrence !== null), "Repeated names must point to their first occurrence");
+// The next-batch command must be deterministic, preserve raw order, and
+// never create a duplicate task for an existing complete authority dossier.
+const nextCommand = ["scripts/data/audit-owner-museum-inventory.mjs", "--next-batch"];
+const preview = JSON.parse(execFileSync(process.execPath, nextCommand,
+  { encoding: "utf8", maxBuffer: 8 * 1024 * 1024 }));
+const secondPreview = JSON.parse(execFileSync(process.execPath, nextCommand,
+  { encoding: "utf8", maxBuffer: 8 * 1024 * 1024 }));
+assert.deepEqual(preview, secondPreview, "Concurrent chats must select a stable queue from the same committed ledger");
+assert.equal(preview.mode, "preview-only");
+assert.ok(preview.count > 0 && preview.count <= 25);
+assert.equal(preview.candidates.length, preview.count);
+assert.equal(new Set(preview.candidates.map(row => row.rawOccurrence)).size, preview.count);
+assert.ok(preview.candidates.every(row => {
+  const original = report.rows.find(x => x.rawOccurrence === row.rawOccurrence);
+  return original && ["requires-independent-source-research", "existing-destination-needs-authority-audit"].includes(original.status) &&
+    original.parseIssues.length === 0 && original.duplicateOfOccurrence === null;
+}), "Batch selection must skip existing complete dossiers, duplicates, and flagged ambiguous names");
+assert.ok(preview.candidates.every((row, i) => i === 0 ||
+  row.rawOccurrence > preview.candidates[i - 1].rawOccurrence),
+  "Next batch preserves stable owner inventory order");
 console.log("Museum owner inventory parser: " + entries.length + " raw name occurrences retained; " + report.uniqueNameSegments + " provisional unique names; no publication authorization.");
