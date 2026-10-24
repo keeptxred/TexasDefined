@@ -23,7 +23,7 @@
     "shirt_retail_price_usd": 28,
     "shirt_position": "front",
     "shirt_decoration": "dtg",
-    "known_shirt_403": "Historical 403 on blueprint 145/provider 99. Not retested in this phase: no approved individual production artwork; do not imply connection disconnected.",
+    "known_shirt_403": "Template 145/provider 99 succeeded on all 6 prepare_products calls on 2026-10-24; publish path not yet tested.",
     "alternate_existing_template": "6a763c699519879479041976",
     "alternate_blueprint_id": 6,
     "alternate_provider_id": 99,
@@ -31,7 +31,7 @@
     "database_table": "public.products",
     "brand_field": "publish_texasdefined",
     "other_brand_field": "publish_keeptxred",
-    "image_generation": "One six-up concept image generated, gen_id a79c10fe-34ac-477d-88b9-64367c2aee28; split 512px concept previews. Do NOT treat upscaled concepts as print ready.",
+    "image_generation": "Six unique generated designs from 2026-10-24, each native 1174×1340; independently upscaled to 3852×4398 with alpha, palette-optimized to 2.9–4.0 MiB for upload.",
     "etsylive_section_fishing_shirts": "unverified",
     "etsy_seller_management": "not available through installed Etsy buyer connector",
     "public_printify_ids_verified": 0,
@@ -46,7 +46,7 @@
     ],
     "front_dtg": true,
     "check": "Verify full-resolution edges, alpha, type, fish anatomy, print readability, black/white/third-color mockups before asking for artwork approval.",
-    "failed_qa": "Six 512px raster concept excerpts derived from a composite, with residual gradient and insufficient original native resolution; NOT FINAL."
+    "failed_qa": null
   },
   "workflow": {
     "prepare": "Heartland prepare_products only on individually user-approved production artwork, products=['shirt'], website='texasdefined', stable job IDs, up to 12 supported tags.",
@@ -54,7 +54,7 @@
     "etsy": "Create 13th tag with real authorized Etsy seller-management interface; Heartland currently supports max 12 tags. Ensure separate shop section Fishing Shirts if it exists or create without duplication when seller-management available.",
     "prevent_duplicates": "Reconcile Printify/Etsy/TD records before any retries. No new job IDs on uncertain operations."
   },
-  "collection_status": "CONCEPTS_READY_AWAITING_PRODUCTION_ART_AND_APPROVAL",
+  "collection_status": "SIX_PREPARED_PENDING_EXPLICIT_PLAN_APPROVAL",
   "designs": [
     {
       "id": "TD-FISH-01",
@@ -101,16 +101,57 @@
         "concept_preview_chat_path": "/mnt/data/texasdefined_fishing_phase1/TD-FISH-01_concept_preview.png",
         "concept_source_gen_id": "a79c10fe-34ac-477d-88b9-64367c2aee28",
         "persistent_production_uri": null,
-        "approved": false,
-        "quality_status": "concept_only_fails_print_readiness"
+        "approved": true,
+        "quality_status": "transparent_master_at_required_canvas_size_color_checks_passed",
+        "approval_source": "User explicitly approved all six designs and instructed advancement, 2026-10-24",
+        "production_local_snapshot": "/mnt/data/texasdefined_fishing_phase1/final_production/TD-FISH-01_compact.png",
+        "production_bundle": "TexasDefined_Fishing_Six_Production_PNGs.zip",
+        "file_sha256": "29bd6cac743ad994dad5bb84b95f87ca68e587349201c5ac5be512f8dbcda53f",
+        "source_image_native_px": [
+          1174,
+          1340
+        ],
+        "final_canvas_px": [
+          3852,
+          4398
+        ],
+        "dpi_note": "Pixels upscaled from 1174×1340 generated source; 3852×4398 canvas passes Printify transfer, but resampling does not add native source detail.",
+        "heartland_artwork_hash": "Kb1srHQ62ZTa1buEuV-HymjlhzSSAcWsW-US-NvNpT8"
       },
       "printify": {
-        "prepared": false,
-        "template_selected": null,
+        "prepared": true,
+        "template_selected": "6a466888b706a0bfc50e0a2e",
         "product_id": null,
         "variant_ids": null,
         "artwork_upload_id": null,
-        "publication_verified": false
+        "publication_verified": false,
+        "preparation_confirmed_at": "2026-10-24",
+        "prepared_blueprint_id": 145,
+        "prepared_provider_id": 99,
+        "prepared_variants": [
+          38216,
+          38220,
+          38219,
+          42117,
+          38164,
+          38177,
+          38178,
+          38192,
+          38206,
+          38163,
+          38205,
+          38174,
+          38202,
+          38188,
+          38191,
+          38160
+        ],
+        "prepared_retail_cents": 2800,
+        "prepared_position": "front",
+        "prepared_scale": 1,
+        "prepared_website": "texasdefined",
+        "prepared_job_id": "TDFISH2026P1_01",
+        "approval_token_storage": "NOT STORED IN GIT; retained in originating connector result and recoverable only through authorized workflow"
       },
       "etsy": {
         "listing_id": null,
@@ -125,11 +166,10 @@
         "url": null
       },
       "blockers": [
-        "Original 512px concept cannot be declared print-ready",
-        "User artwork approval required",
-        "Heartland prepared-plan publication approval required",
-        "Etsy seller-management access for 13th tag/section unverified"
-      ]
+        "Prepared product publication requires user approval of displayed $28/16-variant Printify plan per Heartland Publisher",
+        "Thirteenth Etsy tag and shop-section assignment need supported seller-management workflow"
+      ],
+      "status": "PREPARED_PENDING_EXPLICIT_PLAN_APPROVAL"
     },
     {
       "id": "TD-FISH-02",
@@ -176,16 +216,57 @@
         "concept_preview_chat_path": "/mnt/data/texasdefined_fishing_phase1/TD-FISH-02_concept_preview.png",
         "concept_source_gen_id": "a79c10fe-34ac-477d-88b9-64367c2aee28",
         "persistent_production_uri": null,
-        "approved": false,
-        "quality_status": "concept_only_fails_print_readiness"
+        "approved": true,
+        "quality_status": "transparent_master_at_required_canvas_size_color_checks_passed",
+        "approval_source": "User explicitly approved all six designs and instructed advancement, 2026-10-24",
+        "production_local_snapshot": "/mnt/data/texasdefined_fishing_phase1/final_production/TD-FISH-02_compact.png",
+        "production_bundle": "TexasDefined_Fishing_Six_Production_PNGs.zip",
+        "file_sha256": "4ebf0d408463f4519cfdc44cdb1b223aacaa61c5bc75abfba8b45f9ae5218a38",
+        "source_image_native_px": [
+          1174,
+          1340
+        ],
+        "final_canvas_px": [
+          3852,
+          4398
+        ],
+        "dpi_note": "Pixels upscaled from 1174×1340 generated source; 3852×4398 canvas passes Printify transfer, but resampling does not add native source detail.",
+        "heartland_artwork_hash": "Tr8NQIRj9FGc_cRM2xsiOqyqYcW8dav7qLRfmuUhijg"
       },
       "printify": {
-        "prepared": false,
-        "template_selected": null,
+        "prepared": true,
+        "template_selected": "6a466888b706a0bfc50e0a2e",
         "product_id": null,
         "variant_ids": null,
         "artwork_upload_id": null,
-        "publication_verified": false
+        "publication_verified": false,
+        "preparation_confirmed_at": "2026-10-24",
+        "prepared_blueprint_id": 145,
+        "prepared_provider_id": 99,
+        "prepared_variants": [
+          38216,
+          38220,
+          38219,
+          42117,
+          38164,
+          38177,
+          38178,
+          38192,
+          38206,
+          38163,
+          38205,
+          38174,
+          38202,
+          38188,
+          38191,
+          38160
+        ],
+        "prepared_retail_cents": 2800,
+        "prepared_position": "front",
+        "prepared_scale": 1,
+        "prepared_website": "texasdefined",
+        "prepared_job_id": "TDFISH2026P1_02",
+        "approval_token_storage": "NOT STORED IN GIT; retained in originating connector result and recoverable only through authorized workflow"
       },
       "etsy": {
         "listing_id": null,
@@ -200,11 +281,10 @@
         "url": null
       },
       "blockers": [
-        "Original 512px concept cannot be declared print-ready",
-        "User artwork approval required",
-        "Heartland prepared-plan publication approval required",
-        "Etsy seller-management access for 13th tag/section unverified"
-      ]
+        "Prepared product publication requires user approval of displayed $28/16-variant Printify plan per Heartland Publisher",
+        "Thirteenth Etsy tag and shop-section assignment need supported seller-management workflow"
+      ],
+      "status": "PREPARED_PENDING_EXPLICIT_PLAN_APPROVAL"
     },
     {
       "id": "TD-FISH-03",
@@ -251,16 +331,57 @@
         "concept_preview_chat_path": "/mnt/data/texasdefined_fishing_phase1/TD-FISH-03_concept_preview.png",
         "concept_source_gen_id": "a79c10fe-34ac-477d-88b9-64367c2aee28",
         "persistent_production_uri": null,
-        "approved": false,
-        "quality_status": "concept_only_fails_print_readiness"
+        "approved": true,
+        "quality_status": "transparent_master_at_required_canvas_size_color_checks_passed",
+        "approval_source": "User explicitly approved all six designs and instructed advancement, 2026-10-24",
+        "production_local_snapshot": "/mnt/data/texasdefined_fishing_phase1/final_production/TD-FISH-03_compact.png",
+        "production_bundle": "TexasDefined_Fishing_Six_Production_PNGs.zip",
+        "file_sha256": "07ea7a07d840967865495ad8420643db4492cb316678aa6d0457f0cf926a759f",
+        "source_image_native_px": [
+          1174,
+          1340
+        ],
+        "final_canvas_px": [
+          3852,
+          4398
+        ],
+        "dpi_note": "Pixels upscaled from 1174×1340 generated source; 3852×4398 canvas passes Printify transfer, but resampling does not add native source detail.",
+        "heartland_artwork_hash": "B-p6B9hAlnhlSVrYQgZD20SSyzFmeKptBFfwz5JqdZ8"
       },
       "printify": {
-        "prepared": false,
-        "template_selected": null,
+        "prepared": true,
+        "template_selected": "6a466888b706a0bfc50e0a2e",
         "product_id": null,
         "variant_ids": null,
         "artwork_upload_id": null,
-        "publication_verified": false
+        "publication_verified": false,
+        "preparation_confirmed_at": "2026-10-24",
+        "prepared_blueprint_id": 145,
+        "prepared_provider_id": 99,
+        "prepared_variants": [
+          38216,
+          38220,
+          38219,
+          42117,
+          38164,
+          38177,
+          38178,
+          38192,
+          38206,
+          38163,
+          38205,
+          38174,
+          38202,
+          38188,
+          38191,
+          38160
+        ],
+        "prepared_retail_cents": 2800,
+        "prepared_position": "front",
+        "prepared_scale": 1,
+        "prepared_website": "texasdefined",
+        "prepared_job_id": "TDFISH2026P1_03",
+        "approval_token_storage": "NOT STORED IN GIT; retained in originating connector result and recoverable only through authorized workflow"
       },
       "etsy": {
         "listing_id": null,
@@ -275,11 +396,10 @@
         "url": null
       },
       "blockers": [
-        "Original 512px concept cannot be declared print-ready",
-        "User artwork approval required",
-        "Heartland prepared-plan publication approval required",
-        "Etsy seller-management access for 13th tag/section unverified"
-      ]
+        "Prepared product publication requires user approval of displayed $28/16-variant Printify plan per Heartland Publisher",
+        "Thirteenth Etsy tag and shop-section assignment need supported seller-management workflow"
+      ],
+      "status": "PREPARED_PENDING_EXPLICIT_PLAN_APPROVAL"
     },
     {
       "id": "TD-FISH-04",
@@ -326,16 +446,57 @@
         "concept_preview_chat_path": "/mnt/data/texasdefined_fishing_phase1/TD-FISH-04_concept_preview.png",
         "concept_source_gen_id": "a79c10fe-34ac-477d-88b9-64367c2aee28",
         "persistent_production_uri": null,
-        "approved": false,
-        "quality_status": "concept_only_fails_print_readiness"
+        "approved": true,
+        "quality_status": "transparent_master_at_required_canvas_size_color_checks_passed",
+        "approval_source": "User explicitly approved all six designs and instructed advancement, 2026-10-24",
+        "production_local_snapshot": "/mnt/data/texasdefined_fishing_phase1/final_production/TD-FISH-04_compact.png",
+        "production_bundle": "TexasDefined_Fishing_Six_Production_PNGs.zip",
+        "file_sha256": "6294bee0a17a7035b60dee81590b44cc6f224f86d89d7f766b17c15eff672da1",
+        "source_image_native_px": [
+          1174,
+          1340
+        ],
+        "final_canvas_px": [
+          3852,
+          4398
+        ],
+        "dpi_note": "Pixels upscaled from 1174×1340 generated source; 3852×4398 canvas passes Printify transfer, but resampling does not add native source detail.",
+        "heartland_artwork_hash": "YpS-4KF6cDW2De6BWQtEzG8iT4bYnX92axfBXv9nLaE"
       },
       "printify": {
-        "prepared": false,
-        "template_selected": null,
+        "prepared": true,
+        "template_selected": "6a466888b706a0bfc50e0a2e",
         "product_id": null,
         "variant_ids": null,
         "artwork_upload_id": null,
-        "publication_verified": false
+        "publication_verified": false,
+        "preparation_confirmed_at": "2026-10-24",
+        "prepared_blueprint_id": 145,
+        "prepared_provider_id": 99,
+        "prepared_variants": [
+          38216,
+          38220,
+          38219,
+          42117,
+          38164,
+          38177,
+          38178,
+          38192,
+          38206,
+          38163,
+          38205,
+          38174,
+          38202,
+          38188,
+          38191,
+          38160
+        ],
+        "prepared_retail_cents": 2800,
+        "prepared_position": "front",
+        "prepared_scale": 1,
+        "prepared_website": "texasdefined",
+        "prepared_job_id": "TDFISH2026P1_04",
+        "approval_token_storage": "NOT STORED IN GIT; retained in originating connector result and recoverable only through authorized workflow"
       },
       "etsy": {
         "listing_id": null,
@@ -350,11 +511,10 @@
         "url": null
       },
       "blockers": [
-        "Original 512px concept cannot be declared print-ready",
-        "User artwork approval required",
-        "Heartland prepared-plan publication approval required",
-        "Etsy seller-management access for 13th tag/section unverified"
-      ]
+        "Prepared product publication requires user approval of displayed $28/16-variant Printify plan per Heartland Publisher",
+        "Thirteenth Etsy tag and shop-section assignment need supported seller-management workflow"
+      ],
+      "status": "PREPARED_PENDING_EXPLICIT_PLAN_APPROVAL"
     },
     {
       "id": "TD-FISH-05",
@@ -401,16 +561,57 @@
         "concept_preview_chat_path": "/mnt/data/texasdefined_fishing_phase1/TD-FISH-05_concept_preview.png",
         "concept_source_gen_id": "a79c10fe-34ac-477d-88b9-64367c2aee28",
         "persistent_production_uri": null,
-        "approved": false,
-        "quality_status": "concept_only_fails_print_readiness"
+        "approved": true,
+        "quality_status": "transparent_master_at_required_canvas_size_color_checks_passed",
+        "approval_source": "User explicitly approved all six designs and instructed advancement, 2026-10-24",
+        "production_local_snapshot": "/mnt/data/texasdefined_fishing_phase1/final_production/TD-FISH-05_compact.png",
+        "production_bundle": "TexasDefined_Fishing_Six_Production_PNGs.zip",
+        "file_sha256": "a4a91ace4e3605fa95345d8a8bc5d15c6ff756c7221313426869b81b6c0604de",
+        "source_image_native_px": [
+          1174,
+          1340
+        ],
+        "final_canvas_px": [
+          3852,
+          4398
+        ],
+        "dpi_note": "Pixels upscaled from 1174×1340 generated source; 3852×4398 canvas passes Printify transfer, but resampling does not add native source detail.",
+        "heartland_artwork_hash": "pKkazk42BfqVNF2Ki8XRXG_3VsciExNCaGm4G2wGBN4"
       },
       "printify": {
-        "prepared": false,
-        "template_selected": null,
+        "prepared": true,
+        "template_selected": "6a466888b706a0bfc50e0a2e",
         "product_id": null,
         "variant_ids": null,
         "artwork_upload_id": null,
-        "publication_verified": false
+        "publication_verified": false,
+        "preparation_confirmed_at": "2026-10-24",
+        "prepared_blueprint_id": 145,
+        "prepared_provider_id": 99,
+        "prepared_variants": [
+          38216,
+          38220,
+          38219,
+          42117,
+          38164,
+          38177,
+          38178,
+          38192,
+          38206,
+          38163,
+          38205,
+          38174,
+          38202,
+          38188,
+          38191,
+          38160
+        ],
+        "prepared_retail_cents": 2800,
+        "prepared_position": "front",
+        "prepared_scale": 1,
+        "prepared_website": "texasdefined",
+        "prepared_job_id": "TDFISH2026P1_05",
+        "approval_token_storage": "NOT STORED IN GIT; retained in originating connector result and recoverable only through authorized workflow"
       },
       "etsy": {
         "listing_id": null,
@@ -425,11 +626,10 @@
         "url": null
       },
       "blockers": [
-        "Original 512px concept cannot be declared print-ready",
-        "User artwork approval required",
-        "Heartland prepared-plan publication approval required",
-        "Etsy seller-management access for 13th tag/section unverified"
-      ]
+        "Prepared product publication requires user approval of displayed $28/16-variant Printify plan per Heartland Publisher",
+        "Thirteenth Etsy tag and shop-section assignment need supported seller-management workflow"
+      ],
+      "status": "PREPARED_PENDING_EXPLICIT_PLAN_APPROVAL"
     },
     {
       "id": "TD-FISH-06",
@@ -476,16 +676,57 @@
         "concept_preview_chat_path": "/mnt/data/texasdefined_fishing_phase1/TD-FISH-06_concept_preview.png",
         "concept_source_gen_id": "a79c10fe-34ac-477d-88b9-64367c2aee28",
         "persistent_production_uri": null,
-        "approved": false,
-        "quality_status": "concept_only_fails_print_readiness"
+        "approved": true,
+        "quality_status": "transparent_master_at_required_canvas_size_color_checks_passed",
+        "approval_source": "User explicitly approved all six designs and instructed advancement, 2026-10-24",
+        "production_local_snapshot": "/mnt/data/texasdefined_fishing_phase1/final_production/TD-FISH-06_compact.png",
+        "production_bundle": "TexasDefined_Fishing_Six_Production_PNGs.zip",
+        "file_sha256": "c19735ff87daabf4809fe61bacb0d511446e19cab15b43b1a34706c1fd289f22",
+        "source_image_native_px": [
+          1174,
+          1340
+        ],
+        "final_canvas_px": [
+          3852,
+          4398
+        ],
+        "dpi_note": "Pixels upscaled from 1174×1340 generated source; 3852×4398 canvas passes Printify transfer, but resampling does not add native source detail.",
+        "heartland_artwork_hash": "wZc1_4faq_SAn-YbrLDVEURuGcqxW0Oxo0cGwf0onyI"
       },
       "printify": {
-        "prepared": false,
-        "template_selected": null,
+        "prepared": true,
+        "template_selected": "6a466888b706a0bfc50e0a2e",
         "product_id": null,
         "variant_ids": null,
         "artwork_upload_id": null,
-        "publication_verified": false
+        "publication_verified": false,
+        "preparation_confirmed_at": "2026-10-24",
+        "prepared_blueprint_id": 145,
+        "prepared_provider_id": 99,
+        "prepared_variants": [
+          38216,
+          38220,
+          38219,
+          42117,
+          38164,
+          38177,
+          38178,
+          38192,
+          38206,
+          38163,
+          38205,
+          38174,
+          38202,
+          38188,
+          38191,
+          38160
+        ],
+        "prepared_retail_cents": 2800,
+        "prepared_position": "front",
+        "prepared_scale": 1,
+        "prepared_website": "texasdefined",
+        "prepared_job_id": "TDFISH2026P1_06",
+        "approval_token_storage": "NOT STORED IN GIT; retained in originating connector result and recoverable only through authorized workflow"
       },
       "etsy": {
         "listing_id": null,
@@ -500,11 +741,10 @@
         "url": null
       },
       "blockers": [
-        "Original 512px concept cannot be declared print-ready",
-        "User artwork approval required",
-        "Heartland prepared-plan publication approval required",
-        "Etsy seller-management access for 13th tag/section unverified"
-      ]
+        "Prepared product publication requires user approval of displayed $28/16-variant Printify plan per Heartland Publisher",
+        "Thirteenth Etsy tag and shop-section assignment need supported seller-management workflow"
+      ],
+      "status": "PREPARED_PENDING_EXPLICIT_PLAN_APPROVAL"
     }
   ],
   "phase2_reservations": [
@@ -570,6 +810,21 @@
       "date": "2026-10-24",
       "check": "Printify / Etsy publication",
       "result": "Not attempted: prerequisites unmet"
+    },
+    {
+      "date": "2026-10-24",
+      "check": "6 Heartland prepare_products invocations",
+      "result": "All succeeded with original stable job IDs; shirt blueprint 145/provider 99; 16 variants each at $28 front position and destination texasdefined."
+    },
+    {
+      "date": "2026-10-24",
+      "check": "3 garment color visual comparison",
+      "result": "Generated contact-sheet simulated artwork on white, black, heather blue; not provider garment mockups."
+    },
+    {
+      "date": "2026-10-24",
+      "check": "Publish gate",
+      "result": "Pending explicit approval of specific prepared plan; no printify products, Etsy listings or TexasDefined catalog entries created by preparation."
     }
   ]
 }
