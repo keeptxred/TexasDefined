@@ -30,6 +30,9 @@ type ApprovedBusiness = {
   status: string;
   business_name: string;
   website: string;
+  commercial_agreement_verified_at: string | null;
+  commercial_agreement_covers_offers: boolean;
+  commercial_agreement_expires_on: string | null;
 };
 function normalizedBusinessName(name: string) {
   return name.toLowerCase().replace(/[^a-z0-9]/g, '');
@@ -69,7 +72,7 @@ export async function loadPublicCorporateEventOffers(): Promise<PublicCorporateE
   const applicationIds = [...new Set((offers as ApprovedOfferRow[]).map((offer) => offer.partner_application_id))];
   const { data: businesses, error: businessError } = await client
     .from('texasdefined_group_event_partner_applications')
-    .select('id,status,business_name,website')
+    .select('id,status,business_name,website,commercial_agreement_verified_at,commercial_agreement_covers_offers,commercial_agreement_expires_on')
     .in('id', applicationIds)
     .eq('status', 'approved')
     .limit(100);
@@ -83,6 +86,8 @@ export async function loadPublicCorporateEventOffers(): Promise<PublicCorporateE
     const business = approvedBusinesses.get(offer.partner_application_id);
     const provider = directory.get(offer.provider_slug);
     if (!business || !provider || !offer.reviewed_at) continue;
+    if (!business.commercial_agreement_verified_at || business.commercial_agreement_covers_offers !== true
+      || (business.commercial_agreement_expires_on && business.commercial_agreement_expires_on < offer.ends_on)) continue;
     if (normalizedBusinessName(provider.name) !== normalizedBusinessName(business.business_name)) continue;
     if (!approvedRedemptionUrl(offer.redemption_url, business.website)) continue;
     if (offer.starts_on > today || offer.ends_on < today) continue;
