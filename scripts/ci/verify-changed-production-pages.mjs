@@ -76,6 +76,40 @@ function assertCorporateEventContents(html, type) {
   }
 }
 
+function assertMagoffinLicensedImageStructuredData(html) {
+  const pageUrl = 'https://texasdefined.com/destination/magoffin-home';
+  // Validate JSON-LD from the delivered HTML, not strings in unrelated markup.
+  const documents = [...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script\s*>/gi)]
+    .filter(([, attrs]) => /\btype\s*=\s*["']application\/ld\+json["']/i.test(attrs))
+    .flatMap(([, , source]) => {
+      try {
+        const value = JSON.parse(source);
+        return Array.isArray(value) ? value : [value];
+      } catch { return []; }
+    });
+  const nodes = documents.flatMap((doc) => doc && typeof doc === 'object'
+    ? Array.isArray(doc['@graph']) ? doc['@graph'] : [doc] : []);
+  const attraction = nodes.find((node) => node?.['@id'] === pageUrl + '#attraction'
+    && [node['@type']].flat().includes('TouristAttraction'));
+  const images = Array.isArray(attraction?.image) ? attraction.image : attraction?.image ? [attraction.image] : [];
+  const image = images.find((node) => node?.['@type'] === 'ImageObject'
+    && node?.['@id'] === pageUrl + '#primaryimage');
+  if (!image
+    || typeof image.url !== 'string' || !/^https:\/\//.test(image.url)
+    || typeof image.caption !== 'string' || !image.caption.includes('Magoffin')
+    || !image.creditText?.includes('Larry D. Moore')
+    || image.creator?.['@type'] !== 'Person' || image.creator?.name !== 'Larry D. Moore'
+    || image.copyrightNotice !== '© 2009 Larry D. Moore'
+    || image.license !== 'https://creativecommons.org/licenses/by/4.0/'
+    || image.acquireLicensePage !== 'https://commons.wikimedia.org/wiki/File:Magoffin_home_2009.jpg') {
+    throw new Error('Magoffin Home photograph rights missing from live structured data ImageObject');
+  }
+  const visibleMarkup = html.replace(/<script\b[^>]*>[\s\S]*?<\/script\s*>/gi, '');
+  if (!visibleMarkup.includes('Larry D. Moore') || !visibleMarkup.includes('CC BY 4.0')) {
+    throw new Error('Magoffin Home photograph has no visible photographer/license attribution');
+  }
+}
+
 export async function verifyChangedPages({ plan, head, fetchImpl = fetch }) {
 const redirectChecks = plan.redirectChecks ?? [];
 const downloadButtonPages = plan.downloadButtonPages ?? [];
@@ -291,9 +325,7 @@ for (const path of plan.selectedPaths) {
         if (html.includes('Tours and experiences near Magoffin Home State Historic Site')) {
           throw new Error('Magoffin Home still serves the generic tour booking component during house closure');
         }
-        for (const required of ['acquireLicensePage', 'copyrightNotice', 'creativecommons.org/licenses/by/4.0/', 'Larry D. Moore']) {
-          if (!html.includes(required)) throw new Error('Magoffin Home photograph rights missing from live structured data: ' + required);
-        }
+        assertMagoffinLicensedImageStructuredData(html);
       }
       if (davisHillPages.includes(path)) {
         // The old Davis Hill build had image metadata but no visible hero.

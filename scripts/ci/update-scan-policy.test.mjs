@@ -331,23 +331,60 @@ test('ordinary Texas Data URL must not serve stale HTML when query-string canary
   ]) assert.ok(purgeWorkflow.includes('            ' + url + '\n'), 'missing precise purge target: ' + url);
 });
 
-test('Magoffin restoration edits require exact live SSR closure, FAQ and visitor center', async () => {
+test('Magoffin restoration and actual ImageObject license survive live SSR', async () => {
   const plan = buildChangePlan({ baseline, head, changedFiles: ['src/data/magoffin-home-authority.ts'] });
   assert.deepEqual(plan.selectedPaths, ['/destination/magoffin-home']);
   assert.deepEqual(plan.magoffinHomePages, ['/destination/magoffin-home']);
-  const body = 'Historic home closed through 2027 · Magoffin Home visitor FAQ · 1117 Magoffin Avenue · acquireLicensePage · copyrightNotice · Larry D. Moore · creative source https://creativecommons.org/licenses/by/4.0/';
-  const html = text => '<html><head><title>Magoffin Home</title><link rel="canonical" href="https://texasdefined.com/destination/magoffin-home"></head><body>' + text + '</body></html>';
-  const success = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html(body)) });
-  assert.equal(success[0].passed, true);
-  const stale = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html('Old generic Magoffin guide')) });
-  assert.equal(stale[0].passed, false);
-  assert.match(stale[0].error, /Magoffin Home current authority SSR missing/);
-  const booking = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html(body + ' Tours and experiences near Magoffin Home State Historic Site')) });
-  assert.equal(booking[0].passed, false);
-  assert.match(booking[0].error, /generic tour booking component/);
-  const rightsMissing = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html('Historic home closed through 2027 · Magoffin Home visitor FAQ · 1117 Magoffin Avenue')) });
-  assert.equal(rightsMissing[0].passed, false);
-  assert.match(rightsMissing[0].error, /photograph rights missing from live structured data/);
+  const pageUrl = 'https://texasdefined.com/destination/magoffin-home';
+  const authority = 'Historic home closed through 2027 · Magoffin Home visitor FAQ · 1117 Magoffin Avenue';
+  const image = {
+    '@type': 'ImageObject',
+    '@id': pageUrl + '#primaryimage',
+    url: 'https://upload.wikimedia.org/wikipedia/commons/a/ab/Magoffin_home_2009.jpg',
+    caption: 'Magoffin Home State Historic Site in El Paso',
+    creditText: 'Larry D. Moore · CC BY 4.0',
+    creator: { '@type': 'Person', name: 'Larry D. Moore' },
+    copyrightNotice: '© 2009 Larry D. Moore',
+    license: 'https://creativecommons.org/licenses/by/4.0/',
+    acquireLicensePage: 'https://commons.wikimedia.org/wiki/File:Magoffin_home_2009.jpg',
+  };
+  const graph = (imageNode = image, attractionId = pageUrl + '#attraction') => ({
+    '@context': 'https://schema.org',
+    '@graph': [{ '@type': 'TouristAttraction', '@id': attractionId, image: [imageNode] }],
+  });
+  const jsonLd = (schema) => '<script type="application/ld+json">' + JSON.stringify(schema) + '</script>';
+  const html = (text) => '<html><head><title>Magoffin Home</title><link rel="canonical" href="' + pageUrl + '"></head><body>' + text + '</body></html>';
+  const body = authority + ' Photography: Larry D. Moore · CC BY 4.0 ' + jsonLd(graph());
+  const check = async (bodyText) => (await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html(bodyText)) }))[0];
+  const success = await check(body);
+  assert.equal(success.passed, true, success.error);
+  const stale = await check('Old generic Magoffin guide');
+  assert.equal(stale.passed, false);
+  assert.match(stale.error, /Magoffin Home current authority SSR missing/);
+  const booking = await check(body + ' Tours and experiences near Magoffin Home State Historic Site');
+  assert.equal(booking.passed, false);
+  assert.match(booking.error, /generic tour booking component/);
+  const rightsMissing = await check(authority);
+  assert.equal(rightsMissing.passed, false);
+  assert.match(rightsMissing.error, /photograph rights missing from live structured data/);
+  const tokenOnly = await check(authority + ' acquireLicensePage copyrightNotice creator license Larry D. Moore CC BY 4.0');
+  assert.equal(tokenOnly.passed, false, 'plain-text license tokens must not pass the structured-data verifier');
+  const badLicense = await check(authority + ' Photography: Larry D. Moore · CC BY 4.0 '
+    + jsonLd(graph({ ...image, license: 'https://creativecommons.org/licenses/by-sa/4.0/' })));
+  assert.equal(badLicense.passed, false);
+  assert.match(badLicense.error, /photograph rights missing from live structured data/);
+  const unrelatedImage = await check(authority + ' Photography: Larry D. Moore · CC BY 4.0 '
+    + jsonLd(graph(image, pageUrl + '#unrelated')));
+  assert.equal(unrelatedImage.passed, false, 'rights on unrelated schema node must not pass');
+  const wrongCreator = await check(authority + ' Photography: Larry D. Moore · CC BY 4.0 '
+    + jsonLd(graph({ ...image, creator: { '@type': 'Person', name: 'Someone else' } })));
+  assert.equal(wrongCreator.passed, false);
+  const noVisibleCredit = await check(authority + jsonLd(graph()));
+  assert.equal(noVisibleCredit.passed, false);
+  assert.match(noVisibleCredit.error, /visible photographer\/license attribution/);
+  const malformed = await check(authority + ' Photography: Larry D. Moore · CC BY 4.0 '
+    + '<script type="application/ld+json">{not-valid-json}</script>');
+  assert.equal(malformed.passed, false);
 });
 test('football template changes verify only two real team pages and their live game-night paths', async () => {
   const plan = buildChangePlan({ baseline, head, changedFiles: ['src/routes/texas-high-school-football-teams_.$slug.lazy.tsx'] });
