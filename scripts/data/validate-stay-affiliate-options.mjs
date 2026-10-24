@@ -19,6 +19,17 @@ const destinationRouteSource = fs.readFileSync('src/routes/destination.$slug.tsx
 
 // Expedia owns async DOM placement. The CJ layer must be explicitly notified
 // after insertion and route updates, rather than relying on main subtree timing.
+// Preserve the verified local-US Magnolia hotel and rental destinations.
+for (const marker of [
+  'const isMagnoliaWacoGuide',
+  'https://www.vrbo.com/vacation-rentals/usa/texas/waco/waco-convention-center',
+  'Browse rentals near Waco Convention Center on Vrbo',
+]) {
+  if (!source.includes(marker)) throw new Error('Waco stay destination changed: ' + marker);
+}
+if (source.includes('https://www.vrbo.com/en-ca/vacation-rentals/united-states/texas/mclennan-county/waco')) {
+  throw new Error('Waco stays must not revert to the Canadian-dollar Vrbo catalog');
+}
 const cjRefreshBridge = 'window.TexasDefinedStayAffiliateOptions?.sync?.();';
 if (expediaBootstrap.split(cjRefreshBridge).length - 1 !== 3) {
   throw new Error('Expedia must refresh the governed CJ panel for generic/curated mount, explicit mount, and SPA route changes');
