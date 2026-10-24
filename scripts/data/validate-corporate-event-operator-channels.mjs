@@ -26,6 +26,17 @@ for (const row of channels) {
   assert.equal(corporateEventPublicOperatorChannel(row.venueSlug)?.url, row.url);
 }
 assert.equal(corporateEventPublicOperatorChannel('unknown-business'), null);
+const monitoring = readFileSync('scripts/data/audit-corporate-event-sources.mjs','utf8');
+for (const expected of [
+  'corporateEventPublicOperatorChannels.map((channel) => channel.url)',
+  'operatorChannelReports',
+  'operatorChannelsNeedingReview',
+  'ageDays === null || ageDays >= 60',
+  "status?.state !== 'reachable'",
+  "redirect: 'manual'",
+]) assert(monitoring.includes(expected), 'Weekly read-only official contact-path review must not go unmonitored: ' + expected);
+assert(!monitoring.includes("contactSent: true") && !monitoring.includes("venueVerified: true"),
+  'HEAD source reachability is not proof of any outreach or commercial verification');
 const staff = readFileSync('src/components/events/CorporateEventSourceReviewPanel.tsx','utf8');
 assert(staff.includes('corporateEventPublicOperatorChannel(item.provider.slug)'));
 assert(staff.includes('Review public event inquiry'));
