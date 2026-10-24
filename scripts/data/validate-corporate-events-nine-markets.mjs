@@ -36,7 +36,7 @@ for(const slug of ['el-paso','corpus-christi','galveston','waco','lubbock']) {
   assert(guides.includes("slug: '"+slug+"'"),'Visible market guide absent '+slug);
 }
 assert(guides.includes('recommendedCategory') && guides.includes('eligibleFor45'), 'Market CTAs must choose a category suitable for each venue market and requested group size');
-assert(seo.includes('Texas Corporate Events') && seo.includes('corporate venues'), 'Statewide SEO description must remain accurate as more markets join');
+assert(seo.includes('Texas Corporate Events') && seo.includes('corporate event venues'), 'Statewide SEO description must remain accurate as more markets join');
 assert(ui.includes('throughout Texas') && ui.includes('company outings'), 'The main hero must describe statewide venue coverage, not a stale nine-market count');
 assert(ui.includes('corporateEventMarketMatches(provider, cityTerm)'), 'Finder must search all current and future markets through its normalized matcher');
 console.log('Original nine-market baseline preserved across statewide catalog growth; source and discoverability PASS.');
