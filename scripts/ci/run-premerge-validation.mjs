@@ -111,7 +111,7 @@ const prebuildChecks = [
   ['EVENT/CORPORATE/INTEGRATIONS', 'Enforce fail-closed quote/booking/payment adapter readiness', 'node', ['--experimental-strip-types', 'scripts/data/validate-corporate-event-integrations.mjs']],
   ['EVENT/CORPORATE/OFFERS', 'Enforce verified approved partner host, dated offer and sponsored disclosures', 'node', ['scripts/data/validate-corporate-event-offers.mjs']],
   ['EVENT/CORPORATE/OFFER-DATES', 'Require Texas-local active offer window', 'node', ['--experimental-strip-types', 'scripts/data/validate-corporate-event-offer-local-date.mjs']],
-  ['EVENT/CORPORATE/OFFER-ATTRIBUTION', 'Protect aggregate approved partner offer click and no PII attribution', 'node', ['scripts/data/validate-corporate-offer-attribution.mjs']]
+  ['EVENT/CORPORATE/OFFER-ATTRIBUTION', 'Protect aggregate approved partner offer click and no PII attribution', 'node', ['scripts/data/validate-corporate-offer-attribution.mjs']],
   ['EVENT/CORPORATE/BROWSER', 'Enforce GET-only real Chrome mobile/tablet/desktop acceptance contract', 'node', ['scripts/ci/validate-corporate-event-responsive-production.mjs']],
   ['EVENT/CORPORATE/CONSENT', 'Require irreversible verified organizer consent withdrawal', 'node', ['scripts/data/validate-corporate-event-consent-withdrawal.mjs']],
   ['EVENT/CORPORATE/SOURCES', 'Maintain dated official-source re-review for all independent venues', 'node', ['scripts/data/validate-corporate-event-source-review.mjs']],
