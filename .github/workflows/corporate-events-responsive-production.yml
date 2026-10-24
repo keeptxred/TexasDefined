@@ -15,6 +15,16 @@ on:
       - 'src/components/events/CorporateEventCategoryGuides.tsx'
       - 'src/components/events/CorporateEventMetroGuides.tsx'
       - 'src/data/corporate-events.ts'
+      # Any change to public finder behavior must rerun the exact-SHA, read-only
+      # live three-viewport Chrome + WCAG acceptance on protected production.
+      - 'src/routes/corporate-events.tsx'
+      - 'src/data/corporate-event-public-shortlist.ts'
+      - 'src/data/corporate-event-market-search.ts'
+      - 'src/data/corporate-event-budgets.ts'
+      - 'src/data/corporate-event-dates.ts'
+      - 'src/components/events/CorporateEventRelatedResources.tsx'
+      - 'src/components/events/ApprovedCorporateEventOffers.tsx'
+      - 'src/components/events/GroupEventPartnerApplication.tsx'
   workflow_dispatch:
 
 permissions:
