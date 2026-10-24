@@ -13,6 +13,7 @@ for (const rule of [
   '(venue_slug, outcome_type, upper(evidence_key))',
   'before insert on public.texasdefined_group_event_outcome_events',
   'new.evidence_key := upper(btrim(new.evidence_key))',
+  "new.venue_slug is null or new.venue_slug !~",
   'security invoker',
   'revoke all on function public.texasdefined_group_event_require_external_evidence_key()',
 ]) assert(sql.includes(rule),'Real outcome receipt/quote duplicate protection missing: '+rule);
