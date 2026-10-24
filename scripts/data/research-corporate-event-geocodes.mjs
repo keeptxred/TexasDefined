@@ -53,6 +53,7 @@ export function validatePublicVenueAddress(row, entry, asOf) {
   if (!row || typeof row !== 'object' || typeof entry?.city !== 'string') return 'Not in the sourced venue directory';
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(String(row.providerSlug??''))) return 'Invalid venue slug';
   if (!texas(row.city) || normalize(row.city) !== normalize(entry.city)) return 'Address city differs from the editorial venue city';
+  if (row.zip !== undefined && row.zip !== null && !/^\d{5}$/.test(String(row.zip))) return 'Only a five-digit Texas venue ZIP may be supplied';
   const address = row.streetAddress;
   if (typeof address !== 'string' || address.length < 8 || address.length > 150
     || !/^\d{1,6}[A-Za-z]?\s+[A-Za-z0-9][A-Za-z0-9 .#'-]+$/.test(address)) {
@@ -84,7 +85,7 @@ export function parseCensusCandidate(result, expectedCity, expectedStreetNumber)
   const match=matches[0];
   if (normalize(String(match?.addressComponents?.city ?? ''))!==normalize(expectedCity)
     || String(match?.addressComponents?.state ?? '').toUpperCase()!=='TX'
-    || normalize(String(match?.addressComponents?.fromAddress ?? ''))!==normalize(expectedStreetNumber)) return null;
+    || normalize(String(match?.matchedAddress ?? '').split(/\s+/)[0])!==normalize(expectedStreetNumber)) return null;
   const x=match?.coordinates?.x, y=match?.coordinates?.y;
   if (!Number.isFinite(x) || !Number.isFinite(y)
     || y < 25.8 || y > 36.6 || x < -106.7 || x > -93.4) return null;
