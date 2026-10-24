@@ -67,6 +67,13 @@ try {
     // verifier cannot catch missing React click handlers or mobile overflow.
     const offerSection = page.locator('section[aria-label="Football fan shopping and travel"]');
     await offerSection.waitFor({ state: 'visible', timeout: 18000 });
+    // SSR markup is visible before React's client handlers are installed.
+    // Wait for the root useEffect readiness signal before testing clicks.
+    await page.waitForFunction(
+      () => document.documentElement.dataset.tdRootHydrated === '1',
+      undefined,
+      { timeout: 25000 },
+    );
     await page.waitForFunction(() => (
       document.querySelector('section[aria-label="Football fan shopping and travel"] a[data-commercial-partner="rvshare"]')
       && document.querySelector('section[aria-label="Football fan shopping and travel"] a[data-commercial-partner="hotels.com"]')
