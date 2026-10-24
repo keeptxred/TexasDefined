@@ -41,7 +41,7 @@ assert(staff.includes("CorporateEventOpsPanel accessKey={accessKey}"),
   'Source queue must not replace protected partner/outcome operation workflows');
 
 const slugs = [...directory.matchAll(/\bslug:\s*['"]([a-z0-9-]+)['"]/g)].map(match=>match[1]);
-const reviewed = [...directory.matchAll(/verifiedOn:\s*'([^']+)'/g)].map(match=>match[1]);
+const reviewed = [...directory.matchAll(/verifiedOn:\s*['\"]([^'\"]+)['\"]/g)].map(match=>match[1]);
 assert(slugs.length >= 122 && new Set(slugs).size === slugs.length,
   'Retain the independently sourced venue catalog and unique slugs');
 assert.equal(reviewed.length, slugs.length, 'Every venue should have an independently recorded review date');
