@@ -39,7 +39,7 @@ assert(!validVerifiedCorporateEventPoint({...zipPoint,sourceUrl:'https://third-p
 assert(!validVerifiedCorporateEventPoint({...zipPoint,sourceUrl:'https://user:secret@www2.census.gov/data'},'zcta',reviewDate));
 assert(!validVerifiedCorporateEventPoint({...venuePoint,sourceUrl:'https://operator-example.test.evil.test/venue'},'venue',reviewDate,providers[0].officialUrl));
 assert(!validVerifiedCorporateEventPoint({...venuePoint,sourceUrl:'https://operator-example.test:444/private'},'venue',reviewDate,providers[0].officialUrl));
-assert(!validVerifiedCorporateEventPoint(venuePoint,'venue',reviewDate,'https://events.operator-example.test/venue'),
+assert(!validVerifiedCorporateEventPoint(venuePoint,'venue',reviewDate,'https://source.events.operator-example.test/venue'),
   'A parent domain may not impersonate a strictly source-reviewed venue subdomain');
 assert(!validVerifiedCorporateEventPoint(venuePoint,'venue',reviewDate,providers[1].officialUrl),
   'Evidence for another venue may not be reused by changing the provider slug');
