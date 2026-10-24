@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState, type FormEvent } from 'react';
 import {
   changeCorporateEventApplicationStatus, changeCorporateEventLeadStatus,
   changeCorporateEventOfferStatus, draftCorporateEventOffer, getCorporateEventOperations,
+  withdrawCorporateEventVenueSharing,
   verifyCorporateEventCommercialAgreement,
 } from '@/data/corporate-events.admin.functions';
 import { corporateEventProviders } from '@/data/corporate-events';
@@ -97,6 +98,28 @@ export function CorporateEventOpsPanel({ accessKey }: { accessKey: string }) {
     } catch { setError('Could not update planner request.'); }
     finally { setBusy(''); }
   }
+  async function withdrawVenueConsent(lead: Lead) {
+    if (!lead.allow_provider_outreach) return;
+    if (!window.confirm('Has this organizer personally and verifiably instructed TexasDefined to stop sharing their details with shortlisted venues? This immediately blocks any new venue-sharing draft; it does not undo an earlier message.')) return;
+    const evidence = window.prompt('Record how you independently verified the organizer\'s instruction to withdraw venue contact permission (20–500 characters; never paste confidential correspondence):', '');
+    if (!evidence || evidence.trim().length < 20 || evidence.trim().length > 500) {
+      setError('Organizer withdrawal requires an independent verification reference (20–500 characters).');
+      return;
+    }
+    setBusy(lead.id); setError(''); setMessage('');
+    try {
+      await withdrawCorporateEventVenueSharing({ data: {
+        accessKey, plannerRequestId: lead.id,
+        verifiedOrganizerInstruction: true,
+        verificationNote: evidence.trim(),
+      } });
+      await refresh();
+      setMessage('Organizer venue-sharing permission withdrawn. No contact was sent to a venue. Historical consent proof remains private.');
+    } catch {
+      setError('The venue-sharing permission could not be withdrawn. Verify the organizer instruction and request state.');
+    } finally { setBusy(''); }
+  }
+
   async function updateApplication(id: string, status: ApplicationStatus) {
     let verificationNote = '';
     let verifiedIdentity = false;
@@ -236,6 +259,11 @@ export function CorporateEventOpsPanel({ accessKey }: { accessKey: string }) {
                 ? 'Optional sharing approved for the selected venues only, recorded ' + (lead.provider_outreach_consented_at ? fmt(lead.provider_outreach_consented_at) : 'without a readable timestamp') + '. Review venue identity and partner terms before taking any manual outreach action. No message was sent by this system.'
                 : 'No venue-sharing consent. Do not forward this planner’s personal contact details to businesses.'}
             </p>
+            {lead.allow_provider_outreach ? <button type="button" disabled={busy === lead.id}
+              onClick={() => void withdrawVenueConsent(lead)}
+              className="mt-3 min-h-11 border border-border px-4 py-2 text-xs font-semibold text-destructive disabled:opacity-50">
+              Record verified organizer withdrawal of venue-sharing consent
+            </button> : null}
             {isCorporateEventLeadOverdue(lead) ? <p className="mt-3 border border-border bg-surface p-3 text-xs font-semibold text-foreground">
               Follow-up priority: more than 48 hours since this planner's request without a recorded first contact.
             </p> : null}

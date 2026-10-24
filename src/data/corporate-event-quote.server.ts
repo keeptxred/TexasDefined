@@ -56,7 +56,7 @@ export async function prepareCorporateEventPartnerQuote(
   // domain. Names and domains must both match to limit impersonation.
   const { data: applications, error: applicationError } = await client
     .from('texasdefined_group_event_partner_applications')
-    .select('id,status,business_name,website,commercial_agreement_verified_at,commercial_agreement_covers_quote_routing,commercial_agreement_expires_on')
+    .select('id,status,business_name,website,identity_verified_at,commercial_agreement_verified_at,commercial_agreement_covers_quote_routing,commercial_agreement_expires_on')
     .eq('status', 'approved')
     .limit(250);
   if (applicationError || !Array.isArray(applications)) throw new Error('Cannot verify venue partner.');
@@ -64,7 +64,12 @@ export async function prepareCorporateEventPartnerQuote(
   const candidates = applications.filter((application: { business_name: string; website: string }) =>
     normalizeBusinessName(String(application.business_name)) === normalizeBusinessName(venue.name)
     && verifiedBusinessDomain(String(application.website), venue.officialUrl)
+    && Boolean(application.identity_verified_at)
+    && Number.isFinite(Date.parse(String(application.identity_verified_at)))
+    && Date.parse(String(application.identity_verified_at)) <= Date.now()
     && Boolean(application.commercial_agreement_verified_at)
+    && Number.isFinite(Date.parse(String(application.commercial_agreement_verified_at)))
+    && Date.parse(String(application.commercial_agreement_verified_at)) <= Date.now()
     && application.commercial_agreement_covers_quote_routing === true
     && (!application.commercial_agreement_expires_on
       || String(application.commercial_agreement_expires_on) >= corporateEventTexasToday()),

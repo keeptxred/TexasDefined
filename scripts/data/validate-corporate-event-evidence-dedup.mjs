@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 
 const sql = readFileSync('supabase/migrations/20261024031000_group_event_evidence_dedup.sql', 'utf8');
+const venueGuard = readFileSync('supabase/migrations/20261024032000_group_event_evidence_venue_guard.sql', 'utf8');
 const server = readFileSync('src/data/corporate-event-outcomes.server.ts', 'utf8');
 const functions = readFileSync('src/data/corporate-event-outcomes.functions.ts', 'utf8');
 const panel = readFileSync('src/components/events/CorporateEventOutcomePanel.tsx', 'utf8');
@@ -17,6 +18,8 @@ for (const rule of [
   'revoke all on function public.texasdefined_group_event_require_external_evidence_key()',
 ]) assert(sql.includes(rule),'Real outcome receipt/quote duplicate protection missing: '+rule);
 
+assert(venueGuard.includes('new.venue_slug is null') && venueGuard.includes('new.venue_slug !~'),
+  'New outcomes must have a source-backed real venue; null must not bypass source reference uniqueness');
 assert(sql.includes('evidence_key is null'), 'Older private history must not be fabricated to satisfy a new ID rule');
 assert(oldLedger.includes('revoke update, delete, truncate'), 'Evidence history remains append-only');
 assert(server.includes('const evidenceKey = input.evidenceKey.trim().toUpperCase()')

@@ -272,7 +272,7 @@ function CorporateEventsPage() {
           <div className="mt-5 space-y-5">
             <label className="block text-sm font-semibold">City in Texas
               <input value={city} onChange={(event) => { setCity(event.target.value); setAreaQuery(''); }} placeholder="Houston" maxLength={90} className={'mt-2 ' + controlClass} />
-              <span className="mt-1 block text-xs font-normal text-muted-foreground">Search a Texas city or metro, or select a market guide below.</span>
+              <span className="mt-1 block text-xs font-normal text-muted-foreground">Search a Texas city or metro, or select a market guide below. Limited ZIP aliases return broad markets, not a verified radius or travel-time search.</span>
             </label>
             <label className="block text-sm font-semibold">Preferred neighborhood or area (optional)
               <input value={areaQuery} onChange={(event) => setAreaQuery(event.target.value)} placeholder="e.g., Downtown, Katy, Clear Lake" maxLength={60} className={'mt-2 ' + controlClass} />

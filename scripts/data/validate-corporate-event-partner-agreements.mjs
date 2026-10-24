@@ -46,6 +46,12 @@ assert(publicOffers.includes('business.commercial_agreement_covers_offers !== tr
   'Public feed must fail closed if signed partner authorization is absent');
 assert(publicOffers.includes('business.commercial_agreement_expires_on < offer.ends_on'),
   'Public feed must suppress offers that outlive the agreement');
+assert(quotePrep.includes('identity_verified_at') &&
+  quotePrep.includes('Boolean(application.identity_verified_at)') &&
+  quotePrep.includes('Date.parse(String(application.identity_verified_at)) <= Date.now()'),
+  'An approved application without independently time-verified identity must never expose planner details');
+assert(quotePrep.includes('Date.parse(String(application.commercial_agreement_verified_at)) <= Date.now()'),
+  'Future-dated agreement attestation cannot be treated as verified');
 assert(quotePrep.includes('application.commercial_agreement_covers_quote_routing === true'),
   'Private quote drafts require actual partner scope as well as planner consent');
 assert(quotePrep.includes('lead.provider_outreach_consented_at') &&

@@ -44,11 +44,44 @@ function assertTexasDataContents(path, body) {
   }
 }
 
+/**
+ * Read-only SSR acceptance for the corporate marketplace. The page is
+ * independently usable without logging in or sending a real inquiry.
+ * Every candidate is checked on both the release URL and visitor URL.
+ */
+function assertCorporateEventContents(html, type) {
+  const required = [
+    'Plan a company event worth leaving the office for.',
+    'Corporate events in Texas cities',
+    'A practical guide to corporate event types',
+    'Houston corporate events',
+    'Ask before you commit',
+    'Published group capacity',
+    'Request a quote',
+    'Submitting this form does not request a quote from a venue',
+    'I agree TexasDefined may use this information to contact me',
+    'Capacity is not live availability.',
+    'BreadcrumbList',
+    'ItemList',
+    'application/ld+json',
+    '/privacy',
+  ];
+  for (const marker of required) {
+    if (!html.includes(marker)) {
+      throw new Error('Corporate marketplace ' + type + ' SSR missing: ' + marker);
+    }
+  }
+  if (/<meta\\b[^>]*name=["']robots["'][^>]*content=["'][^"']*noindex/i.test(html)) {
+    throw new Error('Corporate marketplace ' + type + ' incorrectly noindexed');
+  }
+}
+
 export async function verifyChangedPages({ plan, head, fetchImpl = fetch }) {
 const redirectChecks = plan.redirectChecks ?? [];
 const downloadButtonPages = plan.downloadButtonPages ?? [];
 const texasDataPages = plan.texasDataPages ?? [];
 const eventAuthorityPages = plan.eventAuthorityPages ?? [];
+const corporateEventPages = plan.corporateEventPages ?? [];
 const mardiGrasHubPages = plan.mardiGrasHubPages ?? [];
 const TEXAS_DATA_ROUTES = [
   '/texas-data',
@@ -66,6 +99,10 @@ if (!Array.isArray(footballGameNightPages) || footballGameNightPages.length > 2 
 if (!Array.isArray(regionGuidePages) || regionGuidePages.length > 1 || regionGuidePages.some(p => p !== '/article/texas-regions-explained' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid Texas regions guide smoke contract');
 if (!Array.isArray(downloadButtonPages) || downloadButtonPages.length > 1 || downloadButtonPages.some(p => p !== '/texas-data/texas-population-and-migration-2025' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid data-brief smoke contract');
 if (!Array.isArray(texasDataPages) || texasDataPages.length > 4 || texasDataPages.some(p => !TEXAS_DATA_ROUTES.includes(p) || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded Texas Data production contract');
+if (!Array.isArray(corporateEventPages) || corporateEventPages.length > 1 ||
+  corporateEventPages.some(p => p !== '/corporate-events' || !plan.selectedPaths?.includes(p))) {
+  throw new Error('Invalid bounded corporate marketplace production smoke contract');
+}
 if (!Array.isArray(eventAuthorityPages) || eventAuthorityPages.length > 8 || eventAuthorityPages.some(p => !/^\/event\/[a-z0-9]+(?:-[a-z0-9]+)*$/.test(p) || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded event authority production contract');
 if (!Array.isArray(mardiGrasHubPages) || mardiGrasHubPages.length > 1 || mardiGrasHubPages.some(p => p !== '/events/mardi-gras' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded Mardi Gras hub production contract');
 if (!Array.isArray(battleshipVisitorPages) || battleshipVisitorPages.length > 1 || battleshipVisitorPages.some(p => p !== '/destination/battleship-texas' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded Battleship visitor acceptance contract');
@@ -102,6 +139,25 @@ for (const path of plan.selectedPaths) {
         for (const href of expectedHrefs) {
           if (!/^\/(?!\/)/.test(href) || !anchors.has(href)) throw new Error('Expected changed internal link is missing from SSR anchors: '+href);
         }
+      }
+      if (corporateEventPages.includes(path)) {
+        assertCorporateEventContents(html, 'cache-busted');
+        const visitor = await fetchImpl(canonical, {
+          redirect: 'follow',
+          headers: { accept: 'text/html', 'user-agent': 'TexasDefined-Corporate-Visitor-Smoke/1.0' },
+          signal: AbortSignal.timeout(30000),
+        });
+        if (!visitor.ok || visitor.headers.get('cf-mitigated') === 'challenge') {
+          throw new Error('Corporate marketplace visitor URL failed: HTTP ' + visitor.status);
+        }
+        const visitorHtml = await visitor.text();
+        const visitorCanonical = [...visitorHtml.matchAll(/<link\\b[^>]*>/gi)]
+          .filter(match => /\\brel=["']canonical["']/i.test(match[0]));
+        if (visitorCanonical.length !== 1
+          || !visitorCanonical[0][0].includes('href="' + canonical.href + '"')) {
+          throw new Error('Corporate marketplace visitor URL has an unexpected canonical');
+        }
+        assertCorporateEventContents(visitorHtml, 'ordinary visitor URL');
       }
       if (mardiGrasHubPages.includes(path)) {
         // Check both the cache-busted release and the actual visitor URL:

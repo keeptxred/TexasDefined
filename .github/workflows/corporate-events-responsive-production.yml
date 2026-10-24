@@ -1,0 +1,72 @@
+name: Corporate Events Responsive Production Acceptance
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/ci/verify-corporate-events-browser.mjs'
+      - '.github/workflows/corporate-events-responsive-production.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/ci/verify-corporate-events-browser.mjs'
+      - '.github/workflows/corporate-events-responsive-production.yml'
+      - 'src/routes/corporate-events.lazy.tsx'
+      - 'src/components/events/CorporateEventCategoryGuides.tsx'
+      - 'src/components/events/CorporateEventMetroGuides.tsx'
+      - 'src/data/corporate-events.ts'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+  statuses: read
+
+concurrency:
+  group: corporate-events-responsive-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  syntax:
+    if: ${{ github.event_name == 'pull_request' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify bounded GET-only corporate Chrome smoke syntax
+        run: node --check scripts/ci/verify-corporate-events-browser.mjs
+
+  verify:
+    if: ${{ github.event_name != 'pull_request' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Require exact protected main SHA to be live first
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PRODUCTION_COMMIT_SHA: ${{ github.sha }}
+        run: node scripts/ci/wait-for-protected-production.mjs
+      - name: Install isolated headless Chromium driver
+        run: |
+          set -euo pipefail
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-corporate-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+      - name: Test real corporate finder at mobile, tablet and desktop without POSTing inquiries
+        run: node scripts/ci/verify-corporate-events-browser.mjs
+      - name: Retain browser screenshots and structured results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: corporate-events-three-viewport-production
+          path: artifacts/corporate-events-browser/
+          if-no-files-found: warn
+          retention-days: 30
