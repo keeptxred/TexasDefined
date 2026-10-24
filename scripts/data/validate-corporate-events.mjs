@@ -116,7 +116,9 @@ for (const [slug, maxGroup, minGroup, officialUrl] of houston20261024Expansion) 
   assert.equal(venue.startingPricePerPerson, null, 'Public admission or package prices are not globally applicable corporate group quotes: '+slug);
   assert.equal(venue.verifiedOn, '2026-10-24');
   assert.equal(venue.officialUrl, officialUrl);
-  assert.equal(venue.sourceUrl, officialUrl);
+  assert.equal(venue.sourceUrl, slug === 'pelazzio-houston-corporate-ballrooms'
+    ? 'https://pelazzio.com/houston-ballrooms/' : officialUrl,
+    'Operator room-layout evidence may be more precise than the public corporate booking page');
   assert(venue.capacityDetail.length > 85, 'Show specific room/format or quote limitations: '+slug);
 }
 assert.equal(corporateEventProviders.find(p=>p.slug === 'pour-behavior-houston-corporate')?.ageLimit,
