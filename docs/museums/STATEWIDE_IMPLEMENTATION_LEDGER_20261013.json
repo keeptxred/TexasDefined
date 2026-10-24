@@ -711,18 +711,24 @@
       "alleylogcabinmuseum": {
         "submittedName": "Alley Log Cabin Museum",
         "rawOccurrence": 11,
-        "status": "assigned",
+        "status": "guide-merged",
         "assignedAt": "2026-10-24T20:40:00Z",
         "reviewRequired": true,
         "publicationApproved": false,
         "editorialCertified": false,
-        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "note": "Authority source PR merged and CI passed; independent photo/mobile/browser QA, source enrollment, editorial certification and post-deployment acceptance are separate.",
         "researchNote": "Colorado County historical record identifies 1836 Alley Log Cabin and Antique Tool Museum in Columbus. Historic (not necessarily current) tours were seasonal or by appointment; do not print aggregator's unsupported M-F daily schedule.",
         "researchEvidenceUrls": [
           "https://www.tshaonline.org/handbook/entries/columbus-tx",
           "https://texas-settlement.org/museums/"
         ],
-        "lastResearchAt": "2026-10-24"
+        "lastResearchAt": "2026-10-24",
+        "evidence": "https://github.com/keeptxred/TexasDefined/pull/5844",
+        "relatedCanonicalSlug": "alley-log-cabin-museum-columbus",
+        "additionalEvidence": [
+          "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/"
+        ],
+        "dispositionAt": "2026-10-24T21:01:00Z"
       },
       "alpinedepotmuseum": {
         "submittedName": "Alpine Depot Museum",
@@ -891,12 +897,18 @@
       "austinhistorycenter": {
         "submittedName": "Austin History Center",
         "rawOccurrence": 37,
-        "status": "assigned",
+        "status": "guide-merged",
         "assignedAt": "2026-10-24T20:40:00Z",
         "reviewRequired": true,
         "publicationApproved": false,
         "editorialCertified": false,
-        "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+        "note": "Authority source PR merged and CI passed; independent photo/mobile/browser QA, source enrollment, editorial certification and post-deployment acceptance are separate.",
+        "evidence": "https://github.com/keeptxred/TexasDefined/pull/5846",
+        "relatedCanonicalSlug": "austin-history-center-austin",
+        "additionalEvidence": [
+          "https://library.austintexas.gov/austin-history-center"
+        ],
+        "dispositionAt": "2026-10-24T21:01:00Z"
       },
       "austinmuseumofpopularculture": {
         "submittedName": "Austin Museum of Popular Culture",
@@ -927,11 +939,133 @@
         "publicationApproved": false,
         "editorialCertified": false,
         "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+      },
+      "b29b24squadronmuseum": {
+        "submittedName": "B-29/B-24 Squadron Museum",
+        "rawOccurrence": 42,
+        "status": "not-visitable",
+        "assignedAt": "2026-10-24T21:01:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Provisional name only; research identity, operator, actual visitability, image rights and canonical before publication.",
+        "researchNote": "Official CAF B-29/B-24 Squadron is a Dallas-based flying aircraft unit with a travelling AirPower History Tour, not an independently operating fixed museum; aircraft admission only at separately scheduled events. Do not publish a permanent walk-in museum guide.",
+        "researchEvidenceUrls": [
+          "https://www.commemorativeairforce.org/units/2",
+          "https://www.airpowersquadron.org/tour-schedule"
+        ],
+        "lastResearchAt": "2026-10-24T21:01:00Z",
+        "evidence": "https://www.commemorativeairforce.org/units/2",
+        "reason": "This is the CAF flying aircraft squadron and travelling AirPower History Tour, not a separate static museum with reliable permanent on-site public admission.",
+        "relatedCanonicalSlug": null,
+        "dispositionAt": "2026-10-24T21:01:00Z"
+      },
+      "babedidriksonzahariasmuseum": {
+        "submittedName": "Babe Didrikson Zaharias Museum",
+        "rawOccurrence": 43,
+        "status": "duplicate",
+        "assignedAt": "2026-10-24T21:01:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Provisional name only; research identity, operator, actual visitability, image rights and canonical before publication.",
+        "researchNote": "Official Babe Zaharias museum at 1750 I-10 Frontage Rd Beaumont already has authority canonical /destination/babe-didrikson-zaharias-museum-beaumont. Owner label is a name variation; no new page needed.",
+        "researchEvidenceUrls": [
+          "https://www.babezahariasmuseum.com/visit-the-babe-zaharias-museum/"
+        ],
+        "lastResearchAt": "2026-10-24T21:01:00Z",
+        "evidence": "https://www.babezahariasmuseum.com/visit-the-babe-zaharias-museum/",
+        "reason": "Owner inventory uses a museum name variant for an already completed Beaumont museum guide. The real institution and visitor address are the same; preserve its single canonical route.",
+        "relatedCanonicalSlug": "babe-didrikson-zaharias-museum-beaumont",
+        "dispositionAt": "2026-10-24T21:01:00Z"
+      },
+      "bairddepotmuseum": {
+        "submittedName": "Baird Depot Museum",
+        "rawOccurrence": 44,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T21:01:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Provisional name only; research identity, operator, actual visitability, image rights and canonical before publication.",
+        "researchNote": "Baird T&P Railroad Depot and Transportation Museum is real at 100 Market St, Baird, Callahan County, but official hours are unclear; a historical 2019 guide says Monday–Saturday 10–2, other sites conflict. Original Baird depot photo is available on Commons but exact author/license still needs independent inspection before hero approval. Do not copy old price/hours as current.",
+        "researchEvidenceUrls": [
+          "https://www.wichitavalleynrhs.org/resources",
+          "https://www.txgenwebcounties.net/callahan/Callahan_TX_LocalityGuide.pdf",
+          "https://commons.wikimedia.org/wiki/Category:Texas_and_Pacific_Railway_Depot_(Baird,_Texas)"
+        ],
+        "lastResearchAt": "2026-10-24T21:01:00Z"
+      },
+      "ballingerheritagemuseum": {
+        "submittedName": "Ballinger Heritage Museum",
+        "rawOccurrence": 45,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T21:01:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Provisional name only; research identity, operator, actual visitability, image rights and canonical before publication.",
+        "researchNote": "No unambiguous current operator visitor page yet found for the owner label 'Ballinger Heritage Museum'; investigate museum closure, aliases or historical-society collections rather than writing a fictional hours/tickets page.",
+        "researchEvidenceUrls": [
+          "https://www.tshaonline.org/"
+        ],
+        "lastResearchAt": "2026-10-24T21:01:00Z"
+      },
+      "banderacountyhistoricalmuseum": {
+        "submittedName": "Bandera County Historical Museum",
+        "rawOccurrence": 46,
+        "status": "research-blocked",
+        "assignedAt": "2026-10-24T21:01:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Provisional name only; research identity, operator, actual visitability, image rights and canonical before publication.",
+        "researchNote": "Owner label is ambiguous; official Bandera tourism confirms Frontier Times Museum at 510 13th St AND separate Bandera Natural History and Art Museum at 267 Old San Antonio Rd. Neither is officially named 'Bandera County Historical Museum'. Confirm owner intent before canonical.",
+        "researchEvidenceUrls": [
+          "https://www.banderacowboycapital.com/business/frontier-times-museum",
+          "https://www.banderacowboycapital.com/business/bandera-natural-history-museum"
+        ],
+        "lastResearchAt": "2026-10-24T21:01:00Z",
+        "evidence": "https://www.banderacowboycapital.com/business/frontier-times-museum",
+        "reason": "No distinct museum operates under the provisional owner label; regional tourism lists multiple separate museums. Determine intended institution before mapping an alias or creating a guide.",
+        "relatedCanonicalSlug": null,
+        "dispositionAt": "2026-10-24T21:01:00Z"
+      },
+      "barbarajordanhistoricalexhibit": {
+        "submittedName": "Barbara Jordan Historical Exhibit",
+        "rawOccurrence": 47,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T21:01:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Provisional name only; research identity, operator, actual visitability, image rights and canonical before publication.",
+        "researchNote": "Owner label specifies an exhibit, not a verified standalone visitable museum. Research original host, permanent visitor access and title before creating a page.",
+        "researchEvidenceUrls": [
+          "https://www.tshaonline.org/"
+        ],
+        "lastResearchAt": "2026-10-24T21:01:00Z"
+      },
+      "barkertexashistorycenter": {
+        "submittedName": "Barker Texas History Center",
+        "rawOccurrence": 48,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T21:01:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Provisional name only; research identity, operator, actual visitability, image rights and canonical before publication.",
+        "researchNote": "The historical Barker Texas History Center is the predecessor of the present Dolph Briscoe Center for American History; the separate old Barker visitor identity no longer operates. Determine whether present Briscoe museum destination needs authority guide before alias disposition.",
+        "researchEvidenceUrls": [
+          "https://briscoecenter.org/about",
+          "https://www.tshaonline.org/handbook/entries/barker-texas-history-center"
+        ],
+        "lastResearchAt": "2026-10-24T21:01:00Z"
       }
     },
     "note": "Source-of-truth checkpoint for deterministic 25-candidate museum research queue. Changes require GitHub merge to coordinate across chats. Empty records mean no assignment has been durably merged yet.",
-    "lastAssignmentAt": "2026-10-24T20:40:00Z",
-    "lastAssignmentCount": 25,
+    "lastAssignmentAt": "2026-10-24T21:01:00Z",
+    "lastAssignmentCount": 7,
     "currentBatch": {
       "id": "owner-20261024-001",
       "startedAt": "2026-10-24T20:40:00Z",
@@ -961,7 +1095,14 @@
         37,
         38,
         40,
-        41
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48
       ],
       "assignedKeys": [
         "acmcmillanafricanamericanmuseum",
@@ -988,12 +1129,30 @@
         "austinhistorycenter",
         "austinmuseumofpopularculture",
         "automobilemuseumoftexas",
-        "aviationmuseumoftexas"
+        "aviationmuseumoftexas",
+        "b29b24squadronmuseum",
+        "babedidriksonzahariasmuseum",
+        "bairddepotmuseum",
+        "ballingerheritagemuseum",
+        "banderacountyhistoricalmuseum",
+        "barbarajordanhistoricalexhibit",
+        "barkertexashistorycenter"
       ],
-      "initialCandidates": 25,
-      "researchedDispositions": 5,
-      "remainingAssigned": 20,
-      "notes": "Five provisional names dispositioned: three nonstandalone/duplicate identity outcomes and two research-blocked ambiguous labels. Twenty owner candidates remain assigned for source/photo research; no independent certifications issued."
+      "initialCandidates": 32,
+      "researchedDispositions": 10,
+      "remainingAssigned": 22,
+      "notes": "First 25: five identity outcomes plus two new researched authority guides merged (#5844 Alley, #5846 Austin) but editorial certification and deployment QA are pending. Six-slot replenishment + one additional candidate now seven added, with three dispositions: CAF squadron not static museum, Babe Zaharias alias duplicate, Bandera provisional name ambiguous. 22 provisional candidates remain actively assigned. Changes do not imply universal source verification.",
+      "lastCheckpointAt": "2026-10-24T21:01:00Z",
+      "lastMergedGuides": [
+        {
+          "slug": "alley-log-cabin-museum-columbus",
+          "pr": 5844
+        },
+        {
+          "slug": "austin-history-center-austin",
+          "pr": 5846
+        }
+      ]
     }
   }
 }
