@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { corporateEventSourceReviewSchedule } from '@/data/corporate-event-source-review';
-import { corporateVenueMatchesEvidenceFilter, type CorporateVenueEvidenceFilter } from '@/data/corporate-event-source-gaps';
+import { corporateVenueMatchesEvidenceFilter, corporateVenuePublished45Status, type CorporateVenueEvidenceFilter } from '@/data/corporate-event-source-gaps';
 
 /**
  * A read-only editorial review queue. It does not fetch venue URLs, update
@@ -78,12 +78,16 @@ export function CorporateEventSourceReviewPanel() {
           <option value="no-numeric-capacity-ceiling">No published numeric maximum</option>
           <option value="no-numeric-starting-rate">No numeric starting rate</option>
           <option value="published-ceiling-covers-45">Published limits include 45 guests</option>
+          <option value="published-ceiling-below-45">Published numeric maximum below 45</option>
+          <option value="published-minimum-exceeds-45">Published minimum exceeds 45</option>
+          <option value="room-configuration-needs-review">Room or rotating-group claim needs verification</option>
         </select>
       </label>
     </div>
     <p className="mt-3 text-xs leading-6 text-muted-foreground">
       These are directory field filters, not promises of simultaneous room capacity, a final quote or a date-specific opening.
       A missing numeric maximum or rate calls for official-source review; published limits including 45 still require the venue to confirm the actual event format.
+      Room-configuration flags are keyword-based editorial triage, not a verified conflict or a finding that a venue cannot accommodate the party.
     </p>
     <p role="status" aria-live="polite" className="mt-4 text-sm text-muted-foreground">
       Showing {firstVisible}–{lastVisible} of {filtered.length} matching records (full source directory: {queue.total}).
@@ -105,6 +109,12 @@ export function CorporateEventSourceReviewPanel() {
           {item.provider.startingPricePerPerson == null
             ? ' Pricing not published; quote required.'
             : ' Published starting price $' + item.provider.startingPricePerPerson + '/person; not an actual quote.'}
+        </p>
+        <p className="mt-2 text-xs leading-6 text-muted-foreground">
+          {corporateVenuePublished45Status(item.provider) === 'unknown-maximum' ? '45 guests: published numeric maximum unknown; independent confirmation required.'
+            : corporateVenuePublished45Status(item.provider) === 'published-below-45' ? '45 guests: published numeric maximum is below 45; do not describe this package as sufficient.'
+            : corporateVenuePublished45Status(item.provider) === 'published-minimum-above-45' ? '45 guests: published minimum is above 45; do not describe this package as suitable.'
+            : '45 guests: published numeric range includes 45; simultaneous room configuration, dates and pricing remain unconfirmed.'}
         </p>
         <div className="mt-4 flex flex-wrap gap-3 text-sm">
           <a href={item.provider.sourceUrl} target="_blank" rel="noopener noreferrer"
