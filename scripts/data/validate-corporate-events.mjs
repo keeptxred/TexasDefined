@@ -130,6 +130,38 @@ for (const [slug, min, max, formatEvidence, source] of updatedMultiSpaceVenueFac
   assert.equal(venue.startingPricePerPerson, null, 'Venue-wide corporate quote requires independent confirmation: '+slug);
 }
 
+
+// Independently rechecked Houston operator rates and the Houston-branded but
+// physically Shenandoah event venue. Prior 146 official listings are preserved.
+const sourceBySlug = new Map(corporateEventProviders.map(p=>[p.slug,p]));
+const shenandoahGame = sourceBySlug.get('game-show-battle-rooms-shenandoah');
+assert(shenandoahGame && shenandoahGame.city === 'Shenandoah' && shenandoahGame.metro === 'Houston',
+  'Physical city must be Shenandoah even though company markets this site as Houston/The Woodlands');
+assert.equal(shenandoahGame.verifiedOn,'2026-10-24');
+assert.equal(shenandoahGame.maxGroup,null,'Nationwide room max is not a Shenandoah-specific promise');
+assert.equal(shenandoahGame.startingPricePerPerson,null,'No invented corporate rate');
+assert(shenandoahGame.capacityDetail.includes('8980 Metropark Drive')
+  && shenandoahGame.capacityDetail.includes('41+')
+  && shenandoahGame.capacityDetail.includes('need confirmation'),
+  'Source-backed location and large-event inquiry policy must remain visible');
+assert.equal(sourceBySlug.get('puttery-houston-corporate-events')?.maxGroup,600,'Preserve other merged operator research');
+assert.equal(sourceBySlug.get('pour-behavior-houston-corporate')?.maxGroup,null,'Floor space is not occupancy');
+assert(corporateEventProviders.filter(p=>p.city === 'Houston').length>=60,
+  'Never inflate Houston city count with nearby Shenandoah metro');
+assert(corporateEventProviders.length>=147,'Do not duplicate or lose independently researched Houston entries');
+const greatBigReviewed=sourceBySlug.get('great-big-game-show-houston');
+assert.equal(greatBigReviewed.verifiedOn,'2026-10-24');
+assert.equal(greatBigReviewed.startingPricePerPerson,null);
+assert(greatBigReviewed.capacityDetail.includes('15–28') && greatBigReviewed.capacityDetail.includes('29+')
+  && greatBigReviewed.capacityDetail.includes('NOT a 45-person price'),
+  'Do not show the operator 15–28 guest package as a 45-guest corporate rate');
+const puttshackReviewed=sourceBySlug.get('puttshack-houston-corporate');
+assert.equal(puttshackReviewed.maxGroup,670);
+assert.equal(puttshackReviewed.ageLimit ?? null,null,'Preserve verified all-ages Houston correction');
+assert(puttshackReviewed.capacityDetail.includes('up to 670 people')
+  && puttshackReviewed.capacityDetail.includes('up to 6'),
+  'Venue-wide capacity and actual golf-rotation game group size are distinct');
+
 assert.equal(new Set(corporateEventProviders.map((p) => p.slug)).size, corporateEventProviders.length);
 for (const p of corporateEventProviders) {
   assert(p.officialUrl.startsWith('https://') && p.sourceUrl.startsWith('https://'));

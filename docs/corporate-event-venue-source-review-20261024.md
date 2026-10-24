@@ -18,6 +18,10 @@ Scope: independent venue listing facts, not real-time booking availability or an
 | Discovery Green — Sarofim Lawn | https://www.discoverygreen.com/location/sarofim-picnic-lawn/ | Lawn capacity published 200; sitewide park claims up to 20,000 are not attributed to this specific lawn. |
 | Beat The Bomb Houston | https://www.beatthebomb.com/faqs | 13-person event contact minimum; operator says event groups up to approximately 150–200. Houston-specific room/date format still subject to sales confirmation. |
 
+| Game Show Battle Rooms — Shenandoah | https://gameshowbattlerooms.com/houston/ | Despite Houston/The Woodlands marketing, the venue's own location page gives 8980 Metropark Dr, Shenandoah, TX 77385. Guests 41+ require large-event inquiry; never extrapolate nationwide two-arena capacity to a confirmed 45-person local booking. |
+| Great Big Game Show Houston | https://greatbiggameshow.com/houston/events/ | Published $35.99 per guest is for the 15–28 package; the 29+ full buyout needs a custom quote and room confirmation, not this per-person rate. |
+| Puttshack Houston group rotations | https://www.puttshack.com/groups-and-parties/corporate-events/ | Current group-event FAQ says game play breaks into teams of up to six. This is separate from the Houston site's published venue-wide limit up to 670 and does not confirm date-specific group allocation. |
+
 **Editorial rules preserved:** never infer simultaneous room availability from different published capacities, and never promote a standard ticket rate as a bespoke corporate group rate. Unknown maximum means unverified, not unavailable. Dates represent genuine page review on the stated day, not venue's promise of an opening. No sponsored partner is implied by inclusion. For inaccessible upstream pages, do not change their verification timestamp without evidence.
 
 Follow-up: keep periodic source-monitoring in place. Source revisions, closures, package changes, direct addresses, accessibility and individual room suitability should be rechecked before claiming live inventory or adding verified geocoded radius results.

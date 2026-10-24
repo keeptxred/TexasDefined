@@ -672,7 +672,7 @@ export const corporateEventProviders: CorporateEventProvider[] = [
     categories: ['team-building', 'company-parties', 'client-entertainment'],
     description: 'Tech-enabled mini-golf tournaments and private company outings with event planning, reserved seating and catering.',
     format: 'Indoor mini-golf & company social', minGroup: 13, maxGroup: 670,
-    capacityDetail: 'Houston event page advertises 13–18-guest online packages and inquiries for events up to 670 people; larger team outings require sales coordination and a customized event quote. The advertised $36 starting rate is for small packages, not confirmed 45-person pricing.',
+    capacityDetail: 'Houston event page advertises 13–18-guest online packages and inquiries for events up to 670 people; larger team outings require sales coordination and a customized event quote. The advertised $36 starting rate is for small packages, not confirmed 45-person pricing. Operator-led game play separates parties into teams of up to 6; staff must confirm 45-guest rotations and the actual layout.',
     startingPricePerPerson: null,
     officialUrl: 'https://www.puttshack.com/parties/houston/', sourceUrl: 'https://www.puttshack.com/parties/houston/', verifiedOn: '2026-10-24',
   },
@@ -789,9 +789,9 @@ export const corporateEventProviders: CorporateEventProvider[] = [
     categories: ['team-building', 'company-parties', 'client-entertainment'],
     description: 'Hosted live game-show competitions in private studios with team rounds and customized corporate events.',
     format: 'Hosted game-show studio', minGroup: 15, maxGroup: null,
-    capacityDetail: 'Official Houston team-building guide directs groups of 15+ to its event coordinators. Multiple rooms and venue buyouts require an individualized capacity and rate quote.',
+    capacityDetail: 'The Houston operator publishes a $35.99/person package for 15–28 in two studios, but groups of 29+ require a custom full-buyout quote. Studio maximum and the ability to host 45 simultaneously must be independently confirmed; the 15–28 rate is NOT a 45-person price.',
     startingPricePerPerson: null, officialUrl: 'https://greatbiggameshow.com/houston/team-building/',
-    sourceUrl: 'https://greatbiggameshow.com/houston/events/', verifiedOn: '2026-10-23',
+    sourceUrl: 'https://greatbiggameshow.com/houston/events/', verifiedOn: '2026-10-24',
   },
   {
     slug: 'game-show-studio-houston-corporate', name: 'Game Show Studio Houston', city: 'Houston', area: 'Houston',
@@ -1773,4 +1773,18 @@ export const corporateEventProviders: CorporateEventProvider[] = [
     startingPricePerPerson: null, officialUrl: 'https://www.marriott.com/en-us/hotels/houeg-houston-marriott-energy-corridor/events/',
     sourceUrl: 'https://www.marriott.com/en-us/hotels/houeg-houston-marriott-energy-corridor/events/', verifiedOn: '2026-10-24',
   },
+  // Official Houston-marketed operator physically based in Shenandoah, 2026-10-24.
+  // Publication is independent editorial research, not a confirmed group quote.
+  {
+    slug: 'game-show-battle-rooms-shenandoah', name: 'Game Show Battle Rooms — Shenandoah',
+    city: 'Shenandoah', metro: 'Houston', area: 'MetroPark Square / The Woodlands area',
+    categories: ['team-building', 'company-parties', 'client-entertainment'],
+    description: 'Live-hosted game-show competitions in two themed arenas, including coordinated large-group corporate events.',
+    format: 'Interactive game-show arenas', minGroup: 6, maxGroup: null,
+    capacityDetail: 'Houston-branded venue is physically at 8980 Metropark Drive, Shenandoah, TX 77385, NOT in Houston or The Woodlands municipality. The official location site routes groups of 41+ to large-event planning. National operator describes two arenas of roughly 32–36 each, but 45-guest simultaneous configuration and pricing need confirmation from the Shenandoah events staff.',
+    startingPricePerPerson: null,
+    officialUrl: 'https://gameshowbattlerooms.com/houston/',
+    sourceUrl: 'https://gameshowbattlerooms.com/houston/', verifiedOn: '2026-10-24',
+  },
+
 ];
