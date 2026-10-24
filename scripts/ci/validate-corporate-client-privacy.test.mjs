@@ -12,12 +12,11 @@ test('allow public venue and planning-field labels, reject private SQL and secre
     'texasdefined_group_event_partner_applications',
     'texasdefined_group_event_outcome_events',
     'texasdefined_group_event_offer_click_totals',
-    'first_contact_evidence_reference',
-    'commercial_agreement_reference',
-    'provider_outreach_revocation_note',
     'SUPABASE_SERVICE_ROLE_KEY',
   ]) assert(corporateClientPrivacyViolations(name).length, 'Known private marker escaped scanner: '+name);
   assert.deepEqual(corporateClientPrivacyViolations('activity categories, group size up to 8000; organizer may revoke consent'), []);
+  assert.deepEqual(corporateClientPrivacyViolations('first_contact_evidence_reference commercial_agreement_reference'), [],
+    'Admin DTO property names are not secret values and must not fail client isolation');
 });
 
 test('inspect actual nested public JS assets with no network or customer records', async () => {
