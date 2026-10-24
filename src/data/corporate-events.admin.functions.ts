@@ -16,10 +16,13 @@ export const getCorporateEventOperations = createServerFn({ method: 'POST' })
   });
 
 export const changeCorporateEventLeadStatus = createServerFn({ method: 'POST' })
-  .inputValidator(z.object({ accessKey: key, id, status: leadStatuses }))
+  .inputValidator(z.object({
+    accessKey: key, id, status: leadStatuses,
+    externalContactReference: z.string().trim().max(500).default(''),
+  }))
   .handler(async ({ data }) => {
     const { setCorporateEventLeadStatus } = await import('@/data/corporate-events.admin.server');
-    return setCorporateEventLeadStatus(data.accessKey, data.id, data.status);
+    return setCorporateEventLeadStatus(data.accessKey, data.id, data.status, data.externalContactReference);
   });
 
 export const changeCorporateEventApplicationStatus = createServerFn({ method: 'POST' })
