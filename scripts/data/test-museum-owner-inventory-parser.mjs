@@ -39,6 +39,18 @@ assert.ok(scurry.length >= 2, "Repeated Scurry County Museum entries must be pre
 assert.ok(scurry.some(row => row.duplicateOfOccurrence !== null), "Repeated names must point to their first occurrence");
 // The next-batch command must be deterministic, preserve raw order, and
 // never create a duplicate task for an existing complete authority dossier.
+const checkpoint = JSON.parse(readFileSync("docs/museums/STATEWIDE_IMPLEMENTATION_LEDGER_20261013.json", "utf8")).ownerInventoryCheckpoint;
+const assigned = Object.values(checkpoint?.entries || {}).filter(entry => entry.status === "assigned");
+assert.equal(new Set(assigned.map(entry => entry.submittedName)).size, assigned.length,
+  "One raw owner institution must have at most one active assignment");
+for (const entry of assigned) {
+  const submitted = report.uniqueRows.find(row => row.submittedName === entry.submittedName);
+  assert.ok(submitted, "Assigned owner museum no longer in exact source: " + entry.submittedName);
+  assert.equal(submitted.rawOccurrence, entry.rawOccurrence, "Owner name offset changed: " + entry.submittedName);
+  assert.ok(["requires-independent-source-research", "existing-destination-needs-authority-audit"].includes(submitted.status),
+    "Never actively assign a completed canonical authority dossier or invalid location: " + entry.submittedName);
+  assert.deepEqual(submitted.parseIssues, [], "Ambiguous owner segment must not be assigned automatically: " + entry.submittedName);
+}
 const nextCommand = ["scripts/data/audit-owner-museum-inventory.mjs", "--next-batch"];
 const preview = JSON.parse(execFileSync(process.execPath, nextCommand,
   { encoding: "utf8", maxBuffer: 8 * 1024 * 1024 }));
