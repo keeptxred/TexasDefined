@@ -378,7 +378,7 @@ function buildContextItems(entity: TexasEntityRecord, countyName: string | null,
 
   if (governmentKinds.has(entity.kind)) {
     return [
-      `${entity.name} is included in TexasDefined as a practical public-service reference. The goal is to help readers understand what the office or agency handles, identify the official source, and move to the correct government website when they need to complete a transaction or verify a rule.`,
+      `${entity.name} is a practical public-service reference. Use it to understand what the office or agency handles, identify the official source, and reach the correct government website when you need to complete a transaction or verify a rule.`,
       entity.kind === 'appraisal-district'
         ? `Appraisal districts determine property values, maintain appraisal records, administer exemptions and operate the appraisal-review process. They do not generally serve the same role as the office that sends or collects a property-tax bill.`
         : entity.kind === 'tax-office'
