@@ -42,6 +42,7 @@ function runCheck({ classification, label, command, args = [], dependsOnBuild = 
 }
 
 const prebuildChecks = [
+  ['CONTENT/GOVERNANCE', 'Reject internal workflow language from public narratives', 'node', ['scripts/data/validate-reader-facing-copy.mjs']],
   ['SPORTS/TRAVEL', 'Verify pro-team home-game filtering, major updates and distinct weekend guides', 'node', ['--experimental-strip-types', '--test', 'src/data/pro-teams.test.mjs']],
   ['DATA/BLS', 'Validate fail-closed scheduled BLS table parser and release freshness rules', 'node', ['--test', 'scripts/data/refresh-texas-metro-payrolls.test.mjs']],
   ['CONTENT/VISITOR-FACTS', 'Scan curated visitor answers for malformed provenance, duplicate labels and expiration', 'node', ['scripts/data/validate-destination-visitor-fact-catalog.mjs']],
