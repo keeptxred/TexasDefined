@@ -64,9 +64,7 @@ export async function recordCorporateVenueOutreach(accessKey: string, input: Cor
   }
   if (input.followupOn !== null) {
     if (!validTexasCalendarDate(input.followupOn)
-      || input.followupOn < new Intl.DateTimeFormat('en-CA', {
-        timeZone:'America/Chicago',year:'numeric',month:'2-digit',day:'2-digit',
-      }).format(when)) {
+      || input.followupOn < corporateEventTexasToday(when)) {
       throw new Error('Follow-up date must be a valid day on or after the actual interaction.');
     }
   }
