@@ -103,6 +103,7 @@ const prebuildChecks = [
   ['NETWORK/BILLING', 'Verify Stripe staging mode is isolated from live credentials, prices and website origin', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-stripe-isolated-mode.test.mjs']],
   ['CALCULATOR/PLATFORM', 'Validate calculator math and shared architecture', 'node', ['--experimental-strip-types', 'scripts/data/validate-calculator-platform.ts']],
   ['EVENT/CORPORATE', 'Validate corporate-event source directory, category guides, and SEO breadcrumbs', 'node', ['--experimental-strip-types', 'scripts/data/validate-corporate-events.mjs']],
+  ['EVENT/CORPORATE/CONSENT', 'Require irreversible verified organizer consent withdrawal', 'node', ['scripts/data/validate-corporate-event-consent-withdrawal.mjs']],
   ['EVENT/CORPORATE/AGREEMENTS', 'Require verified signed partner agreements for offers and private quote drafts', 'node', ['scripts/data/validate-corporate-event-partner-agreements.mjs']],
   ['EVENT/CORPORATE/SECURITY', 'Enforce atomic private planner and partner intake limits', 'node', ['scripts/data/validate-corporate-event-atomic-intake.mjs']],
   ['EVENT/CHRISTMAS', 'Validate source-qualified Christmas community calendar and affiliate disclosures', 'node', ['scripts/data/validate-christmas-community-2026.mjs']],
