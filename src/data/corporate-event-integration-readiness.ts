@@ -10,6 +10,7 @@
  * signatures, idempotency, cancellation and refund obligations.
  */
 import { corporateEventTexasToday, isUpcomingCorporateEventDate } from './corporate-event-dates.ts';
+import { corporateEventEvidenceTimestampIsValid } from './corporate-event-offer-provenance.ts';
 
 export type CorporateProviderAction =
   | 'prepare_quote_draft' | 'transmit_quote_request'
@@ -57,9 +58,11 @@ function validDate(value: string): boolean {
 }
 
 function validEvidenceTimestamp(value: string | null, now: Date): boolean {
-  if (!value) return false;
-  const n = Date.parse(value);
-  return Number.isFinite(n) && n <= now.getTime() && n > 0;
+  // Match the same strict signed-evidence calendar/offset rules used by
+  // staff offer approval and public commercial offer verification.
+  return typeof value === 'string'
+    && corporateEventEvidenceTimestampIsValid(value, now)
+    && Date.parse(value) > 0;
 }
 
 /** No external side effects, PII in outputs, fabricated quotes or live offers. */
