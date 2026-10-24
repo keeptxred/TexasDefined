@@ -56,14 +56,18 @@ export async function prepareCorporateEventPartnerQuote(
   // domain. Names and domains must both match to limit impersonation.
   const { data: applications, error: applicationError } = await client
     .from('texasdefined_group_event_partner_applications')
-    .select('id,status,business_name,website')
+    .select('id,status,business_name,website,commercial_agreement_verified_at,commercial_agreement_covers_quote_routing,commercial_agreement_expires_on')
     .eq('status', 'approved')
     .limit(250);
   if (applicationError || !Array.isArray(applications)) throw new Error('Cannot verify venue partner.');
   if (applications.length === 250) throw new Error('Partner verification needs an operations review.');
   const candidates = applications.filter((application: { business_name: string; website: string }) =>
     normalizeBusinessName(String(application.business_name)) === normalizeBusinessName(venue.name)
-    && verifiedBusinessDomain(String(application.website), venue.officialUrl),
+    && verifiedBusinessDomain(String(application.website), venue.officialUrl)
+    && Boolean(application.commercial_agreement_verified_at)
+    && application.commercial_agreement_covers_quote_routing === true
+    && (!application.commercial_agreement_expires_on
+      || String(application.commercial_agreement_expires_on) >= new Date().toLocaleDateString('en-CA', { timeZone: 'America/Chicago' })),
   );
   if (candidates.length !== 1) {
     throw new Error('No unique approved partner matches the venue identity and official website.');
