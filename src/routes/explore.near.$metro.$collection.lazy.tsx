@@ -234,6 +234,7 @@ function McAllenFeaturedMap() {
   const bbox = [point.lng - 0.075, point.lat - 0.05, point.lng + 0.075, point.lat + 0.05].join(",");
   const mapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${encodeURIComponent(bbox)}&layer=mapnik&marker=${point.lat}%2C${point.lng}`;
   const route = `https://www.google.com/maps/dir/?api=1&origin=McAllen%2C%20TX&destination=${encodeURIComponent(point.query)}&travelmode=driving`;
+  const openFullMap = `https://www.openstreetmap.org/#map=13/${point.lat}/${point.lng}`;
   return <section className="mt-14 border-t border-border pt-8" aria-labelledby="mcallen-featured-map">
     <p className="eyebrow text-primary">Map & current road routes</p>
     <h3 id="mcallen-featured-map" className="mt-2 font-display text-3xl">Choose any of the ten featured outings</h3>
@@ -253,6 +254,7 @@ function McAllenFeaturedMap() {
           <p className="mt-2 text-sm text-muted-foreground">{trip.plan} · {trip.label}</p>
           <div className="mt-4 flex flex-wrap gap-5 text-sm font-semibold">
             <a href={route} target="_blank" rel="noopener noreferrer" className="border-b border-primary pb-1 text-primary">Check current drive from McAllen ↗</a>
+            <a href={openFullMap} target="_blank" rel="noopener noreferrer" className="border-b border-border pb-1">Open map directly in OpenStreetMap ↗</a>
             <a href={trip.official} target="_blank" rel="noopener noreferrer" className="border-b border-border pb-1">Official visitor information ↗</a>
           </div>
         </div>
