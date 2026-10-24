@@ -14,6 +14,10 @@ const hubLinks = read("src/data/fixtures/seasonal-authority-links.ts");
 const majorIndex = read("src/data/major-event-index.ts");
 const candidates = JSON.parse(read("src/data/events/christmas-candidates-250.json"));
 const schemaRegistry = read("src/data/major-event-schema-enrichment.server.ts");
+const partnerRoute = read("src/routes/partner-with-us.tsx");
+const partnerForm = read("src/routes/partner-with-us.lazy.tsx");
+const partnerServer = read("src/data/partner-inquiry.functions.ts");
+const monetizationPolicy = read("docs/holidays/christmas-2026-monetization.md");
 const schemaBatch = read("src/data/major-event-schema-enrichment-batch33.server.ts");
 
 const start = eventFile.indexOf("const verifiedOccurrences");
@@ -139,6 +143,24 @@ assert.equal(
 );
 assert.ok(candidates.reconciliation.remainingCandidates > 0, "Do not auto-verify all holiday candidates without sources");
 assert.ok(events.length >= 64, "Dated Christmas inventory shrank unexpectedly");
+
+// Seasonal affiliate and sponsor source validation: preserve approved city
+// attribution, explicitly sourced inquiries, and the no-AdSense launch gate.
+for (const [city, destination] of [
+  ["San Antonio", "san-antonio"],
+  ["Austin", "austin"],
+  ["Dallas", "dallas"],
+  ["Galveston", "galveston"],
+]) {
+  assert.ok(collection.includes(`"${city}": "${destination}"`), `Christmas verified city referral missing for ${city}`);
+}
+assert.ok(collection.includes("christmasOfferCities.has(event.city)"), "Limit redundant Christmas affiliate offers to one per city");
+assert.ok(page.includes("source=%2Fevents%2Fchristmas-events"), "Christmas sponsor inquiry link must carry its origin");
+assert.ok(partnerRoute.includes("sanitizePartnerSource") && partnerRoute.includes("'/events/christmas-events'"), "Route must explicitly whitelist Christmas sponsor origin");
+assert.ok(partnerForm.includes("const search = Route.useSearch()") && partnerForm.includes("sourcePath: search.sourcePath"), "Partner form must preserve router-validated sponsor attribution");
+assert.ok(partnerServer.includes("z.literal('/events/christmas-events')"), "Server must enforce Christmas inquiry source allowlist");
+assert.ok(!page.includes("adsbygoogle"), "Do not activate unapproved AdSense on Christmas calendars");
+assert.ok(monetizationPolicy.includes("AdSense is not approved"), "Retain actual AdSense approval status in Christmas policy");
 assert.ok(schemaRegistry.includes("...majorEventSchemaEnrichmentBatch33,"), "Reviewed Christmas organizer schema batch missing from runtime registry");
 assert.ok(adapter.includes("getMajorEventOccurrenceWindowsServer(authority)"), "Date-scoped seasonal guides must not pad closed nights");
 assert.ok(read("src/data/major-event-expanded-authority-tranche57.server.ts").includes('label: "After Dec 9 closure"'), "Houston Zoo Lights holiday closures must remain excluded");
