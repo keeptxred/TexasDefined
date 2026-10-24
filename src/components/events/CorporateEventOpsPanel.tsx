@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState, type FormEvent } from 'react';
 import {
   changeCorporateEventApplicationStatus, changeCorporateEventLeadStatus,
   changeCorporateEventOfferStatus, draftCorporateEventOffer, getCorporateEventOperations,
+  verifyCorporateEventCommercialAgreement,
 } from '@/data/corporate-events.admin.functions';
 import { corporateEventProviders } from '@/data/corporate-events';
 import { corporateEventTexasToday } from '@/data/corporate-event-dates';
@@ -27,6 +28,9 @@ type Application = {
   published_capacity: number | null; proposal: string | null;
   proposed_promo_code: string | null; notes: string | null;
   identity_verified_at: string | null; identity_verified_by: string | null; identity_verification_note: string | null;
+  commercial_agreement_verified_at: string | null; commercial_agreement_verified_by: string | null;
+  commercial_agreement_reference: string | null; commercial_agreement_covers_offers: boolean;
+  commercial_agreement_covers_quote_routing: boolean; commercial_agreement_expires_on: string | null;
 };
 type Offer = {
   id: string; created_at: string; status: OfferStatus;
@@ -114,6 +118,38 @@ export function CorporateEventOpsPanel({ accessKey }: { accessKey: string }) {
     } catch { setError('Could not update business application. Approval requires documented independent verification.'); }
     finally { setBusy(''); }
   }
+  async function verifyAgreement(application: Application) {
+    if (!window.confirm('Did you independently review an actual signed agreement, verify the contracting business and authorized signatory, and retain the terms securely outside this tool? Do NOT proceed for a proposed or unsigned agreement.')) return;
+    const evidence = window.prompt('Private signed-agreement reference and verification method (20–500 characters). Do not paste the contract, personal data or payment terms:', '');
+    if (!evidence || evidence.trim().length < 20 || evidence.trim().length > 500) {
+      setError('A reference to independently verified signed terms is required.');
+      return;
+    }
+    const coversOffers = window.confirm('Do the verified signed terms EXPLICITLY authorize published commercial promotions? OK = yes; Cancel = no.');
+    const coversQuoteRouting = window.confirm('Do the verified signed terms EXPLICITLY authorize corporate group inquiry forwarding to this partner? OK = yes; Cancel = no.');
+    if (!coversOffers && !coversQuoteRouting) {
+      setError('At least one explicit signed-agreement permission is required. No approval recorded.');
+      return;
+    }
+    const expiresInput = window.prompt('Signed agreement expiration date (YYYY-MM-DD), or leave blank ONLY if the agreement has no specified expiration:', '');
+    if (expiresInput === null) return;
+    const expiresOn = expiresInput.trim() || null;
+    if (expiresOn && !/^\\d{4}-\\d{2}-\\d{2}$/.test(expiresOn)) {
+      setError('Use YYYY-MM-DD for the genuine signed-agreement expiry date.');
+      return;
+    }
+    setBusy(application.id); setError(''); setMessage('');
+    try {
+      await verifyCorporateEventCommercialAgreement({ data: {
+        accessKey, applicationId: application.id, verifiedSignedAgreement: true,
+        verificationReference: evidence.trim(), coversOffers, coversQuoteRouting, expiresOn,
+      } });
+      await refresh();
+      setMessage('Staff signed-agreement verification recorded privately. No offer approved, lead forwarded or email sent.');
+    } catch { setError('Signed agreement verification could not be recorded. Confirm business identity and current contract permissions.'); }
+    finally { setBusy(''); }
+  }
+
   async function updateOffer(id: string, status: OfferStatus) {
     if (status === 'approved' && !window.confirm('Approve this verified offer after reviewing its dates, business identity, code and redemption terms?')) return;
     setBusy(id); setError(''); setMessage('');
@@ -234,6 +270,15 @@ export function CorporateEventOpsPanel({ accessKey }: { accessKey: string }) {
             {app.proposed_promo_code ? <p className="mt-3 text-sm">Proposed code (not live): <code>{app.proposed_promo_code}</code></p> : null}
             {app.notes ? <p className="mt-3 whitespace-pre-wrap text-sm leading-7">Submitted terms: {app.notes}</p> : null}
             {app.status === 'approved' ? <div className="mt-5 border-t border-border pt-4">
+              <p className="mb-3 text-xs leading-6 text-muted-foreground">Signed commercial terms are verified separately from business identity. Never mark an unsigned proposal or unverified discount as contracted.</p>
+              {app.commercial_agreement_verified_at
+                ? <p className="mb-3 text-xs leading-6 text-muted-foreground">
+                  Internal agreement check: {fmt(app.commercial_agreement_verified_at)} · offers {app.commercial_agreement_covers_offers ? 'permitted' : 'not permitted'} · quote routing {app.commercial_agreement_covers_quote_routing ? 'permitted' : 'not permitted'} · expiry {app.commercial_agreement_expires_on || 'no expiry recorded'}. Private reference: {app.commercial_agreement_reference || 'missing'}.
+                </p>
+                : <p className="mb-3 text-xs font-semibold text-muted-foreground">No signed partner agreement verified. Commercial offers and quote drafts stay blocked.</p>}
+              <button type="button" className={action} disabled={busy === app.id}
+                onClick={() => void verifyAgreement(app)}>Record independently verified signed agreement</button>
+              <div className="mt-4" />
               <button type="button" onClick={() => setOpenedApplication(openedApplication === app.id ? null : app.id)} className={action}>
                 {openedApplication === app.id ? 'Close offer form' : 'Prepare a draft offer'}
               </button>
