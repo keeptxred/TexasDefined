@@ -69,6 +69,8 @@ assert.equal(rejected.proposals[0].status,'rejected-input');
 await assert.rejects(researchPublicVenueCoordinates(Array(26).fill(row),venues,fakeFetch,date),/Maximum 25/);
 await assert.rejects(researchPublicVenueCoordinates([row,row],venues,fakeFetch,date),/One independently reviewed/);
 const moduleText=readFileSync('scripts/data/research-corporate-event-geocodes.mjs','utf8');
+assert(readFileSync('.gitignore','utf8').includes('.artifacts/corporate-events/'),
+  'Quarantined public venue geocoding proposals must not be accidentally committed');
 assert(moduleText.includes("args.includes('--lookup')") && moduleText.includes("insideArtifacts(input)"),
   'Census research must be explicitly invoked and write only private quarantined artifacts');
 assert(!moduleText.includes('from(\'texasdefined_group_event') && !moduleText.includes('supabaseAdmin') &&
