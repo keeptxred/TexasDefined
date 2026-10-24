@@ -1,4 +1,4 @@
-import { corporateEventAreaMatches, corporateEventMarketMatches } from './corporate-event-market-search';
+import { corporateEventAreaMatches, corporateEventMarketMatches } from './corporate-event-market-search.ts';
 import type { CorporateEventProvider } from './corporate-events';
 
 /** Public share links contain only already-published geography selectors.
