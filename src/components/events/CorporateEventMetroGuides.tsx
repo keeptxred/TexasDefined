@@ -143,6 +143,7 @@ export function CorporateEventMetroGuides() {
       </div>
       <div className="mt-10 max-w-4xl border-t border-border pt-8">
         <h3 className="font-display text-3xl">How to get an accurate company-event quote</h3>
+      <p className="mt-6 text-sm leading-7 text-muted-foreground">For travel, meeting weekends, and nearby destinations, browse the <a href="/guides" className="font-semibold text-primary underline underline-offset-2">Texas Defined guidebook</a>. These venue listings remain independent editorial guidance, not confirmed bookings.</p>
         <ol className="mt-4 list-decimal space-y-3 pl-6 text-sm leading-7 text-muted-foreground">
           <li>Confirm the number of guests, accessibility requirements and a realistic backup date.</li>
           <li>Ask whether the advertised capacity applies to one room, multiple teams or the entire property.</li>
