@@ -1134,6 +1134,8 @@ if (!errors.length) {
   ]) requireText(featuredProfileRoute, marker, 'Football school profile route');
   requireText(featuredProfileRoute, "'@type': 'SportsTeam'", 'Football school profile SportsTeam schema');
   requireText(featuredProfileRoute, "'@type': 'FAQPage'", 'Football school profile FAQ schema');
+  requireText(featuredProfilePage, "const footballName = identity?.mascot ?", 'Verified mascot precedence over editorial SEO title');
+  forbidText(featuredProfilePage, 'const footballName = authoredFootballH1 || (identity?.mascot', 'Do not prefer stale authored mascot title');
 
   for (const marker of [
     "createLazyFileRoute('/texas-high-school-football-teams/$slug')",
