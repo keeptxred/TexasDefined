@@ -36,9 +36,32 @@ test('commercial links disclose relationships and preserve click attribution', (
 
 test('football explainer affiliates are limited to sourced planning topics', () => {
   const article = readFileSync('src/routes/article.$slug.tsx', 'utf8');
-  for (const slug of ['texas-high-school-football-playoffs-explained', 'texas-six-man-football-rules-explained', 'texas-high-school-football-scores-schedules']) assert.ok(article.includes(`"${slug}"`));
-  assert.match(article, /footballTravelArticleSlugs\.has\(article\.slug\)/);
+  // Test the exact eligibility registry, not whether a slug appears elsewhere
+  // in FAQ metadata or a specialized article component.
+  const eligibility = article.match(/const footballTravelArticleSlugs = new Set\(\[([\s\S]*?)\]\);/);
+  assert.ok(eligibility, 'missing reviewed-football-guide registry');
+  const eligibleSlugs = [...eligibility[1].matchAll(/"([^"]+)"/g)].map((match) => match[1]);
+  for (const slug of ['texas-high-school-football-playoffs-explained', 'texas-six-man-football-rules-explained', 'texas-high-school-football-scores-schedules']) {
+    assert.ok(eligibleSlugs.includes(slug), `${slug} missing from reviewed football affiliate eligibility`);
+  }
+  assert.equal(new Set(eligibleSlugs).size, eligibleSlugs.length, 'duplicate reviewed guide');
+  assert.match(article, /function isFootballTravelPlanningArticle\(article: Article\)/);
+  assert.match(article, /article\.category !== "sports"/);
+  assert.match(article, /block\.type === "heading"/);
+  assert.match(article, /before you travel/);
+  assert.match(article, /isFootballTravelPlanningArticle\(article\)/);
+  assert.match(article, /!shouldNoindexTexasGatewayArticle\(article\)/);
+  assert.match(article, /insertBeforeIndex=\{footballTravelInsertIndex >= 0/);
+  assert.match(article, /showFootballTravelOffers && footballTravelInsertIndex < 0/);
   assert.match(article, /hasUpcomingAwayTravel=\{false\} showTravelPlanning/);
+});
+
+test('playoff trip link names the sourced Arlington finals and discloses before purchase actions', () => {
+  assert.match(offers, /isStateChampionshipGuide = slug === 'texas-high-school-football-playoffs-explained'/);
+  assert.match(offers, /2026 state finals: Arlington, December 16–19/);
+  assert.match(offers, /https:\/\/www\.uiltexas\.org\/football\/state/);
+  assert.ok(offers.indexOf('Affiliate disclosure:') < offers.indexOf('href={HOTELS_AFFILIATE_URL}'), 'disclose before hotel link');
+  assert.ok(offers.indexOf('Affiliate disclosure:') < offers.indexOf('href={RVSHARE_AFFILIATE_URL}'), 'disclose before RV link');
 });
 
 test('district profiles render a generic offer without inventing away fixtures', () => {
