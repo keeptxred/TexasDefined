@@ -326,6 +326,18 @@ for (const path of plan.selectedPaths) {
           throw new Error('Magoffin Home still serves the generic tour booking component during house closure');
         }
         assertMagoffinLicensedImageStructuredData(html);
+        // A cache-busted page must not mask stale structured data on the actual
+        // visitor URL; Google will generally crawl that canonical URL.
+        const ordinaryResponse = await fetchImpl(canonical, {
+          redirect: 'follow',
+          headers: { accept: 'text/html', 'user-agent': 'TexasDefined-Magoffin-Visitor-Smoke/1.0' },
+          signal: AbortSignal.timeout(30000),
+        });
+        if (!ordinaryResponse.ok || ordinaryResponse.headers.get('cf-mitigated') === 'challenge') {
+          throw new Error('Magoffin Home canonical visitor URL failed: HTTP ' + ordinaryResponse.status);
+        }
+        const ordinaryHtml = await ordinaryResponse.text();
+        assertMagoffinLicensedImageStructuredData(ordinaryHtml);
       }
       if (davisHillPages.includes(path)) {
         // The old Davis Hill build had image metadata but no visible hero.

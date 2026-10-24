@@ -179,6 +179,7 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
     'src/data/magoffin-home-authority.ts',
     'src/routes/destination.$slug.tsx',
     'scripts/ci/production-change-scope.mjs',
+    'scripts/ci/verify-changed-production-pages.mjs',
   ].includes(path))) {
     const page = '/destination/magoffin-home';
     candidates.add(page);
