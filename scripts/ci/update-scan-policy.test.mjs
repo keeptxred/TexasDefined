@@ -363,6 +363,18 @@ test('Magoffin restoration and actual ImageObject license survive live SSR', asy
   const check = async (bodyText) => (await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html(bodyText)) }))[0];
   const success = await check(body);
   assert.equal(success.passed, true, success.error);
+  const visited = [];
+  const visitorProof = await verifyChangedPages({ plan, head, fetchImpl: async (url) => {
+    visited.push(url.href);
+    return new Response(html(body));
+  } });
+  assert.equal(visitorProof[0].passed, true);
+  assert.ok(visited.some((url) => url.includes('deploy_smoke=')), 'release URL is checked');
+  assert.ok(visited.includes(pageUrl), 'ordinary canonical URL is checked');
+  const staleVisitor = await verifyChangedPages({ plan, head, fetchImpl: async (url) =>
+    new Response(html(url.searchParams.has('deploy_smoke') ? body : authority + ' Photography: Larry D. Moore · CC BY 4.0')) });
+  assert.equal(staleVisitor[0].passed, false, 'canonical page without JSON-LD fails despite good release');
+  assert.match(staleVisitor[0].error, /photograph rights missing from live structured data/);
   const stale = await check('Old generic Magoffin guide');
   assert.equal(stale.passed, false);
   assert.match(stale.error, /Magoffin Home current authority SSR missing/);
