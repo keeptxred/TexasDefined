@@ -51,7 +51,7 @@ test('football explainer affiliates are limited to sourced planning topics', () 
   assert.match(article, /before you travel/);
   assert.match(article, /isFootballTravelPlanningArticle\(article\)/);
   assert.match(article, /!shouldNoindexTexasGatewayArticle\(article\)/);
-  assert.match(article, /insertBeforeIndex=\{footballTravelInsertIndex >= 0/);
+  assert.match(article, /insertBeforeIndex=\{footballTravelInsertIndex\}/);
   assert.match(article, /showFootballTravelOffers && footballTravelInsertIndex < 0/);
   assert.match(article, /hasUpcomingAwayTravel=\{false\} showTravelPlanning/);
 });
