@@ -328,9 +328,11 @@ export async function listResolvedDestinations(params: Omit<DestinationQuery, "b
   const abilenePreserved = abilenePreservedFor(params);
   const cityPassPreserved = await cityPassPreservedFor(params);
   const wacoPreserved = await wacoPreservedFor(params);
-  const baseReady = reconcileExploreCatalog(mergeDestinations(wacoPreserved, enriched, core, preserved, local));
+  // Preserve the existing remote/core/preserved/local source fallback contract.
+  const baseReady = reconcileExploreCatalog(mergeDestinations(enriched, core, preserved, local));
+  const wacoReady = reconcileExploreCatalog(mergeDestinations(wacoPreserved, baseReady));
   const primaryReady = reconcileExploreCatalog(mergeDestinations(
-    baseReady,
+    wacoReady,
     abilenePreserved,
     cavernPreserved,
     cityPassPreserved,
