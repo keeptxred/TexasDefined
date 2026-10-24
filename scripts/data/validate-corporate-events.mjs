@@ -11,11 +11,42 @@ const events = readFileSync('src/routes/events.index.lazy.tsx', 'utf8');
 const categoryGuides = readFileSync('src/components/events/CorporateEventCategoryGuides.tsx', 'utf8');
 const categories = new Set(corporateEventCategories.map((item) => item.value));
 
-assert(corporateEventProviders.length >= 122, 'Corporate event venue directory requires 122 sourced venues across 19 Texas markets');
+assert(corporateEventProviders.length >= 136, 'Corporate event directory requires at least 136 independently sourced venues including 50+ in Houston proper');
+assert(corporateEventProviders.filter((p) => p.city === 'Houston').length >= 50, 'Houston proper must maintain 50+ distinct source-backed venues, not just suburban listings');
 for (const metro of ['Houston', 'Dallas', 'Austin', 'San Antonio', 'El Paso', 'Corpus Christi', 'Galveston', 'Waco', 'Lubbock', 'Bryan/College Station', 'Tyler', 'Beaumont', 'Amarillo', 'McAllen', 'Midland/Odessa', 'Abilene', 'Killeen/Temple', 'New Braunfels', 'Fredericksburg']) {
   assert(corporateEventProviders.filter((p) => p.city === metro || p.metro?.includes(metro)).length >= 3, 'Insufficient metro coverage: ' + metro);
 }
 assert(corporateEventProviders.filter((p) => p.city === 'Houston' && p.maxGroup >= 45 && (!p.minGroup || p.minGroup <= 45)).length >= 8);
+
+const verifiedHouston20261024 = [
+  ['escape-the-room-midtown-houston-teams', null],
+  ['escape-it-houston-group-events', 36],
+  ['bowl-and-barrel-citycentre-houston-events', null],
+  ['bayou-music-center-houston-private-events', 3464],
+  ['sur-la-table-houston-citycentre-private-cooking', 20],
+  ['house-of-blues-houston-private-events', null],
+  ['air-terminal-museum-houston-corporate', 160],
+  ['rustic-houston-uptown-park-corporate', null],
+  ['713-music-hall-houston-corporate', 4450],
+  ['hotel-zaza-houston-museum-district-meetings', null],
+  ['hotel-zaza-houston-memorial-city-meetings', null],
+  ['houston-marriott-medical-center-meetings', 600],
+  ['downtown-aquarium-houston-corporate-rentals', null],
+  ['maggianos-memorial-city-private-events', null],
+];
+for (const [slug, upperLimit] of verifiedHouston20261024) {
+  const provider = corporateEventProviders.find((venue) => venue.slug === slug);
+  assert(provider, 'The 2026-10-24 official-source Houston venue was removed: ' + slug);
+  assert.equal(provider.city, 'Houston', 'Use actual city, not inaccurate metro alias: ' + slug);
+  assert.equal(provider.verifiedOn, '2026-10-24', 'Review date must be tied to the completed official source research: ' + slug);
+  assert.equal(provider.maxGroup, upperLimit, 'Do not invent or inflate maximum capacity: ' + slug);
+  assert(provider.officialUrl.startsWith('https://') && provider.sourceUrl.startsWith('https://'), 'Official source required: ' + slug);
+  assert(provider.startingPricePerPerson === null || (provider.slug === 'escape-it-houston-group-events' && provider.startingPricePerPerson === 35),
+    'Do not use unverified private group pricing: ' + slug);
+}
+assert(!corporateEventProviders.some((venue) => /the rustic.*downtown/i.test(venue.name)),
+  'Exclude The Rustic Houston Downtown until the operator confirms reopening from its temporary relocation closure');
+
 assert.equal(new Set(corporateEventProviders.map((p) => p.slug)).size, corporateEventProviders.length);
 for (const p of corporateEventProviders) {
   assert(p.officialUrl.startsWith('https://') && p.sourceUrl.startsWith('https://'));
