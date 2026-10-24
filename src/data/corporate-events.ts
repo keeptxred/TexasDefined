@@ -1440,8 +1440,8 @@ export const corporateEventProviders: CorporateEventProvider[] = [
     format: "Indoor escape rooms",
     minGroup: 4,
     maxGroup: 36,
-    capacityDetail: "Corporate team-building package advertises 4–36 participants with up to 12 per team and at least one week's advance notice. West Houston address is 7620 Katy Freeway, Suite 110; groups of 45 exceed the published package cap.",
-    startingPricePerPerson: 35,
+    capacityDetail: "Corporate team-building package advertises 4–36 participants with up to 12 per team and at least one week's advance notice. West Houston address is 7620 Katy Freeway, Suite 110; groups of 45 exceed the published package cap. Pricing differs: $350 for up to 10, $35 per person above 10, so no unconditional per-person starter rate is asserted.",
+    startingPricePerPerson: null,
     officialUrl: "https://escapeithouston.com/team_building.aspx",
     sourceUrl: "https://escapeithouston.com/team_building.aspx",
     verifiedOn: "2026-10-24"
