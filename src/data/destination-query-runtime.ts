@@ -326,7 +326,8 @@ export async function listResolvedDestinations(params: Omit<DestinationQuery, "b
   const local = await platform.destinations.list({ ...scope, ...params });
   const preserved = preservedFor(params);
   const abilenePreserved = abilenePreservedFor(params);
-  const [cityPassPreserved, wacoPreserved] = await Promise.all([cityPassPreservedFor(params), wacoPreservedFor(params)]);
+  const cityPassPreserved = await cityPassPreservedFor(params);
+  const wacoPreserved = await wacoPreservedFor(params);
   const baseReady = reconcileExploreCatalog(mergeDestinations(wacoPreserved, enriched, core, preserved, local));
   const primaryReady = reconcileExploreCatalog(mergeDestinations(
     baseReady,
@@ -446,20 +447,22 @@ export async function listResolvedDestinationSearchCatalog() {
         return [] as Destination[];
       })
     : [];
-  const preservedSearchCatalog = reconcileExploreCatalog(mergeDestinations(wacoFallbacks, enriched, core, preservedExploreDestinations));
+  // Preserve the established publication/readiness contract for the remote,
+  // core and locally preserved index before overlaying source-verified Waco.
+  const preservedSearchCatalog = reconcileExploreCatalog(mergeDestinations(enriched, core, preservedExploreDestinations));
+  const wacoFirstCatalog = reconcileExploreCatalog(mergeDestinations(wacoFallbacks, preservedSearchCatalog));
   const primaryReady = reconcileExploreCatalog(mergeDestinations(
-    preservedSearchCatalog,
+    wacoFirstCatalog,
     abileneAreaDestinationFallbacks,
     cavernFallbacks,
     cityPassFallbacks,
-    wacoFallbacks,
   ));
   const fallbackReady = reconcileExploreCatalog(mergeDestinations(
+    wacoFallbacks,
     abileneAreaDestinationFallbacks,
     preservedExploreDestinations,
     cavernFallbacks,
     cityPassFallbacks,
-    wacoFallbacks,
   ));
   return enhanceWacoMuseumDestinations(reconcileExploreCatalog(mergeReadyCatalogs(primaryReady, fallbackReady)));
 }
