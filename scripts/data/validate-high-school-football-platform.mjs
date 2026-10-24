@@ -1136,6 +1136,34 @@ if (!errors.length) {
   requireText(featuredProfileRoute, "'@type': 'FAQPage'", 'Football school profile FAQ schema');
   requireText(featuredProfilePage, "const footballName = identity?.mascot ?", 'Verified mascot precedence over editorial SEO title');
   forbidText(featuredProfilePage, 'const footballName = authoredFootballH1 || (identity?.mascot', 'Do not prefer stale authored mascot title');
+  // Older campus-county PR #5401 became stale while the complete canonical
+  // map was already shipped. Retain its useful regression protections without
+  // overwriting newer team/editorial data.
+  for (const marker of [
+    'const researchedCountyLink = researchedCampusCounty[slug]',
+    "'abbott': 'hill'",
+    "'abernathy': 'hale'",
+    "'alief-hastings': 'harris'",
+    "'katy': 'fort-bend'",
+    "'fort-davis': 'jeff-davis'",
+    "'southlake-carroll': 'tarrant'",
+    "'bruceville-eddy': 'mclennan'",
+  ]) requireText(featuredProfilePage, marker, 'Canonical school-slug campus-county mapping');
+  const countyLookupStart = featuredProfilePage.indexOf('const researchedCountyLink = researchedCampusCounty[slug]');
+  const countyLookupEnd = featuredProfilePage.indexOf('const associationLabel', countyLookupStart);
+  const countyLookup = countyLookupStart >= 0 && countyLookupEnd > countyLookupStart
+    ? featuredProfilePage.slice(countyLookupStart, countyLookupEnd)
+    : '';
+  requireText(countyLookup, 'const countyPath = researchedCountyLink', 'Campus-county path from canonical slug');
+  for (const retired of [
+    "editorial?.slug ? researchedCampusCounty[editorial.slug]",
+    "schoolName === 'Alief Hastings'",
+    "schoolName === 'Abilene Wylie'",
+    "schoolName === 'Katy'",
+    "schoolName === 'Fort Davis'",
+    "schoolName === 'Southlake Carroll'",
+  ]) forbidText(countyLookup, retired, 'Do not infer campus county from display name inside the county resolver');
+
 
   for (const marker of [
     "createLazyFileRoute('/texas-high-school-football-teams/$slug')",
