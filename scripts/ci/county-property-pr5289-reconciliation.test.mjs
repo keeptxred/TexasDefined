@@ -32,3 +32,9 @@ test('retain specifically curated county property-search and payment links',()=>
   assert.match(curated,/bell: \{[\s\S]*?paymentUrl: 'https:\/\/bellcad\.org\/pay-property-taxes\//);
   assert.match(curated,/bexar: \{[\s\S]*?name: 'Rogelio Sandoval'/);
 });
+
+test('weekly Comptroller refresh never omits the 91-county server-only snapshot',()=>{
+  const workflow=readFileSync('.github/workflows/sync-county-property-data.yml','utf8');
+  assert.match(workflow,/git diff --quiet -- src\/data\/property\/county-property-enrichment\.generated\.ts src\/data\/property\/county-property-supplement\.server\.ts/);
+  assert.match(workflow,/git add src\/data\/property\/county-property-enrichment\.generated\.ts src\/data\/property\/county-property-supplement\.server\.ts/);
+});

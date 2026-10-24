@@ -67,12 +67,12 @@ jobs:
         id: changes
         shell: bash
         run: |
-          if git diff --quiet -- src/data/property/county-property-enrichment.generated.ts; then
+          if git diff --quiet -- src/data/property/county-property-enrichment.generated.ts src/data/property/county-property-supplement.server.ts; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
-            echo "County property snapshot is already current."
+            echo "Curated and server-only county contacts are already current."
           else
             echo "changed=true" >> "$GITHUB_OUTPUT"
-            echo "County property snapshot changed."
+            echo "One or both county property snapshots changed."
           fi
 
       - name: Create refresh branch
@@ -85,7 +85,7 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git checkout -b "$branch"
-          git add src/data/property/county-property-enrichment.generated.ts
+          git add src/data/property/county-property-enrichment.generated.ts src/data/property/county-property-supplement.server.ts
           git commit -m 'Refresh verified county property data'
           git push origin "$branch"
           echo "name=$branch" >> "$GITHUB_OUTPUT"
