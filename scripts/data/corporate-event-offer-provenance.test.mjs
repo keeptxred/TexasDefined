@@ -68,4 +68,17 @@ test('live public offers and staff-only quote use the strict security helper', (
     'Private planner quote must use a source-verified domain predicate');
   assert(!offers.includes('approvedRedemptionUrl('),
     'Do not bypass independently sourced venue identity using only an applicant supplied website');
+  const admin=readFileSync('src/data/corporate-events.admin.server.ts','utf8');
+  assert(admin.includes('corporateEventVerifiedRedemptionUrl(data.redemptionUrl, String(application.website), record.officialUrl)'),
+    'Staff must not record a dubious draft that the separate public loader is forced to suppress');
+  assert(admin.includes('corporateEventVerifiedRedemptionUrl(String(offer.redemption_url), String(partner.website), reviewedVenue.officialUrl)'),
+    'Staff approval must re-check venue/partner/redemption domain instead of trusting a previously drafted offer');
+  for(const stamp of ['application.identity_verified_at','application.commercial_agreement_verified_at','partner.identity_verified_at','partner.commercial_agreement_verified_at']) {
+    assert(admin.includes('corporateEventEvidenceTimestampIsValid('+stamp+')'),
+      'Staff draft and approval must reject future or malformed attestation: '+stamp);
+  }
+  assert(admin.includes("provider_slug,redemption_url,starts_on,ends_on,status"),
+    'Approval must load current offer identity and destination, not only the application ID');
+  assert(!admin.includes("redemption.hostname !== issuer.hostname"),
+    'Staff must not accept unrelated applicant-supplied domains even if host equality happens to pass');
 });
