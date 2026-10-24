@@ -250,4 +250,6 @@ if (failures.length) {
   process.exit(1);
 }
 execFileSync(process.execPath, ["scripts/data/validate-dallas-black-history.mjs"], { stdio: "inherit" });
+// Prevent future owner-inventory reassignments or silent resumption regressions.
+execFileSync(process.execPath, ["scripts/data/next-museum-owner-batch.mjs", "--self-test"], { stdio: "inherit" });
 console.log("Museum authority gate PASSED: " + allDossiers.length + " museum guides + cross-links + new-museum rule.");
