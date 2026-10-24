@@ -43,7 +43,7 @@ export function corporateEventSourceReviewSchedule(
     const due = parseDate(dueOn);
     const daysSinceReview = then === null ? 0 : Math.max(0, Math.round((now - then) / DAY_MS));
     const daysUntilDue = due === null ? -1 : Math.round((due - now) / DAY_MS);
-    const status = then === null || then > now ? 'unverifiable'
+    const status: CorporateEventSourceReviewItem['status'] = then === null || then > now ? 'unverifiable'
       : daysUntilDue <= 0 ? 'overdue'
       : daysUntilDue <= 14 ? 'due-soon'
       : 'scheduled';
