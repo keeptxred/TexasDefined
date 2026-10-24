@@ -23,8 +23,14 @@ assert(migration.includes('hourly_total >= 150 or hourly_for_email >= 3'),
   'Planner guard must cap total and per-email submissions');
 assert(migration.includes('hourly_total >= 60 or hourly_for_email >= 2'),
   'Partner guard must cap total and per-email submissions');
-assert(!/remote_addr|inet_client_addr|cf-connecting-ip|user.agent|fingerprint|ip_address/i.test(migration),
+// Comments can describe dangerous techniques without implementing them.
+// Analyze executable SQL, while retaining explicit negative coverage.
+const executableSql = migration.replace(/--[^\n]*/g, '');
+const personalIdentifierPattern = /remote_addr|inet_client_addr|cf-connecting-ip|user.agent|fingerprint|ip_address/i;
+assert(!personalIdentifierPattern.test(executableSql),
   'Rate protection must not persist identifiable client/device data');
+assert(personalIdentifierPattern.test('select inet_client_addr()'),
+  'The privacy rule must still detect actual SQL client-address collection');
 assert(planners.includes('companyAddress2.trim()') && partners.includes('companyAddress2.trim()'),
   'Honeypot protections must stay fail-quiet');
 assert(planners.includes('consentContact') && partners.includes('consentContact'),
