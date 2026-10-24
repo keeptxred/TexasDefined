@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "initiative": "TexasDefined fishing apparel launch 2026",
   "created_at": "2026-10-24",
   "phase": 1,
@@ -32,11 +32,13 @@
     "brand_field": "publish_texasdefined",
     "other_brand_field": "publish_keeptxred",
     "image_generation": "Six unique generated designs from 2026-10-24, each native 1174×1340; independently upscaled to 3852×4398 with alpha, palette-optimized to 2.9–4.0 MiB for upload.",
-    "etsylive_section_fishing_shirts": "unverified",
+    "etsylive_section_fishing_shirts": "not verified / no Etsy seller management action available",
     "etsy_seller_management": "not available through installed Etsy buyer connector",
-    "public_printify_ids_verified": 0,
+    "public_printify_ids_verified": 6,
     "public_etsy_urls_verified": 0,
-    "products_published": 0
+    "products_published": 6,
+    "texasdefined_active_rows_verified": 6,
+    "etsy_listing_urls_reported": 6
   },
   "artwork_requirements": {
     "print_master": "Real transparent PNG with organic edges; no square haze, photo rectangle or opaque/semisolid poster background.",
@@ -54,7 +56,7 @@
     "etsy": "Create 13th tag with real authorized Etsy seller-management interface; Heartland currently supports max 12 tags. Ensure separate shop section Fishing Shirts if it exists or create without duplication when seller-management available.",
     "prevent_duplicates": "Reconcile Printify/Etsy/TD records before any retries. No new job IDs on uncertain operations."
   },
-  "collection_status": "SIX_PREPARED_PENDING_EXPLICIT_PLAN_APPROVAL",
+  "collection_status": "PRINTIFY_CREATED_TEXASDEFINED_ACTIVE_ETSY_PUBLIC_VERIFICATION_PENDING",
   "designs": [
     {
       "id": "TD-FISH-01",
@@ -121,7 +123,7 @@
       "printify": {
         "prepared": true,
         "template_selected": "6a466888b706a0bfc50e0a2e",
-        "product_id": null,
+        "product_id": "6add2977878131e6ba0c3b39",
         "variant_ids": null,
         "artwork_upload_id": null,
         "publication_verified": false,
@@ -151,23 +153,36 @@
         "prepared_scale": 1,
         "prepared_website": "texasdefined",
         "prepared_job_id": "TDFISH2026P1_01",
-        "approval_token_storage": "NOT STORED IN GIT; retained in originating connector result and recoverable only through authorized workflow"
+        "approval_token_storage": "NOT STORED IN GIT; retained in originating connector result and recoverable only through authorized workflow",
+        "creation_confirmed": true,
+        "publication": "submitted",
+        "shirt_color_count_verified_in_db": 3,
+        "live_variant_count_verified_in_db": 16,
+        "retail_price_usd_verified_in_db": 28
       },
       "etsy": {
-        "listing_id": null,
-        "url": null,
+        "listing_id": "4602532203",
+        "url": "https://www.etsy.com/listing/4602532203/texas-bass-co-bass-fishing-t-shirt-o",
         "listing_verified": false,
         "actual_tag_count": null,
-        "production_partner_disclosure_verified": false
+        "production_partner_disclosure_verified": false,
+        "publication": "submitted; provider says pending public verification",
+        "shop_section_verified": false
       },
       "texasdefined": {
-        "sync_verified": false,
-        "product_id": null,
-        "url": null
+        "sync_verified": true,
+        "product_id": "6add2977878131e6ba0c3b39",
+        "url": "https://texasdefined.com/shop/product/6add2977878131e6ba0c3b39",
+        "is_active_verified": true,
+        "publish_texasdefined_verified": true,
+        "publish_keeptxred_verified": false,
+        "price_usd_verified": 28,
+        "variant_count_verified": 16,
+        "color_count_verified": 3
       },
       "blockers": [
-        "Prepared product publication requires user approval of displayed $28/16-variant Printify plan per Heartland Publisher",
-        "Thirteenth Etsy tag and shop-section assignment need supported seller-management workflow"
+        "Etsy public listing verification pending: Heartland status=pending",
+        "Actual Etsy tag count and Fishing Shirts section assignment not verified (seller management unavailable)"
       ],
       "status": "PREPARED_PENDING_EXPLICIT_PLAN_APPROVAL"
     },
@@ -236,7 +251,7 @@
       "printify": {
         "prepared": true,
         "template_selected": "6a466888b706a0bfc50e0a2e",
-        "product_id": null,
+        "product_id": "6add29fdafea5e4b0809386a",
         "variant_ids": null,
         "artwork_upload_id": null,
         "publication_verified": false,
@@ -266,23 +281,36 @@
         "prepared_scale": 1,
         "prepared_website": "texasdefined",
         "prepared_job_id": "TDFISH2026P1_02",
-        "approval_token_storage": "NOT STORED IN GIT; retained in originating connector result and recoverable only through authorized workflow"
+        "approval_token_storage": "NOT STORED IN GIT; retained in originating connector result and recoverable only through authorized workflow",
+        "creation_confirmed": true,
+        "publication": "submitted",
+        "shirt_color_count_verified_in_db": 3,
+        "live_variant_count_verified_in_db": 16,
+        "retail_price_usd_verified_in_db": 28
       },
       "etsy": {
-        "listing_id": null,
-        "url": null,
+        "listing_id": "4602533233",
+        "url": "https://www.etsy.com/listing/4602533233/chasing-largemouth-bass-fishing-t-shirt",
         "listing_verified": false,
         "actual_tag_count": null,
-        "production_partner_disclosure_verified": false
+        "production_partner_disclosure_verified": false,
+        "publication": "submitted; provider says pending public verification",
+        "shop_section_verified": false
       },
       "texasdefined": {
-        "sync_verified": false,
-        "product_id": null,
-        "url": null
+        "sync_verified": true,
+        "product_id": "6add29fdafea5e4b0809386a",
+        "url": "https://texasdefined.com/shop/product/6add29fdafea5e4b0809386a",
+        "is_active_verified": true,
+        "publish_texasdefined_verified": true,
+        "publish_keeptxred_verified": false,
+        "price_usd_verified": 28,
+        "variant_count_verified": 16,
+        "color_count_verified": 3
       },
       "blockers": [
-        "Prepared product publication requires user approval of displayed $28/16-variant Printify plan per Heartland Publisher",
-        "Thirteenth Etsy tag and shop-section assignment need supported seller-management workflow"
+        "Etsy public listing verification pending: Heartland status=pending",
+        "Actual Etsy tag count and Fishing Shirts section assignment not verified (seller management unavailable)"
       ],
       "status": "PREPARED_PENDING_EXPLICIT_PLAN_APPROVAL"
     },
@@ -351,7 +379,7 @@
       "printify": {
         "prepared": true,
         "template_selected": "6a466888b706a0bfc50e0a2e",
-        "product_id": null,
+        "product_id": "6add29cfafea5e4b0809383b",
         "variant_ids": null,
         "artwork_upload_id": null,
         "publication_verified": false,
@@ -381,23 +409,36 @@
         "prepared_scale": 1,
         "prepared_website": "texasdefined",
         "prepared_job_id": "TDFISH2026P1_03",
-        "approval_token_storage": "NOT STORED IN GIT; retained in originating connector result and recoverable only through authorized workflow"
+        "approval_token_storage": "NOT STORED IN GIT; retained in originating connector result and recoverable only through authorized workflow",
+        "creation_confirmed": true,
+        "publication": "submitted",
+        "shirt_color_count_verified_in_db": 3,
+        "live_variant_count_verified_in_db": 16,
+        "retail_price_usd_verified_in_db": 28
       },
       "etsy": {
-        "listing_id": null,
-        "url": null,
+        "listing_id": "4602558658",
+        "url": "https://www.etsy.com/listing/4602558658/lake-weekend-t-shirt-o-vintage-texas",
         "listing_verified": false,
         "actual_tag_count": null,
-        "production_partner_disclosure_verified": false
+        "production_partner_disclosure_verified": false,
+        "publication": "submitted; provider says pending public verification",
+        "shop_section_verified": false
       },
       "texasdefined": {
-        "sync_verified": false,
-        "product_id": null,
-        "url": null
+        "sync_verified": true,
+        "product_id": "6add29cfafea5e4b0809383b",
+        "url": "https://texasdefined.com/shop/product/6add29cfafea5e4b0809383b",
+        "is_active_verified": true,
+        "publish_texasdefined_verified": true,
+        "publish_keeptxred_verified": false,
+        "price_usd_verified": 28,
+        "variant_count_verified": 16,
+        "color_count_verified": 3
       },
       "blockers": [
-        "Prepared product publication requires user approval of displayed $28/16-variant Printify plan per Heartland Publisher",
-        "Thirteenth Etsy tag and shop-section assignment need supported seller-management workflow"
+        "Etsy public listing verification pending: Heartland status=pending",
+        "Actual Etsy tag count and Fishing Shirts section assignment not verified (seller management unavailable)"
       ],
       "status": "PREPARED_PENDING_EXPLICIT_PLAN_APPROVAL"
     },
@@ -466,7 +507,7 @@
       "printify": {
         "prepared": true,
         "template_selected": "6a466888b706a0bfc50e0a2e",
-        "product_id": null,
+        "product_id": "6add29d86437b9edf205a8bb",
         "variant_ids": null,
         "artwork_upload_id": null,
         "publication_verified": false,
@@ -496,23 +537,36 @@
         "prepared_scale": 1,
         "prepared_website": "texasdefined",
         "prepared_job_id": "TDFISH2026P1_04",
-        "approval_token_storage": "NOT STORED IN GIT; retained in originating connector result and recoverable only through authorized workflow"
+        "approval_token_storage": "NOT STORED IN GIT; retained in originating connector result and recoverable only through authorized workflow",
+        "creation_confirmed": true,
+        "publication": "submitted",
+        "shirt_color_count_verified_in_db": 3,
+        "live_variant_count_verified_in_db": 16,
+        "retail_price_usd_verified_in_db": 28
       },
       "etsy": {
-        "listing_id": null,
-        "url": null,
+        "listing_id": "4602558740",
+        "url": "https://www.etsy.com/listing/4602558740/texas-tackle-club-t-shirt-o-vintage",
         "listing_verified": false,
         "actual_tag_count": null,
-        "production_partner_disclosure_verified": false
+        "production_partner_disclosure_verified": false,
+        "publication": "submitted; provider says pending public verification",
+        "shop_section_verified": false
       },
       "texasdefined": {
-        "sync_verified": false,
-        "product_id": null,
-        "url": null
+        "sync_verified": true,
+        "product_id": "6add29d86437b9edf205a8bb",
+        "url": "https://texasdefined.com/shop/product/6add29d86437b9edf205a8bb",
+        "is_active_verified": true,
+        "publish_texasdefined_verified": true,
+        "publish_keeptxred_verified": false,
+        "price_usd_verified": 28,
+        "variant_count_verified": 16,
+        "color_count_verified": 3
       },
       "blockers": [
-        "Prepared product publication requires user approval of displayed $28/16-variant Printify plan per Heartland Publisher",
-        "Thirteenth Etsy tag and shop-section assignment need supported seller-management workflow"
+        "Etsy public listing verification pending: Heartland status=pending",
+        "Actual Etsy tag count and Fishing Shirts section assignment not verified (seller management unavailable)"
       ],
       "status": "PREPARED_PENDING_EXPLICIT_PLAN_APPROVAL"
     },
@@ -581,7 +635,7 @@
       "printify": {
         "prepared": true,
         "template_selected": "6a466888b706a0bfc50e0a2e",
-        "product_id": null,
+        "product_id": "6add29de2f0d45364d02c4a6",
         "variant_ids": null,
         "artwork_upload_id": null,
         "publication_verified": false,
@@ -611,23 +665,36 @@
         "prepared_scale": 1,
         "prepared_website": "texasdefined",
         "prepared_job_id": "TDFISH2026P1_05",
-        "approval_token_storage": "NOT STORED IN GIT; retained in originating connector result and recoverable only through authorized workflow"
+        "approval_token_storage": "NOT STORED IN GIT; retained in originating connector result and recoverable only through authorized workflow",
+        "creation_confirmed": true,
+        "publication": "submitted",
+        "shirt_color_count_verified_in_db": 3,
+        "live_variant_count_verified_in_db": 16,
+        "retail_price_usd_verified_in_db": 28
       },
       "etsy": {
-        "listing_id": null,
-        "url": null,
+        "listing_id": "4602558790",
+        "url": "https://www.etsy.com/listing/4602558790/sunrise-cast-fishing-t-shirt-o-texas",
         "listing_verified": false,
         "actual_tag_count": null,
-        "production_partner_disclosure_verified": false
+        "production_partner_disclosure_verified": false,
+        "publication": "submitted; provider says pending public verification",
+        "shop_section_verified": false
       },
       "texasdefined": {
-        "sync_verified": false,
-        "product_id": null,
-        "url": null
+        "sync_verified": true,
+        "product_id": "6add29de2f0d45364d02c4a6",
+        "url": "https://texasdefined.com/shop/product/6add29de2f0d45364d02c4a6",
+        "is_active_verified": true,
+        "publish_texasdefined_verified": true,
+        "publish_keeptxred_verified": false,
+        "price_usd_verified": 28,
+        "variant_count_verified": 16,
+        "color_count_verified": 3
       },
       "blockers": [
-        "Prepared product publication requires user approval of displayed $28/16-variant Printify plan per Heartland Publisher",
-        "Thirteenth Etsy tag and shop-section assignment need supported seller-management workflow"
+        "Etsy public listing verification pending: Heartland status=pending",
+        "Actual Etsy tag count and Fishing Shirts section assignment not verified (seller management unavailable)"
       ],
       "status": "PREPARED_PENDING_EXPLICIT_PLAN_APPROVAL"
     },
@@ -696,7 +763,7 @@
       "printify": {
         "prepared": true,
         "template_selected": "6a466888b706a0bfc50e0a2e",
-        "product_id": null,
+        "product_id": "6add29e5c8a72b0cae01896a",
         "variant_ids": null,
         "artwork_upload_id": null,
         "publication_verified": false,
@@ -726,23 +793,36 @@
         "prepared_scale": 1,
         "prepared_website": "texasdefined",
         "prepared_job_id": "TDFISH2026P1_06",
-        "approval_token_storage": "NOT STORED IN GIT; retained in originating connector result and recoverable only through authorized workflow"
+        "approval_token_storage": "NOT STORED IN GIT; retained in originating connector result and recoverable only through authorized workflow",
+        "creation_confirmed": true,
+        "publication": "submitted",
+        "shirt_color_count_verified_in_db": 3,
+        "live_variant_count_verified_in_db": 16,
+        "retail_price_usd_verified_in_db": 28
       },
       "etsy": {
-        "listing_id": null,
-        "url": null,
+        "listing_id": "4602533093",
+        "url": "https://www.etsy.com/listing/4602533093/texas-coastal-angler-redfish-t-shirt-o",
         "listing_verified": false,
         "actual_tag_count": null,
-        "production_partner_disclosure_verified": false
+        "production_partner_disclosure_verified": false,
+        "publication": "submitted; provider says pending public verification",
+        "shop_section_verified": false
       },
       "texasdefined": {
-        "sync_verified": false,
-        "product_id": null,
-        "url": null
+        "sync_verified": true,
+        "product_id": "6add29e5c8a72b0cae01896a",
+        "url": "https://texasdefined.com/shop/product/6add29e5c8a72b0cae01896a",
+        "is_active_verified": true,
+        "publish_texasdefined_verified": true,
+        "publish_keeptxred_verified": false,
+        "price_usd_verified": 28,
+        "variant_count_verified": 16,
+        "color_count_verified": 3
       },
       "blockers": [
-        "Prepared product publication requires user approval of displayed $28/16-variant Printify plan per Heartland Publisher",
-        "Thirteenth Etsy tag and shop-section assignment need supported seller-management workflow"
+        "Etsy public listing verification pending: Heartland status=pending",
+        "Actual Etsy tag count and Fishing Shirts section assignment not verified (seller management unavailable)"
       ],
       "status": "PREPARED_PENDING_EXPLICIT_PLAN_APPROVAL"
     }
@@ -825,6 +905,33 @@
       "date": "2026-10-24",
       "check": "Publish gate",
       "result": "Pending explicit approval of specific prepared plan; no printify products, Etsy listings or TexasDefined catalog entries created by preparation."
+    },
+    {
+      "date": "2026-10-24",
+      "check": "Explicit release approval",
+      "result": "User approved all six shirts at the prepared $28 price and destination texasdefined."
+    },
+    {
+      "date": "2026-10-24",
+      "check": "Heartland publish_products",
+      "result": "All six returned creation=confirmed, publication=submitted, website_verified=true, Etsy_verified=false/pending; six distinct real Printify IDs recorded."
+    },
+    {
+      "date": "2026-10-24",
+      "check": "Heartland check_publication one batch",
+      "result": "All six returned Etsy listing URLs; no Etsy listing publicly verified. Do not retry with new job IDs."
+    },
+    {
+      "date": "2026-10-24",
+      "check": "Supabase product catalog validation",
+      "result": "Six active printify rows; each price 28.00 USD, 16 JSON variants, 3 colors, 13 product-database tags, Printify front mockup URL, publish_texasdefined=true, publish_keeptxred=false."
+    },
+    {
+      "date": "2026-10-24",
+      "check": "External Etsy verification",
+      "result": "Public listing pages inaccessible via web tool; do not label the Etsy listings live based only on URLs. Etsy seller section, 13 actual Etsy tags, partner disclosure unverified."
     }
-  ]
+  ],
+  "release_approved_at": "2026-10-24",
+  "release_approval_source": "User explicitly approved publishing all six prepared T-shirts at $28, with 16 variants and website=texasdefined."
 }
