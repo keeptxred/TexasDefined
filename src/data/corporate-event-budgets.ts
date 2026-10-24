@@ -7,7 +7,7 @@ export function groupEventPlanningAmounts(
   perPersonBudget: number | null,
   publishedStartingRate: number | null,
 ) {
-  const validGroup = Number.isInteger(groupSize) && groupSize >= 2 && groupSize <= 3000;
+  const validGroup = Number.isInteger(groupSize) && groupSize >= 2 && groupSize <= 8000;
   const validBudget = perPersonBudget != null && Number.isFinite(perPersonBudget) && perPersonBudget > 0;
   const validRate = publishedStartingRate != null && Number.isFinite(publishedStartingRate) && publishedStartingRate > 0;
   return {
