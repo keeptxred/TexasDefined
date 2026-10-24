@@ -3,6 +3,13 @@ import { isDestinationPhotoPlaceholder } from "./explore-hero-reconciliation";
 
 /** Lightweight exact-site photo sources. Never bundle long museum research dossiers in core destination discovery. */
 export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
+  "austin-history-center-austin": {
+    "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/John_Henry_Faulk_Central_Library.jpg?width=1600",
+    "alt": "John Henry Faulk Building at 800 Guadalupe Street, current home of the Austin History Center since its 2025 move",
+    "width": 1600,
+    "height": 1067,
+    "credit": "Thejudahrice · 7 December 2025 · CC BY-SA 4.0 · Wikimedia Commons · John Henry Faulk Central Library.jpg"
+  },
   "alley-log-cabin-museum-columbus": {
     "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Abram_Alley_Log_Cabin,_Columbus,_TX_IMG_8238.JPG?width=1600",
     "alt": "Actual Abram Alley Log Cabin at 1230 Bowie Street in Columbus, Texas, photographed November 4, 2013",
