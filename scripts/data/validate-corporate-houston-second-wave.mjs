@@ -19,10 +19,12 @@ assert.equal(secondWave.length,23,'Second Houston wave must cover 23 unique venu
 const independentlyRechecked20261024 = new Set([
   'cidercade-houston-team-events','k1-speed-houston-corporate',
   'bayou-city-event-center-corporate','discovery-green-sarofim-corporate',
+  'lone-star-flight-museum-rentals',
 ]);
 const sourceRecheckRecord = readFileSync('docs/corporate-event-venue-source-review-20261024.md','utf8');
 for (const officialHost of ['cidercade.com/houston/faq','k1speed.com/houston-location/groups-and-parties',
-  'bayoucityeventcenter.com/corporate-events','discoverygreen.com/location/sarofim-picnic-lawn']) {
+  'bayoucityeventcenter.com/corporate-events','discoverygreen.com/location/sarofim-picnic-lawn',
+  'lonestarflight.org/see-do/waltrip-hangar']) {
   assert(sourceRecheckRecord.includes(officialHost), 'New review dates require documented actual operator evidence: '+officialHost);
 }
 

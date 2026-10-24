@@ -83,10 +83,11 @@ assert(meow.includes('maxGroup: 400') && meow.includes('full buyout up to 400') 
 const escape = record('the-escape-game-houston');
 assert(escape.includes("area: 'CityCentre and Galleria'") &&
   escape.includes('maxGroup: null') && escape.includes('8–60+') &&
-  escape.includes('partial buyout 25–52') && escape.includes('53+ by custom quote'),
-  'Do not invent a hard 60-person upper limit or collapse two Houston locations into one');
-assert(escape.includes('startingPricePerPerson: null'),
-  'Group-dependent price tables must not be advertised as one universal starting rate');
+  escape.includes('25–52 guests') && escape.includes('$34/person') &&
+  escape.includes('53+ require a custom full-buyout quote'),
+  'Do not invent a hard single-store maximum or confuse separately priced buyout packages');
+assert(escape.includes('startingPricePerPerson: null') && escape.includes("verifiedOn: '2026-10-24'"),
+  'Group-dependent 25–52 prices must be source reviewed but not advertised as universal starting rates');
 const invitations = spawnSync(process.execPath,
   ['--experimental-strip-types', '--test', 'scripts/data/corporate-event-partner-invitations.test.mjs'],
   { cwd: process.cwd(), stdio: 'inherit', shell: false });
