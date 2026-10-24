@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { readFileSync } from 'node:fs';
+import { isValidCorporateEventCalendarDate } from '../../src/data/corporate-event-dates.ts';
 import {
   corporateEventOfficialDomainMatches,
   corporateEventVerifiedRedemptionUrl,
@@ -52,6 +53,17 @@ test('real offer reviewer, business identity and signed agreement timestamps can
   }
 });
 
+test('commercial offer and agreement calendar validation accepts only real supported days', () => {
+  for(const date of ['2026-10-24','2028-02-29','2030-12-31']) {
+    assert(isValidCorporateEventCalendarDate(date), 'Valid ISO commercial date: '+date);
+  }
+  for(const date of ['2026-02-31','2026-04-31','2027-02-29','2026-13-01',
+    '2026-00-01','2026-10-32','2026-1-01','2019-12-31','2201-01-01',
+    'not-a-date','2026-10-24T00:00:00Z']) {
+    assert(!isValidCorporateEventCalendarDate(date), 'Reject impossible, malformed or out-of-range commercial date: '+date);
+  }
+});
+
 test('live public offers and staff-only quote use the strict security helper', () => {
   const offers = readFileSync('src/data/corporate-events-offers.server.ts','utf8');
   const quote = readFileSync('src/data/corporate-event-quote.server.ts','utf8');
@@ -68,4 +80,24 @@ test('live public offers and staff-only quote use the strict security helper', (
     'Private planner quote must use a source-verified domain predicate');
   assert(!offers.includes('approvedRedemptionUrl('),
     'Do not bypass independently sourced venue identity using only an applicant supplied website');
+  const admin=readFileSync('src/data/corporate-events.admin.server.ts','utf8');
+  assert(admin.includes('corporateEventVerifiedRedemptionUrl(data.redemptionUrl, String(application.website), record.officialUrl)'),
+    'Staff must not record a dubious draft that the separate public loader is forced to suppress');
+  assert(admin.includes('corporateEventVerifiedRedemptionUrl(String(offer.redemption_url), String(partner.website), reviewedVenue.officialUrl)'),
+    'Staff approval must re-check venue/partner/redemption domain instead of trusting a previously drafted offer');
+  for(const stamp of ['application.identity_verified_at','application.commercial_agreement_verified_at','partner.identity_verified_at','partner.commercial_agreement_verified_at']) {
+    assert(admin.includes('corporateEventEvidenceTimestampIsValid('+stamp+')'),
+      'Staff draft and approval must reject future or malformed attestation: '+stamp);
+  }
+  assert(admin.includes("provider_slug,redemption_url,starts_on,ends_on,status"),
+    'Approval must load current offer identity and destination, not only the application ID');
+  assert(admin.includes("if (expiresOn && (!isValidCorporateEventCalendarDate(expiresOn)"),
+    'Signed commercial terms must accept valid expiring agreements and reject nonexistent calendar days');
+  assert(admin.includes('!isValidCorporateEventCalendarDate(data.startsOn)')
+    && admin.includes('!isValidCorporateEventCalendarDate(data.endsOn)')
+    && admin.includes('!isValidCorporateEventCalendarDate(String(offer.starts_on))')
+    && admin.includes('!isValidCorporateEventCalendarDate(String(offer.ends_on))'),
+    'Draft and approval must both reject malformed start/end dates even when provided to server directly');
+  assert(!admin.includes("redemption.hostname !== issuer.hostname"),
+    'Staff must not accept unrelated applicant-supplied domains even if host equality happens to pass');
 });

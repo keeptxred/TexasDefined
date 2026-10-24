@@ -1,7 +1,8 @@
 import { assertSportsPartnerAccess } from '@/data/sports-partner-leads.server';
 import { supabaseAdmin } from '@/integrations/supabase/client.server';
 import { corporateEventProviders } from '@/data/corporate-events';
-import { corporateEventTexasToday } from '@/data/corporate-event-dates';
+import { corporateEventTexasToday, isValidCorporateEventCalendarDate } from '@/data/corporate-event-dates';
+import { corporateEventEvidenceTimestampIsValid, corporateEventVerifiedRedemptionUrl } from '@/data/corporate-event-offer-provenance';
 
 export type CorporateEventLeadStatus = 'new' | 'reviewing' | 'contacted' | 'closed' | 'spam';
 export type CorporateEventApplicationStatus = 'pending' | 'reviewing' | 'approved' | 'rejected' | 'spam';
@@ -151,24 +152,31 @@ export async function proposeCorporateEventOffer(accessKey: string, data: Corpor
   await assertSportsPartnerAccess(accessKey);
   const record = corporateEventProviders.find((provider) => provider.slug === data.providerSlug);
   if (!record) throw new Error('Add and source the provider in the editorial directory before creating an offer.');
+  if (!isValidCorporateEventCalendarDate(data.startsOn)
+    || !isValidCorporateEventCalendarDate(data.endsOn)
+    || data.startsOn > data.endsOn) {
+    throw new Error('Offer start and end dates must be actual calendar days in order.');
+  }
   const applicationQuery = await client.from('texasdefined_group_event_partner_applications')
     .select('id,business_name,website,status,identity_verified_at,identity_verification_note,commercial_agreement_verified_at,commercial_agreement_covers_offers,commercial_agreement_expires_on').eq('id', data.applicationId).maybeSingle();
   const application = applicationQuery.data;
-  if (applicationQuery.error || !application || application.status !== 'approved' || !application.identity_verified_at || !application.identity_verification_note) {
-    throw new Error('Business application must be approved first.');
+  if (applicationQuery.error || !application || application.status !== 'approved'
+    || !corporateEventEvidenceTimestampIsValid(application.identity_verified_at)
+    || !application.identity_verification_note) {
+    throw new Error('Business application must have a real, nonfuture identity-verification record.');
   }
-  if (!application.commercial_agreement_verified_at || application.commercial_agreement_covers_offers !== true
+  if (!corporateEventEvidenceTimestampIsValid(application.commercial_agreement_verified_at)
+    || application.commercial_agreement_covers_offers !== true
     || (application.commercial_agreement_expires_on && application.commercial_agreement_expires_on < data.endsOn)) {
     throw new Error('A separately verified signed partner agreement covering this offer period is required before preparing commercial terms.');
   }
   const business = String(application.business_name).toLowerCase().replace(/[^a-z0-9]/g, '');
   const listing = record.name.toLowerCase().replace(/[^a-z0-9]/g, '');
   if (business !== listing) throw new Error('Application name does not match the verified provider. Reconcile the listing before approval.');
-  const redemption = new URL(data.redemptionUrl);
-  if (redemption.protocol !== 'https:') throw new Error('The redemption link must use HTTPS.');
-  const issuer = new URL(String(application.website));
-  if (redemption.hostname !== issuer.hostname && !redemption.hostname.endsWith('.' + issuer.hostname)) {
-    throw new Error('Redemption link must be hosted on the verified applicant business website.');
+  // Reject invalid or spoofed offers at STAFF DRAFT time, not merely later
+  // when the separate public read-only feed suppresses them.
+  if (!corporateEventVerifiedRedemptionUrl(data.redemptionUrl, String(application.website), record.officialUrl)) {
+    throw new Error('The business website and HTTPS redemption page must match the independently sourced venue domain.');
   }
   const { data: created, error } = await client.from('texasdefined_group_event_offers').insert({
     partner_application_id: data.applicationId,
@@ -189,18 +197,31 @@ export async function setCorporateEventOfferStatus(accessKey: string, id: string
   await assertSportsPartnerAccess(accessKey);
   if (!offerStatuses.includes(status)) throw new Error('Invalid offer status.');
   const { data: offer, error: lookupError } = await client.from('texasdefined_group_event_offers')
-    .select('id,partner_application_id,starts_on,ends_on,status').eq('id', id).maybeSingle();
+    .select('id,partner_application_id,provider_slug,redemption_url,starts_on,ends_on,status').eq('id', id).maybeSingle();
   if (lookupError || !offer?.id) throw new Error('Offer not found.');
   if (status === 'approved') {
     const { data: partner, error } = await client.from('texasdefined_group_event_partner_applications')
-      .select('status,identity_verified_at,identity_verification_note,commercial_agreement_verified_at,commercial_agreement_covers_offers,commercial_agreement_expires_on').eq('id', offer.partner_application_id).maybeSingle();
-    if (error || partner?.status !== 'approved' || !partner.identity_verified_at || !partner.identity_verification_note) throw new Error('Only identity-verified partners may have approved offers.');
-    if (!partner.commercial_agreement_verified_at || partner.commercial_agreement_covers_offers !== true
+      .select('status,business_name,website,identity_verified_at,identity_verification_note,commercial_agreement_verified_at,commercial_agreement_covers_offers,commercial_agreement_expires_on').eq('id', offer.partner_application_id).maybeSingle();
+    if (error || partner?.status !== 'approved'
+      || !corporateEventEvidenceTimestampIsValid(partner.identity_verified_at)
+      || !partner.identity_verification_note) throw new Error('Only genuinely identity-verified partners may have approved offers.');
+    if (!corporateEventEvidenceTimestampIsValid(partner.commercial_agreement_verified_at)
+      || partner.commercial_agreement_covers_offers !== true
       || (partner.commercial_agreement_expires_on && partner.commercial_agreement_expires_on < offer.ends_on)) {
       throw new Error('The partner has no independently verified signed agreement covering this offer.');
     }
+    const reviewedVenue = corporateEventProviders.find((venue) => venue.slug === offer.provider_slug);
+    if (!reviewedVenue) throw new Error('Approved offers must link to a current, official-source reviewed venue.');
+    const partnerName = String(partner.business_name).toLowerCase().replace(/[^a-z0-9]/g, '');
+    const venueName = reviewedVenue.name.toLowerCase().replace(/[^a-z0-9]/g, '');
+    if (partnerName !== venueName
+      || !corporateEventVerifiedRedemptionUrl(String(offer.redemption_url), String(partner.website), reviewedVenue.officialUrl)) {
+      throw new Error('Offer approval requires the exact independently sourced venue identity and HTTPS redemption site.');
+    }
     const today = corporateEventTexasToday();
-    if (String(offer.ends_on) < today || String(offer.starts_on) > String(offer.ends_on)) throw new Error('Offer date window is invalid or expired.');
+    if (!isValidCorporateEventCalendarDate(String(offer.starts_on))
+      || !isValidCorporateEventCalendarDate(String(offer.ends_on))
+      || String(offer.ends_on) < today || String(offer.starts_on) > String(offer.ends_on)) throw new Error('Offer date window is invalid or expired.');
   }
   // Approved offers require a reviewer and timestamp. No public publication occurs here.
   const payload = status === 'approved'
@@ -231,7 +252,7 @@ export async function recordCorporateEventCommercialAgreement(
   if (reference.length < 20 || reference.length > 500 || (!coversOffers && !coversQuoteRouting)) {
     throw new Error('Verified signed terms, an evidence reference and at least one approved scope are required.');
   }
-  if (expiresOn && (expiresOn < corporateEventTexasToday() || !/^\\d{4}-\\d{2}-\\d{2}$/.test(expiresOn))) {
+  if (expiresOn && (!isValidCorporateEventCalendarDate(expiresOn) || expiresOn < corporateEventTexasToday())) {
     throw new Error('An agreement cannot already be expired.');
   }
   const { data: application, error: lookupError } = await client
