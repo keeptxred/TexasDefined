@@ -89,7 +89,8 @@ export function CorporateEventOutcomePanel({ accessKey }: { accessKey: string })
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const form = new FormData(event.currentTarget);
+    const formNode = event.currentTarget;
+    const form = new FormData(formNode);
     const timestamp = String(form.get('occurredAt') || '');
     const happened = new Date(timestamp);
     const amount = String(form.get('receivedDollars') || '').trim();
@@ -120,7 +121,7 @@ export function CorporateEventOutcomePanel({ accessKey }: { accessKey: string })
       } });
       await reload();
       setNotice('Private historical evidence recorded. No venue contacted, booking made, agreement signed, payment collected or funds transferred.');
-      event.currentTarget.reset();
+      formNode.reset();
     } catch {
       setError('Evidence could not be recorded. Verify real-world proof, exact venue consent, signed commercial permission, timing and duplicate references.');
     } finally { setSaving(false); }
