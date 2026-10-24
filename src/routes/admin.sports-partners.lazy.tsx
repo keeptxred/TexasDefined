@@ -6,6 +6,7 @@ import { CorporateEventOpsPanel } from '@/components/events/CorporateEventOpsPan
 import { CorporateEventQuotePrepPanel } from '@/components/events/CorporateEventQuotePrepPanel';
 import { CorporateEventOutcomePanel } from '@/components/events/CorporateEventOutcomePanel';
 import { CorporateEventSourceReviewPanel } from '@/components/events/CorporateEventSourceReviewPanel';
+import { CorporateEventPartnerInvitationKit } from '@/components/events/CorporateEventPartnerInvitationKit';
 import { createAdvertiserAgreementOffer } from '@/data/advertiser-agreement.functions';
 import { getAdvertiserLeadDashboard, setAdvertiserLeadStatus } from '@/data/advertiser-leads.functions';
 import type { AdvertiserLead, AdvertiserLeadDashboard, AdvertiserLeadStatus } from '@/data/advertiser-leads.types';
@@ -197,6 +198,7 @@ function AdvertiserLeadsPage() {
       {dashboard ? <CorporateEventQuotePrepPanel accessKey={accessKey} /> : null}
       {dashboard ? <CorporateEventOutcomePanel accessKey={accessKey} /> : null}
       {dashboard ? <CorporateEventSourceReviewPanel /> : null}
+      {dashboard ? <CorporateEventPartnerInvitationKit /> : null}
     </main>
   </Container>;
 }
