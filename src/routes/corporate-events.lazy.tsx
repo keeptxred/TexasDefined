@@ -78,7 +78,7 @@ function CorporateEventsPage() {
   const [shareLinkMessage, setShareLinkMessage] = useState('');
   const [eventDate, setEventDate] = useState('');
 
-  const validHeadcount = Number.isInteger(headcount) && headcount >= 2 && headcount <= 3000;
+  const validHeadcount = Number.isInteger(headcount) && headcount >= 2 && headcount <= 8000;
   const validEventDate = !eventDate || isUpcomingCorporateEventDate(eventDate);
   // Shared shortlists contain public planning preferences, never contact details.
   // Hydrate from URL after mount to preserve the initial server-rendered HTML.
@@ -89,7 +89,7 @@ function CorporateEventsPage() {
     const chosenArea = params.get('area')?.trim();
     if (chosenArea && chosenArea.length <= 60) setAreaQuery(chosenArea);
     const guests = Number(params.get('guests'));
-    if (Number.isInteger(guests) && guests >= 2 && guests <= 3000) setHeadcount(guests);
+    if (Number.isInteger(guests) && guests >= 2 && guests <= 8000) setHeadcount(guests);
     const type = params.get('type');
     if (corporateEventCategories.some((entry) => entry.value === type)) setCategory(type as GroupEventCategory);
     const price = params.get('budget');
@@ -295,7 +295,7 @@ function CorporateEventsPage() {
               <span className="mt-1 block text-xs font-normal text-muted-foreground">Matches the venue's listed area description within your chosen market; it does not calculate distance or driving time.</span>
             </label>
             <label className="block text-sm font-semibold">Number of guests
-              <input type="number" min={2} max={3000} value={headcount} onChange={(event) => setHeadcount(Number(event.target.value))} className={'mt-2 ' + controlClass} />
+              <input type="number" min={2} max={8000} value={headcount} onChange={(event) => setHeadcount(Number(event.target.value))} className={'mt-2 ' + controlClass} />
             </label>
             <label className="block text-sm font-semibold">Event type
               <select value={category} onChange={(event) => setCategory(event.target.value as GroupEventCategory)} className={'mt-2 ' + controlClass}>

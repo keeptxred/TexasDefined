@@ -68,7 +68,7 @@ try {
       result.checks.push('No horizontal viewport overflow');
 
       const guests = page.getByRole('spinbutton', { name: 'Number of guests' });
-      await guests.fill('3001');
+      await guests.fill('8001');
       await page.getByRole('button', { name: 'Send planning request to TexasDefined' }).waitFor();
       assert.equal(await page.getByRole('button', { name: 'Send planning request to TexasDefined' }).isDisabled(), true,
         'Invalid headcount may not submit a planning request');
@@ -110,7 +110,7 @@ try {
       await proposal.getByText('$4,500', { exact: true }).waitFor();
       assert.equal(await page.getByRole('button', { name: 'Shortlisted', exact: true }).count() >= 1, true);
       result.checks.push('45 guests, $100/person -> illustrative $4,500 ceiling, and shortlist selection');
-      for (const count of [13, 25, 100, 300, 500]) {
+      for (const count of [13, 25, 100, 300, 500, 5000, 8000]) {
         await guests.fill(String(count));
         await page.waitForFunction((n) =>
           document.querySelector('#proposal .td-print-summary')?.textContent?.includes('Group size: ' + n), count);
@@ -120,10 +120,14 @@ try {
         assert(body?.includes('Total planning ceiling: ' + total),
           view.name + ': incorrect illustrative budget at group size ' + count);
       }
+      // Only a documented full-center option covers 8,000; no live opening is claimed.
+      await guests.fill('8000');
+      await page.getByRole('heading', { level: 3, name: 'Space Center Houston' })
+        .waitFor({ state: 'visible', timeout: 12_000 });
       await guests.fill('45');
       await page.waitForFunction(() =>
         document.querySelector('#proposal .td-print-summary')?.textContent?.includes('Group size: 45'));
-      result.checks.push('13, 25, 100, 300 and 500 guests recalculate planning ceilings without vendor quotes');
+      result.checks.push('13, 25, 100, 300, 500, 5,000 and 8,000 guests recalculate planning ceilings without vendor quotes');
 
       const request = page.locator('#planning-request form');
       assert.equal(await request.evaluate(form => form.checkValidity()), false,

@@ -9,7 +9,7 @@ const requestSchema = z.object({
   company: z.string().trim().min(2).max(180),
   phone: z.string().trim().max(50).default(''),
   city: z.string().trim().min(2).max(90),
-  groupSize: z.number().int().min(2).max(3000),
+  groupSize: z.number().int().min(2).max(8000),
   category: z.string().refine((value) => categoryValues.includes(value as never), 'Invalid category'),
   eventDate: z.union([z.literal(''), z.string().regex(/^\d{4}-\d{2}-\d{2}$/)]),
   budgetPerPerson: z.number().int().min(1).max(10000).nullable(),
