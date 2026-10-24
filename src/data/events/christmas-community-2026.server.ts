@@ -415,6 +415,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "endDate": "2026-11-28"
   },
   {
+    "slug": "boerne-old-west-christmas-light-fest-1",
+    "title": "Boerne Old West Christmas Light Fest · operating window 1",
+    "city": "Boerne",
+    "countySlug": "kendall",
+    "countyName": "Kendall County",
+    "region": "hill-country",
+    "startDate": "2026-11-27",
+    "endDate": "2026-11-29",
+    "venueName": "Enchanted Springs Ranch · 242 State Highway 46 West",
+    "officialEventUrl": "https://christmaslightfest.com/plan-your-visit/",
+    "sourceName": "Old West Christmas Light Fest operator",
+    "summary": "The operator confirms 2026 tickets for exactly 15 nights: November 27–29, December 4–6, December 11–13 and December 18–23, 5–10 p.m. The venue is a WALK-through historic Old West town, not a drive-through display. General admission starts at $25 ages six and up plus fees; children five and under enter free. Confirm available tickets for this date window."
+  },
+  {
     "slug": "waco-wild-lights-2026-1",
     "title": "Cameron Park Zoo Wild Lights · verified window 1",
     "city": "Waco",
@@ -838,6 +852,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "A three-day outdoor holiday market at the Santa Fe Depot pavilion accompanies downtown Amarillo's electric light parade: December 4–6 with paid adult admission and free admission for children 12 and under."
   },
   {
+    "slug": "boerne-old-west-christmas-light-fest-2",
+    "title": "Boerne Old West Christmas Light Fest · operating window 2",
+    "city": "Boerne",
+    "countySlug": "kendall",
+    "countyName": "Kendall County",
+    "region": "hill-country",
+    "startDate": "2026-12-04",
+    "endDate": "2026-12-06",
+    "venueName": "Enchanted Springs Ranch · 242 State Highway 46 West",
+    "officialEventUrl": "https://christmaslightfest.com/plan-your-visit/",
+    "sourceName": "Old West Christmas Light Fest operator",
+    "summary": "The operator confirms 2026 tickets for exactly 15 nights: November 27–29, December 4–6, December 11–13 and December 18–23, 5–10 p.m. The venue is a WALK-through historic Old West town, not a drive-through display. General admission starts at $25 ages six and up plus fees; children five and under enter free. Confirm available tickets for this date window."
+  },
+  {
     "slug": "brenham-christmas-stroll-parade",
     "title": "Brenham Christmas Stroll and Lighted Parade · first weekend",
     "city": "Brenham",
@@ -998,6 +1026,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.gruenetexas.com/events/month/2026-12/",
     "sourceName": "Historic Gruene district organizer",
     "summary": "Official Gruene event calendar lists the 43rd Annual Town Lighting Saturday December 5, with brass-band music and Cowboy Kringle's arrival. The ceremony is free and separate from ticketed holiday photo appointments."
+  },
+  {
+    "slug": "boerne-weihnachts-parade-2026",
+    "title": "Boerne Weihnachts Parade · 39th annual holiday parade",
+    "city": "Boerne",
+    "countySlug": "kendall",
+    "countyName": "Kendall County",
+    "region": "hill-country",
+    "startDate": "2026-12-05",
+    "venueName": "Boerne Hill Country Mile · historic Main Street",
+    "officialEventUrl": "https://www.ci.boerne.tx.us/564/Weihnachts-Parade",
+    "sourceName": "City of Boerne Parks and Recreation",
+    "summary": "The City of Boerne confirms Saturday December 5, 2026 at 6 p.m. for its 39th annual lighted Weihnachts Parade on historic Main Street. Sunday December 6 is a weather contingency, NOT an additional advertised parade. Check city closure and postponement notices before travel."
   },
   {
     "slug": "college-station-christmas-in-park-festival-2026",
@@ -1301,6 +1342,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://unitedwayabilene.org/winterlightfest/",
     "sourceName": "United Way of Abilene",
     "summary": "The second December Winter Lightfest window is December 11–13, with a paved three-quarter-mile trail through holiday lights. Buy tickets through the official organizer."
+  },
+  {
+    "slug": "boerne-old-west-christmas-light-fest-3",
+    "title": "Boerne Old West Christmas Light Fest · operating window 3",
+    "city": "Boerne",
+    "countySlug": "kendall",
+    "countyName": "Kendall County",
+    "region": "hill-country",
+    "startDate": "2026-12-11",
+    "endDate": "2026-12-13",
+    "venueName": "Enchanted Springs Ranch · 242 State Highway 46 West",
+    "officialEventUrl": "https://christmaslightfest.com/plan-your-visit/",
+    "sourceName": "Old West Christmas Light Fest operator",
+    "summary": "The operator confirms 2026 tickets for exactly 15 nights: November 27–29, December 4–6, December 11–13 and December 18–23, 5–10 p.m. The venue is a WALK-through historic Old West town, not a drive-through display. General admission starts at $25 ages six and up plus fees; children five and under enter free. Confirm available tickets for this date window."
   },
   {
     "slug": "brenham-cold-nights-holiday-tunes-2026",
@@ -1617,6 +1672,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The final confirmed Winter Lightfest 2026 operating window is December 18–23; it does not run on December 24–25. Gates open at 5:30 p.m. and the walking trail is ticketed."
   },
   {
+    "slug": "boerne-old-west-christmas-light-fest-4",
+    "title": "Boerne Old West Christmas Light Fest · operating window 4",
+    "city": "Boerne",
+    "countySlug": "kendall",
+    "countyName": "Kendall County",
+    "region": "hill-country",
+    "startDate": "2026-12-18",
+    "endDate": "2026-12-23",
+    "venueName": "Enchanted Springs Ranch · 242 State Highway 46 West",
+    "officialEventUrl": "https://christmaslightfest.com/plan-your-visit/",
+    "sourceName": "Old West Christmas Light Fest operator",
+    "summary": "The operator confirms 2026 tickets for exactly 15 nights: November 27–29, December 4–6, December 11–13 and December 18–23, 5–10 p.m. The venue is a WALK-through historic Old West town, not a drive-through display. General admission starts at $25 ages six and up plus fees; children five and under enter free. Confirm available tickets for this date window."
+  },
+  {
     "slug": "san-angelo-ewetide-christmas",
     "title": "Ewetide Christmas in Downtown San Angelo",
     "city": "San Angelo",
@@ -1783,7 +1852,7 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The final five January evenings of the 2026–27 Marktplatz lighting program; December 31 is omitted because the special New Year's Eve event replaces the regular countdown.",
     "endDate": "2027-01-05"
   }
-];;;;;
+];;;;;;
 
 // Reuse comprehensive guides where they exist. The dated occurrence remains
 // an independent calendar record, so closing days are never falsely listed.
