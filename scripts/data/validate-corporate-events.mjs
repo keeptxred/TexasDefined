@@ -58,7 +58,7 @@ assert(!corporateEventProviders.some((venue) => /the rustic.*downtown/i.test(ven
 
 
 const reviewedCorporateVenueFacts = [
-  ['houston-zoo-events', 1200, null, 'Masihara Pavilion'],
+  ['houston-zoo-events', 6000, 20, 'entire-Zoo after-hours rental reaches 6,000'],
   ['sam-houston-race-park', 5000, 10, '10–5,000 guests'],
   ['puttshack-houston-corporate', 670, 13, 'up to 670 people'],
 ];
@@ -70,6 +70,18 @@ for (const [slug, maxGroup, minGroup, evidence] of reviewedCorporateVenueFacts) 
   assert(venue.capacityDetail.includes(evidence), 'Capacity needs a format-specific source caveat: ' + slug);
   assert.equal(venue.verifiedOn, '2026-10-24');
   assert.equal(venue.startingPricePerPerson, null, 'Venue-wide corporate starting price is not verified: ' + slug);
+}
+for (const [slug, expectedSource, capacityLimit, rejectedCount, formatProof] of [
+  ['houston-zoo-events', 'https://www.houstonzoo.org/host-an-event/', 6000, 6001, 'individual venue formats'],
+  ['pelazzio-houston-corporate-ballrooms', 'https://pelazzio.com/houston-ballrooms/', 550, 551, 'Tuscany AB/Wing'],
+]) {
+  const venue = corporateEventProviders.find((item) => item.slug === slug);
+  assert(venue, 'Missing official group-venue capacity evidence: ' + slug);
+  assert.equal(venue.sourceUrl, expectedSource, 'Exact operator page documenting format-specific maximum: ' + slug);
+  assert.equal(venue.maxGroup, capacityLimit, 'Keep max tied to published format, never infer a larger capacity: ' + slug);
+  assert(rejectedCount > venue.maxGroup, 'Groups exceeding the documented maximum must be rejected: ' + slug);
+  assert(venue.capacityDetail.includes(formatProof), 'Public display must distinguish entire-property/combined room layouts: ' + slug);
+  assert.equal(venue.startingPricePerPerson, null, 'Event configurations and minimums do not establish one universal quoted rate');
 }
 const puttshackReview = corporateEventProviders.find((item) => item.slug === 'puttshack-houston-corporate');
 assert.equal(puttshackReview?.sourceUrl, 'https://www.puttshack.com/parties/houston/',
@@ -90,7 +102,7 @@ const houston20261024Expansion = [
   ['puttery-houston-corporate-events', 600, null, 'https://www.puttery.com/locations/houston/'],
   ['davis-street-hermann-park-daytime-events', 200, null, 'https://www.davisstreet.com/daytime-events'],
   ['pour-behavior-houston-corporate', null, null, 'https://www.pourbehaviortx.com/private-events'],
-  ['pelazzio-houston-corporate-ballrooms', null, 75, 'https://pelazzio.com/corporate-events/'],
+  ['pelazzio-houston-corporate-ballrooms', 550, 75, 'https://pelazzio.com/corporate-events/'],
   ['battlefield-houston-corporate-laser-tag', null, 15, 'https://www.battlefieldhouston.com/indoor/indoorgroup'],
   ['brittmoore-houston-corporate-events', null, null, 'https://www.thebrittmoorehtx.com/events-corporate'],
   ['marriott-houston-energy-corridor-meetings', 300, null, 'https://www.marriott.com/en-us/hotels/houeg-houston-marriott-energy-corridor/events/'],
@@ -104,7 +116,9 @@ for (const [slug, maxGroup, minGroup, officialUrl] of houston20261024Expansion) 
   assert.equal(venue.startingPricePerPerson, null, 'Public admission or package prices are not globally applicable corporate group quotes: '+slug);
   assert.equal(venue.verifiedOn, '2026-10-24');
   assert.equal(venue.officialUrl, officialUrl);
-  assert.equal(venue.sourceUrl, officialUrl);
+  assert.equal(venue.sourceUrl, slug === 'pelazzio-houston-corporate-ballrooms'
+    ? 'https://pelazzio.com/houston-ballrooms/' : officialUrl,
+    'Operator room-layout evidence may be more precise than the public corporate booking page');
   assert(venue.capacityDetail.length > 85, 'Show specific room/format or quote limitations: '+slug);
 }
 assert.equal(corporateEventProviders.find(p=>p.slug === 'pour-behavior-houston-corporate')?.ageLimit,
