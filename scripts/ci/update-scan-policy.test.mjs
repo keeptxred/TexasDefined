@@ -701,7 +701,7 @@ test('Fredericksburg sitemap ownership validates a single canonical page and liv
   const detail = '<html><title>Fredericksburg</title><link rel="canonical" href="https://texasdefined.com/destination/fredericksburg"></html>';
   const checked = await verifyChangedPages({ plan, head, fetchImpl: async url =>
     url.pathname === '/sitemap-explore.xml'
-      ? new Response('<urlset><loc>https://texasdefined.com/destination/fredericksburg</loc></urlset>')
+      ? new Response('<urlset><loc>https://texasdefined.com/destination/fredericksburg</loc><loc>https://texasdefined.com/destination/magoffin-home</loc></urlset>')
       : new Response(detail) });
   assert.ok(checked.some(r => r.path === '/sitemap-explore.xml' && r.passed));
   const broken = await verifyChangedPages({ plan, head, fetchImpl: async url =>
@@ -709,4 +709,9 @@ test('Fredericksburg sitemap ownership validates a single canonical page and liv
       ? new Response('<urlset><loc>https://texasdefined.com/destination/another-town</loc></urlset>')
       : new Response(detail) });
   assert.ok(broken.some(r => r.path === '/sitemap-explore.xml' && !r.passed && /Fredericksburg missing/.test(r.error)));
+  const missingMagoffin = await verifyChangedPages({ plan, head, fetchImpl: async url =>
+    url.pathname === '/sitemap-explore.xml'
+      ? new Response('<urlset><loc>https://texasdefined.com/destination/fredericksburg</loc></urlset>')
+      : new Response(detail) });
+  assert.ok(missingMagoffin.some(r => r.path === '/sitemap-explore.xml' && !r.passed && /Magoffin Home missing/.test(r.error)));
 });
