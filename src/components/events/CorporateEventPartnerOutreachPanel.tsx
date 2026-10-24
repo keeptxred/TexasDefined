@@ -8,7 +8,7 @@ type OutreachEvent = {
 };
 type OutreachSnapshot = {
   events: OutreachEvent[]; truncated: boolean; maxDisplayed: number;
-  followupsDueInVisibleRows: number; today: string; disclosure: string;
+  followupsDueInVisibleRows: number; dueFollowupEventIds: string[]; today: string; disclosure: string;
 };
 const kinds = [
   {value:'initial_contact',label:'First actual venue contact'},
@@ -80,9 +80,10 @@ export function CorporateEventPartnerOutreachPanel({ accessKey }: { accessKey: s
     }finally{setBusy(false);}
   }
 
+  const dueFollowupIds = new Set(snapshot?.dueFollowupEventIds??[]);
   const matching=(snapshot?.events??[]).filter(row=>
     show==='all'
-    || (show==='followup' && row.followup_on !== null && row.followup_on <= (snapshot?.today??''))
+    || (show==='followup' && dueFollowupIds.has(row.id))
     || (show==='venue' && row.provider_slug===provider?.slug));
   const lastPage=Math.max(0,Math.ceil(matching.length/PAGE_SIZE)-1);
   const currentPage=Math.min(page,lastPage);
@@ -153,14 +154,14 @@ export function CorporateEventPartnerOutreachPanel({ accessKey }: { accessKey: s
       <h3 className="font-display text-2xl">Recently evidenced business activity</h3>
       <p className="mt-2 text-sm leading-6 text-muted-foreground">{snapshot?.disclosure??'Only staff-entered, genuine interactions will appear after the private database is available.'}</p>
       <p className="mt-2 text-sm text-muted-foreground">
-        {loading?'Loading private evidence…':`Visible recent records: ${snapshot?.events.length??0}; due follow-ups in visible records: ${snapshot?.followupsDueInVisibleRows??0}.`}
+        {loading?'Loading private evidence…':`Visible recent records: ${snapshot?.events.length??0}; due venue follow-ups from latest visible interaction: ${snapshot?.followupsDueInVisibleRows??0}.`}
         {snapshot?.truncated?' Earlier events exist outside this most-recent-120 view.':null}
       </p>
       <label className="mt-4 inline-grid gap-2 text-sm font-semibold">View private contact evidence
         <select value={show} onChange={event=>{setShow(event.target.value as typeof show);setPage(0);}}
           className="min-h-11 border border-border bg-background px-3 py-2 font-normal">
           <option value="all">All recent real interactions</option>
-          <option value="followup">Due follow-ups in visible records</option>
+          <option value="followup">Due follow-ups (latest venue interaction)</option>
           <option value="venue">Selected venue only</option>
         </select>
       </label>
