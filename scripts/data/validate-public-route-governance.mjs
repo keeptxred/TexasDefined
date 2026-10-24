@@ -228,9 +228,19 @@ for (const routePath of [...indexable, ...conditional]) {
   if (!routeEntry) { failures.push(`Indexable public route has no route source for metadata validation: ${routePath}.`); continue; }
   const { file: routeFile, source: routeSource } = routeEntry;
   if (!routeSource.includes('head:')) failures.push(`Indexable route is missing a head definition: ${routePath} (${routeFile}).`);
-  if (!routeSource.includes('canonicalPath')) failures.push(`Indexable route is missing canonical metadata: ${routePath} (${routeFile}).`);
-  if (!/\btitle\s*:/.test(routeSource)) failures.push(`Indexable route is missing a search title: ${routePath} (${routeFile}).`);
-  if (!/\bdescription\b/.test(routeSource)) failures.push(`Indexable route is missing a meta description: ${routePath} (${routeFile}).`);
+  // Resolve shared metadata only when both the Waco-specific call and its
+  // factory's real canonical/title/description/JSON-LD contract are present.
+  const wacoHeadSource = sourceByFile.get('src/lib/waco-page-head.ts') ?? '';
+  const verifiedWacoHead = ['/waco-attractions', '/waco-ghost-tours', '/dallas-to-waco-magnolia-tours'].includes(routePath)
+    && routeSource.includes('import { wacoPageHead } from "@/lib/waco-page-head"')
+    && routeSource.includes('head: () => wacoPageHead("' + routePath + '",')
+    && /wacoPageHead\([^,]+,\s*"[^"]+",\s*"[^"]+",\s*"[^"]+"\)/.test(routeSource)
+    && wacoHeadSource.includes('meta: buildMeta(texasDefinedBrand, { canonicalPath: path, title, description })')
+    && wacoHeadSource.includes('links: [canonicalLink(texasDefinedBrand, path)]')
+    && wacoHeadSource.includes('scripts: [jsonLd(');
+  if (!routeSource.includes('canonicalPath') && !verifiedWacoHead) failures.push(`Indexable route is missing canonical metadata: ${routePath} (${routeFile}).`);
+  if (!/\btitle\s*:/.test(routeSource) && !verifiedWacoHead) failures.push(`Indexable route is missing a search title: ${routePath} (${routeFile}).`);
+  if (!/\bdescription\b/.test(routeSource) && !verifiedWacoHead) failures.push(`Indexable route is missing a meta description: ${routePath} (${routeFile}).`);
   if (indexable.includes(routePath) && (/robots\s*:\s*["']noindex/i.test(routeSource) || /content=["'][^"']*noindex/i.test(routeSource))) failures.push(`Always-indexable route contains a noindex directive: ${routePath} (${routeFile}).`);
   if (conditional.includes(routePath) && !/noindex/i.test(routeSource)) failures.push(`Conditional route does not expose an explicit noindex state: ${routePath} (${routeFile}).`);
 }
