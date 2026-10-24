@@ -230,7 +230,7 @@ for (const routePath of [...indexable, ...conditional]) {
   if (!routeSource.includes('head:')) failures.push(`Indexable route is missing a head definition: ${routePath} (${routeFile}).`);
   // Resolve shared metadata only when both the Waco-specific call and its
   // factory's real canonical/title/description/JSON-LD contract are present.
-  const wacoHeadSource = sourceByFile.get('src/lib/waco-page-head.ts') ?? '';
+  const wacoHeadSource = fs.existsSync('src/lib/waco-page-head.ts') ? fs.readFileSync('src/lib/waco-page-head.ts', 'utf8') : '';
   const verifiedWacoHead = ['/waco-attractions', '/waco-ghost-tours', '/dallas-to-waco-magnolia-tours'].includes(routePath)
     && routeSource.includes('import { wacoPageHead } from "@/lib/waco-page-head"')
     && routeSource.includes('head: () => wacoPageHead("' + routePath + '",')
