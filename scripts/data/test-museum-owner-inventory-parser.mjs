@@ -36,7 +36,7 @@ assert.equal(nimitz?.status, "existing-authority-dossier-needs-independent-certi
   "Operator-confirmed exhibit must never queue a duplicate museum authority page");
 const dibollAlias = report.rows.find(row => row.submittedName === "Angelina County History Center");
 assert.equal(dibollAlias?.canonicalSlug, "the-history-center-diboll",
-  "UNC partner alias at the actual Diboll address must use the existing The History Center guide");
+  "UNT Portal to Texas History partner alias at the actual Diboll address must use the existing The History Center guide");
 assert.equal(dibollAlias?.status, "existing-authority-dossier-needs-independent-certification",
   "Angelina County History Center may not create duplicate authority content");
 const scurry = report.rows.filter(row => row.submittedName === "Scurry County Museum");
