@@ -296,6 +296,9 @@ if (fredericksburgSitemapPaths.length) {
       if (!xml.includes('<loc>https://texasdefined.com/destination/fredericksburg</loc>')) {
         throw new Error('Fredericksburg missing from the live Explore sitemap');
       }
+      if (!xml.includes('<loc>https://texasdefined.com/destination/magoffin-home</loc>')) {
+        throw new Error('Magoffin Home missing from the live Explore sitemap');
+      }
       results.push({ path: '/sitemap-explore.xml', passed: true, attempt, requiredUrl: '/destination/fredericksburg' });
       failure = null;
       break;
