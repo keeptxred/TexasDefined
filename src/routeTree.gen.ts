@@ -1707,9 +1707,7 @@ const DallasToWacoMagnoliaToursRoute =
     path: '/dallas-to-waco-magnolia-tours',
     getParentRoute: () => rootRouteImport,
   } as any).lazy(() =>
-    import('./routes/dallas-to-waco-magnolia-tours.lazy').then(
-      (d) => d.Route,
-    ),
+    import('./routes/dallas-to-waco-magnolia-tours.lazy').then((d) => d.Route),
   )
 const DallasFortWorthMusicHistoryRoute =
   DallasFortWorthMusicHistoryRouteImport.update({
