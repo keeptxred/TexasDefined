@@ -39,7 +39,10 @@ async function check(url) {
   const html = await response.text();
   const missing = required.filter((s) => !html.includes(s));
   if (missing.length) throw new Error(`Stale Christmas HTML; missing: ${missing.join("; ")}`);
-  if (/adsbygoogle/i.test(html)) throw new Error("Unapproved AdSense runtime script found on Christmas page");
+  // Publisher account verification may exist pre-approval; an actual ad unit must not.
+  if (/<ins\\b[^>]*class=["'][^"']*adsbygoogle\\b/i.test(html) || /data-ad-slot=/.test(html)) {
+    throw new Error("Unapproved display ad unit found on Christmas page");
+  }
   return { status: response.status, bytes: html.length, cache: response.headers.get("cf-cache-status") || "unknown" };
 }
 
