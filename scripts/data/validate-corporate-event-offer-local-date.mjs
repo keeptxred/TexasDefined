@@ -11,7 +11,8 @@ for (const path of [
 ]) {
   const s = readFileSync(path,'utf8');
   assert(s.includes('corporateEventTexasToday()'), path + ' must use explicit Texas date');
-  assert(s.includes("import { corporateEventTexasToday } from '@/data/corporate-event-dates'"));
+  assert(/import \{[^}]*\bcorporateEventTexasToday\b[^}]*\} from ['"]@\/data\/corporate-event-dates['"]/.test(s),
+    path + ' must import Texas calendar helpers even when commercial date validation shares that import');
   assert(!s.includes("new Date().toISOString().slice(0, 10)"), path + ' may not accidentally use UTC for offer eligibility');
 }
 console.log('Texas-local partner offer start/end dates and staff counters PASS.');
