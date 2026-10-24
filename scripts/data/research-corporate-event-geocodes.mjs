@@ -27,7 +27,7 @@ const MAX_BYTES = 50_000;
 const texas = value => typeof value === 'string' && /^[A-Za-z0-9 .,'-]{2,120}$/.test(value);
 const normalize = value => value.trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
 
-function catalog() {
+export function loadPublicCorporateVenueCatalog() {
   // Extract only public editorial metadata; never load private planners.
   const text = readFileSync('src/data/corporate-events.ts','utf8');
   // A significant subset of real listings places reviewedOn/price BEFORE
@@ -172,7 +172,7 @@ async function main() {
   if (inputBytes.length>MAX_BYTES) throw new Error('Too much input data for bounded public venue research');
   const data=JSON.parse(inputBytes.toString('utf8'));
   const asOf=new Date().toISOString().slice(0,10);
-  const result=await researchPublicVenueCoordinates(data,catalog(),fetch,asOf);
+  const result=await researchPublicVenueCoordinates(data,loadPublicCorporateVenueCatalog(),fetch,asOf);
   await mkdir(dirname(resolve(output)),{recursive:true});
   await writeFile(output,JSON.stringify(result,null,2)+'\n',{flag:'wx',mode:0o600});
   process.stdout.write('Review candidates written privately: '+result.proposals.length+'. Verified/admitted venue coordinates: ZERO.\n');
