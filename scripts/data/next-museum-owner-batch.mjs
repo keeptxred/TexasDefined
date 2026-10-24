@@ -90,6 +90,41 @@ if (process.argv.includes("--self-test")) {
     encoding:"utf8", maxBuffer:32 * 1024 * 1024,
   }));
   const ledger = JSON.parse(readFileSync(ledgerPath,"utf8"));
+  // Record a researched candidate's disposition explicitly before moving on.
+  // These statuses are administrative research outcomes, NOT editorial certificates.
+  const resolveKey = process.argv.find((arg) => arg.startsWith("--resolve="))?.slice(10);
+  if (resolveKey) {
+    const status = process.argv.find((arg) => arg.startsWith("--status="))?.slice(9);
+    const evidence = process.argv.find((arg) => arg.startsWith("--evidence="))?.slice(11);
+    const reason = process.argv.find((arg) => arg.startsWith("--reason="))?.slice(9);
+    const allowed = new Set(["guide-merged", "duplicate", "out-of-state", "closed", "not-visitable", "research-blocked", "photo-permission-blocked"]);
+    if (!allowed.has(status)) throw Error("Dispositions must be researched outcomes; editorial certification is a separate human-reviewed process");
+    if (!/^https:\/\/\S+$/.test(evidence || "")) throw Error("A source or merged-PR evidence URL is required for each disposition");
+    if (!reason || reason.trim().length < 12) throw Error("A specific 12+ character disposition reason is required");
+    if (status === "guide-merged" && !/^https:\/\/github\.com\/keeptxred\/TexasDefined\/pull\/\d+$/.test(evidence))
+      throw Error("Guide-merged requires evidence pointing to a TexasDefined GitHub pull request (confirm it is actually merged before use)");
+    if (!(audit.uniqueRows || []).some((row) => keyFor(row) === resolveKey))
+      throw Error("Resolution key does not exist in the owner-supplied museum inventory audit");
+    const execution = ledger.ownerInventoryExecution;
+    if (execution?.records?.[resolveKey]?.status !== "assigned")
+      throw Error("Only currently assigned candidate records may be dispositioned");
+    const lock = ledgerPath + ".lock";
+    let fd;
+    try {
+      fd = openSync(lock,"wx");
+      execution.records[resolveKey] = {
+        ...execution.records[resolveKey], status, evidence, reason,
+        dispositionAt:new Date().toISOString(), editorialCertified:false,
+      };
+      const temporary = ledgerPath + ".next.tmp";
+      writeFileSync(temporary,JSON.stringify(ledger,null,2)+"\\n",{flag:"wx"});
+      renameSync(temporary,ledgerPath);
+    } finally {
+      if (fd !== undefined) { closeSync(fd); unlinkSync(lock); }
+    }
+    console.log(JSON.stringify({checkpoint:ledgerPath, resolvedKey:resolveKey, status, evidence, editorialCertified:false},null,2));
+    process.exit(0);
+  }
   const plan = selectBatch(audit,ledger,size);
   if (process.argv.includes("--assign")) {
     if (plan.selected.length === 0) throw Error("No eligible museum candidates remain for automatic research assignment");
