@@ -30,10 +30,16 @@ const normalize = value => value.trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
 function catalog() {
   // Extract only public editorial metadata; never load private planners.
   const text = readFileSync('src/data/corporate-events.ts','utf8');
-  const blocks = text.split(/(?=\{\s*slug:\s*['"][a-z0-9-]+['"])/);
+  // A significant subset of real listings places reviewedOn/price BEFORE
+  // slug. Split on the actual two-space object boundaries instead of assuming
+  // slug is the first key; otherwise legitimate newer venues are omitted.
+  const start = text.indexOf('export const corporateEventProviders: CorporateEventProvider[] = [');
+  const end = text.indexOf('\n];', start);
+  if (start < 0 || end < 0) throw new Error('Corporate source catalog shape changed; manual review required');
+  const blocks = [...text.slice(start, end).matchAll(/^  \{[\s\S]*?^  \},?/gm)].map(match => match[0]);
   const rows = new Map();
   for (const block of blocks) {
-    const slug = block.match(/^\{\s*slug:\s*['"]([a-z0-9-]+)['"]/);
+    const slug = block.match(/\bslug:\s*['"]([a-z0-9-]+)['"]/);
     const city = block.match(/\bcity:\s*['"]([^'"]+)['"]/);
     const official = block.match(/\bofficialUrl:\s*['"]([^'"]+)['"]/);
     if (slug && city && official) rows.set(slug[1], { city:city[1], officialUrl:official[1] });
