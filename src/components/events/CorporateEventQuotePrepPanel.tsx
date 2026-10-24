@@ -15,8 +15,8 @@ type Planner = {
 };
 type Snapshot = { leads: Planner[] };
 type QuoteDraft = {
-  subject: string;
-  brief: string;
+  // Never retain planner email, phone, notes or prepared message body in React
+  // state after the server check; obtain it only at the authorization/copy action.
   providerName: string;
   verifiedOfficialUrl: string;
   sent: false;
@@ -67,7 +67,7 @@ export function CorporateEventQuotePrepPanel({ accessKey }: { accessKey: string 
       const result = await prepareCorporateEventQuoteDraft({ data: {
         accessKey, leadId: selectedLead, providerSlug: selectedProvider,
       } });
-      setDraft(result as QuoteDraft);
+      setDraft({ providerName: result.providerName, verifiedOfficialUrl: result.verifiedOfficialUrl, sent: false });
       setMessage('Manual draft prepared. Nothing was emailed or shared.');
     } catch {
       setError('Draft blocked. Check sharing consent, event date, provider shortlist, and a uniquely approved partner whose HTTPS domain matches the official venue website.');
@@ -92,7 +92,7 @@ export function CorporateEventQuotePrepPanel({ accessKey }: { accessKey: string 
       await navigator.clipboard.writeText(
         'Subject: ' + freshlyAuthorized.subject + '\n\n' + freshlyAuthorized.brief,
       );
-      setDraft(freshlyAuthorized as QuoteDraft);
+      setDraft({ providerName: freshlyAuthorized.providerName, verifiedOfficialUrl: freshlyAuthorized.verifiedOfficialUrl, sent: false });
       setMessage('Fresh organizer venue consent and independently verified partner agreement rechecked at copy time. Draft copied for manual review only. No email sent.');
     } catch {
       // Never leave an older copy-ready contact brief visible after an
@@ -137,13 +137,11 @@ export function CorporateEventQuotePrepPanel({ accessKey }: { accessKey: string 
     {message ? <p role="status" className="mt-4 text-sm">{message}</p> : null}
     {draft ? <div className="mt-6 border border-border bg-background p-5">
       <p className="text-xs font-semibold uppercase tracking-wide text-primary">Private review draft — not sent</p>
-      <h3 className="mt-2 text-lg font-semibold">{draft.subject}</h3>
+      <h3 className="mt-2 text-lg font-semibold">Manual quote request ready for fresh authorization</h3>
       <p className="mt-2 text-xs text-muted-foreground">Verified venue: {draft.providerName} · <a className="underline" href={draft.verifiedOfficialUrl} rel="noopener noreferrer" target="_blank">Official website ↗</a></p>
       <p className="mt-2 text-xs leading-6 text-muted-foreground">Check the exact recipient using official venue contact channels and review every planner note before sending manually. No automatic referral or booking has occurred.</p>
       <button type="button" disabled={working} onClick={() => void copyDraft()} className="mt-4 min-h-11 border border-primary px-4 text-sm font-semibold text-primary disabled:opacity-50">{working ? 'Rechecking live consent…' : 'Copy for manual review'}</button>
-      <textarea readOnly value={'Subject: ' + draft.subject + '\n\n' + draft.brief}
-        aria-label="Restricted manually prepared partner quote request"
-        className="mt-4 h-72 w-full resize-y border border-border bg-surface p-3 text-sm" />
+      <p className="mt-4 text-xs leading-6 text-muted-foreground">Sensitive planner contact details and notes are not displayed or retained in this preview. Copying requests a fresh server-side venue-sharing and partner-agreement authorization, then places the draft on your clipboard for private review. Do not share if the organizer subsequently withdraws consent.</p>
     </div> : null}
   </section>;
 }
