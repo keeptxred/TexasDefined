@@ -9,6 +9,8 @@
  * before use, and separately test the actual provider's authentication, webhook
  * signatures, idempotency, cancellation and refund obligations.
  */
+import { corporateEventTexasToday, isUpcomingCorporateEventDate } from './corporate-event-dates.ts';
+
 export type CorporateProviderAction =
   | 'prepare_quote_draft' | 'transmit_quote_request'
   | 'hold_booking' | 'confirm_booking' | 'collect_payment';
@@ -88,12 +90,14 @@ export function assessCorporateProviderAction(
   if (!data.agreementCoversQuoteRouting) {
     reasons.push('Signed partner terms do not authorize quote routing.');
   }
-  const today = now.toISOString().slice(0, 10);
+  // Use the same calendar as planner intake; 00:00 UTC is still yesterday
+  // in Texas and must not expire a valid same-day booking or agreement.
+  const today = corporateEventTexasToday(now);
   if (data.agreementExpiresOn
     && (!validDate(data.agreementExpiresOn) || data.agreementExpiresOn < today)) {
     reasons.push('The signed commercial agreement is expired or invalid.');
   }
-  if (data.eventDate && (!validDate(data.eventDate) || data.eventDate < today)) {
+  if (data.eventDate && !isUpcomingCorporateEventDate(data.eventDate, now)) {
     reasons.push('The proposed event date is past or invalid.');
   }
   if (needsBooking) {

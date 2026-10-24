@@ -62,8 +62,33 @@ for (const action of ['transmit_quote_request','hold_booking','confirm_booking',
 }
 assert.equal(denied({},'hold_booking').state,'blocked');
 assert.equal(denied({},'collect_payment').state,'blocked');
+// Friday October 23, 2026 at 9 PM in Texas is already Oct 24 in UTC.
+// Same-day Texas dates and expiring-on-today agreements remain valid until
+// the Texas date rolls over; the fixture must never activate network delivery.
+const texasEvening = new Date('2026-10-24T02:00:00.000Z');
+const sameDay = assessCorporateProviderAction('prepare_quote_draft', {
+  ...valid, eventDate: '2026-10-23', agreementExpiresOn: '2026-10-23',
+}, texasEvening);
+assert.equal(sameDay.state, 'manual_draft_only',
+  'UTC midnight must not prematurely expire Texas-local venue date/contract');
+assert.equal(sameDay.permittedToExecute, false);
+assert.equal(assessCorporateProviderAction('prepare_quote_draft',
+  { ...valid, eventDate: '2026-10-22', agreementExpiresOn: '2026-10-23' }, texasEvening).state, 'blocked',
+  'Yesterday in Texas must remain expired');
+assert.equal(assessCorporateProviderAction('prepare_quote_draft',
+  { ...valid, eventDate: '2026-10-23', agreementExpiresOn: '2026-10-22' }, texasEvening).state, 'blocked',
+  'Yesterday-expired partner agreements must remain blocked');
+const texasNextDay = new Date('2026-10-24T05:01:00.000Z');
+assert.equal(assessCorporateProviderAction('prepare_quote_draft',
+  { ...valid, eventDate: '2026-10-23', agreementExpiresOn: '2026-10-23' }, texasNextDay).state, 'blocked',
+  'Same local-calendar date is expired once Texas midnight actually passes');
+assert.equal(assessCorporateProviderAction('prepare_quote_draft',
+  { ...valid, eventDate: '2026-02-31', agreementExpiresOn: '2026-12-31' }, texasEvening).state, 'blocked',
+  'Calendar rollover must never become an eligible event date');
 const source = readFileSync('src/data/corporate-event-integration-readiness.ts','utf8');
 assert(!/\bfetch\s*\(|\bXMLHttpRequest\b|\bStripe\s*\(|navigator\.sendBeacon/.test(source));
 assert(!source.includes('process.env.'), 'No credentials or activation secret must be referenced');
 assert(source.includes('permittedToExecute: false') && source.includes('paymentCaptured: false'));
+assert(source.includes('corporateEventTexasToday(now)') && source.includes('isUpcomingCorporateEventDate(data.eventDate, now)'),
+  'Offline provider readiness must use the exact Texas calendar policy as real private planner intake');
 console.log('Corporate event quote, booking and payment integration foundation: fail-closed and zero network/execution PASS');
