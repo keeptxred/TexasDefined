@@ -71,6 +71,34 @@ try {
       assert.equal(await page.getByRole('button', { name: 'Send planning request to TexasDefined' }).isDisabled(), true,
         'Invalid headcount may not submit a planning request');
       await guests.fill('45');
+      const cityInput = page.locator('input[placeholder="Houston"]');
+      const broadTypes = page.getByRole('checkbox', { name: /Show relevant group venues from other event types/i });
+      await broadTypes.check();
+      for (const market of ['Dallas', 'Dallas-Fort Worth', 'Austin', 'San Antonio', 'El Paso', '77002', 'Texas']) {
+        await cityInput.fill(market);
+        await page.getByText(market + ' · 45 guests', { exact: false }).first().waitFor();
+        const label = await page.getByRole('heading', { level: 2, name: /group event options?/ }).textContent();
+        assert(Number(label?.match(/(\d+) group event/)?.[1]) > 0,
+          view.name + ': no sourced venue candidates for ' + market);
+      }
+      await cityInput.fill('Houston');
+      await page.getByText('Houston · 45 guests', { exact: false }).first().waitFor();
+      await broadTypes.uncheck();
+      result.checks.push('Seven real Texas city/DFW/ZIP/statewide market filters return sourced candidates');
+
+      const dateInput = page.locator('input[type="date"]');
+      const today = await dateInput.getAttribute('min');
+      assert(/^\d{4}-\d{2}-\d{2}$/.test(today || ''), 'Missing Texas-local minimum event date');
+      const yesterday = new Date(Date.parse(today + 'T12:00:00Z') - 86400000).toISOString().slice(0, 10);
+      await dateInput.fill(yesterday);
+      assert.equal(await page.getByRole('button', { name: 'Send planning request to TexasDefined' }).isDisabled(), true,
+        'Past event dates must block planner submission before hitting the server');
+      await page.getByText('Choose a real event date that is today or later in Texas', { exact: false }).waitFor();
+      await dateInput.fill(today);
+      assert.equal(await page.getByRole('button', { name: 'Send planning request to TexasDefined' }).isEnabled(), true);
+      await dateInput.fill('');
+      result.checks.push('Optional event date uses Texas calendar and rejects expired dates without a POST');
+
       await page.getByRole('combobox', { name: 'Maximum budget per person' }).selectOption('100');
       await page.getByRole('combobox', { name: 'Event type' }).selectOption('team-building');
       await page.getByRole('button', { name: 'Compare', exact: true }).first()
@@ -80,6 +108,20 @@ try {
       await proposal.getByText('$4,500', { exact: true }).waitFor();
       assert.equal(await page.getByRole('button', { name: 'Shortlisted', exact: true }).count() >= 1, true);
       result.checks.push('45 guests, $100/person -> illustrative $4,500 ceiling, and shortlist selection');
+      for (const count of [13, 25, 100, 300, 500]) {
+        await guests.fill(String(count));
+        await page.waitForFunction((n) =>
+          document.querySelector('#proposal .td-print-summary')?.textContent?.includes('Group size: ' + n), count);
+        const body = await proposal.locator('.td-print-summary').textContent();
+        const total = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD',
+          maximumFractionDigits: 0 }).format(count * 100);
+        assert(body?.includes('Total planning ceiling: ' + total),
+          view.name + ': incorrect illustrative budget at group size ' + count);
+      }
+      await guests.fill('45');
+      await page.waitForFunction(() =>
+        document.querySelector('#proposal .td-print-summary')?.textContent?.includes('Group size: 45'));
+      result.checks.push('13, 25, 100, 300 and 500 guests recalculate planning ceilings without vendor quotes');
 
       const request = page.locator('#planning-request form');
       assert.equal(await request.evaluate(form => form.checkValidity()), false,
@@ -101,7 +143,15 @@ try {
       assert(url.searchParams.get('venues')?.length, view.name + ': selected venue missing from public share link');
       assert(!/email|phone|contactName|companyAddress2/.test(url.search),
         'Share link may not contain organizer contact fields');
-      result.checks.push('Shareable shortlist URL restores public choices without private contact fields');
+      result.checks.push('Shareable shortlist URL contains public planning choices without private contact fields');
+      await page.getByRole('button', { name: 'Shortlisted', exact: true }).first().click();
+      assert.equal(await page.getByRole('button', { name: 'Shortlisted', exact: true }).count(), 0,
+        view.name + ': removing the only selected venue did not clear the shortlist');
+      await page.goto(copied, { waitUntil: 'domcontentloaded', timeout: 50_000 });
+      await page.getByRole('button', { name: 'Shortlisted', exact: true }).first()
+        .waitFor({ state: 'visible', timeout: 25_000 });
+      assert.equal(await page.getByRole('button', { name: 'Shortlisted', exact: true }).count(), 1);
+      result.checks.push('Shortlist removal and URL reloading restores exactly one approved public venue');
 
       await page.emulateMedia({ media: 'print' });
       const visibility = await page.locator('#proposal').evaluate(el => getComputedStyle(el).visibility);

@@ -6,6 +6,7 @@ import { Container } from '@/components/layout/Container';
 import { corporateEventCategories, corporateEventProviders, type GroupEventCategory, type CorporateEventProvider } from '@/data/corporate-events';
 import { submitGroupEventRequest } from '@/data/corporate-events.functions';
 import { groupEventPlanningAmounts } from '@/data/corporate-event-budgets';
+import { corporateEventTexasToday, isUpcomingCorporateEventDate } from '@/data/corporate-event-dates';
 import { CORPORATE_EVENT_RESULT_PAGE_SIZE, nextCorporateEventResultCount, visibleCorporateEventResults } from '@/data/corporate-event-pagination';
 import { corporateEventMarketMatches, corporateEventAreaMatches } from '@/data/corporate-event-market-search';
 import { GroupEventPartnerApplication } from '@/components/events/GroupEventPartnerApplication';
@@ -77,6 +78,7 @@ function CorporateEventsPage() {
   const [eventDate, setEventDate] = useState('');
 
   const validHeadcount = Number.isInteger(headcount) && headcount >= 2 && headcount <= 3000;
+  const validEventDate = !eventDate || isUpcomingCorporateEventDate(eventDate);
   // Shared shortlists contain public planning preferences, never contact details.
   // Hydrate from URL after mount to preserve the initial server-rendered HTML.
   useEffect(() => {
@@ -105,7 +107,7 @@ function CorporateEventsPage() {
     if (validHeadcount) url.searchParams.set('guests', String(headcount));
     url.searchParams.set('type', category);
     if (budget) url.searchParams.set('budget', budget);
-    if (eventDate) url.searchParams.set('date', eventDate);
+    if (eventDate && validEventDate) url.searchParams.set('date', eventDate);
     url.searchParams.set('venues', selected.join(','));
     try {
       await navigator.clipboard.writeText(url.toString());
@@ -183,7 +185,7 @@ function CorporateEventsPage() {
 
   async function sendRequest(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!validHeadcount || !city.trim()) return;
+    if (!validHeadcount || !validEventDate || !city.trim()) return;
     const form = new FormData(event.currentTarget);
     setSubmitting(true);
     setFormError('');
@@ -306,7 +308,8 @@ function CorporateEventsPage() {
               <span className="mt-1 block text-xs font-normal text-muted-foreground">Quote-required venues still show: their price has not been verified against this ceiling.</span>
             </label>
             <label className="block text-sm font-semibold">Preferred event date (optional)
-              <input type="date" value={eventDate} onChange={(event) => setEventDate(event.target.value)} className={'mt-2 ' + controlClass} />
+              <input type="date" min={corporateEventTexasToday()} value={eventDate} aria-invalid={!validEventDate} aria-describedby={!validEventDate ? "corporate-date-error" : undefined} onChange={(event) => setEventDate(event.target.value)} className={'mt-2 ' + controlClass} />
+              {!validEventDate ? <span id="corporate-date-error" role="alert" className="mt-1 block text-xs font-normal text-destructive">Choose a real event date that is today or later in Texas, or clear the optional date.</span> : null}
             </label>
           </div>
           <p className="mt-6 border-t border-border pt-4 text-xs leading-6 text-muted-foreground">Capacity indicates provider-published space or group limits, not an opening on your preferred date. Formats for larger groups may require several teams or rotations.</p>
@@ -401,7 +404,7 @@ function CorporateEventsPage() {
                 <div className="sm:col-span-2">
                   <p className="text-xs leading-6 text-muted-foreground">Request: {validHeadcount ? headcount : 'Invalid group size'} people near {city || 'unspecified city'}, {chosenCategoryLabel.toLowerCase()}. {selected.length} selected venues. See <a className="underline" href="/privacy">privacy & site terms</a>.</p>
                   {formError && <p role="alert" className="mt-2 text-sm text-destructive">{formError}</p>}
-                  <button type="submit" disabled={submitting || !validHeadcount || !city.trim()} className="mt-4 min-h-12 w-full bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground disabled:cursor-not-allowed disabled:opacity-50">{submitting ? 'Saving request…' : 'Send planning request to TexasDefined'}</button>
+                  <button type="submit" disabled={submitting || !validHeadcount || !validEventDate || !city.trim()} className="mt-4 min-h-12 w-full bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground disabled:cursor-not-allowed disabled:opacity-50">{submitting ? 'Saving request…' : 'Send planning request to TexasDefined'}</button>
                 </div>
               </form>}
           </div>
