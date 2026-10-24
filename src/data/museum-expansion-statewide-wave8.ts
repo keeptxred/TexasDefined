@@ -224,7 +224,7 @@ export const statewideMuseumExpansionWave8Destinations: Destination[] = [
     brandId: "texasdefined",
     slug: "bastrop-county-museum-visitor-center",
     name: "Bastrop County Museum & Visitor Center",
-    summary: "The Bastrop County Museum & Visitor Center in historic downtown Bastrop interprets Indigenous life, El Camino Real de los Tejas, the Texas Revolution, coal mining, World War II, wildfire and local civic history while serving as a gateway to the county's heritage sites.",
+    summary: "Bastrop County Museum & Visitor Center at 904 Main interprets Indigenous and Texas history, the El Camino Real, Lost Pines and local industry, with downtown trip-planning help.",
     category: "historic-sites",
     region: "prairies-lakes",
     nearestTown: "Bastrop",
@@ -232,7 +232,7 @@ export const statewideMuseumExpansionWave8Destinations: Destination[] = [
     coordinates: { lat: 30.109425, lng: -97.320224 },
     hero: museumLicensedHeroes["bastrop-county-museum-visitor-center"],
     bestSeason: "Year-round museum; fall through spring is ideal for combining the galleries with downtown walking tours, historic homes and nearby state parks.",
-    entryNote: "904 Main Street. Operator verifies Monday–Saturday 10 a.m.–5 p.m., last museum entry 4:30 p.m. Sunday hours conflict across its own pages; call to confirm Sunday. Current admission $8, children 12 and under, active military and veterans free; qualifying EBT families may obtain a $5 family ticket.",
+    entryNote: "904 Main St. Mon–Sat 10 a.m.–5 p.m., last entry 4:30. Adults $8; children 12 and under and military/veterans free. Sunday hours conflict; confirm by phone. Eligible EBT families $5.",
     highlights: ["El Camino Real de los Tejas interpretation", "Texas Revolution and Bastrop history", "Bastrop wildfire exhibit", "Museum and visitor center in one stop"],
     body: [
       "Bastrop County Museum & Visitor Center works especially well as a first stop because it combines local-history interpretation with trip-planning resources. The galleries introduce the Indigenous, Spanish colonial, revolutionary and later economic stories that visitors encounter in buildings and landscapes throughout the county.",
