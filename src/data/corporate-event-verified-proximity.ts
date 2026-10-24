@@ -44,7 +44,7 @@ export function validVerifiedCorporateEventPoint(
     const source = new URL(point.sourceUrl);
     if (source.protocol !== 'https:' || !source.hostname) return false;
   } catch { return false; }
-  if (!/^\\d{4}-\\d{2}-\\d{2}$/.test(point.verifiedOn) || !/^\\d{4}-\\d{2}-\\d{2}$/.test(asOf)) return false;
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(point.verifiedOn) || !/^\d{4}-\d{2}-\d{2}$/.test(asOf)) return false;
   const stamp = new Date(point.verifiedOn + 'T12:00:00Z');
   return Number.isFinite(stamp.getTime()) && stamp.toISOString().slice(0, 10) === point.verifiedOn
     && point.verifiedOn <= asOf;
@@ -84,7 +84,7 @@ export function searchCorporateEventVerifiedRadius(
     status, matches: [] as CorporateEventRadiusMatch[], excludedUnverified: count,
     originType: null, distanceBasis: 'straight-line-estimate-not-driving' as const,
   });
-  if (!/^\\d{5}$/.test(zip) || !bounded(radiusMiles, 1, 250)) return empty('unsupported_zip', providers.length);
+  if (!/^\d{5}$/.test(zip) || !bounded(radiusMiles, 1, 250)) return empty('unsupported_zip', providers.length);
   const candidates = zipLocations.filter((item) => item.zip === zip
     && validVerifiedCorporateEventPoint(item.point, 'zcta', asOf));
   if (candidates.length !== 1) return empty('unsupported_zip', providers.length);

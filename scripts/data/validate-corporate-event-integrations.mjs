@@ -63,7 +63,7 @@ for (const action of ['transmit_quote_request','hold_booking','confirm_booking',
 assert.equal(denied({},'hold_booking').state,'blocked');
 assert.equal(denied({},'collect_payment').state,'blocked');
 const source = readFileSync('src/data/corporate-event-integration-readiness.ts','utf8');
-assert(!/\\bfetch\\s*\\(|\\bXMLHttpRequest\\b|\\bStripe\\s*\\(|navigator\\.sendBeacon/.test(source));
+assert(!/\bfetch\s*\(|\bXMLHttpRequest\b|\bStripe\s*\(|navigator\.sendBeacon/.test(source));
 assert(!source.includes('process.env.'), 'No credentials or activation secret must be referenced');
 assert(source.includes('permittedToExecute: false') && source.includes('paymentCaptured: false'));
 console.log('Corporate event quote, booking and payment integration foundation: fail-closed and zero network/execution PASS');

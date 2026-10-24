@@ -50,5 +50,5 @@ assert.equal(run('77002', 10, [zips[0], zips[0]]).status, 'unsupported_zip', 'Co
 assert.equal(run('77002', 10, zips, [venues[0], venues[0]]).status, 'no_verified_venues', 'Conflicting venue source points are excluded');
 const source = readFileSync('src/data/corporate-event-verified-proximity.ts', 'utf8');
 assert(source.includes('Missing provider/ZIP evidence') || source.includes('Missing provider/ZIP'));
-assert(!/navigator\\.geolocation|cookie|request\\.headers|cf-connecting-ip/i.test(source), 'Pure ZIP geometry must not collect a user's location or device identity');
+assert(!/navigator\.geolocation|cookie|request\.headers|cf-connecting-ip/i.test(source), "Pure ZIP geometry must not collect a user's location or device identity");
 console.log('Corporate event sourced-only radius engine: unsupported ZIPs fail closed; straight-line geometry, evidence, privacy and coverage reporting PASS');
