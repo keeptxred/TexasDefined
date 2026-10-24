@@ -36,6 +36,22 @@ assert.equal(denied({ organizerVenueSharingConsent: false }).state, 'blocked');
 assert.equal(denied({ organizerVenueSharingConsentedAt: null }).state, 'blocked');
 assert.equal(denied({ organizerVenueSharingConsentedAt: '2026-10-25T00:00:00Z' }).state, 'blocked');
 assert.equal(denied({ businessIdentityVerifiedAt: null }).state, 'blocked');
+// Signed identity/consent/agreement evidence must use strict, real-calendar
+// ISO timestamps, not permissive JS Date.parse interpretations.  Future
+// adapters may not lower the public offer provenance requirements.
+for (const invalidTimestamp of [
+  '2026-10-22', 'October 22, 2026', '2026-10-22T15:00:00',
+  '2026-02-31T15:00:00Z', '2026-13-01T15:00:00Z',
+  '2026-10-22T25:00:00Z', '2026-10-22T15:00:00+14:30',
+  '2026-10-22T15:00:00Z unexpected',
+]) {
+  for (const field of [
+    'organizerVenueSharingConsentedAt', 'businessIdentityVerifiedAt', 'agreementVerifiedAt',
+  ]) {
+    assert.equal(denied({ [field]: invalidTimestamp }).state, 'blocked',
+      `${field} accepted malformed or non-ISO evidence ${invalidTimestamp}`);
+  }
+}
 assert.equal(denied({ agreementVerifiedAt: null }).state, 'blocked');
 assert.equal(denied({ agreementCoversQuoteRouting: false }).state, 'blocked');
 assert.equal(denied({ agreementExpiresOn: '2026-10-01' }).state, 'blocked');
@@ -88,6 +104,7 @@ assert.equal(assessCorporateProviderAction('prepare_quote_draft',
 const source = readFileSync('src/data/corporate-event-integration-readiness.ts','utf8');
 assert(!/\bfetch\s*\(|\bXMLHttpRequest\b|\bStripe\s*\(|navigator\.sendBeacon/.test(source));
 assert(!source.includes('process.env.'), 'No credentials or activation secret must be referenced');
+assert(source.includes('corporateEventEvidenceTimestampIsValid'), 'Use shared commercial evidence timestamp validation');
 assert(source.includes('permittedToExecute: false') && source.includes('paymentCaptured: false'));
 assert(source.includes('corporateEventTexasToday(now)') && source.includes('isUpcomingCorporateEventDate(data.eventDate, now)'),
   'Offline provider readiness must use the exact Texas calendar policy as real private planner intake');
