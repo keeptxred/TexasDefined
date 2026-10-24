@@ -27,7 +27,7 @@ const end = eventFile.indexOf("\n];", start);
 assert.ok(start >= 0 && end > start, "Source-qualified Christmas manifest was not found");
 const json = eventFile.slice(eventFile.indexOf("= [", start) + 2, end + 2).trim();
 const events = JSON.parse(json);
-assert.ok(events.length >= 134, "The 134 organizer-verified Christmas date windows must not shrink without explicit source review");
+assert.ok(events.length >= 140, "The 140 organizer-verified Christmas date windows must not shrink without explicit source review");
 assert.equal(events.length, new Set(events.map((event) => event.slug)).size, "Duplicate Christmas community slugs");
 
 const validDate = /^20\d{2}-\d{2}-\d{2}$/;
@@ -90,6 +90,21 @@ for (const [slug, begin, ending] of [
     event.officialEventUrl.startsWith("https://www.flowermound.gov/"), `${slug}: 2026 organizer source required`);
 }
 assert.ok(!bySlug.has("tpwd-south-llano-christmas-at-ranch-2026"), "The linked South Llano 2024 event page is not 2026 evidence");
+
+for (const [slug, begin, ending] of [
+  ["round-rock-light-up-the-lake-2026","2026-12-04","2026-12-05"],
+  ["keller-holly-days-2026","2026-12-04",undefined],
+  ["mesquite-christmas-in-the-park-2026","2026-12-05","2026-12-06"],
+  ["brenham-holiday-shopping-stroll-2026","2026-12-12",undefined],
+  ["chappell-hill-teddy-bear-parade-2026","2026-12-12",undefined],
+  ["chappell-hill-christmas-home-tour-2026","2026-12-12",undefined],
+]) check(slug,begin,ending);
+assert.ok(bySlug.get("mesquite-christmas-in-the-park-2026").summary.includes("$12 activity wristband"),
+  "Mesquite park entry is free but some activities are paid");
+assert.ok(bySlug.get("round-rock-light-up-the-lake-2026").summary.includes("WALKING-only"),
+  "Do not misrepresent Round Rock walking festival as a vehicle light route");
+assert.ok(bySlug.get("brenham-holiday-shopping-stroll-2026").summary.includes("separate date"),
+  "Brenham shopping stroll is separate from its early-December parade");
 check("boerne-weihnachts-parade-2026", "2026-12-05");
 check("boerne-old-west-christmas-light-fest-1", "2026-11-27", "2026-11-29");
 check("boerne-old-west-christmas-light-fest-2", "2026-12-04", "2026-12-06");

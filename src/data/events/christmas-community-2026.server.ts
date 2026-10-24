@@ -948,6 +948,33 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The city confirms Friday December 4 at 6 p.m. for the 2026 Christmas Parade of Lights, a lighted downtown parade with floats, bands and Santa; street closure and viewing arrangements may change."
   },
   {
+    "slug": "keller-holly-days-2026",
+    "title": "Keller Holly Days · Very Merry Light Parade",
+    "city": "Keller",
+    "countySlug": "tarrant",
+    "countyName": "Tarrant County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-04",
+    "venueName": "Keller Town Center · city holiday event locations",
+    "officialEventUrl": "https://www.cityofkeller.com/about-us/calendar-list/-sortn-EDate/-npage-310/-toggle-all/-sortd-asc/-locale-en",
+    "sourceName": "City of Keller event calendar",
+    "summary": "Keller's official 2026 city calendar confirms Holly Days Friday December 4, 5–9 p.m. The event program features The Very Merry Light Parade, Santa photos and town Christmas tree lighting. Check the city's posted route and parking advisories before travel."
+  },
+  {
+    "slug": "round-rock-light-up-the-lake-2026",
+    "title": "Light Up the Lake · Round Rock 2026",
+    "city": "Round Rock",
+    "countySlug": "williamson",
+    "countyName": "Williamson County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-04",
+    "endDate": "2026-12-05",
+    "venueName": "Old Settlers Park · Bright Lake",
+    "officialEventUrl": "https://www.roundrocktexas.gov/event/lightupthelake/",
+    "sourceName": "City of Round Rock Parks and Recreation",
+    "summary": "The City of Round Rock confirms Friday December 4 and Saturday December 5, 2026 for the WALKING-only Light Up the Lake holiday festival around Bright Lake in Old Settlers Park, 6–10 p.m. Expect live music, glowing balloons, holiday displays, crafts and family activities. Paths include both sidewalks and grass, so plan accessible routes and weather gear accordingly."
+  },
+  {
     "slug": "lufkin-christmas-in-the-pines-friday",
     "title": "Lufkin Christmas in the Pines · opening evening",
     "city": "Lufkin",
@@ -1147,6 +1174,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://mcfaddin-ward.org/events/month/2026-12/",
     "sourceName": "McFaddin-Ward House Museum",
     "summary": "The museum's 2026 organizer calendar confirms an admission-free Holiday Open House Saturday–Sunday December 5–6, 5–7 p.m., with decorated first-floor historic-house visits, refreshments, carolers, children's crafts and family photos. Access to upper levels is governed by the museum's separate tour rules."
+  },
+  {
+    "slug": "mesquite-christmas-in-the-park-2026",
+    "title": "Mesquite Christmas in the Park · Westlake Park",
+    "city": "Mesquite",
+    "countySlug": "dallas",
+    "countyName": "Dallas County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-05",
+    "endDate": "2026-12-06",
+    "venueName": "Westlake Park · 600 Gross Road",
+    "officialEventUrl": "https://www.cityofmesquite.com/316/Christmas-in-the-Park",
+    "sourceName": "City of Mesquite official events calendar",
+    "summary": "Mesquite confirms Christmas in the Park Saturday and Sunday December 5–6, 2026, 2–8 p.m. both days at Westlake Park. Park admission and parking are free, but an optional $12 activity wristband applies to some activities. Performances, lights, character visits and fireworks are subject to the official program."
   },
   {
     "slug": "natural-bridge-christmas-caverns-opening-2026",
@@ -1483,6 +1524,32 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "Ten ticketed days of holiday fine-art shopping and live music December 12–21, with about 200 curated artists. Hours vary by day; the official organizer says children 12 and under receive free admission."
   },
   {
+    "slug": "chappell-hill-christmas-home-tour-2026",
+    "title": "Chappell Hill Garden Club Christmas Home Tour",
+    "city": "Chappell Hill",
+    "countySlug": "washington",
+    "countyName": "Washington County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-12",
+    "venueName": "Historic Chappell Hill area homes",
+    "officialEventUrl": "https://visitbrenhamtexas.com/beyond-brenham/chappell-hill/events/",
+    "sourceName": "Visit Brenham / Chappell Hill Garden Club",
+    "summary": "The tourism calendar lists the Garden Club Christmas Home Tour Saturday December 12, 2026 from 10 a.m.–6 p.m. The home tour is distinct from the afternoon Teddy Bear Parade and any local shopping market. Consult the Garden Club/Chamber for tour tickets and participating home access; do not assume entry is free."
+  },
+  {
+    "slug": "chappell-hill-teddy-bear-parade-2026",
+    "title": "Chappell Hill Teddy Bear Parade",
+    "city": "Chappell Hill",
+    "countySlug": "washington",
+    "countyName": "Washington County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-12",
+    "venueName": "Downtown Chappell Hill · Chappell Hill Chamber of Commerce",
+    "officialEventUrl": "https://visitbrenhamtexas.com/beyond-brenham/chappell-hill/events/",
+    "sourceName": "Visit Brenham / Chappell Hill Chamber of Commerce",
+    "summary": "The Chappell Hill Chamber event listing confirms Saturday December 12, 2026, 3:30–5 p.m. for the downtown Teddy Bear Parade. Families are invited to bring teddy bears and greet Santa; this is not an announcement of a separately ticketed Chappell Hill Christmas Market."
+  },
+  {
     "slug": "arlington-holiday-lights-parade-2026",
     "title": "Downtown Arlington Holiday Lights Parade",
     "city": "Arlington",
@@ -1494,6 +1561,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.arlington.org/event/holiday-lights-festivities-and-parade/29431/",
     "sourceName": "Arlington Convention & Visitors Bureau",
     "summary": "Arlington's free December 12, 2026 holiday festival begins family activities at 2 p.m. and stages a lighted parade at 6 p.m., followed by the downtown tree lighting. This is not the neighborhood Interlochen drive-through light route."
+  },
+  {
+    "slug": "brenham-holiday-shopping-stroll-2026",
+    "title": "Downtown Brenham Home for the Holidays Christmas Stroll",
+    "city": "Brenham",
+    "countySlug": "washington",
+    "countyName": "Washington County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-12",
+    "venueName": "Historic Downtown Brenham · Main Street businesses",
+    "officialEventUrl": "https://visitbrenhamtexas.com/events/",
+    "sourceName": "Visit Brenham tourism event calendar",
+    "summary": "Visit Brenham confirms Saturday December 12, 2026, 11 a.m.–6 p.m. for the downtown Home for the Holidays shopping stroll. More than 30 businesses plan seasonal samples, specials and gift-shopping stops. This is a separate date from the December 4–5 lighted Christmas Stroll/parade weekend."
   },
   {
     "slug": "tpwd-abilene-fa-la-la-forest-2026",
@@ -1852,7 +1932,7 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The final five January evenings of the 2026–27 Marktplatz lighting program; December 31 is omitted because the special New Year's Eve event replaces the regular countdown.",
     "endDate": "2027-01-05"
   }
-];;;;;;
+];;;;;;;
 
 // Reuse comprehensive guides where they exist. The dated occurrence remains
 // an independent calendar record, so closing days are never falsely listed.

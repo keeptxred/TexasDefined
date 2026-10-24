@@ -140,7 +140,8 @@
       "intakeId": 15,
       "title": "Round Rock Hometown Christmas",
       "submittedRegion": "Hill Country & Central Texas",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "Round Rock Light Up the Lake is organizer-confirmed Dec 4–5, 2026 and added as a separate calendar event; do not assume the submitted 'Hometown Christmas' is the same branded event without an official identity match."
     },
     {
       "intakeId": 16,
@@ -282,7 +283,8 @@
       "intakeId": 34,
       "title": "Chappell Hill Christmas Market",
       "submittedRegion": "Hill Country & Central Texas",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "Visit Brenham/Chappell Hill confirms a 2026 Teddy Bear Parade and Garden Club Christmas Home Tour for Dec 12, but not the submitted generic 'Christmas Market'. These are separate verified dates and the market remains a research candidate."
     },
     {
       "intakeId": 35,
@@ -562,7 +564,11 @@
       "intakeId": 72,
       "title": "Mesquite Christmas in the Park",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "mesquite-christmas-in-the-park-2026"
+      ],
+      "researchNote": "City of Mesquite separately lists Dec 5–6, 2026, 2–8 p.m., free entrance and $12 optional activity wristband."
     },
     {
       "intakeId": 73,
@@ -607,7 +613,11 @@
       "intakeId": 79,
       "title": "Keller Holly Days",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "keller-holly-days-2026"
+      ],
+      "researchNote": "City of Keller 2026 calendar confirms Dec 4, 5–9 p.m., and the Very Merry Light Parade."
     },
     {
       "intakeId": 80,
@@ -1749,8 +1759,8 @@
   ],
   "reconciliation": {
     "asOf": "2026-10-24",
-    "calendarCandidates": 55,
+    "calendarCandidates": 57,
     "authorityCandidates": 12,
-    "remainingCandidates": 183
+    "remainingCandidates": 181
   }
 }
