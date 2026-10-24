@@ -28,6 +28,12 @@ assert(server.includes('corporateEventEvidenceTimestampIsValid(application.ident
   && server.includes('corporateEventEvidenceTimestampIsValid(partner.identity_verified_at)')
   && server.includes('corporateEventEvidenceTimestampIsValid(partner.commercial_agreement_verified_at)'),
   'Draft and approval must reject future/malformed signed agreement and business identity evidence');
+assert(server.includes('isValidCorporateEventCalendarDate(expiresOn)')
+  && server.includes('isValidCorporateEventCalendarDate(data.startsOn)')
+  && server.includes('isValidCorporateEventCalendarDate(data.endsOn)')
+  && server.includes('isValidCorporateEventCalendarDate(String(offer.starts_on))')
+  && server.includes('isValidCorporateEventCalendarDate(String(offer.ends_on))'),
+  'No impossible or malformed agreement/offer dates may reach protected staff writes');
 assert(!server.includes("redemption.hostname !== issuer.hostname"), 'Never trust applicant website alone as staff redemption domain provenance');
 assert(migration.includes('enable row level security') && migration.includes('revoke all on table public.texasdefined_group_event_offers from anon, authenticated'), 'Offers must remain protected');
 assert(component.includes("window.confirm('Approve this verified offer"), 'Approvals must require explicit human confirmation');
