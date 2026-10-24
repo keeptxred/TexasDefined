@@ -59,8 +59,8 @@ jobs:
           CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
           test -n "$CHROME_BIN"
           echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
-          npm install --prefix /tmp/texasdefined-corporate-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
-      - name: Test real corporate finder at mobile, tablet and desktop without POSTing inquiries
+          npm install --prefix /tmp/texasdefined-corporate-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1 axe-core@4.10.3
+      - name: Test live corporate finder, shortlist privacy and WCAG A/AA at mobile, tablet and desktop without POSTing inquiries
         run: node scripts/ci/verify-corporate-events-browser.mjs
       - name: Retain browser screenshots and structured results
         if: always()
