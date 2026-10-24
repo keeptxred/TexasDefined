@@ -106,6 +106,8 @@ try {
         view.name + ': full Zoo buyout must not imply a 6,000-person single-room event');
       await guests.fill('6001');
       await zoo.waitFor({ state: 'detached', timeout: 12_000 });
+      await guests.fill('20');
+      await zoo.waitFor({ state: 'visible', timeout: 12_000 });
       await guests.fill('19');
       await zoo.waitFor({ state: 'detached', timeout: 12_000 });
       await venueArea.fill('Westchase');
@@ -118,6 +120,8 @@ try {
         view.name + ': combined ballroom limit must be disclosed clearly');
       await guests.fill('551');
       await pelazzio.waitFor({ state: 'detached', timeout: 12_000 });
+      await guests.fill('75');
+      await pelazzio.waitFor({ state: 'visible', timeout: 12_000 });
       await guests.fill('74');
       await pelazzio.waitFor({ state: 'detached', timeout: 12_000 });
       await venueArea.fill('');
