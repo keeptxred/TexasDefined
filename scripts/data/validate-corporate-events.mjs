@@ -112,6 +112,24 @@ assert.equal(corporateEventProviders.find(p=>p.slug === 'pour-behavior-houston-c
 assert(corporateEventProviders.find(p=>p.slug === 'puttery-houston-corporate-events')?.ageLimit.includes('Fri–Sat'),
   'Puttery Houston evening restrictions are not the same as Puttshack Houston');
 
+
+// Two independently verified multi-space capacity fixes: do not substitute a
+// specific room limit for the operator's distinct multi-space/buyout format.
+const updatedMultiSpaceVenueFacts = [
+  ['pkl-social', 20, 250, '20–250', 'https://pklsocial.com/private-events/'],
+  ['space-center-houston-corporate-rentals', 10, 8000, 'Full Center Experience', 'https://spacecenter.org/host-an-event/venue-information/'],
+];
+for (const [slug, min, max, formatEvidence, source] of updatedMultiSpaceVenueFacts) {
+  const venue = corporateEventProviders.find(item => item.slug === slug);
+  assert(venue, 'Missing independently sourced venue: '+slug);
+  assert.equal(venue.minGroup, min, 'Operator-published group minimum required: '+slug);
+  assert.equal(venue.maxGroup, max, 'Venue max applies to the documented format, not one room: '+slug);
+  assert(venue.capacityDetail.includes(formatEvidence), 'Specify the operator-published multi-space/buyout format: '+slug);
+  assert.equal(venue.sourceUrl, source, 'Keep current official venue capacity evidence URL: '+slug);
+  assert.equal(venue.verifiedOn, '2026-10-24', 'Only use actual source-review date: '+slug);
+  assert.equal(venue.startingPricePerPerson, null, 'Venue-wide corporate quote requires independent confirmation: '+slug);
+}
+
 assert.equal(new Set(corporateEventProviders.map((p) => p.slug)).size, corporateEventProviders.length);
 for (const p of corporateEventProviders) {
   assert(p.officialUrl.startsWith('https://') && p.sourceUrl.startsWith('https://'));
