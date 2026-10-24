@@ -105,6 +105,7 @@ const prebuildChecks = [
   ['EVENT/CORPORATE', 'Validate corporate-event source directory, category guides, and SEO breadcrumbs', 'node', ['--experimental-strip-types', 'scripts/data/validate-corporate-events.mjs']],
   ['EVENT/CORPORATE/DEPLOY', 'Verify changed corporate marketplace production selection and GET-only SSR acceptance', 'node', ['scripts/ci/validate-corporate-event-production-smoke.mjs']],
   ['EVENT/CORPORATE/GEO', 'Protect source-verified and privacy-safe ZIP-radius prerequisites', 'node', ['--experimental-strip-types', 'scripts/data/validate-corporate-event-verified-proximity.mjs']],
+  ['EVENT/CORPORATE/GEO-RESEARCH', 'Quarantine Census address-range interpolations pending actual venue premises verification', 'node', ['scripts/data/research-corporate-event-geocodes.test.mjs']],
   ['EVENT/CORPORATE/INTEGRATIONS', 'Enforce fail-closed quote/booking/payment adapter readiness', 'node', ['--experimental-strip-types', 'scripts/data/validate-corporate-event-integrations.mjs']],
   ['EVENT/CORPORATE/BROWSER', 'Enforce GET-only real Chrome mobile/tablet/desktop acceptance contract', 'node', ['scripts/ci/validate-corporate-event-responsive-production.mjs']],
   ['EVENT/CORPORATE/CONSENT', 'Require irreversible verified organizer consent withdrawal', 'node', ['scripts/data/validate-corporate-event-consent-withdrawal.mjs']],
