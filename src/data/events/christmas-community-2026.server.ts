@@ -139,6 +139,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The Botanical Garden confirms its 2026–27 light experience is named Illuminate, not Lightscape, and runs November 20–January 10 on ticketed timed-entry dates. This entry records the season's confirmed opening date only; use the operator's live ticket calendar to choose another valid 5:30–9:30 p.m. entry night."
   },
   {
+    "slug": "sugar-land-town-square-tree-lighting-2026",
+    "title": "Sugar Land Christmas Tree Lighting · Town Square",
+    "city": "Sugar Land",
+    "countySlug": "fort-bend",
+    "countyName": "Fort Bend County",
+    "region": "gulf-coast",
+    "startDate": "2026-11-20",
+    "venueName": "Sugar Land Town Square · 2711 Plaza Drive",
+    "officialEventUrl": "https://www.sugarlandtx.gov/918/Christmas-Tree-Lighting",
+    "sourceName": "City of Sugar Land Parks & Recreation",
+    "summary": "The City of Sugar Land confirms Friday November 20, 2026, 5–8 p.m. for its annual Christmas Tree Lighting in Town Square. Planned family festivities include entertainment, Santa letters, photos, music, cocoa and the tree-lighting ceremony. Free event parking and continuous shuttles are advertised at Mercer Stadium beginning at 4:30 p.m. This celebration is separate from ticketed Sugar Land Holiday Lights at Constellation Field."
+  },
+  {
     "slug": "sugar-land-holiday-lights-constellation-field",
     "title": "Sugar Land Holiday Lights at Constellation Field",
     "city": "Sugar Land",
@@ -743,6 +756,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The official 2026 South Pole Illuminated Festival runs November 28–December 28, with posted Wednesday–Sunday evening operating hours. This is one of the explicitly open published weekday/weekend windows; Monday and Tuesday are omitted. Check holiday exceptions and dated tickets with the city before travel."
   },
   {
+    "slug": "baytown-stars-stripes-christmas-parade-2026",
+    "title": "Baytown Stars, Stripes & Christmas Lights Parade",
+    "city": "Baytown",
+    "countySlug": "harris",
+    "countyName": "Harris County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-03",
+    "venueName": "Baytown Town Square · 213 West Texas Avenue",
+    "officialEventUrl": "https://baytown.org/1014/Baytowns-Christmas-Parade",
+    "sourceName": "City of Baytown",
+    "summary": "The City of Baytown confirms Thursday December 3, 2026 for the annual lighted Christmas Parade, this year themed Stars, Stripes & Christmas Lights. The city lists the Town Square tree lighting and parade arrival around 6:30 p.m. Expect decorated floats, Blue Santa and Santa's finale. Accessible parade viewing is available near Memorial Baptist Church; follow the city's exact route and parking instructions."
+  },
+  {
     "slug": "waco-wild-lights-2026-2",
     "title": "Cameron Park Zoo Wild Lights · verified window 2",
     "city": "Waco",
@@ -768,6 +794,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.grapevinechamber.org/christmas-parade/",
     "sourceName": "Grapevine Chamber of Commerce",
     "summary": "The 47th annual Grapevine Parade of Lights runs Thursday, December 3 at 7 p.m. along Main Street. Check the parade route, traffic closures and parking guidance; this is a distinct scheduled parade inside Grapevine's broader Christmas Capital season."
+  },
+  {
+    "slug": "houston-energy-corridor-tree-lighting-2026",
+    "title": "Houston Energy Corridor Tree Lighting and Drone Show",
+    "city": "Houston",
+    "countySlug": "harris",
+    "countyName": "Harris County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-03",
+    "venueName": "Hyatt Regency Houston West · 13210 Katy Freeway",
+    "officialEventUrl": "https://energycorridor.org/the-energy-corridor-districts-2026-tree-lighting-celebration/",
+    "sourceName": "The Energy Corridor District",
+    "summary": "The Energy Corridor District confirms a free annual tree lighting Thursday December 3, 2026, 6–9 p.m. at Hyatt Regency Houston West, featuring a 50-foot holiday tree, drone show, entertainment, children's crafts, free Santa photos and Jolly Trolley. Individual restaurant/hotel purchases are separate, and the operator controls event and parking updates."
   },
   {
     "slug": "jefferson-candlelight-tour-dec3",
@@ -1001,6 +1040,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "Keller's official 2026 city calendar confirms Holly Days Friday December 4, 5–9 p.m. The event program features The Very Merry Light Parade, Santa photos and town Christmas tree lighting. Check the city's posted route and parking advisories before travel."
   },
   {
+    "slug": "league-city-holiday-in-the-park-2026",
+    "title": "League City Holiday in the Park · Three-Day Festival",
+    "city": "League City",
+    "countySlug": "galveston",
+    "countyName": "Galveston County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-04",
+    "endDate": "2026-12-06",
+    "venueName": "League Park · 512 2nd Street",
+    "officialEventUrl": "https://visitleaguecity.com/winter-wonder/",
+    "sourceName": "Visit League City and League City Proud organizer",
+    "summary": "League City's 28th annual Holiday in the Park is December 4–6, 2026. Friday has a holiday market starting 4 p.m.; Saturday includes a children's costume parade at 10 a.m. and the Grand Night Parade at 6:30 p.m.; Sunday includes inclusive, pet and family festivities. The holiday market and festival are free to visit, while food and shopping are sold separately. Specific parade staging can change."
+  },
+  {
     "slug": "round-rock-light-up-the-lake-2026",
     "title": "Light Up the Lake · Round Rock 2026",
     "city": "Round Rock",
@@ -1039,6 +1092,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.mansfieldtexas.gov/789/Hometown-Holidays",
     "sourceName": "City of Mansfield",
     "summary": "The 2026 main Hometown Holidays festival is Friday December 4, 5–9 p.m., at Mansfield City Hall. Tree lighting, fireworks, market vendors, performances and family activities are planned; additional citywide holiday events run on other independently advertised dates."
+  },
+  {
+    "slug": "pearland-hometown-christmas-festival-2026",
+    "title": "Pearland Hometown Christmas Festival · Winter Wonderland",
+    "city": "Pearland",
+    "countySlug": "brazoria",
+    "countyName": "Brazoria County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-04",
+    "venueName": "Independence Park · 3449 Pearland Parkway",
+    "officialEventUrl": "https://www.parks.pearlandtx.gov/special-events/hometown-christmas-festival",
+    "sourceName": "City of Pearland Parks & Recreation",
+    "summary": "The City of Pearland confirms Friday December 4, 2026, 6–9 p.m. for its Hometown Christmas Festival. Park admission is FREE, with musical performances, Santa, vendors, food trucks, children's activities and an 8:30 p.m. drone show. General parking is at Pearland High School, while ADA access uses the Independence Park Liberty Drive entrance. The street parade is a separate next-day event."
   },
   {
     "slug": "salado-christmas-stroll-first",
@@ -1308,6 +1374,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The operator's 2026 Christmas at the Caverns promotion confirms a December 5–23 holiday season on select dates, with underground caroling, lights and optional ticket tiers. This event record marks the confirmed opening date only; select other nights using the official dated reservation calendar."
   },
   {
+    "slug": "pearland-hometown-christmas-parade-2026",
+    "title": "Pearland Hometown Christmas Parade · Broadway",
+    "city": "Pearland",
+    "countySlug": "brazoria",
+    "countyName": "Brazoria County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-05",
+    "venueName": "Broadway / FM 518 · Old Alvin Road to Pearland Parkway",
+    "officialEventUrl": "https://www.parks.pearlandtx.gov/special-events/hometown-christmas-festival",
+    "sourceName": "City of Pearland Parks & Recreation",
+    "summary": "The city confirms its lighted Hometown Christmas Parade Saturday December 5, 2026, at 6 p.m., with a Red, White and Blue Christmas theme. The route follows Broadway (FM 518) from Old Alvin Road to Pearland Parkway. This is distinct from the December 4 Independence Park festival; check parade detours and street closure maps before travel."
+  },
+  {
     "slug": "richardson-santas-village-week1",
     "title": "Richardson Santa's Village · December 5–6",
     "city": "Richardson",
@@ -1320,6 +1399,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.cor.net/departments/parks-recreation/community-events/santa-s-village-at-huffhines-park",
     "sourceName": "City of Richardson",
     "summary": "The first official free Santa's Village activity weekend runs December 5–6, 6–9 p.m., with photos with Santa, live music, interactive holiday buildings and free parking."
+  },
+  {
+    "slug": "seabrook-volunteer-fire-santa-run-2026",
+    "title": "Seabrook Volunteer Fire Department Santa Run",
+    "city": "Seabrook",
+    "countySlug": "harris",
+    "countyName": "Harris County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-05",
+    "venueName": "Seabrook and El Lago neighborhood streets",
+    "officialEventUrl": "https://www.seabrooktx.gov/Calendar.aspx?EID=2268",
+    "sourceName": "City of Seabrook / Seabrook Volunteer Fire Department",
+    "summary": "The Seabrook city calendar confirms Saturday December 5, 2026 starting at 8 a.m. for the fire department's Santa Run through Seabrook and El Lago streets. December 19 is the RAINOUT contingency, not another scheduled parade. Exact street pass-by times depend on the Fire Department; this is not the separate Illuminated Boat Lane Parade."
   },
   {
     "slug": "san-antonio-fiesta-texas-holiday-3",
@@ -2089,7 +2181,7 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The final five January evenings of the 2026–27 Marktplatz lighting program; December 31 is omitted because the special New Year's Eve event replaces the regular countdown.",
     "endDate": "2027-01-05"
   }
-];;;;;;;;
+];;;;;;;;;
 
 // Reuse comprehensive guides where they exist. The dated occurrence remains
 // an independent calendar record, so closing days are never falsely listed.
