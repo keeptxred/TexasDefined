@@ -19,6 +19,7 @@ const partnerInquirySchema = z.object({
   sourcePath: z.union([
     z.string().trim().max(500).regex(/^\/(?:partner-with-us|sports-venues|sports-venue\/[a-z0-9-]+)$/),
     z.literal('/things-unique-to-texas/texas-brands'),
+    z.literal('/events/christmas-events'),
   ]).default('/partner-with-us'),
   addressLine2: z.string().max(200).default(''),
 });
