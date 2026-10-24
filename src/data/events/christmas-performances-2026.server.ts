@@ -11,6 +11,8 @@ interface ChristmasPerformance {
   id: string;
   name: string;
   date: string;
+  /** Last scheduled date when this entry represents a multi-day run. */
+  endDate?: string;
   timeLabel: string;
   city: string;
   venue: string;
@@ -23,7 +25,7 @@ interface ChristmasPerformance {
 const verified: readonly ChristmasPerformance[] = [
   {
     id: "grinch-dallas-2026", name: "Dr. Seuss' How the Grinch Stole Christmas! The Musical",
-    date: "2026-11-27", timeLabel: "11:00 AM, 3:00 PM & 7:00 PM · run Nov. 25–29",
+    date: "2026-11-27", endDate: "2026-11-29", timeLabel: "11:00 AM, 3:00 PM & 7:00 PM · run Nov. 25–29",
     city: "Dallas", venue: "Music Hall at Fair Park",
     sourceUrl: "https://broadwaydallas.org/shows/dr-seuss-how-the-grinch-stole-christmas-the-musical/",
     sourceName: "Broadway Dallas",
@@ -47,7 +49,7 @@ const verified: readonly ChristmasPerformance[] = [
   },
   {
     id: "christmas-story-conroe-2026", name: "A Christmas Story",
-    date: "2026-12-13", timeLabel: "2:00 PM · additional dates Dec. 4–20",
+    date: "2026-12-13", endDate: "2026-12-20", timeLabel: "2:00 PM · additional dates Dec. 4–20",
     city: "Conroe", venue: "Crighton Theatre",
     sourceUrl: "https://www.etix.com/ticket/v/32639/crighton-theatre",
     sourceName: "Crighton Theatre linked ticketing (Etix)", ticketmasterNeedle: "a christmas story",
@@ -133,8 +135,11 @@ export function getChristmasPerformances2026Server(now = new Date()) {
   const today = texasToday(now);
   if (today > "2026-12-27") return [];
   const ticketmaster = loadTicketmasterEventsServer(undefined, now);
-  return verified.filter((show) => show.date >= today).map((show) => {
-    const match = show.ticketmasterNeedle
+  return verified.filter((show) => (show.endDate ?? show.date) >= today).map((show) => {
+    // A theatre run remains current after its featured performance passes, but
+    // do not promote a single-date ticket that may already be expired.
+    const featuredDatePassed = show.date < today;
+    const match = !featuredDatePassed && show.ticketmasterNeedle
       ? ticketmaster.find((event) =>
         event.startDate === show.date
         && normalized(event.city) === normalized(show.city)
@@ -142,12 +147,13 @@ export function getChristmasPerformances2026Server(now = new Date()) {
         && normalized(event.venueName ?? "").includes(normalized(show.venue.split(" · ")[0]))
       ) : undefined;
     const ticketCta = resolveEventTicketCta(match?.ticketing, now);
-    const dateLabel = new Intl.DateTimeFormat("en-US", {
+    const formattedDate = new Intl.DateTimeFormat("en-US", {
       timeZone: "UTC", month: "short", day: "numeric", year: "numeric",
-    }).format(new Date(show.date + "T12:00:00Z"));
+    }).format(new Date((featuredDatePassed ? show.endDate! : show.date) + "T12:00:00Z"));
     return {
       ...show,
-      dateLabel,
+      dateLabel: featuredDatePassed ? `Additional shows through ${formattedDate}` : formattedDate,
+      timeLabel: featuredDatePassed ? "Choose a remaining performance from the organizer's live schedule" : show.timeLabel,
       ticket: ticketCta ?? {
         href: show.sourceUrl, label: "Official event details →",
         rel: "noopener noreferrer", isAffiliate: false,
