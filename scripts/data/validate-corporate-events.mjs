@@ -9,6 +9,8 @@ const registry = readFileSync('src/lib/public-routes.ts', 'utf8');
 const brand = readFileSync('src/brand/texasdefined.ts', 'utf8');
 const events = readFileSync('src/routes/events.index.lazy.tsx', 'utf8');
 const categoryGuides = readFileSync('src/components/events/CorporateEventCategoryGuides.tsx', 'utf8');
+const guidebook = readFileSync('src/routes/guides.lazy.tsx', 'utf8');
+const cityGuides = readFileSync('src/components/events/CorporateEventMetroGuides.tsx', 'utf8');
 const categories = new Set(corporateEventCategories.map((item) => item.value));
 
 assert(corporateEventProviders.length >= 136, 'Corporate event directory requires at least 136 independently sourced venues including 50+ in Houston proper');
@@ -70,6 +72,10 @@ assert(api.includes('consentContact'));
 assert(registry.includes('"/corporate-events"'));
 assert(brand.includes('to: "/corporate-events"'));
 assert(events.includes('to="/corporate-events"'));
+assert(guidebook.includes('to: "/corporate-events", label: "Texas Corporate Events & Team-Building Planner"'),
+  'The existing Texas Defined Guidebook must link to the 19-market corporate planning authority directory');
+assert(cityGuides.includes('href="/guides"') && cityGuides.includes('Texas Defined guidebook'),
+  'Corporate event planner must provide a contextual reciprocal link to the established Texas guidebook');
 assert(lazyRoute.includes('<CorporateEventCategoryGuides />'), 'Category authority guidance must render on the canonical SSR page');
 assert(lazyRoute.includes("import { CorporateEventCategoryGuides }"), 'Category guide component must be imported');
 assert(lazyRoute.includes("'@type': 'BreadcrumbList'"), 'Corporate events structured data must include canonical breadcrumbs');
