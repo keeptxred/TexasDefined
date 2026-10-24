@@ -231,13 +231,23 @@ for (const routePath of [...indexable, ...conditional]) {
   // Resolve shared metadata only when both the Waco-specific call and its
   // factory's real canonical/title/description/JSON-LD contract are present.
   const wacoHeadSource = fs.existsSync('src/lib/waco-page-head.ts') ? fs.readFileSync('src/lib/waco-page-head.ts', 'utf8') : '';
-  const verifiedWacoHead = ['/waco-attractions', '/waco-ghost-tours', '/dallas-to-waco-magnolia-tours'].includes(routePath)
-    && routeSource.includes('import { wacoPageHead } from "@/lib/waco-page-head"')
-    && routeSource.includes('head: () => wacoPageHead("' + routePath + '",')
-    && /wacoPageHead\([^,]+,\s*"[^"]+",\s*"[^"]+",\s*"[^"]+"\)/.test(routeSource)
-    && wacoHeadSource.includes('meta: buildMeta(texasDefinedBrand, { canonicalPath: path, title, description })')
+  const wacoFactoryHasMetadata = wacoHeadSource.includes('meta: buildMeta(texasDefinedBrand, { canonicalPath: path, title, description })')
     && wacoHeadSource.includes('links: [canonicalLink(texasDefinedBrand, path)]')
     && wacoHeadSource.includes('scripts: [jsonLd(');
+  const wacoLegacyHead = routeSource.includes('import { wacoPageHead } from "@/lib/waco-page-head"')
+    && routeSource.includes('head: () => wacoPageHead("' + routePath + '",')
+    && /wacoPageHead\([^,]+,\s*"[^"]+",\s*"[^"]+",\s*"[^"]+"\)/.test(routeSource);
+  // A route loader can keep actual canonical + JSON-LD metadata at SSR time
+  // while leaving the bulky metadata registry out of the initial client bundle.
+  // Require an exact route-to-loader match, the loader head, each metadata
+  // mapping, and the shared factory's intact canonical and JSON-LD contracts.
+  const wacoLazyHead = routeSource.includes('loader: async () => (await import("@/lib/waco-page-head")).wacoPageHead("' + routePath + '")')
+    && routeSource.includes('head: ({ loaderData }) => loaderData')
+    && wacoHeadSource.includes('"' + routePath + '": [')
+    && wacoHeadSource.includes('const [title, description, label] = WACO_PAGES[path];')
+    && wacoHeadSource.includes('export function wacoPageHead(path: keyof typeof WACO_PAGES)');
+  const verifiedWacoHead = ['/waco-attractions', '/waco-ghost-tours', '/dallas-to-waco-magnolia-tours'].includes(routePath)
+    && wacoFactoryHasMetadata && (wacoLegacyHead || wacoLazyHead);
   if (!routeSource.includes('canonicalPath') && !verifiedWacoHead) failures.push(`Indexable route is missing canonical metadata: ${routePath} (${routeFile}).`);
   if (!/\btitle\s*:/.test(routeSource) && !verifiedWacoHead) failures.push(`Indexable route is missing a search title: ${routePath} (${routeFile}).`);
   if (!/\bdescription\b/.test(routeSource) && !verifiedWacoHead) failures.push(`Indexable route is missing a meta description: ${routePath} (${routeFile}).`);
