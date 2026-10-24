@@ -600,5 +600,33 @@
       "Enroll new two guides and twelve official/source-license URLs in existing Supabase source monitoring",
       "Side-by-side independent visitor-guide certification"
     ]
+  },
+  "october24RecoverySnapshot": {
+    "checkedAt": "2026-10-24",
+    "githubManifestGuides": 82,
+    "githubManifestSourceDefinitions": 360,
+    "supabaseMuseumRegistryGuides": 82,
+    "supabaseRetainedMuseumMonitoredSourceRows": 384,
+    "sourceRegistryStatuses": {
+      "verified": 63,
+      "awaiting_editorial_verification": 16,
+      "source_changed": 2,
+      "source_unreachable": 1
+    },
+    "linkedCommonsSourceAndCreativeCommonsLicenseVerifiedOnLiveCarthagePage": true,
+    "linkedCommonsSourceAndCreativeCommonsLicenseVerifiedOnLiveBryanPage": false,
+    "fourUnlicensedExactMuseumPhotoGapsRemain": [
+      "museum-of-the-gulf-coast-port-arthur",
+      "el-paso-holocaust-museum",
+      "texas-broadcast-museum-kilgore",
+      "johnny-nelson-katy-heritage-museum"
+    ],
+    "independentAuthorityCertificationsReported": 0,
+    "distinction": "Supabase 'verified' refers to source monitoring, not museum authority certification; retained source rows intentionally exceed current active manifest definitions. Carthage has live HTML-linked photo attribution. Bryan awaits a fresh independently verifiable production fetch (web cache miss)."
+  },
+  "ownerInventoryExecution": {
+    "schemaVersion": 1,
+    "records": {},
+    "note": "Source-of-truth checkpoint for deterministic 25-candidate museum research queue. Changes require GitHub merge to coordinate across chats. Empty records mean no assignment has been durably merged yet."
   }
 }
