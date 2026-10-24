@@ -30,7 +30,24 @@ assert(panel.includes('item.provider.sourceUrl') && panel.includes('item.provide
   'Staff must have the real cited and official venue links');
 assert(panel.includes('Do not advance a review date just by opening this page'),
   'Opening the queue must never be described as fresh research');
-assert(panel.includes('queue.items.slice(0, 24)'), 'Private review queue must remain bounded');
+assert(panel.includes('const filtered = queue.items.filter(') && panel.includes('const pageSize = 24') &&
+  panel.includes('filtered.slice((currentPage - 1) * pageSize, currentPage * pageSize)'),
+  'Bounded staff page size must not hide the other 98+ valid venue source records');
+assert(panel.includes('setPageIndex(currentPage + 1)') &&
+  panel.includes('setPageIndex(currentPage - 1)') &&
+  panel.includes('Page {currentPage} of {pageCount}'),
+  'Every page of public directory source-review work must remain navigable');
+assert(panel.includes('item.provider.city === city') &&
+  panel.includes('item.status === urgency') &&
+  panel.includes('searchTerm.trim().toLowerCase()'),
+  'Private operator must filter by city, review urgency and public business identity');
+assert(panel.includes('setPageIndex(1)') && panel.includes('const currentPage = Math.min(pageIndex, pageCount)'),
+  'Filter changes and shrinking matches must reset or clamp staff pagination');
+assert(panel.includes('role="status" aria-live="polite"') &&
+  panel.includes('aria-label="Venue source review pagination"'),
+  'Staff must receive readable match counts and accessible navigation');
+assert(!panel.includes('queue.items.slice(0, 24)'),
+  'Do not silently strand the other venue entries behind an unchangeable first-page preview');
 assert(panel.includes('queue.overdue') && panel.includes('queue.dueSoon')
   && panel.includes('queue.unverifiable'), 'Expose review coverage without pretending all claims are current');
 assert(!/fetch\s*\(|XMLHttpRequest|submit\s*\(|\.from\s*\(/.test(queue + panel),
