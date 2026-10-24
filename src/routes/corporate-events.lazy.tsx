@@ -6,7 +6,7 @@ import { Container } from '@/components/layout/Container';
 import { corporateEventCategories, corporateEventProviders, type GroupEventCategory, type CorporateEventProvider } from '@/data/corporate-events';
 import { submitGroupEventRequest } from '@/data/corporate-events.functions';
 import { groupEventPlanningAmounts } from '@/data/corporate-event-budgets';
-import { corporateEventMarketMatches } from '@/data/corporate-event-market-search';
+import { corporateEventMarketMatches, corporateEventAreaMatches } from '@/data/corporate-event-market-search';
 import { GroupEventPartnerApplication } from '@/components/events/GroupEventPartnerApplication';
 import { ApprovedCorporateEventOffers } from '@/components/events/ApprovedCorporateEventOffers';
 import { CorporateEventMetroGuides } from '@/components/events/CorporateEventMetroGuides';
@@ -60,6 +60,7 @@ function ProviderCard({ provider, selected, onToggle }: { provider: CorporateEve
 
 function CorporateEventsPage() {
   const [city, setCity] = useState('Houston');
+  const [areaQuery, setAreaQuery] = useState('');
   const [headcount, setHeadcount] = useState(45);
   const [category, setCategory] = useState<GroupEventCategory>('team-building');
   const [budget, setBudget] = useState('');
@@ -79,6 +80,8 @@ function CorporateEventsPage() {
     const params = new URLSearchParams(window.location.search);
     const chosenCity = params.get('city')?.trim();
     if (chosenCity && chosenCity.length <= 90) setCity(chosenCity);
+    const chosenArea = params.get('area')?.trim();
+    if (chosenArea && chosenArea.length <= 60) setAreaQuery(chosenArea);
     const guests = Number(params.get('guests'));
     if (Number.isInteger(guests) && guests >= 2 && guests <= 3000) setHeadcount(guests);
     const type = params.get('type');
@@ -95,6 +98,7 @@ function CorporateEventsPage() {
   async function copyShareLink() {
     const url = new URL('/corporate-events', window.location.origin);
     url.searchParams.set('city', city.trim() || 'Houston');
+    if (areaQuery.trim()) url.searchParams.set('area', areaQuery.trim().slice(0, 60));
     if (validHeadcount) url.searchParams.set('guests', String(headcount));
     url.searchParams.set('type', category);
     if (budget) url.searchParams.set('budget', budget);
@@ -117,6 +121,7 @@ function CorporateEventsPage() {
     return corporateEventProviders.filter((provider) => {
       const inRequestedMarket = corporateEventMarketMatches(provider, cityTerm);
       if (!inRequestedMarket) return false;
+      if (!corporateEventAreaMatches(provider, areaQuery)) return false;
       if (provider.maxGroup != null && headcount > provider.maxGroup) return false;
       if (provider.minGroup != null && headcount < provider.minGroup) return false;
       if (!includeOtherTypes && !provider.categories.includes(category)) return false;
@@ -124,7 +129,7 @@ function CorporateEventsPage() {
       if (priceCeiling != null && provider.startingPricePerPerson != null && provider.startingPricePerPerson > priceCeiling) return false;
       return true;
     });
-  }, [city, headcount, category, includeOtherTypes, priceCeiling, validHeadcount]);
+  }, [city, areaQuery, headcount, category, includeOtherTypes, priceCeiling, validHeadcount]);
 
   const shortlist = useMemo(() => corporateEventProviders.filter((provider) => selected.includes(provider.slug)), [selected]);
   const chosenCategoryLabel = categoryLabel(category);
@@ -132,6 +137,7 @@ function CorporateEventsPage() {
   const proposalText = useMemo(() => [
     'TexasDefined | Corporate event planning shortlist',
     'Location: ' + (city.trim() || 'Not specified'),
+    'Preferred area (editorial text match, not travel distance): ' + (areaQuery.trim() || 'Any'),
     'Group size: ' + (validHeadcount ? headcount : 'To be confirmed'),
     'Event type: ' + chosenCategoryLabel,
     'Budget per person: ' + (priceCeiling == null ? 'Flexible / not specified' : 'Up to ' + dollars(priceCeiling)),
@@ -152,7 +158,7 @@ function CorporateEventsPage() {
     'Taxes, catering, room fees, staffing, minimum spends, transportation and add-ons may increase costs.',
     'All pricing, package logistics, group format and actual availability must be confirmed directly with the provider.',
     'TexasDefined does not guarantee a booking or claim an exclusive discount.',
-  ].join('\n'), [city, validHeadcount, headcount, chosenCategoryLabel, priceCeiling, planningAmounts.budgetCeiling, eventDate, shortlist]);
+  ].join('\n'), [city, areaQuery, validHeadcount, headcount, chosenCategoryLabel, priceCeiling, planningAmounts.budgetCeiling, eventDate, shortlist]);
 
   const toggleSelected = (slug: string) => {
     setSelected((current) => current.includes(slug) ? current.filter((item) => item !== slug) : current.length < 5 ? [...current, slug] : current);
@@ -256,8 +262,12 @@ function CorporateEventsPage() {
           <div className="flex items-center gap-2"><Filter className="size-4 text-primary" aria-hidden /><h2 className="font-display text-2xl">Find your event</h2></div>
           <div className="mt-5 space-y-5">
             <label className="block text-sm font-semibold">City in Texas
-              <input value={city} onChange={(event) => setCity(event.target.value)} placeholder="Houston" maxLength={90} className={'mt-2 ' + controlClass} />
-              <span className="mt-1 block text-xs font-normal text-muted-foreground">Browse Houston, DFW, Austin, San Antonio, El Paso, Corpus Christi, Galveston, Waco or Lubbock.</span>
+              <input value={city} onChange={(event) => { setCity(event.target.value); setAreaQuery(''); }} placeholder="Houston" maxLength={90} className={'mt-2 ' + controlClass} />
+              <span className="mt-1 block text-xs font-normal text-muted-foreground">Search a Texas city or metro, or select a market guide below.</span>
+            </label>
+            <label className="block text-sm font-semibold">Preferred neighborhood or area (optional)
+              <input value={areaQuery} onChange={(event) => setAreaQuery(event.target.value)} placeholder="e.g., Downtown, Katy, Clear Lake" maxLength={60} className={'mt-2 ' + controlClass} />
+              <span className="mt-1 block text-xs font-normal text-muted-foreground">Matches the venue's listed area description within your chosen market; it does not calculate distance or driving time.</span>
             </label>
             <label className="block text-sm font-semibold">Number of guests
               <input type="number" min={2} max={3000} value={headcount} onChange={(event) => setHeadcount(Number(event.target.value))} className={'mt-2 ' + controlClass} />
@@ -288,15 +298,15 @@ function CorporateEventsPage() {
 
         <div>
           <div className="flex flex-wrap items-end justify-between gap-4 border-b border-border pb-5">
-            <div><p className="eyebrow text-primary">Sourced Texas directory</p><h2 className="mt-2 font-display text-3xl sm:text-4xl">{matches.length} group event {matches.length === 1 ? 'option' : 'options'}</h2><p className="mt-2 text-sm text-muted-foreground">{city.trim() || 'Your location'} · {validHeadcount ? headcount + ' guests' : 'Enter a valid group size'} · Sourced October 23, 2026</p></div>
+            <div><p className="eyebrow text-primary">Sourced Texas directory</p><h2 className="mt-2 font-display text-3xl sm:text-4xl">{matches.length} group event {matches.length === 1 ? 'option' : 'options'}</h2><p className="mt-2 text-sm text-muted-foreground">{city.trim() || 'Your location'} · {validHeadcount ? headcount + ' guests' : 'Enter a valid group size'} · Provider cards show their individual source-review dates</p></div>
             {selected.length ? <a href="#proposal" className="inline-flex min-h-11 items-center gap-2 border border-primary px-4 text-sm font-semibold text-primary">{selected.length}/5 shortlisted <ClipboardList className="size-4" /></a> : null}
           </div>
           {matches.length ? <div className="mt-6 grid gap-5 md:grid-cols-2">{matches.map((provider) =>
             <ProviderCard key={provider.slug} provider={provider} selected={selected.includes(provider.slug)} onToggle={() => toggleSelected(provider.slug)} />
           )}</div> : <div className="mt-6 border border-border bg-surface p-8">
             <Search className="size-8 text-primary" aria-hidden /><h3 className="mt-4 font-display text-3xl">No sourced matches yet.</h3>
-            <p className="mt-3 max-w-xl leading-7 text-muted-foreground">Our Texas venue coverage is growing. Try one of the nine currently sourced markets, adjust group size or category, or send us your event requirements so we can plan future city additions.</p>
-            <button type="button" onClick={() => { setCity('Houston'); setHeadcount(45); setBudget(''); setIncludeOtherTypes(false); }} className="mt-5 border border-primary px-5 py-3 text-sm font-semibold text-primary">See Houston options</button>
+            <p className="mt-3 max-w-xl leading-7 text-muted-foreground">Our Texas venue coverage is growing. Try a city guide below, clear the area preference, or adjust group size and activity. New venues require individual official-source review.</p>
+            <button type="button" onClick={() => { setCity('Houston'); setAreaQuery(''); setHeadcount(45); setBudget(''); setIncludeOtherTypes(false); }} className="mt-5 border border-primary px-5 py-3 text-sm font-semibold text-primary">See Houston options</button>
           </div>}
           {matches.length > 0 ? <p className="mt-5 text-xs leading-6 text-muted-foreground">This is an independent editorial directory. No venue shown is represented as a paid TexasDefined partner. Prices are provider-published starting points only; no availability, discounts, or booking is guaranteed.</p> : null}
         </div>

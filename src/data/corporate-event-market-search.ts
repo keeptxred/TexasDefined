@@ -25,3 +25,15 @@ export function corporateEventMarketMatches(
   // Whole-word multiword match avoids accidental substring hits.
   return (' ' + metro + ' ').includes(' ' + requested + ' ');
 }
+
+/**
+ * A typed neighborhood preference, not a GPS-distance or drive-time promise.
+ * Reuses the venue's editorially described area without collecting geolocation.
+ */
+export function corporateEventAreaMatches(
+  provider: Pick<CorporateEventProvider, 'area'>,
+  input: string,
+): boolean {
+  const query = input.trim().toLowerCase().replace(/\s+/g, ' ');
+  return !query || provider.area.toLowerCase().includes(query);
+}

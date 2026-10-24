@@ -1,4 +1,5 @@
 import { corporateEventProviders } from '@/data/corporate-events';
+import { corporateEventMarketMatches } from '@/data/corporate-event-market-search';
 
 const editorialCityGuides = [
   { key: 'Houston', slug: 'houston', city: 'Houston',
@@ -97,7 +98,7 @@ export function CorporateEventMetroGuides() {
       <div className="mt-8 grid gap-6 lg:grid-cols-2">
         {cityGuides.map((guide) => {
           const venues = corporateEventProviders.filter((provider) =>
-            provider.city === guide.key || provider.metro === guide.key);
+            corporateEventMarketMatches(provider, guide.key));
           const eligibleFor45 = venues.filter((venue) => (venue.minGroup == null || venue.minGroup <= 45) && (venue.maxGroup == null || venue.maxGroup >= 45));
           const categoryPreference = ['team-building', 'company-parties', 'meetings', 'private-dining', 'client-entertainment', 'outdoor-adventure'] as const;
           const recommendedCategory = [...categoryPreference].sort((a, b) =>
