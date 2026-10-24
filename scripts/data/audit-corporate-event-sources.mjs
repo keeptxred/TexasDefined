@@ -2,7 +2,12 @@ import { corporateEventProviders } from '../../src/data/corporate-events.ts';
 import { mkdirSync, writeFileSync } from 'node:fs';
 
 const timeoutMs = 12000;
-const staleDays = 90;
+/** Match the existing private editorial queue: starting numeric per-person
+ * prices merit 30-day review; all other listings are due after 60 days.
+ * A successful URL check never advances a venue's verification date. */
+export function corporateSourceReviewWindowDays(provider) {
+  return provider.startingPricePerPerson == null ? 60 : 30;
+}
 
 export function classifyCorporateSourceStatus(status, finalUrl, error) {
   if (error) return { state: 'manual-review', reason: String(error).slice(0, 160) };
@@ -19,8 +24,10 @@ export function classifyCorporateSourceStatus(status, finalUrl, error) {
 }
 
 export function providerSourceAgeDays(value, now = new Date()) {
+  if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return null;
   const date = new Date(value + 'T12:00:00Z');
-  if (!Number.isFinite(date.getTime())) return null;
+  if (!Number.isFinite(date.getTime()) || date.toISOString().slice(0, 10) !== value
+    || date.getTime() > now.getTime()) return null;
   return Math.floor((now.getTime() - date.getTime()) / 86400000);
 }
 
@@ -68,21 +75,23 @@ export async function auditCorporateEventEditorialSources(now = new Date()) {
   const byUrl = new Map(result.map((item) => [item.url, item]));
   const providers = corporateEventProviders.map((provider) => {
     const ageDays = providerSourceAgeDays(provider.verifiedOn, now);
+    const reviewWindowDays = corporateSourceReviewWindowDays(provider);
     const official = byUrl.get(provider.officialUrl);
     const source = byUrl.get(provider.sourceUrl);
     return {
       slug: provider.slug,
       city: provider.city,
       verifiedOn: provider.verifiedOn,
-      ageDays,
-      needsEditorialReview: ageDays === null || ageDays > staleDays || official?.state !== 'reachable' || source?.state !== 'reachable',
+      ageDays, reviewWindowDays,
+      reviewOverdue: ageDays === null || ageDays >= reviewWindowDays,
+      needsEditorialReview: ageDays === null || ageDays >= reviewWindowDays || official?.state !== 'reachable' || source?.state !== 'reachable',
       officialSource: official,
       supportingSource: source,
     };
   });
   return {
     auditAt: now.toISOString(),
-    policy: 'Report only: a successful link check does not prove published price, capacity, availability, affiliation, or re-verification.',
+    policy: 'Report only: review windows are 30 days for published numeric starting rates and 60 days otherwise. A successful link check does not prove published price, capacity, availability, affiliation, or re-verification.',
     sourceCount: sources.length,
     providerCount: providers.length,
     needsReview: providers.filter((provider) => provider.needsEditorialReview).length,

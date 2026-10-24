@@ -19,7 +19,7 @@ jobs:
           node-version: '22'
       - name: Verify source audit classifier
         run: node --experimental-strip-types scripts/data/validate-corporate-event-sources.mjs
-      - name: Review 90-day source freshness and official HTTPS URL reachability
+      - name: Review 30/60-day editorial due dates and official HTTPS URL reachability
         run: node --experimental-strip-types scripts/data/audit-corporate-event-sources.mjs
       - name: Preserve source review report
         if: always()
