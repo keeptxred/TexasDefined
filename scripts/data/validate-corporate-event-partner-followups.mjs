@@ -41,14 +41,37 @@ const server=readFileSync('src/data/corporate-event-partner-outreach.server.ts',
 const panel=readFileSync('src/components/events/CorporateEventPartnerOutreachPanel.tsx','utf8');
 const canonical=readFileSync('scripts/ci/run-premerge-validation.mjs','utf8');
 assert(server.includes('dueLatestCorporateVenueFollowups(events, today)') &&
+  server.includes('dueLatestCorporateVenueFollowups(history, today)') &&
   server.includes('dueFollowupEventIds: dueFollowups.map(event => event.id)') &&
-  server.includes('followupsDueInVisibleRows: dueFollowups.length'),
-  'Staff server must not count all historical due dates after later responses');
+  server.includes('followupsDueInVisibleRows: visibleDue.length') &&
+  server.includes('dueFollowupEvents: dueFollowups') &&
+  server.includes('followupHistoryExhaustive: exhaustiveHistory'),
+  'Staff server must review older real interactions without confusing incomplete history with all-time follow-ups');
+assert(server.includes('while (history.length <= HISTORY_LIMIT)') &&
+  server.includes(".lte('recorded_at', newestRecordedAt)") &&
+  server.includes('.range(history.length, history.length + batchSize - 1)') &&
+  server.includes('const HISTORY_LIMIT = 5_000') &&
+  server.includes(': visibleDue'),
+  'History scanning must be read-only, bounded, snapshot-filtered and fail closed if capped');
 assert(panel.includes('const dueFollowupIds = new Set(snapshot?.dueFollowupEventIds??[])') &&
-  panel.includes("show==='followup' && dueFollowupIds.has(row.id)"),
-  'Staff due-view filter must use latest-evidence due list, not raw outdated row followup dates');
+  panel.includes("show==='followup' && dueFollowupIds.has(row.id)") &&
+  panel.includes("show==='followup' ? (snapshot?.dueFollowupEvents??[])") &&
+  panel.includes('followupHistoryExhaustive'),
+  'Staff due-view must show genuine older outstanding venue tasks as well as recent ones, with completeness disclosed');
 assert(panel.includes('latest venue interaction') && server.includes('Truncation can hide older tasks'),
   'Do not claim incomplete 120-row evidence is a full historical follow-up queue');
+const historyWithOldDueAndRecentUnrelated = [
+  ...Array.from({length: 130}, (_, i) => row('noise-'+i,'noise-venue',october23,null)),
+  row('old-due','older-venue',october21,yesterday),
+  row('reply-no-due','another-venue',october23,null,'partner_reply'),
+  row('old-superseded','another-venue',october21,yesterday),
+];
+const oldestQueue = dueLatestCorporateVenueFollowups(historyWithOldDueAndRecentUnrelated,today);
+assert.deepEqual(oldestQueue.map(x => x.id), ['old-due'],
+  'A legitimate due task beyond the 120 newest records is retained when full history is reviewed');
+const incompleteRecentDue = dueLatestCorporateVenueFollowups(historyWithOldDueAndRecentUnrelated.slice(0,120),today);
+assert.equal(incompleteRecentDue.length,0,
+  'The 120-event sample alone misses older legitimate due tasks, motivating the reviewed-history queue');
 assert(canonical.includes('validate-corporate-event-partner-followups.mjs'),
   'Future releases must run the stable deterministic latest-evidence followup regression');
 console.log('Corporate event due followups: old reminders cleared after genuine newer interactions; bounded, deduped and deterministic PASS.');
