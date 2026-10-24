@@ -18,6 +18,8 @@ const partnerRoute = read("src/routes/partner-with-us.tsx");
 const partnerForm = read("src/routes/partner-with-us.lazy.tsx");
 const partnerServer = read("src/data/partner-inquiry.functions.ts");
 const monetizationPolicy = read("docs/holidays/christmas-2026-monetization.md");
+const christmasLiveVerifier = read("scripts/ci/verify-christmas-hub-production.mjs");
+const productionWorkflow = read(".github/workflows/deploy-production.yml");
 const schemaBatch = read("src/data/major-event-schema-enrichment-batch33.server.ts");
 
 const start = eventFile.indexOf("const verifiedOccurrences");
@@ -190,6 +192,12 @@ assert.ok(partnerForm.includes("const search = Route.useSearch()") && partnerFor
 assert.ok(partnerServer.includes("z.literal('/events/christmas-events')"), "Server must enforce Christmas inquiry source allowlist");
 assert.ok(!page.includes("adsbygoogle"), "Do not activate unapproved AdSense on Christmas calendars");
 assert.ok(monetizationPolicy.includes("AdSense is not approved"), "Retain actual AdSense approval status in Christmas policy");
+assert.ok(christmasLiveVerifier.includes("Flower Mound Christmas Parade and Tree Lighting"), "Live smoke must check the 2026–27 community Christmas expansion");
+assert.ok(christmasLiveVerifier.includes("A Pineywoods Christmas"), "Live smoke must check organizer-backed state park records");
+assert.ok(christmasLiveVerifier.includes("verify-christmas-release="), "Live smoke must bypass caches when probing stale source data");
+assert.ok(christmasLiveVerifier.includes("data-ad-slot="), "Do not accidentally activate AdSense display units before approval");
+assert.ok(productionWorkflow.includes("node scripts/ci/verify-christmas-hub-production.mjs"), "Existing protected production deploy must verify Christmas hub freshness");
+assert.ok(productionWorkflow.includes("id: live_christmas_hub"), "Protected Christmas production smoke step missing");
 assert.ok(schemaRegistry.includes("...majorEventSchemaEnrichmentBatch33,"), "Reviewed Christmas organizer schema batch missing from runtime registry");
 assert.ok(adapter.includes("getMajorEventOccurrenceWindowsServer(authority)"), "Date-scoped seasonal guides must not pad closed nights");
 assert.ok(read("src/data/major-event-expanded-authority-tranche57.server.ts").includes('label: "After Dec 9 closure"'), "Houston Zoo Lights holiday closures must remain excluded");
