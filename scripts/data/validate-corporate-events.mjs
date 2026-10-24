@@ -13,8 +13,8 @@ const guidebook = readFileSync('src/routes/guides.lazy.tsx', 'utf8');
 const cityGuides = readFileSync('src/components/events/CorporateEventMetroGuides.tsx', 'utf8');
 const categories = new Set(corporateEventCategories.map((item) => item.value));
 
-assert(corporateEventProviders.length >= 136, 'Corporate event directory requires at least 136 independently sourced venues including 50+ in Houston proper');
-assert(corporateEventProviders.filter((p) => p.city === 'Houston').length >= 50, 'Houston proper must maintain 50+ distinct source-backed venues, not just suburban listings');
+assert(corporateEventProviders.length >= 146, 'Directory needs 146+ distinct officially sourced Texas corporate venues');
+assert(corporateEventProviders.filter((p) => p.city === 'Houston').length >= 60, 'Houston city must maintain 60+ distinct official-source corporate venue listings, not suburban aliases');
 // The operator's official directions give 6749 FM 2920, Spring, TX 77379;
 // Houston marketing language describes its metro market, not its city address.
 const geronimo = corporateEventProviders.find(p => p.slug === 'geronimo-adventure-park');
@@ -81,6 +81,36 @@ assert.equal(cidercadeReview?.ageLimit, 'All ages until 9 PM; 18+ from 9 PM.',
   'Cidercade evening age rules must be visible, not buried in generic capacity details');
 assert.equal(cidercadeReview?.startingPricePerPerson, null,
   'General arcade admission is not a sourced private corporate event quote');
+
+
+const houston20261024Expansion = [
+  ['grangers-houston-private-events', 250, 10, 'https://grangershouston.com/private-events.php'],
+  ['cellar7-houston-private-events', 250, null, 'https://www.cellar7htx.com/private-events'],
+  ['east-river-nine-houston-events', null, 20, 'https://eastriver9.com/book-an-event/'],
+  ['puttery-houston-corporate-events', 600, null, 'https://www.puttery.com/locations/houston/'],
+  ['davis-street-hermann-park-daytime-events', 200, null, 'https://www.davisstreet.com/daytime-events'],
+  ['pour-behavior-houston-corporate', null, null, 'https://www.pourbehaviortx.com/private-events'],
+  ['pelazzio-houston-corporate-ballrooms', null, 75, 'https://pelazzio.com/corporate-events/'],
+  ['battlefield-houston-corporate-laser-tag', null, 15, 'https://www.battlefieldhouston.com/indoor/indoorgroup'],
+  ['brittmoore-houston-corporate-events', null, null, 'https://www.thebrittmoorehtx.com/events-corporate'],
+  ['marriott-houston-energy-corridor-meetings', 300, null, 'https://www.marriott.com/en-us/hotels/houeg-houston-marriott-energy-corridor/events/'],
+];
+for (const [slug, maxGroup, minGroup, officialUrl] of houston20261024Expansion) {
+  const venue = corporateEventProviders.find((p) => p.slug === slug);
+  assert(venue, 'Missing researched Houston group venue '+slug);
+  assert.equal(venue.city, 'Houston', 'Do not misclassify a suburb as Houston: '+slug);
+  assert.equal(venue.maxGroup, maxGroup, 'Do not inflate a capacity inferred from combined rooms or from a plus sign: '+slug);
+  assert.equal(venue.minGroup ?? null, minGroup, 'Use only the published private-event minimum: '+slug);
+  assert.equal(venue.startingPricePerPerson, null, 'Public admission or package prices are not globally applicable corporate group quotes: '+slug);
+  assert.equal(venue.verifiedOn, '2026-10-24');
+  assert.equal(venue.officialUrl, officialUrl);
+  assert.equal(venue.sourceUrl, officialUrl);
+  assert(venue.capacityDetail.length > 85, 'Show specific room/format or quote limitations: '+slug);
+}
+assert.equal(corporateEventProviders.find(p=>p.slug === 'pour-behavior-houston-corporate')?.ageLimit,
+  '21+; venue dress code applies.', 'Disclose real source-reported nightlife eligibility');
+assert(corporateEventProviders.find(p=>p.slug === 'puttery-houston-corporate-events')?.ageLimit.includes('Fri–Sat'),
+  'Puttery Houston evening restrictions are not the same as Puttshack Houston');
 
 assert.equal(new Set(corporateEventProviders.map((p) => p.slug)).size, corporateEventProviders.length);
 for (const p of corporateEventProviders) {
