@@ -21,7 +21,7 @@ const end = eventFile.indexOf("\n];", start);
 assert.ok(start >= 0 && end > start, "Source-qualified Christmas manifest was not found");
 const json = eventFile.slice(eventFile.indexOf("= [", start) + 2, end + 2).trim();
 const events = JSON.parse(json);
-assert.ok(events.length >= 30, "A verified community Christmas event wave is missing");
+assert.ok(events.length >= 114, "The 114 organizer-verified Christmas date windows must not shrink without explicit source review");
 assert.equal(events.length, new Set(events.map((event) => event.slug)).size, "Duplicate Christmas community slugs");
 
 const validDate = /^20\d{2}-\d{2}-\d{2}$/;
@@ -48,6 +48,17 @@ const check = (slug, date, endDate) => {
   assert.equal(event.startDate, date, `Unexpected source date for ${slug}`);
   if (endDate !== undefined) assert.equal(event.endDate, endDate, `Unexpected end date for ${slug}`);
 };
+for (const [slug,start,end] of [
+  ['beaumont-mcfaddin-ward-holiday-open-house-2026','2026-12-05','2026-12-06'],
+  ['arlington-texas-christkindl-market-opening-2026','2026-11-20','2026-11-22'],
+  ['arlington-texas-christkindl-market-season-2026','2026-11-27','2026-12-23'],
+  ['frisco-light-park-riders-field-2026','2026-11-06','2027-01-03'],
+  ['gruene-christmas-market-days','2026-12-05','2026-12-06'],
+  ['waco-wild-lights-2026-1','2026-11-27','2026-11-29'],
+  ['waco-wild-lights-2026-4','2026-12-17','2026-12-20'],
+  ['mineral-wells-merry-wells-festival','2026-11-28',undefined],
+]) check(slug,start,end);
+assert.ok(!bySlug.has('waco-wild-lights-2026-late-december'), 'Conflicted Zoo operating nights cannot be invented');
 check("wimberley-trail-of-lights", "2026-11-28", "2026-12-26");
 check("grand-prairie-prairie-lights", "2026-11-26", "2026-12-31");
 check("georgetown-christmas-stroll", "2026-12-04", "2026-12-06");

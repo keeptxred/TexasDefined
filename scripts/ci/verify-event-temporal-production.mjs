@@ -158,6 +158,13 @@ async function verifyDynamicCollection(collection, sitemap) {
   const inSitemap = sitemap.includes(`<loc>${origin}${collection.path}</loc>`);
   assert(hasNoindex(html) === !shouldIndex, `${collection.label} robots policy must match ${count} guides and ${collection.threshold}-guide threshold`);
   assert(inSitemap === shouldIndex, `${collection.label} sitemap policy must match ${count} guides and ${collection.threshold}-guide threshold`);
+  // Verify the Christmas collection is actually present in server-rendered production during the season.
+  const today = new Date().toISOString().slice(0,10);
+  if (collection.path === '/events/christmas-events' && today >= '2026-10-23' && today <= '2027-01-02') {
+    for (const needle of ['Source-verified local traditions','Christmas lights, parades and community festivals','Official event schedule','Christmas travel sponsorships','Frisco']) {
+      assert(decoded.includes(needle), 'Live Christmas event collection missing reviewed seasonal coverage: '+needle);
+    }
+  }
   verifyCollectionSchema(html, collection.label);
   console.log(`[${collection.label}] ${count} guides; ${shouldIndex ? 'indexable/in sitemap' : 'noindex/out of sitemap'} verified`);
 }
