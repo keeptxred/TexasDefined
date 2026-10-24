@@ -204,6 +204,21 @@ export const Route = createFileRoute("/destination/$slug")({
       const { enrichTexasHistoricSiteAuthority } = await import("@/data/historic-site-authority-2026");
       destination = enrichTexasHistoricSiteAuthority(destination);
     }
+    // Preserve the six TPWD October 2026 official-source FAQs in both the
+    // initial server response and the hydrated client route. A remote or
+    // fallback destination query can otherwise replace locally curated facts.
+    // Idempotent: matching questions are de-duplicated by the official overlay.
+    if ([
+      "kickapoo-cavern-state-park",
+      "possum-kingdom-state-park",
+      "lake-casa-blanca-international-state-park",
+      "lake-colorado-city-state-park",
+      "purtis-creek-state-park",
+      "martin-dies-jr-state-park",
+    ].includes(destination.slug)) {
+      const { applySixLaterTPWDAuthorities } = await import("@/data/tpwd-six-later-park-authorities");
+      destination = applySixLaterTPWDAuthorities(destination);
+    }
     // Site-specific closed-property cleanup must survive remote enrichment
     // and must not suggest visiting the protected 1680 Socorro site.
     if (destination.slug === "old-socorro-mission") {
