@@ -12,6 +12,7 @@ const outcomeSchema = z.object({
   ]),
   occurredAt: z.string().datetime({ offset: true }),
   evidenceReference: z.string().trim().min(20).max(500),
+  evidenceKey: z.string().trim().min(6).max(120).regex(/^[A-Za-z0-9][A-Za-z0-9:._-]{5,119}$/),
   amountCents: z.number().int().min(1).max(1_000_000_000).nullable(),
   confirmIndependentEvidence: z.literal(true),
 }).superRefine((data, ctx) => {
@@ -37,6 +38,7 @@ export const attestCorporateEventOutcome = createServerFn({ method: 'POST' })
       outcomeType: data.outcomeType,
       occurredAt: new Date(data.occurredAt).toISOString(),
       evidenceReference: data.evidenceReference,
+      evidenceKey: data.evidenceKey,
       amountCents: data.amountCents,
       confirmIndependentEvidence: true,
     });
