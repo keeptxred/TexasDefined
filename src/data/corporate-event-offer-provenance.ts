@@ -44,7 +44,18 @@ export function corporateEventVerifiedRedemptionUrl(
 
 /** Evidence may be public only when actually recorded and not future-dated. */
 export function corporateEventEvidenceTimestampIsValid(value: string | null | undefined, now: Date = new Date()): boolean {
-  if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,9})?(?:Z|[+-]\d{2}:\d{2})$/.test(value)) return false;
+  if (typeof value !== 'string') return false;
+  const parsed = value.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(?:\.\d{1,9})?(Z|[+-]\d{2}:\d{2})$/);
+  if (!parsed) return false;
+  const [, yearText, monthText, dayText, hourText, minuteText, secondText, zone] = parsed;
+  const [year, month, day, hour, minute, second] = [yearText, monthText, dayText, hourText, minuteText, secondText].map(Number);
+  if (month < 1 || month > 12 || day < 1 || day > new Date(Date.UTC(year, month, 0)).getUTCDate()
+      || hour > 23 || minute > 59 || second > 59) return false;
+  if (zone !== 'Z') {
+    const zoneHours = Number(zone.slice(1, 3));
+    const zoneMinutes = Number(zone.slice(4, 6));
+    if (zoneHours > 14 || zoneMinutes > 59 || (zoneHours === 14 && zoneMinutes !== 0)) return false;
+  }
   const instant = Date.parse(value);
   return Number.isFinite(instant) && instant <= now.getTime();
 }
