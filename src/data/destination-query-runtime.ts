@@ -464,5 +464,6 @@ export async function listResolvedDestinationSearchCatalog() {
     cavernFallbacks,
     cityPassFallbacks,
   ));
-  return enhanceWacoMuseumDestinations(reconcileExploreCatalog(mergeReadyCatalogs(primaryReady, fallbackReady)));
+  const museumEnhancedCatalog = await enhanceWacoMuseumDestinations(mergeReadyCatalogs(primaryReady, fallbackReady));
+  return reconcileExploreCatalog(museumEnhancedCatalog);
 }
