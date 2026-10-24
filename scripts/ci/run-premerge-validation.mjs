@@ -104,6 +104,7 @@ const prebuildChecks = [
   ['NETWORK/BILLING', 'Verify Stripe staging mode is isolated from live credentials, prices and website origin', 'node', ['--experimental-strip-types', '--test', 'scripts/data/network-stripe-isolated-mode.test.mjs']],
   ['CALCULATOR/PLATFORM', 'Validate calculator math and shared architecture', 'node', ['--experimental-strip-types', 'scripts/data/validate-calculator-platform.ts']],
   ['EVENT/CORPORATE', 'Validate corporate-event source directory, category guides, and SEO breadcrumbs', 'node', ['--experimental-strip-types', 'scripts/data/validate-corporate-events.mjs']],
+  ['EVENT/CORPORATE/PAGINATION', 'Require scalable accessible venue result paging independent of shortlist', 'node', ['--experimental-strip-types', 'scripts/data/validate-corporate-event-pagination.mjs']],
   ['EVENT/CORPORATE/DEPLOY', 'Verify changed corporate marketplace production selection and GET-only SSR acceptance', 'node', ['scripts/ci/validate-corporate-event-production-smoke.mjs']],
   ['EVENT/CORPORATE/GEO', 'Protect source-verified and privacy-safe ZIP-radius prerequisites', 'node', ['--experimental-strip-types', 'scripts/data/validate-corporate-event-verified-proximity.mjs']],
   ['EVENT/CORPORATE/GEO-RESEARCH', 'Quarantine Census address-range interpolations pending actual venue premises verification', 'node', ['scripts/data/research-corporate-event-geocodes.test.mjs']],
