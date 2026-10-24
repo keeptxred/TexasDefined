@@ -70,10 +70,11 @@ for (const [file, source, required] of [
   ["hotel affiliate disclosure", page, "Affiliate disclosure: TexasDefined may earn a commission"],
   ["hotel affiliate sponsored link", page, 'data-affiliate-placement="christmas-hub-hotel-search"'],
   ["Viator affiliate sponsored link", page, 'data-affiliate-placement="christmas-community-nearby-experiences"'],
-  ["business sponsorship CTA", page, 'href="/partner-with-us"'],
+  ["business sponsorship CTA", page, 'href="/partner-with-us?type=brand-retail&amp;source=%2Fevents%2Fchristmas-events&amp;focus=contact"'],
   ["premerge validation", premerge, "validate-christmas-community-2026.mjs"],
 ]) assert.ok(source.includes(required), `${file}: missing ${required}`);
 
+assert.ok(collection.includes('christmasOfferCities') && collection.includes('!christmasOfferCities.has(event.city)'), "Holiday experience affiliate offers must remain at most one per city");
 assert.ok(page.includes('rel="sponsored nofollow noopener noreferrer"'), "Commercial links require disclosure attributes");
 assert.ok(eventFile.includes('category: "seasonal" as const'), "Calendar category is missing");
 assert.ok(eventFile.includes('filter((occurrence) => (occurrence.endDate ?? occurrence.startDate) >= today)'), "Past holiday dates must expire automatically");
