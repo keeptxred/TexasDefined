@@ -245,7 +245,7 @@ function CorporateEventsPage() {
       <Container className="py-12 sm:py-20">
         <p className="eyebrow text-background/70">Texas Defined • Group experiences</p>
         <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[1.05] sm:text-6xl lg:text-7xl">Plan a company event worth leaving the office for.</h1>
-        <p className="mt-6 max-w-3xl text-lg leading-8 text-background/80">Compare company outings and team-building experiences across nine Texas markets, from Houston and Dallas–Fort Worth to El Paso, the Gulf Coast, Waco and Lubbock. Shortlist options and create a proposal to share with your boss.</p>
+        <p className="mt-6 max-w-3xl text-lg leading-8 text-background/80">Compare sourced company outings and team-building venues throughout Texas, including Bryan–College Station, Tyler, Beaumont, Amarillo, McAllen and Midland–Odessa. Build a shareable shortlist and a proposal for management.</p>
         <div className="mt-8 flex flex-wrap gap-4 text-sm text-background/80"><span className="inline-flex items-center gap-2"><Users className="size-4" /> Group-size aware</span><span className="inline-flex items-center gap-2"><ClipboardList className="size-4" /> Shareable shortlist</span><span className="inline-flex items-center gap-2"><Check className="size-4" /> Official venue sources</span></div>
       </Container>
     </section>
