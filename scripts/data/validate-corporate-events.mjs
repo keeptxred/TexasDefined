@@ -176,6 +176,32 @@ assert(puttshackReviewed.capacityDetail.includes('up to 670 people')
   && puttshackReviewed.capacityDetail.includes('up to 6'),
   'Venue-wide capacity and actual golf-rotation game group size are distinct');
 
+// 2026-10-24 primary official sources distinguish published group-ticket
+// prices, corporate partial-buyout rates and a specific hangar occupancy type.
+const escapePricing = sourceBySlug.get('the-escape-game-houston');
+assert.equal(escapePricing.maxGroup, null);
+assert.equal(escapePricing.startingPricePerPerson, null,
+  'A rate available only to 25–52 people is not a universal all-group starting rate');
+assert(escapePricing.capacityDetail.includes('$34/person')
+  && escapePricing.capacityDetail.includes('25–52')
+  && escapePricing.capacityDetail.includes('CityCentre')
+  && escapePricing.capacityDetail.includes('custom full-buyout quote'));
+assert.equal(escapePricing.verifiedOn,'2026-10-24');
+const illusions = sourceBySlug.get('museum-of-illusions-houston-groups');
+assert.equal(illusions.maxGroup,null);
+assert.equal(illusions.startingPricePerPerson,null);
+assert(illusions.capacityDetail.includes('$20.95') && illusions.capacityDetail.includes('$2,800')
+  && illusions.capacityDetail.includes('NOT a private-event rate'),
+  'Standard group tickets and private corporate rental must never be misrepresented as the same product');
+const flight = sourceBySlug.get('lone-star-flight-museum-rentals');
+assert.equal(flight.maxGroup,1250,'Waltrip Hangar source advertises 1250 standing, not seated');
+assert.equal(flight.startingPricePerPerson,null);
+assert(flight.capacityDetail.includes('1,250 STANDING')
+  && flight.capacityDetail.includes('1,000 SEATED')
+  && flight.capacityDetail.includes('20% deposit'));
+assert.equal(flight.sourceUrl,'https://lonestarflight.org/see-do/waltrip-hangar/');
+assert.equal(flight.verifiedOn,'2026-10-24');
+
 assert.equal(new Set(corporateEventProviders.map((p) => p.slug)).size, corporateEventProviders.length);
 for (const p of corporateEventProviders) {
   assert(p.officialUrl.startsWith('https://') && p.sourceUrl.startsWith('https://'));
