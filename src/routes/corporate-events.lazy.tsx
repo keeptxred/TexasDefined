@@ -288,7 +288,7 @@ function CorporateEventsPage() {
 
         <div>
           <div className="flex flex-wrap items-end justify-between gap-4 border-b border-border pb-5">
-            <div><p className="eyebrow text-primary">Sourced Texas directory</p><h2 className="mt-2 font-display text-3xl sm:text-4xl">{matches.length} group event {matches.length === 1 ? 'option' : 'options'}</h2><p className="mt-2 text-sm text-muted-foreground">{city.trim() || 'Your location'} · {validHeadcount ? headcount + ' guests' : 'Enter a valid group size'} · Sourced October 23, 2026</p></div>
+            <div><p className="eyebrow text-primary">Sourced Texas directory</p><h2 className="mt-2 font-display text-3xl sm:text-4xl">{matches.length} group event {matches.length === 1 ? 'option' : 'options'}</h2><p className="mt-2 text-sm text-muted-foreground">{city.trim() || 'Your location'} · {validHeadcount ? headcount + ' guests' : 'Enter a valid group size'} · Provider cards show their individual source-review dates</p></div>
             {selected.length ? <a href="#proposal" className="inline-flex min-h-11 items-center gap-2 border border-primary px-4 text-sm font-semibold text-primary">{selected.length}/5 shortlisted <ClipboardList className="size-4" /></a> : null}
           </div>
           {matches.length ? <div className="mt-6 grid gap-5 md:grid-cols-2">{matches.map((provider) =>
