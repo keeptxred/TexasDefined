@@ -17,8 +17,13 @@ assert(server.includes("if (status === 'approved' && (!verifiedIdentity || verif
 assert(server.includes('identity_verified_at: new Date().toISOString()'), 'Client must not control approval timestamp');
 assert(server.includes('identity_verification_note: verificationNote.trim()'), 'Reviewer evidence must be persisted');
 assert(server.includes("status,identity_verified_at,identity_verification_note"), 'Offer activation must recheck verified applicant');
-assert(server.includes("!application.identity_verified_at || !application.identity_verification_note"), 'No offer proposal from unverified applicant');
-assert(server.includes("!partner.identity_verified_at || !partner.identity_verification_note"), 'No approved promotion from unverified applicant');
+assert(server.includes('!corporateEventEvidenceTimestampIsValid(application.identity_verified_at)')
+  && server.includes('!application.identity_verification_note'), 'No offer proposal from missing, malformed or future-dated applicant attestation');
+assert(server.includes('!corporateEventEvidenceTimestampIsValid(partner.identity_verified_at)')
+  && server.includes('!partner.identity_verification_note'), 'No approved promotion from missing, malformed or future-dated applicant attestation');
+assert(server.includes('corporateEventVerifiedRedemptionUrl(data.redemptionUrl, String(application.website), record.officialUrl)')
+  && server.includes('corporateEventVerifiedRedemptionUrl(String(offer.redemption_url), String(partner.website), reviewedVenue.officialUrl)'),
+  'Never let staff draft or approve unverified partner domains, even if a staff attestation field exists');
 
 assert(input.includes('verifiedIdentity: z.boolean().default(false)'), 'Approval attestation must default false');
 assert(input.includes("verificationNote: z.string().trim().max(500).default('')"), 'Unverified applications must not assume evidence');
