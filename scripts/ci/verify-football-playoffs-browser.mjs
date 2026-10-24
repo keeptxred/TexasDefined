@@ -26,6 +26,13 @@ const evidence = [];
 try {
   for (const width of [320, 375, 390, 1440]) {
     const page = await browser.newPage({ viewport: { width, height: 900 } });
+    const runtimeErrors = [];
+    page.on('pageerror', error => runtimeErrors.push(error.message));
+    page.on('console', message => {
+      if (message.type() === 'error' && /hydration|Minified React error|react-dom/i.test(message.text())) {
+        runtimeErrors.push(message.text());
+      }
+    });
     const response = await page.goto(origin + path, { waitUntil: 'domcontentloaded', timeout: 60000 });
     assert.equal(response.status(), 200);
     const reference = page.locator('[data-playoffs-reference="2026"]');
@@ -56,6 +63,88 @@ try {
       console.log("Pre-deployment production baseline; new guide UI assertions deferred until deployment.");
     }
     assert.equal(result.faqCount, 6);
+    // Inspect the *hydrated* offer at every viewport. The HTTP-only production
+    // verifier cannot catch missing React click handlers or mobile overflow.
+    const offerSection = page.locator('section[aria-label="Football fan shopping and travel"]');
+    await offerSection.waitFor({ state: 'visible', timeout: 18000 });
+    await page.waitForFunction(() => (
+      document.querySelector('section[aria-label="Football fan shopping and travel"] a[data-commercial-partner="rvshare"]')
+      && document.querySelector('section[aria-label="Football fan shopping and travel"] a[data-commercial-partner="hotels.com"]')
+    ), undefined, { timeout: 15000 });
+    const affiliate = await page.evaluate(() => {
+      const section = document.querySelector('section[aria-label="Football fan shopping and travel"]');
+      const disclosure = [...section.querySelectorAll('p')].find(p => p.textContent?.startsWith('Affiliate disclosure:'));
+      const offers = ['hotels.com', 'rvshare'].map(partner => {
+        const anchor = section.querySelector('a[data-commercial-partner="' + partner + '"]');
+        const bounds = anchor?.getBoundingClientRect();
+        return {
+          partner, href: anchor?.href, rel: anchor?.rel, target: anchor?.target,
+          placement: anchor?.dataset.commercialPlacement,
+          label: anchor?.textContent?.trim(), visible: Boolean(bounds?.width && bounds?.height),
+          x: bounds?.x, right: bounds?.right,
+          disclosedBefore: Boolean(disclosure && anchor && (disclosure.compareDocumentPosition(anchor) & Node.DOCUMENT_POSITION_FOLLOWING)),
+        };
+      });
+      return {
+        heading: section.querySelector('h3')?.textContent?.trim(),
+        disclosure: disclosure?.textContent?.trim(),
+        official: section.querySelector('a[href="https://www.uiltexas.org/football/state"]')?.textContent?.trim(),
+        offers,
+      };
+    });
+    assert.equal(affiliate.heading, 'Plan your Texas playoff trip');
+    assert.ok(affiliate.disclosure?.includes('TexasDefined may earn a commission'));
+    assert.ok(affiliate.official?.includes('Official UIL championship'));
+    for (const offer of affiliate.offers) {
+      const destination = offer.partner === 'hotels.com' ? 'https://www.hotels.com/' : 'https://rvshare.com/';
+      assert.equal(offer.href, 'https://www.anrdoezrs.net/links/101876465/type/dlg/' + destination,
+        offer.partner + ' must use the approved CJ publisher redirect and real merchant destination');
+      assert.ok(offer.rel.split(/\s+/).includes('sponsored') && offer.rel.includes('nofollow')
+        && offer.rel.includes('noopener') && offer.rel.includes('noreferrer'), offer.partner + ' affiliate relationship');
+      assert.equal(offer.target, '_blank');
+      assert.ok(offer.placement?.startsWith('football-'));
+      assert.ok(offer.visible && offer.x >= -2 && offer.right <= width + 2,
+        offer.partner + ' CTA must fit the ' + width + 'px viewport');
+      assert.ok(offer.disclosedBefore, offer.partner + ' must follow the disclosure');
+    }
+
+    // Dry-run React click handlers while browser networking is OFFLINE.
+    // Prevent default navigation, block all requests, and inspect only ephemeral
+    // page-local dataLayer/events. No CJ hits or first-party outcomes are sent.
+    await page.context().setOffline(true);
+    await page.route('**/*', route => route.abort());
+    const clickEvidence = await page.evaluate(() => {
+      const observed = [];
+      window.addEventListener('texasdefined:affiliate-click', event => observed.push(event.detail));
+      const before = (window.dataLayer || []).filter(entry => entry.event === 'affiliate_click').length;
+      for (const partner of ['hotels.com', 'rvshare']) {
+        const link = document.querySelector('section[aria-label="Football fan shopping and travel"] a[data-commercial-partner="' + partner + '"]');
+        link.addEventListener('click', event => event.preventDefault(), { capture: true, once: true });
+        link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
+      }
+      return {
+        dataLayer: (window.dataLayer || []).filter(entry => entry.event === 'affiliate_click').slice(before),
+        customEvents: observed,
+      };
+    });
+    assert.equal(clickEvidence.dataLayer.length, 2, 'React onClick must fire one marketing event per affiliate');
+    assert.equal(clickEvidence.customEvents.length, 2, 'React onClick must dispatch one shared custom event per affiliate');
+    for (const [i, partner] of ['hotels.com', 'rvshare'].entries()) {
+      const e = clickEvidence.dataLayer[i], c = clickEvidence.customEvents[i];
+      assert.equal(e.affiliate_partner, partner);
+      assert.equal(c.affiliate_partner, partner);
+      assert.equal(e.page_path, path);
+      assert.equal(e.affiliate_module, 'football-fan-essentials');
+      assert.ok(e.affiliate_placement?.includes('texas-high-school-football-playoffs-explained'));
+      assert.equal(e.event, 'affiliate_click');
+    }
+    result.affiliate = { ...affiliate, simulatedClickCount: clickEvidence.dataLayer.length,
+      customEventCount: clickEvidence.customEvents.length, networkBlocked: true };
+    assert.deepEqual(runtimeErrors, [], 'No hydration/React runtime errors expected before simulated clicks');
+    // Restore navigation so each responsive screenshot is captured in normal browser mode.
+    await page.context().setOffline(false);
+    await page.unroute('**/*');
+
     if (width < 640) {
       assert.ok(result.tableWidth > result.tableViewport);
       assert.equal(result.overflow, 'auto');
