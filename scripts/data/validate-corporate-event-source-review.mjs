@@ -30,7 +30,21 @@ assert(panel.includes('item.provider.sourceUrl') && panel.includes('item.provide
   'Staff must have the real cited and official venue links');
 assert(panel.includes('Do not advance a review date just by opening this page'),
   'Opening the queue must never be described as fresh research');
-assert(panel.includes('queue.items.slice(0, 24)'), 'Private review queue must remain bounded');
+assert(panel.includes('const PAGE_SIZE = 24') && panel.includes('queue.items.slice(firstIndex, firstIndex + PAGE_SIZE)'),
+  'Staff venue review renders at most 24 source records at once');
+assert(panel.includes('Math.max(1, Math.ceil(queue.items.length / PAGE_SIZE))') &&
+  panel.includes('setRequestedPage(page + 1)') && panel.includes('setRequestedPage(page - 1)'),
+  'Every venue must be reachable, including records after the first 24');
+assert(panel.includes('disabled={page === 0}') && panel.includes('disabled={page >= totalPages - 1}'),
+  'Review page navigation must stop at the first and last record');
+assert(panel.includes('aria-label="Venue source review pages"') &&
+  panel.includes('aria-live="polite"'),
+  'Accessible pagination status must announce range and page');
+const indicesForPage = (n, page) =>
+  Array.from({ length: Math.min(24, Math.max(0, n - 24 * page)) }, (_, i) => 24 * page + i);
+const visited = Array.from({length: Math.ceil(122 / 24)}, (_, page) => indicesForPage(122, page)).flat();
+assert.equal(visited.length, 122);
+assert(visited.every((index, position) => index === position), '122 venues must be reachable exactly once');
 assert(panel.includes('queue.overdue') && panel.includes('queue.dueSoon')
   && panel.includes('queue.unverifiable'), 'Expose review coverage without pretending all claims are current');
 assert(!/fetch\s*\(|XMLHttpRequest|submit\s*\(|\.from\s*\(/.test(queue + panel),
