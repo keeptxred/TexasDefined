@@ -58,12 +58,16 @@ assert.equal(proof.status, 0,
   'Security proof tests must pass: exact official venue hosts, valid timestamps, no external redirects or sibling host impersonation');
 assert(publicOffers.includes('business.commercial_agreement_expires_on < offer.ends_on'),
   'Public feed must suppress offers that outlive the agreement');
-assert(quotePrep.includes('identity_verified_at') &&
-  quotePrep.includes('Boolean(application.identity_verified_at)') &&
-  quotePrep.includes('Date.parse(String(application.identity_verified_at)) <= Date.now()'),
-  'An approved application without independently time-verified identity must never expose planner details');
-assert(quotePrep.includes('Date.parse(String(application.commercial_agreement_verified_at)) <= Date.now()'),
-  'Future-dated agreement attestation cannot be treated as verified');
+assert(quotePrep.includes('corporateEventEvidenceTimestampIsValid(application.identity_verified_at)') &&
+  !quotePrep.includes('Date.parse(String(application.identity_verified_at))'),
+  'An approved application without strictly verified, nonfuture identity must never expose planner details');
+assert(quotePrep.includes('corporateEventEvidenceTimestampIsValid(application.commercial_agreement_verified_at)')
+  && !quotePrep.includes('Date.parse(String(application.commercial_agreement_verified_at))'),
+  'Future-dated, malformed or ambiguous signed agreement attestations must fail closed');
+assert(quotePrep.includes('isValidCorporateEventCalendarDate(String(application.commercial_agreement_expires_on))'),
+  'Only real calendar dates can authorize an unexpired agreement');
+assert(quotePrep.includes('corporateEventEvidenceTimestampIsValid(lead.provider_outreach_consented_at)'),
+  'Organizer-specific sharing must have strictly valid nonfuture consent evidence');
 assert(quotePrep.includes('application.commercial_agreement_covers_quote_routing === true'),
   'Private quote drafts require actual partner scope as well as planner consent');
 assert(quotePrep.includes('lead.provider_outreach_consented_at') &&
