@@ -44,7 +44,7 @@ export function corporateEventVerifiedRedemptionUrl(
 
 /** Evidence may be public only when actually recorded and not future-dated. */
 export function corporateEventEvidenceTimestampIsValid(value: string | null | undefined, now: Date = new Date()): boolean {
-  if (typeof value !== 'string' || !/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/.test(value)) return false;
+  if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,9})?(?:Z|[+-]\d{2}:\d{2})$/.test(value)) return false;
   const instant = Date.parse(value);
   return Number.isFinite(instant) && instant <= now.getTime();
 }
