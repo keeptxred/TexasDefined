@@ -78,7 +78,7 @@ try {
         await cityInput.fill(market);
         await page.getByText(market + ' · 45 guests', { exact: false }).first().waitFor();
         const label = await page.getByRole('heading', { level: 2, name: /group event options?/ }).textContent();
-        assert(Number(label?.match(/(\\d+) group event/)?.[1]) > 0,
+        assert(Number(label?.match(/(\d+) group event/)?.[1]) > 0,
           view.name + ': no sourced venue candidates for ' + market);
       }
       await cityInput.fill('Houston');
@@ -88,7 +88,7 @@ try {
 
       const dateInput = page.locator('input[type="date"]');
       const today = await dateInput.getAttribute('min');
-      assert(/^\\d{4}-\\d{2}-\\d{2}$/.test(today || ''), 'Missing Texas-local minimum event date');
+      assert(/^\d{4}-\d{2}-\d{2}$/.test(today || ''), 'Missing Texas-local minimum event date');
       const yesterday = new Date(Date.parse(today + 'T12:00:00Z') - 86400000).toISOString().slice(0, 10);
       await dateInput.fill(yesterday);
       assert.equal(await page.getByRole('button', { name: 'Send planning request to TexasDefined' }).isDisabled(), true,
