@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { corporateEventSourceReviewSchedule } from '@/data/corporate-event-source-review';
+import { corporateVenueMatchesEvidenceFilter, type CorporateVenueEvidenceFilter } from '@/data/corporate-event-source-gaps';
 
 /**
  * A read-only editorial review queue. It does not fetch venue URLs, update
@@ -10,12 +11,14 @@ export function CorporateEventSourceReviewPanel() {
   const queue = corporateEventSourceReviewSchedule();
   const [city, setCity] = useState('all');
   const [urgency, setUrgency] = useState('all');
+  const [evidenceNeed, setEvidenceNeed] = useState<CorporateVenueEvidenceFilter>('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [pageIndex, setPageIndex] = useState(1);
   const cities = [...new Set(queue.items.map(item => item.provider.city))].sort((a, b) => a.localeCompare(b));
   const filtered = queue.items.filter(item =>
     (city === 'all' || item.provider.city === city)
     && (urgency === 'all' || item.status === urgency)
+    && corporateVenueMatchesEvidenceFilter(item.provider, evidenceNeed)
     && (!searchTerm.trim() || [item.provider.name, item.provider.area, item.provider.city, item.provider.slug]
       .some(value => value.toLowerCase().includes(searchTerm.trim().toLowerCase()))));
   const pageSize = 24;
@@ -45,7 +48,7 @@ export function CorporateEventSourceReviewPanel() {
     <p className="mt-3 text-xs leading-6 text-muted-foreground">
       Calculated as of {queue.asOf} (Texas date). Next scheduled review: {queue.nextReviewDueOn ?? 'date unverified'}. Entries with a published starting price are due 30 days after the last checked source; other listings are due after 60 days. These are editorial review deadlines, not asserted venue facts.
     </p>
-    <div className="mt-6 grid gap-4 sm:grid-cols-3" aria-label="Filter staff venue source reviews">
+    <div className="mt-6 grid gap-4 sm:grid-cols-4" aria-label="Filter staff venue source reviews">
       <label className="grid gap-2 text-sm font-semibold">Venue or area
         <input type="search" value={searchTerm} placeholder="Search public venue names" onChange={event => { setSearchTerm(event.target.value); setPageIndex(1); }}
           className="min-h-11 border border-border bg-background px-3 py-2 font-normal" />
@@ -67,7 +70,21 @@ export function CorporateEventSourceReviewPanel() {
           <option value="scheduled">Scheduled later</option>
         </select>
       </label>
+      <label className="grid gap-2 text-sm font-semibold">Group/price evidence to recheck
+        <select value={evidenceNeed}
+          onChange={event => { setEvidenceNeed(event.target.value as CorporateVenueEvidenceFilter); setPageIndex(1); }}
+          className="min-h-11 border border-border bg-background px-3 py-2 font-normal">
+          <option value="all">All source records</option>
+          <option value="no-numeric-capacity-ceiling">No published numeric maximum</option>
+          <option value="no-numeric-starting-rate">No numeric starting rate</option>
+          <option value="published-ceiling-covers-45">Published limits include 45 guests</option>
+        </select>
+      </label>
     </div>
+    <p className="mt-3 text-xs leading-6 text-muted-foreground">
+      These are directory field filters, not promises of simultaneous room capacity, a final quote or a date-specific opening.
+      A missing numeric maximum or rate calls for official-source review; published limits including 45 still require the venue to confirm the actual event format.
+    </p>
     <p role="status" aria-live="polite" className="mt-4 text-sm text-muted-foreground">
       Showing {firstVisible}–{lastVisible} of {filtered.length} matching records (full source directory: {queue.total}).
     </p>
