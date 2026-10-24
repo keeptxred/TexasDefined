@@ -352,6 +352,14 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           if (position >= 0) destinations[position] = canonicalDestination;
           else destinations.push(canonicalDestination);
         }
+        // Keep Waco's separately researched museum visitor details in the
+        // sitemap authority record without eagerly bundling them in Explore.
+        const { applyWacoMuseumAuthority } = await import("@/data/waco-museum-authority-upgrades");
+        for (let index = 0; index < destinations.length; index += 1) {
+          if (destinations[index].slug === "dr-pepper-museum-waco" || destinations[index].slug === "texas-ranger-hall-of-fame-museum-waco") {
+            destinations[index] = applyWacoMuseumAuthority(destinations[index]);
+          }
+        }
         // The Explore/search summaries for these authority destinations are deliberately
         // lightweight to stay within the tested client JS bundle budget. The sitemap
         // must audit full researched guides, not summaries, before including URLs.
