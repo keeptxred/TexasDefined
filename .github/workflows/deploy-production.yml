@@ -868,6 +868,27 @@ jobs:
           mkdir -p .artifacts
           node scripts/ci/verify-changed-production-pages.mjs 2>&1 | tee .artifacts/city-sitemap-live-evidence.log
 
+      # Explicit, opt-in full production XML integrity proof. It runs only
+      # for a protected merge whose commit title includes [verify-sitemaps],
+      # never on ordinary deploys or for unreviewed PRs.
+      - name: Verify both production XML sitemaps on explicit request
+        id: sitemap_integrity
+        if: ${{ always() && github.event_name == 'push' && steps.cloudflare.outcome == 'success' && steps.live_base.outcome == 'success' && contains(github.event.head_commit.message, '[verify-sitemaps]') }}
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdir -p .artifacts
+          timeout 240s node scripts/ci/verify-sitemap-production-integrity.mjs 2>&1 | tee .artifacts/production-sitemap-integrity.log
+
+      - name: Preserve explicit production XML sitemap audit evidence
+        if: ${{ always() && steps.sitemap_integrity.outcome != 'skipped' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: production-sitemap-integrity-${{ github.run_id }}
+          path: .artifacts/production-sitemap-integrity.log
+          if-no-files-found: error
+          retention-days: 90
+
       - name: Preserve live city sitemap verification evidence
         if: ${{ always() && steps.live_base.outcome != 'skipped' }}
         uses: actions/upload-artifact@v4

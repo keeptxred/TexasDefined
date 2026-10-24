@@ -331,6 +331,23 @@ test('ordinary Texas Data URL must not serve stale HTML when query-string canary
   ]) assert.ok(purgeWorkflow.includes('            ' + url + '\n'), 'missing precise purge target: ' + url);
 });
 
+test('full production sitemap XML validation is explicitly opt-in and preserves fail-closed evidence', () => {
+  const workflow = text('.github/workflows/deploy-production.yml');
+  const step = workflow.split('      - name: Verify both production XML sitemaps on explicit request')[1]?.split('      - name: Preserve explicit production XML sitemap audit evidence')[0];
+  assert.ok(step, 'missing single-publisher opt-in sitemap check');
+  for (const required of [
+    "github.event_name == 'push'",
+    "steps.cloudflare.outcome == 'success'",
+    "steps.live_base.outcome == 'success'",
+    "contains(github.event.head_commit.message, '[verify-sitemaps]')",
+    'set -o pipefail',
+    'timeout 240s node scripts/ci/verify-sitemap-production-integrity.mjs',
+    'tee .artifacts/production-sitemap-integrity.log',
+  ]) assert.ok(step.includes(required), 'missing sitemap verification fail-closed guard: ' + required);
+  assert.ok(workflow.includes("steps.sitemap_integrity.outcome != 'skipped'"), 'missing sitemap verification log artifact');
+  assert.ok(workflow.includes('production-sitemap-integrity-${{ github.run_id }}'), 'missing isolated sitemap verification artifact');
+});
+
 test('Magoffin restoration and actual ImageObject license survive live SSR', async () => {
   const plan = buildChangePlan({ baseline, head, changedFiles: ['src/data/magoffin-home-authority.ts'] });
   assert.deepEqual(plan.selectedPaths, ['/destination/magoffin-home']);
