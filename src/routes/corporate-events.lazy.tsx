@@ -10,6 +10,7 @@ import { corporateEventMarketMatches, corporateEventAreaMatches } from '@/data/c
 import { GroupEventPartnerApplication } from '@/components/events/GroupEventPartnerApplication';
 import { ApprovedCorporateEventOffers } from '@/components/events/ApprovedCorporateEventOffers';
 import { CorporateEventMetroGuides } from '@/components/events/CorporateEventMetroGuides';
+import { CorporateEventCategoryGuides } from '@/components/events/CorporateEventCategoryGuides';
 import { CorporateEventRelatedResources } from '@/components/events/CorporateEventRelatedResources';
 
 const categoryLabel = (id: GroupEventCategory) => corporateEventCategories.find((item) => item.value === id)?.label ?? id;
@@ -314,6 +315,7 @@ function CorporateEventsPage() {
     </Container>
 
     <CorporateEventMetroGuides />
+    <CorporateEventCategoryGuides />
 
     <section id="proposal" className="scroll-mt-24 border-y border-border bg-surface">
       <Container className="py-12">
