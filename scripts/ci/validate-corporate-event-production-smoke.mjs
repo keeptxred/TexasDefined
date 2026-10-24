@@ -21,6 +21,21 @@ assert(live.includes("p !== '/corporate-events'"), 'Corporate smoke may not fetc
 assert(live.includes("assertCorporateEventContents(html, 'cache-busted')"), 'Cache-busted release must be checked');
 assert(live.includes("assertCorporateEventContents(visitorHtml, 'ordinary visitor URL')"), 'Unmodified visitor cache must also be checked');
 assert(live.includes('visitorCanonical.length !== 1'), 'Visitor canonical must be checked independently');
+
+const correctTagPattern = String.raw`visitorHtml.matchAll(/<link\b[^>]*>/gi)`;
+const correctRelPattern = String.raw`.filter(match => /\brel=["']canonical["']/i.test(match[0]))`;
+assert(live.includes(correctTagPattern) && live.includes(correctRelPattern),
+  'The visitor-only verifier must use real regex word boundaries, not escaped literal backslash-b');
+assert(!live.includes(String.raw`visitorHtml.matchAll(/<link\\b[^>]*>/gi)`)
+  && !live.includes(String.raw`.filter(match => /\\brel=["']canonical["']/i.test(match[0]))`),
+  'Double-escaped word boundaries wrongly reject all valid visitor canonical tags');
+// Synthetic positive and negative controls. Do not call a live site here.
+const canonicalDoc = '<html><head><meta charset="utf-8"><link rel="canonical" href="https://texasdefined.com/corporate-events"></head></html>';
+const parse = html => [...html.matchAll(/<link\b[^>]*>/gi)].filter(match => /\brel=["']canonical["']/i.test(match[0]));
+assert.equal(parse(canonicalDoc).length, 1, 'Valid canonical fixture must be recognized');
+assert.equal(parse(canonicalDoc.replace('canonical', 'alternate')).length, 0, 'A noncanonical rel is not a canonical link');
+assert.equal(parse(canonicalDoc+canonicalDoc).length, 2, 'Duplicate canonical links are not silently accepted');
+
 assert(live.includes('cf-mitigated'), 'Cloudflare bot challenges must not be mistaken for production success');
 for (const text of [
   'A practical guide to corporate event types', 'Corporate events in Texas cities',
