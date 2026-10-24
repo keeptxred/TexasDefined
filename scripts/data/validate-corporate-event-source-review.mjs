@@ -52,4 +52,21 @@ for (const date of reviewed) {
     new Date(verified).toISOString().slice(0,10) === date,
     'Review queue must reject invalid source evidence days: ' + date);
 }
+// Source-qualified high-impact capacity corrections from current venue pages.
+const record = slug => {
+  const start = directory.indexOf("slug: '" + slug + "'");
+  assert(start >= 0, 'Missing source-reviewed venue: ' + slug);
+  return directory.slice(start, directory.indexOf('\n  },', start));
+};
+const meow = record('meow-wolf-houston');
+assert(meow.includes('maxGroup: 400') && meow.includes('full buyout up to 400') &&
+  meow.includes('Theta Theater up to 125') && meow.includes('50 vs dedicated bar page 44'),
+  'Do not reduce the Houston full buyout to a small bar or advertise the conflicting Cowboix cap as settled');
+const escape = record('the-escape-game-houston');
+assert(escape.includes("area: 'CityCentre and Galleria'") &&
+  escape.includes('maxGroup: null') && escape.includes('8–60+') &&
+  escape.includes('partial buyout 25–52') && escape.includes('53+ by custom quote'),
+  'Do not invent a hard 60-person upper limit or collapse two Houston locations into one');
+assert(escape.includes('startingPricePerPerson: null'),
+  'Group-dependent price tables must not be advertised as one universal starting rate');
 console.log('Corporate event staff source governance: cited review links, bounded due dates, privacy and entire venue catalog PASS');
