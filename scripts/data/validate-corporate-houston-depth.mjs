@@ -33,7 +33,9 @@ for (const slug of newHoustonSlugs) {
   assert(p,'Missing new editorial venue: '+slug);
   assert(corporateEventMarketMatches(p,'Houston'),'Houston metro query must include ' + slug);
   assert(p.officialUrl.startsWith('https://') && p.sourceUrl.startsWith('https://'),'Untrusted external source: '+slug);
-  assert.equal(p.verifiedOn,'2026-10-23','Source reviewed date must be recorded: '+slug);
+  const reviewed = new Date(p.verifiedOn + 'T12:00:00Z');
+  assert(!Number.isNaN(reviewed.getTime()) && reviewed.toISOString().slice(0,10) === p.verifiedOn && reviewed.getTime() <= Date.now() + 86400000,
+    'Real nonfuture date required for the independently verified venue: ' + slug);
   assert(p.capacityDetail.length >= 65,'A capacity qualifier is required: '+slug);
   assert(p.categories.length >= 1);
   assert(p.maxGroup == null || p.maxGroup >= 20);
@@ -61,5 +63,6 @@ assert.equal(bySlug.get('game-show-studio-houston-corporate')?.maxGroup,200);
 const guides=readFileSync('src/components/events/CorporateEventMetroGuides.tsx','utf8');
 assert(guides.includes('corporateEventMarketMatches(provider, guide.key)'),'Houston guide must include both the city and suburban metro aliases via the shared matcher');
 const contract=readFileSync('scripts/data/validate-corporate-events.mjs','utf8');
-assert(contract.includes('length >= 108'),'Main corporate directory contract must protect this expansion');
-console.log('Houston source-backed corporate venues PASS: +18; 85 total, 30+ Houston metro, price/capacity disclosures retained.');
+const catalogMinimum = contract.match(/corporateEventProviders\.length\s*>=\s*(\d+)/);
+assert(Number(catalogMinimum?.[1]) >= 108,'Main directory contract must retain the 108-venue Houston deepening baseline even after expansion');
+console.log('Houston source-backed corporate venues PASS: original +18, 53+ Houston metro, source and price/capacity disclosures retained.');

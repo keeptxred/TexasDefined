@@ -37,7 +37,7 @@ function ProviderCard({ provider, selected, onToggle }: { provider: CorporateEve
           {provider.categories.map((category) => <span key={category} className="border border-border px-2 py-1 text-xs">{categoryLabel(category)}</span>)}
         </div>
         <dl className="mt-5 grid grid-cols-2 gap-4 border-t border-border pt-4 text-sm">
-          <div><dt className="text-xs text-muted-foreground">Published group capacity</dt><dd className="mt-1 font-semibold">{provider.maxGroup == null ? 'Confirm with venue' : 'Up to ' + provider.maxGroup + (provider.maxGroup === 300 ? '+' : '')}</dd></div>
+          <div><dt className="text-xs text-muted-foreground">Published group capacity</dt><dd className="mt-1 font-semibold">{provider.maxGroup == null ? 'Confirm with venue' : 'Up to ' + provider.maxGroup}</dd></div>
           <div><dt className="text-xs text-muted-foreground">Starting price</dt><dd className="mt-1 font-semibold">{provider.startingPricePerPerson == null ? 'Request a quote' : 'From ' + dollars(provider.startingPricePerPerson) + ' / person'}</dd></div>
         </dl>
         <p className="mt-3 text-xs leading-5 text-muted-foreground">{provider.capacityDetail}</p>

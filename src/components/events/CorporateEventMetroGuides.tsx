@@ -63,6 +63,22 @@ const editorialCityGuides = [
     title: 'Midland–Odessa corporate activities & retreats',
     intro: 'The Permian Basin offers mobile team competitions, private dining and conference spaces. Portable activities may require a meeting venue supplied by the organizer.',
     tip: 'Separate venue rental from facilitators, and confirm Midland–Odessa travel times and setup requirements.' },
+  { key: 'Abilene', slug: 'abilene', city: 'Abilene',
+    title: 'Abilene corporate events & team meeting venues',
+    intro: 'Compare downtown historic museum meeting rooms and flexible event halls in the Big Country. Museum meeting capacities differ from after-hours event reception areas.',
+    tip: 'Confirm the room layout, museum-hours access, staging, audiovisual requirements, parking, catering and any security or deposit fees.' },
+  { key: 'Killeen/Temple', slug: 'killeen-temple', city: 'Killeen/Temple',
+    title: 'Killeen–Temple team-building & group meetings',
+    intro: 'Plan company outings near Fort Cavazos using conference rooms, collaborative escape games and indoor simulator entertainment. Some venues work best for smaller groups or rotating teams.',
+    tip: 'For 45 guests, check one-room seating versus rotating games, required waivers, mobile activity options and drive times between Temple and Killeen.' },
+  { key: 'New Braunfels', slug: 'new-braunfels', city: 'New Braunfels',
+    title: 'New Braunfels company parties & group activities',
+    intro: 'Explore hosted sporting challenges, downtown game venues, city convention rooms and covered Hill Country event spaces. Large venue buyouts and private-room capacities are not interchangeable.',
+    tip: 'Compare full buyouts with smaller meeting rooms, ask about weekday rates, and confirm outdoor weather contingencies and parking.' },
+  { key: 'Fredericksburg', slug: 'fredericksburg', city: 'Fredericksburg',
+    title: 'Fredericksburg team retreats & Hill Country gatherings',
+    intro: 'Build a company retreat around meeting rooms, ranch lodging, wine-country event space and prearranged small-group activities. Some venues have age-related policies or weekday-only corporate availability.',
+    tip: 'Ask about lodging minimum nights, transport from town, attendee age requirements, group format and whether fees apply to rooms, events or both.' },
 ] as const;
 
 const knownGuideKeys = new Set<string>(editorialCityGuides.map((guide) => guide.key));

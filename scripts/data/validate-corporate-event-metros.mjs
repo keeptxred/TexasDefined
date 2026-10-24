@@ -4,12 +4,12 @@ import { corporateEventProviders } from '../../src/data/corporate-events.ts';
 import { corporateEventMarketMatches } from '../../src/data/corporate-event-market-search.ts';
 const page = readFileSync('src/components/events/CorporateEventMetroGuides.tsx', 'utf8');
 const route = readFileSync('src/routes/corporate-events.lazy.tsx', 'utf8');
-const filters = ['Houston','Dallas/Fort Worth','Austin','San Antonio','Bryan/College Station','Midland/Odessa'];
+const filters = ['Houston','Dallas/Fort Worth','Austin','San Antonio','Bryan/College Station','Midland/Odessa','Abilene','Killeen/Temple','New Braunfels','Fredericksburg'];
 for (const market of filters) {
   const options = corporateEventProviders.filter((provider) => corporateEventMarketMatches(provider, market));
   assert(options.length >= 3, 'Too few sourced corporate event venues for ' + market);
 }
-for (const slug of ['houston','dallas-fort-worth','austin','san-antonio']) {
+for (const slug of ['houston','dallas-fort-worth','austin','san-antonio','abilene','killeen-temple','new-braunfels','fredericksburg']) {
   assert(page.includes("'corporate-events-' + guide.slug"), 'City anchor missing');
   assert(page.includes("slug: '" + slug + "'"), 'Missing metro guide: ' + slug);
 }

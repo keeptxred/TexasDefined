@@ -24,7 +24,11 @@ for (const slug of expectedNew) {
   assert(record, 'Missing sourced venue: '+slug);
   assert(record.officialUrl.startsWith('https://'),slug+' official HTTPS');
   assert(record.sourceUrl.startsWith('https://'),slug+' source HTTPS');
-  assert.equal(record.verifiedOn,'2026-10-23');
+  const lastReviewed = new Date(record.verifiedOn + 'T12:00:00Z');
+  assert(/^\d{4}-\d{2}-\d{2}$/.test(record.verifiedOn) &&
+    !Number.isNaN(lastReviewed.getTime()) && lastReviewed.toISOString().slice(0, 10) === record.verifiedOn &&
+    lastReviewed.getTime() <= Date.now() + 86400000,
+    'Source re-reviews must use real, non-future dates for ' + slug);
   assert(record.capacityDetail.length >= 50,slug+' capacity qualification required');
   if(record.startingPricePerPerson!=null) {
     assert.equal(slug,'topgolf-bryan-corporate','Do not guess a rate for new venues');
