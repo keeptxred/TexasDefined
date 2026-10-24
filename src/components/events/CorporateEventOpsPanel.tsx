@@ -5,6 +5,7 @@ import {
 } from '@/data/corporate-events.admin.functions';
 import { corporateEventProviders } from '@/data/corporate-events';
 import { corporateEventTexasToday } from '@/data/corporate-event-dates';
+import { findCorporatePlannerDuplicates } from '@/data/corporate-event-duplicate-review';
 
 type LeadStatus = 'new' | 'reviewing' | 'contacted' | 'closed' | 'spam';
 type ApplicationStatus = 'pending' | 'reviewing' | 'approved' | 'rejected' | 'spam';
@@ -72,6 +73,7 @@ export function CorporateEventOpsPanel({ accessKey }: { accessKey: string }) {
     return () => { mounted = false; };
   }, [accessKey]);
 
+  const duplicateLeads = useMemo(() => findCorporatePlannerDuplicates(data?.leads ?? []), [data]);
   const counts = useMemo(() => ({
     leads: data?.leads.filter((item) => !['closed', 'spam'].includes(item.status)).length ?? 0,
     applications: data?.applications.filter((item) => !['rejected', 'spam'].includes(item.status)).length ?? 0,
@@ -151,11 +153,12 @@ export function CorporateEventOpsPanel({ accessKey }: { accessKey: string }) {
     {error ? <p role="alert" className="mt-4 border border-destructive p-4 text-sm">{error}</p> : null}
     {message ? <p role="status" className="mt-4 border border-border bg-surface p-4 text-sm">{message}</p> : null}
     {data ? <>
-      <div className="mt-6 grid gap-3 sm:grid-cols-4">
+      <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
         <Metric title="Open planner requests" value={counts.leads} />
         <Metric title="Business applications" value={counts.applications} />
         <Metric title="Current approved offers" value={counts.offers} />
         <Metric title="Offer outbound clicks (30d)" value={data.offerClickStats.outboundClicks30Days} />
+        <Metric title="Potential repeat planner requests" value={duplicateLeads.size} />
       </div>
       <p className="mt-3 text-xs leading-6 text-muted-foreground">Aggregated offer outbound link activations, not unique visitors, bookings or revenue. No click-level visitor identity is retained.{data.offerClickStats.truncated ? " More than 1,000 daily offer records exist; this is a partial lower-bound count." : ""}</p>
       <div className="mt-6 flex flex-wrap gap-2" role="tablist" aria-label="Corporate event review queues">
@@ -182,6 +185,9 @@ export function CorporateEventOpsPanel({ accessKey }: { accessKey: string }) {
                 {leadStatuses.map((state) => <option key={state} value={state}>{state}</option>)}
               </select></label>
             </div>
+            {duplicateLeads.has(lead.id) ? <p className="mt-3 border border-border bg-surface p-3 text-xs leading-6">
+              Possible repeat request: {duplicateLeads.get(lead.id)?.similarCount} other matching submission(s) within 48 hours. Confirm directly with the planner before merging work, contacting twice, or marking anything as spam. Nothing was automatically deleted.
+            </p> : null}
             {lead.provider_slugs?.length ? <p className="mt-3 text-sm text-muted-foreground">Preferred venues: {lead.provider_slugs.join(', ')}</p> : null}
             <p className={'mt-3 border px-3 py-2 text-xs leading-6 ' + (lead.allow_provider_outreach ? 'border-primary text-foreground' : 'border-border text-muted-foreground')}>
               {lead.allow_provider_outreach
