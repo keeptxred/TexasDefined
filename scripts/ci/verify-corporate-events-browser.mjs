@@ -5,6 +5,8 @@ import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
 const { chromium } = require(process.env.PLAYWRIGHT_CORE_PATH
   || '/tmp/texasdefined-corporate-qa/node_modules/playwright-core');
+const axeCore = require(process.env.AXE_CORE_PATH
+  || '/tmp/texasdefined-corporate-qa/node_modules/axe-core');
 const origin = (process.env.PRODUCTION_ORIGIN || 'https://texasdefined.com').replace(/\/$/, '');
 const evidenceDir = 'artifacts/corporate-events-browser';
 const cases = [
@@ -166,6 +168,25 @@ try {
       assert(summary.content.includes('Illustrative group totals'));
       result.checks.push('Printable management proposal excludes fictional quotes and shows planning caveats');
       await page.emulateMedia({ media: 'screen' });
+      // Offline automated accessibility smoke on fully hydrated production HTML.
+      // axe is bundled in the isolated GitHub runner, not fetched from a CDN.
+      // This never submits customer data and is not a claim of full manual WCAG conformance.
+      await page.addScriptTag({ content: axeCore.source });
+      const a11yViolations = await page.evaluate(async () => {
+        const root = document.querySelector('main#main') || document;
+        const findings = await window.axe.run(root, {
+          runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'] },
+        });
+        return findings.violations.map(v => ({
+          id: v.id, impact: v.impact, affectedElements: v.nodes.length,
+          selectors: v.nodes.slice(0, 3).map(n => n.target.join(' > ')),
+        }));
+      });
+      result.accessibilityViolations = a11yViolations;
+      const severeA11y = a11yViolations.filter(v => v.impact === 'critical' || v.impact === 'serious');
+      assert.deepEqual(severeA11y, [],
+        view.name + ': serious/critical WCAG A/AA defects: ' + JSON.stringify(severeA11y));
+      result.checks.push('Automated WCAG 2/2.1 A/AA axe inspection found no serious/critical issues; moderate issues retained in evidence');
       await page.screenshot({ path: evidenceDir + '/' + view.name + '.png', fullPage: false });
       assert.deepEqual(errors, [], view.name + ': unhandled browser errors or prohibited requests');
       result.checks.push('No browser JS errors or event form POSTs');
