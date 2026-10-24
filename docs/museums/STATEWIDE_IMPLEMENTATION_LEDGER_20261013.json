@@ -749,9 +749,11 @@
         "publicationApproved": false,
         "editorialCertified": false,
         "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
-        "researchNote": "The historical Midland CAF museum identity must be separated from current Commemorative Air Force museum work and Dallas visitor offerings. Verify successor, collections and current admission before proposing a visitor guide.",
+        "researchNote": "The historical Midland CAF Airpower Museum is not the current Dallas museum site. American Airpower Heritage Museum's present flagship is Henry B. Tippie National Aviation Education Center, 5657 Mariner Dr, Dallas; current operator provides ticket prices and Tue–Sat hours, but flying B-29 availability varies. Build guide under operator-verified NAEC institution only if actual licensed image and no duplicate canonical exist.",
         "researchEvidenceUrls": [
-          "https://www.commemorativeairforce.org/"
+          "https://flynaec.org/about/",
+          "https://flynaec.org/visit-us/tickets-and-other-information/",
+          "https://www.commemorativeairforce.org/pages/About-the-CAF"
         ],
         "lastResearchAt": "2026-10-24"
       },
@@ -817,12 +819,24 @@
       "aransascountyhistorycenter": {
         "submittedName": "Aransas County History Center",
         "rawOccurrence": 22,
-        "status": "assigned",
+        "status": "photo-permission-blocked",
         "assignedAt": "2026-10-24T20:40:00Z",
         "reviewRequired": true,
         "publicationApproved": false,
         "editorialCertified": false,
-        "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "reason": "Confirmed operating History Center for Aransas County, 801 E Cedar St Rockport, with current public exhibits and visitor hours. Real exterior Bruhl-Paul-Johnson House image exists on official/Aransas Pathways pages, but no affirmative commercial reuse rights/photographer source for exact photo have been verified. Do not publish a no-photo authority guide or copy the photo without permission.",
+        "evidence": "https://www.theachistorycenter.com/visit",
+        "researchEvidenceUrls": [
+          "https://www.theachistorycenter.com/visit",
+          "https://www.theachistorycenter.com/exhibits",
+          "https://www.theachistorycenter.com/momentsthatmadeus",
+          "https://aransaspathways.com/history-center/",
+          "https://atlas.thc.texas.gov/Details/4200001071"
+        ],
+        "researchNote": "Current operator hours Monday and Friday 10am–2pm, Saturday/Sunday 1–4pm contingent on volunteers, Tue–Thu closed. Texas Historical Commission 2022 Atlas lists outdated Saturday 10–4; operator's updated Saturday 1–4 overrides. 2026 Moments That Made U.S. exhibit opens Sep 5, 2026. No official statement found about admission charges/accessibility; never invent either. Need photograph-license verification before indexing.",
+        "relatedCanonicalSlug": null,
+        "dispositionAt": "2026-10-24"
       },
       "archeologicalmuseumatthecenterforamericanhistory": {
         "submittedName": "Archeological Museum at the Center for American History",
@@ -913,12 +927,21 @@
       "austinmuseumofpopularculture": {
         "submittedName": "Austin Museum of Popular Culture",
         "rawOccurrence": 38,
-        "status": "assigned",
+        "status": "research-blocked",
         "assignedAt": "2026-10-24T20:40:00Z",
         "reviewRequired": true,
         "publicationApproved": false,
         "editorialCertified": false,
-        "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "reason": "Austin Museum Partnership currently lists appointment-only physical museum at 1000 E 40th Street (Sat/Sun 1–6pm), but the organization's own site and contact page state it is 'Currently a Virtual Museum' while planning future in-person exhibitions. Physical visitability is contradicted; do not publish appointment-only hours until current operator directly clarifies.",
+        "evidence": "https://www.southpop.org/",
+        "researchEvidenceUrls": [
+          "https://www.southpop.org/",
+          "https://www.southpop.org/contact",
+          "https://www.austinmuseums.org/austin-museum-of-popular-culture"
+        ],
+        "researchNote": "Current archival operator remains active online, founded 2003/04. Wikimedia images depict FORMER South Lamar location, not the current 1000 E 40th Street office; never use those as present-day museum exterior. Hold live trip-planning publication pending official confirmation.",
+        "dispositionAt": "2026-10-24"
       },
       "automobilemuseumoftexas": {
         "submittedName": "Automobile Museum of Texas",
@@ -1049,21 +1072,25 @@
       "barkertexashistorycenter": {
         "submittedName": "Barker Texas History Center",
         "rawOccurrence": 48,
-        "status": "assigned",
+        "status": "not-visitable",
         "assignedAt": "2026-10-24T21:01:00Z",
         "reviewRequired": true,
         "publicationApproved": false,
         "editorialCertified": false,
         "note": "Provisional name only; research identity, operator, actual visitability, image rights and canonical before publication.",
-        "researchNote": "The historical Barker Texas History Center is the predecessor of the present Dolph Briscoe Center for American History; the separate old Barker visitor identity no longer operates. Determine whether present Briscoe museum destination needs authority guide before alias disposition.",
+        "researchNote": "Do not publish 1950-era Battle Hall or 1970s Sid Richardson details as current museum tourist visiting directions. Current Briscoe Center archives/exhibits are a separate present-day visitor identity; editorial guide requires fresh operator hours, gallery info and rights-cleared photo.",
         "researchEvidenceUrls": [
           "https://briscoecenter.org/about",
-          "https://www.tshaonline.org/handbook/entries/barker-texas-history-center"
+          "https://www.tshaonline.org/handbook/entries/barker-texas-history-center",
+          "https://catalog.utexas.edu/general-information/libraries-and-other-academic-resources/dolph-briscoe-center-for-american-history/"
         ],
-        "lastResearchAt": "2026-10-24T21:01:00Z"
+        "lastResearchAt": "2026-10-24T21:01:00Z",
+        "reason": "The Eugene C. Barker Texas History Center opened in 1950 but ceased operating as a separately named visitor institution; it became a division of the Center for American History in 1991 and evolved to today's Dolph Briscoe Center for American History in 2008. The historic Barker identity itself is not an independently visitable museum. Current Briscoe Center should be considered separately for an accurate present-day Austin guide.",
+        "evidence": "https://briscoecenter.org/about",
+        "dispositionAt": "2026-10-24"
       }
     },
-    "note": "Source-of-truth checkpoint for deterministic 25-candidate museum research queue. Changes require GitHub merge to coordinate across chats. Empty records mean no assignment has been durably merged yet.",
+    "note": "Original stable 25-candidate queue with evidence-based dispositions. No false certification; batch replenishment uses the existing next-museum-owner-batch script.",
     "lastAssignmentAt": "2026-10-24T21:01:00Z",
     "lastAssignmentCount": 7,
     "currentBatch": {
@@ -1153,6 +1180,7 @@
           "pr": 5846
         }
       ]
-    }
+    },
+    "lastEvidenceReview": "2026-10-24"
   }
 }
