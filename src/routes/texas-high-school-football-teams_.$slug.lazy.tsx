@@ -127,6 +127,23 @@ function Page() {
   // Campus-county mapping for individually sourced Batch 002 profiles;
   // city names and district service areas are not dependable campus-county proxies.
   const researchedCampusCounty: Record<string, string> = {
+    'abbott': 'hill',
+    'abernathy': 'hale',
+    'abilene': 'taylor',
+    'abilene-cooper': 'taylor',
+    'abilene-texas-leadership': 'taylor',
+    'abilene-wylie': 'taylor',
+    'ackerly-sands': 'dawson',
+    'agua-dulce': 'nueces',
+    'alba-golden': 'wood',
+    'albany': 'shackelford',
+    'aledo': 'parker',
+    'alice': 'jim-wells',
+    'alief-elsik': 'harris',
+    'alief-hastings': 'harris',
+    'katy': 'fort-bend',
+    'fort-davis': 'jeff-davis',
+    'southlake-carroll': 'tarrant',
     'bruceville-eddy': 'mclennan', // TEA 161919 confirms Eddy ISD physical campus in McLennan County, not nearby Bell County.
     'bruni': 'webb', // Webb CISD first-party Bruni campus 619 Avenue F, southern Webb County; six-man spectator gates not verified.
     'bryson': 'jack', // NCES school district 4811820: 300 N McCloud St physical campus in Jack County; 305/309 third-party field listings are not a proven gate.
@@ -298,43 +315,10 @@ function Page() {
     'austin-travis': { slug: 'austin', name: 'Austin' },
   };
   const cityGuide = editorial?.slug ? batch002CityGuide[editorial.slug] : undefined;
-  const researchedCountyLink = editorial?.slug ? researchedCampusCounty[editorial.slug] : undefined;
-  const countyPath = researchedCountyLink ? `/county/${researchedCountyLink}`
-    : schoolName === 'Alief Hastings'
-    ? '/county/harris'
-    : schoolName === 'Alief Elsik'
-    ? '/county/harris'
-    : schoolName === 'Alice'
-    ? '/county/jim-wells'
-    : schoolName === 'Aledo'
-    ? '/county/parker'
-    : schoolName === 'Albany'
-    ? '/county/shackelford'
-    : schoolName === 'Alba-Golden'
-    ? '/county/wood'
-    : schoolName === 'Agua Dulce'
-    ? '/county/nueces'
-    : schoolName === 'Ackerly Sands'
-    ? '/county/dawson'
-    : schoolName === 'Abilene Wylie'
-    ? '/county/taylor'
-    : schoolName === 'Abilene Texas Leadership'
-    ? '/county/taylor'
-    : schoolName === 'Abilene Cooper'
-    ? '/county/taylor'
-    : schoolName === 'Abilene'
-    ? '/county/taylor'
-    : schoolName === 'Abernathy'
-    ? '/county/hale'
-    : schoolName === 'Abbott'
-    ? '/county/hill'
-    : schoolName === 'Katy'
-      ? '/county/fort-bend'
-      : schoolName === 'Fort Davis'
-        ? '/county/jeff-davis'
-        : schoolName === 'Southlake Carroll'
-          ? '/county/tarrant'
-          : program?.countyName ? `/county/${countySlug(program.countyName)}` : null;
+  const researchedCountyLink = researchedCampusCounty[slug];
+  const countyPath = researchedCountyLink
+    ? `/county/${researchedCountyLink}`
+    : program?.countyName ? `/county/${countySlug(program.countyName)}` : null;
   const associationLabel = program
     ? 'UIL'
     : privateAlignment?.association ?? governingBodyHint ?? null;
