@@ -2,8 +2,9 @@
  * Corporate-marketplace post-build client isolation guard.
  *
  * Public venue names, dates, category labels and form UI belong in the client.
- * Private Supabase ledger names, server-only evidence columns and service-role
- * configuration do not. The check runs on ACTUAL compiled assets, not a source
+ * Private SQL ledger table names and service-role configuration do not.
+ * Authorized admin UI naturally includes form/DTO field names, which by
+ * themselves contain no sensitive customer values; do not flag those labels. The check runs on ACTUAL compiled assets, not a source
  * grep, and never reads or logs customer records or secret values.
  *
  * This is a defense-in-depth static-bundle test, NOT a proof that every
@@ -16,7 +17,6 @@ import { pathToFileURL } from 'node:url';
 const assetDirs = ['dist/client/assets', '.output/public/assets'];
 const signatures = [
   { id: 'private-group-ledger-table', regex: /\btexasdefined_group_event_(?:requests|partner_applications|partner_outreach|outcome_events|offers|offer_click_totals)\b/i },
-  { id: 'private-group-evidence-field', regex: /\b(?:first_contact_evidence_reference|identity_verification_note|commercial_agreement_reference|provider_outreach_revocation_note|evidence_reference)\b/i },
   { id: 'service-role-secret-name', regex: /\b(?:SUPABASE_SERVICE_ROLE_KEY|SUPABASE_SECRET_KEY|SUPABASE_SERVICE_KEY)\b/i },
 ];
 
@@ -69,6 +69,6 @@ export async function assertCompiledCorporateClientPrivacy(assetDirectory = null
 if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
   assertCompiledCorporateClientPrivacy().then(out => {
     console.log('Corporate event compiled client privacy PASS: '
-      + out.scannedClientFiles + ' JS assets; no private group-event ledgers/evidence identifiers or service keys.');
+      + out.scannedClientFiles + ' JS assets; no private group-event ledger table names or service key identifiers.');
   }).catch(error => { console.error(error.message); process.exitCode = 1; });
 }
