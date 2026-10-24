@@ -1,4 +1,7 @@
+import { useState } from 'react';
 import { corporateEventSourceReviewSchedule } from '@/data/corporate-event-source-review';
+
+const PAGE_SIZE = 24;
 
 /**
  * A read-only editorial review queue. It does not fetch venue URLs, update
@@ -7,7 +10,12 @@ import { corporateEventSourceReviewSchedule } from '@/data/corporate-event-sourc
  */
 export function CorporateEventSourceReviewPanel() {
   const queue = corporateEventSourceReviewSchedule();
-  const next = queue.items.slice(0, 24);
+  const [requestedPage, setRequestedPage] = useState(0);
+  const totalPages = Math.max(1, Math.ceil(queue.items.length / PAGE_SIZE));
+  // If the directory shrinks while staff are viewing it, keep the index valid.
+  const page = Math.max(0, Math.min(requestedPage, totalPages - 1));
+  const firstIndex = page * PAGE_SIZE;
+  const next = queue.items.slice(firstIndex, firstIndex + PAGE_SIZE);
   return <section aria-labelledby="corporate-source-review-title" className="mt-10 border-t border-border pt-9">
     <p className="eyebrow text-primary">Editorial source governance</p>
     <h2 id="corporate-source-review-title" className="mt-3 font-display text-3xl">Venue details to reverify</h2>
@@ -65,7 +73,21 @@ export function CorporateEventSourceReviewPanel() {
         </details>
       </article>)}
     </div>
-    {queue.total > next.length ? <p className="mt-4 text-sm text-muted-foreground">Showing the next {next.length} of {queue.total} editorial records; the due-date order is deterministic. This preview is intentionally capped to protect staff page performance.</p> : null}
+    <nav aria-label="Venue source review pages" className="mt-5 flex flex-wrap items-center gap-3">
+      <button type="button" onClick={() => setRequestedPage(page - 1)} disabled={page === 0}
+        className="min-h-11 border border-border px-4 text-sm font-semibold disabled:opacity-40">
+        Previous 24 venues
+      </button>
+      <span role="status" aria-live="polite" className="text-sm text-muted-foreground">
+        Showing {queue.total === 0 ? 0 : firstIndex + 1}–{Math.min(firstIndex + next.length, queue.total)} of {queue.total} venues
+        {' · '}Page {page + 1} of {totalPages}
+      </span>
+      <button type="button" onClick={() => setRequestedPage(page + 1)} disabled={page >= totalPages - 1}
+        className="min-h-11 border border-border px-4 text-sm font-semibold disabled:opacity-40">
+        Next 24 venues
+      </button>
+    </nav>
+    <p className="mt-2 text-xs text-muted-foreground">All directory records remain reachable by paging through this prioritized read-only queue. Only 24 entries render at once.</p>
     <p className="mt-4 text-xs leading-6 text-muted-foreground">No source verification, room availability, accessibility accommodation or corporate price has been established by viewing this queue. Listings remain independent editorial content and are not paid rankings.</p>
   </section>;
 }
