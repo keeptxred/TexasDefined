@@ -10,7 +10,7 @@ alter table public.texasdefined_group_event_outcome_events
   add constraint td_group_event_evidence_key_format
   check (
     evidence_key is null
-    or evidence_key ~ '^[A-Z0-9][A-Z0-9:._/-]{5,119}$'
+    or evidence_key ~ '^[A-Z0-9][A-Z0-9:._-]{5,119}$'
   );
 
 create unique index if not exists td_group_event_source_evidence_once
@@ -27,7 +27,7 @@ begin
       message='Real provider invoice, quote, settlement or case evidence ID required for corporate event outcome';
   end if;
   new.evidence_key := upper(btrim(new.evidence_key));
-  if new.evidence_key !~ '^[A-Z0-9][A-Z0-9:._/-]{5,119}$' then
+  if new.evidence_key !~ '^[A-Z0-9][A-Z0-9:._-]{5,119}$' then
     raise exception using errcode='P0001',
       message='Corporate event evidence ID must be bounded and not contain contact or payment details';
   end if;
