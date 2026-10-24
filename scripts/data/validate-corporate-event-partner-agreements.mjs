@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import { spawnSync } from 'node:child_process';
 
 const load = (path) => readFileSync(path, 'utf8');
 const sql = load('supabase/migrations/20261024014500_group_event_partner_agreement_gate.sql');
@@ -44,6 +45,17 @@ assert(panel.includes('No offer approved, lead forwarded or email sent'),
   'Verification must not imply a commercial transaction or outreach');
 assert(publicOffers.includes('business.commercial_agreement_covers_offers !== true'),
   'Public feed must fail closed if signed partner authorization is absent');
+for (const critical of [
+  'corporateEventEvidenceTimestampIsValid(offer.reviewed_at)',
+  'corporateEventEvidenceTimestampIsValid(business.identity_verified_at)',
+  'corporateEventEvidenceTimestampIsValid(business.commercial_agreement_verified_at)',
+  'corporateEventVerifiedRedemptionUrl(offer.redemption_url, business.website, provider.officialUrl)',
+]) assert(publicOffers.includes(critical), 'Public corporate offers missing authoritative business/evidence gate: ' + critical);
+const proof = spawnSync(process.execPath,
+  ['--experimental-strip-types', '--test', 'scripts/data/corporate-event-offer-provenance.test.mjs'],
+  { cwd: process.cwd(), stdio: 'inherit', shell: false });
+assert.equal(proof.status, 0,
+  'Security proof tests must pass: exact official venue hosts, valid timestamps, no external redirects or sibling host impersonation');
 assert(publicOffers.includes('business.commercial_agreement_expires_on < offer.ends_on'),
   'Public feed must suppress offers that outlive the agreement');
 assert(quotePrep.includes('identity_verified_at') &&
