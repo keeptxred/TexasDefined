@@ -335,7 +335,7 @@ test('Magoffin restoration edits require exact live SSR closure, FAQ and visitor
   const plan = buildChangePlan({ baseline, head, changedFiles: ['src/data/magoffin-home-authority.ts'] });
   assert.deepEqual(plan.selectedPaths, ['/destination/magoffin-home']);
   assert.deepEqual(plan.magoffinHomePages, ['/destination/magoffin-home']);
-  const body = 'Historic home closed through 2027 · Magoffin Home visitor FAQ · 1117 Magoffin Avenue';
+  const body = 'Historic home closed through 2027 · Magoffin Home visitor FAQ · 1117 Magoffin Avenue · acquireLicensePage · copyrightNotice · Larry D. Moore · creative source https://creativecommons.org/licenses/by/4.0/';
   const html = text => '<html><head><title>Magoffin Home</title><link rel="canonical" href="https://texasdefined.com/destination/magoffin-home"></head><body>' + text + '</body></html>';
   const success = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html(body)) });
   assert.equal(success[0].passed, true);
@@ -345,6 +345,9 @@ test('Magoffin restoration edits require exact live SSR closure, FAQ and visitor
   const booking = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html(body + ' Tours and experiences near Magoffin Home State Historic Site')) });
   assert.equal(booking[0].passed, false);
   assert.match(booking[0].error, /generic tour booking component/);
+  const rightsMissing = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html('Historic home closed through 2027 · Magoffin Home visitor FAQ · 1117 Magoffin Avenue')) });
+  assert.equal(rightsMissing[0].passed, false);
+  assert.match(rightsMissing[0].error, /photograph rights missing from live structured data/);
 });
 test('football template changes verify only two real team pages and their live game-night paths', async () => {
   const plan = buildChangePlan({ baseline, head, changedFiles: ['src/routes/texas-high-school-football-teams_.$slug.lazy.tsx'] });
