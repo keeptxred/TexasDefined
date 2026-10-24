@@ -143,10 +143,8 @@ if (preview || reserve) {
     batchId: picked.length ? batchId : null,
     count: picked.length,
     resumed: previouslyAssigned.length,
-    unassignedRemainingAfterSelection: unassigned.length - picked.filter(row =>
-      !Object.hasOwn(checkpoint.entries, keyed(row)) || !preview &&
-      checkpoint.entries[keyed(row)]?.batchId === batchId
-    ).length,
+    unassignedRemainingAfterSelection: Math.max(0, unassigned.length -
+      Math.max(0, 25 - previouslyAssigned.length)),
     excludedFromAutomaticAssignment: distinct.length - candidates.length,
     candidates: picked.map(row => ({
       submittedName: row.submittedName, rawOccurrence: row.rawOccurrence,
