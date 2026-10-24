@@ -107,7 +107,6 @@ import { statewideMuseumExpansionWave52Destinations } from "./museum-expansion-s
 import { statewideMuseumExpansionWave53Destinations } from "./museum-expansion-statewide-wave53";
 import { statewideMuseumExpansionWave54Destinations } from "./museum-expansion-statewide-wave54";
 import { wacoMuseumDestinations } from "./museum-expansion-waco";
-import { wacoViatorAttractionDestinations } from "./waco-viator-attraction-destinations";
 import { nationalWildlifeRefugeDestinations } from "./national-wildlife-refuge-destinations";
 import { pedernalesRiverNatureParkDestinations } from "./pedernales-river-nature-park-destination";
 import { pecanStreetBrewingDestinations } from "./pecan-street-brewing-destination";
@@ -288,7 +287,6 @@ export const preservedExploreDestinations = mergePreservedDestinations(
   sanAntonioHeritageDestinations,
   sanAntonioContemporaryMuseumDestinations,
   wacoMuseumDestinations,
-  wacoViatorAttractionDestinations,
   statewideMuseumExpansionDestinations,
   statewideMuseumExpansionWave2Destinations,
   statewideMuseumExpansionWave3Destinations,
