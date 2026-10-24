@@ -61,7 +61,7 @@ for (const check of [
   'venueSlug:provider.slug',
   'independentlyVerifiedActualContact:true',
   'Record actual external contact',
-  'due follow-ups in visible records',
+  'due venue follow-ups from latest visible interaction',
   'snapshot?.truncated',
   'matching.slice(currentPage*PAGE_SIZE,(currentPage+1)*PAGE_SIZE)',
   'setPage(currentPage-1)',
