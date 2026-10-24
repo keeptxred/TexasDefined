@@ -103,6 +103,14 @@ function PartnerWithUsPage() {
   return <>
     <DepartmentHero current="Advertise & Partner" eyebrow="Texas Defined commercial partnerships" title="Advertise and partner with Texas Defined to reach Texans making travel and moving decisions" description={description} tone="surface" />
 
+    <Container className="pt-10">
+      <aside className="border border-border bg-surface p-5 sm:p-7">
+        <h2 className="font-display text-2xl">Operate a Texas group-experience venue?</h2>
+        <p className="mt-2 max-w-3xl text-sm leading-7 text-muted-foreground">Our corporate-events directory accepts source-reviewed venue suggestions and proposals for real group experiences. Applying does not purchase placement or automatically approve a discount. The venue onboarding review is separate from advertising and sponsorship agreements.</p>
+        <a href="/corporate-events#list-your-business" className="mt-4 inline-flex min-h-11 items-center border border-primary px-4 text-sm font-semibold text-primary">Submit a corporate group venue application →</a>
+      </aside>
+    </Container>
+
     <Container className="py-12 sm:py-16">
       <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
         <div><p className="eyebrow text-primary">Useful alignment</p><h2 className="mt-3 font-display text-4xl leading-tight">A professional sponsorship program, not a link marketplace.</h2></div>
