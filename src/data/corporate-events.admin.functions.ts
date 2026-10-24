@@ -63,3 +63,25 @@ export const changeCorporateEventOfferStatus = createServerFn({ method: 'POST' }
     const { setCorporateEventOfferStatus } = await import('@/data/corporate-events.admin.server');
     return setCorporateEventOfferStatus(data.accessKey, data.id, data.status);
   });
+
+/** A staff record of separately and independently verified signed terms.
+ * No contract is created or sent through this endpoint.
+ */
+export const verifyCorporateEventCommercialAgreement = createServerFn({ method: 'POST' })
+  .inputValidator(z.object({
+    accessKey: key,
+    applicationId: id,
+    verifiedSignedAgreement: z.literal(true),
+    verificationReference: z.string().trim().min(20).max(500),
+    coversOffers: z.boolean(),
+    coversQuoteRouting: z.boolean(),
+    expiresOn: isoDate.nullable(),
+  }).refine((data) => data.coversOffers || data.coversQuoteRouting,
+    'Choose at least one explicitly authorized commercial scope'))
+  .handler(async ({ data }) => {
+    const { recordCorporateEventCommercialAgreement } = await import('@/data/corporate-events.admin.server');
+    return recordCorporateEventCommercialAgreement(
+      data.accessKey, data.applicationId, data.verificationReference,
+      data.coversOffers, data.coversQuoteRouting, data.expiresOn,
+    );
+  });
