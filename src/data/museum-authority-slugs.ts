@@ -2,6 +2,8 @@
  * Kept in sync with full museum dossiers by scripts/data/validate-museum-authority.mjs.
  */
 export const museumAuthoritySlugs: ReadonlySet<string> = new Set([
+  "barrington-living-history-farm",
+  "bastrop-county-museum-visitor-center",
   "austin-history-center-austin",
   "alley-log-cabin-museum-columbus",
   "san-angelo-museum-of-fine-arts",
