@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { primaryDestinationHeroSrc, isMissingPrimaryDestinationHero } from "./museum-primary-hero.mjs";
+import { primaryDestinationHeroSrc, primaryDestinationHeroAlt, isMissingPrimaryDestinationHero } from "./museum-primary-hero.mjs";
 
 const hero = '<div data-image-fallback-label="" aria-hidden="true" class="absolute inset-0"></div>'
   + '<img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Former_alvin_tx_post_office.jpg?width=1600&amp;source=td" alt="Exact museum exterior">';
@@ -28,4 +28,12 @@ test("missing or structurally changed primary hero fails closed", () => {
 test("first destination hero is the only photo accepted", () => {
   const html = '<body><section>' + hero + '</section>' + hero.replace('Former_alvin_tx_post_office.jpg','Wrong_related.jpg') + '</body>';
   assert.match(primaryDestinationHeroSrc(html), /Former_alvin_tx_post_office\.jpg/);
+});
+
+test("primary alt text belongs only to the actual marked hero", () => {
+  const markup = '<div data-image-fallback-label aria-hidden="true"></div>'
+    + '<img alt="Museum &amp; Archive entrance&#39;s west face" src="https://example.org/museum.jpg">';
+  assert.equal(primaryDestinationHeroAlt('<body>' + markup + '<aside><img alt="Wrong place"></aside></body>'),
+    "Museum & Archive entrance's west face");
+  assert.equal(primaryDestinationHeroAlt('<aside><img alt="Unrelated photo"></aside>'), "");
 });

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "asOf": "2026-10-19",
+  "asOf": "2026-10-24",
   "repository": "keeptxred/TexasDefined",
   "production": "https://texasdefined.com",
   "supabaseProjectId": "ftkznprjljkhymknvhye",
@@ -614,7 +614,7 @@
       "source_unreachable": 1
     },
     "linkedCommonsSourceAndCreativeCommonsLicenseVerifiedOnLiveCarthagePage": true,
-    "linkedCommonsSourceAndCreativeCommonsLicenseVerifiedOnLiveBryanPage": false,
+    "linkedCommonsSourceAndCreativeCommonsLicenseVerifiedOnLiveBryanPage": true,
     "fourUnlicensedExactMuseumPhotoGapsRemain": [
       "museum-of-the-gulf-coast-port-arthur",
       "el-paso-holocaust-museum",
@@ -622,11 +622,247 @@
       "johnny-nelson-katy-heritage-museum"
     ],
     "independentAuthorityCertificationsReported": 0,
-    "distinction": "Supabase 'verified' refers to source monitoring, not museum authority certification; retained source rows intentionally exceed current active manifest definitions. Carthage has live HTML-linked photo attribution. Bryan awaits a fresh independently verifiable production fetch (web cache miss)."
+    "distinction": "Supabase 'verified' refers to source monitoring, not museum authority certification; retained source rows intentionally exceed current active manifest definitions. Carthage has live HTML-linked photo attribution. Bryan awaits a fresh independently verifiable production fetch (web cache miss).",
+    "bryanProductionVerificationEvidence": "Fresh 2026-10-24 Supabase net._http_response id 14135: HTTP200 canonical, linked exact original Commons file, CC BY2.0 license href, photo ALT and indexability; no browser pixel/mobile certification.",
+    "carthageProductionVerificationEvidence": "Fresh 2026-10-24 Supabase net._http_response id 14134: HTTP200 canonical, linked exact Commons original, CC BY-SA3.0 href, photo ALT and indexing.",
+    "liveManifestEvidence": "Fresh 2026-10-24 Supabase net._http_response id 14136: HTTP200, 82 museums, 360 current source definitions.",
+    "fourMissingLicensedPhotoLiveSsrChecks": "2026-10-24 net._http_response IDs 14138-14141: all four routes HTTP200 with noindex/follow and placeholder reference. Not photo permission or editorial certification.",
+    "ownerInventoryCheckpoint": "ownerInventoryExecution; 25 assigned, 3 research-dispositioned, remainder provisional/unreviewed."
   },
   "ownerInventoryExecution": {
     "schemaVersion": 1,
-    "records": {},
-    "note": "Source-of-truth checkpoint for deterministic 25-candidate museum research queue. Changes require GitHub merge to coordinate across chats. Empty records mean no assignment has been durably merged yet."
+    "records": {
+      "acmcmillanafricanamericanmuseum": {
+        "submittedName": "A.C. McMillan African American Museum",
+        "rawOccurrence": 4,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:45:37.388Z",
+        "note": "Emory museum historical identity documented, public visitor hours/current operator and photo rights for 2026 NOT confirmed.",
+        "evidenceUrls": [
+          "https://emuseum.jfk.org/objects/46977/gwendolyn-mcmillan-lawe-oral-history",
+          "https://texashistory.unt.edu/ark:/67531/metapth767914/m1/1/"
+        ]
+      },
+      "advancedtechnologydevelopmentcentermuseum": {
+        "submittedName": "Advanced Technology Development Center Museum",
+        "rawOccurrence": 7,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:45:37.388Z",
+        "note": "Provisional only; verify current museum operation, geography, aliases, photo rights and visitor data before publishing. No certification."
+      },
+      "agriculturalheritagemuseum": {
+        "submittedName": "Agricultural Heritage Museum",
+        "rawOccurrence": 9,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:45:37.388Z",
+        "note": "Texas Historical Commission travel listing identifies Boerne Agricultural Heritage Museum as today's AgriCultural Museum & Arts Center. Research existing canonical first; avoid duplicate and disambiguate other same-name institutions.",
+        "likelyExistingCanonical": "/destination/the-agricultural-museum-arts-center-boerne",
+        "evidenceUrls": [
+          "https://texastimetravel.com/directory/agriculture-heritage-center-museum/"
+        ]
+      },
+      "alamomuseum": {
+        "submittedName": "Alamo Museum",
+        "rawOccurrence": 10,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:45:37.388Z",
+        "note": "Alamo Museum and Visitor Center official operator says opening spring 2028; do not portray facility as open in 2026.",
+        "evidenceUrls": [
+          "https://www.thealamo.org/support/alamo-visitor-center-museum"
+        ]
+      },
+      "alleylogcabinmuseum": {
+        "submittedName": "Alley Log Cabin Museum",
+        "rawOccurrence": 11,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:45:37.388Z",
+        "note": "Provisional only; verify current museum operation, geography, aliases, photo rights and visitor data before publishing. No certification."
+      },
+      "alpinedepotmuseum": {
+        "submittedName": "Alpine Depot Museum",
+        "rawOccurrence": 12,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:45:37.388Z",
+        "note": "Provisional only; verify current museum operation, geography, aliases, photo rights and visitor data before publishing. No certification."
+      },
+      "americanairpowerheritagemuseum": {
+        "submittedName": "American Airpower Heritage Museum",
+        "rawOccurrence": 15,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:45:37.388Z",
+        "note": "Midland American Airpower Heritage Museum listing closed; operating AAHM nonprofit flagship currently is Henry B. Tippie National Aviation Education Center in Dallas; don't reuse Midland hours/address.",
+        "evidenceUrls": [
+          "https://flynaec.org/non-profit-information/",
+          "https://flynaec.org/about/",
+          "https://flynaec.org/visit-us/tickets-and-other-information/"
+        ]
+      },
+      "americanmuseumoftheminiaturearts": {
+        "submittedName": "American Museum of the Miniature Arts",
+        "rawOccurrence": 16,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:45:37.388Z",
+        "note": "Legacy Dallas museum reported permanently closed by present third-party venue listing; independently confirm operator closure before marking terminal closed or publishing visit instructions.",
+        "evidenceUrls": [
+          "https://www.tripadvisor.com/Attraction_Review-g55711-d559924-Reviews-American_Museum_of_the_Miniature_Arts-Dallas_Texas.html"
+        ]
+      },
+      "anahuacdepotmuseum": {
+        "submittedName": "Anahuac Depot Museum",
+        "rawOccurrence": 19,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:45:37.388Z",
+        "note": "Provisional only; verify current museum operation, geography, aliases, photo rights and visitor data before publishing. No certification."
+      },
+      "annaheritagemuseum": {
+        "submittedName": "Anna Heritage Museum",
+        "rawOccurrence": 21,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:45:37.388Z",
+        "note": "Provisional only; verify current museum operation, geography, aliases, photo rights and visitor data before publishing. No certification."
+      },
+      "aransascountyhistorycenter": {
+        "submittedName": "Aransas County History Center",
+        "rawOccurrence": 22,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:45:37.388Z",
+        "note": "Provisional only; verify current museum operation, geography, aliases, photo rights and visitor data before publishing. No certification."
+      },
+      "archeologicalmuseumatthecenterforamericanhistory": {
+        "submittedName": "Archeological Museum at the Center for American History",
+        "rawOccurrence": 23,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:45:37.388Z",
+        "note": "Provisional only; verify current museum operation, geography, aliases, photo rights and visitor data before publishing. No certification."
+      },
+      "archercountyhistoricalmuseum": {
+        "submittedName": "Archer County Historical Museum",
+        "rawOccurrence": 24,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:45:37.388Z",
+        "note": "Provisional only; verify current museum operation, geography, aliases, photo rights and visitor data before publishing. No certification."
+      },
+      "artcenterofwaco": {
+        "submittedName": "Art Center of Waco",
+        "rawOccurrence": 27,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:45:37.388Z",
+        "note": "Provisional only; verify current museum operation, geography, aliases, photo rights and visitor data before publishing. No certification."
+      },
+      "artgalleriesatblackstudies": {
+        "submittedName": "Art Galleries at Black Studies",
+        "rawOccurrence": 31,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:45:37.388Z",
+        "note": "Provisional only; verify current museum operation, geography, aliases, photo rights and visitor data before publishing. No certification."
+      },
+      "atascosacountyvintagemuseum": {
+        "submittedName": "Atascosa County Vintage Museum",
+        "rawOccurrence": 33,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:45:37.388Z",
+        "note": "Provisional only; verify current museum operation, geography, aliases, photo rights and visitor data before publishing. No certification."
+      },
+      "atlantahistoricalmuseum": {
+        "submittedName": "Atlanta Historical Museum",
+        "rawOccurrence": 34,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:45:37.388Z",
+        "note": "Provisional only; verify current museum operation, geography, aliases, photo rights and visitor data before publishing. No certification."
+      },
+      "austincountyjailmuseum": {
+        "submittedName": "Austin County Jail Museum",
+        "rawOccurrence": 36,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:45:37.388Z",
+        "note": "Provisional only; verify current museum operation, geography, aliases, photo rights and visitor data before publishing. No certification."
+      },
+      "austinhistorycenter": {
+        "submittedName": "Austin History Center",
+        "rawOccurrence": 37,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:45:37.388Z",
+        "note": "Provisional only; verify current museum operation, geography, aliases, photo rights and visitor data before publishing. No certification."
+      },
+      "austinmuseumofpopularculture": {
+        "submittedName": "Austin Museum of Popular Culture",
+        "rawOccurrence": 38,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:45:37.388Z",
+        "note": "Provisional only; verify current museum operation, geography, aliases, photo rights and visitor data before publishing. No certification."
+      },
+      "automobilemuseumoftexas": {
+        "submittedName": "Automobile Museum of Texas",
+        "rawOccurrence": 40,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:45:37.388Z",
+        "note": "Provisional only; verify current museum operation, geography, aliases, photo rights and visitor data before publishing. No certification."
+      },
+      "aviationmuseumoftexas": {
+        "submittedName": "Aviation Museum of Texas",
+        "rawOccurrence": 41,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:45:37.388Z",
+        "note": "Provisional only; verify current museum operation, geography, aliases, photo rights and visitor data before publishing. No certification."
+      },
+      "b29b24squadronmuseum": {
+        "submittedName": "B-29/B-24 Squadron Museum",
+        "rawOccurrence": 42,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:45:37.388Z",
+        "note": "CAF touring B-29/B-24 are not guaranteed static museum displays; consult Dallas NAEC plus current CAF flying tour and availability.",
+        "evidenceUrls": [
+          "https://flynaec.org/museum-experience/",
+          "https://www.airpowersquadron.org/tour-schedule"
+        ]
+      },
+      "babedidriksonzahariasmuseum": {
+        "submittedName": "Babe Didrikson Zaharias Museum",
+        "rawOccurrence": 43,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:45:37.388Z",
+        "note": "Provisional only; verify current museum operation, geography, aliases, photo rights and visitor data before publishing. No certification."
+      },
+      "bairddepotmuseum": {
+        "submittedName": "Baird Depot Museum",
+        "rawOccurrence": 44,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:45:37.388Z",
+        "note": "Provisional only; verify current museum operation, geography, aliases, photo rights and visitor data before publishing. No certification."
+      },
+      "admiralnimitzgallery": {
+        "submittedName": "Admiral Nimitz Gallery",
+        "rawOccurrence": 6,
+        "status": "duplicate",
+        "evidence": "https://www.pacificwarmuseum.org/visit/exhibits/admiral-nimitz-gallery-1",
+        "reason": "Permanent campus gallery inside already published National Museum of the Pacific War museum guide; existing overall admission, not a separately ticketed institution.",
+        "canonicalSlug": "national-museum-pacific-war",
+        "dispositionAt": "2026-10-24T20:45:37.388Z",
+        "editorialCertified": false
+      },
+      "angelinacountyhistorycenter": {
+        "submittedName": "Angelina County History Center",
+        "rawOccurrence": 20,
+        "status": "duplicate",
+        "evidence": "https://texashistory.unt.edu/explore/partners/AHC/",
+        "reason": "Historical University of North Texas partner lists same museum's 102 North Temple, Diboll address; canonical TexasDefined guide is The History Center Diboll.",
+        "canonicalSlug": "the-history-center-diboll",
+        "dispositionAt": "2026-10-24T20:45:37.388Z",
+        "editorialCertified": false
+      },
+      "abileneheritagesquare": {
+        "submittedName": "Abilene Heritage Square",
+        "rawOccurrence": 5,
+        "status": "not-visitable",
+        "evidence": "https://www.abileneheritagesquare.org/",
+        "reason": "Not independently visitable as a museum under this campus name; site includes public library, event facilities, and independently admission-ticketed Spark Science Center operated by The Grace Museum.",
+        "relatedCanonicalSlug": "grace-museum-abilene",
+        "dispositionAt": "2026-10-24T20:45:37.388Z",
+        "editorialCertified": false
+      }
+    },
+    "note": "Single existing durable statewide checkpoint; 25 provisional active assignments, 3 independently sourced identity dispositions. No duplicate queue or extra Supabase registry.",
+    "lastAssignmentAt": "2026-10-24T20:45:37.388Z",
+    "lastAssignmentCount": 25
   }
 }
