@@ -1185,7 +1185,7 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "startDate": "2026-12-05",
     "endDate": "2026-12-06",
     "venueName": "Westlake Park · 600 Gross Road",
-    "officialEventUrl": "https://www.cityofmesquite.com/Calendar.aspx?EID=11833",
+    "officialEventUrl": "https://www.cityofmesquite.com/316/Christmas-in-the-Park",
     "sourceName": "City of Mesquite official events calendar",
     "summary": "Mesquite confirms Christmas in the Park Saturday and Sunday December 5–6, 2026, 2–8 p.m. both days at Westlake Park. Park admission and parking are free, but an optional $12 activity wristband applies to some activities. Performances, lights, character visits and fireworks are subject to the official program."
   },
