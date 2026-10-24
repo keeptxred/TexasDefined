@@ -1,7 +1,7 @@
 import { assertSportsPartnerAccess } from '@/data/sports-partner-leads.server';
 import { supabaseAdmin } from '@/integrations/supabase/client.server';
 import { corporateEventProviders } from '@/data/corporate-events';
-import { corporateEventTexasToday } from '@/data/corporate-event-dates';
+import { corporateEventTexasToday, isValidCorporateEventCalendarDate } from '@/data/corporate-event-dates';
 import { corporateEventOfficialDomainMatches, corporateEventEvidenceTimestampIsValid } from '@/data/corporate-event-offer-provenance';
 
 /**
@@ -101,8 +101,12 @@ export async function recordCorporateEventOutcome(
       || !corporateEventEvidenceTimestampIsValid(partner.identity_verified_at)
       || !corporateEventEvidenceTimestampIsValid(partner.commercial_agreement_verified_at)
       || partner.commercial_agreement_covers_quote_routing !== true) return false;
+    // A Postgres DATE should already be a real calendar value, but require
+    // our public-offer calendar policy here as well. Do not count a recorded
+    // booking, referral or revenue against malformed/out-of-policy signed terms.
     if (partner.commercial_agreement_expires_on
-      && partner.commercial_agreement_expires_on < corporateEventTexasToday()) return false;
+      && (!isValidCorporateEventCalendarDate(String(partner.commercial_agreement_expires_on))
+        || String(partner.commercial_agreement_expires_on) < corporateEventTexasToday())) return false;
     return corporateEventOfficialDomainMatches(String(partner.website), venue.officialUrl);
   });
   if (verified.length !== 1) {
