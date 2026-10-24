@@ -20,6 +20,12 @@ assert.equal(corporateSourceReviewWindowDays({startingPricePerPerson: null}),60)
 assert.equal(corporateSourceReviewWindowDays({startingPricePerPerson: 0}),30,
   'Only genuinely recorded numeric prices are 30-day source candidates, never inferred a rate');
 assert.equal(providerSourceAgeDays('2026-10-24', today),0);
+assert.equal(providerSourceAgeDays('2026-10-24', new Date('2026-10-24T09:17:00Z')),0,
+  'On-day source evidence is valid during Monday 09:17 UTC workflow, not future-dated until noon');
+assert.equal(providerSourceAgeDays('2026-09-24', new Date('2026-10-24T09:17:00Z')),30,
+  'Thirty complete calendar days elapsed regardless of launch hour');
+assert.equal(providerSourceAgeDays('2026-08-25', new Date('2026-10-24T09:17:00Z')),60,
+  'Sixty complete calendar days elapsed regardless of UTC time');
 assert.equal(providerSourceAgeDays('2026-10-25', today),null,'Future editorial verification must fail closed');
 assert.equal(providerSourceAgeDays('2026-02-31', today),null,'Invalid rolled-over calendar days must fail closed');
 assert.equal(providerSourceAgeDays('2026-13-01', today),null);
