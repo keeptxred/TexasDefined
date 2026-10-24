@@ -92,6 +92,43 @@ try {
       await broadTypes.uncheck();
       result.checks.push('Seven real Texas city/DFW/ZIP/statewide market filters return sourced candidates');
 
+      // Verify real source-reviewed capacity *by format*, not a fabricated
+      // single-room maximum, open time, or quoted corporate package.
+      const venueArea = page.locator('input[placeholder="e.g., Downtown, Katy, Clear Lake"]');
+      await page.getByRole('combobox', { name: 'Event type' }).selectOption('company-parties');
+      await venueArea.fill('Museum District');
+      await guests.fill('6000');
+      const zoo = page.getByRole('heading', { level: 3, name: 'Houston Zoo' });
+      await zoo.waitFor({ state: 'visible', timeout: 12_000 });
+      const zooCard = await zoo.locator('xpath=ancestor::article').textContent();
+      assert(zooCard?.includes('entire-Zoo after-hours rental reaches 6,000')
+        && zooCard.includes('NOT interchangeable'),
+        view.name + ': full Zoo buyout must not imply a 6,000-person single-room event');
+      await guests.fill('6001');
+      await zoo.waitFor({ state: 'detached', timeout: 12_000 });
+      await guests.fill('20');
+      await zoo.waitFor({ state: 'visible', timeout: 12_000 });
+      await guests.fill('19');
+      await zoo.waitFor({ state: 'detached', timeout: 12_000 });
+      await venueArea.fill('Westchase');
+      await guests.fill('550');
+      const pelazzio = page.getByRole('heading', { level: 3, name: 'Pelazzio' });
+      await pelazzio.waitFor({ state: 'visible', timeout: 12_000 });
+      const ballroomCard = await pelazzio.locator('xpath=ancestor::article').textContent();
+      assert(ballroomCard?.includes('Tuscany AB/Wing')
+        && ballroomCard.includes('NOT a single-room 550-person setup'),
+        view.name + ': combined ballroom limit must be disclosed clearly');
+      await guests.fill('551');
+      await pelazzio.waitFor({ state: 'detached', timeout: 12_000 });
+      await guests.fill('75');
+      await pelazzio.waitFor({ state: 'visible', timeout: 12_000 });
+      await guests.fill('74');
+      await pelazzio.waitFor({ state: 'detached', timeout: 12_000 });
+      await venueArea.fill('');
+      await guests.fill('45');
+      await page.getByRole('combobox', { name: 'Event type' }).selectOption('team-building');
+      result.checks.push('Documented 6,000-person entire-Zoo and 550-person combined-ballroom formats, min/max exclusion, and no invented room guarantee');
+
       const dateInput = page.locator('input[type="date"]');
       const today = await dateInput.getAttribute('min');
       assert(/^\d{4}-\d{2}-\d{2}$/.test(today || ''), 'Missing Texas-local minimum event date');
