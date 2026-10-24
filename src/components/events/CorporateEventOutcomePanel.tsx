@@ -17,7 +17,7 @@ type OutcomeType = typeof types[number][0];
 type OutcomeRecord = {
   id: string; planner_request_id: string; venue_slug: string | null;
   outcome_type: OutcomeType; occurred_at: string; recorded_at: string;
-  evidence_reference: string; amount_cents: number | null;
+  evidence_reference: string; evidence_key: string | null; amount_cents: number | null;
 };
 type Snapshot = {
   events: OutcomeRecord[];
@@ -117,6 +117,7 @@ export function CorporateEventOutcomePanel({ accessKey }: { accessKey: string })
         accessKey, plannerRequestId: selectedLead, venueSlug,
         outcomeType: kind, occurredAt: happened.toISOString(),
         evidenceReference: String(form.get('evidenceReference') || '').trim(),
+        evidenceKey: String(form.get('evidenceKey') || '').trim(),
         amountCents, confirmIndependentEvidence: true,
       } });
       await reload();
@@ -144,7 +145,7 @@ export function CorporateEventOutcomePanel({ accessKey }: { accessKey: string })
       <p className="mt-3 text-xs text-muted-foreground">
         Counts are evidence-event totals for the most recent {snapshot.limitedToRecentRows} records, not unique customers or an all-time ledger.
         {snapshot.truncated ? ' Older records are excluded; these are partial figures.' : ''}
-        {' '}Revenue is verified received money only; outbound link clicks are reported separately.
+        {' '}Revenue is confirmed gross cash receipts, not net of any later refunds. Outbound link clicks are reported separately.
       </p>
     </> : null}
     {error ? <p role="alert" className="mt-4 border border-destructive p-4 text-sm">{error}</p> : null}
@@ -173,6 +174,11 @@ export function CorporateEventOutcomePanel({ accessKey }: { accessKey: string })
       {needsMoney ? <label className="text-sm font-semibold sm:col-span-2">Actually received and reconciled USD *
         <input required name="receivedDollars" inputMode="decimal" placeholder="100.00" pattern="\\d+(?:\\.\\d{1,2})?" className={field} />
       </label> : null}
+      <label className="text-sm font-semibold sm:col-span-2">Actual provider document or case ID (6–120 characters) *
+        <input required name="evidenceKey" minLength={6} maxLength={120} pattern="[A-Za-z0-9][A-Za-z0-9:._-]{5,119}"
+          placeholder="e.g. Q-48261, INV-2026-104 or SETTLED-48261 (only if genuine)" className={field} />
+        <span className="mt-1 block text-xs font-normal leading-5 text-muted-foreground">Use the real independently verified provider quote, booking, invoice, payment settlement or dispute ID. Reusing the same evidence ID for the same venue/outcome is blocked. Never enter account or payment-card numbers.</span>
+      </label>
       <label className="text-sm font-semibold sm:col-span-2">Private independent evidence reference (20–500 characters) *
         <textarea required minLength={20} maxLength={500} name="evidenceReference" rows={3} className={field}
           placeholder="Describe the written provider confirmation, settled receipt, or case number. Do not paste passwords, full payment data, or customer correspondence." />
@@ -194,6 +200,7 @@ export function CorporateEventOutcomePanel({ accessKey }: { accessKey: string })
           <p className="font-semibold">{item.outcome_type.replaceAll('_', ' ')} · {item.venue_slug || 'Unknown venue'}</p>
           <p className="mt-1 text-xs text-muted-foreground">Occurred {pretty(item.occurred_at)} · Recorded {pretty(item.recorded_at)} · Request {item.planner_request_id}</p>
           {item.amount_cents != null ? <p className="mt-2 font-semibold">Actual receipts: {usd(item.amount_cents)}</p> : null}
+          <p className="mt-2 text-xs text-muted-foreground">Provider evidence ID: {item.evidence_key || 'Older entry — no stable ID recorded'}</p>
           <p className="mt-2 whitespace-pre-wrap text-xs text-muted-foreground">Evidence: {item.evidence_reference}</p>
         </article>)}
       </div>
