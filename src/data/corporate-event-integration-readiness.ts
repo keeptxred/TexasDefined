@@ -67,7 +67,6 @@ export function assessCorporateProviderAction(
   now: Date = new Date(),
 ): CorporateIntegrationDecision {
   const reasons: string[] = [];
-  const quoteLike = action === 'prepare_quote_draft' || action === 'transmit_quote_request';
   const bookingLike = action === 'hold_booking' || action === 'confirm_booking';
   const payment = action === 'collect_payment';
   const needsBooking = bookingLike || payment;
@@ -121,17 +120,17 @@ export function assessCorporateProviderAction(
   }
   // A human-readable draft is permitted only when the specific selected venue,
   // organizer opt-in and independently verified partner agreement all pass.
-  const manualOnly = action === 'prepare_quote_draft' && reasons.length === 0;
+  const allDocumentaryGatesPassed = reasons.length === 0;
+  const manualOnly = action === 'prepare_quote_draft' && allDocumentaryGatesPassed;
   // No real transport or connector is configured in this release, even if
   // synthetic test fixture fields claim capabilities.
-  if (!manualOnly && reasons.length === 0) {
+  if (!manualOnly && allDocumentaryGatesPassed) {
     reasons.push('Provider API, sender identity, contracts and operational reviews are not activated.');
   }
   return {
     action,
     state: manualOnly ? 'manual_draft_only'
-      : reasons.length > 0 && quoteLike && action === 'prepare_quote_draft'
-      ? 'blocked' : 'requires_signed_provider_adapter',
+      : allDocumentaryGatesPassed ? 'requires_signed_provider_adapter' : 'blocked',
     permittedToExecute: false,
     performsNetworkAction: false,
     partnerOutreachSent: false,
