@@ -626,7 +626,374 @@
   },
   "ownerInventoryExecution": {
     "schemaVersion": 1,
-    "records": {},
-    "note": "Source-of-truth checkpoint for deterministic 25-candidate museum research queue. Changes require GitHub merge to coordinate across chats. Empty records mean no assignment has been durably merged yet."
+    "records": {
+      "acmcmillanafricanamericanmuseum": {
+        "submittedName": "A.C. McMillan African American Museum",
+        "rawOccurrence": 4,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+      },
+      "abileneheritagesquare": {
+        "submittedName": "Abilene Heritage Square",
+        "rawOccurrence": 5,
+        "status": "not-visitable",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "reason": "A heritage campus and civic learning complex, not a separate museum identity. Its Spark Science Center is a second location of the existing Grace Museum authority guide.",
+        "evidence": "https://www.abileneheritagesquare.org/sparksciencecenter/",
+        "dispositionAt": "2026-10-24T20:40:00Z",
+        "relatedCanonicalSlug": "grace-museum-abilene"
+      },
+      "admiralnimitzgallery": {
+        "submittedName": "Admiral Nimitz Gallery",
+        "rawOccurrence": 6,
+        "status": "duplicate",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "reason": "An included permanent exhibition of the National Museum of the Pacific War, not an independent museum with its own canonical guide.",
+        "evidence": "https://www.pacificwarmuseum.org/visit/exhibits/admiral-nimitz-gallery-1",
+        "dispositionAt": "2026-10-24T20:40:00Z",
+        "relatedCanonicalSlug": "national-museum-pacific-war"
+      },
+      "advancedtechnologydevelopmentcentermuseum": {
+        "submittedName": "Advanced Technology Development Center Museum",
+        "rawOccurrence": 7,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+      },
+      "agriculturalheritagemuseum": {
+        "submittedName": "Agricultural Heritage Museum",
+        "rawOccurrence": 9,
+        "status": "research-blocked",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "reason": "Owner's unqualified 'Agricultural Heritage Museum' is ambiguous: City of Boerne officially identifies it as a former name of The AgriCultural, but a historically separate Agriculture Heritage Museum Inc. operates as the FiberMax Center for Discovery in Lubbock. Must confirm which institution owner intended before disposition.",
+        "evidence": "https://www.ci.boerne.tx.us/1438/The-AgriCultural-Museum-Arts-Center",
+        "dispositionAt": "2026-10-24T20:40:00Z",
+        "relatedCanonicalSlug": null,
+        "additionalEvidence": [
+          "https://texastimetravel.com/directory/agriculture-heritage-center-museum/",
+          "https://thc.texas.gov/public/upload/publications/heritage-travel-guide-temp.pdf",
+          "https://givefreely.com/charity-directory/nonprofit/ein-752940167/"
+        ]
+      },
+      "alamomuseum": {
+        "submittedName": "Alamo Museum",
+        "rawOccurrence": 10,
+        "status": "research-blocked",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "reason": "Ambiguous provisional owner label: City of Alamo operates the Maria del Pilar Garza Museum, whereas a separate Alamo San Antonio visitor center/museum has a projected 2028 opening. Must identify intended place before selecting canonical path.",
+        "evidence": "https://alamotexas.org/government/departments/alamo-museum/",
+        "dispositionAt": "2026-10-24T20:40:00Z",
+        "relatedCanonicalSlug": null
+      },
+      "alleylogcabinmuseum": {
+        "submittedName": "Alley Log Cabin Museum",
+        "rawOccurrence": 11,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "researchNote": "Colorado County historical record identifies 1836 Alley Log Cabin and Antique Tool Museum in Columbus. Historic (not necessarily current) tours were seasonal or by appointment; do not print aggregator's unsupported M-F daily schedule.",
+        "researchEvidenceUrls": [
+          "https://www.tshaonline.org/handbook/entries/columbus-tx",
+          "https://texas-settlement.org/museums/"
+        ],
+        "lastResearchAt": "2026-10-24"
+      },
+      "alpinedepotmuseum": {
+        "submittedName": "Alpine Depot Museum",
+        "rawOccurrence": 12,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+      },
+      "americanairpowerheritagemuseum": {
+        "submittedName": "American Airpower Heritage Museum",
+        "rawOccurrence": 15,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "researchNote": "The historical Midland CAF museum identity must be separated from current Commemorative Air Force museum work and Dallas visitor offerings. Verify successor, collections and current admission before proposing a visitor guide.",
+        "researchEvidenceUrls": [
+          "https://www.commemorativeairforce.org/"
+        ],
+        "lastResearchAt": "2026-10-24"
+      },
+      "americanmuseumoftheminiaturearts": {
+        "submittedName": "American Museum of the Miniature Arts",
+        "rawOccurrence": 16,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "researchNote": "A public attraction listing reports the Dallas venue as permanently closed, but independent institutional or government confirmation is required before marking the museum permanently closed.",
+        "researchEvidenceUrls": [
+          "https://www.tripadvisor.com/Attraction_Review-g55711-d559924-Reviews-American_Museum_of_the_Miniature_Arts-Dallas_Texas.html"
+        ],
+        "lastResearchAt": "2026-10-24"
+      },
+      "anahuacdepotmuseum": {
+        "submittedName": "Anahuac Depot Museum",
+        "rawOccurrence": 19,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+      },
+      "angelinacountyhistorycenter": {
+        "submittedName": "Angelina County History Center",
+        "rawOccurrence": 20,
+        "status": "duplicate",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "researchNote": "UNT The Portal to Texas History indexes Angelina County History Center alongside The History Center in Diboll, with matching historical records. Their organizational identity and modern visitor arrangements require verification before new guide/alias disposition.",
+        "researchEvidenceUrls": [
+          "https://texashistory.unt.edu/explore/partners/",
+          "https://www.thehistorycenteronline.com/"
+        ],
+        "lastResearchAt": "2026-10-24",
+        "relatedCanonicalSlug": "the-history-center-diboll",
+        "reason": "The owner-list label Angelina County History Center and the present-day History Center in Diboll identify the same history archive/museum at 102 N Temple, Diboll, with phone 936-829-3543. University of North Texas uses separate digital-partner labels for holdings but that does not create a separate public museum. Existing canonical The History Center page remains the visitor guide.",
+        "evidence": "https://texashistory.unt.edu/explore/partners/AHC/",
+        "additionalEvidence": [
+          "https://www.thehistorycenteronline.com/collections/angelina-county-school-district-map-1924",
+          "https://www.angelinacountygenealogicalsociety.com/items"
+        ],
+        "dispositionAt": "2026-10-24"
+      },
+      "annaheritagemuseum": {
+        "submittedName": "Anna Heritage Museum",
+        "rawOccurrence": 21,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+      },
+      "aransascountyhistorycenter": {
+        "submittedName": "Aransas County History Center",
+        "rawOccurrence": 22,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+      },
+      "archeologicalmuseumatthecenterforamericanhistory": {
+        "submittedName": "Archeological Museum at the Center for American History",
+        "rawOccurrence": 23,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+      },
+      "archercountyhistoricalmuseum": {
+        "submittedName": "Archer County Historical Museum",
+        "rawOccurrence": 24,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+      },
+      "artcenterofwaco": {
+        "submittedName": "Art Center of Waco",
+        "rawOccurrence": 27,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+      },
+      "artgalleriesatblackstudies": {
+        "submittedName": "Art Galleries at Black Studies",
+        "rawOccurrence": 31,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+      },
+      "atascosacountyvintagemuseum": {
+        "submittedName": "Atascosa County Vintage Museum",
+        "rawOccurrence": 33,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+      },
+      "atlantahistoricalmuseum": {
+        "submittedName": "Atlanta Historical Museum",
+        "rawOccurrence": 34,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+      },
+      "austincountyjailmuseum": {
+        "submittedName": "Austin County Jail Museum",
+        "rawOccurrence": 36,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+      },
+      "austinhistorycenter": {
+        "submittedName": "Austin History Center",
+        "rawOccurrence": 37,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+      },
+      "austinmuseumofpopularculture": {
+        "submittedName": "Austin Museum of Popular Culture",
+        "rawOccurrence": 38,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+      },
+      "automobilemuseumoftexas": {
+        "submittedName": "Automobile Museum of Texas",
+        "rawOccurrence": 40,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+      },
+      "aviationmuseumoftexas": {
+        "submittedName": "Aviation Museum of Texas",
+        "rawOccurrence": 41,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+      }
+    },
+    "note": "Source-of-truth checkpoint for deterministic 25-candidate museum research queue. Changes require GitHub merge to coordinate across chats. Empty records mean no assignment has been durably merged yet.",
+    "lastAssignmentAt": "2026-10-24T20:40:00Z",
+    "lastAssignmentCount": 25,
+    "currentBatch": {
+      "id": "owner-20261024-001",
+      "startedAt": "2026-10-24T20:40:00Z",
+      "source": "CI Museum Authority Contract run 40130359781 on merged PR #5835",
+      "rawOccurrences": [
+        4,
+        5,
+        6,
+        7,
+        9,
+        10,
+        11,
+        12,
+        15,
+        16,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        27,
+        31,
+        33,
+        34,
+        36,
+        37,
+        38,
+        40,
+        41
+      ],
+      "assignedKeys": [
+        "acmcmillanafricanamericanmuseum",
+        "abileneheritagesquare",
+        "admiralnimitzgallery",
+        "advancedtechnologydevelopmentcentermuseum",
+        "agriculturalheritagemuseum",
+        "alamomuseum",
+        "alleylogcabinmuseum",
+        "alpinedepotmuseum",
+        "americanairpowerheritagemuseum",
+        "americanmuseumoftheminiaturearts",
+        "anahuacdepotmuseum",
+        "angelinacountyhistorycenter",
+        "annaheritagemuseum",
+        "aransascountyhistorycenter",
+        "archeologicalmuseumatthecenterforamericanhistory",
+        "archercountyhistoricalmuseum",
+        "artcenterofwaco",
+        "artgalleriesatblackstudies",
+        "atascosacountyvintagemuseum",
+        "atlantahistoricalmuseum",
+        "austincountyjailmuseum",
+        "austinhistorycenter",
+        "austinmuseumofpopularculture",
+        "automobilemuseumoftexas",
+        "aviationmuseumoftexas"
+      ],
+      "initialCandidates": 25,
+      "researchedDispositions": 5,
+      "remainingAssigned": 20,
+      "notes": "Five provisional names dispositioned: three nonstandalone/duplicate identity outcomes and two research-blocked ambiguous labels. Twenty owner candidates remain assigned for source/photo research; no independent certifications issued."
+    }
   }
 }
