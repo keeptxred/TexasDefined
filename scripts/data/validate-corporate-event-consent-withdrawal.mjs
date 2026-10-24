@@ -48,5 +48,12 @@ assert(copySection.includes('await prepareCorporateEventQuoteDraft({ data:')
   && copySection.indexOf('await prepareCorporateEventQuoteDraft({ data:') < copySection.indexOf('await navigator.clipboard.writeText('),
   'Manual clipboard disclosure must re-check real organizer consent and partner authority at copy time');
 assert(copySection.includes('setDraft(null)'), 'Denied copy must immediately clear potentially stale contact details');
+assert(!quoteUi.includes('draft.brief') && !quoteUi.includes('draft.subject'),
+  'The staff preview must not retain or display sensitive prepared contact brief or company-bearing subject in state');
+assert(quoteUi.includes('setDraft({ providerName: result.providerName, verifiedOfficialUrl: result.verifiedOfficialUrl, sent: false })'),
+  'Only the non-sensitive venue summary may remain visible between permission checks');
+assert(quoteUi.includes('setDraft({ providerName: freshlyAuthorized.providerName, verifiedOfficialUrl: freshlyAuthorized.verifiedOfficialUrl, sent: false })'),
+  'Clipboard action must discard server-returned contact details immediately after copying');
+
 assert(intake.includes('consentSelectedVenues'), 'Original optional planner consent must remain separate');
 console.log('Corporate event organizer venue-sharing withdrawal is private, audit-preserving and irreversible on the original inquiry PASS');
