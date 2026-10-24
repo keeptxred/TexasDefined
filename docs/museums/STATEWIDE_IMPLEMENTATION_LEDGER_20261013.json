@@ -702,8 +702,12 @@
         "batchId": "museum-owner-001",
         "status": "assigned",
         "canonicalSlug": null,
-        "evidence": [],
-        "researchNote": "Provisional; verify identity, currently operating Texas location, existing destination/alias, official visitor details and photo rights before any publication."
+        "evidence": [
+          "https://flynaec.org/non-profit-information/",
+          "https://flynaec.org/about/",
+          "https://flynaec.org/visit-us/tickets-and-other-information/"
+        ],
+        "researchNote": "Former American Airpower Heritage Museum listings refer to the closed Midland site; the ongoing American Airpower Heritage Museum nonprofit's actively visitable flagship is the Henry B. Tippie National Aviation Education Center at Dallas Executive Airport. Verify canonical Dallas destination and licensed image before any new guide; do not advertise Midland 9612 Wright Drive as open."
       },
       "americanmuseumoftheminiaturearts": {
         "submittedName": "American Museum of the Miniature Arts",
@@ -727,10 +731,14 @@
         "submittedName": "Angelina County History Center",
         "rawOccurrence": 20,
         "batchId": "museum-owner-001",
-        "status": "assigned",
-        "canonicalSlug": null,
-        "evidence": [],
-        "researchNote": "Provisional; verify identity, currently operating Texas location, existing destination/alias, official visitor details and photo rights before any publication."
+        "status": "existing-guide-alias",
+        "canonicalSlug": "the-history-center-diboll",
+        "evidence": [
+          "https://texashistory.unt.edu/explore/partners/AHC/"
+        ],
+        "researchNote": "Provisional; verify identity, currently operating Texas location, existing destination/alias, official visitor details and photo rights before any publication.",
+        "reason": "University of North Texas Portal to Texas History partner named Angelina County History Center identifies its physical site at 102 N. Temple, Diboll, matching The History Center's existing TexasDefined canonical guide. This is not a second museum.",
+        "reviewedAt": "2026-10-24"
       },
       "annaheritagemuseum": {
         "submittedName": "Anna Heritage Museum",
@@ -870,6 +878,15 @@
         "canonicalSlug": null,
         "evidence": [],
         "researchNote": "Provisional; verify identity, currently operating Texas location, existing destination/alias, official visitor details and photo rights before any publication."
+      },
+      "bairddepotmuseum": {
+        "submittedName": "Baird Depot Museum",
+        "rawOccurrence": 44,
+        "batchId": "museum-owner-001",
+        "status": "assigned",
+        "canonicalSlug": null,
+        "evidence": [],
+        "researchNote": "Provisional institution/operating-status and existing-route research outstanding. No publication approved."
       }
     }
   },
@@ -949,8 +966,11 @@
       "source": "Original owner text stable occurrence order excluding existing dossiers, exact aliases, known geographically invalid and two evidence-resolved entries.",
       "clearInstruction": "On next execution, resume these 25 first. Never treat assignment as page, license, source verification or editorial completion.",
       "firstRawOccurrence": 4,
-      "lastRawOccurrence": 43,
-      "researchedProvisionalEntries": 4
+      "lastRawOccurrence": 44,
+      "researchedProvisionalEntries": 5,
+      "evidenceResolvedAliases": [
+        "angelina-county-history-center → the-history-center-diboll"
+      ]
     }
   }
 }
