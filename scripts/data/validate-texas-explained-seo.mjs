@@ -13,7 +13,7 @@ const readRouteSurface = (file) => {
 const route = `${read('src/routes/texas-explained.tsx')}\n${read('src/components/editorial/TexasExplainedPage.tsx')}`;
 const articleRoute = read('src/routes/article.$slug.tsx');
 const publicRoutes = read('src/lib/public-routes.ts');
-const resources = read('src/routes/texas-resources.tsx');
+const resources = readRouteSurface('src/routes/texas-resources.tsx');
 const internalLinks = read('src/data/article-internal-links.ts');
 const remoteInternalLinks = read('src/data/remote-evergreen-internal-links.ts');
 const newestEvergreenEntry = read('src/data/fixtures/newest-evergreen.ts');
@@ -353,7 +353,7 @@ for (const marker of [
 }
 
 if (!publicRoutes.includes('"/texas-explained"')) errors.push('Texas Explained must remain an indexable static public route.');
-if (!resources.includes("['Texas Explained', '/texas-explained']")) errors.push('Start Here must keep a visible link to Texas Explained.');
+if (!resources.includes("['Texas Explained', '/texas-explained']") && !resources.includes('<Link to="/texas-explained"')) errors.push('Texas Resources must keep a visible link to Texas Explained.');
 
 for (const marker of ['const texasExplainedLink', 'href: "/texas-explained"', 'Explore the full Texas Explained collection']) {
   if (!internalLinks.includes(marker)) errors.push(`Texas Explained reciprocal-link contract missing: ${marker}.`);
