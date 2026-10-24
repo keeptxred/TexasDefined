@@ -14,6 +14,8 @@ for (const marker of [
   "for (const market of ['Dallas', 'Dallas-Fort Worth', 'Austin', 'San Antonio', 'El Paso', '77002', 'Texas'])",
   "for (const count of [13, 25, 100, 300, 500, 5000, 8000])",
   "await guests.fill('8001')",
+  "getByText('Choose a whole-number group of 2 to 8,000 guests.')",
+  "getAttribute('aria-invalid')",
   "level: 3, name: 'Space Center Houston'",
   "await page.goto(copied",
   "await dateInput.fill(yesterday)",

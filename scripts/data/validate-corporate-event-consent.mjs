@@ -21,6 +21,10 @@ const privacy = readFileSync('src/routes/privacy.lazy.tsx','utf8');
 assert(api.includes('isUpcomingCorporateEventDate(data.eventDate)'), 'Server must reject past dates, not just client controls');
 assert(api.includes('groupSize: z.number().int().min(2).max(8000)'), 'Server must bound documented large event headcounts');
 assert(page.includes('headcount <= 8000') && page.includes('guests <= 8000') && page.includes('max={8000}'), 'Client input and URL restore must use the server limit');
+assert(page.includes('aria-invalid={!validHeadcount}') && page.includes('aria-describedby="corporate-group-size-guidance"'),
+  'Headcount errors need a visible and assistive-tech-identified message');
+assert(page.includes('Choose a whole-number group of 2 to 8,000 guests.') && page.includes('full-venue or multi-space packages'),
+  'Large groups need truthful available-format guidance without a booking guarantee');
 assert(groupBudget.includes('groupSize <= 8000'), 'Budgets must support documented 5,000-8,000 guest events');
 assert(largeGroupMigration.includes('DROP CONSTRAINT texasdefined_group_event_requests_group_size_check') && largeGroupMigration.includes('CHECK (group_size BETWEEN 2 AND 8000)'), 'DB must enforce same headcount limit');
 assert(page.includes('const validEventDate = !eventDate || isUpcomingCorporateEventDate(eventDate)'), 'Client must follow the same Texas date rule');

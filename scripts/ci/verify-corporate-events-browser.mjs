@@ -69,10 +69,14 @@ try {
 
       const guests = page.getByRole('spinbutton', { name: 'Number of guests' });
       await guests.fill('8001');
+      await page.getByText('Choose a whole-number group of 2 to 8,000 guests.').waitFor();
+      assert.equal(await guests.getAttribute('aria-invalid'), 'true',
+        view.name + ': invalid group sizes need accessible field error state');
       await page.getByRole('button', { name: 'Send planning request to TexasDefined' }).waitFor();
       assert.equal(await page.getByRole('button', { name: 'Send planning request to TexasDefined' }).isDisabled(), true,
         'Invalid headcount may not submit a planning request');
       await guests.fill('45');
+      assert.equal(await guests.getAttribute('aria-invalid'), 'false');
       const cityInput = page.locator('input[placeholder="Houston"]');
       const broadTypes = page.getByRole('checkbox', { name: /Show relevant group venues from other event types/i });
       await broadTypes.check();
