@@ -3,6 +3,13 @@ import { isDestinationPhotoPlaceholder } from "./explore-hero-reconciliation";
 
 /** Lightweight exact-site photo sources. Never bundle long museum research dossiers in core destination discovery. */
 export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
+  "alley-log-cabin-museum-columbus": {
+    "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Abram_Alley_Log_Cabin,_Columbus,_TX_IMG_8238.JPG?width=1600",
+    "alt": "Actual Abram Alley Log Cabin at 1230 Bowie Street in Columbus, Texas, photographed November 4, 2013",
+    "width": 1600,
+    "height": 1200,
+    "credit": "Billy Hathorn · 4 November 2013 · CC BY-SA 3.0 · Wikimedia Commons · File:Abram Alley Log Cabin, Columbus, TX IMG 8238.JPG"
+  },
   // Live Explore rows can outrank the preserved Graham record; recover the exact-building image after remote resolution.
   "old-post-office-museum-art-center-graham": {
     src: "https://upload.wikimedia.org/wikipedia/commons/4/47/United_States_Post_Office_Graham_Wiki_%281_of_1%29.jpg",
