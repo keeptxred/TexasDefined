@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Audit the owner-supplied concatenated names against canonical museum destination
 // source records. Do NOT create museum pages directly from inferred names.
-import { readFileSync, readdirSync } from "node:fs";
+import { readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { segmentOwnerMuseumNames, ownerMuseumIdentityKey, provisionalIdentityIssues } from "./museum-owner-inventory-parser.mjs";
 const normalize=ownerMuseumIdentityKey;
@@ -83,4 +83,78 @@ const report={generatedAt:"2026-10-14",rawChars:raw.length,sourceCatalogFiles:fi
   duplicateCanonicalSlugs:[...new Set(records.filter((r,i)=>records.findIndex(v=>v.slug===r.slug)!==i).map(r=>r.slug))],
   flagged,unresolved,known,dossiersAlready,rows,uniqueRows:distinct,
   notice:"Raw names were concatenated without separators. Every candidate is provisional, including parser boundaries and name aliases; this report is a COMPLETE reconciliation backlog, never authority certification or permission to publish."};
-console.log(JSON.stringify(report,null,2));
+// A single durable checkpoint lives in the existing statewide implementation ledger.
+// Preview is read-only; --reserve-batch writes the ledger in the working tree and
+// is NOT an effective lock until the change is committed and merged through
+// protected GitHub main. Fetch newest main before reserving to avoid overlap.
+const preview = process.argv.includes("--next-batch");
+const reserve = process.argv.includes("--reserve-batch");
+if (preview || reserve) {
+  const ledgerPath = "docs/museums/STATEWIDE_IMPLEMENTATION_LEDGER_20261013.json";
+  const ledger = JSON.parse(readFileSync(ledgerPath, "utf8"));
+  const checkpoint = ledger.ownerInventoryCheckpoint ?? {
+    schemaVersion: 1, batchSequence: 0, entries: {}
+  };
+  if (checkpoint.schemaVersion !== 1 || !checkpoint.entries || typeof checkpoint.entries !== "object")
+    throw Error("Unsupported museum owner-inventory checkpoint; do not overwrite it");
+  const eligibleStatuses = new Set([
+    "requires-independent-source-research",
+    "existing-destination-needs-authority-audit"
+  ]);
+  // Dossiers already present need independent editorial certification, NOT
+  // another duplicate page or a new research assignment from this queue.
+  const candidates = distinct.filter(row =>
+    eligibleStatuses.has(row.status) && row.parseIssues.length === 0
+  );
+  const keyed = row => normalize(row.submittedName);
+  const previouslyAssigned = candidates.filter(row =>
+    checkpoint.entries[keyed(row)]?.status === "assigned"
+  );
+  // Never silently select entries already dispositioned, deferred or owned by
+  // another batch/chat. Source evidence must be reviewed before changing a
+  // record from "assigned" to "completed" or "excluded".
+  const unassigned = candidates.filter(row =>
+    !Object.hasOwn(checkpoint.entries, keyed(row))
+  );
+  const picked = [
+    ...previouslyAssigned,
+    ...unassigned.slice(0, Math.max(0, 25 - previouslyAssigned.length))
+  ].slice(0, 25);
+  const batchId = checkpoint.entries[keyed(picked[0] ?? { submittedName: "" })]?.batchId ??
+    ("museum-owner-" + String(checkpoint.batchSequence + 1).padStart(3, "0"));
+  if (reserve && picked.length) {
+    const hasNew = picked.some(row => !Object.hasOwn(checkpoint.entries, keyed(row)));
+    if (hasNew && !previouslyAssigned.length) checkpoint.batchSequence += 1;
+    for (const row of picked) {
+      if (Object.hasOwn(checkpoint.entries, keyed(row))) continue;
+      checkpoint.entries[keyed(row)] = {
+        submittedName: row.submittedName, rawOccurrence: row.rawOccurrence,
+        batchId, status: "assigned", canonicalSlug: row.canonicalSlug,
+        // Published/certified is NEVER inferred merely from a source HTTP 200.
+        evidence: []
+      };
+    }
+    ledger.ownerInventoryCheckpoint = checkpoint;
+    writeFileSync(ledgerPath, JSON.stringify(ledger, null, 2) + "\n");
+  }
+  console.log(JSON.stringify({
+    source: owner, checkpoint: ledgerPath,
+    mode: reserve ? "reserved-in-working-tree-until-merged" : "preview-only",
+    batchId: picked.length ? batchId : null,
+    count: picked.length,
+    resumed: previouslyAssigned.length,
+    unassignedRemainingAfterSelection: unassigned.length - picked.filter(row =>
+      !Object.hasOwn(checkpoint.entries, keyed(row)) || !preview &&
+      checkpoint.entries[keyed(row)]?.batchId === batchId
+    ).length,
+    excludedFromAutomaticAssignment: distinct.length - candidates.length,
+    candidates: picked.map(row => ({
+      submittedName: row.submittedName, rawOccurrence: row.rawOccurrence,
+      canonicalSlug: row.canonicalSlug, catalogFile: row.catalogFile,
+      status: checkpoint.entries[keyed(row)]?.status ?? "eligible-unassigned"
+    })),
+    note: "Candidates are provisional until operator, geography, identity, existing canonical and photo rights checks. Merge reservations to main before other chats select a batch."
+  }, null, 2));
+} else {
+  console.log(JSON.stringify(report, null, 2));
+}
