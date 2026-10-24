@@ -59,7 +59,7 @@ Updated: October 24, 2026.
 - SEO: route canonical including query-param exclusion checked in both Chrome viewports; head source retains quality-gated indexability, title/meta description, CollectionPage, ItemList and BreadcrumbList and hub/county guide links. Additional geographic results remain clearly separate (2 secondary places in the accepted desktop capture), not counted as featured.
 - Lodging: a single post-guide section presents Expedia, Hotels.com, Travelocity and Vrbo choices with affiliate disclosure; not embedded within featured cards. The site remains independent of AdSense. The QA checks placement, DOM navigation and absence of hydration errors, **not completed affiliate conversions or third-party booking transactions**.
 - Layout: desktop cards use columns, mobile cards stack, no horizontal overflow or card overlap in Chrome. Captured mobile and desktop photographs render above and below the fold.
-- No new paid services, Lovable usage, placeholder destination guide or indexing-threshold relaxation. No confirmed outstanding McAllen-specific defects within this bounded acceptance. The original external-provider maps and affiliate links may change later and should be handled as future maintenance, not retroactive acceptance failures.
+- No new paid services, retired site-builder usage, placeholder destination guide or indexing-threshold relaxation. No confirmed outstanding McAllen-specific defects within this bounded acceptance. The original external-provider maps and affiliate links may change later and should be handled as future maintenance, not retroactive acceptance failures.
 
 ### Ongoing restart guidance
 
