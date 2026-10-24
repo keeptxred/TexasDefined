@@ -12,7 +12,7 @@ export function CorporateEventSourceReviewPanel() {
   const [urgency, setUrgency] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [pageIndex, setPageIndex] = useState(1);
-  const cities = Array.from(new Set(queue.items.map(item => item.provider.city))).sort((a, b) => a.localeCompare(b));
+  const cities = [...new Set(queue.items.map(item => item.provider.city))].sort((a, b) => a.localeCompare(b));
   const filtered = queue.items.filter(item =>
     (city === 'all' || item.provider.city === city)
     && (urgency === 'all' || item.status === urgency)
