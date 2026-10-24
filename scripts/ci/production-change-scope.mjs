@@ -94,8 +94,7 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
     || path === 'src/data/corporate-events-offers.server.ts'
     || path === 'src/components/events/CorporateEventMetroGuides.tsx'
     || path === 'src/components/events/CorporateEventCategoryGuides.tsx'
-    || path === 'scripts/ci/verify-changed-production-pages.mjs'
-    || path === 'scripts/ci/production-change-scope.mjs'
+    || path === 'scripts/ci/validate-corporate-event-production-smoke.mjs'
   )) {
     corporateEventPages.add('/corporate-events');
     candidates.add('/corporate-events');
