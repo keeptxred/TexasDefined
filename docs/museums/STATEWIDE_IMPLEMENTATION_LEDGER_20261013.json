@@ -603,7 +603,7 @@
   },
   "ownerInventoryCheckpoint": {
     "schemaVersion": 1,
-    "batchSequence": 0,
+    "batchSequence": 1,
     "entries": {
       "admiralnimitzgallery": {
         "submittedName": "Admiral Nimitz Gallery",
@@ -633,6 +633,231 @@
           "https://thegracemuseum.org/exhibitions/spark/"
         ],
         "reviewedAt": "2026-10-24"
+      },
+      "acmcmillanafricanamericanmuseum": {
+        "submittedName": "A.C. McMillan African American Museum",
+        "rawOccurrence": 4,
+        "batchId": "museum-owner-001",
+        "status": "assigned",
+        "canonicalSlug": null,
+        "evidence": [],
+        "researchNote": "Provisional; verify identity, currently operating Texas location, existing destination/alias, official visitor details and photo rights before any publication."
+      },
+      "advancedtechnologydevelopmentcentermuseum": {
+        "submittedName": "Advanced Technology Development Center Museum",
+        "rawOccurrence": 7,
+        "batchId": "museum-owner-001",
+        "status": "assigned",
+        "canonicalSlug": null,
+        "evidence": [],
+        "researchNote": "Provisional; verify identity, currently operating Texas location, existing destination/alias, official visitor details and photo rights before any publication."
+      },
+      "agriculturalheritagemuseum": {
+        "submittedName": "Agricultural Heritage Museum",
+        "rawOccurrence": 9,
+        "batchId": "museum-owner-001",
+        "status": "assigned",
+        "canonicalSlug": null,
+        "evidence": [],
+        "researchNote": "Provisional; verify identity, currently operating Texas location, existing destination/alias, official visitor details and photo rights before any publication."
+      },
+      "alamomuseum": {
+        "submittedName": "Alamo Museum",
+        "rawOccurrence": 10,
+        "batchId": "museum-owner-001",
+        "status": "assigned",
+        "canonicalSlug": null,
+        "evidence": [],
+        "researchNote": "Provisional; verify identity, currently operating Texas location, existing destination/alias, official visitor details and photo rights before any publication."
+      },
+      "alleylogcabinmuseum": {
+        "submittedName": "Alley Log Cabin Museum",
+        "rawOccurrence": 11,
+        "batchId": "museum-owner-001",
+        "status": "assigned",
+        "canonicalSlug": null,
+        "evidence": [],
+        "researchNote": "Provisional; verify identity, currently operating Texas location, existing destination/alias, official visitor details and photo rights before any publication."
+      },
+      "alpinedepotmuseum": {
+        "submittedName": "Alpine Depot Museum",
+        "rawOccurrence": 12,
+        "batchId": "museum-owner-001",
+        "status": "assigned",
+        "canonicalSlug": null,
+        "evidence": [],
+        "researchNote": "Provisional; verify identity, currently operating Texas location, existing destination/alias, official visitor details and photo rights before any publication."
+      },
+      "americanairpowerheritagemuseum": {
+        "submittedName": "American Airpower Heritage Museum",
+        "rawOccurrence": 15,
+        "batchId": "museum-owner-001",
+        "status": "assigned",
+        "canonicalSlug": null,
+        "evidence": [],
+        "researchNote": "Provisional; verify identity, currently operating Texas location, existing destination/alias, official visitor details and photo rights before any publication."
+      },
+      "americanmuseumoftheminiaturearts": {
+        "submittedName": "American Museum of the Miniature Arts",
+        "rawOccurrence": 16,
+        "batchId": "museum-owner-001",
+        "status": "assigned",
+        "canonicalSlug": null,
+        "evidence": [],
+        "researchNote": "Provisional; verify identity, currently operating Texas location, existing destination/alias, official visitor details and photo rights before any publication."
+      },
+      "anahuacdepotmuseum": {
+        "submittedName": "Anahuac Depot Museum",
+        "rawOccurrence": 19,
+        "batchId": "museum-owner-001",
+        "status": "assigned",
+        "canonicalSlug": null,
+        "evidence": [],
+        "researchNote": "Provisional; verify identity, currently operating Texas location, existing destination/alias, official visitor details and photo rights before any publication."
+      },
+      "angelinacountyhistorycenter": {
+        "submittedName": "Angelina County History Center",
+        "rawOccurrence": 20,
+        "batchId": "museum-owner-001",
+        "status": "assigned",
+        "canonicalSlug": null,
+        "evidence": [],
+        "researchNote": "Provisional; verify identity, currently operating Texas location, existing destination/alias, official visitor details and photo rights before any publication."
+      },
+      "annaheritagemuseum": {
+        "submittedName": "Anna Heritage Museum",
+        "rawOccurrence": 21,
+        "batchId": "museum-owner-001",
+        "status": "assigned",
+        "canonicalSlug": null,
+        "evidence": [],
+        "researchNote": "Provisional; verify identity, currently operating Texas location, existing destination/alias, official visitor details and photo rights before any publication."
+      },
+      "aransascountyhistorycenter": {
+        "submittedName": "Aransas County History Center",
+        "rawOccurrence": 22,
+        "batchId": "museum-owner-001",
+        "status": "assigned",
+        "canonicalSlug": null,
+        "evidence": [],
+        "researchNote": "Provisional; verify identity, currently operating Texas location, existing destination/alias, official visitor details and photo rights before any publication."
+      },
+      "archeologicalmuseumatthecenterforamericanhistory": {
+        "submittedName": "Archeological Museum at the Center for American History",
+        "rawOccurrence": 23,
+        "batchId": "museum-owner-001",
+        "status": "assigned",
+        "canonicalSlug": null,
+        "evidence": [],
+        "researchNote": "Provisional; verify identity, currently operating Texas location, existing destination/alias, official visitor details and photo rights before any publication."
+      },
+      "archercountyhistoricalmuseum": {
+        "submittedName": "Archer County Historical Museum",
+        "rawOccurrence": 24,
+        "batchId": "museum-owner-001",
+        "status": "assigned",
+        "canonicalSlug": null,
+        "evidence": [],
+        "researchNote": "Provisional; verify identity, currently operating Texas location, existing destination/alias, official visitor details and photo rights before any publication."
+      },
+      "artcenterofwaco": {
+        "submittedName": "Art Center of Waco",
+        "rawOccurrence": 27,
+        "batchId": "museum-owner-001",
+        "status": "assigned",
+        "canonicalSlug": null,
+        "evidence": [],
+        "researchNote": "Provisional; verify identity, currently operating Texas location, existing destination/alias, official visitor details and photo rights before any publication."
+      },
+      "artgalleriesatblackstudies": {
+        "submittedName": "Art Galleries at Black Studies",
+        "rawOccurrence": 31,
+        "batchId": "museum-owner-001",
+        "status": "assigned",
+        "canonicalSlug": null,
+        "evidence": [],
+        "researchNote": "Provisional; verify identity, currently operating Texas location, existing destination/alias, official visitor details and photo rights before any publication."
+      },
+      "atascosacountyvintagemuseum": {
+        "submittedName": "Atascosa County Vintage Museum",
+        "rawOccurrence": 33,
+        "batchId": "museum-owner-001",
+        "status": "assigned",
+        "canonicalSlug": null,
+        "evidence": [],
+        "researchNote": "Provisional; verify identity, currently operating Texas location, existing destination/alias, official visitor details and photo rights before any publication."
+      },
+      "atlantahistoricalmuseum": {
+        "submittedName": "Atlanta Historical Museum",
+        "rawOccurrence": 34,
+        "batchId": "museum-owner-001",
+        "status": "assigned",
+        "canonicalSlug": null,
+        "evidence": [],
+        "researchNote": "Provisional; verify identity, currently operating Texas location, existing destination/alias, official visitor details and photo rights before any publication."
+      },
+      "austincountyjailmuseum": {
+        "submittedName": "Austin County Jail Museum",
+        "rawOccurrence": 36,
+        "batchId": "museum-owner-001",
+        "status": "assigned",
+        "canonicalSlug": null,
+        "evidence": [],
+        "researchNote": "Provisional; verify identity, currently operating Texas location, existing destination/alias, official visitor details and photo rights before any publication."
+      },
+      "austinhistorycenter": {
+        "submittedName": "Austin History Center",
+        "rawOccurrence": 37,
+        "batchId": "museum-owner-001",
+        "status": "assigned",
+        "canonicalSlug": null,
+        "evidence": [],
+        "researchNote": "Provisional; verify identity, currently operating Texas location, existing destination/alias, official visitor details and photo rights before any publication."
+      },
+      "austinmuseumofpopularculture": {
+        "submittedName": "Austin Museum of Popular Culture",
+        "rawOccurrence": 38,
+        "batchId": "museum-owner-001",
+        "status": "assigned",
+        "canonicalSlug": null,
+        "evidence": [],
+        "researchNote": "Provisional; verify identity, currently operating Texas location, existing destination/alias, official visitor details and photo rights before any publication."
+      },
+      "automobilemuseumoftexas": {
+        "submittedName": "Automobile Museum of Texas",
+        "rawOccurrence": 40,
+        "batchId": "museum-owner-001",
+        "status": "assigned",
+        "canonicalSlug": null,
+        "evidence": [],
+        "researchNote": "Provisional; verify identity, currently operating Texas location, existing destination/alias, official visitor details and photo rights before any publication."
+      },
+      "aviationmuseumoftexas": {
+        "submittedName": "Aviation Museum of Texas",
+        "rawOccurrence": 41,
+        "batchId": "museum-owner-001",
+        "status": "assigned",
+        "canonicalSlug": null,
+        "evidence": [],
+        "researchNote": "Provisional; verify identity, currently operating Texas location, existing destination/alias, official visitor details and photo rights before any publication."
+      },
+      "b29b24squadronmuseum": {
+        "submittedName": "B-29/B-24 Squadron Museum",
+        "rawOccurrence": 42,
+        "batchId": "museum-owner-001",
+        "status": "assigned",
+        "canonicalSlug": null,
+        "evidence": [],
+        "researchNote": "Provisional; verify identity, currently operating Texas location, existing destination/alias, official visitor details and photo rights before any publication."
+      },
+      "babedidriksonzahariasmuseum": {
+        "submittedName": "Babe Didrikson Zaharias Museum",
+        "rawOccurrence": 43,
+        "batchId": "museum-owner-001",
+        "status": "assigned",
+        "canonicalSlug": null,
+        "evidence": [],
+        "researchNote": "Provisional; verify identity, currently operating Texas location, existing destination/alias, official visitor details and photo rights before any publication."
       }
     }
   },
@@ -704,6 +929,15 @@
       "allHtmlIncludeFallbackReference": true,
       "review": "Missing commercial-use photo permission remains unresolved, so all four properly remain noindex. Page HTTP 200 does not resolve image rights.",
       "browserPixelRenderingVerified": false
+    },
+    "firstUnfinishedOwnerInventoryBatch": {
+      "batchId": "museum-owner-001",
+      "assigned": 25,
+      "status": "research-assigned-not-published",
+      "source": "Original owner text stable occurrence order excluding existing dossiers, exact aliases, known geographically invalid and two evidence-resolved entries.",
+      "clearInstruction": "On next execution, resume these 25 first. Never treat assignment as page, license, source verification or editorial completion.",
+      "firstRawOccurrence": 4,
+      "lastRawOccurrence": 43
     }
   }
 }
