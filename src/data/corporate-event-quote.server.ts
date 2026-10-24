@@ -1,6 +1,6 @@
 import { assertSportsPartnerAccess } from '@/data/sports-partner-leads.server';
 import { corporateEventProviders } from '@/data/corporate-events';
-import { isUpcomingCorporateEventDate } from '@/data/corporate-event-dates';
+import { isUpcomingCorporateEventDate, corporateEventTexasToday } from '@/data/corporate-event-dates';
 import { supabaseAdmin } from '@/integrations/supabase/client.server';
 
 const client = supabaseAdmin as any;
@@ -67,7 +67,7 @@ export async function prepareCorporateEventPartnerQuote(
     && Boolean(application.commercial_agreement_verified_at)
     && application.commercial_agreement_covers_quote_routing === true
     && (!application.commercial_agreement_expires_on
-      || String(application.commercial_agreement_expires_on) >= new Date().toLocaleDateString('en-CA', { timeZone: 'America/Chicago' })),
+      || String(application.commercial_agreement_expires_on) >= corporateEventTexasToday()),
   );
   if (candidates.length !== 1) {
     throw new Error('No unique approved partner matches the venue identity and official website.');
