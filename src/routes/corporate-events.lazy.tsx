@@ -295,7 +295,9 @@ function CorporateEventsPage() {
               <span className="mt-1 block text-xs font-normal text-muted-foreground">Matches the venue's listed area description within your chosen market; it does not calculate distance or driving time.</span>
             </label>
             <label className="block text-sm font-semibold">Number of guests
-              <input type="number" min={2} max={8000} value={headcount} onChange={(event) => setHeadcount(Number(event.target.value))} className={'mt-2 ' + controlClass} />
+              <input type="number" min={2} max={8000} value={headcount} aria-invalid={!validHeadcount} aria-describedby="corporate-group-size-guidance" onChange={(event) => setHeadcount(Number(event.target.value))} className={'mt-2 ' + controlClass} />
+              <span id="corporate-group-size-guidance" className="mt-1 block text-xs font-normal text-muted-foreground">Enter 2–8,000 guests. Very large events may require full-venue or multi-space packages; published limits are not confirmed openings.</span>
+              {!validHeadcount ? <span role="alert" className="mt-1 block text-xs font-normal text-destructive">Choose a whole-number group of 2 to 8,000 guests.</span> : null}
             </label>
             <label className="block text-sm font-semibold">Event type
               <select value={category} onChange={(event) => setCategory(event.target.value as GroupEventCategory)} className={'mt-2 ' + controlClass}>
