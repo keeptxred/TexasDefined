@@ -1,7 +1,7 @@
 import { assertSportsPartnerAccess } from '@/data/sports-partner-leads.server';
 import { supabaseAdmin } from '@/integrations/supabase/client.server';
 import { corporateEventProviders } from '@/data/corporate-events';
-import { corporateEventTexasToday } from '@/data/corporate-event-dates';
+import { corporateEventTexasToday, isValidCorporateEventCalendarDate } from '@/data/corporate-event-dates';
 import { corporateEventEvidenceTimestampIsValid, corporateEventVerifiedRedemptionUrl } from '@/data/corporate-event-offer-provenance';
 
 export type CorporateEventLeadStatus = 'new' | 'reviewing' | 'contacted' | 'closed' | 'spam';
@@ -13,14 +13,6 @@ const applicationStatuses: CorporateEventApplicationStatus[] = ['pending', 'revi
 const offerStatuses: CorporateEventOfferStatus[] = ['draft', 'approved', 'paused', 'expired'];
 const MAX_ROWS = 120;
 const client = supabaseAdmin as any;
-
-// A typed ISO-looking value is not necessarily a real calendar date
-// (e.g., February 31). Fail closed before recording signed terms or offers.
-function validCorporateCommercialCalendarDate(value: string): boolean {
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
-  const day = new Date(value + 'T12:00:00Z');
-  return Number.isFinite(day.getTime()) && day.toISOString().slice(0, 10) === value;
-}
 
 export type CorporateEventLeadRecord = {
   id: string; created_at: string; status: CorporateEventLeadStatus;
@@ -160,8 +152,8 @@ export async function proposeCorporateEventOffer(accessKey: string, data: Corpor
   await assertSportsPartnerAccess(accessKey);
   const record = corporateEventProviders.find((provider) => provider.slug === data.providerSlug);
   if (!record) throw new Error('Add and source the provider in the editorial directory before creating an offer.');
-  if (!validCorporateCommercialCalendarDate(data.startsOn)
-    || !validCorporateCommercialCalendarDate(data.endsOn)
+  if (!isValidCorporateEventCalendarDate(data.startsOn)
+    || !isValidCorporateEventCalendarDate(data.endsOn)
     || data.startsOn > data.endsOn) {
     throw new Error('Offer start and end dates must be actual calendar days in order.');
   }
@@ -227,8 +219,8 @@ export async function setCorporateEventOfferStatus(accessKey: string, id: string
       throw new Error('Offer approval requires the exact independently sourced venue identity and HTTPS redemption site.');
     }
     const today = corporateEventTexasToday();
-    if (!validCorporateCommercialCalendarDate(String(offer.starts_on))
-      || !validCorporateCommercialCalendarDate(String(offer.ends_on))
+    if (!isValidCorporateEventCalendarDate(String(offer.starts_on))
+      || !isValidCorporateEventCalendarDate(String(offer.ends_on))
       || String(offer.ends_on) < today || String(offer.starts_on) > String(offer.ends_on)) throw new Error('Offer date window is invalid or expired.');
   }
   // Approved offers require a reviewer and timestamp. No public publication occurs here.
@@ -260,7 +252,7 @@ export async function recordCorporateEventCommercialAgreement(
   if (reference.length < 20 || reference.length > 500 || (!coversOffers && !coversQuoteRouting)) {
     throw new Error('Verified signed terms, an evidence reference and at least one approved scope are required.');
   }
-  if (expiresOn && (!validCorporateCommercialCalendarDate(expiresOn) || expiresOn < corporateEventTexasToday())) {
+  if (expiresOn && (!isValidCorporateEventCalendarDate(expiresOn) || expiresOn < corporateEventTexasToday())) {
     throw new Error('An agreement cannot already be expired.');
   }
   const { data: application, error: lookupError } = await client
