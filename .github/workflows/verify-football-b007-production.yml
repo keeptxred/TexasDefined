@@ -3,8 +3,12 @@ on:
   push:
     branches: [main]
     paths:
+      # Rerun the existing 25-school browser suite when its governed source
+      # inventory changes; do not rely only on changes to the test itself.
       - 'scripts/ci/verify-football-b007-targeted-production.mjs'
       - '.github/workflows/verify-football-b007-production.yml'
+      - 'docs/football-authority/REGISTRY.json'
+      - 'src/data/high-school-football/program-editorial.ts'
   workflow_dispatch:
 permissions:
   contents: read
