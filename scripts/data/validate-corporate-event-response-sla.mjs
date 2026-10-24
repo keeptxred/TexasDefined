@@ -54,6 +54,9 @@ assert(panel.includes('Do not paste private message bodies') &&
 assert(panel.includes('not proof of delivery'), 'No delivery receipts or automatic sending implied');
 const evidenceSql=read('supabase/migrations/20261024143500_group_event_first_contact_evidence.sql');
 const adminFns=read('src/data/corporate-events.admin.functions.ts');
+const canonical=read('scripts/ci/run-premerge-validation.mjs');
+assert(canonical.includes('validate-corporate-event-response-sla.mjs'),
+  'All production premerge gates must test verified planner first-contact behavior');
 for (const text of [
   'first_contact_evidence_reference text',
   'td_group_event_contact_evidence_required',
