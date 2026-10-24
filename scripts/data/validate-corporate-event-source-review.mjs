@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import { spawnSync } from 'node:child_process';
 
 const directory = readFileSync('src/data/corporate-events.ts', 'utf8');
 const queue = readFileSync('src/data/corporate-event-source-review.ts', 'utf8');
@@ -86,4 +87,8 @@ assert(escape.includes("area: 'CityCentre and Galleria'") &&
   'Do not invent a hard 60-person upper limit or collapse two Houston locations into one');
 assert(escape.includes('startingPricePerPerson: null'),
   'Group-dependent price tables must not be advertised as one universal starting rate');
+const invitations = spawnSync(process.execPath,
+  ['--experimental-strip-types', '--test', 'scripts/data/corporate-event-partner-invitations.test.mjs'],
+  { cwd: process.cwd(), stdio: 'inherit', shell: false });
+assert.equal(invitations.status, 0, 'Protected operator invitation contract must remain read-only, source-grounded and noncommercial until signed');
 console.log('Corporate event staff source governance: cited review links, bounded due dates, privacy and entire venue catalog PASS');
