@@ -58,7 +58,13 @@ assert(arboretum?.capacityDetail.includes('membership'),'Private venue membershi
 const foodBank=bySlug.get('houston-food-bank-corporate-volunteers');
 assert(foodBank?.capacityDetail.includes('40+'),'Large volunteer shifts require explicit coordination');
 assert.equal(bySlug.get('escape-hunt-houston-corporate')?.maxGroup,90);
-assert.equal(bySlug.get('space-center-houston-corporate-rentals')?.maxGroup,5400);
+const spaceCenter = bySlug.get('space-center-houston-corporate-rentals');
+assert.equal(spaceCenter?.maxGroup,8000,
+  'Operator-published Full Center Experience capacity is 8,000, not the 5,400-person Independence Plaza maximum');
+assert(spaceCenter?.capacityDetail.includes('Full Center Experience') && spaceCenter?.capacityDetail.includes('5,400'),
+  'Preserve exact independent room/whole-facility capacity distinctions');
+assert.equal(spaceCenter?.sourceUrl, 'https://spacecenter.org/host-an-event/venue-information/',
+  'Large-group headcounts require official room-by-room evidence, not an inferred venue quote');
 assert.equal(bySlug.get('game-show-studio-houston-corporate')?.maxGroup,200);
 const guides=readFileSync('src/components/events/CorporateEventMetroGuides.tsx','utf8');
 assert(guides.includes('corporateEventMarketMatches(provider, guide.key)'),'Houston guide must include both the city and suburban metro aliases via the shared matcher');
