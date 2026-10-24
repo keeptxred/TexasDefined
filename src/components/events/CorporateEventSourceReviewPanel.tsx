@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { corporateEventSourceReviewSchedule } from '@/data/corporate-event-source-review';
+import { corporateEventPublicOperatorChannel } from '@/data/corporate-event-public-operator-channels';
 import { corporateVenueMatchesEvidenceFilter, corporateVenuePublished45Status, type CorporateVenueEvidenceFilter } from '@/data/corporate-event-source-gaps';
 
 /**
@@ -125,6 +126,12 @@ export function CorporateEventSourceReviewPanel() {
             className="inline-flex min-h-11 items-center border border-border px-3 font-semibold">
             Official venue ↗
           </a>
+          {corporateEventPublicOperatorChannel(item.provider.slug) ? <a
+            href={corporateEventPublicOperatorChannel(item.provider.slug)!.url}
+            target="_blank" rel="noopener noreferrer"
+            className="inline-flex min-h-11 items-center border border-border px-3 font-semibold">
+            Review public event inquiry ↗
+          </a> : null}
         </div>
         <details className="mt-3">
           <summary className="cursor-pointer py-2 text-sm font-semibold">Official-source review checklist</summary>
@@ -142,6 +149,6 @@ export function CorporateEventSourceReviewPanel() {
       <button type="button" disabled={currentPage >= pageCount} onClick={() => setPageIndex(currentPage + 1)}
         className="min-h-11 border border-border px-4 text-sm font-semibold disabled:opacity-50">Next 24</button>
     </nav> : null}
-    <p className="mt-4 text-xs leading-6 text-muted-foreground">No source verification, room availability, accessibility accommodation or corporate price has been established by viewing this queue. Listings remain independent editorial content and are not paid rankings.</p>
+    <p className="mt-4 text-xs leading-6 text-muted-foreground">Public event-inquiry links were checked against operator sites; they are only external pages to inspect. No inquiry has been submitted, no planner details shared, and no commercial relationship or venue availability is implied. No source verification, room availability, accessibility accommodation or corporate price has been established by viewing this queue. Listings remain independent editorial content and are not paid rankings.</p>
   </section>;
 }

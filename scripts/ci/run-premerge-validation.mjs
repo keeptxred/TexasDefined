@@ -116,6 +116,7 @@ const prebuildChecks = [
   ['EVENT/CORPORATE/CLIENT-PII', 'Test built-client privacy scanner with synthetic data', 'node', ['--test', 'scripts/ci/validate-corporate-client-privacy.test.mjs']],
   ['EVENT/CORPORATE/CONSENT', 'Require irreversible verified organizer consent withdrawal', 'node', ['scripts/data/validate-corporate-event-consent-withdrawal.mjs']],
   ['EVENT/CORPORATE/SOURCES', 'Maintain dated official-source re-review for all independent venues', 'node', ['scripts/data/validate-corporate-event-source-review.mjs']],
+  ['EVENT/CORPORATE/OPERATOR-CONTACT', 'Restrict staff public venue inquiry links to original, sourced operator hosts', 'node', ['--experimental-strip-types', 'scripts/data/validate-corporate-event-operator-channels.mjs']],
   ['EVENT/CORPORATE/EVIDENCE-GAPS', 'Separate missing published capacity/price from genuine 45-person group fit', 'node', ['--experimental-strip-types', 'scripts/data/validate-corporate-event-evidence-gaps.mjs']],
   ['EVENT/CORPORATE/RECEIPTS', 'Prevent duplicate real provider settlement and booking evidence records', 'node', ['scripts/data/validate-corporate-event-evidence-dedup.mjs']],
   ['EVENT/CORPORATE/OUTCOMES', 'Protect evidence-only quote, booking, dispute, and revenue ledger', 'node', ['scripts/data/validate-corporate-event-outcomes.mjs']],
