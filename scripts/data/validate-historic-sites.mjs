@@ -677,7 +677,11 @@ if (!magoffinTimeline.includes('"magoffin-home": [')) failures.push('Magoffin ci
 if (!magoffinRoute.includes('destination.slug !== "magoffin-home" && isPrimaryTripPlannerDestination(destination)')) failures.push('Magoffin duplicate visit planner must remain suppressed');
 const builtWorkerSmoke = fs.readFileSync("scripts/ci/verify-built-worker-ssr-core.mjs", "utf8");
 if (!magoffinRoute.includes('destination = applyMagoffinHomeAuthority(destination);')) failures.push("Magoffin route must apply final authoritative restoration overlay after remote and local source resolution");
-for (const marker of ["Magoffin restoration alert is SSR-rendered", "Magoffin restored visitor FAQ replaces generic-only guide", "Magoffin current visitor-center arrival address is visible"]) {
+for (const marker of ['creator: { "@type": "Person", name: "Larry D. Moore" }', 'copyrightNotice: "© 2009 Larry D. Moore"', 'license: "https://creativecommons.org/licenses/by/4.0/"', 'acquireLicensePage: "https://commons.wikimedia.org/wiki/File:Magoffin_home_2009.jpg"', '...magoffinImageRights']) {
+  if (!magoffinRoute.includes(marker)) failures.push("Magoffin image-rights metadata missing: " + marker);
+}
+if (!magoffinRoute.includes('destination.hero.credit?.includes("Larry D. Moore")')) failures.push("Magoffin image-rights attribution must be conditional on the verified hero photo");
+for (const marker of ["Magoffin restoration alert is SSR-rendered", "Magoffin restored visitor FAQ replaces generic-only guide", "Magoffin current visitor-center arrival address is visible", "Magoffin photograph ImageObject preserves license acquisition metadata in SSR", "Magoffin photograph ImageObject publishes verified copyright attribution"]) {
   if (!builtWorkerSmoke.includes(marker)) failures.push("Magoffin built-Worker SSR proof missing: " + marker);
 }
 
