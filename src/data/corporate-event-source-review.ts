@@ -52,6 +52,10 @@ export function corporateEventSourceReviewSchedule(
       'Published simultaneous group size, room layout and activity rotation',
       'Pricing and whether taxes, food, minimum spends and staff are included',
       'Accessibility, participant restrictions and accommodation contacts',
+      'Private room versus full buyout limits, simultaneous guest counts and venue-specific entrances',
+      'Deposits, refunds, cancellations, catering minimums and exclusions',
+      'Accessible entrances, parking, public transportation and day-of-event logistics',
+      'Restrictions, advance-booking lead time and current temporary closures',
       'Official site redirects, changed event formats and alternate group packages',
     ];
     return {
