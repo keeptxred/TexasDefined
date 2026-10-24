@@ -6,6 +6,7 @@ const server = readFileSync('src/data/corporate-events.admin.server.ts', 'utf8')
 const api = readFileSync('src/data/corporate-events.admin.functions.ts', 'utf8');
 const panel = readFileSync('src/components/events/CorporateEventOpsPanel.tsx', 'utf8');
 const quote = readFileSync('src/data/corporate-event-quote.server.ts', 'utf8');
+const quoteUi = readFileSync('src/components/events/CorporateEventQuotePrepPanel.tsx', 'utf8');
 const intake = readFileSync('src/data/corporate-events.functions.ts', 'utf8');
 
 for(const item of [
@@ -41,5 +42,11 @@ assert(panel.includes('Record verified organizer withdrawal of venue-sharing con
 assert(quote.includes('!lead.allow_provider_outreach') &&
   quote.includes('lead.provider_outreach_consented_at'),
   'Every future private draft must continue to re-read the live consent bit');
+const copySection = quoteUi.slice(quoteUi.indexOf('async function copyDraft()'), quoteUi.indexOf('return <section'));
+assert(copySection.includes('await prepareCorporateEventQuoteDraft({ data:')
+  && copySection.includes('await navigator.clipboard.writeText(')
+  && copySection.indexOf('await prepareCorporateEventQuoteDraft({ data:') < copySection.indexOf('await navigator.clipboard.writeText('),
+  'Manual clipboard disclosure must re-check real organizer consent and partner authority at copy time');
+assert(copySection.includes('setDraft(null)'), 'Denied copy must immediately clear potentially stale contact details');
 assert(intake.includes('consentSelectedVenues'), 'Original optional planner consent must remain separate');
 console.log('Corporate event organizer venue-sharing withdrawal is private, audit-preserving and irreversible on the original inquiry PASS');
