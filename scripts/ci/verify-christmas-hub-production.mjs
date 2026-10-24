@@ -40,7 +40,7 @@ async function check(url) {
   const missing = required.filter((s) => !html.includes(s));
   if (missing.length) throw new Error(`Stale Christmas HTML; missing: ${missing.join("; ")}`);
   // Publisher account verification may exist pre-approval; an actual ad unit must not.
-  if (/<ins\\b[^>]*class=["'][^"']*adsbygoogle\\b/i.test(html) || /data-ad-slot=/.test(html)) {
+  if (/<ins\b[^>]*class=["'][^"']*adsbygoogle\b/i.test(html) || /data-ad-slot=/.test(html)) {
     throw new Error("Unapproved display ad unit found on Christmas page");
   }
   return { status: response.status, bytes: html.length, cache: response.headers.get("cf-cache-status") || "unknown" };
@@ -52,7 +52,7 @@ for (let attempt = 1; attempt <= 4; attempt += 1) {
     // Verify both the real visitor URL and a cache-busted HTML request.
     const canonical = await check(`${origin}${route}`);
     const cacheBusted = await check(`${origin}${route}?verify-christmas-release=${runKey}-${attempt}`);
-    console.log(`Verified Christmas 2026 live canonical and uncached page; ${required.length} editorial/sponsor/date markers, no AdSense script. Canonical ${JSON.stringify(canonical)}, fresh ${JSON.stringify(cacheBusted)}.`);
+    console.log(`Verified Christmas 2026 live canonical and uncached page; ${required.length} editorial/sponsor/date markers, no active AdSense display unit. Canonical ${JSON.stringify(canonical)}, fresh ${JSON.stringify(cacheBusted)}.`);
     process.exit(0);
   } catch (error) {
     lastFailure = error instanceof Error ? error.message : String(error);
