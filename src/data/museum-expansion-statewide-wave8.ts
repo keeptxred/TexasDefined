@@ -1,4 +1,3 @@
-import { museumLicensedHeroes } from "./museum-authority-heroes";
 import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
 import type { Destination, ImageRef } from "./types";
 
@@ -230,7 +229,7 @@ export const statewideMuseumExpansionWave8Destinations: Destination[] = [
     nearestTown: "Bastrop",
     county: "Bastrop County",
     coordinates: { lat: 30.109425, lng: -97.320224 },
-    hero: museumLicensedHeroes["bastrop-county-museum-visitor-center"],
+    hero: museumPlaceholder("Bastrop County Museum & Visitor Center"),
     bestSeason: "Year-round museum; fall through spring is ideal for combining the galleries with downtown walking tours, historic homes and nearby state parks.",
     entryNote: "904 Main St. Mon–Sat 10 a.m.–5 p.m., last entry 4:30. Adults $8; children 12 and under and military/veterans free. Sunday hours conflict; confirm by phone. Eligible EBT families $5.",
     highlights: ["El Camino Real de los Tejas interpretation", "Texas Revolution and Bastrop history", "Bastrop wildfire exhibit", "Museum and visitor center in one stop"],
