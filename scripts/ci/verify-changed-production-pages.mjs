@@ -151,8 +151,8 @@ for (const path of plan.selectedPaths) {
           throw new Error('Corporate marketplace visitor URL failed: HTTP ' + visitor.status);
         }
         const visitorHtml = await visitor.text();
-        const visitorCanonical = [...visitorHtml.matchAll(/<link\\b[^>]*>/gi)]
-          .filter(match => /\\brel=["']canonical["']/i.test(match[0]));
+        const visitorCanonical = [...visitorHtml.matchAll(/<link\b[^>]*>/gi)]
+          .filter(match => /\brel=["']canonical["']/i.test(match[0]));
         if (visitorCanonical.length !== 1
           || !visitorCanonical[0][0].includes('href="' + canonical.href + '"')) {
           throw new Error('Corporate marketplace visitor URL has an unexpected canonical');
