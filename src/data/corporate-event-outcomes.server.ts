@@ -2,6 +2,7 @@ import { assertSportsPartnerAccess } from '@/data/sports-partner-leads.server';
 import { supabaseAdmin } from '@/integrations/supabase/client.server';
 import { corporateEventProviders } from '@/data/corporate-events';
 import { corporateEventTexasToday } from '@/data/corporate-event-dates';
+import { corporateEventOfficialDomainMatches, corporateEventEvidenceTimestampIsValid } from '@/data/corporate-event-offer-provenance';
 
 /**
  * Private STAFF ATTESTATIONS of independently evidenced events. Nothing in
@@ -97,27 +98,21 @@ export async function recordCorporateEventOutcome(
   const normalize = (name: string) => name.toLowerCase().replace(/[^a-z0-9]/g, '');
   const verified = partners.filter((partner: any) => {
     if (normalize(String(partner.business_name)) !== normalize(venue.name)
-      || !partner.identity_verified_at || !partner.commercial_agreement_verified_at
+      || !corporateEventEvidenceTimestampIsValid(partner.identity_verified_at)
+      || !corporateEventEvidenceTimestampIsValid(partner.commercial_agreement_verified_at)
       || partner.commercial_agreement_covers_quote_routing !== true) return false;
     if (partner.commercial_agreement_expires_on
       && partner.commercial_agreement_expires_on < corporateEventTexasToday()) return false;
-    try {
-      const official = new URL(venue.officialUrl);
-      const business = new URL(String(partner.website));
-      const host = (url: URL) => url.hostname.toLowerCase().replace(/^www\./, '');
-      const officialHost = host(official), businessHost = host(business);
-      return business.protocol === 'https:' && official.protocol === 'https:'
-        && (officialHost === businessHost || officialHost.endsWith('.' + businessHost)
-          || businessHost.endsWith('.' + officialHost));
-    } catch { return false; }
+    return corporateEventOfficialDomainMatches(String(partner.website), venue.officialUrl);
   });
   if (verified.length !== 1) {
     throw new Error('One independently verified partner and signed quote-routing agreement are required.');
   }
   // A signed commercial term can have a start date; never back-date staff evidence
   // to before the separate agreement verification was recorded.
-  if (when.getTime() < Date.parse(String(verified[0].commercial_agreement_verified_at))) {
-    throw new Error('Outcome evidence predates verified partner authorization.');
+  if (when.getTime() < Date.parse(String(verified[0].commercial_agreement_verified_at))
+    || when.getTime() < Date.parse(String(verified[0].identity_verified_at))) {
+    throw new Error('Outcome evidence predates independently verified partner identity or signed authorization.');
   }
   // No pseudo-conversions from clicks or customer planning estimates. Operators
   // must already hold a receipt/quote/provider confirmation before attesting.
