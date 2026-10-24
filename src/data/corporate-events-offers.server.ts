@@ -1,6 +1,7 @@
 import { corporateEventProviders } from '@/data/corporate-events';
 import { corporateEventTexasToday } from '@/data/corporate-event-dates';
 import { supabaseAdmin } from '@/integrations/supabase/client.server';
+import { corporateEventEvidenceTimestampIsValid, corporateEventVerifiedRedemptionUrl } from '@/data/corporate-event-offer-provenance';
 
 /** Public subset only: never include a partner's contact details or unapproved draft. */
 export type PublicCorporateEventOffer = {
@@ -30,24 +31,13 @@ type ApprovedBusiness = {
   status: string;
   business_name: string;
   website: string;
+  identity_verified_at: string | null;
   commercial_agreement_verified_at: string | null;
   commercial_agreement_covers_offers: boolean;
   commercial_agreement_expires_on: string | null;
 };
 function normalizedBusinessName(name: string) {
   return name.toLowerCase().replace(/[^a-z0-9]/g, '');
-}
-function approvedRedemptionUrl(redemptionUrl: string, businessWebsite: string) {
-  try {
-    const redemption = new URL(redemptionUrl);
-    const business = new URL(businessWebsite);
-    if (redemption.protocol !== 'https:' || business.protocol !== 'https:') return false;
-    const host = redemption.hostname.toLowerCase();
-    const businessHost = business.hostname.toLowerCase();
-    return host === businessHost || host.endsWith('.' + businessHost);
-  } catch {
-    return false;
-  }
 }
 
 /**
@@ -72,7 +62,7 @@ export async function loadPublicCorporateEventOffers(): Promise<PublicCorporateE
   const applicationIds = [...new Set((offers as ApprovedOfferRow[]).map((offer) => offer.partner_application_id))];
   const { data: businesses, error: businessError } = await client
     .from('texasdefined_group_event_partner_applications')
-    .select('id,status,business_name,website,commercial_agreement_verified_at,commercial_agreement_covers_offers,commercial_agreement_expires_on')
+    .select('id,status,business_name,website,identity_verified_at,commercial_agreement_verified_at,commercial_agreement_covers_offers,commercial_agreement_expires_on')
     .in('id', applicationIds)
     .eq('status', 'approved')
     .limit(100);
@@ -85,11 +75,14 @@ export async function loadPublicCorporateEventOffers(): Promise<PublicCorporateE
   for (const offer of offers as ApprovedOfferRow[]) {
     const business = approvedBusinesses.get(offer.partner_application_id);
     const provider = directory.get(offer.provider_slug);
-    if (!business || !provider || !offer.reviewed_at) continue;
-    if (!business.commercial_agreement_verified_at || business.commercial_agreement_covers_offers !== true
+    if (!business || !provider) continue;
+    if (!corporateEventEvidenceTimestampIsValid(offer.reviewed_at)
+      || !corporateEventEvidenceTimestampIsValid(business.identity_verified_at)
+      || !corporateEventEvidenceTimestampIsValid(business.commercial_agreement_verified_at)) continue;
+    if (business.commercial_agreement_covers_offers !== true
       || (business.commercial_agreement_expires_on && business.commercial_agreement_expires_on < offer.ends_on)) continue;
     if (normalizedBusinessName(provider.name) !== normalizedBusinessName(business.business_name)) continue;
-    if (!approvedRedemptionUrl(offer.redemption_url, business.website)) continue;
+    if (!corporateEventVerifiedRedemptionUrl(offer.redemption_url, business.website, provider.officialUrl)) continue;
     if (offer.starts_on > today || offer.ends_on < today) continue;
     verified.push({
       id: offer.id,
