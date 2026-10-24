@@ -240,6 +240,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         const { enrichedTexasLandscapeProfiles } = await import("@/data/texas-landscape-profile-enrichment");
         const { TEXAS_ROUTE_66_STOPS } = await import("@/data/texas-route-66");
         const { cityPassDestinationExpansion } = await import("@/data/citypass-destination-expansion");
+        const { wacoViatorAttractionDestinations } = await import("@/data/waco-viator-attraction-destinations");
         const { preservedExploreDestinations } = await import("@/data/destination-preserved-catalog");
         const { publicCavernDestinationFallbacks } = await import("@/data/public-cavern-destinations");
         const { whirlyballHurstDestinations } = await import("@/data/whirlyball-hurst-destination");
@@ -313,6 +314,8 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         rawDestinations.push(...cityPassDestinationExpansion.filter((destination) => destination.slug && !resolvedSlugs.has(destination.slug)));
         const expandedSlugs = new Set(rawDestinations.map((destination) => destination.slug));
         rawDestinations.push(...publicCavernDestinationFallbacks.filter((destination) => destination.slug && !expandedSlugs.has(destination.slug)));
+        const wacoSlugs = new Set(rawDestinations.map((destination) => destination.slug));
+        rawDestinations.push(...wacoViatorAttractionDestinations.filter((destination) => destination.slug && !wacoSlugs.has(destination.slug)));
 
         // The detail resolver falls back to this checked-in authority record when
         // a remote Fredericksburg duplicate is too weak for indexing. Mirror that
@@ -361,6 +364,19 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         }
 
         const destinations = await resolveDestinationCatalog(rawDestinations);
+        // Mirror the full, source-checked records served by the lazy Waco
+        // destination resolver, even if the remote catalog has stale summaries.
+        for (const canonicalDestination of wacoViatorAttractionDestinations) {
+          const position = destinations.findIndex((item) => item.slug === canonicalDestination.slug);
+          if (position >= 0) destinations[position] = canonicalDestination;
+          else destinations.push(canonicalDestination);
+        }
+        const { applyWacoMuseumAuthority } = await import("@/data/waco-museum-authority-upgrades");
+        for (let index = 0; index < destinations.length; index += 1) {
+          if (destinations[index].slug === "dr-pepper-museum-waco" || destinations[index].slug === "texas-ranger-hall-of-fame-museum-waco") {
+            destinations[index] = applyWacoMuseumAuthority(destinations[index]);
+          }
+        }
         // The Explore/search summaries for these authority destinations are deliberately
         // lightweight to stay within the tested client JS bundle budget. The sitemap
         // must audit full researched guides, not summaries, before including URLs.
