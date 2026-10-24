@@ -555,12 +555,16 @@ const WacoGhostToursRoute = WacoGhostToursRouteImport.update({
   id: '/waco-ghost-tours',
   path: '/waco-ghost-tours',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any).lazy(() =>
+  import('./routes/waco-ghost-tours.lazy').then((d) => d.Route),
+)
 const WacoAttractionsRoute = WacoAttractionsRouteImport.update({
   id: '/waco-attractions',
   path: '/waco-attractions',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any).lazy(() =>
+  import('./routes/waco-attractions.lazy').then((d) => d.Route),
+)
 const TrackTexasDriversLicenseRoute =
   TrackTexasDriversLicenseRouteImport.update({
     id: '/track-texas-drivers-license',
@@ -1701,7 +1705,11 @@ const DallasToWacoMagnoliaToursRoute =
     id: '/dallas-to-waco-magnolia-tours',
     path: '/dallas-to-waco-magnolia-tours',
     getParentRoute: () => rootRouteImport,
-  } as any)
+  } as any).lazy(() =>
+    import('./routes/dallas-to-waco-magnolia-tours.lazy').then(
+      (d) => d.Route,
+    ),
+  )
 const DallasFortWorthMusicHistoryRoute =
   DallasFortWorthMusicHistoryRouteImport.update({
     id: '/dallas-fort-worth-music-history',
