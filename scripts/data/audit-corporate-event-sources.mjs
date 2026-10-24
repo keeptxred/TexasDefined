@@ -27,8 +27,11 @@ export function providerSourceAgeDays(value, now = new Date()) {
   if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return null;
   const date = new Date(value + 'T12:00:00Z');
   if (!Number.isFinite(date.getTime()) || date.toISOString().slice(0, 10) !== value
-    || date.getTime() > now.getTime()) return null;
-  return Math.floor((now.getTime() - date.getTime()) / 86400000);
+    || !Number.isFinite(now.getTime()) || value > now.toISOString().slice(0, 10)) return null;
+  // Measure calendar dates at the same noon timestamp, not a partial day.
+  // The scheduled 09:17 UTC workflow must not reject a same-day review.
+  const todayAtNoon = Date.parse(now.toISOString().slice(0, 10) + 'T12:00:00Z');
+  return Math.floor((todayAtNoon - date.getTime()) / 86400000);
 }
 
 function officialSafeUrl(value) {
