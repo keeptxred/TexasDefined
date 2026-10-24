@@ -48,6 +48,7 @@ export const chipJoannaGainesMagnoliaWacoArticle: Article = {
   relatedDestinations: ["magnolia-market-at-the-silos", "dr-pepper-museum-waco", "waco-mammoth-national-monument", "texas-ranger-hall-of-fame-museum-waco"],
   internalLinks: [
     { href: "/destination/magnolia-market-at-the-silos", label: "Magnolia Market at the Silos visitor guide", description: "Explore shops, food, operating considerations and parking at the Waco Silos." },
+    { href: "/waco-attractions", label: "Waco attractions and planning guide", description: "Compare the city's landmark museums, riverfront, family stops and ticketed tours before planning your visit." },
     { href: "/county/mclennan", label: "McLennan County guide", description: "Explore the county beyond its Magnolia-related attractions." },
     { href: "/destination/dr-pepper-museum-waco", label: "Dr Pepper Museum in Waco", description: "A downtown museum pairing for a Magnolia afternoon." },
     { href: "/destination/waco-mammoth-national-monument", label: "Waco Mammoth National Monument", description: "Another distinctive Waco stop outside downtown." },
