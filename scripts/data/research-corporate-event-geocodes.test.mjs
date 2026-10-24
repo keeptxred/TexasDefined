@@ -14,7 +14,15 @@ const row={providerSlug:'synthetic-event-venue',streetAddress:'4600 Sample Park 
   zip:'77002',officialAddressEvidenceUrl:'https://official-example.test/contact',addressReviewedOn:date};
 const venues=new Map([['synthetic-event-venue',entry]]);
 const actualDirectory = loadPublicCorporateVenueCatalog();
-assert.equal(actualDirectory.size, 122, 'Manual geocoding research must include all 122 current real source records');
+const sourceText = readFileSync('src/data/corporate-events.ts', 'utf8');
+const sourceSlugs = [...sourceText.matchAll(/^\s+slug:\s*['"]([a-z0-9-]+)['"]/gm)].map((match) => match[1]);
+assert(sourceSlugs.length >= 122, 'Source registry unexpectedly lost the original 122 verified public venue records');
+assert.equal(new Set(sourceSlugs).size, sourceSlugs.length, 'Real public venue slugs must remain unique');
+assert.equal(actualDirectory.size, sourceSlugs.length,
+  'Manual geocoding research must cover EVERY current and future sourced public venue (no stale hard-coded count)');
+for (const slug of sourceSlugs) {
+  assert(actualDirectory.has(slug), 'Census research missed a source-backed venue: ' + slug);
+}
 assert.equal(actualDirectory.get('beat-the-bomb-houston')?.city, 'Houston');
 assert(actualDirectory.get('main-event-webster-corporate')?.officialUrl.startsWith('https://'),
   'A venue with pre-slug metadata must also be found');
