@@ -107,7 +107,7 @@ const prebuildChecks = [
   ['EVENT/CORPORATE/GEO', 'Protect source-verified and privacy-safe ZIP-radius prerequisites', 'node', ['--experimental-strip-types', 'scripts/data/validate-corporate-event-verified-proximity.mjs']],
   ['EVENT/CORPORATE/INTEGRATIONS', 'Enforce fail-closed quote/booking/payment adapter readiness', 'node', ['--experimental-strip-types', 'scripts/data/validate-corporate-event-integrations.mjs']],
   ['EVENT/CORPORATE/BROWSER', 'Enforce GET-only real Chrome mobile/tablet/desktop acceptance contract', 'node', ['scripts/ci/validate-corporate-event-responsive-production.mjs']],
-  ['EVENT/CORPORATE/CONSENT', 'Require irreversible verified organizer consent withdrawal', 'node', ['scripts/data/validate-corporate-event-consent-withdrawal.mjs']]
+  ['EVENT/CORPORATE/CONSENT', 'Require irreversible verified organizer consent withdrawal', 'node', ['scripts/data/validate-corporate-event-consent-withdrawal.mjs']],
   ['EVENT/CORPORATE/RECEIPTS', 'Prevent duplicate real provider settlement and booking evidence records', 'node', ['scripts/data/validate-corporate-event-evidence-dedup.mjs']],
   ['EVENT/CORPORATE/OUTCOMES', 'Protect evidence-only quote, booking, dispute, and revenue ledger', 'node', ['scripts/data/validate-corporate-event-outcomes.mjs']],
   ['EVENT/CORPORATE/AGREEMENTS', 'Require verified signed partner agreements for offers and private quote drafts', 'node', ['scripts/data/validate-corporate-event-partner-agreements.mjs']],

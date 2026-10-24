@@ -291,6 +291,9 @@ for (const path of plan.selectedPaths) {
         if (html.includes('Tours and experiences near Magoffin Home State Historic Site')) {
           throw new Error('Magoffin Home still serves the generic tour booking component during house closure');
         }
+        for (const required of ['acquireLicensePage', 'copyrightNotice', 'creativecommons.org/licenses/by/4.0/', 'Larry D. Moore']) {
+          if (!html.includes(required)) throw new Error('Magoffin Home photograph rights missing from live structured data: ' + required);
+        }
       }
       if (davisHillPages.includes(path)) {
         // The old Davis Hill build had image metadata but no visible hero.
