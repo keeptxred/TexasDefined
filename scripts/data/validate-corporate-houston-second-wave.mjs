@@ -16,6 +16,16 @@ const secondWave=[
   'main-event-tomball-corporate','main-event-humble-corporate',
 ];
 assert.equal(secondWave.length,23,'Second Houston wave must cover 23 unique venues');
+const independentlyRechecked20261024 = new Set([
+  'cidercade-houston-team-events','k1-speed-houston-corporate',
+  'bayou-city-event-center-corporate','discovery-green-sarofim-corporate',
+]);
+const sourceRecheckRecord = readFileSync('docs/corporate-event-venue-source-review-20261024.md','utf8');
+for (const officialHost of ['cidercade.com/houston/faq','k1speed.com/houston-location/groups-and-parties',
+  'bayoucityeventcenter.com/corporate-events','discoverygreen.com/location/sarofim-picnic-lawn']) {
+  assert(sourceRecheckRecord.includes(officialHost), 'New review dates require documented actual operator evidence: '+officialHost);
+}
+
 const unique = new Set(corporateEventProviders.map(p=>p.slug));
 assert.equal(unique.size,corporateEventProviders.length,'Never duplicate a physical location');
 const all=new Map(corporateEventProviders.map(p=>[p.slug,p]));
@@ -24,7 +34,8 @@ for(const slug of secondWave) {
   assert(v,'Unpublished source-backed Houston provider '+slug);
   assert(corporateEventMarketMatches(v,'Houston'),'Suburban options must appear in the Houston metro query: '+slug);
   assert(v.officialUrl.startsWith('https://') && v.sourceUrl.startsWith('https://'),'Official HTTPS sources required');
-  assert.equal(v.verifiedOn,'2026-10-23');
+  assert.equal(v.verifiedOn, independentlyRechecked20261024.has(slug) ? '2026-10-24' : '2026-10-23',
+    'The exact review date must reflect the dated operator-source evidence for '+slug);
   assert(v.capacityDetail.length > 65,'Qualifications are required where a group limit is unknown: '+slug);
   assert.equal(v.startingPricePerPerson,null,'General/retail/event package costs may NOT be invented as corporate per-person rates: '+slug);
 }
