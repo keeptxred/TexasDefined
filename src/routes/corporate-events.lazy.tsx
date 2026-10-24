@@ -8,6 +8,7 @@ import { submitGroupEventRequest } from '@/data/corporate-events.functions';
 import { groupEventPlanningAmounts } from '@/data/corporate-event-budgets';
 import { CORPORATE_EVENT_RESULT_PAGE_SIZE, nextCorporateEventResultCount, visibleCorporateEventResults } from '@/data/corporate-event-pagination';
 import { corporateEventMarketMatches, corporateEventAreaMatches } from '@/data/corporate-event-market-search';
+import { safeCorporateSharePlace } from '@/data/corporate-event-public-shortlist';
 import { GroupEventPartnerApplication } from '@/components/events/GroupEventPartnerApplication';
 import { ApprovedCorporateEventOffers } from '@/components/events/ApprovedCorporateEventOffers';
 import { CorporateEventMetroGuides } from '@/components/events/CorporateEventMetroGuides';
@@ -100,8 +101,12 @@ function CorporateEventsPage() {
 
   async function copyShareLink() {
     const url = new URL('/corporate-events', window.location.origin);
-    url.searchParams.set('city', city.trim() || 'Houston');
-    if (areaQuery.trim()) url.searchParams.set('area', areaQuery.trim().slice(0, 60));
+    // A shareable URL is public: never copy unsourced free-text geography that
+    // could contain an organizer's street address, phone or personal details.
+    const publicCity = safeCorporateSharePlace(city, 'market', corporateEventProviders);
+    const publicArea = safeCorporateSharePlace(areaQuery, 'area', corporateEventProviders);
+    url.searchParams.set('city', publicCity ?? 'Houston');
+    if (publicArea) url.searchParams.set('area', publicArea);
     if (validHeadcount) url.searchParams.set('guests', String(headcount));
     url.searchParams.set('type', category);
     if (budget) url.searchParams.set('budget', budget);
@@ -109,7 +114,9 @@ function CorporateEventsPage() {
     url.searchParams.set('venues', selected.join(','));
     try {
       await navigator.clipboard.writeText(url.toString());
-      setShareLinkMessage('Shareable shortlist link copied. Anyone with the link can compare these public venue options.');
+      setShareLinkMessage(!publicCity || (areaQuery.trim() && !publicArea)
+        ? 'Public shortlist link copied. Unsourced or private-looking city/area text was excluded; check shared preferences before sending.'
+        : 'Shareable shortlist link copied. Anyone with the link can compare these public venue options.');
     } catch {
       setShareLinkMessage('Clipboard unavailable. Copy the venue proposal instead.');
     }
