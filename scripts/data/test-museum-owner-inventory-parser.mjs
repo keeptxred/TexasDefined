@@ -32,6 +32,8 @@ assert.ok(report.flagged.some(row => row.submittedName === "Art Museum of the Am
 for (const [legacyName, expectedSlug] of [
   ["Admiral Nimitz Gallery", "national-museum-pacific-war"],
   ["Angelina County History Center", "the-history-center-diboll"],
+  ["Agricultural Heritage Museum", "the-agricultural-museum-arts-center-boerne"],
+  ["Babe Didrikson Zaharias Museum", "babe-didrikson-zaharias-museum-beaumont"],
 ]) {
   const row = report.rows.find(item => item.submittedName === legacyName);
   assert.equal(row?.canonicalSlug, expectedSlug, legacyName + " must use one existing canonical authority guide");

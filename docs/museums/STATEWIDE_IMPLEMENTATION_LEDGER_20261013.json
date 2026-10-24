@@ -627,7 +627,7 @@
     "carthageProductionVerificationEvidence": "Fresh 2026-10-24 Supabase net._http_response id 14134: HTTP200 canonical, linked exact Commons original, CC BY-SA3.0 href, photo ALT and indexing.",
     "liveManifestEvidence": "Fresh 2026-10-24 Supabase net._http_response id 14136: HTTP200, 82 museums, 360 current source definitions.",
     "fourMissingLicensedPhotoLiveSsrChecks": "2026-10-24 net._http_response IDs 14138-14141: all four routes HTTP200 with noindex/follow and placeholder reference. Not photo permission or editorial certification.",
-    "ownerInventoryCheckpoint": "ownerInventoryExecution; 25 assigned, 3 research-dispositioned, remainder provisional/unreviewed."
+    "ownerInventoryCheckpoint": "ownerInventoryExecution; 25 assigned and 5 evidence-backed identity dispositions, no visitor guide falsely certified."
   },
   "ownerInventoryExecution": {
     "schemaVersion": 1,
@@ -653,13 +653,18 @@
       "agriculturalheritagemuseum": {
         "submittedName": "Agricultural Heritage Museum",
         "rawOccurrence": 9,
-        "status": "assigned",
+        "status": "duplicate",
         "assignedAt": "2026-10-24T20:45:37.388Z",
         "note": "Texas Historical Commission travel listing identifies Boerne Agricultural Heritage Museum as today's AgriCultural Museum & Arts Center. Research existing canonical first; avoid duplicate and disambiguate other same-name institutions.",
         "likelyExistingCanonical": "/destination/the-agricultural-museum-arts-center-boerne",
         "evidenceUrls": [
           "https://texastimetravel.com/directory/agriculture-heritage-center-museum/"
-        ]
+        ],
+        "evidence": "https://texastimetravel.com/directory/agriculture-heritage-center-museum/",
+        "reason": "The Historical Commission Texas Time Travel directory expressly identifies Boerne Agricultural Heritage Museum as the predecessor of the existing AgriCultural Museum & Arts Center authority destination.",
+        "canonicalSlug": "the-agricultural-museum-arts-center-boerne",
+        "dispositionAt": "2026-10-24T20:48:28.944Z",
+        "editorialCertified": false
       },
       "alamomuseum": {
         "submittedName": "Alamo Museum",
@@ -819,9 +824,14 @@
       "babedidriksonzahariasmuseum": {
         "submittedName": "Babe Didrikson Zaharias Museum",
         "rawOccurrence": 43,
-        "status": "assigned",
+        "status": "duplicate",
         "assignedAt": "2026-10-24T20:45:37.388Z",
-        "note": "Provisional only; verify current museum operation, geography, aliases, photo rights and visitor data before publishing. No certification."
+        "note": "Provisional only; verify current museum operation, geography, aliases, photo rights and visitor data before publishing. No certification.",
+        "evidence": "https://commons.wikimedia.org/wiki/File:Zaharias_museum.jpg",
+        "reason": "The operator's Beaumont museum and already published TexasDefined canonical authority guide are the same institution; source-authenticated exterior by Larry D. Moore, CC BY 4.0, is already in place. Museum's official site disagrees with City of Beaumont Saturday hours; preserve visitor caution.",
+        "canonicalSlug": "babe-didrikson-zaharias-museum-beaumont",
+        "dispositionAt": "2026-10-24T20:48:28.944Z",
+        "editorialCertified": false
       },
       "bairddepotmuseum": {
         "submittedName": "Baird Depot Museum",
@@ -859,10 +869,24 @@
         "relatedCanonicalSlug": "grace-museum-abilene",
         "dispositionAt": "2026-10-24T20:45:37.388Z",
         "editorialCertified": false
+      },
+      "ballingerheritagemuseum": {
+        "submittedName": "Ballinger Heritage Museum",
+        "rawOccurrence": 45,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:48:28.944Z",
+        "note": "Provisional research candidate; verify current operator, exact destination identity and licensed photos before publication."
+      },
+      "banderacountyhistoricalmuseum": {
+        "submittedName": "Bandera County Historical Museum",
+        "rawOccurrence": 46,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:48:28.944Z",
+        "note": "Provisional research candidate; verify current operator, exact destination identity and licensed photos before publication."
       }
     },
     "note": "Single existing durable statewide checkpoint; 25 provisional active assignments, 3 independently sourced identity dispositions. No duplicate queue or extra Supabase registry.",
-    "lastAssignmentAt": "2026-10-24T20:45:37.388Z",
+    "lastAssignmentAt": "2026-10-24T20:48:28.944Z",
     "lastAssignmentCount": 25
   }
 }
