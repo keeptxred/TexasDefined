@@ -236,6 +236,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "Visit The Woodlands confirms seasonal light displays along the Waterway from November 21, 2026 through January 3, 2027. The illuminated walking route is separate from ticketed Ice Rink skating sessions and themed boat rentals."
   },
   {
+    "slug": "allen-watters-creek-light-the-night-2026",
+    "title": "Light the Night · Watters Creek Allen",
+    "city": "Allen",
+    "countySlug": "collin",
+    "countyName": "Collin County",
+    "region": "prairies-lakes",
+    "startDate": "2026-11-21",
+    "venueName": "Watters Creek Village",
+    "officialEventUrl": "https://visitallentexas.com/events/2026-light-the-night/",
+    "sourceName": "Visit Allen tourism",
+    "summary": "Visit Allen confirms Watters Creek Light the Night for Saturday November 21, 2026. The tree-lighting concert begins at 6 p.m., followed by the 6:30 p.m. tree lighting and fireworks. Family activities, live music and participating retailer offers take place around the shopping village; dining and purchases are additional."
+  },
+  {
     "slug": "woodlands-lighting-of-the-doves-2026",
     "title": "Lighting of the Doves",
     "city": "The Woodlands",
@@ -454,6 +467,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.fortworthstockyards.org/events/cowboy-santas-grand-arrival",
     "sourceName": "Fort Worth Stockyards",
     "summary": "Cowboy Santa arrives November 27 with the 11:30 a.m. cattle-drive parade and a 6 p.m. tree lighting. Santa photo packages and other attractions are separately offered."
+  },
+  {
+    "slug": "granbury-night-of-lights-parade-2026",
+    "title": "Granbury Night of Lights Christmas Parade",
+    "city": "Granbury",
+    "countySlug": "hood",
+    "countyName": "Hood County",
+    "region": "prairies-lakes",
+    "startDate": "2026-11-27",
+    "venueName": "Historic Granbury Square",
+    "officialEventUrl": "https://www.visitgranbury.com/event/night-of-lights-christmas-parade/22704/",
+    "sourceName": "Visit Granbury",
+    "summary": "Visit Granbury confirms Friday November 27, 2026, 6 p.m. for its traditional Night of Lights lighted Christmas parade through downtown Historic Granbury Square. Santa's arrival launches the season and lights at nearby Shanley Park and City Hall are switched on. Do not import outdated 2024 Santa House hours from the tourism page."
   },
   {
     "slug": "grapevine-north-pole-express-nov",
@@ -921,6 +947,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "endDate": "2026-12-06"
   },
   {
+    "slug": "granbury-candlelight-homes-tour-2026",
+    "title": "Granbury Candlelight Tour of Homes",
+    "city": "Granbury",
+    "countySlug": "hood",
+    "countyName": "Hood County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-04",
+    "endDate": "2026-12-06",
+    "venueName": "Historic Granbury Square · participating historic homes",
+    "officialEventUrl": "https://www.visitgranbury.com/christmas-in-granbury/",
+    "sourceName": "Visit Granbury tourism",
+    "summary": "Visit Granbury confirms the 2026 Candlelight Tour of Homes Friday–Sunday December 4–6. Participating owners open selected historic private homes and properties for heritage stories, music and seasonal experiences. Check the organizer for exact tour session hours, route and tickets; do not assume admission is free."
+  },
+  {
     "slug": "grapevine-north-pole-express-dec",
     "title": "Grapevine Santa’s North Pole Express · December departures",
     "city": "Grapevine",
@@ -1055,6 +1095,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "Official Gruene event calendar lists the 43rd Annual Town Lighting Saturday December 5, with brass-band music and Cowboy Kringle's arrival. The ceremony is free and separate from ticketed holiday photo appointments."
   },
   {
+    "slug": "allen-holly-jolly-celebration-2026",
+    "title": "Allen Holly Jolly Celebration · downtown tree lighting",
+    "city": "Allen",
+    "countySlug": "collin",
+    "countyName": "Collin County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-05",
+    "venueName": "Downtown Allen · 100 East Main Street",
+    "officialEventUrl": "https://events.allentx.gov/allentx/260197654",
+    "sourceName": "City of Allen Community Calendar",
+    "summary": "The city's 2026 Holly Jolly Celebration runs Saturday December 5 from 4–8 p.m., including holiday market, lights, family attractions, community tree lighting and a 6 p.m. drone show. Festival admission is FREE but optional 1-mile and 5K race registration starts at $20. This is separate from Watters Creek's November 21 event."
+  },
+  {
     "slug": "boerne-weihnachts-parade-2026",
     "title": "Boerne Weihnachts Parade · 39th annual holiday parade",
     "city": "Boerne",
@@ -1068,6 +1121,45 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The City of Boerne confirms Saturday December 5, 2026 at 6 p.m. for its 39th annual lighted Weihnachts Parade on historic Main Street. Sunday December 6 is a weather contingency, NOT an additional advertised parade. Check city closure and postponement notices before travel."
   },
   {
+    "slug": "burleson-btx-mas-christmas-2026",
+    "title": "Burleson BTX-MAS Lighted Parade and Drone Show",
+    "city": "Burleson",
+    "countySlug": "johnson",
+    "countyName": "Johnson County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-05",
+    "venueName": "Mayor Vera Calvin Plaza · 141 West Renfro Street",
+    "officialEventUrl": "https://burlesontx.com/1710/BTX-MAS-Christmas-in-Burleson",
+    "sourceName": "City of Burleson Parks and Recreation",
+    "summary": "The free City of Burleson BTX-MAS event is Saturday December 5, 2026 with a 6 p.m. lighted parade followed by performances at the Plaza, 8 p.m. tree lighting and a holiday drone show. The official page retains a 2025 flyer but its 2026 Event Details and city calendar confirm this year's date."
+  },
+  {
+    "slug": "burleson-christmas-library-2026",
+    "title": "Burleson Christmas at the Library",
+    "city": "Burleson",
+    "countySlug": "johnson",
+    "countyName": "Johnson County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-05",
+    "venueName": "Burleson Public Library · 248 Southwest Johnson Avenue",
+    "officialEventUrl": "https://burlesontx.com/1876/Christmas-at-the-Library",
+    "sourceName": "City of Burleson Library",
+    "summary": "The city confirms Saturday December 5, 2026, 9 a.m.–noon for free Christmas at the Library activities. Families can enjoy refreshments, holiday crafts, scavenger hunt and handmade gift activities, independently of the later BTX-MAS downtown parade."
+  },
+  {
+    "slug": "burleson-santas-breakfast-2026",
+    "title": "Burleson Santa's Breakfast at Russell Farm",
+    "city": "Burleson",
+    "countySlug": "johnson",
+    "countyName": "Johnson County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-05",
+    "venueName": "Russell Farm Art Center · 405 West County Road 714",
+    "officialEventUrl": "https://www.burlesontx.com/1706/Santas-Breakfast",
+    "sourceName": "City of Burleson",
+    "summary": "The city confirms Saturday December 5, 2026, 7–11 a.m. for Santa's Breakfast at Russell Farm, with a sensory-friendly 7–8 a.m. hour and 30-minute reservation slots. Tickets are $5 for children ages 3–12, $7 for ages 13+ and free for under 2. Limited capacity means advance registration is recommended."
+  },
+  {
     "slug": "college-station-christmas-in-park-festival-2026",
     "title": "College Station Christmas in the Park · festival night",
     "city": "College Station",
@@ -1079,6 +1171,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.cstx.gov/parks-recreation-culture/events/community-events/christmas-in-the-park/",
     "sourceName": "City of College Station Parks & Recreation",
     "summary": "Free festival Saturday December 5, 2026, 6–10 p.m. includes hayrides, hot cocoa, music and Santa. The park is CLOSED TO VEHICLES that day; organizers offer shuttles from Post Oak Mall. Wristbands require a completed activity waiver; food vendors charge separately."
+  },
+  {
+    "slug": "coppell-holiday-parade-lighting-2026",
+    "title": "Coppell Holiday Parade and Tree Lighting",
+    "city": "Coppell",
+    "countySlug": "dallas",
+    "countyName": "Dallas County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-05",
+    "venueName": "Andrew Brown Park East · 260 East Parkway Boulevard",
+    "officialEventUrl": "https://www.coppelltx.gov/804/Special-Events",
+    "sourceName": "City of Coppell 2026 special events calendar",
+    "summary": "The City of Coppell confirms its annual Holiday Parade and Tree Lighting for Saturday December 5, 2026, 6–9 p.m. at Andrew Brown Park East. The city's separate Holidays page still contains older 2025 date references for some holiday attractions; only this explicitly dated 2026 parade is asserted here."
   },
   {
     "slug": "denton-holiday-lighting-festival-2026",
@@ -1412,6 +1517,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "Friday, December 11 at 7 p.m. is the free Cold Nights, Holiday Tunes outdoor concert in Commerce Street Parking Lot E. The official organizer does not publish a second December 12 date for this performance; the December 4–5 Christmas Stroll and parade are separate."
   },
   {
+    "slug": "burleson-holiday-glow-float-2026",
+    "title": "Burleson Holiday Glow Float · BRiCk",
+    "city": "Burleson",
+    "countySlug": "johnson",
+    "countyName": "Johnson County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-11",
+    "venueName": "Burleson Recreation Center · 550 Northwest Summercrest Boulevard",
+    "officialEventUrl": "https://www.burlesontx.com/3065/Holiday-Glow-Float",
+    "sourceName": "City of Burleson",
+    "summary": "City-advertised indoor Holiday Glow Float on Friday December 11, 2026, 7:30–9:30 p.m. costs $5 per person (ages two and under free). The city offers a sensory-friendly quiet room; existing pool supervision and safety rules apply. Registration is separate from other free Christmas celebrations."
+  },
+  {
     "slug": "tpwd-guadalupe-river-christmas-in-park-2026",
     "title": "Guadalupe River State Park Christmas in the Park",
     "city": "Spring Branch",
@@ -1522,6 +1640,32 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://armadillobazaar.com/info/",
     "sourceName": "Armadillo Christmas Bazaar organizer",
     "summary": "Ten ticketed days of holiday fine-art shopping and live music December 12–21, with about 200 curated artists. Hours vary by day; the official organizer says children 12 and under receive free admission."
+  },
+  {
+    "slug": "burleson-christmas-craft-fair-2026",
+    "title": "Burleson Christmas Craft Fair · Senior Center",
+    "city": "Burleson",
+    "countySlug": "johnson",
+    "countyName": "Johnson County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-12",
+    "venueName": "Burleson Senior Activity Center · 216 Southwest Johnson Avenue",
+    "officialEventUrl": "https://www.burlesontx.com/1708/Christmas-Craft-Fair",
+    "sourceName": "City of Burleson",
+    "summary": "The City of Burleson confirms Saturday December 12, 2026, 9 a.m.–2 p.m. for the free-entry Christmas Craft Fair. Handmade vendor gifts and crafts are sold separately; the city advises bringing cash because some merchants do not take cards."
+  },
+  {
+    "slug": "burleson-christmas-on-farm-2026",
+    "title": "Burleson Christmas on the Farm · Russell Farm",
+    "city": "Burleson",
+    "countySlug": "johnson",
+    "countyName": "Johnson County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-12",
+    "venueName": "Russell Farm Art Center · 405 West County Road 714",
+    "officialEventUrl": "https://www.burlesontx.com/1723/Christmas-on-the-Farm",
+    "sourceName": "City of Burleson",
+    "summary": "The City of Burleson confirms free Christmas on the Farm on Saturday December 12, 2026, 10 a.m.–2 p.m. at Russell Farm Art Center with Christmas crafts, photo activities and a holiday glimpse of the farm's history. The city's separate Santa's Breakfast on December 5 is ticketed and must not be confused with this free December 12 program."
   },
   {
     "slug": "chappell-hill-christmas-home-tour-2026",
@@ -1667,6 +1811,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.visitsanantonio.com/event/six-flags-holiday-in-the-park/13246/",
     "sourceName": "Visit San Antonio / Six Flags Fiesta Texas",
     "summary": "Six Flags Holiday in the Park is ticketed and runs selected 2026 dates. This window follows Visit San Antonio's day-by-day list rather than assuming daily park operation. Current park admission covers many shows and select rides; extras cost more. The December 26–New Year program has separate scheduling."
+  },
+  {
+    "slug": "allen-chicken-n-pickle-holiday-market-2026",
+    "title": "Allen Holiday Market at Chicken N Pickle",
+    "city": "Allen",
+    "countySlug": "collin",
+    "countyName": "Collin County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-13",
+    "venueName": "Chicken N Pickle Allen",
+    "officialEventUrl": "https://visitallentexas.com/events/holiday-market-at-chicken-n-pickle/",
+    "sourceName": "Visit Allen tourism",
+    "summary": "Visit Allen confirms Sunday December 13, 2026, noon–5 p.m. for a free-entry holiday craft and gift market at Chicken N Pickle. Shop vendors for handmade goods and gifts; brunch and other restaurant purchases are separate. The site's structured start time is inconsistent, so the organizer description's explicit noon–5 p.m. market hours take precedence."
   },
   {
     "slug": "richardson-santas-village-walk2",
@@ -1932,7 +2089,7 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The final five January evenings of the 2026–27 Marktplatz lighting program; December 31 is omitted because the special New Year's Eve event replaces the regular countdown.",
     "endDate": "2027-01-05"
   }
-];;;;;;;
+];;;;;;;;
 
 // Reuse comprehensive guides where they exist. The dated occurrence remains
 // an independent calendar record, so closing days are never falsely listed.

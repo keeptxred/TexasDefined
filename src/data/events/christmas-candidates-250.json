@@ -539,7 +539,8 @@
       "intakeId": 69,
       "title": "Allen Celebration of Lights",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "Official Allen Holly Jolly Celebration 2026 and separate Light the Night at Watters Creek are dated calendar entries, but submitted generic 'Celebration of Lights' wording is not independently matched to either named organizer event."
     },
     {
       "intakeId": 70,
@@ -633,7 +634,8 @@
       "intakeId": 81,
       "title": "Burleson Christmas Market",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "City of Burleson publishes Christmas Craft Fair at Senior Activity Center Dec 12 and other Christmas events, but this does not establish that the submitted 'Burleson Christmas Market' is the same named event."
     },
     {
       "intakeId": 82,
@@ -655,7 +657,11 @@
       "intakeId": 84,
       "title": "Granbury Night of Lights",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "granbury-night-of-lights-parade-2026"
+      ],
+      "researchNote": "Visit Granbury confirms Night of Lights Christmas Parade Friday November 27, 2026 at 6 p.m.; 2024 Santa House hours are not used."
     },
     {
       "intakeId": 85,
@@ -714,7 +720,11 @@
       "intakeId": 92,
       "title": "Coppell Holiday Lighting",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "coppell-holiday-parade-lighting-2026"
+      ],
+      "researchNote": "City of Coppell Special Events calendar confirms Saturday December 5, 2026, 6–9 p.m. Old 2025 'Holidays' page details are not treated as 2026 data."
     },
     {
       "intakeId": 93,
@@ -1759,8 +1769,8 @@
   ],
   "reconciliation": {
     "asOf": "2026-10-24",
-    "calendarCandidates": 57,
+    "calendarCandidates": 59,
     "authorityCandidates": 12,
-    "remainingCandidates": 181
+    "remainingCandidates": 179
   }
 }

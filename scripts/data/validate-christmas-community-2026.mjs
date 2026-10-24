@@ -27,7 +27,7 @@ const end = eventFile.indexOf("\n];", start);
 assert.ok(start >= 0 && end > start, "Source-qualified Christmas manifest was not found");
 const json = eventFile.slice(eventFile.indexOf("= [", start) + 2, end + 2).trim();
 const events = JSON.parse(json);
-assert.ok(events.length >= 140, "The 140 organizer-verified Christmas date windows must not shrink without explicit source review");
+assert.ok(events.length >= 152, "The 152 organizer-verified Christmas date windows must not shrink without explicit source review");
 assert.equal(events.length, new Set(events.map((event) => event.slug)).size, "Duplicate Christmas community slugs");
 
 const validDate = /^20\d{2}-\d{2}-\d{2}$/;
@@ -91,6 +91,31 @@ for (const [slug, begin, ending] of [
 }
 assert.ok(!bySlug.has("tpwd-south-llano-christmas-at-ranch-2026"), "The linked South Llano 2024 event page is not 2026 evidence");
 
+
+for (const [slug, begin, ending] of [
+  ["coppell-holiday-parade-lighting-2026","2026-12-05",undefined],
+  ["allen-watters-creek-light-the-night-2026","2026-11-21",undefined],
+  ["allen-holly-jolly-celebration-2026","2026-12-05",undefined],
+  ["allen-chicken-n-pickle-holiday-market-2026","2026-12-13",undefined],
+  ["granbury-night-of-lights-parade-2026","2026-11-27",undefined],
+  ["granbury-candlelight-homes-tour-2026","2026-12-04","2026-12-06"],
+  ["burleson-btx-mas-christmas-2026","2026-12-05",undefined],
+  ["burleson-santas-breakfast-2026","2026-12-05",undefined],
+  ["burleson-christmas-library-2026","2026-12-05",undefined],
+  ["burleson-holiday-glow-float-2026","2026-12-11",undefined],
+  ["burleson-christmas-craft-fair-2026","2026-12-12",undefined],
+  ["burleson-christmas-on-farm-2026","2026-12-12",undefined],
+]) check(slug,begin,ending);
+assert.ok(bySlug.get("burleson-santas-breakfast-2026").summary.includes("$7"),
+  "Burleson Santa breakfast must show adult ticket price");
+assert.ok(bySlug.get("burleson-holiday-glow-float-2026").summary.includes("$5"),
+  "Burleson glow float registration must not be advertised as free");
+assert.ok(bySlug.get("burleson-christmas-on-farm-2026").summary.includes("free"),
+  "Burleson Christmas on the Farm must remain distinct from paid Santa breakfast");
+assert.ok(bySlug.get("coppell-holiday-parade-lighting-2026").summary.includes("older 2025"),
+  "Coppell stale 2025 tourist page must not be a source for 2026 dates");
+assert.ok(bySlug.get("granbury-night-of-lights-parade-2026").summary.includes("2024"),
+  "Granbury stale 2024 Santa House schedules must not be published as current");
 for (const [slug, begin, ending] of [
   ["round-rock-light-up-the-lake-2026","2026-12-04","2026-12-05"],
   ["keller-holly-days-2026","2026-12-04",undefined],
