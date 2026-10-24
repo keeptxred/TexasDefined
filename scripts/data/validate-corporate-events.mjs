@@ -41,8 +41,7 @@ for (const [slug, upperLimit] of verifiedHouston20261024) {
   assert.equal(provider.verifiedOn, '2026-10-24', 'Review date must be tied to the completed official source research: ' + slug);
   assert.equal(provider.maxGroup, upperLimit, 'Do not invent or inflate maximum capacity: ' + slug);
   assert(provider.officialUrl.startsWith('https://') && provider.sourceUrl.startsWith('https://'), 'Official source required: ' + slug);
-  assert(provider.startingPricePerPerson === null || (provider.slug === 'escape-it-houston-group-events' && provider.startingPricePerPerson === 35),
-    'Do not use unverified private group pricing: ' + slug);
+  assert.equal(provider.startingPricePerPerson, null, 'Custom and group-size-dependent corporate rates are not global per-person prices: ' + slug);
 }
 assert(!corporateEventProviders.some((venue) => /the rustic.*downtown/i.test(venue.name)),
   'Exclude The Rustic Houston Downtown until the operator confirms reopening from its temporary relocation closure');
