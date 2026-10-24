@@ -82,28 +82,71 @@ export async function recordCorporateVenueOutreach(accessKey: string, input: Cor
     partnerApproved: false as const, booked: false as const };
 }
 
-/** Staff-only bounded source list. All-time totals are deliberately not inferred
- * from the most recent 120 evidence events; none are treated as sales.
+/** Staff-only recent evidence view plus a complete, bounded search for all
+ * outstanding due venue follow-ups. The latest actual interaction must win
+ * even if it was recorded out of chronological order. No production records
+ * are changed or invented by this read-only scan.
+ *
+ * A hard cap prevents expensive unbounded service-role reads. If reached,
+ * return only recent due tasks with a prominent non-exhaustive disclosure,
+ * never an invented "all-time" total.
  */
+const HISTORY_PAGE_SIZE = 400;
+const HISTORY_LIMIT = 5_000;
+const HISTORY_FIELDS = 'id,provider_slug,contact_kind,occurred_at,evidence_key,evidence_reference,followup_on,recorded_at';
+
 export async function loadCorporateVenueOutreach(accessKey: string) {
   await assertSportsPartnerAccess(accessKey);
   const { data, error } = await client.from('texasdefined_group_event_partner_outreach')
-    .select('id,provider_slug,contact_kind,occurred_at,evidence_key,evidence_reference,followup_on,recorded_at')
-    .order('recorded_at',{ascending:false}).limit(EVENT_LIMIT + 1);
+    .select(HISTORY_FIELDS)
+    .order('recorded_at',{ascending:false}).order('id',{ascending:false})
+    .limit(EVENT_LIMIT + 1);
   if (error) throw new Error('The private venue contact-evidence log is unavailable.');
   const rows = (data ?? []) as CorporateVenueOutreachRow[];
-  const today = corporateEventTexasToday();
   const events = rows.slice(0, EVENT_LIMIT);
-  // One due task per venue: a newer real response/meeting/package supersedes
-  // the previous follow-up. We do not claim this bounded view is exhaustive.
-  const dueFollowups = dueLatestCorporateVenueFollowups(events, today);
+  const today = corporateEventTexasToday();
+  const truncated = rows.length > EVENT_LIMIT;
+  let exhaustiveHistory = !truncated;
+  const history = rows.slice();
+
+  if (truncated) {
+    // Freeze the scan to the newest row at load time. Recorded contact evidence
+    // is append-only; later inserts cannot shift historical page offsets.
+    const newestRecordedAt = rows[0].recorded_at;
+    while (history.length <= HISTORY_LIMIT) {
+      const batchSize = Math.min(HISTORY_PAGE_SIZE, HISTORY_LIMIT + 1 - history.length);
+      const { data: pageData, error: pageError } = await client
+        .from('texasdefined_group_event_partner_outreach').select(HISTORY_FIELDS)
+        .lte('recorded_at', newestRecordedAt)
+        .order('recorded_at',{ascending:false}).order('id',{ascending:false})
+        .range(history.length, history.length + batchSize - 1);
+      if (pageError) throw new Error('The private venue follow-up history could not be reviewed.');
+      const page = (pageData ?? []) as CorporateVenueOutreachRow[];
+      history.push(...page);
+      if (page.length < batchSize) { exhaustiveHistory = true; break; }
+    }
+  }
+
+  // The complete outstanding list is exposed only after ALL recorded venue
+  // interactions were checked. This prevents an older superseded reminder from
+  // reappearing when a history cap excludes a later-occurring record.
+  const visibleDue = dueLatestCorporateVenueFollowups(events, today);
+  const dueFollowups = exhaustiveHistory
+    ? dueLatestCorporateVenueFollowups(history, today)
+    : visibleDue;
   return {
     events,
-    truncated: rows.length > EVENT_LIMIT,
+    truncated,
     maxDisplayed: EVENT_LIMIT,
-    followupsDueInVisibleRows: dueFollowups.length,
+    followupsDueInVisibleRows: visibleDue.length,
     dueFollowupEventIds: dueFollowups.map(event => event.id),
+    dueFollowupEvents: dueFollowups,
+    followupsDueInReviewedHistory: dueFollowups.length,
+    followupHistoryExhaustive: exhaustiveHistory,
+    followupHistoryRecordsReviewed: history.length,
     today,
-    disclosure: 'Only independently evidenced, manually entered business conversations. Due follow-ups refer only to each venue\'s latest interaction in the 120 most recently recorded entries; subsequent evidence clears the earlier reminder. Truncation can hide older tasks. This is not an all-time contact, booking, partner or revenue total.',
+    disclosure: exhaustiveHistory
+      ? 'Only independently evidenced, manually entered business conversations. The due follow-up queue checks every recorded venue interaction as of this read; the most recent actual interaction determines each venue task. The recent activity log separately displays at most 120 events. No outreach, booking, partner or revenue totals are implied.'
+      : 'Only independently evidenced business conversations. More than 5,000 records exist; due reminders show only the latest 120 visible events, not an exhaustive queue. Truncation can hide older tasks. Request a database-backed scalable queue before relying on complete historical follow-ups. No outreach, booking, partner or revenue totals are implied.',
   };
 }
