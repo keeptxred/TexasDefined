@@ -1,0 +1,28 @@
+name: Corporate Events Houston Directory Depth
+on:
+  pull_request:
+    paths:
+      - 'src/data/corporate-events.ts'
+      - 'scripts/data/validate-corporate-events.mjs'
+      - 'scripts/data/validate-corporate-houston-depth.mjs'
+      - '.github/workflows/corporate-houston-depth.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/data/corporate-events.ts'
+      - 'scripts/data/validate-corporate-events.mjs'
+      - 'scripts/data/validate-corporate-houston-depth.mjs'
+      - '.github/workflows/corporate-houston-depth.yml'
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --experimental-strip-types scripts/data/validate-corporate-houston-depth.mjs
+      - run: node --experimental-strip-types scripts/data/validate-corporate-events.mjs
