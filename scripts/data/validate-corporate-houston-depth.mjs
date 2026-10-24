@@ -24,7 +24,7 @@ const newHoustonSlugs = [
   'game-show-experience-houston',
 ];
 assert.equal(new Set(newHoustonSlugs).size,18);
-assert(corporateEventProviders.length >= 85,'Houston expansion should raise statewide catalog to 85+');
+assert(corporateEventProviders.length >= 108,'Houston expansion must raise statewide catalog to 108+');
 const slugs = new Set(corporateEventProviders.map(p=>p.slug));
 assert.equal(slugs.size,corporateEventProviders.length,'All providers must have unique slugs');
 const bySlug = new Map(corporateEventProviders.map(p=>[p.slug,p]));
@@ -39,7 +39,7 @@ for (const slug of newHoustonSlugs) {
   assert(p.maxGroup == null || p.maxGroup >= 20);
 }
 const houstonMarket=corporateEventProviders.filter(p=>corporateEventMarketMatches(p,'Houston, TX'));
-assert(houstonMarket.length >= 30,'Houston city and metro directory should now include 30+ researched options');
+assert(houstonMarket.length >= 53,'Houston metro directory should now include 53+ researched options');
 assert(houstonMarket.filter(p=>p.maxGroup == null || p.maxGroup >= 45).length >= 23,'At least 23 Houston metro venues should remain possible for 45-person plans pending real quotes');
 const topgolf=bySlug.get('topgolf-houston-katy-team-events');
 assert.equal(topgolf?.startingPricePerPerson,46);
@@ -61,5 +61,5 @@ assert.equal(bySlug.get('game-show-studio-houston-corporate')?.maxGroup,200);
 const guides=readFileSync('src/components/events/CorporateEventMetroGuides.tsx','utf8');
 assert(guides.includes("provider.city === guide.key || provider.metro === guide.key"),'Existing Houston guide must include suburban metro aliases');
 const contract=readFileSync('scripts/data/validate-corporate-events.mjs','utf8');
-assert(contract.includes('length >= 85'),'Main corporate directory contract must protect this expansion');
+assert(contract.includes('length >= 108'),'Main corporate directory contract must protect this expansion');
 console.log('Houston source-backed corporate venues PASS: +18; 85 total, 30+ Houston metro, price/capacity disclosures retained.');
