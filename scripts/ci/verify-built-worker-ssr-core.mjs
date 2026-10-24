@@ -165,6 +165,27 @@ const smokeTargets = [
   { path: '/texas-data/county-growth', requiredText: 'Texas county population growth, 2020–2025', label: 'Texas Data child route body' },
 ];
 
+// Keep the live holiday hub in the actual built-Worker SSR contract, not only in
+// source/data unit checks. 2026 performances expire at midnight Dec 28 Texas time;
+// the permanent authority route must still render after that season.
+smokeTargets.push({
+  path: '/events/christmas-events',
+  requiredText: 'Texas Christmas &amp; Holiday Events',
+  label: 'Christmas authority hub renders its actual SSR page',
+});
+if (Date.now() < Date.parse('2026-12-28T06:00:00Z')) {
+  smokeTargets.push(
+    { path: '/events/christmas-events', requiredText: 'Holiday events and concerts in Texas (2026)', label: 'Christmas 2026 performances are rendered server-side' },
+    { path: '/events/christmas-events', requiredText: '33rd Annual Christmas/Kwanzaa Concert', label: 'Dallas Bruton Christmas concert appears in SSR' },
+    { path: '/events/christmas-events', requiredText: '0C00653DBA7FA947', label: 'Bruton concert uses exact Ticketmaster event ID' },
+    { path: '/events/christmas-events', requiredText: '0C00653DB901A616', label: 'Bruton jazz concert uses exact Ticketmaster event ID' },
+    { path: '/events/christmas-events', requiredText: '0C0064CA0668F4BE', label: 'Dallas Grand Ol Christmas uses exact Ticketmaster event ID' },
+    { path: '/events/christmas-events', requiredText: 'etix.com/ticket/v/32639/crighton-theatre', label: 'Conroe Crighton show uses venue-linked Etix tickets' },
+    { path: '/events/christmas-events', requiredText: 'Cirque Musica Holiday Wonderland', label: 'Christmas Eve Cirque Musica renders in SSR' },
+    { path: '/events/christmas-events', requiredText: 'A Celtic Christmas by A Taste of Ireland', label: 'McAllen Christmas show renders in SSR' },
+  );
+}
+
 const redirectTargets = [
   { path: '/destination/choke-canyon-north-shore-unit-state-park?source=gsc', expectedStatus: 301, expectedPath: '/destination/choke-canyon-state-park', expectedQuery: ['source','gsc'], label: 'legacy Choke Canyon North Shore import' },
   { path: '/state-park/caprock-canyons-trailway-estelline-terminal-state-park?source=gsc', expectedStatus: 301, expectedPath: '/destination/caprock-canyons-state-park', expectedQuery: ['source','gsc'], label: 'legacy Estelline Trailway import' },
