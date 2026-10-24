@@ -165,26 +165,27 @@ const smokeTargets = [
   { path: '/texas-data/county-growth', requiredText: 'Texas county population growth, 2020–2025', label: 'Texas Data child route body' },
 ];
 
-// Keep the live holiday hub in the actual built-Worker SSR contract, not only in
-// source/data unit checks. 2026 performances expire at midnight Dec 28 Texas time;
-// the permanent authority route must still render after that season.
+// The holiday route is permanent, while each date-specific show must expire from
+// SSR assertions on its actual final day. Dates below are midnight AFTER each
+// verified event in America/Chicago (November and December = CST).
 smokeTargets.push({
   path: '/events/christmas-events',
   requiredText: 'Texas Christmas &amp; Holiday Events',
   label: 'Christmas authority hub renders its actual SSR page',
 });
-if (Date.now() < Date.parse('2026-12-28T06:00:00Z')) {
-  smokeTargets.push(
-    { path: '/events/christmas-events', requiredText: 'Holiday events and concerts in Texas (2026)', label: 'Christmas 2026 performances are rendered server-side' },
-    { path: '/events/christmas-events', requiredText: '33rd Annual Christmas/Kwanzaa Concert', label: 'Dallas Bruton Christmas concert appears in SSR' },
-    { path: '/events/christmas-events', requiredText: '0C00653DBA7FA947', label: 'Bruton concert uses exact Ticketmaster event ID' },
-    { path: '/events/christmas-events', requiredText: '0C00653DB901A616', label: 'Bruton jazz concert uses exact Ticketmaster event ID' },
-    { path: '/events/christmas-events', requiredText: '0C0064CA0668F4BE', label: 'Dallas Grand Ol Christmas uses exact Ticketmaster event ID' },
-    { path: '/events/christmas-events', requiredText: 'etix.com/ticket/v/32639/crighton-theatre', label: 'Conroe Crighton show uses venue-linked Etix tickets' },
-    { path: '/events/christmas-events', requiredText: 'Cirque Musica Holiday Wonderland', label: 'Christmas Eve Cirque Musica renders in SSR' },
-    { path: '/events/christmas-events', requiredText: 'A Celtic Christmas by A Taste of Ireland', label: 'McAllen Christmas show renders in SSR' },
-  );
-}
+const requireChristmasShowUntil = (deadlineUtc, requiredText, label) => {
+  if (Date.now() < Date.parse(deadlineUtc)) {
+    smokeTargets.push({ path: '/events/christmas-events', requiredText, label });
+  }
+};
+requireChristmasShowUntil('2026-12-28T06:00:00Z', 'Holiday events and concerts in Texas (2026)', '2026 Christmas performances render before the last run ends');
+requireChristmasShowUntil('2026-12-12T06:00:00Z', '33rd Annual Christmas/Kwanzaa Concert', 'Bruton Christmas concert visible through its Dec 11 date');
+requireChristmasShowUntil('2026-12-12T06:00:00Z', '0C00653DBA7FA947', 'Exact Dec 11 Bruton Ticketmaster event ID');
+requireChristmasShowUntil('2026-12-18T06:00:00Z', '0C00653DB901A616', 'Exact Dec 17 Bruton jazz Ticketmaster event ID');
+requireChristmasShowUntil('2026-12-24T06:00:00Z', '0C0064CA0668F4BE', 'Exact Dec 23 Dallas Grand Ol Ticketmaster event ID');
+requireChristmasShowUntil('2026-12-21T06:00:00Z', 'etix.com/ticket/v/32639/crighton-theatre', 'Conroe show ticket link visible through final Dec 20 performance');
+requireChristmasShowUntil('2026-12-25T06:00:00Z', 'Cirque Musica Holiday Wonderland', 'Cedar Park Christmas Eve Cirque Musica show');
+requireChristmasShowUntil('2026-12-21T06:00:00Z', 'A Celtic Christmas by A Taste of Ireland', 'McAllen Dec 20 Christmas show');
 
 const redirectTargets = [
   { path: '/destination/choke-canyon-north-shore-unit-state-park?source=gsc', expectedStatus: 301, expectedPath: '/destination/choke-canyon-state-park', expectedQuery: ['source','gsc'], label: 'legacy Choke Canyon North Shore import' },
