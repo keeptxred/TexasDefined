@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { corporateEventProviders } from '../../src/data/corporate-events.ts';
-import { corporateEventMarketMatches } from '../../src/data/corporate-event-market-search.ts';
+import { corporateEventMarketMatches, corporateEventAreaMatches } from '../../src/data/corporate-event-market-search.ts';
 
 const secondWave=[
   'cidercade-houston-team-events','k1-speed-houston-corporate','k1-speed-woodlands-conroe',
@@ -32,6 +32,17 @@ for (const suburb of ['Katy','Sugar Land','Webster','Conroe','Humble','Tomball',
   const v=corporateEventProviders.filter(p=>corporateEventMarketMatches(p,suburb));
   assert(v.length >= 1,'Corporate-event finder must support '+suburb+' locality');
 }
+const downtown=corporateEventProviders.filter(p=>corporateEventMarketMatches(p,'Houston') && corporateEventAreaMatches(p,'Downtown'));
+assert(downtown.length >= 3,'Downtown filter must find several centrally described group venues');
+assert(corporateEventAreaMatches(all.get('cidercade-houston-team-events'),' EaDo '),'Local areas must be case-insensitive and trim whitespace');
+assert(!corporateEventAreaMatches(all.get('cidercade-houston-team-events'),'Katy'),'Neighborhood filters should not invent travel radius');
+assert(corporateEventAreaMatches(all.get('cidercade-houston-team-events'),'  '),'Blank area preference must match all venue areas');
+const finder=readFileSync('src/routes/corporate-events.lazy.tsx','utf8');
+assert(finder.includes('corporateEventAreaMatches(provider, areaQuery)'),'Finder must honor the area filter');
+assert(finder.includes("url.searchParams.set('area', areaQuery.trim().slice(0, 60))"),'Public share links can retain an explicit selected area');
+assert(finder.includes("const [areaQuery, setAreaQuery] = useState('')"),'Area preference must be optional');
+assert(finder.includes('does not calculate distance or driving time'),'Must not invent travel time or geocoded radius');
+assert(!finder.includes('one of the nine currently sourced markets'),'Remove old fixed-market count from main finder');
 const market=corporateEventProviders.filter(p=>corporateEventMarketMatches(p,'Houston, TX'));
 assert(market.length>=53,'Houston metro must expose 53 or more sourced venues');
 assert(corporateEventProviders.length>=108,'Statewide catalog requires 108 or more unique venues');
