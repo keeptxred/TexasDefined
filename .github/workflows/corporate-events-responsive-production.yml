@@ -6,25 +6,13 @@ on:
     paths:
       - 'scripts/ci/verify-corporate-events-browser.mjs'
       - '.github/workflows/corporate-events-responsive-production.yml'
-  push:
+  # Run the real browser suite only after GitHub has finished deploying this SHA.
+  # Source-push-triggered browser tests race the protected production workflow,
+  # fail their exact-commit gate, and never retry on a successful later release.
+  workflow_run:
+    workflows: [Deploy TexasDefined production]
+    types: [completed]
     branches: [main]
-    paths:
-      - 'scripts/ci/verify-corporate-events-browser.mjs'
-      - '.github/workflows/corporate-events-responsive-production.yml'
-      - 'src/routes/corporate-events.lazy.tsx'
-      - 'src/components/events/CorporateEventCategoryGuides.tsx'
-      - 'src/components/events/CorporateEventMetroGuides.tsx'
-      - 'src/data/corporate-events.ts'
-      # Any change to public finder behavior must rerun the exact-SHA, read-only
-      # live three-viewport Chrome + WCAG acceptance on protected production.
-      - 'src/routes/corporate-events.tsx'
-      - 'src/data/corporate-event-public-shortlist.ts'
-      - 'src/data/corporate-event-market-search.ts'
-      - 'src/data/corporate-event-budgets.ts'
-      - 'src/data/corporate-event-dates.ts'
-      - 'src/components/events/CorporateEventRelatedResources.tsx'
-      - 'src/components/events/ApprovedCorporateEventOffers.tsx'
-      - 'src/components/events/GroupEventPartnerApplication.tsx'
   workflow_dispatch:
 
 permissions:
@@ -33,7 +21,7 @@ permissions:
   statuses: read
 
 concurrency:
-  group: corporate-events-responsive-${{ github.event.pull_request.number || github.ref }}
+  group: corporate-events-responsive-${{ github.event.pull_request.number || 'production' }}
   cancel-in-progress: true
 
 jobs:
@@ -50,18 +38,23 @@ jobs:
         run: node --check scripts/ci/verify-corporate-events-browser.mjs
 
   verify:
-    if: ${{ github.event_name != 'pull_request' }}
+    if: ${{ github.event_name != 'pull_request' && (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success') }}
     runs-on: ubuntu-latest
     timeout-minutes: 35
     steps:
+      # workflow_run GITHUB_SHA normally points to current default-branch HEAD,
+      # which can differ from the SHA just deployed. Pin the checkout to the
+      # successful deployment's own immutable commit instead.
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
       - name: Require exact protected main SHA to be live first
         env:
           GH_TOKEN: ${{ github.token }}
-          PRODUCTION_COMMIT_SHA: ${{ github.sha }}
+          PRODUCTION_COMMIT_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
         run: node scripts/ci/wait-for-protected-production.mjs
       - name: Install isolated headless Chromium driver
         run: |
