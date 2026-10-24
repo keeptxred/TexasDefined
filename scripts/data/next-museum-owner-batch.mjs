@@ -117,7 +117,7 @@ if (process.argv.includes("--self-test")) {
         dispositionAt:new Date().toISOString(), editorialCertified:false,
       };
       const temporary = ledgerPath + ".next.tmp";
-      writeFileSync(temporary,JSON.stringify(ledger,null,2)+"\\n",{flag:"wx"});
+      writeFileSync(temporary,JSON.stringify(ledger,null,2)+"\n",{flag:"wx"});
       renameSync(temporary,ledgerPath);
     } finally {
       if (fd !== undefined) { closeSync(fd); unlinkSync(lock); }
