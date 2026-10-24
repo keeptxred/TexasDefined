@@ -690,6 +690,20 @@
     ],
     "ownerInventoryRawNameOccurrences": 669,
     "ownerInventoryProvisionalDistinctNames": 668,
-    "ownerInventoryStillUnverified": true
+    "ownerInventoryStillUnverified": true,
+    "fourBlockedMuseumProductionChecked": {
+      "observedOn": "2026-10-24",
+      "requestIds": [
+        14138,
+        14139,
+        14140,
+        14141
+      ],
+      "allHttp200": true,
+      "allHaveIndexBlockingRobotsNoindexFollow": true,
+      "allHtmlIncludeFallbackReference": true,
+      "review": "Missing commercial-use photo permission remains unresolved, so all four properly remain noindex. Page HTTP 200 does not resolve image rights.",
+      "browserPixelRenderingVerified": false
+    }
   }
 }
