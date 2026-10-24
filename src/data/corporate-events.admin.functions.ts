@@ -85,3 +85,17 @@ export const verifyCorporateEventCommercialAgreement = createServerFn({ method: 
       data.coversOffers, data.coversQuoteRouting, data.expiresOn,
     );
   });
+
+export const withdrawCorporateEventVenueSharing = createServerFn({ method: 'POST' })
+  .inputValidator(z.object({
+    accessKey: key,
+    plannerRequestId: id,
+    verifiedOrganizerInstruction: z.literal(true),
+    verificationNote: z.string().trim().min(20).max(500),
+  }))
+  .handler(async ({ data }) => {
+    const { revokeCorporateEventVenueSharing } = await import('@/data/corporate-events.admin.server');
+    return revokeCorporateEventVenueSharing(
+      data.accessKey, data.plannerRequestId, data.verifiedOrganizerInstruction, data.verificationNote,
+    );
+  });
