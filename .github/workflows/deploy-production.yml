@@ -907,6 +907,24 @@ jobs:
           if-no-files-found: error
           retention-days: 7
 
+      - name: Verify museum visitor pages after museum-related deployment changes
+        id: live_museums
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_base.outcome == 'success' }}
+        shell: bash
+        run: |
+          set -o pipefail
+          node --test scripts/ci/museum-primary-hero.test.mjs scripts/ci/verify-changed-museum-production.test.mjs
+          node scripts/ci/verify-changed-museum-production.mjs
+
+      - name: Preserve change-scoped museum production verification evidence
+        if: ${{ always() && steps.live_museums.outcome != 'skipped' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: museum-live-deploy-acceptance-${{ github.run_id }}
+          path: .artifacts/museum-production-acceptance.json
+          if-no-files-found: ignore
+          retention-days: 30
+
       - name: Verify Event structured-data production
         id: live_events
         if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' && steps.change_scope.outputs.events == 'true' }}

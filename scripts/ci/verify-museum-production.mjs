@@ -34,6 +34,11 @@ const required = [
   { slug: "johnny-nelson-katy-heritage-museum", indexWhenPhotoCleared: true },
 ];
 const errors = [], observations = [], openPhotoGaps = [];
+// Existing bounded 19-page smoke remains default for manual workflows.
+// Protected deploys can opt into complete canonical route acceptance for every
+// published museum through MUSEUM_VERIFY_ALL_GUIDES=1. Source HTTP and SSR do
+// not independently certify museum editorial content or image pixels.
+const fullManifestSweep = process.env.MUSEUM_VERIFY_ALL_GUIDES === "1";
 const decode = value => value.replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#39;|&#x27;/g, "'");
 function attr(markup, name) {
   const match = name === "href" ? markup.match(/href="([^"]*)"/i) : markup.match(/content="([^"]*)"/i);
@@ -63,7 +68,8 @@ function analyzeRoute(c, doc) {
   if (!doc.body.includes(c.slug.split("-").slice(0,2).join("-")) && !doc.body.includes("<h1")) issues.push("no recognizable page heading");
   if (c.indexed && noindex) issues.push("previously recovered guide reverted to noindex");
   if (c.indexed && hasMissingHero) issues.push("indexable guide reverted to missing-photo placeholder");
-  if (c.indexed && !primaryAlt) issues.push("indexable museum primary photograph missing alt text");
+  if (!hasMissingHero && !primaryAlt) issues.push("museum primary photograph missing alt text");
+  if (hasMissingHero && !noindex) issues.push("unlicensed or missing primary museum image is indexable");
   if (c.primaryAlt && !primaryAlt.includes(c.primaryAlt))
     issues.push("primary museum image alt mismatches photographed site: " + primaryAlt);
   if (c.image && !primaryHero.includes(c.image)) issues.push("required subject-specific primary hero missing: " + c.image);
@@ -108,13 +114,35 @@ await Promise.all(required.map(async c => {
     errors.push(c.slug + ": " + String(error));
   }
 }));
+const requiredSlugs = new Set(required.map(c => c.slug));
+const extraPaths = fullManifestSweep
+  ? [...expectedPaths].filter(path => !requiredSlugs.has(path.slice("/destination/".length)))
+  : [];
+// Limit concurrent requests. An expanded museum inventory should not turn one
+// release smoke into an unbounded Cloudflare request burst.
+const workers = Array.from({ length: Math.min(8, extraPaths.length) }, async (_, index) => {
+  for (let i = index; i < extraPaths.length; i += 8) {
+    const path = extraPaths[i];
+    try {
+      const result = analyzeRoute({ slug: path.slice("/destination/".length) }, await get(path));
+      observations.push(result);
+      errors.push(...result.issues.map(issue => path + ": " + issue));
+    } catch (error) {
+      errors.push(path + ": " + String(error));
+    }
+  }
+});
+await Promise.all(workers);
 const report = {
   checkedAt: new Date().toISOString(),
   origin,
   verifiedFrom: process.env.GITHUB_SHA || null,
-  scope: `Manifest and ${required.length} specific visitor routes, not every Texas museum`,
+  scope: fullManifestSweep
+    ? `Live manifest and all ${local.museums.length} museum destination routes (SSR/transport, not browser/editorial certification)`
+    : `Manifest and ${required.length} specific visitor routes, not every Texas museum`,
+  fullManifestSweep,
   authorityCertified: false,
-  checkedRoutes: required.length,
+  checkedRoutes: required.length + extraPaths.length,
   remainingPhotographicGaps: openPhotoGaps.sort(),
   errors,
   observations,
@@ -123,7 +151,7 @@ mkdirSync(".artifacts", { recursive: true });
 writeFileSync(".artifacts/museum-production-acceptance.json", JSON.stringify(report, null, 2) + "\n");
 console.log("Museum production acceptance:", JSON.stringify({
   manifestExpectedAtLeast: local.museums.length,
-  checkedRoutes: required.length,
+  checkedRoutes: required.length + extraPaths.length,
   openPhotoGaps: openPhotoGaps.length,
   failures: errors.length,
 }));
