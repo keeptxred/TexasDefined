@@ -629,9 +629,9 @@
     ],
     "sourceUnreachablePath": "/destination/johnny-nelson-katy-heritage-museum",
     "citationStatus": "Connected GitHub main file reads and read-only Supabase queries; not a fresh complete production, browser image or editorial certification.",
-    "currentProductionManifestReverified": false,
-    "carthagePhotoLinkObservation": "A retrieved production page snapshot contains Wikimedia Commons source and linked CC BY-SA 3.0 license; cached crawl snapshot, not same-day browser visual certification.",
-    "bryanMuseumProductionPhotoLinksReverified": false,
+    "currentProductionManifestReverified": true,
+    "carthagePhotoLinkObservation": "Fresh Supabase pg_net production HTML HTTP 200, correct canonical and indexable response, original Commons photo linked to exact file, CC BY-SA 3.0 linked, primary photo alt exact subject. Not a browser pixel/mobile certification.",
+    "bryanMuseumProductionPhotoLinksReverified": true,
     "photoRightsBlocksUnchanged": [
       "museum-of-the-gulf-coast-port-arthur",
       "el-paso-holocaust-museum",
@@ -641,6 +641,18 @@
     "independentAuthorityCertifications": 0,
     "ownerInventoryFullyReconciled": false,
     "ownerInventoryBatching": "The existing audit script now provides read-only --next-batch and working-tree --reserve-batch. Reservations must merge to main through protected checks before another chat can rely on them.",
-    "authorityDisclaimer": "Registry status=verified and successful HTTP source monitoring mean source-connection health only, never visitor-guide editorial certification."
+    "authorityDisclaimer": "Registry status=verified and successful HTTP source monitoring mean source-connection health only, never visitor-guide editorial certification.",
+    "productionManifestEntries": 82,
+    "productionManifestSourceDefinitions": 360,
+    "carthageProductionSsrAccepted": true,
+    "bryanMuseumProductionSsrAccepted": true,
+    "bryanPhotoLinkObservation": "Fresh Supabase pg_net production HTML HTTP 200, correct canonical and indexable response, original Commons photo linked to exact file, CC BY 2.0 linked, primary photo alt exact subject. Not a browser pixel/mobile certification.",
+    "productionAcceptanceRequestIds": [
+      14134,
+      14135,
+      14136
+    ],
+    "productionBrowserImageAndMobileCertified": false,
+    "productionSnapshotVerifiedDate": "2026-10-24"
   }
 }
