@@ -159,7 +159,7 @@ try {
     }
     await reference.locator('table').scrollIntoViewIfNeeded();
     await page.screenshot({ path: `${output}/${width}-reference.png`, fullPage: false, animations: 'disabled' });
-    await reference.locator('figure').scrollIntoViewIfNeeded();
+    await reference.locator('figure').first().scrollIntoViewIfNeeded();
     await page.screenshot({ path: `${output}/${width}-bracket.png`, fullPage: false, animations: 'disabled' });
     evidence.push(result);
     await page.close();
