@@ -1677,7 +1677,7 @@
   "reconciliation": {
     "asOf": "2026-10-23",
     "calendarCandidates": 42,
-    "authorityCandidates": 0,
-    "remainingCandidates": 208
+    "authorityCandidates": 12,
+    "remainingCandidates": 196
   }
 }
