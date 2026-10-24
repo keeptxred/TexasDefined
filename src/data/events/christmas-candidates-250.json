@@ -106,7 +106,11 @@
       "intakeId": 11,
       "title": "Boerne Parade of Lights",
       "submittedRegion": "Hill Country & Central Texas",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "boerne-weihnachts-parade-2026"
+      ],
+      "researchNote": "Boerne's official event name is Weihnachts Parade, December 5, 2026, 6 p.m.; December 6 weather backup only. Separately sourced Old West Christmas Light Fest runs 15 specific nights at Enchanted Springs Ranch."
     },
     {
       "intakeId": 12,
@@ -1745,8 +1749,8 @@
   ],
   "reconciliation": {
     "asOf": "2026-10-24",
-    "calendarCandidates": 54,
+    "calendarCandidates": 55,
     "authorityCandidates": 12,
-    "remainingCandidates": 184
+    "remainingCandidates": 183
   }
 }
