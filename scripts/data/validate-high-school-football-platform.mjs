@@ -295,10 +295,10 @@ if (!errors.length) {
   );
 
   if (alignmentProgramsForEnrollmentAudit.length !== 1268) {
-    errors.push(\`UIL enrollment-placement audit expected 1,268 alignment programs; found \${alignmentProgramsForEnrollmentAudit.length}.\`);
+    errors.push(`UIL enrollment-placement audit expected 1,268 alignment programs; found ${alignmentProgramsForEnrollmentAudit.length}.`);
   }
   if (exactEnrollmentRowsForAudit.size !== 1268) {
-    errors.push(\`UIL enrollment-placement audit expected 1,268 exact enrollment rows; found \${exactEnrollmentRowsForAudit.size}.\`);
+    errors.push(`UIL enrollment-placement audit expected 1,268 exact enrollment rows; found ${exactEnrollmentRowsForAudit.size}.`);
   }
 
   const enrollmentPlacementExceptions = [];
@@ -306,11 +306,11 @@ if (!errors.length) {
     const exact = exactEnrollmentRowsForAudit.get(program.sourceSchoolName);
     const band = enrollmentBandsForAudit.get(program.classification + ':' + String(program.division));
     if (!exact) {
-      errors.push(\`UIL enrollment-placement audit missing exact enrollment for \${program.sourceSchoolName}.\`);
+      errors.push(`UIL enrollment-placement audit missing exact enrollment for ${program.sourceSchoolName}.`);
       continue;
     }
     if (!band) {
-      errors.push(\`UIL enrollment-placement audit missing cutoff band for \${program.classification} division \${String(program.division)}.\`);
+      errors.push(`UIL enrollment-placement audit missing cutoff band for ${program.classification} division ${String(program.division)}.`);
       continue;
     }
     const fitsBand =
@@ -323,7 +323,7 @@ if (!errors.length) {
   }
 
   if (enrollmentPlacementExceptions.length !== 49) {
-    errors.push(\`UIL enrollment-placement audit expected 49 documented exception programs; found \${enrollmentPlacementExceptions.length}: \${enrollmentPlacementExceptions.map((item) => item.sourceSchoolName).join(', ')}\`);
+    errors.push(`UIL enrollment-placement audit expected 49 documented exception programs; found ${enrollmentPlacementExceptions.length}: ${enrollmentPlacementExceptions.map((item) => item.sourceSchoolName).join(', ')}`);
   }
   const crossConferenceExceptionNames = enrollmentPlacementExceptions
     .filter((item) => item.conferenceDiff)
@@ -331,11 +331,11 @@ if (!errors.length) {
     .sort();
   const expectedCrossConferenceExceptionNames = ['Boys Ranch', 'Crosbyton', "D'Hanis", 'Hull-Daisetta', 'Iraan', 'Ralls', 'Shamrock'].sort();
   if (JSON.stringify(crossConferenceExceptionNames) !== JSON.stringify(expectedCrossConferenceExceptionNames)) {
-    errors.push(\`UIL cross-conference football exceptions changed unexpectedly: \${crossConferenceExceptionNames.join(', ')}\`);
+    errors.push(`UIL cross-conference football exceptions changed unexpectedly: ${crossConferenceExceptionNames.join(', ')}`);
   }
   for (const representative of ['Anthony', 'Garland', 'Shamrock']) {
     if (!enrollmentPlacementExceptions.some((item) => item.sourceSchoolName === representative)) {
-      errors.push(\`UIL enrollment-placement representative exception missing: \${representative}.\`);
+      errors.push(`UIL enrollment-placement representative exception missing: ${representative}.`);
     }
   }
 
