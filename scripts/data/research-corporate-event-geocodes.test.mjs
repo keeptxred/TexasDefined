@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import {
   validatePublicVenueAddress,
+  loadPublicCorporateVenueCatalog,
   censusAddressLookupUrl,
   parseCensusCandidate,
   researchPublicVenueCoordinates,
@@ -12,6 +13,12 @@ const entry={ city:'Houston',officialUrl:'https://official-example.test/events' 
 const row={providerSlug:'synthetic-event-venue',streetAddress:'4600 Sample Park Road',city:'Houston',
   zip:'77002',officialAddressEvidenceUrl:'https://official-example.test/contact',addressReviewedOn:date};
 const venues=new Map([['synthetic-event-venue',entry]]);
+const actualDirectory = loadPublicCorporateVenueCatalog();
+assert.equal(actualDirectory.size, 122, 'Manual geocoding research must include all 122 current real source records');
+assert.equal(actualDirectory.get('beat-the-bomb-houston')?.city, 'Houston');
+assert(actualDirectory.get('main-event-webster-corporate')?.officialUrl.startsWith('https://'),
+  'A venue with pre-slug metadata must also be found');
+
 assert.equal(validatePublicVenueAddress(row,entry,date),null,'Official business street evidence should be accepted for further research');
 assert.match(validatePublicVenueAddress({...row,streetAddress:'Downtown Houston'},entry,date),/street number/);
 assert.match(validatePublicVenueAddress({...row,city:'Dallas'},entry,date),/differs/);
