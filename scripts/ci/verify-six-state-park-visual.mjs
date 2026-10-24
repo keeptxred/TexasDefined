@@ -73,6 +73,21 @@ try{
     const message=viewport.label+" "+slug+": "+String(err?.message||err);
     failures.push(message);
     console.error("::error title=TPWD park mobile visual QA::"+message);
+    // Diagnostic only; keep the same strict failure result. This distinguishes
+    // genuinely missing FAQs from changes during client hydration/screenshot.
+    try {
+      const evidence=await page.evaluate(()=>{
+        const faq=document.querySelector("#destination-visitor-faqs");
+        return {readyState:document.readyState,href:location.pathname,
+          faqPresent:!!faq,faqWidth:faq?.getBoundingClientRect().width??0,
+          faqCount:document.querySelectorAll('#destination-visitor-faqs').length,
+          textMentionsOfficialFaq:document.body?.innerText?.includes("Frequently asked questions about")??false,
+          heroCount:document.querySelectorAll('img[fetchpriority="high"]').length};
+      });
+      console.error("TPWD_PARK_FAQ_DIAGNOSTIC "+JSON.stringify({slug,viewport:viewport.label,...evidence}));
+    } catch (diagnosticError) {
+      console.error("TPWD_PARK_FAQ_DIAGNOSTIC_FAILED "+String(diagnosticError));
+    }
     try{await page.screenshot({path:output+"/FAIL-"+viewport.label+"-"+slug+".png",timeout:10000});}catch{}
    }finally{await page.close();}
   }
