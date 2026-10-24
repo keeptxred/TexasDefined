@@ -1,0 +1,307 @@
+{
+  "schema_version": 1,
+  "launch": "TexasDefined Fishing Apparel 2026",
+  "last_updated": "2026-10-24",
+  "mission_status": "phase1_blocked_pending_print_art_approval_and_publishing_approval",
+  "site": "https://texasdefined.com",
+  "repo": "keeptxred/TexasDefined",
+  "shop_id": 28098650,
+  "seller_shop": "The Official shop of KeepTXRed.com",
+  "website_destination": "texasdefined",
+  "catalog_state": {
+    "shirt_template": "6a466888b706a0bfc50e0a2e",
+    "blueprint_id": 145,
+    "provider_id": 99,
+    "saved_variant_count": 16,
+    "price_usd": 28,
+    "artwork_dimensions": [
+      3852,
+      4398
+    ],
+    "decoration": "DTG",
+    "historical_shirt_403": true,
+    "available_same_shop_alternative_examples": [
+      {
+        "template_id": "6a763c699519879479041976",
+        "blueprint_id": 6,
+        "provider_id": 99
+      },
+      {
+        "template_id": "6a7638ef507e58bbda08edf2",
+        "blueprint_id": 6,
+        "provider_id": 99
+      }
+    ],
+    "alternative_validated_for_this_launch": false
+  },
+  "reconciliation": {
+    "catalog_checked_2026_10_24": true,
+    "existing_catalog_contains_political_redfish_art": true,
+    "live_texasdefined_shop_count_checked": 15,
+    "matching_six_new_products_on_live_site": false,
+    "etsy_seller_side_dedupe_unverified": true,
+    "printify_new_product_creation_count": 0
+  },
+  "artwork_policy": {
+    "transparent_png": true,
+    "organic_edges_no_square_frames": true,
+    "correct_anatomy_and_typography": true,
+    "light_and_dark_shirt_mockups": true,
+    "required_print_ready_dimensions": [
+      3852,
+      4398
+    ],
+    "explicit_user_approval": true
+  },
+  "next_actions": [
+    "Regenerate/rebuild each artwork as truly print-quality individual PNG; 512px concept sheet crop fails detailed print QA.",
+    "Obtain explicit artwork approval for specific final files.",
+    "Validate shirt template/provider/variants, or obtain explicit approval to configure a compatible template if historical 403 persists.",
+    "Obtain Heartland prepared-plan approval token and explicit user approval before publishing.",
+    "Publish using stable job IDs; reconcile jobs without recreating duplicates.",
+    "Verify Printify IDs, Etsy 13 tags/section and public listing URLs, TexasDefined sync, cost and shipping."
+  ],
+  "artwork_storage_note": "Preview files currently attached to originating ChatGPT conversation; the GitHub manifest tracks metadata, not a durable uploadable artwork URL. Reattach final approved artwork as necessary.",
+  "phase1": [
+    {
+      "concept_id": "TD-FISH-01",
+      "name": "Texas Bass Co.",
+      "phase": 1,
+      "status": "concept_preview_generated_not_approved",
+      "artwork": {
+        "format": "PNG RGBA",
+        "generated_source": "imagegen generation a79c10fe-34ac-477d-88b9-64367c2aee28",
+        "preview_filename": "TD-FISH-01_concept_preview.png",
+        "native_resolution": "approximately 512x512 crop from six-design contact sheet; insufficient for print approval",
+        "transparent_edges_inspected": true,
+        "approval": false,
+        "print_ready": false,
+        "production_asset_url": null
+      },
+      "printify_product_id": null,
+      "etsy_listing_id": null,
+      "etsy_url": null,
+      "texasdefined_url": null,
+      "website_sync_verified": false,
+      "job_id": "tdfish2026_tdfish01",
+      "pricing": {
+        "saved_shirt_default_usd": 28,
+        "final_price_verified": false
+      },
+      "metadata": {
+        "etsy_listing_draft": true,
+        "thirteen_tags_drafted": true,
+        "section_verified": false
+      }
+    },
+    {
+      "concept_id": "TD-FISH-02",
+      "name": "Chasing Largemouth",
+      "phase": 1,
+      "status": "concept_preview_generated_not_approved",
+      "artwork": {
+        "format": "PNG RGBA",
+        "generated_source": "imagegen generation a79c10fe-34ac-477d-88b9-64367c2aee28",
+        "preview_filename": "TD-FISH-02_concept_preview.png",
+        "native_resolution": "approximately 512x512 crop from six-design contact sheet; insufficient for print approval",
+        "transparent_edges_inspected": true,
+        "approval": false,
+        "print_ready": false,
+        "production_asset_url": null
+      },
+      "printify_product_id": null,
+      "etsy_listing_id": null,
+      "etsy_url": null,
+      "texasdefined_url": null,
+      "website_sync_verified": false,
+      "job_id": "tdfish2026_tdfish02",
+      "pricing": {
+        "saved_shirt_default_usd": 28,
+        "final_price_verified": false
+      },
+      "metadata": {
+        "etsy_listing_draft": true,
+        "thirteen_tags_drafted": true,
+        "section_verified": false
+      }
+    },
+    {
+      "concept_id": "TD-FISH-03",
+      "name": "Lake Weekend",
+      "phase": 1,
+      "status": "concept_preview_generated_not_approved",
+      "artwork": {
+        "format": "PNG RGBA",
+        "generated_source": "imagegen generation a79c10fe-34ac-477d-88b9-64367c2aee28",
+        "preview_filename": "TD-FISH-03_concept_preview.png",
+        "native_resolution": "approximately 512x512 crop from six-design contact sheet; insufficient for print approval",
+        "transparent_edges_inspected": true,
+        "approval": false,
+        "print_ready": false,
+        "production_asset_url": null
+      },
+      "printify_product_id": null,
+      "etsy_listing_id": null,
+      "etsy_url": null,
+      "texasdefined_url": null,
+      "website_sync_verified": false,
+      "job_id": "tdfish2026_tdfish03",
+      "pricing": {
+        "saved_shirt_default_usd": 28,
+        "final_price_verified": false
+      },
+      "metadata": {
+        "etsy_listing_draft": true,
+        "thirteen_tags_drafted": true,
+        "section_verified": false
+      }
+    },
+    {
+      "concept_id": "TD-FISH-04",
+      "name": "Texas Tackle Club",
+      "phase": 1,
+      "status": "concept_preview_generated_not_approved",
+      "artwork": {
+        "format": "PNG RGBA",
+        "generated_source": "imagegen generation a79c10fe-34ac-477d-88b9-64367c2aee28",
+        "preview_filename": "TD-FISH-04_concept_preview.png",
+        "native_resolution": "approximately 512x512 crop from six-design contact sheet; insufficient for print approval",
+        "transparent_edges_inspected": true,
+        "approval": false,
+        "print_ready": false,
+        "production_asset_url": null
+      },
+      "printify_product_id": null,
+      "etsy_listing_id": null,
+      "etsy_url": null,
+      "texasdefined_url": null,
+      "website_sync_verified": false,
+      "job_id": "tdfish2026_tdfish04",
+      "pricing": {
+        "saved_shirt_default_usd": 28,
+        "final_price_verified": false
+      },
+      "metadata": {
+        "etsy_listing_draft": true,
+        "thirteen_tags_drafted": true,
+        "section_verified": false
+      }
+    },
+    {
+      "concept_id": "TD-FISH-05",
+      "name": "Sunrise Cast",
+      "phase": 1,
+      "status": "concept_preview_generated_not_approved",
+      "artwork": {
+        "format": "PNG RGBA",
+        "generated_source": "imagegen generation a79c10fe-34ac-477d-88b9-64367c2aee28",
+        "preview_filename": "TD-FISH-05_concept_preview.png",
+        "native_resolution": "approximately 512x512 crop from six-design contact sheet; insufficient for print approval",
+        "transparent_edges_inspected": true,
+        "approval": false,
+        "print_ready": false,
+        "production_asset_url": null
+      },
+      "printify_product_id": null,
+      "etsy_listing_id": null,
+      "etsy_url": null,
+      "texasdefined_url": null,
+      "website_sync_verified": false,
+      "job_id": "tdfish2026_tdfish05",
+      "pricing": {
+        "saved_shirt_default_usd": 28,
+        "final_price_verified": false
+      },
+      "metadata": {
+        "etsy_listing_draft": true,
+        "thirteen_tags_drafted": true,
+        "section_verified": false
+      }
+    },
+    {
+      "concept_id": "TD-FISH-06",
+      "name": "Texas Coastal Angler",
+      "phase": 1,
+      "status": "concept_preview_generated_not_approved",
+      "artwork": {
+        "format": "PNG RGBA",
+        "generated_source": "imagegen generation a79c10fe-34ac-477d-88b9-64367c2aee28",
+        "preview_filename": "TD-FISH-06_concept_preview.png",
+        "native_resolution": "approximately 512x512 crop from six-design contact sheet; insufficient for print approval",
+        "transparent_edges_inspected": true,
+        "approval": false,
+        "print_ready": false,
+        "production_asset_url": null
+      },
+      "printify_product_id": null,
+      "etsy_listing_id": null,
+      "etsy_url": null,
+      "texasdefined_url": null,
+      "website_sync_verified": false,
+      "job_id": "tdfish2026_tdfish06",
+      "pricing": {
+        "saved_shirt_default_usd": 28,
+        "final_price_verified": false
+      },
+      "metadata": {
+        "etsy_listing_draft": true,
+        "thirteen_tags_drafted": true,
+        "section_verified": false
+      }
+    }
+  ],
+  "phase2": [
+    {
+      "concept_id": "TD-FISH-07",
+      "name": "Lake Fork",
+      "phase": 2,
+      "status": "reserved_not_started",
+      "artwork": null,
+      "printify_product_id": null,
+      "etsy_listing_id": null,
+      "etsy_url": null,
+      "texasdefined_url": null,
+      "job_id": "tdfish2026_tdfish07"
+    },
+    {
+      "concept_id": "TD-FISH-08",
+      "name": "Sam Rayburn",
+      "phase": 2,
+      "status": "reserved_not_started",
+      "artwork": null,
+      "printify_product_id": null,
+      "etsy_listing_id": null,
+      "etsy_url": null,
+      "texasdefined_url": null,
+      "job_id": "tdfish2026_tdfish08"
+    },
+    {
+      "concept_id": "TD-FISH-09",
+      "name": "Toledo Bend",
+      "phase": 2,
+      "status": "reserved_not_started",
+      "artwork": null,
+      "printify_product_id": null,
+      "etsy_listing_id": null,
+      "etsy_url": null,
+      "texasdefined_url": null,
+      "job_id": "tdfish2026_tdfish09"
+    },
+    {
+      "concept_id": "TD-FISH-10",
+      "name": "Caddo Lake",
+      "phase": 2,
+      "status": "reserved_not_started",
+      "artwork": null,
+      "printify_product_id": null,
+      "etsy_listing_id": null,
+      "etsy_url": null,
+      "texasdefined_url": null,
+      "job_id": "tdfish2026_tdfish10"
+    }
+  ],
+  "phase3": {
+    "status": "future_not_started",
+    "summary": "Product placements on TexasDefined fishing pages after verification."
+  }
+}
