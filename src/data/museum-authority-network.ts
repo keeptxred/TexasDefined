@@ -28,6 +28,37 @@ export interface MuseumAuthorityDossier {
 
 /** Links are to exact, existing destinations or stable topic hubs, not guessed paths. */
 export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
+  "bastrop-county-museum-visitor-center": {
+    name: "Bastrop County Museum & Visitor Center", slug: "bastrop-county-museum-visitor-center", county: "Bastrop", city: "Bastrop", reviewed: "2026-10-24",
+    topics: ["local-history", "el-camino-real", "lost-pines", "heritage-tourism"],
+    whyVisit: "At 904 Main Street, the Bastrop County Historical Society operates both a local history museum and the county visitor center. The galleries cover Indigenous communities, El Camino Real, early Texas, local industries and the Lost Pines, while staff help connect those stories to today's historic downtown and surrounding landscapes.",
+    visitorStrategy: "Visit 904 Main Street Monday through Saturday, 10 a.m. to 5 p.m., with last entry at 4:30 p.m. The operator charges $8 for most adults; children 12 and under, active service members and veterans are free, and eligible EBT families may use a $5 reduced rate. The official homepage's Sunday 11 a.m. to 3 p.m. entry conflicts with several dedicated pages listing only Monday–Saturday; confirm any Sunday plans by phone at 512-303-0904. A typical tour takes 30–60 minutes.",
+    accessibility: "The operator confirms free nearby public parking but does not document every accessible entrance, elevator, bathroom or assistive device. Do not assume marked accessible spaces or universal step-free access based only on its downtown address. Ask visitor services at 512-303-0904 about current entry and mobility arrangements before traveling.",
+    familiesAndGroups: "Families can explore permanent and temporary exhibits together, use the children's free-entry policy, and ask staff for additional local-history context. Museums for All rates have eligibility requirements. Only service animals are permitted in galleries, and food and drinks belong in the visitor-center area rather than near exhibits. Research-library use should be arranged in advance, not assumed to be part of a walk-in museum ticket.",
+    researchValue: "Founded in 1952, the historical society opened a museum in the 1950s and moved its collections to the current Main Street space in 2011. Family-donated artifacts and archives illuminate trade routes, coal and timber industries, civic institutions and the people of Bastrop County; history researchers should make a separate appointment to consult records rather than expecting immediate unsupervised access.",
+    exhibits: [
+      { heading: "County history and El Camino Real", detail: "Learn how Indigenous histories, historic routes, the Texas Revolution and later migration connect to places across Bastrop County." },
+      { heading: "Lost Pines and local industry", detail: "The region's forest landscapes, coal mining, civic institutions and historic Main Street form interconnected economic and environmental stories." },
+      { heading: "Changing exhibits and visitor information", detail: "Special exhibitions rotate, and visitor-center staff can help plan nearby trips; separate archival appointments are required for deeper original-record research." }
+    ],
+    routes: [
+      { label: "One-hour museum introduction", steps: ["Arrive before the 4:30 p.m. last-entry cutoff", "Tour the local-history galleries for 30–60 minutes", "Ask the visitor desk about a current downtown heritage route"] },
+      { label: "County history and Lost Pines", steps: ["Start at the museum to understand the El Camino Real and Lost Pines", "Walk the separate historic downtown streets", "Explore Bastrop State Park on its own operating and entry terms"] },
+      { label: "Family or archival visit", steps: ["Check current child and EBT admission eligibility", "Visit permanent and temporary exhibits together", "For genealogy or original papers, arrange a separate society research appointment"] }
+    ],
+    sources: [
+      { label: "Museum operator hours and current location", url: "https://www.bastropcountyhistoricalsociety.com/museum", use: "Museum, visitor address, last entrance and changing exhibitions" },
+      { label: "Museum operator ticket programs", url: "https://www.bastropcountyhistoricalsociety.com/coming-soon-03-3", use: "Adult, child, veteran, EBT and member admission rules" },
+      { label: "Museum operator FAQ", url: "https://www.bastropcountyhistoricalsociety.com/coming-soon-03-4", use: "Visit time, last entrance, food and animals" },
+      { label: "Museum operator homepage for disputed Sunday hours", url: "https://www.bastropcountyhistoricalsociety.com/", use: "Sunday-hours conflict and current operator contact" },
+      { label: "Society research and visitor support", url: "https://www.bastropcountyhistoricalsociety.com/resources", use: "Research appointment rather than unplanned archival visit" }
+    ],
+    connections: [
+      { label: "Bastrop County", href: "/county/bastrop", reason: "Connect artifacts and local history to Bastrop County" },
+      { label: "Bastrop State Park", href: "/destination/bastrop-state-park", reason: "Experience the Lost Pines habitat interpreted by the museum" },
+      { label: "Texas history", href: "/texas-history", reason: "Understand El Camino Real and Bastrop history in a statewide context" }
+    ]
+  },
   "austin-history-center-austin": {
     name: "Austin History Center, Faulk Building", slug: "austin-history-center-austin", county: "Travis", city: "Austin", reviewed: "2026-10-24",
     topics: ["local-history", "archives", "photography", "exhibitions"],
