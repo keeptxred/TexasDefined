@@ -10,6 +10,8 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WhatDoesChudMeanRouteImport } from './routes/what-does-chud-mean'
+import { Route as WacoGhostToursRouteImport } from './routes/waco-ghost-tours'
+import { Route as WacoAttractionsRouteImport } from './routes/waco-attractions'
 import { Route as TrackTexasDriversLicenseRouteImport } from './routes/track-texas-drivers-license'
 import { Route as Top25TexasAttractionsDotjsonRouteImport } from './routes/top-25-texas-attractions[.]json'
 import { Route as Top25TexasAttractionsDotcsvRouteImport } from './routes/top-25-texas-attractions[.]csv'
@@ -183,6 +185,7 @@ import { Route as EverythingBiggerInTexasRouteImport } from './routes/everything
 import { Route as EventsRouteImport } from './routes/events'
 import { Route as EditorialPolicyRouteImport } from './routes/editorial-policy'
 import { Route as DrPepperTexasHistoryRouteImport } from './routes/dr-pepper-texas-history'
+import { Route as DallasToWacoMagnoliaToursRouteImport } from './routes/dallas-to-waco-magnolia-tours'
 import { Route as DallasFortWorthMusicHistoryRouteImport } from './routes/dallas-fort-worth-music-history'
 import { Route as DallasBlackHistoryRouteImport } from './routes/dallas-black-history'
 import { Route as CountyRouteImport } from './routes/county'
@@ -546,6 +549,16 @@ import { Route as ExploreNearMetroCollectionRouteImport } from './routes/explore
 const WhatDoesChudMeanRoute = WhatDoesChudMeanRouteImport.update({
   id: '/what-does-chud-mean',
   path: '/what-does-chud-mean',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WacoGhostToursRoute = WacoGhostToursRouteImport.update({
+  id: '/waco-ghost-tours',
+  path: '/waco-ghost-tours',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WacoAttractionsRoute = WacoAttractionsRouteImport.update({
+  id: '/waco-attractions',
+  path: '/waco-attractions',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TrackTexasDriversLicenseRoute =
@@ -1683,6 +1696,12 @@ const DrPepperTexasHistoryRoute = DrPepperTexasHistoryRouteImport.update({
 } as any).lazy(() =>
   import('./routes/dr-pepper-texas-history.lazy').then((d) => d.Route),
 )
+const DallasToWacoMagnoliaToursRoute =
+  DallasToWacoMagnoliaToursRouteImport.update({
+    id: '/dallas-to-waco-magnolia-tours',
+    path: '/dallas-to-waco-magnolia-tours',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const DallasFortWorthMusicHistoryRoute =
   DallasFortWorthMusicHistoryRouteImport.update({
     id: '/dallas-fort-worth-music-history',
@@ -3912,6 +3931,7 @@ export interface FileRoutesByFullPath {
   '/county': typeof CountyRoute
   '/dallas-black-history': typeof DallasBlackHistoryRoute
   '/dallas-fort-worth-music-history': typeof DallasFortWorthMusicHistoryRoute
+  '/dallas-to-waco-magnolia-tours': typeof DallasToWacoMagnoliaToursRoute
   '/dr-pepper-texas-history': typeof DrPepperTexasHistoryRoute
   '/editorial-policy': typeof EditorialPolicyRoute
   '/events': typeof EventsRouteWithChildren
@@ -4085,6 +4105,8 @@ export interface FileRoutesByFullPath {
   '/top-25-texas-attractions.csv': typeof Top25TexasAttractionsDotcsvRoute
   '/top-25-texas-attractions.json': typeof Top25TexasAttractionsDotjsonRoute
   '/track-texas-drivers-license': typeof TrackTexasDriversLicenseRoute
+  '/waco-attractions': typeof WacoAttractionsRoute
+  '/waco-ghost-tours': typeof WacoGhostToursRoute
   '/what-does-chud-mean': typeof WhatDoesChudMeanRoute
   '/$kind/$slug': typeof KindSlugRoute
   '/admin/billing': typeof AdminBillingRoute
@@ -4447,6 +4469,7 @@ export interface FileRoutesByTo {
   '/county': typeof CountyRoute
   '/dallas-black-history': typeof DallasBlackHistoryRoute
   '/dallas-fort-worth-music-history': typeof DallasFortWorthMusicHistoryRoute
+  '/dallas-to-waco-magnolia-tours': typeof DallasToWacoMagnoliaToursRoute
   '/dr-pepper-texas-history': typeof DrPepperTexasHistoryRoute
   '/editorial-policy': typeof EditorialPolicyRoute
   '/everything-bigger-in-texas': typeof EverythingBiggerInTexasRoute
@@ -4617,6 +4640,8 @@ export interface FileRoutesByTo {
   '/top-25-texas-attractions.csv': typeof Top25TexasAttractionsDotcsvRoute
   '/top-25-texas-attractions.json': typeof Top25TexasAttractionsDotjsonRoute
   '/track-texas-drivers-license': typeof TrackTexasDriversLicenseRoute
+  '/waco-attractions': typeof WacoAttractionsRoute
+  '/waco-ghost-tours': typeof WacoGhostToursRoute
   '/what-does-chud-mean': typeof WhatDoesChudMeanRoute
   '/$kind/$slug': typeof KindSlugRoute
   '/admin/billing': typeof AdminBillingRoute
@@ -4978,6 +5003,7 @@ export interface FileRoutesById {
   '/county': typeof CountyRoute
   '/dallas-black-history': typeof DallasBlackHistoryRoute
   '/dallas-fort-worth-music-history': typeof DallasFortWorthMusicHistoryRoute
+  '/dallas-to-waco-magnolia-tours': typeof DallasToWacoMagnoliaToursRoute
   '/dr-pepper-texas-history': typeof DrPepperTexasHistoryRoute
   '/editorial-policy': typeof EditorialPolicyRoute
   '/events': typeof EventsRouteWithChildren
@@ -5151,6 +5177,8 @@ export interface FileRoutesById {
   '/top-25-texas-attractions.csv': typeof Top25TexasAttractionsDotcsvRoute
   '/top-25-texas-attractions.json': typeof Top25TexasAttractionsDotjsonRoute
   '/track-texas-drivers-license': typeof TrackTexasDriversLicenseRoute
+  '/waco-attractions': typeof WacoAttractionsRoute
+  '/waco-ghost-tours': typeof WacoGhostToursRoute
   '/what-does-chud-mean': typeof WhatDoesChudMeanRoute
   '/$kind/$slug': typeof KindSlugRoute
   '/admin/billing': typeof AdminBillingRoute
@@ -5515,6 +5543,7 @@ export interface FileRouteTypes {
     | '/county'
     | '/dallas-black-history'
     | '/dallas-fort-worth-music-history'
+    | '/dallas-to-waco-magnolia-tours'
     | '/dr-pepper-texas-history'
     | '/editorial-policy'
     | '/events'
@@ -5688,6 +5717,8 @@ export interface FileRouteTypes {
     | '/top-25-texas-attractions.csv'
     | '/top-25-texas-attractions.json'
     | '/track-texas-drivers-license'
+    | '/waco-attractions'
+    | '/waco-ghost-tours'
     | '/what-does-chud-mean'
     | '/$kind/$slug'
     | '/admin/billing'
@@ -6050,6 +6081,7 @@ export interface FileRouteTypes {
     | '/county'
     | '/dallas-black-history'
     | '/dallas-fort-worth-music-history'
+    | '/dallas-to-waco-magnolia-tours'
     | '/dr-pepper-texas-history'
     | '/editorial-policy'
     | '/everything-bigger-in-texas'
@@ -6220,6 +6252,8 @@ export interface FileRouteTypes {
     | '/top-25-texas-attractions.csv'
     | '/top-25-texas-attractions.json'
     | '/track-texas-drivers-license'
+    | '/waco-attractions'
+    | '/waco-ghost-tours'
     | '/what-does-chud-mean'
     | '/$kind/$slug'
     | '/admin/billing'
@@ -6580,6 +6614,7 @@ export interface FileRouteTypes {
     | '/county'
     | '/dallas-black-history'
     | '/dallas-fort-worth-music-history'
+    | '/dallas-to-waco-magnolia-tours'
     | '/dr-pepper-texas-history'
     | '/editorial-policy'
     | '/events'
@@ -6753,6 +6788,8 @@ export interface FileRouteTypes {
     | '/top-25-texas-attractions.csv'
     | '/top-25-texas-attractions.json'
     | '/track-texas-drivers-license'
+    | '/waco-attractions'
+    | '/waco-ghost-tours'
     | '/what-does-chud-mean'
     | '/$kind/$slug'
     | '/admin/billing'
@@ -7116,6 +7153,7 @@ export interface RootRouteChildren {
   CountyRoute: typeof CountyRoute
   DallasBlackHistoryRoute: typeof DallasBlackHistoryRoute
   DallasFortWorthMusicHistoryRoute: typeof DallasFortWorthMusicHistoryRoute
+  DallasToWacoMagnoliaToursRoute: typeof DallasToWacoMagnoliaToursRoute
   DrPepperTexasHistoryRoute: typeof DrPepperTexasHistoryRoute
   EditorialPolicyRoute: typeof EditorialPolicyRoute
   EventsRoute: typeof EventsRouteWithChildren
@@ -7289,6 +7327,8 @@ export interface RootRouteChildren {
   Top25TexasAttractionsDotcsvRoute: typeof Top25TexasAttractionsDotcsvRoute
   Top25TexasAttractionsDotjsonRoute: typeof Top25TexasAttractionsDotjsonRoute
   TrackTexasDriversLicenseRoute: typeof TrackTexasDriversLicenseRoute
+  WacoAttractionsRoute: typeof WacoAttractionsRoute
+  WacoGhostToursRoute: typeof WacoGhostToursRoute
   WhatDoesChudMeanRoute: typeof WhatDoesChudMeanRoute
   KindSlugRoute: typeof KindSlugRoute
   AgencySlugRoute: typeof AgencySlugRoute
@@ -7519,6 +7559,20 @@ declare module '@tanstack/react-router' {
       path: '/what-does-chud-mean'
       fullPath: '/what-does-chud-mean'
       preLoaderRoute: typeof WhatDoesChudMeanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/waco-ghost-tours': {
+      id: '/waco-ghost-tours'
+      path: '/waco-ghost-tours'
+      fullPath: '/waco-ghost-tours'
+      preLoaderRoute: typeof WacoGhostToursRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/waco-attractions': {
+      id: '/waco-attractions'
+      path: '/waco-attractions'
+      fullPath: '/waco-attractions'
+      preLoaderRoute: typeof WacoAttractionsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/track-texas-drivers-license': {
@@ -8730,6 +8784,13 @@ declare module '@tanstack/react-router' {
       path: '/dr-pepper-texas-history'
       fullPath: '/dr-pepper-texas-history'
       preLoaderRoute: typeof DrPepperTexasHistoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dallas-to-waco-magnolia-tours': {
+      id: '/dallas-to-waco-magnolia-tours'
+      path: '/dallas-to-waco-magnolia-tours'
+      fullPath: '/dallas-to-waco-magnolia-tours'
+      preLoaderRoute: typeof DallasToWacoMagnoliaToursRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dallas-fort-worth-music-history': {
@@ -11908,6 +11969,7 @@ const rootRouteChildren: RootRouteChildren = {
   CountyRoute: CountyRoute,
   DallasBlackHistoryRoute: DallasBlackHistoryRoute,
   DallasFortWorthMusicHistoryRoute: DallasFortWorthMusicHistoryRoute,
+  DallasToWacoMagnoliaToursRoute: DallasToWacoMagnoliaToursRoute,
   DrPepperTexasHistoryRoute: DrPepperTexasHistoryRoute,
   EditorialPolicyRoute: EditorialPolicyRoute,
   EventsRoute: EventsRouteWithChildren,
@@ -12092,6 +12154,8 @@ const rootRouteChildren: RootRouteChildren = {
   Top25TexasAttractionsDotcsvRoute: Top25TexasAttractionsDotcsvRoute,
   Top25TexasAttractionsDotjsonRoute: Top25TexasAttractionsDotjsonRoute,
   TrackTexasDriversLicenseRoute: TrackTexasDriversLicenseRoute,
+  WacoAttractionsRoute: WacoAttractionsRoute,
+  WacoGhostToursRoute: WacoGhostToursRoute,
   WhatDoesChudMeanRoute: WhatDoesChudMeanRoute,
   KindSlugRoute: KindSlugRoute,
   AgencySlugRoute: AgencySlugRoute,
