@@ -10,15 +10,21 @@ const brand = readFileSync('src/brand/texasdefined.ts', 'utf8');
 const events = readFileSync('src/routes/events.index.lazy.tsx', 'utf8');
 const categories = new Set(corporateEventCategories.map((item) => item.value));
 
-assert(corporateEventProviders.length >= 108, 'Houston deepening requires 108 sourced venues across fifteen Texas markets');
-for (const metro of ['Houston', 'Dallas', 'Austin', 'San Antonio', 'El Paso', 'Corpus Christi', 'Galveston', 'Waco', 'Lubbock', 'Bryan/College Station', 'Tyler', 'Beaumont', 'Amarillo', 'McAllen', 'Midland/Odessa']) {
+assert(corporateEventProviders.length >= 122, 'Corporate event venue directory requires 122 sourced venues across 19 Texas markets');
+for (const metro of ['Houston', 'Dallas', 'Austin', 'San Antonio', 'El Paso', 'Corpus Christi', 'Galveston', 'Waco', 'Lubbock', 'Bryan/College Station', 'Tyler', 'Beaumont', 'Amarillo', 'McAllen', 'Midland/Odessa', 'Abilene', 'Killeen/Temple', 'New Braunfels', 'Fredericksburg']) {
   assert(corporateEventProviders.filter((p) => p.city === metro || p.metro?.includes(metro)).length >= 3, 'Insufficient metro coverage: ' + metro);
 }
 assert(corporateEventProviders.filter((p) => p.city === 'Houston' && p.maxGroup >= 45 && (!p.minGroup || p.minGroup <= 45)).length >= 8);
 assert.equal(new Set(corporateEventProviders.map((p) => p.slug)).size, corporateEventProviders.length);
 for (const p of corporateEventProviders) {
   assert(p.officialUrl.startsWith('https://') && p.sourceUrl.startsWith('https://'));
-  assert(p.verifiedOn === '2026-10-23');
+  // Review dates are data, not a hard-coded launch day. Future additions must
+  // be accepted once editorially checked, without lying about existing sources.
+  assert(/^\d{4}-\d{2}-\d{2}$/.test(p.verifiedOn), 'Bad review date for ' + p.slug);
+  const parsedReview = new Date(p.verifiedOn + 'T12:00:00Z');
+  assert(!Number.isNaN(parsedReview.getTime()) && parsedReview.toISOString().slice(0, 10) === p.verifiedOn,
+    'Invalid editorial review calendar date for ' + p.slug);
+  assert(parsedReview.getTime() <= Date.now() + 86400000, 'Future source-review date for ' + p.slug);
   assert(p.categories.every((category) => categories.has(category)));
 }
 assert(route.includes("createFileRoute('/corporate-events')"));
