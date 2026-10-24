@@ -29,6 +29,8 @@ assert.equal(corporateEventProviders.find(p => p.slug === 'new-braunfels-civic-c
 assert.equal(corporateEventProviders.find(p => p.slug === 'lost-luggage-fredericksburg-private-events').startingPricePerPerson, null,
   'Published event class and buyout prices cannot be converted into a guaranteed corporate per-person rate');
 const guide = readFileSync('src/components/events/CorporateEventMetroGuides.tsx', 'utf8');
+const finder = readFileSync('src/routes/corporate-events.lazy.tsx', 'utf8');
+assert(!finder.includes("provider.maxGroup === 300 ? '+' : ''"), 'Exact 300 guest max must not falsely show 300+');
 const validator = readFileSync('scripts/data/validate-corporate-events.mjs', 'utf8');
 for (const slug of ['abilene','killeen-temple','new-braunfels','fredericksburg']) {
   assert(guide.includes("slug: '" + slug + "'"), 'Destination-specific guide not wired: ' + slug);
