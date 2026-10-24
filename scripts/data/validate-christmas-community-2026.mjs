@@ -27,7 +27,7 @@ const end = eventFile.indexOf("\n];", start);
 assert.ok(start >= 0 && end > start, "Source-qualified Christmas manifest was not found");
 const json = eventFile.slice(eventFile.indexOf("= [", start) + 2, end + 2).trim();
 const events = JSON.parse(json);
-assert.ok(events.length >= 129, "The 129 organizer-verified Christmas date windows must not shrink without explicit source review");
+assert.ok(events.length >= 134, "The 134 organizer-verified Christmas date windows must not shrink without explicit source review");
 assert.equal(events.length, new Set(events.map((event) => event.slug)).size, "Duplicate Christmas community slugs");
 
 const validDate = /^20\d{2}-\d{2}-\d{2}$/;
@@ -90,6 +90,17 @@ for (const [slug, begin, ending] of [
     event.officialEventUrl.startsWith("https://www.flowermound.gov/"), `${slug}: 2026 organizer source required`);
 }
 assert.ok(!bySlug.has("tpwd-south-llano-christmas-at-ranch-2026"), "The linked South Llano 2024 event page is not 2026 evidence");
+check("boerne-weihnachts-parade-2026", "2026-12-05");
+check("boerne-old-west-christmas-light-fest-1", "2026-11-27", "2026-11-29");
+check("boerne-old-west-christmas-light-fest-2", "2026-12-04", "2026-12-06");
+check("boerne-old-west-christmas-light-fest-3", "2026-12-11", "2026-12-13");
+check("boerne-old-west-christmas-light-fest-4", "2026-12-18", "2026-12-23");
+assert.ok(bySlug.get("boerne-weihnachts-parade-2026").summary.includes("weather contingency"),
+  "The Boerne parade's December 6 backup must not appear as a confirmed second parade");
+assert.ok(bySlug.get("boerne-old-west-christmas-light-fest-1").summary.includes("WALK-through"),
+  "Do not misclassify the Boerne Old West Light Fest as a drive-through");
+assert.ok(bySlug.get("boerne-old-west-christmas-light-fest-1").summary.includes("$25"),
+  "The organizer's admission pricing must be explicit");
 assert.ok(bySlug.get("college-station-christmas-in-park-festival-2026").summary.includes("CLOSED TO VEHICLES"),
   "December 5 College Station festival must not advertise ordinary drive-through entry");
 assert.ok(bySlug.get("tpwd-abilene-fa-la-la-forest-2026").summary.includes("$5 CASH"),
