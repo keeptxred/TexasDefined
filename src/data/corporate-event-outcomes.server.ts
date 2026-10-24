@@ -18,6 +18,7 @@ export type CorporateEventOutcomeInput = {
   outcomeType: CorporateEventOutcomeType;
   occurredAt: string;
   evidenceReference: string;
+  evidenceKey: string;
   amountCents: number | null;
   confirmIndependentEvidence: true;
 };
@@ -30,6 +31,7 @@ export type CorporateEventOutcomeRecord = {
   occurred_at: string;
   recorded_at: string;
   evidence_reference: string;
+  evidence_key: string | null;
   amount_cents: number | null;
 };
 
@@ -50,6 +52,10 @@ export async function recordCorporateEventOutcome(
     throw new Error('Independently verified evidence and the real-world event are required.');
   }
   const evidence = input.evidenceReference.trim();
+  const evidenceKey = input.evidenceKey.trim().toUpperCase();
+  if (!/^[A-Z0-9][A-Z0-9:._-]{5,119}$/.test(evidenceKey)) {
+    throw new Error('Use a real, bounded provider invoice, settlement, quote, or case ID, not a guess.');
+  }
   if (evidence.length < 20 || evidence.length > 500) {
     throw new Error('Record a 20–500 character private evidence reference, not an assumed conversion.');
   }
@@ -121,6 +127,7 @@ export async function recordCorporateEventOutcome(
     outcome_type: input.outcomeType,
     occurred_at: input.occurredAt,
     evidence_reference: evidence,
+    evidence_key: evidenceKey,
     recorded_by: 'TexasDefined authorized corporate event operations',
     amount_cents: revenue ? input.amountCents : null,
   }).select('id,outcome_type').maybeSingle();
@@ -132,7 +139,7 @@ export async function recordCorporateEventOutcome(
 export async function loadCorporateEventOutcomes(accessKey: string) {
   await assertSportsPartnerAccess(accessKey);
   const { data, error } = await client.from('texasdefined_group_event_outcome_events')
-    .select('id,planner_request_id,venue_slug,outcome_type,occurred_at,recorded_at,evidence_reference,amount_cents')
+    .select('id,planner_request_id,venue_slug,outcome_type,occurred_at,recorded_at,evidence_reference,evidence_key,amount_cents')
     .order('recorded_at', { ascending: false }).limit(MAX_EVENTS + 1);
   if (error) throw new Error('Private corporate-event outcome ledger is temporarily unavailable.');
   const rows = (data ?? []) as CorporateEventOutcomeRecord[];
