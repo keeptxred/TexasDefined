@@ -213,6 +213,13 @@ function CorporateEventsPage() {
     url: 'https://texasdefined.com/corporate-events',
     description: 'Source-backed corporate events and team-building venues in Texas.',
     isPartOf: { '@id': 'https://texasdefined.com/#website' },
+    breadcrumb: {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://texasdefined.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Corporate events', item: 'https://texasdefined.com/corporate-events' },
+      ],
+    },
     mainEntity: {
       '@type': 'ItemList',
       name: 'Texas group event providers',
@@ -250,6 +257,7 @@ function CorporateEventsPage() {
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: structuredData }} />
     <section className="bg-foreground text-background">
       <Container className="py-12 sm:py-20">
+        <nav aria-label="Breadcrumb" className="mb-5 text-sm text-background/80"><a className="underline underline-offset-2" href="/">Home</a> <span aria-hidden="true">/</span> <span aria-current="page">Corporate events</span></nav>
         <p className="eyebrow text-background/70">Texas Defined • Group experiences</p>
         <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[1.05] sm:text-6xl lg:text-7xl">Plan a company event worth leaving the office for.</h1>
         <p className="mt-6 max-w-3xl text-lg leading-8 text-background/80">Compare sourced company outings and team-building venues throughout Texas, including Bryan–College Station, Tyler, Beaumont, Amarillo, McAllen and Midland–Odessa. Build a shareable shortlist and a proposal for management.</p>
