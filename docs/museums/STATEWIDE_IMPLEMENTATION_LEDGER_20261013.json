@@ -1112,22 +1112,38 @@
       "battleofcoletocreekmuseum": {
         "submittedName": "Battle of Coleto Creek Museum",
         "rawOccurrence": 51,
-        "status": "assigned",
+        "status": "duplicate",
         "assignedAt": "2026-10-24",
         "reviewRequired": true,
         "publicationApproved": false,
         "editorialCertified": false,
-        "note": "Owner inventory provisional candidate: research official Texas institution identity, current visitor logistics, matching canonical, licensed exact-site media and sources before publication."
+        "note": "Owner inventory provisional candidate: research official Texas institution identity, current visitor logistics, matching canonical, licensed exact-site media and sources before publication.",
+        "evidence": "https://thc.texas.gov/state-historic-sites/fannin-battleground/plan-your-visit-fannin-battleground",
+        "reason": "The Texas Historical Commission's visitor offering named Battle of Coleto Creek is a guided tour of the existing Fannin Battleground State Historic Site, not a separately operating Battle of Coleto Creek Museum. The canonical `/destination/fannin-battleground` already represents the free public battlefield; the guided group tour has a separate $5 ticket, minimum age and advance booking requirement.",
+        "dispositionAt": "2026-10-24",
+        "relatedCanonicalSlug": "fannin-battleground",
+        "researchEvidenceUrls": [
+          "https://thc.texas.gov/historic-sites/fannin-battleground",
+          "https://thc.texas.gov/state-historic-sites/fannin-battleground/plan-your-visit-fannin-battleground"
+        ]
       },
       "battleshiptexasstatehistoricsite": {
         "submittedName": "Battleship Texas State Historic Site",
         "rawOccurrence": 52,
-        "status": "assigned",
+        "status": "duplicate",
         "assignedAt": "2026-10-24",
         "reviewRequired": true,
         "publicationApproved": false,
         "editorialCertified": false,
-        "note": "Owner inventory provisional candidate: research official Texas institution identity, current visitor logistics, matching canonical, licensed exact-site media and sources before publication."
+        "note": "Owner inventory provisional candidate: research official Texas institution identity, current visitor logistics, matching canonical, licensed exact-site media and sources before publication.",
+        "evidence": "https://battleshiptexas.org/about/faqs/",
+        "reason": "The owner-list battleship historic site is the already published `/destination/battleship-texas` closed-to-tour historical route. The operator's current October 2026 material confirms closure for continuing Galveston repairs, with 2027 as a target rather than guaranteed reopening; it is not an open La Porte museum, and existing route exclusions/noindex must stay intact.",
+        "dispositionAt": "2026-10-24",
+        "relatedCanonicalSlug": "battleship-texas",
+        "researchEvidenceUrls": [
+          "https://battleshiptexas.org/",
+          "https://battleshiptexas.org/about/faqs/"
+        ]
       },
       "baxterlogcabinmuseum": {
         "submittedName": "Baxter Log Cabin Museum",
@@ -1142,12 +1158,49 @@
       "bayareamuseum": {
         "submittedName": "Bay Area Museum",
         "rawOccurrence": 54,
+        "status": "research-blocked",
+        "assignedAt": "2026-10-24",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Owner inventory provisional candidate: research official Texas institution identity, current visitor logistics, matching canonical, licensed exact-site media and sources before publication.",
+        "evidence": "https://www.glo.texas.gov/sites/default/files/coastal-grants/_documents/grant-project/ciap-2009-gal-awareness-camp-guide.pdf",
+        "reason": "Historic Bay Area Museum in the former Webster Presbyterian Church at Clear Lake Park, 5000 NASA Road 1, Seabrook, is documented by old State of Texas tourism/land-use records, but current operator's museumbayarea.org site denies retrieval and no authoritative 2026 admission/hours/photo-rights record has been validated. Do not silently infer closure or promise live tours from 2003–2010 listings.",
+        "dispositionAt": "2026-10-24",
+        "researchEvidenceUrls": [
+          "https://museumbayarea.org/",
+          "https://www.sfasu.edu/heritagecenter/documents/bay_area_museum.pdf"
+        ]
+      },
+      "baytownhistoricalmuseum": {
+        "submittedName": "Baytown Historical Museum",
+        "rawOccurrence": 55,
         "status": "assigned",
         "assignedAt": "2026-10-24",
         "reviewRequired": true,
         "publicationApproved": false,
         "editorialCertified": false,
-        "note": "Owner inventory provisional candidate: research official Texas institution identity, current visitor logistics, matching canonical, licensed exact-site media and sources before publication."
+        "note": "Research candidate. Check current operator, address, existing canonical guide, exact-site photo license and accessibility before editorial publication."
+      },
+      "bayoubendcollectionandgardens": {
+        "submittedName": "Bayou Bend Collection and Gardens",
+        "rawOccurrence": 56,
+        "status": "assigned",
+        "assignedAt": "2026-10-24",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate. Check current operator, address, existing canonical guide, exact-site photo license and accessibility before editorial publication."
+      },
+      "beaumontartleague": {
+        "submittedName": "Beaumont Art League",
+        "rawOccurrence": 57,
+        "status": "assigned",
+        "assignedAt": "2026-10-24",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate. Check current operator, address, existing canonical guide, exact-site photo license and accessibility before editorial publication."
       }
     },
     "note": "Original stable 25-candidate queue with evidence-based dispositions. No false certification; batch replenishment uses the existing next-museum-owner-batch script.",
