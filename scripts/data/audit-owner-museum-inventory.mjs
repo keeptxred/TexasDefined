@@ -119,8 +119,8 @@ if (preview || reserve) {
   const picked = [
     ...previouslyAssigned,
     ...unassigned.slice(0, Math.max(0, 25 - previouslyAssigned.length))
-  ].slice(0, 25);
-  const batchId = checkpoint.entries[keyed(picked[0] ?? { submittedName: "" })]?.batchId ??
+  ].slice(0, 25).sort((a, b) => a.rawOccurrence - b.rawOccurrence);
+  const batchId = checkpoint.entries[keyed(previouslyAssigned[0] ?? { submittedName: "" })]?.batchId ??
     ("museum-owner-" + String(checkpoint.batchSequence + 1).padStart(3, "0"));
   if (reserve && picked.length) {
     const hasNew = picked.some(row => !Object.hasOwn(checkpoint.entries, keyed(row)));
