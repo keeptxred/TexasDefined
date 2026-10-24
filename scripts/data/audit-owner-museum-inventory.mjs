@@ -32,7 +32,8 @@ const aliases={
  "kimball art museum":"kimbell-art-museum",
  "african american museum of dallas":"african-american-museum-dallas-fair-park",
  "maritime museum of texas":"texas-maritime-museum-rockport",
- "admiral nimitz gallery":"national-museum-pacific-war"
+ "admiral nimitz gallery":"national-museum-pacific-war",
+ "angelina county history center":"the-history-center-diboll"
 };
 const byAlias=new Map(Object.entries(aliases).map(([name,slug])=>[normalize(name),slug]));
 const parts=segmentOwnerMuseumNames(raw);
