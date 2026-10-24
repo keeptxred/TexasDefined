@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-10-23T15:46:10.360Z",
+  "fetchedAt": "2026-10-24T14:37:19.086Z",
   "candidates": [
     {
       "name": "Austin Championship",
@@ -181,50 +181,6 @@
       "officialTicketUrls": [
         "https://www.ticketmaster.com/carousel-club-burlesque-presents-rhinestone-rodeo-fort-worth-texas-11-21-2026/event/0C00652EEEA6E7FC"
       ],
-      "status": "requires-organizer-verification",
-      "evidence": {
-        "organizerUrl": null,
-        "recurrenceVerified": false,
-        "currentScheduleVerified": false,
-        "imageRightsVerified": false
-      },
-      "publicationAllowed": false
-    },
-    {
-      "name": "CUMBIA FEST - TEJANO VS COAHUILA",
-      "city": "Lufkin",
-      "dates": [
-        "2026-10-23"
-      ],
-      "venues": [
-        "Rodeo Disko"
-      ],
-      "ticketmasterIds": [
-        "rZ7HnEZ1AfGAu7"
-      ],
-      "officialTicketUrls": [],
-      "status": "requires-organizer-verification",
-      "evidence": {
-        "organizerUrl": null,
-        "recurrenceVerified": false,
-        "currentScheduleVerified": false,
-        "imageRightsVerified": false
-      },
-      "publicationAllowed": false
-    },
-    {
-      "name": "Day of the Dead River Parade at Hard Rock Cafe",
-      "city": "San Antonio",
-      "dates": [
-        "2026-10-23"
-      ],
-      "venues": [
-        "Hard Rock Cafe - San Antonio"
-      ],
-      "ticketmasterIds": [
-        "rZ7HnEZ1Af78af"
-      ],
-      "officialTicketUrls": [],
       "status": "requires-organizer-verification",
       "evidence": {
         "organizerUrl": null,
@@ -626,19 +582,16 @@
       "name": "Red Steagall Cowboy Gathering",
       "city": "Fort Worth",
       "dates": [
-        "2026-10-23",
         "2026-10-24"
       ],
       "venues": [
         "Cowtown Coliseum"
       ],
       "ticketmasterIds": [
-        "Z7r9jZ1A70oO4",
         "Z7r9jZ1A70oO9",
         "Z7r9jZ1A70oOb"
       ],
       "officialTicketUrls": [
-        "https://www.ticketmaster.com/event/Z7r9jZ1A70oO4",
         "https://www.ticketmaster.com/event/Z7r9jZ1A70oO9",
         "https://www.ticketmaster.com/event/Z7r9jZ1A70oOb"
       ],
@@ -679,18 +632,15 @@
       "name": "San Antonio Stock Show & Rodeo Haunted Hayrides",
       "city": "San Antonio",
       "dates": [
-        "2026-10-23",
         "2026-10-24"
       ],
       "venues": [
         "San Antonio Stock Show & Rodeo Fairgrounds"
       ],
       "ticketmasterIds": [
-        "G5dIZ_o5NURjV",
-        "G5dIZ_o5NgLjR"
+        "G5dIZ_o5NURjV"
       ],
       "officialTicketUrls": [
-        "https://www.ticketmaster.com/san-antonio-stock-show-rodeo-haunted-san-antonio-texas-10-23-2026/event/3A006512E3D5F72F",
         "https://www.ticketmaster.com/san-antonio-stock-show-rodeo-haunted-san-antonio-texas-10-24-2026/event/3A006512E3DAF734"
       ],
       "status": "requires-organizer-verification",

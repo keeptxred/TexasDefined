@@ -1,61 +1,7 @@
 {
-  "generatedAt": "2026-10-23T15:46:10.318Z",
+  "generatedAt": "2026-10-24T14:37:19.032Z",
   "sourceUrl": "https://tpwd.texas.gov/calendar",
   "events": [
-    {
-      "title": "Awesome Opossums",
-      "startDate": "2026-10-23",
-      "parkKey": "martin-dies-jr",
-      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/awesome-opossums/2026-10-23"
-    },
-    {
-      "title": "Basics of Hand Sewing",
-      "startDate": "2026-10-23",
-      "parkKey": "lyndon-b-johnson",
-      "officialUrl": "https://tpwd.texas.gov/calendar/lyndon-b-johnson/basics-of-hand-sewing/2026-10-23"
-    },
-    {
-      "title": "Butterfly and Dragonfly Tours",
-      "startDate": "2026-10-23",
-      "parkKey": "estero-llano-grande",
-      "officialUrl": "https://tpwd.texas.gov/calendar/estero-llano-grande/butterfly-and-dragonfly-walks/2026-10-23"
-    },
-    {
-      "title": "Discovery Tram Tour (PM)",
-      "startDate": "2026-10-23",
-      "parkKey": "bentsen-rio-grande-valley",
-      "officialUrl": "https://tpwd.texas.gov/calendar/bentsen-rio-grande-valley/copy6_of_birding-tram-tour/2026-10-23"
-    },
-    {
-      "title": "Hands on Rock",
-      "startDate": "2026-10-23",
-      "parkKey": "caprock-canyons",
-      "officialUrl": "https://tpwd.texas.gov/calendar/caprock-canyons/hands-on-rock-2/2026-10-23"
-    },
-    {
-      "title": "Hawk Watch",
-      "startDate": "2026-10-23",
-      "parkKey": "bentsen-rio-grande-valley",
-      "officialUrl": "https://tpwd.texas.gov/calendar/bentsen-rio-grande-valley/spring-hawk-watch/2026-10-23"
-    },
-    {
-      "title": "Indian Lodge Tour",
-      "startDate": "2026-10-23",
-      "parkKey": "davis-mountains",
-      "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/indian-lodge-tour-1/2026-10-23"
-    },
-    {
-      "title": "Meet The Longhorns",
-      "startDate": "2026-10-23",
-      "parkKey": "copper-breaks",
-      "officialUrl": "https://tpwd.texas.gov/calendar/copper-breaks/copy_of_meet-the-longhorns-march-23/2026-10-23"
-    },
-    {
-      "title": "Pollinator Arts & Crafts",
-      "startDate": "2026-10-23",
-      "parkKey": "choke-canyon",
-      "officialUrl": "https://tpwd.texas.gov/calendar/choke-canyon/art-in-the-park-1/2026-10-23"
-    },
     {
       "title": "All About Us: a Guided Hike",
       "startDate": "2026-10-24",
@@ -97,12 +43,6 @@
       "startDate": "2026-10-24",
       "parkKey": "bentsen-rio-grande-valley",
       "officialUrl": "https://tpwd.texas.gov/calendar/bentsen-rio-grande-valley/spring-hawk-watch/2026-10-24"
-    },
-    {
-      "title": "Ink of Independence Workshop",
-      "startDate": "2026-10-24",
-      "parkKey": "stephen-f-austin",
-      "officialUrl": "https://tpwd.texas.gov/calendar/stephen-f-austin/ink-of-independence-workshop/2026-10-24"
     },
     {
       "title": "Island Trail Hike",
@@ -207,12 +147,6 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/bentsen-rio-grande-valley/copy6_of_birding-tram-tour/2026-10-25"
     },
     {
-      "title": "Discovery Walk Sundays",
-      "startDate": "2026-10-25",
-      "parkKey": "stephen-f-austin",
-      "officialUrl": "https://tpwd.texas.gov/calendar/stephen-f-austin/discovery-walk-sundays/2026-10-25"
-    },
-    {
       "title": "Guided Bird Walk at Honey Creek State Natural Area *Registration Required*",
       "startDate": "2026-10-25",
       "parkKey": "guadalupe-river",
@@ -247,12 +181,6 @@
       "startDate": "2026-10-25",
       "parkKey": "guadalupe-river",
       "officialUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/copy3_of_Sunday_honey-creek-nature-hike/2026-10-25"
-    },
-    {
-      "title": "Sunday Stroll - Guided Hike",
-      "startDate": "2026-10-25",
-      "parkKey": "stephen-f-austin",
-      "officialUrl": "https://tpwd.texas.gov/calendar/stephen-f-austin/sunday-stroll-guided-hike/2026-10-25"
     },
     {
       "title": "The Great Village Creek Pumpkin Hunt",
@@ -405,12 +333,6 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/barton-warnock/creepy-crawlies-after-dark-night-hike-1f578fe0f1f982/2026-10-30"
     },
     {
-      "title": "Hands on Rock",
-      "startDate": "2026-10-30",
-      "parkKey": "caprock-canyons",
-      "officialUrl": "https://tpwd.texas.gov/calendar/caprock-canyons/hands-on-rock-2/2026-10-30"
-    },
-    {
       "title": "Hawk Watch",
       "startDate": "2026-10-30",
       "parkKey": "bentsen-rio-grande-valley",
@@ -543,10 +465,10 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/birding-hike_all-26/2026-11-01"
     },
     {
-      "title": "Forest Bathing",
+      "title": "Discovery Walk Sundays",
       "startDate": "2026-11-01",
       "parkKey": "stephen-f-austin",
-      "officialUrl": "https://tpwd.texas.gov/calendar/stephen-f-austin/forest-bathing/2026-11-01"
+      "officialUrl": "https://tpwd.texas.gov/calendar/stephen-f-austin/discovery-walk-sundays/2026-11-01"
     },
     {
       "title": "Frog Pond Frolic",
@@ -559,6 +481,12 @@
       "startDate": "2026-11-01",
       "parkKey": "hueco-tanks",
       "officialUrl": "https://tpwd.texas.gov/calendar/hueco-tanks/pictograph-1-tour/2026-11-01"
+    },
+    {
+      "title": "Pollinator BioBlitz",
+      "startDate": "2026-11-01",
+      "parkKey": "choke-canyon",
+      "officialUrl": "https://tpwd.texas.gov/calendar/choke-canyon/pollinator-bioblitz/2026-11-01"
     },
     {
       "title": "Morning Nature Walk",
@@ -583,6 +511,12 @@
       "startDate": "2026-11-05",
       "parkKey": "martin-dies-jr",
       "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/reading-with-a-ranger/2026-11-05"
+    },
+    {
+      "title": "Alligators: Predatory Engineers",
+      "startDate": "2026-11-06",
+      "parkKey": "martin-dies-jr",
+      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/alligator-talk/2026-11-06"
     },
     {
       "title": "Birding Hike",
@@ -711,12 +645,6 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/island-trail-hike-1/2026-11-09"
     },
     {
-      "title": "Pelts and Tracks",
-      "startDate": "2026-11-09",
-      "parkKey": "martin-dies-jr",
-      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/pelts-and-tracks/2026-11-09"
-    },
-    {
       "title": "Nature's Classroom Homeschool Program",
       "startDate": "2026-11-10",
       "parkKey": "davis-mountains",
@@ -733,12 +661,6 @@
       "startDate": "2026-11-11",
       "parkKey": "davis-mountains",
       "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/birding-walk-1/2026-11-11"
-    },
-    {
-      "title": "Pelts and Tracks",
-      "startDate": "2026-11-11",
-      "parkKey": "martin-dies-jr",
-      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/pelts-and-tracks/2026-11-11"
     },
     {
       "title": "Miles of Stars",
@@ -837,6 +759,12 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/brazos-bend/all-about-us_08-15-26/2026-11-15"
     },
     {
+      "title": "Discovery Walk Sundays",
+      "startDate": "2026-11-15",
+      "parkKey": "stephen-f-austin",
+      "officialUrl": "https://tpwd.texas.gov/calendar/stephen-f-austin/discovery-walk-sundays/2026-11-15"
+    },
+    {
       "title": "Guided Bird Walk at Honey Creek State Natural Area *Registration Required*",
       "startDate": "2026-11-15",
       "parkKey": "guadalupe-river",
@@ -867,12 +795,6 @@
       "officialUrl": "https://tpwd.texas.gov/calendar/davis-mountains/birding-walk-1/2026-11-18"
     },
     {
-      "title": "Pelts and Tracks",
-      "startDate": "2026-11-18",
-      "parkKey": "martin-dies-jr",
-      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/pelts-and-tracks/2026-11-18"
-    },
-    {
       "title": "Reading Ranger",
       "startDate": "2026-11-18",
       "parkKey": "buescher",
@@ -883,6 +805,12 @@
       "startDate": "2026-11-18",
       "parkKey": "lake-somerville-birch-creek",
       "officialUrl": "https://tpwd.texas.gov/calendar/lake-somerville-birch-creek/senior-stroll-3/2026-11-18"
+    },
+    {
+      "title": "Guided Paddle",
+      "startDate": "2026-11-19",
+      "parkKey": "martin-dies-jr",
+      "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/guided-paddle/2026-11-19"
     },
     {
       "title": "Hike on Wildlife Trail",
@@ -973,6 +901,12 @@
       "startDate": "2026-11-21",
       "parkKey": "martin-dies-jr",
       "officialUrl": "https://tpwd.texas.gov/calendar/martin-dies-jr/island-trail-hike-1/2026-11-21"
+    },
+    {
+      "title": "Leaf-Peeping Hike",
+      "startDate": "2026-11-21",
+      "parkKey": "lake-bob-sandlin",
+      "officialUrl": "https://tpwd.texas.gov/calendar/lake-bob-sandlin/leaf-peeping-hike/2026-11-21"
     },
     {
       "title": "Meet The Longhorns",
@@ -1129,6 +1063,12 @@
       "startDate": "2026-11-28",
       "parkKey": "galveston-island",
       "officialUrl": "https://tpwd.texas.gov/calendar/galveston-island/winter-birding-1/2026-11-28"
+    },
+    {
+      "title": "Discovery Walk Sundays",
+      "startDate": "2026-11-29",
+      "parkKey": "stephen-f-austin",
+      "officialUrl": "https://tpwd.texas.gov/calendar/stephen-f-austin/discovery-walk-sundays/2026-11-29"
     },
     {
       "title": "Pictograph Tours (Reservations Required)",
