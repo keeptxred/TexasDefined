@@ -1,4 +1,5 @@
 import { corporateEventProviders } from '../../src/data/corporate-events.ts';
+import { corporateEventPublicOperatorChannels } from '../../src/data/corporate-event-public-operator-channels.ts';
 import { mkdirSync, writeFileSync } from 'node:fs';
 
 const timeoutMs = 12000;
@@ -68,7 +69,10 @@ async function checkUrl(url) {
 }
 
 export async function auditCorporateEventEditorialSources(now = new Date()) {
-  const sources = [...new Set(corporateEventProviders.flatMap((p) => [p.officialUrl, p.sourceUrl]))];
+  const sources = [...new Set([
+    ...corporateEventProviders.flatMap((p) => [p.officialUrl, p.sourceUrl]),
+    ...corporateEventPublicOperatorChannels.map((channel) => channel.url),
+  ])];
   const result = [];
   // Bounded batches avoid overloading venues and do not claim live availability.
   for (let i = 0; i < sources.length; i += 3) {
@@ -92,10 +96,23 @@ export async function auditCorporateEventEditorialSources(now = new Date()) {
       supportingSource: source,
     };
   });
+  const operatorChannelReports = corporateEventPublicOperatorChannels.map((channel) => {
+    const ageDays = providerSourceAgeDays(channel.reviewedOn, now);
+    const status = byUrl.get(channel.url);
+    return {
+      venueSlug: channel.venueSlug, url: channel.url, reviewedOn: channel.reviewedOn,
+      ageDays, reviewDue: ageDays === null || ageDays >= 60,
+      reachableStatus: status?.state ?? 'manual-review',
+      needsManualReview: ageDays === null || ageDays >= 60 || status?.state !== 'reachable',
+    };
+  });
   return {
     auditAt: now.toISOString(),
     policy: 'Report only: review windows are 30 days for published numeric starting rates and 60 days otherwise. A successful link check does not prove published price, capacity, availability, affiliation, or re-verification.',
     sourceCount: sources.length,
+    operatorChannelCount: operatorChannelReports.length,
+    operatorChannelsNeedingReview: operatorChannelReports.filter((item) => item.needsManualReview).length,
+    operatorChannelReports,
     providerCount: providers.length,
     needsReview: providers.filter((provider) => provider.needsEditorialReview).length,
     providerReports: providers,
@@ -106,7 +123,8 @@ if (process.argv[1]?.endsWith('audit-corporate-event-sources.mjs')) {
   const report = await auditCorporateEventEditorialSources();
   mkdirSync('.artifacts', { recursive: true });
   writeFileSync('.artifacts/corporate-event-source-audit.json', JSON.stringify(report, null, 2) + '\n');
-  console.log('Corporate venue sources checked: ' + report.sourceCount);
+  console.log('Corporate venue and operator event-contact URLs checked: ' + report.sourceCount);
+  console.log('Official operator public contact paths requiring manual review: ' + report.operatorChannelsNeedingReview + '/' + report.operatorChannelCount);
   console.log('Editorial entries requiring source or freshness review: ' + report.needsReview + '/' + report.providerCount);
   for (const p of report.providerReports.filter((entry) => entry.needsEditorialReview)) {
     console.log('[REVIEW] ' + p.slug + ' | ageDays=' + p.ageDays +
@@ -117,6 +135,7 @@ if (process.argv[1]?.endsWith('audit-corporate-event-sources.mjs')) {
     appendFileSync(process.env.GITHUB_STEP_SUMMARY,
       '## TexasDefined corporate-event source audit\n' +
       '- Editorial records: ' + report.providerCount + '\n' +
+      '- Operator inquiry paths needing human review: ' + report.operatorChannelsNeedingReview + '/' + report.operatorChannelCount + '\n' +
       '- Unique HTTPS URLs checked: ' + report.sourceCount + '\n' +
       '- Records needing a human review: ' + report.needsReview + '\n' +
       '- Notes: Network accessibility is not a venue fact check or booking confirmation.\n');
