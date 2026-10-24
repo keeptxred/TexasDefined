@@ -1,4 +1,5 @@
 import type { CorporateEventProvider } from './corporate-events';
+import { corporateEventOfficialDomainMatches } from './corporate-event-offer-provenance.ts';
 
 /**
  * Evidence-backed point for either a provider entrance/parcel or an official
@@ -36,13 +37,26 @@ export function validVerifiedCorporateEventPoint(
   point: VerifiedCorporateEventPoint,
   expected: 'venue' | 'zcta',
   asOf: string,
+  officialVenueUrl?: string,
 ) {
   if (!point || !bounded(point.latitude, 25.8, 36.6) || !bounded(point.longitude, -106.7, -93.4)) return false;
   if (expected === 'venue' && !['venue-entrance', 'venue-premises'].includes(point.precision)) return false;
   if (expected === 'zcta' && point.precision !== 'zcta-representative') return false;
   try {
     const source = new URL(point.sourceUrl);
-    if (source.protocol !== 'https:' || !source.hostname) return false;
+    if (source.protocol !== 'https:' || !source.hostname || source.username
+      || source.password || source.port || source.hash) return false;
+    if (expected === 'zcta') {
+      // ZCTA representative points must originate from the official U.S.
+      // Census domain, never an arbitrary HTTPS third-party map result.
+      const host = source.hostname.toLowerCase();
+      if (host !== 'census.gov' && !host.endsWith('.census.gov')) return false;
+    } else {
+      // A geocoded address-range or third-party map share is not an
+      // independently confirmed entrance/premises. The coordinate evidence
+      // must match the operator's source-reviewed official domain.
+      if (!officialVenueUrl || !corporateEventOfficialDomainMatches(point.sourceUrl, officialVenueUrl)) return false;
+    }
   } catch { return false; }
   if (!/^\d{4}-\d{2}-\d{2}$/.test(point.verifiedOn) || !/^\d{4}-\d{2}-\d{2}$/.test(asOf)) return false;
   const stamp = new Date(point.verifiedOn + 'T12:00:00Z');
@@ -89,9 +103,12 @@ export function searchCorporateEventVerifiedRadius(
     && validVerifiedCorporateEventPoint(item.point, 'zcta', asOf));
   if (candidates.length !== 1) return empty('unsupported_zip', providers.length);
   const origin = candidates[0].point;
+  const currentVenueBySlug = new Map(providers.map(provider => [provider.slug, provider]));
   const sourceBySlug = new Map<string, VerifiedCorporateEventPoint[]>();
   for (const v of venueLocations) {
-    if (!validVerifiedCorporateEventPoint(v.point, 'venue', asOf)) continue;
+    const correspondingProvider = currentVenueBySlug.get(v.providerSlug);
+    if (!correspondingProvider
+      || !validVerifiedCorporateEventPoint(v.point, 'venue', asOf, correspondingProvider.officialUrl)) continue;
     const list = sourceBySlug.get(v.providerSlug) || [];
     list.push(v.point); sourceBySlug.set(v.providerSlug, list);
   }
