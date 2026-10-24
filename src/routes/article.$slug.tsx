@@ -561,12 +561,11 @@ function ArticlePage() {
             insertBeforeIndex={riverBasinInsertIndex > 0 ? riverBasinInsertIndex : undefined}
             insertBefore={<Suspense fallback={<section className="my-10 border-y border-border py-8" style={{ minHeight: "18rem" }} aria-label="Loading Texas river basin reference" />}><TexasRiverBasinReference /></Suspense>}
           />
-        ) : <ArticleBody
-          blocks={article.body}
-          entities={graph}
-          insertBeforeIndex={footballTravelInsertIndex >= 0 ? footballTravelInsertIndex : undefined}
-          insertBefore={footballTravelInsertIndex >= 0 ? footballTravelOffer : undefined}
-        />}
+        ) : footballTravelInsertIndex >= 0 ? (
+          <ArticleBody blocks={article.body} entities={graph}
+            insertBeforeIndex={footballTravelInsertIndex}
+            insertBefore={footballTravelOffer} />
+        ) : <ArticleBody blocks={article.body} entities={graph} />}
       </div>
       {article.slug === "chip-and-joanna-gaines-magnolia-waco" && <MagnoliaWacoAffiliateLinks />}
       <ElPasoAreaCrossLinks kind="article" slug={article.slug} />
