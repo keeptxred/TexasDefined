@@ -28,6 +28,34 @@ export interface MuseumAuthorityDossier {
 
 /** Links are to exact, existing destinations or stable topic hubs, not guessed paths. */
 export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
+  "alley-log-cabin-museum-columbus": {
+    name: "Alley Log Cabin & Antique Tool Museum", slug: "alley-log-cabin-museum-columbus", county: "Colorado", city: "Columbus", reviewed: "2026-10-24",
+    topics: ["pioneer-history", "early-texas", "agricultural-tools", "preservation"],
+    whyVisit: "A two-room oak-log home constructed in 1836 is a rare physical window into the earliest decades of the Texas Republic. This is an intimate historic-house and working-tools experience, not a large walk-in state museum: the relocated Alley family cabin and small companion tool museum are operated by the Columbus Historical Preservation Trust, and advance tour arrangements matter as much as the history itself.",
+    visitorStrategy: "Go to 1230 Bowie Street in Columbus, but call the Columbus Chamber of Commerce at 979-732-8385 to arrange a tour first. Do not mistake the historical trust's office hours for daily cabin admission. The operator does not list standard walk-in prices or guaranteed tour length; as a planning estimate, allow 45–75 minutes if both interiors are available, then independently confirm access to other Columbus heritage buildings. The original cabin site was elsewhere before the 1976 move, so use the current street address.",
+    accessibility: "This preserved 1836 log structure has original heavy oak construction and a loft stair; some historic features and doorways may constrain circulation. There is no operator-published complete accessible entrance, restroom or wheelchair route inventory. Request a specific accommodation assessment from the trust rather than assuming an old-house tour is step-free. Children should remain supervised near historic furnishings and fragile tools.",
+    familiesAndGroups: "Families can compare domestic work inside the Alley family cabin with farm, woodworking and blacksmith tools in the adjacent 1996 museum. Teachers can use the 1836 structure to contrast original materials, relocated elements and restoration choices, while explaining the Runaway Scrape and the labor of early settlers without reducing the story to pioneer nostalgia. Schedule school or group tours directly; ordinary office operations are not guaranteed group reservations.",
+    researchValue: "The story links Abram and Nancy Alley to Stephen F. Austin's early colony, the Runaway Scrape, the 1836 return and later Colorado County public service. Examine the operator's descriptions of the surviving rough-cut oak logs and sandstone chimneys alongside later 1850s improvements and 1976 relocation. The antique agricultural tools are useful evidence of regional daily labor, not proof that every item belonged to the Alley family.",
+    exhibits: [
+      { heading: "The 1836 Alley family log cabin", detail: "Inspect the two principal oak-log rooms, sandstone foundations and original structural details, and distinguish early construction from subsequent restoration and rebuilding." },
+      { heading: "Family life and the Texas Republic", detail: "The history of Abram and Nancy Alley connects domestic life to the Runaway Scrape, the first Colorado County land institutions and the colony's unstable early years." },
+      { heading: "The companion Antique Tool Museum", detail: "In a separate reused historic building, farm implements, blacksmithing tools, carpentry equipment and regional barbed wire help explain everyday work in Colorado County." },
+    ],
+    routes: [
+      { label: "Appointment-based heritage stop", steps: ["Confirm your cabin and tool-museum tour with the Columbus Chamber first", "Study original versus restored architectural features", "Ask which companion-tool displays are available"] },
+      { label: "Columbus preservation half-day", steps: ["Arrange the Alley complex tour", "Visit the historic downtown streets and courthouse exterior", "Add another separately confirmed Columbus Historical Preservation Trust property"] },
+      { label: "Family or school history visit", steps: ["Discuss the Runaway Scrape and Alley family history before arrival", "Examine the cabin construction and tool displays with an approved guide", "Compare nineteenth-century working life with today's Colorado County"] },
+    ],
+    sources: [
+      { label: "Columbus Historical Preservation Trust — Alley cabin and tool museum", url: "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/", use: "Owner identity, current tour bookings, address, building history and tools" },
+      { label: "Columbus Historical Preservation Trust — official visitor website", url: "https://www.columbushpt.com/", use: "Current operator contact and other preserved historic properties" },
+      { label: "Texas Historical Commission — Abram Alley Log Cabin marker", url: "https://atlas.thc.texas.gov/Details/5089008827", use: "Independent landmark designation and original Texas Republic history" },
+    ],
+    connections: [
+      { label: "Colorado County guide", href: "/county/colorado", reason: "See nearby Columbus history, routes and downtown trip context." },
+      { label: "Explore Texas", href: "/explore", reason: "Plan nearby heritage outings, checking independent attraction tour schedules." },
+    ],
+  },
   "san-angelo-museum-of-fine-arts": {
     name: "San Angelo Museum of Fine Arts", slug: "san-angelo-museum-of-fine-arts", county: "Tom Green", city: "San Angelo", reviewed: "2026-10-19",
     topics: ["fine-art", "contemporary-ceramics", "art-education", "concho-valley-history"],

@@ -14,6 +14,80 @@ export interface MuseumVisitorFaq {
   reviewed: string;
 }
 export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
+  "alley-log-cabin-museum-columbus": [
+    {
+      "question": "Can I visit the Alley Log Cabin without an appointment?",
+      "answer": "Do not assume it operates on daily museum hours. The nonprofit operator specifically asks visitors to arrange tours through the Columbus Chamber of Commerce at 979-732-8385 or info@columbustexas.org. The trust's weekday office hours are not the cabin's public visiting schedule.",
+      "verificationUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Where is the Alley Log Cabin and Antique Tool Museum?",
+      "answer": "The Columbus Historical Preservation Trust gives its museum address as 1230 Bowie Street in Columbus, Colorado County. This is the relocated historic cabin, not Abram Alley's original rural homestead; use the site's address instead of an old marker location or the trust's separate office address.",
+      "verificationUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Is the log cabin itself really from 1836?",
+      "answer": "The operator dates the original two-room oak cabin to 1836. It stood at the family's original site until 1976, when it was moved into Columbus and restored. Some components, roof materials and porches have since been reconstructed, so distinguish the historic structure from later preservation work.",
+      "verificationUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Does the cabin tour include the Antique Tool Museum?",
+      "answer": "The operator presents them together as the Alley Log Cabin and Antique Tool Museum. The separate tool-building opened as a museum in 1996 and displays farming, ranching and blacksmithing implements. Confirm which interiors will be included when arranging a tour, rather than promising unrestricted access.",
+      "verificationUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "How much does a visit to the historic cabin cost?",
+      "answer": "The current operator page does not publish an ordinary walk-in admission price or a universal online ticket. Ask the Columbus Chamber of Commerce about tour arrangements, donation expectations, group minimums and any costs before traveling; do not rely on unrelated attraction directories for pricing.",
+      "verificationUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Is the historic log cabin accessible to wheelchair users?",
+      "answer": "The operator's public description discusses original log construction, a loft stair and restored historic rooms but does not publish a complete wheelchair-route or accessible-restroom inventory. Contact the Columbus Historical Preservation Trust and request a specific explanation of step-free entrances and tour access in advance.",
+      "verificationUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "What is special about the Antique Tool Museum collections?",
+      "answer": "Its displays interpret the tools that supported nineteenth-century Colorado County farms, ranches and trades. The operator names oxen yokes, corn shellers, woodworking equipment, plows and regional barbed wire. These are real working-life objects, rather than a second log cabin or a modern machinery showroom.",
+      "verificationUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Can I combine this with other Columbus historic buildings?",
+      "answer": "Yes, the historic Columbus area has other preservation-trust properties such as the Stafford Opera House and the Dilue Rose Harris House, but each may have its own tour or event arrangements. Confirm separate access with the trust before planning a multi-property visit; the cabin appointment does not prove adjacent interiors are open.",
+      "verificationUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-24"
+    }
+  ],
   "san-angelo-museum-of-fine-arts": [
     {
       "question": "Is the San Angelo Museum of Fine Arts free to visit?",

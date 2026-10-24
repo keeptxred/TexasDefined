@@ -251,3 +251,15 @@ These authority upgrades **reuse existing, accurate destination photographs**, n
 - This clears a generic placeholder for the existing canonical `/destination/san-angelo-museum-of-fine-arts` by the licensed-hero registry. It is an exterior building photograph and does not certify 2026 paintings or gallery installations.
 - Commercial image reuse of photographs from SAMFA's own site is expressly restricted; only the separately photographer-licensed Wikimedia work is authorized by the cited Commons license.
 - Still pending protected merge, visual decoding/mobile layout, clickable license and direct comparison of live guide with museum's visitor policy. **Not independently certified.**
+
+
+## Alley Log Cabin & Antique Tool Museum, Columbus — licensed exact-site photograph (2026-10-24)
+
+- **Actual subject:** Abram Alley Log Cabin exterior at the preservation trust museum site in Columbus, Texas, photographed 4 November 2013. The cabin's original rural site was different before the 1976 relocation.
+- **Photographer:** Billy Hathorn, own work. **License:** Creative Commons Attribution-ShareAlike 3.0 Unported, commercial reuse permitted with attribution; adaptations must comply with ShareAlike.
+- **Exact original:** https://commons.wikimedia.org/wiki/File:Abram_Alley_Log_Cabin%2C_Columbus%2C_TX_IMG_8238.JPG
+- **License:** https://creativecommons.org/licenses/by-sa/3.0/
+- **Operator identity and current tours:** https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/
+- **Hero transport:** https://commons.wikimedia.org/wiki/Special:Redirect/file/Abram_Alley_Log_Cabin,_Columbus,_TX_IMG_8238.JPG?width=1600
+- **Required alternative text:** Actual Abram Alley Log Cabin at 1230 Bowie Street in Columbus, Texas, photographed November 4, 2013.
+- **Acceptance caution:** The image's HTTP response is NOT browser visual certification. Check image subject, responsive crop, original source, credit and license links on production before marking certified.

@@ -14,6 +14,28 @@
     ]
   },
   "museums": {
+    "alley-log-cabin-museum-columbus": {
+      "name": "Alley Log Cabin & Antique Tool Museum",
+      "operatorStrengths": [
+        "Original cabin construction, Alley family, 1976 relocation and work museum history",
+        "Specific operator-directed advance tour instructions and precise Bowie Street address"
+      ],
+      "openGaps": [
+        "Get current operator confirmation for admissions or donations and the availability of both interiors for a chosen date",
+        "Verify historic building wheelchair entry and any accessible restroom/parking before claiming accessible on-site touring",
+        "Observe the exact Wikimedia Commons photo rendering and attribution on the live destination after deployment",
+        "Independently test mobile layouts, county links, canonical/indexing and current tour contact"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+        "https://www.columbushpt.com/",
+        "https://atlas.thc.texas.gov/Details/5089008827"
+      ]
+    },
     "bullock-texas-state-history-museum": {
       "name": "Bullock Texas State History Museum",
       "operatorStrengths": [

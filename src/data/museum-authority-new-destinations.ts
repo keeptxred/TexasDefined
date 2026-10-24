@@ -9,6 +9,33 @@ import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
  */
 export const museumAuthorityDestinations: Destination[] = [
   {
+    id: "museum-authority-alley-log-cabin-museum-columbus",
+    brandId: "texasdefined",
+    slug: "alley-log-cabin-museum-columbus",
+    name: "Alley Log Cabin & Antique Tool Museum",
+    summary: "Tour a relocated 1836 oak-log cabin built by Abram and Nancy Alley and an adjacent museum of early Colorado County farm and hand tools. Advance arrangements are required; there are no verified daily walk-in hours.",
+    category: "historic-sites",
+    region: "gulf-coast",
+    nearestTown: "Columbus",
+    county: "Colorado County",
+    coordinates: { lat: 29.704637, lng: -96.54176 },
+    hero: museumLicensedHeroes["alley-log-cabin-museum-columbus"],
+    bestSeason: "Year-round only by confirmed advance tour arrangement; avoid assuming the trust's office schedule is museum hours.",
+    entryNote: "1230 Bowie St, Columbus, TX. Arrange touring through the Columbus Chamber of Commerce (979-732-8385, info@columbustexas.org). The operator does not publish regular admission charges or public walk-in hours. Another historic property requires its own confirmed access.",
+    highlights: ["Authentic 1836 Alley family cabin", "Original oak logs and sandstone fireplace construction", "Runaway Scrape and early Colorado County history", "Antique farm, ranch and carpentry tool displays"],
+    body: [
+      "The Abram and Nancy Alley log home was constructed after the Texas Revolution in 1836, when families were rebuilding after the upheaval of the Runaway Scrape. Its oak-log rooms, heavy framing and sandstone chimneys offer a tangible view of domestic architecture from the Republic's first years.",
+      "The cabin did not remain at its first rural location. The operator says it stood there until 1976, when it was relocated to Columbus and restored for public interpretation. Visitors should recognize both preserved original materials and reconstructed portions rather than mistaking every visible feature for an untouched artifact.",
+      "The adjacent Antique Tool Museum opened in 1996 inside another relocated building, displaying farming, ranching, woodworking and blacksmithing implements. The two interpret complementary parts of Colorado County history: household life and the work that supported surrounding settlements.",
+      "This is a planned historic-site tour, not a guaranteed daily admission museum. The preservation trust directs prospective visitors to the Columbus Chamber of Commerce at 979-732-8385 to arrange access. Confirm whether both buildings will be included, ask about costs and accessibility, and separately verify any additional properties before travel.",
+    ],
+    officialUrl: "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+    managingAuthority: "Columbus Historical Preservation Trust",
+    address: "1230 Bowie St, Columbus, TX 78934",
+    sourceCheckedAt: "2026-10-24",
+    accessibilityNotes: "Historic wooden rooms and loft stairs may present access restrictions; ask the preservation trust about step-free access, seating and restrooms before committing to a tour.",
+  },
+  {
       "id": "museum-authority-country-music-carthage",
       "brandId": "texasdefined",
       "slug": "texas-country-music-hall-of-fame-carthage",
