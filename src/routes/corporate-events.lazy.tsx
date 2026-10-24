@@ -6,6 +6,7 @@ import { Container } from '@/components/layout/Container';
 import { corporateEventCategories, corporateEventProviders, type GroupEventCategory, type CorporateEventProvider } from '@/data/corporate-events';
 import { submitGroupEventRequest } from '@/data/corporate-events.functions';
 import { groupEventPlanningAmounts } from '@/data/corporate-event-budgets';
+import { CORPORATE_EVENT_RESULT_PAGE_SIZE, nextCorporateEventResultCount, visibleCorporateEventResults } from '@/data/corporate-event-pagination';
 import { corporateEventMarketMatches, corporateEventAreaMatches } from '@/data/corporate-event-market-search';
 import { GroupEventPartnerApplication } from '@/components/events/GroupEventPartnerApplication';
 import { ApprovedCorporateEventOffers } from '@/components/events/ApprovedCorporateEventOffers';
@@ -66,6 +67,7 @@ function CorporateEventsPage() {
   const [category, setCategory] = useState<GroupEventCategory>('team-building');
   const [budget, setBudget] = useState('');
   const [selected, setSelected] = useState<string[]>([]);
+  const [visibleCount, setVisibleCount] = useState(CORPORATE_EVENT_RESULT_PAGE_SIZE);
   const [includeOtherTypes, setIncludeOtherTypes] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -131,6 +133,11 @@ function CorporateEventsPage() {
       return true;
     });
   }, [city, areaQuery, headcount, category, includeOtherTypes, priceCeiling, validHeadcount]);
+
+  useEffect(() => {
+    setVisibleCount(CORPORATE_EVENT_RESULT_PAGE_SIZE);
+  }, [city, areaQuery, headcount, category, includeOtherTypes, budget]);
+  const visibleMatches = visibleCorporateEventResults(matches, visibleCount);
 
   const shortlist = useMemo(() => corporateEventProviders.filter((provider) => selected.includes(provider.slug)), [selected]);
   const chosenCategoryLabel = categoryLabel(category);
@@ -310,9 +317,18 @@ function CorporateEventsPage() {
             <div><p className="eyebrow text-primary">Sourced Texas directory</p><h2 className="mt-2 font-display text-3xl sm:text-4xl">{matches.length} group event {matches.length === 1 ? 'option' : 'options'}</h2><p className="mt-2 text-sm text-muted-foreground">{city.trim() || 'Your location'} · {validHeadcount ? headcount + ' guests' : 'Enter a valid group size'} · Provider cards show their individual source-review dates</p></div>
             {selected.length ? <a href="#proposal" className="inline-flex min-h-11 items-center gap-2 border border-primary px-4 text-sm font-semibold text-primary">{selected.length}/5 shortlisted <ClipboardList className="size-4" /></a> : null}
           </div>
-          {matches.length ? <div className="mt-6 grid gap-5 md:grid-cols-2">{matches.map((provider) =>
-            <ProviderCard key={provider.slug} provider={provider} selected={selected.includes(provider.slug)} onToggle={() => toggleSelected(provider.slug)} />
-          )}</div> : <div className="mt-6 border border-border bg-surface p-8">
+          {matches.length ? <>
+            <div className="mt-6 grid gap-5 md:grid-cols-2">{visibleMatches.map((provider) =>
+              <ProviderCard key={provider.slug} provider={provider} selected={selected.includes(provider.slug)} onToggle={() => toggleSelected(provider.slug)} />
+            )}</div>
+            <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
+              <p role="status" aria-live="polite" className="text-sm text-muted-foreground">Showing {visibleMatches.length} of {matches.length} matched venue options. Compare any venue to add it to your management shortlist.</p>
+              {visibleMatches.length < matches.length ? <button type="button" onClick={() => setVisibleCount((shown) => nextCorporateEventResultCount(matches.length, shown))}
+                className="min-h-11 border border-primary px-5 py-2 text-sm font-semibold text-primary">
+                Show {Math.min(CORPORATE_EVENT_RESULT_PAGE_SIZE, matches.length - visibleMatches.length)} more venues
+              </button> : null}
+            </div>
+          </> : <div className="mt-6 border border-border bg-surface p-8">
             <Search className="size-8 text-primary" aria-hidden /><h3 className="mt-4 font-display text-3xl">No sourced matches yet.</h3>
             <p className="mt-3 max-w-xl leading-7 text-muted-foreground">Our Texas venue coverage is growing. Try a city guide below, clear the area preference, or adjust group size and activity. New venues require individual official-source review.</p>
             <button type="button" onClick={() => { setCity('Houston'); setAreaQuery(''); setHeadcount(45); setBudget(''); setIncludeOtherTypes(false); }} className="mt-5 border border-primary px-5 py-3 text-sm font-semibold text-primary">See Houston options</button>
