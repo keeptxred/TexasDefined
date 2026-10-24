@@ -39,7 +39,9 @@ assert(!corporateEventAreaMatches(all.get('cidercade-houston-team-events'),'Katy
 assert(corporateEventAreaMatches(all.get('cidercade-houston-team-events'),'  '),'Blank area preference must match all venue areas');
 const finder=readFileSync('src/routes/corporate-events.lazy.tsx','utf8');
 assert(finder.includes('corporateEventAreaMatches(provider, areaQuery)'),'Finder must honor the area filter');
-assert(finder.includes("url.searchParams.set('area', areaQuery.trim().slice(0, 60))"),'Public share links can retain an explicit selected area');
+assert(finder.includes("if (publicArea) url.searchParams.set('area', publicArea)") &&
+  finder.includes("safeCorporateSharePlace(areaQuery, 'area', corporateEventProviders)"),
+  'Public share links can retain a sourced public venue area without copying organizer free-text personal addresses');
 assert(finder.includes("const [areaQuery, setAreaQuery] = useState('')"),'Area preference must be optional');
 assert(finder.includes('does not calculate distance or driving time'),'Must not invent travel time or geocoded radius');
 assert(!finder.includes('one of the nine currently sourced markets'),'Remove old fixed-market count from main finder');

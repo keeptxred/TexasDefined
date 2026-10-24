@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { corporateEventProviders } from '../../src/data/corporate-events.ts';
 import { corporateEventMarketMatches, normalizeCorporateEventMarketQuery } from '../../src/data/corporate-event-market-search.ts';
+import { safeCorporateSharePlace } from '../../src/data/corporate-event-public-shortlist.ts';
 import { readFileSync } from 'node:fs';
 
 const by = (query) => corporateEventProviders.filter((provider) => corporateEventMarketMatches(provider, query));
@@ -22,7 +23,28 @@ assert.equal(by('Texas').length, corporateEventProviders.length, 'Statewide look
 assert.equal(by('TX').length, corporateEventProviders.length);
 assert.equal(by('').length, 0);
 assert.equal(by('Atlanta').length, 0, 'Do not include unrelated markets');
+const share=(value,kind)=>safeCorporateSharePlace(value,kind,corporateEventProviders);
+assert.equal(share('Houston','market'),'Houston');
+assert.equal(share('Houston, TX','market'),'Houston, TX');
+assert.equal(share('DFW','market'),'DFW');
+assert.equal(share('Texas','market'),'Texas');
+assert.equal(share('77002','market'),'77002');
+assert.equal(share('Downtown','area'),'Downtown');
+assert.equal(share('EaDo','area'),'EaDo');
+assert.equal(share('123 Main Street, Houston','market'),null,'Street addresses must not leak in public links');
+assert.equal(share('john@example.com','area'),null,'Contact emails must not leak in public links');
+assert.equal(share('713-555-0119','area'),null,'Phone numbers must not leak in public links');
+assert.equal(share('https://private.example.com','area'),null,'Organizer-entered links must not be copied');
+assert.equal(share('123 Sample Avenue','area'),null,'Typed street addresses must not be copied');
+assert.equal(share('Not a sourced venue neighborhood','area'),null,'Only public directory geography belongs in shared links');
+assert.equal(share('Not a Texas market','market'),null);
+assert.equal(share('   ','market'),null);
 const route=readFileSync('src/routes/corporate-events.lazy.tsx', 'utf8');
+assert(route.includes("safeCorporateSharePlace(city, 'market', corporateEventProviders)"));
+assert(route.includes("safeCorporateSharePlace(areaQuery, 'area', corporateEventProviders)"));
+assert(route.includes("if (publicArea) url.searchParams.set('area', publicArea)"));
+assert(route.includes('private-looking city/area text was excluded'));
+
 assert(route.includes('corporateEventMarketMatches(provider, cityTerm)'));
 assert(!route.includes("cityTerm.replace(/,?\\\\s+"), 'No double-escaped whitespace regex in live city filter');
 assert(!route.includes('^77(?:0|2)\\\\d'), 'No double-escaped ZIP regex in live city filter');

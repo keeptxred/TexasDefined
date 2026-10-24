@@ -15,7 +15,11 @@ for (const marker of [
   "provider_slug",
   "business_name",
   "normalizedBusinessName",
-  "approvedRedemptionUrl",
+  "corporateEventVerifiedRedemptionUrl",
+  "corporateEventEvidenceTimestampIsValid",
+  "business.identity_verified_at",
+  "business.commercial_agreement_verified_at",
+  "provider.officialUrl",
   "business.status",
 ]) {
   // business status is enforced through the approved-filtered business query,
@@ -25,8 +29,21 @@ for (const marker of [
 }
 assert(server.includes(".eq('status', 'approved')"), 'Approved-only queries required');
 assert(server.includes("provider.slug"), 'Offer must map to a source-curated venue');
-assert(server.includes("redemption.protocol !== 'https:'"), 'Offer links must use HTTPS');
-assert(server.includes("host.endsWith('.' + businessHost)"), 'Offer link must stay on an approved partner domain');
+const provenance = read('src/data/corporate-event-offer-provenance.ts');
+assert(provenance.includes("url.protocol !== 'https:'"), 'Offer links must use HTTPS, enforced by shared verified-host checker');
+assert(provenance.includes("testHost.endsWith('.' + officialHost)"), 'Redemption host must be equal to verified host or its child, never a parent/sibling');
+assert(provenance.includes('corporateEventOfficialDomainMatches(applicantWebsite, officialVenueUrl)'),
+  'A self-entered partner website must match a source-backed official venue host before any redemption link is public');
+assert(provenance.includes('sameOrChildHost(redemption, business)'),
+  'Redemption must stay on the independently source-verified partner domain');
+assert(server.includes('corporateEventVerifiedRedemptionUrl(offer.redemption_url, business.website, provider.officialUrl)'),
+  'The actual public offer path must use the strict shared verified-domain checker');
+assert(server.includes('corporateEventEvidenceTimestampIsValid(offer.reviewed_at)')
+  && server.includes('corporateEventEvidenceTimestampIsValid(business.identity_verified_at)')
+  && server.includes('corporateEventEvidenceTimestampIsValid(business.commercial_agreement_verified_at)'),
+  'Offer approval, business identity and signed agreement must use nonfuture independently attested evidence timestamps');
+assert(read('scripts/data/corporate-event-offer-provenance.test.mjs').includes('corporateEventVerifiedRedemptionUrl'),
+  'Domain identity/provenance should be covered by deterministic adversarial host tests');
 assert(!server.includes("select('*')") && !server.includes('contact_name') && !server.includes('email,phone'), 'Public projections must not select contact data');
 assert(action.includes("createServerFn({ method: 'GET' })"), 'Public offers must be read-only');
 assert(action.includes("await import('@/data/corporate-events-offers.server')"), 'Offer DB access must remain server-only');
