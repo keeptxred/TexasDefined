@@ -59,7 +59,7 @@ assert.equal(bySlug.get('escape-hunt-houston-corporate')?.maxGroup,90);
 assert.equal(bySlug.get('space-center-houston-corporate-rentals')?.maxGroup,5400);
 assert.equal(bySlug.get('game-show-studio-houston-corporate')?.maxGroup,200);
 const guides=readFileSync('src/components/events/CorporateEventMetroGuides.tsx','utf8');
-assert(guides.includes("provider.city === guide.key || provider.metro === guide.key"),'Existing Houston guide must include suburban metro aliases');
+assert(guides.includes('corporateEventMarketMatches(provider, guide.key)'),'Houston guide must include both the city and suburban metro aliases via the shared matcher');
 const contract=readFileSync('scripts/data/validate-corporate-events.mjs','utf8');
 assert(contract.includes('length >= 108'),'Main corporate directory contract must protect this expansion');
 console.log('Houston source-backed corporate venues PASS: +18; 85 total, 30+ Houston metro, price/capacity disclosures retained.');
