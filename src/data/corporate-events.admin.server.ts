@@ -27,6 +27,12 @@ export type CorporateEventApplicationRecord = {
   city: string; website: string; published_capacity: number | null;
   proposal: string | null; proposed_promo_code: string | null; notes: string | null;
   identity_verified_at: string | null; identity_verified_by: string | null; identity_verification_note: string | null;
+  commercial_agreement_verified_at: string | null;
+  commercial_agreement_verified_by: string | null;
+  commercial_agreement_reference: string | null;
+  commercial_agreement_covers_offers: boolean;
+  commercial_agreement_covers_quote_routing: boolean;
+  commercial_agreement_expires_on: string | null;
 };
 export type CorporateEventOfferRecord = {
   id: string; created_at: string; status: CorporateEventOfferStatus;
@@ -45,7 +51,7 @@ export async function loadCorporateEventOperations(accessKey: string) {
       .select('id,created_at,status,contact_name,email,company,phone,city,group_size,event_category,event_date,budget_per_person,provider_slugs,notes,allow_provider_outreach,provider_outreach_consented_at,first_contacted_at')
       .order('created_at', { ascending: false }).limit(MAX_ROWS + 1),
     client.from('texasdefined_group_event_partner_applications')
-      .select('id,created_at,status,contact_name,email,phone,business_name,city,website,published_capacity,proposal,proposed_promo_code,notes,identity_verified_at,identity_verified_by,identity_verification_note')
+      .select('id,created_at,status,contact_name,email,phone,business_name,city,website,published_capacity,proposal,proposed_promo_code,notes,identity_verified_at,identity_verified_by,identity_verification_note,commercial_agreement_verified_at,commercial_agreement_verified_by,commercial_agreement_reference,commercial_agreement_covers_offers,commercial_agreement_covers_quote_routing,commercial_agreement_expires_on')
       .order('created_at', { ascending: false }).limit(MAX_ROWS + 1),
     client.from('texasdefined_group_event_offers')
       .select('id,created_at,status,partner_application_id,provider_slug,title,benefit,code,redemption_url,starts_on,ends_on,reviewed_by,reviewed_at')
@@ -139,10 +145,14 @@ export async function proposeCorporateEventOffer(accessKey: string, data: Corpor
   const record = corporateEventProviders.find((provider) => provider.slug === data.providerSlug);
   if (!record) throw new Error('Add and source the provider in the editorial directory before creating an offer.');
   const applicationQuery = await client.from('texasdefined_group_event_partner_applications')
-    .select('id,business_name,website,status,identity_verified_at,identity_verification_note').eq('id', data.applicationId).maybeSingle();
+    .select('id,business_name,website,status,identity_verified_at,identity_verification_note,commercial_agreement_verified_at,commercial_agreement_covers_offers,commercial_agreement_expires_on').eq('id', data.applicationId).maybeSingle();
   const application = applicationQuery.data;
   if (applicationQuery.error || !application || application.status !== 'approved' || !application.identity_verified_at || !application.identity_verification_note) {
     throw new Error('Business application must be approved first.');
+  }
+  if (!application.commercial_agreement_verified_at || application.commercial_agreement_covers_offers !== true
+    || (application.commercial_agreement_expires_on && application.commercial_agreement_expires_on < data.endsOn)) {
+    throw new Error('A separately verified signed partner agreement covering this offer period is required before preparing commercial terms.');
   }
   const business = String(application.business_name).toLowerCase().replace(/[^a-z0-9]/g, '');
   const listing = record.name.toLowerCase().replace(/[^a-z0-9]/g, '');
@@ -176,8 +186,12 @@ export async function setCorporateEventOfferStatus(accessKey: string, id: string
   if (lookupError || !offer?.id) throw new Error('Offer not found.');
   if (status === 'approved') {
     const { data: partner, error } = await client.from('texasdefined_group_event_partner_applications')
-      .select('status,identity_verified_at,identity_verification_note').eq('id', offer.partner_application_id).maybeSingle();
+      .select('status,identity_verified_at,identity_verification_note,commercial_agreement_verified_at,commercial_agreement_covers_offers,commercial_agreement_expires_on').eq('id', offer.partner_application_id).maybeSingle();
     if (error || partner?.status !== 'approved' || !partner.identity_verified_at || !partner.identity_verification_note) throw new Error('Only identity-verified partners may have approved offers.');
+    if (!partner.commercial_agreement_verified_at || partner.commercial_agreement_covers_offers !== true
+      || (partner.commercial_agreement_expires_on && partner.commercial_agreement_expires_on < offer.ends_on)) {
+      throw new Error('The partner has no independently verified signed agreement covering this offer.');
+    }
     const today = corporateEventTexasToday();
     if (String(offer.ends_on) < today || String(offer.starts_on) > String(offer.ends_on)) throw new Error('Offer date window is invalid or expired.');
   }
@@ -189,4 +203,48 @@ export async function setCorporateEventOfferStatus(accessKey: string, id: string
     .update(payload).eq('id', id).select('id,status').maybeSingle();
   if (error || !updated?.id) throw new Error('Offer status update failed.');
   return { id: String(updated.id), status: String(updated.status) };
+}
+
+/**
+ * Staff attestation only; a typed string is NEVER proof of a contract.
+ * The operator must independently inspect the signed, authorized partner terms
+ * outside this application and retain the agreement with business records.
+ * No email, offer approval, referral or booking is triggered here.
+ */
+export async function recordCorporateEventCommercialAgreement(
+  accessKey: string,
+  applicationId: string,
+  verificationReference: string,
+  coversOffers: boolean,
+  coversQuoteRouting: boolean,
+  expiresOn: string | null,
+) {
+  await assertSportsPartnerAccess(accessKey);
+  const reference = verificationReference.trim();
+  if (reference.length < 20 || reference.length > 500 || (!coversOffers && !coversQuoteRouting)) {
+    throw new Error('Verified signed terms, an evidence reference and at least one approved scope are required.');
+  }
+  if (expiresOn && (expiresOn < corporateEventTexasToday() || !/^\\d{4}-\\d{2}-\\d{2}$/.test(expiresOn))) {
+    throw new Error('An agreement cannot already be expired.');
+  }
+  const { data: application, error: lookupError } = await client
+    .from('texasdefined_group_event_partner_applications')
+    .select('id,status,identity_verified_at,identity_verification_note')
+    .eq('id', applicationId)
+    .maybeSingle();
+  if (lookupError || !application?.id || application.status !== 'approved'
+    || !application.identity_verified_at || !application.identity_verification_note) {
+    throw new Error('First independently verify and approve the business application.');
+  }
+  const { data, error } = await client.from('texasdefined_group_event_partner_applications')
+    .update({
+      commercial_agreement_verified_at: new Date().toISOString(),
+      commercial_agreement_verified_by: 'TexasDefined corporate events operations',
+      commercial_agreement_reference: reference,
+      commercial_agreement_covers_offers: coversOffers,
+      commercial_agreement_covers_quote_routing: coversQuoteRouting,
+      commercial_agreement_expires_on: expiresOn,
+    }).eq('id', applicationId).select('id').maybeSingle();
+  if (error || !data?.id) throw new Error('Agreement verification could not be recorded.');
+  return { id: String(data.id), recorded: true, published: false, sent: false };
 }
