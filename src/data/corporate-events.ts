@@ -1408,4 +1408,277 @@ export const corporateEventProviders: CorporateEventProvider[] = [
     sourceUrl: "https://www.lostluggagebar.com/general-8-3",
     verifiedOn: "2026-10-23",
   },
+  // Newly checked against official Houston venue event and group-program pages on 2026-10-24.
+  {
+    slug: "escape-the-room-midtown-houston-teams",
+    name: "Escape The Room Houston",
+    city: "Houston",
+    area: "Midtown / Louisiana Street",
+    categories: [
+      "team-building",
+      "company-parties"
+    ],
+    description: "Coordinated Midtown escape-room challenges for company teams, including parallel games and rotating rounds for larger groups.",
+    format: "Hosted escape-room competitions",
+    maxGroup: null,
+    capacityDetail: "Operator advertises seven rooms that can run simultaneously, with larger groups handled in waves; the group-size ceiling and schedule for a 45-person booking require confirmation.",
+    startingPricePerPerson: null,
+    officialUrl: "https://escapetheroom.com/houston/team-building/",
+    sourceUrl: "https://escapetheroom.com/houston/team-building/",
+    verifiedOn: "2026-10-24"
+  },
+  {
+    slug: "escape-it-houston-group-events",
+    name: "Escape It Houston",
+    city: "Houston",
+    area: "Marq’E / Katy Freeway (West Houston)",
+    categories: [
+      "team-building",
+      "company-parties"
+    ],
+    description: "Private group escape-room games at the operator’s West Houston (Marq’E) location; company team-building formats are arranged in advance.",
+    format: "Indoor escape rooms",
+    minGroup: 4,
+    maxGroup: 36,
+    capacityDetail: "Corporate team-building package advertises 4–36 participants with up to 12 per team and at least one week's advance notice. West Houston address is 7620 Katy Freeway, Suite 110; groups of 45 exceed the published package cap. Pricing differs: $350 for up to 10, $35 per person above 10, so no unconditional per-person starter rate is asserted.",
+    startingPricePerPerson: null,
+    officialUrl: "https://escapeithouston.com/team_building.aspx",
+    sourceUrl: "https://escapeithouston.com/team_building.aspx",
+    verifiedOn: "2026-10-24"
+  },
+  {
+    slug: "bowl-and-barrel-citycentre-houston-events",
+    name: "Bowl & Barrel Houston",
+    city: "Houston",
+    area: "CityCentre / Memorial",
+    categories: [
+      "team-building",
+      "company-parties",
+      "private-dining",
+      "client-entertainment"
+    ],
+    description: "Upscale bowling, beer-hall dining and hosted corporate group events at CityCentre, with dedicated event inquiries for larger parties.",
+    format: "Bowling & group dining",
+    minGroup: 13,
+    maxGroup: null,
+    capacityDetail: "Fifteen lanes have room for up to six bowlers each, but reservations for groups of 13+ require an event coordinator and no simultaneous private-event maximum is guaranteed.",
+    startingPricePerPerson: null,
+    officialUrl: "https://www.bowlandbarrel.com/houston/booking",
+    sourceUrl: "https://www.bowlandbarrel.com/houston/bowl",
+    verifiedOn: "2026-10-24"
+  },
+  {
+    slug: "bayou-music-center-houston-private-events",
+    name: "Bayou Music Center",
+    city: "Houston",
+    area: "Downtown / Bayou Place",
+    categories: [
+      "company-parties",
+      "meetings",
+      "client-entertainment"
+    ],
+    description: "Private concerts, corporate receptions and business meetings in a Downtown music venue with event production support.",
+    format: "Concert hall & event production",
+    minGroup: 200,
+    maxGroup: 3464,
+    capacityDetail: "Official private-events page publishes an event range of 200–3,464 guests across its spaces; format-specific layouts and rates need an event team quote.",
+    startingPricePerPerson: null,
+    officialUrl: "https://www.bayoumusiccenter.com/private-events",
+    sourceUrl: "https://www.bayoumusiccenter.com/private-events",
+    verifiedOn: "2026-10-24"
+  },
+  {
+    slug: "sur-la-table-houston-citycentre-private-cooking",
+    name: "Sur La Table — City Centre",
+    city: "Houston",
+    area: "CityCentre / Town & Country",
+    categories: [
+      "team-building",
+      "company-parties",
+      "client-entertainment"
+    ],
+    description: "Instructor-led private cooking classes for small company groups with shared workstations, ingredients and customized menus.",
+    format: "Private cooking-class team building",
+    maxGroup: 20,
+    capacityDetail: "City Centre location-specific private-events FAQ states groups of up to 20 in its teaching kitchen; larger off-site or virtual formats require separate confirmation.",
+    startingPricePerPerson: null,
+    officialUrl: "https://www.surlatable.com/locations/tx/houston/private-cooking-classes-89.html",
+    sourceUrl: "https://www.surlatable.com/locations/tx/houston/private-cooking-classes-89.html",
+    verifiedOn: "2026-10-24"
+  },
+  {
+    slug: "house-of-blues-houston-private-events",
+    name: "House of Blues Houston",
+    city: "Houston",
+    area: "Downtown / GreenStreet",
+    categories: [
+      "company-parties",
+      "meetings",
+      "client-entertainment",
+      "private-dining"
+    ],
+    description: "Music-themed venue offering corporate events, private concerts, receptions and private dinners with on-site special-event staff.",
+    format: "Live-music venue & private dining",
+    maxGroup: null,
+    capacityDetail: "The official Houston FAQ advertises private corporate events and dinners but does not verify a single 45-person capacity or room-by-room price; contact special events.",
+    startingPricePerPerson: null,
+    officialUrl: "https://houston.houseofblues.com/faq",
+    sourceUrl: "https://houston.houseofblues.com/contact",
+    verifiedOn: "2026-10-24"
+  },
+  {
+    slug: "air-terminal-museum-houston-corporate",
+    name: "1940 Air Terminal Museum",
+    city: "Houston",
+    area: "Hobby Airport / Southeast Houston",
+    categories: [
+      "meetings",
+      "company-parties",
+      "client-entertainment"
+    ],
+    description: "Art-deco aviation museum with customizable corporate dinners, meeting rooms and special-event spaces overlooking Hobby Airport operations.",
+    format: "Historic aviation museum rental",
+    maxGroup: 160,
+    capacityDetail: "Official venue page lists museum Atrium for 160 and Starliner Theater for up to 50; individual space and seating configurations must be confirmed.",
+    startingPricePerPerson: null,
+    officialUrl: "https://www.1940airterminal.org/eventspaces",
+    sourceUrl: "https://www.1940airterminal.org/eventspaces",
+    verifiedOn: "2026-10-24"
+  },
+  {
+    slug: "rustic-houston-uptown-park-corporate",
+    name: "The Rustic — Houston Uptown Park",
+    city: "Houston",
+    area: "Uptown Park / Galleria area",
+    categories: [
+      "company-parties",
+      "private-dining",
+      "client-entertainment"
+    ],
+    description: "Indoor-outdoor Texas-inspired corporate social venue with event food, live music options and in-house production support.",
+    format: "Restaurant, patio & live music",
+    maxGroup: null,
+    capacityDetail: "The operator's private-party pages advertise Houston Uptown Park for corporate events. Capacity is layout-dependent and must be quoted. Do not confuse this operating location with the temporarily closed Downtown branch.",
+    startingPricePerPerson: null,
+    officialUrl: "https://www.therustic.com/houston-uptown-park/private-parties/",
+    sourceUrl: "https://www.therustic.com/whats-happening/choose-the-rustic-for-your-next-corporate-event-in-dallas-or-houston/",
+    verifiedOn: "2026-10-24"
+  },
+  {
+    slug: "713-music-hall-houston-corporate",
+    name: "713 Music Hall",
+    city: "Houston",
+    area: "POST Houston / Downtown",
+    categories: [
+      "company-parties",
+      "meetings",
+      "client-entertainment"
+    ],
+    description: "Contemporary multilevel concert venue with meeting, celebration and private-event spaces, hospitality and production support.",
+    format: "Large music hall & event venue",
+    maxGroup: 4450,
+    capacityDetail: "Official Live Nation event listing advertises up to 4,450 guests for venue-scale events; the lobby, hall and lounges have different capacities and fees.",
+    startingPricePerPerson: null,
+    officialUrl: "https://specialevents.livenation.com/venues/713-music-hall",
+    sourceUrl: "https://specialevents.livenation.com/venues/713-music-hall",
+    verifiedOn: "2026-10-24"
+  },
+  {
+    slug: "hotel-zaza-houston-museum-district-meetings",
+    name: "Hotel ZaZa — Houston Museum District",
+    city: "Houston",
+    area: "Museum District / Mecom Fountain",
+    categories: [
+      "meetings",
+      "company-parties",
+      "private-dining",
+      "client-entertainment"
+    ],
+    description: "Boutique hotel corporate meetings, private dining, receptions and incentive stays with multiple themed event rooms.",
+    format: "Hotel meeting & private event spaces",
+    maxGroup: null,
+    capacityDetail: "Official hotel meeting pages list room sizes and an RFP process, but group limits depend on the room, setup and catering plan; no unified 45-person capacity is implied.",
+    startingPricePerPerson: null,
+    officialUrl: "https://www.hotelzaza.com/houston-museum-district/meetings",
+    sourceUrl: "https://www.hotelzaza.com/houston-museum-district/meetings/venues",
+    verifiedOn: "2026-10-24"
+  },
+  {
+    slug: "hotel-zaza-houston-memorial-city-meetings",
+    name: "Hotel ZaZa — Houston Memorial City",
+    city: "Houston",
+    area: "Memorial City",
+    categories: [
+      "meetings",
+      "company-parties",
+      "private-dining",
+      "client-entertainment"
+    ],
+    description: "Corporate hotel event space with meeting rooms, catering coordination and accommodation options for multiday offsites.",
+    format: "Hotel meetings & corporate retreats",
+    maxGroup: null,
+    capacityDetail: "Operator's Houston Memorial City meeting page advertises configurable event space, catering and RFP requests; published page does not establish a single group-size cap.",
+    startingPricePerPerson: null,
+    officialUrl: "https://www.hotelzaza.com/houston-memorial-city/meetings",
+    sourceUrl: "https://www.hotelzaza.com/houston-memorial-city/meetings",
+    verifiedOn: "2026-10-24"
+  },
+  {
+    slug: "houston-marriott-medical-center-meetings",
+    name: "Houston Marriott Medical Center / Museum District",
+    city: "Houston",
+    area: "Texas Medical Center / Fannin Street",
+    categories: [
+      "meetings",
+      "company-parties",
+      "private-dining"
+    ],
+    description: "Hotel conference rooms, breakouts and a large Grand Ballroom suitable for employee meetings, corporate retreats and receptions.",
+    format: "Hotel meeting rooms & ballroom",
+    maxGroup: 600,
+    capacityDetail: "Marriott's official capacity chart publishes Grand Ballroom theater seating for 600, banquet for 500 and reception for 500; availability and per-room layout must be confirmed.",
+    startingPricePerPerson: null,
+    officialUrl: "https://www.marriott.com/en-us/hotels/houmc-houston-marriott-medical-center-museum-district/events/",
+    sourceUrl: "https://www.marriott.com/en-us/hotels/houmc-houston-marriott-medical-center-museum-district/events/",
+    verifiedOn: "2026-10-24"
+  },
+  {
+    slug: "downtown-aquarium-houston-corporate-rentals",
+    name: "Downtown Aquarium Houston",
+    city: "Houston",
+    area: "Downtown / Bagby Street",
+    categories: [
+      "company-parties",
+      "private-dining",
+      "client-entertainment"
+    ],
+    description: "Aquarium-themed private gatherings and corporate banquets with exhibits, dining and customizable event formats.",
+    format: "Aquarium attractions & event spaces",
+    maxGroup: null,
+    capacityDetail: "The operator advertises private events from 25–2,500 guests across its venues and different buyout formats. Contact Downtown Aquarium for the exact Houston room and package limit.",
+    startingPricePerPerson: null,
+    officialUrl: "https://www.downtownaquariumhouston.com/group-events-parties",
+    sourceUrl: "https://www.downtownaquariumhouston.com/group-events-parties",
+    verifiedOn: "2026-10-24"
+  },
+  {
+    slug: "maggianos-memorial-city-private-events",
+    name: "Maggiano's Little Italy — Memorial City",
+    city: "Houston",
+    area: "Memorial City Mall",
+    categories: [
+      "private-dining",
+      "company-parties",
+      "client-entertainment"
+    ],
+    description: "Italian-American group dining and event-space reservations for business lunches, team dinners and client celebrations.",
+    format: "Restaurant group dining",
+    maxGroup: null,
+    capacityDetail: "The operator lists a Houston Memorial City events reservation contact and group dining services, but this source does not confirm room-specific maximums or package pricing.",
+    startingPricePerPerson: null,
+    officialUrl: "https://www.maggianos.com/locations/Texas/Houston/602-memorial-city-mall/",
+    sourceUrl: "https://www.maggianos.com/locations/Texas/Houston/602-memorial-city-mall/",
+    verifiedOn: "2026-10-24"
+  },
+
 ];

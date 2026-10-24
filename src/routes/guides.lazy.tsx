@@ -35,6 +35,7 @@ const travelGuides = [
   { to: "/explore/small-towns", label: "Texas Small-Town Trips", body: "Plan courthouse-square, dance-hall, historic-district and local-food weekends around the town itself.", note: "Small towns worth making the destination." },
   { to: "/explore/historic-sites", label: "Texas Historic Places", body: "Browse forts, missions, battlefields, museums, historic districts and cultural landmarks.", note: "Where the past still shapes the present." },
   { to: "/sports-venues", label: "Texas Sports Venue Guide", body: "Browse stadiums, arenas, ballparks, racetracks, college venues and other sports destinations by market and sport.", note: "Verified venue guides for planning game days and sports weekends." },
+  { to: "/corporate-events", label: "Texas Corporate Events & Team-Building Planner", body: "Compare official-source company outing venues across Texas by city, group size, activities and budgets, then build a shortlist for management.", note: "Independent venue guides and a planning proposal; published capacity is not live availability." },
 ] as const;
 
 const allFeaturedGuides = [...travelGuides, ...practicalGuides];
