@@ -21,7 +21,6 @@ type Lead = {
   provider_slugs: string[]; notes: string | null;
   allow_provider_outreach: boolean; provider_outreach_consented_at: string | null;
   first_contacted_at: string | null;
-  first_contact_evidence_reference: string | null;
 };
 type Application = {
   id: string; created_at: string; status: ApplicationStatus;
