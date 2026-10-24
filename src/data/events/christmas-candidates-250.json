@@ -684,7 +684,11 @@
       "intakeId": 90,
       "title": "Flower Mound Christmas Tree Lighting",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "flower-mound-christmas-parade-lighting-2026"
+      ],
+      "researchNote": "Town of Flower Mound confirms Dec 5, 2026 parade followed by tree-lighting at Gerault Park. Event is one combined occasion, not speculative multi-day lighting."
     },
     {
       "intakeId": 91,
@@ -1740,9 +1744,9 @@
     }
   ],
   "reconciliation": {
-    "asOf": "2026-10-23",
-    "calendarCandidates": 53,
+    "asOf": "2026-10-24",
+    "calendarCandidates": 54,
     "authorityCandidates": 12,
-    "remainingCandidates": 185
+    "remainingCandidates": 184
   }
 }

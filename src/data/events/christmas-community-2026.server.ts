@@ -359,6 +359,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "endDate": "2026-12-03"
   },
   {
+    "slug": "college-station-beachy-central-lights-nov-2026",
+    "title": "College Station Christmas in the Park · Lights On, first nights",
+    "city": "College Station",
+    "countySlug": "brazos",
+    "countyName": "Brazos County",
+    "region": "prairies-lakes",
+    "startDate": "2026-11-26",
+    "endDate": "2026-12-04",
+    "venueName": "Stephen C. Beachy Central Park",
+    "officialEventUrl": "https://www.cstx.gov/parks-recreation-culture/events/community-events/christmas-in-the-park/",
+    "sourceName": "City of College Station Parks & Recreation",
+    "summary": "City-confirmed free one-million-light display runs 6–11 p.m. nightly from November 26 through January 1. This first window covers November 26–December 4; cars are specifically prohibited December 5 for the major community event, so separate date windows avoid claiming drive-through access then."
+  },
+  {
     "slug": "fort-worth-gift-of-lights",
     "title": "Gift of Lights at Texas Motor Speedway",
     "city": "Fort Worth",
@@ -986,6 +1000,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "Official Gruene event calendar lists the 43rd Annual Town Lighting Saturday December 5, with brass-band music and Cowboy Kringle's arrival. The ceremony is free and separate from ticketed holiday photo appointments."
   },
   {
+    "slug": "college-station-christmas-in-park-festival-2026",
+    "title": "College Station Christmas in the Park · festival night",
+    "city": "College Station",
+    "countySlug": "brazos",
+    "countyName": "Brazos County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-05",
+    "venueName": "Stephen C. Beachy Central Park",
+    "officialEventUrl": "https://www.cstx.gov/parks-recreation-culture/events/community-events/christmas-in-the-park/",
+    "sourceName": "City of College Station Parks & Recreation",
+    "summary": "Free festival Saturday December 5, 2026, 6–10 p.m. includes hayrides, hot cocoa, music and Santa. The park is CLOSED TO VEHICLES that day; organizers offer shuttles from Post Oak Mall. Wristbands require a completed activity waiver; food vendors charge separately."
+  },
+  {
     "slug": "denton-holiday-lighting-festival-2026",
     "title": "Denton Holiday Lighting Festival",
     "city": "Denton",
@@ -997,6 +1024,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.discoverdenton.com/events/annual-events/denton-holiday-lighting-festival/",
     "sourceName": "Discover Denton",
     "summary": "Denton's official tourism office lists the 2026 holiday lighting festival for Saturday December 5, 3–9 p.m. at Quakertown Park. Seasonal vendors, performances and toy drive are subject to published program details."
+  },
+  {
+    "slug": "flower-mound-christmas-parade-lighting-2026",
+    "title": "Flower Mound Christmas Parade and Tree Lighting",
+    "city": "Flower Mound",
+    "countySlug": "denton",
+    "countyName": "Denton County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-05",
+    "venueName": "Gerault Park · 1200 Gerault Road",
+    "officialEventUrl": "https://www.flowermound.gov/2149/Christmas-Parade-and-Tree-Lighting",
+    "sourceName": "Town of Flower Mound",
+    "summary": "Town-confirmed Saturday December 5, 2026 parade starts 6 p.m. from Spinks Road and Garden Ridge toward Gerault Park; gathering starts at 5:30 p.m., followed by tree lighting, music, Santa, activities and fireworks. Parking/shuttle details are subject to organizer updates."
   },
   {
     "slug": "fredericksburg-nights-of-lights-main",
@@ -1109,6 +1149,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "Six Flags Holiday in the Park is ticketed and runs selected 2026 dates. This window follows Visit San Antonio's day-by-day list rather than assuming daily park operation. Current park admission covers many shows and select rides; extras cost more. The December 26–New Year program has separate scheduling."
   },
   {
+    "slug": "college-station-beachy-central-lights-late-2026",
+    "title": "College Station Christmas in the Park · Lights On, final nights",
+    "city": "College Station",
+    "countySlug": "brazos",
+    "countyName": "Brazos County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-06",
+    "endDate": "2027-01-01",
+    "venueName": "Stephen C. Beachy Central Park",
+    "officialEventUrl": "https://www.cstx.gov/parks-recreation-culture/events/community-events/christmas-in-the-park/",
+    "sourceName": "City of College Station Parks & Recreation",
+    "summary": "The City of College Station confirms free 6–11 p.m. nightly holiday lighting through January 1. This second drive-through/walk-through window begins December 6 after the December 5 special-event vehicle restriction. Check park access and city alerts for changes."
+  },
+  {
     "slug": "richardson-santas-village-walk1",
     "title": "Richardson Santa's Village · lights-only stroll December 7–9",
     "city": "Richardson",
@@ -1193,6 +1247,48 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "endDate": "2026-12-12"
   },
   {
+    "slug": "tpwd-lake-bob-sandlin-christmas-2026",
+    "title": "14th Annual Christmas in the Park · Lake Bob Sandlin",
+    "city": "Pittsburg",
+    "countySlug": "titus",
+    "countyName": "Titus County",
+    "region": "piney-woods",
+    "startDate": "2026-12-11",
+    "endDate": "2026-12-12",
+    "venueName": "Lake Bob Sandlin State Park · 341 State Park Road 2117",
+    "officialEventUrl": "https://tpwd.texas.gov/calendar/lake-bob-sandlin/christmas-in-the-park-2022",
+    "sourceName": "Texas Parks and Wildlife Department",
+    "summary": "TPWD confirms Friday–Saturday December 11–12, 2026 for its 14th annual holiday campsite lights and walk-through living Bethlehem. Saturday adds Santa in the day-use area. The organizer requests canned-food donations instead of event entrance fees; check the posted evening program before arriving."
+  },
+  {
+    "slug": "tpwd-eisenhower-light-up-park-2026",
+    "title": "7th Annual Light Up the Park · Eisenhower State Park",
+    "city": "Denison",
+    "countySlug": "grayson",
+    "countyName": "Grayson County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-11",
+    "endDate": "2026-12-12",
+    "venueName": "Eisenhower State Park",
+    "officialEventUrl": "https://tpwd.texas.gov/calendar/eisenhower/6th-annual-light-up-the-park/2026-12-12",
+    "sourceName": "Texas Parks and Wildlife Department",
+    "summary": "TPWD confirms Friday–Saturday December 11–12, 2026, 5:30–10 p.m. for its SEVENTH annual campsite light drive, with Santa, cocoa, cookies and crafts. Event page URL still contains an older '6th annual' slug but the 2026 headline and dates explicitly say seventh."
+  },
+  {
+    "slug": "tpwd-tyler-pineywoods-christmas-2026",
+    "title": "A Pineywoods Christmas · Tyler State Park",
+    "city": "Tyler",
+    "countySlug": "smith",
+    "countyName": "Smith County",
+    "region": "piney-woods",
+    "startDate": "2026-12-11",
+    "endDate": "2026-12-12",
+    "venueName": "Tyler State Park",
+    "officialEventUrl": "https://tpwd.texas.gov/calendar/tyler/a-pineywoods-christmas-1",
+    "sourceName": "Texas Parks and Wildlife Department",
+    "summary": "State-park organizer confirms December 11–12, 2026 from 5–9 p.m. Enjoy decorated campsites, drive/walk lights, ranger stories, family crafts and stargazing. Visitor event admission is free; nonperishable donations for East Texas Food Bank encouraged. Decoration campsite registration is separate."
+  },
+  {
     "slug": "abilene-winter-lightfest-week2",
     "title": "Abilene Winter Lightfest · December 11–13",
     "city": "Abilene",
@@ -1218,6 +1314,34 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://jingle.cityofbrenham.org/",
     "sourceName": "City of Brenham",
     "summary": "Friday, December 11 at 7 p.m. is the free Cold Nights, Holiday Tunes outdoor concert in Commerce Street Parking Lot E. The official organizer does not publish a second December 12 date for this performance; the December 4–5 Christmas Stroll and parade are separate."
+  },
+  {
+    "slug": "tpwd-guadalupe-river-christmas-in-park-2026",
+    "title": "Guadalupe River State Park Christmas in the Park",
+    "city": "Spring Branch",
+    "countySlug": "comal",
+    "countyName": "Comal County",
+    "region": "hill-country",
+    "startDate": "2026-12-11",
+    "endDate": "2026-12-12",
+    "venueName": "Guadalupe River State Park · Turkey Sink Campground",
+    "officialEventUrl": "https://tpwd.texas.gov/calendar/guadalupe-river/christmas-in-the-park-1",
+    "sourceName": "Texas Parks and Wildlife Department",
+    "summary": "TPWD lists both Friday–Saturday December 11–12, 2026, 5–9 p.m. Crafts and ranger activities run 5–7 p.m.; decorated campsite drive-through lights are 6–9 p.m. The special event is free, but donations are welcome; ordinary campsites in Turkey Sink are closed to standard bookings December 10–12."
+  },
+  {
+    "slug": "tpwd-lake-brownwood-holiday-at-lake-2026",
+    "title": "Holiday at the Lake · Lake Brownwood State Park",
+    "city": "Brownwood",
+    "countySlug": "brown",
+    "countyName": "Brown County",
+    "region": "hill-country",
+    "startDate": "2026-12-11",
+    "endDate": "2026-12-12",
+    "venueName": "Lake Brownwood State Park · Willow Point Campground",
+    "officialEventUrl": "https://tpwd.texas.gov/calendar/lake-brownwood/holiday-at-the-lake-3/2026-12-12",
+    "sourceName": "Texas Parks and Wildlife Department",
+    "summary": "TPWD confirms two light-display nights December 11 and 12, 2026, 6–8 p.m., in Willow Point campground. The event entry is free; animal-shelter supply donations are requested. Saturday includes hot chocolate and Santa at the Group Dining Hall."
   },
   {
     "slug": "lubbock-candlelight-at-the-ranch",
@@ -1317,6 +1441,45 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "Arlington's free December 12, 2026 holiday festival begins family activities at 2 p.m. and stages a lighted parade at 6 p.m., followed by the downtown tree lighting. This is not the neighborhood Interlochen drive-through light route."
   },
   {
+    "slug": "tpwd-abilene-fa-la-la-forest-2026",
+    "title": "Fa La La in the Forest · Abilene State Park",
+    "city": "Tuscola",
+    "countySlug": "taylor",
+    "countyName": "Taylor County",
+    "region": "panhandle",
+    "startDate": "2026-12-12",
+    "venueName": "Abilene State Park",
+    "officialEventUrl": "https://tpwd.texas.gov/calendar/abilene/copy2_of_fa-la-la-in-the-forest",
+    "sourceName": "Texas Parks and Wildlife Department",
+    "summary": "State-park organizers confirm Saturday December 12, 2026, 6–8 p.m. for a decorated campsite drive-through. Event fee is $5 CASH per vehicle beginning at 5:50 p.m.; earlier arrival is subject to normal park admission instead. No claim of free entry."
+  },
+  {
+    "slug": "tpwd-fort-richardson-ghost-christmas-2026",
+    "title": "Ghost of Christmas Past · Fort Richardson",
+    "city": "Jacksboro",
+    "countySlug": "jack",
+    "countyName": "Jack County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-12",
+    "venueName": "Fort Richardson State Park & Historic Site",
+    "officialEventUrl": "https://tpwd.texas.gov/calendar/fort-richardson/ghost-of-christmas-past-1",
+    "sourceName": "Texas Parks and Wildlife Department",
+    "summary": "TPWD confirms Saturday December 12, 2026 from 5–7 p.m. Visitors explore historic 1870s frontier-cavalry Christmas scenes in the former commanding officer's house. No advance registration is needed, but ordinary park day-use or camping entrance fees apply unless covered by a state park pass."
+  },
+  {
+    "slug": "tpwd-goose-island-christmas-2026",
+    "title": "Goose Island State Park Christmas on the Coast",
+    "city": "Rockport",
+    "countySlug": "aransas",
+    "countyName": "Aransas County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-12",
+    "venueName": "Goose Island State Park · CCC Recreation Hall and Live Oak forest",
+    "officialEventUrl": "https://tpwd.texas.gov/calendar/goose-island/copy2_of_christmas-in-the-park",
+    "sourceName": "Texas Parks and Wildlife Department",
+    "summary": "TPWD confirms Saturday December 12, 2026 from 5:30–8:30 p.m. for free holiday campsite-light driving, Santa's Village crafts, hot chocolate, s'mores and star party activities. Decorated campsite registration is already full; public viewing does not require a campsite."
+  },
+  {
     "slug": "gruene-cowboy-kringle-6",
     "title": "Gruene Cowboy Kringle · photo sessions 6",
     "city": "Gruene",
@@ -1329,6 +1492,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.gruenetexas.com/kringle-photos/",
     "sourceName": "Historic Gruene / Cowboy Kringle",
     "summary": "The official 2026 Cowboy Kringle dates include this operating weekend. Photos are appointment-only, with advance booking required; walk-up visits are not guaranteed. This is a separate attraction from Gruene Hall ticketed shows."
+  },
+  {
+    "slug": "tpwd-san-angelo-holly-days-2026",
+    "title": "Holly Days · San Angelo State Park",
+    "city": "San Angelo",
+    "countySlug": "tom-green",
+    "countyName": "Tom Green County",
+    "region": "panhandle",
+    "startDate": "2026-12-12",
+    "venueName": "San Angelo State Park · 362 FM 2288",
+    "officialEventUrl": "https://tpwd.texas.gov/calendar/san-angelo/holly-days",
+    "sourceName": "Texas Parks and Wildlife Department",
+    "summary": "TPWD confirms the Saturday December 12, 2026 drive-through campsite light showcase from 6–8 p.m. Free entry, no visitor registration; special activities and decorated campsites may be weather-dependent. The San Angelo city Concho Christmas display is a separate event."
   },
   {
     "slug": "san-antonio-river-of-lights",
@@ -1497,6 +1673,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "Six Flags Holiday in the Park is ticketed and runs selected 2026 dates. This window follows Visit San Antonio's day-by-day list rather than assuming daily park operation. Current park admission covers many shows and select rides; extras cost more. The December 26–New Year program has separate scheduling."
   },
   {
+    "slug": "tpwd-lake-mineral-wells-trail-of-lights-2026",
+    "title": "Trail of Lights · Lake Mineral Wells State Park",
+    "city": "Mineral Wells",
+    "countySlug": "palo-pinto",
+    "countyName": "Palo Pinto County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-18",
+    "endDate": "2026-12-19",
+    "venueName": "Lake Mineral Wells State Park & Trailway",
+    "officialEventUrl": "https://tpwd.texas.gov/calendar/lake-mineral-wells/trail-of-lights",
+    "sourceName": "Texas Parks and Wildlife Department",
+    "summary": "TPWD confirms December 18–19, 2026, 6–9 p.m. for the fourth annual campsite-light drive, hot cocoa and Santa photos. Friends of the park accept donations in lieu of event admission. This is NOT the downtown Merry Wells festival on November 27–28."
+  },
+  {
     "slug": "gruene-cowboy-kringle-7",
     "title": "Gruene Cowboy Kringle · photo sessions 7",
     "city": "Gruene",
@@ -1509,6 +1699,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.gruenetexas.com/kringle-photos/",
     "sourceName": "Historic Gruene / Cowboy Kringle",
     "summary": "The official 2026 Cowboy Kringle dates include this operating weekend. Photos are appointment-only, with advance booking required; walk-up visits are not guaranteed. This is a separate attraction from Gruene Hall ticketed shows."
+  },
+  {
+    "slug": "tpwd-bastrop-happy-holly-days-2026",
+    "title": "Happy Holly-Days · Bastrop State Park",
+    "city": "Bastrop",
+    "countySlug": "bastrop",
+    "countyName": "Bastrop County",
+    "region": "hill-country",
+    "startDate": "2026-12-19",
+    "venueName": "Bastrop State Park · CCC Refectory",
+    "officialEventUrl": "https://tpwd.texas.gov/calendar/bastrop/christmas-under-the-pines",
+    "sourceName": "Texas Parks and Wildlife Department",
+    "summary": "TPWD confirms Saturday December 19, 2026, 10 a.m.–noon at the Refectory for holiday crafts and CCC history activities. The event program is included after park admission: $5 per adult, ages 12 and under free. This is separate from downtown Bastrop Christmas festivities."
   },
   {
     "slug": "mcallen-south-pole-illuminated-5",
@@ -1580,7 +1783,7 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The final five January evenings of the 2026–27 Marktplatz lighting program; December 31 is omitted because the special New Year's Eve event replaces the regular countdown.",
     "endDate": "2027-01-05"
   }
-];;;;
+];;;;;
 
 // Reuse comprehensive guides where they exist. The dated occurrence remains
 // an independent calendar record, so closing days are never falsely listed.
