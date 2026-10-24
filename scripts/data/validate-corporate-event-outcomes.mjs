@@ -39,6 +39,14 @@ for(const check of [
   "verifiedReceivedCents",
   "sent: false, booked: false, charged: false",
 ]) assert(server.includes(check),'Server independent-evidence safeguard missing: '+check);
+for (const guard of [
+  'corporateEventOfficialDomainMatches(String(partner.website), venue.officialUrl)',
+  'corporateEventEvidenceTimestampIsValid(partner.identity_verified_at)',
+  'corporateEventEvidenceTimestampIsValid(partner.commercial_agreement_verified_at)',
+  'when.getTime() < Date.parse(String(verified[0].identity_verified_at))',
+]) assert(server.includes(guard), 'Outcome evidence must require genuinely verified identity, agreement and official venue source: ' + guard);
+assert(!server.includes("officialHost.endsWith('.' + businessHost)"),
+  'Parent-domain identity spoofing must not authorize settlement or booking evidence');
 assert(api.includes("z.literal(true)") && api.includes("createServerFn({ method: 'POST' })"),
   'Privileged evidence API requires explicit attestation');
 assert(ui.includes('No eligible organizer records with optional venue-specific sharing consent'),
