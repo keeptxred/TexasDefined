@@ -37,6 +37,12 @@ import { selectSwimmingHoleAndTubingDestinations } from "./water-recreation";
 const WATER_COLLECTION = "swimming-holes-river-tubing";
 const RV_COLLECTION = "rv-parks";
 const CAVERN_COLLECTION = "caverns";
+const WACO_CURATED_ATTRACTION_SLUGS = new Set<Slug>([
+  "cottonland-castle",
+  "waco-suspension-bridge",
+  "cameron-park-waco",
+  "cameron-park-zoo",
+]);
 const REMOTE_DESTINATION_TIMEOUT_MS = 3_000;
 
 type RemoteCatalogResult = {
@@ -321,7 +327,7 @@ export async function listResolvedDestinations(params: Omit<DestinationQuery, "b
   const preserved = preservedFor(params);
   const abilenePreserved = abilenePreservedFor(params);
   const [cityPassPreserved, wacoPreserved] = await Promise.all([cityPassPreservedFor(params), wacoPreservedFor(params)]);
-  const baseReady = reconcileExploreCatalog(mergeDestinations(enriched, core, preserved, wacoPreserved, local));
+  const baseReady = reconcileExploreCatalog(mergeDestinations(wacoPreserved, enriched, core, preserved, local));
   const primaryReady = reconcileExploreCatalog(mergeDestinations(
     baseReady,
     abilenePreserved,
@@ -345,6 +351,13 @@ export async function listResolvedDestinations(params: Omit<DestinationQuery, "b
 
 async function getResolvedDestinationBase(slug: Slug) {
   if (slug === "davis-hill-state-park") return (await import("./davis-hill-authority-fallback")).davisHillFallback;
+  // These four research-verified local authority records outrank a stale or
+  // thin remote row sharing the same slug. Other destinations avoid the import.
+  if (WACO_CURATED_ATTRACTION_SLUGS.has(slug)) {
+    const curated = (await loadWacoDestinationExpansion()).find((destination) => destination.slug === slug);
+    const readyCurated = resolveSeoReadyDestination(curated);
+    if (readyCurated) return readyCurated;
+  }
   const weakCandidates: Destination[] = [];
   let enrichedFailed = false;
   const enriched = await withDestinationRemoteTimeout("Explore destination enrichment", fetchExploreDestination(slug))
@@ -369,7 +382,9 @@ async function getResolvedDestinationBase(slug: Slug) {
   const readyPreserved = resolveSeoReadyDestination(preserved);
   if (readyPreserved) return readyPreserved;
 
-  const wacoPreserved = (await loadWacoDestinationExpansion()).find((destination) => destination.slug === slug);
+  const wacoPreserved = WACO_CURATED_ATTRACTION_SLUGS.has(slug)
+    ? (await loadWacoDestinationExpansion()).find((destination) => destination.slug === slug)
+    : undefined;
   const readyWacoPreserved = resolveSeoReadyDestination(wacoPreserved);
   if (readyWacoPreserved) return readyWacoPreserved;
 
@@ -431,7 +446,7 @@ export async function listResolvedDestinationSearchCatalog() {
         return [] as Destination[];
       })
     : [];
-  const preservedSearchCatalog = reconcileExploreCatalog(mergeDestinations(enriched, core, preservedExploreDestinations, wacoFallbacks));
+  const preservedSearchCatalog = reconcileExploreCatalog(mergeDestinations(wacoFallbacks, enriched, core, preservedExploreDestinations));
   const primaryReady = reconcileExploreCatalog(mergeDestinations(
     preservedSearchCatalog,
     abileneAreaDestinationFallbacks,
