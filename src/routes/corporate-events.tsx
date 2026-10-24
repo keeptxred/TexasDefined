@@ -9,7 +9,7 @@ export const Route = createFileRoute('/corporate-events')({
     meta: buildMeta(texasDefinedBrand, {
       canonicalPath,
       title: 'Texas Corporate Events & Team Building Finder',
-      description: 'Compare 45+ source-backed Texas corporate event venues across Houston, DFW, Austin, San Antonio, El Paso, Corpus Christi, Galveston, Waco and Lubbock.',
+      description: 'Find source-backed Texas corporate event venues in Houston, DFW, Austin, San Antonio, Bryan–College Station, Tyler, Beaumont and more. Compare by group size and budget.',
     }),
     links: [canonicalLink(texasDefinedBrand, canonicalPath)],
   }),
