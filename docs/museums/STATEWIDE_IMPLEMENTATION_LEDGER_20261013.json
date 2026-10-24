@@ -678,16 +678,21 @@
       "agriculturalheritagemuseum": {
         "submittedName": "Agricultural Heritage Museum",
         "rawOccurrence": 9,
-        "status": "duplicate",
+        "status": "research-blocked",
         "assignedAt": "2026-10-24T20:40:00Z",
         "reviewRequired": true,
         "publicationApproved": false,
         "editorialCertified": false,
         "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
-        "reason": "Boerne municipal operator expressly identifies this as the former name of the existing AgriCultural Museum & Arts Center authority destination.",
+        "reason": "Owner's unqualified 'Agricultural Heritage Museum' is ambiguous: City of Boerne officially identifies it as a former name of The AgriCultural, but a historically separate Agriculture Heritage Museum Inc. operates as the FiberMax Center for Discovery in Lubbock. Must confirm which institution owner intended before disposition.",
         "evidence": "https://www.ci.boerne.tx.us/1438/The-AgriCultural-Museum-Arts-Center",
         "dispositionAt": "2026-10-24T20:40:00Z",
-        "relatedCanonicalSlug": "the-agricultural-museum-arts-center-boerne"
+        "relatedCanonicalSlug": null,
+        "additionalEvidence": [
+          "https://texastimetravel.com/directory/agriculture-heritage-center-museum/",
+          "https://thc.texas.gov/public/upload/publications/heritage-travel-guide-temp.pdf",
+          "https://givefreely.com/charity-directory/nonprofit/ein-752940167/"
+        ]
       },
       "alamomuseum": {
         "submittedName": "Alamo Museum",
@@ -711,7 +716,13 @@
         "reviewRequired": true,
         "publicationApproved": false,
         "editorialCertified": false,
-        "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "researchNote": "Colorado County historical record identifies 1836 Alley Log Cabin and Antique Tool Museum in Columbus. Historic (not necessarily current) tours were seasonal or by appointment; do not print aggregator's unsupported M-F daily schedule.",
+        "researchEvidenceUrls": [
+          "https://www.tshaonline.org/handbook/entries/columbus-tx",
+          "https://texas-settlement.org/museums/"
+        ],
+        "lastResearchAt": "2026-10-24"
       },
       "alpinedepotmuseum": {
         "submittedName": "Alpine Depot Museum",
@@ -731,7 +742,12 @@
         "reviewRequired": true,
         "publicationApproved": false,
         "editorialCertified": false,
-        "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "researchNote": "The historical Midland CAF museum identity must be separated from current Commemorative Air Force museum work and Dallas visitor offerings. Verify successor, collections and current admission before proposing a visitor guide.",
+        "researchEvidenceUrls": [
+          "https://www.commemorativeairforce.org/"
+        ],
+        "lastResearchAt": "2026-10-24"
       },
       "americanmuseumoftheminiaturearts": {
         "submittedName": "American Museum of the Miniature Arts",
@@ -741,7 +757,12 @@
         "reviewRequired": true,
         "publicationApproved": false,
         "editorialCertified": false,
-        "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "researchNote": "A public attraction listing reports the Dallas venue as permanently closed, but independent institutional or government confirmation is required before marking the museum permanently closed.",
+        "researchEvidenceUrls": [
+          "https://www.tripadvisor.com/Attraction_Review-g55711-d559924-Reviews-American_Museum_of_the_Miniature_Arts-Dallas_Texas.html"
+        ],
+        "lastResearchAt": "2026-10-24"
       },
       "anahuacdepotmuseum": {
         "submittedName": "Anahuac Depot Museum",
@@ -761,7 +782,13 @@
         "reviewRequired": true,
         "publicationApproved": false,
         "editorialCertified": false,
-        "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "researchNote": "UNT The Portal to Texas History indexes Angelina County History Center alongside The History Center in Diboll, with matching historical records. Their organizational identity and modern visitor arrangements require verification before new guide/alias disposition.",
+        "researchEvidenceUrls": [
+          "https://texashistory.unt.edu/explore/partners/",
+          "https://www.thehistorycenteronline.com/"
+        ],
+        "lastResearchAt": "2026-10-24"
       },
       "annaheritagemuseum": {
         "submittedName": "Anna Heritage Museum",
@@ -958,7 +985,7 @@
       "initialCandidates": 25,
       "researchedDispositions": 4,
       "remainingAssigned": 21,
-      "notes": "Twenty candidates still need independent official-operator and commercial-photo research; no new guide or editorial certification is implied. Commit/merge this checkpoint before running another selector in a different chat."
+      "notes": "Four owner labels dispositioned, including two research-blocked ambiguous institutions; 21 still assigned for visitor/operator/rights verification. Evidence notes identify additional photo or closure uncertainties. No new guide/editorial certification implied."
     }
   }
 }
