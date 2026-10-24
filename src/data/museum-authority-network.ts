@@ -28,6 +28,38 @@ export interface MuseumAuthorityDossier {
 
 /** Links are to exact, existing destinations or stable topic hubs, not guessed paths. */
 export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
+  "bayou-bend-collection-gardens": {
+    name: "Bayou Bend Collection and Gardens", slug: "bayou-bend-collection-gardens", county: "Harris", city: "Houston", reviewed: "2026-10-24",
+    topics: ["american-decorative-art", "ima-hogg", "gardens", "house-museum"],
+    whyVisit: "Bayou Bend is Ima Hogg's former River Oaks estate, now the Museum of Fine Arts, Houston's separate house museum for American decorative arts and paintings. Its 28 staged rooms and galleries contain more than 2,500 objects dating from 1620 to 1876, while 14 acres of formal gardens connect historic domestic design and Houston's early cultural philanthropy. Touring this residential site is distinct from admission to MFAH's main Museum District campus.",
+    visitorStrategy: "Enter via the Lora Jean Kilroy Visitor and Education Center at 6003 Memorial Drive in Houston. The current MFAH listing gives Wednesday–Saturday 10 a.m.–5 p.m., Sunday 1–5 p.m., last admission at 4 p.m., and Monday–Tuesday closed. An older operator page listed noon on Wednesdays, so check the live day-specific schedule. House/garden admission is currently $14 for adults, $12 for students or seniors and ages 13–18, free for children 12 and under, MFAH members and active U.S. military. An ordinary self-guided house tour needs no reservation; separately scheduled guided tours last 60 or 90 minutes and depend on availability. Garden-only admission is a different option and is not a guaranteed included free visit.",
+    accessibility: "Bayou Bend has significant historic-property limits. MFAH expressly warns that extensive garden paths have difficult terrain and stairs, and the original house's second floor is inaccessible to people using wheelchairs or walkers. The wheelchair-friendly entry route differs from the standard entrance. Contact the Kilroy Visitor Center at 713-639-7750 in advance to request the accessible entrance, alternatives and mobility assistance; do not promise universal access to every room or garden.",
+    familiesAndGroups: "Self-guided tours allow families to explore period furnishings without booking a docent, though guided Highlights and Study Tours have distinct availability and a one-hour or ninety-minute format. The operator offers group packages for at least twelve visitors, generally requiring advance reservations of two weeks to qualify for discounts and secure spaces. Photography in the house and gardens is restricted for professional or posed commercial shoots; personal photographs are permitted subject to no-tripod, no-flash, no-drone and other rules. Check children's access and school programming on the current operator page.",
+    researchValue: "Ima Hogg and her brothers began transforming the fourteen-acre Buffalo Bayou setting in the 1920s. Architect John F. Staub designed the house completed in 1928, and Hogg donated her estate and collections to MFAH in 1957; the house museum opened to the public in 1966. Collection interpretation spans the early United States, including American furniture, glass, silver and ceramics and work by Texas craftsmen and Black-owned businesses. Treat curated period rooms as historical interpretation rather than a claim that all displayed objects originally stood there during the Hogg family's residence.",
+    exhibits: [
+      { heading: "American decorative arts in twenty-eight rooms", detail: "Walk the former residence, seeing eighteenth- and nineteenth-century furniture, silver, ceramics and paintings arranged to illustrate material culture from the seventeenth through nineteenth centuries." },
+      { heading: "Ima Hogg house and Hogg Family Legacy Room", detail: "Learn how the 1928 Staub-designed River Oaks home became a museum in 1966, with separate information at the Kilroy Visitor and Education Center." },
+      { heading: "Formal gardens and Buffalo Bayou landscape", detail: "The outdoor rooms, woodland and ravines demonstrate Ima Hogg's landscape interests; garden-only tickets differ from combined admission, and historic terrain limits mobility access." }
+    ],
+    routes: [
+      { label: "One-hour American arts introduction", steps: ["Start at the Kilroy Visitor Center, 6003 Memorial Drive", "Use the self-guided house route or confirm an available one-hour docent Highlights Tour", "Compare the named rooms and objects to the house's Hogg family context"] },
+      { label: "House, gardens and Houston history", steps: ["Tour Bayou Bend's galleries, allowing extra time for period furnishings and Ima Hogg's collections", "Follow accessible garden sections or request advance mobility guidance", "Continue to the separate MFAH Museum District campus only under that campus's own admission terms"] },
+      { label: "Research or educational group", steps: ["For groups of 12 or more, contact the museum at least two weeks ahead", "Arrange guided or self-led options and request accessibility accommodations", "Use the Kitty King Powell Library and Study Center under its current research-access conditions"] }
+    ],
+    sources: [
+      { label: "MFAH official Bayou Bend admission, hours and location", url: "https://www.mfah.org/visit/bayou-bend", use: "Current day-of-week opening, house admission, garden distinction and 6003 Memorial address" },
+      { label: "MFAH Bayou Bend official tour options", url: "https://www.mfah.org/visit/bayou-bend/tours", use: "Self-guided options, 60/90-minute docent tours and groups of 12 or more" },
+      { label: "MFAH Bayou Bend collection", url: "https://www.mfah.org/visit/bayou-bend/collection", use: "More than 2,500 collection objects, 28 rooms and periods 1620–1876" },
+      { label: "MFAH Bayou Bend history", url: "https://www.mfah.org/visit/bayou-bend/history", use: "Staub house, Ima Hogg gift and 1966 museum opening" },
+      { label: "MFAH accessibility resources", url: "https://www.mfah.org/visit/accessibility-resources/", use: "Historic house second-floor and garden terrain limitations and alternate accessible entrance" },
+      { label: "MFAH photography and rentals", url: "https://www.mfah.org/visit/bayou-bend/photography-guidelines", use: "Personal photos versus commercial shoot restrictions, tripods and drones" }
+    ],
+    connections: [
+      { label: "Harris County guide", href: "/county/harris", reason: "Understand Houston and River Oaks within Harris County" },
+      { label: "The Museum of Fine Arts, Houston", href: "/destination/museum-of-fine-arts-houston", reason: "Compare Bayou Bend's American decorative art with the separate MFAH main campus" },
+      { label: "Houston guide", href: "/city/houston", reason: "Plan dining, nearby outings and separate museum admission expectations" }
+    ],
+  },
   "austin-history-center-austin": {
     name: "Austin History Center, Faulk Building", slug: "austin-history-center-austin", county: "Travis", city: "Austin", reviewed: "2026-10-24",
     topics: ["local-history", "archives", "photography", "exhibitions"],
