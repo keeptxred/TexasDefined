@@ -17,7 +17,8 @@
       "intakeId": 2,
       "title": "Fredericksburg Eisbahn",
       "submittedRegion": "Hill Country & Central Texas",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "No official 2026 Fredericksburg TX Eisbahn date verified; search results also return a different Fredericksburg in Virginia and outdated 2025 rink announcements. Do not publish an invented ice-rink calendar run."
     },
     {
       "intakeId": 3,
@@ -68,7 +69,19 @@
       "intakeId": 8,
       "title": "Gruene Hall Holiday Market",
       "submittedRegion": "Hill Country & Central Texas",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "gruene-christmas-market-days",
+        "gruene-christmas-town-lighting",
+        "gruene-cowboy-kringle-1",
+        "gruene-cowboy-kringle-2",
+        "gruene-cowboy-kringle-3",
+        "gruene-cowboy-kringle-4",
+        "gruene-cowboy-kringle-5",
+        "gruene-cowboy-kringle-6",
+        "gruene-cowboy-kringle-7"
+      ],
+      "researchNote": "Confirmed Gruene Christmas Market Days in Gruene Historic District rather than inside Gruene Hall; Cowboy Kringle photo sessions booked separately."
     },
     {
       "intakeId": 9,
@@ -205,7 +218,14 @@
       "intakeId": 26,
       "title": "Waco Wild Lights",
       "submittedRegion": "Hill Country & Central Texas",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "waco-wild-lights-2026-1",
+        "waco-wild-lights-2026-2",
+        "waco-wild-lights-2026-3",
+        "waco-wild-lights-2026-4"
+      ],
+      "researchNote": "Only four unequivocally confirmed 2026 Zoo Wild Lights open windows retained; operator's Dec 23 vs Dec 30 season-ending conflict still needs resolution."
     },
     {
       "intakeId": 27,
@@ -401,13 +421,22 @@
       "intakeId": 56,
       "title": "Arlington Holiday Lights at Six Flags",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "arlington-six-flags-holiday-2026-opening"
+      ],
+      "researchNote": "Season published for select amusement-park operating dates; only source-qualified opening or listed windows are calendar entries, not an assumed nightly season."
     },
     {
       "intakeId": 57,
       "title": "Arlington Christkindlmarket",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "arlington-texas-christkindl-market-opening-2026",
+        "arlington-texas-christkindl-market-season-2026"
+      ],
+      "researchNote": "Market main 2026 calendar dates Nov20–22 plus Nov27–Dec23; secondary market page unexpectedly says Nov20–23, so Nov23 excluded until confirmed."
     },
     {
       "intakeId": 58,
@@ -440,7 +469,8 @@
       "intakeId": 61,
       "title": "Dallas Vitruvian Lights",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "Vitruvian Park tourism site confirms a 2026 return but still lacks exact 2026 opening/closing dates as of review. Hold calendar window."
     },
     {
       "intakeId": 62,
@@ -579,7 +609,11 @@
       "intakeId": 80,
       "title": "Mansfield Hometown Holidays",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "mansfield-hometown-holidays-2026"
+      ],
+      "researchNote": "City's flagship Hometown Holidays on Dec4 only; other town holiday activities occur on separate dates and are not part of this day-scoped record."
     },
     {
       "intakeId": 81,
@@ -619,7 +653,11 @@
       "intakeId": 86,
       "title": "Mineral Wells Merry Wells",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "mineral-wells-merry-wells-tree-lighting",
+        "mineral-wells-merry-wells-festival"
+      ]
     },
     {
       "intakeId": 87,
@@ -1017,7 +1055,12 @@
       "intakeId": 147,
       "title": "Beaumont Christmas at the McFaddin-Ward House",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "beaumont-mcfaddin-ward-holiday-open-house-2026",
+        "beaumont-mcfaddin-ward-christmas-past-workshop-2026"
+      ],
+      "researchNote": "Admission-free main holiday open-house Dec5–6 and separate age-restricted Dec15 workshop, both from museum's official 2026 schedule."
     },
     {
       "intakeId": 148,
@@ -1063,19 +1106,36 @@
       "intakeId": 154,
       "title": "San Antonio SeaWorld Christmas Celebration",
       "submittedRegion": "South Texas & Alamo Region",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "san-antonio-seaworld-christmas-2026-opening"
+      ],
+      "researchNote": "Season published for select amusement-park operating dates; only source-qualified opening or listed windows are calendar entries, not an assumed nightly season."
     },
     {
       "intakeId": 155,
       "title": "San Antonio Six Flags Fiesta Texas Holiday",
       "submittedRegion": "South Texas & Alamo Region",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "san-antonio-fiesta-texas-holiday-1",
+        "san-antonio-fiesta-texas-holiday-2",
+        "san-antonio-fiesta-texas-holiday-3",
+        "san-antonio-fiesta-texas-holiday-4",
+        "san-antonio-fiesta-texas-holiday-5",
+        "san-antonio-fiesta-texas-new-years-2026"
+      ],
+      "researchNote": "Season published for select amusement-park operating dates; only source-qualified opening or listed windows are calendar entries, not an assumed nightly season."
     },
     {
       "intakeId": 156,
       "title": "San Antonio Natural Bridge Caverns Christmas",
       "submittedRegion": "South Texas & Alamo Region",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "natural-bridge-christmas-caverns-opening-2026"
+      ],
+      "researchNote": "2026 Christmas at the Caverns season runs Dec 5–23 on select nights, but official event list does not enumerate all open dates. Only verified opening date listed."
     },
     {
       "intakeId": 157,
@@ -1087,7 +1147,11 @@
       "intakeId": 158,
       "title": "San Antonio Lightscape at the Botanical Garden",
       "submittedRegion": "South Texas & Alamo Region",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "san-antonio-garden-illuminate-opening-2026"
+      ],
+      "researchNote": "The Garden's actual 2026 exhibit is Illuminate, not Lightscape; dated timed-entry tickets are required and only opening date is a confirmed calendar occurrence."
     },
     {
       "intakeId": 159,
@@ -1665,7 +1729,8 @@
       "intakeId": 249,
       "title": "Mineral Wells Holiday Festival",
       "submittedRegion": "West Texas & Panhandle Plains",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "Likely a repeated or generic alias of the already confirmed Mineral Wells Merry Wells festival (intake #86); do not create a second calendar event unless its distinct organizer and dates can be confirmed."
     },
     {
       "intakeId": 250,
@@ -1676,8 +1741,8 @@
   ],
   "reconciliation": {
     "asOf": "2026-10-23",
-    "calendarCandidates": 42,
+    "calendarCandidates": 53,
     "authorityCandidates": 12,
-    "remainingCandidates": 196
+    "remainingCandidates": 185
   }
 }
