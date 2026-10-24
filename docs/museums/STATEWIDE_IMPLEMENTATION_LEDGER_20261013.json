@@ -777,7 +777,7 @@
       "angelinacountyhistorycenter": {
         "submittedName": "Angelina County History Center",
         "rawOccurrence": 20,
-        "status": "assigned",
+        "status": "duplicate",
         "assignedAt": "2026-10-24T20:40:00Z",
         "reviewRequired": true,
         "publicationApproved": false,
@@ -788,7 +788,15 @@
           "https://texashistory.unt.edu/explore/partners/",
           "https://www.thehistorycenteronline.com/"
         ],
-        "lastResearchAt": "2026-10-24"
+        "lastResearchAt": "2026-10-24",
+        "relatedCanonicalSlug": "the-history-center-diboll",
+        "reason": "The owner-list label Angelina County History Center and the present-day History Center in Diboll identify the same history archive/museum at 102 N Temple, Diboll, with phone 936-829-3543. University of North Texas uses separate digital-partner labels for holdings but that does not create a separate public museum. Existing canonical The History Center page remains the visitor guide.",
+        "evidence": "https://texashistory.unt.edu/explore/partners/AHC/",
+        "additionalEvidence": [
+          "https://www.thehistorycenteronline.com/collections/angelina-county-school-district-map-1924",
+          "https://www.angelinacountygenealogicalsociety.com/items"
+        ],
+        "dispositionAt": "2026-10-24"
       },
       "annaheritagemuseum": {
         "submittedName": "Anna Heritage Museum",
@@ -983,9 +991,9 @@
         "aviationmuseumoftexas"
       ],
       "initialCandidates": 25,
-      "researchedDispositions": 4,
-      "remainingAssigned": 21,
-      "notes": "Four owner labels dispositioned, including two research-blocked ambiguous institutions; 21 still assigned for visitor/operator/rights verification. Evidence notes identify additional photo or closure uncertainties. No new guide/editorial certification implied."
+      "researchedDispositions": 5,
+      "remainingAssigned": 20,
+      "notes": "Five provisional names dispositioned: three nonstandalone/duplicate identity outcomes and two research-blocked ambiguous labels. Twenty owner candidates remain assigned for source/photo research; no independent certifications issued."
     }
   }
 }
