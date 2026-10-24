@@ -1,0 +1,27 @@
+name: Corporate event duplicate review contract
+on:
+  pull_request:
+    paths:
+      - 'src/data/corporate-event-duplicate-review.ts'
+      - 'src/components/events/CorporateEventOpsPanel.tsx'
+      - 'scripts/data/validate-corporate-event-duplicates.mjs'
+      - '.github/workflows/validate-corporate-event-duplicates.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/data/corporate-event-duplicate-review.ts'
+      - 'src/components/events/CorporateEventOpsPanel.tsx'
+      - 'scripts/data/validate-corporate-event-duplicates.mjs'
+      - '.github/workflows/validate-corporate-event-duplicates.yml'
+permissions:
+  contents: read
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --experimental-strip-types scripts/data/validate-corporate-event-duplicates.mjs
