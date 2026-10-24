@@ -21,6 +21,7 @@ type Lead = {
   provider_slugs: string[]; notes: string | null;
   allow_provider_outreach: boolean; provider_outreach_consented_at: string | null;
   first_contacted_at: string | null;
+  first_contact_evidence_reference: string | null;
 };
 type Application = {
   id: string; created_at: string; status: ApplicationStatus;
@@ -89,13 +90,27 @@ export function CorporateEventOpsPanel({ accessKey }: { accessKey: string }) {
   }), [data]);
 
   async function updateLead(id: string, status: LeadStatus) {
-    if (status === 'contacted' && !window.confirm('Confirm that you actually contacted this planner through an authorized business channel. This only records the first-contact time; TexasDefined will NOT send an email automatically.')) return;
+    const existing = data?.leads.find(lead => lead.id === id);
+    const needsRealContactEvidence = status === 'contacted' && !existing?.first_contacted_at;
+    let externalContactReference = '';
+    if (needsRealContactEvidence) {
+      if (!window.confirm('Confirm you already contacted this organizer by a real authorized channel. This action does NOT send a message. Do not mark an unsent draft as contacted.')) return;
+      const entered = window.prompt('Enter independently verifiable contact evidence (20–500 characters): communication channel, actual date/time and message or call-log reference. Do not paste private message bodies, passwords or payment details.', '');
+      if (!entered) return;
+      externalContactReference = entered.trim();
+      if (externalContactReference.length < 20 || externalContactReference.length > 500) {
+        setError('First-contact evidence must be 20–500 characters and describe a real communication, not a draft.');
+        return;
+      }
+    }
     setBusy(id); setError(''); setMessage('');
     try {
-      await changeCorporateEventLeadStatus({ data: { accessKey, id, status } });
+      await changeCorporateEventLeadStatus({ data: { accessKey, id, status, externalContactReference } });
       await refresh();
-      setMessage('Planner request status updated. No email was sent.');
-    } catch { setError('Could not update planner request.'); }
+      setMessage(needsRealContactEvidence
+        ? 'Documented first contact recorded with external evidence. No email was sent by TexasDefined.'
+        : 'Planner request status updated. No email was sent.');
+    } catch { setError('Could not update planner request. Check evidence or refresh if another operator recorded contact.'); }
     finally { setBusy(''); }
   }
   async function withdrawVenueConsent(lead: Lead) {
