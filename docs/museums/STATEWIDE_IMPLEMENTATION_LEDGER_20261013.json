@@ -640,8 +640,11 @@
         "batchId": "museum-owner-001",
         "status": "assigned",
         "canonicalSlug": null,
-        "evidence": [],
-        "researchNote": "Provisional; verify identity, currently operating Texas location, existing destination/alias, official visitor details and photo rights before any publication."
+        "evidence": [
+          "https://emuseum.jfk.org/objects/46977/gwendolyn-mcmillan-lawe-oral-history",
+          "https://texashistory.unt.edu/ark:/67531/metapth767914/m1/1/"
+        ],
+        "researchNote": "Historical existence confirmed in Emory, Rains County, including 2000 local newspaper and a 2016 Sixth Floor Museum interview with cofounder Gwendolyn McMillan Lawe. No authoritative current operator hours, public access, or licensed site photo confirmed for October 2026. Do not create a live visit recommendation from old hours."
       },
       "advancedtechnologydevelopmentcentermuseum": {
         "submittedName": "Advanced Technology Development Center Museum",
@@ -657,9 +660,12 @@
         "rawOccurrence": 9,
         "batchId": "museum-owner-001",
         "status": "assigned",
-        "canonicalSlug": null,
-        "evidence": [],
-        "researchNote": "Provisional; verify identity, currently operating Texas location, existing destination/alias, official visitor details and photo rights before any publication."
+        "canonicalSlug": "the-agricultural-museum-arts-center-boerne",
+        "evidence": [
+          "https://texastimetravel.com/directory/agriculture-heritage-center-museum/",
+          "https://texasdefined.com/destination/the-agricultural-museum-arts-center-boerne"
+        ],
+        "researchNote": "Texas Historical Commission travel directory describes the Agriculture Heritage Center & Museum (Boerne, formerly Agricultural Heritage Museum), corresponding to the existing source-backed TexasDefined Boerne destination. Verify geographic identity and complete authority audit rather than opening a second canonical page. Do not conflate other similarly named museums."
       },
       "alamomuseum": {
         "submittedName": "Alamo Museum",
@@ -667,8 +673,10 @@
         "batchId": "museum-owner-001",
         "status": "assigned",
         "canonicalSlug": null,
-        "evidence": [],
-        "researchNote": "Provisional; verify identity, currently operating Texas location, existing destination/alias, official visitor details and photo rights before any publication."
+        "evidence": [
+          "https://www.thealamo.org/support/alamo-visitor-center-museum"
+        ],
+        "researchNote": "Current Alamo operator identifies its planned Alamo Museum and Visitor Center as scheduled to open spring 2028, not a separately operating museum in October 2026. Research which existing Alamo experiences owner referred to; prevent phantom open museum page."
       },
       "alleylogcabinmuseum": {
         "submittedName": "Alley Log Cabin Museum",
@@ -847,8 +855,12 @@
         "batchId": "museum-owner-001",
         "status": "assigned",
         "canonicalSlug": null,
-        "evidence": [],
-        "researchNote": "Provisional; verify identity, currently operating Texas location, existing destination/alias, official visitor details and photo rights before any publication."
+        "evidence": [
+          "https://flynaec.org/museum-experience/",
+          "https://www.cafb29b24.org/donate",
+          "https://www.airpowersquadron.org/tour-schedule"
+        ],
+        "researchNote": "CAF B-29/B-24 Squadron operates touring flyable aircraft FIFI and Diamond Lil and uses Dallas-based National Aviation Education Center facilities; operator says availability is seasonal and aircraft fly in/out. Do not promise a permanent static B-29/B-24 Squadron Museum display. Verify independent venue identity and exact available tour before publishing."
       },
       "babedidriksonzahariasmuseum": {
         "submittedName": "Babe Didrikson Zaharias Museum",
@@ -937,7 +949,8 @@
       "source": "Original owner text stable occurrence order excluding existing dossiers, exact aliases, known geographically invalid and two evidence-resolved entries.",
       "clearInstruction": "On next execution, resume these 25 first. Never treat assignment as page, license, source verification or editorial completion.",
       "firstRawOccurrence": 4,
-      "lastRawOccurrence": 43
+      "lastRawOccurrence": 43,
+      "researchedProvisionalEntries": 4
     }
   }
 }
