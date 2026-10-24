@@ -25,7 +25,7 @@ const end = eventFile.indexOf("\n];", start);
 assert.ok(start >= 0 && end > start, "Source-qualified Christmas manifest was not found");
 const json = eventFile.slice(eventFile.indexOf("= [", start) + 2, end + 2).trim();
 const events = JSON.parse(json);
-assert.ok(events.length >= 114, "The 114 organizer-verified Christmas date windows must not shrink without explicit source review");
+assert.ok(events.length >= 129, "The 129 organizer-verified Christmas date windows must not shrink without explicit source review");
 assert.equal(events.length, new Set(events.map((event) => event.slug)).size, "Duplicate Christmas community slugs");
 
 const validDate = /^20\d{2}-\d{2}-\d{2}$/;
@@ -41,6 +41,7 @@ for (const event of events) {
   }
   assert.ok(event.startDate >= "2026-11-01", `${event.slug}: source record predates holiday season`);
   assert.match(event.officialEventUrl, /^https:\/\/[^/]+\//, `${event.slug}: invalid first-party source`);
+  assert.ok(["hill-country","gulf-coast","big-bend","panhandle","piney-woods","prairies-lakes","south-texas"].includes(event.region), `${event.slug}: use the canonical TexasRegion identifier`);
   assert.ok(!event.officialEventUrl.includes("ticketmaster.evyy.net"), "Affiliate links must not masquerade as first-party event sources");
   assert.ok(!event.summary.includes("2025 dates"), "Do not publish stale edition information");
 }
@@ -63,6 +64,34 @@ for (const [slug,start,end] of [
   ['mineral-wells-merry-wells-festival','2026-11-28',undefined],
 ]) check(slug,start,end);
 assert.ok(!bySlug.has('waco-wild-lights-2026-late-december'), 'Conflicted Zoo operating nights cannot be invented');
+for (const [slug, begin, ending] of [
+  ["college-station-beachy-central-lights-nov-2026","2026-11-26","2026-12-04"],
+  ["college-station-christmas-in-park-festival-2026","2026-12-05",undefined],
+  ["college-station-beachy-central-lights-late-2026","2026-12-06","2027-01-01"],
+  ["flower-mound-christmas-parade-lighting-2026","2026-12-05",undefined],
+  ["tpwd-tyler-pineywoods-christmas-2026","2026-12-11","2026-12-12"],
+  ["tpwd-guadalupe-river-christmas-in-park-2026","2026-12-11","2026-12-12"],
+  ["tpwd-lake-brownwood-holiday-at-lake-2026","2026-12-11","2026-12-12"],
+  ["tpwd-eisenhower-light-up-park-2026","2026-12-11","2026-12-12"],
+  ["tpwd-lake-bob-sandlin-christmas-2026","2026-12-11","2026-12-12"],
+  ["tpwd-goose-island-christmas-2026","2026-12-12",undefined],
+  ["tpwd-san-angelo-holly-days-2026","2026-12-12",undefined],
+  ["tpwd-fort-richardson-ghost-christmas-2026","2026-12-12",undefined],
+  ["tpwd-abilene-fa-la-la-forest-2026","2026-12-12",undefined],
+  ["tpwd-lake-mineral-wells-trail-of-lights-2026","2026-12-18","2026-12-19"],
+  ["tpwd-bastrop-happy-holly-days-2026","2026-12-19",undefined],
+]) {
+  check(slug, begin, ending);
+  const event = bySlug.get(slug);
+  assert.ok(event.officialEventUrl.startsWith("https://tpwd.texas.gov/calendar/") ||
+    event.officialEventUrl.startsWith("https://www.cstx.gov/") ||
+    event.officialEventUrl.startsWith("https://www.flowermound.gov/"), `${slug}: 2026 organizer source required`);
+}
+assert.ok(!bySlug.has("tpwd-south-llano-christmas-at-ranch-2026"), "The linked South Llano 2024 event page is not 2026 evidence");
+assert.ok(bySlug.get("college-station-christmas-in-park-festival-2026").summary.includes("CLOSED TO VEHICLES"),
+  "December 5 College Station festival must not advertise ordinary drive-through entry");
+assert.ok(bySlug.get("tpwd-abilene-fa-la-la-forest-2026").summary.includes("$5 CASH"),
+  "Do not misrepresent the Abilene state park holiday drive as free");
 check("wimberley-trail-of-lights", "2026-11-28", "2026-12-26");
 check("grand-prairie-prairie-lights", "2026-11-26", "2026-12-31");
 check("georgetown-christmas-stroll", "2026-12-04", "2026-12-06");
