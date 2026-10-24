@@ -250,4 +250,9 @@ if (failures.length) {
   process.exit(1);
 }
 execFileSync(process.execPath, ["scripts/data/validate-dallas-black-history.mjs"], { stdio: "inherit" });
+// Prevent future owner-inventory reassignments or silent resumption regressions.
+execFileSync(process.execPath, ["scripts/data/next-museum-owner-batch.mjs", "--self-test"], { stdio: "inherit" });
+// Print the next read-only 25-candidate queue in CI so reviewers can checkpoint it
+// explicitly after merging, rather than claiming an uncommitted assignment is a lock.
+execFileSync(process.execPath, ["scripts/data/next-museum-owner-batch.mjs"], { stdio: "inherit" });
 console.log("Museum authority gate PASSED: " + allDossiers.length + " museum guides + cross-links + new-museum rule.");
