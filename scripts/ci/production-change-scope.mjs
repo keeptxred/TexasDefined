@@ -82,6 +82,25 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
   const candidates = new Set(shared ? REPRESENTATIVE_PATHS : []);
   const expectedHrefsByPage = {};
   const eventAuthorityPages = new Set();
+  // The canonical corporate marketplace needs SSR authority and privacy smoke
+  // after the finder, catalog, city guides, categories or consent forms change.
+  // One route only; do not crawl hundreds of editorial venue links.
+  const corporateEventPages = new Set();
+  if (changedFiles.some(path =>
+    path === 'src/routes/corporate-events.tsx'
+    || path === 'src/routes/corporate-events.lazy.tsx'
+    || path === 'src/data/corporate-events.ts'
+    || path === 'src/data/corporate-events.functions.ts'
+    || path === 'src/data/corporate-events-offers.server.ts'
+    || path === 'src/components/events/CorporateEventMetroGuides.tsx'
+    || path === 'src/components/events/CorporateEventCategoryGuides.tsx'
+    || path === 'scripts/ci/verify-changed-production-pages.mjs'
+    || path === 'scripts/ci/production-change-scope.mjs'
+  )) {
+    corporateEventPages.add('/corporate-events');
+    candidates.add('/corporate-events');
+  }
+
   // The statewide Mardi Gras hub has a static route and its own event-directory
   // links. Verify it on production when either of its route files changes.
   const mardiGrasHubPages = new Set();
@@ -424,11 +443,12 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
   const boundedEventAuthorityPages = new Set([...eventAuthorityPages].slice(0, 8));
   const allPaths = [...candidates].sort();
   // A deploy smoke is explicitly a bounded sample, never a full-content certification.
-  const selectedPaths = [...new Set([...REPRESENTATIVE_PATHS.filter(p => candidates.has(p)), ...battleshipVisitorPages, ...fredericksburgSitemapPaths, ...magoffinHomePages, ...davisHillPages, ...texasDataPages, ...mardiGrasHubPages, ...boundedEventAuthorityPages, ...allPaths])].slice(0, PAGE_BUDGET - redirectChecks.length);
+  const selectedPaths = [...new Set([...REPRESENTATIVE_PATHS.filter(p => candidates.has(p)), ...corporateEventPages, ...battleshipVisitorPages, ...fredericksburgSitemapPaths, ...magoffinHomePages, ...davisHillPages, ...texasDataPages, ...mardiGrasHubPages, ...boundedEventAuthorityPages, ...allPaths])].slice(0, PAGE_BUDGET - redirectChecks.length);
   const selectedExpectedHrefs = Object.fromEntries(selectedPaths.filter(p => expectedHrefsByPage[p]).map(p => [p, expectedHrefsByPage[p]]));
   const candidateCount = allPaths.length + redirectChecks.length;
   return { baseline, head, changedFiles, shared, selectedPaths, expectedHrefsByPage: selectedExpectedHrefs,
     texasDataPages: selectedPaths.filter(p => texasDataPages.has(p)),
+    corporateEventPages: selectedPaths.filter(p => corporateEventPages.has(p)),
     eventAuthorityPages: selectedPaths.filter(p => boundedEventAuthorityPages.has(p)),
     mardiGrasHubPages: selectedPaths.filter(p => mardiGrasHubPages.has(p)),
     downloadButtonPages: selectedPaths.filter(p => downloadButtonPages.has(p)),
