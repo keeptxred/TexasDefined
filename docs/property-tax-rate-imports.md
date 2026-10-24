@@ -391,6 +391,35 @@ only after establishing primary-source adopted-rate evidence for
 the specific year and jurisdiction.
 
 
+## Distinct unresolved municipal jurisdiction research (2026-10-24)
+
+These are **missing year-specific observations**, not zero levies. Keep the
+official Comptroller row labeled `not-reported` until a matching,
+jurisdiction-specific adopted-rate or no-levy primary source is established.
+The source-gap report is research-only; it may not update calculator inputs.
+
+- **City of Scurry, Kaufman County — 2025:** the available 2024 Kaufman CAD
+  [rate chart](https://kaufman-cad.org/wp-content/uploads/2024/10/2024-Tax-Rates.pdf)
+  is not evidence of the *2025 City of Scurry municipal* adopted rate. Scurry-Rosser
+  ISD, Kaufman County ESD #5 and Scurry County are different taxing entities.
+  Both the previously documented **2024** and the **2025** municipal values remain unresolved.
+- **Taft — separately deannexed area, tax year 2023 (Comptroller ID
+  `205-111-03`):** the [City of Taft September 27, 2022 council
+  materials](https://www.tafttx.gov/transparency-files/198-agenda-20220927-city-council-regular-meeting.pdf)
+  document a special **2022** deannexed-area debt-service rate of **0.192366 per $100**.
+  The [San Patricio County tax office archive](https://www.sanpatriciocountytx.gov/page/tax.assessor.collector)
+  references a 2022 deannexed worksheet; neither that record nor the normal
+  2023 City of Taft rate establishes the *2023 deannexed-area* rate.
+  Do not copy the 2022 amount forward. The 2023 distinct-unit row remains
+  `not-reported`.
+- **Union Valley 2022:** the documented Comptroller-versus-Hunt-CAD conflict
+  remains disclosed separately, not resolved by silently preferring either source.
+  See the section above for the two conflicting year-specific observations.
+
+Historical rates and source publication dates must never be advanced
+automatically to 2026. Add a 2026 state rate only after the Comptroller
+actually publishes a corresponding official annual source file.
+
 ## Monthly research inventory of unreported municipal rates
 
 After a successful official source sync, local-evidence identity audit, and
