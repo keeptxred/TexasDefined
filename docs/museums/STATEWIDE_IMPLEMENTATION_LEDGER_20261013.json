@@ -1088,11 +1088,71 @@
         "reason": "The Eugene C. Barker Texas History Center opened in 1950 but ceased operating as a separately named visitor institution; it became a division of the Center for American History in 1991 and evolved to today's Dolph Briscoe Center for American History in 2008. The historic Barker identity itself is not an independently visitable museum. Current Briscoe Center should be considered separately for an accurate present-day Austin guide.",
         "evidence": "https://briscoecenter.org/about",
         "dispositionAt": "2026-10-24"
+      },
+      "barringtonlivinghistoryfarm": {
+        "submittedName": "Barrington Living History Farm",
+        "rawOccurrence": 49,
+        "status": "assigned",
+        "assignedAt": "2026-10-24",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Owner inventory provisional candidate: research official Texas institution identity, current visitor logistics, matching canonical, licensed exact-site media and sources before publication."
+      },
+      "bastropcountyhistoricalsocietymuseum": {
+        "submittedName": "Bastrop County Historical Society Museum",
+        "rawOccurrence": 50,
+        "status": "assigned",
+        "assignedAt": "2026-10-24",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Owner inventory provisional candidate: research official Texas institution identity, current visitor logistics, matching canonical, licensed exact-site media and sources before publication."
+      },
+      "battleofcoletocreekmuseum": {
+        "submittedName": "Battle of Coleto Creek Museum",
+        "rawOccurrence": 51,
+        "status": "assigned",
+        "assignedAt": "2026-10-24",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Owner inventory provisional candidate: research official Texas institution identity, current visitor logistics, matching canonical, licensed exact-site media and sources before publication."
+      },
+      "battleshiptexasstatehistoricsite": {
+        "submittedName": "Battleship Texas State Historic Site",
+        "rawOccurrence": 52,
+        "status": "assigned",
+        "assignedAt": "2026-10-24",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Owner inventory provisional candidate: research official Texas institution identity, current visitor logistics, matching canonical, licensed exact-site media and sources before publication."
+      },
+      "baxterlogcabinmuseum": {
+        "submittedName": "Baxter Log Cabin Museum",
+        "rawOccurrence": 53,
+        "status": "assigned",
+        "assignedAt": "2026-10-24",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Owner inventory provisional candidate: research official Texas institution identity, current visitor logistics, matching canonical, licensed exact-site media and sources before publication."
+      },
+      "bayareamuseum": {
+        "submittedName": "Bay Area Museum",
+        "rawOccurrence": 54,
+        "status": "assigned",
+        "assignedAt": "2026-10-24",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Owner inventory provisional candidate: research official Texas institution identity, current visitor logistics, matching canonical, licensed exact-site media and sources before publication."
       }
     },
     "note": "Original stable 25-candidate queue with evidence-based dispositions. No false certification; batch replenishment uses the existing next-museum-owner-batch script.",
-    "lastAssignmentAt": "2026-10-24T21:01:00Z",
-    "lastAssignmentCount": 7,
+    "lastAssignmentAt": "2026-10-24",
+    "lastAssignmentCount": 25,
     "currentBatch": {
       "id": "owner-20261024-001",
       "startedAt": "2026-10-24T20:40:00Z",
