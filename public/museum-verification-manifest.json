@@ -3,62 +3,6 @@
   "description": "Production museum visitor-guide sources for the existing TexasDefined Supabase authority verification registry; no collection replicas.",
   "museums": [
     {
-      "path": "/destination/austin-history-center-austin",
-      "topic": "museum-visitor-guide",
-      "cadenceDays": 30,
-      "faqCount": 8,
-      "sources": [
-        {
-          "sourceUrl": "https://library.austintexas.gov/austin-history-center",
-          "fetchUrl": "https://library.austintexas.gov/austin-history-center",
-          "label": "Austin City Library: Faulk hours and location"
-        },
-        {
-          "sourceUrl": "https://library.austintexas.gov/ahc/plan-your-visit",
-          "fetchUrl": "https://library.austintexas.gov/ahc/plan-your-visit",
-          "label": "Austin Public Library: Reading Room visit rules and advance notices"
-        },
-        {
-          "sourceUrl": "https://library.austintexas.gov/ahc/research",
-          "fetchUrl": "https://library.austintexas.gov/ahc/research",
-          "label": "Austin City Archives: holdings, research and maps"
-        },
-        {
-          "sourceUrl": "https://library.austintexas.gov/ahc/about-us",
-          "fetchUrl": "https://library.austintexas.gov/ahc/about-us",
-          "label": "Austin Public Library: institutional history and 2025 move"
-        },
-        {
-          "sourceUrl": "https://library.austintexas.gov/ahc",
-          "fetchUrl": "https://library.austintexas.gov/ahc",
-          "label": "Austin Public Library: current temporary history exhibits"
-        }
-      ]
-    },
-    {
-      "path": "/destination/alley-log-cabin-museum-columbus",
-      "topic": "museum-visitor-guide",
-      "cadenceDays": 30,
-      "faqCount": 8,
-      "sources": [
-        {
-          "sourceUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
-          "fetchUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
-          "label": "Columbus preservation trust: official cabin visitor/tour and history"
-        },
-        {
-          "sourceUrl": "https://www.columbushpt.com/",
-          "fetchUrl": "https://www.columbushpt.com/",
-          "label": "Nonprofit operator and related historic attractions"
-        },
-        {
-          "sourceUrl": "https://atlas.thc.texas.gov/Details/5089008827",
-          "fetchUrl": "https://atlas.thc.texas.gov/Details/5089008827",
-          "label": "Texas Historical Commission Abram Alley landmark"
-        }
-      ]
-    },
-    {
       "path": "/destination/1919-san-augustine-county-jail-museum",
       "topic": "museum-visitor-guide",
       "cadenceDays": 30,
@@ -157,6 +101,29 @@
           "sourceUrl": "https://aamdallas.org/exhibits/",
           "fetchUrl": "https://aamdallas.org/exhibits/",
           "label": "Museum: current and past exhibitions"
+        }
+      ]
+    },
+    {
+      "path": "/destination/alley-log-cabin-museum-columbus",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+          "fetchUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+          "label": "Columbus preservation trust: official cabin visitor/tour and history"
+        },
+        {
+          "sourceUrl": "https://www.columbushpt.com/",
+          "fetchUrl": "https://www.columbushpt.com/",
+          "label": "Nonprofit operator and related historic attractions"
+        },
+        {
+          "sourceUrl": "https://atlas.thc.texas.gov/Details/5089008827",
+          "fetchUrl": "https://atlas.thc.texas.gov/Details/5089008827",
+          "label": "Texas Historical Commission Abram Alley landmark"
         }
       ]
     },
@@ -438,6 +405,39 @@
       ]
     },
     {
+      "path": "/destination/austin-history-center-austin",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://library.austintexas.gov/austin-history-center",
+          "fetchUrl": "https://library.austintexas.gov/austin-history-center",
+          "label": "Austin City Library: Faulk hours and location"
+        },
+        {
+          "sourceUrl": "https://library.austintexas.gov/ahc/plan-your-visit",
+          "fetchUrl": "https://library.austintexas.gov/ahc/plan-your-visit",
+          "label": "Austin Public Library: Reading Room visit rules and advance notices"
+        },
+        {
+          "sourceUrl": "https://library.austintexas.gov/ahc/research",
+          "fetchUrl": "https://library.austintexas.gov/ahc/research",
+          "label": "Austin City Archives: holdings, research and maps"
+        },
+        {
+          "sourceUrl": "https://library.austintexas.gov/ahc/about-us",
+          "fetchUrl": "https://library.austintexas.gov/ahc/about-us",
+          "label": "Austin Public Library: institutional history and 2025 move"
+        },
+        {
+          "sourceUrl": "https://library.austintexas.gov/ahc",
+          "fetchUrl": "https://library.austintexas.gov/ahc",
+          "label": "Austin Public Library: current temporary history exhibits"
+        }
+      ]
+    },
+    {
       "path": "/destination/austin-nature-and-science-center",
       "topic": "museum-visitor-guide",
       "cadenceDays": 30,
@@ -490,6 +490,77 @@
           "sourceUrl": "https://bdzfoundation.com/contact/",
           "fetchUrl": "https://bdzfoundation.com/contact/",
           "label": "Babe Didrikson Zaharias Foundation — contact"
+        }
+      ]
+    },
+    {
+      "path": "/destination/barrington-living-history-farm",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://thc.texas.gov/historic-sites/barrington-living-history-farm",
+          "fetchUrl": "https://thc.texas.gov/historic-sites/barrington-living-history-farm",
+          "label": "Official current farm hours, prices, location and programs"
+        },
+        {
+          "sourceUrl": "https://thc.texas.gov/state-historic-sites/barrington-living-history-farm/barrington-living-history-farm-history",
+          "fetchUrl": "https://thc.texas.gov/state-historic-sites/barrington-living-history-farm/barrington-living-history-farm-history",
+          "label": "Operator history, historic Jones home and enslaved labor"
+        },
+        {
+          "sourceUrl": "https://thc.texas.gov/washington-brazos-complex/plan-your-visit-washington-brazos",
+          "fetchUrl": "https://thc.texas.gov/washington-brazos-complex/plan-your-visit-washington-brazos",
+          "label": "Operator group bookings, access and lightning closures"
+        },
+        {
+          "sourceUrl": "https://thc.texas.gov/historic-sites/washington-brazos",
+          "fetchUrl": "https://thc.texas.gov/historic-sites/washington-brazos",
+          "label": "Washington-on-the-Brazos official complex admission"
+        }
+      ]
+    },
+    {
+      "path": "/destination/bastrop-county-museum-visitor-center",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://www.bastropcountyhistoricalsociety.com/museum",
+          "fetchUrl": "https://www.bastropcountyhistoricalsociety.com/museum",
+          "label": "Operator museum, schedule, last entry and address"
+        },
+        {
+          "sourceUrl": "https://www.bastropcountyhistoricalsociety.com/coming-soon-03-3",
+          "fetchUrl": "https://www.bastropcountyhistoricalsociety.com/coming-soon-03-3",
+          "label": "Operator updated admission discounts and Museums for All"
+        },
+        {
+          "sourceUrl": "https://www.bastropcountyhistoricalsociety.com/coming-soon-03-4",
+          "fetchUrl": "https://www.bastropcountyhistoricalsociety.com/coming-soon-03-4",
+          "label": "Operator visitor FAQ, tour time, gallery rules"
+        },
+        {
+          "sourceUrl": "https://www.bastropcountyhistoricalsociety.com/",
+          "fetchUrl": "https://www.bastropcountyhistoricalsociety.com/",
+          "label": "Operator homepage Sunday-hours discrepancy"
+        },
+        {
+          "sourceUrl": "https://www.bastropcountyhistoricalsociety.com/coming-soon-03-1",
+          "fetchUrl": "https://www.bastropcountyhistoricalsociety.com/coming-soon-03-1",
+          "label": "Operator visitor-center context"
+        },
+        {
+          "sourceUrl": "https://www.bastropcountyhistoricalsociety.com/coming-soon-03-2",
+          "fetchUrl": "https://www.bastropcountyhistoricalsociety.com/coming-soon-03-2",
+          "label": "Operator parking and visitor directions"
+        },
+        {
+          "sourceUrl": "https://www.bastropcountyhistoricalsociety.com/resources",
+          "fetchUrl": "https://www.bastropcountyhistoricalsociety.com/resources",
+          "label": "Operator research-library appointment"
         }
       ]
     },
