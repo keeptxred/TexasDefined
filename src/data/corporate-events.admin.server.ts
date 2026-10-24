@@ -248,3 +248,43 @@ export async function recordCorporateEventCommercialAgreement(
   if (error || !data?.id) throw new Error('Agreement verification could not be recorded.');
   return { id: String(data.id), recorded: true, published: false, sent: false };
 }
+
+/**
+ * Staff records an actual organizer's verified consent withdrawal. This does
+ * not contact an individual or partner, purge historical audit evidence, or
+ * re-authorize a different request. All downstream quote prep checks the
+ * live allow_provider_outreach bit again.
+ */
+export async function revokeCorporateEventVenueSharing(
+  accessKey: string,
+  plannerRequestId: string,
+  verifiedOrganizerInstruction: boolean,
+  verificationNote: string,
+) {
+  await assertSportsPartnerAccess(accessKey);
+  const note = verificationNote.trim();
+  if (verifiedOrganizerInstruction !== true || note.length < 20 || note.length > 500) {
+    throw new Error('Require a verified organizer withdrawal instruction and its private evidence reference.');
+  }
+  const { data, error } = await client.from('texasdefined_group_event_requests')
+    .update({
+      allow_provider_outreach: false,
+      provider_outreach_revoked_at: new Date().toISOString(),
+      provider_outreach_revoked_by: 'TexasDefined corporate events operations',
+      provider_outreach_revocation_note: note,
+    })
+    .eq('id', plannerRequestId)
+    .eq('allow_provider_outreach', true)
+    .is('provider_outreach_revoked_at', null)
+    .select('id,allow_provider_outreach,provider_outreach_revoked_at')
+    .maybeSingle();
+  if (error || !data?.id || data.allow_provider_outreach !== false) {
+    throw new Error('Permission was already withdrawn or the request could not be updated.');
+  }
+  return {
+    id: String(data.id),
+    sharingAllowed: false as const,
+    newVenueMessagesSent: false as const,
+    historicalConsentRetainedPrivately: true as const,
+  };
+}
