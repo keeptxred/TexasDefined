@@ -1,6 +1,6 @@
 import { corporateEventProviders } from '@/data/corporate-events';
 
-const cityGuides = [
+const editorialCityGuides = [
   { key: 'Houston', slug: 'houston', city: 'Houston',
     title: 'Houston corporate events & team building',
     intro: 'From immersive indoor games to chef-led experiences, Houston offers company activities for small teams and large private gatherings. Check whether capacity means one private room or several coordinated groups.',
@@ -37,7 +37,48 @@ const cityGuides = [
     title: 'Lubbock group activities & corporate socials',
     intro: 'Explore facilitated park activities, outdoor paintball and escape-room challenges. Compare indoor-outdoor options and confirm how many participants can participate at once.',
     tip: 'For group sports, ask about equipment, safety requirements, waivers, weather alternatives and minimum deposits.' },
+
+  { key: 'Bryan/College Station', slug: 'bryan-college-station', city: 'Bryan/College Station',
+    title: 'Bryan–College Station team outings & retreats',
+    intro: 'Compare bowling, golf-bay competitions and wildlife outings in the Brazos Valley. Operators may offer different group limits for different programs.',
+    tip: 'For 45 employees, check fixed retreat-package caps, split-session options and catering service fees.' },
+  { key: 'Tyler', slug: 'tyler', city: 'Tyler',
+    title: 'Tyler company parties & team-building',
+    intro: 'Explore East Texas private dining, larger meeting halls and creative painting events. Individual dining rooms may be much smaller than a whole venue buyout.',
+    tip: 'Specify sit-down dining, classroom or hosted team-building format before comparing guest limits.' },
+  { key: 'Beaumont', slug: 'beaumont', city: 'Beaumont',
+    title: 'Beaumont group meetings & company celebrations',
+    intro: 'The Golden Triangle offers city-operated event space, museum rentals and hosted small-group activities. Published limits vary by room and format.',
+    tip: 'Confirm venue lead times, room-specific capacity and any security or after-hours fees.' },
+  { key: 'Amarillo', slug: 'amarillo', city: 'Amarillo',
+    title: 'Amarillo corporate events & group challenges',
+    intro: 'Compare ballpark banquets, escape games and ranch-style receptions. Whole-stadium capacity never means every room holds that many people.',
+    tip: 'Ask about room configurations, facilitators and outdoor weather backup plans.' },
+  { key: 'McAllen', slug: 'mcallen', city: 'McAllen',
+    title: 'McAllen team outings & Rio Grande Valley meetings',
+    intro: 'Find South Texas conference venues, hosted group activities and private-event spaces. Special advertised group rates may have eligibility restrictions.',
+    tip: 'Check tax-exempt rate restrictions, waivers, guest minimums and AV fees.' },
+  { key: 'Midland/Odessa', slug: 'midland-odessa', city: 'Midland/Odessa',
+    title: 'Midland–Odessa corporate activities & retreats',
+    intro: 'The Permian Basin offers mobile team competitions, private dining and conference spaces. Portable activities may require a meeting venue supplied by the organizer.',
+    tip: 'Separate venue rental from facilitators, and confirm Midland–Odessa travel times and setup requirements.' },
 ] as const;
+
+const knownGuideKeys = new Set<string>(editorialCityGuides.map((guide) => guide.key));
+/** Automatically include future directory markets without hand-maintained link lists. */
+const cityGuides = [
+  ...editorialCityGuides,
+  ...Array.from(new Set(corporateEventProviders.map((provider) => provider.metro || provider.city)))
+    .filter((key) => !knownGuideKeys.has(key))
+    .map((key) => ({
+      key,
+      slug: key.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
+      city: key,
+      title: key + ' group activities and company events',
+      intro: 'Compare the source-curated business directory for this area. All group capacities, packages and availability must be confirmed with each venue.',
+      tip: 'Request room-specific group capacity, taxes, itemized fees and cancellation terms before committing.',
+    })),
+];
 
 export function CorporateEventMetroGuides() {
   return <section id="texas-corporate-event-city-guides" aria-labelledby="texas-city-guides-title" className="border-t border-border bg-surface">
@@ -57,7 +98,12 @@ export function CorporateEventMetroGuides() {
         {cityGuides.map((guide) => {
           const venues = corporateEventProviders.filter((provider) =>
             provider.city === guide.key || provider.metro === guide.key);
-          const recommendedCategory = guide.slug === 'corpus-christi' || guide.slug === 'galveston' ? 'company-parties' : 'team-building';
+          const eligibleFor45 = venues.filter((venue) => (venue.minGroup == null || venue.minGroup <= 45) && (venue.maxGroup == null || venue.maxGroup >= 45));
+          const categoryPreference = ['team-building', 'company-parties', 'meetings', 'private-dining', 'client-entertainment', 'outdoor-adventure'] as const;
+          const recommendedCategory = [...categoryPreference].sort((a, b) =>
+            eligibleFor45.filter((venue) => venue.categories.includes(b)).length -
+            eligibleFor45.filter((venue) => venue.categories.includes(a)).length
+          )[0];
           const link = '/corporate-events?city=' + encodeURIComponent(guide.city) + '&guests=45&type=' + recommendedCategory;
           return <article key={guide.slug} id={'corporate-events-' + guide.slug}
             className="scroll-mt-28 border border-border bg-background p-5 sm:p-7">
