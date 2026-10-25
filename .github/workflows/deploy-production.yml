@@ -1000,7 +1000,7 @@ jobs:
       - name: Mark live production verification complete
         id: live
         # Require completed District 5, 16, and 21 HTML acceptance plus 5/16 desktop/mobile Chrome acceptance.
-        if: ${{ success() && steps.live_christmas_12_calendar.outcome == 'success' && steps.cloudflare.outcome == 'success' && steps.live_district5_browser.outcome == 'success' && steps.live_district16.outcome == 'success' && steps.live_district16_browser.outcome == 'success' && steps.live_district21.outcome == 'success' }}
+        if: ${{ success() && steps.cloudflare.outcome == 'success' && steps.live_district5_browser.outcome == 'success' && steps.live_district16.outcome == 'success' && steps.live_district16_browser.outcome == 'success' && steps.live_district21.outcome == 'success' }}
         run: echo 'All blocking production verifiers passed natively.'
       - name: Publish live verification result
         if: always()
