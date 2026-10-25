@@ -1036,6 +1036,14 @@ if (!errors.length) {
     "Varsity Opponent",
     "Mark Torres",
     "Sam Carlin",
+    "buffalo:",
+    "bullard:",
+    "buna:",
+    "Trent Jones",
+    "Colton Bradford",
+    "Kevin Terrier",
+    "Mildred final not independently verified",
+    "Buna 46",
   ]) requireText(footballBatch008Editorial, marker, 'Football Batch 008 editorial overlay');
 
   requireText(programProfileServer, "import { getBatch008FootballProgramEditorial } from './program-editorial-b008';", 'Football Batch 008 loader wiring');
