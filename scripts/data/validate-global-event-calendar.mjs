@@ -33,8 +33,13 @@ for (const needle of [
 ]) requireText(adapter, needle, "shared event registry Christmas integration");
 for (const needle of [
   "View this show on the statewide calendar",
+  "encodeURIComponent(`city:${show.city}`)",
   '/events?start=',
 ]) requireText(christmasHub, needle, "Christmas hub calendar crosslinks");
+for (const needle of [
+  'Number(right.startDate === exactDay) - Number(left.startDate === exactDay)',
+  'const exactDay = search.start && search.start === search.end',
+]) requireText(calendarServer, needle, "exact-day event visibility");
 if (/endDate: show.endDate/.test(christmas)) {
   failures.push("Do not treat a discontinuous Christmas theatre run as daily calendar availability");
 }
@@ -64,7 +69,7 @@ for (const token of ["getGeneratedTexasEvents(500)", "loadMajorEventGuideDirecto
 for (const token of ['search.category === "guides"', "buildGlobalEventCalendarServer", "buildTexasEventCarouselItemsServer", "formatCarouselRange", "categoryLabel", "lastVerifiedLabel", "contextMatches", "matchesLocation", "overlapsRange", 'timeZone: "America/Chicago"', "calendarDays", "calendarHref", "slice(0, 48)", "previousHref", "todayHref", "nextWeekHref", "nextHref", "calendarDays: calendarDays(monthKey).map", "results: displayed.map"]) requireText(calendarServer, token, "server calendar view model");
 for (const token of ["createServerFn", "loadUpcomingTexasCalendarRecordsServer", "upcomingEventRecords", "buildTexasEventCarouselItemsServer(records.slice(0, 12))", "buildGlobalEventCalendarServer", "calendarView", "noindex, follow"]) requireText(eventServerSurface, token, "normalized landing-event integration");
 for (const token of ["createServerFn", "getMajorEventLandingDirectory", "loadUpcomingTexasCalendarRecordsServer", "buildGlobalEventCalendarServer"]) requireText(eventCalendarFacade, token, "deferred calendar RPC boundary");
-requireText(calendarServer, "filtered.slice(0, 48)", "calendar payload remains bounded after filtering full server inventory");
+requireText(calendarServer, ": filtered).slice(0, 48)", "calendar payload remains bounded after filtering full server inventory");
 if (eventCalendarFacade.includes("limit: 200")) failures.push("calendar must not truncate the inventory before date/location filters");
 if (eventDirectoryFacade.includes("loadUpcomingTexasEventRecordsServer") || eventDirectoryFacade.includes("buildGlobalEventCalendarServer")) failures.push("eager event directory facade must not own global calendar normalization");
 
