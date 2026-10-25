@@ -681,7 +681,12 @@
         "reviewRequired": true,
         "publicationApproved": false,
         "editorialCertified": false,
-        "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "operatorIdentityConfirmed": false,
+        "photoRightsVerified": false,
+        "researchNote": "Owner's museum label does not match a currently verified Texas visitable museum. Research or disambiguation needed before inferring an exhibit, technology business incubator, campus venue or operational location. Do not auto-create visitor hours or a photograph.",
+        "researchEvidenceUrls": [],
+        "lastResearchAt": "2026-10-24"
       },
       "agriculturalheritagemuseum": {
         "submittedName": "Agricultural Heritage Museum",
@@ -882,7 +887,16 @@
         "reviewRequired": true,
         "publicationApproved": false,
         "editorialCertified": false,
-        "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "operatorIdentityConfirmed": true,
+        "photoRightsVerified": false,
+        "researchNote": "Current Art Center Waco is an active nonprofit arts exhibition and education center, not necessarily a traditional collecting museum; city CVB and Waco Chamber confirm current location 701 S 8th St and phone 254-752-4371, Tuesday–Friday 11–5 and Saturday 10–2 (verify official hours). Texas TDLR also confirms renovation of this facility. Past Wordpress/LinkedIn profiles list superseded addresses; do not direct visitors to former campus. Exact-site licensed photo and program access pending.",
+        "researchEvidenceUrls": [
+          "https://destinationwaco.org/listing/art-center-of-waco-3/",
+          "https://business.wacochamber.com/directory/Details/art-center-waco-880796",
+          "https://www.tdlr.texas.gov/TABS/Search/Print/TABS2020020137"
+        ],
+        "lastResearchAt": "2026-10-24"
       },
       "artgalleriesatblackstudies": {
         "submittedName": "Art Galleries at Black Studies",
@@ -987,7 +1001,15 @@
         "reviewRequired": true,
         "publicationApproved": false,
         "editorialCertified": false,
-        "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "operatorIdentityConfirmed": false,
+        "photoRightsVerified": false,
+        "researchNote": "Historic Aviation Museum of Texas formerly operated in Kerrville and then in Uvalde at Garner Field; specialist aviation directories characterize Uvalde public venue as closed. No current official operator or government closure record verified, so mark research-blocked, not conclusively 'closed', and do not create a contemporary open visitor guide.",
+        "researchEvidenceUrls": [
+          "https://aviationmuseum.eu/Blogvorm/aviation-museum-texas/",
+          "https://aerialvisuals.ca/LocationDossier.php?Serial=3898"
+        ],
+        "lastResearchAt": "2026-10-24"
       },
       "b29b24squadronmuseum": {
         "submittedName": "B-29/B-24 Squadron Museum",
@@ -1206,7 +1228,21 @@
         "reviewRequired": true,
         "publicationApproved": false,
         "editorialCertified": false,
-        "note": "Research candidate. Check current operator, address, existing canonical guide, exact-site photo license and accessibility before editorial publication."
+        "note": "Research candidate. Check current operator, address, existing canonical guide, exact-site photo license and accessibility before editorial publication.",
+        "operatorIdentityConfirmed": true,
+        "photoRightsVerified": true,
+        "proposedCanonicalSlug": "baytown-historical-museum",
+        "researchNote": "The official Baytown tourism bureau confirms a free operating Baytown Historical Museum in the former Goose Creek Post Office, 220 W. Defee, phone 281-427-8768; its current city visitors listing states Tuesday–Saturday 10 a.m.–2 p.m. Other local sites conflict (Wed–Sat 10–4), so use qualified schedule and official telephone confirmation. Original 29 Oct 2020 photograph of exact former federal post office by Jim Evans is openly licensed CC BY-SA 4.0 on Wikimedia Commons, 3823×2635 pixels. Guide and full source-backed FAQs can now be produced; do not mark guide merged or editorial certified from this checkpoint.",
+        "researchEvidenceUrls": [
+          "https://www.visitbaytown.com/arts-culture",
+          "https://www.visitbaytown.com/baytown-history",
+          "https://texastimetravel.com/directory/baytown-historical-museum/",
+          "https://commons.wikimedia.org/wiki/File:Old_Baytown_Post_Office.jpg"
+        ],
+        "photoFile": "Old Baytown Post Office.jpg",
+        "photoCreator": "Jim Evans",
+        "photoLicense": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "lastResearchAt": "2026-10-24"
       },
       "bayoubendcollectionandgardens": {
         "submittedName": "Bayou Bend Collection and Gardens",
@@ -1234,7 +1270,15 @@
         "reviewRequired": true,
         "publicationApproved": false,
         "editorialCertified": false,
-        "note": "Research candidate. Check current operator, address, existing canonical guide, exact-site photo license and accessibility before editorial publication."
+        "note": "Research candidate. Check current operator, address, existing canonical guide, exact-site photo license and accessibility before editorial publication.",
+        "operatorIdentityConfirmed": true,
+        "photoRightsVerified": false,
+        "researchNote": "Active community gallery/art education center, Beaumont Art League established in 1943. Its own 2026 website lists 2675 Gulf St, Beaumont, phone 409-347-6166, Wednesday–Saturday noon–5; contemporaneous Lamar University Oct 22 2026 coverage confirms November 14 student show. Should be classified as contemporary art gallery rather than inaccurately describing it as an object-collecting museum. Reusable exact-gallery photo rights and full visitor program policies remain unverified.",
+        "researchEvidenceUrls": [
+          "https://beaumontartleague.us/",
+          "https://www.lamaruniversitypress.com/2026/10/art-league-accepting-entries-for-student-exhibition.php"
+        ],
+        "lastResearchAt": "2026-10-24"
       }
     },
     "note": "Original stable 25-candidate queue with evidence-based dispositions. No false certification; batch replenishment uses the existing next-museum-owner-batch script.",
@@ -1333,5 +1377,58 @@
       ]
     },
     "lastEvidenceReview": "2026-10-24"
+  },
+  "october24ProductionHtmlVerification": {
+    "checkedAt": "2026-10-25T00:34:00Z",
+    "method": "Supabase pg_net HTTP fetch to actual public texasdefined.com; HTML transport and linked evidence, not rendered browser QA",
+    "routes": [
+      {
+        "path": "/destination/bryan-museum-galveston",
+        "httpStatus": 200,
+        "htmlCreditVerified": true,
+        "originalPhotoCommonsUrl": "https://commons.wikimedia.org/wiki/File:Galveston_Texas_-_The_Bryan_Museum_-_January_2025_-_1.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+        "canonicalVerified": true,
+        "indexingNoindexStringFound": false
+      },
+      {
+        "path": "/destination/bayou-bend-collection-gardens",
+        "httpStatus": 200,
+        "htmlCreditVerified": true,
+        "originalPhotoCommonsUrl": "https://commons.wikimedia.org/wiki/File:BayouBendHome.JPG",
+        "license": "Public domain",
+        "canonicalVerified": true,
+        "indexingNoindexStringFound": false
+      },
+      {
+        "path": "/destination/austin-history-center-austin",
+        "httpStatus": 200,
+        "htmlCreditVerified": true,
+        "originalPhotoCommonsUrl": "https://commons.wikimedia.org/wiki/File:John_Henry_Faulk_Central_Library.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "canonicalVerified": true,
+        "indexingNoindexStringFound": false
+      },
+      {
+        "path": "/destination/alley-log-cabin-museum-columbus",
+        "httpStatus": 200,
+        "htmlCreditVerified": true,
+        "originalPhotoCommonsUrl": "https://commons.wikimedia.org/wiki/File:Abram_Alley_Log_Cabin,_Columbus,_TX_IMG_8238.JPG",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+        "canonicalVerified": true,
+        "indexingNoindexStringFound": false
+      }
+    ],
+    "manifest": {
+      "publicProductionCount": 85,
+      "sourceDefinitions": 374,
+      "importedIntoExistingSupabaseSourceRegistry": true
+    },
+    "notVerified": [
+      "Browser-decoded responsive image or mobile pixels",
+      "Editorial authority certification",
+      "Public page image HTTP payload correctness",
+      "Independent visitor-fact audit of every FAQ"
+    ]
   }
 }
