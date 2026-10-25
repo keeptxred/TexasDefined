@@ -11,8 +11,10 @@ export const Route = createFileRoute('/texas-high-school-football-districts/$slu
   loader: async ({ params }) => {
     const district = await getFootballDistrictPage(params.slug);
     if (!district) throw notFound();
-    const sponsorPlacement = await getActiveSportsSponsorPlacement({ data: { surfacePath: district.profilePath } });
-    return { ...district, sponsorPlacement };
+    return {
+      ...district,
+      sponsorPlacement: await getActiveSportsSponsorPlacement({ data: { surfacePath: district.profilePath } }),
+    };
   },
   head: ({ loaderData }) => {
     if (!loaderData) return { meta: [{ title: 'Football district not found' }, { name: 'robots', content: 'noindex' }] };
