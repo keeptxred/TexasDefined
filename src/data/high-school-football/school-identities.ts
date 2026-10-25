@@ -2026,6 +2026,29 @@ export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoo
     sourceLabel: 'Calvert ISD official site uses Trojans identity and current purple/white school-spirit presentation',
     verifiedAt: '2026-10-25',
   },
+  {
+    slug: 'cameron-yoe',
+    mascot: 'Yoemen',
+    colors: 'Maroon and Gray',
+    sourceUrl: 'https://www.cameronisd.net/page/yhs.Home',
+    sourceLabel: 'C.H. Yoe High School official campus page plus long-running Cameron ISD program identity',
+    verifiedAt: '2026-10-25',
+  },
+  {
+    slug: 'campbell',
+    mascot: 'Indians',
+    sourceUrl: 'https://www.campbellisd.org/campus-departments/athletics/football',
+    sourceLabel: 'Campbell ISD official football page identifies the varsity program and current staff',
+    verifiedAt: '2026-10-25',
+  },
+  {
+    slug: 'canadian',
+    mascot: 'Wildcats',
+    colors: 'Black and Gold',
+    sourceUrl: 'https://www.canadianisd.net/football',
+    sourceLabel: 'Canadian ISD official football page uses Wildcats and black/gold program presentation',
+    verifiedAt: '2026-10-25',
+  },
 ];
 
 export function getVerifiedFootballSchoolIdentity(slug: string) {
