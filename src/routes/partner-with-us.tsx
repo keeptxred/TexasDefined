@@ -23,10 +23,10 @@ export const Route = createFileRoute('/partner-with-us')({
   validateSearch: (search: Record<string, unknown>): PartnerSearch => ({
     partnershipType: search.type === 'sports-travel' || search.type === 'brand-retail' ? search.type : undefined,
     sourcePath: typeof search.source === 'string' ? sanitizePartnerSource(search.source) : undefined,
-    tier: typeof search.tier === 'string' && /^(local|growth|premier|custom)$/.test(search.tier)
+    tier: /^(local|growth|premier|custom)$/.test(search.tier as string)
       ? search.tier as PartnerSearch['tier'] : undefined,
     billing: search.billing === 'annual' || search.billing === 'monthly' ? search.billing : undefined,
-    focus: typeof search.focus === 'string' && /^(pricing|examples|agreement|billing|contact)$/.test(search.focus)
+    focus: /^(pricing|examples|agreement|billing|contact)$/.test(search.focus as string)
       ? search.focus as PartnerSearch['focus'] : undefined,
   }),
   head: () => ({
