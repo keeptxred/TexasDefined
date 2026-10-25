@@ -4,7 +4,7 @@ const server = await createServer({ configFile: false, appType: 'custom', logLev
 try {
   const { loadTicketmasterEventsServer, ticketmasterAuthorityGuidePath } = await server.ssrLoadModule('/src/data/events/ticketmaster-events.server.ts');
   const { mergeEventTicketing } = await server.ssrLoadModule('/src/data/events/ticketing.ts');
-  const { ticketmasterVenueMatches } = await server.ssrLoadModule('/src/data/events/texas-event-records.server.ts');
+  const { ticketmasterVenueMatches, ticketmasterShowtimeMatches } = await server.ssrLoadModule('/src/data/events/texas-event-records.server.ts');
   const { hasCompliantMajorEventImageServer } = await server.ssrLoadModule('/src/data/major-event-schema-enrichment.server.ts');
   const { buildTexasEventCarouselItemsServer, buildGlobalEventCalendarServer } = await server.ssrLoadModule('/src/data/events/texas-event-calendar.server.ts');
   const now = new Date();
@@ -88,6 +88,25 @@ try {
   assert.equal(ticketmasterVenueMatches(
     { venueName: 'Arena' }, { venueName: 'Arena Parking' },
   ), false, 'parking add-ons must not be mistaken for concert admission');
+
+  assert.equal(ticketmasterShowtimeMatches(
+    { startTime: '14:00' }, { startTime: '19:00:00' }, 2,
+  ), false, '2pm matinee must never be linked to 7pm tickets');
+  assert.equal(ticketmasterShowtimeMatches(
+    { startTime: '7:00 PM' }, { startTime: '19:00:00' }, 2,
+  ), true, '12-hour editorial clock must match provider 24-hour time');
+  assert.equal(ticketmasterShowtimeMatches(
+    {}, { startTime: '14:00' }, 2,
+  ), false, 'unknown editorial time cannot select among two provider showtimes');
+  assert.equal(ticketmasterShowtimeMatches(
+    {}, { startTime: '14:00' }, 1,
+  ), true, 'unique sole event may enrich an undated editorial showtime');
+  assert.equal(ticketmasterShowtimeMatches(
+    { startTime: '14:00' }, {}, 1,
+  ), false, 'specific editorial showtime cannot assume a provider time');
+  assert.equal(ticketmasterShowtimeMatches(
+    {}, {}, 1,
+  ), true, 'one unique time-unspecified performance can still link safely');
 
   const editorialTicketing = {
     links: [{
