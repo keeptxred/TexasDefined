@@ -77,6 +77,10 @@ function CorporateEventsPage() {
   const [copyMessage, setCopyMessage] = useState('');
   const [shareLinkMessage, setShareLinkMessage] = useState('');
   const [eventDate, setEventDate] = useState('');
+  // SSR headings can appear before React binds interactive form handlers.
+  // A non-sensitive post-mount marker lets read-only production QA wait for
+  // actual client readiness instead of guessing from static document content.
+  const [clientReady, setClientReady] = useState(false);
 
   const validHeadcount = Number.isInteger(headcount) && headcount >= 2 && headcount <= 8000;
   const validEventDate = !eventDate || isUpcomingCorporateEventDate(eventDate);
@@ -99,6 +103,7 @@ function CorporateEventsPage() {
     const allowed = new Set(corporateEventProviders.map((provider) => provider.slug));
     const slugs = (params.get('venues') || '').split(',').filter((slug) => allowed.has(slug));
     if (slugs.length) setSelected([...new Set(slugs)].slice(0, 5));
+    setClientReady(true);
   }, []);
 
   async function copyShareLink() {
@@ -247,7 +252,7 @@ function CorporateEventsPage() {
     },
   });
 
-  return <main id="main">
+  return <main id="main" data-corporate-hydrated={clientReady ? 'true' : 'false'}>
     <style>{`@media print {
       body:has(#proposal) * { visibility: hidden !important; }
       body:has(#proposal) #proposal, body:has(#proposal) #proposal * { visibility: visible !important; }
