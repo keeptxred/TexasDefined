@@ -182,6 +182,16 @@ if (!errors.length) {
   const footballAuthorityRegistry = JSON.parse(read(footballAuthorityRegistryPath));
   const legacyProgramMetadata = read(legacyMetadataFiles[0]);
   const schoolIdentities = read(legacyMetadataFiles[1]);
+  // Sparse identity arrays throw on .find(identity => identity.slug) for all
+  // unlisted teams after the first hole. One accidental double comma previously
+  // made non-Batch008 UIL team pages respond HTTP 500. Validate source AND
+  // preserve a defensive lookup for future malformed rows.
+  if (/}\s*,\s*,/.test(schoolIdentities)) {
+    errors.push('Football verified identity records contain a sparse array entry (double separator)');
+  }
+  requireText(schoolIdentities,
+    'identity?.slug === slug',
+    'Fail-safe verified football identity lookup against missing array entries');
   const verifiedIdentitySlugs = new Set(
     [...schoolIdentities.matchAll(/slug:\s*['"]([^'"]+)['"]/g)].map((match) => match[1]),
   );
