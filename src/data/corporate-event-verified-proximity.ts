@@ -31,6 +31,20 @@ export type CorporateEventRadiusMatch = {
 
 const EARTH_RADIUS_MILES = 3958.7613;
 const bounded = (v: number, lo: number, hi: number) => Number.isFinite(v) && v >= lo && v <= hi;
+const realCalendarDay = (value: string) => {
+  if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+  const time = Date.parse(value + 'T12:00:00Z');
+  return Number.isFinite(time) && new Date(time).toISOString().slice(0, 10) === value;
+};
+
+/** A Census homepage or geocoder interpolation is NOT proof of ZCTA coordinates.
+ * Require the original national ZCTA Gazetteer archive for the stated vintage.
+ */
+const officialCensusZctaArchive = (url: URL) =>
+  url.hostname.toLowerCase() === 'www2.census.gov'
+  && /^\/geo\/docs\/maps-data\/data\/gazetteer\/(20\d{2})_Gazetteer\/\1_Gaz_zcta_national\.zip$/.test(url.pathname)
+  && !url.search;
+
 
 /** Reject unsourced, future-dated, imprecise or implausible coordinates. */
 export function validVerifiedCorporateEventPoint(
@@ -49,8 +63,7 @@ export function validVerifiedCorporateEventPoint(
     if (expected === 'zcta') {
       // ZCTA representative points must originate from the official U.S.
       // Census domain, never an arbitrary HTTPS third-party map result.
-      const host = source.hostname.toLowerCase();
-      if (host !== 'census.gov' && !host.endsWith('.census.gov')) return false;
+      if (!officialCensusZctaArchive(source)) return false;
     } else {
       // A geocoded address-range or third-party map share is not an
       // independently confirmed entrance/premises. The coordinate evidence
@@ -58,9 +71,7 @@ export function validVerifiedCorporateEventPoint(
       if (!officialVenueUrl || !corporateEventOfficialDomainMatches(point.sourceUrl, officialVenueUrl)) return false;
     }
   } catch { return false; }
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(point.verifiedOn) || !/^\d{4}-\d{2}-\d{2}$/.test(asOf)) return false;
-  const stamp = new Date(point.verifiedOn + 'T12:00:00Z');
-  return Number.isFinite(stamp.getTime()) && stamp.toISOString().slice(0, 10) === point.verifiedOn
+  return realCalendarDay(point.verifiedOn) && realCalendarDay(asOf)
     && point.verifiedOn <= asOf;
 }
 
