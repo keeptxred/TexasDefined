@@ -2,6 +2,7 @@ import { createLazyFileRoute, Link } from '@tanstack/react-router';
 
 import { Container } from '@/components/layout/Container';
 import { FootballGameNightGuide } from '@/components/sports/FootballGameNightGuide';
+import { FootballMonetizationSlot } from '@/components/sports/FootballMonetizationSlot';
 import { District21TeamSeason, hasDistrict21TeamScorecard } from '@/components/sports/District21TeamSeason';
 import { SponsoredSportsPlacement } from '@/components/sports/SponsoredSportsPlacement';
 import {
@@ -431,6 +432,11 @@ function Page() {
           summaryAlreadyShown={!!editorial?.season}
         />
       )}
+
+      {!editorial?.notice && <FootballMonetizationSlot
+        surfacePath={`/texas-high-school-football-teams/${slug}`}
+        hasSponsor={!!sponsorPlacement}
+      />}
 
       {/* Put verified visitor actions and the actual season ahead of history and enrollment. */}
         <dl aria-label={`${displayName} verified football facts`} className="grid grid-cols-2 gap-x-5 border-b border-border py-3 text-sm sm:grid-cols-3 lg:grid-cols-6">
