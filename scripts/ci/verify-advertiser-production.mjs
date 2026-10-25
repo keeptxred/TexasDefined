@@ -7,8 +7,26 @@ const routes = [
     name: 'advertiser hub',
     path: '/partner-with-us',
     canonical: '/partner-with-us',
-    needles: ['Local Partner', 'Growth Partner', 'Premier Partner', 'Custom Partnership', '$249', '$499', '$999', 'Review first. Agreement and payment follow approval.'],
-    forbidden: ['Custom / Integrated', 'Founding sports rates', '$49/month', '$149/month', '$299/month', 'TEST ONLY', 'test mode'],
+    needles: ['Local Partner', 'Growth Partner', 'Premier Partner', 'Custom Partnership', '$249', '$499', '$999', 'Review first. Agreement and payment follow approval.', 'School Page Pilot', 'District Football Pilot', 'Regional Football Pilot', '$49/month', '$99/month', '$149/month', 'Submitting an inquiry is free and does not start a subscription.', 'No school affiliation or traffic guarantees.'],
+    forbidden: ['Custom / Integrated', 'Founding sports rates', '$299/month', 'TEST ONLY', 'test mode'],
+    indexable: true,
+  },
+  {
+    name: 'football team sponsorship',
+    path: '/texas-high-school-football-teams/aledo',
+    canonical: '/texas-high-school-football-teams/aledo',
+    needles: ['data-football-monetization="v1"', 'Texas game-day gear and independent designs', 'Browse the shop', 'Original designs are not school-licensed or official team merchandise.'],
+    forbidden: ['TEST ONLY', 'test mode'],
+    footballSponsorSlot: true,
+    indexable: true,
+  },
+  {
+    name: 'football district sponsorship',
+    path: '/texas-high-school-football-districts/6a-district-22',
+    canonical: '/texas-high-school-football-districts/6a-district-22',
+    needles: ['data-football-monetization="v1"', 'Texas game-day gear and independent designs', 'Browse the shop', 'Original designs are not school-licensed or official team merchandise.'],
+    forbidden: ['TEST ONLY', 'test mode'],
+    footballSponsorSlot: true,
     indexable: true,
   },
   {
@@ -104,6 +122,10 @@ async function fetchRoute(route, attempt, variant) {
   const html = await response.text();
   const renderedHtml = normalizeRenderedHtml(html);
   const missing = route.needles.filter((needle) => !renderedHtml.includes(needle));
+  if (route.footballSponsorSlot && !(
+    renderedHtml.includes('Sponsor this page') ||
+    (renderedHtml.includes('Paid placement by') && renderedHtml.includes('Sponsored'))
+  )) missing.push('Football sponsorship inquiry or a clearly labeled approved placement');
   const forbidden = route.forbidden.filter((needle) => renderedHtml.toLowerCase().includes(needle.toLowerCase()));
   const robots = robotsContent(html);
   const canonicalOk = canonicalPresent(html, route.canonical);
