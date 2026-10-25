@@ -123,6 +123,29 @@ try {
   assert.equal(ticketmasterIsPrimaryAdmissionTitle("Signed Poster Add-On - Brett Goldstein - Not a Concert Ticket"), false);
   assert.equal(ticketmasterIsPrimaryAdmissionTitle("Pentatonix VIP Upgrade (Event Ticket Not Included)"), false);
   assert.equal(ticketmasterIsPrimaryAdmissionTitle("Parking Pass - Grand Ol' Christmas"), false);
+  for (const addOn of [
+    "Pentatonix - Parking",
+    "Pentatonix Parking Pass",
+    "Grand Ol' Christmas VIP Upgrade",
+    "Grand Ol' Christmas - Fast Lane Pass",
+    "Cirque Musica Quick Pass",
+    "A Jazzy Christmas - Suite Ticket",
+    "A Christmas Story Meet & Greet Add-On",
+    "Cirque Musica - Parking Only",
+    "Pentatonix: Parking Tickets",
+  ]) {
+    assert.equal(ticketmasterIsPrimaryAdmissionTitle(addOn), false,
+      'non-admission add-on must never supply a ticket CTA: ' + addOn);
+  }
+  for (const primary of [
+    "Pentatonix: Christmas in the City Tour",
+    "The Parking Lot Music Festival",
+    "Fast Lane - Live in Concert",
+    "Suite Sounds - Christmas Concert",
+    "A Christmas Story",
+  ]) assert.equal(ticketmasterIsPrimaryAdmissionTitle(primary), true,
+    'genuine concert titles must remain publishable: ' + primary);
+
 
   assert.equal(ticketmasterIsPrimaryAdmissionTitle('Pentatonix: Christmas in the City Tour'), true);
   const pentatonixPrimary = {
