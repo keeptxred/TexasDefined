@@ -9,6 +9,33 @@ import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
  */
 export const museumAuthorityDestinations: Destination[] = [
   {
+    id: "museum-authority-baytown-historical-museum",
+    brandId: "texasdefined",
+    slug: "baytown-historical-museum",
+    name: "Baytown Historical Museum",
+    summary: "Free community history museum in the former 1930s Goose Creek Post Office, tracing the region from Karankawa history through the oil era and the formation of modern Baytown.",
+    category: "historic-sites",
+    region: "gulf-coast",
+    nearestTown: "Baytown",
+    county: "Harris County",
+    coordinates: { lat: 29.734309, lng: -94.970209 },
+    hero: museumLicensedHeroes["baytown-historical-museum"],
+    bestSeason: "Indoor museum suitable year-round; confirm the limited posted visiting hours before a trip.",
+    entryNote: "220 West Defee Street, Baytown, TX 77520. Official Baytown visitor information lists Tuesday–Saturday 10 a.m.–2 p.m., with free admission, but other listings conflict. Call 281-427-8768 before traveling; confirm tours and holiday hours directly.",
+    highlights: ["Original Goose Creek federal post office building", "Karankawa and early area history", "Oil industry, the Humble era and the 1948 city merger", "WPA-era historic architecture and fresco"],
+    body: [
+      "Baytown Historical Museum occupies the former Goose Creek Post Office, a federal building completed in the 1930s and repurposed as a local-history museum after postal operations moved. Seeing the building itself is part of the visit: its architecture and interior mural connect the surrounding city to New Deal-era public works.",
+      "Collections tell the story of the area before modern Baytown existed. Displays extend from Karankawa and early settlement history into the growth of the oil industry, Humble Oil and the communities of Goose Creek, Pelly and Baytown that united into one municipality in 1948.",
+      "This is a small community museum rather than a major all-day attraction. Start with the original building and the displays that interest you, then continue to the nearby downtown arts district. If you are researching family history or bringing a school group, contact the operator before assuming archives, guided visits or behind-the-scenes collections will be available.",
+      "The municipal visitor bureau advertises free admission and limited Tuesday–Saturday opening hours, but independent local directories publish a different weekly schedule. Neither an old museum directory nor a third-party hours feed should be treated as a guarantee of same-day access; call the museum at 281-427-8768."
+    ],
+    officialUrl: "https://www.visitbaytown.com/arts-culture",
+    managingAuthority: "Baytown Historical Museum",
+    address: "220 W Defee St, Baytown, TX 77520",
+    sourceCheckedAt: "2026-10-24",
+    accessibilityNotes: "This is a historic federal building with visible front entrance steps. The official visitor listing does not establish a complete accessible entrance, lift, restroom or parking route; ask staff at 281-427-8768 about step-free access and any accommodations before visiting."
+  },
+  {
     id: "museum-authority-austin-history-center-austin",
     brandId: "texasdefined",
     slug: "austin-history-center-austin",
