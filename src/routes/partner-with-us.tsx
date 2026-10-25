@@ -7,7 +7,6 @@ const canonicalPath = '/partner-with-us';
 const description = 'Texas Defined advertising packages, placements, billing and agreements. Paid relationships do not buy editorial coverage, favorable rankings or changes to factual conclusions. One approved sports sponsored placement may run on a sports surface at a time.';
 
 type PartnerSearch = {
-  football?: 'school' | 'district' | 'regional';
   partnershipType?: 'sports-travel' | 'brand-retail';
   sourcePath?: string;
   tier?: 'local' | 'growth' | 'premier' | 'custom';
@@ -18,15 +17,12 @@ type PartnerSearch = {
 function sanitizePartnerSource(value: unknown) {
   if (typeof value !== 'string') return canonicalPath;
   if (value === '/sports-venues' || value === '/things-unique-to-texas/texas-brands' || value === '/events/christmas-events') return value;
-  if (/^\/sports-venue\/[a-z0-9-]+$/.test(value)) return value;
-  if (/^\/texas-high-school-football-(?:teams|districts)\/[a-z0-9-]+$/.test(value)) return value;
-  if (/^\/explore\/near\/[a-z0-9-]+\/day-trips$/.test(value)) return value;
+  if (/^\/(?:sports-venue\/[a-z0-9-]+|texas-high-school-football-(?:teams|districts)\/[a-z0-9-]+|explore\/near\/[a-z0-9-]+\/day-trips)$/.test(value)) return value;
   return canonicalPath;
 }
 
 export const Route = createFileRoute('/partner-with-us')({
   validateSearch: (search: Record<string, unknown>): PartnerSearch => ({
-    football: search.football === 'school' || search.football === 'district' || search.football === 'regional' ? search.football : undefined,
     partnershipType: search.type === 'sports-travel'
       ? 'sports-travel'
       : search.type === 'brand-retail'
