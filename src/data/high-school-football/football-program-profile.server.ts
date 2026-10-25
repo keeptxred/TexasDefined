@@ -160,7 +160,7 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
     };
   }
 
-  const result = await searchFootballPrograms({ query: seed.schoolName, limit: 100 });
+  const result = await searchFootballPrograms({ query: seed.schoolName, limit: 100, loadRemoteSources: false });
   const exactEnrollment = UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28[seed.sourceSchoolName];
   const matchedProgram: FootballProgramDirectoryResult = exactProgramMatch(seed, result.programs) ?? {
     ...seed,
