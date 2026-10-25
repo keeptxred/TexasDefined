@@ -61,7 +61,12 @@ test('read-only project uses separate generated override; no edits to giant auth
   const profile=readFileSync('src/data/high-school-football/football-program-profile.server.ts','utf8');
   const helper=readFileSync('src/data/high-school-football/aubrey-auto-results.ts','utf8');
   const schedule=readFileSync('.github/workflows/aubrey-football-freshness.yml','utf8');
-  assert.ok(profile.includes("applyAubreyAutoResults(getFootballProgramEditorial(canonicalSlug))"));
+  // Batch 008 introduced a separate source-ledger overlay. The Aubrey two-source
+  // reconciliation must still wrap the selected editorial model, not be skipped.
+  assert.ok(profile.includes('getBatch008FootballProgramEditorial(canonicalSlug) ?? getFootballProgramEditorial(canonicalSlug)'),
+    'Original and Batch 008 editorial fallback must both remain available');
+  assert.match(profile, /const editorial = canonicalSlug === 'aubrey'\s*\? applyAubreyAutoResults\(baseEditorial\)\s*: baseEditorial;/,
+    'Aubrey independently verified results must still override the selected editorial');
   assert.ok(helper.includes('latestResultSourceUrl'));
   assert.ok(helper.includes('Conflicting historical Aubrey final'));
   assert.ok(schedule.includes("cron: '15 15 * * *'"));
