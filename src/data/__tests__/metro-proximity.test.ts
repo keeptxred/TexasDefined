@@ -524,7 +524,7 @@ test("day-trip monetization reuses approved booking surfaces and keeps editorial
   assert.ok(rich.includes('Affiliate disclosure: TexasDefined may earn a commission'));
   assert.ok(rich.includes('data-metro-curated-day-trips={metro.slug}'));
   assert.ok(rich.includes('Editorial destinations and rankings are never for sale'));
-  assert.ok(partner.includes("day-trips$/.test(value)"), "attribute narrowly scoped lead sources");
+  assert.ok(partner.includes("day-trips)$/.test(value)") && partner.includes("explore\\/near\\/[a-z0-9-]+\\/day-trips"), "attribute narrowly scoped lead sources");
   assert.ok(rich.includes('hasVerifiedViatorMarketUrl(experienceMarketSlug)'), "only verified Viator market pages can receive a tour CTA");
   assert.ok(rich.includes('buildViatorAffiliateUrl(verifiedViatorMarketUrl(experienceMarketSlug)'), "use the centralized approved Viator affiliate link builder");
   assert.ok(rich.includes('trackAffiliateClick({ partner: "viator"'), "record opted-in Viator link clicks");
