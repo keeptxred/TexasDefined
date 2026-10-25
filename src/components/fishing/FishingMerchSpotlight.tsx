@@ -34,7 +34,7 @@ export function FishingMerchSpotlight({
 
   const recommended = rankFishingShirts(available, lakeName, speciesName, speciesNames).slice(0, compact ? 2 : 3);
   return (
-    <aside aria-label="Texas Defined fishing shirts" className={compact ? "mt-9 border-t border-border pt-6" : "border-y border-border py-9 sm:py-12"}>
+    <section aria-label="Texas Defined fishing shirts" className={compact ? "mt-9 border-t border-border pt-6" : "border-y border-border py-9 sm:py-12"}>
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <p className="eyebrow text-primary">From the Texas Defined shop</p>
@@ -70,7 +70,7 @@ export function FishingMerchSpotlight({
           </a>
         ))}
       </div>
-    </aside>
+    </section>
   );
 }
 
