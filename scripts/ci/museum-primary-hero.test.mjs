@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { readFileSync } from "node:fs";
 import { primaryDestinationHeroSrc, primaryDestinationHeroAlt, isMissingPrimaryDestinationHero } from "./museum-primary-hero.mjs";
 
 const hero = '<div data-image-fallback-label="" aria-hidden="true" class="absolute inset-0"></div>'
@@ -36,4 +37,12 @@ test("primary alt text belongs only to the actual marked hero", () => {
   assert.equal(primaryDestinationHeroAlt('<body>' + markup + '<aside><img alt="Wrong place"></aside></body>'),
     "Museum & Archive entrance's west face");
   assert.equal(primaryDestinationHeroAlt('<aside><img alt="Unrelated photo"></aside>'), "");
+});
+
+test("approved McNay courtyard overrides a non-placeholder legacy photo without changing other museums", () => {
+  const source = readFileSync(new URL("../../src/data/museum-authority-heroes.ts", import.meta.url), "utf8");
+  assert.match(source, /McNay_Art_Museum_May_2018_2_\(Courtyard\)\.jpg\?width=1600/);
+  assert.match(source, /Michael Barera[^\n]*CC BY-SA 4\.0/);
+  assert.match(source, /const requiresVerifiedMcNayHero = destination\.slug === "mcnay-art-museum-san-antonio"/);
+  assert.match(source, /isDestinationPhotoPlaceholder\(destination\.hero\.src\) \|\| requiresVerifiedMcNayHero/);
 });
