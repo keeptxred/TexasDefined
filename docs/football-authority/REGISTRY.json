@@ -48,12 +48,12 @@
     "assignmentBranch": "football-authority-batch-008-20261025",
     "repositoryMainAtAssignment": "84f529082bc16063bd28f9d21e762e69da96fd74",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "caldwell",
-    "nextSchool": "callisburg",
-    "implementedOnBranch": 15,
-    "remainingToImplement": 10,
+    "currentSchool": "cameron-yoe",
+    "nextSchool": "campbell",
+    "implementedOnBranch": 18,
+    "remainingToImplement": 7,
     "remainingToVerify": 25,
-    "notes": "Batch 008: 15/25 IMPLEMENTED on branch, none merged/deployed/VERIFIED. Fifth group Bushland/Bynum/Caddo Mills completed. Bushland conflicting coach/Hereford feeds disclosed; Bynum coach qualified; Caddo Mills current campus/stadium construction and Ferris 53-35 result updated. Next Caldwell, Callisburg, Calvert."
+    "notes": "Batch 008: 18/25 IMPLEMENTED on branch, none merged/deployed/VERIFIED. Sixth group Caldwell/Callisburg/Calvert completed. Caldwell current 2-6 with first-party stadium-entry rules; Callisburg Blue Ridge final remains unresolved; Calvert first-party Marcus Wortham and 46-45 Brazos Valley final added. Next Cameron Yoe, Campbell, Canadian."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -8604,8 +8604,16 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/caldwell",
-      "status": "NOT_REVIEWED",
-      "batch": 8
+      "status": "IMPLEMENTED",
+      "batch": 8,
+      "audit": "docs/football-authority/schools/caldwell.md",
+      "auditCompletedAt": "2026-10-25",
+      "researchCompletedAt": "2026-10-25",
+      "implementedAt": "2026-10-25",
+      "implementedOnBranch": "football-authority-batch-008-20261025",
+      "actualProductionVerified": false,
+      "implementationNotes": "Individual source-backed Batch 008 authority profile implemented with current 2026 results, explicit source-conflict/unresolved-result handling, county reciprocity and original source-derived visual; protected merge/deploy/live acceptance pending.",
+      "mediaStatus": "No third-party school photography, school seal or official logo copied; original TexasDefined source-derived editorial visual only."
     },
     {
       "id": "uil:callisburg",
@@ -8618,8 +8626,16 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/callisburg",
-      "status": "NOT_REVIEWED",
-      "batch": 8
+      "status": "IMPLEMENTED",
+      "batch": 8,
+      "audit": "docs/football-authority/schools/callisburg.md",
+      "auditCompletedAt": "2026-10-25",
+      "researchCompletedAt": "2026-10-25",
+      "implementedAt": "2026-10-25",
+      "implementedOnBranch": "football-authority-batch-008-20261025",
+      "actualProductionVerified": false,
+      "implementationNotes": "Individual source-backed Batch 008 authority profile implemented with current 2026 results, explicit source-conflict/unresolved-result handling, county reciprocity and original source-derived visual; protected merge/deploy/live acceptance pending.",
+      "mediaStatus": "No third-party school photography, school seal or official logo copied; original TexasDefined source-derived editorial visual only."
     },
     {
       "id": "uil:calvert",
@@ -8632,8 +8648,16 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/calvert",
-      "status": "NOT_REVIEWED",
-      "batch": 8
+      "status": "IMPLEMENTED",
+      "batch": 8,
+      "audit": "docs/football-authority/schools/calvert.md",
+      "auditCompletedAt": "2026-10-25",
+      "researchCompletedAt": "2026-10-25",
+      "implementedAt": "2026-10-25",
+      "implementedOnBranch": "football-authority-batch-008-20261025",
+      "actualProductionVerified": false,
+      "implementationNotes": "Individual source-backed Batch 008 authority profile implemented with current 2026 results, explicit source-conflict/unresolved-result handling, county reciprocity and original source-derived visual; protected merge/deploy/live acceptance pending.",
+      "mediaStatus": "No third-party school photography, school seal or official logo copied; original TexasDefined source-derived editorial visual only."
     },
     {
       "id": "uil:cameron-yoe",
