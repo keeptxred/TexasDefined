@@ -79,6 +79,10 @@ try {
     { venueId: 'sports-venue:at-t-stadium', venueName: 'Dickies Arena' },
   ), false, 'conflicting canonical venue IDs must reject even if titles agree');
   assert.equal(ticketmasterVenueMatches(
+    { venueId: 'sports-venue:dickies-arena', venueName: 'Dickies Arena' },
+    { venueId: 'sports-venue:dickies-arena', venueName: 'Dickies Arena Parking' },
+  ), false, 'shared venue ID cannot turn a parking add-on into admission');
+  assert.equal(ticketmasterVenueMatches(
     { venueName: '' }, { venueName: 'Dickies Arena' },
   ), false, 'missing venues are not safe to auto-link');
   assert.equal(ticketmasterVenueMatches(
