@@ -5,13 +5,13 @@ import { isDestinationPhotoPlaceholder } from "./explore-hero-reconciliation";
 export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
   "barrington-living-history-farm": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Barrington_Farm%2C_residence_of_Dr._Anson_Jones.jpg?width=1600",
-    alt: "Anson Jones house at Barrington Farm",
+    alt: "Barrington's Anson Jones house",
     width: 1600, height: 900,
     credit: "Pi3.124 · CC BY-SA 4.0"
   },
   "bastrop-county-museum-visitor-center": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Bastrop_county_historical_society_museum.jpg?width=1600",
-    alt: "Bastrop County Museum exterior",
+    alt: "Bastrop County Museum",
     width: 1600, height: 1067,
     credit: "Larry D. Moore · CC BY 4.0"
   },
@@ -88,7 +88,7 @@ export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Former_alvin_tx_post_office.jpg?width=1600",
     alt: "The former 1940 U.S. Post Office building at 300 West Sealy Street in Alvin, Texas, now home of Alvin Historical Museum, photographed May 12, 2015",
     width: 1600, height: 1067,
-    credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons · File:Former alvin tx post office.jpg · 2015 museum-building exterior",
+    credit: "Larry D. Moore · CC BY 4.0 · File:Former alvin tx post office.jpg · 2015 museum-building exterior",
   },
   "museum-of-the-american-railroad-frisco": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Frisco_June_2019_28_%28Museum_of_the_American_Railroad%29.jpg?width=1600",
