@@ -53,3 +53,11 @@ test("state-park Chrome FAQ acceptance survives transient hydration remounts wit
  assert.match(script,/faq\.screenshot\(/,"mobile evidence must depict the actual re-located FAQ element");
  assert.match(script,/if\(!facts\.faqVisible\)throw new Error\("Source-backed park FAQ not rendered"\)/,"missing FAQs must still fail");
 });
+
+test("park screenshot must show the full three-answer TPWD FAQ rather than just its heading",()=>{
+ const script=readFileSync(new URL("../../ci/verify-six-state-park-visual.mjs",import.meta.url),"utf8");
+ assert.ok(script.includes('faq?.closest(\'section[aria-labelledby="destination-visitor-faqs"]\')'),"FAQ answers must be read from their actual section");
+ assert.ok(script.includes('row.querySelector(\'dd a[href^="https://tpwd.texas.gov/"]\')'),"each FAQ must link the TPWD source");
+ assert.ok(script.includes('if(facts.faqSourcedAnswers<3)throw new Error("Three TPWD-sourced park FAQ answers not rendered")'),"fewer than three linked question/answer pairs fails");
+ assert.ok(script.includes("page.locator('section[aria-labelledby=\"destination-visitor-faqs\"]')"),"screenshot must capture full FAQ section, not just h2");
+});
