@@ -515,7 +515,7 @@ test("three added metro day-trip guides only feature verified, actually availabl
   assert.equal(curatedMetroDayTrips("mcallen", "day-trips", [] as MetroProximityResult[]).length, 0, "keep the separately verified McAllen curation unchanged");
 });
 
-test("day-trip monetization reuses approved booking surfaces and attributes inquiries without sponsored rankings", () => {
+test("day-trip monetization reuses approved booking surfaces and keeps editorial choices independent", () => {
   const rich = readFileSync("src/routes/explore.near.$metro.$collection.lazy.tsx");
   const partner = readFileSync("src/routes/partner-with-us.tsx");
   assert.ok(rich.includes('data-day-trip-commercial-paths={metro.slug}'));
