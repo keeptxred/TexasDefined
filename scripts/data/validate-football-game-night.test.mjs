@@ -68,21 +68,23 @@ test('first-party action tracking respects existing automation and shop analytic
   assert.doesNotMatch(panel, /localStorage|sessionStorage|sendBeacon/);
 });
 
-test('team sponsorship paths are staged but no launch hold is bypassed', () => {
-  const allowed = /^\/(?:sports-venues|sports-venue\/[a-z0-9-]+|texas-high-school-football-teams\/[a-z0-9-]+)$/;
+test('team and district sponsorship paths are allowlisted while the venue launch hold stays active', () => {
+  const allowed = /^\/(?:sports-venues|sports-venue\/[a-z0-9-]+|texas-high-school-football-(?:teams|districts)\/[a-z0-9-]+)$/;
   for (const path of [
     '/sports-venues',
     '/sports-venue/eagle-stadium-allen',
     '/texas-high-school-football-teams/southlake-carroll',
     '/texas-high-school-football-teams/aledo',
+    '/texas-high-school-football-districts/6a-district-22',
   ]) assert.equal(allowed.test(path), true, path);
   for (const path of [
     '/texas-high-school-football-teams/../../admin',
     '/texas-high-school-football-teams/',
     '/texas-high-school-football-teams/fake?redirect=x',
+    '/texas-high-school-football-districts/../../admin',
   ]) assert.equal(allowed.test(path), false, path);
 
-  assert.match(functions, /texas-high-school-football-teams/);
+  assert.match(functions, /texas-high-school-football-\(\?:teams\|districts\)/);
   assert.match(migration, /texas-high-school-football-teams/);
   assert.match(migration, /DROP CONSTRAINT IF EXISTS texasdefined_sports_sponsor_placements_surface_path_check/);
   assert.match(migration, /ADD CONSTRAINT texasdefined_sports_sponsor_placements_surface_path_check/);
