@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
+import { execFileSync } from "node:child_process";
 
 const root = process.cwd();
 const read = (relativePath) => fs.readFileSync(path.join(root, relativePath), "utf8");
@@ -10,6 +11,22 @@ const requireText = (source, needle, label) => { if (!source.includes(needle)) f
 const contract = read("src/data/events/texas-event-record.ts");
 const adapter = read("src/data/events/texas-event-records.server.ts");
 const calendarServer = read("src/data/events/texas-event-calendar.server.ts");
+const christmasProductionAcceptance = read("scripts/ci/verify-christmas-calendar-12-production.mjs");
+for (const marker of [
+  "const cases = [",
+  "cases.length !== 12",
+  "new Set(cases.map(x=>x[0]))",
+  "ev-results-list",
+  "expected exactly one",
+  "ev-ticket",
+  "christmas-calendar-qa",
+]) requireText(christmasProductionAcceptance, marker, "live Christmas 12-show production acceptance");
+try {
+  execFileSync(process.execPath, ["--check", path.join(root, "scripts/ci/verify-christmas-calendar-12-production.mjs")], { stdio: "pipe" });
+} catch (error) {
+  failures.push("live Christmas 12-show production acceptance must have valid JavaScript syntax: " + String(error.stderr || error.message));
+}
+
 const christmas = read("src/data/events/christmas-performances-2026.server.ts");
 const christmasHub = read("src/routes/events.$collection.tsx");
 const christmasIds = [...christmas.matchAll(/id: "([^"]+-2026)"/g)].map((match) => match[1]);
