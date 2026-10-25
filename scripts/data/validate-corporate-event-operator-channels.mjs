@@ -42,6 +42,12 @@ assert(!monitoring.includes("contactSent: true") && !monitoring.includes("venueV
   'HEAD source reachability is not proof of any outreach or commercial verification');
 const staff = readFileSync('src/components/events/CorporateEventSourceReviewPanel.tsx','utf8');
 assert(staff.includes('corporateEventPublicOperatorChannel(item.provider.slug)'));
+const invitation = readFileSync('src/components/events/CorporateEventPartnerInvitationKit.tsx','utf8');
+assert(invitation.includes('corporateEventPublicOperatorChannel(provider.slug)')
+  && invitation.includes('href={officialChannel?.url ?? draft.officialUrl}'),
+  'Staff invitation composer must prefer verified venue inquiry paths without sending planner data');
+assert(!invitation.includes('form.submit(') && !invitation.includes('fetch(officialChannel'),
+  'Link is manually opened only, never automatically submitted or fetched with private data');
 assert(staff.includes('Review public event inquiry'));
 assert(staff.includes('No inquiry has been submitted, no planner details shared'),
   'Staff contact-path directory must never claim completed external outreach');
