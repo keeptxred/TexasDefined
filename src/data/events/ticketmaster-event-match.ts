@@ -64,3 +64,16 @@ export function ticketmasterShowtimeMatches(
   if (editorialTime && !providerTime) return false;
   return matchingProviderPerformances === 1;
 }
+
+
+/**
+ * Discovery also publishes add-ons as "events". Suite, parking and entry
+ * upgrades are NOT regular show-admission tickets. Keep them out of the
+ * general event feed and out of curated concert affiliate matching.
+ * Prefer a false negative (official organizer fallback) over promoting
+ * an addon as primary admission.
+ */
+export function ticketmasterIsPrimaryAdmissionTitle(name: string): boolean {
+  const normalized = name.trim().toLowerCase().replace(/[–—]/g, "-");
+  return !/^(?:parking|(?:reserved|premium|premier|general)\s+parking|suites?|vip\s+(?:upgrade|add-?on)|fast\s+lane|quick\s+pass|express\s+entry|club\s+access|meet\s*(?:&|and)\s*greet)\s*[:\-]/i.test(normalized);
+}
