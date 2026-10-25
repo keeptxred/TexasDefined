@@ -3,6 +3,18 @@ import { isDestinationPhotoPlaceholder } from "./explore-hero-reconciliation";
 
 /** Lightweight exact-site photo sources. Never bundle long museum research dossiers in core destination discovery. */
 export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
+  "barrington-living-history-farm": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Barrington_Farm%2C_residence_of_Dr._Anson_Jones.jpg?width=1600",
+    alt: "Barrington's Anson Jones house",
+    width: 1600, height: 900,
+    credit: "Pi3.124 · CC BY-SA 4.0"
+  },
+  "bastrop-county-museum-visitor-center": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Bastrop_county_historical_society_museum.jpg?width=1600",
+    alt: "Bastrop County Museum",
+    width: 1600, height: 1067,
+    credit: "Larry D. Moore · CC BY 4.0"
+  },
   "baytown-historical-museum": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Old_Baytown_Post_Office.jpg?width=1600",
     alt: "The 1936–37 Goose Creek Post Office building, now Baytown Historical Museum at 220 West Defee Street",
@@ -34,7 +46,7 @@ export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/San_Angelo_September_2019_44_(San_Angelo_Museum_of_Fine_Arts).jpg?width=1600",
     alt: "Actual San Angelo Museum of Fine Arts riverside building in September 2019, photographed by Michael Barera",
     width: 1600, height: 1067,
-    credit: "Michael Barera · 7 September 2019 · CC BY-SA 4.0 · Wikimedia Commons · San Angelo September 2019 44 (San Angelo Museum of Fine Arts).jpg",
+    credit: "Michael Barera · CC BY-SA 4.0 · Wikimedia Commons",
   },
   "museum-of-south-texas-history-edinburg": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Old_Hidalgo_County_Jail_Edinburg_Texas_2021.jpg?width=1600",
@@ -46,7 +58,7 @@ export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Ceremonies_at_Camp_Mabry_190112-Z-DZ751-0199_(32916620338).jpg?width=1600",
     alt: "A January 2019 military history presentation inside the Texas Military Forces Museum at Camp Mabry in Austin",
     width: 3000, height: 2002,
-    credit: "Sgt. 1st Class Jim Greenhill · 12 January 2019 · CC BY 2.0 · Wikimedia Commons · Ceremonies at Camp Mabry 190112-Z-DZ751-0199 (32916620338).jpg"
+    credit: "Sgt. 1st Class Jim Greenhill · CC BY 2.0 · Wikimedia Commons"
   },
   "mcnay-art-museum-san-antonio": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/McNay_Art_Museum_May_2018_2_(Courtyard).jpg?width=1600",
@@ -64,19 +76,19 @@ export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Texas_Country_Music_Hall_of_Fame_and_Tex_Ritter_Museum_IMG_2956.JPG?width=1600",
     alt: "Texas Country Music Hall of Fame and Tex Ritter Museum building in Carthage, photographed May 20, 2011",
     width: 1600, height: 1200,
-    credit: "Billy Hathorn · 20 May 2011 · CC BY-SA 3.0 · Wikimedia Commons · Texas Country Music Hall of Fame and Tex Ritter Museum IMG 2956.JPG"
+    credit: "Billy Hathorn · CC BY-SA 3.0 · Wikimedia Commons"
   },
   "bryan-museum-galveston": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Galveston_Texas_-_The_Bryan_Museum_-_January_2025_-_1.jpg?width=1600",
     alt: "The Bryan Museum in Galveston, photographed January 2025 in the historic former Galveston Orphans Home building",
     width: 1600, height: 1000,
-    credit: "Alexander Hatley · 5 January 2025 · CC BY 2.0 · Wikimedia Commons · Galveston Texas - The Bryan Museum - January 2025 - 1.jpg"
+    credit: "Alexander Hatley · CC BY 2.0 · Wikimedia Commons"
   },
   "east-texas-oil-museum-kilgore": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/East_Texas_Oil_Museum_building,_Kilgore,_TX_IMG_5900.JPG?width=1600",
     alt: "East Texas Oil Museum exterior and oil-derrick structure on the Kilgore College campus, photographed in 2012",
     width: 1600, height: 1200,
-    credit: "Billy Hathorn · 24 October 2012 · CC BY-SA 3.0 · Wikimedia Commons · East Texas Oil Museum building, Kilgore, TX IMG 5900.JPG",
+    credit: "Billy Hathorn · CC BY-SA 3.0 · Wikimedia Commons",
   },
   "alvin-historical-museum": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Former_alvin_tx_post_office.jpg?width=1600",

@@ -14,6 +14,154 @@ export interface MuseumVisitorFaq {
   reviewed: string;
 }
 export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
+  "barrington-living-history-farm": [
+    {
+      "question": "When can I tour Barrington Living History Farm rather than just the grounds?",
+      "answer": "The Texas Historical Commission currently posts farm and townsite visits on Wednesday through Sunday, 10 a.m. to 4:30 p.m. Visitor-center and general grounds access on Monday or Tuesday does not mean the farm buildings and interpreters are open. Confirm holidays or weather closures before setting out.",
+      "verificationUrl": "https://thc.texas.gov/historic-sites/barrington-living-history-farm",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thc.texas.gov/historic-sites/barrington-living-history-farm",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "What are the current adult and family ticket prices at Barrington?",
+      "answer": "The operator lists standard admission at $10 for adults, $6 for visitors aged 6 to 17 and free for children five and under; discount categories cost $8. A family option for two adults and one child is $22 plus $1 for each additional child. Group rates and program tickets have different conditions.",
+      "verificationUrl": "https://thc.texas.gov/historic-sites/washington-brazos",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thc.texas.gov/historic-sites/washington-brazos",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Is Anson Jones's home original or rebuilt for the museum?",
+      "answer": "The Jones house is a surviving historical structure associated with his residence, but other farm buildings and enslaved-quarters displays have been reconstructed as an interpretive 1850s landscape. Visitors should distinguish actual surviving material from structures based on historical research instead of calling every cabin original.",
+      "verificationUrl": "https://thc.texas.gov/state-historic-sites/barrington-living-history-farm/barrington-living-history-farm-history",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thc.texas.gov/state-historic-sites/barrington-living-history-farm/barrington-living-history-farm-history",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Does Barrington tell the stories of the people held in slavery there?",
+      "answer": "The Texas Historical Commission interprets the cotton farm's enslaved residents, work routines and living quarters using Jones-era records, not merely the biography of the final Republic president. The kitchen, quarters, crops and household must be understood in the context of labor coerced from enslaved people.",
+      "verificationUrl": "https://thc.texas.gov/state-historic-sites/barrington-living-history-farm/barrington-living-history-farm-history",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thc.texas.gov/state-historic-sites/barrington-living-history-farm/barrington-living-history-farm-history",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Are Barrington's farm paths and buildings all wheelchair accessible?",
+      "answer": "The historical landscape includes outdoor dirt paths, and some tours involve stairs or historic thresholds. The Texas Historical Commission asks group organizers to identify ramp requirements before arrival. Contact visitor staff at 936-878-2214 for precise current access; online descriptions do not establish that every building is barrier-free.",
+      "verificationUrl": "https://thc.texas.gov/washington-brazos-complex/plan-your-visit-washington-brazos",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thc.texas.gov/washington-brazos-complex/plan-your-visit-washington-brazos",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "How early should a group schedule a tour of Barrington?",
+      "answer": "The Texas Historical Commission advises reserving adult groups about four weeks ahead and arranging payment a week before the visit. Ask explicitly for the farm and tell staff about mobility requirements. The published adult-group price differs from normal family and child admission, so do not assume a drop-in group receives the same program.",
+      "verificationUrl": "https://thc.texas.gov/washington-brazos-complex/plan-your-visit-washington-brazos",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thc.texas.gov/washington-brazos-complex/plan-your-visit-washington-brazos",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Are all farm and livestock demonstrations shown every day?",
+      "answer": "Period cooking, field work, livestock care and other demonstrations follow the farm's agricultural calendar, staff and weather. The operator does not promise every activity at a fixed hourly schedule, so visitors should confirm an advertised event if a specific demonstration is essential to their trip.",
+      "verificationUrl": "https://thc.texas.gov/historic-sites/barrington-living-history-farm",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thc.texas.gov/historic-sites/barrington-living-history-farm",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Do Barrington tours continue when thunderstorms approach?",
+      "answer": "The Texas Historical Commission says Barrington's outdoor visits close for thunder or lightning within eight miles and resume only after an appropriate clear period. Farm access is therefore not guaranteed merely because the visitor center is open; check actual site alerts on stormy days.",
+      "verificationUrl": "https://thc.texas.gov/washington-brazos-complex/plan-your-visit-washington-brazos",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thc.texas.gov/washington-brazos-complex/plan-your-visit-washington-brazos",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    }
+  ],
+  "bastrop-county-museum-visitor-center": [
+    {
+      "question": "Where is the Bastrop County Museum and Visitor Center located?",
+      "answer": "The historical society's museum and visitor-center desk occupy 904 Main Street, Bastrop, Texas 78602. The organization moved its collections to this downtown site in 2011. Call 512-303-0904 for current entry assistance or accessibility information.",
+      "verificationUrl": "https://www.bastropcountyhistoricalsociety.com/museum",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.bastropcountyhistoricalsociety.com/museum",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Is the Bastrop County Museum open on Sunday?",
+      "answer": "Dedicated museum hours and FAQ pages list Monday through Saturday, 10 a.m. to 5 p.m., last entry 4:30 p.m. But the same operator's homepage footer lists Sunday 11 a.m. to 3 p.m. Since its own official schedules disagree, call 512-303-0904 before planning any Sunday visit.",
+      "verificationUrl": "https://www.bastropcountyhistoricalsociety.com/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.bastropcountyhistoricalsociety.com/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "What does the Bastrop County Museum charge for a regular visit?",
+      "answer": "The operator currently lists general admission at $8, with children ages 12 and under, active military and veterans admitted free. Members enter free and eligible EBT cardholder families may access a $5 Museums for All family rate. Confirm eligibility and current terms on the official admission page.",
+      "verificationUrl": "https://www.bastropcountyhistoricalsociety.com/coming-soon-03-3",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.bastropcountyhistoricalsociety.com/coming-soon-03-3",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "How much time should I set aside for Bastrop's museum galleries?",
+      "answer": "The historical society's visitor FAQ estimates about 30 minutes to one hour for the museum itself, depending on how closely visitors read its permanent and changing exhibits. Time spent at the separate visitor desk or walking downtown is additional; arrive before the 4:30 p.m. last-admission cutoff.",
+      "verificationUrl": "https://www.bastropcountyhistoricalsociety.com/coming-soon-03-4",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.bastropcountyhistoricalsociety.com/coming-soon-03-4",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Does the museum visitor center also provide county travel advice?",
+      "answer": "Yes. The historical society operates a local tourist information desk in the same building as its historical exhibits, with staff providing maps and advice about Bastrop's downtown, attractions and local history. A ticket to the museum does not include admission to independently managed outdoor sites.",
+      "verificationUrl": "https://www.bastropcountyhistoricalsociety.com/coming-soon-03-1",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.bastropcountyhistoricalsociety.com/coming-soon-03-1",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Is public parking available near the museum on Main Street?",
+      "answer": "The museum's posted directions identify free public parking along Main Street and nearby side streets in downtown Bastrop. A parking description does not guarantee an open accessible space; check curb signs and call staff for specific step-free entrance or mobility arrangements.",
+      "verificationUrl": "https://www.bastropcountyhistoricalsociety.com/coming-soon-03-2",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.bastropcountyhistoricalsociety.com/coming-soon-03-2",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Can I just walk into the Bastrop County research archive?",
+      "answer": "For research on Bastrop genealogy or county records, the operator asks visitors to make an appointment so staff can prepare appropriate assistance. A regular public gallery visit is distinct from unsupervised access to its archive, so researchers should submit specific topics before traveling.",
+      "verificationUrl": "https://www.bastropcountyhistoricalsociety.com/resources",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.bastropcountyhistoricalsociety.com/resources",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Can I bring pets or food into the Bastrop museum exhibits?",
+      "answer": "The museum's published visitor FAQ states that only service animals are permitted inside the museum and that food and drinks may be consumed in the visitor-center area, not near exhibit collections. Ask staff about any additional accommodation or school-group arrangements.",
+      "verificationUrl": "https://www.bastropcountyhistoricalsociety.com/coming-soon-03-4",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.bastropcountyhistoricalsociety.com/coming-soon-03-4",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    }
+  ],
   "baytown-historical-museum": [
     {
       "question": "Where is Baytown Historical Museum, and what is the building?",

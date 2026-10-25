@@ -1877,6 +1877,51 @@
         "https://texastimetravel.com/directory/baytown-historical-museum/",
         "https://commons.wikimedia.org/wiki/File:Old_Baytown_Post_Office.jpg"
       ]
+    },
+    "barrington-living-history-farm": {
+      "name": "Barrington Living History Farm",
+      "operatorStrengths": [
+        "Texas Historical Commission publishes separate farm/townsite access and family/group pricing",
+        "Primary-source interpretation of Anson Jones house, reconstructed cabins and enslaved labor",
+        "Group advance booking, weather restrictions and outdoor accessibility caveats documented"
+      ],
+      "openGaps": [
+        "Verify all live primary-photo pixels and exact Commons/CC BY-SA attribution at desktop/mobile widths",
+        "Independently compare operator's current access and family programming with TexasDefined's guide",
+        "Request full accessibility details from operator and validate county/relevant near-site crosslinks"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://thc.texas.gov/historic-sites/barrington-living-history-farm",
+        "https://thc.texas.gov/state-historic-sites/barrington-living-history-farm/barrington-living-history-farm-history",
+        "https://thc.texas.gov/washington-brazos-complex/plan-your-visit-washington-brazos"
+      ]
+    },
+    "bastrop-county-museum-visitor-center": {
+      "name": "Bastrop County Museum & Visitor Center",
+      "operatorStrengths": [
+        "Direct operator 904 Main museum page and $8/Museums for All tickets",
+        "Explicit Sunday-hours contradiction preserved between current operator pages",
+        "First-party 30–60-minute visit estimate, research appointments and service-animal policies"
+      ],
+      "openGaps": [
+        "Verify new licensed museum exterior really decodes and shows linked CC BY 4.0 terms on desktop/mobile",
+        "Resolve conflicting Sunday hours with operator before giving travelers a definitive schedule",
+        "Independently verify full mobility entrance, accessible parking and updated changing exhibition calendar"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.bastropcountyhistoricalsociety.com/museum",
+        "https://www.bastropcountyhistoricalsociety.com/coming-soon-03-3",
+        "https://www.bastropcountyhistoricalsociety.com/coming-soon-03-4",
+        "https://www.bastropcountyhistoricalsociety.com/"
+      ]
     }
   },
   "baselineCollectedAt": "2026-10-12",

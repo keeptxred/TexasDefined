@@ -58,7 +58,16 @@ if (manifestStart < 0 || manifestEnd < 0) {
   process.exit(1);
 }
 const allDossiers = [...src.slice(manifestStart, manifestEnd).matchAll(/^  "([a-z0-9-]+)": \{/gm)].map((m) => m[1]);
-const lightweightSlugs = [...read("src/data/museum-authority-slugs.ts").matchAll(/^  "([a-z0-9-]+)",$/gm)].map(m => m[1]);
+const lightweightSource = read("src/data/museum-authority-slugs.ts");
+const compactSlugMatch = lightweightSource.match(/new Set\(\s*"([a-z0-9|-]+)"\.split\("\|"\)\s*\)/);
+const lightweightSlugs = compactSlugMatch
+  ? compactSlugMatch[1].split("|")
+  : [...lightweightSource.matchAll(/^  "([a-z0-9-]+)",$/gm)].map(m => m[1]);
+// Parse the compact representation as a full set. Duplicates, a truncated list,
+// or any drift from the authoritative dossiers must fail the existing contract.
+if (lightweightSlugs.length !== new Set(lightweightSlugs).size)
+  failures.push("Duplicate slug in compact museum identity set");
+
 if (lightweightSlugs.length !== allDossiers.length || lightweightSlugs.some(s => !allDossiers.includes(s))) failures.push("Museum SEO slug index must match all dossier keys exactly.");
 if (new Set(allDossiers).size !== allDossiers.length) failures.push("Duplicate museum authority dossier keys.");
 function dossier(slug) {
