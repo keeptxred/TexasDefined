@@ -1959,6 +1959,28 @@ export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoo
     sourceLabel: 'Burleson High School official About Us page',
     verifiedAt: '2026-10-25',
   },
+  {
+    slug: 'burleson-centennial',
+    mascot: 'Spartans',
+    sourceUrl: 'https://chs.burlesonisd.net/our-school/about-us',
+    sourceLabel: 'Centennial High School official About Us page identifies Home of the Spartans',
+    verifiedAt: '2026-10-25',
+  },
+  {
+    slug: 'burnet',
+    mascot: 'Bulldogs',
+    colors: 'Kelly Green',
+    sourceUrl: 'https://bhs.burnetcisd.net/apps/pages/index.jsp?pREC_ID=2222836&type=u&uREC_ID=1794188',
+    sourceLabel: 'Burnet High official head-coach bio identifies the Burnet community with Kelly Green; district pages use Bulldogs identity',
+    verifiedAt: '2026-10-25',
+  },
+  {
+    slug: 'burton',
+    mascot: 'Panthers',
+    sourceUrl: 'https://www.burtonisd.net/',
+    sourceLabel: 'Burton ISD official homepage repeatedly uses Panther Pride and Panthers identity; school-owned imagery is not reused',
+    verifiedAt: '2026-10-25',
+  },
 ];
 
 export function getVerifiedFootballSchoolIdentity(slug: string) {
