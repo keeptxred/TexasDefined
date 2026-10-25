@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "asOf": "2026-10-24",
+  "asOf": "2026-10-25",
   "repository": "keeptxred/TexasDefined",
   "production": "https://texasdefined.com",
   "supabaseProjectId": "ftkznprjljkhymknvhye",
@@ -1059,13 +1059,15 @@
         "publicationApproved": false,
         "editorialCertified": false,
         "note": "Provisional name only; research identity, operator, actual visitability, image rights and canonical before publication.",
-        "researchNote": "Baird T&P Railroad Depot and Transportation Museum is real at 100 Market St, Baird, Callahan County, but official hours are unclear; a historical 2019 guide says Monday–Saturday 10–2, other sites conflict. Original Baird depot photo is available on Commons but exact author/license still needs independent inspection before hero approval. Do not copy old price/hours as current.",
+        "researchNote": "Baird's Texas & Pacific Railway Depot at 100 Market Street is confirmed in Texas Historical Commission National Register #2012000194 and 1985 historic marker #5059005241. Former depot converted to transportation museum after the 2007 restoration (historical specialist operator photography). Wikimedia Commons lists exact 'Baird Texas and Pacific Depot.jpg' under the Baird depot category; original file license, photographer and current museum hours still need independent verification. Do not publish 2019 directory hours as current or infer unrestricted photo rights.",
         "researchEvidenceUrls": [
-          "https://www.wichitavalleynrhs.org/resources",
-          "https://www.txgenwebcounties.net/callahan/Callahan_TX_LocalityGuide.pdf",
-          "https://commons.wikimedia.org/wiki/Category:Texas_and_Pacific_Railway_Depot_(Baird,_Texas)"
+          "https://atlas.thc.texas.gov/Details/2012000194",
+          "https://atlas.thc.texas.gov/Details/5059005241",
+          "https://commons.wikimedia.org/wiki/Category:Texas_and_Pacific_Railway_Depot_(Baird,_Texas)",
+          "https://texaspacificrailway.org/structures/tx/baird/texas-and-pacific-railway-structures-tx-baird-baird-tx-museum-after-restoration-image-1526.html"
         ],
-        "lastResearchAt": "2026-10-24T21:01:00Z"
+        "lastResearchAt": "2026-10-25",
+        "photoRightsVerified": false
       },
       "ballingerheritagemuseum": {
         "submittedName": "Ballinger Heritage Museum",
@@ -1223,12 +1225,12 @@
       "baytownhistoricalmuseum": {
         "submittedName": "Baytown Historical Museum",
         "rawOccurrence": 55,
-        "status": "assigned",
+        "status": "guide-merged",
         "assignedAt": "2026-10-24",
         "reviewRequired": true,
         "publicationApproved": false,
         "editorialCertified": false,
-        "note": "Research candidate. Check current operator, address, existing canonical guide, exact-site photo license and accessibility before editorial publication.",
+        "note": "Merged PR #5868 publishes canonical visitor authority, nine researched FAQs, source manifest and exact-building CC BY-SA 4.0 Commons photo. Public HTTP 200, correct index/follow and clickable source/license attribution checked via Supabase pg_net request 14779. Browser-decoded photo, mobile layout and independent editorial authority signoff remain outstanding.",
         "operatorIdentityConfirmed": true,
         "photoRightsVerified": true,
         "proposedCanonicalSlug": "baytown-historical-museum",
@@ -1242,7 +1244,10 @@
         "photoFile": "Old Baytown Post Office.jpg",
         "photoCreator": "Jim Evans",
         "photoLicense": "https://creativecommons.org/licenses/by-sa/4.0/",
-        "lastResearchAt": "2026-10-24"
+        "lastResearchAt": "2026-10-24",
+        "evidence": "https://github.com/keeptxred/TexasDefined/pull/5868",
+        "relatedCanonicalSlug": "baytown-historical-museum",
+        "dispositionAt": "2026-10-25"
       },
       "bayoubendcollectionandgardens": {
         "submittedName": "Bayou Bend Collection and Gardens",
@@ -1357,10 +1362,10 @@
         "barkertexashistorycenter"
       ],
       "initialCandidates": 32,
-      "researchedDispositions": 13,
-      "remainingAssigned": 22,
-      "notes": "Continuing original deterministic owner batch: Bayou Bend merged on correct existing canonical (#5861); Emory A.C. McMillan and purported Anahuac depot research-blocked without misrepresenting historical sources as current. UT Art Galleries at Black Studies verified operating at two distinct visitor locations; media/guide pending. Barrington/Bastrop PR #5858 under protected validation after conflict reconciliation. Remaining assigned: 22; source certification and production QA remain distinct.",
-      "lastCheckpointAt": "2026-10-24",
+      "researchedDispositions": 14,
+      "remainingAssigned": 21,
+      "notes": "Preserve original owner batch. Baytown guide merged as PR #5868 and HTTP-verified, but browser/independent editorial acceptance is separate. Barrington/Bastrop under protected PR #5858. Baird museum building confirmed by THC; exact Commons photo rights/current hours still require verification. 21 candidates remain assigned.",
+      "lastCheckpointAt": "2026-10-25",
       "lastMergedGuides": [
         {
           "slug": "alley-log-cabin-museum-columbus",
@@ -1373,10 +1378,14 @@
         {
           "slug": "bayou-bend-collection-gardens",
           "pr": 5861
+        },
+        {
+          "slug": "baytown-historical-museum",
+          "pr": 5868
         }
       ]
     },
-    "lastEvidenceReview": "2026-10-24"
+    "lastEvidenceReview": "2026-10-25"
   },
   "october24ProductionHtmlVerification": {
     "checkedAt": "2026-10-25T00:34:00Z",
@@ -1430,5 +1439,17 @@
       "Public page image HTTP payload correctness",
       "Independent visitor-fact audit of every FAQ"
     ]
+  },
+  "october25BaytownProductionVerification": {
+    "checkedAt": "2026-10-25",
+    "path": "/destination/baytown-historical-museum",
+    "httpStatus": 200,
+    "source": "Supabase pg_net public HTTP response request 14779",
+    "photoCommonsSource": "https://commons.wikimedia.org/wiki/File:Old_Baytown_Post_Office.jpg",
+    "license": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "sourceAndLicenseLinksPresentInHTML": true,
+    "canonicalAndIndexFollowPresent": true,
+    "interactiveImageDecodeNotCertified": true,
+    "editorialAuthorityCertified": false
   }
 }
