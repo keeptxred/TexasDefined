@@ -1,0 +1,43 @@
+name: Football Batch 008 live production acceptance
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/ci/verify-football-b008-targeted-production.mjs'
+      - '.github/workflows/verify-football-b008-production.yml'
+      - 'docs/football-authority/REGISTRY.json'
+      - 'src/data/high-school-football/program-editorial-b008.ts'
+      - 'src/routes/texas-high-school-football-teams_.$slug.lazy.tsx'
+permissions:
+  contents: read
+concurrency:
+  group: football-b008-live-acceptance
+  cancel-in-progress: false
+jobs:
+  chrome:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check strict Batch 008 script
+        run: node --check scripts/ci/verify-football-b008-targeted-production.mjs
+      - name: Install isolated Chrome driver
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/td-b008-chrome --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+      - name: Verify all 25 Batch 008 school pages, counties, screenshots and release identity
+        run: node scripts/ci/verify-football-b008-targeted-production.mjs
+      - name: Preserve production evidence, including failures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: football-b008-production-chrome
+          path: artifacts/b008-targeted-browser/
+          retention-days: 21
+          if-no-files-found: warn

@@ -36,6 +36,10 @@ const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([
   'cameron-yoe',
   'campbell',
   'canadian',
+  'canton',
+  'canutillo',
+  'canyon',
+  'canyon-randall',
   'bruceville-eddy',
   'bruni',
   'brackettville-brackett',
@@ -169,7 +173,11 @@ function Page() {
     'calvert': 'robertson', // Calvert ISD and Calvert High are in Robertson County.
     'cameron-yoe': 'milam', // C.H. Yoe High official Cameron campus is in Milam County.
     'campbell': 'hunt', // Campbell ISD is in Hunt County.
-    'canadian': 'hemphill', // Canadian High is in Canadian, Hemphill County.
+    'canadian': 'hemphill', // Canadian High is located in Canadian, Hemphill County.
+    'canton': 'van-zandt', // Canton High campus is in Canton, Van Zandt County; stadium gate is event-specific.
+    'canutillo': 'el-paso', // Canutillo High campus is in Canutillo, El Paso County; venue is separately documented.
+    'canyon': 'randall', // Canyon High campus is in Canyon, Randall County; district stadium is separate.
+    'canyon-randall': 'randall', // Randall High School campus on Bell Street, Amarillo, Randall County.
     'abbott': 'hill',
     'abernathy': 'hale',
     'abilene': 'taylor',
