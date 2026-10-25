@@ -57,6 +57,12 @@ try {
       }).waitFor({ state: 'visible', timeout: 25_000 });
       await page.getByRole('heading', { name: 'A practical guide to corporate event types' }).waitFor();
       await page.getByRole('heading', { name: 'Your event shortlist' }).waitFor();
+      // The page headings above may already be present in SSR HTML before
+      // React event handlers are bound. Never fill a controlled input until
+      // the page's existing mount/URL-restore effect confirms readiness.
+      // This marker contains no user or organizer information.
+      await page.locator('main#main[data-corporate-hydrated="true"]')
+        .waitFor({ state: 'visible', timeout: 25_000 });
       result.checks.push('Live hydrated public finder and six-type educational guides');
 
       const horizontalOverflow = await page.evaluate(() => ({
