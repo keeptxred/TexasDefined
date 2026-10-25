@@ -18,6 +18,9 @@ const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([
   'buckholts',
   'buda-hays',
   'buda-johnson',
+  'buffalo',
+  'bullard',
+  'buna',
   'bruceville-eddy',
   'bruni',
   'brackettville-brackett',
@@ -134,6 +137,9 @@ function Page() {
     'buckholts': 'milam', // Buckholts HS campus in Buckholts, Milam County; spectator gate not independently verified.
     'buda-hays': 'hays', // Hays High official 4800 Jack C. Hays Trail campus in Buda, Hays County.
     'buda-johnson': 'hays', // Johnson High official 4260 FM 967 campus in Buda, Hays County; Bob Shelton Stadium is separate.
+    'buffalo': 'leon', // Buffalo ISD / current state school data place Buffalo High in Leon County.
+    'bullard': 'cherokee', // NCES identifies Bullard High's 1426 S Houston physical campus in Cherokee County.
+    'buna': 'jasper', // Buna ISD / UIL school information place Buna in Jasper County; official campus address is CR 734.
     'abbott': 'hill',
     'abernathy': 'hale',
     'abilene': 'taylor',
