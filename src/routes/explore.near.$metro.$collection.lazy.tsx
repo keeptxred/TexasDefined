@@ -19,6 +19,9 @@ import type { ResolvedEventTicketCta } from "@/data/events/ticketing";
 import { countyNames, countySlug } from "@/data/metro-county-links";
 import { maps } from "@/services/maps";
 import { curatedMetroDayTrips } from "@/data/metro-day-trip-editorial";
+import { hasVerifiedViatorMarketUrl, verifiedViatorMarketUrl } from "@/data/viator-destination-links";
+import { buildViatorAffiliateUrl } from "@/lib/viator-affiliate";
+import { trackAffiliateClick } from "@/lib/affiliate-click";
 
 export const Route = createLazyFileRoute("/explore/near/$metro/$collection")({});
 
@@ -627,6 +630,11 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
     return <TexarkanaRoadTripsAuthority pageData={pageData} />;
   }
   const featuredCityTrips = curatedMetroDayTrips(metro.slug, collection.slug, results);
+  // McAllen\u2019s verified partner landing page covers South Padre excursions,
+  // not the entire Rio Grande Valley. All other markets link to their own
+  // previously verified Viator city pages; no product inventory is asserted.
+  const experienceMarketSlug = metro.slug === "mcallen" ? "south-padre-island" : metro.slug;
+  const offersVerifiedTours = collection.slug === "day-trips" && pageData.indexReady && hasVerifiedViatorMarketUrl(experienceMarketSlug);
   const curatedSlugs = isMcAllenDayTrips
     ? new Set<string>(MCALLEN_EDITORIAL_TRIPS.map((trip) => trip.slug))
     : new Set<string>(featuredCityTrips.map((trip) => trip.slug));
@@ -705,6 +713,30 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
               <a href={maps.drivingRouteUrl(metro.center, result.destination.coordinates)} target="_blank" rel="noopener noreferrer" className="border-b border-border pb-1 hover:text-primary">Check actual drive ↗</a>
             </div>
           </article>)}
+        </div>
+      </Container>
+    </section>}
+
+    {offersVerifiedTours && <section className="border-b border-border" data-day-trip-viator-market={experienceMarketSlug}>
+      <Container className="py-10 sm:py-12">
+        <div className="grid items-center gap-6 md:grid-cols-[1.4fr_0.6fr]">
+          <div>
+            <p className="eyebrow text-primary">Optional tours and activities</p>
+            <h2 className="mt-2 font-display text-3xl">Find a guided experience that fits your trip</h2>
+            <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">{isMcAllenDayTrips
+              ? "For a South Padre Island coastal outing, compare current boat trips and guided experiences offered through Viator. This is not a booking list for inland Rio Grande Valley wildlife refuges or museums."
+              : `Compare guided tours and activities in the ${metro.name} market. These optional experiences are separate from the state parks and independently researched day-trip stops above; check the actual tour location, dates and transport before booking.`}</p>
+            <p className="mt-3 text-xs leading-6 text-muted-foreground">Affiliate disclosure: TexasDefined may earn a commission on a qualifying Viator booking, at no extra cost to you. Listing, availability, prices and booking conditions are controlled by Viator and its suppliers. Editorial choices are independent of affiliate links.</p>
+          </div>
+          <div className="flex flex-col items-start gap-4">
+            <a href={buildViatorAffiliateUrl(verifiedViatorMarketUrl(experienceMarketSlug), `td-day-trips-${metro.slug}`)}
+              target="_blank" rel="sponsored nofollow noopener noreferrer"
+              onClick={() => trackAffiliateClick({ partner: "viator", label: isMcAllenDayTrips ? "Browse South Padre Island activities" : `Browse ${metro.name} activities`, placement: "metro-day-trips-experience", module: "metro-proximity" })}
+              className="inline-flex min-h-11 items-center border border-primary bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90">
+              {isMcAllenDayTrips ? "Browse South Padre Island activities ↗" : `Browse ${metro.name} tours & activities ↗`}
+            </a>
+            <Link to="/explore/trip-planner" className="border-b border-border pb-1 text-sm font-semibold hover:border-primary hover:text-primary">Plan the independent route first →</Link>
+          </div>
         </div>
       </Container>
     </section>}

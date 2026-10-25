@@ -498,11 +498,11 @@ test("weekend-trip events stay in represented destination towns and unrelated in
   assert.deepEqual(selectMetroProximityAffiliateEvents(metro, dayTrips, results, [], candidates), []);
 });
 
-test("three added metro day-trip guides only feature verified, actually available destination results", () => {
-  assert.deepEqual(CURATED_METRO_DAY_TRIP_SLUGS, ["houston", "san-antonio", "corpus-christi"]);
+test("six curated metro day-trip guides only feature source-backed, quality-gated destination results", () => {
+  assert.deepEqual(CURATED_METRO_DAY_TRIP_SLUGS, ["houston", "san-antonio", "austin", "dallas", "fort-worth", "corpus-christi"]);
   for (const metro of CURATED_METRO_DAY_TRIP_SLUGS) {
     const eligible = [
-      { destination: destination(100, "state-parks", { slug: metro === "houston" ? "brazos-bend-state-park" : metro === "san-antonio" ? "guadalupe-river-state-park" : "goose-island-state-park" }), distanceMiles: 60, distanceBand: "easy-day-trip" as const },
+      { destination: destination(100, "state-parks", { slug: metro === "houston" ? "brazos-bend-state-park" : metro === "san-antonio" ? "guadalupe-river-state-park" : metro === "austin" ? "pedernales-falls-state-park" : metro === "dallas" || metro === "fort-worth" ? "dinosaur-valley-state-park" : "goose-island-state-park" }), distanceMiles: 60, distanceBand: "easy-day-trip" as const },
       { destination: destination(101, "small-towns", { slug: "unverified-somewhere" }), distanceMiles: 80, distanceBand: "longer-day-trip" as const },
     ];
     const featured = curatedMetroDayTrips(metro, "day-trips", eligible);
@@ -525,4 +525,11 @@ test("day-trip monetization reuses approved booking surfaces and keeps editorial
   assert.ok(rich.includes('data-metro-curated-day-trips={metro.slug}'));
   assert.ok(rich.includes('Editorial destinations and rankings are never for sale'));
   assert.ok(partner.includes("day-trips$/.test(value)"), "attribute narrowly scoped lead sources");
+  assert.ok(rich.includes('hasVerifiedViatorMarketUrl(experienceMarketSlug)'), "only verified Viator market pages can receive a tour CTA");
+  assert.ok(rich.includes('buildViatorAffiliateUrl(verifiedViatorMarketUrl(experienceMarketSlug)'), "use the centralized approved Viator affiliate link builder");
+  assert.ok(rich.includes('trackAffiliateClick({ partner: "viator"'), "record opted-in Viator link clicks");
+  assert.ok(rich.includes('rel="sponsored nofollow noopener noreferrer"'), "identify monetized external links");
+  assert.ok(rich.includes('data-day-trip-viator-market={experienceMarketSlug}'), "expose a dedicated, measurable experience module");
+  assert.ok(rich.includes('pageData.indexReady && hasVerifiedViatorMarketUrl'), "never monetize unverified destination inventory");
+  assert.ok(rich.includes('metro.slug === "mcallen" ? "south-padre-island"'), "McAllen coastal partner offer must not impersonate the entire Valley");
 });
