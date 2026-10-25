@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
+import { readFileSync } from "node:fs";
 
 import { hidalgoPumphouseAuthorityDestinations } from "../hidalgo-pumphouse-authority-destination.ts";
 import { selectMetroProximityAffiliateEvents } from "../metro-proximity-event-selection.ts";
@@ -21,6 +22,7 @@ import type { CategorySlug, Destination } from "../types.ts";
 import { applyCuratedDestinationBatch9 } from "../destination-curation-batch9.ts";
 import { applyCuratedDestinationBatch20 } from "../destination-curation-batch20.ts";
 import { MCALLEN_WBC_SITES, MCALLEN_WBC_SOURCES } from "../mcallen-world-birding-center.ts";
+import { CURATED_METRO_DAY_TRIP_SLUGS, curatedMetroDayTrips } from "../metro-day-trip-editorial.ts";
 
 const hero = { src: "/images/test.jpg", alt: "Test place", width: 1200, height: 800 };
 
@@ -494,4 +496,33 @@ test("weekend-trip events stay in represented destination towns and unrelated in
   ];
   assert.deepEqual(selectMetroProximityAffiliateEvents(metro, weekend, results, [], candidates).map((item) => item.id), ["brenham"]);
   assert.deepEqual(selectMetroProximityAffiliateEvents(metro, dayTrips, results, [], candidates), []);
+});
+
+test("three added metro day-trip guides only feature verified, actually available destination results", () => {
+  assert.deepEqual(CURATED_METRO_DAY_TRIP_SLUGS, ["houston", "san-antonio", "corpus-christi"]);
+  for (const metro of CURATED_METRO_DAY_TRIP_SLUGS) {
+    const eligible = [
+      { destination: destination(100, "state-parks", { slug: metro === "houston" ? "brazos-bend-state-park" : metro === "san-antonio" ? "guadalupe-river-state-park" : "goose-island-state-park" }), distanceMiles: 60, distanceBand: "easy-day-trip" as const },
+      { destination: destination(101, "small-towns", { slug: "unverified-somewhere" }), distanceMiles: 80, distanceBand: "longer-day-trip" as const },
+    ];
+    const featured = curatedMetroDayTrips(metro, "day-trips", eligible);
+    assert.equal(featured.length, 1, metro + " should show one real destination and no placeholders");
+    assert.equal(featured[0].result.destination.slug, featured[0].slug);
+    assert.ok(featured[0].sourceUrl.startsWith("https://"), "official operator link must be HTTPS");
+    assert.equal(curatedMetroDayTrips(metro, "weekend-trips", eligible).length, 0);
+    assert.equal(curatedMetroDayTrips(metro, "day-trips", []).length, 0);
+  }
+  assert.equal(curatedMetroDayTrips("mcallen", "day-trips", [] as MetroProximityResult[]).length, 0, "keep the separately verified McAllen curation unchanged");
+});
+
+test("day-trip monetization reuses approved booking surfaces and attributes inquiries without sponsored rankings", () => {
+  const rich = readFileSync("src/routes/explore.near.$metro.$collection.lazy.tsx");
+  const partner = readFileSync("src/routes/partner-with-us.tsx");
+  assert.ok(rich.includes('data-day-trip-commercial-paths={metro.slug}'));
+  assert.ok(rich.includes('pageData.indexReady'), "do not monetize noindex or thin collection");
+  assert.ok(rich.includes('href="#expedia-travel-surface"'), "reuse existing booking panel instead of inventing a new affiliate destination");
+  assert.ok(rich.includes('Affiliate disclosure: TexasDefined may earn a commission'));
+  assert.ok(rich.includes('data-metro-curated-day-trips={metro.slug}'));
+  assert.ok(rich.includes('Editorial destinations and rankings are never for sale'));
+  assert.ok(partner.includes('/explore\\/near\\/[a-z0-9-]+\\/day-trips'), "attribute narrowly scoped lead sources");
 });
