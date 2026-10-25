@@ -1852,6 +1852,31 @@
         "https://www.mfah.org/visit/accessibility-resources/",
         "https://www.mfah.org/visit/bayou-bend/photography-guidelines"
       ]
+    },
+    "baytown-historical-museum": {
+      "name": "Baytown Historical Museum",
+      "operatorStrengths": [
+        "City tourism confirms visitor location at 220 West Defee in the historic Goose Creek Post Office",
+        "Official Baytown directory states free admission and phone contact, with weekday hours qualified against conflicting local listings",
+        "Texas heritage interpretation documents architecture and historical collections, while photo is exact museum building",
+        "Publisher records original Jim Evans 2020 Commons image and CC BY-SA 4.0 license"
+      ],
+      "openGaps": [
+        "Call museum to resolve city Tuesday–Saturday 10–2 schedule against other local Wednesday–Saturday 10–4 listings",
+        "Independently confirm mobility entry, service animal, restroom, parking and school-group booking policies",
+        "Check live media decoding, alt text, responsive crop, canonical/indexing/FAQ and reciprocal county links on production",
+        "Independently inspect the current exhibition layout and current photograph/artifact interpretation before editorial certification"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.visitbaytown.com/arts-culture",
+        "https://www.visitbaytown.com/baytown-history",
+        "https://texastimetravel.com/directory/baytown-historical-museum/",
+        "https://commons.wikimedia.org/wiki/File:Old_Baytown_Post_Office.jpg"
+      ]
     }
   },
   "baselineCollectedAt": "2026-10-12",

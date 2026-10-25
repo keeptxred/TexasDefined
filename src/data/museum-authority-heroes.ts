@@ -3,6 +3,12 @@ import { isDestinationPhotoPlaceholder } from "./explore-hero-reconciliation";
 
 /** Lightweight exact-site photo sources. Never bundle long museum research dossiers in core destination discovery. */
 export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
+  "baytown-historical-museum": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Old_Baytown_Post_Office.jpg?width=1600",
+    alt: "The 1936–37 Goose Creek Post Office building, now Baytown Historical Museum at 220 West Defee Street",
+    width: 1600, height: 1103,
+    credit: "Jim Evans · 29 October 2020 · CC BY-SA 4.0 · Wikimedia Commons · Old Baytown Post Office.jpg"
+  },
   "austin-history-center-austin": {
     "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/John_Henry_Faulk_Central_Library.jpg?width=1600",
     "alt": "John Henry Faulk Building at 800 Guadalupe Street, current home of the Austin History Center since its 2025 move",

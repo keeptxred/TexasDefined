@@ -28,6 +28,35 @@ export interface MuseumAuthorityDossier {
 
 /** Links are to exact, existing destinations or stable topic hubs, not guessed paths. */
 export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
+  "baytown-historical-museum": {
+    name: "Baytown Historical Museum", slug: "baytown-historical-museum", county: "Harris", city: "Baytown", reviewed: "2026-10-24",
+    topics: ["goose-creek", "oil-history", "karankawa", "historic-post-office"],
+    whyVisit: "The small Baytown Historical Museum occupies the city's former Goose Creek Post Office at 220 West Defee, built in 1936–37. Its collections provide local context from the Karankawa and early settlement to the oil boom, Humble Oil and the 1948 consolidation of Goose Creek, Pelly and Baytown. The building's federal architecture and WPA-related fresco are part of the history rather than anonymous gallery space. A visit works as a focused introduction to east Harris County before walking downtown or exploring other regional heritage sites.",
+    visitorStrategy: "The City of Baytown's tourism bureau lists the museum at 220 W. Defee, telephone 281-427-8768, with free admission Tuesday through Saturday, 10 a.m.–2 p.m. A local visitor listing instead reports Wednesday–Saturday, 10 a.m.–4 p.m.; neither should be used as an unconditional open-now claim. Telephone staff directly before planning around a narrow midday window, holiday closure or school visit. The museum is a compact historic-site stop rather than an assured all-day attraction. Allow approximately 45–75 minutes as a flexible planning estimate, not an official prescribed tour duration; tours, archival requests and event dates need separate confirmation.",
+    accessibility: "The preserved post office frontage includes prominent steps. The city's public listing does not document a complete accessible entrance, alternate step-free access, restrooms or accessible parking route. A photographed staircase alone is not proof the entire museum is inaccessible; call 281-427-8768 for exact entry, service-animal and mobility arrangements before traveling.",
+    familiesAndGroups: "Admission is advertised as free, making a history stop practical for families. The museum can prompt discussion of regional Indigenous history, historical changes in work and industry, federal architecture and how three communities became modern Baytown. Adult supervision is prudent around museum displays, but the operator does not publicly guarantee interactive children's areas, regular docent tours or group bookings; call ahead for schools and large groups. Do not assume archives, restrooms, shopping or dedicated parking beyond what the operator confirms.",
+    researchValue: "After the Goose Creek post office relocated in 1985, this 1930s federal building became a setting for public history. Texas Historical Commission heritage materials describe its Louis A. Simon-designed early International Style architecture, a Section of Painting and Sculpture mural by Philip Parisi and the landmark designation. City tourism materials connect the collection to the Karankawa, local settlements and oil development. Distinguish museum-reported history from the historical building's original postal use and the later 1948 city formation; avoid using a general Houston history narrative as a substitute for Baytown-specific interpretation.",
+    exhibits: [
+      { heading: "Karankawa and early settlement", detail: "Look for local exhibits placing earlier Indigenous history beside later settler communities; do not imply the museum's objects exhaust the Karankawa story." },
+      { heading: "Humble Oil and the Baytown merger", detail: "Trace the oil and industrial era and the consolidation of Baytown, Pelly and Goose Creek in 1948, connecting community objects to the larger Gulf Coast economy." },
+      { heading: "The former Goose Creek Post Office", detail: "Study the federal façade and ask about the preserved New Deal-era interior fresco; building history and gallery collections are distinct parts of the visit." }
+    ],
+    routes: [
+      { label: "First-time Baytown history stop", steps: ["Call the museum to verify today's hours", "Begin with its former post office architecture and early settlement galleries", "Finish with the oil-era and 1948 merger exhibits"] },
+      { label: "Baytown downtown half-day", steps: ["Tour Baytown Historical Museum during a confirmed opening window", "Walk toward the city's downtown Arts District and public art", "Arrange dining or a second stop separately; do not assume museum admission covers other venues"] },
+      { label: "Regional heritage outing", steps: ["Begin with museum interpretation of the Karankawa and early industry", "Explore independently verified historic landmarks and interpretive exhibits elsewhere in Harris County", "Check site hours and ticket requirements for each other museum or battlefield separately"] }
+    ],
+    sources: [
+      { label: "Visit Baytown official arts and culture listings", url: "https://www.visitbaytown.com/arts-culture", use: "Current museum name, free admission, 220 West Defee address, city-published hours and phone" },
+      { label: "Visit Baytown city history guide", url: "https://www.visitbaytown.com/baytown-history", use: "Local historical context and city-listed museum identity" },
+      { label: "Texas Time Travel historic Baytown museum", url: "https://texastimetravel.com/directory/baytown-historical-museum/", use: "Heritage interpretation, historic federal building and WPA mural" },
+      { label: "Jim Evans's original Wikimedia Commons photograph", url: "https://commons.wikimedia.org/wiki/File:Old_Baytown_Post_Office.jpg", use: "Exact present museum building, original creator and CC BY-SA 4.0 media rights" }
+    ],
+    connections: [
+      { label: "Harris County guide", href: "/county/harris", reason: "Use Baytown in the context of Harris County's wider museums and regional history" },
+      { label: "Explore Texas", href: "/explore", reason: "Find other independently operated regional museums and day-trip stops" }
+    ],
+  },
   "bayou-bend-collection-gardens": {
     name: "Bayou Bend Collection and Gardens", slug: "bayou-bend-collection-gardens", county: "Harris", city: "Houston", reviewed: "2026-10-24",
     topics: ["american-decorative-art", "ima-hogg", "gardens", "house-museum"],

@@ -532,6 +532,34 @@
       ]
     },
     {
+      "path": "/destination/baytown-historical-museum",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 9,
+      "sources": [
+        {
+          "sourceUrl": "https://www.visitbaytown.com/arts-culture",
+          "fetchUrl": "https://www.visitbaytown.com/arts-culture",
+          "label": "City of Baytown official museum name, hours, admission and address"
+        },
+        {
+          "sourceUrl": "https://www.visitbaytown.com/baytown-history",
+          "fetchUrl": "https://www.visitbaytown.com/baytown-history",
+          "label": "City of Baytown original local and historical context"
+        },
+        {
+          "sourceUrl": "https://texastimetravel.com/directory/baytown-historical-museum/",
+          "fetchUrl": "https://texastimetravel.com/directory/baytown-historical-museum/",
+          "label": "Texas heritage operator building history and historic marker"
+        },
+        {
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Old_Baytown_Post_Office.jpg",
+          "fetchUrl": "https://commons.wikimedia.org/wiki/File:Old_Baytown_Post_Office.jpg",
+          "label": "Jim Evans exact-site 2020 photograph and reusable CC BY-SA 4.0 license"
+        }
+      ]
+    },
+    {
       "path": "/destination/bell-county-museum-belton",
       "topic": "museum-visitor-guide",
       "cadenceDays": 30,
