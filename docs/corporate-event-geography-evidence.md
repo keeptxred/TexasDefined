@@ -53,3 +53,17 @@ Use the 2026 Census Gazetteer **ZCTA** file, verify each candidate's Texas assoc
 Before exposing the new UI, require all of: (a) independently sourced ZIP and venue points; (b) source/precision/date validators and duplicate/conflict rejection; (c) clearly marked straight-line approximation, with excluded-unverified counts; (d) canonical premerge tests, mobile browser acceptance, and production smoke; (e) protected GitHub merge/deploy and actual deployed SHA verification. Any incomplete item keeps radius search disabled. Never invent travel times, road mileage, signed partner deals, live availability or bookings.
 
 **No geographic source research automatically approves a partner, creates a booking, or authorizes planner contact.**
+
+## Operator-site public addresses — initial evidence review, 2026-10-25
+
+The following five **business** addresses were read directly from the listed venue operators' HTTPS pages on 2026-10-25 and matched to existing `corporateEventProviders` source records (venue slug, operator domain, and city). They are **source-researched street addresses**, not independently approved entrance/premises GPS points, not organizer/home addresses, and not event-booking availability. No coordinates, travel times, radius matches or private database records have been created or published. **Staff must recheck each venue's official address, usable entrance and position before a location can graduate to the verified engine.**
+
+| Existing public provider slug | Operator-published public street address | Official first-party source | Evidence status |
+| --- | --- | --- | --- |
+| `houston-zoo-events` | 6200 Hermann Park Drive, Houston, TX 77030 | [Houston Zoo directions](https://www.houstonzoo.org/plan-your-visit/directions-parking/) | Street address and **main entrance address** identified by operator; GPS point NOT verified |
+| `space-center-houston-corporate-rentals` | 1601 NASA Parkway, Houston, TX 77058 | [Space Center Houston contact](https://spacecenter.org/contact/) | Public facility address; event/visitor entrance GPS NOT verified |
+| `beat-the-bomb-houston` | 2103 Lyons Avenue #300, Houston, TX 77020 | [Beat The Bomb Houston](https://www.beatthebomb.com/locations/houston) | Public unit address; specific venue entrance GPS NOT verified |
+| `lone-star-flight-museum-rentals` | 11551 Aerospace Avenue, Houston, TX 77034 | [Lone Star Flight Museum visitor directions](https://lonestarflight.org/visit-2/visit/) | Public museum address, separate southeast bus entrance noted by operator; GPS point NOT verified |
+| `museum-of-illusions-houston-groups` | 5060 W Alabama Street, Suite 2D, Houston, TX 77056 | [Museum of Illusions Houston contact](https://moihouston.com/contact-us) | First-floor Galleria venue, operator identifies Alabama Street mall entrance; venue's exact GPS point NOT verified |
+
+**Census geographic reference:** The [2026 U.S. Census Gazetteer ZCTA download](https://www.census.gov/geographies/reference-files/2026/geo/gazetter-file.html) is available, but a ZCTA is a statistical area rather than a customer's USPS-delivery address or physical position. No ZCTA points were admitted from this research. Official first-party address evidence is not interchangeable with a survey-accurate venue entrance coordinate. Before running the existing quarantined Census street-address interpolation research script, an accountable editor must recheck these records and record a genuine `addressReviewedOn` date; generated candidate coordinates cannot auto-publish.
