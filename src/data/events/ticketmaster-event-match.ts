@@ -80,7 +80,7 @@ export function ticketmasterIsPrimaryAdmissionTitle(name: string): boolean {
   // The same add-ons appear AFTER an artist/show title in provider feeds:
   // "Pentatonix - Parking", "Holiday Show VIP Upgrade", etc. An exact
   // title/venue/date/time match is not sufficient to make them admission.
-  if (/\b(?:parking\s+(?:passes?|tickets?|only)|vip\s+(?:upgrades?|add-?ons?)|fast\s+lane\s+passes?|quick\s+passes?|express\s+entry|club\s+access|suite\s+(?:passes?|tickets?)|meet\s*(?:&|and)\s*greet\s+(?:add-?ons?|upgrades?)|signed\s+poster\s+add-?ons?)\b/i.test(normalized)) return false;
+  if (/\b(?:parking\s+(?:pass(?:es)?|tickets?|only)|vip\s+(?:upgrades?|add-?ons?)|fast\s+lane\s+pass(?:es)?|quick\s+pass(?:es)?|express\s+entry|club\s+access|suite\s+(?:pass(?:es)?|tickets?)|meet\s*(?:&|and)\s*greet\s+(?:add-?ons?|upgrades?)|signed\s+poster\s+add-?ons?)\b/i.test(normalized)) return false;
   if (/(?:^|[\s:–—-])parking\s*$/.test(normalized)) return false;
   if (/\b(?:parking|vip|fast lane|suite)\s+only\b/i.test(normalized)) return false;
 
