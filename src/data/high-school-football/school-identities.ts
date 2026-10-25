@@ -2048,7 +2048,7 @@ export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoo
     sourceUrl: 'https://www.canadianisd.net/football',
     sourceLabel: 'Canadian ISD official football page uses Wildcats and black/gold program presentation',
     verifiedAt: '2026-10-25',
-  },,
+  },
   {
     slug: 'canton',
     mascot: 'Eagles',
@@ -2081,5 +2081,5 @@ export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoo
 ];
 
 export function getVerifiedFootballSchoolIdentity(slug: string) {
-  return VERIFIED_FOOTBALL_SCHOOL_IDENTITIES.find((identity) => identity.slug === slug);
+  return VERIFIED_FOOTBALL_SCHOOL_IDENTITIES.find((identity) => identity?.slug === slug);
 }
