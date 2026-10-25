@@ -1891,6 +1891,29 @@ export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoo
     sourceLabel: 'Nimitz High School',
     verifiedAt: '2026-09-20',
   },
+  {
+    slug: 'buckholts',
+    mascot: 'Badgers',
+    sourceUrl: 'https://www.maxpreps.com/tx/buckholts/buckholts-badgers/',
+    sourceLabel: 'MaxPreps UIL-partner Buckholts school page identifies the Badgers; school colors not independently first-party verified',
+    verifiedAt: '2026-10-25',
+  },
+  {
+    slug: 'buda-hays',
+    mascot: 'Hawks',
+    colors: 'Royal Blue and Scarlet Red',
+    sourceUrl: 'https://www.hayscisd.net/o/hhs/page/school-history/',
+    sourceLabel: 'Hays High official school history identifies Hawks and red/blue; district brand guide specifies Royal Blue and Scarlet Red',
+    verifiedAt: '2026-10-25',
+  },
+  {
+    slug: 'buda-johnson',
+    mascot: 'Jaguars',
+    colors: 'Black and Gold',
+    sourceUrl: 'https://www.hayscisd.net/cms/lib/TX02204837/Centricity/Domain/90/24-25_Hays_CISD_Athletic_Handbook_Update.pdf',
+    sourceLabel: 'Hays CISD athletic handbook identifies Johnson High Jaguars and Black and Gold',
+    verifiedAt: '2026-10-25',
+  },
 ];
 
 export function getVerifiedFootballSchoolIdentity(slug: string) {
