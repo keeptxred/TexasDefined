@@ -1100,7 +1100,7 @@ if (!errors.length) {
   const batch008Loader = read('src/data/high-school-football/program-editorial-b008-loader.server.ts');
   requireText(batch008Loader, "await import('./program-editorial-b008')", 'Football Batch 008 conditional import');
   requireText(batch008Loader, "if (!BATCH008_FOOTBALL_SLUGS.has(slug)) return undefined;", 'Avoid loading Batch 008 for unrelated school profiles');
-  const publishedBatch008Slugs = [...footballBatch008Editorial.matchAll(/^  ((?:'[^']+'|[a-z][a-z0-9-]*)):\\s*\\{/gm)]
+  const publishedBatch008Slugs = [...footballBatch008Editorial.matchAll(/^  ((?:'[^']+'|[a-z][a-z0-9-]*)):\s*\{/gm)]
     .map((match) => match[1].replaceAll("'", ''));
   const loaderBatch008Slugs = [...batch008Loader.matchAll(/^  '([a-z0-9-]+)',?$/gm)].map((match) => match[1]);
   if (publishedBatch008Slugs.length !== 25 || loaderBatch008Slugs.length !== 25
