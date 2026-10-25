@@ -11,6 +11,14 @@ const requireText = (source, needle, label) => { if (!source.includes(needle)) f
 const contract = read("src/data/events/texas-event-record.ts");
 const adapter = read("src/data/events/texas-event-records.server.ts");
 const calendarServer = read("src/data/events/texas-event-calendar.server.ts");
+for (const marker of [
+  "export function ticketmasterVenueMatches(",
+  "const existing = new Map<string, number[]>();",
+  "ticketmasterVenueMatches(records[candidate], providerRecord)",
+  "ticketmasterVenueMatches(record, providerRecord)",
+  "remember(key, records.length)",
+]) requireText(adapter, marker, "venue-safe Ticketmaster duplicate reconciliation");
+
 const christmasProductionAcceptance = read("scripts/ci/verify-christmas-calendar-12-production.mjs");
 for (const marker of [
   "const cases = [",
