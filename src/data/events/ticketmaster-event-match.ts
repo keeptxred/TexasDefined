@@ -77,5 +77,12 @@ export function ticketmasterIsPrimaryAdmissionTitle(name: string): boolean {
   const normalized = name.trim().toLowerCase().replace(/[–—]/g, "-");
   // These vendor disclaimers are affirmative proof this listing is NOT admission.
   if (/\b(?:not a (?:concert|event) ticket|event ticket not included|ticket not included)\b/i.test(normalized)) return false;
+  // The same add-ons appear AFTER an artist/show title in provider feeds:
+  // "Pentatonix - Parking", "Holiday Show VIP Upgrade", etc. An exact
+  // title/venue/date/time match is not sufficient to make them admission.
+  if (/\b(?:parking\s+(?:pass(?:es)?|tickets?|only)|vip\s+(?:upgrades?|add-?ons?)|fast\s+lane\s+pass(?:es)?|quick\s+pass(?:es)?|express\s+entry|club\s+access|suite\s+(?:pass(?:es)?|tickets?)|meet\s*(?:&|and)\s*greet\s+(?:add-?ons?|upgrades?)|signed\s+poster\s+add-?ons?)\b/i.test(normalized)) return false;
+  if (/(?:^|[\s:–—-])parking\s*$/.test(normalized)) return false;
+  if (/\b(?:parking|vip|fast lane|suite)\s+only\b/i.test(normalized)) return false;
+
   return !/^(?:parking(?:\s+pass)?|(?:reserved|premium|premier|general)\s+parking(?:\s+pass)?|suites?|vip\s+(?:upgrade|add-?on)|fast\s+lane(?:\s+pass)?|quick\s+pass|express\s+entry|club\s+access|meet\s*(?:&|and)\s*greet|signed\s+poster\s+add-?on)\s*[:\-]/i.test(normalized);
 }
