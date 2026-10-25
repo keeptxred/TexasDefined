@@ -27,6 +27,9 @@ const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([
   'burleson-centennial',
   'burnet',
   'burton',
+  'bushland',
+  'bynum',
+  'caddo-mills',
   'bruceville-eddy',
   'bruni',
   'brackettville-brackett',
@@ -152,6 +155,9 @@ function Page() {
     'burleson-centennial': 'johnson', // Centennial official 201 S Hurst campus is in Johnson County.
     'burnet': 'burnet', // Burnet High official Green Mile campus is in Burnet County.
     'burton': 'washington', // Burton High in Burton is a Washington County campus; Panther Stadium is local but gate details remain event-specific.
+    'bushland': 'potter', // Bushland High's Jim Line Road campus is in the Amarillo/Bushland area of Potter County.
+    'bynum': 'hill', // Bynum ISD explicitly identifies its Toliver campus in Hill County.
+    'caddo-mills': 'hunt', // Caddo Mills ISD/High School is in Hunt County; current campus address is S. FM 36.
     'abbott': 'hill',
     'abernathy': 'hale',
     'abilene': 'taylor',
