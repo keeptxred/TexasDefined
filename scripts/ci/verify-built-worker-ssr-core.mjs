@@ -35,6 +35,12 @@ const smokeTargets = [
   { path: '/sports/teams', requiredText: 'https://texasdefined.com/sports/teams', label: 'Pro-team index includes server-supplied canonical metadata' },
   { path: '/sports/teams/houston-texans', requiredText: 'data-pro-team-guide="houston-texans"', label: 'Texans weekend guide renders real nested loaders' },
   { path: '/sports/teams/dallas-cowboys', requiredText: 'data-pro-team-guide="dallas-cowboys"', label: 'Cowboys guide renders lodging planning rather than parent hub' },
+  // Ensure both cold generic and research-overlay UIL team SSR work before we deploy.
+  // District 21 previously returned eight HTTP 500s while the district hub was healthy.
+  { path: '/texas-high-school-football-teams/fort-bend-hightower', requiredText: 'data-football-d21-team-section="fort-bend-hightower"', label: 'District 21 team SSR must render source-checked football season instead of 500' },
+  { path: '/texas-high-school-football-teams/fort-bend-elkins', requiredText: 'data-football-d21-team-section="fort-bend-elkins"', label: 'Second District 21 team SSR must render distinct scorecard' },
+  { path: '/texas-high-school-football-teams/gunter', requiredText: 'https://texasdefined.com/texas-high-school-football-teams/gunter', label: 'Independent generic UIL team SSR has correct canonical' },
+  { path: '/texas-high-school-football-teams/buckholts', requiredText: 'Buckholts Badgers Football', label: 'Batch 008 researched six-man team SSR loads its published individual model' },
 
   { path: '/events/mardi-gras', requiredText: 'Mardi Gras in Texas', label: 'Statewide Mardi Gras authority hub SSR renders' },
   { path: '/events/mardi-gras', requiredText: '/event/kemah-yachty-gras', label: 'Mardi Gras hub links to verified Kemah parade guide' },
