@@ -45,7 +45,9 @@
       "database_membership_confirmed_at": "2026-10-24",
       "products_assigned": 6,
       "code_pr": 5863,
-      "code_deployed": "pending"
+      "code_deployed": true,
+      "deployment_confirmed_by_github_run": 40149818078,
+      "route_http_status_verified": false
     },
     "merch_spotlight": {
       "component": "src/components/fishing/FishingMerchSpotlight.tsx",
@@ -59,8 +61,21 @@
       ],
       "future_page_behavior": "Template integration applies automatically to new lake/species guides and new approved fishing-shirts inventory",
       "code_pr": 5869,
-      "production_verified": false
-    }
+      "production_verified": true,
+      "code_merged": true,
+      "deployment_confirmed_by_github_run": 40149818078,
+      "deployed_commit": "ae4f331a94574ca495de8c6574a1107f8f3aa973",
+      "live_runtime_cards_independently_verified": false
+    },
+    "etsy_public_listings_verified": 0,
+    "etsy_verification_last_checked": "2026-10-24",
+    "etsy_remaining_user_actions": [
+      "Confirm six Etsy listing IDs are publicly Active in shop seller dashboard",
+      "Assign to Fishing Shirts Etsy shop section or create section if absent",
+      "Confirm exactly 13 Etsy SEO tags on each item",
+      "Confirm Printify production partner disclosure",
+      "Verify photos/variants/shipping and seller policy"
+    ]
   },
   "artwork_requirements": {
     "print_master": "Real transparent PNG with organic edges; no square haze, photo rectangle or opaque/semisolid poster background.",
@@ -1008,6 +1023,21 @@
       "date": "2026-10-24",
       "check": "Contextual fishing merch",
       "result": "PR #5869 adds product-backed responsive spotlight to fishing hub, all generic/showcase/Conroe lake overview templates and species profiles; no inventing products or links; production not yet verified."
+    },
+    {
+      "date": "2026-10-24",
+      "check": "Github PR #5869 merge and deployment ancestry",
+      "result": "PR #5869 merged at 2026-10-25T00:55:46Z; production workflow #40149818078 completed success with deploy SHA ae4f331a94574ca495de8c6574a1107f8f3aa973 (GitHub compare shows deployment SHA is 5 commits ahead and 0 behind PR merge commit). Direct Worker, base surface, and runtime verifiers passed. Browser/HTTP direct live collection response not independently established."
+    },
+    {
+      "date": "2026-10-24",
+      "check": "Heartland Etsy statuses fresh review",
+      "result": "Six original stable jobs still report status=pending, website_verified=true, etsy_verified=false. Preserve existing unique listing IDs and do not republish or create duplicate listing jobs."
+    },
+    {
+      "date": "2026-10-24",
+      "check": "Crawlable fishing apparel crosslinks",
+      "result": "Final QA PR adds static SSR-discoverable Fishing Shirts links to generic lake guides, Lake Conroe/showcase overview headers, and fishing species profiles; existing client product previews remain and do not gate link appearance."
     }
   ],
   "release_approved_at": "2026-10-24",
