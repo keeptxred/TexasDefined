@@ -1,8 +1,8 @@
 import { assertSportsPartnerAccess } from '@/data/sports-partner-leads.server';
 import { corporateEventProviders } from '@/data/corporate-events';
-import { isUpcomingCorporateEventDate, corporateEventTexasToday } from '@/data/corporate-event-dates';
+import { isUpcomingCorporateEventDate, corporateEventTexasToday, isValidCorporateEventCalendarDate } from '@/data/corporate-event-dates';
 import { supabaseAdmin } from '@/integrations/supabase/client.server';
-import { corporateEventOfficialDomainMatches } from '@/data/corporate-event-offer-provenance';
+import { corporateEventOfficialDomainMatches, corporateEventEvidenceTimestampIsValid } from '@/data/corporate-event-offer-provenance';
 
 const client = supabaseAdmin as any;
 
@@ -30,7 +30,8 @@ export async function prepareCorporateEventPartnerQuote(
     .eq('id', leadId)
     .maybeSingle();
   if (leadError || !lead?.id) throw new Error('Planner request not found.');
-  if (!lead.allow_provider_outreach || !lead.provider_outreach_consented_at) {
+  if (!lead.allow_provider_outreach
+    || !corporateEventEvidenceTimestampIsValid(lead.provider_outreach_consented_at)) {
     throw new Error('Planner has not authorized sharing with selected venues.');
   }
   if (['spam', 'closed'].includes(String(lead.status))) {
@@ -57,15 +58,16 @@ export async function prepareCorporateEventPartnerQuote(
   const candidates = applications.filter((application: { business_name: string; website: string }) =>
     normalizeBusinessName(String(application.business_name)) === normalizeBusinessName(venue.name)
     && verifiedBusinessDomain(String(application.website), venue.officialUrl)
-    && Boolean(application.identity_verified_at)
-    && Number.isFinite(Date.parse(String(application.identity_verified_at)))
-    && Date.parse(String(application.identity_verified_at)) <= Date.now()
-    && Boolean(application.commercial_agreement_verified_at)
-    && Number.isFinite(Date.parse(String(application.commercial_agreement_verified_at)))
-    && Date.parse(String(application.commercial_agreement_verified_at)) <= Date.now()
+    // Manual draft authorization uses exactly the same strict timestamp and
+    // calendar validation as staff offer writes and public offer reads.
+    // Neither an applicant-submitted website nor a future/invalid contract
+    // may authorize access to organizer contact data.
+    && corporateEventEvidenceTimestampIsValid(application.identity_verified_at)
+    && corporateEventEvidenceTimestampIsValid(application.commercial_agreement_verified_at)
     && application.commercial_agreement_covers_quote_routing === true
     && (!application.commercial_agreement_expires_on
-      || String(application.commercial_agreement_expires_on) >= corporateEventTexasToday()),
+      || (isValidCorporateEventCalendarDate(String(application.commercial_agreement_expires_on))
+        && String(application.commercial_agreement_expires_on) >= corporateEventTexasToday())),
   );
   if (candidates.length !== 1) {
     throw new Error('No unique approved partner matches the venue identity and official website.');

@@ -1828,6 +1828,31 @@
         "https://www.samfa.org/familyday"
       ]
     },
+    "bayou-bend-collection-gardens": {
+      "name": "Bayou Bend Collection and Gardens",
+      "operatorStrengths": [
+        "Current operator details separate Bayou Bend house tickets from MFAH main campus",
+        "MFAH describes twenty-eight American period rooms, collections and Ima Hogg property history",
+        "Operator expressly documents second-floor wheelchair limitations, hard garden terrain and alternate accessible entry",
+        "Guided and self-guided tours, photography controls, twelve-person group lead time and admission categories"
+      ],
+      "openGaps": [
+        "Independently confirm accessible entry instructions with MFAH visitor staff",
+        "Check current operator Wednesday-hours page and all holiday changes prior to full certification",
+        "Verify live public primary image pixels, photo attribution, FAQ visibility, gallery vs garden ticket distinctions and reciprocal county links"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.mfah.org/visit/bayou-bend",
+        "https://www.mfah.org/visit/bayou-bend/tours",
+        "https://www.mfah.org/visit/bayou-bend/collection",
+        "https://www.mfah.org/visit/accessibility-resources/",
+        "https://www.mfah.org/visit/bayou-bend/photography-guidelines"
+      ]
+    },
     "barrington-living-history-farm": {
       "name": "Barrington Living History Farm",
       "operatorStrengths": [

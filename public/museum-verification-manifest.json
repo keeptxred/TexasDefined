@@ -565,6 +565,44 @@
       ]
     },
     {
+      "path": "/destination/bayou-bend-collection-gardens",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 8,
+      "sources": [
+        {
+          "sourceUrl": "https://www.mfah.org/visit/bayou-bend",
+          "fetchUrl": "https://www.mfah.org/visit/bayou-bend",
+          "label": "MFAH house museum 6003 Memorial entrance, admission and hours"
+        },
+        {
+          "sourceUrl": "https://www.mfah.org/visit/bayou-bend/tours",
+          "fetchUrl": "https://www.mfah.org/visit/bayou-bend/tours",
+          "label": "MFAH docent and self-led tour reservations, groups and durations"
+        },
+        {
+          "sourceUrl": "https://www.mfah.org/visit/bayou-bend/collection",
+          "fetchUrl": "https://www.mfah.org/visit/bayou-bend/collection",
+          "label": "MFAH collection, 1620–1876 and twenty-eight rooms"
+        },
+        {
+          "sourceUrl": "https://www.mfah.org/visit/bayou-bend/history",
+          "fetchUrl": "https://www.mfah.org/visit/bayou-bend/history",
+          "label": "MFAH Ima Hogg family home, 1957 gift and 1966 opening"
+        },
+        {
+          "sourceUrl": "https://www.mfah.org/visit/accessibility-resources/",
+          "fetchUrl": "https://www.mfah.org/visit/accessibility-resources/",
+          "label": "MFAH Bayou Bend accessible entry, historic stairs and garden conditions"
+        },
+        {
+          "sourceUrl": "https://www.mfah.org/visit/bayou-bend/photography-guidelines",
+          "fetchUrl": "https://www.mfah.org/visit/bayou-bend/photography-guidelines",
+          "label": "MFAH house and garden photography restrictions"
+        }
+      ]
+    },
+    {
       "path": "/destination/bell-county-museum-belton",
       "topic": "museum-visitor-guide",
       "cadenceDays": 30,

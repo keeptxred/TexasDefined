@@ -162,6 +162,80 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "reviewed": "2026-10-24"
     }
   ],
+  "bayou-bend-collection-gardens": [
+    {
+      "question": "Where is Bayou Bend, and is it part of MFAH's downtown campus?",
+      "answer": "Bayou Bend is the Museum of Fine Arts, Houston's separate house museum and gardens at 6003 Memorial Drive in River Oaks. It is not one of the main galleries on the MFAH Museum District campus. Begin at the Lora Jean Kilroy Visitor and Education Center and use the Bayou Bend ticket rather than assuming a main-campus admission covers both.",
+      "verificationUrl": "https://www.mfah.org/visit/bayou-bend",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.mfah.org/visit/bayou-bend",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "What days and times is Bayou Bend open?",
+      "answer": "MFAH currently lists Wednesday through Saturday 10 a.m. to 5 p.m., Sunday 1 to 5 p.m., with last admission at 4 p.m.; Monday and Tuesday are closed. An older version of its Bayou Bend page advertised noon opening on Wednesday, so confirm the live official day-specific page before traveling.",
+      "verificationUrl": "https://www.mfah.org/visit/bayou-bend",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.mfah.org/visit/bayou-bend",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "How much are Bayou Bend house-and-garden tickets?",
+      "answer": "The operator currently lists adults at $14; students with identification, seniors and teens 13–18 at $12; children 12 and under, active U.S. military and MFAH members are free. These figures cover ordinary house-and-garden admission and may differ from garden-only admission, special programs or the separate MFAH main campus.",
+      "verificationUrl": "https://www.mfah.org/visit/bayou-bend",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.mfah.org/visit/bayou-bend",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Must I reserve an ordinary self-guided house visit in advance?",
+      "answer": "MFAH's operator tours page states that the self-guided house tour is included in admission and does not require a reservation. Guided Highlights Tours run about one hour and Study Tours about ninety minutes, with availability depending on date and staff. Buy tickets directly with the operator for a planned docent experience.",
+      "verificationUrl": "https://www.mfah.org/visit/bayou-bend/tours",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.mfah.org/visit/bayou-bend/tours",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Can a wheelchair user visit Bayou Bend's second floor and gardens?",
+      "answer": "MFAH expressly reports that the historic house's second floor is inaccessible to wheelchair and walker users, and that much of the gardens have difficult terrain and stairs. The wheelchair-accessible property entrance differs from the main route. Call 713-639-7750 to coordinate directions, accessible areas and alternative ways to experience the collection.",
+      "verificationUrl": "https://www.mfah.org/visit/accessibility-resources/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.mfah.org/visit/accessibility-resources/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "What makes the collection different from a traditional art museum?",
+      "answer": "Bayou Bend's collection of more than 2,500 American decorative-art objects is installed through 28 rooms and galleries inside Ima Hogg's former home. The operator describes objects made or used in the United States from 1620 to 1876, including furniture, paintings, silver, glass, ceramics and textiles. These reconstructed period settings are interpretive rather than untouched family interiors.",
+      "verificationUrl": "https://www.mfah.org/visit/bayou-bend/collection",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.mfah.org/visit/bayou-bend/collection",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "How far ahead must a group of twelve or more book Bayou Bend?",
+      "answer": "The museum offers guided and self-guided group packages for groups of twelve or more and asks for a reservation at least two weeks in advance for group discounts and availability. Special lectures or visitor-center receptions carry separate charges. Call group tours at 713-639-7758 and disclose any mobility accommodation needs.",
+      "verificationUrl": "https://www.mfah.org/visit/bayou-bend/tours",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.mfah.org/visit/bayou-bend/tours",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Can I take photos in Bayou Bend house and gardens?",
+      "answer": "Personal visitor photography is encouraged under the museum's rules, but tripods, selfie sticks, monopods, external flash, props and drones are not permitted, and commercial or posed photo sessions require advance arrangements and fees. Copyright and artwork-reproduction permissions are distinct from the right to take personal pictures during a visit.",
+      "verificationUrl": "https://www.mfah.org/visit/bayou-bend/photography-guidelines",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.mfah.org/visit/bayou-bend/photography-guidelines",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    }
+  ],
   "austin-history-center-austin": [
     {
       "question": "Where is the Austin History Center located now?",

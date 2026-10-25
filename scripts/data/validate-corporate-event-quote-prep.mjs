@@ -21,6 +21,17 @@ for (const marker of [
 ]) {
   assert(server.includes(marker), 'Missing privacy/partner validation guard: ' + marker);
 }
+// Actual staff quote preview must fail closed for forged/future consent and
+// business identity, impossible expiry days, and unverified signed scopes.
+assert(server.includes('corporateEventEvidenceTimestampIsValid(lead.provider_outreach_consented_at)'),
+  'Only genuine nonfuture consent timestamps may unlock planner PII');
+assert(server.includes('corporateEventEvidenceTimestampIsValid(application.identity_verified_at)')
+  && server.includes('corporateEventEvidenceTimestampIsValid(application.commercial_agreement_verified_at)'),
+  'Staff quote drafts must use the same signed-evidence policy as public offers');
+assert(server.includes('isValidCorporateEventCalendarDate(String(application.commercial_agreement_expires_on))'),
+  'An impossible agreement expiry cannot authorize a quote draft');
+assert(!server.includes('Number.isFinite(Date.parse('),
+  'No permissive Date.parse-only commercial evidence guard');
 assert(fn.includes("createServerFn({ method: 'POST' })"), 'Staff draft action must validate request');
 assert(fn.includes('accessKey: z.string().min(20)'), 'Staff access key must be present');
 assert(fn.includes('leadId: z.string().uuid()'), 'Request selector cannot accept arbitrary strings');
