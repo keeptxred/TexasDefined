@@ -33,6 +33,13 @@ try {
     const entry = { ...row, errors: [], result: 'FAIL' };
     results.push(entry);
     page.on('pageerror', e => entry.errors.push(e.message));
+    entry.imageNetwork = [];
+    page.on('response', response => {
+      if (/images\\.printify\\.com|i\\.etsystatic\\.com/.test(response.url())) entry.imageNetwork.push({ status: response.status(), url: response.url().slice(0, 240) });
+    });
+    page.on('requestfailed', request => {
+      if (/images\\.printify\\.com|i\\.etsystatic\\.com/.test(request.url())) entry.imageNetwork.push({ failed: request.failure()?.errorText, url: request.url().slice(0, 240) });
+    });
     try {
       const response = await page.goto(origin + row.path, { waitUntil: 'domcontentloaded', timeout: 60000 });
       assert.equal(response?.status(), 200, `${row.path}: unexpected HTTP ${response?.status()}`);
@@ -46,6 +53,16 @@ try {
       const first = section.locator('img').first();
       await first.waitFor({ state: 'visible', timeout: 10000 });
       const image = await first.evaluate(e => ({ complete: e.complete, naturalWidth: e.naturalWidth, src: e.currentSrc }));
+      if (!image.complete || image.naturalWidth === 0) {
+        const source = await first.getAttribute('src');
+        if (source && /^https?:/.test(source)) {
+          try {
+            const probe = await context.request.get(source, { timeout: 12000 });
+            entry.imageProbe = { status: probe.status(), contentType: probe.headers()['content-type'] ?? null, bytes: (await probe.body()).length };
+          } catch (error) { entry.imageProbe = { error: String(error) }; }
+        }
+        console.error('Image network diagnostics:', JSON.stringify({ name: row.name, image, network: entry.imageNetwork, probe: entry.imageProbe }));
+      }
       assert.ok(image.complete && image.naturalWidth > 0, `${row.path}: actual product mockup failed to load: ${image.src}`);
       entry.result = 'PASS';
       entry.cards = count;
