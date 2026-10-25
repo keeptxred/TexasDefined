@@ -83,6 +83,10 @@ try {
     { venueId: 'sports-venue:dickies-arena', venueName: 'Dickies Arena Parking' },
   ), false, 'shared venue ID cannot turn a parking add-on into admission');
   assert.equal(ticketmasterVenueMatches(
+    { venueId: 'sports-venue:alley-theatre', venueName: 'Alley Theatre · Hubbard Theatre' },
+    { venueId: 'sports-venue:alley-theatre', venueName: 'Alley Theatre · Neuhaus Theatre' },
+  ), false, 'same facility ID must not merge tickets for different stages');
+  assert.equal(ticketmasterVenueMatches(
     { venueName: '' }, { venueName: 'Dickies Arena' },
   ), false, 'missing venues are not safe to auto-link');
   assert.equal(ticketmasterVenueMatches(
