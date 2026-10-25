@@ -15,6 +15,9 @@ import {
 
 // Original, school-specific source-derived visual finals; no unlicensed school photos, logos or seals.
 const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([
+  'buckholts',
+  'buda-hays',
+  'buda-johnson',
   'bruceville-eddy',
   'bruni',
   'brackettville-brackett',
@@ -128,6 +131,9 @@ function Page() {
   // Campus-county mapping for individually sourced Batch 002 profiles;
   // city names and district service areas are not dependable campus-county proxies.
   const researchedCampusCounty: Record<string, string> = {
+    'buckholts': 'milam', // Buckholts HS campus in Buckholts, Milam County; spectator gate not independently verified.
+    'buda-hays': 'hays', // Hays High official 4800 Jack C. Hays Trail campus in Buda, Hays County.
+    'buda-johnson': 'hays', // Johnson High official 4260 FM 967 campus in Buda, Hays County; Bob Shelton Stadium is separate.
     'abbott': 'hill',
     'abernathy': 'hale',
     'abilene': 'taylor',
