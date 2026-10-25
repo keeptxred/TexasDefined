@@ -2,6 +2,10 @@ name: Verify TexasDefined fishing shirts production
 
 on:
   workflow_dispatch:
+  workflow_run:
+    workflows: ['Deploy TexasDefined production']
+    types: [completed]
+    branches: [main]
   pull_request:
     branches: [main]
     paths:
@@ -23,6 +27,7 @@ concurrency:
 
 jobs:
   verify:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 12
     steps:
