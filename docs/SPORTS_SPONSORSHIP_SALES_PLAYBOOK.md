@@ -1,16 +1,31 @@
 # TexasDefined Sports Sponsorship Sales Playbook
 
-Updated: 2026-09-16
+Updated: 2026-10-25
 
 ## Purpose
 
-Use TexasDefined's sports-venue guides as one qualified surface inside the broader TexasDefined advertiser program. Sports sponsorship is no longer a separate low-price product. It uses the same Local, Growth, Premier and Custom commercial tiers shown on `/partner-with-us`.
+Use TexasDefined's existing governed sports-venue advertising program alongside the narrowly scoped founding football pilot. Existing sports venues keep their standard Local, Growth, Premier and Custom tiers. Football team/district pages alone can accept introductory Custom-terms pilot requests.
 
 Paid placements remain clearly separated from editorial recommendations, rankings, factual conclusions and structured data.
 
+## Football pilot activated (scoped, approval- and payment-gated)
+
+Google Search Console, checked October 25, showed 113 clicks to football team and district pages for October 23 (preliminary). Those are SEARCH CLICKS, not paid inventory impressions or verified monthly visitors. This is sufficient evidence to start collecting football sponsor interest, not sufficient evidence for guaranteed traffic claims.
+
+Founding football pilot packages requested through `/partner-with-us`:
+- $49/month — one approved team-profile page;
+- $99/month — one district page plus up to two related team pages;
+- $149/month — up to six relevant team/district pages in one market.
+
+These are one-month introductory football-only custom quotes, not replacements for $249/$499/$999 standard advertiser plans. No self-service charge occurs on inquiry. Every lead needs vetting, a versioned accepted custom advertiser agreement, a TexasDefined Stripe payment recorded as paid, a linked sponsor record, and separate approved placement copy. No auto-approval. The current deployment is an inquiry funnel and manually governed billing process, not an instant-payment subscription storefront.
+
+The existing anonymous football fan shopping catalog remains intentionally empty until an exact approved affiliate tracking link is independently verified. The football module uses the existing /shop instead of inventing Academy commissions or promoting unlicensed school gear. Do not claim an Academy affiliate deal until approved.
+
+Venue sponsorship still obeys the previous separate launch hold. The football code checks the exact team/district path before allowing a paid placement; other sports venue surfaces remain blocked.
+
 ## Pre-outreach hold
 
-**Do not send advertiser outreach until the commercial launch checklist is complete.** The public sales pages, inquiry flow, agreement acceptance, correct TexasDefined Stripe account, invoice flow, payment methods, receipt behavior and production placement rendering must all be tested first. The existing sports sponsorship server-side launch hold remains fail-closed until intentionally lifted after launch readiness is confirmed.
+**Do not send advertiser outreach until the commercial launch checklist is complete.** The public sales pages, inquiry flow, agreement acceptance, correct TexasDefined Stripe account, invoice flow, payment methods, receipt behavior and production placement rendering must all be tested first. The sports venue server-side launch hold remains fail-closed. Football sponsorships are a separate, narrowly approved pilot and must still satisfy acceptance and payment gates before a placement renders.
 
 ## Current packages
 
@@ -92,7 +107,7 @@ Yes, subject to review. Under the sports sponsorship governance system, a saved 
 
 ## Launch-readiness checklist
 
-Outreach remains on hold until all of the following are verified:
+Outbound advertiser outreach remains on hold until all of the following are verified. The football page can collect inbound inquiries without sending outreach or accepting payment automatically:
 
 1. `/partner-with-us`, `/partner-with-us/terms`, `/partner-with-us/billing` and `/partner-with-us/examples` render correctly on desktop and mobile.
 2. Advertiser inquiry submission works and records the selected package and billing preference.
