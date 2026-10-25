@@ -1981,6 +1981,28 @@ export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoo
     sourceLabel: 'Burton ISD official homepage repeatedly uses Panther Pride and Panthers identity; school-owned imagery is not reused',
     verifiedAt: '2026-10-25',
   },
+  {
+    slug: 'bushland',
+    mascot: 'Falcons',
+    sourceUrl: 'https://hs.bushlandisd.net/',
+    sourceLabel: 'Bushland High official homepage uses Lady Falcons/Falcons and Bushland Falcons identity',
+    verifiedAt: '2026-10-25',
+  },
+  {
+    slug: 'bynum',
+    mascot: 'Bulldogs',
+    sourceUrl: 'https://www.bynumisd.net/',
+    sourceLabel: 'Bynum ISD official homepage identifies Home of the Bulldogs',
+    verifiedAt: '2026-10-25',
+  },
+  {
+    slug: 'caddo-mills',
+    mascot: 'Foxes',
+    colors: 'Green and Black',
+    sourceUrl: 'https://www.caddomillsisd.org/o/cmhs/live-feed?page_no=1',
+    sourceLabel: 'Caddo Mills High official live feed repeatedly uses Foxes and green/black spirit presentation',
+    verifiedAt: '2026-10-25',
+  },
 ];
 
 export function getVerifiedFootballSchoolIdentity(slug: string) {
