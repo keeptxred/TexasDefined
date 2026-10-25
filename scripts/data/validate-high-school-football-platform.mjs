@@ -1068,6 +1068,14 @@ if (!errors.length) {
     "Kodi Crane",
     "Ferris 53-35",
     "Hereford 57-21",
+    "caldwell:",
+    "callisburg:",
+    "calvert:",
+    "Sean Witherwax",
+    "Eddie Gill",
+    "Marcus Wortham",
+    "Franklin",
+    "Brazos Valley",
   ]) requireText(footballBatch008Editorial, marker, 'Football Batch 008 editorial overlay');
 
   requireText(programProfileServer, "import { getBatch008FootballProgramEditorial } from './program-editorial-b008';", 'Football Batch 008 loader wiring');
