@@ -30,6 +30,9 @@ const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([
   'bushland',
   'bynum',
   'caddo-mills',
+  'caldwell',
+  'callisburg',
+  'calvert',
   'bruceville-eddy',
   'bruni',
   'brackettville-brackett',
@@ -158,6 +161,9 @@ function Page() {
     'bushland': 'potter', // Bushland High's Jim Line Road campus is in the Amarillo/Bushland area of Potter County.
     'bynum': 'hill', // Bynum ISD explicitly identifies its Toliver campus in Hill County.
     'caddo-mills': 'hunt', // Caddo Mills ISD/High School is in Hunt County; current campus address is S. FM 36.
+    'caldwell': 'burleson', // Caldwell High's CR 307 campus is in Burleson County.
+    'callisburg': 'cooke', // Callisburg High's Gainesville-area campus is in Cooke County.
+    'calvert': 'robertson', // Calvert ISD and Calvert High are in Robertson County.
     'abbott': 'hill',
     'abernathy': 'hale',
     'abilene': 'taylor',
