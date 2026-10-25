@@ -109,7 +109,7 @@ try {
       await selector.waitFor({ state: "visible", timeout: 20000 });
       const options = await selector.locator("option").evaluateAll((nodes) => nodes.map((option) => ({
         id: option.value,
-        name: (option.textContent || "").trim().split(/\\s+[—–]\\s+\\$/)[0],
+        name: (option.textContent || "").trim().split(/\s+[—–]\s+\$/)[0],
       })));
       assert.equal(options.length, 16, id + ": expected all 16 enabled shirt variants");
       const sizes = options.map((option) => option.name.split("/")[0].trim());
