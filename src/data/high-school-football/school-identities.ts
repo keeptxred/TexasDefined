@@ -1742,13 +1742,6 @@ export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoo
     verifiedAt: '2026-09-19',
   },
   {
-    slug: 'burleson-centennial',
-    mascot: 'Spartans',
-    sourceUrl: 'https://chs.burlesonisd.net/our-school/about-us',
-    sourceLabel: 'Centennial High School',
-    verifiedAt: '2026-09-19',
-  },
-  {
     slug: 'cedar-hill',
     mascot: 'Longhorns',
     sourceUrl: 'https://chhs.chisd.net/',
