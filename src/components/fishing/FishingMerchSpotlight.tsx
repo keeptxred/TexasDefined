@@ -83,7 +83,7 @@ export function rankFishingShirts(products: Product[], lakeName?: string, specie
 
   function score(product: Product) {
     const title = product.name.toLowerCase();
-    const productText = [product.name, ...product.tags].join(" ").toLowerCase();
+    const productText = [product.name, ...(product.tags ?? [])].join(" ").toLowerCase();
     let rank = 0;
     // Future dedicated lake merchandise beats generic apparel automatically.
     if (lake.length > 4 && title.includes(lake)) rank += 120;
