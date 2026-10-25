@@ -1076,6 +1076,22 @@ if (!errors.length) {
     "Marcus Wortham",
     "Franklin",
     "Brazos Valley",
+    "'cameron-yoe':",
+    "campbell:",
+    "canadian:",
+    "Aaron Babino",
+    "Preston Compton",
+    "Andy Cavalier",
+    "canton:",
+    "canutillo:",
+    "canyon:",
+    "'canyon-randall':",
+    "Heath Ragle",
+    "Scott Brooks",
+    "Matt Lovorn",
+    "Dan Sherwood",
+    "Chapin",
+    "Randall beat Canyon 24-21",
   ]) requireText(footballBatch008Editorial, marker, 'Football Batch 008 editorial overlay');
 
   requireText(programProfileServer, "import { getBatch008FootballProgramEditorial } from './program-editorial-b008';", 'Football Batch 008 loader wiring');
