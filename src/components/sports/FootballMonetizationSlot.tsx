@@ -6,8 +6,7 @@ export function FootballMonetizationSlot({ surfacePath, hasSponsor }: {
   surfacePath: string;
   hasSponsor: boolean;
 }) {
-  const footballPackage = surfacePath.startsWith('/texas-high-school-football-districts/') ? 'district' : 'school';
-  const inquiry = `/partner-with-us?type=sports-travel&tier=custom&football=${footballPackage}&focus=contact&source=${encodeURIComponent(surfacePath)}`;
+  const inquiry = `/partner-with-us?type=sports-travel&tier=custom&focus=contact&source=${encodeURIComponent(surfacePath)}`;
   return (
     <aside data-football-monetization="v1" aria-label="Independent football advertising and shopping" className="border-b border-border py-5">
       {!hasSponsor && (
