@@ -8670,8 +8670,16 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/cameron-yoe",
-      "status": "NOT_REVIEWED",
-      "batch": 8
+      "status": "IMPLEMENTED",
+      "batch": 8,
+      "audit": "docs/football-authority/schools/cameron-yoe.md",
+      "auditCompletedAt": "2026-10-25",
+      "researchCompletedAt": "2026-10-25",
+      "implementedAt": "2026-10-25",
+      "implementedOnBranch": "football-authority-batch-008-20261025",
+      "actualProductionVerified": false,
+      "implementationNotes": "Individual source-backed Batch 008 authority profile implemented with current 2026 football context, explicit source qualification/conflict handling where needed, county reciprocity and original rights-safe editorial presentation; protected merge/deploy/live acceptance pending.",
+      "mediaStatus": "No third-party school photography, school seal or official logo copied; original TexasDefined editorial presentation only unless separately licensed."
     },
     {
       "id": "uil:campbell",
@@ -8684,8 +8692,16 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/campbell",
-      "status": "NOT_REVIEWED",
-      "batch": 8
+      "status": "IMPLEMENTED",
+      "batch": 8,
+      "audit": "docs/football-authority/schools/campbell.md",
+      "auditCompletedAt": "2026-10-25",
+      "researchCompletedAt": "2026-10-25",
+      "implementedAt": "2026-10-25",
+      "implementedOnBranch": "football-authority-batch-008-20261025",
+      "actualProductionVerified": false,
+      "implementationNotes": "Individual source-backed Batch 008 authority profile implemented with current 2026 football context, explicit source qualification/conflict handling where needed, county reciprocity and original rights-safe editorial presentation; protected merge/deploy/live acceptance pending.",
+      "mediaStatus": "No third-party school photography, school seal or official logo copied; original TexasDefined editorial presentation only unless separately licensed."
     },
     {
       "id": "uil:canadian",
@@ -8698,8 +8714,16 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/canadian",
-      "status": "NOT_REVIEWED",
-      "batch": 8
+      "status": "IMPLEMENTED",
+      "batch": 8,
+      "audit": "docs/football-authority/schools/canadian.md",
+      "auditCompletedAt": "2026-10-25",
+      "researchCompletedAt": "2026-10-25",
+      "implementedAt": "2026-10-25",
+      "implementedOnBranch": "football-authority-batch-008-20261025",
+      "actualProductionVerified": false,
+      "implementationNotes": "Individual source-backed Batch 008 authority profile implemented with current 2026 football context, explicit source qualification/conflict handling where needed, county reciprocity and original rights-safe editorial presentation; protected merge/deploy/live acceptance pending.",
+      "mediaStatus": "No third-party school photography, school seal or official logo copied; original TexasDefined editorial presentation only unless separately licensed."
     },
     {
       "id": "uil:canton",
