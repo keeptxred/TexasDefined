@@ -33,8 +33,13 @@ for (const needle of [
 ]) requireText(adapter, needle, "shared event registry Christmas integration");
 for (const needle of [
   "View this show on the statewide calendar",
+  "encodeURIComponent(show.city)",
   '/events?start=',
 ]) requireText(christmasHub, needle, "Christmas hub calendar crosslinks");
+for (const needle of [
+  'Number(right.startDate === exactDay) - Number(left.startDate === exactDay)',
+  'const exactDay = search.start && search.start === search.end',
+]) requireText(calendarServer, needle, "exact-day event visibility");
 if (/endDate: show.endDate/.test(christmas)) {
   failures.push("Do not treat a discontinuous Christmas theatre run as daily calendar availability");
 }
