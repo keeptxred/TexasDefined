@@ -16,6 +16,10 @@ for (const marker of [
   "const existing = new Map<string, number[]>();",
   "ticketmasterVenueMatches(records[candidate], providerRecord)",
   "ticketmasterVenueMatches(record, providerRecord)",
+  "ticketmasterShowtimeMatches(editorial, providerRecord, sameVenueProviderCount)",
+  "const providersByTitleAndDate = new Map<string, TexasEventRecord[]>();",
+  "const sameVenueProviderCount =",
+
   "remember(key, records.length)",
 ]) requireText(adapter, marker, "venue-safe Ticketmaster duplicate reconciliation");
 
@@ -27,6 +31,8 @@ for (const marker of [
   "ev-results-list",
   "expected exactly one",
   "ev-ticket",
+  "const editorial = matched.filter(card => !card.id.startsWith('ticketmaster:'))",
+
   "christmas-calendar-qa",
 ]) requireText(christmasProductionAcceptance, marker, "live Christmas 12-show production acceptance");
 try {
