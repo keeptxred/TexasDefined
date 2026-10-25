@@ -15,23 +15,17 @@ type PartnerSearch = {
 };
 
 function sanitizePartnerSource(value: unknown) {
-  if (typeof value !== 'string') return canonicalPath;
-  if (value === '/sports-venues' || value === '/things-unique-to-texas/texas-brands' || value === '/events/christmas-events') return value;
-  if (/^\/(?:sports-venue\/[a-z0-9-]+|texas-high-school-football-(?:teams|districts)\/[a-z0-9-]+|explore\/near\/[a-z0-9-]+\/day-trips)$/.test(value)) return value;
-  return canonicalPath;
+  return typeof value === 'string' && /^\/(?:sports-venues|things-unique-to-texas\/texas-brands|events\/christmas-events|sports-venue\/[a-z0-9-]+|texas-high-school-football-(?:teams|districts)\/[a-z0-9-]+|explore\/near\/[a-z0-9-]+\/day-trips)$/.test(value)
+    ? value : canonicalPath;
 }
 
 export const Route = createFileRoute('/partner-with-us')({
   validateSearch: (search: Record<string, unknown>): PartnerSearch => ({
-    partnershipType: search.type === 'sports-travel'
-      ? 'sports-travel'
-      : search.type === 'brand-retail'
-        ? 'brand-retail'
-        : undefined,
+    partnershipType: search.type === 'sports-travel' || search.type === 'brand-retail' ? search.type : undefined,
     sourcePath: typeof search.source === 'string' ? sanitizePartnerSource(search.source) : undefined,
     tier: typeof search.tier === 'string' && /^(local|growth|premier|custom)$/.test(search.tier)
       ? search.tier as PartnerSearch['tier'] : undefined,
-    billing: search.billing === 'annual' ? 'annual' : search.billing === 'monthly' ? 'monthly' : undefined,
+    billing: search.billing === 'annual' || search.billing === 'monthly' ? search.billing : undefined,
     focus: typeof search.focus === 'string' && /^(pricing|examples|agreement|billing|contact)$/.test(search.focus)
       ? search.focus as PartnerSearch['focus'] : undefined,
   }),
