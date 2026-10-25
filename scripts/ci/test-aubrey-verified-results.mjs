@@ -61,7 +61,9 @@ test('read-only project uses separate generated override; no edits to giant auth
   const profile=readFileSync('src/data/high-school-football/football-program-profile.server.ts','utf8');
   const helper=readFileSync('src/data/high-school-football/aubrey-auto-results.ts','utf8');
   const schedule=readFileSync('.github/workflows/aubrey-football-freshness.yml','utf8');
-  assert.ok(profile.includes("applyAubreyAutoResults(getFootballProgramEditorial(canonicalSlug))"));
+  assert.ok(profile.includes("canonicalSlug === 'aubrey'") && profile.includes('applyAubreyAutoResults(baseEditorial)'));
+  assert.ok(profile.includes('getFootballProgramEditorial(canonicalSlug)'),
+    'Aubrey must still derive its generated override from the authored school editorial fallback');
   assert.ok(helper.includes('latestResultSourceUrl'));
   assert.ok(helper.includes('Conflicting historical Aubrey final'));
   assert.ok(schedule.includes("cron: '15 15 * * *'"));

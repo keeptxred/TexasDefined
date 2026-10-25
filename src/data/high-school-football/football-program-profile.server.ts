@@ -14,7 +14,7 @@ import { footballClassificationRank, footballProgramProfilePath, footballProgram
 import { UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28 } from './uil-football-enrollments-2026.generated';
 import { getVerifiedFootballSchoolIdentity } from './school-identities';
 import { getFootballProgramEditorial } from './program-editorial';
-import { getBatch008FootballProgramEditorial } from './program-editorial-b008';
+import { loadBatch008FootballProgramEditorial } from './program-editorial-b008-loader.server';
 import { applyAubreyAutoResults } from './aubrey-auto-results';
 import { buildFootballProfileFaq, buildFootballProfileQuickFacts, buildFootballProfileSummary } from './football-profile-content';
 import {
@@ -253,7 +253,7 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
     officialSchoolName: program.officialSchoolName,
     districtName: program.districtName,
   });
-  const baseEditorial = getBatch008FootballProgramEditorial(canonicalSlug) ?? getFootballProgramEditorial(canonicalSlug);
+  const baseEditorial = (await loadBatch008FootballProgramEditorial(canonicalSlug)) ?? getFootballProgramEditorial(canonicalSlug);
   const editorial = canonicalSlug === 'aubrey'
     ? applyAubreyAutoResults(baseEditorial)
     : baseEditorial;
