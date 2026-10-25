@@ -1,5 +1,16 @@
 # Football Authority — Execution Ledger
 
+## October 25, 2026 — Batch 008 recovered checkpoint: 21/25 implemented
+
+Recovered the existing `football-authority-batch-008-20261025` branch rather than restarting work. The branch had 18 registry-tracked implementations plus already-authored Cameron Yoe, Campbell and Canadian editorial objects that had never been reconciled into the registry/dossier ledger.
+
+- **Cameron Yoe**: first-party Aaron Babino coaching/campus sources, four-title history, transparent Little River Academy score conflict, and new Milam County reciprocal link.
+- **Campbell**: first-party Preston Compton coaching source, district calendar, explicit fragmented-score-ledger qualification, verified Oct. 22 Saint Jo district win, and new Hunt County reciprocal link.
+- **Canadian**: current Andy Cavalier program context, five-title history with school-documented older titles, current 2026 district run, Wildcats Stadium / Chris Koetting Field context, and new Hemphill County reciprocal link.
+- All three now have individual dossiers and are correctly marked `IMPLEMENTED`, not merged/deployed/VERIFIED.
+- **Batch 008 status: 21 IMPLEMENTED / 4 NOT_REVIEWED / 0 VERIFIED.** Remaining in stable registry order: Canton, Canutillo, Canyon, Canyon Randall.
+- Current `main` has two newer unrelated event/Ticketmaster commits; Batch 008 football work does not overwrite those files.
+
 ## October 20, 2026 — Batch 007 canonical 25-school assignment (research in progress)
 
 ### Bridge City source-backed fourth school checkpoint — October 20, 2026
