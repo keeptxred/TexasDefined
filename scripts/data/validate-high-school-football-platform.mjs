@@ -1052,6 +1052,14 @@ if (!errors.length) {
     "Phillip Tanner",
     "SETXsports reports 12-61",
     "Midlothian Heritage",
+    "'burleson-centennial':",
+    "burnet:",
+    "burton:",
+    "Blake Meyer",
+    "Ben Speer",
+    "Jason Hodde",
+    "Lancaster",
+    "Bremond",
   ]) requireText(footballBatch008Editorial, marker, 'Football Batch 008 editorial overlay');
 
   requireText(programProfileServer, "import { getBatch008FootballProgramEditorial } from './program-editorial-b008';", 'Football Batch 008 loader wiring');
