@@ -10,8 +10,15 @@ await mkdir(out,{recursive:true});
 const registry=JSON.parse(await readFile('docs/football-authority/REGISTRY.json','utf8'));
 const editorial=await readFile('src/data/high-school-football/program-editorial.ts','utf8');
 const teamRoute=await readFile('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx','utf8');
-assert.equal(registry.batch.number,7);
-const slugs=registry.batch.slugs;
+// Historic Batch 007 remains immutable after later batches are assigned.
+const completedBatch007=registry.completedBatches.find(batch=>batch.number===7);
+assert.ok(completedBatch007,'Completed Batch 007 ledger snapshot missing');
+assert.equal(completedBatch007.individuallyVerified,25,'Batch 007 technical completion count regressed');
+const slugs=completedBatch007.slugs;
+for(const slug of slugs){
+ const entry=registry.schoolRecords.find(program=>program.slug===slug);
+ assert.equal(entry?.status,'VERIFIED','Historically accepted Batch 007 school status regressed: '+slug);
+}
 assert.equal(slugs.length,25,'Must test all 25 assigned Batch 007 schools');
 assert.equal(new Set(slugs).size,25,'Duplicate school slug in registry');
 function model(slug){
