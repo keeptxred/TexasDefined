@@ -2048,7 +2048,36 @@ export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoo
     sourceUrl: 'https://www.canadianisd.net/football',
     sourceLabel: 'Canadian ISD official football page uses Wildcats and black/gold program presentation',
     verifiedAt: '2026-10-25',
+  },,
+  {
+    slug: 'canton',
+    mascot: 'Eagles',
+    sourceUrl: 'https://hs.cantonisd.net/',
+    sourceLabel: 'Canton High official campus and football pages identify the Eagles program',
+    verifiedAt: '2026-10-25',
   },
+  {
+    slug: 'canutillo',
+    mascot: 'Eagles',
+    colors: 'Orange and Blue',
+    sourceUrl: 'https://www.canutillo-isd.org/post-details/~board/redesign/post/coach-brooks-among-top-5-longest-tenured-head-football-coaches-in-texas',
+    sourceLabel: 'Canutillo ISD official football feature and school identity',
+    verifiedAt: '2026-10-25',
+  },
+  {
+    slug: 'canyon',
+    mascot: 'Eagles',
+    sourceUrl: 'https://chs.canyonisd.net/football',
+    sourceLabel: 'Canyon High official football page identifies the Eagles program',
+    verifiedAt: '2026-10-25',
+  },
+  {
+    slug: 'canyon-randall',
+    mascot: 'Raiders',
+    sourceUrl: 'https://rhs.canyonisd.net/',
+    sourceLabel: 'Randall High official school and athletics pages identify the Raiders program',
+    verifiedAt: '2026-10-25',
+  }
 ];
 
 export function getVerifiedFootballSchoolIdentity(slug: string) {
