@@ -10,6 +10,11 @@ The canonical contract lives in `src/data/events/texas-event-record.ts` and supp
 - `ticketmaster`
 - `seatgeek`
 - `vivid-seats`
+- `ticketweb`
+- `live-nation`
+- `etix`
+- `axs`
+- `eventbrite`
 - `other`
 
 Each `TexasEventTicketLink` carries a provider, optional official ticket URL, optional affiliate/deep-link URL, sale status, source metadata, last-verified timestamp, optional priority, and independent official/affiliate expiry timestamps.
@@ -17,6 +22,17 @@ Each `TexasEventTicketLink` carries a provider, optional official ticket URL, op
 No provider credentials, affiliate secrets, partner IDs, signing keys, or checkout state belong in these records. Future provider adapters must read sensitive configuration only from server-side environment/secrets manager configuration and emit already-resolved outbound URLs into the canonical event record.
 
 Ticketmaster, SeatGeek, Vivid Seats, and any future provider remain optional adapters. The presence of a provider type does not imply an active commercial agreement or granted API capability.
+
+## Active outbound integrations vs future inventory integrations (October 2026)
+
+TexasDefined has one live commercial metadata feed: **Ticketmaster Discovery API**, refreshed by the protected `Sync Texas Events` workflow with the existing `TICKETMASTER_API_KEY` secret. The existing Impact deep-link template belongs to the Ticketmaster program and is constructed only inside the vetted importer. A successfully generated tracking URL is not a guarantee of commission, ticket inventory or partner privileges.
+
+The common outbound resolver also supports **TicketWeb, Live Nation, Etix, AXS, Eventbrite, SeatGeek and Vivid Seats** event-ticket destinations supplied by verified organizers. `src/data/events/ticket-provider.ts` classifies exact or subdomain-matching HTTPS provider hosts (never deceptive suffixes or credentialed URLs). These are *external checkout links*, **not** fabricated affiliate links or newly installed provider API accounts. Other source-qualified organizer HTTPS URLs remain `official`. There is no fake price, held seat, embedded checkout, or promise of commission.
+
+**The public Ticketmaster Discovery API does not grant seat-level inventory, reserves or payments.** Ticketmaster restricts the Partner API / Availability / Inventory Status and Top Picks features to separately approved commercial/distribution partners. TexasDefined must not call these restricted APIs using the Discovery API key, scrape interactive seat maps, bypass CAPTCHA, or claim exact ticket quantities. Official Ticketmaster `onsale` indicates a sale window, not a specific available seat. SeatGeek, Vivid Seats, AXS, Etix and other providers likewise require their own explicit commercial authorization before any inventory synchronization or affiliate payouts can be enabled.
+
+**Activation for a new provider**: secure actual partnership and approved API scope; configure its secret only in the trusted server/GitHub Actions environment; implement a bounded provider-specific importer with date+venue+event-ID matching, freshness expiry, status validation, and fail-closed behavior; validate the outbound provider deep link and program-approved commission tracking; add real positive and negative tests; then ship through a protected PR and production smoke. Never manufacture an API key, assume commercial approval, treat a ticketing homepage as proof of availability, or promote a reseller listing as primary admission.
+
 
 ## CTA resolution
 
