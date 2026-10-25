@@ -377,7 +377,7 @@ for (const marker of [
 // Preserve exact internal-path attribution and extend only to safe football pages.
 assert(partnerFunctions.includes('regex(/^\\/(?:partner-with-us|sports-venues|sports-venue\\/[a-z0-9-]+|texas-high-school-football-(?:teams|districts)\\/[a-z0-9-]+)$/)'),
   'Partner server function must independently restrict source attribution to venue and football internal paths.');
-assert(partnerHead.includes('texas-high-school-football-(?:teams|districts)'), 'Partner source sanitization must cover the same football paths as server validation.');
+assert(partnerRouteEager.includes('texas-high-school-football-(?:teams|districts)'), 'Partner source sanitization must cover the same football paths as server validation.');
 assert(partnerRoute.includes('Sports travel / local visitor business'), 'Partner form must expose a human-readable sports-travel option.');
 assert(partnerRoute.includes('Paid relationships do not buy editorial coverage, favorable rankings or changes to factual conclusions.'), 'Partner page must preserve the editorial-independence disclosure.');
 assert(partnerMigration.includes('texasdefined_partner_inquiries_partnership_type_check'), 'Sports-travel database migration must update the partner inquiry type constraint.');
