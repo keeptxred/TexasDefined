@@ -17,6 +17,7 @@ import { getSportsVenuePhoto } from "../sports-venue-images-all";
 import { resolveSportsVenueEventLink } from "../sports-venue-event-links";
 import type { TexasEvent } from "../types";
 import { mergeEventTicketing } from "./ticketing";
+import { providerForVerifiedTicketUrl } from "./ticket-provider";
 import {
   selectTexasEventRecords,
   type TexasEventImageMetadata,
@@ -51,10 +52,10 @@ function eventIdentity(name: string, city: string) {
 
 function buildTicketing(offers: EventSchemaOffer[] | undefined, lastVerifiedAt: string, sourceName?: string): TexasEventTicketingMetadata | undefined {
   if (!offers?.length) return undefined;
-  const uniqueTicketUrls = [...new Set(offers.map((offer) => offer.url))];
+  const uniqueTicketUrls = [...new Set(offers.map((offer) => offer.url))].filter((url) => providerForVerifiedTicketUrl(url));
   return {
     links: uniqueTicketUrls.map((url, index) => ({
-      provider: "official",
+      provider: providerForVerifiedTicketUrl(url) ?? "official",
       officialTicketUrl: url,
       saleStatus: "unknown",
       source: {
