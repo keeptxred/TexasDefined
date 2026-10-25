@@ -38,6 +38,21 @@ try{
     // park visit, the hero can finish loading before the planner chunk mounts.
     // Wait for the actual visible FAQ; this still fails closed when absent.
     await page.locator("#destination-visitor-faqs").waitFor({state:"visible",timeout:15000});
+    // Streaming and React hydration can briefly replace the FAQ subtree after
+    // its first appearance. Require a continuous, attached visible section
+    // before accepting the rendered page rather than racing its first mount.
+    await page.waitForFunction(() => {
+     const faq=document.querySelector("#destination-visitor-faqs");
+     const box=faq?.getBoundingClientRect();
+     const visible=!!faq && !!box && box.width>0 && box.height>0;
+     if(!visible){window.__tdParkQaFaqStable=null;return false;}
+     const observed=window.__tdParkQaFaqStable;
+     if(!observed || observed.element!==faq){
+      window.__tdParkQaFaqStable={element:faq,since:performance.now()};
+      return false;
+     }
+     return performance.now()-observed.since>=1200;
+    },null,{timeout:20000,polling:100});
     const facts=await page.evaluate(()=>{
      const hero=document.querySelector('img[fetchpriority="high"]');
      const heading=document.querySelector("h1")?.textContent?.trim();
@@ -68,8 +83,11 @@ try{
     }
     await page.screenshot({path:output+"/"+viewport.label+"-"+slug+"-hero.png",animations:"disabled",timeout:30000});
     if(viewport.label==="mobile"){
-     await page.evaluate(() => { const faq = document.querySelector("#destination-visitor-faqs"); if (!faq || faq.getBoundingClientRect().width === 0) throw new Error("Park FAQ disappeared before screenshot"); faq.scrollIntoView({block:"center",behavior:"instant"}); });
-     await page.screenshot({path:output+"/mobile-"+slug+"-faq.png",animations:"disabled",timeout:30000});
+     // A mobile hydrate/remount can occur between the page facts and the FAQ
+     // screenshot. Locator capture auto-waits for a visible, stable *real* FAQ.
+     const faq=page.locator("#destination-visitor-faqs");
+     await faq.waitFor({state:"visible",timeout:15000});
+     await faq.screenshot({path:output+"/mobile-"+slug+"-faq.png",animations:"disabled",timeout:30000});
     }
     results.push({slug,viewport:viewport.label,status:"passed",...facts});
     console.log("PASS "+viewport.label+" "+slug+" image="+facts.heroNaturalWidth+" overflow="+(facts.documentWidth-facts.viewport));
