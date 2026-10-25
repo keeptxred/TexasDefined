@@ -1,0 +1,57 @@
+name: Six TPWD park desktop and mobile visual QA
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/six-tpwd-park-visual-qa.yml
+      - scripts/ci/verify-six-state-park-visual.mjs
+      - scripts/production/__tests__/verify-six-park-authority-production.test.mjs
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Runs independently of the frequently superseded sitewide production deploy
+# queue. Keep each real browser QA run; do not cancel a pending run on new pushes.
+concurrency:
+  group: six-tpwd-park-visual-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  visual-acceptance:
+    name: Six real state park guides on desktop and mobile Chrome
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Check out exact verifier commit
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run fail-closed park verifier regression
+        run: node --test scripts/production/__tests__/verify-six-park-authority-production.test.mjs
+
+      - name: Prepare free Chrome and Playwright Core
+        shell: bash
+        run: |
+          set -euo pipefail
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-park-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+
+      - name: Verify all six parks in desktop and mobile Chrome
+        run: node scripts/ci/verify-six-state-park-visual.mjs
+
+      - name: Preserve executed 12-viewport browser evidence
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: six-tpwd-independent-visual-${{ github.run_id }}
+          path: artifacts/tpwd-six-mobile-visual/
+          if-no-files-found: error
+          retention-days: 14
