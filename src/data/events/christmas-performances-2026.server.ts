@@ -153,12 +153,19 @@ const confirmedStartTimes: Readonly<Record<string, string>> = {
  * venues, ticket types or matinee/evening sessions. A featured show without a
  * single reviewed start time goes to its official performance selector.
  */
+// The Dallas Grand Ol' Christmas show begins at 6 PM, but Ticketmaster's
+// exact event is listed at 5 PM (venue doors). This one reviewed discrepancy
+// is not a general ±60-minute match: all other shows require exact showtime.
+const ticketmasterListedStartTimes: Readonly<Record<string, string>> = {
+  "grand-ol-christmas-dallas-2026": "17:00",
+};
+
 export function matchChristmasTicketmasterPerformance(
   show: Pick<ChristmasPerformance, "id" | "date" | "city" | "venue" | "ticketmasterNeedle">,
   providerEvents: readonly TexasEventRecord[],
   today: string,
 ): TexasEventRecord | undefined {
-  const startTime = confirmedStartTimes[show.id];
+  const startTime = ticketmasterListedStartTimes[show.id] ?? confirmedStartTimes[show.id];
   if (!show.ticketmasterNeedle || !startTime || show.date < today) return undefined;
   const candidates = providerEvents.filter((event) =>
     event.startDate === show.date
