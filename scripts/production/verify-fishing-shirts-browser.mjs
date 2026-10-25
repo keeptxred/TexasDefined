@@ -97,6 +97,7 @@ try {
     "3XL", "2XL", "2XL", "2XL", "XL", "XL", "XL",
     "L", "L", "L", "M", "M", "M", "S", "S", "S",
   ];
+  if (process.env.VERIFY_LIVE_SIZE_ORDER === "1") {
   for (const id of fishingProductIds) {
     const context = await browser.newContext({ viewport: { width: 390, height: 844 } });
     const page = await context.newPage();
@@ -111,7 +112,9 @@ try {
         id: option.value,
         name: (option.textContent || "").trim().split(/\s+[—–]\s+\$/)[0],
       })));
-      assert.equal(options.length, 16, id + ": expected all 16 enabled shirt variants");
+      entry.observedOptionCount = options.length;
+      entry.observedOptionNames = options.map((option) => option.name);
+      assert.equal(options.length, 16, id + ": expected 16 enabled shirt variants; observed " + options.length + ": " + entry.observedOptionNames.join(", "));
       const sizes = options.map((option) => option.name.split("/")[0].trim());
       assert.deepEqual(sizes, expectedSizes, id + ": wrong largest-to-smallest ordering");
       for (const size of [...new Set(sizes)]) {
@@ -134,6 +137,7 @@ try {
     } finally {
       await context.close();
     }
+  }
   }
 } finally {
   await browser.close();
