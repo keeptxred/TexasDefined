@@ -969,7 +969,22 @@
         "reviewRequired": true,
         "publicationApproved": false,
         "editorialCertified": false,
-        "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "operatorIdentityConfirmed": true,
+        "photoRightsVerified": true,
+        "proposedCanonicalSlug": "austin-county-jail-museum-bellville",
+        "lastResearchAt": "2026-10-24",
+        "researchNote": "County government itself confirms Austin County Jail Museum at the historic 1896 jail, 36 S Bell St in Bellville, open Saturdays 11 a.m.–3 p.m. with volunteer-led tours. Historical website references mistakenly mix in the active modern jail at 417 N Chesley; NEVER reuse modern inmate-visitation information. Bellville Chamber independently confirms original jail operated to 1982 and historic building history. Wikimedia Commons exact site photograph by Renelibrary June 13 2020 (1800×1197) is self-published CC BY-SA 4.0, separately sourced from the photographer with linkable reuse license. Current tickets (if any), accessible entrance, mobility tour access and exact special-day schedule not fully established; guide and FAQ not yet built.",
+        "researchEvidenceUrls": [
+          "https://www.austincounty.com/page/austin.Museum",
+          "https://business.bellville.com/list/member/austin-county-jail-museum-2116",
+          "https://texastimetravel.com/cities/bellville/",
+          "https://commons.wikimedia.org/wiki/File:Austin_County_Old_Jail_and_Museum_Bellville_Wiki_(1_of_1).jpg"
+        ],
+        "photoCreator": "Renelibrary",
+        "photoOriginalWidth": 1800,
+        "photoOriginalHeight": 1197,
+        "photoLicense": "https://creativecommons.org/licenses/by-sa/4.0/"
       },
       "austinhistorycenter": {
         "submittedName": "Austin History Center",
@@ -1386,7 +1401,7 @@
       "initialCandidates": 32,
       "researchedDispositions": 22,
       "remainingAssigned": 19,
-      "notes": "Baytown merged #5868; Alpine depot label and temporarily-closed Archer County Museum research-blocked from first-party visitor records, not converted to false visitable authority pages. Anna currently operates a depot museum on two Saturdays each month; exact-site photo rights remain open. Barrington/Bastrop protected PR #5858 remains separate until confirmed merged. Assigned candidates remaining: 19.",
+      "notes": "Baytown merged #5868; Alpine depot label and temporarily-closed Archer County Museum research-blocked from first-party visitor records, not converted to false visitable authority pages. Anna currently operates a depot museum on two Saturdays each month; exact-site photo rights remain open. Barrington/Bastrop protected PR #5858 remains separate until confirmed merged. Assigned candidates remaining: 19. Austin County Jail Museum's current county operator and a correctly licensed 1800×1197 exact-jail photo researched; prevent jail/prison visitor cross-contamination.",
       "lastCheckpointAt": "2026-10-24",
       "lastMergedGuides": [
         {
