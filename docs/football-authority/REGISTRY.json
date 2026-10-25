@@ -48,12 +48,12 @@
     "assignmentBranch": "football-authority-batch-008-20261025",
     "repositoryMainAtAssignment": "84f529082bc16063bd28f9d21e762e69da96fd74",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "buffalo",
-    "nextSchool": "bullard",
-    "implementedOnBranch": 3,
-    "remainingToImplement": 22,
+    "currentSchool": "burkburnett",
+    "nextSchool": "burkeville",
+    "implementedOnBranch": 6,
+    "remainingToImplement": 19,
     "remainingToVerify": 25,
-    "notes": "Batch 008 assigned October 25, 2026. Buckholts, Buda Hays and Buda Johnson are individually researched and IMPLEMENTED on the batch branch; none are merged/deployed/VERIFIED. Exact cohort ends at Canyon Randall; Canyon West Plains remains unassigned. Next execution group begins Buffalo."
+    "notes": "Batch 008 assigned October 25, 2026. First six schools Buckholts through Buna are individually IMPLEMENTED on branch; none merged/deployed/VERIFIED. Buffalo deliberately leaves the Oct.23 Mildred final unresolved because current source evidence does not establish a trustworthy score. Next Burkburnett, then Burkeville."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -8340,8 +8340,16 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/buffalo",
-      "status": "NOT_REVIEWED",
-      "batch": 8
+      "status": "IMPLEMENTED",
+      "batch": 8,
+      "audit": "docs/football-authority/schools/buffalo.md",
+      "auditCompletedAt": "2026-10-25",
+      "researchCompletedAt": "2026-10-25",
+      "implementedAt": "2026-10-25",
+      "implementedOnBranch": "football-authority-batch-008-20261025",
+      "actualProductionVerified": false,
+      "implementationNotes": "Individual source-backed Batch 008 authority profile implemented on branch with dated 2026 results, school identity, county reciprocity and original source-derived visual; protected merge/deploy/live acceptance pending.",
+      "mediaStatus": "No third-party school photography, school seal or official logo copied; original TexasDefined source-derived editorial visual only."
     },
     {
       "id": "uil:bullard",
@@ -8354,8 +8362,16 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/bullard",
-      "status": "NOT_REVIEWED",
-      "batch": 8
+      "status": "IMPLEMENTED",
+      "batch": 8,
+      "audit": "docs/football-authority/schools/bullard.md",
+      "auditCompletedAt": "2026-10-25",
+      "researchCompletedAt": "2026-10-25",
+      "implementedAt": "2026-10-25",
+      "implementedOnBranch": "football-authority-batch-008-20261025",
+      "actualProductionVerified": false,
+      "implementationNotes": "Individual source-backed Batch 008 authority profile implemented on branch with dated 2026 results, school identity, county reciprocity and original source-derived visual; protected merge/deploy/live acceptance pending.",
+      "mediaStatus": "No third-party school photography, school seal or official logo copied; original TexasDefined source-derived editorial visual only."
     },
     {
       "id": "uil:buna",
@@ -8368,8 +8384,16 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/buna",
-      "status": "NOT_REVIEWED",
-      "batch": 8
+      "status": "IMPLEMENTED",
+      "batch": 8,
+      "audit": "docs/football-authority/schools/buna.md",
+      "auditCompletedAt": "2026-10-25",
+      "researchCompletedAt": "2026-10-25",
+      "implementedAt": "2026-10-25",
+      "implementedOnBranch": "football-authority-batch-008-20261025",
+      "actualProductionVerified": false,
+      "implementationNotes": "Individual source-backed Batch 008 authority profile implemented on branch with dated 2026 results, school identity, county reciprocity and original source-derived visual; protected merge/deploy/live acceptance pending.",
+      "mediaStatus": "No third-party school photography, school seal or official logo copied; original TexasDefined source-derived editorial visual only."
     },
     {
       "id": "uil:burkburnett",
