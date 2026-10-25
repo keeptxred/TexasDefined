@@ -223,7 +223,7 @@ export const statewideMuseumExpansionWave8Destinations: Destination[] = [
     brandId: "texasdefined",
     slug: "bastrop-county-museum-visitor-center",
     name: "Bastrop County Museum & Visitor Center",
-    summary: "Bastrop County Museum & Visitor Center at 904 Main interprets Indigenous and Texas history, the El Camino Real, Lost Pines and local industry, with downtown trip-planning help.",
+    summary: "At 904 Main Street, Bastrop County Museum links El Camino Real, Indigenous history, Texas settlement, local industry and Lost Pines, alongside visitor help.",
     category: "historic-sites",
     region: "prairies-lakes",
     nearestTown: "Bastrop",
@@ -234,9 +234,9 @@ export const statewideMuseumExpansionWave8Destinations: Destination[] = [
     entryNote: "904 Main St. Mon–Sat 10 a.m.–5 p.m., last entry 4:30. Adults $8; children 12 and under and military/veterans free. Sunday hours conflict; confirm by phone. Eligible EBT families $5.",
     highlights: ["El Camino Real de los Tejas interpretation", "Texas Revolution and Bastrop history", "Bastrop wildfire exhibit", "Museum and visitor center in one stop"],
     body: [
-      "Bastrop County Museum & Visitor Center combines history galleries with trip-planning help. Exhibits trace Indigenous, Spanish colonial, revolutionary and later economic stories across the county.",
-      "Permanent exhibits cover subjects that distinguish Bastrop from other Central Texas communities, including El Camino Real de los Tejas, local coal mining, Governor Joseph D. Sayers and the devastating Bastrop wildfire. A substantial archive and photograph collection supports deeper research behind the public galleries.",
-      "Its Main Street location and El Camino Real connection make it a practical first stop before Bastrop's historic district, Bastrop State Park and a wider county road trip."
+      "Bastrop's county museum combines local-history galleries and trip-planning help, tracing Indigenous, colonial and Texas Revolution stories.",
+      "The galleries cover El Camino Real, coal mining, Governor Joseph D. Sayers and the Bastrop wildfire; an archive adds context.",
+      "Start at the museum before exploring historic Main Street, Bastrop State Park and other county sites."
     ],
     officialUrl: "https://bastropcountyhistorical.org/museum/bastrop-county-historical-society-museum-visitor-center/",
     managingAuthority: "Bastrop County Historical Society",
