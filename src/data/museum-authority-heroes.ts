@@ -5,15 +5,15 @@ import { isDestinationPhotoPlaceholder } from "./explore-hero-reconciliation";
 export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
   "barrington-living-history-farm": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Barrington_Farm%2C_residence_of_Dr._Anson_Jones.jpg?width=1600",
-    alt: "Anson Jones house at Barrington Living History Farm",
+    alt: "Anson Jones house at Barrington Farm",
     width: 1600, height: 900,
-    credit: "Pi3.124 · CC BY-SA 4.0 · Wikimedia Commons"
+    credit: "Pi3.124 · CC BY-SA 4.0"
   },
   "bastrop-county-museum-visitor-center": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Bastrop_county_historical_society_museum.jpg?width=1600",
-    alt: "Bastrop County Museum at 904 Main Street",
+    alt: "Bastrop County Museum exterior",
     width: 1600, height: 1067,
-    credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons"
+    credit: "Larry D. Moore · CC BY 4.0"
   },
   "austin-history-center-austin": {
     "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/John_Henry_Faulk_Central_Library.jpg?width=1600",
