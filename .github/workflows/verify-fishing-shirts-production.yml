@@ -1,0 +1,64 @@
+name: Verify TexasDefined fishing shirts production
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ['Deploy TexasDefined production']
+    types: [completed]
+    branches: [main]
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/verify-fishing-shirts-production.yml'
+      - 'scripts/production/verify-fishing-shirts-release.mjs'
+      - 'scripts/production/verify-fishing-shirts-browser.mjs'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: texasdefined-fishing-shirts-qa-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+      - name: Set up Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check fishing shirts verifier syntax
+        run: node --check scripts/production/verify-fishing-shirts-release.mjs
+      - name: Verify live TexasDefined collection, product details and editorial links
+        run: node scripts/production/verify-fishing-shirts-release.mjs
+      - name: Check browser verifier syntax
+        run: node --check scripts/production/verify-fishing-shirts-browser.mjs
+      - name: Install pinned headless browser
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm install --prefix /tmp/td-fishing-qa --no-audit --no-fund --no-save playwright-core@1.56.1
+          if command -v google-chrome >/dev/null 2>&1; then
+            echo "CHROME_BIN=$(command -v google-chrome)" >> "$GITHUB_ENV"
+          elif command -v chromium >/dev/null 2>&1; then
+            echo "CHROME_BIN=$(command -v chromium)" >> "$GITHUB_ENV"
+          else
+            node /tmp/td-fishing-qa/node_modules/playwright-core/cli.js install chromium
+          fi
+      - name: Verify actual product cards and images on fishing pages
+        env:
+          PLAYWRIGHT_CORE_PATH: /tmp/td-fishing-qa/node_modules/playwright-core
+        run: node scripts/production/verify-fishing-shirts-browser.mjs
+      - name: Preserve real fishing-shirt card screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: texasdefined-fishing-shirts-browser-qa
+          path: artifacts/fishing-shirts-browser/
+          if-no-files-found: warn
+          retention-days: 7
