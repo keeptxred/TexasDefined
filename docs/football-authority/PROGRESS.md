@@ -930,3 +930,11 @@ Current source reconciliation did **not** justify any status promotion. Harmony'
 - **Burleson:** Burleson ISD officially lists Phillip Tanner head coach; official Elk / red-white-black identity; 2-6 / 2-3 after Midlothian Heritage 45-7. 2021 8-4 playoff breakthrough retained as recent-history benchmark. Johnson County reciprocal link added.
 - No CI/deployment polling performed. Next assigned school is **Burleson Centennial**, then **Burnet**, then **Burton**.
 
+### Batch 008 — twelve school implementation checkpoint (2026-10-25)
+
+- **12/25 IMPLEMENTED, 13 remaining; 0 Batch 008 VERIFIED.**
+- **Burleson Centennial:** official Spartans identity, Blake Meyer first-party head coach, 5-3 / 2-3 after Lancaster 55-14, 2022 12-2 benchmark and DCTF 12-playoff / zero-title record; Johnson County reciprocal link.
+- **Burnet:** first-party Ben Speer 2026-27 head coach, official Green Mile campus and Kelly Green identity, 1-7 / 1-2 after Lampasas 35-20, China Spring 33-31 breakthrough; Burnet County reciprocal link.
+- **Burton:** first-party Jason Hodde athletic-director record plus KBTX head-coach attribution, 5-2 / 4-1 after Bremond 36-13, 2022 13-1 season and 2016 Bremond semifinal history; Washington County reciprocal link. Burton ISD photo-rights notice respected.
+- No CI/deployment polling performed. Next assigned school: **Bushland**, then **Bynum**, then **Caddo Mills**.
+
