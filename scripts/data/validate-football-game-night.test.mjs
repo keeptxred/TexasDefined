@@ -98,7 +98,7 @@ test('football monetization is shared, disclosed, source-preserving, and payment
   const sponsorForm = read('src/routes/partner-with-us.lazy.tsx');
   const partnerHead = read('src/routes/partner-with-us.tsx');
   const inquiry = read('src/data/partner-inquiry.functions.ts');
-  const prices = read('src/data/advertising-program.ts');
+  const prices = read('src/data/football-sponsorship-packages.ts');
   const districtMigration = read('supabase/migrations/20261025184500_extend_sports_sponsor_football_district_surfaces.sql');
   assert.match(panel, /data-football-monetization="v1"/);
   assert.match(panel, /data-football-sponsor-interest/);
