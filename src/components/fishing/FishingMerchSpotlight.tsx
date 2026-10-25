@@ -29,7 +29,7 @@ export function FishingMerchSpotlight({
 
   // No merchandising box or fake recommendation while the catalog is empty
   // or the commerce API is unavailable. The rest of the guide remains usable.
-  const available = products.filter((product) => product.image.src && product.productUrl && product.variants.some((variant) => variant.is_enabled !== false));
+  const available = products.filter((product) => product.image.src && product.productUrl && (product.variants ?? []).some((variant) => variant.is_enabled !== false));
   if (!available.length) return null;
 
   const recommended = rankFishingShirts(available, lakeName, speciesName, speciesNames).slice(0, compact ? 2 : 3);
