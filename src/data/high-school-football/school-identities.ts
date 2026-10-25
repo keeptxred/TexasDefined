@@ -1937,6 +1937,28 @@ export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoo
     sourceLabel: 'Buna ISD official schools page says Home of the Blue and White; school and district pages use Cougars identity',
     verifiedAt: '2026-10-25',
   },
+  {
+    slug: 'burkburnett',
+    mascot: 'Bulldogs',
+    sourceUrl: 'https://www.burkburnettisd.org/o/athletics/page/event-policy',
+    sourceLabel: 'Burkburnett ISD Athletics official Bulldog Stadium event policy and football staff pages',
+    verifiedAt: '2026-10-25',
+  },
+  {
+    slug: 'burkeville',
+    mascot: 'Mustangs',
+    sourceUrl: 'https://www.burkevilleisd.org/',
+    sourceLabel: 'Burkeville ISD official homepage uses Mustang pride and school-spirit presentation; colors not independently certified in text',
+    verifiedAt: '2026-10-25',
+  },
+  {
+    slug: 'burleson',
+    mascot: 'Elk',
+    colors: 'Red, White and Black',
+    sourceUrl: 'https://bhs.burlesonisd.net/our-school/about-us',
+    sourceLabel: 'Burleson High School official About Us page',
+    verifiedAt: '2026-10-25',
+  },
 ];
 
 export function getVerifiedFootballSchoolIdentity(slug: string) {
