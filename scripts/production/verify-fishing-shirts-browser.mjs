@@ -48,11 +48,18 @@ try {
       const merchLinks = section.locator('a[href^="/shop/product/"]');
       const count = await merchLinks.count();
       assert.ok(count >= 2, `${row.path}: expected at least two shop product cards, got ${count}`);
+      const first = section.locator('img').first();
+      await first.scrollIntoViewIfNeeded({ timeout: 15000 });
+      await first.waitFor({ state: 'visible', timeout: 15000 });
+      // Images intentionally load lazily on mobile; wait for the actual decode,
+      // not merely the visible <img> element or the section screenshot.
+      await page.waitForFunction(() => {
+        const img = document.querySelector('[aria-label="Texas Defined fishing shirts"] img');
+        return img instanceof HTMLImageElement && img.complete && img.naturalWidth > 0;
+      }, null, { timeout: 20000 });
+      const image = await first.evaluate(e => ({ complete: e.complete, naturalWidth: e.naturalWidth, src: e.currentSrc }));
       const screenshot = `${dir}/${row.name}.png`;
       await section.screenshot({ path: screenshot, animations: 'disabled', timeout: 20000 });
-      const first = section.locator('img').first();
-      await first.waitFor({ state: 'visible', timeout: 10000 });
-      const image = await first.evaluate(e => ({ complete: e.complete, naturalWidth: e.naturalWidth, src: e.currentSrc }));
       if (!image.complete || image.naturalWidth === 0) {
         const source = await first.getAttribute('src');
         if (source && /^https?:/.test(source)) {
