@@ -173,6 +173,8 @@ const batch001FootballCountyLinks: Record<string, { name: string; href: string; 
 // Independently researched Batch 002 and Batch 003 county links. Lists retain
 // multiple teams in the same county rather than replacing an existing card.
 const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: string; context: string }>> = {
+  'milam': [{ name: 'Buckholts Badgers', slug: 'buckholts', context: 'Milam County six-man Buckholts: 2026 UIL 1A Division II District 15, named-opponent score ledger, current roster coaching change and placeholder-result caution' }],
+  'hays': [{ name: 'Hays Hawks', slug: 'buda-hays', context: 'Buda Hays: Mark Torres, 2026 return to 6A, first Buda Bowl win, 2020 regional-final context and Bob Shelton Stadium' }, { name: 'Johnson Jaguars', slug: 'buda-johnson', context: 'Buda Johnson: Sam Carlin, 2024 regional semifinal, 2026 District 26 results, inaugural Buda Bowl and shared Hays CISD football venue context' }],
   'mclennan': [{ name: 'Bruceville-Eddy Eagles', slug: 'bruceville-eddy', context: '2026 Bruceville-Eddy Slot-T under Marcial Chapa and 39–8 district-confirmed Moody victory; seven historic playoff berths, Eagle Field visitor details' }],
   'webb': [{ name: 'Bruni Badgers', slug: 'bruni', context: 'Webb CISD Bruni six-man switch from 2025 canceled 11-man season to 2026 1A DI District 16, Federico Lujan interview and current score sources' }],
   'jack': [{ name: 'Bryson Cowboys', slug: 'bryson', context: 'Jack County Bryson ISD blue-and-gold six-man Cowboys: 1995 eleven-man playoff archive, 2015–17 six-man playoff streak and source-dated October 2026 4–4 record; 2026 coaching conflict disclosed' }],
