@@ -6,7 +6,8 @@ export function FootballMonetizationSlot({ surfacePath, hasSponsor }: {
   surfacePath: string;
   hasSponsor: boolean;
 }) {
-  const inquiry = `/partner-with-us?type=sports-travel&tier=custom&focus=contact&source=${encodeURIComponent(surfacePath)}`;
+  const footballPackage = surfacePath.startsWith('/texas-high-school-football-districts/') ? 'district' : 'school';
+  const inquiry = `/partner-with-us?type=sports-travel&tier=custom&football=${footballPackage}&focus=contact&source=${encodeURIComponent(surfacePath)}`;
   return (
     <aside data-football-monetization="v1" aria-label="Independent football advertising and shopping" className="border-b border-border py-5">
       {!hasSponsor && (
@@ -14,7 +15,7 @@ export function FootballMonetizationSlot({ surfacePath, hasSponsor }: {
           <div className="max-w-2xl">
             <p className="text-xs font-bold uppercase tracking-wider text-primary">Local business sponsorship</p>
             <h2 className="mt-2 font-display text-2xl">Reach Texas high-school football families</h2>
-            <p className="mt-2 text-sm leading-6 text-muted-foreground">Local businesses can request a clearly labeled, editorially independent placement on this page. Sponsorship does not imply school approval, rankings, or guaranteed clicks.</p>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">Founding placements start at $49/month, subject to available inventory, approval and agreement. Local businesses can request a clearly labeled, editorially independent placement on this page. Sponsorship does not imply school approval, rankings, or guaranteed clicks.</p>
           </div>
           <a href={inquiry} className="inline-flex min-h-11 items-center justify-center border border-primary px-4 py-3 text-sm font-semibold text-primary" data-football-sponsor-interest="true">Sponsor this page →</a>
         </div>
