@@ -16,7 +16,7 @@ for (const marker of [
   "const cases = [",
   "cases.length !== 12",
   "new Set(cases.map(x=>x[0]))",
-  "calendar-results",
+  "ev-results-list",
   "expected exactly one",
   "ev-ticket",
   "christmas-calendar-qa",
