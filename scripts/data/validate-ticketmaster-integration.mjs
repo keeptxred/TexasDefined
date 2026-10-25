@@ -162,6 +162,23 @@ try {
   }, [holidayTicket], '2026-10-25'), undefined,
     'multiple performances without a single approved time use official organizer selector');
 
+  // Dallas Grand Ol Christmas has a separately confirmed 6pm show/5pm doors
+  // listing. Only its exact reviewed Ticketmaster 5pm event may be affiliated.
+  const grandOlShow = {
+    id: 'grand-ol-christmas-dallas-2026', date: '2026-12-23', city: 'Dallas',
+    venue: 'House of Blues Dallas', ticketmasterNeedle: 'grand ol christmas',
+  };
+  const grandOlProvider = {
+    ...holidayTicket, id: 'ticketmaster:grand-ol-dallas',
+    title: "Grand Ol' Christmas", city: 'Dallas', startDate: '2026-12-23',
+    venueName: 'House of Blues Dallas', startTime: '17:00:00',
+  };
+  assert.equal(matchChristmasTicketmasterPerformance(grandOlShow, [grandOlProvider], '2026-10-25')?.id,
+    grandOlProvider.id, 'reviewed 5pm Ticketmaster doors listing must match the real 6pm show');
+  assert.equal(matchChristmasTicketmasterPerformance(grandOlShow,
+    [{ ...grandOlProvider, startTime: '18:00:00' }], '2026-10-25'), undefined,
+    'do not generalize the Dallas doors exception to unrelated ticket times');
+
   const editorialTicketing = {
     links: [{
       provider: 'official',
