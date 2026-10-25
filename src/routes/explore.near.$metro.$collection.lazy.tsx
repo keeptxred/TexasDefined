@@ -18,6 +18,7 @@ import type { MetroProximityTownResult } from "@/data/metro-proximity-town-refer
 import type { ResolvedEventTicketCta } from "@/data/events/ticketing";
 import { countyNames, countySlug } from "@/data/metro-county-links";
 import { maps } from "@/services/maps";
+import { curatedMetroDayTrips } from "@/data/metro-day-trip-editorial";
 
 export const Route = createLazyFileRoute("/explore/near/$metro/$collection")({});
 
@@ -625,7 +626,10 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
   if (metro.slug === "texarkana" && collection.slug === "road-trips") {
     return <TexarkanaRoadTripsAuthority pageData={pageData} />;
   }
-  const curatedSlugs = isMcAllenDayTrips ? new Set<string>(MCALLEN_EDITORIAL_TRIPS.map((trip) => trip.slug)) : new Set<string>();
+  const featuredCityTrips = curatedMetroDayTrips(metro.slug, collection.slug, results);
+  const curatedSlugs = isMcAllenDayTrips
+    ? new Set<string>(MCALLEN_EDITORIAL_TRIPS.map((trip) => trip.slug))
+    : new Set<string>(featuredCityTrips.map((trip) => trip.slug));
   const groups = isDallasRoadRing
     ? [{ band: "longer-day-trip" as const, rows: results }]
     : (["close-in", "easy-day-trip", "longer-day-trip"] as const)
@@ -683,6 +687,27 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
     </Container>
 
     {isMcAllenDayTrips && <McAllenDayTripsAuthority results={results} />}
+
+    {featuredCityTrips.length > 0 && <section className="border-b border-border bg-surface" data-metro-curated-day-trips={metro.slug} aria-labelledby="metro-featured-day-trips">
+      <Container className="py-14 sm:py-18">
+        <p className="eyebrow text-primary">A better starting point than the mileage list</p>
+        <h2 id="metro-featured-day-trips" className="mt-3 max-w-4xl font-display text-4xl sm:text-5xl">Choose your {metro.name} day trip by experience</h2>
+        <p className="mt-5 max-w-4xl text-sm leading-7 text-muted-foreground">These researched destinations have full TexasDefined guides in the current catalog. Each choice includes the operating authority's visitor source and live driving directions. This is independent editorial selection, not a paid ranking. Distances elsewhere on this page are geographic screening estimates—not road times.</p>
+        <div className="mt-9 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {featuredCityTrips.map(({ slug, fit, why, check, sourceUrl, result }) => <article key={slug} className="border-t border-border pt-5" data-curated-day-trip={slug}>
+            <p className="eyebrow text-primary">{fit}</p>
+            <h3 className="mt-3 font-display text-3xl">{result.destination.name}</h3>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">{why}</p>
+            <p className="mt-4 text-sm leading-7"><strong>Check before going:</strong> {check}</p>
+            <div className="mt-5 flex flex-wrap gap-x-5 gap-y-3 text-sm font-semibold">
+              <Link to="/destination/$slug" params={{ slug }} className="border-b border-primary pb-1 text-primary">Full visitor guide →</Link>
+              <a href={sourceUrl} target="_blank" rel="noopener noreferrer" className="border-b border-border pb-1 hover:text-primary">Official visitor information ↗</a>
+              <a href={maps.drivingRouteUrl(metro.center, result.destination.coordinates)} target="_blank" rel="noopener noreferrer" className="border-b border-border pb-1 hover:text-primary">Check actual drive ↗</a>
+            </div>
+          </article>)}
+        </div>
+      </Container>
+    </section>}
 
     {isAustinTwoHourGuide && austinRows.length > 0 && <section className="border-b border-border">
       <Container className="py-14 sm:py-18">
@@ -833,6 +858,26 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
           </article>)}
         </div>
         {(availableAustinSlugs.has("schulenburg") || availableAustinSlugs.has("la-grange")) && <a href="/explore/painted-churches" className="eyebrow mt-8 inline-block border-b border-primary pb-1 text-primary">Explore the Painted Churches authority guide →</a>}
+      </Container>
+    </section>}
+
+    {collection.slug === "day-trips" && pageData.indexReady && <section className="border-y border-border bg-surface" data-day-trip-commercial-paths={metro.slug}>
+      <Container className="py-12 sm:py-14">
+        <div className="grid gap-10 md:grid-cols-2">
+          <div>
+            <p className="eyebrow text-primary">Optional overnight planning</p>
+            <h2 className="mt-3 font-display text-3xl">Make a longer trip without rushing home</h2>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">Some destinations are better with an evening or overnight. Compare nearby hotels and rentals using the existing booking options after choosing your destination; no stay or availability is guaranteed.</p>
+            <a href="#expedia-travel-surface" className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">See optional hotel and rental choices ↓</a>
+            <p className="mt-3 text-xs leading-6 text-muted-foreground">Affiliate disclosure: TexasDefined may earn a commission from qualifying booking links, at no additional cost to you. Booking terms and availability come from the provider.</p>
+          </div>
+          <div>
+            <p className="eyebrow text-primary">For local visitor businesses</p>
+            <h2 className="mt-3 font-display text-3xl">Reach readers planning Texas day trips</h2>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">Hotels, outfitters, attractions, chambers and travel businesses can request information about disclosed advertising or sponsorship. Editorial destinations and rankings are never for sale; no placement is implied or guaranteed.</p>
+            <a href={"/partner-with-us?focus=contact&source=" + encodeURIComponent("/explore/near/" + metro.slug + "/day-trips")} className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Inquire about local travel partnerships →</a>
+          </div>
+        </div>
       </Container>
     </section>}
 
