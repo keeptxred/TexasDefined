@@ -50,6 +50,7 @@ export function ShowcaseLakeGuide({
       <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">{title}</h1>
       <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/80">{description}</p>
       <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-xs uppercase tracking-[0.12em] text-ink-foreground/60"><span>{pageData.overview.surfaceAcres.toLocaleString("en-US")} acres</span><span>{pageData.overview.maxDepthFeet} ft max depth</span><span>Verified {formatDate(pageData.verifiedAt)}</span></div>
+      {!section && <a href="/shop/fishing-shirts" className="mt-5 inline-block border-b border-ink-foreground/50 pb-1 text-sm font-semibold text-ink-foreground/85 hover:text-ink-foreground">Browse Texas fishing shirts →</a>}
     </Container></header>
 
     <div className="border-b border-border bg-background"><Container><nav aria-label={`${pageData.overview.name} guide sections`} className="flex gap-5 overflow-x-auto py-4 text-xs font-semibold uppercase tracking-[0.12em]">
