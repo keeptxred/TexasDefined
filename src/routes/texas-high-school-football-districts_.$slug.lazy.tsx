@@ -2,6 +2,8 @@ import { createLazyFileRoute, Link } from '@tanstack/react-router';
 
 import { Container } from '@/components/layout/Container';
 import { FootballFanOffers } from '@/components/sports/FootballFanOffers';
+import { FootballMonetizationSlot } from '@/components/sports/FootballMonetizationSlot';
+import { SponsoredSportsPlacement } from '@/components/sports/SponsoredSportsPlacement';
 import { District16Coverage } from '@/components/sports/District16Coverage';
 import { DISTRICT_5_SCHEDULE_URL, DISTRICT_5_STANDINGS_URL } from '@/data/high-school-football/football-district5-2026';
 import {
@@ -69,6 +71,9 @@ function Page() {
           <Fact label="Format" value={district.footballType} />
         </dl>
       </header>
+
+      <FootballMonetizationSlot surfacePath={district.profilePath} hasSponsor={!!district.sponsorPlacement} />
+      {district.sponsorPlacement && <div className="border-b border-border py-6"><SponsoredSportsPlacement key={district.sponsorPlacement.id} placement={district.sponsorPlacement} /></div>}
 
       {district16Pilot && <District16Coverage schools={district.programs} />}
 

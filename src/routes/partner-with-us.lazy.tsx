@@ -1,4 +1,4 @@
-import { type FormEvent, useState } from 'react';
+import { type FormEvent, useEffect, useState } from 'react';
 import { createLazyFileRoute, Outlet, useRouterState } from '@tanstack/react-router';
 
 import { DepartmentHero } from '@/components/editorial/DepartmentHero';
@@ -11,6 +11,7 @@ import {
   type AdvertiserTierId,
 } from '@/data/advertising-program';
 import { submitPartnerInquiry } from '@/data/partner-inquiry.functions';
+import { footballFoundingPackages, type FootballFoundingPackageId } from '@/data/football-sponsorship-packages';
 
 const description = 'Compare Texas Defined advertising and sponsorship packages, see realistic sample placements, review billing and contract terms, and request a partnership proposal.';
 
@@ -60,13 +61,29 @@ function PartnerWithUsRoute() {
 
 function PartnerWithUsPage() {
   const search = Route.useSearch();
-  const [billingCycle, setBillingCycle] = useState<AdvertiserBillingCycle>(search.billing ?? 'monthly');
-  const [selectedTier, setSelectedTier] = useState<AdvertiserTierId>(search.tier ?? 'growth');
+  const incomingFootballPackage = search.sourcePath?.startsWith('/texas-high-school-football-teams/')
+    ? 'school' : search.sourcePath?.startsWith('/texas-high-school-football-districts/') ? 'district' : null;
+  const [billingCycle, setBillingCycle] = useState<AdvertiserBillingCycle>(incomingFootballPackage ? 'monthly' : search.billing ?? 'monthly');
+  const [selectedFootballPackage, setSelectedFootballPackage] = useState<FootballFoundingPackageId | null>(incomingFootballPackage);
+  const [selectedTier, setSelectedTier] = useState<AdvertiserTierId>(incomingFootballPackage ? 'custom' : search.tier ?? 'growth');
   const [status, setStatus] = useState<SubmitStatus>('idle');
   const [errorMessage, setErrorMessage] = useState('');
 
+  useEffect(() => {
+    if (search.focus !== 'contact') return;
+    window.requestAnimationFrame(() => document.getElementById('contact')?.scrollIntoView({ block: 'start' }));
+  }, [search.focus]);
+
   function chooseTier(tier: AdvertiserTierId) {
+    setSelectedFootballPackage(null);
     setSelectedTier(tier);
+    window.setTimeout(() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 0);
+  }
+
+  function chooseFootballPackage(id: FootballFoundingPackageId) {
+    setSelectedFootballPackage(id);
+    setSelectedTier('custom');
+    setBillingCycle('monthly');
     window.setTimeout(() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 0);
   }
 
@@ -88,7 +105,12 @@ function PartnerWithUsPage() {
         billingCycle,
         desiredStartDate: String(form.get('desiredStartDate') || ''),
         objectives: String(form.get('objectives') || ''),
-        notes: String(form.get('notes') || ''),
+        notes: [
+          selectedFootballPackage
+            ? `Founding football sponsorship pilot: ${footballFoundingPackages.find((item) => item.id === selectedFootballPackage)?.name}; advertised monthly starting price ${footballFoundingPackages.find((item) => item.id === selectedFootballPackage)?.monthlyPrice}; custom agreement and payment verification required.`
+            : '',
+          String(form.get('notes') || ''),
+        ].filter(Boolean).join('\n').slice(0, 3000),
         sourcePath: search.sourcePath,
         addressLine2: String(form.get('addressLine2') || ''),
       } });
@@ -122,12 +144,30 @@ function PartnerWithUsPage() {
       </div>
     </Container>
 
+    <section aria-labelledby="football-partner-packages" className="border-y border-border bg-background">
+      <Container className="py-10 sm:py-14">
+        <p className="eyebrow text-primary">New · Founding football sponsors</p>
+        <h2 id="football-partner-packages" className="mt-2 font-display text-3xl sm:text-4xl">Local sponsorships for Texas high-school football</h2>
+        <p className="mt-3 max-w-4xl text-sm leading-7 text-muted-foreground">Introductory football-only monthly pilot packages. Limited to relevant school and district pages with available inventory; one advertiser per page at a time. Advertisers are independently screened, and all placement copy is approved before going live. No school affiliation or traffic guarantees.</p>
+        <div className="mt-6 grid gap-4 md:grid-cols-3">
+          {footballFoundingPackages.map((item) => <article key={item.id} className={`border p-5 ${selectedFootballPackage === item.id ? 'border-primary bg-surface' : 'border-border'}`}>
+            <h3 className="font-display text-2xl">{item.name}</h3>
+            <p className="mt-3 text-3xl font-bold">${item.monthlyPrice}/month</p>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">{item.description}</p>
+            <p className="mt-2 text-xs leading-5 text-muted-foreground">Up to {item.pages} approved page placement{item.pages > 1 ? 's' : ''} · one-month pilot subject to approved custom terms and prepayment.</p>
+            <button type="button" onClick={() => chooseFootballPackage(item.id)} className="mt-5 min-h-11 border border-primary px-4 py-2 text-sm font-semibold text-primary">Request this football package</button>
+          </article>)}
+        </div>
+        <p className="mt-5 text-xs leading-6 text-muted-foreground">Submitting an inquiry is free and does not start a subscription. If accepted, a custom agreement and Stripe payment step are issued for the agreed placement and amount. Existing broader TexasDefined advertiser packages remain available below.</p>
+      </Container>
+    </section>
+
     <section id="pricing" className="scroll-mt-24 border-y border-border bg-surface">
       <Container className="py-12 sm:py-16">
         <div className="flex flex-col gap-6 justify-between md:flex-row md:items-end">
           <div><p className="eyebrow text-primary">Packages & pricing</p><h2 className="mt-3 max-w-3xl font-display text-4xl sm:text-5xl">Choose the footprint that matches your Texas audience.</h2><p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Local, Growth and Premier monthly plans begin with a three-month commitment. Annual pricing is charged annually in advance and effectively includes two months free.</p></div>
           <div className="inline-flex w-fit border border-border bg-background p-1" role="group" aria-label="Pricing billing cycle">
-            {(['monthly', 'annual'] as const).map((cycle) => <button key={cycle} type="button" aria-pressed={billingCycle === cycle} onClick={() => setBillingCycle(cycle)} className={`px-4 py-2 text-sm font-semibold capitalize ${billingCycle === cycle ? 'bg-foreground text-background' : 'text-muted-foreground'}`}>{cycle}</button>)}
+            {(['monthly', 'annual'] as const).map((cycle) => <button key={cycle} type="button" aria-pressed={billingCycle === cycle} onClick={() => { setSelectedFootballPackage(null); setBillingCycle(cycle); }} className={`px-4 py-2 text-sm font-semibold capitalize ${billingCycle === cycle ? 'bg-foreground text-background' : 'text-muted-foreground'}`}>{cycle}</button>)}
           </div>
         </div>
 
@@ -208,7 +248,7 @@ function PartnerWithUsPage() {
     <section id="contact" className="scroll-mt-24 border-t border-border">
       <Container className="py-12 sm:py-16">
         <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
-          <section><p className="eyebrow text-primary">Request review</p><h2 className="mt-3 font-display text-4xl">Start with an inquiry, not an anonymous purchase.</h2><p className="mt-4 text-sm leading-7 text-muted-foreground">Your selected package and billing preference are included with the inquiry. Texas Defined reviews fit before sending an agreement or payment request.</p><div className="mt-8 border-y border-border py-6"><p className="font-semibold">Currently selected</p><p className="mt-2 text-sm text-muted-foreground">{advertiserTiers.find((tier) => tier.id === selectedTier)?.name} · {billingCycle === 'annual' ? 'Annual billing' : 'Monthly billing'}</p></div></section>
+          <section><p className="eyebrow text-primary">Request review</p><h2 className="mt-3 font-display text-4xl">Start with an inquiry, not an anonymous purchase.</h2><p className="mt-4 text-sm leading-7 text-muted-foreground">Your selected package and billing preference are included with the inquiry. Texas Defined reviews fit before sending an agreement or payment request.</p><div className="mt-8 border-y border-border py-6"><p className="font-semibold">Currently selected</p><p className="mt-2 text-sm text-muted-foreground">{selectedFootballPackage ? footballFoundingPackages.find((item) => item.id === selectedFootballPackage)?.name + ' · Introductory monthly football pilot' : advertiserTiers.find((tier) => tier.id === selectedTier)?.name + (billingCycle === 'annual' ? ' · Annual billing' : ' · Monthly billing')}</p></div></section>
           <section aria-labelledby="partnership-form-heading">
             <h3 id="partnership-form-heading" className="font-display text-3xl">Request information / proposal</h3>
             <p className="mt-3 text-sm leading-7 text-muted-foreground">Business and sponsorship inquiries are stored privately for Texas Defined to review.</p>
@@ -220,8 +260,8 @@ function PartnerWithUsPage() {
               <div className="grid gap-5 sm:grid-cols-2"><Field label="Company or organization" name="company" autoComplete="organization" required /><Field label="Phone (optional)" name="phone" type="tel" autoComplete="tel" /></div>
               <Field label="Website" name="website" type="url" autoComplete="url" placeholder="https://" />
               <div className="grid gap-5 sm:grid-cols-2">
-                <label className="grid gap-2 text-sm font-semibold" htmlFor="requestedTier">Package interest<select id="requestedTier" value={selectedTier} onChange={(event) => setSelectedTier(event.target.value as AdvertiserTierId)} className="min-h-11 border border-border bg-background px-3 py-2 font-normal text-foreground"><option value="local">Local Partner</option><option value="growth">Growth Partner</option><option value="premier">Premier Partner</option><option value="custom">Custom Partnership</option></select></label>
-                <label className="grid gap-2 text-sm font-semibold" htmlFor="billingCycle">Billing preference<select id="billingCycle" value={billingCycle} onChange={(event) => setBillingCycle(event.target.value as AdvertiserBillingCycle)} className="min-h-11 border border-border bg-background px-3 py-2 font-normal text-foreground"><option value="monthly">Monthly</option><option value="annual">Annual</option></select></label>
+                <label className="grid gap-2 text-sm font-semibold" htmlFor="requestedTier">Package interest<select id="requestedTier" value={selectedTier} onChange={(event) => { setSelectedFootballPackage(null); setSelectedTier(event.target.value as AdvertiserTierId); }} className="min-h-11 border border-border bg-background px-3 py-2 font-normal text-foreground"><option value="local">Local Partner</option><option value="growth">Growth Partner</option><option value="premier">Premier Partner</option><option value="custom">Custom Partnership</option></select></label>
+                <label className="grid gap-2 text-sm font-semibold" htmlFor="billingCycle">Billing preference<select id="billingCycle" value={billingCycle} onChange={(event) => { setSelectedFootballPackage(null); setBillingCycle(event.target.value as AdvertiserBillingCycle); }} className="min-h-11 border border-border bg-background px-3 py-2 font-normal text-foreground"><option value="monthly">Monthly</option><option value="annual">Annual</option></select></label>
               </div>
               <label className="grid gap-2 text-sm font-semibold" htmlFor="partnershipType">Business category<select key={search.partnershipType ?? 'other'} id="partnershipType" name="partnershipType" className="min-h-11 border border-border bg-background px-3 py-2 font-normal text-foreground" defaultValue={search.partnershipType ?? 'other'} required>{partnershipOptions.map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select></label>
               <Field label="Target Texas locations" name="targetTexasLocations" placeholder="Cities, regions, counties or statewide" />

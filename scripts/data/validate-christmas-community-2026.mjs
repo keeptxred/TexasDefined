@@ -238,7 +238,7 @@ for (const [city, destination] of [
 }
 assert.ok(collection.includes("christmasOfferCities.has(event.city)"), "Limit redundant Christmas affiliate offers to one per city");
 assert.ok(page.includes("source=%2Fevents%2Fchristmas-events"), "Christmas sponsor inquiry link must carry its origin");
-assert.ok(partnerRoute.includes("sanitizePartnerSource") && partnerRoute.includes("'/events/christmas-events'"), "Route must explicitly whitelist Christmas sponsor origin");
+assert.ok(partnerRoute.includes("sanitizePartnerSource") && partnerRoute.includes("events\\/christmas-events"), "Route must explicitly whitelist Christmas sponsor origin");
 assert.ok(partnerForm.includes("const search = Route.useSearch()") && partnerForm.includes("sourcePath: search.sourcePath"), "Partner form must preserve router-validated sponsor attribution");
 assert.ok(partnerServer.includes("z.literal('/events/christmas-events')"), "Server must enforce Christmas inquiry source allowlist");
 assert.ok(!page.includes("adsbygoogle"), "Do not activate unapproved AdSense on Christmas calendars");

@@ -2,6 +2,7 @@ import { createFileRoute, notFound } from '@tanstack/react-router';
 
 import { texasDefinedBrand } from '@/brand/texasdefined';
 import { getFootballDistrictPage } from '@/data/high-school-football/football-districts.functions';
+import { getActiveSportsSponsorPlacement } from '@/data/sports-sponsorship.functions';
 import { buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
@@ -10,7 +11,10 @@ export const Route = createFileRoute('/texas-high-school-football-districts/$slu
   loader: async ({ params }) => {
     const district = await getFootballDistrictPage(params.slug);
     if (!district) throw notFound();
-    return district;
+    return {
+      ...district,
+      sponsorPlacement: await getActiveSportsSponsorPlacement({ data: { surfacePath: district.profilePath } }),
+    };
   },
   head: ({ loaderData }) => {
     if (!loaderData) return { meta: [{ title: 'Football district not found' }, { name: 'robots', content: 'noindex' }] };

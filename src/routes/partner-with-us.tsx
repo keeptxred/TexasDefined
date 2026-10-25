@@ -15,28 +15,19 @@ type PartnerSearch = {
 };
 
 function sanitizePartnerSource(value: unknown) {
-  if (typeof value !== 'string') return canonicalPath;
-  if (value === '/sports-venues' || value === '/things-unique-to-texas/texas-brands' || value === '/events/christmas-events') return value;
-  if (/^\/sports-venue\/[a-z0-9-]+$/.test(value)) return value;
-  if (/^\/explore\/near\/[a-z0-9-]+\/day-trips$/.test(value)) return value;
-  return canonicalPath;
+  return typeof value === 'string' && /^\/(?:sports-venues|things-unique-to-texas\/texas-brands|events\/christmas-events|sports-venue\/[a-z0-9-]+|texas-high-school-football-(?:teams|districts)\/[a-z0-9-]+|explore\/near\/[a-z0-9-]+\/day-trips)$/.test(value)
+    ? value : canonicalPath;
 }
 
 export const Route = createFileRoute('/partner-with-us')({
   validateSearch: (search: Record<string, unknown>): PartnerSearch => ({
-    partnershipType: search.type === 'sports-travel'
-      ? 'sports-travel'
-      : search.type === 'brand-retail'
-        ? 'brand-retail'
-        : undefined,
+    partnershipType: search.type === 'sports-travel' || search.type === 'brand-retail' ? search.type : undefined,
     sourcePath: typeof search.source === 'string' ? sanitizePartnerSource(search.source) : undefined,
-    tier: search.tier === 'local' || search.tier === 'growth' || search.tier === 'premier' || search.tier === 'custom'
-      ? search.tier
-      : undefined,
-    billing: search.billing === 'annual' ? 'annual' : search.billing === 'monthly' ? 'monthly' : undefined,
-    focus: search.focus === 'pricing' || search.focus === 'examples' || search.focus === 'agreement' || search.focus === 'billing' || search.focus === 'contact'
-      ? search.focus
-      : undefined,
+    tier: /^(local|growth|premier|custom)$/.test(search.tier as string)
+      ? search.tier as PartnerSearch['tier'] : undefined,
+    billing: search.billing === 'annual' || search.billing === 'monthly' ? search.billing : undefined,
+    focus: /^(pricing|examples|agreement|billing|contact)$/.test(search.focus as string)
+      ? search.focus as PartnerSearch['focus'] : undefined,
   }),
   head: () => ({
     meta: buildMeta(texasDefinedBrand, { canonicalPath, title: 'Advertise & Partner With Texas Defined', description }),
