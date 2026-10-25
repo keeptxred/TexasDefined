@@ -34,6 +34,10 @@ try{
     const hero=page.locator('img[fetchpriority="high"]').first();
     await hero.waitFor({state:"visible",timeout:12000});
     await page.waitForFunction(()=>{const image=document.querySelector('img[fetchpriority="high"]');return !!image?.complete;},null,{timeout:15000});
+    // The FAQ is inside a streamed React.lazy visitor planner. On a cold first
+    // park visit, the hero can finish loading before the planner chunk mounts.
+    // Wait for the actual visible FAQ; this still fails closed when absent.
+    await page.locator("#destination-visitor-faqs").waitFor({state:"visible",timeout:15000});
     const facts=await page.evaluate(()=>{
      const hero=document.querySelector('img[fetchpriority="high"]');
      const heading=document.querySelector("h1")?.textContent?.trim();

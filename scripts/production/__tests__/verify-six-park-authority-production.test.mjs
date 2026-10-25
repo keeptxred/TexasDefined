@@ -1,5 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { inspectParkHtml } from "../verify-six-park-authority-production.mjs";
 const site={slug:"fort-boggy-state-park",county:"leon",words:["Lake Trail","January 17","November 15"],source:"fort-boggy"};
 function sample(text="Lake Trail closure November 15 January 17"){
@@ -34,4 +35,13 @@ test("only specifically approved Lakes/Rivers or Coast park photos can stand in 
  const coast={slug:"galveston-island-state-park",county:"galveston",words:["71","95","boardwalk"],source:"galveston-island"};
  const coastal=base.replaceAll("Guadalupe River State Park","Galveston Island State Park").replaceAll("guadalupe-river-state-park","galveston-island-state-park").replaceAll("/county/comal","/county/galveston").replaceAll("guadalupe-river/alert","galveston-island/alert").replaceAll("Charcoal fire ban, November 20 and January 11 hunt closures.","Boardwalk closure and drinking fountains 71 through 95").replaceAll("/images/explore/lakes-rivers/galveston-island-state-park.jpg","/images/explore/beaches-coast/galveston-island-state-park.jpg");
  assert.equal(inspectParkHtml(coastal,coast).heroPath,"/images/explore/beaches-coast/galveston-island-state-park.jpg");
+});
+
+test("park browser acceptance waits for the actual streamed FAQ before evaluating the page", () => {
+ const script=readFileSync(new URL("../../ci/verify-six-state-park-visual.mjs",import.meta.url),"utf8");
+ const wait='await page.locator("#destination-visitor-faqs").waitFor({state:"visible",timeout:15000});';
+ const check='const facts=await page.evaluate(()=>{';
+ assert.ok(script.includes(wait),"visitor FAQ must be visibly mounted, not just mentioned in source");
+ assert.ok(script.indexOf(wait)<script.indexOf(check),"first-visit lazy FAQ must load before acceptance snapshot");
+ assert.ok(script.includes('if(!facts.faqVisible)throw new Error("Source-backed park FAQ not rendered")'),"retain fail-closed assertion");
 });
