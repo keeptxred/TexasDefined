@@ -75,5 +75,7 @@ export function ticketmasterShowtimeMatches(
  */
 export function ticketmasterIsPrimaryAdmissionTitle(name: string): boolean {
   const normalized = name.trim().toLowerCase().replace(/[–—]/g, "-");
-  return !/^(?:parking|(?:reserved|premium|premier|general)\s+parking|suites?|vip\s+(?:upgrade|add-?on)|fast\s+lane|quick\s+pass|express\s+entry|club\s+access|meet\s*(?:&|and)\s*greet)\s*[:\-]/i.test(normalized);
+  // These vendor disclaimers are affirmative proof this listing is NOT admission.
+  if (/\b(?:not a (?:concert|event) ticket|event ticket not included|ticket not included)\b/i.test(normalized)) return false;
+  return !/^(?:parking(?:\s+pass)?|(?:reserved|premium|premier|general)\s+parking(?:\s+pass)?|suites?|vip\s+(?:upgrade|add-?on)|fast\s+lane(?:\s+pass)?|quick\s+pass|express\s+entry|club\s+access|meet\s*(?:&|and)\s*greet|signed\s+poster\s+add-?on)\s*[:\-]/i.test(normalized);
 }
