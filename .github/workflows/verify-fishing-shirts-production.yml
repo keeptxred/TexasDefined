@@ -1,0 +1,37 @@
+name: Verify TexasDefined fishing shirts production
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/verify-fishing-shirts-production.yml'
+      - 'scripts/production/verify-fishing-shirts-release.mjs'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/verify-fishing-shirts-production.yml'
+      - 'scripts/production/verify-fishing-shirts-release.mjs'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: texasdefined-fishing-shirts-qa-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+      - name: Set up Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check fishing shirts verifier syntax
+        run: node --check scripts/production/verify-fishing-shirts-release.mjs
+      - name: Verify live TexasDefined collection, product details and editorial links
+        run: node scripts/production/verify-fishing-shirts-release.mjs
