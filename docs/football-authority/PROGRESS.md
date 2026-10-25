@@ -938,3 +938,11 @@ Current source reconciliation did **not** justify any status promotion. Harmony'
 - **Burton:** first-party Jason Hodde athletic-director record plus KBTX head-coach attribution, 5-2 / 4-1 after Bremond 36-13, 2022 13-1 season and 2016 Bremond semifinal history; Washington County reciprocal link. Burton ISD photo-rights notice respected.
 - No CI/deployment polling performed. Next assigned school: **Bushland**, then **Bynum**, then **Caddo Mills**.
 
+### Batch 008 — fifteen school implementation checkpoint (2026-10-25)
+
+- **15/25 IMPLEMENTED, 10 remaining; 0 Batch 008 VERIFIED.**
+- **Bushland:** 5-3 / 1-1 with Oct. 23 open date; official Falcons/campus, Josh Reynolds first-party AD, qualified William Rabson head-coach source. Hereford 57-21 controls over incompatible aggregate 62-21/99-75 feeds. DCTF 17 playoffs, one final, zero titles; Potter County link.
+- **Bynum:** official Home of the Bulldogs / Hill County campus, 1A DII six-man, 1-7 / 0-2 with Oct. 23 open date. C. Morgan remains qualified because no first-party football-coach page was found. DCTF three playoffs / zero finals or titles; Hill County link.
+- **Caddo Mills:** current official campus 3049 S. FM 36, Foxes green/black identity, Kodi Crane official Boys AD + current football-head-coach sourcing. 7-1 / 4-0 after Ferris 53-35; current Ed Locker Stadium/new-stadium construction transition documented. Hunt County link.
+- No CI/deployment polling performed. Next assigned group: **Caldwell, Callisburg, Calvert**.
+
