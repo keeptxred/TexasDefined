@@ -1,5 +1,6 @@
 import { loadTicketmasterEventsServer } from "./ticketmaster-events.server";
 import { resolveEventTicketCta } from "./ticketing";
+import { providerForVerifiedTicketUrl } from "./ticket-provider";
 import type { TexasEventRecord } from "./texas-event-record";
 
 /**
@@ -224,7 +225,7 @@ export function getVerifiedChristmasPerformanceCalendarRecords2026(): TexasEvent
       officialEventUrl: show.sourceUrl,
       ticketing: {
         links: [{
-          provider: show.sourceUrl.includes("ticketmaster.com/") ? "ticketmaster" : "official",
+          provider: providerForVerifiedTicketUrl(show.sourceUrl) ?? "official",
           officialTicketUrl: show.sourceUrl,
           saleStatus: "unknown", // An active event URL does not prove seats remain.
           source: { kind: "official-event", name: show.sourceName, url: show.sourceUrl },
