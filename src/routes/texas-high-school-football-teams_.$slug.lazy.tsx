@@ -24,6 +24,9 @@ const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([
   'burkburnett',
   'burkeville',
   'burleson',
+  'burleson-centennial',
+  'burnet',
+  'burton',
   'bruceville-eddy',
   'bruni',
   'brackettville-brackett',
@@ -146,6 +149,9 @@ function Page() {
     'burkburnett': 'wichita', // Burkburnett High and ISD are in Wichita County; official campus/stadium pages control local venue context.
     'burkeville': 'newton', // Burkeville ISD's CR 2099 campus is in Newton County.
     'burleson': 'johnson', // Burleson High official page and NCES place the 100 Elk Drive campus in Johnson County.
+    'burleson-centennial': 'johnson', // Centennial official 201 S Hurst campus is in Johnson County.
+    'burnet': 'burnet', // Burnet High official Green Mile campus is in Burnet County.
+    'burton': 'washington', // Burton High in Burton is a Washington County campus; Panther Stadium is local but gate details remain event-specific.
     'abbott': 'hill',
     'abernathy': 'hale',
     'abilene': 'taylor',
