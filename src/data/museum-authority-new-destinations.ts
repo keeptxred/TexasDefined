@@ -9,6 +9,33 @@ import { DESTINATION_PHOTO_PLACEHOLDER } from "./explore-hero-reconciliation";
  */
 export const museumAuthorityDestinations: Destination[] = [
   {
+    id: "museum-authority-austin-county-jail-bellville",
+    brandId: "texasdefined",
+    slug: "austin-county-jail-museum-bellville",
+    name: "Austin County Jail Museum",
+    summary: "Tour Bellville's preserved 1896 Romanesque Revival county jail, with original cells and exhibits on law enforcement and local history. Volunteer-led visits are limited to Saturday afternoons.",
+    category: "historic-sites",
+    region: "prairies-lakes",
+    nearestTown: "Bellville",
+    county: "Austin County",
+    coordinates: { lat: 29.94926, lng: -96.2575 },
+    hero: museumLicensedHeroes["austin-county-jail-museum-bellville"],
+    bestSeason: "Year-round when volunteers are available; combine the narrow Saturday opening window with a walk around Bellville's historic square.",
+    entryNote: "36 S Bell St, Bellville, TX 77418. Austin County posts Saturday 11 a.m.–3 p.m. volunteer hours. Confirm current admission, holiday changes or tours with 979-877-5642 / 713-385-7141 before traveling.",
+    highlights: ["1896 Romanesque Revival jail architecture", "Original detention areas and jailer's quarters", "County law-enforcement and Bellville history", "National Register property and 1976 Texas historic marker"],
+    body: [
+      "The Austin County Jail Museum occupies the red-brick former county jail just south of Bellville's courthouse square. Erected in 1896 after county officials rejected an inadequate predecessor, the Romanesque Revival landmark used crenellated parapets, bartizans and pale-stone arch trim to project authority. Its original exterior survives even though its functions have changed.",
+      "The county commissioned Pauly Jail Building Company of St. Louis at a contract price of $19,970; the building served as the jail and as the sheriff's family residence until 1982. The jail's gallows were used once in 1901; the gallows are no longer in place. Distinguish the original cells and architecture from later interpretation and restorations.",
+      "Today's small, volunteer-staffed museum interprets law enforcement, incarceration and Austin County community history. Historic jail spaces may involve stairs and narrow passages, and the operator has not published full step-free access details. Ask volunteers which levels and features are accessible for your group rather than promising that all interiors can be toured.",
+      "Austin County lists Saturday afternoon hours rather than daily entry. Plan a short museum visit, then walk Bellville's adjacent courthouse square and historic district; check separate opening hours and any fees for independent nearby attractions."
+    ],
+    officialUrl: "https://www.austincounty.com/page/austin.Museum",
+    managingAuthority: "Austin County Jail Museum board and volunteers",
+    address: "36 S Bell St, Bellville, TX 77418",
+    sourceCheckedAt: "2026-10-25",
+    accessibilityNotes: "The four-level historic jail has old stairs, cells and altered entries. Current operator material does not confirm a continuous wheelchair-accessible route; call ahead for accessible entry, parking, restrooms and floors."
+  },
+  {
     id: "museum-authority-baytown-historical-museum",
     brandId: "texasdefined",
     slug: "baytown-historical-museum",
