@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { corporateEventProviders } from '@/data/corporate-events';
+import { corporateEventPublicOperatorChannel } from '@/data/corporate-event-public-operator-channels';
 import {
   prepareCorporateEventPartnerInvitation,
   type CorporateEventInvitationPurpose,
@@ -16,6 +17,9 @@ export function CorporateEventPartnerInvitationKit() {
     .sort((a,b) => a.name.localeCompare(b.name));
   const provider = filtered.find(p => p.slug === venueSlug) ?? filtered[0] ?? null;
   const draft = provider ? prepareCorporateEventPartnerInvitation(provider, purpose) : null;
+  // Verified public operator path opens only on an explicit staff click.
+  // No planner contact information or drafted message is transmitted.
+  const officialChannel = provider ? corporateEventPublicOperatorChannel(provider.slug) : null;
 
   async function copyDraft() {
     if (!draft) return;
@@ -60,7 +64,7 @@ export function CorporateEventPartnerInvitationKit() {
     {draft && provider ? <>
       <div className="mt-5 flex flex-wrap gap-3 text-sm">
         <a className="inline-flex min-h-11 items-center border border-border px-4 font-semibold"
-          href={draft.officialUrl} target="_blank" rel="noopener noreferrer">Official venue contact website ↗</a>
+          href={officialChannel?.url ?? draft.officialUrl} target="_blank" rel="noopener noreferrer">{officialChannel ? 'Official venue event inquiry page ↗' : 'Official venue contact website ↗'}</a>
         <a className="inline-flex min-h-11 items-center border border-border px-4 font-semibold"
           href={draft.sourceUrl} target="_blank" rel="noopener noreferrer">Published source evidence ↗</a>
       </div>
