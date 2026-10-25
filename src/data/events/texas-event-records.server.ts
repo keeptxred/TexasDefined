@@ -63,9 +63,6 @@ export function ticketmasterVenueMatches(
   editorial: Pick<TexasEventRecord, "venueId" | "venueName">,
   provider: Pick<TexasEventRecord, "venueId" | "venueName">,
 ): boolean {
-  if (editorial.venueId && provider.venueId) {
-    return editorial.venueId === provider.venueId;
-  }
   const normalize = (value?: string) => (value ?? "")
     .toLowerCase()
     .normalize("NFKD")
@@ -81,6 +78,9 @@ export function ticketmasterVenueMatches(
   // concert venue. Fail closed if one record describes an admission add-on.
   const addOn = /\b(parking|vip|fast lane|upgrade|add on)\b/;
   if (addOn.test(a) !== addOn.test(b)) return false;
+  // Even a shared canonical venue ID cannot turn a parking/VIP location
+  // into normal admission. Apply that safety rule before the ID shortcut.
+  if (editorial.venueId && provider.venueId) return editorial.venueId === provider.venueId;
   return a === b || a.startsWith(b + " ") || b.startsWith(a + " ");
 }
 
