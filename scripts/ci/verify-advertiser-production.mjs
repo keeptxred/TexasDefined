@@ -12,6 +12,24 @@ const routes = [
     indexable: true,
   },
   {
+    name: 'football team sponsorship',
+    path: '/texas-high-school-football-teams/aledo',
+    canonical: '/texas-high-school-football-teams/aledo',
+    needles: ['data-football-monetization="v1"', 'Texas game-day gear and independent designs', 'Browse the shop', 'Original designs are not school-licensed or official team merchandise.'],
+    forbidden: ['TEST ONLY', 'test mode'],
+    footballSponsorSlot: true,
+    indexable: true,
+  },
+  {
+    name: 'football district sponsorship',
+    path: '/texas-high-school-football-districts/6a-district-22',
+    canonical: '/texas-high-school-football-districts/6a-district-22',
+    needles: ['data-football-monetization="v1"', 'Texas game-day gear and independent designs', 'Browse the shop', 'Original designs are not school-licensed or official team merchandise.'],
+    forbidden: ['TEST ONLY', 'test mode'],
+    footballSponsorSlot: true,
+    indexable: true,
+  },
+  {
     name: 'advertiser terms',
     path: '/partner-with-us/terms',
     canonical: '/partner-with-us/terms',
@@ -104,6 +122,10 @@ async function fetchRoute(route, attempt, variant) {
   const html = await response.text();
   const renderedHtml = normalizeRenderedHtml(html);
   const missing = route.needles.filter((needle) => !renderedHtml.includes(needle));
+  if (route.footballSponsorSlot && !(
+    renderedHtml.includes('Sponsor this page') ||
+    (renderedHtml.includes('Paid placement by') && renderedHtml.includes('Sponsored'))
+  )) missing.push('Football sponsorship inquiry or a clearly labeled approved placement');
   const forbidden = route.forbidden.filter((needle) => renderedHtml.toLowerCase().includes(needle.toLowerCase()));
   const robots = robotsContent(html);
   const canonicalOk = canonicalPresent(html, route.canonical);
