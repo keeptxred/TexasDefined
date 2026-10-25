@@ -1223,7 +1223,7 @@
       "baytownhistoricalmuseum": {
         "submittedName": "Baytown Historical Museum",
         "rawOccurrence": 55,
-        "status": "assigned",
+        "status": "guide-merged",
         "assignedAt": "2026-10-24",
         "reviewRequired": true,
         "publicationApproved": false,
@@ -1242,7 +1242,11 @@
         "photoFile": "Old Baytown Post Office.jpg",
         "photoCreator": "Jim Evans",
         "photoLicense": "https://creativecommons.org/licenses/by-sa/4.0/",
-        "lastResearchAt": "2026-10-24"
+        "lastResearchAt": "2026-10-24",
+        "evidence": "https://github.com/keeptxred/TexasDefined/pull/5868",
+        "relatedCanonicalSlug": "baytown-historical-museum",
+        "dispositionAt": "2026-10-24",
+        "reason": "Research-backed authority guide merged after required museum and repository checks, with exact-site 2020 licensed Jim Evans image, nine source-specific FAQs and monitored sources. Independent editorial certification, current phone-confirmed hours, image mobile QA and production manifest enrollment remain separate; not yet marked complete."
       },
       "bayoubendcollectionandgardens": {
         "submittedName": "Bayou Bend Collection and Gardens",
@@ -1357,9 +1361,9 @@
         "barkertexashistorycenter"
       ],
       "initialCandidates": 32,
-      "researchedDispositions": 13,
-      "remainingAssigned": 22,
-      "notes": "Continuing original deterministic owner batch: Bayou Bend merged on correct existing canonical (#5861); Emory A.C. McMillan and purported Anahuac depot research-blocked without misrepresenting historical sources as current. UT Art Galleries at Black Studies verified operating at two distinct visitor locations; media/guide pending. Barrington/Bastrop PR #5858 under protected validation after conflict reconciliation. Remaining assigned: 22; source certification and production QA remain distinct.",
+      "researchedDispositions": 20,
+      "remainingAssigned": 21,
+      "notes": "Current 2026-10-24 owner batch: Baytown authority guide merged #5868. Barrington/Bastrop PR #5858 still protected-gate pending; do not mark it merged yet. Merged #5861 Bayou Bend, #5844 Alley and #5846 Austin preserved. Source QA and editorial certification remain independent. Current assigned 21.",
       "lastCheckpointAt": "2026-10-24",
       "lastMergedGuides": [
         {
@@ -1373,6 +1377,10 @@
         {
           "slug": "bayou-bend-collection-gardens",
           "pr": 5861
+        },
+        {
+          "slug": "baytown-historical-museum",
+          "pr": 5868
         }
       ]
     },
