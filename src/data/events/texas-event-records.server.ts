@@ -85,6 +85,34 @@ export function ticketmasterVenueMatches(
 }
 
 
+/**
+ * Same venue on the same day may host a matinee and an evening performance.
+ * Do not attach a ticket for a different showtime. When an editorial record
+ * lacks a showtime, it may only be enriched if Ticketmaster has exactly one
+ * matching same-name/date/venue performance in the current fresh snapshot.
+ */
+export function ticketmasterShowtimeMatches(
+  editorial: Pick<TexasEventRecord, "startTime">,
+  provider: Pick<TexasEventRecord, "startTime">,
+  matchingProviderPerformances: number,
+): boolean {
+  const clock = (value?: string) => {
+    const match = value?.trim().match(/^(\d{1,2}):(\d{2})(?::\d{2})?\s*(am|pm)?/i);
+    if (!match) return null;
+    let hour = Number(match[1]);
+    if (hour > 23 || Number(match[2]) > 59) return null;
+    if (match[3]) hour = (hour % 12) + (match[3].toLowerCase() === "pm" ? 12 : 0);
+    return `${String(hour).padStart(2, "0")}:${match[2]}`;
+  };
+  const editorialTime = clock(editorial.startTime);
+  const providerTime = clock(provider.startTime);
+  if (editorial.startTime && !editorialTime) return false;
+  if (provider.startTime && !providerTime) return false;
+  if (editorialTime && providerTime) return editorialTime === providerTime;
+  if (editorialTime && !providerTime) return false;
+  return matchingProviderPerformances === 1;
+}
+
 function buildTicketing(offers: EventSchemaOffer[] | undefined, lastVerifiedAt: string, sourceName?: string): TexasEventTicketingMetadata | undefined {
   if (!offers?.length) return undefined;
   const uniqueTicketUrls = [...new Set(offers.map((offer) => offer.url))].filter((url) => providerForVerifiedTicketUrl(url));
@@ -330,15 +358,28 @@ export function loadTexasEventRecordsServer(): TexasEventRecord[] {
   };
   records.forEach((record, index) =>
     remember(`${eventIdentity(record.title, record.city)}:${record.startDate}`, index));
-  for (const providerRecord of loadTicketmasterEventsServer()) {
+  const providerRecords = loadTicketmasterEventsServer();
+  const providersByTitleAndDate = new Map<string, TexasEventRecord[]>();
+  for (const providerRecord of providerRecords) {
     const key = `${eventIdentity(providerRecord.title, providerRecord.city)}:${providerRecord.startDate}`;
+    const group = providersByTitleAndDate.get(key) ?? [];
+    group.push(providerRecord);
+    providersByTitleAndDate.set(key, group);
+  }
+  for (const providerRecord of providerRecords) {
+    const key = `${eventIdentity(providerRecord.title, providerRecord.city)}:${providerRecord.startDate}`;
+    const sameVenueProviderCount = (providersByTitleAndDate.get(key) ?? []).filter((other) =>
+      ticketmasterVenueMatches(other, providerRecord)).length;
+    const performanceMatches = (editorial: TexasEventRecord) =>
+      ticketmasterVenueMatches(editorial, providerRecord)
+      && ticketmasterShowtimeMatches(editorial, providerRecord, sameVenueProviderCount);
     const exactIndex = (existing.get(key) ?? []).find((candidate) =>
-      ticketmasterVenueMatches(records[candidate], providerRecord));
+      performanceMatches(records[candidate]));
     const curatedMatch = christmasPerformances.find((performance) =>
       isSameChristmasPerformanceCalendarEvent(performance, providerRecord));
     const curatedIndex = curatedMatch
       ? records.findIndex((record) => isSameChristmasPerformanceCalendarEvent(curatedMatch, record)
-        && ticketmasterVenueMatches(record, providerRecord))
+        && performanceMatches(record))
       : -1;
     const index = exactIndex ?? curatedIndex;
     if (index === -1 || index === undefined) {
