@@ -746,12 +746,19 @@
       "alpinedepotmuseum": {
         "submittedName": "Alpine Depot Museum",
         "rawOccurrence": 12,
-        "status": "assigned",
+        "status": "research-blocked",
         "assignedAt": "2026-10-24T20:40:00Z",
         "reviewRequired": true,
         "publicationApproved": false,
         "editorialCertified": false,
-        "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "evidence": "https://visitalpinetx.com/attractions/",
+        "reason": "The current Alpine visitor bureau lists the 1946 railroad depot as a stop on its historic downtown walking tour but does not describe an independently operating 'Alpine Depot Museum' with visitor hours, admission, curator or exhibits. The current primary operating museum identified is the separately registered Museum of the Big Bend at Sul Ross State University. Do not invent a standalone depot museum. Historical railway depot access itself can be mentioned within existing town content, separately from museum authority.",
+        "dispositionAt": "2026-10-24",
+        "additionalEvidence": [
+          "https://www.achp.gov/preserve-america/community/alpine-texas",
+          "https://www.museumofthebigbend.com/"
+        ]
       },
       "americanairpowerheritagemuseum": {
         "submittedName": "American Airpower Heritage Museum",
@@ -835,7 +842,17 @@
         "reviewRequired": true,
         "publicationApproved": false,
         "editorialCertified": false,
-        "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "operatorIdentityConfirmed": true,
+        "proposedCanonicalSlug": "anna-depot-museum",
+        "lastResearchAt": "2026-10-24",
+        "photoRightsVerified": false,
+        "researchNote": "Anna 'Heritage Museum' owner label currently corresponds to city-owned Anna Depot and Museum at 101 S Sherley Rd in Sherley Heritage Park, operated by Anna Area Historical Preservation Society. The operator reports free admission on second and fourth Saturdays from 10 a.m. to 2 p.m. and says visiting exhibits and taking home a book is possible. Contact 469-982-6396. Need original licensed exact-building image and any accessible-entry/parking documentation before new standalone museum guide. Don't confuse the heritage park or depot with a daily-open attraction.",
+        "researchEvidenceUrls": [
+          "https://www.annatxhistory.com/",
+          "https://www.annatxhistory.com/the-depot",
+          "https://www.annatxhistory.com/blank-2"
+        ]
       },
       "aransascountyhistorycenter": {
         "submittedName": "Aransas County History Center",
@@ -872,12 +889,18 @@
       "archercountyhistoricalmuseum": {
         "submittedName": "Archer County Historical Museum",
         "rawOccurrence": 24,
-        "status": "assigned",
+        "status": "research-blocked",
         "assignedAt": "2026-10-24T20:40:00Z",
         "reviewRequired": true,
         "publicationApproved": false,
         "editorialCertified": false,
-        "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "evidence": "https://www.theacmac.org/",
+        "reason": "The independently active Archer County Museum and Arts Center nonprofit states 'HOURS: TEMPORARILY CLOSED' while working to restore its historic jail property. Archer City visitor authority confirms the building temporarily closed. Do not mark it permanently closed or advertise museum walk-ins; recover when operator posts confirmed reopening information.",
+        "dispositionAt": "2026-10-24",
+        "additionalEvidence": [
+          "https://visitarchercity.com/attractions-list/"
+        ]
       },
       "artcenterofwaco": {
         "submittedName": "Art Center of Waco",
@@ -1361,9 +1384,9 @@
         "barkertexashistorycenter"
       ],
       "initialCandidates": 32,
-      "researchedDispositions": 20,
-      "remainingAssigned": 21,
-      "notes": "Current 2026-10-24 owner batch: Baytown authority guide merged #5868. Barrington/Bastrop PR #5858 still protected-gate pending; do not mark it merged yet. Merged #5861 Bayou Bend, #5844 Alley and #5846 Austin preserved. Source QA and editorial certification remain independent. Current assigned 21.",
+      "researchedDispositions": 22,
+      "remainingAssigned": 19,
+      "notes": "Baytown merged #5868; Alpine depot label and temporarily-closed Archer County Museum research-blocked from first-party visitor records, not converted to false visitable authority pages. Anna currently operates a depot museum on two Saturdays each month; exact-site photo rights remain open. Barrington/Bastrop protected PR #5858 remains separate until confirmed merged. Assigned candidates remaining: 19.",
       "lastCheckpointAt": "2026-10-24",
       "lastMergedGuides": [
         {
