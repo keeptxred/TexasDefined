@@ -4,7 +4,7 @@ import { corporateEventProviders } from '../../src/data/corporate-events.ts';
 import { corporateEventPublicOperatorChannel, corporateEventPublicOperatorChannels } from '../../src/data/corporate-event-public-operator-channels.ts';
 
 const channels = corporateEventPublicOperatorChannels;
-assert.equal(channels.length, 10, 'Initial official Houston contact-path verification batch must be ten venues');
+assert(channels.length >= 14, 'Retain at least fourteen verified official Houston event inquiry paths');
 assert.equal(new Set(channels.map(item => item.venueSlug)).size, channels.length, 'One independently evidenced path per venue');
 const bySlug = new Map(corporateEventProviders.map(venue => [venue.slug, venue]));
 for (const row of channels) {
@@ -22,7 +22,10 @@ for (const row of channels) {
     assert(host === officialHost || host.endsWith('.' + officialHost),
       'Only current official venue-owned hostname/subdomain may be used for staff path: ' + row.venueSlug);
   }
-  assert.equal(row.reviewedOn, '2026-10-24', 'Preserve actual public-source review date');
+  assert(/^\d{4}-\d{2}-\d{2}$/.test(row.reviewedOn)
+    && new Date(row.reviewedOn + 'T12:00:00Z').toISOString().slice(0, 10) === row.reviewedOn
+    && row.reviewedOn <= new Date().toISOString().slice(0, 10),
+    'Each official source must have a valid, nonfuture review date');
   assert.equal(corporateEventPublicOperatorChannel(row.venueSlug)?.url, row.url);
 }
 assert.equal(corporateEventPublicOperatorChannel('unknown-business'), null);
@@ -39,9 +42,15 @@ assert(!monitoring.includes("contactSent: true") && !monitoring.includes("venueV
   'HEAD source reachability is not proof of any outreach or commercial verification');
 const staff = readFileSync('src/components/events/CorporateEventSourceReviewPanel.tsx','utf8');
 assert(staff.includes('corporateEventPublicOperatorChannel(item.provider.slug)'));
+const invitation = readFileSync('src/components/events/CorporateEventPartnerInvitationKit.tsx','utf8');
+assert(invitation.includes('corporateEventPublicOperatorChannel(provider.slug)')
+  && invitation.includes('href={officialChannel?.url ?? draft.officialUrl}'),
+  'Staff invitation composer must prefer verified venue inquiry paths without sending planner data');
+assert(!invitation.includes('form.submit(') && !invitation.includes('fetch(officialChannel'),
+  'Link is manually opened only, never automatically submitted or fetched with private data');
 assert(staff.includes('Review public event inquiry'));
 assert(staff.includes('No inquiry has been submitted, no planner details shared'),
   'Staff contact-path directory must never claim completed external outreach');
 assert(!staff.includes('window.location.assign') && !staff.includes('fetch(item.provider'),
   'No automatic outbound business contact, scraper, or planner-data transfer');
-console.log('Corporate events: ten verified operator-owned public inquiry paths, staff links only, zero contact or commercial claims PASS.');
+console.log('Corporate events: '+channels.length+' verified operator-owned public inquiry paths, staff links only, zero contact or commercial claims PASS.');
