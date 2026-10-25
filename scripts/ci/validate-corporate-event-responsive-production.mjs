@@ -34,6 +34,9 @@ for (const marker of [
   "getByRole('button', { name: 'Send planning request to TexasDefined' }).isDisabled()",
   "assert(!/email|phone|contactName|companyAddress2/.test(url.search)",
   "document.documentElement.scrollWidth",
+  "await response.text()",
+  "privateHtmlLedger.test(anonymousHtml)",
+  "privateHtmlKeyName.test(anonymousHtml)",
   "noProductionInquiriesSubmitted: true",
 ]) assert(browser.includes(marker),'Missing real responsive browser acceptance contract: ' + marker);
 

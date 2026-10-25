@@ -12,6 +12,11 @@ const origin = (process.env.PRODUCTION_ORIGIN || 'https://texasdefined.com').rep
 // different, successfully deployed release. Keep evidence tied to that release.
 const releasedSha = process.env.PRODUCTION_COMMIT_SHA || process.env.GITHUB_SHA || null;
 const evidenceDir = 'artifacts/corporate-events-browser';
+// Inspect live, anonymous server-rendered HTML too; compiled-client scans
+// cannot detect an accidental server-side payload leak. Never log response
+// bodies or personal values to CI artifacts, only generic failure categories.
+const privateHtmlLedger = /\btexasdefined_group_event_(?:requests|partner_applications|partner_outreach|offers|offer_click_totals|outcome_events)\b/i;
+const privateHtmlKeyName = /\b(?:SUPABASE_SERVICE_ROLE_KEY|SUPABASE_SECRET_KEY|SUPABASE_SERVICE_KEY)\b/i;
 const cases = [
   { name: 'mobile', width: 390, height: 844 },
   { name: 'tablet', width: 768, height: 1024 },
@@ -55,6 +60,12 @@ try {
         waitUntil: 'domcontentloaded', timeout: 50_000,
       });
       assert.equal(response?.status(), 200, view.name + ': public finder must be HTTP 200');
+      const anonymousHtml = await response.text();
+      assert(!privateHtmlLedger.test(anonymousHtml),
+        view.name + ': public SSR response contains a private corporate ledger identifier');
+      assert(!privateHtmlKeyName.test(anonymousHtml),
+        view.name + ': public SSR response contains a privileged service-key name');
+      result.checks.push('Anonymous SSR excludes private corporate ledger and service-key identifiers');
       await page.getByRole('heading', {
         level: 1, name: 'Plan a company event worth leaving the office for.',
       }).waitFor({ state: 'visible', timeout: 25_000 });
