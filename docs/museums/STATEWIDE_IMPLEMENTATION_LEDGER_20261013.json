@@ -835,7 +835,17 @@
         "reviewRequired": true,
         "publicationApproved": false,
         "editorialCertified": false,
-        "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "operatorIdentityConfirmed": true,
+        "photoRightsVerified": false,
+        "lastResearchAt": "2026-10-25",
+        "proposedCanonicalSlug": "anna-depot-museum",
+        "researchNote": "Owner label 'Anna Heritage Museum' refers to the operator-confirmed Anna Depot and Museum in Sherley Heritage Park, 101 S Sherley Rd, Anna, Texas 75409, operated by Anna Area Historical Preservation Society under agreement with City of Anna. Original depot was relocated into its current park. Operator posts free admission second and fourth Saturday 10 a.m.–2 p.m.; phone 469-982-6396. Separate public park hours do not establish indoor museum access. An exact-site reusable licensed exterior image and complete accessibility policies remain unverified; do not publish an invented photo or promote any generic image.",
+        "researchEvidenceUrls": [
+          "https://www.annatxhistory.com/the-depot",
+          "https://www.annatxhistory.com/about-1",
+          "https://annatexas.gov/1228/Sherley-Heritage-Park"
+        ]
       },
       "aransascountyhistorycenter": {
         "submittedName": "Aransas County History Center",
@@ -872,12 +882,21 @@
       "archercountyhistoricalmuseum": {
         "submittedName": "Archer County Historical Museum",
         "rawOccurrence": 24,
-        "status": "assigned",
+        "status": "research-blocked",
         "assignedAt": "2026-10-24T20:40:00Z",
         "reviewRequired": true,
         "publicationApproved": false,
         "editorialCertified": false,
-        "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "lastResearchAt": "2026-10-25",
+        "evidence": "https://www.theacmac.org/",
+        "reason": "Archer County Museum and Arts Center is the documented continuation/redevelopment of the former Archer County Historical Museum in the historic county jail. Its own current operator home page explicitly says HOURS: TEMPORARILY CLOSED. The museum is neither verifiably visitable today nor necessarily permanently closed. Preserve its pending reopening and photograph rights dependency rather than promoting public open hours.",
+        "researchEvidenceUrls": [
+          "https://www.theacmac.org/",
+          "https://www.theacmac.org/about"
+        ],
+        "proposedCanonicalSlug": "archer-county-museum-and-arts-center-archer-city",
+        "dispositionAt": "2026-10-25"
       },
       "artcenterofwaco": {
         "submittedName": "Art Center of Waco",
@@ -936,7 +955,15 @@
         "reviewRequired": true,
         "publicationApproved": false,
         "editorialCertified": false,
-        "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "operatorIdentityConfirmed": true,
+        "photoRightsVerified": false,
+        "lastResearchAt": "2026-10-25",
+        "researchNote": "Historical/federal and regional references document Atlanta Historical Museum (Cass County) at 101 N East St, Atlanta, Texas in the rehabilitated Texas & Pacific railroad depot, with local-history/Bessie Coleman exhibits; former depot also housed local welcome/community visitor functions. These archival references DO NOT establish current 2026 hours, current operator or exact-image reuse rights, which remain outstanding.",
+        "researchEvidenceUrls": [
+          "https://www.achp.gov/preserve-america/community/atlanta-texas",
+          "https://www.east-texas.com/texas-railroad-train-museums-depots-rides.htm"
+        ]
       },
       "austincountyjailmuseum": {
         "submittedName": "Austin County Jail Museum",
@@ -1362,9 +1389,9 @@
         "barkertexashistorycenter"
       ],
       "initialCandidates": 32,
-      "researchedDispositions": 14,
-      "remainingAssigned": 21,
-      "notes": "Preserve original owner batch. Baytown guide merged as PR #5868 and HTTP-verified, but browser/independent editorial acceptance is separate. Barrington/Bastrop under protected PR #5858. Baird museum building confirmed by THC; exact Commons photo rights/current hours still require verification. 21 candidates remain assigned.",
+      "researchedDispositions": 15,
+      "remainingAssigned": 20,
+      "notes": "Original stable queue persists: Archer operator explicitly TEMPORARILY CLOSED (not permanently closed), Anna operator-confirmed depot has free second/fourth Saturday hours but no verified reusable exact-site photo, Atlanta TX depot museum current visitor hours/photo still unverified. Austin County Jail PR #5887 is under protected CI and must not be marked merged before actual merge. Remaining assigned: 20.",
       "lastCheckpointAt": "2026-10-25",
       "lastMergedGuides": [
         {
