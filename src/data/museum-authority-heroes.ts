@@ -5,15 +5,15 @@ import { isDestinationPhotoPlaceholder } from "./explore-hero-reconciliation";
 export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
   "barrington-living-history-farm": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Barrington_Farm%2C_residence_of_Dr._Anson_Jones.jpg?width=1600",
-    alt: "Anson Jones historic house at Barrington Living History Farm in Washington County",
+    alt: "Anson Jones house at Barrington Living History Farm",
     width: 1600, height: 900,
-    credit: "Pi3.124 · 27 February 2016 · CC BY-SA 4.0 · Wikimedia Commons · Barrington Farm, residence of Dr. Anson Jones.jpg"
+    credit: "Pi3.124 · CC BY-SA 4.0 · Wikimedia Commons"
   },
   "bastrop-county-museum-visitor-center": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Bastrop_county_historical_society_museum.jpg?width=1600",
-    alt: "Bastrop County Historical Society Museum and Visitor Center at 904 Main Street, photographed July 2014",
+    alt: "Bastrop County Museum at 904 Main Street",
     width: 1600, height: 1067,
-    credit: "Larry D. Moore · 1 July 2014 · CC BY 4.0 · Wikimedia Commons · Bastrop county historical society museum.jpg"
+    credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons"
   },
   "austin-history-center-austin": {
     "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/John_Henry_Faulk_Central_Library.jpg?width=1600",
