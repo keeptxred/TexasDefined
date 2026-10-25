@@ -69,7 +69,7 @@ for (const token of ["getGeneratedTexasEvents(500)", "loadMajorEventGuideDirecto
 for (const token of ['search.category === "guides"', "buildGlobalEventCalendarServer", "buildTexasEventCarouselItemsServer", "formatCarouselRange", "categoryLabel", "lastVerifiedLabel", "contextMatches", "matchesLocation", "overlapsRange", 'timeZone: "America/Chicago"', "calendarDays", "calendarHref", "slice(0, 48)", "previousHref", "todayHref", "nextWeekHref", "nextHref", "calendarDays: calendarDays(monthKey).map", "results: displayed.map"]) requireText(calendarServer, token, "server calendar view model");
 for (const token of ["createServerFn", "loadUpcomingTexasCalendarRecordsServer", "upcomingEventRecords", "buildTexasEventCarouselItemsServer(records.slice(0, 12))", "buildGlobalEventCalendarServer", "calendarView", "noindex, follow"]) requireText(eventServerSurface, token, "normalized landing-event integration");
 for (const token of ["createServerFn", "getMajorEventLandingDirectory", "loadUpcomingTexasCalendarRecordsServer", "buildGlobalEventCalendarServer"]) requireText(eventCalendarFacade, token, "deferred calendar RPC boundary");
-requireText(calendarServer, "filtered.slice(0, 48)", "calendar payload remains bounded after filtering full server inventory");
+requireText(calendarServer, ": filtered).slice(0, 48)", "calendar payload remains bounded after filtering full server inventory");
 if (eventCalendarFacade.includes("limit: 200")) failures.push("calendar must not truncate the inventory before date/location filters");
 if (eventDirectoryFacade.includes("loadUpcomingTexasEventRecordsServer") || eventDirectoryFacade.includes("buildGlobalEventCalendarServer")) failures.push("eager event directory facade must not own global calendar normalization");
 
