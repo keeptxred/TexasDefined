@@ -53,6 +53,7 @@ jobs:
       - name: Verify actual product cards and images on fishing pages
         env:
           PLAYWRIGHT_CORE_PATH: /tmp/td-fishing-qa/node_modules/playwright-core
+          VERIFY_LIVE_SIZE_ORDER: ${{ (github.event_name == 'workflow_run' || github.event_name == 'workflow_dispatch') && '1' || '0' }}
         run: node scripts/production/verify-fishing-shirts-browser.mjs
       - name: Preserve real fishing-shirt card screenshots
         if: always()
