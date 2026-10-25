@@ -1914,6 +1914,29 @@ export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoo
     sourceLabel: 'Hays CISD athletic handbook identifies Johnson High Jaguars and Black and Gold',
     verifiedAt: '2026-10-25',
   },
+  {
+    slug: 'buffalo',
+    mascot: 'Bison',
+    sourceUrl: 'https://bhs.buffaloisd.net/',
+    sourceLabel: 'Buffalo High School official homepage uses Bison Nation and Bison imagery; colors not independently certified in text',
+    verifiedAt: '2026-10-25',
+  },
+  {
+    slug: 'bullard',
+    mascot: 'Panthers',
+    colors: 'Red, White and Blue',
+    sourceUrl: 'https://bhs.bullardisd.net/about-us/school-songs',
+    sourceLabel: 'Bullard High School official fight song names the Panthers and explicitly says red, white, and blue',
+    verifiedAt: '2026-10-25',
+  },
+  {
+    slug: 'buna',
+    mascot: 'Cougars',
+    colors: 'Blue and White',
+    sourceUrl: 'https://www.bunaisd.net/88689_2',
+    sourceLabel: 'Buna ISD official schools page says Home of the Blue and White; school and district pages use Cougars identity',
+    verifiedAt: '2026-10-25',
+  },
 ];
 
 export function getVerifiedFootballSchoolIdentity(slug: string) {
