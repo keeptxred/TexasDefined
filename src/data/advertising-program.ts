@@ -3,6 +3,15 @@ export type AdvertiserBillingCycle = 'monthly' | 'annual';
 
 export const ADVERTISING_AGREEMENT_VERSION = '2026-09-16-v2';
 
+// Scoped founding-football pilot. Formal approval uses the existing Custom
+// agreement/invoice workflow; these prices do not change standard ad tiers.
+export const footballFoundingPackages = [
+  { id: 'school', name: 'School Page Pilot', monthlyPrice: 49, pages: 1, description: 'One selected high-school football team profile.' },
+  { id: 'district', name: 'District Football Pilot', monthlyPrice: 99, pages: 3, description: 'One district guide and up to two relevant team profiles.' },
+  { id: 'regional', name: 'Regional Football Pilot', monthlyPrice: 149, pages: 6, description: 'Up to six relevant team or district football pages in one market.' },
+] as const;
+export type FootballFoundingPackageId = typeof footballFoundingPackages[number]['id'];
+
 export const advertiserTiers = [
   {
     id: 'local',
