@@ -18,6 +18,7 @@ import { resolveSportsVenueEventLink } from "../sports-venue-event-links";
 import type { TexasEvent } from "../types";
 import { mergeEventTicketing } from "./ticketing";
 import { providerForVerifiedTicketUrl } from "./ticket-provider";
+import { ticketmasterVenueMatches, ticketmasterShowtimeMatches } from "./ticketmaster-event-match";
 import {
   selectTexasEventRecords,
   type TexasEventImageMetadata,
@@ -287,17 +288,40 @@ export function loadTexasEventRecordsServer(): TexasEventRecord[] {
   // Preserve the reviewed editorial record when Ticketmaster has the same event,
   // but merge its current affiliate ticketing so richer authority coverage does not
   // suppress monetizable provider inventory.
-  const existing = new Map(records.map((record, index) => [`${eventIdentity(record.title, record.city)}:${record.startDate}`, index] as const));
-  for (const providerRecord of loadTicketmasterEventsServer()) {
+  const existing = new Map<string, number[]>();
+  const remember = (key: string, index: number) => {
+    const candidates = existing.get(key) ?? [];
+    candidates.push(index);
+    existing.set(key, candidates);
+  };
+  records.forEach((record, index) =>
+    remember(`${eventIdentity(record.title, record.city)}:${record.startDate}`, index));
+  const providerRecords = loadTicketmasterEventsServer();
+  const providersByTitleAndDate = new Map<string, TexasEventRecord[]>();
+  for (const providerRecord of providerRecords) {
     const key = `${eventIdentity(providerRecord.title, providerRecord.city)}:${providerRecord.startDate}`;
-    const exactIndex = existing.get(key);
+    const group = providersByTitleAndDate.get(key) ?? [];
+    group.push(providerRecord);
+    providersByTitleAndDate.set(key, group);
+  }
+  for (const providerRecord of providerRecords) {
+    const key = `${eventIdentity(providerRecord.title, providerRecord.city)}:${providerRecord.startDate}`;
+    const sameVenueProviderCount = (providersByTitleAndDate.get(key) ?? []).filter((other) =>
+      ticketmasterVenueMatches(other, providerRecord)).length;
+    const performanceMatches = (editorial: TexasEventRecord) =>
+      ticketmasterVenueMatches(editorial, providerRecord)
+      && ticketmasterShowtimeMatches(editorial, providerRecord, sameVenueProviderCount);
+    const exactIndex = (existing.get(key) ?? []).find((candidate) =>
+      performanceMatches(records[candidate]));
     const curatedMatch = christmasPerformances.find((performance) =>
       isSameChristmasPerformanceCalendarEvent(performance, providerRecord));
-    const index = exactIndex ?? (curatedMatch
-      ? records.findIndex((record) => isSameChristmasPerformanceCalendarEvent(curatedMatch, record))
-      : -1);
+    const curatedIndex = curatedMatch
+      ? records.findIndex((record) => isSameChristmasPerformanceCalendarEvent(curatedMatch, record)
+        && performanceMatches(record))
+      : -1;
+    const index = exactIndex ?? curatedIndex;
     if (index === -1 || index === undefined) {
-      existing.set(key, records.length);
+      remember(key, records.length);
       records.push(providerRecord);
       continue;
     }

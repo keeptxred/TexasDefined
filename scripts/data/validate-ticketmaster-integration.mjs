@@ -4,6 +4,7 @@ const server = await createServer({ configFile: false, appType: 'custom', logLev
 try {
   const { loadTicketmasterEventsServer, ticketmasterAuthorityGuidePath } = await server.ssrLoadModule('/src/data/events/ticketmaster-events.server.ts');
   const { mergeEventTicketing } = await server.ssrLoadModule('/src/data/events/ticketing.ts');
+  const { ticketmasterVenueMatches, ticketmasterShowtimeMatches } = await server.ssrLoadModule('/src/data/events/ticketmaster-event-match.ts');
   const { hasCompliantMajorEventImageServer } = await server.ssrLoadModule('/src/data/major-event-schema-enrichment.server.ts');
   const { buildTexasEventCarouselItemsServer, buildGlobalEventCalendarServer } = await server.ssrLoadModule('/src/data/events/texas-event-calendar.server.ts');
   const now = new Date();
@@ -59,6 +60,57 @@ try {
     'hollydays-market-corpus-christi',
   ]) assert.equal(hasCompliantMajorEventImageServer(slug), true, `${slug} must remain indexable with rights-cleared hero provenance`);
   assert.equal(hasCompliantMajorEventImageServer('mcallen-holiday-parade'), false, 'Holiday parade must remain fail-closed until an exact-location or governed AI hero is approved');
+
+  // Never send readers to a different venue because Ticketmaster and an
+  // editorial event happened to share a title, city and date.
+  assert.equal(ticketmasterVenueMatches(
+    { venueName: 'Alley Theatre · Hubbard Theatre' },
+    { venueName: 'Alley Theatre' },
+  ), true, 'stage within an exact theatre is a valid match');
+  assert.equal(ticketmasterVenueMatches(
+    { venueName: 'Bruton Theatre' }, { venueName: 'Music Hall at Fair Park' },
+  ), false, 'same-name events across venues must never share checkout');
+  assert.equal(ticketmasterVenueMatches(
+    { venueId: 'sports-venue:dickies-arena', venueName: 'Dickies Arena' },
+    { venueId: 'sports-venue:dickies-arena', venueName: 'Dickies Arena, Fort Worth' },
+  ), true, 'shared official venue identity permits enrichment');
+  assert.equal(ticketmasterVenueMatches(
+    { venueId: 'sports-venue:dickies-arena', venueName: 'Dickies Arena' },
+    { venueId: 'sports-venue:at-t-stadium', venueName: 'Dickies Arena' },
+  ), false, 'conflicting canonical venue IDs must reject even if titles agree');
+  assert.equal(ticketmasterVenueMatches(
+    { venueId: 'sports-venue:dickies-arena', venueName: 'Dickies Arena' },
+    { venueId: 'sports-venue:dickies-arena', venueName: 'Dickies Arena Parking' },
+  ), false, 'shared venue ID cannot turn a parking add-on into admission');
+  assert.equal(ticketmasterVenueMatches(
+    { venueId: 'sports-venue:alley-theatre', venueName: 'Alley Theatre · Hubbard Theatre' },
+    { venueId: 'sports-venue:alley-theatre', venueName: 'Alley Theatre · Neuhaus Theatre' },
+  ), false, 'same facility ID must not merge tickets for different stages');
+  assert.equal(ticketmasterVenueMatches(
+    { venueName: '' }, { venueName: 'Dickies Arena' },
+  ), false, 'missing venues are not safe to auto-link');
+  assert.equal(ticketmasterVenueMatches(
+    { venueName: 'Arena' }, { venueName: 'Arena Parking' },
+  ), false, 'parking add-ons must not be mistaken for concert admission');
+
+  assert.equal(ticketmasterShowtimeMatches(
+    { startTime: '14:00' }, { startTime: '19:00:00' }, 2,
+  ), false, '2pm matinee must never be linked to 7pm tickets');
+  assert.equal(ticketmasterShowtimeMatches(
+    { startTime: '7:00 PM' }, { startTime: '19:00:00' }, 2,
+  ), true, '12-hour editorial clock must match provider 24-hour time');
+  assert.equal(ticketmasterShowtimeMatches(
+    {}, { startTime: '14:00' }, 2,
+  ), false, 'unknown editorial time cannot select among two provider showtimes');
+  assert.equal(ticketmasterShowtimeMatches(
+    {}, { startTime: '14:00' }, 1,
+  ), true, 'unique sole event may enrich an undated editorial showtime');
+  assert.equal(ticketmasterShowtimeMatches(
+    { startTime: '14:00' }, {}, 1,
+  ), false, 'specific editorial showtime cannot assume a provider time');
+  assert.equal(ticketmasterShowtimeMatches(
+    {}, {}, 1,
+  ), true, 'one unique time-unspecified performance can still link safely');
 
   const editorialTicketing = {
     links: [{

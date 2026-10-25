@@ -11,6 +11,24 @@ const requireText = (source, needle, label) => { if (!source.includes(needle)) f
 const contract = read("src/data/events/texas-event-record.ts");
 const adapter = read("src/data/events/texas-event-records.server.ts");
 const calendarServer = read("src/data/events/texas-event-calendar.server.ts");
+const ticketmasterMatcher = read("src/data/events/ticketmaster-event-match.ts");
+for (const marker of [
+  "export function ticketmasterVenueMatches(",
+  "export function ticketmasterShowtimeMatches(",
+  "matchingProviderPerformances === 1",
+]) requireText(ticketmasterMatcher, marker, "pure Ticketmaster venue and showtime identity");
+for (const marker of [
+  'from "./ticketmaster-event-match"',
+  "const existing = new Map<string, number[]>();",
+  "performanceMatches(records[candidate])",
+  "performanceMatches(record)",
+  "ticketmasterVenueMatches(editorial, providerRecord)",
+  "ticketmasterShowtimeMatches(editorial, providerRecord, sameVenueProviderCount)",
+  "const providersByTitleAndDate = new Map<string, TexasEventRecord[]>();",
+  "const sameVenueProviderCount =",
+  "remember(key, records.length)",
+]) requireText(adapter, marker, "venue-safe Ticketmaster duplicate reconciliation");
+
 const christmasProductionAcceptance = read("scripts/ci/verify-christmas-calendar-12-production.mjs");
 for (const marker of [
   "const cases = [",
@@ -19,6 +37,8 @@ for (const marker of [
   "ev-results-list",
   "expected exactly one",
   "ev-ticket",
+  "const editorial = matched.filter(card => !card.id.startsWith('ticketmaster:'))",
+
   "christmas-calendar-qa",
 ]) requireText(christmasProductionAcceptance, marker, "live Christmas 12-show production acceptance");
 try {
