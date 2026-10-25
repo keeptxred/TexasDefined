@@ -4,7 +4,7 @@ const server = await createServer({ configFile: false, appType: 'custom', logLev
 try {
   const { loadTicketmasterEventsServer, ticketmasterAuthorityGuidePath } = await server.ssrLoadModule('/src/data/events/ticketmaster-events.server.ts');
   const { mergeEventTicketing } = await server.ssrLoadModule('/src/data/events/ticketing.ts');
-  const { ticketmasterVenueMatches, ticketmasterShowtimeMatches } = await server.ssrLoadModule('/src/data/events/ticketmaster-event-match.ts');
+  const { ticketmasterVenueMatches, ticketmasterShowtimeMatches, ticketmasterIsPrimaryAdmissionTitle } = await server.ssrLoadModule('/src/data/events/ticketmaster-event-match.ts');
   const { matchChristmasTicketmasterPerformance } = await server.ssrLoadModule('/src/data/events/christmas-performances-2026.server.ts');
   const { hasCompliantMajorEventImageServer } = await server.ssrLoadModule('/src/data/major-event-schema-enrichment.server.ts');
   const { buildTexasEventCarouselItemsServer, buildGlobalEventCalendarServer } = await server.ssrLoadModule('/src/data/events/texas-event-calendar.server.ts');
@@ -112,6 +112,24 @@ try {
   assert.equal(ticketmasterShowtimeMatches(
     {}, {}, 1,
   ), true, 'one unique time-unspecified performance can still link safely');
+
+  // The provider's suites listing can have the exact same venue, date and
+  // showtime as concert admission; it must not become the ticket CTA.
+  assert.equal(ticketmasterIsPrimaryAdmissionTitle('Suites: Pentatonix: Christmas in the City Tour'), false);
+  assert.equal(ticketmasterIsPrimaryAdmissionTitle('Parking: Pentatonix'), false);
+  assert.equal(ticketmasterIsPrimaryAdmissionTitle('Fast Lane: Holiday Concert'), false);
+  assert.equal(ticketmasterIsPrimaryAdmissionTitle('VIP Upgrade: Holiday Concert'), false);
+  assert.equal(ticketmasterIsPrimaryAdmissionTitle('Pentatonix: Christmas in the City Tour'), true);
+  const pentatonixPrimary = {
+    ...event, id: 'regular', name: 'Pentatonix: Christmas in the City Tour',
+  };
+  const pentatonixSuite = {
+    ...event, id: 'suite', name: 'Suites: Pentatonix: Christmas in the City Tour',
+  };
+  assert.deepEqual(
+    loadTicketmasterEventsServer({ fetchedAt: now.toISOString(), events: [pentatonixSuite, pentatonixPrimary] }, now).map(x => x.id),
+    ['ticketmaster:regular'], 'general calendar must not sell private suites as admission',
+  );
 
   // Holiday hub must not choose an arbitrary Ticketmaster showtime or venue.
   const christmasShow = {
