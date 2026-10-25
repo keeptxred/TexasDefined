@@ -712,6 +712,251 @@ const BATCH008_EDITORIAL: Record<string, FootballProgramEditorial> = {
       { question: 'What are Burleson High School colors and mascot?', answer: 'The official school page lists the mascot as Elk and the colors as red, white and black.' },
       { question: 'Has Burleson won a football state title?', answer: "No. Dave Campbell's lists 18 playoff appearances but zero state titles and zero title-game appearances." }
     ]
+  },
+  'burleson-centennial': {
+    slug: 'burleson-centennial',
+    intro: "Centennial High School's Spartans are Burleson ISD's separate 5A Division I program, not a second name for Burleson High. Burleson ISD officially lists Blake Meyer as Centennial Campus Athletic Coordinator/Head Football Coach. The 2026 Spartans are 5-3 overall and 2-3 in District 8 after Lancaster's 55-14 win on October 23.",
+    theme: { accentHex: '#1F3A5F', label: 'Original TexasDefined Spartan editorial treatment; no Centennial or Burleson ISD logo reproduced.' },
+    seo: {
+      title: 'Burleson Centennial Spartans Football | 2026 Scores & Blake Meyer',
+      description: 'Centennial Spartans football in Burleson: Blake Meyer, 2026 District 8-5A Division I results, 2022 12-2 benchmark and Johnson County sources.'
+    },
+    coach: {
+      name: 'Blake Meyer',
+      title: 'Campus Athletic Coordinator / Head Football Coach',
+      sourceUrl: 'https://www.burlesonisd.net/departments/athletics-interscholastic-activities',
+      sourceLabel: 'Burleson ISD official athletics staff directory',
+      verifiedAt: '2026-10-25'
+    },
+    campus: {
+      address: '201 S. Hurst Rd., Burleson, TX 76028',
+      phone: '817-245-0250',
+      sourceUrl: 'https://chs.burlesonisd.net/our-school/about-us',
+      sourceLabel: 'Centennial High School official About Us page',
+      verifiedAt: '2026-10-25'
+    },
+    schedule: {
+      label: 'Centennial 2026 football schedule and current result feed',
+      sourceUrl: 'https://www.chsspartanfootball.com/schedule',
+      sourceLabel: 'Centennial Spartan Football schedule, cross-checked with UIL-partner and statewide results',
+      verifiedAt: '2026-10-25',
+      officialScheduleUrl: 'https://www.chsspartanfootball.com/schedule'
+    },
+    season: {
+      record: '5-3 overall, 2-3 district through October 23, 2026',
+      verifiedAt: '2026-10-25',
+      sourceUrl: 'https://www.maxpreps.com/tx/burleson/centennial-spartans/football/schedule/',
+      sourceLabel: 'Current Centennial result feed plus statewide Oct. 23 Lancaster final',
+      latestResultSourceUrl: 'https://www.mrt.com/sports/highschool/article/texas-statewide-high-school-football-scores-oct-22492121.php',
+      games: [
+        { date: '2026-08-28', opponent: 'Weatherford', site: 'Away', result: 'W 31-21' },
+        { date: '2026-09-04', opponent: 'Burleson', site: 'Away', result: 'W 28-3' },
+        { date: '2026-09-10', opponent: 'Ennis', site: 'Home', result: 'W 31-10' },
+        { date: '2026-09-18', opponent: 'DeSoto', site: 'Home', district: true, result: 'L 3-29' },
+        { date: '2026-09-25', opponent: 'Cleburne', site: 'Away', district: true, result: 'W 55-7' },
+        { date: '2026-10-09', opponent: 'Mansfield Legacy', site: 'Home', district: true, result: 'W 35-7' },
+        { date: '2026-10-16', opponent: 'Midlothian', site: 'Home', district: true, result: 'L 7-14' },
+        { date: '2026-10-23', opponent: 'Lancaster', site: 'Away', district: true, result: 'L 14-55' },
+        { date: '2026-10-30', opponent: 'Mansfield Summit', site: 'Home', district: true, kickoff: '7:00 PM' },
+        { date: '2026-11-06', opponent: 'Cedar Hill', site: 'Away', district: true, kickoff: '7:00 PM' }
+      ]
+    },
+    venue: {
+      name: 'Burleson Stadium / BISD Stadium',
+      address: 'Burleson, TX — confirm the current event entrance through Burleson ISD',
+      sourceUrl: 'https://www.texasfootball.com/team/default.aspx?url=burleson-centennial-spartans',
+      sourceLabel: "Dave Campbell's identifies Burleson Stadium with 7,500 capacity; district event information controls current game logistics",
+      verifiedAt: '2026-10-25',
+      note: 'Centennial and Burleson High are separate programs that use the same district stadium system. Do not assume the Centennial campus address is the spectator entrance.'
+    },
+    development: {
+      title: 'A program with a 12-win benchmark, now navigating District 8',
+      body: "Dave Campbell's lists Centennial at 12-2 in 2022, 10-2 in both 2018 and 2019, 12 playoff appearances, and no state football title or title-game appearance. The 2026 team opened 3-0 and reached 5-1 before close loss to Midlothian and a 55-14 setback at Lancaster. That context gives the current season substance without manufacturing a championship history.",
+      sourceUrl: 'https://www.texasfootball.com/team/default.aspx?url=burleson-centennial-spartans',
+      sourceLabel: "Dave Campbell's Centennial program history",
+      verifiedAt: '2026-10-25'
+    },
+    milestones: [
+      { date: 'August 2010', title: 'Centennial opens as a separate Burleson high school', body: 'Centennial High School says it opened in August 2010 and identifies itself as Home of the Spartans.', sourceUrl: 'https://chs.burlesonisd.net/our-school/about-us', sourceLabel: 'Centennial High School official About Us' },
+      { date: '2022', title: 'Spartans post a 12-2 season', body: "Dave Campbell's lists Centennial at 12-2 in 2022, the strongest recent season in the visible program history.", sourceUrl: 'https://www.texasfootball.com/team/default.aspx?url=burleson-centennial-spartans', sourceLabel: "Dave Campbell's program history" },
+      { date: 'October 23, 2026', title: 'Lancaster beats Centennial 55-14', body: 'The statewide Associated Press score list records Lancaster 55, Burleson Centennial 14.', sourceUrl: 'https://www.mrt.com/sports/highschool/article/texas-statewide-high-school-football-scores-oct-22492121.php', sourceLabel: 'Associated Press statewide scores via Midland Reporter-Telegram' }
+    ],
+    overview: [
+      'Centennial High School is a Johnson County campus at 201 S. Hurst Road in Burleson. Its official About Us page identifies the school as Home of the Spartans.',
+      'Burleson ISD officially lists Blake Meyer as Centennial Campus Athletic Coordinator / Head Football Coach.',
+      'UIL places Centennial in Class 5A Division I District 8 for 2026-28. Burleson High is a separate 5A Division II program.',
+      "Dave Campbell's credits Centennial with 12 playoff appearances but no state title or state-final appearance. The 12-2 2022 season is a major program benchmark without being mislabeled a championship.",
+      'Centennial is 5-3 through October 23, with Mansfield Summit and Cedar Hill remaining.'
+    ],
+    faq: [
+      { question: 'Who coaches Burleson Centennial football?', answer: 'Blake Meyer. Burleson ISD officially lists him as Centennial Campus Athletic Coordinator / Head Football Coach.' },
+      { question: 'Is Centennial the same football program as Burleson High?', answer: 'No. Centennial High and Burleson High are separate Burleson ISD campuses and separate UIL football programs.' },
+      { question: 'What is Centennial football record after October 23, 2026?', answer: 'Centennial is 5-3 overall and 2-3 in District 8 after a 55-14 loss at Lancaster.' },
+      { question: 'Has Centennial won a football state title?', answer: "No. Dave Campbell's lists zero state titles and zero title-game appearances; the 2022 Spartans went 12-2." }
+    ]
+  },
+  burnet: {
+    slug: 'burnet',
+    intro: "Burnet High School's Bulldogs are in UIL Class 4A Division I District 12. First-party Burnet CISD pages identify Ben Speer as the 2026-27 head football coach. The Bulldogs are 1-7 after the October 23 Lampasas loss; their lone win is a 33-31 district road victory at China Spring.",
+    theme: { accentHex: '#17823B', label: 'Original TexasDefined Kelly Green editorial treatment based on Ben Speer’s official Burnet High bio; no Bulldog logo reproduced.' },
+    seo: {
+      title: 'Burnet Bulldogs Football | 2026 Scores, Ben Speer & District 12',
+      description: 'Burnet Bulldogs football: Ben Speer, 2026 District 12-4A Division I scores, China Spring win, Lampasas result and Burnet High sources.'
+    },
+    coach: {
+      name: 'Ben Speer',
+      title: 'Head Football Coach',
+      sourceUrl: 'https://bhs.burnetcisd.net/apps/pages/index.jsp?pREC_ID=2222836&type=u&uREC_ID=1794188',
+      sourceLabel: 'Burnet High School official Ben Speer staff page explicitly says he is serving as Head Football Coach in 2026-27',
+      verifiedAt: '2026-10-25'
+    },
+    campus: {
+      address: '1000 The Green Mile, Burnet, TX 78611',
+      phone: '512-756-6193',
+      sourceUrl: 'https://bhs.burnetcisd.net/apps/pages/index.jsp?pREC_ID=1798197&type=d&uREC_ID=950381',
+      sourceLabel: 'Burnet High School official football page',
+      verifiedAt: '2026-10-25'
+    },
+    schedule: {
+      label: 'Burnet High football and district event schedule',
+      sourceUrl: 'https://www.burnetcisd.net/apps/events/2026/10/',
+      sourceLabel: 'Burnet CISD official October athletics events, cross-checked against current football score feeds',
+      verifiedAt: '2026-10-25',
+      officialScheduleUrl: 'https://www.burnetcisd.net/apps/events/2026/10/'
+    },
+    season: {
+      record: '1-7 overall, 1-2 district through October 23, 2026',
+      verifiedAt: '2026-10-25',
+      sourceUrl: 'https://www.maxpreps.com/tx/burnet/burnet-bulldogs/football/',
+      sourceLabel: 'Current MaxPreps Burnet result feed, corroborated by live scoreboard sources',
+      latestResultSourceUrl: 'https://www.si.com/high-school/stats/texas/29900-austin/football/scores?date=2026-10-23',
+      games: [
+        { date: '2026-08-28', opponent: 'Llano', site: 'Away', result: 'L 31-38' },
+        { date: '2026-09-04', opponent: 'Taylor', site: 'Home', result: 'L 30-49' },
+        { date: '2026-09-11', opponent: 'Lago Vista', site: 'Home', result: 'L 26-48' },
+        { date: '2026-09-18', opponent: 'Blanco', site: 'Away', result: 'L 7-28' },
+        { date: '2026-09-25', opponent: 'Gatesville', site: 'Home', result: 'L 7-42' },
+        { date: '2026-10-09', opponent: 'China Spring', site: 'Away', district: true, result: 'W 33-31' },
+        { date: '2026-10-16', opponent: 'Marble Falls', site: 'Away', district: true, result: 'L 16-34' },
+        { date: '2026-10-23', opponent: 'Lampasas', site: 'Home', district: true, result: 'L 20-35' },
+        { date: '2026-10-30', opponent: 'Stephenville', site: 'Away', district: true, kickoff: '7:30 PM' },
+        { date: '2026-11-06', opponent: 'Jarrell', site: 'Home', district: true, kickoff: '7:00 PM' }
+      ]
+    },
+    venue: {
+      name: 'Bulldog Field',
+      address: 'Burnet High School area, 1000 The Green Mile, Burnet, TX 78611',
+      sourceUrl: 'https://www.texaschalktalk.com/2026/10/22/burnet-football-welcomes-lampasas/',
+      sourceLabel: 'Texas Chalk Talk local coverage identifies the home venue as Bulldog Field; Burnet CISD official events confirm the home varsity date',
+      verifiedAt: '2026-10-25',
+      note: 'Use Burnet CISD event instructions for the exact spectator entrance, parking and accessibility route; the academic address is not itself a gate certification.'
+    },
+    development: {
+      title: 'The China Spring breakthrough in a difficult 2026 season',
+      body: 'Burnet opened 0-5 before earning a 33-31 district road win at China Spring on October 9. Losses at Marble Falls and to Lampasas followed, leaving the Bulldogs 1-7. Speer’s official school bio says 2026-27 is his sixth year at Burnet High and 24th as an educator, grounding the current coaching era in first-party information rather than a stale directory.',
+      sourceUrl: 'https://bhs.burnetcisd.net/apps/pages/index.jsp?pREC_ID=2222836&type=u&uREC_ID=1794188',
+      sourceLabel: 'Burnet High official Ben Speer biography and current score feeds',
+      verifiedAt: '2026-10-25'
+    },
+    milestones: [
+      { date: '2026-27 school year', title: 'Ben Speer begins his sixth year at Burnet High', body: 'Speer’s official staff page says he will serve as head football coach in his sixth year at Burnet High and 24th year in education.', sourceUrl: 'https://bhs.burnetcisd.net/apps/pages/index.jsp?pREC_ID=2222836&type=u&uREC_ID=1794188', sourceLabel: 'Burnet High official staff bio' },
+      { date: 'October 9, 2026', title: 'Burnet breaks through at China Spring, 33-31', body: 'The road win ended an 0-5 start and gave Burnet its first District 12 victory.', sourceUrl: 'https://txprepfootball.com/schools/burnet/', sourceLabel: 'Texas Prep Football current result ledger' },
+      { date: 'October 23, 2026', title: 'Lampasas beats Burnet 35-20', body: 'Multiple current scoreboards agree on the District 12 final at Burnet.', sourceUrl: 'https://www.si.com/high-school/stats/texas/29900-austin/football/scores?date=2026-10-23', sourceLabel: 'High School On SI Austin scoreboard' }
+    ],
+    overview: [
+      'Burnet High School is in Burnet County at 1000 The Green Mile. Its official football page identifies Ben Speer as head coach.',
+      'Speer’s first-party biography explicitly says he is serving as head football coach in 2026-27 and notes the Burnet community’s Kelly Green identity.',
+      'UIL places Burnet in Class 4A Division I District 12 for the 2026-28 cycle.',
+      'Burnet is 1-7 through October 23. The 33-31 China Spring win is the current season’s verified breakthrough; Stephenville and Jarrell remain.',
+      'The home field is locally identified as Bulldog Field. Exact entrance, parking and accessibility details remain event-specific and are not invented.'
+    ],
+    faq: [
+      { question: 'Who coaches Burnet football in 2026?', answer: 'Ben Speer. Burnet High School’s official staff page explicitly says he is serving as Head Football Coach in 2026-27.' },
+      { question: 'What is Burnet football record after October 23, 2026?', answer: 'Burnet is 1-7 overall and 1-2 in district after a 35-20 loss to Lampasas.' },
+      { question: 'What is Burnet’s 2026 win?', answer: 'Burnet defeated China Spring 33-31 on the road on October 9 for its first win of the season.' },
+      { question: 'What color identity is sourced for Burnet?', answer: 'Ben Speer’s official Burnet High biography says his family is proud to wear Kelly Green. TexasDefined uses that as an editorial accent without reproducing an official logo.' }
+    ]
+  },
+  burton: {
+    slug: 'burton',
+    intro: "Burton High School's Panthers are a Washington County Class 2A Division II District 13 program led by athletic director and head football coach Jason Hodde. Burton entered the October 23 Bremond showdown 4-0 in district play; Bremond won 36-13, leaving Burton 5-2 overall and 4-1 in district with Chilton and Somerville remaining.",
+    theme: { accentHex: '#C1272D', label: 'Original TexasDefined red editorial treatment reflecting Burton’s Panther-pride school presentation; no school-owned photo or logo reproduced.' },
+    seo: {
+      title: 'Burton Panthers Football | 2026 Scores, Jason Hodde & Panther Stadium',
+      description: 'Burton Panthers football: Jason Hodde, 2026 District 13-2A Division II results, Bremond 36-13 final, 2022 13-1 season and Panther Stadium.'
+    },
+    coach: {
+      name: 'Jason Hodde',
+      title: 'Athletic Director / Head Football Coach',
+      sourceUrl: 'https://www.burtonisd.net/staff?page_no=2',
+      sourceLabel: 'Burton ISD official staff directory identifies Jason Hodde as Athletic Director; current KBTX game coverage identifies him as Burton head coach',
+      verifiedAt: '2026-10-25'
+    },
+    campus: {
+      address: '917 North Main, Burton, TX 77835',
+      phone: '979-289-3830',
+      sourceUrl: 'https://www.burtonisd.net/',
+      sourceLabel: 'Burton ISD official site plus current school football directory',
+      verifiedAt: '2026-10-25'
+    },
+    schedule: {
+      label: 'Burton 2026 football schedule and current results',
+      sourceUrl: 'https://www.maxpreps.com/tx/burton/burton-panthers/football/schedule/',
+      sourceLabel: 'UIL-partner Burton schedule, cross-checked with local KBTX and KWHI game coverage',
+      verifiedAt: '2026-10-25',
+      officialScheduleUrl: 'https://www.burtonisd.net/'
+    },
+    season: {
+      record: '5-2 overall, 4-1 district through October 23, 2026',
+      verifiedAt: '2026-10-25',
+      sourceUrl: 'https://www.maxpreps.com/tx/burton/burton-panthers/football/schedule/',
+      sourceLabel: 'Current Burton schedule through Holland plus KBTX Oct. 23 Bremond final',
+      latestResultSourceUrl: 'https://www.kbtx.com/2026/10/24/bremond-beats-burton-claim-top-spot-district-13-2a-division-ii/',
+      games: [
+        { date: '2026-08-28', opponent: 'Thorndale', site: 'Home', result: 'L 15-43' },
+        { date: '2026-09-04', opponent: 'Hearne', site: 'Away', result: 'W 17-14' },
+        { date: '2026-09-25', opponent: 'Milano', site: 'Away', district: true, result: 'W 61-0' },
+        { date: '2026-10-02', opponent: 'Bartlett', site: 'Home', district: true, result: 'W 69-26' },
+        { date: '2026-10-09', opponent: 'Snook', site: 'Away', district: true, result: 'W 56-0' },
+        { date: '2026-10-16', opponent: 'Holland', site: 'Away', district: true, result: 'W 55-0' },
+        { date: '2026-10-23', opponent: 'Bremond', site: 'Home', district: true, result: 'L 13-36' },
+        { date: '2026-10-30', opponent: 'Chilton', site: 'Away', district: true, kickoff: '7:00 PM' },
+        { date: '2026-11-06', opponent: 'Somerville', site: 'Home', district: true, kickoff: '7:00 PM' }
+      ]
+    },
+    venue: {
+      name: 'Panther Stadium',
+      address: '917 Main St, Burton, TX',
+      sourceUrl: 'https://kwhi.com/events/2026-10-23/',
+      sourceLabel: "KWHI local event listing places Burton-Bremond at Panther Stadium, 917 Main St; Dave Campbell's independently names Panther Stadium and 1,327 capacity",
+      verifiedAt: '2026-10-25',
+      note: 'Burton ISD warns that school website photographs are property of its photographer/yearbook staff; none are reused here. Verify current event entrance and parking locally.'
+    },
+    development: {
+      title: 'A four-game district winning streak tested by No. 1 Bremond',
+      body: 'Burton followed an opening loss to Thorndale with wins over Hearne, Milano, Bartlett, Snook and Holland. The Panthers and Bremond both entered October 23 at 4-0 in district, but Bremond won 36-13 to take the lead. Jason Hodde told KBTX before the game that it was a measuring stick rather than a must-win; the result leaves Burton with Chilton and Somerville still ahead.',
+      sourceUrl: 'https://www.kbtx.com/2026/10/24/bremond-beats-burton-claim-top-spot-district-13-2a-division-ii/',
+      sourceLabel: 'KBTX local game coverage and current schedule',
+      verifiedAt: '2026-10-25'
+    },
+    milestones: [
+      { date: '2022', title: 'Burton posts a 13-1 season', body: "Dave Campbell's lists Burton at 13-1 in 2022, the strongest recent visible season in the program archive.", sourceUrl: 'https://www.texasfootball.com/team/burton-panthers', sourceLabel: "Dave Campbell's Burton program history" },
+      { date: '2016', title: 'Burton and Bremond meet in the state semifinals', body: 'KBTX says the programs had not met since Bremond beat Burton 50-31 in the 2016 state semifinals.', sourceUrl: 'https://www.kbtx.com/2026/10/21/burton-hosts-no-1-bremond-kbtx-game-week/', sourceLabel: 'KBTX pregame historical context' },
+      { date: 'October 23, 2026', title: 'Bremond wins the district-lead matchup 36-13', body: 'Both teams entered 4-0 in district; KBTX reports Bremond led 22-7 at halftime and finished 36-13.', sourceUrl: 'https://www.kbtx.com/2026/10/24/bremond-beats-burton-claim-top-spot-district-13-2a-division-ii/', sourceLabel: 'KBTX postgame report' }
+    ],
+    overview: [
+      'Burton High School is in Burton, Washington County. The district’s own site uses Panther-pride imagery and its staff directory identifies Jason Hodde as Athletic Director.',
+      'KBTX current football coverage identifies Hodde as Burton head coach, connecting the first-party athletic-director record to the current football role.',
+      "Dave Campbell's lists 19 playoff appearances, zero state titles and zero title-game appearances, plus Panther Stadium and a 13-1 2022 season.",
+      'Burton is 5-2 overall and 4-1 in district after the October 23 loss to Bremond. Chilton and Somerville remain.',
+      'Burton ISD explicitly states that photographs on its web pages belong to its photographer/yearbook staff. TexasDefined does not copy them; the page uses an original source-derived graphic instead.'
+    ],
+    faq: [
+      { question: 'Who coaches Burton football in 2026?', answer: 'Jason Hodde. Burton ISD lists him as Athletic Director, and current KBTX football coverage identifies him as Burton head coach.' },
+      { question: 'What is Burton football record after October 23, 2026?', answer: 'Burton is 5-2 overall and 4-1 in District 13 after a 36-13 loss to Bremond.' },
+      { question: 'Has Burton won a football state title?', answer: "No. Dave Campbell's lists 19 playoff appearances but zero state titles and zero title-game appearances." },
+      { question: 'What happened in the 2026 Burton-Bremond game?', answer: 'Both teams entered 4-0 in district. Bremond led 22-7 at halftime and won 36-13, according to KBTX.' }
+    ]
   }
 };
 
