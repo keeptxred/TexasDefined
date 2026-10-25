@@ -5,6 +5,7 @@ try {
   const { loadTicketmasterEventsServer, ticketmasterAuthorityGuidePath } = await server.ssrLoadModule('/src/data/events/ticketmaster-events.server.ts');
   const { mergeEventTicketing } = await server.ssrLoadModule('/src/data/events/ticketing.ts');
   const { ticketmasterVenueMatches, ticketmasterShowtimeMatches } = await server.ssrLoadModule('/src/data/events/ticketmaster-event-match.ts');
+  const { matchChristmasTicketmasterPerformance } = await server.ssrLoadModule('/src/data/events/christmas-performances-2026.server.ts');
   const { hasCompliantMajorEventImageServer } = await server.ssrLoadModule('/src/data/major-event-schema-enrichment.server.ts');
   const { buildTexasEventCarouselItemsServer, buildGlobalEventCalendarServer } = await server.ssrLoadModule('/src/data/events/texas-event-calendar.server.ts');
   const now = new Date();
@@ -111,6 +112,37 @@ try {
   assert.equal(ticketmasterShowtimeMatches(
     {}, {}, 1,
   ), true, 'one unique time-unspecified performance can still link safely');
+
+  // Holiday hub must not choose an arbitrary Ticketmaster showtime or venue.
+  const christmasShow = {
+    id: 'christmas-story-conroe-2026', date: '2026-12-13',
+    city: 'Conroe', venue: 'Crighton Theatre', ticketmasterNeedle: 'a christmas story',
+  };
+  const holidayTicket = {
+    ...records[0], id: 'ticketmaster:holiday-show', title: 'A Christmas Story',
+    city: 'Conroe', startDate: '2026-12-13', startTime: '14:00:00',
+    venueName: 'Crighton Theatre', venueId: undefined,
+  };
+  assert.equal(matchChristmasTicketmasterPerformance(christmasShow, [holidayTicket], '2026-10-25')?.id,
+    holidayTicket.id, 'exact show, venue and matinee should permit an affiliate match');
+  assert.equal(matchChristmasTicketmasterPerformance(christmasShow,
+    [{ ...holidayTicket, startTime: '19:00:00' }], '2026-10-25'), undefined,
+    'holiday hub must reject an evening ticket for a reviewed 2pm matinee');
+  assert.equal(matchChristmasTicketmasterPerformance(christmasShow,
+    [{ ...holidayTicket, venueName: 'Crighton Theatre Parking' }], '2026-10-25'), undefined,
+    'holiday hub must not sell parking as admission');
+  assert.equal(matchChristmasTicketmasterPerformance(christmasShow,
+    [{ ...holidayTicket, venueName: 'Other Theatre' }], '2026-10-25'), undefined,
+    'holiday hub must not attach the same-title wrong-venue checkout');
+  assert.equal(matchChristmasTicketmasterPerformance(christmasShow,
+    [holidayTicket, { ...holidayTicket, id: 'ticketmaster:second-show' }], '2026-10-25'), undefined,
+    'duplicate matching provider performances require manual confirmation');
+  assert.equal(matchChristmasTicketmasterPerformance(christmasShow, [holidayTicket], '2026-12-14'), undefined,
+    'never attach a link for the expired featured performance');
+  assert.equal(matchChristmasTicketmasterPerformance({
+    ...christmasShow, id: 'grinch-dallas-2026',
+  }, [holidayTicket], '2026-10-25'), undefined,
+    'multiple performances without a single approved time use official organizer selector');
 
   const editorialTicketing = {
     links: [{
