@@ -58,7 +58,8 @@ function toProduct(row: StoreProduct): Product {
     colors: row.colors ?? [],
     variants: Array.isArray(row.variants) ? row.variants : [],
     category: inferShopCategory(row),
-    tags: row.tags ?? [],
+    // Heartland's hp-* internal sync markers must not become consumer-facing search tags.
+    tags: (row.tags ?? []).filter((tag) => !/^hp-[a-z0-9_-]+$/i.test(tag)),
     isFeatured: row.featured === true,
     displayOrder: Number.isFinite(row.displayOrder) ? Number(row.displayOrder) : 0,
     isNew: row.isNew === true,
