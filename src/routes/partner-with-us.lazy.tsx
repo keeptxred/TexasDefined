@@ -6,13 +6,12 @@ import { Container } from '@/components/layout/Container';
 import {
   advertiserProgramRules,
   advertiserTiers,
-  footballFoundingPackages,
   oneTimeCampaigns,
-  type FootballFoundingPackageId,
   type AdvertiserBillingCycle,
   type AdvertiserTierId,
 } from '@/data/advertising-program';
 import { submitPartnerInquiry } from '@/data/partner-inquiry.functions';
+import { footballFoundingPackages, type FootballFoundingPackageId } from '@/data/football-sponsorship-packages';
 
 const description = 'Compare Texas Defined advertising and sponsorship packages, see realistic sample placements, review billing and contract terms, and request a partnership proposal.';
 
