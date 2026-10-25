@@ -29,13 +29,11 @@ export const Route = createFileRoute('/partner-with-us')({
         ? 'brand-retail'
         : undefined,
     sourcePath: typeof search.source === 'string' ? sanitizePartnerSource(search.source) : undefined,
-    tier: search.tier === 'local' || search.tier === 'growth' || search.tier === 'premier' || search.tier === 'custom'
-      ? search.tier
-      : undefined,
+    tier: typeof search.tier === 'string' && /^(local|growth|premier|custom)$/.test(search.tier)
+      ? search.tier as PartnerSearch['tier'] : undefined,
     billing: search.billing === 'annual' ? 'annual' : search.billing === 'monthly' ? 'monthly' : undefined,
-    focus: search.focus === 'pricing' || search.focus === 'examples' || search.focus === 'agreement' || search.focus === 'billing' || search.focus === 'contact'
-      ? search.focus
-      : undefined,
+    focus: typeof search.focus === 'string' && /^(pricing|examples|agreement|billing|contact)$/.test(search.focus)
+      ? search.focus as PartnerSearch['focus'] : undefined,
   }),
   head: () => ({
     meta: buildMeta(texasDefinedBrand, { canonicalPath, title: 'Advertise & Partner With Texas Defined', description }),
