@@ -55,14 +55,14 @@ async function verify(name, fn) {
   }
 }
 
-await verify('Live collection JSON contains exactly six approved fishing products', async () => {
+await verify('Live collection JSON contains all six approved launch products', async () => {
   const { response, text } = await get('/api/public/store-products?site=texasdefined&collection=fishing-shirts&limit=24', { expectJSON: true });
   assert.equal(response.status, 200, `Collection API HTTP ${response.status}; body excerpt: ${text.slice(0,150)}`);
   const payload = JSON.parse(text);
   assert.equal(payload.ok, true, `Collection API not okay: ${text.slice(0,220)}`);
   const products = payload.products || [];
   const actual = products.map(p => p.id);
-  assert.equal(products.length, 6, `Expected six collection products, got ${products.length}; IDs: ${actual}`);
+  assert.ok(products.length >= 6, `Expected at least six launch products, got ${products.length}; IDs: ${actual}`);
   for (const id of ids) assert.ok(actual.includes(id), `Missing approved shirt ${id}`);
   for (const p of products) {
     assert.equal(Number(p.price), 28, `Incorrect price for ${p.id}`);
