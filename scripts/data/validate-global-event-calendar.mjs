@@ -10,6 +10,35 @@ const requireText = (source, needle, label) => { if (!source.includes(needle)) f
 const contract = read("src/data/events/texas-event-record.ts");
 const adapter = read("src/data/events/texas-event-records.server.ts");
 const calendarServer = read("src/data/events/texas-event-calendar.server.ts");
+const christmas = read("src/data/events/christmas-performances-2026.server.ts");
+const christmasHub = read("src/routes/events.$collection.tsx");
+const christmasIds = [...christmas.matchAll(/id: "([^"]+-2026)"/g)].map((match) => match[1]);
+if (christmasIds.length !== 12 || new Set(christmasIds).size !== 12) {
+  failures.push("Christmas statewide calendar must project exactly 12 unique curated shows");
+}
+for (const needle of [
+  "getVerifiedChristmasPerformanceCalendarRecords2026",
+  "isSameChristmasPerformanceCalendarEvent",
+  "startDate: show.date",
+  "confirmedStartTimes[show.id]",
+  "officialEventUrl: show.sourceUrl",
+  'saleStatus: "unknown"',
+  'category: theatreIds.has(show.id) ? "culture" : "music"',
+]) requireText(christmas, needle, "curated Christmas calendar projection");
+for (const needle of [
+  "getVerifiedChristmasPerformanceCalendarRecords2026()",
+  "isSameChristmasPerformanceCalendarEvent(performance, record)",
+  "isSameChristmasPerformanceCalendarEvent(performance, providerRecord)",
+  "mergeEventTicketing(records[index].ticketing, performance.ticketing)",
+]) requireText(adapter, needle, "shared event registry Christmas integration");
+for (const needle of [
+  "View this show on the statewide calendar",
+  '/events?start=',
+]) requireText(christmasHub, needle, "Christmas hub calendar crosslinks");
+if (/endDate: show.endDate/.test(christmas)) {
+  failures.push("Do not treat a discontinuous Christmas theatre run as daily calendar availability");
+}
+
 const eventDirectoryFacade = read("src/data/major-event-directory.ts");
 const eventCalendarFacade = read("src/data/major-event-calendar.ts");
 const eventServerSurface = `${eventDirectoryFacade}\n${eventCalendarFacade}`;

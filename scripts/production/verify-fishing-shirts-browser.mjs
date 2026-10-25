@@ -108,6 +108,15 @@ try {
       assert.equal(response?.status(), 200, id + ": product page must be HTTP 200");
       const selector = page.locator('label:has-text("Choose an option") select').first();
       await selector.waitFor({ state: "visible", timeout: 20000 });
+      // Initial server HTML can appear before TanStack/React hydration finishes.
+      // Clicking or counting options too early can capture an empty transient
+      // select or have React overwrite a selection during hydration.
+      await page.waitForFunction(() => document.documentElement.dataset.tdRootHydrated === "1", null, { timeout: 30000 });
+      await page.waitForFunction(() => {
+        const target = [...document.querySelectorAll("select")].find((node) =>
+          node.parentElement?.textContent?.includes("Choose an option"));
+        return target?.options.length === 16;
+      }, null, { timeout: 20000 });
       const options = await selector.locator("option").evaluateAll((nodes) => nodes.map((option) => ({
         id: option.value,
         name: (option.textContent || "").trim().split(/\s+[—–]\s+\$/)[0],
@@ -124,6 +133,8 @@ try {
       }
       assert.equal(await selector.inputValue(), options[0].id, id + ": default must be first/largest variant");
       await selector.selectOption(options.at(-1).id);
+      // Confirm the controlled React select retains the exact Printify ID.
+      await page.waitForTimeout(250);
       assert.equal(await selector.inputValue(), options.at(-1).id, id + ": variant selection lost correct ID");
       entry.result = "PASS";
       entry.variants = options.length;
