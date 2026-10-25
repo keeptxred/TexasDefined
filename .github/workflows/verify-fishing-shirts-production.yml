@@ -12,11 +12,6 @@ on:
       - '.github/workflows/verify-fishing-shirts-production.yml'
       - 'scripts/production/verify-fishing-shirts-release.mjs'
       - 'scripts/production/verify-fishing-shirts-browser.mjs'
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/verify-fishing-shirts-production.yml'
-      - 'scripts/production/verify-fishing-shirts-release.mjs'
 
 permissions:
   contents: read
