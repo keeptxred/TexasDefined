@@ -9,7 +9,7 @@ import { readFileSync } from 'node:fs';
 const reviewDate = '2026-10-23';
 const zipPoint = {
   latitude: 29.75, longitude: -95.35,
-  sourceUrl: 'https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2026_Gaz_zcta_national.zip',
+  sourceUrl: 'https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2026_Gazetteer/2026_Gaz_zcta_national.zip',
   verifiedOn: reviewDate, precision: 'zcta-representative',
 };
 const venuePoint = {
@@ -30,6 +30,19 @@ assert(validVerifiedCorporateEventPoint(venuePoint, 'venue', reviewDate, provide
 assert(!validVerifiedCorporateEventPoint(venuePoint, 'venue', reviewDate),
   'A venue location cannot be admitted without the independently sourced operator domain');
 assert(validVerifiedCorporateEventPoint(zipPoint, 'zcta', reviewDate));
+assert(!validVerifiedCorporateEventPoint({...zipPoint,
+  sourceUrl:'https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2026_Gaz_zcta_national.zip'},'zcta',reviewDate),
+  'Old non-existent Census archive path cannot prove real ZCTA coordinates');
+assert(!validVerifiedCorporateEventPoint({...zipPoint,
+  sourceUrl:'https://www2.census.gov/geographies/reference-files/time-series/geo/gazetteer-files.2026.html'},'zcta',reviewDate),
+  'A general Census web page is not specific proof of a Gazetteer ZCTA point');
+assert(!validVerifiedCorporateEventPoint({...zipPoint,
+  sourceUrl:'https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2026_Gazetteer/2026_Gaz_zcta_national.zip?spoof=1'},'zcta',reviewDate),
+  'Query-altered archive URLs cannot be used as vetted coordinate provenance');
+assert(!validVerifiedCorporateEventPoint(zipPoint,'zcta','2026-02-31'),
+  'Impossible as-of dates cannot authorize coordinate evidence');
+assert(!validVerifiedCorporateEventPoint({...zipPoint,verifiedOn:'2026-02-31'},'zcta','2026-10-25'),
+  'Impossible source review dates must fail closed');
 assert(!validVerifiedCorporateEventPoint(zipPoint, 'venue', reviewDate), 'A ZCTA point is never a venue address');
 assert(!validVerifiedCorporateEventPoint(venuePoint, 'zcta', reviewDate), 'A venue point is never a household ZIP origin');
 // Private and third-party sources cannot masquerade as "verified" just

@@ -9,6 +9,7 @@ A postal ZIP code is not a street address or a promise of delivery-zone accuracy
 Official references:
 
 - Census 2026 Gazetteer files / ZCTA representative coordinates: https://www.census.gov/geographies/reference-files/time-series/geo/gazetteer-files.2026.html
+- Exact original official 2026 national ZCTA archive (NOT a venue geocoder or a ZIP delivery map): https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2026_Gazetteer/2026_Gaz_zcta_national.zip
 - Census single-record Geocoder API: https://geocoding.geo.census.gov/geocoder/Geocoding_Services_API.html
 - Census technical geocoding caveat (range interpolation): https://www.census.gov/programs-surveys/geography/technical-documentation/complete-technical-documentation/census-geocoder.html
 
@@ -45,6 +46,8 @@ Official references:
 5. Only manually approved, independently sourced premises/entrance points may be saved in the dedicated typed `VerifiedVenueLocation` evidence registry. Unverified points stay excluded. A published venue record with no valid geolocation remains visible in city searches and must not be falsely described as having no nearby supply.
 
 ## ZCTA evidence
+
+A general Census site URL, street-address interpolation, or incorrectly constructed download URL does **not** establish actual ZCTA representative coordinates. The offline radius validator admits only an original Census national ZCTA Gazetteer archive path with the matching publication year and valid source-review/as-of calendar dates. The archive itself still requires point-level ingestion review, unique ZIP association and independent Texas geographic confirmation before public use.
 
 Use the 2026 Census Gazetteer **ZCTA** file, verify each candidate's Texas association with authoritative geography rather than inferring it only from a `7xxxx` postal prefix, and retain the dataset vintage/source URL, real review date, and `precision: 'zcta-representative'`. Do not interpret the centroid as the organizer's actual location. If a ZIP has no unique verified statistical-area representative point, return `unsupported_zip`.
 
