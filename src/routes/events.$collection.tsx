@@ -199,7 +199,7 @@ function GenericCollectionPage({ page }: { page: any }) {
                   <h3 className="font-display text-xl leading-tight">{show.name}</h3>
                   <p className="mt-1 text-sm font-medium">{show.venue} · {show.city}, Texas</p>
                   <p className="mt-2 max-w-3xl text-sm leading-6 text-muted-foreground">{show.description}</p>
-                  <a href={`/events?start=${show.date}&end=${show.date}#calendar`} className="mt-2 mr-3 inline-block text-xs underline text-primary">View this show on the statewide calendar</a>
+                  <a href={`/events?start=${show.date}&end=${show.date}&location=${encodeURIComponent(show.city)}#calendar`} className="mt-2 mr-3 inline-block text-xs underline text-primary">View this show on the statewide calendar</a>
                   <a href={show.sourceUrl} target="_blank" rel="noopener noreferrer" className="mt-2 inline-block text-xs underline text-muted-foreground">
                     Schedule source: {show.sourceName} ↗
                   </a>
