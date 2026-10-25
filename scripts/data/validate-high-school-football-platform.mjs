@@ -156,6 +156,14 @@ if (!errors.length) {
   const privateSchoolAdmissions = read(privateSchoolAdmissionsPath);
   const programSlugs = read(programSlugsPath);
   const programProfileServer = read(programProfileServerPath);
+  const featuredProfileServer = read('src/data/high-school-football/featured-program-profile.server.ts');
+  for (const [code, name] of [[programProfileServer, 'UIL detail'], [featuredProfileServer, 'legacy featured detail']]) {
+    requireText(code, 'loadRemoteSources: false', name + ' SSR must avoid external cold fetches');
+  }
+  requireText(directory, 'loadRemoteSources?: boolean;', 'Football directory optional external dependency');
+  requireText(directory, 'options.loadRemoteSources === false', 'Football profile offline-safe UIL fallback');
+  requireText(directory, 'loadTeaSchoolDirectory()', 'Directory search must retain optional live TEA data');
+  requireText(directory, 'loadUilRecentFootballHistory()', 'Directory search must retain optional official UIL history');
   const footballProgramIndex = read(footballProgramIndexPath);
   const footballSitemap = read(footballSitemapPath);
   const footballVenueLinks = read(footballVenueLinksPath);
