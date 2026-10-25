@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 
 import { TexasExplainedContextLinks } from "@/components/editorial/TexasExplainedContextLinks";
 import { FishingPhoto } from "@/components/fishing/FishingPhoto";
+import { FishingMerchSpotlight } from "@/components/fishing/FishingMerchSpotlight";
 import { Container } from "@/components/layout/Container";
 import { getFishingFishImage, getFishingLakeImage } from "@/data/fishing/image-library";
 import { fishingFoundationAnchor, isCompleteFishingLakeSlug } from "@/data/fishing/slugs";
@@ -98,6 +99,8 @@ export function FishingHub({ lakes, species, lakeSpecies }: FishingHubProps) {
           })}
         </div>
       </section>
+
+      <FishingMerchSpotlight speciesNames={featuredSpecies.map((fish) => fish.commonName)} />
 
       <section className="border-t border-border py-14" aria-labelledby="river-fishing-guide-heading">
         <p className="eyebrow text-primary">River fishing</p>
