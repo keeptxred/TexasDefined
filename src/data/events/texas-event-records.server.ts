@@ -72,11 +72,16 @@ export function ticketmasterVenueMatches(
     .replace(/[’']/g, "")
     .replace(/&/g, " and ")
     .replace(/[^a-z0-9]+/g, " ")
-    .replace(/\\s+/g, " ")
+    .replace(/\s+/g, " ")
     .trim();
   const a = normalize(editorial.venueName);
   const b = normalize(provider.venueName);
-  return Boolean(a && b && (a === b || a.startsWith(b + " ") || b.startsWith(a + " ")));
+  if (!a || !b) return false;
+  // A parking/VIP/fast-lane location is not interchangeable with the main
+  // concert venue. Fail closed if one record describes an admission add-on.
+  const addOn = /\b(parking|vip|fast lane|upgrade|add on)\b/;
+  if (addOn.test(a) !== addOn.test(b)) return false;
+  return a === b || a.startsWith(b + " ") || b.startsWith(a + " ");
 }
 
 
