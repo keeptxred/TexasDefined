@@ -43,7 +43,7 @@ export async function getFeaturedFootballProgramProfile(slug: string): Promise<F
   let program: FootballProgramDirectoryResult | null = null;
 
   if (seed) {
-    const result = await searchFootballPrograms({ query: seed.schoolName, limit: 100 });
+    const result = await searchFootballPrograms({ query: seed.schoolName, limit: 100, loadRemoteSources: false });
     program = result.programs.find((candidate) =>
       candidate.schoolName === seed.schoolName
       && candidate.classification === seed.classification
