@@ -162,6 +162,89 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "reviewed": "2026-10-24"
     }
   ],
+  "baytown-historical-museum": [
+    {
+      "question": "Where is Baytown Historical Museum, and what is the building?",
+      "answer": "The museum is at 220 West Defee Street in Baytown, Harris County. It occupies the former Goose Creek federal post office dating to 1936–37, rather than a modern museum campus.",
+      "verificationUrl": "https://www.visitbaytown.com/arts-culture",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.visitbaytown.com/arts-culture",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "When is Baytown Historical Museum open?",
+      "answer": "Baytown's official tourism bureau lists Tuesday–Saturday, 10 a.m.–2 p.m. Other local directories display Wednesday–Saturday, 10 a.m.–4 p.m. Because public schedules conflict, telephone 281-427-8768 for the date you intend to visit instead of relying on an open-now badge.",
+      "verificationUrl": "https://www.visitbaytown.com/arts-culture",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.visitbaytown.com/arts-culture",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Does Baytown Historical Museum charge admission?",
+      "answer": "The City of Baytown's tourism listing advertises free general museum admission. Do not assume that group programs, special events or nearby independent attractions share identical policies; confirm those before booking.",
+      "verificationUrl": "https://www.visitbaytown.com/arts-culture",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.visitbaytown.com/arts-culture",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "What is inside Baytown Historical Museum?",
+      "answer": "The city describes local-history exhibits from the Karankawa through the regional oil boom. Building interpretation also covers the former Goose Creek Post Office and its WPA-era artwork, with wider local context for Goose Creek, Pelly and Baytown.",
+      "verificationUrl": "https://www.visitbaytown.com/arts-culture",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.visitbaytown.com/arts-culture",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Why is a former post office used as the museum?",
+      "answer": "The Louis A. Simon-designed federal building served as a post office until 1985, after which it became the museum's home. Texas historical heritage materials describe the early International Style architecture and interior mural by Philip Parisi.",
+      "verificationUrl": "https://texastimetravel.com/directory/baytown-historical-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://texastimetravel.com/directory/baytown-historical-museum/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Is the museum accessible to wheelchair users?",
+      "answer": "The historic building has front entrance steps, but the published visitor listing does not establish whether an alternate step-free entrance, lift, restroom and parking route are available. Call staff at 281-427-8768 for a specific accessibility plan; do not infer lack of any accessible entrance solely from a photograph.",
+      "verificationUrl": "https://www.visitbaytown.com/arts-culture",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.visitbaytown.com/arts-culture",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "How much time should I allow and is it suitable for children?",
+      "answer": "As a small community museum, a flexible 45–75-minute stop is a planning estimate, not an operator-guaranteed visit length. The historical displays can be interesting for families; ask directly about school groups, age-appropriate programs, holiday access and hands-on activities.",
+      "verificationUrl": "https://www.visitbaytown.com/arts-culture",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.visitbaytown.com/arts-culture",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "What can I combine with a museum visit in Baytown?",
+      "answer": "After confirming admission and hours, explore Baytown's downtown Arts District or other Harris County history sites as separate stops. Travel time, ticket rules and operating hours vary by venue; consult each operator rather than assuming the museum offers a combined ticket.",
+      "verificationUrl": "https://www.visitbaytown.com/arts-culture",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.visitbaytown.com/arts-culture",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Who photographed the museum building, and may TexasDefined reuse it?",
+      "answer": "Jim Evans photographed the actual former Baytown post office on October 29, 2020. The original Wikimedia Commons file is licensed CC BY-SA 4.0, requiring photographer credit, a link to the license and compliance with share-alike terms for adaptations.",
+      "verificationUrl": "https://commons.wikimedia.org/wiki/File:Old_Baytown_Post_Office.jpg",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://commons.wikimedia.org/wiki/File:Old_Baytown_Post_Office.jpg",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    }
+  ],
   "bayou-bend-collection-gardens": [
     {
       "question": "Where is Bayou Bend, and is it part of MFAH's downtown campus?",

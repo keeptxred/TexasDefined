@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "asOf": "2026-10-19",
+  "asOf": "2026-10-24",
   "repository": "keeptxred/TexasDefined",
   "production": "https://texasdefined.com",
   "supabaseProjectId": "ftkznprjljkhymknvhye",
@@ -630,12 +630,20 @@
       "acmcmillanafricanamericanmuseum": {
         "submittedName": "A.C. McMillan African American Museum",
         "rawOccurrence": 4,
-        "status": "assigned",
+        "status": "research-blocked",
         "assignedAt": "2026-10-24T20:40:00Z",
         "reviewRequired": true,
         "publicationApproved": false,
         "editorialCertified": false,
-        "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "evidence": "https://emuseum.jfk.org/objects/46977/gwendolyn-mcmillan-lawe-oral-history",
+        "reason": "A.C. McMillan African American Museum is historically documented in Emory/Rains County: the Sixth Floor Museum interviewed co-founder Gwendolyn McMillan Lawe in 2016 and the Texas Historical Commission referenced the museum in 2011. Neither is evidence of an operating 2026 venue, current hours, bookings or reusable exact-site photo; do not invent an open museum guide or mark it closed.",
+        "dispositionAt": "2026-10-24",
+        "researchEvidenceUrls": [
+          "https://emuseum.jfk.org/objects/46977/gwendolyn-mcmillan-lawe-oral-history",
+          "https://www.thc.texas.gov/public/upload/publications/medallion-january-february-2011.pdf"
+        ],
+        "lastResearchAt": "2026-10-24"
       },
       "abileneheritagesquare": {
         "submittedName": "Abilene Heritage Square",
@@ -673,7 +681,12 @@
         "reviewRequired": true,
         "publicationApproved": false,
         "editorialCertified": false,
-        "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "operatorIdentityConfirmed": false,
+        "photoRightsVerified": false,
+        "researchNote": "Owner's museum label does not match a currently verified Texas visitable museum. Research or disambiguation needed before inferring an exhibit, technology business incubator, campus venue or operational location. Do not auto-create visitor hours or a photograph.",
+        "researchEvidenceUrls": [],
+        "lastResearchAt": "2026-10-24"
       },
       "agriculturalheritagemuseum": {
         "submittedName": "Agricultural Heritage Museum",
@@ -775,12 +788,20 @@
       "anahuacdepotmuseum": {
         "submittedName": "Anahuac Depot Museum",
         "rawOccurrence": 19,
-        "status": "assigned",
+        "status": "research-blocked",
         "assignedAt": "2026-10-24T20:40:00Z",
         "reviewRequired": true,
         "publicationApproved": false,
         "editorialCertified": false,
-        "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "evidence": "https://texashistory.unt.edu/ark:/67531/metapth162515/m1/163/",
+        "reason": "The Texas Almanac 1998–99 historically placed a depot museum in Winnie, not an independently confirmed Anahuac Depot Museum. The 1985 Texas Historical Commission museum directory separately identifies Anahuac historical and medical-office museums but no Anahuac Depot Museum. Current operator, geography, identity and visitor availability remain unresolved; do not publish or mislocate Winnie's depot in Anahuac.",
+        "dispositionAt": "2026-10-24",
+        "researchEvidenceUrls": [
+          "https://texashistory.unt.edu/ark:/67531/metapth162515/m1/163/",
+          "https://www.gutenberg.org/files/65342/65342-h/65342-h.htm"
+        ],
+        "lastResearchAt": "2026-10-24"
       },
       "angelinacountyhistorycenter": {
         "submittedName": "Angelina County History Center",
@@ -866,7 +887,16 @@
         "reviewRequired": true,
         "publicationApproved": false,
         "editorialCertified": false,
-        "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "operatorIdentityConfirmed": true,
+        "photoRightsVerified": false,
+        "researchNote": "Current Art Center Waco is an active nonprofit arts exhibition and education center, not necessarily a traditional collecting museum; city CVB and Waco Chamber confirm current location 701 S 8th St and phone 254-752-4371, Tuesday–Friday 11–5 and Saturday 10–2 (verify official hours). Texas TDLR also confirms renovation of this facility. Past Wordpress/LinkedIn profiles list superseded addresses; do not direct visitors to former campus. Exact-site licensed photo and program access pending.",
+        "researchEvidenceUrls": [
+          "https://destinationwaco.org/listing/art-center-of-waco-3/",
+          "https://business.wacochamber.com/directory/Details/art-center-waco-880796",
+          "https://www.tdlr.texas.gov/TABS/Search/Print/TABS2020020137"
+        ],
+        "lastResearchAt": "2026-10-24"
       },
       "artgalleriesatblackstudies": {
         "submittedName": "Art Galleries at Black Studies",
@@ -876,7 +906,17 @@
         "reviewRequired": true,
         "publicationApproved": false,
         "editorialCertified": false,
-        "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "operatorIdentityConfirmed": true,
+        "lastResearchAt": "2026-10-24",
+        "researchNote": "Operator-confirmed active UT Austin museum/collecting institution spanning two distinct free-admission venues: Christian-Green Gallery, Jester Center A232 at 201 E 21st St (Wed–Fri noon–5, Sat 11–2), and Idea Lab, Gordon-White Building at 210 W 24th St (Tue–Fri noon–5, Sat by advance appointment). UT operator announces Sept 4–Dec 5 2026 Made in Texas exhibit. One authority identity, two correctly explained visitor locations; no unsupported exact-gallery commercial-use image/rights secured yet, so keep research assigned and noindex-unpublished until authoritative media and guide complete.",
+        "researchEvidenceUrls": [
+          "https://www.galleriesatut.org/",
+          "https://www.galleriesatut.org/exhibitions",
+          "https://liberalarts.utexas.edu/blackstudies/art-galleries-at-black-studies/"
+        ],
+        "proposedCanonicalSlug": "art-galleries-at-black-studies-austin",
+        "photoRightsVerified": false
       },
       "atascosacountyvintagemuseum": {
         "submittedName": "Atascosa County Vintage Museum",
@@ -961,7 +1001,15 @@
         "reviewRequired": true,
         "publicationApproved": false,
         "editorialCertified": false,
-        "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "operatorIdentityConfirmed": false,
+        "photoRightsVerified": false,
+        "researchNote": "Historic Aviation Museum of Texas formerly operated in Kerrville and then in Uvalde at Garner Field; specialist aviation directories characterize Uvalde public venue as closed. No current official operator or government closure record verified, so mark research-blocked, not conclusively 'closed', and do not create a contemporary open visitor guide.",
+        "researchEvidenceUrls": [
+          "https://aviationmuseum.eu/Blogvorm/aviation-museum-texas/",
+          "https://aerialvisuals.ca/LocationDossier.php?Serial=3898"
+        ],
+        "lastResearchAt": "2026-10-24"
       },
       "b29b24squadronmuseum": {
         "submittedName": "B-29/B-24 Squadron Museum",
@@ -1180,17 +1228,39 @@
         "reviewRequired": true,
         "publicationApproved": false,
         "editorialCertified": false,
-        "note": "Research candidate. Check current operator, address, existing canonical guide, exact-site photo license and accessibility before editorial publication."
+        "note": "Research candidate. Check current operator, address, existing canonical guide, exact-site photo license and accessibility before editorial publication.",
+        "operatorIdentityConfirmed": true,
+        "photoRightsVerified": true,
+        "proposedCanonicalSlug": "baytown-historical-museum",
+        "researchNote": "The official Baytown tourism bureau confirms a free operating Baytown Historical Museum in the former Goose Creek Post Office, 220 W. Defee, phone 281-427-8768; its current city visitors listing states Tuesday–Saturday 10 a.m.–2 p.m. Other local sites conflict (Wed–Sat 10–4), so use qualified schedule and official telephone confirmation. Original 29 Oct 2020 photograph of exact former federal post office by Jim Evans is openly licensed CC BY-SA 4.0 on Wikimedia Commons, 3823×2635 pixels. Guide and full source-backed FAQs can now be produced; do not mark guide merged or editorial certified from this checkpoint.",
+        "researchEvidenceUrls": [
+          "https://www.visitbaytown.com/arts-culture",
+          "https://www.visitbaytown.com/baytown-history",
+          "https://texastimetravel.com/directory/baytown-historical-museum/",
+          "https://commons.wikimedia.org/wiki/File:Old_Baytown_Post_Office.jpg"
+        ],
+        "photoFile": "Old Baytown Post Office.jpg",
+        "photoCreator": "Jim Evans",
+        "photoLicense": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "lastResearchAt": "2026-10-24"
       },
       "bayoubendcollectionandgardens": {
         "submittedName": "Bayou Bend Collection and Gardens",
         "rawOccurrence": 56,
-        "status": "assigned",
+        "status": "guide-merged",
         "assignedAt": "2026-10-24",
         "reviewRequired": true,
         "publicationApproved": false,
         "editorialCertified": false,
-        "note": "Research candidate. Check current operator, address, existing canonical guide, exact-site photo license and accessibility before editorial publication."
+        "note": "Research candidate. Check current operator, address, existing canonical guide, exact-site photo license and accessibility before editorial publication.",
+        "evidence": "https://github.com/keeptxred/TexasDefined/pull/5861",
+        "reason": "Existing `/destination/bayou-bend-collection-gardens` received a source-backed authority dossier, museum-specific visitor FAQs, operator source monitoring and licensed exact-property photo attribution in merged PR #5861. Independent production/mobile visual acceptance and editorial certification remain outstanding.",
+        "dispositionAt": "2026-10-24",
+        "relatedCanonicalSlug": "bayou-bend-collection-gardens",
+        "additionalEvidence": [
+          "https://www.mfah.org/visit/bayou-bend",
+          "https://commons.wikimedia.org/wiki/File:BayouBendHome.JPG"
+        ]
       },
       "beaumontartleague": {
         "submittedName": "Beaumont Art League",
@@ -1200,7 +1270,15 @@
         "reviewRequired": true,
         "publicationApproved": false,
         "editorialCertified": false,
-        "note": "Research candidate. Check current operator, address, existing canonical guide, exact-site photo license and accessibility before editorial publication."
+        "note": "Research candidate. Check current operator, address, existing canonical guide, exact-site photo license and accessibility before editorial publication.",
+        "operatorIdentityConfirmed": true,
+        "photoRightsVerified": false,
+        "researchNote": "Active community gallery/art education center, Beaumont Art League established in 1943. Its own 2026 website lists 2675 Gulf St, Beaumont, phone 409-347-6166, Wednesday–Saturday noon–5; contemporaneous Lamar University Oct 22 2026 coverage confirms November 14 student show. Should be classified as contemporary art gallery rather than inaccurately describing it as an object-collecting museum. Reusable exact-gallery photo rights and full visitor program policies remain unverified.",
+        "researchEvidenceUrls": [
+          "https://beaumontartleague.us/",
+          "https://www.lamaruniversitypress.com/2026/10/art-league-accepting-entries-for-student-exhibition.php"
+        ],
+        "lastResearchAt": "2026-10-24"
       }
     },
     "note": "Original stable 25-candidate queue with evidence-based dispositions. No false certification; batch replenishment uses the existing next-museum-owner-batch script.",
@@ -1279,10 +1357,10 @@
         "barkertexashistorycenter"
       ],
       "initialCandidates": 32,
-      "researchedDispositions": 10,
+      "researchedDispositions": 13,
       "remainingAssigned": 22,
-      "notes": "First 25: five identity outcomes plus two new researched authority guides merged (#5844 Alley, #5846 Austin) but editorial certification and deployment QA are pending. Six-slot replenishment + one additional candidate now seven added, with three dispositions: CAF squadron not static museum, Babe Zaharias alias duplicate, Bandera provisional name ambiguous. 22 provisional candidates remain actively assigned. Changes do not imply universal source verification.",
-      "lastCheckpointAt": "2026-10-24T21:01:00Z",
+      "notes": "Continuing original deterministic owner batch: Bayou Bend merged on correct existing canonical (#5861); Emory A.C. McMillan and purported Anahuac depot research-blocked without misrepresenting historical sources as current. UT Art Galleries at Black Studies verified operating at two distinct visitor locations; media/guide pending. Barrington/Bastrop PR #5858 under protected validation after conflict reconciliation. Remaining assigned: 22; source certification and production QA remain distinct.",
+      "lastCheckpointAt": "2026-10-24",
       "lastMergedGuides": [
         {
           "slug": "alley-log-cabin-museum-columbus",
@@ -1291,9 +1369,66 @@
         {
           "slug": "austin-history-center-austin",
           "pr": 5846
+        },
+        {
+          "slug": "bayou-bend-collection-gardens",
+          "pr": 5861
         }
       ]
     },
     "lastEvidenceReview": "2026-10-24"
+  },
+  "october24ProductionHtmlVerification": {
+    "checkedAt": "2026-10-25T00:34:00Z",
+    "method": "Supabase pg_net HTTP fetch to actual public texasdefined.com; HTML transport and linked evidence, not rendered browser QA",
+    "routes": [
+      {
+        "path": "/destination/bryan-museum-galveston",
+        "httpStatus": 200,
+        "htmlCreditVerified": true,
+        "originalPhotoCommonsUrl": "https://commons.wikimedia.org/wiki/File:Galveston_Texas_-_The_Bryan_Museum_-_January_2025_-_1.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+        "canonicalVerified": true,
+        "indexingNoindexStringFound": false
+      },
+      {
+        "path": "/destination/bayou-bend-collection-gardens",
+        "httpStatus": 200,
+        "htmlCreditVerified": true,
+        "originalPhotoCommonsUrl": "https://commons.wikimedia.org/wiki/File:BayouBendHome.JPG",
+        "license": "Public domain",
+        "canonicalVerified": true,
+        "indexingNoindexStringFound": false
+      },
+      {
+        "path": "/destination/austin-history-center-austin",
+        "httpStatus": 200,
+        "htmlCreditVerified": true,
+        "originalPhotoCommonsUrl": "https://commons.wikimedia.org/wiki/File:John_Henry_Faulk_Central_Library.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "canonicalVerified": true,
+        "indexingNoindexStringFound": false
+      },
+      {
+        "path": "/destination/alley-log-cabin-museum-columbus",
+        "httpStatus": 200,
+        "htmlCreditVerified": true,
+        "originalPhotoCommonsUrl": "https://commons.wikimedia.org/wiki/File:Abram_Alley_Log_Cabin,_Columbus,_TX_IMG_8238.JPG",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+        "canonicalVerified": true,
+        "indexingNoindexStringFound": false
+      }
+    ],
+    "manifest": {
+      "publicProductionCount": 85,
+      "sourceDefinitions": 374,
+      "importedIntoExistingSupabaseSourceRegistry": true
+    },
+    "notVerified": [
+      "Browser-decoded responsive image or mobile pixels",
+      "Editorial authority certification",
+      "Public page image HTTP payload correctness",
+      "Independent visitor-fact audit of every FAQ"
+    ]
   }
 }

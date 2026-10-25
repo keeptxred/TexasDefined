@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 
 import { TexasExplainedContextLinks } from "@/components/editorial/TexasExplainedContextLinks";
 import { FishingPhoto } from "@/components/fishing/FishingPhoto";
+import { FishingMerchSpotlight } from "@/components/fishing/FishingMerchSpotlight";
 import { Container } from "@/components/layout/Container";
 import { getFishingFishImage, getFishingLakeImage } from "@/data/fishing/image-library";
 import { fishingFoundationAnchor, isCompleteFishingLakeSlug } from "@/data/fishing/slugs";
@@ -99,6 +100,8 @@ export function FishingHub({ lakes, species, lakeSpecies }: FishingHubProps) {
         </div>
       </section>
 
+      <FishingMerchSpotlight speciesNames={featuredSpecies.map((fish) => fish.commonName)} />
+
       <section className="border-t border-border py-14" aria-labelledby="river-fishing-guide-heading">
         <p className="eyebrow text-primary">River fishing</p>
         <h2 id="river-fishing-guide-heading" className="mt-3 font-display text-4xl">Fishing Texas Rivers</h2>
@@ -126,6 +129,7 @@ export function FishingHub({ lakes, species, lakeSpecies }: FishingHubProps) {
           <Resource href="/fishing/reports" title="Fishing reports" copy="Use dated reports when you need current-condition context." />
           <Resource href="/fishing/access" title="Fishing access" copy="Find verified ramps, marinas, shoreline access and launches." />
           <Resource href="/fishing/guides" title="Fishing guides" copy="Browse verified local guide profiles connected to the waters they serve." />
+          <Resource href="/shop/fishing-shirts" title="Texas fishing shirts" copy="See Texas Defined bass, lake, tackle and coastal angler graphic tees. Product pages show current options and checkout." />
           <Resource href="/hunting" title="Texas hunting" copy="Explore Texas hunting seasons, species, public-land planning and licensing." />
         </div>
       </section>

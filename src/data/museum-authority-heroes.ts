@@ -15,6 +15,12 @@ export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
     width: 1600, height: 1067,
     credit: "Larry D. Moore · CC BY 4.0"
   },
+  "baytown-historical-museum": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Old_Baytown_Post_Office.jpg?width=1600",
+    alt: "The 1936–37 Goose Creek Post Office building, now Baytown Historical Museum at 220 West Defee Street",
+    width: 1600, height: 1103,
+    credit: "Jim Evans · 29 October 2020 · CC BY-SA 4.0 · Wikimedia Commons · Old Baytown Post Office.jpg"
+  },
   "austin-history-center-austin": {
     "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/John_Henry_Faulk_Central_Library.jpg?width=1600",
     "alt": "John Henry Faulk Building at 800 Guadalupe Street, current home of the Austin History Center since its 2025 move",
@@ -88,7 +94,7 @@ export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Former_alvin_tx_post_office.jpg?width=1600",
     alt: "The former 1940 U.S. Post Office building at 300 West Sealy Street in Alvin, Texas, now home of Alvin Historical Museum, photographed May 12, 2015",
     width: 1600, height: 1067,
-    credit: "Larry D. Moore · CC BY 4.0 · File:Former alvin tx post office.jpg · 2015 museum-building exterior",
+    credit: "Larry D. Moore · CC BY 4.0 · Wikimedia Commons · File:Former alvin tx post office.jpg · 2015 museum-building exterior",
   },
   "museum-of-the-american-railroad-frisco": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Frisco_June_2019_28_%28Museum_of_the_American_Railroad%29.jpg?width=1600",
@@ -321,5 +327,11 @@ export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
 /** Exact subject, attribution-cleared media may enhance discovery without importing every long museum dossier. */
 export function enrichMuseumMedia(destination: Destination): Destination {
   const hero = museumLicensedHeroes[destination.slug];
-  return hero && isDestinationPhotoPlaceholder(destination.hero.src) ? { ...destination, hero } : destination;
+  // The approved McNay courtyard must replace the legacy non-placeholder hero too.
+  // Other museum photos keep placeholder-only precedence so an unrelated or newer
+  // licensed image is never silently replaced by this special-case correction.
+  const requiresVerifiedMcNayHero = destination.slug === "mcnay-art-museum-san-antonio";
+  return hero && (isDestinationPhotoPlaceholder(destination.hero.src) || requiresVerifiedMcNayHero)
+    ? { ...destination, hero }
+    : destination;
 }

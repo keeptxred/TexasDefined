@@ -58,4 +58,10 @@ assert(workflow.includes("playwright-core@1.56.1"), 'Use isolated pinned browser
 assert(!workflow.includes("wrangler deploy"), 'Only the existing production workflow may publish');
 assert(existing.includes("id=\"proposal\"") && existing.includes("id=\"planning-request\""),
   'Browser checks must target actual current public page sections');
+assert(existing.includes("data-corporate-hydrated={clientReady ? 'true' : 'false'}")
+  && existing.includes('setClientReady(true);'),
+  'Corporate SSR must expose a post-mount client readiness marker without PII');
+assert(browser.includes('main#main[data-corporate-hydrated="true"]')
+  && browser.includes(".waitFor({ state: 'visible', timeout: 25_000 })"),
+  'Real Chrome must confirm hydrated interactions before filling controlled inputs');
 console.log('Corporate events read-only Chrome mobile/tablet/desktop acceptance contract PASS');

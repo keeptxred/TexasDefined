@@ -223,7 +223,7 @@ export const statewideMuseumExpansionWave8Destinations: Destination[] = [
     brandId: "texasdefined",
     slug: "bastrop-county-museum-visitor-center",
     name: "Bastrop County Museum & Visitor Center",
-    summary: "Bastrop County Museum & Visitor Center at 904 Main interprets Indigenous and Texas history, the El Camino Real, Lost Pines and local industry, with downtown trip-planning help.",
+    summary: "Bastrop County Museum at 904 Main interprets El Camino Real, local history and Lost Pines, with visitor help.",
     category: "historic-sites",
     region: "prairies-lakes",
     nearestTown: "Bastrop",

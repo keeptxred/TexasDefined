@@ -38,7 +38,29 @@
     "public_etsy_urls_verified": 0,
     "products_published": 6,
     "texasdefined_active_rows_verified": 6,
-    "etsy_listing_urls_reported": 6
+    "etsy_listing_urls_reported": 6,
+    "texasdefined_fishing_collection": {
+      "slug": "fishing-shirts",
+      "website": "texasdefined",
+      "database_membership_confirmed_at": "2026-10-24",
+      "products_assigned": 6,
+      "code_pr": 5863,
+      "code_deployed": "pending"
+    },
+    "merch_spotlight": {
+      "component": "src/components/fishing/FishingMerchSpotlight.tsx",
+      "source": "assigned active texasdefined fishing-shirts products",
+      "coverage": [
+        "Generic fishing lake guides",
+        "Lake Conroe overview",
+        "Showcase lake guide overview",
+        "Fishing species profiles",
+        "Fishing hub"
+      ],
+      "future_page_behavior": "Template integration applies automatically to new lake/species guides and new approved fishing-shirts inventory",
+      "code_pr": 5869,
+      "production_verified": false
+    }
   },
   "artwork_requirements": {
     "print_master": "Real transparent PNG with organic edges; no square haze, photo rectangle or opaque/semisolid poster background.",
@@ -178,7 +200,13 @@
         "publish_keeptxred_verified": false,
         "price_usd_verified": 28,
         "variant_count_verified": 16,
-        "color_count_verified": 3
+        "color_count_verified": 3,
+        "collection_slug": "fishing-shirts",
+        "collection_membership_verified_in_db": true,
+        "thirteenth_descriptive_tag_appended": "texas fishing",
+        "tags_in_db_including_internal_tracking": 14,
+        "public_fishing_tags_after_filter": 13,
+        "is_new_verified": true
       },
       "blockers": [
         "Etsy public listing verification pending: Heartland status=pending",
@@ -306,7 +334,13 @@
         "publish_keeptxred_verified": false,
         "price_usd_verified": 28,
         "variant_count_verified": 16,
-        "color_count_verified": 3
+        "color_count_verified": 3,
+        "collection_slug": "fishing-shirts",
+        "collection_membership_verified_in_db": true,
+        "thirteenth_descriptive_tag_appended": "fishing graphic",
+        "tags_in_db_including_internal_tracking": 14,
+        "public_fishing_tags_after_filter": 13,
+        "is_new_verified": true
       },
       "blockers": [
         "Etsy public listing verification pending: Heartland status=pending",
@@ -434,7 +468,13 @@
         "publish_keeptxred_verified": false,
         "price_usd_verified": 28,
         "variant_count_verified": 16,
-        "color_count_verified": 3
+        "color_count_verified": 3,
+        "collection_slug": "fishing-shirts",
+        "collection_membership_verified_in_db": true,
+        "thirteenth_descriptive_tag_appended": "boating shirt",
+        "tags_in_db_including_internal_tracking": 14,
+        "public_fishing_tags_after_filter": 13,
+        "is_new_verified": true
       },
       "blockers": [
         "Etsy public listing verification pending: Heartland status=pending",
@@ -562,7 +602,13 @@
         "publish_keeptxred_verified": false,
         "price_usd_verified": 28,
         "variant_count_verified": 16,
-        "color_count_verified": 3
+        "color_count_verified": 3,
+        "collection_slug": "fishing-shirts",
+        "collection_membership_verified_in_db": true,
+        "thirteenth_descriptive_tag_appended": "fishing club",
+        "tags_in_db_including_internal_tracking": 14,
+        "public_fishing_tags_after_filter": 13,
+        "is_new_verified": true
       },
       "blockers": [
         "Etsy public listing verification pending: Heartland status=pending",
@@ -690,7 +736,13 @@
         "publish_keeptxred_verified": false,
         "price_usd_verified": 28,
         "variant_count_verified": 16,
-        "color_count_verified": 3
+        "color_count_verified": 3,
+        "collection_slug": "fishing-shirts",
+        "collection_membership_verified_in_db": true,
+        "thirteenth_descriptive_tag_appended": "quiet lake",
+        "tags_in_db_including_internal_tracking": 14,
+        "public_fishing_tags_after_filter": 13,
+        "is_new_verified": true
       },
       "blockers": [
         "Etsy public listing verification pending: Heartland status=pending",
@@ -818,7 +870,13 @@
         "publish_keeptxred_verified": false,
         "price_usd_verified": 28,
         "variant_count_verified": 16,
-        "color_count_verified": 3
+        "color_count_verified": 3,
+        "collection_slug": "fishing-shirts",
+        "collection_membership_verified_in_db": true,
+        "thirteenth_descriptive_tag_appended": "saltwater angler",
+        "tags_in_db_including_internal_tracking": 14,
+        "public_fishing_tags_after_filter": 13,
+        "is_new_verified": true
       },
       "blockers": [
         "Etsy public listing verification pending: Heartland status=pending",
@@ -930,6 +988,26 @@
       "date": "2026-10-24",
       "check": "External Etsy verification",
       "result": "Public listing pages inaccessible via web tool; do not label the Etsy listings live based only on URLs. Etsy seller section, 13 actual Etsy tags, partner disclosure unverified."
+    },
+    {
+      "date": "2026-10-24",
+      "check": "Fishing Shirts collection data assignment",
+      "result": "All six active TexasDefined-only products were idempotently assigned to texasdefined_collections containing fishing-shirts; SQL verified count=6, brand flags=true/false, all prices=$28."
+    },
+    {
+      "date": "2026-10-24",
+      "check": "Fishing Shirts collection route code",
+      "result": "PR #5863 adds /shop/fishing-shirts metadata, guide, filtering, fishing hub link, product breadcrumbs and filtering of internal Heartland hp-* sync tags. Production deployment not yet verified; Etsy seller shop section remains separate/unverified."
+    },
+    {
+      "date": "2026-10-24",
+      "check": "TexasDefined shop product tags / New Arrivals",
+      "result": "Added each draft thirteenth descriptive tag to the public.products tag array idempotently, preserving Heartland hp-* internal tracking marker; 14 total tags per item (13 descriptive + one internal). Marked six TexasDefined-only items is_new=true. Not a seller-side Etsy tag update."
+    },
+    {
+      "date": "2026-10-24",
+      "check": "Contextual fishing merch",
+      "result": "PR #5869 adds product-backed responsive spotlight to fishing hub, all generic/showcase/Conroe lake overview templates and species profiles; no inventing products or links; production not yet verified."
     }
   ],
   "release_approved_at": "2026-10-24",

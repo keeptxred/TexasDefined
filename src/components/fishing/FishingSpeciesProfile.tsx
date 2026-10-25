@@ -1,5 +1,6 @@
 import { Container } from "@/components/layout/Container";
 import { FishingPhoto } from "@/components/fishing/FishingPhoto";
+import { FishingMerchSpotlight } from "@/components/fishing/FishingMerchSpotlight";
 import { getFishingFishImage } from "@/data/fishing/image-library";
 import { FISHING_SPECIES_DIRECTORY_PATH } from "@/data/fishing/species-routing";
 import type { FishingSpeciesProfileData } from "@/data/fishing/species-guide-data.server";
@@ -40,6 +41,8 @@ export function FishingSpeciesProfile({ data }: { data: FishingSpeciesProfileDat
         <Stat label="Techniques listed" value={data.relatedTechniques.length} />
         <Stat label="Source pages" value={data.sources.length} />
       </section>
+
+      <FishingMerchSpotlight speciesName={species.commonName} />
 
       <section className="grid gap-8 border-b border-border py-12 lg:grid-cols-2" aria-labelledby="species-range-habitat">
         <div>

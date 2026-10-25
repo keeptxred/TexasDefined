@@ -4,6 +4,7 @@
 export const museumAuthoritySlugs: ReadonlySet<string> = new Set([
   "barrington-living-history-farm",
   "bastrop-county-museum-visitor-center",
+  "baytown-historical-museum",
   "bayou-bend-collection-gardens",
   "austin-history-center-austin",
   "alley-log-cabin-museum-columbus",
