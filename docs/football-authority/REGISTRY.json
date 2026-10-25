@@ -48,12 +48,12 @@
     "assignmentBranch": "football-authority-batch-008-20261025",
     "repositoryMainAtAssignment": "84f529082bc16063bd28f9d21e762e69da96fd74",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "buckholts",
-    "nextSchool": "buda-hays",
-    "implementedOnBranch": 0,
-    "remainingToImplement": 25,
+    "currentSchool": "buffalo",
+    "nextSchool": "bullard",
+    "implementedOnBranch": 3,
+    "remainingToImplement": 22,
     "remainingToVerify": 25,
-    "notes": "Batch 008 assigned October 25, 2026. Exact cohort runs Buckholts through Canyon Randall; Canyon West Plains is next unassigned and is not part of this batch. Work in school-specific execution groups without CI/deploy polling loops."
+    "notes": "Batch 008 assigned October 25, 2026. Buckholts, Buda Hays and Buda Johnson are individually researched and IMPLEMENTED on the batch branch; none are merged/deployed/VERIFIED. Exact cohort ends at Canyon Randall; Canyon West Plains remains unassigned. Next execution group begins Buffalo."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -8274,8 +8274,16 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/buckholts",
-      "status": "NOT_REVIEWED",
-      "batch": 8
+      "status": "IMPLEMENTED",
+      "batch": 8,
+      "audit": "docs/football-authority/schools/buckholts.md",
+      "auditCompletedAt": "2026-10-25",
+      "researchCompletedAt": "2026-10-25",
+      "implementedAt": "2026-10-25",
+      "implementedOnBranch": "football-authority-batch-008-20261025",
+      "actualProductionVerified": false,
+      "implementationNotes": "Individual source-backed Batch 008 authority profile implemented on branch with distinct editorial, current dated season context, school identity, reciprocal county link and source-derived visual; protected merge/deploy/live browser acceptance still pending.",
+      "mediaStatus": "No third-party school photography, school seal or official logo copied; original TexasDefined source-derived editorial visual only."
     },
     {
       "id": "uil:buda-hays",
@@ -8288,8 +8296,16 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/buda-hays",
-      "status": "NOT_REVIEWED",
-      "batch": 8
+      "status": "IMPLEMENTED",
+      "batch": 8,
+      "audit": "docs/football-authority/schools/buda-hays.md",
+      "auditCompletedAt": "2026-10-25",
+      "researchCompletedAt": "2026-10-25",
+      "implementedAt": "2026-10-25",
+      "implementedOnBranch": "football-authority-batch-008-20261025",
+      "actualProductionVerified": false,
+      "implementationNotes": "Individual source-backed Batch 008 authority profile implemented on branch with distinct editorial, current dated season context, school identity, reciprocal county link and source-derived visual; protected merge/deploy/live browser acceptance still pending.",
+      "mediaStatus": "No third-party school photography, school seal or official logo copied; original TexasDefined source-derived editorial visual only."
     },
     {
       "id": "uil:buda-johnson",
@@ -8302,8 +8318,16 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/buda-johnson",
-      "status": "NOT_REVIEWED",
-      "batch": 8
+      "status": "IMPLEMENTED",
+      "batch": 8,
+      "audit": "docs/football-authority/schools/buda-johnson.md",
+      "auditCompletedAt": "2026-10-25",
+      "researchCompletedAt": "2026-10-25",
+      "implementedAt": "2026-10-25",
+      "implementedOnBranch": "football-authority-batch-008-20261025",
+      "actualProductionVerified": false,
+      "implementationNotes": "Individual source-backed Batch 008 authority profile implemented on branch with distinct editorial, current dated season context, school identity, reciprocal county link and source-derived visual; protected merge/deploy/live browser acceptance still pending.",
+      "mediaStatus": "No third-party school photography, school seal or official logo copied; original TexasDefined source-derived editorial visual only."
     },
     {
       "id": "uil:buffalo",
