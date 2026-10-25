@@ -48,12 +48,12 @@
     "assignmentBranch": "football-authority-batch-008-20261025",
     "repositoryMainAtAssignment": "84f529082bc16063bd28f9d21e762e69da96fd74",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "burkburnett",
-    "nextSchool": "burkeville",
-    "implementedOnBranch": 6,
-    "remainingToImplement": 19,
+    "currentSchool": "burleson-centennial",
+    "nextSchool": "burnet",
+    "implementedOnBranch": 9,
+    "remainingToImplement": 16,
     "remainingToVerify": 25,
-    "notes": "Batch 008 assigned October 25, 2026. First six schools Buckholts through Buna are individually IMPLEMENTED on branch; none merged/deployed/VERIFIED. Buffalo deliberately leaves the Oct.23 Mildred final unresolved because current source evidence does not establish a trustworthy score. Next Burkburnett, then Burkeville."
+    "notes": "Batch 008: 9/25 IMPLEMENTED on branch, none merged/deployed/VERIFIED. Third group Burkburnett/Burkeville/Burleson completed with first-party coach resolution, disclosed Burkeville score discrepancy and current 2026 result ledgers. Next Burleson Centennial, then Burnet."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -8406,8 +8406,16 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/burkburnett",
-      "status": "NOT_REVIEWED",
-      "batch": 8
+      "status": "IMPLEMENTED",
+      "batch": 8,
+      "audit": "docs/football-authority/schools/burkburnett.md",
+      "auditCompletedAt": "2026-10-25",
+      "researchCompletedAt": "2026-10-25",
+      "implementedAt": "2026-10-25",
+      "implementedOnBranch": "football-authority-batch-008-20261025",
+      "actualProductionVerified": false,
+      "implementationNotes": "Individual source-backed Batch 008 authority profile implemented with current dated results, identity/county reciprocity, source-conflict handling and original source-derived visual; merge/deploy/live acceptance pending.",
+      "mediaStatus": "No third-party school photography, seal or official logo copied; original TexasDefined source-derived editorial visual only."
     },
     {
       "id": "uil:burkeville",
@@ -8420,8 +8428,16 @@
       "format": "6-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/burkeville",
-      "status": "NOT_REVIEWED",
-      "batch": 8
+      "status": "IMPLEMENTED",
+      "batch": 8,
+      "audit": "docs/football-authority/schools/burkeville.md",
+      "auditCompletedAt": "2026-10-25",
+      "researchCompletedAt": "2026-10-25",
+      "implementedAt": "2026-10-25",
+      "implementedOnBranch": "football-authority-batch-008-20261025",
+      "actualProductionVerified": false,
+      "implementationNotes": "Individual source-backed Batch 008 authority profile implemented with current dated results, identity/county reciprocity, source-conflict handling and original source-derived visual; merge/deploy/live acceptance pending.",
+      "mediaStatus": "No third-party school photography, seal or official logo copied; original TexasDefined source-derived editorial visual only."
     },
     {
       "id": "uil:burleson",
@@ -8434,8 +8450,16 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/burleson",
-      "status": "NOT_REVIEWED",
-      "batch": 8
+      "status": "IMPLEMENTED",
+      "batch": 8,
+      "audit": "docs/football-authority/schools/burleson.md",
+      "auditCompletedAt": "2026-10-25",
+      "researchCompletedAt": "2026-10-25",
+      "implementedAt": "2026-10-25",
+      "implementedOnBranch": "football-authority-batch-008-20261025",
+      "actualProductionVerified": false,
+      "implementationNotes": "Individual source-backed Batch 008 authority profile implemented with current dated results, identity/county reciprocity, source-conflict handling and original source-derived visual; merge/deploy/live acceptance pending.",
+      "mediaStatus": "No third-party school photography, seal or official logo copied; original TexasDefined source-derived editorial visual only."
     },
     {
       "id": "uil:burleson-centennial",
