@@ -55,7 +55,7 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
     connections: [
       { label: "Harris County guide", href: "/county/harris", reason: "Use Baytown in the context of Harris County's wider museums and regional history" },
       { label: "Explore Texas", href: "/explore", reason: "Find other independently operated regional museums and day-trip stops" }
-    ]
+    ],
   },
   "bayou-bend-collection-gardens": {
     name: "Bayou Bend Collection and Gardens", slug: "bayou-bend-collection-gardens", county: "Harris", city: "Houston", reviewed: "2026-10-24",
