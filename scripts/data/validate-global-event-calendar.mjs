@@ -58,6 +58,11 @@ for (const needle of [
   "isSameChristmasPerformanceCalendarEvent",
   "startDate: show.date",
   "confirmedStartTimes[show.id]",
+  "matchChristmasTicketmasterPerformance(show, ticketmaster, today)",
+  "ticketmasterVenueMatches({ venueName: show.venue }, event)",
+  "ticketmasterShowtimeMatches({ startTime }, event, candidates.length)",
+  "exactShowtime.length === 1",
+
   "officialEventUrl: show.sourceUrl",
   'saleStatus: "unknown"',
   'category: theatreIds.has(show.id) ? "culture" : "music"',
