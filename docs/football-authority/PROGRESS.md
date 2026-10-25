@@ -922,3 +922,11 @@ Current source reconciliation did **not** justify any status promotion. Harmony'
 - **Buna:** Kevin Terrier current coach; official campus 711 CR 734 controls over conflicting third-party FM 253 address; 6-3 / 2-3 after the verified Oct. 23 **46-0 Tarkington** win. DCTF's 18 playoff appearances, zero finals/titles and Cougar Stadium are distinguished from gate claims. Jasper County reciprocal link added.
 - No CI/deployment polling performed. These are branch implementations only. Next untouched assigned school: **Burkburnett**, then **Burkeville**, then **Burleson**.
 
+### Batch 008 — nine school implementation checkpoint (2026-10-25)
+
+- **9/25 IMPLEMENTED, 16 remaining; 0 Batch 008 VERIFIED.** Third execution group Burkburnett/Burkeville/Burleson is complete on branch.
+- **Burkburnett:** official BISD staff lists Jody Littleton as AD/Head Football Coach, overriding conflicting MaxPreps Alex Wright label. Current 5-3 / 1-2 record through Graham 70-0; first-party Bulldog Stadium entrance and parking policy surfaced. Wichita County reciprocal link added.
+- **Burkeville:** Keith Hendrix current coach; 1A DI six-man District 13; two state titles/three finals/25 playoffs with historical championship years 1986 and 2001. O'Connell 47-0 played final preserved over stale DCTF cancellation; Chester 62-12 is used with explicit SETXsports 61-12 discrepancy. Newton County reciprocal link added.
+- **Burleson:** Burleson ISD officially lists Phillip Tanner head coach; official Elk / red-white-black identity; 2-6 / 2-3 after Midlothian Heritage 45-7. 2021 8-4 playoff breakthrough retained as recent-history benchmark. Johnson County reciprocal link added.
+- No CI/deployment polling performed. Next assigned school is **Burleson Centennial**, then **Burnet**, then **Burton**.
+
