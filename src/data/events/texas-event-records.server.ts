@@ -53,6 +53,7 @@ function eventIdentity(name: string, city: string) {
 function buildTicketing(offers: EventSchemaOffer[] | undefined, lastVerifiedAt: string, sourceName?: string): TexasEventTicketingMetadata | undefined {
   if (!offers?.length) return undefined;
   const uniqueTicketUrls = [...new Set(offers.map((offer) => offer.url))].filter((url) => providerForVerifiedTicketUrl(url));
+  if (!uniqueTicketUrls.length) return undefined;
   return {
     links: uniqueTicketUrls.map((url, index) => ({
       provider: providerForVerifiedTicketUrl(url) ?? "official",
@@ -66,7 +67,8 @@ function buildTicketing(offers: EventSchemaOffer[] | undefined, lastVerifiedAt: 
       lastVerifiedAt,
       priority: index,
     })),
-    offers: offers.map((offer) => ({ name: offer.name, url: offer.url, price: offer.price, priceCurrency: offer.priceCurrency })),
+    offers: offers.filter((offer) => providerForVerifiedTicketUrl(offer.url))
+      .map((offer) => ({ name: offer.name, url: offer.url, price: offer.price, priceCurrency: offer.priceCurrency })),
   };
 }
 
