@@ -309,5 +309,11 @@ export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
 /** Exact subject, attribution-cleared media may enhance discovery without importing every long museum dossier. */
 export function enrichMuseumMedia(destination: Destination): Destination {
   const hero = museumLicensedHeroes[destination.slug];
-  return hero && isDestinationPhotoPlaceholder(destination.hero.src) ? { ...destination, hero } : destination;
+  // The approved McNay courtyard must replace the legacy non-placeholder hero too.
+  // Other museum photos keep placeholder-only precedence so an unrelated or newer
+  // licensed image is never silently replaced by this special-case correction.
+  const requiresVerifiedMcNayHero = destination.slug === "mcnay-art-museum-san-antonio";
+  return hero && (isDestinationPhotoPlaceholder(destination.hero.src) || requiresVerifiedMcNayHero)
+    ? { ...destination, hero }
+    : destination;
 }
