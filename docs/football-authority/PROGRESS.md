@@ -914,3 +914,11 @@ Current source reconciliation did **not** justify any status promotion. Harmony'
 - These three are **IMPLEMENTED only** on the branch, not merged/deployed/VERIFIED. Dedicated module `program-editorial-b008.ts` avoids expanding the existing 1.5 MB monolithic editorial registry and is wired through the profile loader with validator coverage.
 - Registry now records **3/25 IMPLEMENTED, 22 remaining**, next **Buffalo**, then **Bullard**.
 
+### Batch 008 — six school implementation checkpoint (2026-10-25)
+
+- **6/25 IMPLEMENTED, 19 remaining; 0 Batch 008 VERIFIED.** First group Buckholts/Buda Hays/Buda Johnson remains intact. Second group Buffalo/Bullard/Buna is now individually researched, implemented and documented on `football-authority-batch-008-20261025`.
+- **Buffalo:** UIL 3A DII District 11, first-party Bison identity and athletics leadership, 5-2 named-result ledger through Oct. 16. The Oct. 23 Mildred matchup is intentionally unresolved because reviewed sources prove the game but not a trustworthy final. Leon County reciprocal link added.
+- **Bullard:** final UIL alignment is 4A DI District 8 despite stale DII third-party labels; Bullard ISD officially appointed Colton Bradford. Current 1-7 / 0-5 ledger through Henderson 59-28; official Panther red-white-blue identity and Cherokee County campus provenance added.
+- **Buna:** Kevin Terrier current coach; official campus 711 CR 734 controls over conflicting third-party FM 253 address; 6-3 / 2-3 after the verified Oct. 23 **46-0 Tarkington** win. DCTF's 18 playoff appearances, zero finals/titles and Cougar Stadium are distinguished from gate claims. Jasper County reciprocal link added.
+- No CI/deployment polling performed. These are branch implementations only. Next untouched assigned school: **Burkburnett**, then **Burkeville**, then **Burleson**.
+
