@@ -54,6 +54,13 @@ assert(workflow.includes("ref: ${{ github.event.workflow_run.head_sha || github.
 assert(!workflow.includes('\n  push:\n'), 'A source push must not race protected deployment in live Chrome QA');
 assert(workflow.includes('node scripts/ci/wait-for-protected-production.mjs'), 'Never validate ahead of publication');
 assert(workflow.includes("node scripts/ci/verify-corporate-events-browser.mjs"), 'Run the actual Chrome browser script after publication');
+assert(workflow.includes("PRODUCTION_COMMIT_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}")
+  && workflow.includes('# Screenshots/results and cache-busting must cite the deployed commit.'),
+  'Real Chrome must be supplied the immutable released SHA for evidence provenance');
+assert(browser.includes('process.env.PRODUCTION_COMMIT_SHA || process.env.GITHUB_SHA || null')
+  && browser.includes('sha: releasedSha')
+  && browser.includes("encodeURIComponent(view.name + '-' + (releasedSha || 'manual'))"),
+  'Chrome screenshots/results and cache busting must identify the exact protected deployment, not an advanced main');
 assert(workflow.includes("playwright-core@1.56.1"), 'Use isolated pinned browser driver');
 assert(!workflow.includes("wrangler deploy"), 'Only the existing production workflow may publish');
 assert(existing.includes("id=\"proposal\"") && existing.includes("id=\"planning-request\""),

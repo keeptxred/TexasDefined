@@ -64,6 +64,10 @@ jobs:
           echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
           npm install --prefix /tmp/texasdefined-corporate-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1 axe-core@4.10.3
       - name: Test live corporate finder, shortlist privacy and WCAG A/AA at mobile, tablet and desktop without POSTing inquiries
+        env:
+          # workflow_run GITHUB_SHA can differ from the protected release SHA.
+          # Screenshots/results and cache-busting must cite the deployed commit.
+          PRODUCTION_COMMIT_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
         run: node scripts/ci/verify-corporate-events-browser.mjs
       - name: Retain browser screenshots and structured results
         if: always()
