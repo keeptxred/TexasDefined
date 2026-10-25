@@ -276,7 +276,7 @@ export async function setSportsSponsorPlacementStatus(
   const client = supabaseAdmin as any;
   const { data: existing, error: existingError } = await client
     .from('texasdefined_sports_sponsor_placements')
-    .select('id,sponsor_id,surface_path,approved_at,texasdefined_sports_sponsors!inner(status)')
+    .select('id,sponsor_id,surface_path,approved_at,texasdefined_sports_sponsors!inner(status,source_inquiry_id)')
     .eq('id', placementId)
     .maybeSingle();
   if (existingError) throw new Error(`Sports sponsor placement could not be checked: ${existingError.message}`);
@@ -289,6 +289,29 @@ export async function setSportsSponsorPlacementStatus(
   const sponsorStatus = Array.isArray(sponsorJoin) ? sponsorJoin[0]?.status : sponsorJoin?.status;
   if (status === 'approved' && sponsorStatus !== 'approved') {
     throw new Error('Approve the sponsor before approving a placement.');
+  }
+
+  // Founding football inventory must never go live from an unpaid draft.
+  // Approval is tied to the existing versioned agreement and Stripe-confirmed
+  // payment state; an inquiry, prospect or draft invoice alone is insufficient.
+  if (status === 'approved' && isFootballSponsorSurface(String(existing.surface_path))) {
+    const sourceInquiryId = Array.isArray(sponsorJoin)
+      ? sponsorJoin[0]?.source_inquiry_id : sponsorJoin?.source_inquiry_id;
+    if (!sourceInquiryId) throw new Error('Link the paid advertiser inquiry to this football sponsor before approval.');
+    const { data: inquiry, error: inquiryError } = await client
+      .from('texasdefined_partner_inquiries')
+      .select('advertiser_agreement_id')
+      .eq('id', sourceInquiryId).maybeSingle();
+    if (inquiryError || !inquiry?.advertiser_agreement_id) {
+      throw new Error('An accepted advertiser agreement is required before football placement approval.');
+    }
+    const { data: agreement, error: agreementError } = await client
+      .from('texasdefined_advertiser_agreements')
+      .select('status,payment_status')
+      .eq('id', inquiry.advertiser_agreement_id).maybeSingle();
+    if (agreementError || agreement?.status !== 'accepted' || agreement?.payment_status !== 'paid') {
+      throw new Error('Football sponsorship placement requires an accepted agreement and confirmed payment.');
+    }
   }
 
   const update: Record<string, unknown> = {
