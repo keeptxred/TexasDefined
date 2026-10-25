@@ -22,11 +22,17 @@ import type {
  * shortcut. Traffic evidence should be reviewed before it is changed.
  */
 export const SPORTS_SPONSOR_OUTREACH_HOLD = true;
+// Scoped pilot from October 23 Google Search football traffic: approved team/district placements only.
+// The independent sports venue launch hold remains active.
+export const FOOTBALL_SPONSORSHIP_LAUNCH_ENABLED = true;
+function isFootballSponsorSurface(path: string) {
+  return /^\/texas-high-school-football-(?:teams|districts)\/[a-z0-9-]+$/.test(path);
+}
 export const SPORTS_SPONSOR_OUTREACH_HOLD_REASON =
   'Sports sponsorship outreach is on hold until TexasDefined has sufficient real sports-page traffic to support credible sponsor conversations.';
 
 function assertSponsorLaunchReady() {
-  if (SPORTS_SPONSOR_OUTREACH_HOLD) throw new Error(SPORTS_SPONSOR_OUTREACH_HOLD_REASON);
+  if (SPORTS_SPONSOR_OUTREACH_HOLD && !FOOTBALL_SPONSORSHIP_LAUNCH_ENABLED) throw new Error(SPORTS_SPONSOR_OUTREACH_HOLD_REASON);
 }
 
 function assertHttpsUrl(value: string, label: string) {
@@ -68,7 +74,11 @@ function toPublicPlacement(row: Record<string, unknown>): PublicSportsSponsorPla
 }
 
 export async function loadActiveSportsSponsorPlacement(surfacePath: string): Promise<PublicSportsSponsorPlacement | null> {
-  if (SPORTS_SPONSOR_OUTREACH_HOLD) return null;
+  if (!isFootballSponsorSurface(surfacePath)) {
+    if (SPORTS_SPONSOR_OUTREACH_HOLD) return null;
+  } else if (!FOOTBALL_SPONSORSHIP_LAUNCH_ENABLED) {
+    return null;
+  }
 
   const client = supabaseAdmin as any;
   const now = new Date().toISOString();
@@ -266,11 +276,14 @@ export async function setSportsSponsorPlacementStatus(
   const client = supabaseAdmin as any;
   const { data: existing, error: existingError } = await client
     .from('texasdefined_sports_sponsor_placements')
-    .select('id,sponsor_id,approved_at,texasdefined_sports_sponsors!inner(status)')
+    .select('id,sponsor_id,surface_path,approved_at,texasdefined_sports_sponsors!inner(status)')
     .eq('id', placementId)
     .maybeSingle();
   if (existingError) throw new Error(`Sports sponsor placement could not be checked: ${existingError.message}`);
   if (!existing?.id) throw new Error('Sports sponsor placement was not found.');
+  if (status === 'approved' && SPORTS_SPONSOR_OUTREACH_HOLD && !isFootballSponsorSurface(String(existing.surface_path))) {
+    throw new Error(SPORTS_SPONSOR_OUTREACH_HOLD_REASON);
+  }
 
   const sponsorJoin = existing.texasdefined_sports_sponsors;
   const sponsorStatus = Array.isArray(sponsorJoin) ? sponsorJoin[0]?.status : sponsorJoin?.status;
