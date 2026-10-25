@@ -237,6 +237,235 @@ const BATCH008_EDITORIAL: Record<string, FootballProgramEditorial> = {
       { question: 'Has Buda Johnson won a football state title?', answer: "No. Dave Campbell's program history lists no state titles or title-game appearances; the 2024 team reached the regional semifinals." },
       { question: 'What was the first Buda Bowl?', answer: 'Hays and Johnson met in football for the first time on September 25, 2026. Hays Free Press called the District 26 opener the inaugural Buda Bowl; Hays won 41-28.' }
     ]
+  },
+  buffalo: {
+    slug: 'buffalo',
+    intro: "Buffalo High School's Bison are a Leon County Class 3A Division II program in District 11. The 2026 team opened 5-1, then lost 27-14 at Teague to sit 5-2 through October 16. The October 23 Mildred game has multiple schedule listings but no trustworthy final in the sources reviewed on October 25, so TexasDefined leaves that outcome unresolved instead of manufacturing a score.",
+    theme: { accentHex: '#552583', label: 'Original TexasDefined purple editorial treatment inspired by Buffalo Athletics branding; not a copied school logo or seal.' },
+    seo: {
+      title: 'Buffalo Bison Football | 2026 Scores, Trent Jones & District 11 Guide',
+      description: 'Buffalo Bison football: 2026 District 11-3A Division II results, Trent Jones athletics leadership, Leon County context and current schedule-source cautions.'
+    },
+    coach: {
+      name: 'Trent Jones',
+      title: 'Athletics director; current Buffalo football staff attribution',
+      sourceUrl: 'https://bjh.buffaloisd.net/438865_2',
+      sourceLabel: 'Buffalo ISD athletics page identifies Trent Jones as Athletics Director; Buffalo Athletics contact uses his district email and current football program link',
+      verifiedAt: '2026-10-25'
+    },
+    campus: {
+      address: '1724 N Buffalo Avenue, Buffalo, TX 75831',
+      phone: '903-322-2473',
+      sourceUrl: 'https://bhs.buffaloisd.net/',
+      sourceLabel: 'Buffalo High School official campus homepage',
+      verifiedAt: '2026-10-25'
+    },
+    schedule: {
+      label: 'Buffalo ISD football and current 2026 result sources',
+      sourceUrl: 'https://www.buffaloisd.net/football',
+      sourceLabel: 'Buffalo ISD official football hub, cross-checked with UIL-partner and statewide score sources',
+      verifiedAt: '2026-10-25',
+      officialScheduleUrl: 'https://www.buffaloisd.net/football'
+    },
+    season: {
+      record: '5-2 through October 16, 2026; October 23 Mildred final not independently verified at this checkpoint',
+      verifiedAt: '2026-10-25',
+      sourceUrl: 'https://www.maxpreps.com/tx/buffalo/buffalo-bison/football/schedule/',
+      sourceLabel: 'MaxPreps named results through Rice, High School On SI Teague final and Pigskin Prep district ledger; Mildred outcome intentionally left unresolved',
+      latestResultSourceUrl: 'https://www.si.com/high-school/texas/texas-high-school-football-final-scores-results-october-16-01m53bh2k5w8',
+      games: [
+        { date: '2026-08-28', opponent: 'Iola', site: 'Away', result: 'W 35-0' },
+        { date: '2026-09-04', opponent: 'Leon', site: 'Home', result: 'W 35-19' },
+        { date: '2026-09-11', opponent: 'Anderson-Shiro', site: 'Home', result: 'W 28-0' },
+        { date: '2026-09-18', opponent: 'Thrall', site: 'Away', result: 'L 28-38' },
+        { date: '2026-09-25', opponent: 'Warren', site: 'Away', result: 'W 59-19' },
+        { date: '2026-10-09', opponent: 'Rice', site: 'Home', district: true, result: 'W 56-14' },
+        { date: '2026-10-16', opponent: 'Teague', site: 'Away', district: true, result: 'L 14-27' },
+        { date: '2026-10-23', opponent: 'Mildred', site: 'Home', district: true },
+        { date: '2026-10-30', opponent: 'Elkhart', site: 'Away', district: true, kickoff: '7:00 PM' },
+        { date: '2026-11-06', opponent: 'Blooming Grove', site: 'Home', district: true, kickoff: '7:00 PM' }
+      ]
+    },
+    development: {
+      title: 'A 5-0 defensive start before District 11 tightened',
+      body: 'Buffalo opened 2026 with shutouts of Iola and Anderson-Shiro and reached 5-1 after a 56-14 district win over Rice. Teague then beat Buffalo 27-14 on October 16. The October 23 Mildred matchup appears on MaxPreps, statewide schedules and district schedule pages, but the sources reviewed on October 25 do not supply a reliable final, so the page does not infer one.',
+      sourceUrl: 'https://www.maxpreps.com/tx/buffalo/buffalo-bison/football/schedule/',
+      sourceLabel: 'MaxPreps current schedule, High School On SI Oct. 16 finals and Pigskin Prep District 11 ledger',
+      verifiedAt: '2026-10-25'
+    },
+    milestones: [
+      { date: 'August 28, 2026', title: 'Buffalo opens with a 35-0 shutout at Iola', body: 'The season began with a road shutout, followed two weeks later by another shutout against Anderson-Shiro.', sourceUrl: 'https://www.maxpreps.com/tx/buffalo/buffalo-bison/football/schedule/', sourceLabel: 'MaxPreps Buffalo 2026 schedule' },
+      { date: 'October 9, 2026', title: 'Bison open district play with 56-14 over Rice', body: 'The Rice win moved Buffalo to 5-1 and 1-0 in District 11.', sourceUrl: 'https://www.maxpreps.com/tx/buffalo/buffalo-bison/football/schedule/', sourceLabel: 'MaxPreps Buffalo schedule' },
+      { date: 'October 16, 2026', title: 'Teague hands Buffalo a 27-14 district loss', body: 'Statewide final-score reporting and the district ledger agree on the 27-14 Teague final.', sourceUrl: 'https://www.si.com/high-school/texas/texas-high-school-football-final-scores-results-october-16-01m53bh2k5w8', sourceLabel: 'High School On SI statewide Oct. 16 finals' }
+    ],
+    overview: [
+      'Buffalo High School is in Buffalo, Leon County, and its official site uses the Bison identity. Buffalo Athletics likewise brands the program as Bison Athletics.',
+      'Buffalo ISD identifies Trent Jones as athletics director and publishes a dedicated football hub. The page does not overstate that athletics-director title into a school-certified head-coach title where the first-party page does not explicitly do so.',
+      'UIL places Buffalo in Class 3A Division II District 11 for 2026-28. The current record is a dated source snapshot, not a final-season record.',
+      'The October 23 Mildred game is deliberately shown without a result until a reliable final can be tied to the matchup. A scheduled game is not evidence of an outcome.'
+    ],
+    faq: [
+      { question: 'What district is Buffalo football in for 2026?', answer: 'UIL places Buffalo in Class 3A Division II District 11 for the 2026-28 alignment cycle.' },
+      { question: 'What is Buffalo football record through October 16, 2026?', answer: 'Buffalo is 5-2 through the verified October 16 loss at Teague. The October 23 Mildred result remains unresolved in the sources reviewed October 25.' },
+      { question: 'Who leads Buffalo ISD athletics?', answer: 'Buffalo ISD identifies Trent Jones as Athletics Director. TexasDefined does not convert that title into a stronger first-party head-coach claim without a source that says so explicitly.' },
+      { question: 'Why is there no Mildred score on this page yet?', answer: 'The matchup is verified on multiple schedules, but the sources reviewed on October 25 did not provide a reliable final. TexasDefined does not guess missing scores.' }
+    ]
+  },
+  bullard: {
+    slug: 'bullard',
+    intro: "Bullard High School's Panthers compete in UIL Class 4A Division I District 8. Bullard ISD named longtime Panther assistant Colton Bradford head coach in 2023, and the current 2026 roster still lists Bradford. The Panthers are 1-7 through the October 23 loss at Henderson, with Jacksonville and Pine Tree remaining.",
+    theme: { accentHex: '#B3202A', label: 'Original TexasDefined red editorial accent reflecting Bullard High fight-song red/white/blue identity; no district logo reproduced.' },
+    seo: {
+      title: 'Bullard Panthers Football | 2026 Scores, Colton Bradford & District 8',
+      description: 'Bullard Panthers football: Colton Bradford, 2026 District 8-4A Division I results, Panther identity, Henderson final and Bullard ISD sources.'
+    },
+    coach: {
+      name: 'Colton Bradford',
+      title: 'Head football coach',
+      sourceUrl: 'https://www.bullardisd.net/departments/communicationspr/news/news-details/~board/district-news/post/colton-bradford-named-head-football-coach',
+      sourceLabel: 'Bullard ISD official April 2023 appointment; current 2026 MaxPreps roster still lists C. Bradford as head coach',
+      verifiedAt: '2026-10-25'
+    },
+    campus: {
+      address: '1426 S Houston St, Bullard, TX 75757',
+      phone: '903-894-3272',
+      sourceUrl: 'https://bhs.bullardisd.net/',
+      sourceLabel: 'Bullard High School official campus site',
+      verifiedAt: '2026-10-25'
+    },
+    schedule: {
+      label: 'Bullard 2026 varsity football schedule and current results',
+      sourceUrl: 'https://www.maxpreps.com/tx/bullard/bullard-panthers/football/schedule/',
+      sourceLabel: 'UIL-partner current schedule, with Bullard ISD coaching and school identity sourced first-party',
+      verifiedAt: '2026-10-25',
+      officialScheduleUrl: 'https://www.maxpreps.com/tx/bullard/bullard-panthers/football/schedule/'
+    },
+    season: {
+      record: '1-7 overall, 0-5 district through October 23, 2026',
+      verifiedAt: '2026-10-25',
+      sourceUrl: 'https://www.maxpreps.com/tx/bullard/bullard-panthers/football/schedule/',
+      sourceLabel: 'MaxPreps schedule updated Oct. 24; Henderson schedule independently shows the 59-28 Oct. 23 final',
+      latestResultSourceUrl: 'https://www.maxpreps.com/tx/henderson/henderson-lions/football/schedule/',
+      games: [
+        { date: '2026-08-28', opponent: 'Mabank', site: 'Home', result: 'W 63-21' },
+        { date: '2026-09-04', opponent: 'Caddo Mills', site: 'Away', result: 'L 21-36' },
+        { date: '2026-09-11', opponent: 'Ford', site: 'Home', result: 'L 19-20' },
+        { date: '2026-09-18', opponent: 'Kilgore', site: 'Away', district: true, result: 'L 6-40' },
+        { date: '2026-09-25', opponent: 'Palestine', site: 'Home', district: true, result: 'L 21-35' },
+        { date: '2026-10-02', opponent: 'Lindale', site: 'Away', district: true, result: 'L 28-55' },
+        { date: '2026-10-16', opponent: 'Chapel Hill', site: 'Home', district: true, result: 'L 35-55' },
+        { date: '2026-10-23', opponent: 'Henderson', site: 'Away', district: true, result: 'L 28-59' },
+        { date: '2026-10-30', opponent: 'Jacksonville', site: 'Away', district: true, kickoff: '7:30 PM' },
+        { date: '2026-11-06', opponent: 'Pine Tree', site: 'Home', district: true, kickoff: '7:30 PM' }
+      ]
+    },
+    development: {
+      title: 'Bradford era continues through a difficult District 8 schedule',
+      body: 'Bullard ISD promoted Colton Bradford from defensive coordinator to head coach in April 2023 after Scott Callaway stepped away from coaching. The 2026 Panthers opened with a 63-21 win over Mabank but entered late October on a seven-game losing streak against a schedule that includes Kilgore, Lindale, Chapel Hill and Henderson. The current page reports that record plainly rather than presenting stale early-season standings.',
+      sourceUrl: 'https://www.bullardisd.net/departments/communicationspr/news/news-details/~board/district-news/post/colton-bradford-named-head-football-coach',
+      sourceLabel: 'Bullard ISD official Bradford appointment plus Oct. 24 current score ledger',
+      verifiedAt: '2026-10-25'
+    },
+    milestones: [
+      { date: '2018-2020', title: 'Three straight bi-district playoff appearances under the staff Bradford later led', body: 'Bullard ISD said Bradford served as defensive coordinator during a five-year period that included bi-district playoff appearances in 2018, 2019 and 2020.', sourceUrl: 'https://www.bullardisd.net/departments/communicationspr/news/news-details/~board/district-news/post/colton-bradford-named-head-football-coach', sourceLabel: 'Bullard ISD official coaching announcement' },
+      { date: 'April 25, 2023', title: 'Colton Bradford promoted to head football coach', body: 'The district promoted Bradford after Scott Callaway retired from coaching while remaining athletic director.', sourceUrl: 'https://www.bullardisd.net/departments/communicationspr/news/news-details/~board/district-news/post/colton-bradford-named-head-football-coach', sourceLabel: 'Bullard ISD' },
+      { date: 'October 23, 2026', title: 'Henderson beats Bullard 59-28', body: 'The current Bullard and Henderson schedules agree on the District 8 final, moving Bullard to 1-7 overall.', sourceUrl: 'https://www.maxpreps.com/tx/bullard/bullard-panthers/football/schedule/', sourceLabel: 'MaxPreps current Bullard schedule' }
+    ],
+    overview: [
+      'Bullard High School identifies its community as Panther Nation, and its fight song explicitly refers to the Panthers and red, white and blue.',
+      'Bullard ISD officially appointed Colton Bradford head football coach in 2023. Current 2026 roster data continues to list Bradford, so the coaching attribution is not based on an old staff archive alone.',
+      'The current UIL alignment places Bullard in 4A Division I District 8. Older third-party pages can still show Division II, so the final 2026-28 UIL alignment controls this page.',
+      'The Panthers are 1-7 through October 23. Jacksonville and Pine Tree remain future games and are not assigned outcomes in advance.',
+      'Bullard ISD publishes specific high-school traffic-flow guidance near the stadium, but that school-day traffic page is not treated as a complete football parking or accessibility policy.'
+    ],
+    faq: [
+      { question: 'Who is the Bullard football head coach?', answer: 'Colton Bradford. Bullard ISD officially promoted him to head football coach in April 2023, and the current 2026 roster still lists Bradford.' },
+      { question: 'Is Bullard 4A Division I or Division II in 2026?', answer: 'The final UIL 2026-28 football alignment places Bullard in Class 4A Division I District 8. Stale third-party labels showing Division II do not override the final UIL alignment.' },
+      { question: 'What is Bullard football record after October 23, 2026?', answer: 'Bullard is 1-7 overall and 0-5 in district after a 59-28 loss at Henderson.' },
+      { question: 'What are Bullard High School colors?', answer: 'Bullard High School fight-song text explicitly references red, white and blue. TexasDefined does not reproduce the district logo, whose external use requires district approval.' }
+    ]
+  },
+  buna: {
+    slug: 'buna',
+    intro: "Buna's Cougars have turned a pair of 1-9 seasons into a 6-3 start in 2026. Kevin Terrier is the current head coach listed for the 2026 roster. Buna beat Coldspring-Oakhurst 20-8 on October 15 and Tarkington 46-0 on October 23, moving to 2-3 in District 10-3A Division I before the Kirbyville finale.",
+    theme: { accentHex: '#1F5E3B', label: 'Original TexasDefined green editorial treatment; not a Buna ISD logo, seal or certified school color.' },
+    seo: {
+      title: 'Buna Cougars Football | 2026 Scores, Kevin Terrier & Cougar Stadium',
+      description: 'Buna Cougars football: Kevin Terrier, 2026 District 10-3A Division I results, 46-0 Tarkington win, Cougar Stadium and Buna ISD sources.'
+    },
+    coach: {
+      name: 'Kevin Terrier',
+      title: '2026 head football coach',
+      sourceUrl: 'https://www.maxpreps.com/tx/buna/buna-cougars/football/history/',
+      sourceLabel: 'MaxPreps 2026 football history identifies Kevin Terrier as head coach; current team page abbreviates him as K. Terrier',
+      verifiedAt: '2026-10-25'
+    },
+    campus: {
+      address: '711 County Road 734, Buna, TX 77612',
+      phone: '409-994-4811',
+      sourceUrl: 'https://hs.bunaisd.net/',
+      sourceLabel: 'Buna High School official campus homepage; controls over conflicting third-party 177 FM 253 address',
+      verifiedAt: '2026-10-25'
+    },
+    schedule: {
+      label: 'Buna High official calendar and current 2026 football results',
+      sourceUrl: 'https://hs.bunaisd.net/page/page_calendar?calID=133822',
+      sourceLabel: 'Buna High official calendar confirms Oct. 23 senior-night varsity game and Oct. 30 Kirbyville trip; results cross-checked with current score sources',
+      verifiedAt: '2026-10-25',
+      officialScheduleUrl: 'https://hs.bunaisd.net/page/page_calendar?calID=133822'
+    },
+    season: {
+      record: '6-3 overall, 2-3 district through October 23, 2026',
+      verifiedAt: '2026-10-25',
+      sourceUrl: 'https://www.maxpreps.com/tx/buna/buna-cougars/football/schedule/',
+      sourceLabel: 'MaxPreps results through Coldspring-Oakhurst plus High School On SI Oct. 23 final Buna 46, Tarkington 0',
+      latestResultSourceUrl: 'https://www.si.com/high-school/texas/texas-high-school-football-final-scores-results-october-23-01m5mzcsazsr',
+      games: [
+        { date: '2026-08-28', opponent: 'Kountze', site: 'Away', result: 'W 27-7' },
+        { date: '2026-09-04', opponent: 'Woodville', site: 'Home', result: 'W 29-20' },
+        { date: '2026-09-11', opponent: 'Huntington', site: 'Away', result: 'W 48-0' },
+        { date: '2026-09-18', opponent: 'South Beauregard', site: 'Home', result: 'W 37-21' },
+        { date: '2026-09-25', opponent: 'East Chambers', site: 'Home', district: true, result: 'L 7-35' },
+        { date: '2026-10-02', opponent: 'Orangefield', site: 'Away', district: true, result: 'L 7-20' },
+        { date: '2026-10-09', opponent: 'Anahuac', site: 'Home', district: true, result: 'L 40-41' },
+        { date: '2026-10-15', opponent: 'Coldspring-Oakhurst', site: 'Away', district: true, result: 'W 20-8' },
+        { date: '2026-10-23', opponent: 'Tarkington', site: 'Home', district: true, result: 'W 46-0' },
+        { date: '2026-10-30', opponent: 'Kirbyville', site: 'Away', district: true, kickoff: '7:30 PM' }
+      ]
+    },
+    venue: {
+      name: 'Cougar Stadium',
+      address: 'Buna, TX — verify current game entrance through Buna ISD',
+      sourceUrl: 'https://www.texasfootball.com/team/buna-cougars',
+      sourceLabel: "Dave Campbell's Texas Football identifies Cougar Stadium and 5,000 capacity; exact public gate/address not independently certified here",
+      verifiedAt: '2026-10-25',
+      note: 'Buna High official campus address is 711 County Road 734. A separate third-party football page uses 177 FM 253; TexasDefined does not collapse those into a claimed spectator gate.'
+    },
+    development: {
+      title: 'A six-win rebound after consecutive 1-9 seasons',
+      body: "Dave Campbell's lists Buna at 1-9 in both 2024 and 2025. The 2026 Cougars opened 4-0, lost their first three district games by scores that included a one-point 41-40 Anahuac result, then recovered with a 20-8 win at Coldspring-Oakhurst and a 46-0 senior-night shutout of Tarkington. That makes the current season a substantial rebound without pretending it is complete before the Kirbyville game.",
+      sourceUrl: 'https://www.texasfootball.com/team/buna-cougars',
+      sourceLabel: "Dave Campbell's historical seasons and current schedule, plus Oct. 23 statewide final",
+      verifiedAt: '2026-10-25'
+    },
+    milestones: [
+      { date: '2018', title: 'Buna posts an 8-3 season', body: "Dave Campbell's historical records list the 2018 Cougars at 8-3, one of the stronger recent seasons before the 2024-25 downturn.", sourceUrl: 'https://www.texasfootball.com/team/buna-cougars', sourceLabel: "Dave Campbell's Buna history" },
+      { date: '2024-2025', title: 'Back-to-back 1-9 seasons', body: 'The program entered 2026 after consecutive 1-9 finishes, making the current rebound materially different from the prior two years.', sourceUrl: 'https://www.texasfootball.com/team/buna-cougars', sourceLabel: "Dave Campbell's past seasons" },
+      { date: 'October 23, 2026', title: 'Buna shuts out Tarkington 46-0', body: 'The senior-night district win moved Buna to 6-3 overall and gave the Cougars a second straight district victory.', sourceUrl: 'https://www.si.com/high-school/texas/texas-high-school-football-final-scores-results-october-23-01m5mzcsazsr', sourceLabel: 'High School On SI statewide Oct. 23 finals' }
+    ],
+    overview: [
+      'Buna High School is a Buna ISD campus in Jasper County. The school homepage uses the Cougars identity and publishes the official academic-campus address as 711 County Road 734.',
+      'Kevin Terrier is the full current head-coach name shown in MaxPreps 2026 history; the current team page abbreviates the same coach as K. Terrier.',
+      "Dave Campbell's credits Buna with 18 football playoff appearances but no state title or state-final appearance. The 2018 8-3 season supplies recent history without inventing a championship claim.",
+      'The 2026 Cougars are 6-3 through the October 23 Tarkington shutout, with Kirbyville remaining. No future result is pre-filled.',
+      'Cougar Stadium is sourced by Dave Campbell’s, but the page does not claim that the academic campus address or the separate third-party FM 253 address is the exact spectator entrance.'
+    ],
+    faq: [
+      { question: 'Who coaches Buna football in 2026?', answer: 'Kevin Terrier. MaxPreps 2026 history gives the full name; the current team page abbreviates him as K. Terrier.' },
+      { question: 'What is Buna football record after October 23, 2026?', answer: 'Buna is 6-3 overall and 2-3 in district after a 46-0 win over Tarkington.' },
+      { question: 'Has Buna won a football state championship?', answer: "No. Dave Campbell's lists 18 playoff appearances, zero state titles and zero title-game appearances." },
+      { question: 'Why does TexasDefined use 711 County Road 734 for Buna High?', answer: 'That is the address on the official Buna High School site. A third-party football page lists 177 FM 253, so TexasDefined keeps the official campus address and does not claim either address is a verified spectator gate.' }
+    ]
   }
 };
 
