@@ -33,6 +33,9 @@ const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([
   'caldwell',
   'callisburg',
   'calvert',
+  'cameron-yoe',
+  'campbell',
+  'canadian',
   'bruceville-eddy',
   'bruni',
   'brackettville-brackett',
@@ -164,6 +167,9 @@ function Page() {
     'caldwell': 'burleson', // Caldwell High's CR 307 campus is in Burleson County.
     'callisburg': 'cooke', // Callisburg High's Gainesville-area campus is in Cooke County.
     'calvert': 'robertson', // Calvert ISD and Calvert High are in Robertson County.
+    'cameron-yoe': 'milam', // C.H. Yoe High official Cameron campus is in Milam County.
+    'campbell': 'hunt', // Campbell ISD is in Hunt County.
+    'canadian': 'hemphill', // Canadian High is in Canadian, Hemphill County.
     'abbott': 'hill',
     'abernathy': 'hale',
     'abilene': 'taylor',
