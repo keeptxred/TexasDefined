@@ -1664,6 +1664,140 @@ const BATCH008_EDITORIAL: Record<string, FootballProgramEditorial> = {
       { question: 'What is Canadian football record after October 23, 2026?', answer: 'Canadian is 6-3 overall and 3-0 in district after a 49-7 win at Childress.' },
       { question: 'Where does Canadian play home football?', answer: 'Current 2026 coverage identifies Chris Koetting Field at Wildcats Stadium.' }
     ]
+  },
+  canton: {
+    slug: 'canton',
+    intro: "Canton's Eagles are 8-0 after a 48-14 District 9 win over Rusk on October 23. Canton High School lists Heath Ragle as athletic director, while the current UIL-partner football page identifies him as head coach. The page keeps that source distinction explicit.",
+    theme: { accentHex: '#0B5D3B', label: 'Original TexasDefined green editorial treatment; no Canton ISD logo or school-owned photograph reproduced.' },
+    seo: { title: 'Canton Eagles Football | 2026 Scores, Heath Ragle & District 9', description: 'Canton Eagles football: 8-0 start, Heath Ragle, 2026 4A Division II District 9 results, Rusk win, Canton High campus and official schedule links.' },
+    coach: { name: 'Heath Ragle', title: 'Head football coach in current UIL-partner team data; Canton High lists him as Athletic Director', sourceUrl: 'https://hs.cantonisd.net/apps/pages/index.jsp?pREC_ID=staff&type=d&uREC_ID=91716', sourceLabel: 'Canton High football staff page plus current UIL-partner team staff', verifiedAt: '2026-10-25' },
+    campus: { address: '1110 W Hwy 243, Canton, TX 75103', sourceUrl: 'https://hs.cantonisd.net/', sourceLabel: 'Canton High School official site', verifiedAt: '2026-10-25' },
+    schedule: { label: 'Canton 2026 football schedule', sourceUrl: 'https://www.cantonisd.net/apps/pages/index.jsp?pREC_ID=1487211&type=d&uREC_ID=1271586', sourceLabel: 'Canton ISD 2026-27 athletic schedules', verifiedAt: '2026-10-25', officialScheduleUrl: 'https://www.cantonisd.net/apps/pages/index.jsp?pREC_ID=1487211&type=d&uREC_ID=1271586' },
+    season: { record: '8-0 overall, 3-0 district through October 23, 2026', verifiedAt: '2026-10-25', sourceUrl: 'https://www.maxpreps.com/tx/canton/canton-eagles/football/', sourceLabel: 'UIL-partner current team page', latestResultSourceUrl: 'https://www.maxpreps.com/tx/canton/canton-eagles/football/', games: [
+      { date: '2026-08-28', opponent: 'Jacksonville', site: 'Away', result: 'W 41-21' },
+      { date: '2026-09-04', opponent: 'Commerce', site: 'Home', result: 'W 64-14' },
+      { date: '2026-09-11', opponent: 'Caddo Mills', site: 'Away', result: 'W 48-40' },
+      { date: '2026-09-17', opponent: 'Mount Vernon', site: 'Home', result: 'W 55-0' },
+      { date: '2026-09-25', opponent: 'Wills Point', site: 'Home', result: 'W 71-0' },
+      { date: '2026-10-09', opponent: 'Van', site: 'Away', district: true, result: 'W 58-42' },
+      { date: '2026-10-16', opponent: 'Brownsboro', site: 'Away', district: true, result: 'W 55-0' },
+      { date: '2026-10-23', opponent: 'Rusk', site: 'Home', district: true, result: 'W 48-14' },
+      { date: '2026-10-30', opponent: 'Madisonville', site: 'Away', district: true, kickoff: '7:30 PM' }
+    ] },
+    development: { title: 'An unbeaten 2026 start with source-qualified coaching attribution', body: 'Canton opened 8-0 and 3-0 in district through the Rusk game. Canton High first-party pages list Heath Ragle as athletic director; the current UIL-partner football page identifies him as head coach. TexasDefined preserves both source roles instead of upgrading the first-party title.', sourceUrl: 'https://hs.cantonisd.net/apps/pages/index.jsp?pREC_ID=staff&type=d&uREC_ID=91716', sourceLabel: 'Canton High football staff page and current UIL-partner football record', verifiedAt: '2026-10-25' },
+    milestones: [
+      { date: '2025', title: 'Canton posts a 10-2 season', body: 'Current program history lists a 10-2 2025 finish.', sourceUrl: 'https://www.maxpreps.com/tx/canton/canton-eagles/football/history/', sourceLabel: 'UIL-partner Canton history' },
+      { date: 'October 23, 2026', title: 'Canton reaches 8-0', body: 'The Eagles beat Rusk 48-14 to remain unbeaten.', sourceUrl: 'https://www.maxpreps.com/tx/canton/canton-eagles/football/', sourceLabel: 'UIL-partner Canton team page' }
+    ],
+    overview: ['Canton competes in UIL 4A Division II District 9 for 2026-28.', 'Canton High School is in Van Zandt County at 1110 W Hwy 243.', 'The Eagles are 8-0 through October 23, 2026.', 'Canton ISD publishes 2026-27 athletic schedules and event-ticket links.'],
+    faq: [
+      { question: 'Who coaches Canton football in 2026?', answer: 'Current UIL-partner team data identifies Heath Ragle as head coach; Canton High first-party pages list him as Athletic Director.' },
+      { question: 'What is Canton football record after October 23, 2026?', answer: '8-0 overall and 3-0 in district after a 48-14 win over Rusk.' },
+      { question: 'What district is Canton in?', answer: 'UIL 4A Division II District 9 for the 2026-28 alignment cycle.' },
+      { question: 'Where can fans find the official schedule?', answer: 'Canton ISD publishes its 2026-27 athletic schedules and event ticket links on the district athletics schedule page.' }
+    ]
+  },
+  canutillo: {
+    slug: 'canutillo',
+    intro: "Canutillo's Eagles are 6-2 after a weather-postponed district game against Chapin was completed October 24 as a 24-20 loss. Canutillo ISD identifies Scott Brooks as the long-tenured head football coach and says 2026 is his final season before retirement.",
+    theme: { accentHex: '#F47A20', label: 'Original TexasDefined orange-and-blue editorial treatment; no Canutillo ISD logo or school-owned photograph reproduced.' },
+    seo: { title: 'Canutillo Eagles Football | 2026 Scores & Scott Brooks Final Season', description: 'Canutillo Eagles football: Scott Brooks final season, 2026 5A Division II District 1 scores, Chapin weather-postponed final and official CISD schedule sources.' },
+    coach: { name: 'Scott Brooks', title: 'Head football coach', sourceUrl: 'https://www.canutillo-isd.org/post-details/~board/superintendent/post/dr-borregos-canutillo-pop-vol-ii-edition-6', sourceLabel: 'Canutillo ISD August 2026 superintendent update identifies Brooks as coach and 2026 as his final season', verifiedAt: '2026-10-25' },
+    campus: { address: '6675 S. Desert Blvd., El Paso, TX 79932', sourceUrl: 'https://www.canutillo-isd.org/parents/contact-us', sourceLabel: 'Canutillo ISD official contact directory', verifiedAt: '2026-10-25' },
+    schedule: { label: 'Canutillo varsity football schedule', sourceUrl: 'https://www.canutillo-isd.org/departments/athletics/high-school-schedules', sourceLabel: 'Canutillo ISD high-school schedules', verifiedAt: '2026-10-25', officialScheduleUrl: 'https://www.canutillo-isd.org/departments/athletics/high-school-schedules' },
+    season: { record: '6-2 overall, 2-1 district through October 24, 2026', verifiedAt: '2026-10-25', sourceUrl: 'https://www.maxpreps.com/tx/canutillo/canutillo-eagles/football/schedule/', sourceLabel: 'UIL-partner schedule plus October 24 statewide final', latestResultSourceUrl: 'https://www.houstonchronicle.com/sports/high-school/football/article/texas-high-school-football-scores-saturday-22492945.php', games: [
+      { date: '2026-08-27', opponent: 'Americas', site: 'Home', result: 'W 28-20' },
+      { date: '2026-09-04', opponent: 'Eastwood', site: 'Away', result: 'L 17-49' },
+      { date: '2026-09-11', opponent: 'Parkland', site: 'Away', result: 'W 49-14' },
+      { date: '2026-09-18', opponent: 'Horizon', site: 'Home', result: 'W 63-14' },
+      { date: '2026-09-25', opponent: 'Hanks', site: 'Away', result: 'W 38-35' },
+      { date: '2026-10-09', opponent: 'Del Valle', site: 'Home', district: true, result: 'W 28-12' },
+      { date: '2026-10-15', opponent: 'Jefferson', site: 'Away', district: true, result: 'W 54-0' },
+      { date: '2026-10-24', opponent: 'Chapin', site: 'Home', district: true, result: 'L 20-24' },
+      { date: '2026-10-30', opponent: 'Burges', site: 'Home', district: true, kickoff: '7:00 PM' },
+      { date: '2026-11-06', opponent: 'El Paso', site: 'Away', district: true, kickoff: '7:00 PM' }
+    ] },
+    venue: { name: 'Coach Julius & Irene Lowenberg Eagles Stadium', address: 'Canutillo, TX', sourceUrl: 'https://www.canutillo-isd.org/post-details/~board/redesign/post/chs-homecoming-2026', sourceLabel: 'Canutillo ISD 2026 homecoming announcement', verifiedAt: '2026-10-25', note: 'Use current CISD event information for parking, accessibility and ticket inventory.' },
+    development: { title: 'Scott Brooks final season and a weather-shifted district result', body: 'Canutillo ISD announced 2026 as Scott Brooks final season after a 26-year head-coaching tenure. The October 23 Chapin game was postponed by severe weather and completed October 24, when Chapin won 24-20. The page dates the final to the day it was actually completed.', sourceUrl: 'https://www.canutillo-isd.org/post-details/~board/superintendent/post/dr-borregos-canutillo-pop-vol-ii-edition-6', sourceLabel: 'Canutillo ISD coach update plus October 24 statewide final', verifiedAt: '2026-10-25' },
+    milestones: [
+      { date: '2014', title: 'Canutillo reaches the state semifinals', body: 'Canutillo ISD cites a state-semifinal appearance during Brooks long tenure.', sourceUrl: 'https://www.canutillo-isd.org/post-details/~board/redesign/post/coach-brooks-among-top-5-longest-tenured-head-football-coaches-in-texas', sourceLabel: 'Canutillo ISD coach profile' },
+      { date: '2026', title: 'Brooks final season', body: 'Canutillo ISD says 2026 is Scott Brooks final season before retirement.', sourceUrl: 'https://www.canutillo-isd.org/post-details/~board/superintendent/post/dr-borregos-canutillo-pop-vol-ii-edition-6', sourceLabel: 'Canutillo ISD superintendent update' }
+    ],
+    overview: ['Canutillo competes in UIL 5A Division II District 1.', 'Scott Brooks is in his final season as head coach in 2026.', 'Canutillo ISD publishes varsity football schedules and identifies the homecoming venue as Coach Julius & Irene Lowenberg Eagles Stadium.', 'The Chapin district game was postponed by weather and completed October 24 as a 24-20 Canutillo loss.'],
+    faq: [
+      { question: 'Who coaches Canutillo football in 2026?', answer: 'Scott Brooks. Canutillo ISD says 2026 is his final season before retirement.' },
+      { question: 'What happened to the Canutillo-Chapin game?', answer: 'Severe weather postponed the October 23 game to October 24; Chapin then won 24-20.' },
+      { question: 'Where does Canutillo play home football?', answer: 'Canutillo ISD identifies Coach Julius & Irene Lowenberg Eagles Stadium.' },
+      { question: 'Where is the official Canutillo football schedule?', answer: 'Canutillo ISD publishes varsity football schedules on its high-school schedules page.' }
+    ]
+  },
+  canyon: {
+    slug: 'canyon',
+    intro: "Canyon's Eagles are 5-3 after a 24-21 rivalry loss to Randall on October 23. Canyon High's current football page and staff directory identify Matt Lovorn as head football coach; a separate stale welcome page still says Todd Winfrey, so TexasDefined follows the current football-specific sources and records the discrepancy.",
+    theme: { accentHex: '#5A2D82', label: 'Original TexasDefined purple Eagle editorial treatment; no Canyon ISD logo or school-owned photograph reproduced.' },
+    seo: { title: 'Canyon Eagles Football | 2026 Scores, Matt Lovorn & District 2', description: 'Canyon Eagles football: Matt Lovorn, 2026 4A Division I District 2 results, Randall rivalry final, official Canyon ISD schedule and current staff sources.' },
+    coach: { name: 'Matt Lovorn', title: 'Head football coach', sourceUrl: 'https://chs.canyonisd.net/football', sourceLabel: 'Canyon High current football page and staff directory; older welcome page still lists Todd Winfrey and is treated as stale', verifiedAt: '2026-10-25' },
+    campus: { address: '1701 23rd Street, Canyon, TX 79015', sourceUrl: 'https://chs.canyonisd.net/contact-us', sourceLabel: 'Canyon High official contact page', verifiedAt: '2026-10-25' },
+    schedule: { label: 'Canyon 2026 football schedule', sourceUrl: 'https://chs.canyonisd.net/football', sourceLabel: 'Canyon High official football page', verifiedAt: '2026-10-25', officialScheduleUrl: 'https://chs.canyonisd.net/football' },
+    season: { record: '5-3 overall, 1-2 district through October 23, 2026', verifiedAt: '2026-10-25', sourceUrl: 'https://www.presspass.news/2026/10/24/randall-raiders-edge-canyon-to-win-goat-battle-for-third-straight-year-in-district-2-4a-division-i-showdown/', sourceLabel: 'Press Pass Sports rivalry final plus current UIL-partner schedule', latestResultSourceUrl: 'https://www.presspass.news/2026/10/24/randall-raiders-edge-canyon-to-win-goat-battle-for-third-straight-year-in-district-2-4a-division-i-showdown/', games: [
+      { date: '2026-08-28', opponent: 'Snyder', site: 'Away', result: 'W 59-13' },
+      { date: '2026-09-04', opponent: 'Tascosa', site: 'Home', result: 'L 27-28' },
+      { date: '2026-09-10', opponent: 'Caprock', site: 'Away', result: 'W 37-7' },
+      { date: '2026-09-17', opponent: 'Lubbock-Cooper', site: 'Home', result: 'W 49-24' },
+      { date: '2026-09-24', opponent: 'Sanger', site: 'Neutral', result: 'W 38-28' },
+      { date: '2026-10-09', opponent: 'Hereford', site: 'Away', district: true, result: 'W 52-7' },
+      { date: '2026-10-16', opponent: 'West Plains', site: 'Away', district: true, result: 'L 16-18' },
+      { date: '2026-10-23', opponent: 'Canyon Randall', site: 'Home', district: true, result: 'L 21-24' },
+      { date: '2026-10-30', opponent: 'Pampa', site: 'Away', district: true, kickoff: '7:00 PM' },
+      { date: '2026-11-06', opponent: 'Dumas', site: 'Home', district: true, kickoff: '7:00 PM' }
+    ] },
+    venue: { name: 'Happy State Bank Stadium', address: 'Canyon, TX', sourceUrl: 'https://www.presspass.news/2026/10/24/randall-raiders-edge-canyon-to-win-goat-battle-for-third-straight-year-in-district-2-4a-division-i-showdown/', sourceLabel: 'Press Pass Sports current rivalry coverage', verifiedAt: '2026-10-25', note: 'Use Canyon ISD event information for current ticketing, parking and accessibility.' },
+    development: { title: 'Current coach source corrected against a stale campus page', body: 'Canyon High current football and staff pages identify Matt Lovorn as head football coach. An older campus welcome page still lists Todd Winfrey. TexasDefined uses the football-specific current source and keeps the stale-page conflict documented rather than silently merging the names.', sourceUrl: 'https://chs.canyonisd.net/football', sourceLabel: 'Canyon High current football page and staff directory', verifiedAt: '2026-10-25' },
+    milestones: [
+      { date: '2026', title: 'Matt Lovorn leads the current Eagles', body: 'Canyon High current football and staff pages identify Lovorn as head coach.', sourceUrl: 'https://chs.canyonisd.net/football', sourceLabel: 'Canyon High official football page' },
+      { date: 'October 23, 2026', title: 'Randall edges Canyon 24-21', body: 'The District 2 rivalry was decided late at Happy State Bank Stadium.', sourceUrl: 'https://www.presspass.news/2026/10/24/randall-raiders-edge-canyon-to-win-goat-battle-for-third-straight-year-in-district-2-4a-division-i-showdown/', sourceLabel: 'Press Pass Sports game report' }
+    ],
+    overview: ['Canyon competes in UIL 4A Division I District 2.', 'Canyon High current football sources identify Matt Lovorn as head coach.', 'The Eagles are 5-3 and 1-2 in district through October 23.', 'Canyon and Randall share Happy State Bank Stadium for the rivalry context documented in current coverage.'],
+    faq: [
+      { question: 'Who coaches Canyon football in 2026?', answer: 'Matt Lovorn, according to Canyon High current football page and staff directory. An older welcome page still lists Todd Winfrey and is treated as stale.' },
+      { question: 'What was the Canyon-Randall score?', answer: 'Randall beat Canyon 24-21 on October 23, 2026.' },
+      { question: 'What district is Canyon in?', answer: 'UIL 4A Division I District 2.' },
+      { question: 'Where is the official Canyon football schedule?', answer: 'Canyon High publishes the 2026 football schedule on its official football page.' }
+    ]
+  },
+  'canyon-randall': {
+    slug: 'canyon-randall',
+    intro: "Randall's Raiders are 7-1 after beating rival Canyon 24-21 on October 23. Randall High officially identifies Dan Sherwood as head football coach, and Canyon ISD publishes the current football schedule and Ticket Spicket event access.",
+    theme: { accentHex: '#6B7280', label: 'Original TexasDefined silver-and-black Raider editorial treatment; no Randall High logo or school-owned photograph reproduced.' },
+    seo: { title: 'Randall Raiders Football | 2026 Scores, Dan Sherwood & District 2', description: 'Randall Raiders football: Dan Sherwood, 7-1 start, 2026 4A Division I District 2 results, Canyon rivalry win and official Randall High schedule sources.' },
+    coach: { name: 'Dan Sherwood', title: 'Head football coach', sourceUrl: 'https://rhs.canyonisd.net/86735?personID=401086', sourceLabel: 'Randall High official staff directory', verifiedAt: '2026-10-25' },
+    campus: { address: '9201 Bell Street, Amarillo, TX 79118', sourceUrl: 'https://rhs.canyonisd.net/campus-information', sourceLabel: 'Randall High official campus information', verifiedAt: '2026-10-25' },
+    schedule: { label: 'Randall 2026 football schedule', sourceUrl: 'https://rhs.canyonisd.net/football', sourceLabel: 'Randall High official football page', verifiedAt: '2026-10-25', officialScheduleUrl: 'https://rhs.canyonisd.net/football' },
+    season: { record: '7-1 overall, 2-1 district through October 23, 2026', verifiedAt: '2026-10-25', sourceUrl: 'https://www.presspass.news/2026/10/25/5-takeaways-from-week-9-across-the-texas-panhandle-and-south-plains/', sourceLabel: 'Press Pass Sports Week 9 standings plus current UIL-partner schedule', latestResultSourceUrl: 'https://www.presspass.news/2026/10/24/randall-raiders-edge-canyon-to-win-goat-battle-for-third-straight-year-in-district-2-4a-division-i-showdown/', games: [
+      { date: '2026-08-28', opponent: 'Roswell', site: 'Home', result: 'W 50-37' },
+      { date: '2026-09-04', opponent: 'Memorial', site: 'Away', result: 'W 35-34 (OT)' },
+      { date: '2026-09-11', opponent: 'Borger', site: 'Away', result: 'W 49-0' },
+      { date: '2026-09-18', opponent: 'Canadian', site: 'Home', result: 'W 35-28 (OT)' },
+      { date: '2026-09-24', opponent: 'Waco University', site: 'Neutral', result: 'W 36-7' },
+      { date: '2026-10-09', opponent: 'Pampa', site: 'Away', district: true, result: 'W 61-17' },
+      { date: '2026-10-15', opponent: 'Dumas', site: 'Home', district: true, result: 'L 19-28' },
+      { date: '2026-10-23', opponent: 'Canyon', site: 'Away', district: true, result: 'W 24-21' },
+      { date: '2026-10-30', opponent: 'West Plains', site: 'Home', district: true, kickoff: '7:00 PM' },
+      { date: '2026-11-06', opponent: 'Hereford', site: 'Away', district: true, kickoff: '7:00 PM' }
+    ] },
+    venue: { name: 'Happy State Bank Stadium', address: 'Canyon, TX', sourceUrl: 'https://www.tpsnsports.com/2026/06/17/2026-randall-raiders-football-schedule/', sourceLabel: 'KFDA / Texas Panhandle Sports Network 2026 Randall schedule', verifiedAt: '2026-10-25', note: 'Randall High official homepage links Ticket Spicket; current event inventory and accessibility should be checked per event.' },
+    development: { title: 'A 7-1 start and third straight rivalry win', body: 'Randall opened 7-1 and moved to 2-1 in District 2 after the 24-21 win over Canyon. Press Pass Sports reports it as Randall third straight victory in the rivalry and places the Raiders one game behind West Plains entering the October 30 meeting.', sourceUrl: 'https://www.presspass.news/2026/10/24/randall-raiders-edge-canyon-to-win-goat-battle-for-third-straight-year-in-district-2-4a-division-i-showdown/', sourceLabel: 'Press Pass Sports rivalry report', verifiedAt: '2026-10-25' },
+    milestones: [
+      { date: 'October 23, 2026', title: 'Randall beats Canyon 24-21', body: 'The Raiders retained the rivalry GOAT trophy with a late defensive stop.', sourceUrl: 'https://www.presspass.news/2026/10/24/randall-raiders-edge-canyon-to-win-goat-battle-for-third-straight-year-in-district-2-4a-division-i-showdown/', sourceLabel: 'Press Pass Sports game report' },
+      { date: '2026', title: 'Randall reaches 7-1', body: 'Week 9 standings place Randall at 7-1 overall and 2-1 in district.', sourceUrl: 'https://www.presspass.news/2026/10/25/5-takeaways-from-week-9-across-the-texas-panhandle-and-south-plains/', sourceLabel: 'Press Pass Sports Week 9 analysis' }
+    ],
+    overview: ['Randall competes in UIL 4A Division I District 2.', 'Randall High officially lists Dan Sherwood as head football coach.', 'The Raiders are 7-1 and 2-1 in district through October 23.', 'Randall High current campus is 9201 Bell Street in Amarillo; football games use district stadium facilities rather than the campus address.'],
+    faq: [
+      { question: 'Who coaches Randall football in 2026?', answer: 'Dan Sherwood, according to Randall High official staff directory.' },
+      { question: 'What was the Randall-Canyon score?', answer: 'Randall won 24-21 on October 23, 2026.' },
+      { question: 'What is Randall record after Week 9?', answer: '7-1 overall and 2-1 in district.' },
+      { question: 'Where is the official Randall football schedule?', answer: 'Randall High publishes its football schedule on the official school football page.' }
+    ]
   }
 };
 
