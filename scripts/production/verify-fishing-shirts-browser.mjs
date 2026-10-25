@@ -84,6 +84,57 @@ try {
       await context.close();
     }
   }
+
+  // A listing that loads is not enough: verify the actual shopper dropdown on
+  // *every* launch shirt, including the one reported by the user. Read-only:
+  // selecting an option never places an order or creates a cart item.
+  const fishingProductIds = [
+    "6add2977878131e6ba0c3b39", "6add29fdafea5e4b0809386a",
+    "6add29cfafea5e4b0809383b", "6add29d86437b9edf205a8bb",
+    "6add29de2f0d45364d02c4a6", "6add29e5c8a72b0cae01896a",
+  ];
+  const expectedSizes = [
+    "3XL", "2XL", "2XL", "2XL", "XL", "XL", "XL",
+    "L", "L", "L", "M", "M", "M", "S", "S", "S",
+  ];
+  for (const id of fishingProductIds) {
+    const context = await browser.newContext({ viewport: { width: 390, height: 844 } });
+    const page = await context.newPage();
+    const entry = { name: "size-order-" + id, path: "/shop/product/" + id, result: "FAIL" };
+    results.push(entry);
+    try {
+      const response = await page.goto(origin + entry.path, { waitUntil: 'domcontentloaded', timeout: 60000 });
+      assert.equal(response?.status(), 200, id + ": product page must be HTTP 200");
+      const selector = page.locator('label:has-text("Choose an option") select').first();
+      await selector.waitFor({ state: "visible", timeout: 20000 });
+      const options = await selector.locator("option").evaluateAll((nodes) => nodes.map((option) => ({
+        id: option.value,
+        name: (option.textContent || "").trim().split(/\\s+[—–]\\s+\\$/)[0],
+      })));
+      assert.equal(options.length, 16, id + ": expected all 16 enabled shirt variants");
+      const sizes = options.map((option) => option.name.split("/")[0].trim());
+      assert.deepEqual(sizes, expectedSizes, id + ": wrong largest-to-smallest ordering");
+      for (const size of [...new Set(sizes)]) {
+        const colors = options.filter((option) => option.name.split("/")[0].trim() === size)
+          .map((option) => option.name.split("/")[1]?.trim());
+        assert.deepEqual(colors, [...colors].sort((a, b) => a.localeCompare(b)), id + ": colors not alphabetically ordered in " + size);
+      }
+      assert.equal(await selector.inputValue(), options[0].id, id + ": default must be first/largest variant");
+      await selector.selectOption(options.at(-1).id);
+      assert.equal(await selector.inputValue(), options.at(-1).id, id + ": variant selection lost correct ID");
+      entry.result = "PASS";
+      entry.variants = options.length;
+      entry.first = options[0].name;
+      entry.last = options.at(-1).name;
+      console.log("PASS " + entry.name + ": all 16 sizes and colors sorted, IDs preserved");
+    } catch (error) {
+      entry.error = String(error);
+      process.exitCode = 1;
+      console.error("FAIL " + entry.name + ": " + entry.error);
+    } finally {
+      await context.close();
+    }
+  }
 } finally {
   await browser.close();
   await writeFile(`${dir}/results.json`, JSON.stringify({ noPurchases: true, noEtsyWrites: true, results }, null, 2));
