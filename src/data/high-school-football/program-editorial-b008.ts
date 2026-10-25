@@ -957,6 +957,252 @@ const BATCH008_EDITORIAL: Record<string, FootballProgramEditorial> = {
       { question: 'Has Burton won a football state title?', answer: "No. Dave Campbell's lists 19 playoff appearances but zero state titles and zero title-game appearances." },
       { question: 'What happened in the 2026 Burton-Bremond game?', answer: 'Both teams entered 4-0 in district. Bremond led 22-7 at halftime and won 36-13, according to KBTX.' }
     ]
+  },
+  bushland: {
+    slug: 'bushland',
+    intro: "Bushland's Falcons are a Potter County Class 3A Division I District 1 program with a sustained recent playoff record. The 2026 Falcons are 5-3 overall and 1-1 in district through the October 16 loss at Shallowater, with an October 23 open date before Brownfield and Dalhart. Current third-party staff data is messy, so TexasDefined separates William Rabson's roster-history head-coach listing from Josh Reynolds' first-party Bushland ISD athletic-director role.",
+    theme: { accentHex: '#B3202A', label: 'Original TexasDefined Falcon editorial treatment; no Bushland ISD logo or school-owned photography reproduced.' },
+    seo: {
+      title: 'Bushland Falcons Football | 2026 Scores, District 1 & Falcon Stadium',
+      description: 'Bushland Falcons football: 2026 District 1-3A Division I results, William Rabson coaching-source note, Falcon Stadium, title-game history and Potter County context.'
+    },
+    coach: {
+      name: 'William Rabson',
+      title: '2026 roster-history listed head coach; first-party football-title confirmation still needed',
+      sourceUrl: 'https://www.maxpreps.com/tx/bushland/bushland-falcons/football/history/',
+      sourceLabel: 'MaxPreps 2026 history singles William Rabson as head coach; current staff page inconsistently labels multiple people head coach, while Bushland ISD identifies Josh Reynolds as Athletic Director',
+      verifiedAt: '2026-10-25'
+    },
+    campus: {
+      address: '18701 Jim Line Rd., Amarillo, TX 79124',
+      phone: '806-322-1184',
+      sourceUrl: 'https://hs.bushlandisd.net/',
+      sourceLabel: 'Bushland High School official homepage',
+      verifiedAt: '2026-10-25'
+    },
+    schedule: {
+      label: 'Bushland 2026 Falcon football schedule',
+      sourceUrl: 'https://www.bushlandisd.net/126053_2',
+      sourceLabel: 'Bushland ISD official athletics department links the 2026-27 Falcon football schedule; results cross-checked against current game feeds',
+      verifiedAt: '2026-10-25',
+      officialScheduleUrl: 'https://www.bushlandisd.net/126053_2'
+    },
+    season: {
+      record: '5-3 overall, 1-1 district through October 16, 2026; open October 23',
+      verifiedAt: '2026-10-25',
+      sourceUrl: 'https://www.maxpreps.com/tx/bushland/bushland-falcons/football/schedule/',
+      sourceLabel: 'Current MaxPreps schedule; Hereford 57-21 corroborated by Prep Redzone while stale statewide/DCTF feeds carry conflicting values',
+      latestResultSourceUrl: 'https://www.maxpreps.com/tx/football/game/bushland-vs-shallowater/10-16-2026/?c=8def681a-1672-4b75-b258-405e42567e7a',
+      games: [
+        { date: '2026-08-28', opponent: 'Seminole', site: 'Away', result: 'L 42-62' },
+        { date: '2026-09-04', opponent: 'Canadian', site: 'Home', result: 'L 17-27' },
+        { date: '2026-09-11', opponent: 'Dumas', site: 'Away', result: 'W 40-35' },
+        { date: '2026-09-18', opponent: 'Lubbock Christian', site: 'Home', result: 'W 69-40' },
+        { date: '2026-09-25', opponent: 'Hereford', site: 'Away', result: 'W 57-21' },
+        { date: '2026-10-02', opponent: 'Slaton', site: 'Home', result: 'W 70-55' },
+        { date: '2026-10-09', opponent: 'Denver City', site: 'Home', district: true, result: 'W 70-14' },
+        { date: '2026-10-16', opponent: 'Shallowater', site: 'Away', district: true, result: 'L 28-49' },
+        { date: '2026-10-30', opponent: 'Brownfield', site: 'Home', district: true, kickoff: '7:00 PM' },
+        { date: '2026-11-06', opponent: 'Dalhart', site: 'Away', district: true, kickoff: '7:00 PM' }
+      ]
+    },
+    venue: {
+      name: 'Falcon Stadium',
+      address: 'Bushland / Amarillo area — confirm current entrance through Bushland ISD',
+      sourceUrl: 'https://www.texasfootball.com/team/bushland-falcons',
+      sourceLabel: "Dave Campbell's identifies Falcon Stadium and 3,000 capacity; Bushland ISD controls current ticketing and event logistics",
+      verifiedAt: '2026-10-25',
+      note: 'The official high-school campus address is 18701 Jim Line Rd. Exact stadium gate, parking and accessibility details are not inferred from the campus address.'
+    },
+    development: {
+      title: 'Sustained recent success, with source conflicts kept visible',
+      body: "Dave Campbell's lists Bushland at 12-1 in 2019, 11-2 in 2022 and 10-2 in both 2023 and 2024, with 17 playoff appearances, one state-final appearance and no state title. The 2026 data also exposes why source control matters: current MaxPreps and Prep Redzone game records agree Bushland beat Hereford 57-21, while stale statewide and DCTF feeds carry incompatible scores. TexasDefined uses the two matching game-specific sources and documents the conflict.",
+      sourceUrl: 'https://www.texasfootball.com/team/bushland-falcons',
+      sourceLabel: "Dave Campbell's program history plus game-specific result corroboration",
+      verifiedAt: '2026-10-25'
+    },
+    milestones: [
+      { date: '2019', title: 'Bushland posts a 12-1 season', body: "Dave Campbell's recent history lists a 12-1 2019 season as a modern program high point.", sourceUrl: 'https://www.texasfootball.com/team/bushland-falcons', sourceLabel: "Dave Campbell's Bushland history" },
+      { date: 'September 25, 2026', title: 'Bushland beats Hereford 57-21 amid conflicting aggregate feeds', body: 'The game-specific MaxPreps box score and Prep Redzone final agree on 57-21. TexasDefined rejects incompatible 62-21 and 99-75 aggregate entries.', sourceUrl: 'https://prepredzone.com/game/tx/hereford-vs-bushland/', sourceLabel: 'Prep Redzone game final corroborates MaxPreps 57-21' },
+      { date: 'October 16, 2026', title: 'Shallowater wins the district matchup 49-28', body: 'The loss moved Bushland to 5-3 overall and 1-1 in district entering its open week.', sourceUrl: 'https://www.maxpreps.com/tx/football/game/bushland-vs-shallowater/10-16-2026/?c=8def681a-1672-4b75-b258-405e42567e7a', sourceLabel: 'MaxPreps final game page' }
+    ],
+    overview: [
+      'Bushland High School is in the Amarillo area and uses the Falcons identity on its official campus site. The official campus address is 18701 Jim Line Rd.',
+      'Bushland ISD identifies Josh Reynolds as Athletic Director. MaxPreps history identifies William Rabson as 2026 head coach, but its staff page simultaneously labels multiple people head coach; the page therefore qualifies the football-title source rather than pretending the data is cleaner than it is.',
+      'UIL places Bushland in Class 3A Division I District 1 for 2026-28.',
+      "Dave Campbell's lists 17 playoff appearances, one state-final appearance and zero state titles.",
+      'Bushland is 5-3 through October 16 and had no October 23 game. Brownfield and Dalhart remain.'
+    ],
+    faq: [
+      { question: 'What is Bushland football record through October 23, 2026?', answer: 'Bushland is 5-3 overall and 1-1 in district through its October 16 loss at Shallowater; the Falcons had an open date October 23.' },
+      { question: 'Who is listed as Bushland football head coach?', answer: 'MaxPreps 2026 history identifies William Rabson. Its separate staff page labels multiple people head coach, while Bushland ISD identifies Josh Reynolds as athletic director, so TexasDefined keeps the football-coach attribution qualified.' },
+      { question: 'What was the Bushland-Hereford score?', answer: 'Game-specific MaxPreps and Prep Redzone records agree on Bushland 57, Hereford 21. Other aggregate feeds carry conflicting scores, which TexasDefined does not use.' },
+      { question: 'Has Bushland won a state football title?', answer: "Dave Campbell's lists one state-final appearance and zero state titles." }
+    ]
+  },
+  bynum: {
+    slug: 'bynum',
+    intro: "Bynum ISD's Bulldogs are a Hill County six-man program in UIL 1A Division II District 14. The 2026 Bulldogs are 1-7 and 0-2 in district through the October 16 Fannindel loss, with no October 23 game. Current roster data lists C. Morgan as head coach, but no first-party Bynum ISD page naming the football coach was found at this checkpoint, so the attribution remains qualified.",
+    theme: { accentHex: '#7B1E3A', label: 'Original TexasDefined Bulldog editorial treatment; no Bynum ISD logo or school-owned imagery reproduced.' },
+    seo: {
+      title: 'Bynum Bulldogs Football | 2026 Six-Man Scores & District 14 Guide',
+      description: 'Bynum Bulldogs six-man football: 2026 District 14 results, Bulldog Field, Hill County campus, current coach-source caveat and program history.'
+    },
+    coach: {
+      name: 'C. Morgan',
+      title: 'Current roster-listed head coach; first-party name/title confirmation still needed',
+      sourceUrl: 'https://www.maxpreps.com/tx/bynum/bynum-bulldogs/football/',
+      sourceLabel: 'Current MaxPreps team feed lists C. Morgan as Head Coach; Bynum ISD first-party coach page was not located',
+      verifiedAt: '2026-10-25'
+    },
+    campus: {
+      address: '704 Toliver Ave., Bynum, TX 76631',
+      phone: '254-531-2341',
+      sourceUrl: 'https://www.bynumisd.net/contact-us',
+      sourceLabel: 'Bynum ISD official contact page; explicitly identifies Hill County location',
+      verifiedAt: '2026-10-25'
+    },
+    schedule: {
+      label: 'Bynum 2026 six-man schedule and current results',
+      sourceUrl: 'https://www.maxpreps.com/tx/bynum/bynum-bulldogs/football/schedule/',
+      sourceLabel: 'UIL-partner current schedule; Bynum ISD official site supplies school identity and field/community context',
+      verifiedAt: '2026-10-25',
+      officialScheduleUrl: 'https://www.bynumisd.net/'
+    },
+    season: {
+      record: '1-7 overall, 0-2 district through October 16, 2026; open October 23',
+      verifiedAt: '2026-10-25',
+      sourceUrl: 'https://www.maxpreps.com/tx/bynum/bynum-bulldogs/football/',
+      sourceLabel: 'Current MaxPreps Bynum results',
+      latestResultSourceUrl: 'https://www.maxpreps.com/tx/bynum/bynum-bulldogs/football/',
+      games: [
+        { date: '2026-08-28', opponent: 'Kopperl', site: 'Away', result: 'L 0-46' },
+        { date: '2026-09-04', opponent: 'Morgan', site: 'Home', result: 'L 0-45' },
+        { date: '2026-09-11', opponent: 'CenTex HomeSchool', site: 'Home', result: 'L 0-30' },
+        { date: '2026-09-18', opponent: 'Waco Christian', site: 'Away', result: 'L 54-71' },
+        { date: '2026-09-25', opponent: 'Blum', site: 'Home', result: 'L 43-58' },
+        { date: '2026-10-02', opponent: 'Walnut Springs', site: 'Home', result: 'W 45-0' },
+        { date: '2026-10-09', opponent: 'Oakwood', site: 'Home', district: true, result: 'L 0-45' },
+        { date: '2026-10-16', opponent: 'Fannindel', site: 'Away', district: true, result: 'L 0-50' },
+        { date: '2026-10-30', opponent: 'Mount Calm', site: 'Home', district: true, kickoff: '7:00 PM' },
+        { date: '2026-11-06', opponent: 'Trinidad', site: 'Away', district: true, kickoff: '7:00 PM' }
+      ]
+    },
+    venue: {
+      name: 'Bulldog Field',
+      address: '704 Toliver Ave., Bynum, TX 76631 area',
+      sourceUrl: 'https://www.texasfootball.com/team/bynum-bulldogs',
+      sourceLabel: "Dave Campbell's identifies Bulldog Field and 250 capacity; Bynum ISD confirms its campus/football field at the Toliver location",
+      verifiedAt: '2026-10-25',
+      note: 'Bynum ISD held its October 22 fall festival on the football field. Exact game-night entrance and accessibility routing remain event-specific.'
+    },
+    development: {
+      title: 'A small six-man program rebuilding after a winless 2025',
+      body: "Dave Campbell's lists Bynum at 0-5 in 2025, 2-6 in 2024 and 5-2 in 2023, with three playoff appearances and no state final or title. The 2026 Bulldogs opened 0-5 before shutting out Walnut Springs 45-0, then dropped their first two district games to Oakwood and Fannindel.",
+      sourceUrl: 'https://www.texasfootball.com/team/bynum-bulldogs',
+      sourceLabel: "Dave Campbell's Bynum program history and current results",
+      verifiedAt: '2026-10-25'
+    },
+    milestones: [
+      { date: '2019', title: 'Bynum reaches seven wins', body: "Dave Campbell's lists the 2019 Bulldogs at 7-4, the strongest visible recent season in its archive.", sourceUrl: 'https://www.texasfootball.com/team/bynum-bulldogs', sourceLabel: "Dave Campbell's Bynum history" },
+      { date: 'October 2, 2026', title: 'Bulldogs shut out Walnut Springs 45-0', body: 'The win ended Bynum’s 0-5 start and remains its verified victory through October 25.', sourceUrl: 'https://www.maxpreps.com/tx/bynum/bynum-bulldogs/football/', sourceLabel: 'MaxPreps current team feed' },
+      { date: 'October 16, 2026', title: 'Fannindel beats Bynum 50-0', body: 'The district loss moved Bynum to 1-7 overall and 0-2 in district.', sourceUrl: 'https://www.maxpreps.com/tx/bynum/bynum-bulldogs/football/', sourceLabel: 'MaxPreps final result' }
+    ],
+    overview: [
+      'Bynum ISD officially identifies itself as Home of the Bulldogs and gives 704 Toliver Ave. as its physical address in Hill County.',
+      'Bynum plays UIL 1A Division II six-man football in District 14.',
+      'Current roster data lists C. Morgan as head coach, but TexasDefined has not found a first-party Bynum ISD page certifying that football title.',
+      "Dave Campbell's lists three playoff appearances, no state title and no title-game appearance, with Bulldog Field as the venue.",
+      'Bynum is 1-7 through October 16, had no October 23 game, and closes with Mount Calm and Trinidad.'
+    ],
+    faq: [
+      { question: 'Does Bynum play six-man football?', answer: 'Yes. UIL places Bynum in 1A Division II District 14 for the 2026-28 six-man cycle.' },
+      { question: 'What is Bynum football record through October 23, 2026?', answer: 'Bynum is 1-7 overall and 0-2 in district through October 16 and did not play October 23.' },
+      { question: 'Who coaches Bynum football?', answer: 'The current MaxPreps team feed lists C. Morgan as head coach. A first-party Bynum ISD football-coach page was not located, so TexasDefined keeps the attribution qualified.' },
+      { question: 'Where is Bynum ISD?', answer: 'Bynum ISD says its physical address is 704 Toliver Ave. in Bynum, Hill County.' }
+    ]
+  },
+  'caddo-mills': {
+    slug: 'caddo-mills',
+    intro: "Caddo Mills' Foxes are 7-1 overall and 4-0 in District 7-4A Division I after a 53-35 October 23 win over Ferris. Kodi Crane is the current boys athletic director on the official high-school staff and is identified as the football head coach by current roster data and Dave Campbell's historical coverage. The district is also in the middle of a stadium transition, making current event sources more useful than an old static venue address.",
+    theme: { accentHex: '#188447', label: 'Original TexasDefined green editorial accent based on Caddo Mills High’s current Foxes green/black spirit presentation; no official logo reproduced.' },
+    seo: {
+      title: 'Caddo Mills Foxes Football | 2026 Scores, Kodi Crane & District 7',
+      description: 'Caddo Mills Foxes football: Kodi Crane, 7-1 start, 53-35 Ferris win, District 7-4A Division I race, Hunt County campus and stadium-transition context.'
+    },
+    coach: {
+      name: 'Kodi Crane',
+      title: 'Boys Athletic Director / current football head coach',
+      sourceUrl: 'https://www.caddomillsisd.org/o/cmhs/staff/',
+      sourceLabel: 'Caddo Mills High official staff lists Kodi Crane as Boys Athletic Director; current MaxPreps roster and Dave Campbell’s historical coverage identify him as football head coach',
+      verifiedAt: '2026-10-25'
+    },
+    campus: {
+      address: '3049 S. FM 36, Caddo Mills, TX 75135',
+      phone: '903-527-3164',
+      sourceUrl: 'https://www.caddomillsisd.org/o/cmhs/',
+      sourceLabel: 'Caddo Mills High official current site; controls over stale third-party Gilmer Street addresses',
+      verifiedAt: '2026-10-25'
+    },
+    schedule: {
+      label: 'Official Caddo Mills 2026 varsity football schedule',
+      sourceUrl: 'https://www.cmfoxathletics.com/sport/football/boys/?tab=schedule',
+      sourceLabel: 'Official Caddo Mills High Athletics schedule, cross-checked with current result sources',
+      verifiedAt: '2026-10-25',
+      officialScheduleUrl: 'https://www.cmfoxathletics.com/sport/football/boys/?tab=schedule'
+    },
+    season: {
+      record: '7-1 overall, 4-0 district through October 23, 2026',
+      verifiedAt: '2026-10-25',
+      sourceUrl: 'https://www.maxpreps.com/tx/caddo-mills/caddo-mills-foxes/football/schedule/',
+      sourceLabel: 'Current game ledger through Kaufman plus Associated Press and Herald-Banner Ferris final',
+      latestResultSourceUrl: 'https://sports.yahoo.com/articles/friday-night-roundup-035900330.html',
+      games: [
+        { date: '2026-08-28', opponent: 'Wills Point', site: 'Away', result: 'W 61-14' },
+        { date: '2026-09-04', opponent: 'Bullard', site: 'Home', result: 'W 36-21' },
+        { date: '2026-09-11', opponent: 'Canton', site: 'Home', result: 'L 40-48' },
+        { date: '2026-09-17', opponent: 'Ford', site: 'Away', result: 'W 28-21' },
+        { date: '2026-09-25', opponent: 'Life Waxahachie', site: 'Away', district: true, result: 'W 44-13' },
+        { date: '2026-10-09', opponent: 'Mabank', site: 'Home', district: true, result: 'W 54-20' },
+        { date: '2026-10-16', opponent: 'Kaufman', site: 'Away', district: true, result: 'W 38-35 (OT)' },
+        { date: '2026-10-23', opponent: 'Ferris', site: 'Home', district: true, result: 'W 53-35' },
+        { date: '2026-10-30', opponent: 'Sulphur Springs', site: 'Away', district: true, kickoff: '7:00 PM' },
+        { date: '2026-11-06', opponent: 'Paris', site: 'Home', district: true, kickoff: '7:00 PM' }
+      ]
+    },
+    venue: {
+      name: 'Ed Locker Stadium / current Caddo Mills home-football site',
+      address: 'Caddo Mills, TX — use current CMISD event/ticket directions',
+      sourceUrl: 'https://www.caddomillsisd.org/',
+      sourceLabel: 'Caddo Mills ISD current live feed identifies the Oct. 23 Legendary Fox ceremony at Ed Locker Stadium and separately documents new-stadium construction at the high-school track/field area',
+      verifiedAt: '2026-10-25',
+      note: 'CMISD announced closure of the high-school track and field beginning March 11, 2026 for construction of a new stadium. Current game-day district information should control over old venue addresses.'
+    },
+    development: {
+      title: 'A 7-1 start during a stadium-transition year',
+      body: 'Caddo Mills improved to 7-1 and 4-0 in district by beating Ferris 53-35. The Herald-Banner reported Colton Ponton threw for 318 yards and five touchdowns while Steven Stiggers Jr. had 190 receiving yards and four scores. Off the field, CMISD has been building a new stadium at the high-school track/field site, so the page prioritizes current district event notices over stale venue listings.',
+      sourceUrl: 'https://sports.yahoo.com/articles/friday-night-roundup-035900330.html',
+      sourceLabel: 'Herald-Banner Friday Night Roundup via Yahoo Sports plus CMISD current construction/event notices',
+      verifiedAt: '2026-10-25'
+    },
+    milestones: [
+      { date: '2022', title: 'Kodi Crane documented as Caddo Mills head coach', body: "Dave Campbell's interviewed Kodi Crane as Caddo Mills head coach before the 2022 season; the current district staff still lists Crane as Boys Athletic Director.", sourceUrl: 'https://www.texasfootball.com/article/2022/03/06/texasfootballcom-interview-caddo-mills-head-coach-kodi-crane', sourceLabel: "Dave Campbell's Texas Football interview" },
+      { date: 'October 16, 2026', title: 'Foxes edge Kaufman 38-35 in overtime', body: 'Caddo Mills won on the road in overtime to move to 6-1 and 3-0 in district.', sourceUrl: 'https://www.maxpreps.com/tx/football/game/caddo-mills-vs-kaufman/10-16-2026/?c=16da4f54-1ea5-4a16-809c-8be2690a7586', sourceLabel: 'MaxPreps final game page' },
+      { date: 'October 23, 2026', title: 'Caddo Mills beats Ferris 53-35', body: 'The Foxes improved to 7-1 and 4-0 in district; local coverage highlighted five touchdown passes from Colton Ponton.', sourceUrl: 'https://sports.yahoo.com/articles/friday-night-roundup-035900330.html', sourceLabel: 'Herald-Banner Friday Night Roundup via Yahoo Sports' }
+    ],
+    overview: [
+      'Caddo Mills High School’s current official site identifies the campus as Home of the Foxes at 3049 S. FM 36. Older football directories still show Gilmer Street addresses.',
+      'The school’s current live feed repeatedly uses green and black Fox spirit presentation; TexasDefined uses green as an editorial accent without copying a logo.',
+      'Kodi Crane is the official Boys Athletic Director and is identified as the football head coach by current roster/history sources.',
+      'UIL places Caddo Mills in Class 4A Division I District 7. The Foxes are 7-1 and 4-0 in district after the Ferris win.',
+      'CMISD is in a stadium-construction transition. Current district events identify Ed Locker Stadium for October 23 while the high-school track/field site is closed for new-stadium construction.'
+    ],
+    faq: [
+      { question: 'Who coaches Caddo Mills football?', answer: 'Kodi Crane. Caddo Mills High officially lists him as Boys Athletic Director, while current football sources identify him as head coach.' },
+      { question: 'What is Caddo Mills football record after October 23, 2026?', answer: 'The Foxes are 7-1 overall and 4-0 in district after beating Ferris 53-35.' },
+      { question: 'Where is Caddo Mills High School now?', answer: 'The current official campus site lists 3049 S. FM 36, Caddo Mills, TX 75135. Older third-party football directories can still show prior Gilmer Street addresses.' },
+      { question: 'Why does the venue section discuss construction?', answer: 'CMISD announced the high-school track and field would close beginning March 11, 2026 for new-stadium construction, while current district event posts still identify Ed Locker Stadium for home-football activities.' }
+    ]
   }
 };
 
