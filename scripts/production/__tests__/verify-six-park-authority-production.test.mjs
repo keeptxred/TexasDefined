@@ -45,3 +45,11 @@ test("park browser acceptance waits for the actual streamed FAQ before evaluatin
  assert.ok(script.indexOf(wait)<script.indexOf(check),"first-visit lazy FAQ must load before acceptance snapshot");
  assert.ok(script.includes('if(!facts.faqVisible)throw new Error("Source-backed park FAQ not rendered")'),"retain fail-closed assertion");
 });
+
+test("state-park Chrome FAQ acceptance survives transient hydration remounts without waiving the FAQ",()=>{
+ const script=readFileSync(new URL("../../ci/verify-six-state-park-visual.mjs",import.meta.url),"utf8");
+ assert.match(script,/observed\.element!==faq/,"visibility continuity must restart on a replaced FAQ node");
+ assert.match(script,/performance\.now\(\)-observed\.since>=1200/,"FAQ must remain visible before DOM acceptance");
+ assert.match(script,/faq\.screenshot\(/,"mobile evidence must depict the actual re-located FAQ element");
+ assert.match(script,/if\(!facts\.faqVisible\)throw new Error\("Source-backed park FAQ not rendered"\)/,"missing FAQs must still fail");
+});
