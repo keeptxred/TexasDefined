@@ -405,6 +405,39 @@
       ]
     },
     {
+      "path": "/destination/austin-county-jail-museum-bellville",
+      "topic": "museum-visitor-guide",
+      "cadenceDays": 30,
+      "faqCount": 9,
+      "sources": [
+        {
+          "sourceUrl": "https://www.austincounty.com/page/austin.Museum",
+          "fetchUrl": "https://www.austincounty.com/page/austin.Museum",
+          "label": "Austin County official museum visitor hours and volunteer contacts"
+        },
+        {
+          "sourceUrl": "https://atlas.thc.texas.gov/Details/5015000244",
+          "fetchUrl": "https://atlas.thc.texas.gov/Details/5015000244",
+          "label": "THC official historic marker and 1896 jail details"
+        },
+        {
+          "sourceUrl": "https://atlas.thc.texas.gov/Details/2080004074",
+          "fetchUrl": "https://atlas.thc.texas.gov/Details/2080004074",
+          "label": "THC National Register building designation and architects"
+        },
+        {
+          "sourceUrl": "https://business.bellville.com/list/member/austin-county-jail-museum-2116",
+          "fetchUrl": "https://business.bellville.com/list/member/austin-county-jail-museum-2116",
+          "label": "Local chamber operator and contact details"
+        },
+        {
+          "sourceUrl": "https://commons.wikimedia.org/wiki/File:Austin_County_Old_Jail_and_Museum_Bellville_Wiki_(1_of_1).jpg",
+          "fetchUrl": "https://commons.wikimedia.org/wiki/File:Austin_County_Old_Jail_and_Museum_Bellville_Wiki_(1_of_1).jpg",
+          "label": "Exact-site photograph Renelibrary and CC BY-SA 4.0 license"
+        }
+      ]
+    },
+    {
       "path": "/destination/austin-history-center-austin",
       "topic": "museum-visitor-guide",
       "cadenceDays": 30,
