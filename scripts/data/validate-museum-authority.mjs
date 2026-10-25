@@ -59,7 +59,7 @@ if (manifestStart < 0 || manifestEnd < 0) {
 }
 const allDossiers = [...src.slice(manifestStart, manifestEnd).matchAll(/^  "([a-z0-9-]+)": \{/gm)].map((m) => m[1]);
 const lightweightSource = read("src/data/museum-authority-slugs.ts");
-const compactSlugMatch = lightweightSource.match(/new Set\\(\\s*"([a-z0-9|\\-]+)"\\.split\\("\\|"\\)\\s*\\)/);
+const compactSlugMatch = lightweightSource.match(/new Set\(\s*"([a-z0-9|-]+)"\.split\("\|"\)\s*\)/);
 const lightweightSlugs = compactSlugMatch
   ? compactSlugMatch[1].split("|")
   : [...lightweightSource.matchAll(/^  "([a-z0-9-]+)",$/gm)].map(m => m[1]);
