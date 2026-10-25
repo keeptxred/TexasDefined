@@ -64,7 +64,7 @@ export function FishingMerchSpotlight({
             </div>
             <div className="min-w-0">
               <strong className="line-clamp-2 text-sm leading-5 group-hover:text-primary">{product.name.replace(/\s+[–-]\s*T-Shirt\s*$/, "")}</strong>
-              <p className="mt-2 text-sm font-semibold">${new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(product.priceCents / 100)}</p>
+              <p className="mt-2 text-sm font-semibold">{new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(product.priceCents / 100)}</p>
               <span className="mt-2 inline-block text-xs font-semibold text-primary">See sizes & colors →</span>
             </div>
           </a>
