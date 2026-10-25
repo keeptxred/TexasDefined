@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "asOf": "2026-10-19",
+  "asOf": "2026-10-24",
   "repository": "keeptxred/TexasDefined",
   "production": "https://texasdefined.com",
   "supabaseProjectId": "ftkznprjljkhymknvhye",
@@ -630,12 +630,20 @@
       "acmcmillanafricanamericanmuseum": {
         "submittedName": "A.C. McMillan African American Museum",
         "rawOccurrence": 4,
-        "status": "assigned",
+        "status": "research-blocked",
         "assignedAt": "2026-10-24T20:40:00Z",
         "reviewRequired": true,
         "publicationApproved": false,
         "editorialCertified": false,
-        "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "evidence": "https://emuseum.jfk.org/objects/46977/gwendolyn-mcmillan-lawe-oral-history",
+        "reason": "A.C. McMillan African American Museum is historically documented in Emory/Rains County: the Sixth Floor Museum interviewed co-founder Gwendolyn McMillan Lawe in 2016 and the Texas Historical Commission referenced the museum in 2011. Neither is evidence of an operating 2026 venue, current hours, bookings or reusable exact-site photo; do not invent an open museum guide or mark it closed.",
+        "dispositionAt": "2026-10-24",
+        "researchEvidenceUrls": [
+          "https://emuseum.jfk.org/objects/46977/gwendolyn-mcmillan-lawe-oral-history",
+          "https://www.thc.texas.gov/public/upload/publications/medallion-january-february-2011.pdf"
+        ],
+        "lastResearchAt": "2026-10-24"
       },
       "abileneheritagesquare": {
         "submittedName": "Abilene Heritage Square",
@@ -775,12 +783,20 @@
       "anahuacdepotmuseum": {
         "submittedName": "Anahuac Depot Museum",
         "rawOccurrence": 19,
-        "status": "assigned",
+        "status": "research-blocked",
         "assignedAt": "2026-10-24T20:40:00Z",
         "reviewRequired": true,
         "publicationApproved": false,
         "editorialCertified": false,
-        "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "evidence": "https://texashistory.unt.edu/ark:/67531/metapth162515/m1/163/",
+        "reason": "The Texas Almanac 1998–99 historically placed a depot museum in Winnie, not an independently confirmed Anahuac Depot Museum. The 1985 Texas Historical Commission museum directory separately identifies Anahuac historical and medical-office museums but no Anahuac Depot Museum. Current operator, geography, identity and visitor availability remain unresolved; do not publish or mislocate Winnie's depot in Anahuac.",
+        "dispositionAt": "2026-10-24",
+        "researchEvidenceUrls": [
+          "https://texashistory.unt.edu/ark:/67531/metapth162515/m1/163/",
+          "https://www.gutenberg.org/files/65342/65342-h/65342-h.htm"
+        ],
+        "lastResearchAt": "2026-10-24"
       },
       "angelinacountyhistorycenter": {
         "submittedName": "Angelina County History Center",
@@ -876,7 +892,17 @@
         "reviewRequired": true,
         "publicationApproved": false,
         "editorialCertified": false,
-        "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "operatorIdentityConfirmed": true,
+        "lastResearchAt": "2026-10-24",
+        "researchNote": "Operator-confirmed active UT Austin museum/collecting institution spanning two distinct free-admission venues: Christian-Green Gallery, Jester Center A232 at 201 E 21st St (Wed–Fri noon–5, Sat 11–2), and Idea Lab, Gordon-White Building at 210 W 24th St (Tue–Fri noon–5, Sat by advance appointment). UT operator announces Sept 4–Dec 5 2026 Made in Texas exhibit. One authority identity, two correctly explained visitor locations; no unsupported exact-gallery commercial-use image/rights secured yet, so keep research assigned and noindex-unpublished until authoritative media and guide complete.",
+        "researchEvidenceUrls": [
+          "https://www.galleriesatut.org/",
+          "https://www.galleriesatut.org/exhibitions",
+          "https://liberalarts.utexas.edu/blackstudies/art-galleries-at-black-studies/"
+        ],
+        "proposedCanonicalSlug": "art-galleries-at-black-studies-austin",
+        "photoRightsVerified": false
       },
       "atascosacountyvintagemuseum": {
         "submittedName": "Atascosa County Vintage Museum",
@@ -1185,12 +1211,20 @@
       "bayoubendcollectionandgardens": {
         "submittedName": "Bayou Bend Collection and Gardens",
         "rawOccurrence": 56,
-        "status": "assigned",
+        "status": "guide-merged",
         "assignedAt": "2026-10-24",
         "reviewRequired": true,
         "publicationApproved": false,
         "editorialCertified": false,
-        "note": "Research candidate. Check current operator, address, existing canonical guide, exact-site photo license and accessibility before editorial publication."
+        "note": "Research candidate. Check current operator, address, existing canonical guide, exact-site photo license and accessibility before editorial publication.",
+        "evidence": "https://github.com/keeptxred/TexasDefined/pull/5861",
+        "reason": "Existing `/destination/bayou-bend-collection-gardens` received a source-backed authority dossier, museum-specific visitor FAQs, operator source monitoring and licensed exact-property photo attribution in merged PR #5861. Independent production/mobile visual acceptance and editorial certification remain outstanding.",
+        "dispositionAt": "2026-10-24",
+        "relatedCanonicalSlug": "bayou-bend-collection-gardens",
+        "additionalEvidence": [
+          "https://www.mfah.org/visit/bayou-bend",
+          "https://commons.wikimedia.org/wiki/File:BayouBendHome.JPG"
+        ]
       },
       "beaumontartleague": {
         "submittedName": "Beaumont Art League",
@@ -1279,10 +1313,10 @@
         "barkertexashistorycenter"
       ],
       "initialCandidates": 32,
-      "researchedDispositions": 10,
+      "researchedDispositions": 13,
       "remainingAssigned": 22,
-      "notes": "First 25: five identity outcomes plus two new researched authority guides merged (#5844 Alley, #5846 Austin) but editorial certification and deployment QA are pending. Six-slot replenishment + one additional candidate now seven added, with three dispositions: CAF squadron not static museum, Babe Zaharias alias duplicate, Bandera provisional name ambiguous. 22 provisional candidates remain actively assigned. Changes do not imply universal source verification.",
-      "lastCheckpointAt": "2026-10-24T21:01:00Z",
+      "notes": "Continuing original deterministic owner batch: Bayou Bend merged on correct existing canonical (#5861); Emory A.C. McMillan and purported Anahuac depot research-blocked without misrepresenting historical sources as current. UT Art Galleries at Black Studies verified operating at two distinct visitor locations; media/guide pending. Barrington/Bastrop PR #5858 under protected validation after conflict reconciliation. Remaining assigned: 22; source certification and production QA remain distinct.",
+      "lastCheckpointAt": "2026-10-24",
       "lastMergedGuides": [
         {
           "slug": "alley-log-cabin-museum-columbus",
@@ -1291,6 +1325,10 @@
         {
           "slug": "austin-history-center-austin",
           "pr": 5846
+        },
+        {
+          "slug": "bayou-bend-collection-gardens",
+          "pr": 5861
         }
       ]
     },
