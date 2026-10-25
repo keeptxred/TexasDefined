@@ -4,6 +4,7 @@ const server = await createServer({ configFile: false, appType: 'custom', logLev
 try {
   const { loadTicketmasterEventsServer, ticketmasterAuthorityGuidePath } = await server.ssrLoadModule('/src/data/events/ticketmaster-events.server.ts');
   const { mergeEventTicketing } = await server.ssrLoadModule('/src/data/events/ticketing.ts');
+  const { ticketmasterVenueMatches } = await server.ssrLoadModule('/src/data/events/texas-event-records.server.ts');
   const { hasCompliantMajorEventImageServer } = await server.ssrLoadModule('/src/data/major-event-schema-enrichment.server.ts');
   const { buildTexasEventCarouselItemsServer, buildGlobalEventCalendarServer } = await server.ssrLoadModule('/src/data/events/texas-event-calendar.server.ts');
   const now = new Date();
@@ -59,6 +60,30 @@ try {
     'hollydays-market-corpus-christi',
   ]) assert.equal(hasCompliantMajorEventImageServer(slug), true, `${slug} must remain indexable with rights-cleared hero provenance`);
   assert.equal(hasCompliantMajorEventImageServer('mcallen-holiday-parade'), false, 'Holiday parade must remain fail-closed until an exact-location or governed AI hero is approved');
+
+  // Never send readers to a different venue because Ticketmaster and an
+  // editorial event happened to share a title, city and date.
+  assert.equal(ticketmasterVenueMatches(
+    { venueName: 'Alley Theatre · Hubbard Theatre' },
+    { venueName: 'Alley Theatre' },
+  ), true, 'stage within an exact theatre is a valid match');
+  assert.equal(ticketmasterVenueMatches(
+    { venueName: 'Bruton Theatre' }, { venueName: 'Music Hall at Fair Park' },
+  ), false, 'same-name events across venues must never share checkout');
+  assert.equal(ticketmasterVenueMatches(
+    { venueId: 'sports-venue:dickies-arena', venueName: 'Dickies Arena' },
+    { venueId: 'sports-venue:dickies-arena', venueName: 'Dickies Arena, Fort Worth' },
+  ), true, 'shared official venue identity permits enrichment');
+  assert.equal(ticketmasterVenueMatches(
+    { venueId: 'sports-venue:dickies-arena', venueName: 'Dickies Arena' },
+    { venueId: 'sports-venue:at-t-stadium', venueName: 'Dickies Arena' },
+  ), false, 'conflicting canonical venue IDs must reject even if titles agree');
+  assert.equal(ticketmasterVenueMatches(
+    { venueName: '' }, { venueName: 'Dickies Arena' },
+  ), false, 'missing venues are not safe to auto-link');
+  assert.equal(ticketmasterVenueMatches(
+    { venueName: 'Arena' }, { venueName: 'Arena Parking' },
+  ), true, 'venue-room suffixes are recognized; event title identity is checked separately');
 
   const editorialTicketing = {
     links: [{
