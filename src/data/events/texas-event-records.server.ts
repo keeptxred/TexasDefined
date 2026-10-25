@@ -80,7 +80,9 @@ export function ticketmasterVenueMatches(
   if (addOn.test(a) !== addOn.test(b)) return false;
   // Even a shared canonical venue ID cannot turn a parking/VIP location
   // into normal admission. Apply that safety rule before the ID shortcut.
-  if (editorial.venueId && provider.venueId) return editorial.venueId === provider.venueId;
+  if (editorial.venueId && provider.venueId && editorial.venueId !== provider.venueId) return false;
+  // IDs identify a facility, not necessarily its stage or hall: names must
+  // also agree so the Hubbard and Neuhaus stages cannot be conflated.
   return a === b || a.startsWith(b + " ") || b.startsWith(a + " ");
 }
 
