@@ -16,7 +16,7 @@ function apparelSizeRank(value: string): number | null {
     S: 1, SMALL: 1,
     M: 2, MEDIUM: 2,
     L: 3, LARGE: 3,
-    XL: 4, EXTRALARGE: 4,
+    XL: 4, XLARGE: 4, EXTRALARGE: 4,
     XXL: 5, EXTRAXTRALARGE: 5,
     XXXL: 6, XXXXL: 7, XXXXXL: 8,
   };
