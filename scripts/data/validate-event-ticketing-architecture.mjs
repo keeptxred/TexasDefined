@@ -10,6 +10,8 @@ const requireText = (source, needle, label) => { if (!source.includes(needle)) f
 
 const contract = read("src/data/events/texas-event-record.ts");
 const resolver = read("src/data/events/ticketing.ts");
+const providerClassifier = read("src/data/events/ticket-provider.ts");
+const curatedChristmas = read("src/data/events/christmas-performances-2026.server.ts");
 const adapter = read("src/data/events/texas-event-records.server.ts");
 const calendar = read("src/data/events/texas-event-calendar.server.ts");
 const component = read("src/components/events/EventTicketCta.tsx");
@@ -18,12 +20,17 @@ const landing = read("src/components/events/EventsLandingPage.tsx");
 const majorEventPage = read("src/data/major-event-page.server.ts");
 const docs = read("docs/event-ticketing-provider-architecture.md");
 
-for (const provider of ["official", "ticketmaster", "seatgeek", "vivid-seats", "other"]) requireText(contract, `\"${provider}\"`, "provider contract");
+for (const provider of ["official", "ticketmaster", "ticketweb", "live-nation", "etix", "axs", "eventbrite", "seatgeek", "vivid-seats", "other"]) requireText(contract, `\"${provider}\"`, "provider contract");
 for (const field of ["provider: TexasEventTicketProvider", "officialTicketUrl?: string", "affiliateUrl?: string", "saleStatus: TexasEventTicketSaleStatus", "source: TexasEventTicketSource", "lastVerifiedAt: string", "officialExpiresAt?: string", "affiliateExpiresAt?: string"]) requireText(contract, field, "ticket-link contract");
 for (const status of ["on-sale", "presale", "registration", "not-on-sale-yet", "sold-out", "off-sale", "cancelled", "unknown"]) requireText(contract, `\"${status}\"`, "sale-status contract");
 for (const token of ["safeHttpsUrl", 'url.protocol === "https:"', "isExpired", "NON_ACTIONABLE_SALE_STATUSES", "rankedLinks", "affiliateExpiresAt", "officialExpiresAt", 'label: "Find Tickets →"', 'label: "Official Tickets →"', 'rel: "sponsored nofollow noopener noreferrer"', 'rel: "noopener noreferrer"', "resolveEventTicketCta"]) requireText(resolver, token, "ticket resolver");
-for (const token of ['provider: "official"', "uniqueTicketUrls", "new Set(offers.map((offer) => offer.url))", "officialTicketUrl: url", 'saleStatus: "unknown"', 'kind: "official-event"', "lastVerifiedAt", "priority: index"]) requireText(adapter, token, "official ticket normalization");
+for (const token of ["providerForVerifiedTicketUrl(url)", "uniqueTicketUrls", "new Set(offers.map((offer) => offer.url))", "officialTicketUrl: url", 'saleStatus: "unknown"', 'kind: "official-event"', "lastVerifiedAt", "priority: index"]) requireText(adapter, token, "official ticket normalization");
 if (adapter.includes("affiliateUrl:")) failures.push("official-source adapter must not fabricate affiliate URLs");
+for (const token of ['providerForVerifiedTicketUrl', 'ticketmaster.com', 'ticketweb.com', 'livenation.com', 'etix.com', 'axs.com', 'seatgeek.com', 'vividseats.com', 'eventbrite.com']) {
+  requireText(providerClassifier, token, "provider-neutral checkout domain classification");
+}
+requireText(curatedChristmas, "providerForVerifiedTicketUrl(show.sourceUrl)", "Christmas show provider classification");
+
 for (const token of ["resolveEventTicketCta", "ticketCta: resolveEventTicketCta(event.ticketing)"]) requireText(calendar, token, "calendar projection");
 for (const token of [
   "target=\"_blank\"",
@@ -45,6 +52,37 @@ for (const token of ["Calendar workstream", "Venue-page workstream", "Do not rea
 
 const runtimeTest = String.raw`
 import { resolveEventTicketCta } from './src/data/events/ticketing.ts';
+import { providerForVerifiedTicketUrl } from './src/data/events/ticket-provider.ts';
+const supported = {
+ 'https://www.ticketmaster.com/event/ABC123': 'ticketmaster',
+ 'https://www.ticketweb.com/event/holiday-concert/142347': 'ticketweb',
+ 'https://www.livenation.com/event/some-id/holiday-concert': 'live-nation',
+ 'https://www.etix.com/ticket/v/32639/crighton-theatre': 'etix',
+ 'https://www.axs.com/events/1234/verified-event': 'axs',
+ 'https://www.eventbrite.com/e/some-event-tickets-123': 'eventbrite',
+ 'https://seatgeek.com/events/some-event': 'seatgeek',
+ 'https://www.vividseats.com/concerts': 'vivid-seats',
+ 'https://www.hebcenter.com/events/detail/show': 'official',
+};
+for (const [url, provider] of Object.entries(supported)) {
+  if(providerForVerifiedTicketUrl(url) !== provider) throw new Error('Wrong recognized provider: '+url);
+}
+for (const bad of [
+ 'https://www.ticketmaster.com.evil.test/event/ABC123',
+ 'https://ticketmaster.com@evil.test/event/ABC123',
+ 'http://www.ticketmaster.com/event/ABC123',
+ 'https://user:password@www.ticketmaster.com/event/ABC123',
+ 'https://www.ticketmaster.com:8443/event/ABC123',
+ 'javascript:alert(1)',
+ 'https://localhost:8080/test',
+]) {
+  const p = providerForVerifiedTicketUrl(bad);
+  if (p !== null && p !== 'official' && bad.includes('evil.test')) throw new Error('Lookalike domain elevated: '+bad);
+  if (bad.startsWith('http:') || bad.startsWith('javascript:') || bad.includes('password@') || bad.includes(':8443') || bad.includes('localhost:')) {
+    if (p !== null) throw new Error('Unsafe URL was accepted: '+bad);
+  }
+}
+
 const now = new Date('2026-09-11T21:00:00Z');
 const source = { kind: 'official-event', name: 'Verified source' };
 const base = { provider: 'ticketmaster', saleStatus: 'on-sale', source, lastVerifiedAt: '2026-09-11T20:00:00Z' };
@@ -61,6 +99,10 @@ const prioritized = resolveEventTicketCta({ links: [
   { ...base, provider: 'vivid-seats', affiliateUrl: 'https://vivid.example.com/deep', priority: 10 },
 ], offers: [] }, now);
 if (!prioritized || prioritized.provider !== 'vivid-seats') throw new Error('provider-neutral priority failed');
+const credentialsLink = resolveEventTicketCta({ links: [{ ...base, officialTicketUrl: 'https://user:pw@tickets.example.com/buy' }], offers: [] }, now);
+if (credentialsLink !== null) throw new Error('ticket URL credentials accepted');
+const privateHost = resolveEventTicketCta({ links: [{ ...base, officialTicketUrl: 'https://localhost/buy' }], offers: [] }, now);
+if (privateHost !== null) throw new Error('localhost ticket destination accepted');
 const empty = resolveEventTicketCta({ links: [{ ...base }], offers: [] }, now);
 if (empty !== null) throw new Error('empty CTA suppression failed');
 `;

@@ -2,7 +2,7 @@ import type { TexasEvent, TexasRegion } from "../types";
 
 export type TexasEventLifecycleStatus = "scheduled" | "cancelled" | "postponed" | "rescheduled";
 export type TexasEventImageRightsStatus = "verified-reusable" | "official-source-only" | "unknown";
-export type TexasEventTicketProvider = "official" | "ticketmaster" | "seatgeek" | "vivid-seats" | "other";
+export type TexasEventTicketProvider = "official" | "ticketmaster" | "seatgeek" | "vivid-seats" | "live-nation" | "ticketweb" | "etix" | "axs" | "eventbrite" | "other";
 export type TexasEventTicketSaleStatus = "on-sale" | "presale" | "registration" | "not-on-sale-yet" | "sold-out" | "off-sale" | "cancelled" | "unknown";
 export type TexasEventTicketSourceKind = "official-event" | "official-venue" | "provider" | "manual-verified";
 

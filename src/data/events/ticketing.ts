@@ -26,7 +26,8 @@ function safeHttpsUrl(value: string | undefined) {
   if (!value) return null;
   try {
     const url = new URL(value);
-    return url.protocol === "https:" ? url.toString() : null;
+    return url.protocol === "https:" && !url.username && !url.password && !url.port
+      && url.hostname !== "localhost" && !url.hostname.endsWith(".localhost") ? url.toString() : null;
   } catch {
     return null;
   }
