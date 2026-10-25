@@ -160,10 +160,15 @@ export function buildGlobalEventCalendarServer(
     && matchesLocation(event, search.location)
     && (!search.venue || event.venueId === search.venue));
   const filtered = contextMatches.filter((event) => overlapsRange(event, search.start, search.end));
-  const displayed = filtered.slice(0, 48);
+  const exactDay = search.start && search.start === search.end ? search.start : "";
+  // On a selected day, newly starting performances must not be buried behind
+  // 48 continuous-season attractions that opened earlier. Stable sort keeps
+  // the existing order within each group and preserves all calendar counts.
+  const displayed = (exactDay
+    ? [...filtered].sort((left, right) => Number(right.startDate === exactDay) - Number(left.startDate === exactDay))
+    : filtered).slice(0, 48);
   const monthKey = validDate(search.start) ? search.start.slice(0, 7) : today.slice(0, 7);
   const { start: monthStart, end: monthEnd } = monthBounds(monthKey);
-  const exactDay = search.start && search.start === search.end ? search.start : "";
   const nextEvent = contextMatches.find((event) => (event.endDate ?? event.startDate) >= today);
   const categories = [...new Set(records.map((event) => event.category))].sort();
   const cityOptions = [...new Set(records.map((event) => event.city).filter(Boolean))].sort();
