@@ -33,7 +33,7 @@ for (const needle of [
 ]) requireText(adapter, needle, "shared event registry Christmas integration");
 for (const needle of [
   "View this show on the statewide calendar",
-  "encodeURIComponent(show.city)",
+  "encodeURIComponent(`city:${show.city}`)",
   '/events?start=',
 ]) requireText(christmasHub, needle, "Christmas hub calendar crosslinks");
 for (const needle of [
