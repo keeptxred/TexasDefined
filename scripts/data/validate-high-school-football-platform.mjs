@@ -41,6 +41,7 @@ const footballVenueLinksPath = 'src/data/high-school-football/football-venue-lin
 const programProfileFunctionsPath = 'src/data/high-school-football/football-program-profile.functions.ts';
 const footballProfileContentPath = 'src/data/high-school-football/football-profile-content.ts';
 const footballProgramEditorialPath = 'src/data/high-school-football/program-editorial.ts';
+const footballBatch008EditorialPath = 'src/data/high-school-football/program-editorial-b008.ts';
 const uilDirectoryComponentPath = 'src/components/sports/UilFootballProgramDirectory.tsx';
 const enrollmentBandsPath = 'src/data/high-school-football/enrollment-bands.ts';
 const exactEnrollmentsPath = 'src/data/high-school-football/uil-football-enrollments-2026.generated.ts';
@@ -95,6 +96,7 @@ for (const file of [
   programProfileFunctionsPath,
   footballProfileContentPath,
   footballProgramEditorialPath,
+  footballBatch008EditorialPath,
   uilDirectoryComponentPath,
   enrollmentBandsPath,
   exactEnrollmentsPath,
@@ -140,6 +142,7 @@ if (!errors.length) {
   const footballHub = read(files[11]);
   const footballProfileContent = read(footballProfileContentPath);
   const footballProgramEditorial = read(footballProgramEditorialPath);
+  const footballBatch008Editorial = read(footballBatch008EditorialPath);
   const publicRoutes = read(files[12]);
   const dataSources = read(files[13]);
   const newcomerGuide = read(authorityFiles[0]);
@@ -1024,6 +1027,19 @@ if (!errors.length) {
     'getFootballDistrictDirectoryPage',
     'all 192 current UIL football districts',
   ]) requireText(footballDistrictIndexRoute, marker, 'Football district directory route');
+
+  for (const marker of [
+    "buckholts:",
+    "'buda-hays':",
+    "'buda-johnson':",
+    "getBatch008FootballProgramEditorial",
+    "Varsity Opponent",
+    "Mark Torres",
+    "Sam Carlin",
+  ]) requireText(footballBatch008Editorial, marker, 'Football Batch 008 editorial overlay');
+
+  requireText(programProfileServer, "import { getBatch008FootballProgramEditorial } from './program-editorial-b008';", 'Football Batch 008 loader wiring');
+  requireText(programProfileServer, "getBatch008FootballProgramEditorial(canonicalSlug) ?? getFootballProgramEditorial(canonicalSlug)", 'Football Batch 008 loader precedence');
 
   for (const marker of [
     "createLazyFileRoute('/texas-high-school-football-districts')",
