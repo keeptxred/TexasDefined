@@ -1,3 +1,10 @@
+## Standing storefront merchandising rules — all existing and future products
+
+- **Buyer-facing shirt-size selectors must list sizes largest to smallest**, regardless of raw Printify/API order. Example: `5XL → 4XL → 3XL → 2XL → XL → L → M → S → XS`, when offered. Within each size, order color labels alphabetically, never interleave the size groups. Use the central `src/lib/shop-variant-order.ts` comparator for all product-detail dropdowns and future reusable garment selectors. Never mutate IDs, prices, inventory flags, image links, Printify variants or checkout payloads while sorting.
+- New collections and previously published shirts inherit the same rule; enforce it in the protected premerge test and live browser QA. Verify the actual loaded dropdown, including representative mobile and desktop experiences, before declaring the launch complete.
+- **Etsy listing acceptance requires all 13 descriptive SEO tags actually present on the live Etsy listing**, not merely in a draft, repository, Printify, or TexasDefined database. Tags must be relevant, unique and at most 20 characters. Never count `hp-*` reconciliation markers as descriptive SEO tags, or claim compliance based on source-only data. Do not remove a publisher marker from Printify merely to create room for an Etsy tag; use a verified seller-side edit instead, preserving existing listing and product IDs. If the connected app lacks write access, report the exact blocker rather than claim completion.
+- For all shirts, use print-ready, transparent-background, irregular-contour artwork; avoid rectangular or square-image blocks unless explicitly approved. Verify actual shopper-side shirt mockups, colors, sizes, production partner disclosure, descriptions, shipping, and site/Etsy tags prior to claiming a fully launched product.
+
 ## Shared Cloudflare operating policy — both sites
 
 Applies to TexasDefined.com (keeptxred/TexasDefined, texasdefined-site) and KeepTXRed.com (keeptxred/texas-heartland-hub, keeptxred-site), including existing, in-progress, and future work.
