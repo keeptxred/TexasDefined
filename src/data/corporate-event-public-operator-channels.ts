@@ -26,6 +26,14 @@ export const corporateEventPublicOperatorChannels: readonly CorporateEventPublic
   { venueSlug: 'lone-star-flight-museum-rentals', url: 'https://lonestarflight.org/celebrate/event-spaces/', evidenceUrl: 'https://lonestarflight.org/celebrate/event-spaces/', reviewedOn: '2026-10-25' },
   { venueSlug: 'museum-of-illusions-houston-groups', url: 'https://moihouston.com/group-visits/', evidenceUrl: 'https://moihouston.com/group-visits/', reviewedOn: '2026-10-25' },
   { venueSlug: 'hmns-houston-corporate-events', url: 'https://www.hmns.org/visit/host-an-event/', evidenceUrl: 'https://www.hmns.org/visit/host-an-event/', reviewedOn: '2026-10-25' },
+  { venueSlug: 'topgolf-dallas', url: 'https://topgolf.com/us/dallas/plan-an-event/company-events/', evidenceUrl: 'https://topgolf.com/us/dallas/plan-an-event/company-events/', reviewedOn: '2026-10-25' },
+  { venueSlug: 'dallas-arboretum-events', url: 'https://www.dallasarboretum.org/events-activities/private-events-and-rentals/corporate-and-social-events/', evidenceUrl: 'https://www.dallasarboretum.org/events-activities/private-events-and-rentals/corporate-and-social-events/', reviewedOn: '2026-10-25' },
+  { venueSlug: 'escape-game-dallas', url: 'https://theescapegame.com/dallas/parties-and-events/', evidenceUrl: 'https://theescapegame.com/dallas/parties-and-events/', reviewedOn: '2026-10-25' },
+  { venueSlug: 'dart-em-up-austin', url: 'https://www.dartemup.com/team-building/', evidenceUrl: 'https://www.dartemup.com/team-building/', reviewedOn: '2026-10-25' },
+  { venueSlug: 'artpace-san-antonio-events', url: 'https://artpace.org/building-rentals/', evidenceUrl: 'https://artpace.org/building-rentals/', reviewedOn: '2026-10-25' },
+  { venueSlug: 'alamo-private-events', url: 'https://www.thealamo.org/contact/venue-rentals', evidenceUrl: 'https://www.thealamo.org/contact/venue-rentals', reviewedOn: '2026-10-25' },
+  { venueSlug: 'topgolf-el-paso', url: 'https://topgolf.com/us/el-paso/plan-an-event/company-events/', evidenceUrl: 'https://topgolf.com/us/el-paso/plan-an-event/company-events/', reviewedOn: '2026-10-25' },
+  { venueSlug: 'moody-gardens-galveston-events', url: 'https://www.moodygardens.com/plan-event/meetings', evidenceUrl: 'https://www.moodygardens.com/plan-event/meetings', reviewedOn: '2026-10-25' },
 ];
 
 export function corporateEventPublicOperatorChannel(venueSlug: string):
