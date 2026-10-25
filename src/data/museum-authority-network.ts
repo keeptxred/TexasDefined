@@ -58,7 +58,7 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
       { label: "Austin County visitor guide", href: "/county/austin", reason: "Place Bellville, historic markers and this courthouse-square landmark in wider county context." },
       { label: "San Felipe de Austin", href: "/destination/san-felipe-de-austin", reason: "Compare nineteenth-century law and civic institutions with an earlier Texas-colonial capital and historic site; separate hours and tickets apply." },
       { label: "Explore historic Texas sites", href: "/explore", reason: "Build a heritage route around confirmed open visitor attractions rather than treating every historic exterior as an open museum." }
-    ]
+    ],
   },
   "baytown-historical-museum": {
     name: "Baytown Historical Museum", slug: "baytown-historical-museum", county: "Harris", city: "Baytown", reviewed: "2026-10-24",
