@@ -1,5 +1,6 @@
 import { loadTicketmasterEventsServer } from "./ticketmaster-events.server";
 import { resolveEventTicketCta } from "./ticketing";
+import { ticketmasterVenueMatches, ticketmasterShowtimeMatches } from "./ticketmaster-event-match";
 import { providerForVerifiedTicketUrl } from "./ticket-provider";
 import type { TexasEventRecord } from "./texas-event-record";
 
@@ -133,6 +134,43 @@ function normalized(value: string) {
   return value.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
 }
 
+const confirmedStartTimes: Readonly<Record<string, string>> = {
+  "king-country-fort-worth-2026": "19:00",
+  "christmas-kwanzaa-dallas-2026": "19:30",
+  "christmas-story-conroe-2026": "14:00",
+  "pentatonix-fort-worth-2026": "19:00",
+  "jazzy-christmas-dallas-2026": "19:00",
+  "very-merry-symphony-cedar-park-2026": "19:00",
+  "celtic-christmas-mcallen-2026": "16:00",
+  "grand-ol-christmas-houston-2026": "19:00",
+  "grand-ol-christmas-dallas-2026": "18:00",
+  "cirque-musica-cedar-park-2026": "14:00",
+};
+
+/**
+ * The holiday hub must obey the SAME admission identity rules as /events:
+ * do not pick the first text match from Ticketmaster when shows have different
+ * venues, ticket types or matinee/evening sessions. A featured show without a
+ * single reviewed start time goes to its official performance selector.
+ */
+export function matchChristmasTicketmasterPerformance(
+  show: Pick<ChristmasPerformance, "id" | "date" | "city" | "venue" | "ticketmasterNeedle">,
+  providerEvents: readonly TexasEventRecord[],
+  today: string,
+): TexasEventRecord | undefined {
+  const startTime = confirmedStartTimes[show.id];
+  if (!show.ticketmasterNeedle || !startTime || show.date < today) return undefined;
+  const candidates = providerEvents.filter((event) =>
+    event.startDate === show.date
+    && normalized(event.city) === normalized(show.city)
+    && normalized(event.title).includes(normalized(show.ticketmasterNeedle!))
+    && ticketmasterVenueMatches({ venueName: show.venue }, event)
+  );
+  const exactShowtime = candidates.filter((event) =>
+    ticketmasterShowtimeMatches({ startTime }, event, candidates.length));
+  return exactShowtime.length === 1 ? exactShowtime[0] : undefined;
+}
+
 export function getChristmasPerformances2026Server(now = new Date()) {
   const today = texasToday(now);
   if (today > "2026-12-27") return [];
@@ -141,13 +179,7 @@ export function getChristmasPerformances2026Server(now = new Date()) {
     // A theatre run remains current after its featured performance passes, but
     // do not promote a single-date ticket that may already be expired.
     const featuredDatePassed = show.date < today;
-    const match = !featuredDatePassed && show.ticketmasterNeedle
-      ? ticketmaster.find((event) =>
-        event.startDate === show.date
-        && normalized(event.city) === normalized(show.city)
-        && normalized(event.title).includes(normalized(show.ticketmasterNeedle!))
-        && normalized(event.venueName ?? "").includes(normalized(show.venue.split(" · ")[0]))
-      ) : undefined;
+    const match = featuredDatePassed ? undefined : matchChristmasTicketmasterPerformance(show, ticketmaster, today);
     const ticketCta = resolveEventTicketCta(match?.ticketing, now);
     const formattedDate = new Intl.DateTimeFormat("en-US", {
       timeZone: "UTC", month: "short", day: "numeric", year: "numeric",
@@ -183,18 +215,6 @@ export function getVerifiedChristmasPerformanceCalendarRecords2026(): TexasEvent
     "Cedar Park": { region: "hill-country", countySlug: "williamson", countyName: "Williamson County" },
     McAllen: { region: "south-texas", countySlug: "hidalgo", countyName: "Hidalgo County" },
     Houston: { region: "gulf-coast", countySlug: "harris", countyName: "Harris County" },
-  };
-  const confirmedStartTimes: Readonly<Record<string, string>> = {
-    "king-country-fort-worth-2026": "19:00",
-    "christmas-kwanzaa-dallas-2026": "19:30",
-    "christmas-story-conroe-2026": "14:00",
-    "pentatonix-fort-worth-2026": "19:00",
-    "jazzy-christmas-dallas-2026": "19:00",
-    "very-merry-symphony-cedar-park-2026": "19:00",
-    "celtic-christmas-mcallen-2026": "16:00",
-    "grand-ol-christmas-houston-2026": "19:00",
-    "grand-ol-christmas-dallas-2026": "18:00",
-    "cirque-musica-cedar-park-2026": "14:00",
   };
   const theatreIds = new Set([
     "grinch-dallas-2026",
