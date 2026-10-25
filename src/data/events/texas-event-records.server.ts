@@ -2,6 +2,7 @@ import { getGeneratedTexasEvents } from "../events-generated";
 import { loadTicketmasterEventsServer } from "./ticketmaster-events.server";
 import { getOfficialVenueEventSnapshots } from "./official-venue-events.server";
 import { getVerifiedChristmasCommunityEvents2026 } from "./christmas-community-2026.server";
+import { getVerifiedChristmasPerformanceCalendarRecords2026, isSameChristmasPerformanceCalendarEvent } from "./christmas-performances-2026.server";
 import { loadTpwdEventRecordsServer } from "./tpwd-event-records.server";
 import { loadMajorEventGuideDirectoryServer, type MajorEventGuideDirectoryItem } from "../major-event-directory.server";
 import { getMajorEventRecordServer, getMajorEventOccurrenceWindowsServer } from "../major-event-page.server";
@@ -249,6 +250,26 @@ export function loadTexasEventRecordsServer(): TexasEventRecord[] {
     }
   }
 
+  // Make every curated Christmas stage/concert listing independently findable
+  // on the statewide /events calendar, not only on the holiday authority hub.
+  // Reconcile with existing authorities/venue imports BEFORE Ticketmaster so
+  // providers can enrich the editorial record instead of displaying duplicates.
+  const christmasPerformances = getVerifiedChristmasPerformanceCalendarRecords2026();
+  for (const performance of christmasPerformances) {
+    const index = records.findIndex((record) =>
+      isSameChristmasPerformanceCalendarEvent(performance, record));
+    if (index === -1) {
+      records.push(performance);
+    } else {
+      records[index] = {
+        ...records[index],
+        ticketing: mergeEventTicketing(records[index].ticketing, performance.ticketing),
+        lastVerifiedAt: [records[index].lastVerifiedAt, performance.lastVerifiedAt].sort().at(-1)!,
+        lastUpdatedAt: [records[index].lastUpdatedAt, performance.lastUpdatedAt].sort().at(-1)!,
+      };
+    }
+  }
+
   // TPWD activities live inside the shared calendar and on known park destinations.
   // These short-lived factual links never create thin standalone event routes.
   const knownActivities = new Set(records.map(record =>
@@ -266,8 +287,13 @@ export function loadTexasEventRecordsServer(): TexasEventRecord[] {
   const existing = new Map(records.map((record, index) => [`${eventIdentity(record.title, record.city)}:${record.startDate}`, index] as const));
   for (const providerRecord of loadTicketmasterEventsServer()) {
     const key = `${eventIdentity(providerRecord.title, providerRecord.city)}:${providerRecord.startDate}`;
-    const index = existing.get(key);
-    if (index === undefined) {
+    const exactIndex = existing.get(key);
+    const curatedMatch = christmasPerformances.find((performance) =>
+      isSameChristmasPerformanceCalendarEvent(performance, providerRecord));
+    const index = exactIndex ?? (curatedMatch
+      ? records.findIndex((record) => isSameChristmasPerformanceCalendarEvent(curatedMatch, record))
+      : -1);
+    if (index === -1 || index === undefined) {
       existing.set(key, records.length);
       records.push(providerRecord);
       continue;
