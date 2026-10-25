@@ -946,3 +946,11 @@ Current source reconciliation did **not** justify any status promotion. Harmony'
 - **Caddo Mills:** current official campus 3049 S. FM 36, Foxes green/black identity, Kodi Crane official Boys AD + current football-head-coach sourcing. 7-1 / 4-0 after Ferris 53-35; current Ed Locker Stadium/new-stadium construction transition documented. Hunt County link.
 - No CI/deployment polling performed. Next assigned group: **Caldwell, Callisburg, Calvert**.
 
+### Batch 008 — eighteen school implementation checkpoint (2026-10-25)
+
+- **18/25 IMPLEMENTED, 7 remaining; 0 Batch 008 VERIFIED.**
+- **Caldwell:** Sean Witherwax current coach; 2-6 / 1-4 after Franklin 77-3; first-party Hornet orange/black identity and Hornet Stadium front-gate/main-lot guidance; Burleson County link.
+- **Callisburg:** 1-6 / 1-2 through S&S 53-7; Eddie Gill history-listed head coach with Corey Roberson conflicting staff label disclosed. Oct. 23 Blue Ridge matchup is verified but its final remains unresolved in current sources; Cooke County link.
+- **Calvert:** first-party Marcus Wortham AD/Head Football Coach; 0-8 after Brazos Valley 46-45; 1-0 First Baptist Christian result labeled administrative forfeit; Robertson County link.
+- No CI/deployment polling performed. Next assigned group: **Cameron Yoe, Campbell, Canadian**.
+
