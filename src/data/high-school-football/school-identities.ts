@@ -2003,6 +2003,29 @@ export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoo
     sourceLabel: 'Caddo Mills High official live feed repeatedly uses Foxes and green/black spirit presentation',
     verifiedAt: '2026-10-25',
   },
+  {
+    slug: 'caldwell',
+    mascot: 'Hornets',
+    colors: 'Orange and Black',
+    sourceUrl: 'https://www.caldwellisd.net/o/chs/live-feed/?page_no=5',
+    sourceLabel: 'Caldwell ISD official high-school live feed uses Hornets identity and orange/black spirit presentation',
+    verifiedAt: '2026-10-25',
+  },
+  {
+    slug: 'callisburg',
+    mascot: 'Wildcats',
+    sourceUrl: 'https://www.maxpreps.com/tx/gainesville/callisburg-wildcats/football/',
+    sourceLabel: 'Current UIL-partner Callisburg team page identifies Wildcats; school colors not independently first-party verified in this checkpoint',
+    verifiedAt: '2026-10-25',
+  },
+  {
+    slug: 'calvert',
+    mascot: 'Trojans',
+    colors: 'Purple and White',
+    sourceUrl: 'https://www.calvertisd.com/',
+    sourceLabel: 'Calvert ISD official site uses Trojans identity and current purple/white school-spirit presentation',
+    verifiedAt: '2026-10-25',
+  },
 ];
 
 export function getVerifiedFootballSchoolIdentity(slug: string) {
