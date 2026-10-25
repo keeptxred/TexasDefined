@@ -58,6 +58,11 @@ assert.equal(proof.status, 0,
   'Security proof tests must pass: exact official venue hosts, valid timestamps, no external redirects or sibling host impersonation');
 assert(publicOffers.includes('business.commercial_agreement_expires_on < offer.ends_on'),
   'Public feed must suppress offers that outlive the agreement');
+const agreementSection = admin.split('export async function recordCorporateEventCommercialAgreement(')[1]
+  ?.split('export async function revokeCorporateEventVenueSharing(')[0] ?? '';
+assert(agreementSection.includes('corporateEventEvidenceTimestampIsValid(application.identity_verified_at)')
+  && !agreementSection.includes('|| !application.identity_verified_at'),
+  'Signing evidence must not be recorded against a missing, malformed or future-dated approved-partner identity');
 assert(quotePrep.includes('corporateEventEvidenceTimestampIsValid(application.identity_verified_at)') &&
   !quotePrep.includes('Date.parse(String(application.identity_verified_at))'),
   'An approved application without strictly verified, nonfuture identity must never expose planner details');

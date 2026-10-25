@@ -261,7 +261,8 @@ export async function recordCorporateEventCommercialAgreement(
     .eq('id', applicationId)
     .maybeSingle();
   if (lookupError || !application?.id || application.status !== 'approved'
-    || !application.identity_verified_at || !application.identity_verification_note) {
+    || !corporateEventEvidenceTimestampIsValid(application.identity_verified_at)
+    || !application.identity_verification_note) {
     throw new Error('First independently verify and approve the business application.');
   }
   const { data, error } = await client.from('texasdefined_group_event_partner_applications')

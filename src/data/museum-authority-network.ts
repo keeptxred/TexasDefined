@@ -60,6 +60,67 @@ export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
       { label: "Explore historic Texas sites", href: "/explore", reason: "Build a heritage route around confirmed open visitor attractions rather than treating every historic exterior as an open museum." }
     ],
   },
+  "barrington-living-history-farm": {
+    name: "Barrington Living History Farm", slug: "barrington-living-history-farm", county: "Washington", city: "Washington", reviewed: "2026-10-24",
+    topics: ["republic-history", "living-history", "enslaved-labor", "agricultural-history"],
+    whyVisit: "Barrington preserves and interprets the residence and working farm of Anson Jones, the last president of the Republic of Texas. Visitors explore an original historic house and a reconstructed 1850s farm environment, learning not only about Jones but also about crop production, households and the enslaved people whose coerced labor sustained the farm.",
+    visitorStrategy: "Use the Texas Historical Commission listing for 23100 Barrington Lane, Washington. The farm and outdoor interpretation normally operate Wednesday through Sunday, 10 a.m. to 4:30 p.m. Monday and Tuesday access to the wider grounds does not include the farm structures. In October 2026 the operator lists adults $10, ages 6–17 $6, under six free, qualified discounts and family options. Allow about an hour or longer for the farm and separate additional time for the adjoining Washington Townsite and Star of the Republic Museum.",
+    accessibility: "Barrington's outdoor working-history landscape involves uneven dirt paths and some building steps. The Texas Historical Commission explicitly requests advance accessibility-ramp notice for group tours. Neither a photographed entrance nor an online map guarantees step-free access to every structure, so contact the staff at 936-878-2214 to plan current accessible routes and facilities.",
+    familiesAndGroups: "Living-history staff interpret period livestock, cultivation, kitchens and household tasks, with demonstrations changing by weather and season. Adult group tours generally require reservations about four weeks in advance; advance payment deadlines also apply. Teachers and family visitors should distinguish the operator's discounted group rate from the normal family ticket and give children age-appropriate context about forced labor.",
+    researchValue: "The Texas Historical Commission uses Anson Jones's records and surviving buildings to interpret the lives and work of the Jones household and enslaved residents. The 1850 farm illustrates the cotton economy, food production and livestock work of the era, while recreated quarters must be understood as interpretive reconstructions rather than untouched structures. The site also clarifies how presidential history intersected with inequality in early Texas.",
+    exhibits: [
+      { heading: "Original house of Anson Jones", detail: "A historic Jones family home is the core of Barrington; compare it with reconstructed kitchens, cabins and other working structures rather than treating every building as equally original." },
+      { heading: "Work and quarters of enslaved residents", detail: "Reconstructed living spaces and sourced personal and farm records foreground the people held in slavery who planted crops, cooked, tended animals and maintained the household." },
+      { heading: "Seasonal 1850s agricultural demonstrations", detail: "Farming, livestock and cooking programs vary with season and weather; visitors may see different labor and crop activities on different dates." }
+    ],
+    routes: [
+      { label: "Focused farm visit", steps: ["Confirm the farm itself is open, not just the free grounds", "Tour the surviving Jones house and identify the reconstructed farm buildings", "Include the enslaved-quarter history and outdoor cultivation landscape"] },
+      { label: "Republic history half-day", steps: ["Start with Barrington's household and farm interpretation", "Explore the separately managed Washington Townsite", "Visit the Star of the Republic Museum on the complex's current ticket terms"] },
+      { label: "School and adult group experience", steps: ["Request group tours four weeks ahead and confirm accessibility needs", "Compare the lives of the Jones family and enslaved workers", "Check seasonal demonstrations and postpone outdoor touring during lightning closures"] }
+    ],
+    sources: [
+      { label: "THC Barrington current visitor listing", url: "https://thc.texas.gov/historic-sites/barrington-living-history-farm", use: "Operating days, ticket categories and current visitor location" },
+      { label: "THC Barrington history", url: "https://thc.texas.gov/state-historic-sites/barrington-living-history-farm/barrington-living-history-farm-history", use: "Original house, Jones diary, agriculture and enslaved workers" },
+      { label: "THC Washington complex visitor and group rules", url: "https://thc.texas.gov/washington-brazos-complex/plan-your-visit-washington-brazos", use: "Group booking, outdoor accessibility and lightning closure" },
+      { label: "THC Washington complex context", url: "https://thc.texas.gov/historic-sites/washington-brazos", use: "Separate farm, townsite and museum experiences" }
+    ],
+    connections: [
+      { label: "Washington County guide", href: "/county/washington", reason: "Plan a Washington County historical itinerary" },
+      { label: "Washington-on-the-Brazos", href: "/destination/washington-on-the-brazos", reason: "Connect Barrington's everyday life with Republic-era political history" },
+      { label: "Star of the Republic Museum", href: "/destination/star-of-the-republic-museum", reason: "Pair the outdoor farm with a separately interpreted museum visit" }
+    ],
+  },
+  "bastrop-county-museum-visitor-center": {
+    name: "Bastrop County Museum & Visitor Center", slug: "bastrop-county-museum-visitor-center", county: "Bastrop", city: "Bastrop", reviewed: "2026-10-24",
+    topics: ["local-history", "el-camino-real", "lost-pines", "heritage-tourism"],
+    whyVisit: "At 904 Main Street, the Bastrop County Historical Society operates both a local history museum and the county visitor center. The galleries cover Indigenous communities, El Camino Real, early Texas, local industries and the Lost Pines, while staff help connect those stories to today's historic downtown and surrounding landscapes.",
+    visitorStrategy: "Visit 904 Main Street Monday through Saturday, 10 a.m. to 5 p.m., with last entry at 4:30 p.m. The operator charges $8 for most adults; children 12 and under, active service members and veterans are free, and eligible EBT families may use a $5 reduced rate. The official homepage's Sunday 11 a.m. to 3 p.m. entry conflicts with several dedicated pages listing only Monday–Saturday; confirm any Sunday plans by phone at 512-303-0904. A typical tour takes 30–60 minutes.",
+    accessibility: "The operator confirms free nearby public parking but does not document every accessible entrance, elevator, bathroom or assistive device. Do not assume marked accessible spaces or universal step-free access based only on its downtown address. Ask visitor services at 512-303-0904 about current entry and mobility arrangements before traveling.",
+    familiesAndGroups: "Families can explore permanent and temporary exhibits together, use the children's free-entry policy, and ask staff for additional local-history context. Museums for All rates have eligibility requirements. Only service animals are permitted in galleries, and food and drinks belong in the visitor-center area rather than near exhibits. Research-library use should be arranged in advance, not assumed to be part of a walk-in museum ticket.",
+    researchValue: "Founded in 1952, the historical society opened a museum in the 1950s and moved its collections to the current Main Street space in 2011. Family-donated artifacts and archives illuminate trade routes, coal and timber industries, civic institutions and the people of Bastrop County; history researchers should make a separate appointment to consult records rather than expecting immediate unsupervised access.",
+    exhibits: [
+      { heading: "County history and El Camino Real", detail: "Learn how Indigenous histories, historic routes, the Texas Revolution and later migration connect to places across Bastrop County." },
+      { heading: "Lost Pines and local industry", detail: "The region's forest landscapes, coal mining, civic institutions and historic Main Street form interconnected economic and environmental stories." },
+      { heading: "Changing exhibits and visitor information", detail: "Special exhibitions rotate, and visitor-center staff can help plan nearby trips; separate archival appointments are required for deeper original-record research." }
+    ],
+    routes: [
+      { label: "One-hour museum introduction", steps: ["Arrive before the 4:30 p.m. last-entry cutoff", "Tour the local-history galleries for 30–60 minutes", "Ask the visitor desk about a current downtown heritage route"] },
+      { label: "County history and Lost Pines", steps: ["Start at the museum to understand the El Camino Real and Lost Pines", "Walk the separate historic downtown streets", "Explore Bastrop State Park on its own operating and entry terms"] },
+      { label: "Family or archival visit", steps: ["Check current child and EBT admission eligibility", "Visit permanent and temporary exhibits together", "For genealogy or original papers, arrange a separate society research appointment"] }
+    ],
+    sources: [
+      { label: "Museum operator hours and current location", url: "https://www.bastropcountyhistoricalsociety.com/museum", use: "Museum, visitor address, last entrance and changing exhibitions" },
+      { label: "Museum operator ticket programs", url: "https://www.bastropcountyhistoricalsociety.com/coming-soon-03-3", use: "Adult, child, veteran, EBT and member admission rules" },
+      { label: "Museum operator FAQ", url: "https://www.bastropcountyhistoricalsociety.com/coming-soon-03-4", use: "Visit time, last entrance, food and animals" },
+      { label: "Museum operator homepage for disputed Sunday hours", url: "https://www.bastropcountyhistoricalsociety.com/", use: "Sunday-hours conflict and current operator contact" },
+      { label: "Society research and visitor support", url: "https://www.bastropcountyhistoricalsociety.com/resources", use: "Research appointment rather than unplanned archival visit" }
+    ],
+    connections: [
+      { label: "Bastrop County", href: "/county/bastrop", reason: "Connect artifacts and local history to Bastrop County" },
+      { label: "Bastrop State Park", href: "/destination/bastrop-state-park", reason: "Experience the Lost Pines habitat interpreted by the museum" },
+      { label: "Texas history", href: "/texas-history", reason: "Understand El Camino Real and Bastrop history in a statewide context" }
+    ],
+  },
   "baytown-historical-museum": {
     name: "Baytown Historical Museum", slug: "baytown-historical-museum", county: "Harris", city: "Baytown", reviewed: "2026-10-24",
     topics: ["goose-creek", "oil-history", "karankawa", "historic-post-office"],
