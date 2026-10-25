@@ -1,5 +1,16 @@
 # Football Authority — Execution Ledger
 
+## October 25, 2026 — Batch 008 release reconciliation and live blocker (newest checkpoint)
+
+- **Batch 008 implementation was protected-merged** as [PR #5899](https://github.com/keeptxred/TexasDefined/pull/5899), commit `4245906ea485a09095ea3684878bde0ea64abc14`. All 25 individually researched school profiles are in `main`. This supersedes the initial premerge wording below **for source control state only**.
+- The canonical registry remains **155 previously VERIFIED + 25 Batch 008 IMPLEMENTED + 1,112 NOT_REVIEWED**. No Batch 008 school has 75-case desktop/mobile/narrow and reciprocal-county live browser evidence yet, so none has been promoted to technical VERIFIED. The next eligible school is Canyon West Plains; do not assign a new batch before production acceptance.
+- The later deployment at GitHub Actions [#40239188543](https://github.com/keeptxred/TexasDefined/actions/runs/40239188543) **deployed a Worker and passed general health**, but **failed live production** on the existing District 21 team scorecard acceptance: eight team routes returned HTTP 500 on three bounded attempts each, while the district hub and District 5/16 hubs passed. Cloudflare observability confirms those 500s on Worker `b16d0c79-b34c-4bcf-97e9-669d10629aa3`. This is a real outstanding production release failure, not permission to weaken the verifier or advance the registry.
+- The historical Batch 007 production script accidentally assumed `registry.batch.number === 7` despite Batch 007 being archived in `completedBatches`; it failed before launching Chrome after Batch 008 assignment. The corrective branch reads the immutable archived batch and still requires all 25 remain VERIFIED.
+- The final four Batch 008 schools (Canton, Canutillo, Canyon, Canyon Randall) were present in school editorial but missing from the original scored-results graphic allowlist. Corrective branch adds all four without copying school photography or logos.
+- [Corrective PR #5902](https://github.com/keeptxred/TexasDefined/pull/5902) adds a strict new Batch 008 live Chrome verifier checking 25 schools at 1366/390/320 (75 route views), 75 sourced result figures, responsive overflow, canonical/SEO/schema, sitemap and reciprocal counties, exact active Worker version and retained screenshots. Do not call Batch 008 VERIFIED until this independent suite passes a known deployed release with the underlying shared football SSR 500 fixed.
+- Football sponsor packages [PR #5894](https://github.com/keeptxred/TexasDefined/pull/5894) and corresponding advertiser live verifier [PR #5895](https://github.com/keeptxred/TexasDefined/pull/5895) are already merged. Neither constitutes active paid sponsor placements or independently verified merchant conversions. Avoid duplicating those PRs.
+
+
 ## October 25, 2026 — Batch 008 implementation complete: 25/25
 
 All 25 stable-registry Batch 008 schools are now individually researched and `IMPLEMENTED` on `football-authority-batch-008-20261025`. No school is marked merged, deployed or VERIFIED before protected release and real production acceptance.
