@@ -21,6 +21,9 @@ const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([
   'buffalo',
   'bullard',
   'buna',
+  'burkburnett',
+  'burkeville',
+  'burleson',
   'bruceville-eddy',
   'bruni',
   'brackettville-brackett',
@@ -140,6 +143,9 @@ function Page() {
     'buffalo': 'leon', // Buffalo ISD / current state school data place Buffalo High in Leon County.
     'bullard': 'cherokee', // NCES identifies Bullard High's 1426 S Houston physical campus in Cherokee County.
     'buna': 'jasper', // Buna ISD / UIL school information place Buna in Jasper County; official campus address is CR 734.
+    'burkburnett': 'wichita', // Burkburnett High and ISD are in Wichita County; official campus/stadium pages control local venue context.
+    'burkeville': 'newton', // Burkeville ISD's CR 2099 campus is in Newton County.
+    'burleson': 'johnson', // Burleson High official page and NCES place the 100 Elk Drive campus in Johnson County.
     'abbott': 'hill',
     'abernathy': 'hale',
     'abilene': 'taylor',
