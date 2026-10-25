@@ -48,12 +48,15 @@
     "assignmentBranch": "football-authority-batch-008-20261025",
     "repositoryMainAtAssignment": "84f529082bc16063bd28f9d21e762e69da96fd74",
     "maxSchoolsPerBatch": 25,
-    "currentSchool": "cameron-yoe",
-    "nextSchool": "campbell",
-    "implementedOnBranch": 18,
-    "remainingToImplement": 7,
+    "currentSchool": null,
+    "nextSchool": null,
+    "implementedOnBranch": 25,
+    "remainingToImplement": 0,
     "remainingToVerify": 25,
-    "notes": "Batch 008: 18/25 IMPLEMENTED on branch, none merged/deployed/VERIFIED. Sixth group Caldwell/Callisburg/Calvert completed. Caldwell current 2-6 with first-party stadium-entry rules; Callisburg Blue Ridge final remains unresolved; Calvert first-party Marcus Wortham and 46-45 Brazos Valley final added. Next Cameron Yoe, Campbell, Canadian."
+    "notes": "All 25 Batch 008 schools individually IMPLEMENTED and source-documented; PR #5899 protected-merged at 4245906ea485a09095ea3684878bde0ea64abc14. Deployed Worker and live batch-wide Chrome/SEO/county acceptance are not yet certified. District 21 HTTP 500 and browser verifier need investigation; no Batch 008 school is yet VERIFIED.",
+    "implementationMergedPr": 5899,
+    "implementationMergeCommit": "4245906ea485a09095ea3684878bde0ea64abc14",
+    "implementationMergedAt": "2026-10-25"
   },
   "statusValues": [
     "NOT_REVIEWED",
