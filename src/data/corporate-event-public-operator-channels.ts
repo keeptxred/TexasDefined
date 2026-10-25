@@ -1,6 +1,6 @@
 /**
  * Staff-reference-only public event inquiry paths, checked on operator-owned
- * public pages on 2026-10-24. These are not contacts sent, approved partners,
+ * public pages on 2026-10-24 and 2026-10-25. These are not contacts sent, approved partners,
  * available dates, exclusive offers, reservations, referral terms, or inboxes.
  * Clicking a link never submits a quote or shares planner information.
  */
@@ -22,6 +22,10 @@ export const corporateEventPublicOperatorChannels: readonly CorporateEventPublic
   { venueSlug: 'color-factory-houston-private-events', url: 'https://www.colorfactory.co/events', evidenceUrl: 'https://www.colorfactory.co/events', reviewedOn: '2026-10-24' },
   { venueSlug: 'house-of-blues-houston-private-events', url: 'https://houston.houseofblues.com/contact', evidenceUrl: 'https://houston.houseofblues.com/contact', reviewedOn: '2026-10-24' },
   { venueSlug: 'pelazzio-houston-corporate-ballrooms', url: 'https://pelazzio.com/corporate-events/', evidenceUrl: 'https://pelazzio.com/corporate-events/', reviewedOn: '2026-10-24' },
+  { venueSlug: 'space-center-houston-corporate-rentals', url: 'https://spacecenter.org/host-an-event/', evidenceUrl: 'https://spacecenter.org/host-an-event/', reviewedOn: '2026-10-25' },
+  { venueSlug: 'lone-star-flight-museum-rentals', url: 'https://lonestarflight.org/celebrate/event-spaces/', evidenceUrl: 'https://lonestarflight.org/celebrate/event-spaces/', reviewedOn: '2026-10-25' },
+  { venueSlug: 'museum-of-illusions-houston-groups', url: 'https://moihouston.com/group-visits/', evidenceUrl: 'https://moihouston.com/group-visits/', reviewedOn: '2026-10-25' },
+  { venueSlug: 'hmns-houston-corporate-events', url: 'https://www.hmns.org/visit/host-an-event/', evidenceUrl: 'https://www.hmns.org/visit/host-an-event/', reviewedOn: '2026-10-25' },
 ];
 
 export function corporateEventPublicOperatorChannel(venueSlug: string):
