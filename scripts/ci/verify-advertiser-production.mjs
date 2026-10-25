@@ -7,8 +7,8 @@ const routes = [
     name: 'advertiser hub',
     path: '/partner-with-us',
     canonical: '/partner-with-us',
-    needles: ['Local Partner', 'Growth Partner', 'Premier Partner', 'Custom Partnership', '$249', '$499', '$999', 'Review first. Agreement and payment follow approval.'],
-    forbidden: ['Custom / Integrated', 'Founding sports rates', '$49/month', '$149/month', '$299/month', 'TEST ONLY', 'test mode'],
+    needles: ['Local Partner', 'Growth Partner', 'Premier Partner', 'Custom Partnership', '$249', '$499', '$999', 'Review first. Agreement and payment follow approval.', 'School Page Pilot', 'District Football Pilot', 'Regional Football Pilot', '$49/month', '$99/month', '$149/month', 'Submitting an inquiry is free and does not start a subscription.', 'No school affiliation or traffic guarantees.'],
+    forbidden: ['Custom / Integrated', 'Founding sports rates', '$299/month', 'TEST ONLY', 'test mode'],
     indexable: true,
   },
   {
