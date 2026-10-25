@@ -83,7 +83,7 @@ try {
   ), false, 'missing venues are not safe to auto-link');
   assert.equal(ticketmasterVenueMatches(
     { venueName: 'Arena' }, { venueName: 'Arena Parking' },
-  ), true, 'venue-room suffixes are recognized; event title identity is checked separately');
+  ), false, 'parking add-ons must not be mistaken for concert admission');
 
   const editorialTicketing = {
     links: [{
