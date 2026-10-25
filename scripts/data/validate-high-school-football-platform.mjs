@@ -1044,6 +1044,14 @@ if (!errors.length) {
     "Kevin Terrier",
     "Mildred final not independently verified",
     "Buna 46",
+    "burkburnett:",
+    "burkeville:",
+    "burleson:",
+    "Jody Littleton",
+    "Keith Hendrix",
+    "Phillip Tanner",
+    "SETXsports reports 12-61",
+    "Midlothian Heritage",
   ]) requireText(footballBatch008Editorial, marker, 'Football Batch 008 editorial overlay');
 
   requireText(programProfileServer, "import { getBatch008FootballProgramEditorial } from './program-editorial-b008';", 'Football Batch 008 loader wiring');
