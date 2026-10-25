@@ -4,7 +4,7 @@ const server = await createServer({ configFile: false, appType: 'custom', logLev
 try {
   const { loadTicketmasterEventsServer, ticketmasterAuthorityGuidePath } = await server.ssrLoadModule('/src/data/events/ticketmaster-events.server.ts');
   const { mergeEventTicketing } = await server.ssrLoadModule('/src/data/events/ticketing.ts');
-  const { ticketmasterVenueMatches, ticketmasterShowtimeMatches } = await server.ssrLoadModule('/src/data/events/texas-event-records.server.ts');
+  const { ticketmasterVenueMatches, ticketmasterShowtimeMatches } = await server.ssrLoadModule('/src/data/events/ticketmaster-event-match.ts');
   const { hasCompliantMajorEventImageServer } = await server.ssrLoadModule('/src/data/major-event-schema-enrichment.server.ts');
   const { buildTexasEventCarouselItemsServer, buildGlobalEventCalendarServer } = await server.ssrLoadModule('/src/data/events/texas-event-calendar.server.ts');
   const now = new Date();
