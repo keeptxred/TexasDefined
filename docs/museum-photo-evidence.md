@@ -273,3 +273,10 @@ These authority upgrades **reuse existing, accurate destination photographs**, n
 - **Rendered hero source:** https://commons.wikimedia.org/wiki/Special:Redirect/file/John_Henry_Faulk_Central_Library.jpg?width=1600
 - **Alt:** John Henry Faulk Building at 800 Guadalupe Street, current home of the Austin History Center since its 2025 move.
 - **Production acceptance:** Browser decode, responsive crop, correct attribution/original-license links and canonical/indexing confirmation are NOT YET verified. No independent editorial certification.
+
+## Bayou Bend Collection and Gardens — licensed property photograph and limitations (2026-10-24)
+
+- **Existing canonical destination:** `/destination/bayou-bend-collection-gardens`. The owner-inventory entry refers to this exact MFAH house museum, not a new visitable identity.
+- **Actual museum photograph already in existing destination:** Wikimedia Commons [BayouBendHome.JPG](https://commons.wikimedia.org/wiki/File:BayouBendHome.JPG), author **Postoak**, original upload March 22, 2008, depicting the Bayou Bend estate house in Houston. File's author released the exact photo to the **public domain worldwide**, and wherever that is not available grants permission for any purpose without conditions. This is the documented commercial-use evidence for the destination hero at `https://commons.wikimedia.org/wiki/Special:Redirect/file/BayouBendHome.JPG?width=1600`.
+- This **does not** grant rights to reproduce MFAH's collection catalog images or to carry out an on-property commercial photo shoot: the current [museum operator policy](https://www.mfah.org/visit/bayou-bend/photography-guidelines) requires permission for commercial shoots and restricts tripods/drones. Photo source link is the rights record; there is no CC license link to invent for a photographer-public-domain dedication.
+- **Remaining acceptance:** Live SSR image source/alt and indexed canonical, actual decoded house image and mobile crop, and independent editorial competitor evaluation. Neither a Commons file reference nor normal HTTP transport alone counts as visual certification.
