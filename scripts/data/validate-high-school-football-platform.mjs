@@ -192,9 +192,18 @@ if (!errors.length) {
   requireText(schoolIdentities,
     'identity?.slug === slug',
     'Fail-safe verified football identity lookup against missing array entries');
-  const verifiedIdentitySlugs = new Set(
-    [...schoolIdentities.matchAll(/slug:\s*['"]([^'"]+)['"]/g)].map((match) => match[1]),
-  );
+  const identitySlugs = [...schoolIdentities.matchAll(/slug:\s*['"]([^'"]+)['"]/g)]
+    .map((match) => match[1]);
+  const verifiedIdentitySlugs = new Set(identitySlugs);
+  if (verifiedIdentitySlugs.size !== identitySlugs.length) {
+    const seen = new Set();
+    const duplicateSlugs = identitySlugs.filter((slug) => {
+      if (seen.has(slug)) return true;
+      seen.add(slug);
+      return false;
+    });
+    errors.push('Football identities duplicate canonical school slugs: ' + [...new Set(duplicateSlugs)].join(', '));
+  }
   const researchedFootballRecords = footballAuthorityRegistry.schoolRecords.filter((record) =>
     ['VERIFIED', 'DEPLOYED', 'MERGED', 'IMPLEMENTED'].includes(record.status),
   );
