@@ -1,5 +1,30 @@
 # Football Authority — Execution Ledger
 
+## October 25, 2026 — Batch 008 implementation complete: 25/25
+
+All 25 stable-registry Batch 008 schools are now individually researched and `IMPLEMENTED` on `football-authority-batch-008-20261025`. No school is marked merged, deployed or VERIFIED before protected release and real production acceptance.
+
+Final four completed in this checkpoint:
+- **Canton Eagles** — 8-0 through Oct. 23 after Rusk 48-14; Heath Ragle role is source-qualified because Canton High first-party pages say Athletic Director while current UIL-partner football data says head coach; official schedule/ticket page and Van Zandt reciprocal link added.
+- **Canutillo Eagles** — Scott Brooks' first-party documented final season; Oct. 23 Chapin game weather-postponed then completed Oct. 24 as Chapin 24-20; official high-school schedule, Lowenberg Eagles Stadium context and El Paso County reciprocal link.
+- **Canyon Eagles** — current football/staff pages identify Matt Lovorn; older welcome page still names Todd Winfrey and is explicitly treated as stale; Randall 24-21 rivalry loss, Happy State Bank Stadium context and Randall County reciprocal link.
+- **Randall Raiders** — official Dan Sherwood source; 7-1 / 2-1 district after 24-21 win over Canyon; current Randall High schedule/campus sources and Randall County reciprocal link.
+
+The earlier unreconciled Cameron Yoe, Campbell and Canadian objects were also completed with individual dossiers, registry status and county reciprocity. The Batch 008 validator now requires all 25 assigned editorial slugs and key school-specific source markers, so a missing school cannot silently pass CI.
+
+**Current Batch 008 registry status: 25 IMPLEMENTED / 0 NOT_REVIEWED / 0 VERIFIED.** Protected merge, successful production deployment and batch-wide live browser acceptance at desktop/mobile/narrow widths remain required before technical VERIFIED promotion. No unlicensed school photography or official logos were copied.
+
+## October 25, 2026 — Batch 008 recovered checkpoint: 21/25 implemented
+
+Recovered the existing `football-authority-batch-008-20261025` branch rather than restarting work. The branch had 18 registry-tracked implementations plus already-authored Cameron Yoe, Campbell and Canadian editorial objects that had never been reconciled into the registry/dossier ledger.
+
+- **Cameron Yoe**: first-party Aaron Babino coaching/campus sources, four-title history, transparent Little River Academy score conflict, and new Milam County reciprocal link.
+- **Campbell**: first-party Preston Compton coaching source, district calendar, explicit fragmented-score-ledger qualification, verified Oct. 22 Saint Jo district win, and new Hunt County reciprocal link.
+- **Canadian**: current Andy Cavalier program context, five-title history with school-documented older titles, current 2026 district run, Wildcats Stadium / Chris Koetting Field context, and new Hemphill County reciprocal link.
+- All three now have individual dossiers and are correctly marked `IMPLEMENTED`, not merged/deployed/VERIFIED.
+- **Batch 008 status: 21 IMPLEMENTED / 4 NOT_REVIEWED / 0 VERIFIED.** Remaining in stable registry order: Canton, Canutillo, Canyon, Canyon Randall.
+- Current `main` has two newer unrelated event/Ticketmaster commits; Batch 008 football work does not overwrite those files.
+
 ## October 20, 2026 — Batch 007 canonical 25-school assignment (research in progress)
 
 ### Bridge City source-backed fourth school checkpoint — October 20, 2026
@@ -903,3 +928,54 @@ Current source reconciliation did **not** justify any status promotion. Harmony'
 - [Screenshot/report artifact #12565444861](https://github.com/keeptxred/TexasDefined/actions/runs/40109127673/artifacts/12565444861) retained **75 top-of-page school screenshots, 75 graphic screenshots, 18 county screenshots and result files**, 169 uploaded files. Evidence is automated Chrome coverage, **not** a claim that a human reviewed each PNG pixel-by-pixel.
 - Canonical registry advanced from **130 to 155 technically VERIFIED** profiles; 25/25 assigned Batch 007 entries now carry exact evidence references, Worker identity, original source merge lineage and explicit exclusions. The remaining **1,137** schools stay `NOT_REVIEWED`; no Batch 008 assignment is implied by the run.
 - Scope caveat: browser-rendered reciprocal school links passed. The diagnostic log shows some county school links absent from initial server HTML but present after hydration (for example Harris, Wise, Henderson, McLennan); consider that a separate server-rendered SEO improvement, not evidence of a broken rendered link. Independently reviewing photo rights, full manual WCAG, particular future stadium logistics or human nine-dimension editorial signoff is still optional and not falsely certified. The matched Worker reflects the tested October 24 snapshot; future unrelated deployments are not retroactively part of this certification.
+
+### Batch 008 — assignment and first three school implementations (2026-10-25)
+
+- Canonical Batch 007 is closed at **155 technically VERIFIED** profiles. Batch 008 is assigned from the next stable registry order: **Buckholts through Canyon Randall** (25 schools). **Canyon West Plains is not assigned** and remains the next eligible school after this batch.
+- Working branch: `football-authority-batch-008-20261025`, based on main `84f529082bc16063bd28f9d21e762e69da96fd74`. No CI/deploy polling loop was used.
+- **Buckholts:** 1A Division II six-man District 15; current roster source names Jimmy Freeman after 2025 Zack White; named-opponent 2026 results are separated from a MaxPreps **"Varsity Opponent"** placeholder that otherwise inflates the cumulative record. Apple Springs 68-20 final is independently corroborated. Milam County link and original source-derived visual added.
+- **Buda Hays:** official Hawks/red-blue identity, Mark Torres coaching, return to 6A District 26, 2020 regional-final context, first Buda Bowl 41-28 win and 4-4 current ledger through the Oct. 23 Dripping Springs loss. Bob Shelton Stadium and Hays County links are sourced with gate/access caveats.
+- **Buda Johnson:** Johnson High official page names Sam Carlin Head Football Coach/Athletic Coordinator; Hays CISD handbook identifies Jaguars black/gold. 2024 regional semifinal and 2026 3-5 / 2-2 district ledger through Oct. 16 are distinguished from stale 1-4 previews. Inaugural Buda Bowl and Bob Shelton/campus distinction added.
+- These three are **IMPLEMENTED only** on the branch, not merged/deployed/VERIFIED. Dedicated module `program-editorial-b008.ts` avoids expanding the existing 1.5 MB monolithic editorial registry and is wired through the profile loader with validator coverage.
+- Registry now records **3/25 IMPLEMENTED, 22 remaining**, next **Buffalo**, then **Bullard**.
+
+### Batch 008 — six school implementation checkpoint (2026-10-25)
+
+- **6/25 IMPLEMENTED, 19 remaining; 0 Batch 008 VERIFIED.** First group Buckholts/Buda Hays/Buda Johnson remains intact. Second group Buffalo/Bullard/Buna is now individually researched, implemented and documented on `football-authority-batch-008-20261025`.
+- **Buffalo:** UIL 3A DII District 11, first-party Bison identity and athletics leadership, 5-2 named-result ledger through Oct. 16. The Oct. 23 Mildred matchup is intentionally unresolved because reviewed sources prove the game but not a trustworthy final. Leon County reciprocal link added.
+- **Bullard:** final UIL alignment is 4A DI District 8 despite stale DII third-party labels; Bullard ISD officially appointed Colton Bradford. Current 1-7 / 0-5 ledger through Henderson 59-28; official Panther red-white-blue identity and Cherokee County campus provenance added.
+- **Buna:** Kevin Terrier current coach; official campus 711 CR 734 controls over conflicting third-party FM 253 address; 6-3 / 2-3 after the verified Oct. 23 **46-0 Tarkington** win. DCTF's 18 playoff appearances, zero finals/titles and Cougar Stadium are distinguished from gate claims. Jasper County reciprocal link added.
+- No CI/deployment polling performed. These are branch implementations only. Next untouched assigned school: **Burkburnett**, then **Burkeville**, then **Burleson**.
+
+### Batch 008 — nine school implementation checkpoint (2026-10-25)
+
+- **9/25 IMPLEMENTED, 16 remaining; 0 Batch 008 VERIFIED.** Third execution group Burkburnett/Burkeville/Burleson is complete on branch.
+- **Burkburnett:** official BISD staff lists Jody Littleton as AD/Head Football Coach, overriding conflicting MaxPreps Alex Wright label. Current 5-3 / 1-2 record through Graham 70-0; first-party Bulldog Stadium entrance and parking policy surfaced. Wichita County reciprocal link added.
+- **Burkeville:** Keith Hendrix current coach; 1A DI six-man District 13; two state titles/three finals/25 playoffs with historical championship years 1986 and 2001. O'Connell 47-0 played final preserved over stale DCTF cancellation; Chester 62-12 is used with explicit SETXsports 61-12 discrepancy. Newton County reciprocal link added.
+- **Burleson:** Burleson ISD officially lists Phillip Tanner head coach; official Elk / red-white-black identity; 2-6 / 2-3 after Midlothian Heritage 45-7. 2021 8-4 playoff breakthrough retained as recent-history benchmark. Johnson County reciprocal link added.
+- No CI/deployment polling performed. Next assigned school is **Burleson Centennial**, then **Burnet**, then **Burton**.
+
+### Batch 008 — twelve school implementation checkpoint (2026-10-25)
+
+- **12/25 IMPLEMENTED, 13 remaining; 0 Batch 008 VERIFIED.**
+- **Burleson Centennial:** official Spartans identity, Blake Meyer first-party head coach, 5-3 / 2-3 after Lancaster 55-14, 2022 12-2 benchmark and DCTF 12-playoff / zero-title record; Johnson County reciprocal link.
+- **Burnet:** first-party Ben Speer 2026-27 head coach, official Green Mile campus and Kelly Green identity, 1-7 / 1-2 after Lampasas 35-20, China Spring 33-31 breakthrough; Burnet County reciprocal link.
+- **Burton:** first-party Jason Hodde athletic-director record plus KBTX head-coach attribution, 5-2 / 4-1 after Bremond 36-13, 2022 13-1 season and 2016 Bremond semifinal history; Washington County reciprocal link. Burton ISD photo-rights notice respected.
+- No CI/deployment polling performed. Next assigned school: **Bushland**, then **Bynum**, then **Caddo Mills**.
+
+### Batch 008 — fifteen school implementation checkpoint (2026-10-25)
+
+- **15/25 IMPLEMENTED, 10 remaining; 0 Batch 008 VERIFIED.**
+- **Bushland:** 5-3 / 1-1 with Oct. 23 open date; official Falcons/campus, Josh Reynolds first-party AD, qualified William Rabson head-coach source. Hereford 57-21 controls over incompatible aggregate 62-21/99-75 feeds. DCTF 17 playoffs, one final, zero titles; Potter County link.
+- **Bynum:** official Home of the Bulldogs / Hill County campus, 1A DII six-man, 1-7 / 0-2 with Oct. 23 open date. C. Morgan remains qualified because no first-party football-coach page was found. DCTF three playoffs / zero finals or titles; Hill County link.
+- **Caddo Mills:** current official campus 3049 S. FM 36, Foxes green/black identity, Kodi Crane official Boys AD + current football-head-coach sourcing. 7-1 / 4-0 after Ferris 53-35; current Ed Locker Stadium/new-stadium construction transition documented. Hunt County link.
+- No CI/deployment polling performed. Next assigned group: **Caldwell, Callisburg, Calvert**.
+
+### Batch 008 — eighteen school implementation checkpoint (2026-10-25)
+
+- **18/25 IMPLEMENTED, 7 remaining; 0 Batch 008 VERIFIED.**
+- **Caldwell:** Sean Witherwax current coach; 2-6 / 1-4 after Franklin 77-3; first-party Hornet orange/black identity and Hornet Stadium front-gate/main-lot guidance; Burleson County link.
+- **Callisburg:** 1-6 / 1-2 through S&S 53-7; Eddie Gill history-listed head coach with Corey Roberson conflicting staff label disclosed. Oct. 23 Blue Ridge matchup is verified but its final remains unresolved in current sources; Cooke County link.
+- **Calvert:** first-party Marcus Wortham AD/Head Football Coach; 0-8 after Brazos Valley 46-45; 1-0 First Baptist Christian result labeled administrative forfeit; Robertson County link.
+- No CI/deployment polling performed. Next assigned group: **Cameron Yoe, Campbell, Canadian**.
+

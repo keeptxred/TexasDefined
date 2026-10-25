@@ -15,6 +15,27 @@ import {
 
 // Original, school-specific source-derived visual finals; no unlicensed school photos, logos or seals.
 const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([
+  'buckholts',
+  'buda-hays',
+  'buda-johnson',
+  'buffalo',
+  'bullard',
+  'buna',
+  'burkburnett',
+  'burkeville',
+  'burleson',
+  'burleson-centennial',
+  'burnet',
+  'burton',
+  'bushland',
+  'bynum',
+  'caddo-mills',
+  'caldwell',
+  'callisburg',
+  'calvert',
+  'cameron-yoe',
+  'campbell',
+  'canadian',
   'bruceville-eddy',
   'bruni',
   'brackettville-brackett',
@@ -128,6 +149,27 @@ function Page() {
   // Campus-county mapping for individually sourced Batch 002 profiles;
   // city names and district service areas are not dependable campus-county proxies.
   const researchedCampusCounty: Record<string, string> = {
+    'buckholts': 'milam', // Buckholts HS campus in Buckholts, Milam County; spectator gate not independently verified.
+    'buda-hays': 'hays', // Hays High official 4800 Jack C. Hays Trail campus in Buda, Hays County.
+    'buda-johnson': 'hays', // Johnson High official 4260 FM 967 campus in Buda, Hays County; Bob Shelton Stadium is separate.
+    'buffalo': 'leon', // Buffalo ISD / current state school data place Buffalo High in Leon County.
+    'bullard': 'cherokee', // NCES identifies Bullard High's 1426 S Houston physical campus in Cherokee County.
+    'buna': 'jasper', // Buna ISD / UIL school information place Buna in Jasper County; official campus address is CR 734.
+    'burkburnett': 'wichita', // Burkburnett High and ISD are in Wichita County; official campus/stadium pages control local venue context.
+    'burkeville': 'newton', // Burkeville ISD's CR 2099 campus is in Newton County.
+    'burleson': 'johnson', // Burleson High official page and NCES place the 100 Elk Drive campus in Johnson County.
+    'burleson-centennial': 'johnson', // Centennial official 201 S Hurst campus is in Johnson County.
+    'burnet': 'burnet', // Burnet High official Green Mile campus is in Burnet County.
+    'burton': 'washington', // Burton High in Burton is a Washington County campus; Panther Stadium is local but gate details remain event-specific.
+    'bushland': 'potter', // Bushland High's Jim Line Road campus is in the Amarillo/Bushland area of Potter County.
+    'bynum': 'hill', // Bynum ISD explicitly identifies its Toliver campus in Hill County.
+    'caddo-mills': 'hunt', // Caddo Mills ISD/High School is in Hunt County; current campus address is S. FM 36.
+    'caldwell': 'burleson', // Caldwell High's CR 307 campus is in Burleson County.
+    'callisburg': 'cooke', // Callisburg High's Gainesville-area campus is in Cooke County.
+    'calvert': 'robertson', // Calvert ISD and Calvert High are in Robertson County.
+    'cameron-yoe': 'milam', // C.H. Yoe High official Cameron campus is in Milam County.
+    'campbell': 'hunt', // Campbell ISD is in Hunt County.
+    'canadian': 'hemphill', // Canadian High is in Canadian, Hemphill County.
     'abbott': 'hill',
     'abernathy': 'hale',
     'abilene': 'taylor',

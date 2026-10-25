@@ -41,6 +41,7 @@ const footballVenueLinksPath = 'src/data/high-school-football/football-venue-lin
 const programProfileFunctionsPath = 'src/data/high-school-football/football-program-profile.functions.ts';
 const footballProfileContentPath = 'src/data/high-school-football/football-profile-content.ts';
 const footballProgramEditorialPath = 'src/data/high-school-football/program-editorial.ts';
+const footballBatch008EditorialPath = 'src/data/high-school-football/program-editorial-b008.ts';
 const uilDirectoryComponentPath = 'src/components/sports/UilFootballProgramDirectory.tsx';
 const enrollmentBandsPath = 'src/data/high-school-football/enrollment-bands.ts';
 const exactEnrollmentsPath = 'src/data/high-school-football/uil-football-enrollments-2026.generated.ts';
@@ -95,6 +96,7 @@ for (const file of [
   programProfileFunctionsPath,
   footballProfileContentPath,
   footballProgramEditorialPath,
+  footballBatch008EditorialPath,
   uilDirectoryComponentPath,
   enrollmentBandsPath,
   exactEnrollmentsPath,
@@ -140,6 +142,7 @@ if (!errors.length) {
   const footballHub = read(files[11]);
   const footballProfileContent = read(footballProfileContentPath);
   const footballProgramEditorial = read(footballProgramEditorialPath);
+  const footballBatch008Editorial = read(footballBatch008EditorialPath);
   const publicRoutes = read(files[12]);
   const dataSources = read(files[13]);
   const newcomerGuide = read(authorityFiles[0]);
@@ -1024,6 +1027,75 @@ if (!errors.length) {
     'getFootballDistrictDirectoryPage',
     'all 192 current UIL football districts',
   ]) requireText(footballDistrictIndexRoute, marker, 'Football district directory route');
+
+  for (const marker of [
+    "buckholts:",
+    "'buda-hays':",
+    "'buda-johnson':",
+    "getBatch008FootballProgramEditorial",
+    "Varsity Opponent",
+    "Mark Torres",
+    "Sam Carlin",
+    "buffalo:",
+    "bullard:",
+    "buna:",
+    "Trent Jones",
+    "Colton Bradford",
+    "Kevin Terrier",
+    "Mildred final not independently verified",
+    "Buna 46",
+    "burkburnett:",
+    "burkeville:",
+    "burleson:",
+    "Jody Littleton",
+    "Keith Hendrix",
+    "Phillip Tanner",
+    "SETXsports reports 12-61",
+    "Midlothian Heritage",
+    "'burleson-centennial':",
+    "burnet:",
+    "burton:",
+    "Blake Meyer",
+    "Ben Speer",
+    "Jason Hodde",
+    "Lancaster",
+    "Bremond",
+    "bushland:",
+    "bynum:",
+    "'caddo-mills':",
+    "William Rabson",
+    "C. Morgan",
+    "Kodi Crane",
+    "Ferris 53-35",
+    "Hereford 57-21",
+    "caldwell:",
+    "callisburg:",
+    "calvert:",
+    "Sean Witherwax",
+    "Eddie Gill",
+    "Marcus Wortham",
+    "Franklin",
+    "Brazos Valley",
+    "'cameron-yoe':",
+    "campbell:",
+    "canadian:",
+    "Aaron Babino",
+    "Preston Compton",
+    "Andy Cavalier",
+    "canton:",
+    "canutillo:",
+    "canyon:",
+    "'canyon-randall':",
+    "Heath Ragle",
+    "Scott Brooks",
+    "Matt Lovorn",
+    "Dan Sherwood",
+    "Chapin",
+    "Randall beat Canyon 24-21",
+  ]) requireText(footballBatch008Editorial, marker, 'Football Batch 008 editorial overlay');
+
+  requireText(programProfileServer, "import { getBatch008FootballProgramEditorial } from './program-editorial-b008';", 'Football Batch 008 loader wiring');
+  requireText(programProfileServer, "getBatch008FootballProgramEditorial(canonicalSlug) ?? getFootballProgramEditorial(canonicalSlug)", 'Football Batch 008 loader precedence');
 
   for (const marker of [
     "createLazyFileRoute('/texas-high-school-football-districts')",
