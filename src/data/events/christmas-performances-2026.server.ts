@@ -1,5 +1,6 @@
 import { loadTicketmasterEventsServer } from "./ticketmaster-events.server";
 import { resolveEventTicketCta } from "./ticketing";
+import type { TexasEventRecord } from "./texas-event-record";
 
 /**
  * Date-specific, source-checked 2026 performances for the permanent Christmas hub.
@@ -161,4 +162,99 @@ export function getChristmasPerformances2026Server(now = new Date()) {
       },
     };
   });
+}
+
+/**
+ * A separate, source-qualified occurrence for each of the 12 curated shows.
+ * Multi-performance runs are represented by the reviewed FEATURED date only;
+ * their full operating date windows are not continuous (e.g. the Grinch has
+ * no Thursday Nov 26 show, Conroe skips weekdays). The original holiday hub
+ * remains the place to select the other organizer-confirmed showtimes.
+ *
+ * This is intentionally the same verified[] source used by the Christmas hub.
+ * Never convert a broad production run into a continuous calendar window.
+ */
+export function getVerifiedChristmasPerformanceCalendarRecords2026(): TexasEventRecord[] {
+  const cities: Record<string, { region: TexasEventRecord["region"]; countySlug: string; countyName: string }> = {
+    Dallas: { region: "prairies-lakes", countySlug: "dallas", countyName: "Dallas County" },
+    "Fort Worth": { region: "prairies-lakes", countySlug: "tarrant", countyName: "Tarrant County" },
+    Conroe: { region: "piney-woods", countySlug: "montgomery", countyName: "Montgomery County" },
+    "Cedar Park": { region: "hill-country", countySlug: "williamson", countyName: "Williamson County" },
+    McAllen: { region: "south-texas", countySlug: "hidalgo", countyName: "Hidalgo County" },
+    Houston: { region: "gulf-coast", countySlug: "harris", countyName: "Harris County" },
+  };
+  const confirmedStartTimes: Readonly<Record<string, string>> = {
+    "king-country-fort-worth-2026": "19:00",
+    "christmas-kwanzaa-dallas-2026": "19:30",
+    "christmas-story-conroe-2026": "14:00",
+    "pentatonix-fort-worth-2026": "19:00",
+    "jazzy-christmas-dallas-2026": "19:00",
+    "very-merry-symphony-cedar-park-2026": "19:00",
+    "celtic-christmas-mcallen-2026": "16:00",
+    "grand-ol-christmas-houston-2026": "19:00",
+    "grand-ol-christmas-dallas-2026": "18:00",
+    "cirque-musica-cedar-park-2026": "14:00",
+  };
+  const theatreIds = new Set([
+    "grinch-dallas-2026",
+    "christmas-story-conroe-2026",
+    "celtic-christmas-mcallen-2026",
+    "christmas-carol-houston-2026",
+  ]);
+  return verified.map((show): TexasEventRecord => {
+    const place = cities[show.city];
+    const sourceDate = "2026-10-25";
+    const guidePath = "/events/christmas-events";
+    return {
+      id: 'curated:christmas-2026:' + show.id,
+      slug: show.id,
+      title: show.name,
+      summary: show.description + (show.endDate ? ' Additional performances run through ' + show.endDate + '; check the organizer for exact dates.' : ''),
+      guidePath,
+      startDate: show.date,
+      // No endDate: assigning the end of a discontinuous theatre run would
+      // invent concerts on closed days and inflate every calendar-day count.
+      startTime: confirmedStartTimes[show.id],
+      venueName: show.venue,
+      city: show.city,
+      countySlug: place.countySlug,
+      countyName: place.countyName,
+      region: place.region,
+      category: theatreIds.has(show.id) ? "culture" : "music",
+      officialEventUrl: show.sourceUrl,
+      ticketing: {
+        links: [{
+          provider: show.sourceUrl.includes("ticketmaster.com/") ? "ticketmaster" : "official",
+          officialTicketUrl: show.sourceUrl,
+          saleStatus: "unknown", // An active event URL does not prove seats remain.
+          source: { kind: "official-event", name: show.sourceName, url: show.sourceUrl },
+          lastVerifiedAt: sourceDate,
+        }],
+        offers: [],
+      },
+      status: "scheduled",
+      lastVerifiedAt: sourceDate,
+      lastUpdatedAt: sourceDate,
+      sourceName: show.sourceName,
+    };
+  });
+}
+
+/** Reconcile exact same venue, city, date and event, including Ticketmaster
+ * punctuation/short-title variants. Never dedupe solely by date or city. */
+export function isSameChristmasPerformanceCalendarEvent(
+  curated: TexasEventRecord,
+  candidate: TexasEventRecord,
+) {
+  if (curated.city.toLowerCase() !== candidate.city.toLowerCase()
+      || curated.startDate !== candidate.startDate) return false;
+  const leftVenue = normalized(curated.venueName ?? "");
+  const rightVenue = normalized(candidate.venueName ?? "");
+  if (!leftVenue || !rightVenue
+      || !(leftVenue.includes(rightVenue) || rightVenue.includes(leftVenue))) return false;
+  const left = normalized(curated.title).replace(/^the /, "");
+  const right = normalized(candidate.title).replace(/^the /, "");
+  if (left.includes(right) || right.includes(left)) return true;
+  const show = verified.find((item) => item.id === curated.slug);
+  return Boolean(show?.ticketmasterNeedle && right.includes(normalized(show.ticketmasterNeedle)));
 }
