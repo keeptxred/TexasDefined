@@ -365,8 +365,8 @@ for (const [sourceName, source] of [
 for (const marker of [
   'validateSearch:',
   'sanitizePartnerSource',
-  "value === '/sports-venues'",
-  '/^\\/(?:sports-venue\\/[a-z0-9-]+|texas-high-school-football-(?:teams|districts)\\/[a-z0-9-]+|explore\\/near\\/[a-z0-9-]+\\/day-trips)$/',
+  'sports-venues|things-unique-to-texas\\/texas-brands|events\\/christmas-events',
+  '/^\\/(?:sports-venues|things-unique-to-texas\\/texas-brands|events\\/christmas-events|sports-venue\\/[a-z0-9-]+|texas-high-school-football-(?:teams|districts)\\/[a-z0-9-]+|explore\\/near\\/[a-z0-9-]+\\/day-trips)$/',
   'Route.useSearch()',
   'sourcePath: search.sourcePath',
   "search.partnershipType === 'sports-travel'",
