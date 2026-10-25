@@ -95,6 +95,12 @@ for (const marker of [
   '$49/month', '$99/month', '$149/month',
   'Submitting an inquiry is free and does not start a subscription.',
   'No school affiliation or traffic guarantees.',
+  '/texas-high-school-football-teams/aledo',
+  '/texas-high-school-football-districts/6a-district-22',
+  'data-football-monetization="v1"',
+  'footballSponsorSlot',
+  'Paid placement by',
+  'Sponsor this page',
   "'$249', '$499', '$999'",
   "cache: variant.bypassCache ? 'no-store' : 'default'",
 ]) requireMarker(advertiserLiveVerifier, marker, `Advertiser live verifier must protect reviewed founding and standard advertising terms: ${marker}`);
