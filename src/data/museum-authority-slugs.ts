@@ -2,6 +2,7 @@
  * Kept in sync with full museum dossiers by scripts/data/validate-museum-authority.mjs.
  */
 export const museumAuthoritySlugs: ReadonlySet<string> = new Set([
+  "austin-county-jail-museum-bellville",
   "baytown-historical-museum",
   "bayou-bend-collection-gardens",
   "austin-history-center-austin",
