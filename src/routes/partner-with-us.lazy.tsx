@@ -1,4 +1,4 @@
-import { type FormEvent, useState } from 'react';
+import { type FormEvent, useEffect, useState } from 'react';
 import { createLazyFileRoute, Outlet, useRouterState } from '@tanstack/react-router';
 
 import { DepartmentHero } from '@/components/editorial/DepartmentHero';
@@ -69,6 +69,11 @@ function PartnerWithUsPage() {
   const [selectedTier, setSelectedTier] = useState<AdvertiserTierId>(incomingFootballPackage ? 'custom' : search.tier ?? 'growth');
   const [status, setStatus] = useState<SubmitStatus>('idle');
   const [errorMessage, setErrorMessage] = useState('');
+
+  useEffect(() => {
+    if (search.focus !== 'contact') return;
+    window.requestAnimationFrame(() => document.getElementById('contact')?.scrollIntoView({ block: 'start' }));
+  }, [search.focus]);
 
   function chooseTier(tier: AdvertiserTierId) {
     setSelectedFootballPackage(null);
