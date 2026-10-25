@@ -44,6 +44,7 @@ export function GenericFishingLakeGuide({
           <a href={`/fishing/plan?q=${encodeURIComponent(lake.name)}`} className="border-b border-ink-foreground pb-1 font-semibold">Find fish at {lake.name} →</a>
           <a href="/fishing/compare" className="border-b border-ink-foreground/50 pb-1">Compare fishing lakes →</a>
           <a href="/fishing/regulations" className="border-b border-ink-foreground/50 pb-1">Fishing regulations →</a>
+          <a href="/shop/fishing-shirts" className="border-b border-ink-foreground/50 pb-1">Texas fishing shirts →</a>
         </div>
       </Container>
     </header>
