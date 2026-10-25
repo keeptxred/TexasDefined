@@ -58,11 +58,15 @@ async function verifyOne([id,date,city,name,venue], attempt) {
     .map(match=>({id:decode(match[1]),raw:match[2],body:norm(match[2])}));
   const matched = cards.filter(card => card.body.includes(norm(name)) && card.body.includes(norm(venue))
     && card.body.includes(norm(city)));
-  if (matched.length!==1) {
-    throw Error(id+': expected exactly one '+date+' '+city+' '+name+' card; found '+matched.length+
-      ', total result cards '+cards.length+'; candidates '+cards.slice(0,6).map(x=>x.id).join(','));
+  // Distinct Ticketmaster showtimes are legitimate separate occurrences,
+  // not duplicate editorial event cards. Require exactly one canonical
+  // editorial/curated card; leave separately verified matinees/evenings visible.
+  const editorial = matched.filter(card => !card.id.startsWith('ticketmaster:'));
+  if (editorial.length!==1) {
+    throw Error(id+': expected exactly one '+date+' '+city+' '+name+' editorial card; found '+editorial.length+
+      ', total title/venue matches '+matched.length+'; candidates '+matched.slice(0,6).map(x=>x.id).join(','));
   }
-  const row = matched[0];
+  const row = editorial[0];
   if (!/<a\b[^>]*href="https:\/\/[^"]+"/i.test(row.raw)) {
     throw Error(id+': missing actionable HTTPS official ticket/source destination');
   }
@@ -72,7 +76,7 @@ async function verifyOne([id,date,city,name,venue], attempt) {
   if (!row.raw.includes('/events/christmas-events') && !/\/event\//.test(row.raw)) {
     throw Error(id+': no holiday hub or authority guide backlink');
   }
-  console.log('PASS 12-event live calendar: '+id+' '+date+' '+city+' exactly one SSR card with ticket link, HTTP '+response.status);
+  console.log('PASS 12-event live calendar: '+id+' '+date+' '+city+' exactly one curated SSR card with ticket link, HTTP '+response.status);
 }
 const errors=[];
 for (let i=0;i<want.length;i+=3) {
