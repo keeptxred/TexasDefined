@@ -1922,6 +1922,30 @@
         "https://www.bastropcountyhistoricalsociety.com/coming-soon-03-4",
         "https://www.bastropcountyhistoricalsociety.com/"
       ]
+    },
+    "austin-county-jail-museum-bellville": {
+      "name": "Austin County Jail Museum",
+      "operatorStrengths": [
+        "Austin County's official museum page provides correct Bellville address, volunteer hours and phone contacts",
+        "Texas Historical Commission official marker supports construction, architectural detail and documented use of the removed gallows",
+        "National Register listing confirms listed address and 1896 historic architecture"
+      ],
+      "openGaps": [
+        "Independent production hero image decode and responsive crop must be checked; Commons URL and license alone are insufficient",
+        "Verify current admission donations or fees and Saturday holiday exceptions directly with current volunteer staff",
+        "Confirm accessible entrance, restrooms, floors and any restrictions directly with operator; do not infer step-free access",
+        "Compare visitor FAQs, county reciprocal links, canonical and current official source behavior side by side before editorial certification"
+      ],
+      "decision": "not-certified",
+      "dimensionEvidence": {},
+      "independentReviewer": null,
+      "certifiedAt": null,
+      "operatorPagesToBenchmark": [
+        "https://www.austincounty.com/page/austin.Museum",
+        "https://atlas.thc.texas.gov/Details/5015000244",
+        "https://atlas.thc.texas.gov/Details/2080004074",
+        "https://business.bellville.com/list/member/austin-county-jail-museum-2116"
+      ]
     }
   },
   "baselineCollectedAt": "2026-10-12",

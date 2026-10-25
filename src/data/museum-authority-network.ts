@@ -28,6 +28,38 @@ export interface MuseumAuthorityDossier {
 
 /** Links are to exact, existing destinations or stable topic hubs, not guessed paths. */
 export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
+  "austin-county-jail-museum-bellville": {
+    name: "Austin County Jail Museum", slug: "austin-county-jail-museum-bellville", county: "Austin", city: "Bellville", reviewed: "2026-10-25",
+    topics: ["county-jails", "romaneseque-revival-architecture", "austin-county-history", "texas-law-enforcement"],
+    whyVisit: "This former county jail is both a local-history museum and an original 1896 civic landmark a short walk from Bellville's courthouse square. The architecture is part of the exhibit: red brick, stone-trimmed arches, crenellated parapets and bartizans were chosen to embody late-nineteenth-century official power. Original cells and the jailer's domestic quarters connect law enforcement and daily county life. The Austin County court commissioned the Pauly Jail Building Company at a reported $19,970 after condemning the earlier jail, and the structure remained in use until 1982. The present jail museum is small, volunteer-run and historically specific rather than a generic all-day attraction.",
+    visitorStrategy: "Austin County's own museum page advertises public Saturday hours from 11 a.m. until 3 p.m., operated by volunteers. Travel to 36 S Bell Street, Bellville, TX 77418, not to Austin city or the Austin County administrative office at 1 E Main Street. The operator does not publish a reliable current admissions-price schedule, formal timed tickets or holiday exceptions: check with the volunteers at 979-877-5642 or 713-385-7141 before committing to a date or a group visit. As a practical estimate, budget about 45–75 minutes for a small-museum stop, not a guaranteed tour length. Avoid treating open historic grounds as permission to enter outside staffed hours.",
+    accessibility: "The former three-story jail plus smaller historic upper section has stairs, old detention spaces and limited historic circulation. Austin County does not publish a complete step-free entry, parking, restroom or second-floor accessibility inventory. Call ahead for the exact accessible entrance and which museum spaces can be reached, and do not promise full mobility access based on the building's exterior. Ask about children and supervision around historic stairs and jail fixtures. Seasonal heat can make downtown walking uncomfortable; the historic square is a separate outdoor extension.",
+    familiesAndGroups: "Children can compare the jail's stone-and-brick architecture with the historical purpose of detention, and discuss how a sheriff's family lived on site. Some law-enforcement and execution history needs age-appropriate framing: a historical gallows was used once in 1901 but was removed, so do not advertise a surviving working gallows. Advance school or group arrangements and guided access must be cleared with the volunteer operator. The nearby courthouse square provides a distinct civic-history walk but does not share the museum's admission or volunteer schedule.",
+    researchValue: "County archival interpretation and the Texas Historical Commission's 1976 marker distinguish the original architecture from later adaptations. The National Register reference 80004074 formally recognizes the jail's 1896 design and architects F. B. and W. S. Hull. The marker records Pauly Jail Building Company as contractor, the $19,970 price, and the removal of the gallows after its sole recorded use in 1901. The sheriff's residence, public façade and detention levels provide an opportunity to discuss the relationship between county government, incarceration, architectural symbolism and community memory without turning the museum into crime entertainment.",
+    exhibits: [
+      { heading: "The 1896 brick jail and entrance", detail: "Look for red brick, round turrets, crenellated parapets and contrast-stone arched windows; distinguish the original landmark from later repairs." },
+      { heading: "Historic cells and jail spaces", detail: "Ask staff which original detention rooms can currently be visited. Historic doors and stairs may limit some mobility routes." },
+      { heading: "Sheriff's family quarters", detail: "The building served both incarceration and the sheriff's residence until 1982, revealing how county institutions once combined working and domestic life." },
+      { heading: "The sole 1901 gallows use", detail: "The historically documented gallows no longer exists; learn its history through sourced interpretation rather than expecting to see a preserved execution apparatus." },
+      { heading: "Local law enforcement and Bellville", detail: "Connect museum exhibits and volunteers' interpretation to Austin County's civic history and nearby courthouse square." }
+    ],
+    routes: [
+      { label: "Focused Saturday museum visit", steps: ["Confirm volunteer availability and any entry charge by phone", "Visit the old jail between the posted Saturday hours", "Ask about original cells, jailer's quarters and architectural details"] },
+      { label: "Bellville courthouse-square half-day", steps: ["Reserve the Saturday museum window", "Walk around the nearby courthouse square and original commercial streets", "Compare the civic roles of courthouse, jail and historical markers without implying shared admission"] },
+      { label: "Family or school history route", steps: ["Request an appropriate supervised visit from volunteers in advance", "Discuss nineteenth-century county government, daily living and the documented 1901 event carefully", "Visit publicly accessible nearby town-history markers and photograph the Romanesque façade"] }
+    ],
+    sources: [
+      { label: "Austin County government — Austin County Jail Museum", url: "https://www.austincounty.com/page/austin.Museum", use: "Operator identity, correct Bellville location, posted Saturday visiting hours and volunteer contacts" },
+      { label: "Texas Historical Commission — Austin County Jail historical marker", url: "https://atlas.thc.texas.gov/Details/5015000244", use: "Construction, Romanesque design, Pauly contract, original use and documented gallows history" },
+      { label: "Texas Historical Commission — National Register site 80004074", url: "https://atlas.thc.texas.gov/Details/2080004074", use: "Correct registered address, 1896 architecture, status and F. B./W. S. Hull architects" },
+      { label: "Bellville Chamber of Commerce — museum listing", url: "https://business.bellville.com/list/member/austin-county-jail-museum-2116", use: "Independent local business listing and active volunteer contact" }
+    ],
+    connections: [
+      { label: "Austin County visitor guide", href: "/county/austin", reason: "Place Bellville, historic markers and this courthouse-square landmark in wider county context." },
+      { label: "San Felipe de Austin", href: "/destination/san-felipe-de-austin", reason: "Compare nineteenth-century law and civic institutions with an earlier Texas-colonial capital and historic site; separate hours and tickets apply." },
+      { label: "Explore historic Texas sites", href: "/explore", reason: "Build a heritage route around confirmed open visitor attractions rather than treating every historic exterior as an open museum." }
+    ],
+  },
   "barrington-living-history-farm": {
     name: "Barrington Living History Farm", slug: "barrington-living-history-farm", county: "Washington", city: "Washington", reviewed: "2026-10-24",
     topics: ["republic-history", "living-history", "enslaved-labor", "agricultural-history"],

@@ -14,6 +14,89 @@ export interface MuseumVisitorFaq {
   reviewed: string;
 }
 export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
+  "austin-county-jail-museum-bellville": [
+    {
+      "question": "Is the Austin County Jail Museum in Austin or Bellville?",
+      "answer": "It is in Bellville, Austin County, at 36 South Bell Street, not in the city of Austin. The county's museum listing has this visitor address, while the county administration contact has a separate 1 E Main St address.",
+      "verificationUrl": "https://www.austincounty.com/page/austin.Museum",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.austincounty.com/page/austin.Museum",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-25"
+    },
+    {
+      "question": "What are the public hours and can I visit on a weekday?",
+      "answer": "Austin County government currently posts Saturdays, 11 a.m.–3 p.m., staffed by volunteers. Ordinary daily walk-in access is not published. Call 979-877-5642 or 713-385-7141 before driving, and inquire separately about any group or weekday arrangement.",
+      "verificationUrl": "https://www.austincounty.com/page/austin.Museum",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.austincounty.com/page/austin.Museum",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-25"
+    },
+    {
+      "question": "Is there an admission fee or a timed ticket?",
+      "answer": "The county's current museum page does not clearly specify a general ticket charge or reserved timed-entry system. Ask a volunteer for the current fee or donation policy and any group arrangements before traveling; don't rely on a free-admission assumption.",
+      "verificationUrl": "https://www.austincounty.com/page/austin.Museum",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.austincounty.com/page/austin.Museum",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-25"
+    },
+    {
+      "question": "Why is this jail historic?",
+      "answer": "The brick Austin County Jail opened in 1896, replaced an inadequate predecessor, and served as jail and sheriff's family home until 1982. It is recorded as a Texas historic landmark, with Romanesque Revival turrets, crenellation and arched stone-trimmed windows.",
+      "verificationUrl": "https://atlas.thc.texas.gov/Details/5015000244",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://atlas.thc.texas.gov/Details/5015000244",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-25"
+    },
+    {
+      "question": "Can visitors see the jail's original gallows?",
+      "answer": "No. The Texas Historical Commission historical marker records a single gallows use in 1901 and says that the gallows were removed. Visitors should expect interpretive history, not a surviving working execution structure.",
+      "verificationUrl": "https://atlas.thc.texas.gov/Details/5015000244",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://atlas.thc.texas.gov/Details/5015000244",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-25"
+    },
+    {
+      "question": "Does the museum have accessible entrance routes and bathrooms?",
+      "answer": "The preserved multi-story 1896 jail includes historic stairs and cells, and the operator has not posted a complete verified wheelchair route or restroom inventory. Ask volunteers which entrances, floors and restrooms accommodate your particular needs before arriving.",
+      "verificationUrl": "https://www.austincounty.com/page/austin.Museum",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.austincounty.com/page/austin.Museum",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-25"
+    },
+    {
+      "question": "How long should I plan for a visit?",
+      "answer": "About 45–75 minutes is a flexible travel-planning estimate for a small historic jail museum, not an official guaranteed tour duration. Staffing, guided interpretation, the historic areas available and visitor interest can change the time required.",
+      "verificationUrl": "https://business.bellville.com/list/member/austin-county-jail-museum-2116",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://business.bellville.com/list/member/austin-county-jail-museum-2116",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-25"
+    },
+    {
+      "question": "Is the museum suitable for families and school groups?",
+      "answer": "The jail can support age-appropriate learning about county government, architecture and the way sheriffs' families lived. Historic stairs and sensitive incarceration/execution history call for adult supervision and suitable interpretation; arrange groups with the operator.",
+      "verificationUrl": "https://www.austincounty.com/page/austin.Museum",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.austincounty.com/page/austin.Museum",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-25"
+    },
+    {
+      "question": "What other historic places can I combine with the museum?",
+      "answer": "Bellville's courthouse square is a short walk from the jail, with independent historic buildings and markers. For a longer Austin County route, compare San Felipe de Austin's colonial history, but confirm its separate visitor timetable and admission.",
+      "verificationUrl": "https://atlas.thc.texas.gov/Details/2080004074",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://atlas.thc.texas.gov/Details/2080004074",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-25"
+    }
+  ],
   "barrington-living-history-farm": [
     {
       "question": "When can I tour Barrington Living History Farm rather than just the grounds?",

@@ -3,6 +3,12 @@ import { isDestinationPhotoPlaceholder } from "./explore-hero-reconciliation";
 
 /** Lightweight exact-site photo sources. Never bundle long museum research dossiers in core destination discovery. */
 export const museumLicensedHeroes: Record<string, Destination["hero"]> = {
+  "austin-county-jail-museum-bellville": {
+    src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Austin_County_Old_Jail_and_Museum_Bellville_Wiki_(1_of_1).jpg?width=1600",
+    alt: "1896 Austin County Jail Museum in Bellville, a red-brick Romanesque Revival landmark with turrets and arched windows",
+    width: 1600, height: 1064,
+    credit: "Renelibrary · 13 June 2020 · CC BY-SA 4.0 · Wikimedia Commons"
+  },
   "barrington-living-history-farm": {
     src: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Barrington_Farm%2C_residence_of_Dr._Anson_Jones.jpg?width=1600",
     alt: "Barrington's Anson Jones house",
