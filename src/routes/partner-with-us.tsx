@@ -18,6 +18,7 @@ function sanitizePartnerSource(value: unknown) {
   if (typeof value !== 'string') return canonicalPath;
   if (value === '/sports-venues' || value === '/things-unique-to-texas/texas-brands' || value === '/events/christmas-events') return value;
   if (/^\/sports-venue\/[a-z0-9-]+$/.test(value)) return value;
+  if (/^\/texas-high-school-football-(?:teams|districts)\/[a-z0-9-]+$/.test(value)) return value;
   if (/^\/explore\/near\/[a-z0-9-]+\/day-trips$/.test(value)) return value;
   return canonicalPath;
 }
