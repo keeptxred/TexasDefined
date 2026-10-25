@@ -3,6 +3,7 @@ import { majorEventIndexRecords } from '../major-event-index';
 import { geographyForPlace } from '../geography-knowledge-graph';
 import { resolveSportsVenueEventLink } from '../sports-venue-event-links';
 import type { TexasEventRecord, TexasEventTicketSaleStatus } from './texas-event-record';
+import { ticketmasterIsPrimaryAdmissionTitle } from './ticketmaster-event-match';
 
 interface TicketmasterRow {
   id: string; name: string; startDate: string; startTime?: string; city: string; venue: string;
@@ -79,7 +80,7 @@ export function loadTicketmasterEventsServer(catalog: TicketmasterSnapshot = sna
   const today = texasTodayIso(now);
   return catalog.events.flatMap((event): TexasEventRecord[] => {
     const region = geographyForPlace(event.city)?.travelRegionIds[0];
-    if (!region || !/^\d{4}-\d{2}-\d{2}$/.test(event.startDate) || event.startDate < today
+    if (!ticketmasterIsPrimaryAdmissionTitle(event.name) || !region || !/^\d{4}-\d{2}-\d{2}$/.test(event.startDate) || event.startDate < today
       || ['cancelled', 'postponed', 'rescheduled'].includes(event.status)) return [];
     const venue = resolveSportsVenueEventLink(event.venue);
     const venueSlug = venue?.href.split('/').at(-1);

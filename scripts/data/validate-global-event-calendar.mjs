@@ -12,10 +12,13 @@ const contract = read("src/data/events/texas-event-record.ts");
 const adapter = read("src/data/events/texas-event-records.server.ts");
 const calendarServer = read("src/data/events/texas-event-calendar.server.ts");
 const ticketmasterMatcher = read("src/data/events/ticketmaster-event-match.ts");
+const ticketmasterLoader = read("src/data/events/ticketmaster-events.server.ts");
+requireText(ticketmasterLoader, "ticketmasterIsPrimaryAdmissionTitle(event.name)", "Ticketmaster add-on filter");
 for (const marker of [
   "export function ticketmasterVenueMatches(",
   "export function ticketmasterShowtimeMatches(",
   "matchingProviderPerformances === 1",
+  "export function ticketmasterIsPrimaryAdmissionTitle(",
 ]) requireText(ticketmasterMatcher, marker, "pure Ticketmaster venue and showtime identity");
 for (const marker of [
   'from "./ticketmaster-event-match"',
@@ -58,6 +61,11 @@ for (const needle of [
   "isSameChristmasPerformanceCalendarEvent",
   "startDate: show.date",
   "confirmedStartTimes[show.id]",
+  "matchChristmasTicketmasterPerformance(show, ticketmaster, today)",
+  "ticketmasterVenueMatches({ venueName: show.venue }, event)",
+  "ticketmasterShowtimeMatches({ startTime }, event, candidates.length)",
+  "exactShowtime.length === 1",
+
   "officialEventUrl: show.sourceUrl",
   'saleStatus: "unknown"',
   'category: theatreIds.has(show.id) ? "culture" : "music"',

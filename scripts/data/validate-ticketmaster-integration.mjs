@@ -4,7 +4,8 @@ const server = await createServer({ configFile: false, appType: 'custom', logLev
 try {
   const { loadTicketmasterEventsServer, ticketmasterAuthorityGuidePath } = await server.ssrLoadModule('/src/data/events/ticketmaster-events.server.ts');
   const { mergeEventTicketing } = await server.ssrLoadModule('/src/data/events/ticketing.ts');
-  const { ticketmasterVenueMatches, ticketmasterShowtimeMatches } = await server.ssrLoadModule('/src/data/events/ticketmaster-event-match.ts');
+  const { ticketmasterVenueMatches, ticketmasterShowtimeMatches, ticketmasterIsPrimaryAdmissionTitle } = await server.ssrLoadModule('/src/data/events/ticketmaster-event-match.ts');
+  const { matchChristmasTicketmasterPerformance } = await server.ssrLoadModule('/src/data/events/christmas-performances-2026.server.ts');
   const { hasCompliantMajorEventImageServer } = await server.ssrLoadModule('/src/data/major-event-schema-enrichment.server.ts');
   const { buildTexasEventCarouselItemsServer, buildGlobalEventCalendarServer } = await server.ssrLoadModule('/src/data/events/texas-event-calendar.server.ts');
   const now = new Date();
@@ -111,6 +112,77 @@ try {
   assert.equal(ticketmasterShowtimeMatches(
     {}, {}, 1,
   ), true, 'one unique time-unspecified performance can still link safely');
+
+  // The provider's suites listing can have the exact same venue, date and
+  // showtime as concert admission; it must not become the ticket CTA.
+  assert.equal(ticketmasterIsPrimaryAdmissionTitle('Suites: Pentatonix: Christmas in the City Tour'), false);
+  assert.equal(ticketmasterIsPrimaryAdmissionTitle('Parking: Pentatonix'), false);
+  assert.equal(ticketmasterIsPrimaryAdmissionTitle('Fast Lane: Holiday Concert'), false);
+  assert.equal(ticketmasterIsPrimaryAdmissionTitle('VIP Upgrade: Holiday Concert'), false);
+  assert.equal(ticketmasterIsPrimaryAdmissionTitle("Fast Lane Pass - Grand Ol' Christmas - Not a Concert Ticket"), false);
+  assert.equal(ticketmasterIsPrimaryAdmissionTitle("Signed Poster Add-On - Brett Goldstein - Not a Concert Ticket"), false);
+  assert.equal(ticketmasterIsPrimaryAdmissionTitle("Pentatonix VIP Upgrade (Event Ticket Not Included)"), false);
+  assert.equal(ticketmasterIsPrimaryAdmissionTitle("Parking Pass - Grand Ol' Christmas"), false);
+
+  assert.equal(ticketmasterIsPrimaryAdmissionTitle('Pentatonix: Christmas in the City Tour'), true);
+  const pentatonixPrimary = {
+    ...event, id: 'regular', name: 'Pentatonix: Christmas in the City Tour',
+  };
+  const pentatonixSuite = {
+    ...event, id: 'suite', name: 'Suites: Pentatonix: Christmas in the City Tour',
+  };
+  assert.deepEqual(
+    loadTicketmasterEventsServer({ fetchedAt: now.toISOString(), events: [pentatonixSuite, pentatonixPrimary] }, now).map(x => x.id),
+    ['ticketmaster:regular'], 'general calendar must not sell private suites as admission',
+  );
+
+  // Holiday hub must not choose an arbitrary Ticketmaster showtime or venue.
+  const christmasShow = {
+    id: 'christmas-story-conroe-2026', date: '2026-12-13',
+    city: 'Conroe', venue: 'Crighton Theatre', ticketmasterNeedle: 'a christmas story',
+  };
+  const holidayTicket = {
+    ...records[0], id: 'ticketmaster:holiday-show', title: 'A Christmas Story',
+    city: 'Conroe', startDate: '2026-12-13', startTime: '14:00:00',
+    venueName: 'Crighton Theatre', venueId: undefined,
+  };
+  assert.equal(matchChristmasTicketmasterPerformance(christmasShow, [holidayTicket], '2026-10-25')?.id,
+    holidayTicket.id, 'exact show, venue and matinee should permit an affiliate match');
+  assert.equal(matchChristmasTicketmasterPerformance(christmasShow,
+    [{ ...holidayTicket, startTime: '19:00:00' }], '2026-10-25'), undefined,
+    'holiday hub must reject an evening ticket for a reviewed 2pm matinee');
+  assert.equal(matchChristmasTicketmasterPerformance(christmasShow,
+    [{ ...holidayTicket, venueName: 'Crighton Theatre Parking' }], '2026-10-25'), undefined,
+    'holiday hub must not sell parking as admission');
+  assert.equal(matchChristmasTicketmasterPerformance(christmasShow,
+    [{ ...holidayTicket, venueName: 'Other Theatre' }], '2026-10-25'), undefined,
+    'holiday hub must not attach the same-title wrong-venue checkout');
+  assert.equal(matchChristmasTicketmasterPerformance(christmasShow,
+    [holidayTicket, { ...holidayTicket, id: 'ticketmaster:second-show' }], '2026-10-25'), undefined,
+    'duplicate matching provider performances require manual confirmation');
+  assert.equal(matchChristmasTicketmasterPerformance(christmasShow, [holidayTicket], '2026-12-14'), undefined,
+    'never attach a link for the expired featured performance');
+  assert.equal(matchChristmasTicketmasterPerformance({
+    ...christmasShow, id: 'grinch-dallas-2026',
+  }, [holidayTicket], '2026-10-25'), undefined,
+    'multiple performances without a single approved time use official organizer selector');
+
+  // Dallas Grand Ol Christmas has a separately confirmed 6pm show/5pm doors
+  // listing. Only its exact reviewed Ticketmaster 5pm event may be affiliated.
+  const grandOlShow = {
+    id: 'grand-ol-christmas-dallas-2026', date: '2026-12-23', city: 'Dallas',
+    venue: 'House of Blues Dallas', ticketmasterNeedle: 'grand ol christmas',
+  };
+  const grandOlProvider = {
+    ...holidayTicket, id: 'ticketmaster:grand-ol-dallas',
+    title: "Grand Ol' Christmas", city: 'Dallas', startDate: '2026-12-23',
+    venueName: 'House of Blues Dallas', startTime: '17:00:00',
+  };
+  assert.equal(matchChristmasTicketmasterPerformance(grandOlShow, [grandOlProvider], '2026-10-25')?.id,
+    grandOlProvider.id, 'reviewed 5pm Ticketmaster doors listing must match the real 6pm show');
+  assert.equal(matchChristmasTicketmasterPerformance(grandOlShow,
+    [{ ...grandOlProvider, startTime: '18:00:00' }], '2026-10-25'), undefined,
+    'do not generalize the Dallas doors exception to unrelated ticket times');
 
   const editorialTicketing = {
     links: [{
