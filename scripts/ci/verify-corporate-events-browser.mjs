@@ -8,6 +8,9 @@ const { chromium } = require(process.env.PLAYWRIGHT_CORE_PATH
 const axeCore = require(process.env.AXE_CORE_PATH
   || '/tmp/texasdefined-corporate-qa/node_modules/axe-core');
 const origin = (process.env.PRODUCTION_ORIGIN || 'https://texasdefined.com').replace(/\/$/, '');
+// workflow_run uses the current main as GITHUB_SHA even when checking out a
+// different, successfully deployed release. Keep evidence tied to that release.
+const releasedSha = process.env.PRODUCTION_COMMIT_SHA || process.env.GITHUB_SHA || null;
 const evidenceDir = 'artifacts/corporate-events-browser';
 const cases = [
   { name: 'mobile', width: 390, height: 844 },
@@ -48,7 +51,7 @@ try {
     });
     try {
       const response = await page.goto(origin + '/corporate-events?corporate_browser_verify='
-        + encodeURIComponent(view.name + '-' + process.env.GITHUB_SHA), {
+        + encodeURIComponent(view.name + '-' + (releasedSha || 'manual')), {
         waitUntil: 'domcontentloaded', timeout: 50_000,
       });
       assert.equal(response?.status(), 200, view.name + ': public finder must be HTTP 200');
@@ -255,7 +258,7 @@ try {
 } finally {
   await browser.close();
   await writeFile(evidenceDir + '/results.json', JSON.stringify({
-    url: origin + '/corporate-events', sha: process.env.GITHUB_SHA || null,
+    url: origin + '/corporate-events', sha: releasedSha,
     createdAt: new Date().toISOString(), results,
     noProductionInquiriesSubmitted: true,
   }, null, 2));
