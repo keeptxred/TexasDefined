@@ -89,6 +89,20 @@ const advertiser = workflow('advertiser-production-verification');
 requireMarker(advertiser, "github.event_name == 'pull_request'", 'Advertiser PR-only syntax validation missing');
 requireMarker(advertiser, 'node --check scripts/ci/verify-advertiser-production.mjs', 'Advertiser PR source syntax check missing');
 requireMarker(advertiser, 'ref: ${{ github.event.workflow_run.head_sha || github.sha }}', 'Advertiser verifier must check out exact deployed SHA');
+const advertiserLiveVerifier = fs.readFileSync('scripts/ci/verify-advertiser-production.mjs', 'utf8');
+for (const marker of [
+  'School Page Pilot', 'District Football Pilot', 'Regional Football Pilot',
+  '$49/month', '$99/month', '$149/month',
+  'Submitting an inquiry is free and does not start a subscription.',
+  'No school affiliation or traffic guarantees.',
+  "'$249', '$499', '$999'",
+  "cache: variant.bypassCache ? 'no-store' : 'default'",
+]) requireMarker(advertiserLiveVerifier, marker, `Advertiser live verifier must protect reviewed founding and standard advertising terms: ${marker}`);
+const hubAcceptance = advertiserLiveVerifier.split("name: 'advertiser hub'")[1]?.split("name: 'advertiser terms'")[0] ?? '';
+const hubForbidden = hubAcceptance.split('\n').find((line) => line.trim().startsWith('forbidden:')) ?? '';
+if (!hubForbidden || /\$(?:49|99|149)\/month/.test(hubForbidden))
+  failures.push('Approved football founding rates must be required by live acceptance, never forbidden.');
+
 for (const name of ['verify-event-structured-data-production','verify-jasper-blue-hole-production','verify-sitemap-production-integrity']) {
   const source = workflow(name);
   requireMarker(source, 'ref: ${{ github.event.workflow_run.head_sha || github.sha }}', `${name} must check out exact deployed SHA`);
