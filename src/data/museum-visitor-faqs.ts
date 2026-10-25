@@ -95,7 +95,7 @@ export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
       "questionEvidenceUrl": "https://commons.wikimedia.org/wiki/File:Old_Baytown_Post_Office.jpg",
       "reviewCycle": "monthly",
       "reviewed": "2026-10-24"
-    },
+    }
   ],
   "bayou-bend-collection-gardens": [
     {
