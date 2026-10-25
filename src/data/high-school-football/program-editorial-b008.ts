@@ -466,6 +466,252 @@ const BATCH008_EDITORIAL: Record<string, FootballProgramEditorial> = {
       { question: 'Has Buna won a football state championship?', answer: "No. Dave Campbell's lists 18 playoff appearances, zero state titles and zero title-game appearances." },
       { question: 'Why does TexasDefined use 711 County Road 734 for Buna High?', answer: 'That is the address on the official Buna High School site. A third-party football page lists 177 FM 253, so TexasDefined keeps the official campus address and does not claim either address is a verified spectator gate.' }
     ]
+  },
+  burkburnett: {
+    slug: 'burkburnett',
+    intro: "Burkburnett's Bulldogs are in UIL Class 4A Division II District 4 and have rebounded sharply from recent losing seasons. The official Burkburnett ISD athletics staff identifies Jody Littleton as Athletic Director/Head Football Coach. That first-party listing controls over a conflicting MaxPreps history entry that labels Alex Wright head coach for 2026. The Bulldogs are 5-3 through the October 23 loss at Graham.",
+    theme: { accentHex: '#7A1E2C', label: 'Original TexasDefined Bulldog editorial treatment; no Burkburnett ISD logo or seal reproduced.' },
+    seo: {
+      title: 'Burkburnett Bulldogs Football | 2026 Scores, Jody Littleton & Bulldog Stadium',
+      description: 'Burkburnett Bulldogs football: Jody Littleton, 2026 District 4-4A Division II results, Graham final, Bulldog Stadium parking policy and Wichita County context.'
+    },
+    coach: {
+      name: 'Jody Littleton',
+      title: 'Athletic Director / Head Football Coach',
+      sourceUrl: 'https://www.burkburnettisd.org/o/athletics/staff',
+      sourceLabel: 'Burkburnett ISD Athletics official staff directory; controls over conflicting MaxPreps 2026 coach label',
+      verifiedAt: '2026-10-25'
+    },
+    campus: {
+      address: '109 W. Kramer Rd, Burkburnett, TX 76354',
+      phone: '940-569-1411',
+      sourceUrl: 'https://www.burkburnettisd.org/o/bhs/page/about',
+      sourceLabel: 'Burkburnett High School official campus page',
+      verifiedAt: '2026-10-25'
+    },
+    schedule: {
+      label: 'Burkburnett 2026 current football results',
+      sourceUrl: 'https://www.maxpreps.com/tx/burkburnett/burkburnett-bulldogs/football/schedule/',
+      sourceLabel: 'UIL-partner current result feed, cross-checked with statewide Oct. 23 finals and Burkburnett ISD staff/venue pages',
+      verifiedAt: '2026-10-25',
+      officialScheduleUrl: 'https://www.burkburnettisd.org/o/athletics'
+    },
+    season: {
+      record: '5-3 overall, 1-2 district through October 23, 2026',
+      verifiedAt: '2026-10-25',
+      sourceUrl: 'https://www.maxpreps.com/tx/burkburnett/burkburnett-bulldogs/football/schedule/',
+      sourceLabel: 'MaxPreps results through Iowa Park plus statewide Oct. 23 Graham final',
+      latestResultSourceUrl: 'https://www.si.com/high-school/texas/texas-high-school-football-final-scores-results-october-23-01m5mzcsazsr',
+      games: [
+        { date: '2026-08-28', opponent: 'Western Hills', site: 'Away', result: 'W 44-13' },
+        { date: '2026-09-04', opponent: 'Krum', site: 'Away', result: 'L 14-48' },
+        { date: '2026-09-11', opponent: 'Ranchview', site: 'Home', result: 'W 34-31' },
+        { date: '2026-09-18', opponent: 'Lake Worth', site: 'Home', result: 'W 56-6' },
+        { date: '2026-09-25', opponent: 'Gainesville', site: 'Home', result: 'W 64-0' },
+        { date: '2026-10-02', opponent: 'Brock', site: 'Away', district: true, result: 'L 7-72' },
+        { date: '2026-10-16', opponent: 'Iowa Park', site: 'Home', district: true, result: 'W 21-13' },
+        { date: '2026-10-23', opponent: 'Graham', site: 'Away', district: true, result: 'L 0-70' },
+        { date: '2026-10-30', opponent: 'Mineral Wells', site: 'Home', district: true, kickoff: '7:00 PM' },
+        { date: '2026-11-06', opponent: 'Bridgeport', site: 'Away', district: true, kickoff: '7:00 PM' }
+      ]
+    },
+    venue: {
+      name: 'Bulldog Stadium',
+      address: 'Near Burkburnett High School on W. Kramer Rd, Burkburnett, TX 76354',
+      sourceUrl: 'https://www.burkburnettisd.org/o/athletics/page/event-policy',
+      sourceLabel: 'Burkburnett ISD Athletics official event policy provides separate home/visitor entrance rules and stadium parking directions',
+      verifiedAt: '2026-10-25',
+      note: 'Burkburnett ISD says home and visitor fans use separate entrances and may not cross over. Its event-policy page also publishes parking directions from I-44.'
+    },
+    development: {
+      title: 'A 2026 rebound with an official-source coaching conflict resolved',
+      body: 'Burkburnett went 2-8 in 2024 and 1-9 in 2025 in the MaxPreps history feed, then opened 2026 at 5-3 through October 23. The same third-party history labels Alex Wright as 2026 head coach, but Burkburnett ISD currently identifies Jody Littleton as Athletic Director/Head Football Coach. TexasDefined uses the district source and documents the conflict rather than blending the two identities.',
+      sourceUrl: 'https://www.burkburnettisd.org/o/athletics/staff',
+      sourceLabel: 'Burkburnett ISD official staff plus MaxPreps season history',
+      verifiedAt: '2026-10-25'
+    },
+    milestones: [
+      { date: '2024-2025', title: 'Two difficult seasons precede the current rebound', body: 'MaxPreps history lists Burkburnett at 2-8 in 2024 and 1-9 in 2025 before the five-win start in 2026.', sourceUrl: 'https://www.maxpreps.com/tx/burkburnett/burkburnett-bulldogs/football/history/', sourceLabel: 'MaxPreps Burkburnett history' },
+      { date: 'September 25, 2026', title: 'Bulldogs shut out Gainesville 64-0', body: 'The home win pushed Burkburnett to four victories before district play tightened the schedule.', sourceUrl: 'https://www.maxpreps.com/tx/burkburnett/burkburnett-bulldogs/football/schedule/', sourceLabel: 'MaxPreps current schedule' },
+      { date: 'October 23, 2026', title: 'Graham wins the district matchup 70-0', body: 'Statewide final-score reporting lists Graham 70, Burkburnett 0.', sourceUrl: 'https://www.si.com/high-school/texas/texas-high-school-football-final-scores-results-october-23-01m5mzcsazsr', sourceLabel: 'High School On SI statewide Oct. 23 finals' }
+    ],
+    overview: [
+      'Burkburnett High School is a Wichita County campus at 109 W. Kramer Rd. The district athletics site uses the Bulldogs identity and publishes a dedicated Bulldog Stadium event policy.',
+      'Jody Littleton is the current first-party Athletic Director/Head Football Coach. A conflicting third-party 2026 history label is explicitly rejected in favor of the district staff directory.',
+      'UIL places Burkburnett in Class 4A Division II District 4 for 2026-28.',
+      'The Bulldogs are 5-3 through October 23 after a 70-0 loss to undefeated Graham. Mineral Wells and Bridgeport remain future games.',
+      'Unlike many school pages, Burkburnett ISD publishes useful stadium operating detail: separate fan entrances and parking directions. Those first-party details are linked rather than guessed.'
+    ],
+    faq: [
+      { question: 'Who is the Burkburnett football head coach in 2026?', answer: 'Burkburnett ISD officially lists Jody Littleton as Athletic Director/Head Football Coach. A conflicting MaxPreps history entry says Alex Wright, but the current district source controls this page.' },
+      { question: 'What is Burkburnett football record after October 23, 2026?', answer: 'Burkburnett is 5-3 overall and 1-2 in district after a 70-0 loss at Graham.' },
+      { question: 'Where does Burkburnett play home football games?', answer: 'Burkburnett ISD identifies Bulldog Stadium and publishes separate home/visitor entrance rules plus parking directions on its athletics event-policy page.' },
+      { question: 'What classification is Burkburnett in?', answer: 'UIL places Burkburnett in Class 4A Division II District 4 for the 2026-28 cycle.' }
+    ]
+  },
+  burkeville: {
+    slug: 'burkeville',
+    intro: "Burkeville is a Newton County six-man program with genuine state-championship history. Dave Campbell's credits the Mustangs with two state titles and three title-game appearances, while historical schedule records identify the championship years as 1986 and 2001. In 2026, Keith Hendrix is the current coach and Burkeville is 3-4 after the October 22 district loss at Chester.",
+    theme: { accentHex: '#1D4E89', label: 'Original TexasDefined blue Mustang editorial treatment inspired by Burkeville school-spirit presentation; no official logo reproduced.' },
+    seo: {
+      title: 'Burkeville Mustangs Football | 2026 Six-Man Scores, Keith Hendrix & History',
+      description: 'Burkeville Mustangs six-man football: Keith Hendrix, 1986 and 2001 title history, 2026 District 13 results, Chester score discrepancy and Newton County guide.'
+    },
+    coach: {
+      name: 'Keith Hendrix',
+      title: '2026 head football coach',
+      sourceUrl: 'https://www.maxpreps.com/tx/burkeville/burkeville-mustangs/football/history/',
+      sourceLabel: 'MaxPreps 2026 history lists Keith Hendrix; 2025 history lists Aaron Hallford, making the coaching change date-sensitive',
+      verifiedAt: '2026-10-25'
+    },
+    campus: {
+      address: '231 CR 2099, Burkeville, TX 75932',
+      phone: '409-565-2201',
+      sourceUrl: 'https://www.burkevilleisd.org/',
+      sourceLabel: 'Burkeville ISD official homepage',
+      verifiedAt: '2026-10-25'
+    },
+    schedule: {
+      label: 'Burkeville ISD football schedule and current results',
+      sourceUrl: 'https://www.burkevilleisd.org/athletics',
+      sourceLabel: 'Burkeville ISD official athletics schedule confirms district dates; current game results cross-checked against MaxPreps, statewide finals and Pigskin Prep',
+      verifiedAt: '2026-10-25',
+      officialScheduleUrl: 'https://www.burkevilleisd.org/athletics'
+    },
+    season: {
+      record: '3-4 overall, 0-1 district through October 22, 2026',
+      verifiedAt: '2026-10-25',
+      sourceUrl: 'https://www.maxpreps.com/tx/burkeville/burkeville-mustangs/football/',
+      sourceLabel: 'MaxPreps game ledger through Legacy Christian plus statewide/Pigskin Chester final; Chester score-source disagreement disclosed',
+      latestResultSourceUrl: 'https://www.si.com/high-school/texas/texas-high-school-football-final-scores-thursday-october-22-2026-01m5mdmq0eey',
+      games: [
+        { date: '2026-08-29', opponent: "O'Connell", site: 'Home', result: 'W 47-0' },
+        { date: '2026-09-04', opponent: 'Alpha Omega Academy', site: 'Away', result: 'L 8-54' },
+        { date: '2026-09-10', opponent: 'High Island', site: 'Home', result: 'W 68-6' },
+        { date: '2026-09-17', opponent: 'Baytown Christian', site: 'Home', result: 'L 22-40' },
+        { date: '2026-10-03', opponent: 'Calvert', site: 'Home', result: 'W 59-37' },
+        { date: '2026-10-09', opponent: 'Legacy Christian Academy', site: 'Away', result: 'L 18-63' },
+        { date: '2026-10-22', opponent: 'Chester', site: 'Away', district: true, result: 'L 12-62 (statewide/Pigskin; SETXsports reports 12-61)' },
+        { date: '2026-10-30', opponent: "Leverett's Chapel", site: 'Away', district: true, kickoff: '7:30 PM' },
+        { date: '2026-11-05', opponent: 'Union Hill', site: 'Home', district: true, kickoff: '7:00 PM' }
+      ]
+    },
+    venue: {
+      name: 'Roy Harper Stadium',
+      address: 'Burkeville, TX 75932 — verify current entrance through Burkeville ISD',
+      sourceUrl: 'https://www.texasfootball.com/team/burkeville-mustangs',
+      sourceLabel: "Dave Campbell's Texas Football identifies Roy Harper Stadium and an 800 capacity; first-party spectator-gate detail not located",
+      verifiedAt: '2026-10-25',
+      note: 'Burkeville ISD publishes the district campus address at 231 CR 2099. TexasDefined does not assume that address describes a specific stadium gate or accessibility route.'
+    },
+    development: {
+      title: 'Championship history meets a modern six-man rebuilding cycle',
+      body: "Dave Campbell's credits Burkeville with two state titles, three state-final appearances and 25 playoff appearances. Historical football records identify the title seasons as 1986 and 2001. The modern program has played short/incomplete-looking schedules in several recent seasons, and 2026 includes source conflicts: DCTF still labels the O'Connell opener cancelled even though both Burkeville and O'Connell MaxPreps pages record a 47-0 played final, while Chester's October 22 final appears as 62-12 in statewide/Pigskin sources and 61-12 at SETXsports.",
+      sourceUrl: 'https://www.texasfootball.com/team/burkeville-mustangs',
+      sourceLabel: "Dave Campbell's program history, MaxPreps opponent corroboration and current score feeds",
+      verifiedAt: '2026-10-25'
+    },
+    milestones: [
+      { date: '1986', title: 'Burkeville wins a state football championship', body: "Historical program records identify 1986 as one of Burkeville's two championship seasons; DCTF independently reports two total state titles.", sourceUrl: 'https://www.lonestarfootball.net/team.asp?S=&T=1591', sourceLabel: 'Lone Star Football Network historical team record' },
+      { date: '2001', title: 'Mustangs add a second state championship', body: 'Historical program records identify 2001 as Burkeville’s second state-title season.', sourceUrl: 'https://www.lonestarfootball.net/team.asp?S=&T=1591', sourceLabel: 'Lone Star Football Network historical team record' },
+      { date: 'August 29, 2026', title: "Burkeville opens with a 47-0 win over O'Connell", body: "Both teams' MaxPreps pages record the played final, contradicting an older DCTF schedule state that still labels the game cancelled.", sourceUrl: 'https://www.maxpreps.com/tx/galveston/oconnell-buccaneers/football/', sourceLabel: "O'Connell opponent page corroborates Burkeville's 47-0 final" },
+      { date: 'October 22, 2026', title: 'Chester result carries a one-point source discrepancy', body: 'High School On SI and Pigskin Prep report Chester 62-12; SETXsports reports 61-12. TexasDefined records the controlling two-source 62-12 result and preserves the disagreement.', sourceUrl: 'https://www.si.com/high-school/texas/texas-high-school-football-final-scores-thursday-october-22-2026-01m5mdmq0eey', sourceLabel: 'High School On SI Thursday finals' }
+    ],
+    overview: [
+      'Burkeville ISD is in Newton County and uses the Mustangs identity. The official district site publishes 231 CR 2099 as the district address.',
+      'Keith Hendrix is the current 2026 head coach in the current history feed; Aaron Hallford was listed for 2025.',
+      'Burkeville plays UIL 1A Division I six-man football in District 13 for 2026-28.',
+      "The program's historical résumé is real: two state titles, three title-game appearances and 25 playoff appearances according to Dave Campbell's. The title years are recorded as 1986 and 2001 by historical team records.",
+      'Current score conflicts are not hidden. The page explicitly discloses both the Chester one-point discrepancy and the stale DCTF cancelled label for a verified played O’Connell opener.'
+    ],
+    faq: [
+      { question: 'Does Burkeville play six-man football?', answer: 'Yes. UIL places Burkeville in 1A Division I District 13 for the 2026-28 six-man alignment.' },
+      { question: 'Who coaches Burkeville football in 2026?', answer: 'Keith Hendrix is listed as the 2026 head coach. The same history feed lists Aaron Hallford in 2025.' },
+      { question: 'How many football state titles has Burkeville won?', answer: "Dave Campbell's lists two state titles and three title-game appearances. Historical team records identify the championship seasons as 1986 and 2001." },
+      { question: 'What was the Burkeville-Chester score on October 22?', answer: 'High School On SI and Pigskin Prep report Chester 62, Burkeville 12. SETXsports reports 61-12, so TexasDefined explicitly notes the one-point source disagreement.' }
+    ]
+  },
+  burleson: {
+    slug: 'burleson',
+    intro: "Burleson High School's Elks are a Johnson County Class 5A Division II District 7 program. Burleson ISD officially lists Phillip Tanner as Campus Athletic Coordinator/Head Football Coach. The 2026 Elks are 2-6 overall and 2-3 in district through the October 23 loss to Midlothian Heritage, with Seguin and Joshua remaining.",
+    theme: { accentHex: '#C8102E', label: 'Original TexasDefined red editorial accent based on Burleson High official red/white/black school colors; no Elk logo reproduced.' },
+    seo: {
+      title: 'Burleson Elks Football | 2026 Scores, Phillip Tanner & BISD Stadium',
+      description: 'Burleson Elks football: Phillip Tanner, 2026 District 7-5A Division II results, Midlothian Heritage final, Johnson County campus and BISD Stadium context.'
+    },
+    coach: {
+      name: 'Phillip Tanner',
+      title: 'Campus Athletic Coordinator / Head Football Coach',
+      sourceUrl: 'https://www.burlesonisd.net/departments/athletics-interscholastic-activities',
+      sourceLabel: 'Burleson ISD official district athletics staff',
+      verifiedAt: '2026-10-25'
+    },
+    campus: {
+      address: '100 Elk Drive, Burleson, TX 76028',
+      phone: '817-245-0000',
+      sourceUrl: 'https://bhs.burlesonisd.net/our-school/about-us',
+      sourceLabel: 'Burleson High School official About Us page',
+      verifiedAt: '2026-10-25'
+    },
+    schedule: {
+      label: 'Burleson High official football schedule access and current results',
+      sourceUrl: 'https://bhs.burlesonisd.net/activities',
+      sourceLabel: 'Burleson High official activities page links football schedules through Rank One and lists current staff; results cross-checked with MaxPreps',
+      verifiedAt: '2026-10-25',
+      officialScheduleUrl: 'https://bhs.burlesonisd.net/activities'
+    },
+    season: {
+      record: '2-6 overall, 2-3 district through October 23, 2026',
+      verifiedAt: '2026-10-25',
+      sourceUrl: 'https://www.maxpreps.com/tx/burleson/burleson-elks/football/schedule/',
+      sourceLabel: 'MaxPreps result feed through Ennis plus published Oct. 23 Midlothian Heritage final',
+      latestResultSourceUrl: 'https://www.maxpreps.com/tx/football/game/burleson-vs-midlothian-heritage/10-23-2026/?c=79ea9be0-ab44-44f5-8704-aac4a2dec165&tab=Matchup',
+      games: [
+        { date: '2026-08-28', opponent: 'Keller', site: 'Home', result: 'L 14-55' },
+        { date: '2026-09-04', opponent: 'Burleson Centennial', site: 'Home', result: 'L 3-28' },
+        { date: '2026-09-11', opponent: 'Birdville', site: 'Home', result: 'L 20-49' },
+        { date: '2026-09-18', opponent: 'Mansfield Timberview', site: 'Away', district: true, result: 'L 0-64' },
+        { date: '2026-09-25', opponent: 'Everman', site: 'Home', district: true, result: 'W 23-20' },
+        { date: '2026-10-09', opponent: 'Corsicana', site: 'Away', district: true, result: 'W 49-21' },
+        { date: '2026-10-16', opponent: 'Ennis', site: 'Away', district: true, result: 'L 3-41' },
+        { date: '2026-10-23', opponent: 'Midlothian Heritage', site: 'Home', district: true, result: 'L 7-45' },
+        { date: '2026-10-29', opponent: 'Arlington Seguin', site: 'Away', district: true, kickoff: '7:00 PM' },
+        { date: '2026-11-06', opponent: 'Joshua', site: 'Home', district: true, kickoff: '7:00 PM' }
+      ]
+    },
+    venue: {
+      name: 'BISD Stadium / Burleson Stadium',
+      address: 'Burleson, TX — use Burleson ISD event listing for current game location',
+      sourceUrl: 'https://bhs.burlesonisd.net/',
+      sourceLabel: "Burleson High calendar identifies BISD Stadium for home football events; Dave Campbell's lists Burleson Stadium with 7,500 capacity",
+      verifiedAt: '2026-10-25',
+      note: 'The October 30 Arlington Seguin event is currently shown by the school as Location TBD, so TexasDefined does not assign a stadium in advance.'
+    },
+    development: {
+      title: 'Phillip Tanner era follows the Kitna period',
+      body: "Burleson's 2021 team went 8-4 and won its first playoff game since 2015 under Jon Kitna. MaxPreps history lists Kitna through 2024 and Phillip Tanner in 2025; Burleson ISD currently lists Tanner as head football coach. The 2026 Elks opened 0-4, then beat Everman and Corsicana before losses to Ennis and Midlothian Heritage.",
+      sourceUrl: 'https://www.burlesonisd.net/departments/athletics-interscholastic-activities',
+      sourceLabel: 'Burleson ISD current staff plus historical season records',
+      verifiedAt: '2026-10-25'
+    },
+    milestones: [
+      { date: '2021', title: 'Eight-win season and a playoff breakthrough', body: 'Burleson went 8-4 and beat Mesquite Poteet in the playoffs, its first postseason victory since 2015 according to contemporaneous local reporting.', sourceUrl: 'https://sports.yahoo.com/2022-season-preview-burleson-elks-035900833.html', sourceLabel: 'Cleburne Times-Review 2022 season preview via Yahoo Sports' },
+      { date: '2025', title: 'Phillip Tanner listed as Burleson head coach', body: 'MaxPreps history lists Tanner for 2025, and the current Burleson ISD athletics directory confirms him as Campus Athletic Coordinator/Head Football Coach.', sourceUrl: 'https://www.burlesonisd.net/departments/athletics-interscholastic-activities', sourceLabel: 'Burleson ISD current athletics staff' },
+      { date: 'October 23, 2026', title: 'Midlothian Heritage beats Burleson 45-7', body: 'The district loss moved the Elks to 2-6 overall and 2-3 in District 7.', sourceUrl: 'https://www.maxpreps.com/tx/football/game/burleson-vs-midlothian-heritage/10-23-2026/?c=79ea9be0-ab44-44f5-8704-aac4a2dec165&tab=Matchup', sourceLabel: 'MaxPreps final game page' }
+    ],
+    overview: [
+      'Burleson High School is in Johnson County at 100 Elk Drive. Its official About Us page identifies the mascot as Elk and the colors as red, white and black.',
+      'Phillip Tanner is the current first-party head football coach and campus athletic coordinator.',
+      "Dave Campbell's lists 18 playoff appearances, zero state titles and zero state-final appearances for Burleson, with Burleson Stadium as the program venue.",
+      'The 2026 Elks are 2-6 through October 23. Arlington Seguin and Joshua remain; the school currently marks the Seguin location TBD.',
+      'Burleson High and Burleson Centennial are separate football programs. The September 4 Centennial game is an opponent matchup, not a duplicate school identity.'
+    ],
+    faq: [
+      { question: 'Who coaches Burleson High School football?', answer: 'Phillip Tanner. Burleson ISD officially lists him as BHS Campus Athletic Coordinator / Head Football Coach.' },
+      { question: 'What is Burleson football record after October 23, 2026?', answer: 'The Elks are 2-6 overall and 2-3 in district after a 45-7 loss to Midlothian Heritage.' },
+      { question: 'What are Burleson High School colors and mascot?', answer: 'The official school page lists the mascot as Elk and the colors as red, white and black.' },
+      { question: 'Has Burleson won a football state title?', answer: "No. Dave Campbell's lists 18 playoff appearances but zero state titles and zero title-game appearances." }
+    ]
   }
 };
 
