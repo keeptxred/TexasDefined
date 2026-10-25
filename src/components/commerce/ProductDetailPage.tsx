@@ -5,11 +5,12 @@ import { Container } from "@/components/layout/Container";
 import { ProductCard } from "@/components/commerce/ProductCard";
 import { useShopCart } from "@/lib/shop-cart";
 import { trackTexasDefinedOutcome } from "@/platform/analytics";
+import { sortShopVariantsLargestFirst } from "@/lib/shop-variant-order";
 
 function variantLabel(variant: ProductVariant) { return variant.title || `Option ${variant.id}`; }
 
 export function ProductDetailPage({ product, related, variant }: { product: Product; related: Product[]; variant?: string }) {
-  const available = (product.variants ?? []).filter((candidate) => candidate.is_enabled !== false);
+  const available = sortShopVariantsLargestFirst((product.variants ?? []).filter((candidate) => candidate.is_enabled !== false));
   const requestedVariantId = variant ? Number(variant) : null;
   const initialVariantId = available.some((candidate) => candidate.id === requestedVariantId) ? requestedVariantId : (available[0]?.id ?? null);
   const [variantId, setVariantId] = useState<number | null>(initialVariantId);
