@@ -140,7 +140,7 @@ try {
   for (const primary of [
     "Pentatonix: Christmas in the City Tour",
     "The Parking Lot Music Festival",
-    "Fast Lane - Live in Concert",
+    "The Fast Lane - Live in Concert",
     "Suite Sounds - Christmas Concert",
     "A Christmas Story",
   ]) assert.equal(ticketmasterIsPrimaryAdmissionTitle(primary), true,
