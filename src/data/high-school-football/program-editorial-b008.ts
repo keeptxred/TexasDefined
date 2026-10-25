@@ -1203,6 +1203,233 @@ const BATCH008_EDITORIAL: Record<string, FootballProgramEditorial> = {
       { question: 'Where is Caddo Mills High School now?', answer: 'The current official campus site lists 3049 S. FM 36, Caddo Mills, TX 75135. Older third-party football directories can still show prior Gilmer Street addresses.' },
       { question: 'Why does the venue section discuss construction?', answer: 'CMISD announced the high-school track and field would close beginning March 11, 2026 for new-stadium construction, while current district event posts still identify Ed Locker Stadium for home-football activities.' }
     ]
+  },
+  caldwell: {
+    slug: 'caldwell',
+    intro: "Caldwell's Hornets dropped from 4A Division II into UIL 3A Division I District 12 for 2026. Sean Witherwax is the current head coach in both current roster history and local 2026 preseason reporting. The Hornets are 2-6 after Franklin's 77-3 win on October 23, with Cameron Yoe and Rockdale remaining.",
+    theme: { accentHex: '#F47C20', label: 'Original TexasDefined orange editorial treatment based on Caldwell ISD official Hornet orange/black spirit presentation; no district logo reproduced.' },
+    seo: {
+      title: 'Caldwell Hornets Football | 2026 Scores, Sean Witherwax & Hornet Stadium',
+      description: 'Caldwell Hornets football: Sean Witherwax, 2026 District 12-3A Division I scores, Franklin result, Hornet Stadium game-night guidance and Burleson County context.'
+    },
+    coach: {
+      name: 'Sean Witherwax',
+      title: 'Head football coach',
+      sourceUrl: 'https://www.kbtx.com/2026/08/19/hometown-heroes-caldwell-hornets/?outputType=amp',
+      sourceLabel: 'KBTX August 2026 preseason profile identifies Sean Witherwax as Caldwell head coach; current MaxPreps staff/history agrees',
+      verifiedAt: '2026-10-25'
+    },
+    campus: {
+      address: '550 County Rd. 307, Caldwell, TX 77836',
+      sourceUrl: 'https://www.caldwellisd.net/o/chs',
+      sourceLabel: 'Caldwell High School official campus site; current roster source uses the same campus address',
+      verifiedAt: '2026-10-25'
+    },
+    schedule: {
+      label: 'Caldwell 2026 football schedule and official Hornet event updates',
+      sourceUrl: 'https://www.caldwellisd.net/o/chs/live-feed',
+      sourceLabel: 'Caldwell ISD first-party live feed for Hornet game-night updates, cross-checked with current result feeds',
+      verifiedAt: '2026-10-25',
+      officialScheduleUrl: 'https://www.caldwellisd.net/o/chs/live-feed'
+    },
+    season: {
+      record: '2-6 overall, 1-4 district through October 23, 2026',
+      verifiedAt: '2026-10-25',
+      sourceUrl: 'https://www.maxpreps.com/tx/caldwell/caldwell-hornets/football/schedule/',
+      sourceLabel: 'Current MaxPreps schedule updated Oct. 24',
+      latestResultSourceUrl: 'https://www.maxpreps.com/tx/caldwell/caldwell-hornets/football/schedule/',
+      games: [
+        { date: '2026-08-28', opponent: 'Brazos', site: 'Away', result: 'L 0-40' },
+        { date: '2026-09-04', opponent: 'Somerville', site: 'Home', result: 'W 55-14' },
+        { date: '2026-09-11', opponent: 'Lexington', site: 'Home', result: 'L 25-53' },
+        { date: '2026-09-25', opponent: 'Lorena', site: 'Home', district: true, result: 'L 7-55' },
+        { date: '2026-10-02', opponent: 'Troy', site: 'Away', district: true, result: 'L 28-54' },
+        { date: '2026-10-09', opponent: 'McGregor', site: 'Away', district: true, result: 'W 42-40 (2OT)' },
+        { date: '2026-10-16', opponent: 'Little River Academy', site: 'Home', district: true, result: 'L 28-46' },
+        { date: '2026-10-23', opponent: 'Franklin', site: 'Away', district: true, result: 'L 3-77' },
+        { date: '2026-10-30', opponent: 'Cameron Yoe', site: 'Home', district: true, kickoff: '7:30 PM' },
+        { date: '2026-11-06', opponent: 'Rockdale', site: 'Away', district: true, kickoff: '7:30 PM' }
+      ]
+    },
+    venue: {
+      name: 'Hornet Stadium',
+      address: 'Caldwell High School area, Caldwell, TX',
+      sourceUrl: 'https://www.caldwellisd.net/o/chs/live-feed',
+      sourceLabel: 'Caldwell ISD first-party live feed names Hornet Stadium and publishes game-night entry rules',
+      verifiedAt: '2026-10-25',
+      note: 'Caldwell ISD says spectators should use the main parking lot and front gate for home football; back gates are reserved for band/coaches during designated entry times.'
+    },
+    development: {
+      title: 'A 2026 classification drop and a continuing playoff rebuild',
+      body: 'Caldwell moved from 4A Division II to 3A Division I in the 2026 realignment. KWHI’s preseason report said the Hornets entered the year after doubling their win total in 2025 and earning their first district win in five years, while KBTX described Witherwax as building toward the program’s first playoff berth since 2017. The 2026 team is 2-6 after Franklin, so the page keeps the rebuild grounded in current results.',
+      sourceUrl: 'https://kwhi.com/2026/08/17/caldwell-football-preview/',
+      sourceLabel: 'KWHI 2026 preseason realignment/history context and KBTX current coaching profile',
+      verifiedAt: '2026-10-25'
+    },
+    milestones: [
+      { date: '2017', title: 'Most recent playoff appearance before the current rebuild', body: 'KBTX and KWHI both identify 2017 as Caldwell’s most recent playoff season entering 2026.', sourceUrl: 'https://www.kbtx.com/2026/08/19/hometown-heroes-caldwell-hornets/?outputType=amp', sourceLabel: 'KBTX Hometown Heroes 2026 preview' },
+      { date: 'October 9, 2026', title: 'Hornets win a 42-40 double-overtime game at McGregor', body: 'The district victory is Caldwell’s current 2026 conference win.', sourceUrl: 'https://www.maxpreps.com/tx/caldwell/caldwell-hornets/football/schedule/', sourceLabel: 'MaxPreps current schedule' },
+      { date: 'October 23, 2026', title: 'Franklin beats Caldwell 77-3', body: 'The final moved Caldwell to 2-6 overall and 1-4 in district.', sourceUrl: 'https://www.maxpreps.com/tx/caldwell/caldwell-hornets/football/schedule/', sourceLabel: 'MaxPreps current schedule updated Oct. 24' }
+    ],
+    overview: [
+      'Caldwell ISD’s first-party live feed uses Hornets identity and orange/black spirit presentation, including current football event instructions.',
+      'Sean Witherwax is the current head coach in 2026 local reporting and current roster history.',
+      'UIL places Caldwell in Class 3A Division I District 12 for 2026-28 after the program dropped from 4A Division II.',
+      'The Hornets are 2-6 through October 23. Cameron Yoe and Rockdale remain.',
+      'Hornet Stadium game-night guidance is unusually specific: Caldwell ISD says fans should use the main parking lot and front gate.'
+    ],
+    faq: [
+      { question: 'Who coaches Caldwell football in 2026?', answer: 'Sean Witherwax. KBTX’s August 2026 Caldwell preview identifies him as head coach, and the current roster staff agrees.' },
+      { question: 'What is Caldwell football record after October 23, 2026?', answer: 'Caldwell is 2-6 overall and 1-4 in district after a 77-3 loss at Franklin.' },
+      { question: 'What classification is Caldwell in now?', answer: 'UIL places Caldwell in Class 3A Division I District 12 for the 2026-28 cycle; the program moved down from 4A Division II.' },
+      { question: 'How should fans enter Hornet Stadium?', answer: 'Caldwell ISD says spectators should park in the main parking lot and use the front gate; back gates are reserved for band and coaches during designated entry times.' }
+    ]
+  },
+  callisburg: {
+    slug: 'callisburg',
+    intro: "Callisburg's Wildcats are a Cooke County Class 3A Division II District 7 program. Current history identifies Eddie Gill as the 2026 head coach, but the current staff page also labels Corey Roberson head coach, so the role is not treated as perfectly clean. The Wildcats are 1-6 through the October 16 win over S&S Consolidated; the October 23 Blue Ridge matchup is verified, but a trustworthy final was not available in the sources reviewed October 25.",
+    theme: { accentHex: '#2B5D9B', label: 'Original TexasDefined blue Wildcat editorial treatment; no Callisburg ISD logo or school-owned photo reproduced.' },
+    seo: {
+      title: 'Callisburg Wildcats Football | 2026 Scores, District 7 & Source Guide',
+      description: 'Callisburg Wildcats football: 2026 District 7-3A Division II results, Eddie Gill coach-source note, S&S win, unresolved Blue Ridge final and Cooke County context.'
+    },
+    coach: {
+      name: 'Eddie Gill',
+      title: '2026 history-listed head coach; current staff page contains a conflicting second head-coach label',
+      sourceUrl: 'https://www.maxpreps.com/tx/gainesville/callisburg-wildcats/football/history/',
+      sourceLabel: 'MaxPreps 2026 history identifies Eddie Gill as head coach; current staff page also labels Corey Roberson head coach, so TexasDefined preserves the conflict',
+      verifiedAt: '2026-10-25'
+    },
+    campus: {
+      address: '148 Dozier St., Gainesville, TX 76240',
+      sourceUrl: 'https://www.maxpreps.com/tx/gainesville/callisburg-wildcats/football/',
+      sourceLabel: 'Current UIL-partner Callisburg page; first-party campus source not located in this checkpoint',
+      verifiedAt: '2026-10-25'
+    },
+    schedule: {
+      label: 'Callisburg 2026 football schedule and current results',
+      sourceUrl: 'https://www.maxpreps.com/tx/gainesville/callisburg-wildcats/football/schedule/',
+      sourceLabel: 'Current UIL-partner schedule; Blue Ridge result intentionally left unresolved pending reliable final evidence',
+      verifiedAt: '2026-10-25',
+      officialScheduleUrl: 'https://www.maxpreps.com/tx/gainesville/callisburg-wildcats/football/schedule/'
+    },
+    season: {
+      record: '1-6 overall, 1-2 district through October 16, 2026; October 23 Blue Ridge final unresolved',
+      verifiedAt: '2026-10-25',
+      sourceUrl: 'https://www.maxpreps.com/tx/gainesville/callisburg-wildcats/football/schedule/',
+      sourceLabel: 'Current Callisburg schedule through S&S Consolidated; Blue Ridge matchup pages still lack a final',
+      latestResultSourceUrl: 'https://www.maxpreps.com/tx/gainesville/callisburg-wildcats/football/',
+      games: [
+        { date: '2026-08-28', opponent: 'Bowie', site: 'Away', result: 'L 0-40' },
+        { date: '2026-09-04', opponent: 'Millsap', site: 'Home', result: 'L 13-29' },
+        { date: '2026-09-11', opponent: 'Tioga', site: 'Away', result: 'L 6-26' },
+        { date: '2026-09-18', opponent: 'Pottsboro', site: 'Home', result: 'L 12-33' },
+        { date: '2026-09-25', opponent: 'Howe', site: 'Home', district: true, result: 'L 0-39' },
+        { date: '2026-10-02', opponent: 'Leonard', site: 'Away', district: true, result: 'L 8-14' },
+        { date: '2026-10-16', opponent: 'S & S Consolidated', site: 'Home', district: true, result: 'W 53-7' },
+        { date: '2026-10-23', opponent: 'Blue Ridge', site: 'Away', district: true },
+        { date: '2026-10-30', opponent: 'Valley View', site: 'Home', district: true, kickoff: '7:00 PM' },
+        { date: '2026-11-06', opponent: 'Bells', site: 'Away', district: true, kickoff: '7:00 PM' }
+      ]
+    },
+    development: {
+      title: 'First district win, with the Blue Ridge result still unresolved',
+      body: 'Callisburg opened 0-6 before beating S&S Consolidated 53-7 on October 16. The October 23 Blue Ridge matchup is present in MaxPreps and High School On SI, but both sources still lack a final in the evidence reviewed October 25. TexasDefined therefore keeps Callisburg at 1-6 through the last verified game instead of guessing a new record.',
+      sourceUrl: 'https://www.maxpreps.com/tx/gainesville/callisburg-wildcats/football/',
+      sourceLabel: 'Current team page through S&S win; Blue Ridge final absent in available matchup pages',
+      verifiedAt: '2026-10-25'
+    },
+    milestones: [
+      { date: 'October 16, 2026', title: 'Wildcats break through with a 53-7 district win', body: 'Callisburg beat S&S Consolidated for its first win of the season and first district win.', sourceUrl: 'https://www.maxpreps.com/tx/gainesville/callisburg-wildcats/football/', sourceLabel: 'MaxPreps current Callisburg page' },
+      { date: 'October 23, 2026', title: 'Blue Ridge matchup remains score-unresolved', body: 'The game is documented as scheduled, but the current matchup pages reviewed October 25 do not provide a reliable final. No score is inferred.', sourceUrl: 'https://www.si.com/high-school/stats/texas/football/games/6897370-callisburg-vs-blue-ridge', sourceLabel: 'High School On SI matchup page without final score' }
+    ],
+    overview: [
+      'Callisburg plays UIL Class 3A Division II football in District 7 for 2026-28.',
+      'Current history lists Eddie Gill as head coach. The separate current staff page also labels Corey Roberson head coach, so TexasDefined does not hide that source conflict.',
+      'The Wildcats are 1-6 through the verified October 16 S&S Consolidated win.',
+      'The October 23 Blue Ridge game is left without a result because current evidence proves the matchup but not a trustworthy final.',
+      'Callisburg’s campus is in Cooke County; exact game-night venue and access details remain to be first-party verified.'
+    ],
+    faq: [
+      { question: 'Who coaches Callisburg football in 2026?', answer: 'MaxPreps 2026 history identifies Eddie Gill, but the current staff page also labels Corey Roberson head coach. TexasDefined preserves that conflict rather than pretending the source data is unanimous.' },
+      { question: 'What is Callisburg football record through October 25, 2026?', answer: 'The last verified record is 1-6 overall and 1-2 in district through the October 16 win over S&S Consolidated.' },
+      { question: 'What happened in the Callisburg-Blue Ridge game?', answer: 'The October 23 matchup is verified, but the current matchup pages reviewed October 25 still do not supply a trustworthy final score.' },
+      { question: 'What classification is Callisburg in?', answer: 'UIL places Callisburg in Class 3A Division II District 7 for the 2026-28 cycle.' }
+    ]
+  },
+  calvert: {
+    slug: 'calvert',
+    intro: "Calvert's Trojans are a Robertson County UIL 1A Division II six-man program. Calvert ISD officially identifies Marcus Wortham as Athletic Director and Head Football Coach. The Trojans are 0-8 after a 46-45 October 23 loss to Brazos Valley, their closest result of the season, with district games at Apple Springs and Buckholts remaining.",
+    theme: { accentHex: '#6A3D9A', label: 'Original TexasDefined purple editorial treatment based on Calvert ISD’s current purple/white Trojan spirit presentation; no district logo reproduced.' },
+    seo: {
+      title: 'Calvert Trojans Football | 2026 Six-Man Scores & Marcus Wortham',
+      description: 'Calvert Trojans six-man football: Marcus Wortham, 2026 District 15 results, 46-45 Brazos Valley game, Robertson County campus and official Calvert ISD sources.'
+    },
+    coach: {
+      name: 'Marcus Wortham',
+      title: 'Athletic Director / Head Football Coach',
+      sourceUrl: 'https://www.calvertisd.com/apps/pages/index.jsp?pREC_ID=2087222&type=d&uREC_ID=1985074',
+      sourceLabel: 'Calvert ISD official Athletic Department page explicitly identifies Marcus Wortham as Athletic Director and Head Football Coach',
+      verifiedAt: '2026-10-25'
+    },
+    campus: {
+      address: '310 Hickory St., Calvert, TX 77837',
+      phone: '979-364-2824',
+      sourceUrl: 'https://www.calvertisd.com/apps/pages/index.jsp?pREC_ID=2087222&type=d&uREC_ID=1985074',
+      sourceLabel: 'Calvert ISD official athletics page lists the high-school athletics address',
+      verifiedAt: '2026-10-25'
+    },
+    schedule: {
+      label: 'Calvert ISD 2026-27 Trojan football schedule and current results',
+      sourceUrl: 'https://www.calvertisd.com/apps/news/',
+      sourceLabel: 'Calvert ISD official news publishes the 2026-27 Trojan football schedule; results cross-checked with current MaxPreps feed',
+      verifiedAt: '2026-10-25',
+      officialScheduleUrl: 'https://www.calvertisd.com/apps/news/'
+    },
+    season: {
+      record: '0-8 overall, 0-0 district through October 23, 2026',
+      verifiedAt: '2026-10-25',
+      sourceUrl: 'https://www.maxpreps.com/tx/calvert/calvert-trojans/football/schedule/',
+      sourceLabel: 'Current Calvert game ledger plus Oct. 24 Brazos Valley recap',
+      latestResultSourceUrl: 'https://www.maxpreps.com/news/A__ApTJWA0OXOmeZ2V6W0A/football-recap-calvert-keeps-it-close-against-brazos-valley--how-to-watch.htm',
+      games: [
+        { date: '2026-08-28', opponent: 'BVCHEA HomeSchool', site: 'Away', result: 'L 13-54' },
+        { date: '2026-09-04', opponent: 'Aquilla', site: 'Away', result: 'L 7-54' },
+        { date: '2026-09-11', opponent: 'First Baptist Christian', site: 'Away', result: 'L 0-1 (forfeit)' },
+        { date: '2026-09-18', opponent: 'Jonesboro', site: 'Home', result: 'L 7-52' },
+        { date: '2026-09-24', opponent: 'Abbott', site: 'Home', result: 'L 8-72' },
+        { date: '2026-10-03', opponent: 'Burkeville', site: 'Away', result: 'L 37-59' },
+        { date: '2026-10-09', opponent: "Methodist Children's Home", site: 'Away', result: 'L 6-51' },
+        { date: '2026-10-23', opponent: 'Brazos Valley', site: 'Home', result: 'L 45-46' },
+        { date: '2026-10-30', opponent: 'Apple Springs', site: 'Away', district: true, kickoff: '7:00 PM' },
+        { date: '2026-11-06', opponent: 'Buckholts', site: 'Away', district: true, kickoff: '7:00 PM' }
+      ]
+    },
+    development: {
+      title: 'A winless start with a one-point near-breakthrough',
+      body: 'Calvert entered October 23 on a long losing streak and then produced its highest-scoring game of 2026, falling 46-45 to Brazos Valley. The game moved the Trojans to 0-8 but showed a very different offensive result from the earlier schedule. District play begins at Apple Springs on October 30, so the page does not pre-label the current district record beyond 0-0.',
+      sourceUrl: 'https://www.maxpreps.com/news/A__ApTJWA0OXOmeZ2V6W0A/football-recap-calvert-keeps-it-close-against-brazos-valley--how-to-watch.htm',
+      sourceLabel: 'MaxPreps Oct. 24 recap based on the recorded 46-45 final',
+      verifiedAt: '2026-10-25'
+    },
+    milestones: [
+      { date: '2025', title: 'Calvert finishes 4-6 before the current alignment', body: 'MaxPreps history lists the 2025 Trojans at 4-6 overall and 2-1 in district under Marcus Wortham.', sourceUrl: 'https://www.maxpreps.com/tx/calvert/calvert-trojans/football/history/', sourceLabel: 'MaxPreps Calvert history' },
+      { date: '2026', title: 'Marcus Wortham remains first-party head football coach', body: 'Calvert ISD’s athletics page explicitly lists Wortham as both Athletic Director and Head Football Coach.', sourceUrl: 'https://www.calvertisd.com/apps/pages/index.jsp?pREC_ID=2087222&type=d&uREC_ID=1985074', sourceLabel: 'Calvert ISD Athletic Department' },
+      { date: 'October 23, 2026', title: 'Brazos Valley edges Calvert 46-45', body: 'The one-point loss is Calvert’s closest 2026 result and its highest-scoring game through October 25.', sourceUrl: 'https://www.maxpreps.com/news/A__ApTJWA0OXOmeZ2V6W0A/football-recap-calvert-keeps-it-close-against-brazos-valley--how-to-watch.htm', sourceLabel: 'MaxPreps Oct. 24 recap' }
+    ],
+    overview: [
+      'Calvert ISD uses Trojans identity and current purple/white school-spirit presentation on its official site.',
+      'Marcus Wortham is a first-party verified Athletic Director and Head Football Coach.',
+      'UIL places Calvert in 1A Division II District 15 six-man football for 2026-28.',
+      'Calvert is 0-8 through the October 23 one-point loss to Brazos Valley. Apple Springs and Buckholts are its remaining listed district games.',
+      'The September 11 First Baptist Christian entry is a 1-0 administrative forfeit result, not an on-field one-point game.'
+    ],
+    faq: [
+      { question: 'Who coaches Calvert football?', answer: 'Marcus Wortham. Calvert ISD officially lists him as Athletic Director and Head Football Coach.' },
+      { question: 'What is Calvert football record after October 23, 2026?', answer: 'Calvert is 0-8 after a 46-45 loss to Brazos Valley.' },
+      { question: 'Does Calvert play six-man football?', answer: 'Yes. UIL places Calvert in 1A Division II District 15 for the 2026-28 six-man cycle.' },
+      { question: 'Was the First Baptist Christian result a normal 1-0 football game?', answer: 'No. The September 11 schedule marks it as a 1-0 forfeit, an administrative result rather than an on-field score.' }
+    ]
   }
 };
 
