@@ -119,6 +119,11 @@ try {
   assert.equal(ticketmasterIsPrimaryAdmissionTitle('Parking: Pentatonix'), false);
   assert.equal(ticketmasterIsPrimaryAdmissionTitle('Fast Lane: Holiday Concert'), false);
   assert.equal(ticketmasterIsPrimaryAdmissionTitle('VIP Upgrade: Holiday Concert'), false);
+  assert.equal(ticketmasterIsPrimaryAdmissionTitle("Fast Lane Pass - Grand Ol' Christmas - Not a Concert Ticket"), false);
+  assert.equal(ticketmasterIsPrimaryAdmissionTitle("Signed Poster Add-On - Brett Goldstein - Not a Concert Ticket"), false);
+  assert.equal(ticketmasterIsPrimaryAdmissionTitle("Pentatonix VIP Upgrade (Event Ticket Not Included)"), false);
+  assert.equal(ticketmasterIsPrimaryAdmissionTitle("Parking Pass - Grand Ol' Christmas"), false);
+
   assert.equal(ticketmasterIsPrimaryAdmissionTitle('Pentatonix: Christmas in the City Tour'), true);
   const pentatonixPrimary = {
     ...event, id: 'regular', name: 'Pentatonix: Christmas in the City Tour',
