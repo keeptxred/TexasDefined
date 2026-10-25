@@ -14,8 +14,9 @@ const calendarServer = read("src/data/events/texas-event-calendar.server.ts");
 for (const marker of [
   "export function ticketmasterVenueMatches(",
   "const existing = new Map<string, number[]>();",
-  "ticketmasterVenueMatches(records[candidate], providerRecord)",
-  "ticketmasterVenueMatches(record, providerRecord)",
+  "performanceMatches(records[candidate])",
+  "performanceMatches(record)",
+  "ticketmasterVenueMatches(editorial, providerRecord)",
   "ticketmasterShowtimeMatches(editorial, providerRecord, sameVenueProviderCount)",
   "const providersByTitleAndDate = new Map<string, TexasEventRecord[]>();",
   "const sameVenueProviderCount =",
