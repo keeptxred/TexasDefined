@@ -1430,6 +1430,240 @@ const BATCH008_EDITORIAL: Record<string, FootballProgramEditorial> = {
       { question: 'Does Calvert play six-man football?', answer: 'Yes. UIL places Calvert in 1A Division II District 15 for the 2026-28 six-man cycle.' },
       { question: 'Was the First Baptist Christian result a normal 1-0 football game?', answer: 'No. The September 11 schedule marks it as a 1-0 forfeit, an administrative result rather than an on-field score.' }
     ]
+  },
+  'cameron-yoe': {
+    slug: 'cameron-yoe',
+    intro: "Cameron Yoe is one of the deepest-history programs in this batch: four state championships, six title-game appearances and 49 playoff trips. The current 2026 team is unbeaten in the available game ledger, but the October 23 Little River Academy result is internally inconsistent across sources — KBTX reports a played 31-13 Cameron win, while MaxPreps currently shows a 13-10 forfeit entry. TexasDefined preserves that discrepancy instead of inventing a single uncontested official score.",
+    theme: { accentHex: '#7A263A', label: 'Original TexasDefined maroon editorial treatment; no Cameron ISD logo or school-owned photography reproduced.' },
+    seo: {
+      title: 'Cameron Yoe Football | 2026 Scores, Aaron Babino & 4 State Titles',
+      description: 'Cameron Yoe Yoemen football: Aaron Babino, four state titles, 2026 District 12-3A Division I run, Yoe Field and the disputed Little River Academy result.'
+    },
+    coach: {
+      name: 'Aaron Babino',
+      title: 'Athletic Director / Head Football Coach',
+      sourceUrl: 'https://www.cameronisd.net/page/ath.Meet%20the%20Coaches',
+      sourceLabel: 'Cameron ISD official Meet the Coaches page',
+      verifiedAt: '2026-10-25'
+    },
+    campus: {
+      address: '303 E. 12th Street, Cameron, TX 76520',
+      phone: '254-697-3902',
+      sourceUrl: 'https://www.cameronisd.net/page/yhs.Home',
+      sourceLabel: 'C.H. Yoe High School official campus page',
+      verifiedAt: '2026-10-25'
+    },
+    schedule: {
+      label: 'Cameron Yoe 2026 schedule and current result sources',
+      sourceUrl: 'https://www.maxpreps.com/tx/cameron/ch-yoe-yoemen/football/schedule/',
+      sourceLabel: 'Current UIL-partner schedule, cross-checked against KBTX local game reporting',
+      verifiedAt: '2026-10-25',
+      officialScheduleUrl: 'https://www.cameronisd.net/page/yhs.Home'
+    },
+    season: {
+      record: '8 wins in the current game ledger through October 23; Little River Academy final carries a source conflict',
+      verifiedAt: '2026-10-25',
+      sourceUrl: 'https://www.maxpreps.com/tx/cameron/ch-yoe-yoemen/football/schedule/',
+      sourceLabel: 'MaxPreps current ledger plus KBTX Oct. 24 played-game report',
+      latestResultSourceUrl: 'https://www.kbtx.com/2026/10/24/cameron-yoe-stays-perfect-tops-academy-31-13/',
+      games: [
+        { date: '2026-08-28', opponent: 'Teague', site: 'Home', result: 'W 21-14' },
+        { date: '2026-09-03', opponent: 'Whitney', site: 'Home', result: 'W 62-61' },
+        { date: '2026-09-11', opponent: 'Salado', site: 'Home', result: 'W 38-23' },
+        { date: '2026-09-25', opponent: 'McGregor', site: 'Away', district: true, result: 'W 46-9' },
+        { date: '2026-10-02', opponent: 'Franklin', site: 'Home', district: true, result: 'W 43-42' },
+        { date: '2026-10-09', opponent: 'Rockdale', site: 'Away', district: true, result: 'W 65-28' },
+        { date: '2026-10-16', opponent: 'Troy', site: 'Home', district: true, result: 'W 40-26' },
+        { date: '2026-10-23', opponent: 'Little River Academy', site: 'Away', district: true, result: 'W — KBTX 31-13 played final; MaxPreps shows 13-10 FF' },
+        { date: '2026-10-30', opponent: 'Caldwell', site: 'Away', district: true, kickoff: '7:30 PM' },
+        { date: '2026-11-06', opponent: 'Lorena', site: 'Home', district: true, kickoff: '7:30 PM' }
+      ]
+    },
+    venue: {
+      name: 'Yoe Field',
+      address: 'Cameron, TX',
+      sourceUrl: 'https://www.texasfootball.com/team/cameron-yoe-yoemen',
+      sourceLabel: "Dave Campbell's identifies Yoe Field and 3,640 capacity",
+      verifiedAt: '2026-10-25',
+      note: 'Cameron ISD ticket/event rules control game-night access; the school page notes pay-to-re-enter and no-smoking policies.'
+    },
+    development: {
+      title: 'Four-title history, with a current result dispute handled transparently',
+      body: "Dave Campbell's credits Cameron Yoe with four state championships — 1981, 2012, 2013 and 2014 — six title-game appearances and 49 playoff trips. The 2026 Yoemen have won every game in the current ledger, but the October 23 Academy result is not source-clean: KBTX reports a played 31-13 Cameron victory at John Glover Stadium, while MaxPreps shows 13-10 marked as a forfeit. TexasDefined reports the win and the disagreement rather than silently choosing one score.",
+      sourceUrl: 'https://www.texasfootball.com/article/2026/05/14/cameron-yoe-yoemen-when-small-towns-produce-big-time-results',
+      sourceLabel: "Dave Campbell's May 2026 Cameron Yoe history plus KBTX Oct. 24 game report",
+      verifiedAt: '2026-10-25'
+    },
+    milestones: [
+      { date: '1981, 2012-2014', title: 'Four state championships', body: 'Cameron Yoe owns four state titles, including three straight from 2012 through 2014.', sourceUrl: 'https://www.texasfootball.com/article/2026/05/14/cameron-yoe-yoemen-when-small-towns-produce-big-time-results', sourceLabel: "Dave Campbell's Cameron Yoe history" },
+      { date: 'October 2, 2026', title: 'Yoemen edge Franklin 43-42', body: 'The one-point district win is part of Cameron’s unbeaten 2026 start.', sourceUrl: 'https://www.maxpreps.com/tx/cameron/ch-yoe-yoemen/football/schedule/', sourceLabel: 'MaxPreps current schedule' },
+      { date: 'October 23, 2026', title: 'Academy win carries conflicting score treatment', body: 'KBTX reports Cameron 31-13 in a played game; MaxPreps currently shows Cameron 13-10 with an FF label. The disagreement remains visible.', sourceUrl: 'https://www.kbtx.com/2026/10/24/cameron-yoe-stays-perfect-tops-academy-31-13/', sourceLabel: 'KBTX local postgame report' }
+    ],
+    overview: [
+      'C.H. Yoe High School is in Cameron, Milam County, at 303 E. 12th Street.',
+      'Cameron ISD officially lists Aaron Babino as Athletic Director / Head Football Coach.',
+      'UIL places Cameron Yoe in Class 3A Division I District 12 for 2026-28.',
+      "The program owns four state titles, six title-game appearances and 49 playoff appearances according to Dave Campbell's.",
+      'The October 23 Little River Academy win remains score-disputed between current sources and is not flattened into a false consensus.'
+    ],
+    faq: [
+      { question: 'Who coaches Cameron Yoe football in 2026?', answer: 'Aaron Babino. Cameron ISD officially lists him as Athletic Director / Head Football Coach.' },
+      { question: 'How many state football titles has Cameron Yoe won?', answer: 'Four: 1981, 2012, 2013 and 2014.' },
+      { question: 'What happened in the Cameron Yoe-Little River Academy game?', answer: 'KBTX reports a played 31-13 Cameron win on October 23. MaxPreps currently shows a 13-10 Cameron win marked FF. TexasDefined preserves the source conflict.' },
+      { question: 'Where does Cameron Yoe play?', answer: "Dave Campbell's identifies Yoe Field as the program stadium." }
+    ]
+  },
+  campbell: {
+    slug: 'campbell',
+    intro: "Campbell's Indians are a Hunt County six-man program in UIL 1A Division I District 12. Campbell ISD officially lists Preston Compton as Head Football/AD. The 2026 record was fragmented across stale feeds, but current statewide reporting verifies a 70-46 district win over Saint Jo on October 22.",
+    theme: { accentHex: '#8B1E2D', label: 'Original TexasDefined maroon six-man editorial treatment; no Campbell ISD logo or school-owned image reproduced.' },
+    seo: {
+      title: 'Campbell Indians Football | 2026 Six-Man Scores & Preston Compton',
+      description: 'Campbell Indians six-man football: Preston Compton, 2026 District 12 results, Saint Jo 70-46 win, Hunt County campus and official Campbell ISD sources.'
+    },
+    coach: {
+      name: 'Preston Compton',
+      title: 'Head Football / Athletic Director',
+      sourceUrl: 'https://www.campbellisd.org/campus-departments/athletics/football',
+      sourceLabel: 'Campbell ISD official football page',
+      verifiedAt: '2026-10-25'
+    },
+    campus: {
+      address: '409 W. North St., Campbell, TX 75422',
+      sourceUrl: 'https://www.campbellisd.org/',
+      sourceLabel: 'Campbell ISD official site; current football directories use the same high-school address',
+      verifiedAt: '2026-10-25'
+    },
+    schedule: {
+      label: 'Campbell ISD football and current six-man results',
+      sourceUrl: 'https://www.campbellisd.org/campus-departments/athletics/football',
+      sourceLabel: 'Campbell ISD official football staff page plus district calendar and current statewide score reporting',
+      verifiedAt: '2026-10-25',
+      officialScheduleUrl: 'https://www.campbellisd.org/calendar2/'
+    },
+    season: {
+      record: '4-4 in the best current combined ledger through October 22, 2026; some third-party schedules remain incomplete',
+      verifiedAt: '2026-10-25',
+      sourceUrl: 'https://www.texasfootball.com/team/campbell-indians',
+      sourceLabel: 'DCTF early-season ledger, On3 Fannindel final, Campbell ISD schedule and Oct. 22 statewide Saint Jo final',
+      latestResultSourceUrl: 'https://www.si.com/high-school/texas/texas-high-school-football-final-scores-thursday-october-22-2026-01m5mdmq0eey',
+      games: [
+        { date: '2026-08-27', opponent: 'Gordon', site: 'Home', result: 'L 12-57' },
+        { date: '2026-09-03', opponent: 'Heritage Christian Academy', site: 'Away', result: 'L 12-62' },
+        { date: '2026-09-11', opponent: 'Fannindel', site: 'Away', result: 'L 36-55' },
+        { date: '2026-09-17', opponent: 'Greenville Homeschool Athletics', site: 'Home', result: 'W 61-30' },
+        { date: '2026-09-24', opponent: 'Cedar Hill Newman', site: 'Home', result: 'W 75-24' },
+        { date: '2026-10-02', opponent: 'East Texas Homeschool Sports', site: 'Home', result: 'L 8-56' },
+        { date: '2026-10-22', opponent: 'Saint Jo', site: 'Home', district: true, result: 'W 70-46' },
+        { date: '2026-10-29', opponent: 'Savoy', site: 'Away', district: true, kickoff: '7:30 PM' },
+        { date: '2026-11-05', opponent: 'Fruitvale', site: 'Home', district: true, kickoff: '7:30 PM' }
+      ]
+    },
+    development: {
+      title: 'A fragmented 2026 data trail, anchored by first-party staff and a verified district win',
+      body: "Campbell ISD supplies a clean first-party coaching source for Preston Compton, but the 2026 results are fragmented across stale schedule providers. DCTF captures Campbell’s early 2-3 start, On3 adds the Fannindel loss, MaxPreps shows the October 2 East Texas Homeschool loss, and statewide October 22 finals verify Campbell 70, Saint Jo 46. The page uses a combined dated ledger instead of pretending one incomplete feed is authoritative.",
+      sourceUrl: 'https://www.campbellisd.org/campus-departments/athletics/football',
+      sourceLabel: 'Campbell ISD first-party football page plus current multi-source results',
+      verifiedAt: '2026-10-25'
+    },
+    milestones: [
+      { date: '2025', title: 'Campbell posts a 7-3 season', body: "Dave Campbell's lists the 2025 Indians at 7-3, their strongest recent season in the visible archive.", sourceUrl: 'https://www.texasfootball.com/team/campbell-indians', sourceLabel: "Dave Campbell's Campbell history" },
+      { date: 'October 22, 2026', title: 'Campbell beats Saint Jo 70-46', body: 'Statewide Thursday-night finals verify the District 12 win.', sourceUrl: 'https://www.si.com/high-school/texas/texas-high-school-football-final-scores-thursday-october-22-2026-01m5mdmq0eey', sourceLabel: 'High School On SI Thursday finals' }
+    ],
+    overview: [
+      'Campbell ISD officially identifies Preston Compton as Head Football/AD.',
+      'UIL places Campbell in 1A Division I District 12 six-man football for 2026-28.',
+      "Dave Campbell's lists zero state titles, zero title-game appearances and zero playoff appearances in its current program-history summary.",
+      'The 2026 schedule trail is incomplete across providers, so TexasDefined uses a combined source ledger and labels it as such.',
+      'The latest verified result is Campbell 70, Saint Jo 46 on October 22.'
+    ],
+    faq: [
+      { question: 'Who coaches Campbell football?', answer: 'Preston Compton. Campbell ISD officially lists him as Head Football/AD.' },
+      { question: 'Does Campbell play six-man football?', answer: 'Yes. UIL places Campbell in 1A Division I District 12 for the 2026-28 six-man cycle.' },
+      { question: 'What was the Campbell-Saint Jo score?', answer: 'Campbell won 70-46 on October 22, 2026, according to statewide final-score reporting.' },
+      { question: 'Why does the Campbell record need a source note?', answer: 'Several current schedule providers are incomplete or stale, so TexasDefined combines dated results instead of treating one partial feed as complete.' }
+    ]
+  },
+  canadian: {
+    slug: 'canadian',
+    intro: "Canadian's Wildcats are one of the strongest small-school football programs in Texas history. Canadian ISD's own football page documents four older state titles, while current historical sources add the 2020 championship for five total. Andy Cavalier remains the 2026 head coach. The Wildcats are 6-3 after a 49-7 district win at Childress on October 23.",
+    theme: { accentHex: '#111111', label: 'Original TexasDefined black-and-gold Wildcat editorial treatment inspired by Canadian program presentation; no school-owned logo reproduced.' },
+    seo: {
+      title: 'Canadian Wildcats Football | 2026 Scores, Andy Cavalier & 5 State Titles',
+      description: 'Canadian Wildcats football: Andy Cavalier, five state championships, 2026 District 1-3A Division II scores, Childress win and official Canadian ISD history.'
+    },
+    coach: {
+      name: 'Andy Cavalier',
+      title: 'Head football coach',
+      sourceUrl: 'https://www.presspass.news/2026/08/10/canadian-wildcats-2026-football-preview/',
+      sourceLabel: 'Press Pass Sports interviewed Canadian head football coach Andy Cavalier during 2026 fall workouts; current MaxPreps staff agrees',
+      verifiedAt: '2026-10-25'
+    },
+    campus: {
+      address: '621 South 5th St., Canadian, TX 79014',
+      sourceUrl: 'https://www.canadianisd.net/canadian-high-school',
+      sourceLabel: 'Canadian ISD official Canadian High School page; current football roster uses the same campus address',
+      verifiedAt: '2026-10-25'
+    },
+    schedule: {
+      label: 'Canadian 2026 football schedule and current results',
+      sourceUrl: 'https://www.canadianisd.net/football',
+      sourceLabel: 'Canadian ISD official football history page plus current schedule/result sources',
+      verifiedAt: '2026-10-25',
+      officialScheduleUrl: 'https://www.canadianisd.net/football'
+    },
+    season: {
+      record: '6-3 overall, 3-0 district through October 23, 2026',
+      verifiedAt: '2026-10-25',
+      sourceUrl: 'https://www.maxpreps.com/tx/canadian/canadian-wildcats/football/schedule/',
+      sourceLabel: 'Current schedule plus verified Dimmitt and Childress finals',
+      latestResultSourceUrl: 'https://www.maxpreps.com/tx/football/game/canadian-vs-childress/10-23-2026/?c=aeff9426-687a-4d35-8ef4-bbab25b632f7',
+      games: [
+        { date: '2026-08-28', opponent: 'Panhandle', site: 'Home', result: 'W 63-38' },
+        { date: '2026-09-04', opponent: 'Bushland', site: 'Away', result: 'W 27-17' },
+        { date: '2026-09-11', opponent: 'Shallowater', site: 'Home', result: 'L 28-31' },
+        { date: '2026-09-18', opponent: 'Canyon Randall', site: 'Away', result: 'L 28-35 (OT)' },
+        { date: '2026-09-25', opponent: 'Pampa', site: 'Away', result: 'W 53-7' },
+        { date: '2026-10-02', opponent: 'Dalhart', site: 'Home', result: 'L 7-26' },
+        { date: '2026-10-09', opponent: 'Friona', site: 'Away', district: true, result: 'W 49-7' },
+        { date: '2026-10-16', opponent: 'Dimmitt', site: 'Home', district: true, result: 'W 70-31' },
+        { date: '2026-10-23', opponent: 'Childress', site: 'Away', district: true, result: 'W 49-7' },
+        { date: '2026-11-06', opponent: 'River Road', site: 'Home', district: true, kickoff: '7:00 PM' }
+      ]
+    },
+    venue: {
+      name: 'Wildcats Stadium / Chris Koetting Field',
+      address: 'Canadian, TX',
+      sourceUrl: 'https://www.presspass.news/2026/08/29/canadian-offense-outshines-panhandle-for-season-opening-victory/',
+      sourceLabel: 'Press Pass Sports identifies Chris Koetting Field at Wildcats Stadium in current 2026 coverage',
+      verifiedAt: '2026-10-25',
+      note: 'Use Canadian ISD event information for current ticketing, parking and accessibility details.'
+    },
+    development: {
+      title: 'Five-title tradition under a current 6-3 team',
+      body: "Canadian ISD's official football page documents state championships in 2007, 2008, 2014 and 2015. Current historical sources add the 2020 Class 3A Division II title, giving Canadian five total. Andy Cavalier entered 2026 after an 11-2 2025 season and a 35-7 record through three seasons at Canadian; the 2026 Wildcats are 6-3 after consecutive district wins over Friona, Dimmitt and Childress.",
+      sourceUrl: 'https://www.canadianisd.net/football',
+      sourceLabel: 'Canadian ISD official football history, current program history and 2026 Press Pass Sports preview',
+      verifiedAt: '2026-10-25'
+    },
+    milestones: [
+      { date: '2007, 2008, 2014, 2015, 2020', title: 'Five state championships', body: 'Canadian’s title history spans five championship seasons, with the first four documented on the school’s own football page and the 2020 title reflected in current historical records.', sourceUrl: 'https://www.canadianisd.net/football', sourceLabel: 'Canadian ISD official football history' },
+      { date: '2023', title: 'Canadian posts a 14-1 season', body: 'Current program history lists the Wildcats at 14-1 in Andy Cavalier’s first season as head coach.', sourceUrl: 'https://www.maxpreps.com/tx/canadian/canadian-wildcats/football/history/', sourceLabel: 'MaxPreps Canadian history' },
+      { date: 'October 23, 2026', title: 'Canadian beats Childress 49-7', body: 'The district road win moved the Wildcats to 6-3 overall and 3-0 in district.', sourceUrl: 'https://www.maxpreps.com/tx/football/game/canadian-vs-childress/10-23-2026/?c=aeff9426-687a-4d35-8ef4-bbab25b632f7', sourceLabel: 'MaxPreps final game page' }
+    ],
+    overview: [
+      'Canadian High School is in Hemphill County and the official school page says Go Wildcats.',
+      'Andy Cavalier remains the current head football coach in 2026 reporting and current team staff.',
+      'UIL places Canadian in Class 3A Division II District 1.',
+      'Canadian owns five state championships when the school’s four documented older titles are combined with the 2020 championship in current historical records.',
+      'The Wildcats are 6-3 and unbeaten in district through October 23, with River Road remaining after the October 30 open date.'
+    ],
+    faq: [
+      { question: 'Who coaches Canadian football in 2026?', answer: 'Andy Cavalier. Press Pass Sports interviewed him as Canadian head football coach during 2026 fall workouts, and the current staff page agrees.' },
+      { question: 'How many state football titles has Canadian won?', answer: 'Five: 2007, 2008, 2014, 2015 and 2020.' },
+      { question: 'What is Canadian football record after October 23, 2026?', answer: 'Canadian is 6-3 overall and 3-0 in district after a 49-7 win at Childress.' },
+      { question: 'Where does Canadian play home football?', answer: 'Current 2026 coverage identifies Chris Koetting Field at Wildcats Stadium.' }
+    ]
   }
 };
 
