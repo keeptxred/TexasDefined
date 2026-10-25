@@ -50,6 +50,36 @@ function eventIdentity(name: string, city: string) {
   return `${name.trim().toLowerCase()}:${city.trim().toLowerCase()}`;
 }
 
+/**
+ * Same title/city/date is not proof of the same performance: multiple venues
+ * can stage identical shows on the same night. Only combine an editorial
+ * record with a Ticketmaster event when their venues independently agree.
+ * A canonical venue ID wins; otherwise require the complete normalized name
+ * or an explicit venue-room suffix (e.g. "Alley Theatre · Hubbard Theatre").
+ * If either side lacks the venue, show a separate provider listing instead
+ * of redirecting readers to potentially unrelated tickets.
+ */
+export function ticketmasterVenueMatches(
+  editorial: Pick<TexasEventRecord, "venueId" | "venueName">,
+  provider: Pick<TexasEventRecord, "venueId" | "venueName">,
+): boolean {
+  if (editorial.venueId && provider.venueId) {
+    return editorial.venueId === provider.venueId;
+  }
+  const normalize = (value?: string) => (value ?? "")
+    .toLowerCase()
+    .normalize("NFKD")
+    .replace(/[’']/g, "")
+    .replace(/&/g, " and ")
+    .replace(/[^a-z0-9]+/g, " ")
+    .replace(/\\s+/g, " ")
+    .trim();
+  const a = normalize(editorial.venueName);
+  const b = normalize(provider.venueName);
+  return Boolean(a && b && (a === b || a.startsWith(b + " ") || b.startsWith(a + " ")));
+}
+
+
 function buildTicketing(offers: EventSchemaOffer[] | undefined, lastVerifiedAt: string, sourceName?: string): TexasEventTicketingMetadata | undefined {
   if (!offers?.length) return undefined;
   const uniqueTicketUrls = [...new Set(offers.map((offer) => offer.url))].filter((url) => providerForVerifiedTicketUrl(url));
@@ -287,17 +317,27 @@ export function loadTexasEventRecordsServer(): TexasEventRecord[] {
   // Preserve the reviewed editorial record when Ticketmaster has the same event,
   // but merge its current affiliate ticketing so richer authority coverage does not
   // suppress monetizable provider inventory.
-  const existing = new Map(records.map((record, index) => [`${eventIdentity(record.title, record.city)}:${record.startDate}`, index] as const));
+  const existing = new Map<string, number[]>();
+  const remember = (key: string, index: number) => {
+    const candidates = existing.get(key) ?? [];
+    candidates.push(index);
+    existing.set(key, candidates);
+  };
+  records.forEach((record, index) =>
+    remember(`${eventIdentity(record.title, record.city)}:${record.startDate}`, index));
   for (const providerRecord of loadTicketmasterEventsServer()) {
     const key = `${eventIdentity(providerRecord.title, providerRecord.city)}:${providerRecord.startDate}`;
-    const exactIndex = existing.get(key);
+    const exactIndex = (existing.get(key) ?? []).find((candidate) =>
+      ticketmasterVenueMatches(records[candidate], providerRecord));
     const curatedMatch = christmasPerformances.find((performance) =>
       isSameChristmasPerformanceCalendarEvent(performance, providerRecord));
-    const index = exactIndex ?? (curatedMatch
-      ? records.findIndex((record) => isSameChristmasPerformanceCalendarEvent(curatedMatch, record))
-      : -1);
+    const curatedIndex = curatedMatch
+      ? records.findIndex((record) => isSameChristmasPerformanceCalendarEvent(curatedMatch, record)
+        && ticketmasterVenueMatches(record, providerRecord))
+      : -1;
+    const index = exactIndex ?? curatedIndex;
     if (index === -1 || index === undefined) {
-      existing.set(key, records.length);
+      remember(key, records.length);
       records.push(providerRecord);
       continue;
     }
