@@ -155,6 +155,19 @@ const smokePaths = ['/things-unique-to-texas','/things-unique-to-texas/methodolo
 for (const path of smokePaths) if (!productionSmoke.includes(`'${path}'`)) failures.push(`Magazine production smoke must verify ${path}.`);
 for (const token of ['.count == 250','(.items | length) == 250','wc -l','251','x-robots-tag:','/things-that-define-texas.json','/things-that-define-texas.csv','test "$json_deep_links" -ge 91','test "$csv_deep_links" -ge 91','Topical/evergreen authority routes checked: 23','at least 91 deeper-guide relationships']) if (!productionSmoke.includes(token)) failures.push(`Magazine production smoke must retain current authority/distribution token: ${token}.`);
 
+// High-impression Texas culture queries must have a visible, source-consistent answer.
+for (const marker of [
+  'What is Texas known for?',
+  'Things unique to Texas, and the traditions Texans made their own',
+  'Not every familiar Texas icon originated here',
+  'to="/things-unique-to-texas/food-drink"',
+  'to="/things-unique-to-texas/culture-music"',
+  'to="/things-unique-to-texas/landmarks"',
+  'to="/things-unique-to-texas/natural-wonders"',
+]) if (!rootLazy.includes(marker)) failures.push('Texas culture answer or deep link missing: ' + marker);
+const seoSource = fs.readFileSync('src/lib/seo.ts', 'utf8');
+if (!seoSource.includes('title: "What Is Texas Known For? Iconic Foods, Places & Traditions"')) failures.push('Existing Texas icon SSR search-intent title lost.');
+
 if (failures.length) {
   console.error('Things That Define Texas validation failed:');
   for (const failure of failures) console.error(`- ${failure}`);
