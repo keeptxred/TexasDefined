@@ -15,6 +15,9 @@ import {
 
 // Original, school-specific source-derived visual finals; no unlicensed school photos, logos or seals.
 const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([
+  'carrollton-turner',
+  'carthage',
+  'castroville-medina-valley',
   'canyon-west-plains',
   'carrizo-springs',
   'carrollton-creekview',
@@ -157,6 +160,11 @@ function Page() {
   // Campus-county mapping for individually sourced Batch 002 profiles;
   // city names and district service areas are not dependable campus-county proxies.
   const researchedCampusCounty: Record<string, string> = {
+    'carrollton-turner': 'dallas', // R.L. Turner High at 1600 S Josey Ln, Carrollton campus in Dallas County; not Standridge gate.
+    'carthage': 'panola', // Carthage High campus in Carthage, Panola County; Bulldog Stadium access is event-specific.
+    'castle-hills': 'bexar', // Private school main campus in Castle Hills, Bexar County; football plays at separate San Antonio venue.
+    'castroville-medina-valley': 'medina', // Medina Valley High school campus on FM 471 in Medina County.
+    'cayuga': 'anderson', // Cayuga school campus on US 287 near Tennessee Colony, Anderson County.
     'canyon-west-plains': 'randall', // Official West Plains High Arden Road campus; Randall County, not the shared stadium gate.
     'carrizo-springs': 'dimmit', // Carrizo Springs CISD school campus Dimmit County; Frank Carter Stadium access is a separate event detail.
     'carrollton-creekview': 'denton', // NCES CCD 481305007852: Creekview 3201 Old Denton Road campus in Denton County.

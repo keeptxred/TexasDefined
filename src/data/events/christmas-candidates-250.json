@@ -982,19 +982,22 @@
       "intakeId": 118,
       "title": "Baytown Christmas Past & Present",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "City of Baytown confirms the Dec 3 parade plus closure-aware Holiday Hangout, not a separately named 'Christmas Past & Present' attraction. Preserve original candidate as unconfirmed."
     },
     {
       "intakeId": 119,
       "title": "Pasadena Holiday Festival",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "Pasadena's city calendar separately confirms Dec 5 lighted parade and Dec 12 Christmas Market; the intake's generic 'Pasadena Holiday Festival' name is not verified as a third distinct event."
     },
     {
       "intakeId": 120,
       "title": "Deer Park Reindeer Dash",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "Deer Park confirms its 2026 Reindeer Park on Dec 5, not the submitted 'Reindeer Dash'. Preserve the dash candidate until a distinct race is sourced."
     },
     {
       "intakeId": 121,
@@ -1018,8 +1021,11 @@
       "intakeId": 123,
       "title": "Seabrook Illuminated Boat Lane Parade",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation",
-      "researchNote": "Clear Lake Chamber's Dec12 65th Christmas Boat Lane Parade is the same waterway parade visible from Seabrook, Kemah and Nassau Bay. The supplied 'Seabrook Illuminated Boat Lane Parade' may refer to it, but no distinct separately branded organizer event is established. Do not duplicate it."
+      "status": "sourced-calendar",
+      "researchNote": "The Clear Lake Area Chamber confirms its Dec 12, 2026 boat parade passes Seabrook and Kemah around 7:30 p.m.; the supplied Seabrook description refers to that shared regional event, not an additional stand-alone parade.",
+      "calendarSlugs": [
+        "clearlake-65th-christmas-boat-lane-parade-2026"
+      ]
     },
     {
       "intakeId": 124,
@@ -1035,13 +1041,15 @@
       "intakeId": 125,
       "title": "League City Holiday Magic",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "League City Proud confirms Holiday in the Park Dec 4–6 including the Dec 5 Grand Night Parade; the submitted 'Holiday Magic' name is not verified as an additional event."
     },
     {
       "intakeId": 126,
       "title": "Friendswood Santa in the Park",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "Friendswood official event page still lacks a complete 2026 schedule; do not invent Santa in the Park dates from unofficial or stale listings."
     },
     {
       "intakeId": 127,
@@ -1862,8 +1870,8 @@
   ],
   "reconciliation": {
     "asOf": "2026-10-26",
-    "calendarCandidates": 76,
+    "calendarCandidates": 77,
     "authorityCandidates": 12,
-    "remainingCandidates": 162
+    "remainingCandidates": 161
   }
 }

@@ -48,11 +48,11 @@
     "assignmentBranch": "football-authority-batch-009-five-schools-20261026",
     "maxSchoolsPerBatch": 25,
     "currentSchool": null,
-    "nextSchool": "carrollton-turner",
-    "implementedOnBranch": 5,
-    "remainingToImplement": 20,
+    "nextSchool": "cedar-hill",
+    "implementedOnBranch": 10,
+    "remainingToImplement": 15,
     "remainingToVerify": 25,
-    "notes": "Initial five have individualized source-backed Batch 009 editorials on PR branch; not yet production verified. Previously 180 VERIFIED preserved. Remaining assigned 20 NOT_REVIEWED."
+    "notes": "Initial five have individualized source-backed Batch 009 editorials on PR branch; not yet production verified. Previously 180 VERIFIED preserved. Remaining assigned 20 NOT_REVIEWED. Second separately authored continuation branch: Carrollton Turner, Carthage, Castle Hills (TAPPS), Medina Valley and Cayuga are IMPLEMENTED with school-specific sources; no status promoted to VERIFIED, no deployment evidence claimed. Await dependent PR and real Chrome."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -9233,8 +9233,16 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/carrollton-turner",
-      "status": "NOT_REVIEWED",
-      "batch": 9
+      "status": "IMPLEMENTED",
+      "batch": 9,
+      "audit": "docs/football-authority/schools/carrollton-turner.md",
+      "auditCompletedAt": "2026-10-26",
+      "researchCompletedAt": "2026-10-26",
+      "implementedAt": "2026-10-26",
+      "implementedOnBranch": "football-authority-b009-next-five-20261026",
+      "actualProductionVerified": false,
+      "implementationNotes": "Individual sourced 2026 football/TAPPS program narrative, dated season history, official coach/venue guidance and unique FAQs committed on dependent Batch 009 continuation branch; still requires protected CI, deployment and per-school browser checks.",
+      "mediaStatus": "TexasDefined original editorial treatment only; no official marks or third-party sports photography reused."
     },
     {
       "id": "uil:carthage",
@@ -9247,8 +9255,16 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/carthage",
-      "status": "NOT_REVIEWED",
-      "batch": 9
+      "status": "IMPLEMENTED",
+      "batch": 9,
+      "audit": "docs/football-authority/schools/carthage.md",
+      "auditCompletedAt": "2026-10-26",
+      "researchCompletedAt": "2026-10-26",
+      "implementedAt": "2026-10-26",
+      "implementedOnBranch": "football-authority-b009-next-five-20261026",
+      "actualProductionVerified": false,
+      "implementationNotes": "Individual sourced 2026 football/TAPPS program narrative, dated season history, official coach/venue guidance and unique FAQs committed on dependent Batch 009 continuation branch; still requires protected CI, deployment and per-school browser checks.",
+      "mediaStatus": "TexasDefined original editorial treatment only; no official marks or third-party sports photography reused."
     },
     {
       "id": "featured:castle-hills",
@@ -9261,8 +9277,16 @@
       "format": null,
       "source": "src/data/high-school-football/featured-programs.ts",
       "url": "https://texasdefined.com/texas-high-school-football-teams/castle-hills",
-      "status": "NOT_REVIEWED",
-      "batch": 9
+      "status": "IMPLEMENTED",
+      "batch": 9,
+      "audit": "docs/football-authority/schools/castle-hills.md",
+      "auditCompletedAt": "2026-10-26",
+      "researchCompletedAt": "2026-10-26",
+      "implementedAt": "2026-10-26",
+      "implementedOnBranch": "football-authority-b009-next-five-20261026",
+      "actualProductionVerified": false,
+      "implementationNotes": "Individual sourced 2026 football/TAPPS program narrative, dated season history, official coach/venue guidance and unique FAQs committed on dependent Batch 009 continuation branch; still requires protected CI, deployment and per-school browser checks.",
+      "mediaStatus": "TexasDefined original editorial treatment only; no official marks or third-party sports photography reused."
     },
     {
       "id": "uil:castroville-medina-valley",
@@ -9275,8 +9299,16 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/castroville-medina-valley",
-      "status": "NOT_REVIEWED",
-      "batch": 9
+      "status": "IMPLEMENTED",
+      "batch": 9,
+      "audit": "docs/football-authority/schools/castroville-medina-valley.md",
+      "auditCompletedAt": "2026-10-26",
+      "researchCompletedAt": "2026-10-26",
+      "implementedAt": "2026-10-26",
+      "implementedOnBranch": "football-authority-b009-next-five-20261026",
+      "actualProductionVerified": false,
+      "implementationNotes": "Individual sourced 2026 football/TAPPS program narrative, dated season history, official coach/venue guidance and unique FAQs committed on dependent Batch 009 continuation branch; still requires protected CI, deployment and per-school browser checks.",
+      "mediaStatus": "TexasDefined original editorial treatment only; no official marks or third-party sports photography reused."
     },
     {
       "id": "uil:cayuga",
@@ -9289,8 +9321,16 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/cayuga",
-      "status": "NOT_REVIEWED",
-      "batch": 9
+      "status": "IMPLEMENTED",
+      "batch": 9,
+      "audit": "docs/football-authority/schools/cayuga.md",
+      "auditCompletedAt": "2026-10-26",
+      "researchCompletedAt": "2026-10-26",
+      "implementedAt": "2026-10-26",
+      "implementedOnBranch": "football-authority-b009-next-five-20261026",
+      "actualProductionVerified": false,
+      "implementationNotes": "Individual sourced 2026 football/TAPPS program narrative, dated season history, official coach/venue guidance and unique FAQs committed on dependent Batch 009 continuation branch; still requires protected CI, deployment and per-school browser checks.",
+      "mediaStatus": "TexasDefined original editorial treatment only; no official marks or third-party sports photography reused."
     },
     {
       "id": "uil:cedar-hill",

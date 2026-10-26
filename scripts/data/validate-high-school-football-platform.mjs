@@ -2051,6 +2051,30 @@ if (!errors.length) {
 }
 
 
+/** Second Batch 009 group: preserve source qualification, TAPPS separation
+ * and no pre-deployment VERIFIED promotion. */
+{
+  const registry = JSON.parse(read('docs/football-authority/REGISTRY.json'));
+  const editorial = read('src/data/high-school-football/program-editorial-b009.ts');
+  const loader = read('src/data/high-school-football/program-editorial-b009-loader.server.ts');
+  const profile = read('src/data/high-school-football/football-program-profile.server.ts');
+  const slugs = ['carrollton-turner','carthage','castle-hills','castroville-medina-valley','cayuga'];
+  if (registry.batch.implementedOnBranch !== 10 || registry.batch.remainingToImplement !== 15) errors.push('Batch 009 ten implementation records must match planned 25 school cohort.');
+  for (const slug of slugs) {
+    const record = registry.schoolRecords.find(s => s.slug === slug);
+    if (!record || record.status !== 'IMPLEMENTED' || record.actualProductionVerified !== false) errors.push('Second group falsely promoted or missing: '+slug);
+    requireText(editorial, '"'+slug+'": {', 'Second group specific football profile');
+    requireText(loader, '"'+slug+'"', 'Second group conditional football profile loader');
+    const dossier = read('docs/football-authority/schools/'+slug+'.md');
+    requireText(dossier, 'not merged, deployed or browser VERIFIED', 'Second group release limitation');
+    requireText(dossier, 'https://', 'Second group researched source');
+  }
+  if (!profile.includes('loadBatch009FootballProgramEditorial(legacy.featured.slug)')) errors.push('Castle Hills private-program SSR must load sourced Batch 009 editorial separately from UIL');
+  for (const key of ['Wheatley Heights Sports Complex','TAPPS Six-Man Division I District 3','not UIL']) {
+    requireText(editorial, key, 'Castle Hills private-school identity');
+  }
+}
+
 /** Prevent silent object-literal overwrites of researched county football links.
  * Duplicate county keys had suppressed valid school links in 11 counties even when
  * each school had an independently sourced and verified football guide. */

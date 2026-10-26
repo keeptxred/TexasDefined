@@ -131,8 +131,13 @@ jobs:
           fetch_assert christmas-free-events '/article/free-christmas-events-in-texas' 'Fredericksburg: Christmas Nights of Lights at Marktplatz'
 
           fetch_assert fall-hub '/article/fall-in-texas-complete-guide' 'Where Autumn Actually Shows Up in Texas'
+          fetch_assert fall-hub-east-link '/article/fall-in-texas-complete-guide' 'Explore East Texas fall colors'
+          fetch_assert fall-hub-hill-link '/article/fall-in-texas-complete-guide' 'Explore Hill Country fall colors'
+          fetch_assert fall-road-east-link '/article/texas-fall-foliage-road-trip' 'East Texas foliage alternative'
+          fetch_assert fall-parks-hill-link '/article/best-texas-state-parks-for-fall-colors' 'Explore Hill Country fall colors'
           redirect_assert fall-best-retired '/article/best-places-for-fall-colors-in-texas' '/article/best-texas-state-parks-for-fall-colors'
           fetch_assert fall-east '/article/east-texas-fall-colors' 'Where to See Fall Colors in East Texas'
+          fetch_assert fall-hill-east-link '/article/hill-country-fall-colors' 'Compare East Texas fall colors'
           fetch_assert fall-parks '/article/best-texas-state-parks-for-fall-colors' 'The Best Texas State Parks for Fall Colors'
 
           fetch_assert enchanted-bluebonnet '/destination/enchanted-rock-state-natural-area' 'Use the Texas bluebonnet season guide'

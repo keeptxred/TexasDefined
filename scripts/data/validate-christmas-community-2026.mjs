@@ -27,7 +27,7 @@ const end = eventFile.indexOf("\n];", start);
 assert.ok(start >= 0 && end > start, "Source-qualified Christmas manifest was not found");
 const json = eventFile.slice(eventFile.indexOf("= [", start) + 2, end + 2).trim();
 const events = JSON.parse(json);
-assert.ok(events.length >= 212, "The 212 organizer-verified Christmas date windows must not shrink without explicit source review");
+assert.ok(events.length >= 220, "The 212 organizer-verified Christmas date windows must not shrink without explicit source review");
 assert.equal(events.length, new Set(events.map((event) => event.slug)).size, "Duplicate Christmas community slugs");
 
 const validDate = /^20\d{2}-\d{2}-\d{2}$/;
@@ -66,7 +66,7 @@ for (const [idx,begin,end] of [
   [6,"2026-12-08","2026-12-13"],
   [7,"2026-12-15","2026-12-20"],
   [8,"2026-12-22","2026-12-24"],
-  [9,"2026-12-26",undefined],
+  [9,"2026-12-26","2026-12-27"],
 ]) {
   const slug = `houston-alley-theatre-christmas-carol-2026-${idx}`;
   check(slug,begin,end);
@@ -90,15 +90,48 @@ assert.ok(bySlug.get("houston-alley-theatre-christmas-carol-2026-9").endDate ===
 assert.ok(!bySlug.has("houston-alley-theatre-christmas-carol-2026-all-dates"),
   "No fabricated continuous Alley Theatre performance dates");
 const alleyBoxingDay = bySlug.get("houston-alley-theatre-christmas-carol-2026-9");
-assert.equal(alleyBoxingDay.endDate, undefined,
-  "Dec 26 community record must not also cover the independently curated Dec 27 final show");
-assert.ok(alleyBoxingDay.title.includes("December 26, 2026"),
-  "Single-day community listing must not advertise a duplicate Dec 27 date");
+assert.equal(alleyBoxingDay.endDate, "2026-12-27",
+  "Retain complete official Dec 26–27 source span; statewide adapter must shorten only the duplicate calendar card");
+assert.ok(alleyBoxingDay.title.includes("December 26–27, 2026"),
+  "Holiday community source must state both officially confirmed dates");
 const christmasStageManifest = read("src/data/events/christmas-performances-2026.server.ts");
 const alleyFinalMarker = christmasStageManifest.indexOf('id: "christmas-carol-houston-2026"');
 assert.ok(alleyFinalMarker >= 0, "Alley Theatre Dec 27 curated source cannot disappear");
 assert.ok(christmasStageManifest.slice(alleyFinalMarker,alleyFinalMarker+550).includes('date: "2026-12-27"'),
   "Final-day performance must remain dated Dec 27 and retain its separate official ticket link");
+
+check("baytown-stars-stripes-christmas-parade-2026","2026-12-03");
+check("deer-park-reindeer-park-2026","2026-12-05");
+check("baytown-holiday-hangout-early-2026","2026-12-03","2026-12-23");
+check("baytown-holiday-hangout-mid-2026","2026-12-26","2026-12-30");
+check("baytown-holiday-hangout-final-2026","2027-01-02","2027-01-05");
+check("league-city-holiday-in-the-park-2026","2026-12-04","2026-12-06");
+check("pasadena-holiday-lighted-parade-2026","2026-12-05");
+check("pasadena-christmas-market-2026","2026-12-12");
+assert.ok(bySlug.get("league-city-holiday-in-the-park-2026").summary.includes("Grand Night Parade"),
+  "Preserve League City 2026 parade and festival dates");
+assert.ok(bySlug.get("pasadena-holiday-lighted-parade-2026").summary.includes("December 5, 2026")
+  && bySlug.get("pasadena-christmas-market-2026").summary.includes("December 12, 2026"),
+  "Pasadena's market and parade must remain separately dated");
+assert.ok(bySlug.get("pasadena-christmas-market-2026").summary.includes("Admission and parking are free"),
+  "Preserve accurate Christmas market admission");
+
+const baytownHangoutWindows = events.filter(event => event.slug.startsWith("baytown-holiday-hangout-"));
+assert.equal(baytownHangoutWindows.length,3,"Baytown's season must be split into precisely three open windows");
+for (const closed of ["2026-12-24","2026-12-25","2026-12-31","2027-01-01"]) {
+  assert.ok(!baytownHangoutWindows.some(event => event.startDate <= closed && (event.endDate ?? event.startDate) >= closed),
+    `Baytown's official closed date ${closed} must not appear as an open calendar day`);
+}
+assert.ok(bySlug.get("deer-park-reindeer-park-2026").summary.includes("$12 advance")
+  && bySlug.get("deer-park-reindeer-park-2026").summary.includes("sensory-friendly"),
+  "Deer Park ticket prices and sensory hour must survive");
+const seabrookBoatLaneCandidate = candidates.candidates.find(item => item.intakeId === 123);
+assert.deepEqual(seabrookBoatLaneCandidate?.calendarSlugs,
+  ["clearlake-65th-christmas-boat-lane-parade-2026"],
+  "Seabrook viewing is the existing Clear Lake holiday boat parade, not a second event");
+assert.equal(seabrookBoatLaneCandidate?.status,"sourced-calendar",
+  "Source match should reconcile the regional Seabrook viewing description");
+
 const christmasLiveCalendarVerifier = read("scripts/ci/verify-christmas-calendar-12-production.mjs");
 assert.ok(christmasLiveCalendarVerifier.includes("christmas-carol-houston-2026")
   && christmasLiveCalendarVerifier.includes("editorial.length!==1"),

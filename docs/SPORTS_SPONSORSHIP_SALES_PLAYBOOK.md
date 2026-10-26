@@ -1,6 +1,6 @@
 # TexasDefined Sports Sponsorship Sales Playbook
 
-Updated: 2026-10-25
+Updated: 2026-10-26
 
 ## Purpose
 
@@ -13,11 +13,11 @@ Paid placements remain clearly separated from editorial recommendations, ranking
 Google Search Console, checked October 25, showed 113 clicks to football team and district pages for October 23 (preliminary). Those are SEARCH CLICKS, not paid inventory impressions or verified monthly visitors. This is sufficient evidence to start collecting football sponsor interest, not sufficient evidence for guaranteed traffic claims.
 
 Founding football pilot packages requested through `/partner-with-us`:
-- $49/month — one approved team-profile page;
-- $99/month — one district page plus up to two related team pages;
-- $149/month — up to six relevant team/district pages in one market.
+- $9/month — one approved team-profile page;
+- $19/month — one district page plus up to two related team pages;
+- $39/month — up to six relevant team/district pages in one market.
 
-These are one-month introductory football-only custom quotes, not replacements for $249/$499/$999 standard advertiser plans. No self-service charge occurs on inquiry. Every lead needs vetting, a versioned accepted custom advertiser agreement, a TexasDefined Stripe payment recorded as paid, a linked sponsor record, and separate approved placement copy. No auto-approval. The current deployment is an inquiry funnel and manually governed billing process, not an instant-payment subscription storefront.
+This is a low-cost founding-sponsor test, effective October 26, 2026. Review the prices by January 31, 2027 using verified traffic, advertiser inquiries, placement clicks and paid renewals. Do not raise the rate in an already accepted agreement without new agreement. These are one-month introductory football-only custom quotes, not replacements for $249/$499/$999 standard advertiser plans. No self-service charge occurs on inquiry. Every lead needs vetting, a versioned accepted custom advertiser agreement, a TexasDefined Stripe payment recorded as paid, a linked sponsor record, and separate approved placement copy. No auto-approval. The current deployment is an inquiry funnel and manually governed billing process, not an instant-payment subscription storefront.
 
 The existing anonymous football fan shopping catalog remains intentionally empty until an exact approved affiliate tracking link is independently verified. The football module uses the existing /shop instead of inventing Academy commissions or promoting unlicensed school gear. Do not claim an Academy affiliate deal until approved.
 

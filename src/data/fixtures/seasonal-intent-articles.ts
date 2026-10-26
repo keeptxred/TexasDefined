@@ -252,7 +252,7 @@ const baseSeasonalIntentArticles: Article[] = [
     sourceName: "Texas Parks and Wildlife Department", sourceUrl: "https://tpwd.texas.gov/state-parks/parks/things-to-do/fall-for-parks",
     internalLinks: [
       { href: "/article/fall-in-texas-complete-guide", label: "Complete Texas fall guide", description: "Compare East Texas with the Hill Country and West Texas." },
-      { href: "/article/best-places-for-fall-colors-in-texas", label: "Best Texas fall-color destinations", description: "Rank the parks and landscapes most worth a foliage trip." },
+      { href: "/article/best-texas-state-parks-for-fall-colors", label: "Best Texas fall-color destinations", description: "Rank the parks and landscapes most worth a foliage trip." },
       { href: "/article/caddo-lake-cypress-morning", label: "Caddo Lake at water level", description: "See why paddling changes the experience of East Texas cypress country." },
       { href: "/destination/daingerfield-state-park", label: "Daingerfield State Park", description: "Plan a walk around the lake and mixed woodland." },
       { href: "/destination/tyler-state-park", label: "Tyler State Park", description: "Explore another East Texas lake and forest setting." },
@@ -270,7 +270,8 @@ const baseSeasonalIntentArticles: Article[] = [
     internalLinks: [
       { href: "/article/fall-in-texas-complete-guide", label: "Texas fall, statewide", description: "Compare the Hill Country with East Texas and mountain destinations." },
       { href: "/article/texas-fall-foliage-road-trip", label: "Hill Country fall road trip", description: "Link the Frio, Lost Maples and Guadalupe corridors over several days." },
-      { href: "/article/best-places-for-fall-colors-in-texas", label: "Best Texas fall-color places", description: "See how individual parks compare." },
+      { href: "/article/east-texas-fall-colors", label: "Compare East Texas fall colors", description: "See lakeside cypress and hardwoods in the Piney Woods." },
+      { href: "/article/best-texas-state-parks-for-fall-colors", label: "Best Texas fall-color places", description: "See how individual parks compare." },
     ],
     body: [
       { type: "paragraph", text: "The Hill Country's best fall color follows water and elevation. Cypress line clear rivers, oaks shift on hillsides, and one famous stand of Uvalde bigtooth maples creates a concentration of color that feels almost imported from another state." },
@@ -289,8 +290,9 @@ const baseSeasonalIntentArticles: Article[] = [
     sourceName: "Texas Parks and Wildlife Department", sourceUrl: "https://tpwd.texas.gov/state-parks/parks/things-to-do/fall-for-parks",
     internalLinks: [
       { href: "/article/fall-in-texas-complete-guide", label: "Complete Texas fall guide", description: "See timing and regional differences beyond state parks." },
-      { href: "/article/best-places-for-fall-colors-in-texas", label: "Best fall-color places statewide", description: "Compare parks with gardens, forests and other public landscapes." },
+      { href: "/article/east-texas-fall-colors", label: "Explore East Texas fall colors", description: "See lake and woodland foliage choices." },
       { href: "/explore/state-parks", label: "Explore Texas state parks", description: "Browse park guides for camping, hiking and year-round trips." },
+      { href: "/article/hill-country-fall-colors", label: "Explore Hill Country fall colors", description: "Compare Lost Maples and river corridors." },
     ],
     body: [
       { type: "paragraph", text: "The best state park for Texas fall color depends on what kind of color you want. Lost Maples delivers the rarest tree story. Garner and Guadalupe River deliver cypress and water. East Texas parks deliver the broadest forest palette." },

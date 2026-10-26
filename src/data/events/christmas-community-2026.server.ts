@@ -903,6 +903,33 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The official 2026 South Pole Illuminated Festival runs November 28–December 28, with posted Wednesday–Sunday evening operating hours. This is one of the explicitly open published weekday/weekend windows; Monday and Tuesday are omitted. Check holiday exceptions and dated tickets with the city before travel."
   },
   {
+    "slug": "baytown-stars-stripes-christmas-parade-2026",
+    "title": "Baytown Christmas Parade · Stars, Stripes & Christmas Lights",
+    "city": "Baytown",
+    "countySlug": "harris",
+    "countyName": "Harris County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-03",
+    "venueName": "Baytown Town Square · 213 W Texas Avenue",
+    "officialEventUrl": "https://baytown.org/1014/Baytowns-Christmas-Parade",
+    "sourceName": "City of Baytown — 2026 Christmas Parade",
+    "summary": "The City of Baytown confirms its Stars, Stripes & Christmas Lights parade Thursday December 3, 2026. Parade floats proceed through the south side of town and reach Town Square for the 6:30 p.m. tree lighting. Downtown road closures, restricted parking and accessible viewing zones are detailed by the city; remove vehicles from impacted streets by 2 p.m."
+  },
+  {
+    "slug": "baytown-holiday-hangout-early-2026",
+    "title": "Baytown Holiday Hangout · early operating window",
+    "city": "Baytown",
+    "countySlug": "harris",
+    "countyName": "Harris County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-03",
+    "endDate": "2026-12-23",
+    "venueName": "Baytown Town Square · 213 W Texas Avenue",
+    "officialEventUrl": "https://www.baytown.org/hangout",
+    "sourceName": "City of Baytown Parks & Recreation",
+    "summary": "Baytown Holiday Hangout's 2026–27 season offers Town Square Christmas lights, outdoor skating, a hay maze, games and photo displays. The official city calendar lists Monday–Thursday 4–9 p.m. and Friday–Sunday 2–9 p.m. This source-qualified operating window excludes ALL announced closures: December 24–25, December 31 and January 1. Skating may have separate admission charges; check the organizer for attraction pricing."
+  },
+  {
     "slug": "longview-arboretum-bright-2026-2",
     "title": "BRIGHT! A Season of Lights · Longview Arboretum window 2",
     "city": "Longview",
@@ -1270,6 +1297,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "Keller's official 2026 city calendar confirms Holly Days Friday December 4, 5–9 p.m. The event program features The Very Merry Light Parade, Santa photos and town Christmas tree lighting. Check the city's posted route and parking advisories before travel."
   },
   {
+    "slug": "league-city-holiday-in-the-park-2026",
+    "title": "League City Holiday in the Park · 2026 festival and parades",
+    "city": "League City",
+    "countySlug": "galveston",
+    "countyName": "Galveston County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-04",
+    "endDate": "2026-12-06",
+    "venueName": "League Park · 512 2nd Street",
+    "officialEventUrl": "https://theleaguecityproudorg.com/hitp-schedule-of-events",
+    "sourceName": "League City Proud Organization official 2026 schedule",
+    "summary": "The League City Proud Organization confirms December 4–6, 2026 for free Holiday in the Park at League Park. Friday brings the vendor market and movie night; Saturday includes a 10 a.m. children's parade and the Grand Night Parade starting about 6:30 p.m.; Sunday's schedule includes the Extraordinary Individuals and pet parades. Vendor shopping and food are optional purchases, not admissions."
+  },
+  {
     "region": "prairies-lakes",
     "city": "Lewisville",
     "countySlug": "denton",
@@ -1507,6 +1548,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The City of Coppell confirms its annual Holiday Parade and Tree Lighting for Saturday December 5, 2026, 6–9 p.m. at Andrew Brown Park East. The city's separate Holidays page still contains older 2025 date references for some holiday attractions; only this explicitly dated 2026 parade is asserted here."
   },
   {
+    "slug": "deer-park-reindeer-park-2026",
+    "title": "Deer Park Reindeer Park · 16th annual",
+    "city": "Deer Park",
+    "countySlug": "harris",
+    "countyName": "Harris County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-05",
+    "venueName": "Jimmy Burke Activity Center · 500 W 13th Street",
+    "officialEventUrl": "https://deerparktx.gov/2336/Reindeer-Park",
+    "sourceName": "City of Deer Park Parks & Recreation",
+    "summary": "The city confirms Reindeer Park Saturday December 5, 2026, 3–8 p.m., including a sensory-friendly 3–4 p.m. hour and Santa 6–8 p.m. Wristbands required for ages one and older for snow slides, carnival rides and Santa's Workshop ($12 advance or $15 at the event); general entertainment, karaoke and Santa greetings do not require a wristband. This is NOT the separately submitted Reindeer Dash."
+  },
+  {
     "slug": "denton-holiday-lighting-festival-2026",
     "title": "Denton Holiday Lighting Festival",
     "city": "Denton",
@@ -1718,6 +1772,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.navasotaisd.org/apps/events/2026/12/?id=0&id=11&id=12",
     "sourceName": "Navasota Independent School District public city event calendar",
     "summary": "The Navasota ISD official community calendar lists the City of Navasota Home for the Holidays Christmas Parade for Saturday December 5, 2026, 6–8 p.m. The source confirms date and event identity but not the detailed downtown route or organizer ticketing; verify road closures before travel."
+  },
+  {
+    "slug": "pasadena-holiday-lighted-parade-2026",
+    "title": "Pasadena 18th Annual Holiday Lighted Parade",
+    "city": "Pasadena",
+    "countySlug": "harris",
+    "countyName": "Harris County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-05",
+    "venueName": "Fairmont Parkway · Mickey Gilley Boulevard to Burke Road",
+    "officialEventUrl": "https://www.pasadenatx.gov/869/Christmas-in-Pasadena",
+    "sourceName": "City of Pasadena 2026 holiday event announcement",
+    "summary": "Pasadena and its Strawberry Festival organizers confirm the 18th annual Holiday Lighted Parade Saturday December 5, 2026 at 7 p.m. along Fairmont Parkway between Mickey Gilley Boulevard and Burke Road. The parade is free for spectators. This is separate from the city's Christmas tree-lighting celebration."
   },
   {
     "slug": "pearland-hometown-christmas-parade-2026",
@@ -2397,6 +2464,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "Vision Lampasas confirms Saturday December 12, 2026, 5–8 p.m. for Christmas on the Creek, including Santa's Village, hot cocoa, a snow machine and lighted park attractions. The outdoor creek lights may continue beyond the event, but no unverified end date is listed as another calendar entry."
   },
   {
+    "slug": "pasadena-christmas-market-2026",
+    "title": "Pasadena Christmas Market · 2026 local vendors",
+    "city": "Pasadena",
+    "countySlug": "harris",
+    "countyName": "Harris County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-12",
+    "venueName": "Pasadena Convention Center & Fairgrounds · 7902 Fairmont Parkway",
+    "officialEventUrl": "https://www.pasadenatx.gov/Calendar.aspx?EID=3116",
+    "sourceName": "City of Pasadena 2026 events calendar / Pasadena MRKT",
+    "summary": "The City of Pasadena's event calendar confirms Saturday December 12, 2026 from 9 a.m.–5 p.m. at the Pasadena Fairgrounds for the Pasadena Christmas Market, with more than 100 advertised local vendors, food trucks, music and Santa photos. Admission and parking are free; purchases from independent vendors cost extra. This is not the December 5 lighted parade."
+  },
+  {
     "slug": "pearland-tour-de-lites-2026",
     "title": "Pearland Tour De Lites · holiday bicycle lights tour",
     "city": "Pearland",
@@ -2809,7 +2889,7 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
   },
   {
     "slug": "houston-alley-theatre-christmas-carol-2026-9",
-    "title": "Alley Theatre A Christmas Carol · December 26, 2026",
+    "title": "Alley Theatre A Christmas Carol · December 26–27, 2026",
     "city": "Houston",
     "countySlug": "harris",
     "countyName": "Harris County",
@@ -2818,7 +2898,22 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "venueName": "Alley Theatre · Hubbard Theatre · 615 Texas Avenue",
     "officialEventUrl": "https://www.alleytheatre.org/plays/christmas-carol/",
     "sourceName": "Alley Theatre 2026–27 season and official dated box office",
-    "summary": "The Alley Theatre box office confirms two A Christmas Carol performances on December 26, 2026 at Hubbard Theatre. Matinee and evening showtimes require their own dated theater tickets; the separate featured December 27 final-day performance is already on the statewide calendar and must not appear a second time as a community event. Children younger than six are not admitted; admission is paid and separate from nearby holiday attractions."
+    "summary": "The Alley Theatre box office confirms A Christmas Carol matinee and evening performances December 26–27, 2026 at Hubbard Theatre. This verified full source span appears in the holiday community guide; the statewide /events calendar separately features the curated December 27 final performance with its exact official ticket link, so the overlapping community card is shown there only for December 26. Children younger than six are not admitted; all shows require paid dated admission.",
+    "endDate": "2026-12-27"
+  },
+  {
+    "slug": "baytown-holiday-hangout-mid-2026",
+    "title": "Baytown Holiday Hangout · mid operating window",
+    "city": "Baytown",
+    "countySlug": "harris",
+    "countyName": "Harris County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-26",
+    "endDate": "2026-12-30",
+    "venueName": "Baytown Town Square · 213 W Texas Avenue",
+    "officialEventUrl": "https://www.baytown.org/hangout",
+    "sourceName": "City of Baytown Parks & Recreation",
+    "summary": "Baytown Holiday Hangout's 2026–27 season offers Town Square Christmas lights, outdoor skating, a hay maze, games and photo displays. The official city calendar lists Monday–Thursday 4–9 p.m. and Friday–Sunday 2–9 p.m. This source-qualified operating window excludes ALL announced closures: December 24–25, December 31 and January 1. Skating may have separate admission charges; check the organizer for attraction pricing."
   },
   {
     "slug": "longview-arboretum-bright-2026-5",
@@ -2889,8 +2984,22 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "sourceName": "Visit Fredericksburg",
     "summary": "The final five January evenings of the 2026–27 Marktplatz lighting program; December 31 is omitted because the special New Year's Eve event replaces the regular countdown.",
     "endDate": "2027-01-05"
+  },
+  {
+    "slug": "baytown-holiday-hangout-final-2026",
+    "title": "Baytown Holiday Hangout · final operating window",
+    "city": "Baytown",
+    "countySlug": "harris",
+    "countyName": "Harris County",
+    "region": "gulf-coast",
+    "startDate": "2027-01-02",
+    "endDate": "2027-01-05",
+    "venueName": "Baytown Town Square · 213 W Texas Avenue",
+    "officialEventUrl": "https://www.baytown.org/hangout",
+    "sourceName": "City of Baytown Parks & Recreation",
+    "summary": "Baytown Holiday Hangout's 2026–27 season offers Town Square Christmas lights, outdoor skating, a hay maze, games and photo displays. The official city calendar lists Monday–Thursday 4–9 p.m. and Friday–Sunday 2–9 p.m. This source-qualified operating window excludes ALL announced closures: December 24–25, December 31 and January 1. Skating may have separate admission charges; check the organizer for attraction pricing."
   }
-];;;;;;;;;;;;;;;;;;
+];;;;;;;;;;;;;;;;;;;;
 
 // Reuse comprehensive guides where they exist. The dated occurrence remains
 // an independent calendar record, so closing days are never falsely listed.
