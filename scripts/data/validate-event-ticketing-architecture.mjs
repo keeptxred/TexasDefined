@@ -74,7 +74,7 @@ for (const event of ticketEvidenceLedger.events) {
       const url = new URL(evidence?.sourceUrl);
       safeSource = url.protocol === "https:" && !url.username && !url.password;
     } catch {}
-    if (!safeSource || !/^20\\d{2}-\\d{2}-\\d{2}$/.test(evidence?.checkedAt || "")
+    if (!safeSource || !/^20\d{2}-\d{2}-\d{2}$/.test(evidence?.checkedAt || "")
       || String(evidence?.finding || "").length < 30
       || !String(evidence?.verificationScope || "").includes("not seat inventory")) {
       failures.push("Published sale status lacks explicit bounded primary-source evidence: " + event.id);
