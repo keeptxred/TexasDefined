@@ -39,7 +39,9 @@ export const Route = createFileRoute('/texas-high-school-football-teams/$slug')(
         : governingBodyHint
           ? `${teamName} Football: ${governingBodyHint} Team Guide`
           : `${teamName} Football: Texas Team Guide`;
-    const description = editorial?.seo?.description ?? (program
+    const description = slug === 'katy'
+      ? 'Katy Tigers football guide: nine state titles, Gary Joseph, UIL District 22 and visitor information for Legacy and Rhodes Stadium. Official links and sourced team history.'
+      : editorial?.seo?.description ?? (program
       ? `${teamName} football: ${classification}${enrollment}. See 2026 district opponents, verified school and venue links where available, UIL history, scores and schedule sources.`
       : `${teamName} football: ${classification}. See verified association, school, venue and current-season sources where available; non-UIL programs are not forced into UIL classifications.`);
     const url = `${siteUrl}${canonicalPath}`;
@@ -51,7 +53,7 @@ export const Route = createFileRoute('/texas-high-school-football-teams/$slug')(
     return {
       meta: buildMeta(texasDefinedBrand, {
         canonicalPath,
-        title: editorial?.seo?.title ?? defaultTitle,
+        title: slug === 'katy' ? 'Katy Tigers Football: Nine State Titles, Stadiums & Team Guide' : editorial?.seo?.title ?? defaultTitle,
         description,
       }),
       links: [canonicalLink(texasDefinedBrand, canonicalPath)],
