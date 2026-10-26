@@ -194,6 +194,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The indoor Woodlands Ice Rink operates November 20, 2026–January 18, 2027 in timed skating sessions. Book an admission time; this is not an outdoor rink. The visitor bureau advertises a separate qualifying hotel Stay & Skate offer, with participation rules set by each hotel."
   },
   {
+    "slug": "colleyville-2026-christmas-tree-lighting",
+    "title": "Colleyville Christmas Tree Lighting Celebration",
+    "city": "Colleyville",
+    "countySlug": "tarrant",
+    "countyName": "Tarrant County",
+    "region": "prairies-lakes",
+    "startDate": "2026-11-21",
+    "venueName": "Heroes Park at Colleyville City Hall",
+    "officialEventUrl": "https://www.colleyville.com/residents/special-events",
+    "sourceName": "City of Colleyville Special Events",
+    "summary": "The City of Colleyville confirms Saturday November 21, 2026, 5:30–8:30 p.m. for its Christmas Tree Lighting Celebration at Heroes Park by City Hall. Visitors can check the official city event schedule for Santa appearances, entertainment, parking and evening tree lighting details."
+  },
+  {
     "slug": "el-paso-winterfest-lights",
     "title": "El Paso WinterFest · downtown lights and holiday attractions",
     "city": "El Paso",
@@ -1371,6 +1384,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.burlesontx.com/1706/Santas-Breakfast",
     "sourceName": "City of Burleson",
     "summary": "The city confirms Saturday December 5, 2026, 7–11 a.m. for Santa's Breakfast at Russell Farm, with a sensory-friendly 7–8 a.m. hour and 30-minute reservation slots. Tickets are $5 for children ages 3–12, $7 for ages 13+ and free for under 2. Limited capacity means advance registration is recommended."
+  },
+  {
+    "slug": "forney-2026-christmas-on-main",
+    "title": "City of Forney Christmas on Main Holiday Market",
+    "city": "Forney",
+    "countySlug": "kaufman",
+    "countyName": "Kaufman County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-05",
+    "venueName": "Downtown Forney · 101 E Main Street",
+    "officialEventUrl": "https://forneyartscouncil.squarespace.com/news/2026/call-for-vendors-2026-city-of-forney-christmas-on-main",
+    "sourceName": "Forney Arts Council / City of Forney 2026 vendor announcement",
+    "summary": "Forney Arts Council and the City of Forney confirm Christmas on Main for Saturday December 5, 2026, noon–5 p.m. at 101 E Main Street, with a curated artist and handmade-gift vendor market. The source establishes event hours and crafts, not an independently dated 'Christmas in the Park' attraction, so do not merge the two names."
   },
   {
     "slug": "college-station-christmas-in-park-festival-2026",
@@ -2701,7 +2727,7 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The final five January evenings of the 2026–27 Marktplatz lighting program; December 31 is omitted because the special New Year's Eve event replaces the regular countdown.",
     "endDate": "2027-01-05"
   }
-];;;;;;;;;;;;;;
+];;;;;;;;;;;;;;;
 
 // Reuse comprehensive guides where they exist. The dated occurrence remains
 // an independent calendar record, so closing days are never falsely listed.
