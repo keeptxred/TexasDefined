@@ -64,7 +64,7 @@ jobs:
             # bounded six-commit window so the actual successful release
             # still executes browser QA for recently merged foliage changes.
             BASE="$(git rev-parse HEAD~6 2>/dev/null || git rev-list --max-parents=0 HEAD)"
-            if git diff --name-only "$BASE" HEAD | grep -Eq '^(src/components/editorial/EastTexasFoliageMedia[.]tsx|src/data/image-rights[.]ts|src/data/fixtures/(east-texas-fall-colors-hero|hill-country-fall-colors-hero)[.]ts|scripts/ci/verify-east-texas-foliage-browser[.]mjs|[.]github/workflows/verify-east-texas-foliage-browser[.]yml)
+            if git diff --name-only "$BASE" HEAD | grep -Eq '^(src/components/editorial/EastTexasFoliageMedia[.]tsx|src/data/image-rights[.]ts|src/data/fixtures/(east-texas-fall-colors-hero|hill-country-fall-colors-hero)[.]ts|scripts/ci/verify-east-texas-foliage-browser[.]mjs|[.]github/workflows/verify-east-texas-foliage-browser[.]yml)$'; then
               echo "should_verify=true" >> "$GITHUB_OUTPUT"
             else
               echo "should_verify=false" >> "$GITHUB_OUTPUT"
