@@ -212,6 +212,8 @@ function GenericCollectionPage({ page }: { page: any }) {
                     target="_blank"
                     data-affiliate-partner={show.ticket.isAffiliate ? show.ticket.provider : undefined}
                     data-affiliate-placement={show.ticket.isAffiliate ? "christmas-performance" : undefined}
+                    data-commercial-partner={show.ticket.isAffiliate ? show.ticket.provider : undefined}
+                    data-commercial-placement={show.ticket.isAffiliate ? "christmas-performance" : undefined}
                     data-affiliate-event-id={show.ticket.isAffiliate ? `curated:christmas-2026:${show.id}` : undefined}
                     onClick={show.ticket.isAffiliate ? () => trackAffiliateClick({
                       partner: show.ticket.provider,
