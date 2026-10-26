@@ -131,7 +131,7 @@ test('Katy non-score repairs preserve sourced stadiums, maintained record-book l
   const head = read('src/routes/texas-high-school-football-teams_.$slug.tsx');
   const panel = read('src/components/sports/FootballMonetizationSlot.tsx');
   const sponsorForm = read('src/routes/partner-with-us.lazy.tsx');
-  for (const item of ['1830 Katyland Drive', '1733 Katyland Drive', 'katyabc.org/features/katy-football-record-book/', 'NCES Katy High School source']) assert.match(profile, new RegExp(item.replace(/[.*+?^$\{\}()|[\]\\]/g, '\\$&')));
+  for (const item of ['1830 Katyland Drive', '1733 Katyland Drive', 'katyabc.org/features/katy-football-record-book/', 'NCES Katy High School source']) assert.ok(profile.includes(item), `Katy page missing: ${item}`);
   assert.match(head, /Nine State Titles, Stadiums & Team Guide/);
   assert.match(panel, /const isKaty = surfacePath ===/);
   assert.match(sponsorForm, /selectedFootballPackage \? `football-\$\{selectedFootballPackage\}` : selectedTier/);
