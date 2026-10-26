@@ -86,15 +86,16 @@ const candidateMax = Math.min(new Date().getUTCFullYear() - 1, priorYear + 1);
 let selected = null;
 for (let candidate = candidateMax; candidate >= priorYear; candidate--) {
   const url = `${sourceBase(candidate)}/acsdt5y${candidate}-b19013.dat`;
-  const response = await fetch(url, { method: 'HEAD', signal: AbortSignal.timeout(20_000) });
+  const response = await fetch(url, { headers: { range: 'bytes=0-255' }, signal: AbortSignal.timeout(20_000) });
   if (response.status === 404) continue;
-  if (response.status !== 200) throw new Error('Census ACS availability probe failed: ' + response.status + ' ' + url);
+  if (![200, 206].includes(response.status)) throw new Error('Census ACS availability probe failed: ' + response.status + ' ' + url);
+  await response.body?.cancel();
   selected = candidate;
   break;
 }
 if (selected === null) throw new Error('Previously verified Census ACS vintage is no longer reachable');
 YEAR = selected;
-RELEASE = `2020–${YEAR} ACS 5-Year Estimates`;
+RELEASE = `${YEAR - 4}–${YEAR} ACS 5-Year Estimates`;
 BASE = sourceBase(YEAR);
 SOURCE_PAGE = `https://www.census.gov/programs-surveys/acs/data/summary-file.${YEAR}.html`;
 console.log('Checking the complete official Census ACS five-year release for ' + YEAR);
