@@ -1,4 +1,5 @@
 import currentMetroPayrolls from '@/data/generated/texas-metro-payrolls-current.json';
+import currentHomeowners from '@/data/generated/tdi-homeowners-current.json';
 import currentStatePopulation from '@/data/generated/texas-state-population-current.json';
 
 export type TexasDataset = {
@@ -125,6 +126,23 @@ export const TEXAS_DATASETS: TexasDataset[] = [
       { label: '2024', value: 3291 },
       { label: '2025', value: 3489, note: 'Preliminary TDI statewide average; checked October 2026.' },
     ],
+  },
+  {
+    slug: 'texas-homeowners-premium-latest',
+    title: `Texas Homeowners Average Premiums and Coverage — ${currentHomeowners.sourceYear}`,
+    description: `Texas Department of Insurance homeowner average annual premium and coverage trends through the latest verified ${currentHomeowners.sourceYear} chart.`,
+    category: 'Insurance',
+    year: currentHomeowners.sourceYear,
+    updated: currentHomeowners.verifiedAt,
+    unit: 'dollars',
+    sourceName: 'Texas Department of Insurance — Texas Statistical Plan for Residential Risks',
+    sourceUrl: currentHomeowners.sourceUrl,
+    methodology: 'Official TDI statewide homeowners average premium and average insured coverage are distinct nominal statistics, not individual-policy quotes, rate filings, or constant-policy price indexes. Historical annual values are preserved. Newly appended years remain conservatively marked preliminary until explicit finality can be verified. Reviewed with source-year, policy-type, and revision bounds by the weekly GitHub source updater.',
+    rows: currentHomeowners.rows.map(row => ({
+      label: String(row.year),
+      value: row.premium,
+      note: `Average annual homeowners premium. TDI average insured coverage: ${row.coverage.toLocaleString('en-US')}.${row.preliminary ? ' Preliminary or not explicitly finalized.' : ''}`,
+    })),
   },
   {
     slug: 'texas-metro-payrolls-june-2026',
