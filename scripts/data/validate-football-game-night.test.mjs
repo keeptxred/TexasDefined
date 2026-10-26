@@ -129,7 +129,7 @@ test('football monetization is shared, disclosed, source-preserving, and payment
 test('Katy non-score repairs preserve sourced stadiums, maintained record-book link and clear pilot selection', () => {
   const profile = read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
   const head = read('src/routes/texas-high-school-football-teams_.$slug.tsx');
-  const serverProfile = read('src/data/high-school-football/football-program-profile.server.ts');
+  const editorialData = read('src/data/high-school-football/program-editorial.ts');
   const panel = read('src/components/sports/FootballMonetizationSlot.tsx');
   const sponsorForm = read('src/routes/partner-with-us.lazy.tsx');
   const gameNight = read('src/components/sports/FootballGameNightGuide.tsx');
@@ -139,8 +139,9 @@ test('Katy non-score repairs preserve sourced stadiums, maintained record-book l
   for (const item of ['1830 Katyland Drive', '1733 Katyland Drive', 'katyabc.org/features/katy-football-record-book/']) assert.ok(katyGuide.includes(item), `Katy stadium guide missing: ${item}`);
   assert.ok(profile.includes('NCES Katy High School source'));
   assert.match(profile, /<KatyStadiumGuide \/>/);
-  assert.match(serverProfile, /Nine State Titles, Stadiums & Team Guide/);
-  assert.match(serverProfile, /canonicalSlug === 'katy' && baseEditorial/);
+  assert.match(editorialData, /Katy Tigers Football: Nine State Titles, Stadiums & Team Guide/);
+  assert.match(editorialData, /https:\/\/katyabc\.org\/features\/katy-football-record-book\//);
+  assert.doesNotMatch(editorialData, /record_book_02\.26\.24\.pdf/);
   assert.match(head, /title: editorial\?\.seo\?\.title \?\? defaultTitle/);
   assert.match(panel, /const isKaty = surfacePath ===/);
   assert.match(sponsorForm, /selectedFootballPackage \? `football-\$\{selectedFootballPackage\}` : selectedTier/);
