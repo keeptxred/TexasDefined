@@ -115,6 +115,14 @@ try {
 
   // The provider's suites listing can have the exact same venue, date and
   // showtime as concert admission; it must not become the ticket CTA.
+  for (const parkingOnly of [
+    'FIFTH THIRD GARAGE: Dallas Stars v New York Islanders',
+    '5th Third Garage - Arena Concert',
+    'Arena Parking Garage: Pentatonix',
+    'Parking Lot: Holiday Concert',
+    'Garage: Dallas Stars v New York Islanders',
+  ]) assert.equal(ticketmasterIsPrimaryAdmissionTitle(parkingOnly), false,
+    'venue garage or parking lot checkout must not masquerade as primary admission: ' + parkingOnly);
   assert.equal(ticketmasterIsPrimaryAdmissionTitle('Suites: Pentatonix: Christmas in the City Tour'), false);
   assert.equal(ticketmasterIsPrimaryAdmissionTitle('Parking: Pentatonix'), false);
   assert.equal(ticketmasterIsPrimaryAdmissionTitle('Fast Lane: Holiday Concert'), false);
@@ -154,8 +162,11 @@ try {
   const pentatonixSuite = {
     ...event, id: 'suite', name: 'Suites: Pentatonix: Christmas in the City Tour',
   };
+  const brandedGarage = {
+    ...event, id: 'garage', name: 'FIFTH THIRD GARAGE: Dallas Stars v New York Islanders',
+  };
   assert.deepEqual(
-    loadTicketmasterEventsServer({ fetchedAt: now.toISOString(), events: [pentatonixSuite, pentatonixPrimary] }, now).map(x => x.id),
+    loadTicketmasterEventsServer({ fetchedAt: now.toISOString(), events: [brandedGarage, pentatonixSuite, pentatonixPrimary] }, now).map(x => x.id),
     ['ticketmaster:regular'], 'general calendar must not sell private suites as admission',
   );
 
