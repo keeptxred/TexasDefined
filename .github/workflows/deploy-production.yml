@@ -12,12 +12,14 @@ permissions:
   deployments: write
   statuses: write
 
-concurrency:
-  group: texasdefined-production
-  cancel-in-progress: false
-
 jobs:
   deploy:
+    # Keep every Worker publish and its blocking runtime checks serialized.
+    # The separately queued GSC follow-up must not hold this lock and suppress
+    # subsequent main-branch releases after the Worker is already verified.
+    concurrency:
+      group: texasdefined-production
+      cancel-in-progress: false
     runs-on: ubuntu-latest
     timeout-minutes: 25
     environment: texasdefined-publication
