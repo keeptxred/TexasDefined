@@ -16,7 +16,8 @@ if (today < "2026-10-26" || today > "2027-01-05") {
 const expected = [
   ['correct 2026 booking range start', "November 13, 2026"],
   ['correct 2026 booking range end', "December 28, 2026"],
-  ['explicit organizer date discrepancy', "date sources conflict"],
+  ['source provenance for superseded date range', "older 2024/2025 content"],
+  ['dated 2026 calendar not seat inventory', "not confirmed ticket inventory"],
   ['actual operating dates (not every day)', "Nov 13–15, 19–24, 27–29"],
   ['prominent booking section', 'data-polar-express-2026-schedule="true"'],
   ['organizer booking CTA', 'data-event-official-ticket-cta="true"'],
@@ -37,6 +38,7 @@ function verifyHtml(html, label) {
   const forbidden = [
     ["superseded 2017 venue photo", "Palestine_August_2017_55_"],
     ["superseded unqualified date statement", "Scheduled November 14–December 27, 2026."],
+    ["superseded unexplained schedule conflict", "2026 date sources conflict:"],
   ].filter(([, marker]) => html.includes(marker)).map(([description]) => description);
   const canonical = (html.match(/<link\b[^>]*\brel=["']canonical["'][^>]*>/i) || [])[0] || "";
   if (!canonical.includes('href="' + origin + route + '"') &&
