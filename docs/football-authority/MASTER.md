@@ -1,5 +1,11 @@
 # TexasDefined — High School Football Authority Project (locked)
 
+## October 26, 2026 — Second Batch 009 five-school continuation (IMPLEMENTED, not live VERIFIED)
+
+Parent PR #5993 protected-merged the first five source-backed programs. Five more school-specific implementations, citations, original editorial and technical QA have been prepared in a dependent continuation branch: Carrollton Turner, Carthage, Castle Hills (TAPPS six-man, not UIL), Castroville Medina Valley and Cayuga. The registry currently tracks 10 Batch 009 schools IMPLEMENTED and the historical 180 VERIFIED preserved, not a claim that either group has passed new production browser evidence. Continue with Cedar Hill and the remaining 15 assigned programs before creating Batch 010. No consumer-facing permission, image rights, gate/parking/ADA assurance or school ticket authority is inferred.
+
+
+
 ## October 26, 2026 — Batch 009 source-backed implementation checkpoint
 
 Batch 008 is technically VERIFIED in live production (180 cumulative schools). The next 25 canonically unreviewed schools were reserved as Batch 009; five have individually sourced authority overlays and dossiers on branch `football-authority-batch-009-five-schools-20261026`, but are **IMPLEMENTED only**, never falsely labeled merged, deployed or VERIFIED. The remaining 20 assigned schools remain NOT_REVIEWED. Continue with Carrollton Turner; do not rework completed Batches 001–008. See the current REGISTRY.json and newest PROGRESS.md checkpoint; historical older descriptions below are superseded by current registry and production evidence.

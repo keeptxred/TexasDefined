@@ -1,5 +1,15 @@
 # Football Authority — Execution Ledger
 
+## October 26, 2026 — Batch 009 second five school-specific dossiers implemented (dependent release)
+
+- Parent PR #5993 was protected-merged for the first five Batch 009 programs; do not duplicate its code or assume new production acceptance from the merge.
+- Five additional individually researched school profiles are now implemented on the continuation branch: R. L. Turner Lions (CFBISD official Michael Farda), Carthage Bulldogs (Scott Surratt, 11 titles entering 2026, official Oct. 23 score), Castle Hills Eagles (**TAPPS six-man, not UIL**, Matt Garza and separate Wheatley Heights sports venue), Castroville Medina Valley Panthers (Andrew Britt, 2026 5A return and Oct. 23 8-0 snapshot), Cayuga Wildcats (school-run Jacob Magee coaching and physical Tennessee Colony school).
+- Original editorial with dated citations, venue and score caveats, distinct histories and FAQs, five individual dossiers, new school-mascot/county mappings, reciprocal county links and strict second-five Chrome workflow are implemented; no school-specific photographer/official emblem rights presumed.
+- Batch 009 source status: **180 prior VERIFIED, 10 IMPLEMENTED, 1,102 NOT_REVIEWED**, including 15 still assigned in Batch 009. Neither the additional five nor the first five should be marked production VERIFIED without actual live browser evidence and exact Worker deployment.
+- Next assigned school: **Cedar Hill**. Protected CI, merge, deployment and strict browser/SEO/graphic/sitemap/county verification are required. Source differences in Castle Hills admission prices and outdated MaxPreps football summaries are disclosed rather than silently reconciled.
+
+
+
 ## October 26, 2026 — Batch 009 started; initial five IMPLEMENTED on branch, not production VERIFIED
 
 - Strict Batch 008 production browser verification on October 26 remains the latest completed acceptance: **180 VERIFIED** across 1,292 schools. Its 25 fully verified schools were not reassigned.

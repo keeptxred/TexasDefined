@@ -12,6 +12,27 @@ export type VerifiedFootballSchoolIdentity = {
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
   {
+    slug: "castle-hills",
+    mascot: "Eagles",
+    sourceUrl: "https://castlehills.school/football/",
+    sourceLabel: "Christian School at Castle Hills official TAPPS six-man football program",
+    verifiedAt: "2026-10-26"
+  },
+  {
+    slug: "castroville-medina-valley",
+    mascot: "Panthers",
+    sourceUrl: "https://www.mvisd.com/apps/pages/index.jsp?type=d&uREC_ID=4387644",
+    sourceLabel: "Medina Valley ISD official athletics page identifies Panthers",
+    verifiedAt: "2026-10-26"
+  },
+  {
+    slug: "cayuga",
+    mascot: "Wildcats",
+    sourceUrl: "https://www.cayugaisd.com/athletics",
+    sourceLabel: "Cayuga ISD school-controlled official athletics team identity",
+    verifiedAt: "2026-10-26"
+  },
+  {
     slug: 'carrizo-springs',
     mascot: 'Wildcats',
     sourceUrl: 'https://cshs.cscisd.net/',

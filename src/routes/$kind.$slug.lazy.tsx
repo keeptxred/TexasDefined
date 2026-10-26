@@ -218,7 +218,7 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
   erath: [{ name: 'Bluff Dale Bobcats', slug: 'bluff-dale', context: '2026 UIL Division I six-man District 11, Erath County school contacts and dated football results' }],
   // Batch 005 remaining 14 researched team links, retaining prior schools per county.
   jefferson: [{ name: "Beaumont United Timberwolves", slug: 'beaumont-united', context: "2025 first winning varsity season under Drenard Williams and Beaumont Bowl" }, { name: "Beaumont West Brook Bruins", slug: 'beaumont-west-brook', context: "1982 UIL champion, 2018 6A Division II runner-up and Beaumont Bowl rivalry" }],
-  'panola': [{ name: "Beckville Bearcats", slug: 'beckville', context: "Playoff football in Panola County, and a real campus-versus-stadium distinction" }],
+  'panola': [{ name: "Beckville Bearcats", slug: 'beckville', context: "Playoff football in Panola County, and a real campus-versus-stadium distinction" }, { name: 'Carthage Bulldogs', slug: 'carthage', context: 'Scott Surratt led the 2025 state champions, 2026 4A Division II District 8 and school-verified Bulldog Stadium finals' }],
   'bee': [{ name: "Beeville A. C. Jones Trojans", slug: 'beeville-jones', context: "Beeville's Trojans: the current 2026 district schedule versus stale school football pages" }],
   'grayson': [{ name: "Bells Panthers", slug: 'bells', context: "The Panther Way and real Friday-night games at Panther Stadium" }],
   'jim-wells': [{ name: "Ben Bolt–Palito Blanco Fighting Badgers", slug: 'ben-bolt-palito-blanco', context: "Jim Wells County Fighting Badgers with a first-party 2026 game calendar" }],
@@ -330,7 +330,10 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
 // either map; the strict CI validator enforces this invariant.
 const supplementalFootballCountyLinks: Record<string, Array<{ name: string; slug: string; context: string }>> = {
   'dimmit': [{ name: 'Carrizo Springs Wildcats', slug: 'carrizo-springs', context: 'Dimmit County official Wildcats athletics, 2026 UIL 3A Division I District 14 and first-party Frank Carter Stadium tickets' }],
-  'dallas': [{ name: 'Ranchview Wolves', slug: 'carrollton-ranchview', context: 'Ranchview High has an Irving campus in Dallas County, Richard Leonard head coach, and is 4A Division I District 4 despite its Carrollton UIL name' }, { name: 'Newman Smith Trojans', slug: 'carrollton-smith', context: 'Dallas County campus in Carrollton, 2026 school-listed Keith Houston football coach and 5A Division I District 6' }],
+  'dallas': [{ name: 'Ranchview Wolves', slug: 'carrollton-ranchview', context: 'Ranchview High has an Irving campus in Dallas County, Richard Leonard head coach, and is 4A Division I District 4 despite its Carrollton UIL name' }, { name: 'Newman Smith Trojans', slug: 'carrollton-smith', context: 'Dallas County campus in Carrollton, 2026 school-listed Keith Houston football coach and 5A Division I District 6' }, { name: 'R. L. Turner Lions', slug: 'carrollton-turner', context: 'Dallas County school campus on Josey Lane; Michael Farda current football coach and UIL 5A Division I District 6' }],
+  'bexar': [{ name: 'Castle Hills Eagles', slug: 'castle-hills', context: 'Private TAPPS Six-Man Division I Eagles under Matt Garza; football visitors travel to Wheatley Heights Sports Complex, not the Castle Hills campus' }],
+  'medina': [{ name: 'Medina Valley Panthers', slug: 'castroville-medina-valley', context: 'Castroville Medina County campus, Andrew Britt flexbone offense, 2026 UIL 5A Division I District 14 and October 23 MacArthur result' }],
+  'anderson': [{ name: 'Cayuga Wildcats', slug: 'cayuga', context: 'Anderson County school near Tennessee Colony, coach Jacob Magee and source-controlled 2026 UIL 2A Division I District 10 schedules' }],
 };
 
 const siteUrl = 'https://texasdefined.com';
