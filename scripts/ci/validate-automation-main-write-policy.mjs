@@ -73,6 +73,7 @@ for (const contract of [
   'validate_managed_probe_ledger "$base" "$head"',
   'del(.updatedAt, .statewide.ticketLinkProbes, .statewide.ticketLinkProbeCursor, .statewide.ticketLinkProbeLatestRun)',
   'git merge --no-edit origin/main',
+  'node scripts/events/reconcile-ticketing-refresh-conflicts.mjs',
   'git push origin "HEAD:$BRANCH"',
   'bash scripts/ci/dispatch-validate-branch.sh "$BRANCH" validate.yml',
   'bash scripts/ci/dispatch-validate-branch.sh "$BRANCH" merge-gate.yml',
@@ -87,6 +88,16 @@ for (const contract of [
 ]) {
   requireText(eventFinisherPath, eventFinisher, contract);
 }
+const refreshConflictGuard = read('scripts/events/reconcile-ticketing-refresh-conflicts.mjs');
+for (const marker of [
+  'validateConflicts(conflicts)', 'chooseByTimestamp(oursTicketmaster, mainTicketmaster',
+  'mergeTicketProbeLedger', 'const merged = structuredClone(theirs)',
+  "git('diff', '--name-only', '--diff-filter=U')",
+]) requireText('scripts/events/reconcile-ticketing-refresh-conflicts.mjs', refreshConflictGuard, marker);
+requireText('scripts/ci/run-premerge-validation.mjs',
+  read('scripts/ci/run-premerge-validation.mjs'),
+  'reconcile-ticketing-refresh-conflicts.test.mjs');
+
 forbidPattern(eventFinisherPath, eventFinisher, /git\s+push\s+origin\s+HEAD:main/, 'push reconciled event data directly to main');
 forbidPattern(eventFinisherPath, eventFinisher, /git\s+push\s+origin\s+main(?:\s|$)/m, 'push reconciled event data directly to main');
 forbidPattern(eventFinisherPath, eventFinisher, /git\s+push\s+.*--force/, 'force-push the generated event refresh branch');
