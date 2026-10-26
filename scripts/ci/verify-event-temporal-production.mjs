@@ -165,6 +165,24 @@ async function verifyDynamicCollection(collection, sitemap) {
       assert(decoded.includes(needle), 'Live Christmas event collection missing reviewed seasonal coverage: '+needle);
     }
   }
+  // Production SSR must expose exactly the unexpired fall card set. This runs
+  // every day under the existing GitHub schedule, independently of new deploys.
+  if (collection.path === '/events/fall-festivals') {
+    const texasParts = new Intl.DateTimeFormat('en-US', {
+      timeZone: 'America/Chicago', year: 'numeric', month: '2-digit', day: '2-digit',
+    }).formatToParts(new Date());
+    const datePart = (type) => texasParts.find((part) => part.type === type)?.value || '00';
+    const texasToday = `${datePart('year')}-${datePart('month')}-${datePart('day')}`;
+    const cardTags = [...html.matchAll(/<li\\b[^>]*\\bdata-fall-end-date="[0-9]{4}-[0-9]{2}-[0-9]{2}"[^>]*>/gi)].map((match) => match[0]);
+    assert(cardTags.length === count, `fall festival SSR card count ${cardTags.length} must match ${count} qualifying guides`);
+    for (const tag of cardTags) {
+      const end = tag.match(/data-fall-end-date="([^"]+)"/i)?.[1];
+      const name = decodeHtmlEntities(tag.match(/data-fall-name="([^"]+)"/i)?.[1] || '');
+      assert(end && end >= texasToday, `expired fall festival card still shown: ${name} (${end})`);
+      assert(!/(christmas|holiday|polar express|santa|nutcracker|zoo lights|ice land|dickens)/i.test(name), `winter or Christmas event leaked into fall collection: ${name}`);
+    }
+    console.log(`[fall freshness] ${cardTags.length} unexpired, seasonally relevant SSR cards as of ${texasToday}`);
+  }
   verifyCollectionSchema(html, collection.label);
   console.log(`[${collection.label}] ${count} guides; ${shouldIndex ? 'indexable/in sitemap' : 'noindex/out of sitemap'} verified`);
 }
