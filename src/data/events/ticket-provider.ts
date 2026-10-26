@@ -19,10 +19,10 @@ const TICKET_HOSTS: ReadonlyArray<readonly [string, TexasEventTicketProvider]> =
 
 /** Ticket CTAs must never target an IP literal, local hostname or reserved test TLD. */
 export function publicTicketHostname(hostname: string): boolean {
-  const host = hostname.toLowerCase().replace(/\\.$/, "");
+  const host = hostname.toLowerCase().replace(/\.$/, "");
   if (!host || !host.includes(".") || host.startsWith("[")
-    || /^\\d+\\.\\d+\\.\\d+\\.\\d+$/.test(host)
-    || /\\.(?:local|localhost|internal|lan|test|invalid|example|onion)$/.test(host)) return false;
+    || /^\d+\.\d+\.\d+\.\d+$/.test(host)
+    || /\.(?:local|localhost|internal|lan|test|invalid|example|onion)$/.test(host)) return false;
   return !host.split(".").some((part) => !part || !/^[a-z0-9-]+$/.test(part) || part.startsWith("-") || part.endsWith("-"));
 }
 
