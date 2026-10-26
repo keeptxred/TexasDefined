@@ -99,6 +99,26 @@ function ThingsUniqueToTexasPage() {
         </Container>
       </section>
 
+      <section className="border-b border-border bg-background py-12 sm:py-14" aria-labelledby="texas-unique-answer-heading">
+        <Container>
+          <div className="grid gap-8 lg:grid-cols-[1.1fr_.9fr]">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">What is Texas known for?</p>
+              <h2 id="texas-unique-answer-heading" className="mt-3 max-w-3xl font-display text-3xl leading-tight sm:text-4xl">Things unique to Texas, and the traditions Texans made their own</h2>
+              <p className="mt-4 max-w-3xl leading-8 text-muted-foreground">Texas is especially associated with smoked brisket, breakfast tacos, bluebonnets, Friday-night football, homecoming mums, dance halls, the Alamo, big ranch country and landscapes from Big Bend to the Gulf Coast. Those traditions come from many communities, including Indigenous, Mexican and Tejano, Black, German, Czech and other Texans whose histories shaped the state.</p>
+              <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Not every familiar Texas icon originated here or exists only here. The 250-item collection distinguishes Texas origins, local adaptations and official state symbols rather than treating every association as exclusive.</p>
+              <Link to="/article/texas-cultural-regions-explained" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Why Texas culture differs from region to region →</Link>
+            </div>
+            <div className="grid content-start gap-3 text-sm">
+              <Link to="/things-unique-to-texas/food-drink" className="border-b border-border py-3 font-semibold text-primary hover:underline">Texas food: barbecue, chili, kolaches and breakfast tacos →</Link>
+              <Link to="/things-unique-to-texas/culture-music" className="border-b border-border py-3 font-semibold text-primary hover:underline">Texas culture: music, school spirit and celebrations →</Link>
+              <Link to="/things-unique-to-texas/landmarks" className="border-b border-border py-3 font-semibold text-primary hover:underline">Texas landmarks: historic places and architecture →</Link>
+              <Link to="/things-unique-to-texas/natural-wonders" className="border-b border-border py-3 font-semibold text-primary hover:underline">Texas landscapes: Hill Country, Big Bend and the Gulf →</Link>
+            </div>
+          </div>
+        </Container>
+      </section>
+
       <section className="py-16 sm:py-20">
         <Container>
           <div className="max-w-3xl">
