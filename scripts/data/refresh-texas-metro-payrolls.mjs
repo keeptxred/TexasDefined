@@ -119,6 +119,21 @@ export function parseFredCsv(csv, previous, checkedAt = new Date().toISOString()
   const record = candidates.sort((a, b) => a[0].localeCompare(b[0])).at(-1);
   if (!record) throw new Error('FRED BLS source returned no complete monthly Texas observation');
   const month = record[0].slice(0, 7);
+  // Individual FRED BLS series can expose a metro observation before the BLS
+  // Metropolitan Area/Table 3 news release is published. The Census/State
+  // employment schedules are NOT evidence that the metro release is out.
+  // Conservatively wait 40 full days after the observation month's end.
+  // A dated direct BLS Table 3 release is preferred and is not subject to this lag.
+  const [year, monthNumber] = month.split('-').map(Number);
+  const checked = new Date(checkedAt + 'T00:00:00Z');
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(checkedAt) || Number.isNaN(checked.getTime()) ||
+    checked.toISOString().slice(0, 10) !== checkedAt) {
+    throw new Error('FRED review date is invalid');
+  }
+  const monthEnd = Date.UTC(year, monthNumber, 0);
+  if (checked.getTime() - monthEnd < 40 * 86400_000) {
+    throw new Error('FRED metro observation is too recent to substantiate the released BLS metropolitan report: ' + month);
+  }
   const rows = fredSeries.map((id, i) => ({
     label: canonicalAreas[i][0],
     value: Math.round(Number(record[header.indexOf(id)]) * 1000),
@@ -222,7 +237,16 @@ export async function refresh({ fetchSource = official, read = p => fs.readFile(
     data = { ...release, units: 'total nonfarm payroll jobs, not seasonally adjusted', rows };
   } catch (error) {
     console.warn('Direct BLS source failed; checking Federal Reserve BLS-series distribution: ' + String(error));
-    data = parseFredCsv(await fredSource(), previous);
+    const csv = await fredSource();
+    try {
+      data = parseFredCsv(csv, previous);
+    } catch (fallbackError) {
+      if (/FRED metro observation is too recent/.test(String(fallbackError))) {
+        console.log('No publication: newer FRED metro observation has not matured beyond the BLS metropolitan release window. Retaining ' + previous.releaseMonth);
+        return false;
+      }
+      throw fallbackError;
+    }
   }
   validateFresh(data, previous);
   if (JSON.stringify(data) === JSON.stringify(previous)) {
