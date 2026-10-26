@@ -228,6 +228,20 @@ export function getMajorEventRecordServer(slug: string) {
       ],
     };
   }
+  if (event.slug === "polar-express-palestine") {
+    const verified = getPalestinePolarExpressRollover().next;
+    if (verified) {
+      // All event indexes share this same official season range; never roll
+      // calendar cards forward based only on last year's recurring dates.
+      return expandFestivalGuide({
+        ...event,
+        startDate: verified.startDate,
+        endDate: verified.endDate,
+        sourceCheckedAt: verified.verifiedAt,
+        dateNote: "Dates sourced to the organizer's official 2027 calendars; actual seat inventory is only confirmed by railroad checkout.",
+      });
+    }
+  }
   return expandFestivalGuide(event);
 }
 
@@ -339,6 +353,7 @@ export function loadMajorEventPageServer(slug: string) {
     seoTitle: "Palestine Polar Express 2027: Official Train Schedule & Visitor Guide",
     seoDescription: "Texas State Railroad's verified 2027 departure dates, train tickets, visitor planning and Palestine hotels. Check live checkout for seats.",
     dateNote: "2027 dates and times are transcribed from the Texas State Railroad's published November and December calendars. Individual trains can sell out; always check official ticket inventory.",
+    sources: publishedEvent.sources.filter(source => !source.url.includes("visitpalestine.com/events/2026/")),
   } : awaitingNewSeason ? {
     ...publishedEvent,
     seoTitle: "Palestine Polar Express: 2027 Dates Not Yet Announced",
