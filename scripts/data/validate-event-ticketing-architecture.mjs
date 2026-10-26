@@ -59,6 +59,32 @@ for (const token of ["EventTicketCta", "event.ticketCta", "eventId={event.id}", 
 for (const token of ["loadTicketmasterEventsServer", "resolveEventTicketCta", "buildMajorEventTicketingMarkupServer", "actionable.length === 1", "actionable.length > 1", "major-event-guide-ticket", "Compare ticketed sessions →", "data-affiliate-partner", "cta.rel"]) requireText(majorEventPage, token, "major-event guide ticket integration");
 for (const token of ["Calendar workstream", "Venue-page workstream", "Do not read raw ticketing.links in presentation components", "getSportsVenueUpcomingEvents", "buildTexasEventCarouselItemsServer", "Ticketmaster", "SeatGeek", "Vivid Seats", "No checkout", "environment/secrets manager", "deduplicated by destination URL", "validate-event-ticket-positive-path.mjs", "verify-event-ticketing-production.mjs"]) requireText(docs, token, "integration documentation");
 
+// Published sale status is source evidence only; never promote a Buy Tickets
+// link to live seats, transaction success or event-specific commission proof.
+const ticketEvidenceLedger = JSON.parse(read("ops/editorial/event-ticketing-verification-ledger.json"));
+if (ticketEvidenceLedger.events.length !== 12) failures.push("Christmas verification ledger must preserve all 12 curated performances");
+const seenCurated = new Set();
+for (const event of ticketEvidenceLedger.events) {
+  if (seenCurated.has(event.id)) failures.push("Christmas verification ledger duplicate event ID: " + event.id);
+  seenCurated.add(event.id);
+  if (["venue-published-on-sale", "organizer-published-on-sale"].includes(event.publicSaleStatus)) {
+    const evidence = event.publicSaleEvidence;
+    let safeSource = false;
+    try {
+      const url = new URL(evidence?.sourceUrl);
+      safeSource = url.protocol === "https:" && !url.username && !url.password;
+    } catch {}
+    if (!safeSource || !/^20\\d{2}-\\d{2}-\\d{2}$/.test(evidence?.checkedAt || "")
+      || String(evidence?.finding || "").length < 30
+      || !String(evidence?.verificationScope || "").includes("not seat inventory")) {
+      failures.push("Published sale status lacks explicit bounded primary-source evidence: " + event.id);
+    }
+  }
+  if (event.inventoryStatus === "VERIFIED" && !event.inventoryEvidence) failures.push("Seat inventory cannot be verified without evidence: " + event.id);
+  if (event.checkoutPriceStatus === "VERIFIED" && !event.checkoutPriceEvidence) failures.push("Checkout price cannot be verified without evidence: " + event.id);
+  if (event.affiliateEligibility === "VERIFIED" && !event.commissionEligibilityEvidence) failures.push("Event commission cannot be verified from Impact URL alone: " + event.id);
+}
+
 const runtimeTest = String.raw`
 import { resolveEventTicketCta } from './src/data/events/ticketing.ts';
 import { providerForVerifiedTicketUrl, publicTicketHostname } from './src/data/events/ticket-provider.ts';
