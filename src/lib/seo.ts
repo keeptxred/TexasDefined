@@ -217,6 +217,10 @@ const TEXASDEFINED_TECHNICAL_SEO_OVERRIDES: Record<string, TechnicalSeoOverride>
   "/fishing": { title: "Texas Fishing Guide | Lakes & Species" },
   "/sports-venues": { title: "Texas Stadiums & Sports Venues" },
   "/events": { title: "Texas Events & Festivals" },
+  "/destination/moody-gardens": {
+    title: "Moody Gardens Galveston: Aquarium, Rainforest & Visitor Guide",
+    description: "Plan Moody Gardens in Galveston: Aquarium and Rainforest Pyramids, ticket packages, parking, accessibility, seasonal attractions and practical visitor tips.",
+  },
   "/destination/palo-duro-canyon-state-park": { title: "Palo Duro Canyon State Park Guide" },
   "/destination/hye": {
     title: "Hye, Texas: Post Office, Wineries & Hill Country Guide",
