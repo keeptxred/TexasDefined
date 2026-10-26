@@ -402,7 +402,7 @@
         const note = document.createElement("p");
         note.className = "td-stay-affiliate-copy";
         note.textContent = "Motel 6's Trip and Treat offer advertises up to 15% off nightly stays, 20% off weekly stays, and 35% off monthly stays. The advertiser provided no expiration date; check current terms, dates and participating properties before booking.";
-        panel.appendChild(note);
+        panel.dataset.motel6PromoCopy = note.textContent;
       }
     }
     if (showRvshare) {
@@ -425,6 +425,13 @@
 
     if (motel6Eligible()) disclosure.textContent += " Motel 6 is an additional sponsored budget-stay option; TexasDefined may earn a commission on qualifying reservations.";
     panel.append(eyebrow, heading, copy, actions, disclosure);
+    if (panel.dataset.motel6PromoCopy) {
+      const note = document.createElement("p");
+      note.className = "td-stay-affiliate-copy";
+      note.textContent = panel.dataset.motel6PromoCopy;
+      actions.after(note);
+      delete panel.dataset.motel6PromoCopy;
+    }
     if (hotelPasoExact) {
       const sourceNote = document.createElement("p");
       sourceNote.className = "td-stay-affiliate-source";
