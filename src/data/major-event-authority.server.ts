@@ -109,7 +109,7 @@ const majorEventAuthorityDetails: MajorEventAuthorityDetails[] = [
     whyItMatters: "It supports several kinds of visits, from a single arena night to a full day built around the stock-show grounds and Fort Worth attractions.",
     quickFacts: [
       { label: "2027 show dates", value: "January 15–February 6, 2027" },
-      { label: "Rodeo venue", value: "Dickies Arena, 1911 Montgomery Street" },
+      { label: "Rodeo venue", value: "Ariat Arena (formerly Dickies Arena), 1911 Montgomery Street" },
       { label: "Stock-show venue", value: "Will Rogers Memorial Center and associated grounds" },
       { label: "2027 grounds hours", value: "8 a.m.–10:30 p.m. daily, per official FAQ" },
       { label: "Rodeo admission", value: "Rodeo ticket includes same-day showgrounds admission" },
