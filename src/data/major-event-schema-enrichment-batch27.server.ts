@@ -104,8 +104,22 @@ export const majorEventSchemaEnrichmentBatch27: MajorEventSchemaEnrichment[] = [
   },
   {
     slug: "oak-cliff-mardi-gras-parade",
+    image: {
+      url: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Oak_Cliff_September_2016_41_%28Davis_Street%29.jpg?width=1600",
+      alt: "West Davis Street in the Oak Cliff neighborhood of Dallas photographed in September 2016; the historic Mardi Gras parade route, not a 2027 parade image",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Oak_Cliff_September_2016_41_(Davis_Street).jpg",
+      sourceType: "wikimedia",
+      licenseName: "CC BY-SA 4.0 — Michael Barera",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+      rightsNote: "Michael Barera photographed Davis Street in Oak Cliff, Dallas on September 5, 2016 (GPS 32.749447, -96.842772). Go Oak Cliff's official 2026 parade followed West Davis Street from near Kessler Theater/Nova toward Bishop Avenue; 2027 parade date and route remain unannounced. Historical actual street-route photograph, not a parade image; photographer credit and any layout derivatives/crops under CC BY-SA 4.0.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
     organizer: { type: "Organization", name: "Go Oak Cliff", url: "https://gooakcliff.org/mardigras" },
-    sources: [{ label: "Official organizer or state tourism event reference", url: "https://gooakcliff.org/mardigras" }],
+    sources: [
+      { label: "Go Oak Cliff official parade information (2026 route; 2027 unconfirmed)", url: "https://gooakcliff.squarespace.com/mardigras" },
+      { label: "Oak Cliff exact Davis Street photo/CC BY-SA 4.0 license", url: "https://commons.wikimedia.org/wiki/File:Oak_Cliff_September_2016_41_(Davis_Street).jpg" },
+    ],
     verifiedAt: "2026-10-21",
   },
   {
