@@ -4,6 +4,7 @@ const targets = [
 ];
 
 const customMarker = "How to visit Moody Gardens without wasting time or ticket money";
+const affiliateMarker = "Tours & bookable experiences";
 const forbiddenMarkers = [
   "Independent Texas Defined research",
   "Why this place matters",
@@ -26,6 +27,9 @@ for (const [label, rawUrl] of targets) {
   const html = await response.text();
   if (!response.ok) failures.push(`${label}: HTTP ${response.status}`);
   if (!html.includes(customMarker)) failures.push(`${label}: custom Moody Gardens planning section missing`);
+  const customIndex = html.indexOf(customMarker);
+  const affiliateIndex = html.indexOf(affiliateMarker);
+  if (affiliateIndex >= 0 && customIndex >= affiliateIndex) failures.push(`${label}: Moody Gardens editorial must render before Viator affiliate content`);
   for (const marker of forbiddenMarkers) {
     if (html.includes(marker)) failures.push(`${label}: stale/duplicate generic authority marker present: ${marker}`);
   }
