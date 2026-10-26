@@ -141,6 +141,12 @@ The daily scan uses the event-ID/date/official-URL evidence already saved in the
 
 The daily rotating Ticketmaster/TicketWeb public-link probe now writes `providerOutcomes` to `statewide.ticketLinkProbeLatestRun` in the authoritative ledger and prints the same breakdown in workflow logs. A Ticketmaster HTTP 403 is `ACCESS_RESTRICTED_INCONCLUSIVE`; a TicketWeb HTTP 530 is `PROVIDER_SERVER_ERROR_INCONCLUSIVE`. Neither is proof of a broken admission link, sold-out seats, or stale event identity. If every probe is inconclusive, the workflow emits a **notice**, not a false-positive validation failure or an automatic deletion. Genuine 404/410 or unrelated redirects still require explicit review before any purchase URL changes. New tests cover the per-provider classifications and missing-result behavior.
 
+## October 26, 2026: Fort Worth arena naming-rights change
+
+Trail Drive Management Corp. and Ariat officially announced that **Dickies Arena is renamed Ariat Arena effective October 26, 2026**. Primary-source release: `https://www.endurancesportswire.com/aria-international-to-become-the-official-naming-rights-partner-of-fort-worths-beloves-arena/` (body names Ariat Arena; headline contains a typographical error). The operator's official venue domain is `https://www.ariatarena.com`. Old Live Nation/Ticketmaster Discovery event names and links may still say Dickies Arena during migration; do **not** invent revised event purchase URLs while those provider entries remain valid.
+
+The shared venue matcher accepts **only the reviewed exact former/new Fort Worth facility names**, optionally with a Fort Worth suffix, while refusing parking, VIP suites, alternate rooms, mismatched venue IDs and unrelated arenas. Curated 2026 for KING + COUNTRY (Dec. 5) and Pentatonix (Dec. 16) list Ariat Arena, and source-derived Ticketmaster rows show Ariat Arena while maintaining the pre-existing canonical `/sports-venue/dickies-arena` entity and partner links. This is the **same physical building**, not another venue or another performance. The December Christmas city/date/live acceptance remains mandatory after deployment. New venue branding is not evidence of seats, a new commercial agreement, or a new provider affiliate entitlement.
+
 ## No checkout
 
 TexasDefined does not collect ticket payment, seat selection, billing data, order data, or ticket inventory. `EventTicketCta` always opens the external provider in a new browsing context. The provider owns checkout, fulfillment, refunds, fees, inventory, availability, and customer-service obligations.
