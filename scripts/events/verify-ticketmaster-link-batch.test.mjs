@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { publicTicketUrl, classifyTicketLinkResponse, probePublicTicketUrl, chooseBatch } from './verify-ticketmaster-link-batch.mjs';
+import { publicTicketUrl, classifyTicketLinkResponse, probePublicTicketUrl, primaryAdmissionProbeCandidate, chooseBatch } from './verify-ticketmaster-link-batch.mjs';
 
 const official = 'https://www.ticketmaster.com/grand-ol-christmas/event/ABC123';
 test('approved public event URLs only; block private, userinfo, misleading and unsupported hosts', () => {
@@ -72,4 +72,36 @@ test('deterministic event order and rotating cursor cover catalog without repeat
   assert.deepEqual(second.candidates.map(x=>x.id),['z','a']);
   assert.equal(second.total,3);
   assert.equal(second.nextCursor,1);
+});
+
+test('daily outbound verification excludes branded garage parking and add-on products', () => {
+  const notAdmission = [
+    'FIFTH THIRD GARAGE: Dallas Stars v New Jersey Devils',
+    '5th Third Garage: Concert',
+    'Pentatonix - Parking',
+    'Holiday Show VIP Upgrade',
+    'Artist Fast Lane Pass',
+    'Parking Lot: Arena Concert',
+    'Meet & Greet Add-on: Tour',
+    'Garage Parking: Arena Event',
+    'Concert - Parking Pass',
+    'VIP Upgrade: Artist',
+    'Test Concert - Ticket Not Included',
+  ];
+  for (const name of notAdmission) {
+    assert.equal(primaryAdmissionProbeCandidate({ name }), false, name);
+  }
+  for (const name of ['Dallas Stars vs. New Jersey Devils', 'Pentatonix: Christmas in the City Tour', 'The Parking Lot (band) Live']) {
+    assert.equal(primaryAdmissionProbeCandidate({ name }), true, name);
+  }
+  assert.equal(primaryAdmissionProbeCandidate({ name: '' }), false);
+  const date = new Date(Date.now()+86400000).toISOString().slice(0,10);
+  const events = [
+    { id: 'garage', name: notAdmission[0], startDate: date, officialUrl: official, status: 'onsale' },
+    { id: 'vip', name: notAdmission[3], startDate: date, officialUrl: official, status: 'onsale' },
+    { id: 'show', name: 'Dallas Stars vs. New Jersey Devils', startDate: date, officialUrl: official, status: 'onsale' },
+  ];
+  const batch = chooseBatch(events, 0, 40);
+  assert.deepEqual(batch.candidates.map(e=>e.id), ['show']);
+  assert.equal(batch.total, 1);
 });
