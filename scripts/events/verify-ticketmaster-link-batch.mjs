@@ -151,7 +151,7 @@ export function auditCatalogIntegrity(events) {
     if (typeof event?.name !== 'string' || !event.name.trim()) invalid(id, 'missing-name');
     if (typeof event?.city !== 'string' || !event.city.trim()) invalid(id, 'missing-city');
     const localDate = event?.startDate;
-    if (typeof localDate !== 'string' || !/^\\d{4}-\\d{2}-\\d{2}$/.test(localDate)
+    if (typeof localDate !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(localDate)
       || Number.isNaN(Date.parse(localDate + 'T12:00:00Z'))
       || new Date(localDate + 'T12:00:00Z').toISOString().slice(0, 10) !== localDate) {
       invalid(id, 'invalid-local-date');
@@ -173,9 +173,15 @@ export function auditCatalogIntegrity(events) {
     if (impact.protocol !== 'https:' || impact.hostname !== 'ticketmaster.evyy.net'
       || impact.username || impact.password || impact.port
       || !/^\/c\/7758914\/264167\/4272\/?$/.test(impact.pathname)
-      || impact.searchParams.size !== 1
+      || impact.searchParams.size !== 4
       || impact.searchParams.getAll('u').length !== 1
-      || impact.searchParams.get('u') !== official.href) {
+      || impact.searchParams.get('u') !== official.href
+      || impact.searchParams.getAll('subId1').length !== 1
+      || impact.searchParams.get('subId1') !== 'texasdefined'
+      || impact.searchParams.getAll('partnerpropertyid').length !== 1
+      || impact.searchParams.get('partnerpropertyid') !== '8837726'
+      || impact.searchParams.getAll('MediaPartnerPropertyId').length !== 1
+      || impact.searchParams.get('MediaPartnerPropertyId') !== '8837726') {
       invalid(id, 'unauthorized-or-wrong-event-impact-deep-link');
     } else counts.validAuthorizedImpactDeepLinks++;
   }
