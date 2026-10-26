@@ -40,7 +40,22 @@
       "pr": 5922,
       "productionVerifiedAt": "2026-10-25",
       "remainingDefect": "Current upstream checkout inventory, final price and event-level Impact commission eligibility not independently established",
-      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified"
+      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified",
+      "verification": {
+        "eventIdentity": "SOURCE_REVIEWED",
+        "exactDateTimeVenue": "SOURCE_REVIEWED",
+        "ticketUrl": "OFFICIAL_EVENT_PAGE_OR_PERFORMANCE_SELECTOR_ONLY",
+        "productionCalendar": "SSR_ACCEPTANCE_PASSED",
+        "publishedSaleStatus": "NOT_VERIFIED",
+        "seatInventory": "NOT_VERIFIED",
+        "checkoutPrice": "NOT_VERIFIED",
+        "affiliateProgram": "TICKETMASTER_IMPACT_APPROVED_PROGRAM_LEVEL_ONLY",
+        "eventSpecificCommissionEligibility": "NOT_VERIFIED",
+        "checkedAt": "2026-10-25",
+        "evidenceUrl": "https://broadwaydallas.org/shows/dr-seuss-how-the-grinch-stole-christmas-the-musical/",
+        "productionAcceptanceWorkflow": 40260454571,
+        "editorialPr": 5922
+      }
     },
     {
       "id": "king-country-fort-worth-2026",
@@ -62,7 +77,22 @@
       "pr": 5922,
       "productionVerifiedAt": "2026-10-25",
       "remainingDefect": "Current upstream checkout inventory, final price and event-level Impact commission eligibility not independently established",
-      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified"
+      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified",
+      "verification": {
+        "eventIdentity": "SOURCE_REVIEWED",
+        "exactDateTimeVenue": "SOURCE_REVIEWED",
+        "ticketUrl": "OFFICIAL_EVENT_PAGE_OR_PERFORMANCE_SELECTOR_ONLY",
+        "productionCalendar": "SSR_ACCEPTANCE_PASSED",
+        "publishedSaleStatus": "NOT_VERIFIED",
+        "seatInventory": "NOT_VERIFIED",
+        "checkoutPrice": "NOT_VERIFIED",
+        "affiliateProgram": "TICKETMASTER_IMPACT_APPROVED_PROGRAM_LEVEL_ONLY",
+        "eventSpecificCommissionEligibility": "NOT_VERIFIED",
+        "checkedAt": "2026-10-25",
+        "evidenceUrl": "https://www.livenation.com/event/vvG1YZ_Cx4afyp/for-king-country-a-drummer-boy-christmas",
+        "productionAcceptanceWorkflow": 40260454571,
+        "editorialPr": 5922
+      }
     },
     {
       "id": "christmas-kwanzaa-dallas-2026",
@@ -84,7 +114,22 @@
       "pr": 5922,
       "productionVerifiedAt": "2026-10-25",
       "remainingDefect": "Current upstream checkout inventory, final price and event-level Impact commission eligibility not independently established",
-      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified"
+      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified",
+      "verification": {
+        "eventIdentity": "SOURCE_REVIEWED",
+        "exactDateTimeVenue": "SOURCE_REVIEWED",
+        "ticketUrl": "OFFICIAL_EVENT_PAGE_OR_PERFORMANCE_SELECTOR_ONLY",
+        "productionCalendar": "SSR_ACCEPTANCE_PASSED",
+        "publishedSaleStatus": "NOT_VERIFIED",
+        "seatInventory": "NOT_VERIFIED",
+        "checkoutPrice": "NOT_VERIFIED",
+        "affiliateProgram": "TICKETMASTER_IMPACT_APPROVED_PROGRAM_LEVEL_ONLY",
+        "eventSpecificCommissionEligibility": "NOT_VERIFIED",
+        "checkedAt": "2026-10-25",
+        "evidenceUrl": "https://www.ticketmaster.com/promising-young-artist-series-33rd-annual-dallas-texas-12-11-2026/event/0C00653DBA7FA947",
+        "productionAcceptanceWorkflow": 40260454571,
+        "editorialPr": 5922
+      }
     },
     {
       "id": "christmas-story-conroe-2026",
@@ -106,7 +151,22 @@
       "pr": 5922,
       "productionVerifiedAt": "2026-10-25",
       "remainingDefect": "Independent Etix HTTP checkout availability not established: protected provider access; direct event linked by organizer",
-      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified"
+      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified",
+      "verification": {
+        "eventIdentity": "SOURCE_REVIEWED",
+        "exactDateTimeVenue": "SOURCE_REVIEWED",
+        "ticketUrl": "EXACT_PERFORMANCE_CHECKOUT_SOURCE_REVIEWED",
+        "productionCalendar": "SSR_ACCEPTANCE_PASSED",
+        "publishedSaleStatus": "NOT_VERIFIED",
+        "seatInventory": "NOT_VERIFIED",
+        "checkoutPrice": "NOT_VERIFIED",
+        "affiliateProgram": "TICKETMASTER_IMPACT_APPROVED_PROGRAM_LEVEL_ONLY",
+        "eventSpecificCommissionEligibility": "NOT_VERIFIED",
+        "checkedAt": "2026-10-25",
+        "evidenceUrl": "https://www.etix.com/ticket/p/62230269/a-christmas-story-conroe-crighton-theatre",
+        "productionAcceptanceWorkflow": 40260454571,
+        "editorialPr": 5922
+      }
     },
     {
       "id": "pentatonix-fort-worth-2026",
@@ -128,7 +188,22 @@
       "pr": 5922,
       "productionVerifiedAt": "2026-10-25",
       "remainingDefect": "Current upstream checkout inventory, final price and event-level Impact commission eligibility not independently established",
-      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified"
+      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified",
+      "verification": {
+        "eventIdentity": "SOURCE_REVIEWED",
+        "exactDateTimeVenue": "SOURCE_REVIEWED",
+        "ticketUrl": "OFFICIAL_EVENT_PAGE_OR_PERFORMANCE_SELECTOR_ONLY",
+        "productionCalendar": "SSR_ACCEPTANCE_PASSED",
+        "publishedSaleStatus": "VENUE_PUBLISHED_ON_SALE",
+        "seatInventory": "NOT_VERIFIED",
+        "checkoutPrice": "NOT_VERIFIED",
+        "affiliateProgram": "TICKETMASTER_IMPACT_APPROVED_PROGRAM_LEVEL_ONLY",
+        "eventSpecificCommissionEligibility": "NOT_VERIFIED",
+        "checkedAt": "2026-10-25",
+        "evidenceUrl": "https://dickiesarena.com/event/2026-12-16-pentatonix/",
+        "productionAcceptanceWorkflow": 40260454571,
+        "editorialPr": 5922
+      }
     },
     {
       "id": "jazzy-christmas-dallas-2026",
@@ -150,7 +225,22 @@
       "pr": 5922,
       "productionVerifiedAt": "2026-10-25",
       "remainingDefect": "Current upstream checkout inventory, final price and event-level Impact commission eligibility not independently established",
-      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified"
+      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified",
+      "verification": {
+        "eventIdentity": "SOURCE_REVIEWED",
+        "exactDateTimeVenue": "SOURCE_REVIEWED",
+        "ticketUrl": "OFFICIAL_EVENT_PAGE_OR_PERFORMANCE_SELECTOR_ONLY",
+        "productionCalendar": "SSR_ACCEPTANCE_PASSED",
+        "publishedSaleStatus": "NOT_VERIFIED",
+        "seatInventory": "NOT_VERIFIED",
+        "checkoutPrice": "NOT_VERIFIED",
+        "affiliateProgram": "TICKETMASTER_IMPACT_APPROVED_PROGRAM_LEVEL_ONLY",
+        "eventSpecificCommissionEligibility": "NOT_VERIFIED",
+        "checkedAt": "2026-10-25",
+        "evidenceUrl": "https://www.ticketmaster.com/a-jazzy-christmas-concert-dallas-texas-12-17-2026/event/0C00653DB901A616",
+        "productionAcceptanceWorkflow": 40260454571,
+        "editorialPr": 5922
+      }
     },
     {
       "id": "very-merry-symphony-cedar-park-2026",
@@ -172,7 +262,22 @@
       "pr": 5922,
       "productionVerifiedAt": "2026-10-25",
       "remainingDefect": "Current upstream checkout inventory, final price and event-level Impact commission eligibility not independently established",
-      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified"
+      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified",
+      "verification": {
+        "eventIdentity": "SOURCE_REVIEWED",
+        "exactDateTimeVenue": "SOURCE_REVIEWED",
+        "ticketUrl": "OFFICIAL_EVENT_PAGE_OR_PERFORMANCE_SELECTOR_ONLY",
+        "productionCalendar": "SSR_ACCEPTANCE_PASSED",
+        "publishedSaleStatus": "VENUE_PUBLISHED_ON_SALE",
+        "seatInventory": "NOT_VERIFIED",
+        "checkoutPrice": "NOT_VERIFIED",
+        "affiliateProgram": "TICKETMASTER_IMPACT_APPROVED_PROGRAM_LEVEL_ONLY",
+        "eventSpecificCommissionEligibility": "NOT_VERIFIED",
+        "checkedAt": "2026-10-25",
+        "evidenceUrl": "https://www.hebcenter.com/events/detail/a-very-merry-symphony",
+        "productionAcceptanceWorkflow": 40260454571,
+        "editorialPr": 5922
+      }
     },
     {
       "id": "celtic-christmas-mcallen-2026",
@@ -194,7 +299,22 @@
       "pr": 5922,
       "productionVerifiedAt": "2026-10-25",
       "remainingDefect": "Current upstream checkout inventory, final price and event-level Impact commission eligibility not independently established",
-      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified"
+      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified",
+      "verification": {
+        "eventIdentity": "SOURCE_REVIEWED",
+        "exactDateTimeVenue": "SOURCE_REVIEWED",
+        "ticketUrl": "OFFICIAL_EVENT_PAGE_OR_PERFORMANCE_SELECTOR_ONLY",
+        "productionCalendar": "SSR_ACCEPTANCE_PASSED",
+        "publishedSaleStatus": "NOT_VERIFIED",
+        "seatInventory": "NOT_VERIFIED",
+        "checkoutPrice": "NOT_VERIFIED",
+        "affiliateProgram": "TICKETMASTER_IMPACT_APPROVED_PROGRAM_LEVEL_ONLY",
+        "eventSpecificCommissionEligibility": "NOT_VERIFIED",
+        "checkedAt": "2026-10-25",
+        "evidenceUrl": "https://experiencemcallen.com/event/a-celtic-christmas-mcallen-2026/",
+        "productionAcceptanceWorkflow": 40260454571,
+        "editorialPr": 5922
+      }
     },
     {
       "id": "grand-ol-christmas-houston-2026",
@@ -216,7 +336,22 @@
       "pr": 5922,
       "productionVerifiedAt": "2026-10-25",
       "remainingDefect": "Current upstream checkout inventory, final price and event-level Impact commission eligibility not independently established",
-      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified"
+      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified",
+      "verification": {
+        "eventIdentity": "SOURCE_REVIEWED",
+        "exactDateTimeVenue": "SOURCE_REVIEWED",
+        "ticketUrl": "OFFICIAL_EVENT_PAGE_OR_PERFORMANCE_SELECTOR_ONLY",
+        "productionCalendar": "SSR_ACCEPTANCE_PASSED",
+        "publishedSaleStatus": "NOT_VERIFIED",
+        "seatInventory": "NOT_VERIFIED",
+        "checkoutPrice": "NOT_VERIFIED",
+        "affiliateProgram": "TICKETMASTER_IMPACT_APPROVED_PROGRAM_LEVEL_ONLY",
+        "eventSpecificCommissionEligibility": "NOT_VERIFIED",
+        "checkedAt": "2026-10-25",
+        "evidenceUrl": "https://www.livenation.com/event/G5dIZ_GluCTsV/grand-ol-christmas",
+        "productionAcceptanceWorkflow": 40260454571,
+        "editorialPr": 5922
+      }
     },
     {
       "id": "grand-ol-christmas-dallas-2026",
@@ -238,7 +373,22 @@
       "pr": 5922,
       "productionVerifiedAt": "2026-10-25",
       "remainingDefect": "Provider live inventory unverified; independently reviewed 5 PM doors versus 6 PM show retained",
-      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified"
+      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified",
+      "verification": {
+        "eventIdentity": "SOURCE_REVIEWED",
+        "exactDateTimeVenue": "SOURCE_REVIEWED",
+        "ticketUrl": "OFFICIAL_EVENT_PAGE_OR_PERFORMANCE_SELECTOR_ONLY",
+        "productionCalendar": "SSR_ACCEPTANCE_PASSED",
+        "publishedSaleStatus": "NOT_VERIFIED",
+        "seatInventory": "NOT_VERIFIED",
+        "checkoutPrice": "NOT_VERIFIED",
+        "affiliateProgram": "TICKETMASTER_IMPACT_APPROVED_PROGRAM_LEVEL_ONLY",
+        "eventSpecificCommissionEligibility": "NOT_VERIFIED",
+        "checkedAt": "2026-10-25",
+        "evidenceUrl": "https://www.ticketmaster.com/grand-ol-christmas-dallas-texas-12-23-2026/event/0C0064CA0668F4BE",
+        "productionAcceptanceWorkflow": 40260454571,
+        "editorialPr": 5922
+      }
     },
     {
       "id": "cirque-musica-cedar-park-2026",
@@ -260,7 +410,22 @@
       "pr": 5922,
       "productionVerifiedAt": "2026-10-25",
       "remainingDefect": "Current upstream checkout inventory, final price and event-level Impact commission eligibility not independently established",
-      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified"
+      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified",
+      "verification": {
+        "eventIdentity": "SOURCE_REVIEWED",
+        "exactDateTimeVenue": "SOURCE_REVIEWED",
+        "ticketUrl": "OFFICIAL_EVENT_PAGE_OR_PERFORMANCE_SELECTOR_ONLY",
+        "productionCalendar": "SSR_ACCEPTANCE_PASSED",
+        "publishedSaleStatus": "VENUE_PUBLISHED_ON_SALE",
+        "seatInventory": "NOT_VERIFIED",
+        "checkoutPrice": "NOT_VERIFIED",
+        "affiliateProgram": "TICKETMASTER_IMPACT_APPROVED_PROGRAM_LEVEL_ONLY",
+        "eventSpecificCommissionEligibility": "NOT_VERIFIED",
+        "checkedAt": "2026-10-25",
+        "evidenceUrl": "https://www.hebcenter.com/events/detail/cirque-musica-holiday-wonderland-2026",
+        "productionAcceptanceWorkflow": 40260454571,
+        "editorialPr": 5922
+      }
     },
     {
       "id": "christmas-carol-houston-2026",
@@ -282,7 +447,22 @@
       "pr": 5922,
       "productionVerifiedAt": "2026-10-25",
       "remainingDefect": "Official Dec 27 1:30 PM exact checkout identified; current seats/price unverified",
-      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified"
+      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified",
+      "verification": {
+        "eventIdentity": "SOURCE_REVIEWED",
+        "exactDateTimeVenue": "SOURCE_REVIEWED",
+        "ticketUrl": "EXACT_PERFORMANCE_CHECKOUT_SOURCE_REVIEWED",
+        "productionCalendar": "SSR_ACCEPTANCE_PASSED",
+        "publishedSaleStatus": "NOT_VERIFIED",
+        "seatInventory": "NOT_VERIFIED",
+        "checkoutPrice": "NOT_VERIFIED",
+        "affiliateProgram": "TICKETMASTER_IMPACT_APPROVED_PROGRAM_LEVEL_ONLY",
+        "eventSpecificCommissionEligibility": "NOT_VERIFIED",
+        "checkedAt": "2026-10-25",
+        "evidenceUrl": "https://cart.alleytheatre.org/10216/10226",
+        "productionAcceptanceWorkflow": 40260454571,
+        "editorialPr": 5922
+      }
     }
   ],
   "statewide": {
