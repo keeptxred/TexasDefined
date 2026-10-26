@@ -23,16 +23,8 @@ export function applyCurrentEntityCorrections(entity: TexasEntityRecord): TexasE
     corrected = { ...corrected, sourceCheckedAt: '2026-10-09' };
   }
 
-  // Keep the 2026 Ariat rename in the existing venue; never mint a new slug.
   if (corrected.id === 'sports-venue:dickies-arena') {
-    corrected = {
-      ...corrected,
-      name: 'Ariat Arena',
-      aliases: [...corrected.aliases, 'Dickies Arena'],
-      officialUrl: 'https://www.ariatarena.com/',
-      description: corrected.description?.replace('Dickies Arena', 'Ariat Arena (formerly Dickies Arena)'),
-      sourceCheckedAt: '2026-10-26',
-    };
+    corrected = { ...corrected, sourceCheckedAt: '2026-10-26' };
   }
 
   if (corrected.id === 'sports-venue:jones-att-stadium') {
