@@ -85,9 +85,26 @@ for (const contract of [
   '--match-head-commit "$validated_sha"',
   'Protected auto-merge is waiting for branch policy',
   'git merge-base --is-ancestor "$validated_sha" origin/main',
+  'gh workflow run deploy-production.yml --ref main --repo "$REPOSITORY"',
 ]) {
   requireText(eventFinisherPath, eventFinisher, contract);
 }
+// A GITHUB_TOKEN-authored merge cannot fire the push deploy workflow. Only
+// after the exact-SHA merge check may the finisher dispatch the established
+// serialized release; never dispatch before source validation or auto-merge.
+const deployedAfterMerge = eventFinisher.indexOf('gh workflow run deploy-production.yml --ref main --repo "$REPOSITORY"');
+const mergeVerifiedAt = eventFinisher.indexOf('git merge-base --is-ancestor "$validated_sha" origin/main');
+if (mergeVerifiedAt < 0 || deployedAfterMerge <= mergeVerifiedAt) {
+  failures.push(`${eventFinisherPath} must dispatch production only after the validated merge is present on main`);
+}
+requireText(eventFinisherPath, eventFinisher, 'actions: write');
+const prodPath = '.github/workflows/deploy-production.yml';
+const prod = read(prodPath);
+for (const required of ['workflow_dispatch:', 'group: texasdefined-production', 'Verify Christmas 2026 source-calendar production']) {
+  requireText(prodPath, prod, required);
+}
+forbidPattern(eventsPath, events, /gh\\s+workflow\\s+run\\s+deploy-production\\.yml/, 'dispatch production before the finisher verifies the protected merge');
+
 const refreshConflictGuard = read('scripts/events/reconcile-ticketing-refresh-conflicts.mjs');
 for (const marker of [
   'validateConflicts(conflicts)', 'chooseByTimestamp(oursTicketmaster, mainTicketmaster',
@@ -155,4 +172,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Automation main-write policy passed: daily event refreshes are idempotent when only verification timestamps change, use exact-branch prevalidation, remain PR-only, and hand protected completion to a workflow_run finisher that accepts only governed event-catalog diffs, reconciles current main without force-push, reruns canonical validation plus the protected Merge Gate, publishes that exact validated result into the required GitHub Actions status context for GITHUB_TOKEN-created PRs, and enables protected auto-merge only for the exact validated PR head before verifying that head reached main; generated image changes remain reviewable PRs with explicit item-level rights review and official validation; Texas Defined AI demand intelligence remains privacy-safe and review-only with no direct-main or auto-merge path.');
+console.log('Automation main-write policy passed: daily event refreshes are idempotent when only verification timestamps change, use exact-branch prevalidation, remain PR-only, and hand protected completion to a workflow_run finisher that accepts only governed event-catalog diffs, reconciles current main without force-push, reruns canonical validation plus the protected Merge Gate, publishes that exact validated result into the required GitHub Actions status context for GITHUB_TOKEN-created PRs, and enables protected auto-merge only for the exact validated PR head before verifying that head reached main and dispatching the existing protected production workflow; generated image changes remain reviewable PRs with explicit item-level rights review and official validation; Texas Defined AI demand intelligence remains privacy-safe and review-only with no direct-main or auto-merge path.');
