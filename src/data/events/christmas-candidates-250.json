@@ -212,13 +212,15 @@
       "intakeId": 24,
       "title": "Temple Nature In Lights",
       "submittedRegion": "Hill Country & Central Texas",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "Discover Temple Nature In Lights landing page lists dates inconsistent with Thanksgiving 2026 and appears to mix older year schedules; no full organizer-dated 2026 BLORA nightly calendar verified, so hold dates."
     },
     {
       "intakeId": 25,
       "title": "Waco Homestead Heritage Christmas",
       "submittedRegion": "Hill Country & Central Texas",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "Homestead Heritage archived /home1024 Christmas Market says Dec 6, 7 & 13: those are weekend days in 2025 but Sunday/Monday/Sunday in 2026. Do not roll 2025 market dates forward as 2026 without an operator-dated current calendar."
     },
     {
       "intakeId": 26,
@@ -243,7 +245,11 @@
       "intakeId": 28,
       "title": "Bryan Downtown Holiday Stroll",
       "submittedRegion": "Hill Country & Central Texas",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "bryan-2026-downtown-holiday-stroll"
+      ],
+      "researchNote": "Destination Bryan explicitly publishes the Dec 13–17, 2026 Holiday Stroll; separate Dec 17 lighted parade and Nov 20 tree lighting now have their own verified calendar records."
     },
     {
       "intakeId": 29,
@@ -256,7 +262,11 @@
       "intakeId": 30,
       "title": "Caldwell Christmas on the Square",
       "submittedRegion": "Hill Country & Central Texas",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "caldwell-2026-christmas-on-square"
+      ],
+      "researchNote": "Burleson County Chamber confirms Friday Dec 11, 2026 despite generic tourism wording elsewhere that calls this a first-Saturday tradition; 2026 parade begins near 7 p.m."
     },
     {
       "intakeId": 31,
@@ -268,7 +278,11 @@
       "intakeId": 32,
       "title": "Navasota Home for the Holidays",
       "submittedRegion": "Hill Country & Central Texas",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "navasota-2026-home-for-holidays-parade"
+      ],
+      "researchNote": "Navasota ISD community calendar confirms the City's Dec 5, 2026 Home for the Holidays parade, 6–8 p.m.; detailed route not yet sourced."
     },
     {
       "intakeId": 33,
@@ -357,7 +371,13 @@
       "intakeId": 46,
       "title": "Lampasas Carol of Lights",
       "submittedRegion": "Hill Country & Central Texas",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "lampasas-2026-carol-of-lights",
+        "lampasas-2026-holidazzle-parade",
+        "lampasas-2026-christmas-on-creek"
+      ],
+      "researchNote": "Vision Lampasas identifies separate Dec 5 Carol of Lights, Dec 5 HoliDazzle parade and Dec 12 Christmas on the Creek; do not extend special-event times to undated winter evenings."
     },
     {
       "intakeId": 47,
@@ -660,7 +680,12 @@
       "intakeId": 83,
       "title": "Weatherford Christmas on the Square",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "weatherford-2026-christmas-on-square",
+        "weatherford-2026-lights-night-parade"
+      ],
+      "researchNote": "Weatherford Chamber confirms Dec 5, 2026 Gingerbread Christmas 10 a.m.–4 p.m. and a separate 6:30 p.m. lighted parade."
     },
     {
       "intakeId": 84,
@@ -1794,9 +1819,9 @@
     }
   ],
   "reconciliation": {
-    "asOf": "2026-10-25",
-    "calendarCandidates": 64,
+    "asOf": "2026-10-26",
+    "calendarCandidates": 69,
     "authorityCandidates": 12,
-    "remainingCandidates": 174
+    "remainingCandidates": 169
   }
 }
