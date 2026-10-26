@@ -46,3 +46,13 @@ test("approved McNay courtyard overrides a non-placeholder legacy photo without 
   assert.match(source, /const requiresVerifiedMcNayHero = destination\.slug === "mcnay-art-museum-san-antonio"/);
   assert.match(source, /isDestinationPhotoPlaceholder\(destination\.hero\.src\) \|\| requiresVerifiedMcNayHero/);
 });
+
+test("Yoakum authored illustration has the exact primary-hero marker required by the licensed-image gate", () => {
+  const source = readFileSync(new URL("../../src/components/editorial/YoakumHeritageMuseumAuthority.tsx", import.meta.url), "utf8");
+  assert.match(source, /<div data-image-fallback-label aria-hidden className="absolute inset-0 bg-ink" \/>\s*<img src="\/images\/yoakum-heritage-museum-editorial\.svg"/);
+  assert.match(source, /not a museum photograph/);
+  const simulatedSSR = '<div data-image-fallback-label="" aria-hidden="true"></div>'
+    + '<img src="/images/yoakum-heritage-museum-editorial.svg" alt="Original museum interpretive artwork; not a museum photograph">';
+  assert.equal(isMissingPrimaryDestinationHero(simulatedSSR), false);
+  assert.equal(primaryDestinationHeroSrc(simulatedSSR), "/images/yoakum-heritage-museum-editorial.svg");
+});
