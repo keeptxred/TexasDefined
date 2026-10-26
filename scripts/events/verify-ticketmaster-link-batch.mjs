@@ -86,7 +86,7 @@ export function chooseBatch(events, cursor, size = LIMIT) {
   const eligible = events.filter((event) => event && event.id && event.officialUrl
     && event.startDate && /^\d{4}-\d{2}-\d{2}$/.test(event.startDate) && event.startDate >= texasToday
     && primaryAdmissionProbeCandidate(event)
-    && !['cancelled', 'postponed', 'rescheduled'].includes(event.status));
+    && !['cancelled', 'postponed', 'rescheduled', 'offsale', 'soldout'].includes(event.status));
   eligible.sort((a, b) => a.startDate.localeCompare(b.startDate)
     || String(a.id).localeCompare(String(b.id)));
   if (!eligible.length) return { candidates: [], nextCursor: 0, total: 0 };
