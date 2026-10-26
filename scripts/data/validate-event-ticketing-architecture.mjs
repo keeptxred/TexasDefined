@@ -30,6 +30,8 @@ for (const token of ['providerForVerifiedTicketUrl', 'ticketmaster.com', 'ticket
   requireText(providerClassifier, token, "provider-neutral checkout domain classification");
 }
 for (const token of [
+  'featuredTicketUrl: "https://cart.alleytheatre.org/10216/10226"',
+  '"christmas-carol-houston-2026": "13:30"',
   "providerForVerifiedTicketUrl(show.featuredTicketUrl ?? show.sourceUrl)",
   "officialTicketUrl: show.featuredTicketUrl ?? show.sourceUrl",
   "!featuredDatePassed && show.featuredTicketUrl ? show.featuredTicketUrl : show.sourceUrl",
