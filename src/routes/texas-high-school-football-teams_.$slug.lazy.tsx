@@ -2,6 +2,7 @@ import { createLazyFileRoute, Link } from '@tanstack/react-router';
 
 import { Container } from '@/components/layout/Container';
 import { FootballGameNightGuide } from '@/components/sports/FootballGameNightGuide';
+import { KatyStadiumGuide } from '@/components/sports/KatyStadiumGuide';
 import { FootballMonetizationSlot } from '@/components/sports/FootballMonetizationSlot';
 import { District21TeamSeason, hasDistrict21TeamScorecard } from '@/components/sports/District21TeamSeason';
 import { SponsoredSportsPlacement } from '@/components/sports/SponsoredSportsPlacement';
@@ -408,7 +409,8 @@ function Page() {
     ? uilFootballEnrollmentBandForEnrollment(program.uilEnrollment)
     : null;
 
-  return <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
+  return (
+    <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
     <article className="mx-auto max-w-6xl">
       <nav aria-label="Breadcrumb" className="border-b border-border pb-4 text-xs uppercase tracking-[0.14em] text-muted-foreground">
         <Link to="/">Front page</Link><span className="mx-2">/</span>
@@ -713,6 +715,7 @@ function Page() {
               <a href={UIL_EXACT_ENROLLMENT_URL} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Official UIL alphabetical enrollment listing ↗</a>
               <a href={UIL_FOOTBALL_ENROLLMENT_BANDS_SOURCE.url} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Official UIL 2026–28 enrollment cutoffs ↗</a>
             </div>
+            {slug === 'katy' && <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground"><strong className="text-foreground">County clarification:</strong> Katy High School's physical campus is in Fort Bend County according to the federal NCES school record. Katy ISD spans county boundaries, and state education administrative identifiers may use Harris County. The campus county shown here is geographic, not a claim that the entire school district sits in Fort Bend County. <a href="https://nces.ed.gov/ccd/schoolsearch/school_detail.asp?ID=482517002809" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">NCES Katy High School source ↗</a></p>}
             {(program.teaSchoolProfileUrl || program.teaDistrictProfileUrl || program.schoolWebsite || program.districtWebsite) && <div className="mt-6 border-t border-border pt-5">
               <p className="text-xs font-semibold uppercase tracking-[0.12em] text-primary">Official school research</p>
               <p className="mt-2 max-w-4xl text-sm leading-7 text-muted-foreground">Use Texas Education Agency and school-system sources for the current campus profile, district context and official contact information. AskTED is the source used to match this football program to the school and district records below.</p>
@@ -774,7 +777,10 @@ function Page() {
         </div>
       </section>}
 
-      {program && venueLinks.length > 0 && <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
+
+      {slug === 'katy' && <KatyStadiumGuide />}
+
+      {slug !== 'katy' && program && venueLinks.length > 0 && <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div>
           <p className="eyebrow text-primary">Game venue</p>
           <h2 className="mt-2 font-display text-3xl">Football game venues</h2>
@@ -956,7 +962,8 @@ function Page() {
 
       </section>
     </article>
-  </Container>;
+    </Container>
+  );
 }
 
 function PublicEnrollmentSteps({
