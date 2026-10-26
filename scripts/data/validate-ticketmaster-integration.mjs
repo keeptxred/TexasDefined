@@ -26,6 +26,19 @@ try {
   const records = loadTicketmasterEventsServer(catalog, now);
   assert.equal(records.length, 1);
   assert.equal(records[0].venueId, 'sports-venue:frost-bank-center');
+  const ticketwebUrl = 'https://www.ticketweb.com/event/holiday-show-tickets/14859023';
+  const ticketwebCatalog = { fetchedAt: now.toISOString(), events: [{
+    ...event, id: 'ticketweb-fixture', officialUrl: ticketwebUrl,
+    affiliateUrl: 'https://ticketmaster.evyy.net/c/7758914/264167/4272?u=' + encodeURIComponent(ticketwebUrl),
+  }] };
+  const ticketweb = loadTicketmasterEventsServer(ticketwebCatalog, now);
+  assert.equal(ticketweb.length, 1, 'Discovery-wrapped TicketWeb event must remain actionable');
+  assert.equal(ticketweb[0].ticketing.links[0].provider, 'ticketweb', 'TicketWeb event must not be mislabeled Ticketmaster');
+  const ticketwebCta = buildTexasEventCarouselItemsServer(ticketweb)[0].ticketCta;
+  assert.equal(ticketwebCta.provider, 'ticketweb');
+  assert.equal(ticketwebCta.isAffiliate, true, 'approved same-event TicketWeb wrapper preserves existing authorized tracking');
+  assert.equal(ticketwebCta.href, ticketwebCatalog.events[0].affiliateUrl);
+
   const cta = buildTexasEventCarouselItemsServer(records)[0].ticketCta;
   assert.equal(cta.isAffiliate, true);
   assert.equal(cta.label, 'Find Tickets →');
