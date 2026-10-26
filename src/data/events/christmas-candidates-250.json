@@ -885,7 +885,19 @@
       "intakeId": 106,
       "title": "Houston Alley Theatre A Christmas Carol",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "houston-alley-theatre-christmas-carol-2026-1",
+        "houston-alley-theatre-christmas-carol-2026-2",
+        "houston-alley-theatre-christmas-carol-2026-3",
+        "houston-alley-theatre-christmas-carol-2026-4",
+        "houston-alley-theatre-christmas-carol-2026-5",
+        "houston-alley-theatre-christmas-carol-2026-6",
+        "houston-alley-theatre-christmas-carol-2026-7",
+        "houston-alley-theatre-christmas-carol-2026-8",
+        "houston-alley-theatre-christmas-carol-2026-9"
+      ],
+      "researchNote": "2026–27 Alley Theatre season and its official box-office showtime list verify November 15; 21–22; 24; 27–29 and December 4–6; 8–13; 15–20; 22–24; 26–27. Calendar splits these non-contiguous dates instead of implying daily operation. Official admissions only; not Ticketmaster-affiliate inventory."
     },
     {
       "intakeId": 107,
@@ -1850,8 +1862,8 @@
   ],
   "reconciliation": {
     "asOf": "2026-10-26",
-    "calendarCandidates": 75,
+    "calendarCandidates": 76,
     "authorityCandidates": 12,
-    "remainingCandidates": 163
+    "remainingCandidates": 162
   }
 }
