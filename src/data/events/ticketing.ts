@@ -14,7 +14,7 @@ const NON_ACTIONABLE_SALE_STATUSES = new Set<TexasEventTicketLink["saleStatus"]>
 
 export interface ResolvedEventTicketCta {
   href: string;
-  label: "Find Tickets →" | "Official Tickets →";
+  label: "Find Tickets →" | "Official Tickets →" | "Resale Tickets →" | "View Tickets →";
   provider: TexasEventTicketProvider;
   isAffiliate: boolean;
   rel: "sponsored nofollow noopener noreferrer" | "noopener noreferrer";
@@ -134,10 +134,16 @@ export function resolveEventTicketCta(ticketing: TexasEventTicketingMetadata | u
     if (!href || isExpired(link.officialExpiresAt, now)) continue;
     return {
       href,
-      label: "Official Tickets →",
+      label: link.provider === "vivid-seats" ? "Resale Tickets →"
+        : link.provider === "seatgeek" ? "View Tickets →" : "Official Tickets →",
       provider: link.provider,
       isAffiliate: false,
       rel: "noopener noreferrer",
+      disclosure: link.provider === "vivid-seats"
+        ? "Third-party resale marketplace · not the event organizer's box office. Ticket prices and fees may differ from face value."
+        : link.provider === "seatgeek"
+          ? "SeatGeek may offer primary or resale tickets. Confirm ticket type, seller, and total fees before purchasing."
+          : undefined,
       sourceName: link.source.name,
       lastVerifiedAt: link.lastVerifiedAt,
     };

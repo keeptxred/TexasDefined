@@ -27,7 +27,7 @@ requireText(affiliateClick, "affiliate_event_id: eventId", "event-specific affil
 for (const provider of ["official", "ticketmaster", "ticketweb", "live-nation", "etix", "axs", "eventbrite", "seatgeek", "vivid-seats", "other"]) requireText(contract, `\"${provider}\"`, "provider contract");
 for (const field of ["provider: TexasEventTicketProvider", "officialTicketUrl?: string", "affiliateUrl?: string", "saleStatus: TexasEventTicketSaleStatus", "source: TexasEventTicketSource", "lastVerifiedAt: string", "officialExpiresAt?: string", "affiliateExpiresAt?: string"]) requireText(contract, field, "ticket-link contract");
 for (const status of ["on-sale", "presale", "registration", "not-on-sale-yet", "sold-out", "off-sale", "cancelled", "unknown"]) requireText(contract, `\"${status}\"`, "sale-status contract");
-for (const token of ["approvedAffiliateHref", "safeHttpsUrl", 'url.protocol === "https:"', "isExpired", "NON_ACTIONABLE_SALE_STATUSES", "rankedLinks", "affiliateExpiresAt", "officialExpiresAt", 'label: "Find Tickets →"', 'label: "Official Tickets →"', 'rel: "sponsored nofollow noopener noreferrer"', 'rel: "noopener noreferrer"', "resolveEventTicketCta"]) requireText(resolver, token, "ticket resolver");
+for (const token of ["approvedAffiliateHref", "safeHttpsUrl", 'url.protocol === "https:"', "isExpired", "NON_ACTIONABLE_SALE_STATUSES", "rankedLinks", "affiliateExpiresAt", "officialExpiresAt", 'label: "Find Tickets →"', 'label: link.provider === "vivid-seats" ? "Resale Tickets →"', 'link.provider === "seatgeek" ? "View Tickets →" : "Official Tickets →"', 'rel: "sponsored nofollow noopener noreferrer"', 'rel: "noopener noreferrer"', "resolveEventTicketCta"]) requireText(resolver, token, "ticket resolver");
 for (const token of ["providerForVerifiedTicketUrl(url)", "uniqueTicketUrls", "new Set(offers.map((offer) => offer.url))", "officialTicketUrl: url", 'saleStatus: "unknown"', 'kind: "official-event"', "lastVerifiedAt", "priority: index"]) requireText(adapter, token, "official ticket normalization");
 if (adapter.includes("affiliateUrl:")) failures.push("official-source adapter must not fabricate affiliate URLs");
 for (const token of ['publicTicketHostname', 'providerForVerifiedTicketUrl', 'ticketmaster.com', 'ticketweb.com', 'livenation.com', 'etix.com', 'axs.com', 'seatgeek.com', 'vividseats.com', 'eventbrite.com']) {
@@ -158,6 +158,18 @@ for (const invalid of [
 }
 const unapprovedPartner = resolveEventTicketCta({ links: [{ ...base, provider: 'seatgeek', officialTicketUrl: 'https://seatgeek.com/event/123', affiliateUrl: 'https://seatgeek.com/aff/123' }], offers: [] }, now);
 if (!unapprovedPartner || unapprovedPartner.isAffiliate) throw new Error('unapproved partner incorrectly marked sponsored');
+const resale = resolveEventTicketCta({ links: [{ ...base, provider: 'vivid-seats',
+  source: { kind: 'official-event', name: 'Vivid Seats' },
+  officialTicketUrl: 'https://www.vividseats.com/concerts' }], offers: [] }, now);
+if (!resale || resale.label !== 'Resale Tickets →' || resale.isAffiliate || !resale.disclosure?.includes('resale marketplace')) {
+  throw new Error('Known resale marketplace must have truthful unsponsored disclosure');
+}
+const mixedMarketplace = resolveEventTicketCta({ links: [{ ...base, provider: 'seatgeek',
+  source: { kind: 'official-event', name: 'SeatGeek' },
+  officialTicketUrl: 'https://seatgeek.com/events/some-event' }], offers: [] }, now);
+if (!mixedMarketplace || mixedMarketplace.label !== 'View Tickets →' || mixedMarketplace.isAffiliate) {
+  throw new Error('Mixed primary and resale marketplace must not claim official primary admission');
+}
 const sourceSpoof = resolveEventTicketCta({ links: [{ ...base, source: { kind: 'manual-verified', name: 'Ticketmaster' }, officialTicketUrl: official, affiliateUrl: approved }], offers: [] }, now);
 if (!sourceSpoof || sourceSpoof.isAffiliate) throw new Error('unqualified affiliate source accepted');
 const credentialsLink = resolveEventTicketCta({ links: [{ ...base, officialTicketUrl: 'https://user:pw@tickets.example.com/buy' }], offers: [] }, now);
