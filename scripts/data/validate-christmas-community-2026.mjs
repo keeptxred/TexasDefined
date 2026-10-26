@@ -76,6 +76,17 @@ for (const [idx,begin,end] of [
   assert.ok(event.summary.includes("Children younger than six"),
     `${slug}: official child-admission rules are important trip-planning context`);
 }
+// The original source must retain both Dec 26 and Dec 27. Only the shared
+// /events projection is allowed to split the last day for its individually
+// reviewed Dec 27 matinee, preventing duplicate editorial calendar cards.
+assert.match(adapter, /finalAlleyMatinee = christmasPerformances.find/, "Final dated matinee requires a reviewed Christmas record");
+assert.match(adapter, /event.slug === "houston-alley-theatre-christmas-carol-2026-9"/, "Only the known last community occurrence may be shortened");
+assert.match(adapter, /event.endDate === "2026-12-27"/, "Guard exact confirmed community window");
+assert.match(adapter, /records\[communityIndex\] = \{ \.\.\.records\[communityIndex\], endDate: "2026-12-26" \}/,
+  "Preserve Dec 26 in community calendar, reserve Dec 27 for curated matinee");
+assert.ok(bySlug.get("houston-alley-theatre-christmas-carol-2026-9").endDate === "2026-12-27",
+  "The source and Christmas community guide must retain both officially confirmed dates");
+
 assert.ok(!bySlug.has("houston-alley-theatre-christmas-carol-2026-all-dates"),
   "No fabricated continuous Alley Theatre performance dates");
 
