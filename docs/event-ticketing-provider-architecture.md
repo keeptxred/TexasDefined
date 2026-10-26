@@ -133,6 +133,10 @@ Major-event authority pages use the same reviewed provider-neutral outbound reso
 
 The heading is **Check ticket options** rather than **Current ticket availability**. A provider record marked on-sale, a valid destination URL, and a click are not evidence of seats in inventory. The provider determines current prices, final fees and purchase eligibility. Each distinct session remains independently identified and is never combined with another venue, matinee or add-on.
 
+## Provider-specific HTTP failure reporting
+
+The daily rotating Ticketmaster/TicketWeb public-link probe now writes `providerOutcomes` to `statewide.ticketLinkProbeLatestRun` in the authoritative ledger and prints the same breakdown in workflow logs. A Ticketmaster HTTP 403 is `ACCESS_RESTRICTED_INCONCLUSIVE`; a TicketWeb HTTP 530 is `PROVIDER_SERVER_ERROR_INCONCLUSIVE`. Neither is proof of a broken admission link, sold-out seats, or stale event identity. If every probe is inconclusive, the workflow emits a **notice**, not a false-positive validation failure or an automatic deletion. Genuine 404/410 or unrelated redirects still require explicit review before any purchase URL changes. New tests cover the per-provider classifications and missing-result behavior.
+
 ## No checkout
 
 TexasDefined does not collect ticket payment, seat selection, billing data, order data, or ticket inventory. `EventTicketCta` always opens the external provider in a new browsing context. The provider owns checkout, fulfillment, refunds, fees, inventory, availability, and customer-service obligations.
