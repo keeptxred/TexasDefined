@@ -11,8 +11,20 @@ export const majorEventSchemaEnrichmentBatch27: MajorEventSchemaEnrichment[] = [
   },
   {
     slug: "mardi-gras-upriver-jefferson",
+    image: {
+      url: "https://commons.wikimedia.org/wiki/Special:Redirect/file/JeffersonTx1.JPG?width=1600",
+      alt: "Austin Street Mercantile and historic downtown Jefferson, Texas in April 2015; actual Mardi Gras Upriver town-center setting, not the 2027 festival",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:JeffersonTx1.JPG",
+      sourceType: "wikimedia",
+      licenseName: "CC BY-SA 4.0 — Renelibrary",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+      rightsNote: "Renelibrary's own photograph of historic downtown Jefferson's Austin Street Mercantile, taken April 22, 2015, near the 2027 Mardi Gras Upriver gathering at The Alley, 113 West Austin Street. This is a historical venue-area streetscape, not a photograph of the 2027 festival. Attribution: Renelibrary, CC BY-SA 4.0; any layout crops or adaptations are likewise offered under CC BY-SA 4.0.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
     organizer: { type: "Organization", name: "Krewe of Hebe", url: "https://mardigrasupriver.com/events/" },
-    sources: [{ label: "Official organizer or state tourism event reference", url: "https://mardigrasupriver.com/events/" }],
+    sources: [{ label: "Official organizer or state tourism event reference", url: "https://mardigrasupriver.com/events/" },
+      { label: "Jefferson exact-town historic downtown photo and CC BY-SA 4.0 license", url: "https://commons.wikimedia.org/wiki/File:JeffersonTx1.JPG" }],
     verifiedAt: "2026-10-21",
   },
   {
@@ -63,7 +75,19 @@ export const majorEventSchemaEnrichmentBatch27: MajorEventSchemaEnrichment[] = [
   },
   {
     slug: "palestine-mardi-gras-parade",
-    sources: [{ label: "Official organizer or state tourism event reference", url: "https://www.traveltexas.com/event/mardi-gras-parade/6363/" }],
+    image: {
+      url: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Downtown_Palestine_Wiki_4.jpg?width=1600",
+      alt: "Buildings in the Palestine New Town Commercial Historic District in October 2017; downtown parade-area streetscape, not the 2027 Mardi Gras parade",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Downtown_Palestine_Wiki_4.jpg",
+      sourceType: "wikimedia",
+      licenseName: "CC BY-SA 4.0 — Renelibrary",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+      rightsNote: "Renelibrary photographed buildings in Palestine's New Town Commercial Historic District on October 28, 2017. Texas tourism lists the January 30, 2027 Mardi Gras parade in downtown Palestine and the city describes its Main Street District tradition. This is a historic downtown setting photograph, not footage from a parade; credit Renelibrary under CC BY-SA 4.0, with any layout crop or adapted derivative available under the same license.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
+    sources: [{ label: "Official organizer or state tourism event reference", url: "https://www.traveltexas.com/event/mardi-gras-parade/6363/" },
+      { label: "Palestine downtown historic district photo and CC BY-SA 4.0 license", url: "https://commons.wikimedia.org/wiki/File:Downtown_Palestine_Wiki_4.jpg" }],
     verifiedAt: "2026-10-21",
   },
   {
