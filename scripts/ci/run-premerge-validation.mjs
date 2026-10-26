@@ -110,6 +110,7 @@ const prebuildChecks = [
   ['EVENT/CORPORATE/DEPLOY', 'Verify changed corporate marketplace production selection and GET-only SSR acceptance', 'node', ['scripts/ci/validate-corporate-event-production-smoke.mjs']],
   ['EVENT/CORPORATE/GEO', 'Protect source-verified and privacy-safe ZIP-radius prerequisites', 'node', ['--experimental-strip-types', 'scripts/data/validate-corporate-event-verified-proximity.mjs']],
   ['EVENT/CORPORATE/GEO-RESEARCH', 'Quarantine Census address-range interpolations pending actual venue premises verification', 'node', ['scripts/data/research-corporate-event-geocodes.test.mjs']],
+  ['EVENT/CORPORATE/CENSUS-ZCTA', 'Reject unsupported and out-of-state ZIP representative points before research review', 'node', ['scripts/data/validate-corporate-event-census-zcta-review.mjs']],
   ['EVENT/CORPORATE/INTEGRATIONS', 'Enforce fail-closed quote/booking/payment adapter readiness', 'node', ['--experimental-strip-types', 'scripts/data/validate-corporate-event-integrations.mjs']],
   ['EVENT/CORPORATE/OFFERS', 'Enforce verified approved partner host, dated offer and sponsored disclosures', 'node', ['scripts/data/validate-corporate-event-offers.mjs']],
   ['EVENT/CORPORATE/OFFER-DATES', 'Require Texas-local active offer window', 'node', ['--experimental-strip-types', 'scripts/data/validate-corporate-event-offer-local-date.mjs']],
