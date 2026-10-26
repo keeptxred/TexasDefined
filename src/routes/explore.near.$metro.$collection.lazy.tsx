@@ -728,6 +728,46 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
 
     {isMcAllenDayTrips && <McAllenDayTripsAuthority results={results} />}
 
+    {metro.slug === "el-paso" && collection.slug === "day-trips" && <section
+      className="border-b border-border bg-surface" data-el-paso-short-trips="separate-from-distance-results"
+      aria-labelledby="el-paso-close-in-day-outings">
+      <Container className="py-12 sm:py-14">
+        <p className="eyebrow text-primary">Closer than the 18-mile day-trip search window</p>
+        <h2 id="el-paso-close-in-day-outings" className="mt-3 max-w-4xl font-display text-3xl sm:text-4xl">Two worthwhile local outings in El Paso</h2>
+        <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">
+          The geographic list below begins 18 straight-line miles from central El Paso. These two legitimate visitor destinations sit
+          inside that screening distance, so they should not be mistaken for missing parks or counted among the longer-distance results.
+          This is local planning guidance, not a change to the page's source-coverage or indexing threshold.
+        </p>
+        <div className="mt-8 grid gap-8 md:grid-cols-2">
+          <article className="border-t border-border pt-5">
+            <h3 className="font-display text-2xl">Franklin Mountains State Park</h3>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">
+              A desert hiking or mountain-biking outing in El Paso itself. Select the right park access point and trail for your group;
+              TPWD recommends advance day-use reservations because the Tom Mays Unit can reach capacity. Carry water, check park alerts
+              and treat summer exposure seriously.
+            </p>
+            <div className="mt-4 flex flex-wrap gap-x-5 gap-y-3 text-sm font-semibold">
+              <Link to="/destination/$slug" params={{ slug: "franklin-mountains-state-park" }} className="border-b border-primary pb-1 text-primary">Franklin Mountains visitor guide →</Link>
+              <a href="https://tpwd.texas.gov/state-parks/parks/franklin-mountains/" target="_blank" rel="noopener noreferrer" className="border-b border-border pb-1 hover:text-primary">TPWD entry and alerts ↗</a>
+            </div>
+          </article>
+          <article className="border-t border-border pt-5">
+            <h3 className="font-display text-2xl">Chamizal National Memorial</h3>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">
+              Explore borderlands history and the peaceful settlement of an international boundary dispute. NPS lists separate
+              opening hours for the outdoor memorial grounds and the Cultural Center; check those hours and federal holiday closures
+              before planning exhibits or a theater visit.
+            </p>
+            <div className="mt-4 flex flex-wrap gap-x-5 gap-y-3 text-sm font-semibold">
+              <Link to="/destination/$slug" params={{ slug: "chamizal-national-memorial" }} className="border-b border-primary pb-1 text-primary">Chamizal visitor guide →</Link>
+              <a href="https://www.nps.gov/cham/planyourvisit/hours.htm" target="_blank" rel="noopener noreferrer" className="border-b border-border pb-1 hover:text-primary">NPS hours and closures ↗</a>
+            </div>
+          </article>
+        </div>
+      </Container>
+    </section>}
+
     {featuredCityTrips.length > 0 && <section className="border-b border-border bg-surface" data-metro-curated-day-trips={metro.slug} aria-labelledby="metro-featured-day-trips">
       <Container className="py-14 sm:py-18">
         <p className="eyebrow text-primary">A better starting point than the mileage list</p>

@@ -11,7 +11,21 @@ import path from "node:path";
 
 const offline = process.argv.includes("--offline");
 const source = fs.readFileSync("src/data/metro-day-trip-editorial.ts", "utf8");
-const urls = [...new Set([...source.matchAll(/sourceUrl:\s*"(https:\/\/[^"]+)"/g)].map((match) => match[1]))];
+const metroPage = fs.readFileSync("src/routes/explore.near.$metro.$collection.lazy.tsx", "utf8");
+// Close-in El Paso visitor sources are rendered outside the 18–150-mile
+// destination registry but still need the same weekly official-link checks.
+// Keep the scope restricted to the two reviewed local alternatives.
+const elPasoSection = metroPage.split('data-el-paso-short-trips="separate-from-distance-results"')[1]?.split("{featuredCityTrips.length")[0];
+if (!elPasoSection) throw new Error("El Paso close-in trip source section missing");
+const elPasoOperatorLinks = [...elPasoSection.matchAll(/href="(https:\/\/[^"]+)"/g)].map((match) => match[1]);
+if (!elPasoOperatorLinks.includes("https://tpwd.texas.gov/state-parks/parks/franklin-mountains/")
+  || !elPasoOperatorLinks.includes("https://www.nps.gov/cham/planyourvisit/hours.htm")) {
+  throw new Error("El Paso close-in official operator source coverage incomplete");
+}
+const urls = [...new Set([
+  ...[...source.matchAll(/sourceUrl:\s*"(https:\/\/[^"]+)"/g)].map((match) => match[1]),
+  ...elPasoOperatorLinks,
+])];
 const expectedOperators = new Set(["tpwd.texas.gov", "www.nps.gov", "www.fws.gov"]);
 if (urls.length < 20) throw new Error("Day-trip source registry unexpectedly lost operator coverage");
 for (const url of urls) {

@@ -637,3 +637,41 @@ test("Amarillo Viator panel uses the already source-verified Palo Duro marketpla
   assert.ok(rich.includes("hasVerifiedViatorMarketUrl(experienceMarketSlug)"),
     "retain the affiliate quality gate instead of publishing generic tours");
 });
+
+test("El Paso day-trip reader guidance links closer public destinations without changing noindex eligibility", () => {
+  const rich = readFileSync("src/routes/explore.near.$metro.$collection.lazy.tsx", "utf8");
+  const shell = readFileSync("src/routes/explore.near.$metro.$collection.tsx", "utf8");
+  const proximity = readFileSync("src/data/metro-proximity.ts", "utf8");
+  assert.ok(rich.includes('metro.slug === "el-paso" && collection.slug === "day-trips"'),
+    "the extra guidance must not bleed into other metro collections");
+  assert.ok(rich.includes('data-el-paso-short-trips="separate-from-distance-results"'),
+    "the close-in local choices must be visibly separate from 18–150-mile results");
+  for (const slug of ["franklin-mountains-state-park", "chamizal-national-memorial"]) {
+    assert.ok(rich.includes('slug: "' + slug + '"'), "link an actual published authority guide: " + slug);
+  }
+  assert.ok(rich.includes("https://tpwd.texas.gov/state-parks/parks/franklin-mountains/"));
+  assert.ok(rich.includes("https://www.nps.gov/cham/planyourvisit/hours.htm"));
+  assert.ok(rich.includes("advance day-use reservations"));
+  assert.ok(rich.includes("separate"));
+  assert.ok(rich.includes("not a change to the page's source-coverage or indexing threshold"));
+  const pageData = readFileSync("src/data/metro-proximity-page-data.server.ts", "utf8");
+  assert.ok(pageData.includes("isMetroProximityCollectionIndexReadyWithTownReferences(destinations, metro, collection)"),
+    "retain independent source-backed collection eligibility");
+  assert.ok(pageData.includes('const robots = indexReady ? "index, follow, max-image-preview:large" : "noindex, follow"'),
+    "reader guidance must not override server-owned indexability and robots");
+  assert.ok(shell.includes("!indexReady"),
+    "keep the visible noindex/quality explanation for thin city pages");
+  assert.ok(proximity.includes("minResults: 10"), "do not lower geographic count floor");
+  assert.ok(proximity.includes("minCounties: 4"), "do not lower diverse-county floor");
+  assert.ok(proximity.includes("minimumMiles: 18"), "do not misrepresent inner-ring guidance as eligible day trips");
+  const browser = readFileSync("scripts/ci/verify-metro-day-trips-production.mjs", "utf8");
+  assert.ok(browser.includes('if(metro==="el-paso")'),
+    "production desktop/mobile checks must inspect El Paso's local-guide complement");
+  assert.ok(browser.includes('El Paso close-in outings are distinct from governed distance inventory'),
+    "the browser contract must enforce the two local visitor guides and official sources");
+  const sourceMonitor = readFileSync("scripts/data/check-metro-day-trips-sources.mjs", "utf8");
+  assert.ok(sourceMonitor.includes('data-el-paso-short-trips="separate-from-distance-results"'),
+    "weekly scheduled source monitor must include official URLs introduced in the El Paso local guide");
+  assert.ok(sourceMonitor.includes("elPasoOperatorLinks"),
+    "don't leave the NPS Chamizal visitor link outside ongoing source-health monitoring");
+});
