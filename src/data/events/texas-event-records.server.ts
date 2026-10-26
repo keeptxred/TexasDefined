@@ -2,7 +2,7 @@ import { getGeneratedTexasEvents } from "../events-generated";
 import { loadTicketmasterEventsServer } from "./ticketmaster-events.server";
 import { getOfficialVenueEventSnapshots } from "./official-venue-events.server";
 import { getVerifiedChristmasCommunityEvents2026 } from "./christmas-community-2026.server";
-import { getVerifiedChristmasPerformanceCalendarRecords2026, isSameChristmasPerformanceCalendarEvent } from "./christmas-performances-2026.server";
+import { getVerifiedChristmasPerformanceCalendarRecords2026, isSameChristmasPerformanceCalendarEvent, isReviewedChristmasTicketmasterDoorTime } from "./christmas-performances-2026.server";
 import { loadTpwdEventRecordsServer } from "./tpwd-event-records.server";
 import { loadMajorEventGuideDirectoryServer, type MajorEventGuideDirectoryItem } from "../major-event-directory.server";
 import { getMajorEventRecordServer, getMajorEventOccurrenceWindowsServer } from "../major-event-page.server";
@@ -317,7 +317,10 @@ export function loadTexasEventRecordsServer(): TexasEventRecord[] {
       isSameChristmasPerformanceCalendarEvent(performance, providerRecord));
     const curatedIndex = curatedMatch
       ? records.findIndex((record) => isSameChristmasPerformanceCalendarEvent(curatedMatch, record)
-        && performanceMatches(record))
+        && ticketmasterVenueMatches(record, providerRecord)
+        && (ticketmasterShowtimeMatches(record, providerRecord, sameVenueProviderCount)
+          || (record.id === curatedMatch.id
+            && isReviewedChristmasTicketmasterDoorTime(record, providerRecord, sameVenueProviderCount))))
       : -1;
     const index = exactIndex ?? curatedIndex;
     if (index === -1 || index === undefined) {
