@@ -131,3 +131,27 @@ test('summarize vendor-specific restricted and inconclusive results without impl
   assert.deepEqual(summarizeProviderProbeOutcomes([list[0]],{}),
     {ticketmaster:{NOT_RECORDED_INCONCLUSIVE:1}});
 });
+
+test('daily automation skips recent identical probes despite rolling date-index changes', () => {
+  const now = new Date();
+  const futureDate = new Date(now.getTime()+4*86400000).toISOString().slice(0,10);
+  const events = ['alpha','beta','gamma'].map((id) => ({
+    id, name:'Admission '+id, startDate:futureDate,
+    officialUrl:'https://www.ticketmaster.com/'+id+'/event/'+id.toUpperCase(),
+    status:'onsale',
+  }));
+  const history = Object.fromEntries(events.slice(0,2).map((event) => [event.id, {
+    eventId:event.id, date:event.startDate, officialUrl:event.officialUrl,
+    checkedAt:now.toISOString(), probeStatus:'ACCESS_RESTRICTED_INCONCLUSIVE',
+  }]));
+  const next=chooseBatch(events,40,40,history,now);
+  assert.deepEqual(next.candidates.map((row)=>row.id), ['gamma']);
+  assert.equal(next.pendingToCheck,1);
+  const changed = {...events[0], officialUrl:'https://www.ticketmaster.com/alpha/event/NEWID'};
+  const correction=chooseBatch([changed,events[1]],0,40,history,now);
+  assert.deepEqual(correction.candidates.map((row)=>row.id),['alpha']);
+  const staleHistory = {...history, beta:{...history.beta,checkedAt:new Date(now.getTime()-15*86400000).toISOString()}};
+  const stale=chooseBatch(events,0,40,staleHistory,now);
+  assert.deepEqual(stale.candidates.map((row)=>row.id),['beta','gamma']);
+  assert.equal(stale.total,3);
+});
