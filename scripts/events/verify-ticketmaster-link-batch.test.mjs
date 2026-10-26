@@ -133,6 +133,21 @@ test('summarize vendor-specific restricted and inconclusive results without impl
     {ticketmaster:{NOT_RECORDED_INCONCLUSIVE:1}});
 });
 
+test('batch selection uses the supplied clock and the Texas-local day across midnight', () => {
+  const cases = ['2032-01-03','2032-01-04','2032-01-05'].map((startDate, index) => ({
+    id: String(index), name: 'Verified admission '+index, startDate,
+    officialUrl: 'https://www.ticketmaster.com/example/event/ABC'+index,
+    status: 'onsale',
+  }));
+  // At 04:10 UTC it is still 10:10 PM Jan 4 in Texas.
+  const texasJan4 = chooseBatch(cases, 0, 40, null, new Date('2032-01-05T04:10:00Z'));
+  assert.deepEqual(texasJan4.candidates.map((row) => row.startDate), ['2032-01-04','2032-01-05']);
+  // At 13:00 UTC the Texas-local day has advanced to Jan 5.
+  const texasJan5 = chooseBatch(cases, 0, 40, null, new Date('2032-01-05T13:00:00Z'));
+  assert.deepEqual(texasJan5.candidates.map((row) => row.startDate), ['2032-01-05']);
+  assert.equal(texasJan5.pendingToCheck, 1);
+});
+
 test('daily automation skips recent identical probes despite rolling date-index changes', () => {
   const now = new Date();
   const futureDate = new Date(now.getTime()+4*86400000).toISOString().slice(0,10);
