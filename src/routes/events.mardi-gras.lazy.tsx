@@ -165,7 +165,7 @@ function MardiGrasTexasPage() {
         <p className="mt-10 text-sm font-semibold">Texas events • Carnival season 2027</p>
         <h1 className="mt-4 max-w-4xl font-display text-5xl sm:text-6xl">Mardi Gras in Texas</h1>
         <p className="mt-5 max-w-3xl text-xl leading-8">From Galveston's landmark parades to East Texas krewes, a Cowboy Capital street party and bayside boat parades, find the Texas Mardi Gras celebration worth the trip.</p>
-        <p className="mt-5 max-w-3xl text-sm leading-7">Dates and organizers verified October 21, 2026. Mardi Gras falls on Tuesday, February 9, 2027. Events don't all run on Fat Tuesday — always choose a specific programmed day.</p>
+        <p className="mt-5 max-w-3xl text-sm leading-7">Main celebrations source-checked October 21, 2026; companion events reviewed October 25, 2026. Mardi Gras falls on Tuesday, February 9, 2027. Events don't all run on Fat Tuesday — always choose a specific programmed day.</p>
         <div className="mt-8 flex flex-wrap gap-3">
           <a href="#confirmed" className="inline-flex min-h-11 items-center bg-primary px-5 py-3 font-semibold text-primary-foreground hover:opacity-90">Explore verified dates ↓</a>
           <a href="#planning" className="inline-flex min-h-11 items-center border border-border px-5 py-3 font-semibold">Plan your Mardi Gras trip ↓</a>
@@ -202,6 +202,35 @@ function MardiGrasTexasPage() {
           </article>)}
         </div>
         <p className="mt-5 text-sm leading-7 text-muted-foreground">* Bandera tourism's detailed event page spans January 28–31, while its general save-the-date page lists January 28–30. The January 30 parade is confirmed but the Sunday program needs rechecking. Kemah's February 6 boat parade and February 9 street parade are separate events.</p>
+      </section>
+
+      <section id="companion-events" className="mt-14 border-t border-border pt-10">
+        <p className="eyebrow text-primary">Confirmed companion events</p>
+        <h2 className="mt-3 font-display text-4xl">More dated Mardi Gras events in Texas for 2027</h2>
+        <p className="mt-4 max-w-4xl leading-7 text-muted-foreground">These are distinct Carnival-season activities confirmed by their own organizers or local event publishers. They are <strong>not</strong> additional days of the parades above, and admission or fundraising rules vary. Published event information was checked October 25, 2026.</p>
+        <div className="mt-7 grid gap-5 md:grid-cols-3">
+          <article className="border border-border p-6">
+            <p className="text-xs font-semibold text-muted-foreground">Crystal Beach · Saturday, January 16 · 5–8 p.m.</p>
+            <h3 className="mt-2 font-display text-2xl">Chicken Run &amp; Gumbo Cook-off</h3>
+            <p className="mt-3 leading-7 text-muted-foreground">A Motley Krewe-supported event at Swedes Festival Park, 1605 Highway 87, benefiting the Bolivar Peninsula's volunteer fire departments. The publisher lists a January 16 evening activity; confirm the evolving program and entry terms before arriving. This is separate from the February 6 Crystal Beach highway parade.</p>
+            <a href="https://bolivarpeninsulatexas.com/event/courir-de-mardi-gras" target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex font-semibold text-primary underline">Local 2027 event listing ↗</a>
+            <p className="mt-3 text-sm"><a href="/event/crystal-beach-mardi-gras-parade" className="font-semibold text-primary underline">February 6 parade guide →</a></p>
+          </article>
+          <article className="border border-border p-6">
+            <p className="text-xs font-semibold text-muted-foreground">Jefferson · Saturday, January 23 · 8 p.m.–midnight</p>
+            <h3 className="mt-2 font-display text-2xl">Queen Mab Ball</h3>
+            <p className="mt-3 leading-7 text-muted-foreground">The Krewe of Hebe's ticketed, formal Viva Las Vegas gala at the Jefferson Convention &amp; Visitors Center, 305 East Austin Street. The organizer lists a separate admission process and dress expectations. The main Mardi Gras Upriver festival runs February 5–7, not January 23.</p>
+            <a href="https://mardigrasupriver.com/queen-mab-ball-2/" target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex font-semibold text-primary underline">Organizer's 2027 ball details ↗</a>
+            <p className="mt-3 text-sm"><a href="/event/mardi-gras-upriver-jefferson" className="font-semibold text-primary underline">February festival guide →</a></p>
+          </article>
+          <article className="border border-border p-6">
+            <p className="text-xs font-semibold text-muted-foreground">Beaumont · Friday, February 5 · 6 p.m.</p>
+            <h3 className="mt-2 font-display text-2xl">Lagniappe Mardi Gras Soirée</h3>
+            <p className="mt-3 leading-7 text-muted-foreground">The Junior League of Beaumont advertises this fundraising evening at The Event Centre, 700 Crockett Street, with dining, entertainment and auctions. Do not confuse it with January's Circle of Hope Pardi Gras or the separate Mardi Gras of Southeast Texas public festival. The organizer's page also contains old 2024 luncheon prices; those are <strong>not</strong> verified 2027 soirée ticket prices.</p>
+            <a href="https://juniorleaguebeaumont.org/lagniappe-mardi-gras-soiree/" target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex font-semibold text-primary underline">Junior League 2027 information ↗</a>
+            <p className="mt-3 text-sm"><a href="/event/beaumont-pardi-gras" className="font-semibold text-primary underline">Different January charity gala →</a></p>
+          </article>
+        </div>
       </section>
 
       <section id="choose" className="mt-14 border-t border-border pt-10">
