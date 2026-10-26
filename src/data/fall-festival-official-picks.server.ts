@@ -1,4 +1,6 @@
-// Official-source 2026 fall events lacking permanent TexasDefined event guides.
+import { generatedTexasEvents } from "./generated/texas-events.ts";
+
+// Organizer-confirmed 2026 fallback dates, retained only until their end date.
 // These are not counted as "verified guides" or as affiliate placements.
 // A new year requires fresh organizer evidence; never shift dates by 365 days.
 export const FALL_OFFICIAL_PICKS = [
@@ -42,7 +44,81 @@ export function texasToday(now: Date) {
   return `${part("year")}-${part("month")}-${part("day")}`;
 }
 
-export function activeOfficialFallPicks(now = new Date()) {
+interface GeneratedFallEvent {
+  id: string;
+  name: string;
+  city: string;
+  startDate: string;
+  endDate?: string;
+  officialUrl: string;
+  sourceCheckedAt?: string;
+  status?: string;
+}
+
+interface FallOfficialPick {
+  name: string;
+  city: string;
+  region: string;
+  startDate: string;
+  endDate: string;
+  officialUrl: string;
+  summary: string;
+  sourceCheckedAt: string;
+}
+
+const governedOfficialFallSources = [
+  { idPrefix: "official:texas-pumpkin-fest:", name: "Texas Pumpkin Fest", city: "Leander", url: "https://texaspumpkinfest.com/",
+    summary: "Pumpkins, family entertainment, carnival rides and seasonal food. Check the organizer for exact operating days and admission." },
+  { idPrefix: "official:houston-pumpkin-festival:", name: "Houston Pumpkin Festival", city: "Houston", url: "https://www.houstonpumpkinfest.com/",
+    summary: "Pumpkin displays and family attractions at Discovery Green in downtown Houston; check the current daily operating schedule." },
+  { idPrefix: "official:uhland-fall-fest:", name: "Uhland Fall Fest", city: "Uhland", url: "https://uhlandfallfest.com/",
+    summary: "Pumpkins, farm animals, games, music and artisan vendors near Kyle and San Marcos. Check published weekend operating hours." },
+] as const;
+
+// The scheduled Sync Texas Events workflow produces only explicit year-stamped
+// dates from these named official sources. Never infer an occurrence from the
+// prior year, a third-party listing or a generic month/weekend recurrence.
+export function activeOfficialFallPicks(now = new Date(), generatedRows: readonly GeneratedFallEvent[] = generatedTexasEvents) {
   const today = texasToday(now);
-  return FALL_OFFICIAL_PICKS.filter((event) => event.endDate >= today && event.startDate <= `${today.slice(0, 4)}-11-30`);
+  const year = Number(today.slice(0, 4)) + (today.slice(5, 7) > "11" ? 1 : 0);
+  const seasonStart = `${year}-09-01`;
+  const seasonEnd = `${year}-11-30`;
+  const stored = FALL_OFFICIAL_PICKS.map((event) => ({ ...event }));
+  const seen = new Set(stored.map((event) => `${event.name}:${event.startDate.slice(0, 4)}`));
+  const result: FallOfficialPick[] = [...stored];
+
+  for (const row of generatedRows) {
+    const source = governedOfficialFallSources.find((candidate) =>
+      row.id.startsWith(candidate.idPrefix)
+      && row.name === candidate.name
+      && row.city === candidate.city
+      && row.officialUrl === candidate.url,
+    );
+    const endDate = row.endDate ?? row.startDate;
+    // Do not allow unreviewed event rows, malformed dates, completed years or
+    // unexpectedly long spans to enter this seasonal discovery collection.
+    if (!source || row.status !== "published" || !row.sourceCheckedAt
+      || !/^20\d{2}-(0[1-9]|1[0-2])-([0-2]\d|3[01])$/.test(row.startDate)
+      || !/^20\d{2}-(0[1-9]|1[0-2])-([0-2]\d|3[01])$/.test(endDate)
+      || endDate < row.startDate || endDate > seasonEnd
+      || row.startDate < seasonStart) continue;
+    const key = `${row.name}:${row.startDate.slice(0, 4)}`;
+    // The individually reviewed 2026 records take precedence over an
+    // automatically scraped range for that same edition.
+    if (seen.has(key)) continue;
+    seen.add(key);
+    result.push({
+      name: source.name,
+      city: source.city,
+      region: source.city === "Houston" ? "gulf-coast" : "hill-country",
+      startDate: row.startDate,
+      endDate,
+      officialUrl: source.url,
+      summary: source.summary,
+      sourceCheckedAt: row.sourceCheckedAt.slice(0, 10),
+    });
+  }
+
+  return result.filter((event) => event.endDate >= today && event.startDate <= seasonEnd && event.endDate >= seasonStart)
+    .sort((a, b) => a.startDate.localeCompare(b.startDate) || a.name.localeCompare(b.name));
 }

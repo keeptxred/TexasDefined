@@ -64,6 +64,34 @@ test("official fall-source picks expire by the last confirmed date, without gues
   assert.equal(followingSeason.length, 0);
 });
 
+test("daily official-source sync can surface a new confirmed year without rolling 2026 dates forward", () => {
+  const verified2027 = {
+    id: "official:texas-pumpkin-fest:2027-10-09",
+    name: "Texas Pumpkin Fest", city: "Leander", startDate: "2027-10-09",
+    endDate: "2027-11-01", officialUrl: "https://texaspumpkinfest.com/",
+    sourceCheckedAt: "2027-07-14T08:00:00Z", status: "published",
+  };
+  const december = new Date("2026-12-15T17:00:00Z");
+  assert.equal(activeOfficialFallPicks(december, []).length, 0, "2026 dates must not recur automatically");
+  const nextSeason = activeOfficialFallPicks(december, [verified2027]);
+  assert.equal(nextSeason.length, 1);
+  assert.equal(nextSeason[0].name, "Texas Pumpkin Fest");
+  assert.equal(nextSeason[0].startDate, "2027-10-09");
+  assert.equal(nextSeason[0].sourceCheckedAt, "2027-07-14");
+  assert.equal(activeOfficialFallPicks(december, [{ ...verified2027, officialUrl: "https://example.com/" }]).length, 0);
+  assert.equal(activeOfficialFallPicks(december, [{ ...verified2027, sourceCheckedAt: "" }]).length, 0);
+  assert.equal(activeOfficialFallPicks(december, [{ ...verified2027, status: "pending" }]).length, 0);
+  assert.equal(activeOfficialFallPicks(december, [{ ...verified2027, startDate: "2026-10-09" }]).length, 0);
+  assert.equal(activeOfficialFallPicks(new Date("2027-11-02T17:00:00Z"), [verified2027]).length, 0);
+});
+
+test("daily sync is limited to three named first-party autumn sources", () => {
+  const sync = readFileSync("scripts/events/sync-texas-events-safe.mjs", "utf8");
+  for (const name of ['key: "texas-pumpkin-fest"', 'key: "houston-pumpkin-festival"', 'key: "uhland-fall-fest"', "requireNamedSource: true"]) {
+    assert.ok(sync.includes(name), `missing safe official-source guard: ${name}`);
+  }
+});
+
 test("page exposes filter controls and machine-readable expiration attributes for the daily live check", () => {
   const view = readFileSync("src/routes/events.$collection.tsx", "utf8");
   for (const feature of ["FallFestivalBrowser", "data-fall-end-date", "data-fall-name", "Filter festivals by Texas region", "Filter festivals by month", "Filter festivals by type", "fall-festival-hotel-search", "/events/christmas-events"]) {
