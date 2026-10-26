@@ -80,7 +80,7 @@ export function primaryAdmissionProbeCandidate(event) {
 }
 
 export function chooseBatch(events, cursor, size = LIMIT, history = null, now = new Date()) {
-  const localParts = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Chicago', year: 'numeric', month: '2-digit', day: '2-digit' }).formatToParts(new Date());
+  const localParts = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Chicago', year: 'numeric', month: '2-digit', day: '2-digit' }).formatToParts(now);
   const localPart = (name) => localParts.find((part) => part.type === name)?.value ?? '00';
   const texasToday = [localPart('year'), localPart('month'), localPart('day')].join('-');
   const eligible = events.filter((event) => event && event.id && event.officialUrl

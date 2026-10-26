@@ -43,7 +43,7 @@ export function getOfficialVenueEventSnapshots(): TexasEventRecord[] {
       id: `official-venue:choctaw-stadium:${startDate}`,
       slug: sourceSlug,
       title,
-      summary: "Arlington-area high-school football at Choctaw Stadium. Verify the schedule, admission and any changes with the stadium before traveling.",
+      summary: "Arlington-area high-school football at Choctaw Stadium. The stadium publishes a shared GoFan school listing and says game tickets go on sale the preceding Sunday. Open this exact stadium game page to choose the correct matchup; a general school listing is not a verified game-specific checkout.",
       guidePath: `/events?venue=sports-venue%3Achoctaw-stadium&start=${startDate}&end=${startDate}#calendar`,
       startDate,
       startTime: "7:00 PM",
@@ -56,17 +56,11 @@ export function getOfficialVenueEventSnapshots(): TexasEventRecord[] {
       region: "prairies-lakes",
       category: "sport",
       officialEventUrl: url,
-      ticketing: {
-        links: [{
-          provider: "official",
-          officialTicketUrl: "https://gofan.co/app/school/TX11743?activity=Football&gender=Boys&level=Varsity",
-          saleStatus: "unknown",
-          source: { kind: "official-venue", name: "Choctaw Stadium official event page", url },
-          lastVerifiedAt: "2026-10-08",
-          priority: 0,
-        }],
-        offers: [],
-      },
+      // The stadium sends ALL 2026 fixtures to the same GoFan school catalog,
+      // including games not yet on sale. Until the organizer publishes a URL
+      // identifying this precise game, do not label the catalog as a verified
+      // event-specific "Official Tickets" checkout. The exact official game
+      // page above still links to the stadium's approved GoFan selector.
       status: "scheduled",
       lastVerifiedAt: "2026-10-08",
       lastUpdatedAt: "2026-10-08",
