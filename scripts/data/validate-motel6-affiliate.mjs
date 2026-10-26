@@ -88,7 +88,7 @@ assert.ok(liveWorkflow.includes('github.event.workflow_run.conclusion == \'succe
 for (const marker of [
   "route: '/article/texas-high-school-football-playoffs-explained'",
   'requireMotel6Football: true',
-  "data-commercial-partner=\\\"motel6\\\"",
+  'data-commercial-partner="motel6"',
   'https://www.tqlkg.com/click-101876465-17198227',
 ]) assert.ok(liveVerifier.includes(marker), 'missing live Motel 6 football acceptance marker: ' + marker);
 console.log('Motel 6 CJ URL, placement, CTA, analytics and expiration gates validated.');
