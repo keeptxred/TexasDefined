@@ -442,7 +442,7 @@ function holidayName(name: string) {
 function fallFestivalName(name: string) {
   // Named community, harvest, food, culture and fair traditions. A September–
   // November occurrence by itself is not enough to make an event a festival.
-  return /festival|oktoberfest|\bfest\b|festivals|\bfair\b|harvest|pumpkin|autumn|fall|fiesta|heritage|folk|craft|arts|art show|rodeo|round.?up|antique|celebration|parade|chili|cook.?off|food|blues|jazz|music|market|carnival|scarecrow|halloween/i.test(name);
+  return /festival|oktoberfest|fest\b|festivals|\bfair\b|harvest|pumpkin|autumn|fall|fiesta|heritage|folk|craft|arts|art show|rodeo|round.?up|antique|celebration|parade|chili|cook.?off|food|blues|jazz|music|market|carnival|scarecrow|halloween/i.test(name);
 }
 
 function countyFairName(name: string) {
