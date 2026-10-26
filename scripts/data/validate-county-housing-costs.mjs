@@ -105,7 +105,7 @@ for (const token of ['getTexasCountyHousingCosts', 'countyHousingCosts?.availabl
 if (!hub.includes("['County housing costs', '/texas-data/county-housing-costs'")) errors.push('Texas Data hub must link to county housing costs.');
 
 if (!Number.isInteger(snapshot.year) || snapshot.year < 2024 || snapshot.year >= new Date().getUTCFullYear() ||
-    snapshot.release !== `2020–${snapshot.year} ACS 5-Year Estimates`) {
+    snapshot.release !== `${snapshot.year - 4}–${snapshot.year} ACS 5-Year Estimates`) {
   errors.push(`ACS snapshot release metadata is unexpected: ${snapshot.release || 'missing'} / ${snapshot.year || 'missing year'}`);
 }
 if (snapshot.sourcePage !== `https://www.census.gov/programs-surveys/acs/data/summary-file.${snapshot.year}.html`) {
