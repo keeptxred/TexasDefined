@@ -55,7 +55,7 @@ jobs:
           test -n "$CHROME_BIN"
           echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
           npm install --prefix /tmp/texasdefined-metro-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
-      - name: Check curated metro guides at desktop and mobile sizes
+      - name: Check fourteen curated metro guides at desktop and mobile sizes
         run: node scripts/ci/verify-metro-day-trips-production.mjs
       - name: Preserve screenshots and machine-readable evidence
         if: always()
