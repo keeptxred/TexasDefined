@@ -31,8 +31,21 @@ export function ticketmasterVenueMatches(
   // Even a shared canonical venue ID cannot turn a parking/VIP location
   // into normal admission. Apply that safety rule before the ID shortcut.
   if (editorial.venueId && provider.venueId && editorial.venueId !== provider.venueId) return false;
-  // IDs identify a facility, not necessarily its stage or hall: names must
-  // also agree so the Hubbard and Neuhaus stages cannot be conflated.
+  // October 26, 2026: the arena's operator renamed Fort Worth's
+  // Dickies Arena to Ariat Arena. Treat ONLY the exact former/new facility
+  // names (with optional Fort Worth suffix) as aliases, not arbitrary venue
+  // names, suites, garages or separately ticketed rooms. Older Discovery
+  // inventory can continue to use the former name after the official rename.
+  const canonicalArena = (name: string) =>
+    /^(?:dickies|ariat) arena(?: fort worth)?$/.test(name) ? "ariat arena" : null;
+  // Cross-name matching is deliberately exact: a rebranded arena cannot be
+  // used to match a differently named VIP room, garage or secondary stage.
+  if (/^dickies arena\b/.test(a) !== /^dickies arena\b/.test(b)
+    && (/^(?:dickies|ariat) arena\b/.test(a) || /^(?:dickies|ariat) arena\b/.test(b))) {
+    return canonicalArena(a) !== null && canonicalArena(a) === canonicalArena(b);
+  }
+  // IDs identify facilities, not stages; only the existing reviewed room
+  // suffix matching remains for non-rebrand names.
   return a === b || a.startsWith(b + " ") || b.startsWith(a + " ");
 }
 

@@ -14,10 +14,10 @@ const today = ['year','month','day'].map(k => texasDate.find(x => x.type === k)?
 const source = readFileSync(new URL('../../src/data/events/christmas-performances-2026.server.ts',import.meta.url),'utf8');
 const cases = [
   ['grinch-dallas-2026','2026-11-27','Dallas','How the Grinch Stole Christmas','Music Hall at Fair Park'],
-  ['king-country-fort-worth-2026','2026-12-05','Fort Worth','Drummer Boy Christmas','Dickies Arena'],
+  ['king-country-fort-worth-2026','2026-12-05','Fort Worth','Drummer Boy Christmas','Ariat Arena'],
   ['christmas-kwanzaa-dallas-2026','2026-12-11','Dallas','33rd Annual Christmas/Kwanzaa','Bruton Theatre'],
   ['christmas-story-conroe-2026','2026-12-13','Conroe','A Christmas Story','Crighton Theatre'],
-  ['pentatonix-fort-worth-2026','2026-12-16','Fort Worth','Pentatonix','Dickies Arena'],
+  ['pentatonix-fort-worth-2026','2026-12-16','Fort Worth','Pentatonix','Ariat Arena'],
   ['jazzy-christmas-dallas-2026','2026-12-17','Dallas','A Jazzy Christmas Concert','Bruton Theatre'],
   ['very-merry-symphony-cedar-park-2026','2026-12-20','Cedar Park','A Very Merry Symphony','H-E-B Center'],
   ['celtic-christmas-mcallen-2026','2026-12-20','McAllen','A Celtic Christmas','McAllen Performing Arts Center'],

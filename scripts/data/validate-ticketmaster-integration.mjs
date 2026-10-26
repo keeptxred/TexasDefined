@@ -26,6 +26,25 @@ try {
   const records = loadTicketmasterEventsServer(catalog, now);
   assert.equal(records.length, 1);
   assert.equal(records[0].venueId, 'sports-venue:frost-bank-center');
+  const renamedVenueFixture = { ...event, id: 'ptx-ariat-rename', name: 'Pentatonix: Christmas in the City Tour',
+    city: 'Fort Worth', venue: 'Dickies Arena' };
+  const previousNameFeed = loadTicketmasterEventsServer(
+    { fetchedAt: now.toISOString(), events: [renamedVenueFixture] }, now);
+  assert.equal(previousNameFeed[0]?.venueName, 'Ariat Arena',
+    'old Discovery arena name must display the official October 26 Ariat name');
+  assert.equal(previousNameFeed[0]?.venueId, 'sports-venue:dickies-arena',
+    'renaming must preserve a single canonical venue route');
+  const newNameFeed = loadTicketmasterEventsServer(
+    { fetchedAt: now.toISOString(), events: [{ ...renamedVenueFixture, id: 'ariat-current', venue: 'Ariat Arena' }] }, now);
+  assert.equal(newNameFeed[0]?.venueName, 'Ariat Arena',
+    'new Discovery arena name must use the same public display');
+  assert.equal(newNameFeed[0]?.venueId, previousNameFeed[0]?.venueId,
+    'old and new venue names must resolve to the SAME physical arena');
+  assert.equal(loadTicketmasterEventsServer(
+    { fetchedAt: now.toISOString(), events: [{ ...renamedVenueFixture, id: 'not-fw', city: 'Dallas' }] }, now
+  )[0]?.venueName, 'Dickies Arena',
+    'rename must never rewrite unrelated city venue listings');
+
   const ticketwebUrl = 'https://www.ticketweb.com/event/holiday-show-tickets/14859023';
   const ticketwebCatalog = { fetchedAt: now.toISOString(), events: [{
     ...event, id: 'ticketweb-fixture', officialUrl: ticketwebUrl,
@@ -99,6 +118,29 @@ try {
     { venueId: 'sports-venue:dickies-arena', venueName: 'Dickies Arena' },
     { venueId: 'sports-venue:dickies-arena', venueName: 'Dickies Arena, Fort Worth' },
   ), true, 'shared official venue identity permits enrichment');
+  // Arena operator announced an immediate Dickies -> Ariat name change on
+  // October 26, 2026. Venue-owned event pages and Ticketmaster Discovery may
+  // carry the old name while the Christmas calendar uses the current one.
+  for (const oldVenue of ['Dickies Arena', 'Dickies Arena, Fort Worth']) {
+    assert.equal(ticketmasterVenueMatches(
+      { venueName: 'Ariat Arena' }, { venueName: oldVenue },
+    ), true, 'documented rebrand must not break the exact event affiliate match');
+  }
+  assert.equal(ticketmasterVenueMatches(
+    { venueId: 'sports-venue:dickies-arena', venueName: 'Ariat Arena' },
+    { venueId: 'sports-venue:dickies-arena', venueName: 'Dickies Arena' },
+  ), true, 'preserve stable venue ID across naming-rights change');
+  for (const wrongVenue of ['Dickies Arena Parking', 'Dickies Arena VIP Suite',
+    'Dickies Arena East Hall', 'Will Rogers Coliseum', 'AT&T Stadium']) {
+    assert.equal(ticketmasterVenueMatches(
+      { venueName: 'Ariat Arena' }, { venueName: wrongVenue },
+    ), false, 'venue rebrand must never conflate a separate ticketing location: ' + wrongVenue);
+  }
+  assert.equal(ticketmasterVenueMatches(
+    { venueId: 'sports-venue:dickies-arena', venueName: 'Ariat Arena' },
+    { venueId: 'sports-venue:other-arena', venueName: 'Dickies Arena' },
+  ), false, 'conflicting venue IDs must still fail closed despite rename');
+
   assert.equal(ticketmasterVenueMatches(
     { venueId: 'sports-venue:dickies-arena', venueName: 'Dickies Arena' },
     { venueId: 'sports-venue:at-t-stadium', venueName: 'Dickies Arena' },
@@ -224,6 +266,28 @@ try {
     ...christmasShow, id: 'grinch-dallas-2026',
   }, [holidayTicket], '2026-10-25'), undefined,
     'multiple performances without a single approved time use official organizer selector');
+
+  const ptxVenueRename = {
+    id: 'pentatonix-fort-worth-2026', date: '2026-12-16', city: 'Fort Worth',
+    venue: 'Ariat Arena', ticketmasterNeedle: 'pentatonix',
+  };
+  const ptxPreviousBrandListing = {
+    ...holidayTicket, id: 'ticketmaster:ptx-arena', title: 'Pentatonix: Christmas in the City Tour',
+    city: 'Fort Worth', startDate: '2026-12-16', startTime: '19:00:00',
+    venueName: 'Dickies Arena', venueId: undefined,
+  };
+  assert.equal(matchChristmasTicketmasterPerformance(ptxVenueRename,
+    [ptxPreviousBrandListing], '2026-10-26')?.id, ptxPreviousBrandListing.id,
+    'official Ariat rename must retain exact Dec 16 Pentatonix admission affiliate opportunity');
+  assert.equal(matchChristmasTicketmasterPerformance(ptxVenueRename,
+    [{ ...ptxPreviousBrandListing, venueName: 'Dickies Arena VIP Suite' }], '2026-10-26'), undefined,
+    'arena rebrand cannot turn an unrelated VIP suite ticket into show admission');
+  assert.equal(matchChristmasTicketmasterPerformance(ptxVenueRename,
+    [{ ...ptxPreviousBrandListing, startTime: '15:00:00' }], '2026-10-26'), undefined,
+    'arena rebrand cannot bypass exact concert showtime');
+  assert.equal(matchChristmasTicketmasterPerformance(ptxVenueRename,
+    [{ ...ptxPreviousBrandListing, venueName: 'AT&T Stadium' }], '2026-10-26'), undefined,
+    'venue rename cannot accept same-date same-title at unrelated arena');
 
   // Dallas Grand Ol Christmas has a separately confirmed 6pm show/5pm doors
   // listing. Only its exact reviewed Ticketmaster 5pm event may be affiliated.
