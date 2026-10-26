@@ -788,6 +788,12 @@ for (const marker of [
 if (seo.indexOf('"/destination/moody-gardens": {') !== seo.lastIndexOf('"/destination/moody-gardens": {')) {
   failures.push('Moody Gardens metadata override must remain unique.');
 }
+const moodyOverridePosition = seo.indexOf('"/destination/moody-gardens": {');
+const ssrOnlyPosition = seo.indexOf('const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = import.meta.env.SSR ? {');
+const seoOverrideClosure = seo.indexOf('} : {};', ssrOnlyPosition);
+if (!(moodyOverridePosition > ssrOnlyPosition && moodyOverridePosition < seoOverrideClosure)) {
+  failures.push('Moody Gardens GSC override must remain SSR-only; do not expand the eager client bundle.');
+}
 
 if (failures.length) {
   console.error('GSC page-one CTR validation failed:');
