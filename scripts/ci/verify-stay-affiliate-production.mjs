@@ -348,6 +348,12 @@ const pages = [
     requireSlot: false,
     requireBookingCar: true,
   },
+  {
+    route: '/article/texas-high-school-football-playoffs-explained',
+    marker: 'How Do the Texas High School Football Playoffs Work?',
+    requireSlot: false,
+    requireMotel6Football: true,
+  },
 ];
 
 for (const page of pages) {
@@ -370,6 +376,17 @@ for (const page of pages) {
     ]) requireCondition(html.includes(marker), `${page.route} is missing live Booking.com rental-car marker: ${marker}`);
   }
 
+  if (page.requireMotel6Football) {
+    for (const marker of [
+      'Prefer a budget motel for the drive?',
+      'data-commercial-partner="motel6"',
+      'data-commercial-placement="football-budget-motel"',
+      'https://www.tqlkg.com/click-101876465-17198227',
+      'rel="sponsored nofollow noopener noreferrer"',
+      'Affiliate disclosure: TexasDefined may earn a commission',
+    ]) requireCondition(html.includes(marker), `${page.route} is missing the server-rendered Motel 6 travel marker: ${marker}`);
+  }
+
   const noindex = /<meta[^>]+(?:name=["'](?:robots|googlebot|googlebot-news)["'][^>]+content=["'][^"']*\bnoindex\b|content=["'][^"']*\bnoindex\b[^>]+name=["'](?:robots|googlebot|googlebot-news)["'])/i.test(html);
   requireCondition(!noindex, `${page.route} is noindex and must not be part of the monetized production cohort.`);
 
@@ -380,4 +397,4 @@ for (const page of pages) {
   requireCondition(canonical.origin === new URL(origin).origin && canonical.pathname.replace(/\/+$/, '') === page.route.replace(/\/+$/, ''), `${page.route} is not self-canonical and must not be part of the monetized production cohort.`);
 }
 
-console.log('Stay affiliate production verification passed: the deployed stay bootstrap was executed in a sandbox and confirms Orbitz for event/venue hotel-first intent, Travelocity for broader destination/leisure intent, and TexasDefined CJ deep-link binding for both providers; all 30 governed stay properties (18 venue + 12 destination) expose unique exact-property Hotels.com destinations through the TexasDefined CJ publisher, curated surfaces prioritize exact-property referrals before route-scoped comparison choices, while broad Expedia search remains the fallback; Vrbo remains separately gated on ordinary leisure routes and is suppressed on RVshare-intent routes; the live same-origin /api/analytics collector accepted partner_referral_shown, partner_referral_clicked and reserved expedia-search next_step_selected CI probes backed by Cloudflare Analytics Engine; Hotels.com/Orbitz/Travelocity/Vrbo/RVshare and verified Expedia/Stay Nearby property links use sponsored/nofollow plus first-party partner/placement attribution; the Stay Nearby asset continues to enforce separate indexability and monetization eligibility; representative camping and RV-directory pages load the governed travel bootstraps and remain self-canonical/indexable; representative event, destination and traffic-prioritized venue pages expose deterministic in-content stay slots; representative city and county travel pages remain self-canonical/indexable; the canonical road-trips hub exposes its dedicated Booking.com rental-car conversion with first-party placement metadata and disclosure; and script ordering is intact.');
+console.log('Stay affiliate production verification passed: the deployed stay bootstrap was executed in a sandbox and confirms Orbitz for event/venue hotel-first intent, Travelocity for broader destination/leisure intent, and TexasDefined CJ deep-link binding for both providers; all 30 governed stay properties (18 venue + 12 destination) expose unique exact-property Hotels.com destinations through the TexasDefined CJ publisher, curated surfaces prioritize exact-property referrals before route-scoped comparison choices, while broad Expedia search remains the fallback; Vrbo remains separately gated on ordinary leisure routes and is suppressed on RVshare-intent routes; the live same-origin /api/analytics collector accepted partner_referral_shown, partner_referral_clicked and reserved expedia-search next_step_selected CI probes backed by Cloudflare Analytics Engine; Hotels.com/Orbitz/Travelocity/Vrbo/RVshare and verified Expedia/Stay Nearby property links use sponsored/nofollow plus first-party partner/placement attribution; the Stay Nearby asset continues to enforce separate indexability and monetization eligibility; representative camping and RV-directory pages load the governed travel bootstraps and remain self-canonical/indexable; representative event, destination and traffic-prioritized venue pages expose deterministic in-content stay slots; representative city and county travel pages remain self-canonical/indexable; the canonical road-trips hub exposes its dedicated Booking.com rental-car conversion with first-party placement metadata and disclosure; Motel 6's publisher-specific standard CJ link and sponsored tracking appear in server-rendered football travel modules; and script ordering is intact.');
