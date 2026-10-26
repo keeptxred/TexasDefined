@@ -1,0 +1,73 @@
+name: Refresh Palestine Polar Express 2027 Season
+
+on:
+  schedule:
+    - cron: '37 13 5 1-3 *'
+    - cron: '37 13 * 4-12 1'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/refresh-palestine-polar-express.yml'
+      - 'scripts/events/refresh-palestine-polar-express-season.mjs'
+      - 'scripts/events/refresh-palestine-polar-express-season.test.mjs'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: palestine-polar-express-official-refresh
+  cancel-in-progress: false
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out protected main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Test fail-closed calendar extractor
+        run: node --test scripts/events/refresh-palestine-polar-express-season.test.mjs
+      - name: Review two current official railroad calendars
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: node scripts/events/refresh-palestine-polar-express-season.mjs
+      - name: Check verified source artifact only
+        id: changes
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- src/data/generated/palestine-polar-express-season.json; then
+            echo "changed=no" >> "$GITHUB_OUTPUT"
+            echo "No verified new-year departure changes; no publishing." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "changed=yes" >> "$GITHUB_OUTPUT"
+            node -e 'const fs=require("fs");let s=JSON.parse(fs.readFileSync("src/data/generated/palestine-polar-express-season.json"));if(s.year!==2027||s.status!=="verified"||s.dates.length<20||s.calendarImages.length!==2)process.exit(1)'
+            git diff --stat -- src/data/generated/palestine-polar-express-season.json >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Open isolated source-verified season PR
+        if: steps.changes.outputs.changed == 'yes'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          branch="automation/palestine-polar-express-2027-${GITHUB_RUN_ID}"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git checkout -b "$branch"
+          git add -- src/data/generated/palestine-polar-express-season.json
+          git commit -m "data: verify official 2027 Palestine Polar Express departure calendars"
+          git push origin "$branch"
+          gh pr create --base main --head "$branch" \
+            --title 'Update verified Palestine Polar Express 2027 train calendar' \
+            --body 'Automated source-verified 2027 calendar update. Both monthly schedule images are hosted by the official railroad; strict 2027 year/date/weekdays, timing, and two independent identical vision readings pass. No live ticket inventory or 2026 recurrence is assumed. A trusted workflow_run finisher validates the exact generated-only diff and protected branch before merging.'
+          echo "Created scoped verified official 2027 departure-calendar PR." >> "$GITHUB_STEP_SUMMARY"
