@@ -258,9 +258,10 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
     officialSchoolName: program.officialSchoolName,
     districtName: program.districtName,
   });
-  const baseEditorial = (await loadBatch009FootballProgramEditorial(canonicalSlug))
-    ?? (await loadBatch008FootballProgramEditorial(canonicalSlug))
-    ?? getFootballProgramEditorial(canonicalSlug);
+  // Preserve Batch 008's validated precedence; only replace the result on a
+  // source-backed, individually implemented Batch 009 slug.
+  const batch008OrBaseEditorial = (await loadBatch008FootballProgramEditorial(canonicalSlug)) ?? getFootballProgramEditorial(canonicalSlug);
+  const baseEditorial = (await loadBatch009FootballProgramEditorial(canonicalSlug)) ?? batch008OrBaseEditorial;
   const editorial = canonicalSlug === 'aubrey'
     ? applyAubreyAutoResults(baseEditorial)
     : baseEditorial;
