@@ -4,6 +4,8 @@ on:
   pull_request:
     branches: [main]
     paths:
+      - 'src/data/events/official-venue-events.server.ts'
+      - 'scripts/data/validate-official-venue-ticketing.mjs'
       - 'src/data/events/texas-event-record.ts'
       - 'src/data/events/ticketing.ts'
       - 'src/data/events/texas-event-records.server.ts'
@@ -39,6 +41,9 @@ jobs:
           node-version: 22
           cache: npm
           cache-dependency-path: package-lock.json
+
+      - name: Verify exact Choctaw game checkout source boundaries
+        run: node --experimental-strip-types scripts/data/validate-official-venue-ticketing.mjs
 
       - name: Validate provider-neutral ticket architecture
         run: node scripts/data/validate-event-ticketing-architecture.mjs
