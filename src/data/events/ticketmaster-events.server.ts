@@ -86,7 +86,7 @@ export function loadTicketmasterEventsServer(catalog: TicketmasterSnapshot = sna
     // while presenting the official Ariat Arena naming-rights change from
     // October 26, 2026. Only change the exact Fort Worth arena identity.
     const displayedVenue = event.city.trim().toLowerCase() === 'fort worth'
-      && /^dickies arena(?:,?\\s*fort worth)?$/i.test(event.venue.trim())
+      && /^dickies arena(?:,?\s*fort worth)?$/i.test(event.venue.trim())
       ? 'Ariat Arena' : event.venue;
     const venue = resolveSportsVenueEventLink(event.venue);
     const venueSlug = venue?.href.split('/').at(-1);
