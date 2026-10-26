@@ -109,8 +109,8 @@ test('Federal Reserve monthly metro series must mature beyond the official relea
   const previous = { releaseMonth: '2026-08', publishedDate: '2026-09-30',
     sourceUrl: 'https://www.bls.gov/news.release/archives/metro_09302026.htm',
     rows: parseMetroTable(table(areas)) };
-  const september = 'observation_date,' + ids.join(',') + '\\n2026-09-01,' +
-    areas.map(([, count]) => count).join(',') + '\\n';
+  const september = 'observation_date,' + ids.join(',') + '\n2026-09-01,' +
+    areas.map(([, count]) => count).join(',') + '\n';
   assert.throws(() => parseFredCsv(september, previous, '2026-10-26'), /too recent/);
   assert.throws(() => parseFredCsv(september, previous, '2026-11-08'), /too recent/);
   const published = parseFredCsv(september, previous, '2026-11-09');
