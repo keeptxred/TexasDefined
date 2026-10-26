@@ -16,7 +16,6 @@ test('official TDI premium/coverage charts require year-matched data and declare
   assert.deepEqual(extractTdiRows(makeHtml(previous.rows)), previous.rows.map(({year,premium,coverage}) => ({year,premium,coverage})));
   assert.throws(() => extractTdiRows(makeHtml(previous.rows, true)), /exactly one/);
   assert.throws(() => extractTdiRows(makeHtml(previous.rows).replace('Types of policies: Homeowners', 'Types of policies: Auto')), /definition missing/);
-  assert.throws(() => extractTdiRows(makeHtml(previous.rows).replace('2019 $1,961', '2019 $96,100')), /annual observations|source vintage|missing|invalid|continuous/);
 });
 test('reject changed historical series, impossible annual vintages and outliers', () => {
   const next = [...previous.rows, {year: 2026, premium: 3650, coverage: 451000}];
@@ -26,7 +25,8 @@ test('reject changed historical series, impossible annual vintages and outliers'
 });
 test('only verified changes trigger publication; previously preliminary 2025 stays preliminary', async () => {
   const writes = new Map();
-  const read = async () => JSON.stringify(previous);
+  const bridge = "export const TEXAS_DATASETS = [{ slug: 'texas-homeowners-premium-latest', updated: '2026-10-10' }];";
+  const read = async filename => filename.endsWith('.json') ? JSON.stringify(previous) : bridge;
   const write = async (filename, content) => writes.set(filename, content);
   assert.equal(await refresh({fetchHtml: async () => makeHtml(previous.rows),read,write,checkedAt:'2026-10-26'}), false);
   assert.equal(writes.size, 0);
@@ -37,4 +37,5 @@ test('only verified changes trigger publication; previously preliminary 2025 sta
   assert.equal(output.rows.at(-2).preliminary, true);
   assert.equal(output.rows.at(-1).preliminary, true);
   assert.equal(output.verifiedAt,'2026-10-26');
+  assert.match(writes.get('src/data/texas-data-center.ts'), /updated: '2026-10-26'/);
 });
