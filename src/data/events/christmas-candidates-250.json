@@ -939,19 +939,30 @@
       "intakeId": 122,
       "title": "Kemah Boardwalk Christmas",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "kemah-jingle-on-boardwalk-2026-1",
+        "kemah-jingle-on-boardwalk-2026-2",
+        "kemah-jingle-on-boardwalk-2026-3"
+      ],
+      "researchNote": "The 2026 Kemah Boardwalk calendar dates Jingle on the Boardwalk on the three Friday–Sunday holiday weekends Dec4–20, with separate Saturday Cocoa & Cookies stroll dates and a separately organized Dec12 boat parade."
     },
     {
       "intakeId": 123,
       "title": "Seabrook Illuminated Boat Lane Parade",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "Clear Lake Chamber's Dec12 65th Christmas Boat Lane Parade is the same waterway parade visible from Seabrook, Kemah and Nassau Bay. The supplied 'Seabrook Illuminated Boat Lane Parade' may refer to it, but no distinct separately branded organizer event is established. Do not duplicate it."
     },
     {
       "intakeId": 124,
       "title": "Clear Lake Holiday Boat Lane Parade",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "clearlake-65th-christmas-boat-lane-parade-2026"
+      ],
+      "researchNote": "Clear Lake Area Chamber confirms the 65th Boat Lane Parade Saturday Dec12, 2026, beginning Nassau Bay around 6pm and reaching Seabrook/Kemah around 7:30pm. Same parade viewed from multiple shoreline cities; do not create duplicate route events."
     },
     {
       "intakeId": 125,
@@ -975,7 +986,8 @@
       "intakeId": 128,
       "title": "Pearland Festival of Lights",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "Pearland Parks & Recreation confirmed the Dec4 Hometown Christmas Festival at Independence Park, added separately. The submitted generic 'Pearland Festival of Lights' might refer to a different lighting program; without a matching 2026 organizer date it remains unverified."
     },
     {
       "intakeId": 129,
@@ -1783,8 +1795,8 @@
   ],
   "reconciliation": {
     "asOf": "2026-10-25",
-    "calendarCandidates": 62,
+    "calendarCandidates": 64,
     "authorityCandidates": 12,
-    "remainingCandidates": 176
+    "remainingCandidates": 174
   }
 }
