@@ -27,7 +27,7 @@ const end = eventFile.indexOf("\n];", start);
 assert.ok(start >= 0 && end > start, "Source-qualified Christmas manifest was not found");
 const json = eventFile.slice(eventFile.indexOf("= [", start) + 2, end + 2).trim();
 const events = JSON.parse(json);
-assert.ok(events.length >= 212, "The 212 organizer-verified Christmas date windows must not shrink without explicit source review");
+assert.ok(events.length >= 217, "The 212 organizer-verified Christmas date windows must not shrink without explicit source review");
 assert.equal(events.length, new Set(events.map((event) => event.slug)).size, "Duplicate Christmas community slugs");
 
 const validDate = /^20\d{2}-\d{2}-\d{2}$/;
@@ -78,6 +78,26 @@ for (const [idx,begin,end] of [
 }
 assert.ok(!bySlug.has("houston-alley-theatre-christmas-carol-2026-all-dates"),
   "No fabricated continuous Alley Theatre performance dates");
+check("baytown-stars-stripes-christmas-parade-2026","2026-12-03");
+check("deer-park-reindeer-park-2026","2026-12-05");
+check("baytown-holiday-hangout-early-2026","2026-12-03","2026-12-23");
+check("baytown-holiday-hangout-mid-2026","2026-12-26","2026-12-30");
+check("baytown-holiday-hangout-final-2026","2027-01-02","2027-01-05");
+const hangoutWindows = events.filter(event => event.slug.startsWith("baytown-holiday-hangout-"));
+assert.equal(hangoutWindows.length,3,"Publish one Baytown holiday series, split only at actual closed dates");
+for (const closed of ["2026-12-24","2026-12-25","2026-12-31","2027-01-01"]) {
+  assert.ok(!hangoutWindows.some(event => event.startDate <= closed && (event.endDate ?? event.startDate) >= closed),
+    `Baytown Holiday Hangout must never claim the city is open on ${closed}`);
+}
+assert.ok(bySlug.get("deer-park-reindeer-park-2026").summary.includes("$12 advance")
+  && bySlug.get("deer-park-reindeer-park-2026").summary.includes("sensory-friendly"),
+  "Preserve Deer Park's admission costs and sensory-friendly early hour");
+const seabrookCandidate = candidates.candidates.find(item => item.intakeId === 123);
+assert.equal(seabrookCandidate?.status,"sourced-calendar",
+  "Seabrook Christmas boat parade lead must reconcile to the same verified Clear Lake Chamber event");
+assert.deepEqual(seabrookCandidate?.calendarSlugs,["clearlake-65th-christmas-boat-lane-parade-2026"],
+  "Do not create a second Seabrook holiday boat parade duplicate");
+
 const alleyBoxingDay = bySlug.get("houston-alley-theatre-christmas-carol-2026-9");
 assert.equal(alleyBoxingDay.endDate, undefined,
   "Dec 26 community record must not also cover the independently curated Dec 27 final show");
