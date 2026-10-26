@@ -2,6 +2,477 @@ import type { FootballProgramEditorial } from './program-editorial';
 
 // Five individually sourced programs in Batch 009. No unlicensed imagery or inferred final 2026 record.
 const BATCH009_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "cedar-hill": {
+    "slug": "cedar-hill",
+    "intro": "Cedar Hill's Longhorns entered UIL 5A Division I District 8 in 2026, their first move out of Class 6A since its creation in 2014. The school has three football state championships, from 2006, 2013 and 2014. Cedar Hill ISD's current staff directory identifies Nicholas (Nick) Ward as athletic coordinator/head football coach, and its March 2026 first-party schedule deliberately included tough non-district opponents before district play.",
+    "theme": {
+      "accentHex": "#8A3B40",
+      "label": "Original TexasDefined burgundy editorial styling; not Cedar Hill's official logo, photo or trademarked uniform artwork."
+    },
+    "seo": {
+      "title": "Cedar Hill Longhorns Football | Nick Ward, 3 Titles & 2026 UIL 5A",
+      "description": "Cedar Hill Longhorns football: 2006/2013/2014 state championships, school-confirmed Nick Ward, 2026 5A Division I District 8 and official schedule."
+    },
+    "coach": {
+      "name": "Nicholas Ward",
+      "title": "Athletic Coordinator and Head Football Coach (Nick Ward)",
+      "sourceUrl": "https://www.chisd.net/staff-profile/~const-id/3872",
+      "sourceLabel": "Current Cedar Hill ISD staff profile",
+      "verifiedAt": "2026-10-26"
+    },
+    "schedule": {
+      "label": "Cedar Hill ISD 2026 varsity football schedule",
+      "sourceUrl": "https://newsroom.chisd.net/post-details/~board/newsroom-exclusives/post/cedar-hill-football-releases-2026-schedule",
+      "sourceLabel": "District's March 3, 2026 published opponent schedule",
+      "verifiedAt": "2026-10-26",
+      "officialScheduleUrl": "https://newsroom.chisd.net/post-details/~board/newsroom-exclusives/post/cedar-hill-football-releases-2026-schedule"
+    },
+    "development": {
+      "title": "Return to 5A while preserving three championship eras",
+      "body": "Cedar Hill ISD's realignment explanation places the Longhorns in 5A Division I District 8 in 2026–28, contrasting with their 6A seasons since 2014. School publications attribute state football titles to 2006, 2013 and 2014. The 2026 slate includes Crowley, Duncanville and Frisco Lone Star before district play; those strong opponents are not proof of wins or a 2026 playoff seed.",
+      "sourceUrl": "https://newsroom.chisd.net/post-details/~board/newsroom-exclusives/post/cedar-hill-receives-uil-re-district-assignment-for-2026-2028",
+      "sourceLabel": "District primary 2026–28 realignment and title count",
+      "verifiedAt": "2026-10-26"
+    },
+    "milestones": [
+      {
+        "date": "2006",
+        "title": "First UIL state championship",
+        "body": "Cedar Hill's first football state champion team finished unbeaten; current district history names 2006 as its first title.",
+        "sourceUrl": "https://newsroom.chisd.net/post-details/~board/newsroom-exclusives/post/reeves-reflects-on-lessons-learned-in-cedar-hill-isd",
+        "sourceLabel": "Cedar Hill ISD first-party 2006 champion alumnus feature"
+      },
+      {
+        "date": "2013–2014",
+        "title": "Two additional state titles",
+        "body": "The Cedar Hill athletic training history specifically records championship rings for 2006, 2013 and 2014.",
+        "sourceUrl": "https://newsroom.chisd.net/post-details/~board/newsroom-exclusives/post/torre-celebrates-25-years-with-cedar-hill-isd",
+        "sourceLabel": "Cedar Hill ISD staff championship history"
+      },
+      {
+        "date": "2026",
+        "title": "Class 5A Division I District 8 assignment",
+        "body": "After the 2014 introduction of 6A, the Longhorns move into 5A-8 Division I in a district including DeSoto, Lancaster and Midlothian.",
+        "sourceUrl": "https://newsroom.chisd.net/post-details/~board/newsroom-exclusives/post/cedar-hill-receives-uil-re-district-assignment-for-2026-2028",
+        "sourceLabel": "Cedar Hill ISD official realignment"
+      }
+    ],
+    "overview": [
+      "Cedar Hill's head football coach is Nicholas Ward, often called Nick Ward in district reporting.",
+      "The Longhorns own three school-documented football titles: 2006, 2013 and 2014.",
+      "2026 UIL football alignment is Class 5A Division I District 8 after multiple 6A seasons.",
+      "The district's published 2026 opponents and planned homecoming are preseason schedule facts, not verified 2026 final scores."
+    ],
+    "faq": [
+      {
+        "question": "How many Cedar Hill football state titles are documented?",
+        "answer": "Three: 2006, 2013 and 2014, according to Cedar Hill ISD's own athletic-history reporting."
+      },
+      {
+        "question": "Who coaches Cedar Hill Longhorn football in 2026?",
+        "answer": "Cedar Hill ISD currently lists Nicholas (Nick) Ward as the athletic coordinator and head football coach."
+      },
+      {
+        "question": "Why is Cedar Hill in 5A instead of 6A?",
+        "answer": "UIL's 2026–28 realignment moved Cedar Hill into 5A Division I District 8; the district notes this is its first post-2014 return to 5A."
+      }
+    ]
+  },
+  "cedar-park": {
+    "slug": "cedar-park",
+    "intro": "The Cedar Park Timberwolves moved up to UIL 6A District 24 for the 2026–28 cycle alongside fellow Leander ISD schools Vista Ridge, Vandegrift, Leander and Rouse. The current football roster lists Michael Quintero as head coach. UIL archival team records document Cedar Park's 2015 Class 5A Division II championship under Carl Abseck, distinct from Quintero's current 2026 coaching tenure.",
+    "theme": {
+      "accentHex": "#365C54",
+      "label": "Original TexasDefined forest-green editorial accent; current coach and titles are sourced, but no Cedar Park official mark or sports photo is copied."
+    },
+    "seo": {
+      "title": "Cedar Park Timberwolves Football | Michael Quintero, 6A & 2015 Title",
+      "description": "Cedar Park Timberwolves: coach Michael Quintero, 2026 Leander ISD UIL 6A District 24, 2015 state championship and verified school schedule resources."
+    },
+    "coach": {
+      "name": "Michael Quintero",
+      "title": "Current varsity head football coach (2026 roster-listed)",
+      "sourceUrl": "https://www.maxpreps.com/tx/cedar-park/cedar-park-timberwolves/football/staff/",
+      "sourceLabel": "MaxPreps 2026 Cedar Park football staff roster",
+      "verifiedAt": "2026-10-26"
+    },
+    "campus": {
+      "address": "2150 Cypress Creek Rd, Cedar Park, TX 78613 (school campus; verify separate game gate)",
+      "sourceUrl": "https://www.maxpreps.com/tx/cedar-park/cedar-park-timberwolves/football/",
+      "sourceLabel": "UIL partner Cedar Park school listing",
+      "verifiedAt": "2026-10-26"
+    },
+    "schedule": {
+      "label": "2026 Cedar Park roster, results and UIL District 24 opponents",
+      "sourceUrl": "https://www.maxpreps.com/tx/cedar-park/cedar-park-timberwolves/football/",
+      "sourceLabel": "Current dated results and roster",
+      "verifiedAt": "2026-10-26",
+      "officialScheduleUrl": "https://news.leanderisd.org/uil-announces-realignment-for-2026-27-2027-28/"
+    },
+    "development": {
+      "title": "A former 5A state champion meets new 6A district rivals",
+      "body": "Cedar Park's 2015 football championship was a 5A Division II title under head coach Carl Abseck. In 2026 the team moved up from Class 5A to 6A with the Leander ISD cohort and faces nearby Vista Ridge and Vandegrift in UIL District 24. Historical title-year staff should never be described as the present 2026 head coach.",
+      "sourceUrl": "https://news.leanderisd.org/uil-announces-realignment-for-2026-27-2027-28/",
+      "sourceLabel": "Leander ISD 2026–28 realignment announcement",
+      "verifiedAt": "2026-10-26"
+    },
+    "milestones": [
+      {
+        "date": "2012",
+        "title": "Earlier Class 4A title",
+        "body": "The Timberwolves also won a 2012 UIL 4A Division II football championship, as listed in historical championship records.",
+        "sourceUrl": "https://txprepfootball.com/state-champs/2015/uil-5a-division-2/",
+        "sourceLabel": "Historical state-title index, cross-check UIL before reuse"
+      },
+      {
+        "date": "2015",
+        "title": "5A Division II state champions",
+        "body": "The official UIL title-year roster lists coach Carl Abseck and a 15-0 regular-plus-playoff state-team profile, with final title awarded to Cedar Park.",
+        "sourceUrl": "https://www.uiltexas.org/football/state-team/cedar-park-2015-2016-football",
+        "sourceLabel": "UIL official Cedar Park 2015 champion profile"
+      },
+      {
+        "date": "2026",
+        "title": "Leander ISD 6A District 24 realignment",
+        "body": "Leander ISD confirms that Cedar Park, Vista Ridge, Vandegrift, Leander and Rouse are in the 2026–28 6A football district.",
+        "sourceUrl": "https://news.leanderisd.org/uil-announces-realignment-for-2026-27-2027-28/",
+        "sourceLabel": "Leander ISD official February 2026 bulletin"
+      }
+    ],
+    "overview": [
+      "Cedar Park's Timberwolves compete in UIL 6A District 24 for 2026–28.",
+      "Michael Quintero is on the current 2026 football roster as head coach; 2015 title coach was Carl Abseck.",
+      "The campus is on Cypress Creek Road, which should not be misrepresented as a verified football spectator entrance.",
+      "Historic state titles belong to their own UIL classification eras rather than the 2026 6A competition cycle."
+    ],
+    "faq": [
+      {
+        "question": "Who coaches the 2026 Cedar Park football team?",
+        "answer": "The 2026 roster lists Michael Quintero as head coach; Carl Abseck coached the 2015 championship team."
+      },
+      {
+        "question": "Does Cedar Park play in Class 6A?",
+        "answer": "Yes. Leander ISD's official 2026–28 UIL realignment bulletin places Cedar Park in 6A District 24."
+      },
+      {
+        "question": "When did Cedar Park win its most recent state football title?",
+        "answer": "UIL's official championship record documents the 2015 Class 5A Division II title."
+      }
+    ]
+  },
+  "cedar-park-vista-ridge": {
+    "slug": "cedar-park-vista-ridge",
+    "intro": "Vista Ridge's Rangers are a Cedar Park-based Leander ISD program in 2026–28 UIL Class 6A District 24. The 2026 football booster staff page names Chad Scott as campus athletic coordinator and head football coach, and says he joined Vista Ridge in 2009 before becoming head coach in 2021. Vista Ridge is separate from neighboring Cedar Park High's Timberwolves.",
+    "theme": {
+      "accentHex": "#425979",
+      "label": "Original TexasDefined slate-blue visual treatment; no copied Rangers marks or copyrighted team photo."
+    },
+    "seo": {
+      "title": "Cedar Park Vista Ridge Rangers Football | Chad Scott & 2026 District 24",
+      "description": "Vista Ridge Rangers football: official Chad Scott coaching history, Leander ISD 6A District 24 in 2026, 2025 postseason and campus identity."
+    },
+    "coach": {
+      "name": "Chad Scott",
+      "title": "Campus Athletic Coordinator and Head Football Coach",
+      "sourceUrl": "https://vrhs-football.org/coaches",
+      "sourceLabel": "2026–27 Vista Ridge Football Booster Club coaching profiles",
+      "verifiedAt": "2026-10-26"
+    },
+    "campus": {
+      "address": "200 S Vista Ridge Pkwy, Cedar Park, TX 78613 (campus, not all football venue entrances)",
+      "sourceUrl": "https://www.maxpreps.com/tx/cedar-park/vista-ridge-rangers/football/staff/",
+      "sourceLabel": "MaxPreps varsity team location listing",
+      "verifiedAt": "2026-10-26"
+    },
+    "schedule": {
+      "label": "Vista Ridge football 2026 schedule and coaching",
+      "sourceUrl": "https://www.maxpreps.com/tx/cedar-park/vista-ridge-rangers/football/",
+      "sourceLabel": "UIL partner 2026 team feed",
+      "verifiedAt": "2026-10-26",
+      "officialScheduleUrl": "https://vrhs-football.org/coaches"
+    },
+    "development": {
+      "title": "Long-serving Rangers coach in a reshaped Leander ISD 6A field",
+      "body": "Chad Scott's 2026 coaching biography says he came to Vista Ridge in 2009, served as a defensive coordinator, and was promoted to head coach in 2021. The Rangers' 2025 team posted 6-5 and competed in a different 6A district; the 2026–28 UIL shift joins Cedar Park, Vista Ridge, Leander, Rouse and Vandegrift in District 24. A separate Cedar Park campus cannot be mistaken for Vista Ridge.",
+      "sourceUrl": "https://vrhs-football.org/coaches",
+      "sourceLabel": "Vista Ridge football booster 2026–27 coaching biographies",
+      "verifiedAt": "2026-10-26"
+    },
+    "milestones": [
+      {
+        "date": "2009",
+        "title": "Scott joins the Vista Ridge staff",
+        "body": "The official booster-published biography records Scott's move to Vista Ridge and linebacker/defensive responsibilities.",
+        "sourceUrl": "https://vrhs-football.org/coaches",
+        "sourceLabel": "Vista Ridge football booster coaching history"
+      },
+      {
+        "date": "2021",
+        "title": "Chad Scott becomes head coach",
+        "body": "The same source documents his promotion after earlier coaching assignments.",
+        "sourceUrl": "https://vrhs-football.org/coaches",
+        "sourceLabel": "Rangers coaching bio"
+      },
+      {
+        "date": "2025",
+        "title": "A 6-5 postseason season",
+        "body": "MaxPreps 2025 annual result archive lists Vista Ridge at 6-5 in the prior 6A alignment.",
+        "sourceUrl": "https://www.maxpreps.com/tx/cedar-park/vista-ridge-rangers/football/history/",
+        "sourceLabel": "MaxPreps 2025 year-specific record"
+      },
+      {
+        "date": "2026",
+        "title": "6A District 24 assignments change",
+        "body": "Leander ISD lists Vista Ridge and Cedar Park among its combined District 24-6A schools.",
+        "sourceUrl": "https://news.leanderisd.org/uil-announces-realignment-for-2026-27-2027-28/",
+        "sourceLabel": "School district realignment bulletin"
+      }
+    ],
+    "overview": [
+      "Vista Ridge's mascot is Rangers and campus is on Vista Ridge Parkway, a different high school from Cedar Park High.",
+      "Chad Scott has been at Vista Ridge since 2009 and became its head football coach in 2021.",
+      "UIL 2026 realignment places Vista Ridge in 6A District 24 with nearby Leander ISD rivals.",
+      "The 2025 6-5 archive is historical and should not be presented as the 2026 standing."
+    ],
+    "faq": [
+      {
+        "question": "Who coaches Vista Ridge football in 2026?",
+        "answer": "The 2026–27 Vista Ridge Football Booster coaching directory lists Chad Scott as head football coach and campus athletic coordinator."
+      },
+      {
+        "question": "Are Vista Ridge and Cedar Park High the same football program?",
+        "answer": "No. They are separate Leander ISD 6A District 24 programs with distinct mascots and campuses."
+      },
+      {
+        "question": "When did Chad Scott become head coach?",
+        "answer": "Vista Ridge's coaching biography lists his 2021 promotion after joining the program in 2009."
+      }
+    ]
+  },
+  "celeste": {
+    "slug": "celeste",
+    "intro": "Celeste ISD's Blue Devils compete in UIL Class 2A Division II District 9 in 2026–28 and publish their own varsity and junior varsity schedule resources. District September 2026 home-game coverage specifically names Coach Rector; the 2026 UIL-partner roster identifies Demetrius Rector as head football coach after a different named coach in the 2025 history. Because older score feeds still lack late-October results and disagree about game dates, those uncertain finals are not invented.",
+    "theme": {
+      "accentHex": "#2C4B80",
+      "label": "Original TexasDefined indigo editorial panel; not a Celeste mascot image or official uniform scheme."
+    },
+    "seo": {
+      "title": "Celeste Blue Devils Football | 2026 2A District 9 & Coach Rector",
+      "description": "Celeste Blue Devils: official 2026 varsity schedule, Demetrius Rector head-coach roster, UIL 2A Division II District 9 and source-cautious results."
+    },
+    "coach": {
+      "name": "Demetrius Rector",
+      "title": "2026 varsity-roster-listed head coach; first-party district news uses Coach Rector",
+      "sourceUrl": "https://www.maxpreps.com/tx/celeste/celeste-blue-devils/football/history/",
+      "sourceLabel": "MaxPreps 2026 coach roster; 2025 year field differs",
+      "verifiedAt": "2026-10-26"
+    },
+    "campus": {
+      "address": "609 FM 1562, Celeste, TX 75423 (high school location, not stadium gate)",
+      "sourceUrl": "https://www.maxpreps.com/tx/celeste/celeste-blue-devils/football/schedule/",
+      "sourceLabel": "UIL partner team location and dated schedule",
+      "verifiedAt": "2026-10-26"
+    },
+    "schedule": {
+      "label": "2026 Celeste varsity football schedule at the high-school website",
+      "sourceUrl": "https://www.celesteisd.org/143891_3",
+      "sourceLabel": "Celeste High official varsity football calendar page",
+      "verifiedAt": "2026-10-26",
+      "officialScheduleUrl": "https://www.celesteisd.org/143891_3"
+    },
+    "development": {
+      "title": "Changed district opponents and a qualified coaching attribution",
+      "body": "The Celeste high-school site publishes the current schedule, and its September spirit-day report referred to Coach Rector as announcing 2026 varsity captains. An independent 2026 staff/season record labels Demetrius Rector head coach but a 2025 archive names Lee Valdez, so present staffing is qualified rather than assumed timeless. District opponents include Era, Collinsville, Boles, Cumby and Lindsay; current October finals must be checked against original score reports.",
+      "sourceUrl": "https://www.celesteisd.org/449862_2?articleID=75094",
+      "sourceLabel": "Celeste ISD September 2026 first home game and team-captain coverage",
+      "verifiedAt": "2026-10-26"
+    },
+    "season": {
+      "record": "0-7 in independently named games through October 16, 2026; Oct. 23 Boles final not certified by this source",
+      "sourceUrl": "https://www.maxpreps.com/tx/celeste/celeste-blue-devils/football/",
+      "sourceLabel": "UIL partner 2026 result cards through October 16, school calendar for later fixtures",
+      "verifiedAt": "2026-10-26",
+      "games": [
+        {
+          "date": "2026-08-28",
+          "opponent": "Trenton",
+          "site": "Home",
+          "result": "L 15-46"
+        },
+        {
+          "date": "2026-09-04",
+          "opponent": "Whitewright",
+          "site": "Home",
+          "result": "L 0-49"
+        },
+        {
+          "date": "2026-09-11",
+          "opponent": "Linden-Kildare",
+          "site": "Away",
+          "result": "L 6-32"
+        },
+        {
+          "date": "2026-09-18",
+          "opponent": "Simms Bowie",
+          "site": "Away",
+          "result": "L 6-42"
+        },
+        {
+          "date": "2026-09-25",
+          "opponent": "Maud",
+          "site": "Home",
+          "result": "L 14-48"
+        },
+        {
+          "date": "2026-10-09",
+          "opponent": "Era",
+          "site": "Away",
+          "district": true,
+          "result": "L 7-67"
+        },
+        {
+          "date": "2026-10-16",
+          "opponent": "Collinsville",
+          "site": "Away",
+          "district": true,
+          "result": "L 0-70"
+        }
+      ]
+    },
+    "milestones": [
+      {
+        "date": "2023",
+        "title": "Eight-win historical season",
+        "body": "The 2023–24 Celeste season history records an 8-4 record, distinct from 2026 performance.",
+        "sourceUrl": "https://www.maxpreps.com/tx/celeste/celeste-blue-devils/football/history/",
+        "sourceLabel": "MaxPreps program history"
+      },
+      {
+        "date": "June 2026",
+        "title": "New district schedule posted",
+        "body": "The high school announced a 2026 lineup including new district opponents Boles, Collinsville, Era and Lindsay.",
+        "sourceUrl": "https://www.celesteisd.org/143891_3",
+        "sourceLabel": "Celeste ISD official schedule"
+      },
+      {
+        "date": "September 2026",
+        "title": "District recognizes 2026 varsity captains",
+        "body": "The school covered its first home football spirit event and reported Coach Rector announcing team captains.",
+        "sourceUrl": "https://www.celesteisd.org/449862_2?articleID=75094",
+        "sourceLabel": "Celeste ISD official news"
+      }
+    ],
+    "overview": [
+      "Celeste is the Blue Devils program in Hunt County; current UIL placement is 2A Division II District 9.",
+      "The high school posts official 2026 varsity schedules for checking kickoffs and opponent changes.",
+      "2026 roster sources list Demetrius Rector as head coach, while 2025 history lists Lee Valdez; year boundaries are respected.",
+      "Current results are labeled by verified game dates and avoid claiming an unconfirmed October 23 Boles final."
+    ],
+    "faq": [
+      {
+        "question": "Who is Celeste's 2026 head football coach?",
+        "answer": "The 2026 MaxPreps roster lists Demetrius Rector, and Celeste ISD described Coach Rector leading the first-game captain announcements. Official staff-role confirmation beyond this remains worth monitoring."
+      },
+      {
+        "question": "What is Celeste's current UIL football district?",
+        "answer": "Class 2A Division II District 9 for 2026–28."
+      },
+      {
+        "question": "Where can Celeste fans check current schedules?",
+        "answer": "The Celeste ISD high-school athletics page maintains varsity and JV football schedule downloads."
+      }
+    ]
+  },
+  "celina": {
+    "slug": "celina",
+    "intro": "The Celina Bobcats enter 2026 in Class 5A Division II District 4 under newly appointed head coach Marc Bindel. Celina ISD's March 24 official announcement and current athletics directory confirm Bindel's appointment following Bill Elliott's retirement. The Bobcats won the 2024 UIL 4A Division I state title and reached a 2025 state semifinal at 14-1; the 2026 move to 5A is a different competition cycle, not a tenth confirmed football championship.",
+    "theme": {
+      "accentHex": "#D17426",
+      "label": "Original TexasDefined warm-orange editorial accent inspired by archival Bobcat football themes; not an official crest or copyrighted sports photo."
+    },
+    "seo": {
+      "title": "Celina Bobcats Football | Marc Bindel, Nine Titles & UIL 5A 2026",
+      "description": "Celina Bobcats football: 2026 new head coach Marc Bindel, UIL 5A Division II District 4, nine historic titles and 2024 champion/2025 semifinal history."
+    },
+    "coach": {
+      "name": "Marc Bindel",
+      "title": "Athletic Coordinator and Head Football Coach, appointed March 2026",
+      "sourceUrl": "https://ath.celinaisd.com/athletic-leadership",
+      "sourceLabel": "Celina ISD official current athletics leadership directory",
+      "verifiedAt": "2026-10-26"
+    },
+    "schedule": {
+      "label": "Celina Bobcats 2026 UIL football fixtures and historical record",
+      "sourceUrl": "https://www.texasfootball.com/team/celina-bobcats",
+      "sourceLabel": "Dave Campbell's Texas Football 2026 football program guide",
+      "verifiedAt": "2026-10-26",
+      "officialScheduleUrl": "https://ath.celinaisd.com/athletic-leadership/high-school-coaches"
+    },
+    "venue": {
+      "name": "Bobcat Stadium",
+      "sourceUrl": "https://www.texasfootball.com/team/celina-bobcats",
+      "sourceLabel": "Dave Campbell's 2026 stadium listing",
+      "verifiedAt": "2026-10-26",
+      "note": "Bobcat Stadium capacity and game access must be confirmed with the official 2026 event and district ticket office; stadium name alone is not an accessible route guarantee."
+    },
+    "development": {
+      "title": "New coach and higher UIL classification after a champion era",
+      "body": "Celina ISD named Marc Bindel head coach on March 24, 2026 after Bill Elliott retired. The Bobcats captured the 2024 4A Division I championship, then finished 14-1 in 2025 after a state-semifinal loss. As of the 2026 realignment the program has nine historical state titles, and now competes in 5A Division II District 4; neither a new coach nor a higher classification changes past results.",
+      "sourceUrl": "https://resources.finalsite.net/images/v1774373283/celinaisdcom/ptybkiokcsq60mixkwpa/CelinaHSHeadCoachNewsRelease.pdf",
+      "sourceLabel": "Celina ISD March 24, 2026 first-party coach appointment",
+      "verifiedAt": "2026-10-26"
+    },
+    "milestones": [
+      {
+        "date": "2024",
+        "title": "Ninth state football crown",
+        "body": "Celina finished 16-0 and won the 2024 UIL 4A Division I championship under Bill Elliott.",
+        "sourceUrl": "https://www.texasfootball.com/team/celina-bobcats",
+        "sourceLabel": "Dave Campbell's all-time team/title guide"
+      },
+      {
+        "date": "2025",
+        "title": "State semifinalist with 14-1 record",
+        "body": "The Bobcats reached the Class 4A Division I semifinal before a season-ending defeat; this was not a tenth title.",
+        "sourceUrl": "https://www.texasfootball.com/article/2026/03/24/celina-isd-names-new-head-football-coach",
+        "sourceLabel": "DCTF March 2026 coaching transition and previous season context"
+      },
+      {
+        "date": "March 24, 2026",
+        "title": "Marc Bindel named head coach",
+        "body": "The school district officially appointed Bindel athletic coordinator and head football coach.",
+        "sourceUrl": "https://ath.celinaisd.com/athletic-leadership/high-school-coaches",
+        "sourceLabel": "Celina ISD 2026 current head-coaches list"
+      },
+      {
+        "date": "2026 realignment",
+        "title": "Move into Class 5A Division II",
+        "body": "UIL assigns the 2026–28 Bobcats to 5A Division II District 4.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
+        "sourceLabel": "UIL official 2026–28 football alignment"
+      }
+    ],
+    "overview": [
+      "Celina ISD's first-party athletics website identifies Marc Bindel—not retired former coach Bill Elliott—as the current 2026 head coach.",
+      "The program holds nine historical state football titles including the 2024 4A Division I title.",
+      "Celina went 14-1 in 2025 and reached a semifinal, without securing a tenth championship.",
+      "The Bobcats now compete in UIL 5A Division II District 4; 2026 final standings and future playoff paths must not be invented."
+    ],
+    "faq": [
+      {
+        "question": "Who is Celina's 2026 football head coach?",
+        "answer": "Marc Bindel, appointed March 24, 2026, and listed by Celina ISD as athletic coordinator/head football coach."
+      },
+      {
+        "question": "How many state football titles does Celina have entering 2026?",
+        "answer": "Nine according to the published program history, including the 2024 UIL Class 4A Division I title."
+      },
+      {
+        "question": "Is Celina in the same 2026 division as its 2024 championship?",
+        "answer": "No. The 2024 title was in 4A Division I; the 2026–28 UIL alignment places Celina in 5A Division II District 4."
+      }
+    ]
+  },
   "carrollton-turner": {
     "slug": "carrollton-turner",
     "intro": "R. L. Turner High School's Lions are a distinct CFBISD program in UIL 5A Division I District 6 alongside Creekview and Newman Smith. Current school staff names Michael Farda head football coach and campus athletic coordinator. An October 15 football feed still showed later district games as future fixtures; it must not be presented as a complete October 26 record.",

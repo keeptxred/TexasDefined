@@ -12,6 +12,35 @@ export type VerifiedFootballSchoolIdentity = {
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
   {
+    slug: 'cedar-park',
+    mascot: 'Timberwolves',
+    colors: 'Forest Green, Silver & Black',
+    sourceUrl: 'https://www.uiltexas.org/football/state-team/cedar-park-2015-2016-football',
+    sourceLabel: 'UIL 2015–16 Cedar Park championship-era mascot/color record (present identity carried forward)',
+    verifiedAt: '2026-10-26',
+  },
+  {
+    slug: 'cedar-park-vista-ridge',
+    mascot: 'Rangers',
+    sourceUrl: 'https://vrhs-football.org/coaches',
+    sourceLabel: 'Vista Ridge Ranger football booster 2026–27 current coaching',
+    verifiedAt: '2026-10-26',
+  },
+  {
+    slug: 'celeste',
+    mascot: 'Blue Devils',
+    sourceUrl: 'https://www.celesteisd.org/143891_3',
+    sourceLabel: 'Celeste ISD official Blue Devil 2026 football athletics calendar',
+    verifiedAt: '2026-10-26',
+  },
+  {
+    slug: 'celina',
+    mascot: 'Bobcats',
+    sourceUrl: 'https://ath.celinaisd.com/athletic-leadership',
+    sourceLabel: 'Celina ISD official athletic leadership and Bobcat school athletics',
+    verifiedAt: '2026-10-26',
+  },
+  {
     slug: "castle-hills",
     mascot: "Eagles",
     sourceUrl: "https://castlehills.school/football/",
