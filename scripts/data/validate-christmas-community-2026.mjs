@@ -288,7 +288,39 @@ assert.equal(
     candidates.reconciliation.remainingCandidates,
   250, "Every submitted Christmas candidate must be accounted for",
 );
-assert.ok(candidates.reconciliation.remainingCandidates > 0, "Do not auto-verify all holiday candidates without sources");
+// Do not require an arbitrary number of forever-unverified research leads.
+// Every promotion instead requires a verifiable first-party source-backed event
+// slug or an explicitly named existing authority guide. This continues to
+// prevent speculative bulk approval while allowing legitimate 250/250 completion.
+const seenIntakeIds = new Set();
+for (const [index, candidate] of candidates.candidates.entries()) {
+  assert.equal(candidate.intakeId, index + 1, "Christmas intake IDs must be sequential and immutable");
+  assert.ok(!seenIntakeIds.has(candidate.intakeId), `Duplicate Christmas intake ID ${candidate.intakeId}`);
+  seenIntakeIds.add(candidate.intakeId);
+  if (candidate.status === "sourced-calendar") {
+    assert.ok(Array.isArray(candidate.calendarSlugs) && candidate.calendarSlugs.length > 0,
+      `Verified Christmas lead ${candidate.intakeId} must reference dated records`);
+    assert.equal(new Set(candidate.calendarSlugs).size, candidate.calendarSlugs.length,
+      `Duplicate linked Christmas source event for intake ${candidate.intakeId}`);
+    for (const slug of candidate.calendarSlugs) {
+      const verified = bySlug.get(slug);
+      assert.ok(verified, `Christmas lead ${candidate.intakeId} links missing source record ${slug}`);
+      assert.ok(verified.sourceName && verified.officialEventUrl.startsWith("https://"),
+        `Christmas lead ${candidate.intakeId} links an unsourced event ${slug}`);
+    }
+    assert.ok(!candidate.guidePath, `Christmas lead ${candidate.intakeId} must not misuse authority-guide status`);
+  } else if (candidate.status === "existing-authority") {
+    assert.match(candidate.guidePath ?? "", /^\\/event\\/[a-z0-9-]+$/,
+      `Christmas authority lead ${candidate.intakeId} must link an exact permanent guide`);
+    assert.ok(!candidate.calendarSlugs?.length,
+      `Christmas authority lead ${candidate.intakeId} must not conflate source records`);
+  } else if (candidate.status === "candidate-needs-source-reconciliation") {
+    assert.ok(!candidate.calendarSlugs?.length && !candidate.guidePath,
+      `Unverified Christmas candidate ${candidate.intakeId} must not carry publication links`);
+  } else {
+    assert.fail(`Unknown Christmas candidate status for intake ${candidate.intakeId}`);
+  }
+}
 assert.ok(events.length >= 64, "Dated Christmas inventory shrank unexpectedly");
 
 // Seasonal affiliate and sponsor source validation: preserve approved city
