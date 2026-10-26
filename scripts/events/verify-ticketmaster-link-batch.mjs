@@ -96,6 +96,20 @@ export function chooseBatch(events, cursor, size = LIMIT) {
   return { candidates, nextCursor: (start + candidates.length) % eligible.length, total: eligible.length };
 }
 
+/** Report actual provider and HTTP outcomes; a bot block is NOT a broken link. */
+export function summarizeProviderProbeOutcomes(candidates, history) {
+  const outcomes = {};
+  for (const event of candidates) {
+    const host = publicTicketUrl(event.officialUrl)?.hostname.toLowerCase() ?? '';
+    const provider = host.endsWith('ticketweb.com') ? 'ticketweb'
+      : host.endsWith('ticketmaster.com') ? 'ticketmaster' : 'invalid-provider-url';
+    const reason = history[event.id]?.probeStatus ?? 'NOT_RECORDED_INCONCLUSIVE';
+    const counts = outcomes[provider] ?? (outcomes[provider] = {});
+    counts[reason] = (counts[reason] ?? 0) + 1;
+  }
+  return outcomes;
+}
+
 async function main() {
   const [catalog, ledger] = await Promise.all([
     readFile(catalogPath, 'utf8').then(JSON.parse),
@@ -125,11 +139,12 @@ async function main() {
       };
     }));
   }
+  const providerOutcomes = summarizeProviderProbeOutcomes(candidates, history);
   ledger.statewide.ticketLinkProbes = history;
   ledger.statewide.ticketLinkProbeCursor = nextCursor;
   ledger.statewide.ticketLinkProbeLatestRun = {
     checkedAt, count: candidates.length, totalEligible: total, nextCursor,
-    httpReachabilityOnly: true, inventoryVerified: false,
+    httpReachabilityOnly: true, inventoryVerified: false, providerOutcomes,
   };
   ledger.updatedAt = checkedAt.slice(0, 10);
   await writeFile(ledgerPath, JSON.stringify(ledger, null, 2) + '\n', 'utf8');
@@ -137,7 +152,13 @@ async function main() {
   const reachable = candidates.filter((event) => history[event.id].probeStatus === 'REACHABLE_NO_INVENTORY_CLAIM');
   console.log('Ticket outbound URL audit: ' + candidates.length + '/' + total
     + ' events in deterministic rotating batch. HTTP reachable=' + reachable.length
-    + ', review=' + attention.length + '. Never infer seat inventory or live price.');
+    + ', review=' + attention.length + ', providerOutcomes=' + JSON.stringify(providerOutcomes)
+    + '. Never infer seat inventory or live price.');
+  const inconclusiveCount = candidates.filter((event) => /(?:INCONCLUSIVE|NOT_RECORDED)/.test(history[event.id].probeStatus)).length;
+  if (candidates.length && inconclusiveCount === candidates.length) {
+    console.log('::notice title=Provider-level ticket probes inconclusive::All '+candidates.length+
+      ' responses are access restrictions, server failures or network errors; no URLs were proven broken or inventory available.');
+  }
   if (attention.length) console.warn('::warning title=Ticket link review required::'
     + attention.map((event) => event.id + ': ' + history[event.id].probeStatus).join(', ').slice(0, 1500));
 }
