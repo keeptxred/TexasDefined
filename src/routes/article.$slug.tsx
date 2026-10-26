@@ -11,7 +11,6 @@ import type { Article } from "@/data/types";
 import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
-import { MagnoliaWacoAffiliateLinks } from "@/components/monetization/MagnoliaWacoAffiliateLinks";
 import { magnoliaPeopleSchemaForArticle } from "@/data/magnolia-people-schema";
 import { SchoolSupplyPartners } from "@/components/monetization/SchoolSupplyPartners";
 import { FootballFanOffers } from "@/components/sports/FootballFanOffers";
@@ -33,6 +32,11 @@ import { absoluteUrl, buildMeta, canonicalLink, schemaTypeForEntityKind } from "
 import { unusualBusinessAnalyticsAttributes } from "@/lib/unusual-business-analytics";
 import { FootballPlayoffsReference } from "@/components/content/FootballPlayoffsReference";
 import { TexasCitiesComparison } from "@/components/content/TexasCitiesComparison";
+
+// Magnolia-only affiliate UI stays off the shared article client bundle.
+const MagnoliaWacoAffiliateLinks = lazy(() =>
+  import("@/components/monetization/MagnoliaWacoAffiliateLinks").then((module) => ({ default: module.MagnoliaWacoAffiliateLinks })),
+);
 
 const TexasWaterSearchResource = lazy(() =>
   import("@/components/content/TexasWaterSearchResource").then((module) => ({ default: module.TexasWaterSearchResource })),
@@ -567,7 +571,7 @@ function ArticlePage() {
             insertBefore={footballTravelOffer} />
         ) : <ArticleBody blocks={article.body} entities={graph} />}
       </div>
-      {article.slug === "chip-and-joanna-gaines-magnolia-waco" && <MagnoliaWacoAffiliateLinks />}
+      {article.slug === "chip-and-joanna-gaines-magnolia-waco" && <Suspense fallback={<div className="my-10 h-36 border-y border-border" aria-label="Loading Waco tour options" />}><MagnoliaWacoAffiliateLinks /></Suspense>}
       <ElPasoAreaCrossLinks kind="article" slug={article.slug} />
       {showFootballTravelOffers && footballTravelInsertIndex < 0 ? footballTravelOffer : null}
       {isTexasRiversArticle ? <Suspense fallback={null}><TexasRiversAfterArticle /></Suspense> : null}
