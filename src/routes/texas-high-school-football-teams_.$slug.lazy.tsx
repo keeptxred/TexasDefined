@@ -409,7 +409,8 @@ function Page() {
     ? uilFootballEnrollmentBandForEnrollment(program.uilEnrollment)
     : null;
 
-  return <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
+  return (
+    <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
     <article className="mx-auto max-w-6xl">
       <nav aria-label="Breadcrumb" className="border-b border-border pb-4 text-xs uppercase tracking-[0.14em] text-muted-foreground">
         <Link to="/">Front page</Link><span className="mx-2">/</span>
@@ -961,7 +962,8 @@ function Page() {
 
       </section>
     </article>
-  </Container>;
+    </Container>
+  );
 }
 
 function PublicEnrollmentSteps({
