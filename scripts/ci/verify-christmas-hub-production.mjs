@@ -91,12 +91,12 @@ async function check(url) {
   // Check rendered visitor text, not a hydration script that could contain
   // unreleased data while stale HTML stays in the cache.
   const visible = html
-    .replace(/<script\\b[^>]*>[\\s\\S]*?<\\/script>/gi, " ")
-    .replace(/<style\\b[^>]*>[\\s\\S]*?<\\/style>/gi, " ")
+    .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, " ")
+    .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, " ")
     .replace(/<[^>]*>/g, " ")
     .replace(/&nbsp;/g, " ")
     .replace(/&amp;/g, "&")
-    .replace(/\\s+/g, " ");
+    .replace(/\s+/g, " ");
   const countEvidence = `${expectedActiveCommunityCount.toLocaleString("en-US")} verified community Christmas calendar entries`;
   const countMismatch = !visible.includes(countEvidence);
   const missingSourceEvents = expectedLiveWitnesses
