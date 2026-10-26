@@ -23,6 +23,7 @@ import { getChristmasPerformances2026Server } from "./events/christmas-performan
 import { getVerifiedChristmasCommunityEvents2026 } from "./events/christmas-community-2026.server";
 import { buildViatorAffiliateUrl } from "../lib/viator-affiliate";
 import { hasVerifiedViatorMarketUrl, verifiedViatorMarketUrl } from "./viator-destination-links";
+import { activeOfficialFallPicks } from "./fall-festival-official-picks.server";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 type CollectionDefinition = EventCollectionDefinition | TemporalEventCollectionDefinition | TournamentCollectionDefinition;
@@ -222,6 +223,7 @@ export function loadEventCollectionPageServer(slug: string) {
     weekendDigest,
     christmasPerformances,
     christmasCommunityEvents,
+    fallOfficialPicks: temporal?.slug === "fall-festivals" ? activeOfficialFallPicks() : [],
     relatedCollections,
     itemCount: items.length,
     latestSourceCheck,
@@ -231,8 +233,8 @@ export function loadEventCollectionPageServer(slug: string) {
     itemCountLabel: tournament
       ? `${items.length.toLocaleString("en-US")} tournament and competition entries · ${verifiedTournamentCount.toLocaleString("en-US")} verified guides`
       : `${items.length.toLocaleString("en-US")} verified event guides${christmasCommunityEvents.length ? ` · ${christmasCommunityEvents.length} verified community Christmas calendar entries` : ""}${latestSourceCheck ? ` · Latest source check: ${latestSourceCheck}` : ""}`,
-    itemsEyebrow: tournament ? "Texas tournament directory" : "Permanent planning pages",
-    itemsTitle: tournament ? (tournament.value ? tournament.title : "250 Texas tournaments & competitions") : "Verified event guides",
+    itemsEyebrow: tournament ? "Texas tournament directory" : temporal?.slug === "fall-festivals" ? "Upcoming & ongoing" : "Permanent planning pages",
+    itemsTitle: tournament ? (tournament.value ? tournament.title : "250 Texas tournaments & competitions") : temporal?.slug === "fall-festivals" ? "Upcoming Texas fall festivals" : "Verified event guides",
     emptyMessage: tournament
       ? "No tournament seed currently belongs to this category."
       : "No permanent event guide currently meets the source standard for this collection; Texas Defined does not pad the page with invented dates.",
