@@ -58,7 +58,9 @@ function HeaderFallback() {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  head: () => ({
+  head: () => {
+    const { identity, seo } = texasDefinedBrand;
+    return ({
     meta: [
       // Impact requires its supplied `value` attribute, rather than `content`.
       { name: "impact-site-verification", value: "d1f89af4-8caa-4bd5-a24f-52a8aa74022b" },
@@ -66,20 +68,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "google-adsense-account", content: "ca-pub-1891256141359926" },
       { name: "msvalidate.01", content: "74E5E79AEC351CF6D2577A6FC6A125DF" },
-      { title: texasDefinedBrand.seo.defaultTitle },
-      { name: "description", content: texasDefinedBrand.seo.defaultDescription },
-      { name: "author", content: texasDefinedBrand.identity.name },
-      { property: "og:title", content: texasDefinedBrand.seo.defaultTitle },
-      { property: "og:description", content: texasDefinedBrand.seo.defaultDescription },
-      { property: "og:site_name", content: texasDefinedBrand.identity.name },
+      { title: seo.defaultTitle },
+      { name: "description", content: seo.defaultDescription },
+      { name: "author", content: identity.name },
+      { property: "og:title", content: seo.defaultTitle },
+      { property: "og:description", content: seo.defaultDescription },
+      { property: "og:site_name", content: identity.name },
       { property: "og:type", content: "website" },
-      { property: "og:locale", content: texasDefinedBrand.identity.locale.replace("-", "_") },
+      { property: "og:locale", content: identity.locale.replace("-", "_") },
       { property: "og:image", content: defaultSocialImage },
       { property: "og:image:alt", content: defaultSocialImageAlt },
       // Twitter cards fall back to the equivalent Open Graph title, description and image alt.
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:image", content: defaultSocialImage },
-      { name: "twitter:site", content: texasDefinedBrand.seo.twitterSite ?? "" },
+      { name: "twitter:site", content: seo.twitterSite ?? "" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -97,10 +99,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           {
             "@type": "Organization",
             "@id": `${siteUrl}/#organization`,
-            name: texasDefinedBrand.identity.name,
+            name: identity.name,
             alternateName: "TexasDefined",
             url: siteUrl,
-            description: texasDefinedBrand.seo.defaultDescription,
+            description: seo.defaultDescription,
             logo: {
               "@type": "ImageObject",
               "@id": `${siteUrl}/#logo`,
@@ -109,7 +111,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
               width: 1825,
               height: 382,
             },
-            sameAs: texasDefinedBrand.identity.social.map((profile) => profile.href),
+            sameAs: identity.social.map((profile) => profile.href),
             contactPoint: [{
               "@type": "ContactPoint",
               contactType: "editorial, corrections and general inquiries",
@@ -122,9 +124,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           {
             "@type": "WebSite",
             "@id": `${siteUrl}/#website`,
-            name: texasDefinedBrand.identity.name,
+            name: identity.name,
             url: siteUrl,
-            inLanguage: texasDefinedBrand.identity.locale,
+            inLanguage: identity.locale,
             publisher: { "@id": `${siteUrl}/#organization` },
             potentialAction: {
               "@type": "SearchAction",
@@ -135,7 +137,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         ],
       }),
     }],
-  }),
+    });
+  },
   shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
