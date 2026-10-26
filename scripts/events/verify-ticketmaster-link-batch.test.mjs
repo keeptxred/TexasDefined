@@ -58,11 +58,13 @@ test('provider network failure remains inconclusive',async()=>{
   assert.equal(result.probeStatus,'NETWORK_INCONCLUSIVE');
 });
 test('deterministic event order and rotating cursor cover catalog without repeated first 40',()=>{
+  const future = (days) => new Date(Date.now()+days*86400000).toISOString().slice(0,10);
   const events=[
-    {id:'z',startDate:'2026-11-01',officialUrl:official,status:'onsale'},
-    {id:'a',startDate:'2026-10-31',officialUrl:official,status:'onsale'},
-    {id:'b',startDate:'2026-10-31',officialUrl:official,status:'onsale'},
-    {id:'c',startDate:'2026-11-02',officialUrl:official,status:'cancelled'},
+    {id:'z',startDate:future(3),officialUrl:official,status:'onsale'},
+    {id:'a',startDate:future(2),officialUrl:official,status:'onsale'},
+    {id:'b',startDate:future(2),officialUrl:official,status:'onsale'},
+    {id:'c',startDate:future(4),officialUrl:official,status:'cancelled'},
+    {id:'old',startDate:'2020-01-01',officialUrl:official,status:'onsale'},
   ];
   const first=chooseBatch(events,0,2);
   assert.deepEqual(first.candidates.map(x=>x.id),['a','b']);
