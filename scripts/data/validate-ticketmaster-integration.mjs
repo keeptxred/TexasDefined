@@ -26,6 +26,25 @@ try {
   const records = loadTicketmasterEventsServer(catalog, now);
   assert.equal(records.length, 1);
   assert.equal(records[0].venueId, 'sports-venue:frost-bank-center');
+  const renamedVenueFixture = { ...event, id: 'ptx-ariat-rename', name: 'Pentatonix: Christmas in the City Tour',
+    city: 'Fort Worth', venue: 'Dickies Arena' };
+  const previousNameFeed = loadTicketmasterEventsServer(
+    { fetchedAt: now.toISOString(), events: [renamedVenueFixture] }, now);
+  assert.equal(previousNameFeed[0]?.venueName, 'Ariat Arena',
+    'old Discovery arena name must display the official October 26 Ariat name');
+  assert.equal(previousNameFeed[0]?.venueId, 'sports-venue:dickies-arena',
+    'renaming must preserve a single canonical venue route');
+  const newNameFeed = loadTicketmasterEventsServer(
+    { fetchedAt: now.toISOString(), events: [{ ...renamedVenueFixture, id: 'ariat-current', venue: 'Ariat Arena' }] }, now);
+  assert.equal(newNameFeed[0]?.venueName, 'Ariat Arena',
+    'new Discovery arena name must use the same public display');
+  assert.equal(newNameFeed[0]?.venueId, previousNameFeed[0]?.venueId,
+    'old and new venue names must resolve to the SAME physical arena');
+  assert.equal(loadTicketmasterEventsServer(
+    { fetchedAt: now.toISOString(), events: [{ ...renamedVenueFixture, id: 'not-fw', city: 'Dallas' }] }, now
+  )[0]?.venueName, 'Dickies Arena',
+    'rename must never rewrite unrelated city venue listings');
+
   const ticketwebUrl = 'https://www.ticketweb.com/event/holiday-show-tickets/14859023';
   const ticketwebCatalog = { fetchedAt: now.toISOString(), events: [{
     ...event, id: 'ticketweb-fixture', officialUrl: ticketwebUrl,
