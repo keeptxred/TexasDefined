@@ -38,6 +38,7 @@ export const texasCulturalRegionsExplainedArticle: Article = {
   sourceName: "Texas Historical Commission",
   sourceUrl: "https://thc.texas.gov/travel/historic-road-trips",
   internalLinks: [
+    { href: "/things-unique-to-texas/culture-music", label: "Texas traditions and cultural icons", description: "Browse the verified 250-item collection for regional music, celebrations, foodways and everyday Texas traditions." },
     { href: "/article/texas-german-belt", label: "The German-Texan heritage landscape", description: "Follow primary historical sources through New Braunfels, Fredericksburg and smaller towns." },
     { href: "/article/texas-wine-country", label: "Texas wine country", description: "See modern economic geography alongside older Hill Country communities." },
     {
