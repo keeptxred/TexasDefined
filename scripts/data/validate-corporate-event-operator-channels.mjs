@@ -4,12 +4,18 @@ import { corporateEventProviders } from '../../src/data/corporate-events.ts';
 import { corporateEventPublicOperatorChannel, corporateEventPublicOperatorChannels } from '../../src/data/corporate-event-public-operator-channels.ts';
 
 const channels = corporateEventPublicOperatorChannels;
-assert(channels.length >= 14, 'Retain at least fourteen verified official Houston event inquiry paths');
+assert(channels.length >= 22, 'Retain at least 14 Houston plus eight independently reviewed Texas-wide official event inquiry paths');
 assert.equal(new Set(channels.map(item => item.venueSlug)).size, channels.length, 'One independently evidenced path per venue');
 const bySlug = new Map(corporateEventProviders.map(venue => [venue.slug, venue]));
+assert(channels.filter(item => bySlug.get(item.venueSlug)?.city === 'Houston').length >= 14,
+  'The prior 14 source-reviewed Houston inquiry paths must remain available');
+for (const slug of ["topgolf-dallas","dallas-arboretum-events","escape-game-dallas","dart-em-up-austin","artpace-san-antonio-events","alamo-private-events","topgolf-el-paso","moody-gardens-galveston-events"]) {
+  assert(channels.some(item => item.venueSlug === slug && item.reviewedOn === '2026-10-25'),
+    'Retain source-reviewed non-Houston corporate event channel: ' + slug);
+}
 for (const row of channels) {
   const provider = bySlug.get(row.venueSlug);
-  assert(provider && provider.city === 'Houston', 'Contact pathway must match a real Houston-city venue: ' + row.venueSlug);
+  assert(provider && provider.city, 'Every source-reviewed contact path must resolve to an existing Texas directory venue: ' + row.venueSlug);
   const urls = [row.url, row.evidenceUrl, provider.officialUrl].map(value => new URL(value));
   for (const url of urls) {
     assert.equal(url.protocol, 'https:', 'No insecure operator links');
