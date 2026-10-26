@@ -27,7 +27,7 @@ const end = eventFile.indexOf("\n];", start);
 assert.ok(start >= 0 && end > start, "Source-qualified Christmas manifest was not found");
 const json = eventFile.slice(eventFile.indexOf("= [", start) + 2, end + 2).trim();
 const events = JSON.parse(json);
-assert.ok(events.length >= 191, "The 191 organizer-verified Christmas date windows must not shrink without explicit source review");
+assert.ok(events.length >= 203, "The 203 organizer-verified Christmas date windows must not shrink without explicit source review");
 assert.equal(events.length, new Set(events.map((event) => event.slug)).size, "Duplicate Christmas community slugs");
 
 const validDate = /^20\d{2}-\d{2}-\d{2}$/;
@@ -84,6 +84,30 @@ assert.ok(bySlug.get("caldwell-2026-christmas-on-square").summary.includes("Frid
 assert.ok(bySlug.get("navasota-2026-home-for-holidays-parade").sourceName.includes("School District"), "Do not imply organizer confirmation where only the district calendar supports the date");
 assert.ok(!bySlug.has("temple-nature-in-lights-assumed-2026"), "Historic Temple BLORA holiday dates cannot be promoted as exact 2026 evidence");
 assert.ok(!bySlug.has("waco-homestead-christmas-market-inferred-2026"), "Archived Homestead Holiday Market dates must not silently roll forward");
+for (const [slug, begin] of [
+  ["seguin-2026-holiday-stroll-parade","2026-12-03"],
+  ["seguin-2026-sip-n-stroll","2026-12-04"],
+  ["seguin-2026-north-pole-stroll","2026-12-05"],
+  ["seguin-2026-yulefest-art-show","2026-12-06"],
+  ["lewisville-2026-holiday-stroll-lights","2026-12-04"],
+  ["lewisville-2026-holiday-stroll-parade","2026-12-05"],
+  ["rowlett-2026-holiday-main-street-fest","2026-12-05"],
+]) check(slug,begin);
+assert.ok(!bySlug.has("rowlett-2026-duplicate-parade"), "Rowlett's festival and parade share a single city occasion");
+
+check("colleyville-2026-christmas-tree-lighting","2026-11-21");
+check("forney-2026-christmas-on-main","2026-12-05");
+check("kaufman-2026-christmas-on-the-square","2026-12-05");
+check("terrell-2026-christmas-parade","2026-12-12");
+check("lockhart-2026-christmas-to-remember","2026-12-04","2026-12-05");
+assert.ok(bySlug.get("terrell-2026-christmas-parade").summary.includes("FLOAT ENTRY fees"), "Terrell spectator entry must not falsely inherit float fees");
+assert.ok(!bySlug.has("lockhart-2026-dickens-christmas"), "Different Lockhart event aliases must not be invented as verified 2026 Dickens dates");
+assert.ok(bySlug.get("forney-2026-christmas-on-main").summary.includes("do not merge"), "Do not treat Christmas on Main as an unverified Forney Christmas in the Park event");
+assert.ok(!bySlug.has("rockwall-2026-kiwanis-christmas-parade"), "Rockwall already has canonical Hometown Christmas coverage; avoid duplicate parade entries");
+assert.ok(bySlug.has("rockwall-hometown-christmas-2026"), "Retain verified canonical Rockwall Christmas listing");
+assert.ok(bySlug.has("burleson-btx-mas-christmas-2026"), "Retain verified Burleson BTX-MAS listing");
+assert.ok(bySlug.get("lewisville-2026-holiday-stroll-parade").summary.includes("Check the city event program"), "Unpublished Lewisville parade exact hour must not be invented");
+
 assert.ok(!bySlug.has('waco-wild-lights-2026-late-december'), 'Conflicted Zoo operating nights cannot be invented');
 for (const [slug,date] of [
   ["southlake-home-for-the-holidays-2026","2026-11-21"],
@@ -327,16 +351,9 @@ assert.ok(partnerForm.includes("const search = Route.useSearch()") && partnerFor
 assert.ok(partnerServer.includes("z.literal('/events/christmas-events')"), "Server must enforce Christmas inquiry source allowlist");
 assert.ok(!page.includes("adsbygoogle"), "Do not activate unapproved AdSense on Christmas calendars");
 assert.ok(monetizationPolicy.includes("AdSense is not approved"), "Retain actual AdSense approval status in Christmas policy");
-assert.ok(christmasLiveVerifier.includes('readFileSync("src/data/events/christmas-community-2026.server.ts"'),
-  "Live smoke must derive current inventory from the source manifest");
-assert.ok(christmasLiveVerifier.includes("expectedActiveCommunityCount"),
-  "Live smoke must compare expected upcoming seasonal count with actual visitor HTML");
-assert.ok(christmasLiveVerifier.includes("event.endDate ?? event.startDate"),
-  "Already-completed Christmas dates must expire from the live source contract");
-assert.ok(christmasLiveVerifier.includes("expectedLiveWitnesses"),
-  "Live smoke must verify representative recently sourced holiday events while active");
-assert.ok(christmasLiveVerifier.includes("visible.includes(countEvidence)"),
-  "Live calendar count must be validated in visible HTML, not hidden hydration JSON");
+assert.ok(christmasLiveVerifier.includes("expectedActiveCommunityCount") && christmasLiveVerifier.includes("remainingCommunityEvents"), "Live smoke must reconcile source-qualified active Christmas dates, rather than expire on hard-coded past events");
+assert.ok(christmasLiveVerifier.includes("expectedLiveWitnesses") && christmasLiveVerifier.includes("sampleSlugs"), "Live smoke must verify date-filtered new-source Christmas witness events");
+assert.ok(christmasLiveVerifier.includes("activePerformances"), "Live smoke must retain date-scoped curated concert and ticket verification");
 assert.ok(christmasLiveVerifier.includes("verify-christmas-release="), "Live smoke must bypass caches when probing stale source data");
 assert.ok(christmasLiveVerifier.includes("data-ad-slot="), "Do not accidentally activate AdSense display units before approval");
 assert.ok(productionWorkflow.includes("node scripts/ci/verify-christmas-hub-production.mjs"), "Existing protected production deploy must verify Christmas hub freshness");
