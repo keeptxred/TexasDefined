@@ -300,5 +300,43 @@ try {
   assert.deepEqual(loadTicketmasterEventsServer({ ...catalog, events: [{ ...event, city: 'Unknown city' }] }, now), []);
   const offsale = loadTicketmasterEventsServer({ ...catalog, events: [{ ...event, status: 'offsale' }] }, now);
   assert.equal(buildTexasEventCarouselItemsServer(offsale)[0].ticketCta, null);
+  // Every successful daily snapshot must use the same publisher-scoped exact
+  // admission identity contract, not merely the first fixture in this test.
+  // Iterate the entire ACTIVE snapshot, not only first-page 48 calendar cards.
+  const currentCatalog = loadTicketmasterEventsServer(undefined, now);
+  const distinctCurrentIds = new Set();
+  let activeAffiliateCtas = 0;
+  let currentOfficialFallbacks = 0;
+  for (const current of currentCatalog) {
+    assert.ok(!distinctCurrentIds.has(current.id), 'duplicate Ticketmaster provider identity: ' + current.id);
+    distinctCurrentIds.add(current.id);
+    assert.equal(ticketmasterIsPrimaryAdmissionTitle(current.title), true,
+      'parking/VIP/suite merchandise leaked into current admission feed: ' + current.title);
+    const ticketing = current.ticketing;
+    assert.equal(ticketing?.links.length, 1, 'one canonical ticket link per provider event: ' + current.id);
+    const link = ticketing.links[0];
+    assert.ok(link.officialTicketUrl.startsWith('https://'), 'official URL must be HTTPS');
+    const currentCta = buildTexasEventCarouselItemsServer([current])[0].ticketCta;
+    if (currentCta?.isAffiliate) {
+      activeAffiliateCtas++;
+      const wrapped = new URL(currentCta.href);
+      assert.equal(wrapped.hostname, 'ticketmaster.evyy.net');
+      assert.match(wrapped.pathname, /^\/c\/7758914\/\d+\/4272\/?$/);
+      assert.equal(wrapped.searchParams.getAll('u').length, 1);
+      assert.equal(wrapped.searchParams.get('u'), link.officialTicketUrl,
+        'commercial CTA must resolve to the exact paired event, not a different performance');
+    } else if (currentCta) {
+      currentOfficialFallbacks++;
+      assert.equal(currentCta.href, link.officialTicketUrl, 'unsafe affiliate must fall back to official');
+      assert.equal(currentCta.isAffiliate, false);
+    }
+    if (['sold-out','off-sale','cancelled','not-on-sale-yet'].includes(link.saleStatus)) {
+      assert.equal(currentCta, null, 'non-actionable event must not claim ticket admission');
+    }
+  }
+  console.log('Current snapshot security sweep: provider rows=' + currentCatalog.length
+    + ', authorized affiliate CTAs=' + activeAffiliateCtas
+    + ', official fallbacks=' + currentOfficialFallbacks
+    + '. These are URL/identity checks, NOT live seat inventory verification.');
   console.log('PASS: Ticketmaster records preserve approved affiliate CTAs and reject expired dates with Texas-local time.');
 } finally { await server.close(); }
