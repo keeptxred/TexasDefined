@@ -146,7 +146,7 @@
       "evidence": "Downtown Conroe's published Dec 13 2 PM Crighton Theatre occurrence links the reviewed exact Etix event /p/62230269; Etix checkout itself cannot be retrieved by automated client",
       "checkedAt": "2026-10-26",
       "checkoutUrl": "https://www.etix.com/ticket/p/62230269/a-christmas-story-conroe-crighton-theatre",
-      "publicSaleStatus": "not-independently-confirmed",
+      "publicSaleStatus": "organizer-published-on-sale",
       "inventoryStatus": "NOT_PROVIDER_CONFIRMED",
       "checkoutPriceStatus": "not-confirmed",
       "affiliateEligibility": "not-proven",
@@ -166,7 +166,13 @@
         "Source-qualified organizer/venue/provider event identity",
         "Production 12-show city/date SSR acceptance passed, run 40260454571"
       ],
-      "verificationScope": "Official event and published purchase entry verified; not real-time seat inventory or final checkout price"
+      "verificationScope": "Official event and published purchase entry verified; not real-time seat inventory or final checkout price",
+      "publicSaleEvidence": {
+        "sourceUrl": "https://www.stage-right.org/",
+        "checkedAt": "2026-10-26",
+        "finding": "Resident company Stage Right of Texas publishes BUY TICKETS for A Christmas Story, Dec 4–20 at Crighton Theatre, with Sunday performances at 2:00 PM. The exact Dec 13 2:00 PM Etix checkout remains separately sourced.",
+        "verificationScope": "Published sale status, exact identity, date/time and venue only; not seat inventory, final checkout price or event-specific commission"
+      }
     },
     {
       "id": "pentatonix-fort-worth-2026",
@@ -436,7 +442,7 @@
       "evidence": "Official Alley Theatre checkout directly confirms Dec 27 1:30 PM at Hubbard Theatre, with posted seat tiers $88–$148 as checked Oct 26",
       "checkedAt": "2026-10-26",
       "checkoutUrl": "https://cart.alleytheatre.org/10216/10226",
-      "publicSaleStatus": "not-independently-confirmed",
+      "publicSaleStatus": "organizer-published-on-sale",
       "inventoryStatus": "NOT_PROVIDER_CONFIRMED",
       "checkoutPriceStatus": "Provider page lists seat-category prices (Platinum Front/Platinum $148, Gold $138, Silver $128, Bronze $88) as viewed 2026-10-26; final fees/actual cart amount not verified and not published on TexasDefined",
       "affiliateEligibility": "not-proven",
@@ -459,7 +465,13 @@
       "verificationScope": "Official event and published purchase entry verified; not real-time seat inventory or final checkout price",
       "eventSourceVerifiedAt": "2026-10-26",
       "eventSourceVerifiedUrl": "https://cart.alleytheatre.org/10216/10226",
-      "purchaseDestinationEvidence": "EXACT_ALLEY_THEATRE_PERFORMANCE_CHECKOUT"
+      "purchaseDestinationEvidence": "EXACT_ALLEY_THEATRE_PERFORMANCE_CHECKOUT",
+      "publicSaleEvidence": {
+        "sourceUrl": "https://www.alleytheatre.org/",
+        "checkedAt": "2026-10-26",
+        "finding": "Alley Theatre official homepage features A Christmas Carol Nov 15–Dec 27 under NOW ON SALE, with Get Tickets. The separately verified final Dec 27 1:30 PM Hubbard Theatre official checkout is preserved.",
+        "verificationScope": "Published sale status, exact identity, date/time and venue only; not seat inventory, final checkout price or event-specific commission"
+      }
     }
   ],
   "statewide": {
