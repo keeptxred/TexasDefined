@@ -100,6 +100,8 @@ test('daily outbound verification excludes branded garage parking and add-on pro
     { id: 'garage', name: notAdmission[0], startDate: date, officialUrl: official, status: 'onsale' },
     { id: 'vip', name: notAdmission[3], startDate: date, officialUrl: official, status: 'onsale' },
     { id: 'show', name: 'Dallas Stars vs. New Jersey Devils', startDate: date, officialUrl: official, status: 'onsale' },
+    { id: 'off', name: 'Off Sale Show', startDate: date, officialUrl: official, status: 'offsale' },
+    { id: 'sold', name: 'Sold Out Concert', startDate: date, officialUrl: official, status: 'soldout' },
   ];
   const batch = chooseBatch(events, 0, 40);
   assert.deepEqual(batch.candidates.map(e=>e.id), ['show']);
