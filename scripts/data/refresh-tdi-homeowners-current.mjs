@@ -3,6 +3,7 @@ import { pathToFileURL } from 'node:url';
 import path from 'node:path';
 
 const OUTPUT = 'src/data/generated/tdi-homeowners-current.json';
+const BRIDGE = 'src/data/texas-data-center.ts';
 const SOURCE = 'https://www.tdi.texas.gov/general/texas-homeowners-insurance-market-overview.html';
 
 export function extractTdiRows(html) {
@@ -83,7 +84,13 @@ checkedAt = new Date().toISOString().slice(0, 10) } = {}) {
   }
   const next = { sourceUrl: SOURCE, verifiedAt: checkedAt,
     sourceYear: rows.at(-1).year, rows: preserved };
+  const bridge = await read(BRIDGE);
+  const match = bridge.match(/(\{ slug: 'texas-homeowners-premium-latest', updated: ')(\d{4}-\d{2}-\d{2})(' \})/);
+  if (!match) throw new Error('TDI latest sitemap-safe update marker missing');
+  const metadata = bridge.replace(match[0], match[1] + checkedAt + match[3]);
+  // Fail before writing either artifact if source data or catalog layout breaks.
   await write(OUTPUT, JSON.stringify(next, null, 2) + '\n');
+  if (metadata !== bridge) await write(BRIDGE, metadata);
   console.log('Updated TDI premium/coverage verified rolling series through ' + next.sourceYear);
   return true;
 }
