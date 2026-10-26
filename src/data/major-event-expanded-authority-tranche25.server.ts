@@ -149,7 +149,7 @@ const records: MajorEventAuthorityRecord[] = [
     dateNote: "The organizer publishes the overall 2027 celebration as January 29-February 9 and describes seven days of revelry. Scheduled programming is concentrated on January 29-31, February 5-7 and Fat Tuesday, February 9; do not interpret the date span as continuous daily programming.",
     venue: "Historic Downtown Galveston and island parade routes",
     officialUrl: "https://www.mardigrasgalveston.com/",
-    sourceCheckedAt: "2026-10-21",
+    sourceCheckedAt: "2026-10-26",
     whyItMatters: "Mardi Gras! Galveston is the island's long-running pre-Lenten celebration, with the organizer advertising more than 20 parades, more than 20 concerts and seven programmed days across two weekends and Fat Tuesday in 2027.",
     quickFacts: [
       {
@@ -175,6 +175,14 @@ const records: MajorEventAuthorityRecord[] = [
       {
         label: "General admission for children",
         value: "Official ticket page lists ages 12 and under free with parent/guardian; premium rules vary"
+      },
+      {
+        label: "Free admission days",
+        value: "Sunday, February 7 (Family Gras) and Tuesday, February 9 (Fat Tuesday); other dates may require an entertainment-district ticket"
+      },
+      {
+        label: "2027 headline parade times",
+        value: "Aquarius: January 30 at noon; Momus Grand Night Parade: February 6 at 6 p.m.; Fat Tuesday Aquarius: February 9 at 6:30 p.m. — recheck the organizer schedule"
       }
     ],
     planningSections: [
@@ -184,11 +192,11 @@ const records: MajorEventAuthorityRecord[] = [
       },
       {
         title: "Strand admission is different from watching a parade",
-        body: "The entertainment district in historic downtown is ticketed for many programmed days, with admission and balcony packages sold separately. Some parades run outside paid areas or along the Seawall. Read the specific event-day schedule and ticket policy before assuming either every parade is free or every parade requires a Strand ticket."
+        body: "According to the official 2027 FAQ, historic downtown Entertainment District tickets are required January 29–31 and February 5–6. The organizer advertises free public district admission for Family Gras on Sunday, February 7 and for Fat Tuesday, February 9. Other parades can also pass along the Seawall or outside gates. General admission and optional paid balcony parties have different rules; check the latest policy before choosing your viewing spot."
       },
       {
         title: "Select Family Gras or another suitable experience",
-        body: "The festival schedules different themes and settings across its two weekends. The official 2027 program includes Fiesta Gras on January 31, first-responder-focused activities February 5 and Family Gras programming. Verify parade times, road routes, crowd conditions and which events actually provide the atmosphere your group wants."
+        body: "The official 2027 schedule has Fiesta Gras on January 31; First Responders Day on February 5, with free district admission for eligible first responders, active military and veterans plus one guest with valid ID; and free-admission Family Gras on Sunday, February 7. Family Gras lists the noon Shriners Children’s Texas & Sunshine Kids Parade, 1:30 p.m. Krewe of Barkus and Meoux Parade and 3 p.m. Firefighters Children’s Parade. Check updated route and age-specific amenities before traveling."
       },
       {
         title: "Plan around the two main geographic corridors",
@@ -204,7 +212,7 @@ const records: MajorEventAuthorityRecord[] = [
       },
       {
         title: "Compare the 2027 parade mix, not just the crowds",
-        body: "The schedule includes krewes, marching bands, umbrella and golf-cart traditions, Fiesta Gras events and the island's historic Momus-related celebrations. Some showpieces are afternoon parades, while others take place after dark. Read the individual entries rather than expecting a single standard parade format."
+        body: "The organizer currently lists the Mystic Krewe of Aquarius Parade at noon Saturday, January 30; the Knights of Momus Grand Night Parade at 6 p.m. Saturday, February 6; and the concluding Fat Tuesday Aquarius parade at 6:30 p.m. Tuesday, February 9. The routes differ between the Seawall and historic downtown, and individual times can change, so use the organizer's current parade schedule on your chosen date."
       },
       {
         title: "Build lodging around your actual evening",

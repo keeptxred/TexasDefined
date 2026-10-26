@@ -75,7 +75,7 @@ const confirmed: ConfirmedCelebration[] = [
     "kind": "Reintroduced Cajun-coast festival",
     "family": "Designed as multigenerational",
     "description": "Port Arthur's new visitor-bureau-led downtown celebration returns Mardi Gras to the city with parades, food, music and family activities.",
-    "official": "https://visitportarthurtx.com/mardi-gras/about-mardi-gras/"
+    "official": "https://visitportarthurtx.com/mardi-gras/schedule/"
   },
   {
     "slug": "crystal-beach-mardi-gras-parade",
@@ -165,7 +165,7 @@ function MardiGrasTexasPage() {
         <p className="mt-10 text-sm font-semibold">Texas events • Carnival season 2027</p>
         <h1 className="mt-4 max-w-4xl font-display text-5xl sm:text-6xl">Mardi Gras in Texas</h1>
         <p className="mt-5 max-w-3xl text-xl leading-8">From Galveston's landmark parades to East Texas krewes, a Cowboy Capital street party and bayside boat parades, find the Texas Mardi Gras celebration worth the trip.</p>
-        <p className="mt-5 max-w-3xl text-sm leading-7">Main celebrations source-checked October 21, 2026; companion events reviewed October 25, 2026. Mardi Gras falls on Tuesday, February 9, 2027. Events don't all run on Fat Tuesday — always choose a specific programmed day.</p>
+        <p className="mt-5 max-w-3xl text-sm leading-7">Main celebrations checked October 21, with Galveston and Port Arthur updates October 26, 2026; companion events reviewed October 25. Mardi Gras falls on Tuesday, February 9, 2027. Events don't all run on Fat Tuesday — always choose a specific programmed day.</p>
         <div className="mt-8 flex flex-wrap gap-3">
           <a href="#confirmed" className="inline-flex min-h-11 items-center bg-primary px-5 py-3 font-semibold text-primary-foreground hover:opacity-90">Explore verified dates ↓</a>
           <a href="#planning" className="inline-flex min-h-11 items-center border border-border px-5 py-3 font-semibold">Plan your Mardi Gras trip ↓</a>
@@ -204,6 +204,13 @@ function MardiGrasTexasPage() {
         <p className="mt-5 text-sm leading-7 text-muted-foreground">* Bandera tourism's detailed event page spans January 28–31, while its general save-the-date page lists January 28–30. The January 30 parade is confirmed but the Sunday program needs rechecking. Kemah's February 6 boat parade and February 9 street parade are separate events.</p>
       </section>
 
+      <section aria-labelledby="galveston-highlights" className="mt-14 border-t border-border pt-10">
+        <h2 id="galveston-highlights" className="font-display text-3xl">Galveston: the 2027 parades and free days worth planning around</h2>
+        <p className="mt-4 max-w-4xl leading-7 text-muted-foreground">The organizer has published its 2027 parade program. For an all-ages day without a paid district gate, choose <strong>Family Gras on Sunday, February 7</strong> (noon children’s parade, 1:30 p.m. pets parade, and 3 p.m. firefighters children’s parade). <strong>Fat Tuesday, February 9</strong> also has free public district admission, with the Mystic Krewe of Aquarius procession currently scheduled for 6:30 p.m.</p>
+        <p className="mt-3 max-w-4xl leading-7 text-muted-foreground">For the larger signature parades, Mystic Krewe of Aquarius is scheduled for noon Saturday, January 30, and the Knights of Momus Grand Night Parade for 6 p.m. Saturday, February 6. Historic downtown admission rules differ from free public viewing outside the gates; children ages 12 and under receive free general admission with a parent or guardian on ticketed days. Times, routes and any premium viewing terms can change.</p>
+        <p className="mt-4 flex flex-wrap gap-x-6 gap-y-3 text-sm"><a href="/event/mardi-gras-galveston" className="font-semibold text-primary underline">Galveston parade-day visitor guide →</a><a href="https://www.mardigrasgalveston.com/parade-schedule/" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline">Official 2027 parade times ↗</a><a href="https://www.mardigrasgalveston.com/faqs/" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline">Official admission FAQs ↗</a></p>
+      </section>
+
       <section aria-labelledby="capital-heading" className="mt-14 border-t border-border pt-10">
         <h2 id="capital-heading" className="font-display text-3xl">Why is Galveston the Mardi Gras Capital of Texas?</h2>
         <p className="mt-4 max-w-4xl leading-7 text-muted-foreground">In 2025, the 89th Texas Legislature designated Galveston as the state's official Mardi Gras Capital through H.C.R. 50. The resolution traces celebrations back to 1867 and credits the revival of citywide Mardi Gras festivities in 1985. It is a legislative place designation, not an assertion that the other Texas Carnival events on this page are affiliated with Galveston.</p>
@@ -213,7 +220,7 @@ function MardiGrasTexasPage() {
       <section id="companion-events" className="mt-14 border-t border-border pt-10">
         <p className="eyebrow text-primary">Confirmed companion events</p>
         <h2 className="mt-3 font-display text-4xl">More verified Mardi Gras companion events in Texas for 2027</h2>
-        <p className="mt-4 max-w-4xl leading-7 text-muted-foreground">These are distinct Carnival-season activities confirmed by their own organizers or local event publishers. They are <strong>not</strong> additional days of the parades above, and admission or fundraising rules vary. Published event information was checked October 25, 2026.</p>
+        <p className="mt-4 max-w-4xl leading-7 text-muted-foreground">These are distinct Carnival-season activities confirmed by their own organizers or local event publishers. They are <strong>not</strong> additional days of the parades above, and admission or fundraising rules vary. Published event information was checked October 25–26, 2026.</p>
         <div className="mt-7 grid gap-5 md:grid-cols-2">
           <article className="border border-border p-6">
             <p className="text-xs font-semibold text-muted-foreground">Crystal Beach · Saturday, January 16 · time to reconfirm</p>
@@ -230,6 +237,20 @@ function MardiGrasTexasPage() {
             <a href="https://mardigrasupriver.com/queen-mab-ball-2/" target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex font-semibold text-primary underline">Organizer's 2027 ball details ↗</a>
             <p className="mt-3 text-sm"><a href="/events?start=2027-01-23&amp;end=2027-01-23#calendar" className="font-semibold text-primary underline">Find January 23 in the statewide calendar →</a></p>
             <p className="mt-3 text-sm"><a href="/event/mardi-gras-upriver-jefferson" className="font-semibold text-primary underline">February festival guide →</a></p>
+          </article>
+          <article className="border border-border p-6">
+            <p className="text-xs font-semibold text-muted-foreground">Kemah / Clear Lake · Saturday, January 30 · start time to confirm</p>
+            <h3 className="mt-2 font-display text-2xl">Yachty Gras Kick-Off Party</h3>
+            <p className="mt-3 leading-7 text-muted-foreground">The official Yachty Gras calendar lists its 2027 kick-off gathering at Lakewood Yacht Club on January 30, a full week before the February 6 Grand Night Boat Parade. The organizer provides a ticket link, but current prices, door policies and event hours require verification. This is a separate venue event, not free public boat-parade viewing.</p>
+            <a href="https://www.yachtygras.com/events-1" target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex font-semibold text-primary underline">Yachty Gras official event calendar ↗</a>
+            <p className="mt-3 text-sm"><a href="/event/kemah-yachty-gras" className="font-semibold text-primary underline">February 6 boat and February 9 street parade guide →</a></p>
+          </article>
+          <article className="border border-border p-6">
+            <p className="text-xs font-semibold text-muted-foreground">Jefferson · Sunday, January 31 · 5–7 p.m.</p>
+            <h3 className="mt-2 font-display text-2xl">Mardi Gras Upriver T-Shirt &amp; Poster Party</h3>
+            <p className="mt-3 leading-7 text-muted-foreground">Krewe of Hebe schedules its merchandise and poster social at Jefferson Fire Hall, across from the Transportation Building. Visitors can pick up official 2027 shirts, posters and souvenirs before the February 5–7 Mardi Gras Upriver festival. This is a separate January gathering, not the Queen Mab Ball or a main parade day.</p>
+            <a href="https://mardigrasupriver.com/event/t-shirt-poster-party-mardi-gras-upriver-2027-krewe-of-hebe/" target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex font-semibold text-primary underline">Krewe of Hebe event announcement ↗</a>
+            <p className="mt-3 text-sm"><a href="/event/mardi-gras-upriver-jefferson" className="font-semibold text-primary underline">February festival visitor guide →</a></p>
           </article>
           <article className="border border-border p-6">
             <p className="text-xs font-semibold text-muted-foreground">Beaumont · Friday, February 5 · 6 p.m.</p>

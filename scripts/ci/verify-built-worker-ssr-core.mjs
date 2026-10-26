@@ -55,6 +55,10 @@ const smokeTargets = [
   { path: '/event/kemah-yachty-gras', requiredText: 'Yachty Gras', label: 'Kemah two-organizer Mardi Gras guide SSR renders' },
   { path: '/event/kemah-yachty-gras', requiredText: 'yachtygras.com', label: 'Kemah boat-parade source remains distinct from street event' },
   { path: '/event/cowboy-mardi-gras-bandera', requiredText: 'Carol M. Highsmith', label: 'Bandera actual-event archival photo attribution is visible' },
+  { path: '/events/mardi-gras', requiredText: 'Galveston: the 2027 parades and free days worth planning around', label: 'Statewide Mardi Gras hub contains verified 2027 festival day selection' },
+  { path: '/events/mardi-gras', requiredText: '6:30 p.m.', label: 'Statewide Mardi Gras hub shows verified Fat Tuesday parade time' },
+  { path: '/event/mardi-gras-galveston', requiredText: 'Knights of Momus Grand Night Parade at 6 p.m.', label: 'Galveston guide preserves 2027 signature parade time' },
+  { path: '/event/mardi-gras-port-arthur', requiredText: 'schedule page does not contain a detailed timetable', label: 'Port Arthur guide does not fabricate yet-unpublished 2027 timetable' },
   { path: '/event/mardi-gras-galveston', requiredText: 'A Yee', label: 'Galveston original-event licensed photograph credit SSR renders' },
   { path: '/event/mardi-gras-galveston', requiredText: '2013 Mardi Gras', label: 'Galveston hero is accurately labeled as archival, not 2027' },
   // El Paso authority acceptance: real SSR must publish the researched metro guide
