@@ -105,13 +105,20 @@ try {
 } catch (error) {
   errors.push("Manifest request failed: " + String(error));
 }
-await Promise.all(required.map(async c => {
-  try {
-    const result = analyzeRoute(c, await get("/destination/" + c.slug));
-    observations.push(result);
-    errors.push(...result.issues.map(issue => c.slug + ": " + issue));
-  } catch (error) {
-    errors.push(c.slug + ": " + String(error));
+// Required-photo guides used to launch all requests together, causing
+// coincident 25-second timeouts under Cloudflare load. Check every guide with
+// bounded concurrency; one real read per page, same fail-closed assertions.
+const requiredWorkerCount = Math.min(6, required.length);
+await Promise.all(Array.from({ length: requiredWorkerCount }, async (_, index) => {
+  for (let i = index; i < required.length; i += requiredWorkerCount) {
+    const c = required[i];
+    try {
+      const result = analyzeRoute(c, await get("/destination/" + c.slug));
+      observations.push(result);
+      errors.push(...result.issues.map(issue => c.slug + ": " + issue));
+    } catch (error) {
+      errors.push(c.slug + ": " + String(error));
+    }
   }
 }));
 const requiredSlugs = new Set(required.map(c => c.slug));
