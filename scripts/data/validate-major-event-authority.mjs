@@ -376,6 +376,22 @@ for (const marker of [
   'approvedForCommercialUse: true',
 ]) if (!palestineImageEnrichment.includes(marker)) fail("Palestine Polar Express licensed historical image missing " + marker);
 
+const palestineLiveVerifier = read(path.join(root, "scripts/ci/verify-palestine-polar-express-production.mjs"));
+const protectedDeployWorkflow = read(path.join(root, ".github/workflows/deploy-production.yml"));
+for (const marker of [
+  'data-polar-express-2026-schedule="true"',
+  'data-event-official-ticket-cta="true"',
+  'de1634643/hotels-palestine-texas/',
+  'Southern_Pine_Lumber_Co._No._28',
+  'Michael Gras',
+  'verify-polar-express=',
+  'cache: "no-store"',
+]) if (!palestineLiveVerifier.includes(marker)) fail("Palestine production verification guard missing " + marker);
+if (!protectedDeployWorkflow.includes("id: live_palestine_polar_express") ||
+    !protectedDeployWorkflow.includes("node scripts/ci/verify-palestine-polar-express-production.mjs")) {
+  fail("Protected deploy must verify the 2026 Palestine Polar Express live booking page");
+}
+
 const duplicateDefinitions = [...slugOwners.values()].filter((owners) => owners.length > 1).length;
 if (!process.exitCode) {
   console.log(`Major-event authority validation passed (${trancheFiles.length} tranche files, ${slugOwners.size} authority slugs, ${ledgerSlugs.size} ledger event destinations, ${collectionPaths.length} crawlable event authority collections, ${temporalPaths.length} finite temporal collections; ${duplicateDefinitions} historical duplicate definitions retained under first-match resolution).`);
