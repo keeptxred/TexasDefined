@@ -23,6 +23,20 @@ export function applyCurrentEntityCorrections(entity: TexasEntityRecord): TexasE
     corrected = { ...corrected, sourceCheckedAt: '2026-10-09' };
   }
 
+  // Fort Worth arena operator / Ariat announced the new naming-rights title
+  // on October 26, 2026. Preserve the old canonical slug and all historical
+  // name lookups; this is NOT a new facility or a separately ticketed venue.
+  if (corrected.id === 'sports-venue:dickies-arena') {
+    corrected = {
+      ...corrected,
+      name: 'Ariat Arena',
+      aliases: [...new Set([...corrected.aliases, 'Dickies Arena', 'Ariat Arena'])],
+      officialUrl: 'https://www.ariatarena.com/',
+      description: 'Ariat Arena, formerly Dickies Arena, is Fort Worth’s 14,000-seat multipurpose event venue beside the Will Rogers Memorial Center. The name changed October 26, 2026; the building, its Cultural District location, and its ongoing Stock Show rodeos, major concerts and sporting events remain the same.',
+      sourceCheckedAt: '2026-10-26',
+    };
+  }
+
   if (corrected.id === 'sports-venue:jones-att-stadium') {
     corrected = {
       ...corrected,
