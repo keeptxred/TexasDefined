@@ -90,6 +90,7 @@ function TexasCapitalDesignationsPage() {
                 <div className="mt-6 border-t border-border pt-4 text-sm">
                   <p><strong>{item.resolution}</strong> · {item.legislature} · {item.designatedYear}</p>
                   <a href={item.sourceUrl} target="_blank" rel="noreferrer" className="mt-3 inline-block font-semibold text-primary underline-offset-4 hover:underline">Read the enrolled resolution ↗</a>
+                  {item.place === "Galveston" ? <Link to="/events/mardi-gras" className="mt-3 block font-semibold text-primary underline-offset-4 hover:underline">See the Texas Mardi Gras calendar and 2027 visitor guides →</Link> : null}
                 </div>
               </article>
             ))}
@@ -111,6 +112,7 @@ function TexasCapitalDesignationsPage() {
               <div className="mt-6 divide-y divide-border border-y border-border">
                 <RelatedLink to="/texas-symbols" title="Official Texas Symbols" text="The state's official bird, flower, foods, animals, cultural symbols and more." />
                 <RelatedLink to="/texas-history" title="Texas History" text="The people, places and turning points behind these local identities." />
+                <RelatedLink to="/events/mardi-gras" title="Mardi Gras in Texas" text="The 2027 statewide parade guide, including Galveston, officially named Mardi Gras Capital of Texas." />
                 <RelatedLink to="/explore/small-towns" title="Texas Small Towns" text="Turn some of the official designations into a road-trip starting point." />
                 <RelatedLink to="/things-unique-to-texas" title="Things Unique to Texas" text="Food, brands, places, traditions and cultural details that feel distinctly Texan." />
               </div>
