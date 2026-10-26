@@ -669,4 +669,9 @@ test("El Paso day-trip reader guidance links closer public destinations without 
     "production desktop/mobile checks must inspect El Paso's local-guide complement");
   assert.ok(browser.includes('El Paso close-in outings are distinct from governed distance inventory'),
     "the browser contract must enforce the two local visitor guides and official sources");
+  const sourceMonitor = readFileSync("scripts/data/check-metro-day-trips-sources.mjs", "utf8");
+  assert.ok(sourceMonitor.includes('data-el-paso-short-trips="separate-from-distance-results"'),
+    "weekly scheduled source monitor must include official URLs introduced in the El Paso local guide");
+  assert.ok(sourceMonitor.includes("elPasoOperatorLinks"),
+    "don't leave the NPS Chamizal visitor link outside ongoing source-health monitoring");
 });
