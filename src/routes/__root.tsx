@@ -160,10 +160,8 @@ function RootComponent() {
     let installed = false;
     let analyticsPromise: Promise<typeof import("@/platform/analytics")> | undefined;
 
-    const loadAnalytics = () => analyticsPromise ??= import("@/platform/analytics");
-
     const ensureAnalyticsInstalled = async () => {
-      const analytics = await loadAnalytics();
+      const analytics = await (analyticsPromise ??= import("@/platform/analytics"));
       if (active && !installed) {
         cleanup = analytics.installTexasDefinedAnalytics();
         installed = true;
