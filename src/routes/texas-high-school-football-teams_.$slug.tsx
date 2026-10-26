@@ -20,19 +20,7 @@ export const Route = createFileRoute('/texas-high-school-football-teams/$slug')(
   },
   head: ({ loaderData }) => {
     if (!loaderData) return { meta: [{ title: 'Football school profile not found' }, { name: 'robots', content: 'noindex' }] };
-    const { displayName, slug, program, identity, privateAlignment, governingBodyHint, associationClassification, faq, editorial: sourceEditorial } = loaderData;
-    // Keep the shared, validation-governed SEO expressions unchanged while
-    // giving Katy an accurate title until the separate season widget launches.
-    const editorial = slug === 'katy' && sourceEditorial
-      ? {
-          ...sourceEditorial,
-          seo: {
-            ...sourceEditorial.seo,
-            title: 'Katy Tigers Football: Nine State Titles, Stadiums & Team Guide',
-            description: 'Katy Tigers football guide: nine state titles, Gary Joseph, UIL District 22 and visitor information for Legacy and Rhodes Stadium. Official links and sourced team history.',
-          },
-        }
-      : sourceEditorial;
+    const { displayName, slug, program, identity, privateAlignment, governingBodyHint, associationClassification, faq, editorial } = loaderData;
     const canonicalPath = `/texas-high-school-football-teams/${slug}`;
     const classification = program
       ? `${program.classification}${program.division ? ` Division ${program.division === 1 ? 'I' : 'II'}` : ''}, District ${program.district}`
