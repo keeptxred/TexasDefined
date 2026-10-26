@@ -27,6 +27,7 @@ export const TEXAS_DATASETS = [
   { slug: 'texas-metro-payrolls-august-2026', updated: '2026-10-20' },
   { slug: 'texas-traffic-monitoring-coverage', updated: '2026-08-26' },
   { slug: 'texas-metro-payrolls-latest', updated: '2026-09-30' },
+  { slug: 'texas-population-and-migration-latest', updated: '2026-08-27' },
 ] as const;
 
 const loadTexasDatasetsServer = createServerFn({ method: "GET" }).handler(async () => {
