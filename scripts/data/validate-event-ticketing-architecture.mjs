@@ -23,7 +23,7 @@ const docs = read("docs/event-ticketing-provider-architecture.md");
 for (const provider of ["official", "ticketmaster", "ticketweb", "live-nation", "etix", "axs", "eventbrite", "seatgeek", "vivid-seats", "other"]) requireText(contract, `\"${provider}\"`, "provider contract");
 for (const field of ["provider: TexasEventTicketProvider", "officialTicketUrl?: string", "affiliateUrl?: string", "saleStatus: TexasEventTicketSaleStatus", "source: TexasEventTicketSource", "lastVerifiedAt: string", "officialExpiresAt?: string", "affiliateExpiresAt?: string"]) requireText(contract, field, "ticket-link contract");
 for (const status of ["on-sale", "presale", "registration", "not-on-sale-yet", "sold-out", "off-sale", "cancelled", "unknown"]) requireText(contract, `\"${status}\"`, "sale-status contract");
-for (const token of ["safeHttpsUrl", 'url.protocol === "https:"', "isExpired", "NON_ACTIONABLE_SALE_STATUSES", "rankedLinks", "affiliateExpiresAt", "officialExpiresAt", 'label: "Find Tickets →"', 'label: "Official Tickets →"', 'rel: "sponsored nofollow noopener noreferrer"', 'rel: "noopener noreferrer"', "resolveEventTicketCta"]) requireText(resolver, token, "ticket resolver");
+for (const token of ["approvedAffiliateHref", "safeHttpsUrl", 'url.protocol === "https:"', "isExpired", "NON_ACTIONABLE_SALE_STATUSES", "rankedLinks", "affiliateExpiresAt", "officialExpiresAt", 'label: "Find Tickets →"', 'label: "Official Tickets →"', 'rel: "sponsored nofollow noopener noreferrer"', 'rel: "noopener noreferrer"', "resolveEventTicketCta"]) requireText(resolver, token, "ticket resolver");
 for (const token of ["providerForVerifiedTicketUrl(url)", "uniqueTicketUrls", "new Set(offers.map((offer) => offer.url))", "officialTicketUrl: url", 'saleStatus: "unknown"', 'kind: "official-event"', "lastVerifiedAt", "priority: index"]) requireText(adapter, token, "official ticket normalization");
 if (adapter.includes("affiliateUrl:")) failures.push("official-source adapter must not fabricate affiliate URLs");
 for (const token of ['providerForVerifiedTicketUrl', 'ticketmaster.com', 'ticketweb.com', 'livenation.com', 'etix.com', 'axs.com', 'seatgeek.com', 'vividseats.com', 'eventbrite.com']) {
@@ -88,21 +88,44 @@ for (const bad of [
 }
 
 const now = new Date('2026-09-11T21:00:00Z');
-const source = { kind: 'official-event', name: 'Verified source' };
+const source = { kind: 'provider', name: 'Ticketmaster' };
+const official = 'https://www.ticketmaster.com/example/event/ABC123';
+const impact = (target, campaign='264167') => 'https://ticketmaster.evyy.net/c/7758914/'+campaign+'/4272?subId1=texasdefined&u='+encodeURIComponent(target);
 const base = { provider: 'ticketmaster', saleStatus: 'on-sale', source, lastVerifiedAt: '2026-09-11T20:00:00Z' };
-const both = resolveEventTicketCta({ links: [{ ...base, officialTicketUrl: 'https://tickets.example.com/official', affiliateUrl: 'https://affiliate.example.com/deep' }], offers: [] }, now);
-if (!both || both.label !== 'Find Tickets →' || !both.isAffiliate || both.href !== 'https://affiliate.example.com/deep') throw new Error('affiliate priority failed');
-const expired = resolveEventTicketCta({ links: [{ ...base, officialTicketUrl: 'https://tickets.example.com/official', affiliateUrl: 'https://affiliate.example.com/deep', affiliateExpiresAt: '2026-09-11T20:30:00Z' }], offers: [] }, now);
+const approved = impact(official);
+const both = resolveEventTicketCta({ links: [{ ...base, officialTicketUrl: official, affiliateUrl: approved }], offers: [] }, now);
+if (!both || both.label !== 'Find Tickets →' || !both.isAffiliate || both.href !== approved) throw new Error('authorized same-event Impact priority failed');
+const expired = resolveEventTicketCta({ links: [{ ...base, officialTicketUrl: official, affiliateUrl: approved, affiliateExpiresAt: '2026-09-11T20:30:00Z' }], offers: [] }, now);
 if (!expired || expired.label !== 'Official Tickets →' || expired.isAffiliate) throw new Error('expired affiliate fallback failed');
-const unsafe = resolveEventTicketCta({ links: [{ ...base, officialTicketUrl: 'https://tickets.example.com/official', affiliateUrl: 'javascript:alert(1)' }], offers: [] }, now);
-if (!unsafe || unsafe.href !== 'https://tickets.example.com/official') throw new Error('unsafe affiliate fallback failed');
-const soldOut = resolveEventTicketCta({ links: [{ ...base, saleStatus: 'sold-out', officialTicketUrl: 'https://tickets.example.com/official' }], offers: [] }, now);
+const unsafe = resolveEventTicketCta({ links: [{ ...base, officialTicketUrl: official, affiliateUrl: 'javascript:alert(1)' }], offers: [] }, now);
+if (!unsafe || unsafe.href !== official || unsafe.isAffiliate) throw new Error('unsafe affiliate fallback failed');
+const soldOut = resolveEventTicketCta({ links: [{ ...base, saleStatus: 'sold-out', officialTicketUrl: official, affiliateUrl: approved }], offers: [] }, now);
 if (soldOut !== null) throw new Error('sold-out suppression failed');
+const rankedA = impact(official,'264167');
+const rankedB = impact(official,'264168');
 const prioritized = resolveEventTicketCta({ links: [
-  { ...base, provider: 'seatgeek', affiliateUrl: 'https://seatgeek.example.com/deep', priority: 20 },
-  { ...base, provider: 'vivid-seats', affiliateUrl: 'https://vivid.example.com/deep', priority: 10 },
+  { ...base, officialTicketUrl: official, affiliateUrl: rankedA, priority: 20 },
+  { ...base, officialTicketUrl: official, affiliateUrl: rankedB, priority: 10 },
 ], offers: [] }, now);
-if (!prioritized || prioritized.provider !== 'vivid-seats') throw new Error('provider-neutral priority failed');
+if (!prioritized || prioritized.href !== rankedB) throw new Error('verified affiliate priority failed');
+const ticketweb = 'https://www.ticketweb.com/event/holiday-show-tickets/14859023';
+const ticketwebAffiliate = resolveEventTicketCta({ links: [{ ...base, officialTicketUrl: ticketweb, affiliateUrl: impact(ticketweb) }], offers: [] }, now);
+if (!ticketwebAffiliate?.isAffiliate || ticketwebAffiliate.href !== impact(ticketweb)) throw new Error('authorized TicketWeb affiliate deep link rejected');
+for (const invalid of [
+  ['unapproved-host','https://affiliate.example.com/deep'],
+  ['wrong-publisher','https://ticketmaster.evyy.net/c/9999999/264167/4272?u='+encodeURIComponent(official)],
+  ['wrong-merchant','https://ticketmaster.evyy.net/c/7758914/264167/9999?u='+encodeURIComponent(official)],
+  ['wrong-event',impact('https://www.ticketmaster.com/different/event/ZZZ999')],
+  ['wrong-provider',impact('https://www.ticketmaster.com/example/event/ABC123')+'&u='+encodeURIComponent(official)],
+  ['unsafe-embedded',impact('https://evil.example.net/event/ABC123')],
+]) {
+  const resolved = resolveEventTicketCta({ links: [{ ...base, officialTicketUrl: official, affiliateUrl: invalid[1] }], offers: [] }, now);
+  if (!resolved || resolved.isAffiliate || resolved.href !== official) throw new Error(invalid[0]+' must fall back to verified official URL');
+}
+const unapprovedPartner = resolveEventTicketCta({ links: [{ ...base, provider: 'seatgeek', officialTicketUrl: 'https://seatgeek.com/event/123', affiliateUrl: 'https://seatgeek.com/aff/123' }], offers: [] }, now);
+if (!unapprovedPartner || unapprovedPartner.isAffiliate) throw new Error('unapproved partner incorrectly marked sponsored');
+const sourceSpoof = resolveEventTicketCta({ links: [{ ...base, source: { kind: 'manual-verified', name: 'Ticketmaster' }, officialTicketUrl: official, affiliateUrl: approved }], offers: [] }, now);
+if (!sourceSpoof || sourceSpoof.isAffiliate) throw new Error('unqualified affiliate source accepted');
 const credentialsLink = resolveEventTicketCta({ links: [{ ...base, officialTicketUrl: 'https://user:pw@tickets.example.com/buy' }], offers: [] }, now);
 if (credentialsLink !== null) throw new Error('ticket URL credentials accepted');
 const privateHost = resolveEventTicketCta({ links: [{ ...base, officialTicketUrl: 'https://localhost/buy' }], offers: [] }, now);
