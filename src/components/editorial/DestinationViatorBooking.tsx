@@ -7,12 +7,6 @@ import { trackAffiliateClick } from "@/lib/affiliate-click";
 import { buildViatorAffiliateUrl } from "@/lib/viator-affiliate";
 
 const WacoDestinationOffer = lazy(() => import("@/components/monetization/WacoDestinationOffer").then((module) => ({ default: module.WacoDestinationOffer })));
-const WACO_ATTRACTION_SLUGS = new Set([
-  "dr-pepper-museum-waco", "cottonland-castle", "waco-suspension-bridge",
-  "cameron-park-waco", "cameron-park-zoo", "texas-ranger-hall-of-fame-museum-waco",
-  "magnolia-market-at-the-silos",
-]);
-
 function uniqueMarkets(markets: ViatorMatchMarket[]) {
   return [...new Map(markets.map((market) => [market.slug, market])).values()];
 }
@@ -45,7 +39,7 @@ function WmaHuntingLinks() {
 
 export function DestinationViatorBooking({ destination }: { destination: Destination }) {
   const market = matchDestinationMarket(destination);
-  const wacoOffers = WACO_ATTRACTION_SLUGS.has(destination.slug)
+  const wacoOffers = /waco|cottonland|cameron-park|magnolia-market/.test(destination.slug)
     ? <Suspense fallback={null}><WacoDestinationOffer slug={destination.slug} /></Suspense>
     : null;
   // Keep the original fail-closed market returns: only already published,
