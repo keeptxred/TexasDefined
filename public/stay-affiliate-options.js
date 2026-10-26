@@ -14,7 +14,7 @@
   const MOTEL6_CAMPAIGN_START = Date.parse("2026-10-26T00:00:00Z");
   // Conservative publisher display cutoff, NOT merchant-certified expiry.
   const MOTEL6_CAMPAIGN_END = Date.parse("2026-11-01T05:00:00Z");
-  const MOTEL6_PATH = /^\/(?:explore\/(?:road-trips(?:\/|$)|weekend-getaways(?:\/|$)|near\/[a-z0-9-]+\/day-trips(?:\/|$))|texas-tailgating-guide(?:\/|$)|texas-roadside-oddities(?:\/|$)|event\/[a-z0-9-]*(?:halloween|haunted|ghost|pumpkin|trick-or-treat)[a-z0-9-]*(?:\/|$))/;
+  const MOTEL6_PATH = /^\/(?:article\/(?:fredericksburg-history-weekend-guide|goliad-history-weekend-guide|washington-on-the-brazos-weekend-guide)(?:\/|$)|explore\/(?:road-trips(?:\/|$)|weekend-getaways(?:\/|$)|near\/[a-z0-9-]+\/day-trips(?:\/|$))|texas-tailgating-guide(?:\/|$)|texas-roadside-oddities(?:\/|$)|event\/[a-z0-9-]*(?:halloween|haunted|ghost|pumpkin|trick-or-treat)[a-z0-9-]*(?:\/|$))/;
   function motel6Eligible(pathname = window.location.pathname) {
     return MOTEL6_PATH.test(String(pathname || "").replace(/\/+$/, ""));
   }
