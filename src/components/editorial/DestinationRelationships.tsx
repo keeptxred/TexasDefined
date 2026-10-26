@@ -3,7 +3,6 @@ import { Link } from "@tanstack/react-router";
 
 import { UnusualBusinessAuthorityPanel } from "@/components/authority/UnusualBusinessAuthorityPanel";
 import { DestinationCard } from "@/components/editorial/DestinationCard";
-import { MoodyGardensSpotlights } from "@/components/editorial/MoodyGardensSpotlights";
 import { SamRayburnContext } from "@/components/editorial/SamRayburnContext";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { TexasExplainedContextLinks } from "@/components/editorial/TexasExplainedContextLinks";
@@ -144,7 +143,6 @@ export function DestinationRelationships({ destination, groups, regionName }: { 
     : null;
 
   return <>
-    {isMoodyGardens ? <MoodyGardensSpotlights /> : null}
     {isWhirlyBall ? <Section tone="surface"><Container><UnusualBusinessAuthorityPanel slug={destination.slug} /></Container></Section> : null}
     {topAttractionRank && hasExtendedAuthorityGuide ? <Suspense fallback={authorityFallback}><DestinationAuthorityGuide destination={destination} /></Suspense> : null}
     {!topAttractionRank && hasExtendedAuthorityGuide ? <Suspense fallback={authorityFallback}><DestinationAuthorityGuide destination={destination} showUnusualBusinessAuthority={!isWhirlyBall} /></Suspense> : null}
