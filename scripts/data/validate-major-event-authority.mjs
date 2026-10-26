@@ -364,6 +364,18 @@ for (const marker of [
   'isPalestinePolarExpress',
 ]) if (!stayClient.includes(marker)) fail("Palestine Polar Express client booking UI missing " + marker);
 
+const palestineImageEnrichment = read(path.join(dataDir, "major-event-schema-enrichment-batch32.server.ts"));
+for (const marker of [
+  'slug: "polar-express-palestine"',
+  'Southern_Pine_Lumber_Co._No._28_pulling_the_Polar_Express',
+  'Historical 2015 Texas State Railroad Polar Express',
+  'Photo: Michael Gras, M.Ed.',
+  'not the 2026 diesel locomotive',
+  'licenseName: "CC BY 2.0"',
+  'licenseUrl: "https://creativecommons.org/licenses/by/2.0/"',
+  'approvedForCommercialUse: true',
+]) if (!palestineImageEnrichment.includes(marker)) fail("Palestine Polar Express licensed historical image missing " + marker);
+
 const duplicateDefinitions = [...slugOwners.values()].filter((owners) => owners.length > 1).length;
 if (!process.exitCode) {
   console.log(`Major-event authority validation passed (${trancheFiles.length} tranche files, ${slugOwners.size} authority slugs, ${ledgerSlugs.size} ledger event destinations, ${collectionPaths.length} crawlable event authority collections, ${temporalPaths.length} finite temporal collections; ${duplicateDefinitions} historical duplicate definitions retained under first-match resolution).`);
