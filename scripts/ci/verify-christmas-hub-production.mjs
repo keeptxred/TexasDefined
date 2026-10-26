@@ -14,7 +14,7 @@ const dateParts = new Intl.DateTimeFormat("en-CA", {
 }).formatToParts(now);
 const date = ["year", "month", "day"].map((k) => dateParts.find((p) => p.type === k)?.value).join("-");
 
-if (date < "2026-10-23" || date > "2027-01-01") {
+if (date < "2026-10-23" || date > "2027-01-05") {
   console.log(`Christmas 2026 source-window production check not applicable on ${date}.`);
   process.exit(0);
 }
