@@ -122,6 +122,10 @@ test("McAllen lodging provider choice stays within one post-guide module", () =>
   const expedia = readFileSync("public/expedia-travel.js", "utf8");
   assert.match(choice, /surface\.dataset\.stayConsolidated = "true"/);
   assert.match(choice, /parent\.appendChild\(choice\)/);
-  assert.match(choice, /Hotel and vacation-rental choices/);
+  assert.match(choice, /Stay in McAllen, or turn the coast into a weekend/);
+  assert.match(choice, /mcallen-day-trips-base-hotels/);
+  assert.match(choice, /mcallen-day-trips-coastal-weekend/);
+  assert.match(choice, /MCALLEN_HOTELS_DESTINATION/);
+  assert.match(choice, /SOUTH_PADRE_HOTELS_DESTINATION/);
   assert.match(expedia, /One stop for overnight stays/);
 });
