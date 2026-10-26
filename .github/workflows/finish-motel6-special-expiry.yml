@@ -1,0 +1,122 @@
+name: Finish Motel 6 Halloween Expiry
+
+on:
+  workflow_run:
+    workflows:
+      - Expire Motel 6 Halloween special
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      source_run_id:
+        description: Successful scheduled Motel 6 expiry job run ID
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+  statuses: write
+
+concurrency:
+  group: finish-motel6-halloween-expiry
+  cancel-in-progress: false
+
+jobs:
+  finish:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 100
+    steps:
+      - name: Check out protected main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Install Node for evergreen contract checks
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Verify generated PR and enable protected merge only after full CI
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          EVENT_NAME: ${{ github.event_name }}
+          SOURCE_RUN_ID: ${{ github.event.workflow_run.id }}
+          MANUAL_RUN_ID: ${{ inputs.source_run_id }}
+        run: |
+          set -euo pipefail
+          if [[ "$EVENT_NAME" == 'workflow_run' ]]; then
+            run_id="$SOURCE_RUN_ID"
+          else
+            run_id="$MANUAL_RUN_ID"
+          fi
+          [[ "$run_id" =~ ^[0-9]+$ ]] || { echo '::error::Invalid scheduled run ID'; exit 1; }
+          source="$(gh api "repos/$REPOSITORY/actions/runs/$run_id")"
+          jq -e '.name == "Expire Motel 6 Halloween special" and .conclusion == "success" and .head_branch == "main"' <<< "$source" >/dev/null || {
+            echo '::error::Source is not a successful scheduled Motel 6 expiry run on main'
+            exit 1
+          }
+          cutoff="$(date -u -d '2026-11-01 05:00:00 UTC' +%s)"
+          (( $(date -u +%s) >= cutoff )) || { echo '::error::Attempt to retire campaign early'; exit 1; }
+          branch="automation/motel6-halloween-expired-$run_id"
+          pr_json="$(gh pr list --repo "$REPOSITORY" --base main --state open --head "$branch" --limit 2 --json number,url,title,headRefName,headRefOid)"
+          count="$(jq 'length' <<< "$pr_json")"
+          if [[ "$count" == '0' ]]; then
+            echo 'Seasonal code already retired, or no cleanup needed.'
+            exit 0
+          fi
+          [[ "$count" == '1' ]] || { echo '::error::Ambiguous campaign cleanup PR'; exit 1; }
+          number="$(jq -r '.[0].number' <<< "$pr_json")"
+          url="$(jq -r '.[0].url' <<< "$pr_json")"
+          title="$(jq -r '.[0].title' <<< "$pr_json")"
+          actual_branch="$(jq -r '.[0].headRefName' <<< "$pr_json")"
+          author="$(gh api "repos/$REPOSITORY/pulls/$number" --jq '.user.login')"
+          [[ "$title" == 'Retire expired Motel 6 Halloween offer' &&
+             "$actual_branch" == "$branch" &&
+             "$author" == 'github-actions[bot]' ]] || {
+            echo '::error::Unexpected PR identity for Motel 6 cleanup'; exit 1;
+          }
+          git config user.name 'TexasDefined Campaign Expiry Finisher'
+          git config user.email 'actions@users.noreply.github.com'
+          git fetch --no-tags origin main "$branch"
+          base="$(git merge-base origin/main "origin/$branch")"
+          for file in $(git diff --name-only "$base" "origin/$branch"); do
+            case "$file" in
+              public/stay-affiliate-options.js|src/components/sports/FootballFanOffers.tsx) ;;
+              *) echo "::error::Unauthorized campaign cleanup change: $file"; exit 1 ;;
+            esac
+          done
+          git checkout -B "$branch" "origin/$branch"
+          if ! git merge-base --is-ancestor origin/main HEAD; then
+            if ! git merge --no-edit origin/main; then
+              git merge --abort || true
+              echo '::error::Overlapping campaign cleanup conflict; manual resolution required'
+              exit 1
+            fi
+            git push origin "HEAD:$branch"
+          fi
+          node --test scripts/ci/expire-motel6-special.test.mjs
+          node scripts/data/validate-motel6-affiliate.mjs
+          node scripts/data/validate-stay-affiliate-options.mjs
+          node --check public/stay-affiliate-options.js
+          validated_sha="$(git rev-parse HEAD)"
+          # GITHUB_TOKEN-created PRs do not emit normal PR checks.
+          # Run the exact-branch protected validation that other scheduled
+          # TexasDefined automations use. Never bypass a failed gate.
+          bash scripts/ci/dispatch-validate-branch.sh "$branch" validate.yml
+          bash scripts/ci/dispatch-validate-branch.sh "$branch" merge-gate.yml
+          git fetch --no-tags origin main "$branch"
+          [[ "$(git rev-parse "origin/$branch")" == "$validated_sha" ]] || {
+            echo '::error::Campaign branch changed during protected validation'; exit 1;
+          }
+          git merge-base --is-ancestor origin/main "origin/$branch" || {
+            echo '::error::Main changed after validation; leave PR open to reconcile'; exit 1;
+          }
+          gh api --method POST "repos/$REPOSITORY/statuses/$validated_sha" \
+            -f state=success -f context='Required merge gate' \
+            -f description='Canonical validation passed for expired Motel 6 cleanup' \
+            -f target_url="$url" >/dev/null
+          gh pr merge "$url" --repo "$REPOSITORY" --merge --auto --match-head-commit "$validated_sha"
+          echo "Protected Motel 6 cleanup auto-merge enabled: $url" >> "$GITHUB_STEP_SUMMARY"
