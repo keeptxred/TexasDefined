@@ -168,6 +168,18 @@ for (const marker of [
 const seoSource = fs.readFileSync('src/lib/seo.ts', 'utf8');
 if (!seoSource.includes('title: "What Is Texas Known For? Iconic Foods, Places & Traditions"')) failures.push('Existing Texas icon SSR search-intent title lost.');
 
+const scopedReleasePlan = fs.readFileSync('scripts/ci/production-change-scope.mjs', 'utf8');
+for (const marker of [
+  "changedFiles.some(path => path === 'src/routes/things-unique-to-texas.lazy.tsx'",
+  "path === 'src/data/fixtures/texas-cultural-regions-explained.ts'",
+  "candidates.add('/things-unique-to-texas')",
+  "candidates.add('/article/texas-cultural-regions-explained')",
+  "expectedHrefsByPage['/things-unique-to-texas']",
+  "expectedHrefsByPage['/article/texas-cultural-regions-explained']",
+]) {
+  if (!scopedReleasePlan.includes(marker)) failures.push('Culture query intent lacks direct live SSR acceptance plan: ' + marker);
+}
+
 if (failures.length) {
   console.error('Things That Define Texas validation failed:');
   for (const failure of failures) console.error(`- ${failure}`);
