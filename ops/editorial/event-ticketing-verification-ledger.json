@@ -295,24 +295,35 @@
     {
       "id": "christmas-carol-houston-2026",
       "batch": "christmas-2026-12",
-      "status": "DEPLOYED",
+      "status": "VERIFIED",
       "date": "2026-12-27",
       "city": "Houston",
       "venue": "Alley Theatre Hubbard Theatre",
       "showtime": "13:30",
       "sourceUrl": "https://cart.alleytheatre.org/10216/10226",
       "evidence": "Exact official checkout Dec 27 1:30 PM, no seat quantity proven",
-      "checkedAt": "2026-10-25",
+      "checkedAt": "2026-10-26",
       "checkoutUrl": "https://cart.alleytheatre.org/10216/10226",
       "publicSaleStatus": "not-independently-confirmed",
-      "inventoryStatus": "not-exposed",
-      "checkoutPriceStatus": "not-confirmed",
+      "inventoryStatus": "not-provider-confirmed",
+      "checkoutPriceStatus": "Provider page lists seat-category prices (Platinum Front/Platinum $148, Gold $138, Silver $128, Bronze $88) as viewed 2026-10-26; final fees/actual cart amount not verified and not published on TexasDefined",
       "affiliateEligibility": "not-proven",
       "changes": "Exact checkout and 1:30 PM canonical showtime prepared",
       "pr": 5922,
       "productionVerifiedAt": "2026-10-25",
-      "remainingDefect": "Official Dec 27 1:30 PM exact checkout identified; current seats/price unverified",
-      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified"
+      "remainingDefect": "Live specific seats, checkout completion, fees and current cart total remain unverified. No seat-availability assertion permitted.",
+      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified",
+      "officialCheckoutVerifiedAt": "2026-10-26",
+      "officialCheckoutVerifiedUrl": "https://cart.alleytheatre.org/10216/10226",
+      "verifiedFacts": [
+        "A Christmas Carol",
+        "Sunday December 27 2026 1:30 PM",
+        "Hubbard Theatre, Houston",
+        "Official Alley Theatre performance-specific public checkout",
+        "Canonical production calendar and 12-show acceptance passed in run 40260454571"
+      ],
+      "evidenceSource": "Official Alley Theatre checkout https://cart.alleytheatre.org/10216/10226, visibly identifies this exact December 27, 1:30 PM performance and its Hubbard Theatre location",
+      "verificationScope": "Official event identity, date/showtime, checkout destination and deployed calendar; NOT seat inventory or final checkout price"
     }
   ],
   "statewide": {

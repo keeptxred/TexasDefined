@@ -127,6 +127,12 @@ The existing `Sync Texas Events` scheduled workflow now probes **40 deterministi
 
 Results and the next cursor are persisted in the **single authoritative** `ops/editorial/event-ticketing-verification-ledger.json` under `statewide.ticketLinkProbes` and `statewide.ticketLinkProbeCursor`. A successful HTTP response is recorded as `REACHABLE_NO_INVENTORY_CLAIM` and status `IN_PROGRESS`, **never** as event `VERIFIED`. 401, 403, CAPTCHA, 429, 5xx and timeouts remain inconclusive; HTTP 404/410 and mismatched redirects create explicit review warnings. Probes never scrape restricted partner APIs, infer commission, inventory or sale price, or automatically replace a ticket URL based only on a bot-blocked response. The existing protected event-refresh PR/merge gate is retained; no separate cron job exists.
 
+## Major-event guide attribution and status wording
+
+Major-event authority pages use the same reviewed provider-neutral outbound resolver and must expose `data-affiliate-event-id` only for authorized affiliate CTAs. The event ID comes from the **exact** Ticketmaster occurrence, including its showtime/venue-sensitive provider identity; the first-party `partner_referral_clicked` record preserves the existing partner and placement and adds the event ID as `stepId`. Official fallback buttons have no affiliate metadata. This is a referral metric, **not** a verified conversion or commission.
+
+The heading is **Check ticket options** rather than **Current ticket availability**. A provider record marked on-sale, a valid destination URL, and a click are not evidence of seats in inventory. The provider determines current prices, final fees and purchase eligibility. Each distinct session remains independently identified and is never combined with another venue, matinee or add-on.
+
 ## No checkout
 
 TexasDefined does not collect ticket payment, seat selection, billing data, order data, or ticket inventory. `EventTicketCta` always opens the external provider in a new browsing context. The provider owns checkout, fulfillment, refunds, fees, inventory, availability, and customer-service obligations.

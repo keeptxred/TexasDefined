@@ -18,6 +18,8 @@ const component = read("src/components/events/EventTicketCta.tsx");
 const carousel = read("src/components/editorial/TexasEventCarousel.tsx");
 const landing = read("src/components/events/EventsLandingPage.tsx");
 const majorEventPage = read("src/data/major-event-page.server.ts");
+const siteAnalytics = read("src/platform/analytics.ts");
+requireText(siteAnalytics, "stepId: anchor.dataset.affiliateEventId", "first-party event-specific commercial click attribution");
 const docs = read("docs/event-ticketing-provider-architecture.md");
 const affiliateClick = read("src/lib/affiliate-click.ts");
 requireText(affiliateClick, "affiliate_event_id: eventId", "event-specific affiliate click attribution");
@@ -56,7 +58,7 @@ for (const token of [
 if (component.includes('data-commercial-partner={cta.provider}')) failures.push("official ticket CTAs must not be marked commercial; metadata must remain affiliate-gated");
 for (const token of ["EventTicketCta", "event.ticketCta", "eventId={event.id}", "Official event site"]) requireText(carousel, token, "carousel integration");
 for (const token of ["EventTicketCta", "event.ticketCta", "eventId={event.id}", "Official event site"]) requireText(landing, token, "calendar integration");
-for (const token of ["loadTicketmasterEventsServer", "resolveEventTicketCta", "buildMajorEventTicketingMarkupServer", "actionable.length === 1", "actionable.length > 1", "major-event-guide-ticket", "Compare ticketed sessions →", "data-affiliate-partner", "cta.rel"]) requireText(majorEventPage, token, "major-event guide ticket integration");
+for (const token of ["loadTicketmasterEventsServer", "resolveEventTicketCta", "buildMajorEventTicketingMarkupServer", "actionable.length === 1", "actionable.length > 1", "major-event-guide-ticket", "data-affiliate-event-id", "Check ticket options", "Compare ticketed sessions →", "data-affiliate-partner", "cta.rel"]) requireText(majorEventPage, token, "major-event guide ticket integration");
 for (const token of ["Calendar workstream", "Venue-page workstream", "Do not read raw ticketing.links in presentation components", "getSportsVenueUpcomingEvents", "buildTexasEventCarouselItemsServer", "Ticketmaster", "SeatGeek", "Vivid Seats", "No checkout", "environment/secrets manager", "deduplicated by destination URL", "validate-event-ticket-positive-path.mjs", "verify-event-ticketing-production.mjs"]) requireText(docs, token, "integration documentation");
 
 // Published sale status is source evidence only; never promote a Buy Tickets
