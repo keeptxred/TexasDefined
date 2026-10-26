@@ -171,3 +171,8 @@ export function EastTexasFoliagePhotoGallery() {
     <p className="mt-4 text-sm leading-7 text-muted-foreground">For actual autumn examples, view the <a href="https://tpwd.texas.gov/newsmedia/news_images/?g=fall_foliage&i=daingerfield_sp_0344.jpg" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">official TPWD Daingerfield fall-foliage photograph ↗</a>. It is linked for reference, not republished or presented as this year's conditions.</p>
   </section>;
 }
+
+/** Map and gallery share one lazy-loaded, article-only module. */
+export default function EastTexasFoliageMedia() {
+  return <><EastTexasFoliageParkMap /><EastTexasFoliagePhotoGallery /></>;
+}
