@@ -212,14 +212,15 @@ function MardiGrasTexasPage() {
 
       <section id="companion-events" className="mt-14 border-t border-border pt-10">
         <p className="eyebrow text-primary">Confirmed companion events</p>
-        <h2 className="mt-3 font-display text-4xl">More dated Mardi Gras events in Texas for 2027</h2>
+        <h2 className="mt-3 font-display text-4xl">More verified Mardi Gras companion events in Texas for 2027</h2>
         <p className="mt-4 max-w-4xl leading-7 text-muted-foreground">These are distinct Carnival-season activities confirmed by their own organizers or local event publishers. They are <strong>not</strong> additional days of the parades above, and admission or fundraising rules vary. Published event information was checked October 25, 2026.</p>
-        <div className="mt-7 grid gap-5 md:grid-cols-3">
+        <div className="mt-7 grid gap-5 md:grid-cols-2">
           <article className="border border-border p-6">
-            <p className="text-xs font-semibold text-muted-foreground">Crystal Beach · Saturday, January 16 · 5–8 p.m.</p>
+            <p className="text-xs font-semibold text-muted-foreground">Crystal Beach · Saturday, January 16 · time to reconfirm</p>
             <h3 className="mt-2 font-display text-2xl">Chicken Run &amp; Gumbo Cook-off</h3>
-            <p className="mt-3 leading-7 text-muted-foreground">A Motley Krewe-supported event at Swedes Festival Park, 1605 Highway 87, benefiting the Bolivar Peninsula's volunteer fire departments. The publisher lists a January 16 evening activity; confirm the evolving program and entry terms before arriving. This is separate from the February 6 Crystal Beach highway parade.</p>
+            <p className="mt-3 leading-7 text-muted-foreground">A Motley Krewe-supported event at Swedes Festival Park, 1605 Highway 87, benefiting the Bolivar Peninsula's volunteer fire departments. One local calendar lists 5–8 p.m. while another lists 9:30 a.m.–5 p.m. for January 16. The date is confirmed but event hours conflict; contact the organizers before traveling. This is separate from the February 6 Crystal Beach highway parade.</p>
             <a href="https://bolivarpeninsulatexas.com/event/courir-de-mardi-gras" target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex font-semibold text-primary underline">Local 2027 event listing ↗</a>
+            <p className="mt-3 text-sm"><a href="/events?start=2027-01-16&amp;end=2027-01-16#calendar" className="font-semibold text-primary underline">See January 16 in the Texas calendar →</a></p>
             <p className="mt-3 text-sm"><a href="/event/crystal-beach-mardi-gras-parade" className="font-semibold text-primary underline">February 6 parade guide →</a></p>
           </article>
           <article className="border border-border p-6">
@@ -227,6 +228,7 @@ function MardiGrasTexasPage() {
             <h3 className="mt-2 font-display text-2xl">Queen Mab Ball</h3>
             <p className="mt-3 leading-7 text-muted-foreground">The Krewe of Hebe's ticketed, formal Viva Las Vegas gala at the Jefferson Convention &amp; Visitors Center, 305 East Austin Street. The organizer lists a separate admission process and dress expectations. The main Mardi Gras Upriver festival runs February 5–7, not January 23.</p>
             <a href="https://mardigrasupriver.com/queen-mab-ball-2/" target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex font-semibold text-primary underline">Organizer's 2027 ball details ↗</a>
+            <p className="mt-3 text-sm"><a href="/events?start=2027-01-23&amp;end=2027-01-23#calendar" className="font-semibold text-primary underline">Find January 23 in the statewide calendar →</a></p>
             <p className="mt-3 text-sm"><a href="/event/mardi-gras-upriver-jefferson" className="font-semibold text-primary underline">February festival guide →</a></p>
           </article>
           <article className="border border-border p-6">
@@ -234,7 +236,15 @@ function MardiGrasTexasPage() {
             <h3 className="mt-2 font-display text-2xl">Lagniappe Mardi Gras Soirée</h3>
             <p className="mt-3 leading-7 text-muted-foreground">The Junior League of Beaumont advertises this fundraising evening at The Event Centre, 700 Crockett Street, with dining, entertainment and auctions. Do not confuse it with January's Circle of Hope Pardi Gras or the separate Mardi Gras of Southeast Texas public festival. The organizer's page also contains old 2024 luncheon prices; those are <strong>not</strong> verified 2027 soirée ticket prices.</p>
             <a href="https://juniorleaguebeaumont.org/lagniappe-mardi-gras-soiree/" target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex font-semibold text-primary underline">Junior League 2027 information ↗</a>
+            <p className="mt-3 text-sm"><a href="/events?start=2027-02-05&amp;end=2027-02-05#calendar" className="font-semibold text-primary underline">See February 5 in the statewide calendar →</a></p>
             <p className="mt-3 text-sm"><a href="/event/beaumont-pardi-gras" className="font-semibold text-primary underline">Different January charity gala →</a></p>
+          </article>
+          <article className="border border-border p-6">
+            <p className="text-xs font-semibold text-muted-foreground">Livingston / Lake Livingston · February 5–6</p>
+            <h3 className="mt-2 font-display text-2xl">Two Creeks Mardi Gras Gumbo Cookoff</h3>
+            <p className="mt-3 leading-7 text-muted-foreground">Two Creeks Crossing Resort in Polk County announces a February 5–6 gumbo-cookoff weekend. Event times, competition registration and guest access are still being finalized. Its broader cookoff policy generally limits day passes to registered resort guests, so <strong>do not assume public walk-in admission</strong>. Verify access and booking terms directly before driving.</p>
+            <a href="https://twocreekscrossingresort.com/events/mardi-gras-gumbo-cookoff/" target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex font-semibold text-primary underline">Resort's official 2027 program ↗</a>
+            <p className="mt-3 text-sm"><a href="/events?start=2027-02-05&amp;end=2027-02-06#calendar" className="font-semibold text-primary underline">See February 5–6 in the calendar →</a></p>
           </article>
         </div>
       </section>
