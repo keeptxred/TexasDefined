@@ -185,8 +185,9 @@ function GenericCollectionPage({ page }: { page: any }) {
             <a href="/events?start=2026-11-15&end=2026-12-31#calendar" className="text-sm font-semibold text-primary">See November–December events on the calendar →</a>
           </div>
           <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">
-            Verified show dates, not multi-week light displays. Some productions have additional performances.
-            All times are local; confirm with the organizer before travel or purchase. Checkout is external.
+            Verified dates from theaters, venues and official ticket listings. These are scheduled shows rather than
+            multi-week light displays; some productions offer additional performances. Times shown are venue-local.
+            Recheck the organizer before traveling or purchasing. Paid tickets are handled by the external provider.
           </p>
           <ol className="mt-6 divide-y divide-border border-y border-border">
             {page.christmasPerformances.map((show: any) => (
