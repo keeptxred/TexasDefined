@@ -9,6 +9,10 @@ export type DestinationEditorialLink = {
 };
 
 const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = {
+  "chisholm-trail-heritage-museum": [
+    { href: "/destination/yoakum-heritage-museum", label: "Visit Yoakum Heritage Museum", description: "Pair Cuero's cattle-drive history with Yoakum's leather, railways and historic house." },
+    { href: "/county/dewitt", label: "Explore DeWitt County", description: "Connect Cuero and Yoakum in DeWitt County's wider ranching region." },
+  ],
   "chamizal-national-memorial": [
     { href: "/county/el-paso", label: "Explore El Paso County", description: "Place Chamizal within the county's river-border, missions, military and cultural history." },
     { href: "/metro-area/el-paso-metro", label: "El Paso metropolitan guide", description: "Connect the national memorial with the region's museums, historic neighborhoods and visitor landmarks." },
@@ -607,6 +611,7 @@ const DESTINATION_EDITORIAL_LINKS: Record<string, DestinationEditorialLink[]> = 
     },
   ],
   "shiner": [
+    { href: "/destination/yoakum-heritage-museum", label: "Visit Yoakum Heritage Museum", description: "Follow the railway corridor for Yoakum leather history, train shops and its preserved 1912 home." },
     {
       href: "/destination/spoetzl-brewery",
       label: "Plan the K. Spoetzl Brewery visit",
