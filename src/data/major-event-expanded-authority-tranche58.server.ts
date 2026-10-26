@@ -138,13 +138,13 @@ const records: MajorEventAuthorityRecord[] = [
     officialUrl: "https://texasstaterailroad.net/the-polar-express/",
     sourceCheckedAt: "2026-10-26",
     seoTitle: "Palestine Polar Express 2026: Train Classes, Fares & Visitor Guide",
-    seoDescription: "Palestine Polar Express 2026: visitor-center dates Nov 13–Dec 28, live train tickets, Coach and Dome fares, boarding details, cancellation rules and hotels.",
-    dateNote: "The Palestine Visitor Center’s specifically dated 2026 event calendar lists departures on both November 13 and December 28, with select dates between. Another railroad webpage showing November 14–December 27 contains older 2024/2025 website material and does not establish the 2026 schedule. These are published event dates, NOT individually verified seat availability; confirm exact trains and open seats with the official railroad booking calendar or at 855-632-7729.",
+    seoDescription: "Palestine Polar Express 2026: official Texas State Railroad calendar Nov 13–Dec 28, departure times, train tickets, fares and hotels.",
+    dateNote: "Verified against Texas State Railroad’s own November and December 2026 departure-calendar graphics: scheduled trains begin November 13 and end December 28, with service only on the listed days. November 13 has 5:30 and 7:00 PM departures; December 28 has 3:00, 4:30, 6:00 and 7:30 PM departures. December 18 is also scheduled. These are advertised departure times, not a guarantee seats remain available; check the railroad ticket checkout or call 855-632-7729.",
     whyItMatters: "The Texas State Railroad brings THE POLAR EXPRESS™ to its historic Palestine Depot with a moving train, classic story, cocoa chefs, Santa and a silver bell. What sets Palestine apart for planning is the unusually broad seating menu—from unheated historic Coach to upper Dome and Presidential cars—and a distinct accessible car that must be arranged by phone. The ride leaves from Palestine, not the railroad's Rusk Depot and not Grapevine.",
     quickFacts: [
       {
-        label: "City’s 2026 calendar",
-        value: "Select dates November 13–December 28; official railroad checkout controls"
+        label: "Railroad’s 2026 calendar",
+        value: "Scheduled trains Nov 13–Dec 28 on listed days; ticket checkout controls seat availability"
       },
       {
         label: "Departure depot",
@@ -178,7 +178,7 @@ const records: MajorEventAuthorityRecord[] = [
     planningSections: [
       {
         title: "Pick an actual 2026 departure, not any day in the season",
-        body: "The Palestine Visitor Center explicitly lists November 13–15, 19–24 and 27–29; December 3–6, 9–13, 15–16, 19–23 and 26–28, 2026. The visitor-center calendar confirms the event is advertised on both November 13 and December 28, but does not confirm which departure times or seating classes are currently bookable. A separate railroad page showing November 14–December 27 still carries 2024/2025 material; treat it as an older page, not the controlling 2026 schedule. Other secondary lists include December 18, which is absent from the city listing, so do not promise an exhaustive schedule. Check each actual departure and seat inventory at the operator checkout or call 855-632-7729 before committing to travel. The city does not list December 24 or 25."
+        body: "The official Texas State Railroad 2026 departure-calendar graphics show November 13–15, 19–24 and 27–29; December 3–6, 9–13, 15–16, 18–23 and 26–28. Friday, November 13 has trains at 5:30 and 7:00 PM; Monday, December 28 has trains at 3:00, 4:30, 6:00 and 7:30 PM. December 18 also appears on the railroad calendar with four departures. There are no scheduled departures shown for December 24 or 25. The schedule is the railroad’s own, not a secondary approximation; a posted departure does NOT imply that tickets remain unsold. Check available seating classes and live inventory at the operator’s booking page or call 855-632-7729 before committing to travel."
       },
       {
         title: "Know the refund, rescheduling and missed-train rules",
@@ -258,7 +258,7 @@ const records: MajorEventAuthorityRecord[] = [
     ],
     sources: [
       {
-        label: "Texas State Railroad — current 2026 Polar Express booking, seating and diesel locomotive notice",
+        label: "Texas State Railroad — official November and December 2026 departure calendars, booking, seating and diesel notice",
         url: "https://texasstaterailroad.net/the-polar-express/"
       },
       {
