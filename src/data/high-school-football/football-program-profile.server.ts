@@ -267,16 +267,7 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
   const baseEditorial = (await loadBatch009FootballProgramEditorial(canonicalSlug)) ?? batch008OrBaseEditorial;
   const editorial = canonicalSlug === 'aubrey'
     ? applyAubreyAutoResults(baseEditorial)
-    : canonicalSlug === 'katy' && baseEditorial
-      ? {
-          ...baseEditorial,
-          seo: {
-            ...baseEditorial.seo,
-            title: 'Katy Tigers Football: Nine State Titles, Stadiums & Team Guide',
-            description: 'Katy Tigers football guide: nine state titles, Gary Joseph, 2026 UIL alignment and visitor information for Legacy and Rhodes Stadium. Official sources and team history.',
-          },
-        }
-      : baseEditorial;
+    : baseEditorial;
   const profileContent = {
     displayName,
     program,
