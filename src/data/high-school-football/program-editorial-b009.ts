@@ -227,7 +227,7 @@ const BATCH009_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Standridge Stadium",
-      "address": "1330 W. Valwood Pkwy, Carrollton, TX 75006",
+      "address": "1330 Valwood Pkwy, Carrollton, TX 75006",
       "sourceUrl": "https://www.cfbisd.edu/departments/athletics",
       "sourceLabel": "CFBISD official shared football stadium address",
       "verifiedAt": "2026-10-26",
@@ -327,7 +327,7 @@ const BATCH009_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Standridge Stadium",
-      "address": "1330 W. Valwood Pkwy, Carrollton, TX 75006",
+      "address": "1330 Valwood Pkwy, Carrollton, TX 75006",
       "sourceUrl": "https://www.cfbisd.edu/departments/athletics",
       "sourceLabel": "CFBISD district stadium listing",
       "verifiedAt": "2026-10-26",
@@ -427,7 +427,7 @@ const BATCH009_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Standridge Stadium",
-      "address": "1330 W. Valwood Pkwy, Carrollton, TX 75006",
+      "address": "1330 Valwood Pkwy, Carrollton, TX 75006",
       "sourceUrl": "https://www.cfbisd.edu/departments/athletics",
       "sourceLabel": "Official CFBISD district stadium",
       "verifiedAt": "2026-10-26",
