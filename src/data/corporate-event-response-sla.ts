@@ -22,7 +22,7 @@ export function summarizeCorporateEventResponseTimes(
     const createdAt = Date.parse(lead.created_at);
     if (!Number.isFinite(createdAt)) continue;
     const contactedAt = lead.first_contacted_at ? Date.parse(lead.first_contacted_at) : NaN;
-    if (Number.isFinite(contactedAt) && contactedAt >= createdAt) {
+    if (Number.isFinite(contactedAt) && contactedAt >= createdAt && contactedAt <= now.getTime()) {
       const elapsedMs = contactedAt - createdAt;
       recordedContacts += 1;
       totalHours += elapsedMs / 3_600_000;
@@ -46,7 +46,11 @@ export function summarizeCorporateEventResponseTimes(
 }
 
 export function isCorporateEventLeadOverdue(lead: CorporateEventResponseLead, now: Date = new Date()) {
-  if (!['new', 'reviewing'].includes(lead.status) || lead.first_contacted_at) return false;
+  if (!['new', 'reviewing'].includes(lead.status)) return false;
   const created = Date.parse(lead.created_at);
-  return Number.isFinite(created) && now.getTime() - created > INTERNAL_FOLLOW_UP_TARGET_HOURS * 3_600_000;
+  if (!Number.isFinite(created)) return false;
+  const contacted = lead.first_contacted_at ? Date.parse(lead.first_contacted_at) : NaN;
+  // A malformed, backdated-before-intake, or future contact is not evidence of first contact.
+  if (Number.isFinite(contacted) && contacted >= created && contacted <= now.getTime()) return false;
+  return now.getTime() - created > INTERNAL_FOLLOW_UP_TARGET_HOURS * 3_600_000;
 }
