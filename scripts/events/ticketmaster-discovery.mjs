@@ -2,7 +2,7 @@ const ENDPOINT = 'https://app.ticketmaster.com/discovery/v2/events.json';
 const DIRECT_TICKETMASTER_HOSTS = new Set(['www.ticketmaster.com', 'ticketmaster.com']);
 const APPROVED_IMPACT_HOST = 'ticketmaster.evyy.net';
 const APPROVED_TICKETWEB_HOSTS = new Set(['www.ticketweb.com', 'ticketweb.com']);
-const APPROVED_IMPACT_PATH = /^\/c\/7758914\/\d+\/4272\/?$/;
+const APPROVED_IMPACT_PATH = /^\/c\/7758914\/264167\/4272\/?$/;
 
 function sanitizedHost(url) {
   return url.hostname.toLowerCase().replace(/[^a-z0-9.-]/g, '') || 'unknown';
@@ -101,7 +101,7 @@ export function normalizeDiscoveryEvent(event, trackingBase) {
   const affiliate = new URL(trackingBase);
   if (
     affiliate.origin !== 'https://ticketmaster.evyy.net' ||
-    !/^\/c\/7758914\/\d+\/4272$/.test(affiliate.pathname) ||
+    !/^\/c\/7758914\/264167\/4272$/.test(affiliate.pathname) ||
     affiliate.username ||
     affiliate.password
   ) throw new Error('Invalid approved Impact tracking base');

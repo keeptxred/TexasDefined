@@ -67,7 +67,7 @@ for (const token of [
 
 for (const token of [
   'collection.slug !== "things-to-do" && collection.slug !== "weekend-trips"',
-  "effectiveEnd", "horizonIso", "resultTownKeys", "metroKeys", "eventIdentity",
+  "effectiveEnd", "horizonIso", "resultTownKeys", "representedTownKeys", "townReferences", "metroKeys", "eventIdentity",
   "event.ticketCta?.isAffiliate", 'protocol === "https:"', ".slice(0, 12)",
 ]) requireText(files.eventSelection, token, `metro event selector contract missing ${token}`);
 for (const token of [
@@ -76,7 +76,7 @@ for (const token of [
   "buildMetroProximityEventContextServer",
 ]) requireText(files.eventServer, token, `metro event server contract missing ${token}`);
 for (const token of [
-  "buildMetroProximityEventContextServer", "eventContext",
+  "buildMetroProximityEventContextServer", "eventContext", "results, townReferences",
 ]) requireText(files.pageData, token, `metro event page-data integration missing ${token}`);
 for (const token of [
   "EventTicketCta", "event.ticketCta", "Upcoming events in and near",

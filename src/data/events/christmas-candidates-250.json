@@ -1,0 +1,1857 @@
+{
+  "schemaVersion": 1,
+  "source": "User-supplied Texas Christmas 250-location inventory, October 23 2026",
+  "policy": "Editorial research leads only. None is a verified 2026 event or entitlement to a page until reconciled against a first-party schedule, canonical existing coverage and source rights. Duplicate, renamed, fabricated, cancelled and nonseasonal items must be resolved before date publication.",
+  "candidateCount": 250,
+  "candidates": [
+    {
+      "intakeId": 1,
+      "title": "Johnson City Lights Spectacular",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "johnson-city-lights-spectacular"
+      ]
+    },
+    {
+      "intakeId": 2,
+      "title": "Fredericksburg Eisbahn",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "No official 2026 Fredericksburg TX Eisbahn date verified; search results also return a different Fredericksburg in Virginia and outdated 2025 rink announcements. Do not publish an invented ice-rink calendar run."
+    },
+    {
+      "intakeId": 3,
+      "title": "Fredericksburg Christmas Pyramid",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "fredericksburg-nights-of-lights-opening",
+        "fredericksburg-nights-of-lights-main",
+        "fredericksburg-nights-of-lights-final"
+      ]
+    },
+    {
+      "intakeId": 4,
+      "title": "Wimberley Trail of Lights",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "wimberley-trail-of-lights"
+      ]
+    },
+    {
+      "intakeId": 5,
+      "title": "Marble Falls Walkway of Lights",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "marble-falls-walkway-of-lights"
+      ]
+    },
+    {
+      "intakeId": 6,
+      "title": "Llano Starry Starry Nights",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "llano-starry-starry-nights"
+      ]
+    },
+    {
+      "intakeId": 7,
+      "title": "Burnet Main Street Bethlehem",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "existing-authority",
+      "guidePath": "/event/main-street-bethlehem-burnet"
+    },
+    {
+      "intakeId": 8,
+      "title": "Gruene Hall Holiday Market",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "gruene-christmas-market-days",
+        "gruene-christmas-town-lighting",
+        "gruene-cowboy-kringle-1",
+        "gruene-cowboy-kringle-2",
+        "gruene-cowboy-kringle-3",
+        "gruene-cowboy-kringle-4",
+        "gruene-cowboy-kringle-5",
+        "gruene-cowboy-kringle-6",
+        "gruene-cowboy-kringle-7"
+      ],
+      "researchNote": "Confirmed Gruene Christmas Market Days in Gruene Historic District rather than inside Gruene Hall; Cowboy Kringle photo sessions booked separately."
+    },
+    {
+      "intakeId": 9,
+      "title": "New Braunfels Santa's Ranch",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "santas-ranch-new-braunfels"
+      ]
+    },
+    {
+      "intakeId": 10,
+      "title": "San Marcos Sights & Sounds of Christmas",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "san-marcos-sights-sounds-week1",
+        "san-marcos-sights-sounds-week2"
+      ]
+    },
+    {
+      "intakeId": 11,
+      "title": "Boerne Parade of Lights",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "boerne-weihnachts-parade-2026"
+      ],
+      "researchNote": "Boerne's official event name is Weihnachts Parade, December 5, 2026, 6 p.m.; December 6 weather backup only. Separately sourced Old West Christmas Light Fest runs 15 specific nights at Enchanted Springs Ranch."
+    },
+    {
+      "intakeId": 12,
+      "title": "Boerne Dickens on Main",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "boerne-dickens-on-main"
+      ]
+    },
+    {
+      "intakeId": 13,
+      "title": "Kerrville Holiday Light Show",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "City and nonprofit confirmed Kerrville's Nov 21 2026 lighted parade and Merry on the Square/courthouse tree-lighting as independently dated records, but the submitted generic 'Holiday Light Show' has not been matched to an official named event or full display period."
+    },
+    {
+      "intakeId": 14,
+      "title": "Georgetown Christmas Stroll",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "georgetown-christmas-stroll"
+      ]
+    },
+    {
+      "intakeId": 15,
+      "title": "Round Rock Hometown Christmas",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "Round Rock Light Up the Lake is organizer-confirmed Dec 4–5, 2026 and added as a separate calendar event; do not assume the submitted 'Hometown Christmas' is the same branded event without an official identity match."
+    },
+    {
+      "intakeId": 16,
+      "title": "Austin Trail of Lights",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "existing-authority",
+      "guidePath": "/event/austin-trail-of-lights"
+    },
+    {
+      "intakeId": 17,
+      "title": "Zilker Holiday Tree",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "austin-zilker-holiday-tree-2026",
+        "austin-zilker-holiday-tree-lighting"
+      ]
+    },
+    {
+      "intakeId": 18,
+      "title": "Austin Armadillo Christmas Bazaar",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "armadillo-christmas-bazaar-austin"
+      ]
+    },
+    {
+      "intakeId": 19,
+      "title": "Austin Mozart’s Light Show",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "austin-mozarts-festival-of-lights"
+      ]
+    },
+    {
+      "intakeId": 20,
+      "title": "Austin Peppermint Parkway",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "The operator currently publishes 2025 ticket dates and describes the attraction as a walk-through rather than the supplied drive-through; do not invent its 2026 calendar dates."
+    },
+    {
+      "intakeId": 21,
+      "title": "Bastrop Lost Pines Christmas",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 22,
+      "title": "Salado Christmas Stroll",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "salado-christmas-stroll-first",
+        "salado-lighted-christmas-parade"
+      ]
+    },
+    {
+      "intakeId": 23,
+      "title": "Belton Winter Wonderland",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 24,
+      "title": "Temple Nature In Lights",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "Discover Temple Nature In Lights landing page lists dates inconsistent with Thanksgiving 2026 and appears to mix older year schedules; no full organizer-dated 2026 BLORA nightly calendar verified, so hold dates."
+    },
+    {
+      "intakeId": 25,
+      "title": "Waco Homestead Heritage Christmas",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "Homestead Heritage archived /home1024 Christmas Market says Dec 6, 7 & 13: those are weekend days in 2025 but Sunday/Monday/Sunday in 2026. Do not roll 2025 market dates forward as 2026 without an operator-dated current calendar."
+    },
+    {
+      "intakeId": 26,
+      "title": "Waco Wild Lights",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "waco-wild-lights-2026-1",
+        "waco-wild-lights-2026-2",
+        "waco-wild-lights-2026-3",
+        "waco-wild-lights-2026-4"
+      ],
+      "researchNote": "Only four unequivocally confirmed 2026 Zoo Wild Lights open windows retained; operator's Dec 23 vs Dec 30 season-ending conflict still needs resolution."
+    },
+    {
+      "intakeId": 27,
+      "title": "Waco Silobration Holiday Markets",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 28,
+      "title": "Bryan Downtown Holiday Stroll",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "bryan-2026-downtown-holiday-stroll"
+      ],
+      "researchNote": "Destination Bryan explicitly publishes the Dec 13–17, 2026 Holiday Stroll; separate Dec 17 lighted parade and Nov 20 tree lighting now have their own verified calendar records."
+    },
+    {
+      "intakeId": 29,
+      "title": "College Station Santa's Wonderland",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "existing-authority",
+      "guidePath": "/event/santas-wonderland-college-station"
+    },
+    {
+      "intakeId": 30,
+      "title": "Caldwell Christmas on the Square",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "caldwell-2026-christmas-on-square"
+      ],
+      "researchNote": "Burleson County Chamber confirms Friday Dec 11, 2026 despite generic tourism wording elsewhere that calls this a first-Saturday tradition; 2026 parade begins near 7 p.m."
+    },
+    {
+      "intakeId": 31,
+      "title": "Hearne Holiday Train Display",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 32,
+      "title": "Navasota Home for the Holidays",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "navasota-2026-home-for-holidays-parade"
+      ],
+      "researchNote": "Navasota ISD community calendar confirms the City's Dec 5, 2026 Home for the Holidays parade, 6–8 p.m.; detailed route not yet sourced."
+    },
+    {
+      "intakeId": 33,
+      "title": "Brenham Christmas Stroll",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "brenham-christmas-stroll-parade",
+        "brenham-cold-nights-holiday-tunes-2026"
+      ]
+    },
+    {
+      "intakeId": 34,
+      "title": "Chappell Hill Christmas Market",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "Visit Brenham/Chappell Hill confirms a 2026 Teddy Bear Parade and Garden Club Christmas Home Tour for Dec 12, but not the submitted generic 'Christmas Market'. These are separate verified dates and the market remains a research candidate."
+    },
+    {
+      "intakeId": 35,
+      "title": "Giddings Holiday Lights",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 36,
+      "title": "La Grange Hostyn Hill Christmas",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 37,
+      "title": "La Grange Monument Hill Trail of Lights",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 38,
+      "title": "Schulenburg Festival of Trees",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 39,
+      "title": "Weimar holiday market",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 40,
+      "title": "Columbus Courthouse Christmas",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 41,
+      "title": "Seguin Holiday Holiday Parade",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "seguin-2026-holiday-stroll-parade",
+        "seguin-2026-sip-n-stroll",
+        "seguin-2026-north-pole-stroll",
+        "seguin-2026-yulefest-art-show"
+      ],
+      "researchNote": "Seguin's city calendar lists Holiday Stroll parade Dec 3, cocoa Sip 'n Stroll Dec 4, family North Pole Stroll Dec 5, and Yulefest Dec 6 as distinct official events. No falsely extended four-day continuous parade."
+    },
+    {
+      "intakeId": 42,
+      "title": "Gonzales Winter Fest",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 43,
+      "title": "Lockhart Dickens Christmas",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "City tourism confirms a different 2026 program called A Christmas to Remember Dec 4–5 at Dr. Eugene Clark Library. Do not rebrand that as the submitted 'Dickens Christmas' without a matching organizer source."
+    },
+    {
+      "intakeId": 44,
+      "title": "Luling Yule Trail",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 45,
+      "title": "San Saba Christmas Park",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 46,
+      "title": "Lampasas Carol of Lights",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "lampasas-2026-carol-of-lights",
+        "lampasas-2026-holidazzle-parade",
+        "lampasas-2026-christmas-on-creek"
+      ],
+      "researchNote": "Vision Lampasas identifies separate Dec 5 Carol of Lights, Dec 5 HoliDazzle parade and Dec 12 Christmas on the Creek; do not extend special-event times to undated winter evenings."
+    },
+    {
+      "intakeId": 47,
+      "title": "Goldthwaite Holiday Fest",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 48,
+      "title": "Mason Country Christmas",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 49,
+      "title": "Brady Heart of Texas Christmas",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 50,
+      "title": "Comfort Christmas in Comfort",
+      "submittedRegion": "Hill Country & Central Texas",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "christmas-in-comfort-2026"
+      ]
+    },
+    {
+      "intakeId": 51,
+      "title": "Grapevine Christmas Capital of Texas",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "existing-authority",
+      "guidePath": "/event/grapevine-christmas-capital-of-texas"
+    },
+    {
+      "intakeId": 52,
+      "title": "Grapevine Vintage Railroad North Pole Express",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "grapevine-north-pole-express-nov",
+        "grapevine-north-pole-express-dec",
+        "grapevine-north-pole-express-final",
+        "fort-worth-north-pole-express-dec3"
+      ]
+    },
+    {
+      "intakeId": 53,
+      "title": "Grapevine Gaylord Texan ICE! Exhibit",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "existing-authority",
+      "guidePath": "/event/gaylord-texan-ice"
+    },
+    {
+      "intakeId": 54,
+      "title": "Grapevine Great Wolf Lodge Snowland",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 55,
+      "title": "Arlington Interlochen Lights",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 56,
+      "title": "Arlington Holiday Lights at Six Flags",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "arlington-six-flags-holiday-2026-opening"
+      ],
+      "researchNote": "Season published for select amusement-park operating dates; only source-qualified opening or listed windows are calendar entries, not an assumed nightly season."
+    },
+    {
+      "intakeId": 57,
+      "title": "Arlington Christkindlmarket",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "arlington-texas-christkindl-market-opening-2026",
+        "arlington-texas-christkindl-market-season-2026"
+      ],
+      "researchNote": "Market main 2026 calendar dates Nov20–22 plus Nov27–Dec23; secondary market page unexpectedly says Nov20–23, so Nov23 excluded until confirmed."
+    },
+    {
+      "intakeId": 58,
+      "title": "Dallas Holiday at the Arboretum",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "existing-authority",
+      "guidePath": "/event/holiday-at-the-dallas-arboretum"
+    },
+    {
+      "intakeId": 59,
+      "title": "Dallas Zoo Lights",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "dallas-zoo-lights-opening",
+        "dallas-zoo-lights-november",
+        "dallas-zoo-lights-dec-early",
+        "dallas-zoo-lights-dec-mid",
+        "dallas-zoo-lights-dec-late",
+        "dallas-zoo-lights-final"
+      ]
+    },
+    {
+      "intakeId": 60,
+      "title": "Dallas Snider Plaza Tree Lighting",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 61,
+      "title": "Dallas Vitruvian Lights",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "Vitruvian Park tourism site confirms a 2026 return but still lacks exact 2026 opening/closing dates as of review. Hold calendar window."
+    },
+    {
+      "intakeId": 62,
+      "title": "Fort Worth Parade of Lights",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "fort-worth-parade-of-lights"
+      ]
+    },
+    {
+      "intakeId": 63,
+      "title": "Fort Worth Stockyards Cowboy Santa",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "fort-worth-stockyards-cowboy-santa-arrival"
+      ]
+    },
+    {
+      "intakeId": 64,
+      "title": "Fort Worth Gift of Lights",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "fort-worth-gift-of-lights"
+      ]
+    },
+    {
+      "intakeId": 65,
+      "title": "Frisco Christmas in the Square",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "frisco-christmas-in-the-square"
+      ]
+    },
+    {
+      "intakeId": 66,
+      "title": "Plano Lights at Legacy",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 67,
+      "title": "Plano Deerfield Holiday Lights",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 68,
+      "title": "McKinney Home for the Holidays",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "mckinney-home-for-holidays"
+      ]
+    },
+    {
+      "intakeId": 69,
+      "title": "Allen Celebration of Lights",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "Official Allen Holly Jolly Celebration 2026 and separate Light the Night at Watters Creek are dated calendar entries, but submitted generic 'Celebration of Lights' wording is not independently matched to either named organizer event."
+    },
+    {
+      "intakeId": 70,
+      "title": "Richardson Santa’s Village",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "richardson-santas-village-week1",
+        "richardson-santas-village-week2",
+        "richardson-santas-village-week3",
+        "richardson-santas-village-walk1",
+        "richardson-santas-village-walk2"
+      ]
+    },
+    {
+      "intakeId": 71,
+      "title": "Garland Firewheel Town Center Lights",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 72,
+      "title": "Mesquite Christmas in the Park",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "mesquite-christmas-in-the-park-2026"
+      ],
+      "researchNote": "City of Mesquite separately lists Dec 5–6, 2026, 2–8 p.m., free entrance and $12 optional activity wristband."
+    },
+    {
+      "intakeId": 73,
+      "title": "Rockwall Christmas Celebration",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "rockwall-hometown-christmas-2026"
+      ],
+      "researchNote": "Official City of Rockwall Hometown Christmas listing dates Dec 5, 2026; city program includes Kiwanis parade 9 a.m., market 10 a.m.–5 p.m. and city tree lighting 6–8 p.m."
+    },
+    {
+      "intakeId": 74,
+      "title": "Rowlett Holiday Parade",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "rowlett-2026-holiday-main-street-fest"
+      ],
+      "researchNote": "City of Rowlett confirms one combined Holiday Main Street Fest + Parade of Lights Dec 5, 5–8:30 p.m.; avoid duplicating the same parade as a second city event."
+    },
+    {
+      "intakeId": 75,
+      "title": "Grand Prairie Prairie Lights",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "grand-prairie-prairie-lights"
+      ]
+    },
+    {
+      "intakeId": 76,
+      "title": "Irving Las Colinas Holiday Lights",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 77,
+      "title": "Southlake Home for the Holidays",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "southlake-home-for-the-holidays-2026"
+      ],
+      "researchNote": "Visit Southlake officially dates its named Home for the Holidays celebration Saturday Nov 21, 2026 from 4:30–8:30 p.m.; free tree lighting and activities."
+    },
+    {
+      "intakeId": 78,
+      "title": "Colleyville Christmas Tree Lighting",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "colleyville-2026-christmas-tree-lighting"
+      ],
+      "researchNote": "City of Colleyville confirms Nov 21, 2026 tree lighting, 5:30–8:30 p.m. at Heroes Park by City Hall."
+    },
+    {
+      "intakeId": 79,
+      "title": "Keller Holly Days",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "keller-holly-days-2026"
+      ],
+      "researchNote": "City of Keller 2026 calendar confirms Dec 4, 5–9 p.m., and the Very Merry Light Parade."
+    },
+    {
+      "intakeId": 80,
+      "title": "Mansfield Hometown Holidays",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "mansfield-hometown-holidays-2026"
+      ],
+      "researchNote": "City's flagship Hometown Holidays on Dec4 only; other town holiday activities occur on separate dates and are not part of this day-scoped record."
+    },
+    {
+      "intakeId": 81,
+      "title": "Burleson Christmas Market",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "City of Burleson publishes Christmas Craft Fair at Senior Activity Center Dec 12 and other Christmas events, but this does not establish that the submitted 'Burleson Christmas Market' is the same named event."
+    },
+    {
+      "intakeId": 82,
+      "title": "Cleburne Whistle Stop Christmas",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "cleburne-whistle-stop-christmas",
+        "cleburne-whistle-stop-parade"
+      ]
+    },
+    {
+      "intakeId": 83,
+      "title": "Weatherford Christmas on the Square",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "weatherford-2026-christmas-on-square",
+        "weatherford-2026-lights-night-parade"
+      ],
+      "researchNote": "Weatherford Chamber confirms Dec 5, 2026 Gingerbread Christmas 10 a.m.–4 p.m. and a separate 6:30 p.m. lighted parade."
+    },
+    {
+      "intakeId": 84,
+      "title": "Granbury Night of Lights",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "granbury-night-of-lights-parade-2026"
+      ],
+      "researchNote": "Visit Granbury confirms Night of Lights Christmas Parade Friday November 27, 2026 at 6 p.m.; 2024 Santa House hours are not used."
+    },
+    {
+      "intakeId": 85,
+      "title": "Stephenville Cowboy Christmas",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 86,
+      "title": "Mineral Wells Merry Wells",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "mineral-wells-merry-wells-tree-lighting",
+        "mineral-wells-merry-wells-festival"
+      ]
+    },
+    {
+      "intakeId": 87,
+      "title": "Gainesville Holiday Tour of Homes",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 88,
+      "title": "Denton Holiday Lighting Festival",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "denton-holiday-lighting-festival-2026"
+      ]
+    },
+    {
+      "intakeId": 89,
+      "title": "Lewisville Holiday at the Hall",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "lewisville-2026-holiday-stroll-lights",
+        "lewisville-2026-holiday-stroll-parade"
+      ],
+      "researchNote": "City of Lewisville currently brands the 2026 programming Holiday Stroll / Lewisville Lights at Wayne Ferguson Plaza, Friday Dec 4 tree lighting and Saturday Dec 5 Christmas parade. The submitted generic event title is an alias for this city holiday program."
+    },
+    {
+      "intakeId": 90,
+      "title": "Flower Mound Christmas Tree Lighting",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "flower-mound-christmas-parade-lighting-2026"
+      ],
+      "researchNote": "Town of Flower Mound confirms Dec 5, 2026 parade followed by tree-lighting at Gerault Park. Event is one combined occasion, not speculative multi-day lighting."
+    },
+    {
+      "intakeId": 91,
+      "title": "Highland Village Celebrate the Holidays",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 92,
+      "title": "Coppell Holiday Lighting",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "coppell-holiday-parade-lighting-2026"
+      ],
+      "researchNote": "City of Coppell Special Events calendar confirms Saturday December 5, 2026, 6–9 p.m. Old 2025 'Holidays' page details are not treated as 2026 data."
+    },
+    {
+      "intakeId": 93,
+      "title": "Waxahachie Bethlehem Revisited",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "waxahachie-bethlehem-revisited-first",
+        "waxahachie-bethlehem-revisited-second"
+      ]
+    },
+    {
+      "intakeId": 94,
+      "title": "Ennis Lights Fest",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "ennis-lights-of-ennis-parade-2026"
+      ]
+    },
+    {
+      "intakeId": 95,
+      "title": "Corsicana Palace Theatre Holiday Shows",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 96,
+      "title": "Kaufman Holiday Celebration",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "kaufman-2026-christmas-on-the-square"
+      ],
+      "researchNote": "City of Kaufman confirms Dec 5, 2026, noon–8 p.m. Christmas on the Square, with 6 p.m. illuminated parade and 7 p.m. tree lighting."
+    },
+    {
+      "intakeId": 97,
+      "title": "Terrell Christmas Parade",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "terrell-2026-christmas-parade"
+      ],
+      "researchNote": "Terrell Chamber explicitly confirms December 12, 2026, 10–11 a.m. Christmas parade and route; listed fees are float entry, not spectator admission."
+    },
+    {
+      "intakeId": 98,
+      "title": "Rockwall Harbor Lights",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 99,
+      "title": "Wylie Bluegrass Christmas",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 100,
+      "title": "Forney Christmas in the Park",
+      "submittedRegion": "North Texas & DFW Metroplex",
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "The City/Arts Council confirms Dec 5 Christmas on Main 12–5 p.m. downtown. This is NOT proof of the submitted 'Forney Christmas in the Park' event identity or dates; added as a separate Christmas-on-Main calendar occurrence."
+    },
+    {
+      "intakeId": 101,
+      "title": "Galveston Dickens on The Strand",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "existing-authority",
+      "guidePath": "/event/dickens-on-the-strand"
+    },
+    {
+      "intakeId": 102,
+      "title": "Galveston Moody Gardens Festival of Lights",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "moody-gardens-holiday-lights-trail"
+      ]
+    },
+    {
+      "intakeId": 103,
+      "title": "Galveston Holiday Ice Land",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "existing-authority",
+      "guidePath": "/event/moody-gardens-ice-land"
+    },
+    {
+      "intakeId": 104,
+      "title": "Houston Zoo Lights",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "existing-authority",
+      "guidePath": "/event/houston-zoo-lights"
+    },
+    {
+      "intakeId": 105,
+      "title": "Houston Magical Winter Lights",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 106,
+      "title": "Houston Alley Theatre A Christmas Carol",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 107,
+      "title": "Houston Downtown Lantern Spectacular",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 108,
+      "title": "Houston Cistern Holiday Illumination",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 109,
+      "title": "Sugar Land Holiday Lights",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "sugar-land-holiday-lights-constellation-field"
+      ]
+    },
+    {
+      "intakeId": 110,
+      "title": "The Woodlands Winter Wonderland",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "woodlands-ice-rink-2026"
+      ],
+      "researchNote": "Canonical 2026 venue is the indoor Woodlands Ice Rink; supplied 'outdoor Winter Wonderland' description is incorrect."
+    },
+    {
+      "intakeId": 111,
+      "title": "The Woodlands Lighting of the Doves",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "woodlands-lighting-of-the-doves-2026"
+      ]
+    },
+    {
+      "intakeId": 112,
+      "title": "Katy Light Tall Pines",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 113,
+      "title": "Tomball German Christmas Market",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "tomball-german-christmas-market"
+      ]
+    },
+    {
+      "intakeId": 114,
+      "title": "Spring Old Town Spring Home for the Holidays",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 115,
+      "title": "Conroe Christmas Boat Parade",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 116,
+      "title": "Richmond George Ranch Christmas",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 117,
+      "title": "Rosenberg Christmas Nights",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 118,
+      "title": "Baytown Christmas Past & Present",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 119,
+      "title": "Pasadena Holiday Festival",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 120,
+      "title": "Deer Park Reindeer Dash",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 121,
+      "title": "La Porte Christmas on the Coast",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 122,
+      "title": "Kemah Boardwalk Christmas",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "kemah-jingle-on-boardwalk-2026-1",
+        "kemah-jingle-on-boardwalk-2026-2",
+        "kemah-jingle-on-boardwalk-2026-3"
+      ],
+      "researchNote": "The 2026 Kemah Boardwalk calendar dates Jingle on the Boardwalk on the three Friday–Sunday holiday weekends Dec4–20, with separate Saturday Cocoa & Cookies stroll dates and a separately organized Dec12 boat parade."
+    },
+    {
+      "intakeId": 123,
+      "title": "Seabrook Illuminated Boat Lane Parade",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "Clear Lake Chamber's Dec12 65th Christmas Boat Lane Parade is the same waterway parade visible from Seabrook, Kemah and Nassau Bay. The supplied 'Seabrook Illuminated Boat Lane Parade' may refer to it, but no distinct separately branded organizer event is established. Do not duplicate it."
+    },
+    {
+      "intakeId": 124,
+      "title": "Clear Lake Holiday Boat Lane Parade",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "clearlake-65th-christmas-boat-lane-parade-2026"
+      ],
+      "researchNote": "Clear Lake Area Chamber confirms the 65th Boat Lane Parade Saturday Dec12, 2026, beginning Nassau Bay around 6pm and reaching Seabrook/Kemah around 7:30pm. Same parade viewed from multiple shoreline cities; do not create duplicate route events."
+    },
+    {
+      "intakeId": 125,
+      "title": "League City Holiday Magic",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 126,
+      "title": "Friendswood Santa in the Park",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 127,
+      "title": "Alvin Holiday Train at Crossroads",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 128,
+      "title": "Pearland Festival of Lights",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "Pearland Parks & Recreation confirmed the Dec4 Hometown Christmas Festival at Independence Park, added separately. The submitted generic 'Pearland Festival of Lights' might refer to a different lighting program; without a matching 2026 organizer date it remains unverified."
+    },
+    {
+      "intakeId": 129,
+      "title": "Lake Jackson Festival of Lights",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 130,
+      "title": "Angleton Austin Town Christmas",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 131,
+      "title": "Freeport Holiday Parade",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 132,
+      "title": "Palacios Christmas on the Bayside",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 133,
+      "title": "Port Lavaca Festival of Trees",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 134,
+      "title": "Victoria Christmas Parade of Lights",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 135,
+      "title": "Cuero's Christmas in the Park",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "cuero-christmas-in-the-park"
+      ]
+    },
+    {
+      "intakeId": 136,
+      "title": "El Campo Holiday Market",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 137,
+      "title": "Wharton Courtyard Christmas",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 138,
+      "title": "Needville Farm Holiday Harvest",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 139,
+      "title": "Bellville Newman's Castle Holiday Tours",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 140,
+      "title": "Hempstead Festival of Fountains",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 141,
+      "title": "Waller Holiday Festival",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 142,
+      "title": "Prairie View Winter Concerts",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 143,
+      "title": "Navasota Blues Christmas",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 144,
+      "title": "Liberty Christmas in the Woods",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 145,
+      "title": "Dayton Holiday Parade",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 146,
+      "title": "Anahuac Coastal Christmas",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 147,
+      "title": "Beaumont Christmas at the McFaddin-Ward House",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "beaumont-mcfaddin-ward-holiday-open-house-2026",
+        "beaumont-mcfaddin-ward-christmas-past-workshop-2026"
+      ],
+      "researchNote": "Admission-free main holiday open-house Dec5–6 and separate age-restricted Dec15 workshop, both from museum's official 2026 schedule."
+    },
+    {
+      "intakeId": 148,
+      "title": "Port Arthur Holiday Light Show",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 149,
+      "title": "Orange Christmas Heritage Festival",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 150,
+      "title": "Nederland Windmill Christmas",
+      "submittedRegion": "Gulf Coast & Houston Area",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 151,
+      "title": "San Antonio River Walk Holiday Lights",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "san-antonio-river-walk-holiday-lights"
+      ]
+    },
+    {
+      "intakeId": 152,
+      "title": "San Antonio Ford Holiday River Parade",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "existing-authority",
+      "guidePath": "/event/ford-holiday-river-parade"
+    },
+    {
+      "intakeId": 153,
+      "title": "San Antonio Fiesta de las Luminarias",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 154,
+      "title": "San Antonio SeaWorld Christmas Celebration",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "san-antonio-seaworld-christmas-2026-opening"
+      ],
+      "researchNote": "Season published for select amusement-park operating dates; only source-qualified opening or listed windows are calendar entries, not an assumed nightly season."
+    },
+    {
+      "intakeId": 155,
+      "title": "San Antonio Six Flags Fiesta Texas Holiday",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "san-antonio-fiesta-texas-holiday-1",
+        "san-antonio-fiesta-texas-holiday-2",
+        "san-antonio-fiesta-texas-holiday-3",
+        "san-antonio-fiesta-texas-holiday-4",
+        "san-antonio-fiesta-texas-holiday-5",
+        "san-antonio-fiesta-texas-new-years-2026"
+      ],
+      "researchNote": "Season published for select amusement-park operating dates; only source-qualified opening or listed windows are calendar entries, not an assumed nightly season."
+    },
+    {
+      "intakeId": 156,
+      "title": "San Antonio Natural Bridge Caverns Christmas",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "natural-bridge-christmas-caverns-opening-2026"
+      ],
+      "researchNote": "2026 Christmas at the Caverns season runs Dec 5–23 on select nights, but official event list does not enumerate all open dates. Only verified opening date listed."
+    },
+    {
+      "intakeId": 157,
+      "title": "San Antonio Pearl Brewery Holiday Markets",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 158,
+      "title": "San Antonio Lightscape at the Botanical Garden",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "san-antonio-garden-illuminate-opening-2026"
+      ],
+      "researchNote": "The Garden's actual 2026 exhibit is Illuminate, not Lightscape; dated timed-entry tickets are required and only opening date is a confirmed calendar occurrence."
+    },
+    {
+      "intakeId": 159,
+      "title": "Helotes Christmas Marketplace",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 160,
+      "title": "Castroville Old World Christmas Market",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 161,
+      "title": "Hondo Cowboy Christmas",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 162,
+      "title": "Uvalde Plaza Christmas",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 163,
+      "title": "Del Rio Winter Fest",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 164,
+      "title": "Eagle Pass International Holiday Parade",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 165,
+      "title": "Laredo Under the Stars",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 166,
+      "title": "McAllen Holiday Parade",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "existing-authority",
+      "guidePath": "/event/mcallen-holiday-parade"
+    },
+    {
+      "intakeId": 167,
+      "title": "McAllen Christmas Fiesta",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "The city publishes the South Pole Illuminated Festival's 2026 operating nights, but no evidence yet that this is the same event as the submitted 'McAllen Christmas Fiesta'; preserve as separate supplemental calendar event."
+    },
+    {
+      "intakeId": 168,
+      "title": "Edinburg Night of Lights",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 169,
+      "title": "Pharr Winter Wonderland",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 170,
+      "title": "Weslaco Holiday Street Market",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 171,
+      "title": "Harlingen Winter Texan Fiesta",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 172,
+      "title": "Brownsville Holiday Village",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "The operator's public schedule still references 2025; an exact 2026 Holiday Village calendar has not been established."
+    },
+    {
+      "intakeId": 173,
+      "title": "South Padre Island Holiday Sandcastle Trail",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 174,
+      "title": "Port Isabel Lighthouse Christmas",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 175,
+      "title": "Corpus Christi Harbor Lights Festival",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 176,
+      "title": "Corpus Christi Texas State Aquarium Scuba Santa",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 177,
+      "title": "Rockport Christmas Tropicale",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 178,
+      "title": "Fulton Mansion Candlelit Tours",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 179,
+      "title": "Aransas Pass Holiday Market",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 180,
+      "title": "Kingsville Ranch Hand Festival",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 181,
+      "title": "Alice Holiday Parade",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 182,
+      "title": "Falfurrias Heritage Christmas",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 183,
+      "title": "Beeville Courthouse Christmas",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 184,
+      "title": "Kenedy Flax Fest Holidays",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 185,
+      "title": "Karnes City Holiday Parade",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 186,
+      "title": "Floresville Peanut Festival Holidays",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 187,
+      "title": "Pleasanton Cowboy Christmas",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 188,
+      "title": "Jourdanton Holiday Lights",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 189,
+      "title": "Pearsall Winter Festival",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 190,
+      "title": "Cotulla Frontier Christmas",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 191,
+      "title": "Carrizo Springs Holiday Market",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 192,
+      "title": "Crystal City Spinach Festival Holidays",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 193,
+      "title": "Mathis Lake Christmas",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 194,
+      "title": "Sinton Holiday Parade",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 195,
+      "title": "Refugio Historic Tour of Churches",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 196,
+      "title": "Goliad Christmas Mission Tours",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 197,
+      "title": "Kenedy Starry Nights",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 198,
+      "title": "George West Storyfest Holidays",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 199,
+      "title": "Three Rivers Holiday Lights",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 200,
+      "title": "Tilden Frontier Winter",
+      "submittedRegion": "South Texas & Alamo Region",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 201,
+      "title": "Marshall Wonderland of Lights",
+      "submittedRegion": "East Texas Piney Woods",
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "The city listing includes dates from a prior season; 2026 season dates must be confirmed on the new official calendar."
+    },
+    {
+      "intakeId": 202,
+      "title": "Jefferson Candlelight Tour of Homes",
+      "submittedRegion": "East Texas Piney Woods",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "jefferson-candlelight-tour-dec3",
+        "jefferson-candlelight-tour-dec10"
+      ]
+    },
+    {
+      "intakeId": 203,
+      "title": "Jefferson Holiday Express Train",
+      "submittedRegion": "East Texas Piney Woods",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 204,
+      "title": "Nacogdoches Nine Flags Festival",
+      "submittedRegion": "East Texas Piney Woods",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "nacogdoches-nine-flags-parade-2026"
+      ],
+      "researchNote": "Visit Nacogdoches lists the 2026 Nine Flags Lighted Christmas Parade Dec 5 at 6:30 p.m.; this is the exact verified sub-event of the broader Nine Flags festival, not a claim of daily month-long operations."
+    },
+    {
+      "intakeId": 205,
+      "title": "Lufkin Christmas In the Pines",
+      "submittedRegion": "East Texas Piney Woods",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "lufkin-christmas-in-the-pines-friday",
+        "lufkin-christmas-lighted-parade"
+      ]
+    },
+    {
+      "intakeId": 206,
+      "title": "Tyler Rose Garden Holiday Lights",
+      "submittedRegion": "East Texas Piney Woods",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 207,
+      "title": "Longview Christmas Train",
+      "submittedRegion": "East Texas Piney Woods",
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "The 2026 Longview Arboretum BRIGHT! light-walk and Downtown AMBUCS Christmas Parade are independently verified; Livingston's Christmas Train Village is in a DIFFERENT town. None establishes the supplied 'Longview Christmas Train' as a dated 2026 passenger-train event; hold this candidate pending an exact Longview organizer source."
+    },
+    {
+      "intakeId": 208,
+      "title": "Kilgore Christmas Derrick Lighting",
+      "submittedRegion": "East Texas Piney Woods",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 209,
+      "title": "Texarkana Twice as Nice Festival",
+      "submittedRegion": "East Texas Piney Woods",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 210,
+      "title": "Paris Christmas on the Square",
+      "submittedRegion": "East Texas Piney Woods",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 211,
+      "title": "Mount Pleasant Holiday Market",
+      "submittedRegion": "East Texas Piney Woods",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 212,
+      "title": "Sulphur Springs Celebration of Lights",
+      "submittedRegion": "East Texas Piney Woods",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 213,
+      "title": "Greenville Christmas Parade",
+      "submittedRegion": "East Texas Piney Woods",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "greenville-christmas-parade-of-lights"
+      ]
+    },
+    {
+      "intakeId": 214,
+      "title": "Athens Christmas Park",
+      "submittedRegion": "East Texas Piney Woods",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 215,
+      "title": "Palestine Christmas Dogwood Trails",
+      "submittedRegion": "East Texas Piney Woods",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 216,
+      "title": "Crockett Candlelit Christmas",
+      "submittedRegion": "East Texas Piney Woods",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 217,
+      "title": "Rusk Holiday Pine Caravan",
+      "submittedRegion": "East Texas Piney Woods",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 218,
+      "title": "Jacksonville Tomato Bowl Holidays",
+      "submittedRegion": "East Texas Piney Woods",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 219,
+      "title": "Henderson Heritage Syrup Festival Winter",
+      "submittedRegion": "East Texas Piney Woods",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 220,
+      "title": "Carthage Country Christmas",
+      "submittedRegion": "East Texas Piney Woods",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 221,
+      "title": "Lubbock Candlelight at the Ranch",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "lubbock-candlelight-at-the-ranch"
+      ]
+    },
+    {
+      "intakeId": 222,
+      "title": "Amarillo Center City Electric Light Parade",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "amarillo-electric-light-parade"
+      ]
+    },
+    {
+      "intakeId": 223,
+      "title": "Canyon Panhandle-Plains Museum Christmas",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 224,
+      "title": "Abilene Winter Lightfest",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "abilene-winter-lightfest-opening",
+        "abilene-winter-lightfest-week1",
+        "abilene-winter-lightfest-week2",
+        "abilene-winter-lightfest-week3"
+      ]
+    },
+    {
+      "intakeId": 225,
+      "title": "San Angelo Concho Christmas Celebration",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "existing-authority",
+      "guidePath": "/event/concho-christmas-tour-of-lights"
+    },
+    {
+      "intakeId": 226,
+      "title": "Midland Starry Starry Night",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 227,
+      "title": "Odessa Holiday Tree Lighting",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 228,
+      "title": "El Paso WinterFest",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "el-paso-winterfest-lights",
+        "el-paso-winterfest-kickoff"
+      ]
+    },
+    {
+      "intakeId": 229,
+      "title": "Alpine Holiday Mountain Market",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 230,
+      "title": "Marfa Desert Holiday Illuminations",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 231,
+      "title": "Fort Davis Candlelight Tours",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 232,
+      "title": "Plainview Holiday Parade",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 233,
+      "title": "Levelland Mosaic Christmas",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 234,
+      "title": "Lamesa Farm Holiday Market",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 235,
+      "title": "Brownfield Winter Wine Trail",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 236,
+      "title": "Snyder Holiday Festival",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 237,
+      "title": "Sweetwater Pioneer Christmas",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 238,
+      "title": "Big Spring Comanche Trail Lights",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 239,
+      "title": "Monahans Sandhills Christmas",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 240,
+      "title": "Pecos Frontier Christmas",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 241,
+      "title": "Van Horn Mountain Holiday Stroll",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 242,
+      "title": "Fort Stockton Historic Candlelight Stroll",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 243,
+      "title": "Ballinger Winter Market",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 244,
+      "title": "Coleman Country Christmas",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 245,
+      "title": "Cisco Holiday Festival",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 246,
+      "title": "Eastland Majestic Theatre Holiday",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 247,
+      "title": "Breckenridge Holiday Lights",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 248,
+      "title": "Graham America's Largest Square Christmas",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    },
+    {
+      "intakeId": 249,
+      "title": "Mineral Wells Holiday Festival",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "Likely a repeated or generic alias of the already confirmed Mineral Wells Merry Wells festival (intake #86); do not create a second calendar event unless its distinct organizer and dates can be confirmed."
+    },
+    {
+      "intakeId": 250,
+      "title": "Vernon Santa's West Texas Workshop",
+      "submittedRegion": "West Texas & Panhandle Plains",
+      "status": "candidate-needs-source-reconciliation"
+    }
+  ],
+  "reconciliation": {
+    "asOf": "2026-10-26",
+    "calendarCandidates": 75,
+    "authorityCandidates": 12,
+    "remainingCandidates": 163
+  }
+}

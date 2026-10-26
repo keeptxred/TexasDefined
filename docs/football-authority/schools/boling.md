@@ -26,3 +26,9 @@ School-specific original SEO, two historically distinct UIL title-game landmarks
 [MaxPreps' October 17 completed Boling–Industrial recap](https://www.maxpreps.com/news/rVpbgHUcI0KCpu1rfIHFYA/football-recap-bolings-offense-hits-a-season-high-in-victory-over-industrial.htm) reports **Boling 35, Industrial 14**, making the Bulldogs **3–4 through October 16**. The historical UIL 1972 championship, 2016 runner-up finish, first-party head-coach verification and source-qualified stadium information are preserved.
 
 This source-backed editorial correction does not establish a school-certified UIL final, image license, guaranteed stadium entrance, exact deployed commit or school-specific nine-dimension editorial/Chrome acceptance. Preserve this school's `DEPLOYED` status until acceptance evidence is recorded.
+
+## October 20, 2026 — acceptance-ledger source recheck
+Boling High School's current Athletics page was rechecked and still explicitly identifies **Kevin Urbanek — Athletic Director / Head FB Coach**, with the 2026 football schedule and assistant staff listed separately. This remains first-party control over contradictory third-party coach labels.
+
+The page still provides Boling High's 407 Atlantic Avenue campus address but does not establish the precise football spectator entrance, parking allocation, comprehensive accessible seating, event-specific ticket rules, or reusable team/stadium photography rights. The genuine 1972 UIL championship, 2016 runner-up distinction, reported 3–4 through October 16 record, and prior technical Chrome evidence remain unchanged. **Status stays DEPLOYED, not individually VERIFIED.**
+

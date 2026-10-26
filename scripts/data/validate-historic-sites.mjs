@@ -99,6 +99,12 @@ if (!fullCatalog.includes('last ticket at 3:15 p.m.')) failures.push('Fulton Man
 if (!visitDepth.includes('destination.slug === "fulton-mansion" ? "2026-10-14"')) failures.push('Fulton Mansion verified visitor date missing');
 
 
+const authorityPresentationPolicy = fs.readFileSync('src/data/destination-authority-presentation.ts', 'utf8');
+const destinationRelationshipsPolicy = fs.readFileSync('src/components/editorial/DestinationRelationships.tsx', 'utf8');
+if (!destinationRelationshipsPolicy.includes('shouldRenderFullDestinationAuthorityGuide(destination)') ||
+    !destinationRelationshipsPolicy.includes('<DestinationAuthorityGuide destination={destination}')) {
+  failures.push('Historic authority must mount the complete guide through the shared eligibility policy.');
+}
 const expandedHistoricSlugs = [
   'fort-davis-national-historic-site',
   'san-jacinto-battleground',
@@ -113,7 +119,7 @@ const expandedHistoricSlugs = [
 ];
 for (const slug of expandedHistoricSlugs) {
   if (!authorityExpansion.includes(`"${slug}": {`)) failures.push(`Historical authority expansion missing ${slug}.`);
-  if (!destinationRoute.includes(`"${slug}"`) && !fs.readFileSync('src/components/editorial/DestinationRelationships.tsx', 'utf8').includes(`"${slug}"`)) {
+  if (!destinationRoute.includes(`"${slug}"`) && !destinationRelationshipsPolicy.includes(`"${slug}"`) && !authorityPresentationPolicy.includes(`"${slug}"`)) {
     failures.push(`Historic-site authority component not enabled for ${slug}.`);
   }
 }
@@ -181,6 +187,23 @@ const currentVisitNotes = fs.readFileSync('src/data/historic-site-depth-all.ts',
 for (const slug of ['old-socorro-mission', 'caddo-mounds-state-historic-site', 'fanthorp-inn', 'landmark-inn', 'fort-griffin', 'barrington-living-history-farm', 'fort-mckavett', 'fort-lancaster', 'mission-dolores', 'acton-state-historic-site', 'goodnight-ranch', 'french-legation', 'fannin-battleground', 'kreische-brewery', 'confederate-reunion-grounds']) {
   if (!currentVisitNotes.includes(`"${slug}": {`)) failures.push(`Missing site-specific current visitor/access guidance: ${slug}`);
 }
+for (const slug of [
+  'sam-bell-maxey-house', 'starr-family-home',
+  'port-isabel-lighthouse', 'palmito-ranch-battlefield',
+]) {
+  if (!currentVisitNotes.includes(`"${slug}": {`)) {
+    failures.push(`Missing reviewed visiting guidance for historic-site wave 2: ${slug}`);
+  }
+}
+for (const sourceUrl of [
+  'https://thc.texas.gov/state-historic-sites/port-isabel-lighthouse/plan-your-visit-port-isabel-lighthouse',
+  'https://thc.texas.gov/state-historic-sites/palmito-ranch-battlefield/palmito-ranch-battlefield-history',
+]) if (!fullAuthorityFile.includes(sourceUrl)) {
+  failures.push(`Historic authority missing linked second-wave official evidence: ${sourceUrl}`);
+}
+for (const caution of ['75 winding stairs', 'three short ladders', 'no staffed services']) {
+  if (!currentVisitNotes.includes(caution)) failures.push(`Second-wave visitor constraints missing: ${caution}`);
+}
 if (!fullAuthorityFile.includes('oldSocorroHistoryItineraries') || !fullAuthorityFile.includes('closedSiteItineraries')) {
   failures.push('Closed First Capitol and Old Socorro must not receive ordinary public-access itineraries.');
 }
@@ -205,7 +228,11 @@ const sourceRoute = fs.readFileSync('src/routes/destination.$slug.tsx', 'utf8');
 if (!runtime.includes('enrichFullHistoricSiteAuthority(enrichTexasHistoricSiteAuthority(enriched))') ||
     !runtime.includes('.map(enrichFullHistoricSiteAuthority)')) failures.push('Full historic authority must apply in both resolution paths.');
 if (!fullAuthorityFile.includes('historicSiteSeeds.map') || !fullAuthorityFile.includes('const seeds = new Map(historicSiteSeeds')) failures.push('All historic seeds must share the complete-catalog authority adapter.');
-if (!relationshipsComponent.includes('destination.category === "historic-sites"')) failures.push('Historic authority template must render all eligible historic destination pages.');
+if (!relationshipsComponent.includes('destination.category === "historic-sites"') &&
+    !(relationshipsComponent.includes('shouldRenderFullDestinationAuthorityGuide(destination)') &&
+      authorityPresentationPolicy.includes('destination.category === "historic-sites"'))) {
+  failures.push('Historic authority template must render all eligible historic destination pages.');
+}
 if (!crosslinksText.includes('fullHistoricSiteCrosslinks(slug)') || !fullCrosslinkFile.includes('degrees.set(pair.left.slug')) failures.push('Statewide reciprocal county and thematic crosslink graph missing.');
 for (const [duplicate, primary] of Object.entries({
   "goliad-state-park-and-historic-site": "goliad-state-park",
@@ -476,7 +503,10 @@ for (const [slug, label] of [
 
 const exploreSitemapSource = fs.readFileSync('src/routes/sitemap-explore[.]xml.ts', 'utf8');
 if (!exploreSitemapSource.includes(').map(applyHistoricSiteFactCorrections)') || !exploreSitemapSource.includes('import("@/data/historic-site-fact-corrections")')) failures.push("Explore sitemap does not apply resolved historic-site photo and closure corrections before indexability gating.");
-if (!destinationRoute.includes('isPrimaryTripPlannerDestination(destination) && <div className="mt-10"><DestinationVisitPlanner')) failures.push("Destination visit planner still promotes inaccessible historic sites as ordinary visitor stops.");
+// The same closed-site trip-planner gate applies with either eager rendering or
+// the performance-safe lazy Suspense boundary used for below-the-fold content.
+const hasGuardedVisitorPlanner = /isPrimaryTripPlannerDestination\(destination\)\s*&&\s*<div className="mt-10">\s*(?:<Suspense fallback=\{null\}>)?\s*<DestinationVisitPlanner\b/.test(destinationRoute);
+if (!hasGuardedVisitorPlanner) failures.push("Destination visit planner still promotes inaccessible historic sites as ordinary visitor stops.");
 if (!fullAuthorityFile.includes('File:Kreische_Brewery_Ruins_Lower_View.jpg') || !fullAuthorityFile.includes('File:Monument_hill_monument.jpg')) failures.push("Original licensed file-level photo attribution links missing from public historic authority guide sources.");
 
 const exactHeroAliases = ['barrington-living-history-farm','fanthorp-inn','kreische-brewery','monument-hill','san-jacinto-battleground','washington-on-the-brazos'];
@@ -592,13 +622,37 @@ const fortTimeline = fs.readFileSync('src/data/historic-site-authority-timelines
 const fortImageProvenance = fs.readFileSync('docs/historic-sites/IMAGE_PROVENANCE.md', 'utf8');
 for (const [area, input, markers] of [
   ['visitor depth', fortDepth, ['8 a.m.–5 p.m.', '8 a.m.–4 p.m.', 'family admission $8', '$5 golf-cart']],
-  ['resolved destination details', visitDepth, ['7066 FM 864', 'sourceCheckedAt: destination.slug === "fort-mckavett" ? "2026-10-17"']],
+  ['resolved destination details', visitDepth, ['7066 FM 864', 'destination.slug === "fort-mckavett" ? "2026-10-17"']],
   ['historical interpretation', fortAuthority, ['Sgt. Emanuel Stance', 'laundresses', '1973', 'fort-mckavett-history']],
   ['historical timeline', fortTimeline, ['1859–April 1862', '1968–1973', 'fort-mckavett-history']],
   ['image provenance', fortImageProvenance, ['## 7. Fort McKavett', 'SimpleeRandom', 'CC0 1.0', 'File:Fort_McKavett,_Texas.jpg']],
 ]) {
   for (const marker of markers) if (!input.includes(marker)) failures.push(`Fort McKavett ${area} missing ${marker}`);
 }
+
+// Source-verified images: each exact Fort McKavett gallery photograph must
+// retain file-level attribution, permission and its place in the destination.
+const fortGalleryCatalog = fs.readFileSync('src/data/historic-sites.ts', 'utf8');
+const fortGallery = fortGalleryCatalog.split('const fortMcKavettGallery:')[1]?.split('export const historicSiteDestinations:')[0] || '';
+for (const file of [
+  'Fort_McKavett_Hospital.jpg',
+  'Fort_McKavett_HQ.jpg',
+  'Fort_McKavett_Commander%27s_house.jpg',
+  'Fort_McKavett_hospital_medical_supplies.jpg',
+  'Fort_McKavett_Cannon.jpg',
+  'Buffalo_Soldiers_at_the_Fort_McKavett_State_Historic_Site.jpg',
+]) if (!fortGallery.includes(file)) failures.push(`Fort McKavett gallery missing ${file}`);
+if ((fortGallery.match(/sourceUrl: "https:\/\/commons\.wikimedia\.org\/wiki\/File:/g) || []).length !== 6) failures.push('Fort McKavett gallery needs six Commons source URLs');
+if ((fortGallery.match(/CC BY-SA [34]\.0/g) || []).length !== 6) failures.push('Fort McKavett gallery needs per-image license credits');
+if (!fortGalleryCatalog.includes('site.slug === "fort-mckavett" ? { gallery: fortMcKavettGallery }')) failures.push('Fort McKavett gallery is not attached to its destination');
+for (const requiredPhotoDescription of [
+  'alt: "Historic hospital-room interior at Fort McKavett with a bed, desk and furnishings"',
+  'An interior hospital-room exhibit at Fort McKavett',
+  'This is not an exterior photograph',
+]) if (!fortGallery.includes(requiredPhotoDescription)) failures.push('Fort McKavett hospital interior photo description regressed: ' + requiredPhotoDescription);
+if (fortGallery.includes('alt: "Historic Fort McKavett hospital building, now used as the site')) failures.push('Fort McKavett interior still labeled a hospital exterior');
+const fortGalleryPage = fs.readFileSync('src/routes/destination.$slug.tsx', 'utf8');
+if (!fortGalleryPage.includes('Fort McKavett: buildings, exhibits and historical interpretation')) failures.push('Fort McKavett gallery label missing from canonical page');
 
 // Magoffin Home 2026 restoration visitor contract: do not silently revert to
 // standard house-tour advice, bad map coordinates or generic statewide itineraries.
@@ -623,7 +677,11 @@ if (!magoffinTimeline.includes('"magoffin-home": [')) failures.push('Magoffin ci
 if (!magoffinRoute.includes('destination.slug !== "magoffin-home" && isPrimaryTripPlannerDestination(destination)')) failures.push('Magoffin duplicate visit planner must remain suppressed');
 const builtWorkerSmoke = fs.readFileSync("scripts/ci/verify-built-worker-ssr-core.mjs", "utf8");
 if (!magoffinRoute.includes('destination = applyMagoffinHomeAuthority(destination);')) failures.push("Magoffin route must apply final authoritative restoration overlay after remote and local source resolution");
-for (const marker of ["Magoffin restoration alert is SSR-rendered", "Magoffin restored visitor FAQ replaces generic-only guide", "Magoffin current visitor-center arrival address is visible"]) {
+for (const marker of ['creator: { "@type": "Person", name: "Larry D. Moore" }', 'copyrightNotice: "© 2009 Larry D. Moore"', 'license: "https://creativecommons.org/licenses/by/4.0/"', 'acquireLicensePage: "https://commons.wikimedia.org/wiki/File:Magoffin_home_2009.jpg"', '...magoffinImageRights']) {
+  if (!magoffinRoute.includes(marker)) failures.push("Magoffin image-rights metadata missing: " + marker);
+}
+if (!magoffinRoute.includes('destination.hero.credit?.includes("Larry D. Moore")')) failures.push("Magoffin image-rights attribution must be conditional on the verified hero photo");
+for (const marker of ["Magoffin restoration alert is SSR-rendered", "Magoffin restored visitor FAQ replaces generic-only guide", "Magoffin current visitor-center arrival address is visible", "Magoffin photograph ImageObject preserves license acquisition metadata in SSR", "Magoffin photograph ImageObject publishes verified copyright attribution"]) {
   if (!builtWorkerSmoke.includes(marker)) failures.push("Magoffin built-Worker SSR proof missing: " + marker);
 }
 

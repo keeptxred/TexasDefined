@@ -92,12 +92,18 @@ const records: MajorEventAuthorityRecord[] = [
       { title: "Use the confirmed 2026 season rather than a projected 2027 date", body: "The organizer's 60th season ran June 11-August 1, 2026, Tuesday through Sunday. Its ticket page says to check back for 2027 dates, so Texas Defined does not extrapolate a future season window." },
       { title: "Treat the canyon venue as part of the event", body: "The show is performed at Pioneer Amphitheater inside Palo Duro Canyon State Park. Account for park entry, the drive into the canyon, weather and pre-show arrival time when planning the evening." },
       { title: "Pair the performance with the park", body: "The production is inseparable from its setting. If conditions allow, combine the performance with daylight views or other park activities while avoiding strenuous summer hiking immediately before an evening show." },
+      { title: "Separate past-season facts from future performance plans", body: "The 2026 outdoor musical season is complete, and the producer directs visitors to check back in January for 2027 dates. Do not assume the 2026 Tuesday-Sunday pattern, tickets, start times or special performance schedule will repeat unchanged." },
+      { title: "Coordinate park access and show access", body: "Pioneer Amphitheater sits inside Palo Duro Canyon State Park. Verify park day-entry, camping reservations if relevant, amphitheater tickets and the current pre-show access instructions separately; paying for one does not necessarily cover every part of the visit." },
+      { title: "Plan for the canyon's weather and terrain", body: "The production is outdoors below the rim, with summer heat, possible storms, and a drive into and out of the canyon. Check the show's rain policy and current TPWD conditions; choose an arrival strategy that does not require strenuous hiking in afternoon heat." },
+      { title: "Use Canyon and Amarillo as flexible trip bases", body: "For an overnight visit, compare Canyon and Amarillo lodging and dining bases, then pair the theater with a daylight scenic stop in Palo Duro Canyon rather than an exhausting full hiking day before the show." },
     ],
     relatedLinks: [
       { href: "/browse/counties#county-randall", label: "Explore Randall County", description: "Connect the production to Canyon and the surrounding Panhandle." },
+      { href: "/destination/palo-duro-canyon-state-park", label: "Palo Duro Canyon State Park", description: "Check park entry and outdoor recreation conditions." },
       { href: "/events", label: "Texas events calendar", description: "Compare other Texas summer arts and heritage events." },
     ],
     sources: [
+      { label: "TEXAS Outdoor Musical current season and tickets", url: "https://www.texas-show.com/p/about/tickets" },
       { label: "TEXAS Outdoor Musical official site", url: "https://www.texas-show.com/" },
       { label: "TEXAS Outdoor Musical group and season information", url: "https://www.texas-show.com/p/about/tickets/groups" },
       { label: "Palo Duro Canyon State Park official page", url: "https://tpwd.texas.gov/state-parks/palo-duro-canyon" },

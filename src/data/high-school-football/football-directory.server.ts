@@ -460,21 +460,26 @@ export async function searchFootballPrograms(options: {
   county?: string;
   district?: string;
   limit?: number;
+  // Detail-page SSR must not depend on cold external AskTED/UIL archive connections.
+  // Directory searches retain all external enrichment by default.
+  loadRemoteSources?: boolean;
 }) {
   const query = cleanName(options.query ?? '');
   const county = cleanName(options.county ?? '').replace(/\bcounty\b/g, '').trim();
   const district = cleanName(options.district ?? '');
   const limit = Math.min(Math.max(options.limit ?? 50, 1), 500);
 
-  const [directoryResult, historyResult, allTimeHistoryResult] = await Promise.allSettled([
-    loadTeaSchoolDirectory(),
-    loadUilRecentFootballHistory(),
-    loadUilAllTimeFootballHistory(),
-  ]);
+  const [directoryResult, historyResult, allTimeHistoryResult] = options.loadRemoteSources === false
+    ? [null, null, null] as const
+    : await Promise.allSettled([
+      loadTeaSchoolDirectory(),
+      loadUilRecentFootballHistory(),
+      loadUilAllTimeFootballHistory(),
+    ]);
 
-  const directoryAvailable = directoryResult.status === 'fulfilled';
-  const historyAvailable = historyResult.status === 'fulfilled';
-  const allTimeHistoryAvailable = allTimeHistoryResult.status === 'fulfilled';
+  const directoryAvailable = directoryResult?.status === 'fulfilled';
+  const historyAvailable = historyResult?.status === 'fulfilled';
+  const allTimeHistoryAvailable = allTimeHistoryResult?.status === 'fulfilled';
   const directory: TeaSchoolDirectoryRecord[] = directoryAvailable ? directoryResult.value : [];
   const recentHistory = historyAvailable ? historyResult.value : null;
   const allTimeHistory = allTimeHistoryAvailable ? allTimeHistoryResult.value : null;

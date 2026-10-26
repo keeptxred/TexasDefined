@@ -1,43 +1,5 @@
 import type { Destination } from "./types";
 
-const GENERIC_BEST_SEASON = "Check current conditions before visiting";
-const GENERIC_ENTRY = "Confirm current hours, fees, reservations, and access with the official source.";
-
-const categoryAdvice: Record<string, { experience: string; planning: string }> = {
-  "state-parks": {
-    experience: "State parks are best treated as places to spend time rather than boxes to check. Use the trails, overlooks, water access and interpretive features that are actually available at this park, and leave enough room in the day for weather and trail conditions to change the plan.",
-    planning: "Before leaving, check the managing agency for current hours, closures, capacity notices, reservations and facility conditions. Texas heat and storms can change an otherwise easy outing quickly, so carry water and plan around the forecast.",
-  },
-  "national-parks": {
-    experience: "A good visit starts with choosing one part of the landscape instead of trying to cover everything at once. Trail distances, elevation, road conditions and the distance between services can matter as much as mileage on the map.",
-    planning: "Check the official park source before departure for current road, trail, weather and access notices. In remote parts of Texas, fuel, water and cell service can be limited, so plan the practical details before the scenic ones.",
-  },
-  "lakes-rivers": {
-    experience: "Water conditions shape the visit here. Shore access, paddling, fishing and swimming opportunities can vary by season, rainfall and operating rules, so use the destination details as a starting point rather than assuming every activity is available every day.",
-    planning: "Check current water, weather and access conditions before setting out. If boating, paddling, fishing or swimming is part of the trip, confirm the applicable launch, permit and safety requirements with the official managing source.",
-  },
-  "major-springs": {
-    experience: "Spring-fed places reward an unhurried visit. Water levels, swimming access and crowding can change through the year, while the surrounding trails and natural areas often provide as much reason to stop as the water itself.",
-    planning: "Verify current access, water conditions, reservations and swimming rules before traveling. Popular spring destinations can reach capacity, particularly on warm weekends and holidays.",
-  },
-  caverns: {
-    experience: "A cave visit is usually governed by tour schedules, route difficulty and underground conditions rather than the weather at the parking lot. Allow time for check-in and choose a tour that fits the mobility and comfort level of everyone in the group.",
-    planning: "Confirm tour availability, age or mobility restrictions, footwear rules and reservation requirements directly with the operator before making the drive.",
-  },
-  "beaches-coast": {
-    experience: "The Texas coast changes with wind, tide and weather. A beach or shoreline stop can feel completely different from one day to the next, so build the visit around current conditions rather than a fixed expectation.",
-    planning: "Check beach access, tides, weather, surf and any local driving or parking rules before arrival. Conditions can change quickly during storm season and periods of unusually high water.",
-  },
-  "historic-sites": {
-    experience: "The value of a historic site is in the context: what happened here, what remains, and how the place connects to the surrounding community. Give yourself time for exhibits, grounds and interpretation instead of treating it as a quick photo stop.",
-    planning: "Check current opening hours, tour schedules and any preservation-related closures before visiting. Some historic properties have limited days or areas of operation.",
-  },
-  outdoors: {
-    experience: "This is a place to slow down and pay attention to the landscape. Wildlife, seasonal conditions and trail access are never completely predictable, which is part of the reason to leave some flexibility in the day.",
-    planning: "Check current access and weather before leaving, bring water, and follow the rules of the agency or organization that manages the property.",
-  },
-};
-
 const sheldonLake: Partial<Destination> = {
   summary: "A 2,800-acre pocket of wetlands, prairie, ponds and woods on Houston’s northeast side, with free entry, accessible trails, fishing and an 82-foot observation tower overlooking the park and distant skyline.",
   nearestTown: "Houston",
@@ -62,59 +24,17 @@ const sheldonLake: Partial<Destination> = {
   accessibilityNotes: "TPWD lists the park’s facilities and trails as accessible. The mostly flat trail system includes boardwalk sections; check current alerts for the operating status of the observation-tower elevator.",
 };
 
-function usefulText(value?: string) {
-  return Boolean(value && value.trim().length >= 35);
-}
-
-function genericSummary(destination: Destination) {
-  const place = destination.nearestTown && destination.nearestTown !== "Texas" ? ` near ${destination.nearestTown}` : "";
-  const county = destination.county ? ` in ${destination.county} County` : "";
-  const highlights = destination.highlights.filter(Boolean).slice(0, 2);
-  const detail = highlights.length ? ` Known for ${highlights.join(" and ").replace(/\.$/, "")}.` : "";
-  return `${destination.name} is a Texas destination${place}${county} worth considering when you are exploring this part of the state}.${detail}`;
-}
-
-function substantiveBody(destination: Destination) {
-  const existing = destination.body.filter(usefulText);
-  if (existing.length >= 3 && existing.join(" ").length >= 450) return existing;
-
-  const advice = categoryAdvice[destination.category] ?? categoryAdvice.outdoors;
-  const place = destination.nearestTown && destination.nearestTown !== "Texas" ? ` near ${destination.nearestTown}` : " in Texas";
-  const highlights = destination.highlights.filter(Boolean).slice(0, 5);
-  const first = usefulText(existing[0]) ? existing[0] : destination.summary;
-  const second = highlights.length
-    ? `What stands out at ${destination.name} is the mix of ${highlights.join(", ")}. Those details make it easier to decide whether this stop fits a quick outing, a family day trip or a longer route through the area.`
-    : `${destination.name}${place} works best as part of a trip built around the surrounding region. ${advice.experience}`;
-  const third = `${advice.planning}${destination.officialUrl ? " Use the official visitor-information link on this page for the latest details." : ""}`;
-  return [first, second, third].filter(usefulText);
-}
-
 export function improveDestinationQuality(destination: Destination): Destination {
-  let improved: Destination = { ...destination };
+  const improved = destination.slug === "sheldon-lake-state-park" || destination.slug === "sheldon-lake-state-park-environmental-learning-center"
+    ? { ...destination, ...sheldonLake }
+    : destination;
 
-  if (destination.slug === "sheldon-lake-state-park" || destination.slug === "sheldon-lake-state-park-environmental-learning-center") {
-    improved = { ...improved, ...sheldonLake };
-  }
-
-  const summary = usefulText(improved.summary) && !/^A closer look at /i.test(improved.summary)
-    ? improved.summary
-    : genericSummary(improved);
-
+  // Keep authored material only; quality/indexing checks must flag thin pages
+  // rather than artificially making them appear researched with generic copy.
   return {
     ...improved,
-    summary,
-    bestSeason: usefulText(improved.bestSeason) && improved.bestSeason !== GENERIC_BEST_SEASON
-      ? improved.bestSeason
-      : (improved.bestSeason || GENERIC_BEST_SEASON),
-    entryNote: usefulText(improved.entryNote) ? improved.entryNote : GENERIC_ENTRY,
-    body: substantiveBody({ ...improved, summary }),
+    body: improved.body.filter((paragraph) => Boolean(paragraph?.trim())),
     highlights: improved.highlights.filter(Boolean).slice(0, 12),
-    hero: {
-      ...improved.hero,
-      alt: improved.hero.alt && !/in Texas$/i.test(improved.hero.alt)
-        ? improved.hero.alt
-        : `${improved.name}, Texas`,
-    },
   };
 }
 

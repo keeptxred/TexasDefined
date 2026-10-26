@@ -1,5 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { inspectParkHtml } from "../verify-six-park-authority-production.mjs";
 const site={slug:"fort-boggy-state-park",county:"leon",words:["Lake Trail","January 17","November 15"],source:"fort-boggy"};
 function sample(text="Lake Trail closure November 15 January 17"){
@@ -34,4 +35,29 @@ test("only specifically approved Lakes/Rivers or Coast park photos can stand in 
  const coast={slug:"galveston-island-state-park",county:"galveston",words:["71","95","boardwalk"],source:"galveston-island"};
  const coastal=base.replaceAll("Guadalupe River State Park","Galveston Island State Park").replaceAll("guadalupe-river-state-park","galveston-island-state-park").replaceAll("/county/comal","/county/galveston").replaceAll("guadalupe-river/alert","galveston-island/alert").replaceAll("Charcoal fire ban, November 20 and January 11 hunt closures.","Boardwalk closure and drinking fountains 71 through 95").replaceAll("/images/explore/lakes-rivers/galveston-island-state-park.jpg","/images/explore/beaches-coast/galveston-island-state-park.jpg");
  assert.equal(inspectParkHtml(coastal,coast).heroPath,"/images/explore/beaches-coast/galveston-island-state-park.jpg");
+});
+
+test("park browser acceptance waits for the actual streamed FAQ before evaluating the page", () => {
+ const script=readFileSync(new URL("../../ci/verify-six-state-park-visual.mjs",import.meta.url),"utf8");
+ const wait='await page.locator("#destination-visitor-faqs").waitFor({state:"visible",timeout:15000});';
+ const check='const facts=await page.evaluate(()=>{';
+ assert.ok(script.includes(wait),"visitor FAQ must be visibly mounted, not just mentioned in source");
+ assert.ok(script.indexOf(wait)<script.indexOf(check),"first-visit lazy FAQ must load before acceptance snapshot");
+ assert.ok(script.includes('if(!facts.faqVisible)throw new Error("Source-backed park FAQ not rendered")'),"retain fail-closed assertion");
+});
+
+test("state-park Chrome FAQ acceptance survives transient hydration remounts without waiving the FAQ",()=>{
+ const script=readFileSync(new URL("../../ci/verify-six-state-park-visual.mjs",import.meta.url),"utf8");
+ assert.match(script,/observed\.element!==faq/,"visibility continuity must restart on a replaced FAQ node");
+ assert.match(script,/performance\.now\(\)-observed\.since>=1200/,"FAQ must remain visible before DOM acceptance");
+ assert.match(script,/faq\.screenshot\(/,"mobile evidence must depict the actual re-located FAQ element");
+ assert.match(script,/if\(!facts\.faqVisible\)throw new Error\("Source-backed park FAQ not rendered"\)/,"missing FAQs must still fail");
+});
+
+test("park screenshot must show the full three-answer TPWD FAQ rather than just its heading",()=>{
+ const script=readFileSync(new URL("../../ci/verify-six-state-park-visual.mjs",import.meta.url),"utf8");
+ assert.ok(script.includes('faq?.closest(\'section[aria-labelledby="destination-visitor-faqs"]\')'),"FAQ answers must be read from their actual section");
+ assert.ok(script.includes('row.querySelector(\'dd a[href^="https://tpwd.texas.gov/"]\')'),"each FAQ must link the TPWD source");
+ assert.ok(script.includes('if(facts.faqSourcedAnswers<3)throw new Error("Three TPWD-sourced park FAQ answers not rendered")'),"fewer than three linked question/answer pairs fails");
+ assert.ok(script.includes("page.locator('section[aria-labelledby=\"destination-visitor-faqs\"]')"),"screenshot must capture full FAQ section, not just h2");
 });

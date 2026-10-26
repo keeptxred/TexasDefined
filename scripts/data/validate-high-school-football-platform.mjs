@@ -41,6 +41,7 @@ const footballVenueLinksPath = 'src/data/high-school-football/football-venue-lin
 const programProfileFunctionsPath = 'src/data/high-school-football/football-program-profile.functions.ts';
 const footballProfileContentPath = 'src/data/high-school-football/football-profile-content.ts';
 const footballProgramEditorialPath = 'src/data/high-school-football/program-editorial.ts';
+const footballBatch008EditorialPath = 'src/data/high-school-football/program-editorial-b008.ts';
 const uilDirectoryComponentPath = 'src/components/sports/UilFootballProgramDirectory.tsx';
 const enrollmentBandsPath = 'src/data/high-school-football/enrollment-bands.ts';
 const exactEnrollmentsPath = 'src/data/high-school-football/uil-football-enrollments-2026.generated.ts';
@@ -95,6 +96,7 @@ for (const file of [
   programProfileFunctionsPath,
   footballProfileContentPath,
   footballProgramEditorialPath,
+  footballBatch008EditorialPath,
   uilDirectoryComponentPath,
   enrollmentBandsPath,
   exactEnrollmentsPath,
@@ -137,9 +139,46 @@ if (!errors.length) {
   const schoolDistrict = read(files[8]);
   const relocationFinder = read(files[9]);
   const entityPage = read(files[10]);
+  // In production JavaScript object literals, quoted and unquoted county keys
+  // identify the same property. A later research batch silently overwrote
+  // eleven earlier county groups (including Bullard, Burton, Bushland and
+  // Bridgeport). Keep every researched school's reciprocal link reachable.
+  const countyLinkMaps = [
+    'batch002FootballCountyLinks',
+    'supplementalFootballCountyLinks',
+  ];
+  const countyLinkKeysByMap = new Map();
+  for (const mapName of countyLinkMaps) {
+    const startMarker = 'const ' + mapName + ':';
+    const mapBody = entityPage.split(startMarker)[1]?.split(/\n};/)[0];
+    if (!mapBody) {
+      errors.push('Football reciprocal county map missing: ' + mapName);
+      continue;
+    }
+    const keys = [...mapBody.matchAll(/^  (?:'([^']+)'|([a-z-]+)):\s*\[/gm)]
+      .map(match => match[1] || match[2]);
+    const seen = new Set();
+    const repeated = [];
+    for (const county of keys) {
+      if (seen.has(county)) repeated.push(county);
+      seen.add(county);
+    }
+    if (repeated.length) errors.push('Duplicate campus county keys in ' + mapName + ': ' + [...new Set(repeated)].join(', '));
+    countyLinkKeysByMap.set(mapName, seen);
+  }
+  for (const marker of [
+    'const researchedFootballCountyLinks =',
+    '...(batch002FootballCountyLinks[entity.slug] ?? [])',
+    '...(supplementalFootballCountyLinks[entity.slug] ?? [])',
+    'researchedFootballCountyLinks.map((school)',
+  ]) requireText(entityPage, marker, 'Merged campus county reciprocal football links');
+  for (const slug of ['bullard','burton','bushland','bridgeport','calvert','brenham','canyon-randall','brownsboro','buda-johnson']) {
+    requireText(entityPage, "slug: '" + slug + "'", 'Research school county link ' + slug);
+  }
   const footballHub = read(files[11]);
   const footballProfileContent = read(footballProfileContentPath);
   const footballProgramEditorial = read(footballProgramEditorialPath);
+  const footballBatch008Editorial = read(footballBatch008EditorialPath);
   const publicRoutes = read(files[12]);
   const dataSources = read(files[13]);
   const newcomerGuide = read(authorityFiles[0]);
@@ -153,6 +192,14 @@ if (!errors.length) {
   const privateSchoolAdmissions = read(privateSchoolAdmissionsPath);
   const programSlugs = read(programSlugsPath);
   const programProfileServer = read(programProfileServerPath);
+  const featuredProfileServer = read('src/data/high-school-football/featured-program-profile.server.ts');
+  for (const [code, name] of [[programProfileServer, 'UIL detail'], [featuredProfileServer, 'legacy featured detail']]) {
+    requireText(code, 'loadRemoteSources: false', name + ' SSR must avoid external cold fetches');
+  }
+  requireText(directory, 'loadRemoteSources?: boolean;', 'Football directory optional external dependency');
+  requireText(directory, 'options.loadRemoteSources === false', 'Football profile offline-safe UIL fallback');
+  requireText(directory, 'loadTeaSchoolDirectory()', 'Directory search must retain optional live TEA data');
+  requireText(directory, 'loadUilRecentFootballHistory()', 'Directory search must retain optional official UIL history');
   const footballProgramIndex = read(footballProgramIndexPath);
   const footballSitemap = read(footballSitemapPath);
   const footballVenueLinks = read(footballVenueLinksPath);
@@ -179,9 +226,28 @@ if (!errors.length) {
   const footballAuthorityRegistry = JSON.parse(read(footballAuthorityRegistryPath));
   const legacyProgramMetadata = read(legacyMetadataFiles[0]);
   const schoolIdentities = read(legacyMetadataFiles[1]);
-  const verifiedIdentitySlugs = new Set(
-    [...schoolIdentities.matchAll(/slug:\s*['"]([^'"]+)['"]/g)].map((match) => match[1]),
-  );
+  // Sparse identity arrays throw on .find(identity => identity.slug) for all
+  // unlisted teams after the first hole. One accidental double comma previously
+  // made non-Batch008 UIL team pages respond HTTP 500. Validate source AND
+  // preserve a defensive lookup for future malformed rows.
+  if (/}\s*,\s*,/.test(schoolIdentities)) {
+    errors.push('Football verified identity records contain a sparse array entry (double separator)');
+  }
+  requireText(schoolIdentities,
+    'identity?.slug === slug',
+    'Fail-safe verified football identity lookup against missing array entries');
+  const identitySlugs = [...schoolIdentities.matchAll(/slug:\s*['"]([^'"]+)['"]/g)]
+    .map((match) => match[1]);
+  const verifiedIdentitySlugs = new Set(identitySlugs);
+  if (verifiedIdentitySlugs.size !== identitySlugs.length) {
+    const seen = new Set();
+    const duplicateSlugs = identitySlugs.filter((slug) => {
+      if (seen.has(slug)) return true;
+      seen.add(slug);
+      return false;
+    });
+    errors.push('Football identities duplicate canonical school slugs: ' + [...new Set(duplicateSlugs)].join(', '));
+  }
   const researchedFootballRecords = footballAuthorityRegistry.schoolRecords.filter((record) =>
     ['VERIFIED', 'DEPLOYED', 'MERGED', 'IMPLEMENTED'].includes(record.status),
   );
@@ -194,9 +260,23 @@ if (!errors.length) {
       `Researched/deployed football programs missing verified mascot identity records: ${researchedProgramsMissingVerifiedIdentity.join(', ')}`,
     );
   }
+  // NCES campus 481206000703 is in Cherokee County, not the default
+  // Bullard ISD / Smith County match. Keep canonical school context accurate.
+  requireText(programProfileServer,
+    "canonicalSlug === 'bullard' ? { ...matchedProgram, countyName: 'Cherokee County' }",
+    'Bullard exact campus-county exception');
   const featuredProfileLoader = read(legacyMetadataFiles[2]);
   const featuredProfileRoute = read(legacyMetadataFiles[3]);
   const featuredProfilePage = read(legacyMetadataFiles[4]);
+  // School-specific football FAQs sometimes cite original district ticket and
+  // athletics URLs inline. Keep those safe sources clickable instead of showing
+  // unlinked raw URLs, without altering the underlying FAQ JSON-LD answer text.
+  for (const required of [
+    'function renderFootballFaqAnswer(answer: string)',
+    "if (!part.startsWith('https://')) return part;",
+    'rel="noopener noreferrer nofollow"',
+    '{renderFootballFaqAnswer(item.answer)}',
+  ]) requireText(featuredProfilePage, required, 'Clickable HTTPS football FAQ source');
   const sitemap = read(legacyMetadataFiles[5]);
 
   for (const marker of [
@@ -1017,6 +1097,86 @@ if (!errors.length) {
   ]) requireText(footballDistrictIndexRoute, marker, 'Football district directory route');
 
   for (const marker of [
+    "buckholts:",
+    "'buda-hays':",
+    "'buda-johnson':",
+    "getBatch008FootballProgramEditorial",
+    "Varsity Opponent",
+    "Mark Torres",
+    "Sam Carlin",
+    "buffalo:",
+    "bullard:",
+    "buna:",
+    "Trent Jones",
+    "Colton Bradford",
+    "Kevin Terrier",
+    "Mildred final not independently verified",
+    "Buna 46",
+    "burkburnett:",
+    "burkeville:",
+    "burleson:",
+    "Jody Littleton",
+    "Keith Hendrix",
+    "Phillip Tanner",
+    "SETXsports reports 12-61",
+    "Midlothian Heritage",
+    "'burleson-centennial':",
+    "burnet:",
+    "burton:",
+    "Blake Meyer",
+    "Ben Speer",
+    "Jason Hodde",
+    "Lancaster",
+    "Bremond",
+    "bushland:",
+    "bynum:",
+    "'caddo-mills':",
+    "William Rabson",
+    "C. Morgan",
+    "Kodi Crane",
+    "Ferris 53-35",
+    "Hereford 57-21",
+    "caldwell:",
+    "callisburg:",
+    "calvert:",
+    "Sean Witherwax",
+    "Eddie Gill",
+    "Marcus Wortham",
+    "Franklin",
+    "Brazos Valley",
+    "'cameron-yoe':",
+    "campbell:",
+    "canadian:",
+    "Aaron Babino",
+    "Preston Compton",
+    "Andy Cavalier",
+    "canton:",
+    "canutillo:",
+    "canyon:",
+    "'canyon-randall':",
+    "Heath Ragle",
+    "Scott Brooks",
+    "Matt Lovorn",
+    "Dan Sherwood",
+    "Chapin",
+    "Randall beat Canyon 24-21",
+  ]) requireText(footballBatch008Editorial, marker, 'Football Batch 008 editorial overlay');
+
+  requireText(programProfileServer, "import { loadBatch008FootballProgramEditorial } from './program-editorial-b008-loader.server';", 'Football Batch 008 lazy loader');
+  requireText(programProfileServer, "(await loadBatch008FootballProgramEditorial(canonicalSlug)) ?? getFootballProgramEditorial(canonicalSlug)", 'Football Batch 008 editorial precedence');
+  forbidText(programProfileServer, "import { getBatch008FootballProgramEditorial } from './program-editorial-b008';", 'Football Batch 008 eager import');
+  const batch008Loader = read('src/data/high-school-football/program-editorial-b008-loader.server.ts');
+  requireText(batch008Loader, "await import('./program-editorial-b008')", 'Football Batch 008 conditional import');
+  requireText(batch008Loader, "if (!BATCH008_FOOTBALL_SLUGS.has(slug)) return undefined;", 'Avoid loading Batch 008 for unrelated school profiles');
+  const publishedBatch008Slugs = [...footballBatch008Editorial.matchAll(/^  ((?:'[^']+'|[a-z][a-z0-9-]*)):\s*\{/gm)]
+    .map((match) => match[1].replaceAll("'", ''));
+  const loaderBatch008Slugs = [...batch008Loader.matchAll(/^  '([a-z0-9-]+)',?$/gm)].map((match) => match[1]);
+  if (publishedBatch008Slugs.length !== 25 || loaderBatch008Slugs.length !== 25
+    || publishedBatch008Slugs.some((slug) => !loaderBatch008Slugs.includes(slug))) {
+    errors.push('Conditional Batch 008 loader must retain all and only the 25 researched school slugs');
+  }
+
+  for (const marker of [
     "createLazyFileRoute('/texas-high-school-football-districts')",
     'Texas high school football districts',
     'Browse all 192 current UIL football districts',
@@ -1047,6 +1207,11 @@ if (!errors.length) {
     'data-football-district-section="official-sources"',
     'district.programs.map((program, index)',
     'href={program.profilePath}',
+    'uilEnrollmentFallsWithinBand',
+    'placementExceptionPrograms',
+    'Normal enrollment band:',
+    'final UIL football alignment controls competition placement',
+    'Placement exception',
     'program.uilEnrollment',
     'uilFootballEnrollmentBand',
     'https://www.uiltexas.org/maxpreps/',
@@ -1120,6 +1285,36 @@ if (!errors.length) {
   ]) requireText(featuredProfileRoute, marker, 'Football school profile route');
   requireText(featuredProfileRoute, "'@type': 'SportsTeam'", 'Football school profile SportsTeam schema');
   requireText(featuredProfileRoute, "'@type': 'FAQPage'", 'Football school profile FAQ schema');
+  requireText(featuredProfilePage, "const footballName = identity?.mascot ?", 'Verified mascot precedence over editorial SEO title');
+  forbidText(featuredProfilePage, 'const footballName = authoredFootballH1 || (identity?.mascot', 'Do not prefer stale authored mascot title');
+  // Older campus-county PR #5401 became stale while the complete canonical
+  // map was already shipped. Retain its useful regression protections without
+  // overwriting newer team/editorial data.
+  for (const marker of [
+    'const researchedCountyLink = researchedCampusCounty[slug]',
+    "'abbott': 'hill'",
+    "'abernathy': 'hale'",
+    "'alief-hastings': 'harris'",
+    "'katy': 'fort-bend'",
+    "'fort-davis': 'jeff-davis'",
+    "'southlake-carroll': 'tarrant'",
+    "'bruceville-eddy': 'mclennan'",
+  ]) requireText(featuredProfilePage, marker, 'Canonical school-slug campus-county mapping');
+  const countyLookupStart = featuredProfilePage.indexOf('const researchedCountyLink = researchedCampusCounty[slug]');
+  const countyLookupEnd = featuredProfilePage.indexOf('const associationLabel', countyLookupStart);
+  const countyLookup = countyLookupStart >= 0 && countyLookupEnd > countyLookupStart
+    ? featuredProfilePage.slice(countyLookupStart, countyLookupEnd)
+    : '';
+  requireText(countyLookup, 'const countyPath = researchedCountyLink', 'Campus-county path from canonical slug');
+  for (const retired of [
+    "editorial?.slug ? researchedCampusCounty[editorial.slug]",
+    "schoolName === 'Alief Hastings'",
+    "schoolName === 'Abilene Wylie'",
+    "schoolName === 'Katy'",
+    "schoolName === 'Fort Davis'",
+    "schoolName === 'Southlake Carroll'",
+  ]) forbidText(countyLookup, retired, 'Do not infer campus county from display name inside the county resolver');
+
 
   for (const marker of [
     "createLazyFileRoute('/texas-high-school-football-teams/$slug')",
@@ -1335,15 +1530,25 @@ if (!errors.length) {
   for (const marker of [
     'How Do the Texas High School Football Playoffs Work?',
     'https://www.uiltexas.org/football/playoff-brackets',
-    'top two teams from each 1A six-man district',
-    'top four teams from each district advance in 2A through 6A',
-    'the two schools with the larger enrollments go to the Division I bracket',
     'What does bi-district mean in Texas high school football?',
     'It does not mean a team won two district championships.',
     '/texas-high-school-football-playoff-brackets',
     'first round in 5A and 6A',
     '/texas-high-school-football-teams',
   ]) requireText(playoffGuide, marker, 'Football playoff guide');
+  // Qualification facts are presented once in the responsive comparison and
+  // illustrated enrollment-split reference, rather than duplicated in body copy.
+  // Assert the public-facing, composed page's source retains each UIL rule.
+  const playoffReference = read('src/components/content/FootballPlayoffsReference.tsx');
+  for (const [marker, label] of [
+    ['["1A six-man", "Top two"', '1A district advances top two'],
+    ['["2A–5A", "Top four"', '2A–5A district advances top four'],
+    ['["6A", "Top four"', '6A district advances top four'],
+    ['Two larger qualifiers to I; two smaller to II', '6A two larger qualifiers enter Division I'],
+    ['Only the four qualifying schools are compared.', '6A division selection is limited to qualifiers'],
+    ['Division I · larger qualifiers', '6A larger qualifiers visual'],
+    ['Division II · smaller qualifiers', '6A smaller qualifiers visual'],
+  ]) requireText(playoffReference, marker, 'Football playoff guide: ' + label);
   requireText(playoffGuide, '/article/texas-six-man-football-rules-explained', 'Football playoff guide six-man discovery');
   requireText(playoffGuide, '/article/texas-high-school-football-scores-schedules', 'Football playoff guide scores discovery');
   requireText(playoffGuide, '/article/texas-high-school-football-2026-season-calendar', 'Football playoff guide calendar discovery');
@@ -1537,6 +1742,12 @@ if (!errors.length) {
     }
   }
 
+  for (const token of [
+    "slug: 'blanket', mascot: 'Tigers', colors: 'Black and gold'",
+    "slug: 'borden-county', mascot: 'Coyotes', colors: 'Columbia blue, red and white'",
+  ]) requireText(schoolIdentities, token, 'Official Batch 006 school colors');
+
+  requireText(read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx'), 'game.date >= editorial.season.verifiedAt', 'Prevent stale next football fixture');
   const currentCoachContracts = [
     ['big-sandy-harmony', 'Brian Mauk', 'kltv.com/story/26056195/harmony-eagles/'],
     ['bishop', 'Keith Talbert', 'maxpreps.com/tx/bishop/bishop-badgers/football/staff/'],
@@ -1550,6 +1761,8 @@ if (!errors.length) {
     ['boyd', 'Shawn Sparks', 'ntxvarsitysports.com/boyd-looking-to-build-on-breakthrough-season/'],
     ['borden-county', 'Trey Richey', 'pressreporter.com/issues/2026-08-18/pages/25/'],
     ['bowie-gold-burg', 'Austin Norman', 'bowienewsonline.com/2026/10/gold-burg-gives-it-a-go-falls-to-perrin-35-32/'],
+    ['borger', 'Jesus A. Villaseñor', 'borgerisd.net/69574_2'],
+    ['bosqueville', 'Reggie Patrick', 'kwtx.com/2026/10/07/classroom-champions-bosquevilles-dax-pharris/'],
   ];
   for (const [slug, expectedCoach, sourceFragment] of currentCoachContracts) {
     const program = footballEditorialRecord(slug);
@@ -1614,6 +1827,15 @@ if (!errors.length) {
       if (!record || Number(record[1]) !== wins || Number(record[2]) !== losses) {
         errors.push('Batch 006 2026 W-L summary contradicts scored game rows: ' + slug);
       }
+      // A verified result must be directly traceable from the public school page.
+      // The school UI renders "Verify latest recorded final" only if this link
+      // is populated; without it, the date-qualified score has no per-result CTA.
+      // A 2026 final may link to its dated report or current 2026 team result ledger,
+      // not a prior-season MaxPreps /25-26/ schedule.
+      if (played.length > 0 && (!/^https:\/\//.test(program.season?.latestResultSourceUrl || '')
+        || /\/25-26\//.test(program.season?.latestResultSourceUrl || ''))) {
+        errors.push('Batch 006 completed season lacks current clickable latest-result evidence: ' + slug);
+      }
       // A dated W–L claim in a search snippet must equal the played-game ledger.
       // Evergreen descriptions without a W–L claim remain valid; do not parse
       // historic state titles, district identifiers or reported point scores.
@@ -1654,6 +1876,21 @@ if (!errors.length) {
       const normalized = (program.faq || []).map(({ question }) => (question || '').trim().toLowerCase());
       if (new Set(normalized).size !== normalized.length) {
         errors.push('Batch 006 duplicate questions within a school profile: ' + slug);
+      }
+      // Prevent prior-year varsity schedules from masquerading as evidence
+      // for the current 2026 season. Keep actual 2025 history links intact.
+      for (const milestone of program.milestones || []) {
+        if (/^2026(?:$|[-/])/.test(milestone.date || '')
+            && (milestone.sourceUrl || '').includes('/25-26/schedule/')) {
+          errors.push('Batch 006 2026 milestone cites prior season schedule: ' + slug
+            + ' / ' + milestone.title);
+        }
+      }
+      // School-owned/press photo assets require affirmative provenance.
+      // Original CSS/SVG data visualizations are not documentary photos.
+      if (program.photo && (!program.photo.license || !program.photo.sourceUrl
+          || !program.photo.credit || !program.photo.alt)) {
+        errors.push('Batch 006 football photo lacks reuse rights/credit/alt evidence: ' + slug);
       }
     }
   }

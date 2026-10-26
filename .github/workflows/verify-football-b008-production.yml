@@ -1,0 +1,89 @@
+name: Football Batch 008 live production acceptance
+on:
+  workflow_run:
+    workflows: ['Deploy TexasDefined production']
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: football-b008-live-acceptance
+  cancel-in-progress: false
+jobs:
+  chrome:
+    # Production acceptance must follow a *successful* deployment, rather
+    # than race an in-flight Worker rollout and observe two revisions.
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+          fetch-depth: 2
+      - name: Detect governed football release changes
+        id: scope
+        shell: bash
+        env:
+          MANUAL_ACCEPTANCE: ${{ github.event_name == 'workflow_dispatch' }}
+        run: |
+          if [[ "$MANUAL_ACCEPTANCE" == "true" ]]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          # A green workflow with skipped Chrome steps is NOT Batch 008
+          # acceptance. Continue running the fixed 25-school live acceptance
+          # after successful deploys while the deployed batch is uncertified.
+          # Once all 25 are VERIFIED, ordinary unrelated deploys may skip.
+          if node -e 'const r=require("./docs/football-authority/REGISTRY.json"); const b=r.batch; process.exit(b.number===8 && b.remainingToVerify>0 && b.slugs.length===25 ? 0 : 1)'; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+            echo "Batch 008 has pending individual production verification: running strict Chrome checks."
+            exit 0
+          fi
+          # Restrict run to the exact production commit. If the diff cannot be
+          # inspected, fail closed instead of silently skipping football checks.
+          git diff --name-only HEAD^ HEAD > /tmp/football-changed-paths.txt
+          selected=false
+          while IFS= read -r path; do
+            case "$path" in
+              '.github/workflows/verify-football-b008-production.yml') selected=true ;;
+              'scripts/ci/verify-football-b008-targeted-production.mjs') selected=true ;;
+              'docs/football-authority/REGISTRY.json') selected=true ;;
+              'src/data/high-school-football/program-editorial-b008.ts') selected=true ;;
+              'src/routes/$kind.$slug.lazy.tsx') selected=true ;;
+              'src/routes/texas-high-school-football-teams_.$slug.lazy.tsx') selected=true ;;
+              'src/data/high-school-football/football-program-profile.server.ts') selected=true ;;
+              'src/data/high-school-football/school-identities.ts') selected=true ;;
+              'src/components/sports/CountyHighSchoolFootball.tsx') selected=true ;;
+              'src/components/sports/HighSchoolFootballLookup.tsx') selected=true ;;
+            esac
+          done < /tmp/football-changed-paths.txt
+          echo "run=$selected" >> "$GITHUB_OUTPUT"
+          echo "Football acceptance for deployed SHA $(git rev-parse HEAD): $selected"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check strict Batch 008 script
+        if: steps.scope.outputs.run == 'true'
+        run: node --check scripts/ci/verify-football-b008-targeted-production.mjs
+      - name: Install isolated Chrome driver
+        if: steps.scope.outputs.run == 'true'
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/td-b008-chrome --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+      - name: Verify all 25 Batch 008 school pages, counties, screenshots and release identity
+        if: steps.scope.outputs.run == 'true'
+        env:
+          GITHUB_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+        run: node scripts/ci/verify-football-b008-targeted-production.mjs
+      - name: Preserve production evidence, including failures
+        if: always() && steps.scope.outputs.run == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: football-b008-production-chrome
+          path: artifacts/b008-targeted-browser/
+          retention-days: 21
+          if-no-files-found: warn

@@ -27,6 +27,7 @@ const fail = (message) => {
 };
 
 const loader = read(loaderPath);
+if (!loader.includes('slug === "big-12-football-championship"') || !loader.includes('SeatGeek as its official primary public ticketing channel')) fail("Big 12 primary ticket seller disclosure missing");
 const registry = read(registryPath);
 const ledger = read(ledgerPath);
 const collections = read(collectionsPath);
@@ -34,6 +35,7 @@ const temporalCollections = read(temporalCollectionsPath);
 const temporalSitemap = read(temporalSitemapPath);
 const collectionLoader = read(collectionLoaderPath);
 const directory = read(directoryPath);
+const evergreenSitemap = read(path.join(dataDir, "event-evergreen-sitemap.server.ts"));
 const collectionRoute = read(collectionRoutePath);
 const eventsLayoutRoute = read(eventsLayoutRoutePath);
 const eventsLayoutLazyRoute = read(eventsLayoutLazyRoutePath);
@@ -98,6 +100,8 @@ for (const slug of ledgerSlugs) {
 }
 
 const requiredCollectionPaths = [
+  "/events/dia-de-los-muertos",
+  "/events/texas-independence",
   "/events/rodeos",
   "/events/food-festivals",
   "/events/music-festivals",
@@ -139,6 +143,9 @@ if (collectionPaths.length !== requiredCollectionPaths.length) {
   fail(`expected ${requiredCollectionPaths.length} event authority collections, found ${collectionPaths.length}`);
 }
 if (new Set(collectionPaths).size !== collectionPaths.length) fail("event authority collection paths must be unique");
+if (!collections.includes('kind: "topic"') || !collections.includes("EVENT_TOPIC_SLUGS") || !collectionLoader.includes("EVENT_TOPIC_SLUGS[evergreen!.value]") || !evergreenSitemap.includes("EVENT_TOPIC_SLUGS[collection.value]")) {
+  fail("reviewed statewide topic collections must filter by named verified event-guide slugs");
+}
 for (const routePath of requiredCollectionPaths) {
   if (!collectionPaths.includes(routePath)) fail(`event collection registry is missing ${routePath}`);
   if (!directory.includes(`href: "${routePath}"`)) fail(`Texas Events server discovery directory does not expose ${routePath}`);
@@ -325,6 +332,49 @@ for (const marker of [
 if (!loader.includes('data-major-event-quick-facts') || !loader.includes('event.seoTitle ??')) {
   fail("major-event visitor essentials and metadata overrides must remain available");
 }
+
+
+const palestineAuthority = read(path.join(dataDir, "major-event-expanded-authority-tranche58.server.ts"));
+const stayClient = read(path.join(root, "public", "stay-affiliate-options.js"));
+// A season window is not daily service or a ticket-availability guarantee.
+// Keep publisher links first-party or via the existing approved CJ deep-link path.
+for (const marker of [
+  'slug: "polar-express-palestine"',
+  'startDate: "2026-11-13"',
+  'endDate: "2026-12-28"',
+  'sourceCheckedAt: "2026-10-26"',
+  'officialUrl: "https://texasstaterailroad.net/the-polar-express/"',
+  'date sources conflict',
+  'November 13–15, 19–24 and 27–29',
+  'cancellations at least 30 days ahead incur a $20 fee',
+  'diesel locomotive',
+  'https://www.visitpalestine.com/events/2026/httpstexasstaterailroadnetevents2332',
+  'href: "/events/christmas-events"',
+]) if (!palestineAuthority.includes(marker)) fail("Palestine Polar Express booking authority missing " + marker);
+for (const marker of [
+  'data-polar-express-2026-schedule="true"',
+  'data-event-official-ticket-cta="true"',
+  'PALESTINE_HOTELS_AFFILIATE_URL',
+  'de1634643/hotels-palestine-texas/',
+  'event.slug === "polar-express-palestine"',
+]) if (!loader.includes(marker)) fail("Palestine Polar Express SSR booking UI missing " + marker);
+for (const marker of [
+  'PALESTINE_HOTELS_DESTINATION',
+  'Compare Palestine hotels on Hotels.com',
+  'isPalestinePolarExpress',
+]) if (!stayClient.includes(marker)) fail("Palestine Polar Express client booking UI missing " + marker);
+
+const palestineImageEnrichment = read(path.join(dataDir, "major-event-schema-enrichment-batch32.server.ts"));
+for (const marker of [
+  'slug: "polar-express-palestine"',
+  'Southern_Pine_Lumber_Co._No._28_pulling_the_Polar_Express',
+  'Historical 2015 Texas State Railroad Polar Express',
+  'Photo: Michael Gras, M.Ed.',
+  'not the 2026 diesel locomotive',
+  'licenseName: "CC BY 2.0"',
+  'licenseUrl: "https://creativecommons.org/licenses/by/2.0/"',
+  'approvedForCommercialUse: true',
+]) if (!palestineImageEnrichment.includes(marker)) fail("Palestine Polar Express licensed historical image missing " + marker);
 
 const duplicateDefinitions = [...slugOwners.values()].filter((owners) => owners.length > 1).length;
 if (!process.exitCode) {

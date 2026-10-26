@@ -15,6 +15,12 @@ const references = {
   karting: "https://msrhouston.com/karting/",
   schools: "https://msrhouston.com/schools/",
   location: "https://msrhouston.com/about/location/",
+  supercars: "https://www.thextremexperience.com/tracks/msr-houston",
+  angletonTourism: "https://angleton.tx.us/331/Accommodations",
+  operatorLocalInfo: "https://msrhouston.com/about/local-information/",
+  laQuinta: "https://www.wyndhamhotels.com/en-ca/laquinta/angleton-texas/la-quinta-angleton/overview",
+  bestWestern: "https://www.bestwestern.com/en-us/book/hotel/44522",
+  comfortSuites: "https://www.choicehotels.com/texas/lake%20jackson/comfort-suites-hotels/tx516",
 };
 
 const experiences = [
@@ -35,6 +41,12 @@ const experiences = [
     access: "Register for a specific organizer's event; each organizer sets eligibility, instruction, schedule and costs",
     action: "Find an event on the road-course calendar, then register with the organizer",
     href: references.calendar,
+  },
+  {
+    name: "Instructor-led supercar drive or ride-along",
+    access: "Prebook a scheduled Xtreme Xperience session; car, age, license, guest and pricing rules are program-specific",
+    action: "Check upcoming MSR Houston dates and book with Xtreme Xperience",
+    href: references.supercars,
   },
   {
     name: "Driving instruction / racing school",
@@ -139,13 +151,27 @@ export function MSRHoustonStatusNotice() {
 export function MSRHoustonAuthoritySections() {
   return <div className="border-b border-border" aria-label="MSR Houston independent motorsports guide">
     <nav aria-label="MSR Houston guide sections" className="flex flex-wrap gap-x-5 gap-y-3 border-b border-border py-6 text-sm font-semibold">
+      <a href="#msr-contact" className="underline underline-offset-4 hover:text-primary">Contact & directions</a>
       <a href="#msr-access" className="underline underline-offset-4 hover:text-primary">How to participate</a>
       <a href="#msr-track-facts" className="underline underline-offset-4 hover:text-primary">Track specifications</a>
       <a href="#msr-safety" className="underline underline-offset-4 hover:text-primary">Safety & fees</a>
       <a href="#msr-checklist" className="underline underline-offset-4 hover:text-primary">Trip checklist</a>
+      <a href="#msr-logistics" className="underline underline-offset-4 hover:text-primary">Lodging & amenities</a>
       <a href="#msr-history" className="underline underline-offset-4 hover:text-primary">History</a>
-      <a href="#msr-logistics" className="underline underline-offset-4 hover:text-primary">Camping & amenities</a>
     </nav>
+
+    <section className="border-b border-border py-7" aria-labelledby="msr-contact">
+      <div className="flex flex-wrap items-center justify-between gap-5 border border-border p-5">
+        <div>
+          <h2 id="msr-contact" className="font-display text-2xl">Before you go: contact the track</h2>
+          <p className="mt-2 text-sm leading-7 text-muted-foreground">MSR Houston, 1 Performance Drive, Angleton, TX 77515. Call the office to confirm event access, waivers, accessibility, camping or the correct gate for your activity. For a supercar drive, book with the experience operator instead.</p>
+        </div>
+        <div className="flex flex-col gap-2 text-sm font-semibold">
+          <a href="tel:+12813690677" className="inline-flex min-h-11 items-center justify-center border border-border px-5 py-3 hover:border-primary hover:text-primary">Call office: 281-369-0677</a>
+          <SourceLink href={references.faqs}>Official visitor FAQ</SourceLink>
+        </div>
+      </div>
+    </section>
 
     <section className="border-b border-border py-10" aria-labelledby="msr-access">
       <SectionHeading kicker="Choose your experience" id="msr-access" title="Can you actually drive at MSR Houston?">
@@ -153,10 +179,12 @@ export function MSRHoustonAuthoritySections() {
         guest sessions, organizer-run track days, competition events and formal schools are distinct ways to use the
         venue. <SourceLink href={references.membership}>Membership & guest policy</SourceLink></p>
       </SectionHeading>
-      <div className="overflow-x-auto rounded-sm border border-border">
+      <p id="msr-table-help" className="mb-2 text-xs leading-6 text-muted-foreground">On narrow screens, swipe across the participation table to view the full requirements.</p>
+      <div role="region" aria-label="MSR Houston participation options" aria-describedby="msr-table-help" tabIndex={0} className="overflow-x-auto rounded-sm border border-border focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
         <table className="w-full min-w-[680px] border-collapse text-left text-sm leading-6">
+          <caption className="sr-only">How to participate in different activities at MSR Houston, with booking requirements and direct source links.</caption>
           <thead className="bg-muted/40">
-            <tr><th className="p-4 font-semibold">Experience</th><th className="p-4 font-semibold">Access requirements</th><th className="p-4 font-semibold">Next step</th></tr>
+            <tr><th scope="col" className="p-4 font-semibold">Experience</th><th scope="col" className="p-4 font-semibold">Access requirements</th><th scope="col" className="p-4 font-semibold">Next step</th></tr>
           </thead>
           <tbody>{experiences.map((item) => <tr key={item.name} className="border-t border-border align-top">
             <th scope="row" className="p-4 font-semibold">{item.name}</th>
@@ -170,6 +198,7 @@ export function MSRHoustonAuthoritySections() {
         committing to a membership. A club's HPDE is driver education, not automatically a race or a timed qualifying
         session. The organizer controls eligibility, instruction and registration. <SourceLink href={references.schools}>Driving programs</SourceLink>
       </p>
+      <p className="mt-3 text-sm leading-7 text-muted-foreground">Xtreme Xperience advertises instructor-guided supercar drives and ride-alongs on a 1.30-mile event configuration, not automatic access to the full 2.38-mile MSR road course. Check program age and license requirements, bookable dates and total prices directly with the <SourceLink href={references.supercars}>experience operator</SourceLink>.</p>
     </section>
 
     <section className="border-b border-border py-10" aria-labelledby="msr-track-facts">
@@ -258,6 +287,34 @@ export function MSRHoustonAuthoritySections() {
           <p className="mt-3 text-sm leading-7 text-muted-foreground">The operator does not publish a universal accessibility and accessible-parking map across every event. Ask the track and organizer about suitable viewing locations, accessible restrooms, mobility needs and gate routes before purchasing admission or scheduling a family visit.</p>
         </div>
       </div>
+      <div className="mt-7 border-t border-border pt-5" aria-labelledby="msr-hotels">
+        <h3 id="msr-hotels" className="font-display text-2xl">Where to stay for an MSR Houston track weekend</h3>
+        <p className="mt-3 text-sm leading-7 text-muted-foreground">
+          MSR Houston lists these three hotels on its <SourceLink href={references.operatorLocalInfo}>operator's lodging page</SourceLink>.
+          Angleton makes a practical local base; Lake Jackson is an alternative for a longer Brazoria County visit.
+          Use each hotel's direct reservation page for actual availability, accessibility needs and cancellation rules.
+        </p>
+        <ul className="mt-5 grid gap-4 md:grid-cols-3">
+          <li className="border border-border p-4">
+            <h4 className="font-semibold">La Quinta Inn &amp; Suites by Wyndham Angleton</h4>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">2400 W. Mulberry Street, Angleton · (979) 864-3383</p>
+            <p className="mt-3 text-sm"><SourceLink href={references.laQuinta}>Check rooms and rates</SourceLink></p>
+          </li>
+          <li className="border border-border p-4">
+            <h4 className="font-semibold">Best Western Angleton Inn</h4>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">1809 N. Velasco Street, Angleton · (979) 849-5822</p>
+            <p className="mt-3 text-sm"><SourceLink href={references.bestWestern}>Check rooms and rates</SourceLink></p>
+          </li>
+          <li className="border border-border p-4">
+            <h4 className="font-semibold">Comfort Suites Lake Jackson Clute</h4>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">296 Abner Jackson Parkway, Lake Jackson · (979) 297-5545</p>
+            <p className="mt-3 text-sm"><SourceLink href={references.comfortSuites}>Check rooms and rates</SourceLink></p>
+          </li>
+        </ul>
+        <p className="mt-4 text-xs leading-6 text-muted-foreground">
+          Rates and MSR-specific promotions are not guaranteed by Texas Defined. See the <SourceLink href={references.angletonTourism}>City of Angleton accommodations directory</SourceLink> for more options. These are editorial hotel links, not advertised affiliate rates.
+        </p>
+      </div>
       <p className="mt-7 text-sm"><SourceLink href={references.faqs}>Operator FAQ covering camping, fuel, pets, food and weather</SourceLink></p>
     </section>
 
@@ -296,7 +353,7 @@ export function MSRHoustonAuthoritySections() {
         <a href="/sports-venues" className="border border-border px-4 py-3 hover:border-primary hover:text-primary">Compare Texas sports venues →</a>
         <a href="/explore/road-trips" className="border border-border px-4 py-3 hover:border-primary hover:text-primary">Texas road trips →</a>
       </div>
-      <p className="mt-6 text-xs leading-6 text-muted-foreground">Research method: Texas Defined independently synthesized primary venue information, checked Oct. 9, 2026. Static dimensions and historical details are attributed to the operator. Closures, event schedules, prices and public access must be rechecked. This guide is not affiliated with MSR Houston.</p>
+      <p className="mt-6 text-xs leading-6 text-muted-foreground">Research method: Texas Defined independently synthesized venue information, with core operator claims checked Oct. 9, 2026 and visitor experience, contact and local-planning additions checked Oct. 20, 2026. Static dimensions and historical details are attributed to the operator. Closures, event schedules, prices and public access must be rechecked. This guide is not affiliated with MSR Houston or Xtreme Xperience.</p>
     </section>
   </div>;
 }

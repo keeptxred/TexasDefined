@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { primaryDestinationHeroSrc, isMissingPrimaryDestinationHero } from "./museum-primary-hero.mjs";
+import { readFileSync } from "node:fs";
+import { primaryDestinationHeroSrc, primaryDestinationHeroAlt, isMissingPrimaryDestinationHero } from "./museum-primary-hero.mjs";
 
 const hero = '<div data-image-fallback-label="" aria-hidden="true" class="absolute inset-0"></div>'
   + '<img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Former_alvin_tx_post_office.jpg?width=1600&amp;source=td" alt="Exact museum exterior">';
@@ -28,4 +29,20 @@ test("missing or structurally changed primary hero fails closed", () => {
 test("first destination hero is the only photo accepted", () => {
   const html = '<body><section>' + hero + '</section>' + hero.replace('Former_alvin_tx_post_office.jpg','Wrong_related.jpg') + '</body>';
   assert.match(primaryDestinationHeroSrc(html), /Former_alvin_tx_post_office\.jpg/);
+});
+
+test("primary alt text belongs only to the actual marked hero", () => {
+  const markup = '<div data-image-fallback-label aria-hidden="true"></div>'
+    + '<img alt="Museum &amp; Archive entrance&#39;s west face" src="https://example.org/museum.jpg">';
+  assert.equal(primaryDestinationHeroAlt('<body>' + markup + '<aside><img alt="Wrong place"></aside></body>'),
+    "Museum & Archive entrance's west face");
+  assert.equal(primaryDestinationHeroAlt('<aside><img alt="Unrelated photo"></aside>'), "");
+});
+
+test("approved McNay courtyard overrides a non-placeholder legacy photo without changing other museums", () => {
+  const source = readFileSync(new URL("../../src/data/museum-authority-heroes.ts", import.meta.url), "utf8");
+  assert.match(source, /McNay_Art_Museum_May_2018_2_\(Courtyard\)\.jpg\?width=1600/);
+  assert.match(source, /Michael Barera[^\n]*CC BY-SA 4\.0/);
+  assert.match(source, /const requiresVerifiedMcNayHero = destination\.slug === "mcnay-art-museum-san-antonio"/);
+  assert.match(source, /isDestinationPhotoPlaceholder\(destination\.hero\.src\) \|\| requiresVerifiedMcNayHero/);
 });

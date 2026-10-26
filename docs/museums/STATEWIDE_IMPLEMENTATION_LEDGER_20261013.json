@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "asOf": "2026-10-19",
+  "asOf": "2026-10-25",
   "repository": "keeptxred/TexasDefined",
   "production": "https://texasdefined.com",
   "supabaseProjectId": "ftkznprjljkhymknvhye",
@@ -600,5 +600,883 @@
       "Enroll new two guides and twelve official/source-license URLs in existing Supabase source monitoring",
       "Side-by-side independent visitor-guide certification"
     ]
+  },
+  "october24RecoverySnapshot": {
+    "checkedAt": "2026-10-24",
+    "githubManifestGuides": 82,
+    "githubManifestSourceDefinitions": 360,
+    "supabaseMuseumRegistryGuides": 82,
+    "supabaseRetainedMuseumMonitoredSourceRows": 384,
+    "sourceRegistryStatuses": {
+      "verified": 63,
+      "awaiting_editorial_verification": 16,
+      "source_changed": 2,
+      "source_unreachable": 1
+    },
+    "linkedCommonsSourceAndCreativeCommonsLicenseVerifiedOnLiveCarthagePage": true,
+    "linkedCommonsSourceAndCreativeCommonsLicenseVerifiedOnLiveBryanPage": false,
+    "fourUnlicensedExactMuseumPhotoGapsRemain": [
+      "museum-of-the-gulf-coast-port-arthur",
+      "el-paso-holocaust-museum",
+      "texas-broadcast-museum-kilgore",
+      "johnny-nelson-katy-heritage-museum"
+    ],
+    "independentAuthorityCertificationsReported": 0,
+    "distinction": "Supabase 'verified' refers to source monitoring, not museum authority certification; retained source rows intentionally exceed current active manifest definitions. Carthage has live HTML-linked photo attribution. Bryan awaits a fresh independently verifiable production fetch (web cache miss)."
+  },
+  "ownerInventoryExecution": {
+    "schemaVersion": 1,
+    "records": {
+      "acmcmillanafricanamericanmuseum": {
+        "submittedName": "A.C. McMillan African American Museum",
+        "rawOccurrence": 4,
+        "status": "research-blocked",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "evidence": "https://emuseum.jfk.org/objects/46977/gwendolyn-mcmillan-lawe-oral-history",
+        "reason": "A.C. McMillan African American Museum is historically documented in Emory/Rains County: the Sixth Floor Museum interviewed co-founder Gwendolyn McMillan Lawe in 2016 and the Texas Historical Commission referenced the museum in 2011. Neither is evidence of an operating 2026 venue, current hours, bookings or reusable exact-site photo; do not invent an open museum guide or mark it closed.",
+        "dispositionAt": "2026-10-24",
+        "researchEvidenceUrls": [
+          "https://emuseum.jfk.org/objects/46977/gwendolyn-mcmillan-lawe-oral-history",
+          "https://www.thc.texas.gov/public/upload/publications/medallion-january-february-2011.pdf"
+        ],
+        "lastResearchAt": "2026-10-24"
+      },
+      "abileneheritagesquare": {
+        "submittedName": "Abilene Heritage Square",
+        "rawOccurrence": 5,
+        "status": "not-visitable",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "reason": "A heritage campus and civic learning complex, not a separate museum identity. Its Spark Science Center is a second location of the existing Grace Museum authority guide.",
+        "evidence": "https://www.abileneheritagesquare.org/sparksciencecenter/",
+        "dispositionAt": "2026-10-24T20:40:00Z",
+        "relatedCanonicalSlug": "grace-museum-abilene"
+      },
+      "admiralnimitzgallery": {
+        "submittedName": "Admiral Nimitz Gallery",
+        "rawOccurrence": 6,
+        "status": "duplicate",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "reason": "An included permanent exhibition of the National Museum of the Pacific War, not an independent museum with its own canonical guide.",
+        "evidence": "https://www.pacificwarmuseum.org/visit/exhibits/admiral-nimitz-gallery-1",
+        "dispositionAt": "2026-10-24T20:40:00Z",
+        "relatedCanonicalSlug": "national-museum-pacific-war"
+      },
+      "advancedtechnologydevelopmentcentermuseum": {
+        "submittedName": "Advanced Technology Development Center Museum",
+        "rawOccurrence": 7,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "operatorIdentityConfirmed": false,
+        "photoRightsVerified": false,
+        "researchNote": "Owner's museum label does not match a currently verified Texas visitable museum. Research or disambiguation needed before inferring an exhibit, technology business incubator, campus venue or operational location. Do not auto-create visitor hours or a photograph.",
+        "researchEvidenceUrls": [],
+        "lastResearchAt": "2026-10-24"
+      },
+      "agriculturalheritagemuseum": {
+        "submittedName": "Agricultural Heritage Museum",
+        "rawOccurrence": 9,
+        "status": "research-blocked",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "reason": "Owner's unqualified 'Agricultural Heritage Museum' is ambiguous: City of Boerne officially identifies it as a former name of The AgriCultural, but a historically separate Agriculture Heritage Museum Inc. operates as the FiberMax Center for Discovery in Lubbock. Must confirm which institution owner intended before disposition.",
+        "evidence": "https://www.ci.boerne.tx.us/1438/The-AgriCultural-Museum-Arts-Center",
+        "dispositionAt": "2026-10-24T20:40:00Z",
+        "relatedCanonicalSlug": null,
+        "additionalEvidence": [
+          "https://texastimetravel.com/directory/agriculture-heritage-center-museum/",
+          "https://thc.texas.gov/public/upload/publications/heritage-travel-guide-temp.pdf",
+          "https://givefreely.com/charity-directory/nonprofit/ein-752940167/"
+        ]
+      },
+      "alamomuseum": {
+        "submittedName": "Alamo Museum",
+        "rawOccurrence": 10,
+        "status": "research-blocked",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "reason": "Ambiguous provisional owner label: City of Alamo operates the Maria del Pilar Garza Museum, whereas a separate Alamo San Antonio visitor center/museum has a projected 2028 opening. Must identify intended place before selecting canonical path.",
+        "evidence": "https://alamotexas.org/government/departments/alamo-museum/",
+        "dispositionAt": "2026-10-24T20:40:00Z",
+        "relatedCanonicalSlug": null
+      },
+      "alleylogcabinmuseum": {
+        "submittedName": "Alley Log Cabin Museum",
+        "rawOccurrence": 11,
+        "status": "guide-merged",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Authority source PR merged and CI passed; independent photo/mobile/browser QA, source enrollment, editorial certification and post-deployment acceptance are separate.",
+        "researchNote": "Colorado County historical record identifies 1836 Alley Log Cabin and Antique Tool Museum in Columbus. Historic (not necessarily current) tours were seasonal or by appointment; do not print aggregator's unsupported M-F daily schedule.",
+        "researchEvidenceUrls": [
+          "https://www.tshaonline.org/handbook/entries/columbus-tx",
+          "https://texas-settlement.org/museums/"
+        ],
+        "lastResearchAt": "2026-10-24",
+        "evidence": "https://github.com/keeptxred/TexasDefined/pull/5844",
+        "relatedCanonicalSlug": "alley-log-cabin-museum-columbus",
+        "additionalEvidence": [
+          "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/"
+        ],
+        "dispositionAt": "2026-10-24T21:01:00Z"
+      },
+      "alpinedepotmuseum": {
+        "submittedName": "Alpine Depot Museum",
+        "rawOccurrence": 12,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+      },
+      "americanairpowerheritagemuseum": {
+        "submittedName": "American Airpower Heritage Museum",
+        "rawOccurrence": 15,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "researchNote": "The historical Midland CAF Airpower Museum is not the current Dallas museum site. American Airpower Heritage Museum's present flagship is Henry B. Tippie National Aviation Education Center, 5657 Mariner Dr, Dallas; current operator provides ticket prices and Tue–Sat hours, but flying B-29 availability varies. Build guide under operator-verified NAEC institution only if actual licensed image and no duplicate canonical exist.",
+        "researchEvidenceUrls": [
+          "https://flynaec.org/about/",
+          "https://flynaec.org/visit-us/tickets-and-other-information/",
+          "https://www.commemorativeairforce.org/pages/About-the-CAF"
+        ],
+        "lastResearchAt": "2026-10-24"
+      },
+      "americanmuseumoftheminiaturearts": {
+        "submittedName": "American Museum of the Miniature Arts",
+        "rawOccurrence": 16,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "researchNote": "A public attraction listing reports the Dallas venue as permanently closed, but independent institutional or government confirmation is required before marking the museum permanently closed.",
+        "researchEvidenceUrls": [
+          "https://www.tripadvisor.com/Attraction_Review-g55711-d559924-Reviews-American_Museum_of_the_Miniature_Arts-Dallas_Texas.html"
+        ],
+        "lastResearchAt": "2026-10-24"
+      },
+      "anahuacdepotmuseum": {
+        "submittedName": "Anahuac Depot Museum",
+        "rawOccurrence": 19,
+        "status": "research-blocked",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "evidence": "https://texashistory.unt.edu/ark:/67531/metapth162515/m1/163/",
+        "reason": "The Texas Almanac 1998–99 historically placed a depot museum in Winnie, not an independently confirmed Anahuac Depot Museum. The 1985 Texas Historical Commission museum directory separately identifies Anahuac historical and medical-office museums but no Anahuac Depot Museum. Current operator, geography, identity and visitor availability remain unresolved; do not publish or mislocate Winnie's depot in Anahuac.",
+        "dispositionAt": "2026-10-24",
+        "researchEvidenceUrls": [
+          "https://texashistory.unt.edu/ark:/67531/metapth162515/m1/163/",
+          "https://www.gutenberg.org/files/65342/65342-h/65342-h.htm"
+        ],
+        "lastResearchAt": "2026-10-24"
+      },
+      "angelinacountyhistorycenter": {
+        "submittedName": "Angelina County History Center",
+        "rawOccurrence": 20,
+        "status": "duplicate",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "researchNote": "UNT The Portal to Texas History indexes Angelina County History Center alongside The History Center in Diboll, with matching historical records. Their organizational identity and modern visitor arrangements require verification before new guide/alias disposition.",
+        "researchEvidenceUrls": [
+          "https://texashistory.unt.edu/explore/partners/",
+          "https://www.thehistorycenteronline.com/"
+        ],
+        "lastResearchAt": "2026-10-24",
+        "relatedCanonicalSlug": "the-history-center-diboll",
+        "reason": "The owner-list label Angelina County History Center and the present-day History Center in Diboll identify the same history archive/museum at 102 N Temple, Diboll, with phone 936-829-3543. University of North Texas uses separate digital-partner labels for holdings but that does not create a separate public museum. Existing canonical The History Center page remains the visitor guide.",
+        "evidence": "https://texashistory.unt.edu/explore/partners/AHC/",
+        "additionalEvidence": [
+          "https://www.thehistorycenteronline.com/collections/angelina-county-school-district-map-1924",
+          "https://www.angelinacountygenealogicalsociety.com/items"
+        ],
+        "dispositionAt": "2026-10-24"
+      },
+      "annaheritagemuseum": {
+        "submittedName": "Anna Heritage Museum",
+        "rawOccurrence": 21,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "operatorIdentityConfirmed": true,
+        "photoRightsVerified": false,
+        "lastResearchAt": "2026-10-25",
+        "proposedCanonicalSlug": "anna-depot-museum",
+        "researchNote": "Owner label 'Anna Heritage Museum' refers to the operator-confirmed Anna Depot and Museum in Sherley Heritage Park, 101 S Sherley Rd, Anna, Texas 75409, operated by Anna Area Historical Preservation Society under agreement with City of Anna. Original depot was relocated into its current park. Operator posts free admission second and fourth Saturday 10 a.m.–2 p.m.; phone 469-982-6396. Separate public park hours do not establish indoor museum access. An exact-site reusable licensed exterior image and complete accessibility policies remain unverified; do not publish an invented photo or promote any generic image.",
+        "researchEvidenceUrls": [
+          "https://www.annatxhistory.com/the-depot",
+          "https://www.annatxhistory.com/about-1",
+          "https://annatexas.gov/1228/Sherley-Heritage-Park"
+        ]
+      },
+      "aransascountyhistorycenter": {
+        "submittedName": "Aransas County History Center",
+        "rawOccurrence": 22,
+        "status": "photo-permission-blocked",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "reason": "Confirmed operating History Center for Aransas County, 801 E Cedar St Rockport, with current public exhibits and visitor hours. Real exterior Bruhl-Paul-Johnson House image exists on official/Aransas Pathways pages, but no affirmative commercial reuse rights/photographer source for exact photo have been verified. Do not publish a no-photo authority guide or copy the photo without permission.",
+        "evidence": "https://www.theachistorycenter.com/visit",
+        "researchEvidenceUrls": [
+          "https://www.theachistorycenter.com/visit",
+          "https://www.theachistorycenter.com/exhibits",
+          "https://www.theachistorycenter.com/momentsthatmadeus",
+          "https://aransaspathways.com/history-center/",
+          "https://atlas.thc.texas.gov/Details/4200001071"
+        ],
+        "researchNote": "Current operator hours Monday and Friday 10am–2pm, Saturday/Sunday 1–4pm contingent on volunteers, Tue–Thu closed. Texas Historical Commission 2022 Atlas lists outdated Saturday 10–4; operator's updated Saturday 1–4 overrides. 2026 Moments That Made U.S. exhibit opens Sep 5, 2026. No official statement found about admission charges/accessibility; never invent either. Need photograph-license verification before indexing.",
+        "relatedCanonicalSlug": null,
+        "dispositionAt": "2026-10-24"
+      },
+      "archeologicalmuseumatthecenterforamericanhistory": {
+        "submittedName": "Archeological Museum at the Center for American History",
+        "rawOccurrence": 23,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+      },
+      "archercountyhistoricalmuseum": {
+        "submittedName": "Archer County Historical Museum",
+        "rawOccurrence": 24,
+        "status": "research-blocked",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "lastResearchAt": "2026-10-25",
+        "evidence": "https://www.theacmac.org/",
+        "reason": "Archer County Museum and Arts Center is the documented continuation/redevelopment of the former Archer County Historical Museum in the historic county jail. Its own current operator home page explicitly says HOURS: TEMPORARILY CLOSED. The museum is neither verifiably visitable today nor necessarily permanently closed. Preserve its pending reopening and photograph rights dependency rather than promoting public open hours.",
+        "researchEvidenceUrls": [
+          "https://www.theacmac.org/",
+          "https://www.theacmac.org/about"
+        ],
+        "proposedCanonicalSlug": "archer-county-museum-and-arts-center-archer-city",
+        "dispositionAt": "2026-10-25"
+      },
+      "artcenterofwaco": {
+        "submittedName": "Art Center of Waco",
+        "rawOccurrence": 27,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "operatorIdentityConfirmed": true,
+        "photoRightsVerified": false,
+        "researchNote": "Current Art Center Waco is an active nonprofit arts exhibition and education center, not necessarily a traditional collecting museum; city CVB and Waco Chamber confirm current location 701 S 8th St and phone 254-752-4371, Tuesday–Friday 11–5 and Saturday 10–2 (verify official hours). Texas TDLR also confirms renovation of this facility. Past Wordpress/LinkedIn profiles list superseded addresses; do not direct visitors to former campus. Exact-site licensed photo and program access pending.",
+        "researchEvidenceUrls": [
+          "https://destinationwaco.org/listing/art-center-of-waco-3/",
+          "https://business.wacochamber.com/directory/Details/art-center-waco-880796",
+          "https://www.tdlr.texas.gov/TABS/Search/Print/TABS2020020137"
+        ],
+        "lastResearchAt": "2026-10-24"
+      },
+      "artgalleriesatblackstudies": {
+        "submittedName": "Art Galleries at Black Studies",
+        "rawOccurrence": 31,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "operatorIdentityConfirmed": true,
+        "lastResearchAt": "2026-10-24",
+        "researchNote": "Operator-confirmed active UT Austin museum/collecting institution spanning two distinct free-admission venues: Christian-Green Gallery, Jester Center A232 at 201 E 21st St (Wed–Fri noon–5, Sat 11–2), and Idea Lab, Gordon-White Building at 210 W 24th St (Tue–Fri noon–5, Sat by advance appointment). UT operator announces Sept 4–Dec 5 2026 Made in Texas exhibit. One authority identity, two correctly explained visitor locations; no unsupported exact-gallery commercial-use image/rights secured yet, so keep research assigned and noindex-unpublished until authoritative media and guide complete.",
+        "researchEvidenceUrls": [
+          "https://www.galleriesatut.org/",
+          "https://www.galleriesatut.org/exhibitions",
+          "https://liberalarts.utexas.edu/blackstudies/art-galleries-at-black-studies/"
+        ],
+        "proposedCanonicalSlug": "art-galleries-at-black-studies-austin",
+        "photoRightsVerified": false
+      },
+      "atascosacountyvintagemuseum": {
+        "submittedName": "Atascosa County Vintage Museum",
+        "rawOccurrence": 33,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+      },
+      "atlantahistoricalmuseum": {
+        "submittedName": "Atlanta Historical Museum",
+        "rawOccurrence": 34,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "operatorIdentityConfirmed": true,
+        "photoRightsVerified": false,
+        "lastResearchAt": "2026-10-25",
+        "researchNote": "Historical/federal and regional references document Atlanta Historical Museum (Cass County) at 101 N East St, Atlanta, Texas in the rehabilitated Texas & Pacific railroad depot, with local-history/Bessie Coleman exhibits; former depot also housed local welcome/community visitor functions. These archival references DO NOT establish current 2026 hours, current operator or exact-image reuse rights, which remain outstanding.",
+        "researchEvidenceUrls": [
+          "https://www.achp.gov/preserve-america/community/atlanta-texas",
+          "https://www.east-texas.com/texas-railroad-train-museums-depots-rides.htm"
+        ]
+      },
+      "austincountyjailmuseum": {
+        "submittedName": "Austin County Jail Museum",
+        "rawOccurrence": 36,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+      },
+      "austinhistorycenter": {
+        "submittedName": "Austin History Center",
+        "rawOccurrence": 37,
+        "status": "guide-merged",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Authority source PR merged and CI passed; independent photo/mobile/browser QA, source enrollment, editorial certification and post-deployment acceptance are separate.",
+        "evidence": "https://github.com/keeptxred/TexasDefined/pull/5846",
+        "relatedCanonicalSlug": "austin-history-center-austin",
+        "additionalEvidence": [
+          "https://library.austintexas.gov/austin-history-center"
+        ],
+        "dispositionAt": "2026-10-24T21:01:00Z"
+      },
+      "austinmuseumofpopularculture": {
+        "submittedName": "Austin Museum of Popular Culture",
+        "rawOccurrence": 38,
+        "status": "research-blocked",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "reason": "Austin Museum Partnership currently lists appointment-only physical museum at 1000 E 40th Street (Sat/Sun 1–6pm), but the organization's own site and contact page state it is 'Currently a Virtual Museum' while planning future in-person exhibitions. Physical visitability is contradicted; do not publish appointment-only hours until current operator directly clarifies.",
+        "evidence": "https://www.southpop.org/",
+        "researchEvidenceUrls": [
+          "https://www.southpop.org/",
+          "https://www.southpop.org/contact",
+          "https://www.austinmuseums.org/austin-museum-of-popular-culture"
+        ],
+        "researchNote": "Current archival operator remains active online, founded 2003/04. Wikimedia images depict FORMER South Lamar location, not the current 1000 E 40th Street office; never use those as present-day museum exterior. Hold live trip-planning publication pending official confirmation.",
+        "dispositionAt": "2026-10-24"
+      },
+      "automobilemuseumoftexas": {
+        "submittedName": "Automobile Museum of Texas",
+        "rawOccurrence": 40,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified"
+      },
+      "aviationmuseumoftexas": {
+        "submittedName": "Aviation Museum of Texas",
+        "rawOccurrence": 41,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T20:40:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate only; do not create page until identity/location/operators/photos verified",
+        "operatorIdentityConfirmed": false,
+        "photoRightsVerified": false,
+        "researchNote": "Historic Aviation Museum of Texas formerly operated in Kerrville and then in Uvalde at Garner Field; specialist aviation directories characterize Uvalde public venue as closed. No current official operator or government closure record verified, so mark research-blocked, not conclusively 'closed', and do not create a contemporary open visitor guide.",
+        "researchEvidenceUrls": [
+          "https://aviationmuseum.eu/Blogvorm/aviation-museum-texas/",
+          "https://aerialvisuals.ca/LocationDossier.php?Serial=3898"
+        ],
+        "lastResearchAt": "2026-10-24"
+      },
+      "b29b24squadronmuseum": {
+        "submittedName": "B-29/B-24 Squadron Museum",
+        "rawOccurrence": 42,
+        "status": "not-visitable",
+        "assignedAt": "2026-10-24T21:01:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Provisional name only; research identity, operator, actual visitability, image rights and canonical before publication.",
+        "researchNote": "Official CAF B-29/B-24 Squadron is a Dallas-based flying aircraft unit with a travelling AirPower History Tour, not an independently operating fixed museum; aircraft admission only at separately scheduled events. Do not publish a permanent walk-in museum guide.",
+        "researchEvidenceUrls": [
+          "https://www.commemorativeairforce.org/units/2",
+          "https://www.airpowersquadron.org/tour-schedule"
+        ],
+        "lastResearchAt": "2026-10-24T21:01:00Z",
+        "evidence": "https://www.commemorativeairforce.org/units/2",
+        "reason": "This is the CAF flying aircraft squadron and travelling AirPower History Tour, not a separate static museum with reliable permanent on-site public admission.",
+        "relatedCanonicalSlug": null,
+        "dispositionAt": "2026-10-24T21:01:00Z"
+      },
+      "babedidriksonzahariasmuseum": {
+        "submittedName": "Babe Didrikson Zaharias Museum",
+        "rawOccurrence": 43,
+        "status": "duplicate",
+        "assignedAt": "2026-10-24T21:01:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Provisional name only; research identity, operator, actual visitability, image rights and canonical before publication.",
+        "researchNote": "Official Babe Zaharias museum at 1750 I-10 Frontage Rd Beaumont already has authority canonical /destination/babe-didrikson-zaharias-museum-beaumont. Owner label is a name variation; no new page needed.",
+        "researchEvidenceUrls": [
+          "https://www.babezahariasmuseum.com/visit-the-babe-zaharias-museum/"
+        ],
+        "lastResearchAt": "2026-10-24T21:01:00Z",
+        "evidence": "https://www.babezahariasmuseum.com/visit-the-babe-zaharias-museum/",
+        "reason": "Owner inventory uses a museum name variant for an already completed Beaumont museum guide. The real institution and visitor address are the same; preserve its single canonical route.",
+        "relatedCanonicalSlug": "babe-didrikson-zaharias-museum-beaumont",
+        "dispositionAt": "2026-10-24T21:01:00Z"
+      },
+      "bairddepotmuseum": {
+        "submittedName": "Baird Depot Museum",
+        "rawOccurrence": 44,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T21:01:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Provisional name only; research identity, operator, actual visitability, image rights and canonical before publication.",
+        "researchNote": "Baird's Texas & Pacific Railway Depot at 100 Market Street is confirmed in Texas Historical Commission National Register #2012000194 and 1985 historic marker #5059005241. Former depot converted to transportation museum after the 2007 restoration (historical specialist operator photography). Wikimedia Commons lists exact 'Baird Texas and Pacific Depot.jpg' under the Baird depot category; original file license, photographer and current museum hours still need independent verification. Do not publish 2019 directory hours as current or infer unrestricted photo rights.",
+        "researchEvidenceUrls": [
+          "https://atlas.thc.texas.gov/Details/2012000194",
+          "https://atlas.thc.texas.gov/Details/5059005241",
+          "https://commons.wikimedia.org/wiki/Category:Texas_and_Pacific_Railway_Depot_(Baird,_Texas)",
+          "https://texaspacificrailway.org/structures/tx/baird/texas-and-pacific-railway-structures-tx-baird-baird-tx-museum-after-restoration-image-1526.html"
+        ],
+        "lastResearchAt": "2026-10-25",
+        "photoRightsVerified": false
+      },
+      "ballingerheritagemuseum": {
+        "submittedName": "Ballinger Heritage Museum",
+        "rawOccurrence": 45,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T21:01:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Provisional name only; research identity, operator, actual visitability, image rights and canonical before publication.",
+        "researchNote": "No unambiguous current operator visitor page yet found for the owner label 'Ballinger Heritage Museum'; investigate museum closure, aliases or historical-society collections rather than writing a fictional hours/tickets page.",
+        "researchEvidenceUrls": [
+          "https://www.tshaonline.org/"
+        ],
+        "lastResearchAt": "2026-10-24T21:01:00Z"
+      },
+      "banderacountyhistoricalmuseum": {
+        "submittedName": "Bandera County Historical Museum",
+        "rawOccurrence": 46,
+        "status": "research-blocked",
+        "assignedAt": "2026-10-24T21:01:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Provisional name only; research identity, operator, actual visitability, image rights and canonical before publication.",
+        "researchNote": "Owner label is ambiguous; official Bandera tourism confirms Frontier Times Museum at 510 13th St AND separate Bandera Natural History and Art Museum at 267 Old San Antonio Rd. Neither is officially named 'Bandera County Historical Museum'. Confirm owner intent before canonical.",
+        "researchEvidenceUrls": [
+          "https://www.banderacowboycapital.com/business/frontier-times-museum",
+          "https://www.banderacowboycapital.com/business/bandera-natural-history-museum"
+        ],
+        "lastResearchAt": "2026-10-24T21:01:00Z",
+        "evidence": "https://www.banderacowboycapital.com/business/frontier-times-museum",
+        "reason": "No distinct museum operates under the provisional owner label; regional tourism lists multiple separate museums. Determine intended institution before mapping an alias or creating a guide.",
+        "relatedCanonicalSlug": null,
+        "dispositionAt": "2026-10-24T21:01:00Z"
+      },
+      "barbarajordanhistoricalexhibit": {
+        "submittedName": "Barbara Jordan Historical Exhibit",
+        "rawOccurrence": 47,
+        "status": "assigned",
+        "assignedAt": "2026-10-24T21:01:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Provisional name only; research identity, operator, actual visitability, image rights and canonical before publication.",
+        "researchNote": "Owner label specifies an exhibit, not a verified standalone visitable museum. Research original host, permanent visitor access and title before creating a page.",
+        "researchEvidenceUrls": [
+          "https://www.tshaonline.org/"
+        ],
+        "lastResearchAt": "2026-10-24T21:01:00Z"
+      },
+      "barkertexashistorycenter": {
+        "submittedName": "Barker Texas History Center",
+        "rawOccurrence": 48,
+        "status": "not-visitable",
+        "assignedAt": "2026-10-24T21:01:00Z",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Provisional name only; research identity, operator, actual visitability, image rights and canonical before publication.",
+        "researchNote": "Do not publish 1950-era Battle Hall or 1970s Sid Richardson details as current museum tourist visiting directions. Current Briscoe Center archives/exhibits are a separate present-day visitor identity; editorial guide requires fresh operator hours, gallery info and rights-cleared photo.",
+        "researchEvidenceUrls": [
+          "https://briscoecenter.org/about",
+          "https://www.tshaonline.org/handbook/entries/barker-texas-history-center",
+          "https://catalog.utexas.edu/general-information/libraries-and-other-academic-resources/dolph-briscoe-center-for-american-history/"
+        ],
+        "lastResearchAt": "2026-10-24T21:01:00Z",
+        "reason": "The Eugene C. Barker Texas History Center opened in 1950 but ceased operating as a separately named visitor institution; it became a division of the Center for American History in 1991 and evolved to today's Dolph Briscoe Center for American History in 2008. The historic Barker identity itself is not an independently visitable museum. Current Briscoe Center should be considered separately for an accurate present-day Austin guide.",
+        "evidence": "https://briscoecenter.org/about",
+        "dispositionAt": "2026-10-24"
+      },
+      "barringtonlivinghistoryfarm": {
+        "submittedName": "Barrington Living History Farm",
+        "rawOccurrence": 49,
+        "status": "assigned",
+        "assignedAt": "2026-10-24",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Owner inventory provisional candidate: research official Texas institution identity, current visitor logistics, matching canonical, licensed exact-site media and sources before publication."
+      },
+      "bastropcountyhistoricalsocietymuseum": {
+        "submittedName": "Bastrop County Historical Society Museum",
+        "rawOccurrence": 50,
+        "status": "assigned",
+        "assignedAt": "2026-10-24",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Owner inventory provisional candidate: research official Texas institution identity, current visitor logistics, matching canonical, licensed exact-site media and sources before publication."
+      },
+      "battleofcoletocreekmuseum": {
+        "submittedName": "Battle of Coleto Creek Museum",
+        "rawOccurrence": 51,
+        "status": "duplicate",
+        "assignedAt": "2026-10-24",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Owner inventory provisional candidate: research official Texas institution identity, current visitor logistics, matching canonical, licensed exact-site media and sources before publication.",
+        "evidence": "https://thc.texas.gov/state-historic-sites/fannin-battleground/plan-your-visit-fannin-battleground",
+        "reason": "The Texas Historical Commission's visitor offering named Battle of Coleto Creek is a guided tour of the existing Fannin Battleground State Historic Site, not a separately operating Battle of Coleto Creek Museum. The canonical `/destination/fannin-battleground` already represents the free public battlefield; the guided group tour has a separate $5 ticket, minimum age and advance booking requirement.",
+        "dispositionAt": "2026-10-24",
+        "relatedCanonicalSlug": "fannin-battleground",
+        "researchEvidenceUrls": [
+          "https://thc.texas.gov/historic-sites/fannin-battleground",
+          "https://thc.texas.gov/state-historic-sites/fannin-battleground/plan-your-visit-fannin-battleground"
+        ]
+      },
+      "battleshiptexasstatehistoricsite": {
+        "submittedName": "Battleship Texas State Historic Site",
+        "rawOccurrence": 52,
+        "status": "duplicate",
+        "assignedAt": "2026-10-24",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Owner inventory provisional candidate: research official Texas institution identity, current visitor logistics, matching canonical, licensed exact-site media and sources before publication.",
+        "evidence": "https://battleshiptexas.org/about/faqs/",
+        "reason": "The owner-list battleship historic site is the already published `/destination/battleship-texas` closed-to-tour historical route. The operator's current October 2026 material confirms closure for continuing Galveston repairs, with 2027 as a target rather than guaranteed reopening; it is not an open La Porte museum, and existing route exclusions/noindex must stay intact.",
+        "dispositionAt": "2026-10-24",
+        "relatedCanonicalSlug": "battleship-texas",
+        "researchEvidenceUrls": [
+          "https://battleshiptexas.org/",
+          "https://battleshiptexas.org/about/faqs/"
+        ]
+      },
+      "baxterlogcabinmuseum": {
+        "submittedName": "Baxter Log Cabin Museum",
+        "rawOccurrence": 53,
+        "status": "assigned",
+        "assignedAt": "2026-10-24",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Owner inventory provisional candidate: research official Texas institution identity, current visitor logistics, matching canonical, licensed exact-site media and sources before publication."
+      },
+      "bayareamuseum": {
+        "submittedName": "Bay Area Museum",
+        "rawOccurrence": 54,
+        "status": "research-blocked",
+        "assignedAt": "2026-10-24",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Owner inventory provisional candidate: research official Texas institution identity, current visitor logistics, matching canonical, licensed exact-site media and sources before publication.",
+        "evidence": "https://www.glo.texas.gov/sites/default/files/coastal-grants/_documents/grant-project/ciap-2009-gal-awareness-camp-guide.pdf",
+        "reason": "Historic Bay Area Museum in the former Webster Presbyterian Church at Clear Lake Park, 5000 NASA Road 1, Seabrook, is documented by old State of Texas tourism/land-use records, but current operator's museumbayarea.org site denies retrieval and no authoritative 2026 admission/hours/photo-rights record has been validated. Do not silently infer closure or promise live tours from 2003–2010 listings.",
+        "dispositionAt": "2026-10-24",
+        "researchEvidenceUrls": [
+          "https://museumbayarea.org/",
+          "https://www.sfasu.edu/heritagecenter/documents/bay_area_museum.pdf"
+        ]
+      },
+      "baytownhistoricalmuseum": {
+        "submittedName": "Baytown Historical Museum",
+        "rawOccurrence": 55,
+        "status": "guide-merged",
+        "assignedAt": "2026-10-24",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Merged PR #5868 publishes canonical visitor authority, nine researched FAQs, source manifest and exact-building CC BY-SA 4.0 Commons photo. Public HTTP 200, correct index/follow and clickable source/license attribution checked via Supabase pg_net request 14779. Browser-decoded photo, mobile layout and independent editorial authority signoff remain outstanding.",
+        "operatorIdentityConfirmed": true,
+        "photoRightsVerified": true,
+        "proposedCanonicalSlug": "baytown-historical-museum",
+        "researchNote": "The official Baytown tourism bureau confirms a free operating Baytown Historical Museum in the former Goose Creek Post Office, 220 W. Defee, phone 281-427-8768; its current city visitors listing states Tuesday–Saturday 10 a.m.–2 p.m. Other local sites conflict (Wed–Sat 10–4), so use qualified schedule and official telephone confirmation. Original 29 Oct 2020 photograph of exact former federal post office by Jim Evans is openly licensed CC BY-SA 4.0 on Wikimedia Commons, 3823×2635 pixels. Guide and full source-backed FAQs can now be produced; do not mark guide merged or editorial certified from this checkpoint.",
+        "researchEvidenceUrls": [
+          "https://www.visitbaytown.com/arts-culture",
+          "https://www.visitbaytown.com/baytown-history",
+          "https://texastimetravel.com/directory/baytown-historical-museum/",
+          "https://commons.wikimedia.org/wiki/File:Old_Baytown_Post_Office.jpg"
+        ],
+        "photoFile": "Old Baytown Post Office.jpg",
+        "photoCreator": "Jim Evans",
+        "photoLicense": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "lastResearchAt": "2026-10-24",
+        "evidence": "https://github.com/keeptxred/TexasDefined/pull/5868",
+        "relatedCanonicalSlug": "baytown-historical-museum",
+        "dispositionAt": "2026-10-25"
+      },
+      "bayoubendcollectionandgardens": {
+        "submittedName": "Bayou Bend Collection and Gardens",
+        "rawOccurrence": 56,
+        "status": "guide-merged",
+        "assignedAt": "2026-10-24",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate. Check current operator, address, existing canonical guide, exact-site photo license and accessibility before editorial publication.",
+        "evidence": "https://github.com/keeptxred/TexasDefined/pull/5861",
+        "reason": "Existing `/destination/bayou-bend-collection-gardens` received a source-backed authority dossier, museum-specific visitor FAQs, operator source monitoring and licensed exact-property photo attribution in merged PR #5861. Independent production/mobile visual acceptance and editorial certification remain outstanding.",
+        "dispositionAt": "2026-10-24",
+        "relatedCanonicalSlug": "bayou-bend-collection-gardens",
+        "additionalEvidence": [
+          "https://www.mfah.org/visit/bayou-bend",
+          "https://commons.wikimedia.org/wiki/File:BayouBendHome.JPG"
+        ]
+      },
+      "beaumontartleague": {
+        "submittedName": "Beaumont Art League",
+        "rawOccurrence": 57,
+        "status": "assigned",
+        "assignedAt": "2026-10-24",
+        "reviewRequired": true,
+        "publicationApproved": false,
+        "editorialCertified": false,
+        "note": "Research candidate. Check current operator, address, existing canonical guide, exact-site photo license and accessibility before editorial publication.",
+        "operatorIdentityConfirmed": true,
+        "photoRightsVerified": false,
+        "researchNote": "Active community gallery/art education center, Beaumont Art League established in 1943. Its own 2026 website lists 2675 Gulf St, Beaumont, phone 409-347-6166, Wednesday–Saturday noon–5; contemporaneous Lamar University Oct 22 2026 coverage confirms November 14 student show. Should be classified as contemporary art gallery rather than inaccurately describing it as an object-collecting museum. Reusable exact-gallery photo rights and full visitor program policies remain unverified.",
+        "researchEvidenceUrls": [
+          "https://beaumontartleague.us/",
+          "https://www.lamaruniversitypress.com/2026/10/art-league-accepting-entries-for-student-exhibition.php"
+        ],
+        "lastResearchAt": "2026-10-24"
+      }
+    },
+    "note": "Original stable 25-candidate queue with evidence-based dispositions. No false certification; batch replenishment uses the existing next-museum-owner-batch script.",
+    "lastAssignmentAt": "2026-10-24",
+    "lastAssignmentCount": 25,
+    "currentBatch": {
+      "id": "owner-20261024-001",
+      "startedAt": "2026-10-24T20:40:00Z",
+      "source": "CI Museum Authority Contract run 40130359781 on merged PR #5835",
+      "rawOccurrences": [
+        4,
+        5,
+        6,
+        7,
+        9,
+        10,
+        11,
+        12,
+        15,
+        16,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        27,
+        31,
+        33,
+        34,
+        36,
+        37,
+        38,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48
+      ],
+      "assignedKeys": [
+        "acmcmillanafricanamericanmuseum",
+        "abileneheritagesquare",
+        "admiralnimitzgallery",
+        "advancedtechnologydevelopmentcentermuseum",
+        "agriculturalheritagemuseum",
+        "alamomuseum",
+        "alleylogcabinmuseum",
+        "alpinedepotmuseum",
+        "americanairpowerheritagemuseum",
+        "americanmuseumoftheminiaturearts",
+        "anahuacdepotmuseum",
+        "angelinacountyhistorycenter",
+        "annaheritagemuseum",
+        "aransascountyhistorycenter",
+        "archeologicalmuseumatthecenterforamericanhistory",
+        "archercountyhistoricalmuseum",
+        "artcenterofwaco",
+        "artgalleriesatblackstudies",
+        "atascosacountyvintagemuseum",
+        "atlantahistoricalmuseum",
+        "austincountyjailmuseum",
+        "austinhistorycenter",
+        "austinmuseumofpopularculture",
+        "automobilemuseumoftexas",
+        "aviationmuseumoftexas",
+        "b29b24squadronmuseum",
+        "babedidriksonzahariasmuseum",
+        "bairddepotmuseum",
+        "ballingerheritagemuseum",
+        "banderacountyhistoricalmuseum",
+        "barbarajordanhistoricalexhibit",
+        "barkertexashistorycenter"
+      ],
+      "initialCandidates": 32,
+      "researchedDispositions": 15,
+      "remainingAssigned": 20,
+      "notes": "Original stable queue persists: Archer operator explicitly TEMPORARILY CLOSED (not permanently closed), Anna operator-confirmed depot has free second/fourth Saturday hours but no verified reusable exact-site photo, Atlanta TX depot museum current visitor hours/photo still unverified. Austin County Jail PR #5887 is under protected CI and must not be marked merged before actual merge. Remaining assigned: 20.",
+      "lastCheckpointAt": "2026-10-25",
+      "lastMergedGuides": [
+        {
+          "slug": "alley-log-cabin-museum-columbus",
+          "pr": 5844
+        },
+        {
+          "slug": "austin-history-center-austin",
+          "pr": 5846
+        },
+        {
+          "slug": "bayou-bend-collection-gardens",
+          "pr": 5861
+        },
+        {
+          "slug": "baytown-historical-museum",
+          "pr": 5868
+        }
+      ]
+    },
+    "lastEvidenceReview": "2026-10-25"
+  },
+  "october24ProductionHtmlVerification": {
+    "checkedAt": "2026-10-25T00:34:00Z",
+    "method": "Supabase pg_net HTTP fetch to actual public texasdefined.com; HTML transport and linked evidence, not rendered browser QA",
+    "routes": [
+      {
+        "path": "/destination/bryan-museum-galveston",
+        "httpStatus": 200,
+        "htmlCreditVerified": true,
+        "originalPhotoCommonsUrl": "https://commons.wikimedia.org/wiki/File:Galveston_Texas_-_The_Bryan_Museum_-_January_2025_-_1.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+        "canonicalVerified": true,
+        "indexingNoindexStringFound": false
+      },
+      {
+        "path": "/destination/bayou-bend-collection-gardens",
+        "httpStatus": 200,
+        "htmlCreditVerified": true,
+        "originalPhotoCommonsUrl": "https://commons.wikimedia.org/wiki/File:BayouBendHome.JPG",
+        "license": "Public domain",
+        "canonicalVerified": true,
+        "indexingNoindexStringFound": false
+      },
+      {
+        "path": "/destination/austin-history-center-austin",
+        "httpStatus": 200,
+        "htmlCreditVerified": true,
+        "originalPhotoCommonsUrl": "https://commons.wikimedia.org/wiki/File:John_Henry_Faulk_Central_Library.jpg",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "canonicalVerified": true,
+        "indexingNoindexStringFound": false
+      },
+      {
+        "path": "/destination/alley-log-cabin-museum-columbus",
+        "httpStatus": 200,
+        "htmlCreditVerified": true,
+        "originalPhotoCommonsUrl": "https://commons.wikimedia.org/wiki/File:Abram_Alley_Log_Cabin,_Columbus,_TX_IMG_8238.JPG",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+        "canonicalVerified": true,
+        "indexingNoindexStringFound": false
+      }
+    ],
+    "manifest": {
+      "publicProductionCount": 85,
+      "sourceDefinitions": 374,
+      "importedIntoExistingSupabaseSourceRegistry": true
+    },
+    "notVerified": [
+      "Browser-decoded responsive image or mobile pixels",
+      "Editorial authority certification",
+      "Public page image HTTP payload correctness",
+      "Independent visitor-fact audit of every FAQ"
+    ]
+  },
+  "october25BaytownProductionVerification": {
+    "checkedAt": "2026-10-25",
+    "path": "/destination/baytown-historical-museum",
+    "httpStatus": 200,
+    "source": "Supabase pg_net public HTTP response request 14779",
+    "photoCommonsSource": "https://commons.wikimedia.org/wiki/File:Old_Baytown_Post_Office.jpg",
+    "license": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "sourceAndLicenseLinksPresentInHTML": true,
+    "canonicalAndIndexFollowPresent": true,
+    "interactiveImageDecodeNotCertified": true,
+    "editorialAuthorityCertified": false
   }
 }

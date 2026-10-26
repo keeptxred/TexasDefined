@@ -1,0 +1,33 @@
+name: Validate corporate event date and consent protections
+on:
+  pull_request:
+    paths:
+      - 'src/data/corporate-event-dates.ts'
+      - 'src/data/corporate-events.functions.ts'
+      - 'src/routes/corporate-events.lazy.tsx'
+      - 'src/routes/privacy.lazy.tsx'
+      - 'src/components/events/GroupEventPartnerApplication.tsx'
+      - 'scripts/data/validate-corporate-event-consent.mjs'
+      - '.github/workflows/validate-corporate-event-consent.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/data/corporate-event-dates.ts'
+      - 'src/data/corporate-events.functions.ts'
+      - 'src/routes/corporate-events.lazy.tsx'
+      - 'src/routes/privacy.lazy.tsx'
+      - 'src/components/events/GroupEventPartnerApplication.tsx'
+      - 'scripts/data/validate-corporate-event-consent.mjs'
+      - '.github/workflows/validate-corporate-event-consent.yml'
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --experimental-strip-types scripts/data/validate-corporate-event-consent.mjs

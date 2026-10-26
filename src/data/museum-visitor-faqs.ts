@@ -14,6 +14,542 @@ export interface MuseumVisitorFaq {
   reviewed: string;
 }
 export const museumVisitorFaqs: Record<string, MuseumVisitorFaq[]> = {
+  "austin-county-jail-museum-bellville": [
+    {
+      "question": "Is the Austin County Jail Museum in Austin or Bellville?",
+      "answer": "It is in Bellville, Austin County, at 36 South Bell Street, not in the city of Austin. The county's museum listing has this visitor address, while the county administration contact has a separate 1 E Main St address.",
+      "verificationUrl": "https://www.austincounty.com/page/austin.Museum",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.austincounty.com/page/austin.Museum",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-25"
+    },
+    {
+      "question": "What are the public hours and can I visit on a weekday?",
+      "answer": "Austin County government currently posts Saturdays, 11 a.m.–3 p.m., staffed by volunteers. Ordinary daily walk-in access is not published. Call 979-877-5642 or 713-385-7141 before driving, and inquire separately about any group or weekday arrangement.",
+      "verificationUrl": "https://www.austincounty.com/page/austin.Museum",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.austincounty.com/page/austin.Museum",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-25"
+    },
+    {
+      "question": "Is there an admission fee or a timed ticket?",
+      "answer": "The county's current museum page does not clearly specify a general ticket charge or reserved timed-entry system. Ask a volunteer for the current fee or donation policy and any group arrangements before traveling; don't rely on a free-admission assumption.",
+      "verificationUrl": "https://www.austincounty.com/page/austin.Museum",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.austincounty.com/page/austin.Museum",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-25"
+    },
+    {
+      "question": "Why is this jail historic?",
+      "answer": "The brick Austin County Jail opened in 1896, replaced an inadequate predecessor, and served as jail and sheriff's family home until 1982. It is recorded as a Texas historic landmark, with Romanesque Revival turrets, crenellation and arched stone-trimmed windows.",
+      "verificationUrl": "https://atlas.thc.texas.gov/Details/5015000244",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://atlas.thc.texas.gov/Details/5015000244",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-25"
+    },
+    {
+      "question": "Can visitors see the jail's original gallows?",
+      "answer": "No. The Texas Historical Commission historical marker records a single gallows use in 1901 and says that the gallows were removed. Visitors should expect interpretive history, not a surviving working execution structure.",
+      "verificationUrl": "https://atlas.thc.texas.gov/Details/5015000244",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://atlas.thc.texas.gov/Details/5015000244",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-25"
+    },
+    {
+      "question": "Does the museum have accessible entrance routes and bathrooms?",
+      "answer": "The preserved multi-story 1896 jail includes historic stairs and cells, and the operator has not posted a complete verified wheelchair route or restroom inventory. Ask volunteers which entrances, floors and restrooms accommodate your particular needs before arriving.",
+      "verificationUrl": "https://www.austincounty.com/page/austin.Museum",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.austincounty.com/page/austin.Museum",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-25"
+    },
+    {
+      "question": "How long should I plan for a visit?",
+      "answer": "About 45–75 minutes is a flexible travel-planning estimate for a small historic jail museum, not an official guaranteed tour duration. Staffing, guided interpretation, the historic areas available and visitor interest can change the time required.",
+      "verificationUrl": "https://business.bellville.com/list/member/austin-county-jail-museum-2116",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://business.bellville.com/list/member/austin-county-jail-museum-2116",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-25"
+    },
+    {
+      "question": "Is the museum suitable for families and school groups?",
+      "answer": "The jail can support age-appropriate learning about county government, architecture and the way sheriffs' families lived. Historic stairs and sensitive incarceration/execution history call for adult supervision and suitable interpretation; arrange groups with the operator.",
+      "verificationUrl": "https://www.austincounty.com/page/austin.Museum",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.austincounty.com/page/austin.Museum",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-25"
+    },
+    {
+      "question": "What other historic places can I combine with the museum?",
+      "answer": "Bellville's courthouse square is a short walk from the jail, with independent historic buildings and markers. For a longer Austin County route, compare San Felipe de Austin's colonial history, but confirm its separate visitor timetable and admission.",
+      "verificationUrl": "https://atlas.thc.texas.gov/Details/2080004074",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://atlas.thc.texas.gov/Details/2080004074",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-25"
+    }
+  ],
+  "barrington-living-history-farm": [
+    {
+      "question": "When can I tour Barrington Living History Farm rather than just the grounds?",
+      "answer": "The Texas Historical Commission currently posts farm and townsite visits on Wednesday through Sunday, 10 a.m. to 4:30 p.m. Visitor-center and general grounds access on Monday or Tuesday does not mean the farm buildings and interpreters are open. Confirm holidays or weather closures before setting out.",
+      "verificationUrl": "https://thc.texas.gov/historic-sites/barrington-living-history-farm",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thc.texas.gov/historic-sites/barrington-living-history-farm",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "What are the current adult and family ticket prices at Barrington?",
+      "answer": "The operator lists standard admission at $10 for adults, $6 for visitors aged 6 to 17 and free for children five and under; discount categories cost $8. A family option for two adults and one child is $22 plus $1 for each additional child. Group rates and program tickets have different conditions.",
+      "verificationUrl": "https://thc.texas.gov/historic-sites/washington-brazos",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thc.texas.gov/historic-sites/washington-brazos",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Is Anson Jones's home original or rebuilt for the museum?",
+      "answer": "The Jones house is a surviving historical structure associated with his residence, but other farm buildings and enslaved-quarters displays have been reconstructed as an interpretive 1850s landscape. Visitors should distinguish actual surviving material from structures based on historical research instead of calling every cabin original.",
+      "verificationUrl": "https://thc.texas.gov/state-historic-sites/barrington-living-history-farm/barrington-living-history-farm-history",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thc.texas.gov/state-historic-sites/barrington-living-history-farm/barrington-living-history-farm-history",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Does Barrington tell the stories of the people held in slavery there?",
+      "answer": "The Texas Historical Commission interprets the cotton farm's enslaved residents, work routines and living quarters using Jones-era records, not merely the biography of the final Republic president. The kitchen, quarters, crops and household must be understood in the context of labor coerced from enslaved people.",
+      "verificationUrl": "https://thc.texas.gov/state-historic-sites/barrington-living-history-farm/barrington-living-history-farm-history",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thc.texas.gov/state-historic-sites/barrington-living-history-farm/barrington-living-history-farm-history",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Are Barrington's farm paths and buildings all wheelchair accessible?",
+      "answer": "The historical landscape includes outdoor dirt paths, and some tours involve stairs or historic thresholds. The Texas Historical Commission asks group organizers to identify ramp requirements before arrival. Contact visitor staff at 936-878-2214 for precise current access; online descriptions do not establish that every building is barrier-free.",
+      "verificationUrl": "https://thc.texas.gov/washington-brazos-complex/plan-your-visit-washington-brazos",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thc.texas.gov/washington-brazos-complex/plan-your-visit-washington-brazos",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "How early should a group schedule a tour of Barrington?",
+      "answer": "The Texas Historical Commission advises reserving adult groups about four weeks ahead and arranging payment a week before the visit. Ask explicitly for the farm and tell staff about mobility requirements. The published adult-group price differs from normal family and child admission, so do not assume a drop-in group receives the same program.",
+      "verificationUrl": "https://thc.texas.gov/washington-brazos-complex/plan-your-visit-washington-brazos",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thc.texas.gov/washington-brazos-complex/plan-your-visit-washington-brazos",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Are all farm and livestock demonstrations shown every day?",
+      "answer": "Period cooking, field work, livestock care and other demonstrations follow the farm's agricultural calendar, staff and weather. The operator does not promise every activity at a fixed hourly schedule, so visitors should confirm an advertised event if a specific demonstration is essential to their trip.",
+      "verificationUrl": "https://thc.texas.gov/historic-sites/barrington-living-history-farm",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thc.texas.gov/historic-sites/barrington-living-history-farm",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Do Barrington tours continue when thunderstorms approach?",
+      "answer": "The Texas Historical Commission says Barrington's outdoor visits close for thunder or lightning within eight miles and resume only after an appropriate clear period. Farm access is therefore not guaranteed merely because the visitor center is open; check actual site alerts on stormy days.",
+      "verificationUrl": "https://thc.texas.gov/washington-brazos-complex/plan-your-visit-washington-brazos",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://thc.texas.gov/washington-brazos-complex/plan-your-visit-washington-brazos",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    }
+  ],
+  "bastrop-county-museum-visitor-center": [
+    {
+      "question": "Where is the Bastrop County Museum and Visitor Center located?",
+      "answer": "The historical society's museum and visitor-center desk occupy 904 Main Street, Bastrop, Texas 78602. The organization moved its collections to this downtown site in 2011. Call 512-303-0904 for current entry assistance or accessibility information.",
+      "verificationUrl": "https://www.bastropcountyhistoricalsociety.com/museum",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.bastropcountyhistoricalsociety.com/museum",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Is the Bastrop County Museum open on Sunday?",
+      "answer": "Dedicated museum hours and FAQ pages list Monday through Saturday, 10 a.m. to 5 p.m., last entry 4:30 p.m. But the same operator's homepage footer lists Sunday 11 a.m. to 3 p.m. Since its own official schedules disagree, call 512-303-0904 before planning any Sunday visit.",
+      "verificationUrl": "https://www.bastropcountyhistoricalsociety.com/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.bastropcountyhistoricalsociety.com/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "What does the Bastrop County Museum charge for a regular visit?",
+      "answer": "The operator currently lists general admission at $8, with children ages 12 and under, active military and veterans admitted free. Members enter free and eligible EBT cardholder families may access a $5 Museums for All family rate. Confirm eligibility and current terms on the official admission page.",
+      "verificationUrl": "https://www.bastropcountyhistoricalsociety.com/coming-soon-03-3",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.bastropcountyhistoricalsociety.com/coming-soon-03-3",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "How much time should I set aside for Bastrop's museum galleries?",
+      "answer": "The historical society's visitor FAQ estimates about 30 minutes to one hour for the museum itself, depending on how closely visitors read its permanent and changing exhibits. Time spent at the separate visitor desk or walking downtown is additional; arrive before the 4:30 p.m. last-admission cutoff.",
+      "verificationUrl": "https://www.bastropcountyhistoricalsociety.com/coming-soon-03-4",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.bastropcountyhistoricalsociety.com/coming-soon-03-4",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Does the museum visitor center also provide county travel advice?",
+      "answer": "Yes. The historical society operates a local tourist information desk in the same building as its historical exhibits, with staff providing maps and advice about Bastrop's downtown, attractions and local history. A ticket to the museum does not include admission to independently managed outdoor sites.",
+      "verificationUrl": "https://www.bastropcountyhistoricalsociety.com/coming-soon-03-1",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.bastropcountyhistoricalsociety.com/coming-soon-03-1",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Is public parking available near the museum on Main Street?",
+      "answer": "The museum's posted directions identify free public parking along Main Street and nearby side streets in downtown Bastrop. A parking description does not guarantee an open accessible space; check curb signs and call staff for specific step-free entrance or mobility arrangements.",
+      "verificationUrl": "https://www.bastropcountyhistoricalsociety.com/coming-soon-03-2",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.bastropcountyhistoricalsociety.com/coming-soon-03-2",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Can I just walk into the Bastrop County research archive?",
+      "answer": "For research on Bastrop genealogy or county records, the operator asks visitors to make an appointment so staff can prepare appropriate assistance. A regular public gallery visit is distinct from unsupervised access to its archive, so researchers should submit specific topics before traveling.",
+      "verificationUrl": "https://www.bastropcountyhistoricalsociety.com/resources",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.bastropcountyhistoricalsociety.com/resources",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Can I bring pets or food into the Bastrop museum exhibits?",
+      "answer": "The museum's published visitor FAQ states that only service animals are permitted inside the museum and that food and drinks may be consumed in the visitor-center area, not near exhibit collections. Ask staff about any additional accommodation or school-group arrangements.",
+      "verificationUrl": "https://www.bastropcountyhistoricalsociety.com/coming-soon-03-4",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.bastropcountyhistoricalsociety.com/coming-soon-03-4",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    }
+  ],
+  "baytown-historical-museum": [
+    {
+      "question": "Where is Baytown Historical Museum, and what is the building?",
+      "answer": "The museum is at 220 West Defee Street in Baytown, Harris County. It occupies the former Goose Creek federal post office dating to 1936–37, rather than a modern museum campus.",
+      "verificationUrl": "https://www.visitbaytown.com/arts-culture",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.visitbaytown.com/arts-culture",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "When is Baytown Historical Museum open?",
+      "answer": "Baytown's official tourism bureau lists Tuesday–Saturday, 10 a.m.–2 p.m. Other local directories display Wednesday–Saturday, 10 a.m.–4 p.m. Because public schedules conflict, telephone 281-427-8768 for the date you intend to visit instead of relying on an open-now badge.",
+      "verificationUrl": "https://www.visitbaytown.com/arts-culture",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.visitbaytown.com/arts-culture",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Does Baytown Historical Museum charge admission?",
+      "answer": "The City of Baytown's tourism listing advertises free general museum admission. Do not assume that group programs, special events or nearby independent attractions share identical policies; confirm those before booking.",
+      "verificationUrl": "https://www.visitbaytown.com/arts-culture",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.visitbaytown.com/arts-culture",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "What is inside Baytown Historical Museum?",
+      "answer": "The city describes local-history exhibits from the Karankawa through the regional oil boom. Building interpretation also covers the former Goose Creek Post Office and its WPA-era artwork, with wider local context for Goose Creek, Pelly and Baytown.",
+      "verificationUrl": "https://www.visitbaytown.com/arts-culture",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.visitbaytown.com/arts-culture",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Why is a former post office used as the museum?",
+      "answer": "The Louis A. Simon-designed federal building served as a post office until 1985, after which it became the museum's home. Texas historical heritage materials describe the early International Style architecture and interior mural by Philip Parisi.",
+      "verificationUrl": "https://texastimetravel.com/directory/baytown-historical-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://texastimetravel.com/directory/baytown-historical-museum/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Is the museum accessible to wheelchair users?",
+      "answer": "The historic building has front entrance steps, but the published visitor listing does not establish whether an alternate step-free entrance, lift, restroom and parking route are available. Call staff at 281-427-8768 for a specific accessibility plan; do not infer lack of any accessible entrance solely from a photograph.",
+      "verificationUrl": "https://www.visitbaytown.com/arts-culture",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.visitbaytown.com/arts-culture",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "How much time should I allow and is it suitable for children?",
+      "answer": "As a small community museum, a flexible 45–75-minute stop is a planning estimate, not an operator-guaranteed visit length. The historical displays can be interesting for families; ask directly about school groups, age-appropriate programs, holiday access and hands-on activities.",
+      "verificationUrl": "https://www.visitbaytown.com/arts-culture",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.visitbaytown.com/arts-culture",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "What can I combine with a museum visit in Baytown?",
+      "answer": "After confirming admission and hours, explore Baytown's downtown Arts District or other Harris County history sites as separate stops. Travel time, ticket rules and operating hours vary by venue; consult each operator rather than assuming the museum offers a combined ticket.",
+      "verificationUrl": "https://www.visitbaytown.com/arts-culture",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.visitbaytown.com/arts-culture",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Who photographed the museum building, and may TexasDefined reuse it?",
+      "answer": "Jim Evans photographed the actual former Baytown post office on October 29, 2020. The original Wikimedia Commons file is licensed CC BY-SA 4.0, requiring photographer credit, a link to the license and compliance with share-alike terms for adaptations.",
+      "verificationUrl": "https://commons.wikimedia.org/wiki/File:Old_Baytown_Post_Office.jpg",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://commons.wikimedia.org/wiki/File:Old_Baytown_Post_Office.jpg",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    }
+  ],
+  "bayou-bend-collection-gardens": [
+    {
+      "question": "Where is Bayou Bend, and is it part of MFAH's downtown campus?",
+      "answer": "Bayou Bend is the Museum of Fine Arts, Houston's separate house museum and gardens at 6003 Memorial Drive in River Oaks. It is not one of the main galleries on the MFAH Museum District campus. Begin at the Lora Jean Kilroy Visitor and Education Center and use the Bayou Bend ticket rather than assuming a main-campus admission covers both.",
+      "verificationUrl": "https://www.mfah.org/visit/bayou-bend",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.mfah.org/visit/bayou-bend",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "What days and times is Bayou Bend open?",
+      "answer": "MFAH currently lists Wednesday through Saturday 10 a.m. to 5 p.m., Sunday 1 to 5 p.m., with last admission at 4 p.m.; Monday and Tuesday are closed. An older version of its Bayou Bend page advertised noon opening on Wednesday, so confirm the live official day-specific page before traveling.",
+      "verificationUrl": "https://www.mfah.org/visit/bayou-bend",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.mfah.org/visit/bayou-bend",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "How much are Bayou Bend house-and-garden tickets?",
+      "answer": "The operator currently lists adults at $14; students with identification, seniors and teens 13–18 at $12; children 12 and under, active U.S. military and MFAH members are free. These figures cover ordinary house-and-garden admission and may differ from garden-only admission, special programs or the separate MFAH main campus.",
+      "verificationUrl": "https://www.mfah.org/visit/bayou-bend",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.mfah.org/visit/bayou-bend",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Must I reserve an ordinary self-guided house visit in advance?",
+      "answer": "MFAH's operator tours page states that the self-guided house tour is included in admission and does not require a reservation. Guided Highlights Tours run about one hour and Study Tours about ninety minutes, with availability depending on date and staff. Buy tickets directly with the operator for a planned docent experience.",
+      "verificationUrl": "https://www.mfah.org/visit/bayou-bend/tours",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.mfah.org/visit/bayou-bend/tours",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Can a wheelchair user visit Bayou Bend's second floor and gardens?",
+      "answer": "MFAH expressly reports that the historic house's second floor is inaccessible to wheelchair and walker users, and that much of the gardens have difficult terrain and stairs. The wheelchair-accessible property entrance differs from the main route. Call 713-639-7750 to coordinate directions, accessible areas and alternative ways to experience the collection.",
+      "verificationUrl": "https://www.mfah.org/visit/accessibility-resources/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.mfah.org/visit/accessibility-resources/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "What makes the collection different from a traditional art museum?",
+      "answer": "Bayou Bend's collection of more than 2,500 American decorative-art objects is installed through 28 rooms and galleries inside Ima Hogg's former home. The operator describes objects made or used in the United States from 1620 to 1876, including furniture, paintings, silver, glass, ceramics and textiles. These reconstructed period settings are interpretive rather than untouched family interiors.",
+      "verificationUrl": "https://www.mfah.org/visit/bayou-bend/collection",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.mfah.org/visit/bayou-bend/collection",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "How far ahead must a group of twelve or more book Bayou Bend?",
+      "answer": "The museum offers guided and self-guided group packages for groups of twelve or more and asks for a reservation at least two weeks in advance for group discounts and availability. Special lectures or visitor-center receptions carry separate charges. Call group tours at 713-639-7758 and disclose any mobility accommodation needs.",
+      "verificationUrl": "https://www.mfah.org/visit/bayou-bend/tours",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.mfah.org/visit/bayou-bend/tours",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Can I take photos in Bayou Bend house and gardens?",
+      "answer": "Personal visitor photography is encouraged under the museum's rules, but tripods, selfie sticks, monopods, external flash, props and drones are not permitted, and commercial or posed photo sessions require advance arrangements and fees. Copyright and artwork-reproduction permissions are distinct from the right to take personal pictures during a visit.",
+      "verificationUrl": "https://www.mfah.org/visit/bayou-bend/photography-guidelines",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.mfah.org/visit/bayou-bend/photography-guidelines",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    }
+  ],
+  "austin-history-center-austin": [
+    {
+      "question": "Where is the Austin History Center located now?",
+      "answer": "As of the 2025 move, the Austin History Center is inside the John Henry Faulk Building at 800 Guadalupe Street, not the original history center building at 810 Guadalupe. The Austin Public Library says the first floor holds exhibits and the second floor contains the Reading Room and meeting space. Use the 800 Guadalupe entrance for current public services.",
+      "verificationUrl": "https://library.austintexas.gov/austin-history-center",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://library.austintexas.gov/austin-history-center",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "When can I visit the Austin History Center in 2026?",
+      "answer": "The official Faulk Building listing posts public hours Wednesday through Saturday, noon to 5 p.m., with Sunday, Monday and Tuesday closed. This is the historical collections facility, not the Austin Public Library Central Library downtown at 710 W Cesar Chavez. Holidays and temporary exhibition arrangements can change; verify the operator's current listing.",
+      "verificationUrl": "https://library.austintexas.gov/austin-history-center",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://library.austintexas.gov/austin-history-center",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Do I need an appointment to use the Austin History Center Reading Room?",
+      "answer": "The operator explicitly says no appointment is needed for ordinary Reading Room access during open hours. An important exception applies to unappraised City records and photographs stored in cold storage: contact the archive at least two weeks ahead so staff can prepare those materials. Large research projects may need repeated visits.",
+      "verificationUrl": "https://library.austintexas.gov/ahc/plan-your-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://library.austintexas.gov/ahc/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "What must I do before examining original archival materials?",
+      "answer": "Sign in at the desk, leave bags and cases in provided lockers, use pencils rather than pens, and request original materials with staff assistance. The Reading Room allows a limited number of loose notes and silent cameras or laptops. Archival materials remain onsite and cannot be borrowed or checked out like circulating library books.",
+      "verificationUrl": "https://library.austintexas.gov/ahc/plan-your-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://library.austintexas.gov/ahc/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Can I visit with children or a school group?",
+      "answer": "The Austin History Center welcomes children in the Reading Room when they are supervised and quiet enough to protect fragile records and allow others to study. Exhibits may be easier for younger visitors than a long archival research session. Ask the city's staff about school-group experiences and any dedicated programs rather than assuming unguided group access.",
+      "verificationUrl": "https://library.austintexas.gov/ahc/plan-your-visit",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://library.austintexas.gov/ahc/plan-your-visit",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Are there public exhibits, or is the center only an archive?",
+      "answer": "The public Faulk Building has exhibit space on the first floor and archive consultation on the second. In October 2026, the library features In Circulation: A Century of the Austin Public Library, an exhibition scheduled September 22, 2026 through April 22, 2027. These dates describe a temporary exhibit, not permanent admission hours or a promise every display is always available.",
+      "verificationUrl": "https://library.austintexas.gov/ahc",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://library.austintexas.gov/ahc",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "What collections are useful for researching Austin people or buildings?",
+      "answer": "The archive offers city directories, neighborhood files, historical newspapers, photographs, maps, oral histories, municipal records, genealogy and property research guides. Search the online collections catalogs first, then bring known names, addresses and approximate dates. Research staff can point to materials but do not perform unlimited full investigations for visitors.",
+      "verificationUrl": "https://library.austintexas.gov/ahc/research",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://library.austintexas.gov/ahc/research",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "How do parking and accessibility work at the current history center?",
+      "answer": "Austin Public Library identifies the public facility at 800 Guadalupe Street and historically lists nearby metered street parking and multiple bus routes. Do not confuse access to the Faulk Building with the former 810 Guadalupe site. The operator does not provide a complete public inventory of every wheelchair route and archive assistive setup on the Faulk listing; call 512-974-7480 to confirm arrival and access needs.",
+      "verificationUrl": "https://library.austintexas.gov/austin-history-center",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://library.austintexas.gov/austin-history-center",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    }
+  ],
+  "alley-log-cabin-museum-columbus": [
+    {
+      "question": "Can I visit the Alley Log Cabin without an appointment?",
+      "answer": "Do not assume it operates on daily museum hours. The nonprofit operator specifically asks visitors to arrange tours through the Columbus Chamber of Commerce at 979-732-8385 or info@columbustexas.org. The trust's weekday office hours are not the cabin's public visiting schedule.",
+      "verificationUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Where is the Alley Log Cabin and Antique Tool Museum?",
+      "answer": "The Columbus Historical Preservation Trust gives its museum address as 1230 Bowie Street in Columbus, Colorado County. This is the relocated historic cabin, not Abram Alley's original rural homestead; use the site's address instead of an old marker location or the trust's separate office address.",
+      "verificationUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Is the log cabin itself really from 1836?",
+      "answer": "The operator dates the original two-room oak cabin to 1836. It stood at the family's original site until 1976, when it was moved into Columbus and restored. Some components, roof materials and porches have since been reconstructed, so distinguish the historic structure from later preservation work.",
+      "verificationUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Does the cabin tour include the Antique Tool Museum?",
+      "answer": "The operator presents them together as the Alley Log Cabin and Antique Tool Museum. The separate tool-building opened as a museum in 1996 and displays farming, ranching and blacksmithing implements. Confirm which interiors will be included when arranging a tour, rather than promising unrestricted access.",
+      "verificationUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "How much does a visit to the historic cabin cost?",
+      "answer": "The current operator page does not publish an ordinary walk-in admission price or a universal online ticket. Ask the Columbus Chamber of Commerce about tour arrangements, donation expectations, group minimums and any costs before traveling; do not rely on unrelated attraction directories for pricing.",
+      "verificationUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+      "reviewCycle": "monthly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Is the historic log cabin accessible to wheelchair users?",
+      "answer": "The operator's public description discusses original log construction, a loft stair and restored historic rooms but does not publish a complete wheelchair-route or accessible-restroom inventory. Contact the Columbus Historical Preservation Trust and request a specific explanation of step-free entrances and tour access in advance.",
+      "verificationUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "What is special about the Antique Tool Museum collections?",
+      "answer": "Its displays interpret the tools that supported nineteenth-century Colorado County farms, ranches and trades. The operator names oxen yokes, corn shellers, woodworking equipment, plows and regional barbed wire. These are real working-life objects, rather than a second log cabin or a modern machinery showroom.",
+      "verificationUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-24"
+    },
+    {
+      "question": "Can I combine this with other Columbus historic buildings?",
+      "answer": "Yes, the historic Columbus area has other preservation-trust properties such as the Stafford Opera House and the Dilue Rose Harris House, but each may have its own tour or event arrangements. Confirm separate access with the trust before planning a multi-property visit; the cabin appointment does not prove adjacent interiors are open.",
+      "verificationUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+      "questionOrigin": "editorial-research",
+      "questionEvidenceUrl": "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/",
+      "reviewCycle": "quarterly",
+      "reviewed": "2026-10-24"
+    }
+  ],
   "san-angelo-museum-of-fine-arts": [
     {
       "question": "Is the San Angelo Museum of Fine Arts free to visit?",

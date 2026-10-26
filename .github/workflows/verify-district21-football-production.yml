@@ -1,11 +1,8 @@
 name: Verify District 21 football after production deploy
 
 on:
-  workflow_run:
-    workflows:
-      - Deploy TexasDefined production
-    types:
-      - completed
+  # Independent manual diagnostic only. Main production deploy now runs this
+  # nine-page acceptance as a required in-pipeline gate, avoiding duplicate runs.
   workflow_dispatch:
 
 permissions:

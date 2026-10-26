@@ -1,10 +1,15 @@
 import { getGeneratedTexasEvents } from "../events-generated";
 import { loadTicketmasterEventsServer } from "./ticketmaster-events.server";
 import { getOfficialVenueEventSnapshots } from "./official-venue-events.server";
+import { getVerifiedMardiGrasCompanionCalendarEvents2027 } from "./mardi-gras-companion-events-2027.server";
+import { getVerifiedChristmasCommunityEvents2026 } from "./christmas-community-2026.server";
+import { getVerifiedChristmasPerformanceCalendarRecords2026, isSameChristmasPerformanceCalendarEvent, isReviewedChristmasTicketmasterDoorTime } from "./christmas-performances-2026.server";
+import { loadTpwdEventRecordsServer } from "./tpwd-event-records.server";
 import { loadMajorEventGuideDirectoryServer, type MajorEventGuideDirectoryItem } from "../major-event-directory.server";
-import { getMajorEventRecordServer } from "../major-event-page.server";
+import { getMajorEventRecordServer, getMajorEventOccurrenceWindowsServer } from "../major-event-page.server";
 import {
   getMajorEventSchemaEnrichmentServer,
+  isCompliantMajorEventImage,
   getMajorEventSchemaOccurrenceEnrichmentServer,
   type EventSchemaOffer,
   type MajorEventSchemaEnrichment,
@@ -13,6 +18,8 @@ import { getSportsVenuePhoto } from "../sports-venue-images-all";
 import { resolveSportsVenueEventLink } from "../sports-venue-event-links";
 import type { TexasEvent } from "../types";
 import { mergeEventTicketing } from "./ticketing";
+import { providerForVerifiedTicketUrl } from "./ticket-provider";
+import { ticketmasterVenueMatches, ticketmasterShowtimeMatches } from "./ticketmaster-event-match";
 import {
   selectTexasEventRecords,
   type TexasEventImageMetadata,
@@ -47,10 +54,11 @@ function eventIdentity(name: string, city: string) {
 
 function buildTicketing(offers: EventSchemaOffer[] | undefined, lastVerifiedAt: string, sourceName?: string): TexasEventTicketingMetadata | undefined {
   if (!offers?.length) return undefined;
-  const uniqueTicketUrls = [...new Set(offers.map((offer) => offer.url))];
+  const uniqueTicketUrls = [...new Set(offers.map((offer) => offer.url))].filter((url) => providerForVerifiedTicketUrl(url));
+  if (!uniqueTicketUrls.length) return undefined;
   return {
     links: uniqueTicketUrls.map((url, index) => ({
-      provider: "official",
+      provider: providerForVerifiedTicketUrl(url) ?? "official",
       officialTicketUrl: url,
       saleStatus: "unknown",
       source: {
@@ -61,18 +69,27 @@ function buildTicketing(offers: EventSchemaOffer[] | undefined, lastVerifiedAt: 
       lastVerifiedAt,
       priority: index,
     })),
-    offers: offers.map((offer) => ({ name: offer.name, url: offer.url, price: offer.price, priceCurrency: offer.priceCurrency })),
+    offers: offers.filter((offer) => providerForVerifiedTicketUrl(offer.url))
+      .map((offer) => ({ name: offer.name, url: offer.url, price: offer.price, priceCurrency: offer.priceCurrency })),
   };
 }
 
 function buildEventImage(enrichment: MajorEventSchemaEnrichment | null): TexasEventImageMetadata | undefined {
   if (!enrichment?.image) return undefined;
+  // Authority-page imagery already passes the event source/rights/exact-location
+  // validator. Reuse the SAME decision for calendar and carousel cards; neither
+  // blindly suppress approved imagery nor infer permission from an image URL.
+  const image = enrichment.image;
+  const approved = isCompliantMajorEventImage(image);
   return {
-    url: enrichment.image.url,
-    alt: enrichment.image.alt,
-    sourceUrl: enrichment.image.sourceUrl,
-    rightsStatus: "unknown",
-    displayAllowed: false,
+    url: image.url,
+    alt: image.alt,
+    sourceUrl: image.sourceUrl,
+    rightsStatus: approved ? "verified-reusable" : "unknown",
+    licenseName: approved ? image.licenseName : undefined,
+    licenseUrl: approved ? image.licenseUrl : undefined,
+    credit: approved ? image.rightsNote : undefined,
+    displayAllowed: approved,
   };
 }
 
@@ -154,7 +171,14 @@ export function loadTexasEventRecordsServer(): TexasEventRecord[] {
     if (record) records.push(record);
   }
 
+  // These destination guides are indexable, but have non-contiguous ticketed
+  // operating nights. The separate community occurrence records below are the
+  // authoritative day-by-day calendar; never fill in the closed nights between.
+  const occurrenceWindowOnlyGuides = new Set([
+    "grapevine-north-pole-express", "dallas-zoo-lights",
+  ]);
   for (const guide of guides) {
+    if (occurrenceWindowOnlyGuides.has(guide.slug)) continue;
     if (seenGuides.has(guide.slug)) continue;
     const authority = getMajorEventRecordServer(guide.slug);
     const officialUrl = authority?.officialUrl;
@@ -178,6 +202,59 @@ export function loadTexasEventRecordsServer(): TexasEventRecord[] {
     if (record) records.push(record);
   }
 
+  // A season envelope is NOT evidence of operation every day inside it.
+  // Expand sourced multi-window seasonal authorities into their exact
+  // date windows before the shared calendar counts days or accepts tickets.
+  // This also fixes Main Street Bethlehem's two discrete December weekends.
+  const windowScopedRecords = records.flatMap((record) => {
+    if (record.category !== "seasonal") return [record];
+    const authority = getMajorEventRecordServer(record.slug);
+    if (!authority) return [record];
+    const windows = getMajorEventOccurrenceWindowsServer(authority);
+    if (windows.length <= 1) return [record];
+    return windows.map((window, index) => ({
+      ...record,
+      id: `${record.id}:verified-window-${index + 1}`,
+      startDate: window.startDate,
+      endDate: window.endDate,
+      // A single scheduled event time must never be projected onto every
+      // holiday date window, where the operating hours can be different.
+      startTime: undefined,
+    }));
+  });
+  records.splice(0, records.length, ...windowScopedRecords);
+
+  // Small-town and community holiday attractions use the same verified,
+  // date-scoped calendar pipeline as major event guides. These are calendar
+  // occurrences, not thin automatically generated authority pages.
+  const knownCommunity = new Set(records.map((record) => `${eventIdentity(record.title, record.city)}:${record.startDate}`));
+  // These attractions already have a single continuous-season authority record.
+  // Do not show a duplicate ticketed attraction from the calendar-first intake.
+  const authorityCoveredCommunity = new Set([
+    "johnson-city-lights-spectacular",
+    "grand-prairie-prairie-lights",
+    "moody-gardens-holiday-lights-trail",
+  ]);
+  for (const holiday of getVerifiedChristmasCommunityEvents2026()) {
+    if (authorityCoveredCommunity.has(holiday.slug)) continue;
+    const key = `${eventIdentity(holiday.title, holiday.city)}:${holiday.startDate}`;
+    if (knownCommunity.has(key)) continue;
+    records.push(holiday);
+    knownCommunity.add(key);
+  }
+
+  // Small Mardi Gras galas/cookoffs are individually dated calendar records,
+  // not additional town festival guides or automatically generated photo pages.
+  // Keep exact identity/date deduplication ahead of official venue and ticket providers.
+  const knownCompanions = new Set(records.map((record) =>
+    `${eventIdentity(record.title, record.city)}:${record.startDate}`));
+  for (const companion of getVerifiedMardiGrasCompanionCalendarEvents2027()) {
+    const key = `${eventIdentity(companion.title, companion.city)}:${companion.startDate}`;
+    if (knownCompanions.has(key)) continue;
+    records.push(companion);
+    knownCompanions.add(key);
+  }
+
   // Curated primary-source event snapshots fill documented gaps in the
   // statewide registry. Avoid duplicates when other ingestion catches up.
   const knownEvents = new Set(records.map((record) =>
@@ -190,15 +267,77 @@ export function loadTexasEventRecordsServer(): TexasEventRecord[] {
     }
   }
 
+  // Make every curated Christmas stage/concert listing independently findable
+  // on the statewide /events calendar, not only on the holiday authority hub.
+  // Reconcile with existing authorities/venue imports BEFORE Ticketmaster so
+  // providers can enrich the editorial record instead of displaying duplicates.
+  const christmasPerformances = getVerifiedChristmasPerformanceCalendarRecords2026();
+  for (const performance of christmasPerformances) {
+    const index = records.findIndex((record) =>
+      isSameChristmasPerformanceCalendarEvent(performance, record));
+    if (index === -1) {
+      records.push(performance);
+    } else {
+      records[index] = {
+        ...records[index],
+        ticketing: mergeEventTicketing(records[index].ticketing, performance.ticketing),
+        lastVerifiedAt: [records[index].lastVerifiedAt, performance.lastVerifiedAt].sort().at(-1)!,
+        lastUpdatedAt: [records[index].lastUpdatedAt, performance.lastUpdatedAt].sort().at(-1)!,
+      };
+    }
+  }
+
+  // TPWD activities live inside the shared calendar and on known park destinations.
+  // These short-lived factual links never create thin standalone event routes.
+  const knownActivities = new Set(records.map(record =>
+    `${eventIdentity(record.title, record.city)}:${record.startDate}:${record.venueId ?? ""}`));
+  for (const activity of loadTpwdEventRecordsServer()) {
+    const key = `${eventIdentity(activity.title, activity.city)}:${activity.startDate}:${activity.venueId ?? ""}`;
+    if (knownActivities.has(key)) continue;
+    records.push(activity);
+    knownActivities.add(key);
+  }
+
   // Preserve the reviewed editorial record when Ticketmaster has the same event,
   // but merge its current affiliate ticketing so richer authority coverage does not
   // suppress monetizable provider inventory.
-  const existing = new Map(records.map((record, index) => [`${eventIdentity(record.title, record.city)}:${record.startDate}`, index] as const));
-  for (const providerRecord of loadTicketmasterEventsServer()) {
+  const existing = new Map<string, number[]>();
+  const remember = (key: string, index: number) => {
+    const candidates = existing.get(key) ?? [];
+    candidates.push(index);
+    existing.set(key, candidates);
+  };
+  records.forEach((record, index) =>
+    remember(`${eventIdentity(record.title, record.city)}:${record.startDate}`, index));
+  const providerRecords = loadTicketmasterEventsServer();
+  const providersByTitleAndDate = new Map<string, TexasEventRecord[]>();
+  for (const providerRecord of providerRecords) {
     const key = `${eventIdentity(providerRecord.title, providerRecord.city)}:${providerRecord.startDate}`;
-    const index = existing.get(key);
-    if (index === undefined) {
-      existing.set(key, records.length);
+    const group = providersByTitleAndDate.get(key) ?? [];
+    group.push(providerRecord);
+    providersByTitleAndDate.set(key, group);
+  }
+  for (const providerRecord of providerRecords) {
+    const key = `${eventIdentity(providerRecord.title, providerRecord.city)}:${providerRecord.startDate}`;
+    const sameVenueProviderCount = (providersByTitleAndDate.get(key) ?? []).filter((other) =>
+      ticketmasterVenueMatches(other, providerRecord)).length;
+    const performanceMatches = (editorial: TexasEventRecord) =>
+      ticketmasterVenueMatches(editorial, providerRecord)
+      && ticketmasterShowtimeMatches(editorial, providerRecord, sameVenueProviderCount);
+    const exactIndex = (existing.get(key) ?? []).find((candidate) =>
+      performanceMatches(records[candidate]));
+    const curatedMatch = christmasPerformances.find((performance) =>
+      isSameChristmasPerformanceCalendarEvent(performance, providerRecord));
+    const curatedIndex = curatedMatch
+      ? records.findIndex((record) => isSameChristmasPerformanceCalendarEvent(curatedMatch, record)
+        && ticketmasterVenueMatches(record, providerRecord)
+        && (ticketmasterShowtimeMatches(record, providerRecord, sameVenueProviderCount)
+          || (record.id === curatedMatch.id
+            && isReviewedChristmasTicketmasterDoorTime(record, providerRecord, sameVenueProviderCount))))
+      : -1;
+    const index = exactIndex ?? curatedIndex;
+    if (index === -1 || index === undefined) {
+      remember(key, records.length);
       records.push(providerRecord);
       continue;
     }

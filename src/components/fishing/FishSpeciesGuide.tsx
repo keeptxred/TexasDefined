@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
+import { FishingMerchSpotlight } from "@/components/fishing/FishingMerchSpotlight";
 import type { loadLargemouthBassPageDataServer } from "@/data/fishing/largemouth-bass-page-data.server";
 
 type PageData = Awaited<ReturnType<typeof loadLargemouthBassPageDataServer>>;
@@ -31,6 +32,7 @@ export function FishSpeciesGuide({ pageData }: { pageData: PageData }) {
           <p className="eyebrow text-ink-foreground/70">Texas species fishing guide</p>
           <h1 className="mt-4 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">Largemouth Bass Fishing in Texas</h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-ink-foreground/82">{species.summary}</p>
+          <a href="/shop/fishing-shirts" className="mt-5 inline-block border-b border-ink-foreground/50 pb-1 text-sm font-semibold text-ink-foreground/85 hover:text-ink-foreground">Browse Texas fishing shirts →</a>
           <dl className="mt-8 grid max-w-4xl gap-5 border-t border-ink-foreground/20 pt-6 text-sm sm:grid-cols-3">
             <div><dt className="eyebrow text-ink-foreground/55">Scientific name</dt><dd className="mt-2 text-ink-foreground">{species.scientificName}</dd></div>
             <div><dt className="eyebrow text-ink-foreground/55">Texas regions represented</dt><dd className="mt-2 text-ink-foreground">{regions.length ? regions.map((row) => row.replaceAll("-", " ")).join(", ") : "Statewide"}</dd></div>
@@ -54,6 +56,7 @@ export function FishSpeciesGuide({ pageData }: { pageData: PageData }) {
             <p className="eyebrow text-primary">Official source</p>
             <p className="mt-3 text-sm leading-7 text-muted-foreground">Core biology and statewide identity are anchored to the Texas Parks & Wildlife Department species fact sheet.</p>
             <a href={profile.sources[0].url} target="_blank" rel="noreferrer noopener" className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">TPWD largemouth bass fact sheet →</a>
+            <FishingMerchSpotlight speciesName={species.commonName} compact />
           </aside>
         </section>
 

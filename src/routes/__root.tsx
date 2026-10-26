@@ -23,7 +23,7 @@ const ErrorScreen = lazy(() => import("@/components/RouteStatusScreens").then((m
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 const defaultSocialImage = absoluteUrl(texasDefinedBrand, heroHillCountry);
-const defaultSocialImageAlt = "Texas Hill Country landscape at golden hour";
+const defaultSocialImageAlt = "Hill Country landscape";
 const iconVersion = "20261010";
 const googleTagManagerId = "GTM-5DK7GCGV";
 const googleTagManagerHosts = JSON.stringify(TEXASDEFINED_ANALYTICS_HOSTS);
@@ -32,13 +32,13 @@ function GoogleTagManagerHead() {
   return (
     <script
       dangerouslySetInnerHTML={{
-        __html: `(function(w,d,h){var n=w.navigator||{};if(n.webdriver===true||/HeadlessChrome|Lighthouse|PageSpeed|TexasDefined-[^ ]*Smoke/i.test(n.userAgent||'')||!h.includes(w.location.hostname.toLowerCase()))return;w.dataLayer=w.dataLayer||[];w.dataLayer.push({'gtm.start':Date.now(),event:'gtm.js'});var j=d.createElement('script');j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id=${googleTagManagerId}';d.head.appendChild(j);})(window,document,${googleTagManagerHosts});`,
+        __html: `(function(w,h){var n=w.navigator;if(n.webdriver===true||/HeadlessChrome|Lighthouse|PageSpeed|TexasDefined-[^ ]*Smoke/i.test(n.userAgent)||!h.includes(w.location.hostname.toLowerCase()))return;(w.dataLayer||=[]).push({'gtm.start':Date.now(),event:'gtm.js'});var s=document.createElement('script');s.src='https://www.googletagmanager.com/gtm.js?id=${googleTagManagerId}';document.head.append(s)})(window,${googleTagManagerHosts});`,
       }}
     />
   );
 }
 
-const statusFallback = <div className="flex min-h-[35vh] items-center justify-center px-6 py-16 text-sm text-muted-foreground" role="status">Loading page…</div>;
+const statusFallback = <div className="flex min-h-[35vh] items-center justify-center px-6 py-16 text-sm text-muted-foreground" role="status">Loading</div>;
 
 function NotFoundComponent() {
   return <Suspense fallback={statusFallback}><NotFoundScreen /></Suspense>;
@@ -58,7 +58,13 @@ function HeaderFallback() {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  head: () => ({
+  head: () => {
+    const { identity, seo } = texasDefinedBrand;
+    const displayName = identity.name;
+    const defaultTitle = seo.defaultTitle;
+    const defaultDescription = seo.defaultDescription;
+    const logoUrl = `${siteUrl}/texasdefined-logo.svg`;
+    return ({
     meta: [
       // Impact requires its supplied `value` attribute, rather than `content`.
       { name: "impact-site-verification", value: "d1f89af4-8caa-4bd5-a24f-52a8aa74022b" },
@@ -66,22 +72,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "google-adsense-account", content: "ca-pub-1891256141359926" },
       { name: "msvalidate.01", content: "74E5E79AEC351CF6D2577A6FC6A125DF" },
-      { title: texasDefinedBrand.seo.defaultTitle },
-      { name: "description", content: texasDefinedBrand.seo.defaultDescription },
-      { name: "author", content: texasDefinedBrand.identity.name },
-      { property: "og:title", content: texasDefinedBrand.seo.defaultTitle },
-      { property: "og:description", content: texasDefinedBrand.seo.defaultDescription },
-      { property: "og:site_name", content: texasDefinedBrand.identity.name },
+      { title: defaultTitle },
+      { name: "description", content: defaultDescription },
+      { name: "author", content: displayName },
+      { property: "og:title", content: defaultTitle },
+      { property: "og:description", content: defaultDescription },
+      { property: "og:site_name", content: displayName },
       { property: "og:type", content: "website" },
-      { property: "og:locale", content: texasDefinedBrand.identity.locale.replace("-", "_") },
+      { property: "og:locale", content: identity.locale.replace("-", "_") },
       { property: "og:image", content: defaultSocialImage },
       { property: "og:image:alt", content: defaultSocialImageAlt },
+      // Twitter cards fall back to the equivalent Open Graph title, description and image alt.
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: texasDefinedBrand.seo.defaultTitle },
-      { name: "twitter:description", content: texasDefinedBrand.seo.defaultDescription },
       { name: "twitter:image", content: defaultSocialImage },
-      { name: "twitter:image:alt", content: defaultSocialImageAlt },
-      { name: "twitter:site", content: texasDefinedBrand.seo.twitterSite ?? "" },
+      { name: "twitter:site", content: seo.twitterSite ?? "" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -99,20 +103,19 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           {
             "@type": "Organization",
             "@id": `${siteUrl}/#organization`,
-            name: texasDefinedBrand.identity.name,
+            name: displayName,
             alternateName: "TexasDefined",
             url: siteUrl,
-            description: texasDefinedBrand.seo.defaultDescription,
+            description: defaultDescription,
             logo: {
               "@type": "ImageObject",
               "@id": `${siteUrl}/#logo`,
-              url: `${siteUrl}/texasdefined-logo.svg`,
-              contentUrl: `${siteUrl}/texasdefined-logo.svg`,
+              url: logoUrl,
+              contentUrl: logoUrl,
               width: 1825,
               height: 382,
             },
-            image: { "@id": `${siteUrl}/#logo` },
-            sameAs: texasDefinedBrand.identity.social.map((profile) => profile.href),
+            sameAs: identity.social.map((profile) => profile.href),
             contactPoint: [{
               "@type": "ContactPoint",
               contactType: "editorial, corrections and general inquiries",
@@ -120,15 +123,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
             }],
             publishingPrinciples: `${siteUrl}/editorial-policy`,
             areaServed: { "@type": "State", name: "Texas" },
-            knowsAbout: ["Texas travel", "Texas destinations", "Texas lifestyle", "Texas homes", "Texas property", "Texas history", "Texas heritage", "Texas events", "Texas sports", "Texas sports venues", "Texas fishing", "Texas fishing lakes", "Texas freshwater fish"],
+            knowsAbout: ["Texas travel", "Texas history", "Texas events", "Texas sports", "Texas sports venues", "Texas fishing", "Texas fishing lakes", "Texas freshwater fish"],
           },
           {
             "@type": "WebSite",
             "@id": `${siteUrl}/#website`,
-            name: texasDefinedBrand.identity.name,
-            alternateName: "TexasDefined",
+            name: displayName,
             url: siteUrl,
-            description: texasDefinedBrand.seo.defaultDescription,
             inLanguage: texasDefinedBrand.identity.locale,
             publisher: { "@id": `${siteUrl}/#organization` },
             potentialAction: {
@@ -140,7 +141,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         ],
       }),
     }],
-  }),
+    });
+  },
   shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
@@ -165,19 +167,16 @@ function RootComponent() {
     let installed = false;
     let analyticsPromise: Promise<typeof import("@/platform/analytics")> | undefined;
 
-    const loadAnalytics = () => {
-      analyticsPromise ??= import("@/platform/analytics");
-      return analyticsPromise;
-    };
-
     const ensureAnalyticsInstalled = async () => {
-      const analytics = await loadAnalytics();
+      const analytics = await (analyticsPromise ??= import("@/platform/analytics"));
       if (active && !installed) {
         cleanup = analytics.installTexasDefinedAnalytics();
         installed = true;
       }
       return analytics;
     };
+
+    const unbindEarlyClick = () => document.removeEventListener("click", earlyCommercialClick, true);
 
     const earlyCommercialClick = (event: MouseEvent) => {
       if (!active || installed) return;
@@ -188,27 +187,25 @@ function RootComponent() {
       const entityKind = anchor.dataset.commercialPlacement || "unspecified";
       const destination = anchor.href;
       const shouldRecordImpression = anchor.dataset.commercialImpressionRecorded !== "1";
-      if (shouldRecordImpression) anchor.dataset.commercialImpressionRecorded = "1";
+      anchor.dataset.commercialImpressionRecorded = "1";
       const details = { resourceId, entityKind, destination };
       void ensureAnalyticsInstalled().then((analytics) => {
         if (!active) return;
         if (shouldRecordImpression) analytics.trackTexasDefinedOutcome("partner_referral_shown", details);
         analytics.trackTexasDefinedOutcome("partner_referral_clicked", details);
-        document.removeEventListener("click", earlyCommercialClick, true);
+        unbindEarlyClick();
       });
     };
 
     document.addEventListener("click", earlyCommercialClick, true);
     const id = window.setTimeout(() => {
-      void ensureAnalyticsInstalled().then(() => {
-        document.removeEventListener("click", earlyCommercialClick, true);
-      });
+      void ensureAnalyticsInstalled().then(unbindEarlyClick);
     }, 1500);
 
     return () => {
       active = false;
       window.clearTimeout(id);
-      document.removeEventListener("click", earlyCommercialClick, true);
+      unbindEarlyClick();
       cleanup?.();
     };
   }, []);

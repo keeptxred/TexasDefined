@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
+import { readFileSync } from "node:fs";
 
 import { hidalgoPumphouseAuthorityDestinations } from "../hidalgo-pumphouse-authority-destination.ts";
 import { selectMetroProximityAffiliateEvents } from "../metro-proximity-event-selection.ts";
@@ -15,11 +16,13 @@ import {
 import {
   isMetroProximityCollectionIndexReadyWithTownReferences,
   selectMetroProximityTownReferences,
+  METRO_PROXIMITY_TOWN_REFERENCES,
 } from "../metro-proximity-town-references.ts";
 import type { CategorySlug, Destination } from "../types.ts";
 import { applyCuratedDestinationBatch9 } from "../destination-curation-batch9.ts";
 import { applyCuratedDestinationBatch20 } from "../destination-curation-batch20.ts";
 import { MCALLEN_WBC_SITES, MCALLEN_WBC_SOURCES } from "../mcallen-world-birding-center.ts";
+import { CURATED_METRO_DAY_TRIP_SLUGS, curatedMetroDayTrips } from "../metro-day-trip-editorial.ts";
 
 const hero = { src: "/images/test.jpg", alt: "Test place", width: 1200, height: 800 };
 
@@ -58,6 +61,39 @@ test("small-town hour-intent rings are non-overlapping", () => {
   assert.ok(one.minimumMiles < one.radiusMiles);
   assert.ok(two.minimumMiles < two.radiusMiles);
   assert.ok(three.minimumMiles < three.radiusMiles);
+});
+
+
+test("Dallas town pages use independently sourced road time rather than straight-line radius", () => {
+  const dallas = getMetroProximityMetro("dallas")!;
+  const one = getMetroProximityCollection("small-towns-1-hour")!;
+  const two = getMetroProximityCollection("small-towns-2-hours")!;
+  const three = getMetroProximityCollection("small-towns-3-hours")!;
+  const rows = [
+    destination(2001, "small-towns", { slug: "canton", name: "Canton", nearestTown: "Canton", county: "Van Zandt", coordinates: { lat: 32.5565, lng: -95.8633 } }),
+    destination(2002, "small-towns", { slug: "clifton", name: "Clifton", nearestTown: "Clifton", county: "Bosque", coordinates: { lat: 31.7824, lng: -97.5767 } }),
+    destination(2003, "small-towns", { slug: "jefferson", name: "Jefferson", nearestTown: "Jefferson", county: "Marion", coordinates: { lat: 32.7574, lng: -94.3452 } }),
+    destination(2004, "small-towns", { slug: "unresearched-village", name: "Unresearched Village", nearestTown: "Unresearched Village", county: "Example", coordinates: { lat: 32.74, lng: -96.6 } }),
+  ];
+  assert.deepEqual(selectMetroProximityDestinations(rows, dallas, one).map((row) => row.destination.slug), ["canton"]);
+  assert.deepEqual(selectMetroProximityDestinations(rows, dallas, two).map((row) => row.destination.slug), ["clifton"]);
+  assert.deepEqual(selectMetroProximityDestinations(rows, dallas, three).map((row) => row.destination.slug), ["jefferson"]);
+  assert.ok(selectMetroProximityDestinations(rows, dallas, three)[0].distanceMiles > three.radiusMiles, "Jefferson belongs in the road-time band even when beyond the old geographic radius");
+  const close = selectMetroProximityTownReferences(dallas, one);
+  assert.ok(close.length >= 4, "Dallas one-hour page no longer has empty town inventory");
+  assert.ok(new Set(close.map((row) => row.town.county)).size >= 2, "Dallas close-in guide spans multiple counties");
+  const midrange = selectMetroProximityTownReferences(dallas, two);
+  const clifton = midrange.find((row) => row.town.slug === "clifton");
+  assert.ok(clifton, "Clifton has an official source when the full destination catalog is unavailable");
+  assert.ok(clifton.town.officialUrl.startsWith("https://visitclifton.org/"));
+  assert.equal(selectMetroProximityTownReferences(dallas, two, selectMetroProximityDestinations(rows, dallas, two)).some((row) => row.town.slug === "clifton"), false, "Clifton must never be duplicated when a destination guide is available");
+  const longer = selectMetroProximityTownReferences(dallas, three);
+  assert.ok(longer.some((row) => row.town.slug === "jefferson"), "Jefferson has an official source even if its authority destination is missing");
+  assert.equal(isMetroProximityCollectionIndexReadyWithTownReferences([], dallas, one), true, "official visitor sources meet the protected indexing floor");
+  assert.equal(isMetroProximityCollectionIndexReadyWithTownReferences([], dallas, two), true, "two-hour road trips stay index-eligible even when live catalog is sparse");
+  assert.equal(isMetroProximityCollectionIndexReadyWithTownReferences([], dallas, three), true, "three-hour road trips retain six distinct towns and three counties");
+  assert.ok(new Set(selectMetroProximityTownReferences(dallas, three).map((row) => row.town.county)).size >= 3);
+
 });
 
 test("duplicate destination slugs cannot inflate collection inventory", () => {
@@ -407,7 +443,7 @@ test("things-to-do event selection stays geographic, fresh, useful without ticke
     { destination: galveston, distanceMiles: 47, distanceBand: "easy-day-trip" },
   ];
   const noTicket = { ...metroEvent("free", "Free Festival", "Houston"), ticketCta: null };
-  const selected = selectMetroProximityAffiliateEvents(metro, collection, results, [
+  const selected = selectMetroProximityAffiliateEvents(metro, collection, results, [], [
     metroEvent("houston", "Houston Show", "Houston"),
     metroEvent("galveston-a", "Island Festival", "Galveston"),
     metroEvent("galveston-b", "Island Festival", "Galveston"),
@@ -425,11 +461,24 @@ test("things-to-do event selection stays geographic, fresh, useful without ticke
   assert.equal(selected.find((item) => item.id === "free")?.ticketCta, null);
 });
 
+test("sourced weekend town references can surface a relevant dated event without a thin destination", () => {
+  const metro = getMetroProximityMetro("dallas")!;
+  const collection = getMetroProximityCollection("weekend-trips")!;
+  const town = METRO_PROXIMITY_TOWN_REFERENCES.find((item) => item.slug === "clifton")!;
+  assert.ok(town);
+  const references = [{ town, distanceMiles: 92, distanceBand: "easy-day-trip" as const }];
+  const selected = selectMetroProximityAffiliateEvents(metro, collection, [], references, [
+    metroEvent("clifton", "Clifton Festival", "Clifton"),
+    metroEvent("unrelated", "Austin Festival", "Austin"),
+  ], { todayIso: "2026-09-30", horizonIso: "2026-10-14" });
+  assert.deepEqual(selected.map((item) => item.id), ["clifton"]);
+});
+
 test("ongoing metro events remain eligible when their end date is current", () => {
   const metro = getMetroProximityMetro("houston")!;
   const collection = getMetroProximityCollection("things-to-do")!;
   const ongoing = { ...metroEvent("ongoing", "Ongoing Fair", "Houston", true, "https://tickets.example.com/ongoing", "2026-09-28"), endDate: "2026-10-02" };
-  const selected = selectMetroProximityAffiliateEvents(metro, collection, [], [ongoing], { todayIso: "2026-09-30", horizonIso: "2026-10-14" });
+  const selected = selectMetroProximityAffiliateEvents(metro, collection, [], [], [ongoing], { todayIso: "2026-09-30", horizonIso: "2026-10-14" });
   assert.deepEqual(selected.map((item) => item.id), ["ongoing"]);
 });
 
@@ -445,6 +494,42 @@ test("weekend-trip events stay in represented destination towns and unrelated in
     metroEvent("houston", "Houston Show", "Houston"),
     metroEvent("brenham", "Brenham Festival", "Brenham"),
   ];
-  assert.deepEqual(selectMetroProximityAffiliateEvents(metro, weekend, results, candidates).map((item) => item.id), ["brenham"]);
-  assert.deepEqual(selectMetroProximityAffiliateEvents(metro, dayTrips, results, candidates), []);
+  assert.deepEqual(selectMetroProximityAffiliateEvents(metro, weekend, results, [], candidates).map((item) => item.id), ["brenham"]);
+  assert.deepEqual(selectMetroProximityAffiliateEvents(metro, dayTrips, results, [], candidates), []);
+});
+
+test("six curated metro day-trip guides only feature source-backed, quality-gated destination results", () => {
+  assert.deepEqual(CURATED_METRO_DAY_TRIP_SLUGS, ["houston", "san-antonio", "austin", "dallas", "fort-worth", "corpus-christi"]);
+  for (const metro of CURATED_METRO_DAY_TRIP_SLUGS) {
+    const eligible = [
+      { destination: destination(100, "state-parks", { slug: metro === "houston" ? "brazos-bend-state-park" : metro === "san-antonio" ? "guadalupe-river-state-park" : metro === "austin" ? "pedernales-falls-state-park" : metro === "dallas" || metro === "fort-worth" ? "dinosaur-valley-state-park" : "goose-island-state-park" }), distanceMiles: 60, distanceBand: "easy-day-trip" as const },
+      { destination: destination(101, "small-towns", { slug: "unverified-somewhere" }), distanceMiles: 80, distanceBand: "longer-day-trip" as const },
+    ];
+    const featured = curatedMetroDayTrips(metro, "day-trips", eligible);
+    assert.equal(featured.length, 1, metro + " should show one real destination and no placeholders");
+    assert.equal(featured[0].result.destination.slug, featured[0].slug);
+    assert.ok(featured[0].sourceUrl.startsWith("https://"), "official operator link must be HTTPS");
+    assert.equal(curatedMetroDayTrips(metro, "weekend-trips", eligible).length, 0);
+    assert.equal(curatedMetroDayTrips(metro, "day-trips", []).length, 0);
+  }
+  assert.equal(curatedMetroDayTrips("mcallen", "day-trips", [] as MetroProximityResult[]).length, 0, "keep the separately verified McAllen curation unchanged");
+});
+
+test("day-trip monetization reuses approved booking surfaces and keeps editorial choices independent", () => {
+  const rich = readFileSync("src/routes/explore.near.$metro.$collection.lazy.tsx");
+  const partner = readFileSync("src/routes/partner-with-us.tsx");
+  assert.ok(rich.includes('data-day-trip-commercial-paths={metro.slug}'));
+  assert.ok(rich.includes('pageData.indexReady'), "do not monetize noindex or thin collection");
+  assert.ok(rich.includes('href="#expedia-travel-surface"'), "reuse existing booking panel instead of inventing a new affiliate destination");
+  assert.ok(rich.includes('Affiliate disclosure: TexasDefined may earn a commission'));
+  assert.ok(rich.includes('data-metro-curated-day-trips={metro.slug}'));
+  assert.ok(rich.includes('Editorial destinations and rankings are never for sale'));
+  assert.ok(partner.includes("day-trips)$/.test(value)") && partner.includes("explore\\/near\\/[a-z0-9-]+\\/day-trips"), "attribute narrowly scoped lead sources");
+  assert.ok(rich.includes('hasVerifiedViatorMarketUrl(experienceMarketSlug)'), "only verified Viator market pages can receive a tour CTA");
+  assert.ok(rich.includes('buildViatorAffiliateUrl(verifiedViatorMarketUrl(experienceMarketSlug)'), "use the centralized approved Viator affiliate link builder");
+  assert.ok(rich.includes('trackAffiliateClick({ partner: "viator"'), "record opted-in Viator link clicks");
+  assert.ok(rich.includes('rel="sponsored nofollow noopener noreferrer"'), "identify monetized external links");
+  assert.ok(rich.includes('data-day-trip-viator-market={experienceMarketSlug}'), "expose a dedicated, measurable experience module");
+  assert.ok(rich.includes('pageData.indexReady && hasVerifiedViatorMarketUrl'), "never monetize unverified destination inventory");
+  assert.ok(rich.includes('metro.slug === "mcallen" ? "south-padre-island"'), "McAllen coastal partner offer must not impersonate the entire Valley");
 });

@@ -28,7 +28,7 @@ export function buildTexasDatasetCsv(dataset: TexasDataset): string {
  */
 export function buildSchoolDistrictTaxRateCsv(data: SchoolDistrictTaxRateData): string {
   const header = [
-    'school_district', 'county_slugs', 'year', 'total_rate_per_100',
+    'school_district', 'official_cdn', 'county_slugs', 'year', 'total_rate_per_100',
     'rate_variants_per_100', 'm_and_o_rate_per_100', 'i_and_s_rate_per_100',
     'prior_year', 'prior_total_rate_per_100', 'year_over_year_change_per_100',
     'tax_per_100k_taxable_value_or_options', 'source_status', 'source_url',
@@ -42,7 +42,7 @@ export function buildSchoolDistrictTaxRateCsv(data: SchoolDistrictTaxRateData): 
         ? row.rateVariants.map((rate) => rate * 1000).join('; ')
         : total != null ? total * 1000 : null;
       return [
-        row.name, row.countySlugs.join('; '), data.year, total,
+        row.name, row.officialCdn, row.countySlugs.join('; '), data.year, total,
         row.rateVariants.join('; '), row.maintenanceOperationsRate,
         row.debtServiceRate, data.priorYear, row.priorRate, change, amount,
         row.sourceStatus, row.sourceUrl, data.sourcePage, data.sourceWorkbook,

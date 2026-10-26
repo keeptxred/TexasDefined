@@ -1,4 +1,4 @@
-import heroHillCountry from "@/assets/hero-hill-country.jpg";
+import { mortgageFinancingHero, homeEquityHero } from "./texas-home-finance-media";
 import homeMaintenanceHero from "@/assets/generated/texas-home-maintenance-calendar-unique.jpg";
 import type { Article, ArticleBlock } from "../types";
 
@@ -14,14 +14,7 @@ const rentBuyHero: Article["hero"] = {
   credit: "25or6to4 · Wikimedia Commons · CC BY-SA 4.0 (cropped for display)",
 };
 const trueCostHero: Article["hero"] = { src: homeMaintenanceHero, alt: "Texas home maintenance and recurring ownership costs", width: 1600, height: 1067 };
-const equityHero: Article["hero"] = {
-  src: "https://images.unsplash.com/photo-1671410304582-1c2fb1390fbf?auto=format&fit=crop&w=1600&h=900&q=82",
-  alt: "A Texas suburban neighborhood representing home equity and borrowing against a property",
-  width: 1600,
-  height: 900,
-  credit: "Jose Losada · Unsplash",
-};
-const mortgageHero: Article["hero"] = { src: heroHillCountry, alt: "Texas homes and neighborhoods representing the full monthly mortgage payment", width: 1600, height: 1067 };
+
 
 const base = (
   record: Omit<Article, "id" | "brandId" | "authorId" | "relatedCollections" | "relatedDestinations">,
@@ -113,7 +106,7 @@ const homeEquity = base({
   title: "Texas Home Equity Loans and HELOCs",
   dek: "How Texas homestead equity limits work, how loans differ from revolving lines and what to compare before borrowing against a home.",
   category: "real-estate",
-  hero: equityHero,
+  hero: homeEquityHero,
   publishedAt: "2026-07-25",
   readingMinutes: 12,
   tags: ["home equity", "heloc", "texas constitution", "borrowing"],
@@ -151,7 +144,7 @@ const mortgagePayment = base({
   title: "What Is Included in a Texas Mortgage Payment?",
   dek: "Principal and interest are only the core. Add property taxes, insurance, mortgage insurance and other housing costs to understand the real payment.",
   category: "real-estate",
-  hero: mortgageHero,
+  hero: mortgageFinancingHero,
   publishedAt: "2026-07-25",
   readingMinutes: 10,
   tags: ["mortgage payment", "escrow", "property taxes", "home insurance"],

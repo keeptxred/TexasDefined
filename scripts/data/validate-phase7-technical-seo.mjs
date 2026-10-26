@@ -10,6 +10,8 @@ import './validate-texas-aquifers-springs-authority.mjs';
 import './validate-texas-prairies-grasslands-authority.mjs';
 
 const seoSource = fs.readFileSync('src/lib/seo.ts', 'utf8');
+const dallasProximityRoute = fs.readFileSync('src/routes/explore.near.$metro.$collection.tsx', 'utf8');
+const dallasProximityServer = fs.readFileSync('src/data/metro-proximity-page-data.server.ts', 'utf8');
 const fredericksburgChurchRoute = fs.readFileSync('src/routes/explore.painted-churches.$slug.tsx', 'utf8');
 const fishingSpeciesServer = fs.readFileSync('src/data/fishing/species-guide-data.server.ts', 'utf8');
 const stateFairRoute = fs.readFileSync('src/routes/texas-state-fair.tsx', 'utf8');
@@ -112,6 +114,32 @@ const exactQuerySourceTargets = [
 ];
 
 const failures = [];
+// Reconstruct the compact, exact URL/title/description records from the SEO
+// source. This validates the same content contract even when a positional
+// representation avoids shipping repetitive field names in the client bundle.
+const technicalOverrideStart = seoSource.indexOf('const TEXASDEFINED_TECHNICAL_SEO_OVERRIDES:');
+const technicalOverrideEnd = seoSource.indexOf('const TEXASDEFINED_GSC_SSR_OVERRIDES:', technicalOverrideStart);
+const technicalOverrideSource = seoSource.slice(technicalOverrideStart, technicalOverrideEnd);
+const compactMetadataEntries = [...technicalOverrideSource.matchAll(/^\s*\[("(?:\\.|[^"\\])*"),\s*("(?:\\.|[^"\\])*")(?:,\s*("(?:\\.|[^"\\])*"))?\],\s*$/gm)];
+const compactOverrides = new Map();
+if (compactMetadataEntries.length) {
+  if (!technicalOverrideSource.includes('path.startsWith("@") ? "/article/" + path.slice(1) : path')
+    || !technicalOverrideSource.includes('Object.fromEntries(')) {
+    throw new Error('Compressed technical SEO override mapping is not demonstrably equivalent to canonical paths.');
+  }
+  for (const entry of compactMetadataEntries) {
+    const encodedPath = JSON.parse(entry[1]);
+    const canonicalPath = encodedPath.startsWith('@') ? '/article/' + encodedPath.slice(1) : encodedPath;
+    const title = JSON.parse(entry[2]);
+    const description = entry[3] ? JSON.parse(entry[3]) : undefined;
+    if (!canonicalPath.startsWith('/') || !title || compactOverrides.has(canonicalPath)) {
+      throw new Error('Malformed or duplicate canonical SEO override: ' + canonicalPath);
+    }
+    compactOverrides.set(canonicalPath, { title, description });
+  }
+  if (compactOverrides.size !== 107) throw new Error('Technical SEO override count unexpectedly changed.');
+}
+
 if (!seoSource.includes('brand.identity.id === "texasdefined" && page.canonicalPath')) {
   failures.push('Phase 7 metadata overrides are no longer scoped to TexasDefined canonical paths.');
 }
@@ -140,7 +168,10 @@ for (const [canonicalPath, expectedTitle] of targets) {
   const escapedPath = canonicalPath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   const escapedTitle = expectedTitle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   const overridePattern = new RegExp(`"${escapedPath}"\\s*:\\s*\\{[\\s\\S]*?title\\s*:\\s*"${escapedTitle}"`);
-  if (!overridePattern.test(seoSource)) failures.push(`${canonicalPath}: expected audited title override is missing.`);
+  const compactOverride = compactOverrides.get(canonicalPath);
+  if (compactOverride ? compactOverride.title !== expectedTitle : !overridePattern.test(seoSource)) {
+    failures.push(`${canonicalPath}: expected audited title override is missing.`);
+  }
   const fullTitle = `${expectedTitle}${brandSuffix}`;
   if (fullTitle.length < 30 || fullTitle.length > 60) failures.push(`${canonicalPath}: final title length ${fullTitle.length} is outside 30–60 chars.`);
 }
@@ -152,7 +183,12 @@ for (const [canonicalPath, expectedTitle, expectedDescription] of gscIntentTarge
   const overridePattern = new RegExp(
     `"${escapedPath}"\\s*:\\s*\\{[\\s\\S]*?title\\s*:\\s*"${escapedTitle}"[\\s\\S]*?description\\s*:\\s*["']${escapedDescription}["']`,
   );
-  if (!overridePattern.test(seoSource)) failures.push(`${canonicalPath}: expected GSC intent title/description override is missing.`);
+  const compactOverride = compactOverrides.get(canonicalPath);
+  if (compactOverride
+    ? compactOverride.title !== expectedTitle || compactOverride.description !== expectedDescription
+    : !overridePattern.test(seoSource)) {
+    failures.push(`${canonicalPath}: expected GSC intent title/description override is missing.`);
+  }
 }
 
 for (const target of exactQuerySourceTargets) {
@@ -193,9 +229,31 @@ for (const staleRankingClaim of [
 }
 
 const roadTripsMatch = seoSource.match(/"\/explore\/road-trips"\s*:\s*\{[\s\S]*?description\s*:\s*"([^"]+)"/);
-const roadTripsDescription = roadTripsMatch?.[1] ?? '';
+const roadTripsDescription = compactOverrides.get('/explore/road-trips')?.description ?? roadTripsMatch?.[1] ?? '';
 if (roadTripsDescription.length < 100 || roadTripsDescription.length > 160) {
   failures.push(`/explore/road-trips: description length ${roadTripsDescription.length} is outside 100–160 chars.`);
+}
+
+for (const marker of [
+  'data-dallas-local-intent',
+  'What to do in Dallas: choose a day that fits',
+  'sixth-floor-museum-at-dealey-plaza',
+  'reunion-tower-dallas',
+  'dallas-museum-of-art',
+  'nasher-sculpture-center-dallas',
+  'perot-museum-nature-science-dallas',
+  'dallas-zoo',
+  'collection: "day-trips"',
+]) {
+  if (!dallasProximityRoute.includes(marker)) failures.push(`Dallas search-intent guidance marker missing: ${marker}`);
+}
+for (const marker of [
+  'const isDallasThingsToDo = metro.slug === "dallas" && collection.slug === "things-to-do";',
+  'Things to Do in Dallas & Nearby: Museums, Parks & Day Trips',
+  'const robots = indexReady ? "index, follow, max-image-preview:large" : "noindex, follow";',
+  'links: [canonicalLink(texasDefinedBrand, canonicalPath)]',
+]) {
+  if (!dallasProximityServer.includes(marker)) failures.push(`Dallas canonical/index governance marker missing: ${marker}`);
 }
 
 if (failures.length) {

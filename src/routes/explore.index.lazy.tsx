@@ -31,6 +31,7 @@ function ExplorePage() {
     <DepartmentHero current="Explore" eyebrow="The Texas guide" title="Explore Texas, one good road at a time" description={description} />
 
     <ExploreIntentPaths />
+    <Container className="py-6"><aside aria-label="Corporate group experiences" className="flex flex-wrap items-center justify-between gap-4 border border-border bg-surface p-5 sm:p-6"><div><h2 className="font-display text-2xl">Exploring Texas with your team?</h2><p className="mt-2 max-w-2xl text-sm leading-7 text-muted-foreground">Compare corporate outing options, venue group capacities and management-ready proposals across nine Texas markets.</p></div><Link to="/corporate-events" className="inline-flex min-h-11 items-center border border-primary px-4 text-sm font-semibold text-primary">Plan a corporate group experience →</Link></aside></Container>
     <Container className="pb-4 pt-8">
       <div className="grid border-y border-border lg:grid-cols-3">
         <Link to="/explore/top-attractions" className="group flex items-center justify-between gap-5 py-5 lg:border-r lg:pr-8"><div><p className="eyebrow text-primary">Texas essentials</p><h2 className="mt-1 font-display text-2xl group-hover:text-primary">Explore the Top 25 Texas attractions</h2><p className="mt-2 text-sm leading-6 text-muted-foreground">Start with 25 landmark experiences, each with a full visit guide, nearby stops and direct Trip Planner handoff.</p></div><span className="shrink-0 font-semibold text-primary">Top 25 →</span></Link>
@@ -80,6 +81,19 @@ function ExplorePage() {
         </a>
       </div>
     </Container>
+
+    <Section tone="surface">
+      <Container>
+        <SectionHeader eyebrow="Curated Texas attractions" title="Five more ways to explore Texas" description="Focused collections of notable experiences—not giant directories. Each guide includes official booking information, practical advice and nearby county connections." />
+        <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <li className="border-t-2 border-foreground pt-5"><a href="/explore/scenic-trains" className="group block"><p className="eyebrow text-primary">Rail travel</p><h3 className="mt-2 font-display text-2xl group-hover:text-primary">Scenic train rides & historic railroads</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Three bookable heritage-rail experiences with official schedules and county travel links.</p></a></li>
+          <li className="border-t-2 border-foreground pt-5"><a href="/explore/dude-ranches" className="group block"><p className="eyebrow text-primary">Western vacations</p><h3 className="mt-2 font-display text-2xl group-hover:text-primary">Dude ranches & cowboy getaways</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Four standout guest ranches and upscale ranch stays, clearly distinguished by experience.</p></a></li>
+          <li className="border-t-2 border-foreground pt-5"><a href="/explore/spa-retreats" className="group block"><p className="eyebrow text-primary">Spa & wellness</p><h3 className="mt-2 font-display text-2xl group-hover:text-primary">Destination spa resorts</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Four overnight wellness escapes and urban hotel spas with official booking details.</p></a></li>
+          <li className="border-t-2 border-foreground pt-5"><a href="/explore/wildlife-safaris" className="group block"><p className="eyebrow text-primary">Wildlife encounters</p><h3 className="mt-2 font-display text-2xl group-hover:text-primary">Drive-through safari & wildlife parks</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Three wildlife experiences with visitor rules, conservation context and family advice.</p></a></li>
+          <li className="border-t-2 border-foreground pt-5"><a href="/explore/botanical-gardens" className="group block"><p className="eyebrow text-primary">Seasonal gardens</p><h3 className="mt-2 font-display text-2xl group-hover:text-primary">Botanical gardens & arboretums</h3><p className="mt-3 text-sm leading-7 text-muted-foreground">Five major garden destinations with seasonal blooms and visitor guidance.</p></a></li>
+        </ul>
+      </Container>
+    </Section>
 
     <Section>
       <Container>

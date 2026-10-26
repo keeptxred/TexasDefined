@@ -22,6 +22,7 @@ if (process.argv.includes("--self-test")) {
   assert.equal(new Set(VIEWPORTS.map(v => v.name)).size, VIEWPORTS.length);
   assert.equal(PATH, "/explore/near/mcallen/day-trips");
   assert.equal(OPERATORS.length, 2);
+  assert.ok(["img.leaflet-tile-loaded", "canvas.maplibregl-canvas"].every(s => s.length > 10));
   assert.ok(OPERATORS.every(o => /^https:\/\/www\./.test(o.href) && o.slug));
   console.log("McAllen bounded visual QA scenario self-test passed.");
   process.exit(0);
@@ -179,10 +180,27 @@ try {
       // rather than accepting an empty iframe element as a functioning map.
       const mapFrame = page.locator('iframe[title^="Interactive OpenStreetMap location of"]');
       await mapFrame.scrollIntoViewIfNeeded({ timeout: 15000 });
-      const mapTiles = await page.frameLocator('iframe[title^="Interactive OpenStreetMap location of"]')
-        .locator("img.leaflet-tile-loaded").first().waitFor({ state: "attached", timeout: 12000 })
+      // OSM migrated /export/embed.html from Leaflet to MapLibre in April 2026.
+      // A Leaflet-only selector silently rejects a working canvas map.
+      // Capture the iframe while it is ACTUALLY in the viewport: Chrome's
+      // full-page screenshot can omit cross-origin iframe composites after
+      // scrolling away, yielding a misleading empty rectangle.
+      const mapRenderer = await page.frameLocator('iframe[title^="Interactive OpenStreetMap location of"]')
+        .locator("img.leaflet-tile-loaded, canvas.maplibregl-canvas")
+        .first().waitFor({ state: "visible", timeout: 15000 })
         .then(() => true).catch(() => false);
-      verify("selected map loads OpenStreetMap tiles after scroll", mapTiles);
+      await page.waitForTimeout(1200);
+      const mapScreenshot = await mapFrame.screenshot({
+        path: DIR + "/mcallen-embedded-map-" + vp.name + ".png",
+        animations: "disabled", timeout: 20000,
+      });
+      // A truly blank iframe compresses to a few KB; ordinary cartographic
+      // details generate a larger raster even at mobile dimensions. Fail closed
+      // and preserve the image for human inspection rather than trusting DOM
+      // existence alone.
+      verify("selected map visually renders after scroll",
+        mapRenderer && mapScreenshot.byteLength > 18000,
+        "renderer=" + mapRenderer + "; pngBytes=" + mapScreenshot.byteLength);
       await page.evaluate(() => window.scrollTo(0, 0));
       const filename = DIR + "/mcallen-day-trips-" + vp.name + ".png";
       await page.screenshot({ path: filename, fullPage: true, animations: "disabled", timeout: 30000 });

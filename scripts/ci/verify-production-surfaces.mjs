@@ -10,12 +10,20 @@ const summaryPath = process.env.GITHUB_STEP_SUMMARY;
 
 const surfaces = [
   ['mclennan-2020-census-corrected', '/county/mclennan', 'The 2020 U.S. Census counted 260,579 residents in McLennan County.'],
+  // Three complete Waco visitor-guide routes are now protected production surfaces.
+  // These are actual public pages, not unverified affiliate placeholder slugs.
+  ['waco-seven-attractions-hub', '/waco-attractions', 'Seven Waco Attractions: Full Visitor Guides and Tours'],
+  ['waco-ghost-tour-guide', '/waco-ghost-tours', 'Waco Ghost Tours: Guided Walk vs. Self-Guided Audio Tour'],
+  ['waco-dallas-day-trip', '/dallas-to-waco-magnolia-tours', 'Plan a guided Dallas-to-Waco Magnolia Market day trip'],
+
 
   ['gaines-magnolia-title', '/article/chip-and-joanna-gaines-magnolia-waco', 'Chip and Joanna Gaines: Their Story, Magnolia and Waco'],
   ['gaines-magnolia-faq-question', '/article/chip-and-joanna-gaines-magnolia-waco', 'Are Chip and Joanna Gaines from Magnolia, Texas?'],
   ['gaines-magnolia-faq-answer', '/article/chip-and-joanna-gaines-magnolia-waco', 'Their Magnolia business is headquartered in Waco, Texas.'],
   ['gaines-magnolia-visit-plan', '/article/chip-and-joanna-gaines-magnolia-waco', 'Plan a Chip-and-Joanna-inspired day in Waco'],
   ['gaines-magnolia-viator', '/article/chip-and-joanna-gaines-magnolia-waco', 'Guided tours and Magnolia-related experiences'],
+  ['gaines-magnolia-waco-tour', '/article/chip-and-joanna-gaines-magnolia-waco', 'See guided Fixer Upper homes tour in Waco'],
+  ['gaines-magnolia-dallas-tour', '/article/chip-and-joanna-gaines-magnolia-waco', 'See Dallas-to-Magnolia private day tour'],
   ['gaines-magnolia-affiliate-disclosure', '/article/chip-and-joanna-gaines-magnolia-waco', 'Affiliate disclosure: TexasDefined may earn a commission on qualifying Viator bookings'],
   ['gaines-magnolia-hotels', '/article/chip-and-joanna-gaines-magnolia-waco', 'data-stay-nearby-slot'],
   ['gaines-magnolia-silos-reciprocal', '/destination/magnolia-market-at-the-silos', 'Read our Chip and Joanna Gaines authority guide'],
@@ -68,7 +76,14 @@ const surfaces = [
   ['city-lubbock-social', '/city/lubbock', 'Lubbock%2C_Texas_skyline.jpg?width=1600'],
   ['metro-houston-hub', '/explore/near/houston', 'Explore by trip type'],
   ['metro-houston-weekend-trips', '/explore/near/houston/weekend-trips', 'Weekend Trips From Houston, Texas'],
-  ['metro-dallas-small-towns-2-hours', '/explore/near/dallas/small-towns-2-hours', 'Small-Town Day Trips From Dallas, Texas'],
+  ['metro-dallas-small-towns-1-hour', '/explore/near/dallas/small-towns-1-hour', 'Small Towns About an Hour or Less From Dallas, Texas'],
+  ['metro-dallas-small-towns-1-hour-ennis', '/explore/near/dallas/small-towns-1-hour', 'Ennis'],
+  ['metro-dallas-small-towns-2-hours', '/explore/near/dallas/small-towns-2-hours', 'Small Towns About 1–2 Hours From Dallas, Texas'],
+  ['metro-dallas-small-towns-2-hours-clifton', '/explore/near/dallas/small-towns-2-hours', 'Clifton'],
+  ['metro-dallas-small-towns-3-hours', '/explore/near/dallas/small-towns-3-hours', 'Small Towns About 2–3 Hours From Dallas, Texas'],
+  ['metro-dallas-small-towns-3-hours-jefferson', '/explore/near/dallas/small-towns-3-hours', 'Jefferson'],
+  ['metro-dallas-small-towns-3-hours-salado', '/explore/near/dallas/small-towns-3-hours', 'Salado'],
+  ['metro-dallas-small-towns-3-hours-methodology', '/explore/near/dallas/small-towns-3-hours', 'published typical one-way road-time estimates'],
   ['metro-austin-small-towns-2-hours', '/explore/near/austin/small-towns-2-hours', 'Small Towns About 1–2 Hours From Austin, Texas'],
   ['metro-austin-small-towns-editorial', '/explore/near/austin/small-towns-2-hours', 'Which Austin small-town day trip fits your day?'],
   ['metro-austin-swimming-holes', '/explore/near/austin/swimming-holes', 'Swimming Holes Near Austin, Texas'],

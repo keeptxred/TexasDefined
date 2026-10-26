@@ -107,7 +107,7 @@ export const RIVER_AUTHORITY_CARD_PHOTOS: Record<string, { src: string; alt: str
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Brackenridge_Park_San_Antonio_River.jpg"
   },
   "/article/texas-lavaca-river-guide": {
-    "src": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Swing_Bridge_Over_Lavaca_River.jpg?width=1600",
+    "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Swing_Bridge_Over_Lavaca_River.jpg/1280px-Swing_Bridge_Over_Lavaca_River.jpg",
     "alt": "Lavaca River near Lolita, Texas, with a railroad swing bridge",
     "photographer": "Patrick Feller",
     "license": "CC BY 2.0",

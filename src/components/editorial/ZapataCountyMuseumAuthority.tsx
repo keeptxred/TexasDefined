@@ -117,6 +117,7 @@ export default function ZapataCountyMuseumAuthority() {
       <p className="eyebrow text-primary">Collections and exhibits</p>
       <h2 className="mt-3 font-display text-4xl">What you can explore inside</h2>
       <p className="mt-5 max-w-3xl leading-8">The museum combines community-history objects with broader natural and cultural history. The subjects below come from its published exhibit descriptions; installations may change.</p>
+      <p className="mt-5 max-w-3xl leading-8"><strong>Language of the exhibits:</strong> The museum describes its historical storyline as presented in English and Spanish, with artifacts and interactive displays. Confirm directly with staff if you need a guided tour or other assistance in a particular language. <a className="text-primary underline underline-offset-4" href={aboutUrl} target="_blank" rel="noopener noreferrer">Museum’s description of its exhibits ↗</a></p>
       <p className="mt-5 max-w-3xl leading-8"><strong>Start with the introduction:</strong> The museum says escorted visitors begin in a theater near the entrance with an eight-minute film spanning the region’s geologic origins through the present. Ask staff how this presentation fits your visit, particularly if you have limited time. <a className="text-primary underline underline-offset-4" href={aboutUrl} target="_blank" rel="noopener noreferrer">Museum tour overview ↗</a></p>
       <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {galleries.map((item, index) => <article key={item.title} className="border border-border p-6">
@@ -167,6 +168,7 @@ export default function ZapataCountyMuseumAuthority() {
         <ul className="mt-6 grid gap-3 sm:grid-cols-2">
           {sources.map((source) => <li key={source.href}><a className="text-sm underline text-primary" href={source.href} target="_blank" rel="noopener noreferrer">{source.label} ↗</a></li>)}
         </ul>
+        <p className="mt-6 max-w-3xl border-l-2 border-primary pl-4 text-sm leading-7 text-muted-foreground"><strong>Directory-link advisory (October 21, 2026):</strong> Some older government and heritage directory listings link to a museum web address that now displays unrelated promotional content. Use those listings for historical context only; for visiting details, rely on the <a href={visitorUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">museum's visitor-information page</a> or call <a href="tel:+19567658983" className="underline">(956) 765-8983</a>. TexasDefined does not link directly to the outdated site.</p>
         <p className="mt-8 text-xs text-muted-foreground">Recommended citation: TexasDefined. “Zapata County Museum of History: Exhibits, Hours &amp; Admission.” Verified October 19, 2026. https://texasdefined.com/destination/zapata-county-museum-history</p>
       </Container>
     </section>

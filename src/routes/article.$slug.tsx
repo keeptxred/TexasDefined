@@ -6,19 +6,18 @@ import { texasDefinedBrand } from "@/brand/texasdefined";
 import { heritagePhotoRightsForPath } from "@/data/heritage-photo-license-links";
 import { ArticleBody, Byline } from "@/components/editorial/ArticleBody";
 import { EastTexasFoliageParkMap, EastTexasFoliagePhotoGallery } from "@/components/editorial/EastTexasFoliageMedia";
-
 import { ArticleCard } from "@/components/editorial/ArticleCard";
 import type { Article } from "@/data/types";
 import { DestinationCard } from "@/components/editorial/DestinationCard";
 import { Section, SectionHeader } from "@/components/editorial/SectionHeader";
 import { Container } from "@/components/layout/Container";
-import { MagnoliaWacoAffiliateLinks } from "@/components/monetization/MagnoliaWacoAffiliateLinks";
 import { magnoliaPeopleSchemaForArticle } from "@/data/magnolia-people-schema";
 import { SchoolSupplyPartners } from "@/components/monetization/SchoolSupplyPartners";
 import { FootballFanOffers } from "@/components/sports/FootballFanOffers";
 import { articleInternalLinks } from "@/data/article-internal-links";
 import { riverAuthorityLinksForArticleMetadata } from "@/data/river-authority-relations";
 import { isDestinationPhotoPlaceholder } from "@/data/explore-hero-reconciliation";
+import { showSeasonDecision } from "@/data/destination-editorial-relevance";
 import { shouldNoindexTexasGatewayArticle } from "@/data/fixtures/texas-gateway-index-readiness";
 import { articleQuery, articlesQuery, authorsQuery, categoriesQuery } from "@/data/queries";
 import { getDestinationsBySlugs } from "@/data/destination-collections.functions";
@@ -33,8 +32,11 @@ import { unusualBusinessAnalyticsAttributes } from "@/lib/unusual-business-analy
 import { FootballPlayoffsReference } from "@/components/content/FootballPlayoffsReference";
 import { TexasCitiesComparison } from "@/components/content/TexasCitiesComparison";
 
-// The foliage map and photo gallery are exclusive to one seasonal article.
-// Defer their code until that article mounts instead of loading it on every article.
+// Magnolia-only affiliate UI stays off the shared article client bundle.
+const MagnoliaWacoAffiliateLinks = lazy(() =>
+  import("@/components/monetization/MagnoliaWacoAffiliateLinks").then((module) => ({ default: module.MagnoliaWacoAffiliateLinks })),
+);
+
 const TexasWaterSearchResource = lazy(() =>
   import("@/components/content/TexasWaterSearchResource").then((module) => ({ default: module.TexasWaterSearchResource })),
 );
@@ -98,12 +100,27 @@ const schoolSupplyArticleSlugs = new Set(["texas-school-districts-explained", "t
 // Only football planning explainers get the generic overnight-travel offer.
 // No event, venue or hotel proximity is claimed for these editorial pages.
 const footballTravelArticleSlugs = new Set([
-  "texas-high-school-football-playoffs-explained",
   "texas-high-school-football-newcomers",
   "texas-high-school-football-scores-schedules",
   "texas-high-school-football-classifications-1a-6a",
   "texas-six-man-football-rules-explained",
+  "texas-high-school-football-playoffs-explained",
 ]);
+
+// Keep existing reviewed evergreen guides eligible, and allow new high-school
+// football guides only when the actual editorial body has an explicit travel
+// planning section. This rule covers future relevant articles without turning
+// every football explainer or unrelated sports story into a shopping page.
+function isFootballTravelPlanningArticle(article: Article): boolean {
+  if (article.category !== "sports") return false;
+  if (footballTravelArticleSlugs.has(article.slug)) return true;
+  const topic = `${article.slug.replace(/-/g, " ")} ${article.title}`;
+  if (!/\b(?:high school football|six man football)\b/i.test(topic)) return false;
+  return article.body.some((block) =>
+    block.type === "heading"
+      && /\b(?:before you travel|travel planning|planning (?:your|a) (?:football )?(?:trip|visit|weekend)|road.trip planning|where to stay|championship weekend|game.day travel)\b/i.test(block.text ?? ""),
+  );
+}
 
 type FaqEntry = { question: string; answer: string };
 type FaqBlock = { type: string; text?: string; items?: string[] };
@@ -453,6 +470,16 @@ function ArticlePage() {
   const hideGenericRelatedRail = article.slug === "hill-country-fall-colors" || article.slug === "east-texas-fall-colors" || article.slug === "texas-ecoregions-habitats-guide" || article.slug === "texas-high-school-football-playoffs-explained";
   const articleDisplayTitle = isTexasRiversArticle ? "Texas Rivers Explained" : article.title;
   const isSixManFootballArticle = article.slug === "texas-six-man-football-rules-explained";
+  const showFootballTravelOffers = isFootballTravelPlanningArticle(article) && !shouldNoindexTexasGatewayArticle(article);
+  // Position the offer after useful planning guidance, before FAQs and sources.
+  // Other eligible guides without those headings use the after-body fallback.
+  const footballTravelInsertIndex = showFootballTravelOffers
+    ? article.body.findIndex((block) => block.type === "heading"
+      && /^(?:frequently asked questions|sources and verification|sources and further reading)\b/i.test(block.text?.trim() ?? ""))
+    : -1;
+  const footballTravelOffer = showFootballTravelOffers
+    ? <FootballFanOffers slug={article.slug} hasUpcomingAwayTravel={false} showTravelPlanning />
+    : null;
   const riverBasinHeadingIndex = isTexasRiversArticle
     ? article.body.findIndex((block) => block.type === "heading" && block.text === "How a Texas River Is Born")
     : -1;
@@ -495,7 +522,7 @@ function ArticlePage() {
           <span>{formatReadingTime(article.readingMinutes)}</span>
         </div>
       ) : <Byline author={author} meta={`${formatDate(article.publishedAt)}${article.updatedAt && article.updatedAt !== article.publishedAt ? ` · Updated ${formatDate(article.updatedAt)}` : ""} · ${formatReadingTime(article.readingMinutes)}`} />}
-      {hasSchoolSupplyRail ? <><style>{`.school-supply-rail{display:none}@media (min-width:1536px){.school-supply-rail{display:block}.school-supply-bottom{display:none}}`}</style><aside className="school-supply-rail" style={{ left: "calc(100% + 2rem)", position: "absolute", top: "2.5rem", width: "18rem" }}><div style={{ position: "sticky", top: "2rem" }}><SchoolSupplyPartners placement="rail" /></div></aside></> : null}
+      
       {!isTexasRiversArticle && <nav aria-label="Editorial standards" className="mt-5 flex flex-wrap gap-x-5 gap-y-2 border-t border-border pt-4 text-xs text-muted-foreground">
         <a href="/editorial-policy" className="py-1 underline decoration-border underline-offset-4 hover:text-primary">Editorial policy</a>
         <a href="/sourcing-methodology" className="py-1 underline decoration-border underline-offset-4 hover:text-primary">How we source</a>
@@ -539,19 +566,28 @@ function ArticlePage() {
             insertBeforeIndex={riverBasinInsertIndex > 0 ? riverBasinInsertIndex : undefined}
             insertBefore={<Suspense fallback={<section className="my-10 border-y border-border py-8" style={{ minHeight: "18rem" }} aria-label="Loading Texas river basin reference" />}><TexasRiverBasinReference /></Suspense>}
           />
+        ) : footballTravelInsertIndex >= 0 ? (
+          <ArticleBody blocks={article.body} entities={graph}
+            insertBeforeIndex={footballTravelInsertIndex}
+            insertBefore={footballTravelOffer} />
         ) : <ArticleBody blocks={article.body} entities={graph} />}
       </div>
-      {article.slug === "chip-and-joanna-gaines-magnolia-waco" && <MagnoliaWacoAffiliateLinks />}
+      {article.slug === "chip-and-joanna-gaines-magnolia-waco" && <Suspense fallback={<div className="my-10 h-36 border-y border-border" aria-label="Loading Waco tour options" />}><MagnoliaWacoAffiliateLinks /></Suspense>}
       <ElPasoAreaCrossLinks kind="article" slug={article.slug} />
-      {footballTravelArticleSlugs.has(article.slug) ? <FootballFanOffers slug={article.slug} hasUpcomingAwayTravel={false} showTravelPlanning /> : null}
+      {showFootballTravelOffers && footballTravelInsertIndex < 0 ? footballTravelOffer : null}
       {isTexasRiversArticle ? <Suspense fallback={null}><TexasRiversAfterArticle /></Suspense> : null}
       {waterTopic ? (
         <Suspense fallback={<section className="mt-8 border-y border-border bg-surface" style={{ minHeight: "10rem" }} aria-label="Loading Texas water reference" />}>
           <TexasWaterSearchResource active={waterTopic} />
         </Suspense>
       ) : null}
-      {hasSchoolSupplyRail ? <SchoolSupplyPartners className="school-supply-bottom" /> : null}
-      {article.hero.credit && <p className="mt-10 break-words text-xs text-muted-foreground">Image credit: {corridorHeroRights ? <a href={corridorHeroRights.sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-2">{article.hero.credit}</a> : article.hero.credit}{corridorHeroRights && <> · <a href={corridorHeroRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">License terms</a></>}</p>}
+      {hasSchoolSupplyRail ? <><style>{`@media(min-width:1536px){.school-supply-responsive{position:absolute;left:calc(100% + 2rem);top:2.5rem;width:18rem;margin-top:0}}`}</style><SchoolSupplyPartners className="school-supply-responsive mt-8 border border-border bg-surface p-5" /></> : null}
+      {article.hero.credit && <p className="mt-10 break-words text-xs text-muted-foreground">Image credit: {article.slug === "texas-high-school-football-playoffs-explained" ? <>
+        <a href="https://commons.wikimedia.org/wiki/File:Celina_High_School,_Friday_Night_Football.jpg" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-2">Heidi Knapp · original photograph</a>
+        {" · "}
+        <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">CC BY-SA 4.0 license</a>
+        {" · Responsive display may crop the photograph"}
+      </> : corridorHeroRights ? <a href={corridorHeroRights.sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-2">{article.hero.credit}</a> : article.hero.credit}{corridorHeroRights && <> · <a href={corridorHeroRights.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">License terms</a></>}</p>}
       {primarySource && <p className="mt-4 text-xs leading-6 text-muted-foreground">Primary source: <a href={primarySource.url} target="_blank" rel="noreferrer" className="font-semibold text-foreground underline decoration-border underline-offset-4 hover:text-primary">{primarySource.label} ↗</a></p>}
       {isTexasRiversArticle && <nav aria-label="Editorial standards" className="mt-5 flex flex-wrap gap-x-5 gap-y-2 border-t border-border pt-4 text-xs text-muted-foreground">
         <a href="/editorial-policy" className="py-1 underline decoration-border underline-offset-4 hover:text-primary">Editorial policy</a>
@@ -581,7 +617,7 @@ function ArticlePage() {
       <p className="eyebrow text-primary">{destination.nearestTown || destination.region.replace(/-/g, " ")}</p>
       <h3 className="mt-2 font-display text-2xl"><Link to="/destination/$slug" params={{ slug: destination.slug }} className="hover:text-primary">{destination.name}</Link></h3>
       <p className="mt-3 text-sm leading-7 text-muted-foreground">{destination.summary}</p>
-      {destination.bestSeason && <p className="mt-4 text-xs uppercase tracking-[0.08em] text-muted-foreground">Best season: {destination.bestSeason}</p>}
+      {showSeasonDecision(destination) && <p className="mt-4 text-xs uppercase tracking-[0.08em] text-muted-foreground">Best season: {destination.bestSeason}</p>}
       <Link to="/destination/$slug" params={{ slug: destination.slug }} className="eyebrow mt-5 inline-block border-b border-primary pb-1 text-primary">Explore this place →</Link>
     </article>
   : <DestinationCard destination={destination} />}</li>)}</ul></Container></Section>}
@@ -590,7 +626,7 @@ function ArticlePage() {
       <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">The autumn-colored hero photograph shows Daingerfield State Park on October 24, 2014, not verified current-season conditions. Photo: <a href={foliageHeroRights?.acquireLicensePage} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Larry D. Moore via Wikimedia Commons ↗</a> · <a href={foliageHeroRights?.license} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">CC BY 4.0 license (cropped to layout) ↗</a>.</p>
 
       <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These are evergreen planning suggestions, not live leaf-color reports. Select a park to see its official alerts, trails and reservation information. Color varies within and between parks.</p>
-    <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {([
           { name: "Daingerfield State Park", note: "Little Pine Lake and mixed hardwoods", url: "https://tpwd.texas.gov/state-parks/daingerfield", guide: "/destination/daingerfield-state-park" },
           { name: "Caddo Lake State Park", note: "Bronze bald cypress and wetland views", url: "https://tpwd.texas.gov/state-parks/caddo-lake", guide: "/destination/caddo-lake" },

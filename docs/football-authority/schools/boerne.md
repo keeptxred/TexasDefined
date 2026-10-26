@@ -39,3 +39,8 @@ Protected canonical premerge, production descendant deploy, real Chrome mobile+d
 ## October 20, 2026 — distinguish completed Liberty Hill final from later fixtures
 The existing Greyhounds page records **Boerne 49–7 over Liberty Hill on October 16**, but an earlier description called Liberty Hill upcoming. The sentence is updated with the already sourced result and keeps Veterans Memorial/New Braunfels/Legacy Ranch as future fixtures. The separate Boerne Champion school and its results are not changed; historical 2022 runner-up and 2026 Brett Sawyer attribution remain as previously verified from original sources.
 
+## October 20, 2026 — acceptance-ledger source recheck
+Boerne High School's current football and athletics pages were rechecked and still identify **Brett Sawyer as Boerne High School Athletic Coordinator**, not explicitly as head football coach. The separately documented Boerne Star hiring/game reporting therefore remains the football-specific evidence for Sawyer's head-coach role and should not be replaced by an inference from the coordinator title.
+
+The school still publishes 1 Greyhound Lane and football/athletics contact information, but no new first-party evidence was found for the exact game-night public entrance, parking allocation, comprehensive accessible seating, or reusable football photography rights. The 7–0 through October 16 result state and Boerne-vs-Champion identity distinction remain unchanged. **Status stays DEPLOYED, not individually VERIFIED.**
+

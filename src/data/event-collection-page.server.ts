@@ -5,7 +5,7 @@ import {
   shouldIndexEvergreenEventCollection,
   shouldIndexTournamentCollection,
 } from "./event-collection-indexability";
-import { EVENT_COLLECTIONS, EVENT_COLLECTION_BY_SLUG, type EventCollectionDefinition } from "./event-collections";
+import { EVENT_COLLECTIONS, EVENT_COLLECTION_BY_SLUG, EVENT_TOPIC_SLUGS, type EventCollectionDefinition } from "./event-collections";
 import {
   TEMPORAL_EVENT_COLLECTIONS,
   resolveTemporalEventCollectionServer,
@@ -19,6 +19,11 @@ import {
 } from "./texas-tournament-collections";
 import { loadTournamentCollectionItemsServer } from "./texas-tournaments.server";
 import { loadTexasThisWeekendDigestServer } from "./texas-this-weekend.server";
+import { getChristmasPerformances2026Server } from "./events/christmas-performances-2026.server";
+import { getVerifiedChristmasCommunityEvents2026 } from "./events/christmas-community-2026.server";
+import { buildViatorAffiliateUrl } from "../lib/viator-affiliate";
+import { hasVerifiedViatorMarketUrl, verifiedViatorMarketUrl } from "./viator-destination-links";
+import { activeOfficialFallPicks, texasToday } from "./fall-festival-official-picks.server";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 type CollectionDefinition = EventCollectionDefinition | TemporalEventCollectionDefinition | TournamentCollectionDefinition;
@@ -143,7 +148,9 @@ export function loadEventCollectionPageServer(slug: string) {
       : directory.filter((event) =>
           evergreen!.kind === "category"
             ? event.category === evergreen!.value
-            : event.region === evergreen!.value,
+            : evergreen!.kind === "region"
+              ? event.region === evergreen!.value
+              : (EVENT_TOPIC_SLUGS[evergreen!.value] ?? []).includes(event.slug),
         );
   const shouldIndex = tournament
     ? shouldIndexTournamentCollection(items.length)
@@ -170,10 +177,54 @@ export function loadEventCollectionPageServer(slug: string) {
     .map(({ path, title, description }) => ({ path, title, description }));
 
   const weekendDigest = temporal?.slug === "this-weekend" ? loadTexasThisWeekendDigestServer() : null;
+  const christmasPerformances = temporal?.slug === "christmas-events" ? getChristmasPerformances2026Server() : [];
+  // Calendar-first local Christmas traditions have verified occurrence dates
+  // and primary-source links, but do not require thin individual authority pages.
+  const christmasMarketByCity: Readonly<Record<string, string>> = {
+    "El Paso": "el-paso", "Fort Worth": "fort-worth",
+    "Fredericksburg": "fredericksburg", "Austin": "austin",
+    "San Antonio": "san-antonio", "Dallas": "dallas",
+    "Galveston": "galveston", "Houston": "houston",
+    "Waco": "waco", "Corpus Christi": "corpus-christi",
+    "Amarillo": "amarillo-palo-duro", "South Padre Island": "south-padre-island",
+  };
+  // Show at most one verified affiliate offer per city; official dates always lead.
+  const christmasOfferCities = new Set<string>();
+  const christmasCommunityEvents = temporal?.slug === "christmas-events"
+    ? getVerifiedChristmasCommunityEvents2026().map((event) => {
+        const market = christmasMarketByCity[event.city];
+        const nearbyExperiencesUrl = market && !christmasOfferCities.has(event.city) && hasVerifiedViatorMarketUrl(market)
+          ? buildViatorAffiliateUrl(verifiedViatorMarketUrl(market), `td-christmas-community-${event.slug}`)
+          : "";
+        if (nearbyExperiencesUrl) christmasOfferCities.add(event.city);
+        return {
+          id: event.id,
+          slug: event.slug,
+          guidePath: event.guidePath.startsWith("/event/") ? event.guidePath : "",
+          title: event.title,
+          summary: event.summary,
+          startDate: event.startDate,
+          endDate: event.endDate,
+          city: event.city,
+          countyName: event.countyName,
+          countyPath: event.countySlug ? `/county/${event.countySlug}` : "",
+          venueName: event.venueName,
+          officialEventUrl: event.officialEventUrl,
+          sourceName: event.sourceName,
+          verifiedAt: event.lastVerifiedAt,
+          nearbyExperiencesUrl,
+        };
+      })
+    : [];
+
 
   return {
     ...collection,
     weekendDigest,
+    christmasPerformances,
+    christmasCommunityEvents,
+    fallOfficialPicks: temporal?.slug === "fall-festivals" ? activeOfficialFallPicks() : [],
+    fallToday: temporal?.slug === "fall-festivals" ? texasToday(new Date()) : undefined,
     relatedCollections,
     itemCount: items.length,
     latestSourceCheck,
@@ -182,9 +233,9 @@ export function loadEventCollectionPageServer(slug: string) {
     indexabilityNote,
     itemCountLabel: tournament
       ? `${items.length.toLocaleString("en-US")} tournament and competition entries · ${verifiedTournamentCount.toLocaleString("en-US")} verified guides`
-      : `${items.length.toLocaleString("en-US")} verified event guides${latestSourceCheck ? ` · Latest source check: ${latestSourceCheck}` : ""}`,
-    itemsEyebrow: tournament ? "Texas tournament directory" : "Permanent planning pages",
-    itemsTitle: tournament ? (tournament.value ? tournament.title : "250 Texas tournaments & competitions") : "Verified event guides",
+      : `${items.length.toLocaleString("en-US")} verified event guides${christmasCommunityEvents.length ? ` · ${christmasCommunityEvents.length} verified community Christmas calendar entries` : ""}${latestSourceCheck ? ` · Latest source check: ${latestSourceCheck}` : ""}`,
+    itemsEyebrow: tournament ? "Texas tournament directory" : temporal?.slug === "fall-festivals" ? "Upcoming & ongoing" : "Permanent planning pages",
+    itemsTitle: tournament ? (tournament.value ? tournament.title : "250 Texas tournaments & competitions") : temporal?.slug === "fall-festivals" ? "Upcoming Texas fall festivals" : "Verified event guides",
     emptyMessage: tournament
       ? "No tournament seed currently belongs to this category."
       : "No permanent event guide currently meets the source standard for this collection; Texas Defined does not pad the page with invented dates.",

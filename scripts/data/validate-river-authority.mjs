@@ -111,8 +111,30 @@ if(!campingGuide.includes('riverAuthorityLinksForArticleMetadata'))
 const photoCatalog = read('src/data/river-authority-photo-catalog.ts');
 if(!photoCatalog.includes('licenseUrl') || !photoCatalog.includes('photographer') || !photoCatalog.includes('sourceUrl'))
  errors.push('River gallery photos must include reusable linked attribution and license metadata');
+
+for (const slug of canonicalSlugs) {
+ const start = photoCatalog.indexOf('"/article/' + slug + '":');
+ const end = start < 0 ? -1 : photoCatalog.indexOf('\n  "/article/', start + 1);
+ const entry = start < 0 ? '' : photoCatalog.slice(start, end < 0 ? undefined : end);
+ if (!entry) {
+  errors.push('Published river guide lacks an exact-river photo catalog entry: ' + slug);
+ } else {
+  for (const property of ['"src"', '"alt"', '"photographer"', '"license"', '"licenseUrl"', '"sourceUrl"']) {
+   if (!entry.includes(property)) errors.push('River photo entry missing '+property+' for '+slug);
+  }
+  if (!entry.includes('commons.wikimedia.org') && !entry.includes('upload.wikimedia.org')) {
+   errors.push('River photo entry missing identifiable licensed source: ' + slug);
+  }
+ }
+}
+
 if(!hub.includes('RIVER_AUTHORITY_CARD_PHOTOS') || !landscape.includes('RIVER_AUTHORITY_CARD_PHOTOS'))
  errors.push('Both statewide river navigation surfaces must share the rights-cleared photo catalog');
+for (const [label, source] of [['River atlas',hub],['River valleys',landscape]]) {
+ if (!source.includes('editorialImageSrc(photo?.src ?? river.image)'))
+  errors.push(label + ' gallery must deliver approved remote photos through /media/remote, not raw Wikimedia hotlinks');
+}
+
 // Three formerly representative-image basin entries must stay identified, credited
 // and consistent across their real guide and lazy stub. Live Chrome QA separately
 // verifies that the Wikimedia originals actually decode on public pages.

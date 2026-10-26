@@ -1,4 +1,5 @@
 import { FishingPhoto } from "@/components/fishing/FishingPhoto";
+import { FishingMerchSpotlight } from "@/components/fishing/FishingMerchSpotlight";
 import { Container } from "@/components/layout/Container";
 import { getFishingFishImage, getFishingLakeImage } from "@/data/fishing/image-library";
 import { fishingFoundationAnchor } from "@/data/fishing/slugs";
@@ -43,6 +44,7 @@ export function GenericFishingLakeGuide({
           <a href={`/fishing/plan?q=${encodeURIComponent(lake.name)}`} className="border-b border-ink-foreground pb-1 font-semibold">Find fish at {lake.name} →</a>
           <a href="/fishing/compare" className="border-b border-ink-foreground/50 pb-1">Compare fishing lakes →</a>
           <a href="/fishing/regulations" className="border-b border-ink-foreground/50 pb-1">Fishing regulations →</a>
+          <a href="/shop/fishing-shirts" className="border-b border-ink-foreground/50 pb-1">Texas fishing shirts →</a>
         </div>
       </Container>
     </header>
@@ -68,6 +70,7 @@ export function GenericFishingLakeGuide({
           {lakeImage ? <FishingPhoto image={lakeImage} className="mt-5" imageClassName="aspect-[4/3] w-full object-cover" /> : null}
           {lake.counties.length ? <div className="mt-5"><p className="text-sm text-muted-foreground">County guides</p><div className="mt-3 flex flex-wrap gap-3">{lake.counties.map((county) => <a key={county} href={`/county/${slugify(county)}`} className="border-b border-primary pb-1 text-sm font-semibold text-primary">{county} County →</a>)}</div></div> : null}
           {lake.coordinates ? <a href={`https://www.google.com/maps/search/?api=1&query=${lake.coordinates.lat},${lake.coordinates.lng}`} target="_blank" rel="noreferrer noopener" className="mt-6 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">Open map →</a> : null}
+          <FishingMerchSpotlight lakeName={lake.name} speciesNames={targets.map(({ fish }) => fish.commonName)} compact />
         </aside>
       </section>
 

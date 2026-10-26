@@ -10,6 +10,8 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WhatDoesChudMeanRouteImport } from './routes/what-does-chud-mean'
+import { Route as WacoGhostToursRouteImport } from './routes/waco-ghost-tours'
+import { Route as WacoAttractionsRouteImport } from './routes/waco-attractions'
 import { Route as TrackTexasDriversLicenseRouteImport } from './routes/track-texas-drivers-license'
 import { Route as Top25TexasAttractionsDotjsonRouteImport } from './routes/top-25-texas-attractions[.]json'
 import { Route as Top25TexasAttractionsDotcsvRouteImport } from './routes/top-25-texas-attractions[.]csv'
@@ -183,11 +185,13 @@ import { Route as EverythingBiggerInTexasRouteImport } from './routes/everything
 import { Route as EventsRouteImport } from './routes/events'
 import { Route as EditorialPolicyRouteImport } from './routes/editorial-policy'
 import { Route as DrPepperTexasHistoryRouteImport } from './routes/dr-pepper-texas-history'
+import { Route as DallasToWacoMagnoliaToursRouteImport } from './routes/dallas-to-waco-magnolia-tours'
 import { Route as DallasFortWorthMusicHistoryRouteImport } from './routes/dallas-fort-worth-music-history'
 import { Route as DallasBlackHistoryRouteImport } from './routes/dallas-black-history'
 import { Route as CountyRouteImport } from './routes/county'
 import { Route as CorrectionsPolicyRouteImport } from './routes/corrections-policy'
 import { Route as CorpusChristiMusicHistoryRouteImport } from './routes/corpus-christi-music-history'
+import { Route as CorporateEventsRouteImport } from './routes/corporate-events'
 import { Route as ContinentalClubAustinHistoryRouteImport } from './routes/continental-club-austin-history'
 import { Route as CompareTexasCitiesRouteImport } from './routes/compare-texas-cities'
 import { Route as CitationGuideRouteImport } from './routes/citation-guide'
@@ -287,6 +291,7 @@ import { Route as StateParkBalmorheaStateParkRouteImport } from './routes/state-
 import { Route as StateParkAtlantaStateParkRouteImport } from './routes/state-park.atlanta-state-park'
 import { Route as StateParkAbileneStateParkRouteImport } from './routes/state-park.abilene-state-park'
 import { Route as StateParkSlugRouteImport } from './routes/state-park.$slug'
+import { Route as SportsTeamsRouteImport } from './routes/sports.teams'
 import { Route as SportsFridayNightLightsRouteImport } from './routes/sports.friday-night-lights'
 import { Route as SportsVenuesCompareDotcsvRouteImport } from './routes/sports-venues.compare[.]csv'
 import { Route as SportsVenuesCompareRouteImport } from './routes/sports-venues.compare'
@@ -326,6 +331,8 @@ import { Route as LearnAgriculturalValuationRouteImport } from './routes/learn.a
 import { Route as LakesLakeConroeDothtmlRouteImport } from './routes/lakes.lake-conroe[.]html'
 import { Route as HuntingSlugRouteImport } from './routes/hunting.$slug'
 import { Route as HorseRacingSlugRouteImport } from './routes/horse-racing_.$slug'
+import { Route as HolidayMagicalWinterLightsRouteImport } from './routes/holiday.magical-winter-lights'
+import { Route as HolidayEnchantChristmasArlingtonRouteImport } from './routes/holiday.enchant-christmas-arlington'
 import { Route as HistoricSiteWashingtonOnTheBrazosStateHistoricSiteRouteImport } from './routes/historic-site.washington-on-the-brazos-state-historic-site'
 import { Route as HistoricSiteSeminoleCanyonStateParkStateHistoricSiteRouteImport } from './routes/historic-site.seminole-canyon-state-park-state-historic-site'
 import { Route as HistoricSiteMonumentHillKreischeBreweryStateHistoricSiteRouteImport } from './routes/historic-site.monument-hill-kreische-brewery-state-historic-site'
@@ -374,9 +381,11 @@ import { Route as ExploreLandscapesRouteImport } from './routes/explore.landscap
 import { Route as ExploreInlandBeachesRouteImport } from './routes/explore.inland-beaches'
 import { Route as ExploreHillCountrySpringsRouteImport } from './routes/explore.hill-country-springs'
 import { Route as ExploreCasinosRouteImport } from './routes/explore.casinos'
+import { Route as ExploreBigBendScenicDrivesRouteImport } from './routes/explore.big-bend-scenic-drives'
 import { Route as ExploreAttractionsComparisonRouteImport } from './routes/explore.attractions-comparison'
 import { Route as ExploreAquariumsRouteImport } from './routes/explore.aquariums'
 import { Route as ExploreCategoryRouteImport } from './routes/explore.$category'
+import { Route as EventsMardiGrasRouteImport } from './routes/events.mardi-gras'
 import { Route as EventsAirShowsRouteImport } from './routes/events.air-shows'
 import { Route as EventsCollectionRouteImport } from './routes/events.$collection'
 import { Route as EventSlugRouteImport } from './routes/event.$slug'
@@ -460,6 +469,7 @@ import { Route as KindSlugRouteImport } from './routes/$kind.$slug'
 import { Route as ExploreWaterParksIndexRouteImport } from './routes/explore.water-parks.index'
 import { Route as ExploreCasinosIndexRouteImport } from './routes/explore.casinos.index'
 import { Route as TexasDataResearchTexasHomeownersPremiumsVsCoverageRouteImport } from './routes/texas-data.research.texas-homeowners-premiums-vs-coverage'
+import { Route as SportsTeamsSlugRouteImport } from './routes/sports.teams.$slug'
 import { Route as SportsSoftballChar123TeamChar125RouteImport } from './routes/sports.softball.{-$team}'
 import { Route as ShopProductProductIdRouteImport } from './routes/shop.product.$productId'
 import { Route as PropertyTaxTaxingUnitUnitRouteImport } from './routes/property-tax.taxing-unit.$unit'
@@ -542,6 +552,20 @@ const WhatDoesChudMeanRoute = WhatDoesChudMeanRouteImport.update({
   path: '/what-does-chud-mean',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WacoGhostToursRoute = WacoGhostToursRouteImport.update({
+  id: '/waco-ghost-tours',
+  path: '/waco-ghost-tours',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() =>
+  import('./routes/waco-ghost-tours.lazy').then((d) => d.Route),
+)
+const WacoAttractionsRoute = WacoAttractionsRouteImport.update({
+  id: '/waco-attractions',
+  path: '/waco-attractions',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() =>
+  import('./routes/waco-attractions.lazy').then((d) => d.Route),
+)
 const TrackTexasDriversLicenseRoute =
   TrackTexasDriversLicenseRouteImport.update({
     id: '/track-texas-drivers-license',
@@ -1677,6 +1701,14 @@ const DrPepperTexasHistoryRoute = DrPepperTexasHistoryRouteImport.update({
 } as any).lazy(() =>
   import('./routes/dr-pepper-texas-history.lazy').then((d) => d.Route),
 )
+const DallasToWacoMagnoliaToursRoute =
+  DallasToWacoMagnoliaToursRouteImport.update({
+    id: '/dallas-to-waco-magnolia-tours',
+    path: '/dallas-to-waco-magnolia-tours',
+    getParentRoute: () => rootRouteImport,
+  } as any).lazy(() =>
+    import('./routes/dallas-to-waco-magnolia-tours.lazy').then((d) => d.Route),
+  )
 const DallasFortWorthMusicHistoryRoute =
   DallasFortWorthMusicHistoryRouteImport.update({
     id: '/dallas-fort-worth-music-history',
@@ -1710,6 +1742,13 @@ const CorpusChristiMusicHistoryRoute =
   } as any).lazy(() =>
     import('./routes/corpus-christi-music-history.lazy').then((d) => d.Route),
   )
+const CorporateEventsRoute = CorporateEventsRouteImport.update({
+  id: '/corporate-events',
+  path: '/corporate-events',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() =>
+  import('./routes/corporate-events.lazy').then((d) => d.Route),
+)
 const ContinentalClubAustinHistoryRoute =
   ContinentalClubAustinHistoryRouteImport.update({
     id: '/continental-club-austin-history',
@@ -2345,6 +2384,11 @@ const StateParkSlugRoute = StateParkSlugRouteImport.update({
   path: '/state-park/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SportsTeamsRoute = SportsTeamsRouteImport.update({
+  id: '/teams',
+  path: '/teams',
+  getParentRoute: () => SportsRoute,
+} as any).lazy(() => import('./routes/sports.teams.lazy').then((d) => d.Route))
 const SportsFridayNightLightsRoute = SportsFridayNightLightsRouteImport.update({
   id: '/friday-night-lights',
   path: '/friday-night-lights',
@@ -2578,6 +2622,24 @@ const HorseRacingSlugRoute = HorseRacingSlugRouteImport.update({
 } as any).lazy(() =>
   import('./routes/horse-racing_.$slug.lazy').then((d) => d.Route),
 )
+const HolidayMagicalWinterLightsRoute =
+  HolidayMagicalWinterLightsRouteImport.update({
+    id: '/holiday/magical-winter-lights',
+    path: '/holiday/magical-winter-lights',
+    getParentRoute: () => rootRouteImport,
+  } as any).lazy(() =>
+    import('./routes/holiday.magical-winter-lights.lazy').then((d) => d.Route),
+  )
+const HolidayEnchantChristmasArlingtonRoute =
+  HolidayEnchantChristmasArlingtonRouteImport.update({
+    id: '/holiday/enchant-christmas-arlington',
+    path: '/holiday/enchant-christmas-arlington',
+    getParentRoute: () => rootRouteImport,
+  } as any).lazy(() =>
+    import('./routes/holiday.enchant-christmas-arlington.lazy').then(
+      (d) => d.Route,
+    ),
+  )
 const HistoricSiteWashingtonOnTheBrazosStateHistoricSiteRoute =
   HistoricSiteWashingtonOnTheBrazosStateHistoricSiteRouteImport.update({
     id: '/historic-site/washington-on-the-brazos-state-historic-site',
@@ -2851,6 +2913,14 @@ const ExploreCasinosRoute = ExploreCasinosRouteImport.update({
   path: '/explore/casinos',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ExploreBigBendScenicDrivesRoute =
+  ExploreBigBendScenicDrivesRouteImport.update({
+    id: '/explore/big-bend-scenic-drives',
+    path: '/explore/big-bend-scenic-drives',
+    getParentRoute: () => rootRouteImport,
+  } as any).lazy(() =>
+    import('./routes/explore.big-bend-scenic-drives.lazy').then((d) => d.Route),
+  )
 const ExploreAttractionsComparisonRoute =
   ExploreAttractionsComparisonRouteImport.update({
     id: '/explore/attractions-comparison',
@@ -2868,6 +2938,13 @@ const ExploreCategoryRoute = ExploreCategoryRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() =>
   import('./routes/explore.$category.lazy').then((d) => d.Route),
+)
+const EventsMardiGrasRoute = EventsMardiGrasRouteImport.update({
+  id: '/mardi-gras',
+  path: '/mardi-gras',
+  getParentRoute: () => EventsRoute,
+} as any).lazy(() =>
+  import('./routes/events.mardi-gras.lazy').then((d) => d.Route),
 )
 const EventsAirShowsRoute = EventsAirShowsRouteImport.update({
   id: '/air-shows',
@@ -3366,6 +3443,13 @@ const TexasDataResearchTexasHomeownersPremiumsVsCoverageRoute =
       (d) => d.Route,
     ),
   )
+const SportsTeamsSlugRoute = SportsTeamsSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => SportsTeamsRoute,
+} as any).lazy(() =>
+  import('./routes/sports.teams.$slug.lazy').then((d) => d.Route),
+)
 const SportsSoftballChar123TeamChar125Route =
   SportsSoftballChar123TeamChar125RouteImport.update({
     id: '/softball/{-$team}',
@@ -3856,11 +3940,13 @@ export interface FileRoutesByFullPath {
   '/citation-guide': typeof CitationGuideRoute
   '/compare-texas-cities': typeof CompareTexasCitiesRoute
   '/continental-club-austin-history': typeof ContinentalClubAustinHistoryRoute
+  '/corporate-events': typeof CorporateEventsRoute
   '/corpus-christi-music-history': typeof CorpusChristiMusicHistoryRoute
   '/corrections-policy': typeof CorrectionsPolicyRoute
   '/county': typeof CountyRoute
   '/dallas-black-history': typeof DallasBlackHistoryRoute
   '/dallas-fort-worth-music-history': typeof DallasFortWorthMusicHistoryRoute
+  '/dallas-to-waco-magnolia-tours': typeof DallasToWacoMagnoliaToursRoute
   '/dr-pepper-texas-history': typeof DrPepperTexasHistoryRoute
   '/editorial-policy': typeof EditorialPolicyRoute
   '/events': typeof EventsRouteWithChildren
@@ -4034,6 +4120,8 @@ export interface FileRoutesByFullPath {
   '/top-25-texas-attractions.csv': typeof Top25TexasAttractionsDotcsvRoute
   '/top-25-texas-attractions.json': typeof Top25TexasAttractionsDotjsonRoute
   '/track-texas-drivers-license': typeof TrackTexasDriversLicenseRoute
+  '/waco-attractions': typeof WacoAttractionsRoute
+  '/waco-ghost-tours': typeof WacoGhostToursRoute
   '/what-does-chud-mean': typeof WhatDoesChudMeanRoute
   '/$kind/$slug': typeof KindSlugRoute
   '/admin/billing': typeof AdminBillingRoute
@@ -4115,9 +4203,11 @@ export interface FileRoutesByFullPath {
   '/event/$slug': typeof EventSlugRoute
   '/events/$collection': typeof EventsCollectionRoute
   '/events/air-shows': typeof EventsAirShowsRoute
+  '/events/mardi-gras': typeof EventsMardiGrasRoute
   '/explore/$category': typeof ExploreCategoryRoute
   '/explore/aquariums': typeof ExploreAquariumsRoute
   '/explore/attractions-comparison': typeof ExploreAttractionsComparisonRoute
+  '/explore/big-bend-scenic-drives': typeof ExploreBigBendScenicDrivesRoute
   '/explore/casinos': typeof ExploreCasinosRouteWithChildren
   '/explore/hill-country-springs': typeof ExploreHillCountrySpringsRoute
   '/explore/inland-beaches': typeof ExploreInlandBeachesRouteWithChildren
@@ -4166,6 +4256,8 @@ export interface FileRoutesByFullPath {
   '/historic-site/monument-hill-kreische-brewery-state-historic-site': typeof HistoricSiteMonumentHillKreischeBreweryStateHistoricSiteRoute
   '/historic-site/seminole-canyon-state-park-state-historic-site': typeof HistoricSiteSeminoleCanyonStateParkStateHistoricSiteRoute
   '/historic-site/washington-on-the-brazos-state-historic-site': typeof HistoricSiteWashingtonOnTheBrazosStateHistoricSiteRoute
+  '/holiday/enchant-christmas-arlington': typeof HolidayEnchantChristmasArlingtonRoute
+  '/holiday/magical-winter-lights': typeof HolidayMagicalWinterLightsRoute
   '/horse-racing/$slug': typeof HorseRacingSlugRoute
   '/hunting/$slug': typeof HuntingSlugRoute
   '/lakes/lake-conroe.html': typeof LakesLakeConroeDothtmlRoute
@@ -4205,6 +4297,7 @@ export interface FileRoutesByFullPath {
   '/sports-venues/compare': typeof SportsVenuesCompareRoute
   '/sports-venues/compare.csv': typeof SportsVenuesCompareDotcsvRoute
   '/sports/friday-night-lights': typeof SportsFridayNightLightsRoute
+  '/sports/teams': typeof SportsTeamsRouteWithChildren
   '/state-park/$slug': typeof StateParkSlugRoute
   '/state-park/abilene-state-park': typeof StateParkAbileneStateParkRoute
   '/state-park/atlanta-state-park': typeof StateParkAtlantaStateParkRoute
@@ -4355,6 +4448,7 @@ export interface FileRoutesByFullPath {
   '/property-tax/taxing-unit/$unit': typeof PropertyTaxTaxingUnitUnitRoute
   '/shop/product/$productId': typeof ShopProductProductIdRoute
   '/sports/softball/{-$team}': typeof SportsSoftballChar123TeamChar125Route
+  '/sports/teams/$slug': typeof SportsTeamsSlugRoute
   '/texas-data/research/texas-homeowners-premiums-vs-coverage': typeof TexasDataResearchTexasHomeownersPremiumsVsCoverageRoute
   '/explore/casinos/': typeof ExploreCasinosIndexRoute
   '/explore/water-parks/': typeof ExploreWaterParksIndexRoute
@@ -4385,11 +4479,13 @@ export interface FileRoutesByTo {
   '/citation-guide': typeof CitationGuideRoute
   '/compare-texas-cities': typeof CompareTexasCitiesRoute
   '/continental-club-austin-history': typeof ContinentalClubAustinHistoryRoute
+  '/corporate-events': typeof CorporateEventsRoute
   '/corpus-christi-music-history': typeof CorpusChristiMusicHistoryRoute
   '/corrections-policy': typeof CorrectionsPolicyRoute
   '/county': typeof CountyRoute
   '/dallas-black-history': typeof DallasBlackHistoryRoute
   '/dallas-fort-worth-music-history': typeof DallasFortWorthMusicHistoryRoute
+  '/dallas-to-waco-magnolia-tours': typeof DallasToWacoMagnoliaToursRoute
   '/dr-pepper-texas-history': typeof DrPepperTexasHistoryRoute
   '/editorial-policy': typeof EditorialPolicyRoute
   '/everything-bigger-in-texas': typeof EverythingBiggerInTexasRoute
@@ -4560,6 +4656,8 @@ export interface FileRoutesByTo {
   '/top-25-texas-attractions.csv': typeof Top25TexasAttractionsDotcsvRoute
   '/top-25-texas-attractions.json': typeof Top25TexasAttractionsDotjsonRoute
   '/track-texas-drivers-license': typeof TrackTexasDriversLicenseRoute
+  '/waco-attractions': typeof WacoAttractionsRoute
+  '/waco-ghost-tours': typeof WacoGhostToursRoute
   '/what-does-chud-mean': typeof WhatDoesChudMeanRoute
   '/$kind/$slug': typeof KindSlugRoute
   '/admin/billing': typeof AdminBillingRoute
@@ -4641,9 +4739,11 @@ export interface FileRoutesByTo {
   '/event/$slug': typeof EventSlugRoute
   '/events/$collection': typeof EventsCollectionRoute
   '/events/air-shows': typeof EventsAirShowsRoute
+  '/events/mardi-gras': typeof EventsMardiGrasRoute
   '/explore/$category': typeof ExploreCategoryRoute
   '/explore/aquariums': typeof ExploreAquariumsRoute
   '/explore/attractions-comparison': typeof ExploreAttractionsComparisonRoute
+  '/explore/big-bend-scenic-drives': typeof ExploreBigBendScenicDrivesRoute
   '/explore/hill-country-springs': typeof ExploreHillCountrySpringsRoute
   '/explore/inland-beaches': typeof ExploreInlandBeachesRouteWithChildren
   '/explore/landscapes': typeof ExploreLandscapesRouteWithChildren
@@ -4690,6 +4790,8 @@ export interface FileRoutesByTo {
   '/historic-site/monument-hill-kreische-brewery-state-historic-site': typeof HistoricSiteMonumentHillKreischeBreweryStateHistoricSiteRoute
   '/historic-site/seminole-canyon-state-park-state-historic-site': typeof HistoricSiteSeminoleCanyonStateParkStateHistoricSiteRoute
   '/historic-site/washington-on-the-brazos-state-historic-site': typeof HistoricSiteWashingtonOnTheBrazosStateHistoricSiteRoute
+  '/holiday/enchant-christmas-arlington': typeof HolidayEnchantChristmasArlingtonRoute
+  '/holiday/magical-winter-lights': typeof HolidayMagicalWinterLightsRoute
   '/horse-racing/$slug': typeof HorseRacingSlugRoute
   '/hunting/$slug': typeof HuntingSlugRoute
   '/lakes/lake-conroe.html': typeof LakesLakeConroeDothtmlRoute
@@ -4729,6 +4831,7 @@ export interface FileRoutesByTo {
   '/sports-venues/compare': typeof SportsVenuesCompareRoute
   '/sports-venues/compare.csv': typeof SportsVenuesCompareDotcsvRoute
   '/sports/friday-night-lights': typeof SportsFridayNightLightsRoute
+  '/sports/teams': typeof SportsTeamsRouteWithChildren
   '/state-park/$slug': typeof StateParkSlugRoute
   '/state-park/abilene-state-park': typeof StateParkAbileneStateParkRoute
   '/state-park/atlanta-state-park': typeof StateParkAtlantaStateParkRoute
@@ -4879,6 +4982,7 @@ export interface FileRoutesByTo {
   '/property-tax/taxing-unit/$unit': typeof PropertyTaxTaxingUnitUnitRoute
   '/shop/product/$productId': typeof ShopProductProductIdRoute
   '/sports/softball/{-$team}': typeof SportsSoftballChar123TeamChar125Route
+  '/sports/teams/$slug': typeof SportsTeamsSlugRoute
   '/texas-data/research/texas-homeowners-premiums-vs-coverage': typeof TexasDataResearchTexasHomeownersPremiumsVsCoverageRoute
   '/explore/casinos': typeof ExploreCasinosIndexRoute
   '/explore/water-parks': typeof ExploreWaterParksIndexRoute
@@ -4910,11 +5014,13 @@ export interface FileRoutesById {
   '/citation-guide': typeof CitationGuideRoute
   '/compare-texas-cities': typeof CompareTexasCitiesRoute
   '/continental-club-austin-history': typeof ContinentalClubAustinHistoryRoute
+  '/corporate-events': typeof CorporateEventsRoute
   '/corpus-christi-music-history': typeof CorpusChristiMusicHistoryRoute
   '/corrections-policy': typeof CorrectionsPolicyRoute
   '/county': typeof CountyRoute
   '/dallas-black-history': typeof DallasBlackHistoryRoute
   '/dallas-fort-worth-music-history': typeof DallasFortWorthMusicHistoryRoute
+  '/dallas-to-waco-magnolia-tours': typeof DallasToWacoMagnoliaToursRoute
   '/dr-pepper-texas-history': typeof DrPepperTexasHistoryRoute
   '/editorial-policy': typeof EditorialPolicyRoute
   '/events': typeof EventsRouteWithChildren
@@ -5088,6 +5194,8 @@ export interface FileRoutesById {
   '/top-25-texas-attractions.csv': typeof Top25TexasAttractionsDotcsvRoute
   '/top-25-texas-attractions.json': typeof Top25TexasAttractionsDotjsonRoute
   '/track-texas-drivers-license': typeof TrackTexasDriversLicenseRoute
+  '/waco-attractions': typeof WacoAttractionsRoute
+  '/waco-ghost-tours': typeof WacoGhostToursRoute
   '/what-does-chud-mean': typeof WhatDoesChudMeanRoute
   '/$kind/$slug': typeof KindSlugRoute
   '/admin/billing': typeof AdminBillingRoute
@@ -5169,9 +5277,11 @@ export interface FileRoutesById {
   '/event/$slug': typeof EventSlugRoute
   '/events/$collection': typeof EventsCollectionRoute
   '/events/air-shows': typeof EventsAirShowsRoute
+  '/events/mardi-gras': typeof EventsMardiGrasRoute
   '/explore/$category': typeof ExploreCategoryRoute
   '/explore/aquariums': typeof ExploreAquariumsRoute
   '/explore/attractions-comparison': typeof ExploreAttractionsComparisonRoute
+  '/explore/big-bend-scenic-drives': typeof ExploreBigBendScenicDrivesRoute
   '/explore/casinos': typeof ExploreCasinosRouteWithChildren
   '/explore/hill-country-springs': typeof ExploreHillCountrySpringsRoute
   '/explore/inland-beaches': typeof ExploreInlandBeachesRouteWithChildren
@@ -5220,6 +5330,8 @@ export interface FileRoutesById {
   '/historic-site/monument-hill-kreische-brewery-state-historic-site': typeof HistoricSiteMonumentHillKreischeBreweryStateHistoricSiteRoute
   '/historic-site/seminole-canyon-state-park-state-historic-site': typeof HistoricSiteSeminoleCanyonStateParkStateHistoricSiteRoute
   '/historic-site/washington-on-the-brazos-state-historic-site': typeof HistoricSiteWashingtonOnTheBrazosStateHistoricSiteRoute
+  '/holiday/enchant-christmas-arlington': typeof HolidayEnchantChristmasArlingtonRoute
+  '/holiday/magical-winter-lights': typeof HolidayMagicalWinterLightsRoute
   '/horse-racing_/$slug': typeof HorseRacingSlugRoute
   '/hunting/$slug': typeof HuntingSlugRoute
   '/lakes/lake-conroe.html': typeof LakesLakeConroeDothtmlRoute
@@ -5259,6 +5371,7 @@ export interface FileRoutesById {
   '/sports-venues/compare': typeof SportsVenuesCompareRoute
   '/sports-venues/compare.csv': typeof SportsVenuesCompareDotcsvRoute
   '/sports/friday-night-lights': typeof SportsFridayNightLightsRoute
+  '/sports/teams': typeof SportsTeamsRouteWithChildren
   '/state-park/$slug': typeof StateParkSlugRoute
   '/state-park/abilene-state-park': typeof StateParkAbileneStateParkRoute
   '/state-park/atlanta-state-park': typeof StateParkAtlantaStateParkRoute
@@ -5409,6 +5522,7 @@ export interface FileRoutesById {
   '/property-tax/taxing-unit/$unit': typeof PropertyTaxTaxingUnitUnitRoute
   '/shop/product/$productId': typeof ShopProductProductIdRoute
   '/sports/softball/{-$team}': typeof SportsSoftballChar123TeamChar125Route
+  '/sports/teams/$slug': typeof SportsTeamsSlugRoute
   '/texas-data/research/texas-homeowners-premiums-vs-coverage': typeof TexasDataResearchTexasHomeownersPremiumsVsCoverageRoute
   '/explore/casinos/': typeof ExploreCasinosIndexRoute
   '/explore/water-parks/': typeof ExploreWaterParksIndexRoute
@@ -5441,11 +5555,13 @@ export interface FileRouteTypes {
     | '/citation-guide'
     | '/compare-texas-cities'
     | '/continental-club-austin-history'
+    | '/corporate-events'
     | '/corpus-christi-music-history'
     | '/corrections-policy'
     | '/county'
     | '/dallas-black-history'
     | '/dallas-fort-worth-music-history'
+    | '/dallas-to-waco-magnolia-tours'
     | '/dr-pepper-texas-history'
     | '/editorial-policy'
     | '/events'
@@ -5619,6 +5735,8 @@ export interface FileRouteTypes {
     | '/top-25-texas-attractions.csv'
     | '/top-25-texas-attractions.json'
     | '/track-texas-drivers-license'
+    | '/waco-attractions'
+    | '/waco-ghost-tours'
     | '/what-does-chud-mean'
     | '/$kind/$slug'
     | '/admin/billing'
@@ -5700,9 +5818,11 @@ export interface FileRouteTypes {
     | '/event/$slug'
     | '/events/$collection'
     | '/events/air-shows'
+    | '/events/mardi-gras'
     | '/explore/$category'
     | '/explore/aquariums'
     | '/explore/attractions-comparison'
+    | '/explore/big-bend-scenic-drives'
     | '/explore/casinos'
     | '/explore/hill-country-springs'
     | '/explore/inland-beaches'
@@ -5751,6 +5871,8 @@ export interface FileRouteTypes {
     | '/historic-site/monument-hill-kreische-brewery-state-historic-site'
     | '/historic-site/seminole-canyon-state-park-state-historic-site'
     | '/historic-site/washington-on-the-brazos-state-historic-site'
+    | '/holiday/enchant-christmas-arlington'
+    | '/holiday/magical-winter-lights'
     | '/horse-racing/$slug'
     | '/hunting/$slug'
     | '/lakes/lake-conroe.html'
@@ -5790,6 +5912,7 @@ export interface FileRouteTypes {
     | '/sports-venues/compare'
     | '/sports-venues/compare.csv'
     | '/sports/friday-night-lights'
+    | '/sports/teams'
     | '/state-park/$slug'
     | '/state-park/abilene-state-park'
     | '/state-park/atlanta-state-park'
@@ -5940,6 +6063,7 @@ export interface FileRouteTypes {
     | '/property-tax/taxing-unit/$unit'
     | '/shop/product/$productId'
     | '/sports/softball/{-$team}'
+    | '/sports/teams/$slug'
     | '/texas-data/research/texas-homeowners-premiums-vs-coverage'
     | '/explore/casinos/'
     | '/explore/water-parks/'
@@ -5970,11 +6094,13 @@ export interface FileRouteTypes {
     | '/citation-guide'
     | '/compare-texas-cities'
     | '/continental-club-austin-history'
+    | '/corporate-events'
     | '/corpus-christi-music-history'
     | '/corrections-policy'
     | '/county'
     | '/dallas-black-history'
     | '/dallas-fort-worth-music-history'
+    | '/dallas-to-waco-magnolia-tours'
     | '/dr-pepper-texas-history'
     | '/editorial-policy'
     | '/everything-bigger-in-texas'
@@ -6145,6 +6271,8 @@ export interface FileRouteTypes {
     | '/top-25-texas-attractions.csv'
     | '/top-25-texas-attractions.json'
     | '/track-texas-drivers-license'
+    | '/waco-attractions'
+    | '/waco-ghost-tours'
     | '/what-does-chud-mean'
     | '/$kind/$slug'
     | '/admin/billing'
@@ -6226,9 +6354,11 @@ export interface FileRouteTypes {
     | '/event/$slug'
     | '/events/$collection'
     | '/events/air-shows'
+    | '/events/mardi-gras'
     | '/explore/$category'
     | '/explore/aquariums'
     | '/explore/attractions-comparison'
+    | '/explore/big-bend-scenic-drives'
     | '/explore/hill-country-springs'
     | '/explore/inland-beaches'
     | '/explore/landscapes'
@@ -6275,6 +6405,8 @@ export interface FileRouteTypes {
     | '/historic-site/monument-hill-kreische-brewery-state-historic-site'
     | '/historic-site/seminole-canyon-state-park-state-historic-site'
     | '/historic-site/washington-on-the-brazos-state-historic-site'
+    | '/holiday/enchant-christmas-arlington'
+    | '/holiday/magical-winter-lights'
     | '/horse-racing/$slug'
     | '/hunting/$slug'
     | '/lakes/lake-conroe.html'
@@ -6314,6 +6446,7 @@ export interface FileRouteTypes {
     | '/sports-venues/compare'
     | '/sports-venues/compare.csv'
     | '/sports/friday-night-lights'
+    | '/sports/teams'
     | '/state-park/$slug'
     | '/state-park/abilene-state-park'
     | '/state-park/atlanta-state-park'
@@ -6464,6 +6597,7 @@ export interface FileRouteTypes {
     | '/property-tax/taxing-unit/$unit'
     | '/shop/product/$productId'
     | '/sports/softball/{-$team}'
+    | '/sports/teams/$slug'
     | '/texas-data/research/texas-homeowners-premiums-vs-coverage'
     | '/explore/casinos'
     | '/explore/water-parks'
@@ -6494,11 +6628,13 @@ export interface FileRouteTypes {
     | '/citation-guide'
     | '/compare-texas-cities'
     | '/continental-club-austin-history'
+    | '/corporate-events'
     | '/corpus-christi-music-history'
     | '/corrections-policy'
     | '/county'
     | '/dallas-black-history'
     | '/dallas-fort-worth-music-history'
+    | '/dallas-to-waco-magnolia-tours'
     | '/dr-pepper-texas-history'
     | '/editorial-policy'
     | '/events'
@@ -6672,6 +6808,8 @@ export interface FileRouteTypes {
     | '/top-25-texas-attractions.csv'
     | '/top-25-texas-attractions.json'
     | '/track-texas-drivers-license'
+    | '/waco-attractions'
+    | '/waco-ghost-tours'
     | '/what-does-chud-mean'
     | '/$kind/$slug'
     | '/admin/billing'
@@ -6753,9 +6891,11 @@ export interface FileRouteTypes {
     | '/event/$slug'
     | '/events/$collection'
     | '/events/air-shows'
+    | '/events/mardi-gras'
     | '/explore/$category'
     | '/explore/aquariums'
     | '/explore/attractions-comparison'
+    | '/explore/big-bend-scenic-drives'
     | '/explore/casinos'
     | '/explore/hill-country-springs'
     | '/explore/inland-beaches'
@@ -6804,6 +6944,8 @@ export interface FileRouteTypes {
     | '/historic-site/monument-hill-kreische-brewery-state-historic-site'
     | '/historic-site/seminole-canyon-state-park-state-historic-site'
     | '/historic-site/washington-on-the-brazos-state-historic-site'
+    | '/holiday/enchant-christmas-arlington'
+    | '/holiday/magical-winter-lights'
     | '/horse-racing_/$slug'
     | '/hunting/$slug'
     | '/lakes/lake-conroe.html'
@@ -6843,6 +6985,7 @@ export interface FileRouteTypes {
     | '/sports-venues/compare'
     | '/sports-venues/compare.csv'
     | '/sports/friday-night-lights'
+    | '/sports/teams'
     | '/state-park/$slug'
     | '/state-park/abilene-state-park'
     | '/state-park/atlanta-state-park'
@@ -6993,6 +7136,7 @@ export interface FileRouteTypes {
     | '/property-tax/taxing-unit/$unit'
     | '/shop/product/$productId'
     | '/sports/softball/{-$team}'
+    | '/sports/teams/$slug'
     | '/texas-data/research/texas-homeowners-premiums-vs-coverage'
     | '/explore/casinos/'
     | '/explore/water-parks/'
@@ -7024,11 +7168,13 @@ export interface RootRouteChildren {
   CitationGuideRoute: typeof CitationGuideRoute
   CompareTexasCitiesRoute: typeof CompareTexasCitiesRoute
   ContinentalClubAustinHistoryRoute: typeof ContinentalClubAustinHistoryRoute
+  CorporateEventsRoute: typeof CorporateEventsRoute
   CorpusChristiMusicHistoryRoute: typeof CorpusChristiMusicHistoryRoute
   CorrectionsPolicyRoute: typeof CorrectionsPolicyRoute
   CountyRoute: typeof CountyRoute
   DallasBlackHistoryRoute: typeof DallasBlackHistoryRoute
   DallasFortWorthMusicHistoryRoute: typeof DallasFortWorthMusicHistoryRoute
+  DallasToWacoMagnoliaToursRoute: typeof DallasToWacoMagnoliaToursRoute
   DrPepperTexasHistoryRoute: typeof DrPepperTexasHistoryRoute
   EditorialPolicyRoute: typeof EditorialPolicyRoute
   EventsRoute: typeof EventsRouteWithChildren
@@ -7202,6 +7348,8 @@ export interface RootRouteChildren {
   Top25TexasAttractionsDotcsvRoute: typeof Top25TexasAttractionsDotcsvRoute
   Top25TexasAttractionsDotjsonRoute: typeof Top25TexasAttractionsDotjsonRoute
   TrackTexasDriversLicenseRoute: typeof TrackTexasDriversLicenseRoute
+  WacoAttractionsRoute: typeof WacoAttractionsRoute
+  WacoGhostToursRoute: typeof WacoGhostToursRoute
   WhatDoesChudMeanRoute: typeof WhatDoesChudMeanRoute
   KindSlugRoute: typeof KindSlugRoute
   AgencySlugRoute: typeof AgencySlugRoute
@@ -7266,6 +7414,7 @@ export interface RootRouteChildren {
   ExploreCategoryRoute: typeof ExploreCategoryRoute
   ExploreAquariumsRoute: typeof ExploreAquariumsRoute
   ExploreAttractionsComparisonRoute: typeof ExploreAttractionsComparisonRoute
+  ExploreBigBendScenicDrivesRoute: typeof ExploreBigBendScenicDrivesRoute
   ExploreCasinosRoute: typeof ExploreCasinosRouteWithChildren
   ExploreHillCountrySpringsRoute: typeof ExploreHillCountrySpringsRoute
   ExploreInlandBeachesRoute: typeof ExploreInlandBeachesRouteWithChildren
@@ -7300,6 +7449,8 @@ export interface RootRouteChildren {
   HistoricSiteMonumentHillKreischeBreweryStateHistoricSiteRoute: typeof HistoricSiteMonumentHillKreischeBreweryStateHistoricSiteRoute
   HistoricSiteSeminoleCanyonStateParkStateHistoricSiteRoute: typeof HistoricSiteSeminoleCanyonStateParkStateHistoricSiteRoute
   HistoricSiteWashingtonOnTheBrazosStateHistoricSiteRoute: typeof HistoricSiteWashingtonOnTheBrazosStateHistoricSiteRoute
+  HolidayEnchantChristmasArlingtonRoute: typeof HolidayEnchantChristmasArlingtonRoute
+  HolidayMagicalWinterLightsRoute: typeof HolidayMagicalWinterLightsRoute
   HorseRacingSlugRoute: typeof HorseRacingSlugRoute
   LakesLakeConroeDothtmlRoute: typeof LakesLakeConroeDothtmlRoute
   LearnAgriculturalValuationRoute: typeof LearnAgriculturalValuationRoute
@@ -7429,6 +7580,20 @@ declare module '@tanstack/react-router' {
       path: '/what-does-chud-mean'
       fullPath: '/what-does-chud-mean'
       preLoaderRoute: typeof WhatDoesChudMeanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/waco-ghost-tours': {
+      id: '/waco-ghost-tours'
+      path: '/waco-ghost-tours'
+      fullPath: '/waco-ghost-tours'
+      preLoaderRoute: typeof WacoGhostToursRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/waco-attractions': {
+      id: '/waco-attractions'
+      path: '/waco-attractions'
+      fullPath: '/waco-attractions'
+      preLoaderRoute: typeof WacoAttractionsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/track-texas-drivers-license': {
@@ -8642,6 +8807,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DrPepperTexasHistoryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dallas-to-waco-magnolia-tours': {
+      id: '/dallas-to-waco-magnolia-tours'
+      path: '/dallas-to-waco-magnolia-tours'
+      fullPath: '/dallas-to-waco-magnolia-tours'
+      preLoaderRoute: typeof DallasToWacoMagnoliaToursRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/dallas-fort-worth-music-history': {
       id: '/dallas-fort-worth-music-history'
       path: '/dallas-fort-worth-music-history'
@@ -8675,6 +8847,13 @@ declare module '@tanstack/react-router' {
       path: '/corpus-christi-music-history'
       fullPath: '/corpus-christi-music-history'
       preLoaderRoute: typeof CorpusChristiMusicHistoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/corporate-events': {
+      id: '/corporate-events'
+      path: '/corporate-events'
+      fullPath: '/corporate-events'
+      preLoaderRoute: typeof CorporateEventsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/continental-club-austin-history': {
@@ -9370,6 +9549,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StateParkSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sports/teams': {
+      id: '/sports/teams'
+      path: '/teams'
+      fullPath: '/sports/teams'
+      preLoaderRoute: typeof SportsTeamsRouteImport
+      parentRoute: typeof SportsRoute
+    }
     '/sports/friday-night-lights': {
       id: '/sports/friday-night-lights'
       path: '/friday-night-lights'
@@ -9641,6 +9827,20 @@ declare module '@tanstack/react-router' {
       path: '/horse-racing/$slug'
       fullPath: '/horse-racing/$slug'
       preLoaderRoute: typeof HorseRacingSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/holiday/magical-winter-lights': {
+      id: '/holiday/magical-winter-lights'
+      path: '/holiday/magical-winter-lights'
+      fullPath: '/holiday/magical-winter-lights'
+      preLoaderRoute: typeof HolidayMagicalWinterLightsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/holiday/enchant-christmas-arlington': {
+      id: '/holiday/enchant-christmas-arlington'
+      path: '/holiday/enchant-christmas-arlington'
+      fullPath: '/holiday/enchant-christmas-arlington'
+      preLoaderRoute: typeof HolidayEnchantChristmasArlingtonRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/historic-site/washington-on-the-brazos-state-historic-site': {
@@ -9979,6 +10179,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExploreCasinosRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/explore/big-bend-scenic-drives': {
+      id: '/explore/big-bend-scenic-drives'
+      path: '/explore/big-bend-scenic-drives'
+      fullPath: '/explore/big-bend-scenic-drives'
+      preLoaderRoute: typeof ExploreBigBendScenicDrivesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/explore/attractions-comparison': {
       id: '/explore/attractions-comparison'
       path: '/explore/attractions-comparison'
@@ -9999,6 +10206,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/explore/$category'
       preLoaderRoute: typeof ExploreCategoryRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/events/mardi-gras': {
+      id: '/events/mardi-gras'
+      path: '/mardi-gras'
+      fullPath: '/events/mardi-gras'
+      preLoaderRoute: typeof EventsMardiGrasRouteImport
+      parentRoute: typeof EventsRoute
     }
     '/events/air-shows': {
       id: '/events/air-shows'
@@ -10580,6 +10794,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/texas-data/research/texas-homeowners-premiums-vs-coverage'
       preLoaderRoute: typeof TexasDataResearchTexasHomeownersPremiumsVsCoverageRouteImport
       parentRoute: typeof TexasDataResearchRoute
+    }
+    '/sports/teams/$slug': {
+      id: '/sports/teams/$slug'
+      path: '/$slug'
+      fullPath: '/sports/teams/$slug'
+      preLoaderRoute: typeof SportsTeamsSlugRouteImport
+      parentRoute: typeof SportsTeamsRoute
     }
     '/sports/softball/{-$team}': {
       id: '/sports/softball/{-$team}'
@@ -11178,12 +11399,14 @@ const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 interface EventsRouteChildren {
   EventsCollectionRoute: typeof EventsCollectionRoute
   EventsAirShowsRoute: typeof EventsAirShowsRoute
+  EventsMardiGrasRoute: typeof EventsMardiGrasRoute
   EventsIndexRoute: typeof EventsIndexRoute
 }
 
 const EventsRouteChildren: EventsRouteChildren = {
   EventsCollectionRoute: EventsCollectionRoute,
   EventsAirShowsRoute: EventsAirShowsRoute,
+  EventsMardiGrasRoute: EventsMardiGrasRoute,
   EventsIndexRoute: EventsIndexRoute,
 }
 
@@ -11409,13 +11632,27 @@ const ShopRouteChildren: ShopRouteChildren = {
 
 const ShopRouteWithChildren = ShopRoute._addFileChildren(ShopRouteChildren)
 
+interface SportsTeamsRouteChildren {
+  SportsTeamsSlugRoute: typeof SportsTeamsSlugRoute
+}
+
+const SportsTeamsRouteChildren: SportsTeamsRouteChildren = {
+  SportsTeamsSlugRoute: SportsTeamsSlugRoute,
+}
+
+const SportsTeamsRouteWithChildren = SportsTeamsRoute._addFileChildren(
+  SportsTeamsRouteChildren,
+)
+
 interface SportsRouteChildren {
   SportsFridayNightLightsRoute: typeof SportsFridayNightLightsRoute
+  SportsTeamsRoute: typeof SportsTeamsRouteWithChildren
   SportsSoftballChar123TeamChar125Route: typeof SportsSoftballChar123TeamChar125Route
 }
 
 const SportsRouteChildren: SportsRouteChildren = {
   SportsFridayNightLightsRoute: SportsFridayNightLightsRoute,
+  SportsTeamsRoute: SportsTeamsRouteWithChildren,
   SportsSoftballChar123TeamChar125Route: SportsSoftballChar123TeamChar125Route,
 }
 
@@ -11755,11 +11992,13 @@ const rootRouteChildren: RootRouteChildren = {
   CitationGuideRoute: CitationGuideRoute,
   CompareTexasCitiesRoute: CompareTexasCitiesRoute,
   ContinentalClubAustinHistoryRoute: ContinentalClubAustinHistoryRoute,
+  CorporateEventsRoute: CorporateEventsRoute,
   CorpusChristiMusicHistoryRoute: CorpusChristiMusicHistoryRoute,
   CorrectionsPolicyRoute: CorrectionsPolicyRoute,
   CountyRoute: CountyRoute,
   DallasBlackHistoryRoute: DallasBlackHistoryRoute,
   DallasFortWorthMusicHistoryRoute: DallasFortWorthMusicHistoryRoute,
+  DallasToWacoMagnoliaToursRoute: DallasToWacoMagnoliaToursRoute,
   DrPepperTexasHistoryRoute: DrPepperTexasHistoryRoute,
   EditorialPolicyRoute: EditorialPolicyRoute,
   EventsRoute: EventsRouteWithChildren,
@@ -11944,6 +12183,8 @@ const rootRouteChildren: RootRouteChildren = {
   Top25TexasAttractionsDotcsvRoute: Top25TexasAttractionsDotcsvRoute,
   Top25TexasAttractionsDotjsonRoute: Top25TexasAttractionsDotjsonRoute,
   TrackTexasDriversLicenseRoute: TrackTexasDriversLicenseRoute,
+  WacoAttractionsRoute: WacoAttractionsRoute,
+  WacoGhostToursRoute: WacoGhostToursRoute,
   WhatDoesChudMeanRoute: WhatDoesChudMeanRoute,
   KindSlugRoute: KindSlugRoute,
   AgencySlugRoute: AgencySlugRoute,
@@ -12026,6 +12267,7 @@ const rootRouteChildren: RootRouteChildren = {
   ExploreCategoryRoute: ExploreCategoryRoute,
   ExploreAquariumsRoute: ExploreAquariumsRoute,
   ExploreAttractionsComparisonRoute: ExploreAttractionsComparisonRoute,
+  ExploreBigBendScenicDrivesRoute: ExploreBigBendScenicDrivesRoute,
   ExploreCasinosRoute: ExploreCasinosRouteWithChildren,
   ExploreHillCountrySpringsRoute: ExploreHillCountrySpringsRoute,
   ExploreInlandBeachesRoute: ExploreInlandBeachesRouteWithChildren,
@@ -12070,6 +12312,8 @@ const rootRouteChildren: RootRouteChildren = {
     HistoricSiteSeminoleCanyonStateParkStateHistoricSiteRoute,
   HistoricSiteWashingtonOnTheBrazosStateHistoricSiteRoute:
     HistoricSiteWashingtonOnTheBrazosStateHistoricSiteRoute,
+  HolidayEnchantChristmasArlingtonRoute: HolidayEnchantChristmasArlingtonRoute,
+  HolidayMagicalWinterLightsRoute: HolidayMagicalWinterLightsRoute,
   HorseRacingSlugRoute: HorseRacingSlugRoute,
   LakesLakeConroeDothtmlRoute: LakesLakeConroeDothtmlRoute,
   LearnAgriculturalValuationRoute: LearnAgriculturalValuationRoute,

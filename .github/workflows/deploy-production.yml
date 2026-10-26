@@ -23,7 +23,7 @@ jobs:
     environment: texasdefined-publication
     env:
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_DEPLOY_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_DEPLOY_API_TOKEN }}
       CLOUDFLARE_DEPLOY_TOKEN_PRESENT: ${{ secrets.CLOUDFLARE_DEPLOY_API_TOKEN != '' }}
       CLOUDFLARE_CACHE_TOKEN_PRESENT: ${{ secrets.CLOUDFLARE_CACHE_API_TOKEN != '' }}
       GH_TOKEN: ${{ github.token }}
@@ -95,7 +95,8 @@ jobs:
           if [[ "$CLOUDFLARE_DEPLOY_TOKEN_PRESENT" == 'true' ]]; then
             echo 'Production deployment will use CLOUDFLARE_DEPLOY_API_TOKEN.'
           else
-            echo '::warning title=Dedicated Cloudflare deploy token unavailable::Production deployment is falling back to CLOUDFLARE_API_TOKEN. If that token lacks Workers Scripts write access, deployment will fail closed.'
+            echo '::error title=Dedicated Cloudflare deploy token missing::Configure CLOUDFLARE_DEPLOY_API_TOKEN in the texasdefined-publication environment; production will not use a general token.'
+            exit 1
           fi
 
       - name: Publish validation pending
@@ -423,6 +424,11 @@ jobs:
           CLOUDFLARE_ZONE_NAME: texasdefined.com
           CLOUDFLARE_PURGE_METRO_PROXIMITY: 'true'
           CLOUDFLARE_PURGE_URLS: |
+            https://texasdefined.com/texas-data
+            https://texasdefined.com/article/texas-high-school-football-playoffs-explained
+            https://texasdefined.com/texas-data/texas-homeowners-premium-history
+            https://texasdefined.com/texas-data/texas-metro-payrolls-august-2026
+            https://texasdefined.com/texas-data/texas-metro-payrolls-june-2026
             https://texasdefined.com/destination/moody-gardens
             https://texasdefined.com/sports-venue/msr-houston
             https://texasdefined.com/sports-venues/motorsports
@@ -448,6 +454,7 @@ jobs:
             https://texasdefined.com/article/best-dallas-suburbs-for-commuters
             https://texasdefined.com/article/east-texas-fall-colors
             https://texasdefined.com/article/texas-property-taxes-for-new-residents
+            https://texasdefined.com/property-tax/taxing-unit/escobares
             https://texasdefined.com/article/corporate-relocation-to-texas
             https://texasdefined.com/article/employee-relocation-guide-to-texas
             https://texasdefined.com/sitemap.xml
@@ -515,9 +522,44 @@ jobs:
           PRODUCTION_HEALTH_DISCOVER_ASSETS: ${{ steps.change_scope.outputs.images }}
         run: node scripts/ci/verify-production-health.mjs
 
+      # A healthy Worker/homepage does not prove that the organizer-backed
+      # Christmas 2026 calendar reached the canonical and cache-busted HTML.
+      # Run inside the existing single-publisher production concurrency lock.
+      - name: Verify Christmas 2026 source-calendar production
+        id: live_christmas_hub
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
+        env:
+          PRODUCTION_ORIGIN: https://texasdefined.com
+        run: |
+          node --check scripts/ci/verify-christmas-hub-production.mjs
+          node scripts/ci/verify-christmas-hub-production.mjs
+
+      # The Christmas hub alone cannot prove that each dated concert renders
+      # once in the statewide calendar (or that ticket CTAs remain accessible).
+      - name: Verify 12 Christmas concerts individually in live events calendar
+        id: live_christmas_12_calendar
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
+        env:
+          PRODUCTION_ORIGIN: https://texasdefined.com
+        run: |
+          node --check scripts/ci/verify-christmas-calendar-12-production.mjs
+          node scripts/ci/verify-christmas-calendar-12-production.mjs
+
+      # Enforce exact post-deploy football guide content instead of accepting
+      # a healthy homepage while the guide still serves the old hero or date.
+      - name: Verify 2026 playoff guide updated hero, brackets and edge freshness
+        id: live_playoff_guide
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
+        run: node scripts/production/verify-football-playoffs-guide-production.mjs
+
       # The homepage health probe does not certify Chamizal, the complete federal
       # directory, or the Palo Alto photograph. Every production deploy must run
       # exact page checks; otherwise unrelated commits can silently serve stale HTML.
+      - name: Verify Moody Gardens production authority
+        id: live_moody_gardens
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
+        run: node scripts/production/verify-moody-gardens-production.mjs
+
       - name: Verify NPS directory, Chamizal and Palo Alto production authority
         id: live_nps_authority
         if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
@@ -694,10 +736,50 @@ jobs:
           TEXASDEFINED_BASE_URL: https://texasdefined.com
         run: node scripts/production/verify-sports-venue-editorial-production.mjs
 
+      - name: Prepare MSR Houston mobile and desktop browser acceptance
+        id: live_msr_browser_deps
+        if: ${{ always() && steps.live_sports_venue_editorial.outcome == 'success' && steps.change_scope.outputs.sports == 'true' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-wp-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+
+      - name: Verify MSR Houston responsive visitor page and licensed photo
+        id: live_msr_browser
+        if: ${{ always() && steps.live_msr_browser_deps.outcome == 'success' && steps.live_sports_venue_editorial.outcome == 'success' }}
+        env:
+          PRODUCTION_ORIGIN: https://texasdefined.com
+        shell: bash
+        run: node scripts/ci/verify-msr-houston-browser.mjs
+
+      - name: Preserve MSR Houston desktop/mobile evidence
+        if: ${{ always() && steps.live_msr_browser.outcome != 'skipped' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: msr-houston-browser-${{ github.run_id }}
+          path: artifacts/msr-houston-browser/
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Verify District 21 hub and eight team scorecards on production
+        id: live_district21
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
+        env:
+          PRODUCTION_ORIGIN: https://texasdefined.com
+        run: node scripts/ci/verify-district21-football-production.mjs
+
       - name: Verify District 5-6A scorecard on direct Worker and canonical domain
         id: live_district5
         if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
         run: node scripts/ci/verify-district-5-production.mjs
+
+      - name: Verify District 16 scorecards and official links on direct Worker and canonical domain
+        id: live_district16
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
+        run: node scripts/ci/verify-district16-production.mjs
 
       # The district's HTML is checked on every deploy; its responsive browser check
       # must also run on every deploy, not only when the broad sports change group fires.
@@ -718,6 +800,11 @@ jobs:
         id: live_district5_browser
         if: ${{ always() && steps.district5_browser_deps.outcome == 'success' }}
         run: node scripts/ci/verify-district-5-responsive-browser.mjs
+
+      - name: Verify District 16 mobile and desktop rendered layout
+        id: live_district16_browser
+        if: ${{ always() && steps.live_district16.outcome == 'success' && steps.district5_browser_deps.outcome == 'success' }}
+        run: node scripts/ci/verify-district16-responsive-browser.mjs
 
       - name: Preserve District 5 responsive acceptance evidence
         if: ${{ always() && steps.live_district5_browser.outcome != 'skipped' }}
@@ -792,6 +879,27 @@ jobs:
           mkdir -p .artifacts
           node scripts/ci/verify-changed-production-pages.mjs 2>&1 | tee .artifacts/city-sitemap-live-evidence.log
 
+      # Explicit, opt-in full production XML integrity proof. It runs only
+      # for a protected merge whose commit title includes [verify-sitemaps],
+      # never on ordinary deploys or for unreviewed PRs.
+      - name: Verify both production XML sitemaps on explicit request
+        id: sitemap_integrity
+        if: ${{ always() && github.event_name == 'push' && steps.cloudflare.outcome == 'success' && steps.live_base.outcome == 'success' && contains(github.event.head_commit.message, '[verify-sitemaps]') }}
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdir -p .artifacts
+          timeout 240s node scripts/ci/verify-sitemap-production-integrity.mjs 2>&1 | tee .artifacts/production-sitemap-integrity.log
+
+      - name: Preserve explicit production XML sitemap audit evidence
+        if: ${{ always() && steps.sitemap_integrity.outcome != 'skipped' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: production-sitemap-integrity-${{ github.run_id }}
+          path: .artifacts/production-sitemap-integrity.log
+          if-no-files-found: error
+          retention-days: 90
+
       - name: Preserve live city sitemap verification evidence
         if: ${{ always() && steps.live_base.outcome != 'skipped' }}
         uses: actions/upload-artifact@v4
@@ -809,6 +917,24 @@ jobs:
           path: .artifacts/changed-production-pages.json
           if-no-files-found: error
           retention-days: 7
+
+      - name: Verify museum visitor pages after museum-related deployment changes
+        id: live_museums
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_base.outcome == 'success' }}
+        shell: bash
+        run: |
+          set -o pipefail
+          node --test scripts/ci/museum-primary-hero.test.mjs scripts/ci/verify-changed-museum-production.test.mjs
+          node scripts/ci/verify-changed-museum-production.mjs
+
+      - name: Preserve change-scoped museum production verification evidence
+        if: ${{ always() && steps.live_museums.outcome != 'skipped' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: museum-live-deploy-acceptance-${{ github.run_id }}
+          path: .artifacts/museum-production-acceptance.json
+          if-no-files-found: ignore
+          retention-days: 30
 
       - name: Verify Event structured-data production
         id: live_events
@@ -873,8 +999,8 @@ jobs:
 
       - name: Mark live production verification complete
         id: live
-        # Require completed, passing District 5 desktop/mobile Chrome acceptance.
-        if: ${{ success() && steps.cloudflare.outcome == 'success' && steps.live_district5_browser.outcome == 'success' }}
+        # Require completed District 5, 16, and 21 HTML acceptance plus 5/16 desktop/mobile Chrome acceptance.
+        if: ${{ success() && steps.cloudflare.outcome == 'success' && steps.live_district5_browser.outcome == 'success' && steps.live_district16.outcome == 'success' && steps.live_district16_browser.outcome == 'success' && steps.live_district21.outcome == 'success' }}
         run: echo 'All blocking production verifiers passed natively.'
       - name: Publish live verification result
         if: always()

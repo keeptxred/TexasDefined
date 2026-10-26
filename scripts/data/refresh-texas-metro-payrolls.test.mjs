@@ -1,0 +1,120 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { parseCurrentRelease, parseMetroTable, parseFredCsv, validateFresh, refresh } from './refresh-texas-metro-payrolls.mjs';
+
+const areas = [
+  ['Dallas-Fort Worth-Arlington', 4357.0], ['Houston-Pasadena-The Woodlands', 3495.3],
+  ['Austin-Round Rock-San Marcos', 1415.9], ['San Antonio-New Braunfels', 1191.7],
+  ['El Paso', 363.5], ['McAllen-Edinburg-Mission', 308.1], ['Corpus Christi', 202.3],
+  ['Lubbock', 176.3], ['Brownsville-Harlingen', 159.5],
+  ['College Station-Bryan', 142.1], ['Waco', 142.9], ['Amarillo', 130.7], ['Tyler', 122.6],
+];
+const summary = '<p>For release 10:00 a.m. (ET) Wednesday, September 30, 2026</p>' +
+  '<h1>METROPOLITAN AREA EMPLOYMENT AND UNEMPLOYMENT - AUGUST 2026</h1>';
+const table = rows => '<h2>Table 3. Employees on nonfarm payrolls by state and metropolitan area, not seasonally adjusted</h2><table>' +
+  rows.map(([name, number]) => '<tr><th>' + name + '</th><td>100.0</td><td>100.1</td><td>100.2</td><td>' +
+    number.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) +
+    '</td><td>0.1</td><td>0.1</td></tr>').join('') + '</table>';
+
+test('BLS dated summary derives a source-specific archive and period', () => {
+  assert.deepEqual(parseCurrentRelease(summary), {
+    releaseMonth: '2026-08', publishedDate: '2026-09-30',
+    sourceUrl: 'https://www.bls.gov/news.release/archives/metro_09302026.htm',
+  });
+  assert.throws(() => parseCurrentRelease(summary.replace('AUGUST 2026', 'AUGUST 2029')));
+  assert.throws(() => parseCurrentRelease(summary.replace('September 30, 2026', 'September 40, 2026')));
+});
+
+test('Table 3 uses current-year latest-month column and requires all 13 named metros', () => {
+  const rows = parseMetroTable(table(areas));
+  assert.equal(rows.length, 13);
+  assert.equal(rows[0].value, 4357000);
+  assert.equal(rows[1].value, 3495300);
+  assert.equal(rows[12].value, 122600);
+  assert.throws(() => parseMetroTable(table(areas.slice(0, 12))), /Incomplete/);
+  assert.throws(() => parseMetroTable(table([...areas, areas[0]])), /Duplicate/);
+  assert.throws(() => parseMetroTable(table(areas).replace('4,357.0', 'broken')), /numeric format/);
+});
+
+test('Refuse stale release, missing source provenance and implausible changes', () => {
+  const old = {
+    releaseMonth: '2026-08', publishedDate: '2026-09-30',
+    sourceUrl: 'https://www.bls.gov/news.release/archives/metro_09302026.htm',
+    rows: parseMetroTable(table(areas)),
+  };
+  validateFresh(old, old);
+  assert.throws(() => validateFresh({ ...old, releaseMonth: '2026-07' }, old), /older/);
+  assert.throws(() => validateFresh({ ...old, sourceUrl: 'https://example.com' }, old), /provenance/);
+  assert.throws(() => validateFresh({ ...old, rows: old.rows.map((r, i) => i === 0 ? { ...r, value: 1500000 } : r) }, old), /beyond controlled/);
+});
+
+
+test('Federal Reserve BLS fallback verifies all 13 NSA series, synchronized month, and magnitude', () => {
+  const ids = ['DALL148NAN','HOUS448NAN','AUST448NAN','SANA748NAN','ELPA348NAN',
+    'MCAL548NAN','CORP548NAN','LUBB148NAN','BROW148NAN','COLL748NAN',
+    'WACO348NAN','AMAR148NAN','TYLE348NAN'];
+  const old = { releaseMonth: '2026-08', publishedDate: '2026-09-30',
+    sourceUrl: 'https://www.bls.gov/news.release/archives/metro_09302026.htm',
+    rows: parseMetroTable(table(areas)) };
+  const makeCsv = (header = ids, data = areas.map(([, n]) => String(n))) =>
+    'observation_date,' + header.join(',') + '\n' +
+    '2026-08-01,' + data.join(',') + '\n';
+  const alternate = parseFredCsv(makeCsv().replace('observation_date', 'Date'), old);
+  assert.deepEqual(alternate.rows, parseFredCsv(makeCsv(), old).rows);
+  const reorder = [...ids].reverse();
+  const reversed = parseFredCsv(makeCsv(reorder, areas.map(([, n]) => String(n)).reverse()), old);
+  assert.deepEqual(reversed.rows, alternate.rows, 'series identity must survive CSV column reordering');
+  assert.throws(() => parseFredCsv('<html><body>Access denied</body></html>', old), /HTML rather than official CSV/);
+  const data = parseFredCsv(makeCsv(), old);
+  assert.equal(data.releaseMonth, '2026-08');
+  assert.equal(data.rows.length, 13);
+  assert.equal(data.rows[0].value, 4357000);
+  assert.equal(data.publishedDate, '2026-09-30', 'same data must not invent a new publication date');
+  assert.match(data.sourceUrl, /^https:\/\/fred\.stlouisfed\.org\/graph\//);
+  validateFresh(data, old);
+  assert.throws(() => parseFredCsv(makeCsv(ids.slice(1)), old), /changed the required/);
+  assert.throws(() => parseFredCsv(makeCsv(ids, areas.slice(0, 12).map(([, n]) => String(n))), old), /no complete/);
+  const newest = parseFredCsv(makeCsv(ids, areas.map(([, n]) => String(n+1))), old, '2026-10-21');
+  assert.equal(newest.publishedDate, '2026-10-21');
+  assert.throws(() => validateFresh({ ...newest, rows: newest.rows.map((r, i) =>
+    i === 0 ? { ...r, value: 10_000 } : r) }, old), /beyond controlled/);
+});
+
+test('scheduled publication writes the validated release date only after a source-complete update', async () => {
+  const old = {
+    releaseMonth: '2026-07',
+    publishedDate: '2026-09-02',
+    sourceUrl: 'https://www.bls.gov/news.release/archives/metro_09022026.htm',
+    units: 'total nonfarm payroll jobs, not seasonally adjusted',
+    rows: parseMetroTable(table(areas)),
+  };
+  const bridge = "export const TEXAS_DATASETS = [ { slug: 'texas-metro-payrolls-latest', updated: '2026-09-02' } ];";
+  const writes = new Map();
+  const changed = await refresh({
+    fetchSource: async (url) => url.includes('metro.nr0') ? summary : table(areas),
+    read: async (name) => name.endsWith('.json') ? JSON.stringify(old) : bridge,
+    write: async (name, content) => { writes.set(name, content); },
+  });
+  assert.equal(changed, true);
+  const next = JSON.parse(writes.get('src/data/generated/texas-metro-payrolls-current.json'));
+  assert.equal(next.releaseMonth, '2026-08');
+  assert.equal(next.publishedDate, '2026-09-30');
+  assert.match(writes.get('src/data/texas-data-center.ts'), /updated: '2026-09-30'/);
+});
+
+test('Federal Reserve monthly metro series must mature beyond the official release window before publication', () => {
+  const ids = ['DALL148NAN','HOUS448NAN','AUST448NAN','SANA748NAN','ELPA348NAN',
+    'MCAL548NAN','CORP548NAN','LUBB148NAN','BROW148NAN','COLL748NAN',
+    'WACO348NAN','AMAR148NAN','TYLE348NAN'];
+  const previous = { releaseMonth: '2026-08', publishedDate: '2026-09-30',
+    sourceUrl: 'https://www.bls.gov/news.release/archives/metro_09302026.htm',
+    rows: parseMetroTable(table(areas)) };
+  const september = 'observation_date,' + ids.join(',') + '\n2026-09-01,' +
+    areas.map(([, count]) => count).join(',') + '\n';
+  assert.throws(() => parseFredCsv(september, previous, '2026-10-26'), /too recent/);
+  assert.throws(() => parseFredCsv(september, previous, '2026-11-08'), /too recent/);
+  const published = parseFredCsv(september, previous, '2026-11-09');
+  assert.equal(published.releaseMonth, '2026-09');
+  assert.equal(published.sourceUrl.startsWith('https://fred.stlouisfed.org/'), true);
+  assert.equal(published.publishedDate, '2026-11-09');
+});

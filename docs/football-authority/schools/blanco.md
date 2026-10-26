@@ -34,3 +34,9 @@ Six original questions and five substantive school-specific overview paragraphs 
 
 ## October 20, 2026 — distinguish historical October 9 from October 16 current record
 The seven-game **4–3 as of Oct9** overview remains useful history, but its general "remaining fixtures" sentence could be read as including an already completed game. Update that sentence to identify the existing sourced **Blanco 54–6 Karnes City final on Oct16** and the current **5–3 record through Oct16**, leaving only YMLA Oct23 and Comfort Nov6 as unresolved fixtures. Source: [Houston Chronicle October 16 Texas football finals](https://www.houstonchronicle.com/sports/high-school/football/article/texas-scores-friday-week-16-22481255.php), as already cited elsewhere in the school's page. No new or invented final, stadium gate or photo license.
+
+## October 20, 2026 — acceptance-ledger source recheck
+Blanco ISD Athletics was rechecked and still names **Kent Walker as Athletic Director**, **Panther Stadium at 604 Terri Lane**, and **online-only athletic tickets through Home Town Ticketing**. The district page still does not itself label Walker as head football coach, so the current football-role attribution should continue to rely on the separately dated 2026 team-staff source rather than infer a coaching title from the AD role.
+
+No new first-party evidence was found for the exact football entrance, parking allocation, accessible seating, or reusable stadium/team photography. The 5–3 through October 16 record, Panther Stadium versus high-school-campus address distinction, and prior technical Chrome evidence remain unchanged. **Status stays DEPLOYED, not individually VERIFIED.**
+

@@ -1,4 +1,5 @@
 import { Link } from '@tanstack/react-router';
+import { editorialImageSrc } from '@/lib/editorial-image-delivery';
 import { RIVER_AUTHORITY_CARD_PHOTOS } from '@/data/river-authority-photo-catalog';
 
 import { DepartmentHero } from '@/components/editorial/DepartmentHero';
@@ -138,7 +139,7 @@ export function TexasRiverValleysLandscapePage({ item, nearby }: { item: Enriche
   return <div key={river.href} className="overflow-hidden rounded-sm border border-border bg-background">
     <Link to={river.href} className="group block transition-colors hover:text-primary">
       <div className="aspect-[16/9] overflow-hidden bg-surface">
-        <img src={photo?.src ?? river.image} alt={photo?.alt ?? (river.image.includes('texas-river-basins') ? 'Illustrated map of the Texas river basins' : river.name + ' watershed or nearby representative landscape in Texas')} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]" />
+        <img src={editorialImageSrc(photo?.src ?? river.image)} alt={photo?.alt ?? (river.image.includes('texas-river-basins') ? 'Illustrated map of the Texas river basins' : river.name + ' watershed or nearby representative landscape in Texas')} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]" />
       </div>
       <div className="p-5">
         <p className="eyebrow text-primary">{river.region}</p>

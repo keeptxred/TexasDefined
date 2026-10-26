@@ -47,3 +47,8 @@ The [MaxPreps 2026–27 Rivercrest varsity **staff roster**, updated August 29](
 
 **Editorial disposition:** The public team guide now includes **Laytner Kennedy** as the **dated third-party-attributed 2026 varsity head football coach**, corroborated by his first-party school boys-AD listing but **not misrepresented as having a district-issued football hiring announcement**. The notice, detailed overview, and staff-access FAQ distinguish this from the outdated McClain season-history value. Previous October 19/20 research notes remain as historical uncertainty checkpoints; this dated AFCA source resolves the McClain aspect. Do not infer exact stadium entrance, event ticket prices, accessibility certification, photo rights or human nine-dimensional approval. Scores, 2026 record, Red River County identity and reciprocal links remain unchanged.
 
+## October 20, 2026 — acceptance-ledger source recheck
+Rivercrest High School's first-party staff directory remains useful for **Laytner Kennedy's boys athletic-director role and school contact**, but it does not independently publish a head-football appointment. The current guide should therefore retain its dated football-staff attribution for Kennedy while continuing to explain why the stale Travis McClain season-history field is not current coaching evidence.
+
+No new first-party evidence was found for the exact public stadium entrance, parking allocation, ticket rules, comprehensive accessible seating, or reusable football photography rights. The 4–4 through October 16 record, Red River County routing, and prior successful Batch 006 technical Chrome evidence remain unchanged. **Status stays DEPLOYED, not individually VERIFIED.**
+

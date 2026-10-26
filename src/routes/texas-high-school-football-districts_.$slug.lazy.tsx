@@ -2,6 +2,9 @@ import { createLazyFileRoute, Link } from '@tanstack/react-router';
 
 import { Container } from '@/components/layout/Container';
 import { FootballFanOffers } from '@/components/sports/FootballFanOffers';
+import { FootballMonetizationSlot } from '@/components/sports/FootballMonetizationSlot';
+import { SponsoredSportsPlacement } from '@/components/sports/SponsoredSportsPlacement';
+import { District16Coverage } from '@/components/sports/District16Coverage';
 import { DISTRICT_5_SCHEDULE_URL, DISTRICT_5_STANDINGS_URL } from '@/data/high-school-football/football-district5-2026';
 import {
   DISTRICT_21_FBISD_CALENDAR_URL, DISTRICT_21_OVERALL_OCT14,
@@ -13,6 +16,7 @@ import {
   UIL_FOOTBALL_ENROLLMENT_BANDS_SOURCE,
   uilFootballConferenceBand,
   uilFootballEnrollmentBand,
+  uilEnrollmentFallsWithinBand,
 } from '@/data/high-school-football/enrollment-bands';
 
 export const Route = createLazyFileRoute('/texas-high-school-football-districts/$slug')({ component: Page });
@@ -26,6 +30,7 @@ function Page() {
   const katyPilot = district.slug === '6a-district-22';
   const district5Pilot = district.slug === '6a-district-5';
   const district21Pilot = district.slug === '6a-district-21';
+  const district16Pilot = district.slug === '6a-district-16';
   const games = getDistrictFootballGames(district.slug, district.classification, district.district);
   const recentFinals = games.filter((game) => game.status === 'final').reverse().slice(0, district5Pilot || district21Pilot ? 16 : 8);
   const pendingGames = games.filter((game) => game.status === 'scheduled').slice(0, 16);
@@ -35,6 +40,7 @@ function Page() {
   const shortLabel = `${district.classification}${divisionRoman ? ` Division ${divisionRoman}` : ''} District ${district.district}`;
   const enrollmentBand = uilFootballEnrollmentBand(district.classification, district.division);
   const conferenceBand = uilFootballConferenceBand(district.classification);
+  const placementExceptionPrograms = enrollmentBand ? district.programs.filter(program => uilEnrollmentFallsWithinBand(program.uilEnrollment, enrollmentBand) === false) : [];
   const reportedEnrollments = district.programs.map((program) => program.uilEnrollment);
   const enrollmentLow = Math.min(...reportedEnrollments);
   const enrollmentHigh = Math.max(...reportedEnrollments);
@@ -66,8 +72,12 @@ function Page() {
         </dl>
       </header>
 
+      <FootballMonetizationSlot surfacePath={district.profilePath} hasSponsor={!!district.sponsorPlacement} />
+      {district.sponsorPlacement && <div className="border-b border-border py-6"><SponsoredSportsPlacement key={district.sponsorPlacement.id} placement={district.sponsorPlacement} /></div>}
 
-      {(katyPilot || district5Pilot || games.length > 0) && <section id={district21Pilot ? "district-21-results" : undefined} data-football-district-section="coverage" className="border-b border-border py-10">
+      {district16Pilot && <District16Coverage schools={district.programs} />}
+
+      {!district16Pilot && (katyPilot || district5Pilot || games.length > 0) && <section id={district21Pilot ? "district-21-results" : "district-game-coverage"} data-football-district-section="coverage" className="border-b border-border py-10">
         <div className="mb-7 flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="eyebrow text-primary">2026 varsity football</p>
@@ -225,8 +235,6 @@ function Page() {
         <p className="mt-4 text-xs leading-6 text-muted-foreground">All listed times are local Central time. Do not rely on a school profile address for parking, accessible entrances or visiting-side seating; verify those details with the host before departure. These links are not affiliate tickets.</p>
       </section>}
 
-      {!district21Pilot && <FootballFanOffers slug={`district-${district.slug}`} hasUpcomingAwayTravel={false} showTravelPlanning />}
-
       <section data-football-district-section="teams" className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div>
           <p className="eyebrow text-primary">The teams</p>
@@ -243,7 +251,8 @@ function Page() {
             </a>)}
           </div>
           <p className="mt-5 text-sm leading-7 text-muted-foreground">Teams are listed alphabetically; this is not a ranking, projected finish, or statement about team quality.</p>
-          <p className="mt-2 text-sm leading-7 text-muted-foreground">Enrollment figures are the UIL 2026–28 realignment snapshot used for classification. They are not live campus headcounts.</p>
+          <p className="mt-2 text-sm leading-7 text-muted-foreground">Enrollment figures are the UIL 2026–28 realignment snapshot, not live campus headcounts. Published cutoff bands explain normal ranges, but the final UIL football alignment controls competition placement.</p>
+          {placementExceptionPrograms.length > 0 && <p className="mt-2 text-sm leading-7 text-muted-foreground"><strong className="text-foreground">Placement exception{placementExceptionPrograms.length === 1 ? '' : 's'}:</strong> {placementExceptionPrograms.map((program, index) => <span key={program.profilePath}>{index ? ', ' : ' '}<a href={program.profilePath} className="font-semibold text-primary underline underline-offset-4">{program.schoolName}</a></span>)}. These programs' verified reported enrollment is outside the normal published cutoff for the final UIL placement.</p>}
         </div>
       </section>
 
@@ -254,7 +263,8 @@ function Page() {
         </div>
         <div className="grid gap-5 sm:grid-cols-2">
           {district21Pilot ? <Related href="#district-21-results" title="District 21 games & results" body="Jump to every sourced 2026 league final and the remaining games in this district, rather than an unrelated statewide directory." />
-            : <Related href="/texas-high-school-football-matchups" title="Documented matchups" body="See dated games, reported final scores and verified source links." />}
+            : district16Pilot ? <Related href="#district-16-results" title="District 16 scores, records and next games" body="Jump to our sourced District 16 standings snapshot, verified recent results and official CFISD game-day links." />
+            : games.length ? <Related href="#district-game-coverage" title="This district's sourced games" body="View only the dated results and fixtures actually documented for this district. Missing final scores are not assumed." /> : <p className="border-t-2 border-foreground pt-4 text-sm leading-7 text-muted-foreground">No independently verified district matchups are published here yet. Check the UIL scoreboard and school schedules; this page does not invent results.</p>}
           <Related href="/texas-high-school-football-playoff-brackets" title="2026 postseason brackets" body="Choose from twelve UIL class/division brackets and view independently verified playoff results." />
           <Related href="https://www.uiltexas.org/maxpreps/" title="Current scores & schedules" body="Open the UIL Texas Scoreboard for the latest school-submitted scores and weekly schedules. It is not an official district-standings table." external />
           <Related href="/article/texas-high-school-football-2026-season-calendar" title="2026 season calendar" body="Track district play, playoff rounds and the December state championship dates." />
@@ -270,7 +280,7 @@ function Page() {
         </div>
         <div className="space-y-5 text-sm leading-7 text-muted-foreground">
           <p>These schools share a UIL football district for regular-season competition during the 2026–28 alignment cycle. District results determine playoff qualification under UIL rules.</p>
-          <p><strong className="text-foreground">Enrollment band:</strong> {enrollmentBand?.label || conferenceBand}. <strong className="text-foreground">District snapshot:</strong> {formatEnrollment(enrollmentLow)}–{formatEnrollment(enrollmentHigh)}.</p>
+          <p><strong className="text-foreground">Normal enrollment band:</strong> {enrollmentBand?.label || conferenceBand}. <strong className="text-foreground">District snapshot:</strong> {formatEnrollment(enrollmentLow)}–{formatEnrollment(enrollmentHigh)}.</p>
           {district.classification === '6A'
             ? <p>6A schools are not assigned to Division I or Division II before the season. After four teams qualify, the two larger-enrollment qualifiers enter Division I and the two smaller-enrollment qualifiers enter Division II.</p>
             : <p>In {district.classification}, Division {divisionRoman} is set during realignment, so every school on this page competes in the same classification and football division before the season begins.</p>}
@@ -293,8 +303,6 @@ function Page() {
         </div>
       </section>
 
-      {district21Pilot && <FootballFanOffers slug={`district-${district.slug}`} hasUpcomingAwayTravel={false} showTravelPlanning />}
-
       <section data-football-district-section="official-sources" className="py-10">
         <p className="eyebrow text-primary">Official data</p>
         <h2 className="mt-2 font-display text-3xl">University Interscholastic League sources</h2>
@@ -304,6 +312,8 @@ function Page() {
           <a href={district.enrollmentSourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">UIL enrollment source ↗</a>
         </div>
       </section>
+
+      <FootballFanOffers slug={`district-${district.slug}`} hasUpcomingAwayTravel={false} showTravelPlanning />
     </article>
   </Container>;
 }

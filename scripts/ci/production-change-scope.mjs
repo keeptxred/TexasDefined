@@ -39,6 +39,23 @@ function records(source) {
   return result;
 }
 
+// Use the declared Article.slug, not a fixture filename or nested link parameter.
+function standaloneArticleSlugs(source) {
+  const file = ts.createSourceFile('article-fixture.ts', source, ts.ScriptTarget.Latest, true, ts.ScriptKind.TS);
+  const slugs = new Set();
+  function visit(node) {
+    if (ts.isVariableDeclaration(node) && node.type?.getText(file) === 'Article'
+      && node.initializer && ts.isObjectLiteralExpression(node.initializer)) {
+      const slug = node.initializer.properties.find(prop => ts.isPropertyAssignment(prop)
+        && prop.name.getText(file).replace(/^['"]|['"]$/g, '') === 'slug');
+      if (slug && ts.isStringLiteralLike(slug.initializer)) slugs.add(slug.initializer.text);
+    }
+    ts.forEachChild(node, visit);
+  }
+  visit(file);
+  return [...slugs];
+}
+
 function articleLinkRegistry(source) {
   const file = ts.createSourceFile('link-registry.ts', source, ts.ScriptTarget.Latest, true, ts.ScriptKind.TS);
   const records = new Map();
@@ -60,10 +77,86 @@ function articleLinkRegistry(source) {
   return records;
 }
 
-export function buildChangePlan({ changedFiles, sources = {}, baseline = null, head = null }) {
+export function buildChangePlan({ changedFiles, sources = {}, baseline = null, head = null, enforceCriticalCanaries = false }) {
   const shared = baseline === null || changedFiles.some(p => sharedPattern.test(p));
   const candidates = new Set(shared ? REPRESENTATIVE_PATHS : []);
   const expectedHrefsByPage = {};
+  const eventAuthorityPages = new Set();
+  // The canonical corporate marketplace needs SSR authority and privacy smoke
+  // after the finder, catalog, city guides, categories or consent forms change.
+  // One route only; do not crawl hundreds of editorial venue links.
+  const corporateEventPages = new Set();
+  if (changedFiles.some(path =>
+    path === 'src/routes/corporate-events.tsx'
+    || path === 'src/routes/corporate-events.lazy.tsx'
+    || path === 'src/data/corporate-events.ts'
+    || path === 'src/data/corporate-events.functions.ts'
+    || path === 'src/data/corporate-events-offers.server.ts'
+    || path === 'src/components/events/CorporateEventMetroGuides.tsx'
+    || path === 'src/components/events/CorporateEventCategoryGuides.tsx'
+    || path === 'scripts/ci/validate-corporate-event-production-smoke.mjs'
+  )) {
+    corporateEventPages.add('/corporate-events');
+    candidates.add('/corporate-events');
+  }
+
+  // The Texas icons landing route is lazy and does not carry a createFileRoute
+  // declaration in its changed file. Verify both ends of its new cultural
+  // answer/discovery links on the exact deployed Worker, not only generic health.
+  if (changedFiles.some(path => path === 'src/routes/things-unique-to-texas.lazy.tsx'
+    || path === 'src/data/fixtures/texas-cultural-regions-explained.ts')) {
+    candidates.add('/things-unique-to-texas');
+    candidates.add('/article/texas-cultural-regions-explained');
+    expectedHrefsByPage['/things-unique-to-texas'] = [
+      '/article/texas-cultural-regions-explained',
+      '/things-unique-to-texas/culture-music',
+    ];
+    expectedHrefsByPage['/article/texas-cultural-regions-explained'] = [
+      '/things-unique-to-texas/culture-music',
+    ];
+  }
+
+  // Texas Life city comparison articles share one source registry, so changed
+  // paragraphs do not reliably surface a route in generic diff-based crawling.
+  if (changedFiles.includes('src/data/fixtures/texas-life-split-source.ts')) {
+    candidates.add('/article/texas-major-cities-regional-differences');
+    expectedHrefsByPage['/article/texas-major-cities-regional-differences'] = [
+      '/article/texas-rio-grande-river-guide',
+    ];
+  }
+
+  // The statewide Mardi Gras hub has a static route and its own event-directory
+  // links. Verify it on production when either of its route files changes.
+  const mardiGrasHubPages = new Set();
+  if (changedFiles.some(path => path === 'src/routes/events.mardi-gras.tsx'
+    || path === 'src/routes/events.mardi-gras.lazy.tsx')) {
+    const page = '/events/mardi-gras';
+    candidates.add(page);
+    mardiGrasHubPages.add(page);
+    expectedHrefsByPage[page] = [
+      '/event/mardi-gras-galveston',
+      '/event/mardi-gras-port-arthur',
+      '/event/cowboy-mardi-gras-bandera',
+      '/event/kemah-yachty-gras',
+    ];
+  }
+  // A missing Davis Hill hero survived source checks because the editorial route
+  // bypasses the generic destination image. Test the live HTML and both SVGs
+  // whenever its component, image assets, or release verifier changes.
+  const davisHillPages = new Set();
+  if (changedFiles.some(path => [
+    'src/components/editorial/DavisHillAuthority.tsx',
+    'src/data/davis-hill-authority-fallback.ts',
+    'src/data/destination-curation-batch12.ts',
+    'public/images/state-parks/davis-hill-conservation-landscape.svg',
+    'public/images/state-parks/davis-hill-salt-dome-concept.svg',
+    'scripts/ci/production-change-scope.mjs',
+    'scripts/ci/verify-changed-production-pages.mjs',
+  ].includes(path))) {
+    const page = '/destination/davis-hill-state-park';
+    candidates.add(page);
+    davisHillPages.add(page);
+  }
   // The Road Trips category is rendered by a shared dynamic lazy route,
   // so no concrete URL is discoverable from its createFileRoute declaration.
   // Verify only the changed category page and its three editorial links.
@@ -111,6 +204,7 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
     'src/data/magoffin-home-authority.ts',
     'src/routes/destination.$slug.tsx',
     'scripts/ci/production-change-scope.mjs',
+    'scripts/ci/verify-changed-production-pages.mjs',
   ].includes(path))) {
     const page = '/destination/magoffin-home';
     candidates.add(page);
@@ -128,6 +222,32 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
       const page = `/texas-high-school-football-teams/${slug}`;
       candidates.add(page);
       footballGameNightPages.add(page);
+    }
+  }
+  // Verify the corrected statewide source figures on the real public pages, not
+  // just a generic HTTP 200 or sitemap entry. Four fixed URLs, no catalog crawl.
+  // Deploy runs enforce these canaries even when a newer release supersedes the
+  // original Texas Data change; otherwise the changed-files baseline can skip
+  // the checks and certify stale cache content as healthy.
+  const texasDataPages = new Set();
+  if (enforceCriticalCanaries || changedFiles.some(path => [
+    'src/data/texas-data-center.server.ts',
+    'src/data/texas-data-center.ts',
+    'src/routes/texas-data.tsx',
+    'src/routes/texas-data.lazy.tsx',
+    'src/routes/texas-data.$datasetSlug.lazy.tsx',
+    'src/components/authority/CitationCollectionTrustRouter.tsx',
+    'scripts/ci/production-change-scope.mjs',
+    'scripts/ci/verify-changed-production-pages.mjs',
+  ].includes(path))) {
+    for (const page of [
+      '/texas-data',
+      '/texas-data/texas-homeowners-premium-history',
+      '/texas-data/texas-metro-payrolls-august-2026',
+      '/texas-data/texas-metro-payrolls-june-2026',
+    ]) {
+      candidates.add(page);
+      texasDataPages.add(page);
     }
   }
   const downloadButtonPages = new Set();
@@ -252,6 +372,39 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
   let contentFallback = false;
   for (const path of changedFiles) {
     const { before = '', after = '' } = sources[path] || {};
+    // Permanent /event/:slug guides are data-owned, not filename-owned routes.
+    // Diff AST records so only changed guides are verified. A bounded sample
+    // protects release costs when a bulk tranche contains hundreds of entries.
+    if (/^src\/data\/(?:major-event-(?:authority|expanded-authority(?:-tranche\d+)?|schema-enrichment-batch\d+)|festival-visitor-guide-extras)\.server\.ts$/.test(path)) {
+      const previous = records(before);
+      for (const [id, record] of records(after)) {
+        if (eventAuthorityPages.size >= 8) break;
+        if (record.key !== 'slug' || previous.get(id)?.text === record.text
+          || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(record.value)) continue;
+        const href = '/event/' + record.value;
+        candidates.add(href);
+        eventAuthorityPages.add(href);
+      }
+    }
+    if (path === 'src/data/major-event-supplemental-registry.server.ts') {
+      const extract = source => new Set([...source.matchAll(/^\s*"([a-z0-9]+(?:-[a-z0-9]+)*)",?\s*$/gm)].map(match => match[1]));
+      const previous = extract(before);
+      for (const slug of extract(after)) {
+        if (eventAuthorityPages.size >= 8) break;
+        if (previous.has(slug)) continue;
+        const href = '/event/' + slug;
+        candidates.add(href);
+        eventAuthorityPages.add(href);
+      }
+    }
+    if (path === 'src/data/major-event-page.server.ts') {
+      // Route-layer changes also need a real 200/canonical SSR acceptance.
+      for (const slug of ['texas-book-festival', 'zestfest']) {
+        const href = '/event/' + slug;
+        candidates.add(href);
+        eventAuthorityPages.add(href);
+      }
+    }
     if (path.startsWith('src/routes/')) {
       for (const match of after.matchAll(/createFileRoute\(["']([^"']+)["']\)/g)) {
         const route = match[1].split('/').map(p => p.replace(/_$/, '')).join('/');
@@ -262,11 +415,8 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
     // An article in a standalone fixture file may be keyed by the filename,
     // unlike bulk registries. Verify that one owner when its article changes.
     const fixtureMatch = path.match(/^src\/data\/fixtures\/([a-z0-9-]+)\.ts$/);
-    if (fixtureMatch && /:\s*Article\s*=/.test(after)) {
-      const slug = fixtureMatch[1];
-      const declared = [...after.matchAll(/\bslug:\s*["']([a-z0-9-]+)["']/g)]
-        .some(match => match[1] === slug);
-      if (declared) {
+    if (fixtureMatch) {
+      for (const slug of standaloneArticleSlugs(after)) {
         const page = '/article/' + slug;
         candidates.add(page);
         if (slug === 'texas-regions-explained') regionGuidePages.add(page);
@@ -312,18 +462,27 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
     ...(changedFiles.some(path => path === 'src/lib/legacy-editorial-redirects.ts' || path === 'src/data/destination-availability.ts')
       ? [{ path: '/destination/museum-south-texas-history-edinburg', target: '/destination/museum-of-south-texas-history-edinburg' }] : []),
   ];
+  // The resolver can append fixed event canaries after eight newly discovered
+  // events. Keep its semantic smoke sample within the verifier's eight-route
+  // contract; any other selected event URLs still receive generic HTTP/SEO checks.
+  const boundedEventAuthorityPages = new Set([...eventAuthorityPages].slice(0, 8));
   const allPaths = [...candidates].sort();
   // A deploy smoke is explicitly a bounded sample, never a full-content certification.
-  const selectedPaths = [...new Set([...REPRESENTATIVE_PATHS.filter(p => candidates.has(p)), ...battleshipVisitorPages, ...fredericksburgSitemapPaths, ...magoffinHomePages, ...allPaths])].slice(0, PAGE_BUDGET - redirectChecks.length);
+  const selectedPaths = [...new Set([...REPRESENTATIVE_PATHS.filter(p => candidates.has(p)), ...corporateEventPages, ...battleshipVisitorPages, ...fredericksburgSitemapPaths, ...magoffinHomePages, ...davisHillPages, ...texasDataPages, ...mardiGrasHubPages, ...boundedEventAuthorityPages, ...allPaths])].slice(0, PAGE_BUDGET - redirectChecks.length);
   const selectedExpectedHrefs = Object.fromEntries(selectedPaths.filter(p => expectedHrefsByPage[p]).map(p => [p, expectedHrefsByPage[p]]));
   const candidateCount = allPaths.length + redirectChecks.length;
   return { baseline, head, changedFiles, shared, selectedPaths, expectedHrefsByPage: selectedExpectedHrefs,
+    texasDataPages: selectedPaths.filter(p => texasDataPages.has(p)),
+    corporateEventPages: selectedPaths.filter(p => corporateEventPages.has(p)),
+    eventAuthorityPages: selectedPaths.filter(p => boundedEventAuthorityPages.has(p)),
+    mardiGrasHubPages: selectedPaths.filter(p => mardiGrasHubPages.has(p)),
     downloadButtonPages: selectedPaths.filter(p => downloadButtonPages.has(p)),
     regionGuidePages: selectedPaths.filter(p => regionGuidePages.has(p)),
     footballGameNightPages: selectedPaths.filter(p => footballGameNightPages.has(p)),
     battleshipVisitorPages: selectedPaths.filter(p => battleshipVisitorPages.has(p)),
     fredericksburgSitemapPaths: selectedPaths.filter(p => fredericksburgSitemapPaths.has(p)),
     magoffinHomePages: selectedPaths.filter(p => magoffinHomePages.has(p)),
+    davisHillPages: selectedPaths.filter(p => davisHillPages.has(p)),
     redirectChecks, candidateCount,
     omittedCount: Math.max(0, allPaths.length - selectedPaths.length), pageBudget: PAGE_BUDGET,
     coverage: candidateCount > PAGE_BUDGET ? 'representative sample; full coverage belongs to weekly local audits' : 'identified changed pages and representative dependencies',
@@ -364,7 +523,7 @@ async function main() {
     if (baseline) { try { before = git(['show', `${baseline}:${path}`]); } catch {} }
     sources[path] = { before, after };
   }
-  const plan = buildChangePlan({ baseline, head, changedFiles, sources });
+  const plan = buildChangePlan({ baseline, head, changedFiles, sources, enforceCriticalCanaries: true });
   mkdirSync('.artifacts', { recursive: true });
   writeFileSync('.artifacts/production-change-plan.json', JSON.stringify(plan, null, 2));
   if (process.env.GITHUB_OUTPUT) for (const [group, value] of Object.entries(plan.groups)) appendFileSync(process.env.GITHUB_OUTPUT, `${group}=${value}\n`);

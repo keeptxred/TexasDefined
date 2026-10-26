@@ -153,6 +153,16 @@ export const collections: Collection[] = [
       "Coarse black pepper, mesquite salt, butcher paper by the roll, and the thermometer that ends the argument.",
     image: images.bbqBrisket,
   },
+  {
+    id: "c-fishing-shirts",
+    brandId: BRAND,
+    slug: "fishing-shirts",
+    name: "Texas Fishing Shirts",
+    tagline: "From bass lakes to Gulf Coast bays",
+    description:
+      "Original Texas Defined graphic T-shirts inspired by largemouth bass, lake weekends, classic tackle, sunrise casts, and coastal redfish. Browse current sizes, colors, and checkout details on each product page.",
+    image: images.caddoLake,
+  },
 ];
 
 export const products: Product[] = [
@@ -894,8 +904,8 @@ export const events: TexasEvent[] = [
     blurb: "Twenty days of rodeo, livestock judging and stadium concerts on a scale only Texas attempts.",
     city: "Houston",
     region: "gulf-coast",
-    startDate: "2027-02-23",
-    endDate: "2027-03-14",
+    startDate: "2027-03-02",
+    endDate: "2027-03-21",
     category: "rodeo",
   },
   {

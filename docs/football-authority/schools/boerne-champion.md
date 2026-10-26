@@ -20,3 +20,9 @@ Authored unique SEO, dated seasonal score table, current officially named coach,
 ## October 19, 2026 — reported October 16 final (source-backed, not production-accepted)
 
 [Seguin Today's October 17 on-the-scene report](https://seguintoday.com/2026/10/17/fast-starting-champion-hands-seguin-57-7-defeat/) confirms **Boerne Champion 57, Seguin 7** on October 16 at Boerne ISD Stadium. This advances Champion's reported 2026 record to **7–0 through October 16**. The canonical editorial model's October 16 fixture, dated record, SEO description, source label, and outdated future-game explanatory text are updated on the accompanying score-correction branch. Older October 2 statements are historical checkpoints, not current results. This update does **not** claim school-supplied UIL certification, a licensed photograph, individual editorial acceptance or successful deployment.
+
+## October 20, 2026 — acceptance-ledger source recheck
+Champion High School's current official **Coaching Staff** page was rechecked and still explicitly lists **Blane Ellis — Head Coach** under Football, with Alan Ford as defensive coordinator and Tyler Mangold as offensive coordinator. This remains direct first-party support for the current Champion football coaching field and keeps the Chargers distinct from Boerne High's Greyhounds staff.
+
+No new first-party evidence was found for the exact public football entrance, general parking allocation, comprehensive accessible seating, or reusable stadium/team photography rights beyond the already documented event-specific shuttle/ticket rules. The reported 7–0 through October 16 record and separate Champion-vs-Greyhounds identity controls remain unchanged. **Status stays DEPLOYED, not individually VERIFIED.**
+

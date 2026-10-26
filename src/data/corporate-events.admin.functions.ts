@@ -1,0 +1,104 @@
+import { createServerFn } from '@tanstack/react-start';
+import { z } from 'zod';
+
+const key = z.string().min(20).max(200);
+const id = z.string().uuid();
+const leadStatuses = z.enum(['new', 'reviewing', 'contacted', 'closed', 'spam']);
+const applicationStatuses = z.enum(['pending', 'reviewing', 'approved', 'rejected', 'spam']);
+const offerStatuses = z.enum(['draft', 'approved', 'paused', 'expired']);
+const isoDate = z.string().regex(/^\d{4}-\d{2}-\d{2}$/);
+
+export const getCorporateEventOperations = createServerFn({ method: 'POST' })
+  .inputValidator(z.object({ accessKey: key }))
+  .handler(async ({ data }) => {
+    const { loadCorporateEventOperations } = await import('@/data/corporate-events.admin.server');
+    return loadCorporateEventOperations(data.accessKey);
+  });
+
+export const changeCorporateEventLeadStatus = createServerFn({ method: 'POST' })
+  .inputValidator(z.object({
+    accessKey: key, id, status: leadStatuses,
+    externalContactReference: z.string().trim().max(500).default(''),
+  }))
+  .handler(async ({ data }) => {
+    const { setCorporateEventLeadStatus } = await import('@/data/corporate-events.admin.server');
+    return setCorporateEventLeadStatus(data.accessKey, data.id, data.status, data.externalContactReference);
+  });
+
+export const changeCorporateEventApplicationStatus = createServerFn({ method: 'POST' })
+  .inputValidator(z.object({ accessKey: key, id, status: applicationStatuses,
+    verifiedIdentity: z.boolean().default(false), verificationNote: z.string().trim().max(500).default(''),
+  }))
+  .handler(async ({ data }) => {
+    const { setCorporateEventApplicationStatus } = await import('@/data/corporate-events.admin.server');
+    return setCorporateEventApplicationStatus(data.accessKey, data.id, data.status, data.verifiedIdentity, data.verificationNote);
+  });
+
+export const draftCorporateEventOffer = createServerFn({ method: 'POST' })
+  .inputValidator(z.object({
+    accessKey: key,
+    applicationId: id,
+    providerSlug: z.string().regex(/^[a-z0-9-]+$/).max(100),
+    title: z.string().trim().min(5).max(160),
+    benefit: z.string().trim().min(10).max(500),
+    code: z.string().trim().max(60).nullable(),
+    redemptionUrl: z.string().url().max(500),
+    startsOn: isoDate,
+    endsOn: isoDate,
+  }).refine((data) => data.endsOn >= data.startsOn, 'End date must not precede start date'))
+  .handler(async ({ data }) => {
+    const { proposeCorporateEventOffer } = await import('@/data/corporate-events.admin.server');
+    return proposeCorporateEventOffer(data.accessKey, {
+      applicationId: data.applicationId,
+      providerSlug: data.providerSlug,
+      title: data.title,
+      benefit: data.benefit,
+      code: data.code || null,
+      redemptionUrl: data.redemptionUrl,
+      startsOn: data.startsOn,
+      endsOn: data.endsOn,
+    });
+  });
+
+export const changeCorporateEventOfferStatus = createServerFn({ method: 'POST' })
+  .inputValidator(z.object({ accessKey: key, id, status: offerStatuses }))
+  .handler(async ({ data }) => {
+    const { setCorporateEventOfferStatus } = await import('@/data/corporate-events.admin.server');
+    return setCorporateEventOfferStatus(data.accessKey, data.id, data.status);
+  });
+
+/** A staff record of separately and independently verified signed terms.
+ * No contract is created or sent through this endpoint.
+ */
+export const verifyCorporateEventCommercialAgreement = createServerFn({ method: 'POST' })
+  .inputValidator(z.object({
+    accessKey: key,
+    applicationId: id,
+    verifiedSignedAgreement: z.literal(true),
+    verificationReference: z.string().trim().min(20).max(500),
+    coversOffers: z.boolean(),
+    coversQuoteRouting: z.boolean(),
+    expiresOn: isoDate.nullable(),
+  }).refine((data) => data.coversOffers || data.coversQuoteRouting,
+    'Choose at least one explicitly authorized commercial scope'))
+  .handler(async ({ data }) => {
+    const { recordCorporateEventCommercialAgreement } = await import('@/data/corporate-events.admin.server');
+    return recordCorporateEventCommercialAgreement(
+      data.accessKey, data.applicationId, data.verificationReference,
+      data.coversOffers, data.coversQuoteRouting, data.expiresOn,
+    );
+  });
+
+export const withdrawCorporateEventVenueSharing = createServerFn({ method: 'POST' })
+  .inputValidator(z.object({
+    accessKey: key,
+    plannerRequestId: id,
+    verifiedOrganizerInstruction: z.literal(true),
+    verificationNote: z.string().trim().min(20).max(500),
+  }))
+  .handler(async ({ data }) => {
+    const { revokeCorporateEventVenueSharing } = await import('@/data/corporate-events.admin.server');
+    return revokeCorporateEventVenueSharing(
+      data.accessKey, data.plannerRequestId, data.verifiedOrganizerInstruction, data.verificationNote,
+    );
+  });

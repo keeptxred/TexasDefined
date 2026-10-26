@@ -27,9 +27,6 @@ function reportClientMainModuleWeights(): Plugin {
           .slice(0, 35)
           .map(([id, detail]) => `${detail.renderedLength} bytes  ${path.relative(process.cwd(), id)}`);
         console.log("[client-main-modules] " + chunk.fileName + "\\n" + ranked.join("\\n"));
-        console.log("[foliage-main-modules] " + Object.entries(chunk.modules)
-          .filter(([id]) => /image-rights|seasonal-authority-links|seasonal-intent|article\\.\\$slug|EastTexasFoliageMedia/.test(id))
-          .map(([id, detail]) => `${detail.renderedLength} bytes  ${path.relative(process.cwd(), id)}`).join(" | "));
       }
     },
   };

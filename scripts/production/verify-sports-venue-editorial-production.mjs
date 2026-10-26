@@ -121,6 +121,7 @@ const venuePageChecks = [
     ordered: [
       'Karting is temporarily closed. The road course is a separate operation.',
       'How to participate',
+      'Call office: 281-369-0677',
       'Can you actually drive at MSR Houston?',
       'The three-stage track-day checklist',
       'Questions about MSR Houston',
@@ -202,6 +203,12 @@ for (const marker of [
   'Can you actually drive at MSR Houston?',
   'The three-stage track-day checklist',
   'Is MSR Houston karting open in October 2026?',
+  'Call office: 281-369-0677',
+  'Instructor-led supercar drive or ride-along',
+  'https://www.thextremexperience.com/tracks/msr-houston',
+  'Sea Center Texas',
+  'Varner-Hogg Plantation',
+  'Angleton lodging and tourism',
 ]) {
   assertIncludes(msrCanonicalHtml, marker, 'MSR Houston canonical production guide');
 }

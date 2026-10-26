@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { hasVerifiedViatorMarketUrl, verifiedViatorMarketUrl } from "@/data/viator-destination-links";
 import { VIATOR_RUNTIME_SIGNAL_REVIEWED_AT, viatorRuntimeMarketForSlug } from "@/data/viator-experience-runtime";
 import { viatorMarketsForPlace, type ViatorMatchMarket } from "@/data/viator-market-match";
@@ -5,17 +6,22 @@ import type { Destination } from "@/data/types";
 import { trackAffiliateClick } from "@/lib/affiliate-click";
 import { buildViatorAffiliateUrl } from "@/lib/viator-affiliate";
 
+const WacoDestinationOffer = lazy(() => import("@/components/monetization/WacoDestinationOffer").then((module) => ({ default: module.WacoDestinationOffer })));
 function uniqueMarkets(markets: ViatorMatchMarket[]) {
   return [...new Map(markets.map((market) => [market.slug, market])).values()];
 }
 
 function matchDestinationMarket(destination: Destination) {
-  const matches = uniqueMarkets([
+  // For an ordinary named museum, park or attraction, a county-wide tour is
+  // not a relevant ticket to that destination. Town and road-trip pages have
+  // broader travel intent and may link to the verified local experience market.
+  const markets = uniqueMarkets([
     ...viatorMarketsForPlace(destination.name),
-    ...viatorMarketsForPlace(destination.nearestTown),
-    ...(destination.county ? viatorMarketsForPlace(destination.county) : []),
+    ...(["small-towns", "road-trips"].includes(destination.category)
+      ? viatorMarketsForPlace(destination.nearestTown)
+      : []),
   ]);
-  return matches.find((market) => hasVerifiedViatorMarketUrl(market.slug)) ?? matches[0];
+  return markets.find((market) => hasVerifiedViatorMarketUrl(market.slug));
 }
 
 function WmaHuntingLinks() {
@@ -33,7 +39,12 @@ function WmaHuntingLinks() {
 
 export function DestinationViatorBooking({ destination }: { destination: Destination }) {
   const market = matchDestinationMarket(destination);
-  const huntingLinks = destination.id.startsWith("texas-wma-") ? <WmaHuntingLinks /> : null;
+  const wacoOffers = /waco|cottonland|cameron-park|magnolia-market/.test(destination.slug)
+    ? <Suspense fallback={null}><WacoDestinationOffer slug={destination.slug} /></Suspense>
+    : null;
+  // Keep the original fail-closed market returns: only already published,
+  // explicitly reviewed Waco attraction overviews bypass generic tour markets.
+  const huntingLinks = destination.id.startsWith("texas-wma-") ? <><WmaHuntingLinks />{wacoOffers}</> : wacoOffers;
   // Citywide commercial tours should never appear to sell entry to a closed
   // archaeological or state historic site. They also do not belong on a free
   // NPS memorial when no site-specific bookable product exists.

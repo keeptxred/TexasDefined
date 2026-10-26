@@ -32,6 +32,12 @@ function verifyLiveRoutingPolicy(source) {
   requireCondition(api && typeof api.bookingIntent === 'function', 'Live stay affiliate bootstrap does not expose bookingIntent.');
   requireCondition(typeof api.comparisonHotelDestination === 'function', 'Live stay affiliate bootstrap does not expose comparisonHotelDestination.');
   requireCondition(typeof api.rvshareEligible === 'function', 'Live stay affiliate bootstrap does not expose rvshareEligible.');
+  requireCondition(typeof api.motel6Eligible === 'function' && typeof api.motel6CampaignActive === 'function' && typeof api.buildMotel6Link === 'function', 'Live Motel 6 contract is missing.');
+  requireCondition(api.motel6Eligible('/explore/road-trips') && api.motel6Eligible('/explore/near/mcallen/day-trips'), 'Live budget-travel pages missing Motel 6 option.');
+  requireCondition(!api.motel6Eligible('/events/christmas-events') && !api.motel6Eligible('/explore/casinos/near-houston'), 'Live Motel 6 route guard became too broad.');
+  requireCondition(api.buildMotel6Link('17371482') === 'https://www.jdoqocy.com/click-101876465-17371482', 'Live Halloween Motel 6 link is not account-specific.');
+  requireCondition(api.buildMotel6Link('17198227') === 'https://www.tqlkg.com/click-101876465-17198227', 'Live evergreen Motel 6 link is not account-specific.');
+  requireCondition(api.motel6CampaignActive(Date.parse('2026-11-01T05:00:00Z')) === false, 'Live seasonal messaging must expire at the conservative cutoff.');
   requireCondition(typeof api.buildCjDeepLink === 'function', 'Live stay affiliate bootstrap does not expose buildCjDeepLink.');
   requireCondition(typeof api.featuredGolfStay === 'function', 'Live stay affiliate bootstrap does not expose featuredGolfStay.');
 
@@ -224,7 +230,7 @@ for (const marker of [
   'Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com, Travelocity or Vrbo activity',
   'Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com, Travelocity or RVshare activity',
   'if (intent === "both" && !showRvshare)',
-  'variant: featuredStay || showRvshare ? "secondary" : "primary"',
+  'variant: featuredStay || hotelPasoExact || showRvshare ? "secondary" : "primary"',
   'sponsored nofollow noopener noreferrer',
   'event: "affiliate_click"',
   'window.dataLayer.push(detail)',
@@ -342,6 +348,12 @@ const pages = [
     requireSlot: false,
     requireBookingCar: true,
   },
+  {
+    route: '/article/texas-high-school-football-playoffs-explained',
+    marker: 'How Do the Texas High School Football Playoffs Work?',
+    requireSlot: false,
+    requireMotel6Football: true,
+  },
 ];
 
 for (const page of pages) {
@@ -364,6 +376,17 @@ for (const page of pages) {
     ]) requireCondition(html.includes(marker), `${page.route} is missing live Booking.com rental-car marker: ${marker}`);
   }
 
+  if (page.requireMotel6Football) {
+    for (const marker of [
+      'Prefer a budget motel for the drive?',
+      'data-commercial-partner="motel6"',
+      'data-commercial-placement="football-budget-motel"',
+      'https://www.tqlkg.com/click-101876465-17198227',
+      'rel="sponsored nofollow noopener noreferrer"',
+      'Affiliate disclosure: TexasDefined may earn a commission',
+    ]) requireCondition(html.includes(marker), `${page.route} is missing the server-rendered Motel 6 travel marker: ${marker}`);
+  }
+
   const noindex = /<meta[^>]+(?:name=["'](?:robots|googlebot|googlebot-news)["'][^>]+content=["'][^"']*\bnoindex\b|content=["'][^"']*\bnoindex\b[^>]+name=["'](?:robots|googlebot|googlebot-news)["'])/i.test(html);
   requireCondition(!noindex, `${page.route} is noindex and must not be part of the monetized production cohort.`);
 
@@ -374,4 +397,4 @@ for (const page of pages) {
   requireCondition(canonical.origin === new URL(origin).origin && canonical.pathname.replace(/\/+$/, '') === page.route.replace(/\/+$/, ''), `${page.route} is not self-canonical and must not be part of the monetized production cohort.`);
 }
 
-console.log('Stay affiliate production verification passed: the deployed stay bootstrap was executed in a sandbox and confirms Orbitz for event/venue hotel-first intent, Travelocity for broader destination/leisure intent, and TexasDefined CJ deep-link binding for both providers; all 30 governed stay properties (18 venue + 12 destination) expose unique exact-property Hotels.com destinations through the TexasDefined CJ publisher, curated surfaces prioritize exact-property referrals before route-scoped comparison choices, while broad Expedia search remains the fallback; Vrbo remains separately gated on ordinary leisure routes and is suppressed on RVshare-intent routes; the live same-origin /api/analytics collector accepted partner_referral_shown, partner_referral_clicked and reserved expedia-search next_step_selected CI probes backed by Cloudflare Analytics Engine; Hotels.com/Orbitz/Travelocity/Vrbo/RVshare and verified Expedia/Stay Nearby property links use sponsored/nofollow plus first-party partner/placement attribution; the Stay Nearby asset continues to enforce separate indexability and monetization eligibility; representative camping and RV-directory pages load the governed travel bootstraps and remain self-canonical/indexable; representative event, destination and traffic-prioritized venue pages expose deterministic in-content stay slots; representative city and county travel pages remain self-canonical/indexable; the canonical road-trips hub exposes its dedicated Booking.com rental-car conversion with first-party placement metadata and disclosure; and script ordering is intact.');
+console.log('Stay affiliate production verification passed: the deployed stay bootstrap was executed in a sandbox and confirms Orbitz for event/venue hotel-first intent, Travelocity for broader destination/leisure intent, and TexasDefined CJ deep-link binding for both providers; all 30 governed stay properties (18 venue + 12 destination) expose unique exact-property Hotels.com destinations through the TexasDefined CJ publisher, curated surfaces prioritize exact-property referrals before route-scoped comparison choices, while broad Expedia search remains the fallback; Vrbo remains separately gated on ordinary leisure routes and is suppressed on RVshare-intent routes; the live same-origin /api/analytics collector accepted partner_referral_shown, partner_referral_clicked and reserved expedia-search next_step_selected CI probes backed by Cloudflare Analytics Engine; Hotels.com/Orbitz/Travelocity/Vrbo/RVshare and verified Expedia/Stay Nearby property links use sponsored/nofollow plus first-party partner/placement attribution; the Stay Nearby asset continues to enforce separate indexability and monetization eligibility; representative camping and RV-directory pages load the governed travel bootstraps and remain self-canonical/indexable; representative event, destination and traffic-prioritized venue pages expose deterministic in-content stay slots; representative city and county travel pages remain self-canonical/indexable; the canonical road-trips hub exposes its dedicated Booking.com rental-car conversion with first-party placement metadata and disclosure; Motel 6 publisher-specific standard CJ link and sponsored tracking appear in server-rendered football travel modules; and script ordering is intact.');

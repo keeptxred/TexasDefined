@@ -2,6 +2,7 @@ import { createLazyFileRoute, Link } from '@tanstack/react-router';
 
 import { Container } from '@/components/layout/Container';
 import { FootballGameNightGuide } from '@/components/sports/FootballGameNightGuide';
+import { FootballMonetizationSlot } from '@/components/sports/FootballMonetizationSlot';
 import { District21TeamSeason, hasDistrict21TeamScorecard } from '@/components/sports/District21TeamSeason';
 import { SponsoredSportsPlacement } from '@/components/sports/SponsoredSportsPlacement';
 import {
@@ -12,9 +13,105 @@ import {
   uilFootballEnrollmentBandForEnrollment,
 } from '@/data/high-school-football/enrollment-bands';
 
+// Original, school-specific source-derived visual finals; no unlicensed school photos, logos or seals.
+const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([
+  'buckholts',
+  'buda-hays',
+  'buda-johnson',
+  'buffalo',
+  'bullard',
+  'buna',
+  'burkburnett',
+  'burkeville',
+  'burleson',
+  'burleson-centennial',
+  'burnet',
+  'burton',
+  'bushland',
+  'bynum',
+  'caddo-mills',
+  'caldwell',
+  'callisburg',
+  'calvert',
+  'cameron-yoe',
+  'campbell',
+  'canadian',
+  'canton',
+  'canutillo',
+  'canyon',
+  'canyon-randall',
+  'bruceville-eddy',
+  'bruni',
+  'brackettville-brackett',
+  'brady',
+  'breckenridge',
+  'bremond',
+  'brenham',
+  'bridge-city',
+  'bridgeland',
+  'bridgeport',
+  'brock',
+  'bronte',
+  'brookesmith',
+  'brownfield',
+  'brownsboro',
+  'brownsville-hanna',
+  'brownsville-lopez',
+  'brownsville-pace',
+  'brownsville-porter',
+  'brownsville-rivera',
+  'brownsville-veterans-memorial',
+  'brownwood',
+  'bryan',
+  'bryan-rudder',
+  'bryson',
+  'big-sandy-harmony',
+  'big-spring',
+  'bishop',
+  'blackwell',
+  'blanco',
+  'blanket',
+  'blooming-grove',
+  'bloomington',
+  'blue-ridge',
+  'bluff-dale',
+  'blum',
+  'boerne',
+  'boerne-champion',
+  'bogata-rivercrest',
+  'boling',
+  'bonham',
+  'booker',
+  'borden-county',
+  'borger',
+  'bosqueville',
+  'bovina',
+  'bowie',
+  'bowie-gold-burg',
+  'boyd',
+  'boys-ranch',
+]);
+
 const UIL_ELIGIBILITY_URL = 'https://www.uiltexas.org/policy/eligibility';
 const UIL_DETAILED_ELIGIBILITY_URL = 'https://www.uiltexas.org/policy/constitution/general/eligibility';
 const UIL_EXACT_ENROLLMENT_URL = 'https://www.uiltexas.org/files/alignments/Alpha_26-28.pdf';
+
+// Turn authored HTTPS references in football FAQ answers into keyboard-accessible
+// source links. Retain the original question/answer text for FAQ JSON-LD parity;
+// never interpret arbitrary markup or permit javascript:/http: destinations.
+function renderFootballFaqAnswer(answer: string) {
+  return answer.split(/(https:\/\/[^\s)]+)/g).map((part, index) => {
+    if (!part.startsWith('https://')) return part;
+    const href = part.replace(/[.,;!]+$/, '');
+    const punctuation = part.slice(href.length);
+    return (
+      <span key={index}>
+        <a href={href} target="_blank" rel="noopener noreferrer nofollow" className="break-all text-primary underline underline-offset-4">{href}</a>
+        {punctuation}
+      </span>
+    );
+  });
+}
 
 export const Route = createLazyFileRoute('/texas-high-school-football-teams/$slug')({ component: Page });
 
@@ -45,16 +142,84 @@ function Page() {
   // Fall back to the reference directory for schools without an editorial title;
   // the optional TEA identity join may be unavailable in deployed SSR.
   const authoredFootballH1 = editorial?.seo?.title?.match(/^(.+?Football)/i)?.[1];
-  const footballName = authoredFootballH1 || (identity?.mascot ? `${displayName} ${identity.mascot} Football` : `${displayName} Football`);
+  const footballName = identity?.mascot ? `${displayName} ${identity.mascot} Football` : authoredFootballH1 || `${displayName} Football`;
   // Summarize the verified editorial ledger before the deeper school reference sections.
   const latestResult = editorial?.season?.games.filter((game) => game.result).at(-1);
-  const nextListedFixture = editorial?.season?.games.find((game) => !game.result);
+  // Published editorial snapshot date is stable across SSR and hydration; never label an unresolved past game as next.
+  const nextListedFixture = editorial?.season?.games.find((game) => !game.result && game.date >= editorial.season.verifiedAt);
   // UIL team names are stable while optional TEA directory joins can fail in production.
   // Abbott's Hill County association is independently documented by the school
   // and the Batch 001 registry, so retain its reciprocal link on degraded lookups.
   // Campus-county mapping for individually sourced Batch 002 profiles;
   // city names and district service areas are not dependable campus-county proxies.
   const researchedCampusCounty: Record<string, string> = {
+    'buckholts': 'milam', // Buckholts HS campus in Buckholts, Milam County; spectator gate not independently verified.
+    'buda-hays': 'hays', // Hays High official 4800 Jack C. Hays Trail campus in Buda, Hays County.
+    'buda-johnson': 'hays', // Johnson High official 4260 FM 967 campus in Buda, Hays County; Bob Shelton Stadium is separate.
+    'buffalo': 'leon', // Buffalo ISD / current state school data place Buffalo High in Leon County.
+    'bullard': 'cherokee', // NCES identifies Bullard High's 1426 S Houston physical campus in Cherokee County.
+    'buna': 'jasper', // Buna ISD / UIL school information place Buna in Jasper County; official campus address is CR 734.
+    'burkburnett': 'wichita', // Burkburnett High and ISD are in Wichita County; official campus/stadium pages control local venue context.
+    'burkeville': 'newton', // Burkeville ISD's CR 2099 campus is in Newton County.
+    'burleson': 'johnson', // Burleson High official page and NCES place the 100 Elk Drive campus in Johnson County.
+    'burleson-centennial': 'johnson', // Centennial official 201 S Hurst campus is in Johnson County.
+    'burnet': 'burnet', // Burnet High official Green Mile campus is in Burnet County.
+    'burton': 'washington', // Burton High in Burton is a Washington County campus; Panther Stadium is local but gate details remain event-specific.
+    'bushland': 'potter', // Bushland High's Jim Line Road campus is in the Amarillo/Bushland area of Potter County.
+    'bynum': 'hill', // Bynum ISD explicitly identifies its Toliver campus in Hill County.
+    'caddo-mills': 'hunt', // Caddo Mills ISD/High School is in Hunt County; current campus address is S. FM 36.
+    'caldwell': 'burleson', // Caldwell High's CR 307 campus is in Burleson County.
+    'callisburg': 'cooke', // Callisburg High's Gainesville-area campus is in Cooke County.
+    'calvert': 'robertson', // Calvert ISD and Calvert High are in Robertson County.
+    'cameron-yoe': 'milam', // C.H. Yoe High official Cameron campus is in Milam County.
+    'campbell': 'hunt', // Campbell ISD is in Hunt County.
+    'canadian': 'hemphill', // Canadian High is located in Canadian, Hemphill County.
+    'canton': 'van-zandt', // Canton High campus is in Canton, Van Zandt County; stadium gate is event-specific.
+    'canutillo': 'el-paso', // Canutillo High campus is in Canutillo, El Paso County; venue is separately documented.
+    'canyon': 'randall', // Canyon High campus is in Canyon, Randall County; district stadium is separate.
+    'canyon-randall': 'randall', // Randall High School campus on Bell Street, Amarillo, Randall County.
+    'abbott': 'hill',
+    'abernathy': 'hale',
+    'abilene': 'taylor',
+    'abilene-cooper': 'taylor',
+    'abilene-texas-leadership': 'taylor',
+    'abilene-wylie': 'taylor',
+    'ackerly-sands': 'dawson',
+    'agua-dulce': 'nueces',
+    'alba-golden': 'wood',
+    'albany': 'shackelford',
+    'aledo': 'parker',
+    'alice': 'jim-wells',
+    'alief-elsik': 'harris',
+    'alief-hastings': 'harris',
+    'katy': 'fort-bend',
+    'fort-davis': 'jeff-davis',
+    'southlake-carroll': 'tarrant',
+    'bruceville-eddy': 'mclennan', // TEA 161919 confirms Eddy ISD physical campus in McLennan County, not nearby Bell County.
+    'bruni': 'webb', // Webb CISD first-party Bruni campus 619 Avenue F, southern Webb County; six-man spectator gates not verified.
+    'bryson': 'jack', // NCES school district 4811820: 300 N McCloud St physical campus in Jack County; 305/309 third-party field listings are not a proven gate.
+    'bryan': 'brazos', // Bryan ISD first-party campus 3450 Campus Drive in Brazos County; Merrill Green Stadium 3310 Oak Ridge Dr is distinct.
+    'bryan-rudder': 'brazos', // Rudder High Bryan ISD at 3251 Austin's Colony Pkwy in Brazos County; shared Merrill Green Stadium is 3310 Oak Ridge.
+    'brownwood': 'brown', // Brownwood HS 2100 Slayden campus in Brown County; Gordon Wood Stadium separate at 3206 Milam Dr.
+    'brownsville-veterans-memorial': 'cameron', // First-party Brownsville BISD Veterans ECHS campus 1000 Charger Lane conflicts with athletic site US Hwy281 footer; neither is stadium gate.
+    'brownsville-rivera': 'cameron', // BISD Rivera school history identifies campus 6955 FM 802 in Brownsville Cameron County; football site footer says FM801 in conflict.
+    'brownsville-porter': 'cameron', // BISD 3500 International Blvd Brownsville Porter academic campus; uses multiple stadiums, not campus gate.
+    'brownsville-pace': 'cameron', // Official Pace ECHS 314 W Los Ebanos in Cameron County; football at Sams or Veterans Memorial by event.
+    'brownsville-lopez': 'cameron', // Brownsville ISD Lopez campus 3205 S Dakota Ave, Cameron County, not Sams Stadium spectator gates.
+    'brownsville-hanna': 'cameron', // BISD first-party Hanna ECHS 2615 E Price Road in Cameron County, not a stadium spectator entrance.
+    'brownsboro': 'henderson', // BISD official Brownsboro HS 13942 State Hwy 31 E, Henderson County; district office 14134 is distinct.
+    'brownfield': 'terry', // Brownfield High first-party 702 Cub Drive campus Terry County; MaxPreps has conflicting 701 number and stadium gate unverified.
+    'brookesmith': 'brown', // Brookesmith ISD official 13400 FM 586 S campus in Brown County; stadium field/gate unverified.
+    'bronte': 'coke', // Bronte ISD official 210 S Jefferson Street high school campus in Coke County, separate from unconfirmed Stephenson Stadium gate.
+    'brock': 'parker', // Brock ISD 400 Eagle Spirit Lane football campus in Parker County; visitor stadium entrance remains unverified.
+    'bridgeport': 'wise', // Bridgeport High official One Maroon Dr campus in Wise County; Bull Memorial Stadium 702 17th St is separate.
+    'bridgeland': 'harris', // Official CFISD campus 10707 Mason Road in Cypress, Harris County; Oct 23 game venue on Barker Cypress is separate.
+    'bridge-city': 'orange', // Bridge City ISD first-party BCHS 2690 Texas Ave campus, Orange County; stadium gate unverified.
+    bremond: 'robertson', // Bremond ISD 601 W Collins campus in Robertson County, not a football stadium gate.
+    brenham: 'washington', // Brenham ISD varsity campus 525 A.H. Ehrig in Washington County.
+    'brackettville-brackett': 'kinney', // NCES Brackett High physical campus 481107000572, not an assumed stadium gate.
+    brady: 'mcculloch', // Brady High School 2301 Hwy 190 in Brady, McCulloch County; venue entry unconfirmed.
+    breckenridge: 'stephens', // Breckenridge High School 500 W Lindsey, distinct from Buckaroo Stadium.
     boerne: 'kendall', // First-party Boerne High School located in Boerne, Kendall County.
     'boerne-champion': 'kendall', // Samuel V. Champion High School's official 201 Charger Blvd campus is in Kendall County.
     'bogata-rivercrest': 'red-river', // TEA campus 194903001 / NCES identify Rivercrest High in Red River County.
@@ -201,43 +366,9 @@ function Page() {
     'austin-travis': { slug: 'austin', name: 'Austin' },
   };
   const cityGuide = editorial?.slug ? batch002CityGuide[editorial.slug] : undefined;
-  const researchedCountyLink = editorial?.slug ? researchedCampusCounty[editorial.slug] : undefined;
+  const researchedCountyLink = researchedCampusCounty[slug];
   const countyPath = researchedCountyLink ? `/county/${researchedCountyLink}`
-    : schoolName === 'Alief Hastings'
-    ? '/county/harris'
-    : schoolName === 'Alief Elsik'
-    ? '/county/harris'
-    : schoolName === 'Alice'
-    ? '/county/jim-wells'
-    : schoolName === 'Aledo'
-    ? '/county/parker'
-    : schoolName === 'Albany'
-    ? '/county/shackelford'
-    : schoolName === 'Alba-Golden'
-    ? '/county/wood'
-    : schoolName === 'Agua Dulce'
-    ? '/county/nueces'
-    : schoolName === 'Ackerly Sands'
-    ? '/county/dawson'
-    : schoolName === 'Abilene Wylie'
-    ? '/county/taylor'
-    : schoolName === 'Abilene Texas Leadership'
-    ? '/county/taylor'
-    : schoolName === 'Abilene Cooper'
-    ? '/county/taylor'
-    : schoolName === 'Abilene'
-    ? '/county/taylor'
-    : schoolName === 'Abernathy'
-    ? '/county/hale'
-    : schoolName === 'Abbott'
-    ? '/county/hill'
-    : schoolName === 'Katy'
-      ? '/county/fort-bend'
-      : schoolName === 'Fort Davis'
-        ? '/county/jeff-davis'
-        : schoolName === 'Southlake Carroll'
-          ? '/county/tarrant'
-          : program?.countyName ? `/county/${countySlug(program.countyName)}` : null;
+    : program?.countyName ? `/county/${countySlug(program.countyName)}` : null;
   const associationLabel = program
     ? 'UIL'
     : privateAlignment?.association ?? governingBodyHint ?? null;
@@ -264,7 +395,7 @@ function Page() {
       </nav>
 
       <header className="border-b border-border py-7 sm:py-10">
-        <div className={slug === 'aubrey' ? 'grid gap-8 lg:grid-cols-2' : undefined}>
+        <div className="grid gap-8 lg:grid-cols-2">
           <div>
             <p className="eyebrow text-primary">2026 Texas high school football</p>
             <h1 className="mt-3 max-w-5xl font-display text-5xl leading-[0.96] sm:text-7xl">{footballName}</h1>
@@ -274,7 +405,7 @@ function Page() {
                 : editorial?.intro ?? profileSummary}
             </p>
           </div>
-          {slug === 'aubrey' && (
+          {slug === 'aubrey' ? (
             <figure style={{ minWidth: 0 }}>
               <div className="relative overflow-hidden border border-border" style={{ height: 'clamp(210px, 34vw, 330px)', backgroundColor: '#10243d' }}>
                 <img
@@ -294,6 +425,14 @@ function Page() {
                 <a href="https://unsplash.com/license" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">Unsplash License</a>.
               </figcaption>
             </figure>
+          ) : (
+            <FootballIdentityPanel
+              footballName={footballName}
+              alignment={program ? `${alignmentLabel(program)} · District ${program.district}` : privateAlignment ? privateAlignmentLabel(privateAlignment) : governingBodyHint || 'Texas football program'}
+              footballType={program?.footballType || privateAlignment?.footballType}
+              mascot={identity?.mascot}
+              accentHex={editorial?.theme?.accentHex}
+            />
           )}
         </div>
       </header>
@@ -344,6 +483,11 @@ function Page() {
         />
       )}
 
+      {!editorial?.notice && <FootballMonetizationSlot
+        surfacePath={`/texas-high-school-football-teams/${slug}`}
+        hasSponsor={!!sponsorPlacement}
+      />}
+
       {/* Put verified visitor actions and the actual season ahead of history and enrollment. */}
         <dl aria-label={`${displayName} verified football facts`} className="grid grid-cols-2 gap-x-5 border-b border-border py-3 text-sm sm:grid-cols-3 lg:grid-cols-6">
           {associationLabel && <Fact label="Governing body" value={associationLabel} />}
@@ -376,6 +520,12 @@ function Page() {
               <Snapshot label="Record when checked" value={editorial.season.record} />
               <Snapshot label="Season data verified" value={formatFootballDate(editorial.season.verifiedAt)} />
             </dl>
+            {FOOTBALL_SOURCE_GRAPHIC_SCHOOLS.has(slug) && <ReportedFormIllustration
+              schoolName={footballName}
+              games={editorial.season.games}
+              sourceUrl={editorial.season.sourceUrl}
+              accent={editorial.theme?.accentHex || "#64748b"}
+            />}
             <div role="region" aria-label="Scrollable 2026 football results and schedule table" tabIndex={0} className="mt-5 w-full max-w-full overflow-x-auto border-y border-border focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">
               <table className="w-full min-w-[38rem] text-left text-sm">
                 <thead className="border-b border-border text-xs uppercase tracking-[0.1em] text-muted-foreground">
@@ -471,6 +621,32 @@ function Page() {
           {editorial.theme && editorial.photo && <p className="mt-4 text-xs text-muted-foreground">{editorial.theme.label}</p>}
         </div>
         <div className="grid gap-4 md:grid-cols-2">
+          {['brady', 'breckenridge'].includes(slug) && (
+            <figure
+              className="min-w-0 border border-border bg-surface p-4 sm:p-6 md:col-span-2"
+              aria-label={`${footballName}: sourced historical football milestones graphic`}
+            >
+              <figcaption className="mb-4">
+                <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Historical football · source-derived graphic</p>
+                <p className="mt-1 font-display text-xl font-semibold">The documented years, not invented 2026 scores</p>
+                <p className="mt-1 text-xs leading-5 text-muted-foreground">Original TexasDefined chronological visual. Each entry links to its attributed history source below; no school-owned logo or photograph.</p>
+              </figcaption>
+              <ol className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {editorial.milestones.map((milestone) => (
+                  <li
+                    key={milestone.date + milestone.title}
+                    className="min-w-0 border border-border border-l-4 bg-background p-3"
+                    style={{ borderLeftColor: editorial.theme?.accentHex || '#64748b' }}
+                    aria-label={`${milestone.date}: ${milestone.title}`}
+                  >
+                    <span className="font-display text-xl font-semibold text-foreground">{milestone.date}</span>
+                    <p className="mt-1 break-words text-sm font-medium leading-6 text-foreground">{milestone.title}</p>
+                    <a href={milestone.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-2 inline-block text-xs underline underline-offset-4">Historical source ↗</a>
+                  </li>
+                ))}
+              </ol>
+            </figure>
+          )}
           {editorial.milestones.map((milestone) => <article key={`${milestone.date}:${milestone.title}`} className="border-l-4 bg-surface p-5 sm:p-6" style={{ borderLeftColor: editorial.theme?.accentHex }}>
             <p className="font-display text-2xl font-semibold text-surface-foreground">{milestone.date}</p>
             <h3 className="mt-3 font-display text-2xl leading-tight">{milestone.title}</h3>
@@ -711,7 +887,7 @@ function Page() {
         <div className="divide-y divide-border border-y border-border">
           {faq.map((item) => <article key={item.question} className="py-5">
             <h3 className="font-display text-2xl">{item.question}</h3>
-            <p className="mt-2 max-w-4xl text-sm leading-7 text-muted-foreground">{item.answer}</p>
+            <p className="mt-2 max-w-4xl text-sm leading-7 text-muted-foreground">{renderFootballFaqAnswer(item.answer)}</p>
           </article>)}
         </div>
       </section>
@@ -835,6 +1011,83 @@ function StepList({ steps }: { steps: Array<[string, string]> }) {
       <div><h3 className="font-display text-xl">{title}</h3><p className="mt-1 text-sm leading-7 text-muted-foreground">{body}</p></div>
     </li>)}
   </ol>;
+}
+
+function ReportedFormIllustration({
+  schoolName,
+  games,
+  sourceUrl,
+  accent,
+}: {
+  schoolName: string;
+  games: Array<{ date: string; opponent: string; district?: boolean; result?: string }>;
+  sourceUrl: string;
+  accent: string;
+}) {
+  // Only source-attributed game results and administrative awards; unreported or cancelled
+  // fixtures cannot be presented as played. Forfeits are expressly labeled as non-played.
+  const finals = games.filter((game) => /^[WLT] /.test(game.result || ''));
+  if (finals.length === 0) return null;
+  return <figure className="mt-6 border border-border bg-surface p-4 sm:p-6" aria-label={schoolName + ': dated visual timeline of reported 2026 football finals'}>
+    <figcaption className="mb-4">
+      <span className="text-xs font-semibold uppercase text-muted-foreground">2026 results · visual snapshot</span>
+      <p className="mt-2 font-display text-xl font-semibold text-surface-foreground">The games behind the record</p>
+      <p className="mt-1 text-xs leading-5 text-muted-foreground">Original TexasDefined source-derived graphic. W = win, L = loss, T = tie. Any expressly labeled forfeit is an awarded administrative outcome, not a played score. Not a live scoreboard or certified district standings.</p>
+    </figcaption>
+    <ol className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+      {finals.map((game) => {
+        const outcome = game.result?.[0] || '';
+        const label = outcome === 'W' ? 'Win' : outcome === 'L' ? 'Loss' : 'Tie';
+        return <li key={game.date + '-' + game.opponent} className="min-w-0 border border-border border-l-4 bg-background p-2" style={{ borderLeftColor: accent }} aria-label={game.date + ', ' + label + ' against ' + game.opponent + ', ' + game.result}>
+          <div className="flex items-center justify-between gap-1">
+            <span className="font-display text-2xl font-semibold text-foreground">{outcome}</span>
+            <span className="text-xs font-semibold text-muted-foreground">{game.date.slice(5)}</span>
+          </div>
+          <p className="mt-1 break-words text-xs font-semibold leading-5 text-foreground">{game.opponent}</p>
+          <p className="mt-1 break-words text-xs tabular-nums text-muted-foreground">{game.result?.slice(2)}{game.district ? ' · District' : ''}</p>
+        </li>;
+      })}
+    </ol>
+    <p className="mt-4 text-xs leading-5 text-muted-foreground">Shows source-reported completed and awarded outcomes entered into this school record. Forfeits are labeled, not actual played scores; scheduled, cancelled and unverified games are excluded. <a href={sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Review the cited results source ↗</a></p>
+  </figure>;
+}
+
+function FootballIdentityPanel({
+  footballName,
+  alignment,
+  footballType,
+  mascot,
+  accentHex,
+}: {
+  footballName: string;
+  alignment: string;
+  footballType?: string;
+  mascot?: string;
+  accentHex?: string;
+}) {
+  return (
+    <figure className="min-w-0">
+      <div
+        className="relative overflow-hidden border border-border bg-foreground text-background"
+        style={accentHex ? { minHeight: 240, borderTopWidth: 6, borderTopColor: accentHex } : { minHeight: 240, borderTopWidth: 6 }}
+      >
+        <div className="relative flex flex-col justify-between p-6" style={{ minHeight: 240 }}>
+          <p className="text-xs font-semibold uppercase tracking-[0.12em] text-background">TexasDefined football profile</p>
+          <div>
+            <p className="max-w-3xl font-display text-3xl leading-tight">{footballName}</p>
+            <div className="mt-4 flex flex-wrap gap-4 gap-y-2 text-xs font-semibold uppercase tracking-[0.12em] text-background">
+              <span>{alignment}</span>
+              {footballType && <span>{footballType}</span>}
+              {mascot && <span>Verified mascot: {mascot}</span>}
+            </div>
+          </div>
+        </div>
+      </div>
+      <figcaption className="mt-2 text-xs leading-5 text-muted-foreground">
+        Original TexasDefined typographic football identity panel. No school logo, mascot artwork or school-owned photograph is reproduced.
+      </figcaption>
+    </figure>
+  );
 }
 
 function Fact({ label, value }: { label: string; value?: string }) {

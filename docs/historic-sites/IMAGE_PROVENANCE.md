@@ -79,3 +79,28 @@ These are **file-specific, independently checked** image rights, not a blanket l
 - File-level license: **CC0 1.0 Universal Public Domain Dedication**, from the photographer, https://creativecommons.org/publicdomain/zero/1.0/ . The existing photo credit and descriptive alt text accurately identify the exact fort. The Commons file contains geotagged camera details in the immediate fort grounds and expressly identifies the photographed barracks.
 - Reuse decision: **Approved**, subject to normal live image rendering/contrast checks; preserve the Commons file URL as the image-rights evidence. This is not a TexasDefined original photo and does not grant reuse rights over official THC photography or other Commons photos.
 - Current visitor facts and historical claims are separately sourced to THC and are not verified by the image itself.
+
+### Six additional exact-site photographs — checked October 20, 2026
+
+The gallery augments the existing 2015 barracks hero with six different
+subjects photographed at Fort McKavett. Every original file was checked
+individually using Wikimedia Commons image metadata (artist, image description,
+image dimensions, license and capture date). Each 960-pixel rendition returned
+**HTTP 200, Content-Type: image/jpeg** through the TexasDefined image proxy.
+
+| Subject | Original Commons file | Photographer · license | Photo date |
+| --- | --- | --- | --- |
+| Hospital / present-day visitor-center building | [Fort McKavett Hospital](https://commons.wikimedia.org/wiki/File:Fort_McKavett_Hospital.jpg) | Articseahorse · [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) | June 3, 2017 |
+| Fort headquarters | [Fort McKavett HQ](https://commons.wikimedia.org/wiki/File:Fort_McKavett_HQ.jpg) | Articseahorse · CC BY-SA 4.0 | June 3, 2017 |
+| Commander's house | [Fort McKavett Commander's house](https://commons.wikimedia.org/wiki/File:Fort_McKavett_Commander%27s_house.jpg) | Articseahorse · CC BY-SA 4.0 | June 3, 2017 |
+| Hospital medical-supply display | [Fort McKavett hospital medical supplies](https://commons.wikimedia.org/wiki/File:Fort_McKavett_hospital_medical_supplies.jpg) | Articseahorse · CC BY-SA 4.0 | June 3, 2017 |
+| Cannon exhibit | [Fort McKavett Cannon](https://commons.wikimedia.org/wiki/File:Fort_McKavett_Cannon.jpg) | Articseahorse · CC BY-SA 4.0 | June 3, 2017 |
+| Buffalo Soldier interpretive sign | [Buffalo Soldiers at the Fort McKavett State Historic Site](https://commons.wikimedia.org/wiki/File:Buffalo_Soldiers_at_the_Fort_McKavett_State_Historic_Site.jpg) | Pi3.124 · [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/) | November 29, 2013 |
+
+Each image's visible caption includes an accurate photo subject and a link
+to its specific Commons file page with creator and license information.
+The file is shown as published, scaled to fit the page; no altered derivatives
+are represented as unmodified originals. These older photographs are not
+claims about current exhibits, accessibility or building status; the Buffalo
+Soldier interpretation photograph is *a sign*, not a historical troop portrait.
+

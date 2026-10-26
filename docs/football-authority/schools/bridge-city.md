@@ -1,0 +1,21 @@
+# Bridge City Cardinals — Batch 007 individual football authority audit and research
+
+**Checkpoint:** 2026-10-20. Canonical school profile: https://texasdefined.com/texas-high-school-football-teams/bridge-city. **Implemented on Batch 007 draft PR branch, not merged or live production verified.**
+
+## Concrete source-level deficiencies
+The old UIL directory record did not include the school's *two separate 1965 and 1966 state final seasons*, current first-party Josh Smalley coaching staff, 2025 11–2 postseason achievements, individual online ticket and student/senior-pass information, 2026 source-dated reported results, community school-pride context, or Orange County reciprocal navigation. There is no proof here of completed rendered desktop/mobile production audit.
+
+## Individual research and factual guardrails
+- **Official UIL final history:** [UIL State Archives](https://www.uiltexas.org/football/archives/P528) records 1965 **Bridge City 0, Brownwood 14** runner-up and 1966 **Bridge City 30, McKinney 6** Class 3A champions. [UIL all-time appearances](https://www.uiltexas.org/football/all-time-appearances) counts **1 title / 2 finals** for Bridge City. Current **2026 4A Division I District 9** is not analogous to 1960s conference numbering (canonical UIL 2026–28 alignment registry).
+- **School-run coaching and tickets:** [BCHS Athletics](https://bchs.bridgecityisd.net/77061) identifies 2026 Head Football Coach **Josh Smalley**, defensive coordinator **Chris Theriot**, offensive coordinator **Aaron Manous**, links the 2026 football schedule and HOME-game advance purchase, student HS athletics and senior-citizen pass information. Never presume a student/senior pass covers all events without school policy confirmation.
+- **2025 postseason milestone:** [MaxPreps 2025 season](https://www.maxpreps.com/tx/bridge-city/bridge-city-cardinals/football/25-26/schedule/) reports 11–2 and playoff wins over Chapel Hill 24–21 and Navasota 28–27, then loss to Kilgore 0–34. [UIL Kilgore 2025 roster/archive](https://www.uiltexas.org/football/state-team-mp/kilgore-2025-2026-football) corroborates Kilgore 34, Bridge City 0.
+- **2026 current season:** [MaxPreps 2026 Bridge City](https://www.maxpreps.com/tx/bridge-city/bridge-city-cardinals/football/schedule/) archived **2–5 through Oct 9**, last updated Oct 15. [Beaumont Enterprise Oct 16 local scoreboard](https://www.beaumontenterprise.com/sports/high-school/article/see-week-8-high-school-football-scores-southeast-22481285.php) documents **25–22 win over Livingston**. Synthesized **3–5 through Oct 16** is transparent and not claimed as a final school-certified record. Unplayed Oct 23 Liberty and Oct 30 Little Cypress–Mauriceville fixtures are not given fake results.
+- **School identity and locality:** [BCHS About](https://bchs.bridgecityisd.net/312355_2) lists 2690 Texas Avenue, Bridge City, TX 77611; celebrates Friday **WEAR RED** and community Cardinal pride. This is a campus orientation address, *not proof of stadium spectator gate, accessible parking or admission*. Official school seal/logo or documentary athlete photographs are not licensed here.
+
+## Actual branch code edits
+- First-school editorial in existing `program-editorial.ts`, including distinct opening, 5 evidence-linked historical/school-schedule milestones, 10 source-bounded 2026 fixture/result rows, 5 original overview paragraphs, 6 school-specific Q&A, dated coach, venue uncertainty, unique title and description.
+- Governed Cardinal mascot source in existing `school-identities.ts` and rights-safe, independently labeled red editorial accent. No school-owned photograph/logos imported.
+- Existing county guide links Orange County to Bridge City; existing Bridge City profile returns to Orange County. Avoids unrelated link grids and preserves existing Orange County lists.
+
+## Outstanding acceptance before VERIFIED
+Finish any legal school-specific graphic/photo sourcing, verify stadium venue, entrance/parking/accessible seating with district if available, confirm live 2026 score updates, run TypeScript/data validators plus 1366px/390px/320px live browser checks, unique structured-data/H1/canonical and sitemap/county route tests, then protect CI, merge and deploy and capture actual single-release production proof. Draft PR change alone is **not** VERIFIED.

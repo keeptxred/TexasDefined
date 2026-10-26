@@ -97,6 +97,17 @@ Lodging must be visible where a visitor is planning the trip, not buried after t
 - **event guides:** a deterministic in-content slot placed immediately before `Plan the visit`, with a first-substantive-section fallback
 - **destination guides:** an explicit slot between the quick planning answer and `What to know before you go`
 
+**Fort McKavett exception (October 21, 2026):** The standalone historic-site
+page places its explicit `data-stay-nearby-slot` directly after **Planning
+your visit** and before **Research sources**. The CJ comparison panel owns the
+single visible **Where to stay / Find places to stay nearby** heading. The Expedia search button is moved intact (preserving its existing click
+handler and tracking) into the same CJ action row **directly before Vrbo**.
+Its on-demand search widget opens inside the same bordered panel, and the
+single combined affiliate disclosure names all four providers. No separate
+Expedia callout, heading, or second bordered hotel box remains on this route.
+If the destination slot appears after the bootstrap starts, relocate the
+existing fallback into it without remounting or dropping provider links.
+
 When an approved travel route does not provide an explicit slot, the centralized affiliate layer promotes the generated Stay Nearby/Expedia surface ahead of a relevant planning heading such as `Where to stay`, `Stay nearby`, `Plan your visit`, `Trip planning`, `What to know before you go`, `Getting there` or `Visitor guide`. If none is available, the first substantive article heading is used. The page-end append is therefore a construction fallback, not the intended final visual position.
 
 Curated Stay Nearby surfaces also receive a prominent `Find places to stay` control in the listing heading row. That control activates the existing stay-search experience rather than creating a duplicate lodging subsystem.

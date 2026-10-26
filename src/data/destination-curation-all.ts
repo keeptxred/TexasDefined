@@ -70,6 +70,7 @@ import { applyCuratedTopAttractionsBatch2 } from "./destination-curation-top-att
 import { applyCuratedTopAttractionsBatch3 } from "./destination-curation-top-attractions-batch3";
 import { applyCuratedTopAttractionsBatch4 } from "./destination-curation-top-attractions-batch4";
 import { applyCuratedTopAttractionsBatch5 } from "./destination-curation-top-attractions-batch5";
+import { applyAttractionVisitorDepth } from "./attraction-visitor-depth-20261020";
 import type { Destination } from "./types";
 
 // `queries.ts` imports this module before it snapshots the preserved destination
@@ -197,6 +198,7 @@ const CURATORS: Array<(destination: Destination) => Destination> = [
   applyInksLakeVisitorAuthority,
   applyDevilsSinkholeVisitorAuthority,
   applyFranklinMountainsVisitorAuthority,
+  applyAttractionVisitorDepth,
 ];
 
 function runCurators(destination: Destination): Destination {

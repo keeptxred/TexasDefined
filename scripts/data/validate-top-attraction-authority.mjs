@@ -114,7 +114,7 @@ for (const feature of [
 
 for (const feature of [
   'lazy(() => import("@/components/editorial/DestinationAuthorityGuide"))', 'Suspense',
-  'topAttractionRank ? <Suspense', '<DestinationAuthorityGuide destination={destination} />',
+  'topAttractionRank && hasExtendedAuthorityGuide ? <Suspense', '<DestinationAuthorityGuide destination={destination} />',
 ]) {
   if (!relationshipSource.includes(feature)) failures.push(`Destination authority lazy-rendering contract missing ${feature}.`);
 }

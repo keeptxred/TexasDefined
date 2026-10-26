@@ -3,6 +3,7 @@ import type {
   TexasEventTicketProvider,
   TexasEventTicketingMetadata,
 } from "./texas-event-record";
+import { publicTicketHostname } from "./ticket-provider.ts";
 
 const NON_ACTIONABLE_SALE_STATUSES = new Set<TexasEventTicketLink["saleStatus"]>([
   "not-on-sale-yet",
@@ -13,7 +14,7 @@ const NON_ACTIONABLE_SALE_STATUSES = new Set<TexasEventTicketLink["saleStatus"]>
 
 export interface ResolvedEventTicketCta {
   href: string;
-  label: "Find Tickets →" | "Official Tickets →";
+  label: "Find Tickets →" | "Official Tickets →" | "Resale Tickets →" | "View Tickets →";
   provider: TexasEventTicketProvider;
   isAffiliate: boolean;
   rel: "sponsored nofollow noopener noreferrer" | "noopener noreferrer";
@@ -26,10 +27,38 @@ function safeHttpsUrl(value: string | undefined) {
   if (!value) return null;
   try {
     const url = new URL(value);
-    return url.protocol === "https:" ? url.toString() : null;
+    return url.protocol === "https:" && !url.username && !url.password && !url.port
+      && publicTicketHostname(url.hostname) ? url.toString() : null;
   } catch {
     return null;
   }
+}
+
+/**
+ * Only Ticketmaster's approved publisher 7758914 Impact feed currently has
+ * an authorized affiliate adapter. HTTPS alone never proves authorization.
+ * Match the redirect destination against this exact official event URL.
+ */
+function approvedAffiliateHref(link: TexasEventTicketLink): string | null {
+  if (link.source.kind !== "provider" || link.source.name !== "Ticketmaster"
+    || (link.provider !== "ticketmaster" && link.provider !== "ticketweb")) return null;
+  const href = safeHttpsUrl(link.affiliateUrl);
+  const officialHref = safeHttpsUrl(link.officialTicketUrl);
+  if (!href || !officialHref) return null;
+  const affiliate = new URL(href);
+  const official = new URL(officialHref);
+  if (affiliate.hostname !== "ticketmaster.evyy.net"
+    || !/^\/c\/7758914\/264167\/4272\/?$/.test(affiliate.pathname)
+    || affiliate.searchParams.getAll("u").length !== 1) return null;
+  const officialHost = official.hostname.toLowerCase();
+  const isTicketmasterEvent = (officialHost === "ticketmaster.com" || officialHost === "www.ticketmaster.com")
+    && /\/event\/[A-Za-z0-9_-]+\/?$/.test(official.pathname);
+  const isTicketwebEvent = (officialHost === "ticketweb.com" || officialHost === "www.ticketweb.com")
+    && /^\/event\/[^/]+\/[A-Za-z0-9_-]+\/?$/.test(official.pathname);
+  if (!isTicketmasterEvent && !isTicketwebEvent) return null;
+  const destinationHref = safeHttpsUrl(affiliate.searchParams.get("u") ?? undefined);
+  if (destinationHref !== officialHref) return null;
+  return href;
 }
 
 function isExpired(value: string | undefined, now: Date) {
@@ -86,7 +115,7 @@ export function resolveEventTicketCta(ticketing: TexasEventTicketingMetadata | u
   const links = rankedLinks(ticketing).filter(isActionable);
 
   for (const link of links) {
-    const href = safeHttpsUrl(link.affiliateUrl);
+    const href = approvedAffiliateHref(link);
     if (!href || isExpired(link.affiliateExpiresAt, now)) continue;
     return {
       href,
@@ -105,10 +134,16 @@ export function resolveEventTicketCta(ticketing: TexasEventTicketingMetadata | u
     if (!href || isExpired(link.officialExpiresAt, now)) continue;
     return {
       href,
-      label: "Official Tickets →",
+      label: link.provider === "vivid-seats" ? "Resale Tickets →"
+        : link.provider === "seatgeek" ? "View Tickets →" : "Official Tickets →",
       provider: link.provider,
       isAffiliate: false,
       rel: "noopener noreferrer",
+      disclosure: link.provider === "vivid-seats"
+        ? "Third-party resale marketplace · not the event organizer's box office. Ticket prices and fees may differ from face value."
+        : link.provider === "seatgeek"
+          ? "SeatGeek may offer primary or resale tickets. Confirm ticket type, seller, and total fees before purchasing."
+          : undefined,
       sourceName: link.source.name,
       lastVerifiedAt: link.lastVerifiedAt,
     };

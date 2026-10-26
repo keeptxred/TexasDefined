@@ -105,6 +105,11 @@ test("McAllen day-trip authority integrates all featured stops with sourced map 
   assert.match(src, /function McAllenFeaturedMap/);
   assert.match(src, /openstreetmap\.org\/export\/embed\.html/);
   assert.match(src, /google\.com\/maps\/dir/);
+  assert.match(src, /openstreetmap\.org\/#map=13/);
+  const qa = readFileSync("scripts/ci/verify-mcallen-day-trips-visual.mjs", "utf8");
+  assert.match(qa, /canvas\.maplibregl-canvas/);
+  assert.match(qa, /mcallen-embedded-map-/);
+  assert.match(qa, /mapScreenshot\.byteLength/);
   assert.match(src, /MCALLEN_OPEN_IMAGES/);
   assert.match(src, /William L\. Farr.*CC BY-SA 4\.0/);
   assert.match(src, /Alan Schmierer.*CC0/);

@@ -30,7 +30,9 @@ const WEEKEND_CATEGORIES = new Set<CategorySlug>(["small-towns", "food-bbq", "ro
 
 function validCoordinates(destination: Destination) {
   const { lat, lng } = destination.coordinates;
-  return Number.isFinite(lat) && Number.isFinite(lng) && !(lat === 0 && lng === 0);
+  return Number.isFinite(lat) && Number.isFinite(lng)
+    && Math.abs(lat) <= 90 && Math.abs(lng) <= 180
+    && !(lat === 0 && lng === 0);
 }
 
 export function distanceMiles(left: Destination, right: Destination): number | null {
@@ -101,9 +103,10 @@ export function buildDestinationRelationshipGroups(
     return miles !== null && miles <= 75;
   }));
 
-  const sameTown = take(others.filter((item) =>
-    item.nearestTown.trim().toLowerCase() === destination.nearestTown.trim().toLowerCase(),
-  ));
+  const town = destination.nearestTown?.trim().toLowerCase();
+  const sameTown = take(town ? others.filter((item) =>
+    item.nearestTown?.trim().toLowerCase() === town,
+  ) : []);
 
   const complementary = new Set(COMPLEMENTARY_CATEGORIES[destination.category] ?? []);
   const nearbyComplementary = take(nearest(

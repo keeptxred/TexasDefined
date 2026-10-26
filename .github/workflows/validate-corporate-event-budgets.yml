@@ -1,0 +1,27 @@
+name: Corporate event group budget contract
+on:
+  pull_request:
+    paths:
+      - 'src/data/corporate-event-budgets.ts'
+      - 'src/routes/corporate-events.lazy.tsx'
+      - 'scripts/data/validate-corporate-event-budgets.mjs'
+      - '.github/workflows/validate-corporate-event-budgets.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/data/corporate-event-budgets.ts'
+      - 'src/routes/corporate-events.lazy.tsx'
+      - 'scripts/data/validate-corporate-event-budgets.mjs'
+      - '.github/workflows/validate-corporate-event-budgets.yml'
+permissions:
+  contents: read
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --experimental-strip-types scripts/data/validate-corporate-event-budgets.mjs

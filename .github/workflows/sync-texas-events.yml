@@ -7,8 +7,15 @@ on:
       - ".github/workflows/sync-texas-events.yml"
       - ".github/workflows/finish-texas-events-refresh.yml"
       - "scripts/events/sync-texas-events-safe.mjs"
+      - "scripts/events/sync-tpwd-calendar.mjs"
+      - "scripts/events/sync-tpwd-calendar.test.mjs"
+      - "src/data/events/tpwd-event-records.server.ts"
       - "scripts/events/sync-ticketmaster-events.mjs"
       - "scripts/events/ticketmaster-discovery.mjs"
+      - "scripts/events/verify-ticketmaster-link-batch.mjs"
+      - "scripts/events/verify-ticketmaster-link-batch.test.mjs"
+      - "scripts/events/build-ticketmaster-authority-candidates.mjs"
+      - "scripts/events/build-ticketmaster-authority-candidates.test.mjs"
       - "src/data/events-generated.ts"
       - "src/data/events-remote.ts"
   schedule:
@@ -43,17 +50,47 @@ jobs:
       - name: Sync authoritative Texas events
         run: node scripts/events/sync-texas-events-safe.mjs
 
+      - name: Test TPWD calendar parser
+        run: node --test scripts/events/sync-tpwd-calendar.test.mjs
+
+      - name: Sync upcoming TPWD visitor activities
+        id: tpwd
+        continue-on-error: true
+        run: node scripts/events/sync-tpwd-calendar.mjs
+
+      - name: Warn if official TPWD feed cannot be reached
+        if: steps.tpwd.outcome == 'failure'
+        run: echo "::warning title=TPWD source temporarily unavailable::The prior TPWD event catalog remains unchanged and will expire automatically; other event providers still refresh."
+
       - name: Sync Ticketmaster Texas events
         env:
           TICKETMASTER_API_KEY: ${{ secrets.TICKETMASTER_API_KEY }}
           TICKETMASTER_IMPACT_BASE_URL: https://ticketmaster.evyy.net/c/7758914/264167/4272?subId1=texasdefined&partnerpropertyid=8837726&MediaPartnerPropertyId=8837726
         run: node scripts/events/sync-ticketmaster-events.mjs
 
+      - name: Test Ticketmaster authority candidate classification
+        run: node --test scripts/events/build-ticketmaster-authority-candidates.test.mjs
+
+      - name: Build Ticketmaster authority research queue
+        run: node scripts/events/build-ticketmaster-authority-candidates.mjs
+
+      - name: Test safe public ticket link probes
+        run: node --test scripts/events/verify-ticketmaster-link-batch.test.mjs
+
+      - name: Test governed event refresh conflict preservation
+        run: node --test scripts/events/reconcile-ticketing-refresh-conflicts.test.mjs
+
+      - name: Check the next 40 verified-provider event destinations
+        run: node scripts/events/verify-ticketmaster-link-batch.mjs
+
       - name: Detect catalog changes
         id: changes
         shell: bash
         run: |
-          if git diff --quiet -- src/data/generated/texas-events.ts src/data/generated/ticketmaster-events.json; then
+          # On the first sync, the research queue is untracked. Make it visible
+          # to git diff without staging contents until the refresh branch is made.
+          git add -N -- ops/editorial/ticketmaster-authority-candidates.json ops/editorial/event-ticketing-verification-ledger.json
+          if git diff --quiet -- src/data/generated/texas-events.ts src/data/generated/ticketmaster-events.json src/data/generated/tpwd-events.json ops/editorial/ticketmaster-authority-candidates.json ops/editorial/event-ticketing-verification-ledger.json; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "Texas events catalog is already current."
           else
@@ -71,7 +108,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -b "$branch"
-          git add src/data/generated/texas-events.ts src/data/generated/ticketmaster-events.json
+          git add src/data/generated/texas-events.ts src/data/generated/ticketmaster-events.json src/data/generated/tpwd-events.json ops/editorial/ticketmaster-authority-candidates.json ops/editorial/event-ticketing-verification-ledger.json
           git commit -m "data: refresh Texas events catalog"
           git push origin "$branch"
           echo "name=$branch" >> "$GITHUB_OUTPUT"

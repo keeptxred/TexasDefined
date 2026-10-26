@@ -1,0 +1,27 @@
+name: Corporate event market discovery contracts
+on:
+  pull_request:
+    paths:
+      - 'src/components/events/CorporateEventMetroGuides.tsx'
+      - 'src/routes/corporate-events.lazy.tsx'
+      - 'scripts/data/validate-corporate-event-metros.mjs'
+      - '.github/workflows/validate-corporate-event-metros.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/components/events/CorporateEventMetroGuides.tsx'
+      - 'src/routes/corporate-events.lazy.tsx'
+      - 'scripts/data/validate-corporate-event-metros.mjs'
+      - '.github/workflows/validate-corporate-event-metros.yml'
+permissions:
+  contents: read
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --experimental-strip-types scripts/data/validate-corporate-event-metros.mjs

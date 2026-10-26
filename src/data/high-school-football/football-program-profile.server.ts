@@ -14,6 +14,8 @@ import { footballClassificationRank, footballProgramProfilePath, footballProgram
 import { UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28 } from './uil-football-enrollments-2026.generated';
 import { getVerifiedFootballSchoolIdentity } from './school-identities';
 import { getFootballProgramEditorial } from './program-editorial';
+import { loadBatch008FootballProgramEditorial } from './program-editorial-b008-loader.server';
+import { applyAubreyAutoResults } from './aubrey-auto-results';
 import { buildFootballProfileFaq, buildFootballProfileQuickFacts, buildFootballProfileSummary } from './football-profile-content';
 import {
   UIL_FOOTBALL_EXPECTED_COUNTS,
@@ -158,7 +160,7 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
     };
   }
 
-  const result = await searchFootballPrograms({ query: seed.schoolName, limit: 100 });
+  const result = await searchFootballPrograms({ query: seed.schoolName, limit: 100, loadRemoteSources: false });
   const exactEnrollment = UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28[seed.sourceSchoolName];
   const matchedProgram: FootballProgramDirectoryResult = exactProgramMatch(seed, result.programs) ?? {
     ...seed,
@@ -234,6 +236,10 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
   const primaryCampus = otherCampusCorrections[canonicalSlug];
   const program: FootballProgramDirectoryResult = canonicalSlug === 'katy'
     ? { ...matchedProgram, countyName: 'Fort Bend County' }
+    // NCES campus 481206000703 places Bullard High in Cherokee County,
+    // even when an AskTED city/ISD match returns Smith County. This changes
+    // campus county only; UIL placement and TEA school identity remain intact.
+    : canonicalSlug === 'bullard' ? { ...matchedProgram, countyName: 'Cherokee County' }
     : canonicalSlug === 'austin-johnson' ? austinLbjProgram
     : primaryCampus ? {
       ...seed, profilePath: footballProgramProfilePath(seed.schoolName),
@@ -251,7 +257,10 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
     officialSchoolName: program.officialSchoolName,
     districtName: program.districtName,
   });
-  const editorial = getFootballProgramEditorial(canonicalSlug);
+  const baseEditorial = (await loadBatch008FootballProgramEditorial(canonicalSlug)) ?? getFootballProgramEditorial(canonicalSlug);
+  const editorial = canonicalSlug === 'aubrey'
+    ? applyAubreyAutoResults(baseEditorial)
+    : baseEditorial;
   const profileContent = {
     displayName,
     program,

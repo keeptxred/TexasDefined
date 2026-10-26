@@ -251,3 +251,54 @@ These authority upgrades **reuse existing, accurate destination photographs**, n
 - This clears a generic placeholder for the existing canonical `/destination/san-angelo-museum-of-fine-arts` by the licensed-hero registry. It is an exterior building photograph and does not certify 2026 paintings or gallery installations.
 - Commercial image reuse of photographs from SAMFA's own site is expressly restricted; only the separately photographer-licensed Wikimedia work is authorized by the cited Commons license.
 - Still pending protected merge, visual decoding/mobile layout, clickable license and direct comparison of live guide with museum's visitor policy. **Not independently certified.**
+
+
+## Alley Log Cabin & Antique Tool Museum, Columbus — licensed exact-site photograph (2026-10-24)
+
+- **Actual subject:** Abram Alley Log Cabin exterior at the preservation trust museum site in Columbus, Texas, photographed 4 November 2013. The cabin's original rural site was different before the 1976 relocation.
+- **Photographer:** Billy Hathorn, own work. **License:** Creative Commons Attribution-ShareAlike 3.0 Unported, commercial reuse permitted with attribution; adaptations must comply with ShareAlike.
+- **Exact original:** https://commons.wikimedia.org/wiki/File:Abram_Alley_Log_Cabin%2C_Columbus%2C_TX_IMG_8238.JPG
+- **License:** https://creativecommons.org/licenses/by-sa/3.0/
+- **Operator identity and current tours:** https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/
+- **Hero transport:** https://commons.wikimedia.org/wiki/Special:Redirect/file/Abram_Alley_Log_Cabin,_Columbus,_TX_IMG_8238.JPG?width=1600
+- **Required alternative text:** Actual Abram Alley Log Cabin at 1230 Bowie Street in Columbus, Texas, photographed November 4, 2013.
+- **Acceptance caution:** The image's HTTP response is NOT browser visual certification. Check image subject, responsive crop, original source, credit and license links on production before marking certified.
+
+
+## Austin History Center — exact current Faulk Building (2026-10-24)
+
+- **Canonical museum:** /destination/austin-history-center-austin
+- **Current physical site:** John Henry Faulk Building, 800 Guadalupe Street, Austin, occupied by Austin History Center since 2025. City operator: https://library.austintexas.gov/austin-history-center. The older 1933 History Center building at 810 Guadalupe is NOT used as a current-site photo substitute.
+- **Original photograph:** https://commons.wikimedia.org/wiki/File:John_Henry_Faulk_Central_Library.jpg, exterior December 7, 2025, by Thejudahrice. **License:** https://creativecommons.org/licenses/by-sa/4.0/ (CC BY-SA 4.0; commercially reusable with appropriate credit and share alike for adaptations).
+- **Rendered hero source:** https://commons.wikimedia.org/wiki/Special:Redirect/file/John_Henry_Faulk_Central_Library.jpg?width=1600
+- **Alt:** John Henry Faulk Building at 800 Guadalupe Street, current home of the Austin History Center since its 2025 move.
+- **Production acceptance:** Browser decode, responsive crop, correct attribution/original-license links and canonical/indexing confirmation are NOT YET verified. No independent editorial certification.
+
+## Bayou Bend Collection and Gardens — licensed property photograph and limitations (2026-10-24)
+
+- **Existing canonical destination:** `/destination/bayou-bend-collection-gardens`. The owner-inventory entry refers to this exact MFAH house museum, not a new visitable identity.
+- **Actual museum photograph already in existing destination:** Wikimedia Commons [BayouBendHome.JPG](https://commons.wikimedia.org/wiki/File:BayouBendHome.JPG), author **Postoak**, original upload March 22, 2008, depicting the Bayou Bend estate house in Houston. File's author released the exact photo to the **public domain worldwide**, and wherever that is not available grants permission for any purpose without conditions. This is the documented commercial-use evidence for the destination hero at `https://commons.wikimedia.org/wiki/Special:Redirect/file/BayouBendHome.JPG?width=1600`.
+- This **does not** grant rights to reproduce MFAH's collection catalog images or to carry out an on-property commercial photo shoot: the current [museum operator policy](https://www.mfah.org/visit/bayou-bend/photography-guidelines) requires permission for commercial shoots and restricts tripods/drones. Photo source link is the rights record; there is no CC license link to invent for a photographer-public-domain dedication.
+- **Remaining acceptance:** Live SSR image source/alt and indexed canonical, actual decoded house image and mobile crop, and independent editorial competitor evaluation. Neither a Commons file reference nor normal HTTP transport alone counts as visual certification.
+
+## Baytown Historical Museum — licensed exact-site building photograph (2026-10-24)
+
+- **Canonical museum identity:** `/destination/baytown-historical-museum` at 220 West Defee Street in Baytown, Texas. The museum occupies the former Goose Creek federal post office. Official operator location and free-admission visitor listing: https://www.visitbaytown.com/arts-culture .
+- **Original image:** [Old Baytown Post Office.jpg](https://commons.wikimedia.org/wiki/File:Old_Baytown_Post_Office.jpg). The photograph **depicts the exact museum building**, not just another post office or downtown Baytown attraction. Photographer **Jim Evans**, 29 October 2020, 3823 × 2635 JPEG. Commons original file directly identifies the building's later use as Baytown Historical Museum.
+- **License and conditions:** [Creative Commons Attribution-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-sa/4.0/), commercial reuse allowed with attribution, license link, change disclosure and share-alike requirements for adaptations. Preserve license/source links and do not imply the photographer endorses TexasDefined.
+- **Delivery source:** `https://commons.wikimedia.org/wiki/Special:Redirect/file/Old_Baytown_Post_Office.jpg?width=1600` using the existing remote-media pipeline; no raw hotlink substitution or generic Texas photo. Exact museum alt text and photographer/source/license credit are registered in `museum-authority-heroes.ts`.
+- **Outstanding acceptance:** Verify live image pixels, mobile decode/crop, rendered source attribution/license links, valid canonical/indexing, museum-specific FAQs and independent editorial source evaluation after deployment. Rights documentation alone is not proof of browser rendering or editorial certification. Public museum visiting hours conflict between the city and other directories and must be qualified until the operator confirms them.
+
+## Barrington Farm and Bastrop County Museum — precise photo rights (2026-10-24)
+
+- **Barrington canonical:** `/destination/barrington-living-history-farm`, Anson Jones's historic house at Washington-on-the-Brazos. Photographer **Pi3.124**, 27 February 2016, original Commons file: https://commons.wikimedia.org/wiki/File:Barrington_Farm,_residence_of_Dr._Anson_Jones.jpg . License: https://creativecommons.org/licenses/by-sa/4.0/ . New exact Commons hero source: https://commons.wikimedia.org/wiki/Special:Redirect/file/Barrington_Farm%2C_residence_of_Dr._Anson_Jones.jpg?width=1600 . A pre-existing local photo on this canonical was attributed to the same creator, but local URL alone did not expose an automatic clickable original-image source; the explicit Commons delivery path corrects that attribution limitation. Check image pixels/mobile before visual certification.
+- **Bastrop canonical:** `/destination/bastrop-county-museum-visitor-center`, currently at **904 Main St** since 2011. Photo depicts exact Bastrop County Historical Society Museum, by **Larry D. Moore**, 1 July 2014: https://commons.wikimedia.org/wiki/File:Bastrop_county_historical_society_museum.jpg . Photographer's own commercial-use license https://creativecommons.org/licenses/by/4.0/ (CC BY 4.0). Hero source: https://commons.wikimedia.org/wiki/Special:Redirect/file/Bastrop_county_historical_society_museum.jpg?width=1600 . The pre-existing museum listing still had a missing-image placeholder and a `noindex` gate when tested on Oct 24; only clear indexing once real approved media and full visitor guide are actually delivered and accepted.
+- License records identify the exact photographers and museum subjects. This record is documentary photo-rights evidence **not** an editorial competitor certification or browser-decoded image test. The four separate photo-blocked museums still lack rights-approved hero images.
+
+## Austin County Jail Museum — Bellville exact-building reuse evidence (2026-10-25)
+
+- **Canonical:** `/destination/austin-county-jail-museum-bellville`; **subject:** original 1896 Austin County jail building at 36 S Bell St, Bellville, not Austin city or a generic county jail.
+- **Original photograph:** https://commons.wikimedia.org/wiki/File:Austin_County_Old_Jail_and_Museum_Bellville_Wiki_(1_of_1).jpg . Photographer **Renelibrary**, own work, 13 June 2020, original 1800 × 1197 pixels, Commons file specifically depicts the historic jail/museum exterior.
+- **License:** https://creativecommons.org/licenses/by-sa/4.0/ (Creative Commons Attribution–ShareAlike 4.0 International). Credit the named author, link source and terms; Commons holds the original photographer license statement.
+- **Planned site hero delivery:** https://commons.wikimedia.org/wiki/Special:Redirect/file/Austin_County_Old_Jail_and_Museum_Bellville_Wiki_(1_of_1).jpg?width=1600 . Accurate alt text must describe the turrets, red-brick jail facade and Bellville location.
+- **Current verification limits:** License and exact-museum identification researched, but HTTP transport, actual responsive image decode, production indexing, mobile crop and editorial acceptance are **not yet independently verified**. Any failed media fetch leaves image/readiness guards intact.

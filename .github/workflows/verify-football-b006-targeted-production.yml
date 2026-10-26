@@ -13,6 +13,14 @@ concurrency:
   cancel-in-progress: false
 jobs:
   targeted:
+    # Hold the same repository concurrency group as deploy-production.yml.
+    # This bounded Chrome run must never sample two different Worker revisions
+    # while other protected main deployments replace the active Worker.
+    # GitHub will queue deployments, not cancel them; live content, sitemap,
+    # media/source and strict one-Worker assertions stay unchanged.
+    concurrency:
+      group: texasdefined-production
+      cancel-in-progress: false
     runs-on: ubuntu-latest
     timeout-minutes: 35
     steps:

@@ -9,6 +9,7 @@ const checks = [
   ['fishing-county-authority-links', 'INTERNAL-LINKING', 'Validate every lake guide has source-derived county discovery links', 'node', ['scripts/data/validate-fishing-county-authority-links.mjs']],
   ['fishing-city-authority-links', 'INTERNAL-LINKING', 'Validate complete lake guides are discoverable from relevant city pages', 'node', ['scripts/data/validate-fishing-city-authority-links.mjs']],
   ['county-property-enrichment', 'CODE/CONTENT', 'Validate county property enrichment', 'node', ['scripts/data/validate-county-property-enrichment.mjs']],
+  ['county-property-verified-directory', 'CODE/CONTENT', 'Protect verified 91-county directory merge', 'node', ['--test','scripts/ci/county-property-pr5289-reconciliation.test.mjs']],
   ['destination-indexing-policy', 'SEO/INDEXING', 'Validate destination indexing policy', 'node', ['scripts/data/validate-destination-indexing-policy.mjs']],
   ['homeowners-premium-research', 'SOURCE/QUALITY', 'Validate Texas homeowners premiums research', 'node', ['scripts/data/validate-homeowners-premium-research.mjs']],
   ['public-route-governance', 'ROUTING/GOVERNANCE', 'Validate public route governance', 'node', ['scripts/data/validate-public-route-governance.mjs']],
@@ -59,6 +60,7 @@ const checks = [
   ['relocation-city-comparison', 'CONTENT/AUTHORITY', 'Validate Texas city relocation comparison authority', 'node', ['scripts/data/validate-relocation-city-comparison.mjs']],
   ['relocation-freshness', 'DATA/FRESHNESS', 'Validate relocation source freshness and Census vintage', 'node', ['scripts/data/validate-relocation-freshness.mjs']],
   ['texas-life-relocation-hero-uniqueness', 'IMAGE/QUALITY', 'Validate nine distinct Texas Life relocation article images and linked licenses', 'node', ['scripts/data/validate-texas-life-relocation-hero-uniqueness.mjs']],
+  ['texas-life-housing-photo-relevance', 'IMAGE/QUALITY', 'Validate unique, relevant Texas Life housing article images and licenses', 'node', ['scripts/data/validate-texas-life-housing-photo-relevance.mjs']],
   ['top-attraction-authority', 'CONTENT/AUTHORITY', 'Validate Top 25 attraction authority', 'node', ['scripts/data/validate-top-attraction-authority.mjs']],
   ['top-attraction-review-freshness', 'CONTENT/FRESHNESS', 'Validate Top 25 review freshness', 'node', ['scripts/data/validate-top-attraction-review-freshness.mjs']],
   ['article-discover-seo', 'SEO/DISCOVERY', 'Validate article discovery SEO', 'node', ['scripts/data/validate-article-discover-seo.mjs']],
@@ -114,7 +116,7 @@ const predeployIds = new Set([
   'texas-talent-flagship-depth-wave2', 'texas-talent-source-provenance', 'texas-talent-editorial-status',
   'texas-talent-content-depth', 'texas-talent-launch-metadata', 'texas-talent-reverse-links',
   'texas-talent-public-preview', 'texas-talent-music-authority',
-  'relocation-insurance-authority', 'relocation-city-comparison', 'relocation-freshness', 'texas-life-relocation-hero-uniqueness',
+  'relocation-insurance-authority', 'relocation-city-comparison', 'relocation-freshness', 'texas-life-relocation-hero-uniqueness', 'texas-life-housing-photo-relevance',
   'fishing-authority', 'all-lake-authority-inventory', 'citypass-affiliate', 'governed-seo-duplicates',
 ]);
 

@@ -1,0 +1,60 @@
+{
+  "releaseMonth": "2026-08",
+  "publishedDate": "2026-09-30",
+  "sourceUrl": "https://www.bls.gov/news.release/archives/metro_09302026.htm",
+  "units": "total nonfarm payroll jobs, not seasonally adjusted",
+  "rows": [
+    {
+      "label": "Dallas–Fort Worth–Arlington",
+      "value": 4357000
+    },
+    {
+      "label": "Houston–Pasadena–The Woodlands",
+      "value": 3495300
+    },
+    {
+      "label": "Austin–Round Rock–San Marcos",
+      "value": 1415900
+    },
+    {
+      "label": "San Antonio–New Braunfels",
+      "value": 1191700
+    },
+    {
+      "label": "El Paso",
+      "value": 363500
+    },
+    {
+      "label": "McAllen–Edinburg–Mission",
+      "value": 308100
+    },
+    {
+      "label": "Corpus Christi",
+      "value": 202300
+    },
+    {
+      "label": "Lubbock",
+      "value": 176300
+    },
+    {
+      "label": "Brownsville–Harlingen",
+      "value": 159500
+    },
+    {
+      "label": "College Station–Bryan",
+      "value": 142100
+    },
+    {
+      "label": "Waco",
+      "value": 142900
+    },
+    {
+      "label": "Amarillo",
+      "value": 130700
+    },
+    {
+      "label": "Tyler",
+      "value": 122600
+    }
+  ]
+}

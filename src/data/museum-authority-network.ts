@@ -28,6 +28,217 @@ export interface MuseumAuthorityDossier {
 
 /** Links are to exact, existing destinations or stable topic hubs, not guessed paths. */
 export const museumAuthorityDossiers: Record<string, MuseumAuthorityDossier> = {
+  "austin-county-jail-museum-bellville": {
+    name: "Austin County Jail Museum", slug: "austin-county-jail-museum-bellville", county: "Austin", city: "Bellville", reviewed: "2026-10-25",
+    topics: ["county-jails", "romaneseque-revival-architecture", "austin-county-history", "texas-law-enforcement"],
+    whyVisit: "This former county jail is both a local-history museum and an original 1896 civic landmark a short walk from Bellville's courthouse square. The architecture is part of the exhibit: red brick, stone-trimmed arches, crenellated parapets and bartizans were chosen to embody late-nineteenth-century official power. Original cells and the jailer's domestic quarters connect law enforcement and daily county life. The Austin County court commissioned the Pauly Jail Building Company at a reported $19,970 after condemning the earlier jail, and the structure remained in use until 1982. The present jail museum is small, volunteer-run and historically specific rather than a generic all-day attraction.",
+    visitorStrategy: "Austin County's own museum page advertises public Saturday hours from 11 a.m. until 3 p.m., operated by volunteers. Travel to 36 S Bell Street, Bellville, TX 77418, not to Austin city or the Austin County administrative office at 1 E Main Street. The operator does not publish a reliable current admissions-price schedule, formal timed tickets or holiday exceptions: check with the volunteers at 979-877-5642 or 713-385-7141 before committing to a date or a group visit. As a practical estimate, budget about 45–75 minutes for a small-museum stop, not a guaranteed tour length. Avoid treating open historic grounds as permission to enter outside staffed hours.",
+    accessibility: "The former three-story jail plus smaller historic upper section has stairs, old detention spaces and limited historic circulation. Austin County does not publish a complete step-free entry, parking, restroom or second-floor accessibility inventory. Call ahead for the exact accessible entrance and which museum spaces can be reached, and do not promise full mobility access based on the building's exterior. Ask about children and supervision around historic stairs and jail fixtures. Seasonal heat can make downtown walking uncomfortable; the historic square is a separate outdoor extension.",
+    familiesAndGroups: "Children can compare the jail's stone-and-brick architecture with the historical purpose of detention, and discuss how a sheriff's family lived on site. Some law-enforcement and execution history needs age-appropriate framing: a historical gallows was used once in 1901 but was removed, so do not advertise a surviving working gallows. Advance school or group arrangements and guided access must be cleared with the volunteer operator. The nearby courthouse square provides a distinct civic-history walk but does not share the museum's admission or volunteer schedule.",
+    researchValue: "County archival interpretation and the Texas Historical Commission's 1976 marker distinguish the original architecture from later adaptations. The National Register reference 80004074 formally recognizes the jail's 1896 design and architects F. B. and W. S. Hull. The marker records Pauly Jail Building Company as contractor, the $19,970 price, and the removal of the gallows after its sole recorded use in 1901. The sheriff's residence, public façade and detention levels provide an opportunity to discuss the relationship between county government, incarceration, architectural symbolism and community memory without turning the museum into crime entertainment.",
+    exhibits: [
+      { heading: "The 1896 brick jail and entrance", detail: "Look for red brick, round turrets, crenellated parapets and contrast-stone arched windows; distinguish the original landmark from later repairs." },
+      { heading: "Historic cells and jail spaces", detail: "Ask staff which original detention rooms can currently be visited. Historic doors and stairs may limit some mobility routes." },
+      { heading: "Sheriff's family quarters", detail: "The building served both incarceration and the sheriff's residence until 1982, revealing how county institutions once combined working and domestic life." },
+      { heading: "The sole 1901 gallows use", detail: "The historically documented gallows no longer exists; learn its history through sourced interpretation rather than expecting to see a preserved execution apparatus." },
+      { heading: "Local law enforcement and Bellville", detail: "Connect museum exhibits and volunteers' interpretation to Austin County's civic history and nearby courthouse square." }
+    ],
+    routes: [
+      { label: "Focused Saturday museum visit", steps: ["Confirm volunteer availability and any entry charge by phone", "Visit the old jail between the posted Saturday hours", "Ask about original cells, jailer's quarters and architectural details"] },
+      { label: "Bellville courthouse-square half-day", steps: ["Reserve the Saturday museum window", "Walk around the nearby courthouse square and original commercial streets", "Compare the civic roles of courthouse, jail and historical markers without implying shared admission"] },
+      { label: "Family or school history route", steps: ["Request an appropriate supervised visit from volunteers in advance", "Discuss nineteenth-century county government, daily living and the documented 1901 event carefully", "Visit publicly accessible nearby town-history markers and photograph the Romanesque façade"] }
+    ],
+    sources: [
+      { label: "Austin County government — Austin County Jail Museum", url: "https://www.austincounty.com/page/austin.Museum", use: "Operator identity, correct Bellville location, posted Saturday visiting hours and volunteer contacts" },
+      { label: "Texas Historical Commission — Austin County Jail historical marker", url: "https://atlas.thc.texas.gov/Details/5015000244", use: "Construction, Romanesque design, Pauly contract, original use and documented gallows history" },
+      { label: "Texas Historical Commission — National Register site 80004074", url: "https://atlas.thc.texas.gov/Details/2080004074", use: "Correct registered address, 1896 architecture, status and F. B./W. S. Hull architects" },
+      { label: "Bellville Chamber of Commerce — museum listing", url: "https://business.bellville.com/list/member/austin-county-jail-museum-2116", use: "Independent local business listing and active volunteer contact" }
+    ],
+    connections: [
+      { label: "Austin County visitor guide", href: "/county/austin", reason: "Place Bellville, historic markers and this courthouse-square landmark in wider county context." },
+      { label: "San Felipe de Austin", href: "/destination/san-felipe-de-austin", reason: "Compare nineteenth-century law and civic institutions with an earlier Texas-colonial capital and historic site; separate hours and tickets apply." },
+      { label: "Explore historic Texas sites", href: "/explore", reason: "Build a heritage route around confirmed open visitor attractions rather than treating every historic exterior as an open museum." }
+    ],
+  },
+  "barrington-living-history-farm": {
+    name: "Barrington Living History Farm", slug: "barrington-living-history-farm", county: "Washington", city: "Washington", reviewed: "2026-10-24",
+    topics: ["republic-history", "living-history", "enslaved-labor", "agricultural-history"],
+    whyVisit: "Barrington preserves and interprets the residence and working farm of Anson Jones, the last president of the Republic of Texas. Visitors explore an original historic house and a reconstructed 1850s farm environment, learning not only about Jones but also about crop production, households and the enslaved people whose coerced labor sustained the farm.",
+    visitorStrategy: "Use the Texas Historical Commission listing for 23100 Barrington Lane, Washington. The farm and outdoor interpretation normally operate Wednesday through Sunday, 10 a.m. to 4:30 p.m. Monday and Tuesday access to the wider grounds does not include the farm structures. In October 2026 the operator lists adults $10, ages 6–17 $6, under six free, qualified discounts and family options. Allow about an hour or longer for the farm and separate additional time for the adjoining Washington Townsite and Star of the Republic Museum.",
+    accessibility: "Barrington's outdoor working-history landscape involves uneven dirt paths and some building steps. The Texas Historical Commission explicitly requests advance accessibility-ramp notice for group tours. Neither a photographed entrance nor an online map guarantees step-free access to every structure, so contact the staff at 936-878-2214 to plan current accessible routes and facilities.",
+    familiesAndGroups: "Living-history staff interpret period livestock, cultivation, kitchens and household tasks, with demonstrations changing by weather and season. Adult group tours generally require reservations about four weeks in advance; advance payment deadlines also apply. Teachers and family visitors should distinguish the operator's discounted group rate from the normal family ticket and give children age-appropriate context about forced labor.",
+    researchValue: "The Texas Historical Commission uses Anson Jones's records and surviving buildings to interpret the lives and work of the Jones household and enslaved residents. The 1850 farm illustrates the cotton economy, food production and livestock work of the era, while recreated quarters must be understood as interpretive reconstructions rather than untouched structures. The site also clarifies how presidential history intersected with inequality in early Texas.",
+    exhibits: [
+      { heading: "Original house of Anson Jones", detail: "A historic Jones family home is the core of Barrington; compare it with reconstructed kitchens, cabins and other working structures rather than treating every building as equally original." },
+      { heading: "Work and quarters of enslaved residents", detail: "Reconstructed living spaces and sourced personal and farm records foreground the people held in slavery who planted crops, cooked, tended animals and maintained the household." },
+      { heading: "Seasonal 1850s agricultural demonstrations", detail: "Farming, livestock and cooking programs vary with season and weather; visitors may see different labor and crop activities on different dates." }
+    ],
+    routes: [
+      { label: "Focused farm visit", steps: ["Confirm the farm itself is open, not just the free grounds", "Tour the surviving Jones house and identify the reconstructed farm buildings", "Include the enslaved-quarter history and outdoor cultivation landscape"] },
+      { label: "Republic history half-day", steps: ["Start with Barrington's household and farm interpretation", "Explore the separately managed Washington Townsite", "Visit the Star of the Republic Museum on the complex's current ticket terms"] },
+      { label: "School and adult group experience", steps: ["Request group tours four weeks ahead and confirm accessibility needs", "Compare the lives of the Jones family and enslaved workers", "Check seasonal demonstrations and postpone outdoor touring during lightning closures"] }
+    ],
+    sources: [
+      { label: "THC Barrington current visitor listing", url: "https://thc.texas.gov/historic-sites/barrington-living-history-farm", use: "Operating days, ticket categories and current visitor location" },
+      { label: "THC Barrington history", url: "https://thc.texas.gov/state-historic-sites/barrington-living-history-farm/barrington-living-history-farm-history", use: "Original house, Jones diary, agriculture and enslaved workers" },
+      { label: "THC Washington complex visitor and group rules", url: "https://thc.texas.gov/washington-brazos-complex/plan-your-visit-washington-brazos", use: "Group booking, outdoor accessibility and lightning closure" },
+      { label: "THC Washington complex context", url: "https://thc.texas.gov/historic-sites/washington-brazos", use: "Separate farm, townsite and museum experiences" }
+    ],
+    connections: [
+      { label: "Washington County guide", href: "/county/washington", reason: "Plan a Washington County historical itinerary" },
+      { label: "Washington-on-the-Brazos", href: "/destination/washington-on-the-brazos", reason: "Connect Barrington's everyday life with Republic-era political history" },
+      { label: "Star of the Republic Museum", href: "/destination/star-of-the-republic-museum", reason: "Pair the outdoor farm with a separately interpreted museum visit" }
+    ],
+  },
+  "bastrop-county-museum-visitor-center": {
+    name: "Bastrop County Museum & Visitor Center", slug: "bastrop-county-museum-visitor-center", county: "Bastrop", city: "Bastrop", reviewed: "2026-10-24",
+    topics: ["local-history", "el-camino-real", "lost-pines", "heritage-tourism"],
+    whyVisit: "At 904 Main Street, the Bastrop County Historical Society operates both a local history museum and the county visitor center. The galleries cover Indigenous communities, El Camino Real, early Texas, local industries and the Lost Pines, while staff help connect those stories to today's historic downtown and surrounding landscapes.",
+    visitorStrategy: "Visit 904 Main Street Monday through Saturday, 10 a.m. to 5 p.m., with last entry at 4:30 p.m. The operator charges $8 for most adults; children 12 and under, active service members and veterans are free, and eligible EBT families may use a $5 reduced rate. The official homepage's Sunday 11 a.m. to 3 p.m. entry conflicts with several dedicated pages listing only Monday–Saturday; confirm any Sunday plans by phone at 512-303-0904. A typical tour takes 30–60 minutes.",
+    accessibility: "The operator confirms free nearby public parking but does not document every accessible entrance, elevator, bathroom or assistive device. Do not assume marked accessible spaces or universal step-free access based only on its downtown address. Ask visitor services at 512-303-0904 about current entry and mobility arrangements before traveling.",
+    familiesAndGroups: "Families can explore permanent and temporary exhibits together, use the children's free-entry policy, and ask staff for additional local-history context. Museums for All rates have eligibility requirements. Only service animals are permitted in galleries, and food and drinks belong in the visitor-center area rather than near exhibits. Research-library use should be arranged in advance, not assumed to be part of a walk-in museum ticket.",
+    researchValue: "Founded in 1952, the historical society opened a museum in the 1950s and moved its collections to the current Main Street space in 2011. Family-donated artifacts and archives illuminate trade routes, coal and timber industries, civic institutions and the people of Bastrop County; history researchers should make a separate appointment to consult records rather than expecting immediate unsupervised access.",
+    exhibits: [
+      { heading: "County history and El Camino Real", detail: "Learn how Indigenous histories, historic routes, the Texas Revolution and later migration connect to places across Bastrop County." },
+      { heading: "Lost Pines and local industry", detail: "The region's forest landscapes, coal mining, civic institutions and historic Main Street form interconnected economic and environmental stories." },
+      { heading: "Changing exhibits and visitor information", detail: "Special exhibitions rotate, and visitor-center staff can help plan nearby trips; separate archival appointments are required for deeper original-record research." }
+    ],
+    routes: [
+      { label: "One-hour museum introduction", steps: ["Arrive before the 4:30 p.m. last-entry cutoff", "Tour the local-history galleries for 30–60 minutes", "Ask the visitor desk about a current downtown heritage route"] },
+      { label: "County history and Lost Pines", steps: ["Start at the museum to understand the El Camino Real and Lost Pines", "Walk the separate historic downtown streets", "Explore Bastrop State Park on its own operating and entry terms"] },
+      { label: "Family or archival visit", steps: ["Check current child and EBT admission eligibility", "Visit permanent and temporary exhibits together", "For genealogy or original papers, arrange a separate society research appointment"] }
+    ],
+    sources: [
+      { label: "Museum operator hours and current location", url: "https://www.bastropcountyhistoricalsociety.com/museum", use: "Museum, visitor address, last entrance and changing exhibitions" },
+      { label: "Museum operator ticket programs", url: "https://www.bastropcountyhistoricalsociety.com/coming-soon-03-3", use: "Adult, child, veteran, EBT and member admission rules" },
+      { label: "Museum operator FAQ", url: "https://www.bastropcountyhistoricalsociety.com/coming-soon-03-4", use: "Visit time, last entrance, food and animals" },
+      { label: "Museum operator homepage for disputed Sunday hours", url: "https://www.bastropcountyhistoricalsociety.com/", use: "Sunday-hours conflict and current operator contact" },
+      { label: "Society research and visitor support", url: "https://www.bastropcountyhistoricalsociety.com/resources", use: "Research appointment rather than unplanned archival visit" }
+    ],
+    connections: [
+      { label: "Bastrop County", href: "/county/bastrop", reason: "Connect artifacts and local history to Bastrop County" },
+      { label: "Bastrop State Park", href: "/destination/bastrop-state-park", reason: "Experience the Lost Pines habitat interpreted by the museum" },
+      { label: "Texas history", href: "/texas-history", reason: "Understand El Camino Real and Bastrop history in a statewide context" }
+    ],
+  },
+  "baytown-historical-museum": {
+    name: "Baytown Historical Museum", slug: "baytown-historical-museum", county: "Harris", city: "Baytown", reviewed: "2026-10-24",
+    topics: ["goose-creek", "oil-history", "karankawa", "historic-post-office"],
+    whyVisit: "The small Baytown Historical Museum occupies the city's former Goose Creek Post Office at 220 West Defee, built in 1936–37. Its collections provide local context from the Karankawa and early settlement to the oil boom, Humble Oil and the 1948 consolidation of Goose Creek, Pelly and Baytown. The building's federal architecture and WPA-related fresco are part of the history rather than anonymous gallery space. A visit works as a focused introduction to east Harris County before walking downtown or exploring other regional heritage sites.",
+    visitorStrategy: "The City of Baytown's tourism bureau lists the museum at 220 W. Defee, telephone 281-427-8768, with free admission Tuesday through Saturday, 10 a.m.–2 p.m. A local visitor listing instead reports Wednesday–Saturday, 10 a.m.–4 p.m.; neither should be used as an unconditional open-now claim. Telephone staff directly before planning around a narrow midday window, holiday closure or school visit. The museum is a compact historic-site stop rather than an assured all-day attraction. Allow approximately 45–75 minutes as a flexible planning estimate, not an official prescribed tour duration; tours, archival requests and event dates need separate confirmation.",
+    accessibility: "The preserved post office frontage includes prominent steps. The city's public listing does not document a complete accessible entrance, alternate step-free access, restrooms or accessible parking route. A photographed staircase alone is not proof the entire museum is inaccessible; call 281-427-8768 for exact entry, service-animal and mobility arrangements before traveling.",
+    familiesAndGroups: "Admission is advertised as free, making a history stop practical for families. The museum can prompt discussion of regional Indigenous history, historical changes in work and industry, federal architecture and how three communities became modern Baytown. Adult supervision is prudent around museum displays, but the operator does not publicly guarantee interactive children's areas, regular docent tours or group bookings; call ahead for schools and large groups. Do not assume archives, restrooms, shopping or dedicated parking beyond what the operator confirms.",
+    researchValue: "After the Goose Creek post office relocated in 1985, this 1930s federal building became a setting for public history. Texas Historical Commission heritage materials describe its Louis A. Simon-designed early International Style architecture, a Section of Painting and Sculpture mural by Philip Parisi and the landmark designation. City tourism materials connect the collection to the Karankawa, local settlements and oil development. Distinguish museum-reported history from the historical building's original postal use and the later 1948 city formation; avoid using a general Houston history narrative as a substitute for Baytown-specific interpretation.",
+    exhibits: [
+      { heading: "Karankawa and early settlement", detail: "Look for local exhibits placing earlier Indigenous history beside later settler communities; do not imply the museum's objects exhaust the Karankawa story." },
+      { heading: "Humble Oil and the Baytown merger", detail: "Trace the oil and industrial era and the consolidation of Baytown, Pelly and Goose Creek in 1948, connecting community objects to the larger Gulf Coast economy." },
+      { heading: "The former Goose Creek Post Office", detail: "Study the federal façade and ask about the preserved New Deal-era interior fresco; building history and gallery collections are distinct parts of the visit." }
+    ],
+    routes: [
+      { label: "First-time Baytown history stop", steps: ["Call the museum to verify today's hours", "Begin with its former post office architecture and early settlement galleries", "Finish with the oil-era and 1948 merger exhibits"] },
+      { label: "Baytown downtown half-day", steps: ["Tour Baytown Historical Museum during a confirmed opening window", "Walk toward the city's downtown Arts District and public art", "Arrange dining or a second stop separately; do not assume museum admission covers other venues"] },
+      { label: "Regional heritage outing", steps: ["Begin with museum interpretation of the Karankawa and early industry", "Explore independently verified historic landmarks and interpretive exhibits elsewhere in Harris County", "Check site hours and ticket requirements for each other museum or battlefield separately"] }
+    ],
+    sources: [
+      { label: "Visit Baytown official arts and culture listings", url: "https://www.visitbaytown.com/arts-culture", use: "Current museum name, free admission, 220 West Defee address, city-published hours and phone" },
+      { label: "Visit Baytown city history guide", url: "https://www.visitbaytown.com/baytown-history", use: "Local historical context and city-listed museum identity" },
+      { label: "Texas Time Travel historic Baytown museum", url: "https://texastimetravel.com/directory/baytown-historical-museum/", use: "Heritage interpretation, historic federal building and WPA mural" },
+      { label: "Jim Evans's original Wikimedia Commons photograph", url: "https://commons.wikimedia.org/wiki/File:Old_Baytown_Post_Office.jpg", use: "Exact present museum building, original creator and CC BY-SA 4.0 media rights" }
+    ],
+    connections: [
+      { label: "Harris County guide", href: "/county/harris", reason: "Use Baytown in the context of Harris County's wider museums and regional history" },
+      { label: "Explore Texas", href: "/explore", reason: "Find other independently operated regional museums and day-trip stops" }
+    ],
+  },
+  "bayou-bend-collection-gardens": {
+    name: "Bayou Bend Collection and Gardens", slug: "bayou-bend-collection-gardens", county: "Harris", city: "Houston", reviewed: "2026-10-24",
+    topics: ["american-decorative-art", "ima-hogg", "gardens", "house-museum"],
+    whyVisit: "Bayou Bend is Ima Hogg's former River Oaks estate, now the Museum of Fine Arts, Houston's separate house museum for American decorative arts and paintings. Its 28 staged rooms and galleries contain more than 2,500 objects dating from 1620 to 1876, while 14 acres of formal gardens connect historic domestic design and Houston's early cultural philanthropy. Touring this residential site is distinct from admission to MFAH's main Museum District campus.",
+    visitorStrategy: "Enter via the Lora Jean Kilroy Visitor and Education Center at 6003 Memorial Drive in Houston. The current MFAH listing gives Wednesday–Saturday 10 a.m.–5 p.m., Sunday 1–5 p.m., last admission at 4 p.m., and Monday–Tuesday closed. An older operator page listed noon on Wednesdays, so check the live day-specific schedule. House/garden admission is currently $14 for adults, $12 for students or seniors and ages 13–18, free for children 12 and under, MFAH members and active U.S. military. An ordinary self-guided house tour needs no reservation; separately scheduled guided tours last 60 or 90 minutes and depend on availability. Garden-only admission is a different option and is not a guaranteed included free visit.",
+    accessibility: "Bayou Bend has significant historic-property limits. MFAH expressly warns that extensive garden paths have difficult terrain and stairs, and the original house's second floor is inaccessible to people using wheelchairs or walkers. The wheelchair-friendly entry route differs from the standard entrance. Contact the Kilroy Visitor Center at 713-639-7750 in advance to request the accessible entrance, alternatives and mobility assistance; do not promise universal access to every room or garden.",
+    familiesAndGroups: "Self-guided tours allow families to explore period furnishings without booking a docent, though guided Highlights and Study Tours have distinct availability and a one-hour or ninety-minute format. The operator offers group packages for at least twelve visitors, generally requiring advance reservations of two weeks to qualify for discounts and secure spaces. Photography in the house and gardens is restricted for professional or posed commercial shoots; personal photographs are permitted subject to no-tripod, no-flash, no-drone and other rules. Check children's access and school programming on the current operator page.",
+    researchValue: "Ima Hogg and her brothers began transforming the fourteen-acre Buffalo Bayou setting in the 1920s. Architect John F. Staub designed the house completed in 1928, and Hogg donated her estate and collections to MFAH in 1957; the house museum opened to the public in 1966. Collection interpretation spans the early United States, including American furniture, glass, silver and ceramics and work by Texas craftsmen and Black-owned businesses. Treat curated period rooms as historical interpretation rather than a claim that all displayed objects originally stood there during the Hogg family's residence.",
+    exhibits: [
+      { heading: "American decorative arts in twenty-eight rooms", detail: "Walk the former residence, seeing eighteenth- and nineteenth-century furniture, silver, ceramics and paintings arranged to illustrate material culture from the seventeenth through nineteenth centuries." },
+      { heading: "Ima Hogg house and Hogg Family Legacy Room", detail: "Learn how the 1928 Staub-designed River Oaks home became a museum in 1966, with separate information at the Kilroy Visitor and Education Center." },
+      { heading: "Formal gardens and Buffalo Bayou landscape", detail: "The outdoor rooms, woodland and ravines demonstrate Ima Hogg's landscape interests; garden-only tickets differ from combined admission, and historic terrain limits mobility access." }
+    ],
+    routes: [
+      { label: "One-hour American arts introduction", steps: ["Start at the Kilroy Visitor Center, 6003 Memorial Drive", "Use the self-guided house route or confirm an available one-hour docent Highlights Tour", "Compare the named rooms and objects to the house's Hogg family context"] },
+      { label: "House, gardens and Houston history", steps: ["Tour Bayou Bend's galleries, allowing extra time for period furnishings and Ima Hogg's collections", "Follow accessible garden sections or request advance mobility guidance", "Continue to the separate MFAH Museum District campus only under that campus's own admission terms"] },
+      { label: "Research or educational group", steps: ["For groups of 12 or more, contact the museum at least two weeks ahead", "Arrange guided or self-led options and request accessibility accommodations", "Use the Kitty King Powell Library and Study Center under its current research-access conditions"] }
+    ],
+    sources: [
+      { label: "MFAH official Bayou Bend admission, hours and location", url: "https://www.mfah.org/visit/bayou-bend", use: "Current day-of-week opening, house admission, garden distinction and 6003 Memorial address" },
+      { label: "MFAH Bayou Bend official tour options", url: "https://www.mfah.org/visit/bayou-bend/tours", use: "Self-guided options, 60/90-minute docent tours and groups of 12 or more" },
+      { label: "MFAH Bayou Bend collection", url: "https://www.mfah.org/visit/bayou-bend/collection", use: "More than 2,500 collection objects, 28 rooms and periods 1620–1876" },
+      { label: "MFAH Bayou Bend history", url: "https://www.mfah.org/visit/bayou-bend/history", use: "Staub house, Ima Hogg gift and 1966 museum opening" },
+      { label: "MFAH accessibility resources", url: "https://www.mfah.org/visit/accessibility-resources/", use: "Historic house second-floor and garden terrain limitations and alternate accessible entrance" },
+      { label: "MFAH photography and rentals", url: "https://www.mfah.org/visit/bayou-bend/photography-guidelines", use: "Personal photos versus commercial shoot restrictions, tripods and drones" }
+    ],
+    connections: [
+      { label: "Harris County guide", href: "/county/harris", reason: "Understand Houston and River Oaks within Harris County" },
+      { label: "The Museum of Fine Arts, Houston", href: "/destination/museum-of-fine-arts-houston", reason: "Compare Bayou Bend's American decorative art with the separate MFAH main campus" },
+      { label: "Houston guide", href: "/city/houston", reason: "Plan dining, nearby outings and separate museum admission expectations" }
+    ],
+  },
+  "austin-history-center-austin": {
+    name: "Austin History Center, Faulk Building", slug: "austin-history-center-austin", county: "Travis", city: "Austin", reviewed: "2026-10-24",
+    topics: ["local-history", "archives", "photography", "exhibitions"],
+    whyVisit: "Austin's public history archive is also a visitable city-history learning space, with changing first-floor exhibitions and a staffed reading room upstairs. Its collection captures changing communities, neighborhoods, civic institutions and the built landscape through photographs, maps, papers and oral histories. The address matters: in 2025 the center moved out of the landmark 1933 former library at 810 Guadalupe and into the renovated John Henry Faulk Building at 800 Guadalupe.",
+    visitorStrategy: "Visit the John Henry Faulk Building at 800 Guadalupe Street, not the 810 Guadalupe historic exterior or the newer Central Library at 710 W Cesar Chavez. Current public hours are Wednesday through Saturday, noon to 5 p.m.; other days are closed. Exhibits are on floor one, while supervised archive consultation takes place on floor two. No advance appointment is required for normal Reading Room use, but unappraised City material and photos in cold storage need two weeks' notice. Allow 30–60 minutes for a focused exhibit, and reserve several hours for independent archival research; food and drink are prohibited in the Reading Room.",
+    accessibility: "Public exhibitions occupy the first floor and the Reading Room is on floor two of the renovated Faulk library building, but the official center page does not enumerate every accessible entrance, elevator location, seating or adapted equipment available on a particular day. Contact Austin History Center at 512-974-7480 about mobility and assistive access. Reading-room visitors must check in, secure bags in lockers, avoid pens and handle fragile documents under staff supervision.",
+    familiesAndGroups: "The site's first-floor changing exhibits introduce local history without requiring a full research project, making a shorter visit plausible for school-age families. The operator permits supervised children in its quiet Reading Room, but a large educational group must arrange expectations directly with staff. For a student project, begin with public exhibits and online finding aids, then plan targeted record requests rather than expecting children to browse archival stacks.",
+    researchValue: "This is the City of Austin's official archive, not a general-admission artifact museum. Its collection is especially strong for Austin and Travis County genealogy, community organizations, property research, city directories, historic photos and newspapers. The Austin Public Library reports over 1,700 archival collections, thousands of subject files and extensive digital holdings. Archival photographs and primary records can test or complicate familiar narratives of Austin's growth; visitors should compare multiple communities' sources and remember that archival gaps themselves require explanation.",
+    exhibits: [
+      { heading: "Changing local-history exhibitions", detail: "First-floor displays interpret Austin's institutions, communities and documents. In Circulation: A Century of the Austin Public Library is scheduled for September 22, 2026–April 22, 2027; verify the current calendar for later travel." },
+      { heading: "Second-floor supervised Reading Room", detail: "Request archival materials from staff, use original records on-site with pencils and lockers, and plan ahead for photographic cold-storage or unappraised City collections." },
+      { heading: "Maps, city directories and neighborhood collections", detail: "Explore historic property and genealogy questions through subject files, city directories, photographs, newspaper runs, oral histories and online collection finding aids." },
+    ],
+    routes: [
+      { label: "Quick city-history exhibits", steps: ["Enter the current Faulk Building at 800 Guadalupe during posted hours", "Explore the first-floor rotating history exhibition", "Browse the public research guides if a topic catches your interest"] },
+      { label: "Half-day archives appointment-free visit", steps: ["Search the digital catalog and formulate research questions before leaving home", "Check in and secure bags at the second-floor Reading Room", "Request available materials and make limited onsite notes or copies"] },
+      { label: "Austin architecture and archives", steps: ["Start with the exhibitions at the present Faulk Building", "Compare the adjacent historic 1933 library exterior at 810 Guadalupe (separate site)", "Continue with independently confirmed downtown historic attractions or city records"] },
+    ],
+    sources: [
+      { label: "Austin Public Library — current Faulk Building location and hours", url: "https://library.austintexas.gov/austin-history-center", use: "Authoritative street address, visitor hours, exhibit floor and contact" },
+      { label: "Austin Public Library — Reading Room visitor rules", url: "https://library.austintexas.gov/ahc/plan-your-visit", use: "Appointments, storage lead time, materials handling and school visitors" },
+      { label: "Austin Public Library — collections and research", url: "https://library.austintexas.gov/ahc/research", use: "Archive holdings, municipal maps, city directories and reference support" },
+      { label: "Austin Public Library — historical institution and move", url: "https://library.austintexas.gov/ahc/about-us", use: "Distinguish the 2025 Faulk move from original 1933 landmark building" },
+    ],
+    connections: [
+      { label: "Travis County", href: "/county/travis", reason: "Extend Austin neighborhood and research questions into county context." },
+      { label: "Texas exploration", href: "/explore", reason: "See other Austin-area museums, historical sites and public attractions." },
+    ],
+  },
+  "alley-log-cabin-museum-columbus": {
+    name: "Alley Log Cabin & Antique Tool Museum", slug: "alley-log-cabin-museum-columbus", county: "Colorado", city: "Columbus", reviewed: "2026-10-24",
+    topics: ["pioneer-history", "early-texas", "agricultural-tools", "preservation"],
+    whyVisit: "A two-room oak-log home constructed in 1836 is a rare physical window into the earliest decades of the Texas Republic. This is an intimate historic-house and working-tools experience, not a large walk-in state museum: the relocated Alley family cabin and small companion tool museum are operated by the Columbus Historical Preservation Trust, and advance tour arrangements matter as much as the history itself.",
+    visitorStrategy: "Go to 1230 Bowie Street in Columbus, but call the Columbus Chamber of Commerce at 979-732-8385 to arrange a tour first. Do not mistake the historical trust's office hours for daily cabin admission. The operator does not list standard walk-in prices or guaranteed tour length; as a planning estimate, allow 45–75 minutes if both interiors are available, then independently confirm access to other Columbus heritage buildings. The original cabin site was elsewhere before the 1976 move, so use the current street address.",
+    accessibility: "This preserved 1836 log structure has original heavy oak construction and a loft stair; some historic features and doorways may constrain circulation. There is no operator-published complete accessible entrance, restroom or wheelchair route inventory. Request a specific accommodation assessment from the trust rather than assuming an old-house tour is step-free. Children should remain supervised near historic furnishings and fragile tools.",
+    familiesAndGroups: "Families can compare domestic work inside the Alley family cabin with farm, woodworking and blacksmith tools in the adjacent 1996 museum. Teachers can use the 1836 structure to contrast original materials, relocated elements and restoration choices, while explaining the Runaway Scrape and the labor of early settlers without reducing the story to pioneer nostalgia. Schedule school or group tours directly; ordinary office operations are not guaranteed group reservations.",
+    researchValue: "The story links Abram and Nancy Alley to Stephen F. Austin's early colony, the Runaway Scrape, the 1836 return and later Colorado County public service. Examine the operator's descriptions of the surviving rough-cut oak logs and sandstone chimneys alongside later 1850s improvements and 1976 relocation. The antique agricultural tools are useful evidence of regional daily labor, not proof that every item belonged to the Alley family.",
+    exhibits: [
+      { heading: "The 1836 Alley family log cabin", detail: "Inspect the two principal oak-log rooms, sandstone foundations and original structural details, and distinguish early construction from subsequent restoration and rebuilding." },
+      { heading: "Family life and the Texas Republic", detail: "The history of Abram and Nancy Alley connects domestic life to the Runaway Scrape, the first Colorado County land institutions and the colony's unstable early years." },
+      { heading: "The companion Antique Tool Museum", detail: "In a separate reused historic building, farm implements, blacksmithing tools, carpentry equipment and regional barbed wire help explain everyday work in Colorado County." },
+    ],
+    routes: [
+      { label: "Appointment-based heritage stop", steps: ["Confirm your cabin and tool-museum tour with the Columbus Chamber first", "Study original versus restored architectural features", "Ask which companion-tool displays are available"] },
+      { label: "Columbus preservation half-day", steps: ["Arrange the Alley complex tour", "Visit the historic downtown streets and courthouse exterior", "Add another separately confirmed Columbus Historical Preservation Trust property"] },
+      { label: "Family or school history visit", steps: ["Discuss the Runaway Scrape and Alley family history before arrival", "Examine the cabin construction and tool displays with an approved guide", "Compare nineteenth-century working life with today's Colorado County"] },
+    ],
+    sources: [
+      { label: "Columbus Historical Preservation Trust — Alley cabin and tool museum", url: "https://www.columbushpt.com/index.php/historical-properties/alley-log-cabin-tool-museum/", use: "Owner identity, current tour bookings, address, building history and tools" },
+      { label: "Columbus Historical Preservation Trust — official visitor website", url: "https://www.columbushpt.com/", use: "Current operator contact and other preserved historic properties" },
+      { label: "Texas Historical Commission — Abram Alley Log Cabin marker", url: "https://atlas.thc.texas.gov/Details/5089008827", use: "Independent landmark designation and original Texas Republic history" },
+    ],
+    connections: [
+      { label: "Colorado County guide", href: "/county/colorado", reason: "See nearby Columbus history, routes and downtown trip context." },
+      { label: "Explore Texas", href: "/explore", reason: "Plan nearby heritage outings, checking independent attraction tour schedules." },
+    ],
+  },
   "san-angelo-museum-of-fine-arts": {
     name: "San Angelo Museum of Fine Arts", slug: "san-angelo-museum-of-fine-arts", county: "Tom Green", city: "San Angelo", reviewed: "2026-10-19",
     topics: ["fine-art", "contemporary-ceramics", "art-education", "concho-valley-history"],

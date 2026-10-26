@@ -45,14 +45,17 @@ for (const feature of [
 ]) if (!route.includes(feature)) errors.push(`Destination authority, discovery, or planning feature missing: ${feature}`);
 
 for (const feature of [
-  'const activityPattern', 'const facilityPattern', 'function unique(values: string[])',
-  'const activities = unique(', 'const facilities = unique(', 'const otherHighlights = unique(',
-  'destination.highlights', 'data-stay-nearby-slot', 'BookingCarRentalCard',
-  'While you’re there', 'Things to do and see',
-  '{ title: "Highlights", items: unique([...activities, ...otherHighlights]) }',
-  '{ title: "Visitor facilities", items: facilities }',
-  'groups.map((group, index)', 'group.items.map((item)',
-]) if (!planner.includes(feature)) errors.push(`Destination streamlined planning feature missing: ${feature}`);
+  'StateParkVisitorEssentials',
+  'DestinationAuthoritySections',
+  'destinationEditorialLinks(destination.slug)',
+  'townAuthorityContextualLinks(destination)',
+  'data-stay-nearby-slot',
+  'BookingCarRentalCard',
+  'destination.category === "road-trips"',
+]) if (!planner.includes(feature)) errors.push(`Destination visitor-led planning feature missing: ${feature}.`);
+for (const stale of ['Things to do and see', 'Visitor facilities', 'groups.map((group, index)']) {
+  if (planner.includes(stale)) errors.push(`Destination planner must not duplicate generic content: ${stale}.`);
+}
 if (planner.includes('const practicalTips = unique([') || planner.includes('What to know before you go') || planner.includes('Keep exploring')) {
   errors.push('Destination visit planner must not duplicate the route-level visitor information or add another generic exploration tail.');
 }

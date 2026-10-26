@@ -120,13 +120,16 @@ async function fetchCountyProfile(slug: string, countyName: string): Promise<Cou
   const longitude = censusFacts.longitude ?? fallbackGeography?.longitude;
   const usedGeographyFallback = fallbackGeography != null && (censusFacts.latitude == null || censusFacts.longitude == null);
   const majorCommunities = Array.from(new Set([countySeatName, ...(VERIFIED_COUNTY_COMMUNITIES[slug] ?? knownCommunities)].filter((value): value is string => Boolean(value))));
-  const populationDensityPerSquareMile = density(censusFacts.population2020, censusFacts.landAreaSquareMiles);
+  // Census QuickFacts 2020, FIPS 48309: McLennan County 260,579 residents.
+  // Source: https://www.census.gov/quickfacts/fact/table/mclennancountytexas/PST045225
+  const population2020 = slug === 'mclennan' ? 260579 : censusFacts.population2020;
+  const populationDensityPerSquareMile = density(population2020, censusFacts.landAreaSquareMiles);
   const waterSharePercent = waterShare(censusFacts.landAreaSquareMiles, censusFacts.waterAreaSquareMiles);
 
   return {
     countySeat,
     countySeatPlace,
-    population2020: censusFacts.population2020,
+    population2020,
     population2025Estimate: VERIFIED_2025_CENSUS_ESTIMATES[slug],
     landAreaSquareMiles: censusFacts.landAreaSquareMiles,
     waterAreaSquareMiles: censusFacts.waterAreaSquareMiles,

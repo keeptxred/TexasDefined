@@ -1,0 +1,29 @@
+name: Corporate event Texas-local offer-date contract
+on:
+  pull_request:
+    paths:
+      - 'src/data/corporate-events-offers.server.ts'
+      - 'src/data/corporate-events.admin.server.ts'
+      - 'src/components/events/CorporateEventOpsPanel.tsx'
+      - 'scripts/data/validate-corporate-event-offer-local-date.mjs'
+      - '.github/workflows/validate-corporate-event-offer-local-date.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/data/corporate-events-offers.server.ts'
+      - 'src/data/corporate-events.admin.server.ts'
+      - 'src/components/events/CorporateEventOpsPanel.tsx'
+      - 'scripts/data/validate-corporate-event-offer-local-date.mjs'
+      - '.github/workflows/validate-corporate-event-offer-local-date.yml'
+permissions:
+  contents: read
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --experimental-strip-types scripts/data/validate-corporate-event-offer-local-date.mjs

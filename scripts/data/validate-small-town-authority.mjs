@@ -57,6 +57,13 @@ for (const { filename, text } of guideSources) {
       return;
     }
     guideSlugs.set(slug, filename);
+    // Visitor summaries describe the actual place, not internal content-network architecture.
+    // Cover every present and future researched town wave discovered above.
+    const visitorSummary = section.match(/\bwhyItMatters:\s*(["'])(.*?)\1/)?.[2];
+    if (visitorSummary) {
+      check(!/\b(?:TexasDefined|node)\b|discovery graph|authority graph/i.test(visitorSummary),
+        slug + ": reader-facing whyItMatters must not contain internal site-architecture jargon");
+    }
     const knownRoute = knownTownSourceRoutes[slug];
     if (knownRoute) {
       for (const url of knownRoute.required) check(section.includes(url), slug + ": official source missing " + url);

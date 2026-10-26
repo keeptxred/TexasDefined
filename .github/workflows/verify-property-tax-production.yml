@@ -1,0 +1,57 @@
+name: Verify Texas tax pages independently
+
+on:
+  # Verify the currently served Worker when this independent verification
+  # workflow or its live validator changes; avoids waiting for the daily run.
+  # App routes are intentionally excluded to avoid racing deployments.
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/verify-property-tax-production.yml'
+      - 'scripts/ci/verify-local-financial-production.mjs'
+      - 'scripts/ci/tax-history-row-contract.mjs'
+  # Run tax-only live verification after successful and failed main-branch
+  # deployments: the general deploy gate may skip local-financial smoke,
+  # and an unrelated editorial/event failure can obscure a healthy Worker.
+  workflow_run:
+    workflows: ['Deploy TexasDefined production']
+    types: [completed]
+  workflow_dispatch:
+  # Regular read-only validation catches stale or corrupted public pages
+  # even when the site's deployment pipeline skips the financial smoke suite.
+  schedule:
+    - cron: '17 10 * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  # Skipped deployment events must not cancel an independently scheduled check.
+  group: texasdefined-tax-live-independent-${{ github.event_name }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event_name == 'push' || github.event_name == 'schedule' || (github.event.workflow_run.head_branch == 'main' && (github.event.workflow_run.conclusion == 'success' || github.event.workflow_run.conclusion == 'failure')) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Explain scope and deployment dependency
+        run: |
+          echo "## Independent Texas property-tax live verification" >> "$GITHUB_STEP_SUMMARY"
+          echo "This checks the **currently served** canonical and direct-Worker pages, not whether the triggering commit was published." >> "$GITHUB_STEP_SUMMARY"
+          echo "Success or failure of a site deployment triggers this separate read-only tax-history check. The daily schedule also tests currently served pages independently of any deployment." >> "$GITHUB_STEP_SUMMARY"
+      - name: Verify verified local-rate histories and Woodlands on both origins
+        env:
+          TEXAS_TAX_VERIFY_ONLY: '1'
+        run: node scripts/ci/verify-local-financial-production.mjs
+
+      - name: Verify all currently verified local tax-rate observations on both production origins
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL || 'https://ftkznprjljkhymknvhye.supabase.co' }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY || secrets.KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY }}
+        run: node scripts/ci/verify-texas-tax-live-observations.mjs

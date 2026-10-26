@@ -45,6 +45,8 @@ const STATIC_LASTMOD_BY_PATH: Readonly<Record<string, string>> = {
   "/texas-vs-every-state": PRIORITY_SEO_LASTMOD,
   "/texas-history": "2026-08-20",
   "/dallas-black-history": "2026-10-13",
+  "/holiday/magical-winter-lights": "2026-10-21",
+  "/holiday/enchant-christmas-arlington": "2026-10-21",
   "/texas-historic-landmarks": "2026-10-12",
   "/texas-symbols": "2026-08-20",
   "/editorial-policy": "2026-09-01",
@@ -52,7 +54,7 @@ const STATIC_LASTMOD_BY_PATH: Readonly<Record<string, string>> = {
   "/sourcing-methodology": "2026-09-01",
 };
 const ARTICLE_LASTMOD_BY_SLUG: Readonly<Record<string, string>> = {
-  "texas-high-school-football-playoffs-explained": "2026-10-16",
+  "texas-high-school-football-playoffs-explained": "2026-10-25",
   "history-of-the-texas-flag": "2026-08-20",
   "texas-flag-etiquette-display-guide": "2026-08-20",
   "texas-rivers-explained": "2026-10-18",
@@ -243,7 +245,10 @@ export const Route = createFileRoute("/sitemap.xml")({
           import("@/data/local-salary-needed"),
         ]);
 
+        const { default: proTeams } = await import("@/data/pro-teams.json");
         const entries: SitemapEntry[] = [
+          ...proTeams.map((team) => ({ path: `/sports/teams/${team.slug}`, lastmod: "2026-10-21" })),
+          { path: "/destination/davis-hill-state-park", lastmod: "2026-10-20" },
           ...INDEXABLE_STATIC_PATHS.filter((path) => !isExploreSitemapOwnedPath(path)).filter((path) => !isEvergreenEventCollectionPath(path)).filter((path) => isTexasDefinedOwnedStaticPath(path)).map((path) => ({ path, lastmod: STATIC_LASTMOD_BY_PATH[path] })),
           ...AUTHORITY_STATIC_PATHS.map((path) => ({ path, lastmod: AUTHORITY_LASTMOD })),
           ...texasDogSitemapEntries,

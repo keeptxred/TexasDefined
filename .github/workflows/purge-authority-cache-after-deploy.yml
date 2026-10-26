@@ -10,6 +10,7 @@ on:
 
 permissions:
   contents: read
+  actions: read
 
 jobs:
   purge:
@@ -38,6 +39,32 @@ jobs:
         with:
           node-version: 22
 
+      # A newer protected deploy already owns its own cache purge. An older
+      # workflow_run must not invalidate and verify the earlier asset manifest
+      # while the replacement Worker is still deploying.
+      - name: Skip stale cache work superseded by a newer production deployment
+        id: release_scope
+        if: github.event_name == 'workflow_run'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TRIGGERING_DEPLOY_RUN_ID: ${{ github.event.workflow_run.id }}
+        run: |
+          set -euo pipefail
+          response="$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs?branch=main&per_page=100")"
+          if jq -e --argjson original "$TRIGGERING_DEPLOY_RUN_ID" '
+            [.workflow_runs[]
+              | select(.name == "Deploy TexasDefined production")
+              | select((.id > $original and (.status != "completed" or .conclusion == "success"))
+                or (.id == $original and .status != "completed"))
+            ] | length > 0
+          ' <<<"$response" >/dev/null; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            echo "Newer protected deployment owns cache invalidation; skipping superseded release."
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Report targeted cache-purge capability
         shell: bash
         run: |
@@ -48,19 +75,19 @@ jobs:
           fi
 
       - name: Purge governed authority HTML
-        if: ${{ env.CLOUDFLARE_CACHE_TOKEN_PRESENT == 'true' }}
+        if: ${{ env.CLOUDFLARE_CACHE_TOKEN_PRESENT == 'true' && steps.release_scope.outputs.skip != 'true' }}
         id: authority_purge
         continue-on-error: true
         run: node scripts/ci/purge-cloudflare-cache.mjs
 
       - name: Verify governed authority canonical freshness
-        if: always()
+        if: ${{ always() && steps.release_scope.outputs.skip != 'true' }}
         id: authority_freshness
         continue-on-error: true
         run: node scripts/ci/verify-authority-canonical-freshness.mjs
 
       - name: Enforce authority cache self-heal
-        if: always()
+        if: ${{ always() && steps.release_scope.outputs.skip != 'true' }}
         shell: bash
         env:
           PURGE_OUTCOME: ${{ steps.authority_purge.outcome }}

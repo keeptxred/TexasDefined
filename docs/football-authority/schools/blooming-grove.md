@@ -26,3 +26,9 @@ Original 2026 school-specific profile includes hiring, own-vs-previous-employer 
 ## October 19, 2026 — reported October 16 final (source-backed, not production-accepted)
 
 [MaxPreps' October 16 completed Blooming Grove–Elkhart report](https://www.maxpreps.com/news/s1pJrwmNrkCdU5qR8UOdtw/football-recap-tough-loss-for-blooming-grove.htm) reports **Elkhart 40, Blooming Grove 0**, bringing the Lions to **0–7 through October 16**. The accompanying editorial correction replaces the stale October 16 future fixture with a dated reported final, updates the SEO description, explanatory text and first-party-vs-third-party provenance, and preserves the older six-game ledger. Independent real production Chrome, nine-dimension editorial signoff and photo rights remain outstanding; the school's canonical registry status is not changed.
+
+## October 20, 2026 — acceptance-ledger source recheck
+Blooming Grove ISD's current staff directory and athletics staff page were rechecked and still explicitly identify **Kevin Sherrill as Athletic Director/Head Football**. The district's January 23, 2026 hiring announcement remains first-party confirmation of the appointment and continues to distinguish Sherrill's earlier Vernon records from Blooming Grove's own results.
+
+No new first-party evidence was found for Lion Stadium's exact public vehicle entrance, parking allocation, accessible seating, ticket policy, or reusable football photography rights. The reported 0–7 record through October 16 and prior successful Batch 006 technical Chrome evidence remain unchanged. **Status stays DEPLOYED, not individually VERIFIED.**
+

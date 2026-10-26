@@ -134,7 +134,20 @@ for (const marker of [
 ]) {
   if (!proximityCollectionRoute.includes(marker)) failures.push(`San Angelo proximity production-proof marker is missing: ${marker}`);
 }
-const dallasTwoHourTitle = 'Small-Town Day Trips From Dallas, Texas';
+const requiredDallasProductionChecks = [
+  ['metro-dallas-small-towns-1-hour', '/explore/near/dallas/small-towns-1-hour', 'Small Towns About an Hour or Less From Dallas, Texas'],
+  ['metro-dallas-small-towns-1-hour-ennis', '/explore/near/dallas/small-towns-1-hour', 'Ennis'],
+  ['metro-dallas-small-towns-2-hours-clifton', '/explore/near/dallas/small-towns-2-hours', 'Clifton'],
+  ['metro-dallas-small-towns-3-hours', '/explore/near/dallas/small-towns-3-hours', 'Small Towns About 2–3 Hours From Dallas, Texas'],
+  ['metro-dallas-small-towns-3-hours-jefferson', '/explore/near/dallas/small-towns-3-hours', 'Jefferson'],
+  ['metro-dallas-small-towns-3-hours-salado', '/explore/near/dallas/small-towns-3-hours', 'Salado'],
+  ['metro-dallas-small-towns-3-hours-methodology', '/explore/near/dallas/small-towns-3-hours', 'published typical one-way road-time estimates'],
+];
+for (const [label, path, expected] of requiredDallasProductionChecks) {
+  const tuple = `['${label}', '${path}', '${expected}']`;
+  if (!productionSurfaces.includes(tuple)) failures.push(`Dallas road-time live verifier drift: missing ${label}`);
+}
+const dallasTwoHourTitle = 'Small Towns About 1–2 Hours From Dallas, Texas';
 if (!proximityPresentation.includes('titlePrefix: "Small-Town Day Trips From"')) {
   failures.push('Metro proximity presentation must retain the shared Small-Town Day Trips From title contract for two-hour small-town pages.');
 }
@@ -165,6 +178,8 @@ const requiredLiveSteps = [
   ['Verify direct Worker health', 'live_direct_health'],
   ['Verify canonical production health', 'live_canonical_health'],
   ['Verify sports venue editorial production', 'live_sports_venue_editorial'],
+  ['Verify District 16 scorecards and official links on direct Worker and canonical domain', 'live_district16'],
+  ['Verify District 16 mobile and desktop rendered layout', 'live_district16_browser'],
   ['Verify direct Worker discovery', 'live_direct_worker'],
   ['Verify base production surfaces', 'live_base'],
   ['Verify Event structured-data production', 'live_events'],
@@ -213,7 +228,9 @@ for (const marker of ['id: live', "All blocking production verifiers passed nati
 const baselineCompletion = "if: ${{ success() && steps.cloudflare.outcome == 'success' }}";
 const strongerFoliageCompletion = "if: ${{ success() && steps.cloudflare.outcome == 'success' && steps.live_east_texas_foliage.outcome == 'success' }}";
 const district5ChromeCompletion = "if: ${{ success() && steps.cloudflare.outcome == 'success' && steps.live_district5_browser.outcome == 'success' }}";
-if (!liveMarkerBlock.includes(baselineCompletion) && !liveMarkerBlock.includes(strongerFoliageCompletion) && !liveMarkerBlock.includes(district5ChromeCompletion)) {
+const district21Completion = "if: ${{ success() && steps.cloudflare.outcome == 'success' && steps.live_district5_browser.outcome == 'success' && steps.live_district21.outcome == 'success' }}";
+const district16Completion = "if: ${{ success() && steps.cloudflare.outcome == 'success' && steps.live_district5_browser.outcome == 'success' && steps.live_district16.outcome == 'success' && steps.live_district16_browser.outcome == 'success' && steps.live_district21.outcome == 'success' }}";
+if (!liveMarkerBlock.includes(baselineCompletion) && !liveMarkerBlock.includes(strongerFoliageCompletion) && !liveMarkerBlock.includes(district5ChromeCompletion) && !liveMarkerBlock.includes(district21Completion) && !liveMarkerBlock.includes(district16Completion)) {
   failures.push('Live-completion marker must require successful Cloudflare deployment and all blocking verifiers.');
 }
 if (liveMarkerBlock.includes(strongerFoliageCompletion)) {

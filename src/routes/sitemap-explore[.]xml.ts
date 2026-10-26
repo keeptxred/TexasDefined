@@ -158,6 +158,25 @@ async function auditedFredericksburgSitemapEntry(): Promise<string | null> {
   }
 }
 
+// Keep Magoffin's indexable canonical guide discoverable when an enriched Explore
+// row is stale, thin, or absent. Apply the same reviewed restoration authority
+// used by the live detail page, then enforce the ordinary indexability gate.
+async function auditedMagoffinSitemapEntry(): Promise<string | null> {
+  try {
+    const [{ preservedExploreDestinations }, { applyMagoffinHomeAuthority }] = await Promise.all([
+      import("@/data/destination-preserved-catalog"),
+      import("@/data/magoffin-home-authority"),
+    ]);
+    const source = preservedExploreDestinations.find((destination) => destination.slug === "magoffin-home");
+    if (!source) return null;
+    const canonical = applyMagoffinHomeAuthority(source);
+    if (!isPrimaryTripPlannerDestination(canonical) || !auditDestination(canonical).readyForIndexing) return null;
+    return entry(`/destination/${canonical.slug}`, canonical.sourceCheckedAt);
+  } catch (error) {
+    console.error("Magoffin Home audited sitemap source unavailable", error);
+    return null;
+  }
+}
 async function emergencyExploreSitemapResponse(error: unknown) {
   console.error("Explore sitemap generation failed; serving governed static fallback", error);
   const fallbackPaths = [
@@ -168,6 +187,11 @@ async function emergencyExploreSitemapResponse(error: unknown) {
     "/explore/attractions-comparison",
     "/explore/museums",
     "/explore/aquariums",
+    "/explore/scenic-trains",
+    "/explore/dude-ranches",
+    "/explore/spa-retreats",
+    "/explore/wildlife-safaris",
+    "/explore/botanical-gardens",
     "/explore/water-parks",
     "/explore/inland-beaches",
     ...inlandSwimmingBeaches.map((beach) => `/explore/inland-beaches/${beach.slug}`),
@@ -181,6 +205,7 @@ async function emergencyExploreSitemapResponse(error: unknown) {
     "/explore/top-attractions",
     "/explore/top-attractions/methodology",
     "/explore/top-attractions/road-trips",
+    "/explore/big-bend-scenic-drives",
     "/explore/route-66/texas-road-trip",
     "/explore/landscapes",
     ...EXPLORE_REGION_SLUGS.map((regionSlug) => `/explore/region/${regionSlug}`),
@@ -189,6 +214,7 @@ async function emergencyExploreSitemapResponse(error: unknown) {
   const entries = [
     ...[...new Set(fallbackPaths)].map((path) => entry(path)),
     await auditedFredericksburgSitemapEntry(),
+    await auditedMagoffinSitemapEntry(),
   ]
     .filter((item): item is string => Boolean(item))
     .join("\n");
@@ -214,6 +240,7 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         const { enrichedTexasLandscapeProfiles } = await import("@/data/texas-landscape-profile-enrichment");
         const { TEXAS_ROUTE_66_STOPS } = await import("@/data/texas-route-66");
         const { cityPassDestinationExpansion } = await import("@/data/citypass-destination-expansion");
+        const { wacoViatorAttractionDestinations } = await import("@/data/waco-viator-attraction-destinations");
         const { preservedExploreDestinations } = await import("@/data/destination-preserved-catalog");
         const { publicCavernDestinationFallbacks } = await import("@/data/public-cavern-destinations");
         const { whirlyballHurstDestinations } = await import("@/data/whirlyball-hurst-destination");
@@ -287,6 +314,8 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         rawDestinations.push(...cityPassDestinationExpansion.filter((destination) => destination.slug && !resolvedSlugs.has(destination.slug)));
         const expandedSlugs = new Set(rawDestinations.map((destination) => destination.slug));
         rawDestinations.push(...publicCavernDestinationFallbacks.filter((destination) => destination.slug && !expandedSlugs.has(destination.slug)));
+        const wacoSlugs = new Set(rawDestinations.map((destination) => destination.slug));
+        rawDestinations.push(...wacoViatorAttractionDestinations.filter((destination) => destination.slug && !wacoSlugs.has(destination.slug)));
 
         // The detail resolver falls back to this checked-in authority record when
         // a remote Fredericksburg duplicate is too weak for indexing. Mirror that
@@ -335,6 +364,19 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         }
 
         const destinations = await resolveDestinationCatalog(rawDestinations);
+        // Mirror the full, source-checked records served by the lazy Waco
+        // destination resolver, even if the remote catalog has stale summaries.
+        for (const canonicalDestination of wacoViatorAttractionDestinations) {
+          const position = destinations.findIndex((item) => item.slug === canonicalDestination.slug);
+          if (position >= 0) destinations[position] = canonicalDestination;
+          else destinations.push(canonicalDestination);
+        }
+        const { applyWacoMuseumAuthority } = await import("@/data/waco-museum-authority-upgrades");
+        for (let index = 0; index < destinations.length; index += 1) {
+          if (destinations[index].slug === "dr-pepper-museum-waco" || destinations[index].slug === "texas-ranger-hall-of-fame-museum-waco") {
+            destinations[index] = applyWacoMuseumAuthority(destinations[index]);
+          }
+        }
         // The Explore/search summaries for these authority destinations are deliberately
         // lightweight to stay within the tested client JS bundle budget. The sitemap
         // must audit full researched guides, not summaries, before including URLs.
@@ -397,6 +439,11 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
           "/explore/attractions-comparison",
           "/explore/museums",
           "/explore/aquariums",
+    "/explore/scenic-trains",
+    "/explore/dude-ranches",
+    "/explore/spa-retreats",
+    "/explore/wildlife-safaris",
+    "/explore/botanical-gardens",
           "/explore/water-parks",
           "/explore/inland-beaches",
           ...inlandSwimmingBeaches.map((beach) => `/explore/inland-beaches/${beach.slug}`),
@@ -424,6 +471,12 @@ export const Route = createFileRoute("/sitemap-explore.xml")({
         const auditedFredericksburgEntry = await auditedFredericksburgSitemapEntry();
         if (auditedFredericksburgEntry && !destinationEntries.some((item) => item.includes(`<loc>${BASE_URL}/destination/fredericksburg</loc>`))) {
           destinationEntries.push(auditedFredericksburgEntry);
+        }
+        // Match the detail loader's audited Magoffin overlay without publishing a
+        // second XML record when its canonical URL is already in the catalog.
+        const auditedMagoffinEntry = await auditedMagoffinSitemapEntry();
+        if (auditedMagoffinEntry && !destinationEntries.some((item) => item.includes(`<loc>${BASE_URL}/destination/magoffin-home</loc>`))) {
+          destinationEntries.push(auditedMagoffinEntry);
         }
         const { loadMetroProximitySitemapEntriesServer } = await import("@/data/metro-proximity-page-data.server");
         // Proximity sitemap eligibility intentionally resolves through the same

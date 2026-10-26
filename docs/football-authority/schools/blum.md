@@ -28,3 +28,9 @@ Blum campus and district are in Hill County; connect existing `/county/hill` ↔
 ## October 19, 2026 — Blum–Avalon result and independent date discrepancy
 
 [Six-Man Football's Thursday final-score ledger](https://sixmanfootball.com/scores/) reports **Blum 66, Avalon 60**; the [Blum program schedule](https://sixmanfootball.com/teams/blum-bobcats.1056/schedule/) lists **October 15**. The independently published [October 17 MaxPreps recap](https://www.maxpreps.com/news/s7-CNyvCckSPpkSS98KPow/football-recap-blum-fends-off-avalon--how-to-watch.htm) also confirms **Blum 66, Avalon 60** and a **2–6** season tally, but labels the game **October 16**. Preserve the Six-Man source calendar date in the fixture field while clearly qualifying the conflicting day. A reported score is not independently certified by the school or UIL. Do not assume gate, parking, ADA, image rights, or final school editorial/production acceptance. The previously VERIFIED 105 remain untouched.
+
+## October 20, 2026 — acceptance-ledger source recheck
+Blum ISD's current High School Football page was rechecked and still explicitly lists **Cooper Thornhill — Head Football Coach**, with assistants separately named. The first-party coaching evidence remains current enough to retain the page's coaching field without relying on third-party directories.
+
+No new first-party evidence was found for the football venue's exact public entrance, parking allocation, ticket/cash rules, accessible seating, or reusable team/stadium photography. The 2019 UIL championship evidence, reported 66–60 Avalon result with date discrepancy, and prior successful Batch 006 technical Chrome evidence remain unchanged. **Status stays DEPLOYED, not individually VERIFIED.**
+

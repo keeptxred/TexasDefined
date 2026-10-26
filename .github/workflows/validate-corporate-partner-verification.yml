@@ -1,0 +1,31 @@
+name: Corporate partner identity verification contracts
+on:
+  pull_request:
+    paths:
+      - 'src/data/corporate-events.admin.server.ts'
+      - 'src/data/corporate-events.admin.functions.ts'
+      - 'src/components/events/CorporateEventOpsPanel.tsx'
+      - 'supabase/migrations/20261023212500_corporate_partner_identity_attestation.sql'
+      - 'scripts/data/validate-corporate-partner-verification.mjs'
+      - '.github/workflows/validate-corporate-partner-verification.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/data/corporate-events.admin.server.ts'
+      - 'src/data/corporate-events.admin.functions.ts'
+      - 'src/components/events/CorporateEventOpsPanel.tsx'
+      - 'supabase/migrations/20261023212500_corporate_partner_identity_attestation.sql'
+      - 'scripts/data/validate-corporate-partner-verification.mjs'
+      - '.github/workflows/validate-corporate-partner-verification.yml'
+permissions:
+  contents: read
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node scripts/data/validate-corporate-partner-verification.mjs

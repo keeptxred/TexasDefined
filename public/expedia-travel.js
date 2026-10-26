@@ -4,7 +4,7 @@
   const STAY_DATA_URL = "/stay-nearby-hotels.json";
   const DESTINATION_STAY_DATA_URL = "/stay-nearby-destination-hotels.json";
   const PAINTED_CHURCHES_STAY_DATA_URL = "/stay-nearby-painted-churches-hotels.json";
-  const TRAVEL_PATH = /^\/(?:article\/chip-and-joanna-gaines-magnolia-waco(?:\/|$)|explore(?:\/|$)|destination\/|city\/|county\/|sports-venue\/|horse-racing\/gillespie-county-fairgrounds(?:\/|$)|sports-venues\/(?!compare(?:\.csv)?(?:\/|$))|sports-venues$|event\/|events(?:\/|$)|texas-state-fair(?:\/|$)|best-places-to-go-camping-in-texas(?:\/|$)|texas-college-towns(?:\/|$)|texas-tailgating-guide(?:\/|$)|texas-unique-lodging(?:\/|$)|texas-music-venues(?:\/|$)|texas-roadside-oddities(?:\/|$))/;
+  const TRAVEL_PATH = /^\/(?:article\/chip-and-joanna-gaines-magnolia-waco(?:\/|$)|explore(?:\/|$)|destination\/|city\/|county\/|sports-venue\/|sports\/teams\/|horse-racing\/gillespie-county-fairgrounds(?:\/|$)|sports-venues\/(?!compare(?:\.csv)?(?:\/|$))|sports-venues$|event\/|events(?:\/|$)|texas-state-fair(?:\/|$)|best-places-to-go-camping-in-texas(?:\/|$)|texas-college-towns(?:\/|$)|texas-tailgating-guide(?:\/|$)|texas-unique-lodging(?:\/|$)|texas-music-venues(?:\/|$)|texas-roadside-oddities(?:\/|$))/;
   const TRAVEL_ARTICLE_SECTION = /\b(?:travel|lodging|road trips?|weekend getaways?|events?)\b/i;
   const CONTEXT_PATHS = [
     { kind: "destination", key: "texas-ranger-hall-of-fame-museum-waco", pattern: /^\/article\/chip-and-joanna-gaines-magnolia-waco\/?$/ },
@@ -111,6 +111,11 @@
   }
 
   function contextFromPath(pathname = window.location.pathname) {
+    if (/^\/sports\/teams\/[a-z0-9-]+\/?$/.test(pathname)) {
+      const key = document.querySelector("[data-pro-team-stay-venue]")?.dataset.proTeamStayVenue;
+      if (key && /^[a-z0-9-]+$/.test(key)) return { kind: "venue", key };
+      return null;
+    }
     for (const candidate of CONTEXT_PATHS) {
       const match = pathname.match(candidate.pattern);
       if (!match) continue;
@@ -523,7 +528,10 @@
   function buildGenericSurface() {
     const section = document.createElement("section");
     section.id = SURFACE_ID;
-    section.className = "border-y border-border py-8";
+    // The Fort McKavett CJ panel provides the single bordered lodging box.
+    // Avoid a second outer box while keeping every other travel route unchanged.
+    section.className = normalizePath() === "/destination/fort-mckavett"
+      ? "py-2" : "border-y border-border py-8";
     section.dataset.surfaceType = "generic";
     section.dataset.monetizationEligible = "true";
     const container = document.createElement("div");
@@ -539,6 +547,9 @@
     search.type = "button";
     search.className = "mt-5 inline-flex min-h-11 items-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90";
     search.textContent = "Search Expedia stays →";
+    // The CJ integration reuses this same Expedia button on Fort McKavett,
+    // preserving its intent-gated vendor widget and analytics listener.
+    if (normalizePath() === "/destination/fort-mckavett") search.dataset.expediaStaysSearch = "true";
     search.addEventListener("click", () => {
       trackStayAction({ provider: "expedia", label: "Search Expedia stays", placement: "stay-nearby-end-fallback" });
       activateWidget(section);
@@ -546,8 +557,13 @@
     const disclosure = document.createElement("p");
     disclosure.className = "mt-3 text-xs text-muted-foreground";
     disclosure.textContent = DISCLOSURE;
+    if (normalizePath() === "/destination/fort-mckavett") disclosure.dataset.expediaDisclosure = "true";
 
-    container.append(eyebrow, heading, search, createWidgetHost(), disclosure);
+    // The Fort McKavett contextual slot already receives the CJ-managed
+    // "Where to stay" heading. Keep Expedia's search option in the same
+    // section without repeating the category title directly underneath.
+    if (normalizePath() !== "/destination/fort-mckavett") container.append(eyebrow, heading);
+    container.append(search, createWidgetHost(), disclosure);
     section.appendChild(container);
     return section;
   }
@@ -598,6 +614,7 @@
   }
 
   async function syncSurface() {
+    if (/^\/sports\/teams\/[a-z0-9-]+\/?$/.test(window.location.pathname) && !document.querySelector('[data-pro-team-hydrated="true"]')) return;
     // React's State Fair content lazy-hydrates after RootShell. Never mutate
     // the empty affiliate slot before its owning component has committed.
     if (stateFairSlotPending()) return;
@@ -621,7 +638,16 @@
     // When a destination has zero curated stays, keep the same generic surface.
     // Removing/replacing it on every mutation also deletes the independently
     // managed CJ booking choices nested inside it (including Hotel Paso del Norte).
-    if (context && current?.dataset.surfaceType === "generic" && current.dataset.stayContext === expectedContext) return;
+    if (context && current?.dataset.surfaceType === "generic" && current.dataset.stayContext === expectedContext) {
+      // A destination can hydrate its explicit slot after the bootstrap first
+      // created the fallback at #main's end. Move the existing surface rather
+      // than rebuilding it (which would drop the CJ affiliate choices).
+      if (normalizePath() === "/destination/fort-mckavett") {
+        const slot = main.querySelector(SLOT_SELECTOR);
+        if (slot && current.parentElement !== slot) placeSurface(current, main);
+      }
+      return;
+    }
     if (!context && current?.dataset.surfaceType === "generic") {
       // The swimming guide can stream/hydrate after the lodging surface mounts.
       // A fallback attached to an initially empty #main must move behind the

@@ -27,6 +27,8 @@ const kellerProfilePath = '/texas-high-school-football-teams/keller';
 const friscoProfilePath = '/texas-high-school-football-teams/frisco';
 const springProfilePath = '/texas-high-school-football-teams/spring';
 const shamrockProfilePath = '/texas-high-school-football-teams/shamrock';
+const anthonyProfilePath = '/texas-high-school-football-teams/anthony';
+const garlandProfilePath = '/texas-high-school-football-teams/garland';
 const universalProfileCases = [
   { name: 'Lubbock Cooper', classification: '5A', enrollment: '1,663', path: '/texas-high-school-football-teams/lubbock-cooper' },
   { name: 'Huffman Hargrave', classification: '4A', enrollment: '1,168', path: '/texas-high-school-football-teams/huffman-hargrave' },
@@ -670,6 +672,26 @@ await fetchVerified(shamrockProfilePath, 'Shamrock football authority profile', 
   }
   if (/\bnoindex\b/i.test(body)) throw new Error('Shamrock football authority profile unexpectedly contains noindex');
 });
+
+// The statewide 2026–28 source audit already guards 49 enrollment/placement
+// exceptions. Verify two representative live profiles at the public HTML
+// boundary without mislabeling the enrollment-based cutoff as final placement.
+for (const [path, school, enrollment] of [
+  [anthonyProfilePath, 'Anthony', '235'],
+  [garlandProfilePath, 'Garland', '2,144'],
+]) {
+  await fetchVerified(path, school + ' UIL enrollment-placement exception', (body) => {
+    for (const needle of [
+      school,
+      'UIL reported enrollment',
+      enrollment,
+      'Enrollment and football placement are different here.',
+      'Enrollment-based cutoff band',
+      'Final football placement',
+    ]) requireNeedle(body, needle, school + ' enrollment-placement profile');
+    if (/\bnoindex\b/i.test(body)) throw new Error(school + ' enrollment-placement profile unexpectedly contains noindex');
+  });
+}
 
 for (const profile of universalProfileCases) {
   await fetchVerified(profile.path, `${profile.classification} universal football profile ${profile.name}`, (body) => {

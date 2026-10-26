@@ -99,6 +99,26 @@ function ThingsUniqueToTexasPage() {
         </Container>
       </section>
 
+      <section className="border-b border-border bg-background py-12 sm:py-14" aria-labelledby="texas-unique-answer-heading">
+        <Container>
+          <div className="grid gap-8 lg:grid-cols-[1.1fr_.9fr]">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">What is Texas known for?</p>
+              <h2 id="texas-unique-answer-heading" className="mt-3 max-w-3xl font-display text-3xl leading-tight sm:text-4xl">Things unique to Texas, and the traditions Texans made their own</h2>
+              <p className="mt-4 max-w-3xl leading-8 text-muted-foreground">Texas is especially associated with smoked brisket, breakfast tacos, bluebonnets, Friday-night football, homecoming mums, dance halls, the Alamo, big ranch country and landscapes from Big Bend to the Gulf Coast. Those traditions come from many communities, including Indigenous, Mexican and Tejano, Black, German, Czech and other Texans whose histories shaped the state.</p>
+              <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Not every familiar Texas icon originated here or exists only here. The 250-item collection distinguishes Texas origins, local adaptations and official state symbols rather than treating every association as exclusive.</p>
+              <Link to="/article/texas-cultural-regions-explained" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Why Texas culture differs from region to region →</Link>
+            </div>
+            <div className="grid content-start gap-3 text-sm">
+              <Link to="/things-unique-to-texas/food-drink" className="border-b border-border py-3 font-semibold text-primary hover:underline">Texas food: barbecue, chili, kolaches and breakfast tacos →</Link>
+              <Link to="/things-unique-to-texas/culture-music" className="border-b border-border py-3 font-semibold text-primary hover:underline">Texas culture: music, school spirit and celebrations →</Link>
+              <Link to="/things-unique-to-texas/landmarks" className="border-b border-border py-3 font-semibold text-primary hover:underline">Texas landmarks: historic places and architecture →</Link>
+              <Link to="/things-unique-to-texas/natural-wonders" className="border-b border-border py-3 font-semibold text-primary hover:underline">Texas landscapes: Hill Country, Big Bend and the Gulf →</Link>
+            </div>
+          </div>
+        </Container>
+      </section>
+
       <section className="py-16 sm:py-20">
         <Container>
           <div className="max-w-3xl">
@@ -182,11 +202,13 @@ function ThingsUniqueToTexasPage() {
             <PillarLink to="/article/unusual-texas-businesses-services" eyebrow="Specialized local businesses" title="Unusual Texas Businesses & Services" text="Distinctive local businesses and experiences that do not fit a generic directory listing." />
             <PillarLink to="/article/battleship-texas-bb-35-history-restoration" eyebrow="Military & maritime history" title="Battleship Texas (BB-35)" text="The dreadnought's story from 1914 and both World Wars through museum preservation and restoration." />
             <PillarLink to="/texas-slang-explained" eyebrow="Language & identity" title="Texas Slang Explained" text="Y'all, fixin' to, all hat no cattle, bilingual influence and why context matters more than stereotype lists." />
+            <PillarLink to="/what-does-chud-mean" eyebrow="Contemporary expressions" title="What Does Chud Mean?" text="A separate language guide explaining the modern slang term, its contexts and why it is not uniquely a Texas expression." />
             <PillarLink to="/texas-tall-tales-folklore" eyebrow="Folklore & identity" title="Texas Tall Tales & Folklore" text="Pecos Bill, jackalopes, the Yellow Rose tradition and the line between documented history and enduring legend." />
             <PillarLink to="/texas-blue-norther-weather-guide" eyebrow="Weather language & safety" title="Texas Blue Northers & Spring Storms" text="Texas weather language separated carefully from the meteorology and safety guidance that should control real decisions." />
             <PillarLink to="/texas-dance-halls-honky-tonks" eyebrow="Music & social life" title="Texas Dance Halls & Honky-Tonks" text="Two-step culture, historic halls, Western swing, honky-tonks and the places where the tradition still lives." />
             <PillarLink to="/texas-homecoming-mums" eyebrow="School traditions" title="Texas Homecoming Mums Explained" text="How a chrysanthemum corsage became an oversized wearable record of school spirit, activities, friends and local identity." />
             <PillarLink to="/texas-natural-wonders-bucket-list" eyebrow="Outdoors & geography" title="Texas Natural Wonders Bucket List" text="Big Bend, Palo Duro, Caddo Lake, Padre Island and other landscapes that show how varied Texas really is." />
+            <PillarLink to="/everything-bigger-in-texas" eyebrow="Texas sayings" title="Is Everything Bigger in Texas?" text="Trace the larger-than-life Texas phrase, what can actually be measured and where folklore departs from fact." />
             <PillarLink to="/german-czech-texas-towns" eyebrow="Immigration & heritage" title="German & Czech Texas Towns" text="Fredericksburg, New Braunfels, West, Schulenburg and the traditions connecting their food, churches and dance halls." />
             <PillarLink to="/texas-brand-origin-stories" eyebrow="Business & identity" title="Texas Brand Origin Stories" text="H-E-B, Whataburger, Blue Bell, Shiner, Dickies and Buc-ee's—and how they became cultural shorthand." />
             <PillarLink to="/made-in-texas" eyebrow="Industry & hometowns" title="Made, Built & Born in Texas" text="Products made or processed here, separated from brands with a different kind of Texas connection." />

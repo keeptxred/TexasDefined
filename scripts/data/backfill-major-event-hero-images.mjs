@@ -108,6 +108,13 @@ function titleFromSlug(slug) {
 
 function sceneHint(slug) {
   const rules = [
+    [/^homestead-fair-waco$/, "Waco rural heritage craft fair atmosphere: blacksmith and weaving demonstration booths, natural wood farm buildings and work tables, families seen only from behind or far away; no rodeo arena, no livestock competition, no logos"],
+    [/^waco-wonderland$/, "A distinctly Texas downtown winter holiday festival atmosphere with community Christmas tree lights, outdoor craft vendors and a public square, no misleading real signage, no exact event recreation, no readable text"],
+    [/^texas-international-fishing-tournament$/, "South Texas Gulf Coast fishing tournament-inspired scene with sportfishing boats at a marina dock, tackle and saltwater sunrise, distant unidentifiable anglers, no trophy fish or record-catch claims, no official sponsor logos"],
+    [/^texas-food-truck-showdown$/, "Downtown Waco food-truck festival-inspired scene with several colorful unbranded food trucks, outdoor ordering queues at a public square, relaxed visitors at a distance, no fictitious festival logos"],
+    [/^dallas-international-film-festival$/, "Dallas international film festival-inspired scene with modern theater facade, arriving filmgoers at dusk and cinematic warm lighting, no red-carpet celebrities, no fake venue names, no recognizable faces"],
+    [/^worldfest-houston$/, "Houston international independent film-festival-inspired scene with a lively contemporary cinema lobby and small audience at a distance, no film posters or recognizable faces, no unverified screening venue"],
+    [/^waco-independent-film-festival$/, "Independent film festival-inspired evening at a downtown Texas cinema with a small audience queue and projection-light motif, no invented venue signs, no real festival logos or recognizable faces"],
     [/science|engineering/, "Texas science and engineering fair atmosphere with exhibition tables and student project displays, no readable text"],
     [/skeet|sporting-clays|shooting/, "Texas sporting-clays competition venue atmosphere with safe range setting and distant competitors"],
     [/football|(?:^|-)bowl(?:-|$)/, "Texas football stadium event atmosphere with field, stands, and game-day energy"],

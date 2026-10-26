@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { editorialImageSrc } from "@/lib/editorial-image-delivery";
 import { RIVER_AUTHORITY_RELATIONS } from "@/data/river-authority-relations";
 import { RIVER_AUTHORITY_CARD_PHOTOS } from "@/data/river-authority-photo-catalog";
 
@@ -128,7 +129,7 @@ function RiverProfileCards() {
         return <div key={river.href} className="overflow-hidden rounded-sm border border-border bg-background">
           <Link to={river.href} className="group block transition-colors hover:border-primary">
             <div className="aspect-[4/3] overflow-hidden bg-surface">
-              <img src={photo?.src ?? river.image} alt={photo?.alt ?? `${river.name} river system or nearby river destination`} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]" />
+              <img src={editorialImageSrc(photo?.src ?? river.image)} alt={photo?.alt ?? `${river.name} river system or nearby river destination`} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]" />
             </div>
             <div className="p-4">
               <span className="font-display text-xl group-hover:text-primary">{river.name}</span>
@@ -191,7 +192,7 @@ export function TexasRiversAfterArticle() {
         <div className="max-w-3xl">
           <p className="eyebrow text-primary">Keep exploring</p>
           <h2 id="river-profiles-heading" className="mt-2 font-display text-2xl sm:text-3xl">Explore All 15 Major Texas River Basins</h2>
-          <p className="mt-3 text-sm leading-6 text-muted-foreground">The statewide guide gives you the big picture. Every major basin recognized by the Texas Water Development Board now has a dedicated TexasDefined guide explaining where the river runs, what feeds it, its major reservoirs and what visitors should know. Some photos are representative rather than pictures of the exact named river, so always verify current water conditions and public access with the responsible agency.</p>
+          <p className="mt-3 text-sm leading-6 text-muted-foreground">The statewide guide gives you the big picture. Every major basin recognized by the Texas Water Development Board now has a dedicated TexasDefined guide explaining where the river runs, what feeds it, its major reservoirs and what visitors should know. Each river card now identifies a photograph of its named river or main tributary and credits the source and reuse license. Other destination photography may illustrate a related park or reservoir rather than a specific river reach. For current water conditions and legal public access, consult the responsible agency before visiting.</p>
         </div>
         <RiverProfileCards />
       </section>

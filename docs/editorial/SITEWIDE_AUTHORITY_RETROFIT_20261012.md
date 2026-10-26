@@ -1,7 +1,9 @@
 # TexasDefined — every existing page authority retrofit
 
+**CURRENT site-wide owner policy:** [Publication and optional editorial certification](./SITEWIDE_PUBLICATION_VERIFICATION_POLICY.md) supersedes the previous **mandatory named reviewer / nine-dimension acceptance before completion** rule for ALL URL families. Keep source accuracy, media rights, legitimate editorial value and production tests; don't misread this dated retrofit backlog as a site-wide publication hold.
+
 **Started:** October 12, 2026  
-**Scope:** all existing indexable TexasDefined URLs, **not** only guides or any selected list of attractions. This is an active remediation program, **not** a certification that the pages are finished. The previous authority standard, Google Search Central requirements and mandatory Supabase factual verification all apply.
+**Scope:** all existing indexable TexasDefined URLs, **not** only guides or any selected list of attractions. This is an active remediation program, **not** a certification that the pages are finished. The existing authority and Google Search Central quality standards and Supabase source monitoring remain in force, but *formal Supabase reviewer sign-off is optional*, not a release gate.
 
 ## Verified starting point
 
@@ -38,7 +40,7 @@ These corrections are **committed in [PR #4703](https://github.com/keeptxred/Tex
 1. **Weekly full production crawl** (existing `.github/workflows/audit-whole-site-production.yml`): every canonical sitemap URL is checked for HTTP success, title/description, canonical, one H1, unexpected noindex, thin/fallback rendering and duplicate title/description. The current change adds **topic-specific evidence diagnostics** plus a complete per-URL review TSV and a persistent categorized GitHub remediation issue. These diagnostic flags are not factual findings and do not individually certify a page.
 2. **Daily code/data quality watchdog** (existing `.github/workflows/site-quality-watchdog.yml`): adds regression tests for the new family-aware evidence classifier. Existing indexability, image, internal-link, freshness, content and generated-page gates remain unchanged.
 3. **Supabase source-watch automation**: `td_authority_verification_registry`, `td_authority_verification_sources`, `td_authority_verification_checks`, and sitemap discovery keep monitoring enrollment; topic-specific source checks run from daily through quarterly. Source uptime is not the same as factual verification.
-4. **Supabase editorial acceptance registry**: `td_authority_page_acceptance` includes **every enrolled URL** by automatic daily synchronization. `td_authority_release_readiness` distinguishes `editorial_research_required`, `fact_review_expired`, `source_recheck_required`, and `accepted_current`. Only `td_maintenance.accept_authority_page` with reviewer, current fact check, registered sources and **nine explicit evidence dimensions** can mark acceptance. No mass sign-off from a crawler or artificial word-count threshold.
+4. **Optional Supabase editorial certification, NOT a publishing gate**: `td_authority_page_acceptance` enrolls all URLs. Its `accepted` status and the historical `td_authority_release_readiness` view describe **named editorial acceptance only**, not live publication/technical verification; `editorial_research_required` is an optional-review queue rather than a reason to block deployment or the next batch. `td_maintenance.accept_authority_page` still requires a real reviewer and nine complete evidence areas **only if somebody voluntarily requests formal certification**. Never mass-approve or forge a person; page delivery is independently evidenced by source, CI, release, and live QA.
 5. **Existing topical work remains authoritative where genuinely completed**. Reuse prior lake, river, city, museum, park, church, sport and county research and CI artifacts rather than republishing duplicate pages or reverting other PRs. Remediate only demonstrable gaps.
 
 ## Evidence required to call a page complete
@@ -50,7 +52,7 @@ These corrections are **committed in [PR #4703](https://github.com/keeptxred/Tex
 - Real, working, **bidirectional contextual internal links** when a relationship serves readers; not gratuitous blanket cross-links
 - Google Search Central people-first and technical SEO compliance: indexability/canonical, metadata, mobile/accessibility, structured data matching visible facts, image SEO, page experience, and GSC production observation
 - Validated public production rendering, correct dates and no claims of real-time availability where the source can change
-- Enrollment in quarterly-or-faster Supabase source monitoring **and** evidenced current factual verification
+- Enrollment in applicable Supabase source monitoring with dated, appropriately sourced factual claims; human `last_verified_at` certification is optional unless someone truthfully performs a formal review
 
 A source page remaining reachable is **not** a completed fact check. A sitemap being crawlable is **not** proof Google has indexed it. A passing technical CI is **not** approval to label a research page "best available."
 
@@ -58,7 +60,7 @@ A source page remaining reachable is **not** a completed fact check. A sitemap b
 
 Fix systemic **shared template and publishing defects** first, since one correct code change may improve hundreds of pages. In parallel prioritize rapidly changing public safety, fishing, event and government/service information, then school/district data, destinations/cities/counties, followed by longer-lived heritage and evergreen content. If a page lacks independently useful substance, keep its indexability gate honest until proper research exists—never fill it with an automatically expanded generic paragraph.
 
-Every real content change gets claim-level source evidence, relevant cross-link review, topic-specific QA, and production verification. If the evidence does not yet support it, leave the acceptance state open, do not close the task and do not invent another site or page to inflate coverage.
+Every real content change gets claim-level source evidence, relevant cross-link review, topic-specific QA, and production verification. If the actual claims or production implementation are unsupported, correct or qualify the page; leave **optional editorial certification** open without holding a technically delivered page or batch. Do not invent another site or page to inflate coverage.
 
 ## Concrete content correction in this batch
 

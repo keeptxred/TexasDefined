@@ -1,5 +1,18 @@
 # Targeted Batch 006 browser QA
 
+## October 20, 2026 — FINAL post-graphics single-Worker technical acceptance
+
+[Targeted Chrome workflow #39532328953, successful attempt 2](https://github.com/keeptxred/TexasDefined/actions/runs/39532328953) completed **SUCCESS** at 2026-10-21T03:21:24Z (October 20 Central), following a failed first attempt during multiple concurrent Cloudflare releases. The actual fresh job `119018153611` tested all 25 Batch 006 school guides and their original school-specific 2026 W/L result graphics in production, not a local preview or an old pre-graphics deployment:
+
+- **75/75 school viewport cases PASS**: all 25 schools at 1366, 390 and 320 CSS pixels; zero HTTP, hydration, school identity, current recorded score, coach contract, SEO/JSON-LD, broken assets/alt-text or overflow failures reported by this bounded script.
+- **75/75 visual result figures PASS**: each dated final, opponent, reported W/L/T, linked school-specific results source and semantic accessible card label reconciled with the corresponding authored season dataset; Blackwell's score-qualified victory remains qualified. **75 graphics and 75 school viewport screenshots**, plus **23 county screenshots**, were saved.
+- **23/23 county reciprocal links PASS**, **25/25 live sitemap school URLs PASS**, **0 first-party JavaScript chunk failures**.
+- **Exactly one Worker release header across the entire run:** `2b087e5b-4f3f-4628-b1a0-294de67cd0ff`. The stringent single-release assertion passed on this run; the earlier failed attempt remains separately preserved and must not be relabeled successful.
+- Successful visual and structured report evidence: [artifact #12318402912](https://github.com/keeptxred/TexasDefined/actions/runs/39532328953/artifacts/12318402912), with 173 viewport/graphic/county screenshots and `report.json`. This directly supersedes the Oct 19 pre-graphics browser run for the 25 published source-based figures.
+
+**What has and has not been completed:** The Batch006 **publication and production technical browser workstreams are complete (25/25)**. The canonical registry deliberately remains **105 earlier VERIFIED; 25 Batch006 DEPLOYED / 0 individually VERIFIED; 1,162 NOT_REVIEWED**. Supabase retains all 25 Batch006 editorial acceptance cases in progress with no named human reviewer. The automation did not certify photograph/brand license rights, exact undocumented gate/ADA/parking details, manual WCAG/assistive technology assessment or the independent nine-dimension editorial acceptance. Those follow-up approvals are not a reason to repeat delivery of already-live school pages or to falsify `VERIFIED`.
+
+
 ## October 19, 2026 — expand live Chrome coach gate to 10 individually sourced Batch006 schools (PR candidate)
 
 The earlier real Chrome failure [#39322299576](https://github.com/keeptxred/TexasDefined/actions/runs/39322299576) was not a pass: the strict single-release check observed three Cloudflare Worker versions, while the duplicate-responsive-fact mismatch has been corrected by protected merged [PR #5339](https://github.com/keeptxred/TexasDefined/pull/5339). The existing harness now proposes a **source-backed 10-coach check** by adding **Bovina Wade Wilson** (NewsChannel 10 August interview), **Boyd Shawn Sparks** (NTX Varsity August interview), **Borden County Trey Richey** (Lamesa Press-Reporter August original report), and **Gold-Burg Austin Norman** (Bowie News October firsthand game report) to the six previously authenticated coaching identities.

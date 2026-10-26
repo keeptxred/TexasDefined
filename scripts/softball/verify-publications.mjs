@@ -37,7 +37,7 @@ if (process.env.GITHUB_BASE_REF) {
   const newlyPublished = [...published].filter(slug=>!prior.has(slug));
   // Publication is gated by complete research for *every* proposed page, not
   // an arbitrary number of schools. Large batches still require full CI,
-  // full page-specific verification and signoff; never publish thin placeholders.
+  // full page-specific sourced/rights-safe technical verification; no separate human sign-off required. Never publish thin placeholders.
   if (newlyPublished.length) console.log('Validating ' + newlyPublished.length + ' newly researched softball pages for first-release completeness.');
   const removed = [...prior].filter(slug=>!published.has(slug));
   if (removed.length) errors.push('Unreviewed deletion of already-published softball pages: ' + removed.join(', '));

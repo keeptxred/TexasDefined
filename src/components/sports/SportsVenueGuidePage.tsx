@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react";
+import { lazy, Suspense, useState, type ReactNode } from "react";
 
 import {
   TexasEventCarousel,
@@ -20,6 +20,7 @@ import type { SportsVenuePhoto } from "@/data/sports-venue-images";
 import type { PublicSportsSponsorPlacement } from "@/data/sports-sponsorship.types";
 
 const siteUrl = "https://texasdefined.com";
+const WacoDestinationOffer = lazy(() => import("@/components/monetization/WacoDestinationOffer").then((module) => ({ default: module.WacoDestinationOffer })));
 
 
 export type SportsVenueGuideLink = {
@@ -184,15 +185,21 @@ export function SportsVenueGuidePage({
             </div>
           ) : null}
 
-          {guide.canonicalPath === "/sports-venue/msr-houston" && upcomingEvents.length === 0
-            ? <MSRHoustonEventsFallback />
-            : <TexasEventCarousel
+          {guide.canonicalPath === "/sports-venue/msr-houston" ? (
+            <MSRHoustonEventsFallback
+              featuredOnly={upcomingEvents.length > 0}
+              omitXtreme={upcomingEvents.some((event) => /xtreme\s*xperience/i.test(event.title))}
+            />
+          ) : null}
+          {guide.canonicalPath !== "/sports-venue/msr-houston" || upcomingEvents.length > 0 ? (
+            <TexasEventCarousel
               events={upcomingEvents}
               eyebrow="Upcoming events"
               title={`What’s happening at ${entity.name}`}
               viewAllHref={eventCalendarHref}
               emptyMessage={`Texas Defined does not currently have a source-verified event listing in its calendar for ${entity.name}. This does not mean the venue has no events. Consult the official venue schedule.`}
-            />}
+            />
+          ) : null}
 
           {officialEventCalendarUrl ? (
             <div className="border-b border-border pb-7">
@@ -249,6 +256,11 @@ export function SportsVenueGuidePage({
             </section>
           ) : null}
 
+          {guide.canonicalPath === "/sports-venue/mclane-stadium" ? (
+            <Suspense fallback={null}>
+              <WacoDestinationOffer slug="mclane-stadium" />
+            </Suspense>
+          ) : null}
           <div data-stay-nearby-slot />
 
           {guide.canonicalPath === "/sports-venue/msr-houston" ? <MSRHoustonAuthoritySections /> : null}
@@ -318,6 +330,11 @@ function VenuePhoto({ photo, venueName, fallbackImageUrl }: { photo?: SportsVenu
   // when the proxy fails, and show no-image text if that source also fails.
   const [failedUrl, setFailedUrl] = useState<string | null>(null);
   const [failedFallback, setFailedFallback] = useState(false);
+  const historicalPhotoCaption = venueName === "MSR Houston" ? (
+    <figcaption className="px-4 py-3 text-xs leading-6 text-muted-foreground">
+      Historical aerial, February 10, 2015 · U.S. Geological Survey, public domain. This is not a live view of current track conditions.
+    </figcaption>
+  ) : null;
   if (!photo || (failedUrl === photo.imageUrl && (!fallbackImageUrl || failedFallback))) {
     return (
       <div
@@ -343,6 +360,7 @@ function VenuePhoto({ photo, venueName, fallbackImageUrl }: { photo?: SportsVenu
           className="block h-auto w-full object-contain"
           onError={() => setFailedFallback(true)}
         />
+        {historicalPhotoCaption}
       </figure>
     );
   }
@@ -359,6 +377,7 @@ function VenuePhoto({ photo, venueName, fallbackImageUrl }: { photo?: SportsVenu
         className="block h-auto w-full object-contain"
         onError={() => setFailedUrl(photo.imageUrl)}
       />
+      {historicalPhotoCaption}
     </figure>
   );
 }

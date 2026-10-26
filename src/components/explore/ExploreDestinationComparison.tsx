@@ -50,7 +50,7 @@ const COPY: Record<ExploreComparisonKind, { title: string; description: string; 
 
 function sourceDate(destinations: DestinationComparisonRecord[]) {
   const values = destinations.map((destination) => destination.sourceCheckedAt).filter((value): value is string => Boolean(value)).sort();
-  return values.at(-1) ?? 'Per-destination source verification date not available for every record';
+  return values.length === destinations.length ? values[0] : 'Verification dates incomplete; check individual rows';
 }
 
 function activityText(destination: DestinationComparisonRecord & { body?: string[] }) {
@@ -72,13 +72,13 @@ function officialSources(destinations: DestinationComparisonRecord[]) {
 }
 
 export function ExploreDestinationComparison({ destinations, kind }: { destinations: Array<DestinationComparisonRecord & { body?: string[] }>; kind: ExploreComparisonKind }) {
+  const [visibleCount, setVisibleCount] = useState(kind === 'attractions' ? 100 : destinations.length);
   if (!destinations.length) return null;
   const isParks = kind === 'state-parks';
   const showCategory = kind === 'attractions';
   const copy = COPY[kind];
   const sorted = [...destinations].sort((a, b) => a.name.localeCompare(b.name));
   const pageSize = kind === 'attractions' ? 100 : sorted.length;
-  const [visibleCount, setVisibleCount] = useState(pageSize);
   const visibleDestinations = sorted.slice(0, visibleCount);
 
   return (
@@ -88,8 +88,10 @@ export function ExploreDestinationComparison({ destinations, kind }: { destinati
         <h2 id={`${kind}-comparison-heading`} className="mt-2 font-display text-4xl">{copy.title}</h2>
         <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">{copy.description}</p>
 
-        <div className="mt-7 overflow-x-auto border-y border-border">
+        <p id={`${kind}-comparison-scroll-hint`} className="mt-4 text-sm text-muted-foreground">Swipe horizontally to see all comparison columns. Destination names link to full visitor guides.</p>
+        <div className="mt-7 overflow-x-auto border-y border-border" tabIndex={0} role="region" aria-label={`${kind.replace(/-/g, " ")} destination comparison table`} aria-describedby={`${kind}-comparison-scroll-hint`}>
           <table className="w-full min-w-[1040px] text-left text-sm">
+            <caption className="sr-only">{copy.title}. Compare planning information from maintained destination records; follow official links to verify current conditions.</caption>
             <thead>
               <tr className="border-b border-border bg-background text-[0.68rem] uppercase tracking-[0.12em] text-muted-foreground">
                 <th className="px-4 py-3">Destination</th>

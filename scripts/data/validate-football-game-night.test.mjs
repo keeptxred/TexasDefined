@@ -68,24 +68,58 @@ test('first-party action tracking respects existing automation and shop analytic
   assert.doesNotMatch(panel, /localStorage|sessionStorage|sendBeacon/);
 });
 
-test('team sponsorship paths are staged but no launch hold is bypassed', () => {
-  const allowed = /^\/(?:sports-venues|sports-venue\/[a-z0-9-]+|texas-high-school-football-teams\/[a-z0-9-]+)$/;
+test('team and district sponsorship paths are allowlisted while the venue launch hold stays active', () => {
+  const allowed = /^\/(?:sports-venues|sports-venue\/[a-z0-9-]+|texas-high-school-football-(?:teams|districts)\/[a-z0-9-]+)$/;
   for (const path of [
     '/sports-venues',
     '/sports-venue/eagle-stadium-allen',
     '/texas-high-school-football-teams/southlake-carroll',
     '/texas-high-school-football-teams/aledo',
+    '/texas-high-school-football-districts/6a-district-22',
   ]) assert.equal(allowed.test(path), true, path);
   for (const path of [
     '/texas-high-school-football-teams/../../admin',
     '/texas-high-school-football-teams/',
     '/texas-high-school-football-teams/fake?redirect=x',
+    '/texas-high-school-football-districts/../../admin',
   ]) assert.equal(allowed.test(path), false, path);
 
-  assert.match(functions, /texas-high-school-football-teams/);
+  assert.match(functions, /texas-high-school-football-\(\?:teams\|districts\)/);
   assert.match(migration, /texas-high-school-football-teams/);
   assert.match(migration, /DROP CONSTRAINT IF EXISTS texasdefined_sports_sponsor_placements_surface_path_check/);
   assert.match(migration, /ADD CONSTRAINT texasdefined_sports_sponsor_placements_surface_path_check/);
   assert.match(sponsorServer, /export const SPORTS_SPONSOR_OUTREACH_HOLD = true/);
   assert.match(sponsorServer, /if \(SPORTS_SPONSOR_OUTREACH_HOLD\) return null/);
+});
+
+
+test('football monetization is shared, disclosed, source-preserving, and payment-gated', () => {
+  const panel = read('src/components/sports/FootballMonetizationSlot.tsx');
+  const districtPage = read('src/routes/texas-high-school-football-districts_.$slug.lazy.tsx');
+  const districtLoader = read('src/routes/texas-high-school-football-districts_.$slug.tsx');
+  const sponsorForm = read('src/routes/partner-with-us.lazy.tsx');
+  const partnerHead = read('src/routes/partner-with-us.tsx');
+  const inquiry = read('src/data/partner-inquiry.functions.ts');
+  const prices = read('src/data/football-sponsorship-packages.ts');
+  const districtMigration = read('supabase/migrations/20261025184500_extend_sports_sponsor_football_district_surfaces.sql');
+  assert.match(panel, /data-football-monetization="v1"/);
+  assert.match(panel, /data-football-sponsor-interest/);
+  assert.match(panel, /data-football-shop-cta/);
+  assert.match(panel, /!hasSponsor/);
+  assert.match(profile, /<FootballMonetizationSlot/);
+  assert.match(districtPage, /<FootballMonetizationSlot/);
+  assert.match(districtPage, /<SponsoredSportsPlacement/);
+  assert.match(districtLoader, /getActiveSportsSponsorPlacement/);
+  assert.match(functions, /texas-high-school-football-\(\?:teams\|districts\)/);
+  assert.match(partnerHead, /texas-high-school-football-\(\?:teams\|districts\)/);
+  assert.match(inquiry, /texas-high-school-football-\(\?:teams\|districts\)/);
+  assert.match(prices, /footballFoundingPackages/);
+  for (const amount of ['49', '99', '149']) assert.match(prices, new RegExp('monthlyPrice: ' + amount));
+  assert.match(sponsorForm, /custom agreement and payment verification required/);
+  assert.match(sponsorServer, /FOOTBALL_SPONSORSHIP_LAUNCH_ENABLED = true/);
+  assert.match(sponsorServer, /!isFootballSponsorSurface\(String\(existing\.surface_path\)\)/);
+  assert.match(sponsorServer, /agreement\?\.payment_status !== 'paid'/);
+  assert.match(sponsorServer, /agreement\?\.status !== 'accepted'/);
+  assert.match(districtMigration, /texas-high-school-football-districts/);
+  assert.match(districtMigration, /DROP CONSTRAINT IF EXISTS texasdefined_sports_sponsor_placements_surface_path_check/);
 });

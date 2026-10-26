@@ -31,6 +31,32 @@ const logPath = `${artifactDir}/built-worker-ssr-smoke.log`;
 const wranglerReadyMarker = `Ready on ${origin}`;
 
 const smokeTargets = [
+  { path: '/sports/teams', requiredText: 'Pick the game.', label: 'Pro-team index renders its actual loader and 13-team guide' },
+  { path: '/sports/teams', requiredText: 'https://texasdefined.com/sports/teams', label: 'Pro-team index includes server-supplied canonical metadata' },
+  { path: '/sports/teams/houston-texans', requiredText: 'data-pro-team-guide="houston-texans"', label: 'Texans weekend guide renders real nested loaders' },
+  { path: '/sports/teams/dallas-cowboys', requiredText: 'data-pro-team-guide="dallas-cowboys"', label: 'Cowboys guide renders lodging planning rather than parent hub' },
+  // Ensure both cold generic and research-overlay UIL team SSR work before we deploy.
+  // District 21 previously returned eight HTTP 500s while the district hub was healthy.
+  { path: '/texas-high-school-football-teams/fort-bend-hightower', requiredText: 'data-football-d21-team-section="fort-bend-hightower"', label: 'District 21 team SSR must render source-checked football season instead of 500' },
+  { path: '/texas-high-school-football-teams/fort-bend-elkins', requiredText: 'data-football-d21-team-section="fort-bend-elkins"', label: 'Second District 21 team SSR must render distinct scorecard' },
+  { path: '/texas-high-school-football-teams/gunter', requiredText: 'https://texasdefined.com/texas-high-school-football-teams/gunter', label: 'Independent generic UIL team SSR has correct canonical' },
+  { path: '/texas-high-school-football-teams/buckholts', requiredText: 'Buckholts Badgers Football', label: 'Batch 008 researched six-man team SSR loads its published individual model' },
+
+  { path: '/events/mardi-gras', requiredText: 'Mardi Gras in Texas', label: 'Statewide Mardi Gras authority hub SSR renders' },
+  { path: '/events/mardi-gras', requiredText: '/event/kemah-yachty-gras', label: 'Mardi Gras hub links to verified Kemah parade guide' },
+  { path: '/events/mardi-gras', requiredText: 'Chicken Run &amp; Gumbo Cook-off', label: 'Mardi Gras hub differentiates January Crystal Beach fundraiser from February parade' },
+  { path: '/events/mardi-gras', requiredText: 'Queen Mab Ball', label: 'Mardi Gras hub covers Jefferson ticketed ball separately from main festival' },
+  { path: '/events/mardi-gras', requiredText: 'Lagniappe Mardi Gras', label: 'Mardi Gras hub distinguishes second confirmed Beaumont charity event from public festival' },
+  { path: '/events/mardi-gras', requiredText: 'time to reconfirm', label: 'Crystal Beach contradictory start times are never represented as confirmed' },
+  { path: '/events/mardi-gras', requiredText: 'Two Creeks Mardi Gras Gumbo Cookoff', label: 'Mardi Gras hub links verified Livingston resort companion event' },
+  { path: '/events/mardi-gras', requiredText: 'do not assume public walk-in admission', label: 'Livingston resort event keeps visitor access caveat' },
+  { path: '/events/mardi-gras', requiredText: 'H.C.R. 50', label: 'Mardi Gras hub grounds Galveston capital title in the Texas Legislature' },
+  { path: '/texas-capital-designations', requiredText: '/events/mardi-gras', label: 'Official capital designations cross-link to Mardi Gras event hub' },
+  { path: '/event/kemah-yachty-gras', requiredText: 'Yachty Gras', label: 'Kemah two-organizer Mardi Gras guide SSR renders' },
+  { path: '/event/kemah-yachty-gras', requiredText: 'yachtygras.com', label: 'Kemah boat-parade source remains distinct from street event' },
+  { path: '/event/cowboy-mardi-gras-bandera', requiredText: 'Carol M. Highsmith', label: 'Bandera actual-event archival photo attribution is visible' },
+  { path: '/event/mardi-gras-galveston', requiredText: 'A Yee', label: 'Galveston original-event licensed photograph credit SSR renders' },
+  { path: '/event/mardi-gras-galveston', requiredText: '2013 Mardi Gras', label: 'Galveston hero is accurately labeled as archival, not 2027' },
   // El Paso authority acceptance: real SSR must publish the researched metro guide
   // and crawlable city / relocation backlinks, not the old statewide fallback.
   { path: '/metro-area/el-paso-metro', requiredText: 'What counts as the El Paso metro?', label: 'El Paso metro includes researched two-county guide' },
@@ -45,6 +71,8 @@ const smokeTargets = [
   { path: '/destination/magoffin-home', requiredText: 'Historic home closed through 2027', label: 'Magoffin restoration alert is SSR-rendered' },
   { path: '/destination/magoffin-home', requiredText: 'Magoffin Home visitor FAQ', label: 'Magoffin restored visitor FAQ replaces generic-only guide' },
   { path: '/destination/magoffin-home', requiredText: '1117 Magoffin Avenue', label: 'Magoffin current visitor-center arrival address is visible' },
+  { path: '/destination/magoffin-home', requiredText: 'acquireLicensePage', label: 'Magoffin photograph ImageObject preserves license acquisition metadata in SSR' },
+  { path: '/destination/magoffin-home', requiredText: '© 2009 Larry D. Moore', label: 'Magoffin photograph ImageObject publishes verified copyright attribution' },
   { path: '/explore/water-parks/schlitterbahn-new-braunfels', requiredText: '/destination/gruene-historic-district', label: 'Schlitterbahn New Braunfels locally sourced additional attractions' },
   { path: '/explore/water-parks/great-wolf-webster', requiredText: '/destination/space-center-houston', label: 'Webster resort waterpark to NASA-area visitor guides' },
   { path: '/explore/water-parks/bill-witt-aquatic-center-corpus-christi', requiredText: '/destination/texas-state-aquarium', label: 'Corpus Christi municipal pool to maritime attractions' },
@@ -150,6 +178,28 @@ const smokeTargets = [
   { path: '/sports/softball/texas-volts', requiredText: 'Texas Volts: professional softball comes home to Round Rock', label: 'professional softball team authority SSR' },
   { path: '/texas-data/county-growth', requiredText: 'Texas county population growth, 2020–2025', label: 'Texas Data child route body' },
 ];
+
+// The holiday route is permanent, while each date-specific show must expire from
+// SSR assertions on its actual final day. Dates below are midnight AFTER each
+// verified event in America/Chicago (November and December = CST).
+smokeTargets.push({
+  path: '/events/christmas-events',
+  requiredText: 'Texas Christmas &amp; Holiday Events',
+  label: 'Christmas authority hub renders its actual SSR page',
+});
+const requireChristmasShowUntil = (deadlineUtc, requiredText, label) => {
+  if (Date.now() < Date.parse(deadlineUtc)) {
+    smokeTargets.push({ path: '/events/christmas-events', requiredText, label });
+  }
+};
+requireChristmasShowUntil('2026-12-28T06:00:00Z', 'Holiday events and concerts in Texas (2026)', '2026 Christmas performances render before the last run ends');
+requireChristmasShowUntil('2026-12-12T06:00:00Z', '33rd Annual Christmas/Kwanzaa Concert', 'Bruton Christmas concert visible through its Dec 11 date');
+requireChristmasShowUntil('2026-12-12T06:00:00Z', '0C00653DBA7FA947', 'Exact Dec 11 Bruton Ticketmaster event ID');
+requireChristmasShowUntil('2026-12-18T06:00:00Z', '0C00653DB901A616', 'Exact Dec 17 Bruton jazz Ticketmaster event ID');
+requireChristmasShowUntil('2026-12-24T06:00:00Z', '0C0064CA0668F4BE', 'Exact Dec 23 Dallas Grand Ol Ticketmaster event ID');
+requireChristmasShowUntil('2026-12-21T06:00:00Z', 'etix.com/ticket/v/32639/crighton-theatre', 'Conroe show ticket link visible through final Dec 20 performance');
+requireChristmasShowUntil('2026-12-25T06:00:00Z', 'Cirque Musica Holiday Wonderland', 'Cedar Park Christmas Eve Cirque Musica show');
+requireChristmasShowUntil('2026-12-21T06:00:00Z', 'A Celtic Christmas by A Taste of Ireland', 'McAllen Dec 20 Christmas show');
 
 const redirectTargets = [
   { path: '/destination/choke-canyon-north-shore-unit-state-park?source=gsc', expectedStatus: 301, expectedPath: '/destination/choke-canyon-state-park', expectedQuery: ['source','gsc'], label: 'legacy Choke Canyon North Shore import' },

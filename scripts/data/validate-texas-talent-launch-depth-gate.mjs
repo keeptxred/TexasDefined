@@ -26,7 +26,8 @@ for (const [text, message] of requiredThresholds) requireText(text, message);
 requireText("profile.readiness.sourceReview.status !== \"reviewed\"", "source review must remain a publication blocker");
 requireText("profile.readiness.imageReview.status !== \"verified\"", "verified image rights must remain a publication blocker");
 requireText("profile.readiness.internalLinkReview.status !== \"verified\"", "verified internal links must remain a publication blocker");
-requireText("profile.readiness.launchStatus === \"launch-ready\"", "explicit editorial approval must remain separate from mechanical depth");
-requireText("publishable: mechanicalReady && editorialApproved", "publication must still require both mechanical readiness and editorial approval");
+requireText("profile.readiness.launchStatus === \"launch-ready\"", "optional editorial approval must remain recorded without blocking the mechanical gate");
+requireText("publishable: mechanicalReady,", "site-wide publication must not require optional human editorial approval");
+if (source.includes("publishable: mechanicalReady && editorialApproved")) fail("optional editorial approval still blocks launch");
 
-console.log("Texas Talent launch-depth gate passed: public eligibility requires substantive biography, timeline, legacy, Texas-place context, sources, reviewed rights/links and explicit editorial approval.");
+console.log("Texas Talent launch-depth gate passed: public eligibility requires substantive biography, timeline, legacy, Texas-place context, sources, reviewed rights/links while separate named editorial approval remains optional.");

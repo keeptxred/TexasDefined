@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 
@@ -12,11 +13,70 @@ const rivers = [
   { slug: 'texas-lavaca-river-guide', image: 'Swing_Bridge_Over_Lavaca_River.jpg', alt: /Lavaca River/i, license: /CC BY 2\.0/i },
   { slug: 'texas-sabine-river-guide', image: 'Sabine_River_near_Big_Sandy', alt: /Sabine River/i, license: /CC BY 3\.0/i },
   { slug: 'texas-san-jacinto-river-guide', image: 'West_Fork_San_Jacinto_River.jpg', alt: /San Jacinto River/i, license: /CC BY-SA 4\.0/i },
+  { slug: 'texas-cypress-river-basin-guide', image: 'Big_Cypress_Bayou%2C_Caddo_Lake_State_Park', alt: /Cypress Bayou/i, license: /CC BY-SA 4\.0/i, author: /William L\. Farr/i },
+  { slug: 'texas-neches-river-guide', image: 'Neches_River%2C_Orange_County', alt: /Neches River/i, license: /CC BY-SA 4\.0/i, author: /William L\. Farr/i },
+  { slug: 'texas-red-river-guide', image: 'Red_River%2C_Texas', alt: /Red River/i, license: /CC BY-SA 2\.0/i, author: /brewbooks/i },
+  { slug: 'texas-sulphur-river-guide', image: 'Fishing_on_the_Sulphur_River_-_Wright_Patman_Dam', alt: /Sulphur River/i, license: /CC BY 2\.0/i, author: /Tony Webster/i },
+  { slug: 'texas-frio-river-guide', image: 'Garner_state_park.jpg', alt: /Frio River/i, license: /CC BY 4\.0/i, author: /Larry D\. Moore/i },
+  { slug: 'texas-llano-river-guide', image: 'Llano_River_in_Junction%2C_TX_IMG_4345', alt: /Llano River/i, license: /CC BY-SA 3\.0/i, author: /Billy Hathorn/i },
 ];
+
+// The browser acceptance must cover the entire published river registry, not
+// only its first nine photographs. Real-image licensing remains catalog-led.
+const catalogSource = readFileSync('src/data/river-authority-photo-catalog.ts', 'utf8');
+const catalogAt = catalogSource.indexOf('\n{\n');
+assert.ok(catalogAt > -1, 'No parseable river photo catalog');
+const catalogJson = catalogSource.slice(catalogAt + 1).trim().replace(/;\s*$/, '').replace(/,\s*}/g, '}');
+const catalog = JSON.parse(catalogJson);
+const alreadyTested = new Set(rivers.map(item => item.slug));
+const additional = [
+  'texas-brazos-river-guide', 'texas-colorado-river-guide',
+  'texas-guadalupe-river-guide', 'texas-trinity-river-guide',
+  'texas-rio-grande-river-guide', 'texas-canadian-river-guide',
+  'texas-san-antonio-river-guide', 'texas-nueces-river-guide',
+  'texas-pecos-river-guide', 'texas-comal-river-guide',
+  'texas-san-marcos-river-guide',
+];
+const includesText = value => ({ test: rendered => String(rendered).toLowerCase().includes(String(value).toLowerCase()) });
+for (const slug of additional) {
+  assert.ok(!alreadyTested.has(slug), 'Duplicate photo test ' + slug);
+  const photo = catalog['/article/' + slug];
+  assert.ok(photo, 'Missing catalog photo ' + slug);
+  const pathname = decodeURIComponent(new URL(photo.sourceUrl).pathname);
+  const imageName = pathname.slice(pathname.indexOf('File:') + 5);
+  const riverName = slug.replace(/^texas-/, '').replace(/-river(?:-basin)?-guide$/, '').replace(/-/g, ' ');
+  rivers.push({
+    slug, image: imageName,
+    alt: includesText(riverName),
+    license: includesText(photo.license),
+    author: includesText(photo.photographer),
+  });
+}
+const catalogSlugs = Object.keys(catalog).filter(href => href.startsWith('/article/'));
+assert.equal(catalogSlugs.length, 20, '20 registered guides must have photos');
+assert.equal(rivers.length, 20, 'All 20 river guides must pass Chrome');
+assert.deepEqual(new Set(rivers.map(item => item.slug)), new Set(catalogSlugs.map(href => href.split('/').at(-1))));
+const atlasSlugs = new Set([
+  ...readFileSync('src/data/fixtures/texas-explained-river-profiles.ts', 'utf8').matchAll(/slug:\s*"([^"]+-guide)"/g),
+  ...readFileSync('src/data/fixtures/texas-explained-river-profiles-remaining.ts', 'utf8').matchAll(/slug:\s*"([^"]+-guide)"/g),
+].map(match => match[1]));
+assert.equal(atlasSlugs.size, 15, 'The major basin atlas must contain 15 guides');
 
 const pages = [];
 const failureNotes = [];
 const verify = (condition, message) => assert.ok(condition, message);
+function originalImageIdentity(value) {
+  // First-party /media/remote?url=... encodes the source once, and Wikimedia's
+  // punctuation may be encoded a second time inside that embedded source URL.
+  let normalized = String(value);
+  for (let i = 0; i < 4; i++) {
+    let next;
+    try { next = decodeURIComponent(normalized); } catch { break; }
+    if (next === normalized) break;
+    normalized = next;
+  }
+  return normalized;
+}
 
 async function inspectImage(page, img, title) {
   await img.scrollIntoViewIfNeeded({ timeout: 20_000 });
@@ -75,9 +135,13 @@ try {
         const path = '/article/' + river.slug;
         const record = await visit(page, path, river.slug, label);
         pages.push(record);
-        const img = page.locator('img[src*="' + river.image + '"]').first();
-        verify(await img.count() === 1, label + ': hero photo absent for ' + river.slug);
+        // Check the rendered hero element, not a raw CSS substring. Browsers
+        // can normalize Wikimedia %2C filenames to literal commas in src.
+        const img = page.locator('section.relative.isolate > img').first();
+        verify(await img.count() === 1, label + ': hero image element absent for ' + river.slug);
         const result = await inspectImage(page, img, label + ' hero ' + river.slug);
+        verify(originalImageIdentity(result.src).includes(originalImageIdentity(river.image)),
+          label + ': hero uses an unrelated photo: ' + river.slug + ' ' + result.src);
         verify(river.alt.test(result.alt), label + ': hero alt misidentifies ' + river.slug);
         record.images.push(result);
         await page.screenshot({ path: artifactDir + '/' + label + '-' + river.slug + '.png',
@@ -87,15 +151,42 @@ try {
         const record = await visit(page, path, path, label);
         pages.push(record);
         for (const river of rivers) {
-          const anchor = page.locator('a[href="/article/' + river.slug + '"]').filter({ has: page.locator('img') }).first();
-          verify(await anchor.count() === 1, label + ': missing river card ' + river.slug + ' at ' + path);
+          // The major-basin atlas has 15 basin cards; five recreation guides
+          // are text links there. River Valleys has all 20 photo cards.
+          if (path === '/article/texas-rivers-explained' && !atlasSlugs.has(river.slug)) continue;
+          // River guides may have other linked teasers earlier in the article.
+          // Match the *source photo* as well as the river link so the credit
+          // assertion targets the real shared river directory card.
+          const anchors = page.locator('a[href="/article/' + river.slug + '"]').filter({ has: page.locator('img') });
+          let anchor = null;
+          for (let i = 0; i < await anchors.count(); i++) {
+            const candidate = anchors.nth(i);
+            const candidateSrc = await candidate.locator('img').first().getAttribute('src') || '';
+            if (originalImageIdentity(candidateSrc).includes(originalImageIdentity(river.image))) {
+              anchor = candidate;
+              break;
+            }
+          }
+          verify(anchor !== null, label + ': missing exact river photo card ' + river.slug + ' at ' + path);
           const img = anchor.locator('img').first();
           const result = await inspectImage(page, img, label + ' card ' + river.slug + ' at ' + path);
-          verify(result.src.includes(river.image), label + ': generic or mismatched image at ' + path + ' for ' + river.slug);
+          verify(new URL(result.src).pathname === '/media/remote',
+            label + ': river card bypasses the cached first-party image delivery: ' + river.slug + ' at ' + path);
+          verify(originalImageIdentity(result.src).includes(originalImageIdentity(river.image)),
+            label + ': generic or mismatched image at ' + path + ' for ' + river.slug);
           verify(river.alt.test(result.alt), label + ': inaccurate card alt at ' + path);
-          const outer = anchor.locator('..');
-          const credit = await outer.innerText();
-          verify(river.license.test(credit), label + ': missing visible photo license at ' + path + ' for ' + river.slug);
+          // The image link and its attribution are siblings inside one card.
+          // Assert that exact sibling rather than the parent text or a
+          // broader page element containing unrelated citations.
+          const attribution = anchor.locator('xpath=following-sibling::p[1]');
+          verify(await attribution.count() === 1, label + ': missing image credit block on card ' + river.slug + ' at ' + path);
+          const credit = await attribution.innerText();
+          verify(river.license.test(credit), label + ': photo license mismatch at ' + path + ' for ' + river.slug + '; rendered credit: ' + JSON.stringify(credit));
+          if (river.author) verify(river.author.test(credit), label + ': photo creator mismatch at ' + path + ' for ' + river.slug + '; credit: ' + JSON.stringify(credit));
+          verify(await attribution.locator('a[href*="commons.wikimedia.org/wiki/File:"]').count() >= 1,
+            label + ': photo original source permalink absent at ' + path + ' for ' + river.slug);
+          verify(await attribution.locator('a[href^="https://creativecommons.org/licenses/"]').count() >= 1,
+            label + ': Creative Commons license permalink absent at ' + path + ' for ' + river.slug);
           record.images.push({ river: river.slug, ...result, credited: true });
         }
         const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
@@ -115,4 +206,4 @@ try {
   }, null, 2));
   await browser?.close();
 }
-console.log('River photo acceptance passed: three live guide heroes and six directory cards at mobile and desktop widths.');
+console.log('River photo acceptance passed: nine live guide heroes, seven basin-atlas cards and nine River Valleys cards at mobile and desktop widths.');

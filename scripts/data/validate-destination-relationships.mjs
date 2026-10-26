@@ -26,6 +26,9 @@ requireFeatures(route, [
 requireFeatures(engine, [
   'const earthRadiusMiles = 3958.8',
   'Math.atan2',
+  'Math.abs(lat) <= 90 && Math.abs(lng) <= 180',
+  'const town = destination.nearestTown?.trim().toLowerCase()',
+  'const sameTown = take(town ? others.filter',
   'miles <= 75',
   'COMPLEMENTARY_CATEGORIES',
   'WATER_CATEGORIES',

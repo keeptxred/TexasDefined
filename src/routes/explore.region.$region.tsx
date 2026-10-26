@@ -98,6 +98,7 @@ function RegionPage() {
       </div>
     </Container>
 
+    {region.slug === "big-bend" && <Container className="py-10"><section className="border-y border-border py-7"><p className="eyebrow text-primary">Explore by road</p><h2 className="mt-2 font-display text-3xl">Big Bend scenic drives</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">Compare five scenic routes, paved versus unpaved access and realistic day plans.</p><Link to="/explore/big-bend-scenic-drives" className="mt-4 inline-block text-sm font-semibold text-primary underline">Plan a Big Bend driving route →</Link></section></Container>}
     <RegionAuthorityGuide region={region} />
     <RegionalHubSections destinations={destinations} region={region} allRegions={regions} />
     <TopAttractionCollectionLinks destinations={destinations} contextLabel={region.name} />

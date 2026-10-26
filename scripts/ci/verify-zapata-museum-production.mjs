@@ -10,12 +10,16 @@ if (process.argv.includes('--source-only')) {
   const component = readFileSync(new URL('../../src/components/editorial/ZapataCountyMuseumAuthority.tsx', import.meta.url), 'utf8');
   const catalog = readFileSync(new URL('../../src/data/museum-expansion-statewide-wave9.ts', import.meta.url), 'utf8');
   const destinationRoute = readFileSync(new URL('../../src/routes/destination.$slug.tsx', import.meta.url), 'utf8');
+  const museumWorkflow = readFileSync(new URL('../../.github/workflows/texasdefined-publication-production-smoke.yml', import.meta.url), 'utf8');
   const expected = [
     '<img src="/images/zapata-county-museum-history-editorial.svg"',
     'not a photograph of the museum',
     'last tour begins at 3:30 p.m.',
+    'Language of the exhibits:',
+    'English and Spanish',
     'https://zapatamuseum.com/index.php/contact-us',
     'Texas Historical Commission’s Zapata museum listing',
+    'Directory-link advisory (October 21, 2026)',
   ];
   const missing = expected.filter((value) => !component.includes(value));
   if (missing.length) throw new Error('Zapata museum source contract failed: ' + missing.join(', '));
@@ -25,9 +29,20 @@ if (process.argv.includes('--source-only')) {
   if (!destinationRoute.includes('isZapataMuseum ? { postalCode: "78076" }')) {
     throw new Error('Zapata museum structured-data address is missing its verified ZIP code');
   }
+  if (component.includes('https://www.zapatamuseum.org/') || component.includes('https://zapatamuseum.org/')) {
+    throw new Error('Museum guide must not link readers to the outdated promotional-content domain');
+  }
   if (!catalog.includes('src: "/images/zapata-county-museum-history-editorial.svg"')) {
     throw new Error('Museum social/structured-data hero must match the rights-safe local illustration');
   }
+  const requiredWorkflow = [
+    'workflow_run:',
+    'Deploy TexasDefined production',
+    'scripts/ci/verify-zapata-museum-production.mjs',
+    'Verify Zapata museum live authority after every successful production release',
+  ];
+  const missingWorkflow = requiredWorkflow.filter((value) => !museumWorkflow.includes(value));
+  if (missingWorkflow.length) throw new Error('Scoped post-deployment Zapata museum verification is disabled: ' + missingWorkflow.join(', '));
   console.log('PASS: Zapata museum illustration and source contract are rights-safe and consistent.');
   process.exit(0);
 }
@@ -61,9 +76,12 @@ function verifyMuseumHtml(html) {
     '805 N U.S. Highway 83',
     'Museum tour overview',
     'Original TexasDefined editorial illustration',
+    'Directory-link advisory (October 21, 2026)',
     'Texas Historical Commission’s Zapata museum listing',
     '"postalCode":"78076"',
     'last tour begins at 3:30 p.m.',
+    'Language of the exhibits:',
+    'English and Spanish',
     'application/ld+json',
   ];
   if (!html.includes('src="/images/zapata-county-museum-history-editorial.svg"')) {

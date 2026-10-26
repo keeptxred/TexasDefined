@@ -15,12 +15,29 @@ const schoolRates = read('src/data/school-district-tax-rates.ts');
 const taxImporter = read('supabase/functions/import-texas-property-tax-rates/index.ts');
 const bridge = read('src/data/texas-data-center.ts');
 const serverRegistry = read('src/data/texas-data-center.server.ts');
+const currentCensus = JSON.parse(read('src/data/generated/texas-state-population-current.json'));
+const censusRefresh = read('scripts/data/refresh-texas-state-population.mjs');
+const censusWorkflow = read('.github/workflows/refresh-texas-state-population.yml');
+const currentBls = JSON.parse(read('src/data/generated/texas-metro-payrolls-current.json'));
+const scheduledBls = read('.github/workflows/refresh-texas-data.yml');
+const finishingBls = read('.github/workflows/finish-texas-data-refresh.yml');
+
 
 const checks = [
   [sitemap, 'TEXAS_DATASETS.map((dataset)', 'Sitemap must enumerate Texas dataset routes'],
   [sitemap, 'lastmod: toDate(dataset.updated)', 'Dataset sitemap entries must expose update dates'],
   [bridge, 'createServerFn', 'Texas data registry bridge must use the supported server-function boundary'],
+  [bridge, "slug: 'texas-population-and-migration-latest'", 'Census rolling vintage must be sitemap-listed'],
+  [serverRegistry, "import currentStatePopulation from '@/data/generated/texas-state-population-current.json'", 'Current Census source must remain server-only'],
+  [hub, "texas-population-and-migration-latest", 'Texas hub must prefer verified annual Census population'],
+  [censusRefresh, 'NPOPCHG_', 'Census source parser must reconcile current and previous official vintage figures'],
+  [censusRefresh, 'RESIDUAL', 'Census source parser must verify demographic component reconciliation'],
+  [censusWorkflow, "cron: '53 12 8 * *'", 'GitHub-owned Census population maintenance must be scheduled'],
   [bridge, 'await import("./texas-data-center.server")', 'Texas data registry bridge must dynamically load the full registry server-side'],
+  [bridge, 'getCurrentCountyPropertyTaxExamples', 'Texas data hub and detail must prefer the current verified county-rate importer'],
+  [serverRegistry, "eq('type', 'county')", 'Current county comparison must select only official county government taxing units'],
+  [serverRegistry, "row.source_status !== 'reported-final'", 'Current county rate examples must reject nonfinal official rates'],
+  [serverRegistry, 'rows.length !== COUNTY_EXAMPLE_SLUGS.length', 'Incomplete live county rates must never replace verified historical examples'],
   [hub, "'@type': ['CollectionPage', 'DataCatalog']", 'Texas data hub must declare a DataCatalog'],
   [hub, "import { getTexasDatasets } from '@/data/texas-data-center'", 'Texas data hub must load datasets through the server-backed registry bridge'],
   [hub, 'loader: async () => ({ datasets: await getTexasDatasets() })', 'Texas data loader must return every maintained dataset'],
@@ -61,28 +78,80 @@ const serverSlugs = extractSlugs(serverRegistry);
 if (JSON.stringify(bridgeSlugs) !== JSON.stringify(serverSlugs)) {
   failures.push('Sitemap-safe Texas dataset metadata must stay in exact slug parity with the full server registry.');
 }
-// Data integrity regressions must fail before stale or misquoted figures reach the hub.
+// Data integrity regressions must fail before stale or misquoted figures reach
+// the catalog. Values below are transcribed from dated official source releases;
+// these are historical snapshots, not a request to freeze future new datasets.
 const premiumBrief = serverRegistry.slice(serverRegistry.indexOf("slug: 'texas-homeowners-premium-history'"), serverRegistry.indexOf("slug: 'texas-metro-payrolls-june-2026'"));
-if (!premiumBrief.includes("{ label: '2023', value: 2795 }") || !premiumBrief.includes("{ label: '2025', value: 3489")) {
-  failures.push('Homeowners brief must agree with TDI published 2023 ($2,795) and preliminary 2025 ($3,489) annual premiums.');
-}
 const juneBrief = serverRegistry.slice(serverRegistry.indexOf("slug: 'texas-metro-payrolls-june-2026'"), serverRegistry.indexOf("slug: 'texas-metro-payrolls-august-2026'"));
+const augustBrief = serverRegistry.slice(serverRegistry.indexOf("slug: 'texas-metro-payrolls-august-2026'"), serverRegistry.indexOf("slug: 'texas-traffic-monitoring-coverage'"));
+
+// Confirm every published row and prevent silent additions/duplicates in the
+// original archival snapshots. A new BLS monthly release gets a new dated slug.
+function validateOfficialSnapshot(section, label, expected) {
+  const found = [...section.matchAll(/\{\s*label:\s*'([^']+)',\s*value:\s*(\d+)/g)]
+    .map((match) => [match[1], Number(match[2])]);
+  const actual = new Map(found);
+  if (found.length !== expected.length || actual.size !== expected.length) {
+    failures.push(label + ': unexpected row count or duplicate metro/year label; expected ' + expected.length);
+  }
+  for (const [rowLabel, value] of expected) {
+    if (actual.get(rowLabel) !== value) {
+      failures.push(label + ': official-source value differs for ' + rowLabel + '; expected ' + value);
+    }
+  }
+}
+
+validateOfficialSnapshot(premiumBrief, 'TDI homeowners annual average premiums (2019–2025)', [
+  ["2019", 1961],
+  ["2020", 1987],
+  ["2021", 2124],
+  ["2022", 2374],
+  ["2023", 2795],
+  ["2024", 3291],
+  ["2025", 3489],
+]);
+validateOfficialSnapshot(juneBrief, 'BLS June 2026 original Table 3 nonfarm payrolls', [
+  ["Amarillo", 131400],
+  ["Austin–Round Rock–San Marcos", 1432100],
+  ["Brownsville–Harlingen", 159900],
+  ["College Station–Bryan", 143900],
+  ["Corpus Christi", 203200],
+  ["Dallas–Fort Worth–Arlington", 4363300],
+  ["El Paso", 365100],
+  ["Houston–Pasadena–The Woodlands", 3521500],
+  ["Lubbock", 176500],
+  ["McAllen–Edinburg–Mission", 309700],
+  ["San Antonio–New Braunfels", 1196800],
+  ["Tyler", 122100],
+  ["Waco", 143300],
+]);
+validateOfficialSnapshot(augustBrief, 'BLS August 2026 original Table 3 nonfarm payrolls', [
+  ["Amarillo", 130700],
+  ["Austin–Round Rock–San Marcos", 1415900],
+  ["Brownsville–Harlingen", 159500],
+  ["College Station–Bryan", 142100],
+  ["Corpus Christi", 202300],
+  ["Dallas–Fort Worth–Arlington", 4357000],
+  ["El Paso", 363500],
+  ["Houston–Pasadena–The Woodlands", 3495300],
+  ["Lubbock", 176300],
+  ["McAllen–Edinburg–Mission", 308100],
+  ["San Antonio–New Braunfels", 1191700],
+  ["Tyler", 122600],
+  ["Waco", 142900],
+]);
 if (!juneBrief.includes('https://www.bls.gov/news.release/archives/metro_07292026.htm')) {
   failures.push('Historical June 2026 metro payrolls must link to its original BLS archive, not the rolling table.');
 }
-const augustBrief = serverRegistry.slice(serverRegistry.indexOf("slug: 'texas-metro-payrolls-august-2026'"), serverRegistry.indexOf("slug: 'texas-traffic-monitoring-coverage'"));
 if (!augustBrief.includes('https://www.bls.gov/news.release/archives/metro_09302026.htm')) {
   failures.push('Current August 2026 metro payrolls must link to the dated September 30 BLS release.');
 }
-for (const [label, value] of [
-  ['Dallas–Fort Worth–Arlington', 4357000],
-  ['Houston–Pasadena–The Woodlands', 3495300],
-  ['Austin–Round Rock–San Marcos', 1415900],
-  ['San Antonio–New Braunfels', 1191700],
-]) {
-  if (!augustBrief.includes(`{ label: '${label}', value: ${value} }`)) {
-    failures.push(`August 2026 BLS Table 3 payroll mismatch: ${label}`);
-  }
+
+if (!Number.isInteger(currentCensus.vintage) || currentCensus.vintage < 2025 ||
+    !currentCensus.sourceUrl.endsWith('/NST-EST' + currentCensus.vintage + '-ALLDATA.csv') ||
+    currentCensus.population - currentCensus.priorPopulation !== currentCensus.populationChange ||
+    !/^\d{4}-\d{2}-\d{2}$/.test(currentCensus.verifiedAt)) {
+  failures.push('Rolling Census Texas state population snapshot has invalid source-year, verification or population components.');
 }
 if (!hub.includes("texas-metro-payrolls-august-2026")) {
   failures.push('Texas Data hub must feature the latest verified metro payroll snapshot.');
@@ -98,6 +167,36 @@ if (hub.includes("from '@/data/sports-venue-comparison'")) {
 }
 if (hub.includes('getSportsVenueEnrichmentAll') || hub.includes('CURATED_KNOWLEDGE_GRAPH_SEED')) {
   failures.push('Texas data hub must not import sports venue enrichment or the statewide knowledge seed just to advertise the comparison dataset.');
+}
+
+
+if (!/^\d{4}-\d{2}$/.test(currentBls.releaseMonth) ||
+    !/^\d{4}-\d{2}-\d{2}$/.test(currentBls.publishedDate) ||
+    currentBls.rows?.length !== 13 ||
+    new Set(currentBls.rows.map(row => row.label)).size !== 13 ||
+    currentBls.rows.some(row => !Number.isInteger(row.value) || row.value < 50_000)) {
+  failures.push('Rolling BLS metro data must contain 13 distinct plausible official job counts and release provenance.');
+}
+if (!(String(currentBls.sourceUrl).startsWith('https://www.bls.gov/news.release/archives/metro_') ||
+    String(currentBls.sourceUrl).startsWith('https://fred.stlouisfed.org/graph/fredgraph.csv?id='))) {
+  failures.push('Rolling BLS metro data must cite the official BLS release or Federal Reserve distribution of the same BLS series.');
+}
+if (!serverRegistry.includes("slug: 'texas-metro-payrolls-latest'") ||
+    !bridge.includes("slug: 'texas-metro-payrolls-latest'") ||
+    !hub.includes("'texas-metro-payrolls-latest'")) {
+  failures.push('Latest BLS dataset must be discoverable on the canonical hub, sitemap and SSR registry.');
+}
+for (const source of [scheduledBls, finishingBls]) {
+  for (const required of ['workflow_dispatch:', 'pull-requests: write', 'main']) {
+    if (!source.includes(required)) failures.push('BLS scheduled publication workflow missing: ' + required);
+  }
+}
+if (!scheduledBls.includes("cron: '41 12 5 * *'") ||
+    !scheduledBls.includes('scripts/data/refresh-texas-metro-payrolls.mjs') ||
+    !scheduledBls.includes('gh pr create') ||
+    !finishingBls.includes('bash scripts/ci/dispatch-validate-branch.sh "$branch" merge-gate.yml') ||
+    !finishingBls.includes('gh pr merge "$url"')) {
+  failures.push('GitHub-owned monthly BLS refresh and protected exact-branch finisher must remain connected.');
 }
 
 if (failures.length) {

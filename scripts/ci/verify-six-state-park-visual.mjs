@@ -34,10 +34,35 @@ try{
     const hero=page.locator('img[fetchpriority="high"]').first();
     await hero.waitFor({state:"visible",timeout:12000});
     await page.waitForFunction(()=>{const image=document.querySelector('img[fetchpriority="high"]');return !!image?.complete;},null,{timeout:15000});
+    // The FAQ is inside a streamed React.lazy visitor planner. On a cold first
+    // park visit, the hero can finish loading before the planner chunk mounts.
+    // Wait for the actual visible FAQ; this still fails closed when absent.
+    await page.locator("#destination-visitor-faqs").waitFor({state:"visible",timeout:15000});
+    // Streaming and React hydration can briefly replace the FAQ subtree after
+    // its first appearance. Require a continuous, attached visible section
+    // before accepting the rendered page rather than racing its first mount.
+    await page.waitForFunction(() => {
+     const faq=document.querySelector("#destination-visitor-faqs");
+     const box=faq?.getBoundingClientRect();
+     const visible=!!faq && !!box && box.width>0 && box.height>0;
+     if(!visible){window.__tdParkQaFaqStable=null;return false;}
+     const observed=window.__tdParkQaFaqStable;
+     if(!observed || observed.element!==faq){
+      window.__tdParkQaFaqStable={element:faq,since:performance.now()};
+      return false;
+     }
+     return performance.now()-observed.since>=1200;
+    },null,{timeout:20000,polling:100});
     const facts=await page.evaluate(()=>{
      const hero=document.querySelector('img[fetchpriority="high"]');
      const heading=document.querySelector("h1")?.textContent?.trim();
      const faq=document.querySelector("#destination-visitor-faqs");
+     const faqSection=faq?.closest('section[aria-labelledby="destination-visitor-faqs"]');
+     const faqSourcedAnswers=[...(faqSection?.querySelectorAll("dl > div")||[])].filter(row=>{
+      const question=row.querySelector("dt")?.textContent?.trim()||"";
+      const answer=row.querySelector("dd")?.textContent?.trim()||"";
+      return question.length>=12 && answer.length>=25 && !!row.querySelector('dd a[href^="https://tpwd.texas.gov/"]');
+     }).length;
      return {
       heading,
       viewport:window.innerWidth,
@@ -47,6 +72,7 @@ try{
       heroAlt:hero?.getAttribute("alt")||"",
       visibleImageFailures:[...document.querySelectorAll("img")].filter(img=>{const b=img.getBoundingClientRect();return b.width>0&&b.height>0&&img.complete&&img.naturalWidth===0}).slice(0,5).map(img=>img.currentSrc),
       faqVisible:!!faq && faq.getBoundingClientRect().width>0,
+      faqSourcedAnswers,
       canonical:document.querySelector('link[rel="canonical"]')?.href||"",
       licenseLinks:[...document.querySelectorAll('a[href]')].map(a=>a.href).filter(h=>h.includes("commons.wikimedia.org/wiki/File:")||h.includes("creativecommons.org/licenses/")).slice(0,15),
      };
@@ -55,6 +81,7 @@ try{
     if(facts.documentWidth>facts.viewport+8)throw new Error("Horizontal overflow: "+(facts.documentWidth-facts.viewport)+"px");
     if(!facts.heroComplete||facts.heroNaturalWidth<100)throw new Error("Hero not loaded");
     if(!facts.faqVisible)throw new Error("Source-backed park FAQ not rendered");
+    if(facts.faqSourcedAnswers<3)throw new Error("Three TPWD-sourced park FAQ answers not rendered");
     if(facts.visibleImageFailures.length)throw new Error("Broken visible image: "+facts.visibleImageFailures.join(", "));
     if(facts.canonical!==origin+"/destination/"+slug)throw new Error("Canonical mismatch: "+facts.canonical);
     if(slug==="kickapoo-cavern-state-park"||slug==="lake-casa-blanca-international-state-park"){
@@ -64,8 +91,11 @@ try{
     }
     await page.screenshot({path:output+"/"+viewport.label+"-"+slug+"-hero.png",animations:"disabled",timeout:30000});
     if(viewport.label==="mobile"){
-     await page.locator("#destination-visitor-faqs").scrollIntoViewIfNeeded();
-     await page.screenshot({path:output+"/mobile-"+slug+"-faq.png",animations:"disabled",timeout:30000});
+     // A mobile hydrate/remount can occur between the page facts and the FAQ
+     // screenshot. Locator capture auto-waits for a visible, stable *real* FAQ.
+     const faq=page.locator('section[aria-labelledby="destination-visitor-faqs"]');
+     await faq.waitFor({state:"visible",timeout:15000});
+     await faq.screenshot({path:output+"/mobile-"+slug+"-faq.png",animations:"disabled",timeout:30000});
     }
     results.push({slug,viewport:viewport.label,status:"passed",...facts});
     console.log("PASS "+viewport.label+" "+slug+" image="+facts.heroNaturalWidth+" overflow="+(facts.documentWidth-facts.viewport));

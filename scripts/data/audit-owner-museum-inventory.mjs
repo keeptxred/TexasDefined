@@ -31,7 +31,10 @@ const aliases={
  "museum of natural science houston":"houston-museum-of-natural-science",
  "kimball art museum":"kimbell-art-museum",
  "african american museum of dallas":"african-american-museum-dallas-fair-park",
- "maritime museum of texas":"texas-maritime-museum-rockport"
+ "maritime museum of texas":"texas-maritime-museum-rockport",
+ "admiral nimitz gallery":"national-museum-pacific-war",
+ "angelina county history center":"the-history-center-diboll",
+ "babe didrikson zaharias museum":"babe-didrikson-zaharias-museum-beaumont"
 };
 const byAlias=new Map(Object.entries(aliases).map(([name,slug])=>[normalize(name),slug]));
 const parts=segmentOwnerMuseumNames(raw);

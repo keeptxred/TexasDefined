@@ -39,3 +39,9 @@ The Bloomington Bobcats guide reports **42–0 against Danbury on October 16** a
 
 ## October 20, 2026 — bring October 9 score-discrepancy paragraph through October 16 Danbury
 The source-specific **2–5 October 9 Shiner snapshot** and the well-disclosed Shiner score discrepancy remain accurate historical checkpoints, but the reader also needs the already recorded **42–0 Bloomington victory over Danbury on Oct16**, lifting the Bobcats to **3–5 through October 16**. Extend that exact overview paragraph, attributed to the existing [Houston Chronicle Texas score final](https://www.houstonchronicle.com/sports/high-school/football/article/texas-scores-friday-week-16-22481255.php), and make clear that Weimar and Ganado are scheduled only. Keep Lane Shands coaching corroboration and cashless-ticket claims scoped to actual events; no editorial signoff or photo rights inferred.
+
+## October 20, 2026 — acceptance-ledger source recheck
+Bloomington ISD's current staff directory was rechecked and still identifies **Lane Shands as Athletic Director**, but does not label him head football coach. The district's current athletics live-feed activity confirms Shands remains the active athletics contact, while the separate football-specific 2026 reporting already documented in this dossier remains necessary for the head-coach attribution.
+
+No new first-party evidence was found for Bobcat Stadium's exact spectator entrance, parking allocation, accessible seating, reusable football photography rights, or a blanket ticket rule beyond event-specific district notices. The 3–5 through October 16 record, Shiner score-discrepancy disclosure and prior technical Chrome evidence remain unchanged. **Status stays DEPLOYED, not individually VERIFIED.**
+

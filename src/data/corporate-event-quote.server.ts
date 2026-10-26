@@ -1,0 +1,113 @@
+import { assertSportsPartnerAccess } from '@/data/sports-partner-leads.server';
+import { corporateEventProviders } from '@/data/corporate-events';
+import { isUpcomingCorporateEventDate, corporateEventTexasToday, isValidCorporateEventCalendarDate } from '@/data/corporate-event-dates';
+import { supabaseAdmin } from '@/integrations/supabase/client.server';
+import { corporateEventOfficialDomainMatches, corporateEventEvidenceTimestampIsValid } from '@/data/corporate-event-offer-provenance';
+
+const client = supabaseAdmin as any;
+
+function normalizeBusinessName(name: string): string {
+  return name.toLowerCase().replace(/[^a-z0-9]/g, '');
+}
+
+function verifiedBusinessDomain(website: string, officialUrl: string): boolean {
+  // Venue-scoped; an ancestor host of the official source or an unrelated
+  // domain is not adequate business identity evidence for forwarding PII.
+  return corporateEventOfficialDomainMatches(website, officialUrl);
+}
+
+/** Staff-only manual draft. Never sends mail or routes customer details automatically. */
+export async function prepareCorporateEventPartnerQuote(
+  accessKey: string, leadId: string, providerSlug: string,
+) {
+  await assertSportsPartnerAccess(accessKey);
+
+  // Re-read consent at action time; the browser's dashboard snapshot cannot
+  // authorize sharing. Null or revoked consent must fail closed.
+  const { data: lead, error: leadError } = await client
+    .from('texasdefined_group_event_requests')
+    .select('id,status,contact_name,email,company,phone,city,group_size,event_category,event_date,budget_per_person,provider_slugs,notes,allow_provider_outreach,provider_outreach_consented_at')
+    .eq('id', leadId)
+    .maybeSingle();
+  if (leadError || !lead?.id) throw new Error('Planner request not found.');
+  if (!lead.allow_provider_outreach
+    || !corporateEventEvidenceTimestampIsValid(lead.provider_outreach_consented_at)) {
+    throw new Error('Planner has not authorized sharing with selected venues.');
+  }
+  if (['spam', 'closed'].includes(String(lead.status))) {
+    throw new Error('Closed or spam requests cannot be prepared for venue outreach.');
+  }
+  if (!Array.isArray(lead.provider_slugs) || !lead.provider_slugs.includes(providerSlug)) {
+    throw new Error('This venue was not selected by the planner.');
+  }
+  if (lead.event_date && !isUpcomingCorporateEventDate(String(lead.event_date))) {
+    throw new Error('Confirm an updated future event date with the planner first.');
+  }
+  const venue = corporateEventProviders.find((provider) => provider.slug === providerSlug);
+  if (!venue) throw new Error('Source-backed venue is not listed.');
+
+  // Approved application, same verified directory identity, official HTTPS
+  // domain. Names and domains must both match to limit impersonation.
+  const { data: applications, error: applicationError } = await client
+    .from('texasdefined_group_event_partner_applications')
+    .select('id,status,business_name,website,identity_verified_at,commercial_agreement_verified_at,commercial_agreement_covers_quote_routing,commercial_agreement_expires_on')
+    .eq('status', 'approved')
+    .limit(250);
+  if (applicationError || !Array.isArray(applications)) throw new Error('Cannot verify venue partner.');
+  if (applications.length === 250) throw new Error('Partner verification needs an operations review.');
+  const candidates = applications.filter((application: { business_name: string; website: string }) =>
+    normalizeBusinessName(String(application.business_name)) === normalizeBusinessName(venue.name)
+    && verifiedBusinessDomain(String(application.website), venue.officialUrl)
+    // Manual draft authorization uses exactly the same strict timestamp and
+    // calendar validation as staff offer writes and public offer reads.
+    // Neither an applicant-submitted website nor a future/invalid contract
+    // may authorize access to organizer contact data.
+    && corporateEventEvidenceTimestampIsValid(application.identity_verified_at)
+    && corporateEventEvidenceTimestampIsValid(application.commercial_agreement_verified_at)
+    && application.commercial_agreement_covers_quote_routing === true
+    && (!application.commercial_agreement_expires_on
+      || (isValidCorporateEventCalendarDate(String(application.commercial_agreement_expires_on))
+        && String(application.commercial_agreement_expires_on) >= corporateEventTexasToday())),
+  );
+  if (candidates.length !== 1) {
+    throw new Error('No unique approved partner matches the venue identity and official website.');
+  }
+
+  const subject = 'Corporate group event inquiry — ' + lead.company + ' (' + lead.group_size + ' guests)';
+  const brief = [
+    'DRAFT FOR MANUAL STAFF REVIEW — NOT SENT BY TEXASDEFINED',
+    'Venue: ' + venue.name,
+    'Verified official venue site: ' + venue.officialUrl,
+    'Requestor explicitly opted into sharing with this shortlisted venue.',
+    'Permission recorded: ' + lead.provider_outreach_consented_at,
+    '',
+    'Hello ' + venue.name + ' events team,',
+    '',
+    'TexasDefined is helping a company explore group-event options. This planner specifically shortlisted your venue and authorized outreach to selected venues.',
+    '',
+    'Company: ' + lead.company,
+    'Planner: ' + lead.contact_name,
+    'Email for quote follow-up: ' + lead.email,
+    'Phone (if provided): ' + (lead.phone || 'Not supplied'),
+    'City/market: ' + lead.city,
+    'Guests: ' + lead.group_size,
+    'Activity type: ' + lead.event_category,
+    'Preferred date: ' + (lead.event_date || 'Flexible / confirm with organizer'),
+    'Per-person budget ceiling: ' + (lead.budget_per_person == null ? 'Not specified' : '$' + lead.budget_per_person),
+    'Planner notes: ' + (lead.notes || 'None supplied'),
+    '',
+    'Please provide the available group formats, minimum spends, itemized taxes/fees, booking terms, cancellation policy, and availability. A quote or booking is not implied by this request.',
+    '',
+    'TexasDefined operations — MANUAL SEND ONLY AFTER REVIEW',
+  ].join('\n');
+
+  return {
+    subject,
+    brief,
+    providerSlug,
+    providerName: venue.name,
+    verifiedOfficialUrl: venue.officialUrl,
+    permissionRecordedAt: String(lead.provider_outreach_consented_at),
+    sent: false as const,
+  };
+}

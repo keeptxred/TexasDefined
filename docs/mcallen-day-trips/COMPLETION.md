@@ -1,5 +1,5 @@
 # TexasDefined — McAllen Day Trips Completion Record
-Updated: October 19, 2026.
+Updated: October 24, 2026.
 
 ## Target
 - Production: https://texasdefined.com/explore/near/mcallen/day-trips
@@ -36,3 +36,31 @@ Updated: October 19, 2026.
 - Inspect PR #5325 and its protected check; resolve actual image/map failures in scoped changes if they appear.
 - Once merged/deployed, inspect its screenshot artifact visually at desktop 1365×900 and mobile 390×844 and update this record with the new verification run, issues found, and final status.
 - Do not enter workflow-status polling loops; pursue independent tasks if CI remains active.
+
+## October 24 current-state reconciliation and blocker
+- GitHub `main` baseline at the start of this work: `d5d044af8d0a1cef8e320aa2dbc75724b94dddc5`. Relevant PRs #5004, #5011, #5250, #5251, #5252, #5261, #5264, #5296 and #5325 are merged. No competing open McAllen PR was found.
+- Latest production deploy https://github.com/keeptxred/TexasDefined/actions/runs/40128558317 completed successfully, but its follow-up McAllen workflow run https://github.com/keeptxred/TexasDefined/actions/runs/40129034952 ran **no Chrome scenario** because the unrelated change was out of scope. Workflow success does not imply new visual QA.
+- The latest executing focused Chrome run before this change, https://github.com/keeptxred/TexasDefined/actions/runs/39517773352, reported 46/47 desktop + 46/47 mobile checks. All featured photos loaded on scroll; both fails were the **Leaflet-only map-tile selector**. Artifact `mcallen-day-trips-visual-39517773352` ID `12308481912`, screenshots personally inspected: iframe appears empty in full-page screenshots while all ten featured image panels render.
+- Confirmed external change: OpenStreetMap migrated `/export/embed.html` from Leaflet to MapLibre with https://github.com/openstreetmap/openstreetmap-website/pull/6804 (merged April 4, 2026). The old `img.leaflet-tile-loaded` probe is no longer sufficient.
+- Current focused repair: verify MapLibre canvas *or* Leaflet imagery; capture standalone iframe screenshot while visible; require nonblank map screenshot evidence. Provide an external OpenStreetMap view for cases where third-party embedding is blocked. No paid mapping API added.
+- **Acceptance gate resolved October 24**: see verified production and screenshot evidence below. The earlier failed Leaflet-only run remains preserved as historical debugging evidence.
+
+## Final production acceptance — October 24, 2026
+
+**Outcome: COMPLETE for the six McAllen day-trip acceptance batches.** This section supersedes the earlier October 19 open verification note and initial October 20 map-selector failure.
+
+- Scoped correction PR [#5832](https://github.com/keeptxred/TexasDefined/pull/5832) merged after all protected checks passed; merge SHA `5c60dbd8aceb34d64020aa11d9ba1e10f8e66b6b`. No previously merged page work was replayed.
+- Production deployment [#40130054305](https://github.com/keeptxred/TexasDefined/actions/runs/40130054305) succeeded for that exact SHA, including Worker and canonical-domain health, scoped SSR production smoke. Cloudflare deployment version `cccd19b6-0d11-45fd-a25d-3a58c1edcfc9` served the tested page at 100% rollout.
+- Actual GitHub Chrome post-deploy browser QA [#40130565411](https://github.com/keeptxred/TexasDefined/actions/runs/40130565411) **PASSED 47/47 desktop at 1365×900 and 47/47 mobile at 390×844**, zero page errors and no hydration mismatches. Report checked deployed SHA `5c60dbd8aceb34d64020aa11d9ba1e10f8e66b6b` and above Cloudflare Worker version (do not mistake skipped later workflows for new acceptance).
+- QA artifact **[mcallen-day-trips-visual-40130565411](https://github.com/keeptxred/TexasDefined/actions/runs/40130565411/artifacts/12574757737)**, artifact ID `12574757737`, contains `qa-report.json`, `mcallen-day-trips-desktop.png`, `mcallen-day-trips-mobile.png`, `mcallen-embedded-map-desktop.png`, and `mcallen-embedded-map-mobile.png`. The desktop and mobile full-page screenshots **and both standalone embedded-map screenshots were individually visually inspected** after the run.
+- Map evidence: all 10 selection controls update the selected attraction; all 10 unique Google Maps destination queries verified; standalone desktop/mobile iframe screenshots visibly show OpenStreetMap roads, Quinta Mazatlán approximate marker, zoom controls and attribution. The full-page stitched screenshots omit the map's cross-origin rendered tiles, a capture/compositing limitation, **not a genuine visitor-facing blank map**: separately captured visible iframe screenshots show the tiles and selected marker. The direct OpenStreetMap link remains a free fallback.
+- Photos: both viewports loaded all **10/10** featured destination photos after actual scroll, zero reported broken loaded images. Attribution and source/license links retained for Quinta Mazatlán, Sabal Palm Sanctuary, and the museum, with existing catalog-photo provenance retained elsewhere.
+- Editorial/destinations: all 10 curated selections present, including Quinta, Sabal, one Old Hidalgo Pumphouse, canonical Museum of South Texas History; Santa Ana access notice and official links retained. Earlier merged PRs #5250–#5252 govern the museum permanent redirect, initial canonical links and federal access notice; no regression detected.
+- SEO: route canonical including query-param exclusion checked in both Chrome viewports; head source retains quality-gated indexability, title/meta description, CollectionPage, ItemList and BreadcrumbList and hub/county guide links. Additional geographic results remain clearly separate (2 secondary places in the accepted desktop capture), not counted as featured.
+- Lodging: a single post-guide section presents Expedia, Hotels.com, Travelocity and Vrbo choices with affiliate disclosure; not embedded within featured cards. The site remains independent of AdSense. The QA checks placement, DOM navigation and absence of hydration errors, **not completed affiliate conversions or third-party booking transactions**.
+- Layout: desktop cards use columns, mobile cards stack, no horizontal overflow or card overlap in Chrome. Captured mobile and desktop photographs render above and below the fold.
+- No new paid services, retired site-builder usage, placeholder destination guide or indexing-threshold relaxation. No confirmed outstanding McAllen-specific defects within this bounded acceptance. The original external-provider maps and affiliate links may change later and should be handled as future maintenance, not retroactive acceptance failures.
+
+### Ongoing restart guidance
+
+If a later regression is reported, start from the current `main`, reread this record and the exact current production worker version, then rerun the existing bounded `scripts/ci/verify-mcallen-day-trips-visual.mjs` on exactly the one McAllen URL. Only reopen a batch on evidence of a real defect; do not replay #5296 or #5832, and do not conflate skipped workflow success with executed Chrome QA.

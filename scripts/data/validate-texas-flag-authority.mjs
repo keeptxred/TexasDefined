@@ -138,7 +138,7 @@ requireContains("WebSub notifier", files.webSub, "texasdefined-websub");
 requireContains("Production deploy", files.deploy, "node scripts/ci/verify-changed-production-pages.mjs");
 requireContains("Production deploy", files.deploy, "node scripts/ci/publish-github-status.mjs texasdefined-production");
 requireContains("Production deploy", files.deploy, "node scripts/ci/publish-github-status.mjs texasdefined-bundle-budget");
-requireContains("Production deploy", files.deploy, 'CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_DEPLOY_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}');
+requireContains("Production deploy", files.deploy, 'CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_DEPLOY_API_TOKEN }}');
 requireContains("Production deploy", files.deploy, "CLOUDFLARE_DEPLOY_TOKEN_PRESENT:");
 requireContains("Production deploy", files.deploy, "Production deployment will use CLOUDFLARE_DEPLOY_API_TOKEN.");
 requireContains("Production verifier", files.productionVerifier, "['flag-history', '/article/history-of-the-texas-flag'");

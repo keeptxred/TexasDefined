@@ -123,9 +123,28 @@ jobs:
 
           allowed_path() {
             case "$1" in
-              src/data/generated/texas-events.ts|src/data/generated/ticketmaster-events.json) return 0 ;;
+              src/data/generated/texas-events.ts|src/data/generated/ticketmaster-events.json|src/data/generated/tpwd-events.json|ops/editorial/ticketmaster-authority-candidates.json|ops/editorial/event-ticketing-verification-ledger.json) return 0 ;;
               *) return 1 ;;
             esac
+          }
+
+          validate_managed_probe_ledger() {
+            local base="$1"
+            local head="$2"
+            local file="ops/editorial/event-ticketing-verification-ledger.json"
+            git diff --quiet "$base" "$head" -- "$file" && return 0
+            # The refresh bot may only update its own rotating provider URL
+            # probe evidence, cursor and run timestamp. Editorial verification
+            # statuses, 12-show evidence and source identities are immutable.
+            local strip='. | del(.updatedAt, .statewide.ticketLinkProbes, .statewide.ticketLinkProbeCursor, .statewide.ticketLinkProbeLatestRun)'
+            local before after
+            before="$(git show "$base:$file" | jq -cS "$strip")" || return 1
+            after="$(git show "$head:$file" | jq -cS "$strip")" || return 1
+            if [[ "$before" != "$after" ]]; then
+              echo "::error title=Unauthorized event-ledger edit::Generated refresh modified manually verified event facts outside the bounded ticket-link probes."
+              return 1
+            fi
+            echo "Validated generated ticket-link probe evidence without changing authoritative event verification."
           }
 
           validate_generated_diff() {
@@ -136,7 +155,7 @@ jobs:
               [[ -z "$path" ]] && continue
               found=1
               if ! allowed_path "$path"; then
-                echo "::error title=Unexpected generated refresh path::$path is outside the two governed event catalogs."
+                echo "::error title=Unexpected generated refresh path::$path is outside the governed event catalogs and candidate queue."
                 return 1
               fi
             done < <(git diff --name-only "$base" "$head")
@@ -144,6 +163,7 @@ jobs:
               echo "::error title=Empty generated refresh::The event-refresh PR contains no governed catalog changes."
               return 1
             fi
+            validate_managed_probe_ledger "$base" "$head"
           }
 
           publish_required_status() {
@@ -181,9 +201,15 @@ jobs:
             if ! git merge-base --is-ancestor origin/main HEAD; then
               echo "Current main advanced; merging it into the generated refresh branch without rewriting history."
               if ! git merge --no-edit origin/main; then
-                git merge --abort || true
-                echo "::error title=Event refresh reconciliation conflict::Current main overlaps the generated event catalogs. No merge was attempted."
-                exit 1
+                # Only the strictly approved generated catalogs and managed HTTP
+                # probe checkpoint may be reconciled. Current main's manually
+                # verified editorial findings are never overwritten.
+                if ! node scripts/events/reconcile-ticketing-refresh-conflicts.mjs; then
+                  git merge --abort || true
+                  echo "::error title=Unsafe event refresh conflict::Generated refresh was not merged because its conflict lacked trustworthy source or verification evidence."
+                  exit 1
+                fi
+                git commit --no-edit
               fi
               validate_generated_diff origin/main HEAD
               git push origin "HEAD:$BRANCH"

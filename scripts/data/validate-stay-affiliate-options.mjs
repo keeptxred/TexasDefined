@@ -15,8 +15,21 @@ const integrationDocs = fs.readFileSync('docs/expedia-affiliate-integration.md',
 const casinoHub = fs.readFileSync('src/routes/explore.casinos.index.tsx', 'utf8');
 const casinoGuide = fs.readFileSync('src/routes/explore.casinos.$slug.tsx', 'utf8');
 const expediaBootstrap = fs.readFileSync('public/expedia-travel.js', 'utf8');
+const destinationRouteSource = fs.readFileSync('src/routes/destination.$slug.tsx', 'utf8');
+
 // Expedia owns async DOM placement. The CJ layer must be explicitly notified
 // after insertion and route updates, rather than relying on main subtree timing.
+// Preserve the verified local-US Magnolia hotel and rental destinations.
+for (const marker of [
+  'const isMagnoliaWacoGuide',
+  'https://www.vrbo.com/vacation-rentals/usa/texas/waco/waco-convention-center',
+  'Browse rentals near Waco Convention Center on Vrbo',
+]) {
+  if (!source.includes(marker)) throw new Error('Waco stay destination changed: ' + marker);
+}
+if (source.includes('https://www.vrbo.com/en-ca/vacation-rentals/united-states/texas/mclennan-county/waco')) {
+  throw new Error('Waco stays must not revert to the Canadian-dollar Vrbo catalog');
+}
 const cjRefreshBridge = 'window.TexasDefinedStayAffiliateOptions?.sync?.();';
 if (expediaBootstrap.split(cjRefreshBridge).length - 1 !== 3) {
   throw new Error('Expedia must refresh the governed CJ panel for generic/curated mount, explicit mount, and SPA route changes');
@@ -31,6 +44,44 @@ for (const needle of [
 }
 
 const errors = [];
+// Fort McKavett is a history-and-visitor guide, so lodging belongs with
+// practical visit planning. Avoid two near-identical hotel headings at page end.
+if (!destinationPlanner.includes('destination.slug !== "fort-mckavett" && (') ||
+    !destinationPlanner.includes('<div data-stay-nearby-slot aria-label={`Places to stay near ${destination.name}`} />')) {
+  errors.push('Destination Visit Planner must not duplicate Fort McKavett\'s earlier contextual lodging slot.');
+}
+if (!destinationRouteSource.includes('destination.slug === "fort-mckavett" && <div data-stay-nearby-slot')) {
+  errors.push('Fort McKavett destination guide must explicitly place Stay Nearby immediately after Planning your visit.');
+}
+const routePlanning = destinationRouteSource.indexOf('id="before-you-go"');
+const routeSlot = destinationRouteSource.indexOf('destination.slug === "fort-mckavett" && <div data-stay-nearby-slot');
+const routeResearch = destinationRouteSource.indexOf('id="destination-research-sources"');
+if (!(routePlanning >= 0 && routePlanning < routeSlot && routeSlot < routeResearch)) {
+  errors.push('Fort McKavett lodging slot must be after visitor planning and before research citations.');
+}
+for (const snippet of [
+  'if (normalizePath() !== "/destination/fort-mckavett") container.append(eyebrow, heading);',
+  'if (normalizePath() === "/destination/fort-mckavett") {',
+  'if (slot && current.parentElement !== slot) placeSurface(current, main);',
+]) if (!expediaBootstrap.includes(snippet)) {
+  errors.push('Fort McKavett consolidated lodging heading or late-hydration repositioning missing: ' + snippet);
+}
+
+// The Expedia button must be the SAME click-loaded button, inside the CJ
+// action row before Vrbo, and not a duplicate second lodging box.
+for (const [sourceText, needle, label] of [
+  [expediaBootstrap, 'search.dataset.expediaStaysSearch = "true"', 'original Expedia search control marked for relocation'],
+  [expediaBootstrap, 'disclosure.dataset.expediaDisclosure = "true"', 'original Expedia disclosure identified for consolidation'],
+  [expediaBootstrap, '? "py-2" : "border-y border-border py-8"', 'avoid double-bordered Fort McKavett lodging boxes'],
+  [source, 'function unifyFortMcKavettBookingActions(surface, choice)', 'Fort McKavett one-panel integration'],
+  [source, 'actions.insertBefore(expediaButton, vrbo);', 'Expedia button immediately before Vrbo'],
+  [source, 'td-stay-affiliate-actions--fort-mckavett{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}', 'Expedia and Vrbo adjacent in a two-column desktop grid'],
+  [source, 'td-stay-affiliate-actions--fort-mckavett{grid-template-columns:1fr}', 'one-column mobile stay actions'],
+  [source, 'panel.appendChild(widgetHost)', 'Expedia widget inside same booking panel'],
+  [source, 'surface.querySelector(\'[data-expedia-disclosure="true"]\')?.remove();', 'single consolidated affiliate disclosure'],
+  [source, 'unifyFortMcKavettBookingActions(expediaSurface, choice);', 'one-panel integration is invoked'],
+]) if (!sourceText.includes(needle)) errors.push('Fort McKavett unified lodging regression: ' + label);
+
 if (!casinoHub.includes('data-stay-nearby-slot') || !casinoGuide.includes('data-stay-nearby-slot')) {
   errors.push('Casino travel routes must reuse the first-party Stay Nearby placement slot.');
 }
@@ -393,7 +444,8 @@ if (!eventRoute.includes('LEGACY_PLAN_VISIT_HEADING') || !eventRoute.includes('"
 for (const [needle, label] of [
   ['data-stay-nearby-slot', 'destination in-content Stay Nearby slot'],
   ['Places to stay near ${destination.name}', 'destination stay-slot accessibility label'],
-  ['Things to do and see', 'destination planning adjacency'],
+  ['destinationEditorialLinks(destination.slug)', 'destination-specific planning adjacency'],
+  ['Related editorial guides for ${destination.name}', 'accessible related-guide navigation'],
 ]) requireText(destinationPlanner, needle, label);
 
 for (const [needle, label] of [

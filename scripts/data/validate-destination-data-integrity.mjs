@@ -5,6 +5,9 @@ import path from 'node:path';
 const root = process.cwd();
 const destinationRoute = fs.readFileSync(path.join(root, 'src/routes/destination.$slug.tsx'), 'utf8');
 const destinationPlanner = fs.readFileSync(path.join(root, 'src/components/editorial/DestinationVisitPlanner.tsx'), 'utf8');
+const authoritySections = fs.readFileSync(path.join(root, 'src/components/editorial/DestinationAuthoritySections.tsx'), 'utf8');
+const authorityRelationships = fs.readFileSync(path.join(root, 'src/components/editorial/DestinationRelationships.tsx'), 'utf8');
+const authorityPresentation = fs.readFileSync(path.join(root, 'src/data/destination-authority-presentation.ts'), 'utf8');
 const destinationViator = fs.readFileSync(path.join(root, 'src/components/editorial/DestinationViatorBooking.tsx'), 'utf8');
 const destinationCurationBatch20 = fs.readFileSync(path.join(root, 'src/data/destination-curation-batch20.ts'), 'utf8');
 const destinationAudit = fs.readFileSync(path.join(root, 'src/data/destination-audit.ts'), 'utf8');
@@ -16,7 +19,40 @@ const articleRoute = fs.readFileSync(path.join(root, 'src/routes/article.$slug.t
 const map = fs.readFileSync(path.join(root, 'src/components/editorial/MapPreview.tsx'), 'utf8');
 const remote = fs.readFileSync(path.join(root, 'src/data/explore-remote.ts'), 'utf8');
 // Destination layout regressions belong in this existing integrity gate so spacing fixes cannot silently drift.
+
+
+
 const errors = [];
+
+// Rendering a complete authority guide twice repeats the same research,
+ // itineraries and sources, and makes real visitor answers harder to find.
+ // Both existing and future destinations must share one routing decision.
+ for (const [name, source, required] of [
+   ['full-guide policy', authorityPresentation, [
+     'export function shouldRenderFullDestinationAuthorityGuide(destination: Destination)',
+     'AUTHORITY_GUIDE_DESTINATION_SLUGS.has(destination.slug)',
+     'topTexasAttractionRank(destination.slug)',
+     'destination.slug === "chamizal-national-memorial"',
+     'destination.slug === "moody-gardens"',
+   ]],
+   ['relationship full-guide slot', authorityRelationships, [
+     'const hasExtendedAuthorityGuide = shouldRenderFullDestinationAuthorityGuide(destination)',
+     '<DestinationAuthorityGuide destination={destination}',
+     'topAttractionRank && hasExtendedAuthorityGuide',
+   ]],
+   ['inline guide sections', authoritySections, [
+     'const hasSeparateAuthorityGuide = shouldRenderFullDestinationAuthorityGuide(destination)',
+     '{guide && !hasSeparateAuthorityGuide && <section aria-labelledby="destination-authority-assessment"',
+     '{guide && !hasSeparateAuthorityGuide && destination.slug !== "chamizal-national-memorial"',
+     'destination.visitorFaqs.map(',
+     'Photograph attribution',
+   ]],
+ ]) {
+   for (const marker of required) {
+     if (!source.includes(marker)) errors.push('Duplicate-guide prevention missing from ' + name + ': ' + marker);
+   }
+ }
+
 
 for (const feature of [
   'function hasValidCoordinates',
@@ -53,6 +89,7 @@ for (const required of [
   'function countyDisplayName(value: string)',
   'function countyRouteSlug(value?: string)',
   'eyebrow="Quick trip facts"',
+  '<DestinationVerifiedVisitorFacts destination={destination} />',
   'minHeight: "clamp(24rem, 52vw, 32rem)"',
 ]) {
   if (!destinationRoute.includes(required)) errors.push(`Destination compact-layout safeguard missing: ${required}.`);
@@ -93,13 +130,15 @@ for (const marker of [
   if (!destinationAudit.includes(marker)) errors.push(`Destination fallback-copy audit marker missing: ${marker}.`);
 }
 
-for (const sourceMarker of [
+// The indexing audit still detects legacy synthetic copy, but the catalog
+// transformer must not manufacture any of that copy for new or existing pages.
+for (const staleCopy of [
   'is a Texas destination',
   'Those details make it easier to decide whether this stop fits a quick outing',
   'works best as part of a trip built around the surrounding region',
   'Use the official visitor-information link on this page for the latest details',
 ]) {
-  if (!destinationQuality.includes(sourceMarker)) errors.push(`Destination quality fallback source marker changed without updating the indexing audit: ${sourceMarker}.`);
+  if (destinationQuality.includes(staleCopy)) errors.push(`Synthetic destination filler must not be generated: ${staleCopy}.`);
 }
 
 for (const feature of [
@@ -114,23 +153,19 @@ if (!queryImplementation.replace(/\s+/g, "").replace(/,\)/g, ")").includes(exact
 if (!queries.includes('await import("./destination-query-runtime")')) errors.push('Destination query resolution must remain behind the dynamic runtime boundary.');
 
 for (const feature of [
-  'function unique(values: string[])',
-  'activityPattern.test(item)',
-  'facilityPattern.test(item)',
-  '!activities.includes(item)',
-  '!facilities.includes(item)',
   'data-stay-nearby-slot',
+  'StateParkVisitorEssentials',
+  'DestinationAuthoritySections',
+  'destinationEditorialLinks(destination.slug)',
+  'townAuthorityContextualLinks(destination)',
   'BookingCarRentalCard',
-  'drivingIntentPattern',
+  'destination.category === "road-trips"',
   'showRentalCarOption',
-  'While you’re there',
-  'Things to do and see',
-  '{ title: "Highlights", items: unique([...activities, ...otherHighlights]) }',
-  '{ title: "Visitor facilities", items: facilities }',
-  'groups.map((group, index)',
-  'group.items.map((item)',
 ]) {
-  if (!destinationPlanner.includes(feature)) errors.push(`Destination visit-planner integrity feature missing: ${feature}.`);
+  if (!destinationPlanner.includes(feature)) errors.push(`Destination planner lacks visitor-led feature: ${feature}.`);
+}
+for (const stale of ['Things to do and see', 'Visitor facilities', 'groups.map((group, index)']) {
+  if (destinationPlanner.includes(stale)) errors.push(`Redundant visitor-planner content must not return: ${stale}.`);
 }
 for (const stale of [
   'const practicalTips = unique([',

@@ -75,6 +75,119 @@ test('one edited article selects that record, not its unchanged siblings', () =>
   assert.ok(Object.values(plan.groups).every(v => v === false));
 });
 
+test('statewide Mardi Gras hub must be live, indexable by default, and link to real guides on the visitor URL', async () => {
+  const plan = buildChangePlan({ baseline, head, changedFiles: ['src/routes/events.mardi-gras.tsx'] });
+  assert.deepEqual(plan.mardiGrasHubPages, ['/events/mardi-gras']);
+  assert.ok(plan.selectedPaths.includes('/events/mardi-gras'));
+  assert.equal(plan.selectedPaths.length, 1);
+  const guides = [
+    '/event/mardi-gras-galveston',
+    '/event/mardi-gras-port-arthur',
+    '/event/cowboy-mardi-gras-bandera',
+    '/event/kemah-yachty-gras',
+  ];
+  const html = (fresh = true) => '<html><head><title>Mardi Gras in Texas</title>'
+    + '<link rel="canonical" href="https://texasdefined.com/events/mardi-gras"></head><body>'
+    + (fresh ? '<h1>Mardi Gras in Texas</h1><p>2027 dates</p>'
+        + guides.map(href => '<a href="' + href + '">Guide</a>').join('') : '<p>Stale listing 2027</p>')
+    + '</body></html>';
+  const requests = [];
+  const good = await verifyChangedPages({ plan, head, fetchImpl: async url => {
+    requests.push(url.href);
+    return new Response(html());
+  } });
+  assert.equal(good.length, 1);
+  assert.equal(good[0].passed, true, JSON.stringify(good));
+  assert.ok(requests.includes('https://texasdefined.com/events/mardi-gras'), 'must verify exact visitor URL');
+  const stale = await verifyChangedPages({ plan, head, fetchImpl: async url =>
+    new Response(html(url.searchParams.has('deploy_smoke'))) });
+  assert.equal(stale[0].passed, false);
+  assert.match(stale[0].error, /Mardi Gras hub ordinary visitor URL lacks live guide/);
+  const broken = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html(false)) });
+  assert.equal(broken[0].passed, false);
+  assert.match(broken[0].error, /Expected changed internal link is missing from SSR anchors/);
+  const deindexed = await verifyChangedPages({ plan, head, fetchImpl: async () =>
+    new Response(html().replace('</head>', '<meta name="robots" content="noindex, follow"></head>')) });
+  assert.equal(deindexed[0].passed, false);
+  assert.match(deindexed[0].error, /Mardi Gras hub release is unexpectedly noindex/);
+});
+
+test('Galveston Mardi Gras archival photo and 2027 source date must reach both visitor and release HTML', async () => {
+  const file = 'src/data/major-event-expanded-authority-tranche25.server.ts';
+  const before = 'const events = [{ slug: "mardi-gras-galveston", sourceCheckedAt: "2026-08-29" }];';
+  const after = 'const events = [{ slug: "mardi-gras-galveston", sourceCheckedAt: "2026-10-21" }];';
+  const plan = buildChangePlan({ baseline, head, changedFiles: [file], sources: { [file]: { before, after } } });
+  assert.ok(plan.eventAuthorityPages.includes('/event/mardi-gras-galveston'));
+  const html = (fresh = true, noindex = false) =>
+    '<html><head><title>Mardi Gras! Galveston</title>'
+    + '<link rel="canonical" href="https://texasdefined.com/event/mardi-gras-galveston">'
+    + (noindex ? '<meta name="robots" content="noindex, follow">' : '')
+    + '</head><body><h1>Mardi Gras! Galveston</h1><section>Planning your visit</section>'
+    + '<section>Official event links</section><section data-event-discovery-tail="true">Explore</section>'
+    + (fresh ? 'Last reviewed 2026-10-21 Event facts last source-checked 2026-10-21 A Yee 2013 Mardi Gras'
+      : 'Last reviewed 2026-09-02 Event facts last source-checked 2026-08-29')
+    + '</body></html>';
+  const ok = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html()) });
+  assert.ok(ok.every(result => result.passed), JSON.stringify(ok));
+  const staleVisitor = await verifyChangedPages({ plan, head, fetchImpl: async url =>
+    new Response(html(url.searchParams.has('deploy_smoke'))) });
+  assert.ok(staleVisitor.every(result => !result.passed && /ordinary visitor URL missing verified current content/.test(result.error)));
+  const notIndexable = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html(true, true)) });
+  assert.ok(notIndexable.every(result => !result.passed && /unexpectedly noindex/.test(result.error)));
+});
+
+test('a changed event authority record creates a bounded, cache-aware production acceptance', async () => {
+  const file = 'src/data/major-event-expanded-authority-tranche54.server.ts';
+  const old = `const records = [{ slug: "existing-festival", name: "Previous festival", planningSections: [] }, { slug: "unchanged-festival", name: "Keep", planningSections: [] }];`;
+  const updated = `const records = [{ slug: "existing-festival", name: "Improved festival", planningSections: [] }, { slug: "unchanged-festival", name: "Keep", planningSections: [] }, { slug: "new-festival", name: "New verified", planningSections: [] }];`;
+  const plan = buildChangePlan({ baseline, head, changedFiles: [file],
+    sources: { [file]: { before: old, after: updated } } });
+  assert.deepEqual(plan.selectedPaths, ['/event/existing-festival', '/event/new-festival']);
+  assert.deepEqual(plan.eventAuthorityPages, plan.selectedPaths);
+  assert.ok(plan.selectedPaths.length <= PAGE_BUDGET);
+  const html = (url, current = true) => '<html><head><title>Texas festival</title><link rel="canonical" href="https://texasdefined.com'
+    + url.pathname + '"></head><body>' + (current
+      ? '<section>Planning your visit</section><section data-event-discovery-tail="true">More to do</section><section>Official event links</section>'
+      : '<section>Stale generic article</section>') + '</body></html>';
+  const requests = [];
+  const good = await verifyChangedPages({ plan, head, fetchImpl: async url => {
+    requests.push(url.href);
+    return new Response(html(url));
+  } });
+  assert.ok(good.every(result => result.passed), JSON.stringify(good));
+  assert.ok(requests.includes('https://texasdefined.com/event/new-festival'), 'must check actual visitor URL');
+
+  const stale = await verifyChangedPages({ plan, head, fetchImpl: async url =>
+    new Response(html(url, url.searchParams.has('deploy_smoke'))) });
+  assert.ok(stale.every(result => !result.passed && /ordinary visitor URL/.test(result.error)));
+});
+
+test('event authority production smoke remains within eight semantic canaries even with concurrent event batches', () => {
+  const changed = 'src/data/major-event-authority.server.ts';
+  const resolver = 'src/data/major-event-page.server.ts';
+  const slugs = Array.from({ length: 12 }, (_, i) => 'festival-batch-' + i);
+  const after = 'export const annualEvents = ' + JSON.stringify(slugs.map(slug => ({
+    slug, name: slug, planningSections: ['Official event guide']
+  }))) + ';';
+  const plan = buildChangePlan({
+    baseline, head, changedFiles: [changed, resolver],
+    sources: { [changed]: { before: 'export const annualEvents = [];', after } }
+  });
+  assert.equal(plan.eventAuthorityPages.length, 8);
+  assert.ok(plan.eventAuthorityPages.every(p => plan.selectedPaths.includes(p)));
+  assert.ok(plan.eventAuthorityPages.every(p => p.startsWith('/event/') && /^[a-z0-9-]+$/.test(p.slice(7))));
+  assert.ok(plan.selectedPaths.length <= PAGE_BUDGET);
+  // Capped semantic checks do not discard changed routes from the generic
+  // production HTTP/SEO sampling, where the page budget has capacity.
+  assert.ok(plan.selectedPaths.filter(p => p.startsWith('/event/')).length > 8);
+});
+
+test('major event shared resolver uses two bounded production canaries', () => {
+  const plan = buildChangePlan({ baseline, head, changedFiles: ['src/data/major-event-page.server.ts'] });
+  assert.deepEqual(plan.eventAuthorityPages, ['/event/texas-book-festival', '/event/zestfest']);
+  assert.ok(plan.selectedPaths.length <= PAGE_BUDGET);
+});
+
 test('slug-keyed article link changes verify actual source pages and newly added SSR anchors', async () => {
   const path = 'src/data/article-internal-links.ts';
   const before = 'export const articleInternalLinks = { "texas-regions-explained": [{ href: "/texas-explained" }], "texas-trees-guide": [] };';
@@ -94,32 +207,218 @@ test('planner corrections retest previously missed editorial SSR links, not enti
   const plan = buildChangePlan({ baseline, head, changedFiles: ['scripts/ci/production-change-scope.mjs'] });
   assert.deepEqual(plan.selectedPaths, [
     '/destination/battleship-texas', '/destination/fredericksburg', '/destination/magoffin-home',
+    '/destination/davis-hill-state-park',
+    '/texas-data', '/texas-data/texas-homeowners-premium-history',
+    '/texas-data/texas-metro-payrolls-august-2026', '/texas-data/texas-metro-payrolls-june-2026',
     '/article/texas-cultural-regions-explained', '/article/texas-regions-explained',
     '/explore/road-trips',
     '/fishing/species/black-crappie', '/fishing/species/bluegill',
     '/fishing/species/freshwater-drum', '/fishing/species/white-crappie',
     '/texas-data/texas-population-and-migration-2025',
   ]);
+  assert.deepEqual(plan.davisHillPages, ['/destination/davis-hill-state-park']);
   assert.deepEqual(plan.downloadButtonPages, ['/texas-data/texas-population-and-migration-2025']);
   assert.deepEqual(plan.regionGuidePages, ['/article/texas-regions-explained']);
   assert.equal(plan.expectedHrefsByPage['/article/texas-regions-explained'][0], '/article/texas-gulf-coast-erosion-shoreline-retreat-guide');
   assert.equal(plan.expectedHrefsByPage['/article/texas-cultural-regions-explained'][0], '/article/texas-oil-boom-wichita-falls-west-texas-rigs');
 });
 
-test('Magoffin restoration edits require exact live SSR closure, FAQ and visitor center', async () => {
+test('Texas Data release checks are bounded and reject stale SSR values', async () => {
+  const source = 'src/data/texas-data-center.server.ts';
+  const plan = buildChangePlan({ baseline, head, changedFiles: [source] });
+  const paths = [
+    '/texas-data',
+    '/texas-data/texas-homeowners-premium-history',
+    '/texas-data/texas-metro-payrolls-august-2026',
+    '/texas-data/texas-metro-payrolls-june-2026',
+  ];
+  assert.deepEqual(plan.selectedPaths, paths);
+  assert.deepEqual(plan.texasDataPages, paths);
+  assert.equal(plan.omittedCount, 0);
+  assert.ok(plan.selectedPaths.length <= PAGE_BUDGET);
+  const fresh = {
+    '/texas-data': '<h1>Texas by the Numbers</h1> Texas at a glance Latest verified BLS nonfarm payroll jobs /texas-data/texas-metro-payrolls-latest $3,489 Search official data briefs /texas-data/texas-metro-payrolls-august-2026 Major Texas metro payrolls Texas Defined insurance research not an exhaustive list of every incorporated municipality',
+    '/texas-data/texas-homeowners-premium-history': '2023 $2,795 2025 $3,489 October 20, 2026',
+    '/texas-data/texas-metro-payrolls-august-2026': 'August 2026 4,357,000 3,495,300 metro_09302026.htm',
+    '/texas-data/texas-metro-payrolls-june-2026': 'June 2026 4,363,300 metro_07292026.htm',
+  };
+  const serve = (record) => async url => new Response(
+    '<html><head><title>Texas by the Numbers: Population, Housing, Jobs &amp; Counties</title><link rel="canonical" href="https://texasdefined.com'
+      + url.pathname + '"></head><body>' + record[url.pathname] + '</body></html>',
+  );
+  const current = await verifyChangedPages({ plan, head, fetchImpl: serve(fresh) });
+  assert.equal(current.length, 4);
+  assert.ok(current.every(result => result.passed), JSON.stringify(current));
+
+  const stalePremium = { ...fresh, '/texas-data/texas-homeowners-premium-history': '2023 $2,800 2025 $3,489 October 20, 2026' };
+  const badPremium = await verifyChangedPages({ plan, head, fetchImpl: serve(stalePremium) });
+  assert.equal(badPremium.find(result => result.path.endsWith('premium-history')).passed, false);
+
+  const staleHeading = { ...fresh, '/texas-data': fresh['/texas-data'].replace('<h1>Texas by the Numbers</h1>', '<h1>Texas Data & Statistics</h1>') };
+  const badHeading = await verifyChangedPages({ plan, head, fetchImpl: serve(staleHeading) });
+  assert.equal(badHeading.find(result => result.path === '/texas-data').passed, false, 'old H1 must fail production canary');
+
+  const staleHub = { ...fresh, '/texas-data': 'Texas at a glance 4,363,300 DFW nonfarm payrolls June 2026 preliminary $3,489' };
+  const badHub = await verifyChangedPages({ plan, head, fetchImpl: serve(staleHub) });
+  assert.equal(badHub.find(result => result.path === '/texas-data').passed, false);
+
+  const badSource = { ...fresh, '/texas-data/texas-metro-payrolls-june-2026': 'June 2026 4,363,300 metro.t03.htm' };
+  const badArchive = await verifyChangedPages({ plan, head, fetchImpl: serve(badSource) });
+  assert.equal(badArchive.find(result => result.path.endsWith('june-2026')).passed, false);
+});
+
+test('every production release verifies Texas Data content even after original PR deployment is superseded', async () => {
+  const unrelated = ['docs/football-authority/PROGRESS.md'];
+  const ordinary = buildChangePlan({ baseline, head, changedFiles: unrelated });
+  assert.deepEqual(ordinary.texasDataPages, []);
+  const plan = buildChangePlan({ baseline, head, changedFiles: unrelated, enforceCriticalCanaries: true });
+  const canaries = [
+    '/texas-data',
+    '/texas-data/texas-homeowners-premium-history',
+    '/texas-data/texas-metro-payrolls-august-2026',
+    '/texas-data/texas-metro-payrolls-june-2026',
+  ];
+  assert.deepEqual(plan.selectedPaths, canaries);
+  assert.deepEqual(plan.texasDataPages, canaries);
+  assert.equal(plan.omittedCount, 0);
+  assert.ok(plan.selectedPaths.length <= PAGE_BUDGET);
+  const content = {
+    '/texas-data': '<h1>Texas by the Numbers</h1> Texas at a glance Latest verified BLS nonfarm payroll jobs /texas-data/texas-metro-payrolls-latest $3,489 Search official data briefs /texas-data/texas-metro-payrolls-august-2026 Major Texas metro payrolls Texas Defined insurance research not an exhaustive list of every incorporated municipality',
+    '/texas-data/texas-homeowners-premium-history': '2023 $2,795 2025 $3,489 October 20, 2026',
+    '/texas-data/texas-metro-payrolls-august-2026': 'August 2026 4,357,000 3,495,300 metro_09302026.htm',
+    '/texas-data/texas-metro-payrolls-june-2026': 'June 2026 4,363,300 metro_07292026.htm',
+  };
+  const fetchImpl = async url => new Response(
+    '<html><head><title>Texas by the Numbers: Population, Housing, Jobs &amp; Counties</title><link rel="canonical" href="https://texasdefined.com'
+      + url.pathname + '"></head><body>' + content[url.pathname] + '</body></html>',
+  );
+  const verified = await verifyChangedPages({ plan, head, fetchImpl });
+  assert.ok(verified.every(item => item.passed), JSON.stringify(verified));
+  const stale = await verifyChangedPages({ plan, head, fetchImpl: async url =>
+    new Response('<html><head><title>Texas by the Numbers: Population, Housing, Jobs &amp; Counties</title><link rel="canonical" href="https://texasdefined.com'
+      + url.pathname + '"></head><body>$2,800 4,363,300 June 2026</body></html>') });
+  assert.ok(stale.every(item => !item.passed));
+});
+
+test('ordinary Texas Data URL must not serve stale HTML when query-string canary is fresh', async () => {
+  const page = '/texas-data/texas-homeowners-premium-history';
+  const plan = { head, selectedPaths: [page], texasDataPages: [page], redirectChecks: [] };
+  const fresh = '2023 $2,795 2025 $3,489 October 20, 2026';
+  const old = '2023 $2,800 2025 $3,489 October 20, 2026';
+  const requests = [];
+  const serve = (body, url) =>
+    new Response('<html><head><title>Premiums</title><link rel="canonical" href="https://texasdefined.com'
+      + url.pathname + '"></head><body>' + body + '</body></html>');
+  const healthy = await verifyChangedPages({ plan, head, fetchImpl: async url => {
+    requests.push(url.href);
+    return serve(fresh, url);
+  } });
+  assert.equal(healthy[0].passed, true);
+  assert.ok(requests.some(url => url.includes('deploy_smoke=')), 'release bust request required');
+  assert.ok(requests.includes('https://texasdefined.com' + page), 'ordinary visitor request required');
+
+  const stale = await verifyChangedPages({ plan, head, fetchImpl: async url =>
+    serve(url.searchParams.has('deploy_smoke') ? fresh : old, url) });
+  assert.equal(stale[0].passed, false);
+  assert.match(stale[0].error, /ordinary visitor URL still serves stale HTML/);
+
+  const purgeWorkflow = text('.github/workflows/deploy-production.yml');
+  for (const url of [
+    'https://texasdefined.com/texas-data',
+    'https://texasdefined.com/texas-data/texas-homeowners-premium-history',
+    'https://texasdefined.com/texas-data/texas-metro-payrolls-august-2026',
+    'https://texasdefined.com/texas-data/texas-metro-payrolls-june-2026',
+  ]) assert.ok(purgeWorkflow.includes('            ' + url + '\n'), 'missing precise purge target: ' + url);
+});
+
+test('full production sitemap XML validation is explicitly opt-in and preserves fail-closed evidence', () => {
+  const workflow = text('.github/workflows/deploy-production.yml');
+  const step = workflow.split('      - name: Verify both production XML sitemaps on explicit request')[1]?.split('      - name: Preserve explicit production XML sitemap audit evidence')[0];
+  assert.ok(step, 'missing single-publisher opt-in sitemap check');
+  for (const required of [
+    "github.event_name == 'push'",
+    "steps.cloudflare.outcome == 'success'",
+    "steps.live_base.outcome == 'success'",
+    "contains(github.event.head_commit.message, '[verify-sitemaps]')",
+    'set -o pipefail',
+    'timeout 240s node scripts/ci/verify-sitemap-production-integrity.mjs',
+    'tee .artifacts/production-sitemap-integrity.log',
+  ]) assert.ok(step.includes(required), 'missing sitemap verification fail-closed guard: ' + required);
+  assert.ok(workflow.includes("steps.sitemap_integrity.outcome != 'skipped'"), 'missing sitemap verification log artifact');
+  assert.ok(workflow.includes('production-sitemap-integrity-${{ github.run_id }}'), 'missing isolated sitemap verification artifact');
+});
+
+test('Magoffin restoration and actual ImageObject license survive live SSR', async () => {
   const plan = buildChangePlan({ baseline, head, changedFiles: ['src/data/magoffin-home-authority.ts'] });
   assert.deepEqual(plan.selectedPaths, ['/destination/magoffin-home']);
   assert.deepEqual(plan.magoffinHomePages, ['/destination/magoffin-home']);
-  const body = 'Historic home closed through 2027 · Magoffin Home visitor FAQ · 1117 Magoffin Avenue';
-  const html = text => '<html><head><title>Magoffin Home</title><link rel="canonical" href="https://texasdefined.com/destination/magoffin-home"></head><body>' + text + '</body></html>';
-  const success = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html(body)) });
-  assert.equal(success[0].passed, true);
-  const stale = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html('Old generic Magoffin guide')) });
-  assert.equal(stale[0].passed, false);
-  assert.match(stale[0].error, /Magoffin Home current authority SSR missing/);
-  const booking = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html(body + ' Tours and experiences near Magoffin Home State Historic Site')) });
-  assert.equal(booking[0].passed, false);
-  assert.match(booking[0].error, /generic tour booking component/);
+  const verifierEdit = buildChangePlan({ baseline, head, changedFiles: ['scripts/ci/verify-changed-production-pages.mjs'] });
+  assert.ok(verifierEdit.selectedPaths.includes('/destination/magoffin-home'),
+    'updating the live Magoffin schema verifier must execute it against the actual public page');
+  assert.deepEqual(verifierEdit.magoffinHomePages, ['/destination/magoffin-home']);
+
+  const pageUrl = 'https://texasdefined.com/destination/magoffin-home';
+  const authority = 'Historic home closed through 2027 · Magoffin Home visitor FAQ · 1117 Magoffin Avenue';
+  const image = {
+    '@type': 'ImageObject',
+    '@id': pageUrl + '#primaryimage',
+    url: 'https://upload.wikimedia.org/wikipedia/commons/a/ab/Magoffin_home_2009.jpg',
+    caption: 'Magoffin Home State Historic Site in El Paso',
+    creditText: 'Larry D. Moore · CC BY 4.0',
+    creator: { '@type': 'Person', name: 'Larry D. Moore' },
+    copyrightNotice: '© 2009 Larry D. Moore',
+    license: 'https://creativecommons.org/licenses/by/4.0/',
+    acquireLicensePage: 'https://commons.wikimedia.org/wiki/File:Magoffin_home_2009.jpg',
+  };
+  const graph = (imageNode = image, attractionId = pageUrl + '#attraction') => ({
+    '@context': 'https://schema.org',
+    '@graph': [{ '@type': 'TouristAttraction', '@id': attractionId, image: [imageNode] }],
+  });
+  const jsonLd = (schema) => '<script type="application/ld+json">' + JSON.stringify(schema) + '</script>';
+  const html = (text) => '<html><head><title>Magoffin Home</title><link rel="canonical" href="' + pageUrl + '"></head><body>' + text + '</body></html>';
+  const body = authority + ' Photography: Larry D. Moore · CC BY 4.0 ' + jsonLd(graph());
+  const check = async (bodyText) => (await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html(bodyText)) }))[0];
+  const success = await check(body);
+  assert.equal(success.passed, true, success.error);
+  const visited = [];
+  const visitorProof = await verifyChangedPages({ plan, head, fetchImpl: async (url) => {
+    visited.push(url.href);
+    return new Response(html(body));
+  } });
+  assert.equal(visitorProof[0].passed, true);
+  assert.ok(visited.some((url) => url.includes('deploy_smoke=')), 'release URL is checked');
+  assert.ok(visited.includes(pageUrl), 'ordinary canonical URL is checked');
+  const staleVisitor = await verifyChangedPages({ plan, head, fetchImpl: async (url) =>
+    new Response(html(url.searchParams.has('deploy_smoke') ? body : authority + ' Photography: Larry D. Moore · CC BY 4.0')) });
+  assert.equal(staleVisitor[0].passed, false, 'canonical page without JSON-LD fails despite good release');
+  assert.match(staleVisitor[0].error, /photograph rights missing from live structured data/);
+  const stale = await check('Old generic Magoffin guide');
+  assert.equal(stale.passed, false);
+  assert.match(stale.error, /Magoffin Home current authority SSR missing/);
+  const booking = await check(body + ' Tours and experiences near Magoffin Home State Historic Site');
+  assert.equal(booking.passed, false);
+  assert.match(booking.error, /generic tour booking component/);
+  const rightsMissing = await check(authority);
+  assert.equal(rightsMissing.passed, false);
+  assert.match(rightsMissing.error, /photograph rights missing from live structured data/);
+  const tokenOnly = await check(authority + ' acquireLicensePage copyrightNotice creator license Larry D. Moore CC BY 4.0');
+  assert.equal(tokenOnly.passed, false, 'plain-text license tokens must not pass the structured-data verifier');
+  const badLicense = await check(authority + ' Photography: Larry D. Moore · CC BY 4.0 '
+    + jsonLd(graph({ ...image, license: 'https://creativecommons.org/licenses/by-sa/4.0/' })));
+  assert.equal(badLicense.passed, false);
+  assert.match(badLicense.error, /photograph rights missing from live structured data/);
+  const unrelatedImage = await check(authority + ' Photography: Larry D. Moore · CC BY 4.0 '
+    + jsonLd(graph(image, pageUrl + '#unrelated')));
+  assert.equal(unrelatedImage.passed, false, 'rights on unrelated schema node must not pass');
+  const wrongCreator = await check(authority + ' Photography: Larry D. Moore · CC BY 4.0 '
+    + jsonLd(graph({ ...image, creator: { '@type': 'Person', name: 'Someone else' } })));
+  assert.equal(wrongCreator.passed, false);
+  const noVisibleCredit = await check(authority + jsonLd(graph()));
+  assert.equal(noVisibleCredit.passed, false);
+  assert.match(noVisibleCredit.error, /visible photographer\/license attribution/);
+  const malformed = await check(authority + ' Photography: Larry D. Moore · CC BY 4.0 '
+    + '<script type="application/ld+json">{not-valid-json}</script>');
+  assert.equal(malformed.passed, false);
 });
 test('football template changes verify only two real team pages and their live game-night paths', async () => {
   const plan = buildChangePlan({ baseline, head, changedFiles: ['src/routes/texas-high-school-football-teams_.$slug.lazy.tsx'] });
@@ -242,6 +541,14 @@ test('destination route article links never masquerade as destination pages in p
     'the published article route must still get a live production smoke check');
   assert.ok(!combined.selectedPaths.includes('/destination/chip-and-joanna-gaines-magnolia-waco'),
     'combining route and published fixture must not reintroduce the phantom destination');
+});
+
+test('standalone Article fixture smoke uses declared canonical slug instead of filename', () => {
+  const path = 'src/data/fixtures/chip-joanna-gaines-magnolia-waco.ts';
+  const after = 'export const magnoliaArticle: Article = { slug: "chip-and-joanna-gaines-magnolia-waco", title: "Magnolia", body: [] };';
+  const plan = buildChangePlan({ baseline, head, changedFiles: [path], sources: { [path]: { before: '', after } } });
+  assert.deepEqual(plan.selectedPaths, ['/article/chip-and-joanna-gaines-magnolia-waco']);
+  assert.ok(!plan.selectedPaths.includes('/destination/chip-and-joanna-gaines-magnolia-waco'));
 });
 
 test('standalone article fixture edits select the owner, not generic homepage samples', async () => {
@@ -468,7 +775,7 @@ test('Fredericksburg sitemap ownership validates a single canonical page and liv
   const detail = '<html><title>Fredericksburg</title><link rel="canonical" href="https://texasdefined.com/destination/fredericksburg"></html>';
   const checked = await verifyChangedPages({ plan, head, fetchImpl: async url =>
     url.pathname === '/sitemap-explore.xml'
-      ? new Response('<urlset><loc>https://texasdefined.com/destination/fredericksburg</loc></urlset>')
+      ? new Response('<urlset><loc>https://texasdefined.com/destination/fredericksburg</loc><loc>https://texasdefined.com/destination/magoffin-home</loc></urlset>')
       : new Response(detail) });
   assert.ok(checked.some(r => r.path === '/sitemap-explore.xml' && r.passed));
   const broken = await verifyChangedPages({ plan, head, fetchImpl: async url =>
@@ -476,4 +783,9 @@ test('Fredericksburg sitemap ownership validates a single canonical page and liv
       ? new Response('<urlset><loc>https://texasdefined.com/destination/another-town</loc></urlset>')
       : new Response(detail) });
   assert.ok(broken.some(r => r.path === '/sitemap-explore.xml' && !r.passed && /Fredericksburg missing/.test(r.error)));
+  const missingMagoffin = await verifyChangedPages({ plan, head, fetchImpl: async url =>
+    url.pathname === '/sitemap-explore.xml'
+      ? new Response('<urlset><loc>https://texasdefined.com/destination/fredericksburg</loc></urlset>')
+      : new Response(detail) });
+  assert.ok(missingMagoffin.some(r => r.path === '/sitemap-explore.xml' && !r.passed && /Magoffin Home missing/.test(r.error)));
 });
