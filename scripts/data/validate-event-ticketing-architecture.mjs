@@ -68,6 +68,16 @@ for (const token of ["Calendar workstream", "Venue-page workstream", "Do not rea
 // link to live seats, transaction success or event-specific commission proof.
 const ticketEvidenceLedger = JSON.parse(read("ops/editorial/event-ticketing-verification-ledger.json"));
 if (ticketEvidenceLedger.events.length !== 12) failures.push("Christmas verification ledger must preserve all 12 curated performances");
+for (const id of ["king-country-fort-worth-2026", "pentatonix-fort-worth-2026"]) {
+  const reviewed = ticketEvidenceLedger.events.find((entry) => entry.id === id);
+  if (reviewed?.venue !== "Ariat Arena"
+    || reviewed?.factVerification?.dateTimeVenue?.venue !== "Ariat Arena"
+    || reviewed?.factVerification?.dateTimeVenue?.formerName !== "Dickies Arena"
+    || reviewed?.factVerification?.dateTimeVenue?.venueRenameEffective !== "2026-10-26"
+    || !reviewed?.factVerification?.dateTimeVenue?.venueNamingSourceUrl?.startsWith("https://www.globenewswire.com/")) {
+    failures.push("Fort Worth arena rename evidence must align with current curated admission venue: " + id);
+  }
+}
 const seenCurated = new Set();
 for (const event of ticketEvidenceLedger.events) {
   if (seenCurated.has(event.id)) failures.push("Christmas verification ledger duplicate event ID: " + event.id);
@@ -83,6 +93,61 @@ for (const event of ticketEvidenceLedger.events) {
       || String(evidence?.finding || "").length < 30
       || !String(evidence?.verificationScope || "").includes("not seat inventory")) {
       failures.push("Published sale status lacks explicit bounded primary-source evidence: " + event.id);
+    }
+  }
+  // Each reported fact has independent evidence and scope; a verified calendar
+  // listing or program approval must never upgrade seats, checkout totals or
+  // per-event commission eligibility.
+  const facts = event.factVerification;
+  if (!facts) failures.push("Christmas fact verification fields missing: " + event.id);
+  else {
+    for (const key of ["eventIdentity","dateTimeVenue","ticketUrl","productionCalendar",
+      "sourcePublishedSale","seatInventory","checkoutFinalPrice","affiliateProgramApproval",
+      "eventSpecificCommissionEligibility"]) {
+      if (!facts[key]?.status) failures.push("Missing independent ticket fact: " + event.id + "." + key);
+    }
+    if (facts.eventIdentity?.status !== "SOURCE_VERIFIED"
+      || facts.eventIdentity?.sourceUrl !== event.eventSourceVerifiedUrl
+      || facts.eventIdentity?.checkedAt !== event.eventSourceVerifiedAt) {
+      failures.push("Identity verification lacks matching primary source evidence: " + event.id);
+    }
+    if (facts.dateTimeVenue?.status !== "SOURCE_VERIFIED"
+      || facts.dateTimeVenue?.performanceDate !== event.date
+      || facts.dateTimeVenue?.performanceTime !== event.showtime
+      || facts.dateTimeVenue?.city !== event.city
+      || facts.dateTimeVenue?.venue !== event.venue) {
+      failures.push("Date, time or venue fact differs from separately sourced record: " + event.id);
+    }
+    if (facts.ticketUrl?.sourceUrl !== (event.checkoutUrl ?? event.eventSourceVerifiedUrl)
+      || facts.ticketUrl?.sourceEvidence !== event.purchaseDestinationEvidence) {
+      failures.push("Ticket URL fact does not match primary-source/checkout evidence: " + event.id);
+    }
+    if (facts.productionCalendar?.status !== "LIVE_ACCEPTANCE_VERIFIED_AT_CHECKPOINT"
+      || facts.productionCalendar?.workflowRunId !== ticketEvidenceLedger.productionAcceptance.workflowRunId
+      || facts.productionCalendar?.checkedAt !== event.productionVerifiedAt) {
+      failures.push("Production acceptance fact mismatches historical workflow: " + event.id);
+    }
+    if (facts.sourcePublishedSale?.status !== event.publicSaleStatus
+      || facts.sourcePublishedSale?.checkedAt !== event.publicSaleEvidence?.checkedAt
+      || facts.sourcePublishedSale?.sourceUrl !== event.publicSaleEvidence?.sourceUrl) {
+      failures.push("Published sale fact is not backed by separate dated venue evidence: " + event.id);
+    }
+    if (facts.seatInventory?.status !== "NOT_VERIFIED"
+      || facts.checkoutFinalPrice?.status !== "NOT_VERIFIED"
+      || facts.eventSpecificCommissionEligibility?.status !== "NOT_VERIFIED") {
+      failures.push("Restricted seat, final checkout price or event commission fact overclaimed: " + event.id);
+    }
+    if (facts.affiliateProgramApproval?.status !== "TICKETMASTER_IMPACT_PROGRAM_LEVEL_ONLY"
+      || !String(facts.affiliateProgramApproval.scope).includes("does not guarantee any individual event")) {
+      failures.push("Affiliate program approval must not imply provider-wide/event eligibility: " + event.id);
+    }
+    if (facts.lastCheckedAt !== event.checkedAt
+      || facts.evidenceSource !== event.eventSourceVerifiedUrl
+      || facts.pullRequestEvidence !== event.pr
+      || facts.productionDeploymentEvidence?.workflowRunId !== ticketEvidenceLedger.productionAcceptance.workflowRunId
+      || facts.productionDeploymentEvidence?.deploymentId !== ticketEvidenceLedger.productionAcceptance.cloudflareDeploymentId
+      || facts.productionDeploymentEvidence?.workerVersionId !== ticketEvidenceLedger.productionAcceptance.cloudflareVersionId) {
+      failures.push("Independent ticket verification timestamps / PR / deployment evidence drift: " + event.id);
     }
   }
   if (event.inventoryStatus === "VERIFIED" && !event.inventoryEvidence) failures.push("Seat inventory cannot be verified without evidence: " + event.id);
