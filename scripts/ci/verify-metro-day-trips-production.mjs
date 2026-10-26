@@ -5,15 +5,15 @@ import assert from "node:assert/strict";
 import { createRequire } from "node:module";
 import { mkdir, writeFile } from "node:fs/promises";
 
-const metros = ["houston", "san-antonio", "austin", "corpus-christi", "dallas", "fort-worth", "waco", "beaumont-port-arthur", "college-station", "tyler"];
-const approvedViator = new Set(["houston", "san-antonio", "austin", "corpus-christi", "dallas", "fort-worth", "waco"]);
+const metros = ["houston", "san-antonio", "austin", "corpus-christi", "dallas", "fort-worth", "waco", "beaumont-port-arthur", "college-station", "tyler", "amarillo", "lubbock", "midland-odessa", "el-paso"];
+const approvedViator = new Set(["houston", "san-antonio", "austin", "corpus-christi", "dallas", "fort-worth", "waco", "amarillo", "el-paso"]);
 const viewports = [{ name:"desktop", width:1365, height:900, isMobile:false }, { name:"mobile", width:390, height:844, isMobile:true }];
 const directory = "artifacts/metro-day-trips-production";
 if (process.argv.includes("--self-test")) {
-  assert.equal(new Set(metros).size, 10);
+  assert.equal(new Set(metros).size, 14);
   assert.equal(viewports.length, 2);
   assert.ok(approvedViator.size < metros.length);
-  console.log("Metro day trips ten-market browser contract passed");
+  console.log("Metro day trips fourteen-market browser contract passed");
   process.exit(0);
 }
 const require = createRequire(import.meta.url);
