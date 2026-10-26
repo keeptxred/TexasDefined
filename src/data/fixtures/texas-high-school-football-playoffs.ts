@@ -19,7 +19,7 @@ export const texasHighSchoolFootballPlayoffsArticle: Article = {
   },
   authorId: "a-marisol",
   publishedAt: "2026-09-19",
-  updatedAt: "2026-10-20",
+  updatedAt: "2026-10-25",
   readingMinutes: 4,
   tags: [
     "texas high school football playoffs",
@@ -59,6 +59,21 @@ export const texasHighSchoolFootballPlayoffsArticle: Article = {
       href: "/texas-high-school-football-teams",
       label: "Find a Texas high school football team",
       description: "Search current UIL programs by school, ISD, city or county and see classification, district and recent state-final history.",
+    },
+    {
+      href: "/texas-high-school-football-districts",
+      label: "Browse all 192 Texas UIL football districts",
+      description: "Start with the current 2026–28 district alignment and follow each district's sourced schedule, teams and playoff qualification context.",
+    },
+    {
+      href: "/texas-high-school-football-championship-history",
+      label: "Texas UIL football state championship history",
+      description: "Check historical state-title and state-final appearances from official UIL archives, linked to current football programs.",
+    },
+    {
+      href: "/sports/friday-night-lights",
+      label: "Friday Night Lights: Texas football guide",
+      description: "Navigate stadium traditions, school-team guides, rules, homecoming and Friday-night planning.",
     },
     {
       href: "/article/texas-high-school-football-2026-season-calendar",
