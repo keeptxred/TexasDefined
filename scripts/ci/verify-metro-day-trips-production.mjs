@@ -59,6 +59,19 @@ try {
       const indexReady=!/noindex/i.test(data.robots);
       record.status=indexReady?"indexable":"quality-gated";
       check("canonical URL",data.canonical==="https://texasdefined.com"+pathname,data.canonical);
+      if(metro==="el-paso"){
+        const local=await page.evaluate(()=>({
+          guides:[...document.querySelectorAll('[data-el-paso-short-trips] a[href^="/destination/"]')].map(a=>a.getAttribute("href")),
+          sources:[...document.querySelectorAll('[data-el-paso-short-trips] a[href^="https://"]')].map(a=>a.getAttribute("href"))
+        }));
+        check("El Paso close-in outings are distinct from governed distance inventory",
+          local.guides.length===2
+          && local.guides.includes("/destination/franklin-mountains-state-park")
+          && local.guides.includes("/destination/chamizal-national-memorial")
+          && local.sources.includes("https://tpwd.texas.gov/state-parks/parks/franklin-mountains/")
+          && local.sources.includes("https://www.nps.gov/cham/planyourvisit/hours.htm"),
+          JSON.stringify(local));
+      }
       check("correct city heading",data.h1.toLowerCase().includes(metro.split("-")[0]),data.h1);
       check("unique curated destination IDs",new Set(data.slugs).size===data.slugs.length,data.slugs.join(","));
       check("curated destinations have guides and directions",data.allLinked,data.slugs.length);
