@@ -1,5 +1,15 @@
 # Football Authority — Execution Ledger
 
+## October 26, 2026 — Batch 009 started; initial five IMPLEMENTED on branch, not production VERIFIED
+
+- Strict Batch 008 production browser verification on October 26 remains the latest completed acceptance: **180 VERIFIED** across 1,292 schools. Its 25 fully verified schools were not reassigned.
+- The registry has reserved the next 25 canonical schools as Batch 009. Five have original, source-backed separate school editorial overlays, current 2026 qualification and individual research dossiers: Canyon West Plains, Carrizo Springs, Carrollton Creekview, Carrollton Ranchview and Carrollton Smith. Their source-specific coaching, campus, stadium, history and season caveats are preserved.
+- Conditional Batch 009 SSR import follows the Batch 008 isolation pattern. Unrelated football team pages should not eagerly load all dossiers; the prior shared-profile SSR 500 issue is not duplicated.
+- **Current branch only:** 180 prior VERIFIED, 5 Batch 009 IMPLEMENTED, 1,107 NOT_REVIEWED (including 20 reserved Batch 009). The five remain NOT VERIFIED, with no claim of merged, deployed or checked Chrome evidence.
+- Remaining assigned Batch 009 schools begin with **Carrollton Turner**, then Carthage, Castle Hills, Castroville Medina Valley and Cayuga. Do not assign Batch 010.
+- Run protected CI, verify live responsive school URLs, reciprocal county/UIL, canonical/schema/sitemap, source material and cache/version identity after a successful production deploy. Never promote a school merely because PR exists.
+- No school-controlled tickets are falsely sold by TexasDefined; no unlicensed school imagery, result forecasts, fabricated standings or venue/accessibility guarantees.
+
 ## October 25, 2026 — Batch 008 release reconciliation and live blocker (newest checkpoint)
 
 - **Batch 008 implementation was protected-merged** as [PR #5899](https://github.com/keeptxred/TexasDefined/pull/5899), commit `4245906ea485a09095ea3684878bde0ea64abc14`. All 25 individually researched school profiles are in `main`. This supersedes the initial premerge wording below **for source control state only**.
