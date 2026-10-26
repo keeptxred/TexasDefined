@@ -165,7 +165,7 @@ function MardiGrasTexasPage() {
         <p className="mt-10 text-sm font-semibold">Texas events • Carnival season 2027</p>
         <h1 className="mt-4 max-w-4xl font-display text-5xl sm:text-6xl">Mardi Gras in Texas</h1>
         <p className="mt-5 max-w-3xl text-xl leading-8">From Galveston's landmark parades to East Texas krewes, a Cowboy Capital street party and bayside boat parades, find the Texas Mardi Gras celebration worth the trip.</p>
-        <p className="mt-5 max-w-3xl text-sm leading-7">Main celebrations source-checked October 21, 2026; companion events reviewed October 25, 2026. Mardi Gras falls on Tuesday, February 9, 2027. Events don't all run on Fat Tuesday — always choose a specific programmed day.</p>
+        <p className="mt-5 max-w-3xl text-sm leading-7">Eight individually guided celebrations source-checked October 21, 2026; newer city festivals and companion events reviewed October 25, 2026. Mardi Gras falls on Tuesday, February 9, 2027. Events don't all run on Fat Tuesday — always choose a specific programmed day.</p>
         <div className="mt-8 flex flex-wrap gap-3">
           <a href="#confirmed" className="inline-flex min-h-11 items-center bg-primary px-5 py-3 font-semibold text-primary-foreground hover:opacity-90">Explore verified dates ↓</a>
           <a href="#planning" className="inline-flex min-h-11 items-center border border-border px-5 py-3 font-semibold">Plan your Mardi Gras trip ↓</a>
@@ -204,6 +204,35 @@ function MardiGrasTexasPage() {
         <p className="mt-5 text-sm leading-7 text-muted-foreground">* Bandera tourism's detailed event page spans January 28–31, while its general save-the-date page lists January 28–30. The January 30 parade is confirmed but the Sunday program needs rechecking. Kemah's February 6 boat parade and February 9 street parade are separate events.</p>
       </section>
 
+      <section id="more-parades" className="mt-14 border-t border-border pt-10">
+        <p className="eyebrow text-primary">Three additional city celebrations · source checked October 25, 2026</p>
+        <h2 className="mt-3 font-display text-4xl">More officially dated Texas Mardi Gras parades in 2027</h2>
+        <p className="mt-4 max-w-4xl leading-7 text-muted-foreground">These newly identified town parades and Carnival celebrations have published 2027 dates, but do not yet have individual image-licensed TexasDefined authority guides. Browse their actual organizer schedules here and use the statewide events calendar for the exact date. Do not mistake a related fundraiser or ticket offer for admission to every street parade.</p>
+        <div className="mt-7 grid gap-6 md:grid-cols-3">
+          <article className="border border-border p-6">
+            <p className="text-xs font-semibold text-muted-foreground">Bastrop · Saturday, January 23, 2027</p>
+            <h3 className="mt-2 font-display text-2xl">Bastrop Mardi Gras Festival &amp; Lighted Parade</h3>
+            <p className="mt-3 leading-7 text-muted-foreground">Discover Bastrop confirms a full day of live music, vendors, a gumbo cookoff, and a <strong>6 p.m.</strong> lighted parade downtown. The parade starts near Bastrop High School, runs west on Cedar Street, south on Main Street, and ends at Emile Street. Its Mayor's Ball is a <strong>separate January 22</strong> ticketed evening.</p>
+            <a href="https://www.discoverbastroptx.org/events/bastrop-mardi-gras-festival/" className="mt-4 inline-flex font-semibold text-primary underline" target="_blank" rel="noopener noreferrer">Discover Bastrop 2027 program ↗</a>
+            <p className="mt-3 text-sm"><a href="/events?start=2027-01-23&amp;end=2027-01-23#calendar" className="font-semibold text-primary underline">View January 23 in the calendar →</a></p>
+          </article>
+          <article className="border border-border p-6">
+            <p className="text-xs font-semibold text-muted-foreground">Houston · Saturday, January 23, 2027</p>
+            <h3 className="mt-2 font-display text-2xl">Krewe of Porus — Third Ward Inaugural Parade</h3>
+            <p className="mt-3 leading-7 text-muted-foreground">The organizer's inaugural Roots to Royalty procession starts <strong>at noon</strong> at Gray Street and Emancipation Avenue, continuing along Emancipation to Elgin Street. The advertised noon–4 p.m. event window is not a complete road-closure map; verify the route before driving. This is an organizer-listed Houston parade, not part of the Galveston festival.</p>
+            <a href="https://www.eventbrite.com/e/krewe-of-porus-2027-mardi-gras-inaugural-parade-tickets-2003479958488" className="mt-4 inline-flex font-semibold text-primary underline" target="_blank" rel="noopener noreferrer">Krewe's January 23 listing ↗</a>
+            <p className="mt-3 text-sm"><a href="/events?start=2027-01-23&amp;end=2027-01-23#calendar" className="font-semibold text-primary underline">See Houston parade in the calendar →</a></p>
+          </article>
+          <article className="border border-border p-6">
+            <p className="text-xs font-semibold text-muted-foreground">Granbury · February 5–7, 2027</p>
+            <h3 className="mt-2 font-display text-2xl">Inaugural Granbury Carnival</h3>
+            <p className="mt-3 leading-7 text-muted-foreground">Visit Granbury confirms a new Mardi Gras-style Carnival on Historic Granbury Square and Langdon Grounds, with a parade, local arts, entertainers and family activities. Individual parade start time, route, and separate Krewe Debut Ball date are <strong>not yet specified</strong>; don't plan around guessed hours.</p>
+            <a href="https://www.visitgranbury.com/event/granbury-carnival/22819/" className="mt-4 inline-flex font-semibold text-primary underline" target="_blank" rel="noopener noreferrer">Visit Granbury official event ↗</a>
+            <p className="mt-3 text-sm"><a href="/events?start=2027-02-05&amp;end=2027-02-07#calendar" className="font-semibold text-primary underline">See February 5–7 in the calendar →</a></p>
+          </article>
+        </div>
+      </section>
+
       <section aria-labelledby="capital-heading" className="mt-14 border-t border-border pt-10">
         <h2 id="capital-heading" className="font-display text-3xl">Why is Galveston the Mardi Gras Capital of Texas?</h2>
         <p className="mt-4 max-w-4xl leading-7 text-muted-foreground">In 2025, the 89th Texas Legislature designated Galveston as the state's official Mardi Gras Capital through H.C.R. 50. The resolution traces celebrations back to 1867 and credits the revival of citywide Mardi Gras festivities in 1985. It is a legislative place designation, not an assertion that the other Texas Carnival events on this page are affiliated with Galveston.</p>
@@ -215,6 +244,13 @@ function MardiGrasTexasPage() {
         <h2 className="mt-3 font-display text-4xl">More verified Mardi Gras companion events in Texas for 2027</h2>
         <p className="mt-4 max-w-4xl leading-7 text-muted-foreground">These are distinct Carnival-season activities confirmed by their own organizers or local event publishers. They are <strong>not</strong> additional days of the parades above, and admission or fundraising rules vary. Published event information was checked October 25, 2026.</p>
         <div className="mt-7 grid gap-5 md:grid-cols-2">
+          <article className="border border-border p-6">
+            <p className="text-xs font-semibold text-muted-foreground">Bastrop · Friday, January 22 · 7–11 p.m.</p>
+            <h3 className="mt-2 font-display text-2xl">Bastrop Mayor's Mardi Gras Ball</h3>
+            <p className="mt-3 leading-7 text-muted-foreground">Discover Bastrop confirms a separate indoor fundraising ball at the Bastrop Convention &amp; Exhibit Center. Doors open at 6:30 p.m.; festivities run from 7 to 11 p.m. Organizer-posted tickets are not interchangeable with Saturday's street parade, and reservation availability needs confirmation.</p>
+            <a href="https://www.discoverbastroptx.org/events/bastrop-mardi-gras-festival/" target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex font-semibold text-primary underline">Mayor's Ball official announcement ↗</a>
+            <p className="mt-3 text-sm"><a href="/events?start=2027-01-22&amp;end=2027-01-22#calendar" className="font-semibold text-primary underline">See January 22 in the calendar →</a></p>
+          </article>
           <article className="border border-border p-6">
             <p className="text-xs font-semibold text-muted-foreground">Crystal Beach · Saturday, January 16 · time to reconfirm</p>
             <h3 className="mt-2 font-display text-2xl">Chicken Run &amp; Gumbo Cook-off</h3>
