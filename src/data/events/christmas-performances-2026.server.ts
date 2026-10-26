@@ -160,6 +160,26 @@ const ticketmasterListedStartTimes: Readonly<Record<string, string>> = {
   "grand-ol-christmas-dallas-2026": "17:00",
 };
 
+/**
+ * Use this ONLY after matching the exact curated date, city, venue and title.
+ * The one reviewed Dallas show has a 6 PM curtain but a 5 PM Ticketmaster
+ * doors/listing time. One provider occurrence is required so this exception
+ * cannot combine an afternoon and evening show or attach arbitrary tickets.
+ */
+export function isReviewedChristmasTicketmasterDoorTime(
+  curated: Pick<TexasEventRecord, "slug" | "startDate" | "startTime">,
+  provider: Pick<TexasEventRecord, "startDate" | "startTime">,
+  sameVenueProviderPerformances: number,
+): boolean {
+  return curated.slug === "grand-ol-christmas-dallas-2026"
+    && curated.startDate === "2026-12-23"
+    && provider.startDate === curated.startDate
+    && curated.startTime === "18:00"
+    && provider.startTime === ticketmasterListedStartTimes[curated.slug]
+    && sameVenueProviderPerformances === 1;
+}
+
+
 export function matchChristmasTicketmasterPerformance(
   show: Pick<ChristmasPerformance, "id" | "date" | "city" | "venue" | "ticketmasterNeedle">,
   providerEvents: readonly TexasEventRecord[],

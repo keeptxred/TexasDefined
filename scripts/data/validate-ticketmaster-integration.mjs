@@ -5,7 +5,7 @@ try {
   const { loadTicketmasterEventsServer, ticketmasterAuthorityGuidePath } = await server.ssrLoadModule('/src/data/events/ticketmaster-events.server.ts');
   const { mergeEventTicketing } = await server.ssrLoadModule('/src/data/events/ticketing.ts');
   const { ticketmasterVenueMatches, ticketmasterShowtimeMatches, ticketmasterIsPrimaryAdmissionTitle } = await server.ssrLoadModule('/src/data/events/ticketmaster-event-match.ts');
-  const { matchChristmasTicketmasterPerformance } = await server.ssrLoadModule('/src/data/events/christmas-performances-2026.server.ts');
+  const { matchChristmasTicketmasterPerformance, isReviewedChristmasTicketmasterDoorTime } = await server.ssrLoadModule('/src/data/events/christmas-performances-2026.server.ts');
   const { hasCompliantMajorEventImageServer } = await server.ssrLoadModule('/src/data/major-event-schema-enrichment.server.ts');
   const { buildTexasEventCarouselItemsServer, buildGlobalEventCalendarServer } = await server.ssrLoadModule('/src/data/events/texas-event-calendar.server.ts');
   const now = new Date();
@@ -206,6 +206,21 @@ try {
   assert.equal(matchChristmasTicketmasterPerformance(grandOlShow,
     [{ ...grandOlProvider, startTime: '18:00:00' }], '2026-10-25'), undefined,
     'do not generalize the Dallas doors exception to unrelated ticket times');
+
+  const reviewedDallas = { slug: 'grand-ol-christmas-dallas-2026', startDate: '2026-12-23', startTime: '18:00' };
+  const listedDallas = { startDate: '2026-12-23', startTime: '17:00' };
+  assert.equal(isReviewedChristmasTicketmasterDoorTime(reviewedDallas, listedDallas, 1), true,
+    'reviewed Dallas 5pm doors listing may merge with the sole 6pm concert without changing its published showtime');
+  assert.equal(isReviewedChristmasTicketmasterDoorTime(reviewedDallas, listedDallas, 2), false,
+    'never merge a doors-time mismatch when the venue has multiple provider occurrences');
+  assert.equal(isReviewedChristmasTicketmasterDoorTime(reviewedDallas, { ...listedDallas, startTime: '15:00' }, 1), false,
+    'do not generalize the reviewed exception into a two-hour window');
+  assert.equal(isReviewedChristmasTicketmasterDoorTime({ ...reviewedDallas, slug: 'grand-ol-christmas-houston-2026' }, listedDallas, 1), false,
+    'a Dallas-specific exception must not leak to Houston');
+  assert.equal(isReviewedChristmasTicketmasterDoorTime({ ...reviewedDallas, startDate: '2026-12-22' }, listedDallas, 1), false,
+    'the verified date is part of the ticket identity');
+  assert.equal(isReviewedChristmasTicketmasterDoorTime({ ...reviewedDallas, startTime: '17:00' }, listedDallas, 1), false,
+    'the editorial curtain time must remain verified as 6pm');
 
   const editorialTicketing = {
     links: [{
