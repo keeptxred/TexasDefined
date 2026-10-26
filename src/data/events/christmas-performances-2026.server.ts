@@ -20,6 +20,8 @@ interface ChristmasPerformance {
   city: string;
   venue: string;
   sourceUrl: string;
+  /** Exact featured-date primary checkout; other dates use the venue schedule. */
+  featuredTicketUrl?: string;
   sourceName: string;
   description: string;
   ticketmasterNeedle?: string;
@@ -55,6 +57,7 @@ const verified: readonly ChristmasPerformance[] = [
     date: "2026-12-13", endDate: "2026-12-20", timeLabel: "2:00 PM · additional dates Dec. 4–20",
     city: "Conroe", venue: "Crighton Theatre",
     sourceUrl: "https://www.etix.com/ticket/v/32639/crighton-theatre",
+    featuredTicketUrl: "https://www.etix.com/ticket/p/62230269/a-christmas-story-conroe-crighton-theatre",
     sourceName: "Crighton Theatre linked ticketing (Etix)", ticketmasterNeedle: "a christmas story",
     description: "Stage adaptation of the Ralphie Parker story; other performances are available in the run.",
   },
@@ -196,7 +199,8 @@ export function getChristmasPerformances2026Server(now = new Date()) {
       dateLabel: featuredDatePassed ? `Additional shows through ${formattedDate}` : formattedDate,
       timeLabel: featuredDatePassed ? "Choose a remaining performance from the organizer's live schedule" : show.timeLabel,
       ticket: ticketCta ?? {
-        href: show.sourceUrl, label: "Official event details →",
+        href: !featuredDatePassed && show.featuredTicketUrl ? show.featuredTicketUrl : show.sourceUrl,
+        label: !featuredDatePassed && show.featuredTicketUrl ? "Official Tickets →" : "Official event details →",
         rel: "noopener noreferrer", isAffiliate: false,
         disclosure: undefined,
       },
@@ -252,10 +256,10 @@ export function getVerifiedChristmasPerformanceCalendarRecords2026(): TexasEvent
       officialEventUrl: show.sourceUrl,
       ticketing: {
         links: [{
-          provider: providerForVerifiedTicketUrl(show.sourceUrl) ?? "official",
-          officialTicketUrl: show.sourceUrl,
+          provider: providerForVerifiedTicketUrl(show.featuredTicketUrl ?? show.sourceUrl) ?? "official",
+          officialTicketUrl: show.featuredTicketUrl ?? show.sourceUrl,
           saleStatus: "unknown", // An active event URL does not prove seats remain.
-          source: { kind: "official-event", name: show.sourceName, url: show.sourceUrl },
+          source: { kind: "official-event", name: show.sourceName, url: show.featuredTicketUrl ?? show.sourceUrl },
           lastVerifiedAt: sourceDate,
         }],
         offers: [],
