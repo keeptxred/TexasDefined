@@ -98,8 +98,8 @@ export function activeOfficialFallPicks(now = new Date(), generatedRows: readonl
     // Do not allow unreviewed event rows, malformed dates, completed years or
     // unexpectedly long spans to enter this seasonal discovery collection.
     if (!source || row.status !== "published" || !row.sourceCheckedAt
-      || !/^20\\d{2}-(0[1-9]|1[0-2])-([0-2]\\d|3[01])$/.test(row.startDate)
-      || !/^20\\d{2}-(0[1-9]|1[0-2])-([0-2]\\d|3[01])$/.test(endDate)
+      || !/^20\d{2}-(0[1-9]|1[0-2])-([0-2]\d|3[01])$/.test(row.startDate)
+      || !/^20\d{2}-(0[1-9]|1[0-2])-([0-2]\d|3[01])$/.test(endDate)
       || endDate < row.startDate || endDate > seasonEnd
       || row.startDate < seasonStart) continue;
     const key = `${row.name}:${row.startDate.slice(0, 4)}`;
