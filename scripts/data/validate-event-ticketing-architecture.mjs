@@ -19,6 +19,8 @@ const carousel = read("src/components/editorial/TexasEventCarousel.tsx");
 const landing = read("src/components/events/EventsLandingPage.tsx");
 const majorEventPage = read("src/data/major-event-page.server.ts");
 const docs = read("docs/event-ticketing-provider-architecture.md");
+const affiliateClick = read("src/lib/affiliate-click.ts");
+requireText(affiliateClick, "affiliate_event_id: eventId", "event-specific affiliate click attribution");
 
 for (const provider of ["official", "ticketmaster", "ticketweb", "live-nation", "etix", "axs", "eventbrite", "seatgeek", "vivid-seats", "other"]) requireText(contract, `\"${provider}\"`, "provider contract");
 for (const field of ["provider: TexasEventTicketProvider", "officialTicketUrl?: string", "affiliateUrl?: string", "saleStatus: TexasEventTicketSaleStatus", "source: TexasEventTicketSource", "lastVerifiedAt: string", "officialExpiresAt?: string", "affiliateExpiresAt?: string"]) requireText(contract, field, "ticket-link contract");
@@ -48,11 +50,12 @@ for (const token of [
   'data-affiliate-placement={partner ? placement : undefined}',
   'data-commercial-partner={partner}',
   'data-commercial-placement={partner ? placement : undefined}',
-  'trackAffiliateClick({ partner, label: cta.label, placement, module: "event-ticketing" })',
+  'trackAffiliateClick({ partner, label: cta.label, placement, module: "event-ticketing", eventId })',
+  'data-affiliate-event-id={partner ? eventId : undefined}',
 ]) requireText(component, token, "ticket CTA component");
 if (component.includes('data-commercial-partner={cta.provider}')) failures.push("official ticket CTAs must not be marked commercial; metadata must remain affiliate-gated");
-for (const token of ["EventTicketCta", "event.ticketCta", "Official event site"]) requireText(carousel, token, "carousel integration");
-for (const token of ["EventTicketCta", "event.ticketCta", "Official event site"]) requireText(landing, token, "calendar integration");
+for (const token of ["EventTicketCta", "event.ticketCta", "eventId={event.id}", "Official event site"]) requireText(carousel, token, "carousel integration");
+for (const token of ["EventTicketCta", "event.ticketCta", "eventId={event.id}", "Official event site"]) requireText(landing, token, "calendar integration");
 for (const token of ["loadTicketmasterEventsServer", "resolveEventTicketCta", "buildMajorEventTicketingMarkupServer", "actionable.length === 1", "actionable.length > 1", "major-event-guide-ticket", "Compare ticketed sessions →", "data-affiliate-partner", "cta.rel"]) requireText(majorEventPage, token, "major-event guide ticket integration");
 for (const token of ["Calendar workstream", "Venue-page workstream", "Do not read raw ticketing.links in presentation components", "getSportsVenueUpcomingEvents", "buildTexasEventCarouselItemsServer", "Ticketmaster", "SeatGeek", "Vivid Seats", "No checkout", "environment/secrets manager", "deduplicated by destination URL", "validate-event-ticket-positive-path.mjs", "verify-event-ticketing-production.mjs"]) requireText(docs, token, "integration documentation");
 
