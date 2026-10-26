@@ -194,7 +194,7 @@ function FallFestivalBrowser({ page }: { page: any }) {
     {page.fallOfficialPicks?.length ? <aside className="mt-8 border border-border bg-surface p-5 sm:p-7" aria-label="More source-confirmed fall festival dates">
       <p className="eyebrow text-primary">Additional official-source calendars</p>
       <h3 className="mt-2 font-display text-2xl">Pumpkin patches and fall outings still on the calendar</h3>
-      <p className="mt-2 text-sm leading-6 text-muted-foreground">These organizers have published 2026 schedules. Listings disappear after their final date; links go directly to the organizer rather than being counted as TexasDefined permanent guides or affiliate ticket offers.</p>
+      <p className="mt-2 text-sm leading-6 text-muted-foreground">These organizers have published dates for the editions shown. The daily official-source sync can add new confirmed seasons, while each listing disappears after its final date. Links go directly to organizers rather than to affiliate ticket offers.</p>
       <div className="mt-5 grid gap-4 md:grid-cols-3">
         {page.fallOfficialPicks.map((event: any) => <article key={event.name} className="border-t border-border pt-4">
           <p className="text-xs font-semibold uppercase tracking-wide text-primary">{holidayDateLabel(event.startDate, event.endDate)}</p>
