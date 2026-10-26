@@ -20,7 +20,6 @@ import { articleInternalLinks } from "@/data/article-internal-links";
 import { riverAuthorityLinksForArticleMetadata } from "@/data/river-authority-relations";
 import { isDestinationPhotoPlaceholder } from "@/data/explore-hero-reconciliation";
 import { shouldNoindexTexasGatewayArticle } from "@/data/fixtures/texas-gateway-index-readiness";
-import { imageRightsFor } from "@/data/image-rights";
 import { articleQuery, articlesQuery, authorsQuery, categoriesQuery } from "@/data/queries";
 import { getDestinationsBySlugs } from "@/data/destination-collections.functions";
 import { loadTexasKnowledgeGraph } from "@/data/knowledge-graph";
@@ -235,16 +234,17 @@ export const Route = createFileRoute("/article/$slug")({
       loadTexasKnowledgeGraph(),
     ]);
     const graph = articleAutoLinkGraph(article, completeGraph);
-    return { article, authors, categories, related, destinations, graph };
+    const imageRights = /29567585500|Daingerfield_sp_reflection|guadalupe-river-state-park[.]jpg/.test(article.hero.src)
+      ? (await import("@/data/image-rights")).imageRightsFor(article.hero.src) : null;
+    return { article, authors, categories, related, destinations, graph, imageRights };
   },
   head: ({ loaderData, params }) => {
     if (!loaderData) return { meta: [{ title: "Unavailable" }, { name: "robots", content: "noindex, nofollow" }] };
-    const { article, authors, categories, destinations, graph } = loaderData;
+    const { article, authors, categories, destinations, graph, imageRights } = loaderData;
     const primarySource = articlePrimarySource(article);
     const canonicalPath = `/article/${params.slug}`;
     const articleUrl = `${siteUrl}${canonicalPath}`;
     const imageUrl = absoluteUrl(texasDefinedBrand, article.hero.src);
-    const imageRights = imageRightsFor(article.hero.src);
     const author = authors.find((item) => item.id === article.authorId);
     const authorUrl = author ? `${siteUrl}/authors/${author.id}` : null;
     const authorId = authorUrl ? `${authorUrl}#desk` : `${siteUrl}/#organization`;
@@ -403,7 +403,7 @@ export const Route = createFileRoute("/article/$slug")({
 });
 
 function ArticlePage() {
-  const { article, graph, categories, destinations, authors, related } = Route.useLoaderData();
+  const { article, graph, categories, destinations, authors, related, imageRights } = Route.useLoaderData();
   // BB-35's long lazy article hydrates after the root shell. Third-party
   // lodging integrations must not mutate this React-owned subtree until mount.
   useEffect(() => {
@@ -449,7 +449,7 @@ function ArticlePage() {
   const hasSchoolSupplyRail = schoolSupplyArticleSlugs.has(article.slug);
   const isTexasRiversArticle = article.slug === "texas-rivers-explained";
   const isCaminoRealArticle = article.slug === "el-camino-real-de-tierra-adentro-national-historic-trail";
-  const foliageHeroRights = imageRightsFor(article.hero.src);
+  const foliageHeroRights = imageRights;
   const hideGenericRelatedRail = article.slug === "hill-country-fall-colors" || article.slug === "east-texas-fall-colors" || article.slug === "texas-ecoregions-habitats-guide" || article.slug === "texas-high-school-football-playoffs-explained";
   const articleDisplayTitle = isTexasRiversArticle ? "Texas Rivers Explained" : article.title;
   const isSixManFootballArticle = article.slug === "texas-six-man-football-rules-explained";
