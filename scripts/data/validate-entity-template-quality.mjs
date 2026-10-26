@@ -322,6 +322,14 @@ if (entityDepth.includes('Verify the district and campus from an exact address')
   errors.push('City relocation cards must not claim district-map tools certify campus attendance zones.');
 }
 
+// Reader-facing entity and refuge descriptions must serve visitors, never
+// expose TexasDefined editorial/indexing workflows as if they are guidance.
+const wildlifeGuide = read('src/routes/explore.wildlife.lazy.tsx');
+if (entityDepth.includes('is included in TexasDefined as a practical public-service reference')) errors.push('Government visitor context must not advertise the publisher workflow.');
+if (!entityDepth.includes('Use it to understand what the office or agency handles')) errors.push('Government visitor context must offer actionable official-source guidance.');
+if (wildlifeGuide.includes('normal indexing-readiness safeguards') || wildlifeGuide.includes('The authority catalog includes current federal names')) errors.push('Wildlife guide must avoid internal indexing and catalogue language.');
+if (!wildlifeGuide.includes("Check each refuge's official U.S. Fish and Wildlife Service page for current closures")) errors.push('Wildlife visitor guide must advise official access and closure checks.');
+
 if (countyRoute.includes("dateModified: '2026-08-08'")) errors.push('County pages must not use a hard-coded modified date.');
 
 if (errors.length) {
