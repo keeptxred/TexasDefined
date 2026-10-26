@@ -229,7 +229,7 @@ export async function refresh({ fetchSource = official, read = p => fs.readFile(
     console.log('BLS metros reviewed; unchanged ' + data.releaseMonth + ' (' + data.rows.length + ' metros)');
     return false;
   }
-  const updated = release.publishedDate;
+  const updated = data.publishedDate;
   const bridge = await read(bridgePath);
   const match = bridge.match(/(\{ slug: 'texas-metro-payrolls-latest', updated: ')(\d{4}-\d{2}-\d{2})(' \})/);
   if (!match) throw new Error('Texas Data sitemap latest BLS updated marker missing');
