@@ -28,7 +28,7 @@ for (const status of ["on-sale", "presale", "registration", "not-on-sale-yet", "
 for (const token of ["approvedAffiliateHref", "safeHttpsUrl", 'url.protocol === "https:"', "isExpired", "NON_ACTIONABLE_SALE_STATUSES", "rankedLinks", "affiliateExpiresAt", "officialExpiresAt", 'label: "Find Tickets →"', 'label: "Official Tickets →"', 'rel: "sponsored nofollow noopener noreferrer"', 'rel: "noopener noreferrer"', "resolveEventTicketCta"]) requireText(resolver, token, "ticket resolver");
 for (const token of ["providerForVerifiedTicketUrl(url)", "uniqueTicketUrls", "new Set(offers.map((offer) => offer.url))", "officialTicketUrl: url", 'saleStatus: "unknown"', 'kind: "official-event"', "lastVerifiedAt", "priority: index"]) requireText(adapter, token, "official ticket normalization");
 if (adapter.includes("affiliateUrl:")) failures.push("official-source adapter must not fabricate affiliate URLs");
-for (const token of ['providerForVerifiedTicketUrl', 'ticketmaster.com', 'ticketweb.com', 'livenation.com', 'etix.com', 'axs.com', 'seatgeek.com', 'vividseats.com', 'eventbrite.com']) {
+for (const token of ['publicTicketHostname', 'providerForVerifiedTicketUrl', 'ticketmaster.com', 'ticketweb.com', 'livenation.com', 'etix.com', 'axs.com', 'seatgeek.com', 'vividseats.com', 'eventbrite.com']) {
   requireText(providerClassifier, token, "provider-neutral checkout domain classification");
 }
 for (const token of [
@@ -61,7 +61,7 @@ for (const token of ["Calendar workstream", "Venue-page workstream", "Do not rea
 
 const runtimeTest = String.raw`
 import { resolveEventTicketCta } from './src/data/events/ticketing.ts';
-import { providerForVerifiedTicketUrl } from './src/data/events/ticket-provider.ts';
+import { providerForVerifiedTicketUrl, publicTicketHostname } from './src/data/events/ticket-provider.ts';
 const supported = {
  'https://www.ticketmaster.com/event/ABC123': 'ticketmaster',
  'https://www.ticketweb.com/event/holiday-concert/142347': 'ticketweb',
@@ -135,6 +135,29 @@ const credentialsLink = resolveEventTicketCta({ links: [{ ...base, officialTicke
 if (credentialsLink !== null) throw new Error('ticket URL credentials accepted');
 const privateHost = resolveEventTicketCta({ links: [{ ...base, officialTicketUrl: 'https://localhost/buy' }], offers: [] }, now);
 if (privateHost !== null) throw new Error('localhost ticket destination accepted');
+for (const [host, isPublic] of [
+  ['ticketmaster.com',true], ['events.dallasarboretum.org',true],
+  ['127.0.0.1',false], ['192.168.1.80',false], ['10.0.0.8',false],
+  ['[::1]',false], ['localhost',false], ['tickets.local',false],
+  ['host.internal',false], ['foo.test',false], ['test.invalid',false],
+  ['fake.example',false], ['foo.lan',false], ['ssh.onion',false],
+  ['internal',false],
+]) {
+  if (publicTicketHostname(host) !== isPublic) throw new Error('wrong public checkout host classification: '+host);
+}
+for (const uri of [
+  'https://127.0.0.1/event/ABC',
+  'https://[::1]/event/ABC',
+  'https://192.168.1.1/event/ABC',
+  'https://10.0.0.2/event/ABC',
+  'https://box.internal/event/ABC',
+  'https://tickets.local/event/ABC',
+  'https://fake.ticketmaster.com.evil.test/event/ABC',
+]) {
+  if (providerForVerifiedTicketUrl(uri) !== null) throw new Error('private/unsafe checkout provider accepted: '+uri);
+  const cta = resolveEventTicketCta({ links: [{...base, officialTicketUrl:uri, affiliateUrl:uri}], offers: [] }, now);
+  if (cta !== null) throw new Error('private/unsafe checkout CTA rendered: '+uri);
+}
 const empty = resolveEventTicketCta({ links: [{ ...base }], offers: [] }, now);
 if (empty !== null) throw new Error('empty CTA suppression failed');
 `;
