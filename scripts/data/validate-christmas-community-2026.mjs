@@ -27,7 +27,7 @@ const end = eventFile.indexOf("\n];", start);
 assert.ok(start >= 0 && end > start, "Source-qualified Christmas manifest was not found");
 const json = eventFile.slice(eventFile.indexOf("= [", start) + 2, end + 2).trim();
 const events = JSON.parse(json);
-assert.ok(events.length >= 152, "The 152 organizer-verified Christmas date windows must not shrink without explicit source review");
+assert.ok(events.length >= 157, "The 157 organizer-verified Christmas date windows must not shrink without explicit source review");
 assert.equal(events.length, new Set(events.map((event) => event.slug)).size, "Duplicate Christmas community slugs");
 
 const validDate = /^20\d{2}-\d{2}-\d{2}$/;
@@ -66,6 +66,19 @@ for (const [slug,start,end] of [
   ['mineral-wells-merry-wells-festival','2026-11-28',undefined],
 ]) check(slug,start,end);
 assert.ok(!bySlug.has('waco-wild-lights-2026-late-december'), 'Conflicted Zoo operating nights cannot be invented');
+for (const [slug,date] of [
+  ["southlake-home-for-the-holidays-2026","2026-11-21"],
+  ["rockwall-hometown-christmas-2026","2026-12-05"],
+  ["nacogdoches-nine-flags-parade-2026","2026-12-05"],
+  ["kerrville-holiday-lighted-parade-2026","2026-11-21"],
+  ["kerrville-merry-on-the-square-2026","2026-11-21"],
+]) check(slug,date);
+assert.ok(bySlug.get("nacogdoches-nine-flags-parade-2026").summary.includes("not proof the full festival runs every day"),
+  "Do not invent daily Nine Flags 2026 festival sessions");
+assert.ok(bySlug.get("rockwall-hometown-christmas-2026").summary.includes("6–8 p.m."),
+  "Rockwall city tree lighting must not inherit the earlier parade start time");
+assert.ok(bySlug.get("kerrville-merry-on-the-square-2026").summary.includes("separate"),
+  "Kerrville city parade and nonprofit square event must retain distinct organizers");
 for (const [slug, begin, ending] of [
   ["college-station-beachy-central-lights-nov-2026","2026-11-26","2026-12-04"],
   ["college-station-christmas-in-park-festival-2026","2026-12-05",undefined],
