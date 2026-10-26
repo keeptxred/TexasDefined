@@ -15,6 +15,7 @@ import {
 
 // Original, school-specific source-derived visual finals; no unlicensed school photos, logos or seals.
 const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([
+  'celeste',
   'carrollton-turner',
   'carthage',
   'castroville-medina-valley',
@@ -160,6 +161,11 @@ function Page() {
   // Campus-county mapping for individually sourced Batch 002 profiles;
   // city names and district service areas are not dependable campus-county proxies.
   const researchedCampusCounty: Record<string, string> = {
+    'cedar-hill': 'dallas', // Cedar Hill High in Dallas County; 2026 5A DI District 8.
+    'cedar-park': 'williamson', // Cedar Park HS Cypress Creek Rd campus in Williamson County, not interchangeable with Vista Ridge.
+    'cedar-park-vista-ridge': 'williamson', // Vista Ridge HS school campus on Vista Ridge Parkway in Williamson County.
+    'celeste': 'hunt', // Celeste High physical campus in Hunt County, not stadium gate certification.
+    'celina': 'collin', // Celina High school campus in Collin County; new Marc Bindel 2026 program.
     'carrollton-turner': 'dallas', // R.L. Turner High at 1600 S Josey Ln, Carrollton campus in Dallas County; not Standridge gate.
     'carthage': 'panola', // Carthage High campus in Carthage, Panola County; Bulldog Stadium access is event-specific.
     'castle-hills': 'bexar', // Private school main campus in Castle Hills, Bexar County; football plays at separate San Antonio venue.
