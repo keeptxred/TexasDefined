@@ -26,7 +26,7 @@ export const Route = createFileRoute('/texas-data/county-housing-costs')({
         description,
         url: absoluteUrl(texasDefinedBrand, canonicalPath),
         dateModified: modified,
-        temporalCoverage: `${loaderData.year - 4}/${loaderData.year}` 
+        temporalCoverage: `${loaderData.year - 4}/${loaderData.year}`,
         creator: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#organization` },
         isBasedOn: loaderData.sourcePage,
         variableMeasured: ['median household income', 'median owner-occupied home value', 'median gross rent', 'median selected monthly owner costs'],
