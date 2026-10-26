@@ -27,7 +27,7 @@ const end = eventFile.indexOf("\n];", start);
 assert.ok(start >= 0 && end > start, "Source-qualified Christmas manifest was not found");
 const json = eventFile.slice(eventFile.indexOf("= [", start) + 2, end + 2).trim();
 const events = JSON.parse(json);
-assert.ok(events.length >= 157, "The 157 organizer-verified Christmas date windows must not shrink without explicit source review");
+assert.ok(events.length >= 168, "The 168 organizer-verified Christmas date windows must not shrink without explicit source review");
 assert.equal(events.length, new Set(events.map((event) => event.slug)).size, "Duplicate Christmas community slugs");
 
 const validDate = /^20\d{2}-\d{2}-\d{2}$/;
@@ -73,6 +73,29 @@ for (const [slug,date] of [
   ["kerrville-holiday-lighted-parade-2026","2026-11-21"],
   ["kerrville-merry-on-the-square-2026","2026-11-21"],
 ]) check(slug,date);
+
+for (const [slug,date,end] of [
+  ["longview-ambucs-christmas-parade-2026","2026-12-03",undefined],
+  ["longview-arboretum-bright-2026-1","2026-11-27","2026-11-28"],
+  ["longview-arboretum-bright-2026-2","2026-12-03","2026-12-05"],
+  ["longview-arboretum-bright-2026-3","2026-12-10","2026-12-12"],
+  ["longview-arboretum-bright-2026-4","2026-12-17","2026-12-23"],
+  ["longview-arboretum-bright-2026-5","2026-12-26","2026-12-27"],
+  ["livingston-christmas-train-village-2026-1","2026-11-27","2026-11-29"],
+  ["livingston-christmas-train-village-2026-2","2026-12-03","2026-12-06"],
+  ["livingston-christmas-train-village-2026-3","2026-12-10","2026-12-13"],
+  ["livingston-christmas-train-village-2026-4","2026-12-17","2026-12-20"],
+  ["livingston-christmas-train-village-2026-5","2026-12-24","2026-12-27"],
+]) check(slug,date,end);
+assert.ok(bySlug.get("longview-arboretum-bright-2026-1").summary.includes("dated ticket grid"),
+  "Longview Arboretum must rely on explicitly advertised individual 2026 ticket days");
+assert.ok(bySlug.get("longview-ambucs-christmas-parade-2026").summary.includes("WEATHER RAIN-OUT BACKUP"),
+  "Longview rainout date is not a second scheduled parade");
+assert.ok(bySlug.get("livingston-christmas-train-village-2026-3").summary.includes("December 12 extended hours"),
+  "Livingston train sessions must preserve Saturday Dec 12 special hours");
+assert.ok(bySlug.get("livingston-christmas-train-village-2026-1").summary.includes("NOT a paid passenger train ride"),
+  "Keep Livingston miniature train exhibit distinct from excursion ticketing");
+assert.ok(!bySlug.has("longview-christmas-train-2026"), "Do not invent the unverified Longview passenger train candidate");
 assert.ok(bySlug.get("nacogdoches-nine-flags-parade-2026").summary.includes("not proof the full festival runs every day"),
   "Do not invent daily Nine Flags 2026 festival sessions");
 assert.ok(bySlug.get("rockwall-hometown-christmas-2026").summary.includes("6–8 p.m."),
