@@ -16,7 +16,7 @@
   "framework": {
     "ticketmaster": "Approved Discovery API/Impact publisher 7758914; freshness 48h; no seat inventory entitlement",
     "otherProviders": "Official HTTPS outbound links only unless newly documented authorization",
-    "affiliateSecurity": "On branch fix/ticketing-affiliate-deeplink-validation-20261025: publisher+merchant+paired official destination validation",
+    "affiliateSecurity": "Approved Impact publisher 7758914, Ticketmaster merchant 264167, route suffix 4272; exact event-specific embedded destination and provider identity match required; no event-specific commission guarantee",
     "privateInventory": "No live seat availability or cart transaction asserted"
   },
   "events": [
@@ -32,7 +32,7 @@
       "evidence": "official performance selector",
       "checkedAt": "2026-10-25",
       "checkoutUrl": null,
-      "publicSaleStatus": "not-independently-confirmed",
+      "publicSaleStatus": "organizer-published-on-sale",
       "inventoryStatus": "not-exposed",
       "checkoutPriceStatus": "not-confirmed",
       "affiliateEligibility": "not-proven",
@@ -40,7 +40,13 @@
       "pr": 5922,
       "productionVerifiedAt": "2026-10-25",
       "remainingDefect": "Current upstream checkout inventory, final price and event-level Impact commission eligibility not independently established",
-      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified"
+      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified",
+      "publicSaleEvidence": {
+        "sourceUrl": "https://broadwaydallas.org/shows/dr-seuss-how-the-grinch-stole-christmas-the-musical/",
+        "checkedAt": "2026-10-26",
+        "finding": "Broadway Dallas publishes Get/Buy Tickets for Nov 27 at 11:00, 15:00, and 19:00; independent organizer announcement established public sale Aug 7",
+        "verificationScope": "Published sale status, exact identity, date/time and venue only; not seat inventory, final checkout price or event-specific commission"
+      }
     },
     {
       "id": "king-country-fort-worth-2026",
@@ -54,7 +60,7 @@
       "evidence": "Live Nation exact event",
       "checkedAt": "2026-10-25",
       "checkoutUrl": null,
-      "publicSaleStatus": "not-independently-confirmed",
+      "publicSaleStatus": "organizer-published-on-sale",
       "inventoryStatus": "not-exposed",
       "checkoutPriceStatus": "not-confirmed",
       "affiliateEligibility": "not-proven",
@@ -62,7 +68,13 @@
       "pr": 5922,
       "productionVerifiedAt": "2026-10-25",
       "remainingDefect": "Current upstream checkout inventory, final price and event-level Impact commission eligibility not independently established",
-      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified"
+      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified",
+      "publicSaleEvidence": {
+        "sourceUrl": "https://www.forkingandcountry.com/pages/2026-christmas-tour",
+        "checkedAt": "2026-10-26",
+        "finding": "Artist's official On Sale Now tour page lists Dickies Arena Fort Worth Dec 5; Live Nation lists Dec 5 19:00 admission separately from parking upgrades",
+        "verificationScope": "Published sale status, exact identity, date/time and venue only; not seat inventory, final checkout price or event-specific commission"
+      }
     },
     {
       "id": "christmas-kwanzaa-dallas-2026",
@@ -128,7 +140,13 @@
       "pr": 5922,
       "productionVerifiedAt": "2026-10-25",
       "remainingDefect": "Current upstream checkout inventory, final price and event-level Impact commission eligibility not independently established",
-      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified"
+      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified",
+      "publicSaleEvidence": {
+        "sourceUrl": "https://www.livenation.com/event/vvG1YZ_Cn4lA0M/pentatonix-christmas-in-the-city-tour",
+        "checkedAt": "2026-10-26",
+        "finding": "Primary event promoter publishes Buy Tickets for the Dec 16 19:00 Dickies Arena show separately from parking and VIP-only add-ons",
+        "verificationScope": "Published sale status, exact identity, date/time and venue only; not seat inventory, final checkout price or event-specific commission"
+      }
     },
     {
       "id": "jazzy-christmas-dallas-2026",
@@ -172,7 +190,13 @@
       "pr": 5922,
       "productionVerifiedAt": "2026-10-25",
       "remainingDefect": "Current upstream checkout inventory, final price and event-level Impact commission eligibility not independently established",
-      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified"
+      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified",
+      "publicSaleEvidence": {
+        "sourceUrl": "https://www.hebcenter.com/events/detail/a-very-merry-symphony",
+        "checkedAt": "2026-10-26",
+        "finding": "Official venue lists Dec 20 19:00 show, 18:00 doors, and On Sale Now",
+        "verificationScope": "Published sale status, exact identity, date/time and venue only; not seat inventory, final checkout price or event-specific commission"
+      }
     },
     {
       "id": "celtic-christmas-mcallen-2026",
@@ -260,7 +284,13 @@
       "pr": 5922,
       "productionVerifiedAt": "2026-10-25",
       "remainingDefect": "Current upstream checkout inventory, final price and event-level Impact commission eligibility not independently established",
-      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified"
+      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified",
+      "publicSaleEvidence": {
+        "sourceUrl": "https://www.hebcenter.com/events/detail/cirque-musica-holiday-wonderland-2026",
+        "checkedAt": "2026-10-26",
+        "finding": "Official venue lists Dec 24 14:00 show, 13:00 doors, and On Sale Now; distinguish VIP experience upgrade from ordinary admission",
+        "verificationScope": "Published sale status, exact identity, date/time and venue only; not seat inventory, final checkout price or event-specific commission"
+      }
     },
     {
       "id": "christmas-carol-houston-2026",
