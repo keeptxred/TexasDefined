@@ -40,7 +40,7 @@ const verified: readonly ChristmasPerformance[] = [
   },
   {
     id: "king-country-fort-worth-2026", name: "for KING + COUNTRY: A Drummer Boy Christmas",
-    date: "2026-12-05", timeLabel: "7:00 PM", city: "Fort Worth", venue: "Dickies Arena",
+    date: "2026-12-05", timeLabel: "7:00 PM", city: "Fort Worth", venue: "Ariat Arena",
     sourceUrl: "https://www.livenation.com/event/vvG1YZ_Cx4afyp/for-king-country-a-drummer-boy-christmas",
     sourceName: "Live Nation", ticketmasterNeedle: "drummer boy christmas",
     description: "Holiday arena concert by the Christian pop duo; plan arena parking and arrival before showtime.",
@@ -63,7 +63,7 @@ const verified: readonly ChristmasPerformance[] = [
   },
   {
     id: "pentatonix-fort-worth-2026", name: "Pentatonix: Christmas in the City Tour",
-    date: "2026-12-16", timeLabel: "7:00 PM", city: "Fort Worth", venue: "Dickies Arena",
+    date: "2026-12-16", timeLabel: "7:00 PM", city: "Fort Worth", venue: "Ariat Arena",
     sourceUrl: "https://www.livenation.com/event/vvG1YZ_Cn4lA0M/pentatonix-christmas-in-the-city-tour",
     sourceName: "Live Nation", ticketmasterNeedle: "pentatonix",
     description: "Holiday concert with the acclaimed a cappella group.",
