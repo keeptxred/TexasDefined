@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+
 // Fail closed if a successful Cloudflare upload leaves the 2026 Christmas
 // calendar hidden behind stale HTML or an older edition of the site.
 // Run only inside the already-protected production GitHub Actions workflow.
@@ -22,11 +24,38 @@ const required = [
   "Christmas lights, parades and community festivals",
   "Official event schedule",
   "Christmas travel sponsorships",
-  "Flower Mound Christmas Parade and Tree Lighting",
-  "A Pineywoods Christmas",
-  "College Station Christmas in the Park",
-  "verified community Christmas calendar entries",
 ];
+
+// Read the exact manifest used by the production build. Events automatically
+// disappear after their final verified date; a fixed count or fixed list of
+// expired events would make an otherwise healthy December deploy fail.
+const source = readFileSync("src/data/events/christmas-community-2026.server.ts", "utf8");
+const start = source.indexOf("const verifiedOccurrences");
+const end = source.indexOf("\n];", start);
+if (start < 0 || end <= start) throw new Error("Christmas source manifest boundaries missing");
+const literal = source.slice(source.indexOf("= [", start) + 2, end + 2).trim();
+const allCommunityEvents = JSON.parse(literal);
+const remainingCommunityEvents = allCommunityEvents.filter((event) =>
+  (event.endDate ?? event.startDate) >= date
+);
+const expectedActiveCommunityCount = remainingCommunityEvents.length;
+if (!expectedActiveCommunityCount) throw new Error("2026 Christmas dates expired earlier than expected");
+
+// A small representative sample proves recent source batches survived the
+// deployment. The date filter prevents already-completed nights from failing
+// later release checks.
+const sampleSlugs = [
+  "southlake-home-for-the-holidays-2026",
+  "livingston-christmas-train-village-2026-5",
+  "clearlake-65th-christmas-boat-lane-parade-2026",
+  "pearland-hometown-christmas-parade-2026",
+];
+const expectedLiveWitnesses = remainingCommunityEvents.filter((event) =>
+  sampleSlugs.includes(event.slug)
+);
+if (expectedLiveWitnesses.length === 0 && date <= "2026-12-27") {
+  throw new Error("Christmas release witness dates missing from source manifest");
+}
 
 // Verify the same concerts and actual ticket destinations the visitor sees,
 // not just the evergreen community-calendar section. Each expected marker stops
@@ -59,9 +88,28 @@ async function check(url) {
   }
   const html = await response.text();
   const missing = required.filter((s) => !html.includes(s));
+  // Check rendered visitor text, not a hydration script that could contain
+  // unreleased data while stale HTML stays in the cache.
+  const visible = html
+    .replace(/<script\\b[^>]*>[\\s\\S]*?<\\/script>/gi, " ")
+    .replace(/<style\\b[^>]*>[\\s\\S]*?<\\/style>/gi, " ")
+    .replace(/<[^>]*>/g, " ")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/\\s+/g, " ");
+  const countEvidence = `${expectedActiveCommunityCount.toLocaleString("en-US")} verified community Christmas calendar entries`;
+  const countMismatch = !visible.includes(countEvidence);
+  const missingSourceEvents = expectedLiveWitnesses
+    .filter((event) => !visible.includes(event.title))
+    .map((event) => event.slug);
   const missingShows = activePerformances.filter(({ marker }) => !html.includes(marker)).map(({ label }) => label);
-  if (missing.length || missingShows.length) {
-    throw new Error(`Stale Christmas HTML; missing community markers: ${missing.join("; ") || "none"}; missing concerts/tickets: ${missingShows.join("; ") || "none"}`);
+  if (missing.length || countMismatch || missingSourceEvents.length || missingShows.length) {
+    throw new Error(
+      `Stale Christmas HTML; source count ${countMismatch ? `expected ${countEvidence}` : "matched"}; ` +
+      `missing community markers: ${missing.join("; ") || "none"}; ` +
+      `missing dated events: ${missingSourceEvents.join("; ") || "none"}; ` +
+      `missing concerts/tickets: ${missingShows.join("; ") || "none"}`
+    );
   }
   // Publisher account verification may exist pre-approval; an actual ad unit must not.
   if (/<ins\b[^>]*class=["'][^"']*adsbygoogle\b/i.test(html) || /data-ad-slot=/.test(html)) {
@@ -76,7 +124,7 @@ for (let attempt = 1; attempt <= 4; attempt += 1) {
     // Verify both the real visitor URL and a cache-busted HTML request.
     const canonical = await check(`${origin}${route}`);
     const cacheBusted = await check(`${origin}${route}?verify-christmas-release=${runKey}-${attempt}`);
-    console.log(`Verified Christmas 2026 live canonical and uncached page; ${required.length} editorial/sponsor/date markers and ${activePerformances.length} date-scoped concert/ticket markers, no active AdSense display unit. Canonical ${JSON.stringify(canonical)}, fresh ${JSON.stringify(cacheBusted)}.`);
+    console.log(`Verified Christmas 2026 live canonical and uncached page; ${expectedActiveCommunityCount} active dated community events, ${expectedLiveWitnesses.length} recent source witnesses, ${required.length} fixed editorial/sponsor markers and ${activePerformances.length} date-scoped concert/ticket markers, no active AdSense display unit. Canonical ${JSON.stringify(canonical)}, fresh ${JSON.stringify(cacheBusted)}.`);
     process.exit(0);
   } catch (error) {
     lastFailure = error instanceof Error ? error.message : String(error);
