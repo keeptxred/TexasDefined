@@ -3,6 +3,7 @@ import type {
   TexasEventTicketProvider,
   TexasEventTicketingMetadata,
 } from "./texas-event-record";
+import { publicTicketHostname } from "./ticket-provider";
 
 const NON_ACTIONABLE_SALE_STATUSES = new Set<TexasEventTicketLink["saleStatus"]>([
   "not-on-sale-yet",
@@ -27,7 +28,7 @@ function safeHttpsUrl(value: string | undefined) {
   try {
     const url = new URL(value);
     return url.protocol === "https:" && !url.username && !url.password && !url.port
-      && url.hostname !== "localhost" && !url.hostname.endsWith(".localhost") ? url.toString() : null;
+      && publicTicketHostname(url.hostname) ? url.toString() : null;
   } catch {
     return null;
   }
