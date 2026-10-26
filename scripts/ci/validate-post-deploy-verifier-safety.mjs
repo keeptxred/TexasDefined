@@ -92,7 +92,7 @@ requireMarker(advertiser, 'ref: ${{ github.event.workflow_run.head_sha || github
 const advertiserLiveVerifier = fs.readFileSync('scripts/ci/verify-advertiser-production.mjs', 'utf8');
 for (const marker of [
   'School Page Pilot', 'District Football Pilot', 'Regional Football Pilot',
-  '$49/month', '$99/month', '$149/month',
+  '$9/month', '$19/month', '$39/month',
   'Submitting an inquiry is free and does not start a subscription.',
   'No school affiliation or traffic guarantees.',
   '/texas-high-school-football-teams/aledo',
@@ -106,7 +106,7 @@ for (const marker of [
 ]) requireMarker(advertiserLiveVerifier, marker, `Advertiser live verifier must protect reviewed founding and standard advertising terms: ${marker}`);
 const hubAcceptance = advertiserLiveVerifier.split("name: 'advertiser hub'")[1]?.split("name: 'advertiser terms'")[0] ?? '';
 const hubForbidden = hubAcceptance.split('\n').find((line) => line.trim().startsWith('forbidden:')) ?? '';
-if (!hubForbidden || /\$(?:49|99|149)\/month/.test(hubForbidden))
+if (!hubForbidden || /\$(?:9|19|39)\/month/.test(hubForbidden))
   failures.push('Approved football founding rates must be required by live acceptance, never forbidden.');
 
 for (const name of ['verify-event-structured-data-production','verify-jasper-blue-hole-production','verify-sitemap-production-integrity']) {
