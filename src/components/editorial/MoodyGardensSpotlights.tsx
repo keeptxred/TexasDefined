@@ -28,7 +28,7 @@ const cards = [
   {
     eyebrow: "Current status",
     title: "Discovery Museum",
-    description: "Temporarily closed as of October 5, 2026 and scheduled to reopen in November. Do not build a package around it until Moody Gardens confirms the reopening.",
+    description: "Temporarily closed as of October 25, 2026 and scheduled to reopen in November. Do not build a package around it until Moody Gardens confirms the reopening.",
     detail: "Audience Recognition Theater remains open with regular showtimes.",
     href: "https://www.moodygardens.com/visitor-info/hours",
     image: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Discovery_Pyramid_Moody_Gardens.jpg?width=1200",

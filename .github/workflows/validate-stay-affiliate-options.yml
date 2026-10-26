@@ -6,6 +6,10 @@ on:
       - 'public/stay-affiliate-options.js'
       - 'scripts/data/validate-stay-affiliate-options.mjs'
       - 'scripts/data/validate-motel6-affiliate.mjs'
+      - 'scripts/ci/expire-motel6-special.mjs'
+      - 'scripts/ci/expire-motel6-special.test.mjs'
+      - '.github/workflows/expire-motel6-special.yml'
+      - '.github/workflows/finish-motel6-special-expiry.yml'
       - 'scripts/ci/verify-motel6-production.mjs'
       - '.github/workflows/texasdefined-publication-production-smoke.yml'
       - 'src/components/sports/FootballFanOffers.tsx'
@@ -36,6 +40,10 @@ on:
       - 'public/stay-affiliate-options.js'
       - 'scripts/data/validate-stay-affiliate-options.mjs'
       - 'scripts/data/validate-motel6-affiliate.mjs'
+      - 'scripts/ci/expire-motel6-special.mjs'
+      - 'scripts/ci/expire-motel6-special.test.mjs'
+      - '.github/workflows/expire-motel6-special.yml'
+      - '.github/workflows/finish-motel6-special-expiry.yml'
       - 'scripts/ci/verify-motel6-production.mjs'
       - '.github/workflows/texasdefined-publication-production-smoke.yml'
       - 'src/components/sports/FootballFanOffers.tsx'
@@ -81,6 +89,8 @@ jobs:
         run: node scripts/data/validate-stay-affiliate-options.mjs
       - name: Validate Motel 6 account-scoped links, placement and promo cutoff
         run: node scripts/data/validate-motel6-affiliate.mjs
+      - name: Test scheduled Motel 6 special removal and evergreen survival
+        run: node --test scripts/ci/expire-motel6-special.test.mjs
       - name: Verify live Motel 6 creative and football stay CTA
         run: node scripts/ci/verify-motel6-production.mjs
       - name: Validate Booking.com car-rental integration

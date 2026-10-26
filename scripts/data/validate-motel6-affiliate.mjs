@@ -29,16 +29,18 @@ const sandbox = {
 };
 vm.runInNewContext(source, sandbox);
 const api = sandbox.window.TexasDefinedStayAffiliateOptions;
+const seasonal = source.includes('MOTEL6_HALLOWEEN_AID');
 assert.equal(typeof api.buildMotel6Link, 'function');
 assert.equal(typeof api.motel6Eligible, 'function');
-assert.equal(typeof api.motel6CampaignActive, 'function');
+assert.equal(typeof api.motel6CampaignActive, seasonal ? 'function' : 'undefined');
 
 // The CJ publisher account CID 8062457 is NOT its website tracking PID.
 // Email creative link IDs are vetted and may not accept arbitrary inputs.
 assert.equal(api.buildMotel6Link('17198227'), 'https://www.tqlkg.com/click-101876465-17198227');
-assert.equal(api.buildMotel6Link('17371482'), 'https://www.jdoqocy.com/click-101876465-17371482');
+if (seasonal) assert.equal(api.buildMotel6Link('17371482'), 'https://www.jdoqocy.com/click-101876465-17371482');
+else assert.throws(() => api.buildMotel6Link('17371482'), /Unreviewed/);
 assert.throws(() => api.buildMotel6Link('123'), /Unreviewed/);
-assert.doesNotMatch(api.buildMotel6Link('17371482'), /click-(?:1245|8062457)-/);
+if (seasonal) assert.doesNotMatch(api.buildMotel6Link('17371482'), /click-(?:1245|8062457)-/);
 
 for (const route of [
   '/explore/road-trips',
@@ -58,15 +60,18 @@ for (const route of [
   '/event/wings-over-houston-airshow', '/county/travis',
 ]) assert.equal(api.motel6Eligible(route), false, route);
 
-// This cutoff is a conservative display policy, never merchant expiry.
-assert.equal(api.motel6CampaignActive(Date.parse('2026-10-25T23:59:59Z')), false);
-assert.equal(api.motel6CampaignActive(Date.parse('2026-10-26T11:32:00Z')), true);
-assert.equal(api.motel6CampaignActive(Date.parse('2026-11-01T04:59:59Z')), true);
-assert.equal(api.motel6CampaignActive(Date.parse('2026-11-01T05:00:00Z')), false);
-assert.equal(api.motel6CampaignActive(Date.parse('2026-12-01T00:00:00Z')), false);
+if (seasonal) {
+  assert.equal(api.motel6CampaignActive(Date.parse('2026-10-25T23:59:59Z')), false);
+  assert.equal(api.motel6CampaignActive(Date.parse('2026-10-26T11:32:00Z')), true);
+  assert.equal(api.motel6CampaignActive(Date.parse('2026-11-01T04:59:59Z')), true);
+  assert.equal(api.motel6CampaignActive(Date.parse('2026-11-01T05:00:00Z')), false);
+  assert.equal(api.motel6CampaignActive(Date.parse('2026-12-01T00:00:00Z')), false);
+} else {
+  assert.doesNotMatch(source + football, /17371482|Trip and Treat|MOTEL6_CAMPAIGN|MOTEL6_HALLOWEEN/);
+}
 
 for (const marker of [
-  'motel6Eligible()', 'motel6CampaignActive()', 'createMotel6Link(promo)',
+  'motel6Eligible()',
   'choice?.dataset.motel6Mode === motel6Mode',
   'window.setTimeout(scheduleSync',
   'dataLayer.push(detail)', 'affiliate_partner: "motel6"',
@@ -75,15 +80,15 @@ for (const marker of [
 ]) assert.ok(source.includes(marker), marker);
 
 for (const marker of [
-  'MOTEL6_STANDARD_URL', 'MOTEL6_HALLOWEEN_URL',
+  'MOTEL6_STANDARD_URL',
   "data-commercial-partner=\"motel6\"",
-  "motel6Halloween ? MOTEL6_HALLOWEEN_URL : MOTEL6_STANDARD_URL",
   "trackAffiliateClick({ partner: 'motel6'",
   "const showHotels = hasUpcomingAwayTravel || showTravelPlanning",
-  "useState(0)", "useEffect(() =>",
   'Affiliate disclosure: TexasDefined may earn a commission',
 ]) assert.ok(football.includes(marker), marker);
-assert.ok(football.indexOf('Affiliate disclosure:') < football.indexOf('href={motel6Halloween ? MOTEL6_HALLOWEEN_URL'), 'football sponsorship must be disclosed before offer');
+assert.ok(football.indexOf('Affiliate disclosure:') < football.indexOf(seasonal ? 'href={motel6Halloween ? MOTEL6_HALLOWEEN_URL' : 'href={MOTEL6_STANDARD_URL}'), 'football sponsorship must be disclosed before offer');
+if (seasonal) for (const marker of ['motel6CampaignActive()', 'createMotel6Link(promo)', 'window.setTimeout(scheduleSync', 'MOTEL6_HALLOWEEN_URL', 'motel6Halloween ? MOTEL6_HALLOWEEN_URL', 'useState(0)', 'useEffect(() =>']) assert.ok((source + football).includes(marker), marker);
+else for (const marker of ['createMotel6Link()', 'buildMotel6Link(MOTEL6_STANDARD_AID)', 'href={MOTEL6_STANDARD_URL}']) assert.ok((source + football).includes(marker), marker);
 assert.ok(economics.includes('NOT an advertiser-certified expiration date'), 'do not invent the merchant offer expiration');
 assert.doesNotMatch(liveWorkflow, /^  workflow_run:/m, 'manual-only stay affiliate audit must not subscribe to every deployment');
 assert.match(postDeployWorkflow, /^  workflow_run:/m, 'the preapproved bounded production smoke subscriber must remain');
@@ -95,10 +100,8 @@ for (const marker of [
   'https://www.tqlkg.com/click-101876465-17198227',
 ]) assert.ok(liveVerifier.includes(marker), 'missing manual Motel 6 football acceptance marker: ' + marker);
 for (const marker of [
-  'MOTEL6_HALLOWEEN_AID = "17371482"',
-  '2026-11-01T05:00:00Z',
   'data-commercial-partner="motel6"',
   'https://www.tqlkg.com/click-101876465-17198227',
   'for (const bust of [false, true])',
 ]) assert.ok(motel6Canary.includes(marker), 'missing scoped automatic Motel 6 production acceptance marker: ' + marker);
-console.log('Motel 6 CJ URL, placement, CTA, analytics and expiration gates validated.');
+console.log('Motel 6 CJ links and sponsored placements validated in ' + (seasonal ? 'seasonal' : 'evergreen-only') + ' mode.');
