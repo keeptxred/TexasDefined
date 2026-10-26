@@ -44,7 +44,8 @@ for (const token of [
   "!featuredDatePassed && show.featuredTicketUrl ? show.featuredTicketUrl : show.sourceUrl",
 ]) requireText(curatedChristmas, token, "date-aware safe Christmas show checkout classification");
 
-for (const token of ["resolveEventTicketCta", "ticketCta: resolveEventTicketCta(event.ticketing)"]) requireText(calendar, token, "calendar projection");
+for (const token of ["resolveEventTicketCta", "activeEventTicketCta", 'event.status === "scheduled"', "eventStatusLabel", "ticketCta: activeEventTicketCta(event)"]) requireText(calendar, token, "calendar lifecycle-safe projection");
+requireText(landing, 'Event status: {event.statusLabel}', "calendar exposes authoritative cancellation/postponement");
 for (const token of [
   "target=\"_blank\"",
   "rel={cta.rel}",
