@@ -2050,6 +2050,26 @@ if (!errors.length) {
   }
 }
 
+
+/** Prevent silent object-literal overwrites of researched county football links.
+ * Duplicate county keys had suppressed valid school links in 11 counties even when
+ * each school had an independently sourced and verified football guide. */
+{
+  const start = entityPage.indexOf('const batch002FootballCountyLinks:');
+  const end = entityPage.indexOf('\nconst siteUrl = ', start);
+  if (start < 0 || end < 0) {
+    errors.push('Football county reciprocal link object missing.');
+  } else {
+    const section = entityPage.slice(start, end);
+    const keys = [...section.matchAll(/^  (?:'([^']+)'|([a-z-]+)):\\s*\\[/gm)].map((m) => m[1] || m[2]);
+    const duplicates = keys.filter((key, index) => keys.indexOf(key) !== index);
+    if (duplicates.length) errors.push('Duplicate football county link keys would suppress school links: ' + [...new Set(duplicates)].join(', '));
+    for (const slug of ['canyon-west-plains','carrizo-springs','carrollton-creekview','carrollton-ranchview','carrollton-smith']) {
+      requireText(section, "slug: '" + slug + "'", 'Batch 009 reciprocal football county link');
+    }
+  }
+}
+
 if (errors.length) {
   console.error('High-school football platform validation failed:');
   for (const error of errors) console.error(`- ${error}`);
