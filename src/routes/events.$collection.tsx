@@ -193,8 +193,8 @@ function FallFestivalBrowser({ page }: { page: any }) {
     </p>
     {page.fallOfficialPicks?.length ? <aside className="mt-8 border border-border bg-surface p-5 sm:p-7" aria-label="More source-confirmed fall festival dates">
       <p className="eyebrow text-primary">Additional official-source calendars</p>
-      <h3 className="mt-2 font-display text-2xl">Pumpkin patches and fall outings happening now</h3>
-      <p className="mt-2 text-sm leading-6 text-muted-foreground">These three organizers publish current 2026 dates. They link directly to the operator rather than counting as TexasDefined permanent event guides or paid affiliate tickets.</p>
+      <h3 className="mt-2 font-display text-2xl">Pumpkin patches and fall outings still on the calendar</h3>
+      <p className="mt-2 text-sm leading-6 text-muted-foreground">These organizers have published 2026 schedules. Listings disappear after their final date; links go directly to the organizer rather than being counted as TexasDefined permanent guides or affiliate ticket offers.</p>
       <div className="mt-5 grid gap-4 md:grid-cols-3">
         {page.fallOfficialPicks.map((event: any) => <article key={event.name} className="border-t border-border pt-4">
           <p className="text-xs font-semibold uppercase tracking-wide text-primary">{holidayDateLabel(event.startDate, event.endDate)}</p>
@@ -235,7 +235,7 @@ function FallFestivalBrowser({ page }: { page: any }) {
         <p className="mt-2 text-xs font-semibold uppercase text-primary">{event.startDate <= page.fallToday ? "Ongoing now" : "Upcoming"} · {holidayDateLabel(event.startDate, event.endDate)}</p>
         <h3 className="mt-3 font-display text-2xl leading-tight"><EventGuideLink event={event} className="hover:text-primary">{event.name}</EventGuideLink></h3>
         <p className="mt-3 text-sm leading-6 text-muted-foreground">{event.detail}</p>
-        <EventGuideLink event={event} className="mt-5 inline-block text-sm font-semibold text-primary">Details, official dates & tickets →</EventGuideLink>
+        <EventGuideLink event={event} className="mt-5 inline-block text-sm font-semibold text-primary">Event guide & official sources →</EventGuideLink>
       </li>)}
     </ul> : <p className="mt-6 border border-border p-8 text-sm leading-7 text-muted-foreground">No confirmed fall festival guides match those filters. Try another region or month, or browse the <a href="/events" className="text-primary underline">full Texas calendar</a>. We do not invent dates to fill an empty list.</p>}
     <aside className="mt-8 grid gap-6 border-y border-border py-7 lg:grid-cols-2">
