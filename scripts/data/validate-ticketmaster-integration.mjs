@@ -6,10 +6,10 @@ try {
   const christmasRoute = readFileSync('src/routes/events.$collection.tsx', 'utf8');
   for (const marker of [
     'trackAffiliateClick',
-    'data-affiliate-event-id={show.ticket.isAffiliate',
-    'eventId: `curated:christmas-2026:${show.id}`',
-    'partner: show.ticket.provider',
-    'onClick={show.ticket.isAffiliate',
+    'data-affiliate-event-id={eventId}',
+    'const eventId = partner ? `curated:christmas-2026:${show.id}`',
+    'data-commercial-partner={partner}',
+    'onClick={partner ? () => trackAffiliateClick',
   ]) assert.ok(christmasRoute.includes(marker), 'Christmas hub must track authorized affiliate clicks to precise curated event: ' + marker);
   const christmasServer = readFileSync('src/data/events/christmas-performances-2026.server.ts', 'utf8');
   assert.ok(christmasServer.includes('provider: providerForVerifiedTicketUrl(!featuredDatePassed'), 'Christmas official fallback retains provider identity for deterministic outbound click attribution');
