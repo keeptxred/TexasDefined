@@ -110,6 +110,7 @@ jobs:
         run: |
           node scripts/ci/run-validation-suite.mjs predeploy
           node scripts/data/validate-national-cemetery-authority.mjs
+          node --check scripts/ci/verify-el-paso-fredericksburg-release.mjs
 
       - name: Publish validation result
         if: always()
