@@ -700,6 +700,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The town's one-day holiday market and festival is Saturday November 28 from approximately 10 a.m.–9 p.m., with 100+ vendors and live music, 7 p.m. illuminated parade and fireworks following."
   },
   {
+    "slug": "kemah-cocoa-cookies-stroll-2026-1",
+    "title": "Kemah Boardwalk Cocoa & Cookies Stroll · 2026-11-28",
+    "city": "Kemah",
+    "countySlug": "galveston",
+    "countyName": "Galveston County",
+    "region": "gulf-coast",
+    "startDate": "2026-11-28",
+    "venueName": "Kemah Boardwalk · 215 Kipp Avenue",
+    "officialEventUrl": "https://www.kemahboardwalk.com/events",
+    "sourceName": "Kemah Boardwalk official 2026 event calendar",
+    "summary": "The Kemah Boardwalk 2026 events calendar schedules the Cocoa & Cookies Stroll on Saturdays November 28 through December 19. This record lists one confirmed Saturday session only; do not imply Sunday or midweek strolls. Confirm current giveaways, food purchases and seasonal operating hours with the Boardwalk."
+  },
+  {
     "slug": "mcallen-south-pole-illuminated-1",
     "title": "McAllen South Pole Illuminated Festival · operating window 1",
     "city": "McAllen",
@@ -1096,6 +1109,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The city confirms Friday December 4 at 6 p.m. for the 2026 Christmas Parade of Lights, a lighted downtown parade with floats, bands and Santa; street closure and viewing arrangements may change."
   },
   {
+    "slug": "kemah-jingle-on-boardwalk-2026-1",
+    "title": "Jingle on the Boardwalk · December holiday weekend 1",
+    "city": "Kemah",
+    "countySlug": "galveston",
+    "countyName": "Galveston County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-04",
+    "endDate": "2026-12-06",
+    "venueName": "Kemah Boardwalk · 215 Kipp Avenue",
+    "officialEventUrl": "https://www.kemahboardwalk.com/events",
+    "sourceName": "Kemah Boardwalk official 2026 event calendar",
+    "summary": "The Kemah Boardwalk operator confirms Jingle on the Boardwalk weekends December 4–20, 2026. This listed Friday–Sunday holiday weekend features Santa, seasonal music, crafts and a toy drive. Rides, dining and optional attractions have their own prices; no claim is made that every attraction or performance runs continuously every day."
+  },
+  {
     "slug": "keller-holly-days-2026",
     "title": "Keller Holly Days · Very Merry Light Parade",
     "city": "Keller",
@@ -1147,6 +1174,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.mansfieldtexas.gov/789/Hometown-Holidays",
     "sourceName": "City of Mansfield",
     "summary": "The 2026 main Hometown Holidays festival is Friday December 4, 5–9 p.m., at Mansfield City Hall. Tree lighting, fireworks, market vendors, performances and family activities are planned; additional citywide holiday events run on other independently advertised dates."
+  },
+  {
+    "slug": "pearland-hometown-christmas-festival-2026",
+    "title": "Pearland Hometown Christmas Festival and Drone Show",
+    "city": "Pearland",
+    "countySlug": "brazoria",
+    "countyName": "Brazoria County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-04",
+    "venueName": "Independence Park · 3449 Pearland Parkway",
+    "officialEventUrl": "https://www.parks.pearlandtx.gov/special-events/hometown-christmas-festival",
+    "sourceName": "City of Pearland Parks and Recreation",
+    "summary": "Pearland Parks & Recreation dates its free Hometown Christmas Festival Friday December 4, 2026 from 6–9 p.m. at Independence Park. Stage entertainment, H-E-B Winter Wonderland and food trucks lead to a scheduled drone show around 8:30 p.m. Parking and ADA entry differ; food and purchases may cost extra. This named festival is NOT proof of a separate season-long 'Pearland Festival of Lights' exhibit."
   },
   {
     "slug": "salado-christmas-stroll-first",
@@ -1362,6 +1402,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The official 2026 Cowboy Kringle dates include this operating weekend. Photos are appointment-only, with advance booking required; walk-up visits are not guaranteed. This is a separate attraction from Gruene Hall ticketed shows."
   },
   {
+    "slug": "kemah-cocoa-cookies-stroll-2026-2",
+    "title": "Kemah Boardwalk Cocoa & Cookies Stroll · 2026-12-05",
+    "city": "Kemah",
+    "countySlug": "galveston",
+    "countyName": "Galveston County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-05",
+    "venueName": "Kemah Boardwalk · 215 Kipp Avenue",
+    "officialEventUrl": "https://www.kemahboardwalk.com/events",
+    "sourceName": "Kemah Boardwalk official 2026 event calendar",
+    "summary": "The Kemah Boardwalk 2026 events calendar schedules the Cocoa & Cookies Stroll on Saturdays November 28 through December 19. This record lists one confirmed Saturday session only; do not imply Sunday or midweek strolls. Confirm current giveaways, food purchases and seasonal operating hours with the Boardwalk."
+  },
+  {
     "slug": "lufkin-christmas-lighted-parade",
     "title": "Lufkin Lighted Christmas Parade",
     "city": "Lufkin",
@@ -1427,6 +1480,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.naturalbridgecaverns.com/event/christmas-at-the-caverns/",
     "sourceName": "Natural Bridge Caverns",
     "summary": "The operator's 2026 Christmas at the Caverns promotion confirms a December 5–23 holiday season on select dates, with underground caroling, lights and optional ticket tiers. This event record marks the confirmed opening date only; select other nights using the official dated reservation calendar."
+  },
+  {
+    "slug": "pearland-hometown-christmas-parade-2026",
+    "title": "Pearland Hometown Christmas Parade · Red, White, and Blue Christmas",
+    "city": "Pearland",
+    "countySlug": "brazoria",
+    "countyName": "Brazoria County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-05",
+    "venueName": "FM 518 Broadway · Old Alvin Road to Pearland Parkway",
+    "officialEventUrl": "https://www.parks.pearlandtx.gov/special-events/hometown-christmas-festival",
+    "sourceName": "City of Pearland Parks and Recreation",
+    "summary": "The City of Pearland's 2026 Hometown Christmas schedule confirms the parade Saturday December 5 at 6 p.m. on FM 518 (Broadway) from Old Alvin Road toward Pearland Parkway, with the theme Red, White, and Blue Christmas. This is a DIFFERENT day and route from the December 4 Hometown Christmas Festival at Independence Park."
   },
   {
     "slug": "richardson-santas-village-week1",
@@ -1720,6 +1786,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "TPWD confirms two light-display nights December 11 and 12, 2026, 6–8 p.m., in Willow Point campground. The event entry is free; animal-shelter supply donations are requested. Saturday includes hot chocolate and Santa at the Group Dining Hall."
   },
   {
+    "slug": "kemah-jingle-on-boardwalk-2026-2",
+    "title": "Jingle on the Boardwalk · December holiday weekend 2",
+    "city": "Kemah",
+    "countySlug": "galveston",
+    "countyName": "Galveston County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-11",
+    "endDate": "2026-12-13",
+    "venueName": "Kemah Boardwalk · 215 Kipp Avenue",
+    "officialEventUrl": "https://www.kemahboardwalk.com/events",
+    "sourceName": "Kemah Boardwalk official 2026 event calendar",
+    "summary": "The Kemah Boardwalk operator confirms Jingle on the Boardwalk weekends December 4–20, 2026. This listed Friday–Sunday holiday weekend features Santa, seasonal music, crafts and a toy drive. Rides, dining and optional attractions have their own prices; no claim is made that every attraction or performance runs continuously every day."
+  },
+  {
     "slug": "lubbock-candlelight-at-the-ranch",
     "title": "Lubbock Candlelight at the Ranch",
     "city": "Lubbock",
@@ -1788,6 +1868,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.waxahachiecvb.com/events/2026/bethlehem-revisited2222",
     "sourceName": "Waxahachie Convention & Visitors Bureau",
     "summary": "The second confirmed 2026 Bethlehem Revisited weekend runs December 11–13, Friday–Sunday 6–9 p.m. Scenes and characters appear in the recreated village; December 7–10 are not advertised public dates."
+  },
+  {
+    "slug": "clearlake-65th-christmas-boat-lane-parade-2026",
+    "title": "65th Annual Clear Lake Christmas Boat Lane Parade",
+    "city": "Kemah",
+    "countySlug": "galveston",
+    "countyName": "Galveston County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-12",
+    "venueName": "Nassau Bay Lagoon, Clear Lake, Kemah and Seabrook channels",
+    "officialEventUrl": "https://clearlakearea.com/christmas-boat-parade/",
+    "sourceName": "Clear Lake Area Chamber of Commerce",
+    "summary": "The Clear Lake Area Chamber confirms Saturday December 12, 2026 for the 65th Christmas Boat Lane Parade. Boat departures and fireworks start around 6 p.m. in Nassau Bay Lagoon, with illuminated boats expected to pass Kemah Boardwalk and Seabrook around 7:30 p.m. Viewing is shore-side; optional captain registration and Sunday's private awards brunch are separate and not passenger tickets. This is the SAME regional parade seen from multiple shoreline towns."
   },
   {
     "slug": "armadillo-christmas-bazaar-austin",
@@ -1946,6 +2039,32 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://tpwd.texas.gov/calendar/san-angelo/holly-days",
     "sourceName": "Texas Parks and Wildlife Department",
     "summary": "TPWD confirms the Saturday December 12, 2026 drive-through campsite light showcase from 6–8 p.m. Free entry, no visitor registration; special activities and decorated campsites may be weather-dependent. The San Angelo city Concho Christmas display is a separate event."
+  },
+  {
+    "slug": "kemah-cocoa-cookies-stroll-2026-3",
+    "title": "Kemah Boardwalk Cocoa & Cookies Stroll · 2026-12-12",
+    "city": "Kemah",
+    "countySlug": "galveston",
+    "countyName": "Galveston County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-12",
+    "venueName": "Kemah Boardwalk · 215 Kipp Avenue",
+    "officialEventUrl": "https://www.kemahboardwalk.com/events",
+    "sourceName": "Kemah Boardwalk official 2026 event calendar",
+    "summary": "The Kemah Boardwalk 2026 events calendar schedules the Cocoa & Cookies Stroll on Saturdays November 28 through December 19. This record lists one confirmed Saturday session only; do not imply Sunday or midweek strolls. Confirm current giveaways, food purchases and seasonal operating hours with the Boardwalk."
+  },
+  {
+    "slug": "pearland-tour-de-lites-2026",
+    "title": "Pearland Tour De Lites · holiday bicycle lights tour",
+    "city": "Pearland",
+    "countySlug": "brazoria",
+    "countyName": "Brazoria County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-12",
+    "venueName": "Independence Park · Pearland",
+    "officialEventUrl": "https://www.parks.pearlandtx.gov/special-events/",
+    "sourceName": "City of Pearland Parks and Recreation official 2026 special-events roster",
+    "summary": "Pearland's official 2026 Parks and Recreation special-events schedule lists Tour De Lites Saturday December 12 from approximately 4:30 to 8 p.m. at Independence Park. This is a separate cycling-focused holiday event from the December 4 festival and December 5 parade. Detailed ride registration, routes, ticket costs and participating bike requirements have not yet been confirmed for 2026—check the event organizer before traveling."
   },
   {
     "slug": "san-antonio-river-of-lights",
@@ -2127,6 +2246,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "A separately scheduled downtown December 18–20 holiday festival, 2–9 p.m., featuring skating, cocoa, glowing displays and live reindeer. Ticketing details remain subject to organizer announcement."
   },
   {
+    "slug": "kemah-jingle-on-boardwalk-2026-3",
+    "title": "Jingle on the Boardwalk · December holiday weekend 3",
+    "city": "Kemah",
+    "countySlug": "galveston",
+    "countyName": "Galveston County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-18",
+    "endDate": "2026-12-20",
+    "venueName": "Kemah Boardwalk · 215 Kipp Avenue",
+    "officialEventUrl": "https://www.kemahboardwalk.com/events",
+    "sourceName": "Kemah Boardwalk official 2026 event calendar",
+    "summary": "The Kemah Boardwalk operator confirms Jingle on the Boardwalk weekends December 4–20, 2026. This listed Friday–Sunday holiday weekend features Santa, seasonal music, crafts and a toy drive. Rides, dining and optional attractions have their own prices; no claim is made that every attraction or performance runs continuously every day."
+  },
+  {
     "slug": "richardson-santas-village-week3",
     "title": "Richardson Santa's Village · December 18–20",
     "city": "Richardson",
@@ -2208,6 +2341,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://tpwd.texas.gov/calendar/bastrop/christmas-under-the-pines",
     "sourceName": "Texas Parks and Wildlife Department",
     "summary": "TPWD confirms Saturday December 19, 2026, 10 a.m.–noon at the Refectory for holiday crafts and CCC history activities. The event program is included after park admission: $5 per adult, ages 12 and under free. This is separate from downtown Bastrop Christmas festivities."
+  },
+  {
+    "slug": "kemah-cocoa-cookies-stroll-2026-4",
+    "title": "Kemah Boardwalk Cocoa & Cookies Stroll · 2026-12-19",
+    "city": "Kemah",
+    "countySlug": "galveston",
+    "countyName": "Galveston County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-19",
+    "venueName": "Kemah Boardwalk · 215 Kipp Avenue",
+    "officialEventUrl": "https://www.kemahboardwalk.com/events",
+    "sourceName": "Kemah Boardwalk official 2026 event calendar",
+    "summary": "The Kemah Boardwalk 2026 events calendar schedules the Cocoa & Cookies Stroll on Saturdays November 28 through December 19. This record lists one confirmed Saturday session only; do not imply Sunday or midweek strolls. Confirm current giveaways, food purchases and seasonal operating hours with the Boardwalk."
   },
   {
     "slug": "mcallen-south-pole-illuminated-5",
@@ -2307,7 +2453,7 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The final five January evenings of the 2026–27 Marktplatz lighting program; December 31 is omitted because the special New Year's Eve event replaces the regular countdown.",
     "endDate": "2027-01-05"
   }
-];;;;;;;;;;
+];;;;;;;;;;;;
 
 // Reuse comprehensive guides where they exist. The dated occurrence remains
 // an independent calendar record, so closing days are never falsely listed.

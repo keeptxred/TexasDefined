@@ -27,7 +27,7 @@ const end = eventFile.indexOf("\n];", start);
 assert.ok(start >= 0 && end > start, "Source-qualified Christmas manifest was not found");
 const json = eventFile.slice(eventFile.indexOf("= [", start) + 2, end + 2).trim();
 const events = JSON.parse(json);
-assert.ok(events.length >= 168, "The 168 organizer-verified Christmas date windows must not shrink without explicit source review");
+assert.ok(events.length >= 179, "The 179 organizer-verified Christmas date windows must not shrink without explicit source review");
 assert.equal(events.length, new Set(events.map((event) => event.slug)).size, "Duplicate Christmas community slugs");
 
 const validDate = /^20\d{2}-\d{2}-\d{2}$/;
@@ -96,6 +96,35 @@ assert.ok(bySlug.get("livingston-christmas-train-village-2026-3").summary.includ
 assert.ok(bySlug.get("livingston-christmas-train-village-2026-1").summary.includes("NOT a paid passenger train ride"),
   "Keep Livingston miniature train exhibit distinct from excursion ticketing");
 assert.ok(!bySlug.has("longview-christmas-train-2026"), "Do not invent the unverified Longview passenger train candidate");
+
+for (const [slug,begin,end] of [
+  ["clearlake-65th-christmas-boat-lane-parade-2026","2026-12-12",undefined],
+  ["pearland-hometown-christmas-festival-2026","2026-12-04",undefined],
+  ["kemah-jingle-on-boardwalk-2026-1","2026-12-04","2026-12-06"],
+  ["kemah-jingle-on-boardwalk-2026-2","2026-12-11","2026-12-13"],
+  ["kemah-jingle-on-boardwalk-2026-3","2026-12-18","2026-12-20"],
+  ["kemah-cocoa-cookies-stroll-2026-1","2026-11-28",undefined],
+  ["kemah-cocoa-cookies-stroll-2026-2","2026-12-05",undefined],
+  ["kemah-cocoa-cookies-stroll-2026-3","2026-12-12",undefined],
+  ["kemah-cocoa-cookies-stroll-2026-4","2026-12-19",undefined],
+]) check(slug,begin,end);
+assert.ok(bySlug.get("clearlake-65th-christmas-boat-lane-parade-2026").summary.includes("SAME regional parade"),
+  "Do not create separate Seabrook and Kemah boat parades for one Chamber-organized route");
+assert.ok(bySlug.get("pearland-hometown-christmas-festival-2026").summary.includes("NOT proof"),
+  "Pearland festival is not proof of a season-long light exhibit");
+assert.ok(bySlug.get("kemah-cocoa-cookies-stroll-2026-1").summary.includes("not imply Sunday or midweek"),
+  "Kemah cocoa strolls only operate on named Saturdays");
+assert.ok(!bySlug.has("pearland-festival-of-lights-2026"), "Do not invent a different Pearland festival identity");
+check("pearland-hometown-christmas-parade-2026","2026-12-05");
+check("pearland-tour-de-lites-2026","2026-12-12");
+assert.ok(bySlug.get("pearland-hometown-christmas-parade-2026").summary.includes("DIFFERENT day"),
+  "Pearland festival and parade must remain independently dated");
+assert.ok(bySlug.get("pearland-tour-de-lites-2026").summary.includes("not yet been confirmed for 2026"),
+  "Do not invent Tour De Lites ticket prices, bicycle requirements or routes");
+assert.equal(bySlug.get("pearland-hometown-christmas-festival-2026").officialEventUrl,
+  "https://www.parks.pearlandtx.gov/special-events/hometown-christmas-festival",
+  "Pearland organizer source must be the current visitor page, not a stale city-calendar event ID");
+
 assert.ok(bySlug.get("nacogdoches-nine-flags-parade-2026").summary.includes("not proof the full festival runs every day"),
   "Do not invent daily Nine Flags 2026 festival sessions");
 assert.ok(bySlug.get("rockwall-hometown-christmas-2026").summary.includes("6–8 p.m."),
