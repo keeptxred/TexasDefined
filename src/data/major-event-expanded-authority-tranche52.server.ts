@@ -15,7 +15,7 @@ const records: MajorEventAuthorityRecord[] = [
     endDate: "2027-02-07",
     venue: "Downtown Port Arthur",
     officialUrl: "https://visitportarthurtx.com/mardi-gras/about-mardi-gras/",
-    sourceCheckedAt: "2026-10-21",
+    sourceCheckedAt: "2026-10-26",
     whyItMatters: "Port Arthur's 2027 return to city-hosted Mardi Gras is a new destination celebration shaped by the area's Cajun and Gulf Coast culture. The Port Arthur Convention & Visitors Bureau says the February 5–7 program will include parades, live music, food and family activities. It should not be confused with the separately organized Mardi Gras of Southeast Texas event that moved to Beaumont.",
     quickFacts: [
       {
@@ -32,7 +32,7 @@ const records: MajorEventAuthorityRecord[] = [
       },
       {
         label: "Parades and admission",
-        value: "Detailed route, times and ticket terms: check organizer's current schedule"
+        value: "Organizers confirm February 5–7; detailed parade hours, routes and ticket terms are not yet posted on their dedicated schedule page (checked October 26)"
       }
     ],
     planningSections: [
@@ -42,7 +42,7 @@ const records: MajorEventAuthorityRecord[] = [
       },
       {
         title: "Anchor your trip to the February 5–7 weekend",
-        body: "The tourism bureau has published the three-day 2027 dates and downtown location. Individual parade routes, street closures and concert start times may develop as planning continues. Choose your travel day only after checking the official current schedule."
+        body: "The tourism bureau has published the three-day 2027 dates and downtown location, and now links a dedicated schedule page. As of October 26 the schedule page does not contain a detailed timetable: no individual parade start time, road-closure map or ticket price can yet be quoted. Check that official page again before finalizing your travel day."
       },
       {
         title: "Find a viewing strategy before committing to parking",
@@ -82,6 +82,10 @@ const records: MajorEventAuthorityRecord[] = [
       {
         label: "Visit Port Arthur — annual event guide",
         url: "https://visitportarthurtx.com/annual-events/"
+      },
+      {
+        label: "Visit Port Arthur — dedicated Mardi Gras schedule (details pending)",
+        url: "https://visitportarthurtx.com/mardi-gras/schedule/"
       }
     ]
   },
