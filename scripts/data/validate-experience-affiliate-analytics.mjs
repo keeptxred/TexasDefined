@@ -126,6 +126,42 @@ if (/window\.location\s*=|window\.location\.href\s*=/.test([tracker, citypass, c
   errors.push('Experience affiliate analytics must not force redirects.');
 }
 
+// Waco attribution and indexed contextual discovery are separate from paid
+// tickets. The seven overview URLs must never be promoted as admission.
+const wacoIndex = fs.readFileSync('src/data/waco-viator-attraction-links.ts', 'utf8');
+const wacoOffer = fs.readFileSync('src/components/monetization/WacoDestinationOffer.tsx', 'utf8');
+const wacoMagnolia = fs.readFileSync('src/components/monetization/WacoMagnoliaCrosslinks.tsx', 'utf8');
+const magnolia = fs.readFileSync('src/components/monetization/MagnoliaWacoAffiliateLinks.tsx', 'utf8');
+const curatedPairings = fs.readFileSync('src/data/destination-curated-pairings.ts', 'utf8');
+const stadium = fs.readFileSync('src/data/sports-venue-guide-wave4.ts', 'utf8');
+const stadiumComponent = fs.readFileSync('src/components/sports/SportsVenueGuidePage.tsx', 'utf8');
+for (const slug of [
+  'dr-pepper-museum-waco', 'cottonland-castle', 'waco-suspension-bridge',
+  'cameron-park-waco', 'cameron-park-zoo',
+  'texas-ranger-hall-of-fame-museum-waco', 'mclane-stadium',
+]) requireText(wacoIndex, `slug: "${slug}"`, 'seven distinct Waco attraction overview routes');
+for (const [source, needle, label] of [
+  [wacoOffer, 'wacoViatorAttractionForSlug(slug)', 'attraction-specific Waco overview registry'],
+  [wacoOffer, 'not an entry ticket', 'admission/ticket non-equivalence'],
+  [wacoOffer, 'buildViatorAffiliateUrl(attraction.viatorUrl, placement)', 'Waco tracked overview link'],
+  [wacoOffer, 'rel="sponsored nofollow noopener noreferrer"', 'Waco sponsored relationship'],
+  [wacoOffer, 'trackAffiliateClick(', 'Waco first-party click tracking'],
+  [wacoOffer, 'Affiliate disclosure:', 'Waco local disclosure'],
+  [wacoOffer, 'WacoViatorExperienceCards', 'separately bookable experiences'],
+  [destinationViator, 'if (!market) return huntingLinks;', 'Preserved fail-closed generic inventory with separately reviewed Waco attraction links'],
+  [destinationViator, '/waco|cottonland|cameron-park|magnolia-market/.test(destination.slug)', 'Lazy Waco-only placement prefilter; exact offer eligibility remains in wacoViatorAttractionForSlug'],
+  [magnolia, 'WacoMagnoliaCrosslinks', 'Magnolia independent Waco visitor guides'],
+  [wacoMagnolia, 'WACO_VIATOR_ATTRACTIONS.map', 'all seven Waco guide links'],
+  [wacoMagnolia, 'WacoViatorExperienceCards', 'Waco supplier-specific booking'],
+  [wacoMagnolia, '/waco-attractions', 'Waco authority hub from Magnolia visitor context'],
+  [wacoMagnolia, '/dallas-to-waco-magnolia-tours', 'Waco tour planning from Magnolia visitor context'],
+  [stadiumComponent, '<WacoDestinationOffer slug="mclane-stadium" />', 'McLane venue overview without fabricated ticket'],
+  [stadium, "reviewedAt: '2026-10-25'", 'dated official McLane visitor evidence'],
+  [stadium, 'South Plaza and Gate B', 'Baylor 2026 official stroller entrance correction'],
+  [stadium, 'https://baylorbears.com/facilities/mclane-stadium/30', 'official Baylor access authority'],
+  [curatedPairings, '"cameron-park-zoo": ["cameron-park-waco"', 'reciprocal Waco park links'],
+]) requireText(source, needle, label);
+
 if (errors.length) {
   console.error('Experience affiliate analytics validation failed:');
   for (const error of errors) console.error(`- ${error}`);

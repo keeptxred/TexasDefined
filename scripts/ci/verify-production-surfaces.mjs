@@ -10,6 +10,12 @@ const summaryPath = process.env.GITHUB_STEP_SUMMARY;
 
 const surfaces = [
   ['mclennan-2020-census-corrected', '/county/mclennan', 'The 2020 U.S. Census counted 260,579 residents in McLennan County.'],
+  // Three complete Waco visitor-guide routes are now protected production surfaces.
+  // These are actual public pages, not unverified affiliate placeholder slugs.
+  ['waco-seven-attractions-hub', '/waco-attractions', 'Seven Waco Attractions: Full Visitor Guides and Tours'],
+  ['waco-ghost-tour-guide', '/waco-ghost-tours', 'Waco Ghost Tours: Guided Walk vs. Self-Guided Audio Tour'],
+  ['waco-dallas-day-trip', '/dallas-to-waco-magnolia-tours', 'Plan a guided Dallas-to-Waco Magnolia Market day trip'],
+
 
   ['gaines-magnolia-title', '/article/chip-and-joanna-gaines-magnolia-waco', 'Chip and Joanna Gaines: Their Story, Magnolia and Waco'],
   ['gaines-magnolia-faq-question', '/article/chip-and-joanna-gaines-magnolia-waco', 'Are Chip and Joanna Gaines from Magnolia, Texas?'],

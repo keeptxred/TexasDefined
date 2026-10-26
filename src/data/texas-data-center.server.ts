@@ -195,14 +195,18 @@ export const TEXAS_DATASETS: TexasDataset[] = [
     title: 'Texas Metro Nonfarm Payroll Employment — ' +
       new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' })
         .format(new Date(currentMetroPayrolls.releaseMonth + '-01T00:00:00Z')),
-    description: 'Most recently verified monthly BLS Table 3 total nonfarm payroll job estimates for major Texas metro areas. The source and release month are explicitly dated.',
+    description: 'Most recently verified monthly BLS nonfarm payroll job estimates for major Texas metro areas, sourced from the official BLS metro release or its Federal Reserve series distribution, with source and observation month identified.',
     category: 'Jobs',
     year: Number(currentMetroPayrolls.releaseMonth.slice(0, 4)),
     updated: currentMetroPayrolls.publishedDate,
     unit: 'count',
-    sourceName: 'U.S. Bureau of Labor Statistics — Metropolitan Area Employment and Unemployment, Table 3',
+    sourceName: currentMetroPayrolls.sourceUrl.startsWith('https://fred.stlouisfed.org/')
+      ? 'Federal Reserve Bank of St. Louis (FRED) — BLS monthly metro nonfarm payroll series'
+      : 'U.S. Bureau of Labor Statistics — Metropolitan Area Employment and Unemployment, Table 3',
     sourceUrl: currentMetroPayrolls.sourceUrl,
-    methodology: 'Most recent verified BLS metropolitan Table 3 nonfarm payroll jobs, not seasonally adjusted; source rows report thousands and are multiplied by 1,000. Monthly data are preliminary and revised in later releases. This rolling snapshot does not replace the separately retained historic monthly briefs.',
+    methodology: currentMetroPayrolls.sourceUrl.startsWith('https://fred.stlouisfed.org/')
+      ? 'Monthly BLS metropolitan nonfarm payroll jobs, not seasonally adjusted, distributed by the Federal Reserve Bank of St. Louis. Each of the same thirteen named series is checked for one common observation month, complete numerical values, and a conservative forty-day source maturity window. The publishedDate field is the date Texas Defined verified this FRED distribution, not the date of an official BLS Table 3 news release. This rolling, revisable snapshot is distinct from archived official release briefs.'
+      : 'Most recent verified BLS metropolitan Table 3 nonfarm payroll jobs, not seasonally adjusted; source rows report thousands and are multiplied by 1,000. Monthly data are preliminary and revised in later releases. This rolling snapshot does not replace the separately retained historic monthly briefs.',
     rows: currentMetroPayrolls.rows,
   },
   {

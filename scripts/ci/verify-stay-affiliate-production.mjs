@@ -32,6 +32,12 @@ function verifyLiveRoutingPolicy(source) {
   requireCondition(api && typeof api.bookingIntent === 'function', 'Live stay affiliate bootstrap does not expose bookingIntent.');
   requireCondition(typeof api.comparisonHotelDestination === 'function', 'Live stay affiliate bootstrap does not expose comparisonHotelDestination.');
   requireCondition(typeof api.rvshareEligible === 'function', 'Live stay affiliate bootstrap does not expose rvshareEligible.');
+  requireCondition(typeof api.motel6Eligible === 'function' && typeof api.motel6CampaignActive === 'function' && typeof api.buildMotel6Link === 'function', 'Live Motel 6 contract is missing.');
+  requireCondition(api.motel6Eligible('/explore/road-trips') && api.motel6Eligible('/explore/near/mcallen/day-trips'), 'Live budget-travel pages missing Motel 6 option.');
+  requireCondition(!api.motel6Eligible('/events/christmas-events') && !api.motel6Eligible('/explore/casinos/near-houston'), 'Live Motel 6 route guard became too broad.');
+  requireCondition(api.buildMotel6Link('17371482') === 'https://www.jdoqocy.com/click-101876465-17371482', 'Live Halloween Motel 6 link is not account-specific.');
+  requireCondition(api.buildMotel6Link('17198227') === 'https://www.tqlkg.com/click-101876465-17198227', 'Live evergreen Motel 6 link is not account-specific.');
+  requireCondition(api.motel6CampaignActive(Date.parse('2026-11-01T05:00:00Z')) === false, 'Live seasonal messaging must expire at the conservative cutoff.');
   requireCondition(typeof api.buildCjDeepLink === 'function', 'Live stay affiliate bootstrap does not expose buildCjDeepLink.');
   requireCondition(typeof api.featuredGolfStay === 'function', 'Live stay affiliate bootstrap does not expose featuredGolfStay.');
 
@@ -224,7 +230,7 @@ for (const marker of [
   'Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com, Travelocity or Vrbo activity',
   'Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com, Travelocity or RVshare activity',
   'if (intent === "both" && !showRvshare)',
-  'variant: featuredStay || showRvshare ? "secondary" : "primary"',
+  'variant: featuredStay || hotelPasoExact || showRvshare ? "secondary" : "primary"',
   'sponsored nofollow noopener noreferrer',
   'event: "affiliate_click"',
   'window.dataLayer.push(detail)',

@@ -6,8 +6,29 @@
   const CJ_PUBLISHER_ID = "101876465";
   const CJ_DLG_BASE = `https://www.anrdoezrs.net/links/${CJ_PUBLISHER_ID}/type/dlg/`;
   const HOTELS_DESTINATION = "https://www.hotels.com/";
-  // Verified destination city directory for the Palestine Polar Express page.
+  // Verified Palestine destination directory for the Polar Express booking guide.
   const PALESTINE_HOTELS_DESTINATION = "https://www.hotels.com/de1634643/hotels-palestine-texas/";
+  // Motel 6 approved CJ publisher-email creatives: 17198227 (Sep 21,
+  // standard), 17371482 (Oct 26, Halloween). 101876465 is our known PID;
+  // 8062457 is an account CID, not the website tracking ID.
+  const MOTEL6_STANDARD_AID = "17198227";
+  const MOTEL6_HALLOWEEN_AID = "17371482";
+  const MOTEL6_CAMPAIGN_START = Date.parse("2026-10-26T00:00:00Z");
+  // Conservative publisher display cutoff, NOT merchant-certified expiry.
+  const MOTEL6_CAMPAIGN_END = Date.parse("2026-11-01T05:00:00Z");
+  const MOTEL6_PATH = /^\/(?:article\/(?:fredericksburg-history-weekend-guide|goliad-history-weekend-guide|washington-on-the-brazos-weekend-guide)(?:\/|$)|explore\/(?:road-trips(?:\/|$)|weekend-getaways(?:\/|$)|near\/[a-z0-9-]+\/day-trips(?:\/|$))|texas-tailgating-guide(?:\/|$)|texas-roadside-oddities(?:\/|$)|event\/[a-z0-9-]*(?:halloween|haunted|ghost|pumpkin|trick-or-treat)[a-z0-9-]*(?:\/|$))/;
+  function motel6Eligible(pathname = window.location.pathname) {
+    return MOTEL6_PATH.test(String(pathname || "").replace(/\/+$/, ""));
+  }
+  function motel6CampaignActive(now = Date.now()) {
+    return Number.isFinite(now) && now >= MOTEL6_CAMPAIGN_START && now < MOTEL6_CAMPAIGN_END;
+  }
+  function buildMotel6Link(aid) {
+    if (aid === MOTEL6_STANDARD_AID) return "https://www.tqlkg.com/click-" + CJ_PUBLISHER_ID + "-" + aid;
+    if (aid === MOTEL6_HALLOWEEN_AID) return "https://www.jdoqocy.com/click-" + CJ_PUBLISHER_ID + "-" + aid;
+    throw new Error("Unreviewed Motel 6 CJ link ID");
+  }
+
   const ORBITZ_DESTINATION = "https://www.orbitz.com/";
   const TRAVELOCITY_DESTINATION = "https://www.travelocity.com/";
   const VRBO_DESTINATION = "https://www.vrbo.com/";
@@ -185,6 +206,33 @@
     return link;
   }
 
+  function createMotel6Link(promo) {
+    const link = document.createElement("a");
+    const label = promo ? "Motel 6 Halloween stay offers" : "Explore Motel 6 budget stays";
+    link.href = buildMotel6Link(promo ? MOTEL6_HALLOWEEN_AID : MOTEL6_STANDARD_AID);
+    link.target = "_blank";
+    link.rel = "sponsored nofollow noopener noreferrer";
+    link.className = "td-stay-affiliate-button td-stay-affiliate-button--secondary";
+    link.textContent = label;
+    link.dataset.affiliatePartner = "motel6";
+    link.dataset.affiliatePlacement = promo ? "motel6-halloween-travel" : "motel6-budget-travel";
+    link.dataset.commercialPartner = "motel6";
+    link.dataset.commercialPlacement = link.dataset.affiliatePlacement;
+    link.addEventListener("click", () => {
+      const detail = {
+        event: "affiliate_click",
+        affiliate_partner: "motel6",
+        affiliate_label: label,
+        affiliate_placement: link.dataset.affiliatePlacement,
+        page_path: window.location.pathname,
+      };
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push(detail);
+      window.dispatchEvent(new CustomEvent("texasdefined:affiliate-click", { detail }));
+    });
+    return link;
+  }
+
   function addStyles(target) {
     if (document.getElementById("td-stay-affiliate-styles")) return;
     const style = document.createElement("style");
@@ -354,6 +402,16 @@
     }
 
     }
+    if (motel6Eligible()) {
+      const promo = motel6CampaignActive();
+      actions.appendChild(createMotel6Link(promo));
+      if (promo) {
+        const note = document.createElement("p");
+        note.className = "td-stay-affiliate-copy";
+        note.textContent = "Motel 6's Trip and Treat offer advertises up to 15% off nightly stays, 20% off weekly stays, and 35% off monthly stays. The advertiser provided no expiration date; check current terms, dates and participating properties before booking.";
+        panel.dataset.motel6PromoCopy = note.textContent;
+      }
+    }
     if (showRvshare) {
       actions.appendChild(createTrackedLink({
         destination: RVSHARE_DESTINATION,
@@ -372,7 +430,15 @@
         : "Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com, Travelocity or Vrbo activity, at no additional cost to you. Availability, rates and booking terms are provided by the booking service.")
       : "Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com or Orbitz activity, at no additional cost to you. Availability, rates and booking terms are provided by the booking service.";
 
+    if (motel6Eligible()) disclosure.textContent += " Motel 6 is an additional sponsored budget-stay option; TexasDefined may earn a commission on qualifying reservations.";
     panel.append(eyebrow, heading, copy, actions, disclosure);
+    if (panel.dataset.motel6PromoCopy) {
+      const note = document.createElement("p");
+      note.className = "td-stay-affiliate-copy";
+      note.textContent = panel.dataset.motel6PromoCopy;
+      actions.after(note);
+      delete panel.dataset.motel6PromoCopy;
+    }
     if (hotelPasoExact) {
       const sourceNote = document.createElement("p");
       sourceNote.className = "td-stay-affiliate-source";
@@ -631,15 +697,17 @@
     const exactPropertyFirst = hasExactPropertyAffiliate(expediaSurface);
     const intent = bookingIntent();
     const choiceMode = exactPropertyFirst ? "after-exact" : "broad";
+    const motel6Mode = motel6Eligible() ? (motel6CampaignActive() ? "halloween" : "standard") : "none";
     const casinoPath = window.location.pathname.replace(/\/+$/, "") || "/";
     const resolvedChoiceMode = !exactPropertyFirst && casinoHotelChoices().length
       ? `casino:${casinoPath}`
       : (!exactPropertyFirst && hotelPasoStay() ? "hotel-paso-exact" : choiceMode);
     let choice = existing;
-    if (!(choice?.dataset.intent === intent && choice?.dataset.mode === resolvedChoiceMode && choice.parentElement === expediaSurface)) {
+    if (!(choice?.dataset.intent === intent && choice?.dataset.mode === resolvedChoiceMode && choice?.dataset.motel6Mode === motel6Mode && choice.parentElement === expediaSurface)) {
       choice?.remove();
       choice = createBookingChoice(intent, exactPropertyFirst);
       choice.dataset.intent = intent;
+      choice.dataset.motel6Mode = motel6Mode;
       choice.dataset.mode = choiceMode;
       if (resolvedChoiceMode !== choiceMode) choice.dataset.mode = resolvedChoiceMode;
     }
@@ -700,6 +768,9 @@
     const main = document.getElementById("main") || document.body;
     observer = new MutationObserver(scheduleSync);
     observer.observe(main, { childList: true, subtree: true });
+    // Automatically switch back to the ordinary creative at Halloween cutoff.
+    const remaining = MOTEL6_CAMPAIGN_END - Date.now();
+    if (remaining > 0) window.setTimeout(scheduleSync, Math.min(remaining + 250, 2147483647));
     window.addEventListener("popstate", scheduleSync);
     window.addEventListener("texasdefined:county-hydrated", scheduleSync);
     window.addEventListener("texasdefined:state-fair-hydrated", scheduleSync);
@@ -708,6 +779,9 @@
   }
 
   window.TexasDefinedStayAffiliateOptions = {
+    buildMotel6Link,
+    motel6Eligible,
+    motel6CampaignActive,
     buildCjDeepLink,
     bookingIntent,
     comparisonHotelDestination,

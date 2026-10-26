@@ -27,7 +27,7 @@ const end = eventFile.indexOf("\n];", start);
 assert.ok(start >= 0 && end > start, "Source-qualified Christmas manifest was not found");
 const json = eventFile.slice(eventFile.indexOf("= [", start) + 2, end + 2).trim();
 const events = JSON.parse(json);
-assert.ok(events.length >= 179, "The 179 organizer-verified Christmas date windows must not shrink without explicit source review");
+assert.ok(events.length >= 191, "The 191 organizer-verified Christmas date windows must not shrink without explicit source review");
 assert.equal(events.length, new Set(events.map((event) => event.slug)).size, "Duplicate Christmas community slugs");
 
 const validDate = /^20\d{2}-\d{2}-\d{2}$/;
@@ -65,6 +65,25 @@ for (const [slug,start,end] of [
   ['waco-wild-lights-2026-4','2026-12-17','2026-12-20'],
   ['mineral-wells-merry-wells-festival','2026-11-28',undefined],
 ]) check(slug,start,end);
+for (const [slug,begin,end] of [
+  ["bryan-2026-lights-on-downtown","2026-11-20",undefined],
+  ["bryan-2026-holiday-magic-sue-haswell","2026-12-03",undefined],
+  ["bryan-2026-holiday-porch-stroll","2026-12-13",undefined],
+  ["bryan-2026-downtown-holiday-stroll","2026-12-13","2026-12-17"],
+  ["bryan-2026-lighted-parade","2026-12-17",undefined],
+  ["weatherford-2026-christmas-on-square","2026-12-05",undefined],
+  ["weatherford-2026-lights-night-parade","2026-12-05",undefined],
+  ["lampasas-2026-carol-of-lights","2026-12-05",undefined],
+  ["lampasas-2026-holidazzle-parade","2026-12-05",undefined],
+  ["lampasas-2026-christmas-on-creek","2026-12-12",undefined],
+  ["caldwell-2026-christmas-on-square","2026-12-11",undefined],
+  ["navasota-2026-home-for-holidays-parade","2026-12-05",undefined],
+]) check(slug,begin,end);
+assert.ok(bySlug.get("bryan-2026-downtown-holiday-stroll").summary.includes("distinct event"), "Bryan parade and Stroll identities cannot be collapsed");
+assert.ok(bySlug.get("caldwell-2026-christmas-on-square").summary.includes("Friday December 11"), "2026 Caldwell source-date beats annual tradition assumptions");
+assert.ok(bySlug.get("navasota-2026-home-for-holidays-parade").sourceName.includes("School District"), "Do not imply organizer confirmation where only the district calendar supports the date");
+assert.ok(!bySlug.has("temple-nature-in-lights-assumed-2026"), "Historic Temple BLORA holiday dates cannot be promoted as exact 2026 evidence");
+assert.ok(!bySlug.has("waco-homestead-christmas-market-inferred-2026"), "Archived Homestead Holiday Market dates must not silently roll forward");
 assert.ok(!bySlug.has('waco-wild-lights-2026-late-december'), 'Conflicted Zoo operating nights cannot be invented');
 for (const [slug,date] of [
   ["southlake-home-for-the-holidays-2026","2026-11-21"],
