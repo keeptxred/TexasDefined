@@ -7,7 +7,7 @@ import { getTexasCountyHousingCosts } from '@/data/acs-county-housing-costs.func
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 const canonicalPath = '/texas-data/county-housing-costs';
-const description = 'Compare Texas counties using official 2020–2024 American Community Survey 5-year estimates for median home value, gross rent, monthly owner costs and household income.';
+const description = 'Compare Texas counties using the latest verified American Community Survey 5-year estimates for median home value, gross rent, monthly owner costs and household income.';
 
 export const Route = createFileRoute('/texas-data/county-housing-costs')({
   loader: () => getTexasCountyHousingCosts(),
@@ -22,11 +22,11 @@ export const Route = createFileRoute('/texas-data/county-housing-costs')({
       scripts: loaderData?.available ? [jsonLd({
         '@context': 'https://schema.org',
         '@type': 'Dataset',
-        name: 'Texas County Housing Costs — 2020–2024 ACS',
+        name: `Texas County Housing Costs — ${loaderData.release}`, 
         description,
         url: absoluteUrl(texasDefinedBrand, canonicalPath),
         dateModified: modified,
-        temporalCoverage: '2020/2024',
+        temporalCoverage: `2020/${loaderData.year}`, 
         creator: { '@id': `${absoluteUrl(texasDefinedBrand, '/')}#organization` },
         isBasedOn: loaderData.sourcePage,
         variableMeasured: ['median household income', 'median owner-occupied home value', 'median gross rent', 'median selected monthly owner costs'],
@@ -73,7 +73,7 @@ function Page() {
             </div>
             <div className="overflow-x-auto">
               <table className="w-full min-w-[780px] border-collapse text-left text-sm">
-                <caption className="sr-only">Texas county median home value, rent, monthly owner costs and household income from the 2020–2024 ACS 5-year estimates.</caption>
+                <caption className="sr-only">Texas county median home value, rent, monthly owner costs and household income from the {data.release}.</caption>
                 <thead><tr className="border-b border-border text-xs uppercase tracking-wide text-muted-foreground"><th scope="col" className="py-4 pr-4">County</th><th scope="col" className="px-4 py-4 text-right">Home value</th><th scope="col" className="px-4 py-4 text-right">Gross rent</th><th scope="col" className="px-4 py-4 text-right">Owner costs</th><th scope="col" className="pl-4 py-4 text-right">Household income</th></tr></thead>
                 <tbody>{rows.map((row) => <tr key={row.fips} className="border-b border-border/70"><th scope="row" className="py-4 pr-4 font-medium"><Link to="/county/$slug" params={{ slug: row.countySlug }} className="hover:text-primary">{row.countyName}</Link></th><td className="px-4 py-4 text-right tabular-nums">{formatEstimate(row.medianHomeValue)}</td><td className="px-4 py-4 text-right tabular-nums">{formatEstimate(row.medianGrossRent)}</td><td className="px-4 py-4 text-right tabular-nums">{formatEstimate(row.medianMonthlyOwnerCosts)}</td><td className="pl-4 py-4 text-right tabular-nums">{formatEstimate(row.medianHouseholdIncome)}</td></tr>)}</tbody>
               </table>
