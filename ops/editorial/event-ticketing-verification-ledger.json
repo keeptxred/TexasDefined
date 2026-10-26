@@ -17,7 +17,17 @@
     "ticketmaster": "Approved Discovery API/Impact publisher 7758914; freshness 48h; no seat inventory entitlement",
     "otherProviders": "Official HTTPS outbound links only unless newly documented authorization",
     "affiliateSecurity": "Approved Impact publisher 7758914, Ticketmaster merchant 264167, route suffix 4272; exact event-specific embedded destination and provider identity match required; no event-specific commission guarantee",
-    "privateInventory": "No live seat availability or cart transaction asserted"
+    "privateInventory": "No live seat availability or cart transaction asserted",
+    "eventLifecycleCtaSafety": {
+      "status": "IMPLEMENTED",
+      "date": "2026-10-26",
+      "problem": "Cancelled, postponed or rescheduled editorial event records can retain a source Offer marked saleStatus unknown; shared calendar previously ignored event-level status when rendering a purchase CTA.",
+      "fix": "The canonical calendar and carousel suppress all purchase CTAs for any event status other than scheduled, and display the lifecycle status; official event site remains available.",
+      "tests": "Canonical official-ticket positive-path suite now tests changed lifecycle for calendar and carousel and scheduled-offer retention.",
+      "pr": null,
+      "productionVerifiedAt": null,
+      "providerInventoryVerified": false
+    }
   },
   "events": [
     {

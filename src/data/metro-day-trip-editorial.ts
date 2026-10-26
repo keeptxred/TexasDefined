@@ -92,6 +92,62 @@ const DAY_TRIP_CHOICES: Readonly<Record<string, readonly DayTripChoice[]>> = {
   ],
 };
 
+/**
+ * El Paso's independently source-backed research leads are NOT catalog
+ * destinations and must never be counted toward day-trip index eligibility.
+ * The 18-150-mile governed collection currently lacks adequate county/town
+ * variety. These operator pages help readers make safe, usable decisions
+ * without creating duplicate routes or granting false index-ready status.
+ * Sources reviewed 2026-10-26; scheduled source monitor checks sourceUrl.
+ */
+export const EL_PASO_SOURCE_BACKED_OUTINGS = [
+  {
+    key: "san-elizario-historic-district",
+    title: "San Elizario Historic District",
+    fit: "Mission Trail heritage",
+    plan: "Walk the historic district and focus on its presidio, mission landscape and El Camino Real history. The National Park Service identifies this as a managed historic district, not an open-access archaeological site.",
+    check: "Confirm the City of San Elizario's current visitor and building access before setting out; historic district streets and individual indoor attractions do not share one schedule.",
+    sourceLabel: "National Park Service historic district",
+    sourceUrl: "https://www.nps.gov/places/san-elizario-historic-district.htm",
+  },
+  {
+    key: "los-portales-museum",
+    title: "Los Portales Museum and Information Center",
+    fit: "A focused Mission Trail museum stop",
+    plan: "At 1521 San Elizario Road, explore the local history of the presidio, the Salt War, early El Paso County and the Mission Valley. This is a specific museum visit, not a second independent city day trip.",
+    check: "Verify current opening hours with the El Paso Mission Trail Association before building a San Elizario museum itinerary.",
+    sourceLabel: "El Paso Mission Trail Association visitor information",
+    sourceUrl: "https://www.elpasomissions.org/explore/museums/los-portales-museum/",
+  },
+  {
+    key: "van-horn-clark-hotel-museum",
+    title: "Clark Hotel Museum, Van Horn",
+    fit: "Railroad and frontier history in Culberson County",
+    plan: "The City of Van Horn identifies the former downtown hotel at 108 West Broadway as a local museum exhibiting pioneer, railroad and historic hotel material. Make this a researched stop on a Van Horn-focused drive.",
+    check: "Ask the museum or City of Van Horn to confirm access and staffing; a tourism listing is not a promise of daily hours.",
+    sourceLabel: "City of Van Horn attractions",
+    sourceUrl: "https://www.vanhorntexas.org/2159/Things-to-Do",
+  },
+  {
+    key: "salt-basin-dunes",
+    title: "Salt Basin Dunes",
+    fit: "Remote Guadalupe Mountains desert landscape",
+    plan: "See the dune fields on the national park's western side, but plan the additional drive on rural roads and roughly 1.5-mile walk each way from the designated parking area.",
+    check: "NPS says the clay access road can become dangerously slippery when wet. This is day-use only, with no trailhead water; confirm weather, daylight, route and water supplies.",
+    sourceLabel: "National Park Service Salt Basin Dunes access",
+    sourceUrl: "https://www.nps.gov/gumo/planyourvisit/dunes.htm",
+  },
+  {
+    key: "guadalupe-pine-springs",
+    title: "Guadalupe Mountains — Pine Springs",
+    fit: "A longer single-destination mountain outing",
+    plan: "NPS lists the main visitor center and Pine Springs trailhead off U.S. 62/180, about 110 driving miles east of El Paso. Pick a suitable trail rather than treating Guadalupe Peak as a casual short walk.",
+    check: "Choose your trail by difficulty and weather, review park alerts, carry water, and check current visitor-center and holiday hours. Distances within the park depend on the chosen trailhead.",
+    sourceLabel: "National Park Service Pine Springs visitor guidance",
+    sourceUrl: "https://www.nps.gov/gumo/planyourvisit/pine_springs_area.htm",
+  },
+] as const;
+
 export const CURATED_METRO_DAY_TRIP_SLUGS = Object.freeze(Object.keys(DAY_TRIP_CHOICES));
 
 export type CuratedMetroDayTrip = DayTripChoice & { result: MetroProximityResult };

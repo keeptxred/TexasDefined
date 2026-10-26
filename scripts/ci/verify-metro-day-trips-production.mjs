@@ -71,6 +71,22 @@ try {
           && local.sources.includes("https://tpwd.texas.gov/state-parks/parks/franklin-mountains/")
           && local.sources.includes("https://www.nps.gov/cham/planyourvisit/hours.htm"),
           JSON.stringify(local));
+        const researched=await page.evaluate(()=>({
+          cards:[...document.querySelectorAll('[data-el-paso-source-backed-outing]')].map(article=>({
+            key:article.getAttribute("data-el-paso-source-backed-outing"),
+            url:article.querySelector('a[href^="https://"]')?.getAttribute("href")||"",
+            title:article.querySelector("h3")?.textContent||""
+          })),
+          disclaimer:document.querySelector('[data-el-paso-source-backed-outings]')?.textContent||""
+        }));
+        check("El Paso operator-backed visitor choices remain sourced and separate from indexable catalog",
+          researched.cards.length===5
+          && new Set(researched.cards.map(card=>card.key)).size===5
+          && researched.cards.every(card=>card.url.startsWith("https://")&&card.title.length>6)
+          && researched.cards.some(card=>card.url.includes("vanhorntexas.org"))
+          && researched.cards.some(card=>card.url.includes("elpasomissions.org"))
+          && researched.disclaimer.includes("not five new destination profiles"),
+          JSON.stringify(researched.cards));
       }
       check("correct city heading",data.h1.toLowerCase().includes(metro.split("-")[0]),data.h1);
       check("unique curated destination IDs",new Set(data.slugs).size===data.slugs.length,data.slugs.join(","));

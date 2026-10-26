@@ -18,7 +18,7 @@ import type { MetroProximityTownResult } from "@/data/metro-proximity-town-refer
 import type { ResolvedEventTicketCta } from "@/data/events/ticketing";
 import { countyNames, countySlug } from "@/data/metro-county-links";
 import { maps } from "@/services/maps";
-import { curatedMetroDayTrips } from "@/data/metro-day-trip-editorial";
+import { curatedMetroDayTrips, EL_PASO_SOURCE_BACKED_OUTINGS } from "@/data/metro-day-trip-editorial";
 import { hasVerifiedViatorMarketUrl, verifiedViatorMarketUrl } from "@/data/viator-destination-links";
 import { buildViatorAffiliateUrl } from "@/lib/viator-affiliate";
 import { trackAffiliateClick, trackAffiliateImpression } from "@/lib/affiliate-click";
@@ -765,6 +765,40 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
             </div>
           </article>
         </div>
+      </Container>
+    </section>}
+
+    {metro.slug === "el-paso" && collection.slug === "day-trips" && <section
+      className="border-b border-border" data-el-paso-source-backed-outings="operator-leads-not-indexable-destinations"
+      aria-labelledby="el-paso-sourced-outings">
+      <Container className="py-12 sm:py-14">
+        <p className="eyebrow text-primary">Research-backed routes around Far West Texas</p>
+        <h2 id="el-paso-sourced-outings" className="mt-3 max-w-4xl font-display text-3xl sm:text-4xl">Choose a destination before choosing a drive</h2>
+        <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">
+          The trip collection below shows only eligible TexasDefined destination guides that meet its independent catalog
+          rules. These additional operator-sourced ideas give you practical options for history, a museum, a desert excursion
+          or a long mountain day. They are research leads, not five new destination profiles or a claim that the collection
+          now meets its indexing threshold. Combine nearby stops, such as the San Elizario district and Los Portales Museum,
+          rather than counting two stops in one town as two separate day trips.
+        </p>
+        <div className="mt-9 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {EL_PASO_SOURCE_BACKED_OUTINGS.map((outing) => <article key={outing.key}
+            className="border-t border-border pt-5" data-el-paso-source-backed-outing={outing.key}>
+            <p className="eyebrow text-primary">{outing.fit}</p>
+            <h3 className="mt-3 font-display text-2xl">{outing.title}</h3>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">{outing.plan}</p>
+            <p className="mt-4 text-sm leading-7"><strong>Check before going:</strong> {outing.check}</p>
+            <a href={outing.sourceUrl} target="_blank" rel="noopener noreferrer"
+              className="mt-5 inline-block border-b border-primary pb-1 text-sm font-semibold text-primary">
+              {outing.sourceLabel} ↗
+            </a>
+          </article>)}
+        </div>
+        <p className="mt-8 max-w-4xl text-xs leading-6 text-muted-foreground">
+          Editorial research reviewed October 26, 2026. Park restrictions, museum access, outdoor conditions and
+          route times can change; verify with the linked operator before travel. The 18–150-mile collection
+          below retains its existing geographic and source-quality eligibility checks.
+        </p>
       </Container>
     </section>}
 

@@ -11,6 +11,10 @@ import path from "node:path";
 
 const offline = process.argv.includes("--offline");
 const source = fs.readFileSync("src/data/metro-day-trip-editorial.ts", "utf8");
+const elPasoOutings = source.split("export const EL_PASO_SOURCE_BACKED_OUTINGS = [")[1]?.split("] as const;")[0];
+if (!elPasoOutings) throw new Error("Source-backed El Paso operator outing registry missing");
+const elPasoOutingUrls = [...new Set([...elPasoOutings.matchAll(/sourceUrl:\s*"(https:\/\/[^"]+)"/g)].map((match) => match[1]))];
+if (elPasoOutingUrls.length !== 5) throw new Error("El Paso source-backed outing coverage must retain five distinct operator references");
 const metroPage = fs.readFileSync("src/routes/explore.near.$metro.$collection.lazy.tsx", "utf8");
 // Close-in El Paso visitor sources are rendered outside the 18–150-mile
 // destination registry but still need the same weekly official-link checks.
@@ -26,7 +30,7 @@ const urls = [...new Set([
   ...[...source.matchAll(/sourceUrl:\s*"(https:\/\/[^"]+)"/g)].map((match) => match[1]),
   ...elPasoOperatorLinks,
 ])];
-const expectedOperators = new Set(["tpwd.texas.gov", "www.nps.gov", "www.fws.gov"]);
+const expectedOperators = new Set(["tpwd.texas.gov", "www.nps.gov", "www.fws.gov", "www.elpasomissions.org", "www.vanhorntexas.org"]);
 if (urls.length < 20) throw new Error("Day-trip source registry unexpectedly lost operator coverage");
 for (const url of urls) {
   const parsed = new URL(url);
