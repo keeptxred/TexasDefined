@@ -158,6 +158,18 @@ for (const invalid of [
 }
 const unapprovedPartner = resolveEventTicketCta({ links: [{ ...base, provider: 'seatgeek', officialTicketUrl: 'https://seatgeek.com/event/123', affiliateUrl: 'https://seatgeek.com/aff/123' }], offers: [] }, now);
 if (!unapprovedPartner || unapprovedPartner.isAffiliate) throw new Error('unapproved partner incorrectly marked sponsored');
+const resale = resolveEventTicketCta({ links: [{ ...base, provider: 'vivid-seats',
+  source: { kind: 'official-event', name: 'Vivid Seats' },
+  officialTicketUrl: 'https://www.vividseats.com/concerts' }], offers: [] }, now);
+if (!resale || resale.label !== 'Resale Tickets →' || resale.isAffiliate || !resale.disclosure?.includes('resale marketplace')) {
+  throw new Error('Known resale marketplace must have truthful unsponsored disclosure');
+}
+const mixedMarketplace = resolveEventTicketCta({ links: [{ ...base, provider: 'seatgeek',
+  source: { kind: 'official-event', name: 'SeatGeek' },
+  officialTicketUrl: 'https://seatgeek.com/events/some-event' }], offers: [] }, now);
+if (!mixedMarketplace || mixedMarketplace.label !== 'View Tickets →' || mixedMarketplace.isAffiliate) {
+  throw new Error('Mixed primary and resale marketplace must not claim official primary admission');
+}
 const sourceSpoof = resolveEventTicketCta({ links: [{ ...base, source: { kind: 'manual-verified', name: 'Ticketmaster' }, officialTicketUrl: official, affiliateUrl: approved }], offers: [] }, now);
 if (!sourceSpoof || sourceSpoof.isAffiliate) throw new Error('unqualified affiliate source accepted');
 const credentialsLink = resolveEventTicketCta({ links: [{ ...base, officialTicketUrl: 'https://user:pw@tickets.example.com/buy' }], offers: [] }, now);
