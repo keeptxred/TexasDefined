@@ -16,7 +16,11 @@ if (today < "2026-10-26" || today > "2027-01-05") {
 const expected = [
   ['correct 2026 booking range start', "November 13, 2026"],
   ['correct 2026 booking range end', "December 28, 2026"],
-  ['explicit organizer date discrepancy', "date sources conflict"],
+  ['organizer-published 2026 calendar', "Texas State Railroad’s official November and December 2026 calendars"],
+  ['dated schedule is not live inventory', "not guaranteed available seats"],
+  ['November 13 published times', "Nov 13: 5:30 and 7:00 PM"],
+  ['December 28 published times', "Dec 28: 3:00, 4:30, 6:00 and 7:30 PM"],
+  ['December 18 included', "18–23, 26–28"],
   ['actual operating dates (not every day)', "Nov 13–15, 19–24, 27–29"],
   ['prominent booking section', 'data-polar-express-2026-schedule="true"'],
   ['organizer booking CTA', 'data-event-official-ticket-cta="true"'],
@@ -37,6 +41,9 @@ function verifyHtml(html, label) {
   const forbidden = [
     ["superseded 2017 venue photo", "Palestine_August_2017_55_"],
     ["superseded unqualified date statement", "Scheduled November 14–December 27, 2026."],
+    ["superseded unexplained schedule conflict", "2026 date sources conflict:"],
+    ["superseded city-only authority", "City calendar:"],
+    ["superseded old-season dates", "An older railroad page shows November 14–December 27"],
   ].filter(([, marker]) => html.includes(marker)).map(([description]) => description);
   const canonical = (html.match(/<link\b[^>]*\brel=["']canonical["'][^>]*>/i) || [])[0] || "";
   if (!canonical.includes('href="' + origin + route + '"') &&
