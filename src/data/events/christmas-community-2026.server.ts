@@ -903,6 +903,33 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The official 2026 South Pole Illuminated Festival runs November 28–December 28, with posted Wednesday–Sunday evening operating hours. This is one of the explicitly open published weekday/weekend windows; Monday and Tuesday are omitted. Check holiday exceptions and dated tickets with the city before travel."
   },
   {
+    "slug": "baytown-stars-stripes-christmas-parade-2026",
+    "title": "Baytown Christmas Parade · Stars, Stripes & Christmas Lights",
+    "city": "Baytown",
+    "countySlug": "harris",
+    "countyName": "Harris County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-03",
+    "venueName": "Baytown Town Square · 213 W Texas Avenue",
+    "officialEventUrl": "https://baytown.org/1014/Baytowns-Christmas-Parade",
+    "sourceName": "City of Baytown — 2026 Christmas Parade",
+    "summary": "The City of Baytown confirms its Stars, Stripes & Christmas Lights parade Thursday December 3, 2026. Parade floats proceed through the south side of town and reach Town Square for the 6:30 p.m. tree lighting. Downtown road closures, restricted parking and accessible viewing zones are detailed by the city; remove vehicles from impacted streets by 2 p.m."
+  },
+  {
+    "slug": "baytown-holiday-hangout-early-2026",
+    "title": "Baytown Holiday Hangout · early operating window",
+    "city": "Baytown",
+    "countySlug": "harris",
+    "countyName": "Harris County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-03",
+    "endDate": "2026-12-23",
+    "venueName": "Baytown Town Square · 213 W Texas Avenue",
+    "officialEventUrl": "https://www.baytown.org/hangout",
+    "sourceName": "City of Baytown Parks & Recreation",
+    "summary": "Baytown Holiday Hangout's 2026–27 season offers Town Square Christmas lights, outdoor skating, a hay maze, games and photo displays. The official city calendar lists Monday–Thursday 4–9 p.m. and Friday–Sunday 2–9 p.m. This source-qualified operating window excludes ALL announced closures: December 24–25, December 31 and January 1. Skating may have separate admission charges; check the organizer for attraction pricing."
+  },
+  {
     "slug": "longview-arboretum-bright-2026-2",
     "title": "BRIGHT! A Season of Lights · Longview Arboretum window 2",
     "city": "Longview",
@@ -1505,6 +1532,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.coppelltx.gov/804/Special-Events",
     "sourceName": "City of Coppell 2026 special events calendar",
     "summary": "The City of Coppell confirms its annual Holiday Parade and Tree Lighting for Saturday December 5, 2026, 6–9 p.m. at Andrew Brown Park East. The city's separate Holidays page still contains older 2025 date references for some holiday attractions; only this explicitly dated 2026 parade is asserted here."
+  },
+  {
+    "slug": "deer-park-reindeer-park-2026",
+    "title": "Deer Park Reindeer Park · 16th annual",
+    "city": "Deer Park",
+    "countySlug": "harris",
+    "countyName": "Harris County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-05",
+    "venueName": "Jimmy Burke Activity Center · 500 W 13th Street",
+    "officialEventUrl": "https://deerparktx.gov/2336/Reindeer-Park",
+    "sourceName": "City of Deer Park Parks & Recreation",
+    "summary": "The city confirms Reindeer Park Saturday December 5, 2026, 3–8 p.m., including a sensory-friendly 3–4 p.m. hour and Santa 6–8 p.m. Wristbands required for ages one and older for snow slides, carnival rides and Santa's Workshop ($12 advance or $15 at the event); general entertainment, karaoke and Santa greetings do not require a wristband. This is NOT the separately submitted Reindeer Dash."
   },
   {
     "slug": "denton-holiday-lighting-festival-2026",
@@ -2821,6 +2861,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The Alley Theatre box office confirms two A Christmas Carol performances on December 26, 2026 at Hubbard Theatre. Matinee and evening showtimes require their own dated theater tickets; the separate featured December 27 final-day performance is already on the statewide calendar and must not appear a second time as a community event. Children younger than six are not admitted; admission is paid and separate from nearby holiday attractions."
   },
   {
+    "slug": "baytown-holiday-hangout-mid-2026",
+    "title": "Baytown Holiday Hangout · mid operating window",
+    "city": "Baytown",
+    "countySlug": "harris",
+    "countyName": "Harris County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-26",
+    "endDate": "2026-12-30",
+    "venueName": "Baytown Town Square · 213 W Texas Avenue",
+    "officialEventUrl": "https://www.baytown.org/hangout",
+    "sourceName": "City of Baytown Parks & Recreation",
+    "summary": "Baytown Holiday Hangout's 2026–27 season offers Town Square Christmas lights, outdoor skating, a hay maze, games and photo displays. The official city calendar lists Monday–Thursday 4–9 p.m. and Friday–Sunday 2–9 p.m. This source-qualified operating window excludes ALL announced closures: December 24–25, December 31 and January 1. Skating may have separate admission charges; check the organizer for attraction pricing."
+  },
+  {
     "slug": "longview-arboretum-bright-2026-5",
     "title": "BRIGHT! A Season of Lights · Longview Arboretum window 5",
     "city": "Longview",
@@ -2889,8 +2943,22 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "sourceName": "Visit Fredericksburg",
     "summary": "The final five January evenings of the 2026–27 Marktplatz lighting program; December 31 is omitted because the special New Year's Eve event replaces the regular countdown.",
     "endDate": "2027-01-05"
+  },
+  {
+    "slug": "baytown-holiday-hangout-final-2026",
+    "title": "Baytown Holiday Hangout · final operating window",
+    "city": "Baytown",
+    "countySlug": "harris",
+    "countyName": "Harris County",
+    "region": "gulf-coast",
+    "startDate": "2027-01-02",
+    "endDate": "2027-01-05",
+    "venueName": "Baytown Town Square · 213 W Texas Avenue",
+    "officialEventUrl": "https://www.baytown.org/hangout",
+    "sourceName": "City of Baytown Parks & Recreation",
+    "summary": "Baytown Holiday Hangout's 2026–27 season offers Town Square Christmas lights, outdoor skating, a hay maze, games and photo displays. The official city calendar lists Monday–Thursday 4–9 p.m. and Friday–Sunday 2–9 p.m. This source-qualified operating window excludes ALL announced closures: December 24–25, December 31 and January 1. Skating may have separate admission charges; check the organizer for attraction pricing."
   }
-];;;;;;;;;;;;;;;;;;
+];;;;;;;;;;;;;;;;;;;
 
 // Reuse comprehensive guides where they exist. The dated occurrence remains
 // an independent calendar record, so closing days are never falsely listed.
