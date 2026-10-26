@@ -481,6 +481,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The operator confirms 2026 tickets for exactly 15 nights: November 27–29, December 4–6, December 11–13 and December 18–23, 5–10 p.m. The venue is a WALK-through historic Old West town, not a drive-through display. General admission starts at $25 ages six and up plus fees; children five and under enter free. Confirm available tickets for this date window."
   },
   {
+    "slug": "longview-arboretum-bright-2026-1",
+    "title": "BRIGHT! A Season of Lights · Longview Arboretum window 1",
+    "city": "Longview",
+    "countySlug": "gregg",
+    "countyName": "Gregg County",
+    "region": "piney-woods",
+    "startDate": "2026-11-27",
+    "endDate": "2026-11-28",
+    "venueName": "Longview Arboretum & Nature Center · 706 West Cotton Street",
+    "officialEventUrl": "https://longviewarboretum.org/bright-a-season-of-lights/",
+    "sourceName": "Longview Arboretum & Nature Center — dated 2026 ticket grid",
+    "summary": "The Longview Arboretum's official 2026 purchase grid lists each date in this contiguous ticket window. This is a ticketed WALK-through illuminated garden, NOT a daily November-to-January display. Official FAQ lists $15 adults 13+, $10 ages 3–12 and seniors/military/first responders, free under 3, with gates 5:30 p.m. to last entry 9 p.m. Ticket grid and generic season FAQ conflict at some dates; use the dated ticket grid rather than guessing other open nights."
+  },
+  {
     "slug": "waco-wild-lights-2026-1",
     "title": "Cameron Park Zoo Wild Lights · verified window 1",
     "city": "Waco",
@@ -561,6 +575,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "sourceName": "Johnson City Lights Spectacular organizer",
     "summary": "Free downtown courthouse and PEC light displays illuminate the season nightly from dusk until midnight. Holiday attractions and individual activities may have separate schedules.",
     "endDate": "2027-01-03"
+  },
+  {
+    "slug": "livingston-christmas-train-village-2026-1",
+    "title": "Livingston Christmas Train Village · public session window 1",
+    "city": "Livingston",
+    "countySlug": "polk",
+    "countyName": "Polk County",
+    "region": "piney-woods",
+    "startDate": "2026-11-27",
+    "endDate": "2026-11-29",
+    "venueName": "Good Golly Miss Molly's · 406 North Washington Avenue",
+    "officialEventUrl": "https://visitlivingstontexas.com/?page_id=2002",
+    "sourceName": "Visit Livingston / Polk County Heritage Society",
+    "summary": "The Polk County Heritage Society and downtown merchants confirm the Christmas Train Village runs Thursday through Sunday on these actual 2026 dates, not daily. Thursday–Saturday train hours are 5–7 p.m. and Sunday hours noon–4 p.m.; special Saturday December 12 extended hours run noon–8 p.m. Train village viewing is free, with donations appreciated. This is an indoor miniature railway display, NOT a paid passenger train ride."
   },
   {
     "slug": "llano-starry-starry-nights",
@@ -782,6 +810,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The official 2026 South Pole Illuminated Festival runs November 28–December 28, with posted Wednesday–Sunday evening operating hours. This is one of the explicitly open published weekday/weekend windows; Monday and Tuesday are omitted. Check holiday exceptions and dated tickets with the city before travel."
   },
   {
+    "slug": "longview-arboretum-bright-2026-2",
+    "title": "BRIGHT! A Season of Lights · Longview Arboretum window 2",
+    "city": "Longview",
+    "countySlug": "gregg",
+    "countyName": "Gregg County",
+    "region": "piney-woods",
+    "startDate": "2026-12-03",
+    "endDate": "2026-12-05",
+    "venueName": "Longview Arboretum & Nature Center · 706 West Cotton Street",
+    "officialEventUrl": "https://longviewarboretum.org/bright-a-season-of-lights/",
+    "sourceName": "Longview Arboretum & Nature Center — dated 2026 ticket grid",
+    "summary": "The Longview Arboretum's official 2026 purchase grid lists each date in this contiguous ticket window. This is a ticketed WALK-through illuminated garden, NOT a daily November-to-January display. Official FAQ lists $15 adults 13+, $10 ages 3–12 and seniors/military/first responders, free under 3, with gates 5:30 p.m. to last entry 9 p.m. Ticket grid and generic season FAQ conflict at some dates; use the dated ticket grid rather than guessing other open nights."
+  },
+  {
     "slug": "waco-wild-lights-2026-2",
     "title": "Cameron Park Zoo Wild Lights · verified window 2",
     "city": "Waco",
@@ -834,6 +876,33 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.visitennistexas.com/lightsofennis",
     "sourceName": "Ennis Convention & Visitors Bureau",
     "summary": "The City of Ennis tourism office confirms its downtown Lights of Ennis Parade and Block Party for Thursday December 3, 2026. Follow the visitor bureau for the final parade route, lighting schedule and road closures."
+  },
+  {
+    "slug": "livingston-christmas-train-village-2026-2",
+    "title": "Livingston Christmas Train Village · public session window 2",
+    "city": "Livingston",
+    "countySlug": "polk",
+    "countyName": "Polk County",
+    "region": "piney-woods",
+    "startDate": "2026-12-03",
+    "endDate": "2026-12-06",
+    "venueName": "Good Golly Miss Molly's · 406 North Washington Avenue",
+    "officialEventUrl": "https://visitlivingstontexas.com/?page_id=2002",
+    "sourceName": "Visit Livingston / Polk County Heritage Society",
+    "summary": "The Polk County Heritage Society and downtown merchants confirm the Christmas Train Village runs Thursday through Sunday on these actual 2026 dates, not daily. Thursday–Saturday train hours are 5–7 p.m. and Sunday hours noon–4 p.m.; special Saturday December 12 extended hours run noon–8 p.m. Train village viewing is free, with donations appreciated. This is an indoor miniature railway display, NOT a paid passenger train ride."
+  },
+  {
+    "slug": "longview-ambucs-christmas-parade-2026",
+    "title": "Longview AMBUCS Christmas Parade · A Texas Christmas",
+    "city": "Longview",
+    "countySlug": "gregg",
+    "countyName": "Gregg County",
+    "region": "piney-woods",
+    "startDate": "2026-12-03",
+    "venueName": "Downtown Longview · Tyler Street and Whaley Street",
+    "officialEventUrl": "https://visitlongviewtexas.com/268/Christmas-Parade",
+    "sourceName": "Visit Longview / Longview AMBUCS",
+    "summary": "Visit Longview confirms the 2026 AMBUCS Christmas Parade Thursday December 3 on Tyler and Whaley streets. The organizing application confirms a 6:30 p.m. parade start, and December 8 is the WEATHER RAIN-OUT BACKUP, not a second scheduled parade. Downtown road closures begin earlier; participant entry charges do not equal a spectator admission fee."
   },
   {
     "slug": "fort-worth-north-pole-express-dec3",
@@ -1457,6 +1526,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The official 2026 South Pole Illuminated Festival runs November 28–December 28, with posted Wednesday–Sunday evening operating hours. This is one of the explicitly open published weekday/weekend windows; Monday and Tuesday are omitted. Check holiday exceptions and dated tickets with the city before travel."
   },
   {
+    "slug": "longview-arboretum-bright-2026-3",
+    "title": "BRIGHT! A Season of Lights · Longview Arboretum window 3",
+    "city": "Longview",
+    "countySlug": "gregg",
+    "countyName": "Gregg County",
+    "region": "piney-woods",
+    "startDate": "2026-12-10",
+    "endDate": "2026-12-12",
+    "venueName": "Longview Arboretum & Nature Center · 706 West Cotton Street",
+    "officialEventUrl": "https://longviewarboretum.org/bright-a-season-of-lights/",
+    "sourceName": "Longview Arboretum & Nature Center — dated 2026 ticket grid",
+    "summary": "The Longview Arboretum's official 2026 purchase grid lists each date in this contiguous ticket window. This is a ticketed WALK-through illuminated garden, NOT a daily November-to-January display. Official FAQ lists $15 adults 13+, $10 ages 3–12 and seniors/military/first responders, free under 3, with gates 5:30 p.m. to last entry 9 p.m. Ticket grid and generic season FAQ conflict at some dates; use the dated ticket grid rather than guessing other open nights."
+  },
+  {
     "slug": "waco-wild-lights-2026-3",
     "title": "Cameron Park Zoo Wild Lights · verified window 3",
     "city": "Waco",
@@ -1483,6 +1566,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://jeffersoncandlelight.com/",
     "sourceName": "Historic Jefferson Foundation / Candlelight Tour",
     "summary": "The second verified home-tour window is December 10–12, not the intervening weekdays. Thursday viewing 3–7 p.m.; Friday and Saturday 4–8 p.m. Check official visitor instructions and house access."
+  },
+  {
+    "slug": "livingston-christmas-train-village-2026-3",
+    "title": "Livingston Christmas Train Village · public session window 3",
+    "city": "Livingston",
+    "countySlug": "polk",
+    "countyName": "Polk County",
+    "region": "piney-woods",
+    "startDate": "2026-12-10",
+    "endDate": "2026-12-13",
+    "venueName": "Good Golly Miss Molly's · 406 North Washington Avenue",
+    "officialEventUrl": "https://visitlivingstontexas.com/?page_id=2002",
+    "sourceName": "Visit Livingston / Polk County Heritage Society",
+    "summary": "The Polk County Heritage Society and downtown merchants confirm the Christmas Train Village runs Thursday through Sunday on these actual 2026 dates, not daily. Thursday–Saturday train hours are 5–7 p.m. and Sunday hours noon–4 p.m.; special Saturday December 12 extended hours run noon–8 p.m. Train village viewing is free, with donations appreciated. This is an indoor miniature railway display, NOT a paid passenger train ride."
   },
   {
     "slug": "san-marcos-sights-sounds-week2",
@@ -1946,6 +2043,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The official 2026 South Pole Illuminated Festival runs November 28–December 28, with posted Wednesday–Sunday evening operating hours. This is one of the explicitly open published weekday/weekend windows; Monday and Tuesday are omitted. Check holiday exceptions and dated tickets with the city before travel."
   },
   {
+    "slug": "longview-arboretum-bright-2026-4",
+    "title": "BRIGHT! A Season of Lights · Longview Arboretum window 4",
+    "city": "Longview",
+    "countySlug": "gregg",
+    "countyName": "Gregg County",
+    "region": "piney-woods",
+    "startDate": "2026-12-17",
+    "endDate": "2026-12-23",
+    "venueName": "Longview Arboretum & Nature Center · 706 West Cotton Street",
+    "officialEventUrl": "https://longviewarboretum.org/bright-a-season-of-lights/",
+    "sourceName": "Longview Arboretum & Nature Center — dated 2026 ticket grid",
+    "summary": "The Longview Arboretum's official 2026 purchase grid lists each date in this contiguous ticket window. This is a ticketed WALK-through illuminated garden, NOT a daily November-to-January display. Official FAQ lists $15 adults 13+, $10 ages 3–12 and seniors/military/first responders, free under 3, with gates 5:30 p.m. to last entry 9 p.m. Ticket grid and generic season FAQ conflict at some dates; use the dated ticket grid rather than guessing other open nights."
+  },
+  {
     "slug": "waco-wild-lights-2026-4",
     "title": "Cameron Park Zoo Wild Lights · verified window 4",
     "city": "Waco",
@@ -1958,6 +2069,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.cameronparkzoo.com/event/wild-lights-2026/",
     "sourceName": "Cameron Park Zoo",
     "summary": "Zoo Wild Lights 2026 is ticketed for Thursday–Sunday nights, with evening entry 6–9 p.m. and last admission around 8 p.m. This block is inside both the operator's displayed event date and published operating-day schedule. The zoo's page conflicts on December 23 versus December 30 as final date, so later dates remain under review."
+  },
+  {
+    "slug": "livingston-christmas-train-village-2026-4",
+    "title": "Livingston Christmas Train Village · public session window 4",
+    "city": "Livingston",
+    "countySlug": "polk",
+    "countyName": "Polk County",
+    "region": "piney-woods",
+    "startDate": "2026-12-17",
+    "endDate": "2026-12-20",
+    "venueName": "Good Golly Miss Molly's · 406 North Washington Avenue",
+    "officialEventUrl": "https://visitlivingstontexas.com/?page_id=2002",
+    "sourceName": "Visit Livingston / Polk County Heritage Society",
+    "summary": "The Polk County Heritage Society and downtown merchants confirm the Christmas Train Village runs Thursday through Sunday on these actual 2026 dates, not daily. Thursday–Saturday train hours are 5–7 p.m. and Sunday hours noon–4 p.m.; special Saturday December 12 extended hours run noon–8 p.m. Train village viewing is free, with donations appreciated. This is an indoor miniature railway display, NOT a paid passenger train ride."
   },
   {
     "slug": "abilene-winter-lightfest-week3",
@@ -2099,6 +2224,34 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The official 2026 South Pole Illuminated Festival runs November 28–December 28, with posted Wednesday–Sunday evening operating hours. This is one of the explicitly open published weekday/weekend windows; Monday and Tuesday are omitted. Check holiday exceptions and dated tickets with the city before travel."
   },
   {
+    "slug": "livingston-christmas-train-village-2026-5",
+    "title": "Livingston Christmas Train Village · public session window 5",
+    "city": "Livingston",
+    "countySlug": "polk",
+    "countyName": "Polk County",
+    "region": "piney-woods",
+    "startDate": "2026-12-24",
+    "endDate": "2026-12-27",
+    "venueName": "Good Golly Miss Molly's · 406 North Washington Avenue",
+    "officialEventUrl": "https://visitlivingstontexas.com/?page_id=2002",
+    "sourceName": "Visit Livingston / Polk County Heritage Society",
+    "summary": "The Polk County Heritage Society and downtown merchants confirm the Christmas Train Village runs Thursday through Sunday on these actual 2026 dates, not daily. Thursday–Saturday train hours are 5–7 p.m. and Sunday hours noon–4 p.m.; special Saturday December 12 extended hours run noon–8 p.m. Train village viewing is free, with donations appreciated. This is an indoor miniature railway display, NOT a paid passenger train ride."
+  },
+  {
+    "slug": "longview-arboretum-bright-2026-5",
+    "title": "BRIGHT! A Season of Lights · Longview Arboretum window 5",
+    "city": "Longview",
+    "countySlug": "gregg",
+    "countyName": "Gregg County",
+    "region": "piney-woods",
+    "startDate": "2026-12-26",
+    "endDate": "2026-12-27",
+    "venueName": "Longview Arboretum & Nature Center · 706 West Cotton Street",
+    "officialEventUrl": "https://longviewarboretum.org/bright-a-season-of-lights/",
+    "sourceName": "Longview Arboretum & Nature Center — dated 2026 ticket grid",
+    "summary": "The Longview Arboretum's official 2026 purchase grid lists each date in this contiguous ticket window. This is a ticketed WALK-through illuminated garden, NOT a daily November-to-January display. Official FAQ lists $15 adults 13+, $10 ages 3–12 and seniors/military/first responders, free under 3, with gates 5:30 p.m. to last entry 9 p.m. Ticket grid and generic season FAQ conflict at some dates; use the dated ticket grid rather than guessing other open nights."
+  },
+  {
     "slug": "dallas-zoo-lights-final",
     "title": "Dallas Zoo Lights · December 26–January 3",
     "city": "Dallas",
@@ -2154,7 +2307,7 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The final five January evenings of the 2026–27 Marktplatz lighting program; December 31 is omitted because the special New Year's Eve event replaces the regular countdown.",
     "endDate": "2027-01-05"
   }
-];;;;;;;;;
+];;;;;;;;;;
 
 // Reuse comprehensive guides where they exist. The dated occurrence remains
 // an independent calendar record, so closing days are never falsely listed.
