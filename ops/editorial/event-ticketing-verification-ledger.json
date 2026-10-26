@@ -278,7 +278,22 @@
     "nextBatchSize": 25,
     "selection": "Deterministic upcoming canonical event registry; do not infer all events checked from 12 curated shows",
     "lastCompletedEventId": null,
-    "eventsAudited": 0
+    "eventsAudited": 1,
+    "findings": [
+      {
+        "id": "ticketmaster:garage-dallas-stars-2026-10-25",
+        "eventName": "FIFTH THIRD GARAGE: Dallas Stars v New York Islanders",
+        "city": "Dallas",
+        "venue": "American Airlines Center",
+        "date": "2026-10-25",
+        "status": "IMPLEMENTED",
+        "evidence": "Live statewide /events listing showed branded garage parking with a sponsored Find Tickets admission CTA",
+        "change": "Reject branded garage and parking-lot products as primary admission in shared Ticketmaster adapter",
+        "tests": "Added five garage/parking negative cases plus primary-admission snapshot comparison; CI pending",
+        "productionVerifiedAt": null,
+        "pr": 5922
+      }
+    ]
   },
   "externallyBlocked": [
     "Other provider inventory APIs require explicit permission and credentials; official links remain usable",
