@@ -121,6 +121,12 @@ Recommended activation sequence:
 
 The shared outbound `EventTicketCta` now carries each canonical event ID from both calendar results and carousel records. Sponsored checkout clicks emit `affiliate_event_id` alongside the existing partner, placement, module and page path in the first-party `affiliate_click` dataLayer event. An official/non-affiliate ticket URL does not gain partner metadata or a commercial event-click event. Do not treat this first-party event as evidence that a commission was earned or a checkout was completed.
 
+## Daily public purchase-link health checks
+
+The existing `Sync Texas Events` scheduled workflow now probes **40 deterministic, rotating, future Ticketmaster/TicketWeb primary-admission URL records** after each Discovery refresh. It uses public `HEAD`, with one ordinary `GET` only if the host returns HTTP 405; redirect following is disabled. Requests have a seven-second timeout and four-way concurrency. An official event URL is restricted to approved ticketing hosts and an event path; localhost, IP addresses, userinfo, non-HTTPS and unrelated redirect targets cannot be trusted.
+
+Results and the next cursor are persisted in the **single authoritative** `ops/editorial/event-ticketing-verification-ledger.json` under `statewide.ticketLinkProbes` and `statewide.ticketLinkProbeCursor`. A successful HTTP response is recorded as `REACHABLE_NO_INVENTORY_CLAIM` and status `IN_PROGRESS`, **never** as event `VERIFIED`. 401, 403, CAPTCHA, 429, 5xx and timeouts remain inconclusive; HTTP 404/410 and mismatched redirects create explicit review warnings. Probes never scrape restricted partner APIs, infer commission, inventory or sale price, or automatically replace a ticket URL based only on a bot-blocked response. The existing protected event-refresh PR/merge gate is retained; no separate cron job exists.
+
 ## No checkout
 
 TexasDefined does not collect ticket payment, seat selection, billing data, order data, or ticket inventory. `EventTicketCta` always opens the external provider in a new browsing context. The provider owns checkout, fulfillment, refunds, fees, inventory, availability, and customer-service obligations.
