@@ -298,6 +298,7 @@ export function installTexasDefinedAnalytics() {
       }
       trackTexasDefinedOutcome('partner_referral_clicked', {
         resourceId: commercialPartner,
+        stepId: anchor.dataset.affiliateEventId,
         entityKind,
         destination: anchor.href,
       });
