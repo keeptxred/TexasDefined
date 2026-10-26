@@ -14,6 +14,10 @@ const failures = [];
 const yoakumRecord = read("src/data/yoakum-heritage-museum-authority-destination.ts");
 const yoakumResolver = read("src/data/destination-query-runtime.ts");
 const yoakumSVG = read("public/images/yoakum-heritage-museum-editorial.svg");
+const yoakumPage = read("src/components/editorial/YoakumHeritageMuseumAuthority.tsx");
+if (!/data-image-fallback-label[^>]*\/>\s*<img src="\/images\/yoakum-heritage-museum-editorial\.svg"/.test(yoakumPage)) {
+  failures.push("Yoakum dedicated SSR page must identify its own original illustration as the primary hero for strict museum verification");
+}
 for (const marker of ['"/images/yoakum-heritage-museum-editorial.svg"', 'TexasDefined original graphic', 'not a photograph of the museum']) {
   if (!yoakumRecord.includes(marker)) failures.push("Yoakum original illustrated hero provenance lost: " + marker);
 }
