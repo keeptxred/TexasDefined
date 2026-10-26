@@ -103,13 +103,13 @@ const additions: Record<string, ArticleInternalLink[]> = {
   ],
   "east-texas-fall-colors": [
     fallHub,
-    { href: "/article/hill-country-fall-colors", label: "Compare Hill Country fall colors", description: "Contrast the Lost Maples canyon maples and river cypress with East Texas hardwood forests." },
-    { href: "/article/caddo-lake-cypress-morning", label: "See Caddo Lake from the water", description: "Turn an East Texas foliage trip into a bayou and cypress experience." },
+    { href: "/article/hill-country-fall-colors", label: "Hill Country fall colors" },
+    { href: "/article/caddo-lake-cypress-morning", label: "Caddo Lake cypress paddling" },
   ],
   "hill-country-fall-colors": [
     fallHub,
-    { href: "/article/east-texas-fall-colors", label: "Compare East Texas fall colors", description: "See how lakeside hardwood and cypress color differs from Lost Maples and the Frio River." },
-    { href: "/article/texas-fall-foliage-road-trip", label: "Drive the Hill Country fall route", description: "Link Garner, Lost Maples and the Guadalupe corridor." },
+    { href: "/article/east-texas-fall-colors", label: "East Texas fall colors" },
+    { href: "/article/texas-fall-foliage-road-trip", label: "Hill Country foliage road trip" },
   ],
   "best-texas-state-parks-for-fall-colors": [fallHub, { href: "/explore/state-parks", label: "Browse all Texas state parks", description: "Add camping, hiking and nearby parks to the foliage trip." }],
   "texas-fall-foliage-road-trip": [fallHub, { href: "/article/best-texas-state-parks-for-fall-colors", label: "Compare state-park foliage stops", description: "Swap route stops based on current reports and reservations." }],
