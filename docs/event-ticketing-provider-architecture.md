@@ -70,6 +70,12 @@ This guarantees no duplicate competing ticket buttons by default even if several
 
 When a future affiliate integration becomes valid, enrich the canonical `ticketing.links` record server-side. Do not modify the carousel or calendar to special-case the provider.
 
+## Event-level cancellation and postponement fail closed
+
+The canonical event record's `status` is independently authoritative. When a source-qualified event is `cancelled`, `postponed` or `rescheduled`, the shared carousel and statewide calendar retain the event (so readers can see the organizer's change) but **suppress the ticket CTA regardless of stale provider `Offer` metadata**. The calendar visibly identifies the status and directs readers to the original organizer link. Only `scheduled` records can resolve the existing safe official/affiliate purchase CTA. This protects future editorial, venue, festival and holiday events, and does not infer refunds, seats, alternative dates, prices or commission eligibility.
+
+`scripts/data/validate-event-ticket-positive-path.mjs` asserts all three changed lifecycle states suppress both calendar and carousel CTAs, while a legitimate scheduled Wurstfest ticket remains actionable. The canonical architecture validator separately requires the lifecycle gate and visible status disclosure.
+
 ## Calendar workstream
 
 The global calendar already consumes the architecture through `buildGlobalEventCalendarServer` and `buildTexasEventCarouselItemsServer` in `src/data/events/texas-event-calendar.server.ts`.
