@@ -2809,17 +2809,16 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
   },
   {
     "slug": "houston-alley-theatre-christmas-carol-2026-9",
-    "title": "Alley Theatre A Christmas Carol · December 26–27, 2026",
+    "title": "Alley Theatre A Christmas Carol · December 26, 2026",
     "city": "Houston",
     "countySlug": "harris",
     "countyName": "Harris County",
     "region": "gulf-coast",
     "startDate": "2026-12-26",
-    "endDate": "2026-12-27",
     "venueName": "Alley Theatre · Hubbard Theatre · 615 Texas Avenue",
     "officialEventUrl": "https://www.alleytheatre.org/plays/christmas-carol/",
     "sourceName": "Alley Theatre 2026–27 season and official dated box office",
-    "summary": "The Alley Theatre box office confirms 2026-12-26 through 2026-12-27 as scheduled A Christmas Carol performance dates in the Hubbard Theatre. Matinee and evening showtimes vary by day; select the exact dated performance on the theater's official ticket calendar. Children younger than six are not admitted; admission is paid and is separate from nearby holiday attractions."
+    "summary": "The Alley Theatre box office confirms two A Christmas Carol performances on December 26, 2026 at Hubbard Theatre. Matinee and evening showtimes require their own dated theater tickets; the separate featured December 27 final-day performance is already on the statewide calendar and must not appear a second time as a community event. Children younger than six are not admitted; admission is paid and separate from nearby holiday attractions."
   },
   {
     "slug": "longview-arboretum-bright-2026-5",
@@ -2891,7 +2890,7 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The final five January evenings of the 2026–27 Marktplatz lighting program; December 31 is omitted because the special New Year's Eve event replaces the regular countdown.",
     "endDate": "2027-01-05"
   }
-];;;;;;;;;;;;;;;;;
+];;;;;;;;;;;;;;;;;;
 
 // Reuse comprehensive guides where they exist. The dated occurrence remains
 // an independent calendar record, so closing days are never falsely listed.
