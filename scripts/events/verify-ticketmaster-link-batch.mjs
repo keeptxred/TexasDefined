@@ -58,8 +58,9 @@ export async function probePublicTicketUrl(href, fetcher = fetch) {
 }
 
 export function chooseBatch(events, cursor, size = LIMIT) {
+  const texasToday = new Intl.DateTimeFormat('en-CA', {timeZone:'America/Chicago', year:'numeric', month:'2-digit', day:'2-digit'}).format(new Date());
   const eligible = events.filter((event) => event && event.id && event.officialUrl
-    && event.startDate && /^\d{4}-\d{2}-\d{2}$/.test(event.startDate)
+    && event.startDate && /^\d{4}-\d{2}-\d{2}$/.test(event.startDate) && event.startDate >= texasToday
     && !['cancelled', 'postponed', 'rescheduled'].includes(event.status));
   eligible.sort((a, b) => a.startDate.localeCompare(b.startDate)
     || String(a.id).localeCompare(String(b.id)));
