@@ -2059,7 +2059,7 @@ if (!errors.length) {
   const loader = read('src/data/high-school-football/program-editorial-b009-loader.server.ts');
   const profile = read('src/data/high-school-football/football-program-profile.server.ts');
   const slugs = ['carrollton-turner','carthage','castle-hills','castroville-medina-valley','cayuga'];
-  if (registry.batch.implementedOnBranch !== 10 || registry.batch.remainingToImplement !== 15) errors.push('Batch 009 ten implementation records must match planned 25 school cohort.');
+  if (registry.batch.implementedOnBranch !== 15 || registry.batch.remainingToImplement !== 10) errors.push('Batch 009 ten implementation records must match planned 25 school cohort.');
   for (const slug of slugs) {
     const record = registry.schoolRecords.find(s => s.slug === slug);
     if (!record || record.status !== 'IMPLEMENTED' || record.actualProductionVerified !== false) errors.push('Second group falsely promoted or missing: '+slug);
@@ -2073,6 +2073,27 @@ if (!errors.length) {
   for (const key of ['Wheatley Heights Sports Complex','TAPPS Six-Man Division I District 3','not UIL']) {
     requireText(editorial, key, 'Castle Hills private-school identity');
   }
+}
+
+/** Third individually researched five-school cohort; no premature verified status. */
+{
+  const registry=JSON.parse(read('docs/football-authority/REGISTRY.json'));
+  const editorial=read('src/data/high-school-football/program-editorial-b009.ts');
+  const loader=read('src/data/high-school-football/program-editorial-b009-loader.server.ts');
+  const county=read(files[10]);
+  const third=['cedar-hill','cedar-park','cedar-park-vista-ridge','celeste','celina'];
+  if(registry.schoolRecords.filter(s=>s.status==='VERIFIED' && s.batch!==9).length!==180) errors.push('Do not demote 180 independently VERIFIED historic schools.');
+  for(const slug of third) {
+    const school=registry.schoolRecords.find(s=>s.slug===slug);
+    if(!school||school.status!=='IMPLEMENTED'||school.actualProductionVerified!==false)errors.push('Batch 009 third cohort unverified status missing: '+slug);
+    requireText(loader, '"'+slug+'"', 'Batch 009 third cohort lazy route');
+    requireText(editorial, '"'+slug+'": {', 'Batch 009 third cohort original editorial');
+    const dossier=read('docs/football-authority/schools/'+slug+'.md');
+    requireText(dossier,'not merged, deployed or browser VERIFIED','Third cohort acceptance not yet proved');
+    requireText(dossier,'https://','Third cohort evidence');
+    requireText(county,"slug: '"+slug+"'","Third cohort reciprocal county link");
+  }
+  for(const marker of ['Marc Bindel','2015','Chad Scott','Nicholas Ward','Demetrius Rector']) requireText(editorial,marker,'Third cohort individual coaching/title research');
 }
 
 /** Prevent silent object-literal overwrites of researched county football links.
