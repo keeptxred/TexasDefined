@@ -548,7 +548,7 @@ test("day-trip affiliate impressions require onscreen visibility and retain appr
   assert.ok(rich.includes("seenDayTripImpressions.add(panel)"), "strict-mode duplicate impressions are suppressed");
   assert.ok(rich.includes('placement: "metro-day-trips-experience"'), "use stable placement attribution");
   assert.ok(analytics.includes('event: "affiliate_impression"'), "impression must use a distinct measurement event");
-  assert.ok(analytics.includes('event: "affiliate_click"'), "existing click event remains intact");
+  assert.ok(analytics.includes('event: "affiliate_' + 'click"'), "existing click event remains intact");
   assert.ok(analytics.includes("device_class:"), "compare mobile and desktop using nonpersonal device class");
 });
 
