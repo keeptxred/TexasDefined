@@ -180,7 +180,7 @@ function RootComponent() {
       const entityKind = anchor.dataset.commercialPlacement || "unspecified";
       const destination = anchor.href;
       const shouldRecordImpression = anchor.dataset.commercialImpressionRecorded !== "1";
-      if (shouldRecordImpression) anchor.dataset.commercialImpressionRecorded = "1";
+      anchor.dataset.commercialImpressionRecorded = "1";
       const details = { resourceId, entityKind, destination };
       void ensureAnalyticsInstalled().then((analytics) => {
         if (!active) return;
