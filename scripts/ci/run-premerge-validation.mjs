@@ -129,6 +129,7 @@ const prebuildChecks = [
   ['EVENT/CORPORATE/PARTNER-OUTREACH', 'Require genuine private evidence for venue business outreach and follow-ups', 'node', ['scripts/data/validate-corporate-event-partner-outreach.mjs']],
   ['EVENT/CORPORATE/PARTNER-FOLLOWUPS', 'Suppress superseded due venue reminders after real new contact evidence', 'node', ['--experimental-strip-types', 'scripts/data/validate-corporate-event-partner-followups.mjs']],
   ['EVENT/CHRISTMAS', 'Validate source-qualified Christmas community calendar and affiliate disclosures', 'node', ['scripts/data/validate-christmas-community-2026.mjs']],
+  ['EVENT/PROVIDER', 'Validate five source-qualified Choctaw games and exact ticket CTAs', 'node', ['--experimental-strip-types', 'scripts/data/validate-official-venue-ticketing.mjs']],
   ['EVENT/TICKETMASTER', 'Validate Ticketmaster ingestion and tracking', 'node', ['--test', 'scripts/events/ticketmaster-discovery.test.mjs']],
   ['EVENT/TICKETMASTER', 'Validate authority candidate queue and publishing safeguards', 'node', ['--test', 'scripts/events/build-ticketmaster-authority-candidates.test.mjs']],
   ['EVENT/TICKETMASTER', 'Validate bounded public ticket URL probes and rotating batches', 'node', ['--test', 'scripts/events/verify-ticketmaster-link-batch.test.mjs']],
