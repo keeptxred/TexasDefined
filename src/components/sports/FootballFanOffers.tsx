@@ -23,22 +23,17 @@ const HOTELS_AFFILIATE_URL = `https://www.anrdoezrs.net/links/${HOTEL_CJ_PUBLISH
 const RVSHARE_DESTINATION = 'https://rvshare.com/';
 const RVSHARE_AFFILIATE_URL = `https://www.anrdoezrs.net/links/${HOTEL_CJ_PUBLISHER_ID}/type/dlg/${encodeURI(RVSHARE_DESTINATION)}`;
 
-function isVerifiedProductUrl(url: string) {
-  try {
-    const parsed = new URL(url);
-    // Every additional network/merchant requires a reviewed allowlist change.
-    return parsed.protocol === 'https:' &&
-      parsed.hostname === 'www.anrdoezrs.net' &&
-      parsed.pathname.startsWith(`/links/${HOTEL_CJ_PUBLISHER_ID}/type/dlg/`);
-  } catch {
-    return false;
-  }
+function isVerifiedProductUrl(offer: Offer) {
+  // The exact prefix enforces HTTPS, the CJ host, our publisher ID, and Rexing.
+  // Do not add retailers without account approval and verified Get Link output.
+  return offer.partner === 'rexing' &&
+    offer.trackedUrl.startsWith(`https://www.anrdoezrs.net/links/${HOTEL_CJ_PUBLISHER_ID}/type/dlg/https://rexing.com/`);
 }
 
 export function FootballFanOffers({ slug, hasUpcomingAwayTravel, showTravelPlanning = false }: { slug: string; hasUpcomingAwayTravel: boolean; showTravelPlanning?: boolean }) {
   const showHotels = hasUpcomingAwayTravel || showTravelPlanning;
   const isStateChampionshipGuide = slug === 'texas-high-school-football-playoffs-explained';
-  const gearOffers = VERIFIED_FOOTBALL_GEAR_OFFERS.filter((offer) => isVerifiedProductUrl(offer.trackedUrl));
+  const gearOffers = VERIFIED_FOOTBALL_GEAR_OFFERS.filter((offer) => isVerifiedProductUrl(offer));
 
   return (
     <section aria-label="Football fan shopping and travel" className="mt-6 border-t border-border pt-5">
@@ -72,6 +67,7 @@ export function FootballFanOffers({ slug, hasUpcomingAwayTravel, showTravelPlann
               <p className="font-semibold">{offer.title}</p>
               <p className="mt-1 text-xs leading-5 text-muted-foreground">{offer.description}</p>
               <a href={offer.trackedUrl} target="_blank" rel="sponsored nofollow noopener noreferrer"
+                data-commercial-partner={offer.partner} data-commercial-placement={`football-team-${slug}`}
                 onClick={() => trackAffiliateClick({ partner: offer.partner, label: offer.cta, placement: `football-team-${slug}`, module: 'football-fan-essentials' })}
                 className="mt-3 inline-flex min-h-11 items-center font-semibold text-primary underline underline-offset-4">
                 {offer.cta} ↗

@@ -21,7 +21,11 @@ test('verified Hotels.com link is separate from unapproved merchandise programs'
   assert.match(offers, /HOTEL_CJ_PUBLISHER_ID = '101876465'/);
   assert.match(offers, /www\.anrdoezrs\.net\/links/);
   assert.match(offers, /VERIFIED_FOOTBALL_GEAR_OFFERS: readonly Offer\[\] = \[\]/);
-  assert.match(offers, /isVerifiedProductUrl\(offer\.trackedUrl\)/);
+  assert.match(offers, /isVerifiedProductUrl\(offer\)/);
+  assert.match(offers, /offer\.partner === 'rexing'/);
+  assert.match(offers, /type\/dlg\/https:\/\/rexing\.com\//);
+  assert.match(offers, /data-commercial-partner=\{offer\.partner\}/);
+  assert.match(offers, /data-commercial-placement=\{`football-team-\$\{slug\}`\}/);
   assert.doesNotMatch(offers, /walmart\.com\/ip\//);
   assert.match(offers, /TexasDefined is not affiliated with the schools/);
 });
