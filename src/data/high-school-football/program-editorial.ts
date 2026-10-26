@@ -24074,8 +24074,8 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "label": "Katy red and white editorial accents"
     },
     "seo": {
-      "title": "Katy Tigers Football: Nine Texas State Titles & 2026 Schedule",
-      "description": "Explore the Katy Tigers' nine Texas football championships, coach Gary Joseph, the Mike Johnston legacy, Red Sea tradition and 2026 schedule."
+      "title": "Katy Tigers Football: Nine State Titles, Stadiums & Team Guide",
+      "description": "Katy Tigers football: nine championships, coach Gary Joseph, the Red Sea tradition and visitor information for Legacy and Rhodes Stadium."
     },
     "coach": {
       "name": "Gary Joseph",
@@ -24125,14 +24125,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
         "date": "2015",
         "title": "An undefeated title season",
         "body": "The program's football record book includes 2015 among its undefeated championship seasons.",
-        "sourceUrl": "https://katyabc.org/wp-content/uploads/2024/02/record_book_02.26.24.pdf",
+        "sourceUrl": "https://katyabc.org/features/katy-football-record-book/",
         "sourceLabel": "Katy football record book"
       },
       {
         "date": "2020",
         "title": "Title number nine",
         "body": "The 2020 state championship completed the nine-title sequence documented in the published Katy football archive.",
-        "sourceUrl": "https://katyabc.org/wp-content/uploads/2024/02/record_book_02.26.24.pdf",
+        "sourceUrl": "https://katyabc.org/features/katy-football-record-book/",
         "sourceLabel": "Katy football record book"
       }
     ],
