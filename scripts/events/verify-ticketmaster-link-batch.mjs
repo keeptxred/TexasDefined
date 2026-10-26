@@ -26,7 +26,9 @@ export function publicTicketUrl(value) {
 export function classifyTicketLinkResponse(status, source, redirectTarget) {
   if (status >= 200 && status < 300) return 'REACHABLE_NO_INVENTORY_CLAIM';
   if (status >= 300 && status < 400) {
-    const next = redirectTarget ? new URL(redirectTarget, source) : null;
+    let next;
+    try { next = redirectTarget ? new URL(redirectTarget, source) : null; }
+    catch { return 'REVIEW_UNSAFE_OR_MISSING_REDIRECT'; }
     if (!next || !publicTicketUrl(next.href)) return 'REVIEW_UNSAFE_OR_MISSING_REDIRECT';
     if (next.origin !== source.origin || next.pathname !== source.pathname) return 'REVIEW_DIFFERENT_DESTINATION';
     return 'REDIRECT_SAME_EVENT_PATH';
@@ -58,7 +60,9 @@ export async function probePublicTicketUrl(href, fetcher = fetch) {
 }
 
 export function chooseBatch(events, cursor, size = LIMIT) {
-  const texasToday = new Intl.DateTimeFormat('en-CA', {timeZone:'America/Chicago', year:'numeric', month:'2-digit', day:'2-digit'}).format(new Date());
+  const localParts = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Chicago', year: 'numeric', month: '2-digit', day: '2-digit' }).formatToParts(new Date());
+  const localPart = (name) => localParts.find((part) => part.type === name)?.value ?? '00';
+  const texasToday = [localPart('year'), localPart('month'), localPart('day')].join('-');
   const eligible = events.filter((event) => event && event.id && event.officialUrl
     && event.startDate && /^\d{4}-\d{2}-\d{2}$/.test(event.startDate) && event.startDate >= texasToday
     && !['cancelled', 'postponed', 'rescheduled'].includes(event.status));
