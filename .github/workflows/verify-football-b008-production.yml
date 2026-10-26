@@ -9,6 +9,8 @@ on:
       - 'docs/football-authority/REGISTRY.json'
       - 'src/data/high-school-football/program-editorial-b008.ts'
       - 'src/routes/texas-high-school-football-teams_.$slug.lazy.tsx'
+      - 'src/routes/$kind.$slug.lazy.tsx'
+      - 'src/data/high-school-football/football-program-profile.server.ts'
 permissions:
   contents: read
 concurrency:

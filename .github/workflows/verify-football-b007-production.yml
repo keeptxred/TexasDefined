@@ -9,6 +9,8 @@ on:
       - '.github/workflows/verify-football-b007-production.yml'
       - 'docs/football-authority/REGISTRY.json'
       - 'src/data/high-school-football/program-editorial.ts'
+      - 'src/routes/$kind.$slug.lazy.tsx'
+      - 'src/data/high-school-football/football-program-profile.server.ts'
   workflow_dispatch:
 permissions:
   contents: read
