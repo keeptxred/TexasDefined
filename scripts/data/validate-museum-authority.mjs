@@ -8,6 +8,24 @@ const read = (path) => readFileSync(path, "utf8");
 const src = read("src/data/museum-authority-network.ts");
 const failures = [];
 
+// The Yoakum Heritage Museum's original, rights-owned local illustration must
+// win over a remote, photo-missing row. Do not substitute photographs of
+// Yoakum COUNTY Museum in Plains, Missouri's Elkins House or unlicensed images.
+const yoakumRecord = read("src/data/yoakum-heritage-museum-authority-destination.ts");
+const yoakumResolver = read("src/data/destination-query-runtime.ts");
+const yoakumSVG = read("public/images/yoakum-heritage-museum-editorial.svg");
+for (const marker of ['"/images/yoakum-heritage-museum-editorial.svg"', 'TexasDefined original graphic', 'not a photograph of the museum']) {
+  if (!yoakumRecord.includes(marker)) failures.push("Yoakum original illustrated hero provenance lost: " + marker);
+}
+if (!yoakumResolver.includes('if (slug === "yoakum-heritage-museum")')
+    || !yoakumResolver.includes('resolveSeoReadyDestination(original)')
+    || !yoakumResolver.includes('ready?.hero.src === "/images/yoakum-heritage-museum-editorial.svg"')) {
+  failures.push("Yoakum first-party authority must override remote placeholder only after normal source quality gates");
+}
+if (!yoakumSVG.includes('<svg') || !yoakumSVG.includes('</svg>')) {
+  failures.push("Original Yoakum source-owned illustration must be a complete checked-in SVG");
+}
+
 // AAM Dallas currently publishes conflicting normal/event-day hours.
 // Treat this as a disclosure requirement, not a reason to invent one schedule.
 const aamRecords = read("src/data/museum-authority-new-destinations.ts");
