@@ -201,9 +201,15 @@ jobs:
             if ! git merge-base --is-ancestor origin/main HEAD; then
               echo "Current main advanced; merging it into the generated refresh branch without rewriting history."
               if ! git merge --no-edit origin/main; then
-                git merge --abort || true
-                echo "::error title=Event refresh reconciliation conflict::Current main overlaps the generated event catalogs. No merge was attempted."
-                exit 1
+                # Only the strictly approved generated catalogs and managed HTTP
+                # probe checkpoint may be reconciled. Current main's manually
+                # verified editorial findings are never overwritten.
+                if ! node scripts/events/reconcile-ticketing-refresh-conflicts.mjs; then
+                  git merge --abort || true
+                  echo "::error title=Unsafe event refresh conflict::Generated refresh was not merged because its conflict lacked trustworthy source or verification evidence."
+                  exit 1
+                fi
+                git commit --no-edit
               fi
               validate_generated_diff origin/main HEAD
               git push origin "HEAD:$BRANCH"
