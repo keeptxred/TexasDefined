@@ -7,7 +7,7 @@ import { getTexasCountyHousingCosts } from '@/data/acs-county-housing-costs.func
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from '@/lib/seo';
 
 const canonicalPath = '/texas-data/county-housing-costs';
-const description = 'Compare Texas counties using the latest verified American Community Survey 5-year estimates for median home value, gross rent, monthly owner costs and household income.';
+const description = 'Compare Texas county home values, rent, owner costs and income using verified ACS five-year estimates.';
 
 export const Route = createFileRoute('/texas-data/county-housing-costs')({
   loader: () => getTexasCountyHousingCosts(),
