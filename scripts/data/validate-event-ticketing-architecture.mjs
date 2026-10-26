@@ -33,7 +33,7 @@ for (const status of ["on-sale", "presale", "registration", "not-on-sale-yet", "
 for (const token of ["approvedAffiliateHref", "safeHttpsUrl", 'url.protocol === "https:"', "isExpired", "NON_ACTIONABLE_SALE_STATUSES", "rankedLinks", "affiliateExpiresAt", "officialExpiresAt", 'label: "Find Tickets →"', 'label: link.provider === "vivid-seats" ? "Resale Tickets →"', 'link.provider === "seatgeek" ? "View Tickets →" : "Official Tickets →"', 'rel: "sponsored nofollow noopener noreferrer"', 'rel: "noopener noreferrer"', "resolveEventTicketCta"]) requireText(resolver, token, "ticket resolver");
 for (const token of ["providerForVerifiedTicketUrl(url)", "uniqueTicketUrls", "new Set(offers.map((offer) => offer.url))", "officialTicketUrl: url", 'saleStatus: "unknown"', 'kind: "official-event"', "lastVerifiedAt", "priority: index"]) requireText(adapter, token, "official ticket normalization");
 if (adapter.includes("affiliateUrl:")) failures.push("official-source adapter must not fabricate affiliate URLs");
-for (const token of ['publicTicketHostname', 'providerForVerifiedTicketUrl', 'ticketmaster.com', 'ticketweb.com', 'livenation.com', 'etix.com', 'axs.com', 'seatgeek.com', 'vividseats.com', 'eventbrite.com']) {
+for (const token of ['isEventSpecificTicketDestination', 'publicTicketHostname', 'providerForVerifiedTicketUrl', 'ticketmaster.com', 'ticketweb.com', 'livenation.com', 'etix.com', 'axs.com', 'seatgeek.com', 'vividseats.com', 'eventbrite.com']) {
   requireText(providerClassifier, token, "provider-neutral checkout domain classification");
 }
 for (const token of [
@@ -157,7 +157,7 @@ for (const event of ticketEvidenceLedger.events) {
 
 const runtimeTest = String.raw`
 import { resolveEventTicketCta } from './src/data/events/ticketing.ts';
-import { providerForVerifiedTicketUrl, publicTicketHostname } from './src/data/events/ticket-provider.ts';
+import { providerForVerifiedTicketUrl, publicTicketHostname, isEventSpecificTicketDestination } from './src/data/events/ticket-provider.ts';
 const supported = {
  'https://www.ticketmaster.com/event/ABC123': 'ticketmaster',
  'https://www.ticketweb.com/event/holiday-concert/142347': 'ticketweb',
@@ -266,6 +266,34 @@ for (const uri of [
   if (providerForVerifiedTicketUrl(uri) !== null) throw new Error('private/unsafe checkout provider accepted: '+uri);
   const cta = resolveEventTicketCta({ links: [{...base, officialTicketUrl:uri, affiliateUrl:uri}], offers: [] }, now);
   if (cta !== null) throw new Error('private/unsafe checkout CTA rendered: '+uri);
+}
+// Public ticket directories and school-wide game selectors are NOT checkouts
+// for one verified event. Preserve organizer-details links elsewhere.
+for (const destination of [
+  'https://gofan.co/app/school/TX11743?activity=Football&gender=Boys&level=Varsity',
+  'https://gofan.co/school/TX11743',
+  'https://www.etix.com/ticket/v/32639/crighton-theatre',
+  'https://www.ticketmaster.com/browse',
+  'https://www.ticketweb.com/venue/1234',
+  'https://www.eventbrite.com/o/holiday-productions-12345',
+  'https://www.axs.com/venues/1234',
+  'https://www.livenation.com/venue/1234',
+  'https://seatgeek.com/venues/arena',
+  'https://www.vividseats.com/concerts',
+  'https://tickets.verified-organizer.org/',
+]) {
+  if (isEventSpecificTicketDestination(destination)) throw new Error('general provider listing incorrectly treated as exact admission: '+destination);
+  const cta = resolveEventTicketCta({links:[{...base, provider:providerForVerifiedTicketUrl(destination) ?? 'official', officialTicketUrl:destination}],offers:[]},now);
+  if(cta!==null) throw new Error('generic venue/school/catalog created a misleading ticket CTA: '+destination);
+}
+for (const destination of [
+ 'https://www.etix.com/ticket/p/62230269/a-christmas-story-conroe-crighton-theatre',
+ 'https://www.ticketmaster.com/grand-ol-christmas/event/ABC123',
+ 'https://www.ticketweb.com/event/holiday-show-tickets/14859023',
+ 'https://www.eventbrite.com/e/local-festival-tickets-12345678',
+ 'https://ticketing.roninpos.app/events/wfesttickets',
+]) {
+  if (!isEventSpecificTicketDestination(destination)) throw new Error('reviewed exact event destination was incorrectly blocked: '+destination);
 }
 const empty = resolveEventTicketCta({ links: [{ ...base }], offers: [] }, now);
 if (empty !== null) throw new Error('empty CTA suppression failed');
