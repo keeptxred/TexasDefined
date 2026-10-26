@@ -1,4 +1,5 @@
 import { formatDateRange } from "@/domain/utils/format";
+import { getPalestinePolarExpressRollover } from "./palestine-polar-express-rollover.server";
 import { resolveSportsVenueEventLink } from "@/data/sports-venue-event-links";
 import { isRecurrenceDerivedMajorEventSlug } from "./major-event-date-confidence";
 import { hasExpiredConfirmedEventOccurrence } from "./event-occurrence-lifecycle";
@@ -227,6 +228,20 @@ export function getMajorEventRecordServer(slug: string) {
       ],
     };
   }
+  if (event.slug === "polar-express-palestine") {
+    const verified = getPalestinePolarExpressRollover().next;
+    if (verified) {
+      // All event indexes share this same official season range; never roll
+      // calendar cards forward based only on last year's recurring dates.
+      return expandFestivalGuide({
+        ...event,
+        startDate: verified.startDate,
+        endDate: verified.endDate,
+        sourceCheckedAt: verified.verifiedAt,
+        dateNote: "Dates sourced to the organizer's official 2027 calendars; actual seat inventory is only confirmed by railroad checkout.",
+      });
+    }
+  }
   return expandFestivalGuide(event);
 }
 
@@ -323,10 +338,30 @@ export function buildMajorEventTicketingMarkupServer(slug: string) {
 }
 
 export function loadMajorEventPageServer(slug: string) {
-  const event = getMajorEventRecordServer(slug);
-  if (!event) return null;
+  const publishedEvent = getMajorEventRecordServer(slug);
+  if (!publishedEvent) return null;
+  const rollover = slug === "polar-express-palestine" ? getPalestinePolarExpressRollover() : null;
+  const verifiedNext = rollover?.next ?? null;
+  const awaitingNewSeason = Boolean(rollover?.awaiting);
+  // The JSON artifact is updated only from independently validated official
+  // calendar imagery by the protected GitHub refresh process. Never extrapolate.
+  const event = verifiedNext ? {
+    ...publishedEvent,
+    startDate: verifiedNext.startDate,
+    endDate: verifiedNext.endDate,
+    sourceCheckedAt: verifiedNext.verifiedAt,
+    seoTitle: "Palestine Polar Express 2027: Official Train Schedule & Visitor Guide",
+    seoDescription: "Texas State Railroad's verified 2027 departure dates, train tickets, visitor planning and Palestine hotels. Check live checkout for seats.",
+    dateNote: "2027 dates and times are transcribed from the Texas State Railroad's published November and December calendars. Individual trains can sell out; always check official ticket inventory.",
+    sources: publishedEvent.sources.filter(source => !source.url.includes("visitpalestine.com/events/2026/")),
+  } : awaitingNewSeason ? {
+    ...publishedEvent,
+    seoTitle: "Palestine Polar Express: 2027 Dates Not Yet Announced",
+    seoDescription: "The 2026 Polar Express season has ended. The Texas State Railroad has not yet published a verified 2027 schedule. See official booking information and Palestine visitor tips.",
+    dateNote: "The last confirmed Palestine Polar Express season ended December 28, 2026. The next season's dates are not yet published or verified; the past departure calendar is not a 2027 schedule.",
+  } : publishedEvent;
   const occurrenceWindows = getMajorEventOccurrenceWindowsServer(event);
-  const dateLabel = formatMajorEventDateLabelServer(event);
+  const dateLabel = awaitingNewSeason ? "2027 schedule not yet announced" : formatMajorEventDateLabelServer(event);
   const ticketingMarkup = buildMajorEventTicketingMarkupServer(event.slug) || buildOfficialAirshowTicketMarkupServer(event.slug);
   const nearbyExperiencesMarkup = buildFestivalNearbyExperiencesMarkupServer(event.slug);
   const eventYear = new Date(occurrenceWindows[0]?.startDate ?? event.startDate).getUTCFullYear();
@@ -334,7 +369,11 @@ export function loadMajorEventPageServer(slug: string) {
   const placeLine = [event.city && `${event.city}, Texas`, event.countyName].filter(Boolean).join(" · ");
   const recurrenceDerived = isRecurrenceDerivedMajorEventSlug(event.slug);
   const expiredConfirmedOccurrence = hasExpiredConfirmedEventOccurrence(event);
-  const dateConfidenceMarkup = recurrenceDerived
+  const dateConfidenceMarkup = awaitingNewSeason
+    ? '<div data-polar-express-season-pending="true" class="mt-5 rounded-xl border border-border bg-muted/30 p-4 text-sm leading-6"><strong>2027 departure dates are not yet announced.</strong> Do not book travel around an assumed date. The prior 2026 season has ended.</div>'
+    : verifiedNext
+      ? '<div data-polar-express-season-verified="2027" class="mt-5 rounded-xl border border-border bg-muted/30 p-4 text-sm leading-6"><strong>Railroad-published 2027 schedule.</strong> Published times are not a claim that tickets or seats remain available; check the official checkout.</div>'
+      : recurrenceDerived
     ? `<div data-event-date-confidence="recurrence-derived" class="mt-5 rounded-xl border border-border bg-muted/30 p-4 text-sm leading-6"><strong>Planning dates, not yet year-specific.</strong> This date window is derived from the organizer's published recurrence pattern. Confirm the official year-specific schedule before booking nonrefundable travel.</div>`
     : expiredConfirmedOccurrence
       ? `<div data-event-date-confidence="expired-confirmed" class="mt-5 rounded-xl border border-border bg-muted/30 p-4 text-sm leading-6"><strong>Latest confirmed occurrence has ended.</strong> These are the most recent organizer-confirmed dates on file. Do not assume the next annual occurrence until the organizer publishes it.</div>`
@@ -343,12 +382,20 @@ export function loadMajorEventPageServer(slug: string) {
     <div class="bg-background p-5"><p class="eyebrow text-muted-foreground">Dates</p><p class="mt-2 font-semibold">${esc(dateLabel)}</p></div>
     <div class="bg-background p-5"><p class="eyebrow text-muted-foreground">Venue</p><p class="mt-2 font-semibold">${esc(event.venue || event.city)}</p></div>
     <div class="bg-background p-5"><p class="eyebrow text-muted-foreground">Location</p><p class="mt-2 font-semibold">${esc(placeLine)}</p></div>
-    <div class="bg-background p-5"><p class="eyebrow text-muted-foreground">Date status</p><p class="mt-2 font-semibold">${event.slug === "polar-express-palestine" ? "City calendar; verify live checkout" : recurrenceDerived ? "Projected from organizer recurrence" : expiredConfirmedOccurrence ? "Last confirmed occurrence" : "Published event window"}</p></div>
+    <div class="bg-background p-5"><p class="eyebrow text-muted-foreground">Date status</p><p class="mt-2 font-semibold">${event.slug === "polar-express-palestine" ? (awaitingNewSeason ? "Awaiting organizer's 2027 dates" : verifiedNext ? "Official 2027 railroad calendar; verify seats" : "Railroad calendar; verify live checkout") : recurrenceDerived ? "Projected from organizer recurrence" : expiredConfirmedOccurrence ? "Last confirmed occurrence" : "Published event window"}</p></div>
   </section>`;
-  const quickFactsMarkup = event.quickFacts?.length
-    ? `<section data-major-event-quick-facts="true" aria-label="Visitor essentials" class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">${event.quickFacts.map((fact) => `<div class="rounded-xl border border-border bg-muted/20 px-5 py-4"><p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground">${esc(fact.label)}</p><p class="mt-2 font-semibold leading-6">${esc(fact.value)}</p></div>`).join("")}</section>`
+  const seasonSensitive = awaitingNewSeason || Boolean(verifiedNext);
+  const quickFacts = seasonSensitive
+    ? (event.quickFacts ?? []).filter(fact => !/2026|fare|premium|historical.preservation fee/i.test(fact.label + " " + fact.value))
+    : event.quickFacts;
+  const quickFactsMarkup = quickFacts?.length
+    ? `<section data-major-event-quick-facts="true" aria-label="Visitor essentials" class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">${quickFacts.map((fact) => `<div class="rounded-xl border border-border bg-muted/20 px-5 py-4"><p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground">${esc(fact.label)}</p><p class="mt-2 font-semibold leading-6">${esc(fact.value)}</p></div>`).join("")}</section>`
     : "";
-  const planning = event.planningSections.map((item) => {
+  const seasonPlanning = seasonSensitive
+    ? event.planningSections.filter(item =>
+        !/2026|2027|fare tiers|published prices|diesel locomotive/i.test(item.title + " " + item.body))
+    : event.planningSections;
+  const planning = seasonPlanning.map((item) => {
     const supplement = event.slug === "chappell-hill-bluebonnet-festival"
       && item.title === CHAPPELL_HILL_WILDFLOWER_SECTION_TITLE
       ? CHAPPELL_HILL_WILDFLOWER_MAP_MARKUP
@@ -370,6 +417,11 @@ export function loadMajorEventPageServer(slug: string) {
   const palestineScheduleMarkup = isPalestinePolarExpress
     ? `<section data-polar-express-2026-schedule="true" class="mt-7 rounded-2xl border border-border bg-muted/20 p-6"><p class="eyebrow text-primary">Before booking</p><h2 class="mt-2 font-display text-2xl">2026 train departures and tickets</h2><p class="mt-3 leading-7">Texas State Railroad’s official November and December 2026 calendars confirm service on November 13 and December 28. Nov 13: 5:30 and 7:00 PM; Dec 28: 3:00, 4:30, 6:00 and 7:30 PM. December 18 is also scheduled. These are advertised trains, not guaranteed available seats: check the live booking calendar or call 855-632-7729 for current inventory.</p><p class="mt-3 text-sm leading-6 text-muted-foreground"><strong>Official railroad calendar:</strong> Nov 13–15, 19–24, 27–29; Dec 3–6, 9–13, 15–16, 18–23, 26–28. No departures shown Dec 24–25. Not every day in the season has service.</p><div class="mt-5 flex flex-wrap gap-3"><a class="inline-flex min-h-11 items-center rounded-lg bg-primary px-5 py-3 font-semibold text-primary-foreground" href="${esc(event.officialUrl)}" target="_blank" rel="noopener noreferrer" data-event-official-ticket-cta="true">Check live train tickets ↗</a><a class="inline-flex min-h-11 items-center rounded-lg border border-border px-5 py-3 font-semibold text-primary" href="https://www.visitpalestine.com/events/2026/httpstexasstaterailroadnetevents2332" target="_blank" rel="noopener noreferrer">See city’s 2026 event listing ↗</a></div><p class="mt-4 text-sm text-muted-foreground">Train uses a diesel locomotive in 2026. Arrive at least 45 minutes early; collect boarding passes 15 minutes before departure. A $20-per-ticket cancellation fee applies to eligible cancellations 30+ days ahead; no refund within 30 days.</p></section>`
     : "";
+  const rolloverPanel = awaitingNewSeason
+    ? `<section data-polar-express-season-pending="true" class="mt-7 rounded-2xl border border-border bg-muted/20 p-6"><h2 class="font-display text-2xl">2027 departure calendar not yet announced</h2><p class="mt-3 leading-7">Texas State Railroad has not yet published a verified new-season calendar. Its last confirmed 2026 season is complete. Do not infer future dates from last year's trains.</p><p class="mt-4"><a class="font-semibold text-primary underline" href="https://texasstaterailroad.net/the-polar-express/" target="_blank" rel="noopener noreferrer">Check Texas State Railroad for schedule announcements ↗</a></p></section>`
+    : verifiedNext
+      ? `<section data-polar-express-season-verified="2027" class="mt-7 rounded-2xl border border-border bg-muted/20 p-6"><h2 class="font-display text-2xl">Official 2027 train departure calendar</h2><p class="mt-3 leading-7">Railroad-published departures from ${esc(verifiedNext.startDate)} through ${esc(verifiedNext.endDate)}. These are scheduled times, not an indication that tickets remain available.</p><ul class="mt-4 grid gap-2 sm:grid-cols-2">${verifiedNext.dates.map(day => `<li class="text-sm">${esc(day.date)} · ${esc(day.times.join(", "))}</li>`).join("")}</ul><p class="mt-4"><a data-event-official-ticket-cta="true" class="font-semibold text-primary underline" href="https://texasstaterailroad.net/the-polar-express/" target="_blank" rel="noopener noreferrer">Check current ticket availability ↗</a></p></section>`
+      : palestineScheduleMarkup;
   const stayNearbyMarkup = `<div data-stay-nearby-slot class="my-10" aria-label="Places to stay near ${esc(event.name)}"><section class="border-y border-border py-8"><p class="eyebrow text-primary">Where to stay</p><h2 class="mt-2 font-display text-3xl">Places to stay in ${esc(event.city)}</h2><p class="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">Compare lodging early for major event weekends, when the closest rooms can fill quickly. Check in-town options first, then widen the search to nearby communities if your preferred dates or price range are unavailable.</p><p class="mt-5"><a class="inline-flex min-h-11 items-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90" href="${hotelBookingHref}" target="_blank" rel="sponsored nofollow noopener noreferrer" data-affiliate-partner="hotels.com" data-affiliate-placement="event-stay-server-fallback" data-commercial-partner="hotels.com" data-commercial-placement="event-stay-server-fallback">${hotelBookingLabel}</a></p><p class="mt-3 text-xs text-muted-foreground">Affiliate disclosure: Texas Defined may earn a commission from qualifying Hotels.com bookings, at no additional cost to you.</p></section></div>`;
   const schemaEnrichment = getMajorEventSchemaEnrichmentServer(event.slug);
   const displayImage = isCompliantMajorEventImage(schemaEnrichment?.image) ? schemaEnrichment.image : undefined;
@@ -427,7 +479,7 @@ export function loadMajorEventPageServer(slug: string) {
   const sourceReviewMarkup = event.sourceCheckedAt
     ? `<p class="mt-4 text-xs text-muted-foreground">Event facts last source-checked ${esc(event.sourceCheckedAt)}. Recheck the official organizer before traveling because dates, prices, access rules and lineups can change.</p>`
     : "";
-  const html = `<nav class="mb-8 text-sm text-muted-foreground"><a href="/">Front page</a> / <a href="/events">Texas Events</a> / ${esc(event.name)}</nav><header class="border-b border-border pb-8"><p class="eyebrow text-primary">Major Texas event</p><h1 class="mt-3 font-display text-5xl sm:text-6xl">${esc(event.name)}</h1><p class="mt-5 text-lg text-muted-foreground">${esc(dateLabel)} · ${esc(placeLine)}</p>${dateConfidenceMarkup}${event.dateNote ? `<p class="mt-4 text-sm text-muted-foreground">${esc(event.dateNote)}</p>` : ""}<p class="mt-5"><a class="font-semibold text-primary underline" href="${esc(event.officialUrl)}" target="_blank" rel="noreferrer noopener">Visit the official event site ↗</a></p></header>${snapshotMarkup}${quickFactsMarkup}${palestineScheduleMarkup}${heroImageMarkup}${ticketingMarkup}<section class="mt-12"><h2 class="font-display text-3xl">About ${esc(event.name)}</h2><p class="mt-4 leading-7 text-muted-foreground">${esc(event.whyItMatters)}</p></section>${enrichmentMarkup}${stayNearbyMarkup}${nearbyExperiencesMarkup}<section class="mt-12 border-t border-border pt-8"><h2 class="font-display text-3xl">Planning your visit</h2>${planning}</section><section data-event-discovery-tail="true" class="mt-12 border-t border-border pt-8"><h2 class="font-display text-3xl">More to do in ${esc(event.city)}</h2><ul class="mt-4 space-y-3">${related}</ul></section><section class="mt-10 border-t border-border pt-8"><h2 class="font-display text-3xl">Official event links</h2><ul class="mt-4 space-y-3">${sources}</ul>${sourceReviewMarkup}</section>`;
+  const html = `<nav class="mb-8 text-sm text-muted-foreground"><a href="/">Front page</a> / <a href="/events">Texas Events</a> / ${esc(event.name)}</nav><header class="border-b border-border pb-8"><p class="eyebrow text-primary">Major Texas event</p><h1 class="mt-3 font-display text-5xl sm:text-6xl">${esc(event.name)}</h1><p class="mt-5 text-lg text-muted-foreground">${esc(dateLabel)} · ${esc(placeLine)}</p>${dateConfidenceMarkup}${event.dateNote ? `<p class="mt-4 text-sm text-muted-foreground">${esc(event.dateNote)}</p>` : ""}<p class="mt-5"><a class="font-semibold text-primary underline" href="${esc(event.officialUrl)}" target="_blank" rel="noreferrer noopener">Visit the official event site ↗</a></p></header>${snapshotMarkup}${quickFactsMarkup}${rolloverPanel}${heroImageMarkup}${ticketingMarkup}<section class="mt-12"><h2 class="font-display text-3xl">About ${esc(event.name)}</h2><p class="mt-4 leading-7 text-muted-foreground">${esc(event.whyItMatters)}</p></section>${enrichmentMarkup}${stayNearbyMarkup}${nearbyExperiencesMarkup}<section class="mt-12 border-t border-border pt-8"><h2 class="font-display text-3xl">Planning your visit</h2>${planning}</section><section data-event-discovery-tail="true" class="mt-12 border-t border-border pt-8"><h2 class="font-display text-3xl">More to do in ${esc(event.city)}</h2><ul class="mt-4 space-y-3">${related}</ul></section><section class="mt-10 border-t border-border pt-8"><h2 class="font-display text-3xl">Official event links</h2><ul class="mt-4 space-y-3">${sources}</ul>${sourceReviewMarkup}</section>`;
   const venueGuide = resolveSportsVenueEventLink(event.venue);
   const defaultLocation = {
     "@type": "Place",

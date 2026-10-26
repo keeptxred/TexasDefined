@@ -9,6 +9,7 @@ const metros = ["houston", "san-antonio", "austin", "corpus-christi", "dallas", 
 const approvedViator = new Set(["houston", "san-antonio", "austin", "corpus-christi", "dallas", "fort-worth", "waco", "amarillo", "el-paso"]);
 const viewports = [{ name:"desktop", width:1365, height:900, isMobile:false }, { name:"mobile", width:390, height:844, isMobile:true }];
 const directory = "artifacts/metro-day-trips-production";
+const targetSha = process.env.TARGET_DEPLOY_SHA || process.env.GITHUB_SHA || "";
 if (process.argv.includes("--self-test")) {
   assert.equal(new Set(metros).size, 14);
   assert.equal(viewports.length, 2);
@@ -34,7 +35,7 @@ try {
     page.on("pageerror",error=>record.pageErrors.push(error.message.slice(0,200)));
     try {
       const pathname="/explore/near/"+metro+"/day-trips";
-      const response=await page.goto("https://texasdefined.com"+pathname+"?qa="+encodeURIComponent(process.env.GITHUB_SHA?.slice(0,12)||"live"),{waitUntil:"domcontentloaded",timeout:45000});
+      const response=await page.goto("https://texasdefined.com"+pathname+"?qa="+encodeURIComponent(targetSha.slice(0,12)||"live"),{waitUntil:"domcontentloaded",timeout:45000});
       record.workerVersion=response?.headers()["x-texasdefined-worker-version"]||null;
       check("HTTP 200",response?.status()===200,response?.status());
       if(response?.status()!==200){record.status="http-error";continue;}
@@ -84,6 +85,6 @@ try {
       await page.screenshot({path:directory+"/"+metro+"-"+viewport.name+"-error.png",timeout:12000}).catch(()=>{});
     }finally{results.push(record);await context.close();}
   }
-}finally{await browser.close();await writeFile(directory+"/report.json",JSON.stringify({checkedAt:new Date().toISOString(),targetSha:process.env.GITHUB_SHA||"",results,failures},null,2)+"\n");}
+}finally{await browser.close();await writeFile(directory+"/report.json",JSON.stringify({checkedAt:new Date().toISOString(),targetSha,results,failures},null,2)+"\n");}
 for(const result of results)console.log(result.metro,result.viewport,result.status,result.checks.filter(x=>x.passed).length+"/"+result.checks.length);
 if(failures.length){console.error("Metro production acceptance failed:",JSON.stringify(failures));process.exitCode=1;}
