@@ -58,7 +58,66 @@
         "Source-qualified organizer/venue/provider event identity",
         "Production 12-show city/date SSR acceptance passed, run 40260454571"
       ],
-      "verificationScope": "Official event and published purchase entry verified; not real-time seat inventory or final checkout price"
+      "verificationScope": "Official event and published purchase entry verified; not real-time seat inventory or final checkout price",
+      "factVerification": {
+        "eventIdentity": {
+          "status": "SOURCE_VERIFIED",
+          "sourceUrl": "https://broadwaydallas.org/shows/dr-seuss-how-the-grinch-stole-christmas-the-musical/",
+          "checkedAt": "2026-10-26"
+        },
+        "dateTimeVenue": {
+          "status": "SOURCE_VERIFIED",
+          "sourceUrl": "https://broadwaydallas.org/shows/dr-seuss-how-the-grinch-stole-christmas-the-musical/",
+          "checkedAt": "2026-10-26",
+          "performanceDate": "2026-11-27",
+          "performanceTime": "multi:11:00,15:00,19:00",
+          "city": "Dallas",
+          "venue": "Music Hall at Fair Park"
+        },
+        "ticketUrl": {
+          "status": "OFFICIAL_PERFORMANCE_SELECTOR_DATE_SELECTION_REQUIRED",
+          "sourceUrl": "https://broadwaydallas.org/shows/dr-seuss-how-the-grinch-stole-christmas-the-musical/",
+          "sourceEvidence": "OFFICIAL_PERFORMANCE_SELECTOR; SELECT EXACT SHOWTIME",
+          "checkedAt": "2026-10-26"
+        },
+        "productionCalendar": {
+          "status": "LIVE_ACCEPTANCE_VERIFIED_AT_CHECKPOINT",
+          "checkedAt": "2026-10-25",
+          "workflowRunId": 40260454571,
+          "scope": "Date/city/venue SSR listing and one canonical editorial ticket CTA; not a completed checkout"
+        },
+        "sourcePublishedSale": {
+          "status": "organizer-published-on-sale",
+          "checkedAt": "2026-10-26",
+          "sourceUrl": "https://broadwaydallas.org/shows/dr-seuss-how-the-grinch-stole-christmas-the-musical/",
+          "scope": "Published sale entry, not live seat inventory"
+        },
+        "seatInventory": {
+          "status": "NOT_VERIFIED",
+          "reason": "No separately authorized provider seat-level inventory entitlement or independent cart confirmation"
+        },
+        "checkoutFinalPrice": {
+          "status": "NOT_VERIFIED",
+          "reason": "Published face-value tiers do not prove final checkout total including fees or a completed purchase"
+        },
+        "affiliateProgramApproval": {
+          "status": "TICKETMASTER_IMPACT_PROGRAM_LEVEL_ONLY",
+          "scope": "Publisher 7758914 / merchant 264167 / route 4272; program approval does not extend to Etix, Alley Theatre, or other providers and does not guarantee any individual event"
+        },
+        "eventSpecificCommissionEligibility": {
+          "status": "NOT_VERIFIED",
+          "reason": "Approved Impact deep-link format is not event-specific commission eligibility evidence"
+        },
+        "lastCheckedAt": "2026-10-26",
+        "evidenceSource": "https://broadwaydallas.org/shows/dr-seuss-how-the-grinch-stole-christmas-the-musical/",
+        "pullRequestEvidence": 5922,
+        "productionDeploymentEvidence": {
+          "workflowRunId": 40260454571,
+          "deploymentId": "e5f7f6ea-6a57-4e9e-81db-8cabb330324d",
+          "workerVersionId": "e717974e-76b5-45b2-94ff-31e97b750805",
+          "scope": "Historical 2026-10-25 acceptance; does not assert current HEAD deployed"
+        }
+      }
     },
     {
       "id": "king-country-fort-worth-2026",
@@ -98,7 +157,66 @@
         "Source-qualified organizer/venue/provider event identity",
         "Production 12-show city/date SSR acceptance passed, run 40260454571"
       ],
-      "verificationScope": "Official event and published purchase entry verified; not real-time seat inventory or final checkout price"
+      "verificationScope": "Official event and published purchase entry verified; not real-time seat inventory or final checkout price",
+      "factVerification": {
+        "eventIdentity": {
+          "status": "SOURCE_VERIFIED",
+          "sourceUrl": "https://www.livenation.com/event/vvG1YZ_Cx4afyp/for-king-country-a-drummer-boy-christmas",
+          "checkedAt": "2026-10-26"
+        },
+        "dateTimeVenue": {
+          "status": "SOURCE_VERIFIED",
+          "sourceUrl": "https://www.livenation.com/event/vvG1YZ_Cx4afyp/for-king-country-a-drummer-boy-christmas",
+          "checkedAt": "2026-10-26",
+          "performanceDate": "2026-12-05",
+          "performanceTime": "19:00",
+          "city": "Fort Worth",
+          "venue": "Dickies Arena"
+        },
+        "ticketUrl": {
+          "status": "SOURCE_PUBLISHED_EVENT_ENTRY_NOT_TRANSACTION_VERIFIED",
+          "sourceUrl": "https://www.livenation.com/event/vvG1YZ_Cx4afyp/for-king-country-a-drummer-boy-christmas",
+          "sourceEvidence": "OFFICIAL_EVENT_PAGE_WITH_PRIMARY_ADMISSION_LINK",
+          "checkedAt": "2026-10-26"
+        },
+        "productionCalendar": {
+          "status": "LIVE_ACCEPTANCE_VERIFIED_AT_CHECKPOINT",
+          "checkedAt": "2026-10-25",
+          "workflowRunId": 40260454571,
+          "scope": "Date/city/venue SSR listing and one canonical editorial ticket CTA; not a completed checkout"
+        },
+        "sourcePublishedSale": {
+          "status": "organizer-published-on-sale",
+          "checkedAt": "2026-10-26",
+          "sourceUrl": "https://www.forkingandcountry.com/pages/2026-christmas-tour",
+          "scope": "Published sale entry, not live seat inventory"
+        },
+        "seatInventory": {
+          "status": "NOT_VERIFIED",
+          "reason": "No separately authorized provider seat-level inventory entitlement or independent cart confirmation"
+        },
+        "checkoutFinalPrice": {
+          "status": "NOT_VERIFIED",
+          "reason": "Published face-value tiers do not prove final checkout total including fees or a completed purchase"
+        },
+        "affiliateProgramApproval": {
+          "status": "TICKETMASTER_IMPACT_PROGRAM_LEVEL_ONLY",
+          "scope": "Publisher 7758914 / merchant 264167 / route 4272; program approval does not extend to Etix, Alley Theatre, or other providers and does not guarantee any individual event"
+        },
+        "eventSpecificCommissionEligibility": {
+          "status": "NOT_VERIFIED",
+          "reason": "Approved Impact deep-link format is not event-specific commission eligibility evidence"
+        },
+        "lastCheckedAt": "2026-10-26",
+        "evidenceSource": "https://www.livenation.com/event/vvG1YZ_Cx4afyp/for-king-country-a-drummer-boy-christmas",
+        "pullRequestEvidence": 5922,
+        "productionDeploymentEvidence": {
+          "workflowRunId": 40260454571,
+          "deploymentId": "e5f7f6ea-6a57-4e9e-81db-8cabb330324d",
+          "workerVersionId": "e717974e-76b5-45b2-94ff-31e97b750805",
+          "scope": "Historical 2026-10-25 acceptance; does not assert current HEAD deployed"
+        }
+      }
     },
     {
       "id": "christmas-kwanzaa-dallas-2026",
@@ -138,6 +256,65 @@
         "checkedAt": "2026-10-26",
         "finding": "Ticketmaster's official Bruton Theatre event schedule lists the Promising Young Artist Series 33rd Annual Christmas/Kwanzaa Concert on Dec 11 at 7:30 PM with Find Tickets for that exact show.",
         "verificationScope": "Primary source published an event-specific sale entry for the reviewed date, time and venue; not seat inventory, final checkout price, transaction completion or commission entitlement."
+      },
+      "factVerification": {
+        "eventIdentity": {
+          "status": "SOURCE_VERIFIED",
+          "sourceUrl": "https://www.ticketmaster.com/promising-young-artist-series-33rd-annual-dallas-texas-12-11-2026/event/0C00653DBA7FA947",
+          "checkedAt": "2026-10-26"
+        },
+        "dateTimeVenue": {
+          "status": "SOURCE_VERIFIED",
+          "sourceUrl": "https://www.ticketmaster.com/promising-young-artist-series-33rd-annual-dallas-texas-12-11-2026/event/0C00653DBA7FA947",
+          "checkedAt": "2026-10-26",
+          "performanceDate": "2026-12-11",
+          "performanceTime": "19:30",
+          "city": "Dallas",
+          "venue": "Bruton Theatre"
+        },
+        "ticketUrl": {
+          "status": "SOURCE_PUBLISHED_EVENT_ENTRY_NOT_TRANSACTION_VERIFIED",
+          "sourceUrl": "https://www.ticketmaster.com/promising-young-artist-series-33rd-annual-dallas-texas-12-11-2026/event/0C00653DBA7FA947",
+          "sourceEvidence": "EXACT_TICKETMASTER_EVENT_PAGE",
+          "checkedAt": "2026-10-26"
+        },
+        "productionCalendar": {
+          "status": "LIVE_ACCEPTANCE_VERIFIED_AT_CHECKPOINT",
+          "checkedAt": "2026-10-25",
+          "workflowRunId": 40260454571,
+          "scope": "Date/city/venue SSR listing and one canonical editorial ticket CTA; not a completed checkout"
+        },
+        "sourcePublishedSale": {
+          "status": "venue-published-on-sale",
+          "checkedAt": "2026-10-26",
+          "sourceUrl": "https://www.ticketmaster.com/bruton-theatre-tickets-dallas/venue/98316",
+          "scope": "Published sale entry, not live seat inventory"
+        },
+        "seatInventory": {
+          "status": "NOT_VERIFIED",
+          "reason": "No separately authorized provider seat-level inventory entitlement or independent cart confirmation"
+        },
+        "checkoutFinalPrice": {
+          "status": "NOT_VERIFIED",
+          "reason": "Published face-value tiers do not prove final checkout total including fees or a completed purchase"
+        },
+        "affiliateProgramApproval": {
+          "status": "TICKETMASTER_IMPACT_PROGRAM_LEVEL_ONLY",
+          "scope": "Publisher 7758914 / merchant 264167 / route 4272; program approval does not extend to Etix, Alley Theatre, or other providers and does not guarantee any individual event"
+        },
+        "eventSpecificCommissionEligibility": {
+          "status": "NOT_VERIFIED",
+          "reason": "Approved Impact deep-link format is not event-specific commission eligibility evidence"
+        },
+        "lastCheckedAt": "2026-10-26",
+        "evidenceSource": "https://www.ticketmaster.com/promising-young-artist-series-33rd-annual-dallas-texas-12-11-2026/event/0C00653DBA7FA947",
+        "pullRequestEvidence": 5922,
+        "productionDeploymentEvidence": {
+          "workflowRunId": 40260454571,
+          "deploymentId": "e5f7f6ea-6a57-4e9e-81db-8cabb330324d",
+          "workerVersionId": "e717974e-76b5-45b2-94ff-31e97b750805",
+          "scope": "Historical 2026-10-25 acceptance; does not assert current HEAD deployed"
+        }
       }
     },
     {
@@ -178,6 +355,65 @@
         "checkedAt": "2026-10-26",
         "finding": "Resident company Stage Right of Texas publishes BUY TICKETS for A Christmas Story, Dec 4–20 at Crighton Theatre, with Sunday performances at 2:00 PM. The exact Dec 13 2:00 PM Etix checkout remains separately sourced.",
         "verificationScope": "Published sale status, exact identity, date/time and venue only; not seat inventory, final checkout price or event-specific commission"
+      },
+      "factVerification": {
+        "eventIdentity": {
+          "status": "SOURCE_VERIFIED",
+          "sourceUrl": "https://downtownconroe.squarespace.com/events/a-christmas-story-dec-13-2-pm",
+          "checkedAt": "2026-10-26"
+        },
+        "dateTimeVenue": {
+          "status": "SOURCE_VERIFIED",
+          "sourceUrl": "https://downtownconroe.squarespace.com/events/a-christmas-story-dec-13-2-pm",
+          "checkedAt": "2026-10-26",
+          "performanceDate": "2026-12-13",
+          "performanceTime": "14:00",
+          "city": "Conroe",
+          "venue": "Crighton Theatre"
+        },
+        "ticketUrl": {
+          "status": "ORGANIZER_LINKED_PROVIDER_ACCESS_INCONCLUSIVE",
+          "sourceUrl": "https://www.etix.com/ticket/p/62230269/a-christmas-story-conroe-crighton-theatre",
+          "sourceEvidence": "ORGANIZER_PUBLISHED_ETIX_PERFORMANCE; DIRECT_PROVIDER_HTTP_INCONCLUSIVE",
+          "checkedAt": "2026-10-26"
+        },
+        "productionCalendar": {
+          "status": "LIVE_ACCEPTANCE_VERIFIED_AT_CHECKPOINT",
+          "checkedAt": "2026-10-25",
+          "workflowRunId": 40260454571,
+          "scope": "Date/city/venue SSR listing and one canonical editorial ticket CTA; not a completed checkout"
+        },
+        "sourcePublishedSale": {
+          "status": "organizer-published-on-sale",
+          "checkedAt": "2026-10-26",
+          "sourceUrl": "https://www.stage-right.org/",
+          "scope": "Published sale entry, not live seat inventory"
+        },
+        "seatInventory": {
+          "status": "NOT_VERIFIED",
+          "reason": "No separately authorized provider seat-level inventory entitlement or independent cart confirmation"
+        },
+        "checkoutFinalPrice": {
+          "status": "NOT_VERIFIED",
+          "reason": "Published face-value tiers do not prove final checkout total including fees or a completed purchase"
+        },
+        "affiliateProgramApproval": {
+          "status": "TICKETMASTER_IMPACT_PROGRAM_LEVEL_ONLY",
+          "scope": "Publisher 7758914 / merchant 264167 / route 4272; program approval does not extend to Etix, Alley Theatre, or other providers and does not guarantee any individual event"
+        },
+        "eventSpecificCommissionEligibility": {
+          "status": "NOT_VERIFIED",
+          "reason": "Approved Impact deep-link format is not event-specific commission eligibility evidence"
+        },
+        "lastCheckedAt": "2026-10-26",
+        "evidenceSource": "https://downtownconroe.squarespace.com/events/a-christmas-story-dec-13-2-pm",
+        "pullRequestEvidence": 5922,
+        "productionDeploymentEvidence": {
+          "workflowRunId": 40260454571,
+          "deploymentId": "e5f7f6ea-6a57-4e9e-81db-8cabb330324d",
+          "workerVersionId": "e717974e-76b5-45b2-94ff-31e97b750805",
+          "scope": "Historical 2026-10-25 acceptance; does not assert current HEAD deployed"
+        }
       }
     },
     {
@@ -218,7 +454,66 @@
         "Source-qualified organizer/venue/provider event identity",
         "Production 12-show city/date SSR acceptance passed, run 40260454571"
       ],
-      "verificationScope": "Official event and published purchase entry verified; not real-time seat inventory or final checkout price"
+      "verificationScope": "Official event and published purchase entry verified; not real-time seat inventory or final checkout price",
+      "factVerification": {
+        "eventIdentity": {
+          "status": "SOURCE_VERIFIED",
+          "sourceUrl": "https://ariatarena.com/event/2026-12-16-pentatonix/",
+          "checkedAt": "2026-10-26"
+        },
+        "dateTimeVenue": {
+          "status": "SOURCE_VERIFIED",
+          "sourceUrl": "https://ariatarena.com/event/2026-12-16-pentatonix/",
+          "checkedAt": "2026-10-26",
+          "performanceDate": "2026-12-16",
+          "performanceTime": "19:00",
+          "city": "Fort Worth",
+          "venue": "Dickies Arena"
+        },
+        "ticketUrl": {
+          "status": "SOURCE_PUBLISHED_EVENT_ENTRY_NOT_TRANSACTION_VERIFIED",
+          "sourceUrl": "https://ariatarena.com/event/2026-12-16-pentatonix/",
+          "sourceEvidence": "OFFICIAL_VENUE_EVENT_WITH_TICKETMASTER_LINK",
+          "checkedAt": "2026-10-26"
+        },
+        "productionCalendar": {
+          "status": "LIVE_ACCEPTANCE_VERIFIED_AT_CHECKPOINT",
+          "checkedAt": "2026-10-25",
+          "workflowRunId": 40260454571,
+          "scope": "Date/city/venue SSR listing and one canonical editorial ticket CTA; not a completed checkout"
+        },
+        "sourcePublishedSale": {
+          "status": "venue-published-on-sale",
+          "checkedAt": "2026-10-26",
+          "sourceUrl": "https://www.livenation.com/event/vvG1YZ_Cn4lA0M/pentatonix-christmas-in-the-city-tour",
+          "scope": "Published sale entry, not live seat inventory"
+        },
+        "seatInventory": {
+          "status": "NOT_VERIFIED",
+          "reason": "No separately authorized provider seat-level inventory entitlement or independent cart confirmation"
+        },
+        "checkoutFinalPrice": {
+          "status": "NOT_VERIFIED",
+          "reason": "Published face-value tiers do not prove final checkout total including fees or a completed purchase"
+        },
+        "affiliateProgramApproval": {
+          "status": "TICKETMASTER_IMPACT_PROGRAM_LEVEL_ONLY",
+          "scope": "Publisher 7758914 / merchant 264167 / route 4272; program approval does not extend to Etix, Alley Theatre, or other providers and does not guarantee any individual event"
+        },
+        "eventSpecificCommissionEligibility": {
+          "status": "NOT_VERIFIED",
+          "reason": "Approved Impact deep-link format is not event-specific commission eligibility evidence"
+        },
+        "lastCheckedAt": "2026-10-26",
+        "evidenceSource": "https://ariatarena.com/event/2026-12-16-pentatonix/",
+        "pullRequestEvidence": 5922,
+        "productionDeploymentEvidence": {
+          "workflowRunId": 40260454571,
+          "deploymentId": "e5f7f6ea-6a57-4e9e-81db-8cabb330324d",
+          "workerVersionId": "e717974e-76b5-45b2-94ff-31e97b750805",
+          "scope": "Historical 2026-10-25 acceptance; does not assert current HEAD deployed"
+        }
+      }
     },
     {
       "id": "jazzy-christmas-dallas-2026",
@@ -258,6 +553,65 @@
         "checkedAt": "2026-10-26",
         "finding": "Ticketmaster's Bruton Theatre primary venue schedule offers Find Tickets for A Jazzy Christmas Concert on Dec 17, 2026 at 7:00 PM, separate from the 10 AM puppet show.",
         "verificationScope": "Primary source published an event-specific sale entry for the reviewed date, time and venue; not seat inventory, final checkout price, transaction completion or commission entitlement."
+      },
+      "factVerification": {
+        "eventIdentity": {
+          "status": "SOURCE_VERIFIED",
+          "sourceUrl": "https://www.ticketmaster.com/a-jazzy-christmas-concert-dallas-texas-12-17-2026/event/0C00653DB901A616",
+          "checkedAt": "2026-10-26"
+        },
+        "dateTimeVenue": {
+          "status": "SOURCE_VERIFIED",
+          "sourceUrl": "https://www.ticketmaster.com/a-jazzy-christmas-concert-dallas-texas-12-17-2026/event/0C00653DB901A616",
+          "checkedAt": "2026-10-26",
+          "performanceDate": "2026-12-17",
+          "performanceTime": "19:00",
+          "city": "Dallas",
+          "venue": "Bruton Theatre"
+        },
+        "ticketUrl": {
+          "status": "SOURCE_PUBLISHED_EVENT_ENTRY_NOT_TRANSACTION_VERIFIED",
+          "sourceUrl": "https://www.ticketmaster.com/a-jazzy-christmas-concert-dallas-texas-12-17-2026/event/0C00653DB901A616",
+          "sourceEvidence": "EXACT_TICKETMASTER_EVENT_PAGE",
+          "checkedAt": "2026-10-26"
+        },
+        "productionCalendar": {
+          "status": "LIVE_ACCEPTANCE_VERIFIED_AT_CHECKPOINT",
+          "checkedAt": "2026-10-25",
+          "workflowRunId": 40260454571,
+          "scope": "Date/city/venue SSR listing and one canonical editorial ticket CTA; not a completed checkout"
+        },
+        "sourcePublishedSale": {
+          "status": "venue-published-on-sale",
+          "checkedAt": "2026-10-26",
+          "sourceUrl": "https://www.ticketmaster.com/bruton-theatre-tickets-dallas/venue/98316",
+          "scope": "Published sale entry, not live seat inventory"
+        },
+        "seatInventory": {
+          "status": "NOT_VERIFIED",
+          "reason": "No separately authorized provider seat-level inventory entitlement or independent cart confirmation"
+        },
+        "checkoutFinalPrice": {
+          "status": "NOT_VERIFIED",
+          "reason": "Published face-value tiers do not prove final checkout total including fees or a completed purchase"
+        },
+        "affiliateProgramApproval": {
+          "status": "TICKETMASTER_IMPACT_PROGRAM_LEVEL_ONLY",
+          "scope": "Publisher 7758914 / merchant 264167 / route 4272; program approval does not extend to Etix, Alley Theatre, or other providers and does not guarantee any individual event"
+        },
+        "eventSpecificCommissionEligibility": {
+          "status": "NOT_VERIFIED",
+          "reason": "Approved Impact deep-link format is not event-specific commission eligibility evidence"
+        },
+        "lastCheckedAt": "2026-10-26",
+        "evidenceSource": "https://www.ticketmaster.com/a-jazzy-christmas-concert-dallas-texas-12-17-2026/event/0C00653DB901A616",
+        "pullRequestEvidence": 5922,
+        "productionDeploymentEvidence": {
+          "workflowRunId": 40260454571,
+          "deploymentId": "e5f7f6ea-6a57-4e9e-81db-8cabb330324d",
+          "workerVersionId": "e717974e-76b5-45b2-94ff-31e97b750805",
+          "scope": "Historical 2026-10-25 acceptance; does not assert current HEAD deployed"
+        }
       }
     },
     {
@@ -298,7 +652,66 @@
         "Source-qualified organizer/venue/provider event identity",
         "Production 12-show city/date SSR acceptance passed, run 40260454571"
       ],
-      "verificationScope": "Official event and published purchase entry verified; not real-time seat inventory or final checkout price"
+      "verificationScope": "Official event and published purchase entry verified; not real-time seat inventory or final checkout price",
+      "factVerification": {
+        "eventIdentity": {
+          "status": "SOURCE_VERIFIED",
+          "sourceUrl": "https://www.hebcenter.com/events/detail/a-very-merry-symphony",
+          "checkedAt": "2026-10-26"
+        },
+        "dateTimeVenue": {
+          "status": "SOURCE_VERIFIED",
+          "sourceUrl": "https://www.hebcenter.com/events/detail/a-very-merry-symphony",
+          "checkedAt": "2026-10-26",
+          "performanceDate": "2026-12-20",
+          "performanceTime": "19:00",
+          "city": "Cedar Park",
+          "venue": "H-E-B Center at Cedar Park"
+        },
+        "ticketUrl": {
+          "status": "SOURCE_PUBLISHED_EVENT_ENTRY_NOT_TRANSACTION_VERIFIED",
+          "sourceUrl": "https://www.hebcenter.com/events/detail/a-very-merry-symphony",
+          "sourceEvidence": "OFFICIAL_VENUE_ON_SALE_WITH_TICKETMASTER_LINK",
+          "checkedAt": "2026-10-26"
+        },
+        "productionCalendar": {
+          "status": "LIVE_ACCEPTANCE_VERIFIED_AT_CHECKPOINT",
+          "checkedAt": "2026-10-25",
+          "workflowRunId": 40260454571,
+          "scope": "Date/city/venue SSR listing and one canonical editorial ticket CTA; not a completed checkout"
+        },
+        "sourcePublishedSale": {
+          "status": "venue-published-on-sale",
+          "checkedAt": "2026-10-26",
+          "sourceUrl": "https://www.hebcenter.com/events/detail/a-very-merry-symphony",
+          "scope": "Published sale entry, not live seat inventory"
+        },
+        "seatInventory": {
+          "status": "NOT_VERIFIED",
+          "reason": "No separately authorized provider seat-level inventory entitlement or independent cart confirmation"
+        },
+        "checkoutFinalPrice": {
+          "status": "NOT_VERIFIED",
+          "reason": "Published face-value tiers do not prove final checkout total including fees or a completed purchase"
+        },
+        "affiliateProgramApproval": {
+          "status": "TICKETMASTER_IMPACT_PROGRAM_LEVEL_ONLY",
+          "scope": "Publisher 7758914 / merchant 264167 / route 4272; program approval does not extend to Etix, Alley Theatre, or other providers and does not guarantee any individual event"
+        },
+        "eventSpecificCommissionEligibility": {
+          "status": "NOT_VERIFIED",
+          "reason": "Approved Impact deep-link format is not event-specific commission eligibility evidence"
+        },
+        "lastCheckedAt": "2026-10-26",
+        "evidenceSource": "https://www.hebcenter.com/events/detail/a-very-merry-symphony",
+        "pullRequestEvidence": 5922,
+        "productionDeploymentEvidence": {
+          "workflowRunId": 40260454571,
+          "deploymentId": "e5f7f6ea-6a57-4e9e-81db-8cabb330324d",
+          "workerVersionId": "e717974e-76b5-45b2-94ff-31e97b750805",
+          "scope": "Historical 2026-10-25 acceptance; does not assert current HEAD deployed"
+        }
+      }
     },
     {
       "id": "celtic-christmas-mcallen-2026",
@@ -338,6 +751,65 @@
         "checkedAt": "2026-10-26",
         "finding": "McAllen's official Experience McAllen event page links to this exact primary Ticketmaster checkout; Ticketmaster identifies Dec 20, 2026 at 4 PM at McAllen Performing Arts Center and shows General Sale Happening Now, Jul 28 through Dec 20.",
         "verificationScope": "Primary source published an event-specific sale entry for the reviewed date, time and venue; not seat inventory, final checkout price, transaction completion or commission entitlement."
+      },
+      "factVerification": {
+        "eventIdentity": {
+          "status": "SOURCE_VERIFIED",
+          "sourceUrl": "https://experiencemcallen.com/event/a-celtic-christmas-mcallen-2026/",
+          "checkedAt": "2026-10-26"
+        },
+        "dateTimeVenue": {
+          "status": "SOURCE_VERIFIED",
+          "sourceUrl": "https://experiencemcallen.com/event/a-celtic-christmas-mcallen-2026/",
+          "checkedAt": "2026-10-26",
+          "performanceDate": "2026-12-20",
+          "performanceTime": "16:00",
+          "city": "McAllen",
+          "venue": "McAllen Performing Arts Center"
+        },
+        "ticketUrl": {
+          "status": "SOURCE_PUBLISHED_EVENT_ENTRY_NOT_TRANSACTION_VERIFIED",
+          "sourceUrl": "https://experiencemcallen.com/event/a-celtic-christmas-mcallen-2026/",
+          "sourceEvidence": "OFFICIAL_CITY_EVENT_WITH_TICKETMASTER_LINK",
+          "checkedAt": "2026-10-26"
+        },
+        "productionCalendar": {
+          "status": "LIVE_ACCEPTANCE_VERIFIED_AT_CHECKPOINT",
+          "checkedAt": "2026-10-25",
+          "workflowRunId": 40260454571,
+          "scope": "Date/city/venue SSR listing and one canonical editorial ticket CTA; not a completed checkout"
+        },
+        "sourcePublishedSale": {
+          "status": "organizer-published-on-sale",
+          "checkedAt": "2026-10-26",
+          "sourceUrl": "https://www.ticketmaster.com/event/3A0064EEA191731D",
+          "scope": "Published sale entry, not live seat inventory"
+        },
+        "seatInventory": {
+          "status": "NOT_VERIFIED",
+          "reason": "No separately authorized provider seat-level inventory entitlement or independent cart confirmation"
+        },
+        "checkoutFinalPrice": {
+          "status": "NOT_VERIFIED",
+          "reason": "Published face-value tiers do not prove final checkout total including fees or a completed purchase"
+        },
+        "affiliateProgramApproval": {
+          "status": "TICKETMASTER_IMPACT_PROGRAM_LEVEL_ONLY",
+          "scope": "Publisher 7758914 / merchant 264167 / route 4272; program approval does not extend to Etix, Alley Theatre, or other providers and does not guarantee any individual event"
+        },
+        "eventSpecificCommissionEligibility": {
+          "status": "NOT_VERIFIED",
+          "reason": "Approved Impact deep-link format is not event-specific commission eligibility evidence"
+        },
+        "lastCheckedAt": "2026-10-26",
+        "evidenceSource": "https://experiencemcallen.com/event/a-celtic-christmas-mcallen-2026/",
+        "pullRequestEvidence": 5922,
+        "productionDeploymentEvidence": {
+          "workflowRunId": 40260454571,
+          "deploymentId": "e5f7f6ea-6a57-4e9e-81db-8cabb330324d",
+          "workerVersionId": "e717974e-76b5-45b2-94ff-31e97b750805",
+          "scope": "Historical 2026-10-25 acceptance; does not assert current HEAD deployed"
+        }
       }
     },
     {
@@ -378,6 +850,65 @@
         "checkedAt": "2026-10-26",
         "finding": "Primary promoter Live Nation publishes Buy Tickets for Grand Ol' Christmas on Tue Dec 22, 2026 at 7 PM, House of Blues Houston, and separately labels the Fast Lane Access upgrade Not a Concert Ticket.",
         "verificationScope": "Primary source published an event-specific sale entry for the reviewed date, time and venue; not seat inventory, final checkout price, transaction completion or commission entitlement."
+      },
+      "factVerification": {
+        "eventIdentity": {
+          "status": "SOURCE_VERIFIED",
+          "sourceUrl": "https://www.livenation.com/event/G5dIZ_GluCTsV/grand-ol-christmas",
+          "checkedAt": "2026-10-26"
+        },
+        "dateTimeVenue": {
+          "status": "SOURCE_VERIFIED",
+          "sourceUrl": "https://www.livenation.com/event/G5dIZ_GluCTsV/grand-ol-christmas",
+          "checkedAt": "2026-10-26",
+          "performanceDate": "2026-12-22",
+          "performanceTime": "19:00",
+          "city": "Houston",
+          "venue": "House of Blues Houston"
+        },
+        "ticketUrl": {
+          "status": "SOURCE_PUBLISHED_EVENT_ENTRY_NOT_TRANSACTION_VERIFIED",
+          "sourceUrl": "https://www.livenation.com/event/G5dIZ_GluCTsV/grand-ol-christmas",
+          "sourceEvidence": "EXACT_LIVE_NATION_EVENT_WITH_PRIMARY_ADMISSION_LINK",
+          "checkedAt": "2026-10-26"
+        },
+        "productionCalendar": {
+          "status": "LIVE_ACCEPTANCE_VERIFIED_AT_CHECKPOINT",
+          "checkedAt": "2026-10-25",
+          "workflowRunId": 40260454571,
+          "scope": "Date/city/venue SSR listing and one canonical editorial ticket CTA; not a completed checkout"
+        },
+        "sourcePublishedSale": {
+          "status": "organizer-published-on-sale",
+          "checkedAt": "2026-10-26",
+          "sourceUrl": "https://www.livenation.com/event/G5dIZ_GluCTsV/grand-ol-christmas",
+          "scope": "Published sale entry, not live seat inventory"
+        },
+        "seatInventory": {
+          "status": "NOT_VERIFIED",
+          "reason": "No separately authorized provider seat-level inventory entitlement or independent cart confirmation"
+        },
+        "checkoutFinalPrice": {
+          "status": "NOT_VERIFIED",
+          "reason": "Published face-value tiers do not prove final checkout total including fees or a completed purchase"
+        },
+        "affiliateProgramApproval": {
+          "status": "TICKETMASTER_IMPACT_PROGRAM_LEVEL_ONLY",
+          "scope": "Publisher 7758914 / merchant 264167 / route 4272; program approval does not extend to Etix, Alley Theatre, or other providers and does not guarantee any individual event"
+        },
+        "eventSpecificCommissionEligibility": {
+          "status": "NOT_VERIFIED",
+          "reason": "Approved Impact deep-link format is not event-specific commission eligibility evidence"
+        },
+        "lastCheckedAt": "2026-10-26",
+        "evidenceSource": "https://www.livenation.com/event/G5dIZ_GluCTsV/grand-ol-christmas",
+        "pullRequestEvidence": 5922,
+        "productionDeploymentEvidence": {
+          "workflowRunId": 40260454571,
+          "deploymentId": "e5f7f6ea-6a57-4e9e-81db-8cabb330324d",
+          "workerVersionId": "e717974e-76b5-45b2-94ff-31e97b750805",
+          "scope": "Historical 2026-10-25 acceptance; does not assert current HEAD deployed"
+        }
       }
     },
     {
@@ -418,6 +949,65 @@
         "checkedAt": "2026-10-26",
         "finding": "Ticketmaster's primary House of Blues Dallas venue schedule publishes Find Tickets for Grand Ol' Christmas Dec 23, 2026. Its 5 PM entry is venue doors; previously verified stage performance starts at 6 PM, and fast-lane passes are separate add-ons.",
         "verificationScope": "Primary source published an event-specific sale entry for the reviewed date, time and venue; not seat inventory, final checkout price, transaction completion or commission entitlement."
+      },
+      "factVerification": {
+        "eventIdentity": {
+          "status": "SOURCE_VERIFIED",
+          "sourceUrl": "https://www.ticketmaster.com/venue/99029?page=1&tt_scene=anchor_view",
+          "checkedAt": "2026-10-26"
+        },
+        "dateTimeVenue": {
+          "status": "SOURCE_VERIFIED",
+          "sourceUrl": "https://www.ticketmaster.com/venue/99029?page=1&tt_scene=anchor_view",
+          "checkedAt": "2026-10-26",
+          "performanceDate": "2026-12-23",
+          "performanceTime": "18:00 show, 17:00 doors",
+          "city": "Dallas",
+          "venue": "House of Blues Dallas"
+        },
+        "ticketUrl": {
+          "status": "SOURCE_PUBLISHED_EVENT_ENTRY_NOT_TRANSACTION_VERIFIED",
+          "sourceUrl": "https://www.ticketmaster.com/venue/99029?page=1&tt_scene=anchor_view",
+          "sourceEvidence": "OFFICIAL_TICKETMASTER_VENUE_ENTRY_AND_REVIEWED_EXACT_EVENT_URL",
+          "checkedAt": "2026-10-26"
+        },
+        "productionCalendar": {
+          "status": "LIVE_ACCEPTANCE_VERIFIED_AT_CHECKPOINT",
+          "checkedAt": "2026-10-25",
+          "workflowRunId": 40260454571,
+          "scope": "Date/city/venue SSR listing and one canonical editorial ticket CTA; not a completed checkout"
+        },
+        "sourcePublishedSale": {
+          "status": "venue-published-on-sale",
+          "checkedAt": "2026-10-26",
+          "sourceUrl": "https://www.ticketmaster.com/venue/99029?page=1",
+          "scope": "Published sale entry, not live seat inventory"
+        },
+        "seatInventory": {
+          "status": "NOT_VERIFIED",
+          "reason": "No separately authorized provider seat-level inventory entitlement or independent cart confirmation"
+        },
+        "checkoutFinalPrice": {
+          "status": "NOT_VERIFIED",
+          "reason": "Published face-value tiers do not prove final checkout total including fees or a completed purchase"
+        },
+        "affiliateProgramApproval": {
+          "status": "TICKETMASTER_IMPACT_PROGRAM_LEVEL_ONLY",
+          "scope": "Publisher 7758914 / merchant 264167 / route 4272; program approval does not extend to Etix, Alley Theatre, or other providers and does not guarantee any individual event"
+        },
+        "eventSpecificCommissionEligibility": {
+          "status": "NOT_VERIFIED",
+          "reason": "Approved Impact deep-link format is not event-specific commission eligibility evidence"
+        },
+        "lastCheckedAt": "2026-10-26",
+        "evidenceSource": "https://www.ticketmaster.com/venue/99029?page=1&tt_scene=anchor_view",
+        "pullRequestEvidence": 5922,
+        "productionDeploymentEvidence": {
+          "workflowRunId": 40260454571,
+          "deploymentId": "e5f7f6ea-6a57-4e9e-81db-8cabb330324d",
+          "workerVersionId": "e717974e-76b5-45b2-94ff-31e97b750805",
+          "scope": "Historical 2026-10-25 acceptance; does not assert current HEAD deployed"
+        }
       }
     },
     {
@@ -458,7 +1048,66 @@
         "Source-qualified organizer/venue/provider event identity",
         "Production 12-show city/date SSR acceptance passed, run 40260454571"
       ],
-      "verificationScope": "Official event and published purchase entry verified; not real-time seat inventory or final checkout price"
+      "verificationScope": "Official event and published purchase entry verified; not real-time seat inventory or final checkout price",
+      "factVerification": {
+        "eventIdentity": {
+          "status": "SOURCE_VERIFIED",
+          "sourceUrl": "https://www.hebcenter.com/events/detail/cirque-musica-holiday-wonderland-2026",
+          "checkedAt": "2026-10-26"
+        },
+        "dateTimeVenue": {
+          "status": "SOURCE_VERIFIED",
+          "sourceUrl": "https://www.hebcenter.com/events/detail/cirque-musica-holiday-wonderland-2026",
+          "checkedAt": "2026-10-26",
+          "performanceDate": "2026-12-24",
+          "performanceTime": "14:00",
+          "city": "Cedar Park",
+          "venue": "H-E-B Center at Cedar Park"
+        },
+        "ticketUrl": {
+          "status": "SOURCE_PUBLISHED_EVENT_ENTRY_NOT_TRANSACTION_VERIFIED",
+          "sourceUrl": "https://www.hebcenter.com/events/detail/cirque-musica-holiday-wonderland-2026",
+          "sourceEvidence": "OFFICIAL_VENUE_ON_SALE_WITH_TICKETMASTER_LINK",
+          "checkedAt": "2026-10-26"
+        },
+        "productionCalendar": {
+          "status": "LIVE_ACCEPTANCE_VERIFIED_AT_CHECKPOINT",
+          "checkedAt": "2026-10-25",
+          "workflowRunId": 40260454571,
+          "scope": "Date/city/venue SSR listing and one canonical editorial ticket CTA; not a completed checkout"
+        },
+        "sourcePublishedSale": {
+          "status": "venue-published-on-sale",
+          "checkedAt": "2026-10-26",
+          "sourceUrl": "https://www.hebcenter.com/events/detail/cirque-musica-holiday-wonderland-2026",
+          "scope": "Published sale entry, not live seat inventory"
+        },
+        "seatInventory": {
+          "status": "NOT_VERIFIED",
+          "reason": "No separately authorized provider seat-level inventory entitlement or independent cart confirmation"
+        },
+        "checkoutFinalPrice": {
+          "status": "NOT_VERIFIED",
+          "reason": "Published face-value tiers do not prove final checkout total including fees or a completed purchase"
+        },
+        "affiliateProgramApproval": {
+          "status": "TICKETMASTER_IMPACT_PROGRAM_LEVEL_ONLY",
+          "scope": "Publisher 7758914 / merchant 264167 / route 4272; program approval does not extend to Etix, Alley Theatre, or other providers and does not guarantee any individual event"
+        },
+        "eventSpecificCommissionEligibility": {
+          "status": "NOT_VERIFIED",
+          "reason": "Approved Impact deep-link format is not event-specific commission eligibility evidence"
+        },
+        "lastCheckedAt": "2026-10-26",
+        "evidenceSource": "https://www.hebcenter.com/events/detail/cirque-musica-holiday-wonderland-2026",
+        "pullRequestEvidence": 5922,
+        "productionDeploymentEvidence": {
+          "workflowRunId": 40260454571,
+          "deploymentId": "e5f7f6ea-6a57-4e9e-81db-8cabb330324d",
+          "workerVersionId": "e717974e-76b5-45b2-94ff-31e97b750805",
+          "scope": "Historical 2026-10-25 acceptance; does not assert current HEAD deployed"
+        }
+      }
     },
     {
       "id": "christmas-carol-houston-2026",
@@ -501,6 +1150,65 @@
         "checkedAt": "2026-10-26",
         "finding": "Alley Theatre official homepage features A Christmas Carol Nov 15–Dec 27 under NOW ON SALE, with Get Tickets. The separately verified final Dec 27 1:30 PM Hubbard Theatre official checkout is preserved.",
         "verificationScope": "Published sale status, exact identity, date/time and venue only; not seat inventory, final checkout price or event-specific commission"
+      },
+      "factVerification": {
+        "eventIdentity": {
+          "status": "SOURCE_VERIFIED",
+          "sourceUrl": "https://cart.alleytheatre.org/10216/10226",
+          "checkedAt": "2026-10-26"
+        },
+        "dateTimeVenue": {
+          "status": "SOURCE_VERIFIED",
+          "sourceUrl": "https://cart.alleytheatre.org/10216/10226",
+          "checkedAt": "2026-10-26",
+          "performanceDate": "2026-12-27",
+          "performanceTime": "13:30",
+          "city": "Houston",
+          "venue": "Alley Theatre Hubbard Theatre"
+        },
+        "ticketUrl": {
+          "status": "EXACT_PERFORMANCE_DESTINATION_SOURCE_VERIFIED",
+          "sourceUrl": "https://cart.alleytheatre.org/10216/10226",
+          "sourceEvidence": "EXACT_ALLEY_THEATRE_PERFORMANCE_CHECKOUT",
+          "checkedAt": "2026-10-26"
+        },
+        "productionCalendar": {
+          "status": "LIVE_ACCEPTANCE_VERIFIED_AT_CHECKPOINT",
+          "checkedAt": "2026-10-25",
+          "workflowRunId": 40260454571,
+          "scope": "Date/city/venue SSR listing and one canonical editorial ticket CTA; not a completed checkout"
+        },
+        "sourcePublishedSale": {
+          "status": "organizer-published-on-sale",
+          "checkedAt": "2026-10-26",
+          "sourceUrl": "https://www.alleytheatre.org/",
+          "scope": "Published sale entry, not live seat inventory"
+        },
+        "seatInventory": {
+          "status": "NOT_VERIFIED",
+          "reason": "No separately authorized provider seat-level inventory entitlement or independent cart confirmation"
+        },
+        "checkoutFinalPrice": {
+          "status": "NOT_VERIFIED",
+          "reason": "Published face-value tiers do not prove final checkout total including fees or a completed purchase"
+        },
+        "affiliateProgramApproval": {
+          "status": "TICKETMASTER_IMPACT_PROGRAM_LEVEL_ONLY",
+          "scope": "Publisher 7758914 / merchant 264167 / route 4272; program approval does not extend to Etix, Alley Theatre, or other providers and does not guarantee any individual event"
+        },
+        "eventSpecificCommissionEligibility": {
+          "status": "NOT_VERIFIED",
+          "reason": "Approved Impact deep-link format is not event-specific commission eligibility evidence"
+        },
+        "lastCheckedAt": "2026-10-26",
+        "evidenceSource": "https://cart.alleytheatre.org/10216/10226",
+        "pullRequestEvidence": 5922,
+        "productionDeploymentEvidence": {
+          "workflowRunId": 40260454571,
+          "deploymentId": "e5f7f6ea-6a57-4e9e-81db-8cabb330324d",
+          "workerVersionId": "e717974e-76b5-45b2-94ff-31e97b750805",
+          "scope": "Historical 2026-10-25 acceptance; does not assert current HEAD deployed"
+        }
       }
     }
   ],
