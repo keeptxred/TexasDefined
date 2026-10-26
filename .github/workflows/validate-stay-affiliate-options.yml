@@ -81,6 +81,8 @@ jobs:
         run: node scripts/data/validate-stay-affiliate-options.mjs
       - name: Validate Motel 6 account-scoped links, placement and promo cutoff
         run: node scripts/data/validate-motel6-affiliate.mjs
+      - name: Verify live Motel 6 creative and football stay CTA
+        run: node scripts/ci/verify-motel6-production.mjs
       - name: Validate Booking.com car-rental integration
         run: node scripts/data/validate-booking-car-rental-affiliate.mjs
       - name: Validate first-party outcome analytics
