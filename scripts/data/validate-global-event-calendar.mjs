@@ -68,10 +68,14 @@ for (const slug of [
   "jefferson-queen-mab-ball",
   "beaumont-lagniappe-mardi-gras-soiree",
   "livingston-mardi-gras-gumbo-cookoff",
+  "port-arthur-mardi-gras-masquerade-ball",
+  "yachty-gras-kickoff-party",
+  "jefferson-mardi-gras-tshirt-poster-party",
+  "yachty-gras-parade-awards-breakfast",
 ]) requireText(mardiGrasCompanions, slug, "Mardi Gras exact-event calendar record");
 if (/slug: "[a-z0-9-]+-20\d{2}"/.test(mardiGrasCompanions)) failures.push("Mardi Gras companion event public slugs must be evergreen and must not end in an event year");
-if ((mardiGrasCompanions.match(/id: "curated-mardi-gras-2027:/g) ?? []).length !== 4) failures.push("2027 Mardi Gras companion calendar must include four unique curated events");
-if ((mardiGrasCompanions.match(/startTime:/g) ?? []).length !== 2) failures.push("Only the confirmed Jefferson and Beaumont companion event times may be asserted");
+if ((mardiGrasCompanions.match(/id: "curated-mardi-gras-2027:/g) ?? []).length !== 8) failures.push("2027 Mardi Gras companion calendar must include eight unique curated events");
+if ((mardiGrasCompanions.match(/startTime:/g) ?? []).length !== 4) failures.push("Only the confirmed Jefferson, Beaumont, Port Arthur and merchandise-party companion start times may be asserted");
 for (const token of [
   "getVerifiedMardiGrasCompanionCalendarEvents2027",
   "2027-01-16", "2027-01-23", "2027-02-05", "2027-02-06",
@@ -81,6 +85,10 @@ for (const token of [
   "Crystal Beach · Saturday, January 16 · time to reconfirm",
   "One local calendar lists 5–8 p.m. while another lists 9:30 a.m.–5 p.m.",
   "Two Creeks Mardi Gras Gumbo Cookoff",
+  "Port Arthur Chamber Mardi Gras Masquerade Ball",
+  "Yachty Gras Parade Awards Breakfast",
+  "Find the January 30 Seabrook gathering in the calendar",
+  "Find the January 31 merchandise party in the calendar",
   "/events?start=2027-02-05&amp;end=2027-02-06#calendar",
   "do not assume public walk-in admission",
 ]) requireText(mardiGrasHub, token, "Mardi Gras hub current source/visitor details");
