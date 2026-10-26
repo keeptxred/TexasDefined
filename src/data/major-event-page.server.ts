@@ -249,7 +249,9 @@ const officialAirshowTicketPages: Record<string, string> = {
   "wings-over-houston-airshow": "https://wingsoverhouston.com/2026-woha-tickets-sasp/",
   "amigo-airsho": "https://www.amigoairsho.com/tickets",
   "texas-capital-air-show": "https://texascapitalairshow.com/tickets/",
-  "bluebonnet-airshow": "https://www.bluebonnetairshow.com/",
+  // Official organizer's current March 20, 2027 TicketSignup event checkout.
+  // This is the exact airshow, not the generic Bluebonnet homepage or 2026 show.
+  "bluebonnet-airshow": "https://www.ticketsignup.io/TicketEvent/BluebonnetAirshow",
 };
 
 // Only verified Viator city catalogs are eligible. These are complementary local
@@ -286,11 +288,22 @@ function buildFestivalNearbyExperiencesMarkupServer(slug: string) {
   return `<section data-festival-nearby-experiences class="mt-10 border-y border-border py-8"><p class="eyebrow text-primary">Explore beyond the festival</p><h2 class="mt-2 font-display text-3xl">Tours and experiences in ${esc(match.cityLabel)}</h2><p class="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">Consider ${esc(match.idea)}. These independent Viator listings are <strong>not festival tickets</strong>; operators, availability, prices, meeting points and accessibility must be checked before booking.</p><p class="mt-5"><a class="inline-flex min-h-11 items-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90" href="${esc(href)}" target="_blank" rel="sponsored nofollow noopener noreferrer" data-affiliate-partner="viator" data-affiliate-placement="festival-nearby-experiences" data-commercial-partner="viator" data-commercial-placement="festival-nearby-experiences">Explore ${esc(match.cityLabel)} tours on Viator →</a></p><p class="mt-3 text-xs text-muted-foreground">Affiliate disclosure: TexasDefined may earn a commission from qualifying bookings. Admission to the festival itself is not included.</p></section>`;
 }
 
-function buildOfficialAirshowTicketMarkupServer(slug: string) {
+export function buildOfficialAirshowTicketMarkupServer(slug: string, now = new Date()) {
   const href = officialAirshowTicketPages[slug];
   const event = getMajorEventRecordServer(slug);
-  if (!href || !event || (event.endDate ?? event.startDate) < new Date().toISOString().slice(0, 10)) return "";
-  return `<section data-airshow-official-tickets class="mt-10 border-y border-border py-8"><p class="eyebrow text-primary">Tickets</p><h2 class="mt-2 font-display text-3xl">Buy from the official air-show organizer</h2><p class="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">Current admission, age rules, parking passes and cancellation policies are controlled by the organizer. This link is not a Ticketmaster or affiliate offer.</p><p class="mt-5"><a class="inline-flex min-h-11 items-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90" href="${esc(href)}" target="_blank" rel="noopener noreferrer">Official tickets and admission →</a></p></section>`;
+  // Date comes from the Texas venue, not UTC midnight. Expired or lifecycle-
+  // changed shows must not promote old admission even when an organizer link
+  // still responds or its historic checkout is visible.
+  const texasParts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/Chicago", year: "numeric", month: "2-digit", day: "2-digit",
+  }).formatToParts(now);
+  const part = (type: "year" | "month" | "day") => texasParts.find((item) => item.type === type)?.value ?? "00";
+  const today = [part("year"), part("month"), part("day")].join("-");
+  const lifecycle = getMajorEventSchemaOccurrenceEnrichmentServer(slug)?.lifecycle;
+  if (!href || !event || (event.endDate ?? event.startDate) < today
+    || (lifecycle && lifecycle.status !== "scheduled")) return "";
+
+  return `<section data-airshow-official-tickets class="mt-10 border-y border-border py-8"><p class="eyebrow text-primary">Tickets</p><h2 class="mt-2 font-display text-3xl">Check official air-show ticket options</h2><p class="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">The official event-specific ticket page lists any available admission, age rules and purchase conditions. Availability, final fees and cancellation policies are controlled by the organizer; TexasDefined does not hold seats. This is not a Ticketmaster or affiliate offer.</p><p class="mt-5"><a class="inline-flex min-h-11 items-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90" href="${esc(href)}" target="_blank" rel="noopener noreferrer">Official tickets and admission →</a></p></section>`;
 }
 
 export function buildMajorEventTicketingMarkupServer(slug: string) {
