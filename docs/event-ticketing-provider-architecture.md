@@ -117,6 +117,10 @@ Recommended activation sequence:
 6. Verify the rendered CTA text changes from `Official Tickets →` to `Find Tickets →` only when the affiliate URL is valid.
 7. After deployment, require `node scripts/ci/verify-event-ticketing-production.mjs` to pass against the live site.
 
+## Event-specific affiliate click attribution
+
+The shared outbound `EventTicketCta` now carries each canonical event ID from both calendar results and carousel records. Sponsored checkout clicks emit `affiliate_event_id` alongside the existing partner, placement, module and page path in the first-party `affiliate_click` dataLayer event. An official/non-affiliate ticket URL does not gain partner metadata or a commercial event-click event. Do not treat this first-party event as evidence that a commission was earned or a checkout was completed.
+
 ## No checkout
 
 TexasDefined does not collect ticket payment, seat selection, billing data, order data, or ticket inventory. `EventTicketCta` always opens the external provider in a new browsing context. The provider owns checkout, fulfillment, refunds, fees, inventory, availability, and customer-service obligations.
