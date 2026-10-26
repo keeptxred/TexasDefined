@@ -567,6 +567,22 @@ test("day-trip source monitoring is scheduled, conservative and preserves resear
   assert.ok(!script.includes("writeFileSync(\"src/data"), "link checker must not auto-replace source-backed destination data");
 });
 
+test("day-trip booking inventory targets verified markets rather than generic provider homepages", () => {
+  const stay = readFileSync("public/stay-affiliate-options.js", "utf8");
+  for (const path of [
+    "https://www.hotels.com/de1644308/hotels-mcallen-and-vicinity-texas/",
+    "https://www.hotels.com/de1644316/hotels-south-padre-island-and-vicinity-texas/",
+  ]) assert.ok(stay.includes(path), "verified Hotels.com destination directory must be retained");
+  assert.ok(stay.includes('placement: "mcallen-day-trips-base-hotels"'));
+  assert.ok(stay.includes('placement: "mcallen-day-trips-coastal-weekend"'));
+  assert.ok(stay.includes('placement: "waco-day-trips-weekend-stay"'));
+  assert.ok(stay.includes('exactPropertyDestination(name)'), "Waco property booking links must use the existing verified registry");
+  assert.ok(stay.includes("actions.appendChild(createTrackedLink({"), "bookings must be attributed through approved CJ deep-link builder");
+  assert.ok(stay.includes('link.rel = "sponsored nofollow noopener noreferrer"'), "affiliate relationships disclosed");
+  assert.ok(stay.includes("link.dataset.commercialPartner = partnerName(destination)"), "first-party referral tracking preserved");
+  assert.ok(!stay.includes("McAllen hotel rooms available") && !stay.includes("Guaranteed South Padre rates"), "no made-up availability");
+});
+
 test("day-trip monetization reuses approved booking surfaces and keeps editorial choices independent", () => {
   const rich = readFileSync("src/routes/explore.near.$metro.$collection.lazy.tsx");
   const partner = readFileSync("src/routes/partner-with-us.tsx");

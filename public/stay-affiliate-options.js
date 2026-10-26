@@ -8,6 +8,9 @@
   const HOTELS_DESTINATION = "https://www.hotels.com/";
   // Verified Palestine destination directory for the Polar Express booking guide.
   const PALESTINE_HOTELS_DESTINATION = "https://www.hotels.com/de1634643/hotels-palestine-texas/";
+  // Independently verified 2026-10-26 Hotels.com city directories, not room inventory.
+  const MCALLEN_HOTELS_DESTINATION = "https://www.hotels.com/de1644308/hotels-mcallen-and-vicinity-texas/";
+  const SOUTH_PADRE_HOTELS_DESTINATION = "https://www.hotels.com/de1644316/hotels-south-padre-island-and-vicinity-texas/";
   // Motel 6 approved CJ publisher-email creatives: 17198227 (Sep 21,
   // standard), 17371482 (Oct 26, Halloween). 101876465 is our known PID;
   // 8062457 is an account CID, not the website tracking ID.
@@ -281,6 +284,8 @@
     const casinoStays = exactPropertyFirst ? [] : casinoHotelChoices();
     const showRvshare = rvshareEligible();
     const isPalestinePolarExpress = window.location.pathname.replace(/\/+$/, "") === "/event/polar-express-palestine";
+    const isMcAllenDayTrips = window.location.pathname.replace(/\/+$/, "") === "/explore/near/mcallen/day-trips";
+    const isWacoDayTrips = window.location.pathname.replace(/\/+$/, "") === "/explore/near/waco/day-trips";
     const wrapper = document.createElement("aside");
     wrapper.id = CHOICE_ID;
     wrapper.className = "td-stay-affiliate-options";
@@ -310,10 +315,14 @@
         : (intent === "hotel-first"
           ? "Compare hotel availability close to the event or venue on Hotels.com or Orbitz. Broader leisure and destination guides also include vacation-rental options when they fit the trip."
           : "Compare hotel options on Hotels.com or Travelocity, or choose a vacation rental when extra space, a kitchen, or a group-friendly setup fits the trip better."));
-    if (window.location.pathname.replace(/\/+$/, "") === "/explore/near/mcallen/day-trips") {
+    if (isMcAllenDayTrips) {
       eyebrow.textContent = "Compare lodging providers";
-      heading.textContent = "Hotel and vacation-rental choices";
-      copy.textContent = "Only staying overnight? Compare hotels and rentals; verify current prices, locations and cancellation rules with each booking provider.";
+      heading.textContent = "Stay in McAllen, or turn the coast into a weekend";
+      copy.textContent = "If McAllen is your day-trip base, compare lodging in the Valley. For a longer South Padre Island outing, consider an island overnight rather than a late return. These are area listings—not verified rooms or rates. Check dates, driving time and cancellation terms with the provider.";
+    }
+    if (isWacoDayTrips) {
+      heading.textContent = "Turn a Waco-area outing into a weekend";
+      copy.textContent = "Waco can make a convenient overnight base for Lake Whitney, Mother Neff or a museum weekend. These named properties have independently verified Hotels.com listings, but no room price, opening or availability is guaranteed.";
     }
     if (casinoStays.length) copy.textContent = "These specific properties have verified hotel listings. Compare dates, cancellation terms, fees and current availability directly with the booking provider. Other lodging options are available below.";
     if (isPalestinePolarExpress) {
@@ -372,7 +381,31 @@
         placement: "magnolia-waco-vrbo-rentals"
       }));
     } else {
-    actions.appendChild(createTrackedLink({
+    if (isMcAllenDayTrips) {
+      actions.appendChild(createTrackedLink({
+        destination: MCALLEN_HOTELS_DESTINATION,
+        label: "Compare McAllen-area hotels",
+        variant: "primary",
+        placement: "mcallen-day-trips-base-hotels",
+      }));
+      actions.appendChild(createTrackedLink({
+        destination: SOUTH_PADRE_HOTELS_DESTINATION,
+        label: "Turn South Padre Island into a weekend",
+        variant: "secondary",
+        placement: "mcallen-day-trips-coastal-weekend",
+      }));
+    } else if (isWacoDayTrips) {
+      for (const name of ["Hotel 1928", "Hilton Waco", "Courtyard by Marriott Waco"]) {
+        const destination = exactPropertyDestination(name);
+        if (!destination) continue;
+        actions.appendChild(createTrackedLink({
+          destination,
+          label: `Compare ${name} on Hotels.com`,
+          variant: name === "Hilton Waco" ? "primary" : "secondary",
+          placement: "waco-day-trips-weekend-stay",
+        }));
+      }
+    } else actions.appendChild(createTrackedLink({
       destination: isPalestinePolarExpress ? PALESTINE_HOTELS_DESTINATION : HOTELS_DESTINATION,
       label: isPalestinePolarExpress ? "Compare Palestine hotels on Hotels.com" : exactPropertyFirst ? "Compare more hotels on Hotels.com" : "Find hotels on Hotels.com",
       variant: featuredStay || hotelPasoExact || showRvshare ? "secondary" : "primary",

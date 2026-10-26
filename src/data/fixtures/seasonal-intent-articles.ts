@@ -164,7 +164,7 @@ const baseSeasonalIntentArticles: Article[] = [
   },
   {
     id: "si-8", brandId: BRAND, slug: "texas-christmas-train-rides", title: "Christmas Train Rides in Texas",
-    dek: "Compare the two licensed Polar Express train rides in Galveston and Palestine with Grapevine's differently branded North Pole Express; 2026 schedules, seating and booking considerations.", category: "events", hero: christmas, authorId: "a-marisol", publishedAt: "2026-08-20", updatedAt: "2026-10-21", readingMinutes: 9,
+    dek: "Compare the two licensed Polar Express train rides in Galveston and Palestine with Grapevine's differently branded North Pole Express; 2026 schedules, seating and booking considerations.", category: "events", hero: christmas, authorId: "a-marisol", publishedAt: "2026-08-20", updatedAt: "2026-10-26", readingMinutes: 9,
     tags: ["Texas Christmas train rides", "Polar Express Texas 2026", "Galveston Polar Express", "Palestine Polar Express", "Grapevine North Pole Express"], relatedCollections: [], relatedDestinations: [],
     sourceName: "Galveston Railroad Museum and Texas State Railroad",
     sourceUrl: "https://galvestonrrmuseum.org/event/the-polar-express/",
@@ -176,7 +176,7 @@ const baseSeasonalIntentArticles: Article[] = [
     ],
     sources: [
       { label: "Galveston Railroad Museum — 2026 Polar Express", url: "https://galvestonrrmuseum.org/event/the-polar-express/" },
-      { label: "Texas State Railroad — 2026 Polar Express", url: "https://texasstaterailroad.net/the-polar-express-train-ride/" },
+      { label: "Texas State Railroad — official November and December 2026 departure calendars", url: "https://texasstaterailroad.net/the-polar-express/" },
       { label: "Texas State Railroad — current fare classes", url: "https://texasstaterailroad.net/the-polar-express-train-ride-2/" },
     ],
     body: [
@@ -184,7 +184,7 @@ const baseSeasonalIntentArticles: Article[] = [
       { type: "heading", text: "The two licensed rides and their 2026 dates" },
       { type: "list", items: [
         "Galveston: November 13–December 23, 2026, departing the historic 1932 Union Depot at 2602 Santa Fe Place, Galveston Railroad Museum. Allow roughly two hours for an approximately 60-minute train journey plus the depot program.",
-        "Palestine: November 14–December 27, 2026, departing the Texas State Railroad's Palestine Depot at 789 Park Road 70. The onboard story program runs approximately one hour.",
+        "Palestine: November 13–December 28, 2026, with select dates shown on Texas State Railroad’s own 2026 departure calendar, including December 18. November 13 departs at 5:30 and 7:00 PM; December 28 departs at 3:00, 4:30, 6:00 and 7:30 PM. All depart the Palestine Depot at 789 Park Road 70. These published times are not a guarantee of remaining seats.",
         "Tickets: buy from the respective railroad. Each controls its own train, departure and seat inventory; a general events site cannot certify a seat is still available." ] },
       { type: "heading", text: "Why a Galveston departure might fit better" },
       { type: "paragraph", text: "Galveston emphasizes the depot prelude and an integrated historic-coastal-city trip. Coach uses conventional rows, while First Class adds tables of four and keepsake mugs. Because the prelude and boarding add time, aim to arrive about one hour early and leave room after the ride for photographs. Families can combine the depot with the Strand or a winter beach walk if actual opening times allow. The Galveston museum warns that historic train cars have steep steps and limited wheelchair accommodation; check before choosing a fare." },
@@ -204,7 +204,7 @@ const baseSeasonalIntentArticles: Article[] = [
       { type: "paragraph", text: "Galveston visitors may favor downtown restaurants, historic streets and a cool-weather beach trip. Palestine visitors may prefer a Main Street meal, holiday downtown atmosphere and a low-key East Texas drive. Neither plan should require a tightly timed restaurant reservation right after a scheduled train arrival. Book lodging with cancellation flexibility when practical and prioritize the official departure instructions over a third-party itinerary." },
       { type: "heading", text: "Which 2026 Polar Express should you choose?" },
       { type: "paragraph", text: "Choose Galveston if a classic depot-stage opening and island weekend are central to the trip. Choose Palestine if railcar variety or an East Texas getaway matters more, while checking whether your group can comfortably use the historic car type. For wheelchair access, neither ride should be assumed universally accessible: call first, then book the accommodation actually confirmed by staff." },
-      { type: "paragraph", text: "All dates and prices above were reviewed against the operators' 2026 material on October 21, 2026. Seat inventory, train schedules, weather policy and ticket surcharges remain subject to the official railroad checkout." },
+      { type: "paragraph", text: "All dates and prices above were reviewed against the operators' 2026 material on October 26, 2026. Seat inventory, train schedules, weather policy and ticket surcharges remain subject to the official railroad checkout." },
     ],
   },
   {
