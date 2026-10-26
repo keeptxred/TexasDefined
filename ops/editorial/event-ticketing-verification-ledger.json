@@ -1233,7 +1233,7 @@
     "nextBatchSize": 25,
     "selection": "Deterministic upcoming canonical event registry; do not infer all events checked from 12 curated shows",
     "lastCompletedEventId": null,
-    "eventsAudited": 6,
+    "eventsAudited": 7,
     "findings": [
       {
         "id": "ticketmaster:garage-dallas-stars-2026-10-25",
@@ -1337,6 +1337,27 @@
         "pr": null,
         "productionVerifiedAt": null,
         "remainingDefect": "Official organizer has not exposed a verified unique game-specific GoFan checkout ID; live seat quantities and final price unavailable."
+      },
+      {
+        "id": "authority:bluebonnet-airshow:2027-03-20",
+        "batch": "official-major-event-airshows-2027",
+        "eventName": "Bluebonnet Airshow — 35th annual event",
+        "city": "Burnet",
+        "venue": "Burnet Municipal Airport (KBMQ)",
+        "date": "2027-03-20",
+        "status": "IMPLEMENTED",
+        "evidence": "Organizer https://www.bluebonnetairshow.com/ prominently links to https://www.ticketsignup.io/TicketEvent/BluebonnetAirshow , which independently identifies 35th annual event, March 20 2027, Burnet Municipal Airport, and Buy Tickets action. Checked 2026-10-26.",
+        "previousTicketUrl": "https://www.bluebonnetairshow.com/",
+        "correctedTicketUrl": "https://www.ticketsignup.io/TicketEvent/BluebonnetAirshow",
+        "change": "Replace generic home-page CTA with verified exact event purchase destination; use Texas-local expiration and fail closed on non-scheduled lifecycle.",
+        "tests": "New Vite-backed official-airshow ticket identity/expiry regression in protected canonical premerge; CI pending.",
+        "checkedAt": "2026-10-26",
+        "pr": null,
+        "productionVerifiedAt": null,
+        "inventoryStatus": "NOT_VERIFIED",
+        "checkoutFinalPriceStatus": "NOT_VERIFIED",
+        "affiliateEligibility": "NOT_VERIFIED",
+        "remainingDefect": "Provider checkout seat inventory and final cart price not exposed for independent verification; no commission agreement claimed."
       }
     ],
     "ticketLinkProbes": {
