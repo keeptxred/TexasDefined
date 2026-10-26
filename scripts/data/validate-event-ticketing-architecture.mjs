@@ -68,6 +68,16 @@ for (const token of ["Calendar workstream", "Venue-page workstream", "Do not rea
 // link to live seats, transaction success or event-specific commission proof.
 const ticketEvidenceLedger = JSON.parse(read("ops/editorial/event-ticketing-verification-ledger.json"));
 if (ticketEvidenceLedger.events.length !== 12) failures.push("Christmas verification ledger must preserve all 12 curated performances");
+for (const id of ["king-country-fort-worth-2026", "pentatonix-fort-worth-2026"]) {
+  const reviewed = ticketEvidenceLedger.events.find((entry) => entry.id === id);
+  if (reviewed?.venue !== "Ariat Arena"
+    || reviewed?.factVerification?.dateTimeVenue?.venue !== "Ariat Arena"
+    || reviewed?.factVerification?.dateTimeVenue?.formerName !== "Dickies Arena"
+    || reviewed?.factVerification?.dateTimeVenue?.venueRenameEffective !== "2026-10-26"
+    || !reviewed?.factVerification?.dateTimeVenue?.venueNamingSourceUrl?.startsWith("https://www.globenewswire.com/")) {
+    failures.push("Fort Worth arena rename evidence must align with current curated admission venue: " + id);
+  }
+}
 const seenCurated = new Set();
 for (const event of ticketEvidenceLedger.events) {
   if (seenCurated.has(event.id)) failures.push("Christmas verification ledger duplicate event ID: " + event.id);
