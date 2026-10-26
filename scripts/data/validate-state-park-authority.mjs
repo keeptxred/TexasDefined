@@ -415,11 +415,15 @@ for (const [slug, markers] of [
 }
 
 // Do not turn explicitly partial closures into whole-park shutdowns.
-// A valid local TPWD override must also run in the final route loader, after
-// remotely sourced destination query data, on both SSR and client navigation.
+// The canonical SSR/client destination query must reapply TPWD-specific
+// facts at the FINAL remote/local resolver, before caching either version.
 const destinationDetailRoute = read("src/routes/destination.$slug.tsx");
-assertContains(destinationDetailRoute, 'destination = applySixLaterTPWDAuthorities(destination);', "Six official TPWD destination FAQs must survive route-level hydration");
-assertContains(destinationDetailRoute, 'await import("@/data/tpwd-six-later-park-authorities")', "TPWD FAQs must resolve from their shared source module");
+const destinationQueries = read("src/data/queries.ts");
+const destinationRuntime = read("src/data/destination-query-runtime.ts");
+assertContains(destinationDetailRoute, 'context.queryClient.ensureQueryData(destinationQuery(params.slug))', "Destination route must consume the canonical queried result");
+assertContains(destinationQueries, 'const destination = await getResolvedDestination(slug);', "Destination hydration uses the shared resolver");
+assertContains(destinationRuntime, 'const { applySixLaterTPWDAuthorities } = await import("./tpwd-six-later-park-authorities")', "TPWD FAQs must be sourced from the lazy protected module");
+assertContains(destinationRuntime, 'return applySixLaterTPWDAuthorities(enhanced);', "Official TPWD FAQs must override final resolution before hydration");
 const sixLater = read("src/data/tpwd-six-later-park-authorities.ts");
 assertContains(curation,"applySixLaterTPWDAuthorities,","New 6-site TPWD destination authority must be connected");
 for(const [slug,clues] of [
