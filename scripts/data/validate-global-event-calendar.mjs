@@ -58,6 +58,25 @@ try {
 
 const mardiGrasCompanions = read("src/data/events/mardi-gras-companion-events-2027.server.ts");
 const mardiGrasHub = read("src/routes/events.mardi-gras.lazy.tsx");
+const mardiGrasNewFestivals = read("src/data/events/mardi-gras-new-festivals-2027.server.ts");
+requireText(adapter, "getVerifiedMardiGrasNewFestivalCalendarEvents2027()", "shared calendar new Mardi Gras parades");
+if ((mardiGrasNewFestivals.match(/id: "curated-mardi-gras-2027:/g) ?? []).length !== 5) failures.push("Bastrop, Houston and Granbury must produce five unique, source-dated events");
+for (const slug of [
+  "bastrop-mayors-mardi-gras-ball-2027",
+  "bastrop-mardi-gras-festival-2027",
+  "bastrop-lighted-mardi-gras-parade-2027",
+  "houston-krewe-of-porus-parade-2027",
+  "granbury-carnival-2027",
+]) requireText(mardiGrasNewFestivals, slug, "additional Mardi Gras source-qualified calendar records");
+for (const text of [
+  'id="more-parades"',
+  "Bastrop Mardi Gras Festival &amp; Lighted Parade",
+  "Krewe of Porus",
+  "Inaugural Granbury Carnival",
+  "Bastrop Mayor's Mardi Gras Ball",
+  "/events?start=2027-02-05&amp;end=2027-02-07#calendar",
+]) requireText(mardiGrasHub, text, "statewide additional Mardi Gras festival discovery");
+
 for (const token of [
   'getVerifiedMardiGrasCompanionCalendarEvents2027()',
   'const knownCompanions = new Set(',
