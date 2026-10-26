@@ -41,11 +41,23 @@ export const majorEventSchemaEnrichmentBatch27: MajorEventSchemaEnrichment[] = [
   },
   {
     slug: "kemah-yachty-gras",
+    image: {
+      url: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Kemah_Boardwalk_in_Kemah%2C_Texas_%2847557130751%29.jpg?width=1600",
+      alt: "Kemah Boardwalk waterfront beside Galveston Bay photographed in 2019; an actual parade viewing venue, not a photograph of the 2027 Mardi Gras parades",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Kemah_Boardwalk_in_Kemah,_Texas_(47557130751).jpg",
+      sourceType: "wikimedia",
+      licenseName: "CC BY 2.0 — Tony Webster",
+      licenseUrl: "https://creativecommons.org/licenses/by/2.0/",
+      rightsNote: "Tony Webster photographed the actual Kemah Boardwalk waterfront on April 3, 2019 (GPS 29.547333, -95.019195). Wikimedia Commons records the original Flickr upload and confirmed CC BY 2.0 on August 31, 2021. This is a 2019 venue photograph at the confirmed 2027 Kemah parade waterfront, not an image of a Mardi Gras boat or street parade; credit Tony Webster and link to source and license. If cropped for a hero, indicate that the Commons width=1600 derivative was scaled/cropped for layout.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
     // Two independently organized parade occurrences: do not assign the boat
     // event's organizer to the street event or vice versa in Event JSON-LD.
     sources: [
       { label: "Yachty Gras — official 28th annual February 6, 2027 boat parade", url: "https://www.yachtygras.com/" },
       { label: "Krewe du Lac — official February 9, 2027 Grand Mardi Gras street parade", url: "https://krewedulac.net/events" },
+      { label: "Kemah Boardwalk waterfront venue photograph and CC BY 2.0 license (Tony Webster, 2019)", url: "https://commons.wikimedia.org/wiki/File:Kemah_Boardwalk_in_Kemah,_Texas_(47557130751).jpg" },
     ],
     verifiedAt: "2026-10-21",
   },
