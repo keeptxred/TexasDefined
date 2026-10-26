@@ -982,7 +982,8 @@
       "intakeId": 118,
       "title": "Baytown Christmas Past & Present",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "The city confirms a Dec 3, 2026 Christmas Parade plus Holiday Hangout; submitted 'Christmas Past & Present' is not shown as that official event name, so these are separate new calendar entries while the candidate remains unresolved."
     },
     {
       "intakeId": 119,
@@ -994,7 +995,8 @@
       "intakeId": 120,
       "title": "Deer Park Reindeer Dash",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "The city confirms Dec 5, 2026 Reindeer Park with paid optional activities and a sensory hour; this is not evidence of the submitted 'Reindeer Dash' race, which remains pending."
     },
     {
       "intakeId": 121,
@@ -1018,8 +1020,11 @@
       "intakeId": 123,
       "title": "Seabrook Illuminated Boat Lane Parade",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation",
-      "researchNote": "Clear Lake Chamber's Dec12 65th Christmas Boat Lane Parade is the same waterway parade visible from Seabrook, Kemah and Nassau Bay. The supplied 'Seabrook Illuminated Boat Lane Parade' may refer to it, but no distinct separately branded organizer event is established. Do not duplicate it."
+      "status": "sourced-calendar",
+      "researchNote": "Seabrook/Kemah viewing is the same Clear Lake Area Chamber 65th Christmas Boat Lane Parade on December 12, 2026, not a second Seabrook-specific event. The Chamber lists the parade through Seabrook and Kemah around 7:30 p.m.",
+      "calendarSlugs": [
+        "clearlake-65th-christmas-boat-lane-parade-2026"
+      ]
     },
     {
       "intakeId": 124,
@@ -1862,8 +1867,8 @@
   ],
   "reconciliation": {
     "asOf": "2026-10-26",
-    "calendarCandidates": 76,
+    "calendarCandidates": 77,
     "authorityCandidates": 12,
-    "remainingCandidates": 162
+    "remainingCandidates": 161
   }
 }
