@@ -604,10 +604,17 @@ test("day-trip monetization reuses approved booking surfaces and keeps editorial
 
 test("day-trip affiliate writes wait for lazy metro outlet hydration rather than root hydration alone", () => {
   const stay = readFileSync("public/stay-affiliate-options.js", "utf8");
+  const expedia = readFileSync("public/expedia-travel.js", "utf8");
   const rich = readFileSync("src/routes/explore.near.$metro.$collection.lazy.tsx", "utf8");
   // This guard must cover every metro, not only the separately reviewed McAllen page.
   assert.ok(stay.includes("document.documentElement.dataset.tdMetroDayTripsHydrated !== \"1\""),
     "early third-party affiliate DOM mutations must be deferred on all day-trip pages");
+  assert.ok(expedia.includes("if (metroDayTripsHydrationPending()) return;"),
+    "Expedia itself must not insert or replace the React-owned lodging slot before hydration");
+  assert.ok(expedia.includes("document.documentElement.dataset.tdMetroDayTripsHydrated !== \"1\""),
+    "all 14 metro day-trip routes require lazy-outlet readiness");
+  assert.ok(expedia.includes('window.addEventListener("texasdefined:metro-day-trips-hydrated", scheduleSync)'),
+    "Expedia resumes as soon as the metro outlet is ready");
   assert.ok(stay.includes('window.addEventListener("texasdefined:metro-day-trips-hydrated", scheduleSync)'),
     "refresh the booking panel after the lazy React outlet commits");
   assert.ok(rich.includes('document.documentElement.dataset.tdMetroDayTripsHydrated = "1"'),
