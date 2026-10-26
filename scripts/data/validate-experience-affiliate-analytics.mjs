@@ -149,7 +149,7 @@ for (const [source, needle, label] of [
   [wacoOffer, 'Affiliate disclosure:', 'Waco local disclosure'],
   [wacoOffer, 'WacoViatorExperienceCards', 'separately bookable experiences'],
   [destinationViator, 'if (!market) return huntingLinks;', 'Preserved fail-closed generic inventory with separately reviewed Waco attraction links'],
-  [destinationViator, 'WACO_ATTRACTION_SLUGS', 'Waco destination-specific guard'],
+  [destinationViator, '/waco|cottonland|cameron-park|magnolia-market/.test(destination.slug)', 'Lazy Waco-only placement prefilter; exact offer eligibility remains in wacoViatorAttractionForSlug'],
   [magnolia, 'WacoMagnoliaCrosslinks', 'Magnolia independent Waco visitor guides'],
   [wacoMagnolia, 'WACO_VIATOR_ATTRACTIONS.map', 'all seven Waco guide links'],
   [wacoMagnolia, 'WacoViatorExperienceCards', 'Waco supplier-specific booking'],
