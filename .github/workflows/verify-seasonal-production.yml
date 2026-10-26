@@ -1,60 +1,56 @@
 name: Verify seasonal production
 
+# Only verify after a successful production release, rather than racing it on push.
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
-    paths:
-      - 'src/data/destination-editorial-links.ts'
-      - 'src/data/fixtures/seasonal-authority-articles.ts'
-      - 'src/data/fixtures/seasonal-intent-articles.ts'
-      - 'src/data/fixtures/lazy-seasonal-authority.ts'
-      - 'src/data/fixtures/seasonal-authority-links.ts'
-      - 'src/data/fixtures/seasonal-county-links.ts'
-      - 'src/data/county-seasonal-links.ts'
-      - 'src/components/content/CountySeasonalPlanning.tsx'
-      - 'src/components/content/CountyIdentitySection.tsx'
-      - 'src/components/editorial/ExploreIntentPaths.tsx'
-      - 'src/server.ts'
-      - 'scripts/data/validate-seasonal-authority.mjs'
+  workflow_run:
+    workflows: ['Deploy TexasDefined production']
+    types: [completed]
 
 permissions:
   contents: read
   statuses: write
 
 jobs:
+  scope:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    outputs:
+      should_verify: ${{ steps.check.outputs.should_verify }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+          fetch-depth: 30
+      - name: Select relevant seasonal release or manual verification
+        id: check
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          set -euo pipefail
+          if [[ "$EVENT_NAME" == "workflow_dispatch" ]]; then
+            echo "should_verify=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          BASE="$(git rev-parse HEAD~24 2>/dev/null || git rev-list --max-parents=0 HEAD)"
+          if git diff --name-only "$BASE" HEAD | grep -Eq '^(src/data/(destination-editorial-links[.]ts|fixtures/(seasonal-|lazy-seasonal-)|county-seasonal-links[.]ts)|src/components/(content/(CountySeasonalPlanning|CountyIdentitySection)[.]tsx|editorial/ExploreIntentPaths[.]tsx)|src/server[.]ts|scripts/data/validate-seasonal-authority[.]mjs|[.]github/workflows/verify-seasonal-production[.]yml)'; then
+            echo "should_verify=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "No relevant seasonal file changes; no seasonal production smoke is necessary."
+            echo "should_verify=false" >> "$GITHUB_OUTPUT"
+          fi
+
   verify-seasonal-production:
-    if: ${{ github.event_name == 'workflow_dispatch' || github.event_name == 'push' || github.event.workflow_run.conclusion == 'success' }}
+    needs: scope
+    if: ${{ needs.scope.outputs.should_verify == 'true' }}
     runs-on: ubuntu-latest
     timeout-minutes: 12
     env:
       GH_TOKEN: ${{ github.token }}
       DEPLOY_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
     steps:
-      - name: Wait for production deploy on push fallback
-        if: ${{ github.event_name == 'push' }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          for attempt in $(seq 1 36); do
-            state="$(curl --fail-with-body --silent --show-error \
-              --header "Authorization: Bearer $GH_TOKEN" \
-              --header 'Accept: application/vnd.github+json' \
-              --header 'X-GitHub-Api-Version: 2022-11-28' \
-              "https://api.github.com/repos/${GITHUB_REPOSITORY}/commits/${DEPLOY_SHA}/status" \
-              | node -e 'let d="";process.stdin.on("data",c=>d+=c).on("end",()=>{const j=JSON.parse(d);const s=(j.statuses||[]).find(x=>x.context==="texasdefined-production");process.stdout.write(s?.state||"missing")})')"
-            echo "production status attempt ${attempt}: ${state}"
-            if [ "$state" = success ]; then exit 0; fi
-            if [ "$state" = failure ] || [ "$state" = error ]; then
-              echo "Production deployment failed for ${DEPLOY_SHA}; seasonal smoke will not run against a failed deploy." >&2
-              exit 1
-            fi
-            sleep 10
-          done
-          echo "Timed out waiting for texasdefined-production=success on ${DEPLOY_SHA}" >&2
-          exit 1
-
       - name: Publish pending status
         shell: bash
         run: |
