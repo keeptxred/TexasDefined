@@ -224,6 +224,11 @@ if (!errors.length) {
       `Researched/deployed football programs missing verified mascot identity records: ${researchedProgramsMissingVerifiedIdentity.join(', ')}`,
     );
   }
+  // NCES campus 481206000703 is in Cherokee County, not the default
+  // Bullard ISD / Smith County match. Keep canonical school context accurate.
+  requireText(programProfileServer,
+    "canonicalSlug === 'bullard' ? { ...matchedProgram, countyName: 'Cherokee County' }",
+    'Bullard exact campus-county exception');
   const featuredProfileLoader = read(legacyMetadataFiles[2]);
   const featuredProfileRoute = read(legacyMetadataFiles[3]);
   const featuredProfilePage = read(legacyMetadataFiles[4]);
