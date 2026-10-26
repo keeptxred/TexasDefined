@@ -125,3 +125,15 @@ test('football monetization is shared, disclosed, source-preserving, and payment
   assert.match(districtMigration, /texas-high-school-football-districts/);
   assert.match(districtMigration, /DROP CONSTRAINT IF EXISTS texasdefined_sports_sponsor_placements_surface_path_check/);
 });
+
+test('Katy non-score repairs preserve sourced stadiums, maintained record-book link and clear pilot selection', () => {
+  const profile = read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
+  const head = read('src/routes/texas-high-school-football-teams_.$slug.tsx');
+  const panel = read('src/components/sports/FootballMonetizationSlot.tsx');
+  const sponsorForm = read('src/routes/partner-with-us.lazy.tsx');
+  for (const item of ['1830 Katyland Drive', '1733 Katyland Drive', 'katyabc.org/features/katy-football-record-book/', 'NCES Katy High School source']) assert.match(profile, new RegExp(item.replace(/[.*+?^$\{\}()|[\]\\]/g, '\\$&')));
+  assert.match(head, /Nine State Titles, Stadiums & Team Guide/);
+  assert.match(panel, /const isKaty = surfacePath ===/);
+  assert.match(sponsorForm, /selectedFootballPackage \? `football-\$\{selectedFootballPackage\}` : selectedTier/);
+  assert.match(profile, /id="football-current-season"/); // Future schedule widget mount stays intact.
+});
