@@ -654,8 +654,13 @@ test("El Paso day-trip reader guidance links closer public destinations without 
   assert.ok(rich.includes("advance day-use reservations"));
   assert.ok(rich.includes("separate"));
   assert.ok(rich.includes("not a change to the page's source-coverage or indexing threshold"));
-  assert.ok(shell.includes("isMetroProximityCollectionIndexReadyWithTownReferences"),
-    "retain independent page-level source-backed index eligibility");
+  const pageData = readFileSync("src/data/metro-proximity-page-data.server.ts", "utf8");
+  assert.ok(pageData.includes("isMetroProximityCollectionIndexReadyWithTownReferences(destinations, metro, collection)"),
+    "retain independent source-backed collection eligibility");
+  assert.ok(pageData.includes('const robots = indexReady ? "index, follow, max-image-preview:large" : "noindex, follow"'),
+    "reader guidance must not override server-owned indexability and robots");
+  assert.ok(shell.includes("!indexReady"),
+    "keep the visible noindex/quality explanation for thin city pages");
   assert.ok(proximity.includes("minResults: 10"), "do not lower geographic count floor");
   assert.ok(proximity.includes("minCounties: 4"), "do not lower diverse-county floor");
   assert.ok(proximity.includes("minimumMiles: 18"), "do not misrepresent inner-ring guidance as eligible day trips");
