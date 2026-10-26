@@ -167,7 +167,7 @@ export function auditCatalogIntegrity(events) {
     catch { invalid(id, 'invalid-affiliate-wrapper'); continue; }
     if (impact.protocol !== 'https:' || impact.hostname !== 'ticketmaster.evyy.net'
       || impact.username || impact.password || impact.port
-      || !/^\/c\/7758914\/\d+\/4272\/?$/.test(impact.pathname)
+      || !/^\/c\/7758914\/264167\/4272\/?$/.test(impact.pathname)
       || impact.searchParams.getAll('u').length !== 1
       || impact.searchParams.get('u') !== official.href) {
       invalid(id, 'unauthorized-or-wrong-event-impact-deep-link');
