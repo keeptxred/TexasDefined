@@ -360,6 +360,7 @@ export function loadMajorEventPageServer(slug: string) {
     seoDescription: "The 2026 Polar Express season has ended. The Texas State Railroad has not yet published a verified 2027 schedule. See official booking information and Palestine visitor tips.",
     dateNote: "The last confirmed Palestine Polar Express season ended December 28, 2026. The next season's dates are not yet published or verified; the past departure calendar is not a 2027 schedule.",
   } : publishedEvent;
+  const isPalestinePolarExpress = event.slug === "polar-express-palestine";
   const occurrenceWindows = getMajorEventOccurrenceWindowsServer(event);
   const dateLabel = awaitingNewSeason ? "2027 schedule not yet announced" : formatMajorEventDateLabelServer(event);
   const ticketingMarkup = buildMajorEventTicketingMarkupServer(event.slug) || buildOfficialAirshowTicketMarkupServer(event.slug);
@@ -378,7 +379,7 @@ export function loadMajorEventPageServer(slug: string) {
     : expiredConfirmedOccurrence
       ? `<div data-event-date-confidence="expired-confirmed" class="mt-5 rounded-xl border border-border bg-muted/30 p-4 text-sm leading-6"><strong>Latest confirmed occurrence has ended.</strong> These are the most recent organizer-confirmed dates on file. Do not assume the next annual occurrence until the organizer publishes it.</div>`
       : "";
-  const snapshotMarkup = `<section data-major-event-snapshot="true" class="mt-8 grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+  const snapshotMarkup = isPalestinePolarExpress ? "" : `<section data-major-event-snapshot="true" class="mt-8 grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
     <div class="bg-background p-5"><p class="eyebrow text-muted-foreground">Dates</p><p class="mt-2 font-semibold">${esc(dateLabel)}</p></div>
     <div class="bg-background p-5"><p class="eyebrow text-muted-foreground">Venue</p><p class="mt-2 font-semibold">${esc(event.venue || event.city)}</p></div>
     <div class="bg-background p-5"><p class="eyebrow text-muted-foreground">Location</p><p class="mt-2 font-semibold">${esc(placeLine)}</p></div>
@@ -388,9 +389,21 @@ export function loadMajorEventPageServer(slug: string) {
   const quickFacts = seasonSensitive
     ? (event.quickFacts ?? []).filter(fact => !/2026|fare|premium|historical.preservation fee/i.test(fact.label + " " + fact.value))
     : event.quickFacts;
-  const quickFactsMarkup = quickFacts?.length
-    ? `<section data-major-event-quick-facts="true" aria-label="Visitor essentials" class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">${quickFacts.map((fact) => `<div class="rounded-xl border border-border bg-muted/20 px-5 py-4"><p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground">${esc(fact.label)}</p><p class="mt-2 font-semibold leading-6">${esc(fact.value)}</p></div>`).join("")}</section>`
-    : "";
+  // Palestine is an editorial travel guide, not a multi-card metrics dashboard.
+  // Keep its extensive fares/accessibility detail in the booking + planning copy.
+  // Other event guides retain their existing structured fact-grid presentation.
+  const quickFactsMarkup = isPalestinePolarExpress
+    ? `<section data-major-event-quick-facts="true" data-polar-express-editorial-essentials="true" aria-label="Plan your visit" class="mt-8 border-y border-border py-6">
+        <h2 class="font-display text-2xl">Plan your visit</h2>
+        <div class="mt-4 grid gap-x-10 gap-y-5 md:grid-cols-3">
+          <p class="text-sm leading-6"><strong class="block text-foreground">Where to board</strong><span class="text-muted-foreground">Texas State Railroad, Palestine Depot<br />789 Park Road 70</span></p>
+          <p class="text-sm leading-6"><strong class="block text-foreground">Allow enough time</strong><span class="text-muted-foreground">Approximately one-hour train ride. Arrive 45 minutes before departure.</span></p>
+          <p class="text-sm leading-6"><strong class="block text-foreground">Accessibility and seating</strong><span class="text-muted-foreground">Call <a class="underline" href="tel:+18556327729">855-632-7729</a> for the accessible railcar. Compare coach, dome and premium cars below.</span></p>
+        </div>
+      </section>`
+    : quickFacts?.length
+      ? `<section data-major-event-quick-facts="true" aria-label="Visitor essentials" class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">${quickFacts.map((fact) => `<div class="rounded-xl border border-border bg-muted/20 px-5 py-4"><p class="text-xs font-semibold uppercase tracking-wide text-muted-foreground">${esc(fact.label)}</p><p class="mt-2 font-semibold leading-6">${esc(fact.value)}</p></div>`).join("")}</section>`
+      : "";
   const seasonPlanning = seasonSensitive
     ? event.planningSections.filter(item =>
         !/2026|2027|fare tiers|published prices|diesel locomotive/i.test(item.title + " " + item.body))
@@ -411,7 +424,6 @@ export function loadMajorEventPageServer(slug: string) {
     ? [{ href: countyHref, label: `Explore ${event.countyName ?? "the county"}`, description: `Continue from ${event.name} into the county guide for places, communities and local resources.` }, ...normalizedRelatedItems.filter((item) => item.href !== countyHref)]
     : normalizedRelatedItems;
   const related = relatedItems.map((item) => `<li><a class="font-semibold text-primary underline" href="${esc(item.href)}">${esc(item.label)}</a><span class="text-muted-foreground"> — ${esc(item.description)}</span></li>`).join("");
-  const isPalestinePolarExpress = event.slug === "polar-express-palestine";
   const hotelBookingHref = isPalestinePolarExpress ? PALESTINE_HOTELS_AFFILIATE_URL : HOTELS_COM_AFFILIATE_URL;
   const hotelBookingLabel = isPalestinePolarExpress ? "Compare hotels in Palestine →" : "Search hotels on Hotels.com →";
   const palestineScheduleMarkup = isPalestinePolarExpress
@@ -479,7 +491,7 @@ export function loadMajorEventPageServer(slug: string) {
   const sourceReviewMarkup = event.sourceCheckedAt
     ? `<p class="mt-4 text-xs text-muted-foreground">Event facts last source-checked ${esc(event.sourceCheckedAt)}. Recheck the official organizer before traveling because dates, prices, access rules and lineups can change.</p>`
     : "";
-  const html = `<nav class="mb-8 text-sm text-muted-foreground"><a href="/">Front page</a> / <a href="/events">Texas Events</a> / ${esc(event.name)}</nav><header class="border-b border-border pb-8"><p class="eyebrow text-primary">Major Texas event</p><h1 class="mt-3 font-display text-5xl sm:text-6xl">${esc(event.name)}</h1><p class="mt-5 text-lg text-muted-foreground">${esc(dateLabel)} · ${esc(placeLine)}</p>${dateConfidenceMarkup}${event.dateNote ? `<p class="mt-4 text-sm text-muted-foreground">${esc(event.dateNote)}</p>` : ""}<p class="mt-5"><a class="font-semibold text-primary underline" href="${esc(event.officialUrl)}" target="_blank" rel="noreferrer noopener">Visit the official event site ↗</a></p></header>${snapshotMarkup}${quickFactsMarkup}${rolloverPanel}${heroImageMarkup}${ticketingMarkup}<section class="mt-12"><h2 class="font-display text-3xl">About ${esc(event.name)}</h2><p class="mt-4 leading-7 text-muted-foreground">${esc(event.whyItMatters)}</p></section>${enrichmentMarkup}${stayNearbyMarkup}${nearbyExperiencesMarkup}<section class="mt-12 border-t border-border pt-8"><h2 class="font-display text-3xl">Planning your visit</h2>${planning}</section><section data-event-discovery-tail="true" class="mt-12 border-t border-border pt-8"><h2 class="font-display text-3xl">More to do in ${esc(event.city)}</h2><ul class="mt-4 space-y-3">${related}</ul></section><section class="mt-10 border-t border-border pt-8"><h2 class="font-display text-3xl">Official event links</h2><ul class="mt-4 space-y-3">${sources}</ul>${sourceReviewMarkup}</section>`;
+  const html = `<nav class="mb-8 text-sm text-muted-foreground"><a href="/">Front page</a> / <a href="/events">Texas Events</a> / ${esc(event.name)}</nav><header class="border-b border-border pb-8"${isPalestinePolarExpress ? ' data-polar-express-editorial-intro="true"' : ""}><p class="eyebrow text-primary">${isPalestinePolarExpress ? "Texas railroad experiences" : "Major Texas event"}</p><h1 class="mt-3 font-display ${isPalestinePolarExpress ? "text-4xl sm:text-5xl" : "text-5xl sm:text-6xl"}">${esc(event.name)}</h1><p class="mt-5 text-lg text-muted-foreground">${esc(dateLabel)} · ${esc(placeLine)}</p>${dateConfidenceMarkup}${!isPalestinePolarExpress && event.dateNote ? `<p class="mt-4 text-sm text-muted-foreground">${esc(event.dateNote)}</p>` : ""}${!isPalestinePolarExpress ? `<p class="mt-5"><a class="font-semibold text-primary underline" href="${esc(event.officialUrl)}" target="_blank" rel="noreferrer noopener">Visit the official event site ↗</a></p>` : ""}</header>${snapshotMarkup}${isPalestinePolarExpress ? `${rolloverPanel}${heroImageMarkup}${quickFactsMarkup}` : `${quickFactsMarkup}${rolloverPanel}${heroImageMarkup}`}${ticketingMarkup}<section class="mt-12"><h2 class="font-display text-3xl">About ${esc(event.name)}</h2><p class="mt-4 leading-7 text-muted-foreground">${esc(event.whyItMatters)}</p></section>${enrichmentMarkup}${stayNearbyMarkup}${nearbyExperiencesMarkup}<section class="mt-12 border-t border-border pt-8"><h2 class="font-display text-3xl">Planning your visit</h2>${planning}</section><section data-event-discovery-tail="true" class="mt-12 border-t border-border pt-8"><h2 class="font-display text-3xl">More to do in ${esc(event.city)}</h2><ul class="mt-4 space-y-3">${related}</ul></section><section class="mt-10 border-t border-border pt-8"><h2 class="font-display text-3xl">Official event links</h2><ul class="mt-4 space-y-3">${sources}</ul>${sourceReviewMarkup}</section>`;
   const venueGuide = resolveSportsVenueEventLink(event.venue);
   const defaultLocation = {
     "@type": "Place",
