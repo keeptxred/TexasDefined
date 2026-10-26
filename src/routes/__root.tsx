@@ -60,6 +60,10 @@ function HeaderFallback() {
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => {
     const { identity, seo } = texasDefinedBrand;
+    const displayName = identity.name;
+    const defaultTitle = seo.defaultTitle;
+    const defaultDescription = seo.defaultDescription;
+    const logoUrl = `${siteUrl}/texasdefined-logo.svg`;
     return ({
     meta: [
       // Impact requires its supplied `value` attribute, rather than `content`.
@@ -68,12 +72,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "google-adsense-account", content: "ca-pub-1891256141359926" },
       { name: "msvalidate.01", content: "74E5E79AEC351CF6D2577A6FC6A125DF" },
-      { title: seo.defaultTitle },
-      { name: "description", content: seo.defaultDescription },
-      { name: "author", content: identity.name },
-      { property: "og:title", content: seo.defaultTitle },
-      { property: "og:description", content: seo.defaultDescription },
-      { property: "og:site_name", content: identity.name },
+      { title: defaultTitle },
+      { name: "description", content: defaultDescription },
+      { name: "author", content: displayName },
+      { property: "og:title", content: defaultTitle },
+      { property: "og:description", content: defaultDescription },
+      { property: "og:site_name", content: displayName },
       { property: "og:type", content: "website" },
       { property: "og:locale", content: identity.locale.replace("-", "_") },
       { property: "og:image", content: defaultSocialImage },
@@ -99,15 +103,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           {
             "@type": "Organization",
             "@id": `${siteUrl}/#organization`,
-            name: identity.name,
+            name: displayName,
             alternateName: "TexasDefined",
             url: siteUrl,
-            description: seo.defaultDescription,
+            description: defaultDescription,
             logo: {
               "@type": "ImageObject",
               "@id": `${siteUrl}/#logo`,
-              url: `${siteUrl}/texasdefined-logo.svg`,
-              contentUrl: `${siteUrl}/texasdefined-logo.svg`,
+              url: logoUrl,
+              contentUrl: logoUrl,
               width: 1825,
               height: 382,
             },
@@ -124,7 +128,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           {
             "@type": "WebSite",
             "@id": `${siteUrl}/#website`,
-            name: identity.name,
+            name: displayName,
             url: siteUrl,
             inLanguage: identity.locale,
             publisher: { "@id": `${siteUrl}/#organization` },
