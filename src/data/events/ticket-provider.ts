@@ -17,12 +17,21 @@ const TICKET_HOSTS: ReadonlyArray<readonly [string, TexasEventTicketProvider]> =
   ["eventbrite.com", "eventbrite"],
 ];
 
+/** Ticket CTAs must never target an IP literal, local hostname or reserved test TLD. */
+export function publicTicketHostname(hostname: string): boolean {
+  const host = hostname.toLowerCase().replace(/\.$/, "");
+  if (!host || !host.includes(".") || host.startsWith("[")
+    || /^\d+\.\d+\.\d+\.\d+$/.test(host)
+    || /\.(?:local|localhost|internal|lan|test|invalid|example|onion)$/.test(host)) return false;
+  return !host.split(".").some((part) => !part || !/^[a-z0-9-]+$/.test(part) || part.startsWith("-") || part.endsWith("-"));
+}
+
 export function providerForVerifiedTicketUrl(value: string): TexasEventTicketProvider | null {
   try {
     const url = new URL(value);
     if (url.protocol !== "https:" || url.username || url.password || url.port) return null;
     const host = url.hostname.toLowerCase();
-    if (!host || host === "localhost" || host.endsWith(".localhost")) return null;
+    if (!publicTicketHostname(host)) return null;
     for (const [domain, provider] of TICKET_HOSTS) {
       if (host === domain || host.endsWith("." + domain)) return provider;
     }
