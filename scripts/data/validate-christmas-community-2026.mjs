@@ -79,7 +79,7 @@ for (const [slug,begin,end] of [
   ["caldwell-2026-christmas-on-square","2026-12-11",undefined],
   ["navasota-2026-home-for-holidays-parade","2026-12-05",undefined],
 ]) check(slug,begin,end);
-assert.ok(bySlug.get("bryan-2026-downtown-holiday-stroll").summary.includes("separate"), "Bryan parade and Stroll identities cannot be collapsed");
+assert.ok(bySlug.get("bryan-2026-downtown-holiday-stroll").summary.includes("distinct event"), "Bryan parade and Stroll identities cannot be collapsed");
 assert.ok(bySlug.get("caldwell-2026-christmas-on-square").summary.includes("Friday December 11"), "2026 Caldwell source-date beats annual tradition assumptions");
 assert.ok(bySlug.get("navasota-2026-home-for-holidays-parade").sourceName.includes("School District"), "Do not imply organizer confirmation where only the district calendar supports the date");
 assert.ok(!bySlug.has("temple-nature-in-lights-assumed-2026"), "Historic Temple BLORA holiday dates cannot be promoted as exact 2026 evidence");
