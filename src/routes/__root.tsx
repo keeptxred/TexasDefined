@@ -160,10 +160,8 @@ function RootComponent() {
     let installed = false;
     let analyticsPromise: Promise<typeof import("@/platform/analytics")> | undefined;
 
-    const loadAnalytics = () => analyticsPromise ??= import("@/platform/analytics");
-
     const ensureAnalyticsInstalled = async () => {
-      const analytics = await loadAnalytics();
+      const analytics = await (analyticsPromise ??= import("@/platform/analytics"));
       if (active && !installed) {
         cleanup = analytics.installTexasDefinedAnalytics();
         installed = true;
@@ -182,7 +180,7 @@ function RootComponent() {
       const entityKind = anchor.dataset.commercialPlacement || "unspecified";
       const destination = anchor.href;
       const shouldRecordImpression = anchor.dataset.commercialImpressionRecorded !== "1";
-      if (shouldRecordImpression) anchor.dataset.commercialImpressionRecorded = "1";
+      anchor.dataset.commercialImpressionRecorded = "1";
       const details = { resourceId, entityKind, destination };
       void ensureAnalyticsInstalled().then((analytics) => {
         if (!active) return;
