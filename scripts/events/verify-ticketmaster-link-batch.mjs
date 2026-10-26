@@ -79,7 +79,7 @@ export function primaryAdmissionProbeCandidate(event) {
   return !/^(?:parking(?:\s+pass)?|(?:reserved|premium|premier|general)\s+parking(?:\s+pass)?|suites?|vip\s+(?:upgrade|add-?on)|fast\s+lane(?:\s+pass)?|quick\s+pass|express\s+entry|club\s+access|meet\s*(?:&|and)\s*greet|signed\s+poster\s+add-?on)\s*[:\-]/.test(title);
 }
 
-export function chooseBatch(events, cursor, size = LIMIT) {
+export function chooseBatch(events, cursor, size = LIMIT, history = null, now = new Date()) {
   const localParts = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Chicago', year: 'numeric', month: '2-digit', day: '2-digit' }).formatToParts(new Date());
   const localPart = (name) => localParts.find((part) => part.type === name)?.value ?? '00';
   const texasToday = [localPart('year'), localPart('month'), localPart('day')].join('-');
@@ -90,10 +90,22 @@ export function chooseBatch(events, cursor, size = LIMIT) {
   eligible.sort((a, b) => a.startDate.localeCompare(b.startDate)
     || String(a.id).localeCompare(String(b.id)));
   if (!eligible.length) return { candidates: [], nextCursor: 0, total: 0 };
-  const start = Math.max(0, Number.isInteger(cursor) ? cursor : 0) % eligible.length;
-  const candidates = Array.from({ length: Math.min(size, eligible.length) }, (_, index) =>
-    eligible[(start + index) % eligible.length]);
-  return { candidates, nextCursor: (start + candidates.length) % eligible.length, total: eligible.length };
+  // On scheduled refreshes choose upcoming events never checked at this exact
+  // date/URL before. A shifting daily event catalog must not cause numeric
+  // cursor drift to skip soon-to-expire admissions or repeat yesterday's 40.
+  // Recheck inconclusive links only after 14 days or when event identity changes.
+  const staleAt = now.getTime() - 14 * 86400000;
+  const pending = history ? eligible.filter((event) => {
+    const old = history[event.id];
+    if (!old || old.date !== event.startDate || old.officialUrl !== event.officialUrl) return true;
+    const checkedAt = Date.parse(old.checkedAt ?? '');
+    return !Number.isFinite(checkedAt) || checkedAt <= staleAt;
+  }) : eligible;
+  const start = history ? 0 : Math.max(0, Number.isInteger(cursor) ? cursor : 0) % eligible.length;
+  const candidates = history ? pending.slice(0, size)
+    : Array.from({ length: Math.min(size, eligible.length) }, (_, index) => eligible[(start + index) % eligible.length]);
+  return { candidates, nextCursor: (Math.max(0, cursor) + candidates.length) % eligible.length,
+    total: eligible.length, pendingToCheck: pending.length };
 }
 
 /** Report actual provider and HTTP outcomes; a bot block is NOT a broken link. */
@@ -118,7 +130,7 @@ async function main() {
   if (!Array.isArray(catalog.events) || !ledger.statewide) throw new Error('Expected managed event snapshot and authoritative ledger.');
   const history = ledger.statewide.ticketLinkProbes ?? {};
   const cursor = ledger.statewide.ticketLinkProbeCursor ?? 0;
-  const { candidates, nextCursor, total } = chooseBatch(catalog.events, cursor);
+  const { candidates, nextCursor, total, pendingToCheck } = chooseBatch(catalog.events, cursor, LIMIT, history);
   const checkedAt = new Date().toISOString();
   // Max 4 independent public HEAD requests, each capped at seven seconds.
   for (let index = 0; index < candidates.length; index += 4) {
@@ -143,7 +155,7 @@ async function main() {
   ledger.statewide.ticketLinkProbes = history;
   ledger.statewide.ticketLinkProbeCursor = nextCursor;
   ledger.statewide.ticketLinkProbeLatestRun = {
-    checkedAt, count: candidates.length, totalEligible: total, nextCursor,
+    checkedAt, count: candidates.length, totalEligible: total, nextCursor, pendingToCheck,
     httpReachabilityOnly: true, inventoryVerified: false, providerOutcomes,
   };
   ledger.updatedAt = checkedAt.slice(0, 10);
