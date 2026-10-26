@@ -513,7 +513,7 @@ test("fourteen curated metro day-trip guides only feature source-backed quality-
     amarillo: "palo-duro-canyon-state-park",
     lubbock: "caprock-canyons-state-park",
     "midland-odessa": "monahans-sandhills-state-park",
-    "el-paso": "hueco-tanks-state-park-state-historic-site",
+    "el-paso": "hueco-tanks-state-park-and-historic-site",
   };
   assert.deepEqual(CURATED_METRO_DAY_TRIP_SLUGS, Object.keys(leads));
   for (const [metro, firstSlug] of Object.entries(leads)) {
@@ -533,6 +533,18 @@ test("fourteen curated metro day-trip guides only feature source-backed quality-
     assert.equal(curatedMetroDayTrips(metro, "weekend-trips", eligible).length, 0);
     assert.equal(curatedMetroDayTrips(metro, "day-trips", []).length, 0);
   }
+  const canonicalHueco = { destination: destination(105, "state-parks", { slug: "hueco-tanks-state-park-and-historic-site" }), distanceMiles: 35, distanceBand: "easy-day-trip" as const };
+  const legacyHueco = { destination: destination(106, "state-parks", { slug: "hueco-tanks-state-park-state-historic-site" }), distanceMiles: 35, distanceBand: "easy-day-trip" as const };
+  assert.deepEqual(curatedMetroDayTrips("el-paso", "day-trips", [canonicalHueco]).map(row => row.slug),
+    ["hueco-tanks-state-park-and-historic-site"],
+    "El Paso must resolve its Hueco Tanks recommendation to the public canonical destination");
+  assert.equal(curatedMetroDayTrips("el-paso", "day-trips", [legacyHueco]).length, 0,
+    "a retired alias must not render as a second destination or a broken public visitor guide");
+  const availability = readFileSync("src/data/destination-availability.ts", "utf8");
+  assert.ok(availability.includes('"hueco-tanks-state-park-state-historic-site"'),
+    "legacy Hueco Tanks record is intentionally excluded from the primary trip planner");
+  assert.ok(!availability.includes('"hueco-tanks-state-park-and-historic-site"'),
+    "do not exclude the canonical visitable Hueco Tanks guide when rectifying the alias");
   assert.equal(curatedMetroDayTrips("mcallen", "day-trips", [] as MetroProximityResult[]).length, 0, "keep separately verified McAllen curation unchanged");
 });
 
