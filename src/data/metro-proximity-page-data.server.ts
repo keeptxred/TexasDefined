@@ -245,10 +245,13 @@ export async function loadMetroProximityCollectionPageDataServer(metroSlug: stri
   const canonicalPath = metroProximityCanonicalPath(metro.slug, collection.slug);
   const presentation = metroProximityCollectionPresentation(collection);
   const isTexarkanaRoadTrips = metro.slug === "texarkana" && collection.slug === "road-trips";
+  const isDallasThingsToDo = metro.slug === "dallas" && collection.slug === "things-to-do";
   const isDallasRoadRing = metro.slug === "dallas" && /^small-towns-[123]-hours?$/.test(collection.slug);
   const isAustinTwoHourGuide = metro.slug === "austin" && collection.slug === "small-towns-2-hours";
   const isMcAllenDayTrips = metro.slug === "mcallen" && collection.slug === "day-trips";
-  const title = isTexarkanaRoadTrips
+  const title = isDallasThingsToDo
+    ? "Things to Do in Dallas & Nearby: Museums, Parks & Day Trips"
+    : isTexarkanaRoadTrips
     ? "Best Road Trips From Texarkana, Texas"
     : isAustinTwoHourGuide
       ? `${optionCount} Small Towns About 1–2 Hours From Austin, Texas`
@@ -261,7 +264,9 @@ export async function loadMetroProximityCollectionPageDataServer(metroSlug: stri
       : presentation.usesGeographicRing
         ? `${presentation.titlePrefix} ${metro.name}, Texas`
         : metroProximityTitle(metro, collection);
-  const description = isMcAllenDayTrips
+  const description = isDallasThingsToDo
+    ? `Plan things to do in Dallas and nearby: ${optionCount} researched attractions including museums, parks, skyline stops and family activities, plus day-trip ideas, local guides and current driving-route links.`
+    : isMcAllenDayTrips
     ? "Choose meaningful McAllen day trips in the Rio Grande Valley: Bentsen-Rio Grande Valley State Park, Santa Ana Refuge, birding, Edinburg history, Port Isabel and South Padre Island. Local and longer outings, official visitor sources and live driving links."
     : isTexarkanaRoadTrips
       ? "Plan scenic drives and multi-stop road trips from Texarkana through the Piney Woods, Caddo country, historic East Texas towns, lakes and state parks, with route order, trip length, seasonal guidance and current driving links."
