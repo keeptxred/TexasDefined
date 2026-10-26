@@ -1,0 +1,62 @@
+name: Corporate Events Census ZCTA Research (No Publication)
+
+# Research-only: never writes a repository file, database record or live radius.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/corporate-zcta-evidence-review.yml'
+  schedule:
+    # One low-cost annual evidence refresh after the Census autumn Gazetteer release.
+    # Vintage is pinned to 2026 until a separately reviewed change updates both URLs.
+    - cron: '21 10 1 11 *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: corporate-census-zcta-review
+  cancel-in-progress: true
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Retrieve only the original official Census datasets and stage read-only research
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p .artifacts/corporate-events
+          ZIP_ARCHIVE="/tmp/texasdefined-2026-gaz-zcta.zip"
+          curl --fail --show-error --silent --location --proto '=https' --proto-redir '=https' \
+            --retry 2 --connect-timeout 15 --max-time 120 --max-filesize 3000000 \
+            'https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2026_Gazetteer/2026_Gaz_zcta_national.zip' \
+            --output "$ZIP_ARCHIVE"
+          # Only a single expected text member may be extracted. No zip-slip extraction.
+          MEMBER_LIST="$(unzip -Z1 "$ZIP_ARCHIVE")"
+          test "$(printf '%s\n' "$MEMBER_LIST" | grep -Ec '(^|/)2026_Gaz_zcta_national\.txt$')" -eq 1
+          MEMBER="$(printf '%s\n' "$MEMBER_LIST" | grep -E '(^|/)2026_Gaz_zcta_national\.txt$')"
+          unzip -p "$ZIP_ARCHIVE" "$MEMBER" > .artifacts/corporate-events/2026_Gaz_zcta_national.txt
+          curl --fail --show-error --silent --location --proto '=https' --proto-redir '=https' \
+            --retry 2 --connect-timeout 15 --max-time 120 --max-filesize 15000000 \
+            'https://www2.census.gov/geo/docs/maps-data/data/rel2020/zcta520/tab20_zcta520_county20_natl.txt' \
+            --output .artifacts/corporate-events/tab20_zcta520_county20_natl.txt
+          node scripts/data/review-corporate-census-zctas.mjs \
+            --gazetteer .artifacts/corporate-events/2026_Gaz_zcta_national.txt \
+            --counties .artifacts/corporate-events/tab20_zcta520_county20_natl.txt \
+            --zips 77030,77058,77020,77034,77056 \
+            --output .artifacts/corporate-events/zcta-review.json
+      - name: Keep research candidates quarantined as an expiring review artifact
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: corporate-census-zcta-private-review
+          path: .artifacts/corporate-events/zcta-review.json
+          retention-days: 30
+          if-no-files-found: error
