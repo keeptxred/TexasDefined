@@ -64,4 +64,24 @@ assert(!/\bfetch\s*\(|\baxios\b|supabaseAdmin|wrangler|createServerFn|navigator\
 const premerge = readFileSync('scripts/ci/run-premerge-validation.mjs','utf8');
 assert(premerge.includes('validate-corporate-event-census-zcta-review.mjs'),
   'Source/county research regressions must be protected by canonical premerge validation');
+const workflow = readFileSync('.github/workflows/corporate-zcta-evidence-review.yml','utf8');
+for (const required of [
+  'workflow_dispatch:', 'schedule:', "contents: read",
+  '2026_Gaz_zcta_national.zip',
+  'tab20_zcta520_county20_natl.txt',
+  '--zips 77030,77058,77020,77034,77056',
+  '--output .artifacts/corporate-events/zcta-review.json',
+  'corporate-census-zcta-private-review',
+  'retention-days: 30', 'if: success()',
+  '--max-filesize 3000000', '--max-filesize 15000000',
+  'unzip -p "$ZIP_ARCHIVE" "$MEMBER"',
+]) assert(workflow.includes(required), 'Missing bounded official Census offline source-review safeguard: ' + required);
+assert(workflow.includes("branches: [main]") && workflow.includes("paths:\n      - '.github/workflows/corporate-zcta-evidence-review.yml'"),
+  'Initial automatic evidence job must fire from the protected workflow merge, not from arbitrary site changes');
+assert(!/\b(?:wrangler deploy|git push|supabase|secrets\.|pull_request_target|npm publish|curl.+POST)\b/i.test(workflow),
+  'Official Census research cannot deploy, modify databases, require secrets or create commercial activity');
+assert(!workflow.includes('src/data/corporate-event-verified-proximity.ts') &&
+  !workflow.includes('public/geo/'),
+  'Research workflow must never modify or claim actual enrolled public points');
+
 console.log('Corporate ZCTA official-source county crosscheck/quarantine PASS: no inferred Texas from ZIP prefix, no points admitted');
