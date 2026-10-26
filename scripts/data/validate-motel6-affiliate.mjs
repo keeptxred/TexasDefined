@@ -38,6 +38,9 @@ assert.doesNotMatch(api.buildMotel6Link('17371482'), /click-(?:1245|8062457)-/);
 
 for (const route of [
   '/explore/road-trips',
+  '/article/fredericksburg-history-weekend-guide',
+  '/article/goliad-history-weekend-guide',
+  '/article/washington-on-the-brazos-weekend-guide',
   '/explore/near/mcallen/day-trips',
   '/explore/weekend-getaways',
   '/texas-tailgating-guide',
