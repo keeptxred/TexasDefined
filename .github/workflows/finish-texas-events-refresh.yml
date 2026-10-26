@@ -272,6 +272,14 @@ jobs:
             fi
 
             echo "Event refresh merged through the protected auto-merge path at validated head $validated_sha."
+
+            # A merge authored with GITHUB_TOKEN does not raise a new push
+            # workflow run. workflow_dispatch is the supported exception:
+            # launch the existing serialized production publisher on current
+            # main instead of leaving refreshed events undeployed. The normal
+            # Worker upload, Christmas smoke, and release gates remain intact.
+            gh workflow run deploy-production.yml --ref main --repo "$REPOSITORY"
+            echo "Triggered the existing protected TexasDefined production workflow for current main."
             exit 0
           done
 
