@@ -676,7 +676,7 @@ function Page() {
             <p className="font-display text-2xl font-semibold text-surface-foreground">{milestone.date}</p>
             <h3 className="mt-3 font-display text-2xl leading-tight">{milestone.title}</h3>
             <p className="mt-3 text-sm leading-7 text-muted-foreground">{milestone.body}</p>
-            <a href={slug === 'katy' && /record.book/i.test(milestone.sourceLabel) ? 'https://katyabc.org/features/katy-football-record-book/' : milestone.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-surface-foreground underline underline-offset-4">{milestone.sourceLabel} ↗</a>
+            <a href={milestone.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-surface-foreground underline underline-offset-4">{milestone.sourceLabel} ↗</a>
           </article>)}
         </div>
       </section>}
