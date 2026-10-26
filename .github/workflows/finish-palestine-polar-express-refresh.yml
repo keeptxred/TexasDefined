@@ -1,0 +1,97 @@
+name: Finish Palestine Polar Express 2027 Refresh
+
+on:
+  workflow_run:
+    workflows:
+      - Refresh Palestine Polar Express 2027 Season
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      source_run_id:
+        description: Successful official 2027 calendar refresh run ID
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+  statuses: write
+
+concurrency:
+  group: palestine-polar-express-2027-finisher
+  cancel-in-progress: false
+
+jobs:
+  finish:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 100
+    steps:
+      - name: Checkout protected main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Validate generated-only branch and run all required checks
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          EVENT_NAME: ${{ github.event_name }}
+          SOURCE_RUN_ID: ${{ github.event.workflow_run.id }}
+          MANUAL_RUN_ID: ${{ inputs.source_run_id }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "$EVENT_NAME" == 'workflow_run' ]]; then run_id="$SOURCE_RUN_ID"; else run_id="$MANUAL_RUN_ID"; fi
+          [[ "$run_id" =~ ^[0-9]+$ ]] || { echo '::error::Invalid source run ID'; exit 1; }
+          branch="automation/palestine-polar-express-2027-$run_id"
+          data_path='src/data/generated/palestine-polar-express-season.json'
+          pr_json="$(gh pr list --repo "$REPOSITORY" --base main --state open --head "$branch" \
+            --limit 2 --json number,url,title,headRefName,headRefOid)"
+          count="$(jq 'length' <<< "$pr_json")"
+          if [[ "$count" == '0' ]]; then
+            echo 'No verified 2027 calendar source changes to publish.'
+            exit 0
+          fi
+          [[ "$count" == '1' ]] || { echo "::error::Ambiguous automation PRs"; exit 1; }
+          number="$(jq -r '.[0].number' <<< "$pr_json")"
+          url="$(jq -r '.[0].url' <<< "$pr_json")"
+          title="$(jq -r '.[0].title' <<< "$pr_json")"
+          author="$(gh api "repos/$REPOSITORY/pulls/$number" --jq '.user.login')"
+          [[ "$title" == 'Update verified Palestine Polar Express 2027 train calendar' && "$author" == 'github-actions[bot]' ]] || {
+            echo '::error::Unexpected PR title or author'; exit 1;
+          }
+          git config user.name 'Texas Defined Verified Seasons'
+          git config user.email 'actions@users.noreply.github.com'
+          git fetch --no-tags origin main "$branch"
+          base="$(git merge-base origin/main "origin/$branch")"
+          files="$(git diff --name-only "$base" "origin/$branch")"
+          [[ "$files" == "$data_path" ]] || { echo "::error::Unexpected generated PR changes: $files"; exit 1; }
+          git checkout -B "$branch" "origin/$branch"
+          if ! git merge-base --is-ancestor origin/main HEAD; then
+            if ! git merge --no-edit origin/main; then
+              git merge --abort || true
+              echo '::error::Concurrent edits conflict; do not publish'
+              exit 1
+            fi
+            git push origin "HEAD:$branch"
+          fi
+          node -e 'const s=require("./src/data/generated/palestine-polar-express-season.json");if(s.year!==2027||s.status!=="verified"||s.dates.length<20||s.calendarImages.length!==2||s.sourceUrl!=="https://texasstaterailroad.net/the-polar-express/")process.exit(1)'
+          node --test scripts/events/refresh-palestine-polar-express-season.test.mjs
+          verified_sha="$(git rev-parse HEAD)"
+          bash scripts/ci/dispatch-validate-branch.sh "$branch" validate.yml
+          bash scripts/ci/dispatch-validate-branch.sh "$branch" merge-gate.yml
+          git fetch --no-tags origin main "$branch"
+          [[ "$(git rev-parse "origin/$branch")" == "$verified_sha" ]] || {
+            echo '::error::Source branch changed during validation'; exit 1;
+          }
+          git merge-base --is-ancestor origin/main "origin/$branch" || {
+            echo '::error::Main advanced during checks; leave PR for reconciliation'; exit 1;
+          }
+          gh api --method POST "repos/$REPOSITORY/statuses/$verified_sha" \
+            -f state=success -f context='Required merge gate' \
+            -f description='Canonical required branch checks passed for official 2027 calendar' \
+            -f target_url="$url" >/dev/null
+          gh pr merge "$url" --repo "$REPOSITORY" --merge --auto --match-head-commit "$verified_sha"
+          echo "Verified schedule PR approved after protected checks: $url" >> "$GITHUB_STEP_SUMMARY"
