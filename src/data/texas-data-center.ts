@@ -23,6 +23,7 @@ export const TEXAS_DATASETS = [
   { slug: 'texas-population-and-migration-2024', updated: '2026-08-27' },
   { slug: 'where-new-texans-came-from-2024', updated: '2026-08-26' },
   { slug: 'texas-homeowners-premium-history', updated: '2026-10-20' },
+  { slug: 'texas-homeowners-premium-latest', updated: '2026-10-10' },
   { slug: 'texas-metro-payrolls-june-2026', updated: '2026-08-26' },
   { slug: 'texas-metro-payrolls-august-2026', updated: '2026-10-20' },
   { slug: 'texas-traffic-monitoring-coverage', updated: '2026-08-26' },

@@ -1,0 +1,67 @@
+{
+  "sourceUrl": "https://tdi.texas.gov/general/texas-homeowners-insurance-market-overview.html",
+  "verifiedAt": "2026-10-10",
+  "sourceYear": 2025,
+  "rows": [
+    {
+      "year": 2016,
+      "premium": 1791,
+      "coverage": 252000,
+      "preliminary": false
+    },
+    {
+      "year": 2017,
+      "premium": 1860,
+      "coverage": 262300,
+      "preliminary": false
+    },
+    {
+      "year": 2018,
+      "premium": 1916,
+      "coverage": 275700,
+      "preliminary": false
+    },
+    {
+      "year": 2019,
+      "premium": 1961,
+      "coverage": 287900,
+      "preliminary": false
+    },
+    {
+      "year": 2020,
+      "premium": 1987,
+      "coverage": 294900,
+      "preliminary": false
+    },
+    {
+      "year": 2021,
+      "premium": 2124,
+      "coverage": 317200,
+      "preliminary": false
+    },
+    {
+      "year": 2022,
+      "premium": 2374,
+      "coverage": 354300,
+      "preliminary": false
+    },
+    {
+      "year": 2023,
+      "premium": 2795,
+      "coverage": 387200,
+      "preliminary": false
+    },
+    {
+      "year": 2024,
+      "premium": 3291,
+      "coverage": 408500,
+      "preliminary": false
+    },
+    {
+      "year": 2025,
+      "premium": 3489,
+      "coverage": 432800,
+      "preliminary": true
+    }
+  ]
+}

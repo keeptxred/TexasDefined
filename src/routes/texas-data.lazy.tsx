@@ -23,21 +23,23 @@ function Page() {
   const [searchQuery, setSearchQuery] = useState('');
   const currentPopulation = datasets.find((dataset) => dataset.slug === 'texas-population-and-migration-latest')
     ?? datasets.find((dataset) => dataset.slug === 'texas-population-and-migration-2025');
-  const homeowners = datasets.find((dataset) => dataset.slug === 'texas-homeowners-premium-history');
+  const homeowners = datasets.find((dataset) => dataset.slug === 'texas-homeowners-premium-latest')
+    ?? datasets.find((dataset) => dataset.slug === 'texas-homeowners-premium-history');
   const payrolls = datasets.find((dataset) => dataset.slug === 'texas-metro-payrolls-latest')
     ?? datasets.find((dataset) => dataset.slug === 'texas-metro-payrolls-august-2026');
 
   const population = currentPopulation?.rows.find((row) => row.label.startsWith('Texas population — July 1, '))?.value;
   const populationGrowth = currentPopulation?.rows.find((row) => row.label.includes('Numeric population growth'))?.value;
   const domesticMigration = currentPopulation?.rows.find((row) => row.label === 'Net domestic migration')?.value;
-  const homeownersPremium = homeowners?.rows.find((row) => row.label === '2025')?.value;
+  const homeownersYear = homeowners?.slug === 'texas-homeowners-premium-latest' ? homeowners.year : 2025;
+  const homeownersPremium = homeowners?.rows.find((row) => row.label === String(homeownersYear))?.value;
   const majorMetroPayrolls = payrolls?.rows.filter((row) => ['Dallas–Fort Worth–Arlington', 'Houston–Pasadena–The Woodlands', 'Austin–Round Rock–San Marcos', 'San Antonio–New Braunfels'].includes(row.label)) ?? [];
 
   const headlineStats = [
     population ? { value: numberFormatter.format(population), label: 'Texas population', note: `July 1, ${currentPopulation?.year} Census estimate`, to: '/texas-data/texas-population-and-migration-latest' } : null,
     populationGrowth ? { value: `+${numberFormatter.format(populationGrowth)}`, label: 'Population growth', note: `July ${Number(currentPopulation?.year) - 1} to July ${currentPopulation?.year}`, to: '/texas-data/texas-population-and-migration-latest' } : null,
     domesticMigration ? { value: `+${numberFormatter.format(domesticMigration)}`, label: 'Net domestic migration', note: `July ${Number(currentPopulation?.year) - 1} to July ${currentPopulation?.year}`, to: '/texas-data/texas-population-and-migration-latest' } : null,
-    homeownersPremium ? { value: currencyFormatter.format(homeownersPremium), label: 'Average homeowners premium', note: '2025 preliminary statewide average', to: '/texas-data/texas-homeowners-premium-history' } : null,
+    homeownersPremium ? { value: currencyFormatter.format(homeownersPremium), label: 'Average homeowners premium', note: `${homeownersYear} statewide TDI average; preliminary or not explicitly finalized`, to: `/texas-data/${homeowners?.slug ?? 'texas-homeowners-premium-history'}` } : null,
 
   ].filter(Boolean) as Array<{ value: string; label: string; note: string; to: string }>;
 
