@@ -73,7 +73,7 @@ function Page() {
             </div>
             <div className="overflow-x-auto">
               <table className="w-full min-w-[780px] border-collapse text-left text-sm">
-                <caption className="sr-only">Texas county median home value, rent, monthly owner costs and household income from the {data.release}.</caption>
+                <caption className="sr-only">Texas county housing costs and income, {data.release}.</caption>
                 <thead><tr className="border-b border-border text-xs uppercase tracking-wide text-muted-foreground"><th scope="col" className="py-4 pr-4">County</th><th scope="col" className="px-4 py-4 text-right">Home value</th><th scope="col" className="px-4 py-4 text-right">Gross rent</th><th scope="col" className="px-4 py-4 text-right">Owner costs</th><th scope="col" className="pl-4 py-4 text-right">Household income</th></tr></thead>
                 <tbody>{rows.map((row) => <tr key={row.fips} className="border-b border-border/70"><th scope="row" className="py-4 pr-4 font-medium"><Link to="/county/$slug" params={{ slug: row.countySlug }} className="hover:text-primary">{row.countyName}</Link></th><td className="px-4 py-4 text-right tabular-nums">{formatEstimate(row.medianHomeValue)}</td><td className="px-4 py-4 text-right tabular-nums">{formatEstimate(row.medianGrossRent)}</td><td className="px-4 py-4 text-right tabular-nums">{formatEstimate(row.medianMonthlyOwnerCosts)}</td><td className="pl-4 py-4 text-right tabular-nums">{formatEstimate(row.medianHouseholdIncome)}</td></tr>)}</tbody>
               </table>
