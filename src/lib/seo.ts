@@ -169,6 +169,10 @@ const TEXASDEFINED_TECHNICAL_SEO_OVERRIDES: Record<string, TechnicalSeoOverride>
 // deliberately excluded from the browser bundle. Client navigation falls back to each page's
 // existing metadata; canonical SSR output carries the GSC-aligned title/description.
 const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = import.meta.env.SSR ? {
+  "/destination/magnolia-market-at-the-silos": {
+    title: "Magnolia Market at the Silos Waco: Hours, Parking & Guide",
+    description: "Plan a Magnolia Market at the Silos visit in Waco: location at 601 Webster Avenue, parking, shops, bakery, gardens, visitor hours and nearby attractions.",
+  },
   "/destination/moody-gardens": {
     title: "Moody Gardens Galveston: Aquarium, Rainforest & Visitor Guide",
     description: "Plan Moody Gardens in Galveston: Aquarium and Rainforest Pyramids, ticket packages, parking, accessibility, seasonal attractions and practical visitor tips.",
