@@ -132,19 +132,19 @@ const records: MajorEventAuthorityRecord[] = [
     countyName: "Anderson County",
     region: "piney-woods",
     category: "seasonal",
-    startDate: "2026-11-14",
-    endDate: "2026-12-27",
+    startDate: "2026-11-13",
+    endDate: "2026-12-28",
     venue: "Texas State Railroad Palestine Depot, 789 Park Road 70",
-    officialUrl: "https://texasstaterailroad.net/the-polar-express-train-ride/",
-    sourceCheckedAt: "2026-10-21",
+    officialUrl: "https://texasstaterailroad.net/the-polar-express/",
+    sourceCheckedAt: "2026-10-26",
     seoTitle: "Palestine Polar Express 2026: Train Classes, Fares & Visitor Guide",
-    seoDescription: "Texas State Railroad's Palestine Polar Express runs November 14–December 27, 2026. Compare coach, dome and first-class seating, fees, access and departure details.",
-    dateNote: "Scheduled November 14–December 27, 2026. Individual train departures, fare tiers and availability must be confirmed in the Texas State Railroad checkout.",
+    seoDescription: "Palestine Polar Express 2026: visitor-center dates Nov 13–Dec 28, live train tickets, Coach and Dome fares, boarding details, cancellation rules and hotels.",
+    dateNote: "2026 date sources conflict: Palestine Visitor Center lists select departures November 13–December 28; an older railroad landing page says November 14–December 27. Dates shown here follow the city’s dated calendar, not a guarantee of daily departures or seats. Confirm the specific date and departure time in the railroad’s live ticket calendar.",
     whyItMatters: "The Texas State Railroad brings THE POLAR EXPRESS™ to its historic Palestine Depot with a moving train, classic story, cocoa chefs, Santa and a silver bell. What sets Palestine apart for planning is the unusually broad seating menu—from unheated historic Coach to upper Dome and Presidential cars—and a distinct accessible car that must be arranged by phone. The ride leaves from Palestine, not the railroad's Rusk Depot and not Grapevine.",
     quickFacts: [
       {
-        label: "2026 season",
-        value: "November 14–December 27"
+        label: "City’s 2026 calendar",
+        value: "Select dates November 13–December 28; official railroad checkout controls"
       },
       {
         label: "Departure depot",
@@ -167,8 +167,8 @@ const records: MajorEventAuthorityRecord[] = [
         value: "Published $3 historical-preservation fee per ticket"
       },
       {
-        label: "Arrival",
-        value: "At least 45 minutes before ticketed departure per railroad FAQ"
+        label: "Arrival and boarding passes",
+        value: "Arrive 45 minutes early; collect boarding pass 15 minutes before departure"
       },
       {
         label: "Access reservations",
@@ -176,6 +176,18 @@ const records: MajorEventAuthorityRecord[] = [
       }
     ],
     planningSections: [
+      {
+        title: "Pick an actual 2026 departure, not any day in the season",
+        body: "The Palestine Visitor Center’s 2026 calendar lists November 13–15, 19–24 and 27–29; December 3–6, 9–13, 15–16, 19–23 and 26–28. Its dates differ from an older railroad landing page, so treat this as a city-calendar planning list rather than a guarantee. Departure times, open seating classes and seat inventory must be checked on the current Texas State Railroad Polar Express booking page. December 24 and 25 are not listed in the city calendar."
+      },
+      {
+        title: "Know the refund, rescheduling and missed-train rules",
+        body: "Per the railroad’s Polar Express FAQ, eligible cancellations at least 30 days ahead incur a $20 fee per ticket, with the remainder refunded. Cancellations within 30 days are not refundable. Rescheduling is subject to availability, unavailable within 14 days of original departure, and carries a $20 fee per ticket. Late arrivals are especially risky: collect physical boarding passes by 15 minutes before departure and be at the boarding platform before it closes 10 minutes ahead. Check the railroad’s full current policy before booking."
+      },
+      {
+        title: "Know which locomotive pulls the 2026 train",
+        body: "Texas State Railroad explicitly states that the 2026 Polar Express season operates using a diesel locomotive, not a steam locomotive. Historical photos of steam engines from prior years should not be treated as 2026 event imagery."
+      },
       {
         title: "Book the Palestine departure, not Rusk or Grapevine",
         body: "The organizer explicitly warns that this licensed journey departs from Palestine, Texas and is not the Grapevine Santa North Pole Express or Galveston's separate licensed ride. Enter 789 Park Road 70, Palestine into your route planner and check the exact station printed on your confirmation. Ordinary Texas State Railroad excursions may run between Palestine and Rusk, but this theatrical Polar Express program is a different route and ticket."
@@ -214,7 +226,7 @@ const records: MajorEventAuthorityRecord[] = [
       },
       {
         title: "Use official booking and treat availability as live",
-        body: "Tickets are sold by the Texas State Railroad with multiple fare categories, car classes and party configurations. Rates published on the class page can change and do not establish current availability. Book using the operator's linked reservation system, retain the confirmation, and review its refund and transfer policies before purchasing nonrefundable lodging."
+        body: "Tickets are sold by the Texas State Railroad with multiple fare categories, car classes and party configurations. Rates published on the class page can change and do not establish current availability. Book using the organizer’s current Polar Express schedule and reservation system, retain the confirmation, and check the printed departure time and station. This is not a Ticketmaster event and Texas Defined does not sell or guarantee train seats."
       }
     ],
     relatedLinks: [
@@ -237,20 +249,33 @@ const records: MajorEventAuthorityRecord[] = [
         href: "/events",
         label: "Texas events calendar",
         description: "Discover other holiday events in the region."
+      },
+      {
+        href: "/events/christmas-events",
+        label: "Texas Christmas events calendar",
+        description: "Find other verified lights, holiday activities and seasonal stops."
       }
     ],
     sources: [
       {
-        label: "Texas State Railroad — 2026 Polar Express program",
-        url: "https://texasstaterailroad.net/the-polar-express-train-ride/"
+        label: "Texas State Railroad — current 2026 Polar Express booking, seating and diesel locomotive notice",
+        url: "https://texasstaterailroad.net/the-polar-express/"
       },
       {
         label: "Texas State Railroad — published seating classes, fare tiers and accessible car",
         url: "https://texasstaterailroad.net/the-polar-express-train-ride-2/"
       },
       {
-        label: "Texas State Railroad — passenger FAQ and departure location",
+        label: "Texas State Railroad — passenger FAQ, cancellations, rescheduling and boarding",
         url: "https://texasstaterailroad.net/faq-2/"
+      },
+      {
+        label: "Palestine Visitor Center — 2026 dated departure calendar",
+        url: "https://www.visitpalestine.com/events/2026/httpstexasstaterailroadnetevents2332"
+      },
+      {
+        label: "Palestine Visitor Center — lodging and local attractions",
+        url: "https://www.visitpalestine.com/"
       }
     ]
   }

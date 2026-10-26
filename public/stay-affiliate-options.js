@@ -6,6 +6,8 @@
   const CJ_PUBLISHER_ID = "101876465";
   const CJ_DLG_BASE = `https://www.anrdoezrs.net/links/${CJ_PUBLISHER_ID}/type/dlg/`;
   const HOTELS_DESTINATION = "https://www.hotels.com/";
+  // Verified Palestine destination directory for the Polar Express booking guide.
+  const PALESTINE_HOTELS_DESTINATION = "https://www.hotels.com/de1634643/hotels-palestine-texas/";
   // Motel 6 approved CJ publisher-email creatives: 17198227 (Sep 21,
   // standard), 17371482 (Oct 26, Halloween). 101876465 is our known PID;
   // 8062457 is an account CID, not the website tracking ID.
@@ -278,6 +280,7 @@
     const hotelPasoExact = exactPropertyFirst ? null : hotelPasoStay();
     const casinoStays = exactPropertyFirst ? [] : casinoHotelChoices();
     const showRvshare = rvshareEligible();
+    const isPalestinePolarExpress = window.location.pathname.replace(/\/+$/, "") === "/event/polar-express-palestine";
     const wrapper = document.createElement("aside");
     wrapper.id = CHOICE_ID;
     wrapper.className = "td-stay-affiliate-options";
@@ -313,6 +316,10 @@
       copy.textContent = "Only staying overnight? Compare hotels and rentals; verify current prices, locations and cancellation rules with each booking provider.";
     }
     if (casinoStays.length) copy.textContent = "These specific properties have verified hotel listings. Compare dates, cancellation terms, fees and current availability directly with the booking provider. Other lodging options are available below.";
+    if (isPalestinePolarExpress) {
+      heading.textContent = "Palestine hotels for the train ride";
+      copy.textContent = "Start with hotels in Palestine, not a generic nationwide search. Choose your exact train date first, then compare room costs, cancellation policies and driving time to the Palestine Depot.";
+    }
     if (showRvshare) copy.textContent += " For camping and road-trip planning, RVshare is the primary rental option when taking your lodging with you fits the trip.";
 
     const actions = document.createElement("div");
@@ -366,8 +373,8 @@
       }));
     } else {
     actions.appendChild(createTrackedLink({
-      destination: HOTELS_DESTINATION,
-      label: exactPropertyFirst ? "Compare more hotels on Hotels.com" : "Find hotels on Hotels.com",
+      destination: isPalestinePolarExpress ? PALESTINE_HOTELS_DESTINATION : HOTELS_DESTINATION,
+      label: isPalestinePolarExpress ? "Compare Palestine hotels on Hotels.com" : exactPropertyFirst ? "Compare more hotels on Hotels.com" : "Find hotels on Hotels.com",
       variant: featuredStay || hotelPasoExact || showRvshare ? "secondary" : "primary",
       ariaLabel: exactPropertyFirst ? "Compare more hotels on Hotels.com in a new tab" : "Find hotels on Hotels.com in a new tab",
       placement: choicePlacement,
