@@ -29,7 +29,11 @@ if (adapter.includes("affiliateUrl:")) failures.push("official-source adapter mu
 for (const token of ['providerForVerifiedTicketUrl', 'ticketmaster.com', 'ticketweb.com', 'livenation.com', 'etix.com', 'axs.com', 'seatgeek.com', 'vividseats.com', 'eventbrite.com']) {
   requireText(providerClassifier, token, "provider-neutral checkout domain classification");
 }
-requireText(curatedChristmas, "providerForVerifiedTicketUrl(show.sourceUrl)", "Christmas show provider classification");
+for (const token of [
+  "providerForVerifiedTicketUrl(show.featuredTicketUrl ?? show.sourceUrl)",
+  "officialTicketUrl: show.featuredTicketUrl ?? show.sourceUrl",
+  "!featuredDatePassed && show.featuredTicketUrl ? show.featuredTicketUrl : show.sourceUrl",
+]) requireText(curatedChristmas, token, "date-aware safe Christmas show checkout classification");
 
 for (const token of ["resolveEventTicketCta", "ticketCta: resolveEventTicketCta(event.ticketing)"]) requireText(calendar, token, "calendar projection");
 for (const token of [

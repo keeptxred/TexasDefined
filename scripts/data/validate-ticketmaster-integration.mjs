@@ -5,7 +5,7 @@ try {
   const { loadTicketmasterEventsServer, ticketmasterAuthorityGuidePath } = await server.ssrLoadModule('/src/data/events/ticketmaster-events.server.ts');
   const { mergeEventTicketing } = await server.ssrLoadModule('/src/data/events/ticketing.ts');
   const { ticketmasterVenueMatches, ticketmasterShowtimeMatches, ticketmasterIsPrimaryAdmissionTitle } = await server.ssrLoadModule('/src/data/events/ticketmaster-event-match.ts');
-  const { matchChristmasTicketmasterPerformance, isReviewedChristmasTicketmasterDoorTime } = await server.ssrLoadModule('/src/data/events/christmas-performances-2026.server.ts');
+  const { matchChristmasTicketmasterPerformance, isReviewedChristmasTicketmasterDoorTime, getChristmasPerformances2026Server, getVerifiedChristmasPerformanceCalendarRecords2026 } = await server.ssrLoadModule('/src/data/events/christmas-performances-2026.server.ts');
   const { hasCompliantMajorEventImageServer } = await server.ssrLoadModule('/src/data/major-event-schema-enrichment.server.ts');
   const { buildTexasEventCarouselItemsServer, buildGlobalEventCalendarServer } = await server.ssrLoadModule('/src/data/events/texas-event-calendar.server.ts');
   const now = new Date();
@@ -221,6 +221,25 @@ try {
     'the verified date is part of the ticket identity');
   assert.equal(isReviewedChristmasTicketmasterDoorTime({ ...reviewedDallas, startTime: '17:00' }, listedDallas, 1), false,
     'the editorial curtain time must remain verified as 6pm');
+
+  // Exact 2 PM Conroe Etix event is an admission URL for the Dec 13
+  // performance only. Do not leave it as the CTA for remaining shows.
+  const directConroe = 'https://www.etix.com/ticket/p/62230269/a-christmas-story-conroe-crighton-theatre';
+  const conroeSchedule = 'https://www.etix.com/ticket/v/32639/crighton-theatre';
+  const conroeRecord = getVerifiedChristmasPerformanceCalendarRecords2026()
+    .find(event => event.slug === 'christmas-story-conroe-2026');
+  assert.ok(conroeRecord, 'curated Conroe calendar record exists');
+  assert.equal(conroeRecord.ticketing.links[0].officialTicketUrl, directConroe);
+  const beforeConroe = getChristmasPerformances2026Server(new Date('2026-12-12T18:00:00Z'))
+    .find(show => show.id === 'christmas-story-conroe-2026');
+  assert.ok(beforeConroe);
+  assert.ok(beforeConroe.ticket.href === directConroe || beforeConroe.ticket.isAffiliate,
+    'pre-show link is the direct Etix performance or a freshly matched authorized affiliate');
+  const afterConroe = getChristmasPerformances2026Server(new Date('2026-12-14T18:00:00Z'))
+    .find(show => show.id === 'christmas-story-conroe-2026');
+  assert.ok(afterConroe, 'the run stays visible to Dec 20');
+  assert.equal(afterConroe.ticket.href, conroeSchedule,
+    'after featured date, the remaining run points to the approved theatre selector');
 
   const editorialTicketing = {
     links: [{
