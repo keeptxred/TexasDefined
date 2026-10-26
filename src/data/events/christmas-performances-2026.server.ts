@@ -116,9 +116,10 @@ const verified: readonly ChristmasPerformance[] = [
   },
   {
     id: "christmas-carol-houston-2026", name: "A Christmas Carol",
-    date: "2026-12-27", timeLabel: "See performance schedule · run Nov. 15–Dec. 27",
+    date: "2026-12-27", timeLabel: "1:30 PM · final performance of Nov. 15–Dec. 27 run",
     city: "Houston", venue: "Alley Theatre · Hubbard Theatre",
     sourceUrl: "https://www.alleytheatre.org/plays/christmas-carol-2026/",
+    featuredTicketUrl: "https://cart.alleytheatre.org/10216/10226", // Alley Theatre official Dec. 27, 2026 1:30 PM checkout; no inventory claim.
     sourceName: "Alley Theatre",
     description: "The final scheduled day of the Alley Theatre's 2026 holiday run; children under six are not admitted.",
     // Multiple dates and showtimes: let the theatre's selector handle exact choice.
@@ -148,6 +149,7 @@ const confirmedStartTimes: Readonly<Record<string, string>> = {
   "grand-ol-christmas-houston-2026": "19:00",
   "grand-ol-christmas-dallas-2026": "18:00",
   "cirque-musica-cedar-park-2026": "14:00",
+  "christmas-carol-houston-2026": "13:30",
 };
 
 /**

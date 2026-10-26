@@ -34,6 +34,14 @@ The common outbound resolver also supports **TicketWeb, Live Nation, Etix, AXS, 
 **Activation for a new provider**: secure actual partnership and approved API scope; configure its secret only in the trusted server/GitHub Actions environment; implement a bounded provider-specific importer with date+venue+event-ID matching, freshness expiry, status validation, and fail-closed behavior; validate the outbound provider deep link and program-approved commission tracking; add real positive and negative tests; then ship through a protected PR and production smoke. Never manufacture an API key, assume commercial approval, treat a ticketing homepage as proof of availability, or promote a reseller listing as primary admission.
 
 
+## Authorized affiliate deep-link integrity (October 25, 2026)
+
+The shared resolver **must not treat an arbitrary HTTPS URL as an approved affiliate**. Only the existing Ticketmaster/Impact publisher 7758914 importer currently qualifies for sponsored CTAs. To qualify, a link must come from the `Ticketmaster` provider feed, use exact `ticketmaster.evyy.net` with publisher 7758914 and Ticketmaster merchant 4272, include exactly one `u` destination, and match that embedded event-specific Ticketmaster or TicketWeb URL against the paired official event URL. A different performance, forged merchant, unapproved provider or mismatched venue must **fall back to the official event URL**, with no sponsored claim.
+
+Adding a new provider or affiliate network later requires its own reviewed verification adapter, contract and regression tests. Do not relax this rule for hypothetical future agreements. Ticketmaster's Discovery status `onsale` is not proof of specific remaining inventory, and no external checkout price is cached here.
+
+The evidence/checkpoint ledger is `ops/editorial/event-ticketing-verification-ledger.json`. The independently sourced Alley Theatre final performance is December 27, 2026 at **1:30 p.m.**; exact official checkout: `https://cart.alleytheatre.org/10216/10226`. That page identifies the performance but does not establish available seat quantity. Preserve the distinct general production page for show background.
+
 ## CTA resolution
 
 `src/data/events/ticketing.ts` is the single decision layer. Presentation code must not choose a provider itself.
@@ -108,6 +116,10 @@ Recommended activation sequence:
 5. Run `node scripts/data/validate-event-ticketing-architecture.mjs`, `node scripts/data/validate-event-ticket-positive-path.mjs`, the normal validation suite, production build, and bundle budget before merge.
 6. Verify the rendered CTA text changes from `Official Tickets →` to `Find Tickets →` only when the affiliate URL is valid.
 7. After deployment, require `node scripts/ci/verify-event-ticketing-production.mjs` to pass against the live site.
+
+## Event-specific affiliate click attribution
+
+The shared outbound `EventTicketCta` now carries each canonical event ID from both calendar results and carousel records. Sponsored checkout clicks emit `affiliate_event_id` alongside the existing partner, placement, module and page path in the first-party `affiliate_click` dataLayer event. An official/non-affiliate ticket URL does not gain partner metadata or a commercial event-click event. Do not treat this first-party event as evidence that a commission was earned or a checkout was completed.
 
 ## No checkout
 

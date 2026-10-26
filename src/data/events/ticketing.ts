@@ -33,6 +33,33 @@ function safeHttpsUrl(value: string | undefined) {
   }
 }
 
+/**
+ * Only Ticketmaster's approved publisher 7758914 Impact feed currently has
+ * an authorized affiliate adapter. HTTPS alone never proves authorization.
+ * Match the redirect destination against this exact official event URL.
+ */
+function approvedAffiliateHref(link: TexasEventTicketLink): string | null {
+  if (link.source.kind !== "provider" || link.source.name !== "Ticketmaster"
+    || (link.provider !== "ticketmaster" && link.provider !== "ticketweb")) return null;
+  const href = safeHttpsUrl(link.affiliateUrl);
+  const officialHref = safeHttpsUrl(link.officialTicketUrl);
+  if (!href || !officialHref) return null;
+  const affiliate = new URL(href);
+  const official = new URL(officialHref);
+  if (affiliate.hostname !== "ticketmaster.evyy.net"
+    || !/^\/c\/7758914\/\d+\/4272\/?$/.test(affiliate.pathname)
+    || affiliate.searchParams.getAll("u").length !== 1) return null;
+  const officialHost = official.hostname.toLowerCase();
+  const isTicketmasterEvent = (officialHost === "ticketmaster.com" || officialHost === "www.ticketmaster.com")
+    && /\/event\/[A-Za-z0-9_-]+\/?$/.test(official.pathname);
+  const isTicketwebEvent = (officialHost === "ticketweb.com" || officialHost === "www.ticketweb.com")
+    && /^\/event\/[^/]+\/[A-Za-z0-9_-]+\/?$/.test(official.pathname);
+  if (!isTicketmasterEvent && !isTicketwebEvent) return null;
+  const destinationHref = safeHttpsUrl(affiliate.searchParams.get("u") ?? undefined);
+  if (destinationHref !== officialHref) return null;
+  return href;
+}
+
 function isExpired(value: string | undefined, now: Date) {
   if (!value) return false;
   const expiresAt = Date.parse(value);
@@ -87,7 +114,7 @@ export function resolveEventTicketCta(ticketing: TexasEventTicketingMetadata | u
   const links = rankedLinks(ticketing).filter(isActionable);
 
   for (const link of links) {
-    const href = safeHttpsUrl(link.affiliateUrl);
+    const href = approvedAffiliateHref(link);
     if (!href || isExpired(link.affiliateExpiresAt, now)) continue;
     return {
       href,

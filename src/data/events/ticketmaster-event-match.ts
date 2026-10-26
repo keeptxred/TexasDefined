@@ -75,6 +75,11 @@ export function ticketmasterShowtimeMatches(
  */
 export function ticketmasterIsPrimaryAdmissionTitle(name: string): boolean {
   const normalized = name.trim().toLowerCase().replace(/[–—]/g, "-");
+  // Some arenas expose parking inventory under a branded garage name,
+  // with the real show as the suffix. This is not admission to the show.
+  if (/^(?:(?:fifth|5th)\s+third\s+)?garage\s*[:\-]/.test(normalized)
+    || /^(?:[a-z0-9&' ]+\s+)?(?:parking\s+garage|parking\s+lot|garage\s+parking)\s*[:\-]/.test(normalized)
+    || /^(?:fifth|5th)\s+third\s+garage\b/.test(normalized)) return false;
   // These vendor disclaimers are affirmative proof this listing is NOT admission.
   if (/\b(?:not a (?:concert|event) ticket|event ticket not included|ticket not included)\b/i.test(normalized)) return false;
   // The same add-ons appear AFTER an artist/show title in provider feeds:

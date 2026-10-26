@@ -7,9 +7,10 @@ export type AffiliateClickDetail = {
   label: string;
   placement: string;
   module?: string;
+  eventId?: string;
 };
 
-export function trackAffiliateClick({ partner, label, placement, module }: AffiliateClickDetail) {
+export function trackAffiliateClick({ partner, label, placement, module, eventId }: AffiliateClickDetail) {
   if (typeof window === "undefined") return;
   const analyticsWindow = window as AffiliateAnalyticsWindow;
   const detail = {
@@ -18,6 +19,7 @@ export function trackAffiliateClick({ partner, label, placement, module }: Affil
     affiliate_label: label,
     affiliate_placement: placement,
     ...(module ? { affiliate_module: module } : {}),
+    ...(eventId ? { affiliate_event_id: eventId } : {}),
     page_path: window.location.pathname,
   };
   analyticsWindow.dataLayer = analyticsWindow.dataLayer || [];
