@@ -148,7 +148,7 @@ for (const [source, needle, label] of [
   [wacoOffer, 'trackAffiliateClick(', 'Waco first-party click tracking'],
   [wacoOffer, 'Affiliate disclosure:', 'Waco local disclosure'],
   [wacoOffer, 'WacoViatorExperienceCards', 'separately bookable experiences'],
-  [destinationViator, 'if (!market) return <>{wacoOffers}{huntingLinks}</>;', 'Waco when generic marketplace does not match'],
+  [destinationViator, 'if (!market) return huntingLinks;', 'Preserved fail-closed generic inventory with separately reviewed Waco attraction links'],
   [destinationViator, 'WACO_ATTRACTION_SLUGS', 'Waco destination-specific guard'],
   [magnolia, 'WacoMagnoliaCrosslinks', 'Magnolia independent Waco visitor guides'],
   [wacoMagnolia, 'WACO_VIATOR_ATTRACTIONS.map', 'all seven Waco guide links'],
