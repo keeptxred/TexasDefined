@@ -27,7 +27,7 @@ const end = eventFile.indexOf("\n];", start);
 assert.ok(start >= 0 && end > start, "Source-qualified Christmas manifest was not found");
 const json = eventFile.slice(eventFile.indexOf("= [", start) + 2, end + 2).trim();
 const events = JSON.parse(json);
-assert.ok(events.length >= 200, "The 200 organizer-verified Christmas date windows must not shrink without explicit source review");
+assert.ok(events.length >= 203, "The 203 organizer-verified Christmas date windows must not shrink without explicit source review");
 assert.equal(events.length, new Set(events.map((event) => event.slug)).size, "Duplicate Christmas community slugs");
 
 const validDate = /^20\d{2}-\d{2}-\d{2}$/;
@@ -97,6 +97,11 @@ assert.ok(!bySlug.has("rowlett-2026-duplicate-parade"), "Rowlett's festival and 
 
 check("colleyville-2026-christmas-tree-lighting","2026-11-21");
 check("forney-2026-christmas-on-main","2026-12-05");
+check("kaufman-2026-christmas-on-the-square","2026-12-05");
+check("terrell-2026-christmas-parade","2026-12-12");
+check("lockhart-2026-christmas-to-remember","2026-12-04","2026-12-05");
+assert.ok(bySlug.get("terrell-2026-christmas-parade").summary.includes("FLOAT ENTRY fees"), "Terrell spectator entry must not falsely inherit float fees");
+assert.ok(!bySlug.has("lockhart-2026-dickens-christmas"), "Different Lockhart event aliases must not be invented as verified 2026 Dickens dates");
 assert.ok(bySlug.get("forney-2026-christmas-on-main").summary.includes("do not merge"), "Do not treat Christmas on Main as an unverified Forney Christmas in the Park event");
 assert.ok(!bySlug.has("rockwall-2026-kiwanis-christmas-parade"), "Rockwall already has canonical Hometown Christmas coverage; avoid duplicate parade entries");
 assert.ok(bySlug.has("rockwall-hometown-christmas-2026"), "Retain verified canonical Rockwall Christmas listing");
