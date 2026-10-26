@@ -1,0 +1,67 @@
+name: Verify metro day trips production Chrome
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/ci/verify-metro-day-trips-production.mjs'
+      - '.github/workflows/verify-metro-day-trips-production.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/ci/verify-metro-day-trips-production.mjs'
+      - '.github/workflows/verify-metro-day-trips-production.yml'
+      - 'src/data/metro-day-trip-editorial.ts'
+      - 'src/routes/explore.near.$metro.$collection.lazy.tsx'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: metro-day-trips-chrome-${{ github.event.pull_request.number || github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  contract:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check scripts/ci/verify-metro-day-trips-production.mjs && node scripts/ci/verify-metro-day-trips-production.mjs --self-test
+
+  production-chrome:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Require the exact main commit deployed to production
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PRODUCTION_COMMIT_SHA: ${{ github.sha }}
+        run: node scripts/ci/wait-for-protected-production.mjs
+      - name: Prepare Chrome and isolated Playwright driver
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/texasdefined-metro-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+      - name: Check curated metro guides at desktop and mobile sizes
+        run: node scripts/ci/verify-metro-day-trips-production.mjs
+      - name: Preserve screenshots and machine-readable evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: metro-day-trips-production-${{ github.run_id }}
+          path: artifacts/metro-day-trips-production/
+          retention-days: 30
+          if-no-files-found: warn

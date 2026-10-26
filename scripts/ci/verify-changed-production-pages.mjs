@@ -176,6 +176,18 @@ for (const path of plan.selectedPaths) {
       if (finalPage.origin !== origin) throw new Error('Redirect left the production origin');
       const expectedCanonical = finalPage.origin + finalPage.pathname;
       if (links.length !== 1 || actual !== expectedCanonical) throw new Error(`Unexpected canonical: ${actual || 'missing'}`);
+      // Magnolia Waco: ensure current Google-facing metadata and source-verified
+      // free-parking details actually appear in production SSR, not only source.
+      if (path === '/destination/magnolia-market-at-the-silos') {
+        const titleMarkup = html.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i)?.[1] ?? '';
+        const actualTitle = titleMarkup.replace(/&amp;|&#38;|&#x26;/gi, '&');
+        if (!actualTitle.includes('Magnolia Market at the Silos Waco: Hours, Parking & Guide')) {
+          throw new Error('Magnolia Waco SEO title missing from production');
+        }
+        if (!html.includes('9th Street and Webster Avenue')) {
+          throw new Error('Magnolia Waco verified free parking missing from production');
+        }
+      }
       const expectedHrefs = plan.expectedHrefsByPage?.[path] ?? [];
       if (!Array.isArray(expectedHrefs) || expectedHrefs.length > 40) throw new Error('Invalid expected outbound link contract');
       if (expectedHrefs.length) {

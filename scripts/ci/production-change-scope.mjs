@@ -125,6 +125,16 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
     ];
   }
 
+  // The Waco Magnolia visitor record lives in a shared destination corpus.
+  // Verify the exact page and its related Waco guide after SEO or fact updates.
+  if (changedFiles.some(path => path === 'src/data/viator-destination-expansion-base.ts'
+    || path === 'src/lib/seo.ts')) {
+    candidates.add('/destination/magnolia-market-at-the-silos');
+    expectedHrefsByPage['/destination/magnolia-market-at-the-silos'] = [
+      '/article/chip-and-joanna-gaines-magnolia-waco',
+    ];
+  }
+
   // The statewide Mardi Gras hub has a static route and its own event-directory
   // links. Verify it on production when either of its route files changes.
   const mardiGrasHubPages = new Set();

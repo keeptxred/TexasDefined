@@ -162,6 +162,34 @@ for (const [source, needle, label] of [
   [curatedPairings, '"cameron-park-zoo": ["cameron-park-waco"', 'reciprocal Waco park links'],
 ]) requireText(source, needle, label);
 
+// Preserve the October 2026 Waco Silos search/visitor improvement without
+// enlarging eagerly loaded SEO metadata or weakening affiliate disclosures.
+const magnoliaSeo = fs.readFileSync('src/lib/seo.ts', 'utf8');
+const magnoliaData = fs.readFileSync('src/data/viator-destination-expansion-base.ts', 'utf8');
+const magnoliaPlan = fs.readFileSync('scripts/ci/production-change-scope.mjs', 'utf8');
+const magnoliaSmoke = fs.readFileSync('scripts/ci/verify-changed-production-pages.mjs', 'utf8');
+for (const token of [
+  '"/destination/magnolia-market-at-the-silos": {',
+  'Magnolia Market at the Silos Waco: Hours, Parking & Guide',
+  'location at 601 Webster Avenue, parking, shops, bakery',
+]) requireText(magnoliaSeo, token, 'Magnolia Waco SSR SEO');
+const serverSeoStart = magnoliaSeo.indexOf('const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = import.meta.env.SSR ? {');
+const magnoliaSeoAt = magnoliaSeo.indexOf('"/destination/magnolia-market-at-the-silos": {');
+if (!(serverSeoStart >= 0 && magnoliaSeoAt > serverSeoStart && magnoliaSeoAt < magnoliaSeo.indexOf('} : {};', serverSeoStart))) {
+  errors.push('Magnolia Waco metadata must remain SSR-only for the protected client bundle');
+}
+for (const token of [
+  '9th Street and Webster Avenue',
+  'sourceCheckedAt: "2026-10-26"',
+  'https://magnolia.com/pages/visit',
+]) requireText(magnoliaData, token, 'Magnolia current official visitor facts');
+for (const token of [
+  "candidates.add('/destination/magnolia-market-at-the-silos')",
+  "expectedHrefsByPage['/destination/magnolia-market-at-the-silos']",
+]) requireText(magnoliaPlan, token, 'Magnolia change-scoped production verification');
+for (const token of ['Magnolia Waco SEO title missing from production', 'Magnolia Waco verified free parking missing from production'])
+  requireText(magnoliaSmoke, token, 'Magnolia production title/parking assertions');
+
 if (errors.length) {
   console.error('Experience affiliate analytics validation failed:');
   for (const error of errors) console.error(`- ${error}`);
