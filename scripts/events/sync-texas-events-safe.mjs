@@ -48,7 +48,7 @@ const EVENTS = [
   // These source-verified editions flow into the fall hub's supplemental cards.
   // Never infer a new year: require a printed year on the named organizer page.
   { key: "texas-pumpkin-fest", name: "Texas Pumpkin Fest", city: "Leander", region: "hill-country",
-    category: "seasonal", url: "https://texaspumpkinfest.com/", score: 94, months: [10, 11], requireNamedSource: true },
+    category: "seasonal", url: "https://texaspumpkinfest.com/", sourceUrls: ["https://texaspumpkinfest.com/press-release", "https://texaspumpkinfest.com/"], score: 94, months: [10, 11], requireNamedSource: true },
   { key: "houston-pumpkin-festival", name: "Houston Pumpkin Festival", city: "Houston", region: "gulf-coast",
     category: "seasonal", url: "https://www.houstonpumpkinfest.com/", score: 94, months: [9, 10, 11], requireNamedSource: true },
   { key: "uhland-fall-fest", name: "Uhland Fall Fest", city: "Uhland", region: "hill-country",
@@ -166,7 +166,7 @@ function pushCandidate(candidates, start, end, raw, event, futureOnly) {
 
 function findDates(text, event, { futureOnly = true } = {}) {
   const candidates = [];
-  const crossRangePattern = new RegExp(`${MONTH_PATTERN}\\s+(\\d{1,2})\\s*(?:[-–—]|to)\\s*${MONTH_PATTERN}\\s+(\\d{1,2}),?\\s+(20\\d{2})`, "gi");
+  const crossRangePattern = new RegExp(`${MONTH_PATTERN}\\s+(\\d{1,2})\\s*(?:[-–—]|to|through)\\s*${MONTH_PATTERN}\\s+(\\d{1,2}),?\\s+(20\\d{2})`, "gi");
   for (const match of text.matchAll(crossRangePattern)) {
     const start = parseDate(match[1], match[2], match[5]);
     const end = parseDate(match[3], match[4], match[5]);
