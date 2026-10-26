@@ -175,9 +175,9 @@ function MardiGrasTexasPage() {
 
     <Container className="py-10 sm:py-14">
       <section aria-label="At a glance" className="grid gap-5 md:grid-cols-3">
-        <div className="border border-border bg-surface px-5 p-6"><p className="text-3xl font-display">8</p><p className="mt-2 text-sm font-semibold">Source-confirmed 2027 local guides</p></div>
-        <div className="border border-border bg-surface px-5 p-6"><p className="text-3xl font-display">Jan 23 – Feb 9</p><p className="mt-2 text-sm font-semibold">Verified celebrations, not continuous daily programming</p></div>
-        <div className="border border-border bg-surface px-5 p-6"><p className="text-3xl font-display">4</p><p className="mt-2 text-sm font-semibold">Additional recurring celebrations awaiting date confirmation</p></div>
+        <div className="border border-border bg-surface p-6"><p className="text-3xl font-display">{confirmed.length}</p><p className="mt-2 text-sm font-semibold">Source-confirmed 2027 local guides</p></div>
+        <div className="border border-border bg-surface p-6"><p className="text-3xl font-display">Jan 23 – Feb 9</p><p className="mt-2 text-sm font-semibold">Verified celebrations, not continuous daily programming</p></div>
+        <div className="border border-border bg-surface p-6"><p className="text-3xl font-display">{pending.length}</p><p className="mt-2 text-sm font-semibold">Additional recurring celebrations awaiting date confirmation</p></div>
       </section>
 
       <section id="confirmed" className="mt-14">
@@ -186,9 +186,9 @@ function MardiGrasTexasPage() {
         <p className="mt-4 max-w-4xl leading-7 text-muted-foreground">Every linked guide is a distinct event, not a generic generated calendar listing. Confirmed dates are shown below; a celebration with multiple days can still have separate ticketing, parade times and venues.</p>
         <div className="mt-8 grid gap-5 md:grid-cols-2">
           {confirmed.map((event) => <article key={event.slug} className="flex flex-col border border-border p-6">
-            <div className="flex gap-3">
+            <div className="flex flex-wrap items-center gap-2">
               <span className="text-xs font-semibold text-primary">{event.region} · {event.city}</span>
-              <span className="bg-surface px-5 py-3 text-xs font-semibold">{event.kind}</span>
+              <span className="bg-surface px-3 py-1 text-xs font-semibold">{event.kind}</span>
             </div>
             <h3 className="mt-4 font-display text-3xl"><a href={"/event/" + event.slug} className="hover:text-primary">{event.name}</a></h3>
             <p className="mt-3 font-semibold">{event.date}</p>
@@ -302,7 +302,7 @@ function MardiGrasTexasPage() {
       <section id="watchlist" className="mt-14 border-t border-border pt-10">
         <p className="eyebrow text-primary">Annual traditions, not confirmed 2027 dates</p>
         <h2 className="mt-3 font-display text-4xl">Other Texas Mardi Gras celebrations to watch</h2>
-        <p className="mt-4 max-w-4xl leading-7 text-muted-foreground">These events deserve coverage, but as of October 21, 2026 a credible, current 2027 date was not verified. We do not roll last year's date forward or publish unverified ticket and Event structured data. Visit the organizers below for the next announcement.</p>
+        <p className="mt-4 max-w-4xl leading-7 text-muted-foreground">These events deserve coverage, but as of October 2026 a credible, current 2027 date was not verified. We do not roll last year's date forward or publish unverified ticket and Event structured data. Visit the organizers below for the next announcement.</p>
         <div className="mt-7 grid gap-5 md:grid-cols-2">
           {pending.map((event) => <article className="border border-border p-6" key={event.name}>
             <p className="text-xs font-semibold text-muted-foreground">{event.city} · Date pending</p>
