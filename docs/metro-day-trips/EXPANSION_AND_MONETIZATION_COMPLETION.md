@@ -12,18 +12,25 @@ Last reconciled: October 26, 2026. This is a living production ledger, **not** a
 ## Existing expansion releases
 - [PR #5891](https://github.com/keeptxred/TexasDefined/pull/5891), merged October 25: initial Houston, San Antonio and Corpus Christi curated guides plus optional stay and local partner inquiry.
 - [PR #5893](https://github.com/keeptxred/TexasDefined/pull/5893), merged October 25: Austin, Dallas, Fort Worth curated guides plus verified Viator market CTAs.
-- All ten cities use the **existing** `/explore/near/{metro}/day-trips` route. No duplicate route or weakened source/index threshold.
+- The original six expanded cities use the **existing** `/explore/near/{metro}/day-trips` route. No duplicate route or weakened source/index threshold.
 
 ## October 26 merged changes (source implemented; release evidence separate)
-- [PR #5984](https://github.com/keeptxred/TexasDefined/pull/5984): merge SHA `972ed15359f6b9f1f58e9d566719ec47b6cd97b5`. Source-backed curation for Waco (4 choices), Beaumont–Port Arthur (4), College Station (3), Tyler (3); total candidate editorial registry spans ten metros. Candidates render only when the independently governed resolved destination qualifies for that index-ready collection. A destination record, a route's existence, and a rendered featured card are **different** acceptance stages.
+- [PR #5984](https://github.com/keeptxred/TexasDefined/pull/5984): merge SHA `972ed15359f6b9f1f58e9d566719ec47b6cd97b5`. Source-backed curation for Waco (4 choices), Beaumont–Port Arthur (4), College Station (3), Tyler (3); combined candidate editorial registry spans ten metros (four additional metros follow in #5995). Candidates render only when the independently governed resolved destination qualifies for that index-ready collection. A destination record, a route's existence, and a rendered featured card are **different** acceptance stages.
 - #5984 adds first-party, visible-on-screen Viator module impressions with StrictMode-safe deduplication and a coarse mobile/desktop device class; existing approved tracked links and the shared affiliate-click architecture remain authoritative. These measurements are neither bookings nor commissions.
 - #5984 adds [weekly GitHub source monitor](../../.github/workflows/verify-metro-day-trips-sources.yml) using [the non-destructive link verifier](../../scripts/data/check-metro-day-trips-sources.mjs). It checks operator URLs, confirms a HEAD rejection with GET, reports true 404/410 separately from ambiguous errors, and saves a dated JSON artifact. It does not fabricate replacements or auto-publish researched content.
 - #5984's required merge gate passed after fixing a test fixture that appeared to define a duplicate affiliate-click emitter. No existing tests or client performance limits were weakened.
-- [PR #5989](https://github.com/keeptxred/TexasDefined/pull/5989): merge SHA `8f369f3440abc8d32440cbcf9543426be51b4365`; introduces [ten-market/two-viewport Chrome acceptance](../../.github/workflows/verify-metro-day-trips-production.yml) with screenshots and machine-readable report. Actual production execution must be evaluated separately. This complements, rather than replaces, the McAllen 47/47 browser contract.
+- [PR #5989](https://github.com/keeptxred/TexasDefined/pull/5989): merge SHA `8f369f3440abc8d32440cbcf9543426be51b4365`; introduces [initial ten-market/two-viewport Chrome acceptance](../../.github/workflows/verify-metro-day-trips-production.yml) with screenshots and machine-readable report. Actual production execution must be evaluated separately. This complements, rather than replaces, the McAllen 47/47 browser contract.
+
+## Four additional West Texas markets — merged, verification conditional
+- [PR #5995](https://github.com/keeptxred/TexasDefined/pull/5995), merge SHA `d39a845bc24297a05644db8804e01bc5bc2debe2`: three Amarillo leads (Palo Duro Canyon, Alibates Flint Quarries and Lake Meredith); four Lubbock leads (Caprock Canyons, Palo Duro Canyon, Big Spring and Lake Colorado City); four Midland–Odessa leads (Monahans Sandhills, Big Spring, Balmorhea and Lake Colorado City); three El Paso leads (Hueco Tanks, Franklin Mountains and Guadalupe Mountains).
+- All 14 added West Texas candidates include real state/federal operator sources and conditional visitor checks, including the Alibates guided-tour reservation requirement, Hueco Tanks restricted access, and Balmorhea timed entry.
+- Editorial selection now spans **14 existing metro guide markets** in addition to McAllen, conditional on catalog and indexing eligibility. Candidate count is not rendered-card or indexed-page count.
+- #5995 extends the Chrome contract to **14 metros × 2 viewports**; an acceptance contract check by itself is not a production screenshot check.
+- [PR #5997](https://github.com/keeptxred/TexasDefined/pull/5997) separately introduces verified McAllen-area and South Padre Island hotel-directory CJ deep links and three existing exact-property Waco weekend stays. Its changes are **not production-complete until its own protected checks, merge and deployment succeed**. It replaces generic lodging copy without adding unapproved affiliate partners or claiming rooms are available.
 
 ## Production reconciliation — release still requires proof
 - #5984 production deploy started as [GitHub Actions run 40373379697](https://github.com/keeptxred/TexasDefined/actions/runs/40373379697). Exact deployment outcome and Worker version must be appended only after confirmed success.
-- Ten-market Chrome acceptance for #5984: [run 40373379707](https://github.com/keeptxred/TexasDefined/actions/runs/40373379707) was queued at this ledger's creation. A queued, skipped or syntax-only workflow does **not** establish desktop/mobile acceptance.
+- Initial ten-market Chrome acceptance for #5984: [run 40373379707](https://github.com/keeptxred/TexasDefined/actions/runs/40373379707) was queued at this ledger's creation. A queued, skipped or syntax-only workflow does **not** establish desktop/mobile acceptance.
 - Source checks and feature branch tests are not substitutes for verifying the canonical production domain, Worker release, affiliate surfaces and screenshot artifacts.
 
 ## Site URLs (governed by live eligibility; not all asserted indexed)
@@ -38,10 +45,15 @@ Last reconciled: October 26, 2026. This is a living production ledger, **not** a
 - https://texasdefined.com/explore/near/college-station/day-trips
 - https://texasdefined.com/explore/near/tyler/day-trips
 
+- https://texasdefined.com/explore/near/amarillo/day-trips
+- https://texasdefined.com/explore/near/lubbock/day-trips
+- https://texasdefined.com/explore/near/midland-odessa/day-trips
+- https://texasdefined.com/explore/near/el-paso/day-trips
+
 ## Still open or conditional
 1. Release must pass actual protected production, Worker and canonical health and Chrome artifacts (no false claim when any workflow is pending, cancelled or skipped).
 2. Some markets may be noindex due to insufficient independently source-backed geographic variety; **do not** force thin pages into indexing to raise the number of URLs.
-3. Additional qualifying metro guides including Amarillo, Lubbock, Midland–Odessa and El Paso need distinct source checks and quality-gated expansion when their real inventory is sufficient. El Paso had only two public source-backed results in an October 26 check, so it was correctly left noindex.
+3. The four western metros have source-backed curation candidates after #5995, but may remain noindex or show fewer highlights if live catalog diversity is not sufficient; El Paso had only two public source-backed results in an October 26 check, so preserve its noindex gate. Future city work must prioritize real variety and complete individual authority pages over adding empty SEO URLs.
 4. Do not assert final licensed photos, hero correctness, image loading or responsive map success without screenshots. A text/editorial card is not the same as McAllen's richer ten-photo verification.
 5. Source monitoring is read-only; fresh state-park closures, operator notices, events, hotel availability and affiliate targets still require official verification. A 403/rate limit is not a proven expired URL.
 6. Approved Viator market landing pages may be shown, but no individual tour, dated event or room availability is implied. Attribution and placement must be checked live. No AdSense claim: TexasDefined is not yet approved.
