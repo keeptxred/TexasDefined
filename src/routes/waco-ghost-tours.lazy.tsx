@@ -65,6 +65,7 @@ function WacoGhostToursPage() {
           <div>
             <h2 className="font-display text-3xl">Pair your tour with an authoritative Waco guide</h2>
             <ul className="mt-4 space-y-3 text-sm leading-7">
+              <li><a className="text-primary underline underline-offset-4" href="/waco-attractions">Compare all seven Waco attraction visitor guides →</a></li>
               <li><a className="text-primary underline underline-offset-4" href="/destination/dr-pepper-museum-waco">Dr Pepper Museum visitor and history guide →</a></li>
               <li><a className="text-primary underline underline-offset-4" href="/destination/waco-suspension-bridge">Waco Suspension Bridge and riverfront →</a></li>
               <li><a className="text-primary underline underline-offset-4" href="/destination/cameron-park-waco">Cameron Park: trails and history →</a></li>
