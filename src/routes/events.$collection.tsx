@@ -232,7 +232,7 @@ function FallFestivalBrowser({ page }: { page: any }) {
       {events.map((event) => <li key={event.slug} data-fall-start-date={event.startDate} data-fall-end-date={event.endDate ?? event.startDate} data-fall-name={event.name} className="bg-background p-6">
         {events.indexOf(event) < 6 ? <WeekendEventImage event={event} eager={false} /> : null}
         <p className="eyebrow mt-4 text-muted-foreground">{event.city}{event.countyName ? ` · ${event.countyName}` : ""}</p>
-        <p className="mt-2 text-xs font-semibold uppercase text-primary">{event.startDate <= page.fallToday ? "Ongoing now" : "Upcoming"} · {holidayDateLabel(event.startDate, event.endDate)}</p>
+        <p className="mt-2 text-xs font-semibold uppercase text-primary">{event.startDate <= page.fallToday ? "Season underway · check operating days" : "Upcoming"} · {holidayDateLabel(event.startDate, event.endDate)}</p>
         <h3 className="mt-3 font-display text-2xl leading-tight"><EventGuideLink event={event} className="hover:text-primary">{event.name}</EventGuideLink></h3>
         <p className="mt-3 text-sm leading-6 text-muted-foreground">{event.detail}</p>
         <EventGuideLink event={event} className="mt-5 inline-block text-sm font-semibold text-primary">Event guide & official sources →</EventGuideLink>
