@@ -236,6 +236,32 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "Visit The Woodlands confirms seasonal light displays along the Waterway from November 21, 2026 through January 3, 2027. The illuminated walking route is separate from ticketed Ice Rink skating sessions and themed boat rentals."
   },
   {
+    "slug": "kerrville-holiday-lighted-parade-2026",
+    "title": "Kerrville Holiday Lighted Parade · 25th annual",
+    "city": "Kerrville",
+    "countySlug": "kerr",
+    "countyName": "Kerr County",
+    "region": "hill-country",
+    "startDate": "2026-11-21",
+    "venueName": "Downtown Kerrville · Water Street to Kerr County Courthouse",
+    "officialEventUrl": "https://kerrvilletx.gov/1344/Holiday-Lighted-Parade",
+    "sourceName": "City of Kerrville Parks and Recreation",
+    "summary": "The city confirms the free 25th Annual Holiday Lighted Parade Saturday November 21, 2026 beginning around 6 p.m. Floats travel from G Street Bridge along Water Street, then Earl Garrett Street toward the Kerr County Courthouse. The separate Merry on the Square begins earlier at 4 p.m."
+  },
+  {
+    "slug": "kerrville-merry-on-the-square-2026",
+    "title": "Kerrville Merry on the Square and Courthouse Tree Lighting",
+    "city": "Kerrville",
+    "countySlug": "kerr",
+    "countyName": "Kerr County",
+    "region": "hill-country",
+    "startDate": "2026-11-21",
+    "venueName": "Kerr County Courthouse Square · Downtown Kerrville",
+    "officialEventUrl": "https://kerrvillechristmaslighting.com/merry-on-the-square-event",
+    "sourceName": "Kerrville Christmas Lighting Corporation",
+    "summary": "The Kerrville Christmas Lighting Corporation confirms Merry on the Square Saturday November 21, 2026 starting at 4 p.m., with vendors, children's crafts, food trucks, performances and characters. Courthouse lights and its 50-foot Christmas tree switch on after the separate city-run 6 p.m. lighted parade; check event-day road closures."
+  },
+  {
     "slug": "allen-watters-creek-light-the-night-2026",
     "title": "Light the Night · Watters Creek Allen",
     "city": "Allen",
@@ -302,6 +328,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.visitsanantonio.com/event/six-flags-holiday-in-the-park/13246/",
     "sourceName": "Visit San Antonio / Six Flags Fiesta Texas",
     "summary": "Six Flags Holiday in the Park is ticketed and runs selected 2026 dates. This window follows Visit San Antonio's day-by-day list rather than assuming daily park operation. Current park admission covers many shows and select rides; extras cost more. The December 26–New Year program has separate scheduling."
+  },
+  {
+    "slug": "southlake-home-for-the-holidays-2026",
+    "title": "Southlake Home for the Holidays · Christmas Tree Lighting",
+    "city": "Southlake",
+    "countySlug": "tarrant",
+    "countyName": "Tarrant County",
+    "region": "prairies-lakes",
+    "startDate": "2026-11-21",
+    "venueName": "Southlake Town Square · 1400 E. Southlake Boulevard",
+    "officialEventUrl": "https://visitsouthlaketexas.com/events/special-events-7/home-for-the-holidays/",
+    "sourceName": "Visit Southlake / City of Southlake",
+    "summary": "The official Southlake event calendar confirms Saturday November 21, 2026 from 4:30–8:30 p.m. for the free Home for the Holidays tree-lighting celebration at Town Square. Expect school performances, photos with Santa, a snow hill and free parking in designated garages; check city road restrictions and program changes."
   },
   {
     "slug": "fort-worth-parade-of-lights",
@@ -1295,6 +1334,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "Mesquite confirms Christmas in the Park Saturday and Sunday December 5–6, 2026, 2–8 p.m. both days at Westlake Park. Park admission and parking are free, but an optional $12 activity wristband applies to some activities. Performances, lights, character visits and fireworks are subject to the official program."
   },
   {
+    "slug": "nacogdoches-nine-flags-parade-2026",
+    "title": "Nacogdoches Nine Flags Lighted Christmas Parade",
+    "city": "Nacogdoches",
+    "countySlug": "nacogdoches",
+    "countyName": "Nacogdoches County",
+    "region": "piney-woods",
+    "startDate": "2026-12-05",
+    "venueName": "Historic Downtown Nacogdoches · 200 E. Main Street",
+    "officialEventUrl": "https://www.visitnacogdoches.org/events/nine-flags-lighted-christmas-parade/6a6235e957fa3848e06cc7a2",
+    "sourceName": "Visit Nacogdoches / Nacogdoches Area United Way",
+    "summary": "The official Nine Flags Christmas Festival calendar confirms the Lighted Christmas Parade on Saturday December 5, 2026 at 6:30 p.m. Downtown brick streets fill with lighted floats under the theme Christmas in Toyland. This is a confirmed parade date, not proof the full festival runs every day in November and December."
+  },
+  {
     "slug": "natural-bridge-christmas-caverns-opening-2026",
     "title": "Natural Bridge Caverns Christmas at the Caverns · opening night",
     "city": "San Antonio",
@@ -1320,6 +1372,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.cor.net/departments/parks-recreation/community-events/santa-s-village-at-huffhines-park",
     "sourceName": "City of Richardson",
     "summary": "The first official free Santa's Village activity weekend runs December 5–6, 6–9 p.m., with photos with Santa, live music, interactive holiday buildings and free parking."
+  },
+  {
+    "slug": "rockwall-hometown-christmas-2026",
+    "title": "Rockwall Hometown Christmas · parade, festival and tree lighting",
+    "city": "Rockwall",
+    "countySlug": "rockwall",
+    "countyName": "Rockwall County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-05",
+    "venueName": "Historic Downtown Rockwall and City Hall · 385 S. Goliad Street",
+    "officialEventUrl": "https://www.rockwall.com/event_hometownchristmas.asp",
+    "sourceName": "City of Rockwall Parks and Recreation",
+    "summary": "The City of Rockwall confirms Saturday December 5, 2026: the Kiwanis Christmas Parade 9–10:30 a.m., downtown Hometown Christmas Festival 10 a.m.–5 p.m., then city tree lighting 6–8 p.m. at City Hall. The free trolley connects designated downtown stops; some market purchases and activities may cost extra."
   },
   {
     "slug": "san-antonio-fiesta-texas-holiday-3",
@@ -2089,7 +2154,7 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The final five January evenings of the 2026–27 Marktplatz lighting program; December 31 is omitted because the special New Year's Eve event replaces the regular countdown.",
     "endDate": "2027-01-05"
   }
-];;;;;;;;
+];;;;;;;;;
 
 // Reuse comprehensive guides where they exist. The dated occurrence remains
 // an independent calendar record, so closing days are never falsely listed.
