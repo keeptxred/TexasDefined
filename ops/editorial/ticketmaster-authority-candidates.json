@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-10-25T14:57:54.418Z",
+  "fetchedAt": "2026-10-26T03:41:31.552Z",
   "candidates": [
     {
       "name": "Austin Championship",
@@ -301,6 +301,30 @@
       ],
       "officialTicketUrls": [
         "https://www.ticketmaster.com/fwssr-college-rodeo-fort-worth-texas-01-22-2027/event/0C006522BEAA95A7"
+      ],
+      "status": "requires-organizer-verification",
+      "evidence": {
+        "organizerUrl": null,
+        "recurrenceVerified": false,
+        "currentScheduleVerified": false,
+        "imageRightsVerified": false
+      },
+      "publicationAllowed": false
+    },
+    {
+      "name": "FWSSR: College Rodeo Finals",
+      "city": "Fort Worth",
+      "dates": [
+        "2027-01-23"
+      ],
+      "venues": [
+        "Will Rogers Coliseum"
+      ],
+      "ticketmasterIds": [
+        "vvG1YZ_31Xlypl"
+      ],
+      "officialTicketUrls": [
+        "https://www.ticketmaster.com/fwssr-college-rodeo-finals-fort-worth-texas-01-23-2027/event/0C006522BEAF95AB"
       ],
       "status": "requires-organizer-verification",
       "evidence": {
@@ -716,7 +740,8 @@
         "2027-01-15",
         "2027-01-16",
         "2027-01-17",
-        "2027-01-22"
+        "2027-01-22",
+        "2027-01-23"
       ],
       "venues": [
         "Cowtown Coliseum"
@@ -762,8 +787,10 @@
         "Z7r9jZ1AA7KQ_",
         "Z7r9jZ1AA7KQb",
         "Z7r9jZ1AA7Kj6",
+        "Z7r9jZ1AA7KjF",
         "Z7r9jZ1AA7Kje",
-        "Z7r9jZ1AAvPq3"
+        "Z7r9jZ1AAvPq3",
+        "Z7r9jZ1AAvPqK"
       ],
       "officialTicketUrls": [
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OY4E",
@@ -806,8 +833,10 @@
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7KQ_",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7KQb",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7Kj6",
+        "https://www.ticketmaster.com/event/Z7r9jZ1AA7KjF",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7Kje",
-        "https://www.ticketmaster.com/event/Z7r9jZ1AAvPq3"
+        "https://www.ticketmaster.com/event/Z7r9jZ1AAvPq3",
+        "https://www.ticketmaster.com/event/Z7r9jZ1AAvPqK"
       ],
       "status": "requires-organizer-verification",
       "evidence": {
