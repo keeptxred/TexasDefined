@@ -12,57 +12,47 @@
     "total": 1292
   },
   "batch": {
-    "number": 8,
+    "number": 9,
     "slugs": [
-      "buckholts",
-      "buda-hays",
-      "buda-johnson",
-      "buffalo",
-      "bullard",
-      "buna",
-      "burkburnett",
-      "burkeville",
-      "burleson",
-      "burleson-centennial",
-      "burnet",
-      "burton",
-      "bushland",
-      "bynum",
-      "caddo-mills",
-      "caldwell",
-      "callisburg",
-      "calvert",
-      "cameron-yoe",
-      "campbell",
-      "canadian",
-      "canton",
-      "canutillo",
-      "canyon",
-      "canyon-randall"
+      "canyon-west-plains",
+      "carrizo-springs",
+      "carrollton-creekview",
+      "carrollton-ranchview",
+      "carrollton-smith",
+      "carrollton-turner",
+      "carthage",
+      "castle-hills",
+      "castroville-medina-valley",
+      "cayuga",
+      "cedar-hill",
+      "cedar-park",
+      "cedar-park-vista-ridge",
+      "celeste",
+      "celina",
+      "center",
+      "center-point",
+      "centerville",
+      "channelview",
+      "charlotte",
+      "cherokee",
+      "chester",
+      "chico",
+      "childress",
+      "chillicothe"
     ],
-    "state": "VERIFIED_BATCH_008_COMPLETE",
-    "dateAssigned": "2026-10-25",
-    "selectionRule": "First 25 NOT_REVIEWED and unassigned canonical schoolRecords in stable order after verified Batch 007; previous 155 VERIFIED preserved.",
-    "individuallyVerified": 25,
-    "remainingAssigned": 0,
-    "assignmentBranch": "football-authority-batch-008-20261025",
-    "repositoryMainAtAssignment": "84f529082bc16063bd28f9d21e762e69da96fd74",
+    "state": "IN_PROGRESS",
+    "dateAssigned": "2026-10-26",
+    "selectionRule": "First 25 canonical NOT_REVIEWED programs after Batch 008 technical VERIFIED; source-backed first-five group only",
+    "individuallyVerified": 0,
+    "remainingAssigned": 25,
+    "assignmentBranch": "football-authority-batch-009-five-schools-20261026",
     "maxSchoolsPerBatch": 25,
     "currentSchool": null,
-    "nextSchool": null,
-    "implementedOnBranch": 25,
-    "remainingToImplement": 0,
-    "remainingToVerify": 0,
-    "notes": "All 25 Batch 008 source-backed authority school pages were protected-merged in #5899 and individually passed independent production Chrome workflow #40270132758, successfully run after exact deploy 40269689784. 75/75 school desktop/mobile/320px, source graphics, 20/20 reciprocal counties, 25/25 sitemap, 170 screenshots, zero failures, one Worker 0fef7853-6d1b-44ca-a5ed-080a0f4b9570; artifact 12628650341. Earlier green Batch008 workflow runs skipped all Chrome steps, and are not used as acceptance. Historical 155 VERIFIED preserved. Optional manual editorial/photo rights/accessibility/stadium details never falsely certified. No Batch 009 assigned.",
-    "implementationMergedPr": 5899,
-    "implementationMergeCommit": "4245906ea485a09095ea3684878bde0ea64abc14",
-    "implementationMergedAt": "2026-10-25",
-    "verifiedAt": "2026-10-26T04:41:12Z",
-    "productionBrowserRunId": 40270132758,
-    "screenshotArtifactId": 12628650341,
-    "acceptedWorkerVersion": "0fef7853-6d1b-44ca-a5ed-080a0f4b9570",
-    "verifiedProductionDeployRun": 40269689784,
-    "verifiedProductionSha": "9901f7503a31986222c248a53e64950b6939897f"
+    "nextSchool": "carrollton-turner",
+    "implementedOnBranch": 5,
+    "remainingToImplement": 20,
+    "remainingToVerify": 25,
+    "notes": "Initial five have individualized source-backed Batch 009 editorials on PR branch; not yet production verified. Previously 180 VERIFIED preserved. Remaining assigned 20 NOT_REVIEWED."
   },
   "statusValues": [
     "NOT_REVIEWED",
@@ -9133,8 +9123,16 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/canyon-west-plains",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "IMPLEMENTED",
+      "batch": 9,
+      "audit": "docs/football-authority/schools/canyon-west-plains.md",
+      "auditCompletedAt": "2026-10-26",
+      "researchCompletedAt": "2026-10-26",
+      "implementedAt": "2026-10-26",
+      "implementedOnBranch": "football-authority-batch-009-five-schools-20261026",
+      "actualProductionVerified": false,
+      "implementationNotes": "Individual 2026 source-backed program editorial, coach/season/venue caveats and relevant FAQ; code is on PR branch, not merged/deployed/verified",
+      "mediaStatus": "Original TexasDefined editorial color panels only, no external photography or school insignia."
     },
     {
       "id": "uil:carrizo-springs",
@@ -9147,8 +9145,16 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/carrizo-springs",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "IMPLEMENTED",
+      "batch": 9,
+      "audit": "docs/football-authority/schools/carrizo-springs.md",
+      "auditCompletedAt": "2026-10-26",
+      "researchCompletedAt": "2026-10-26",
+      "implementedAt": "2026-10-26",
+      "implementedOnBranch": "football-authority-batch-009-five-schools-20261026",
+      "actualProductionVerified": false,
+      "implementationNotes": "Individual 2026 source-backed program editorial, coach/season/venue caveats and relevant FAQ; code is on PR branch, not merged/deployed/verified",
+      "mediaStatus": "Original TexasDefined editorial color panels only, no external photography or school insignia."
     },
     {
       "id": "uil:carrollton-creekview",
@@ -9161,8 +9167,16 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/carrollton-creekview",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "IMPLEMENTED",
+      "batch": 9,
+      "audit": "docs/football-authority/schools/carrollton-creekview.md",
+      "auditCompletedAt": "2026-10-26",
+      "researchCompletedAt": "2026-10-26",
+      "implementedAt": "2026-10-26",
+      "implementedOnBranch": "football-authority-batch-009-five-schools-20261026",
+      "actualProductionVerified": false,
+      "implementationNotes": "Individual 2026 source-backed program editorial, coach/season/venue caveats and relevant FAQ; code is on PR branch, not merged/deployed/verified",
+      "mediaStatus": "Original TexasDefined editorial color panels only, no external photography or school insignia."
     },
     {
       "id": "uil:carrollton-ranchview",
@@ -9175,8 +9189,16 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/carrollton-ranchview",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "IMPLEMENTED",
+      "batch": 9,
+      "audit": "docs/football-authority/schools/carrollton-ranchview.md",
+      "auditCompletedAt": "2026-10-26",
+      "researchCompletedAt": "2026-10-26",
+      "implementedAt": "2026-10-26",
+      "implementedOnBranch": "football-authority-batch-009-five-schools-20261026",
+      "actualProductionVerified": false,
+      "implementationNotes": "Individual 2026 source-backed program editorial, coach/season/venue caveats and relevant FAQ; code is on PR branch, not merged/deployed/verified",
+      "mediaStatus": "Original TexasDefined editorial color panels only, no external photography or school insignia."
     },
     {
       "id": "uil:carrollton-smith",
@@ -9189,8 +9211,16 @@
       "format": "11-Man",
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/carrollton-smith",
-      "status": "NOT_REVIEWED",
-      "batch": null
+      "status": "IMPLEMENTED",
+      "batch": 9,
+      "audit": "docs/football-authority/schools/carrollton-smith.md",
+      "auditCompletedAt": "2026-10-26",
+      "researchCompletedAt": "2026-10-26",
+      "implementedAt": "2026-10-26",
+      "implementedOnBranch": "football-authority-batch-009-five-schools-20261026",
+      "actualProductionVerified": false,
+      "implementationNotes": "Individual 2026 source-backed program editorial, coach/season/venue caveats and relevant FAQ; code is on PR branch, not merged/deployed/verified",
+      "mediaStatus": "Original TexasDefined editorial color panels only, no external photography or school insignia."
     },
     {
       "id": "uil:carrollton-turner",
@@ -9204,7 +9234,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/carrollton-turner",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 9
     },
     {
       "id": "uil:carthage",
@@ -9218,7 +9248,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/carthage",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 9
     },
     {
       "id": "featured:castle-hills",
@@ -9232,7 +9262,7 @@
       "source": "src/data/high-school-football/featured-programs.ts",
       "url": "https://texasdefined.com/texas-high-school-football-teams/castle-hills",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 9
     },
     {
       "id": "uil:castroville-medina-valley",
@@ -9246,7 +9276,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/castroville-medina-valley",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 9
     },
     {
       "id": "uil:cayuga",
@@ -9260,7 +9290,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/cayuga",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 9
     },
     {
       "id": "uil:cedar-hill",
@@ -9274,7 +9304,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/cedar-hill",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 9
     },
     {
       "id": "uil:cedar-park",
@@ -9288,7 +9318,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/cedar-park",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 9
     },
     {
       "id": "uil:cedar-park-vista-ridge",
@@ -9302,7 +9332,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/cedar-park-vista-ridge",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 9
     },
     {
       "id": "uil:celeste",
@@ -9316,7 +9346,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/celeste",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 9
     },
     {
       "id": "uil:celina",
@@ -9330,7 +9360,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/5AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/celina",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 9
     },
     {
       "id": "uil:center",
@@ -9344,7 +9374,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/center",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 9
     },
     {
       "id": "uil:center-point",
@@ -9358,7 +9388,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/center-point",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 9
     },
     {
       "id": "uil:centerville",
@@ -9372,7 +9402,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/centerville",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 9
     },
     {
       "id": "uil:channelview",
@@ -9386,7 +9416,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/channelview",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 9
     },
     {
       "id": "uil:charlotte",
@@ -9400,7 +9430,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/charlotte",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 9
     },
     {
       "id": "uil:cherokee",
@@ -9414,7 +9444,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/cherokee",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 9
     },
     {
       "id": "uil:chester",
@@ -9428,7 +9458,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/chester",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 9
     },
     {
       "id": "uil:chico",
@@ -9442,7 +9472,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/chico",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 9
     },
     {
       "id": "uil:childress",
@@ -9456,7 +9486,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/3AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/childress",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 9
     },
     {
       "id": "uil:chillicothe",
@@ -9470,7 +9500,7 @@
       "source": "https://realignment.uiltexas.org/alignments/2026/1AD2FB2026.pdf",
       "url": "https://texasdefined.com/texas-high-school-football-teams/chillicothe",
       "status": "NOT_REVIEWED",
-      "batch": null
+      "batch": 9
     },
     {
       "id": "uil:chilton",

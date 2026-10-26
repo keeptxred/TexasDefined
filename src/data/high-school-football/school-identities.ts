@@ -12,6 +12,21 @@ export type VerifiedFootballSchoolIdentity = {
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
   {
+    slug: 'carrizo-springs',
+    mascot: 'Wildcats',
+    sourceUrl: 'https://cshs.cscisd.net/',
+    sourceLabel: 'Carrizo Springs High School first-party Home of the Wildcats campus identity',
+    verifiedAt: '2026-10-26',
+  },
+  {
+    slug: 'carrollton-ranchview',
+    mascot: 'Wolves',
+    colors: 'Blue, White and Teal',
+    sourceUrl: 'https://ranchview.cfbisd.edu/campus-information',
+    sourceLabel: 'Ranchview High School official campus history and CFBISD campus fact sheet identify Wolves; no official marks reused',
+    verifiedAt: '2026-10-26',
+  },
+  {
     slug: 'all-saints-fort-worth',
     mascot: 'Saints',
     sourceUrl: 'https://www.aseschool.org/community/news/details/~board/all-school-news/post/three-state-championships-this-fall',

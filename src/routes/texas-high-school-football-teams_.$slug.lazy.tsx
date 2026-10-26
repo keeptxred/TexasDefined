@@ -15,6 +15,10 @@ import {
 
 // Original, school-specific source-derived visual finals; no unlicensed school photos, logos or seals.
 const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([
+  'canyon-west-plains',
+  'carrizo-springs',
+  'carrollton-creekview',
+  'carrollton-ranchview',
   'buckholts',
   'buda-hays',
   'buda-johnson',
@@ -153,6 +157,11 @@ function Page() {
   // Campus-county mapping for individually sourced Batch 002 profiles;
   // city names and district service areas are not dependable campus-county proxies.
   const researchedCampusCounty: Record<string, string> = {
+    'canyon-west-plains': 'randall', // Official West Plains High Arden Road campus; Randall County, not the shared stadium gate.
+    'carrizo-springs': 'dimmit', // Carrizo Springs CISD school campus Dimmit County; Frank Carter Stadium access is a separate event detail.
+    'carrollton-creekview': 'denton', // NCES CCD 481305007852: Creekview 3201 Old Denton Road campus in Denton County.
+    'carrollton-ranchview': 'dallas', // TDLR building record places official Ranchview campus in Irving, Dallas County.
+    'carrollton-smith': 'dallas', // City of Carrollton 2022 campus permit places Newman Smith 2335 N Josey Lane in Dallas County.
     'buckholts': 'milam', // Buckholts HS campus in Buckholts, Milam County; spectator gate not independently verified.
     'buda-hays': 'hays', // Hays High official 4800 Jack C. Hays Trail campus in Buda, Hays County.
     'buda-johnson': 'hays', // Johnson High official 4260 FM 967 campus in Buda, Hays County; Bob Shelton Stadium is separate.

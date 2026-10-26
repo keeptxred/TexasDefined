@@ -15,6 +15,7 @@ import { UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28 } from './uil-football-enrollmen
 import { getVerifiedFootballSchoolIdentity } from './school-identities';
 import { getFootballProgramEditorial } from './program-editorial';
 import { loadBatch008FootballProgramEditorial } from './program-editorial-b008-loader.server';
+import { loadBatch009FootballProgramEditorial } from './program-editorial-b009-loader.server';
 import { applyAubreyAutoResults } from './aubrey-auto-results';
 import { buildFootballProfileFaq, buildFootballProfileQuickFacts, buildFootballProfileSummary } from './football-profile-content';
 import {
@@ -257,7 +258,10 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
     officialSchoolName: program.officialSchoolName,
     districtName: program.districtName,
   });
-  const baseEditorial = (await loadBatch008FootballProgramEditorial(canonicalSlug)) ?? getFootballProgramEditorial(canonicalSlug);
+  // Preserve Batch 008's validated precedence; only replace the result on a
+  // source-backed, individually implemented Batch 009 slug.
+  const batch008OrBaseEditorial = (await loadBatch008FootballProgramEditorial(canonicalSlug)) ?? getFootballProgramEditorial(canonicalSlug);
+  const baseEditorial = (await loadBatch009FootballProgramEditorial(canonicalSlug)) ?? batch008OrBaseEditorial;
   const editorial = canonicalSlug === 'aubrey'
     ? applyAubreyAutoResults(baseEditorial)
     : baseEditorial;

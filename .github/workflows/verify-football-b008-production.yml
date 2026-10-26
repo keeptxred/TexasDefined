@@ -49,7 +49,11 @@ jobs:
             case "$path" in
               '.github/workflows/verify-football-b008-production.yml') selected=true ;;
               'scripts/ci/verify-football-b008-targeted-production.mjs') selected=true ;;
-              'docs/football-authority/REGISTRY.json') selected=true ;;
+              'docs/football-authority/REGISTRY.json')
+                # A later batch's registry change must not by itself reopen the
+                # immutable, strictly verified Batch 008, although shared code
+                # changes below still warrant full regression Chrome checks.
+                if node -e 'const r=require("./docs/football-authority/REGISTRY.json"); process.exit(r.batch.number===8 ? 0 : 1)'; then selected=true; fi ;;
               'src/data/high-school-football/program-editorial-b008.ts') selected=true ;;
               'src/routes/$kind.$slug.lazy.tsx') selected=true ;;
               'src/routes/texas-high-school-football-teams_.$slug.lazy.tsx') selected=true ;;

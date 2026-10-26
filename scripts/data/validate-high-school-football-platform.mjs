@@ -2028,6 +2028,49 @@ if (!errors.length) {
   }
 }
 
+
+/** Batch 009 incremental source guard. Preserve all 180 previously technical-VERIFIED school records. */
+{
+  const registry = JSON.parse(read('docs/football-authority/REGISTRY.json'));
+  const batch009 = read('src/data/high-school-football/program-editorial-b009.ts');
+  const loader009 = read('src/data/high-school-football/program-editorial-b009-loader.server.ts');
+  const profile009 = read('src/data/high-school-football/football-program-profile.server.ts');
+  const initial = ['canyon-west-plains', 'carrizo-springs', 'carrollton-creekview', 'carrollton-ranchview', 'carrollton-smith'];
+  const schools = registry.schoolRecords;
+  if (registry.batch.number !== 9 || registry.batch.slugs.length !== 25) errors.push('Batch 009 must reserve exactly 25 canonical schools.');
+  if (schools.filter((school) => school.status === 'VERIFIED').length !== 180) errors.push('Batch 009 must preserve all 180 independently production VERIFIED schools.');
+  if (registry.batch.individuallyVerified !== 0 || registry.batch.remainingToVerify !== 25) errors.push('Batch 009 cannot claim verified schools before strict postdeploy browser checks.');
+  if (!profile009.includes('loadBatch009FootballProgramEditorial(canonicalSlug)')) errors.push('Batch 009 SSR conditional editorial loader not wired.');
+  for (const slug of initial) {
+    const school = schools.find((entry) => entry.slug === slug);
+    if (!school || school.status !== 'IMPLEMENTED' || school.batch !== 9 || school.actualProductionVerified !== false) errors.push('Batch 009 school must be IMPLEMENTED but not VERIFIED: ' + slug);
+    if (!batch009.includes('"'+slug+'": {') || !loader009.includes('"'+slug+'"')) errors.push('Batch 009 per-school editorial loader missing: ' + slug);
+    const audit = read('docs/football-authority/schools/' + slug + '.md');
+    if (!audit.includes('Not merged, deployed or browser VERIFIED') || !audit.includes('https://')) errors.push('Batch 009 individual researched dossier/release caveat missing: ' + slug);
+  }
+}
+
+
+/** Prevent silent object-literal overwrites of researched county football links.
+ * Duplicate county keys had suppressed valid school links in 11 counties even when
+ * each school had an independently sourced and verified football guide. */
+{
+  const entityPage = read(files[10]);
+  const start = entityPage.indexOf('const batch002FootballCountyLinks:');
+  const end = entityPage.indexOf('\nconst siteUrl = ', start);
+  if (start < 0 || end < 0) {
+    errors.push('Football county reciprocal link object missing.');
+  } else {
+    const section = entityPage.slice(start, end);
+    const keys = [...section.matchAll(/^  (?:'([^']+)'|([a-z-]+)):\s*\[/gm)].map((m) => m[1] || m[2]);
+    const duplicates = keys.filter((key, index) => keys.indexOf(key) !== index);
+    if (duplicates.length) errors.push('Duplicate football county link keys would suppress school links: ' + [...new Set(duplicates)].join(', '));
+    for (const slug of ['canyon-west-plains','carrizo-springs','carrollton-creekview','carrollton-ranchview','carrollton-smith']) {
+      requireText(section, "slug: '" + slug + "'", 'Batch 009 reciprocal football county link');
+    }
+  }
+}
+
 if (errors.length) {
   console.error('High-school football platform validation failed:');
   for (const error of errors) console.error(`- ${error}`);

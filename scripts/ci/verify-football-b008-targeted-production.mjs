@@ -10,8 +10,13 @@ const site='https://texasdefined.com',out='artifacts/b008-targeted-browser';
 const reg=JSON.parse(await readFile('docs/football-authority/REGISTRY.json','utf8'));
 const editorial=await readFile('src/data/high-school-football/program-editorial-b008.ts','utf8');
 const route=await readFile('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx','utf8');
-assert.equal(reg.batch.number,8);
-const slugs=reg.batch.slugs;
+// Batch 008 remains immutable in completedBatches after Batch 009 assignment.
+const batch008=reg.batch.number===8
+ ? reg.batch
+ : reg.completedBatches.find(b=>b.number===8&&b.state==='VERIFIED_BATCH_008_COMPLETE');
+assert.ok(batch008,'Missing active or archived Batch 008 evidence');
+assert.equal(batch008.number,8);
+const slugs=batch008.slugs;
 assert.equal(slugs.length,25);
 assert.equal(new Set(slugs).size,25);
 const visualSection=route.split('const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([')[1]?.split(']);')[0];
