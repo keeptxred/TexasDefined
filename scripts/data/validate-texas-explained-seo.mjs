@@ -380,6 +380,16 @@ for (const marker of ['to="/texas-explained"', 'Want the why behind Texas?', 'Re
   if (!searchRoute.includes(marker)) errors.push(`Texas Explained zero-query search discovery contract missing: ${marker}.`);
 }
 
+const culturalRegionsGuide = read('src/data/fixtures/texas-cultural-regions-explained.ts');
+for (const marker of [
+  'Why did cultures differ from one region of early Texas to another?',
+  'How many cultural regions does Texas have?',
+  'There is no official number of Texas cultural regions',
+  'a different question: where landscapes and habitats change',
+]) {
+  if (!culturalRegionsGuide.includes(marker)) errors.push('Texas cultural-regions search answer missing: ' + marker);
+}
+
 if (errors.length) {
   console.error('Texas Explained validation failed:');
   for (const error of errors) console.error(`- ${error}`);
