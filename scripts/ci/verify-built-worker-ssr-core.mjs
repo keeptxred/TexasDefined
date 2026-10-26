@@ -350,6 +350,17 @@ const requestHeaders = {
   'user-agent': 'TexasDefined-CI-Built-Worker-Smoke/1.0',
 };
 
+// Approved, rights-reviewed Mardi Gras photo pages must not quietly remain noindex.
+// Keep unapproved event leaves fail-closed; only test positive approvals here.
+const licensedMardiGrasPages = new Set([
+  '/event/mardi-gras-galveston',
+  '/event/cowboy-mardi-gras-bandera',
+  '/event/kemah-yachty-gras',
+  '/event/mardi-gras-upriver-jefferson',
+  '/event/palestine-mardi-gras-parade',
+  '/event/oak-cliff-mardi-gras-parade',
+]);
+
 async function checkRenderRoute(group, attemptToken, timeoutMs = requestTimeoutMs) {
   try {
     const response = await fetch(smokeUrl(group.path, attemptToken), {
@@ -368,6 +379,12 @@ async function checkRenderRoute(group, attemptToken, timeoutMs = requestTimeoutM
       });
       if (missingChecks.length) {
         return `${group.path} returned HTTP 200 without required marker(s): ${missingChecks.map((check) => `${check.label}=${check.requiredText}`).join(', ')}`;
+      }
+      if (licensedMardiGrasPages.has(group.path)) {
+        const robotsMetaTags = body.match(/<meta\\b[^>]*>/gi) || [];
+        const stillNoindex = robotsMetaTags.some((tag) =>
+          /\\bname\\s*=\\s*["']robots["']/i.test(tag) && /\\bnoindex\\b/i.test(tag));
+        if (stillNoindex) return `${group.path} has licensed location-accurate imagery but still emits meta robots noindex`;
       }
       return '';
     }
