@@ -36,12 +36,17 @@ export function ticketmasterVenueMatches(
   // names (with optional Fort Worth suffix) as aliases, not arbitrary venue
   // names, suites, garages or separately ticketed rooms. Older Discovery
   // inventory can continue to use the former name after the official rename.
-  const knownArenaAlias = (name: string) =>
-    /^dickies arena(?: fort worth)?$/.test(name) ? name.replace(/^dickies arena/, "ariat arena") : name;
-  const safeA = knownArenaAlias(a);
-  const safeB = knownArenaAlias(b);
-  // IDs identify facilities, not stages; an exact room must still agree.
-  return safeA === safeB || safeA.startsWith(safeB + " ") || safeB.startsWith(safeA + " ");
+  const canonicalArena = (name: string) =>
+    /^(?:dickies|ariat) arena(?: fort worth)?$/.test(name) ? "ariat arena" : null;
+  // Cross-name matching is deliberately exact: a rebranded arena cannot be
+  // used to match a differently named VIP room, garage or secondary stage.
+  if (/^dickies arena\b/.test(a) !== /^dickies arena\b/.test(b)
+    && (/^(?:dickies|ariat) arena\b/.test(a) || /^(?:dickies|ariat) arena\b/.test(b))) {
+    return canonicalArena(a) !== null && canonicalArena(a) === canonicalArena(b);
+  }
+  // IDs identify facilities, not stages; only the existing reviewed room
+  // suffix matching remains for non-rebrand names.
+  return a === b || a.startsWith(b + " ") || b.startsWith(a + " ");
 }
 
 
