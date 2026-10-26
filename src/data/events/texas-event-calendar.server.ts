@@ -19,6 +19,18 @@ const categoryLabels: Record<TexasEventRecord["category"], string> = {
   culture: "Arts & Culture",
 };
 
+/** A stored vendor link never overrides authoritative event cancellation. */
+function activeEventTicketCta(event: TexasEventRecord) {
+  return event.status === "scheduled" ? resolveEventTicketCta(event.ticketing) : null;
+}
+
+function eventStatusLabel(event: TexasEventRecord) {
+  if (event.status === "scheduled") return "";
+  if (event.status === "cancelled") return "Cancelled";
+  if (event.status === "postponed") return "Postponed — new date not confirmed";
+  return "Rescheduled — confirm new date with organizer";
+}
+
 function matchesLocation(event: TexasEventRecord, value: string) {
   if (!value) return true;
   const divider = value.indexOf(":");
@@ -144,9 +156,9 @@ export function buildTexasEventCarouselItemsServer(records: readonly TexasEventR
     dateLabel: formatCarouselRange(event),
     locationLabel: `${event.city}${event.venueName ? ` · ${event.venueName}` : ""}`,
     guideLabel: event.guidePath.startsWith("/events?") ? "View in calendar" : "Event guide",
-    statusLabel: event.status === "scheduled" ? "" : event.status,
+    statusLabel: eventStatusLabel(event),
     lastVerifiedLabel: formatShortDay(event.lastVerifiedAt.slice(0, 10)),
-    ticketCta: resolveEventTicketCta(event.ticketing),
+    ticketCta: activeEventTicketCta(event),
   }));
 }
 
@@ -218,7 +230,8 @@ export function buildGlobalEventCalendarServer(
       ...event,
       dateLabel: formatRange(event),
       lastVerifiedLabel: formatDay(event.lastVerifiedAt.slice(0, 10)),
-      ticketCta: resolveEventTicketCta(event.ticketing),
+      statusLabel: eventStatusLabel(event),
+      ticketCta: activeEventTicketCta(event),
     })),
   };
 }
