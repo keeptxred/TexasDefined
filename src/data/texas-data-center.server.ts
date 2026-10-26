@@ -195,7 +195,7 @@ export const TEXAS_DATASETS: TexasDataset[] = [
     title: 'Texas Metro Nonfarm Payroll Employment — ' +
       new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' })
         .format(new Date(currentMetroPayrolls.releaseMonth + '-01T00:00:00Z')),
-    description: 'Most recently verified monthly BLS Table 3 total nonfarm payroll job estimates for major Texas metro areas. The source and release month are explicitly dated.',
+    description: 'Most recently verified monthly BLS nonfarm payroll job estimates for major Texas metro areas, sourced from the official BLS metro release or its Federal Reserve series distribution, with source and observation month identified.',
     category: 'Jobs',
     year: Number(currentMetroPayrolls.releaseMonth.slice(0, 4)),
     updated: currentMetroPayrolls.publishedDate,
