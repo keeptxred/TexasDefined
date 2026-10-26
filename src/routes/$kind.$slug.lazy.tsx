@@ -193,8 +193,10 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
   'coke': [{ name: 'Bronte Longhorns', slug: 'bronte', context: 'Bronte ISD six-man football: 2025 outright district championship, new 2026 Julian Helms coach, 1A Division I District 7 and live local score guide' }],
   'parker': [{ name: 'Brock Eagles', slug: 'brock', context: 'Brock ISD football established 2011: 2015 UIL state title, four final appearances, coach Billy Mathis and 2026 first-party schedule' }],
   'orange': [{ name: 'Bridge City Cardinals', slug: 'bridge-city', context: 'Bridge City ISD Cardinals: 1965 runner-up, 1966 UIL champion, 2026 Smalley staff and first-party home game tickets' }],
-  'robertson': [{ name: 'Bremond Tigers', slug: 'bremond', context: 'Bremond ISD Tigers: 1981 UIL title, Jeff Kasowski 2014–16 three-peat and dated 2026 season with first-party schedule' }],
-  'washington': [{ name: 'Brenham Cubs', slug: 'brenham', context: 'Brenham High School: 2002, 2009 and 2013 UIL title-game runs, 2026 Cub Stadium varsity schedule and sources' }],
+  'robertson': [{ name: 'Bremond Tigers', slug: 'bremond', context: 'Bremond ISD Tigers: 1981 UIL title, Jeff Kasowski 2014–16 three-peat and dated 2026 season with first-party schedule' },
+    { name: 'Calvert Trojans', slug: 'calvert', context: 'Robertson County Calvert six-man: first-party Marcus Wortham coaching, 46-45 Brazos Valley game and District 15 schedule' }],
+  'washington': [{ name: 'Brenham Cubs', slug: 'brenham', context: 'Brenham High School: 2002, 2009 and 2013 UIL title-game runs, 2026 Cub Stadium varsity schedule and sources' },
+    { name: 'Burton Panthers', slug: 'burton', context: 'Washington County Burton: Jason Hodde, 2022 13-1 season, 2026 District 13 race and Bremond 36-13 result' }],
   'kinney': [{ name: 'Brackett Tigers', slug: 'brackettville-brackett', context: 'Brackett ISD in Brackettville: official 2026 varsity schedule, 2025 postseason history and Tiger Stadium visitor-source cautions' }],
   'mcculloch': [{ name: 'Brady Bulldogs', slug: 'brady', context: 'Brady High School: 1956/1957 finals, unusual forfeiture-awarded 1959 UIL title and official 2026 ticket details' }],
   'stephens': [{ name: 'Breckenridge Buckaroos', slug: 'breckenridge', context: 'Breckenridge High School: six UIL title awards including two co-champion ties, and Buckaroo Stadium guide' }],
@@ -229,7 +231,8 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
   'bell': [{ name: "Bartlett Bulldogs", slug: "bartlett", context: "1990, 1992 and 1999 UIL titles" }, { name: "Belton Tigers", slug: 'belton', context: "2026 Tiger Stadium guide: distinguish varsity games from JV and Lake Belton" }],
   'bastrop': [{ name: "Bastrop Bears", slug: "bastrop", context: "Bears football and shared Memorial Stadium" }, { name: "Cedar Creek Eagles", slug: "bastrop-cedar-creek", context: "Eagles football and shared Memorial Stadium" }],
   'matagorda': [{ name: "Bay City Blackcats", slug: "bay-city", context: "1983 and 2000 UIL championships" }],
-  harris: [{ name: 'Alief Taylor Lions', slug: 'alief-taylor', context: '2026 District 20 opening streak and documented Elsik and Hastings games' }, { name: "Goose Creek Memorial Patriots", slug: 'baytown-goose-creek-memorial', context: "Patriots founded in 2008 and their 2025 playoff season" }, { name: "Baytown Lee Ganders", slug: 'baytown-lee', context: "Back-to-back 1951 and 1952 Class 4A state finalists, never champions" }, { name: "Baytown Sterling Rangers", slug: 'baytown-sterling', context: "1972 Class 4A state-final season and the school's Spirit of Sterling traditions" }],
+  harris: [{ name: 'Alief Taylor Lions', slug: 'alief-taylor', context: '2026 District 20 opening streak and documented Elsik and Hastings games' }, { name: "Goose Creek Memorial Patriots", slug: 'baytown-goose-creek-memorial', context: "Patriots founded in 2008 and their 2025 playoff season" }, { name: "Baytown Lee Ganders", slug: 'baytown-lee', context: "Back-to-back 1951 and 1952 Class 4A state finalists, never champions" }, { name: "Baytown Sterling Rangers", slug: 'baytown-sterling', context: "1972 Class 4A state-final season and the school's Spirit of Sterling traditions" },
+    { name: 'Bridgeland Bears', slug: 'bridgeland', context: 'CFISD Bridgeland Bears: 2020 first-playoff-win era, 2024 UIL quarterfinal, 2026 Lonnie Madison staff and specific Berry Center spectator directions' }],
   tarrant: [
     { name: 'Azle Hornets', slug: 'azle', context: 'Hornet Field visitor guide and 2026 5A Division I fixtures' },
     { name: "Fort Worth All Saints' Episcopal Saints", slug: 'all-saints-fort-worth', context: 'Back-to-back 2024–25 undefeated TAPPS Division II champions at McNair Stadium' },
@@ -252,8 +255,10 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
   , { name: 'Blue Ridge Tigers', slug: 'blue-ridge', context: 'Blue Ridge ISD Collin County campus and 2026 UIL alignment' }],
   brewster: [{ name: 'Alpine Bucks', slug: 'alpine', context: 'Big Bend-area Bucks football, current alignment and Buck Stadium research' }],
   colorado: [{ name: 'Rice Consolidated Raiders', slug: 'altair-rice', context: 'Altair Raiders playoff tradition and 2026 District 14 games' }],
-  cherokee: [{ name: 'Alto Yellowjackets', slug: 'alto', context: '2006 and 2007 consecutive UIL football state champions' }],
-  johnson: [{ name: 'Alvarado Indians', slug: 'alvarado', context: '2024 and 2025 playoff seasons and current District 4 football' }],
+  cherokee: [{ name: 'Alto Yellowjackets', slug: 'alto', context: '2006 and 2007 consecutive UIL football state champions' },
+    { name: 'Bullard Panthers', slug: 'bullard', context: 'Bullard High in Cherokee County: Colton Bradford, current 4A Division I District 8 ledger and official Panther red-white-blue identity' }],
+  johnson: [{ name: 'Alvarado Indians', slug: 'alvarado', context: '2024 and 2025 playoff seasons and current District 4 football' },
+    { name: 'Burleson Elks', slug: 'burleson', context: 'Johnson County Burleson High: Phillip Tanner, current District 7-5A DII results, 2021 playoff benchmark and official Elk red-white-black identity' }, { name: 'Centennial Spartans', slug: 'burleson-centennial', context: 'Separate Burleson ISD Centennial program: Blake Meyer, 5A DI District 8, 2022 12-2 benchmark and current 2026 ledger' }],
   brazoria: [
     { name: 'Alvin Yellowjackets', slug: 'alvin', context: 'Alvin High football history and 2026 Class 6A District 19' },
     { name: 'Iowa Colony Pioneers', slug: 'alvin-iowa-colony', context: 'Three consecutive twelve-win seasons from 2023 to 2025' },
@@ -269,10 +274,12 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
   // Batch 004 independently matched campus counties; school game sites can differ.
   smith: [{ name: 'Arp Tigers', slug: 'arp', context: '2016 semifinal and Bill Herrington Stadium history' }],
   stonewall: [{ name: 'Aspermont Hornets', slug: 'aspermont', context: '1999 11-man state final and modern six-man program' }],
-  henderson: [{ name: 'Athens Hornets', slug: 'athens', context: '2025 postseason success and the 2026 team calendar' }],
+  henderson: [{ name: 'Athens Hornets', slug: 'athens', context: '2025 postseason success and the 2026 team calendar' },
+    { name: 'Brownsboro Bears', slug: 'brownsboro', context: 'Brownsboro ISD Bears: new 2026 coach Ryan Hood, 25 football playoff appearances, updated October results and official moved-to-Thursday Van game warning' }],
   cass: [{ name: 'Atlanta Rabbits', slug: 'atlanta', context: '2003 UIL state football title and Rabbit Stadium traditions' }],
   ellis: [{ name: 'Avalon Eagles', slug: 'avalon', context: 'Six-man football and 2024 ten-win season' }],
-  mclennan: [{ name: 'Axtell Longhorns', slug: 'axtell', context: 'Three consecutive ten-win football seasons' }, { name: 'Bosqueville Bulldogs', slug: 'bosqueville', context: '2A Division I District 8 McLennan County 2026 varsity football' }],
+  mclennan: [{ name: 'Axtell Longhorns', slug: 'axtell', context: 'Three consecutive ten-win football seasons' }, { name: 'Bosqueville Bulldogs', slug: 'bosqueville', context: '2A Division I District 8 McLennan County 2026 varsity football' },
+    { name: 'Bruceville-Eddy Eagles', slug: 'bruceville-eddy', context: '2026 Bruceville-Eddy Slot-T under Marcial Chapa and 39–8 district-confirmed Moody victory; seven historic playoff berths, Eagle Field visitor details' }],
   callahan: [{ name: 'Baird Bears', slug: 'baird', context: '2019 six-man transition and 2026 UIL district' }],
   travis: [
     { name: 'Vandegrift Vipers', slug: 'austin-vandegrift', context: '2024 6A Division II state title at Leander ISD campus' },
@@ -301,38 +308,29 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
   'el-paso': [{ name: 'Anthony Wildcats', slug: 'anthony', context: 'Anthony Texas varsity history and 2026 UIL football context' }, { name: 'Canutillo Eagles', slug: 'canutillo', context: 'Canutillo High: Scott Brooks final season, 2026 District 1-5A DII results, Lowenberg Eagles Stadium and current official schedule links' }],
   hockley: [{ name: 'Anton Bulldogs', slug: 'anton', context: 'Anton School football history and modern UIL six-man alignment' }],
   trinity: [{ name: 'Apple Springs Eagles', slug: 'apple-springs', context: 'Six-man Eagles history and UIL classification-source clarification' }],
-  hill: [{ name: 'Aquilla Cougars', slug: 'aquilla', context: 'Hill County Aquilla program history and modern six-man football' }, { name: 'Blum Bobcats', slug: 'blum', context: '2019 UIL six-man Division I champion over McLean; 2026 District11 team with verified Blum ISD sources' }],
+  hill: [{ name: 'Aquilla Cougars', slug: 'aquilla', context: 'Hill County Aquilla program history and modern six-man football' }, { name: 'Blum Bobcats', slug: 'blum', context: '2019 UIL six-man Division I champion over McLean; 2026 District11 team with verified Blum ISD sources' },
+    { name: 'Bynum Bulldogs', slug: 'bynum', context: 'Hill County Bynum ISD six-man Bulldogs: District 14, 2026 rebuild, Bulldog Field and qualified coach attribution' }],
   'san-patricio': [{ name: 'Aransas Pass Panthers', slug: 'aransas-pass', context: 'Aransas Pass program history and contemporary varsity schedule context' }],
   archer: [{ name: 'Archer City Wildcats', slug: 'archer-city', context: '1964 state championship and reconciled UIL historical indexing discrepancy' }],
-  wise: [{ name: 'Alvord Bulldogs', slug: 'alvord', context: '2025 undefeated district run and 2026 home ticket details' }, { name: 'Boyd Yellowjackets', slug: 'boyd', context: '3A Division I District 4 Wise County 2026 varsity football' }],
+  wise: [{ name: 'Alvord Bulldogs', slug: 'alvord', context: '2025 undefeated district run and 2026 home ticket details' }, { name: 'Boyd Yellowjackets', slug: 'boyd', context: '3A Division I District 4 Wise County 2026 varsity football' },
+    { name: 'Bridgeport Bulls', slug: 'bridgeport', context: 'Bridgeport ISD Bulls 2026 official coach Aaron Cupp, 22 football playoff appearances and Bull Memorial Stadium turf notice; 1–6 reported through October 16' }],
   randall: [
     { name: 'Amarillo High Sandies', slug: 'amarillo', context: 'Four UIL state titles and the documented Sandies–Tascosa football series' },
     { name: 'Caprock Longhorns', slug: 'amarillo-caprock', context: 'Verified Randall County campus, 2026 Longhorns history and current UIL alignment' },
-  ],
+    { name: 'West Plains Wolves', slug: 'canyon-west-plains', context: 'West Plains High on Arden Road: Canyon ISD Wolves program founded 2022, Jeff Lofton promoted 2026 and state semifinal run in 2024' }, { name: 'Canyon Eagles', slug: 'canyon', context: 'Randall County Canyon High: Matt Lovorn current coach source, 2026 District 2-4A DI race and Happy State Bank Stadium rivalry context' }, { name: 'Randall Raiders', slug: 'canyon-randall', context: 'Randall High Raiders: Dan Sherwood, 7-1 start through Oct. 23, Canyon rivalry win and official Randall High schedule links' }],
   potter: [
     { name: 'Amarillo Highland Park Hornets', slug: 'amarillo-highland-park', context: 'Potter County Hornets campus, 2026 UIL football alignment and school-specific program history' },
     { name: 'Palo Duro Dons', slug: 'amarillo-palo-duro', context: 'Dons football history, modern revival and UIL District 2' },
     { name: 'River Road Wildcats', slug: 'amarillo-river-road', context: 'Wildcats football history and current 3A Division II context' },
     { name: 'Tascosa Rebels', slug: 'amarillo-tascosa', context: 'Rebels program history and documented cross-city series' },
-  ],
+    { name: 'Bushland Falcons', slug: 'bushland', context: 'Potter County Bushland: District 1-3A DI, sustained playoff history, qualified current coach sourcing and 2026 result-source conflict handling' }],
 };
 // Keep previously sourced school cards from being erased by later additions
 // for the same campus county. There must be no duplicate object keys in
 // either map; the strict CI validator enforces this invariant.
 const supplementalFootballCountyLinks: Record<string, Array<{ name: string; slug: string; context: string }>> = {
-  'robertson': [{ name: 'Calvert Trojans', slug: 'calvert', context: 'Robertson County Calvert six-man: first-party Marcus Wortham coaching, 46-45 Brazos Valley game and District 15 schedule' }],
-  'washington': [{ name: 'Burton Panthers', slug: 'burton', context: 'Washington County Burton: Jason Hodde, 2022 13-1 season, 2026 District 13 race and Bremond 36-13 result' }],
-  'harris': [{ name: 'Bridgeland Bears', slug: 'bridgeland', context: 'CFISD Bridgeland Bears: 2020 first-playoff-win era, 2024 UIL quarterfinal, 2026 Lonnie Madison staff and specific Berry Center spectator directions' }],
-  'cherokee': [{ name: 'Bullard Panthers', slug: 'bullard', context: 'Bullard High in Cherokee County: Colton Bradford, current 4A Division I District 8 ledger and official Panther red-white-blue identity' }],
-  'johnson': [{ name: 'Burleson Elks', slug: 'burleson', context: 'Johnson County Burleson High: Phillip Tanner, current District 7-5A DII results, 2021 playoff benchmark and official Elk red-white-black identity' }, { name: 'Centennial Spartans', slug: 'burleson-centennial', context: 'Separate Burleson ISD Centennial program: Blake Meyer, 5A DI District 8, 2022 12-2 benchmark and current 2026 ledger' }],
-  'henderson': [{ name: 'Brownsboro Bears', slug: 'brownsboro', context: 'Brownsboro ISD Bears: new 2026 coach Ryan Hood, 25 football playoff appearances, updated October results and official moved-to-Thursday Van game warning' }],
-  'mclennan': [{ name: 'Bruceville-Eddy Eagles', slug: 'bruceville-eddy', context: '2026 Bruceville-Eddy Slot-T under Marcial Chapa and 39–8 district-confirmed Moody victory; seven historic playoff berths, Eagle Field visitor details' }],
-  'hill': [{ name: 'Bynum Bulldogs', slug: 'bynum', context: 'Hill County Bynum ISD six-man Bulldogs: District 14, 2026 rebuild, Bulldog Field and qualified coach attribution' }],
-  'wise': [{ name: 'Bridgeport Bulls', slug: 'bridgeport', context: 'Bridgeport ISD Bulls 2026 official coach Aaron Cupp, 22 football playoff appearances and Bull Memorial Stadium turf notice; 1–6 reported through October 16' }],
   'dimmit': [{ name: 'Carrizo Springs Wildcats', slug: 'carrizo-springs', context: 'Dimmit County official Wildcats athletics, 2026 UIL 3A Division I District 14 and first-party Frank Carter Stadium tickets' }],
   'dallas': [{ name: 'Ranchview Wolves', slug: 'carrollton-ranchview', context: 'Ranchview High has an Irving campus in Dallas County, Richard Leonard head coach, and is 4A Division I District 4 despite its Carrollton UIL name' }, { name: 'Newman Smith Trojans', slug: 'carrollton-smith', context: 'Dallas County campus in Carrollton, 2026 school-listed Keith Houston football coach and 5A Division I District 6' }],
-  'randall': [{ name: 'West Plains Wolves', slug: 'canyon-west-plains', context: 'West Plains High on Arden Road: Canyon ISD Wolves program founded 2022, Jeff Lofton promoted 2026 and state semifinal run in 2024' }, { name: 'Canyon Eagles', slug: 'canyon', context: 'Randall County Canyon High: Matt Lovorn current coach source, 2026 District 2-4A DI race and Happy State Bank Stadium rivalry context' }, { name: 'Randall Raiders', slug: 'canyon-randall', context: 'Randall High Raiders: Dan Sherwood, 7-1 start through Oct. 23, Canyon rivalry win and official Randall High schedule links' }],
-  'potter': [{ name: 'Bushland Falcons', slug: 'bushland', context: 'Potter County Bushland: District 1-3A DI, sustained playoff history, qualified current coach sourcing and 2026 result-source conflict handling' }],
 };
 
 const siteUrl = 'https://texasdefined.com';
