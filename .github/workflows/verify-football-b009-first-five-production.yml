@@ -27,11 +27,48 @@ jobs:
           MANUAL_ACCEPTANCE: ${{ github.event_name == 'workflow_dispatch' }}
         run: |
           if [[ "$MANUAL_ACCEPTANCE" == "true" ]]; then echo "run=true" >> "$GITHUB_OUTPUT"; exit 0; fi
-          if node -e 'const r=require("./docs/football-authority/REGISTRY.json"); process.exit(r.batch.number===9 && r.batch.remainingToVerify>0 ? 0 : 1)'; then
-            echo "run=true" >> "$GITHUB_OUTPUT"
+          if ! node -e 'const r=require("./docs/football-authority/REGISTRY.json");const five=["canyon-west-plains","carrizo-springs","carrollton-creekview","carrollton-ranchview","carrollton-smith"];process.exit(r.batch.number===9 && five.some(s=>r.schoolRecords.find(x=>x.slug===s)?.status!=="VERIFIED") ? 0 : 1)'; then
+            echo "run=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-          echo "run=false" >> "$GITHUB_OUTPUT"
+          # A CI success with skipped Chrome steps never certifies the release.
+          # Only run automatically on a matching football source/validator/registry deploy;
+          # manual dispatch remains available for another exact-version acceptance.
+          git diff --name-only HEAD^ HEAD > /tmp/b009-changed-paths.txt
+          if grep -Eq '^(docs/football-authority/REGISTRY.json|src/data/high-school-football/(program-editorial-b009.*|football-program-profile.server.ts|school-identities.ts)|src/routes/(texas-high-school-football-teams_\\.\\$slug.lazy.tsx|\\$kind.\\$slug.lazy.tsx)|scripts/ci/verify-football-b009-first-five-production.mjs|\\.github/workflows/verify-football-b009-first-five-production.yml)
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check strict Batch 009 script
+        if: steps.scope.outputs.run == 'true'
+        run: node --check scripts/ci/verify-football-b009-first-five-production.mjs
+      - name: Install isolated Chrome driver
+        if: steps.scope.outputs.run == 'true'
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
+          npm install --prefix /tmp/td-b009-chrome --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+      - name: Verify 5 school pages at 3 viewports, original graphics, 4 counties, sitemap and Worker version
+        if: steps.scope.outputs.run == 'true'
+        env:
+          GITHUB_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+        run: node scripts/ci/verify-football-b009-first-five-production.mjs
+      - name: Preserve success or failure evidence
+        if: always() && steps.scope.outputs.run == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: football-b009-first-five-production-chrome
+          path: artifacts/b009-first-five-production-chrome/
+          retention-days: 21
+          if-no-files-found: warn
+ /tmp/b009-changed-paths.txt; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+            echo "Batch 009 first-five source changed: executing strict Chrome acceptance."
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            echo "Unrelated deploy: no Batch 009 first-five production certification."
+          fi
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
