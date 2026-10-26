@@ -619,20 +619,27 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
   const { metro, collection, results, townReferences, eventContext, presentation } = pageData;
   const isMcAllenDayTrips = metro.slug === "mcallen" && collection.slug === "day-trips";
   const isDallasRoadRing = metro.slug === "dallas" && /^small-towns-[123]-hours?$/.test(collection.slug);
-  // The shared lodging scripts must wait for this lazy section to hydrate.
-  // Otherwise they insert affiliate HTML inside the first curated article and
-  // can trigger React hydration mismatches. Other metros are unaffected.
+  // Third-party/first-party lodging DOM writes must wait until *every* metro
+  // day-trip lazy React tree has hydrated, not just McAllen. The root-ready
+  // signal fires before lazy outlet hydration and cannot protect these cards.
   useEffect(() => {
-    if (!isMcAllenDayTrips) return;
-    document.documentElement.dataset.tdMcAllenDayTripsHydrated = "1";
-    window.dispatchEvent(new Event("texasdefined:mcallen-day-trips-hydrated"));
-    return () => { delete document.documentElement.dataset.tdMcAllenDayTripsHydrated; };
-  }, [isMcAllenDayTrips]);
+    if (collection.slug !== "day-trips") return;
+    document.documentElement.dataset.tdMetroDayTripsHydrated = "1";
+    window.dispatchEvent(new Event("texasdefined:metro-day-trips-hydrated"));
+    if (isMcAllenDayTrips) {
+      document.documentElement.dataset.tdMcAllenDayTripsHydrated = "1";
+      window.dispatchEvent(new Event("texasdefined:mcallen-day-trips-hydrated"));
+    }
+    return () => {
+      delete document.documentElement.dataset.tdMetroDayTripsHydrated;
+      if (isMcAllenDayTrips) delete document.documentElement.dataset.tdMcAllenDayTripsHydrated;
+    };
+  }, [collection.slug, isMcAllenDayTrips]);
   // Count a tour affiliate impression only if a user actually sees the panel.
   // A WeakSet deduplicates React StrictMode effect remounts for the same DOM node.
   useEffect(() => {
     if (collection.slug !== "day-trips" || !pageData.indexReady || typeof IntersectionObserver === "undefined") return;
-    const market = metro.slug === "mcallen" ? "south-padre-island" : metro.slug;
+    const market = metro.slug === "mcallen" ? "south-padre-island" : metro.slug === "amarillo" ? "amarillo-palo-duro" : metro.slug;
     if (!hasVerifiedViatorMarketUrl(market)) return;
     const panel = document.querySelector("[data-day-trip-viator-market]");
     if (!panel || seenDayTripImpressions.has(panel)) return;
@@ -658,7 +665,7 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
   // McAllen\u2019s verified partner landing page covers South Padre excursions,
   // not the entire Rio Grande Valley. All other markets link to their own
   // previously verified Viator city pages; no product inventory is asserted.
-  const experienceMarketSlug = metro.slug === "mcallen" ? "south-padre-island" : metro.slug;
+  const experienceMarketSlug = metro.slug === "mcallen" ? "south-padre-island" : metro.slug === "amarillo" ? "amarillo-palo-duro" : metro.slug;
   const offersVerifiedTours = collection.slug === "day-trips" && pageData.indexReady && hasVerifiedViatorMarketUrl(experienceMarketSlug);
   const curatedSlugs = isMcAllenDayTrips
     ? new Set<string>(MCALLEN_EDITORIAL_TRIPS.map((trip) => trip.slug))

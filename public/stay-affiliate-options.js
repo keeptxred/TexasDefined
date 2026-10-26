@@ -771,8 +771,16 @@
     // signal; defer affiliate DOM changes until their route mounts.
     const guardedRoute = /^\/(?:county|city)\/[a-z0-9-]+$/.test(path);
     if (/^\/texas-state-fair\/?$/.test(path)) return document.documentElement.dataset.tdStateFairHydrated !== "1";
-    if (path === "/explore/near/mcallen/day-trips") {
-      return document.documentElement.dataset.tdMcAllenDayTripsHydrated !== "1";
+    // Do not mutate the first curated article or stay slot before the lazy
+    // metro outlet has hydrated. A root-level ready event alone is too early.
+    // Apply this to all metros: Chrome production QA observed React #418
+    // on multiple non-McAllen day-trip guides after early affiliate writes.
+    // Preserve the earlier independently verified McAllen readiness contract
+    // while guarding every metro against lazy-outlet hydration races.
+    if (path === "/explore/near/mcallen/day-trips" &&
+        document.documentElement.dataset.tdMcAllenDayTripsHydrated !== "1") return true;
+    if (/^\/explore\/near\/[a-z0-9-]+\/day-trips$/.test(path)) {
+      return document.documentElement.dataset.tdMetroDayTripsHydrated !== "1";
     }
     // BB-35's lazy article must commit before booking options alter #main.
     if (path === "/article/battleship-texas-bb-35-history-restoration") {
@@ -807,6 +815,7 @@
     window.addEventListener("popstate", scheduleSync);
     window.addEventListener("texasdefined:county-hydrated", scheduleSync);
     window.addEventListener("texasdefined:state-fair-hydrated", scheduleSync);
+    window.addEventListener("texasdefined:metro-day-trips-hydrated", scheduleSync);
     window.addEventListener("texasdefined:mcallen-day-trips-hydrated", scheduleSync);
     window.addEventListener("texasdefined:battleship-article-hydrated", scheduleSync);
   }
