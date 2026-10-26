@@ -301,18 +301,19 @@ const SPORTS_VENUE_GUIDE_PILOTS: Record<string, SportsVenueGuidePilot> = {
     ],
   },
   "dickies-arena": {
-    canonicalPath: "/sports-venue/dickies-arena",
+    canonicalPath: "/sports-venue/dickies-arena", // Stable canonical route despite Oct. 26 rename.
     city: "Fort Worth",
-    subtitle: "Fort Worth Cultural District · Major rodeo, sports, concert and touring-event arena",
+    subtitle: "Ariat Arena (formerly Dickies Arena) · Fort Worth Cultural District concerts, rodeos and sporting events",
     venueType: "Multipurpose arena",
     capacity: "14,000 seats",
     opened: "2019",
     address: "1911 Montgomery Street, Fort Worth, TX 76107",
-    officialUrl: "https://dickiesarena.com/",
-    reviewedAt: "2026-09-11",
+    officialUrl: "https://www.ariatarena.com/",
+    reviewedAt: "2026-10-26",
     sources: [
-      { label: "Dickies Arena official site", href: "https://dickiesarena.com/" },
-      { label: "Dickies Arena event policies and FAQ", href: "https://dickiesarena.com/event-policies-and-faqs/" },
+      { label: "Ariat Arena official event website", href: "https://www.ariatarena.com/" },
+      { label: "Operator and Ariat naming-rights announcement, October 26, 2026", href: "https://www.endurancesportswire.com/aria-international-to-become-the-official-naming-rights-partner-of-fort-worths-beloves-arena/" },
+      { label: "Former Dickies Arena event policies and FAQ; confirm current rules on new official site", href: "https://dickiesarena.com/event-policies-and-faqs/" },
     ],
   },
   "college-park-center": {
