@@ -498,7 +498,7 @@ test("weekend-trip events stay in represented destination towns and unrelated in
   assert.deepEqual(selectMetroProximityAffiliateEvents(metro, dayTrips, results, [], candidates), []);
 });
 
-test("ten curated metro day-trip guides only feature source-backed quality-gated results", () => {
+test("fourteen curated metro day-trip guides only feature source-backed quality-gated results", () => {
   const leads: Record<string, string> = {
     houston: "brazos-bend-state-park",
     "san-antonio": "guadalupe-river-state-park",
@@ -510,6 +510,10 @@ test("ten curated metro day-trip guides only feature source-backed quality-gated
     "beaumont-port-arthur": "village-creek-state-park",
     "college-station": "lake-somerville-state-park",
     tyler: "purtis-creek-state-park",
+    amarillo: "palo-duro-canyon-state-park",
+    lubbock: "caprock-canyons-state-park",
+    "midland-odessa": "monahans-sandhills-state-park",
+    "el-paso": "hueco-tanks-state-park-state-historic-site",
   };
   assert.deepEqual(CURATED_METRO_DAY_TRIP_SLUGS, Object.keys(leads));
   for (const [metro, firstSlug] of Object.entries(leads)) {

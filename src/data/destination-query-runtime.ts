@@ -426,7 +426,17 @@ async function getResolvedDestinationBase(slug: Slug) {
 export async function getResolvedDestination(slug: Slug) {
   const resolved = await getResolvedDestinationBase(slug);
   if (!resolved) return resolved;
-  return (await enhanceWacoMuseumDestinations([resolved]))[0];
+  const enhanced = (await enhanceWacoMuseumDestinations([resolved]))[0];
+  // Apply six official TPWD 2026 park visitor overlays after remote/local
+  // resolution, and before the shared SSR + client destinationQuery caches it.
+  // The official-source overlay is idempotent and exact-slug scoped.
+  if (![
+    "kickapoo-cavern-state-park", "possum-kingdom-state-park",
+    "lake-casa-blanca-international-state-park", "lake-colorado-city-state-park",
+    "purtis-creek-state-park", "martin-dies-jr-state-park",
+  ].includes(slug)) return enhanced;
+  const { applySixLaterTPWDAuthorities } = await import("./tpwd-six-later-park-authorities");
+  return applySixLaterTPWDAuthorities(enhanced);
 }
 
 export async function listResolvedDestinationSearchCatalog() {
