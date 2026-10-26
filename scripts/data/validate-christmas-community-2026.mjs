@@ -27,7 +27,7 @@ const end = eventFile.indexOf("\n];", start);
 assert.ok(start >= 0 && end > start, "Source-qualified Christmas manifest was not found");
 const json = eventFile.slice(eventFile.indexOf("= [", start) + 2, end + 2).trim();
 const events = JSON.parse(json);
-assert.ok(events.length >= 191, "The 191 organizer-verified Christmas date windows must not shrink without explicit source review");
+assert.ok(events.length >= 198, "The 198 organizer-verified Christmas date windows must not shrink without explicit source review");
 assert.equal(events.length, new Set(events.map((event) => event.slug)).size, "Duplicate Christmas community slugs");
 
 const validDate = /^20\d{2}-\d{2}-\d{2}$/;
@@ -84,6 +84,18 @@ assert.ok(bySlug.get("caldwell-2026-christmas-on-square").summary.includes("Frid
 assert.ok(bySlug.get("navasota-2026-home-for-holidays-parade").sourceName.includes("School District"), "Do not imply organizer confirmation where only the district calendar supports the date");
 assert.ok(!bySlug.has("temple-nature-in-lights-assumed-2026"), "Historic Temple BLORA holiday dates cannot be promoted as exact 2026 evidence");
 assert.ok(!bySlug.has("waco-homestead-christmas-market-inferred-2026"), "Archived Homestead Holiday Market dates must not silently roll forward");
+for (const [slug, begin] of [
+  ["seguin-2026-holiday-stroll-parade","2026-12-03"],
+  ["seguin-2026-sip-n-stroll","2026-12-04"],
+  ["seguin-2026-north-pole-stroll","2026-12-05"],
+  ["seguin-2026-yulefest-art-show","2026-12-06"],
+  ["lewisville-2026-holiday-stroll-lights","2026-12-04"],
+  ["lewisville-2026-holiday-stroll-parade","2026-12-05"],
+  ["rowlett-2026-holiday-main-street-fest","2026-12-05"],
+]) check(slug,begin);
+assert.ok(!bySlug.has("rowlett-2026-duplicate-parade"), "Rowlett's festival and parade share a single city occasion");
+assert.ok(bySlug.get("lewisville-2026-holiday-stroll-parade").summary.includes("Check the city event program"), "Unpublished Lewisville parade exact hour must not be invented");
+
 assert.ok(!bySlug.has('waco-wild-lights-2026-late-december'), 'Conflicted Zoo operating nights cannot be invented');
 for (const [slug,date] of [
   ["southlake-home-for-the-holidays-2026","2026-11-21"],
