@@ -114,7 +114,9 @@ test('football monetization is shared, disclosed, source-preserving, and payment
   assert.match(partnerHead, /texas-high-school-football-\(\?:teams\|districts\)/);
   assert.match(inquiry, /texas-high-school-football-\(\?:teams\|districts\)/);
   assert.match(prices, /footballFoundingPackages/);
-  for (const amount of ['49', '99', '149']) assert.match(prices, new RegExp('monthlyPrice: ' + amount));
+  assert.match(panel, /Founding placements start at \$9\/month/);
+  assert.match(prices, /Never change an existing signed price/);
+  for (const amount of ['9', '19', '39']) assert.match(prices, new RegExp('monthlyPrice: ' + amount));
   assert.match(sponsorForm, /custom agreement and payment verification required/);
   assert.match(sponsorServer, /FOOTBALL_SPONSORSHIP_LAUNCH_ENABLED = true/);
   assert.match(sponsorServer, /!isFootballSponsorSurface\(String\(existing\.surface_path\)\)/);
