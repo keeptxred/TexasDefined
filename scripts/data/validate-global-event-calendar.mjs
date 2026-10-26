@@ -24,7 +24,9 @@ for (const marker of [
   'from "./ticketmaster-event-match"',
   "const existing = new Map<string, number[]>();",
   "performanceMatches(records[candidate])",
-  "performanceMatches(record)",
+  "ticketmasterVenueMatches(record, providerRecord)",
+  "ticketmasterShowtimeMatches(record, providerRecord, sameVenueProviderCount)",
+  "isReviewedChristmasTicketmasterDoorTime(record, providerRecord, sameVenueProviderCount)",
   "ticketmasterVenueMatches(editorial, providerRecord)",
   "ticketmasterShowtimeMatches(editorial, providerRecord, sameVenueProviderCount)",
   "const providersByTitleAndDate = new Map<string, TexasEventRecord[]>();",
@@ -32,6 +34,10 @@ for (const marker of [
   "remember(key, records.length)",
 ]) requireText(adapter, marker, "venue-safe Ticketmaster duplicate reconciliation");
 
+const christmasShows = read("src/data/events/christmas-performances-2026.server.ts");
+for (const marker of ["export function isReviewedChristmasTicketmasterDoorTime", 'curated.slug === "grand-ol-christmas-dallas-2026"', "sameVenueProviderPerformances === 1"]) {
+  requireText(christmasShows, marker, "verified Dallas doors versus showtime exception");
+}
 const christmasProductionAcceptance = read("scripts/ci/verify-christmas-calendar-12-production.mjs");
 for (const marker of [
   "const cases = [",
