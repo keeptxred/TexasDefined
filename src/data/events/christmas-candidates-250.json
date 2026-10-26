@@ -125,7 +125,8 @@
       "intakeId": 13,
       "title": "Kerrville Holiday Light Show",
       "submittedRegion": "Hill Country & Central Texas",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "City and nonprofit confirmed Kerrville's Nov 21 2026 lighted parade and Merry on the Square/courthouse tree-lighting as independently dated records, but the submitted generic 'Holiday Light Show' has not been matched to an official named event or full display period."
     },
     {
       "intakeId": 14,
@@ -575,7 +576,11 @@
       "intakeId": 73,
       "title": "Rockwall Christmas Celebration",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "rockwall-hometown-christmas-2026"
+      ],
+      "researchNote": "Official City of Rockwall Hometown Christmas listing dates Dec 5, 2026; city program includes Kiwanis parade 9 a.m., market 10 a.m.–5 p.m. and city tree lighting 6–8 p.m."
     },
     {
       "intakeId": 74,
@@ -602,7 +607,11 @@
       "intakeId": 77,
       "title": "Southlake Home for the Holidays",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "southlake-home-for-the-holidays-2026"
+      ],
+      "researchNote": "Visit Southlake officially dates its named Home for the Holidays celebration Saturday Nov 21, 2026 from 4:30–8:30 p.m.; free tree lighting and activities."
     },
     {
       "intakeId": 78,
@@ -1463,7 +1472,11 @@
       "intakeId": 204,
       "title": "Nacogdoches Nine Flags Festival",
       "submittedRegion": "East Texas Piney Woods",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "nacogdoches-nine-flags-parade-2026"
+      ],
+      "researchNote": "Visit Nacogdoches lists the 2026 Nine Flags Lighted Christmas Parade Dec 5 at 6:30 p.m.; this is the exact verified sub-event of the broader Nine Flags festival, not a claim of daily month-long operations."
     },
     {
       "intakeId": 205,
@@ -1768,9 +1781,9 @@
     }
   ],
   "reconciliation": {
-    "asOf": "2026-10-24",
-    "calendarCandidates": 59,
+    "asOf": "2026-10-25",
+    "calendarCandidates": 62,
     "authorityCandidates": 12,
-    "remainingCandidates": 179
+    "remainingCandidates": 176
   }
 }
