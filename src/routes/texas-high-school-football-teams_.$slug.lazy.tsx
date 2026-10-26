@@ -15,11 +15,6 @@ import {
 
 // Original, school-specific source-derived visual finals; no unlicensed school photos, logos or seals.
 const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([
-  'center',
-  'center-point',
-  'centerville',
-  'channelview',
-  'charlotte',
   'celeste',
   'carrollton-turner',
   'carthage',
