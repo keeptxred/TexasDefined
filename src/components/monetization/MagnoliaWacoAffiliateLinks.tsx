@@ -1,5 +1,8 @@
+import { lazy, Suspense } from "react";
 import { buildViatorAffiliateUrl } from "@/lib/viator-affiliate";
 import { trackAffiliateClick } from "@/lib/affiliate-click";
+
+const WacoMagnoliaCrosslinks = lazy(() => import("@/components/monetization/WacoMagnoliaCrosslinks").then((module) => ({ default: module.WacoMagnoliaCrosslinks })));
 
 /** Existing approved Viator affiliate builder + sitewide governed stay widget.
  * No invented tour products, room rates or property-specific affiliate URLs.
@@ -41,6 +44,7 @@ export function MagnoliaWacoAffiliateLinks() {
         </div>
         <p className="mt-4 text-xs leading-5 text-muted-foreground">Affiliate disclosure: TexasDefined may earn a commission on qualifying Viator bookings, at no additional cost to you. Editorial content and official Magnolia information are independent of these links.</p>
       </section>
+      <Suspense fallback={<div className="my-8 h-36 border-t border-border" aria-label="Loading Waco trip planning guides" />}><WacoMagnoliaCrosslinks /></Suspense>
       <div data-stay-nearby-slot aria-label="Compare Waco hotels and places to stay" className="my-10">
         <p className="text-sm text-muted-foreground">Compare hotels near downtown Waco and Magnolia Market using our travel booking partners.</p>
       </div>
