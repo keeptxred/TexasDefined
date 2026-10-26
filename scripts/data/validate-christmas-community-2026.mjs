@@ -310,7 +310,7 @@ for (const [index, candidate] of candidates.candidates.entries()) {
     }
     assert.ok(!candidate.guidePath, `Christmas lead ${candidate.intakeId} must not misuse authority-guide status`);
   } else if (candidate.status === "existing-authority") {
-    assert.match(candidate.guidePath ?? "", /^\\/event\\/[a-z0-9-]+$/,
+    assert.match(candidate.guidePath ?? "", /^\/event\/[a-z0-9-]+$/,
       `Christmas authority lead ${candidate.intakeId} must link an exact permanent guide`);
     assert.ok(!candidate.calendarSlugs?.length,
       `Christmas authority lead ${candidate.intakeId} must not conflate source records`);
