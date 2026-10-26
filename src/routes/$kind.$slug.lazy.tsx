@@ -176,33 +176,22 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
   'milam': [{ name: 'Buckholts Badgers', slug: 'buckholts', context: 'Milam County six-man Buckholts: 2026 UIL 1A Division II District 15, named-opponent score ledger, current roster coaching change and placeholder-result caution' }, { name: 'Cameron Yoe Yoemen', slug: 'cameron-yoe', context: 'C.H. Yoe in Cameron: Aaron Babino, four-title history, 2026 District 12 ledger and transparent Little River Academy score-source conflict handling' }],
   'hays': [{ name: 'Hays Hawks', slug: 'buda-hays', context: 'Buda Hays: Mark Torres, 2026 return to 6A, first Buda Bowl win, 2020 regional-final context and Bob Shelton Stadium' }, { name: 'Johnson Jaguars', slug: 'buda-johnson', context: 'Buda Johnson: Sam Carlin, 2024 regional semifinal, 2026 District 26 results, inaugural Buda Bowl and shared Hays CISD football venue context' }],
   'leon': [{ name: 'Buffalo Bison', slug: 'buffalo', context: 'Leon County Buffalo ISD: 2026 District 11-3A DII start, Trent Jones athletics leadership and transparent unresolved Mildred-result handling' }],
-  'cherokee': [{ name: 'Bullard Panthers', slug: 'bullard', context: 'Bullard High in Cherokee County: Colton Bradford, current 4A Division I District 8 ledger and official Panther red-white-blue identity' }],
   'jasper': [{ name: 'Buna Cougars', slug: 'buna', context: 'Buna ISD Cougars: Kevin Terrier, 2026 rebound from consecutive 1-9 seasons, 46-0 Tarkington win and Cougar Stadium source cautions' }],
   'wichita': [{ name: 'Burkburnett Bulldogs', slug: 'burkburnett', context: 'Burkburnett ISD Bulldogs: Jody Littleton first-party coaching source, 2026 rebound, District 4-4A DII ledger and Bulldog Stadium entrance/parking policy' }],
   'newton': [{ name: 'Burkeville Mustangs', slug: 'burkeville', context: 'Newton County six-man Burkeville: Keith Hendrix, 1986/2001 title history, 2026 District 13 results and disclosed Chester score-source discrepancy' }],
-  'johnson': [{ name: 'Burleson Elks', slug: 'burleson', context: 'Johnson County Burleson High: Phillip Tanner, current District 7-5A DII results, 2021 playoff benchmark and official Elk red-white-black identity' }, { name: 'Centennial Spartans', slug: 'burleson-centennial', context: 'Separate Burleson ISD Centennial program: Blake Meyer, 5A DI District 8, 2022 12-2 benchmark and current 2026 ledger' }],
   'burnet': [{ name: 'Burnet Bulldogs', slug: 'burnet', context: 'Burnet High: first-party Ben Speer coaching, Kelly Green identity, 2026 District 12 ledger and China Spring breakthrough' }],
-  'washington': [{ name: 'Burton Panthers', slug: 'burton', context: 'Washington County Burton: Jason Hodde, 2022 13-1 season, 2026 District 13 race and Bremond 36-13 result' }],
-  'potter': [{ name: 'Bushland Falcons', slug: 'bushland', context: 'Potter County Bushland: District 1-3A DI, sustained playoff history, qualified current coach sourcing and 2026 result-source conflict handling' }],
-  'hill': [{ name: 'Bynum Bulldogs', slug: 'bynum', context: 'Hill County Bynum ISD six-man Bulldogs: District 14, 2026 rebuild, Bulldog Field and qualified coach attribution' }],
   'hunt': [{ name: 'Caddo Mills Foxes', slug: 'caddo-mills', context: 'Hunt County Caddo Mills: Kodi Crane, 7-1 / 4-0 district start, Ferris 53-35 win and current stadium-construction transition' }, { name: 'Campbell Indians', slug: 'campbell', context: 'Hunt County Campbell six-man: Preston Compton, 2026 District 12 schedule, fragmented-source record note and verified Saint Jo district win' }],
   'hemphill': [{ name: 'Canadian Wildcats', slug: 'canadian', context: 'Hemphill County Canadian: Andy Cavalier, five-title program history, 2026 District 1-3A DII race and current Wildcats Stadium / Chris Koetting Field context' }],
   'burleson': [{ name: 'Caldwell Hornets', slug: 'caldwell', context: 'Burleson County Caldwell: Sean Witherwax, move to 3A DI, current 2026 ledger and first-party Hornet Stadium entry guidance' }],
   'cooke': [{ name: 'Callisburg Wildcats', slug: 'callisburg', context: 'Cooke County Callisburg: District 7-3A DII, first 2026 win over S&S, disclosed coach-source conflict and unresolved Blue Ridge final' }],
-  'robertson': [{ name: 'Calvert Trojans', slug: 'calvert', context: 'Robertson County Calvert six-man: first-party Marcus Wortham coaching, 46-45 Brazos Valley game and District 15 schedule' }],
   'van-zandt': [{ name: 'Canton Eagles', slug: 'canton', context: 'Van Zandt County Canton: 8-0 start through Oct. 23, Heath Ragle source-qualified coaching role and 2026 District 9-4A DII schedule' }],
-  'randall': [{ name: 'Canyon Eagles', slug: 'canyon', context: 'Randall County Canyon High: Matt Lovorn current coach source, 2026 District 2-4A DI race and Happy State Bank Stadium rivalry context' }, { name: 'Randall Raiders', slug: 'canyon-randall', context: 'Randall High Raiders: Dan Sherwood, 7-1 start through Oct. 23, Canyon rivalry win and official Randall High schedule links' }],
-  'mclennan': [{ name: 'Bruceville-Eddy Eagles', slug: 'bruceville-eddy', context: '2026 Bruceville-Eddy Slot-T under Marcial Chapa and 39–8 district-confirmed Moody victory; seven historic playoff berths, Eagle Field visitor details' }],
   'webb': [{ name: 'Bruni Badgers', slug: 'bruni', context: 'Webb CISD Bruni six-man switch from 2025 canceled 11-man season to 2026 1A DI District 16, Federico Lujan interview and current score sources' }],
   'jack': [{ name: 'Bryson Cowboys', slug: 'bryson', context: 'Jack County Bryson ISD blue-and-gold six-man Cowboys: 1995 eleven-man playoff archive, 2015–17 six-man playoff streak and source-dated October 2026 4–4 record; 2026 coaching conflict disclosed' }],
   'brazos': [{ name: 'Bryan High Vikings', slug: 'bryan', context: 'Bryan ISD Vikings: UIL 1921 all-schools football champion, new 2026 coach Blake Joseph, separate Merrill Green Stadium and school ticket rules; not Bryan Rudder' }, { name: 'Bryan Rudder Rangers', slug: 'bryan-rudder', context: 'Bryan ISD distinct Rangers program: Eric Ezar 2026 staff, reported 4–3 through Oct 16, shared Merrill Green game venue, separate Rudder campus and ticket instructions' }],
   'cameron': [{ name: 'Brownsville Hanna Golden Eagles', slug: 'brownsville-hanna', context: 'Brownsville ISD Golden Eagles: 1967 campus origin, 1974 Hanna name, Mark Guess 2026 football leadership, 5A Division I and separate Sams/Veterans Memorial venues' }, { name: 'Brownsville Lopez Lobos', slug: 'brownsville-lopez', context: 'Lopez ECHS football: seven reported postseason qualifications, 2024 playoff finish and 2026 2–5 attributed scores; Sams Stadium and district ticket guidance' }, { name: 'Brownsville Pace Vikings', slug: 'brownsville-pace', context: 'Pace ECHS green/white Vikings: 1975 campus opening, 16 football postseason berths, 2026 sourced 3–5 record and Oct23 Donna game at Sams Stadium' }, { name: 'Brownsville Porter Cowboys', slug: 'brownsville-porter', context: 'Porter BISD Cowboys 1974 founding, 2025 UIL playoff run and 2026 reported 2–6 results; separate Sams and Veterans Memorial stadium games' }, { name: 'Brownsville Rivera Raiders', slug: 'brownsville-rivera', context: '1988 Simón Rivera Jr. school origin, current Johnny Garza head coach, reported 2–5 through Oct9; future Corpus Christi Veterans venue TBA' }, { name: 'Brownsville Veterans Memorial Chargers', slug: 'brownsville-veterans-memorial', context: 'Brownsville Chargers (not Corpus Christi or Mission): 2023 5A DI state semifinal, coach JC Ramirez, 2026 6A and reported 5–2 record with disclosed Monterrey score dispute' }],
-  'henderson': [{ name: 'Brownsboro Bears', slug: 'brownsboro', context: 'Brownsboro ISD Bears: new 2026 coach Ryan Hood, 25 football playoff appearances, updated October results and official moved-to-Thursday Van game warning' }],
   'terry': [{ name: 'Brownfield Cubs', slug: 'brownfield', context: 'Brownfield ISD 3A Division I football: 27 historical playoff appearances, current Lawrence Johnson athletic office, Cub Stadium and 2026 reported results' }],
   'coke': [{ name: 'Bronte Longhorns', slug: 'bronte', context: 'Bronte ISD six-man football: 2025 outright district championship, new 2026 Julian Helms coach, 1A Division I District 7 and live local score guide' }],
   'parker': [{ name: 'Brock Eagles', slug: 'brock', context: 'Brock ISD football established 2011: 2015 UIL state title, four final appearances, coach Billy Mathis and 2026 first-party schedule' }],
-  'wise': [{ name: 'Bridgeport Bulls', slug: 'bridgeport', context: 'Bridgeport ISD Bulls 2026 official coach Aaron Cupp, 22 football playoff appearances and Bull Memorial Stadium turf notice; 1–6 reported through October 16' }],
-  'harris': [{ name: 'Bridgeland Bears', slug: 'bridgeland', context: 'CFISD Bridgeland Bears: 2020 first-playoff-win era, 2024 UIL quarterfinal, 2026 Lonnie Madison staff and specific Berry Center spectator directions' }],
   'orange': [{ name: 'Bridge City Cardinals', slug: 'bridge-city', context: 'Bridge City ISD Cardinals: 1965 runner-up, 1966 UIL champion, 2026 Smalley staff and first-party home game tickets' }],
   'robertson': [{ name: 'Bremond Tigers', slug: 'bremond', context: 'Bremond ISD Tigers: 1981 UIL title, Jeff Kasowski 2014–16 three-peat and dated 2026 season with first-party schedule' }],
   'washington': [{ name: 'Brenham Cubs', slug: 'brenham', context: 'Brenham High School: 2002, 2009 and 2013 UIL title-game runs, 2026 Cub Stadium varsity schedule and sources' }],
@@ -326,6 +315,22 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
     { name: 'Tascosa Rebels', slug: 'amarillo-tascosa', context: 'Rebels program history and documented cross-city series' },
   ],
 };
+// Keep previously sourced school cards from being erased by later additions
+// for the same campus county. There must be no duplicate object keys in
+// either map; the strict CI validator enforces this invariant.
+const supplementalFootballCountyLinks: Record<string, Array<{ name: string; slug: string; context: string }>> = {
+  'robertson': [{ name: 'Calvert Trojans', slug: 'calvert', context: 'Robertson County Calvert six-man: first-party Marcus Wortham coaching, 46-45 Brazos Valley game and District 15 schedule' }],
+  'washington': [{ name: 'Burton Panthers', slug: 'burton', context: 'Washington County Burton: Jason Hodde, 2022 13-1 season, 2026 District 13 race and Bremond 36-13 result' }],
+  'harris': [{ name: 'Bridgeland Bears', slug: 'bridgeland', context: 'CFISD Bridgeland Bears: 2020 first-playoff-win era, 2024 UIL quarterfinal, 2026 Lonnie Madison staff and specific Berry Center spectator directions' }],
+  'cherokee': [{ name: 'Bullard Panthers', slug: 'bullard', context: 'Bullard High in Cherokee County: Colton Bradford, current 4A Division I District 8 ledger and official Panther red-white-blue identity' }],
+  'johnson': [{ name: 'Burleson Elks', slug: 'burleson', context: 'Johnson County Burleson High: Phillip Tanner, current District 7-5A DII results, 2021 playoff benchmark and official Elk red-white-black identity' }, { name: 'Centennial Spartans', slug: 'burleson-centennial', context: 'Separate Burleson ISD Centennial program: Blake Meyer, 5A DI District 8, 2022 12-2 benchmark and current 2026 ledger' }],
+  'henderson': [{ name: 'Brownsboro Bears', slug: 'brownsboro', context: 'Brownsboro ISD Bears: new 2026 coach Ryan Hood, 25 football playoff appearances, updated October results and official moved-to-Thursday Van game warning' }],
+  'mclennan': [{ name: 'Bruceville-Eddy Eagles', slug: 'bruceville-eddy', context: '2026 Bruceville-Eddy Slot-T under Marcial Chapa and 39–8 district-confirmed Moody victory; seven historic playoff berths, Eagle Field visitor details' }],
+  'hill': [{ name: 'Bynum Bulldogs', slug: 'bynum', context: 'Hill County Bynum ISD six-man Bulldogs: District 14, 2026 rebuild, Bulldog Field and qualified coach attribution' }],
+  'wise': [{ name: 'Bridgeport Bulls', slug: 'bridgeport', context: 'Bridgeport ISD Bulls 2026 official coach Aaron Cupp, 22 football playoff appearances and Bull Memorial Stadium turf notice; 1–6 reported through October 16' }],
+  'randall': [{ name: 'Canyon Eagles', slug: 'canyon', context: 'Randall County Canyon High: Matt Lovorn current coach source, 2026 District 2-4A DI race and Happy State Bank Stadium rivalry context' }, { name: 'Randall Raiders', slug: 'canyon-randall', context: 'Randall High Raiders: Dan Sherwood, 7-1 start through Oct. 23, Canyon rivalry win and official Randall High schedule links' }],
+  'potter': [{ name: 'Bushland Falcons', slug: 'bushland', context: 'Potter County Bushland: District 1-3A DI, sustained playoff history, qualified current coach sourcing and 2026 result-source conflict handling' }],
+};
 
 const siteUrl = 'https://texasdefined.com';
 const localGovernmentKinds = new Set(['county', 'appraisal-district', 'tax-office', 'county-clerk', 'dps-office']);
@@ -346,6 +351,11 @@ function EntityPage() {
   }, [entity.kind, entity.slug]);
   const visibleRelated = relatedForDisplay(entity, related);
   const batch001FootballLink = entity.kind === 'county' ? batch001FootballCountyLinks[entity.slug] : undefined;
+  // Concatenate research batches rather than choosing one map winner.
+  // Distinct programs in the same campus county must all remain discoverable.
+  const researchedFootballCountyLinks = entity.kind === 'county'
+    ? [...(batch002FootballCountyLinks[entity.slug] ?? []), ...(supplementalFootballCountyLinks[entity.slug] ?? [])]
+    : [];
   const relatedEntities = visibleRelated.map((item) => item.entity);
   const description = entity.kind === 'county' && countySeriesArticle?.dek ? countySeriesArticle.dek : pageDescription(entity);
   const canonicalPath = canonicalEntityPath(entity);
@@ -465,11 +475,11 @@ function EntityPage() {
         {entity.kind === 'county' ? <CountyVisitorPlaces countySlug={entity.slug} countyName={entity.name} /> : null}
         {entity.kind === 'county' ? <CountySportsDestinations county={entity} venues={countySportsVenues} /> : null}
         {entity.kind === 'county' ? <Suspense fallback={null}><CountyHighSchoolFootball county={entity} /></Suspense> : null}
-        {entity.kind === 'county' && batch002FootballCountyLinks[entity.slug] ? <section aria-label="Independent football histories from this county" className="border-b border-border py-9">
+        {entity.kind === 'county' && researchedFootballCountyLinks.length > 0 ? <section aria-label="Independent football histories from this county" className="border-b border-border py-9">
           <p className="eyebrow text-primary">Researched local football programs</p>
           <h2 className="mt-2 font-display text-3xl">Football history connected to {entity.name}</h2>
           <ul className="mt-5 grid gap-4 sm:grid-cols-2">
-            {batch002FootballCountyLinks[entity.slug].map((school) => <li key={school.slug} className="rounded-lg border border-border p-4">
+            {researchedFootballCountyLinks.map((school) => <li key={school.slug} className="rounded-lg border border-border p-4">
               <a className="font-semibold text-primary underline underline-offset-4" href={`/texas-high-school-football-teams/${school.slug}`}>{school.name} football authority guide →</a>
               <p className="mt-2 text-sm text-muted-foreground">{school.context}</p>
             </li>)}
