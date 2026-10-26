@@ -27,7 +27,7 @@ const end = eventFile.indexOf("\n];", start);
 assert.ok(start >= 0 && end > start, "Source-qualified Christmas manifest was not found");
 const json = eventFile.slice(eventFile.indexOf("= [", start) + 2, end + 2).trim();
 const events = JSON.parse(json);
-assert.ok(events.length >= 203, "The 203 organizer-verified Christmas date windows must not shrink without explicit source review");
+assert.ok(events.length >= 212, "The 212 organizer-verified Christmas date windows must not shrink without explicit source review");
 assert.equal(events.length, new Set(events.map((event) => event.slug)).size, "Duplicate Christmas community slugs");
 
 const validDate = /^20\d{2}-\d{2}-\d{2}$/;
@@ -55,6 +55,30 @@ const check = (slug, date, endDate) => {
   assert.equal(event.startDate, date, `Unexpected source date for ${slug}`);
   if (endDate !== undefined) assert.equal(event.endDate, endDate, `Unexpected end date for ${slug}`);
 };
+// The Alley Theatre's 2026–27 official ticketing calendar has distinct
+// performance nights, not a continuous Nov 15–Dec 27 run.
+for (const [idx,begin,end] of [
+  [1,"2026-11-15",undefined],
+  [2,"2026-11-21","2026-11-22"],
+  [3,"2026-11-24",undefined],
+  [4,"2026-11-27","2026-11-29"],
+  [5,"2026-12-04","2026-12-06"],
+  [6,"2026-12-08","2026-12-13"],
+  [7,"2026-12-15","2026-12-20"],
+  [8,"2026-12-22","2026-12-24"],
+  [9,"2026-12-26","2026-12-27"],
+]) {
+  const slug = `houston-alley-theatre-christmas-carol-2026-${idx}`;
+  check(slug,begin,end);
+  const event = bySlug.get(slug);
+  assert.ok(event.officialEventUrl.startsWith("https://www.alleytheatre.org/"),
+    `${slug}: theater's first-party show source required`);
+  assert.ok(event.summary.includes("Children younger than six"),
+    `${slug}: official child-admission rules are important trip-planning context`);
+}
+assert.ok(!bySlug.has("houston-alley-theatre-christmas-carol-2026-all-dates"),
+  "No fabricated continuous Alley Theatre performance dates");
+
 for (const [slug,start,end] of [
   ['beaumont-mcfaddin-ward-holiday-open-house-2026','2026-12-05','2026-12-06'],
   ['arlington-texas-christkindl-market-opening-2026','2026-11-20','2026-11-22'],
