@@ -125,10 +125,10 @@
       "status": "VERIFIED",
       "date": "2026-12-05",
       "city": "Fort Worth",
-      "venue": "Dickies Arena",
+      "venue": "Ariat Arena",
       "showtime": "19:00",
       "sourceUrl": "https://www.livenation.com/event/vvG1YZ_Cx4afyp/for-king-country-a-drummer-boy-christmas",
-      "evidence": "Live Nation confirms Dec 5 at 7 PM, Fort Worth venue listed as Dickies Arena and shows an admission ticket link distinctly from parking upgrades",
+      "evidence": "Live Nation confirms Dec 5 at 7 PM, Fort Worth venue listed as Dickies Arena and shows an admission ticket link distinctly from parking upgrades Venue owner and Ariat announced this is now Ariat Arena effective October 26, 2026; historical promoter references to Dickies Arena refer to the same building.",
       "checkedAt": "2026-10-26",
       "checkoutUrl": null,
       "publicSaleStatus": "organizer-published-on-sale",
@@ -153,7 +153,7 @@
         "2026-12-05",
         "19:00",
         "Fort Worth",
-        "Dickies Arena",
+        "Ariat Arena (formerly Dickies Arena)",
         "Source-qualified organizer/venue/provider event identity",
         "Production 12-show city/date SSR acceptance passed, run 40260454571"
       ],
@@ -171,7 +171,10 @@
           "performanceDate": "2026-12-05",
           "performanceTime": "19:00",
           "city": "Fort Worth",
-          "venue": "Dickies Arena"
+          "venue": "Ariat Arena",
+          "formerName": "Dickies Arena",
+          "venueRenameEffective": "2026-10-26",
+          "venueNamingSourceUrl": "https://www.globenewswire.com/news-release/2026/10/26/3388188/0/en/ariat-international-to-become-the-official-naming-rights-partner-of-fort-worth-s-beloved-arena.html"
         },
         "ticketUrl": {
           "status": "SOURCE_PUBLISHED_EVENT_ENTRY_NOT_TRANSACTION_VERIFIED",
@@ -422,10 +425,10 @@
       "status": "VERIFIED",
       "date": "2026-12-16",
       "city": "Fort Worth",
-      "venue": "Dickies Arena",
+      "venue": "Ariat Arena",
       "showtime": "19:00",
       "sourceUrl": "https://dickiesarena.com/event/2026-12-16-pentatonix/",
-      "evidence": "Official arena page confirms Dec 16 at 7 PM, tickets on sale via Ticketmaster; old dickiesarena.com event URL redirects to Ariat Arena branding while other first-party channels retain Dickies name",
+      "evidence": "Official arena page confirms Dec 16 at 7 PM, tickets on sale via Ticketmaster; old dickiesarena.com event URL redirects to Ariat Arena branding while other first-party channels retain Dickies name Venue owner and Ariat announced this is now Ariat Arena effective October 26, 2026; historical promoter references to Dickies Arena refer to the same building.",
       "checkedAt": "2026-10-26",
       "checkoutUrl": null,
       "publicSaleStatus": "venue-published-on-sale",
@@ -450,7 +453,7 @@
         "2026-12-16",
         "19:00",
         "Fort Worth",
-        "Dickies Arena",
+        "Ariat Arena (formerly Dickies Arena)",
         "Source-qualified organizer/venue/provider event identity",
         "Production 12-show city/date SSR acceptance passed, run 40260454571"
       ],
@@ -468,7 +471,10 @@
           "performanceDate": "2026-12-16",
           "performanceTime": "19:00",
           "city": "Fort Worth",
-          "venue": "Dickies Arena"
+          "venue": "Ariat Arena",
+          "formerName": "Dickies Arena",
+          "venueRenameEffective": "2026-10-26",
+          "venueNamingSourceUrl": "https://www.globenewswire.com/news-release/2026/10/26/3388188/0/en/ariat-international-to-become-the-official-naming-rights-partner-of-fort-worth-s-beloved-arena.html"
         },
         "ticketUrl": {
           "status": "SOURCE_PUBLISHED_EVENT_ENTRY_NOT_TRANSACTION_VERIFIED",
