@@ -1184,7 +1184,7 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "region": "gulf-coast",
     "startDate": "2026-12-04",
     "venueName": "Independence Park · 3449 Pearland Parkway",
-    "officialEventUrl": "https://www.parks.pearlandtx.gov/Home/Components/Calendar/Event/5444/2160",
+    "officialEventUrl": "https://www.parks.pearlandtx.gov/special-events/hometown-christmas-festival",
     "sourceName": "City of Pearland Parks and Recreation",
     "summary": "Pearland Parks & Recreation dates its free Hometown Christmas Festival Friday December 4, 2026 from 6–9 p.m. at Independence Park. Stage entertainment, H-E-B Winter Wonderland and food trucks lead to a scheduled drone show around 8:30 p.m. Parking and ADA entry differ; food and purchases may cost extra. This named festival is NOT proof of a separate season-long 'Pearland Festival of Lights' exhibit."
   },
@@ -1480,6 +1480,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.naturalbridgecaverns.com/event/christmas-at-the-caverns/",
     "sourceName": "Natural Bridge Caverns",
     "summary": "The operator's 2026 Christmas at the Caverns promotion confirms a December 5–23 holiday season on select dates, with underground caroling, lights and optional ticket tiers. This event record marks the confirmed opening date only; select other nights using the official dated reservation calendar."
+  },
+  {
+    "slug": "pearland-hometown-christmas-parade-2026",
+    "title": "Pearland Hometown Christmas Parade · Red, White, and Blue Christmas",
+    "city": "Pearland",
+    "countySlug": "brazoria",
+    "countyName": "Brazoria County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-05",
+    "venueName": "FM 518 Broadway · Old Alvin Road to Pearland Parkway",
+    "officialEventUrl": "https://www.parks.pearlandtx.gov/special-events/hometown-christmas-festival",
+    "sourceName": "City of Pearland Parks and Recreation",
+    "summary": "The City of Pearland's 2026 Hometown Christmas schedule confirms the parade Saturday December 5 at 6 p.m. on FM 518 (Broadway) from Old Alvin Road toward Pearland Parkway, with the theme Red, White, and Blue Christmas. This is a DIFFERENT day and route from the December 4 Hometown Christmas Festival at Independence Park."
   },
   {
     "slug": "richardson-santas-village-week1",
@@ -2041,6 +2054,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The Kemah Boardwalk 2026 events calendar schedules the Cocoa & Cookies Stroll on Saturdays November 28 through December 19. This record lists one confirmed Saturday session only; do not imply Sunday or midweek strolls. Confirm current giveaways, food purchases and seasonal operating hours with the Boardwalk."
   },
   {
+    "slug": "pearland-tour-de-lites-2026",
+    "title": "Pearland Tour De Lites · holiday bicycle lights tour",
+    "city": "Pearland",
+    "countySlug": "brazoria",
+    "countyName": "Brazoria County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-12",
+    "venueName": "Independence Park · Pearland",
+    "officialEventUrl": "https://www.parks.pearlandtx.gov/special-events/",
+    "sourceName": "City of Pearland Parks and Recreation official 2026 special-events roster",
+    "summary": "Pearland's official 2026 Parks and Recreation special-events schedule lists Tour De Lites Saturday December 12 from approximately 4:30 to 8 p.m. at Independence Park. This is a separate cycling-focused holiday event from the December 4 festival and December 5 parade. Detailed ride registration, routes, ticket costs and participating bike requirements have not yet been confirmed for 2026—check the event organizer before traveling."
+  },
+  {
     "slug": "san-antonio-river-of-lights",
     "title": "River of Lights · San Antonio Museum Reach",
     "city": "San Antonio",
@@ -2427,7 +2453,7 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The final five January evenings of the 2026–27 Marktplatz lighting program; December 31 is omitted because the special New Year's Eve event replaces the regular countdown.",
     "endDate": "2027-01-05"
   }
-];;;;;;;;;;;
+];;;;;;;;;;;;
 
 // Reuse comprehensive guides where they exist. The dated occurrence remains
 // an independent calendar record, so closing days are never falsely listed.
