@@ -51,7 +51,8 @@ export function isEventSpecificTicketDestination(value: string): boolean {
   if (on("axs.com") && /^\/(?:venues|artists|browse|search)(?:\/|$)/i.test(path)) return false;
   if (on("livenation.com") && /^\/(?:venue|artist|search)(?:\/|$)/i.test(path)) return false;
   if (on("seatgeek.com") && /^\/(?:venues|performers|cities)(?:\/|$)/i.test(path)) return false;
-  if (on("vividseats.com") && /^\/(?:concerts|sports|theater|venues)(?:\/|$)/i.test(path)) return false;
+  if (on("vividseats.com") && (/^\/(?:concerts|sports|theater)$/i.test(path)
+    || /^\/venues(?:\/|$)/i.test(path))) return false;
   return true;
 }
 
