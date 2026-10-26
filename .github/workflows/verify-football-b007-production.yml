@@ -70,7 +70,7 @@ jobs:
       - name: Verify exact 25 school, 75 viewport, county, graphic, sitemap and release cases
         if: steps.scope.outputs.run == 'true'
         env:
-          GITHUB_SHA: ${{ github.sha }}
+          GITHUB_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
         run: node scripts/ci/verify-football-b007-targeted-production.mjs
       - name: Preserve run evidence and 75 school plus 75 original-graphic screenshots
         if: always() && steps.scope.outputs.run == 'true'
