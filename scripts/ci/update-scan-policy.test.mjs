@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { baselineFromLedger, buildChangePlan, REPRESENTATIVE_PATHS, PAGE_BUDGET } from './production-change-scope.mjs';
-import { verifyChangedPages } from './verify-changed-production-pages.mjs';
+import { verifyChangedPages, galvestonFactsDate, galvestonEditorialDate } from './verify-changed-production-pages.mjs';
 import { createProductionPageFetch } from './reuse-production-page.mjs';
 const policy = JSON.parse(readFileSync('scripts/ci/update-scan-policy.json', 'utf8'));
 const text = file => readFileSync(file, 'utf8');
@@ -115,7 +115,7 @@ test('statewide Mardi Gras hub must be live, indexable by default, and link to r
 test('Galveston Mardi Gras archival photo and 2027 source date must reach both visitor and release HTML', async () => {
   const file = 'src/data/major-event-expanded-authority-tranche25.server.ts';
   const before = 'const events = [{ slug: "mardi-gras-galveston", sourceCheckedAt: "2026-08-29" }];';
-  const after = 'const events = [{ slug: "mardi-gras-galveston", sourceCheckedAt: "2026-10-21" }];';
+  const after = `const events = [{ slug: "mardi-gras-galveston", sourceCheckedAt: "${galvestonFactsDate}" }];`;
   const plan = buildChangePlan({ baseline, head, changedFiles: [file], sources: { [file]: { before, after } } });
   assert.ok(plan.eventAuthorityPages.includes('/event/mardi-gras-galveston'));
   const html = (fresh = true, noindex = false) =>
@@ -124,7 +124,7 @@ test('Galveston Mardi Gras archival photo and 2027 source date must reach both v
     + (noindex ? '<meta name="robots" content="noindex, follow">' : '')
     + '</head><body><h1>Mardi Gras! Galveston</h1><section>Planning your visit</section>'
     + '<section>Official event links</section><section data-event-discovery-tail="true">Explore</section>'
-    + (fresh ? 'Last reviewed 2026-10-21 Event facts last source-checked 2026-10-21 A Yee 2013 Mardi Gras'
+    + (fresh ? `Last reviewed ${galvestonEditorialDate} Event facts last source-checked ${galvestonFactsDate} A Yee 2013 Mardi Gras`
       : 'Last reviewed 2026-09-02 Event facts last source-checked 2026-08-29')
     + '</body></html>';
   const ok = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(html()) });

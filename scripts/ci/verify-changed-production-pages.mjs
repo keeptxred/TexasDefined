@@ -1,5 +1,18 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
+
+// Derive strict release markers from the reviewed event sources, rather than
+// leaving fixed dates that outlive later verified editorial updates.
+function verifiedGalvestonDate(file, field) {
+  const source = readFileSync(file, 'utf8');
+  const pos = source.indexOf('slug: "mardi-gras-galveston"');
+  if (pos < 0) throw new Error('Missing Galveston record in ' + file);
+  const match = source.slice(pos, pos + 8000).match(new RegExp(field + ':\\s*"([0-9]{4}-[0-9]{2}-[0-9]{2})"'));
+  if (!match) throw new Error('Missing Galveston ' + field + ' date in ' + file);
+  return match[1];
+}
+export const galvestonFactsDate = verifiedGalvestonDate('src/data/major-event-expanded-authority-tranche25.server.ts', 'sourceCheckedAt');
+export const galvestonEditorialDate = verifiedGalvestonDate('src/data/major-event-schema-enrichment-batch6.server.ts', 'verifiedAt');
 // Both cache-busted release checks and ordinary visitor URLs must expose
 // the corrected data. A successful query-string check alone can hide stale
 // canonical HTML if the exact path was omitted from Cloudflare purge targets.
@@ -254,8 +267,8 @@ for (const path of plan.selectedPaths) {
           // page without its exact-event licensed image and 2027 source review.
           for (const [surface, body] of [['release', html], ['ordinary visitor URL', visitorHtml]]) {
             for (const required of [
-              'Last reviewed 2026-10-21',
-              'Event facts last source-checked 2026-10-21',
+              'Last reviewed ' + galvestonEditorialDate,
+              'Event facts last source-checked ' + galvestonFactsDate,
               'A Yee',
               '2013 Mardi Gras',
             ]) {
