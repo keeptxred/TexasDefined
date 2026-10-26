@@ -204,6 +204,12 @@ function MardiGrasTexasPage() {
         <p className="mt-5 text-sm leading-7 text-muted-foreground">* Bandera tourism's detailed event page spans January 28–31, while its general save-the-date page lists January 28–30. The January 30 parade is confirmed but the Sunday program needs rechecking. Kemah's February 6 boat parade and February 9 street parade are separate events.</p>
       </section>
 
+      <section aria-labelledby="capital-heading" className="mt-14 border-t border-border pt-10">
+        <h2 id="capital-heading" className="font-display text-3xl">Why is Galveston the Mardi Gras Capital of Texas?</h2>
+        <p className="mt-4 max-w-4xl leading-7 text-muted-foreground">In 2025, the 89th Texas Legislature designated Galveston as the state's official Mardi Gras Capital through H.C.R. 50. The resolution traces celebrations back to 1867 and credits the revival of citywide Mardi Gras festivities in 1985. It is a legislative place designation, not an assertion that the other Texas Carnival events on this page are affiliated with Galveston.</p>
+        <p className="mt-3 flex flex-wrap gap-x-6 gap-y-3 text-sm"><a href="https://capitol.texas.gov/tlodocs/89R/billtext/html/HC00050F.htm" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline">Read H.C.R. 50 on Texas Legislature Online ↗</a><a href="/texas-capital-designations" className="font-semibold text-primary underline">See more legislatively designated Texas capitals →</a></p>
+      </section>
+
       <section id="companion-events" className="mt-14 border-t border-border pt-10">
         <p className="eyebrow text-primary">Confirmed companion events</p>
         <h2 className="mt-3 font-display text-4xl">More dated Mardi Gras events in Texas for 2027</h2>
