@@ -44,6 +44,9 @@ const smokeTargets = [
 
   { path: '/events/mardi-gras', requiredText: 'Mardi Gras in Texas', label: 'Statewide Mardi Gras authority hub SSR renders' },
   { path: '/events/mardi-gras', requiredText: '/event/kemah-yachty-gras', label: 'Mardi Gras hub links to verified Kemah parade guide' },
+  { path: '/events/mardi-gras', requiredText: 'Chicken Run &amp; Gumbo Cook-off', label: 'Mardi Gras hub differentiates January Crystal Beach fundraiser from February parade' },
+  { path: '/events/mardi-gras', requiredText: 'Queen Mab Ball', label: 'Mardi Gras hub covers Jefferson ticketed ball separately from main festival' },
+  { path: '/events/mardi-gras', requiredText: 'Lagniappe Mardi Gras', label: 'Mardi Gras hub distinguishes second confirmed Beaumont charity event from public festival' },
   { path: '/event/kemah-yachty-gras', requiredText: 'Yachty Gras', label: 'Kemah two-organizer Mardi Gras guide SSR renders' },
   { path: '/event/kemah-yachty-gras', requiredText: 'yachtygras.com', label: 'Kemah boat-parade source remains distinct from street event' },
   { path: '/event/cowboy-mardi-gras-bandera', requiredText: 'Carol M. Highsmith', label: 'Bandera actual-event archival photo attribution is visible' },
