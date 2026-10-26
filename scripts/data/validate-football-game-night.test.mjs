@@ -136,7 +136,7 @@ test('Katy non-score repairs preserve sourced stadiums, maintained record-book l
   assert.match(gameNight, /slug === 'katy' \? '#katy-stadiums'/);
   assert.match(gameNight, /Both Katy ISD stadiums/);
   const katyGuide = read('src/components/sports/KatyStadiumGuide.tsx');
-  for (const item of ['1830 Katyland Drive', '1733 Katyland Drive', 'katyabc.org/features/katy-football-record-book/']) assert.ok(katyGuide.includes(item), `Katy stadium guide missing: ${item}`);
+  for (const item of ['1830 Katyland Drive', '1733 Katyland Drive', 'katyabc.org/features/katy-football-record-book/', 'katyisd.org/athletics/facilities/clear-bag-regulation', 'khs.katyisd.org/athletics/home']) assert.ok(katyGuide.includes(item), `Katy stadium guide missing: ${item}`);
   assert.ok(profile.includes('NCES Katy High School source'));
   assert.match(profile, /<KatyStadiumGuide \/>/);
   assert.match(editorialData, /Katy Tigers Football: Nine State Titles, Stadiums & Team Guide/);
