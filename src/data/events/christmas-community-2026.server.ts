@@ -98,6 +98,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The official 2026 Cowboy Kringle dates include this operating weekend. Photos are appointment-only, with advance booking required; walk-up visits are not guaranteed. This is a separate attraction from Gruene Hall ticketed shows."
   },
   {
+    "slug": "houston-alley-theatre-christmas-carol-2026-1",
+    "title": "Alley Theatre A Christmas Carol · November 15, 2026",
+    "city": "Houston",
+    "countySlug": "harris",
+    "countyName": "Harris County",
+    "region": "gulf-coast",
+    "startDate": "2026-11-15",
+    "venueName": "Alley Theatre · Hubbard Theatre · 615 Texas Avenue",
+    "officialEventUrl": "https://www.alleytheatre.org/plays/christmas-carol/",
+    "sourceName": "Alley Theatre 2026–27 season and official dated box office",
+    "summary": "The Alley Theatre box office confirms 2026-11-15 as scheduled A Christmas Carol performance date in the Hubbard Theatre. Matinee and evening showtimes vary by day; select the exact dated performance on the theater's official ticket calendar. Children younger than six are not admitted; admission is paid and is separate from nearby holiday attractions."
+  },
+  {
     "slug": "dallas-zoo-lights-november",
     "title": "Dallas Zoo Lights · November 18–29",
     "city": "Dallas",
@@ -192,6 +205,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.visitthewoodlands.com/events/holiday/",
     "sourceName": "Visit The Woodlands",
     "summary": "The indoor Woodlands Ice Rink operates November 20, 2026–January 18, 2027 in timed skating sessions. Book an admission time; this is not an outdoor rink. The visitor bureau advertises a separate qualifying hotel Stay & Skate offer, with participation rules set by each hotel."
+  },
+  {
+    "slug": "houston-alley-theatre-christmas-carol-2026-2",
+    "title": "Alley Theatre A Christmas Carol · November 21–22, 2026",
+    "city": "Houston",
+    "countySlug": "harris",
+    "countyName": "Harris County",
+    "region": "gulf-coast",
+    "startDate": "2026-11-21",
+    "endDate": "2026-11-22",
+    "venueName": "Alley Theatre · Hubbard Theatre · 615 Texas Avenue",
+    "officialEventUrl": "https://www.alleytheatre.org/plays/christmas-carol/",
+    "sourceName": "Alley Theatre 2026–27 season and official dated box office",
+    "summary": "The Alley Theatre box office confirms 2026-11-21 through 2026-11-22 as scheduled A Christmas Carol performance dates in the Hubbard Theatre. Matinee and evening showtimes vary by day; select the exact dated performance on the theater's official ticket calendar. Children younger than six are not admitted; admission is paid and is separate from nearby holiday attractions."
   },
   {
     "slug": "colleyville-2026-christmas-tree-lighting",
@@ -423,6 +450,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "endDate": "2027-01-01"
   },
   {
+    "slug": "houston-alley-theatre-christmas-carol-2026-3",
+    "title": "Alley Theatre A Christmas Carol · November 24, 2026",
+    "city": "Houston",
+    "countySlug": "harris",
+    "countyName": "Harris County",
+    "region": "gulf-coast",
+    "startDate": "2026-11-24",
+    "venueName": "Alley Theatre · Hubbard Theatre · 615 Texas Avenue",
+    "officialEventUrl": "https://www.alleytheatre.org/plays/christmas-carol/",
+    "sourceName": "Alley Theatre 2026–27 season and official dated box office",
+    "summary": "The Alley Theatre box office confirms 2026-11-24 as scheduled A Christmas Carol performance date in the Hubbard Theatre. Matinee and evening showtimes vary by day; select the exact dated performance on the theater's official ticket calendar. Children younger than six are not admitted; admission is paid and is separate from nearby holiday attractions."
+  },
+  {
     "slug": "fredericksburg-nights-of-lights-opening",
     "title": "Fredericksburg Christmas Nights of Lights · opening nights",
     "city": "Fredericksburg",
@@ -477,6 +517,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "sourceName": "City of Grand Prairie",
     "summary": "Drive-through light display open nightly from 6–10 p.m. November 26–December 31. Check the city link for current pricing and ticket options.",
     "endDate": "2026-12-31"
+  },
+  {
+    "slug": "houston-alley-theatre-christmas-carol-2026-4",
+    "title": "Alley Theatre A Christmas Carol · November 27–29, 2026",
+    "city": "Houston",
+    "countySlug": "harris",
+    "countyName": "Harris County",
+    "region": "gulf-coast",
+    "startDate": "2026-11-27",
+    "endDate": "2026-11-29",
+    "venueName": "Alley Theatre · Hubbard Theatre · 615 Texas Avenue",
+    "officialEventUrl": "https://www.alleytheatre.org/plays/christmas-carol/",
+    "sourceName": "Alley Theatre 2026–27 season and official dated box office",
+    "summary": "The Alley Theatre box office confirms 2026-11-27 through 2026-11-29 as scheduled A Christmas Carol performance dates in the Hubbard Theatre. Matinee and evening showtimes vary by day; select the exact dated performance on the theater's official ticket calendar. Children younger than six are not admitted; admission is paid and is separate from nearby holiday attractions."
   },
   {
     "slug": "boerne-dickens-on-main",
@@ -1036,6 +1090,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://unitedwayabilene.org/winterlightfest/",
     "sourceName": "United Way of Abilene",
     "summary": "One of four published Winter Lightfest operating windows, December 4–6. This is a ticketed walk-through, not a nightly all-December display."
+  },
+  {
+    "slug": "houston-alley-theatre-christmas-carol-2026-5",
+    "title": "Alley Theatre A Christmas Carol · December 4–6, 2026",
+    "city": "Houston",
+    "countySlug": "harris",
+    "countyName": "Harris County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-04",
+    "endDate": "2026-12-06",
+    "venueName": "Alley Theatre · Hubbard Theatre · 615 Texas Avenue",
+    "officialEventUrl": "https://www.alleytheatre.org/plays/christmas-carol/",
+    "sourceName": "Alley Theatre 2026–27 season and official dated box office",
+    "summary": "The Alley Theatre box office confirms 2026-12-04 through 2026-12-06 as scheduled A Christmas Carol performance dates in the Hubbard Theatre. Matinee and evening showtimes vary by day; select the exact dated performance on the theater's official ticket calendar. Children younger than six are not admitted; admission is paid and is separate from nearby holiday attractions."
   },
   {
     "slug": "amarillo-electric-light-parade",
@@ -1799,6 +1867,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The city advertises Santa's Village as open to stroll through and view December 7–9. Full interactive programs and Santa visits are not advertised for this window; use separately listed weekend programs for those activities."
   },
   {
+    "slug": "houston-alley-theatre-christmas-carol-2026-6",
+    "title": "Alley Theatre A Christmas Carol · December 8–13, 2026",
+    "city": "Houston",
+    "countySlug": "harris",
+    "countyName": "Harris County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-08",
+    "endDate": "2026-12-13",
+    "venueName": "Alley Theatre · Hubbard Theatre · 615 Texas Avenue",
+    "officialEventUrl": "https://www.alleytheatre.org/plays/christmas-carol/",
+    "sourceName": "Alley Theatre 2026–27 season and official dated box office",
+    "summary": "The Alley Theatre box office confirms 2026-12-08 through 2026-12-13 as scheduled A Christmas Carol performance dates in the Hubbard Theatre. Matinee and evening showtimes vary by day; select the exact dated performance on the theater's official ticket calendar. Children younger than six are not admitted; admission is paid and is separate from nearby holiday attractions."
+  },
+  {
     "slug": "dallas-zoo-lights-dec-mid",
     "title": "Dallas Zoo Lights · December 9–13",
     "city": "Dallas",
@@ -2422,6 +2504,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The city advertises a viewing-only village stroll December 14–17; family activity houses, photos with Santa and live performances are offered on the separately scheduled Santa's Village weekends."
   },
   {
+    "slug": "houston-alley-theatre-christmas-carol-2026-7",
+    "title": "Alley Theatre A Christmas Carol · December 15–20, 2026",
+    "city": "Houston",
+    "countySlug": "harris",
+    "countyName": "Harris County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-15",
+    "endDate": "2026-12-20",
+    "venueName": "Alley Theatre · Hubbard Theatre · 615 Texas Avenue",
+    "officialEventUrl": "https://www.alleytheatre.org/plays/christmas-carol/",
+    "sourceName": "Alley Theatre 2026–27 season and official dated box office",
+    "summary": "The Alley Theatre box office confirms 2026-12-15 through 2026-12-20 as scheduled A Christmas Carol performance dates in the Hubbard Theatre. Matinee and evening showtimes vary by day; select the exact dated performance on the theater's official ticket calendar. Children younger than six are not admitted; admission is paid and is separate from nearby holiday attractions."
+  },
+  {
     "slug": "beaumont-mcfaddin-ward-christmas-past-workshop-2026",
     "title": "McFaddin-Ward Christmas Past · homeschool workshop",
     "city": "Beaumont",
@@ -2670,6 +2766,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The Kemah Boardwalk 2026 events calendar schedules the Cocoa & Cookies Stroll on Saturdays November 28 through December 19. This record lists one confirmed Saturday session only; do not imply Sunday or midweek strolls. Confirm current giveaways, food purchases and seasonal operating hours with the Boardwalk."
   },
   {
+    "slug": "houston-alley-theatre-christmas-carol-2026-8",
+    "title": "Alley Theatre A Christmas Carol · December 22–24, 2026",
+    "city": "Houston",
+    "countySlug": "harris",
+    "countyName": "Harris County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-22",
+    "endDate": "2026-12-24",
+    "venueName": "Alley Theatre · Hubbard Theatre · 615 Texas Avenue",
+    "officialEventUrl": "https://www.alleytheatre.org/plays/christmas-carol/",
+    "sourceName": "Alley Theatre 2026–27 season and official dated box office",
+    "summary": "The Alley Theatre box office confirms 2026-12-22 through 2026-12-24 as scheduled A Christmas Carol performance dates in the Hubbard Theatre. Matinee and evening showtimes vary by day; select the exact dated performance on the theater's official ticket calendar. Children younger than six are not admitted; admission is paid and is separate from nearby holiday attractions."
+  },
+  {
     "slug": "mcallen-south-pole-illuminated-5",
     "title": "McAllen South Pole Illuminated Festival · operating window 5",
     "city": "McAllen",
@@ -2696,6 +2806,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://visitlivingstontexas.com/?page_id=2002",
     "sourceName": "Visit Livingston / Polk County Heritage Society",
     "summary": "The Polk County Heritage Society and downtown merchants confirm the Christmas Train Village runs Thursday through Sunday on these actual 2026 dates, not daily. Thursday–Saturday train hours are 5–7 p.m. and Sunday hours noon–4 p.m.; special Saturday December 12 extended hours run noon–8 p.m. Train village viewing is free, with donations appreciated. This is an indoor miniature railway display, NOT a paid passenger train ride."
+  },
+  {
+    "slug": "houston-alley-theatre-christmas-carol-2026-9",
+    "title": "Alley Theatre A Christmas Carol · December 26–27, 2026",
+    "city": "Houston",
+    "countySlug": "harris",
+    "countyName": "Harris County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-26",
+    "endDate": "2026-12-27",
+    "venueName": "Alley Theatre · Hubbard Theatre · 615 Texas Avenue",
+    "officialEventUrl": "https://www.alleytheatre.org/plays/christmas-carol/",
+    "sourceName": "Alley Theatre 2026–27 season and official dated box office",
+    "summary": "The Alley Theatre box office confirms 2026-12-26 through 2026-12-27 as scheduled A Christmas Carol performance dates in the Hubbard Theatre. Matinee and evening showtimes vary by day; select the exact dated performance on the theater's official ticket calendar. Children younger than six are not admitted; admission is paid and is separate from nearby holiday attractions."
   },
   {
     "slug": "longview-arboretum-bright-2026-5",
@@ -2767,7 +2891,7 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The final five January evenings of the 2026–27 Marktplatz lighting program; December 31 is omitted because the special New Year's Eve event replaces the regular countdown.",
     "endDate": "2027-01-05"
   }
-];;;;;;;;;;;;;;;;
+];;;;;;;;;;;;;;;;;
 
 // Reuse comprehensive guides where they exist. The dated occurrence remains
 // an independent calendar record, so closing days are never falsely listed.
