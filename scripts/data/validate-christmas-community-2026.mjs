@@ -27,7 +27,7 @@ const end = eventFile.indexOf("\n];", start);
 assert.ok(start >= 0 && end > start, "Source-qualified Christmas manifest was not found");
 const json = eventFile.slice(eventFile.indexOf("= [", start) + 2, end + 2).trim();
 const events = JSON.parse(json);
-assert.ok(events.length >= 217, "The 212 organizer-verified Christmas date windows must not shrink without explicit source review");
+assert.ok(events.length >= 220, "The 212 organizer-verified Christmas date windows must not shrink without explicit source review");
 assert.equal(events.length, new Set(events.map((event) => event.slug)).size, "Duplicate Christmas community slugs");
 
 const validDate = /^20\d{2}-\d{2}-\d{2}$/;
@@ -105,6 +105,17 @@ check("deer-park-reindeer-park-2026","2026-12-05");
 check("baytown-holiday-hangout-early-2026","2026-12-03","2026-12-23");
 check("baytown-holiday-hangout-mid-2026","2026-12-26","2026-12-30");
 check("baytown-holiday-hangout-final-2026","2027-01-02","2027-01-05");
+check("league-city-holiday-in-the-park-2026","2026-12-04","2026-12-06");
+check("pasadena-holiday-lighted-parade-2026","2026-12-05");
+check("pasadena-christmas-market-2026","2026-12-12");
+assert.ok(bySlug.get("league-city-holiday-in-the-park-2026").summary.includes("Grand Night Parade"),
+  "Preserve League City 2026 parade and festival dates");
+assert.ok(bySlug.get("pasadena-holiday-lighted-parade-2026").summary.includes("December 5, 2026")
+  && bySlug.get("pasadena-christmas-market-2026").summary.includes("December 12, 2026"),
+  "Pasadena's market and parade must remain separately dated");
+assert.ok(bySlug.get("pasadena-christmas-market-2026").summary.includes("Admission and parking are free"),
+  "Preserve accurate Christmas market admission");
+
 const baytownHangoutWindows = events.filter(event => event.slug.startsWith("baytown-holiday-hangout-"));
 assert.equal(baytownHangoutWindows.length,3,"Baytown's season must be split into precisely three open windows");
 for (const closed of ["2026-12-24","2026-12-25","2026-12-31","2027-01-01"]) {
