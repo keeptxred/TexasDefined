@@ -230,7 +230,7 @@ for (const marker of [
   'Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com, Travelocity or Vrbo activity',
   'Affiliate disclosure: TexasDefined may earn a commission from qualifying Hotels.com, Travelocity or RVshare activity',
   'if (intent === "both" && !showRvshare)',
-  'variant: featuredStay || showRvshare ? "secondary" : "primary"',
+  'variant: featuredStay || hotelPasoExact || showRvshare ? "secondary" : "primary"',
   'sponsored nofollow noopener noreferrer',
   'event: "affiliate_click"',
   'window.dataLayer.push(detail)',
