@@ -24,6 +24,13 @@ const REMOTE_IMAGE_REDIRECT_STATUSES = new Set([301, 302, 303, 307, 308]);
 const MAX_REMOTE_IMAGE_REDIRECTS = 4;
 const ENTITY_REDIRECTS: Record<string, string> = {
   ...LEGACY_EDITORIAL_REDIRECTS,
+  // Previously generated 2027-only Carnival occurrence URLs have no standalone
+  // major-Event guide. Their closest published evergreen visitor guide is this hub.
+  // Never redirect to a non-existent /event/<yearless-slug> authority page.
+  "/event/crystal-beach-mardi-gras-chicken-run-2027": "/events/mardi-gras",
+  "/event/jefferson-queen-mab-ball-2027": "/events/mardi-gras",
+  "/event/beaumont-lagniappe-mardi-gras-soiree-2027": "/events/mardi-gras",
+  "/event/livingston-mardi-gras-gumbo-cookoff-2027": "/events/mardi-gras",
   "/lake/caddo-lake": "/destination/caddo-lake",
   "/state-park/palo-duro-canyon-state-park": "/destination/palo-duro-canyon-state-park",
   "/state-park/enchanted-rock-state-natural-area": "/destination/enchanted-rock-state-natural-area",
