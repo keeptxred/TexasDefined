@@ -272,6 +272,31 @@ export function loadTexasEventRecordsServer(): TexasEventRecord[] {
   // Reconcile with existing authorities/venue imports BEFORE Ticketmaster so
   // providers can enrich the editorial record instead of displaying duplicates.
   const christmasPerformances = getVerifiedChristmasPerformanceCalendarRecords2026();
+
+  // Alley Theatre's official final Christmas Carol window covers BOTH Dec 26
+  // and Dec 27. Our separate source-reviewed featured matinee is Dec 27.
+  // On the statewide calendar only, preserve the community window for Dec 26
+  // and let the curated exact-time performance represent Dec 27. Otherwise
+  // the same theatre shows up twice as unrelated editorial cards on Dec 27,
+  // causing the protected live calendar verifier to reject this deployment.
+  // The source occurrence itself remains unchanged for the Christmas hub.
+  const finalAlleyMatinee = christmasPerformances.find((event) =>
+    event.slug === "christmas-carol-houston-2026"
+    && event.startDate === "2026-12-27"
+    && event.city === "Houston"
+    && event.venueName?.includes("Alley Theatre"));
+  if (finalAlleyMatinee) {
+    const communityIndex = records.findIndex((event) =>
+      event.slug === "houston-alley-theatre-christmas-carol-2026-9"
+      && event.startDate === "2026-12-26"
+      && event.endDate === "2026-12-27"
+      && event.city === "Houston"
+      && event.venueName?.includes("Alley Theatre"));
+    if (communityIndex !== -1) {
+      records[communityIndex] = { ...records[communityIndex], endDate: "2026-12-26" };
+    }
+  }
+
   for (const performance of christmasPerformances) {
     const index = records.findIndex((record) =>
       isSameChristmasPerformanceCalendarEvent(performance, record));
