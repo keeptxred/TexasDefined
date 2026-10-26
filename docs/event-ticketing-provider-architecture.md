@@ -136,3 +136,7 @@ The heading is **Check ticket options** rather than **Current ticket availabilit
 ## No checkout
 
 TexasDefined does not collect ticket payment, seat selection, billing data, order data, or ticket inventory. `EventTicketCta` always opens the external provider in a new browsing context. The provider owns checkout, fulfillment, refunds, fees, inventory, availability, and customer-service obligations.
+
+## Known resale and mixed-source ticket marketplaces (October 26, 2026)
+
+Ticket provider classification is not proof of primary admission or commission. A source-qualified direct **Vivid Seats** ticket-marketplace URL is labeled **Resale Tickets**, with a clear third-party resale disclaimer. **SeatGeek** hosts both primary and resale tickets and is therefore labeled neutrally **View Tickets**, with instructions to confirm seller, ticket type and total fees. Neither outbound URL gains affiliate tracking without a separately approved provider adapter. Verified organizer and official primary-ticket URLs retain their existing **Official Tickets** labels. No URL click proves seat availability, final price, a completed sale or an earned commission.
