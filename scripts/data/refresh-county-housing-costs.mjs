@@ -1,10 +1,13 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
-const YEAR = 2024;
-const RELEASE = '2020–2024 ACS 5-Year Estimates';
-const BASE = `https://www2.census.gov/programs-surveys/acs/summary_file/${YEAR}/table-based-SF/data/5YRData`;
-const SOURCE_PAGE = `https://www.census.gov/programs-surveys/acs/data/summary-file.${YEAR}.html`;
+// Choose the newest *complete* published ACS five-year vintage, never the newest calendar year.
+const FIRST_SUPPORTED_YEAR = 2024;
+let YEAR = FIRST_SUPPORTED_YEAR;
+let RELEASE = '';
+let BASE = '';
+let SOURCE_PAGE = '';
+const sourceBase = year => `https://www2.census.gov/programs-surveys/acs/summary_file/${year}/table-based-SF/data/5YRData`;
 const OUTPUT = path.resolve('src/data/acs-county-housing-costs.snapshot.json');
 const TEXAS_COUNTY_COUNT = 254;
 
@@ -69,6 +72,32 @@ async function loadTable({ table, variable, field }) {
   return { field, url, values };
 }
 
+// A missing first table means that vintage has not been published; an HTTP error other
+// than 404 is a source failure. Once the first table exists, ALL four must validate
+// before promotion; partial releases are never silently treated as complete.
+let existing = null;
+try { existing = JSON.parse(await fs.readFile(OUTPUT, 'utf8')); }
+catch { /* The first bootstrap has no snapshot. */ }
+const priorYear = Number(existing?.year || FIRST_SUPPORTED_YEAR);
+if (!Number.isInteger(priorYear) || priorYear < FIRST_SUPPORTED_YEAR || priorYear > new Date().getUTCFullYear()) {
+  throw new Error('Stored Census ACS vintage metadata is invalid');
+}
+const candidateMax = Math.min(new Date().getUTCFullYear() - 1, priorYear + 1);
+let selected = null;
+for (let candidate = candidateMax; candidate >= priorYear; candidate--) {
+  const url = `${sourceBase(candidate)}/acsdt5y${candidate}-b19013.dat`;
+  const response = await fetch(url, { method: 'HEAD', signal: AbortSignal.timeout(20_000) });
+  if (response.status === 404) continue;
+  if (response.status !== 200) throw new Error('Census ACS availability probe failed: ' + response.status + ' ' + url);
+  selected = candidate;
+  break;
+}
+if (selected === null) throw new Error('Previously verified Census ACS vintage is no longer reachable');
+YEAR = selected;
+RELEASE = `2020–${YEAR} ACS 5-Year Estimates`;
+BASE = sourceBase(YEAR);
+SOURCE_PAGE = `https://www.census.gov/programs-surveys/acs/data/summary-file.${YEAR}.html`;
+console.log('Checking the complete official Census ACS five-year release for ' + YEAR);
 const tables = [];
 for (const spec of TABLES) tables.push(await loadTable(spec));
 
@@ -82,13 +111,6 @@ const rows = fips.map((code) => Object.fromEntries([
   ...tables.map((table) => [table.field, table.values.get(code) ?? null]),
 ]));
 const sourceFiles = Object.fromEntries(tables.map((table) => [table.field, table.url]));
-
-let existing = null;
-try {
-  existing = JSON.parse(await fs.readFile(OUTPUT, 'utf8'));
-} catch {
-  // First bootstrap has no prior snapshot to preserve.
-}
 
 const stablePayload = {
   release: RELEASE,
