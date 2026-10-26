@@ -118,8 +118,16 @@ const additions: Record<string, ArticleInternalLink[]> = {
     { href: "/article/best-texas-state-parks-for-fall-colors", label: "Best state parks for fall", description: "Choose public parks by tree type, region and scenery." },
     { href: "/article/texas-fall-foliage-road-trip", label: "Texas fall foliage road trip", description: "Turn current color reports into a flexible multi-day itinerary." },
   ],
-  "east-texas-fall-colors": [fallHub, { href: "/article/caddo-lake-cypress-morning", label: "See Caddo Lake from the water", description: "Turn an East Texas foliage trip into a bayou and cypress experience." }],
-  "hill-country-fall-colors": [fallHub, { href: "/article/texas-fall-foliage-road-trip", label: "Drive the Hill Country fall route", description: "Link Garner, Lost Maples and the Guadalupe corridor." }],
+  "east-texas-fall-colors": [
+    fallHub,
+    { href: "/article/hill-country-fall-colors", label: "Compare Hill Country fall colors", description: "Compare Lost Maples canyon maples with East Texas lakeside foliage." },
+    { href: "/article/caddo-lake-cypress-morning", label: "See Caddo Lake from the water", description: "Plan a bayou and cypress excursion." },
+  ],
+  "hill-country-fall-colors": [
+    fallHub,
+    { href: "/article/east-texas-fall-colors", label: "Compare East Texas fall colors", description: "Explore lakeside hardwoods and cypress beyond the Hill Country." },
+    { href: "/article/texas-fall-foliage-road-trip", label: "Drive the Hill Country fall route", description: "Connect Garner, Lost Maples and Guadalupe River." },
+  ],
   "best-texas-state-parks-for-fall-colors": [fallHub, { href: "/explore/state-parks", label: "Browse all Texas state parks", description: "Add camping, hiking and nearby parks to the foliage trip." }],
   "texas-fall-foliage-road-trip": [fallHub, { href: "/article/best-texas-state-parks-for-fall-colors", label: "Compare state-park foliage stops", description: "Swap route stops based on current reports and reservations." }],
 
