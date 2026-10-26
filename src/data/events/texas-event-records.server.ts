@@ -1,6 +1,7 @@
 import { getGeneratedTexasEvents } from "../events-generated";
 import { loadTicketmasterEventsServer } from "./ticketmaster-events.server";
 import { getOfficialVenueEventSnapshots } from "./official-venue-events.server";
+import { getVerifiedMardiGrasCompanionCalendarEvents2027 } from "./mardi-gras-companion-events-2027.server";
 import { getVerifiedChristmasCommunityEvents2026 } from "./christmas-community-2026.server";
 import { getVerifiedChristmasPerformanceCalendarRecords2026, isSameChristmasPerformanceCalendarEvent, isReviewedChristmasTicketmasterDoorTime } from "./christmas-performances-2026.server";
 import { loadTpwdEventRecordsServer } from "./tpwd-event-records.server";
@@ -240,6 +241,18 @@ export function loadTexasEventRecordsServer(): TexasEventRecord[] {
     if (knownCommunity.has(key)) continue;
     records.push(holiday);
     knownCommunity.add(key);
+  }
+
+  // Small Mardi Gras galas/cookoffs are individually dated calendar records,
+  // not additional town festival guides or automatically generated photo pages.
+  // Keep exact identity/date deduplication ahead of official venue and ticket providers.
+  const knownCompanions = new Set(records.map((record) =>
+    `${eventIdentity(record.title, record.city)}:${record.startDate}`));
+  for (const companion of getVerifiedMardiGrasCompanionCalendarEvents2027()) {
+    const key = `${eventIdentity(companion.title, companion.city)}:${companion.startDate}`;
+    if (knownCompanions.has(key)) continue;
+    records.push(companion);
+    knownCompanions.add(key);
   }
 
   // Curated primary-source event snapshots fill documented gaps in the
