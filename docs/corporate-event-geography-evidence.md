@@ -95,3 +95,5 @@ This **does not download files, publish anything, modify the venue catalog, crea
 A successful candidate status is **not an approved point**: independently confirm both official file integrity and the geography's relevance, document human source review, and retain real venue-premises or entrance evidence separately. ZCTA representative points are statistical approximations, **not driving times, visitor positions, or USPS-delivery coordinates**.
 
 The canonical premerge suite includes synthetic cross-state, invalid source-header, duplicate and out-of-range checks. **No current ZCTA points or venue coordinates have been admitted to the public search.**
+
+**Durable source-research checkpoint:** The October 26 [five-code Census ZCTA candidate report](./corporate-event-zcta-2026-research-candidates.md) preserves the actual successful GitHub workflow artifact, exact statistical representative points, 2020 Harris County GEOID and unverified status after the 30-day workflow artifact expires. This is a research document only, **not** accepted `VerifiedZipLocation` evidence or a live radius-search activation.
