@@ -3,7 +3,7 @@ import type {
   TexasEventTicketProvider,
   TexasEventTicketingMetadata,
 } from "./texas-event-record";
-import { publicTicketHostname } from "./ticket-provider";
+import { publicTicketHostname } from "./ticket-provider.ts";
 
 const NON_ACTIONABLE_SALE_STATUSES = new Set<TexasEventTicketLink["saleStatus"]>([
   "not-on-sale-yet",
