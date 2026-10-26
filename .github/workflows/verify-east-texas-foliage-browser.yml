@@ -10,6 +10,10 @@ on:
     workflows: ['Deploy TexasDefined production']
     types: [completed]
   workflow_dispatch:
+  # Run an independent live Chrome check daily during Texas fall-color season.
+  # Deploy-triggered checks remain change-scoped to avoid repeated browser runs on unrelated releases.
+  schedule:
+    - cron: '17 13 * 10-11 *'
 
 permissions:
   contents: read
@@ -47,7 +51,9 @@ jobs:
             exit 0
           fi
           node --check scripts/ci/verify-east-texas-foliage-browser.mjs
-          if [[ "$EVENT" == "workflow_dispatch" ]]; then
+          if [[ "$EVENT" == "workflow_dispatch" || "$EVENT" == "schedule" ]]; then
+            # Unlike a deploy-triggered no-op, scheduled verification always tests the live site.
+            # This catches broken map interactions, missing photos, and stale year-specific credits.
             echo "should_verify=true" >> "$GITHUB_OUTPUT"
           elif [[ "$EVENT" == "pull_request" ]]; then
             # Execute browser QA for QA-only changes on the already-deployed live article.

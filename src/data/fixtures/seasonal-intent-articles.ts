@@ -270,6 +270,7 @@ const baseSeasonalIntentArticles: Article[] = [
     internalLinks: [
       { href: "/article/fall-in-texas-complete-guide", label: "Texas fall, statewide", description: "Compare the Hill Country with East Texas and mountain destinations." },
       { href: "/article/texas-fall-foliage-road-trip", label: "Hill Country fall road trip", description: "Link the Frio, Lost Maples and Guadalupe corridors over several days." },
+      { href: "/article/east-texas-fall-colors", label: "Compare East Texas fall colors", description: "See lakeside cypress and hardwoods in the Piney Woods." },
       { href: "/article/best-places-for-fall-colors-in-texas", label: "Best Texas fall-color places", description: "See how individual parks compare." },
     ],
     body: [

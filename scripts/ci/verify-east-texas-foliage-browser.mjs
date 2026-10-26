@@ -74,6 +74,21 @@ try {
         if (!(src || "").includes("marker=" + latitude)) throw new Error("Map marker did not move: " + parkName + " => " + src);
         selection.push(parkName);
       }
+      // Verify keyboard activation changes the same live map, not just button focus.
+      for (const [parkName, latitude, key] of [
+        ["Tyler", "32.479", "Enter"],
+        ["Daingerfield", "33.025", "Space"],
+      ]) {
+        const button = selector.getByRole("button", { name: parkName, exact: true });
+        await button.focus();
+        await page.keyboard.press(key);
+        await page.waitForFunction(name => {
+          const active = [...document.querySelectorAll("button[aria-pressed]")].find(element => element.textContent?.trim() === name);
+          return active?.getAttribute("aria-pressed") === "true";
+        }, parkName, { timeout: 8000 });
+        const marker = await page.locator('iframe[title^="Interactive map around"]').getAttribute("src");
+        if (!(marker || "").includes("marker=" + latitude)) throw new Error("Keyboard map selection failed: " + parkName + " via " + key);
+      }
       const routeLinks = [
         ["Open four-stop driving directions", ["Tyler", "Cooper", "Sandlin", "Daingerfield"]],
         ["Open three-stop driving directions", ["Tyler", "Martin", "Caddo"]],
