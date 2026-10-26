@@ -11,8 +11,8 @@ function verifiedGalvestonDate(file, field) {
   if (!match) throw new Error('Missing Galveston ' + field + ' date in ' + file);
   return match[1];
 }
-const galvestonFactsDate = verifiedGalvestonDate('src/data/major-event-expanded-authority-tranche25.server.ts', 'sourceCheckedAt');
-const galvestonEditorialDate = verifiedGalvestonDate('src/data/major-event-schema-enrichment-batch6.server.ts', 'verifiedAt');
+export const galvestonFactsDate = verifiedGalvestonDate('src/data/major-event-expanded-authority-tranche25.server.ts', 'sourceCheckedAt');
+export const galvestonEditorialDate = verifiedGalvestonDate('src/data/major-event-schema-enrichment-batch6.server.ts', 'verifiedAt');
 // Both cache-busted release checks and ordinary visitor URLs must expose
 // the corrected data. A successful query-string check alone can hide stale
 // canonical HTML if the exact path was omitted from Cloudflare purge targets.
