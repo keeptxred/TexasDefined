@@ -54,6 +54,17 @@ const smokeTargets = [
   { path: '/texas-capital-designations', requiredText: '/events/mardi-gras', label: 'Official capital designations cross-link to Mardi Gras event hub' },
   { path: '/event/kemah-yachty-gras', requiredText: 'Yachty Gras', label: 'Kemah two-organizer Mardi Gras guide SSR renders' },
   { path: '/event/kemah-yachty-gras', requiredText: 'yachtygras.com', label: 'Kemah boat-parade source remains distinct from street event' },
+  { path: '/event/mardi-gras-upriver-jefferson', requiredText: 'Renelibrary', label: 'Jefferson actual downtown 2015 photographer and credit are visible' },
+  { path: '/event/mardi-gras-upriver-jefferson', requiredText: '2015', label: 'Jefferson 2015 town-center photo is labeled archival, not 2027' },
+  { path: '/event/oak-cliff-mardi-gras-parade', requiredText: 'Michael Barera', label: 'Oak Cliff exact Davis Street photo credit visible' },
+  { path: '/event/oak-cliff-mardi-gras-parade', requiredText: '2016', label: 'Oak Cliff Davis Street image labeled as historic, not a new parade' },
+  { path: '/event/oak-cliff-mardi-gras-parade', requiredText: 'CC BY-SA 4.0', label: 'Oak Cliff route photograph has visible share-alike license' },
+  { path: '/event/palestine-mardi-gras-parade', requiredText: 'Renelibrary', label: 'Palestine historical district photo attribution renders' },
+  { path: '/event/palestine-mardi-gras-parade', requiredText: '2017', label: 'Palestine photograph is honestly labeled 2017 versus 2027' },
+  { path: '/event/palestine-mardi-gras-parade', requiredText: 'CC BY-SA 4.0', label: 'Palestine historic district photo retains visible sharealike license' },
+  { path: '/event/kemah-yachty-gras', requiredText: 'Tony Webster', label: 'Kemah source-accurate Boardwalk photo credit SSR renders' },
+  { path: '/event/kemah-yachty-gras', requiredText: '2019', label: 'Kemah archival venue photo is not misrepresented as a 2027 parade' },
+  { path: '/event/kemah-yachty-gras', requiredText: 'CC BY 2.0', label: 'Kemah photo license is visible in SSR' },
   { path: '/event/cowboy-mardi-gras-bandera', requiredText: 'Carol M. Highsmith', label: 'Bandera actual-event archival photo attribution is visible' },
   { path: '/events/mardi-gras', requiredText: 'Galveston: the 2027 parades and free days worth planning around', label: 'Statewide Mardi Gras hub contains verified 2027 festival day selection' },
   { path: '/events/mardi-gras', requiredText: '6:30 p.m.', label: 'Statewide Mardi Gras hub shows verified Fat Tuesday parade time' },
@@ -339,6 +350,17 @@ const requestHeaders = {
   'user-agent': 'TexasDefined-CI-Built-Worker-Smoke/1.0',
 };
 
+// Approved, rights-reviewed Mardi Gras photo pages must not quietly remain noindex.
+// Keep unapproved event leaves fail-closed; only test positive approvals here.
+const licensedMardiGrasPages = new Set([
+  '/event/mardi-gras-galveston',
+  '/event/cowboy-mardi-gras-bandera',
+  '/event/kemah-yachty-gras',
+  '/event/mardi-gras-upriver-jefferson',
+  '/event/palestine-mardi-gras-parade',
+  '/event/oak-cliff-mardi-gras-parade',
+]);
+
 async function checkRenderRoute(group, attemptToken, timeoutMs = requestTimeoutMs) {
   try {
     const response = await fetch(smokeUrl(group.path, attemptToken), {
@@ -357,6 +379,12 @@ async function checkRenderRoute(group, attemptToken, timeoutMs = requestTimeoutM
       });
       if (missingChecks.length) {
         return `${group.path} returned HTTP 200 without required marker(s): ${missingChecks.map((check) => `${check.label}=${check.requiredText}`).join(', ')}`;
+      }
+      if (licensedMardiGrasPages.has(group.path)) {
+        const robotsMetaTags = body.match(/<meta\b[^>]*>/gi) || [];
+        const stillNoindex = robotsMetaTags.some((tag) =>
+          /\bname\s*=\s*["']robots["']/i.test(tag) && /\bnoindex\b/i.test(tag));
+        if (stillNoindex) return `${group.path} has licensed location-accurate imagery but still emits meta robots noindex`;
       }
       return '';
     }

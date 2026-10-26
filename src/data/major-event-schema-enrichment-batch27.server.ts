@@ -11,8 +11,20 @@ export const majorEventSchemaEnrichmentBatch27: MajorEventSchemaEnrichment[] = [
   },
   {
     slug: "mardi-gras-upriver-jefferson",
+    image: {
+      url: "https://commons.wikimedia.org/wiki/Special:Redirect/file/JeffersonTx1.JPG?width=1600",
+      alt: "Austin Street Mercantile and historic downtown Jefferson, Texas in April 2015; actual Mardi Gras Upriver town-center setting, not the 2027 festival",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:JeffersonTx1.JPG",
+      sourceType: "wikimedia",
+      licenseName: "CC BY-SA 4.0 — Renelibrary",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+      rightsNote: "Renelibrary's own photograph of historic downtown Jefferson's Austin Street Mercantile, taken April 22, 2015, near the 2027 Mardi Gras Upriver gathering at The Alley, 113 West Austin Street. This is a historical venue-area streetscape, not a photograph of the 2027 festival. Attribution: Renelibrary, CC BY-SA 4.0; any layout crops or adaptations are likewise offered under CC BY-SA 4.0.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
     organizer: { type: "Organization", name: "Krewe of Hebe", url: "https://mardigrasupriver.com/events/" },
-    sources: [{ label: "Official organizer or state tourism event reference", url: "https://mardigrasupriver.com/events/" }],
+    sources: [{ label: "Official organizer or state tourism event reference", url: "https://mardigrasupriver.com/events/" },
+      { label: "Jefferson exact-town historic downtown photo and CC BY-SA 4.0 license", url: "https://commons.wikimedia.org/wiki/File:JeffersonTx1.JPG" }],
     verifiedAt: "2026-10-21",
   },
   {
@@ -41,17 +53,41 @@ export const majorEventSchemaEnrichmentBatch27: MajorEventSchemaEnrichment[] = [
   },
   {
     slug: "kemah-yachty-gras",
+    image: {
+      url: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Kemah_Boardwalk_in_Kemah%2C_Texas_%2847557130751%29.jpg?width=1600",
+      alt: "Kemah Boardwalk waterfront beside Galveston Bay photographed in 2019; an actual parade viewing venue, not a photograph of the 2027 Mardi Gras parades",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Kemah_Boardwalk_in_Kemah,_Texas_(47557130751).jpg",
+      sourceType: "wikimedia",
+      licenseName: "CC BY 2.0 — Tony Webster",
+      licenseUrl: "https://creativecommons.org/licenses/by/2.0/",
+      rightsNote: "Tony Webster photographed the actual Kemah Boardwalk waterfront on April 3, 2019 (GPS 29.547333, -95.019195). Wikimedia Commons records the original Flickr upload and confirmed CC BY 2.0 on August 31, 2021. This is a 2019 venue photograph at the confirmed 2027 Kemah parade waterfront, not an image of a Mardi Gras boat or street parade; credit Tony Webster and link to source and license. If cropped for a hero, indicate that the Commons width=1600 derivative was scaled/cropped for layout.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
     // Two independently organized parade occurrences: do not assign the boat
     // event's organizer to the street event or vice versa in Event JSON-LD.
     sources: [
       { label: "Yachty Gras — official 28th annual February 6, 2027 boat parade", url: "https://www.yachtygras.com/" },
       { label: "Krewe du Lac — official February 9, 2027 Grand Mardi Gras street parade", url: "https://krewedulac.net/events" },
+      { label: "Kemah Boardwalk waterfront venue photograph and CC BY 2.0 license (Tony Webster, 2019)", url: "https://commons.wikimedia.org/wiki/File:Kemah_Boardwalk_in_Kemah,_Texas_(47557130751).jpg" },
     ],
     verifiedAt: "2026-10-21",
   },
   {
     slug: "palestine-mardi-gras-parade",
-    sources: [{ label: "Official organizer or state tourism event reference", url: "https://www.traveltexas.com/event/mardi-gras-parade/6363/" }],
+    image: {
+      url: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Downtown_Palestine_Wiki_4.jpg?width=1600",
+      alt: "Buildings in the Palestine New Town Commercial Historic District in October 2017; downtown parade-area streetscape, not the 2027 Mardi Gras parade",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Downtown_Palestine_Wiki_4.jpg",
+      sourceType: "wikimedia",
+      licenseName: "CC BY-SA 4.0 — Renelibrary",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+      rightsNote: "Renelibrary photographed buildings in Palestine's New Town Commercial Historic District on October 28, 2017. Texas tourism lists the January 30, 2027 Mardi Gras parade in downtown Palestine and the city describes its Main Street District tradition. This is a historic downtown setting photograph, not footage from a parade; credit Renelibrary under CC BY-SA 4.0, with any layout crop or adapted derivative available under the same license.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
+    sources: [{ label: "Official organizer or state tourism event reference", url: "https://www.traveltexas.com/event/mardi-gras-parade/6363/" },
+      { label: "Palestine downtown historic district photo and CC BY-SA 4.0 license", url: "https://commons.wikimedia.org/wiki/File:Downtown_Palestine_Wiki_4.jpg" }],
     verifiedAt: "2026-10-21",
   },
   {
@@ -68,8 +104,22 @@ export const majorEventSchemaEnrichmentBatch27: MajorEventSchemaEnrichment[] = [
   },
   {
     slug: "oak-cliff-mardi-gras-parade",
+    image: {
+      url: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Oak_Cliff_September_2016_41_%28Davis_Street%29.jpg?width=1600",
+      alt: "West Davis Street in the Oak Cliff neighborhood of Dallas photographed in September 2016; the historic Mardi Gras parade route, not a 2027 parade image",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Oak_Cliff_September_2016_41_(Davis_Street).jpg",
+      sourceType: "wikimedia",
+      licenseName: "CC BY-SA 4.0 — Michael Barera",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+      rightsNote: "Michael Barera photographed Davis Street in Oak Cliff, Dallas on September 5, 2016 (GPS 32.749447, -96.842772). Go Oak Cliff's official 2026 parade followed West Davis Street from near Kessler Theater/Nova toward Bishop Avenue; 2027 parade date and route remain unannounced. Historical actual street-route photograph, not a parade image; photographer credit and any layout derivatives/crops under CC BY-SA 4.0.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
     organizer: { type: "Organization", name: "Go Oak Cliff", url: "https://gooakcliff.org/mardigras" },
-    sources: [{ label: "Official organizer or state tourism event reference", url: "https://gooakcliff.org/mardigras" }],
+    sources: [
+      { label: "Go Oak Cliff official parade information (2026 route; 2027 unconfirmed)", url: "https://gooakcliff.squarespace.com/mardigras" },
+      { label: "Oak Cliff exact Davis Street photo/CC BY-SA 4.0 license", url: "https://commons.wikimedia.org/wiki/File:Oak_Cliff_September_2016_41_(Davis_Street).jpg" },
+    ],
     verifiedAt: "2026-10-21",
   },
   {
