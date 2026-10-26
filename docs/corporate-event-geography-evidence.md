@@ -70,3 +70,26 @@ The following five **business** addresses were read directly from the listed ven
 | `museum-of-illusions-houston-groups` | 5060 W Alabama Street, Suite 2D, Houston, TX 77056 | [Museum of Illusions Houston contact](https://moihouston.com/contact-us) | First-floor Galleria venue, operator identifies Alabama Street mall entrance; venue's exact GPS point NOT verified |
 
 **Census geographic reference:** The [2026 U.S. Census Gazetteer ZCTA download](https://www.census.gov/geographies/reference-files/2026/geo/gazetter-file.html) is available, but a ZCTA is a statistical area rather than a customer's USPS-delivery address or physical position. No ZCTA points were admitted from this research. Official first-party address evidence is not interchangeable with a survey-accurate venue entrance coordinate. Before running the existing quarantined Census street-address interpolation research script, an accountable editor must recheck these records and record a genuine `addressReviewedOn` date; generated candidate coordinates cannot auto-publish.
+
+## 2026 ZCTA + official Texas county intersection research (offline only)
+
+The 2026 Census national ZCTA Gazetteer includes representative coordinates, but ZIP codes and ZCTAs are not identical, and the Gazetteer does **not** establish a requested code's Texas-only county association. The separate [2020 Census ZCTA-to-county relationship file](https://www.census.gov/geographies/reference-files/time-series/geo/relationship-files.2020.html) supplies 2020 geographic intersections. A ZCTA overlapping multiple states must **not** be treated as a uniquely Texas ZIP because its five digits look Texan. The 2020 county relationship must be manually reconciled with any 2026 code changes before approval.
+
+**Authoritative original files:**
+
+- [Census national 2026 ZCTA Gazetteer archive](https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2026_Gazetteer/2026_Gaz_zcta_national.zip)
+- [Census national 2020 ZCTA-to-county relationship table](https://www2.census.gov/geo/docs/maps-data/data/rel2020/zcta520/tab20_zcta520_county20_natl.txt)
+- [Census ZCTA/county record layout](https://www.census.gov/programs-surveys/geography/technical-documentation/records-layout/2020-zcta-record-layout.html)
+- [Census ZIP vs. ZCTA methodology](https://www.census.gov/programs-surveys/geography/guidance/geo-areas/zctas.html)
+
+After downloading and verifying those official source files manually, extract the 2026 archive's actual ZCTA text member (inspect the member name; do not assume one) into `.artifacts/corporate-events/2026_Gaz_zcta_national.txt`, and save the 2020 pipe-delimited relationship table to `.artifacts/corporate-events/tab20_zcta520_county20_natl.txt`. Keep both untracked and never use an actual planner's ZIP or browser position for venue research.
+
+Run the private, **read-only** review from the repository root:
+
+    node scripts/data/review-corporate-census-zctas.mjs --gazetteer .artifacts/corporate-events/2026_Gaz_zcta_national.txt --counties .artifacts/corporate-events/tab20_zcta520_county20_natl.txt --zips 77030,77058,77020,77034,77056 --output .artifacts/corporate-events/zcta-review.json
+
+This **does not download files, publish anything, modify the venue catalog, create a VerifiedZipLocation, or enable radius search**. The output is a no-overwrite private research report with a maximum of 25 distinct requested ZCTAs. Only unique, numerically valid Census internal points with county relationships exclusively within Texas (county GEOIDs beginning with state FIPS **48**) qualify for further independent review. A missing code, ambiguous point, absent county relationship or any non-Texas county intersection fails closed, even if the ZIP begins with `7`.
+
+A successful candidate status is **not an approved point**: independently confirm both official file integrity and the geography's relevance, document human source review, and retain real venue-premises or entrance evidence separately. ZCTA representative points are statistical approximations, **not driving times, visitor positions, or USPS-delivery coordinates**.
+
+The canonical premerge suite includes synthetic cross-state, invalid source-header, duplicate and out-of-range checks. **No current ZCTA points or venue coordinates have been admitted to the public search.**
