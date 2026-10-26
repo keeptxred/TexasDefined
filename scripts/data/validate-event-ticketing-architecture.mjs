@@ -228,7 +228,7 @@ const unapprovedPartner = resolveEventTicketCta({ links: [{ ...base, provider: '
 if (!unapprovedPartner || unapprovedPartner.isAffiliate) throw new Error('unapproved partner incorrectly marked sponsored');
 const resale = resolveEventTicketCta({ links: [{ ...base, provider: 'vivid-seats',
   source: { kind: 'official-event', name: 'Vivid Seats' },
-  officialTicketUrl: 'https://www.vividseats.com/concerts' }], offers: [] }, now);
+  officialTicketUrl: 'https://www.vividseats.com/concerts/holiday-concert-tickets/production-id' }], offers: [] }, now);
 if (!resale || resale.label !== 'Resale Tickets →' || resale.isAffiliate || !resale.disclosure?.includes('resale marketplace')) {
   throw new Error('Known resale marketplace must have truthful unsponsored disclosure');
 }
