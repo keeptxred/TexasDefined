@@ -45,18 +45,20 @@ function WmaHuntingLinks() {
 
 export function DestinationViatorBooking({ destination }: { destination: Destination }) {
   const market = matchDestinationMarket(destination);
-  const huntingLinks = destination.id.startsWith("texas-wma-") ? <WmaHuntingLinks /> : null;
+  const wacoOffers = WACO_ATTRACTION_SLUGS.has(destination.slug)
+    ? <Suspense fallback={null}><WacoDestinationOffer slug={destination.slug} /></Suspense>
+    : null;
+  // Keep the original fail-closed market returns: only already published,
+  // explicitly reviewed Waco attraction overviews bypass generic tour markets.
+  const huntingLinks = destination.id.startsWith("texas-wma-") ? <><WmaHuntingLinks />{wacoOffers}</> : wacoOffers;
   // Citywide commercial tours should never appear to sell entry to a closed
   // archaeological or state historic site. They also do not belong on a free
   // NPS memorial when no site-specific bookable product exists.
   if (["chamizal-national-memorial", "old-socorro-mission", "first-capitol-of-texas"].includes(destination.slug)) return null;
-  const wacoOffers = WACO_ATTRACTION_SLUGS.has(destination.slug)
-    ? <Suspense fallback={null}><WacoDestinationOffer slug={destination.slug} /></Suspense>
-    : null;
-  if (!market) return <>{wacoOffers}{huntingLinks}</>;
+  if (!market) return huntingLinks;
 
   const hasDedicatedInventory = hasVerifiedViatorMarketUrl(market.slug);
-  if (!hasDedicatedInventory) return <>{wacoOffers}{huntingLinks}</>;
+  if (!hasDedicatedInventory) return huntingLinks;
 
   const runtimeMarket = viatorRuntimeMarketForSlug(market.slug);
   const href = buildViatorAffiliateUrl(verifiedViatorMarketUrl(market.slug), `texasdefined-destination-${destination.slug}`);
@@ -85,7 +87,6 @@ export function DestinationViatorBooking({ destination }: { destination: Destina
       </div>
       <p className="mt-4 text-xs leading-5 text-muted-foreground">Affiliate disclosure: TexasDefined may earn a commission from qualifying Viator bookings, at no additional cost to you.</p>
     </section>
-    {wacoOffers}
     {huntingLinks}
   </>;
 }
