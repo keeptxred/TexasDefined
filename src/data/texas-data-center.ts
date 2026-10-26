@@ -35,7 +35,7 @@ const loadTexasDatasetsServer = createServerFn({ method: "GET" }).handler(async 
   // explicitly archived fallback. The monthly importer owns freshness.
   let officialCountyExamples = null;
   try { officialCountyExamples = await getCurrentCountyPropertyTaxExamples(); }
-  catch (error) { console.error('Texas Data county rate source unavailable; retaining archived comparison', error); }
+  catch (error) { console.error('County tax rates unavailable', error); }
   return officialCountyExamples
     ? TEXAS_DATASETS.map(dataset => dataset.slug === 'county-property-tax-rates' ? officialCountyExamples : dataset)
     : TEXAS_DATASETS;
@@ -49,7 +49,7 @@ const loadTexasDatasetServer = createServerFn({ method: "GET" })
     if (data.slug !== 'county-property-tax-rates') return archived;
     try { return await getCurrentCountyPropertyTaxExamples() ?? archived; }
     catch (error) {
-      console.error('Texas Data county rate source unavailable; retaining archived comparison', error);
+      console.error('County tax rates unavailable', error);
       return archived;
     }
   });
