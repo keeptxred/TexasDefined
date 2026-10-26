@@ -74,6 +74,7 @@ export const yoakumHeritageMuseumDestinations: Destination[] = [{
       { label: "Handbook of Texas — Yoakum", url: "https://www.tshaonline.org/handbook/entries/yoakum-tx", scope: "Railway-founded town, Tex-Tan, 1919 Welhausen purchase and tomato packing history" },
       { label: "Handbook of Texas — San Antonio and Aransas Pass Railway", url: "https://www.tshaonline.org/handbook/entries/san-antonio-and-aransas-pass-railway", scope: "Railroad infrastructure, route chronology and regional context" },
       { label: "Yoakum Area Chamber — organizations", url: "https://www.yoakumareachamber.com/our-members/organizations/", scope: "Present local chamber confirmation of museum address and telephone" },
+      { label: "Yoakum Area Chamber — Experience History", url: "https://www.yoakumareachamber.com/visit-yoakum/experience-history/", scope: "Current locally maintained description of Leather, Military and Train Rooms; published visiting hours remain subject to direct operator confirmation" },
       { label: "Texas Highways — 2026 Travel Guide", url: "https://texashighways.com/wp-content/uploads/2026/01/Travel-Guide-2026.pdf", scope: "Current-year printed travel guide confirming address, telephone and museum railroad/leather exhibits" },
       { label: "Yoakum Heritage Museum — direct updates", url: "https://www.facebook.com/YHMuseum/", scope: "Museum-managed channel for time-sensitive exhibit and visiting announcements; verify before travel" }
     ]
