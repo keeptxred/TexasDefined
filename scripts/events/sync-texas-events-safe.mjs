@@ -45,6 +45,14 @@ const EVENTS = [
     score: 92,
     months: [4],
   },
+  // These source-verified editions flow into the fall hub's supplemental cards.
+  // Never infer a new year: require a printed year on the named organizer page.
+  { key: "texas-pumpkin-fest", name: "Texas Pumpkin Fest", city: "Leander", region: "hill-country",
+    category: "seasonal", url: "https://texaspumpkinfest.com/", score: 94, months: [10, 11], requireNamedSource: true },
+  { key: "houston-pumpkin-festival", name: "Houston Pumpkin Festival", city: "Houston", region: "gulf-coast",
+    category: "seasonal", url: "https://www.houstonpumpkinfest.com/", score: 94, months: [9, 10, 11], requireNamedSource: true },
+  { key: "uhland-fall-fest", name: "Uhland Fall Fest", city: "Uhland", region: "hill-country",
+    category: "seasonal", url: "https://uhlandfallfest.com/", score: 94, months: [9, 10, 11], requireNamedSource: true },
   {
     key: "marfa-lights-festival",
     name: "Marfa Lights Festival",
@@ -204,9 +212,13 @@ async function collectEvent(event) {
     try {
       const text = await fetchText(sourceUrl);
       const nameIndex = text.toLowerCase().indexOf(event.name.toLowerCase());
-      const nearby = nameIndex >= 0 ? text.slice(Math.max(0, nameIndex - 5000), nameIndex + 12000) : text;
+      // New seasonal editions must be sourced from a page that identifies the
+      // exact organizer/event. Never take an arbitrary future festival date from
+      // an unrelated listing on the domain or roll last year's weekend forward.
+      if (event.requireNamedSource && nameIndex < 0) continue;
+      const nearby = nameIndex >= 0 ? text.slice(Math.max(0, nameIndex - 400), nameIndex + 3500) : text;
       let candidates = findDates(nearby, event);
-      if (!candidates.length) candidates = findDates(text, event);
+      if (!candidates.length && !event.requireNamedSource) candidates = findDates(text, event);
       historicalCandidates.push(...findDates(nearby, event, { futureOnly: false }));
 
       if (!candidates.length) continue;
