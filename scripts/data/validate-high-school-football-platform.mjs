@@ -2116,6 +2116,32 @@ if (!errors.length) {
   }
 }
 
+// The post-deploy Batch009 third-five acceptance must be a syntactically
+// contiguous, single-copy workflow, not merely a present filename. Duplicated
+// steps inside a shell run: block silently disable the actual Chrome job.
+{
+  const wf = read('.github/workflows/verify-football-b009-third-five-production.yml');
+  const count = (needle) => wf.split(needle).length - 1;
+  const detect = wf.indexOf('if grep -Eq');
+  const nextStep = wf.indexOf('      - uses: actions/setup-node@v4', detect);
+  const scopeShell = detect >= 0 && nextStep > detect ? wf.slice(detect, nextStep) : '';
+  if (count('      - uses: actions/setup-node@v4') !== 1
+      || count('      - name: Install isolated Chrome driver') !== 1
+      || count('      - name: Verify 5 school pages') !== 1
+      || !scopeShell.includes('echo "run=true" >> "$GITHUB_OUTPUT"')
+      || !scopeShell.includes('echo "run=false" >> "$GITHUB_OUTPUT"')
+      || !scopeShell.includes('          fi')
+      || /\n\s*- uses: actions\//.test(scopeShell)) {
+    errors.push('Batch009 third-five production workflow scope or Chrome job malformed/duplicated.');
+  }
+  for (const exact of [
+    'verify-football-b009-third-five-production.mjs',
+    'path: artifacts/b009-third-five-production-chrome/',
+    "github.event.workflow_run.conclusion == 'success'",
+    'ref: ${{ github.event.workflow_run.head_sha || github.sha }}',
+  ]) if (!wf.includes(exact)) errors.push('Batch009 third-five live acceptance safety missing ' + exact);
+}
+
 if (errors.length) {
   console.error('High-school football platform validation failed:');
   for (const error of errors) console.error(`- ${error}`);
