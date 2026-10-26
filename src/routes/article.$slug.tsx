@@ -35,12 +35,7 @@ import { TexasCitiesComparison } from "@/components/content/TexasCitiesCompariso
 
 // The foliage map and photo gallery are exclusive to one seasonal article.
 // Defer their code until that article mounts instead of loading it on every article.
-const EastTexasFoliageParkMap = lazy(() =>
-  import("@/components/editorial/EastTexasFoliageMedia").then((m) => ({ default: m.EastTexasFoliageParkMap })),
-);
-const EastTexasFoliagePhotoGallery = lazy(() =>
-  import("@/components/editorial/EastTexasFoliageMedia").then((m) => ({ default: m.EastTexasFoliagePhotoGallery })),
-);
+const EastTexasFoliageMedia = lazy(() => import("@/components/editorial/EastTexasFoliageMedia"));
 
 const TexasWaterSearchResource = lazy(() =>
   import("@/components/content/TexasWaterSearchResource").then((module) => ({ default: module.TexasWaterSearchResource })),
@@ -614,8 +609,7 @@ function ArticlePage() {
         </article>)}
       </div>
       <Suspense fallback={<section aria-label="Loading East Texas foliage map and photographs" className="my-6" />}>
-        <EastTexasFoliageParkMap />
-        <EastTexasFoliagePhotoGallery />
+        <EastTexasFoliageMedia />
       </Suspense>
       <nav aria-label="Regional foliage planning" className="mt-8 flex flex-wrap gap-4 border-t border-border pt-5 text-sm">
         <a href="https://www.openstreetmap.org/#map=8/32.65/-94.95" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Explore the East Texas region on a map ↗</a>
