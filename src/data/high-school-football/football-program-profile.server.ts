@@ -131,7 +131,10 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
   if (!seed) {
     const legacy = await getFeaturedFootballProgramProfile(slug);
     if (!legacy) return null;
-    const editorial = getFootballProgramEditorial(legacy.featured.slug);
+    // Featured private-school programs (such as TAPPS Castle Hills) require
+    // the same source-backed batch overlay without entering the UIL dataset.
+    const editorial = (await loadBatch009FootballProgramEditorial(legacy.featured.slug))
+      ?? getFootballProgramEditorial(legacy.featured.slug);
     const profileContent = {
       displayName: legacy.featured.displayName,
       program: legacy.program,
