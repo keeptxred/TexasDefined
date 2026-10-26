@@ -224,6 +224,7 @@ export function getChristmasPerformances2026Server(now = new Date()) {
         href: !featuredDatePassed && show.featuredTicketUrl ? show.featuredTicketUrl : show.sourceUrl,
         label: !featuredDatePassed && show.featuredTicketUrl ? "Official Tickets →" : "Official event details →",
         rel: "noopener noreferrer", isAffiliate: false,
+        provider: providerForVerifiedTicketUrl(!featuredDatePassed && show.featuredTicketUrl ? show.featuredTicketUrl : show.sourceUrl) ?? "official",
         disclosure: undefined,
       },
     };
