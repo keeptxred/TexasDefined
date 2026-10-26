@@ -139,6 +139,42 @@ if (!errors.length) {
   const schoolDistrict = read(files[8]);
   const relocationFinder = read(files[9]);
   const entityPage = read(files[10]);
+  // In production JavaScript object literals, quoted and unquoted county keys
+  // identify the same property. A later research batch silently overwrote
+  // eleven earlier county groups (including Bullard, Burton, Bushland and
+  // Bridgeport). Keep every researched school's reciprocal link reachable.
+  const countyLinkMaps = [
+    'batch002FootballCountyLinks',
+    'supplementalFootballCountyLinks',
+  ];
+  const countyLinkKeysByMap = new Map();
+  for (const mapName of countyLinkMaps) {
+    const startMarker = 'const ' + mapName + ':';
+    const mapBody = entityPage.split(startMarker)[1]?.split(/\n};/)[0];
+    if (!mapBody) {
+      errors.push('Football reciprocal county map missing: ' + mapName);
+      continue;
+    }
+    const keys = [...mapBody.matchAll(/^  (?:'([^']+)'|([a-z-]+)):\s*\[/gm)]
+      .map(match => match[1] || match[2]);
+    const seen = new Set();
+    const repeated = [];
+    for (const county of keys) {
+      if (seen.has(county)) repeated.push(county);
+      seen.add(county);
+    }
+    if (repeated.length) errors.push('Duplicate campus county keys in ' + mapName + ': ' + [...new Set(repeated)].join(', '));
+    countyLinkKeysByMap.set(mapName, seen);
+  }
+  for (const marker of [
+    'const researchedFootballCountyLinks =',
+    '...(batch002FootballCountyLinks[entity.slug] ?? [])',
+    '...(supplementalFootballCountyLinks[entity.slug] ?? [])',
+    'researchedFootballCountyLinks.map((school)',
+  ]) requireText(entityPage, marker, 'Merged campus county reciprocal football links');
+  for (const slug of ['bullard','burton','bushland','bridgeport','calvert','brenham','canyon-randall','brownsboro','buda-johnson']) {
+    requireText(entityPage, "slug: '" + slug + "'", 'Research school county link ' + slug);
+  }
   const footballHub = read(files[11]);
   const footballProfileContent = read(footballProfileContentPath);
   const footballProgramEditorial = read(footballProgramEditorialPath);
