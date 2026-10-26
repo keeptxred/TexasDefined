@@ -23,6 +23,10 @@ export function applyCurrentEntityCorrections(entity: TexasEntityRecord): TexasE
     corrected = { ...corrected, sourceCheckedAt: '2026-10-09' };
   }
 
+  if (corrected.id === 'sports-venue:dickies-arena') {
+    corrected = { ...corrected, sourceCheckedAt: '2026-10-26' };
+  }
+
   if (corrected.id === 'sports-venue:jones-att-stadium') {
     corrected = {
       ...corrected,
