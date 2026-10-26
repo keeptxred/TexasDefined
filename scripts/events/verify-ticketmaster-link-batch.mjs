@@ -150,7 +150,12 @@ export function auditCatalogIntegrity(events) {
     else ids.add(id);
     if (typeof event?.name !== 'string' || !event.name.trim()) invalid(id, 'missing-name');
     if (typeof event?.city !== 'string' || !event.city.trim()) invalid(id, 'missing-city');
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(event?.startDate ?? '')) invalid(id, 'invalid-local-date');
+    const localDate = event?.startDate;
+    if (typeof localDate !== 'string' || !/^\\d{4}-\\d{2}-\\d{2}$/.test(localDate)
+      || Number.isNaN(Date.parse(localDate + 'T12:00:00Z'))
+      || new Date(localDate + 'T12:00:00Z').toISOString().slice(0, 10) !== localDate) {
+      invalid(id, 'invalid-local-date');
+    }
     if (!event?.venue?.trim?.()) counts.missingVenueNames++;
     if (!primaryAdmissionProbeCandidate(event)) counts.filteredNonAdmissionProductNames++;
     if (['cancelled','postponed','rescheduled'].includes(event?.status)) counts.cancelledPostponedOrRescheduled++;
@@ -168,6 +173,7 @@ export function auditCatalogIntegrity(events) {
     if (impact.protocol !== 'https:' || impact.hostname !== 'ticketmaster.evyy.net'
       || impact.username || impact.password || impact.port
       || !/^\/c\/7758914\/264167\/4272\/?$/.test(impact.pathname)
+      || impact.searchParams.size !== 1
       || impact.searchParams.getAll('u').length !== 1
       || impact.searchParams.get('u') !== official.href) {
       invalid(id, 'unauthorized-or-wrong-event-impact-deep-link');
