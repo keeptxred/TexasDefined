@@ -25,7 +25,7 @@ export const featuredDataProducts = [
     category: 'Housing & cost of living',
     description: 'Compare official ACS median home values, gross rent, monthly owner costs and household income across Texas counties.',
     source: 'U.S. Census Bureau American Community Survey',
-    temporalCoverage: '2020/2024',
+    temporalCoverage: '2020 onward; latest published ACS 5-year estimate',
   },
   {
     title: 'Texas City-to-County Relationships',
