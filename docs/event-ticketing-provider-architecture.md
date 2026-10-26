@@ -153,6 +153,10 @@ The existing daily `Sync Texas Events` job evaluates **every row of the current 
 
 Full-snapshot counts are stored in `ops/editorial/event-ticketing-verification-ledger.json` under `statewide.ticketLinkProbeLatestRun.catalogIntegrity`, inside the same protected editor-immutable ledger namespace as existing probes. `httpLinksProbed: false`, `seatsVerified: false` and `commissionsVerified: false` explicitly distinguish the thousands of **structurally checked** source rows from the bounded outbound URL HTTP checks and from restricted provider inventory. The canonical premerge Node test suite covers invalid provider URLs, duplicate IDs, forged/wrong-show Impact links and status uncertainty. No added schedule, dependency, API entitlement or relaxed deployment budget is needed.
 
+## Christmas statewide occurrence deduplication
+
+The statewide calendar reconciles curated Christmas tickets against independent event records only when city, date, approved physical venue identity and compatible titles match. When **both** records specify local showtimes, they must be the same performance. An existing same-title 2 PM matinee never consumes a 7 PM ticket or vice versa, and a separate VIP room, garage or parking listing is never equivalent to the main arena. Untimed organizer listings are still projections, **not** proof that an individual session has available inventory. The one Dallas Grand Ol' Christmas 5 PM doors/6 PM curtain exception remains restricted to the downstream exact Ticketmaster-provider merge, where the unique same-venue performance count is verified; it does not broaden general deduplication. Existing authorized Impact links and official ticket fallbacks remain unchanged.
+
 ## No checkout
 
 TexasDefined does not collect ticket payment, seat selection, billing data, order data, or ticket inventory. `EventTicketCta` always opens the external provider in a new browsing context. The provider owns checkout, fulfillment, refunds, fees, inventory, availability, and customer-service obligations.
