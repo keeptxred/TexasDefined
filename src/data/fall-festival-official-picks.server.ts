@@ -34,7 +34,7 @@ export const FALL_OFFICIAL_PICKS = [
   },
 ] as const;
 
-function texasToday(now: Date) {
+export function texasToday(now: Date) {
   const parts = new Intl.DateTimeFormat("en-US", {
     timeZone: "America/Chicago", year: "numeric", month: "2-digit", day: "2-digit",
   }).formatToParts(now);
