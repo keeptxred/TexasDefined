@@ -1,9 +1,17 @@
+import { lazy, Suspense } from "react";
 import { hasVerifiedViatorMarketUrl, verifiedViatorMarketUrl } from "@/data/viator-destination-links";
 import { VIATOR_RUNTIME_SIGNAL_REVIEWED_AT, viatorRuntimeMarketForSlug } from "@/data/viator-experience-runtime";
 import { viatorMarketsForPlace, type ViatorMatchMarket } from "@/data/viator-market-match";
 import type { Destination } from "@/data/types";
 import { trackAffiliateClick } from "@/lib/affiliate-click";
 import { buildViatorAffiliateUrl } from "@/lib/viator-affiliate";
+
+const WacoDestinationOffer = lazy(() => import("@/components/monetization/WacoDestinationOffer").then((module) => ({ default: module.WacoDestinationOffer })));
+const WACO_ATTRACTION_SLUGS = new Set([
+  "dr-pepper-museum-waco", "cottonland-castle", "waco-suspension-bridge",
+  "cameron-park-waco", "cameron-park-zoo", "texas-ranger-hall-of-fame-museum-waco",
+  "magnolia-market-at-the-silos",
+]);
 
 function uniqueMarkets(markets: ViatorMatchMarket[]) {
   return [...new Map(markets.map((market) => [market.slug, market])).values()];
@@ -42,10 +50,13 @@ export function DestinationViatorBooking({ destination }: { destination: Destina
   // archaeological or state historic site. They also do not belong on a free
   // NPS memorial when no site-specific bookable product exists.
   if (["chamizal-national-memorial", "old-socorro-mission", "first-capitol-of-texas"].includes(destination.slug)) return null;
-  if (!market) return huntingLinks;
+  const wacoOffers = WACO_ATTRACTION_SLUGS.has(destination.slug)
+    ? <Suspense fallback={null}><WacoDestinationOffer slug={destination.slug} /></Suspense>
+    : null;
+  if (!market) return <>{wacoOffers}{huntingLinks}</>;
 
   const hasDedicatedInventory = hasVerifiedViatorMarketUrl(market.slug);
-  if (!hasDedicatedInventory) return huntingLinks;
+  if (!hasDedicatedInventory) return <>{wacoOffers}{huntingLinks}</>;
 
   const runtimeMarket = viatorRuntimeMarketForSlug(market.slug);
   const href = buildViatorAffiliateUrl(verifiedViatorMarketUrl(market.slug), `texasdefined-destination-${destination.slug}`);
@@ -74,6 +85,7 @@ export function DestinationViatorBooking({ destination }: { destination: Destina
       </div>
       <p className="mt-4 text-xs leading-5 text-muted-foreground">Affiliate disclosure: TexasDefined may earn a commission from qualifying Viator bookings, at no additional cost to you.</p>
     </section>
+    {wacoOffers}
     {huntingLinks}
   </>;
 }
