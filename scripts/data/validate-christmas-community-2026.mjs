@@ -308,8 +308,16 @@ assert.ok(partnerForm.includes("const search = Route.useSearch()") && partnerFor
 assert.ok(partnerServer.includes("z.literal('/events/christmas-events')"), "Server must enforce Christmas inquiry source allowlist");
 assert.ok(!page.includes("adsbygoogle"), "Do not activate unapproved AdSense on Christmas calendars");
 assert.ok(monetizationPolicy.includes("AdSense is not approved"), "Retain actual AdSense approval status in Christmas policy");
-assert.ok(christmasLiveVerifier.includes("Flower Mound Christmas Parade and Tree Lighting"), "Live smoke must check the 2026–27 community Christmas expansion");
-assert.ok(christmasLiveVerifier.includes("A Pineywoods Christmas"), "Live smoke must check organizer-backed state park records");
+assert.ok(christmasLiveVerifier.includes('readFileSync("src/data/events/christmas-community-2026.server.ts"'),
+  "Live smoke must derive current inventory from the source manifest");
+assert.ok(christmasLiveVerifier.includes("expectedActiveCommunityCount"),
+  "Live smoke must compare expected upcoming seasonal count with actual visitor HTML");
+assert.ok(christmasLiveVerifier.includes("event.endDate ?? event.startDate"),
+  "Already-completed Christmas dates must expire from the live source contract");
+assert.ok(christmasLiveVerifier.includes("expectedLiveWitnesses"),
+  "Live smoke must verify representative recently sourced holiday events while active");
+assert.ok(christmasLiveVerifier.includes("visible.includes(countEvidence)"),
+  "Live calendar count must be validated in visible HTML, not hidden hydration JSON");
 assert.ok(christmasLiveVerifier.includes("verify-christmas-release="), "Live smoke must bypass caches when probing stale source data");
 assert.ok(christmasLiveVerifier.includes("data-ad-slot="), "Do not accidentally activate AdSense display units before approval");
 assert.ok(productionWorkflow.includes("node scripts/ci/verify-christmas-hub-production.mjs"), "Existing protected production deploy must verify Christmas hub freshness");
