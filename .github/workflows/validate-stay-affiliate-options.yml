@@ -6,6 +6,8 @@ on:
       - 'public/stay-affiliate-options.js'
       - 'scripts/data/validate-stay-affiliate-options.mjs'
       - 'scripts/data/validate-motel6-affiliate.mjs'
+      - 'scripts/ci/verify-motel6-production.mjs'
+      - '.github/workflows/texasdefined-publication-production-smoke.yml'
       - 'src/components/sports/FootballFanOffers.tsx'
       - 'scripts/data/validate-booking-car-rental-affiliate.mjs'
       - 'scripts/data/validate-outcome-analytics.mjs'
@@ -34,6 +36,8 @@ on:
       - 'public/stay-affiliate-options.js'
       - 'scripts/data/validate-stay-affiliate-options.mjs'
       - 'scripts/data/validate-motel6-affiliate.mjs'
+      - 'scripts/ci/verify-motel6-production.mjs'
+      - '.github/workflows/texasdefined-publication-production-smoke.yml'
       - 'src/components/sports/FootballFanOffers.tsx'
       - 'scripts/data/validate-booking-car-rental-affiliate.mjs'
       - 'scripts/data/validate-outcome-analytics.mjs'
@@ -77,6 +81,8 @@ jobs:
         run: node scripts/data/validate-stay-affiliate-options.mjs
       - name: Validate Motel 6 account-scoped links, placement and promo cutoff
         run: node scripts/data/validate-motel6-affiliate.mjs
+      - name: Verify live Motel 6 creative and football stay CTA
+        run: node scripts/ci/verify-motel6-production.mjs
       - name: Validate Booking.com car-rental integration
         run: node scripts/data/validate-booking-car-rental-affiliate.mjs
       - name: Validate first-party outcome analytics

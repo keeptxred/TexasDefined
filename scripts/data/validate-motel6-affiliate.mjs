@@ -5,6 +5,10 @@ import vm from 'node:vm';
 const source = readFileSync('public/stay-affiliate-options.js', 'utf8');
 const football = readFileSync('src/components/sports/FootballFanOffers.tsx', 'utf8');
 const economics = readFileSync('docs/travel-affiliate-economics.md', 'utf8');
+const liveWorkflow = readFileSync('.github/workflows/verify-stay-affiliate-production.yml', 'utf8');
+const liveVerifier = readFileSync('scripts/ci/verify-stay-affiliate-production.mjs', 'utf8');
+const postDeployWorkflow = readFileSync('.github/workflows/texasdefined-publication-production-smoke.yml', 'utf8');
+const motel6Canary = readFileSync('scripts/ci/verify-motel6-production.mjs', 'utf8');
 
 const sandbox = {
   window: {
@@ -81,4 +85,20 @@ for (const marker of [
 ]) assert.ok(football.includes(marker), marker);
 assert.ok(football.indexOf('Affiliate disclosure:') < football.indexOf('href={motel6Halloween ? MOTEL6_HALLOWEEN_URL'), 'football sponsorship must be disclosed before offer');
 assert.ok(economics.includes('NOT an advertiser-certified expiration date'), 'do not invent the merchant offer expiration');
+assert.doesNotMatch(liveWorkflow, /^  workflow_run:/m, 'manual-only stay affiliate audit must not subscribe to every deployment');
+assert.match(postDeployWorkflow, /^  workflow_run:/m, 'the preapproved bounded production smoke subscriber must remain');
+assert.ok(postDeployWorkflow.includes('run: node scripts/ci/verify-motel6-production.mjs'), 'Motel 6 live canary must run within the existing subscriber');
+for (const marker of [
+  "route: '/article/texas-high-school-football-playoffs-explained'",
+  'requireMotel6Football: true',
+  'data-commercial-partner="motel6"',
+  'https://www.tqlkg.com/click-101876465-17198227',
+]) assert.ok(liveVerifier.includes(marker), 'missing manual Motel 6 football acceptance marker: ' + marker);
+for (const marker of [
+  'MOTEL6_HALLOWEEN_AID = "17371482"',
+  '2026-11-01T05:00:00Z',
+  'data-commercial-partner="motel6"',
+  'https://www.tqlkg.com/click-101876465-17198227',
+  'for (const bust of [false, true])',
+]) assert.ok(motel6Canary.includes(marker), 'missing scoped automatic Motel 6 production acceptance marker: ' + marker);
 console.log('Motel 6 CJ URL, placement, CTA, analytics and expiration gates validated.');
