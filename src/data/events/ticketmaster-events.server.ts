@@ -97,7 +97,7 @@ export function loadTicketmasterEventsServer(catalog: TicketmasterSnapshot = sna
       venueName: event.venue, venueId: venueSlug ? `sports-venue:${venueSlug}` : undefined, venuePath: venue?.href,
       officialEventUrl: event.officialUrl, status: 'scheduled', lastVerifiedAt: fetchedAt, lastUpdatedAt: fetchedAt,
       sourceName: 'Ticketmaster',
-      ticketing: { offers: [], links: [{ provider: 'ticketmaster', officialTicketUrl: event.officialUrl,
+      ticketing: { offers: [], links: [{ provider: new URL(event.officialUrl).hostname.toLowerCase().replace(/^www\./, '') === 'ticketweb.com' ? 'ticketweb' : 'ticketmaster', officialTicketUrl: event.officialUrl,
         affiliateUrl: event.affiliateUrl, saleStatus, lastVerifiedAt: fetchedAt,
         source: { kind: 'provider', name: 'Ticketmaster', url: event.officialUrl },
         affiliateExpiresAt: new Date(Date.parse(fetchedAt) + 48 * 3600000).toISOString(),
