@@ -237,7 +237,16 @@ export async function refresh({ fetchSource = official, read = p => fs.readFile(
     data = { ...release, units: 'total nonfarm payroll jobs, not seasonally adjusted', rows };
   } catch (error) {
     console.warn('Direct BLS source failed; checking Federal Reserve BLS-series distribution: ' + String(error));
-    data = parseFredCsv(await fredSource(), previous);
+    const csv = await fredSource();
+    try {
+      data = parseFredCsv(csv, previous);
+    } catch (fallbackError) {
+      if (/FRED metro observation is too recent/.test(String(fallbackError))) {
+        console.log('No publication: newer FRED metro observation has not matured beyond the BLS metropolitan release window. Retaining ' + previous.releaseMonth);
+        return false;
+      }
+      throw fallbackError;
+    }
   }
   validateFresh(data, previous);
   if (JSON.stringify(data) === JSON.stringify(previous)) {
