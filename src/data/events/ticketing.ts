@@ -48,7 +48,7 @@ function approvedAffiliateHref(link: TexasEventTicketLink): string | null {
   const affiliate = new URL(href);
   const official = new URL(officialHref);
   if (affiliate.hostname !== "ticketmaster.evyy.net"
-    || !/^\/c\/7758914\/\d+\/4272\/?$/.test(affiliate.pathname)
+    || !/^\/c\/7758914\/264167\/4272\/?$/.test(affiliate.pathname)
     || affiliate.searchParams.getAll("u").length !== 1) return null;
   const officialHost = official.hostname.toLowerCase();
   const isTicketmasterEvent = (officialHost === "ticketmaster.com" || officialHost === "www.ticketmaster.com")

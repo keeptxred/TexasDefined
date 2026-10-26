@@ -72,6 +72,17 @@ test('only verified US Ticketmaster event destinations are wrapped with the appr
     'impact-destination-ticketweb-event-path-shape',
   );
 
+  assert.equal(
+    ticketmasterUrlRejectionReason(
+      `https://ticketmaster.evyy.net/c/7758914/264168/4272?u=${encodeURIComponent('https://www.ticketmaster.com/example/event/ABC123')}`,
+    ),
+    'impact-path-shape',
+  );
+  assert.throws(
+    () => normalizeDiscoveryEvent(event, base.replace('/264167/', '/264168/')),
+    /Invalid approved Impact tracking base/,
+  );
+
   assert.equal(ticketmasterUrlRejectionReason('https://tickets.example.test/event/ABC'), 'host-tickets.example.test');
   assert.equal(ticketmasterUrlRejectionReason('https://www.ticketmaster.com/browse'), 'missing-event-segment');
   assert.equal(
