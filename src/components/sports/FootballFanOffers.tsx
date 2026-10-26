@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { trackAffiliateClick } from '@/lib/affiliate-click';
 
 type Offer = Readonly<{
@@ -16,6 +17,12 @@ export const VERIFIED_FOOTBALL_GEAR_OFFERS: readonly Offer[] = [];
 
 const HOTEL_CJ_PUBLISHER_ID = '101876465';
 const HOTELS_DESTINATION = 'https://www.hotels.com/';
+// September 21 standard CJ creative and October 26 Halloween promotion.
+// Publisher promotional-property ID is 101876465, not CID 8062457.
+const MOTEL6_STANDARD_URL = 'https://www.tqlkg.com/click-' + HOTEL_CJ_PUBLISHER_ID + '-17198227';
+const MOTEL6_HALLOWEEN_URL = 'https://www.jdoqocy.com/click-' + HOTEL_CJ_PUBLISHER_ID + '-17371482';
+const MOTEL6_CAMPAIGN_START = Date.parse('2026-10-26T00:00:00Z');
+const MOTEL6_CAMPAIGN_END = Date.parse('2026-11-01T05:00:00Z');
 // Use the same approved CJ deep-link contract as stay-affiliate-options.js.
 const HOTELS_AFFILIATE_URL = `https://www.anrdoezrs.net/links/${HOTEL_CJ_PUBLISHER_ID}/type/dlg/${encodeURI(HOTELS_DESTINATION)}`;
 // RVshare is an existing active CJ advertiser for TexasDefined. This uses the
@@ -37,6 +44,16 @@ function isVerifiedProductUrl(url: string) {
 
 export function FootballFanOffers({ slug, hasUpcomingAwayTravel, showTravelPlanning = false }: { slug: string; hasUpcomingAwayTravel: boolean; showTravelPlanning?: boolean }) {
   const showHotels = hasUpcomingAwayTravel || showTravelPlanning;
+  const [clientNow, setClientNow] = useState(0);
+  useEffect(() => {
+    setClientNow(Date.now());
+    const remaining = MOTEL6_CAMPAIGN_END - Date.now();
+    if (remaining <= 0) return;
+    const timer = window.setTimeout(() => setClientNow(Date.now()), Math.min(remaining + 250, 2147483647));
+    return () => window.clearTimeout(timer);
+  }, []);
+  // First server/client render is identical; current offer appears post-hydration.
+  const motel6Halloween = clientNow >= MOTEL6_CAMPAIGN_START && clientNow < MOTEL6_CAMPAIGN_END;
   const isStateChampionshipGuide = slug === 'texas-high-school-football-playoffs-explained';
   const gearOffers = VERIFIED_FOOTBALL_GEAR_OFFERS.filter((offer) => isVerifiedProductUrl(offer.trackedUrl));
 
@@ -94,6 +111,24 @@ export function FootballFanOffers({ slug, hasUpcomingAwayTravel, showTravelPlann
             onClick={() => trackAffiliateClick({ partner: 'hotels.com', label: 'Compare hotels for football travel', placement: `football-away-travel-${slug}`, module: 'football-fan-essentials' })}
             className="inline-flex min-h-11 items-center justify-center bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90">
             Compare hotels on Hotels.com ↗
+          </a>
+        </div>
+      )}
+      {showHotels && (
+        <div className="mt-4 flex flex-wrap items-center justify-between gap-4 bg-background p-4">
+          <div className="max-w-3xl">
+            <p className="font-semibold">Prefer a budget motel for the drive?</p>
+            <p className="mt-1 text-xs leading-5 text-muted-foreground">
+              {motel6Halloween
+                ? "Motel 6's Trip and Treat campaign advertises up to 15% off nightly stays, 20% off weekly stays and 35% off monthly stays. Confirm participating locations and terms. No advertiser expiration date was supplied."
+                : "Explore Motel 6 budget stays only after confirming the game location and date. Prices, property locations and availability are not guaranteed."}
+            </p>
+          </div>
+          <a href={motel6Halloween ? MOTEL6_HALLOWEEN_URL : MOTEL6_STANDARD_URL} target="_blank" rel="sponsored nofollow noopener noreferrer"
+            data-commercial-partner="motel6" data-commercial-placement="football-budget-motel"
+            onClick={() => trackAffiliateClick({ partner: 'motel6', label: motel6Halloween ? 'Motel 6 Halloween offer' : 'Motel 6 budget stays', placement: `football-motel6-${slug}`, module: 'football-fan-essentials' })}
+            className="inline-flex min-h-11 items-center justify-center border border-border px-4 py-3 text-sm font-semibold text-foreground hover:bg-surface">
+            {motel6Halloween ? 'Check Motel 6 Halloween offers ↗' : 'Compare Motel 6 stays ↗'}
           </a>
         </div>
       )}
