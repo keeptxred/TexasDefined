@@ -25,12 +25,15 @@ function MetroProximityCollectionPage() {
   const pageData = Route.useLoaderData();
   const { metro, collection, townReferences, optionCount, indexReady, presentation } = pageData;
   const isDallasRoadRing = metro.slug === "dallas" && /^small-towns-[123]-hours?$/.test(collection.slug);
+  const isDallasThingsToDo = metro.slug === "dallas" && collection.slug === "things-to-do";
   const isAustinTwoHourGuide = metro.slug === "austin" && collection.slug === "small-towns-2-hours";
   const isMcAllenDayTrips = metro.slug === "mcallen" && collection.slug === "day-trips";
   const distanceWindow = collection.minimumMiles > 0
     ? `${collection.minimumMiles}–${collection.radiusMiles} straight-line miles`
     : `Up to ${collection.radiusMiles} straight-line miles`;
-  const heroSummary = isDallasRoadRing
+  const heroSummary = isDallasThingsToDo
+    ? "Start with Dallas museums, skyline attractions, arts districts and family visits, then use the nearby destination guides for parks, towns and day trips. Choose by interests first; geographic distance alone is not driving time."
+    : isDallasRoadRing
     ? "Real road-trip choices, not circles drawn on a map. These towns are grouped by published typical Dallas driving-time estimates, with official tourism links, a destination map and live route checks for the day you travel."
     : isMcAllenDayTrips
     ? "Discover the Lower Rio Grande Valley from McAllen: world-class birding, borderland history, wildlife refuges, Port Isabel and South Padre Island. Start with the curated trip ideas, then open current road routes before you leave."
@@ -87,6 +90,45 @@ function MetroProximityCollectionPage() {
           {!indexReady && <p className="mt-5 max-w-3xl text-sm leading-7 text-muted-foreground">This page is available for navigation but remains excluded from search indexing until its source-backed inventory reaches the minimum inventory and geographic-diversity thresholds for this intent.</p>}
         </div>
       </section>
+
+
+      {isDallasThingsToDo && <section className="border-b border-border bg-background" data-dallas-local-intent>
+        <div className="mx-auto w-full max-w-7xl px-5 py-14 sm:px-8 sm:py-18">
+          <p className="eyebrow text-primary">Dallas visitor guide</p>
+          <h2 className="mt-3 max-w-4xl font-display text-4xl sm:text-5xl">What to do in Dallas: choose a day that fits</h2>
+          <p className="mt-4 max-w-4xl text-base leading-8 text-muted-foreground">A Dallas visit works best when nearby stops fit the same part of the city. Choose one anchor attraction, add one compatible stop, then check each operator’s hours and tickets. These researched TexasDefined guides cover the major experiences without presenting them as one impossible checklist.</p>
+          <div className="mt-9 grid gap-8 md:grid-cols-3">
+            <article className="border-t border-border pt-5">
+              <p className="eyebrow text-primary">History & views</p>
+              <h3 className="mt-2 font-display text-2xl">Downtown history and the skyline</h3>
+              <p className="mt-3 text-sm leading-7 text-muted-foreground">Choose the Sixth Floor Museum for Dallas history and Dealey Plaza, or Reunion Tower for a view over the city. Allow extra time for downtown traffic and reservations.</p>
+              <div className="mt-4 flex flex-col items-start gap-2 text-sm font-semibold">
+                <Link to="/destination/$slug" params={{ slug: "sixth-floor-museum-at-dealey-plaza" }} className="border-b border-primary text-primary">Sixth Floor Museum visitor guide →</Link>
+                <Link to="/destination/$slug" params={{ slug: "reunion-tower-dallas" }} className="border-b border-primary text-primary">Reunion Tower visitor guide →</Link>
+              </div>
+            </article>
+            <article className="border-t border-border pt-5">
+              <p className="eyebrow text-primary">Art & design</p>
+              <h3 className="mt-2 font-display text-2xl">Spend time in the Arts District</h3>
+              <p className="mt-3 text-sm leading-7 text-muted-foreground">Pair the Dallas Museum of Art with the nearby Nasher Sculpture Center for a more focused cultural outing. Check current exhibitions and opening days for each museum.</p>
+              <div className="mt-4 flex flex-col items-start gap-2 text-sm font-semibold">
+                <Link to="/destination/$slug" params={{ slug: "dallas-museum-of-art" }} className="border-b border-primary text-primary">Dallas Museum of Art guide →</Link>
+                <Link to="/destination/$slug" params={{ slug: "nasher-sculpture-center-dallas" }} className="border-b border-primary text-primary">Nasher Sculpture Center guide →</Link>
+              </div>
+            </article>
+            <article className="border-t border-border pt-5">
+              <p className="eyebrow text-primary">Family & science</p>
+              <h3 className="mt-2 font-display text-2xl">Pick a family-sized main attraction</h3>
+              <p className="mt-3 text-sm leading-7 text-muted-foreground">The Perot Museum is an indoor science choice; Dallas Zoo is an outdoor wildlife outing. Treat either as the main stop rather than assuming both fit into a short visit.</p>
+              <div className="mt-4 flex flex-col items-start gap-2 text-sm font-semibold">
+                <Link to="/destination/$slug" params={{ slug: "perot-museum-nature-science-dallas" }} className="border-b border-primary text-primary">Perot Museum visitor guide →</Link>
+                <Link to="/destination/$slug" params={{ slug: "dallas-zoo" }} className="border-b border-primary text-primary">Dallas Zoo visitor guide →</Link>
+              </div>
+            </article>
+          </div>
+          <p className="mt-9 max-w-4xl border-l-2 border-primary pl-5 text-sm leading-7 text-muted-foreground"><strong>Looking beyond the city?</strong> <Link to="/explore/near/$metro/$collection" params={{ metro: "dallas", collection: "day-trips" }} className="font-semibold text-primary underline underline-offset-4">Compare day trips from Dallas</Link> or use the nearby-place listings below. They are screened by straight-line geography, not guaranteed road mileage or driving time; check a current route before traveling.</p>
+        </div>
+      </section>}
 
       {isDallasRoadRing && collection.slug === "small-towns-1-hour" && <section className="mx-auto grid w-full max-w-7xl items-center gap-10 px-5 py-12 sm:px-8 lg:grid-cols-2">
         <figure>
