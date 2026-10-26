@@ -101,3 +101,20 @@ test('scheduled publication writes the validated release date only after a sourc
   assert.equal(next.publishedDate, '2026-09-30');
   assert.match(writes.get('src/data/texas-data-center.ts'), /updated: '2026-09-30'/);
 });
+
+test('Federal Reserve monthly metro series must mature beyond the official release window before publication', () => {
+  const ids = ['DALL148NAN','HOUS448NAN','AUST448NAN','SANA748NAN','ELPA348NAN',
+    'MCAL548NAN','CORP548NAN','LUBB148NAN','BROW148NAN','COLL748NAN',
+    'WACO348NAN','AMAR148NAN','TYLE348NAN'];
+  const previous = { releaseMonth: '2026-08', publishedDate: '2026-09-30',
+    sourceUrl: 'https://www.bls.gov/news.release/archives/metro_09302026.htm',
+    rows: parseMetroTable(table(areas)) };
+  const september = 'observation_date,' + ids.join(',') + '\\n2026-09-01,' +
+    areas.map(([, count]) => count).join(',') + '\\n';
+  assert.throws(() => parseFredCsv(september, previous, '2026-10-26'), /too recent/);
+  assert.throws(() => parseFredCsv(september, previous, '2026-11-08'), /too recent/);
+  const published = parseFredCsv(september, previous, '2026-11-09');
+  assert.equal(published.releaseMonth, '2026-09');
+  assert.equal(published.sourceUrl.startsWith('https://fred.stlouisfed.org/'), true);
+  assert.equal(published.publishedDate, '2026-11-09');
+});
