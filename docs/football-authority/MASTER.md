@@ -1,5 +1,9 @@
 # TexasDefined — High School Football Authority Project (locked)
 
+## October 26, 2026 — Batch 009 source-backed implementation checkpoint
+
+Batch 008 is technically VERIFIED in live production (180 cumulative schools). The next 25 canonically unreviewed schools were reserved as Batch 009; five have individually sourced authority overlays and dossiers on branch `football-authority-batch-009-five-schools-20261026`, but are **IMPLEMENTED only**, never falsely labeled merged, deployed or VERIFIED. The remaining 20 assigned schools remain NOT_REVIEWED. Continue with Carrollton Turner; do not rework completed Batches 001–008. See the current REGISTRY.json and newest PROGRESS.md checkpoint; historical older descriptions below are superseded by current registry and production evidence.
+
 ## October 20, 2026 — updated owner-directed completion policy (supersedes mandatory editorial signoff)
 
 **Not just football:** the same owner rule now applies [site-wide to all TexasDefined page families](../editorial/SITEWIDE_PUBLICATION_VERIFICATION_POLICY.md), with any separate human/owner editorial certification optional while factual, media-rights and technical gates remain compulsory.
