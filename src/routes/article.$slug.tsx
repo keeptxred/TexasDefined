@@ -608,7 +608,7 @@ function ArticlePage() {
           </div>
         </article>)}
       </div>
-      <Suspense fallback={<section aria-label="Loading East Texas foliage map and photographs" className="my-6" />}>
+      <Suspense fallback="Loading East Texas foliage map and photographs…">
         <EastTexasFoliageMedia />
       </Suspense>
       <nav aria-label="Regional foliage planning" className="mt-8 flex flex-wrap gap-4 border-t border-border pt-5 text-sm">
