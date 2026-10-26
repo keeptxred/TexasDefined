@@ -664,4 +664,9 @@ test("El Paso day-trip reader guidance links closer public destinations without 
   assert.ok(proximity.includes("minResults: 10"), "do not lower geographic count floor");
   assert.ok(proximity.includes("minCounties: 4"), "do not lower diverse-county floor");
   assert.ok(proximity.includes("minimumMiles: 18"), "do not misrepresent inner-ring guidance as eligible day trips");
+  const browser = readFileSync("scripts/ci/verify-metro-day-trips-production.mjs", "utf8");
+  assert.ok(browser.includes('if(metro==="el-paso")'),
+    "production desktop/mobile checks must inspect El Paso's local-guide complement");
+  assert.ok(browser.includes('El Paso close-in outings are distinct from governed distance inventory'),
+    "the browser contract must enforce the two local visitor guides and official sources");
 });
