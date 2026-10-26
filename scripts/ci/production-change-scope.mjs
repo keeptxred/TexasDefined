@@ -100,6 +100,22 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
     candidates.add('/corporate-events');
   }
 
+  // The Texas icons landing route is lazy and does not carry a createFileRoute
+  // declaration in its changed file. Verify both ends of its new cultural
+  // answer/discovery links on the exact deployed Worker, not only generic health.
+  if (changedFiles.some(path => path === 'src/routes/things-unique-to-texas.lazy.tsx'
+    || path === 'src/data/fixtures/texas-cultural-regions-explained.ts')) {
+    candidates.add('/things-unique-to-texas');
+    candidates.add('/article/texas-cultural-regions-explained');
+    expectedHrefsByPage['/things-unique-to-texas'] = [
+      '/article/texas-cultural-regions-explained',
+      '/things-unique-to-texas/culture-music',
+    ];
+    expectedHrefsByPage['/article/texas-cultural-regions-explained'] = [
+      '/things-unique-to-texas/culture-music',
+    ];
+  }
+
   // The statewide Mardi Gras hub has a static route and its own event-directory
   // links. Verify it on production when either of its route files changes.
   const mardiGrasHubPages = new Set();
