@@ -126,6 +126,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The free synchronized music-and-light show runs nightly 6–10 p.m. from November 20 through January 4, 2027. Any additional activities, private events or vendors have separate schedules."
   },
   {
+    "slug": "bryan-2026-lights-on-downtown",
+    "title": "Lights On! Christmas Tree Lighting in Downtown Bryan",
+    "city": "Bryan",
+    "countySlug": "brazos",
+    "countyName": "Brazos County",
+    "region": "prairies-lakes",
+    "startDate": "2026-11-20",
+    "venueName": "Gloria Sale Park · Historic Downtown Bryan",
+    "officialEventUrl": "https://www.destinationbryan.com/events/annual/lights-on/",
+    "sourceName": "Destination Bryan tourism bureau",
+    "summary": "Destination Bryan confirms Friday November 20, 2026, 5–10 p.m. for the free downtown kickoff, with the Gloria Sale Park tree lighting countdown around 6:15 p.m., music, Santa photos and family activities. Main Street and West 28th Street have event closures; garages may charge for parking."
+  },
+  {
     "slug": "san-antonio-garden-illuminate-opening-2026",
     "title": "San Antonio Botanical Garden Illuminate · opening night",
     "city": "San Antonio",
@@ -864,6 +877,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The 47th annual Grapevine Parade of Lights runs Thursday, December 3 at 7 p.m. along Main Street. Check the parade route, traffic closures and parking guidance; this is a distinct scheduled parade inside Grapevine's broader Christmas Capital season."
   },
   {
+    "slug": "bryan-2026-holiday-magic-sue-haswell",
+    "title": "Holiday Magic at Sue Haswell Park, Bryan",
+    "city": "Bryan",
+    "countySlug": "brazos",
+    "countyName": "Brazos County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-03",
+    "venueName": "Sue Haswell Memorial Park · 1142 E William Joel Bryan Parkway",
+    "officialEventUrl": "https://www.destinationbryan.com/blog/holiday-guide/",
+    "sourceName": "Destination Bryan tourism bureau",
+    "summary": "Destination Bryan's dated 2026 calendar lists free Holiday Magic on Thursday December 3, 5:30–8:30 p.m., with a snow hill, Santa photos, train rides, lights and family entertainment. This is separate from the November 20 downtown tree lighting."
+  },
+  {
     "slug": "jefferson-candlelight-tour-dec3",
     "title": "Jefferson Candlelight Tour of Homes · first weekend",
     "city": "Jefferson",
@@ -1415,6 +1441,32 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The Kemah Boardwalk 2026 events calendar schedules the Cocoa & Cookies Stroll on Saturdays November 28 through December 19. This record lists one confirmed Saturday session only; do not imply Sunday or midweek strolls. Confirm current giveaways, food purchases and seasonal operating hours with the Boardwalk."
   },
   {
+    "slug": "lampasas-2026-carol-of-lights",
+    "title": "Lampasas Carol of Lights · Courtyard Square",
+    "city": "Lampasas",
+    "countySlug": "lampasas",
+    "countyName": "Lampasas County",
+    "region": "hill-country",
+    "startDate": "2026-12-05",
+    "venueName": "Lampasas Historic Courtyard Square",
+    "officialEventUrl": "https://www.visionlampasas.org/events.html",
+    "sourceName": "Vision Lampasas / Lampasas Downtown Association",
+    "summary": "The 2026 Lampasas Carol of Lights is Saturday December 5 at the downtown Courtyard Square, alongside the independently organized HoliDazzle Christmas Parade. Lampasas Downtown Association coordinates Carol of Lights; check its latest activity times rather than assuming old program hours."
+  },
+  {
+    "slug": "lampasas-2026-holidazzle-parade",
+    "title": "Lampasas HoliDazzle Lighted Christmas Parade",
+    "city": "Lampasas",
+    "countySlug": "lampasas",
+    "countyName": "Lampasas County",
+    "region": "hill-country",
+    "startDate": "2026-12-05",
+    "venueName": "Lampasas Historic Courtyard Square and downtown parade route",
+    "officialEventUrl": "https://www.visionlampasas.org/events.html",
+    "sourceName": "Vision Lampasas",
+    "summary": "Vision Lampasas confirms Saturday December 5, 2026 for the HoliDazzle parade with lighted floats, marching bands and Santa. The parade uses downtown streets and is distinct from Carol of Lights; organizer materials identify a 6:30 p.m. start, subject to official traffic updates."
+  },
+  {
     "slug": "lufkin-christmas-lighted-parade",
     "title": "Lufkin Lighted Christmas Parade",
     "city": "Lufkin",
@@ -1482,6 +1534,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The operator's 2026 Christmas at the Caverns promotion confirms a December 5–23 holiday season on select dates, with underground caroling, lights and optional ticket tiers. This event record marks the confirmed opening date only; select other nights using the official dated reservation calendar."
   },
   {
+    "slug": "navasota-2026-home-for-holidays-parade",
+    "title": "Navasota Home for the Holidays Christmas Parade",
+    "city": "Navasota",
+    "countySlug": "grimes",
+    "countyName": "Grimes County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-05",
+    "venueName": "Downtown Navasota · historic city parade route",
+    "officialEventUrl": "https://www.navasotaisd.org/apps/events/2026/12/?id=0&id=11&id=12",
+    "sourceName": "Navasota Independent School District public city event calendar",
+    "summary": "The Navasota ISD official community calendar lists the City of Navasota Home for the Holidays Christmas Parade for Saturday December 5, 2026, 6–8 p.m. The source confirms date and event identity but not the detailed downtown route or organizer ticketing; verify road closures before travel."
+  },
+  {
     "slug": "pearland-hometown-christmas-parade-2026",
     "title": "Pearland Hometown Christmas Parade · Red, White, and Blue Christmas",
     "city": "Pearland",
@@ -1534,6 +1599,32 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.visitsanantonio.com/event/six-flags-holiday-in-the-park/13246/",
     "sourceName": "Visit San Antonio / Six Flags Fiesta Texas",
     "summary": "Six Flags Holiday in the Park is ticketed and runs selected 2026 dates. This window follows Visit San Antonio's day-by-day list rather than assuming daily park operation. Current park admission covers many shows and select rides; extras cost more. The December 26–New Year program has separate scheduling."
+  },
+  {
+    "slug": "weatherford-2026-christmas-on-square",
+    "title": "Weatherford Christmas on the Square · Gingerbread Christmas",
+    "city": "Weatherford",
+    "countySlug": "parker",
+    "countyName": "Parker County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-05",
+    "venueName": "Historic Downtown Weatherford · Courthouse Square",
+    "officialEventUrl": "https://www.weatherford-chamber.com/chamber-events/christmas-on-the-square.html",
+    "sourceName": "Weatherford Chamber of Commerce",
+    "summary": "The Weatherford Chamber confirms Saturday December 5, 2026, 10 a.m.–4 p.m. for Gingerbread Christmas shopping, local vendors, holiday entertainment, Santa and family activities around the downtown courthouse square. The evening lighted parade has a separate start time."
+  },
+  {
+    "slug": "weatherford-2026-lights-night-parade",
+    "title": "Weatherford Lights the Night Christmas Parade",
+    "city": "Weatherford",
+    "countySlug": "parker",
+    "countyName": "Parker County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-05",
+    "venueName": "Downtown Weatherford · parade begins near Ninth Grade Center",
+    "officialEventUrl": "https://www.weatherford-chamber.com/chamber-events/christmas-on-the-square.html",
+    "sourceName": "Weatherford Chamber of Commerce",
+    "summary": "The Weatherford Chamber confirms the Saturday December 5, 2026 lighted parade begins 6:30 p.m. near the Ninth Grade Center before passing through downtown. This is an evening companion to the 10 a.m.–4 p.m. Christmas on the Square festival, not a second festival day."
   },
   {
     "slug": "college-station-beachy-central-lights-late-2026",
@@ -1756,6 +1847,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.burlesontx.com/3065/Holiday-Glow-Float",
     "sourceName": "City of Burleson",
     "summary": "City-advertised indoor Holiday Glow Float on Friday December 11, 2026, 7:30–9:30 p.m. costs $5 per person (ages two and under free). The city offers a sensory-friendly quiet room; existing pool supervision and safety rules apply. Registration is separate from other free Christmas celebrations."
+  },
+  {
+    "slug": "caldwell-2026-christmas-on-square",
+    "title": "Caldwell Christmas on the Square and Lighted Parade",
+    "city": "Caldwell",
+    "countySlug": "burleson",
+    "countyName": "Burleson County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-11",
+    "venueName": "Downtown Caldwell · Historic Courthouse Square",
+    "officialEventUrl": "https://business.burlesoncountytx.com/events/details/christmas-on-the-square-2026-9534?calendarMonth=2026-12-01",
+    "sourceName": "Burleson County Chamber of Commerce",
+    "summary": "The Burleson County Chamber confirms Friday December 11, 2026, 6–8 p.m. for Christmas on the Square. Downtown music and performances precede the lighted Christmas parade around 7 p.m.; the parade may be cancelled for bad weather. Do not substitute the county's older generic first-Saturday annual rule."
   },
   {
     "slug": "tpwd-guadalupe-river-christmas-in-park-2026",
@@ -2054,6 +2158,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The Kemah Boardwalk 2026 events calendar schedules the Cocoa & Cookies Stroll on Saturdays November 28 through December 19. This record lists one confirmed Saturday session only; do not imply Sunday or midweek strolls. Confirm current giveaways, food purchases and seasonal operating hours with the Boardwalk."
   },
   {
+    "slug": "lampasas-2026-christmas-on-creek",
+    "title": "Lampasas Christmas on the Creek · W.M. Brook Park",
+    "city": "Lampasas",
+    "countySlug": "lampasas",
+    "countyName": "Lampasas County",
+    "region": "hill-country",
+    "startDate": "2026-12-12",
+    "venueName": "W.M. Brook Park · Sulphur Creek",
+    "officialEventUrl": "https://www.visionlampasas.org/events.html",
+    "sourceName": "Vision Lampasas",
+    "summary": "Vision Lampasas confirms Saturday December 12, 2026, 5–8 p.m. for Christmas on the Creek, including Santa's Village, hot cocoa, a snow machine and lighted park attractions. The outdoor creek lights may continue beyond the event, but no unverified end date is listed as another calendar entry."
+  },
+  {
     "slug": "pearland-tour-de-lites-2026",
     "title": "Pearland Tour De Lites · holiday bicycle lights tour",
     "city": "Pearland",
@@ -2105,6 +2222,33 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://visitallentexas.com/events/holiday-market-at-chicken-n-pickle/",
     "sourceName": "Visit Allen tourism",
     "summary": "Visit Allen confirms Sunday December 13, 2026, noon–5 p.m. for a free-entry holiday craft and gift market at Chicken N Pickle. Shop vendors for handmade goods and gifts; brunch and other restaurant purchases are separate. The site's structured start time is inconsistent, so the organizer description's explicit noon–5 p.m. market hours take precedence."
+  },
+  {
+    "slug": "bryan-2026-holiday-porch-stroll",
+    "title": "Bryan Holiday Porch Stroll · East Side Historic District",
+    "city": "Bryan",
+    "countySlug": "brazos",
+    "countyName": "Brazos County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-13",
+    "venueName": "Heritage Park · Bryan East Side Historic District",
+    "officialEventUrl": "https://www.bryantx.gov/special-events/holiday-porch-stroll/",
+    "sourceName": "City of Bryan",
+    "summary": "The City of Bryan confirms Sunday December 13, 2026, 4–7 p.m. for a free self-guided outdoor walk past the historic East Side neighborhood's decorated home exteriors. The walk starts at Heritage Park; this is not a paid indoor tour."
+  },
+  {
+    "slug": "bryan-2026-downtown-holiday-stroll",
+    "title": "Downtown Bryan Holiday Stroll · December 13–17",
+    "city": "Bryan",
+    "countySlug": "brazos",
+    "countyName": "Brazos County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-13",
+    "endDate": "2026-12-17",
+    "venueName": "Historic Downtown Bryan businesses and venues",
+    "officialEventUrl": "https://www.destinationbryan.com/events/annual/holiday-stroll-in-historic-downtown-bryan/",
+    "sourceName": "Destination Bryan tourism bureau",
+    "summary": "Destination Bryan confirms Sunday–Thursday December 13–17, 2026 for the downtown Holiday Stroll. Participating businesses independently host history tours, craft activities, shopping and special entertainment; specific venues may require advance booking or paid participation. The December 17 parade is a distinct event."
   },
   {
     "slug": "richardson-santas-village-walk2",
@@ -2188,6 +2332,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.cameronparkzoo.com/event/wild-lights-2026/",
     "sourceName": "Cameron Park Zoo",
     "summary": "Zoo Wild Lights 2026 is ticketed for Thursday–Sunday nights, with evening entry 6–9 p.m. and last admission around 8 p.m. This block is inside both the operator's displayed event date and published operating-day schedule. The zoo's page conflicts on December 23 versus December 30 as final date, so later dates remain under review."
+  },
+  {
+    "slug": "bryan-2026-lighted-parade",
+    "title": "Downtown Bryan 2026 Lighted Christmas Parade",
+    "city": "Bryan",
+    "countySlug": "brazos",
+    "countyName": "Brazos County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-17",
+    "venueName": "Historic Downtown Bryan · Bryan Avenue and Main Street",
+    "officialEventUrl": "https://www.destinationbryan.com/events/annual/lighted-parade/",
+    "sourceName": "Destination Bryan tourism bureau",
+    "summary": "Destination Bryan confirms Thursday December 17, 2026 at 7 p.m. for the free Candy Cane on Main lighted parade. Parade viewing is separate from earlier Holiday Stroll activities; confirm route, street closures and weather before arriving."
   },
   {
     "slug": "livingston-christmas-train-village-2026-4",
@@ -2453,7 +2610,7 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The final five January evenings of the 2026–27 Marktplatz lighting program; December 31 is omitted because the special New Year's Eve event replaces the regular countdown.",
     "endDate": "2027-01-05"
   }
-];;;;;;;;;;;;
+];;;;;;;;;;;;;
 
 // Reuse comprehensive guides where they exist. The dated occurrence remains
 // an independent calendar record, so closing days are never falsely listed.
