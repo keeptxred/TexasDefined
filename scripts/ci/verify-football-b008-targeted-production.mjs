@@ -122,7 +122,30 @@ try{
    },expected,{timeout:25000});
    await page.screenshot({path:out+'/county-'+county+'.png',timeout:15000});
    report.screenshots++;
-  }catch(e){row.issues.push(String(e.message||e).slice(0,220));}
+  }catch(e){
+   row.issues.push(String(e.message||e).slice(0,220));
+   // Preserve actual hydrated DOM and the full visible county navigation on
+   // error. A code-only reciprocal link is not proof it rendered on production.
+   // Diagnostics never replace the strict reciprocal-link assertion above.
+   try {
+    const diagnostics=await page.evaluate(()=>({
+      title:document.title,pathname:location.pathname,
+      hydrated:document.documentElement.dataset.tdFootballCountyHydrated||null,
+      mainLinkCount:document.querySelectorAll('main a[href]').length,
+      bullardAnywhere:[...document.querySelectorAll('a[href]')]
+        .filter(a=>(a.getAttribute('href')||'').includes('/texas-high-school-football-teams/bullard'))
+        .map(a=>({href:a.getAttribute('href'),text:(a.textContent||'').trim().slice(0,100)})),
+      footballHeading:[...document.querySelectorAll('h2')].some(h=>(h.textContent||'').includes('Football history connected')),
+      mainText:(document.querySelector('main')?.innerText||'').slice(0,1100)
+    }));
+    row.diagnostics=diagnostics;
+    await writeFile(out+'/county-failure-'+county+'.json',JSON.stringify(diagnostics,null,2)+'\n');
+    await writeFile(out+'/county-failure-'+county+'.html',(await page.content()).slice(0,2000000));
+    await page.screenshot({path:out+'/county-failure-'+county+'.png',timeout:15000});
+   } catch(diagnosticError) {
+    row.issues.push('Diagnostic capture: '+String(diagnosticError.message||diagnosticError).slice(0,120));
+   }
+  }
   row.pass=row.issues.length===0;report.countyChecks.push(row);
   if(!row.pass)report.failures.push('County '+county+': '+row.issues.join('|'));
   await context.close();
