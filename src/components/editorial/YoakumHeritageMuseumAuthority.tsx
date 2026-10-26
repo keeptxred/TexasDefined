@@ -33,6 +33,7 @@ const sourceList = [
   { label: "Yoakum, TX — Handbook of Texas", href: links.tsha, note: "Town chronology, railway employment, Tex-Tan, tomato commerce and May Tom-Tom" },
   { label: "San Antonio and Aransas Pass Railway — Handbook of Texas", href: links.railway, note: "Railway chronology and regional network history" },
   { label: "Yoakum Area Chamber of Commerce", href: links.chamber, note: "Locally maintained contact-directory listing" },
+  { label: "Yoakum Chamber — Experience History", href: "https://www.yoakumareachamber.com/visit-yoakum/experience-history/", note: "Local description of Leather, Military and Train Room collections; verify current opening hours directly with the museum" },
   { label: "Texas Highways 2026 travel guide", href: "https://texashighways.com/wp-content/uploads/2026/01/Travel-Guide-2026.pdf", note: "Current-year state travel guide independently confirms museum address, phone and rail/leather interpretation" },
   { label: "Museum-managed public updates", href: links.museum, note: "Verify current schedules, exhibits and closures directly; this is not a substitute for independent historical research" },
 ];
