@@ -182,6 +182,7 @@ test('full Ticketmaster snapshot validates exact same-event authorized Impact wr
   const wrong = auditCatalogIntegrity([
     good, { ...good, affiliateUrl:impact('https://www.ticketmaster.com/event/OTHER') },
     { ...good,id:'ATTACK',affiliateUrl:'https://not-approved.example.com/offer' },
+    { ...good,id:'OTHER-CAMPAIGN',affiliateUrl:'https://ticketmaster.evyy.net/c/7758914/999999/4272?u='+encodeURIComponent(official) },
     { ...good,id:'TW-UNSAFE',officialUrl:'https://www.ticketweb.com.evil.test/event/something/12' },
     { ...good,id:'NO-CITY',city:'' },
   ]);
