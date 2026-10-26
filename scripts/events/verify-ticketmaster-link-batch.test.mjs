@@ -160,7 +160,7 @@ test('daily automation skips recent identical probes despite rolling date-index 
 test('full Ticketmaster snapshot validates exact same-event authorized Impact wrappers', () => {
   const official = 'https://www.ticketmaster.com/event/ABC123';
   const ticketweb = 'https://www.ticketweb.com/event/safe-holiday-concert/14922334';
-  const impact = (href) => 'https://ticketmaster.evyy.net/c/7758914/264167/4272?u=' + encodeURIComponent(href);
+  const impact = (href) => 'https://ticketmaster.evyy.net/c/7758914/264167/4272?subId1=texasdefined&partnerpropertyid=8837726&MediaPartnerPropertyId=8837726&u=' + encodeURIComponent(href);
   const good = { id:'TM-ABC', name:'Holiday Concert', city:'Fort Worth',
     venue:'Ariat Arena', startDate:'2026-12-16', officialUrl:official,
     affiliateUrl:impact(official), status:'onsale' };
@@ -201,7 +201,7 @@ test('catalog integrity treats provider sale status as descriptive, never proof 
   const u = 'https://www.ticketmaster.com/event/ABC123';
   const event = {id:'ONSALE',name:'Christmas Show',city:'Dallas',venue:'Bruton Theatre',
     startDate:'2026-12-11',status:'onsale',officialUrl:u,
-    affiliateUrl:'https://ticketmaster.evyy.net/c/7758914/264167/4272?u='+encodeURIComponent(u)};
+    affiliateUrl:'https://ticketmaster.evyy.net/c/7758914/264167/4272?subId1=texasdefined&partnerpropertyid=8837726&MediaPartnerPropertyId=8837726&u='+encodeURIComponent(u)};
   const result = auditCatalogIntegrity([event, {...event,id:'UNKNOWN',status:'unknown'}]);
   assert.equal(result.structuralErrors,0);
   assert.equal(result.incompleteSaleStatus,1);
