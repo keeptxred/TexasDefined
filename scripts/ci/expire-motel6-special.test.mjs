@@ -5,6 +5,7 @@ import { test } from 'node:test';
 import { CUTOFF, TARGETS, expireMotel6Special } from './expire-motel6-special.mjs';
 
 const [stay, football] = TARGETS.map(p => readFileSync(p, 'utf8'));
+const alreadyRetired = !stay.includes('MOTEL6_HALLOWEEN_AID') && !football.includes('MOTEL6_HALLOWEEN_URL');
 
 test('fails closed before the display cutoff, with no edits', () => {
   const plan = expireMotel6Special(stay, football, '2026-11-01T04:59:59Z');
@@ -18,6 +19,7 @@ test('fails closed before the display cutoff, with no edits', () => {
 test('on the cutoff removes only seasonal copy and creative, not evergreen booking or tracking', () => {
   const plan = expireMotel6Special(stay, football, CUTOFF);
   assert.equal(plan.due, true);
+  assert.equal(plan.changed, !alreadyRetired);
   for (const text of [plan.staySource, plan.footballSource]) {
     assert.doesNotMatch(text, /17371482|Trip and Treat|motel6Halloween|MOTEL6_HALLOWEEN|MOTEL6_CAMPAIGN|Motel 6 Halloween/);
   }
@@ -43,6 +45,6 @@ test('cleanup is idempotent after removal and fails on mixed/stale state', () =>
   const second = expireMotel6Special(first.staySource, first.footballSource, '2026-11-03T00:00:00Z');
   assert.equal(second.due, true);
   assert.equal(second.changed, false);
-  assert.throws(() => expireMotel6Special(first.staySource, football, '2026-11-02'), /Partially expired/);
+  if (!alreadyRetired) assert.throws(() => expireMotel6Special(first.staySource, football, '2026-11-02'), /Partially expired/);
   assert.throws(() => expireMotel6Special(first.staySource + ' Trip and Treat', first.footballSource, '2026-11-03'), /Orphan expired/);
 });
