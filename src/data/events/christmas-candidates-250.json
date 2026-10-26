@@ -648,7 +648,11 @@
       "intakeId": 78,
       "title": "Colleyville Christmas Tree Lighting",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "colleyville-2026-christmas-tree-lighting"
+      ],
+      "researchNote": "City of Colleyville confirms Nov 21, 2026 tree lighting, 5:30–8:30 p.m. at Heroes Park by City Hall."
     },
     {
       "intakeId": 79,
@@ -829,7 +833,8 @@
       "intakeId": 100,
       "title": "Forney Christmas in the Park",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "The City/Arts Council confirms Dec 5 Christmas on Main 12–5 p.m. downtown. This is NOT proof of the submitted 'Forney Christmas in the Park' event identity or dates; added as a separate Christmas-on-Main calendar occurrence."
     },
     {
       "intakeId": 101,
@@ -1836,8 +1841,8 @@
   ],
   "reconciliation": {
     "asOf": "2026-10-26",
-    "calendarCandidates": 72,
+    "calendarCandidates": 73,
     "authorityCandidates": 12,
-    "remainingCandidates": 166
+    "remainingCandidates": 165
   }
 }
