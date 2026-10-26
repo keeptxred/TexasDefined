@@ -60,7 +60,6 @@ export default function YoakumHeritageMuseumAuthority({ destination }: { destina
       </nav>
     </Container>
     <section className="relative mt-6 overflow-hidden bg-ink text-ink-foreground">
-      {/* Match the standard destination hero marker so the strict production verifier checks this image, not a related card. */}
       <div data-image-fallback-label aria-hidden className="absolute inset-0 bg-ink" />
       <img src="/images/yoakum-heritage-museum-editorial.svg" alt="Original editorial illustration interpreting Yoakum railroad, saddlery and the museum timeline; not a museum photograph" width={1600} height={900} fetchPriority="high" decoding="async" className="absolute inset-0 h-full w-full object-cover opacity-70"/>
       <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/65 to-ink/15"/>

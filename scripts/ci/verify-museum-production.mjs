@@ -3,9 +3,9 @@
  * Bounded, post-deployment museum acceptance.
  *
  * Distinguish page transport and search-index readiness from a full independent
- * editorial certification. Normally one HTTP request per URL, with only one
- * bounded retry for a transport timeout; do not poll CI or accept unrelated
- * stock photography to make an unverified guide indexable.
+ * editorial certification. Normally one HTTP request per URL, with one
+ * bounded retry for transient transport timeouts only; do not poll CI or
+ * accept unrelated stock photography to make an unverified guide indexable.
  */
 import { readFileSync, mkdirSync, writeFileSync } from "node:fs";
 import { primaryDestinationHeroSrc, primaryDestinationHeroAlt, isMissingPrimaryDestinationHero } from "./museum-primary-hero.mjs";
@@ -55,8 +55,8 @@ async function get(path) {
       });
       return { status: response.status, type: response.headers.get("content-type") || "", body: await response.text() };
     } catch (error) {
-      // Only a transient transport timeout merits one retry. HTTP failures,
-      // invalid images, bad canonicals and noindex violations still fail closed.
+      // Only transient transport timeouts merit one retry; never HTTP,
+      // image, licensing, canonical or indexability failures.
       if (attempt === 2 || !["TimeoutError", "AbortError"].includes(error?.name)) throw error;
       await new Promise((resolve) => setTimeout(resolve, 1000));
     }
@@ -115,13 +115,20 @@ try {
 } catch (error) {
   errors.push("Manifest request failed: " + String(error));
 }
-await Promise.all(required.map(async c => {
-  try {
-    const result = analyzeRoute(c, await get("/destination/" + c.slug));
-    observations.push(result);
-    errors.push(...result.issues.map(issue => c.slug + ": " + issue));
-  } catch (error) {
-    errors.push(c.slug + ": " + String(error));
+// Required-photo guides used to launch all requests together, causing
+// coincident 25-second timeouts under Cloudflare load. Check every guide with
+// bounded concurrency; one real read per page, same fail-closed assertions.
+const requiredWorkerCount = Math.min(6, required.length);
+await Promise.all(Array.from({ length: requiredWorkerCount }, async (_, index) => {
+  for (let i = index; i < required.length; i += requiredWorkerCount) {
+    const c = required[i];
+    try {
+      const result = analyzeRoute(c, await get("/destination/" + c.slug));
+      observations.push(result);
+      errors.push(...result.issues.map(issue => c.slug + ": " + issue));
+    } catch (error) {
+      errors.push(c.slug + ": " + String(error));
+    }
   }
 }));
 const requiredSlugs = new Set(required.map(c => c.slug));
