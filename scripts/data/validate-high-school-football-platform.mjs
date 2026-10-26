@@ -190,9 +190,28 @@ if (!errors.length) {
   const footballAuthorityRegistry = JSON.parse(read(footballAuthorityRegistryPath));
   const legacyProgramMetadata = read(legacyMetadataFiles[0]);
   const schoolIdentities = read(legacyMetadataFiles[1]);
-  const verifiedIdentitySlugs = new Set(
-    [...schoolIdentities.matchAll(/slug:\s*['"]([^'"]+)['"]/g)].map((match) => match[1]),
-  );
+  // Sparse identity arrays throw on .find(identity => identity.slug) for all
+  // unlisted teams after the first hole. One accidental double comma previously
+  // made non-Batch008 UIL team pages respond HTTP 500. Validate source AND
+  // preserve a defensive lookup for future malformed rows.
+  if (/}\s*,\s*,/.test(schoolIdentities)) {
+    errors.push('Football verified identity records contain a sparse array entry (double separator)');
+  }
+  requireText(schoolIdentities,
+    'identity?.slug === slug',
+    'Fail-safe verified football identity lookup against missing array entries');
+  const identitySlugs = [...schoolIdentities.matchAll(/slug:\s*['"]([^'"]+)['"]/g)]
+    .map((match) => match[1]);
+  const verifiedIdentitySlugs = new Set(identitySlugs);
+  if (verifiedIdentitySlugs.size !== identitySlugs.length) {
+    const seen = new Set();
+    const duplicateSlugs = identitySlugs.filter((slug) => {
+      if (seen.has(slug)) return true;
+      seen.add(slug);
+      return false;
+    });
+    errors.push('Football identities duplicate canonical school slugs: ' + [...new Set(duplicateSlugs)].join(', '));
+  }
   const researchedFootballRecords = footballAuthorityRegistry.schoolRecords.filter((record) =>
     ['VERIFIED', 'DEPLOYED', 'MERGED', 'IMPLEMENTED'].includes(record.status),
   );
