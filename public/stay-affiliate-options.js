@@ -775,6 +775,10 @@
     // metro outlet has hydrated. A root-level ready event alone is too early.
     // Apply this to all metros: Chrome production QA observed React #418
     // on multiple non-McAllen day-trip guides after early affiliate writes.
+    // Preserve the earlier independently verified McAllen readiness contract
+    // while guarding every metro against lazy-outlet hydration races.
+    if (path === "/explore/near/mcallen/day-trips" &&
+        document.documentElement.dataset.tdMcAllenDayTripsHydrated !== "1") return true;
     if (/^\/explore\/near\/[a-z0-9-]+\/day-trips$/.test(path)) {
       return document.documentElement.dataset.tdMetroDayTripsHydrated !== "1";
     }
