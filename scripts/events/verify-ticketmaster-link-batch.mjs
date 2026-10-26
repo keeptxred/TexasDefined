@@ -122,12 +122,87 @@ export function summarizeProviderProbeOutcomes(candidates, history) {
   return outcomes;
 }
 
+/**
+ * Deterministic full-snapshot integrity validation, separate from the
+ * 40-per-day HTTP probes. This checks source/provider identities and exact
+ * Impact deep-link destinations, NOT sale inventory, pricing or commissions.
+ * A security failure aborts the generated refresh; last good catalog stays.
+ */
+export function auditCatalogIntegrity(events) {
+  if (!Array.isArray(events)) throw new Error('Expected Ticketmaster catalog event array');
+  const ids = new Set();
+  const errors = [];
+  const counts = {
+    rows: events.length, uniqueEventIds: 0, validOfficialEventLinks: 0,
+    validAuthorizedImpactDeepLinks: 0, ticketmaster: 0, ticketweb: 0,
+    filteredNonAdmissionProductNames: 0, missingVenueNames: 0,
+    cancelledPostponedOrRescheduled: 0, offSaleOrSoldOut: 0,
+    incompleteSaleStatus: 0, structuralErrors: 0,
+  };
+  const invalid = (id, why) => {
+    counts.structuralErrors++;
+    if (errors.length < 12) errors.push(String(id || 'missing-ID') + ':' + why);
+  };
+  for (const event of events) {
+    const id = typeof event?.id === 'string' ? event.id.trim() : '';
+    if (!id) invalid(id, 'missing-id');
+    else if (ids.has(id)) invalid(id, 'duplicate-provider-id');
+    else ids.add(id);
+    if (typeof event?.name !== 'string' || !event.name.trim()) invalid(id, 'missing-name');
+    if (typeof event?.city !== 'string' || !event.city.trim()) invalid(id, 'missing-city');
+    const localDate = event?.startDate;
+    if (typeof localDate !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(localDate)
+      || Number.isNaN(Date.parse(localDate + 'T12:00:00Z'))
+      || new Date(localDate + 'T12:00:00Z').toISOString().slice(0, 10) !== localDate) {
+      invalid(id, 'invalid-local-date');
+    }
+    if (!event?.venue?.trim?.()) counts.missingVenueNames++;
+    if (!primaryAdmissionProbeCandidate(event)) counts.filteredNonAdmissionProductNames++;
+    if (['cancelled','postponed','rescheduled'].includes(event?.status)) counts.cancelledPostponedOrRescheduled++;
+    if (['offsale','soldout'].includes(event?.status)) counts.offSaleOrSoldOut++;
+    if (!event?.status || event.status === 'unknown') counts.incompleteSaleStatus++;
+
+    const official = publicTicketUrl(event?.officialUrl);
+    if (!official) { invalid(id, 'invalid-official-admission-url'); continue; }
+    counts.validOfficialEventLinks++;
+    if (official.hostname.endsWith('ticketweb.com')) counts.ticketweb++;
+    else counts.ticketmaster++;
+    let impact;
+    try { impact = new URL(event?.affiliateUrl); }
+    catch { invalid(id, 'invalid-affiliate-wrapper'); continue; }
+    if (impact.protocol !== 'https:' || impact.hostname !== 'ticketmaster.evyy.net'
+      || impact.username || impact.password || impact.port
+      || !/^\/c\/7758914\/264167\/4272\/?$/.test(impact.pathname)
+      || impact.searchParams.size !== 4
+      || impact.searchParams.getAll('u').length !== 1
+      || impact.searchParams.get('u') !== official.href
+      || impact.searchParams.getAll('subId1').length !== 1
+      || impact.searchParams.get('subId1') !== 'texasdefined'
+      || impact.searchParams.getAll('partnerpropertyid').length !== 1
+      || impact.searchParams.get('partnerpropertyid') !== '8837726'
+      || impact.searchParams.getAll('MediaPartnerPropertyId').length !== 1
+      || impact.searchParams.get('MediaPartnerPropertyId') !== '8837726') {
+      invalid(id, 'unauthorized-or-wrong-event-impact-deep-link');
+    } else counts.validAuthorizedImpactDeepLinks++;
+  }
+  counts.uniqueEventIds = ids.size;
+  return { ...counts, errorExamples: errors, httpLinksProbed: false,
+    seatsVerified: false, commissionsVerified: false };
+}
+
 async function main() {
   const [catalog, ledger] = await Promise.all([
     readFile(catalogPath, 'utf8').then(JSON.parse),
     readFile(ledgerPath, 'utf8').then(JSON.parse),
   ]);
   if (!Array.isArray(catalog.events) || !ledger.statewide) throw new Error('Expected managed event snapshot and authoritative ledger.');
+  const catalogIntegrity = auditCatalogIntegrity(catalog.events);
+  if (catalogIntegrity.structuralErrors) {
+    throw new Error('Ticketmaster provider-catalog integrity failed closed: ' +
+      catalogIntegrity.structuralErrors + ' structural errors (' +
+      catalogIntegrity.errorExamples.join(', ') + '). Last verified catalog preserved.');
+  }
+
   const history = ledger.statewide.ticketLinkProbes ?? {};
   const cursor = ledger.statewide.ticketLinkProbeCursor ?? 0;
   const { candidates, nextCursor, total, pendingToCheck } = chooseBatch(catalog.events, cursor, LIMIT, history);
@@ -156,12 +231,14 @@ async function main() {
   ledger.statewide.ticketLinkProbeCursor = nextCursor;
   ledger.statewide.ticketLinkProbeLatestRun = {
     checkedAt, count: candidates.length, totalEligible: total, nextCursor, pendingToCheck,
-    httpReachabilityOnly: true, inventoryVerified: false, providerOutcomes,
+    httpReachabilityOnly: true, inventoryVerified: false, providerOutcomes, catalogIntegrity,
   };
   ledger.updatedAt = checkedAt.slice(0, 10);
   await writeFile(ledgerPath, JSON.stringify(ledger, null, 2) + '\n', 'utf8');
   const attention = candidates.filter((event) => history[event.id].probeStatus.startsWith('REVIEW_'));
   const reachable = candidates.filter((event) => history[event.id].probeStatus === 'REACHABLE_NO_INVENTORY_CLAIM');
+  console.log('Full Ticketmaster catalog identity and affiliate integrity: ' + JSON.stringify(catalogIntegrity) +
+    '. Structural, NOT inventory verification.');
   console.log('Ticket outbound URL audit: ' + candidates.length + '/' + total
     + ' events in deterministic rotating batch. HTTP reachable=' + reachable.length
     + ', review=' + attention.length + ', providerOutcomes=' + JSON.stringify(providerOutcomes)

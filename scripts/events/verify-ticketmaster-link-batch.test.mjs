@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { publicTicketUrl, classifyTicketLinkResponse, probePublicTicketUrl, primaryAdmissionProbeCandidate, chooseBatch, summarizeProviderProbeOutcomes } from './verify-ticketmaster-link-batch.mjs';
+import { readFileSync } from 'node:fs';
+import { publicTicketUrl, classifyTicketLinkResponse, probePublicTicketUrl, primaryAdmissionProbeCandidate, chooseBatch, summarizeProviderProbeOutcomes, auditCatalogIntegrity } from './verify-ticketmaster-link-batch.mjs';
 
 const official = 'https://www.ticketmaster.com/grand-ol-christmas/event/ABC123';
 test('approved public event URLs only; block private, userinfo, misleading and unsupported hosts', () => {
@@ -154,4 +155,66 @@ test('daily automation skips recent identical probes despite rolling date-index 
   const stale=chooseBatch(events,0,40,staleHistory,now);
   assert.deepEqual(stale.candidates.map((row)=>row.id),['beta','gamma']);
   assert.equal(stale.total,3);
+});
+
+test('full Ticketmaster snapshot validates exact same-event authorized Impact wrappers', () => {
+  const official = 'https://www.ticketmaster.com/event/ABC123';
+  const ticketweb = 'https://www.ticketweb.com/event/safe-holiday-concert/14922334';
+  const impact = (href) => 'https://ticketmaster.evyy.net/c/7758914/264167/4272?subId1=texasdefined&partnerpropertyid=8837726&MediaPartnerPropertyId=8837726&u=' + encodeURIComponent(href);
+  const good = { id:'TM-ABC', name:'Holiday Concert', city:'Fort Worth',
+    venue:'Ariat Arena', startDate:'2026-12-16', officialUrl:official,
+    affiliateUrl:impact(official), status:'onsale' };
+  const child = { ...good, id:'TW-DEF', name:'VIP Upgrade (Event Ticket Not Included)',
+    officialUrl:ticketweb, affiliateUrl:impact(ticketweb), status:'soldout', venue:'' };
+  const summary = auditCatalogIntegrity([good, child]);
+  assert.equal(summary.rows,2);
+  assert.equal(summary.uniqueEventIds,2);
+  assert.equal(summary.validOfficialEventLinks,2);
+  assert.equal(summary.validAuthorizedImpactDeepLinks,2);
+  assert.equal(summary.ticketmaster,1);
+  assert.equal(summary.ticketweb,1);
+  assert.equal(summary.missingVenueNames,1);
+  assert.equal(summary.filteredNonAdmissionProductNames,1);
+  assert.equal(summary.offSaleOrSoldOut,1);
+  assert.equal(summary.structuralErrors,0);
+  assert.equal(summary.httpLinksProbed,false);
+  assert.equal(summary.seatsVerified,false);
+  assert.equal(summary.commissionsVerified,false);
+  const wrong = auditCatalogIntegrity([
+    good, { ...good, affiliateUrl:impact('https://www.ticketmaster.com/event/OTHER') },
+    { ...good,id:'ATTACK',affiliateUrl:'https://not-approved.example.com/offer' },
+    { ...good,id:'OTHER-CAMPAIGN',affiliateUrl:'https://ticketmaster.evyy.net/c/7758914/999999/4272?u='+encodeURIComponent(official) },
+    { ...good,id:'TW-UNSAFE',officialUrl:'https://www.ticketweb.com.evil.test/event/something/12' },
+    { ...good,id:'NO-CITY',city:'' },
+    { ...good,id:'INVALID-CALENDAR-DAY',startDate:'2026-02-30' },
+    { ...good,id:'EXTRA-AFFILIATE-PARAMETER',affiliateUrl:impact(official)+'&extra=not-reviewed' },
+  ]);
+  assert.ok(wrong.structuralErrors>=4);
+  assert.ok(wrong.errorExamples.some(x=>x.includes('duplicate-provider-id')));
+  assert.ok(wrong.errorExamples.some(x=>x.includes('wrong-event-impact')));
+  assert.ok(wrong.errorExamples.some(x=>x.includes('invalid-official')));
+  assert.ok(wrong.errorExamples.some(x=>x.includes('missing-city')));
+  assert.ok(wrong.errorExamples.some(x=>x.includes('invalid-local-date')));
+  assert.ok(wrong.errorExamples.some(x=>x.includes('unauthorized-or-wrong-event-impact')));
+});
+test('catalog integrity treats provider sale status as descriptive, never proof of remaining seats', () => {
+  const u = 'https://www.ticketmaster.com/event/ABC123';
+  const event = {id:'ONSALE',name:'Christmas Show',city:'Dallas',venue:'Bruton Theatre',
+    startDate:'2026-12-11',status:'onsale',officialUrl:u,
+    affiliateUrl:'https://ticketmaster.evyy.net/c/7758914/264167/4272?subId1=texasdefined&partnerpropertyid=8837726&MediaPartnerPropertyId=8837726&u='+encodeURIComponent(u)};
+  const result = auditCatalogIntegrity([event, {...event,id:'UNKNOWN',status:'unknown'}]);
+  assert.equal(result.structuralErrors,0);
+  assert.equal(result.incompleteSaleStatus,1);
+  assert.equal(result.seatsVerified,false);
+});
+
+test('checked-in Ticketmaster Discovery snapshot is structurally publishable before daily probes', () => {
+  const current = JSON.parse(readFileSync(new URL('../../src/data/generated/ticketmaster-events.json', import.meta.url), 'utf8'));
+  assert.ok(Array.isArray(current.events) && current.events.length > 0, 'Expected nonempty managed Discovery snapshot');
+  const audit = auditCatalogIntegrity(current.events);
+  assert.equal(audit.structuralErrors, 0, 'Do not enable a whole-snapshot fail-closed release gate while current source rows fail integrity: ' + audit.errorExamples.join(', '));
+  assert.equal(audit.uniqueEventIds, current.events.length, 'Duplicate provider IDs in checked-in source');
+  assert.equal(audit.validAuthorizedImpactDeepLinks, current.events.length, 'Missing approved, event-specific Impact tracking destinations');
+  assert.equal(audit.httpLinksProbed, false);
+  assert.equal(audit.seatsVerified, false);
 });
