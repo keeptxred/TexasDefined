@@ -360,7 +360,8 @@
       "intakeId": 43,
       "title": "Lockhart Dickens Christmas",
       "submittedRegion": "Hill Country & Central Texas",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "City tourism confirms a different 2026 program called A Christmas to Remember Dec 4–5 at Dr. Eugene Clark Library. Do not rebrand that as the submitted 'Dickens Christmas' without a matching organizer source."
     },
     {
       "intakeId": 44,
@@ -648,7 +649,11 @@
       "intakeId": 78,
       "title": "Colleyville Christmas Tree Lighting",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "colleyville-2026-christmas-tree-lighting"
+      ],
+      "researchNote": "City of Colleyville confirms Nov 21, 2026 tree lighting, 5:30–8:30 p.m. at Heroes Park by City Hall."
     },
     {
       "intakeId": 79,
@@ -805,13 +810,21 @@
       "intakeId": 96,
       "title": "Kaufman Holiday Celebration",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "kaufman-2026-christmas-on-the-square"
+      ],
+      "researchNote": "City of Kaufman confirms Dec 5, 2026, noon–8 p.m. Christmas on the Square, with 6 p.m. illuminated parade and 7 p.m. tree lighting."
     },
     {
       "intakeId": 97,
       "title": "Terrell Christmas Parade",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "terrell-2026-christmas-parade"
+      ],
+      "researchNote": "Terrell Chamber explicitly confirms December 12, 2026, 10–11 a.m. Christmas parade and route; listed fees are float entry, not spectator admission."
     },
     {
       "intakeId": 98,
@@ -829,7 +842,8 @@
       "intakeId": 100,
       "title": "Forney Christmas in the Park",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "The City/Arts Council confirms Dec 5 Christmas on Main 12–5 p.m. downtown. This is NOT proof of the submitted 'Forney Christmas in the Park' event identity or dates; added as a separate Christmas-on-Main calendar occurrence."
     },
     {
       "intakeId": 101,
@@ -1836,8 +1850,8 @@
   ],
   "reconciliation": {
     "asOf": "2026-10-26",
-    "calendarCandidates": 72,
+    "calendarCandidates": 75,
     "authorityCandidates": 12,
-    "remainingCandidates": 166
+    "remainingCandidates": 163
   }
 }
