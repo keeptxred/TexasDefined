@@ -5,6 +5,7 @@ import { lazy, Suspense, useEffect } from "react";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { heritagePhotoRightsForPath } from "@/data/heritage-photo-license-links";
 import { ArticleBody, Byline } from "@/components/editorial/ArticleBody";
+import { EastTexasFoliageParkMap, EastTexasFoliagePhotoGallery } from "@/components/editorial/EastTexasFoliageMedia";
 
 import { ArticleCard } from "@/components/editorial/ArticleCard";
 import type { Article } from "@/data/types";
@@ -35,8 +36,6 @@ import { TexasCitiesComparison } from "@/components/content/TexasCitiesCompariso
 
 // The foliage map and photo gallery are exclusive to one seasonal article.
 // Defer their code until that article mounts instead of loading it on every article.
-const EastTexasFoliageMedia = lazy(() => import("@/components/editorial/EastTexasFoliageMedia"));
-
 const TexasWaterSearchResource = lazy(() =>
   import("@/components/content/TexasWaterSearchResource").then((module) => ({ default: module.TexasWaterSearchResource })),
 );
@@ -608,9 +607,8 @@ function ArticlePage() {
           </div>
         </article>)}
       </div>
-      <Suspense fallback="Loading East Texas foliage map and photographs…">
-        <EastTexasFoliageMedia />
-      </Suspense>
+      <EastTexasFoliageParkMap />
+      <EastTexasFoliagePhotoGallery />
       <nav aria-label="Regional foliage planning" className="mt-8 flex flex-wrap gap-4 border-t border-border pt-5 text-sm">
         <a href="https://www.openstreetmap.org/#map=8/32.65/-94.95" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Explore the East Texas region on a map ↗</a>
         <a href="/article/texas-fall-foliage-road-trip" className="font-semibold text-primary underline underline-offset-4">Texas fall foliage road trip →</a>
