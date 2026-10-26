@@ -24074,7 +24074,7 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "label": "Katy red and white editorial accents"
     },
     "seo": {
-      "title": "Katy Tigers Football: Nine State Titles, Stadiums & Team Guide",
+      "title": "Katy Tigers Football: Nine Texas State Titles & Stadium Guide",
       "description": "Katy Tigers football: nine championships, coach Gary Joseph, the Red Sea tradition and visitor information for Legacy and Rhodes Stadium."
     },
     "coach": {
