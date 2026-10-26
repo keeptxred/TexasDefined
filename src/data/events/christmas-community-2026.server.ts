@@ -984,6 +984,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "endDate": "2026-12-05"
   },
   {
+    "region": "south-texas",
+    "city": "Seguin",
+    "countySlug": "guadalupe",
+    "countyName": "Guadalupe County",
+    "sourceName": "City of Seguin Parks and Recreation and Main Street",
+    "officialEventUrl": "https://www.seguintexas.gov/255/Holiday-Stroll",
+    "slug": "seguin-2026-holiday-stroll-parade",
+    "title": "Seguin Holiday Stroll Lighted Parade",
+    "startDate": "2026-12-03",
+    "venueName": "Downtown Seguin · Austin Street from College Street to Central Park",
+    "summary": "The City of Seguin confirms Thursday December 3, 2026 at 6:30 p.m. for the more than 100-entry lighted Holiday Stroll Parade. Downtown decorations illuminate at the conclusion, with a separate Santa photo opportunity. Street closures and parade registration are governed by the city."
+  },
+  {
     "slug": "abilene-winter-lightfest-week1",
     "title": "Abilene Winter Lightfest · December 4–6",
     "city": "Abilene",
@@ -1162,6 +1175,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "Keller's official 2026 city calendar confirms Holly Days Friday December 4, 5–9 p.m. The event program features The Very Merry Light Parade, Santa photos and town Christmas tree lighting. Check the city's posted route and parking advisories before travel."
   },
   {
+    "region": "prairies-lakes",
+    "city": "Lewisville",
+    "countySlug": "denton",
+    "countyName": "Denton County",
+    "sourceName": "City of Lewisville Special Events",
+    "officialEventUrl": "https://www.cityoflewisville.com/city-hall/city-departments/community-engagement/special-events-festivals/holiday-stroll",
+    "slug": "lewisville-2026-holiday-stroll-lights",
+    "title": "Lewisville Holiday Stroll · Lewisville Lights Tree Lighting",
+    "startDate": "2026-12-04",
+    "venueName": "Wayne Ferguson Plaza · 150 W Church Street",
+    "summary": "The City of Lewisville confirms Friday December 4, 2026, 5–9 p.m. for First Fridays and Lewisville Lights at the plaza, including the tree lighting, Santa, family market activities and Old Town hayrides. The separate breakfast and Christmas parade occur Saturday December 5."
+  },
+  {
     "slug": "round-rock-light-up-the-lake-2026",
     "title": "Light Up the Lake · Round Rock 2026",
     "city": "Round Rock",
@@ -1227,6 +1253,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.salado.com/signature-events/",
     "sourceName": "Salado Chamber of Commerce",
     "summary": "The first December weekend of the historic Salado Christmas Stroll runs December 4–6, with holiday markets, entertainment and a lighted village; confirm activity-by-activity hours with the Chamber."
+  },
+  {
+    "region": "south-texas",
+    "city": "Seguin",
+    "countySlug": "guadalupe",
+    "countyName": "Guadalupe County",
+    "sourceName": "City of Seguin Parks and Recreation and Main Street",
+    "officialEventUrl": "https://www.seguintexas.gov/255/Holiday-Stroll",
+    "slug": "seguin-2026-sip-n-stroll",
+    "title": "Seguin Holiday Sip 'n Stroll and Downtown Cocoa Walk",
+    "startDate": "2026-12-04",
+    "venueName": "Historic Downtown Seguin and Central Park",
+    "summary": "The City of Seguin confirms Friday December 4, 2026, 6–9 p.m. for the Sip 'n Stroll with local businesses serving hot chocolate and remaining open late. This is a different date from Thursday's parade and Saturday's North Pole Stroll."
   },
   {
     "slug": "waxahachie-bethlehem-revisited-first",
@@ -1467,6 +1506,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "Vision Lampasas confirms Saturday December 5, 2026 for the HoliDazzle parade with lighted floats, marching bands and Santa. The parade uses downtown streets and is distinct from Carol of Lights; organizer materials identify a 6:30 p.m. start, subject to official traffic updates."
   },
   {
+    "region": "prairies-lakes",
+    "city": "Lewisville",
+    "countySlug": "denton",
+    "countyName": "Denton County",
+    "sourceName": "City of Lewisville Special Events",
+    "officialEventUrl": "https://www.cityoflewisville.com/city-hall/city-departments/community-engagement/special-events-festivals/holiday-stroll",
+    "slug": "lewisville-2026-holiday-stroll-parade",
+    "title": "Lewisville Holiday Stroll · Huffines Christmas Parade",
+    "startDate": "2026-12-05",
+    "venueName": "Old Town Lewisville · Wayne Ferguson Plaza, 150 W Church Street",
+    "summary": "The City of Lewisville confirms Saturday December 5, 2026, 9 a.m.–2 p.m. for its Holiday Stroll day with a pancake breakfast, photos with Santa and the Huffines Auto Dealerships Christmas Parade. Check the city event program for exact parade start and breakfast eligibility; don't reuse Friday's 5–9 p.m. hours."
+  },
+  {
     "slug": "lufkin-christmas-lighted-parade",
     "title": "Lufkin Lighted Christmas Parade",
     "city": "Lufkin",
@@ -1587,6 +1639,32 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The City of Rockwall confirms Saturday December 5, 2026: the Kiwanis Christmas Parade 9–10:30 a.m., downtown Hometown Christmas Festival 10 a.m.–5 p.m., then city tree lighting 6–8 p.m. at City Hall. The free trolley connects designated downtown stops; some market purchases and activities may cost extra."
   },
   {
+    "region": "prairies-lakes",
+    "city": "Rowlett",
+    "countySlug": "dallas",
+    "countyName": "Dallas County",
+    "sourceName": "City of Rowlett Special Events",
+    "officialEventUrl": "https://www.rowletttx.gov/1018/Holiday-Main-Street-Fest-Parade",
+    "slug": "rowlett-2026-holiday-main-street-fest",
+    "title": "Rowlett Holiday Main Street Festival and Parade of Lights",
+    "startDate": "2026-12-05",
+    "venueName": "Downtown Rowlett · 3908 Main Street",
+    "summary": "The City of Rowlett confirms Saturday December 5, 2026, 5–8:30 p.m. for its combined Holiday Main Street Fest and Parade, including Christmas tree lighting, the lighted parade, holiday market, live entertainment and Santa. This is ONE city occasion, not two invented duplicate events."
+  },
+  {
+    "region": "south-texas",
+    "city": "Seguin",
+    "countySlug": "guadalupe",
+    "countyName": "Guadalupe County",
+    "sourceName": "City of Seguin Parks and Recreation and Main Street",
+    "officialEventUrl": "https://www.seguintexas.gov/255/Holiday-Stroll",
+    "slug": "seguin-2026-north-pole-stroll",
+    "title": "Seguin North Pole Stroll · Christmas Family Activities",
+    "startDate": "2026-12-05",
+    "venueName": "Downtown Seguin Central Park",
+    "summary": "The city confirms Saturday December 5, 2026, 10 a.m.–2 p.m. for North Pole Stroll in Central Park, featuring Santa pictures, cookie decorating, letters to Santa and nonprofit-hosted activities. Do not conflate this free family stroll with the separately registered Jingle Bell 5K."
+  },
+  {
     "slug": "san-antonio-fiesta-texas-holiday-3",
     "title": "Six Flags Fiesta Texas Holiday in the Park · window 3",
     "city": "San Antonio",
@@ -1639,6 +1717,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.cstx.gov/parks-recreation-culture/events/community-events/christmas-in-the-park/",
     "sourceName": "City of College Station Parks & Recreation",
     "summary": "The City of College Station confirms free 6–11 p.m. nightly holiday lighting through January 1. This second drive-through/walk-through window begins December 6 after the December 5 special-event vehicle restriction. Check park access and city alerts for changes."
+  },
+  {
+    "region": "south-texas",
+    "city": "Seguin",
+    "countySlug": "guadalupe",
+    "countyName": "Guadalupe County",
+    "sourceName": "City of Seguin Parks and Recreation and Main Street",
+    "officialEventUrl": "https://www.seguintexas.gov/255/Holiday-Stroll",
+    "slug": "seguin-2026-yulefest-art-show",
+    "title": "Seguin Yulefest Art and Craft Show",
+    "startDate": "2026-12-06",
+    "venueName": "Seguin Coliseum · 950 S Austin Street",
+    "summary": "The City of Seguin confirms Sunday December 6, 2026, 10 a.m.–4 p.m. for the Seguin Art League's free Yulefest handmade arts-and-crafts show, with vendor booths and family craft activities. This is separate from the Dec 3 parade, Dec 4 cocoa walk and Dec 5 North Pole Stroll."
   },
   {
     "slug": "richardson-santas-village-walk1",
@@ -2610,7 +2701,7 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The final five January evenings of the 2026–27 Marktplatz lighting program; December 31 is omitted because the special New Year's Eve event replaces the regular countdown.",
     "endDate": "2027-01-05"
   }
-];;;;;;;;;;;;;
+];;;;;;;;;;;;;;
 
 // Reuse comprehensive guides where they exist. The dated occurrence remains
 // an independent calendar record, so closing days are never falsely listed.
