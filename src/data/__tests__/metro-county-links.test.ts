@@ -88,7 +88,10 @@ test("McAllen lodging placement waits for lazy hydration and never interrupts cu
   assert.ok(rich.includes('texasdefined:mcallen-day-trips-hydrated'));
   assert.ok(expedia.includes('if (mcallenDayTripsHydrationPending()) return;'));
   assert.ok(expedia.includes('window.addEventListener("texasdefined:mcallen-day-trips-hydrated", scheduleSync)'));
-  assert.ok(affiliates.includes('document.documentElement.dataset.tdMcAllenDayTripsHydrated !== "1"'));
+  assert.ok(affiliates.includes('document.documentElement.dataset.tdMetroDayTripsHydrated !== "1"'),
+    "McAllen and every metro day-trip must wait for lazy hydration before CJ affiliate DOM writes");
+  assert.ok(expedia.includes('if (metroDayTripsHydrationPending()) return;'),
+    "McAllen and every metro day-trip must wait for lazy hydration before Expedia DOM writes");
   assert.ok(affiliates.includes('window.addEventListener("texasdefined:mcallen-day-trips-hydrated", scheduleSync)'));
   assert.ok(qa.includes('stayPanelInsideCuratedCard'));
   assert.ok(qa.includes('verify("no React hydration mismatch"'));
