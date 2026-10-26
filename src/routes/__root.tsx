@@ -130,7 +130,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
             "@id": `${siteUrl}/#website`,
             name: displayName,
             url: siteUrl,
-            inLanguage: identity.locale,
+            inLanguage: texasDefinedBrand.identity.locale,
             publisher: { "@id": `${siteUrl}/#organization` },
             potentialAction: {
               "@type": "SearchAction",
