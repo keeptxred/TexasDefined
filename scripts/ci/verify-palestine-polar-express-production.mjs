@@ -1,4 +1,6 @@
-// Verify the visitor-visible 2026 Polar Express booking guide, not a homepage
+import { readFileSync } from "node:fs";
+
+// Verify the visitor-visible source-confirmed Polar Express guide, not a homepage
 // health check or hydrated app bundle. Runs inside the existing protected
 // GitHub Actions production workflow, after direct and canonical health pass.
 // Dates are source-attributed to Palestine's 2026 city calendar, not seat guarantees.
@@ -8,7 +10,7 @@ const today = new Date().toISOString().slice(0, 10);
 const runKey = encodeURIComponent([process.env.GITHUB_SHA || "local", process.env.GITHUB_RUN_ID || "manual"].join("-"));
 const pause = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-if (today < "2026-10-26" || today > "2027-01-05") {
+if (today < "2026-10-26" || today > "2027-12-31") {
   console.log("Palestine 2026 release guard not applicable outside the 2026 Christmas publication window.");
   process.exit(0);
 }
@@ -36,8 +38,32 @@ const expected = [
   ['Christmas event calendar cross-link', "/events/christmas-events"],
 ];
 
+// A valid after-2026 page must not be rejected for omitting last year’s train schedule.
+const manifest = JSON.parse(readFileSync("src/data/generated/palestine-polar-express-season.json", "utf8"));
+if (manifest.year === 2027 && manifest.status === "verified") {
+  expected.splice(0, expected.length,
+    ["2027 source verified", 'data-polar-express-season-verified="2027"'],
+    ["2027 timetable visible", "Official 2027 train departure calendar"],
+    ["start date from verified calendar", manifest.startDate],
+    ["end date from verified calendar", manifest.endDate],
+    ["not claiming ticket availability", "not an indication that tickets remain available"],
+    ["organizer URL", "https://texasstaterailroad.net/the-polar-express/"],
+    ["Palestine Hotels.com affiliate", "de1634643/hotels-palestine-texas/"],
+    ["historical image credit", "Michael Gras"],
+    ["Christmas event calendar", "/events/christmas-events"]);
+} else if (today > "2026-12-28") {
+  expected.splice(0, expected.length,
+    ["no 2027 dates invented", 'data-polar-express-season-pending="true"'],
+    ["unannounced 2027 date label", "2027 schedule not yet announced"],
+    ["no future train dates claimed", "2027 departure calendar not yet announced"],
+    ["official railroad booking site", "https://texasstaterailroad.net/the-polar-express/"],
+    ["Palestine Hotels.com affiliate", "de1634643/hotels-palestine-texas/"],
+    ["historical image credit", "Michael Gras"],
+    ["Christmas event calendar", "/events/christmas-events"]);
+}
 function verifyHtml(html, label) {
   const missing = expected.filter(([description, marker]) => !html.includes(marker)).map(([description]) => description);
+  if (today > "2026-12-28" && manifest.year !== 2027 && html.includes('data-polar-express-2026-schedule="true"')) missing.push("Expired 2026 booking panel still shown");
   const forbidden = [
     ["superseded 2017 venue photo", "Palestine_August_2017_55_"],
     ["superseded unqualified date statement", "Scheduled November 14–December 27, 2026."],
