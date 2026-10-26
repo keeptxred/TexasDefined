@@ -675,3 +675,29 @@ test("El Paso day-trip reader guidance links closer public destinations without 
   assert.ok(sourceMonitor.includes("elPasoOperatorLinks"),
     "don't leave the NPS Chamizal visitor link outside ongoing source-health monitoring");
 });
+
+test("El Paso research leads are real operator references, not synthetic index-ready destination records", () => {
+  const editorial = readFileSync("src/data/metro-day-trip-editorial.ts", "utf8");
+  const rich = readFileSync("src/routes/explore.near.$metro.$collection.lazy.tsx", "utf8");
+  const monitor = readFileSync("scripts/data/check-metro-day-trips-sources.mjs", "utf8");
+  const browser = readFileSync("scripts/ci/verify-metro-day-trips-production.mjs", "utf8");
+  const proximity = readFileSync("src/data/metro-proximity.ts", "utf8");
+  const registry = editorial.split("export const EL_PASO_SOURCE_BACKED_OUTINGS = [")[1]?.split("] as const;")[0] ?? "";
+  const urls = [...registry.matchAll(/sourceUrl:\s*"(https:\/\/[^"]+)"/g)].map(match => match[1]);
+  assert.equal(urls.length, 5, "require five source-backed visitor options independent of index-ready catalog");
+  assert.equal(new Set(urls).size, 5, "do not inflate guides with duplicate official links");
+  assert.ok(urls.includes("https://www.nps.gov/places/san-elizario-historic-district.htm"));
+  assert.ok(urls.includes("https://www.nps.gov/gumo/planyourvisit/dunes.htm"));
+  assert.ok(urls.includes("https://www.nps.gov/gumo/planyourvisit/pine_springs_area.htm"));
+  assert.ok(urls.includes("https://www.elpasomissions.org/explore/museums/los-portales-museum/"));
+  assert.ok(urls.includes("https://www.vanhorntexas.org/2159/Things-to-Do"));
+  assert.ok(rich.includes('data-el-paso-source-backed-outings="operator-leads-not-indexable-destinations"'));
+  assert.ok(rich.includes("EL_PASO_SOURCE_BACKED_OUTINGS.map("));
+  assert.ok(rich.includes("not five new destination profiles"), "do not imply site guide or indexing quality that is not met");
+  assert.ok(monitor.includes("elPasoOutingUrls.length !== 5"), "scheduled monitoring must fail closed if operator coverage disappears");
+  assert.ok(monitor.includes('"www.elpasomissions.org"') && monitor.includes('"www.vanhorntexas.org"'));
+  assert.ok(browser.includes("El Paso operator-backed visitor choices remain sourced and separate from indexable catalog"));
+  for (const threshold of ["minResults: 10", "minTowns: 7", "minCounties: 4", "minCategories: 3", "minimumMiles: 18"]) {
+    assert.ok(proximity.includes(threshold), "protected day-trip geographic diversity threshold missing: " + threshold);
+  }
+});
