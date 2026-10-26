@@ -151,6 +151,7 @@ const prebuildChecks = [
   ['SEO/STATE-EVIDENCE', 'Validate Texas-vs state promotions', 'node', ['scripts/data/validate-texas-vs-state-promotions.mjs']],
   ['AI/FOUNDATION', 'Validate Texas AI intelligence foundation', 'node', ['scripts/data/validate-texas-defined-ai-readiness.mjs']],
   ['AI/RESEARCH', 'Validate Texas Defined AI official research', 'node', ['scripts/ai/validate-ai-official-research.mjs']],
+  ['EVENT/FALL', 'Test automatically expiring fall festivals, seasonal classification and official-source picks', 'node', ['--experimental-strip-types', '--test', 'scripts/data/fall-festival-freshness.test.mjs']],
   ['EVENT/SEO', 'Validate Event SEO', 'node', ['scripts/data/validate-events-seo.mjs']],
   ['EVENT/SCHEMA', 'Audit Event schema enrichment', 'node', ['scripts/data/audit-event-schema-enrichment.mjs']],
   ['EVENT/SCHEMA', 'Syntax-check production Event structured-data verifier', 'node', ['--check', 'scripts/ci/verify-event-structured-data-production.mjs']],
