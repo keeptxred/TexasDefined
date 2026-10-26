@@ -53,7 +53,7 @@ jobs:
             esac
           done < /tmp/football-changed-paths.txt
           echo "run=$selected" >> "$GITHUB_OUTPUT"
-          echo "Football acceptance for deployed SHA ${GITHUB_SHA}: $selected"
+          echo "Football acceptance for deployed SHA $(git rev-parse HEAD): $selected"
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
