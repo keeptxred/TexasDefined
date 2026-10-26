@@ -982,7 +982,8 @@
       "intakeId": 118,
       "title": "Baytown Christmas Past & Present",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "Baytown Christmas Parade (Dec 3) and three closure-aware Holiday Hangout operating windows are verified; the original submitted 'Christmas Past & Present' name is not verified as an independent event."
     },
     {
       "intakeId": 119,
@@ -994,7 +995,8 @@
       "intakeId": 120,
       "title": "Deer Park Reindeer Dash",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "The City of Deer Park verifies Reindeer Park (Dec 5) with sensory hour and wristband fee; it does not verify a separate Reindeer Dash race, so the original candidate remains unresolved."
     },
     {
       "intakeId": 121,
@@ -1018,8 +1020,11 @@
       "intakeId": 123,
       "title": "Seabrook Illuminated Boat Lane Parade",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation",
-      "researchNote": "Clear Lake Chamber's Dec12 65th Christmas Boat Lane Parade is the same waterway parade visible from Seabrook, Kemah and Nassau Bay. The supplied 'Seabrook Illuminated Boat Lane Parade' may refer to it, but no distinct separately branded organizer event is established. Do not duplicate it."
+      "status": "sourced-calendar",
+      "researchNote": "Same Clear Lake Area Chamber December 12, 2026 Christmas Boat Lane Parade, arriving near Seabrook and Kemah around 7:30 p.m. Do not create a second Seabrook parade record.",
+      "calendarSlugs": [
+        "clearlake-65th-christmas-boat-lane-parade-2026"
+      ]
     },
     {
       "intakeId": 124,
@@ -1862,8 +1867,8 @@
   ],
   "reconciliation": {
     "asOf": "2026-10-26",
-    "calendarCandidates": 76,
+    "calendarCandidates": 77,
     "authorityCandidates": 12,
-    "remainingCandidates": 162
+    "remainingCandidates": 161
   }
 }
