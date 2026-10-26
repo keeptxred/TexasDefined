@@ -244,6 +244,7 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
   denton: [
     { name: 'Argyle Eagles', slug: 'argyle', context: '2013 and 2020 UIL football championships and current 5A Division II alignment' },
     { name: 'Aubrey Chaparrals', slug: 'aubrey', context: '2026 digital-ticket Chaparral Stadium policies and 2024 playoffs' },
+    { name: 'Creekview Mustangs', slug: 'carrollton-creekview', context: 'Denton County campus on Old Denton Road, Dusty Ortiz current football coach, 2026 UIL 5A DI District 6 and district-owned Standridge Stadium travel context' },
   ],
   collin: [
     { name: 'Allen Eagles', slug: 'allen', context: 'Five UIL state titles, historic Kyler Murray era and 2026 Eagle Stadium visitor guidance' },
@@ -328,7 +329,9 @@ const supplementalFootballCountyLinks: Record<string, Array<{ name: string; slug
   'mclennan': [{ name: 'Bruceville-Eddy Eagles', slug: 'bruceville-eddy', context: '2026 Bruceville-Eddy Slot-T under Marcial Chapa and 39–8 district-confirmed Moody victory; seven historic playoff berths, Eagle Field visitor details' }],
   'hill': [{ name: 'Bynum Bulldogs', slug: 'bynum', context: 'Hill County Bynum ISD six-man Bulldogs: District 14, 2026 rebuild, Bulldog Field and qualified coach attribution' }],
   'wise': [{ name: 'Bridgeport Bulls', slug: 'bridgeport', context: 'Bridgeport ISD Bulls 2026 official coach Aaron Cupp, 22 football playoff appearances and Bull Memorial Stadium turf notice; 1–6 reported through October 16' }],
-  'randall': [{ name: 'Canyon Eagles', slug: 'canyon', context: 'Randall County Canyon High: Matt Lovorn current coach source, 2026 District 2-4A DI race and Happy State Bank Stadium rivalry context' }, { name: 'Randall Raiders', slug: 'canyon-randall', context: 'Randall High Raiders: Dan Sherwood, 7-1 start through Oct. 23, Canyon rivalry win and official Randall High schedule links' }],
+  'dimmit': [{ name: 'Carrizo Springs Wildcats', slug: 'carrizo-springs', context: 'Dimmit County official Wildcats athletics, 2026 UIL 3A Division I District 14 and first-party Frank Carter Stadium tickets' }],
+  'dallas': [{ name: 'Ranchview Wolves', slug: 'carrollton-ranchview', context: 'Ranchview High has an Irving campus in Dallas County, Richard Leonard head coach, and is 4A Division I District 4 despite its Carrollton UIL name' }, { name: 'Newman Smith Trojans', slug: 'carrollton-smith', context: 'Dallas County campus in Carrollton, 2026 school-listed Keith Houston football coach and 5A Division I District 6' }],
+  'randall': [{ name: 'West Plains Wolves', slug: 'canyon-west-plains', context: 'West Plains High on Arden Road: Canyon ISD Wolves program founded 2022, Jeff Lofton promoted 2026 and state semifinal run in 2024' }, { name: 'Canyon Eagles', slug: 'canyon', context: 'Randall County Canyon High: Matt Lovorn current coach source, 2026 District 2-4A DI race and Happy State Bank Stadium rivalry context' }, { name: 'Randall Raiders', slug: 'canyon-randall', context: 'Randall High Raiders: Dan Sherwood, 7-1 start through Oct. 23, Canyon rivalry win and official Randall High schedule links' }],
   'potter': [{ name: 'Bushland Falcons', slug: 'bushland', context: 'Potter County Bushland: District 1-3A DI, sustained playoff history, qualified current coach sourcing and 2026 result-source conflict handling' }],
 };
 
