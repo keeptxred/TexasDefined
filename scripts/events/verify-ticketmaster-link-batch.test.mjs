@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { publicTicketUrl, classifyTicketLinkResponse, probePublicTicketUrl, primaryAdmissionProbeCandidate, chooseBatch } from './verify-ticketmaster-link-batch.mjs';
+import { publicTicketUrl, classifyTicketLinkResponse, probePublicTicketUrl, primaryAdmissionProbeCandidate, chooseBatch, summarizeProviderProbeOutcomes } from './verify-ticketmaster-link-batch.mjs';
 
 const official = 'https://www.ticketmaster.com/grand-ol-christmas/event/ABC123';
 test('approved public event URLs only; block private, userinfo, misleading and unsupported hosts', () => {
@@ -106,4 +106,28 @@ test('daily outbound verification excludes branded garage parking and add-on pro
   const batch = chooseBatch(events, 0, 40);
   assert.deepEqual(batch.candidates.map(e=>e.id), ['show']);
   assert.equal(batch.total, 1);
+});
+
+
+test('summarize vendor-specific restricted and inconclusive results without implying inventory', () => {
+  const list = [
+    { id:'a', officialUrl:'https://www.ticketmaster.com/event/ABC123' },
+    { id:'b', officialUrl:'https://www.ticketweb.com/event/holiday-concert/14999111' },
+    { id:'c', officialUrl:'https://www.ticketmaster.com/event/DEF456' },
+    { id:'d', officialUrl:'https://private.example.test/event/ZZZ' },
+  ];
+  const probes = {
+    a:{ probeStatus:'ACCESS_RESTRICTED_INCONCLUSIVE' },
+    b:{ probeStatus:'PROVIDER_SERVER_ERROR_INCONCLUSIVE' },
+    c:{ probeStatus:'REACHABLE_NO_INVENTORY_CLAIM' },
+    d:{ probeStatus:'REVIEW_INVALID_OR_UNAPPROVED_URL' },
+  };
+  assert.deepEqual(summarizeProviderProbeOutcomes(list,probes), {
+    ticketmaster:{ ACCESS_RESTRICTED_INCONCLUSIVE:1, REACHABLE_NO_INVENTORY_CLAIM:1 },
+    ticketweb:{ PROVIDER_SERVER_ERROR_INCONCLUSIVE:1 },
+    'invalid-provider-url':{ REVIEW_INVALID_OR_UNAPPROVED_URL:1 },
+  });
+  assert.deepEqual(summarizeProviderProbeOutcomes([],{}),{});
+  assert.deepEqual(summarizeProviderProbeOutcomes([list[0]],{}),
+    {ticketmaster:{NOT_RECORDED_INCONCLUSIVE:1}});
 });
