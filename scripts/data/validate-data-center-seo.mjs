@@ -15,6 +15,9 @@ const schoolRates = read('src/data/school-district-tax-rates.ts');
 const taxImporter = read('supabase/functions/import-texas-property-tax-rates/index.ts');
 const bridge = read('src/data/texas-data-center.ts');
 const serverRegistry = read('src/data/texas-data-center.server.ts');
+const currentCensus = JSON.parse(read('src/data/generated/texas-state-population-current.json'));
+const censusRefresh = read('scripts/data/refresh-texas-state-population.mjs');
+const censusWorkflow = read('.github/workflows/refresh-texas-state-population.yml');
 const currentBls = JSON.parse(read('src/data/generated/texas-metro-payrolls-current.json'));
 const scheduledBls = read('.github/workflows/refresh-texas-data.yml');
 const finishingBls = read('.github/workflows/finish-texas-data-refresh.yml');
@@ -24,7 +27,17 @@ const checks = [
   [sitemap, 'TEXAS_DATASETS.map((dataset)', 'Sitemap must enumerate Texas dataset routes'],
   [sitemap, 'lastmod: toDate(dataset.updated)', 'Dataset sitemap entries must expose update dates'],
   [bridge, 'createServerFn', 'Texas data registry bridge must use the supported server-function boundary'],
+  [bridge, "slug: 'texas-population-and-migration-latest'", 'Census rolling vintage must be sitemap-listed'],
+  [serverRegistry, "import currentStatePopulation from '@/data/generated/texas-state-population-current.json'", 'Current Census source must remain server-only'],
+  [hub, "texas-population-and-migration-latest", 'Texas hub must prefer verified annual Census population'],
+  [censusRefresh, 'NPOPCHG_', 'Census source parser must reconcile current and previous official vintage figures'],
+  [censusRefresh, 'RESIDUAL', 'Census source parser must verify demographic component reconciliation'],
+  [censusWorkflow, "cron: '53 12 8 * *'", 'GitHub-owned Census population maintenance must be scheduled'],
   [bridge, 'await import("./texas-data-center.server")', 'Texas data registry bridge must dynamically load the full registry server-side'],
+  [bridge, 'getCurrentCountyPropertyTaxExamples', 'Texas data hub and detail must prefer the current verified county-rate importer'],
+  [serverRegistry, "eq('type', 'county')", 'Current county comparison must select only official county government taxing units'],
+  [serverRegistry, "row.source_status !== 'reported-final'", 'Current county rate examples must reject nonfinal official rates'],
+  [serverRegistry, 'rows.length !== COUNTY_EXAMPLE_SLUGS.length', 'Incomplete live county rates must never replace verified historical examples'],
   [hub, "'@type': ['CollectionPage', 'DataCatalog']", 'Texas data hub must declare a DataCatalog'],
   [hub, "import { getTexasDatasets } from '@/data/texas-data-center'", 'Texas data hub must load datasets through the server-backed registry bridge'],
   [hub, 'loader: async () => ({ datasets: await getTexasDatasets() })', 'Texas data loader must return every maintained dataset'],
@@ -134,6 +147,12 @@ if (!augustBrief.includes('https://www.bls.gov/news.release/archives/metro_09302
   failures.push('Current August 2026 metro payrolls must link to the dated September 30 BLS release.');
 }
 
+if (!Number.isInteger(currentCensus.vintage) || currentCensus.vintage < 2025 ||
+    !currentCensus.sourceUrl.endsWith('/NST-EST' + currentCensus.vintage + '-ALLDATA.csv') ||
+    currentCensus.population - currentCensus.priorPopulation !== currentCensus.populationChange ||
+    !/^\d{4}-\d{2}-\d{2}$/.test(currentCensus.verifiedAt)) {
+  failures.push('Rolling Census Texas state population snapshot has invalid source-year, verification or population components.');
+}
 if (!hub.includes("texas-metro-payrolls-august-2026")) {
   failures.push('Texas Data hub must feature the latest verified metro payroll snapshot.');
 }
