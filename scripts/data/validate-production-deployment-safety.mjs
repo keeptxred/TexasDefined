@@ -94,6 +94,22 @@ if (pushTriggerBlock.includes('\n    paths:') || pushTriggerBlock.includes('\n  
   failures.push('Production deployment must not path-filter main pushes while Cloudflare Git integration can deploy every production-branch push.');
 }
 
+// The protected concurrency lock must cover the Cloudflare Worker publish and
+// its blocking acceptance checks, without making the optional queued GSC
+// reusable workflow suppress more recent main-branch production releases.
+const deployJobAt = workflow.indexOf('  deploy:\n');
+const deployLockAt = workflow.indexOf('    concurrency:\n      group: texasdefined-production\n      cancel-in-progress: false');
+if (deployJobAt < 0 || deployLockAt < deployJobAt) {
+  failures.push('The Cloudflare deploy job must own its serialized texasdefined-production lock.');
+}
+if (workflow.includes('\nconcurrency:\n  group: texasdefined-production')) {
+  failures.push('Do not place production lock at workflow scope: queued downstream GSC checks would block later Worker deployments.');
+}
+if (!workflow.includes('needs: deploy') ||
+    !workflow.includes('Verify GSC manual-next production after deploy')) {
+  failures.push('Keep the independent post-deploy GSC verification dependent on a successful Worker release.');
+}
+
 for (const [needle, label] of [
   ['group: texasdefined-production', 'serialized production deployment concurrency group'],
   ['cancel-in-progress: false', 'production deployment serialization must not cancel an active Worker replacement'],
