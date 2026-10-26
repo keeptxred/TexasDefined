@@ -5,6 +5,8 @@ on:
     paths:
       - 'public/stay-affiliate-options.js'
       - 'scripts/data/validate-stay-affiliate-options.mjs'
+      - 'scripts/data/validate-motel6-affiliate.mjs'
+      - 'src/components/sports/FootballFanOffers.tsx'
       - 'scripts/data/validate-booking-car-rental-affiliate.mjs'
       - 'scripts/data/validate-outcome-analytics.mjs'
       - 'scripts/ci/verify-stay-affiliate-production.mjs'
@@ -31,6 +33,8 @@ on:
     paths:
       - 'public/stay-affiliate-options.js'
       - 'scripts/data/validate-stay-affiliate-options.mjs'
+      - 'scripts/data/validate-motel6-affiliate.mjs'
+      - 'src/components/sports/FootballFanOffers.tsx'
       - 'scripts/data/validate-booking-car-rental-affiliate.mjs'
       - 'scripts/data/validate-outcome-analytics.mjs'
       - 'scripts/ci/verify-stay-affiliate-production.mjs'
@@ -71,6 +75,8 @@ jobs:
           node-version: 22
       - name: Validate Hotels.com and Vrbo integration
         run: node scripts/data/validate-stay-affiliate-options.mjs
+      - name: Validate Motel 6 account-scoped links, placement and promo cutoff
+        run: node scripts/data/validate-motel6-affiliate.mjs
       - name: Validate Booking.com car-rental integration
         run: node scripts/data/validate-booking-car-rental-affiliate.mjs
       - name: Validate first-party outcome analytics
