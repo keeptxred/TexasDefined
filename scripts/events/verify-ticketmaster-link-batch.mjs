@@ -59,13 +59,34 @@ export async function probePublicTicketUrl(href, fetcher = fetch) {
   }
 }
 
+/**
+ * The public calendar already excludes non-admission Discovery products.
+ * Apply a conservative admission gate to the OUTBOUND verification queue too:
+ * otherwise branded garage/VIP products consume one of only 40 daily probes,
+ * although visitors cannot buy event admission through those URLs.
+ * This does not mark any other event verified or confer affiliate eligibility.
+ */
+export function primaryAdmissionProbeCandidate(event) {
+  const title = String(event?.name ?? '').trim().toLowerCase().replace(/[–—]/g, '-');
+  if (!title) return false;
+  if (/^(?:(?:fifth|5th)\s+third\s+)?garage\s*[:\-]/.test(title)
+    || /^(?:fifth|5th)\s+third\s+garage\b/.test(title)
+    || /^(?:[a-z0-9&' ]+\s+)?(?:parking\s+garage|parking\s+lot|garage\s+parking)\s*[:\-]/.test(title)) return false;
+  if (/\b(?:not a (?:concert|event) ticket|event ticket not included|ticket not included)\b/.test(title)) return false;
+  if (/\b(?:parking\s+(?:pass(?:es)?|tickets?|only)|vip\s+(?:upgrades?|add-?ons?)|fast\s+lane\s+pass(?:es)?|quick\s+pass(?:es)?|express\s+entry|club\s+access|suite\s+(?:pass(?:es)?|tickets?)|meet\s*(?:&|and)\s*greet\s+(?:add-?ons?|upgrades?)|signed\s+poster\s+add-?ons?)\b/.test(title)) return false;
+  if (/(?:^|[\s:\-])parking\s*$/.test(title)
+    || /\b(?:parking|vip|fast lane|suite)\s+only\b/.test(title)) return false;
+  return !/^(?:parking(?:\s+pass)?|(?:reserved|premium|premier|general)\s+parking(?:\s+pass)?|suites?|vip\s+(?:upgrade|add-?on)|fast\s+lane(?:\s+pass)?|quick\s+pass|express\s+entry|club\s+access|meet\s*(?:&|and)\s*greet|signed\s+poster\s+add-?on)\s*[:\-]/.test(title);
+}
+
 export function chooseBatch(events, cursor, size = LIMIT) {
   const localParts = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Chicago', year: 'numeric', month: '2-digit', day: '2-digit' }).formatToParts(new Date());
   const localPart = (name) => localParts.find((part) => part.type === name)?.value ?? '00';
   const texasToday = [localPart('year'), localPart('month'), localPart('day')].join('-');
   const eligible = events.filter((event) => event && event.id && event.officialUrl
     && event.startDate && /^\d{4}-\d{2}-\d{2}$/.test(event.startDate) && event.startDate >= texasToday
-    && !['cancelled', 'postponed', 'rescheduled'].includes(event.status));
+    && primaryAdmissionProbeCandidate(event)
+    && !['cancelled', 'postponed', 'rescheduled', 'offsale', 'soldout'].includes(event.status));
   eligible.sort((a, b) => a.startDate.localeCompare(b.startDate)
     || String(a.id).localeCompare(String(b.id)));
   if (!eligible.length) return { candidates: [], nextCursor: 0, total: 0 };
