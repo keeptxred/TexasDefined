@@ -471,7 +471,7 @@ function Page() {
       </aside>}
 
       {editorial?.season && (
-        <section aria-label={`${footballName} season at a glance`} className="grid gap-4 border-b border-border py-5 sm:grid-cols-3 sm:py-10">
+        <section aria-label={footballName + ' season at a glance'} className="grid gap-4 border-b border-border py-5 sm:grid-cols-3 sm:py-10">
           <div className="border-l-4 border-primary bg-surface p-4">
             <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">2026 record from reported finals</p>
             <p className="mt-2 text-lg font-semibold leading-tight">{editorial.season.record}</p>
@@ -512,7 +512,7 @@ function Page() {
       />}
 
       {/* Put verified visitor actions and the actual season ahead of history and enrollment. */}
-        <dl aria-label={`${displayName} verified football facts`} className="grid grid-cols-2 gap-x-5 border-b border-border py-3 text-sm sm:grid-cols-3 lg:grid-cols-6">
+        <dl aria-label={displayName + ' verified football facts'} className="grid grid-cols-2 gap-x-5 border-b border-border py-3 text-sm sm:grid-cols-3 lg:grid-cols-6">
           {associationLabel && <Fact label="Governing body" value={associationLabel} />}
           {program && <Fact label="Current alignment" value={alignmentLabel(program)} />}
           {!program && privateAlignment && <Fact label="Current alignment" value={privateAlignmentLabel(privateAlignment)} />}
@@ -636,7 +636,7 @@ function Page() {
         </div>
       </section>}
 
-      {editorial?.milestones && editorial.milestones.length > 0 && <section aria-label={`${displayName} verified football milestones`} className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
+      {editorial?.milestones && editorial.milestones.length > 0 && <section aria-label={displayName + ' verified football milestones'} className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div>
           <p className="eyebrow text-primary">The program story</p>
           <h2 className="mt-2 font-display text-3xl">Milestones that shaped {displayName} football</h2>
@@ -670,7 +670,7 @@ function Page() {
               </ol>
             </figure>
           )}
-          {editorial.milestones.map((milestone) => <article key={`${milestone.date}:${milestone.title}`} className="border-l-4 bg-surface p-5 sm:p-6" style={{ borderLeftColor: editorial.theme?.accentHex }}>
+          {editorial.milestones.map((milestone) => <article key={milestone.date + ':' + milestone.title} className="border-l-4 bg-surface p-5 sm:p-6" style={{ borderLeftColor: editorial.theme?.accentHex }}>
             <p className="font-display text-2xl font-semibold text-surface-foreground">{milestone.date}</p>
             <h3 className="mt-3 font-display text-2xl leading-tight">{milestone.title}</h3>
             <p className="mt-3 text-sm leading-7 text-muted-foreground">{milestone.body}</p>
@@ -750,7 +750,7 @@ function Page() {
           </>}
           <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold">
             {countyPath && <a href={countyPath} className="text-primary">Open {schoolName === 'Katy' ? 'Fort Bend County' : schoolName === 'Abbott' ? 'Hill County' : program?.countyName} guide →</a>}
-            {cityGuide && <a href={`/city/${cityGuide.slug}`} className="text-primary">Explore {cityGuide.name} city guide →</a>}
+            {cityGuide && <a href={'/city/' + cityGuide.slug} className="text-primary">Explore {cityGuide.name} city guide →</a>}
             {program && <a href="/find-my-school-district" className="text-primary">Verify a school district by address →</a>}
             {program?.sourceUrl && <a href={program.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary">Official UIL alignment ↗</a>}
           </div>
@@ -793,7 +793,7 @@ function Page() {
               <p className="mt-2 text-sm leading-6 text-muted-foreground">{venue.detail}</p>
               <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">
                 <a href={venue.official} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Official stadium guide ↗</a>
-                <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(venue.address)}`} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Directions ↗</a>
+                <a href={'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(venue.address)} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Directions ↗</a>
               </div>
             </article>)}
           </div>
@@ -918,7 +918,7 @@ function Page() {
             <Snapshot label="Most recent final" value={program.recentHistory.mostRecentFinalSeason || '—'} />
           </dl>
           <div className="mt-5 divide-y divide-border border-y border-border">
-            {program.recentHistory.finals.map((final) => <div key={`${final.season}-${final.conference}-${final.result}`} className="grid gap-1 py-4 text-sm sm:grid-cols-3">
+            {program.recentHistory.finals.map((final) => <div key={[final.season, final.conference, final.result].join('-')} className="grid gap-1 py-4 text-sm sm:grid-cols-3">
               <span className="font-semibold">{final.season}</span>
               <span>{final.result}</span>
               <span className="text-muted-foreground">{final.conference} · vs. {final.opponent} · {final.score}</span>
