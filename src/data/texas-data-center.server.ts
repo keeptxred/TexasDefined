@@ -1,4 +1,5 @@
 import currentMetroPayrolls from '@/data/generated/texas-metro-payrolls-current.json';
+import currentStatePopulation from '@/data/generated/texas-state-population-current.json';
 
 export type TexasDataset = {
   slug: string;
@@ -203,6 +204,25 @@ export const TEXAS_DATASETS: TexasDataset[] = [
     sourceUrl: currentMetroPayrolls.sourceUrl,
     methodology: 'Most recent verified BLS metropolitan Table 3 nonfarm payroll jobs, not seasonally adjusted; source rows report thousands and are multiplied by 1,000. Monthly data are preliminary and revised in later releases. This rolling snapshot does not replace the separately retained historic monthly briefs.',
     rows: currentMetroPayrolls.rows,
+  },
+  {
+    slug: 'texas-population-and-migration-latest',
+    title: 'Texas Population and Migration — Census Vintage ' + currentStatePopulation.vintage,
+    description: 'Latest verified Census state population and components of change; Texas yearly figures share one estimates vintage and are subject to revision.',
+    category: 'Relocation and migration',
+    year: currentStatePopulation.vintage,
+    updated: currentStatePopulation.verifiedAt,
+    sourceName: 'U.S. Census Bureau — State Population Totals and Components of Change',
+    sourceUrl: currentStatePopulation.sourceUrl,
+    methodology: 'Census Population Estimates Program official state NST-EST ALLDATA file, same vintage for July 1 current and prior year; growth reconciles exactly to domestic and international net migration, natural increase and published residual. Estimates are not a census count or migration-flow survey. Historical Vintage 2025 briefs remain available independently.',
+    unit: 'count',
+    rows: [
+      { label: 'Texas population — July 1, ' + currentStatePopulation.vintage, value: currentStatePopulation.population },
+      { label: 'Numeric population growth — prior July to current July', value: currentStatePopulation.populationChange },
+      { label: 'Net domestic migration', value: currentStatePopulation.domesticMigration },
+      { label: 'Net international migration', value: currentStatePopulation.internationalMigration },
+      { label: 'Natural increase', value: currentStatePopulation.naturalIncrease },
+    ],
   },
 ];
 
