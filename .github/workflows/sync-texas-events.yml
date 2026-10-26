@@ -12,6 +12,8 @@ on:
       - "src/data/events/tpwd-event-records.server.ts"
       - "scripts/events/sync-ticketmaster-events.mjs"
       - "scripts/events/ticketmaster-discovery.mjs"
+      - "scripts/events/verify-ticketmaster-link-batch.mjs"
+      - "scripts/events/verify-ticketmaster-link-batch.test.mjs"
       - "scripts/events/build-ticketmaster-authority-candidates.mjs"
       - "scripts/events/build-ticketmaster-authority-candidates.test.mjs"
       - "src/data/events-generated.ts"
@@ -72,14 +74,20 @@ jobs:
       - name: Build Ticketmaster authority research queue
         run: node scripts/events/build-ticketmaster-authority-candidates.mjs
 
+      - name: Test safe public ticket link probes
+        run: node --test scripts/events/verify-ticketmaster-link-batch.test.mjs
+
+      - name: Check the next 40 verified-provider event destinations
+        run: node scripts/events/verify-ticketmaster-link-batch.mjs
+
       - name: Detect catalog changes
         id: changes
         shell: bash
         run: |
           # On the first sync, the research queue is untracked. Make it visible
           # to git diff without staging contents until the refresh branch is made.
-          git add -N -- ops/editorial/ticketmaster-authority-candidates.json
-          if git diff --quiet -- src/data/generated/texas-events.ts src/data/generated/ticketmaster-events.json src/data/generated/tpwd-events.json ops/editorial/ticketmaster-authority-candidates.json; then
+          git add -N -- ops/editorial/ticketmaster-authority-candidates.json ops/editorial/event-ticketing-verification-ledger.json
+          if git diff --quiet -- src/data/generated/texas-events.ts src/data/generated/ticketmaster-events.json src/data/generated/tpwd-events.json ops/editorial/ticketmaster-authority-candidates.json ops/editorial/event-ticketing-verification-ledger.json; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "Texas events catalog is already current."
           else
@@ -97,7 +105,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -b "$branch"
-          git add src/data/generated/texas-events.ts src/data/generated/ticketmaster-events.json src/data/generated/tpwd-events.json ops/editorial/ticketmaster-authority-candidates.json
+          git add src/data/generated/texas-events.ts src/data/generated/ticketmaster-events.json src/data/generated/tpwd-events.json ops/editorial/ticketmaster-authority-candidates.json ops/editorial/event-ticketing-verification-ledger.json
           git commit -m "data: refresh Texas events catalog"
           git push origin "$branch"
           echo "name=$branch" >> "$GITHUB_OUTPUT"
