@@ -82,6 +82,12 @@ export function loadTicketmasterEventsServer(catalog: TicketmasterSnapshot = sna
     const region = geographyForPlace(event.city)?.travelRegionIds[0];
     if (!ticketmasterIsPrimaryAdmissionTitle(event.name) || !region || !/^\d{4}-\d{2}-\d{2}$/.test(event.startDate) || event.startDate < today
       || ['cancelled', 'postponed', 'rescheduled'].includes(event.status)) return [];
+    // Keep the former venue name for stable old-provider venue-slug lookup,
+    // while presenting the official Ariat Arena naming-rights change from
+    // October 26, 2026. Only change the exact Fort Worth arena identity.
+    const displayedVenue = event.city.trim().toLowerCase() === 'fort worth'
+      && /^dickies arena(?:,?\\s*fort worth)?$/i.test(event.venue.trim())
+      ? 'Ariat Arena' : event.venue;
     const venue = resolveSportsVenueEventLink(event.venue);
     const venueSlug = venue?.href.split('/').at(-1);
     const saleStatus: TexasEventTicketSaleStatus = event.status === 'offsale' ? 'off-sale'
@@ -91,10 +97,10 @@ export function loadTicketmasterEventsServer(catalog: TicketmasterSnapshot = sna
     const category = event.segment === 'Sports' ? 'sport' : event.segment === 'Music' ? 'music' : 'culture';
     return [{
       id: `ticketmaster:${event.id}`, slug: `ticketmaster-${event.id}`, title: event.name,
-      summary: `${event.name} at ${event.venue || 'a local venue'} in ${event.city}. Check Ticketmaster for current ticket availability and event details.`,
+      summary: `${event.name} at ${displayedVenue || 'a local venue'} in ${event.city}. Check Ticketmaster for current ticket availability and event details.`,
       guidePath: ticketmasterAuthorityGuidePath(event.name, event.city) ?? `/events?start=${event.startDate}&end=${event.startDate}`,
       startDate: event.startDate, startTime: event.startTime, city: event.city, region, category,
-      venueName: event.venue, venueId: venueSlug ? `sports-venue:${venueSlug}` : undefined, venuePath: venue?.href,
+      venueName: displayedVenue, venueId: venueSlug ? `sports-venue:${venueSlug}` : undefined, venuePath: venue?.href,
       officialEventUrl: event.officialUrl, status: 'scheduled', lastVerifiedAt: fetchedAt, lastUpdatedAt: fetchedAt,
       sourceName: 'Ticketmaster',
       ticketing: { offers: [], links: [{ provider: new URL(event.officialUrl).hostname.toLowerCase().replace(/^www\./, '') === 'ticketweb.com' ? 'ticketweb' : 'ticketmaster', officialTicketUrl: event.officialUrl,
