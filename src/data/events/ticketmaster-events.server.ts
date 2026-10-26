@@ -85,10 +85,12 @@ export function loadTicketmasterEventsServer(catalog: TicketmasterSnapshot = sna
     // Keep the former venue name for stable old-provider venue-slug lookup,
     // while presenting the official Ariat Arena naming-rights change from
     // October 26, 2026. Only change the exact Fort Worth arena identity.
-    const displayedVenue = event.city.trim().toLowerCase() === 'fort worth'
-      && /^dickies arena(?:,?\s*fort worth)?$/i.test(event.venue.trim())
-      ? 'Ariat Arena' : event.venue;
-    const venue = resolveSportsVenueEventLink(event.venue);
+    const isRebrandedFortWorthArena = event.city.trim().toLowerCase() === 'fort worth'
+      && /^(?:dickies|ariat) arena(?:,?\s*fort worth)?$/i.test(event.venue.trim());
+    const displayedVenue = isRebrandedFortWorthArena ? 'Ariat Arena' : event.venue;
+    // Existing canonical route uses the original venue slug; both the old
+    // and new Discovery labels must resolve to the same physical facility.
+    const venue = resolveSportsVenueEventLink(isRebrandedFortWorthArena ? 'Dickies Arena' : event.venue);
     const venueSlug = venue?.href.split('/').at(-1);
     const saleStatus: TexasEventTicketSaleStatus = event.status === 'offsale' ? 'off-sale'
       : event.status === 'soldout' ? 'sold-out'
