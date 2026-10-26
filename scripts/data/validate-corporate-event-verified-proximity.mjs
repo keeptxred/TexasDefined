@@ -39,6 +39,14 @@ assert(!validVerifiedCorporateEventPoint({...zipPoint,
 assert(!validVerifiedCorporateEventPoint({...zipPoint,
   sourceUrl:'https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2026_Gazetteer/2026_Gaz_zcta_national.zip?spoof=1'},'zcta',reviewDate),
   'Query-altered archive URLs cannot be used as vetted coordinate provenance');
+assert(!validVerifiedCorporateEventPoint(zipPoint, 'zcta', '2099-01-01'),
+  'A fabricated future as-of day cannot authorize geographic source evidence');
+assert(!validVerifiedCorporateEventPoint({...zipPoint,verifiedOn:'2099-01-01'},'zcta','2099-01-01'),
+  'Matching future review and as-of dates cannot bypass the real Texas calendar');
+assert(!validVerifiedCorporateEventPoint({...zipPoint,
+  sourceUrl:'https://www2.census.gov/geo/docs/maps-data/data/gazetteer/2030_Gazetteer/2030_Gaz_zcta_national.zip'},
+  'zcta',reviewDate),
+  'A not-yet-reviewed Census publication vintage is never evidence from 2026');
 assert(!validVerifiedCorporateEventPoint(zipPoint,'zcta','2026-02-31'),
   'Impossible as-of dates cannot authorize coordinate evidence');
 assert(!validVerifiedCorporateEventPoint({...zipPoint,verifiedOn:'2026-02-31'},'zcta','2026-10-25'),
