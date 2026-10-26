@@ -113,6 +113,22 @@ const rows = fips.map((code) => Object.fromEntries([
 ]));
 const sourceFiles = Object.fromEntries(tables.map((table) => [table.field, table.url]));
 
+// Guard a source-format regression that still parses as numeric CSV.
+// A county median changing by more than 5x in one annual release needs
+// source investigation, never automatic publication from a scheduled job.
+const priorRows = new Map((existing?.rows ?? []).map(row => [row.fips, row]));
+for (const row of rows) {
+  const previous = priorRows.get(row.fips);
+  if (!previous) continue;
+  for (const { field } of TABLES) {
+    const before = previous[field], after = row[field];
+    if (!Number.isFinite(before) || !Number.isFinite(after) || before <= 0 || after <= 0) continue;
+    if (after / before > 5 || before / after > 5) {
+      throw new Error(`ACS estimate changed beyond annual safety bound: ${row.fips} ${field}`);
+    }
+  }
+}
+
 const stablePayload = {
   release: RELEASE,
   year: YEAR,
