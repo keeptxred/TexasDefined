@@ -1,7 +1,18 @@
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { createServer } from 'vite';
 const server = await createServer({ configFile: false, appType: 'custom', logLevel: 'error', server: { middlewareMode: true } });
 try {
+  const christmasRoute = readFileSync('src/routes/events.$collection.tsx', 'utf8');
+  for (const marker of [
+    'trackAffiliateClick',
+    'data-affiliate-event-id={show.ticket.isAffiliate',
+    'eventId: `curated:christmas-2026:${show.id}`',
+    'partner: show.ticket.provider',
+    'onClick={show.ticket.isAffiliate',
+  ]) assert.ok(christmasRoute.includes(marker), 'Christmas hub must track authorized affiliate clicks to precise curated event: ' + marker);
+  const christmasServer = readFileSync('src/data/events/christmas-performances-2026.server.ts', 'utf8');
+  assert.ok(christmasServer.includes('provider: providerForVerifiedTicketUrl(!featuredDatePassed'), 'Christmas official fallback retains provider identity for deterministic outbound click attribution');
   const { loadTicketmasterEventsServer, ticketmasterAuthorityGuidePath } = await server.ssrLoadModule('/src/data/events/ticketmaster-events.server.ts');
   const { mergeEventTicketing } = await server.ssrLoadModule('/src/data/events/ticketing.ts');
   const { ticketmasterVenueMatches, ticketmasterShowtimeMatches, ticketmasterIsPrimaryAdmissionTitle } = await server.ssrLoadModule('/src/data/events/ticketmaster-event-match.ts');

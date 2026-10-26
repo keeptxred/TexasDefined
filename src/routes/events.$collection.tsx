@@ -8,6 +8,7 @@ import roadTrip from "@/assets/road-trip.jpg";
 import smallTown from "@/assets/small-town.jpg";
 import { Container } from "@/components/layout/Container";
 import { getEventCollectionPage } from "@/data/event-collection-page";
+import { trackAffiliateClick } from "@/lib/affiliate-click";
 
 export const Route = createFileRoute("/events/$collection")({
   loader: async ({ params }) => {
@@ -205,7 +206,24 @@ function GenericCollectionPage({ page }: { page: any }) {
                   </a>
                 </div>
                 <div className="text-right">
-                  <a href={show.ticket.href} rel={show.ticket.rel} target="_blank" className="inline-flex items-center border border-primary px-4 py-2 text-sm font-semibold text-primary hover:bg-surface">
+                  <a
+                    href={show.ticket.href}
+                    rel={show.ticket.rel}
+                    target="_blank"
+                    data-affiliate-partner={show.ticket.isAffiliate ? show.ticket.provider : undefined}
+                    data-affiliate-placement={show.ticket.isAffiliate ? "christmas-performance" : undefined}
+                    data-commercial-partner={show.ticket.isAffiliate ? show.ticket.provider : undefined}
+                    data-commercial-placement={show.ticket.isAffiliate ? "christmas-performance" : undefined}
+                    data-affiliate-event-id={show.ticket.isAffiliate ? `curated:christmas-2026:${show.id}` : undefined}
+                    onClick={show.ticket.isAffiliate ? () => trackAffiliateClick({
+                      partner: show.ticket.provider,
+                      label: show.ticket.label,
+                      placement: "christmas-performance",
+                      module: "event-ticketing",
+                      eventId: `curated:christmas-2026:${show.id}`,
+                    }) : undefined}
+                    className="inline-flex items-center border border-primary px-4 py-2 text-sm font-semibold text-primary hover:bg-surface"
+                  >
                     {show.ticket.label}
                   </a>
                   {show.ticket.isAffiliate && <p className="mt-2 text-xs leading-5 text-muted-foreground">Affiliate link · checkout is handled by the ticket provider.</p>}
