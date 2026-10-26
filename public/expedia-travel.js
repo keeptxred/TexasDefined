@@ -608,6 +608,15 @@
       document.documentElement.dataset.tdMcAllenDayTripsHydrated !== "1";
   }
 
+  // The server-rendered metro collection is a lazy React outlet for every
+  // city. The root's ready event can precede that outlet's first hydration,
+  // so Expedia must not mount or replace the lodging slot on any day-trip
+  // route until the outlet has explicitly committed.
+  function metroDayTripsHydrationPending() {
+    return /^\/explore\/near\/[a-z0-9-]+\/day-trips$/.test(normalizePath()) &&
+      document.documentElement.dataset.tdMetroDayTripsHydrated !== "1";
+  }
+
   function stateFairSlotPending() {
     return /^\/texas-state-fair\/?$/.test(window.location.pathname) &&
       document.documentElement.dataset.tdStateFairHydrated !== "1";
@@ -619,6 +628,7 @@
     // the empty affiliate slot before its owning component has committed.
     if (stateFairSlotPending()) return;
     if (mcallenDayTripsHydrationPending()) return;
+    if (metroDayTripsHydrationPending()) return;
     if (battleshipHistoryHydrationPending()) return;
     if (waitingForFootballCountyHydration()) return;
     const version = ++syncVersion;
@@ -715,6 +725,7 @@
     window.addEventListener("popstate", scheduleSync);
     window.addEventListener("texasdefined:county-hydrated", scheduleSync);
     window.addEventListener("texasdefined:state-fair-hydrated", scheduleSync);
+    window.addEventListener("texasdefined:metro-day-trips-hydrated", scheduleSync);
     window.addEventListener("texasdefined:mcallen-day-trips-hydrated", scheduleSync);
     window.addEventListener("texasdefined:battleship-article-hydrated", scheduleSync);
     for (const method of ["pushState", "replaceState"]) {

@@ -2,7 +2,9 @@ import type { TexasEventRecord } from "./texas-event-record";
 
 /**
  * 2027 Texas Mardi Gras companion events verified against the named event
- * organizers or locally maintained publisher calendars on 2026-10-25.
+ * organizers or locally maintained publisher calendars on October 25–26, 2026.
+ * Keep public slugs yearless for evergreen URLs; year-specific curated IDs and
+ * start dates remain separate, so future annual occurrences can be replaced.
  * These are calendar occurrences, NOT new event-authority pages or claims
  * of live ticket inventory. Never infer a right to use organizer photographs.
  *
@@ -12,7 +14,7 @@ import type { TexasEventRecord } from "./texas-event-record";
 const companionEvents: TexasEventRecord[] = [
   {
     id: "curated-mardi-gras-2027:crystal-beach-chicken-run",
-    slug: "crystal-beach-mardi-gras-chicken-run-2027",
+    slug: "crystal-beach-mardi-gras-chicken-run",
     title: "Crystal Beach Chicken Run & Gumbo Cook-off",
     summary: "Motley Krewe and local volunteer-fire-department fundraiser at Swedes Festival Park. January 16 is listed for 2027, but public sources disagree on activity hours; confirm the latest event program before traveling. Different from the February 6 public highway parade.",
     guidePath: "/events/mardi-gras#companion-events",
@@ -31,7 +33,7 @@ const companionEvents: TexasEventRecord[] = [
   },
   {
     id: "curated-mardi-gras-2027:jefferson-queen-mab-ball",
-    slug: "jefferson-queen-mab-ball-2027",
+    slug: "jefferson-queen-mab-ball",
     title: "Queen Mab Ball — Mardi Gras Upriver",
     summary: "The Krewe of Hebe's independently ticketed formal Viva Las Vegas gala. Doors are listed for 7:30 p.m., and the ball begins at 8 p.m. on January 23. This is not the February 5–7 public Mardi Gras Upriver festival.",
     guidePath: "/events/mardi-gras#companion-events",
@@ -51,7 +53,7 @@ const companionEvents: TexasEventRecord[] = [
   },
   {
     id: "curated-mardi-gras-2027:beaumont-lagniappe-soiree",
-    slug: "beaumont-lagniappe-mardi-gras-soiree-2027",
+    slug: "beaumont-lagniappe-mardi-gras-soiree",
     title: "Lagniappe Mardi Gras Soirée — Junior League of Beaumont",
     summary: "Separate February 5 fundraising evening at The Event Centre hosted by the Junior League of Beaumont. Its site includes obsolete pricing for a 2024 luncheon; do not treat those figures as tickets for the 2027 Mardi Gras soirée.",
     guidePath: "/events/mardi-gras#companion-events",
@@ -71,7 +73,7 @@ const companionEvents: TexasEventRecord[] = [
   },
   {
     id: "curated-mardi-gras-2027:livingston-gumbo-cookoff",
-    slug: "livingston-mardi-gras-gumbo-cookoff-2027",
+    slug: "livingston-mardi-gras-gumbo-cookoff",
     title: "Mardi Gras Gumbo Cookoff — Two Creeks Crossing",
     summary: "A February 5–6, 2027 Mardi Gras-themed gumbo cookoff weekend at Two Creeks Crossing Resort near Lake Livingston. Detailed times are pending; the resort's general cookoff policy restricts public day passes, so verify eligibility before traveling.",
     guidePath: "/events/mardi-gras#companion-events",
@@ -88,6 +90,84 @@ const companionEvents: TexasEventRecord[] = [
     lastVerifiedAt: "2026-10-25",
     lastUpdatedAt: "2026-10-25",
     sourceName: "Two Creeks Crossing Resort — official 2027 event schedule",
+  },
+  {
+    id: "curated-mardi-gras-2027:port-arthur-chamber-masquerade",
+    slug: "port-arthur-mardi-gras-masquerade-ball",
+    title: "Port Arthur Chamber Mardi Gras Masquerade Ball",
+    summary: "The Greater Port Arthur Chamber of Commerce lists a separate January 30 masquerade fundraising gala at 7 p.m., before the February 5–7 downtown Port Arthur Mardi Gras festival. Chamber and economic-development listings conflict on the street address, so confirm venue directions before traveling; admission is separately ticketed.",
+    guidePath: "/events/mardi-gras#companion-events",
+    startDate: "2027-01-30",
+    startTime: "7:00 PM",
+    venueName: "Robert A. “Bob” Bowers Civic Center",
+    city: "Port Arthur",
+    countySlug: "jefferson",
+    countyName: "Jefferson County",
+    region: "gulf-coast",
+    category: "culture",
+    officialEventUrl: "https://chamber.portarthurtexas.com/event/mardi-gras-masquerade-ball-2027/168762",
+    status: "scheduled",
+    lastVerifiedAt: "2026-10-26",
+    lastUpdatedAt: "2026-10-26",
+    sourceName: "Greater Port Arthur Chamber of Commerce — official 2027 registration page",
+  },
+  {
+    id: "curated-mardi-gras-2027:yachty-gras-kickoff-party",
+    slug: "yachty-gras-kickoff-party",
+    title: "Yachty Gras Kick-Off Party — Lakewood Yacht Club",
+    summary: "Official Yachty Gras calendar confirms a separately ticketed January 30 kick-off party at Lakewood Yacht Club in Seabrook, rather than the February 6 public Kemah boat parade. No verified start time, ticket price or general public entry policy; check the organizer before arriving.",
+    guidePath: "/events/mardi-gras#companion-events",
+    startDate: "2027-01-30",
+    venueName: "Lakewood Yacht Club · 2322 Lakewood Yacht Club Drive",
+    city: "Seabrook",
+    countySlug: "harris",
+    countyName: "Harris County",
+    region: "gulf-coast",
+    category: "culture",
+    officialEventUrl: "https://www.yachtygras.com/events-1",
+    status: "scheduled",
+    lastVerifiedAt: "2026-10-26",
+    lastUpdatedAt: "2026-10-26",
+    sourceName: "Yachty Gras official event calendar and Lakewood Yacht Club venue address",
+  },
+  {
+    id: "curated-mardi-gras-2027:jefferson-merchandise-party",
+    slug: "jefferson-mardi-gras-tshirt-poster-party",
+    title: "Mardi Gras Upriver T-Shirt & Poster Party",
+    summary: "Krewe of Hebe schedules its January 31 merchandise and poster social at Jefferson Fire Hall from 5–7 p.m. It is a separate, smaller gathering before the February 5–7 public Mardi Gras Upriver festival.",
+    guidePath: "/events/mardi-gras#companion-events",
+    startDate: "2027-01-31",
+    startTime: "5:00 PM",
+    venueName: "Jefferson Fire Hall · across from the Transportation Building",
+    city: "Jefferson",
+    countySlug: "marion",
+    countyName: "Marion County",
+    region: "piney-woods",
+    category: "culture",
+    officialEventUrl: "https://mardigrasupriver.com/event/t-shirt-poster-party-mardi-gras-upriver-2027-krewe-of-hebe/",
+    status: "scheduled",
+    lastVerifiedAt: "2026-10-26",
+    lastUpdatedAt: "2026-10-26",
+    sourceName: "Krewe of Hebe — exact 2027 merchandise-party event page",
+  },
+  {
+    id: "curated-mardi-gras-2027:yachty-gras-awards-breakfast",
+    slug: "yachty-gras-parade-awards-breakfast",
+    title: "Yachty Gras 2027 Parade Awards Breakfast",
+    summary: "The Yachty Gras Foundation lists a February 7 parade awards breakfast at Aquarium Restaurant, distinct from the February 6 night boat parade and February 9 street parade. The published event listing does not establish a start time or public admission terms.",
+    guidePath: "/events/mardi-gras#companion-events",
+    startDate: "2027-02-07",
+    venueName: "Aquarium Restaurant · Kemah Boardwalk",
+    city: "Kemah",
+    countySlug: "galveston",
+    countyName: "Galveston County",
+    region: "gulf-coast",
+    category: "culture",
+    officialEventUrl: "https://www.yachtygras.com/events-1",
+    status: "scheduled",
+    lastVerifiedAt: "2026-10-26",
+    lastUpdatedAt: "2026-10-26",
+    sourceName: "Yachty Gras Foundation — 2027 official event calendar",
   },
 ];
 
