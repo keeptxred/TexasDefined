@@ -289,7 +289,7 @@ export function buildMajorEventTicketingMarkupServer(slug: string) {
   if (actionable.length === 1) {
     const { record, cta } = actionable[0];
     const affiliateAttributes = cta.isAffiliate
-      ? ` data-affiliate-partner="${esc(cta.provider)}" data-affiliate-placement="major-event-guide-ticket" data-commercial-partner="${esc(cta.provider)}" data-commercial-placement="major-event-guide-ticket"`
+      ? ` data-affiliate-partner="${esc(cta.provider)}" data-affiliate-placement="major-event-guide-ticket" data-affiliate-event-id=\"${esc(record.id)}\" data-commercial-partner="${esc(cta.provider)}" data-commercial-placement="major-event-guide-ticket"`
       : "";
     const disclosure = cta.disclosure
       ? `<p class="mt-3 text-xs text-muted-foreground">${esc(cta.disclosure)}</p>`
@@ -297,7 +297,7 @@ export function buildMajorEventTicketingMarkupServer(slug: string) {
     const officialPrimaryNote = slug === "big-12-football-championship"
       ? '<p class="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">The Big 12 Conference identifies SeatGeek as its official primary public ticketing channel. This Ticketmaster listing is an additional commercial option, not a representation that Ticketmaster is the conference\'s primary box office. Compare seller terms and ticket availability with the conference\'s official ticket page before purchasing.</p>'
       : "";
-    return `<section data-event-ticketing class="mt-10 border-y border-border py-8"><p class="eyebrow text-primary">Tickets</p><h2 class="mt-2 font-display text-3xl">Current ticket availability</h2><p class="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">The live event feed currently has one actionable ticket listing for ${esc(record.title)}. Checkout is handled by the ticket provider.</p><p class="mt-5"><a class="inline-flex min-h-11 items-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90" href="${esc(cta.href)}" target="_blank" rel="${esc(cta.rel)}"${affiliateAttributes}>${esc(cta.label)}</a></p>${officialPrimaryNote}${disclosure}</section>`;
+    return `<section data-event-ticketing class="mt-10 border-y border-border py-8"><p class="eyebrow text-primary">Tickets</p><h2 class="mt-2 font-display text-3xl">Check ticket options</h2><p class="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">The provider lists an event-specific ticket destination for ${esc(record.title)}. Confirm current availability, prices and fees directly with the seller; TexasDefined does not hold seats.</p><p class="mt-5"><a class="inline-flex min-h-11 items-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90" href="${esc(cta.href)}" target="_blank" rel="${esc(cta.rel)}"${affiliateAttributes}>${esc(cta.label)}</a></p>${officialPrimaryNote}${disclosure}</section>`;
   }
 
   if (actionable.length > 1) {
@@ -311,7 +311,7 @@ export function buildMajorEventTicketingMarkupServer(slug: string) {
     const last = dates.at(-1) ?? first;
     const rows = upcoming.map(({ record, cta }) => {
       const tracking = cta.isAffiliate
-        ? ` data-affiliate-partner="${esc(cta.provider)}" data-affiliate-placement="major-event-guide-session" data-commercial-partner="${esc(cta.provider)}" data-commercial-placement="major-event-guide-session"`
+        ? ` data-affiliate-partner="${esc(cta.provider)}" data-affiliate-placement="major-event-guide-session" data-affiliate-event-id=\"${esc(record.id)}\" data-commercial-partner="${esc(cta.provider)}" data-commercial-placement="major-event-guide-session"`
         : "";
       return `<li class="flex flex-col gap-2 border-b border-border py-3 sm:flex-row sm:items-center sm:justify-between"><span><strong>${esc(record.startDate)}</strong> · ${esc(record.title)}</span><a class="font-semibold text-primary underline" href="${esc(cta.href)}" target="_blank" rel="${esc(cta.rel)}"${tracking}>${esc(cta.label)}</a></li>`;
     }).join("");
