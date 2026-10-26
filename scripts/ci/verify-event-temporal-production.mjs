@@ -173,7 +173,7 @@ async function verifyDynamicCollection(collection, sitemap) {
     }).formatToParts(new Date());
     const datePart = (type) => texasParts.find((part) => part.type === type)?.value || '00';
     const texasToday = `${datePart('year')}-${datePart('month')}-${datePart('day')}`;
-    const cardTags = [...html.matchAll(/<li\\b[^>]*\\bdata-fall-end-date="[0-9]{4}-[0-9]{2}-[0-9]{2}"[^>]*>/gi)].map((match) => match[0]);
+    const cardTags = [...html.matchAll(/<li\b[^>]*\bdata-fall-end-date="[0-9]{4}-[0-9]{2}-[0-9]{2}"[^>]*>/gi)].map((match) => match[0]);
     assert(cardTags.length === count, `fall festival SSR card count ${cardTags.length} must match ${count} qualifying guides`);
     for (const tag of cardTags) {
       const end = tag.match(/data-fall-end-date="([^"]+)"/i)?.[1];
