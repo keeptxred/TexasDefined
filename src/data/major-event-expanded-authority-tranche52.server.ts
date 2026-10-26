@@ -101,7 +101,7 @@ const records: MajorEventAuthorityRecord[] = [
     endDate: "2027-02-07",
     venue: "The Alley, 113 West Austin, historic downtown Jefferson",
     officialUrl: "https://mardigrasupriver.com/events/",
-    sourceCheckedAt: "2026-10-21",
+    sourceCheckedAt: "2026-10-26",
     whyItMatters: "Jefferson's Krewe of Hebe gives East Texas a Mardi Gras weekend in a compact historic river town. The organizer confirms February 5–7, 2027, with a Viva Las Vegas theme; the earlier Queen Mab Ball is a separate January 23 occasion. Jefferson is appealing for travelers who want small-town heritage alongside the parade rather than a coastal entertainment district.",
     quickFacts: [
       {
@@ -117,6 +117,10 @@ const records: MajorEventAuthorityRecord[] = [
         value: "Queen Mab Ball, January 23, 2027"
       },
       {
+        label: "Merchandise party",
+        value: "January 31, 2027, 5–7 p.m., Jefferson Fire Hall; distinct from the February parade weekend"
+      },
+      {
         label: "Organizer",
         value: "Krewe of Hebe"
       },
@@ -128,7 +132,7 @@ const records: MajorEventAuthorityRecord[] = [
     planningSections: [
       {
         title: "Do not confuse the January ball with the February festival",
-        body: "Krewe of Hebe lists the Queen Mab Ball for January 23, the merchandise kickoff for January 31, and Mardi Gras Upriver for February 5–7. The ball has its own ticket and dress requirements; a downtown parade visitor does not automatically have ball admission."
+        body: "Krewe of Hebe lists the ticketed Queen Mab Ball for January 23; the T-Shirt & Poster Party for Sunday, January 31, 5–7 p.m. at Jefferson Fire Hall, across from the Transportation Building; and the main Mardi Gras Upriver celebration for February 5–7. These are different gatherings with different venues and access expectations; attending a public downtown parade does not imply ball admission."
       },
       {
         title: "Make the historic district your base",
@@ -176,6 +180,10 @@ const records: MajorEventAuthorityRecord[] = [
       {
         label: "Queen Mab Ball 2027 details",
         url: "https://mardigrasupriver.com/queen-mab-ball-2/"
+      },
+      {
+        label: "T-Shirt & Poster Party January 31 2027",
+        url: "https://mardigrasupriver.com/event/t-shirt-poster-party-mardi-gras-upriver-2027-krewe-of-hebe/"
       }
     ]
   },
@@ -361,7 +369,7 @@ const records: MajorEventAuthorityRecord[] = [
     dateNote: "Two separate confirmed celebrations: Yachty Gras boat parade February 6 and Grand Mardi Gras street parade February 9. These are not four days of continuous activities.",
     venue: "Kemah waterfront and Kemah Boardwalk",
     officialUrl: "https://krewedulac.net/events",
-    sourceCheckedAt: "2026-10-21",
+    sourceCheckedAt: "2026-10-26",
     whyItMatters: "Two different Kemah organizations put Carnival on the water and in the streets. Yachty Gras independently confirms its 28th annual night boat parade for February 6, 2027, while Krewe du Lac lists the Grand Mardi Gras street parade for Fat Tuesday, February 9, at Kemah Boardwalk. Plan for two separately organized parades, not a continuous four-day festival.",
     quickFacts: [
       {
@@ -383,6 +391,10 @@ const records: MajorEventAuthorityRecord[] = [
       {
         label: "Boat entry only",
         value: "$95 boat registration, mandatory skippers meeting February 6 at 10 a.m.; not a spectator ticket"
+      },
+      {
+        label: "Yachty Gras related parties",
+        value: "January 30 kick-off at Lakewood Yacht Club; February 7 boaters awards breakfast at Aquarium Restaurant; access differs from parade viewing"
       }
     ],
     planningSections: [
@@ -401,6 +413,10 @@ const records: MajorEventAuthorityRecord[] = [
       {
         title: "Do not publish tentative procession dates as confirmed",
         body: "Krewe du Lac separately notes that Krewes Into Kemah could occur on January 16 or 23 depending on Texas City's Mainland Mardi Gras parade. Neither tentative date is a confirmed public event date."
+      },
+      {
+        title: "Distinguish the private-venue companion events",
+        body: "Yachty Gras lists a January 30 kick-off gathering at Lakewood Yacht Club with its own ticket link, and a February 7 boaters awards breakfast at Aquarium Restaurant with RSVP. Neither is the February 6 public waterfront procession. Check attendance eligibility, price and start time with organizers before buying or traveling."
       },
       {
         title: "Explore the bayside setting",
@@ -426,6 +442,7 @@ const records: MajorEventAuthorityRecord[] = [
     ],
     sources: [
       { label: "Yachty Gras official 2027 boat parade, route and events", url: "https://www.yachtygras.com/" },
+      { label: "Yachty Gras 2027 kick-off and awards breakfast calendar", url: "https://www.yachtygras.com/events-1" },
       { label: "Yachty Gras 2027 boat entry fee and mandatory skipper meeting", url: "https://www.yachtygras.com/register-your-boat-1" },
       { label: "Krewe du Lac official 2027 street parade calendar", url: "https://krewedulac.net/events" }
     ]
