@@ -56,6 +56,34 @@ try {
   failures.push("live Christmas 12-show production acceptance must have valid JavaScript syntax: " + String(error.stderr || error.message));
 }
 
+const mardiGrasCompanions = read("src/data/events/mardi-gras-companion-events-2027.server.ts");
+const mardiGrasHub = read("src/routes/events.mardi-gras.lazy.tsx");
+for (const token of [
+  'getVerifiedMardiGrasCompanionCalendarEvents2027()',
+  'const knownCompanions = new Set(',
+  'knownCompanions.has(key)',
+]) requireText(adapter, token, "Mardi Gras event calendar integration");
+for (const slug of [
+  "crystal-beach-mardi-gras-chicken-run-2027",
+  "jefferson-queen-mab-ball-2027",
+  "beaumont-lagniappe-mardi-gras-soiree-2027",
+  "livingston-mardi-gras-gumbo-cookoff-2027",
+]) requireText(mardiGrasCompanions, slug, "Mardi Gras exact-event calendar record");
+if ((mardiGrasCompanions.match(/id: "curated-mardi-gras-2027:/g) ?? []).length !== 4) failures.push("2027 Mardi Gras companion calendar must include four unique curated events");
+if ((mardiGrasCompanions.match(/startTime:/g) ?? []).length !== 2) failures.push("Only the confirmed Jefferson and Beaumont companion event times may be asserted");
+for (const token of [
+  "getVerifiedMardiGrasCompanionCalendarEvents2027",
+  "2027-01-16", "2027-01-23", "2027-02-05", "2027-02-06",
+  "officialEventUrl:", "lastVerifiedAt: \"2026-10-25\"",
+]) requireText(mardiGrasCompanions, token, "Mardi Gras verified event records");
+for (const token of [
+  "Crystal Beach · Saturday, January 16 · time to reconfirm",
+  "One local calendar lists 5–8 p.m. while another lists 9:30 a.m.–5 p.m.",
+  "Two Creeks Mardi Gras Gumbo Cookoff",
+  "/events?start=2027-02-05&amp;end=2027-02-06#calendar",
+  "do not assume public walk-in admission",
+]) requireText(mardiGrasHub, token, "Mardi Gras hub current source/visitor details");
+
 const christmas = read("src/data/events/christmas-performances-2026.server.ts");
 const christmasHub = read("src/routes/events.$collection.tsx");
 const christmasIds = [...christmas.matchAll(/id: "([^"]+-2026)"/g)].map((match) => match[1]);
