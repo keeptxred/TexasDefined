@@ -4,6 +4,12 @@ import type { FootballProgramEditorial } from './program-editorial';
 const BATCH009_EDITORIAL: Record<string, FootballProgramEditorial> = {
   "canyon-west-plains": {
     "slug": "canyon-west-plains",
+    "campus": {
+        "address": "10576 Arden Road, Amarillo, TX 79119 (West Plains High campus; not football entrance)",
+        "sourceUrl": "https://wphs.canyonisd.net/our-campus",
+        "sourceLabel": "West Plains High official school campus information",
+        "verifiedAt": "2026-10-26"
+    },
     "intro": "The West Plains Wolves opened in 2022 as Canyon ISD's newer varsity football program. They are distinct from Canyon High's Eagles, compete in UIL 4A Division I District 2 in 2026 and reached the 2024 state semifinals. After founding coach Adam Cummings moved into district administration, the school promoted Jeff Lofton in May 2026.",
     "theme": {
       "accentHex": "#35516C",
@@ -97,6 +103,12 @@ const BATCH009_EDITORIAL: Record<string, FootballProgramEditorial> = {
   },
   "carrizo-springs": {
     "slug": "carrizo-springs",
+    "campus": {
+        "address": "335 FM Road 1917, Carrizo Springs, TX 78834 (high school campus, not a stadium gate)",
+        "sourceUrl": "https://cshs.cscisd.net/",
+        "sourceLabel": "Carrizo Springs High official school campus home",
+        "verifiedAt": "2026-10-26"
+    },
     "intro": "The Carrizo Springs Wildcats represent a Dimmit County UIL 3A Division I District 14 program. Carrizo Springs CISD publishes varsity schedules and district-controlled home-game tickets at Frank Carter Stadium; the page separates official athletic director information from uncertain head-coach attribution.",
     "theme": {
       "accentHex": "#785A3D",
@@ -215,7 +227,7 @@ const BATCH009_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Standridge Stadium",
-      "address": "1330 Valwood Pkwy, Carrollton, TX 75006",
+      "address": "1330 W. Valwood Pkwy, Carrollton, TX 75006",
       "sourceUrl": "https://www.cfbisd.edu/departments/athletics",
       "sourceLabel": "CFBISD official shared football stadium address",
       "verifiedAt": "2026-10-26",
@@ -315,7 +327,7 @@ const BATCH009_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Standridge Stadium",
-      "address": "1330 Valwood Pkwy, Carrollton, TX 75006",
+      "address": "1330 W. Valwood Pkwy, Carrollton, TX 75006",
       "sourceUrl": "https://www.cfbisd.edu/departments/athletics",
       "sourceLabel": "CFBISD district stadium listing",
       "verifiedAt": "2026-10-26",
@@ -415,7 +427,7 @@ const BATCH009_EDITORIAL: Record<string, FootballProgramEditorial> = {
     },
     "venue": {
       "name": "Standridge Stadium",
-      "address": "1330 Valwood Pkwy, Carrollton, TX 75006",
+      "address": "1330 W. Valwood Pkwy, Carrollton, TX 75006",
       "sourceUrl": "https://www.cfbisd.edu/departments/athletics",
       "sourceLabel": "Official CFBISD district stadium",
       "verifiedAt": "2026-10-26",
