@@ -1297,6 +1297,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "Keller's official 2026 city calendar confirms Holly Days Friday December 4, 5–9 p.m. The event program features The Very Merry Light Parade, Santa photos and town Christmas tree lighting. Check the city's posted route and parking advisories before travel."
   },
   {
+    "slug": "league-city-holiday-in-the-park-2026",
+    "title": "League City Holiday in the Park · 2026 festival and parades",
+    "city": "League City",
+    "countySlug": "galveston",
+    "countyName": "Galveston County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-04",
+    "endDate": "2026-12-06",
+    "venueName": "League Park · 512 2nd Street",
+    "officialEventUrl": "https://theleaguecityproudorg.com/hitp-schedule-of-events",
+    "sourceName": "League City Proud Organization official 2026 schedule",
+    "summary": "The League City Proud Organization confirms December 4–6, 2026 for free Holiday in the Park at League Park. Friday brings the vendor market and movie night; Saturday includes a 10 a.m. children's parade and the Grand Night Parade starting about 6:30 p.m.; Sunday's schedule includes the Extraordinary Individuals and pet parades. Vendor shopping and food are optional purchases, not admissions."
+  },
+  {
     "region": "prairies-lakes",
     "city": "Lewisville",
     "countySlug": "denton",
@@ -1758,6 +1772,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.navasotaisd.org/apps/events/2026/12/?id=0&id=11&id=12",
     "sourceName": "Navasota Independent School District public city event calendar",
     "summary": "The Navasota ISD official community calendar lists the City of Navasota Home for the Holidays Christmas Parade for Saturday December 5, 2026, 6–8 p.m. The source confirms date and event identity but not the detailed downtown route or organizer ticketing; verify road closures before travel."
+  },
+  {
+    "slug": "pasadena-holiday-lighted-parade-2026",
+    "title": "Pasadena 18th Annual Holiday Lighted Parade",
+    "city": "Pasadena",
+    "countySlug": "harris",
+    "countyName": "Harris County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-05",
+    "venueName": "Fairmont Parkway · Mickey Gilley Boulevard to Burke Road",
+    "officialEventUrl": "https://www.pasadenatx.gov/869/Christmas-in-Pasadena",
+    "sourceName": "City of Pasadena 2026 holiday event announcement",
+    "summary": "Pasadena and its Strawberry Festival organizers confirm the 18th annual Holiday Lighted Parade Saturday December 5, 2026 at 7 p.m. along Fairmont Parkway between Mickey Gilley Boulevard and Burke Road. The parade is free for spectators. This is separate from the city's Christmas tree-lighting celebration."
   },
   {
     "slug": "pearland-hometown-christmas-parade-2026",
@@ -2437,6 +2464,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "Vision Lampasas confirms Saturday December 12, 2026, 5–8 p.m. for Christmas on the Creek, including Santa's Village, hot cocoa, a snow machine and lighted park attractions. The outdoor creek lights may continue beyond the event, but no unverified end date is listed as another calendar entry."
   },
   {
+    "slug": "pasadena-christmas-market-2026",
+    "title": "Pasadena Christmas Market · 2026 local vendors",
+    "city": "Pasadena",
+    "countySlug": "harris",
+    "countyName": "Harris County",
+    "region": "gulf-coast",
+    "startDate": "2026-12-12",
+    "venueName": "Pasadena Convention Center & Fairgrounds · 7902 Fairmont Parkway",
+    "officialEventUrl": "https://www.pasadenatx.gov/Calendar.aspx?EID=3116",
+    "sourceName": "City of Pasadena 2026 events calendar / Pasadena MRKT",
+    "summary": "The City of Pasadena's event calendar confirms Saturday December 12, 2026 from 9 a.m.–5 p.m. at the Pasadena Fairgrounds for the Pasadena Christmas Market, with more than 100 advertised local vendors, food trucks, music and Santa photos. Admission and parking are free; purchases from independent vendors cost extra. This is not the December 5 lighted parade."
+  },
+  {
     "slug": "pearland-tour-de-lites-2026",
     "title": "Pearland Tour De Lites · holiday bicycle lights tour",
     "city": "Pearland",
@@ -2959,7 +2999,7 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "sourceName": "City of Baytown Parks & Recreation",
     "summary": "Baytown Holiday Hangout's 2026–27 season offers Town Square Christmas lights, outdoor skating, a hay maze, games and photo displays. The official city calendar lists Monday–Thursday 4–9 p.m. and Friday–Sunday 2–9 p.m. This source-qualified operating window excludes ALL announced closures: December 24–25, December 31 and January 1. Skating may have separate admission charges; check the organizer for attraction pricing."
   }
-];;;;;;;;;;;;;;;;;;;
+];;;;;;;;;;;;;;;;;;;;
 
 // Reuse comprehensive guides where they exist. The dated occurrence remains
 // an independent calendar record, so closing days are never falsely listed.
