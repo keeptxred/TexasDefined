@@ -989,7 +989,8 @@
       "intakeId": 119,
       "title": "Pasadena Holiday Festival",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "Pasadena's city calendar separately confirms Dec 5 lighted parade and Dec 12 Christmas Market; the intake's generic 'Pasadena Holiday Festival' name is not verified as a third distinct event."
     },
     {
       "intakeId": 120,
@@ -1040,13 +1041,15 @@
       "intakeId": 125,
       "title": "League City Holiday Magic",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "League City Proud confirms Holiday in the Park Dec 4–6 including the Dec 5 Grand Night Parade; the submitted 'Holiday Magic' name is not verified as an additional event."
     },
     {
       "intakeId": 126,
       "title": "Friendswood Santa in the Park",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "Friendswood official event page still lacks a complete 2026 schedule; do not invent Santa in the Park dates from unofficial or stale listings."
     },
     {
       "intakeId": 127,
