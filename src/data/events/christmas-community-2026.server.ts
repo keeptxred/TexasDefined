@@ -194,6 +194,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The indoor Woodlands Ice Rink operates November 20, 2026–January 18, 2027 in timed skating sessions. Book an admission time; this is not an outdoor rink. The visitor bureau advertises a separate qualifying hotel Stay & Skate offer, with participation rules set by each hotel."
   },
   {
+    "slug": "colleyville-2026-christmas-tree-lighting",
+    "title": "Colleyville Christmas Tree Lighting Celebration",
+    "city": "Colleyville",
+    "countySlug": "tarrant",
+    "countyName": "Tarrant County",
+    "region": "prairies-lakes",
+    "startDate": "2026-11-21",
+    "venueName": "Heroes Park at Colleyville City Hall",
+    "officialEventUrl": "https://www.colleyville.com/residents/special-events",
+    "sourceName": "City of Colleyville Special Events",
+    "summary": "The City of Colleyville confirms Saturday November 21, 2026, 5:30–8:30 p.m. for its Christmas Tree Lighting Celebration at Heroes Park by City Hall. Visitors can check the official city event schedule for Santa appearances, entertainment, parking and evening tree lighting details."
+  },
+  {
     "slug": "el-paso-winterfest-lights",
     "title": "El Paso WinterFest · downtown lights and holiday attractions",
     "city": "El Paso",
@@ -997,6 +1010,20 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The City of Seguin confirms Thursday December 3, 2026 at 6:30 p.m. for the more than 100-entry lighted Holiday Stroll Parade. Downtown decorations illuminate at the conclusion, with a separate Santa photo opportunity. Street closures and parade registration are governed by the city."
   },
   {
+    "slug": "lockhart-2026-christmas-to-remember",
+    "title": "A Christmas to Remember in Lockhart",
+    "city": "Lockhart",
+    "countySlug": "caldwell",
+    "countyName": "Caldwell County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-04",
+    "endDate": "2026-12-05",
+    "venueName": "Dr. Eugene Clark Library and Downtown Lockhart · 217 Main Street",
+    "officialEventUrl": "https://discoverlockharttx.org/event/4774",
+    "sourceName": "Discover Lockhart / City of Lockhart community partners",
+    "summary": "Discover Lockhart's official community event page confirms Friday December 4–Saturday December 5, 2026 for A Christmas to Remember at the historic Dr. Eugene Clark Library and downtown, with free family holiday programs, crafts, Santa, petting zoo, choirs and music. The listing gives a Friday 6 p.m. start but not all Saturday activity hours; check the local organizer rather than assuming a two-day continuous schedule."
+  },
+  {
     "slug": "abilene-winter-lightfest-week1",
     "title": "Abilene Winter Lightfest · December 4–6",
     "city": "Abilene",
@@ -1373,6 +1400,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The city confirms Saturday December 5, 2026, 7–11 a.m. for Santa's Breakfast at Russell Farm, with a sensory-friendly 7–8 a.m. hour and 30-minute reservation slots. Tickets are $5 for children ages 3–12, $7 for ages 13+ and free for under 2. Limited capacity means advance registration is recommended."
   },
   {
+    "slug": "forney-2026-christmas-on-main",
+    "title": "City of Forney Christmas on Main Holiday Market",
+    "city": "Forney",
+    "countySlug": "kaufman",
+    "countyName": "Kaufman County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-05",
+    "venueName": "Downtown Forney · 101 E Main Street",
+    "officialEventUrl": "https://forneyartscouncil.squarespace.com/news/2026/call-for-vendors-2026-city-of-forney-christmas-on-main",
+    "sourceName": "Forney Arts Council / City of Forney 2026 vendor announcement",
+    "summary": "Forney Arts Council and the City of Forney confirm Christmas on Main for Saturday December 5, 2026, noon–5 p.m. at 101 E Main Street, with a curated artist and handmade-gift vendor market. The source establishes event hours and crafts, not an independently dated 'Christmas in the Park' attraction, so do not merge the two names."
+  },
+  {
     "slug": "college-station-christmas-in-park-festival-2026",
     "title": "College Station Christmas in the Park · festival night",
     "city": "College Station",
@@ -1465,6 +1505,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "officialEventUrl": "https://www.gruenetexas.com/kringle-photos/",
     "sourceName": "Historic Gruene / Cowboy Kringle",
     "summary": "The official 2026 Cowboy Kringle dates include this operating weekend. Photos are appointment-only, with advance booking required; walk-up visits are not guaranteed. This is a separate attraction from Gruene Hall ticketed shows."
+  },
+  {
+    "slug": "kaufman-2026-christmas-on-the-square",
+    "title": "Kaufman Christmas on the Square 2026",
+    "city": "Kaufman",
+    "countySlug": "kaufman",
+    "countyName": "Kaufman County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-05",
+    "venueName": "Downtown Kaufman Square · Washington Street and City Hall",
+    "officialEventUrl": "https://www.kaufmantx.org/2352/Christmas-on-the-Square",
+    "sourceName": "City of Kaufman",
+    "summary": "The City of Kaufman confirms Saturday December 5, 2026, noon–8 p.m. for its annual Christmas on the Square with free-to-attend holiday market and kids' activities. The 6 p.m. lighted parade travels from South Washington Street toward Shannon Park, followed by 7 p.m. Christmas tree lighting and Santa photos at City Hall. Optional vendors and food cost extra."
   },
   {
     "slug": "kemah-cocoa-cookies-stroll-2026-2",
@@ -2302,6 +2355,19 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "Six Flags Holiday in the Park is ticketed and runs selected 2026 dates. This window follows Visit San Antonio's day-by-day list rather than assuming daily park operation. Current park admission covers many shows and select rides; extras cost more. The December 26–New Year program has separate scheduling."
   },
   {
+    "slug": "terrell-2026-christmas-parade",
+    "title": "Terrell Stanley Ballard Sr. Christmas Parade 2026",
+    "city": "Terrell",
+    "countySlug": "kaufman",
+    "countyName": "Kaufman County",
+    "region": "prairies-lakes",
+    "startDate": "2026-12-12",
+    "venueName": "Downtown Terrell · Moore Avenue from Ninth Street to Adelaide Street",
+    "officialEventUrl": "https://business.terrelltexas.com/events/details/terrell-christmas-parade-5065134",
+    "sourceName": "Terrell Chamber of Commerce",
+    "summary": "Terrell Chamber confirms the Saturday December 12, 2026 Christmas Parade runs 10–11 a.m. along Moore Avenue from Ninth Street to Adelaide. The $10–$25 charges listed on the source page are participant FLOAT ENTRY fees, not a spectator admission price. The parade is not rescheduled in bad weather."
+  },
+  {
     "slug": "allen-chicken-n-pickle-holiday-market-2026",
     "title": "Allen Holiday Market at Chicken N Pickle",
     "city": "Allen",
@@ -2701,7 +2767,7 @@ const verifiedOccurrences: ReadonlyArray<Pick<TexasEventRecord,
     "summary": "The final five January evenings of the 2026–27 Marktplatz lighting program; December 31 is omitted because the special New Year's Eve event replaces the regular countdown.",
     "endDate": "2027-01-05"
   }
-];;;;;;;;;;;;;;
+];;;;;;;;;;;;;;;;
 
 // Reuse comprehensive guides where they exist. The dated occurrence remains
 // an independent calendar record, so closing days are never falsely listed.
