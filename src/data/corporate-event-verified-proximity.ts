@@ -1,5 +1,6 @@
 import type { CorporateEventProvider } from './corporate-events';
 import { corporateEventOfficialDomainMatches } from './corporate-event-offer-provenance.ts';
+import { corporateEventTexasToday } from './corporate-event-dates.ts';
 
 /**
  * Evidence-backed point for either a provider entrance/parcel or an official
@@ -40,10 +41,13 @@ const realCalendarDay = (value: string) => {
 /** A Census homepage or geocoder interpolation is NOT proof of ZCTA coordinates.
  * Require the original national ZCTA Gazetteer archive for the stated vintage.
  */
-const officialCensusZctaArchive = (url: URL) =>
-  url.hostname.toLowerCase() === 'www2.census.gov'
-  && /^\/geo\/docs\/maps-data\/data\/gazetteer\/(20\d{2})_Gazetteer\/\1_Gaz_zcta_national\.zip$/.test(url.pathname)
-  && !url.search;
+const officialCensusZctaArchive = (url: URL, verifiedOn: string) => {
+  const vintage = url.pathname.match(/^\/geo\/docs\/maps-data\/data\/gazetteer\/(20\d{2})_Gazetteer\/\1_Gaz_zcta_national\.zip$/);
+  return url.hostname.toLowerCase() === 'www2.census.gov'
+    && !url.search && !!vintage
+    // Never credit evidence to a publication vintage later than its review.
+    && vintage[1] <= verifiedOn.slice(0, 4);
+};
 
 
 /** Reject unsourced, future-dated, imprecise or implausible coordinates. */
@@ -54,6 +58,9 @@ export function validVerifiedCorporateEventPoint(
   officialVenueUrl?: string,
 ) {
   if (!point || !bounded(point.latitude, 25.8, 36.6) || !bounded(point.longitude, -106.7, -93.4)) return false;
+  // A caller-supplied future as-of day must not authorize future-dated evidence.
+  if (!realCalendarDay(asOf) || asOf > corporateEventTexasToday()
+    || !realCalendarDay(point.verifiedOn) || point.verifiedOn > asOf) return false;
   if (expected === 'venue' && !['venue-entrance', 'venue-premises'].includes(point.precision)) return false;
   if (expected === 'zcta' && point.precision !== 'zcta-representative') return false;
   try {
@@ -63,7 +70,7 @@ export function validVerifiedCorporateEventPoint(
     if (expected === 'zcta') {
       // ZCTA representative points must originate from the official U.S.
       // Census domain, never an arbitrary HTTPS third-party map result.
-      if (!officialCensusZctaArchive(source)) return false;
+      if (!officialCensusZctaArchive(source, point.verifiedOn)) return false;
     } else {
       // A geocoded address-range or third-party map share is not an
       // independently confirmed entrance/premises. The coordinate evidence
@@ -71,8 +78,7 @@ export function validVerifiedCorporateEventPoint(
       if (!officialVenueUrl || !corporateEventOfficialDomainMatches(point.sourceUrl, officialVenueUrl)) return false;
     }
   } catch { return false; }
-  return realCalendarDay(point.verifiedOn) && realCalendarDay(asOf)
-    && point.verifiedOn <= asOf;
+  return true;
 }
 
 function degreesToRadians(n: number) { return n * Math.PI / 180; }
