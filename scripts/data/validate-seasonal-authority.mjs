@@ -41,6 +41,13 @@ for (const [group, slugs] of Object.entries(groups)) {
   }
 }
 
+// The live Hill Country article renders its own embedded internalLinks.
+// Supplemental discovery links alone do not guarantee a visible reciprocal link.
+const hillCountryInternalLinks = intents.split('slug: "hill-country-fall-colors"')[1]?.split("body: [")[0] ?? "";
+if (!hillCountryInternalLinks.includes('href: "/article/east-texas-fall-colors"')) {
+  fail("Hill Country must render a direct East Texas reciprocal link");
+}
+
 // Protect the Hill Country fall guide from accidentally reusing a green park photo.
 // Both list/discovery and the full article must share the same verified autumn hero.
 for (const [name, source] of [["full article", intents], ["discovery stub", intentLazy]]) {
