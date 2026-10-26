@@ -60,8 +60,9 @@ export const majorEventSchemaEnrichmentBatch6: MajorEventSchemaEnrichment[] = [
     sources: [
       { label: "Mardi Gras! Galveston official site", url: "https://www.mardigrasgalveston.com/" },
       { label: "Mardi Gras! Galveston official 2027 parade schedule", url: "https://www.mardigrasgalveston.com/parade-schedule/" },
+      { label: "Mardi Gras! Galveston official ticket and free-admission FAQ", url: "https://www.mardigrasgalveston.com/faqs/" },
     ],
-    verifiedAt: "2026-10-21",
+    verifiedAt: "2026-10-26",
   },
   {
     slug: "texas-state-forest-festival",
