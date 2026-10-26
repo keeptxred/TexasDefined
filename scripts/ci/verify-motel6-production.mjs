@@ -43,14 +43,21 @@ const script = await read(scriptPath, true);
 mustContain(script, [
   'const CJ_PUBLISHER_ID = "101876465"',
   'const MOTEL6_STANDARD_AID = "17198227"',
-  'const MOTEL6_HALLOWEEN_AID = "17371482"',
-  '2026-11-01T05:00:00Z',
   'function motel6Eligible(',
-  'function motel6CampaignActive(',
   'function createMotel6Link(',
   'dataLayer.push(detail)',
   'sponsored nofollow noopener noreferrer',
 ], 'Live Motel 6 static affiliate bootstrap');
+if (script.includes('MOTEL6_HALLOWEEN_AID')) {
+  mustContain(script, [
+    'const MOTEL6_HALLOWEEN_AID = "17371482"',
+    '2026-11-01T05:00:00Z',
+    'function motel6CampaignActive(',
+  ], 'Bounded Halloween campaign prior to source cleanup');
+} else if (/17371482|Trip and Treat|MOTEL6_CAMPAIGN_/.test(script)) {
+  throw new Error('Expired Motel 6 special left behind after source cleanup');
+}
+
 
 for (const bust of [false, true]) {
   const html = await read(footballPath, bust);
