@@ -24,17 +24,10 @@ const RVSHARE_DESTINATION = 'https://rvshare.com/';
 const RVSHARE_AFFILIATE_URL = `https://www.anrdoezrs.net/links/${HOTEL_CJ_PUBLISHER_ID}/type/dlg/${encodeURI(RVSHARE_DESTINATION)}`;
 
 function isVerifiedProductUrl(offer: Offer) {
-  try {
-    const parsed = new URL(offer.trackedUrl);
-    // Rexing is approved; merchant-specific tracked links still require proof.
-    // Add other merchants only after explicit CJ approval and Get Link review.
-    return offer.partner === 'rexing' &&
-      parsed.protocol === 'https:' &&
-      parsed.hostname === 'www.anrdoezrs.net' &&
-      parsed.pathname.startsWith(`/links/${HOTEL_CJ_PUBLISHER_ID}/type/dlg/https://rexing.com/`);
-  } catch {
-    return false;
-  }
+  // The exact prefix enforces HTTPS, the CJ host, our publisher ID, and Rexing.
+  // Do not add retailers without account approval and verified Get Link output.
+  return offer.partner === 'rexing' &&
+    offer.trackedUrl.startsWith(`https://www.anrdoezrs.net/links/${HOTEL_CJ_PUBLISHER_ID}/type/dlg/https://rexing.com/`);
 }
 
 export function FootballFanOffers({ slug, hasUpcomingAwayTravel, showTravelPlanning = false }: { slug: string; hasUpcomingAwayTravel: boolean; showTravelPlanning?: boolean }) {
