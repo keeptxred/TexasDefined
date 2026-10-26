@@ -67,6 +67,9 @@ for (const needle of [
   "exactShowtime.length === 1",
 
   "officialEventUrl: show.sourceUrl",
+  "officialTicketUrl: show.featuredTicketUrl ?? show.sourceUrl",
+  "!featuredDatePassed && show.featuredTicketUrl ? show.featuredTicketUrl : show.sourceUrl",
+  "https://www.etix.com/ticket/p/62230269/a-christmas-story-conroe-crighton-theatre",
   'saleStatus: "unknown"',
   'category: theatreIds.has(show.id) ? "culture" : "music"',
 ]) requireText(christmas, needle, "curated Christmas calendar projection");
