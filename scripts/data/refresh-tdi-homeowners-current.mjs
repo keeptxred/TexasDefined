@@ -4,7 +4,7 @@ import path from 'node:path';
 
 const OUTPUT = 'src/data/generated/tdi-homeowners-current.json';
 const BRIDGE = 'src/data/texas-data-center.ts';
-const SOURCE = 'https://www.tdi.texas.gov/general/texas-homeowners-insurance-market-overview.html';
+const SOURCE = 'https://tdi.texas.gov/general/texas-homeowners-insurance-market-overview.html';
 
 export function extractTdiRows(html) {
   if (!/Texas homeowners insurance market overview/i.test(html) ||
