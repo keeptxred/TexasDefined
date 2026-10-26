@@ -18,10 +18,13 @@ const component = read("src/components/events/EventTicketCta.tsx");
 const carousel = read("src/components/editorial/TexasEventCarousel.tsx");
 const landing = read("src/components/events/EventsLandingPage.tsx");
 const majorEventPage = read("src/data/major-event-page.server.ts");
+const metroEventPage = read("src/routes/explore.near.$metro.$collection.lazy.tsx");
+
 const siteAnalytics = read("src/platform/analytics.ts");
 requireText(siteAnalytics, "stepId: anchor.dataset.affiliateEventId", "first-party event-specific commercial click attribution");
 const docs = read("docs/event-ticketing-provider-architecture.md");
 const affiliateClick = read("src/lib/affiliate-click.ts");
+requireText(metroEventPage, '<EventTicketCta cta={event.ticketCta} eventId={event.id}', "metro guides must attribute sponsored ticket clicks to exact event");
 requireText(affiliateClick, "affiliate_event_id: eventId", "event-specific affiliate click attribution");
 
 for (const provider of ["official", "ticketmaster", "ticketweb", "live-nation", "etix", "axs", "eventbrite", "seatgeek", "vivid-seats", "other"]) requireText(contract, `\"${provider}\"`, "provider contract");
