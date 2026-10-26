@@ -77,6 +77,9 @@ jobs:
       - name: Test safe public ticket link probes
         run: node --test scripts/events/verify-ticketmaster-link-batch.test.mjs
 
+      - name: Test governed event refresh conflict preservation
+        run: node --test scripts/events/reconcile-ticketing-refresh-conflicts.test.mjs
+
       - name: Check the next 40 verified-provider event destinations
         run: node scripts/events/verify-ticketmaster-link-batch.mjs
 
