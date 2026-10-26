@@ -6,6 +6,8 @@ on:
       - 'scripts/ci/verify-event-temporal-production.mjs'
       - '.github/workflows/verify-event-temporal-production.yml'
       - 'src/data/event-temporal-collections.server.ts'
+      - 'src/data/fall-festival-official-picks.server.ts'
+      - 'scripts/data/fall-festival-freshness.test.mjs'
       - 'src/data/texas-this-weekend.server.ts'
       - 'src/data/event-collection-page.server.ts'
       - 'src/routes/events.$collection.tsx'
@@ -31,6 +33,7 @@ jobs:
         with:
           node-version: 22
       - run: node --check scripts/ci/verify-event-temporal-production.mjs
+      - run: node --experimental-strip-types --test scripts/data/fall-festival-freshness.test.mjs
 
   verify:
     if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
@@ -49,6 +52,9 @@ jobs:
 
       - name: Syntax-check temporal Event verifier
         run: node --check scripts/ci/verify-event-temporal-production.mjs
+
+      - name: Check local fall festival expiry and season contract
+        run: node --experimental-strip-types --test scripts/data/fall-festival-freshness.test.mjs
 
       - name: Verify temporal Event production surfaces
         env:

@@ -1,4 +1,5 @@
 import { Link, createFileRoute, notFound } from "@tanstack/react-router";
+import { useState } from "react";
 
 import bigBend from "@/assets/big-bend.jpg";
 import caddoLake from "@/assets/caddo-lake.jpg";
@@ -156,6 +157,105 @@ function WeekendCollectionPage({ page }: { page: any }) {
   </main>;
 }
 
+function FallFestivalBrowser({ page }: { page: any }) {
+  const [region, setRegion] = useState("all");
+  const [month, setMonth] = useState("all");
+  const [category, setCategory] = useState("all");
+  const year = String(page.dateContext?.match(/20\\d{2}/)?.[0] ?? page.fallToday?.slice(0, 4) ?? "");
+  const regions: Record<string, string> = {
+    "gulf-coast": "Gulf Coast & Houston",
+    "hill-country": "Hill Country & Central Texas",
+    "prairies-lakes": "North Texas & Prairies",
+    "piney-woods": "East Texas & Piney Woods",
+    "south-texas": "South Texas",
+    "panhandle": "Panhandle & High Plains",
+    "big-bend": "West Texas & Big Bend",
+  };
+  const events = (page.items as Array<any>).filter((event) => {
+    if (region !== "all" && event.region !== region) return false;
+    if (category !== "all" && event.category !== category) return false;
+    if (month !== "all" && year) {
+      const beginning = `${year}-${month}-01`;
+      const ending = `${year}-${month}-31`;
+      if (event.startDate > ending || (event.endDate ?? event.startDate) < beginning) return false;
+    }
+    return true;
+  });
+  const resetFilters = () => { setRegion("all"); setMonth("all"); setCategory("all"); };
+
+  return <section className="pt-12" aria-labelledby="fall-festival-results">
+    <div className="flex flex-wrap items-end justify-between gap-4 border-b border-border pb-6">
+      <div><p className="eyebrow text-primary">Current season · automatic expiration</p><h2 id="fall-festival-results" className="mt-2 font-display text-4xl">Upcoming Texas fall festivals</h2></div>
+      <a href="/events/this-weekend" className="text-sm font-semibold text-primary">Events this weekend →</a>
+    </div>
+    <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">
+      Past dates disappear automatically at the end of each event's Texas-local day. Christmas lights and other winter events belong in the separate holiday calendar. Only current source-checked, year-specific festival occurrences qualify below; an annual tradition is not evidence of next year's dates.
+    </p>
+    {page.fallOfficialPicks?.length ? <aside className="mt-8 border border-border bg-surface p-5 sm:p-7" aria-label="More source-confirmed fall festival dates">
+      <p className="eyebrow text-primary">Additional official-source calendars</p>
+      <h3 className="mt-2 font-display text-2xl">Pumpkin patches and fall outings still on the calendar</h3>
+      <p className="mt-2 text-sm leading-6 text-muted-foreground">These organizers have published 2026 schedules. Listings disappear after their final date; links go directly to the organizer rather than being counted as TexasDefined permanent guides or affiliate ticket offers.</p>
+      <div className="mt-5 grid gap-4 md:grid-cols-3">
+        {page.fallOfficialPicks.map((event: any) => <article key={event.name} className="border-t border-border pt-4">
+          <p className="text-xs font-semibold uppercase tracking-wide text-primary">{holidayDateLabel(event.startDate, event.endDate)}</p>
+          <h4 className="mt-2 font-display text-xl">{event.name}</h4>
+          <p className="mt-1 text-sm font-medium">{event.city}, Texas</p>
+          <p className="mt-3 text-sm leading-6 text-muted-foreground">{event.summary}</p>
+          <a href={event.officialUrl} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block text-sm font-semibold text-primary underline">Check official hours and admission ↗</a>
+          <p className="mt-2 text-xs text-muted-foreground">Official schedule checked {event.sourceCheckedAt}</p>
+        </article>)}
+      </div>
+    </aside> : null}
+    <div className="mt-8 grid gap-4 sm:grid-cols-3" aria-label="Festival filters">
+      <label className="text-sm font-semibold">Region
+        <select aria-label="Filter festivals by Texas region" value={region} onChange={(e) => setRegion(e.target.value)} className="mt-2 block w-full rounded-none border border-border bg-background p-3 text-sm">
+          <option value="all">All Texas regions</option>
+          {Object.entries(regions).map(([key, label]) => <option key={key} value={key}>{label}</option>)}
+        </select>
+      </label>
+      <label className="text-sm font-semibold">Month
+        <select aria-label="Filter festivals by month" value={month} onChange={(e) => setMonth(e.target.value)} className="mt-2 block w-full rounded-none border border-border bg-background p-3 text-sm">
+          <option value="all">All remaining fall dates</option><option value="09">September</option><option value="10">October</option><option value="11">November</option>
+        </select>
+      </label>
+      <label className="text-sm font-semibold">Festival type
+        <select aria-label="Filter festivals by type" value={category} onChange={(e) => setCategory(e.target.value)} className="mt-2 block w-full rounded-none border border-border bg-background p-3 text-sm">
+          <option value="all">All festival types</option><option value="seasonal">Harvest & seasonal</option><option value="food">Food & drink</option><option value="music">Live music</option><option value="culture">Arts & culture</option><option value="rodeo">Fairs & rodeos</option>
+        </select>
+      </label>
+    </div>
+    <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
+      <p className="text-sm text-muted-foreground" role="status" aria-live="polite">{events.length} upcoming or ongoing verified {events.length === 1 ? "guide" : "guides"} match your filters.</p>
+      {(region !== "all" || month !== "all" || category !== "all") && <button type="button" onClick={resetFilters} className="text-sm font-semibold text-primary underline">Clear filters</button>}
+    </div>
+    {events.length ? <ul className="mt-6 grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
+      {events.map((event) => <li key={event.slug} data-fall-start-date={event.startDate} data-fall-end-date={event.endDate ?? event.startDate} data-fall-name={event.name} className="bg-background p-6">
+        {events.indexOf(event) < 6 ? <WeekendEventImage event={event} eager={false} /> : null}
+        <p className="eyebrow mt-4 text-muted-foreground">{event.city}{event.countyName ? ` · ${event.countyName}` : ""}</p>
+        <p className="mt-2 text-xs font-semibold uppercase text-primary">{event.startDate <= page.fallToday ? "Season underway · check operating days" : "Upcoming"} · {holidayDateLabel(event.startDate, event.endDate)}</p>
+        <h3 className="mt-3 font-display text-2xl leading-tight"><EventGuideLink event={event} className="hover:text-primary">{event.name}</EventGuideLink></h3>
+        <p className="mt-3 text-sm leading-6 text-muted-foreground">{event.detail}</p>
+        <EventGuideLink event={event} className="mt-5 inline-block text-sm font-semibold text-primary">Event guide & official sources →</EventGuideLink>
+      </li>)}
+    </ul> : <p className="mt-6 border border-border p-8 text-sm leading-7 text-muted-foreground">No confirmed fall festival guides match those filters. Try another region or month, or browse the <a href="/events" className="text-primary underline">full Texas calendar</a>. We do not invent dates to fill an empty list.</p>}
+    <aside className="mt-8 grid gap-6 border-y border-border py-7 lg:grid-cols-2">
+      <div>
+        <p className="eyebrow text-primary">Stay near the festival</p>
+        <h3 className="mt-2 font-display text-2xl">Turn a festival into a weekend</h3>
+        <p className="mt-2 text-sm leading-6 text-muted-foreground">Confirm the event's operating day and city, then compare nearby rooms. Hotel reservations are separate from event admission.</p>
+        <a href="https://www.anrdoezrs.net/links/101876465/type/dlg/https://www.hotels.com/" rel="sponsored nofollow noopener noreferrer" data-affiliate-partner="hotels.com" data-affiliate-placement="fall-festival-hotel-search" data-commercial-partner="hotels.com" data-commercial-placement="fall-festival-hotel-search" target="_blank" className="mt-4 inline-block text-sm font-semibold text-primary underline">Compare hotels on Hotels.com ↗</a>
+        <p className="mt-2 text-xs text-muted-foreground">Affiliate disclosure: TexasDefined may earn a commission on qualifying bookings.</p>
+      </div>
+      <div>
+        <p className="eyebrow text-primary">More seasonal events</p>
+        <h3 className="mt-2 font-display text-2xl">Looking for holiday lights instead?</h3>
+        <p className="mt-2 text-sm leading-6 text-muted-foreground">Christmas train rides, holiday lights and winter markets are organized separately so fall festival results stay relevant.</p>
+        <a href="/events/christmas-events" className="mt-4 inline-block text-sm font-semibold text-primary underline">Browse Texas Christmas & holiday events →</a>
+      </div>
+    </aside>
+  </section>;
+}
+
 function GenericCollectionPage({ page }: { page: any }) {
   const isTournamentCollection = page.kind === "tournament";
   const isTournamentHub = page.path === "/events/tournaments";
@@ -290,10 +390,11 @@ function GenericCollectionPage({ page }: { page: any }) {
         </section>
       ) : null}
 
-      <section className="pt-12">
+      {page.path === "/events/fall-festivals" ? <FallFestivalBrowser page={page} /> : null}
+      {page.path === "/events/fall-festivals" ? null : <section className="pt-12">
         <div className="flex flex-wrap items-end justify-between gap-4 border-b border-border pb-6"><div><p className="eyebrow text-primary">{page.itemsEyebrow}</p><h2 className="mt-2 font-display text-4xl">{page.itemsTitle}</h2></div><a href="/events" className="text-sm font-semibold text-primary">Full Texas calendar →</a></div>
-        {page.items.length ? <ul className="grid gap-px border-x border-b border-border bg-border sm:grid-cols-2 lg:grid-cols-3">{page.items.map((event: any) => <li key={event.slug} className="bg-background p-6"><p className="eyebrow text-muted-foreground">{event.city}{event.countyName ? ` · ${event.countyName}` : ""}</p><h3 className="mt-3 font-display text-2xl leading-tight">{isTournamentCollection ? event.name : <EventGuideLink event={event} className="hover:text-primary">{event.name}</EventGuideLink>}</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{event.detail}</p>{isTournamentCollection ? <a href={event.href} className="mt-5 inline-block text-sm font-semibold text-primary">{isTournamentHub ? "Browse category →" : "Tournament directory →"}</a> : <EventGuideLink event={event} className="mt-5 inline-block text-sm font-semibold text-primary">Open guide →</EventGuideLink>}</li>)}</ul> : <p className="border-x border-b border-border p-8 text-sm leading-7 text-muted-foreground">{page.emptyMessage}</p>}
-      </section>
+        {page.path === "/events/fall-festivals" ? null : page.items.length ? <ul className="grid gap-px border-x border-b border-border bg-border sm:grid-cols-2 lg:grid-cols-3">{page.items.map((event: any) => <li key={event.slug} className="bg-background p-6"><p className="eyebrow text-muted-foreground">{event.city}{event.countyName ? ` · ${event.countyName}` : ""}</p><h3 className="mt-3 font-display text-2xl leading-tight">{isTournamentCollection ? event.name : <EventGuideLink event={event} className="hover:text-primary">{event.name}</EventGuideLink>}</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{event.detail}</p>{isTournamentCollection ? <a href={event.href} className="mt-5 inline-block text-sm font-semibold text-primary">{isTournamentHub ? "Browse category →" : "Tournament directory →"}</a> : <EventGuideLink event={event} className="mt-5 inline-block text-sm font-semibold text-primary">Open guide →</EventGuideLink>}</li>)}</ul> : <p className="border-x border-b border-border p-8 text-sm leading-7 text-muted-foreground">{page.emptyMessage}</p>}
+      </section>}
 
       <section className="pt-12"><p className="eyebrow text-primary">Keep exploring</p><h2 className="mt-2 font-display text-3xl">Related Texas event guides</h2><div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">{page.relatedCollections.map((item: any) => <a key={item.path} href={item.path} className="border border-border p-5 hover:border-primary"><strong className="font-display text-xl">{item.title}</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">{item.description}</span></a>)}<a href="/events" className="border border-border p-5 hover:border-primary"><strong className="font-display text-xl">Texas Events</strong><span className="mt-2 block text-sm leading-6 text-muted-foreground">Browse the statewide calendar and all verified event guides.</span></a></div></section>
     </Container>
