@@ -415,6 +415,11 @@ for (const [slug, markers] of [
 }
 
 // Do not turn explicitly partial closures into whole-park shutdowns.
+// A valid local TPWD override must also run in the final route loader, after
+// remotely sourced destination query data, on both SSR and client navigation.
+const destinationDetailRoute = read("src/routes/destination.$slug.tsx");
+assertContains(destinationDetailRoute, 'destination = applySixLaterTPWDAuthorities(destination);', "Six official TPWD destination FAQs must survive route-level hydration");
+assertContains(destinationDetailRoute, 'await import("@/data/tpwd-six-later-park-authorities")', "TPWD FAQs must resolve from their shared source module");
 const sixLater = read("src/data/tpwd-six-later-park-authorities.ts");
 assertContains(curation,"applySixLaterTPWDAuthorities,","New 6-site TPWD destination authority must be connected");
 for(const [slug,clues] of [
