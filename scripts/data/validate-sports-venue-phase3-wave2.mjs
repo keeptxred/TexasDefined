@@ -9,11 +9,25 @@ const images = read('src/data/sports-venue-images.ts');
 const eventFn = read('src/data/sports-venue-events.functions.ts');
 const carousel = read('src/components/editorial/TexasEventCarousel.tsx');
 const registry = JSON.parse(read('public/stay-nearby-hotels.json'));
+const entityCorrections = read('src/data/knowledge-graph/current-entity-corrections.ts');
 const failures = [];
 
 const requireText = (source, needle, label) => {
   if (!source.includes(needle)) failures.push(`${label}: missing ${needle}`);
 };
+
+// 2026-10-26 official Ariat renaming must update the current public venue title
+// without deleting the reviewed Dickies Arena canonical slug or former-name lookup.
+for (const token of [
+  "corrected.id === 'sports-venue:dickies-arena'",
+  "name: 'Ariat Arena'",
+  "'Dickies Arena'",
+  "sourceCheckedAt: '2026-10-26'",
+  "officialUrl: 'https://www.ariatarena.com/'",
+]) requireText(entityCorrections, token, 'Ariat Arena current entity identity');
+requireText(guides, 'canonicalPath: "/sports-venue/dickies-arena"', 'canonical old venue URL retained');
+requireText(guides, 'Ariat Arena (formerly Dickies Arena)', 'updated public venue guide');
+requireText(guides, 'Operator and Ariat naming-rights announcement', 'official current naming evidence');
 
 const venues = [
   ['att-stadium', 'AT&T Stadium', 'src/data/sports-venue-enrichment.ts'],
