@@ -92,8 +92,22 @@ export const majorEventSchemaEnrichmentBatch27: MajorEventSchemaEnrichment[] = [
   },
   {
     slug: "beaumont-pardi-gras",
+    image: {
+      url: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Beaumont_February_16_023.JPG?width=1600",
+      alt: "David Cargill sculpture in the entrance plaza beside Beaumont Civic Center in Beaumont, Texas, photographed in 2015; the actual 2027 Pardi Gras venue surroundings, not an event photo",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Beaumont_February_16_023.JPG",
+      sourceType: "wikimedia",
+      licenseName: "CC BY-SA 4.0 — LUSportsFan",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+      rightsNote: "LUSportsFan photographed the David Cargill sculpture in the plaza between Beaumont Civic Center (701 Main Street, the confirmed January 23, 2027 charity venue) and Beaumont City Hall on February 16, 2015. This historical exact-venue plaza image does not depict the 2027 fundraiser or a Mardi Gras parade. Author attribution and any adapted/cropped versions remain under CC BY-SA 4.0.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
     organizer: { type: "Organization", name: "Southeast Texas Circle of Hope", url: "https://www.southeasttexascircleofhope.com/event-details/beaumont-pardi-gras-2027" },
-    sources: [{ label: "Official organizer or state tourism event reference", url: "https://www.southeasttexascircleofhope.com/event-details/beaumont-pardi-gras-2027" }],
+    sources: [
+      { label: "Circle of Hope 2027 event venue and time", url: "https://www.southeasttexascircleofhope.com/event-details/beaumont-pardi-gras-2027" },
+      { label: "Beaumont Civic Center 2015 plaza photograph and commercial license", url: "https://commons.wikimedia.org/wiki/File:Beaumont_February_16_023.JPG" },
+    ],
     verifiedAt: "2026-10-21",
   },
   {
@@ -124,8 +138,23 @@ export const majorEventSchemaEnrichmentBatch27: MajorEventSchemaEnrichment[] = [
   },
   {
     slug: "mardi-gras-southeast-texas-beaumont",
+    image: {
+      url: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Ford_Arena_Beaumont_Texas_June_2014.jpg?width=1600",
+      alt: "Ford Arena at Doggett Ford Park in Beaumont, photographed in June 2014; the venue used for Mardi Gras of Southeast Texas in 2025–2026, not a 2027 celebration",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Ford_Arena_Beaumont_Texas_June_2014.jpg",
+      sourceType: "wikimedia",
+      licenseName: "CC BY-SA 3.0 — Dravecky",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0/",
+      rightsNote: "Dravecky photographed Ford Arena on June 27, 2014 at the Doggett Ford Park grounds, 5115 I-10 South, Beaumont. Official Mardi Gras of Southeast Texas 2026 vendor and parade instructions establish Doggett Ford Park as the actual 2026 festival venue; arena hosted indoor concerts at the park. This is a historical venue photo, not an image of the festival, and no 2027 venue or date has been confirmed. Adapted/cropped versions share CC BY-SA 3.0.",
+      exactLocation: true,
+      approvedForCommercialUse: true,
+    },
     organizer: { type: "Organization", name: "Mardi Gras of Southeast Texas", url: "https://mardigrastx.com/" },
-    sources: [{ label: "Official organizer or state tourism event reference", url: "https://mardigrastx.com/" }],
+    sources: [
+      { label: "Official Mardi Gras Southeast Texas most recent organizer schedule", url: "https://mardigrastx.com/" },
+      { label: "Official 2026 Doggett Ford Park venue and dates (vendor agreement)", url: "https://mardigrastx.com/wp-content/uploads/2025/11/commercial-agreement-2026.pdf" },
+      { label: "Ford Arena at Doggett Ford Park, archival image and commercial license", url: "https://commons.wikimedia.org/wiki/File:Ford_Arena_Beaumont_Texas_June_2014.jpg" },
+    ],
     verifiedAt: "2026-10-21",
   },
 ];
