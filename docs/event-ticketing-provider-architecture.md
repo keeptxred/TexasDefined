@@ -42,6 +42,12 @@ Adding a new provider or affiliate network later requires its own reviewed verif
 
 The evidence/checkpoint ledger is `ops/editorial/event-ticketing-verification-ledger.json`. The independently sourced Alley Theatre final performance is December 27, 2026 at **1:30 p.m.**; exact official checkout: `https://cart.alleytheatre.org/10216/10226`. That page identifies the performance but does not establish available seat quantity. Preserve the distinct general production page for show background.
 
+## Prevent directories masquerading as event admission (October 26, 2026)
+
+The shared purchase CTA resolver rejects general school ticket catalogs, venue/browse indexes and provider category pages **even when the URL is HTTPS and belongs to a known ticket seller**. This protects future event records without inventing a game-specific ticket ID. Verified event-source links remain separately available as **Official event site** or organizer schedule links, from which visitors may choose the correct date and ticket type. Examples rejected as specific checkout CTAs include a GoFan `/app/school/` listing, Etix `/ticket/v/` venue schedules, generic Ticketmaster/TicketWeb directories, organizer-only Eventbrite URLs and broad SeatGeek/Vivid Seats resale-category pages. Exact Conroe Etix `/ticket/p/` event admission, Ticketmaster/TicketWeb event pages and independently verified official organizer purchase endpoints remain supported.
+
+This is a **negative safety filter**, not positive proof of ticket inventory, seat quantity, public sale status, price, commission or purchase. Choctaw Stadium's five sourced 2026 football fixtures illustrate the distinction: the venue itself publishes different games and a shared GoFan school selector, so TexasDefined links the exact stadium game page instead of labeling the entire school catalog as a confirmed game checkout. See the five-item checkpoint in `ops/editorial/event-ticketing-verification-ledger.json` and `scripts/data/validate-official-venue-ticketing.mjs`.
+
 ## CTA resolution
 
 `src/data/events/ticketing.ts` is the single decision layer. Presentation code must not choose a provider itself.
