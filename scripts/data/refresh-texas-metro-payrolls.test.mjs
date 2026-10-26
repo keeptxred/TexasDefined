@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { parseCurrentRelease, parseMetroTable, parseFredCsv, validateFresh } from './refresh-texas-metro-payrolls.mjs';
+import { parseCurrentRelease, parseMetroTable, parseFredCsv, validateFresh, refresh } from './refresh-texas-metro-payrolls.mjs';
 
 const areas = [
   ['Dallas-Fort Worth-Arlington', 4357.0], ['Houston-Pasadena-The Woodlands', 3495.3],
@@ -78,4 +78,26 @@ test('Federal Reserve BLS fallback verifies all 13 NSA series, synchronized mont
   assert.equal(newest.publishedDate, '2026-10-21');
   assert.throws(() => validateFresh({ ...newest, rows: newest.rows.map((r, i) =>
     i === 0 ? { ...r, value: 10_000 } : r) }, old), /beyond controlled/);
+});
+
+test('scheduled publication writes the validated release date only after a source-complete update', async () => {
+  const old = {
+    releaseMonth: '2026-07',
+    publishedDate: '2026-09-02',
+    sourceUrl: 'https://www.bls.gov/news.release/archives/metro_09022026.htm',
+    units: 'total nonfarm payroll jobs, not seasonally adjusted',
+    rows: parseMetroTable(table(areas)),
+  };
+  const bridge = "export const TEXAS_DATASETS = [ { slug: 'texas-metro-payrolls-latest', updated: '2026-09-02' } ];";
+  const writes = new Map();
+  const changed = await refresh({
+    fetchSource: async (url) => url.includes('metro.nr0') ? summary : table(areas),
+    read: async (name) => name.endsWith('.json') ? JSON.stringify(old) : bridge,
+    write: async (name, content) => { writes.set(name, content); },
+  });
+  assert.equal(changed, true);
+  const next = JSON.parse(writes.get('src/data/generated/texas-metro-payrolls-current.json'));
+  assert.equal(next.releaseMonth, '2026-08');
+  assert.equal(next.publishedDate, '2026-09-30');
+  assert.match(writes.get('src/data/texas-data-center.ts'), /updated: '2026-09-30'/);
 });
