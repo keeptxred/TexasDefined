@@ -28,6 +28,32 @@ try {
   if (item.ticketCta.label !== "Official Tickets →") throw new Error(`unexpected Wurstfest CTA label: ${item.ticketCta.label}`);
   if (item.ticketCta.href !== expectedTicketUrl) throw new Error(`unexpected Wurstfest CTA URL: ${item.ticketCta.href}`);
   if (item.ticketCta.isAffiliate) throw new Error("official Wurstfest ticket source must not be marked affiliate");
+  // A cancelled, postponed or rescheduled editorial event can retain stale
+  // source Offer metadata. Event-level lifecycle status must win over that
+  // offer for BOTH statewide results and every shared event carousel.
+  const search = { featured: "", location: "", start: target.startDate,
+    end: target.startDate, category: "", venue: "" };
+  for (const [status, label] of [
+    ["cancelled", "Cancelled"],
+    ["postponed", "Postponed"],
+    ["rescheduled", "Rescheduled"],
+  ]) {
+    const changed = { ...target, id: "lifecycle-test:" + status, status };
+    const card = calendarModule.buildTexasEventCarouselItemsServer([changed])[0];
+    if (card.ticketCta !== null || !card.statusLabel.includes(label)) {
+      throw new Error(status + " carousel exposed a stale official purchase link or hid the event status");
+    }
+    const view = calendarModule.buildGlobalEventCalendarServer([changed], search);
+    if (view.results.length !== 1 || view.results[0].ticketCta !== null
+      || !view.results[0].statusLabel.includes(label)) {
+      throw new Error(status + " calendar exposed a stale official purchase link or hid the event status");
+    }
+  }
+  const activeView = calendarModule.buildGlobalEventCalendarServer([target], search);
+  if (!activeView.results[0]?.ticketCta) {
+    throw new Error("valid scheduled primary-source tickets must remain usable");
+  }
+
   // A reviewed exact-venue photograph is not an unlicensed generic stock image.
   // The event page and the shared calendar MUST honor the same commercial-use gate.
   const fiesta = records.find((event) => event.slug === "fiesta-de-palmas");
