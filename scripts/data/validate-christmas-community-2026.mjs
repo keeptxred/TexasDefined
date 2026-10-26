@@ -66,7 +66,7 @@ for (const [idx,begin,end] of [
   [6,"2026-12-08","2026-12-13"],
   [7,"2026-12-15","2026-12-20"],
   [8,"2026-12-22","2026-12-24"],
-  [9,"2026-12-26","2026-12-27"],
+  [9,"2026-12-26",undefined],
 ]) {
   const slug = `houston-alley-theatre-christmas-carol-2026-${idx}`;
   check(slug,begin,end);
@@ -78,6 +78,21 @@ for (const [idx,begin,end] of [
 }
 assert.ok(!bySlug.has("houston-alley-theatre-christmas-carol-2026-all-dates"),
   "No fabricated continuous Alley Theatre performance dates");
+const alleyBoxingDay = bySlug.get("houston-alley-theatre-christmas-carol-2026-9");
+assert.equal(alleyBoxingDay.endDate, undefined,
+  "Dec 26 community record must not also cover the independently curated Dec 27 final show");
+assert.ok(alleyBoxingDay.title.includes("December 26, 2026"),
+  "Single-day community listing must not advertise a duplicate Dec 27 date");
+const christmasStageManifest = read("src/data/events/christmas-performances-2026.server.ts");
+const alleyFinalMarker = christmasStageManifest.indexOf('id: "christmas-carol-houston-2026"');
+assert.ok(alleyFinalMarker >= 0, "Alley Theatre Dec 27 curated source cannot disappear");
+assert.ok(christmasStageManifest.slice(alleyFinalMarker,alleyFinalMarker+550).includes('date: "2026-12-27"'),
+  "Final-day performance must remain dated Dec 27 and retain its separate official ticket link");
+const christmasLiveCalendarVerifier = read("scripts/ci/verify-christmas-calendar-12-production.mjs");
+assert.ok(christmasLiveCalendarVerifier.includes("christmas-carol-houston-2026")
+  && christmasLiveCalendarVerifier.includes("editorial.length!==1"),
+  "Production gate must continue rejecting duplicate editorial cards on Dec 27");
+
 
 for (const [slug,start,end] of [
   ['beaumont-mcfaddin-ward-holiday-open-house-2026','2026-12-05','2026-12-06'],
