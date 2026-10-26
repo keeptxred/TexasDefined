@@ -48,6 +48,21 @@ if (!hillCountryInternalLinks.includes('href: "/article/east-texas-fall-colors"'
   fail("Hill Country must render a direct East Texas reciprocal link");
 }
 
+// Verify links embedded in the full rendered article fixtures, not only supplemental links.
+const foliageArticleLinks = [
+  ["fall-in-texas-complete-guide", authority, ["/article/east-texas-fall-colors", "/article/hill-country-fall-colors", "/article/best-texas-state-parks-for-fall-colors"]],
+  ["texas-fall-foliage-road-trip", authority, ["/article/east-texas-fall-colors", "/article/hill-country-fall-colors", "/article/best-texas-state-parks-for-fall-colors"]],
+  ["east-texas-fall-colors", intents, ["/article/best-texas-state-parks-for-fall-colors"]],
+  ["hill-country-fall-colors", intents, ["/article/east-texas-fall-colors", "/article/best-texas-state-parks-for-fall-colors"]],
+  ["best-texas-state-parks-for-fall-colors", intents, ["/article/east-texas-fall-colors", "/article/hill-country-fall-colors"]],
+];
+for (const [slug, source, targets] of foliageArticleLinks) {
+  const metadata = source.split('slug: "' + slug + '"')[1]?.split("body: [")[0] ?? "";
+  for (const target of targets) {
+    if (!metadata.includes('href: "' + target + '"')) fail(slug + ": missing rendered foliage link to " + target);
+  }
+}
+
 // Protect the Hill Country fall guide from accidentally reusing a green park photo.
 // Both list/discovery and the full article must share the same verified autumn hero.
 for (const [name, source] of [["full article", intents], ["discovery stub", intentLazy]]) {
