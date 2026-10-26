@@ -64,11 +64,12 @@ for (const token of [
   'knownCompanions.has(key)',
 ]) requireText(adapter, token, "Mardi Gras event calendar integration");
 for (const slug of [
-  "crystal-beach-mardi-gras-chicken-run-2027",
-  "jefferson-queen-mab-ball-2027",
-  "beaumont-lagniappe-mardi-gras-soiree-2027",
-  "livingston-mardi-gras-gumbo-cookoff-2027",
+  "crystal-beach-mardi-gras-chicken-run",
+  "jefferson-queen-mab-ball",
+  "beaumont-lagniappe-mardi-gras-soiree",
+  "livingston-mardi-gras-gumbo-cookoff",
 ]) requireText(mardiGrasCompanions, slug, "Mardi Gras exact-event calendar record");
+if (/slug: "[a-z0-9-]+-20\\d{2}"/.test(mardiGrasCompanions)) failures.push("Mardi Gras companion event public slugs must be evergreen and must not end in an event year");
 if ((mardiGrasCompanions.match(/id: "curated-mardi-gras-2027:/g) ?? []).length !== 4) failures.push("2027 Mardi Gras companion calendar must include four unique curated events");
 if ((mardiGrasCompanions.match(/startTime:/g) ?? []).length !== 2) failures.push("Only the confirmed Jefferson and Beaumont companion event times may be asserted");
 for (const token of [
