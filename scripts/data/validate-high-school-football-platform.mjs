@@ -2055,6 +2055,7 @@ if (!errors.length) {
  * Duplicate county keys had suppressed valid school links in 11 counties even when
  * each school had an independently sourced and verified football guide. */
 {
+  const entityPage = read(files[10]);
   const start = entityPage.indexOf('const batch002FootballCountyLinks:');
   const end = entityPage.indexOf('\nconst siteUrl = ', start);
   if (start < 0 || end < 0) {
