@@ -17,7 +17,7 @@ export type TexasDataset = {
 export const TEXAS_DATASETS: TexasDataset[] = [
   {
     slug: 'county-property-tax-rates',
-    title: 'Texas County Property-Tax Rate Examples',
+    title: 'Texas County Property-Tax Rate Examples — archived 2024',
     description: 'Compare selected adopted county government property-tax rates. City, school-district, and special-district rates are separate.',
     category: 'Property taxes', year: 2024, updated: '2026-07-30', unit: 'percent',
     sourceName: 'Texas Comptroller property-tax rate data',
@@ -205,5 +205,60 @@ export const TEXAS_DATASETS: TexasDataset[] = [
     rows: currentMetroPayrolls.rows,
   },
 ];
+
+const COUNTY_EXAMPLE_SLUGS = [
+  'el-paso-county', 'fort-bend-county', 'harris-county', 'williamson-county',
+  'travis-county', 'bexar-county', 'dallas-county', 'tarrant-county',
+  'denton-county', 'collin-county',
+] as const;
+
+// The existing monthly, source-verified Comptroller import owns the database.
+// This bounded server-only view reads the newest *complete* finalized county
+// example set; it does not fetch official sites on pageview, fabricate missing
+// rates, or overwrite archived 2024 source snapshots.
+export async function getCurrentCountyPropertyTaxExamples(): Promise<TexasDataset | null> {
+  const { supabase } = await import('@/integrations/supabase/client');
+  const db = supabase as any;
+  const { data: years, error: yearError } = await db.from('texas_property_tax_rates')
+    .select('year').eq('type', 'county').order('year', { ascending: false }).limit(1);
+  if (yearError) throw yearError;
+  const year = Number(years?.[0]?.year);
+  if (!Number.isInteger(year) || year < 2024 || year > new Date().getUTCFullYear()) return null;
+
+  const { data, error } = await db.from('texas_property_tax_rates')
+    .select('year,slug,name,total_rate,source_status,source_url,variable_rate,rate_unavailable,imported_at')
+    .eq('year', year).eq('type', 'county').in('slug', [...COUNTY_EXAMPLE_SLUGS]);
+  if (error) throw error;
+  const rows = data ?? [];
+  const bySlug = new Map(rows.map((row: any) => [row.slug, row] as const));
+  if (rows.length !== COUNTY_EXAMPLE_SLUGS.length || bySlug.size !== COUNTY_EXAMPLE_SLUGS.length) return null;
+  const officialUrl = `https://comptroller.texas.gov/taxes/property-tax/docs/${year}-county-rates-levies.xlsx`;
+  const values = [];
+  for (const slug of COUNTY_EXAMPLE_SLUGS) {
+    const row = bySlug.get(slug) as any;
+    const value = Number(row?.total_rate);
+    if (!row || row.source_status !== 'reported-final' || row.source_url !== officialUrl ||
+      row.variable_rate || row.rate_unavailable || !Number.isFinite(value) || value <= 0 || value >= 5 ||
+      row.name !== slug.split('-').slice(0, -1).map((part: string) =>
+        part.charAt(0).toUpperCase() + part.slice(1)).join(' ') + ' County') return null;
+    values.push({ label: row.name, value, note: `${year} adopted county-only rate, dollars per $100 taxable value.` });
+  }
+  const original = TEXAS_DATASETS.find((item) => item.slug === 'county-property-tax-rates');
+  if (!original) throw new Error('County rate examples missing from the Texas Data registry');
+  const updated = rows.map((row: any) => String(row.imported_at || '').slice(0, 10))
+    .filter((value: string) => /^\d{4}-\d{2}-\d{2}$/.test(value)).sort().at(-1);
+  if (!updated) return null;
+  return {
+    ...original,
+    title: `Texas County Property-Tax Rate Examples — ${year}`,
+    description: `Compare ten official ${year} adopted Texas county government property-tax rates; city, school-district, and special-district rates are separate.`,
+    year,
+    updated,
+    sourceName: 'Texas Comptroller of Public Accounts — Property Tax Assistance Division',
+    sourceUrl: officialUrl,
+    methodology: `Verified ${year} county-government-only rates from the Texas Comptroller annual workbook, stored by the existing scheduled import. Rates are dollars per $100 taxable value, numerically equal to the percent shown here. This is not a complete parcel tax bill; check your other local taxing units and exemptions.`,
+    rows: values,
+  };
+}
 
 export const getTexasDataset = (slug: string) => TEXAS_DATASETS.find((dataset) => dataset.slug === slug);
