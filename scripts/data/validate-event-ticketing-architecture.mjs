@@ -112,13 +112,14 @@ const prioritized = resolveEventTicketCta({ links: [
   { ...base, officialTicketUrl: official, affiliateUrl: rankedA, priority: 20 },
   { ...base, officialTicketUrl: official, affiliateUrl: rankedB, priority: 10 },
 ], offers: [] }, now);
-if (!prioritized || prioritized.href !== rankedB) throw new Error('verified affiliate priority failed');
+if (!prioritized || prioritized.href !== rankedA) throw new Error('wrong merchant ID must not override approved affiliate');
 const ticketweb = 'https://www.ticketweb.com/event/holiday-show-tickets/14859023';
 const ticketwebAffiliate = resolveEventTicketCta({ links: [{ ...base, officialTicketUrl: ticketweb, affiliateUrl: impact(ticketweb) }], offers: [] }, now);
 if (!ticketwebAffiliate?.isAffiliate || ticketwebAffiliate.href !== impact(ticketweb)) throw new Error('authorized TicketWeb affiliate deep link rejected');
 for (const invalid of [
   ['unapproved-host','https://affiliate.example.com/deep'],
   ['wrong-publisher','https://ticketmaster.evyy.net/c/9999999/264167/4272?u='+encodeURIComponent(official)],
+  ['wrong-merchant-id','https://ticketmaster.evyy.net/c/7758914/264168/4272?u='+encodeURIComponent(official)],
   ['wrong-merchant','https://ticketmaster.evyy.net/c/7758914/264167/9999?u='+encodeURIComponent(official)],
   ['wrong-event',impact('https://www.ticketmaster.com/different/event/ZZZ999')],
   ['wrong-provider',impact('https://www.ticketmaster.com/example/event/ABC123')+'&u='+encodeURIComponent(official)],
