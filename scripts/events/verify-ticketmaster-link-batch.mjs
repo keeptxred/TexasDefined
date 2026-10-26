@@ -111,7 +111,9 @@ async function main() {
     await Promise.all(candidates.slice(index, index + 4).map(async (event) => {
       const result = await probePublicTicketUrl(event.officialUrl);
       history[event.id] = {
-        status: 'IN_PROGRESS', // an HTTP probe alone must never be VERIFIED
+        status: result.probeStatus.startsWith('REVIEW_') ? 'REVIEW_REQUIRED'
+          : result.probeStatus === 'REACHABLE_NO_INVENTORY_CLAIM' || result.probeStatus === 'REDIRECT_SAME_EVENT_PATH'
+            ? 'HTTP_PROBED_ONLY' : 'HTTP_PROBE_INCONCLUSIVE', // HTTP never proves inventory, checkout or price
         eventId: event.id,
         eventName: event.name,
         city: event.city,
