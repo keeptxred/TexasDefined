@@ -5,6 +5,8 @@ import vm from 'node:vm';
 const source = readFileSync('public/stay-affiliate-options.js', 'utf8');
 const football = readFileSync('src/components/sports/FootballFanOffers.tsx', 'utf8');
 const economics = readFileSync('docs/travel-affiliate-economics.md', 'utf8');
+const liveWorkflow = readFileSync('.github/workflows/verify-stay-affiliate-production.yml', 'utf8');
+const liveVerifier = readFileSync('scripts/ci/verify-stay-affiliate-production.mjs', 'utf8');
 
 const sandbox = {
   window: {
@@ -81,4 +83,12 @@ for (const marker of [
 ]) assert.ok(football.includes(marker), marker);
 assert.ok(football.indexOf('Affiliate disclosure:') < football.indexOf('href={motel6Halloween ? MOTEL6_HALLOWEEN_URL'), 'football sponsorship must be disclosed before offer');
 assert.ok(economics.includes('NOT an advertiser-certified expiration date'), 'do not invent the merchant offer expiration');
+assert.ok(liveWorkflow.includes("workflows: ['Deploy TexasDefined production']"), 'production verification must fire after the existing approved deployment workflow');
+assert.ok(liveWorkflow.includes('github.event.workflow_run.conclusion == \'success\''), 'failed deployments must not trigger verification');
+for (const marker of [
+  "route: '/article/texas-high-school-football-playoffs-explained'",
+  'requireMotel6Football: true',
+  "data-commercial-partner=\\\"motel6\\\"",
+  'https://www.tqlkg.com/click-101876465-17198227',
+]) assert.ok(liveVerifier.includes(marker), 'missing live Motel 6 football acceptance marker: ' + marker);
 console.log('Motel 6 CJ URL, placement, CTA, analytics and expiration gates validated.');
