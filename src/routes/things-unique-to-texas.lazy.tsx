@@ -107,6 +107,7 @@ function ThingsUniqueToTexasPage() {
               <h2 id="texas-unique-answer-heading" className="mt-3 max-w-3xl font-display text-3xl leading-tight sm:text-4xl">Things unique to Texas, and the traditions Texans made their own</h2>
               <p className="mt-4 max-w-3xl leading-8 text-muted-foreground">Texas is especially associated with smoked brisket, breakfast tacos, bluebonnets, Friday-night football, homecoming mums, dance halls, the Alamo, big ranch country and landscapes from Big Bend to the Gulf Coast. Those traditions come from many communities, including Indigenous, Mexican and Tejano, Black, German, Czech and other Texans whose histories shaped the state.</p>
               <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">Not every familiar Texas icon originated here or exists only here. The 250-item collection distinguishes Texas origins, local adaptations and official state symbols rather than treating every association as exclusive.</p>
+              <Link to="/article/texas-cultural-regions-explained" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">Why Texas culture differs from region to region →</Link>
             </div>
             <div className="grid content-start gap-3 text-sm">
               <Link to="/things-unique-to-texas/food-drink" className="border-b border-border py-3 font-semibold text-primary hover:underline">Texas food: barbecue, chili, kolaches and breakfast tacos →</Link>
