@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-10-26T18:31:06.208Z",
+  "fetchedAt": "2026-10-26T23:10:08.975Z",
   "candidates": [
     {
       "name": "Austin Championship",
@@ -180,30 +180,6 @@
       ],
       "officialTicketUrls": [
         "https://www.ticketmaster.com/carousel-club-burlesque-presents-rhinestone-rodeo-fort-worth-texas-11-21-2026/event/0C00652EEEA6E7FC"
-      ],
-      "status": "requires-organizer-verification",
-      "evidence": {
-        "organizerUrl": null,
-        "recurrenceVerified": false,
-        "currentScheduleVerified": false,
-        "imageRightsVerified": false
-      },
-      "publicationAllowed": false
-    },
-    {
-      "name": "Fiesta SATX Film Festival",
-      "city": "San Antonio",
-      "dates": [
-        "2026-11-20"
-      ],
-      "venues": [
-        "Jo Long Theatre"
-      ],
-      "ticketmasterIds": [
-        "G5dIZ_49G_oI_"
-      ],
-      "officialTicketUrls": [
-        "https://www.ticketmaster.com/fiesta-satx-film-festival-san-antonio-texas-11-20-2026/event/3A006555CC651A19"
       ],
       "status": "requires-organizer-verification",
       "evidence": {
@@ -741,7 +717,8 @@
         "2027-01-16",
         "2027-01-17",
         "2027-01-22",
-        "2027-01-23"
+        "2027-01-23",
+        "2027-01-24"
       ],
       "venues": [
         "Cowtown Coliseum"
@@ -778,6 +755,7 @@
         "Z7r9jZ1A7OpPx",
         "Z7r9jZ1AA7-F6",
         "Z7r9jZ1AA7-FF",
+        "Z7r9jZ1AA7-FK",
         "Z7r9jZ1AA7-Fa",
         "Z7r9jZ1AA7-Fo",
         "Z7r9jZ1AA74PM",
@@ -824,6 +802,7 @@
         "https://www.ticketmaster.com/event/Z7r9jZ1A7OpPx",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7-F6",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7-FF",
+        "https://www.ticketmaster.com/event/Z7r9jZ1AA7-FK",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7-Fa",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA7-Fo",
         "https://www.ticketmaster.com/event/Z7r9jZ1AA74PM",
