@@ -186,12 +186,16 @@ test('full Ticketmaster snapshot validates exact same-event authorized Impact wr
     { ...good,id:'OTHER-CAMPAIGN',affiliateUrl:'https://ticketmaster.evyy.net/c/7758914/999999/4272?u='+encodeURIComponent(official) },
     { ...good,id:'TW-UNSAFE',officialUrl:'https://www.ticketweb.com.evil.test/event/something/12' },
     { ...good,id:'NO-CITY',city:'' },
+    { ...good,id:'INVALID-CALENDAR-DAY',startDate:'2026-02-30' },
+    { ...good,id:'EXTRA-AFFILIATE-PARAMETER',affiliateUrl:impact(official)+'&extra=not-reviewed' },
   ]);
   assert.ok(wrong.structuralErrors>=4);
   assert.ok(wrong.errorExamples.some(x=>x.includes('duplicate-provider-id')));
   assert.ok(wrong.errorExamples.some(x=>x.includes('wrong-event-impact')));
   assert.ok(wrong.errorExamples.some(x=>x.includes('invalid-official')));
   assert.ok(wrong.errorExamples.some(x=>x.includes('missing-city')));
+  assert.ok(wrong.errorExamples.some(x=>x.includes('invalid-local-date')));
+  assert.ok(wrong.errorExamples.some(x=>x.includes('unauthorized-or-wrong-event-impact')));
 });
 test('catalog integrity treats provider sale status as descriptive, never proof of remaining seats', () => {
   const u = 'https://www.ticketmaster.com/event/ABC123';
