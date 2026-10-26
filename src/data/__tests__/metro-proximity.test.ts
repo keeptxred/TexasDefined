@@ -498,21 +498,69 @@ test("weekend-trip events stay in represented destination towns and unrelated in
   assert.deepEqual(selectMetroProximityAffiliateEvents(metro, dayTrips, results, [], candidates), []);
 });
 
-test("six curated metro day-trip guides only feature source-backed, quality-gated destination results", () => {
-  assert.deepEqual(CURATED_METRO_DAY_TRIP_SLUGS, ["houston", "san-antonio", "austin", "dallas", "fort-worth", "corpus-christi"]);
-  for (const metro of CURATED_METRO_DAY_TRIP_SLUGS) {
+test("ten curated metro day-trip guides only feature source-backed quality-gated results", () => {
+  const leads: Record<string, string> = {
+    houston: "brazos-bend-state-park",
+    "san-antonio": "guadalupe-river-state-park",
+    austin: "pedernales-falls-state-park",
+    dallas: "dinosaur-valley-state-park",
+    "fort-worth": "dinosaur-valley-state-park",
+    "corpus-christi": "goose-island-state-park",
+    waco: "mother-neff-state-park",
+    "beaumont-port-arthur": "village-creek-state-park",
+    "college-station": "lake-somerville-state-park",
+    tyler: "purtis-creek-state-park",
+  };
+  assert.deepEqual(CURATED_METRO_DAY_TRIP_SLUGS, Object.keys(leads));
+  for (const [metro, firstSlug] of Object.entries(leads)) {
     const eligible = [
-      { destination: destination(100, "state-parks", { slug: metro === "houston" ? "brazos-bend-state-park" : metro === "san-antonio" ? "guadalupe-river-state-park" : metro === "austin" ? "pedernales-falls-state-park" : metro === "dallas" || metro === "fort-worth" ? "dinosaur-valley-state-park" : "goose-island-state-park" }), distanceMiles: 60, distanceBand: "easy-day-trip" as const },
+      { destination: destination(100, "state-parks", { slug: firstSlug }), distanceMiles: 60, distanceBand: "easy-day-trip" as const },
       { destination: destination(101, "small-towns", { slug: "unverified-somewhere" }), distanceMiles: 80, distanceBand: "longer-day-trip" as const },
     ];
     const featured = curatedMetroDayTrips(metro, "day-trips", eligible);
-    assert.equal(featured.length, 1, metro + " should show one real destination and no placeholders");
-    assert.equal(featured[0].result.destination.slug, featured[0].slug);
+    assert.equal(featured.length, 1, metro + " should show exactly one real destination and no placeholders");
+    assert.equal(featured[0].result.destination.slug, firstSlug);
     assert.ok(featured[0].sourceUrl.startsWith("https://"), "official operator link must be HTTPS");
+    assert.ok(
+      /^https:\/\/(tpwd\.texas\.gov|www\.nps\.gov)\//.test(featured[0].sourceUrl),
+      "featured destination uses the verified state or federal operator",
+    );
+    assert.ok(featured[0].why.length >= 80 && featured[0].check.length >= 35, "no thin itinerary or omitted visitor caution");
     assert.equal(curatedMetroDayTrips(metro, "weekend-trips", eligible).length, 0);
     assert.equal(curatedMetroDayTrips(metro, "day-trips", []).length, 0);
   }
-  assert.equal(curatedMetroDayTrips("mcallen", "day-trips", [] as MetroProximityResult[]).length, 0, "keep the separately verified McAllen curation unchanged");
+  assert.equal(curatedMetroDayTrips("mcallen", "day-trips", [] as MetroProximityResult[]).length, 0, "keep separately verified McAllen curation unchanged");
+});
+
+test("new metro editorial candidates never create unsupported destinations or duplicate cards", () => {
+  const duplicate = { destination: destination(102, "state-parks", { slug: "mother-neff-state-park" }), distanceMiles: 41, distanceBand: "easy-day-trip" as const };
+  const wrong = { destination: destination(103, "state-parks", { slug: "fort-boggy-state-park" }), distanceMiles: 64, distanceBand: "easy-day-trip" as const };
+  const featured = curatedMetroDayTrips("waco", "day-trips", [duplicate, duplicate, wrong]);
+  assert.deepEqual(featured.map((item) => item.slug), ["mother-neff-state-park"], "duplicate resolved records cannot inflate the curated selection");
+  assert.equal(curatedMetroDayTrips("tyler", "road-trips", [duplicate]).length, 0, "only day trips may show day-trip editorial");
+});
+
+test("day-trip affiliate impressions require onscreen visibility and retain approved click destinations", () => {
+  const rich = readFileSync("src/routes/explore.near.$metro.$collection.lazy.tsx", "utf8");
+  const analytics = readFileSync("src/lib/affiliate-click.ts", "utf8");
+  assert.ok(rich.includes("new IntersectionObserver"), "only observable modules should generate an impression");
+  assert.ok(rich.includes("entry.intersectionRatio >= 0.2"), "not a page load impression");
+  assert.ok(rich.includes("seenDayTripImpressions.add(panel)"), "strict-mode duplicate impressions are suppressed");
+  assert.ok(rich.includes('placement: "metro-day-trips-experience"'), "use stable placement attribution");
+  assert.ok(analytics.includes('event: "affiliate_impression"'), "impression must use a distinct measurement event");
+  assert.ok(analytics.includes('event: "affiliate_' + 'click"'), "existing click event remains intact");
+  assert.ok(analytics.includes("device_class:"), "compare mobile and desktop using nonpersonal device class");
+});
+
+test("day-trip source monitoring is scheduled, conservative and preserves researched editorial", () => {
+  const script = readFileSync("scripts/data/check-metro-day-trips-sources.mjs", "utf8");
+  const workflow = readFileSync(".github/workflows/verify-metro-day-trips-sources.yml", "utf8");
+  assert.ok(workflow.includes('cron: "17 13 * * 1"'), "weekly source check");
+  assert.ok(workflow.includes("workflow_dispatch:"), "manual recheck available");
+  assert.ok(workflow.includes("upload-artifact@v4"), "record sources and dates");
+  assert.ok(script.includes("response.status") && script.includes('inspect(url, "GET")'), "HEAD failures require independent GET confirmation");
+  assert.ok(script.includes("entry.status === 404 || entry.status === 410"), "only confirmed missing operator pages fail");
+  assert.ok(!script.includes("writeFileSync(\"src/data"), "link checker must not auto-replace source-backed destination data");
 });
 
 test("day-trip monetization reuses approved booking surfaces and keeps editorial choices independent", () => {

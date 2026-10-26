@@ -21,7 +21,9 @@ import { maps } from "@/services/maps";
 import { curatedMetroDayTrips } from "@/data/metro-day-trip-editorial";
 import { hasVerifiedViatorMarketUrl, verifiedViatorMarketUrl } from "@/data/viator-destination-links";
 import { buildViatorAffiliateUrl } from "@/lib/viator-affiliate";
-import { trackAffiliateClick } from "@/lib/affiliate-click";
+import { trackAffiliateClick, trackAffiliateImpression } from "@/lib/affiliate-click";
+
+const seenDayTripImpressions = new WeakSet<Element>();
 
 export const Route = createLazyFileRoute("/explore/near/$metro/$collection")({});
 
@@ -626,6 +628,29 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
     window.dispatchEvent(new Event("texasdefined:mcallen-day-trips-hydrated"));
     return () => { delete document.documentElement.dataset.tdMcAllenDayTripsHydrated; };
   }, [isMcAllenDayTrips]);
+  // Count a tour affiliate impression only if a user actually sees the panel.
+  // A WeakSet deduplicates React StrictMode effect remounts for the same DOM node.
+  useEffect(() => {
+    if (collection.slug !== "day-trips" || !pageData.indexReady || typeof IntersectionObserver === "undefined") return;
+    const market = metro.slug === "mcallen" ? "south-padre-island" : metro.slug;
+    if (!hasVerifiedViatorMarketUrl(market)) return;
+    const panel = document.querySelector("[data-day-trip-viator-market]");
+    if (!panel || seenDayTripImpressions.has(panel)) return;
+    const observer = new IntersectionObserver((entries) => {
+      if (!entries.some((entry) => entry.isIntersecting && entry.intersectionRatio >= 0.2)) return;
+      observer.disconnect();
+      if (seenDayTripImpressions.has(panel)) return;
+      seenDayTripImpressions.add(panel);
+      trackAffiliateImpression({
+        partner: "viator",
+        label: metro.slug === "mcallen" ? "South Padre Island activities" : metro.name + " activities",
+        placement: "metro-day-trips-experience",
+        module: "metro-proximity",
+      });
+    }, { threshold: 0.2 });
+    observer.observe(panel);
+    return () => observer.disconnect();
+  }, [collection.slug, metro.slug, metro.name, pageData.indexReady]);
   if (metro.slug === "texarkana" && collection.slug === "road-trips") {
     return <TexarkanaRoadTripsAuthority pageData={pageData} />;
   }
