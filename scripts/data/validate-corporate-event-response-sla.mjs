@@ -31,6 +31,25 @@ assert(!isCorporateEventLeadOverdue(newLead(49,'spam'),now));
 assert(!isCorporateEventLeadOverdue(newLead(47,'reviewing'),now));
 assert.equal(summarizeCorporateEventResponseTimes([],now).averageFirstContactHours,null);
 
+// A database clock error, malformed value or premature timestamp is not
+// independently supported evidence of a real first contact. Never let it
+// suppress an overdue staff follow-up or improve the first-contact SLA.
+const untrustedContactDates = [
+  newLead(72,'reviewing',96), // occurs 24 hours in the future
+  newLead(72,'reviewing',-1), // before the organizer's request
+  { ...newLead(72,'new'), first_contacted_at: 'not-a-date' },
+];
+const untrustedSummary = summarizeCorporateEventResponseTimes(untrustedContactDates, now);
+assert.equal(untrustedSummary.recordedContacts, 0, 'Future/invalid dates cannot count as completed contacts');
+assert.equal(untrustedSummary.awaitingFirstContact, 3, 'Unverified first contacts stay in staff queue');
+assert.equal(untrustedSummary.overdueFirstContact, 3, 'Unverified first contacts may still be overdue');
+assert.equal(untrustedSummary.averageFirstContactHours, null, 'Invalid contact dates cannot skew averages');
+for (const lead of untrustedContactDates) {
+  assert(isCorporateEventLeadOverdue(lead, now), 'Invalid contact date must not hide an overdue lead');
+}
+assert(!isCorporateEventLeadOverdue(newLead(24, 'reviewing', 4), now),
+  'A genuine contact within the test clock still resolves first-contact overdue tracking');
+
 const read=(path)=>readFileSync(path,'utf8');
 const server=read('src/data/corporate-events.admin.server.ts');
 const panel=read('src/components/events/CorporateEventOpsPanel.tsx');
