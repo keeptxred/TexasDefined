@@ -239,6 +239,14 @@ function MardiGrasTexasPage() {
             <p className="mt-3 text-sm"><a href="/event/mardi-gras-upriver-jefferson" className="font-semibold text-primary underline">February festival guide →</a></p>
           </article>
           <article className="border border-border p-6">
+            <p className="text-xs font-semibold text-muted-foreground">Port Arthur · Saturday, January 30 · 7 p.m.</p>
+            <h3 className="mt-2 font-display text-2xl">Port Arthur Chamber Mardi Gras Masquerade Ball</h3>
+            <p className="mt-3 leading-7 text-muted-foreground">The Greater Port Arthur Chamber of Commerce lists a separately ticketed masquerade gala at Robert A. “Bob” Bowers Civic Center. This is <strong>not</strong> the February 5–7 Mardi Gras Port Arthur parade festival. Public chamber and city-partner listings show differing street addresses, so confirm the venue and registration details with the chamber before driving.</p>
+            <a href="https://chamber.portarthurtexas.com/event/mardi-gras-masquerade-ball-2027/168762" target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex font-semibold text-primary underline">Chamber's official 2027 registration ↗</a>
+            <p className="mt-3 text-sm"><a href="/events?start=2027-01-30&amp;end=2027-01-30#calendar" className="font-semibold text-primary underline">See January 30 in the statewide calendar →</a></p>
+            <p className="mt-3 text-sm"><a href="/event/mardi-gras-port-arthur" className="font-semibold text-primary underline">Different February public festival guide →</a></p>
+          </article>
+          <article className="border border-border p-6">
             <p className="text-xs font-semibold text-muted-foreground">Kemah / Clear Lake · Saturday, January 30 · start time to confirm</p>
             <h3 className="mt-2 font-display text-2xl">Yachty Gras Kick-Off Party</h3>
             <p className="mt-3 leading-7 text-muted-foreground">The official Yachty Gras calendar lists its 2027 kick-off gathering at Lakewood Yacht Club on January 30, a full week before the February 6 Grand Night Boat Parade. The organizer provides a ticket link, but current prices, door policies and event hours require verification. This is a separate venue event, not free public boat-parade viewing.</p>
@@ -263,12 +271,11 @@ function MardiGrasTexasPage() {
             <p className="mt-3 text-sm"><a href="/event/beaumont-pardi-gras" className="font-semibold text-primary underline">Different January charity gala →</a></p>
           </article>
           <article className="border border-border p-6">
-            <p className="text-xs font-semibold text-muted-foreground">Port Arthur · Saturday, January 30 · 7 p.m.</p>
-            <h3 className="mt-2 font-display text-2xl">Port Arthur Chamber Mardi Gras Masquerade Ball</h3>
-            <p className="mt-3 leading-7 text-muted-foreground">The Greater Port Arthur Chamber of Commerce lists a separately ticketed masquerade gala at Robert A. Bob Bowers Civic Center. This is <strong>not</strong> the February 5–7 Mardi Gras Port Arthur parade festival. Public chamber and city-partner listings show differing street addresses, so confirm the venue and registration details with the chamber before driving.</p>
-            <a href="https://chamber.portarthurtexas.com/event/mardi-gras-masquerade-ball-2027/168762" target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex font-semibold text-primary underline">Chamber's official 2027 registration ↗</a>
-            <p className="mt-3 text-sm"><a href="/events?start=2027-01-30&amp;end=2027-01-30#calendar" className="font-semibold text-primary underline">See January 30 in the statewide calendar →</a></p>
-            <p className="mt-3 text-sm"><a href="/event/mardi-gras-port-arthur" className="font-semibold text-primary underline">Different February public festival guide →</a></p>
+            <p className="text-xs font-semibold text-muted-foreground">Livingston / Lake Livingston · February 5–6</p>
+            <h3 className="mt-2 font-display text-2xl">Two Creeks Mardi Gras Gumbo Cookoff</h3>
+            <p className="mt-3 leading-7 text-muted-foreground">Two Creeks Crossing Resort in Polk County announces a February 5–6 gumbo-cookoff weekend. Event times, competition registration and guest access are still being finalized. Its broader cookoff policy generally limits day passes to registered resort guests, so <strong>do not assume public walk-in admission</strong>. Verify access and booking terms directly before driving.</p>
+            <a href="https://twocreekscrossingresort.com/events/mardi-gras-gumbo-cookoff/" target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex font-semibold text-primary underline">Resort's official 2027 program ↗</a>
+            <p className="mt-3 text-sm"><a href="/events?start=2027-02-05&amp;end=2027-02-06#calendar" className="font-semibold text-primary underline">See February 5–6 in the calendar →</a></p>
           </article>
           <article className="border border-border p-6">
             <p className="text-xs font-semibold text-muted-foreground">Kemah · Sunday, February 7 · time pending</p>
@@ -277,13 +284,6 @@ function MardiGrasTexasPage() {
             <a href="https://www.yachtygras.com/events-1" target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex font-semibold text-primary underline">Organizer's current calendar ↗</a>
             <p className="mt-3 text-sm"><a href="/events?start=2027-02-07&amp;end=2027-02-07#calendar" className="font-semibold text-primary underline">See February 7 in the statewide calendar →</a></p>
             <p className="mt-3 text-sm"><a href="/event/kemah-yachty-gras" className="font-semibold text-primary underline">Boat and street parade guide →</a></p>
-          </article>
-          <article className="border border-border p-6">
-            <p className="text-xs font-semibold text-muted-foreground">Livingston / Lake Livingston · February 5–6</p>
-            <h3 className="mt-2 font-display text-2xl">Two Creeks Mardi Gras Gumbo Cookoff</h3>
-            <p className="mt-3 leading-7 text-muted-foreground">Two Creeks Crossing Resort in Polk County announces a February 5–6 gumbo-cookoff weekend. Event times, competition registration and guest access are still being finalized. Its broader cookoff policy generally limits day passes to registered resort guests, so <strong>do not assume public walk-in admission</strong>. Verify access and booking terms directly before driving.</p>
-            <a href="https://twocreekscrossingresort.com/events/mardi-gras-gumbo-cookoff/" target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex font-semibold text-primary underline">Resort's official 2027 program ↗</a>
-            <p className="mt-3 text-sm"><a href="/events?start=2027-02-05&amp;end=2027-02-06#calendar" className="font-semibold text-primary underline">See February 5–6 in the calendar →</a></p>
           </article>
         </div>
       </section>
