@@ -23,7 +23,7 @@ import { getChristmasPerformances2026Server } from "./events/christmas-performan
 import { getVerifiedChristmasCommunityEvents2026 } from "./events/christmas-community-2026.server";
 import { buildViatorAffiliateUrl } from "../lib/viator-affiliate";
 import { hasVerifiedViatorMarketUrl, verifiedViatorMarketUrl } from "./viator-destination-links";
-import { activeOfficialFallPicks } from "./fall-festival-official-picks.server";
+import { activeOfficialFallPicks, texasToday } from "./fall-festival-official-picks.server";
 
 const siteUrl = `https://${texasDefinedBrand.identity.domain}`;
 type CollectionDefinition = EventCollectionDefinition | TemporalEventCollectionDefinition | TournamentCollectionDefinition;
@@ -224,6 +224,7 @@ export function loadEventCollectionPageServer(slug: string) {
     christmasPerformances,
     christmasCommunityEvents,
     fallOfficialPicks: temporal?.slug === "fall-festivals" ? activeOfficialFallPicks() : [],
+    fallToday: temporal?.slug === "fall-festivals" ? texasToday(new Date()) : undefined,
     relatedCollections,
     itemCount: items.length,
     latestSourceCheck,
