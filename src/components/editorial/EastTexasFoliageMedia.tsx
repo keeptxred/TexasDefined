@@ -174,5 +174,25 @@ export function EastTexasFoliagePhotoGallery() {
 
 /** Map and gallery share one lazy-loaded, article-only module. */
 export default function EastTexasFoliageMedia() {
-  return <><EastTexasFoliageParkMap /><EastTexasFoliagePhotoGallery /></>;
+  return <>
+    <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {([
+          { name: "Daingerfield State Park", note: "Little Pine Lake and mixed hardwoods", url: "https://tpwd.texas.gov/state-parks/daingerfield", guide: "/destination/daingerfield-state-park" },
+          { name: "Caddo Lake State Park", note: "Bronze bald cypress and wetland views", url: "https://tpwd.texas.gov/state-parks/caddo-lake", guide: "/destination/caddo-lake" },
+          { name: "Lake Bob Sandlin State Park", note: "Woodland shoreline and reflections", url: "https://tpwd.texas.gov/state-parks/lake-bob-sandlin", guide: null },
+          { name: "Tyler State Park", note: "Mixed forest and lakeside trails", url: "https://tpwd.texas.gov/state-parks/tyler", guide: "/destination/tyler-state-park" },
+          { name: "Cooper Lake State Park", note: "Additional northeast Texas lake option", url: "https://tpwd.texas.gov/state-parks/cooper-lake", guide: null },
+          { name: "Martin Creek Lake State Park", note: "Alternative woodland and lakeshore outing", url: "https://tpwd.texas.gov/state-parks/martin-creek-lake", guide: "/destination/martin-creek-lake-state-park" },
+        ] as const).map((place) => <article key={place.name} className="border border-border bg-background p-5">
+          <h3 className="font-display text-xl">{place.name}</h3>
+          <p className="mt-2 text-sm leading-6 text-muted-foreground">{place.note}</p>
+          <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm">
+            <a href={place.url} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Official park info ↗</a>
+            {place.guide && <a href={place.guide} className="font-semibold text-primary underline underline-offset-4">Texas Defined guide →</a>}
+          </div>
+        </article>)}
+      </div>
+    <EastTexasFoliageParkMap />
+    <EastTexasFoliagePhotoGallery />
+  </>;
 }
