@@ -55,6 +55,17 @@ interface GeneratedFallEvent {
   status?: string;
 }
 
+interface FallOfficialPick {
+  name: string;
+  city: string;
+  region: string;
+  startDate: string;
+  endDate: string;
+  officialUrl: string;
+  summary: string;
+  sourceCheckedAt: string;
+}
+
 const governedOfficialFallSources = [
   { idPrefix: "official:texas-pumpkin-fest:", name: "Texas Pumpkin Fest", city: "Leander", url: "https://texaspumpkinfest.com/",
     summary: "Pumpkins, family entertainment, carnival rides and seasonal food. Check the organizer for exact operating days and admission." },
@@ -74,7 +85,7 @@ export function activeOfficialFallPicks(now = new Date(), generatedRows: readonl
   const seasonEnd = `${year}-11-30`;
   const stored = FALL_OFFICIAL_PICKS.map((event) => ({ ...event }));
   const seen = new Set(stored.map((event) => `${event.name}:${event.startDate.slice(0, 4)}`));
-  const result = [...stored];
+  const result: FallOfficialPick[] = [...stored];
 
   for (const row of generatedRows) {
     const source = governedOfficialFallSources.find((candidate) =>
