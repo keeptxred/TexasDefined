@@ -3,7 +3,8 @@
  * Bounded, post-deployment museum acceptance.
  *
  * Distinguish page transport and search-index readiness from a full independent
- * editorial certification. Exactly one HTTP request per URL; do not poll CI or
+ * editorial certification. Normally one HTTP request per URL, with one
+ * bounded retry for transient transport timeouts only; do not poll CI or
  * accept unrelated stock photography to make an unverified guide indexable.
  */
 import { readFileSync, mkdirSync, writeFileSync } from "node:fs";
@@ -45,12 +46,21 @@ function attr(markup, name) {
   return decode(match?.[1] || "");
 }
 async function get(path) {
-  const response = await fetch(origin + path, {
-    redirect: "follow",
-    signal: AbortSignal.timeout(25000),
-    headers: { "Cache-Control": "no-cache", "User-Agent": "TexasDefined-Museum-Production/1.0" },
-  });
-  return { status: response.status, type: response.headers.get("content-type") || "", body: await response.text() };
+  for (let attempt = 1; attempt <= 2; attempt += 1) {
+    try {
+      const response = await fetch(origin + path, {
+        redirect: "follow",
+        signal: AbortSignal.timeout(30000),
+        headers: { "Cache-Control": "no-cache", "User-Agent": "TexasDefined-Museum-Production/1.0" },
+      });
+      return { status: response.status, type: response.headers.get("content-type") || "", body: await response.text() };
+    } catch (error) {
+      // Only transient transport timeouts merit one retry; never HTTP,
+      // image, licensing, canonical or indexability failures.
+      if (attempt === 2 || !["TimeoutError", "AbortError"].includes(error?.name)) throw error;
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+    }
+  }
 }
 function analyzeRoute(c, doc) {
   const path = "/destination/" + c.slug, issues = [];
@@ -127,8 +137,8 @@ const extraPaths = fullManifestSweep
   : [];
 // Limit concurrent requests. An expanded museum inventory should not turn one
 // release smoke into an unbounded Cloudflare request burst.
-const workers = Array.from({ length: Math.min(8, extraPaths.length) }, async (_, index) => {
-  for (let i = index; i < extraPaths.length; i += 8) {
+const workers = Array.from({ length: Math.min(4, extraPaths.length) }, async (_, index) => {
+  for (let i = index; i < extraPaths.length; i += 4) {
     const path = extraPaths[i];
     try {
       const result = analyzeRoute({ slug: path.slice("/destination/".length) }, await get(path));

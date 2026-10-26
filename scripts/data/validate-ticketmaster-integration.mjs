@@ -16,7 +16,7 @@ try {
   const { loadTicketmasterEventsServer, ticketmasterAuthorityGuidePath } = await server.ssrLoadModule('/src/data/events/ticketmaster-events.server.ts');
   const { mergeEventTicketing } = await server.ssrLoadModule('/src/data/events/ticketing.ts');
   const { ticketmasterVenueMatches, ticketmasterShowtimeMatches, ticketmasterIsPrimaryAdmissionTitle } = await server.ssrLoadModule('/src/data/events/ticketmaster-event-match.ts');
-  const { matchChristmasTicketmasterPerformance, isReviewedChristmasTicketmasterDoorTime, getChristmasPerformances2026Server, getVerifiedChristmasPerformanceCalendarRecords2026 } = await server.ssrLoadModule('/src/data/events/christmas-performances-2026.server.ts');
+  const { matchChristmasTicketmasterPerformance, isReviewedChristmasTicketmasterDoorTime, getChristmasPerformances2026Server, getVerifiedChristmasPerformanceCalendarRecords2026, isSameChristmasPerformanceCalendarEvent } = await server.ssrLoadModule('/src/data/events/christmas-performances-2026.server.ts');
   const { hasCompliantMajorEventImageServer } = await server.ssrLoadModule('/src/data/major-event-schema-enrichment.server.ts');
   const { buildTexasEventCarouselItemsServer, buildGlobalEventCalendarServer } = await server.ssrLoadModule('/src/data/events/texas-event-calendar.server.ts');
   const now = new Date();
@@ -288,6 +288,45 @@ try {
   assert.equal(matchChristmasTicketmasterPerformance(ptxVenueRename,
     [{ ...ptxPreviousBrandListing, venueName: 'AT&T Stadium' }], '2026-10-26'), undefined,
     'venue rename cannot accept same-date same-title at unrelated arena');
+
+
+  // Shared calendar dedupe must use physical venue AND the actual performance
+  // clock, not just a similar title/date in the same city. Explicitly reject
+  // parking and suites even when they share the primary arena's name.
+  const curatedPtx = {
+    ...holidayTicket, id: 'curated:christmas-2026:pentatonix-fort-worth-2026',
+    slug: 'pentatonix-fort-worth-2026', title:'Pentatonix: Christmas in the City Tour',
+    city:'Fort Worth', venueName:'Ariat Arena',
+    startDate:'2026-12-16', startTime:'19:00',
+  };
+  const previousBrandPtx = { ...curatedPtx, id:'ticketmaster:pentatonix-primary',
+    venueName:'Dickies Arena', startTime:'19:00:00' };
+  assert.equal(isSameChristmasPerformanceCalendarEvent(curatedPtx,previousBrandPtx),true,
+    'same event at the officially renamed venue should reconcile');
+  assert.equal(isSameChristmasPerformanceCalendarEvent(curatedPtx,
+    { ...previousBrandPtx, startTime:'14:00' }),false,
+    'same-date matinee must not collapse into exact 7 PM concert');
+  assert.equal(isSameChristmasPerformanceCalendarEvent(curatedPtx,
+    { ...previousBrandPtx, venueName:'Dickies Arena VIP Suite' }),false,
+    'same concert title cannot transform a separately ticketed room into admission');
+  assert.equal(isSameChristmasPerformanceCalendarEvent(curatedPtx,
+    { ...previousBrandPtx, venueName:'Dickies Arena Parking' }),false,
+    'same concert title cannot transform parking into admission');
+  assert.equal(isSameChristmasPerformanceCalendarEvent(curatedPtx,
+    { ...previousBrandPtx, city:'Dallas' }),false,
+    'different city must not be reconciled');
+  assert.equal(isSameChristmasPerformanceCalendarEvent(curatedPtx,
+    { ...previousBrandPtx, startDate:'2026-12-17' }),false,
+    'different day must not be reconciled');
+  assert.equal(isSameChristmasPerformanceCalendarEvent(curatedPtx,
+    { ...previousBrandPtx, title:'Different Artist' }),false,
+    'same venue date and clock cannot merge unrelated artist');
+  const dallasCurated = { ...curatedPtx, slug:'grand-ol-christmas-dallas-2026',
+    city:'Dallas', venueName:'House of Blues Dallas',
+    startDate:'2026-12-23', startTime:'18:00', title:"The Grand Ol' Christmas Show" };
+  assert.equal(isSameChristmasPerformanceCalendarEvent(dallasCurated,
+    { ...dallasCurated, id:'ticketmaster:doors-5pm', startTime:'17:00' }),false,
+    'reviewed door-time exception belongs only in exact provider merge with uniqueness evidence');
 
   // Dallas Grand Ol Christmas has a separately confirmed 6pm show/5pm doors
   // listing. Only its exact reviewed Ticketmaster 5pm event may be affiliated.

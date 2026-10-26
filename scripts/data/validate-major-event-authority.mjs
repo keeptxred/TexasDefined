@@ -356,6 +356,12 @@ for (const marker of [
   'href: "/events/christmas-events"',
 ]) if (!palestineAuthority.includes(marker)) fail("Palestine Polar Express booking authority missing " + marker);
 for (const marker of [
+  'data-polar-express-editorial-intro="true"',
+  'data-polar-express-editorial-essentials="true"',
+  'isPalestinePolarExpress ? "" : `<section data-major-event-snapshot',
+  'Where to board',
+  'Allow enough time',
+  'Accessibility and seating',
   'data-polar-express-2026-schedule="true"',
   'data-event-official-ticket-cta="true"',
   'Dec 3–6, 9–13, 15–16, 18–23, 26–28',
@@ -369,6 +375,15 @@ for (const marker of [
   'Compare Palestine hotels on Hotels.com',
   'isPalestinePolarExpress',
 ]) if (!stayClient.includes(marker)) fail("Palestine Polar Express client booking UI missing " + marker);
+
+// Event guide slugs and canonical URLs must survive annual schedule updates.
+for (const forbidden of [
+  'polar-express-palestine-2026',
+  'polar-express-palestine-2027',
+  '/event/2026/polar-express-palestine',
+  '/event/2027/polar-express-palestine',
+]) if (loader.includes('canonicalUrl = `${siteUrl}/event/${forbidden}`')) fail("Year-specific Palestine canonical regression");
+if (!loader.includes('canonicalUrl = `${siteUrl}/event/${event.slug}`')) fail("Permanent yearless major-event canonical missing");
 
 const palestineImageEnrichment = read(path.join(dataDir, "major-event-schema-enrichment-batch32.server.ts"));
 for (const marker of [

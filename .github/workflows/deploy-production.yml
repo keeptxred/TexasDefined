@@ -110,6 +110,7 @@ jobs:
         run: |
           node scripts/ci/run-validation-suite.mjs predeploy
           node scripts/data/validate-national-cemetery-authority.mjs
+          node --check scripts/ci/verify-el-paso-fredericksburg-release.mjs
 
       - name: Publish validation result
         if: always()
@@ -888,9 +889,10 @@ jobs:
         if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' }}
         shell: bash
         run: |
-          set -o pipefail
+          set -euo pipefail
           mkdir -p .artifacts
           node scripts/ci/verify-changed-production-pages.mjs 2>&1 | tee .artifacts/city-sitemap-live-evidence.log
+          node scripts/ci/verify-el-paso-fredericksburg-release.mjs 2>&1 | tee -a .artifacts/city-sitemap-live-evidence.log
 
       # Explicit, opt-in full production XML integrity proof. It runs only
       # for a protected merge whose commit title includes [verify-sitemaps],

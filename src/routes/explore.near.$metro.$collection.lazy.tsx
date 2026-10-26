@@ -859,7 +859,7 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
             <p className="mt-2 text-sm text-muted-foreground">{event.locationLabel}</p>
             <div className="mt-5 flex flex-wrap gap-x-5 gap-y-3 text-sm font-semibold">
               <a href={event.guidePath} className="border-b border-primary pb-1 text-primary">Event guide →</a>
-              <EventTicketCta cta={event.ticketCta} linkClassName="border-b border-border pb-1 hover:text-primary" wrapperClassName="inline-flex flex-wrap gap-2" disclosureClassName="basis-full text-xs font-normal text-muted-foreground" />
+              <EventTicketCta cta={event.ticketCta} eventId={event.id} linkClassName="border-b border-border pb-1 hover:text-primary" wrapperClassName="inline-flex flex-wrap gap-2" disclosureClassName="basis-full text-xs font-normal text-muted-foreground" />
               <a href={event.officialEventUrl} target="_blank" rel="noreferrer noopener" className="border-b border-border pb-1 hover:text-primary">Official event site ↗</a>
             </div>
             <p className="mt-4 text-xs leading-6 text-muted-foreground">Last verified {event.lastVerifiedLabel}. Confirm event-day details with the official source before traveling.</p>

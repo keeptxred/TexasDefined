@@ -303,10 +303,16 @@ export function isSameChristmasPerformanceCalendarEvent(
 ) {
   if (curated.city.toLowerCase() !== candidate.city.toLowerCase()
       || curated.startDate !== candidate.startDate) return false;
-  const leftVenue = normalized(curated.venueName ?? "");
-  const rightVenue = normalized(candidate.venueName ?? "");
-  if (!leftVenue || !rightVenue
-      || !(leftVenue.includes(rightVenue) || rightVenue.includes(leftVenue))) return false;
+  // Same place means the actual facility, not an arbitrary substring such as
+  // an arena's VIP room or parking garage. The shared matcher also knows the
+  // approved Ariat/Dickies rebrand without general fuzzy venue matching.
+  if (!ticketmasterVenueMatches(curated, candidate)) return false;
+  // A 2 PM matinee must never collapse into a 7 PM occurrence merely because
+  // an organizer uses one generic production title on a shared calendar.
+  // Untimed umbrella listings retain prior behaviour; the provider-enrichment
+  // stage applies the strict uniqueness checks before adding any ticket link.
+  if (curated.startTime && candidate.startTime
+      && !ticketmasterShowtimeMatches(curated, candidate, 1)) return false;
   const left = normalized(curated.title).replace(/^the /, "");
   const right = normalized(candidate.title).replace(/^the /, "");
   if (left.includes(right) || right.includes(left)) return true;
