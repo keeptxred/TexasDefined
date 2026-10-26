@@ -185,8 +185,8 @@ export const viatorDestinationExpansion: Destination[] = [
     managingAuthority: "Magnolia",
     officialUrl: "https://magnolia.com/pages/visit",
     address: "601 Webster Ave, Waco, TX 76706",
-    directions: "The Silos are in downtown Waco at 601 Webster Avenue. Magnolia publishes current free street and lot parking guidance on its Visit page.",
-    sourceCheckedAt: SOURCE_CHECKED_AT,
+    directions: "The Silos are at 601 Webster Avenue in downtown Waco. Magnolia lists free street parking along 6th Street, 8th Street and Webster Avenue, plus a free lot at 9th Street and Webster Avenue. Event weekends may change availability; confirm the operator’s current parking and holiday notices before visiting.",
+    sourceCheckedAt: "2026-10-26",
   },
   {
     id: "viator-expansion-rockport-little-bay",
