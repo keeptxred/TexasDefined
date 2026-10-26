@@ -381,9 +381,9 @@ async function checkRenderRoute(group, attemptToken, timeoutMs = requestTimeoutM
         return `${group.path} returned HTTP 200 without required marker(s): ${missingChecks.map((check) => `${check.label}=${check.requiredText}`).join(', ')}`;
       }
       if (licensedMardiGrasPages.has(group.path)) {
-        const robotsMetaTags = body.match(/<meta\\b[^>]*>/gi) || [];
+        const robotsMetaTags = body.match(/<meta\b[^>]*>/gi) || [];
         const stillNoindex = robotsMetaTags.some((tag) =>
-          /\\bname\\s*=\\s*["']robots["']/i.test(tag) && /\\bnoindex\\b/i.test(tag));
+          /\bname\s*=\s*["']robots["']/i.test(tag) && /\bnoindex\b/i.test(tag));
         if (stillNoindex) return `${group.path} has licensed location-accurate imagery but still emits meta robots noindex`;
       }
       return '';
