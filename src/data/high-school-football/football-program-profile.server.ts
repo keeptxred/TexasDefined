@@ -236,6 +236,10 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
   const primaryCampus = otherCampusCorrections[canonicalSlug];
   const program: FootballProgramDirectoryResult = canonicalSlug === 'katy'
     ? { ...matchedProgram, countyName: 'Fort Bend County' }
+    // NCES campus 481206000703 places Bullard High in Cherokee County,
+    // even when an AskTED city/ISD match returns Smith County. This changes
+    // campus county only; UIL placement and TEA school identity remain intact.
+    : canonicalSlug === 'bullard' ? { ...matchedProgram, countyName: 'Cherokee County' }
     : canonicalSlug === 'austin-johnson' ? austinLbjProgram
     : primaryCampus ? {
       ...seed, profilePath: footballProgramProfilePath(seed.schoolName),
