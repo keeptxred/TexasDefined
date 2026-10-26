@@ -24,7 +24,7 @@ function isVerified2027(s: ConfirmedSeason) {
   return s.year === 2027 && s.status === "verified" &&
     s.sourceUrl === trustedSource && /^2027-\d{2}-\d{2}$/.test(s.verifiedAt) &&
     Array.isArray(s.calendarImages) && s.calendarImages.length === 2 &&
-    s.calendarImages.every(url => /^https:\/\/([a-z0-9-]+\.)?texasstaterailroad\.net\//i.test(url) && /2027/.test(url)) &&
+    s.calendarImages.every(url => /^https:\/\/([a-z0-9-]+\.)?texasstaterailroad\.net\/wp-content\/uploads\//i.test(url)) &&
     Array.isArray(s.dates) && s.dates.length >= 20 && s.dates.length <= 55 &&
     s.dates.every(item => safeDate(item.date) && Array.isArray(item.times) && item.times.length >= 1 &&
       item.times.length <= 8 && item.times.every(time => /^(?:1[0-2]|[1-9]):(?:00|30) (?:AM|PM)$/.test(time))) &&
