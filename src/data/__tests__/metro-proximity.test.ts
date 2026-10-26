@@ -601,3 +601,32 @@ test("day-trip monetization reuses approved booking surfaces and keeps editorial
   assert.ok(rich.includes('pageData.indexReady && hasVerifiedViatorMarketUrl'), "never monetize unverified destination inventory");
   assert.ok(rich.includes('metro.slug === "mcallen" ? "south-padre-island"'), "McAllen coastal partner offer must not impersonate the entire Valley");
 });
+
+test("day-trip affiliate writes wait for lazy metro outlet hydration rather than root hydration alone", () => {
+  const stay = readFileSync("public/stay-affiliate-options.js", "utf8");
+  const rich = readFileSync("src/routes/explore.near.$metro.$collection.lazy.tsx", "utf8");
+  // This guard must cover every metro, not only the separately reviewed McAllen page.
+  assert.ok(stay.includes("document.documentElement.dataset.tdMetroDayTripsHydrated !== \"1\""),
+    "early third-party affiliate DOM mutations must be deferred on all day-trip pages");
+  assert.ok(stay.includes('window.addEventListener("texasdefined:metro-day-trips-hydrated", scheduleSync)'),
+    "refresh the booking panel after the lazy React outlet commits");
+  assert.ok(rich.includes('document.documentElement.dataset.tdMetroDayTripsHydrated = "1"'),
+    "the lazy React outlet itself owns the ready signal");
+  assert.ok(rich.includes('window.dispatchEvent(new Event("texasdefined:metro-day-trips-hydrated"))'),
+    "affiliates must be notified of successful outlet hydration");
+  assert.ok(rich.includes("delete document.documentElement.dataset.tdMetroDayTripsHydrated"),
+    "a client-side route change must clear the ready signal");
+  assert.ok(rich.includes('document.documentElement.dataset.tdMcAllenDayTripsHydrated = "1"'),
+    "preserve McAllen-specific downstream compatibility");
+});
+
+test("Amarillo Viator panel uses the already source-verified Palo Duro marketplace URL", () => {
+  const rich = readFileSync("src/routes/explore.near.$metro.$collection.lazy.tsx", "utf8");
+  const verified = readFileSync("src/data/viator-destination-links.ts", "utf8");
+  assert.ok(verified.includes('"amarillo-palo-duro": "https://www.viator.com/Amarillo/d29045"'),
+    "do not invent an unverified generic Amarillo market link");
+  assert.ok(rich.includes('metro.slug === "amarillo" ? "amarillo-palo-duro"'),
+    "the approved Amarillo URL must power both CTA visibility and on-screen impression tracking");
+  assert.ok(rich.includes("hasVerifiedViatorMarketUrl(experienceMarketSlug)"),
+    "retain the affiliate quality gate instead of publishing generic tours");
+});
