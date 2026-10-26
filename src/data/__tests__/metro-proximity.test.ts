@@ -540,6 +540,29 @@ test("new metro editorial candidates never create unsupported destinations or du
   assert.equal(curatedMetroDayTrips("tyler", "road-trips", [duplicate]).length, 0, "only day trips may show day-trip editorial");
 });
 
+test("day-trip affiliate impressions require onscreen visibility and retain approved click destinations", () => {
+  const rich = readFileSync("src/routes/explore.near.$metro.$collection.lazy.tsx", "utf8");
+  const analytics = readFileSync("src/lib/affiliate-click.ts", "utf8");
+  assert.ok(rich.includes("new IntersectionObserver"), "only observable modules should generate an impression");
+  assert.ok(rich.includes("entry.intersectionRatio >= 0.2"), "not a page load impression");
+  assert.ok(rich.includes("seenDayTripImpressions.add(panel)"), "strict-mode duplicate impressions are suppressed");
+  assert.ok(rich.includes('placement: "metro-day-trips-experience"'), "use stable placement attribution");
+  assert.ok(analytics.includes('event: "affiliate_impression"'), "impression must use a distinct measurement event");
+  assert.ok(analytics.includes('event: "affiliate_click"'), "existing click event remains intact");
+  assert.ok(analytics.includes("device_class:"), "compare mobile and desktop using nonpersonal device class");
+});
+
+test("day-trip source monitoring is scheduled, conservative and preserves researched editorial", () => {
+  const script = readFileSync("scripts/data/check-metro-day-trips-sources.mjs", "utf8");
+  const workflow = readFileSync(".github/workflows/verify-metro-day-trips-sources.yml", "utf8");
+  assert.ok(workflow.includes('cron: "17 13 * * 1"'), "weekly source check");
+  assert.ok(workflow.includes("workflow_dispatch:"), "manual recheck available");
+  assert.ok(workflow.includes("upload-artifact@v4"), "record sources and dates");
+  assert.ok(script.includes("response.status") && script.includes('inspect(url, "GET")'), "HEAD failures require independent GET confirmation");
+  assert.ok(script.includes("entry.status === 404 || entry.status === 410"), "only confirmed missing operator pages fail");
+  assert.ok(!script.includes("writeFileSync(\"src/data"), "link checker must not auto-replace source-backed destination data");
+});
+
 test("day-trip monetization reuses approved booking surfaces and keeps editorial choices independent", () => {
   const rich = readFileSync("src/routes/explore.near.$metro.$collection.lazy.tsx");
   const partner = readFileSync("src/routes/partner-with-us.tsx");
