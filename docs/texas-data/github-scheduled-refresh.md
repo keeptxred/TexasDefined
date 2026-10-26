@@ -8,7 +8,7 @@ The publication authority remains `keeptxred/TexasDefined`, with protected GitHu
 | --- | --- | --- | --- |
 | Metropolitan employment | `.github/workflows/refresh-texas-data.yml` | Monthly on the 5th, 12:41 UTC | Verifies BLS monthly release and Table 3; a newer or revised 13-metro snapshot creates a governed PR; the `Finish Texas Data Refresh` owner-side workflow validates the exact PR head and enables protected auto-merge |
 | Property-tax rates | `.github/workflows/sync-property-tax-rates.yml` | Monthly on the 3rd | Updates verified rows in the existing Supabase rate registry, including historical revisions; fail-closed |
-| County housing | `.github/workflows/refresh-acs-county-housing-costs.yml` | Monthly on the 6th | Checks the pinned ACS 2024 five-year source and creates a guarded snapshot PR when values change. **It does not roll its vintage forward automatically.** |
+| County housing | `.github/workflows/refresh-acs-county-housing-costs.yml` | Monthly on the 6th | Checks whether the next official ACS five-year Table-Based Summary File is published. Only after all four fields and all 254 counties validate does it roll the maintained snapshot to the next vintage, open a scoped PR, and use the `Finish ACS County Housing Refresh` protected auto-merge workflow. Archived source records are not fabricated. |
 | Homeowners insurance | Supabase `texasdefined-tdi-homeowners-2025-fetch-weekly` | Weekly Mondays | Monitors official TDI 2025 premiums/coverage; detects revisions without automatically modifying the public premium/cost research page |
 | Population/migration, homestead, TxDOT | Dated source-backed editorial snapshots | No independent scheduled auto-publication yet | Must be updated with specific source adapters; never silently claim these are current |
 
@@ -21,6 +21,14 @@ The publication authority remains `keeptxred/TexasDefined`, with protected GitHu
 - The scheduled workflow is allowed to change **only** the generated BLS JSON and that sitemap-safe metadata file. It must never write directly to main.
 - A `GITHUB_TOKEN`-generated PR does not trigger normal `pull_request` checks. The trusted `workflow_run` finisher reconciles with current main, dispatches existing validation workflows for the exact branch, verifies exact head/ancestry and then enables normal protected GitHub auto-merge; it never force-pushes or bypasses required validation.
 - Site updates deploy via `Deploy TexasDefined production` and its existing configured cache management.
+
+
+## ACS annual rollover controls
+
+- The monthly runner tries at most the next annual ACS five-year vintage, then the last verified release. An unpublished release (official first table HTTP 404) cannot become the site's data vintage.
+- The importer requires the official Census Summary File source, four named Detailed Table columns, exactly 254 unique Texas county FIPS codes, and nonnegative numeric or explicitly unavailable cell values. A partially released or structurally changed vintage fails without overwriting the verified dataset.
+- A changed verified snapshot enters an isolated GitHub PR. The owner-side ACS finisher checks exact PR identity, restricts changes to the one generated snapshot, dispatches existing required validation, and only then permits branch-protected auto-merge. The normal Cloudflare deployment pipeline handles cache and live verification.
+- The visible county comparison, machine-readable temporal coverage and CSV filename use the maintained source vintage, not an embedded 2024 label. If Census changes table definitions, automatic replacement stops until the data semantics are reverified.
 
 ## Important remaining limitation
 
