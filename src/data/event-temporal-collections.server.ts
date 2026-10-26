@@ -433,7 +433,16 @@ function resolveSeasonYear(todayParts: ReturnType<typeof texasDateParts>, season
 }
 
 function holidayName(name: string) {
-  return /(christmas|holiday|dickens|nutcracker|lights|river parade)/i.test(name);
+  // Do not classify winter/Christmas attractions as fall festivals merely because
+  // their first operating date falls in November.
+  return /\b(christmas|holiday|holidays|dickens|nutcracker|zoo lights|trail of lights|winter lights|ice land|santa|polar express|merry|jingle|yuletide|advent|lightscape|christkindl|christkindel)\b/i.test(name)
+    || /\b(?:tree lighting|holiday lights|christmas lights)\b/i.test(name);
+}
+
+function fallFestivalName(name: string) {
+  // Named community, harvest, food, culture and fair traditions. A September–
+  // November occurrence by itself is not enough to make an event a festival.
+  return /festival|oktoberfest|\bfest\b|festivals|\bfair\b|harvest|pumpkin|autumn|fall|fiesta|heritage|folk|craft|arts|art show|rodeo|round.?up|antique|celebration|parade|chili|cook.?off|food|blues|jazz|music|market|carnival|scarecrow|halloween/i.test(name);
 }
 
 function countyFairName(name: string) {
@@ -469,7 +478,17 @@ function resolveFilter(definition: TemporalEventCollectionDefinition, events: Te
       const year = resolveSeasonYear(parts, 11);
       start = isoFromParts(year, 9, 1);
       end = isoFromParts(year, 11, 30);
-      filtered = events.filter((event) => event.category !== "sport" && overlaps(event, start, end));
+      filtered = events.filter((event) =>
+        event.category !== "sport"
+        && Boolean(event.sourceCheckedAt)
+        && !/Recurrence-derived planning window/i.test(event.detail)
+        && !holidayName(event.name)
+        && fallFestivalName(event.name)
+        && overlaps(event, start, end)
+        // Expired occurrences belong on their permanent guide, never in the
+        // live discovery collection or its ItemList structured data.
+        && (event.endDate ?? event.startDate) >= today
+      );
       break;
     }
     case "christmas": {
@@ -533,7 +552,12 @@ function resolveFilter(definition: TemporalEventCollectionDefinition, events: Te
   return {
     start,
     end,
-    items: filtered.sort((left, right) => left.startDate.localeCompare(right.startDate) || left.name.localeCompare(right.name)),
+    items: filtered.sort((left, right) => {
+      // An in-progress multiweek festival belongs ahead of future starts.
+      const leftStart = definition.filterKind === "fall" && left.startDate < today ? today : left.startDate;
+      const rightStart = definition.filterKind === "fall" && right.startDate < today ? today : right.startDate;
+      return leftStart.localeCompare(rightStart) || left.startDate.localeCompare(right.startDate) || left.name.localeCompare(right.name);
+    }),
   };
 }
 
