@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { publicTicketUrl, classifyTicketLinkResponse, probePublicTicketUrl, primaryAdmissionProbeCandidate, chooseBatch, summarizeProviderProbeOutcomes, auditCatalogIntegrity } from './verify-ticketmaster-link-batch.mjs';
 
 const official = 'https://www.ticketmaster.com/grand-ol-christmas/event/ABC123';
@@ -201,4 +202,15 @@ test('catalog integrity treats provider sale status as descriptive, never proof 
   assert.equal(result.structuralErrors,0);
   assert.equal(result.incompleteSaleStatus,1);
   assert.equal(result.seatsVerified,false);
+});
+
+test('checked-in Ticketmaster Discovery snapshot is structurally publishable before daily probes', () => {
+  const current = JSON.parse(readFileSync(new URL('../../src/data/generated/ticketmaster-events.json', import.meta.url), 'utf8'));
+  assert.ok(Array.isArray(current.events) && current.events.length > 0, 'Expected nonempty managed Discovery snapshot');
+  const audit = auditCatalogIntegrity(current.events);
+  assert.equal(audit.structuralErrors, 0, 'Do not enable a whole-snapshot fail-closed release gate while current source rows fail integrity: ' + audit.errorExamples.join(', '));
+  assert.equal(audit.uniqueEventIds, current.events.length, 'Duplicate provider IDs in checked-in source');
+  assert.equal(audit.validAuthorizedImpactDeepLinks, current.events.length, 'Missing approved, event-specific Impact tracking destinations');
+  assert.equal(audit.httpLinksProbed, false);
+  assert.equal(audit.seatsVerified, false);
 });
