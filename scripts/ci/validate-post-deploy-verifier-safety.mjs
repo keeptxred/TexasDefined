@@ -251,8 +251,19 @@ requireMarker(linkGraph, 'audit-site-quality-local.yml', 'Full internal-link aud
 requireMarker(linkGraph, 'audit: links', 'Internal-link manual entry point must preserve the complete graph audit');
 if (/^  (workflow_run|schedule|push|pull_request):/m.test(linkGraph)) failures.push('Full link-graph crawler must not run on each production deploy');
 const seasonal = workflow('verify-seasonal-production');
-requireMarker(seasonal, 'Wait for production deploy on push fallback', 'Seasonal direct-push fallback must synchronize deployment');
-requireMarker(seasonal, 'texasdefined-production', 'Seasonal fallback must await exact SHA deployment success');
+// Seasonal live assertions must run on the exact successful deployment, not
+// race a pending production job on push or wait in a six-minute polling loop.
+noDirectPush(seasonal, 'Seasonal production verifier');
+requireMarker(seasonal, 'workflow_run:', 'Seasonal verifier lost canonical deployment trigger');
+requireMarker(seasonal, "workflows: ['Deploy TexasDefined production']", 'Seasonal verifier must follow the protected production workflow');
+requireMarker(seasonal, "github.event.workflow_run.conclusion == 'success'", 'Seasonal verifier must skip failed/cancelled deployments');
+requireMarker(seasonal, 'workflow_dispatch:', 'Seasonal manual verification trigger missing');
+requireMarker(seasonal, 'ref: ${{ github.event.workflow_run.head_sha || github.sha }}', 'Seasonal checkout must pin exact successful deployed SHA');
+requireMarker(seasonal, 'DEPLOY_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}', 'Seasonal live status must target exact deployed SHA');
+requireMarker(seasonal, 'needs.scope.outputs.should_verify', 'Seasonal verifier must preserve bounded change scope');
+if (seasonal.includes('Wait for production deploy on push fallback') || seasonal.includes('for attempt in $(seq 1 36)')) {
+  failures.push('Seasonal verifier must not restore failed push-time polling');
+}
 const sports = workflow('verify-sports-venue-editorial-production');
 noDirectPush(sports, 'Sports venue standalone helper');
 if (sports.includes('workflow_run:')) failures.push('Sports venue production check must run natively inside deploy, not via downstream workflow_run');
