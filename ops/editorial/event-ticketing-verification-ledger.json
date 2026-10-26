@@ -23,7 +23,7 @@
     {
       "id": "grinch-dallas-2026",
       "batch": "christmas-2026-12",
-      "status": "IN_PROGRESS",
+      "status": "DEPLOYED",
       "date": "2026-11-27",
       "city": "Dallas",
       "venue": "Music Hall at Fair Park",
@@ -37,14 +37,15 @@
       "checkoutPriceStatus": "not-confirmed",
       "affiliateEligibility": "not-proven",
       "changes": "Existing merged 12-event coverage preserved; current recheck pending acceptance",
-      "pr": null,
-      "productionVerifiedAt": null,
-      "remainingDefect": "Acceptance run for current deploy pending"
+      "pr": 5922,
+      "productionVerifiedAt": "2026-10-25",
+      "remainingDefect": "Current upstream checkout inventory, final price and event-level Impact commission eligibility not independently established",
+      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified"
     },
     {
       "id": "king-country-fort-worth-2026",
       "batch": "christmas-2026-12",
-      "status": "IN_PROGRESS",
+      "status": "DEPLOYED",
       "date": "2026-12-05",
       "city": "Fort Worth",
       "venue": "Dickies Arena",
@@ -58,14 +59,15 @@
       "checkoutPriceStatus": "not-confirmed",
       "affiliateEligibility": "not-proven",
       "changes": "Existing merged 12-event coverage preserved; current recheck pending acceptance",
-      "pr": null,
-      "productionVerifiedAt": null,
-      "remainingDefect": "Acceptance run for current deploy pending"
+      "pr": 5922,
+      "productionVerifiedAt": "2026-10-25",
+      "remainingDefect": "Current upstream checkout inventory, final price and event-level Impact commission eligibility not independently established",
+      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified"
     },
     {
       "id": "christmas-kwanzaa-dallas-2026",
       "batch": "christmas-2026-12",
-      "status": "IN_PROGRESS",
+      "status": "DEPLOYED",
       "date": "2026-12-11",
       "city": "Dallas",
       "venue": "Bruton Theatre",
@@ -79,14 +81,15 @@
       "checkoutPriceStatus": "not-confirmed",
       "affiliateEligibility": "not-proven",
       "changes": "Existing merged 12-event coverage preserved; current recheck pending acceptance",
-      "pr": null,
-      "productionVerifiedAt": null,
-      "remainingDefect": "Acceptance run for current deploy pending"
+      "pr": 5922,
+      "productionVerifiedAt": "2026-10-25",
+      "remainingDefect": "Current upstream checkout inventory, final price and event-level Impact commission eligibility not independently established",
+      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified"
     },
     {
       "id": "christmas-story-conroe-2026",
       "batch": "christmas-2026-12",
-      "status": "IN_PROGRESS",
+      "status": "DEPLOYED",
       "date": "2026-12-13",
       "city": "Conroe",
       "venue": "Crighton Theatre",
@@ -100,14 +103,15 @@
       "checkoutPriceStatus": "not-confirmed",
       "affiliateEligibility": "not-proven",
       "changes": "Existing merged 12-event coverage preserved; current recheck pending acceptance",
-      "pr": null,
-      "productionVerifiedAt": null,
-      "remainingDefect": "Independent provider HTTP response inaccessible; organizer links correct exact Etix performance"
+      "pr": 5922,
+      "productionVerifiedAt": "2026-10-25",
+      "remainingDefect": "Independent Etix HTTP checkout availability not established: protected provider access; direct event linked by organizer",
+      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified"
     },
     {
       "id": "pentatonix-fort-worth-2026",
       "batch": "christmas-2026-12",
-      "status": "IN_PROGRESS",
+      "status": "DEPLOYED",
       "date": "2026-12-16",
       "city": "Fort Worth",
       "venue": "Dickies Arena",
@@ -121,14 +125,15 @@
       "checkoutPriceStatus": "not-confirmed",
       "affiliateEligibility": "program-conditional-not-proven-for-this-event",
       "changes": "Existing merged 12-event coverage preserved; current recheck pending acceptance",
-      "pr": null,
-      "productionVerifiedAt": null,
-      "remainingDefect": "Acceptance run for current deploy pending"
+      "pr": 5922,
+      "productionVerifiedAt": "2026-10-25",
+      "remainingDefect": "Current upstream checkout inventory, final price and event-level Impact commission eligibility not independently established",
+      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified"
     },
     {
       "id": "jazzy-christmas-dallas-2026",
       "batch": "christmas-2026-12",
-      "status": "IN_PROGRESS",
+      "status": "DEPLOYED",
       "date": "2026-12-17",
       "city": "Dallas",
       "venue": "Bruton Theatre",
@@ -142,14 +147,15 @@
       "checkoutPriceStatus": "not-confirmed",
       "affiliateEligibility": "not-proven",
       "changes": "Existing merged 12-event coverage preserved; current recheck pending acceptance",
-      "pr": null,
-      "productionVerifiedAt": null,
-      "remainingDefect": "Acceptance run for current deploy pending"
+      "pr": 5922,
+      "productionVerifiedAt": "2026-10-25",
+      "remainingDefect": "Current upstream checkout inventory, final price and event-level Impact commission eligibility not independently established",
+      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified"
     },
     {
       "id": "very-merry-symphony-cedar-park-2026",
       "batch": "christmas-2026-12",
-      "status": "IN_PROGRESS",
+      "status": "DEPLOYED",
       "date": "2026-12-20",
       "city": "Cedar Park",
       "venue": "H-E-B Center at Cedar Park",
@@ -163,14 +169,15 @@
       "checkoutPriceStatus": "not-confirmed",
       "affiliateEligibility": "not-proven",
       "changes": "Existing merged 12-event coverage preserved; current recheck pending acceptance",
-      "pr": null,
-      "productionVerifiedAt": null,
-      "remainingDefect": "Acceptance run for current deploy pending"
+      "pr": 5922,
+      "productionVerifiedAt": "2026-10-25",
+      "remainingDefect": "Current upstream checkout inventory, final price and event-level Impact commission eligibility not independently established",
+      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified"
     },
     {
       "id": "celtic-christmas-mcallen-2026",
       "batch": "christmas-2026-12",
-      "status": "IN_PROGRESS",
+      "status": "DEPLOYED",
       "date": "2026-12-20",
       "city": "McAllen",
       "venue": "McAllen Performing Arts Center",
@@ -184,14 +191,15 @@
       "checkoutPriceStatus": "not-confirmed",
       "affiliateEligibility": "not-proven",
       "changes": "Existing merged 12-event coverage preserved; current recheck pending acceptance",
-      "pr": null,
-      "productionVerifiedAt": null,
-      "remainingDefect": "Acceptance run for current deploy pending"
+      "pr": 5922,
+      "productionVerifiedAt": "2026-10-25",
+      "remainingDefect": "Current upstream checkout inventory, final price and event-level Impact commission eligibility not independently established",
+      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified"
     },
     {
       "id": "grand-ol-christmas-houston-2026",
       "batch": "christmas-2026-12",
-      "status": "IN_PROGRESS",
+      "status": "DEPLOYED",
       "date": "2026-12-22",
       "city": "Houston",
       "venue": "House of Blues Houston",
@@ -205,14 +213,15 @@
       "checkoutPriceStatus": "not-confirmed",
       "affiliateEligibility": "program-conditional-not-proven-for-this-event",
       "changes": "Existing merged 12-event coverage preserved; current recheck pending acceptance",
-      "pr": null,
-      "productionVerifiedAt": null,
-      "remainingDefect": "Acceptance run for current deploy pending"
+      "pr": 5922,
+      "productionVerifiedAt": "2026-10-25",
+      "remainingDefect": "Current upstream checkout inventory, final price and event-level Impact commission eligibility not independently established",
+      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified"
     },
     {
       "id": "grand-ol-christmas-dallas-2026",
       "batch": "christmas-2026-12",
-      "status": "IN_PROGRESS",
+      "status": "DEPLOYED",
       "date": "2026-12-23",
       "city": "Dallas",
       "venue": "House of Blues Dallas",
@@ -226,14 +235,15 @@
       "checkoutPriceStatus": "not-confirmed",
       "affiliateEligibility": "program-conditional-not-proven-for-this-event",
       "changes": "Existing merged 12-event coverage preserved; current recheck pending acceptance",
-      "pr": null,
-      "productionVerifiedAt": null,
-      "remainingDefect": "Retain doors/showtime exception; verify 2026 calendar acceptance"
+      "pr": 5922,
+      "productionVerifiedAt": "2026-10-25",
+      "remainingDefect": "Provider live inventory unverified; independently reviewed 5 PM doors versus 6 PM show retained",
+      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified"
     },
     {
       "id": "cirque-musica-cedar-park-2026",
       "batch": "christmas-2026-12",
-      "status": "IN_PROGRESS",
+      "status": "DEPLOYED",
       "date": "2026-12-24",
       "city": "Cedar Park",
       "venue": "H-E-B Center at Cedar Park",
@@ -247,14 +257,15 @@
       "checkoutPriceStatus": "not-confirmed",
       "affiliateEligibility": "not-proven",
       "changes": "Existing merged 12-event coverage preserved; current recheck pending acceptance",
-      "pr": null,
-      "productionVerifiedAt": null,
-      "remainingDefect": "Acceptance run for current deploy pending"
+      "pr": 5922,
+      "productionVerifiedAt": "2026-10-25",
+      "remainingDefect": "Current upstream checkout inventory, final price and event-level Impact commission eligibility not independently established",
+      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified"
     },
     {
       "id": "christmas-carol-houston-2026",
       "batch": "christmas-2026-12",
-      "status": "IN_PROGRESS",
+      "status": "DEPLOYED",
       "date": "2026-12-27",
       "city": "Houston",
       "venue": "Alley Theatre Hubbard Theatre",
@@ -268,9 +279,10 @@
       "checkoutPriceStatus": "not-confirmed",
       "affiliateEligibility": "not-proven",
       "changes": "Exact checkout and 1:30 PM canonical showtime prepared",
-      "pr": null,
-      "productionVerifiedAt": null,
-      "remainingDefect": "Acceptance run for current deploy pending"
+      "pr": 5922,
+      "productionVerifiedAt": "2026-10-25",
+      "remainingDefect": "Official Dec 27 1:30 PM exact checkout identified; current seats/price unverified",
+      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified"
     }
   ],
   "statewide": {
@@ -286,11 +298,11 @@
         "city": "Dallas",
         "venue": "American Airlines Center",
         "date": "2026-10-25",
-        "status": "IMPLEMENTED",
+        "status": "DEPLOYED",
         "evidence": "Live statewide /events listing showed branded garage parking with a sponsored Find Tickets admission CTA",
         "change": "Reject branded garage and parking-lot products as primary admission in shared Ticketmaster adapter",
-        "tests": "Added five garage/parking negative cases plus primary-admission snapshot comparison; CI pending",
-        "productionVerifiedAt": null,
+        "tests": "Five negative admission classification tests and full Ticketmaster snapshot validation passed protected CI; live production deploy 40260454571 passed; affected event date already expired",
+        "productionVerifiedAt": "2026-10-25",
         "pr": 5922
       }
     ]
@@ -299,5 +311,22 @@
     "Other provider inventory APIs require explicit permission and credentials; official links remain usable",
     "Ticketmaster Partner/Availability/Inventory APIs not granted by Discovery key",
     "Impact program commission eligibility cannot be inferred from generated tracking URL"
-  ]
+  ],
+  "productionAcceptance": {
+    "mergeCommit": "03446f3e5ffcc8bf3f053b886452c15ad523faea",
+    "pullRequest": 5922,
+    "workflowRunId": 40260454571,
+    "workflowUrl": "https://github.com/keeptxred/TexasDefined/actions/runs/40260454571",
+    "cloudflareDeploymentId": "e5f7f6ea-6a57-4e9e-81db-8cabb330324d",
+    "cloudflareVersionId": "e717974e-76b5-45b2-94ff-31e97b750805",
+    "completedAt": "2026-10-25",
+    "tests": [
+      "Canonical protected merge gate success",
+      "Source-qualified Christmas calendar production acceptance success",
+      "12 individual Christmas concerts SSR live acceptance success",
+      "Deployed Worker version and canonical live health success"
+    ],
+    "inventoryVerification": "NOT_PERFORMED",
+    "checkoutTransactionVerification": "NOT_PERFORMED"
+  }
 }
