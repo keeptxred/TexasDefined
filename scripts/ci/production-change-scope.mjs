@@ -116,6 +116,15 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
     ];
   }
 
+  // Texas Life city comparison articles share one source registry, so changed
+  // paragraphs do not reliably surface a route in generic diff-based crawling.
+  if (changedFiles.includes('src/data/fixtures/texas-life-split-source.ts')) {
+    candidates.add('/article/texas-major-cities-regional-differences');
+    expectedHrefsByPage['/article/texas-major-cities-regional-differences'] = [
+      '/article/texas-rio-grande-river-guide',
+    ];
+  }
+
   // The statewide Mardi Gras hub has a static route and its own event-directory
   // links. Verify it on production when either of its route files changes.
   const mardiGrasHubPages = new Set();
