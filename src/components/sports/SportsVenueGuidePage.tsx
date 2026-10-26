@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react";
+import { lazy, Suspense, useState, type ReactNode } from "react";
 
 import {
   TexasEventCarousel,
@@ -20,6 +20,7 @@ import type { SportsVenuePhoto } from "@/data/sports-venue-images";
 import type { PublicSportsSponsorPlacement } from "@/data/sports-sponsorship.types";
 
 const siteUrl = "https://texasdefined.com";
+const WacoDestinationOffer = lazy(() => import("@/components/monetization/WacoDestinationOffer").then((module) => ({ default: module.WacoDestinationOffer })));
 
 
 export type SportsVenueGuideLink = {
@@ -255,6 +256,11 @@ export function SportsVenueGuidePage({
             </section>
           ) : null}
 
+          {guide.canonicalPath === "/sports-venue/mclane-stadium" ? (
+            <Suspense fallback={null}>
+              <WacoDestinationOffer slug="mclane-stadium" />
+            </Suspense>
+          ) : null}
           <div data-stay-nearby-slot />
 
           {guide.canonicalPath === "/sports-venue/msr-houston" ? <MSRHoustonAuthoritySections /> : null}

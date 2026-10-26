@@ -27,7 +27,7 @@ const end = eventFile.indexOf("\n];", start);
 assert.ok(start >= 0 && end > start, "Source-qualified Christmas manifest was not found");
 const json = eventFile.slice(eventFile.indexOf("= [", start) + 2, end + 2).trim();
 const events = JSON.parse(json);
-assert.ok(events.length >= 152, "The 152 organizer-verified Christmas date windows must not shrink without explicit source review");
+assert.ok(events.length >= 203, "The 203 organizer-verified Christmas date windows must not shrink without explicit source review");
 assert.equal(events.length, new Set(events.map((event) => event.slug)).size, "Duplicate Christmas community slugs");
 
 const validDate = /^20\d{2}-\d{2}-\d{2}$/;
@@ -65,7 +65,115 @@ for (const [slug,start,end] of [
   ['waco-wild-lights-2026-4','2026-12-17','2026-12-20'],
   ['mineral-wells-merry-wells-festival','2026-11-28',undefined],
 ]) check(slug,start,end);
+for (const [slug,begin,end] of [
+  ["bryan-2026-lights-on-downtown","2026-11-20",undefined],
+  ["bryan-2026-holiday-magic-sue-haswell","2026-12-03",undefined],
+  ["bryan-2026-holiday-porch-stroll","2026-12-13",undefined],
+  ["bryan-2026-downtown-holiday-stroll","2026-12-13","2026-12-17"],
+  ["bryan-2026-lighted-parade","2026-12-17",undefined],
+  ["weatherford-2026-christmas-on-square","2026-12-05",undefined],
+  ["weatherford-2026-lights-night-parade","2026-12-05",undefined],
+  ["lampasas-2026-carol-of-lights","2026-12-05",undefined],
+  ["lampasas-2026-holidazzle-parade","2026-12-05",undefined],
+  ["lampasas-2026-christmas-on-creek","2026-12-12",undefined],
+  ["caldwell-2026-christmas-on-square","2026-12-11",undefined],
+  ["navasota-2026-home-for-holidays-parade","2026-12-05",undefined],
+]) check(slug,begin,end);
+assert.ok(bySlug.get("bryan-2026-downtown-holiday-stroll").summary.includes("distinct event"), "Bryan parade and Stroll identities cannot be collapsed");
+assert.ok(bySlug.get("caldwell-2026-christmas-on-square").summary.includes("Friday December 11"), "2026 Caldwell source-date beats annual tradition assumptions");
+assert.ok(bySlug.get("navasota-2026-home-for-holidays-parade").sourceName.includes("School District"), "Do not imply organizer confirmation where only the district calendar supports the date");
+assert.ok(!bySlug.has("temple-nature-in-lights-assumed-2026"), "Historic Temple BLORA holiday dates cannot be promoted as exact 2026 evidence");
+assert.ok(!bySlug.has("waco-homestead-christmas-market-inferred-2026"), "Archived Homestead Holiday Market dates must not silently roll forward");
+for (const [slug, begin] of [
+  ["seguin-2026-holiday-stroll-parade","2026-12-03"],
+  ["seguin-2026-sip-n-stroll","2026-12-04"],
+  ["seguin-2026-north-pole-stroll","2026-12-05"],
+  ["seguin-2026-yulefest-art-show","2026-12-06"],
+  ["lewisville-2026-holiday-stroll-lights","2026-12-04"],
+  ["lewisville-2026-holiday-stroll-parade","2026-12-05"],
+  ["rowlett-2026-holiday-main-street-fest","2026-12-05"],
+]) check(slug,begin);
+assert.ok(!bySlug.has("rowlett-2026-duplicate-parade"), "Rowlett's festival and parade share a single city occasion");
+
+check("colleyville-2026-christmas-tree-lighting","2026-11-21");
+check("forney-2026-christmas-on-main","2026-12-05");
+check("kaufman-2026-christmas-on-the-square","2026-12-05");
+check("terrell-2026-christmas-parade","2026-12-12");
+check("lockhart-2026-christmas-to-remember","2026-12-04","2026-12-05");
+assert.ok(bySlug.get("terrell-2026-christmas-parade").summary.includes("FLOAT ENTRY fees"), "Terrell spectator entry must not falsely inherit float fees");
+assert.ok(!bySlug.has("lockhart-2026-dickens-christmas"), "Different Lockhart event aliases must not be invented as verified 2026 Dickens dates");
+assert.ok(bySlug.get("forney-2026-christmas-on-main").summary.includes("do not merge"), "Do not treat Christmas on Main as an unverified Forney Christmas in the Park event");
+assert.ok(!bySlug.has("rockwall-2026-kiwanis-christmas-parade"), "Rockwall already has canonical Hometown Christmas coverage; avoid duplicate parade entries");
+assert.ok(bySlug.has("rockwall-hometown-christmas-2026"), "Retain verified canonical Rockwall Christmas listing");
+assert.ok(bySlug.has("burleson-btx-mas-christmas-2026"), "Retain verified Burleson BTX-MAS listing");
+assert.ok(bySlug.get("lewisville-2026-holiday-stroll-parade").summary.includes("Check the city event program"), "Unpublished Lewisville parade exact hour must not be invented");
+
 assert.ok(!bySlug.has('waco-wild-lights-2026-late-december'), 'Conflicted Zoo operating nights cannot be invented');
+for (const [slug,date] of [
+  ["southlake-home-for-the-holidays-2026","2026-11-21"],
+  ["rockwall-hometown-christmas-2026","2026-12-05"],
+  ["nacogdoches-nine-flags-parade-2026","2026-12-05"],
+  ["kerrville-holiday-lighted-parade-2026","2026-11-21"],
+  ["kerrville-merry-on-the-square-2026","2026-11-21"],
+]) check(slug,date);
+
+for (const [slug,date,end] of [
+  ["longview-ambucs-christmas-parade-2026","2026-12-03",undefined],
+  ["longview-arboretum-bright-2026-1","2026-11-27","2026-11-28"],
+  ["longview-arboretum-bright-2026-2","2026-12-03","2026-12-05"],
+  ["longview-arboretum-bright-2026-3","2026-12-10","2026-12-12"],
+  ["longview-arboretum-bright-2026-4","2026-12-17","2026-12-23"],
+  ["longview-arboretum-bright-2026-5","2026-12-26","2026-12-27"],
+  ["livingston-christmas-train-village-2026-1","2026-11-27","2026-11-29"],
+  ["livingston-christmas-train-village-2026-2","2026-12-03","2026-12-06"],
+  ["livingston-christmas-train-village-2026-3","2026-12-10","2026-12-13"],
+  ["livingston-christmas-train-village-2026-4","2026-12-17","2026-12-20"],
+  ["livingston-christmas-train-village-2026-5","2026-12-24","2026-12-27"],
+]) check(slug,date,end);
+assert.ok(bySlug.get("longview-arboretum-bright-2026-1").summary.includes("dated ticket grid"),
+  "Longview Arboretum must rely on explicitly advertised individual 2026 ticket days");
+assert.ok(bySlug.get("longview-ambucs-christmas-parade-2026").summary.includes("WEATHER RAIN-OUT BACKUP"),
+  "Longview rainout date is not a second scheduled parade");
+assert.ok(bySlug.get("livingston-christmas-train-village-2026-3").summary.includes("December 12 extended hours"),
+  "Livingston train sessions must preserve Saturday Dec 12 special hours");
+assert.ok(bySlug.get("livingston-christmas-train-village-2026-1").summary.includes("NOT a paid passenger train ride"),
+  "Keep Livingston miniature train exhibit distinct from excursion ticketing");
+assert.ok(!bySlug.has("longview-christmas-train-2026"), "Do not invent the unverified Longview passenger train candidate");
+
+for (const [slug,begin,end] of [
+  ["clearlake-65th-christmas-boat-lane-parade-2026","2026-12-12",undefined],
+  ["pearland-hometown-christmas-festival-2026","2026-12-04",undefined],
+  ["kemah-jingle-on-boardwalk-2026-1","2026-12-04","2026-12-06"],
+  ["kemah-jingle-on-boardwalk-2026-2","2026-12-11","2026-12-13"],
+  ["kemah-jingle-on-boardwalk-2026-3","2026-12-18","2026-12-20"],
+  ["kemah-cocoa-cookies-stroll-2026-1","2026-11-28",undefined],
+  ["kemah-cocoa-cookies-stroll-2026-2","2026-12-05",undefined],
+  ["kemah-cocoa-cookies-stroll-2026-3","2026-12-12",undefined],
+  ["kemah-cocoa-cookies-stroll-2026-4","2026-12-19",undefined],
+]) check(slug,begin,end);
+assert.ok(bySlug.get("clearlake-65th-christmas-boat-lane-parade-2026").summary.includes("SAME regional parade"),
+  "Do not create separate Seabrook and Kemah boat parades for one Chamber-organized route");
+assert.ok(bySlug.get("pearland-hometown-christmas-festival-2026").summary.includes("NOT proof"),
+  "Pearland festival is not proof of a season-long light exhibit");
+assert.ok(bySlug.get("kemah-cocoa-cookies-stroll-2026-1").summary.includes("not imply Sunday or midweek"),
+  "Kemah cocoa strolls only operate on named Saturdays");
+assert.ok(!bySlug.has("pearland-festival-of-lights-2026"), "Do not invent a different Pearland festival identity");
+check("pearland-hometown-christmas-parade-2026","2026-12-05");
+check("pearland-tour-de-lites-2026","2026-12-12");
+assert.ok(bySlug.get("pearland-hometown-christmas-parade-2026").summary.includes("DIFFERENT day"),
+  "Pearland festival and parade must remain independently dated");
+assert.ok(bySlug.get("pearland-tour-de-lites-2026").summary.includes("not yet been confirmed for 2026"),
+  "Do not invent Tour De Lites ticket prices, bicycle requirements or routes");
+assert.equal(bySlug.get("pearland-hometown-christmas-festival-2026").officialEventUrl,
+  "https://www.parks.pearlandtx.gov/special-events/hometown-christmas-festival",
+  "Pearland organizer source must be the current visitor page, not a stale city-calendar event ID");
+
+assert.ok(bySlug.get("nacogdoches-nine-flags-parade-2026").summary.includes("not proof the full festival runs every day"),
+  "Do not invent daily Nine Flags 2026 festival sessions");
+assert.ok(bySlug.get("rockwall-hometown-christmas-2026").summary.includes("6–8 p.m."),
+  "Rockwall city tree lighting must not inherit the earlier parade start time");
+assert.ok(bySlug.get("kerrville-merry-on-the-square-2026").summary.includes("separate"),
+  "Kerrville city parade and nonprofit square event must retain distinct organizers");
 for (const [slug, begin, ending] of [
   ["college-station-beachy-central-lights-nov-2026","2026-11-26","2026-12-04"],
   ["college-station-christmas-in-park-festival-2026","2026-12-05",undefined],
@@ -243,8 +351,9 @@ assert.ok(partnerForm.includes("const search = Route.useSearch()") && partnerFor
 assert.ok(partnerServer.includes("z.literal('/events/christmas-events')"), "Server must enforce Christmas inquiry source allowlist");
 assert.ok(!page.includes("adsbygoogle"), "Do not activate unapproved AdSense on Christmas calendars");
 assert.ok(monetizationPolicy.includes("AdSense is not approved"), "Retain actual AdSense approval status in Christmas policy");
-assert.ok(christmasLiveVerifier.includes("Flower Mound Christmas Parade and Tree Lighting"), "Live smoke must check the 2026–27 community Christmas expansion");
-assert.ok(christmasLiveVerifier.includes("A Pineywoods Christmas"), "Live smoke must check organizer-backed state park records");
+assert.ok(christmasLiveVerifier.includes("expectedActiveCommunityCount") && christmasLiveVerifier.includes("remainingCommunityEvents"), "Live smoke must reconcile source-qualified active Christmas dates, rather than expire on hard-coded past events");
+assert.ok(christmasLiveVerifier.includes("expectedLiveWitnesses") && christmasLiveVerifier.includes("sampleSlugs"), "Live smoke must verify date-filtered new-source Christmas witness events");
+assert.ok(christmasLiveVerifier.includes("activePerformances"), "Live smoke must retain date-scoped curated concert and ticket verification");
 assert.ok(christmasLiveVerifier.includes("verify-christmas-release="), "Live smoke must bypass caches when probing stale source data");
 assert.ok(christmasLiveVerifier.includes("data-ad-slot="), "Do not accidentally activate AdSense display units before approval");
 assert.ok(productionWorkflow.includes("node scripts/ci/verify-christmas-hub-production.mjs"), "Existing protected production deploy must verify Christmas hub freshness");

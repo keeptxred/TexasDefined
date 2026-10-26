@@ -16,7 +16,7 @@
   "framework": {
     "ticketmaster": "Approved Discovery API/Impact publisher 7758914; freshness 48h; no seat inventory entitlement",
     "otherProviders": "Official HTTPS outbound links only unless newly documented authorization",
-    "affiliateSecurity": "On branch fix/ticketing-affiliate-deeplink-validation-20261025: publisher+merchant+paired official destination validation",
+    "affiliateSecurity": "Approved Impact publisher 7758914, Ticketmaster merchant 264167, route suffix 4272; exact event-specific embedded destination and provider identity match required; no event-specific commission guarantee",
     "privateInventory": "No live seat availability or cart transaction asserted"
   },
   "events": [
@@ -32,7 +32,7 @@
       "evidence": "official performance selector",
       "checkedAt": "2026-10-25",
       "checkoutUrl": null,
-      "publicSaleStatus": "not-independently-confirmed",
+      "publicSaleStatus": "organizer-published-on-sale",
       "inventoryStatus": "not-exposed",
       "checkoutPriceStatus": "not-confirmed",
       "affiliateEligibility": "not-proven",
@@ -40,7 +40,13 @@
       "pr": 5922,
       "productionVerifiedAt": "2026-10-25",
       "remainingDefect": "Current upstream checkout inventory, final price and event-level Impact commission eligibility not independently established",
-      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified"
+      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified",
+      "publicSaleEvidence": {
+        "sourceUrl": "https://broadwaydallas.org/shows/dr-seuss-how-the-grinch-stole-christmas-the-musical/",
+        "checkedAt": "2026-10-26",
+        "finding": "Broadway Dallas publishes Get/Buy Tickets for Nov 27 at 11:00, 15:00, and 19:00; independent organizer announcement established public sale Aug 7",
+        "verificationScope": "Published sale status, exact identity, date/time and venue only; not seat inventory, final checkout price or event-specific commission"
+      }
     },
     {
       "id": "king-country-fort-worth-2026",
@@ -54,7 +60,7 @@
       "evidence": "Live Nation exact event",
       "checkedAt": "2026-10-25",
       "checkoutUrl": null,
-      "publicSaleStatus": "not-independently-confirmed",
+      "publicSaleStatus": "organizer-published-on-sale",
       "inventoryStatus": "not-exposed",
       "checkoutPriceStatus": "not-confirmed",
       "affiliateEligibility": "not-proven",
@@ -62,7 +68,13 @@
       "pr": 5922,
       "productionVerifiedAt": "2026-10-25",
       "remainingDefect": "Current upstream checkout inventory, final price and event-level Impact commission eligibility not independently established",
-      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified"
+      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified",
+      "publicSaleEvidence": {
+        "sourceUrl": "https://www.forkingandcountry.com/pages/2026-christmas-tour",
+        "checkedAt": "2026-10-26",
+        "finding": "Artist's official On Sale Now tour page lists Dickies Arena Fort Worth Dec 5; Live Nation lists Dec 5 19:00 admission separately from parking upgrades",
+        "verificationScope": "Published sale status, exact identity, date/time and venue only; not seat inventory, final checkout price or event-specific commission"
+      }
     },
     {
       "id": "christmas-kwanzaa-dallas-2026",
@@ -128,7 +140,13 @@
       "pr": 5922,
       "productionVerifiedAt": "2026-10-25",
       "remainingDefect": "Current upstream checkout inventory, final price and event-level Impact commission eligibility not independently established",
-      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified"
+      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified",
+      "publicSaleEvidence": {
+        "sourceUrl": "https://www.livenation.com/event/vvG1YZ_Cn4lA0M/pentatonix-christmas-in-the-city-tour",
+        "checkedAt": "2026-10-26",
+        "finding": "Primary event promoter publishes Buy Tickets for the Dec 16 19:00 Dickies Arena show separately from parking and VIP-only add-ons",
+        "verificationScope": "Published sale status, exact identity, date/time and venue only; not seat inventory, final checkout price or event-specific commission"
+      }
     },
     {
       "id": "jazzy-christmas-dallas-2026",
@@ -172,7 +190,13 @@
       "pr": 5922,
       "productionVerifiedAt": "2026-10-25",
       "remainingDefect": "Current upstream checkout inventory, final price and event-level Impact commission eligibility not independently established",
-      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified"
+      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified",
+      "publicSaleEvidence": {
+        "sourceUrl": "https://www.hebcenter.com/events/detail/a-very-merry-symphony",
+        "checkedAt": "2026-10-26",
+        "finding": "Official venue lists Dec 20 19:00 show, 18:00 doors, and On Sale Now",
+        "verificationScope": "Published sale status, exact identity, date/time and venue only; not seat inventory, final checkout price or event-specific commission"
+      }
     },
     {
       "id": "celtic-christmas-mcallen-2026",
@@ -260,7 +284,13 @@
       "pr": 5922,
       "productionVerifiedAt": "2026-10-25",
       "remainingDefect": "Current upstream checkout inventory, final price and event-level Impact commission eligibility not independently established",
-      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified"
+      "testResults": "Individual December 2026 date+city server-rendered calendar acceptance passed in protected production workflow run 40260454571; ticket CTA present; upstream checkout and seats not independently certified",
+      "publicSaleEvidence": {
+        "sourceUrl": "https://www.hebcenter.com/events/detail/cirque-musica-holiday-wonderland-2026",
+        "checkedAt": "2026-10-26",
+        "finding": "Official venue lists Dec 24 14:00 show, 13:00 doors, and On Sale Now; distinguish VIP experience upgrade from ordinary admission",
+        "verificationScope": "Published sale status, exact identity, date/time and venue only; not seat inventory, final checkout price or event-specific commission"
+      }
     },
     {
       "id": "christmas-carol-houston-2026",
@@ -321,6 +351,48 @@
         "seatInventory": "NOT_VERIFIED",
         "purchasePrice": "NOT_VERIFIED"
       },
+      "rZ7HnEZ1AfG4Zf": {
+        "status": "IN_PROGRESS",
+        "eventId": "rZ7HnEZ1AfG4Zf",
+        "eventName": "DJ SNEAK305",
+        "city": "Dallas",
+        "venue": "Three Links Deep Ellum",
+        "date": "2026-10-25",
+        "officialUrl": "https://www.ticketweb.com/event/dj-sneak305-three-links-deep-ellum-tickets/14315014",
+        "checkedAt": "2026-10-26T03:10:51.014Z",
+        "probeStatus": "PROVIDER_SERVER_ERROR_INCONCLUSIVE",
+        "httpStatus": 530,
+        "seatInventory": "NOT_VERIFIED",
+        "purchasePrice": "NOT_VERIFIED"
+      },
+      "rZ7HnEZ1Af1fjf": {
+        "status": "IN_PROGRESS",
+        "eventId": "rZ7HnEZ1Af1fjf",
+        "eventName": "Viktoria XO: Rebirth Album Release Show",
+        "city": "Dallas",
+        "venue": "Three Links Deep Ellum",
+        "date": "2026-10-25",
+        "officialUrl": "https://www.ticketweb.com/event/viktoria-xo-rebirth-album-release-three-links-deep-ellum-tickets/14294714",
+        "checkedAt": "2026-10-26T03:10:51.014Z",
+        "probeStatus": "PROVIDER_SERVER_ERROR_INCONCLUSIVE",
+        "httpStatus": 530,
+        "seatInventory": "NOT_VERIFIED",
+        "purchasePrice": "NOT_VERIFIED"
+      },
+      "rZ7HnEZ1AfJo-S": {
+        "status": "IN_PROGRESS",
+        "eventId": "rZ7HnEZ1AfJo-S",
+        "eventName": "Sorry Ghost, Bipolar Joyride",
+        "city": "Houston",
+        "venue": "The Secret Group",
+        "date": "2026-10-25",
+        "officialUrl": "https://www.ticketweb.com/event/sorry-ghost-bipolar-joyride-the-secret-group-tickets/14991873",
+        "checkedAt": "2026-10-26T03:10:51.014Z",
+        "probeStatus": "PROVIDER_SERVER_ERROR_INCONCLUSIVE",
+        "httpStatus": 530,
+        "seatInventory": "NOT_VERIFIED",
+        "purchasePrice": "NOT_VERIFIED"
+      },
       "G5dIZ_3ItNC-L": {
         "status": "IN_PROGRESS",
         "eventId": "G5dIZ_3ItNC-L",
@@ -329,20 +401,6 @@
         "venue": "Moody Center ATX",
         "date": "2026-10-26",
         "officialUrl": "https://www.ticketmaster.com/dave-chappelle-karmageddon-austin-texas-10-26-2026/event/3A00652A298CE85F",
-        "checkedAt": "2026-10-26T03:42:00.836Z",
-        "probeStatus": "ACCESS_RESTRICTED_INCONCLUSIVE",
-        "httpStatus": 403,
-        "seatInventory": "NOT_VERIFIED",
-        "purchasePrice": "NOT_VERIFIED"
-      },
-      "G5dIZ_a9NPrZe": {
-        "status": "IN_PROGRESS",
-        "eventId": "G5dIZ_a9NPrZe",
-        "eventName": "EMEI - Night at the Opera Tour",
-        "city": "Austin",
-        "venue": "Scoot Inn",
-        "date": "2026-10-26",
-        "officialUrl": "https://www.ticketmaster.com/emei-night-at-the-opera-tour-austin-texas-10-26-2026/event/3A006495E395E002",
         "checkedAt": "2026-10-26T03:42:00.836Z",
         "probeStatus": "ACCESS_RESTRICTED_INCONCLUSIVE",
         "httpStatus": 403,
@@ -363,28 +421,14 @@
         "seatInventory": "NOT_VERIFIED",
         "purchasePrice": "NOT_VERIFIED"
       },
-      "G5dIZ_G5NAX69": {
+      "G5dIZ_a9NPrZe": {
         "status": "IN_PROGRESS",
-        "eventId": "G5dIZ_G5NAX69",
-        "eventName": "WAGE WAR - EMERGENCY BROADCAST TOUR",
-        "city": "Houston",
-        "venue": "White Oak Music Hall - Downstairs",
+        "eventId": "G5dIZ_a9NPrZe",
+        "eventName": "EMEI - Night at the Opera Tour",
+        "city": "Austin",
+        "venue": "Scoot Inn",
         "date": "2026-10-26",
-        "officialUrl": "https://www.ticketmaster.com/wage-war-emergency-broadcast-tour-houston-texas-10-26-2026/event/3A0064C2E317E1D7",
-        "checkedAt": "2026-10-26T03:42:00.836Z",
-        "probeStatus": "ACCESS_RESTRICTED_INCONCLUSIVE",
-        "httpStatus": 403,
-        "seatInventory": "NOT_VERIFIED",
-        "purchasePrice": "NOT_VERIFIED"
-      },
-      "G5dIZ_oEcmeCq": {
-        "status": "IN_PROGRESS",
-        "eventId": "G5dIZ_oEcmeCq",
-        "eventName": "Classic Movie Night At The Jefferson Get Out",
-        "city": "Beaumont",
-        "venue": "Jefferson Theatre",
-        "date": "2026-10-26",
-        "officialUrl": "https://www.ticketmaster.com/classic-movie-night-at-the-jefferson-beaumont-texas-10-26-2026/event/3A006519EDB8239D",
+        "officialUrl": "https://www.ticketmaster.com/emei-night-at-the-opera-tour-austin-texas-10-26-2026/event/3A006495E395E002",
         "checkedAt": "2026-10-26T03:42:00.836Z",
         "probeStatus": "ACCESS_RESTRICTED_INCONCLUSIVE",
         "httpStatus": 403,
@@ -405,6 +449,20 @@
         "seatInventory": "NOT_VERIFIED",
         "purchasePrice": "NOT_VERIFIED"
       },
+      "G5dIZ_oEcmeCq": {
+        "status": "IN_PROGRESS",
+        "eventId": "G5dIZ_oEcmeCq",
+        "eventName": "Classic Movie Night At The Jefferson Get Out",
+        "city": "Beaumont",
+        "venue": "Jefferson Theatre",
+        "date": "2026-10-26",
+        "officialUrl": "https://www.ticketmaster.com/classic-movie-night-at-the-jefferson-beaumont-texas-10-26-2026/event/3A006519EDB8239D",
+        "checkedAt": "2026-10-26T03:42:00.836Z",
+        "probeStatus": "ACCESS_RESTRICTED_INCONCLUSIVE",
+        "httpStatus": 403,
+        "seatInventory": "NOT_VERIFIED",
+        "purchasePrice": "NOT_VERIFIED"
+      },
       "G5dIZbUpq3nZc": {
         "status": "IN_PROGRESS",
         "eventId": "G5dIZbUpq3nZc",
@@ -419,42 +477,14 @@
         "seatInventory": "NOT_VERIFIED",
         "purchasePrice": "NOT_VERIFIED"
       },
-      "vvG1YZ_2eFLfI4": {
+      "G5dIZ_G5NAX69": {
         "status": "IN_PROGRESS",
-        "eventId": "vvG1YZ_2eFLfI4",
-        "eventName": "Worlds 2026 - Swiss 4",
-        "city": "Allen",
-        "venue": "Credit Union of Texas Event Center",
+        "eventId": "G5dIZ_G5NAX69",
+        "eventName": "WAGE WAR - EMERGENCY BROADCAST TOUR",
+        "city": "Houston",
+        "venue": "White Oak Music Hall - Downstairs",
         "date": "2026-10-26",
-        "officialUrl": "https://www.ticketmaster.com/worlds-2026-swiss-4-allen-texas-10-26-2026/event/0C0064F0887D4A15",
-        "checkedAt": "2026-10-26T03:42:00.836Z",
-        "probeStatus": "ACCESS_RESTRICTED_INCONCLUSIVE",
-        "httpStatus": 403,
-        "seatInventory": "NOT_VERIFIED",
-        "purchasePrice": "NOT_VERIFIED"
-      },
-      "Z7r9jZ1A7-Zbs": {
-        "status": "IN_PROGRESS",
-        "eventId": "Z7r9jZ1A7-Zbs",
-        "eventName": "Daniel Sloss",
-        "city": "Austin",
-        "venue": "Austin City Limits Live at The Moody Theater",
-        "date": "2026-10-26",
-        "officialUrl": "https://www.ticketmaster.com/event/Z7r9jZ1A7-Zbs",
-        "checkedAt": "2026-10-26T03:42:00.836Z",
-        "probeStatus": "ACCESS_RESTRICTED_INCONCLUSIVE",
-        "httpStatus": 403,
-        "seatInventory": "NOT_VERIFIED",
-        "purchasePrice": "NOT_VERIFIED"
-      },
-      "Z7r9jZ1A70-0x": {
-        "status": "IN_PROGRESS",
-        "eventId": "Z7r9jZ1A70-0x",
-        "eventName": "Hovvdy w/ Emma Ogier",
-        "city": "Austin",
-        "venue": "The Mohawk-Austin",
-        "date": "2026-10-26",
-        "officialUrl": "https://www.ticketmaster.com/event/Z7r9jZ1A70-0x",
+        "officialUrl": "https://www.ticketmaster.com/wage-war-emergency-broadcast-tour-houston-texas-10-26-2026/event/3A0064C2E317E1D7",
         "checkedAt": "2026-10-26T03:42:00.836Z",
         "probeStatus": "ACCESS_RESTRICTED_INCONCLUSIVE",
         "httpStatus": 403,
@@ -475,14 +505,28 @@
         "seatInventory": "NOT_VERIFIED",
         "purchasePrice": "NOT_VERIFIED"
       },
-      "Z7r9jZ1A7PouI": {
+      "Z7r9jZ1A7-Zbs": {
         "status": "IN_PROGRESS",
-        "eventId": "Z7r9jZ1A7PouI",
-        "eventName": "Dinosaur World Live!",
-        "city": "Glen Rose",
-        "venue": "Dinosaur World - Texas",
+        "eventId": "Z7r9jZ1A7-Zbs",
+        "eventName": "Daniel Sloss",
+        "city": "Austin",
+        "venue": "Austin City Limits Live at The Moody Theater",
         "date": "2026-10-26",
-        "officialUrl": "https://www.ticketmaster.com/event/Z7r9jZ1A7PouI",
+        "officialUrl": "https://www.ticketmaster.com/event/Z7r9jZ1A7-Zbs",
+        "checkedAt": "2026-10-26T03:42:00.836Z",
+        "probeStatus": "ACCESS_RESTRICTED_INCONCLUSIVE",
+        "httpStatus": 403,
+        "seatInventory": "NOT_VERIFIED",
+        "purchasePrice": "NOT_VERIFIED"
+      },
+      "vvG1YZ_2eFLfI4": {
+        "status": "IN_PROGRESS",
+        "eventId": "vvG1YZ_2eFLfI4",
+        "eventName": "Worlds 2026 - Swiss 4",
+        "city": "Allen",
+        "venue": "Credit Union of Texas Event Center",
+        "date": "2026-10-26",
+        "officialUrl": "https://www.ticketmaster.com/worlds-2026-swiss-4-allen-texas-10-26-2026/event/0C0064F0887D4A15",
         "checkedAt": "2026-10-26T03:42:00.836Z",
         "probeStatus": "ACCESS_RESTRICTED_INCONCLUSIVE",
         "httpStatus": 403,
@@ -503,14 +547,28 @@
         "seatInventory": "NOT_VERIFIED",
         "purchasePrice": "NOT_VERIFIED"
       },
-      "Z7r9jZ1AAv0uy": {
+      "Z7r9jZ1A70-0x": {
         "status": "IN_PROGRESS",
-        "eventId": "Z7r9jZ1AAv0uy",
-        "eventName": "Buddha Trixie w/ Flight By Nothing",
-        "city": "San Antonio",
-        "venue": "Paper Tiger",
+        "eventId": "Z7r9jZ1A70-0x",
+        "eventName": "Hovvdy w/ Emma Ogier",
+        "city": "Austin",
+        "venue": "The Mohawk-Austin",
         "date": "2026-10-26",
-        "officialUrl": "https://www.ticketmaster.com/event/Z7r9jZ1AAv0uy",
+        "officialUrl": "https://www.ticketmaster.com/event/Z7r9jZ1A70-0x",
+        "checkedAt": "2026-10-26T03:42:00.836Z",
+        "probeStatus": "ACCESS_RESTRICTED_INCONCLUSIVE",
+        "httpStatus": 403,
+        "seatInventory": "NOT_VERIFIED",
+        "purchasePrice": "NOT_VERIFIED"
+      },
+      "Z7r9jZ1A7PouI": {
+        "status": "IN_PROGRESS",
+        "eventId": "Z7r9jZ1A7PouI",
+        "eventName": "Dinosaur World Live!",
+        "city": "Glen Rose",
+        "venue": "Dinosaur World - Texas",
+        "date": "2026-10-26",
+        "officialUrl": "https://www.ticketmaster.com/event/Z7r9jZ1A7PouI",
         "checkedAt": "2026-10-26T03:42:00.836Z",
         "probeStatus": "ACCESS_RESTRICTED_INCONCLUSIVE",
         "httpStatus": 403,
@@ -526,6 +584,34 @@
         "date": "2026-10-26",
         "officialUrl": "https://www.ticketmaster.com/event/Z7r9jZ1AAed8A",
         "checkedAt": "2026-10-26T03:42:00.836Z",
+        "probeStatus": "ACCESS_RESTRICTED_INCONCLUSIVE",
+        "httpStatus": 403,
+        "seatInventory": "NOT_VERIFIED",
+        "purchasePrice": "NOT_VERIFIED"
+      },
+      "Z7r9jZ1AAv0uy": {
+        "status": "IN_PROGRESS",
+        "eventId": "Z7r9jZ1AAv0uy",
+        "eventName": "Buddha Trixie w/ Flight By Nothing",
+        "city": "San Antonio",
+        "venue": "Paper Tiger",
+        "date": "2026-10-26",
+        "officialUrl": "https://www.ticketmaster.com/event/Z7r9jZ1AAv0uy",
+        "checkedAt": "2026-10-26T03:42:00.836Z",
+        "probeStatus": "ACCESS_RESTRICTED_INCONCLUSIVE",
+        "httpStatus": 403,
+        "seatInventory": "NOT_VERIFIED",
+        "purchasePrice": "NOT_VERIFIED"
+      },
+      "Z7r9jZ1AA7AAx": {
+        "status": "IN_PROGRESS",
+        "eventId": "Z7r9jZ1AA7AAx",
+        "eventName": "North Texas Mean Green Men's Basketball vs Northwestern State Demons Mens Basketball (Exhibition)",
+        "city": "Denton",
+        "venue": "UNT Superpit",
+        "date": "2026-10-26",
+        "officialUrl": "https://www.ticketmaster.com/event/Z7r9jZ1AA7AAx",
+        "checkedAt": "2026-10-26T03:10:51.014Z",
         "probeStatus": "ACCESS_RESTRICTED_INCONCLUSIVE",
         "httpStatus": 403,
         "seatInventory": "NOT_VERIFIED",
@@ -559,20 +645,6 @@
         "seatInventory": "NOT_VERIFIED",
         "purchasePrice": "NOT_VERIFIED"
       },
-      "1Ae0Z_8GkMwsvB8": {
-        "status": "IN_PROGRESS",
-        "eventId": "1Ae0Z_8GkMwsvB8",
-        "eventName": "Group Therapy: Session 2",
-        "city": "Houston",
-        "venue": "Houston Improv",
-        "date": "2026-10-27",
-        "officialUrl": "https://www.ticketweb.com/event/group-therapy-session-2-houston-improv-tickets/15032193",
-        "checkedAt": "2026-10-26T03:42:00.836Z",
-        "probeStatus": "PROVIDER_SERVER_ERROR_INCONCLUSIVE",
-        "httpStatus": 530,
-        "seatInventory": "NOT_VERIFIED",
-        "purchasePrice": "NOT_VERIFIED"
-      },
       "1ae0Z_4OfroZd5kG": {
         "status": "IN_PROGRESS",
         "eventId": "1ae0Z_4OfroZd5kG",
@@ -587,31 +659,17 @@
         "seatInventory": "NOT_VERIFIED",
         "purchasePrice": "NOT_VERIFIED"
       },
-      "G5dIZ_3Ii5CH1": {
+      "1Ae0Z_8GkMwsvB8": {
         "status": "IN_PROGRESS",
-        "eventId": "G5dIZ_3Ii5CH1",
-        "eventName": "Dave Chappelle Karmageddon",
-        "city": "Austin",
-        "venue": "Moody Center ATX",
-        "date": "2026-10-27",
-        "officialUrl": "https://www.ticketmaster.com/dave-chappelle-karmageddon-austin-texas-10-27-2026/event/3A00652A2C2CEF0A",
-        "checkedAt": "2026-10-26T03:42:00.836Z",
-        "probeStatus": "ACCESS_RESTRICTED_INCONCLUSIVE",
-        "httpStatus": 403,
-        "seatInventory": "NOT_VERIFIED",
-        "purchasePrice": "NOT_VERIFIED"
-      },
-      "G5dIZ_739H9nV": {
-        "status": "IN_PROGRESS",
-        "eventId": "G5dIZ_739H9nV",
-        "eventName": "Daniel Sloss: BITTER  (Brand New Tour!)",
+        "eventId": "1Ae0Z_8GkMwsvB8",
+        "eventName": "Group Therapy: Session 2",
         "city": "Houston",
-        "venue": "Bayou Music Center",
+        "venue": "Houston Improv",
         "date": "2026-10-27",
-        "officialUrl": "https://www.ticketmaster.com/daniel-sloss-bitter-brand-new-tour-houston-texas-10-27-2026/event/3A00644497F17AB4",
+        "officialUrl": "https://www.ticketweb.com/event/group-therapy-session-2-houston-improv-tickets/15032193",
         "checkedAt": "2026-10-26T03:42:00.836Z",
-        "probeStatus": "ACCESS_RESTRICTED_INCONCLUSIVE",
-        "httpStatus": 403,
+        "probeStatus": "PROVIDER_SERVER_ERROR_INCONCLUSIVE",
+        "httpStatus": 530,
         "seatInventory": "NOT_VERIFIED",
         "purchasePrice": "NOT_VERIFIED"
       },
@@ -623,6 +681,20 @@
         "venue": "McAllen Performing Arts Center",
         "date": "2026-10-27",
         "officialUrl": "https://www.ticketmaster.com/plim-plim-en-vivo-mcallen-texas-10-27-2026/event/3A006505B0F09402",
+        "checkedAt": "2026-10-26T03:42:00.836Z",
+        "probeStatus": "ACCESS_RESTRICTED_INCONCLUSIVE",
+        "httpStatus": 403,
+        "seatInventory": "NOT_VERIFIED",
+        "purchasePrice": "NOT_VERIFIED"
+      },
+      "G5dIZ_3Ii5CH1": {
+        "status": "IN_PROGRESS",
+        "eventId": "G5dIZ_3Ii5CH1",
+        "eventName": "Dave Chappelle Karmageddon",
+        "city": "Austin",
+        "venue": "Moody Center ATX",
+        "date": "2026-10-27",
+        "officialUrl": "https://www.ticketmaster.com/dave-chappelle-karmageddon-austin-texas-10-27-2026/event/3A00652A2C2CEF0A",
         "checkedAt": "2026-10-26T03:42:00.836Z",
         "probeStatus": "ACCESS_RESTRICTED_INCONCLUSIVE",
         "httpStatus": 403,
@@ -643,14 +715,28 @@
         "seatInventory": "NOT_VERIFIED",
         "purchasePrice": "NOT_VERIFIED"
       },
-      "G5dIZ_CULOp_T": {
+      "G5dIZ_739H9nV": {
         "status": "IN_PROGRESS",
-        "eventId": "G5dIZ_CULOp_T",
-        "eventName": "Dovi Neuburger",
+        "eventId": "G5dIZ_739H9nV",
+        "eventName": "Daniel Sloss: BITTER  (Brand New Tour!)",
         "city": "Houston",
-        "venue": "Punch Line Houston",
+        "venue": "Bayou Music Center",
         "date": "2026-10-27",
-        "officialUrl": "https://www.ticketmaster.com/dovi-neuburger-houston-texas-10-27-2026/event/3A0064ED9F81667F",
+        "officialUrl": "https://www.ticketmaster.com/daniel-sloss-bitter-brand-new-tour-houston-texas-10-27-2026/event/3A00644497F17AB4",
+        "checkedAt": "2026-10-26T03:42:00.836Z",
+        "probeStatus": "ACCESS_RESTRICTED_INCONCLUSIVE",
+        "httpStatus": 403,
+        "seatInventory": "NOT_VERIFIED",
+        "purchasePrice": "NOT_VERIFIED"
+      },
+      "G5dIZ_knSYn8W": {
+        "status": "IN_PROGRESS",
+        "eventId": "G5dIZ_knSYn8W",
+        "eventName": "Chasing Abbey",
+        "city": "Houston",
+        "venue": "White Oak Music Hall - Upstairs ",
+        "date": "2026-10-27",
+        "officialUrl": "https://www.ticketmaster.com/chasing-abbey-houston-texas-10-27-2026/event/3A00646AB3C2A43D",
         "checkedAt": "2026-10-26T03:42:00.836Z",
         "probeStatus": "ACCESS_RESTRICTED_INCONCLUSIVE",
         "httpStatus": 403,
@@ -685,14 +771,14 @@
         "seatInventory": "NOT_VERIFIED",
         "purchasePrice": "NOT_VERIFIED"
       },
-      "G5dIZ_knSYn8W": {
+      "G5dIZ_CULOp_T": {
         "status": "IN_PROGRESS",
-        "eventId": "G5dIZ_knSYn8W",
-        "eventName": "Chasing Abbey",
+        "eventId": "G5dIZ_CULOp_T",
+        "eventName": "Dovi Neuburger",
         "city": "Houston",
-        "venue": "White Oak Music Hall - Upstairs ",
+        "venue": "Punch Line Houston",
         "date": "2026-10-27",
-        "officialUrl": "https://www.ticketmaster.com/chasing-abbey-houston-texas-10-27-2026/event/3A00646AB3C2A43D",
+        "officialUrl": "https://www.ticketmaster.com/dovi-neuburger-houston-texas-10-27-2026/event/3A0064ED9F81667F",
         "checkedAt": "2026-10-26T03:42:00.836Z",
         "probeStatus": "ACCESS_RESTRICTED_INCONCLUSIVE",
         "httpStatus": 403,
@@ -708,6 +794,34 @@
         "date": "2026-10-27",
         "officialUrl": "https://www.ticketmaster.com/honey-revenge-x-dead-poet-society-dallas-texas-10-27-2026/event/0C0064F8D5CC4691",
         "checkedAt": "2026-10-26T03:42:00.836Z",
+        "probeStatus": "ACCESS_RESTRICTED_INCONCLUSIVE",
+        "httpStatus": 403,
+        "seatInventory": "NOT_VERIFIED",
+        "purchasePrice": "NOT_VERIFIED"
+      },
+      "rZ7HnEZ1AfaU-7": {
+        "status": "IN_PROGRESS",
+        "eventId": "rZ7HnEZ1AfaU-7",
+        "eventName": "Sorry Ghost",
+        "city": "Dallas",
+        "venue": "Three Links Deep Ellum",
+        "date": "2026-10-27",
+        "officialUrl": "https://www.ticketweb.com/event/sorry-ghost-three-links-deep-ellum-tickets/14276844",
+        "checkedAt": "2026-10-26T03:42:00.836Z",
+        "probeStatus": "PROVIDER_SERVER_ERROR_INCONCLUSIVE",
+        "httpStatus": 530,
+        "seatInventory": "NOT_VERIFIED",
+        "purchasePrice": "NOT_VERIFIED"
+      },
+      "vvG1YZ_2mMnyRT": {
+        "status": "IN_PROGRESS",
+        "eventId": "vvG1YZ_2mMnyRT",
+        "eventName": "FIFTH THIRD GARAGE: Dallas Stars v New Jersey Devils",
+        "city": "Dallas",
+        "venue": "American Airlines Center",
+        "date": "2026-10-27",
+        "officialUrl": "https://www.ticketmaster.com/fifth-third-garage-dallas-stars-v-dallas-texas-10-27-2026/event/0C0064FBB7AB9BFF",
+        "checkedAt": "2026-10-26T03:10:51.014Z",
         "probeStatus": "ACCESS_RESTRICTED_INCONCLUSIVE",
         "httpStatus": 403,
         "seatInventory": "NOT_VERIFIED",
@@ -741,20 +855,6 @@
         "seatInventory": "NOT_VERIFIED",
         "purchasePrice": "NOT_VERIFIED"
       },
-      "rZ7HnEZ1AfaU-7": {
-        "status": "IN_PROGRESS",
-        "eventId": "rZ7HnEZ1AfaU-7",
-        "eventName": "Sorry Ghost",
-        "city": "Dallas",
-        "venue": "Three Links Deep Ellum",
-        "date": "2026-10-27",
-        "officialUrl": "https://www.ticketweb.com/event/sorry-ghost-three-links-deep-ellum-tickets/14276844",
-        "checkedAt": "2026-10-26T03:42:00.836Z",
-        "probeStatus": "PROVIDER_SERVER_ERROR_INCONCLUSIVE",
-        "httpStatus": 530,
-        "seatInventory": "NOT_VERIFIED",
-        "purchasePrice": "NOT_VERIFIED"
-      },
       "vvG1YZ_CMhN136": {
         "status": "IN_PROGRESS",
         "eventId": "vvG1YZ_CMhN136",
@@ -769,20 +869,6 @@
         "seatInventory": "NOT_VERIFIED",
         "purchasePrice": "NOT_VERIFIED"
       },
-      "Z7r9jZ1A7Jva3": {
-        "status": "IN_PROGRESS",
-        "eventId": "Z7r9jZ1A7Jva3",
-        "eventName": "Drunk Shakespeare: Drunk Dracula (21+ Event)",
-        "city": "Houston",
-        "venue": "The Emerald Theatre",
-        "date": "2026-10-27",
-        "officialUrl": "https://www.ticketmaster.com/event/Z7r9jZ1A7Jva3",
-        "checkedAt": "2026-10-26T03:42:00.836Z",
-        "probeStatus": "ACCESS_RESTRICTED_INCONCLUSIVE",
-        "httpStatus": 403,
-        "seatInventory": "NOT_VERIFIED",
-        "purchasePrice": "NOT_VERIFIED"
-      },
       "vvG1YZ_KY1trRv": {
         "status": "IN_PROGRESS",
         "eventId": "vvG1YZ_KY1trRv",
@@ -791,6 +877,20 @@
         "venue": "Fox Fine Arts Recital Hall",
         "date": "2026-10-27",
         "officialUrl": "https://www.ticketmaster.com/the-utep-symphony-orchestra-in-concert-el-paso-texas-10-27-2026/event/0C00653C0AA5EBC1",
+        "checkedAt": "2026-10-26T03:42:00.836Z",
+        "probeStatus": "ACCESS_RESTRICTED_INCONCLUSIVE",
+        "httpStatus": 403,
+        "seatInventory": "NOT_VERIFIED",
+        "purchasePrice": "NOT_VERIFIED"
+      },
+      "Z7r9jZ1A7Jva3": {
+        "status": "IN_PROGRESS",
+        "eventId": "Z7r9jZ1A7Jva3",
+        "eventName": "Drunk Shakespeare: Drunk Dracula (21+ Event)",
+        "city": "Houston",
+        "venue": "The Emerald Theatre",
+        "date": "2026-10-27",
+        "officialUrl": "https://www.ticketmaster.com/event/Z7r9jZ1A7Jva3",
         "checkedAt": "2026-10-26T03:42:00.836Z",
         "probeStatus": "ACCESS_RESTRICTED_INCONCLUSIVE",
         "httpStatus": 403,

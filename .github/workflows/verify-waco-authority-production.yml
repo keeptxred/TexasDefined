@@ -1,0 +1,42 @@
+name: Verify Waco tourism authority after production deploy
+on:
+  workflow_run:
+    workflows: ['Deploy TexasDefined production']
+    types: [completed]
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: waco-tourism-production-acceptance
+  cancel-in-progress: false
+jobs:
+  live:
+    # Do not certify cancelled, pending or failed deployments.
+    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Determine whether this deployed commit includes Waco QA
+        id: eligibility
+        shell: bash
+        run: |
+          if [[ -f scripts/ci/verify-waco-authority-production.mjs ]]; then
+            echo "eligible=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::notice::Deployment predates Waco verifier source; release is NOT Waco certified."
+            echo "eligible=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Validate Waco production probe syntax
+        if: steps.eligibility.outputs.eligible == 'true'
+        run: node --check scripts/ci/verify-waco-authority-production.mjs
+      - name: Verify all three canonical Waco pages, mutual links and affiliate disclosure
+        if: steps.eligibility.outputs.eligible == 'true'
+        env:
+          GITHUB_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: node scripts/ci/verify-waco-authority-production.mjs

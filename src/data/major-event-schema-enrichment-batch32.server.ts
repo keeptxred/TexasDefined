@@ -41,26 +41,26 @@ export const majorEventSchemaEnrichmentBatch32: MajorEventSchemaEnrichment[] = [
       url: "https://texasstaterailroad.net/"
     },
     image: {
-      url: "https://commons.wikimedia.org/wiki/Special:FilePath/Palestine_August_2017_55_(Texas_State_Railroad_Palestine_Depot).jpg?width=1600",
-      alt: "Historic Texas State Railroad Palestine Depot building in 2017 before the Polar Express holiday season",
-      sourceUrl: "https://commons.wikimedia.org/wiki/File:Palestine_August_2017_55_(Texas_State_Railroad_Palestine_Depot).jpg",
+      url: "https://commons.wikimedia.org/wiki/Special:FilePath/Southern_Pine_Lumber_Co._No._28_pulling_the_Polar_Express_at_the_Texas_State_Rail_Road_-_December_2015.jpg?width=1600",
+      alt: "Historical 2015 Texas State Railroad Polar Express pulled by a steam locomotive; the 2026 train uses diesel power",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Southern_Pine_Lumber_Co._No._28_pulling_the_Polar_Express_at_the_Texas_State_Rail_Road_-_December_2015.jpg",
       sourceType: "wikimedia",
-      licenseName: "CC BY-SA 4.0",
-      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
-      rightsNote: "Photo: Michael Barera (2017), CC BY-SA 4.0. Exact Palestine Depot; historic daytime photo, not a 2026 train-ride scene; no changes.",
+      licenseName: "CC BY 2.0",
+      licenseUrl: "https://creativecommons.org/licenses/by/2.0/",
+      rightsNote: "Photo: Michael Gras, M.Ed. (December 2015), CC BY 2.0. Historical Polar Express steam-train scene at Texas State Railroad, not the 2026 diesel locomotive; image unaltered.",
       exactLocation: true,
       approvedForCommercialUse: true
     },
     sources: [
       {
-        label: "Texas State Railroad 2026 program",
-        url: "https://texasstaterailroad.net/the-polar-express-train-ride/"
+        label: "Texas State Railroad current Polar Express booking program",
+        url: "https://texasstaterailroad.net/the-polar-express/"
       },
       {
-        label: "Licensed Palestine Depot image and photographer credit",
-        url: "https://commons.wikimedia.org/wiki/File:Palestine_August_2017_55_(Texas_State_Railroad_Palestine_Depot).jpg"
+        label: "2015 Polar Express historical photo and Michael Gras credit",
+        url: "https://commons.wikimedia.org/wiki/File:Southern_Pine_Lumber_Co._No._28_pulling_the_Polar_Express_at_the_Texas_State_Rail_Road_-_December_2015.jpg"
       }
     ],
-    verifiedAt: "2026-10-21"
+    verifiedAt: "2026-10-26"
   }
 ];

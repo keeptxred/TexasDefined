@@ -73,6 +73,7 @@ function DallasToWacoTourPage() {
           <div>
             <h2 className="font-display text-3xl">Waco attraction guides to read first</h2>
             <ul className="mt-4 space-y-3 text-sm leading-7">
+              <li><a className="text-primary underline underline-offset-4" href="/waco-attractions">Seven Waco attractions and independent planning guide →</a></li>
               <li><a className="text-primary underline underline-offset-4" href="/destination/magnolia-market-at-the-silos">Magnolia Market at the Silos visitor guide →</a></li>
               <li><a className="text-primary underline underline-offset-4" href="/destination/cottonland-castle">Cottonland Castle tour access and history →</a></li>
               <li><a className="text-primary underline underline-offset-4" href="/destination/dr-pepper-museum-waco">Dr Pepper Museum visitor guide →</a></li>

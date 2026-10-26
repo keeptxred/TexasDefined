@@ -45,6 +45,7 @@ const prebuildChecks = [
   ['CONTENT/GOVERNANCE', 'Reject internal workflow language from public narratives', 'node', ['scripts/data/validate-reader-facing-copy.mjs']],
   ['SPORTS/TRAVEL', 'Verify pro-team home-game filtering, major updates and distinct weekend guides', 'node', ['--experimental-strip-types', '--test', 'src/data/pro-teams.test.mjs']],
   ['DATA/BLS', 'Validate fail-closed scheduled BLS table parser and release freshness rules', 'node', ['--test', 'scripts/data/refresh-texas-metro-payrolls.test.mjs']],
+  ['DATA/TDI', 'Validate official TDI homeowners premium and coverage source parser and guarded publication', 'node', ['--test', 'scripts/data/refresh-tdi-homeowners-current.test.mjs']],
   ['CONTENT/VISITOR-FACTS', 'Scan curated visitor answers for malformed provenance, duplicate labels and expiration', 'node', ['scripts/data/validate-destination-visitor-fact-catalog.mjs']],
   ['CONTENT/VISITOR-FACTS', 'Verify source-dated practical visitor facts, conditional rendering and stale-claim suppression', 'node', ['--experimental-strip-types', '--test', 'src/data/destination-visitor-facts.test.ts']],
   ['HISTORY/CAMINO-REAL', 'Verify factual accuracy, primary sources, indexability and SSR map for El Camino Real', 'node', ['--test', 'scripts/ci/camino-real-factcheck.test.mjs']],

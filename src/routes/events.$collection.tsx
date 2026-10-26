@@ -190,7 +190,11 @@ function GenericCollectionPage({ page }: { page: any }) {
             Recheck the organizer before traveling or purchasing. Paid tickets are handled by the external provider.
           </p>
           <ol className="mt-6 divide-y divide-border border-y border-border">
-            {page.christmasPerformances.map((show: any) => (
+            {page.christmasPerformances.map((show: any) => {
+              const partner = show.ticket.isAffiliate ? show.ticket.provider : undefined;
+              const placement = partner ? "christmas-performance" : undefined;
+              const eventId = partner ? `curated:christmas-2026:${show.id}` : undefined;
+              return (
               <li key={show.id} className="grid gap-4 py-5 lg:grid-cols-3">
                 <div>
                   <p className="font-semibold text-foreground">{show.dateLabel}</p>
@@ -210,17 +214,14 @@ function GenericCollectionPage({ page }: { page: any }) {
                     href={show.ticket.href}
                     rel={show.ticket.rel}
                     target="_blank"
-                    data-affiliate-partner={show.ticket.isAffiliate ? show.ticket.provider : undefined}
-                    data-affiliate-placement={show.ticket.isAffiliate ? "christmas-performance" : undefined}
-                    data-commercial-partner={show.ticket.isAffiliate ? show.ticket.provider : undefined}
-                    data-commercial-placement={show.ticket.isAffiliate ? "christmas-performance" : undefined}
-                    data-affiliate-event-id={show.ticket.isAffiliate ? `curated:christmas-2026:${show.id}` : undefined}
-                    onClick={show.ticket.isAffiliate ? () => trackAffiliateClick({
-                      partner: show.ticket.provider,
-                      label: show.ticket.label,
-                      placement: "christmas-performance",
-                      module: "event-ticketing",
-                      eventId: `curated:christmas-2026:${show.id}`,
+                    data-affiliate-partner={partner}
+                    data-affiliate-placement={placement}
+                    data-commercial-partner={partner}
+                    data-commercial-placement={placement}
+                    data-affiliate-event-id={eventId}
+                    onClick={partner ? () => trackAffiliateClick({
+                      partner, label: show.ticket.label, placement: placement!,
+                      module: "event-ticketing", eventId,
                     }) : undefined}
                     className="inline-flex items-center border border-primary px-4 py-2 text-sm font-semibold text-primary hover:bg-surface"
                   >
@@ -229,7 +230,8 @@ function GenericCollectionPage({ page }: { page: any }) {
                   {show.ticket.isAffiliate && <p className="mt-2 text-xs leading-5 text-muted-foreground">Affiliate link · checkout is handled by the ticket provider.</p>}
                 </div>
               </li>
-            ))}
+              );
+            })}
           </ol>
         </section>
       ) : null}

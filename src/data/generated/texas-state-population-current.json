@@ -1,0 +1,11 @@
+{
+  "vintage": 2025,
+  "verifiedAt": "2026-08-27",
+  "sourceUrl": "https://www2.census.gov/programs-surveys/popest/datasets/2020-2025/state/totals/NST-EST2025-ALLDATA.csv",
+  "population": 31709821,
+  "priorPopulation": 31318578,
+  "populationChange": 391243,
+  "domesticMigration": 67299,
+  "internationalMigration": 167475,
+  "naturalIncrease": 157711
+}

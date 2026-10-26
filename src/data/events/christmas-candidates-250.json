@@ -125,7 +125,8 @@
       "intakeId": 13,
       "title": "Kerrville Holiday Light Show",
       "submittedRegion": "Hill Country & Central Texas",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "City and nonprofit confirmed Kerrville's Nov 21 2026 lighted parade and Merry on the Square/courthouse tree-lighting as independently dated records, but the submitted generic 'Holiday Light Show' has not been matched to an official named event or full display period."
     },
     {
       "intakeId": 14,
@@ -211,13 +212,15 @@
       "intakeId": 24,
       "title": "Temple Nature In Lights",
       "submittedRegion": "Hill Country & Central Texas",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "Discover Temple Nature In Lights landing page lists dates inconsistent with Thanksgiving 2026 and appears to mix older year schedules; no full organizer-dated 2026 BLORA nightly calendar verified, so hold dates."
     },
     {
       "intakeId": 25,
       "title": "Waco Homestead Heritage Christmas",
       "submittedRegion": "Hill Country & Central Texas",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "Homestead Heritage archived /home1024 Christmas Market says Dec 6, 7 & 13: those are weekend days in 2025 but Sunday/Monday/Sunday in 2026. Do not roll 2025 market dates forward as 2026 without an operator-dated current calendar."
     },
     {
       "intakeId": 26,
@@ -242,7 +245,11 @@
       "intakeId": 28,
       "title": "Bryan Downtown Holiday Stroll",
       "submittedRegion": "Hill Country & Central Texas",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "bryan-2026-downtown-holiday-stroll"
+      ],
+      "researchNote": "Destination Bryan explicitly publishes the Dec 13–17, 2026 Holiday Stroll; separate Dec 17 lighted parade and Nov 20 tree lighting now have their own verified calendar records."
     },
     {
       "intakeId": 29,
@@ -255,7 +262,11 @@
       "intakeId": 30,
       "title": "Caldwell Christmas on the Square",
       "submittedRegion": "Hill Country & Central Texas",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "caldwell-2026-christmas-on-square"
+      ],
+      "researchNote": "Burleson County Chamber confirms Friday Dec 11, 2026 despite generic tourism wording elsewhere that calls this a first-Saturday tradition; 2026 parade begins near 7 p.m."
     },
     {
       "intakeId": 31,
@@ -267,7 +278,11 @@
       "intakeId": 32,
       "title": "Navasota Home for the Holidays",
       "submittedRegion": "Hill Country & Central Texas",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "navasota-2026-home-for-holidays-parade"
+      ],
+      "researchNote": "Navasota ISD community calendar confirms the City's Dec 5, 2026 Home for the Holidays parade, 6–8 p.m.; detailed route not yet sourced."
     },
     {
       "intakeId": 33,
@@ -326,7 +341,14 @@
       "intakeId": 41,
       "title": "Seguin Holiday Holiday Parade",
       "submittedRegion": "Hill Country & Central Texas",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "seguin-2026-holiday-stroll-parade",
+        "seguin-2026-sip-n-stroll",
+        "seguin-2026-north-pole-stroll",
+        "seguin-2026-yulefest-art-show"
+      ],
+      "researchNote": "Seguin's city calendar lists Holiday Stroll parade Dec 3, cocoa Sip 'n Stroll Dec 4, family North Pole Stroll Dec 5, and Yulefest Dec 6 as distinct official events. No falsely extended four-day continuous parade."
     },
     {
       "intakeId": 42,
@@ -338,7 +360,8 @@
       "intakeId": 43,
       "title": "Lockhart Dickens Christmas",
       "submittedRegion": "Hill Country & Central Texas",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "City tourism confirms a different 2026 program called A Christmas to Remember Dec 4–5 at Dr. Eugene Clark Library. Do not rebrand that as the submitted 'Dickens Christmas' without a matching organizer source."
     },
     {
       "intakeId": 44,
@@ -356,7 +379,13 @@
       "intakeId": 46,
       "title": "Lampasas Carol of Lights",
       "submittedRegion": "Hill Country & Central Texas",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "lampasas-2026-carol-of-lights",
+        "lampasas-2026-holidazzle-parade",
+        "lampasas-2026-christmas-on-creek"
+      ],
+      "researchNote": "Vision Lampasas identifies separate Dec 5 Carol of Lights, Dec 5 HoliDazzle parade and Dec 12 Christmas on the Creek; do not extend special-event times to undated winter evenings."
     },
     {
       "intakeId": 47,
@@ -575,13 +604,21 @@
       "intakeId": 73,
       "title": "Rockwall Christmas Celebration",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "rockwall-hometown-christmas-2026"
+      ],
+      "researchNote": "Official City of Rockwall Hometown Christmas listing dates Dec 5, 2026; city program includes Kiwanis parade 9 a.m., market 10 a.m.–5 p.m. and city tree lighting 6–8 p.m."
     },
     {
       "intakeId": 74,
       "title": "Rowlett Holiday Parade",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "rowlett-2026-holiday-main-street-fest"
+      ],
+      "researchNote": "City of Rowlett confirms one combined Holiday Main Street Fest + Parade of Lights Dec 5, 5–8:30 p.m.; avoid duplicating the same parade as a second city event."
     },
     {
       "intakeId": 75,
@@ -602,13 +639,21 @@
       "intakeId": 77,
       "title": "Southlake Home for the Holidays",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "southlake-home-for-the-holidays-2026"
+      ],
+      "researchNote": "Visit Southlake officially dates its named Home for the Holidays celebration Saturday Nov 21, 2026 from 4:30–8:30 p.m.; free tree lighting and activities."
     },
     {
       "intakeId": 78,
       "title": "Colleyville Christmas Tree Lighting",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "colleyville-2026-christmas-tree-lighting"
+      ],
+      "researchNote": "City of Colleyville confirms Nov 21, 2026 tree lighting, 5:30–8:30 p.m. at Heroes Park by City Hall."
     },
     {
       "intakeId": 79,
@@ -651,7 +696,12 @@
       "intakeId": 83,
       "title": "Weatherford Christmas on the Square",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "weatherford-2026-christmas-on-square",
+        "weatherford-2026-lights-night-parade"
+      ],
+      "researchNote": "Weatherford Chamber confirms Dec 5, 2026 Gingerbread Christmas 10 a.m.–4 p.m. and a separate 6:30 p.m. lighted parade."
     },
     {
       "intakeId": 84,
@@ -698,7 +748,12 @@
       "intakeId": 89,
       "title": "Lewisville Holiday at the Hall",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "lewisville-2026-holiday-stroll-lights",
+        "lewisville-2026-holiday-stroll-parade"
+      ],
+      "researchNote": "City of Lewisville currently brands the 2026 programming Holiday Stroll / Lewisville Lights at Wayne Ferguson Plaza, Friday Dec 4 tree lighting and Saturday Dec 5 Christmas parade. The submitted generic event title is an alias for this city holiday program."
     },
     {
       "intakeId": 90,
@@ -755,13 +810,21 @@
       "intakeId": 96,
       "title": "Kaufman Holiday Celebration",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "kaufman-2026-christmas-on-the-square"
+      ],
+      "researchNote": "City of Kaufman confirms Dec 5, 2026, noon–8 p.m. Christmas on the Square, with 6 p.m. illuminated parade and 7 p.m. tree lighting."
     },
     {
       "intakeId": 97,
       "title": "Terrell Christmas Parade",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "terrell-2026-christmas-parade"
+      ],
+      "researchNote": "Terrell Chamber explicitly confirms December 12, 2026, 10–11 a.m. Christmas parade and route; listed fees are float entry, not spectator admission."
     },
     {
       "intakeId": 98,
@@ -779,7 +842,8 @@
       "intakeId": 100,
       "title": "Forney Christmas in the Park",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "The City/Arts Council confirms Dec 5 Christmas on Main 12–5 p.m. downtown. This is NOT proof of the submitted 'Forney Christmas in the Park' event identity or dates; added as a separate Christmas-on-Main calendar occurrence."
     },
     {
       "intakeId": 101,
@@ -930,19 +994,30 @@
       "intakeId": 122,
       "title": "Kemah Boardwalk Christmas",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "kemah-jingle-on-boardwalk-2026-1",
+        "kemah-jingle-on-boardwalk-2026-2",
+        "kemah-jingle-on-boardwalk-2026-3"
+      ],
+      "researchNote": "The 2026 Kemah Boardwalk calendar dates Jingle on the Boardwalk on the three Friday–Sunday holiday weekends Dec4–20, with separate Saturday Cocoa & Cookies stroll dates and a separately organized Dec12 boat parade."
     },
     {
       "intakeId": 123,
       "title": "Seabrook Illuminated Boat Lane Parade",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "Clear Lake Chamber's Dec12 65th Christmas Boat Lane Parade is the same waterway parade visible from Seabrook, Kemah and Nassau Bay. The supplied 'Seabrook Illuminated Boat Lane Parade' may refer to it, but no distinct separately branded organizer event is established. Do not duplicate it."
     },
     {
       "intakeId": 124,
       "title": "Clear Lake Holiday Boat Lane Parade",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "clearlake-65th-christmas-boat-lane-parade-2026"
+      ],
+      "researchNote": "Clear Lake Area Chamber confirms the 65th Boat Lane Parade Saturday Dec12, 2026, beginning Nassau Bay around 6pm and reaching Seabrook/Kemah around 7:30pm. Same parade viewed from multiple shoreline cities; do not create duplicate route events."
     },
     {
       "intakeId": 125,
@@ -966,7 +1041,8 @@
       "intakeId": 128,
       "title": "Pearland Festival of Lights",
       "submittedRegion": "Gulf Coast & Houston Area",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "Pearland Parks & Recreation confirmed the Dec4 Hometown Christmas Festival at Independence Park, added separately. The submitted generic 'Pearland Festival of Lights' might refer to a different lighting program; without a matching 2026 organizer date it remains unverified."
     },
     {
       "intakeId": 129,
@@ -1463,7 +1539,11 @@
       "intakeId": 204,
       "title": "Nacogdoches Nine Flags Festival",
       "submittedRegion": "East Texas Piney Woods",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "nacogdoches-nine-flags-parade-2026"
+      ],
+      "researchNote": "Visit Nacogdoches lists the 2026 Nine Flags Lighted Christmas Parade Dec 5 at 6:30 p.m.; this is the exact verified sub-event of the broader Nine Flags festival, not a claim of daily month-long operations."
     },
     {
       "intakeId": 205,
@@ -1485,7 +1565,8 @@
       "intakeId": 207,
       "title": "Longview Christmas Train",
       "submittedRegion": "East Texas Piney Woods",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "candidate-needs-source-reconciliation",
+      "researchNote": "The 2026 Longview Arboretum BRIGHT! light-walk and Downtown AMBUCS Christmas Parade are independently verified; Livingston's Christmas Train Village is in a DIFFERENT town. None establishes the supplied 'Longview Christmas Train' as a dated 2026 passenger-train event; hold this candidate pending an exact Longview organizer source."
     },
     {
       "intakeId": 208,
@@ -1768,9 +1849,9 @@
     }
   ],
   "reconciliation": {
-    "asOf": "2026-10-24",
-    "calendarCandidates": 59,
+    "asOf": "2026-10-26",
+    "calendarCandidates": 75,
     "authorityCandidates": 12,
-    "remainingCandidates": 179
+    "remainingCandidates": 163
   }
 }
