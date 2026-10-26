@@ -2,8 +2,10 @@ import type { TexasEventRecord } from "./texas-event-record";
 
 /**
  * 2027 Texas Mardi Gras companion events verified against the named event
- * organizers or locally maintained publisher calendars on 2026-10-25.
- * Keep public slugs yearless for evergreen URLs; year-specific curated IDs and\n * start dates remain separate, so future annual occurrences can be replaced.\n * These are calendar occurrences, NOT new event-authority pages or claims
+ * organizers or locally maintained publisher calendars on October 25–26, 2026.
+ * Keep public slugs yearless for evergreen URLs; year-specific curated IDs and
+ * start dates remain separate, so future annual occurrences can be replaced.
+ * These are calendar occurrences, NOT new event-authority pages or claims
  * of live ticket inventory. Never infer a right to use organizer photographs.
  *
  * The Crystal Beach publisher shows 5–8 p.m. while a separate community
@@ -97,7 +99,7 @@ const companionEvents: TexasEventRecord[] = [
     guidePath: "/events/mardi-gras#companion-events",
     startDate: "2027-01-30",
     startTime: "7:00 PM",
-    venueName: "Robert A. Bob Bowers Civic Center",
+    venueName: "Robert A. “Bob” Bowers Civic Center",
     city: "Port Arthur",
     countySlug: "jefferson",
     countyName: "Jefferson County",
