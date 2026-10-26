@@ -767,6 +767,34 @@ for (const experiment of liveWave10) {
 }
 if (liveWave10.length !== 4) failures.push('Expected exactly 4 live Wave 10 CTR experiments, found ' + liveWave10.length + '.');
 
+// October 2026: source-backed answers for newly visible river geography queries,
+// and entity-specific Galveston search metadata rather than generic travel-guide copy.
+const riversForCtr = fs.readFileSync('src/data/fixtures/texas-rivers-explained.ts', 'utf8');
+for (const marker of [
+  'Which rivers run through the Coastal Plains of Texas?',
+  'Where do Texas rivers and major waterways eventually flow?',
+  'Texas Water Development Board river-basin map',
+  'the Canadian, Red, Sulphur and Cypress drain east',
+]) {
+  if (!riversForCtr.includes(marker)) failures.push('River query-answer visibility missing: ' + marker);
+}
+for (const marker of [
+  '"/destination/moody-gardens": {',
+  'Moody Gardens Galveston: Aquarium, Rainforest & Visitor Guide',
+  'Plan Moody Gardens in Galveston: Aquarium and Rainforest Pyramids, ticket packages, parking, accessibility, seasonal attractions and practical visitor tips.',
+]) {
+  if (!seo.includes(marker)) failures.push('Moody Gardens Galveston SEO metadata missing: ' + marker);
+}
+if (seo.indexOf('"/destination/moody-gardens": {') !== seo.lastIndexOf('"/destination/moody-gardens": {')) {
+  failures.push('Moody Gardens metadata override must remain unique.');
+}
+const moodyOverridePosition = seo.indexOf('"/destination/moody-gardens": {');
+const ssrOnlyPosition = seo.indexOf('const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = import.meta.env.SSR ? {');
+const seoOverrideClosure = seo.indexOf('} : {};', ssrOnlyPosition);
+if (!(moodyOverridePosition > ssrOnlyPosition && moodyOverridePosition < seoOverrideClosure)) {
+  failures.push('Moody Gardens GSC override must remain SSR-only; do not expand the eager client bundle.');
+}
+
 if (failures.length) {
   console.error('GSC page-one CTR validation failed:');
   for (const failure of failures) console.error(`- ${failure}`);

@@ -22,7 +22,7 @@ export const texasRiversExplainedArticle: Article = {
   },
   authorId: "a-marisol",
   publishedAt: "2026-08-13",
-  updatedAt: "2026-10-18",
+  updatedAt: "2026-10-25",
   readingMinutes: 17,
   tags: [
     "major rivers in texas",
@@ -132,6 +132,11 @@ export const texasRiversExplainedArticle: Article = {
       "Which Texas rivers form borders? The Rio Grande forms the international boundary with Mexico along Texas; the Red River marks much of the Oklahoma boundary, and the Sabine forms much of the Louisiana boundary.",
       "Do all Texas rivers drain straight to the Gulf? No. The Red, Canadian, Sulphur and Cypress flow into larger river systems that continue outside Texas, while others empty into Texas bays, the Gulf or the Rio Grande system."
     ),
+    h("Which rivers run through the Coastal Plains of Texas?"),
+    p("The Texas Coastal Plains include the lowland reaches of several major rivers, not one river shared by every region. The Brazos, Colorado, Trinity, Neches and Sabine cross coastal lowlands on their way toward the Gulf; the Guadalupe, San Antonio, Nueces, Lavaca, San Jacinto and Rio Grande systems also have coastal reaches or outlets. Rivers can begin far outside the Coastal Plains and only cross them near their mouths. The Texas Water Development Board maps these as separate river basins, with eight additional coastal basins filling the lowlands between the larger rivers."),
+    p("For a school geography question about rivers in the Coastal Plains, useful examples are the Brazos, Colorado, Trinity, Guadalupe, Nueces, Sabine and Neches. Their exact routes differ, and a river basin covers all the land draining toward a river—not just its blue line on a map. Use the official Texas Water Development Board river-basin map linked above to distinguish the river channel from the larger drainage area."),
+    h("Where do Texas rivers and major waterways eventually flow?"),
+    p("Most of the major river systems in southern, central and eastern Texas ultimately reach a Gulf of Mexico bay, estuary or the Gulf itself. But not every Texas river flows directly through the Texas coast: the Canadian, Red, Sulphur and Cypress drain east through interstate river systems. No single natural region contains all Texas rivers. The state's high ground separates their watersheds, and their downstream destinations depend on which basin they belong to."),
     h("How a Texas River Is Born"),
     p("A river starts with water moving downhill. After rain, water gathers in tiny channels and creeks. These small beginnings are called headwaters. Some rain sinks into the ground and later returns through springs or slowly seeps into a stream. As creeks join other creeks, they form larger streams and eventually a river. A smaller stream or river that flows into a larger one is called a tributary. Most rivers do not have one single starting point because they are networks of many branches."),
     p("As water moves, it wears away rock and soil, deepens channels and reshapes valleys. Bits of rock and soil are carried downstream and may settle on river bends, floodplains—the broad low areas rivers can spill across—and deltas. A river's flow does not come from rain alone: groundwater, springs, smaller streams and reservoir releases can all add water along the way. The U.S. Geological Survey's Water Science School explains these processes in its Rivers, Streams and Creeks and Rivers and the Landscape resources."),

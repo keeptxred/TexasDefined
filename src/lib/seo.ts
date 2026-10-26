@@ -292,6 +292,10 @@ const TEXASDEFINED_TECHNICAL_SEO_OVERRIDES: Record<string, TechnicalSeoOverride>
 // deliberately excluded from the browser bundle. Client navigation falls back to each page's
 // existing metadata; canonical SSR output carries the GSC-aligned title/description.
 const TEXASDEFINED_GSC_SSR_OVERRIDES: Record<string, TechnicalSeoOverride> = import.meta.env.SSR ? {
+  "/destination/moody-gardens": {
+    title: "Moody Gardens Galveston: Aquarium, Rainforest & Visitor Guide",
+    description: "Plan Moody Gardens in Galveston: Aquarium and Rainforest Pyramids, ticket packages, parking, accessibility, seasonal attractions and practical visitor tips.",
+  },
   "/article/texas-rivers-explained": {
     title: "Major Rivers in Texas: Boundary Rivers, Regions & Map",
     description: "Find Texas's major and boundary rivers by region, including the Rio Grande, Pecos, Brazos, Colorado, Trinity and Sabine, with maps and waterway context.",
