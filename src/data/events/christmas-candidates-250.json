@@ -341,7 +341,14 @@
       "intakeId": 41,
       "title": "Seguin Holiday Holiday Parade",
       "submittedRegion": "Hill Country & Central Texas",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "seguin-2026-holiday-stroll-parade",
+        "seguin-2026-sip-n-stroll",
+        "seguin-2026-north-pole-stroll",
+        "seguin-2026-yulefest-art-show"
+      ],
+      "researchNote": "Seguin's city calendar lists Holiday Stroll parade Dec 3, cocoa Sip 'n Stroll Dec 4, family North Pole Stroll Dec 5, and Yulefest Dec 6 as distinct official events. No falsely extended four-day continuous parade."
     },
     {
       "intakeId": 42,
@@ -606,7 +613,11 @@
       "intakeId": 74,
       "title": "Rowlett Holiday Parade",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "rowlett-2026-holiday-main-street-fest"
+      ],
+      "researchNote": "City of Rowlett confirms one combined Holiday Main Street Fest + Parade of Lights Dec 5, 5–8:30 p.m.; avoid duplicating the same parade as a second city event."
     },
     {
       "intakeId": 75,
@@ -732,7 +743,12 @@
       "intakeId": 89,
       "title": "Lewisville Holiday at the Hall",
       "submittedRegion": "North Texas & DFW Metroplex",
-      "status": "candidate-needs-source-reconciliation"
+      "status": "sourced-calendar",
+      "calendarSlugs": [
+        "lewisville-2026-holiday-stroll-lights",
+        "lewisville-2026-holiday-stroll-parade"
+      ],
+      "researchNote": "City of Lewisville currently brands the 2026 programming Holiday Stroll / Lewisville Lights at Wayne Ferguson Plaza, Friday Dec 4 tree lighting and Saturday Dec 5 Christmas parade. The submitted generic event title is an alias for this city holiday program."
     },
     {
       "intakeId": 90,
@@ -1820,8 +1836,8 @@
   ],
   "reconciliation": {
     "asOf": "2026-10-26",
-    "calendarCandidates": 69,
+    "calendarCandidates": 72,
     "authorityCandidates": 12,
-    "remainingCandidates": 169
+    "remainingCandidates": 166
   }
 }
