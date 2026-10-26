@@ -386,6 +386,7 @@ for (const marker of [
   'How many cultural regions does Texas have?',
   'There is no official number of Texas cultural regions',
   'a different question: where landscapes and habitats change',
+  '/things-unique-to-texas/culture-music',
 ]) {
   if (!culturalRegionsGuide.includes(marker)) errors.push('Texas cultural-regions search answer missing: ' + marker);
 }
