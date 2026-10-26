@@ -112,7 +112,7 @@
       "evidence": "Ticketmaster directly confirms Dec 11 at 7:30 PM, Bruton Theatre Dallas, exact event ticket page",
       "checkedAt": "2026-10-26",
       "checkoutUrl": null,
-      "publicSaleStatus": "not-independently-confirmed",
+      "publicSaleStatus": "venue-published-on-sale",
       "inventoryStatus": "NOT_PROVIDER_CONFIRMED",
       "checkoutPriceStatus": "not-confirmed",
       "affiliateEligibility": "not-proven",
@@ -132,7 +132,13 @@
         "Source-qualified organizer/venue/provider event identity",
         "Production 12-show city/date SSR acceptance passed, run 40260454571"
       ],
-      "verificationScope": "Official event and published purchase entry verified; not real-time seat inventory or final checkout price"
+      "verificationScope": "Official event and published purchase entry verified; not real-time seat inventory or final checkout price",
+      "publicSaleEvidence": {
+        "sourceUrl": "https://www.ticketmaster.com/bruton-theatre-tickets-dallas/venue/98316",
+        "checkedAt": "2026-10-26",
+        "finding": "Ticketmaster's official Bruton Theatre event schedule lists the Promising Young Artist Series 33rd Annual Christmas/Kwanzaa Concert on Dec 11 at 7:30 PM with Find Tickets for that exact show.",
+        "verificationScope": "Primary source published an event-specific sale entry for the reviewed date, time and venue; not seat inventory, final checkout price, transaction completion or commission entitlement."
+      }
     },
     {
       "id": "christmas-story-conroe-2026",
@@ -226,7 +232,7 @@
       "evidence": "Ticketmaster directly confirms Dec 17 7 PM, Bruton Theatre Dallas, exact event page",
       "checkedAt": "2026-10-26",
       "checkoutUrl": null,
-      "publicSaleStatus": "not-independently-confirmed",
+      "publicSaleStatus": "venue-published-on-sale",
       "inventoryStatus": "NOT_PROVIDER_CONFIRMED",
       "checkoutPriceStatus": "not-confirmed",
       "affiliateEligibility": "not-proven",
@@ -246,7 +252,13 @@
         "Source-qualified organizer/venue/provider event identity",
         "Production 12-show city/date SSR acceptance passed, run 40260454571"
       ],
-      "verificationScope": "Official event and published purchase entry verified; not real-time seat inventory or final checkout price"
+      "verificationScope": "Official event and published purchase entry verified; not real-time seat inventory or final checkout price",
+      "publicSaleEvidence": {
+        "sourceUrl": "https://www.ticketmaster.com/bruton-theatre-tickets-dallas/venue/98316",
+        "checkedAt": "2026-10-26",
+        "finding": "Ticketmaster's Bruton Theatre primary venue schedule offers Find Tickets for A Jazzy Christmas Concert on Dec 17, 2026 at 7:00 PM, separate from the 10 AM puppet show.",
+        "verificationScope": "Primary source published an event-specific sale entry for the reviewed date, time and venue; not seat inventory, final checkout price, transaction completion or commission entitlement."
+      }
     },
     {
       "id": "very-merry-symphony-cedar-park-2026",
@@ -300,7 +312,7 @@
       "evidence": "Experience McAllen confirms Dec 20 at 4 PM, McAllen Performing Arts Center, with official Ticketmaster tickets link",
       "checkedAt": "2026-10-26",
       "checkoutUrl": null,
-      "publicSaleStatus": "not-independently-confirmed",
+      "publicSaleStatus": "organizer-published-on-sale",
       "inventoryStatus": "NOT_PROVIDER_CONFIRMED",
       "checkoutPriceStatus": "not-confirmed",
       "affiliateEligibility": "not-proven",
@@ -320,7 +332,13 @@
         "Source-qualified organizer/venue/provider event identity",
         "Production 12-show city/date SSR acceptance passed, run 40260454571"
       ],
-      "verificationScope": "Official event and published purchase entry verified; not real-time seat inventory or final checkout price"
+      "verificationScope": "Official event and published purchase entry verified; not real-time seat inventory or final checkout price",
+      "publicSaleEvidence": {
+        "sourceUrl": "https://www.ticketmaster.com/event/3A0064EEA191731D",
+        "checkedAt": "2026-10-26",
+        "finding": "McAllen's official Experience McAllen event page links to this exact primary Ticketmaster checkout; Ticketmaster identifies Dec 20, 2026 at 4 PM at McAllen Performing Arts Center and shows General Sale Happening Now, Jul 28 through Dec 20.",
+        "verificationScope": "Primary source published an event-specific sale entry for the reviewed date, time and venue; not seat inventory, final checkout price, transaction completion or commission entitlement."
+      }
     },
     {
       "id": "grand-ol-christmas-houston-2026",
@@ -334,7 +352,7 @@
       "evidence": "Live Nation confirms Dec 22 at 7 PM, House of Blues Houston, a main admission ticket link separate from a Fast Lane upgrade marked NOT A CONCERT TICKET",
       "checkedAt": "2026-10-26",
       "checkoutUrl": null,
-      "publicSaleStatus": "not-independently-confirmed",
+      "publicSaleStatus": "organizer-published-on-sale",
       "inventoryStatus": "NOT_PROVIDER_CONFIRMED",
       "checkoutPriceStatus": "not-confirmed",
       "affiliateEligibility": "program-conditional-not-proven-for-this-event",
@@ -354,7 +372,13 @@
         "Source-qualified organizer/venue/provider event identity",
         "Production 12-show city/date SSR acceptance passed, run 40260454571"
       ],
-      "verificationScope": "Official event and published purchase entry verified; not real-time seat inventory or final checkout price"
+      "verificationScope": "Official event and published purchase entry verified; not real-time seat inventory or final checkout price",
+      "publicSaleEvidence": {
+        "sourceUrl": "https://www.livenation.com/event/G5dIZ_GluCTsV/grand-ol-christmas",
+        "checkedAt": "2026-10-26",
+        "finding": "Primary promoter Live Nation publishes Buy Tickets for Grand Ol' Christmas on Tue Dec 22, 2026 at 7 PM, House of Blues Houston, and separately labels the Fast Lane Access upgrade Not a Concert Ticket.",
+        "verificationScope": "Primary source published an event-specific sale entry for the reviewed date, time and venue; not seat inventory, final checkout price, transaction completion or commission entitlement."
+      }
     },
     {
       "id": "grand-ol-christmas-dallas-2026",
@@ -368,7 +392,7 @@
       "evidence": "Official Ticketmaster House of Blues Dallas listing confirms Dec 23 at 5 PM (doors/event listing time); reviewed PR #5912 distinguishes 6 PM performance start. Live Nation venue confirms same dated event",
       "checkedAt": "2026-10-26",
       "checkoutUrl": null,
-      "publicSaleStatus": "not-independently-confirmed",
+      "publicSaleStatus": "venue-published-on-sale",
       "inventoryStatus": "NOT_PROVIDER_CONFIRMED",
       "checkoutPriceStatus": "not-confirmed",
       "affiliateEligibility": "program-conditional-not-proven-for-this-event",
@@ -388,7 +412,13 @@
         "Source-qualified organizer/venue/provider event identity",
         "Production 12-show city/date SSR acceptance passed, run 40260454571"
       ],
-      "verificationScope": "Official event and published purchase entry verified; not real-time seat inventory or final checkout price"
+      "verificationScope": "Official event and published purchase entry verified; not real-time seat inventory or final checkout price",
+      "publicSaleEvidence": {
+        "sourceUrl": "https://www.ticketmaster.com/venue/99029?page=1",
+        "checkedAt": "2026-10-26",
+        "finding": "Ticketmaster's primary House of Blues Dallas venue schedule publishes Find Tickets for Grand Ol' Christmas Dec 23, 2026. Its 5 PM entry is venue doors; previously verified stage performance starts at 6 PM, and fast-lane passes are separate add-ons.",
+        "verificationScope": "Primary source published an event-specific sale entry for the reviewed date, time and venue; not seat inventory, final checkout price, transaction completion or commission entitlement."
+      }
     },
     {
       "id": "cirque-musica-cedar-park-2026",
