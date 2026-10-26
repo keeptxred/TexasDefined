@@ -353,6 +353,17 @@ export async function listResolvedDestinations(params: Omit<DestinationQuery, "b
 }
 
 async function getResolvedDestinationBase(slug: Slug) {
+  // The separately researched Yoakum Heritage Museum authority record includes
+  // rights-owned, explicitly illustrative museum artwork. A thin remote Explore
+  // row may share this slug but carry a generic no-photo placeholder. Select
+  // the source-verified original first; never replace it with a photograph of
+  // another Yoakum museum or an unlicensed exterior.
+  if (slug === "yoakum-heritage-museum") {
+    const original = preservedExploreDestinations.find((destination) => destination.slug === slug);
+    const ready = resolveSeoReadyDestination(original);
+    if (ready?.hero.src === "/images/yoakum-heritage-museum-editorial.svg"
+      && ready.hero.credit?.includes("TexasDefined original")) return ready;
+  }
   if (slug === "davis-hill-state-park") return (await import("./davis-hill-authority-fallback")).davisHillFallback;
   // These four research-verified local authority records outrank a stale or
   // thin remote row sharing the same slug. Other destinations avoid the import.
