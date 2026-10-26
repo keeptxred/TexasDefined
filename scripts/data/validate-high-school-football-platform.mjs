@@ -2061,7 +2061,7 @@ if (!errors.length) {
     errors.push('Football county reciprocal link object missing.');
   } else {
     const section = entityPage.slice(start, end);
-    const keys = [...section.matchAll(/^  (?:'([^']+)'|([a-z-]+)):\\s*\\[/gm)].map((m) => m[1] || m[2]);
+    const keys = [...section.matchAll(/^  (?:'([^']+)'|([a-z-]+)):\s*\[/gm)].map((m) => m[1] || m[2]);
     const duplicates = keys.filter((key, index) => keys.indexOf(key) !== index);
     if (duplicates.length) errors.push('Duplicate football county link keys would suppress school links: ' + [...new Set(duplicates)].join(', '));
     for (const slug of ['canyon-west-plains','carrizo-springs','carrollton-creekview','carrollton-ranchview','carrollton-smith']) {
