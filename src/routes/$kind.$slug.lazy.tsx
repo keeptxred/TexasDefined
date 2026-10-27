@@ -403,7 +403,7 @@ function EntityPage() {
 
   return <>
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-    <Container className="pb-16 pt-12 sm:pb-24 sm:pt-16">
+    <Container className={entity.kind === 'county' && entity.slug === 'van-zandt' ? 'pb-4 pt-12 sm:pb-6 sm:pt-16' : 'pb-16 pt-12 sm:pb-24 sm:pt-16'}>
       <article className="mx-auto max-w-6xl">
         <nav aria-label="Breadcrumb" className="border-b border-border pb-4 text-xs uppercase tracking-[0.14em] text-muted-foreground">
           <a href="/" className="hover:text-foreground">Front page</a>
@@ -434,7 +434,9 @@ function EntityPage() {
           </figure>
         ) : null}
 
-        <header className="grid gap-8 border-b border-border py-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
+        <header className={entity.kind === 'county' && entity.slug === 'van-zandt'
+          ? 'grid gap-6 border-b border-border pb-8 pt-5 sm:pt-6 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start'
+          : 'grid gap-8 border-b border-border py-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end'}>
           <div>
             <p className="eyebrow text-primary">{readerLabel(entity.kind)}</p>
             <h1 className="mt-3 max-w-4xl font-display text-5xl leading-[0.98] sm:text-7xl">{entity.name}</h1>
