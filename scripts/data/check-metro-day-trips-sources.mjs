@@ -16,14 +16,17 @@ if (!elPasoOutings) throw new Error("Source-backed El Paso operator outing regis
 const elPasoOutingUrls = [...new Set([...elPasoOutings.matchAll(/sourceUrl:\s*"(https:\/\/[^"]+)"/g)].map((match) => match[1]))];
 if (elPasoOutingUrls.length !== 5) throw new Error("El Paso source-backed outing coverage must retain five distinct operator references");
 const metroPage = fs.readFileSync("src/routes/explore.near.$metro.$collection.lazy.tsx", "utf8");
-// Close-in El Paso visitor sources are rendered outside the 18–150-mile
-// destination registry but still need the same weekly official-link checks.
-// Keep the scope restricted to the two reviewed local alternatives.
+// El Paso's close-in trips and permit/route decision guides live outside the
+// governed 18–150-mile catalog. Check those additional official visitor URLs
+// along with the separate five-source editorial registry every week.
 const elPasoSection = metroPage.split('data-el-paso-short-trips="separate-from-distance-results"')[1]?.split("{featuredCityTrips.length")[0];
 if (!elPasoSection) throw new Error("El Paso close-in trip source section missing");
 const elPasoOperatorLinks = [...elPasoSection.matchAll(/href="(https:\/\/[^"]+)"/g)].map((match) => match[1]);
 if (!elPasoOperatorLinks.includes("https://tpwd.texas.gov/state-parks/parks/franklin-mountains/")
-  || !elPasoOperatorLinks.includes("https://www.nps.gov/cham/planyourvisit/hours.htm")) {
+  || !elPasoOperatorLinks.includes("https://www.nps.gov/cham/planyourvisit/hours.htm")
+  || !elPasoOperatorLinks.includes("https://www.elpasomissions.org/faqs/")
+  || !elPasoOperatorLinks.includes("https://tpwd.texas.gov/state-parks/hueco-tanks/alert")
+  || !elPasoOperatorLinks.includes("https://www.nps.gov/gumo/planyourvisit/dunes.htm")) {
   throw new Error("El Paso close-in official operator source coverage incomplete");
 }
 const urls = [...new Set([
