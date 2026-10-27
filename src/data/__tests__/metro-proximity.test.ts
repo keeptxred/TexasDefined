@@ -742,3 +742,19 @@ test("El Paso trip-choice guidance keeps official safety constraints and intact 
   assert.ok(collection.includes("minResults: 10") && collection.includes("minTowns: 7") && collection.includes("minCounties: 4") && collection.includes("minCategories: 3"));
   assert.ok(pageData.includes('const robots = indexReady ? "index, follow, max-image-preview:large" : "noindex, follow"'));
 });
+
+test("metro production browser acceptance proves an actual destination photo decodes", () => {
+  const browser = readFileSync("scripts/ci/verify-metro-day-trips-production.mjs", "utf8");
+  const card = readFileSync("src/components/editorial/DestinationCard.tsx", "utf8");
+  assert.ok(card.includes("data-image-frame"), "keep the real destination card image frame contract");
+  assert.ok(browser.includes('page.locator("main [data-image-frame] img").first()'),
+    "test a rendered destination image rather than merely checking hero URL text");
+  assert.ok(browser.includes("img.complete&&img.naturalWidth>0&&img.naturalHeight>0"),
+    "validate actual downloaded image pixels instead of successful markup alone");
+  assert.ok(browser.includes('check("destination card photograph loads"'),
+    "a broken image must fail the same protected production Chrome suite");
+  assert.ok(browser.includes("if(indexReady){"),
+    "do not add an image requirement that falsely indexes sparse El Paso inventory");
+  assert.ok(browser.includes('check("no hydration errors"'),
+    "image coverage does not replace existing React hydration protection");
+});

@@ -117,6 +117,26 @@ try {
       check("map route links available",data.mapCount>0,data.mapCount);
       check("no horizontal overflow",data.documentWidth<=data.viewportWidth+2,data.documentWidth+"/"+data.viewportWidth);
       if(indexReady){
+        // A quality-gated destination record can have a valid hero URL that
+        // returns 404 after a later asset deployment. Prove at least one
+        // actual photo renders in the governed day-trip card collection.
+        // Scroll one card into view to trigger legitimate lazy loading; do
+        // not suppress broken requests or accept blank image frames.
+        const firstPhoto=page.locator("main [data-image-frame] img").first();
+        const photoExists=(await firstPhoto.count())>0;
+        if(photoExists) await firstPhoto.scrollIntoViewIfNeeded({timeout:10000}).catch(()=>{});
+        if(photoExists) await page.waitForFunction(()=>{
+          const img=document.querySelector("main [data-image-frame] img");
+          return !!img&&img.complete&&img.naturalWidth>0&&img.naturalHeight>0;
+        },null,{timeout:12000}).catch(()=>{});
+        const photo=await page.evaluate(()=>{
+          const img=document.querySelector("main [data-image-frame] img");
+          return img?{src:img.currentSrc||img.src,alt:img.alt,complete:img.complete,width:img.naturalWidth,height:img.naturalHeight}:null;
+        });
+        check("destination card photograph loads",
+          photoExists&&!!photo?.src&&!!photo?.alt&&photo.complete&&photo.width>0&&photo.height>0,
+          JSON.stringify(photo));
+
         check("indexable city has curated guide",data.slugs.length>=1,data.slugs.length);
         if(approvedViator.has(metro)){
           const panel=page.locator("[data-day-trip-viator-market]");
