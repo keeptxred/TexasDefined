@@ -48,6 +48,10 @@ The shared purchase CTA resolver rejects general school ticket catalogs, venue/b
 
 This is a **negative safety filter**, not positive proof of ticket inventory, seat quantity, public sale status, price, commission or purchase. Choctaw Stadium's five sourced 2026 football fixtures illustrate the distinction: the venue itself publishes different games and a shared GoFan school selector, so TexasDefined links the exact stadium game page instead of labeling the entire school catalog as a confirmed game checkout. See the five-item checkpoint in `ops/editorial/event-ticketing-verification-ledger.json` and `scripts/data/validate-official-venue-ticketing.mjs`.
 
+## One canonical checkout identity per performance
+
+When a source-reviewed editorial event is enriched by a matching approved provider feed, the merger identifies duplicates by the **exact underlying official admission URL**, not by the distinct Impact redirect wrapper. It drops fragment-only duplicates but preserves differing query parameters because they may identify different showtimes. An approved, event-exact Ticketmaster/Impact publisher 7758914 link wins over an unsigned duplicate; an unauthorized or wrong-performance affiliate redirect never gains sponsored treatment. If the provider marks the exact admission off-sale, that authoritative state overrides an older editorial `unknown` status for that duplicate destination. One ticket CTA remains visible per event and independently date/venue-qualified performances retain separate records. This neither establishes live seats nor promises an event-specific commission.
+
 ## CTA resolution
 
 `src/data/events/ticketing.ts` is the single decision layer. Presentation code must not choose a provider itself.

@@ -73,6 +73,18 @@
       "productionVerifiedAt": null,
       "inventoryConfirmed": false,
       "finalPriceConfirmed": false
+    },
+    "canonicalProviderTicketIdentity": {
+      "status": "IMPLEMENTED",
+      "checkedAt": "2026-10-26",
+      "issue": "Editorial official admission and an exact Ticketmaster provider feed could retain two internal link records because the previous merge keyed on affiliate wrapper instead of underlying event checkout.",
+      "fix": "Deduplicate exact official destination excluding URL fragment but retaining showtime/query identity; prefer authorized exact Impact, reject unrelated sponsored redirects, honor provider off-sale status for same checkout.",
+      "regression": "Seven architecture validator assertions for source order, publisher attribution, wrong event, fragment-only duplicates, distinct performance queries and provider off-sale.",
+      "pr": null,
+      "mergeAt": null,
+      "productionVerifiedAt": null,
+      "inventoryVerified": false,
+      "commissionEligibilityVerified": false
     }
   },
   "events": [
