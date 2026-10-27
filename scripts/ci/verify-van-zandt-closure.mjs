@@ -17,9 +17,9 @@ const browser = await chromium.launch({ headless: true, executablePath: process.
 const problems = [];
 
 async function settled(page) {
-  await page.waitForFunction(() => document.querySelector('h1')?.textContent?.trim() === 'Van Zandt County' &&
-    document.querySelectorAll('a[href*="openstreetmap.org/search?query="]').length >= communities.length,
-    null, { timeout: 60000 });
+  await page.waitForFunction(minCount => document.querySelector('h1')?.textContent?.trim() === 'Van Zandt County' &&
+    document.querySelectorAll('a[href*="openstreetmap.org/search?query="]').length >= minCount,
+    communities.length, { timeout: 60000 });
 }
 
 async function normalContentAndLinks() {
