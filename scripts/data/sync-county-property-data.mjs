@@ -1,6 +1,6 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { parseExistingCountySnapshot, preserveSourcedCountyLinks } from './county-property-snapshot-codec.mjs';
+import { parseExistingCountySnapshot, preserveSourcedCountyLinks, isAmbiguousCountyWithdrawal } from './county-property-snapshot-codec.mjs';
 
 const DIRECTORY_URL = 'https://comptroller.texas.gov/taxes/property-tax/county-directory/';
 const OUTPUT = path.join(process.cwd(), 'src', 'data', 'property', 'county-property-enrichment.generated.ts');
@@ -103,6 +103,14 @@ catch(error) { if (error?.code !== 'ENOENT') throw error; }
 let merged = { ...supplement, ...curated };
 const curatedSlugs = new Set(Object.keys(curated));
 const previousCount = Object.keys(merged).length;
+
+const ambiguousWithdrawals = results.filter(result =>
+  isAmbiguousCountyWithdrawal(merged[result.county.slug], result));
+if (ambiguousWithdrawals.length) {
+  throw new Error('Refusing ambiguous county-office withdrawal after a reachable official page: '+
+    ambiguousWithdrawals.map(result=>result.county.slug).join(', ')+
+    '. Inspect parser markup, office domain, source update timestamps and report; do not erase sourced county contacts.');
+}
 
 for (const { county, fetched, enrichment } of results) {
   if (enrichment) merged[county.slug] = preserveSourcedCountyLinks(merged[county.slug], enrichment);
