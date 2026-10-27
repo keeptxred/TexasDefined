@@ -563,7 +563,7 @@ function Page() {
                 </tbody>
               </table>
             </div>
-            <p className="mt-3 text-xs leading-6 text-muted-foreground">* District game. This table is a dated editorial snapshot, not a live scoreboard.</p>
+            {editorial.season.games.some((game) => game.district) && <p className="mt-3 text-xs leading-6 text-muted-foreground">* District game. This table is a dated editorial snapshot, not a live scoreboard.</p>}
             <a href={editorial.season.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">{editorial.season.sourceLabel} ↗</a>
             {editorial.season.latestResultSourceUrl && <a href={editorial.season.latestResultSourceUrl} target="_blank" rel="noreferrer noopener" className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4">Verify latest recorded final ↗</a>}
           </> : <p className="max-w-4xl text-sm leading-7 text-muted-foreground">TexasDefined does not publish an unverified team-specific schedule. Use UIL’s Texas Scoreboard and the school’s official athletics source for current dates and results; the UIL feed is submission-based, and it is not an official district-standings table.</p>}
