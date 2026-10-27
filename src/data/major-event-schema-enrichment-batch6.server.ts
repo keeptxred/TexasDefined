@@ -35,7 +35,8 @@ export const majorEventSchemaEnrichmentBatch6: MajorEventSchemaEnrichment[] = [
   {
     slug: "houston-art-car-parade",
     organizer: organization("The Orange Show Center for Visionary Art", "https://orangeshow.org/"),
-    offers: [usdOffer("Parade admission", 0, "https://www.thehoustonartcarparade.com/")],
+    // The parade is free. Reserved seating and VIPit are separate optional
+    // products, not required parade admission; don't emit a purchase CTA.
     sources: [
       { label: "Houston Art Car Parade official site", url: "https://www.thehoustonartcarparade.com/" },
       { label: "Houston Art Car Parade official history", url: "https://www.thehoustonartcarparade.com/history-of-the-houston-art-car-para" },
