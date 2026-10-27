@@ -1,4 +1,5 @@
 import { formatDateRange } from "@/domain/utils/format";
+import { buildHotelsComEvergreenClick, hotelsComPageSid, PALESTINE_HOTELS_SID } from "@/lib/cj-hotels-evergreen";
 import { getPalestinePolarExpressRollover } from "./palestine-polar-express-rollover.server";
 import { resolveSportsVenueEventLink } from "@/data/sports-venue-event-links";
 import { isRecurrenceDerivedMajorEventSlug } from "./major-event-date-confidence";
@@ -77,9 +78,10 @@ import {
 } from "./major-event-schema-enrichment.server";
 
 const siteUrl = "https://texasdefined.com";
-const HOTELS_COM_AFFILIATE_URL = "https://www.anrdoezrs.net/links/101876465/type/dlg/https://www.hotels.com/";
-// Verified Hotels.com destination listing; preserve the existing CJ deep-link identifier and disclosure.
-const PALESTINE_HOTELS_AFFILIATE_URL = "https://www.anrdoezrs.net/links/101876465/type/dlg/https://www.hotels.com/de1634643/hotels-palestine-texas/";
+const HOTELS_COM_AFFILIATE_URL = "https://www.hotels.com/";
+// CJ-generated Hotels.com Evergreen Link ID 15734399 (PID 101876465).
+// Preserve the Palestine city destination and the same year-free SID for every season.
+const PALESTINE_HOTELS_AFFILIATE_URL = buildHotelsComEvergreenClick("https://www.hotels.com/de1634643/hotels-palestine-texas/", PALESTINE_HOTELS_SID);
 const esc = (value: string | undefined) => (value ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\"/g, "&quot;").replace(/'/g, "&#39;");
 const CHAPPELL_HILL_WILDFLOWER_SECTION_TITLE = "Use the county wildflower map before chasing roadside photos";
 const CHAPPELL_HILL_WILDFLOWER_MAP_MARKUP = `<div data-map="chappell-hill-wildflower" class="mt-5">
@@ -490,7 +492,8 @@ export function loadMajorEventPageServer(slug: string) {
     ? [{ href: countyHref, label: `Explore ${event.countyName ?? "the county"}`, description: `Continue from ${event.name} into the county guide for places, communities and local resources.` }, ...normalizedRelatedItems.filter((item) => item.href !== countyHref)]
     : normalizedRelatedItems;
   const related = relatedItems.map((item) => `<li><a class="font-semibold text-primary underline" href="${esc(item.href)}">${esc(item.label)}</a><span class="text-muted-foreground"> — ${esc(item.description)}</span></li>`).join("");
-  const hotelBookingHref = isPalestinePolarExpress ? PALESTINE_HOTELS_AFFILIATE_URL : HOTELS_COM_AFFILIATE_URL;
+  const hotelBookingHref = isPalestinePolarExpress ? PALESTINE_HOTELS_AFFILIATE_URL
+    : buildHotelsComEvergreenClick(HOTELS_COM_AFFILIATE_URL, hotelsComPageSid(`/event/${event.slug}`));
   const hotelBookingLabel = isPalestinePolarExpress ? "Compare hotels in Palestine →" : "Search hotels on Hotels.com →";
   const palestineScheduleMarkup = isPalestinePolarExpress
     ? `<section data-polar-express-2026-schedule="true" class="mt-7 rounded-2xl border border-border bg-muted/20 p-6"><p class="eyebrow text-primary">Before booking</p><h2 class="mt-2 font-display text-2xl">2026 train departures and tickets</h2><p class="mt-3 leading-7">Texas State Railroad’s official November and December 2026 calendars confirm service on November 13 and December 28. Nov 13: 5:30 and 7:00 PM; Dec 28: 3:00, 4:30, 6:00 and 7:30 PM. December 18 is also scheduled. These are advertised trains, not guaranteed available seats: check the live booking calendar or call 855-632-7729 for current inventory.</p><p class="mt-3 text-sm leading-6 text-muted-foreground"><strong>Official railroad calendar:</strong> Nov 13–15, 19–24, 27–29; Dec 3–6, 9–13, 15–16, 18–23, 26–28. No departures shown Dec 24–25. Not every day in the season has service.</p><div class="mt-5 flex flex-wrap gap-3"><a class="inline-flex min-h-11 items-center rounded-lg bg-primary px-5 py-3 font-semibold text-primary-foreground" href="${esc(event.officialUrl)}" target="_blank" rel="noopener noreferrer" data-event-official-ticket-cta="true">Check live train tickets ↗</a><a class="inline-flex min-h-11 items-center rounded-lg border border-border px-5 py-3 font-semibold text-primary" href="https://www.visitpalestine.com/events/2026/httpstexasstaterailroadnetevents2332" target="_blank" rel="noopener noreferrer">See city’s 2026 event listing ↗</a></div><p class="mt-4 text-sm text-muted-foreground">Train uses a diesel locomotive in 2026. Arrive at least 45 minutes early; collect boarding passes 15 minutes before departure. A $20-per-ticket cancellation fee applies to eligible cancellations 30+ days ahead; no refund within 30 days.</p></section>`
