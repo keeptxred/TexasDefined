@@ -49,7 +49,7 @@
       "inventoryVerified": false
     },
     "editorialOfficialLinkHttpProbes": {
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "checkedAt": "2026-10-26",
       "limitPerRefresh": 25,
       "selection": "Source-qualified future non-Ticketmaster editorial canonical event CTAs, non-affiliate only, stable startDate and ID order; retry only after 14 days or exact URL/date change",
@@ -57,7 +57,7 @@
       "checkpoint": "statewide.ticketLinkProbes keyed editorial:<canonical-event-id> and statewide.ticketLinkProbeLatestRun.editorialOfficial",
       "mergeProtection": "Uses existing sync/finisher source-protected ledger paths and automatic event refresh PR; no new cron",
       "tests": "node --test scripts/events/verify-editorial-ticket-links.test.mjs; protected premerge and existing ticketing validator",
-      "productionVerification": null,
+      "productionVerification": "Merged #6053; code and tests present in existing daily Texas event sync workflow, but no post-merge scheduled editorial probe run was independently observed as of October 27. Do not infer external seller reachability or live seats.",
       "inventoryVerified": false,
       "checkoutPriceVerified": false,
       "affiliateCommissionVerified": false
@@ -207,6 +207,41 @@
       "verifiedInventory": false,
       "verifiedFinalPrice": false,
       "verifiedPerEventCommission": false
+    },
+    "ticketingFinalEditorialDisposition20261027": {
+      "status": "DEPLOYED",
+      "checkedAt": "2026-10-27",
+      "pr": 6073,
+      "mergeCommit": "379e92dc8e64f9de30e575f6a09ed076339107f8",
+      "ci": {
+        "protectedMergeGate": 40506825938,
+        "ticketingArchitecture": 40506825980,
+        "conclusion": "success"
+      },
+      "production": {
+        "workflowRunId": 40507590846,
+        "conclusion": "success",
+        "cloudflareDeploymentId": "2f1556ef-7136-4449-8f56-3abd8dfc5dd8",
+        "cloudflareVersionId": "d0b5fc89-f242-482a-a91e-4e197aba8de0",
+        "sampledPages": [
+          "/events",
+          "/events/christmas-events",
+          "/event/polar-express-palestine"
+        ],
+        "viewports": [
+          1440,
+          390
+        ]
+      },
+      "eventAdmission": "Five invalid festival-general, free-entry or non-performance-specific Offers removed; preserve official organizer source information; source regression passed.",
+      "scheduledRun": "Existing event sync configured and previous scheduled run succeeded on 2026-10-26; subsequent editorial seller probe execution not independently confirmed as of 2026-10-27.",
+      "explicitLimits": [
+        "No provider seat-inventory entitlement",
+        "No verified final checkout price or event-specific affiliate commissions",
+        "No independent fresh DOM validation of each of five affected festival authority guides",
+        "No independently observed post-merge scheduled editorial seller probe run"
+      ],
+      "fiveFestivalProductionDOMVerified": false
     }
   },
   "events": [
@@ -4432,7 +4467,7 @@
       }
     },
     "editorialCohortIntegrity": {
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "source": "loadTexasEventRecordsServer canonical upcoming ticketed editorial and provider-enriched records",
       "batchSize": 50,
       "selection": "Non-ticketmaster canonical records with future end/start dates and ticket links; stable startDate/id order, verify all cohorts, no repeated audit truncation.",
@@ -4471,10 +4506,23 @@
         },
         "status": "PASS — targeted ticketing architecture workflow; protected canonical Merge Gate still required"
       },
-      "rebasedOnMain": "d04bd786bd6cf2743ef8343202b04d17a4304c1a"
+      "rebasedOnMain": "d04bd786bd6cf2743ef8343202b04d17a4304c1a",
+      "protectedMergeGate": {
+        "conclusion": "success",
+        "runId": 40506825938
+      },
+      "ticketingCi": {
+        "conclusion": "success",
+        "runId": 40506825980
+      },
+      "productionSample": {
+        "conclusion": "success",
+        "runId": 40507590846,
+        "scope": "Representatives include statewide calendar, Christmas collection and Palestine. Provider seat inventory not confirmed."
+      }
     },
     "editorialWithheldTicketDispositions20261027": {
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "checkedAt": "2026-10-27",
       "scope": "Five source-qualified festival parent events identified from complete 50-record canonical cohort; distinguish free public admission and festival-wide credentials from exact event ticket checkouts.",
       "cases": [
@@ -4517,7 +4565,33 @@
       "test": "scripts/data/validate-statewide-editorial-ticket-cohorts.mjs rejects reinstated generic schema Offers and tests live canonical eligible rows; full Impact contract also enforced.",
       "pr": 6073,
       "productionVerifiedAt": null,
-      "restrictedProviderInventoryVerified": false
+      "restrictedProviderInventoryVerified": false,
+      "mergeCommit": "379e92dc8e64f9de30e575f6a09ed076339107f8",
+      "protectedMergeGate": {
+        "conclusion": "success",
+        "runId": 40506825938
+      },
+      "ticketingCi": {
+        "conclusion": "success",
+        "runId": 40506825980
+      },
+      "productionDeployment": {
+        "conclusion": "success",
+        "runId": 40507590846,
+        "cloudflareDeploymentId": "2f1556ef-7136-4449-8f56-3abd8dfc5dd8",
+        "cloudflareVersionId": "d0b5fc89-f242-482a-a91e-4e197aba8de0"
+      },
+      "productionAcceptance": {
+        "status": "REPRESENTATIVE_LIVE_ACCEPTANCE_PASSED",
+        "pages": [
+          "/events",
+          "/events/christmas-events",
+          "/event/polar-express-palestine"
+        ],
+        "desktopWidth": 1440,
+        "mobileWidth": 390,
+        "scope": "Live Chrome browser checks and source-level five-offer regression passed; five individual festival guide DOMs were not separately revalidated against fresh production HTML."
+      }
     }
   },
   "externallyBlocked": [
