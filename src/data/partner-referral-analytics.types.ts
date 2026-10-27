@@ -78,8 +78,21 @@ export type CasinoReferralSummary = {
   }>;
 };
 
+export type ImpactProviderSummary = {
+  source: 'impact.com';
+  reportName: 'partner_performance_by_day';
+  observedDays30d: number;
+  providerClicks30d: number | null;
+  providerActions30d: number | null;
+  providerSales30d: number | null;
+  lastProviderSyncAt: string | null;
+  currencyVerified: boolean;
+  settledCommissionVerified: false;
+};
+
 export type PartnerReferralAnalyticsDashboard = {
   generatedAt: string;
+  impact: ImpactProviderSummary;
   lastSyncedAt: string | null;
   lastPipelineSyncAt: string | null;
   impressionTrackingStartedAt: string;
