@@ -783,6 +783,7 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
         </p>
         <div className="mt-9 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {EL_PASO_SOURCE_BACKED_OUTINGS.map((outing) => <article key={outing.key}
+            id={`el-paso-outing-${outing.key}`}
             className="border-t border-border pt-5" data-el-paso-source-backed-outing={outing.key}>
             <p className="eyebrow text-primary">{outing.fit}</p>
             <h3 className="mt-3 font-display text-2xl">{outing.title}</h3>
@@ -799,6 +800,68 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
           route times can change; verify with the linked operator before travel. The 18–150-mile collection
           below retains its existing geographic and source-quality eligibility checks.
         </p>
+      </Container>
+    </section>}
+
+    {metro.slug === "el-paso" && collection.slug === "day-trips" && <section
+      className="border-b border-border bg-surface" data-el-paso-trip-decisions="planning-guidance-not-extra-catalog-count"
+      aria-labelledby="el-paso-trip-decisions-title">
+      <Container className="py-12 sm:py-14">
+        <p className="eyebrow text-primary">Pick the kind of day you actually have</p>
+        <h2 id="el-paso-trip-decisions-title" className="mt-3 max-w-4xl font-display text-3xl sm:text-4xl">Three ways to plan an El Paso outing</h2>
+        <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">
+          These are ways to organize the existing parks, heritage sites and official visitor references above—not
+          additional destination records or evidence that the geographic collection qualifies for search indexing.
+          In this part of Texas, access rules and return travel matter more than how many stops fit on a list.
+        </p>
+        <div className="mt-8 grid gap-8 lg:grid-cols-3">
+          <article className="border-t border-border pt-5" data-el-paso-trip-plan="mission-trail">
+            <p className="eyebrow text-primary">History and local culture</p>
+            <h3 className="mt-3 font-display text-2xl">Make the Mission Trail one connected outing</h3>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">
+              Start with a mission that is open to visitors, then continue along the nine-mile heritage corridor toward
+              San Elizario. Pair its historic district with Los Portales Museum when the museum is open. These are
+              active places of worship and separately managed attractions, not one walkable campus.
+            </p>
+            <p className="mt-3 text-sm leading-7"><strong>Before leaving:</strong> Confirm parish, museum and visitor-center hours.
+              The Mission Trail Association advises driving between sites rather than walking the full corridor.</p>
+            <div className="mt-4 flex flex-wrap gap-x-5 gap-y-3 text-sm font-semibold">
+              <a href="#el-paso-outing-san-elizario-historic-district" className="border-b border-primary pb-1 text-primary">San Elizario research →</a>
+              <a href="https://www.elpasomissions.org/faqs/" target="_blank" rel="noopener noreferrer" className="border-b border-border pb-1 hover:text-primary">Official Mission Trail visiting FAQ ↗</a>
+            </div>
+          </article>
+          <article className="border-t border-border pt-5" data-el-paso-trip-plan="hueco-tanks">
+            <p className="eyebrow text-primary">Permit-first desert day</p>
+            <h3 className="mt-3 font-display text-2xl">Reserve Hueco Tanks before planning the route</h3>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">
+              North Mountain self-guided entry is capacity-limited; TPWD directs visitors to reserve by phone.
+              Ranger-led visits into protected areas require advance booking, so a spur-of-the-moment plan can
+              fail even when the park itself is open. Allow for orientation and a safe return before closing.
+            </p>
+            <p className="mt-3 text-sm leading-7"><strong>Before leaving:</strong> Review TPWD's live road-condition alerts
+              and restrictions, and do not rely solely on GPS directions on Hueco Tanks Road.</p>
+            <div className="mt-4 flex flex-wrap gap-x-5 gap-y-3 text-sm font-semibold">
+              <Link to="/destination/$slug" params={{ slug: "hueco-tanks-state-park-and-historic-site" }} className="border-b border-primary pb-1 text-primary">Hueco Tanks visitor guide →</Link>
+              <a href="https://tpwd.texas.gov/state-parks/hueco-tanks/alert" target="_blank" rel="noopener noreferrer" className="border-b border-border pb-1 hover:text-primary">TPWD current park alerts ↗</a>
+            </div>
+          </article>
+          <article className="border-t border-border pt-5" data-el-paso-trip-plan="guadalupe">
+            <p className="eyebrow text-primary">A long, single-destination day</p>
+            <h3 className="mt-3 font-display text-2xl">Choose Pine Springs or Salt Basin Dunes</h3>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">
+              Pine Springs is the national park's main visitor hub and trailhead. Salt Basin Dunes requires a
+              different approach to the park's western side, travel on a clay road and an additional walk from
+              the parking area. Treat them as alternative outings, not guaranteed same-day additions.
+            </p>
+            <p className="mt-3 text-sm leading-7"><strong>Before leaving:</strong> Carry adequate water, compare actual
+              road routes, check desert weather and confirm day-use rules. NPS warns the dunes access road
+              may become unsafe after rain; do not attempt that route when wet.</p>
+            <div className="mt-4 flex flex-wrap gap-x-5 gap-y-3 text-sm font-semibold">
+              <a href="#el-paso-outing-guadalupe-pine-springs" className="border-b border-primary pb-1 text-primary">Pine Springs research →</a>
+              <a href="https://www.nps.gov/gumo/planyourvisit/dunes.htm" target="_blank" rel="noopener noreferrer" className="border-b border-border pb-1 hover:text-primary">NPS dune access and safety ↗</a>
+            </div>
+          </article>
+        </div>
       </Container>
     </section>}
 
