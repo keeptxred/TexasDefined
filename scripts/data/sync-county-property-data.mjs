@@ -1,6 +1,6 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { parseExistingCountySnapshot } from './county-property-snapshot-codec.mjs';
+import { parseExistingCountySnapshot, preserveSourcedCountyLinks } from './county-property-snapshot-codec.mjs';
 
 const DIRECTORY_URL = 'https://comptroller.texas.gov/taxes/property-tax/county-directory/';
 const OUTPUT = path.join(process.cwd(), 'src', 'data', 'property', 'county-property-enrichment.generated.ts');
@@ -105,7 +105,7 @@ const curatedSlugs = new Set(Object.keys(curated));
 const previousCount = Object.keys(merged).length;
 
 for (const { county, fetched, enrichment } of results) {
-  if (enrichment) merged[county.slug] = enrichment;
+  if (enrichment) merged[county.slug] = preserveSourcedCountyLinks(merged[county.slug], enrichment);
   else if (fetched) delete merged[county.slug];
 }
 
