@@ -23,6 +23,8 @@ import { applyCuratedDestinationBatch9 } from "../destination-curation-batch9.ts
 import { applyCuratedDestinationBatch20 } from "../destination-curation-batch20.ts";
 import { MCALLEN_WBC_SITES, MCALLEN_WBC_SOURCES } from "../mcallen-world-birding-center.ts";
 import { CURATED_METRO_DAY_TRIP_SLUGS, curatedMetroDayTrips } from "../metro-day-trip-editorial.ts";
+import { applyRestrictedOwnerDestinationMedia } from "../restricted-owner-destination-media.ts";
+import { viatorDestinationExpansionWave12 } from "../viator-destination-expansion-wave12.ts";
 
 const hero = { src: "/images/test.jpg", alt: "Test place", width: 1200, height: 800 };
 
@@ -46,6 +48,25 @@ function destination(index: number, category: CategorySlug, overrides: Partial<D
     ...overrides,
   };
 }
+
+test("owner-licensed Olive Co. gallery survives remote destination precedence without replacing remote editorial fields", () => {
+  const approved = viatorDestinationExpansionWave12.find((item) => item.slug === "texas-hill-country-olive-co");
+  assert.ok(approved, "rights-governed Olive Co. destination record must exist");
+  const remoteWinner: Destination = {
+    ...approved,
+    summary: "Remote editorial summary remains authoritative after media reconciliation.",
+    hero: { ...approved.hero, src: "/images/remote-placeholder.jpg", credit: "Remote source" },
+    gallery: undefined,
+  };
+  const restored = applyRestrictedOwnerDestinationMedia(remoteWinner);
+  assert.equal(restored.summary, remoteWinner.summary, "media repair must not replace remote editorial fields");
+  assert.equal(restored.hero.src, "/images/destinations/texas-hill-country-olive-co-bistro.webp");
+  assert.equal(restored.hero.credit, "Texas Hill Country Olive Co.");
+  assert.equal(restored.gallery?.length, 1);
+  assert.equal(restored.gallery?.[0]?.image.src, "/images/destinations/texas-hill-country-olive-co-exterior.webp");
+  assert.equal(restored.gallery?.[0]?.image.credit, "Texas Hill Country Olive Co.");
+  assert.equal(restored.gallery?.[0]?.sourceUrl, "https://texashillcountryoliveco.com/");
+});
 
 test("unknown metro and collection slugs fail closed", () => {
   assert.equal(getMetroProximityMetro("not-a-metro"), undefined);
