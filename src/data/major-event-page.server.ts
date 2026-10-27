@@ -321,6 +321,16 @@ export function majorEventGuideTicketsAllowed(lifecycleStatus?: EventSchemaLifec
   return lifecycleStatus === undefined || lifecycleStatus === "scheduled";
 }
 
+/** Format provider-local showtime without converting it to another timezone. */
+export function majorEventSessionTimeLabel(time?: string) {
+  if (!time) return "Time to confirm with provider";
+  const match = /^(\d{1,2}):(\d{2})$/.exec(time);
+  if (!match) return time;
+  const hour = Number(match[1]);
+  if (hour > 23) return "Time to confirm with provider";
+  return `${hour % 12 || 12}:${match[2]} ${hour < 12 ? "AM" : "PM"}`;
+}
+
 export function buildMajorEventTicketingMarkupServer(slug: string, now = new Date()) {
   // An official event can be cancelled, postponed, or rescheduled while its
   // Ticketmaster Discovery listing still carries old on-sale metadata.
@@ -362,7 +372,10 @@ export function buildMajorEventTicketingMarkupServer(slug: string, now = new Dat
       const tracking = cta.isAffiliate
         ? ` data-affiliate-partner="${esc(cta.provider)}" data-affiliate-placement="major-event-guide-session" data-affiliate-event-id=\"${esc(record.id)}\" data-commercial-partner="${esc(cta.provider)}" data-commercial-placement="major-event-guide-session"`
         : "";
-      return `<li class="flex flex-col gap-2 border-b border-border py-3 sm:flex-row sm:items-center sm:justify-between"><span><strong>${esc(record.startDate)}</strong> · ${esc(record.title)}</span><a class="font-semibold text-primary underline" href="${esc(cta.href)}" target="_blank" rel="${esc(cta.rel)}"${tracking}>${esc(cta.label)}</a></li>`;
+      const performanceTime = majorEventSessionTimeLabel(record.startTime);
+      const performanceLocation = record.venueName ? ` · ${esc(record.venueName)}` : "";
+      const accessibleLabel = `${cta.label.replace(" →", "")}: ${record.title}, ${record.startDate}, ${performanceTime}${record.venueName ? ", " + record.venueName : ""}`;
+      return `<li class="flex flex-col gap-2 border-b border-border py-3 sm:flex-row sm:items-center sm:justify-between"><span><strong>${esc(record.startDate)}</strong> · ${esc(performanceTime)}${performanceLocation} · ${esc(record.title)}</span><a class="font-semibold text-primary underline" aria-label="${esc(accessibleLabel)}" href="${esc(cta.href)}" target="_blank" rel="${esc(cta.rel)}"${tracking}>${esc(cta.label)}</a></li>`;
     }).join("");
     const hasAffiliate = upcoming.some(({ cta }) => cta.isAffiliate);
     return `<section data-event-ticketing class="mt-10 border-y border-border py-8"><p class="eyebrow text-primary">Tickets</p><h2 class="mt-2 font-display text-3xl">Choose the exact ticketed session</h2><p class="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">The current live event feed contains multiple sessions. Confirm the artist, date, venue and ticket type before checkout; a parking pass is not arena admission.</p><ul class="mt-5">${rows}</ul><p class="mt-4"><a class="font-semibold text-primary underline" href="/events?start=${esc(first)}&amp;end=${esc(last)}">Compare ticketed sessions →</a></p>${hasAffiliate ? '<p class="mt-3 text-xs text-muted-foreground">Affiliate links · ticket checkout is handled by the provider. TexasDefined may earn a commission from qualifying purchases.</p>' : ""}</section>`;
