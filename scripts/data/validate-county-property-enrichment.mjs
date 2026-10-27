@@ -14,6 +14,15 @@ const validateWorkflow = fs.readFileSync('.github/workflows/validate.yml', 'utf8
 const premergeRunner = fs.readFileSync('scripts/ci/run-premerge-validation.mjs', 'utf8');
 const validationSuite = fs.readFileSync('scripts/ci/run-validation-suite.mjs', 'utf8');
 const failures = [];
+
+const sourceCodec = fs.readFileSync('scripts/data/county-property-snapshot-codec.mjs', 'utf8');
+if (!sourceCodec.includes('export function preserveSourcedCountyLinks(') ||
+    !sync.includes('preserveSourcedCountyLinks(merged[county.slug], enrichment)') ||
+    !sourceCodec.includes("['propertySearchUrl','paymentUrl']") ||
+    !sourceCodec.includes("sourceUrls: [...new Set(")) {
+  failures.push('Official county contact refresh must preserve only source-proven, fresh same-office search/payment links.');
+}
+
 const SOURCE_MAX_AGE_DAYS = 730;
 const LOCAL_VERIFICATION_MAX_AGE_DAYS = 400;
 
