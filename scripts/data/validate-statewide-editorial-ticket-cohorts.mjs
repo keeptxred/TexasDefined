@@ -16,6 +16,19 @@ try {
   const { loadTexasEventRecordsServer } = await server.ssrLoadModule('/src/data/events/texas-event-records.server.ts');
   const { buildTexasEventCarouselItemsServer, buildGlobalEventCalendarServer } = await server.ssrLoadModule('/src/data/events/texas-event-calendar.server.ts');
   const { isEventSpecificTicketDestination } = await server.ssrLoadModule('/src/data/events/ticket-provider.ts');
+  const { getMajorEventSchemaEnrichmentServer } = await server.ssrLoadModule('/src/data/major-event-schema-enrichment.server.ts');
+  // These five source entries were historically reported as "withheld".
+  // Each was actually an unqualified multi-event pass, free general entry,
+  // or a general organizer homepage. Never reintroduce those as exact
+  // ticket Offer checkout links merely to increase the actionable count.
+  for (const slug of [
+    'austin-film-festival','sxsw','austin-powwow',
+    'houston-art-car-parade','main-st-fort-worth-arts-festival',
+  ]) {
+    const evidence = getMajorEventSchemaEnrichmentServer(slug);
+    if (!evidence) throw new Error('Reviewed festival schema record missing: '+slug);
+    if (evidence.offers?.length) throw new Error('Unqualified general/pass/free admission was republished as a ticket Offer: '+slug);
+  }
   const now = new Date();
   const texas = new Intl.DateTimeFormat('en-US', { timeZone:'America/Chicago',year:'numeric',month:'2-digit',day:'2-digit' }).formatToParts(now);
   const part = (key) => texas.find((p) => p.type === key)?.value ?? '00';
