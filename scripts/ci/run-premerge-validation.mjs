@@ -135,6 +135,7 @@ const prebuildChecks = [
   ['EVENT/TICKETMASTER', 'Validate Ticketmaster ingestion and tracking', 'node', ['--test', 'scripts/events/ticketmaster-discovery.test.mjs']],
   ['EVENT/TICKETMASTER', 'Validate authority candidate queue and publishing safeguards', 'node', ['--test', 'scripts/events/build-ticketmaster-authority-candidates.test.mjs']],
   ['EVENT/TICKETMASTER', 'Validate bounded public ticket URL probes and rotating batches', 'node', ['--test', 'scripts/events/verify-ticketmaster-link-batch.test.mjs']],
+  ['EVENT/TICKETING', 'Validate safe official editorial ticket seller batch probes', 'node', ['--test', 'scripts/events/verify-editorial-ticket-links.test.mjs']],
   ['EVENT/TICKETMASTER', 'Ensure bot refresh merge conflicts protect source recency and manual ticket verification', 'node', ['--test', 'scripts/events/reconcile-ticketing-refresh-conflicts.test.mjs']],
   ['EVENT/TICKETMASTER', 'Validate Ticketmaster calendar integration', 'node', ['scripts/data/validate-ticketmaster-integration.mjs']],
   ['EVENT/TICKETING', 'Validate shared ticket architecture', 'node', ['scripts/data/validate-event-ticketing-architecture.mjs']],
