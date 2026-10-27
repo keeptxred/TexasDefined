@@ -73,6 +73,18 @@
       "productionVerifiedAt": null,
       "inventoryConfirmed": false,
       "finalPriceConfirmed": false
+    },
+    "organizerOfferPublicationWindows": {
+      "status": "IMPLEMENTED",
+      "checkedAt": "2026-10-26",
+      "defect": "Official ticket schema Offer metadata can outlive sale validity and still surface an actionable admission URL as saleStatus unknown.",
+      "fix": "Shared canonical organizer Offer normalizer excludes sold-out, future, expired and malformed source validity windows before generating ticket link; Texas-local inclusive date-only windows and exact timestamp boundaries.",
+      "tests": "Canonical Wurstfest ticket-positive-path synthetic offer fixtures cover nine variants, Texas midnight and timestamp boundaries; architecture guard checks source integration.",
+      "pr": null,
+      "productionVerification": null,
+      "inventoryVerified": false,
+      "priceVerified": false,
+      "rebasedOnMain": "a3f618fc774dd1e6e15d25628d270d836a3778a5"
     }
   },
   "events": [
