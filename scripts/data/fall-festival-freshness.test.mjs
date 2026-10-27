@@ -93,7 +93,7 @@ test("daily sync is limited to three named first-party autumn sources", () => {
 });
 
 test("page exposes filter controls and machine-readable expiration attributes for the daily live check", () => {
-  const view = readFileSync("src/routes/events.$collection.tsx", "utf8");
+  const view = [readFileSync("src/routes/events.$collection.tsx", "utf8"), readFileSync("src/routes/events.$collection.lazy.tsx", "utf8")].join("\n");
   for (const feature of ["FallFestivalBrowser", "data-fall-end-date", "data-fall-name", "Filter festivals by Texas region", "Filter festivals by month", "Filter festivals by type", "fall-festival-hotel-search", "/events/christmas-events"]) {
     assert.ok(view.includes(feature), `missing fall feature: ${feature}`);
   }
