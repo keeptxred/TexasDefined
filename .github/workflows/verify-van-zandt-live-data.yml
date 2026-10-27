@@ -7,6 +7,8 @@ on:
       - 'src/components/sports/HighSchoolFootballLookup.tsx'
       - 'src/components/property/CountyTaxRateSection.tsx'
       - 'scripts/ci/verify-van-zandt-live-data.mjs'
+      - 'scripts/ci/van-zandt-html-contract.mjs'
+      - 'scripts/ci/van-zandt-html-contract.test.mjs'
       - '.github/workflows/verify-van-zandt-live-data.yml'
   workflow_run:
     workflows:
@@ -35,6 +37,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Regress Van Zandt source dates, references and SEO structure
+        run: node --test scripts/ci/van-zandt-html-contract.test.mjs
       - name: Verify current county tax and football API contracts
         env:
           PRODUCTION_ORIGIN: https://texasdefined.com
