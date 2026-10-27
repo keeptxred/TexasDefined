@@ -9,6 +9,7 @@ const publicRoot = 'public';
 const sourceExtensions = new Set(['.js', '.jsx', '.json', '.ts', '.tsx']);
 const failures = [];
 const deactivatedAffiliateMarkers = [
+  ['click-101876465-17106455', 'Really Good Stuff expired CJ tracking URL'],
   ['golf direct now', 'Golf Direct Now advertiser name'],
   ['golfdirectnow', 'Golf Direct Now domain/slug'],
   ['6323402', 'Golf Direct Now CJ advertiser ID'],
@@ -96,6 +97,7 @@ function validateDomAffiliateMetadata(file, source) {
 function validateKnownAffiliateNetworkMetadata(file, source) {
   const knownNetworkMarkers = [
     'anrdoezrs.net',
+    'jdoqocy.com', 'kqzyfj.com', 'dpbolvw.net', 'tkqlhce.com', 'tqlkg.com',
     'email.cj.com',
     '7eer.net',
     'P00318227',

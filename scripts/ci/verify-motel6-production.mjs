@@ -1,3 +1,4 @@
+import { expectedCjAccountClick } from './cj-account-link-contract.mjs';
 // Lightweight always-on Motel 6 canary for the one approved post-deployment
 // subscriber. This is deliberately NOT another broad live site audit.
 const origin = process.env.MOTEL6_PRODUCTION_ORIGIN || 'https://texasdefined.com';
@@ -66,7 +67,7 @@ for (const bust of [false, true]) {
     'Prefer a budget motel for the drive?',
     'data-commercial-partner="motel6"',
     'data-commercial-placement="football-budget-motel"',
-    'https://www.tqlkg.com/click-101876465-17198227',
+    expectedCjAccountClick('motel6-standard', footballPath),
     'rel="sponsored nofollow noopener noreferrer"',
     'Affiliate disclosure: TexasDefined may earn a commission',
     '/stay-affiliate-options.js',

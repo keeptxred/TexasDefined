@@ -1,3 +1,5 @@
+import { useLocation } from '@tanstack/react-router';
+import { buildCjAccountClick } from '@/lib/cj-account-links';
 import { trackAffiliateClick } from "@/lib/affiliate-click";
 
 type Props = {
@@ -6,12 +8,12 @@ type Props = {
   title?: string;
 };
 
-const CJ_PUBLISHER_ID = "101876465";
 const BOOKING_CAR_RENTAL_DESTINATION = "https://www.booking.com/cars/country/us.html";
-const BOOKING_CAR_RENTAL_URL = `https://www.anrdoezrs.net/links/${CJ_PUBLISHER_ID}/type/dlg/${encodeURI(BOOKING_CAR_RENTAL_DESTINATION)}`;
 const BOOKING_CAR_RENTAL_LABEL = "Compare rental cars on Booking.com";
 
 export function BookingCarRentalCard({ className = "", placement, title = "Need a rental car for the trip?" }: Props) {
+  const pathname = useLocation({ select: (location) => location.pathname });
+  const BOOKING_CAR_RENTAL_URL = buildCjAccountClick('booking.com', pathname, BOOKING_CAR_RENTAL_DESTINATION);
   return (
     <aside className={className} aria-label="Rental car booking option">
       <div className="border border-border bg-surface p-6 sm:p-7">

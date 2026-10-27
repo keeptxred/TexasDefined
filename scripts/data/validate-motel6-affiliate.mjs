@@ -36,8 +36,8 @@ assert.equal(typeof api.motel6CampaignActive, seasonal ? 'function' : 'undefined
 
 // The CJ publisher account CID 8062457 is NOT its website tracking PID.
 // Email creative link IDs are vetted and may not accept arbitrary inputs.
-assert.equal(api.buildMotel6Link('17198227'), 'https://www.tqlkg.com/click-101876465-17198227');
-if (seasonal) assert.equal(api.buildMotel6Link('17371482'), 'https://www.jdoqocy.com/click-101876465-17371482');
+assert.equal(api.buildMotel6Link('17198227'), 'https://www.tkqlhce.com/click-101876465-17198227?sid=td_home');
+if (seasonal) assert.equal(api.buildMotel6Link('17371482'), 'https://www.kqzyfj.com/click-101876465-17371482?sid=td_home');
 else assert.throws(() => api.buildMotel6Link('17371482'), /Unreviewed/);
 assert.throws(() => api.buildMotel6Link('123'), /Unreviewed/);
 if (seasonal) assert.doesNotMatch(api.buildMotel6Link('17371482'), /click-(?:1245|8062457)-/);
@@ -97,11 +97,11 @@ for (const marker of [
   "route: '/article/texas-high-school-football-playoffs-explained'",
   'requireMotel6Football: true',
   'data-commercial-partner="motel6"',
-  'https://www.tqlkg.com/click-101876465-17198227',
+  "expectedCjAccountClick('motel6-standard', page.route)",
 ]) assert.ok(liveVerifier.includes(marker), 'missing manual Motel 6 football acceptance marker: ' + marker);
 for (const marker of [
   'data-commercial-partner="motel6"',
-  'https://www.tqlkg.com/click-101876465-17198227',
+  "expectedCjAccountClick('motel6-standard', footballPath)",
   'for (const bust of [false, true])',
 ]) assert.ok(motel6Canary.includes(marker), 'missing scoped automatic Motel 6 production acceptance marker: ' + marker);
 console.log('Motel 6 CJ links and sponsored placements validated in ' + (seasonal ? 'seasonal' : 'evergreen-only') + ' mode.');

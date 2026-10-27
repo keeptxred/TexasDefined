@@ -1,3 +1,4 @@
+import { buildCjAccountClick } from '@/lib/cj-account-links';
 import { useLocation } from '@tanstack/react-router';
 import { buildHotelsComEvergreenClick, hotelsComPageSid } from '@/lib/cj-hotels-evergreen';
 import { useEffect, useState } from 'react';
@@ -21,15 +22,12 @@ const HOTEL_CJ_PUBLISHER_ID = '101876465';
 const HOTELS_DESTINATION = 'https://www.hotels.com/';
 // September 21 standard CJ creative and October 26 Halloween promotion.
 // Publisher promotional-property ID is 101876465, not CID 8062457.
-const MOTEL6_STANDARD_URL = 'https://www.tqlkg.com/click-' + HOTEL_CJ_PUBLISHER_ID + '-17198227';
-const MOTEL6_HALLOWEEN_URL = 'https://www.jdoqocy.com/click-' + HOTEL_CJ_PUBLISHER_ID + '-17371482';
 const MOTEL6_CAMPAIGN_START = Date.parse('2026-10-26T00:00:00Z');
 const MOTEL6_CAMPAIGN_END = Date.parse('2026-11-01T05:00:00Z');
 // Hotels.com uses its own CJ-approved Evergreen creative and current page SID.
 // RVshare is an existing active CJ advertiser for TexasDefined. This uses the
 // same previously verified destination and DLG builder as stay-affiliate-options.js.
 const RVSHARE_DESTINATION = 'https://rvshare.com/';
-const RVSHARE_AFFILIATE_URL = `https://www.anrdoezrs.net/links/${HOTEL_CJ_PUBLISHER_ID}/type/dlg/${encodeURI(RVSHARE_DESTINATION)}`;
 
 function isVerifiedProductUrl(offer: Offer) {
   // The exact prefix enforces HTTPS, the CJ host, our publisher ID, and Rexing.
@@ -40,6 +38,9 @@ function isVerifiedProductUrl(offer: Offer) {
 
 export function FootballFanOffers({ slug, hasUpcomingAwayTravel, showTravelPlanning = false }: { slug: string; hasUpcomingAwayTravel: boolean; showTravelPlanning?: boolean }) {
   const pathname = useLocation({ select: (location) => location.pathname });
+  const RVSHARE_AFFILIATE_URL = buildCjAccountClick('rvshare', pathname, RVSHARE_DESTINATION);
+  const MOTEL6_STANDARD_URL = buildCjAccountClick('motel6-standard', pathname);
+  const MOTEL6_HALLOWEEN_URL = buildCjAccountClick('motel6-halloween', pathname);
   const HOTELS_AFFILIATE_URL = buildHotelsComEvergreenClick(HOTELS_DESTINATION, hotelsComPageSid(pathname));
   const showHotels = hasUpcomingAwayTravel || showTravelPlanning;
   const [clientNow, setClientNow] = useState(0);

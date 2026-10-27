@@ -36,7 +36,7 @@ test('on the cutoff removes only seasonal copy and creative, not evergreen booki
     URL, Date, CustomEvent: class {},
   };
   vm.runInNewContext(plan.staySource, sandbox);
-  assert.equal(sandbox.window.TexasDefinedStayAffiliateOptions.buildMotel6Link('17198227'), 'https://www.tqlkg.com/click-101876465-17198227');
+  assert.equal(sandbox.window.TexasDefinedStayAffiliateOptions.buildMotel6Link('17198227'), 'https://www.tkqlhce.com/click-101876465-17198227?sid=td_home');
   assert.equal(sandbox.window.TexasDefinedStayAffiliateOptions.motel6Eligible('/explore/road-trips'), true);
 });
 

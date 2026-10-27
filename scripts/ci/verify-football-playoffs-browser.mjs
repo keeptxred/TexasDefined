@@ -1,3 +1,4 @@
+import { expectedCjAccountClick, expectedHotelsClick } from './cj-account-link-contract.mjs';
 import assert from 'node:assert/strict';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { readFileSync } from 'node:fs';
@@ -104,10 +105,9 @@ try {
     assert.ok(affiliate.official?.includes('Official UIL championship'));
     for (const offer of affiliate.offers) {
       const destination = offer.partner === 'hotels.com' ? 'https://www.hotels.com/' : 'https://rvshare.com/';
-      const expected = offer.partner === 'hotels.com'
-        ? 'https://www.anrdoezrs.net/click-101876465-15734399?sid=td_article_texas_high_school_football_playoffs_explained&url=' + encodeURIComponent(destination)
+      const expected = offer.partner === 'hotels.com' ? expectedHotelsClick(path, destination) : expectedCjAccountClick('rvshare', path);
+      const prior = offer.partner === 'hotels.com' ? expectedHotelsClick(path, destination)
         : 'https://www.anrdoezrs.net/links/101876465/type/dlg/' + destination;
-      const prior = 'https://www.anrdoezrs.net/links/101876465/type/dlg/' + destination;
       assert.ok(offer.href === expected || (process.env.GITHUB_EVENT_NAME === 'pull_request' && offer.href === prior),
         offer.partner + ' must use the exact approved CJ PID/AID, page SID and merchant destination');
       assert.ok(offer.rel.split(/\s+/).includes('sponsored') && offer.rel.includes('nofollow')

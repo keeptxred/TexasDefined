@@ -1,3 +1,4 @@
+import { expectedCjAccountClick, expectedHotelsClick } from '../ci/cj-account-link-contract.mjs';
 import assert from 'node:assert/strict';
 
 const slug = '/article/texas-high-school-football-playoffs-explained';
@@ -36,7 +37,9 @@ for (const { label, origin } of endpoints) {
     const oldMarkers = oldContent.filter((marker) => html.includes(marker));
     const affiliateContracts = ['hotels.com', 'rvshare'].map((partner) => {
       const tag = (html.match(/<a\b[^>]*>/gi) ?? []).find((value) => value.includes(`data-commercial-partner="${partner}"`));
-      return { partner, valid: Boolean(tag && /rel="sponsored nofollow noopener noreferrer"/.test(tag) && tag.includes('anrdoezrs.net/links/101876465/type/dlg/')) };
+      const href = tag?.match(/href=["']([^"']+)["']/)?.[1]?.replace(/&amp;/g, '&');
+      const expected = partner === 'hotels.com' ? expectedHotelsClick(slug) : expectedCjAccountClick('rvshare', slug);
+      return { partner, href, expected, valid: Boolean(tag && /rel="sponsored nofollow noopener noreferrer"/.test(tag) && href === expected) };
     });
     const noStore = /\bno-store\b/i.test(response.headers.get('cache-control') ?? '');
     const pass = response.status === 200 && missing.length === 0 && oldMarkers.length === 0 && affiliateContracts.every((link) => link.valid) && noStore;
