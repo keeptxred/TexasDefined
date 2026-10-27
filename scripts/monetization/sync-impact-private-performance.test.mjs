@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import {loadCompletedDays,upsertPrivateImpact,run} from './sync-impact-private-performance.mjs';
+import {loadCompletedDays,upsertPrivateImpact,run,configuredImpactDays} from './sync-impact-private-performance.mjs';
 
 const env={
   IMPACT_ACCOUNT_SID:'IR123456',IMPACT_AUTH_TOKEN:'secret',
@@ -51,4 +51,28 @@ test('errors do not echo private response bodies, never accept unsafe origin',as
     assert.doesNotMatch(err.message,/safely-test-only/);
     return true;
   });
+});
+
+test('initial history backfill is explicitly opt-in, bounded to 30 completed Texas days',async()=>{
+  assert.equal(configuredImpactDays(env),3);
+  assert.equal(configuredImpactDays({...env,IMPACT_BACKFILL_DAYS:'30'}),30);
+  for(const unsafe of ['0','31','180','-1','NaN','3.5',' 30 ',''])assert.throws(()=>configuredImpactDays({...env,IMPACT_BACKFILL_DAYS:unsafe}));
+  let queried=0,first='',last='';
+  const fake=async(url,options)=>{
+    queried++;
+    assert.equal(options.method,'GET');
+    const date=new URL(url).searchParams.get('START_DATE');
+    if(!first)first=date;
+    last=date;
+    return {ok:true,status:200,headers:{get:()=>null},text:async()=>JSON.stringify({Records:[{
+      date_display:date,Clicks:'3',Actions:'0',Impressions:'4',Sales:'0',Total_Cost:'987.65'
+    }]})};
+  };
+  const rows=await loadCompletedDays({env,fetcher:fake,days:30,now:new Date('2026-10-27T21:00:00Z')});
+  assert.equal(queried,30);
+  assert.equal(first,'2026-09-27');
+  assert.equal(last,'2026-10-26');
+  assert.equal(rows.length,30);
+  assert.ok(rows.every(r=>r.currency_code===null&&r.reported_total_cost===null));
+  assert.doesNotMatch(JSON.stringify(rows),/987.65/);
 });
