@@ -82,18 +82,19 @@ function PartnerReferralAnalyticsAdmin() {
         <p className="eyebrow text-primary">Provider-side reporting</p>
         <h2 id="impact-provider-reporting" className="mt-2 font-display text-3xl">Impact affiliate performance</h2>
         <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">
-          Read-only figures reported by Impact.com for the previous 30 days. These are separate from
+          Read-only figures from Impact.com for the last 30 completed Texas calendar days. These are separate from
           TexasDefined's on-site referral analytics and must not be added to first-party click counts.
           Provider-reported activity does not establish a purchase payment or final, settled commission.
         </p>
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-          <Metric label="Days with provider reports" value={dashboard.impact.observedDays30d} />
+          <Metric label="Provider-reported days (of 30)" value={dashboard.impact.observedDays30d} />
           <Metric label="Impact reported clicks" value={dashboard.impact.providerClicks30d ?? 'Not available'} />
           <Metric label="Credited actions" value={dashboard.impact.providerActions30d ?? 'Not available'} />
           <Metric label="Reported sales" value={dashboard.impact.providerSales30d ?? 'Not available'} />
           <Metric label="Last Impact import" value={dashboard.impact.lastProviderSyncAt ? new Date(dashboard.impact.lastProviderSyncAt).toLocaleString() : 'Not imported'} />
         </div>
         <p className="mt-4 max-w-3xl text-sm text-muted-foreground">
+          Only the {dashboard.impact.observedDays30d} days returned by Impact are included in the above totals; a missing provider report date is unknown, never an assumed zero.
           Amounts and payouts are withheld until Impact's reporting currency, credited versus reversed actions,
           and settled payments can be independently reconciled. Missing provider metrics are not treated as zero revenue.
         </p>
