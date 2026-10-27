@@ -82,6 +82,10 @@ The canonical event record's `status` is independently authoritative. When a sou
 
 `scripts/data/validate-event-ticket-positive-path.mjs` asserts all three changed lifecycle states suppress both calendar and carousel CTAs, while a legitimate scheduled Wurstfest ticket remains actionable. The canonical architecture validator separately requires the lifecycle gate and visible status disclosure.
 
+## Distinguish matinees and evening sessions on major-event guides
+
+When a major-event guide has more than one verified provider listing, its ticket rows show each session's **event date, provider-local showtime, venue and show name**, with an accessible link label containing the same identity. Missing showtimes are labeled **Time to confirm with provider** rather than invented. Displaying 2 p.m. and 7 p.m. performances separately does not permit swapping their distinct official/Impact checkout URLs; the shared resolver and exact-match safeguards remain authoritative. Source provider time labels are formatted as wall-clock values only, without a timezone conversion that could change the advertised performance.
+
 ## Major-event guide performance date boundaries
 
 Major-event guide ticket sections use the same injected clock as the Ticketmaster provider snapshot. Sessions are filtered using **America/Chicago** day boundaries, not UTC day rollover, and the related `Compare ticketed sessions` date window is drawn only from the displayed upcoming sessions. A Ticketmaster event identity or on-sale status still does **not** prove seats or final checkout price. `scripts/data/validate-major-event-ticket-lifecycle.mjs` asserts Texas midnight and daylight-saving examples, preserved organizer cancellation suppression, and this consistent date-range behavior.
