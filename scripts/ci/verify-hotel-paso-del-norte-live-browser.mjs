@@ -132,11 +132,19 @@ async function checkHotel(page, viewport) {
   check(linkExists(data.links,county),viewport+': missing county link');
   check(data.links.some(h=>h.startsWith('https://www.marriott.com/en-us/hotels/elpak-')),viewport+': missing official non-affiliate booking link');
   const cj = new URL(offer.href);
-  check(cj.origin === 'https://www.anrdoezrs.net' && cj.pathname === '/click-101876465-15734399'
-    && cj.searchParams.size === 2
-    && cj.searchParams.get('sid') === 'td_destination_hotel_paso_del_norte'
-    && cj.searchParams.get('url') === 'https://www.hotels.com/ho114680/hotel-paso-del-norte-autograph-collection-el-paso-united-states-of-america/',
-    viewport+': CJ Evergreen link, SID or exact Hotel Paso property drifted: '+offer.href);
+  const expectedProperty = 'https://www.hotels.com/ho114680/hotel-paso-del-norte-autograph-collection-el-paso-united-states-of-america/';
+  const expectedLegacy = 'https://www.anrdoezrs.net/links/101876465/type/dlg/' + expectedProperty;
+  const currentEvergreen = cj.origin === 'https://www.anrdoezrs.net' &&
+    cj.pathname === '/click-101876465-15734399' &&
+    cj.searchParams.size === 2 &&
+    cj.searchParams.get('sid') === 'td_destination_hotel_paso_del_norte' &&
+    cj.searchParams.get('url') === expectedProperty;
+  // Pull requests test the CURRENT production URL before their new code ships.
+  // Only allow the exactly known previous property link there, not arbitrary CJ URLs.
+  // After merge, workflow_dispatch acceptance requires the NEW Evergreen link.
+  const predeploy = process.env.GITHUB_EVENT_NAME === 'pull_request';
+  check(currentEvergreen || (predeploy && offer.href === expectedLegacy),
+    viewport+': unexpected or untracked CJ Hotel Paso property: '+offer.href);
   check(offer.partner==='hotels.com'&&offer.placement==='hotel-paso-exact-hotel-stay',viewport+': missing CJ partner/placement tracking tags');
   check(offer.rel.includes('sponsored')&&offer.rel.includes('nofollow')&&offer.rel.includes('noopener'),viewport+': missing sponsored-safe new tab link rel');
   check(offer.text==='Check Hotel Paso del Norte on Hotels.com',viewport+': mislabeled exact hotel booking offer '+offer.text);
@@ -163,7 +171,7 @@ async function checkInbound(page,p,viewport){
   await page.locator('h1').first().waitFor({state:'visible',timeout:25000});
   const data=await collect(page);
   const found=linkExists(data.links,path);
-  check(!data.links.some(h=>h.startsWith('https://www.anrdoezrs.net/click-101876465-15734399') && new URL(h).searchParams.get('url')?.includes('/ho114680/')),viewport+': Hotel Paso CJ link present on unrelated '+p);
+  check(!data.links.some(h=>h === expectedLegacy || (h.startsWith('https://www.anrdoezrs.net/click-101876465-15734399') && new URL(h).searchParams.get('url')?.includes('/ho114680/'))),viewport+': Hotel Paso CJ link present on unrelated '+p);
   check(response?.status()===200,viewport+': inbound '+p+' HTTP '+response?.status());
   check(found,viewport+': missing inbound Hotel Paso del Norte link on '+p);
   check(data.width<=data.viewportWidth+10,viewport+': inbound overflow '+p);
