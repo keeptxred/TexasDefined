@@ -110,7 +110,7 @@ export function Byline({ author, meta }: { author: Author | null; meta: string }
   );
 }
 
-export function ArticleBody({ blocks, entities = [], insertBeforeIndex, insertBefore }: { blocks: ArticleBlock[]; entities?: TexasEntityRecord[]; insertBeforeIndex?: number; insertBefore?: ReactNode }) {
+export function ArticleBody({ blocks, entities = [], insertBeforeIndex, insertBefore, sectionReferences }: { blocks: ArticleBlock[]; entities?: TexasEntityRecord[]; insertBeforeIndex?: number; insertBefore?: ReactNode; sectionReferences?: Record<string, ReadonlyArray<{ label: string; url: string }>> }) {
   const pathname = useRouterState({ select: (state) => state.location.pathname });
   const articleSlug = pathname.startsWith("/article/") ? pathname.slice("/article/".length).split("/")[0] : "";
   const showMetroRelocationAuthority = metroRelocationGuidePaths.has(pathname);
@@ -167,7 +167,7 @@ export function ArticleBody({ blocks, entities = [], insertBeforeIndex, insertBe
           )) {
             return <h3 key={index} id={articleHeadingId(block.text)} className="mb-3 mt-8 scroll-mt-28 font-display text-xl font-semibold">{render(block.text, 2)}</h3>;
           }
-          return <h2 key={index} id={articleHeadingId(block.text)} className="mb-4 mt-14 scroll-mt-28 font-display text-[2rem] font-semibold leading-[1.08] sm:mt-16 sm:text-[2.45rem]">{render(block.text, 2)}</h2>;
+          return <div key={index}><h2 id={articleHeadingId(block.text)} className="mb-4 mt-14 scroll-mt-28 font-display text-[2rem] font-semibold leading-[1.08] sm:mt-16 sm:text-[2.45rem]">{render(block.text, 2)}</h2>{sectionReferences?.[block.text]?.length ? <p className="mb-6 text-xs leading-6 text-muted-foreground">Section references (historical background, not verification of every interpretation): {sectionReferences[block.text].map((source, sourceIndex) => <span key={source.url}>{sourceIndex > 0 ? " · " : ""}<a href={source.url} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">{source.label} ↗</a></span>)}</p> : null}</div>;
         case "quote": return <PullQuote key={index} text={block.text} entities={available()} {...(block.attribution ? { attribution: block.attribution } : {})} />;
         case "list":
           if (((articleSlug === "texas-rivers-explained" && blocks[index - 1]?.text === "Texas Rivers at a Glance")
