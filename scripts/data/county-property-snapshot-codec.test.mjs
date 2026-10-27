@@ -19,8 +19,8 @@ test('the split official county directory decodes all historical contacts withou
 test('malformed, empty or truncated source snapshots cannot silently wipe previously verified county evidence',()=>{
   assert.throws(()=>parseExistingCountySnapshot(''),/does not export/);
   assert.throws(()=>parseExistingCountySnapshot(curated.slice(0,-6)),/Truncated/);
-  assert.match(curated, /lastVerifiedAt:\\s*'20\\d{2}-\\d{2}-\\d{2}'/, 'Fixture must contain a real record date, not only the TS type declaration');
-  assert.throws(()=>parseExistingCountySnapshot(curated.replace(/lastVerifiedAt:\\s*'20\\d{2}-\\d{2}-\\d{2}'/, "badLastVerifiedAt: '2026-10-27'")),/Corrupt/);
+  assert.match(curated, /lastVerifiedAt:\s*'20\d{2}-\d{2}-\d{2}'/, 'Fixture must contain a real record date, not only the TS type declaration');
+  assert.throws(()=>parseExistingCountySnapshot(curated.replace(/lastVerifiedAt:\s*'20\d{2}-\d{2}-\d{2}'/, "badLastVerifiedAt: '2026-10-27'")),/Corrupt/);
   assert.throws(()=>parseExistingCountySnapshot(extra,'COUNTY_PROPERTY_ENRICHMENT'),/does not export/);
 });
 
