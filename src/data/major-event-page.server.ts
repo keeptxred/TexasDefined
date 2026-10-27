@@ -307,19 +307,28 @@ export function buildOfficialAirshowTicketMarkupServer(slug: string, now = new D
   return `<section data-airshow-official-tickets class="mt-10 border-y border-border py-8"><p class="eyebrow text-primary">Tickets</p><h2 class="mt-2 font-display text-3xl">Check official air-show ticket options</h2><p class="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">The official event-specific ticket page lists any available admission, age rules and purchase conditions. Availability, final fees and cancellation policies are controlled by the organizer; TexasDefined does not hold seats. This is not a Ticketmaster or affiliate offer.</p><p class="mt-5"><a class="inline-flex min-h-11 items-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90" href="${esc(href)}" target="_blank" rel="noopener noreferrer">Official tickets and admission →</a></p></section>`;
 }
 
+/** Show-date comparisons must use Texas-local midnight, not UTC rollover. */
+export function majorEventTicketTexasToday(now = new Date()) {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/Chicago", year: "numeric", month: "2-digit", day: "2-digit",
+  }).formatToParts(now);
+  const part = (kind: "year" | "month" | "day") => parts.find((item) => item.type === kind)?.value ?? "00";
+  return [part("year"), part("month"), part("day")].join("-");
+}
+
 /** The guide's verified cancellation wins over a stale provider sale flag. */
 export function majorEventGuideTicketsAllowed(lifecycleStatus?: EventSchemaLifecycleStatus) {
   return lifecycleStatus === undefined || lifecycleStatus === "scheduled";
 }
 
-export function buildMajorEventTicketingMarkupServer(slug: string) {
+export function buildMajorEventTicketingMarkupServer(slug: string, now = new Date()) {
   // An official event can be cancelled, postponed, or rescheduled while its
   // Ticketmaster Discovery listing still carries old on-sale metadata.
   // Preserve source/organizer content elsewhere on the guide, but do not
   // render misleading event-specific admission or sponsored affiliate CTAs.
   const lifecycle = getMajorEventSchemaOccurrenceEnrichmentServer(slug)?.lifecycle;
   if (!majorEventGuideTicketsAllowed(lifecycle?.status)) return "";
-  const matches = loadTicketmasterEventsServer()
+  const matches = loadTicketmasterEventsServer(undefined, now)
     .filter((record) => record.guidePath === `/event/${slug}`);
   const actionable = matches.flatMap((record) => {
     const cta = resolveEventTicketCta(record.ticketing);
@@ -342,11 +351,11 @@ export function buildMajorEventTicketingMarkupServer(slug: string) {
 
   if (actionable.length > 1) {
     const upcoming = actionable
-      .filter(({ record }) => record.startDate >= new Date().toISOString().slice(0, 10))
+      .filter(({ record }) => record.startDate >= majorEventTicketTexasToday(now))
       .sort((a, b) => a.record.startDate.localeCompare(b.record.startDate))
       .slice(0, 6);
     if (!upcoming.length) return "";
-    const dates = actionable.map(({ record }) => record.startDate).sort();
+    const dates = upcoming.map(({ record }) => record.startDate).sort();
     const first = dates[0];
     const last = dates.at(-1) ?? first;
     const rows = upcoming.map(({ record, cta }) => {
