@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import { changedReferralAggregates } from '../monetization/partner-referral-write-gate.mjs';
 
 const read = (path) => fs.readFileSync(path, 'utf8');
 const migration = read('supabase/migrations/20260916032000_create_partner_referral_daily.sql');
@@ -81,6 +82,38 @@ for (const [needle, label] of [
   ['impression_count: 0', 'zero-impression heartbeat'],
   ['await upsertRows(supabaseUrl, serviceRoleKey, [heartbeat])', 'post-aggregate heartbeat write'],
 ]) expect(sync, needle, label);
+
+const baselineReferral = {
+  metric_date: '2026-10-27',partner:'orbitz',placement:'stay-nearby',
+  page_path:'/explore/austin',destination_hash:'a'.repeat(64),
+  destination_url:'https://example.com/austin',acquisition_source:'internal',
+  click_count:10,impression_count:200,synced_at:'2026-10-27T01:00:00Z',
+};
+const updatedTimestampOnly = {...baselineReferral,synced_at:'2026-10-27T02:00:00Z'};
+if (changedReferralAggregates([updatedTimestampOnly],[baselineReferral]).length !== 0) {
+  errors.push('Identical referral totals must not be rewritten for an updated sync timestamp');
+}
+if (changedReferralAggregates([{...updatedTimestampOnly,impression_count:201}],[baselineReferral]).length !== 1) {
+  errors.push('New impressions must update prior aggregates');
+}
+if (changedReferralAggregates([{...updatedTimestampOnly,click_count:11}],[baselineReferral]).length !== 1) {
+  errors.push('New clicks must update prior aggregates');
+}
+if (changedReferralAggregates([baselineReferral],[]).length !== 1) {
+  errors.push('First-time referral aggregates must still be inserted');
+}
+try {
+  changedReferralAggregates([baselineReferral,baselineReferral],[baselineReferral]);
+  errors.push('Duplicate aggregate keys must fail instead of silently ignoring rows');
+} catch (e) {
+  if (!/Duplicate/.test(String(e))) errors.push('Unexpected referral deduplication failure');
+}
+for (const [needle,label] of [
+  ['loadExistingAggregates(supabaseUrl, serviceRoleKey)', 'complete historical aggregate comparison'],
+  ['changedReferralAggregates(rows, existingAggregates)', 'write gate for unchanged rows'],
+  ['await upsertRows(supabaseUrl, serviceRoleKey, changedRows)', 'changed-only upsert'],
+]) expect(sync,needle,label);
+
 if (/sessionId|session_id/.test(sync)) errors.push('Sync must not read or persist browser session identifiers.');
 const fallbackGuardIndex = sync.indexOf('if (fallbackStaleMinutes > 0)');
 const cloudflareCredentialIndex = sync.indexOf("const accountId = required('CLOUDFLARE_ACCOUNT_ID')");
