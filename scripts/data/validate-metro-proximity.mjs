@@ -74,7 +74,10 @@ for (const token of [
   'photo("texas-hill-country-olive-co-exterior.webp")',
   "proof.exterior?.loaded",
   "proof.credit",
-  'proof.ogImage.includes("texas-hill-country-olive-co-bistro.webp")',
+  'proof.preview.loaded',
+  'proof.preview.width===1600&&proof.preview.height===900',
+  'ogImage==="https://texasdefined.com/images/discover/texas-hill-country-olive-co.webp"',
+  'await image.decode()',
 ]) requireText(files.metroProductionBrowser, token, `Olive Co. production photo acceptance weakened: ${token}`);
 requireText(files.test, "owner-licensed Olive Co. gallery survives remote destination precedence", "Olive Co. remote-precedence regression test missing");
 

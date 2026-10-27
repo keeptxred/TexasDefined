@@ -209,29 +209,57 @@ try {
           const exterior=owner.locator('img[src*="texas-hill-country-olive-co-exterior.webp"]').first();
           await hero.scrollIntoViewIfNeeded({timeout:10000}).catch(()=>{});
           await exterior.scrollIntoViewIfNeeded({timeout:10000}).catch(()=>{});
-          await owner.waitForTimeout(450);
-          const proof=await owner.evaluate(()=>{
+          // Full-page screenshots do not automatically decode offscreen lazy
+          // images. Wait for the actual authorized gallery source before capture.
+          await exterior.evaluate(async (img)=>{
+            if (!img.complete) {
+              await Promise.race([
+                new Promise(resolve=>{img.addEventListener("load",resolve,{once:true});img.addEventListener("error",resolve,{once:true});}),
+                new Promise(resolve=>setTimeout(resolve,6000))
+              ]);
+            }
+            if (img.complete&&img.naturalWidth) await img.decode().catch(()=>{});
+          }).catch(()=>{});
+          const proof=await owner.evaluate(async ()=>{
             const photos=[...document.images];
             const photo=needle=>{const img=photos.find(x=>x.src.includes(needle));return img?{loaded:img.complete&&img.naturalWidth>=1200&&img.naturalHeight>0,alt:img.alt,width:img.naturalWidth,height:img.naturalHeight,src:img.src}:null;};
             const links=[...document.querySelectorAll('a[href]')];
             const credit=links.find(a=>a.href==="https://texashillcountryoliveco.com/"&&a.closest("p")?.textContent?.includes("Photo: Texas Hill Country Olive Co."));
+            const ogImage=document.querySelector('meta[property="og:image"]')?.content||"";
+            const preview={src:ogImage,loaded:false,width:0,height:0};
+            if(ogImage==="https://texasdefined.com/images/discover/texas-hill-country-olive-co.webp"){
+              // Route-specific Discover preview is generated from the licensed
+              // source; its URL is intentionally NOT the destination hero URL.
+              const image=new Image();
+              image.src=ogImage;
+              try{await image.decode();preview.loaded=true;preview.width=image.naturalWidth;preview.height=image.naturalHeight;}catch{}
+            }
             return {
               title:document.querySelector("main h1")?.textContent||"",
               bistro:photo("texas-hill-country-olive-co-bistro.webp"),
               exterior:photo("texas-hill-country-olive-co-exterior.webp"),
               credit:!!credit,
-              ogImage:document.querySelector('meta[property="og:image"]')?.content||"",
-              formerContext:!!document.querySelector('img[src*="pedernales-falls-state-park.jpg"]')
+              preview
             };
           });
-          check("licensed olive company exact-site photo, source link and editorial gallery",
-            ownerResponse?.status()===200
+          const photoReady=ownerResponse?.status()===200
             &&proof.title.includes("Texas Hill Country Olive Co.")
             &&proof.bistro?.loaded&&!!proof.bistro.alt
             &&proof.exterior?.loaded&&!!proof.exterior.alt
             &&proof.credit
-            &&proof.ogImage.includes("texas-hill-country-olive-co-bistro.webp"),
-            JSON.stringify({...proof,bistro:proof.bistro?{...proof.bistro,src:proof.bistro.src.slice(-110)}:null,exterior:proof.exterior?{...proof.exterior,src:proof.exterior.src.slice(-110)}:null}).slice(0,750));
+            &&proof.preview.loaded&&proof.preview.width===1600&&proof.preview.height===900;
+          check("licensed olive company exact-site photo, source link and editorial gallery",
+            photoReady,
+            JSON.stringify({
+              http:ownerResponse?.status(),
+              title:proof.title,
+              bistroLoaded:proof.bistro?.loaded,
+              exteriorLoaded:proof.exterior?.loaded,
+              heroAlt:proof.bistro?.alt,
+              galleryAlt:proof.exterior?.alt,
+              credit:proof.credit,
+              preview:proof.preview
+            }).slice(0,1200));
           const ownerShot=directory+"/texas-hill-country-olive-co-"+viewport.name+".png";
           await owner.screenshot({path:ownerShot,fullPage:true,animations:"disabled",timeout:30000});
           record.ownerPhotoScreenshot=ownerShot;
