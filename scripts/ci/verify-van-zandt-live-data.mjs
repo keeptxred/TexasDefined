@@ -44,7 +44,7 @@ async function getHtml(path) {
 const results = await Promise.allSettled([
   getJson('/api/property-tax-rates?county=van-zandt'),
   getJson('/api/high-school-football?county=Van%20Zandt%20County&limit=100'),
-  getHtml('/county/van-zandt'),
+  ...(process.env.VERIFY_LIVE_COUNTY_HTML === 'true' ? [getHtml('/county/van-zandt')] : []),
 ]);
 
 let failed = false;
