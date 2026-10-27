@@ -86,6 +86,10 @@ The canonical event record's `status` is independently authoritative. When a sou
 
 Major-event guide ticket sections use the same injected clock as the Ticketmaster provider snapshot. Sessions are filtered using **America/Chicago** day boundaries, not UTC day rollover, and the related `Compare ticketed sessions` date window is drawn only from the displayed upcoming sessions. A Ticketmaster event identity or on-sale status still does **not** prove seats or final checkout price. `scripts/data/validate-major-event-ticket-lifecycle.mjs` asserts Texas midnight and daylight-saving examples, preserved organizer cancellation suppression, and this consistent date-range behavior.
 
+## Organizer offer validity and sold-out filtering
+
+The canonical event normalizer excludes organizer-schema `Offer` records when `availability` is `https://schema.org/SoldOut`, when a verified `validFrom` sale window has not begun, or after `validThrough`. Date-only boundaries use the **Texas-local calendar day**, inclusive for the final date; timestamp boundaries use exact instants. A stale or not-yet-valid offer does not create an `Official Tickets` CTA, but the separate verified event/organizer page remains available. This is a structural safeguard against old offer metadata, not proof of current seats, a guaranteed price, or transaction success. The canonical Wurstfest positive-path tests exercise sold-out, future, expired, midnight and timestamp boundaries.
+
 ## Calendar workstream
 
 The global calendar already consumes the architecture through `buildGlobalEventCalendarServer` and `buildTexasEventCarouselItemsServer` in `src/data/events/texas-event-calendar.server.ts`.
