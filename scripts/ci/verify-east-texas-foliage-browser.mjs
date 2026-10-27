@@ -119,8 +119,14 @@ try {
         });
         const width = await photo.evaluate(image => image.naturalWidth);
         if (width < 100) throw new Error("Gallery photo did not load: " + i);
-        if (!await item.getByRole("link", { name: "Wikimedia source" }).count()) throw new Error("Missing image provenance: " + i);
-        if (!await item.getByRole("link", { name: "License terms" }).count()) throw new Error("Missing image license: " + i);
+        const originalSource = await item.getByRole("link", { name: "Wikimedia source" }).getAttribute("href");
+        if (!originalSource?.startsWith("https://commons.wikimedia.org/wiki/File:") || originalSource.includes("remote?url=")) {
+          throw new Error("Gallery source must link to an original Commons file, not an image proxy: " + i + " " + originalSource);
+        }
+        const licenseTerms = await item.getByRole("link", { name: "License terms" }).getAttribute("href");
+        if (!/^https:\/\/creativecommons\.org\/licenses\/by(?:-sa)?\/4\.0\/$/.test(licenseTerms || "")) {
+          throw new Error("Unexpected gallery photo license link: " + i + " " + licenseTerms);
+        }
       }
       // Validate the live replacement sources as well as their generic image load status.
       // A fallback image may load successfully, but that must not masquerade as the
