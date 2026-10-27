@@ -2957,7 +2957,9 @@ const EventsCollectionRoute = EventsCollectionRouteImport.update({
   id: '/$collection',
   path: '/$collection',
   getParentRoute: () => EventsRoute,
-} as any).lazy(() => import('./routes/events.$collection.lazy').then((d) => d.Route))
+} as any).lazy(() =>
+  import('./routes/events.$collection.lazy').then((d) => d.Route),
+)
 const EventSlugRoute = EventSlugRouteImport.update({
   id: '/event/$slug',
   path: '/event/$slug',
