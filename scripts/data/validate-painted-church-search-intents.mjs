@@ -11,11 +11,10 @@ const detailPath = "src/routes/explore.painted-churches_.guides_.$slug.tsx";
 const detailLazyPath = "src/routes/explore.painted-churches_.guides_.$slug.lazy.tsx";
 const sitemapPath = "src/routes/sitemap-explore[.]xml.ts";
 const collectionPath = "src/routes/explore.painted-churches.tsx";
-const collectionLazyPath = "src/routes/explore.painted-churches.lazy.tsx";
 const mapPath = "src/routes/explore.painted-churches.map.tsx";
 const profileDossierPath = "src/components/editorial/PaintedChurchResearchDossier.tsx";
 
-for (const path of [dataPath, hubPath, hubLazyPath, detailPath, detailLazyPath, sitemapPath, collectionPath, collectionLazyPath, mapPath, profileDossierPath]) {
+for (const path of [dataPath, hubPath, hubLazyPath, detailPath, detailLazyPath, sitemapPath, collectionPath, mapPath, profileDossierPath]) {
   if (!exists(path)) failures.push(`Missing Painted Churches search-intent file: ${path}`);
 }
 
@@ -24,7 +23,7 @@ if (failures.length === 0) {
   const hub = `${read(hubPath)}\n${read(hubLazyPath)}`;
   const detail = `${read(detailPath)}\n${read(detailLazyPath)}`;
   const sitemap = read(sitemapPath);
-  const collection = `${read(collectionPath)}\n${read(collectionLazyPath)}`;
+  const collection = read(collectionPath);
   const map = read(mapPath);
   const profileDossier = read(profileDossierPath);
 
