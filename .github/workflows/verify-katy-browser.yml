@@ -1,6 +1,10 @@
 name: Verify Katy football production browser
 on:
   workflow_dispatch:
+  pull_request:
+    paths:
+      - 'scripts/ci/verify-katy-browser.mjs'
+      - '.github/workflows/verify-katy-browser.yml'
 
 permissions:
   contents: read
@@ -11,11 +15,11 @@ concurrency:
 
 jobs:
   verify:
-    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event_name == 'pull_request' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: Check out exact deployed verifier revision
+      - name: Check out current Katy verifier revision
         uses: actions/checkout@v4
         with:
           ref: ${{ github.event.workflow_run.head_sha || github.sha }}
