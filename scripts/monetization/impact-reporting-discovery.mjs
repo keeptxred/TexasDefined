@@ -82,7 +82,7 @@ export async function diagnose(env = process.env, fetcher = fetch) {
   if (!token) throw new Error('IMPACT_AUTH_TOKEN is not configured.');
   const catalog = performanceCandidates(await impactGet(reportUrl(sid, ''), sid, token, fetcher));
   if (!catalog.total) throw new Error('Impact returned no reports; confirm the token has List reports scope.');
-  const selected = [...catalog.daily.slice(0, 1), ...catalog.program.slice(0, 1), ...catalog.action.slice(0, 1), ...catalog.finance.slice(0, 2)]
+  const selected = [...catalog.daily.slice(0, 1), ...catalog.program.slice(0, 1), ...catalog.action.slice(0, 1), ...catalog.finance.slice(0, 10)]
     .filter((r, i, all) => all.findIndex(x => x.Id === r.Id) === i);
   const inspected = [];
   for (const report of selected) {
