@@ -25,6 +25,7 @@ Both originals arrived attached to the author's explicit written permission. The
 
 - `/destination/texas-hill-country-olive-co`: bistro hero and a second exterior image in the existing editorial gallery.
 - `/explore/near/austin/day-trips`: editorial destination card when this quality-gated destination is present, with a visible linked attribution.
+- Generic destination listings and unrelated pages: the shared `DestinationCard` fails closed to a text-only treatment unless an editorial itinerary explicitly opts into this restricted image. Do not apply `allowOwnerLicensedPhoto` to broad indexes, advertising or generic recommendations.
 - Search, organic social previews and schema/media for those permitted editorial pages. Do **not** add to generic brand or paid advertising templates.
 
 **Production verification:** distinguish a green merge check from the exact deployed SHA and actual photo response/credits. If the protected deployment is superseded or fails due to another site surface, retain that precise blocker rather than representing the replacement as live.
