@@ -166,6 +166,11 @@ function Page() {
     'center-point': 'kerr', // Center Point ISD campus in Kerr County; conflicting AD pages noted.
     'centerville': 'leon', // Centerville ISD campus in Leon County; cash-gate event policy not guaranteed.
     'channelview': 'harris', // Channelview High campus in Harris County; Ray Maddry game-day gate requires reconfirmation.
+    'cherokee': 'san-saba', // Cherokee ISD campus in San Saba County.
+    'chester': 'tyler', // Chester ISD campus in Tyler County.
+    'chico': 'wise', // Texas Chico school, not Chico California.
+    'childress': 'childress', // Childress ISD school campus in Childress County.
+    'chillicothe': 'hardeman', // Chillicothe ISD campus in Hardeman County.
     'charlotte': 'atascosa', // Charlotte ISD school campus in Atascosa County; district office is not stadium gate.
     'cedar-hill': 'dallas', // Cedar Hill High in Dallas County; 2026 5A DI District 8.
     'cedar-park': 'williamson', // Cedar Park HS Cypress Creek Rd campus in Williamson County, not interchangeable with Vista Ridge.
