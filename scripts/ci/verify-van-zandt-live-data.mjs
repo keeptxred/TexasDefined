@@ -3,6 +3,7 @@
  * Does not depend on an interactive browser or any private account.
  */
 import assert from 'node:assert/strict';
+import { verifyVanZandtCountyHtml } from './van-zandt-html-contract.mjs';
 
 const origin = (process.env.PRODUCTION_ORIGIN || 'https://texasdefined.com').replace(/\/$/, '');
 const requestTimeoutMs = 25_000;
@@ -56,22 +57,8 @@ for (let i = 0; i < results.length; i++) {
     const { url } = result.value;
     if (i === 2) {
       const { html } = result.value;
-      const text = html.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
-      for (const required of [
-        'Van Zandt County essentials',
-        'County registry checked',
-        'Guide updated',
-        'October 26, 2026',
-        'August 4, 2026',
-        'Salt Palace Museum',
-        '2025 population (estimate)',
-        '66,130',
-        'does not collect property taxes',
-        'Historical background:',
-      ]) assert.ok(text.includes(required), `County HTML missing: ${required}`);
-      assert.ok(html.includes('grandsalinesaltpalace.com/'), 'County HTML missing Salt Palace museum link');
-      assert.ok(html.includes('atlas.thc.texas.gov/Details/4302000092'), 'County HTML missing verified courthouse link');
-      console.log(`PASS ${kind}: distinct registry and guide dates, practical places, sources and correct tax routing; ${url}`);
+      const dates = verifyVanZandtCountyHtml(html, origin);
+      console.log('PASS ' + kind + ': registry ' + dates['County registry checked'] + ', editorial ' + dates['Guide updated'] + '; visitor, source and SEO HTML contract; ' + url);
     } else if (i === 0) {
       const { json } = result.value;
       assert.equal(json.ready, true, 'Tax rate API must report ready=true');
