@@ -13,7 +13,7 @@ const server = await createServer({
   server: { middlewareMode: true },
 });
 try {
-  const { majorEventGuideTicketsAllowed, majorEventTicketTexasToday, buildMajorEventTicketingMarkupServer } =
+  const { majorEventGuideTicketsAllowed, majorEventGuideOffersAllowed, majorEventOfferIsActionable, majorEventTicketTexasToday, buildMajorEventTicketingMarkupServer } =
     await server.ssrLoadModule('/src/data/major-event-page.server.ts');
   assert.equal(majorEventGuideTicketsAllowed(undefined), true, 'No officially recorded cancellation must retain safe provider fallback');
   assert.equal(majorEventGuideTicketsAllowed('scheduled'), true, 'Reviewed scheduled event remains eligible');
@@ -21,6 +21,23 @@ try {
     assert.equal(majorEventGuideTicketsAllowed(status), false,
       'Authority-level lifecycle must suppress stale admission and affiliate links: ' + status);
   }
+  const beforeTexasMidnight = new Date('2026-12-06T00:30:00Z');
+  const afterTexasMidnight = new Date('2026-12-06T12:30:00Z');
+  assert.equal(majorEventGuideOffersAllowed('scheduled', '2026-12-05', beforeTexasMidnight), true,
+    'An offer ending today in Texas remains eligible until local midnight');
+  assert.equal(majorEventGuideOffersAllowed('scheduled', '2026-12-05', afterTexasMidnight), false,
+    'Past occurrence offers must not revive the secondary ticket panel');
+  for (const status of ['cancelled', 'postponed', 'rescheduled']) {
+    assert.equal(majorEventGuideOffersAllowed(status, '2027-12-05', beforeTexasMidnight), false,
+      'Non-scheduled occurrence must not publish UI or structured-data admission: ' + status);
+  }
+  const testOffer = { name: 'Admission', url: 'https://tickets.example.org/event/123', price: 10, priceCurrency: 'USD' };
+  assert.equal(majorEventOfferIsActionable(testOffer, beforeTexasMidnight), true);
+  assert.equal(majorEventOfferIsActionable({ ...testOffer, availability: 'https://schema.org/SoldOut' }, beforeTexasMidnight), false);
+  assert.equal(majorEventOfferIsActionable({ ...testOffer, validThrough: '2026-12-04' }, beforeTexasMidnight), false);
+  assert.equal(majorEventOfferIsActionable({ ...testOffer, validThrough: '2026-12-05' }, beforeTexasMidnight), true);
+  assert.equal(majorEventOfferIsActionable({ ...testOffer, validFrom: '2026-12-06' }, beforeTexasMidnight), false);
+  assert.equal(majorEventOfferIsActionable({ ...testOffer, validFrom: '2026-12-06' }, afterTexasMidnight), true);
   // The guide, Discovery snapshot, and exact-session date labels must agree on
   // Texas local midnight. A 00:30 UTC Sunday is still Saturday evening here.
   assert.equal(majorEventTicketTexasToday(new Date('2026-12-06T00:30:00Z')), '2026-12-05');
@@ -44,6 +61,12 @@ try {
     'session filtering must use Texas local date rather than UTC midnight');
   assert.ok(active.includes('const dates = upcoming.map(({ record }) => record.startDate).sort();'),
     'comparison date links must use the future selected sessions, not expired entries');
+  assert.ok(source.includes('const eligibleOfferWindows = occurrenceWindows.filter'),
+    'Secondary prices must check occurrence-specific lifecycle and date windows');
+  assert.ok(source.includes('occurrenceEnrichment?.offers?.filter((offer) => majorEventOfferIsActionable(offer))'),
+    'JSON-LD must filter sold-out and expired sale offers');
+  assert.ok(source.includes('majorEventGuideOffersAllowed(occurrenceEnrichment?.lifecycle?.status, window.endDate ?? window.startDate)'),
+    'JSON-LD must not republish cancelled or expired occurrence purchase offers');
   assert.ok(active.includes('loadTicketmasterEventsServer(undefined, now)'),
     'provider refresh and guide current day must use a common clock');
 } finally {
