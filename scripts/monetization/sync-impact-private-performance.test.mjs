@@ -76,3 +76,17 @@ test('initial history backfill is explicitly opt-in, bounded to 30 completed Tex
   assert.ok(rows.every(r=>r.currency_code===null&&r.reported_total_cost===null));
   assert.doesNotMatch(JSON.stringify(rows),/987.65/);
 });
+
+test('empty historical provider pages are skipped and never stored as zero clicks',async()=>{
+  let requests=0;
+  const fake=async(url,options)=>{
+    requests++;
+    const day=new URL(url).searchParams.get('START_DATE');
+    assert.equal(options.method,'GET');
+    return {ok:true,status:200,headers:{get:()=>null},text:async()=>JSON.stringify(
+      {'@numpages':0,'@total':0,Records:[]})};
+  };
+  const rows=await loadCompletedDays({env,fetcher:fake,days:3,now:new Date('2026-10-27T21:00:00Z')});
+  assert.equal(requests,3);
+  assert.deepEqual(rows,[]);
+});

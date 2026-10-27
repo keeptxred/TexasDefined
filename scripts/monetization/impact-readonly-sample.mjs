@@ -36,7 +36,13 @@ export function reportRecords(payload) {
   // The legacy reports API paginates. Never accept an incomplete financial
   // statement as a complete sample.
   const totalPages = Number(payload['@numpages'] ?? 1);
-  if (!Number.isSafeInteger(totalPages) || totalPages !== 1) throw new Error('Impact report requires additional pages; use ReportExport instead.');
+  // A legitimate historical day with no recorded activity may return 0 pages
+  // and 0 records. This is a missing provider report, NOT a proven zero sale.
+  // Reject contradictory metadata and multi-page results instead of silently
+  // truncating the financial period.
+  if (totalPages === 0 && payload.Records.length === 0 && Number(payload['@total'] ?? 0) === 0) return [];
+  if (!Number.isSafeInteger(totalPages) || totalPages !== 1)
+    throw new Error('Impact report requires additional pages or has inconsistent empty pagination; use ReportExport instead.');
   return payload.Records;
 }
 
