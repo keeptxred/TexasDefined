@@ -16,6 +16,33 @@ try {
   const calendarModule = await server.ssrLoadModule("/src/data/events/texas-event-calendar.server.ts");
   // Verify one reviewed active official event checkout and fail-closed protection
   // for GrapeFest 2027 while official tickets remain unavailable.
+  // Organizer-published ticket offers have independent sale windows; an old
+  // Offer URL must not become a perpetual purchase CTA just because the event
+  // is still listed. 2026-10-27 03:30 UTC is Oct 26 at the Texas venue.
+  const time = new Date("2026-10-27T03:30:00Z");
+  const sample = { name:"General admission", url:expectedTicketUrl, price:25, priceCurrency:"USD" };
+  const variants = [
+    { ...sample, validThrough:"2026-10-26" },
+    { ...sample, validFrom:"2026-10-26" },
+    { ...sample, availability:"https://schema.org/InStock" },
+    { ...sample, validThrough:"2026-10-25" },
+    { ...sample, validFrom:"2026-10-27" },
+    { ...sample, availability:"https://schema.org/SoldOut" },
+    { ...sample, validThrough:"2026-10-27T03:00:00Z" },
+    { ...sample, validFrom:"2026-10-27T04:00:00Z" },
+    { ...sample, validFrom:"not-a-date" },
+  ];
+  const filtered = recordsModule.currentSourceTicketOffers(variants, time);
+  if (filtered.length !== 3 || filtered[0] !== variants[0]
+    || filtered[1] !== variants[1] || filtered[2] !== variants[2]) {
+    throw new Error("Source offer validity, sold-out status or Texas-local inclusive end date exposed expired/future admission");
+  }
+  if (recordsModule.currentSourceTicketOffers(variants, new Date("2026-10-27T15:00:00Z")).some((o) => o === variants[0])) {
+    throw new Error("The source offer must expire after Texas-local midnight");
+  }
+  if (recordsModule.currentSourceTicketOffers(undefined, time).length) {
+    throw new Error("Missing organizer offers cannot create admission");
+  }
   const records = recordsModule.loadTexasEventRecordsServer();
   const grapefest = records.find((event) => event.slug === "grapefest");
   if (!grapefest) throw new Error("canonical GrapeFest record was not found");
