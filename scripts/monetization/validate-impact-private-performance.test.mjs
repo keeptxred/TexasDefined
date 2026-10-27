@@ -21,3 +21,16 @@ test('No customer or raw checkout fields in aggregate storage',()=>{
   assert.match(doc,/not confirmed cash paid/);
   assert.match(doc,/not.*public/i);
 });
+
+test('Provider metrics stay behind the existing commercial-admin key and cannot leak into public routes',()=>{
+  const server=readFileSync('src/data/partner-referral-analytics.server.ts','utf8');
+  const page=readFileSync('src/routes/admin.partner-referrals.lazy.tsx','utf8');
+  const types=readFileSync('src/data/partner-referral-analytics.types.ts','utf8');
+  const access=server.indexOf('await assertSportsPartnerAccess(accessKey)');
+  const provider=server.indexOf(".from('texasdefined_impact_performance_daily')");
+  assert.ok(access>=0 && provider>access,'Impact provider access must follow commercial-admin authentication');
+  assert.match(page,/dashboard\.impact\.providerActions30d/);
+  assert.match(page,/Amounts and payouts are withheld/);
+  assert.match(types,/settledCommissionVerified: false;/);
+  assert.doesNotMatch(server,/console\.(?:log|debug|info).*impact/i);
+});
