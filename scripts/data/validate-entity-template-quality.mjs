@@ -64,8 +64,11 @@ for (const feature of ['findCompleteTexasEntity','TEXAS_ENTITY_REGISTRY','const 
   if (!entityRoute.includes(feature)) errors.push(`Rich county route contract missing: ${feature}`);
 }
 if (entityRoute.includes('loadTexasKnowledgeGraph()')) errors.push('Generic entity pages must not load the full remote knowledge graph per request.');
-for (const feature of ['County feature','The story of {entity.name}','countySeriesArticle.title','countySeriesArticle.dek','<ArticleBody blocks={countySeriesArticle.body} entities={relatedEntities} />','At a glance','The county in numbers','County seat & communities','Places on the map','Property & county services','Official local resources','Nearby places','Keep exploring','profile.population2020','profile.landAreaSquareMiles','profile.majorCommunities','localGovernment.appraisalDistrict','localGovernment.taxOffice','localGovernment.countyWebsiteUrl','CountyIdentitySection','profile.populationDensityPerSquareMile','profile.waterSharePercent','How densely populated is','propertyGuideReady','propertyGuideHref','propertyGuideLabel','getCountyPropertyRecordBySlug','isCountyPropertyIndexReady']) {
+for (const feature of ['County feature','The story of {entity.name}','countySeriesArticle.title','countySeriesArticle.dek','<ArticleBody blocks={countySeriesArticle.body} entities={relatedEntities} />','At a glance','The county in numbers','Property & county services','Official local resources','Nearby places','Keep exploring','profile.population2020','profile.landAreaSquareMiles','profile.majorCommunities','localGovernment.appraisalDistrict','localGovernment.taxOffice','localGovernment.countyWebsiteUrl','CountyIdentitySection','profile.populationDensityPerSquareMile','profile.waterSharePercent','How densely populated is','propertyGuideReady','propertyGuideHref','propertyGuideLabel','getCountyPropertyRecordBySlug','isCountyPropertyIndexReady']) {
   if (!countyGuide.includes(feature)) errors.push(`County guide section missing: ${feature}`);
+}
+for (const retiredCountyMap of ['Places on the map','County seat & communities','VanZandtCommunityMap','openstreetmap.org/search?query=']) {
+  if (countyGuide.includes(retiredCountyMap)) errors.push('Retired county map section must not return: ' + retiredCountyMap);
 }
 for (const feature of ['countySeriesArticle: Article | null']) {
   if (!countyGuide.includes(feature)) errors.push(`County loader-resolved feature handoff missing: ${feature}`);

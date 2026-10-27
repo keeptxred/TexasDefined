@@ -9,7 +9,7 @@ const fixture = (registry = 'August 4, 2026', editorial = 'October 26, 2026') =>
    'Van Zandt County essentials County registry checked ', registry,
    ' Guide updated ', editorial,
    ' Salt Palace Museum does not collect property taxes Historical background:',
-   ' The story of Van Zandt County Places on the map Taxing units in Van Zandt County',
+   ' The story of Van Zandt County Taxing units in Van Zandt County',
    ' High school football in Van Zandt County',
    '<a href="https://www.tshaonline.org/handbook/entries/van-zandt-county"></a>',
    '<a href="https://atlas.thc.texas.gov/Details/4302000092"></a>',
@@ -17,7 +17,6 @@ const fixture = (registry = 'August 4, 2026', editorial = 'October 26, 2026') =>
    '<a href="https://www.firstmondaycanton.com/about"></a>',
    '<a href="https://tpwd.texas.gov/state-parks/lake-tawakoni"></a>',
    '<a href="https://tpwd.texas.gov/state-parks/purtis-creek"></a>',
-   '<a href="https://www.openstreetmap.org/search?query=Canton"></a>',
    '<a href="/destination/wills-point-depot-museum"></a>',
    '<a href="/texas-high-school-football-teams/wills-point"></a>',
    '<a href="https://www.census.gov/quickfacts/fact/table/vanzandtcountytexas/PST045225"></a></body></html>'].join('');

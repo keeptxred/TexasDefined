@@ -10,8 +10,7 @@ on:
       - 'src/components/sports/HighSchoolFootballLookup.tsx'
       - 'src/components/content/VanZandtCountySpotlight.tsx'
       - 'src/components/content/CountyGuideSections.tsx'
-      - 'src/components/content/VanZandtCommunityMap.tsx'
-      - 'scripts/ci/van-zandt-community-map.test.mjs'
+      - 'scripts/ci/county-no-map-section.test.mjs'
       - 'src/components/authority/ContextualOfficialSources.tsx'
       - 'src/data/county-profile.remote.ts'
       - 'src/routes/$kind.$slug.tsx'
@@ -46,8 +45,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Verify geographic map coverage, source and zero map dependencies
-        run: node --test scripts/ci/van-zandt-community-map.test.mjs
+      - name: Guard against any county map section returning
+        run: node --test scripts/ci/county-no-map-section.test.mjs
       - name: Install isolated Chrome browser automation dependency
         run: |
           CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
@@ -60,7 +59,6 @@ jobs:
         run: node scripts/ci/verify-van-zandt-browser.mjs
       - name: Verify all county team pages, 16s hung requests, OSM links and focused accessibility
         env:
-          VERIFY_EXTERNAL_OSM: ${{ github.event_name == 'pull_request' }}
           EXPECT_SERVER_ONLY_COUNTY_SOURCES: ${{ github.event_name == 'workflow_run' }}
         run: node scripts/ci/verify-van-zandt-closure.mjs
       - name: Preserve Chrome screenshots and failure evidence
