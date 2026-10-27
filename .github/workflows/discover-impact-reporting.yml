@@ -8,6 +8,8 @@ on:
       - '.github/workflows/discover-impact-reporting.yml'
       - 'scripts/monetization/impact-reporting-discovery.mjs'
       - 'scripts/monetization/impact-reporting-discovery.test.mjs'
+      - 'scripts/monetization/impact-readonly-sample.mjs'
+      - 'scripts/monetization/impact-readonly-sample.test.mjs'
       - 'scripts/monetization/validate-impact-private-performance.test.mjs'
       - 'scripts/monetization/impact-performance-normalize.mjs'
       - 'scripts/monetization/impact-performance-normalize.test.mjs'
@@ -19,6 +21,8 @@ on:
       - '.github/workflows/discover-impact-reporting.yml'
       - 'scripts/monetization/impact-reporting-discovery.mjs'
       - 'scripts/monetization/impact-reporting-discovery.test.mjs'
+      - 'scripts/monetization/impact-readonly-sample.mjs'
+      - 'scripts/monetization/impact-readonly-sample.test.mjs'
       - 'scripts/monetization/validate-impact-private-performance.test.mjs'
       - 'scripts/monetization/impact-performance-normalize.mjs'
       - 'scripts/monetization/impact-performance-normalize.test.mjs'
@@ -44,10 +48,16 @@ jobs:
         with:
           node-version: '22'
       - name: Test Impact discovery read-only and sanitization rules
-        run: node --test scripts/monetization/impact-reporting-discovery.test.mjs scripts/monetization/validate-impact-private-performance.test.mjs scripts/monetization/impact-performance-normalize.test.mjs
+        run: node --test scripts/monetization/impact-reporting-discovery.test.mjs scripts/monetization/impact-readonly-sample.test.mjs scripts/monetization/validate-impact-private-performance.test.mjs scripts/monetization/impact-performance-normalize.test.mjs
       - name: Discover available reporting schemas (never log transactions)
         if: github.event_name != 'pull_request'
         env:
           IMPACT_ACCOUNT_SID: ${{ secrets.IMPACT_ACCOUNT_SID }}
           IMPACT_AUTH_TOKEN: ${{ secrets.IMPACT_AUTH_TOKEN }}
         run: node scripts/monetization/impact-reporting-discovery.mjs
+      - name: Verify real Impact report payload structure without logging data
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        env:
+          IMPACT_ACCOUNT_SID: ${{ secrets.IMPACT_ACCOUNT_SID }}
+          IMPACT_AUTH_TOKEN: ${{ secrets.IMPACT_AUTH_TOKEN }}
+        run: node scripts/monetization/impact-readonly-sample.mjs
