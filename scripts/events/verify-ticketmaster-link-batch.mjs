@@ -30,7 +30,12 @@ export function classifyTicketLinkResponse(status, source, redirectTarget) {
     try { next = redirectTarget ? new URL(redirectTarget, source) : null; }
     catch { return 'REVIEW_UNSAFE_OR_MISSING_REDIRECT'; }
     if (!next || !publicTicketUrl(next.href)) return 'REVIEW_UNSAFE_OR_MISSING_REDIRECT';
-    if (next.origin !== source.origin || next.pathname !== source.pathname) return 'REVIEW_DIFFERENT_DESTINATION';
+    // Ticketmaster/TicketWeb can identify a specific performance, date, or
+    // checkout section in the query string. A redirect to a different query
+    // is not evidence that the original ticket destination is still valid.
+    // Ignore only fragments, which are not transmitted to the seller.
+    if (next.origin !== source.origin || next.pathname !== source.pathname
+      || next.search !== source.search) return 'REVIEW_DIFFERENT_DESTINATION';
     return 'REDIRECT_SAME_EVENT_PATH';
   }
   if (status === 404 || status === 410) return 'REVIEW_NOT_FOUND';

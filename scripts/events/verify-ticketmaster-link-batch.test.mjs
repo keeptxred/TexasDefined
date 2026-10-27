@@ -27,6 +27,17 @@ test('redirect target can never silently swap the event or leave approved provid
   assert.equal(classifyTicketLinkResponse(302,u,'https://evil.example.com/event/ABC123'), 'REVIEW_UNSAFE_OR_MISSING_REDIRECT');
   assert.equal(classifyTicketLinkResponse(302,u,'javascript:alert(1)'), 'REVIEW_UNSAFE_OR_MISSING_REDIRECT');
   assert.equal(classifyTicketLinkResponse(302,u,'/grand-ol-christmas/event/ABC123'), 'REDIRECT_SAME_EVENT_PATH');
+  const sourceWithSession=new URL(official+'?date=2026-12-13&performance=matinee');
+  assert.equal(classifyTicketLinkResponse(302,sourceWithSession,'?date=2026-12-13&performance=evening'), 'REVIEW_DIFFERENT_DESTINATION',
+    'A second performance on the same event path is not the requested ticket');
+  assert.equal(classifyTicketLinkResponse(302,sourceWithSession,'?date=2026-12-14&performance=matinee'), 'REVIEW_DIFFERENT_DESTINATION',
+    'A different day on the same path requires editorial review');
+  assert.equal(classifyTicketLinkResponse(302,sourceWithSession,'?date=2026-12-13&performance=matinee'), 'REDIRECT_SAME_EVENT_PATH',
+    'Preserve exact same-session redirects');
+  assert.equal(classifyTicketLinkResponse(302,sourceWithSession,'?date=2026-12-13&performance=matinee#availability'), 'REDIRECT_SAME_EVENT_PATH',
+    'Fragment-only redirects keep original checkout identity');
+  assert.equal(classifyTicketLinkResponse(302,u,'/grand-ol-christmas/event/ABC123?performance=matinee'), 'REVIEW_DIFFERENT_DESTINATION',
+    'Adding an unreviewed session selection must not be treated as the original event');
   assert.equal(classifyTicketLinkResponse(404,u,null),'REVIEW_NOT_FOUND');
   assert.equal(classifyTicketLinkResponse(410,u,null),'REVIEW_NOT_FOUND');
   assert.equal(classifyTicketLinkResponse(429,u,null),'ACCESS_RESTRICTED_INCONCLUSIVE');
