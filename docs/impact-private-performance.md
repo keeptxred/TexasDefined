@@ -19,3 +19,22 @@ The existing private **`/admin/partner-referrals`** page authenticates via `asse
 ## Migration
 
 `supabase/migrations/20261027213000_create_private_impact_performance.sql` uses the same private-role model as the existing `texasdefined_partner_referral_daily` table. Validate RLS and privileges in production before enabling any importer. Changes to finance reporting must not make commercial data available through anonymous/authenticated Supabase clients.
+
+## Completed-day history coverage and cost control
+
+The initial sync deliberately imported three days only. A one-time **bounded initial
+30-day backfill** is performed when this importer change lands on main through the
+existing private GitHub workflow. Each day is queried using `START_DATE=END_DATE`
+for exact date identity; empty responses are skipped, not fabricated as zero.
+Only the validated aggregate counts are upserted to private Supabase. No raw API
+response, commission value or currency guess is committed or logged. Backfill
+calls are paced and capped at 30 days (maximum 30 GETs per triggering run).
+Routine scheduled and manually dispatched jobs keep a cheap three-completed-day
+window for delayed attribution and reversals. Later code deployments that
+touch the existing workflow's protected push-path filter may repeat the bounded
+history sync; this is safe and idempotent via `metric_date` primary key.
+
+The 30-day coverage is not a 30-day conversion guarantee. Where the provider
+returns no report record, the day remains missing rather than incorrectly being
+rendered as $0 or zero sales. Count history is still separate from actual paid
+commissions; currency and settlement remain unverified.
