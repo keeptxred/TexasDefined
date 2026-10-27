@@ -1,5 +1,12 @@
 # Football Authority — Execution Ledger
 
+## October 27, 2026 — Batch 009 fourth five source-implemented; production Chrome acceptance pending
+
+- Fourth cohort: **Center Roughriders** (Jack Alvarez's January 2026 hiring report; current school athletics director), **Center Point Pirates** (district pages conflict over athletic leadership; no claimed current head coach), **Centerville Tigers** (official Kyle Hardee 2026 schedule and qualified at-gate cash-admission guidance), **Channelview Falcons** (district-listed Averion Hurts and school-district-verified Ray Maddry Stadium), **Charlotte Trojans** (Timothy Williams listed as AD, **not** confirmed head football coach).
+- Five individual school-research dossiers, original typographic identity panels and sourced milestones, guarded batch editorial loading, campus-to-county and county-to-team links, official schedules, visit cautions, team metadata and appropriate 2026 UIL alignments are implemented. No copied school logos, stadium/player photos, inferred 2026 final scores, guaranteed tickets, unverified entry gates or unsupported coach appointments.
+- Branch registry count is **180 previously technically VERIFIED, 20 Batch 009 IMPLEMENTED, 1,092 NOT_REVIEWED**. The remaining five assigned Batch 009 programs begin with **Cherokee**. These figures describe the source branch, not independent live acceptance.
+- Protected Merge Gate, deployed matching Worker, **15 Chrome school cases at 1366/390/320px**, **5 reciprocal county cases**, exact sitemap/meta/schema/source tests, consistent release identity and **20 screenshots** are required before marking any of this cohort VERIFIED. The exact source and results remain traceable in the dedicated fourth-five workflow and artifact. Manual WCAG and third-party usage permissions are not certified.
+
 ## October 26, 2026 — Batch 009 third five IMPLEMENTED on dependent branch; production not verified
 
 - Protected parent PR #5993 merged the original five source-backed school authority dossiers. Dependent PR #6009 implements the second five, pending its own protected merge and separate live acceptance. No unverified school is promoted merely by these changes.
