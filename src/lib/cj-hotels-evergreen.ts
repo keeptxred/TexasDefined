@@ -7,7 +7,7 @@ export const CJ_HOTELS_EVERGREEN_BASE = "https://www.anrdoezrs.net/click-1018764
 export const PALESTINE_HOTELS_SID = "td_polar_palestine";
 
 export function hotelsComPageSid(pathname: string): string {
-  const normalizedPath = "/" + String(pathname).split("?")[0].replace(/^\\/+|\\/+$/g, "").toLowerCase();
+  const normalizedPath = "/" + String(pathname).split("?")[0].replace(/^\/+|\/+$/g, "").toLowerCase();
   if (normalizedPath === "/event/polar-express-palestine") return PALESTINE_HOTELS_SID;
   const key = normalizedPath.slice(1).replace(/[^a-z0-9]+/g, "_").replace(/^_+|_+$/g, "") || "home";
   if (key.length <= 53) return "td_" + key;
