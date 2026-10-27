@@ -11,6 +11,11 @@ export type VerifiedFootballSchoolIdentity = {
 // Verify identities classification-first (6A, then 5A through 1A); the original user-supplied seed list
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
+  { slug: 'cherokee', mascot: 'Indians', sourceUrl: 'https://www.cherokeeisd.net/', sourceLabel: 'Cherokee Independent School District Home of the Fighting Indians', verifiedAt: '2026-10-27' },
+  { slug: 'chester', mascot: 'Yellowjackets', sourceUrl: 'https://www.chesterisd.com/page/athletics', sourceLabel: 'Chester ISD Home of the Yellowjackets and official football staff', verifiedAt: '2026-10-27' },
+  { slug: 'chico', mascot: 'Dragons', sourceUrl: 'https://www.maxpreps.com/tx/chico/chico-dragons/football/', sourceLabel: 'Texas Chico Dragons team identity in UIL partner team listing; Chico ISD official domain chicoisdtx.net', verifiedAt: '2026-10-27' },
+  { slug: 'childress', mascot: 'Bobcats', sourceUrl: 'https://www.childressisd.net/page/athletic-schedules/', sourceLabel: 'Childress ISD first-party 2026 Bobcat varsity football schedule', verifiedAt: '2026-10-27' },
+  { slug: 'chillicothe', mascot: 'Eagles', sourceUrl: 'https://sixmanfootball.com/teams/chillicothe-eagles.1106/', sourceLabel: 'Texas six-man Chillicothe Eagles identity; school AD source checked separately', verifiedAt: '2026-10-27' },
   {
     slug: 'center',
     mascot: 'Roughriders',
