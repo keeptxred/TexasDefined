@@ -425,6 +425,7 @@ test('Katy stadium and ticket changes require both actual canonical and cache-bu
   const plan = buildChangePlan({ baseline, head, changedFiles: ['src/components/sports/KatyStadiumGuide.tsx'] });
   assert.deepEqual(plan.selectedPaths, [path]);
   assert.deepEqual(plan.katyFootballPages, [path]);
+  assert.match(text('scripts/ci/purge-cloudflare-cache.mjs'), /texas-high-school-football-teams\\/katy/, 'Katy canonical must be in existing governed cache invalidation');
   const good = '<html><title>Katy Tigers Football: Nine Texas State Titles &amp; Stadium Guide</title>'
     + '<link rel="canonical" href="https://texasdefined.com' + path + '">'
     + [
