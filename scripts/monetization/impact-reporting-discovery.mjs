@@ -26,7 +26,11 @@ export function performanceCandidates(value) {
   const daily = accessible.filter(r => /performance\s+by\s+(day|date)|daily\s+performance/i.test(r.Name || ''));
   const program = accessible.filter(r => /performance\s+by\s+(brand|campaign|program)/i.test(r.Name || ''));
   const action = accessible.filter(r => /action\s+listing/i.test(r.Name || ''));
-  return { total: all.length, accessible: accessible.length, daily, program, action };
+  // Catalog and metadata only; Finance reports may carry an explicit currency
+  // or settled-payment field, but never infer that from names alone.
+  const finance = accessible.filter(r => String(r.Category || '').toLowerCase() === 'finance'
+    || /\b(?:earnings|payment|payout|withdrawal|balance)\b/i.test(r.Name || ''));
+  return { total: all.length, accessible: accessible.length, daily, program, action, finance };
 }
 
 export function safeMeta(meta) {
@@ -78,17 +82,19 @@ export async function diagnose(env = process.env, fetcher = fetch) {
   if (!token) throw new Error('IMPACT_AUTH_TOKEN is not configured.');
   const catalog = performanceCandidates(await impactGet(reportUrl(sid, ''), sid, token, fetcher));
   if (!catalog.total) throw new Error('Impact returned no reports; confirm the token has List reports scope.');
-  const selected = [...catalog.daily.slice(0, 1), ...catalog.program.slice(0, 1), ...catalog.action.slice(0, 1)]
+  const selected = [...catalog.daily.slice(0, 1), ...catalog.program.slice(0, 1), ...catalog.action.slice(0, 1), ...catalog.finance.slice(0, 2)]
     .filter((r, i, all) => all.findIndex(x => x.Id === r.Id) === i);
   const inspected = [];
   for (const report of selected) {
     const metadata = safeMeta(await impactGet(reportUrl(sid, '/' + report.Id + '/MetaData'), sid, token, fetcher));
-    inspected.push({ type: catalog.daily.includes(report) ? 'daily' : catalog.program.includes(report) ? 'program' : 'action',
+    inspected.push({ type: catalog.daily.includes(report) ? 'daily' : catalog.program.includes(report) ? 'program'
+        : catalog.action.includes(report) ? 'action' : 'finance',
       reportId: report.Id, ...metadata });
   }
   return { status: 'AUTHENTICATED_READ_ONLY', availableReports: catalog.total,
     apiAccessibleReports: catalog.accessible, dailyCandidates: catalog.daily.length,
-    programCandidates: catalog.program.length, actionCandidates: catalog.action.length, inspected };
+    programCandidates: catalog.program.length, actionCandidates: catalog.action.length,
+    financeCandidates: catalog.finance.length, inspected };
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
