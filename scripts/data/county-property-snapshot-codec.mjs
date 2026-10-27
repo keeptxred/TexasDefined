@@ -87,3 +87,29 @@ export function preserveSourcedCountyLinks(previous, current, today = new Date()
     sourceUrls: [...new Set([...(current.sourceUrls ?? []), ...Object.values(retained)])],
   };
 }
+
+
+/**
+ * A successful HTTP fetch is not evidence that a county has disappeared.
+ * Distinguish positively stale official office dates from a parser/URL-security
+ * failure. Reject a destructive refresh when previous data had recent upstream
+ * dates and the new source was not affirmatively shown stale.
+ */
+export function isAmbiguousCountyWithdrawal(previous, result, now = new Date().toISOString().slice(0,10)) {
+  if (!previous || !result?.fetched || result.enrichment) return false;
+  const audit = result.audit ?? {};
+  // Only explicit, successfully parsed stale dates justify withdrawal here.
+  const confirmedStale = Boolean(
+    audit.appraisalSourceUpdated && audit.taxOfficeSourceUpdated &&
+    (audit.appraisalCurrent === false || audit.taxOfficeCurrent === false)
+  );
+  if (confirmedStale) return false;
+  const cutoff = Date.parse(now + 'T00:00:00Z');
+  const dates = [
+    previous.sourceUpdatedAt?.appraisalDistrict,
+    previous.sourceUpdatedAt?.taxOffice,
+  ].map(value=>Date.parse(String(value ?? '')+'T00:00:00Z'));
+  // Missing or non-future source dates mean we lack evidence for a safe delete.
+  if (!Number.isFinite(cutoff) || dates.some(date=>!Number.isFinite(date))) return true;
+  return dates.every(date => date<=cutoff && cutoff-date<=730*86400000);
+}
