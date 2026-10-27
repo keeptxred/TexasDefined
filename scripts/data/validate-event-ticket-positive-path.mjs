@@ -16,6 +16,32 @@ try {
   const calendarModule = await server.ssrLoadModule("/src/data/events/texas-event-calendar.server.ts");
   // Verify one reviewed active official event checkout and fail-closed protection
   // for GrapeFest 2027 while official tickets remain unavailable.
+  // Organizer source Offers must not outlive published sale windows.
+  // The first clock is 10:30 PM Oct 26 in America/Chicago, not Oct 27.
+  const time = new Date("2026-10-27T03:30:00Z");
+  const sample = { name: "General admission", url: expectedTicketUrl, price: 25, priceCurrency: "USD" };
+  const variants = [
+    { ...sample, validThrough: "2026-10-26" },
+    { ...sample, validFrom: "2026-10-26" },
+    { ...sample, availability: "https://schema.org/InStock" },
+    { ...sample, validThrough: "2026-10-25" },
+    { ...sample, validFrom: "2026-10-27" },
+    { ...sample, availability: "https://schema.org/SoldOut" },
+    { ...sample, validThrough: "2026-10-27T03:00:00Z" },
+    { ...sample, validFrom: "2026-10-27T04:00:00Z" },
+    { ...sample, validFrom: "not-a-date" },
+    { ...sample, validThrough: "2026-02-30" },
+  ];
+  const safe = recordsModule.currentSourceTicketOffers(variants, time);
+  if (safe.length !== 3 || safe[0] !== variants[0] || safe[1] !== variants[1] || safe[2] !== variants[2]) {
+    throw new Error("Organizer offers exposed sold-out, invalid or future/expired purchase URLs");
+  }
+  if (recordsModule.currentSourceTicketOffers(variants, new Date("2026-10-27T15:00:00Z")).includes(variants[0])) {
+    throw new Error("Organizer date-only sale windows must expire after the Texas-local end date");
+  }
+  if (recordsModule.currentSourceTicketOffers(undefined, time).length) {
+    throw new Error("Missing offers cannot manufacture ticket admission");
+  }
   const records = recordsModule.loadTexasEventRecordsServer();
   const grapefest = records.find((event) => event.slug === "grapefest");
   if (!grapefest) throw new Error("canonical GrapeFest record was not found");

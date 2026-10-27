@@ -85,6 +85,36 @@
       "productionVerifiedAt": null,
       "inventoryVerified": false,
       "commissionEligibilityVerified": false
+    },
+    "organizerOfferPublicationWindows": {
+      "status": "IMPLEMENTED",
+      "checkedAt": "2026-10-26",
+      "defect": "Unexpired organizer page could produce ticket links from expired, future, sold-out or malformed Event schema Offer metadata.",
+      "fix": "Filter source Offer before canonical ticket construction using America/Chicago date-only windows and exact timestamp boundaries; preserve independent organizer and approved provider options.",
+      "tests": "validate-event-ticket-positive-path.mjs and validate-event-ticketing-architecture.mjs",
+      "pr": null,
+      "productionVerifiedAt": null,
+      "inventoryVerified": false
+    },
+    "impactFullAttributionSafety": {
+      "status": "IMPLEMENTED",
+      "checkedAt": "2026-10-26",
+      "defect": "Resolver permitted incomplete Impact property/subId query while catalog audit enforced full attribution.",
+      "fix": "Shared Ticketmaster resolver requires exact published four-field Impact attribution and same event destination; official non-sponsored fallback.",
+      "tests": "validate-event-ticketing-architecture.mjs",
+      "pr": null,
+      "productionVerifiedAt": null,
+      "commissionsVerified": false
+    },
+    "majorGuideVisiblePerformanceIdentity": {
+      "status": "IMPLEMENTED",
+      "checkedAt": "2026-10-26",
+      "defect": "Multi-performance ticket rows lacked venue/showtime identification.",
+      "fix": "Display provider-local performance start time, show title and venue and accessible label; unknown time explicitly unconfirmed.",
+      "tests": "validate-major-event-ticket-lifecycle.mjs",
+      "pr": null,
+      "productionVerifiedAt": null,
+      "inventoryVerified": false
     }
   },
   "events": [

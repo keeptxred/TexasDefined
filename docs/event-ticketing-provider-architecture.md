@@ -34,6 +34,14 @@ The common outbound resolver also supports **TicketWeb, Live Nation, Etix, AXS, 
 **Activation for a new provider**: secure actual partnership and approved API scope; configure its secret only in the trusted server/GitHub Actions environment; implement a bounded provider-specific importer with date+venue+event-ID matching, freshness expiry, status validation, and fail-closed behavior; validate the outbound provider deep link and program-approved commission tracking; add real positive and negative tests; then ship through a protected PR and production smoke. Never manufacture an API key, assume commercial approval, treat a ticketing homepage as proof of availability, or promote a reseller listing as primary admission.
 
 
+## Follow-up ticket lifecycle, attribution and session identity (October 26, 2026)
+
+Organizer source-schema `Offer` tickets are excluded before calendar normalization if explicitly sold out, not yet valid, expired, or carrying malformed sale dates. Date-only `validFrom`/`validThrough` apply at America/Chicago local day boundaries (last date inclusive), while timezone-qualified timestamps are compared at the exact instant. This is offer-source metadata, not proof of seats. The independent organizer-event URL remains available.
+
+The shared live Ticketmaster/Impact resolver matches the full managed-snapshot attribution contract: exact publisher 7758914, merchant campaign 264167, merchant 4272, `u` equal to the same official event, plus one each of `subId1=texasdefined`, `partnerpropertyid=8837726`, `MediaPartnerPropertyId=8837726`; no extraneous query fields. A mismatch results in a nonsponsored official URL, not a broken sponsored promise.
+
+Multi-performance major-event guides display exact source-published show date, local time, venue and show title in both row content and the accessible CTA label. Missing or malformed times are explicitly unconfirmed. No showtime conversion, seat availability, final cart cost or commission eligibility is inferred.
+
 ## Authorized affiliate deep-link integrity (October 25, 2026)
 
 The shared resolver **must not treat an arbitrary HTTPS URL as an approved affiliate**. Only the existing Ticketmaster/Impact publisher 7758914 importer currently qualifies for sponsored CTAs. To qualify, a link must come from the `Ticketmaster` provider feed, use exact `ticketmaster.evyy.net` with publisher 7758914, approved Ticketmaster merchant 264167, and configured route suffix 4272, include exactly one `u` destination, and match that embedded event-specific Ticketmaster or TicketWeb URL against the paired official event URL. A different performance, forged merchant, unapproved provider or mismatched venue must **fall back to the official event URL**, with no sponsored claim.
