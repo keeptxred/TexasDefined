@@ -11,7 +11,15 @@ import {normalizeDailyImpactRows} from './impact-performance-normalize.mjs';
 
 const REPORT='partner_performance_by_day';
 const TABLE='texasdefined_impact_performance_daily';
-const MAX_DAYS=3;
+const DEFAULT_DAYS=3;
+const MAX_DAYS=30;
+const BACKFILL_INTERVAL_MS=180;
+
+export function configuredImpactDays(env=process.env){
+  const raw=String(env.IMPACT_BACKFILL_DAYS??DEFAULT_DAYS);
+  if(!/^(?:[1-9]|[12][0-9]|30)$/.test(raw))throw new Error('Unsafe Impact sync window; expected 1–30 days.');
+  return Number(raw);
+}
 
 function required(env,name){
   const v=env[name]?.trim();
@@ -23,7 +31,7 @@ function dayOffset(day,n){
   date.setUTCDate(date.getUTCDate()-n);
   return date.toISOString().slice(0,10);
 }
-export async function loadCompletedDays({env=process.env,fetcher=fetch,now=new Date(),days=MAX_DAYS}={}){
+export async function loadCompletedDays({env=process.env,fetcher=fetch,now=new Date(),days=DEFAULT_DAYS}={}){
   if(!Number.isSafeInteger(days)||days<1||days>MAX_DAYS)throw new Error('Unsafe Impact sync day count.');
   const sid=validateSid(required(env,'IMPACT_ACCOUNT_SID'));
   const token=required(env,'IMPACT_AUTH_TOKEN');
@@ -38,6 +46,8 @@ export async function loadCompletedDays({env=process.env,fetcher=fetch,now=new D
     const records=reportRecords(response);
     const row=normalizeDailyImpactRows(records,day);
     if(row)output.push(row); // Empty response never produces a fabricated zero.
+    // Bounded pacing applies only to the actual network client, not tests.
+    if(n>0&&fetcher===fetch)await new Promise(resolve=>setTimeout(resolve,BACKFILL_INTERVAL_MS));
   }
   return output;
 }
@@ -71,9 +81,10 @@ export async function upsertPrivateImpact(rows,{env=process.env,fetcher=fetch}={
 }
 
 export async function run({env=process.env,fetcher=fetch,now=new Date()}={}){
-  const rows=await loadCompletedDays({env,fetcher,now});
+  const days=configuredImpactDays(env);
+  const rows=await loadCompletedDays({env,fetcher,now,days});
   const result=await upsertPrivateImpact(rows,{env,fetcher});
-  return {status:'PRIVATE_AGGREGATE_SYNC_VERIFIED',saved:result.saved,providerDaysQueried:MAX_DAYS,amountsStored:false};
+  return {status:'PRIVATE_AGGREGATE_SYNC_VERIFIED',saved:result.saved,providerDaysQueried:days,importedDays:rows.length,amountsStored:false};
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href){
   run().then(x=>console.log('IMPACT_PRIVATE_SYNC '+JSON.stringify(x))).catch(err=>{
