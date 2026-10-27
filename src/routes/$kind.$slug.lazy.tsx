@@ -313,7 +313,7 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
   'san-patricio': [{ name: 'Aransas Pass Panthers', slug: 'aransas-pass', context: 'Aransas Pass program history and contemporary varsity schedule context' }],
   archer: [{ name: 'Archer City Wildcats', slug: 'archer-city', context: '1964 state championship and reconciled UIL historical indexing discrepancy' }],
   wise: [{ name: 'Alvord Bulldogs', slug: 'alvord', context: '2025 undefeated district run and 2026 home ticket details' }, { name: 'Boyd Yellowjackets', slug: 'boyd', context: '3A Division I District 4 Wise County 2026 varsity football' },
-    { name: 'Bridgeport Bulls', slug: 'bridgeport', context: 'Bridgeport ISD Bulls 2026 official coach Aaron Cupp, 22 football playoff appearances and Bull Memorial Stadium turf notice; 1–6 reported through October 16' }],
+    { name: 'Bridgeport Bulls', slug: 'bridgeport', context: 'Bridgeport ISD Bulls 2026 official coach Aaron Cupp, 22 football playoff appearances and Bull Memorial Stadium turf notice; 1–6 reported through October 16' }, { name: 'Chico Dragons', slug: 'chico', context: 'Wise County 2026 2A Division I District 6; Texas Chico not California' }],
   randall: [
     { name: 'Amarillo High Sandies', slug: 'amarillo', context: 'Four UIL state titles and the documented Sandies–Tascosa football series' },
     { name: 'Caprock Longhorns', slug: 'amarillo-caprock', context: 'Verified Randall County campus, 2026 Longhorns history and current UIL alignment' },
@@ -331,7 +331,6 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
 const supplementalFootballCountyLinks: Record<string, Array<{ name: string; slug: string; context: string }>> = {
   'san-saba': [{ name: 'Cherokee Fighting Indians', slug: 'cherokee', context: 'San Saba County 2026 six-man Division II District 8; school-published fixture revisions' }],
   'tyler': [{ name: 'Chester Yellowjackets', slug: 'chester', context: 'Tyler County 2026 six-man Division I District 13; school-listed head coach Coleman Butter' }],
-  'wise': [{ name: 'Chico Dragons', slug: 'chico', context: 'Wise County 2026 2A Division I District 6; Texas Chico not California' }],
   'childress': [{ name: 'Childress Bobcats', slug: 'childress', context: 'Childress County 2026 3A Division II District 1; school-listed coach Bo Helm' }],
   'hardeman': [{ name: 'Chillicothe Eagles', slug: 'chillicothe', context: 'Hardeman County six-man Division II District 2; district schedule year needs updating' }],
   'shelby': [{ name: 'Center Roughriders', slug: 'center', context: 'Shelby County 4A Division II District 8, January 2026 Jack Alvarez appointment, Center ISD stadium-entry source caveats' }],
