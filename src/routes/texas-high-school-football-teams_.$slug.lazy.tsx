@@ -537,7 +537,7 @@ function Page() {
         <div className="min-w-0">
           {editorial?.season ? <>
             <dl className="grid gap-px border border-border bg-border sm:grid-cols-2">
-              <Snapshot label="Record when checked" value={editorial.season.record} />
+              <Snapshot label={editorial.season.recordLabel || 'Record when checked'} value={editorial.season.record} />
               <Snapshot label="Season data verified" value={formatFootballDate(editorial.season.verifiedAt)} />
             </dl>
             {FOOTBALL_SOURCE_GRAPHIC_SCHOOLS.has(slug) && <ReportedFormIllustration
@@ -588,7 +588,7 @@ function Page() {
         </dl>
       </section>
 
-      {editorial && <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
+      {editorial?.overview?.length ? <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div>
           <p className="eyebrow text-primary">Program overview</p>
           <h2 className="mt-2 font-display text-3xl">{footballName} in 2026</h2>
@@ -624,7 +624,7 @@ function Page() {
             {editorial.campus && <a href={editorial.campus.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">{editorial.campus.sourceLabel} ↗</a>}
           </div>
         </div>
-      </section>}
+      </section> : null}
 
       {editorial?.milestones && editorial.milestones.length > 0 && <section aria-label={`${displayName} verified football milestones`} className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div>
