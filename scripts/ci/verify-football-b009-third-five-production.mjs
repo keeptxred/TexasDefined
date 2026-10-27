@@ -36,7 +36,9 @@ for (const slug of slugs) {
   assert.ok(dossier.length>300 && dossier.includes('https://'),'Missing individual research dossier '+slug);
   assert.ok(editorial.includes('"'+slug+'": {'),'Missing source-backed individual editorial '+slug);
   assert.ok(route.includes("'"+slug+"': '"+countyBySlug[slug]+"'"),'Missing canonical school-to-county '+slug);
-  assert.ok(countyPage.includes("slug: '"+slug+"'"),'Missing reciprocal county declaration '+slug);
+  const countyPattern = new RegExp(`(?:^|\\n)\\s*[\"']?${countyBySlug[slug]}[\"']?\\s*:\\s*\\[([\\s\\S]*?)\\],`, 'gm');
+  const reciprocal = [...countyPage.matchAll(countyPattern)].some((match) => match[1].includes(`slug: '${slug}'`));
+  assert.ok(reciprocal,'Missing reciprocal county declaration '+countyBySlug[slug]+' -> '+slug);
 }
 await mkdir(out,{recursive:true});
 const report = { version:1,sourceCommit:process.env.GITHUB_SHA||null,technicalOnly:true,
@@ -128,6 +130,6 @@ if(report.schoolChecks.length!==15||report.countyChecks.length!==4||
   report.failures.push('Strict per-school or county Chrome checks not fully passed');
 if(report.screenshots!==15+3+4)report.failures.push('Missing expected 22 school, timeline and county screenshots');
 await writeFile(out+'/report.json',JSON.stringify(report,null,2)+'\n');
-console.log('Batch 009 first-five production evidence',JSON.stringify({checks:report.schoolChecks.length,
+console.log('Batch 009 third-five production evidence',JSON.stringify({checks:report.schoolChecks.length,
   counties:report.countyChecks.length,screenshots:report.screenshots,versions:report.workerVersions,failures:report.failures.length}));
 assert.equal(report.failures.length,0,'Unverified Batch 009: '+report.failures.slice(0,5).join(' | '));

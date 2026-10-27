@@ -65,3 +65,10 @@ test('published team copy and guide templates contain no encoding replacement or
     assert.doesNotMatch(text, /[\uFFFD\u0000-\u0008\u000B\u000C\u000E-\u001F]/u, path);
   }
 });
+
+test('pro-team directory metadata stays canonical-neutral on nested team routes', () => {
+  const route = readFileSync('src/routes/sports.teams.tsx', 'utf8');
+  assert.match(route, /matches\[matches\.length - 1\]\?\.routeId !== match\.routeId/);
+  assert.match(route, /return \{\};/);
+  assert.match(route, /return loaderData\?\.seo \?\? \{\};/);
+});

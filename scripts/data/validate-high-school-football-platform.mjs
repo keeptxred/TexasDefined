@@ -2075,6 +2075,74 @@ if (!errors.length) {
   }
 }
 
+/** First/second Batch009 workflow contracts. These are the two workflow files
+ * that previously acquired duplicated step blocks and cross-cohort copy/paste
+ * paths. Validate both syntax-adjacent structure and cohort-specific semantics. */
+{
+  const contracts = [
+    {
+      label: 'first-five',
+      workflowPath: '.github/workflows/verify-football-b009-first-five-production.yml',
+      workflowName: 'Football Batch 009 first-five live production acceptance',
+      verifierPath: 'scripts/ci/verify-football-b009-first-five-production.mjs',
+      artifactPath: 'artifacts/b009-first-five-production-chrome/',
+      verifierOut: "const out = 'artifacts/b009-first-five-production-chrome';",
+      scopeVerifierToken: 'verify-football-b009-first-five-production[.]mjs',
+      scopeWorkflowToken: 'verify-football-b009-first-five-production[.]yml',
+      countyCount: 4,
+      forbidden: ['verify-football-b009-next-five-production.mjs', 'artifacts/b009-next-five-production-chrome/'],
+    },
+    {
+      label: 'second-five',
+      workflowPath: '.github/workflows/verify-football-b009-next-five-production.yml',
+      workflowName: 'Football Batch 009 second-five live production acceptance',
+      verifierPath: 'scripts/ci/verify-football-b009-next-five-production.mjs',
+      artifactPath: 'artifacts/b009-next-five-production-chrome/',
+      verifierOut: "const out = 'artifacts/b009-next-five-production-chrome';",
+      scopeVerifierToken: 'verify-football-b009-next-five-production[.]mjs',
+      scopeWorkflowToken: 'verify-football-b009-next-five-production[.]yml',
+      countyCount: 5,
+      forbidden: ['verify-football-b009-first-five-production.mjs', 'artifacts/b009-first-five-production-chrome/'],
+    },
+  ];
+  for (const contract of contracts) {
+    const wf = read(contract.workflowPath);
+    const verifier = read(contract.verifierPath);
+    const count = (needle) => wf.split(needle).length - 1;
+    const detect = wf.indexOf('if grep -Eq');
+    const nextStep = wf.indexOf('      - uses: actions/setup-node@v4', detect);
+    const scopeShell = detect >= 0 && nextStep > detect ? wf.slice(detect, nextStep) : '';
+    if (count('      - uses: actions/setup-node@v4') !== 1
+        || count('      - name: Install isolated Chrome driver') !== 1
+        || count('      - name: Verify 5 school pages') !== 1
+        || !scopeShell.includes('echo "run=true" >> "$GITHUB_OUTPUT"')
+        || !scopeShell.includes('echo "run=false" >> "$GITHUB_OUTPUT"')
+        || !scopeShell.includes('          fi')
+        || !scopeShell.includes(contract.scopeVerifierToken)
+        || !scopeShell.includes(contract.scopeWorkflowToken)
+        || /\n\s*- uses: actions\//.test(scopeShell)) {
+      errors.push('Batch009 '+contract.label+' production workflow scope or Chrome job malformed/duplicated.');
+    }
+    for (const exact of [
+      'name: '+contract.workflowName,
+      "workflows: ['Deploy TexasDefined production']",
+      "github.event.workflow_run.conclusion == 'success'",
+      'ref: ${{ github.event.workflow_run.head_sha || github.sha }}',
+      'run: node '+contract.verifierPath,
+      'path: '+contract.artifactPath,
+      contract.countyCount+' counties',
+    ]) if (!wf.includes(exact)) errors.push('Batch009 '+contract.label+' live acceptance safety missing '+exact);
+    for (const forbidden of contract.forbidden) {
+      if (wf.includes(forbidden)) errors.push('Batch009 '+contract.label+' workflow contains cross-cohort copy/paste reference '+forbidden);
+    }
+    if (!verifier.includes(contract.verifierOut)
+        || !verifier.includes('report.countyChecks.length!=='+contract.countyCount)
+        || !verifier.includes('versions.size!==1')) {
+      errors.push('Batch009 '+contract.label+' verifier output/county/Worker contract does not match its workflow.');
+    }
+  }
+}
+
 /** Third individually researched five-school cohort; no premature verified status. */
 {
   const registry=JSON.parse(read('docs/football-authority/REGISTRY.json'));
@@ -2097,22 +2165,34 @@ if (!errors.length) {
 }
 
 /** Prevent silent object-literal overwrites of researched county football links.
- * Duplicate county keys had suppressed valid school links in 11 counties even when
- * each school had an independently sourced and verified football guide. */
+ * Duplicate keys inside either map can suppress valid programs. Reusing a county
+ * key across the base and supplemental maps is intentional because render-time
+ * concatenation preserves both independently researched cohorts. */
 {
   const entityPage = read(files[10]);
-  const start = entityPage.indexOf('const batch002FootballCountyLinks:');
-  const end = entityPage.indexOf('\nconst siteUrl = ', start);
-  if (start < 0 || end < 0) {
-    errors.push('Football county reciprocal link object missing.');
+  const baseStart = entityPage.indexOf('const batch002FootballCountyLinks:');
+  const supplementalStart = entityPage.indexOf('const supplementalFootballCountyLinks:', baseStart);
+  const end = entityPage.indexOf('\nconst siteUrl = ', supplementalStart);
+  if (baseStart < 0 || supplementalStart < 0 || end < 0) {
+    errors.push('Football county reciprocal base/supplemental link objects missing.');
   } else {
-    const section = entityPage.slice(start, end);
-    const keys = [...section.matchAll(/^  (?:'([^']+)'|([a-z-]+)):\s*\[/gm)].map((m) => m[1] || m[2]);
-    const duplicates = keys.filter((key, index) => keys.indexOf(key) !== index);
-    if (duplicates.length) errors.push('Duplicate football county link keys would suppress school links: ' + [...new Set(duplicates)].join(', '));
-    for (const slug of ['canyon-west-plains','carrizo-springs','carrollton-creekview','carrollton-ranchview','carrollton-smith']) {
-      requireText(section, "slug: '" + slug + "'", 'Batch 009 reciprocal football county link');
+    const sections = [
+      ['base', entityPage.slice(baseStart, supplementalStart)],
+      ['supplemental', entityPage.slice(supplementalStart, end)],
+    ];
+    for (const [label, section] of sections) {
+      const keys = [...section.matchAll(/^  (?:'([^']+)'|([a-z-]+)):\s*\[/gm)].map((m) => m[1] || m[2]);
+      const duplicates = keys.filter((key, index) => keys.indexOf(key) !== index);
+      if (duplicates.length) errors.push('Duplicate football county link keys inside '+label+' map would suppress school links: ' + [...new Set(duplicates)].join(', '));
     }
+    const combined = sections.map(([, section]) => section).join('\n');
+    for (const slug of ['canyon-west-plains','carrizo-springs','carrollton-creekview','carrollton-ranchview','carrollton-smith','celeste','celina']) {
+      requireText(combined, "slug: '" + slug + "'", 'Batch 009 reciprocal football county link');
+    }
+    for (const marker of [
+      '...(batch002FootballCountyLinks[entity.slug] ?? [])',
+      '...(supplementalFootballCountyLinks[entity.slug] ?? [])',
+    ]) requireText(entityPage, marker, 'Football county link maps must concatenate rather than overwrite');
   }
 }
 
