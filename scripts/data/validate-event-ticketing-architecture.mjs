@@ -157,7 +157,7 @@ for (const event of ticketEvidenceLedger.events) {
 }
 
 const runtimeTest = String.raw`
-import { resolveEventTicketCta } from './src/data/events/ticketing.ts';
+import { mergeEventTicketing, resolveEventTicketCta } from './src/data/events/ticketing.ts';
 import { providerForVerifiedTicketUrl, publicTicketHostname, isEventSpecificTicketDestination } from './src/data/events/ticket-provider.ts';
 const supported = {
  'https://www.ticketmaster.com/event/ABC123': 'ticketmaster',
@@ -197,6 +197,42 @@ const base = { provider: 'ticketmaster', saleStatus: 'on-sale', source, lastVeri
 const approved = impact(official);
 const both = resolveEventTicketCta({ links: [{ ...base, officialTicketUrl: official, affiliateUrl: approved }], offers: [] }, now);
 if (!both || both.label !== 'Find Tickets →' || !both.isAffiliate || both.href !== approved) throw new Error('authorized same-event Impact priority failed');
+
+const manualAdmission = { ...base, provider: 'official', saleStatus: 'unknown',
+  officialTicketUrl: official, source: { kind: 'official-event', name: 'Verified organizer' } };
+const signedAdmission = { ...base, officialTicketUrl: official, affiliateUrl: approved };
+const enriched = mergeEventTicketing({ links: [manualAdmission], offers: [] },
+  { links: [signedAdmission], offers: [] });
+if (!enriched || enriched.links.length !== 1 || enriched.links[0].affiliateUrl !== approved)
+  throw new Error('one exact show must resolve one provider record retaining its approved Impact deep link');
+const enrichedCta = resolveEventTicketCta(enriched, now);
+if (!enrichedCta || !enrichedCta.isAffiliate || enrichedCta.href !== approved)
+  throw new Error('canonical editorial record lost approved exact-event commission link');
+const backwards = mergeEventTicketing({ links: [signedAdmission], offers: [] },
+  { links: [manualAdmission], offers: [] });
+if (backwards?.links.length !== 1 || backwards.links[0].affiliateUrl !== approved)
+  throw new Error('approved commercial identity cannot be overwritten by weaker duplicate official record');
+const manualWithFragment = { ...manualAdmission, officialTicketUrl: official + '#tickets' };
+const sameDestination = mergeEventTicketing({ links: [manualWithFragment], offers: [] },
+  { links: [signedAdmission], offers: [] });
+if (sameDestination?.links.length !== 1 || sameDestination.links[0].officialTicketUrl !== official)
+  throw new Error('URL fragment cannot manufacture a second ticketed event');
+const separateMatinee = { ...manualAdmission, officialTicketUrl: official + '?performance=matinee' };
+const separateEvening = { ...manualAdmission, officialTicketUrl: official + '?performance=evening' };
+const distinct = mergeEventTicketing({ links: [separateMatinee], offers: [] },
+  { links: [separateEvening], offers: [] });
+if (distinct?.links.length !== 2) throw new Error('distinct dated/showtime query identities must remain separate');
+const invalidAffiliateDuplicate = mergeEventTicketing({ links: [manualAdmission], offers: [] },
+  { links: [{ ...signedAdmission, affiliateUrl: impact('https://www.ticketmaster.com/another/event/OTHER') }], offers: [] });
+const invalidDuplicateCta = resolveEventTicketCta(invalidAffiliateDuplicate, now);
+if (invalidAffiliateDuplicate?.links.length !== 1 || !invalidDuplicateCta
+  || invalidDuplicateCta.isAffiliate || invalidDuplicateCta.href !== official)
+  throw new Error('wrong-show affiliate duplicate cannot win sponsored status or create a second CTA');
+const providerOffsale = mergeEventTicketing({ links: [manualAdmission], offers: [] },
+  { links: [{ ...signedAdmission, affiliateUrl: undefined, saleStatus: 'off-sale' }], offers: [] });
+if (providerOffsale?.links.length !== 1 || resolveEventTicketCta(providerOffsale, now) !== null)
+  throw new Error('provider-confirmed off-sale state must override stale editorial unknown purchase link');
+
 const expired = resolveEventTicketCta({ links: [{ ...base, officialTicketUrl: official, affiliateUrl: approved, affiliateExpiresAt: '2026-09-11T20:30:00Z' }], offers: [] }, now);
 if (!expired || expired.label !== 'Official Tickets →' || expired.isAffiliate) throw new Error('expired affiliate fallback failed');
 const unsafe = resolveEventTicketCta({ links: [{ ...base, officialTicketUrl: official, affiliateUrl: 'javascript:alert(1)' }], offers: [] }, now);
