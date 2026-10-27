@@ -447,7 +447,8 @@ function EntityPage() {
             {entity.kind === 'county' && countyProfile?.countySeat && <Fact label="County seat" value={countyProfile.countySeat} />}
             <Fact label="Part of Texas" value={entity.region ? title(entity.region) : undefined} />
             <Fact label="Source check" value={sourceStatus(entity)} />
-            {entity.sourceCheckedAt && <Fact label="Last reviewed" value={formatCheckedDate(entity.sourceCheckedAt)} />}
+            {entity.sourceCheckedAt && <Fact label={entity.slug === 'van-zandt' && entity.kind === 'county' ? 'County registry checked' : 'Last reviewed'} value={formatCheckedDate(entity.sourceCheckedAt)} />}
+            {entity.kind === 'county' && entity.slug === 'van-zandt' && countySeriesArticle?.updatedAt && <Fact label="Guide updated" value={formatCheckedDate(countySeriesArticle.updatedAt)} />}
           </dl>
         </header>
 
