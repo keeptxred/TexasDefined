@@ -1031,7 +1031,7 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
               <p className="eyebrow text-primary">{isDallasRoadRing && getDallasSmallTownDrive(row.destination.slug, row.destination.name, row.destination.nearestTown) ? dallasDriveLabel(getDallasSmallTownDrive(row.destination.slug, row.destination.name, row.destination.nearestTown)!.minutes) + " estimated drive" : isAustinTwoHourGuide && austinEditorial(row.destination.slug) ? austinEditorial(row.destination.slug)!.drive : isMcAllenDayTrips ? "Check the actual driving route" : `About ${Math.round(row.distanceMiles)} geographic miles`}</p>
               <span className="text-xs text-muted-foreground">{row.destination.nearestTown}</span>
             </div>
-            <DestinationCard destination={row.destination} eager={groupIndex === 0 && index < 2} />
+            <DestinationCard destination={row.destination} eager={groupIndex === 0 && index < 2} allowOwnerLicensedPhoto={metro.slug === "austin" && collection.slug === "day-trips"} />
             {isAustinTwoHourGuide && austinEditorial(row.destination.slug) && <div className="mt-4 border-l-2 border-border pl-4">
               <p className="text-sm font-semibold">{austinEditorial(row.destination.slug)!.bestFor}</p>
               <p className="mt-1 text-sm leading-6 text-muted-foreground">{austinEditorial(row.destination.slug)!.note}</p>
