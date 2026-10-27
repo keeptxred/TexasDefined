@@ -713,3 +713,32 @@ test("El Paso research leads are real operator references, not synthetic index-r
     assert.ok(proximity.includes(threshold), "protected day-trip geographic diversity threshold missing: " + threshold);
   }
 });
+
+test("El Paso trip-choice guidance keeps official safety constraints and intact SEO eligibility", () => {
+  const rich = readFileSync("src/routes/explore.near.$metro.$collection.lazy.tsx", "utf8");
+  const monitor = readFileSync("scripts/data/check-metro-day-trips-sources.mjs", "utf8");
+  const collection = readFileSync("src/data/metro-proximity.ts", "utf8");
+  const pageData = readFileSync("src/data/metro-proximity-page-data.server.ts", "utf8");
+
+  assert.ok(rich.includes('data-el-paso-trip-decisions="planning-guidance-not-extra-catalog-count"'));
+  const plans = [...rich.matchAll(/data-el-paso-trip-plan="([^"]+)"/g)].map((match) => match[1]);
+  assert.deepEqual(plans, ["mission-trail", "hueco-tanks", "guadalupe"]);
+  assert.ok(rich.includes('id={`el-paso-outing-${outing.key}`}'), "source-backed article anchors must resolve");
+  assert.ok(rich.includes('href="#el-paso-outing-san-elizario-historic-district"'));
+  assert.ok(rich.includes('href="#el-paso-outing-guadalupe-pine-springs"'));
+  assert.ok(rich.includes('slug: "hueco-tanks-state-park-and-historic-site"'), "Hueco must use its real, governed canonical guide");
+  assert.ok(rich.includes("not additional destination records"), "comparison section is editorial guidance only");
+  assert.ok(rich.includes("https://www.elpasomissions.org/faqs/"));
+  assert.ok(rich.includes("https://tpwd.texas.gov/state-parks/hueco-tanks/alert"));
+  assert.ok(rich.includes("https://www.nps.gov/gumo/planyourvisit/dunes.htm"));
+  assert.ok(rich.includes("North Mountain self-guided entry is capacity-limited"));
+  assert.ok(rich.includes("unsafe after rain"));
+  assert.ok(monitor.includes('const elPasoSection = metroPage.split('), "all three guide sources stay on the weekly official-link health check");
+  for (const url of [
+    "https://www.elpasomissions.org/faqs/",
+    "https://tpwd.texas.gov/state-parks/hueco-tanks/alert",
+    "https://www.nps.gov/gumo/planyourvisit/dunes.htm",
+  ]) assert.ok(monitor.includes(url), "monitor must require " + url);
+  assert.ok(collection.includes("minResults: 10") && collection.includes("minTowns: 7") && collection.includes("minCounties: 4") && collection.includes("minCategories: 3"));
+  assert.ok(pageData.includes('const robots = indexReady ? "index, follow, max-image-preview:large" : "noindex, follow"'));
+});
