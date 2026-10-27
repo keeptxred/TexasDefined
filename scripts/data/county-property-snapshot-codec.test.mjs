@@ -1,7 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {parseExistingCountySnapshot, preserveSourcedCountyLinks} from './county-property-snapshot-codec.mjs';
+import {parseExistingCountySnapshot, preserveSourcedCountyLinks, isAmbiguousCountyWithdrawal} from './county-property-snapshot-codec.mjs';
 
 const curated=readFileSync('src/data/property/county-property-enrichment.generated.ts','utf8');
 const extra=readFileSync('src/data/property/county-property-supplement.server.ts','utf8');
@@ -83,4 +83,20 @@ test('the refreshed official directory wins for explicitly supplied new payment 
   assert.equal(actual.links.paymentUrl,fresh.links.paymentUrl);
   assert.equal(actual.links.propertySearchUrl,prior.links.propertySearchUrl);
   assert.ok(!actual.sourceUrls.includes(prior.links.paymentUrl),'Do not retain superseded payment URL in active source list');
+});
+
+
+test('reachable official pages cannot silently remove recently verified counties on parser or security failures',()=>{
+  const old=parseExistingCountySnapshot(curated);
+  const prior=old.bell;
+  const county={slug:'bell'};
+  const parseFailed={county,fetched:true,enrichment:null,audit:{appraisalSourceUpdated:'2026-08-21',taxOfficeSourceUpdated:'2025-03-03',appraisalCurrent:true,taxOfficeCurrent:true}};
+  assert.equal(isAmbiguousCountyWithdrawal(prior,parseFailed,'2026-10-27'),true);
+  assert.equal(isAmbiguousCountyWithdrawal(prior,{...parseFailed,audit:{}},'2026-10-27'),true);
+  assert.equal(isAmbiguousCountyWithdrawal(prior,{...parseFailed,fetched:false},'2026-10-27'),false);
+  assert.equal(isAmbiguousCountyWithdrawal(prior,{...parseFailed,enrichment:prior},'2026-10-27'),false);
+  assert.equal(isAmbiguousCountyWithdrawal(undefined,parseFailed,'2026-10-27'),false);
+  assert.equal(isAmbiguousCountyWithdrawal(prior,{
+    ...parseFailed,audit:{appraisalSourceUpdated:'2023-05-05',taxOfficeSourceUpdated:'2025-03-03',appraisalCurrent:false,taxOfficeCurrent:true}
+  },'2026-10-27'),false, 'A positively stale upstream office date can justify withdrawal under normal index gates');
 });
