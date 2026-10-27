@@ -2873,7 +2873,9 @@ const ExplorePaintedChurchesRoute = ExplorePaintedChurchesRouteImport.update({
   id: '/explore/painted-churches',
   path: '/explore/painted-churches',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any).lazy(() =>
+  import('./routes/explore.painted-churches.lazy').then((d) => d.Route),
+)
 const ExploreNationalWildlifeRefugesRoute =
   ExploreNationalWildlifeRefugesRouteImport.update({
     id: '/explore/national-wildlife-refuges',
@@ -3731,7 +3733,9 @@ const ExplorePaintedChurchesCompareRoute =
     path: '/compare',
     getParentRoute: () => ExplorePaintedChurchesRoute,
   } as any).lazy(() =>
-    import('./routes/explore.painted-churches.compare.lazy').then((d) => d.Route),
+    import('./routes/explore.painted-churches.compare.lazy').then(
+      (d) => d.Route,
+    ),
   )
 const ExplorePaintedChurchesCiteRoute =
   ExplorePaintedChurchesCiteRouteImport.update({
