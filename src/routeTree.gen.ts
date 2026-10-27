@@ -2873,9 +2873,7 @@ const ExplorePaintedChurchesRoute = ExplorePaintedChurchesRouteImport.update({
   id: '/explore/painted-churches',
   path: '/explore/painted-churches',
   getParentRoute: () => rootRouteImport,
-} as any).lazy(() =>
-  import('./routes/explore.painted-churches.lazy').then((d) => d.Route),
-)
+} as any)
 const ExploreNationalWildlifeRefugesRoute =
   ExploreNationalWildlifeRefugesRouteImport.update({
     id: '/explore/national-wildlife-refuges',
