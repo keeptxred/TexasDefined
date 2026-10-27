@@ -46,3 +46,44 @@ export function parseExistingCountySnapshot(text, name='COUNTY_PROPERTY_ENRICHME
   }
   return records;
 }
+
+
+/**
+ * A refreshed Comptroller listing controls current office contacts. Preserve
+ * only *separately source-listed*, recently reviewed local search/payment links
+ * on the exact current official office host or a subdomain. Never resurrect
+ * stale links when an office changes domain or when source evidence is missing.
+ */
+export function preserveSourcedCountyLinks(previous, current, today = new Date().toISOString().slice(0,10)) {
+  if (!previous?.links || !current?.links) return current;
+  const priorAt = Date.parse(String(previous.lastVerifiedAt ?? '') + 'T00:00:00Z');
+  const now = Date.parse(today + 'T00:00:00Z');
+  if (!Number.isFinite(priorAt) || !Number.isFinite(now) || priorAt > now ||
+      now - priorAt > 400 * 86400000) return current;
+
+  const hostname = (value) => {
+    try {
+      const u = new URL(value);
+      return u.protocol === 'https:' ? u.hostname.toLowerCase().replace(/^www\./,'') : null;
+    } catch { return null; }
+  };
+  const officialHosts = [
+    hostname(current.appraisalDistrict?.websiteUrl),
+    hostname(current.taxOffice?.websiteUrl),
+  ].filter(Boolean);
+  const sourceUrls = new Set(previous.sourceUrls ?? []);
+  const retained = {};
+  for (const key of ['propertySearchUrl','paymentUrl']) {
+    const link = previous.links[key];
+    if (typeof link !== 'string' || !sourceUrls.has(link)) continue;
+    const host = hostname(link);
+    if (!host || !officialHosts.some(office => host === office || host.endsWith('.'+office))) continue;
+    if (!current.links[key]) retained[key] = link;
+  }
+  if (!Object.keys(retained).length) return current;
+  return {
+    ...current,
+    links: {...retained, ...current.links},
+    sourceUrls: [...new Set([...(current.sourceUrls ?? []), ...Object.values(retained)])],
+  };
+}
