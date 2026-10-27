@@ -3,7 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { PaintedChurchSourceLibrary } from "@/components/editorial/PaintedChurchSourceLibrary";
 import { Container } from "@/components/layout/Container";
-import { paintedChurchAuthorityExpansionDateLabel } from "@/data/painted-church-authority-sources";
+import { paintedChurchAuthorityExpansionDateLabel } from "@/data/painted-church-authority-catalog";
 import { paintedChurchSources, schulenburgCoreRoute } from "@/data/painted-churches";
 import { expandedPaintedChurches } from "@/data/painted-churches-expanded";
 import { recoverOrHideImage } from "@/lib/image-fallback";
