@@ -1,3 +1,4 @@
+import { buildHotelsComEvergreenClick, hotelsComPageSid } from "@/lib/cj-hotels-evergreen";
 import { Link, createLazyFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 
@@ -236,7 +237,7 @@ function FallFestivalBrowser({ page }: { page: any }) {
         <p className="eyebrow text-primary">Stay near the festival</p>
         <h3 className="mt-2 font-display text-2xl">Turn a festival into a weekend</h3>
         <p className="mt-2 text-sm leading-6 text-muted-foreground">Confirm the event's operating day and city, then compare nearby rooms. Hotel reservations are separate from event admission.</p>
-        <a href="https://www.anrdoezrs.net/links/101876465/type/dlg/https://www.hotels.com/" rel="sponsored nofollow noopener noreferrer" data-affiliate-partner="hotels.com" data-affiliate-placement="fall-festival-hotel-search" data-commercial-partner="hotels.com" data-commercial-placement="fall-festival-hotel-search" target="_blank" className="mt-4 inline-block text-sm font-semibold text-primary underline">Compare hotels on Hotels.com ↗</a>
+        <a href={buildHotelsComEvergreenClick("https://www.hotels.com/", hotelsComPageSid("/events/fall-festivals"))} rel="sponsored nofollow noopener noreferrer" data-affiliate-partner="hotels.com" data-affiliate-placement="fall-festival-hotel-search" data-commercial-partner="hotels.com" data-commercial-placement="fall-festival-hotel-search" target="_blank" className="mt-4 inline-block text-sm font-semibold text-primary underline">Compare hotels on Hotels.com ↗</a>
         <p className="mt-2 text-xs text-muted-foreground">Affiliate disclosure: TexasDefined may earn a commission on qualifying bookings.</p>
       </div>
       <div>
@@ -370,7 +371,7 @@ function GenericCollectionPage({ page }: { page: any }) {
               <p className="eyebrow text-primary">Build a holiday weekend</p>
               <h3 className="mt-2 font-display text-2xl">Compare overnight stays</h3>
               <p className="mt-2 text-sm leading-6 text-muted-foreground">Popular event evenings can mean full hotels. Choose the event and city first, then compare lodging dates independently; the linked hotel search is not an event admission ticket.</p>
-              <a href="https://www.anrdoezrs.net/links/101876465/type/dlg/https://www.hotels.com/" rel="sponsored nofollow noopener noreferrer" data-affiliate-partner="hotels.com" data-affiliate-placement="christmas-hub-hotel-search" data-commercial-partner="hotels.com" data-commercial-placement="christmas-hub-hotel-search" target="_blank" className="mt-4 inline-block text-sm font-semibold text-primary underline">Search hotels on Hotels.com →</a>
+              <a href={buildHotelsComEvergreenClick("https://www.hotels.com/", hotelsComPageSid("/events/christmas-events"))} rel="sponsored nofollow noopener noreferrer" data-affiliate-partner="hotels.com" data-affiliate-placement="christmas-hub-hotel-search" data-commercial-partner="hotels.com" data-commercial-placement="christmas-hub-hotel-search" target="_blank" className="mt-4 inline-block text-sm font-semibold text-primary underline">Search hotels on Hotels.com →</a>
               <p className="mt-2 text-xs text-muted-foreground">Affiliate disclosure: TexasDefined may earn a commission on qualifying hotel bookings.</p>
             </div>
             <div>
