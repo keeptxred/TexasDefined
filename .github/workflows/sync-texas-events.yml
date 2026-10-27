@@ -93,6 +93,12 @@ jobs:
       - name: Test bounded official editorial seller probes
         run: node --test scripts/events/verify-editorial-ticket-links.test.mjs
 
+      # The editorial verifier loads TS event records through Vite SSR. Earlier
+      # sync steps are dependency-free; install the locked project dependencies
+      # only before this step so its Vite import resolves on the runner.
+      - name: Install locked dependencies for editorial seller verification
+        run: npm ci --ignore-scripts
+
       - name: Check the next 25 official editorial purchase URLs
         run: node scripts/events/verify-editorial-ticket-links.mjs
 
