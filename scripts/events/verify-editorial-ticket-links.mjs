@@ -88,6 +88,9 @@ export function selectEditorialProbeBatch(entries, history, now=new Date(), limi
   const filtered=entries.filter((row)=>row && row.id && row.ticketUrl && row.startDate
     && (row.endDate??row.startDate)>=today
     && row.status==='scheduled'
+    // Unapproved/bespoke hosts must not consume any of the 25 daily public
+    // seller HTTP slots. They remain eligible for separate editorial review.
+    && Boolean(approvedEditorialProbeUrl(row.ticketUrl))
     && !row.isAffiliate
     && !row.id.startsWith('ticketmaster:'))
     .sort((a,b)=>a.startDate.localeCompare(b.startDate)||a.id.localeCompare(b.id));

@@ -78,6 +78,8 @@ test('deterministically take 25 upcoming nonaffiliate editorial event links; rec
     {id:'d',startDate:'2026-10-28',status:'scheduled',ticketUrl:'https://www.etix.com/ticket/p/d',isAffiliate:true},
     {id:'ticketmaster:e',startDate:'2026-10-28',status:'scheduled',ticketUrl:'https://www.ticketmaster.com/event/abc',isAffiliate:false},
     {id:'old',startDate:'2026-10-25',status:'scheduled',ticketUrl:'https://www.etix.com/ticket/p/old',isAffiliate:false},
+    {id:'unknown-host',startDate:'2026-10-26',status:'scheduled',ticketUrl:'https://organizer.example.net/tickets/matinee',isAffiliate:false},
+    {id:'unsupported-host',startDate:'2026-10-26',status:'scheduled',ticketUrl:'https://www.etix.com.evil.test/ticket/p/123',isAffiliate:false},
   ];
   const batch=selectEditorialProbeBatch(events,{},now,25);
   assert.equal(batch.eligible,2);
