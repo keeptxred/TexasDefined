@@ -22,6 +22,10 @@ test('verified score changes flow through protected PRs into every district reso
   assert.ok(workflow.includes('src/data/high-school-football/football-matchups.snapshot.json'));
   assert.ok(importer.includes('FOOTBALL_RESULTS_FEED_TOKEN'));
   assert.ok(importer.includes('Conflicting final score requires manual reconciliation'));
+  assert.ok(importer.includes("game.phase === 'regular' && typeof game.districtGame !== 'boolean'"));
+  assert.ok(importer.includes("game.districtGame === true && (!Number.isInteger(game.district)"));
+  assert.ok(importer.includes("old.districtGame !== game.districtGame || old.district !== game.district"));
   assert.ok(districtResolver.includes('for (const game of footballMatchups)'));
+  assert.ok(districtResolver.includes("game.districtGame !== true"));
   assert.ok(districtResolver.includes("converted.status === 'final' && previous.status !== 'final'"));
 });
