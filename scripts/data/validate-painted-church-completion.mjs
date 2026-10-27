@@ -7,7 +7,7 @@ const forbidText = (content, token, label) => { if (content.includes(token)) fai
 
 const census = read('src/data/painted-church-census.ts');
 const sourceLibrary = read('src/components/editorial/PaintedChurchSourceLibrary.tsx');
-const authoritySources = read('src/data/painted-church-authority-sources.ts');
+const authorityCatalog = read('src/data/painted-church-authority-catalog.ts');\nconst authorityEnrichment = read('src/data/painted-church-authority-sources.ts');\nconst authoritySources = `${authorityCatalog}\n${authorityEnrichment}`;
 const people = read('src/data/painted-church-people.ts');
 const media = read('src/routes/explore.painted-churches.media.tsx');
 const extraGallery = read('src/data/painted-church-gallery-extra.ts');
