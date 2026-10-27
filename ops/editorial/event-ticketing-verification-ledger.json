@@ -4472,6 +4472,52 @@
         "status": "PASS — targeted ticketing architecture workflow; protected canonical Merge Gate still required"
       },
       "rebasedOnMain": "d04bd786bd6cf2743ef8343202b04d17a4304c1a"
+    },
+    "editorialWithheldTicketDispositions20261027": {
+      "status": "IMPLEMENTED",
+      "checkedAt": "2026-10-27",
+      "scope": "Five source-qualified festival parent events identified from complete 50-record canonical cohort; distinguish free public admission and festival-wide credentials from exact event ticket checkouts.",
+      "cases": [
+        {
+          "id": "authority:austin-film-festival",
+          "decision": "NO_EXACT_ADMISSION_CTA",
+          "reason": "Organizer badge and film-pass shop grants festival-wide access; individual screening tickets are distinct, dependent on screening/showtime and venue.",
+          "source": "https://austinfilmfestival.com/about/faqs/",
+          "codeAction": "Remove generic badge/pass Offer metadata, retain event guide and official festival link"
+        },
+        {
+          "id": "authority:austin-powwow",
+          "decision": "NO_EXACT_ADMISSION_CTA",
+          "reason": "Children under 12 free is organizer admission policy, not a ticket checkout; organizer site has Buy Tickets but the precise checkout identity was not independently established.",
+          "source": "https://austinpowwow.net/",
+          "codeAction": "Remove fabricated zero-cost child checkout Offer; preserve 2026 date and event source"
+        },
+        {
+          "id": "authority:sxsw",
+          "decision": "NO_EXACT_ADMISSION_CTA",
+          "reason": "2027 badges and music wristbands are credentials spanning multiple sessions and venues, not exact event-performance purchases.",
+          "source": "https://sxsw.com/2026/everything-you-need-to-know-about-sxsw-2027/",
+          "codeAction": "Remove generic conference-wide badge Offer metadata; keep verified event source"
+        },
+        {
+          "id": "authority:houston-art-car-parade",
+          "decision": "FREE_PUBLIC_EVENT",
+          "reason": "April 10 2027 parade general viewing is free; optional reserved seating and VIPit are distinct add-ons, not required public admission.",
+          "source": "https://www.thehoustonartcarparade.com/faq",
+          "codeAction": "Remove false free parade admission checkout Offer"
+        },
+        {
+          "id": "authority:main-st-fort-worth-arts-festival",
+          "decision": "FREE_PUBLIC_EVENT",
+          "reason": "April 15–18 2027 arts festival free public entry; no admission checkout necessary.",
+          "source": "https://mainstreetartsfest.org/schedule-map/",
+          "codeAction": "Remove false festival admission checkout Offer"
+        }
+      ],
+      "test": "scripts/data/validate-statewide-editorial-ticket-cohorts.mjs rejects reinstated generic schema Offers and tests live canonical eligible rows; full Impact contract also enforced.",
+      "pr": 6073,
+      "productionVerifiedAt": null,
+      "restrictedProviderInventoryVerified": false
     }
   },
   "externallyBlocked": [

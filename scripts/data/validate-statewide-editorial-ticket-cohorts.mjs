@@ -16,6 +16,19 @@ try {
   const { loadTexasEventRecordsServer } = await server.ssrLoadModule('/src/data/events/texas-event-records.server.ts');
   const { buildTexasEventCarouselItemsServer, buildGlobalEventCalendarServer } = await server.ssrLoadModule('/src/data/events/texas-event-calendar.server.ts');
   const { isEventSpecificTicketDestination } = await server.ssrLoadModule('/src/data/events/ticket-provider.ts');
+  const { getMajorEventSchemaEnrichmentServer } = await server.ssrLoadModule('/src/data/major-event-schema-enrichment.server.ts');
+  // These five source entries were historically reported as "withheld".
+  // Each was actually an unqualified multi-event pass, free general entry,
+  // or a general organizer homepage. Never reintroduce those as exact
+  // ticket Offer checkout links merely to increase the actionable count.
+  for (const slug of [
+    'austin-film-festival','sxsw','austin-powwow',
+    'houston-art-car-parade','main-st-fort-worth-arts-festival',
+  ]) {
+    const evidence = getMajorEventSchemaEnrichmentServer(slug);
+    if (!evidence) throw new Error('Reviewed festival schema record missing: '+slug);
+    if (evidence.offers?.length) throw new Error('Unqualified general/pass/free admission was republished as a ticket Offer: '+slug);
+  }
   const now = new Date();
   const texas = new Intl.DateTimeFormat('en-US', { timeZone:'America/Chicago',year:'numeric',month:'2-digit',day:'2-digit' }).formatToParts(now);
   const part = (key) => texas.find((p) => p.type === key)?.value ?? '00';
@@ -32,6 +45,7 @@ try {
     .replace(/[^a-z0-9]+/g, ' ').trim();
   let actionable = 0, authorizedAffiliate = 0, safeOfficial = 0, withheld = 0, nonScheduled = 0;
   const sharedTargets = new Map();
+  const withheldCases = [];
   let batches = 0;
   for (let first = 0; first < items.length; first += 50) {
     const batch = items.slice(first, first + 50);
@@ -60,7 +74,25 @@ try {
         nonScheduled++;
         if (cta !== null) fail(event, event.status+' event still renders purchase button');
       }
-      if (!cta) { withheld++; continue; }
+      if (!cta) {
+        withheld++;
+        // Explicit dispositions let an editor resolve genuine missing checkout
+        // IDs without mistaking a source page, expired offer or restricted
+        // seller inventory for confirmed event-specific admission.
+        withheldCases.push({
+          eventId:event.id, title:event.title, date:event.startDate,
+          status:event.status, city:event.city, venue:event.venueName,
+          officialEventUrl:event.officialEventUrl,
+          reasons:links.map(link => ({
+            provider:link.provider, saleStatus:link.saleStatus,
+            hasOfficial:Boolean(link.officialTicketUrl),
+            hasAffiliate:Boolean(link.affiliateUrl),
+            officialExpiresAt:link.officialExpiresAt ?? null,
+            affiliateExpiresAt:link.affiliateExpiresAt ?? null,
+          })),
+        });
+        continue;
+      }
       actionable++;
       if (!cta.href.startsWith('https://') || !isEventSpecificTicketDestination(cta.href)) {
         fail(event, 'general directory or unsafe URL masquerades as exact checkout');
@@ -71,6 +103,13 @@ try {
         const original = event.ticketing.links.find((link) => link.affiliateUrl === cta.href);
         if (wrapper.hostname !== 'ticketmaster.evyy.net'
           || !/^\/c\/7758914\/264167\/4272\/?$/.test(wrapper.pathname)
+          || wrapper.searchParams.size !== 4
+          || wrapper.searchParams.getAll('subId1').length !== 1
+          || wrapper.searchParams.get('subId1') !== 'texasdefined'
+          || wrapper.searchParams.getAll('partnerpropertyid').length !== 1
+          || wrapper.searchParams.get('partnerpropertyid') !== '8837726'
+          || wrapper.searchParams.getAll('MediaPartnerPropertyId').length !== 1
+          || wrapper.searchParams.get('MediaPartnerPropertyId') !== '8837726'
           || wrapper.searchParams.getAll('u').length !== 1
           || wrapper.searchParams.get('u') !== original?.officialTicketUrl
           || !cta.rel.includes('sponsored')) fail(event, 'unapproved or mismatched affiliate event deep link');
@@ -98,6 +137,7 @@ try {
     batchSize:50,actionable,authorizedAffiliate,safeOfficial,withheld,nonScheduled,
     sharedExactTargetsForSourceReview:repeatDestinations.length,
     targetExamples:repeatDestinations.slice(0,8).map(([url,rows])=>({url,records:rows.slice(0,4)})),
+    withheldCases,
     inventoryVerified:false,pricesVerified:false,commissionsVerified:false,
   }));
   assert.deepEqual(findings.slice(0,20), [],

@@ -92,7 +92,9 @@ export const majorEventSchemaEnrichmentBatch9: MajorEventSchemaEnrichment[] = [
   {
     slug: "austin-powwow",
     organizer: organization("Native American Cultural Center", "https://austinpowwow.net/"),
-    offers: [usdOffer("Child under 12 admission", 0, "https://austinpowwow.net/")],
+    // Free entry for children under 12 is a policy, not a checkout.
+    // The organizer homepage's Buy Tickets is a reader-facing navigation
+    // action; no independently verified exact 2026 admission URL is supplied.
     sources: [
       { label: "Austin Powwow official 2026 event page", url: "https://austinpowwow.net/" },
       { label: "Austin Powwow official organizer background", url: "https://austinpowwow.net/about-austin-powwow/" },
