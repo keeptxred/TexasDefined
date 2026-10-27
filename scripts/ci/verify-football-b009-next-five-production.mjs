@@ -131,6 +131,6 @@ if(report.schoolChecks.length!==15||report.countyChecks.length!==5||
   report.failures.push('Strict per-school or county Chrome checks not fully passed');
 if(report.screenshots!==15+9+5)report.failures.push('Missing expected 29 school, timeline and county screenshots');
 await writeFile(out+'/report.json',JSON.stringify(report,null,2)+'\n');
-console.log('Batch 009 first-five production evidence',JSON.stringify({checks:report.schoolChecks.length,
+console.log('Batch 009 second-five production evidence',JSON.stringify({checks:report.schoolChecks.length,
   counties:report.countyChecks.length,screenshots:report.screenshots,versions:report.workerVersions,failures:report.failures.length}));
 assert.equal(report.failures.length,0,'Unverified Batch 009: '+report.failures.slice(0,5).join(' | '));
