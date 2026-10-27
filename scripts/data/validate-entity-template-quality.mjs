@@ -19,6 +19,7 @@ const entityFoodDestinations = read('src/components/content/EntityFoodDestinatio
 const countyGuide = read('src/components/content/CountyGuideSections.tsx');
 const countyIdentity = read('src/components/content/CountyIdentitySection.tsx');
 const countyStatewide = read('src/components/content/CountyStatewideContextSection.tsx');
+const countyContextRemote = read('src/data/county-statewide-context.remote.ts');
 const countyComparison = read('src/data/county-comparison.ts');
 const countyComparisonTable = read('src/components/counties/TexasCountyComparisonTable.tsx');
 const entityIndex = read('src/data/knowledge-graph/index.ts');
@@ -78,9 +79,15 @@ for (const forbiddenTemplateCopy of ['Where it is','A sense of place','How to us
 for (const feature of ['Verified county profile','What the data says about','populationDensityPerSquareMile','waterSharePercent','Dividing those two Census figures','structured place directory','not a claim that the list contains every incorporated place','CountyStatewideContextSection','countySlug(countyName)']) {
   if (!countyIdentity.includes(feature)) errors.push(`County identity uniqueness contract missing: ${feature}`);
 }
-for (const feature of ['Statewide context','Where {countyName} sits in the county data','buildCountyStatewideContext','loadTexasCountyComparison','of {fact.comparedCount} counties with source data','missing source values are excluded rather than estimated']) {
+for (const feature of ['Statewide context','Where {countyName} sits in the county data','loadCountyStatewideContext(countySlug)','of {fact.comparedCount} counties with source data','missing source values are excluded rather than estimated']) {
   if (!countyStatewide.includes(feature)) errors.push(`County statewide context missing: ${feature}`);
 }
+// The statewide rankings must use the same verified source records, but that
+// 254-county computation must run on the server, not fetch official sources from browsers.
+for (const feature of ["createServerFn({ method: 'GET' })",'buildCountyStatewideContext(await loadTexasCountyComparison(), data.slug)', 'countyContextServerFn({ data: { slug } })', 'countyContextCache.set(slug, promise)']) {
+  if (!countyContextRemote.includes(feature)) errors.push(`Server-side county ranking contract missing: ${feature}`);
+}
+if (countyStatewide.includes('use(loadTexasCountyComparison())')) errors.push('County rankings may not fetch all 254 county sources directly in visitor browsers.');
 for (const feature of ['populationDensityPerSquareMile','waterSharePercent','buildCountyStatewideContext','metricRank','landAreaSquareMiles','difference || a.name.localeCompare(b.name)']) {
   if (!countyComparison.includes(feature)) errors.push(`County comparison uniqueness contract missing: ${feature}`);
 }
