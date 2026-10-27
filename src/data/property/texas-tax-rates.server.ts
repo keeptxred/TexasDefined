@@ -1,5 +1,6 @@
 import { supabase } from '@/integrations/supabase/client';
 import type { TexasTaxRateRecord, TexasTaxRateSourceStatus, TexasTaxingUnitType } from './texas-tax-rates.generated';
+import { cachedPublishedTax } from './published-tax-cache.server';
 
 export const TAX_RATE_SOURCE_NAME = 'Texas Comptroller of Public Accounts — Property Tax Assistance Division';
 export const TAX_RATE_SOURCE_PAGE = 'https://comptroller.texas.gov/taxes/property-tax/rates/';
@@ -67,6 +68,7 @@ export function mapTaxRateRow(row: TaxRateRow): TexasTaxRateRecord {
 }
 
 export async function getLatestTaxRateYearServer() {
+  return cachedPublishedTax('latest-tax-year', async () => {
   const { data, error } = await db
     .from('texas_property_tax_rates')
     .select('year')
@@ -75,6 +77,7 @@ export async function getLatestTaxRateYearServer() {
   if (error) throw error;
   const year = Number(data?.[0]?.year);
   return Number.isInteger(year) ? year : FALLBACK_LATEST_YEAR;
+  });
 }
 
 export function availableTaxYears(latestYear: number) {
@@ -96,6 +99,7 @@ export function taxRateMetadata(latestYear: number, generatedAt: string | null =
 }
 
 export async function getCountyTaxRateSummaryServer(countySlug: string, year: number): Promise<{ summary: CountyTaxRateSummary; generatedAt: string | null }> {
+  return cachedPublishedTax(`county-tax-summary:${year}:${countySlug}`, async () => {
   const { data, error } = await db
     .from('texas_property_tax_rates')
     .select('*')
@@ -118,6 +122,7 @@ export async function getCountyTaxRateSummaryServer(countySlug: string, year: nu
       specialDistricts: byType('special-district'),
     },
   };
+  });
 }
 
 export async function searchTaxingUnitsServer(query: string, year: number, limit = 100, type?: TexasTaxingUnitType): Promise<{ records: TexasTaxRateRecord[]; generatedAt: string | null }> {
@@ -140,6 +145,7 @@ export async function searchTaxingUnitsServer(query: string, year: number, limit
 }
 
 export async function getTaxingUnitRateHistoryServer(slug: string, type?: TexasTaxingUnitType): Promise<TexasTaxRateRecord[]> {
+  return cachedPublishedTax(`unit-tax-history:${type ?? 'auto'}:${slug}`, async () => {
   let query = db
     .from('texas_property_tax_rates')
     .select('*')
@@ -196,6 +202,7 @@ export async function getTaxingUnitRateHistoryServer(slug: string, type?: TexasT
     };
   }
   return records;
+  });
 }
 
 export async function getTaxRateDatasetCountServer() {
@@ -206,6 +213,7 @@ export async function getTaxRateDatasetCountServer() {
 
 
 export async function getStatewideTaxRateInsightsServer(year: number) {
+  return cachedPublishedTax(`statewide-tax-insights:${year}`, async () => {
   const base = () => db
     .from('texas_property_tax_rates')
     .select('*')
@@ -240,5 +248,5 @@ export async function getStatewideTaxRateInsightsServer(year: number) {
     lowest: ((lowestData ?? []) as TaxRateRow[]).map(mapTaxRateRow),
     highest: ((highestData ?? []) as TaxRateRow[]).map(mapTaxRateRow),
     generatedAt: ((lowestData ?? [])[0] as TaxRateRow | undefined)?.imported_at ?? ((highestData ?? [])[0] as TaxRateRow | undefined)?.imported_at ?? null,
-  };
+  };  });
 }
