@@ -25,7 +25,7 @@ export const CORE_TEXAS_AGENCIES: TexasEntityRecord[] = [
 ];
 
 export const TEXAS_COUNTY_ENTITIES: TexasEntityRecord[] = TEXAS_COUNTIES.map(county=>({
-  id:`county:${county.slug}`,kind:'county',name:county.name,slug:county.slug,aliases:[county.name.replace(/ County$/,'')],officialUrl:county.officialDirectoryUrl,sourceId:'census-counties',sourceConfidence:'official',sourceCheckedAt:checkedAt,status:'active',relationships:[{type:'has-appraisal-district',targetId:`appraisal-district:${county.slug}`},{type:'has-tax-office',targetId:`tax-office:${county.slug}`}]
+  id:`county:${county.slug}`,kind:'county',name:county.name,slug:county.slug,aliases:[county.name.replace(/ County$/,'')],officialUrl:county.officialDirectoryUrl,sourceId:'census-counties',sourceConfidence:'official',sourceCheckedAt:county.slug === 'van-zandt' ? '2026-10-26' : checkedAt,status:'active',relationships:[{type:'has-appraisal-district',targetId:`appraisal-district:${county.slug}`},{type:'has-tax-office',targetId:`tax-office:${county.slug}`}]
 }));
 
 export const TEXAS_CITY_ENTITIES: TexasEntityRecord[] = TEXAS_CITIES.map(city=>({
