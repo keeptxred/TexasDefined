@@ -312,7 +312,7 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
     { name: 'Bynum Bulldogs', slug: 'bynum', context: 'Hill County Bynum ISD six-man Bulldogs: District 14, 2026 rebuild, Bulldog Field and qualified coach attribution' }],
   'san-patricio': [{ name: 'Aransas Pass Panthers', slug: 'aransas-pass', context: 'Aransas Pass program history and contemporary varsity schedule context' }],
   archer: [{ name: 'Archer City Wildcats', slug: 'archer-city', context: '1964 state championship and reconciled UIL historical indexing discrepancy' }],
-  wise: [{ name: 'Alvord Bulldogs', slug: 'alvord', context: '2025 undefeated district run and 2026 home ticket details' }, { name: 'Boyd Yellowjackets', slug: 'boyd', context: '3A Division I District 4 Wise County 2026 varsity football' },
+  wise: [{ name: 'Chico Dragons', slug: 'chico', context: 'Wise County UIL 2A Division I District 6; Texas Chico ISD confirmed, scores and head-coach status remain source qualified' }, { name: 'Alvord Bulldogs', slug: 'alvord', context: '2025 undefeated district run and 2026 home ticket details' }, { name: 'Boyd Yellowjackets', slug: 'boyd', context: '3A Division I District 4 Wise County 2026 varsity football' },
     { name: 'Bridgeport Bulls', slug: 'bridgeport', context: 'Bridgeport ISD Bulls 2026 official coach Aaron Cupp, 22 football playoff appearances and Bull Memorial Stadium turf notice; 1–6 reported through October 16' }],
   randall: [
     { name: 'Amarillo High Sandies', slug: 'amarillo', context: 'Four UIL state titles and the documented Sandies–Tascosa football series' },
@@ -329,6 +329,10 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
 // for the same campus county. There must be no duplicate object keys in
 // either map; the strict CI validator enforces this invariant.
 const supplementalFootballCountyLinks: Record<string, Array<{ name: string; slug: string; context: string }>> = {
+  'san-saba': [{ name: 'Cherokee Fighting Indians', slug: 'cherokee', context: 'San Saba County six-man UIL 1A Division II District 8, school identity and old-score caution' }],
+  'tyler': [{ name: 'Chester Yellowjackets', slug: 'chester', context: 'Tyler County six-man 1A Division I District 13, district names Coleman Butter head coach' }],
+  'childress': [{ name: 'Childress Bobcats', slug: 'childress', context: 'Childress County UIL 3A Division II District 1, district Bo Helm and 2026 varsity schedule' }],
+  'hardeman': [{ name: 'Chillicothe Eagles', slug: 'chillicothe', context: 'Hardeman County six-man 1A Division II District 2, district Zack Ryan AD and unsettled varsity coach' }],
   'shelby': [{ name: 'Center Roughriders', slug: 'center', context: 'Shelby County 4A Division II District 8, January 2026 Jack Alvarez appointment, Center ISD stadium-entry source caveats' }],
   'kerr': [{ name: 'Center Point Pirates', slug: 'center-point', context: 'Kerr County 2A Division II District 14, 2026 Pirates preseason bulletin and conflicting district athletics leadership pages' }],
   'atascosa': [{ name: 'Charlotte Trojans', slug: 'charlotte', context: 'Atascosa County 2A Division II District 15, current Timothy Williams AD, school athletic schedules and unconfirmed varsity head coaching' }],
