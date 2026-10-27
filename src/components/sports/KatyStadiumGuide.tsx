@@ -22,10 +22,11 @@ export function KatyStadiumGuide() {
                   </div>
                 </article>)}
               </div>
-              <p className="mt-5 text-sm leading-7 text-muted-foreground"><strong className="text-foreground">Parking, entry and tickets:</strong> Confirm the assigned venue, home/visitor side, bags, parking and admission directly with Katy ISD for each game. Katy ISD's clear-bag policy applies to both stadiums; official athletic ticket links are available through Katy High School.</p>
+              <p className="mt-5 text-sm leading-7 text-muted-foreground"><strong className="text-foreground">Parking, entry and tickets:</strong> Confirm the assigned venue, home/visitor side, bags, parking and admission directly with Katy ISD for each game. Katy ISD's clear-bag policy applies to both stadiums. Buy through official district-linked ticketing pages and select the correct game and home/visitor side; availability and admission rules can change.</p>
           <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">
             <a href="https://www.katyisd.org/athletics/facilities/clear-bag-regulation" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Official clear-bag rules ↗</a>
-            <a href="https://khs.katyisd.org/athletics/home" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Katy High athletics &amp; tickets ↗</a>
+            <a href="https://www.vancoevents.com/us/eventlist/varsityfb" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Katy ISD varsity football tickets ↗</a>
+            <a href="https://khs.katyisd.org/athletics/home" target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-4">Katy High athletics ↗</a>
           </div>
               <a href="https://katyabc.org/features/katy-football-record-book/" target="_blank" rel="noopener noreferrer" className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4">Katy's maintained football record book (updated through 2025) ↗</a>
             </div>
