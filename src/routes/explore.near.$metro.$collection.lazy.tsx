@@ -810,8 +810,8 @@ export function MetroProximityCollectionRich({ pageData }: { pageData: Collectio
         <p className="eyebrow text-primary">Pick the kind of day you actually have</p>
         <h2 id="el-paso-trip-decisions-title" className="mt-3 max-w-4xl font-display text-3xl sm:text-4xl">Three ways to plan an El Paso outing</h2>
         <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">
-          These are ways to organize the existing parks, heritage sites and official visitor references above—not
-          additional destination records or evidence that the geographic collection qualifies for search indexing.
+          These are ways to organize the existing parks, heritage sites and official visitor references above—not additional destination records
+          or evidence that the geographic collection qualifies for search indexing.
           In this part of Texas, access rules and return travel matter more than how many stops fit on a list.
         </p>
         <div className="mt-8 grid gap-8 lg:grid-cols-3">
