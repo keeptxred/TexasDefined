@@ -10,7 +10,8 @@ const hubLazyPath = "src/routes/explore.painted-churches_.guides.lazy.tsx";
 const detailPath = "src/routes/explore.painted-churches_.guides_.$slug.tsx";
 const detailLazyPath = "src/routes/explore.painted-churches_.guides_.$slug.lazy.tsx";
 const sitemapPath = "src/routes/sitemap-explore[.]xml.ts";
-const collectionPath = "src/routes/explore.painted-churches.tsx";\nconst collectionLazyPath = "src/routes/explore.painted-churches.lazy.tsx";
+const collectionPath = "src/routes/explore.painted-churches.tsx";
+const collectionLazyPath = "src/routes/explore.painted-churches.lazy.tsx";
 const mapPath = "src/routes/explore.painted-churches.map.tsx";
 const profileDossierPath = "src/components/editorial/PaintedChurchResearchDossier.tsx";
 
