@@ -146,7 +146,9 @@ jobs:
             --data '{"state":"success","context":"texasdefined-seasonal-live","description":"Seasonal Texas authority routes are live"}' >/dev/null
 
       - name: Publish failure status
-        if: ${{ failure() }}
+        # Only failed live assertions are a seasonal-production failure.
+        # An undeployed manually selected revision fails before publication.
+        if: ${{ steps.live.outcome == 'failure' }}
         shell: bash
         run: |
           curl --fail-with-body --silent --show-error --request POST \
