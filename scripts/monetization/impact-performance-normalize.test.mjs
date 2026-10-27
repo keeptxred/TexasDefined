@@ -23,5 +23,8 @@ test('financial values not stored without verified currency; date exact',()=>{
   assert.equal(normalizeDailyImpactRows([raw],'2026-10-26',{currencyCode:'USD'}).reported_total_cost,7.5);
   assert.throws(()=>normalizeDailyImpactRows([raw],'2026-10-25'),/date/);
   assert.equal(normalizeDailyImpactRows([],'2026-10-26'),null);
+  const displayOnly={...raw,sort_date:undefined,date_display:'October 26, 2026'};
+  assert.equal(normalizeDailyImpactRows([displayOnly],'2026-10-26').reported_clicks,12);
+  assert.throws(()=>normalizeDailyImpactRows([{...displayOnly,date_display:'October 25, 2026'}],'2026-10-26'),/displayed date/);
   assert.throws(()=>normalizeDailyImpactRows([raw,raw],'2026-10-26'),/grouping/);
 });
