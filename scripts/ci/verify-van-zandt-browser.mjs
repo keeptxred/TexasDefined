@@ -37,9 +37,15 @@ async function inspect(label, width, height, failApi = false) {
       return h1?.textContent?.trim() === 'Van Zandt County' &&
         !!document.querySelector('a[href*="openstreetmap.org/search?query="]');
     }, null, { timeout: 55000 });
-    // Re-check the fully hydrated route after the first layout and async state pass.
+    // TanStack Start can briefly replace server HTML with an empty Suspense
+    // outlet while the client route loader revalidates. Recheck a settled route
+    // after that transition rather than treating a transient as a 404.
     await page.waitForTimeout(1500);
-    assert.ok(await page.locator('h1').filter({ hasText: 'Van Zandt County' }).count(), 'County route lost its main heading after hydration');
+    await page.waitForFunction(() => {
+      const h1 = document.querySelector('h1');
+      return h1?.textContent?.trim() === 'Van Zandt County' &&
+        !!document.querySelector('a[href*="openstreetmap.org/search?query="]');
+    }, null, { timeout: 40000 });
     const seo = await page.evaluate(() => ({
       canonical: document.querySelector('link[rel="canonical"]')?.href,
       robots: document.querySelector('meta[name="robots"]')?.content || '',
