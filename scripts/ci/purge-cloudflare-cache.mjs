@@ -60,6 +60,8 @@ const alwaysPurgeUrls = [
   // share a sourced league ledger. Invalidate the whole local authority cluster
   // after a verified deployment; do not leave old HTML pointing at new game data.
   `https://${zoneName}/texas-high-school-football-districts/6a-district-22`,
+  // Katy's evergreen football guide must not retain a cached 2026-schedule SEO title or obsolete PDF after release.
+  `https://${zoneName}/texas-high-school-football-teams/katy`,
   `https://${zoneName}/texas-high-school-football-districts/6a-district-21`,
   ...[
     'fort-bend-austin', 'fort-bend-bush', 'fort-bend-clements',
