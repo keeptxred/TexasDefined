@@ -123,6 +123,38 @@ export async function loadPartnerReferralAnalyticsDashboard(accessKey: string): 
   if (error) throw new Error(`Partner referral analytics could not be loaded: ${error.message}`);
   const rows = (Array.isArray(data) ? data : []) as ReferralRow[];
 
+  // Impact is an independent PROVIDER-side measurement system. Read it only
+  // AFTER the existing commercial-admin access assertion above. Do not fold
+  // provider clicks into Cloudflare first-party referral totals.
+  const { data: impactData, error: impactError } = await client
+    .from('texasdefined_impact_performance_daily')
+    .select('metric_date,reported_clicks,reported_actions,reported_sales,currency_code,synced_at')
+    .gte('metric_date', utcDateOffset(WINDOW_DAYS - 1))
+    .order('metric_date', { ascending: true });
+  if (impactError) throw new Error('Private Impact provider metrics could not be loaded.');
+  const impactRows = (Array.isArray(impactData) ? impactData : []) as Array<{
+    metric_date: string; reported_clicks: number | string | null;
+    reported_actions: number | string | null;
+    reported_sales: number | string | null; currency_code: string | null;
+    synced_at: string;
+  }>;
+  function providerTotal(key: 'reported_clicks' | 'reported_actions' | 'reported_sales'): number | null {
+    if (!impactRows.length || impactRows.some(row => row[key] === null || row[key] === undefined)) return null;
+    return impactRows.reduce((total, row) => total + Math.max(0, Number(row[key]) || 0), 0);
+  }
+  const impact = {
+    source: 'impact.com' as const,
+    reportName: 'partner_performance_by_day' as const,
+    observedDays30d: impactRows.length,
+    providerClicks30d: providerTotal('reported_clicks'),
+    providerActions30d: providerTotal('reported_actions'),
+    providerSales30d: providerTotal('reported_sales'),
+    lastProviderSyncAt: impactRows.reduce<string | null>(
+      (last, row) => !last || row.synced_at > last ? row.synced_at : last, null),
+    currencyVerified: impactRows.length > 0 && impactRows.every(row => Boolean(row.currency_code)),
+    settledCommissionVerified: false as const,
+  };
+
   const sevenDayStart = utcDateOffset(6);
   const thirtyDayStart = utcDateOffset(29);
   const priorSevenStart = utcDateOffset(13);
@@ -306,6 +338,7 @@ export async function loadPartnerReferralAnalyticsDashboard(accessKey: string): 
   });
 
   return {
+    impact,
     generatedAt: new Date().toISOString(),
     lastSyncedAt,
     lastPipelineSyncAt,
