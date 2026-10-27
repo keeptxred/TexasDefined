@@ -61,7 +61,7 @@ try {
               // Parent festival guides retain organizer links but must not
               // sell generalized credentials/free entry as exact admission.
               festivalSourcePresent:!sourceHostname || links.some(a=>{
-                try{return new URL(a.href).hostname.replace(/^www\\./,'')===sourceHostname}catch{return false}
+                try{return new URL(a.href).hostname.replace(/^www\./,'')===sourceHostname}catch{return false}
               }),
               festivalOfferHeading:[...document.querySelectorAll('h3')].some(h=>
                 /^(?:Tickets and admission|Verified admission options)$/i.test(h.textContent?.trim()||'')),
