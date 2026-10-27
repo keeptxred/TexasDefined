@@ -235,6 +235,16 @@ if (providerOffsale?.links.length !== 1 || resolveEventTicketCta(providerOffsale
 
 const expired = resolveEventTicketCta({ links: [{ ...base, officialTicketUrl: official, affiliateUrl: approved, affiliateExpiresAt: '2026-09-11T20:30:00Z' }], offers: [] }, now);
 if (!expired || expired.label !== 'Official Tickets →' || expired.isAffiliate) throw new Error('expired affiliate fallback failed');
+const expiredUnderlying = resolveEventTicketCta({ links: [{ ...base, officialTicketUrl: official, affiliateUrl: approved,
+  affiliateExpiresAt: '2026-09-12T21:00:00Z', officialExpiresAt: '2026-09-11T20:30:00Z' }], offers: [] }, now);
+if (expiredUnderlying !== null) throw new Error('live Impact wrapper must not revive expired exact official checkout');
+const liveUnderlying = resolveEventTicketCta({ links: [{ ...base, officialTicketUrl: official, affiliateUrl: approved,
+  affiliateExpiresAt: '2026-09-12T21:00:00Z', officialExpiresAt: '2026-09-12T21:00:00Z' }], offers: [] }, now);
+if (!liveUnderlying?.isAffiliate || liveUnderlying.href !== approved)
+  throw new Error('future source URL lease should preserve authorized Impact action');
+const invalidUnderlying = resolveEventTicketCta({ links: [{ ...base, officialTicketUrl: official, affiliateUrl: approved,
+  officialExpiresAt: 'not-a-date' }], offers: [] }, now);
+if (invalidUnderlying !== null) throw new Error('invalid official URL expiry cannot be bypassed via Impact tracking');
 const unsafe = resolveEventTicketCta({ links: [{ ...base, officialTicketUrl: official, affiliateUrl: 'javascript:alert(1)' }], offers: [] }, now);
 if (!unsafe || unsafe.href !== official || unsafe.isAffiliate) throw new Error('unsafe affiliate fallback failed');
 const soldOut = resolveEventTicketCta({ links: [{ ...base, saleStatus: 'sold-out', officialTicketUrl: official, affiliateUrl: approved }], offers: [] }, now);

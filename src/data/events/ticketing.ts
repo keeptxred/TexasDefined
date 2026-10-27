@@ -138,7 +138,9 @@ export function resolveEventTicketCta(ticketing: TexasEventTicketingMetadata | u
 
   for (const link of links) {
     const href = approvedAffiliateHref(link);
-    if (!href || isExpired(link.affiliateExpiresAt, now)) continue;
+    // An approved Impact wrapper cannot revive an expired underlying checkout.
+    // Honor BOTH the affiliate tracking lease and official event URL expiry.
+    if (!href || isExpired(link.affiliateExpiresAt, now) || isExpired(link.officialExpiresAt, now)) continue;
     return {
       href,
       label: "Find Tickets →",
