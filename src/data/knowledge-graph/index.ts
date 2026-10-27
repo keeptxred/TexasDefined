@@ -1,5 +1,6 @@
 import { TEXAS_ENTITY_REGISTRY, findTexasEntity, relationshipsFor, validateTexasEntityRegistry } from '../texas-entity-registry';
-import { countyProfileDescription, loadCountyProfile } from '../county-profile';
+import { countyProfileDescription } from '../county-profile';
+import { loadCountyProfile } from '../county-profile.remote';
 import { hasCountySeriesProfile } from '../county-series';
 import { loadLocalGovernmentProfile, localOfficeDescription } from '../local-government-profile';
 import { getCountyPropertyRecordBySlug } from '../property/county-property-data';
