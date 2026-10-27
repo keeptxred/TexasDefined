@@ -4296,6 +4296,48 @@
         "seatsVerified": false,
         "commissionsVerified": false
       }
+    },
+    "editorialCohortIntegrity": {
+      "status": "IMPLEMENTED",
+      "source": "loadTexasEventRecordsServer canonical upcoming ticketed editorial and provider-enriched records",
+      "batchSize": 50,
+      "selection": "Non-ticketmaster canonical records with future end/start dates and ticket links; stable startDate/id order, verify all cohorts, no repeated audit truncation.",
+      "guards": [
+        "Event-specific HTTPS checkout only; no browse/school catalog or venue directories",
+        "Only authorized Impact deep links matching exact provider admission identity",
+        "No sponsored semantics on official links",
+        "Non-scheduled event lifecycle suppresses ticket CTA",
+        "Source provenance and verification timestamps",
+        "One shared calendar/carousel CTA per exact event",
+        "Duplicate editorial IDs fail closed",
+        "Cross-event repeated checkout destinations reported for source review"
+      ],
+      "statusPolicy": "IMPLEMENTED until protected merged and production verified",
+      "lastTestedAt": "2026-10-26T23:25:21Z",
+      "recordCount": 34,
+      "sessionEvidence": "GitHub Actions protected ticketing validation must log audited editorial record count; never equate with live seat inventory",
+      "pr": null,
+      "productionVerifiedAt": null,
+      "inventoryVerification": "NOT_VERIFIED",
+      "checkoutPriceVerification": "NOT_VERIFIED",
+      "commissionVerification": "NOT_VERIFIED",
+      "testEvidence": {
+        "workflowRunId": 40419590221,
+        "jobId": 121910397513,
+        "results": {
+          "upcomingEditorialTicketRows": 34,
+          "cohorts": 1,
+          "batchSize": 50,
+          "actionable": 29,
+          "authorizedAffiliate": 7,
+          "officialNonAffiliate": 22,
+          "withheldByResolver": 5,
+          "nonScheduled": 0,
+          "repeatedExactTargetFamilies": 0
+        },
+        "status": "PASS — targeted ticketing architecture workflow; protected canonical Merge Gate still required"
+      },
+      "rebasedOnMain": "d04bd786bd6cf2743ef8343202b04d17a4304c1a"
     }
   },
   "externallyBlocked": [
