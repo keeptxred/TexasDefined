@@ -14,7 +14,7 @@ The existing private **`/admin/partner-referrals`** page authenticates via `asse
 - Zero is distinct from null; never normalize missing fields to zero or assume unknown reports mean no revenue.
 - Store no individual `action_id`, customer identifiers, checkout items, transaction timestamps, IPs, purchaser data, raw report JSON, API tokens or account SID.
 - Retain immutable source-code reporting logic but keep actual revenue numbers private. Historical corrections must update the same `metric_date` row, not double count a second row.
-- The table is schema-ready only. It does **not** prove an ingestion run succeeded or that an earnings dashboard exists. Activate importer only after read-only report response shape and currency are confirmed for this account.
+- The provider response schema has been confirmed in production (#6102 / run #40587721874), including `date_display` where `sort_date` is absent. A bounded three-day GET-only importer and an **admin-only Impact activity section** are included in the repository release. **The synced amount fields remain NULL** because the publisher account's currency and settlement status are unverified. Passing unit tests or enabling the workflow is not proof that the import has succeeded in production; verify the post-merge run and the private database. Never present Impact-reported clicks/actions as customer purchases or paid commissions.
 
 ## Migration
 
