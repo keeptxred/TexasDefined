@@ -440,26 +440,11 @@ function Page() {
                 : editorial?.intro ?? profileSummary}
             </p>
           </div>
-          {slug === 'aubrey' ? (
-            <figure style={{ minWidth: 0 }}>
-              <div className="relative overflow-hidden border border-border" style={{ height: 'clamp(210px, 34vw, 330px)', backgroundColor: '#10243d' }}>
-                <img
-                  src="https://images.unsplash.com/photo-1508209495879-445d5febf597?auto=format&fit=crop&w=1400&q=78"
-                  alt="High school American football under stadium lights at dusk, pictured at a game in Aurora, Colorado, not an Aubrey game"
-                  width={1400}
-                  height={940}
-                  loading="eager"
-                  decoding="async"
-                  fetchPriority="high"
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 53%' }}
-                  />
-              </div>
-              <figcaption className="mt-2 text-xs text-muted-foreground" style={{ lineHeight: 1.5 }}>
-                Representative high-school football photo, not an Aubrey team or stadium image.{' '}
-                <a href="https://unsplash.com/photos/man-holding-football-field-post-on-side-of-field-Fbq47uCtXHI" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">Tim Mossholder / Unsplash</a>.{' '}
-                <a href="https://unsplash.com/license" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">Unsplash License</a>.
-              </figcaption>
-            </figure>
+          {editorial?.photo ? (
+            <FootballSourcedPhoto
+              photo={editorial.photo}
+              priority={slug === 'aubrey' || slug === 'katy' || slug === 'fort-davis'}
+            />
           ) : (
             <FootballIdentityPanel
               footballName={footballName}
@@ -633,13 +618,6 @@ function Page() {
             <span className="mx-2 text-muted-foreground">·</span>
             <a href="https://www.abileneisd.org/article/1525088" target="_blank" rel="noreferrer noopener" className="font-semibold text-primary underline underline-offset-4">District's historical rivalry results ↗</a>
           </div>}
-          {editorial.photo && <figure className="mt-7 overflow-hidden border border-border bg-surface">
-            <img src={editorial.photo.src} alt={editorial.photo.alt} width={editorial.photo.width} height={editorial.photo.height} loading={schoolName === 'Katy' || schoolName === 'Fort Davis' ? 'eager' : 'lazy'} decoding="async" className={editorial.photo.width < 400 ? "mx-auto block h-auto w-auto max-w-full object-contain" : "block h-auto w-full object-cover"} />
-            <figcaption className="p-4 text-xs leading-6 text-muted-foreground">
-              {editorial.photo.caption}{' '}Photo by <a href={editorial.photo.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">{editorial.photo.credit}</a>.{' '}
-              <a href={editorial.photo.licenseUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">{editorial.photo.license}</a>.
-            </figcaption>
-          </figure>}
           <div className="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">
             {editorial.coach && <a href={editorial.coach.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">{editorial.coach.sourceLabel} ↗</a>}
             {editorial.schedule && <a href={editorial.schedule.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">{editorial.schedule.label} ↗</a>}
@@ -1089,6 +1067,39 @@ function ReportedFormIllustration({
       })}
     </ol>
     <p className="mt-4 text-xs leading-5 text-muted-foreground">Shows source-reported completed and awarded outcomes entered into this school record. Forfeits are labeled, not actual played scores; scheduled, cancelled and unverified games are excluded. <a href={sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Review the cited results source ↗</a></p>
+  </figure>;
+}
+
+type FootballEditorialPhoto = {
+  src: string;
+  width: number;
+  height: number;
+  alt: string;
+  caption: string;
+  credit: string;
+  sourceUrl: string;
+  license: string;
+  licenseUrl: string;
+};
+
+function FootballSourcedPhoto({ photo, priority }: { photo: FootballEditorialPhoto; priority: boolean }) {
+  return <figure className="min-w-0 overflow-hidden border border-border bg-surface">
+    <div className="relative overflow-hidden bg-muted" style={{ height: 'clamp(210px, 30vw, 330px)' }}>
+      <img
+        src={photo.src}
+        alt={photo.alt}
+        width={photo.width}
+        height={photo.height}
+        loading={priority ? 'eager' : 'lazy'}
+        decoding="async"
+        fetchPriority={priority ? 'high' : undefined}
+        className={photo.width < 400 ? 'mx-auto block h-full w-auto max-w-full object-contain' : 'block h-full w-full object-cover'}
+      />
+    </div>
+    <figcaption className="p-4 text-xs leading-6 text-muted-foreground">
+      {photo.caption}{' '}Photo by <a href={photo.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">{photo.credit}</a>.{' '}
+      <a href={photo.licenseUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">{photo.license}</a>.
+    </figcaption>
   </figure>;
 }
 
