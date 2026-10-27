@@ -1,5 +1,5 @@
 import type { Destination } from "./types";
-import { viatorDestinationExpansionWave12 } from "./viator-destination-expansion-wave12";
+import { viatorDestinationExpansionWave12 } from "./viator-destination-expansion-wave12.ts";
 
 const OWNER_MEDIA_SLUG = "texas-hill-country-olive-co";
 const OWNER_HERO = "/images/destinations/texas-hill-country-olive-co-bistro.webp";
