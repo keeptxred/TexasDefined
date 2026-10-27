@@ -38,3 +38,16 @@ Provider references:
 - https://impact-enterprise-group.readme.io/impact-publisher/reference/retrieve-metadata
 - https://impact-enterprise-group.readme.io/impact-publisher/reference/report-export-best-practices
 - https://impact-enterprise-group.readme.io/impact-publisher/reference/pagination
+
+## Additional finance entitlement discovery
+
+The same authorized **Reports GET** permission can list generic Finance report
+definitions, if the partner account exposes any. A bounded read-only metadata
+check inspects at most two finance report definitions for explicit
+`Currency`/`PaymentStatus` or related fields. **It never runs finance
+reports or accesses payout amounts**, and never assumes that an API-visible
+finance report implies paid commissions or that its monetary fields are USD.
+No new Impact API scopes are requested for this discovery. Any actual future
+financial import must separately verify its currency, settlement semantics,
+private storage and dashboard presentation. Metadata visibility is not payout
+evidence.
