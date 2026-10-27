@@ -1,3 +1,4 @@
+import { buildHotelsComEvergreenClick, hotelsComPageSid } from "@/lib/cj-hotels-evergreen";
 import { createLazyFileRoute } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
 import { BookingCarRentalCard } from "@/components/monetization/BookingCarRentalCard";
@@ -227,7 +228,7 @@ function TexasAirShowsPage() {
       <section className="mt-14 border-t border-border pt-10">
         <h2 className="font-display text-3xl">Hotels and overnight planning</h2>
         <p className="mt-3 max-w-3xl leading-7 text-muted-foreground">A hotel is most useful when you need to arrive before morning gate opening, avoid post-show traffic or extend your visit around a Texas destination. Each individual show guide has the site's existing location-aware stay options. We do not advertise invented nightly rates or claim a hotel is next to an airfield without checking.</p>
-        <a href="https://www.anrdoezrs.net/links/101876465/type/dlg/https://www.hotels.com/" target="_blank" rel="sponsored nofollow noopener noreferrer" data-affiliate-partner="hotels.com" data-affiliate-placement="airshows-hub-stays" data-commercial-partner="hotels.com" data-commercial-placement="airshows-hub-stays" className="mt-5 inline-flex min-h-11 items-center border border-primary px-5 py-3 font-semibold text-primary">Compare Texas hotels on Hotels.com ↗</a>
+        <a href={buildHotelsComEvergreenClick("https://www.hotels.com/", hotelsComPageSid("/events/air-shows"))} target="_blank" rel="sponsored nofollow noopener noreferrer" data-affiliate-partner="hotels.com" data-affiliate-placement="airshows-hub-stays" data-commercial-partner="hotels.com" data-commercial-placement="airshows-hub-stays" className="mt-5 inline-flex min-h-11 items-center border border-primary px-5 py-3 font-semibold text-primary">Compare Texas hotels on Hotels.com ↗</a>
         <p className="mt-2 text-xs text-muted-foreground">Affiliate disclosure: Texas Defined may earn a commission on qualifying hotel bookings at no additional cost to you. Ticket links above go directly to event organizers and are not presented as Ticketmaster affiliate offers.</p>
       </section>
 

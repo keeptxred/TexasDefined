@@ -49,6 +49,15 @@ function verifyLiveRoutingPolicy(source) {
   requireCondition(api.rvshareEligible('/explore/rv-parks') === true, 'Live RV-parks hub must remain eligible for RVshare.');
   requireCondition(api.rvshareEligible('/destination/fredericksburg') === false, 'Live generic destination pages must fail closed for RVshare.');
 
+  const officialPalestineDestination = 'https://www.hotels.com/de1634643/hotels-palestine-texas/';
+  const officialPalestineClick = new URL(api.buildCjDeepLink(officialPalestineDestination, '/event/polar-express-palestine'));
+  requireCondition(officialPalestineClick.origin === 'https://www.anrdoezrs.net'
+    && officialPalestineClick.pathname === '/click-101876465-15734399'
+    && officialPalestineClick.searchParams.size === 2
+    && officialPalestineClick.searchParams.get('sid') === 'td_polar_palestine'
+    && officialPalestineClick.searchParams.get('url') === officialPalestineDestination,
+    'Live Palestine Hotels.com referral must preserve CJ publisher, Evergreen link, SID and exact city destination.');
+
   const orbitz = api.buildCjDeepLink('https://www.orbitz.com/');
   const travelocity = api.buildCjDeepLink('https://www.travelocity.com/');
   const rvshare = api.buildCjDeepLink('https://rvshare.com/');
@@ -68,7 +77,13 @@ function verifyLiveRoutingPolicy(source) {
     requireCondition(stay?.verifiedAt === '2026-09-23', `Live featured golf verification date drifted for ${pathname}.`);
     requireCondition(/^https:\/\//.test(stay?.sourceUrl || ''), `Live featured golf source is missing for ${pathname}.`);
     const affiliateUrl = api.buildCjDeepLink(stay.destination);
-    requireCondition(affiliateUrl.startsWith('https://www.anrdoezrs.net/links/101876465/type/dlg/https://www.hotels.com/ho'), `Live featured golf stay is not bound to the TexasDefined CJ publisher for ${pathname}.`);
+    const parsedClick = new URL(api.buildCjDeepLink(stay.destination, pathname));
+    requireCondition(parsedClick.origin === 'https://www.anrdoezrs.net'
+      && parsedClick.pathname === '/click-101876465-15734399'
+      && parsedClick.searchParams.size === 2
+      && parsedClick.searchParams.get('url') === stay.destination
+      && /^td_[a-z0-9_]{1,60}$/.test(parsedClick.searchParams.get('sid') || ''),
+      `Live featured golf stay lost its approved Hotels.com AID, source property or route SID for ${pathname}.`);
   }
   requireCondition(api.featuredGolfStay('/sports-venue/colonial-country-club') === null, 'Live Colonial lodging must remain on its curated three-property cohort.');
   requireCondition(api.featuredGolfStay('/sports-venue/globe-life-field') === null, 'Live non-golf venue must not receive a featured golf stay.');

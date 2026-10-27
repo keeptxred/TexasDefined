@@ -44,6 +44,21 @@ for (const needle of [
 }
 
 const errors = [];
+
+function hotelsEvergreenMatches(value, destination, sid) {
+  try {
+    const u = new URL(value);
+    const actualSid = u.searchParams.get('sid') || '';
+    return u.origin === 'https://www.anrdoezrs.net' &&
+      u.pathname === '/click-101876465-15734399' &&
+      u.searchParams.size === 2 &&
+      u.searchParams.get('url') === destination &&
+      /^td_[a-z0-9_]{1,60}$/.test(actualSid) &&
+      actualSid.length <= 64 &&
+      (!sid || actualSid === sid);
+  } catch { return false; }
+}
+
 // Fort McKavett is a history-and-visitor guide, so lodging belongs with
 // practical visit planning. Avoid two near-identical hotel headings at page end.
 if (!destinationPlanner.includes('destination.slug !== "fort-mckavett" && (') ||
@@ -169,7 +184,7 @@ try {
         for (const choice of choices) {
           if (!choice.destination.startsWith('https://www.hotels.com/ho')
             || !choice.sourceUrl.startsWith('https://')
-            || !api.buildCjDeepLink(choice.destination).startsWith('https://www.anrdoezrs.net/links/101876465/type/dlg/')) {
+            || !hotelsEvergreenMatches(api.buildCjDeepLink(choice.destination), choice.destination)) {
             errors.push(`Casino route ${route} must use verified Hotels.com exact property and CJ deep link.`);
           }
         }
@@ -195,9 +210,16 @@ try {
     const travelocityDeepLink = api.buildCjDeepLink('https://www.travelocity.com/');
     const vrboDeepLink = api.buildCjDeepLink('https://www.vrbo.com/');
     const rvshareDeepLink = api.buildCjDeepLink('https://rvshare.com/');
-    for (const [value, partner] of [[hotelsDeepLink, 'Hotels.com'], [orbitzDeepLink, 'Orbitz'], [travelocityDeepLink, 'Travelocity'], [vrboDeepLink, 'Vrbo'], [rvshareDeepLink, 'RVshare']]) {
+    if (!hotelsEvergreenMatches(hotelsDeepLink, 'https://www.hotels.com/')) {
+      errors.push('Hotels.com must use CJ-approved Evergreen PID 101876465 and AID 15734399, with a bounded route SID.');
+    }
+    const palestineDestination = 'https://www.hotels.com/de1634643/hotels-palestine-texas/';
+    if (!hotelsEvergreenMatches(api.buildCjDeepLink(palestineDestination, '/event/polar-express-palestine'), palestineDestination, 'td_polar_palestine')) {
+      errors.push('Palestine referral must preserve CJ PID/AID, city deep link and td_polar_palestine SID.');
+    }
+    for (const [value, partner] of [[orbitzDeepLink, 'Orbitz'], [travelocityDeepLink, 'Travelocity'], [vrboDeepLink, 'Vrbo'], [rvshareDeepLink, 'RVshare']]) {
       if (!value.startsWith('https://www.anrdoezrs.net/links/101876465/type/dlg/')) {
-        errors.push(`${partner} CJ deep link must stay bound to TexasDefined publisher 101876465.`);
+        errors.push(`${partner} must retain its existing advertiser-specific CJ deep link.`);
       }
     }
 
@@ -242,7 +264,7 @@ try {
       if (seenPropertyDestinations.has(destination)) errors.push(`${property.id} reuses another property's Hotels.com destination: ${destination}`);
       seenPropertyDestinations.add(destination);
       const affiliateUrl = api.buildCjDeepLink(destination);
-      if (!affiliateUrl.startsWith('https://www.anrdoezrs.net/links/101876465/type/dlg/https://www.hotels.com/ho')) {
+      if (!hotelsEvergreenMatches(affiliateUrl, destination)) {
         errors.push(`${property.id} exact Hotels.com target does not generate a TexasDefined CJ deep link.`);
       }
     }
@@ -257,7 +279,7 @@ try {
         || stay.destination !== 'https://www.hotels.com/ho114680/hotel-paso-del-norte-autograph-collection-el-paso-united-states-of-america/'
         || stay.sourceUrl !== 'https://www.hotelpdn.com/location'
         || stay.verifiedAt !== '2026-10-17'
-        || !api.buildCjDeepLink(stay.destination).startsWith('https://www.anrdoezrs.net/links/101876465/type/dlg/https://www.hotels.com/ho114680/')) {
+        || !hotelsEvergreenMatches(api.buildCjDeepLink(stay.destination, '/destination/hotel-paso-del-norte'), stay.destination, 'td_destination_hotel_paso_del_norte')) {
         errors.push('Hotel Paso exact-property listing, verified operator identity or publisher deeplink drifted.');
       }
       for (const pathname of ['/destination/magoffin-home', '/city/el-paso', '/county/el-paso', '/destination/hotel-paso-del-norte-other', '/explore/casinos/near-houston']) {
@@ -294,7 +316,7 @@ try {
       if (seenFeaturedGolfDestinations.has(stay.destination)) errors.push(`${pathname} reuses another featured golf Hotels.com destination.`);
       seenFeaturedGolfDestinations.add(stay.destination);
       const affiliateUrl = api.buildCjDeepLink(stay.destination);
-      if (!affiliateUrl.startsWith('https://www.anrdoezrs.net/links/101876465/type/dlg/https://www.hotels.com/ho')) errors.push(`${pathname} featured golf stay does not generate a TexasDefined CJ deep link.`);
+      if (!hotelsEvergreenMatches(affiliateUrl, stay.destination)) errors.push(`${pathname} featured golf stay does not generate a TexasDefined CJ deep link.`);
     }
     if (api.featuredGolfStay('/sports-venue/colonial-country-club') !== null) errors.push('Colonial must keep its governed three-card cohort instead of receiving the text-only featured-golf fallback.');
     if (api.featuredGolfStay('/sports-venue/globe-life-field') !== null) errors.push('Non-golf venues must fail closed for the featured-golf stay mapping.');

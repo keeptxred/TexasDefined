@@ -241,9 +241,14 @@ if (paintedChurchesRegistry?.version !== 1 || !Array.isArray(paintedChurchesRegi
       errors.push(`${expected.id} must expose exactly one verified Hotels.com booking target.`);
     } else {
       const target = property.bookingTargets[0];
-      const prefix = 'https://www.anrdoezrs.net/links/101876465/type/dlg/https://www.hotels.com';
+      const affiliate = new URL(target.affiliateUrl);
+      const validEvergreen = affiliate.origin === 'https://www.anrdoezrs.net' &&
+        affiliate.pathname === '/click-101876465-15734399' &&
+        affiliate.searchParams.size === 2 &&
+        affiliate.searchParams.get('sid') === 'td_explore_painted_churches' &&
+        affiliate.searchParams.get('url') === 'https://www.hotels.com' + expected.hotelsPath;
       if (target.provider !== 'hotels.com' || target.verified !== true || target.ctaLabel !== 'View on Hotels.com') errors.push(`${expected.id} Hotels.com target metadata drifted.`);
-      if (target.affiliateUrl !== `${prefix}${expected.hotelsPath}`) errors.push(`${expected.id} exact Hotels.com CJ destination drifted.`);
+      if (!validEvergreen) errors.push(`${expected.id} CJ Evergreen PID, AID, page SID or exact Hotels.com property drifted.`);
       if (destinations.has(target.affiliateUrl)) errors.push(`${expected.id} reuses another Painted Churches affiliate destination.`);
       destinations.add(target.affiliateUrl);
     }

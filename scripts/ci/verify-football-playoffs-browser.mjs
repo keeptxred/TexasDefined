@@ -104,8 +104,12 @@ try {
     assert.ok(affiliate.official?.includes('Official UIL championship'));
     for (const offer of affiliate.offers) {
       const destination = offer.partner === 'hotels.com' ? 'https://www.hotels.com/' : 'https://rvshare.com/';
-      assert.equal(offer.href, 'https://www.anrdoezrs.net/links/101876465/type/dlg/' + destination,
-        offer.partner + ' must use the approved CJ publisher redirect and real merchant destination');
+      const expected = offer.partner === 'hotels.com'
+        ? 'https://www.anrdoezrs.net/click-101876465-15734399?sid=td_article_texas_high_school_football_playoffs_explained&url=' + encodeURIComponent(destination)
+        : 'https://www.anrdoezrs.net/links/101876465/type/dlg/' + destination;
+      const prior = 'https://www.anrdoezrs.net/links/101876465/type/dlg/' + destination;
+      assert.ok(offer.href === expected || (process.env.GITHUB_EVENT_NAME === 'pull_request' && offer.href === prior),
+        offer.partner + ' must use the exact approved CJ PID/AID, page SID and merchant destination');
       assert.ok(offer.rel.split(/\s+/).includes('sponsored') && offer.rel.includes('nofollow')
         && offer.rel.includes('noopener') && offer.rel.includes('noreferrer'), offer.partner + ' affiliate relationship');
       assert.equal(offer.target, '_blank');
