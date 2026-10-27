@@ -53,3 +53,33 @@ test('HTTP auth rejection is sanitized; no secret/response body leaks', async ()
     return true;
   });
 });
+
+test('finance-report discovery is metadata-only and bounded, including reports with currency fields', async()=>{
+  const sample=performanceCandidates({Reports:[
+    {Id:'mp_finance_cash',Category:'Finance',Name:'Account Payout History',ApiAccessible:true},
+    {Id:'mp_payment_detail',Category:'Operations',Name:'Payment History',ApiAccessible:true},
+    {Id:'mp_ui_only',Category:'Finance',Name:'Payment History',ApiAccessible:false},
+  ]});
+  assert.equal(sample.finance.length,2);
+  let calls=0;
+  const fetcher=async(url, options)=>{
+    calls++;
+    assert.equal(options.method,'GET');
+    assert.doesNotMatch(url,/RecordExport|Actions|Customers/);
+    return {ok:true,status:200,headers:{get:()=>null},text:async()=>{
+      if(calls===1)return JSON.stringify({Reports:[
+        {Id:'mp_finance_cash',Category:'Finance',Name:'Account Payout History',ApiAccessible:true},
+        {Id:'mp_payment_detail',Category:'Operations',Name:'Payment History',ApiAccessible:true},
+      ]});
+      return JSON.stringify({Attributes:[{Name:'Currency'},{Name:'Amount'},{Name:'PaymentStatus'}],
+        Records:[{Currency:'USD',Amount:'4250.00',PaymentStatus:'paid'}]});
+    }};
+  };
+  const diag=await diagnose({IMPACT_ACCOUNT_SID:'IR123456',IMPACT_AUTH_TOKEN:'secret'},fetcher);
+  assert.equal(calls,3);
+  assert.equal(diag.financeCandidates,2);
+  assert.equal(diag.inspected.length,2);
+  assert.ok(diag.inspected.every(r=>r.type==='finance'));
+  assert.ok(diag.inspected.every(r=>r.columns.includes('Currency')));
+  assert.doesNotMatch(JSON.stringify(diag),/4250|paid|secret/);
+});
