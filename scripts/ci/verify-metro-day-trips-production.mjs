@@ -182,6 +182,21 @@ try {
       await page.screenshot({path:screenshot,fullPage:true,animations:"disabled",timeout:30000});
       record.screenshot=screenshot;
       if(metro==="austin"){
+        const oliveCard=page.locator('[data-metro-curated-day-trips] [data-curated-day-trip="texas-hill-country-olive-co"]').first();
+        if(await oliveCard.count()){
+          await oliveCard.scrollIntoViewIfNeeded({timeout:10000});
+          const cardPhoto=await oliveCard.evaluate(element=>{
+            const img=element.querySelector("img");
+            const attribution=[...element.querySelectorAll("a[href]")].some(link=>
+              link.href==="https://texashillcountryoliveco.com/"&&link.closest("p")?.textContent?.includes("Photo: Texas Hill Country Olive Co."));
+            return {src:img?.src||"",loaded:!!img&&img.complete&&img.naturalWidth>=1200,attribution};
+          });
+          check("Austin curated owner photo stays exact-property and visibly credited",
+            cardPhoto.src.includes("texas-hill-country-olive-co-bistro.webp")&&cardPhoto.loaded&&cardPhoto.attribution,
+            JSON.stringify(cardPhoto).slice(0,400));
+        }
+      }
+      if(metro==="austin"){
         // The separately licensed owner-supplied photograph must remain an
         // actual subject-matched image with linked owner credit and gallery.
         // This release check never clicks any monetized/affiliate link.
