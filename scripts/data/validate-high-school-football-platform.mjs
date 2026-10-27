@@ -2279,10 +2279,10 @@ if (!errors.length) {
   if(!gameNight.includes('venue.address ? <> — {venue.address}</> : null') ||
      !schoolPage.includes('editorial.venue.address && <Snapshot label="Address"'))
     errors.push('Public football game-night and school pages may show venue street only when verified.');
-  const matches = [...footballEditorial.matchAll(/"venue":\\s*\\{[\\s\\S]*?\\n\\s*\\}/g)];
+  const matches = [...footballEditorial.matchAll(/"venue":\s*\{[\s\S]*?\n\s*\}/g)];
   for (const [index, match] of matches.entries()) {
-    const address = match[0].match(/"address":\\s*"([^"]+)"/)?.[1];
-    if (address && !/\\d/.test(address)) errors.push('Venue '+index+' contains city/notice prose masquerading as street address: '+address);
+    const address = match[0].match(/"address":\s*"([^"]+)"/)?.[1];
+    if (address && !/\d/.test(address)) errors.push('Venue '+index+' contains city/notice prose masquerading as street address: '+address);
   }
 }
 
