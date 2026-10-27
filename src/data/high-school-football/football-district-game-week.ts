@@ -160,3 +160,45 @@ export function getSourcedDistrictRecords(
   }
   return [...bySchool.values()];
 }
+
+export type SourcedTeamDistrictRecord = SourcedDistrictRecord & {
+  played: number;
+  districtFinalsInSnapshot: number;
+  lastReportedFinal: string;
+};
+
+/**
+ * Team-level view of the same source-derived district record used by district hubs.
+ * Returns null until at least one verified district final involving the school is
+ * present. This is deliberately not a standings rank, seed or tiebreak result.
+ */
+export function getSourcedDistrictRecordForTeam(
+  games: DistrictFootballGame[],
+  schools: Array<{ schoolName: string; profilePath: string }>,
+  schoolName: string,
+): SourcedTeamDistrictRecord | null {
+  const knownSchools = new Set(schools.map((school) => school.schoolName));
+  if (!knownSchools.has(schoolName)) return null;
+
+  const validFinals = games.filter((game) =>
+    game.status === 'final'
+    && Number.isInteger(game.awayScore)
+    && Number.isInteger(game.homeScore)
+    && knownSchools.has(game.away)
+    && knownSchools.has(game.home)
+    && game.away !== game.home
+  );
+  const teamFinals = validFinals.filter((game) => game.away === schoolName || game.home === schoolName);
+  if (!teamFinals.length) return null;
+
+  const record = getSourcedDistrictRecords(games, schools).find((row) => row.schoolName === schoolName);
+  if (!record) return null;
+
+  return {
+    ...record,
+    played: record.won + record.lost + record.tied,
+    districtFinalsInSnapshot: validFinals.length,
+    lastReportedFinal: teamFinals.map((game) => game.date).sort().at(-1) ?? '',
+  };
+}
+
