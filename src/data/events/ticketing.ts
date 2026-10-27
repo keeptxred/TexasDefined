@@ -49,7 +49,14 @@ function approvedAffiliateHref(link: TexasEventTicketLink): string | null {
   const official = new URL(officialHref);
   if (affiliate.hostname !== "ticketmaster.evyy.net"
     || !/^\/c\/7758914\/264167\/4272\/?$/.test(affiliate.pathname)
-    || affiliate.searchParams.getAll("u").length !== 1) return null;
+    || affiliate.searchParams.size !== 4
+    || affiliate.searchParams.getAll("u").length !== 1
+    || affiliate.searchParams.getAll("subId1").length !== 1
+    || affiliate.searchParams.get("subId1") !== "texasdefined"
+    || affiliate.searchParams.getAll("partnerpropertyid").length !== 1
+    || affiliate.searchParams.get("partnerpropertyid") !== "8837726"
+    || affiliate.searchParams.getAll("MediaPartnerPropertyId").length !== 1
+    || affiliate.searchParams.get("MediaPartnerPropertyId") !== "8837726") return null;
   const officialHost = official.hostname.toLowerCase();
   const isTicketmasterEvent = (officialHost === "ticketmaster.com" || officialHost === "www.ticketmaster.com")
     && /\/event\/[A-Za-z0-9_-]+\/?$/.test(official.pathname);
