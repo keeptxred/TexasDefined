@@ -36,7 +36,9 @@ for (const slug of slugs) {
   assert.ok(dossier.length>300 && dossier.includes('https://'),'Missing individual research dossier '+slug);
   assert.ok(editorial.includes('"'+slug+'": {'),'Missing source-backed individual editorial '+slug);
   assert.ok(route.includes("'"+slug+"': '"+countyBySlug[slug]+"'"),'Missing canonical school-to-county '+slug);
-  assert.ok(countyPage.includes("slug: '"+slug+"'"),'Missing reciprocal county declaration '+slug);
+  const countyPattern = new RegExp(`(?:^|\\n)\\s*[\"']?${countyBySlug[slug]}[\"']?\\s*:\\s*\\[([\\s\\S]*?)\\],`, 'gm');
+  const reciprocal = [...countyPage.matchAll(countyPattern)].some((match) => match[1].includes(`slug: '${slug}'`));
+  assert.ok(reciprocal,'Missing reciprocal county declaration '+countyBySlug[slug]+' -> '+slug);
 }
 await mkdir(out,{recursive:true});
 const report = { version:1,sourceCommit:process.env.GITHUB_SHA||null,technicalOnly:true,
