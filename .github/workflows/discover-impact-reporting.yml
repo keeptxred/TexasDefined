@@ -10,6 +10,11 @@ on:
       - 'scripts/monetization/impact-reporting-discovery.test.mjs'
       - 'scripts/monetization/impact-readonly-sample.mjs'
       - 'scripts/monetization/impact-readonly-sample.test.mjs'
+      - 'scripts/monetization/validate-impact-private-performance.test.mjs'
+      - 'scripts/monetization/impact-performance-normalize.mjs'
+      - 'scripts/monetization/impact-performance-normalize.test.mjs'
+      - 'supabase/migrations/20261027213000_create_private_impact_performance.sql'
+      - 'docs/impact-private-performance.md'
   pull_request:
     branches: [main]
     paths:
@@ -18,6 +23,11 @@ on:
       - 'scripts/monetization/impact-reporting-discovery.test.mjs'
       - 'scripts/monetization/impact-readonly-sample.mjs'
       - 'scripts/monetization/impact-readonly-sample.test.mjs'
+      - 'scripts/monetization/validate-impact-private-performance.test.mjs'
+      - 'scripts/monetization/impact-performance-normalize.mjs'
+      - 'scripts/monetization/impact-performance-normalize.test.mjs'
+      - 'supabase/migrations/20261027213000_create_private_impact_performance.sql'
+      - 'docs/impact-private-performance.md'
   schedule:
     - cron: '41 12 * * *'
 
@@ -38,7 +48,7 @@ jobs:
         with:
           node-version: '22'
       - name: Test Impact discovery read-only and sanitization rules
-        run: node --test scripts/monetization/impact-reporting-discovery.test.mjs scripts/monetization/impact-readonly-sample.test.mjs
+        run: node --test scripts/monetization/impact-reporting-discovery.test.mjs scripts/monetization/impact-readonly-sample.test.mjs scripts/monetization/validate-impact-private-performance.test.mjs scripts/monetization/impact-performance-normalize.test.mjs
       - name: Discover available reporting schemas (never log transactions)
         if: github.event_name != 'pull_request'
         env:
