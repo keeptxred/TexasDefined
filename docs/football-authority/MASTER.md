@@ -1,5 +1,12 @@
 # TexasDefined — High School Football Authority Project (locked)
 
+## October 27, 2026 — Batch 009 fourth-five source implementation; technical acceptance separate
+
+- Center, Center Point, Centerville, Channelview and Charlotte now have individualized 2026 source-backed editorial, five dossiers, original school-identity typography, campus/county reciprocal navigation and official calendar/visitor caveats.
+- Preserve unresolved first-party disputes: Center Point football-coach identity and Charlotte head-coach appointment are **not** certified; school office addresses do not establish game-day stadium gates.
+- Canonical source branch: **180 VERIFIED / 20 IMPLEMENTED / 1,092 NOT_REVIEWED**, with five remaining schools starting at Cherokee. Technical VERIFIED requires successful protected merge, matching production release and an independent passing 15-view school/5-county Chrome run with 20 screenshots and exact sitemap/source/meta checks. Do not treat a skipped workflow as certification.
+- No inferred 2026 finals, school-owned imagery, marks, stadium-access promises or manual WCAG sign-offs.
+
 ## October 26, 2026 — Batch 009 fifteen school-specific implementations; acceptance remains independent
 
 The next five school-specific research dossiers (Cedar Hill, Cedar Park, Vista Ridge, Celeste, Celina) are now implemented on a third dependent branch alongside the previously authored ten Batch 009 programs. The registry preserves the **180 previously live-VERIFIED programs** and marks 15 as IMPLEMENTED only, not merged, deployed or live-certified. Ten assigned schools remain unfinished, starting at Center. Publication remains protected by original school source verification, all existing CI safeguards, source-scoped Chrome production acceptance and no invented game-day logistics/photo rights.

@@ -12,6 +12,41 @@ export type VerifiedFootballSchoolIdentity = {
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
   {
+    slug: 'center',
+    mascot: 'Roughriders',
+    sourceUrl: 'https://ces.centerisd.org/page/dis.athletics',
+    sourceLabel: 'Center ISD first-party ROUGHRIDER ATHLETICS directory',
+    verifiedAt: '2026-10-26',
+  },
+  {
+    slug: 'center-point',
+    mascot: 'Pirates',
+    sourceUrl: 'https://cpisd.net/athletics',
+    sourceLabel: 'Center Point ISD athletics page calls the football program Pirates',
+    verifiedAt: '2026-10-26',
+  },
+  {
+    slug: 'centerville',
+    mascot: 'Tigers',
+    sourceUrl: 'https://www.centerville.k12.tx.us/46669_3',
+    sourceLabel: 'Centerville ISD 2026 varsity football schedule calls program Tigers',
+    verifiedAt: '2026-10-26',
+  },
+  {
+    slug: 'channelview',
+    mascot: 'Falcons',
+    sourceUrl: 'https://www.cvisd.org/page/athletics/',
+    sourceLabel: 'Channelview ISD athletics and Channelview High football identity',
+    verifiedAt: '2026-10-26',
+  },
+  {
+    slug: 'charlotte',
+    mascot: 'Trojans',
+    sourceUrl: 'https://www.maxpreps.com/tx/charlotte/charlotte-trojans/football/',
+    sourceLabel: 'Charlotte Trojans current team identity in named public team listing; district first-party scheduling source handled separately',
+    verifiedAt: '2026-10-26',
+  },
+  {
     slug: 'cedar-park',
     mascot: 'Timberwolves',
     colors: 'Forest Green, Silver & Black',

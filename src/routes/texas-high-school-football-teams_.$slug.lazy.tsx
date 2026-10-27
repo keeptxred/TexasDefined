@@ -162,6 +162,11 @@ function Page() {
   // Campus-county mapping for individually sourced Batch 002 profiles;
   // city names and district service areas are not dependable campus-county proxies.
   const researchedCampusCounty: Record<string, string> = {
+    'center': 'shelby', // Center ISD school campus in Shelby County; athletics office not stadium entry.
+    'center-point': 'kerr', // Center Point ISD campus in Kerr County; conflicting AD pages noted.
+    'centerville': 'leon', // Centerville ISD campus in Leon County; cash-gate event policy not guaranteed.
+    'channelview': 'harris', // Channelview High campus in Harris County; Ray Maddry game-day gate requires reconfirmation.
+    'charlotte': 'atascosa', // Charlotte ISD school campus in Atascosa County; district office is not stadium gate.
     'cedar-hill': 'dallas', // Cedar Hill High in Dallas County; 2026 5A DI District 8.
     'cedar-park': 'williamson', // Cedar Park HS Cypress Creek Rd campus in Williamson County, not interchangeable with Vista Ridge.
     'cedar-park-vista-ridge': 'williamson', // Vista Ridge HS school campus on Vista Ridge Parkway in Williamson County.

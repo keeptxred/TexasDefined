@@ -2059,7 +2059,7 @@ if (!errors.length) {
   const loader = read('src/data/high-school-football/program-editorial-b009-loader.server.ts');
   const profile = read('src/data/high-school-football/football-program-profile.server.ts');
   const slugs = ['carrollton-turner','carthage','castle-hills','castroville-medina-valley','cayuga'];
-  if (registry.batch.implementedOnBranch !== 15 || registry.batch.remainingToImplement !== 10) errors.push('Batch 009 ten implementation records must match planned 25 school cohort.');
+  if (registry.batch.implementedOnBranch !== 20 || registry.batch.remainingToImplement !== 5) errors.push('Batch 009 twenty individually sourced implementation records must match the planned 25-school cohort.');
   for (const slug of slugs) {
     const record = registry.schoolRecords.find(s => s.slug === slug);
     if (!record || record.status !== 'IMPLEMENTED' || record.actualProductionVerified !== false) errors.push('Second group falsely promoted or missing: '+slug);
@@ -2140,6 +2140,70 @@ if (!errors.length) {
     "github.event.workflow_run.conclusion == 'success'",
     'ref: ${{ github.event.workflow_run.head_sha || github.sha }}',
   ]) if (!wf.includes(exact)) errors.push('Batch009 third-five live acceptance safety missing ' + exact);
+}
+
+// Batch009 fourth-five contract: strict editorial and technical evidence,
+// including unresolved coach titles. Protected prior schools remain immutable.
+{
+  const reg = JSON.parse(read('docs/football-authority/REGISTRY.json'));
+  const authored = read('src/data/high-school-football/program-editorial-b009.ts');
+  const loader = read('src/data/high-school-football/program-editorial-b009-loader.server.ts');
+  const identities = read('src/data/high-school-football/school-identities.ts');
+  const route = read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
+  const county = read('src/routes/$kind.$slug.lazy.tsx');
+  const accepting = read('scripts/ci/verify-football-b009-fourth-five-production.mjs');
+  const wf = read('.github/workflows/verify-football-b009-fourth-five-production.yml');
+  const targets = [
+    ['center','shelby','Jack Alvarez'],
+    ['center-point','kerr','Mario Laque'],
+    ['centerville','leon','Kyle Hardee'],
+    ['channelview','harris','Averion Hurts'],
+    ['charlotte','atascosa','Timothy Williams'],
+  ];
+  if (reg.batch.number !== 9 || reg.batch.slugs.length !== 25 || reg.batch.implementedOnBranch !== 20 ||
+      reg.batch.remainingToImplement !== 5 || reg.batch.remainingToVerify !== 25 ||
+      reg.schoolRecords.filter(x=>x.status==='VERIFIED').length!==180 ||
+      reg.schoolRecords.filter(x=>x.status==='IMPLEMENTED').length!==20 ||
+      reg.schoolRecords.filter(x=>x.status==='NOT_REVIEWED').length!==1092) {
+    errors.push('Batch009 fourth-five registry must remain 180 VERIFIED / 20 IMPLEMENTED / 1,092 NOT_REVIEWED until live Chrome.');
+  }
+  const graphicList = route.split('const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([')[1]?.split(']);')[0] || '';
+  for (const [slug,countySlug,fact] of targets) {
+    const row = reg.schoolRecords.find(x=>x.slug===slug);
+    if (!row || row.batch!==9 || row.status!=='IMPLEMENTED' || row.actualProductionVerified!==false)
+      errors.push('Fourth-five school not strictly IMPLEMENTED: '+slug);
+    for (const [source,needle,label] of [
+      [authored,'"'+slug+'": {','source-backed editorial'],
+      [loader,'"'+slug+'"','lazy server loader'],
+      [identities,"slug: '"+slug+"'","school identity"],
+      [route,"'"+slug+"': '"+countySlug+"'","exact campus county"],
+      [county,"slug: '"+slug+"'","reciprocal county link"],
+      [accepting,"'"+slug+"'","production Chrome suite"],
+      [authored,fact,"distinct sourced school fact"],
+    ]) if (!source.includes(needle)) errors.push('Missing '+label+' for '+slug);
+    const dossier = read('docs/football-authority/schools/'+slug+'.md');
+    if(dossier.length<600 || !dossier.includes('https://') || !dossier.includes('IMPLEMENTED'))
+      errors.push('Fourth-five source dossier insufficient for '+slug);
+    if(graphicList.includes("'"+slug+"'")) errors.push('Do not render fictitious 2026 results graphic for '+slug);
+  }
+  for(const phrase of ['Brent Beadle','Mario Laque','conflict','Timothy Williams']) {
+    if(!authored.includes(phrase)) errors.push('Conflicting current coach information was not retained: '+phrase);
+  }
+  if(!wf.includes("workflows: ['Deploy TexasDefined production']") ||
+     !wf.includes("github.event.workflow_run.conclusion == 'success'") ||
+     !wf.includes('ref: ${{ github.event.workflow_run.head_sha || github.sha }}') ||
+     !wf.includes('path: artifacts/b009-fourth-five-production-chrome/') ||
+     !wf.includes('scripts/ci/verify-football-b009-fourth-five-production.mjs') ||
+     !wf.includes('echo "run=true" >> "$GITHUB_OUTPUT"') ||
+     !wf.includes('echo "run=false" >> "$GITHUB_OUTPUT"') ||
+     (wf.split('      - uses: actions/setup-node@v4').length-1)!==1 ||
+     (wf.split('      - name: Verify 5 school pages').length-1)!==1)
+    errors.push('Fourth-five deployed-Chrome workflow must be intact and exact-SHA scoped.');
+  if(!accepting.includes('report.schoolChecks.length!==15') ||
+     !accepting.includes('report.countyChecks.length!==5') ||
+     !accepting.includes('report.screenshots!==20') ||
+     !accepting.includes('Original TexasDefined typographic football identity panel'))
+    errors.push('Fourth-five production Chrome acceptance must cover 15 views, 5 counties and 20 screenshots.');
 }
 
 if (errors.length) {

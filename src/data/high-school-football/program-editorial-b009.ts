@@ -2,6 +2,361 @@ import type { FootballProgramEditorial } from './program-editorial';
 
 // Five individually sourced programs in Batch 009. No unlicensed imagery or inferred final 2026 record.
 const BATCH009_EDITORIAL: Record<string, FootballProgramEditorial> = {
+  "center": {
+    "slug": "center",
+    "intro": "The Center Roughriders enter the 2026–28 UIL alignment in 4A Division II District 8, representing Center in Shelby County. Center ISD lists Jack Alvarez as athletic director; a January 2026 East Texas news report identifies him as the incoming athletic director and head football coach. The district athletic office is at 658 Roughrider Drive, but a specific stadium spectator gate, ticket policy and late-season scores must be checked against the event organizer.",
+    "theme": {
+      "accentHex": "#8E3F44",
+      "label": "Original TexasDefined maroon editorial accent, not Center ISD's official colors, logo or an authorized uniform design."
+    },
+    "seo": {
+      "title": "Center Roughriders Football | Jack Alvarez, 2026 UIL 4A Division II",
+      "description": "Center Roughriders football in Shelby County: Jack Alvarez's 2026 appointment, official athletics links, UIL 4A Division II District 8 and stadium-entry caveats."
+    },
+    "coach": {
+      "name": "Jack Alvarez",
+      "title": "2026 head football coach identified in January 8 hiring report; Center ISD confirms current athletic director",
+      "sourceUrl": "https://www.kltv.com/2026/01/08/center-isd-hires-jack-alvarez-athletic-director-head-football-coach/",
+      "sourceLabel": "KLTV January 8, 2026 report of Center ISD's football/athletics appointment; first-party athletics page confirms Alvarez as AD",
+      "verifiedAt": "2026-10-26"
+    },
+    "campus": {
+      "address": "658 Roughrider Drive, Center, TX 75935 (district athletics campus address, not verified stadium entrance)",
+      "sourceUrl": "https://ces.centerisd.org/page/dis.athletics",
+      "sourceLabel": "Center ISD athletics department address and current athletic director",
+      "verifiedAt": "2026-10-26"
+    },
+    "schedule": {
+      "label": "Center ISD Roughrider athletics and school-published schedule resources",
+      "sourceUrl": "https://ces.centerisd.org/page/dis.athletics",
+      "sourceLabel": "Center ISD district-controlled Roughrider athletics portal; schedules may be revised",
+      "verifiedAt": "2026-10-26"
+    },
+    "milestones": [
+      {
+        "date": "2026-01-08",
+        "title": "Center ISD names new athletics and football leadership",
+        "body": "Regional reporting identifies Jack Alvarez as the incoming Center head football coach and athletic director; the district's current athletics page corroborates his athletic-director position.",
+        "sourceUrl": "https://www.kltv.com/2026/01/08/center-isd-hires-jack-alvarez-athletic-director-head-football-coach/",
+        "sourceLabel": "KLTV reporting January 8, 2026"
+      },
+      {
+        "date": "2026–2028",
+        "title": "UIL 4A Division II District 8 placement",
+        "body": "Official 2026–28 UIL football alignment places Center in Class 4A Division II District 8.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/4AD2FB2026.pdf",
+        "sourceLabel": "Official UIL 2026–28 football alignment"
+      }
+    ],
+    "development": {
+      "title": "Roughrider visitor logistics",
+      "body": "Use Center ISD athletics for the currently published schedule and facility information. The district's 658 Roughrider Drive address identifies its athletics office and campus; football seating entrances and ADA procedures require game-specific confirmation.",
+      "sourceUrl": "https://ces.centerisd.org/page/dis.athletics",
+      "sourceLabel": "Center ISD first-party athletics information",
+      "verifiedAt": "2026-10-26"
+    },
+    "overview": [
+      "Center represents Shelby County; UIL 2026–28 placement is Class 4A Division II District 8.",
+      "Jack Alvarez's January 2026 football appointment is source-dated, and current Center ISD athletics lists him as AD.",
+      "658 Roughrider Drive is the district athletics address; spectators should check the designated stadium entrance for their event.",
+      "Do not treat an older score feed or schedule preview as a verified 2026 completed-season record."
+    ],
+    "faq": [
+      {
+        "question": "Which 2026 UIL division is Center football in?",
+        "answer": "The UIL lists the Center Roughriders in 4A Division II District 8 for 2026–28."
+      },
+      {
+        "question": "Who leads Center football in 2026?",
+        "answer": "East Texas reporting on January 8 named Jack Alvarez incoming head football coach and athletic director. Center ISD currently lists him as athletic director."
+      },
+      {
+        "question": "Where do fans confirm Center Roughriders game details?",
+        "answer": "Center ISD's official Roughrider athletics page publishes campus contact details and school schedule resources. Verify ticket policies, parking and the stadium's game-day entrance with organizers."
+      }
+    ]
+  },
+  "center-point": {
+    "slug": "center-point",
+    "intro": "Center Point Pirates football represents Kerr County in UIL 2A Division II District 14 for 2026–28. Center Point ISD publishes 2026 preseason family guidance, but its own athletics pages disagree about leadership: the coaching/athletics pages list Brent Beadle, while the schedules page directs parents to Mario Laque as athletic director. The 2026 head-coach identity therefore remains unconfirmed until the district reconciles its sources.",
+    "theme": {
+      "accentHex": "#304E66",
+      "label": "Original TexasDefined navy-blue editorial styling; not an official Pirates insignia, uniform, or licensed school image."
+    },
+    "seo": {
+      "title": "Center Point Pirates Football | Kerr County 2A D-II, 2026 Guide",
+      "description": "Center Point Pirates 2026 football: UIL 2A Division II District 14, official season information and honest athletic-staff conflict and visitor guidance."
+    },
+    "notice": {
+      "title": "Center Point coaching identity requires reconfirmation",
+      "body": "The district athletics and coaching pages identify Brent Beadle, while a district schedule page names Mario Laque as athletics director. These contradictory live first-party descriptions do not establish who currently coaches the 2026 varsity team; verify directly before attributing either role.",
+      "sourceUrl": "https://cpisd.net/athletics",
+      "sourceLabel": "Center Point ISD official athletics page compared with its separate schedules page",
+      "verifiedAt": "2026-10-26"
+    },
+    "schedule": {
+      "label": "Center Point ISD athletics and Pirate football schedules",
+      "sourceUrl": "https://www.cpisd.net/pirates-sports",
+      "sourceLabel": "Center Point ISD current sports schedule directory; year shown may lag calendar season",
+      "verifiedAt": "2026-10-26"
+    },
+    "milestones": [
+      {
+        "date": "2026-07-14",
+        "title": "District launches its 2026 Pirate football family orientation",
+        "body": "A July 14 district notice includes August 2026 acclimatization and family expectations for both high-school and middle-school teams; it does not identify a current head coach by name.",
+        "sourceUrl": "https://www.cpisd.net/index.php?articleID=82990005&pageID=smartSiteFeed&psqFeed=true",
+        "sourceLabel": "Center Point ISD 2026 football family announcement"
+      },
+      {
+        "date": "2026–2028",
+        "title": "UIL 2A Division II District 14",
+        "body": "UIL's 2026–28 football placement lists Center Point in Class 2A Division II District 14.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
+        "sourceLabel": "Official UIL alignment"
+      }
+    ],
+    "development": {
+      "title": "Pirate program and fan information",
+      "body": "The district's July 2026 preseason bulletin emphasizes family support, acclimatization and player expectations. The district's 215 China Street address is a contact address, not proof of an exact stadium ticket gate or parking location.",
+      "sourceUrl": "https://www.cpisd.net/index.php?articleID=82990005&pageID=smartSiteFeed&psqFeed=true",
+      "sourceLabel": "Official Center Point ISD 2026 season bulletin",
+      "verifiedAt": "2026-10-26"
+    },
+    "overview": [
+      "UIL 2026–28: 2A Division II District 14; school is in Kerr County.",
+      "Center Point ISD's July 14, 2026 notice confirms an organized current Pirates football program and preseason orientation.",
+      "Different district pages name Brent Beadle and Mario Laque for athletics leadership; no definitive current varsity coaching attribution is made.",
+      "School contact offices and stadium gates, ticket procedures, game start times and accessibility routes are different kinds of information."
+    ],
+    "faq": [
+      {
+        "question": "What is Center Point's 2026 football alignment?",
+        "answer": "The school is in UIL 2A Division II District 14 for the 2026–28 cycle."
+      },
+      {
+        "question": "Who is Center Point's head football coach?",
+        "answer": "The current district material is contradictory: its athletics/coaching pages show Brent Beadle while the schedules page directs readers to Mario Laque. A 2026 head-coaching appointment is not independently verified."
+      },
+      {
+        "question": "Where can Center Point football families find official information?",
+        "answer": "Use the district's athletics and schedules pages. A July 2026 district notice covers the current Pirate program's orientation and expectations."
+      }
+    ]
+  },
+  "centerville": {
+    "slug": "centerville",
+    "intro": "The Centerville Tigers of Leon County play in UIL 2A Division I District 14. Unlike a generic sports listing, Centerville ISD publishes a complete date-by-date 2026 varsity football schedule and identifies Kyle Hardee as athletic director and head football coach. Its official athletics page advises that event tickets are ordinarily cash-only at the gate unless otherwise specified; this is not a promise of admission or available seats.",
+    "theme": {
+      "accentHex": "#B56B2C",
+      "label": "Original TexasDefined copper editorial accent; no Centerville Tiger logo or third-party photography copied."
+    },
+    "seo": {
+      "title": "Centerville Tigers Football | Kyle Hardee, 2026 Schedule & Tickets",
+      "description": "Centerville Tigers in Leon County: Kyle Hardee, official 2026 football dates, UIL 2A Division I District 14 and current school gate-ticket guidance."
+    },
+    "coach": {
+      "name": "Kyle Hardee",
+      "title": "2026–27 Athletic Director and Head Football Coach",
+      "sourceUrl": "https://www.centerville.k12.tx.us/46669_3",
+      "sourceLabel": "Centerville ISD official 2026 varsity football schedule identifies Kyle Hardee as head coach",
+      "verifiedAt": "2026-10-26"
+    },
+    "schedule": {
+      "label": "Official 2026 Centerville varsity football schedule",
+      "sourceUrl": "https://www.centerville.k12.tx.us/46669_3",
+      "sourceLabel": "Centerville ISD 2026 varsity schedule with dated opponents and game sites",
+      "verifiedAt": "2026-10-26",
+      "officialScheduleUrl": "https://www.centerville.k12.tx.us/46669_3"
+    },
+    "development": {
+      "title": "Ticket and home-game guidance",
+      "body": "Centerville ISD says it normally sells athletic-event admission at the gate or door for cash unless otherwise noted. Prices and exceptions are event-dependent. The athletics office at 813 South Commerce is not by itself proof of an entrance to the football venue.",
+      "sourceUrl": "https://www.centerville.k12.tx.us/45390_3",
+      "sourceLabel": "Centerville ISD official athletics admission policy",
+      "verifiedAt": "2026-10-26"
+    },
+    "milestones": [
+      {
+        "date": "2026-08-28",
+        "title": "2026 home opener scheduled against Groesbeck",
+        "body": "The school lists Groesbeck on August 28 as a 7:30 p.m. home game and senior night. This is a school schedule listing, not a sourced final score.",
+        "sourceUrl": "https://www.centerville.k12.tx.us/46669_3",
+        "sourceLabel": "Centerville ISD school-published 2026 varsity schedule"
+      },
+      {
+        "date": "2026-10-23",
+        "title": "Leon district matchup in school schedule",
+        "body": "The school lists Leon as an October 23 home opponent at 7 p.m. Changes and game results require a separate current school report.",
+        "sourceUrl": "https://www.centerville.k12.tx.us/46669_3",
+        "sourceLabel": "Centerville ISD 2026 varsity football schedule"
+      },
+      {
+        "date": "2026–2028",
+        "title": "UIL 2A Division I District 14",
+        "body": "Official UIL realignment places the Centerville Tigers in Class 2A Division I District 14.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/2AD1FB2026.pdf",
+        "sourceLabel": "UIL current alignment"
+      }
+    ],
+    "overview": [
+      "The Centerville Tigers represent Leon County in UIL 2A Division I District 14.",
+      "Kyle Hardee appears by name as head coach and athletic director on the school's 2026 varsity schedule.",
+      "The 2026 schedule identifies Groesbeck, Mart, Normangee, Lovelady, Leon, Groveton and Iola among its opponents.",
+      "Centerville ISD's ordinary admission policy is cash at the gate unless another event policy applies; ticket availability and exact prices are not certified."
+    ],
+    "faq": [
+      {
+        "question": "Who coaches Centerville football in 2026?",
+        "answer": "The school's official 2026 varsity schedule identifies Kyle Hardee as head football coach and athletic director."
+      },
+      {
+        "question": "Where can I find Centerville Tigers' official 2026 schedule?",
+        "answer": "Centerville ISD maintains a dated varsity schedule on its athletics website; check it again on game day for changes."
+      },
+      {
+        "question": "Can I buy Centerville football tickets at the gate?",
+        "answer": "The district states that school athletic events normally accept cash at the gate unless otherwise noted. Verify the specific game's terms and availability beforehand."
+      }
+    ]
+  },
+  "channelview": {
+    "slug": "channelview",
+    "intro": "The Channelview Falcons compete in UIL Class 6A District 17 in eastern Harris County. Channelview ISD's current athletics staff directory names Averion Hurts as head football coach and Damion Hopkins as athletic director. Falcon home games use Ray Maddry Memorial Stadium at 828 Sheldon Road, a venue also identified in the 2026 away-venue guide of opponent Sheldon ISD. Current ticket inventory and seating policy must be verified through Channelview ISD.",
+    "theme": {
+      "accentHex": "#4C6685",
+      "label": "Original TexasDefined steel-blue editorial accent; not an official Channelview Falcons school mark or reproduced game image."
+    },
+    "seo": {
+      "title": "Channelview Falcons Football | Averion Hurts, Ray Maddry Stadium",
+      "description": "Channelview Falcons football: official coach Averion Hurts, 2026 UIL 6A District 17, Ray Maddry Memorial Stadium address and source-backed fan planning."
+    },
+    "coach": {
+      "name": "Averion Hurts",
+      "title": "Channelview High School Head Football Coach (district's current athletics directory)",
+      "sourceUrl": "https://www.cvisd.org/page/athletics/",
+      "sourceLabel": "Channelview ISD first-party coaching staff list",
+      "verifiedAt": "2026-10-26"
+    },
+    "venue": {
+      "name": "Ray Maddry Memorial Stadium",
+      "address": "828 Sheldon Road, Channelview, TX 77530",
+      "note": "Sheldon ISD's 2026 away-venue directory confirms the address for its Channelview game. Verify current Falcon home game entries, parking, ADA and ticket procedures with Channelview ISD.",
+      "sourceUrl": "https://www.sheldonisd.com/departments/athletics/khs-sports/football",
+      "sourceLabel": "Sheldon ISD official 2026 opponent venue-address listing; Channelview ISD first-party athletics for home-game policies",
+      "verifiedAt": "2026-10-26"
+    },
+    "schedule": {
+      "label": "Channelview ISD official athletics and ticket navigation",
+      "sourceUrl": "https://www.cvisd.org/page/athletics/",
+      "sourceLabel": "Channelview ISD athletics page with ticket and program links",
+      "verifiedAt": "2026-10-26"
+    },
+    "milestones": [
+      {
+        "date": "2016",
+        "title": "Channelview alumnus Jalen Hurts graduates",
+        "body": "Channelview ISD's athletics department lists professional football quarterback Jalen Hurts as a 2016 Channelview High School graduate, a verifiable school alumni connection, not a claim about the present 2026 roster.",
+        "sourceUrl": "https://www.cvisd.org/page/athletics/",
+        "sourceLabel": "Channelview ISD first-party athletics alumni information"
+      },
+      {
+        "date": "2026–2028",
+        "title": "UIL 6A District 17 placement",
+        "body": "The school's official UIL current 6A alignment places Channelview in District 17.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/6ABBFB2026.pdf",
+        "sourceLabel": "UIL 2026–28 official 6A alignment"
+      }
+    ],
+    "overview": [
+      "Channelview Falcons football represents eastern Harris County in 2026 UIL Class 6A District 17.",
+      "Channelview ISD's staff page currently names Averion Hurts head football coach, distinct from opponent Sheldon ISD's coach.",
+      "The Falcons' Ray Maddry Memorial Stadium venue is 828 Sheldon Road per a separate Texas school district's 2026 opponent directions.",
+      "The district recognizes 2016 alumnus Jalen Hurts as one of its professional-football alumni; school-history context is separate from 2026 results."
+    ],
+    "faq": [
+      {
+        "question": "Who is Channelview Falcons' current head football coach?",
+        "answer": "Channelview ISD lists Averion Hurts as its head football coach on the athletics staff page."
+      },
+      {
+        "question": "Where is Channelview's Ray Maddry Memorial Stadium?",
+        "answer": "The stadium is listed at 828 Sheldon Road, Channelview, Texas, in Sheldon ISD's official 2026 opponent-venue directory. Confirm game-day entrances with Channelview ISD."
+      },
+      {
+        "question": "Is Jalen Hurts connected to Channelview High School?",
+        "answer": "Yes. Channelview ISD recognizes him as a 2016 graduate and professional football alumnus."
+      }
+    ]
+  },
+  "charlotte": {
+    "slug": "charlotte",
+    "intro": "The Charlotte Trojans of Atascosa County play in UIL 2A Division II District 15 for 2026–28. Charlotte ISD publishes 2026–27 athletics forms, current high-school schedule links and the athletic-director listing for Timothy Williams. Its public coaching table lists football assistants but does not independently identify a 2026 varsity head football coach, so this guide deliberately avoids assigning that title without a confirmed school source.",
+    "theme": {
+      "accentHex": "#874544",
+      "label": "Original TexasDefined brick-red editorial presentation; not an official Trojans logo, school seal or licensed player photograph."
+    },
+    "seo": {
+      "title": "Charlotte Trojans Football | 2026 UIL 2A D-II, Atascosa County",
+      "description": "Charlotte Trojans: 2026 UIL 2A Division II District 15, Charlotte ISD athletic director Timothy Williams, school schedule sources and honest coaching/venue limits."
+    },
+    "notice": {
+      "title": "2026 varsity football head coach not school-confirmed",
+      "body": "Charlotte ISD lists athletic director Timothy Williams and identifies assistant football staff; the public district athletics page does not specifically assign the current head football coach role. Do not reuse older or shortened third-party coaching entries as an official 2026 appointment.",
+      "sourceUrl": "https://www.charlotteisd.net/vnews/display.v/SEC/Athletics",
+      "sourceLabel": "Charlotte ISD current athletics and coaching list, 2026–27 program resources",
+      "verifiedAt": "2026-10-26"
+    },
+    "schedule": {
+      "label": "Charlotte ISD high-school athletic schedules and forms",
+      "sourceUrl": "https://www.charlotteisd.net/vnews/display.v/SEC/Athletics",
+      "sourceLabel": "Charlotte ISD official high-school athletic schedule entry point and 2026–27 physical forms",
+      "verifiedAt": "2026-10-26"
+    },
+    "development": {
+      "title": "Trojans travel-day planning",
+      "body": "Charlotte ISD's administration address at 102 East Hindes Avenue is a district office, not a verified football stadium spectator entrance; game-specific field access, parking, ticket outlets and accessibility details should be confirmed with the school.",
+      "sourceUrl": "https://www.charlotteisd.net/vnews/display.v/SEC/Athletics",
+      "sourceLabel": "Charlotte ISD contact and athletics directory",
+      "verifiedAt": "2026-10-26"
+    },
+    "milestones": [
+      {
+        "date": "2026-05-14",
+        "title": "2026–27 athletics preparations updated",
+        "body": "Charlotte ISD's athletics page identifies physicals updated May 14, 2026, and publishes current high-school schedule links, confirming operational program guidance without certifying a season record.",
+        "sourceUrl": "https://www.charlotteisd.net/vnews/display.v/SEC/Athletics",
+        "sourceLabel": "Charlotte ISD official athletics 2026–27 resources"
+      },
+      {
+        "date": "2026–2028",
+        "title": "UIL 2A Division II District 15",
+        "body": "Official UIL alignment places Charlotte in Class 2A Division II District 15.",
+        "sourceUrl": "https://realignment.uiltexas.org/alignments/2026/2AD2FB2026.pdf",
+        "sourceLabel": "UIL statewide placement"
+      }
+    ],
+    "overview": [
+      "Charlotte Trojans football represents Atascosa County in UIL 2A Division II District 15.",
+      "The school currently identifies Timothy Williams as athletic director, not explicitly as varsity head football coach.",
+      "Charlotte ISD publishes updated 2026–27 physicals and high-school athletics schedules, but these do not establish all results or entry policies.",
+      "Neither the district office's 102 East Hindes address nor an old third-party stadium card independently proves the spectator gate."
+    ],
+    "faq": [
+      {
+        "question": "Where are Charlotte Trojans in the 2026 UIL alignment?",
+        "answer": "Charlotte is placed in Class 2A Division II District 15 for 2026–28."
+      },
+      {
+        "question": "Who coaches Charlotte varsity football?",
+        "answer": "Charlotte ISD identifies Timothy Williams as athletic director and lists assistant football coaches, but its current public athletics page does not establish a named varsity head football coach."
+      },
+      {
+        "question": "How can I check Charlotte football schedules or ticket arrangements?",
+        "answer": "Use Charlotte ISD's own high-school athletic schedule links and contact the athletics department for current event-specific visitor guidance."
+      }
+    ]
+  },
   "cedar-hill": {
     "slug": "cedar-hill",
     "intro": "Cedar Hill's Longhorns entered UIL 5A Division I District 8 in 2026, their first move out of Class 6A since its creation in 2014. The school has three football state championships, from 2006, 2013 and 2014. Cedar Hill ISD's current staff directory identifies Nicholas (Nick) Ward as athletic coordinator/head football coach, and its March 2026 first-party schedule deliberately included tough non-district opponents before district play.",
