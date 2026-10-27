@@ -155,8 +155,7 @@ export function ArticleBody({ blocks, entities = [], insertBeforeIndex, insertBe
         switch (block.type) {
         case "heading":
           if (showCaminoMissionTrail && block.text === "Route map and three confirmed stops") {
-            if (!sectionReferences?.[block.text]?.length) return <h2 key={index} id={articleHeadingId(block.text)} className="mb-4 mt-14 scroll-mt-28 font-display text-[2rem] font-semibold leading-[1.08] sm:mt-16 sm:text-[2.45rem]">{render(block.text, 2)}</h2>;
-          return <div key={index}><h2 id={articleHeadingId(block.text)} className="mb-4 mt-14 scroll-mt-28 font-display text-[2rem] font-semibold leading-[1.08] sm:mt-16 sm:text-[2.45rem]">{render(block.text, 2)}</h2><CaminoMissionTrailRoute /></div>;
+            return <div key={index}><h2 id={articleHeadingId(block.text)} className="mb-4 mt-14 scroll-mt-28 font-display text-[2rem] font-semibold leading-[1.08] sm:mt-16 sm:text-[2.45rem]">{render(block.text, 2)}</h2><CaminoMissionTrailRoute /></div>;
           }
           if (showLighthouseVisitPlanner && block.text === "Texas lighthouses at a glance: access, climbs and trip difficulty") {
             return <div key={index}><h2 id={articleHeadingId(block.text)} className="mb-4 mt-14 scroll-mt-28 font-display text-[2rem] font-semibold leading-[1.08] sm:mt-16 sm:text-[2.45rem]">{render(block.text, 2)}</h2><Suspense fallback={null}><LighthouseVisitPlanner /></Suspense></div>;
@@ -168,7 +167,10 @@ export function ArticleBody({ blocks, entities = [], insertBeforeIndex, insertBe
           )) {
             return <h3 key={index} id={articleHeadingId(block.text)} className="mb-3 mt-8 scroll-mt-28 font-display text-xl font-semibold">{render(block.text, 2)}</h3>;
           }
-          return <div key={index}><h2 id={articleHeadingId(block.text)} className="mb-4 mt-14 scroll-mt-28 font-display text-[2rem] font-semibold leading-[1.08] sm:mt-16 sm:text-[2.45rem]">{render(block.text, 2)}</h2>{sectionReferences?.[block.text]?.length ? <p className="mb-6 text-xs leading-6 text-muted-foreground">Section references (historical background, not verification of every interpretation): {sectionReferences[block.text].map((source, sourceIndex) => <span key={source.url}>{sourceIndex > 0 ? " · " : ""}<a href={source.url} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">{source.label} ↗</a></span>)}</p> : null}</div>;
+          if (sectionReferences?.[block.text]?.length) {
+            return <div key={index}><h2 id={articleHeadingId(block.text)} className="mb-4 mt-14 scroll-mt-28 font-display text-[2rem] font-semibold leading-[1.08] sm:mt-16 sm:text-[2.45rem]">{render(block.text, 2)}</h2><p className="mb-6 text-xs leading-6 text-muted-foreground">Historical background: {sectionReferences[block.text].map((source, sourceIndex) => <span key={source.url}>{sourceIndex > 0 ? " · " : ""}<a href={source.url} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline decoration-primary/40 underline-offset-4">{source.label} ↗</a></span>)}</p></div>;
+          }
+          return <h2 key={index} id={articleHeadingId(block.text)} className="mb-4 mt-14 scroll-mt-28 font-display text-[2rem] font-semibold leading-[1.08] sm:mt-16 sm:text-[2.45rem]">{render(block.text, 2)}</h2>;
         case "quote": return <PullQuote key={index} text={block.text} entities={available()} {...(block.attribution ? { attribution: block.attribution } : {})} />;
         case "list":
           if (((articleSlug === "texas-rivers-explained" && blocks[index - 1]?.text === "Texas Rivers at a Glance")
