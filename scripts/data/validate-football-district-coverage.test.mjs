@@ -64,6 +64,21 @@ test('source-derived district W–L matches all reported games without inventing
   assert.ok(template.includes('Do not use these partial data for official UIL seeds'));
 });
 
+test('team-level district record helper remains source-derived and fail-closed', () => {
+  for (const marker of [
+    'getSourcedDistrictRecordForTeam',
+    "if (!knownSchools.has(schoolName)) return null",
+    "if (!teamFinals.length) return null",
+    'played: record.won + record.lost + record.tied',
+    'districtFinalsInSnapshot: validFinals.length',
+    "lastReportedFinal: teamFinals.map((game) => game.date).sort().at(-1) ?? ''",
+    'This is deliberately not a standings rank, seed or tiebreak result.',
+  ]) assert.ok(source.includes(marker), marker);
+  assert.ok(!source.includes('officialStanding'));
+  assert.ok(!source.includes('playoffSeed'));
+  assert.ok(!source.includes('tiebreakRank'));
+});
+
 test('shared template does not mislabel a partial scorecard as official standings', () => {
   for (const marker of [
     'data-football-district-section="coverage"',
