@@ -36,6 +36,17 @@
       "productionVerifiedAt": null,
       "inventoryVerified": false,
       "pr": null
+    },
+    "majorGuideTexasLocalSessionDates": {
+      "status": "IMPLEMENTED",
+      "checkedAt": "2026-10-26",
+      "defect": "Multi-performance major-event guides calculated session cutoff from UTC day rather than America/Chicago; comparison date range could include sessions not in the displayed future selection.",
+      "changes": "Optional explicit clock forwarded to Discovery loader; guide sessions filtered by America/Chicago day; date-filtered comparison link computed from shown upcoming sessions only.",
+      "tests": "Frozen UTC-to-Texas cross-midnight assertions and source guard added to existing major-event lifecycle regression test.",
+      "pr": null,
+      "mergeAt": null,
+      "productionVerification": null,
+      "inventoryVerified": false
     }
   },
   "events": [
