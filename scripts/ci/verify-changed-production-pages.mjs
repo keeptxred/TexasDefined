@@ -123,6 +123,37 @@ function assertMagoffinLicensedImageStructuredData(html) {
   }
 }
 
+// A previously successful deploy could still serve Katy's old title and
+// missing stadium section from the ordinary, cached URL. Inspect both surfaces.
+export function assertKatyFootballContents(html, surface = 'release') {
+  const title = (html.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i)?.[1] ?? '')
+    .replace(/&amp;|&#38;|&#x26;/gi, '&');
+  if (!title.includes('Katy Tigers Football: Nine Texas State Titles & Stadium Guide')) {
+    throw new Error('Katy ' + surface + ' has stale title or promised on-page schedule');
+  }
+  for (const marker of [
+    'Where Katy football plays',
+    'Legacy Stadium',
+    'Jack F. Rhodes Memorial Stadium',
+    '1830 Katyland Drive',
+    '1733 Katyland Drive',
+    'Katy ISD varsity football tickets',
+    'https://www.vancoevents.com/us/eventlist/varsityfb',
+    'https://katyabc.org/features/katy-football-record-book/',
+    'clear-bag-regulation',
+    'County clarification',
+    'NCES Katy High School source',
+    'id="football-current-season"',
+    'data-football-sponsor-interest="true"',
+  ]) {
+    if (!html.includes(marker)) throw new Error('Katy ' + surface + ' missing production marker: ' + marker);
+  }
+  if (html.includes('record_book_02.26.24.pdf')
+    || html.includes('Texas game-day gear and independent designs')) {
+    throw new Error('Katy ' + surface + ' still contains obsolete archival link or duplicate shop panel');
+  }
+}
+
 export async function verifyChangedPages({ plan, head, fetchImpl = fetch }) {
 const redirectChecks = plan.redirectChecks ?? [];
 const downloadButtonPages = plan.downloadButtonPages ?? [];
@@ -138,10 +169,12 @@ const TEXAS_DATA_ROUTES = [
 ];
 const regionGuidePages = plan.regionGuidePages ?? [];
 const footballGameNightPages = plan.footballGameNightPages ?? [];
+const katyFootballPages = plan.katyFootballPages ?? [];
 const battleshipVisitorPages = plan.battleshipVisitorPages ?? [];
 const fredericksburgSitemapPaths = plan.fredericksburgSitemapPaths ?? [];
 const magoffinHomePages = plan.magoffinHomePages ?? [];
 const davisHillPages = plan.davisHillPages ?? [];
+if (!Array.isArray(katyFootballPages) || katyFootballPages.length > 1 || katyFootballPages.some(p => p !== '/texas-high-school-football-teams/katy' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded Katy football production contract');
 if (!Array.isArray(footballGameNightPages) || footballGameNightPages.length > 2 || footballGameNightPages.some(p => !['/texas-high-school-football-teams/aledo', '/texas-high-school-football-teams/southlake-carroll'].includes(p) || !plan.selectedPaths?.includes(p))) throw new Error('Invalid bounded football team smoke contract');
 if (!Array.isArray(regionGuidePages) || regionGuidePages.length > 1 || regionGuidePages.some(p => p !== '/article/texas-regions-explained' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid Texas regions guide smoke contract');
 if (!Array.isArray(downloadButtonPages) || downloadButtonPages.length > 1 || downloadButtonPages.some(p => p !== '/texas-data/texas-population-and-migration-2025' || !plan.selectedPaths?.includes(p))) throw new Error('Invalid data-brief smoke contract');
@@ -342,6 +375,22 @@ for (const path of plan.selectedPaths) {
         if (guide < 0 || season <= guide || overview <= season) throw new Error('Football game-night or current-season SSR hierarchy missing');
         if (!html.includes('href="#football-current-season"')) throw new Error('Football schedule jump link missing from SSR');
         if (!html.includes('Browse the TexasDefined shop')) throw new Error('Football commerce link absent from SSR');
+      }
+      if (katyFootballPages.includes(path)) {
+        assertKatyFootballContents(html, 'cache-busted release');
+        const visitorResponse = await fetchImpl(canonical, {
+          redirect: 'follow',
+          headers: { accept: 'text/html', 'user-agent': 'TexasDefined-Katy-Visitor-Smoke/1.0' },
+          signal: AbortSignal.timeout(30000),
+        });
+        if (!visitorResponse.ok || visitorResponse.headers.get('cf-mitigated') === 'challenge') {
+          throw new Error('Katy ordinary visitor URL failed: HTTP ' + visitorResponse.status);
+        }
+        const visitorHtml = await visitorResponse.text();
+        if (!visitorHtml.includes('href="' + canonical.href + '"')) {
+          throw new Error('Katy canonical visitor URL is missing its original canonical');
+        }
+        assertKatyFootballContents(visitorHtml, 'ordinary visitor URL');
       }
       if (magoffinHomePages.includes(path)) {
         for (const required of ['Historic home closed through 2027', 'Magoffin Home visitor FAQ', '1117 Magoffin Avenue']) {
