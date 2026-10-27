@@ -27,7 +27,7 @@ const expected = [
   ['prominent booking section', 'data-polar-express-2026-schedule="true"'],
   ['organizer booking CTA', 'data-event-official-ticket-cta="true"'],
   ['official 2026 booking URL', "https://texasstaterailroad.net/the-polar-express/"],
-  ['correct Palestine hotel search destination', "de1634643/hotels-palestine-texas/"],
+  ['correct Palestine hotel search destination', "de1634643%2Fhotels-palestine-texas%2F"],
   ['CJ affiliate disclosure', 'data-commercial-partner="hotels.com"'],
   ['2015 licensed historical Polar Express photograph', "Southern_Pine_Lumber_Co._No._28"],
   ['photographer attribution', "Michael Gras"],
@@ -48,7 +48,7 @@ if (manifest.year === 2027 && manifest.status === "verified") {
     ["end date from verified calendar", manifest.endDate],
     ["not claiming ticket availability", "not an indication that tickets remain available"],
     ["organizer URL", "https://texasstaterailroad.net/the-polar-express/"],
-    ["Palestine Hotels.com affiliate", "de1634643/hotels-palestine-texas/"],
+    ["Palestine Hotels.com affiliate", "de1634643%2Fhotels-palestine-texas%2F"],
     ["historical image credit", "Michael Gras"],
     ["Christmas event calendar", "/events/christmas-events"]);
 } else if (today > "2026-12-28") {
@@ -57,12 +57,23 @@ if (manifest.year === 2027 && manifest.status === "verified") {
     ["unannounced 2027 date label", "2027 schedule not yet announced"],
     ["no future train dates claimed", "2027 departure calendar not yet announced"],
     ["official railroad booking site", "https://texasstaterailroad.net/the-polar-express/"],
-    ["Palestine Hotels.com affiliate", "de1634643/hotels-palestine-texas/"],
+    ["Palestine Hotels.com affiliate", "de1634643%2Fhotels-palestine-texas%2F"],
     ["historical image credit", "Michael Gras"],
     ["Christmas event calendar", "/events/christmas-events"]);
 }
 function verifyHtml(html, label) {
+  // Decode links rather than visiting the CJ redirect; CI must never register synthetic affiliate clicks.
+  const cjHref = /href=["'](https:\/\/www\.anrdoezrs\.net\/click-101876465-15734399[^"']*)["']/.exec(html)?.[1]?.replace(/&amp;/g, "&") || "";
+  const hotel = cjHref ? new URL(cjHref) : null;
+  const exactCity = "https://www.hotels.com/de1634643/hotels-palestine-texas/";
+  const validCj = Boolean(hotel &&
+    hotel.pathname === "/click-101876465-15734399" &&
+    hotel.searchParams.size === 2 &&
+    hotel.searchParams.get("sid") === "td_polar_palestine" &&
+    hotel.searchParams.get("url") === exactCity);
+
   const missing = expected.filter(([description, marker]) => !html.includes(marker)).map(([description]) => description);
+  if (!validCj) missing.push("Palestine Hotels.com Evergreen affiliate PID/AID, SID or exact destination invalid");
   if (!html.includes('data-polar-express-editorial-intro="true"')) missing.push("Editorial header missing");
   if (!html.includes('data-polar-express-editorial-essentials="true"')) missing.push("Editorial visit essentials missing");
   if (!html.includes("Where to board") || !html.includes("Allow enough time")) missing.push("Concise reader-first visitor details missing");

@@ -1,3 +1,4 @@
+import { buildHotelsComEvergreenClick, hotelsComPageSid } from "@/lib/cj-hotels-evergreen";
 import { createLazyFileRoute } from "@tanstack/react-router";
 import { Container } from "@/components/layout/Container";
 import { BookingCarRentalCard } from "@/components/monetization/BookingCarRentalCard";
@@ -349,7 +350,7 @@ function MardiGrasTexasPage() {
       <section className="mt-14 border-t border-border pt-10">
         <h2 className="font-display text-3xl">Stay near your parade</h2>
         <p className="mt-3 max-w-3xl leading-7 text-muted-foreground">For Galveston, Jefferson, Bandera or the Beaumont–Port Arthur area, an overnight stay can make parade day easier. Choose lodging based on the specific parade corridor and street-closure plan, not just a city name. Individual event pages connect to nearby destination guides.</p>
-        <a href="https://www.anrdoezrs.net/links/101876465/type/dlg/https://www.hotels.com/" target="_blank" rel="sponsored nofollow noopener noreferrer" data-affiliate-partner="hotels.com" data-affiliate-placement="texas-mardi-gras-hub-stays" data-commercial-partner="hotels.com" data-commercial-placement="texas-mardi-gras-hub-stays" className="mt-5 inline-flex min-h-11 items-center border border-primary px-5 py-3 font-semibold text-primary">Compare Texas hotels ↗</a>
+        <a href={buildHotelsComEvergreenClick("https://www.hotels.com/", hotelsComPageSid("/events/mardi-gras"))} target="_blank" rel="sponsored nofollow noopener noreferrer" data-affiliate-partner="hotels.com" data-affiliate-placement="texas-mardi-gras-hub-stays" data-commercial-partner="hotels.com" data-commercial-placement="texas-mardi-gras-hub-stays" className="mt-5 inline-flex min-h-11 items-center border border-primary px-5 py-3 font-semibold text-primary">Compare Texas hotels ↗</a>
         <p className="mt-2 text-xs text-muted-foreground">Affiliate disclosure: Texas Defined may earn a commission on qualifying lodging bookings, without additional cost to you. Event organizer links above are editorial references, not ticket-affiliate listings.</p>
       </section>
       <BookingCarRentalCard className="mt-8" placement="mardi-gras-texas-hub" title="Flying into Texas for a Mardi Gras weekend?" />

@@ -1,3 +1,4 @@
+import { isHotelsComPropertyClick } from '@/lib/cj-hotels-evergreen';
 import { useEffect, useMemo, useState } from 'react';
 
 type BookingTarget = { provider?: string; affiliateUrl?: string | null; verified?: boolean };
@@ -104,11 +105,10 @@ function summarize({ venue, destination, paintedChurches, hotelsCom }: Dashboard
     .filter((property) => property.propertyId && activePropertyIds.has(property.propertyId))
     .filter((property) => typeof property.destinationUrl === 'string' && /^https:\/\/www\.hotels\.com\/ho\d+\//i.test(property.destinationUrl))
     .map((property) => property.propertyId as string));
-  const targetedVerified = (property: StayProperty) => (property.bookingTargets || []).some((target) =>
-    target.provider === 'hotels.com'
-    && target.verified === true
-    && typeof target.affiliateUrl === 'string'
-    && /^https:\/\/www\.anrdoezrs\.net\/links\/101876465\/type\/dlg\/https:\/\/www\.hotels\.com\/ho\d+\//i.test(target.affiliateUrl));
+  const targetedVerified = (property: StayProperty) => (property.bookingTargets || []).some((target) => {
+    if (target.provider !== 'hotels.com' || target.verified !== true || !target.affiliateUrl) return false;
+    return isHotelsComPropertyClick(target.affiliateUrl, 'td_explore_painted_churches');
+  });
   const venueVerifiedAffiliateLinks = venueProperties.filter((property) => property.id && verifiedPropertyIds.has(property.id)).length;
   const destinationVerifiedAffiliateLinks = destinationProperties.filter((property) => property.id && verifiedPropertyIds.has(property.id)).length;
   const targetedVerifiedAffiliateLinks = targetedProperties.filter(targetedVerified).length;

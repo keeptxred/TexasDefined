@@ -19,7 +19,8 @@ test('statewide football hub uses honest travel-planning rather than a fictitiou
 
 test('verified Hotels.com link is separate from unapproved merchandise programs', () => {
   assert.match(offers, /HOTEL_CJ_PUBLISHER_ID = '101876465'/);
-  assert.match(offers, /www\.anrdoezrs\.net\/links/);
+  assert.match(offers, /HOTELS_AFFILIATE_URL = buildHotelsComEvergreenClick\(HOTELS_DESTINATION, hotelsComPageSid\(pathname\)\)/);
+  assert.match(offers, /useLocation\(\{ select: \(location\) => location.pathname \}\)/);
   assert.match(offers, /VERIFIED_FOOTBALL_GEAR_OFFERS: readonly Offer\[\] = \[\]/);
   assert.match(offers, /isVerifiedProductUrl\(offer\)/);
   assert.match(offers, /offer\.partner === 'rexing'/);
@@ -85,4 +86,30 @@ test('approved RVshare CJ deep link is a real second football offer with truthfu
   assert.match(offers, /trackAffiliateClick\(\{ partner: 'rvshare'/);
   assert.match(offers, /Do not assume the school, stadium or venue allows RV parking or tailgating/);
   assert.match(offers, /hotel bookings or RV reservations/);
+});
+
+
+test('Hotels.com builder preserves exact destinations and rejects cross-advertiser or unsafe targets', async () => {
+  const ts = await import('typescript');
+  const source = readFileSync('src/lib/cj-hotels-evergreen.ts', 'utf8');
+  const code = ts.transpile(source, { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022 });
+  const api = await import('data:text/javascript;base64,' + Buffer.from(code).toString('base64'));
+  for (const route of ['/sports/friday-night-lights', '/texas-high-school-football/allen-eagles', '/article/texas-high-school-football-playoffs-explained', '/' + 'long-slug-'.repeat(12)]) {
+    const sid = api.hotelsComPageSid(route);
+    assert.equal(sid, api.hotelsComPageSid(route + '?campaign=ignored'));
+    assert.ok(sid.length <= 64);
+    const target = 'https://www.hotels.com/ho114680/hotel-paso-del-norte-autograph-collection-el-paso-united-states-of-america/';
+    const click = new URL(api.buildHotelsComEvergreenClick(target, sid));
+    assert.equal(click.origin, 'https://www.anrdoezrs.net');
+    assert.equal(click.pathname, '/click-101876465-15734399');
+    assert.equal(click.searchParams.size, 2);
+    assert.equal(click.searchParams.get('url'), target);
+    assert.equal(click.searchParams.get('sid'), sid);
+    assert.equal(api.isHotelsComPropertyClick(click.href, sid), true);
+    assert.equal(api.isHotelsComPropertyClick(click.href, 'td_other'), false);
+  }
+  assert.equal(api.hotelsComPageSid('/event/polar-express-palestine'), 'td_polar_palestine');
+  for (const target of ['https://www.orbitz.com/', 'http://www.hotels.com/', 'https://user@www.hotels.com/', 'https://www.hotels.com/#fragment']) assert.throws(() => api.buildHotelsComEvergreenClick(target, 'td_test'));
+  assert.throws(() => api.buildHotelsComEvergreenClick('https://www.hotels.com/', 'bad SID'));
+  assert.equal(api.isHotelsComPropertyClick('invalid', 'td_test'), false);
 });

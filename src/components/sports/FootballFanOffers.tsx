@@ -1,3 +1,5 @@
+import { useLocation } from '@tanstack/react-router';
+import { buildHotelsComEvergreenClick, hotelsComPageSid } from '@/lib/cj-hotels-evergreen';
 import { useEffect, useState } from 'react';
 import { trackAffiliateClick } from '@/lib/affiliate-click';
 
@@ -23,8 +25,7 @@ const MOTEL6_STANDARD_URL = 'https://www.tqlkg.com/click-' + HOTEL_CJ_PUBLISHER_
 const MOTEL6_HALLOWEEN_URL = 'https://www.jdoqocy.com/click-' + HOTEL_CJ_PUBLISHER_ID + '-17371482';
 const MOTEL6_CAMPAIGN_START = Date.parse('2026-10-26T00:00:00Z');
 const MOTEL6_CAMPAIGN_END = Date.parse('2026-11-01T05:00:00Z');
-// Use the same approved CJ deep-link contract as stay-affiliate-options.js.
-const HOTELS_AFFILIATE_URL = `https://www.anrdoezrs.net/links/${HOTEL_CJ_PUBLISHER_ID}/type/dlg/${encodeURI(HOTELS_DESTINATION)}`;
+// Hotels.com uses its own CJ-approved Evergreen creative and current page SID.
 // RVshare is an existing active CJ advertiser for TexasDefined. This uses the
 // same previously verified destination and DLG builder as stay-affiliate-options.js.
 const RVSHARE_DESTINATION = 'https://rvshare.com/';
@@ -38,6 +39,8 @@ function isVerifiedProductUrl(offer: Offer) {
 }
 
 export function FootballFanOffers({ slug, hasUpcomingAwayTravel, showTravelPlanning = false }: { slug: string; hasUpcomingAwayTravel: boolean; showTravelPlanning?: boolean }) {
+  const pathname = useLocation({ select: (location) => location.pathname });
+  const HOTELS_AFFILIATE_URL = buildHotelsComEvergreenClick(HOTELS_DESTINATION, hotelsComPageSid(pathname));
   const showHotels = hasUpcomingAwayTravel || showTravelPlanning;
   const [clientNow, setClientNow] = useState(0);
   useEffect(() => {
