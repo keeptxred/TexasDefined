@@ -9,6 +9,7 @@ on:
     paths:
       - '.github/workflows/sync-private-impact-performance.yml'
       - 'scripts/monetization/sync-impact-private-performance.mjs'
+      - 'scripts/monetization/impact-readonly-sample.mjs'
       - 'scripts/monetization/impact-performance-normalize.mjs'
       - 'supabase/migrations/20261027213000_create_private_impact_performance.sql'
   pull_request:
@@ -16,7 +17,9 @@ on:
     paths:
       - '.github/workflows/sync-private-impact-performance.yml'
       - 'scripts/monetization/sync-impact-private-performance.mjs'
+      - 'scripts/monetization/impact-readonly-sample.mjs'
       - 'scripts/monetization/sync-impact-private-performance.test.mjs'
+      - 'scripts/monetization/impact-readonly-sample.test.mjs'
       - 'scripts/monetization/impact-performance-normalize.mjs'
       - 'scripts/monetization/impact-performance-normalize.test.mjs'
       - 'supabase/migrations/20261027213000_create_private_impact_performance.sql'
@@ -39,7 +42,7 @@ jobs:
           node-version: '22'
       - name: Test private Impact aggregates and read-only safety
         run: |
-          node --test scripts/monetization/impact-performance-normalize.test.mjs scripts/monetization/sync-impact-private-performance.test.mjs scripts/monetization/validate-impact-private-performance.test.mjs
+          node --test scripts/monetization/impact-performance-normalize.test.mjs scripts/monetization/sync-impact-private-performance.test.mjs scripts/monetization/validate-impact-private-performance.test.mjs scripts/monetization/impact-readonly-sample.test.mjs
 
   authorize:
     if: github.event_name != 'pull_request'
