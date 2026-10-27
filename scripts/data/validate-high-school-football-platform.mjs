@@ -2075,6 +2075,68 @@ if (!errors.length) {
   }
 }
 
+/** First/second Batch009 workflow contracts. These are the two workflow files
+ * that previously acquired duplicated step blocks and cross-cohort copy/paste
+ * paths. Validate both syntax-adjacent structure and cohort-specific semantics. */
+{
+  const contracts = [
+    {
+      label: 'first-five',
+      workflowPath: '.github/workflows/verify-football-b009-first-five-production.yml',
+      workflowName: 'Football Batch 009 first-five live production acceptance',
+      verifierPath: 'scripts/ci/verify-football-b009-first-five-production.mjs',
+      artifactPath: 'artifacts/b009-first-five-production-chrome/',
+      verifierOut: "const out = 'artifacts/b009-first-five-production-chrome';",
+      countyCount: 4,
+      forbidden: ['verify-football-b009-next-five-production.mjs', 'artifacts/b009-next-five-production-chrome/'],
+    },
+    {
+      label: 'second-five',
+      workflowPath: '.github/workflows/verify-football-b009-next-five-production.yml',
+      workflowName: 'Football Batch 009 second-five live production acceptance',
+      verifierPath: 'scripts/ci/verify-football-b009-next-five-production.mjs',
+      artifactPath: 'artifacts/b009-next-five-production-chrome/',
+      verifierOut: "const out = 'artifacts/b009-next-five-production-chrome';",
+      countyCount: 5,
+      forbidden: ['verify-football-b009-first-five-production.mjs', 'artifacts/b009-first-five-production-chrome/'],
+    },
+  ];
+  for (const contract of contracts) {
+    const wf = read(contract.workflowPath);
+    const verifier = read(contract.verifierPath);
+    const count = (needle) => wf.split(needle).length - 1;
+    const detect = wf.indexOf('if grep -Eq');
+    const nextStep = wf.indexOf('      - uses: actions/setup-node@v4', detect);
+    const scopeShell = detect >= 0 && nextStep > detect ? wf.slice(detect, nextStep) : '';
+    if (count('      - uses: actions/setup-node@v4') !== 1
+        || count('      - name: Install isolated Chrome driver') !== 1
+        || count('      - name: Verify 5 school pages') !== 1
+        || !scopeShell.includes('echo "run=true" >> "$GITHUB_OUTPUT"')
+        || !scopeShell.includes('echo "run=false" >> "$GITHUB_OUTPUT"')
+        || !scopeShell.includes('          fi')
+        || /\n\s*- uses: actions\//.test(scopeShell)) {
+      errors.push('Batch009 '+contract.label+' production workflow scope or Chrome job malformed/duplicated.');
+    }
+    for (const exact of [
+      'name: '+contract.workflowName,
+      "workflows: ['Deploy TexasDefined production']",
+      "github.event.workflow_run.conclusion == 'success'",
+      'ref: ${{ github.event.workflow_run.head_sha || github.sha }}',
+      'run: node '+contract.verifierPath,
+      'path: '+contract.artifactPath,
+      contract.countyCount+' counties',
+    ]) if (!wf.includes(exact)) errors.push('Batch009 '+contract.label+' live acceptance safety missing '+exact);
+    for (const forbidden of contract.forbidden) {
+      if (wf.includes(forbidden)) errors.push('Batch009 '+contract.label+' workflow contains cross-cohort copy/paste reference '+forbidden);
+    }
+    if (!verifier.includes(contract.verifierOut)
+        || !verifier.includes('report.countyChecks.length!=='+contract.countyCount)
+        || !verifier.includes('versions.size!==1')) {
+      errors.push('Batch009 '+contract.label+' verifier output/county/Worker contract does not match its workflow.');
+    }
+  }
+}
+
 /** Third individually researched five-school cohort; no premature verified status. */
 {
   const registry=JSON.parse(read('docs/football-authority/REGISTRY.json'));
