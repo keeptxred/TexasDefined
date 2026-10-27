@@ -162,6 +162,11 @@ function Page() {
   // Campus-county mapping for individually sourced Batch 002 profiles;
   // city names and district service areas are not dependable campus-county proxies.
   const researchedCampusCounty: Record<string, string> = {
+    'cherokee': 'san-saba', // School campus county; district address never certifies stadium spectator gate.
+    'chester': 'tyler', // School campus county; district address never certifies stadium spectator gate.
+    'chico': 'wise', // School campus county; district address never certifies stadium spectator gate.
+    'childress': 'childress', // School campus county; district address never certifies stadium spectator gate.
+    'chillicothe': 'hardeman', // School campus county; district address never certifies stadium spectator gate.
     'center': 'shelby', // Center ISD school campus in Shelby County; athletics office not stadium entry.
     'center-point': 'kerr', // Center Point ISD campus in Kerr County; conflicting AD pages noted.
     'centerville': 'leon', // Centerville ISD campus in Leon County; cash-gate event policy not guaranteed.
