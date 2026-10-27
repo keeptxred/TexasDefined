@@ -1,0 +1,63 @@
+name: Discover read-only Impact reporting
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/discover-impact-reporting.yml'
+      - 'scripts/monetization/impact-reporting-discovery.mjs'
+      - 'scripts/monetization/impact-reporting-discovery.test.mjs'
+      - 'scripts/monetization/impact-readonly-sample.mjs'
+      - 'scripts/monetization/impact-readonly-sample.test.mjs'
+      - 'scripts/monetization/validate-impact-private-performance.test.mjs'
+      - 'scripts/monetization/impact-performance-normalize.mjs'
+      - 'scripts/monetization/impact-performance-normalize.test.mjs'
+      - 'supabase/migrations/20261027213000_create_private_impact_performance.sql'
+      - 'docs/impact-private-performance.md'
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/discover-impact-reporting.yml'
+      - 'scripts/monetization/impact-reporting-discovery.mjs'
+      - 'scripts/monetization/impact-reporting-discovery.test.mjs'
+      - 'scripts/monetization/impact-readonly-sample.mjs'
+      - 'scripts/monetization/impact-readonly-sample.test.mjs'
+      - 'scripts/monetization/validate-impact-private-performance.test.mjs'
+      - 'scripts/monetization/impact-performance-normalize.mjs'
+      - 'scripts/monetization/impact-performance-normalize.test.mjs'
+      - 'supabase/migrations/20261027213000_create_private_impact_performance.sql'
+      - 'docs/impact-private-performance.md'
+  schedule:
+    - cron: '41 12 * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: impact-reporting-discovery
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test Impact discovery read-only and sanitization rules
+        run: node --test scripts/monetization/impact-reporting-discovery.test.mjs scripts/monetization/impact-readonly-sample.test.mjs scripts/monetization/validate-impact-private-performance.test.mjs scripts/monetization/impact-performance-normalize.test.mjs
+      - name: Discover available reporting schemas (never log transactions)
+        if: github.event_name != 'pull_request'
+        env:
+          IMPACT_ACCOUNT_SID: ${{ secrets.IMPACT_ACCOUNT_SID }}
+          IMPACT_AUTH_TOKEN: ${{ secrets.IMPACT_AUTH_TOKEN }}
+        run: node scripts/monetization/impact-reporting-discovery.mjs
+      - name: Verify real Impact report payload structure without logging data
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        env:
+          IMPACT_ACCOUNT_SID: ${{ secrets.IMPACT_ACCOUNT_SID }}
+          IMPACT_AUTH_TOKEN: ${{ secrets.IMPACT_AUTH_TOKEN }}
+        run: node scripts/monetization/impact-readonly-sample.mjs

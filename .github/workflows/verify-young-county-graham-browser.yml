@@ -43,7 +43,10 @@ jobs:
       - name: Verify Graham museum photos and seven connected live pages
         if: steps.scope.outputs.run == 'true'
         env:
-          REQUIRE_CANONICAL_HISTORY: ${{ github.event_name == 'pull_request' && '0' || '1' }}
+          # The legacy Young County article has been retired in production.
+          # Every current PR/deploy acceptance must require the canonical county
+          # guide and reject the redirected legacy article link.
+          REQUIRE_CANONICAL_HISTORY: '1'
         run: node scripts/ci/verify-young-county-graham-browser.mjs
       - name: Retain desktop and mobile screenshots and acceptance results
         if: always()

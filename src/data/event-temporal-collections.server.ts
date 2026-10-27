@@ -48,7 +48,7 @@ const temporalCollections: TemporalEventCollectionDefinition[] = [
     title: "Things to Do in Texas This Weekend",
     eyebrow: "Texas This Weekend",
     description: "Find source-verified things to do in Texas this weekend, with permanent event guides, official sources and practical trip-planning links.",
-    lead: "Texas This Weekend is a rolling Friday-through-Sunday guide built from Texas Defined's source-checked event authority catalog rather than a dump of one-line listings. Every recommendation links to a permanent guide with the organizer source, date context and nearby trip-planning paths.",
+    lead: "Planning a Friday-through-Sunday getaway in Texas? Browse events selected for this weekend, follow each guide to the organizer's latest dates and directions, and find nearby places worth adding to the trip.",
     planningTitle: "Pick one anchor event, then build the weekend around it",
     planningIntro: "A statewide weekend list can make destinations look closer together than they are. Choose the event first, then use its city, county and regional links to keep the rest of the trip geographically realistic.",
     planningPoints: [

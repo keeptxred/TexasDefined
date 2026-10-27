@@ -72,7 +72,7 @@ async function inspect(label, width, height, failApi = false) {
     for (const href of [
       'a[href*="grandsalinesaltpalace.com"]',
       'a[href*="atlas.thc.texas.gov/Details/4302000092"]',
-      'a[href*="openstreetmap.org/search?query="]',
+      'a[href*="google.com/maps/search/?api=1&query="]',
       'a[href="/destination/wills-point-depot-museum"]',
       'a[href="/texas-high-school-football-teams/wills-point"]'
     ]) assert.ok(await page.locator(href).count(), 'Missing important destination: ' + href);

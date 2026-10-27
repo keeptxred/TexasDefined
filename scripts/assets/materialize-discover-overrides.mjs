@@ -100,7 +100,7 @@ const entries = [
   ],
   [
     "texas-hill-country-olive-co",
-    "/images/explore/lakes-rivers/pedernales-falls-state-park.jpg"
+    "/images/destinations/texas-hill-country-olive-co-bistro.webp"
   ],
   [
     "brazos-bend-state-park",
@@ -168,7 +168,7 @@ const entries = [
   ],
   [
     "clifton",
-    "https://commons.wikimedia.org/wiki/Special:Redirect/file/Downtown%20Clifton%20Wiki%203%20(1%20of%201).jpg?width=1600"
+    "https://commons.wikimedia.org/wiki/Special:Redirect/file/Downtown%20Clifton%20Wiki%201%20(1%20of%201).jpg?width=1600"
   ],
   [
     "la-grange",

@@ -4,6 +4,12 @@ on:
   schedule:
     - cron: "17 13 * * 1"
   workflow_dispatch:
+  # Prove the same live read-only source check before source-monitor changes merge.
+  pull_request:
+    paths:
+      - ".github/workflows/verify-metro-day-trips-sources.yml"
+      - "scripts/data/check-metro-day-trips-sources.mjs"
+      - "src/data/metro-day-trip-editorial.ts"
 
 permissions:
   contents: read

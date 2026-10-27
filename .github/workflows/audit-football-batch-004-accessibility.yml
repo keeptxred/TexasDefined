@@ -7,17 +7,15 @@ on:
       - '.github/workflows/audit-football-batch-004-accessibility.yml'
       - 'src/routes/texas-high-school-football-teams_.$slug.lazy.tsx'
       - 'public/stay-affiliate-options.js'
-  push:
+  workflow_run:
+    workflows: ['Deploy TexasDefined production']
+    types: [completed]
     branches: [main]
-    paths:
-      - 'scripts/ci/audit-football-batch-004-accessibility.mjs'
-      - '.github/workflows/audit-football-batch-004-accessibility.yml'
-      - 'src/routes/texas-high-school-football-teams_.$slug.lazy.tsx'
-      - 'public/stay-affiliate-options.js'
   workflow_dispatch:
 permissions:
   contents: read
   actions: read
+  statuses: read
 jobs:
   syntax:
     if: github.event_name == 'pull_request'
@@ -29,31 +27,55 @@ jobs:
           node-version: '22'
       - run: node --check scripts/ci/audit-football-batch-004-accessibility.mjs
   diagnostic:
-    if: github.event_name != 'pull_request'
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     timeout-minutes: 55
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+          fetch-depth: 2
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Wait for exact protected production deployment
+      - name: Detect relevant Batch 004 accessibility changes
+        id: scope
+        shell: bash
+        env:
+          MANUAL_ACCEPTANCE: ${{ github.event_name == 'workflow_dispatch' }}
+        run: |
+          if [[ "$MANUAL_ACCEPTANCE" == "true" ]]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git diff --name-only HEAD^ HEAD > /tmp/b004-a11y-changed-paths.txt
+          if grep -Eq '^(scripts/ci/audit-football-batch-004-accessibility[.]mjs|[.]github/workflows/audit-football-batch-004-accessibility[.]yml|src/routes/texas-high-school-football-teams_[.][$]slug[.]lazy[.]tsx|public/stay-affiliate-options[.]js)$' /tmp/b004-a11y-changed-paths.txt; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+            echo "Relevant Batch 004 accessibility source changed: executing post-deploy audit."
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            echo "Unrelated deploy: no Batch 004 accessibility audit required."
+          fi
+      - name: Confirm exact protected production deployment
+        if: steps.scope.outputs.run == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
-          PRODUCTION_COMMIT_SHA: ${{ github.sha }}
+          PRODUCTION_COMMIT_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
         run: node scripts/ci/wait-for-protected-production.mjs
       - name: Install isolated free Chrome accessibility tooling
+        if: steps.scope.outputs.run == 'true'
         run: |
           CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
           test -n "$CHROME_BIN"
           echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
           npm install --prefix /tmp/texasdefined-football-b004-a11y --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1 axe-core@4.10.3
       - name: Audit 25 schools, 10 counties, Austin city and capture screenshots
+        if: steps.scope.outputs.run == 'true'
         env:
-          PRODUCTION_COMMIT_SHA: ${{ github.sha }}
+          PRODUCTION_COMMIT_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
         run: node scripts/ci/audit-football-batch-004-accessibility.mjs
       - name: Retain machine-readable findings and selected full-page screenshots
-        if: always()
+        if: always() && steps.scope.outputs.run == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: football-batch-004-accessibility

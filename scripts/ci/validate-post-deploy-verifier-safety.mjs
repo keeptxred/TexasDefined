@@ -251,8 +251,19 @@ requireMarker(linkGraph, 'audit-site-quality-local.yml', 'Full internal-link aud
 requireMarker(linkGraph, 'audit: links', 'Internal-link manual entry point must preserve the complete graph audit');
 if (/^  (workflow_run|schedule|push|pull_request):/m.test(linkGraph)) failures.push('Full link-graph crawler must not run on each production deploy');
 const seasonal = workflow('verify-seasonal-production');
-requireMarker(seasonal, 'Wait for production deploy on push fallback', 'Seasonal direct-push fallback must synchronize deployment');
-requireMarker(seasonal, 'texasdefined-production', 'Seasonal fallback must await exact SHA deployment success');
+// The full seasonal audit is a manual feature under update-scan-policy.json.
+// Automatic fall coverage stays in protected deploy's foliage scope and
+// the scheduled Chrome acceptance workflow; do not add another deploy fan-out.
+noDirectPush(seasonal, 'Seasonal production verifier');
+requireMarker(seasonal, 'workflow_dispatch:', 'Seasonal full-audit manual trigger missing');
+requireMarker(seasonal, 'Require successful production release of selected SHA', 'Seasonal manual audit must reject undeployed revisions');
+requireMarker(seasonal, 'texasdefined-production', 'Seasonal manual audit must require verified protected production status');
+requireMarker(seasonal, 'DEPLOY_SHA: ${{ github.sha }}', 'Seasonal manual audit must bind selected revision');
+if (/^  (workflow_run|schedule|push|pull_request):/m.test(seasonal))
+  failures.push('Full seasonal audit must remain manual-only under feature scan policy');
+if (seasonal.includes('Wait for production deploy on push fallback') || seasonal.includes('for attempt in $(seq 1 36)'))
+  failures.push('Seasonal manual verifier must not restore deployment polling');
+
 const sports = workflow('verify-sports-venue-editorial-production');
 noDirectPush(sports, 'Sports venue standalone helper');
 if (sports.includes('workflow_run:')) failures.push('Sports venue production check must run natively inside deploy, not via downstream workflow_run');

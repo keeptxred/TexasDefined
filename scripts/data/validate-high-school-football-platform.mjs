@@ -2059,7 +2059,7 @@ if (!errors.length) {
   const loader = read('src/data/high-school-football/program-editorial-b009-loader.server.ts');
   const profile = read('src/data/high-school-football/football-program-profile.server.ts');
   const slugs = ['carrollton-turner','carthage','castle-hills','castroville-medina-valley','cayuga'];
-  if (registry.batch.implementedOnBranch !== 20 || registry.batch.remainingToImplement !== 5) errors.push('Batch 009 twenty individually sourced implementation records must match the planned 25-school cohort.');
+  if (registry.batch.implementedOnBranch !== 25 || registry.batch.remainingToImplement !== 0) errors.push('Batch 009 all twenty-five individually sourced implementation records must match the planned cohort.');
   for (const slug of slugs) {
     const record = registry.schoolRecords.find(s => s.slug === slug);
     if (!record || record.status !== 'IMPLEMENTED' || record.actualProductionVerified !== false) errors.push('Second group falsely promoted or missing: '+slug);
@@ -2072,6 +2072,74 @@ if (!errors.length) {
   if (!profile.includes('loadBatch009FootballProgramEditorial(legacy.featured.slug)')) errors.push('Castle Hills private-program SSR must load sourced Batch 009 editorial separately from UIL');
   for (const key of ['Wheatley Heights Sports Complex','TAPPS Six-Man Division I District 3','not UIL']) {
     requireText(editorial, key, 'Castle Hills private-school identity');
+  }
+}
+
+/** First/second Batch009 workflow contracts. These are the two workflow files
+ * that previously acquired duplicated step blocks and cross-cohort copy/paste
+ * paths. Validate both syntax-adjacent structure and cohort-specific semantics. */
+{
+  const contracts = [
+    {
+      label: 'first-five',
+      workflowPath: '.github/workflows/verify-football-b009-first-five-production.yml',
+      workflowName: 'Football Batch 009 first-five live production acceptance',
+      verifierPath: 'scripts/ci/verify-football-b009-first-five-production.mjs',
+      artifactPath: 'artifacts/b009-first-five-production-chrome/',
+      verifierOut: "const out = 'artifacts/b009-first-five-production-chrome';",
+      scopeVerifierToken: 'verify-football-b009-first-five-production[.]mjs',
+      scopeWorkflowToken: 'verify-football-b009-first-five-production[.]yml',
+      countyCount: 4,
+      forbidden: ['verify-football-b009-next-five-production.mjs', 'artifacts/b009-next-five-production-chrome/'],
+    },
+    {
+      label: 'second-five',
+      workflowPath: '.github/workflows/verify-football-b009-next-five-production.yml',
+      workflowName: 'Football Batch 009 second-five live production acceptance',
+      verifierPath: 'scripts/ci/verify-football-b009-next-five-production.mjs',
+      artifactPath: 'artifacts/b009-next-five-production-chrome/',
+      verifierOut: "const out = 'artifacts/b009-next-five-production-chrome';",
+      scopeVerifierToken: 'verify-football-b009-next-five-production[.]mjs',
+      scopeWorkflowToken: 'verify-football-b009-next-five-production[.]yml',
+      countyCount: 5,
+      forbidden: ['verify-football-b009-first-five-production.mjs', 'artifacts/b009-first-five-production-chrome/'],
+    },
+  ];
+  for (const contract of contracts) {
+    const wf = read(contract.workflowPath);
+    const verifier = read(contract.verifierPath);
+    const count = (needle) => wf.split(needle).length - 1;
+    const detect = wf.indexOf('if grep -Eq');
+    const nextStep = wf.indexOf('      - uses: actions/setup-node@v4', detect);
+    const scopeShell = detect >= 0 && nextStep > detect ? wf.slice(detect, nextStep) : '';
+    if (count('      - uses: actions/setup-node@v4') !== 1
+        || count('      - name: Install isolated Chrome driver') !== 1
+        || count('      - name: Verify 5 school pages') !== 1
+        || !scopeShell.includes('echo "run=true" >> "$GITHUB_OUTPUT"')
+        || !scopeShell.includes('echo "run=false" >> "$GITHUB_OUTPUT"')
+        || !scopeShell.includes('          fi')
+        || !scopeShell.includes(contract.scopeVerifierToken)
+        || !scopeShell.includes(contract.scopeWorkflowToken)
+        || /\n\s*- uses: actions\//.test(scopeShell)) {
+      errors.push('Batch009 '+contract.label+' production workflow scope or Chrome job malformed/duplicated.');
+    }
+    for (const exact of [
+      'name: '+contract.workflowName,
+      "workflows: ['Deploy TexasDefined production']",
+      "github.event.workflow_run.conclusion == 'success'",
+      'ref: ${{ github.event.workflow_run.head_sha || github.sha }}',
+      'run: node '+contract.verifierPath,
+      'path: '+contract.artifactPath,
+      contract.countyCount+' counties',
+    ]) if (!wf.includes(exact)) errors.push('Batch009 '+contract.label+' live acceptance safety missing '+exact);
+    for (const forbidden of contract.forbidden) {
+      if (wf.includes(forbidden)) errors.push('Batch009 '+contract.label+' workflow contains cross-cohort copy/paste reference '+forbidden);
+    }
+    if (!verifier.includes(contract.verifierOut)
+        || !verifier.includes('report.countyChecks.length!=='+contract.countyCount)
+        || !verifier.includes('versions.size!==1')) {
+      errors.push('Batch009 '+contract.label+' verifier output/county/Worker contract does not match its workflow.');
+    }
   }
 }
 
@@ -2097,22 +2165,34 @@ if (!errors.length) {
 }
 
 /** Prevent silent object-literal overwrites of researched county football links.
- * Duplicate county keys had suppressed valid school links in 11 counties even when
- * each school had an independently sourced and verified football guide. */
+ * Duplicate keys inside either map can suppress valid programs. Reusing a county
+ * key across the base and supplemental maps is intentional because render-time
+ * concatenation preserves both independently researched cohorts. */
 {
   const entityPage = read(files[10]);
-  const start = entityPage.indexOf('const batch002FootballCountyLinks:');
-  const end = entityPage.indexOf('\nconst siteUrl = ', start);
-  if (start < 0 || end < 0) {
-    errors.push('Football county reciprocal link object missing.');
+  const baseStart = entityPage.indexOf('const batch002FootballCountyLinks:');
+  const supplementalStart = entityPage.indexOf('const supplementalFootballCountyLinks:', baseStart);
+  const end = entityPage.indexOf('\nconst siteUrl = ', supplementalStart);
+  if (baseStart < 0 || supplementalStart < 0 || end < 0) {
+    errors.push('Football county reciprocal base/supplemental link objects missing.');
   } else {
-    const section = entityPage.slice(start, end);
-    const keys = [...section.matchAll(/^  (?:'([^']+)'|([a-z-]+)):\s*\[/gm)].map((m) => m[1] || m[2]);
-    const duplicates = keys.filter((key, index) => keys.indexOf(key) !== index);
-    if (duplicates.length) errors.push('Duplicate football county link keys would suppress school links: ' + [...new Set(duplicates)].join(', '));
-    for (const slug of ['canyon-west-plains','carrizo-springs','carrollton-creekview','carrollton-ranchview','carrollton-smith']) {
-      requireText(section, "slug: '" + slug + "'", 'Batch 009 reciprocal football county link');
+    const sections = [
+      ['base', entityPage.slice(baseStart, supplementalStart)],
+      ['supplemental', entityPage.slice(supplementalStart, end)],
+    ];
+    for (const [label, section] of sections) {
+      const keys = [...section.matchAll(/^  (?:'([^']+)'|([a-z-]+)):\s*\[/gm)].map((m) => m[1] || m[2]);
+      const duplicates = keys.filter((key, index) => keys.indexOf(key) !== index);
+      if (duplicates.length) errors.push('Duplicate football county link keys inside '+label+' map would suppress school links: ' + [...new Set(duplicates)].join(', '));
     }
+    const combined = sections.map(([, section]) => section).join('\n');
+    for (const slug of ['canyon-west-plains','carrizo-springs','carrollton-creekview','carrollton-ranchview','carrollton-smith','celeste','celina']) {
+      requireText(combined, "slug: '" + slug + "'", 'Batch 009 reciprocal football county link');
+    }
+    for (const marker of [
+      '...(batch002FootballCountyLinks[entity.slug] ?? [])',
+      '...(supplementalFootballCountyLinks[entity.slug] ?? [])',
+    ]) requireText(entityPage, marker, 'Football county link maps must concatenate rather than overwrite');
   }
 }
 
@@ -2160,12 +2240,12 @@ if (!errors.length) {
     ['channelview','harris','Averion Hurts'],
     ['charlotte','atascosa','Timothy Williams'],
   ];
-  if (reg.batch.number !== 9 || reg.batch.slugs.length !== 25 || reg.batch.implementedOnBranch !== 20 ||
-      reg.batch.remainingToImplement !== 5 || reg.batch.remainingToVerify !== 25 ||
+  if (reg.batch.number !== 9 || reg.batch.slugs.length !== 25 || reg.batch.implementedOnBranch !== 25 ||
+      reg.batch.remainingToImplement !== 0 || reg.batch.remainingToVerify !== 25 ||
       reg.schoolRecords.filter(x=>x.status==='VERIFIED').length!==180 ||
-      reg.schoolRecords.filter(x=>x.status==='IMPLEMENTED').length!==20 ||
-      reg.schoolRecords.filter(x=>x.status==='NOT_REVIEWED').length!==1092) {
-    errors.push('Batch009 fourth-five registry must remain 180 VERIFIED / 20 IMPLEMENTED / 1,092 NOT_REVIEWED until live Chrome.');
+      reg.schoolRecords.filter(x=>x.status==='IMPLEMENTED').length!==25 ||
+      reg.schoolRecords.filter(x=>x.status==='NOT_REVIEWED').length!==1087) {
+    errors.push('Batch009 verified-only cohort invariant: 180 VERIFIED / 25 IMPLEMENTED / 1,087 NOT_REVIEWED before Chrome acceptance.');
   }
   const graphicList = route.split('const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([')[1]?.split(']);')[0] || '';
   for (const [slug,countySlug,fact] of targets) {
@@ -2204,6 +2284,67 @@ if (!errors.length) {
      !accepting.includes('report.screenshots!==20') ||
      !accepting.includes('Original TexasDefined typographic football identity panel'))
     errors.push('Fourth-five production Chrome acceptance must cover 15 views, 5 counties and 20 screenshots.');
+}
+
+// Final-five Batch009 source and exact-deployment Chrome contract. Do not
+// confuse authored school editorial with a completed verified football season.
+{
+  const reg = JSON.parse(read('docs/football-authority/REGISTRY.json'));
+  const editorial = read('src/data/high-school-football/program-editorial-b009.ts');
+  const loader = read('src/data/high-school-football/program-editorial-b009-loader.server.ts');
+  const identities = read('src/data/high-school-football/school-identities.ts');
+  const team = read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
+  const county = read('src/routes/$kind.$slug.lazy.tsx');
+  const checker = read('scripts/ci/verify-football-b009-fifth-five-production.mjs');
+  const wf = read('.github/workflows/verify-football-b009-fifth-five-production.yml');
+  const targets = [
+    ['cherokee','san-saba','Iredell'],
+    ['chester','tyler','Coleman Butter'],
+    ['chico','wise','California'],
+    ['childress','childress','Bo Helm'],
+    ['chillicothe','hardeman','Zack Ryan'],
+  ];
+  if (reg.batch.number !== 9 || reg.batch.slugs.length !== 25 ||
+      reg.batch.implementedOnBranch !== 25 || reg.batch.remainingToImplement !== 0 || reg.batch.remainingToVerify !== 25 ||
+      reg.schoolRecords.filter(x=>x.status==='VERIFIED').length!==180 ||
+      reg.schoolRecords.filter(x=>x.status==='IMPLEMENTED').length!==25 ||
+      reg.schoolRecords.filter(x=>x.status==='NOT_REVIEWED').length!==1087) errors.push('Final-five Batch009 must preserve 180 VERIFIED / 25 IMPLEMENTED / 1,087 NOT_REVIEWED until real Chrome.');
+  const graphicList = team.split('const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([')[1]?.split(']);')[0] || '';
+  for (const [slug,countySlug,fact] of targets) {
+    const record=reg.schoolRecords.find(x=>x.slug===slug);
+    if (!record || record.status!=='IMPLEMENTED' || record.actualProductionVerified!==false || record.batch!==9)
+      errors.push('Final-five school must be IMPLEMENTED, not technically VERIFIED: '+slug);
+    for (const [content,needle,label] of [
+      [editorial,'"'+slug+'": {','source-specific school editorial'],
+      [editorial,fact,'documented school-specific fact'],
+      [loader,'"'+slug+'"','conditional server load'],
+      [identities,"slug: '"+slug+"'",'school identity'],
+      [team,"'"+slug+"': '"+countySlug+"'",'campus county'],
+      [county,"slug: '"+slug+"'",'reciprocal county card'],
+      [checker,"'"+slug+"'",'live-Chrome target'],
+    ]) if (!content.includes(needle)) errors.push('Final-five '+label+' missing: '+slug);
+    const dossier=read('docs/football-authority/schools/'+slug+'.md');
+    if(dossier.length<800 || !dossier.includes('IMPLEMENTED') || !dossier.includes('https://'))
+      errors.push('Final-five researched school dossier missing/insufficient: '+slug);
+    if(graphicList.includes("'"+slug+"'")) errors.push('Do not invent a scored-2026 timeline graphic for '+slug);
+  }
+  for(const required of ['Chillicothe ISD','25/26','Zack Ryan','California','Bo Helm','Coleman Butter'])
+    if(!editorial.includes(required)) errors.push('Final-five source conflict or official role lost: '+required);
+  for(const marker of [
+    "workflows: ['Deploy TexasDefined production']",
+    "github.event.workflow_run.conclusion == 'success'",
+    'ref: ${{ github.event.workflow_run.head_sha || github.sha }}',
+    'scripts/ci/verify-football-b009-fifth-five-production.mjs',
+    'path: artifacts/b009-fifth-five-production-chrome/',
+    'echo "run=true" >> "$GITHUB_OUTPUT"',
+    'echo "run=false" >> "$GITHUB_OUTPUT"',
+  ]) if(!wf.includes(marker)) errors.push('Fifth-five exact-deployment scoped workflow missing: '+marker);
+  if((wf.split('      - uses: actions/setup-node@v4').length-1)!==1 ||
+     (wf.split('      - name: Verify 5 school pages').length-1)!==1 ||
+     !checker.includes('report.schoolChecks.length!==15') ||
+     !checker.includes('report.countyChecks.length!==5') ||
+     !checker.includes('report.screenshots!==20') ||
+     !checker.includes('versions.size!==1')) errors.push('Final-five browser verifier must require 15 school checks, 5 counties, 20 screenshots, and one Worker version.');
 }
 
 if (errors.length) {

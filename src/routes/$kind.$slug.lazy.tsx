@@ -180,7 +180,7 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
   'wichita': [{ name: 'Burkburnett Bulldogs', slug: 'burkburnett', context: 'Burkburnett ISD Bulldogs: Jody Littleton first-party coaching source, 2026 rebound, District 4-4A DII ledger and Bulldog Stadium entrance/parking policy' }],
   'newton': [{ name: 'Burkeville Mustangs', slug: 'burkeville', context: 'Newton County six-man Burkeville: Keith Hendrix, 1986/2001 title history, 2026 District 13 results and disclosed Chester score-source discrepancy' }],
   'burnet': [{ name: 'Burnet Bulldogs', slug: 'burnet', context: 'Burnet High: first-party Ben Speer coaching, Kelly Green identity, 2026 District 12 ledger and China Spring breakthrough' }],
-  'hunt': [{ name: 'Caddo Mills Foxes', slug: 'caddo-mills', context: 'Hunt County Caddo Mills: Kodi Crane, 7-1 / 4-0 district start, Ferris 53-35 win and current stadium-construction transition' }, { name: 'Campbell Indians', slug: 'campbell', context: 'Hunt County Campbell six-man: Preston Compton, 2026 District 12 schedule, fragmented-source record note and verified Saint Jo district win' }, { name: 'Celeste Blue Devils', slug: 'celeste', context: 'Celeste ISD 2026 official Blue Devils football schedule and source-qualified Demetrius Rector coach in 2A Division II District 9' }],
+  'hunt': [{ name: 'Caddo Mills Foxes', slug: 'caddo-mills', context: 'Hunt County Caddo Mills: Kodi Crane, 7-1 / 4-0 district start, Ferris 53-35 win and current stadium-construction transition' }, { name: 'Campbell Indians', slug: 'campbell', context: 'Hunt County Campbell six-man: Preston Compton, 2026 District 12 schedule, fragmented-source record note and verified Saint Jo district win' }],
   'hemphill': [{ name: 'Canadian Wildcats', slug: 'canadian', context: 'Hemphill County Canadian: Andy Cavalier, five-title program history, 2026 District 1-3A DII race and current Wildcats Stadium / Chris Koetting Field context' }],
   'burleson': [{ name: 'Caldwell Hornets', slug: 'caldwell', context: 'Burleson County Caldwell: Sean Witherwax, move to 3A DI, current 2026 ledger and first-party Hornet Stadium entry guidance' }],
   'cooke': [{ name: 'Callisburg Wildcats', slug: 'callisburg', context: 'Cooke County Callisburg: District 7-3A DII, first 2026 win over S&S, disclosed coach-source conflict and unresolved Blue Ridge final' }],
@@ -252,7 +252,8 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
   collin: [
     { name: 'Allen Eagles', slug: 'allen', context: 'Five UIL state titles, historic Kyler Murray era and 2026 Eagle Stadium visitor guidance' },
     { name: 'Anna Coyotes', slug: 'anna', context: '2023 Class 4A Division I state champion and current Coyotes program' },
-  , { name: 'Blue Ridge Tigers', slug: 'blue-ridge', context: 'Blue Ridge ISD Collin County campus and 2026 UIL alignment' }, { name: 'Celina Bobcats', slug: 'celina', context: 'Nine UIL football state titles through 2024, March 2026 Marc Bindel appointment and new 5A Division II District 4' }],
+    { name: 'Blue Ridge Tigers', slug: 'blue-ridge', context: 'Blue Ridge ISD Collin County campus and 2026 UIL alignment' },
+  ],
   brewster: [{ name: 'Alpine Bucks', slug: 'alpine', context: 'Big Bend-area Bucks football, current alignment and Buck Stadium research' }],
   colorado: [{ name: 'Rice Consolidated Raiders', slug: 'altair-rice', context: 'Altair Raiders playoff tradition and 2026 District 14 games' }],
   cherokee: [{ name: 'Alto Yellowjackets', slug: 'alto', context: '2006 and 2007 consecutive UIL football state champions' },
@@ -313,7 +314,7 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
   'san-patricio': [{ name: 'Aransas Pass Panthers', slug: 'aransas-pass', context: 'Aransas Pass program history and contemporary varsity schedule context' }],
   archer: [{ name: 'Archer City Wildcats', slug: 'archer-city', context: '1964 state championship and reconciled UIL historical indexing discrepancy' }],
   wise: [{ name: 'Alvord Bulldogs', slug: 'alvord', context: '2025 undefeated district run and 2026 home ticket details' }, { name: 'Boyd Yellowjackets', slug: 'boyd', context: '3A Division I District 4 Wise County 2026 varsity football' },
-    { name: 'Bridgeport Bulls', slug: 'bridgeport', context: 'Bridgeport ISD Bulls 2026 official coach Aaron Cupp, 22 football playoff appearances and Bull Memorial Stadium turf notice; 1–6 reported through October 16' }],
+    { name: 'Bridgeport Bulls', slug: 'bridgeport', context: 'Bridgeport ISD Bulls 2026 official coach Aaron Cupp, 22 football playoff appearances and Bull Memorial Stadium turf notice; 1–6 reported through October 16' }, { name: 'Chico Dragons', slug: 'chico', context: 'Wise County 2026 2A Division I District 6; Texas Chico not California' }],
   randall: [
     { name: 'Amarillo High Sandies', slug: 'amarillo', context: 'Four UIL state titles and the documented Sandies–Tascosa football series' },
     { name: 'Caprock Longhorns', slug: 'amarillo-caprock', context: 'Verified Randall County campus, 2026 Longhorns history and current UIL alignment' },
@@ -329,6 +330,12 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
 // for the same campus county. There must be no duplicate object keys in
 // either map; the strict CI validator enforces this invariant.
 const supplementalFootballCountyLinks: Record<string, Array<{ name: string; slug: string; context: string }>> = {
+  'hunt': [{ name: 'Celeste Blue Devils', slug: 'celeste', context: 'Celeste ISD 2026 official Blue Devils football schedule and source-qualified Demetrius Rector coach in 2A Division II District 9' }],
+  'collin': [{ name: 'Celina Bobcats', slug: 'celina', context: 'Nine UIL football state titles through 2024, March 2026 Marc Bindel appointment and new 5A Division II District 4' }],
+  'san-saba': [{ name: 'Cherokee Fighting Indians', slug: 'cherokee', context: 'San Saba County 2026 six-man Division II District 8; school-published fixture revisions' }],
+  'tyler': [{ name: 'Chester Yellowjackets', slug: 'chester', context: 'Tyler County 2026 six-man Division I District 13; school-listed head coach Coleman Butter' }],
+  'childress': [{ name: 'Childress Bobcats', slug: 'childress', context: 'Childress County 2026 3A Division II District 1; school-listed coach Bo Helm' }],
+  'hardeman': [{ name: 'Chillicothe Eagles', slug: 'chillicothe', context: 'Hardeman County six-man Division II District 2; district schedule year needs updating' }],
   'shelby': [{ name: 'Center Roughriders', slug: 'center', context: 'Shelby County 4A Division II District 8, January 2026 Jack Alvarez appointment, Center ISD stadium-entry source caveats' }],
   'kerr': [{ name: 'Center Point Pirates', slug: 'center-point', context: 'Kerr County 2A Division II District 14, 2026 Pirates preseason bulletin and conflicting district athletics leadership pages' }],
   'atascosa': [{ name: 'Charlotte Trojans', slug: 'charlotte', context: 'Atascosa County 2A Division II District 15, current Timothy Williams AD, school athletic schedules and unconfirmed varsity head coaching' }],

@@ -35,10 +35,16 @@ for (const { label, origin } of endpoints) {
     const html = await response.text();
     const missing = checks.filter(([, marker]) => !html.includes(marker)).map(([name]) => name);
     const oldMarkers = oldContent.filter((marker) => html.includes(marker));
+    // Enforce exact approved CJ link IDs, source attribution and destinations.
+    // Do not visit affiliate redirects or accept arbitrary CJ publisher links.
+    const approvedTravel = {
+      'hotels.com': expectedHotelsClick(slug),
+      rvshare: expectedCjAccountClick('rvshare', slug),
+    };
     const affiliateContracts = ['hotels.com', 'rvshare'].map((partner) => {
       const tag = (html.match(/<a\b[^>]*>/gi) ?? []).find((value) => value.includes(`data-commercial-partner="${partner}"`));
       const href = tag?.match(/href=["']([^"']+)["']/)?.[1]?.replace(/&amp;/g, '&');
-      const expected = partner === 'hotels.com' ? expectedHotelsClick(slug) : expectedCjAccountClick('rvshare', slug);
+      const expected = approvedTravel[partner];
       return { partner, href, expected, valid: Boolean(tag && /rel="sponsored nofollow noopener noreferrer"/.test(tag) && href === expected) };
     });
     const noStore = /\bno-store\b/i.test(response.headers.get('cache-control') ?? '');

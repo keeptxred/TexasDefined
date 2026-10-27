@@ -78,6 +78,26 @@ function PartnerReferralAnalyticsAdmin() {
         <Metric label="Hourly sync" value={dashboard.lastPipelineSyncAt ? new Date(dashboard.lastPipelineSyncAt).toLocaleString() : 'No successful sync heartbeat'} />
         <Metric label="Dashboard refreshed" value={new Date(dashboard.generatedAt).toLocaleString()} />
       </section>
+      <section className="mt-10 border-t border-border pt-6" aria-labelledby="impact-provider-reporting">
+        <p className="eyebrow text-primary">Provider-side reporting</p>
+        <h2 id="impact-provider-reporting" className="mt-2 font-display text-3xl">Impact affiliate performance</h2>
+        <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">
+          Read-only figures reported by Impact.com for the previous 30 days. These are separate from
+          TexasDefined's on-site referral analytics and must not be added to first-party click counts.
+          Provider-reported activity does not establish a purchase payment or final, settled commission.
+        </p>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          <Metric label="Days with provider reports" value={dashboard.impact.observedDays30d} />
+          <Metric label="Impact reported clicks" value={dashboard.impact.providerClicks30d ?? 'Not available'} />
+          <Metric label="Credited actions" value={dashboard.impact.providerActions30d ?? 'Not available'} />
+          <Metric label="Reported sales" value={dashboard.impact.providerSales30d ?? 'Not available'} />
+          <Metric label="Last Impact import" value={dashboard.impact.lastProviderSyncAt ? new Date(dashboard.impact.lastProviderSyncAt).toLocaleString() : 'Not imported'} />
+        </div>
+        <p className="mt-4 max-w-3xl text-sm text-muted-foreground">
+          Amounts and payouts are withheld until Impact's reporting currency, credited versus reversed actions,
+          and settled payments can be independently reconciled. Missing provider metrics are not treated as zero revenue.
+        </p>
+      </section>
       {dashboard.totalClicks30d === 0 ? <p className="mt-5 max-w-3xl border-l-2 border-border pl-4 text-sm leading-6 text-muted-foreground">{dashboard.totalImpressions30d > 0 ? `Affiliate CTAs recorded ${dashboard.totalImpressions30d.toLocaleString()} qualifying impressions in the 30-day window but no qualifying referral clicks. Use the partner and placement tables below to see where offers are being viewed before changing copy or placement.` : 'No qualifying affiliate CTA impressions or referral clicks are currently present in the 30-day aggregate. “Hourly sync” shows the most recent successful Cloudflare-to-Supabase pipeline run even when there are no referral rows.'}</p> : null}
       <p className="mt-5 max-w-3xl border-l-2 border-border pl-4 text-sm leading-6 text-muted-foreground">Raw 30-day counts remain visible for audit continuity. Decision-grade CTR and travel-routing comparison windows restart on {ctrStartLabel} UTC after automated/headless browser traffic was excluded from first-party measurement.</p>
 

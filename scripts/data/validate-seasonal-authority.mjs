@@ -95,10 +95,16 @@ for (const token of [
   "Larry D. Moore",
   "creativecommons.org/licenses/by/",
   "commons.wikimedia.org/wiki/File:",
-  "decodeURIComponent",
+  "The_Lost_Maples_State_Park_-_Fall_Colors_in_Texas_(29567585500).jpg",
+  "Daingerfield_sp_reflection.jpg",
+  "Guadalupe_river_state_park_bluff.jpg",
   "acquireLicensePage",
   "creator:",
 ]) if (!imageRights.includes(token)) fail(`Fall image structured-data provenance missing ${token}`);
+if (/decodeURIComponent\(src|src\.slice\(src\.lastIndexOf/.test(imageRights)) {
+  fail("Commons source links must use verified original filenames, never proxied image URLs");
+}
+
 
 
 for (const [from, to] of Object.entries(retiredSeasonalRedirects)) {
