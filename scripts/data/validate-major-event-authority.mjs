@@ -373,11 +373,16 @@ for (const marker of [
   'Official railroad calendar:',
   'PALESTINE_HOTELS_AFFILIATE_URL',
   'de1634643/hotels-palestine-texas/',
+  'buildHotelsComEvergreenClick',
+  'PALESTINE_HOTELS_SID',
+  'hotelsComPageSid',
   'event.slug === "polar-express-palestine"',
 ]) if (!loader.includes(marker)) fail("Palestine Polar Express SSR booking UI missing " + marker);
 for (const marker of [
   'PALESTINE_HOTELS_DESTINATION',
   'Compare Palestine hotels on Hotels.com',
+  'click-101876465-15734399',
+  'td_polar_palestine',
   'isPalestinePolarExpress',
 ]) if (!stayClient.includes(marker)) fail("Palestine Polar Express client booking UI missing " + marker);
 
@@ -389,6 +394,18 @@ for (const forbidden of [
   '/event/2027/polar-express-palestine',
 ]) if (loader.includes('canonicalUrl = `${siteUrl}/event/${forbidden}`')) fail("Year-specific Palestine canonical regression");
 if (!loader.includes('canonicalUrl = `${siteUrl}/event/${event.slug}`')) fail("Permanent yearless major-event canonical missing");
+
+const evergreenHelper = read(path.join(root, "src/lib/cj-hotels-evergreen.ts"));
+for (const required of [
+  'click-101876465-15734399',
+  'td_polar_palestine',
+  'parsed.hostname !== "www.hotels.com"',
+  'url.searchParams.set("sid", sid)',
+  'url.searchParams.set("url", parsed.toString())',
+]) if (!evergreenHelper.includes(required)) fail("CJ Hotels.com Evergreen approved-link safety contract missing " + required);
+if (loader.includes('links/101876465/type/dlg/https://www.hotels.com/')) {
+  fail("Palestine server-rendered referral still uses old untracked CJ Hotels.com link");
+}
 
 const palestineImageEnrichment = read(path.join(dataDir, "major-event-schema-enrichment-batch32.server.ts"));
 for (const marker of [
