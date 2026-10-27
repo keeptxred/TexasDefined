@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { baselineFromLedger, buildChangePlan, REPRESENTATIVE_PATHS, PAGE_BUDGET } from './production-change-scope.mjs';
-import { verifyChangedPages, galvestonFactsDate, galvestonEditorialDate } from './verify-changed-production-pages.mjs';
+import { verifyChangedPages, assertKatyFootballContents, galvestonFactsDate, galvestonEditorialDate } from './verify-changed-production-pages.mjs';
 import { createProductionPageFetch } from './reuse-production-page.mjs';
 const policy = JSON.parse(readFileSync('scripts/ci/update-scan-policy.json', 'utf8'));
 const text = file => readFileSync(file, 'utf8');
@@ -420,6 +420,41 @@ test('Magoffin restoration and actual ImageObject license survive live SSR', asy
     + '<script type="application/ld+json">{not-valid-json}</script>');
   assert.equal(malformed.passed, false);
 });
+test('Katy stadium and ticket changes require both actual canonical and cache-busted SSR to be current', async () => {
+  const path = '/texas-high-school-football-teams/katy';
+  const plan = buildChangePlan({ baseline, head, changedFiles: ['src/components/sports/KatyStadiumGuide.tsx'] });
+  assert.deepEqual(plan.selectedPaths, [path]);
+  assert.deepEqual(plan.katyFootballPages, [path]);
+  const good = '<html><title>Katy Tigers Football: Nine Texas State Titles &amp; Stadium Guide</title>'
+    + '<link rel="canonical" href="https://texasdefined.com' + path + '">'
+    + [
+      'Where Katy football plays', 'Legacy Stadium', 'Jack F. Rhodes Memorial Stadium',
+      '1830 Katyland Drive', '1733 Katyland Drive',
+      'Katy ISD varsity football tickets',
+      'https://www.vancoevents.com/us/eventlist/varsityfb',
+      'https://katyabc.org/features/katy-football-record-book/',
+      'clear-bag-regulation', 'County clarification', 'NCES Katy High School source',
+      'id="football-current-season"', 'data-football-sponsor-interest="true"',
+    ].join(' ') + '</html>';
+  assert.doesNotThrow(() => assertKatyFootballContents(good));
+  for (const missing of [
+    'https://www.vancoevents.com/us/eventlist/varsityfb',
+    'Jack F. Rhodes Memorial Stadium',
+    'id="football-current-season"',
+  ]) {
+    assert.throws(() => assertKatyFootballContents(good.replace(missing, 'missing')), /missing production marker/);
+  }
+  assert.throws(() => assertKatyFootballContents(good.replace('Stadium Guide', '2026 Schedule')), /stale title/);
+  assert.throws(() => assertKatyFootballContents(good + 'record_book_02.26.24.pdf'), /obsolete archival link/);
+  const success = await verifyChangedPages({ plan, head, fetchImpl: async () => new Response(good) });
+  assert.equal(success.length, 1);
+  assert.equal(success[0].passed, true);
+  const staleVisitor = await verifyChangedPages({ plan, head, fetchImpl: async url =>
+    new Response(url.searchParams.has('deploy_smoke') ? good : good.replace('Stadium Guide', '2026 Schedule')) });
+  assert.equal(staleVisitor[0].passed, false);
+  assert.match(staleVisitor[0].error, /ordinary visitor URL has stale title/);
+});
+
 test('football template changes verify only two real team pages and their live game-night paths', async () => {
   const plan = buildChangePlan({ baseline, head, changedFiles: ['src/routes/texas-high-school-football-teams_.$slug.lazy.tsx'] });
   assert.deepEqual(plan.selectedPaths, [
