@@ -14,6 +14,7 @@ export type FootballMatchup = {
   classification: string;
   division?: 1 | 2;
   district?: number;
+  districtGame?: boolean;
   home: FootballTeam;
   away: FootballTeam;
   status: 'scheduled' | 'final';

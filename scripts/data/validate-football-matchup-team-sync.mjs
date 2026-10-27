@@ -23,6 +23,7 @@ assert.equal(games.find((game) => game.date === '2026-10-10').result, 'W 29–28
 assert.equal(games.find((game) => game.date === '2026-10-16').result, undefined, 'sourced matchup owns Memorial final, not a second hand-edited final');
 const memorial = snapshot.games.find((game) => game.slug === '2026-10-16-houston-memorial-at-alief-taylor');
 assert.equal(memorial?.status, 'final');
+assert.equal(memorial?.districtGame, true, 'Memorial–Taylor is explicitly marked as a district contest');
 assert.equal(memorial.home.slug, 'alief-taylor');
 assert.equal(memorial.homeScore, 18);
 assert.equal(memorial.awayScore, 42);
