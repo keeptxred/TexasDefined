@@ -35,3 +35,11 @@ test('only two GET reports for one local completed date; no public revenue',asyn
   assert.equal(result.results.length,2);
   assert.doesNotMatch(JSON.stringify(result),/99.99|Private Brand|200/);
 });
+
+test('zero pages with zero records are legitimate empty historical provider days',()=>{
+  assert.deepEqual(reportRecords({'@numpages':'0','@total':'0',Records:[]}),[]);
+  assert.throws(()=>reportRecords({'@numpages':'0','@total':'1',Records:[]}),/additional pages/);
+  assert.throws(()=>reportRecords({'@numpages':'0','@total':'0',Records:[{Clicks:'1'}]}),/additional pages/);
+  assert.throws(()=>reportRecords({'@numpages':'2','@total':'20001',Records:[{Clicks:'1'}]}),/additional pages/);
+  assert.deepEqual(reportRecords({'@numpages':'1',Records:[{Clicks:'1'}]}),[{Clicks:'1'}]);
+});
