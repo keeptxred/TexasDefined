@@ -2159,22 +2159,34 @@ if (!errors.length) {
 }
 
 /** Prevent silent object-literal overwrites of researched county football links.
- * Duplicate county keys had suppressed valid school links in 11 counties even when
- * each school had an independently sourced and verified football guide. */
+ * Duplicate keys inside either map can suppress valid programs. Reusing a county
+ * key across the base and supplemental maps is intentional because render-time
+ * concatenation preserves both independently researched cohorts. */
 {
   const entityPage = read(files[10]);
-  const start = entityPage.indexOf('const batch002FootballCountyLinks:');
-  const end = entityPage.indexOf('\nconst siteUrl = ', start);
-  if (start < 0 || end < 0) {
-    errors.push('Football county reciprocal link object missing.');
+  const baseStart = entityPage.indexOf('const batch002FootballCountyLinks:');
+  const supplementalStart = entityPage.indexOf('const supplementalFootballCountyLinks:', baseStart);
+  const end = entityPage.indexOf('\nconst siteUrl = ', supplementalStart);
+  if (baseStart < 0 || supplementalStart < 0 || end < 0) {
+    errors.push('Football county reciprocal base/supplemental link objects missing.');
   } else {
-    const section = entityPage.slice(start, end);
-    const keys = [...section.matchAll(/^  (?:'([^']+)'|([a-z-]+)):\s*\[/gm)].map((m) => m[1] || m[2]);
-    const duplicates = keys.filter((key, index) => keys.indexOf(key) !== index);
-    if (duplicates.length) errors.push('Duplicate football county link keys would suppress school links: ' + [...new Set(duplicates)].join(', '));
-    for (const slug of ['canyon-west-plains','carrizo-springs','carrollton-creekview','carrollton-ranchview','carrollton-smith']) {
-      requireText(section, "slug: '" + slug + "'", 'Batch 009 reciprocal football county link');
+    const sections = [
+      ['base', entityPage.slice(baseStart, supplementalStart)],
+      ['supplemental', entityPage.slice(supplementalStart, end)],
+    ];
+    for (const [label, section] of sections) {
+      const keys = [...section.matchAll(/^  (?:'([^']+)'|([a-z-]+)):\s*\[/gm)].map((m) => m[1] || m[2]);
+      const duplicates = keys.filter((key, index) => keys.indexOf(key) !== index);
+      if (duplicates.length) errors.push('Duplicate football county link keys inside '+label+' map would suppress school links: ' + [...new Set(duplicates)].join(', '));
     }
+    const combined = sections.map(([, section]) => section).join('\n');
+    for (const slug of ['canyon-west-plains','carrizo-springs','carrollton-creekview','carrollton-ranchview','carrollton-smith','celeste','celina']) {
+      requireText(combined, "slug: '" + slug + "'", 'Batch 009 reciprocal football county link');
+    }
+    for (const marker of [
+      '...(batch002FootballCountyLinks[entity.slug] ?? [])',
+      '...(supplementalFootballCountyLinks[entity.slug] ?? [])',
+    ]) requireText(entityPage, marker, 'Football county link maps must concatenate rather than overwrite');
   }
 }
 
