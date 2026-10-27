@@ -14,7 +14,11 @@ async function inspect(label, width, height, failApi = false) {
   const context = await browser.newContext({ viewport: { width, height }, isMobile: label === 'mobile' });
   const page = await context.newPage();
   const pageErrors = [];
-  page.on('pageerror', e => pageErrors.push(e.message));
+  const failedNetwork = [];
+  page.on('pageerror', e => pageErrors.push('pageerror: ' + e.message + '\\n' + e.stack));
+  page.on('console', m => { if (m.type() === 'error') pageErrors.push('console: ' + m.text()); });
+  page.on('requestfailed', req => failedNetwork.push(req.url() + ' : ' + req.failure()?.errorText));
+  page.on('response', res => { if (res.status() >= 400 && res.url().startsWith(origin)) failedNetwork.push('HTTP ' + res.status() + ' ' + res.url()); });
   if (failApi) {
     await page.route('**/api/property-tax-rates?**', route => route.abort('failed'));
     await page.route('**/api/high-school-football?**', route => route.abort('failed'));
@@ -77,7 +81,7 @@ async function inspect(label, width, height, failApi = false) {
     await page.screenshot({ path: output + '/' + label + (failApi ? '-fallback' : '-loaded') + '.png', fullPage: true });
     console.log('PASS ' + label + (failApi ? ' failure fallback' : ' normal load') + ': ' + JSON.stringify(dimensions));
   } catch (e) {
-    console.error('DOM diagnostic ' + label + ' fallback=' + failApi + ': ' + JSON.stringify(await page.evaluate(() => ({url:location.href,title:document.title,h1:[...document.querySelectorAll('h1')].map(x=>x.textContent),headings:[...document.querySelectorAll('h1,h2')].slice(0,14).map(x=>x.textContent),mapLinks:document.querySelectorAll('a[href*="openstreetmap.org"]').length,bodyLength:document.body?.innerText.length})).catch(()=>({error:'inspection unavailable'}))));
+    console.error('DOM diagnostic ' + label + ' fallback=' + failApi + ': ' + JSON.stringify(await page.evaluate(() => ({url:location.href,title:document.title,h1:[...document.querySelectorAll('h1')].map(x=>x.textContent),headings:[...document.querySelectorAll('h1,h2')].slice(0,14).map(x=>x.textContent),mapLinks:document.querySelectorAll('a[href*="openstreetmap.org"]').length,bodyLength:document.body?.innerText.length, bodyText:document.body?.innerText.slice(0,1200),appNodes:[...document.querySelectorAll('#root, #__next, #app, [data-router-state]')].map(el=>({id:el.id,html:el.outerHTML.slice(0,1000)}))})).catch(()=>({error:'inspection unavailable'}))) + ' errors=' + JSON.stringify(pageErrors.slice(0,10)) + ' failedRequests=' + JSON.stringify(failedNetwork.slice(0,20)));
     await page.screenshot({ path: output + '/' + label + '-FAIL.png', fullPage: true }).catch(() => {});
     failures.push(label + (failApi ? ' fallback' : '') + ': ' + (e?.message || e));
   } finally { await context.close(); }
