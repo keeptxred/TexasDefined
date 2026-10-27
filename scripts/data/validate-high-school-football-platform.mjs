@@ -2059,7 +2059,7 @@ if (!errors.length) {
   const loader = read('src/data/high-school-football/program-editorial-b009-loader.server.ts');
   const profile = read('src/data/high-school-football/football-program-profile.server.ts');
   const slugs = ['carrollton-turner','carthage','castle-hills','castroville-medina-valley','cayuga'];
-  if (registry.batch.implementedOnBranch !== 15 || registry.batch.remainingToImplement !== 10) errors.push('Batch 009 ten implementation records must match planned 25 school cohort.');
+  if (registry.batch.implementedOnBranch !== 20 || registry.batch.remainingToImplement !== 5) errors.push('Batch 009 twenty individually sourced implementation records must match the planned 25-school cohort.');
   for (const slug of slugs) {
     const record = registry.schoolRecords.find(s => s.slug === slug);
     if (!record || record.status !== 'IMPLEMENTED' || record.actualProductionVerified !== false) errors.push('Second group falsely promoted or missing: '+slug);
