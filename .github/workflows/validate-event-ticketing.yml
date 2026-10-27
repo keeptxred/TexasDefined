@@ -18,6 +18,7 @@ on:
       - 'src/components/editorial/TexasEventCarousel.tsx'
       - 'scripts/data/validate-event-ticketing-architecture.mjs'
       - 'scripts/data/validate-event-ticket-positive-path.mjs'
+      - 'scripts/data/validate-statewide-editorial-ticket-cohorts.mjs'
       - 'scripts/data/validate-major-event-ticket-lifecycle.mjs'
       - 'docs/event-ticketing-provider-architecture.md'
       - '.github/workflows/validate-event-ticketing.yml'
@@ -59,6 +60,9 @@ jobs:
 
       - name: Validate canonical official-ticket positive path
         run: node scripts/data/validate-event-ticket-positive-path.mjs
+
+      - name: Validate all upcoming editorial ticket records in cohorts of 50
+        run: node scripts/data/validate-statewide-editorial-ticket-cohorts.mjs
 
       - name: Validate organizer cancellation gate on major-event guide tickets
         run: node scripts/data/validate-major-event-ticket-lifecycle.mjs
