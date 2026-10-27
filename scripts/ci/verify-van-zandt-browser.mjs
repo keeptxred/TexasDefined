@@ -35,7 +35,7 @@ async function inspect(label, width, height, failApi = false) {
     await page.waitForFunction(() => {
       const h1 = document.querySelector('h1');
       return h1?.textContent?.trim() === 'Van Zandt County' &&
-        !!document.querySelector('a[href*="openstreetmap.org/search?query="]');
+        !!document.querySelector('a[href*="grandsalinesaltpalace.com"]');
     }, null, { timeout: 55000 });
     // TanStack Start can briefly replace server HTML with an empty Suspense
     // outlet while the client route loader revalidates. Recheck a settled route
@@ -44,7 +44,7 @@ async function inspect(label, width, height, failApi = false) {
     await page.waitForFunction(() => {
       const h1 = document.querySelector('h1');
       return h1?.textContent?.trim() === 'Van Zandt County' &&
-        !!document.querySelector('a[href*="openstreetmap.org/search?query="]');
+        !!document.querySelector('a[href*="grandsalinesaltpalace.com"]');
     }, null, { timeout: 40000 });
     const seo = await page.evaluate(() => ({
       canonical: document.querySelector('link[rel="canonical"]')?.href,
@@ -59,11 +59,15 @@ async function inspect(label, width, height, failApi = false) {
     assert.equal(seo.h1, 1);
     assert.ok(seo.title.includes('Van Zandt County') && seo.description?.length > 50);
     for (const value of seo.schema) assert.doesNotThrow(() => JSON.parse(value));
-    // PR acceptance intentionally exercises current production, before this new map can be deployed.
-    // The map source contract is enforced premerge; require nine real DOM points after deployment.
+    // PR browser checks inspect previous production. After merge/deploy, prove
+    // the unwanted shared-template county map section and SVG are both gone.
     if (process.env.EXPECT_VAN_ZANDT_COMPACT_LAYOUT === 'true') {
-      const communityPins = await page.locator('[data-van-zandt-community-map] [data-van-zandt-community-point]').count();
-      assert.equal(communityPins, 9, 'Published Van Zandt community map must show all nine towns');
+      assert.equal(await page.getByRole('heading', { name: 'Places on the map' }).count(), 0,
+        'Retired county map section reappeared');
+      assert.equal(await page.locator('[data-van-zandt-community-map]').count(), 0,
+        'Retired SVG community map reappeared');
+      assert.equal(await page.locator('a[href*="openstreetmap.org/search?query="]').count(), 0,
+        'Retired county map link grid reappeared');
     }
     for (const href of [
       'a[href*="grandsalinesaltpalace.com"]',

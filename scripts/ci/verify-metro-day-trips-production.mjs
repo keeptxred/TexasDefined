@@ -136,6 +136,28 @@ try {
         check("destination card photograph loads",
           photoExists&&!!photo?.src&&!!photo?.alt&&photo.complete&&photo.width>0&&photo.height>0,
           JSON.stringify(photo));
+        // A full-page screenshot does not trigger offscreen lazy-loaded photos.
+        // Exercise multiple cards as a traveler scrolls before preserving visual evidence.
+        // Limit the sample to keep this focused 14-market acceptance inexpensive.
+        const images=page.locator("main [data-image-frame] img");
+        const imageCount=Math.min(await images.count(),6);
+        const scrolledPhotos=[];
+        for(let imageIndex=0;imageIndex<imageCount;imageIndex++){
+          const img=images.nth(imageIndex);
+          await img.scrollIntoViewIfNeeded({timeout:10000}).catch(()=>{});
+          await page.waitForFunction(index=>{
+            const image=document.querySelectorAll("main [data-image-frame] img")[index];
+            return !!image&&image.complete;
+          },imageIndex,{timeout:8000}).catch(()=>{});
+          scrolledPhotos.push(await img.evaluate(image=>({
+            src:image.currentSrc||image.src,
+            alt:image.alt,
+            loaded:image.complete&&image.naturalWidth>0&&image.naturalHeight>0
+          })).catch(error=>({src:"",alt:"",loaded:false,error:String(error)})));
+        }
+        check("scrolled destination photographs load",
+          imageCount>=1&&scrolledPhotos.every(image=>image.loaded&&!!image.alt),
+          JSON.stringify(scrolledPhotos.map(image=>({...image,src:image.src.slice(0,140)}))).slice(0,500));
 
         check("indexable city has curated guide",data.slugs.length>=1,data.slugs.length);
         if(approvedViator.has(metro)){

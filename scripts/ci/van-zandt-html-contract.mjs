@@ -12,7 +12,7 @@ export function verifyVanZandtCountyHtml(html, origin = 'https://texasdefined.co
   for (const required of [
     'Van Zandt County essentials', 'County registry checked', 'Guide updated',
     'Salt Palace Museum', 'does not collect property taxes', 'Historical background:',
-    'The story of Van Zandt County', 'Places on the map',
+    'The story of Van Zandt County',
     'Taxing units in Van Zandt County', 'High school football in Van Zandt County',
   ]) assert.ok(visible.includes(required), 'County HTML missing: ' + required);
 
@@ -38,7 +38,6 @@ export function verifyVanZandtCountyHtml(html, origin = 'https://texasdefined.co
     'www.firstmondaycanton.com/about',
     'tpwd.texas.gov/state-parks/lake-tawakoni',
     'tpwd.texas.gov/state-parks/purtis-creek',
-    'www.openstreetmap.org/search?query=',
     '/destination/wills-point-depot-museum',
     '/texas-high-school-football-teams/wills-point',
   ]) assert.ok(html.includes(link), 'County HTML missing reference or destination: ' + link);
