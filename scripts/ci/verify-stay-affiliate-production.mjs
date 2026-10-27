@@ -1,3 +1,4 @@
+import { expectedCjAccountClick } from './cj-account-link-contract.mjs';
 import vm from 'node:vm';
 
 const origin = process.env.STAY_AFFILIATE_PRODUCTION_ORIGIN || 'https://texasdefined.com';
@@ -35,8 +36,8 @@ function verifyLiveRoutingPolicy(source) {
   requireCondition(typeof api.motel6Eligible === 'function' && typeof api.buildMotel6Link === 'function', 'Live Motel 6 contract is missing.');
   requireCondition(api.motel6Eligible('/explore/road-trips') && api.motel6Eligible('/explore/near/mcallen/day-trips'), 'Live budget-travel pages missing Motel 6 option.');
   requireCondition(!api.motel6Eligible('/events/christmas-events') && !api.motel6Eligible('/explore/casinos/near-houston'), 'Live Motel 6 route guard became too broad.');
-  if (typeof api.motel6CampaignActive === 'function') requireCondition(api.buildMotel6Link('17371482') === 'https://www.jdoqocy.com/click-101876465-17371482', 'Live temporary creative is not account-specific.');
-  requireCondition(api.buildMotel6Link('17198227') === 'https://www.tqlkg.com/click-101876465-17198227', 'Live evergreen Motel 6 link is not account-specific.');
+  if (typeof api.motel6CampaignActive === 'function') requireCondition(api.buildMotel6Link('17371482') === expectedCjAccountClick('motel6-halloween', '/'), 'Live temporary creative is not account-specific.');
+  requireCondition(api.buildMotel6Link('17198227') === expectedCjAccountClick('motel6-standard', '/'), 'Live evergreen Motel 6 link is not account-specific.');
   if (typeof api.motel6CampaignActive === 'function') requireCondition(api.motel6CampaignActive(Date.parse('2026-11-01T05:00:00Z')) === false, 'Live seasonal messaging must expire at the conservative cutoff.');
   requireCondition(typeof api.buildCjDeepLink === 'function', 'Live stay affiliate bootstrap does not expose buildCjDeepLink.');
   requireCondition(typeof api.featuredGolfStay === 'function', 'Live stay affiliate bootstrap does not expose featuredGolfStay.');
@@ -61,9 +62,9 @@ function verifyLiveRoutingPolicy(source) {
   const orbitz = api.buildCjDeepLink('https://www.orbitz.com/');
   const travelocity = api.buildCjDeepLink('https://www.travelocity.com/');
   const rvshare = api.buildCjDeepLink('https://rvshare.com/');
-  requireCondition(orbitz.startsWith('https://www.anrdoezrs.net/links/101876465/type/dlg/https://www.orbitz.com/'), 'Live Orbitz comparison target is no longer bound to the TexasDefined CJ publisher.');
-  requireCondition(travelocity.startsWith('https://www.anrdoezrs.net/links/101876465/type/dlg/https://www.travelocity.com/'), 'Live Travelocity comparison target is no longer bound to the TexasDefined CJ publisher.');
-  requireCondition(rvshare.startsWith('https://www.anrdoezrs.net/links/101876465/type/dlg/https://rvshare.com/'), 'Live RVshare target is no longer bound to the TexasDefined CJ publisher.');
+  requireCondition(orbitz === expectedCjAccountClick('orbitz', '/'), 'Live Orbitz comparison target is no longer bound to the TexasDefined CJ publisher.');
+  requireCondition(travelocity === expectedCjAccountClick('travelocity', '/'), 'Live Travelocity comparison target is no longer bound to the TexasDefined CJ publisher.');
+  requireCondition(rvshare === expectedCjAccountClick('rvshare', '/'), 'Live RVshare target is no longer bound to the TexasDefined CJ publisher.');
 
   const featuredGolfCases = [
     ['/sports-venue/pga-frisco-fields-ranch', 'Omni PGA Frisco Resort & Spa', 'https://www.hotels.com/ho2796737888/omni-pga-frisco-resort-frisco-united-states-of-america/'],
@@ -382,6 +383,7 @@ for (const page of pages) {
   if (page.requireSlot) requireCondition(html.includes('data-stay-nearby-slot'), `${page.route} is missing its explicit in-content Stay Nearby slot.`);
   if (page.requireBookingCar) {
     for (const marker of [
+      expectedCjAccountClick('booking.com', page.route).replace(/&/g, '&amp;'),
       'Need a rental car for your Texas road trip?',
       'Compare rental cars on Booking.com',
       'data-affiliate-partner="booking.com"',
@@ -396,7 +398,7 @@ for (const page of pages) {
       'Prefer a budget motel for the drive?',
       'data-commercial-partner="motel6"',
       'data-commercial-placement="football-budget-motel"',
-      'https://www.tqlkg.com/click-101876465-17198227',
+      expectedCjAccountClick('motel6-standard', page.route),
       'rel="sponsored nofollow noopener noreferrer"',
       'Affiliate disclosure: TexasDefined may earn a commission',
     ]) requireCondition(html.includes(marker), `${page.route} is missing the server-rendered Motel 6 travel marker: ${marker}`);

@@ -1023,6 +1023,20 @@ jobs:
           if-no-files-found: ignore
           retention-days: 7
 
+      - name: Verify changed CJ account tracking without affiliate clicks
+        id: live_cj_account
+        if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' && steps.change_scope.outputs.cj_affiliate == 'true' }}
+        run: node scripts/ci/verify-cj-account-production.mjs
+
+      - name: Preserve CJ account verification evidence
+        if: ${{ always() && steps.change_scope.outputs.cj_affiliate == 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: cj-account-production-${{ github.run_id }}
+          path: .artifacts/cj-account-production.json
+          if-no-files-found: error
+          retention-days: 14
+
       - name: Verify advertiser production
         id: live_advertiser
         if: ${{ always() && steps.cloudflare.outcome == 'success' && steps.live_direct_health.outcome == 'success' && steps.live_canonical_health.outcome == 'success' && steps.change_scope.outputs.advertiser == 'true' }}

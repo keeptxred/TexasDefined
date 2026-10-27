@@ -1,0 +1,1690 @@
+{
+  "reviewedAt": "2026-10-27",
+  "publisherId": "101876465",
+  "activeAdvertisers": [
+    [
+      "7889430",
+      "Abracadabra NYC"
+    ],
+    [
+      "6404897",
+      "Aiper"
+    ],
+    [
+      "7439025",
+      "Angi"
+    ],
+    [
+      "7854081",
+      "Booking.com APAC"
+    ],
+    [
+      "7864353",
+      "Booking.com Australia"
+    ],
+    [
+      "4861279",
+      "CheapTickets"
+    ],
+    [
+      "2805705",
+      "CityPASS"
+    ],
+    [
+      "2362700",
+      "Discount School Supply"
+    ],
+    [
+      "7804601",
+      "GearUP"
+    ],
+    [
+      "1702763",
+      "Hotels.com"
+    ],
+    [
+      "7624468",
+      "Motel6"
+    ],
+    [
+      "4861280",
+      "Orbitz"
+    ],
+    [
+      "5357356",
+      "Rexing"
+    ],
+    [
+      "5126501",
+      "RVShare"
+    ],
+    [
+      "1549809",
+      "Travelocity"
+    ],
+    [
+      "2691607",
+      "Vrbo"
+    ]
+  ],
+  "verified": [
+    {
+      "program": "hotels.com",
+      "advertiser": "1702763",
+      "aid": "15734399",
+      "base": "https://www.anrdoezrs.net/click-101876465-15734399",
+      "deepLink": true,
+      "sid": true,
+      "evidence": "User-supplied CJ output; reverified Get Code in connected session with TexasDefined.com PID selected; current CJ output also rotates to jdoqocy.com."
+    },
+    {
+      "program": "booking.com",
+      "advertiser": "7854081",
+      "aid": "17289008",
+      "base": "https://www.jdoqocy.com/click-101876465-17289008",
+      "deepLink": true,
+      "sid": true,
+      "destination": "https://www.booking.com/cars/country/us.html",
+      "exampleSid": "td_events_air_shows"
+    },
+    {
+      "program": "rvshare",
+      "advertiser": "5126501",
+      "aid": "15734916",
+      "base": "https://www.kqzyfj.com/click-101876465-15734916",
+      "deepLink": true,
+      "sid": true,
+      "destination": "https://rvshare.com/",
+      "exampleSid": "td_explore_rv_parks"
+    },
+    {
+      "program": "orbitz",
+      "advertiser": "4861280",
+      "aid": "15734579",
+      "base": "https://www.tkqlhce.com/click-101876465-15734579",
+      "deepLink": true,
+      "sid": true,
+      "destination": "https://www.orbitz.com/",
+      "exampleSid": "td_event_polar_express_palestine"
+    },
+    {
+      "program": "travelocity",
+      "advertiser": "1549809",
+      "aid": "15230459",
+      "base": "https://www.kqzyfj.com/click-101876465-15230459",
+      "deepLink": true,
+      "sid": true,
+      "destination": "https://www.travelocity.com/",
+      "exampleSid": "td_destination_fredericksburg"
+    },
+    {
+      "program": "vrbo",
+      "advertiser": "2691607",
+      "aid": "10697641",
+      "base": "https://www.tkqlhce.com/click-101876465-10697641",
+      "deepLink": true,
+      "sid": true,
+      "destination": "https://www.vrbo.com/",
+      "exampleSid": "td_destination_galveston",
+      "additionalDestination": "https://www.vrbo.com/vacation-rentals/usa/texas/waco/waco-convention-center"
+    },
+    {
+      "program": "motel6-standard",
+      "advertiser": "7624468",
+      "aid": "17198227",
+      "base": "https://www.tkqlhce.com/click-101876465-17198227",
+      "deepLink": false,
+      "sid": true,
+      "destination": "https://www.motel6.com/",
+      "exampleSid": "td_sports_friday_night_lights"
+    },
+    {
+      "program": "motel6-halloween",
+      "advertiser": "7624468",
+      "aid": "17371482",
+      "base": "https://www.kqzyfj.com/click-101876465-17371482",
+      "deepLink": true,
+      "sid": true,
+      "destination": "https://www.motel6.com/",
+      "exampleSid": "td_sports_friday_night_lights"
+    },
+    {
+      "program": "discount-school-supply",
+      "advertiser": "2362700",
+      "aid": "15733428",
+      "base": "https://www.tkqlhce.com/click-101876465-15733428",
+      "deepLink": true,
+      "sid": true,
+      "destination": "https://www.discountschoolsupply.com",
+      "exampleSid": "td_school_supplies",
+      "placement": "none in source; do not activate"
+    },
+    {
+      "program": "rexing",
+      "advertiser": "5357356",
+      "aid": "15735466",
+      "base": "https://www.kqzyfj.com/click-101876465-15735466",
+      "deepLink": true,
+      "sid": true,
+      "destination": "https://rexing.com/",
+      "exampleSid": "td_road_trip",
+      "placement": "15 dormant governed records; no active href"
+    },
+    {
+      "program": "abracadabra-nyc",
+      "advertiser": "7889430",
+      "aid": "17277658",
+      "base": "https://www.kqzyfj.com/click-101876465-17277658",
+      "deepLink": true,
+      "sid": true,
+      "destination": "https://abracadabranyc.com/",
+      "exampleSid": "td_gaming",
+      "placement": "11 dormant governed records; no active href"
+    },
+    {
+      "program": "aiper",
+      "advertiser": "6404897",
+      "aid": "15736575",
+      "base": "https://www.tkqlhce.com/click-101876465-15736575",
+      "deepLink": true,
+      "sid": true,
+      "destination": "http://aiper.store/us/store",
+      "exampleSid": "td_pool",
+      "placement": "none in source; no activation"
+    },
+    {
+      "program": "cheaptickets",
+      "advertiser": "4861279",
+      "aid": "15735979",
+      "base": "https://www.dpbolvw.net/click-101876465-15735979",
+      "deepLink": true,
+      "sid": true,
+      "destination": "http://www.cheaptickets.com",
+      "exampleSid": "td_travel",
+      "placement": "none in source; no activation"
+    },
+    {
+      "program": "citypass",
+      "advertiser": "2805705",
+      "aid": "15733674",
+      "base": "https://www.dpbolvw.net/click-101876465-15733674",
+      "deepLink": true,
+      "sid": true,
+      "destination": "https://www.citypass.com/dallas",
+      "exampleSid": "td_guides_citypass_texas",
+      "placement": "Impact fallback intentionally disabled; no new placement activated"
+    },
+    {
+      "program": "booking-australia",
+      "advertiser": "7864353",
+      "aid": "17304773",
+      "base": "https://www.anrdoezrs.net/click-101876465-17304773",
+      "deepLink": true,
+      "sid": true,
+      "destination": "https://www.booking.com/cars/index.en-gb.html",
+      "exampleSid": "td_travel",
+      "placement": "no source placement; use approved APAC Cars creative for existing U.S. route"
+    },
+    {
+      "program": "vrbo-owner",
+      "advertiser": "2691607",
+      "aid": "10697642",
+      "base": "https://www.dpbolvw.net/click-101876465-10697642",
+      "deepLink": true,
+      "sid": true,
+      "destination": "https://www.vrbo.com/en-us/list/lead",
+      "exampleSid": "td_real_estate"
+    },
+    {
+      "program": "angi",
+      "advertiser": "7439025",
+      "deepLink": false,
+      "sid": true,
+      "creativesVerified": 34,
+      "sourceServiceDestinations": 26,
+      "evidence": "Every source service destination matched a CJ creative and Get Code was generated with SID td_home_garden. No service requests submitted."
+    },
+    {
+      "program": "gearup",
+      "advertiser": "7804601",
+      "sid": true,
+      "creativesVerified": 8,
+      "deepLink": "Evergreen supports a Destination Url; all eight existing creatives were individually opened and generated with SID td_gaming."
+    }
+  ],
+  "gearup": [
+    {
+      "aid": "17255582",
+      "url": "https://www.jdoqocy.com/click-101876465-17255582?sid=td_gaming",
+      "sid": true
+    },
+    {
+      "aid": "17235980",
+      "url": "https://www.dpbolvw.net/click-101876465-17235980?sid=td_gaming",
+      "sid": true
+    },
+    {
+      "aid": "17235981",
+      "url": "https://www.kqzyfj.com/click-101876465-17235981?sid=td_gaming",
+      "sid": true
+    },
+    {
+      "aid": "17235979",
+      "url": "https://www.jdoqocy.com/click-101876465-17235979?sid=td_gaming",
+      "sid": true
+    },
+    {
+      "aid": "17235974",
+      "url": "https://www.jdoqocy.com/click-101876465-17235974?sid=td_gaming",
+      "sid": true
+    },
+    {
+      "aid": "17235983",
+      "url": "https://www.kqzyfj.com/click-101876465-17235983?sid=td_gaming",
+      "sid": true
+    },
+    {
+      "aid": "17342275",
+      "url": "https://www.tkqlhce.com/click-101876465-17342275?sid=td_gaming",
+      "sid": true
+    },
+    {
+      "aid": "17235982",
+      "url": "https://www.dpbolvw.net/click-101876465-17235982?sid=td_gaming",
+      "sid": true
+    }
+  ],
+  "blocked": [
+    {
+      "program": "really-good-stuff",
+      "advertiser": "7552520",
+      "reason": "CJ relationship Expired 1-Oct-2026; Apply to Program, manual review required. No application submitted.",
+      "previousAid": "17106455"
+    }
+  ],
+  "angi": {
+    "roofing": {
+      "advertiserId": "7439025",
+      "linkId": "17142826",
+      "base": "https://www.jdoqocy.com/click-101876465-17142826",
+      "destination": "http://request.angi.com/service-request/category/12061/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313936",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "hvac": {
+      "advertiserId": "7439025",
+      "linkId": "17142830",
+      "base": "https://www.jdoqocy.com/click-101876465-17142830",
+      "destination": "http://request.angi.com/service-request/category/12002/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313937",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "heating": {
+      "advertiserId": "7439025",
+      "linkId": "17142838",
+      "base": "https://www.dpbolvw.net/click-101876465-17142838",
+      "destination": "http://request.angi.com/service-request/category/12040/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313943",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "plumbing": {
+      "advertiserId": "7439025",
+      "linkId": "17141194",
+      "base": "https://www.kqzyfj.com/click-101876465-17141194",
+      "destination": "http://request.angi.com/service-request/category/12058/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43303139",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "moving": {
+      "advertiserId": "7439025",
+      "linkId": "17141190",
+      "base": "https://www.tkqlhce.com/click-101876465-17141190",
+      "destination": "http://request.angi.com/service-request/category/12050/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43303137",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "foundation": {
+      "advertiserId": "7439025",
+      "linkId": "17252545",
+      "base": "https://www.jdoqocy.com/click-101876465-17252545",
+      "destination": "http://request.angi.com/service-request/category/12033/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=44920547",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "remodeling": {
+      "advertiserId": "7439025",
+      "linkId": "17142833",
+      "base": "https://www.dpbolvw.net/click-101876465-17142833",
+      "destination": "http://request.angi.com/service-request/category/12001/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313940",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "windows": {
+      "advertiserId": "7439025",
+      "linkId": "17142835",
+      "base": "https://www.anrdoezrs.net/click-101876465-17142835",
+      "destination": "http://request.angi.com/service-request/category/12080/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313942",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "fences": {
+      "advertiserId": "7439025",
+      "linkId": "17297358",
+      "base": "https://www.dpbolvw.net/click-101876465-17297358",
+      "destination": "http://request.angi.com/service-request/category/12030/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313954",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "pools": {
+      "advertiserId": "7439025",
+      "linkId": "17297374",
+      "base": "https://www.tkqlhce.com/click-101876465-17297374",
+      "destination": "http://request.angi.com/service-request/category/12070/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313957",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "landscaping": {
+      "advertiserId": "7439025",
+      "linkId": "17344173",
+      "base": "https://www.jdoqocy.com/click-101876465-17344173",
+      "destination": "http://request.angi.com/service-request/category/12046/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313945",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "concrete": {
+      "advertiserId": "7439025",
+      "linkId": "17297376",
+      "base": "https://www.tkqlhce.com/click-101876465-17297376",
+      "destination": "http://request.angi.com/service-request/category/12015/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313956",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "flooring": {
+      "advertiserId": "7439025",
+      "linkId": "17307735",
+      "base": "https://www.tkqlhce.com/click-101876465-17307735",
+      "destination": "http://request.angi.com/service-request/category/12032/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313952",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "painting": {
+      "advertiserId": "7439025",
+      "linkId": "17344185",
+      "base": "https://www.dpbolvw.net/click-101876465-17344185",
+      "destination": "http://request.angi.com/service-request/category/12054/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313950",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "pest-control": {
+      "advertiserId": "7439025",
+      "linkId": "17141195",
+      "base": "https://www.kqzyfj.com/click-101876465-17141195",
+      "destination": "http://request.angi.com/service-request/category/12057/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43303140",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "electrical": {
+      "advertiserId": "7439025",
+      "linkId": "17142831",
+      "base": "https://www.dpbolvw.net/click-101876465-17142831",
+      "destination": "http://request.angi.com/service-request/category/12026/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313938",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "handyman": {
+      "advertiserId": "7439025",
+      "linkId": "17141193",
+      "base": "https://www.jdoqocy.com/click-101876465-17141193",
+      "destination": "http://request.angi.com/service-request/category/12039/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43303138",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "water-treatment": {
+      "advertiserId": "7439025",
+      "linkId": "17276038",
+      "base": "https://www.jdoqocy.com/click-101876465-17276038",
+      "destination": "http://request.angi.com/service-request/category/12077/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=44954937",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "siding": {
+      "advertiserId": "7439025",
+      "linkId": "17344214",
+      "base": "https://www.anrdoezrs.net/click-101876465-17344214",
+      "destination": "http://request.angi.com/service-request/category/12064/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=46163723",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "decks": {
+      "advertiserId": "7439025",
+      "linkId": "17297375",
+      "base": "https://www.dpbolvw.net/click-101876465-17297375",
+      "destination": "http://request.angi.com/service-request/category/12017/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313951",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "doors": {
+      "advertiserId": "7439025",
+      "linkId": "17142839",
+      "base": "https://www.kqzyfj.com/click-101876465-17142839",
+      "destination": "http://request.angi.com/service-request/category/12024/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313944",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "cleaning": {
+      "advertiserId": "7439025",
+      "linkId": "17142832",
+      "base": "https://www.kqzyfj.com/click-101876465-17142832",
+      "destination": "http://request.angi.com/service-request/category/12014/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313939",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "survey": {
+      "advertiserId": "7439025",
+      "linkId": "17297390",
+      "base": "https://www.dpbolvw.net/click-101876465-17297390",
+      "destination": "http://request.angi.com/service-request/category/12005/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=45292678",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "paving": {
+      "advertiserId": "7439025",
+      "linkId": "17344204",
+      "base": "https://www.kqzyfj.com/click-101876465-17344204",
+      "destination": "http://request.angi.com/service-request/category/12055/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=46163719",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "pressure-washing": {
+      "advertiserId": "7439025",
+      "linkId": "17344212",
+      "base": "https://www.dpbolvw.net/click-101876465-17344212",
+      "destination": "http://request.angi.com/service-request/category/14980/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=46163722",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "custom-home": {
+      "advertiserId": "7439025",
+      "linkId": "17219562",
+      "base": "https://www.dpbolvw.net/click-101876465-17219562",
+      "destination": "http://request.angi.com/service-request/task/40105/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=44364980",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    }
+  },
+  "auditScope": "Connected CJ UI; all 16 active relationships, TexasDefined.com PID 101876465 selected in Get Code. No tracking redirects or merchant transactions requested.",
+  "activeBuilderEntries": {
+    "booking.com": {
+      "advertiserId": "7854081",
+      "linkId": "17289008",
+      "base": "https://www.jdoqocy.com/click-101876465-17289008",
+      "destination": "https://www.booking.com/cars/country/us.html",
+      "deepLink": true,
+      "includeDestination": true,
+      "allowedDestinations": [
+        "https://www.booking.com/cars/country/us.html"
+      ]
+    },
+    "rvshare": {
+      "advertiserId": "5126501",
+      "linkId": "15734916",
+      "base": "https://www.kqzyfj.com/click-101876465-15734916",
+      "destination": "https://rvshare.com/",
+      "deepLink": true,
+      "includeDestination": true,
+      "allowedDestinations": [
+        "https://rvshare.com/"
+      ]
+    },
+    "orbitz": {
+      "advertiserId": "4861280",
+      "linkId": "15734579",
+      "base": "https://www.tkqlhce.com/click-101876465-15734579",
+      "destination": "https://www.orbitz.com/",
+      "deepLink": true,
+      "includeDestination": true,
+      "allowedDestinations": [
+        "https://www.orbitz.com/"
+      ]
+    },
+    "travelocity": {
+      "advertiserId": "1549809",
+      "linkId": "15230459",
+      "base": "https://www.kqzyfj.com/click-101876465-15230459",
+      "destination": "https://www.travelocity.com/",
+      "deepLink": true,
+      "includeDestination": false,
+      "allowedDestinations": [
+        "https://www.travelocity.com/"
+      ]
+    },
+    "vrbo": {
+      "advertiserId": "2691607",
+      "linkId": "10697641",
+      "base": "https://www.tkqlhce.com/click-101876465-10697641",
+      "destination": "https://www.vrbo.com/",
+      "deepLink": true,
+      "includeDestination": false,
+      "allowedDestinations": [
+        "https://www.vrbo.com/",
+        "https://www.vrbo.com/vacation-rentals/usa/texas/waco/waco-convention-center"
+      ]
+    },
+    "motel6-standard": {
+      "advertiserId": "7624468",
+      "linkId": "17198227",
+      "base": "https://www.tkqlhce.com/click-101876465-17198227",
+      "destination": "https://www.motel6.com/",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": [
+        "https://www.motel6.com/"
+      ]
+    },
+    "motel6-halloween": {
+      "advertiserId": "7624468",
+      "linkId": "17371482",
+      "base": "https://www.kqzyfj.com/click-101876465-17371482",
+      "destination": "https://www.motel6.com/",
+      "deepLink": true,
+      "includeDestination": false,
+      "allowedDestinations": [
+        "https://www.motel6.com/"
+      ]
+    },
+    "gearup-17255582": {
+      "advertiserId": "7804601",
+      "linkId": "17255582",
+      "base": "https://www.jdoqocy.com/click-101876465-17255582",
+      "destination": "https://www.gearupbooster.com/",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "gearup-17235980": {
+      "advertiserId": "7804601",
+      "linkId": "17235980",
+      "base": "https://www.dpbolvw.net/click-101876465-17235980",
+      "destination": "https://www.gearupbooster.com/camp/fortnite/",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "gearup-17235981": {
+      "advertiserId": "7804601",
+      "linkId": "17235981",
+      "base": "https://www.kqzyfj.com/click-101876465-17235981",
+      "destination": "https://www.gearupbooster.com/camp/apex/",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "gearup-17235979": {
+      "advertiserId": "7804601",
+      "linkId": "17235979",
+      "base": "https://www.jdoqocy.com/click-101876465-17235979",
+      "destination": "https://www.gearupbooster.com/pay/subscription/",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "gearup-17235974": {
+      "advertiserId": "7804601",
+      "linkId": "17235974",
+      "base": "https://www.jdoqocy.com/click-101876465-17235974",
+      "destination": "https://www.gearupbooster.com/",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "gearup-17235983": {
+      "advertiserId": "7804601",
+      "linkId": "17235983",
+      "base": "https://www.kqzyfj.com/click-101876465-17235983",
+      "destination": "https://www.gearupbooster.com/camp/valorant/",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "gearup-17342275": {
+      "advertiserId": "7804601",
+      "linkId": "17342275",
+      "base": "https://www.tkqlhce.com/click-101876465-17342275",
+      "destination": "https://www.gearupbooster.com/camp/pubg/",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "gearup-17235982": {
+      "advertiserId": "7804601",
+      "linkId": "17235982",
+      "base": "https://www.dpbolvw.net/click-101876465-17235982",
+      "destination": "https://www.gearupbooster.com/camp/tarkov/",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "vrbo-owner": {
+      "advertiserId": "2691607",
+      "linkId": "10697642",
+      "base": "https://www.dpbolvw.net/click-101876465-10697642",
+      "destination": "https://www.vrbo.com/en-us/list/lead",
+      "deepLink": true,
+      "includeDestination": true,
+      "allowedDestinations": [
+        "https://www.vrbo.com/en-us/list/lead"
+      ]
+    },
+    "angi-roofing": {
+      "advertiserId": "7439025",
+      "linkId": "17142826",
+      "base": "https://www.jdoqocy.com/click-101876465-17142826",
+      "destination": "http://request.angi.com/service-request/category/12061/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313936",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "angi-hvac": {
+      "advertiserId": "7439025",
+      "linkId": "17142830",
+      "base": "https://www.jdoqocy.com/click-101876465-17142830",
+      "destination": "http://request.angi.com/service-request/category/12002/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313937",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "angi-heating": {
+      "advertiserId": "7439025",
+      "linkId": "17142838",
+      "base": "https://www.dpbolvw.net/click-101876465-17142838",
+      "destination": "http://request.angi.com/service-request/category/12040/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313943",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "angi-plumbing": {
+      "advertiserId": "7439025",
+      "linkId": "17141194",
+      "base": "https://www.kqzyfj.com/click-101876465-17141194",
+      "destination": "http://request.angi.com/service-request/category/12058/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43303139",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "angi-moving": {
+      "advertiserId": "7439025",
+      "linkId": "17141190",
+      "base": "https://www.tkqlhce.com/click-101876465-17141190",
+      "destination": "http://request.angi.com/service-request/category/12050/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43303137",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "angi-foundation": {
+      "advertiserId": "7439025",
+      "linkId": "17252545",
+      "base": "https://www.jdoqocy.com/click-101876465-17252545",
+      "destination": "http://request.angi.com/service-request/category/12033/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=44920547",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "angi-remodeling": {
+      "advertiserId": "7439025",
+      "linkId": "17142833",
+      "base": "https://www.dpbolvw.net/click-101876465-17142833",
+      "destination": "http://request.angi.com/service-request/category/12001/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313940",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "angi-windows": {
+      "advertiserId": "7439025",
+      "linkId": "17142835",
+      "base": "https://www.anrdoezrs.net/click-101876465-17142835",
+      "destination": "http://request.angi.com/service-request/category/12080/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313942",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "angi-fences": {
+      "advertiserId": "7439025",
+      "linkId": "17297358",
+      "base": "https://www.dpbolvw.net/click-101876465-17297358",
+      "destination": "http://request.angi.com/service-request/category/12030/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313954",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "angi-pools": {
+      "advertiserId": "7439025",
+      "linkId": "17297374",
+      "base": "https://www.tkqlhce.com/click-101876465-17297374",
+      "destination": "http://request.angi.com/service-request/category/12070/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313957",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "angi-landscaping": {
+      "advertiserId": "7439025",
+      "linkId": "17344173",
+      "base": "https://www.jdoqocy.com/click-101876465-17344173",
+      "destination": "http://request.angi.com/service-request/category/12046/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313945",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "angi-concrete": {
+      "advertiserId": "7439025",
+      "linkId": "17297376",
+      "base": "https://www.tkqlhce.com/click-101876465-17297376",
+      "destination": "http://request.angi.com/service-request/category/12015/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313956",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "angi-flooring": {
+      "advertiserId": "7439025",
+      "linkId": "17307735",
+      "base": "https://www.tkqlhce.com/click-101876465-17307735",
+      "destination": "http://request.angi.com/service-request/category/12032/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313952",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "angi-painting": {
+      "advertiserId": "7439025",
+      "linkId": "17344185",
+      "base": "https://www.dpbolvw.net/click-101876465-17344185",
+      "destination": "http://request.angi.com/service-request/category/12054/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313950",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "angi-pest-control": {
+      "advertiserId": "7439025",
+      "linkId": "17141195",
+      "base": "https://www.kqzyfj.com/click-101876465-17141195",
+      "destination": "http://request.angi.com/service-request/category/12057/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43303140",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "angi-electrical": {
+      "advertiserId": "7439025",
+      "linkId": "17142831",
+      "base": "https://www.dpbolvw.net/click-101876465-17142831",
+      "destination": "http://request.angi.com/service-request/category/12026/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313938",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "angi-handyman": {
+      "advertiserId": "7439025",
+      "linkId": "17141193",
+      "base": "https://www.jdoqocy.com/click-101876465-17141193",
+      "destination": "http://request.angi.com/service-request/category/12039/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43303138",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "angi-water-treatment": {
+      "advertiserId": "7439025",
+      "linkId": "17276038",
+      "base": "https://www.jdoqocy.com/click-101876465-17276038",
+      "destination": "http://request.angi.com/service-request/category/12077/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=44954937",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "angi-siding": {
+      "advertiserId": "7439025",
+      "linkId": "17344214",
+      "base": "https://www.anrdoezrs.net/click-101876465-17344214",
+      "destination": "http://request.angi.com/service-request/category/12064/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=46163723",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "angi-decks": {
+      "advertiserId": "7439025",
+      "linkId": "17297375",
+      "base": "https://www.dpbolvw.net/click-101876465-17297375",
+      "destination": "http://request.angi.com/service-request/category/12017/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313951",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "angi-doors": {
+      "advertiserId": "7439025",
+      "linkId": "17142839",
+      "base": "https://www.kqzyfj.com/click-101876465-17142839",
+      "destination": "http://request.angi.com/service-request/category/12024/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313944",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "angi-cleaning": {
+      "advertiserId": "7439025",
+      "linkId": "17142832",
+      "base": "https://www.kqzyfj.com/click-101876465-17142832",
+      "destination": "http://request.angi.com/service-request/category/12014/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313939",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "angi-survey": {
+      "advertiserId": "7439025",
+      "linkId": "17297390",
+      "base": "https://www.dpbolvw.net/click-101876465-17297390",
+      "destination": "http://request.angi.com/service-request/category/12005/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=45292678",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "angi-paving": {
+      "advertiserId": "7439025",
+      "linkId": "17344204",
+      "base": "https://www.kqzyfj.com/click-101876465-17344204",
+      "destination": "http://request.angi.com/service-request/category/12055/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=46163719",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "angi-pressure-washing": {
+      "advertiserId": "7439025",
+      "linkId": "17344212",
+      "base": "https://www.dpbolvw.net/click-101876465-17344212",
+      "destination": "http://request.angi.com/service-request/category/14980/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=46163722",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    },
+    "angi-custom-home": {
+      "advertiserId": "7439025",
+      "linkId": "17219562",
+      "base": "https://www.dpbolvw.net/click-101876465-17219562",
+      "destination": "http://request.angi.com/service-request/task/40105/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=44364980",
+      "deepLink": false,
+      "includeDestination": false,
+      "allowedDestinations": []
+    }
+  },
+  "sourceReferences": [
+    {
+      "file": "src/components/monetization/BookingCarRentalCard.tsx",
+      "line": 2,
+      "code": "import { buildCjAccountClick } from '@/lib/cj-account-links';"
+    },
+    {
+      "file": "src/components/monetization/BookingCarRentalCard.tsx",
+      "line": 16,
+      "code": "const BOOKING_CAR_RENTAL_URL = buildCjAccountClick('booking.com', pathname, BOOKING_CAR_RENTAL_DESTINATION);"
+    },
+    {
+      "file": "src/components/sports/FootballFanOffers.tsx",
+      "line": 1,
+      "code": "import { buildCjAccountClick } from '@/lib/cj-account-links';"
+    },
+    {
+      "file": "src/components/sports/FootballFanOffers.tsx",
+      "line": 3,
+      "code": "import { buildHotelsComEvergreenClick, hotelsComPageSid } from '@/lib/cj-hotels-evergreen';"
+    },
+    {
+      "file": "src/components/sports/FootballFanOffers.tsx",
+      "line": 21,
+      "code": "const HOTEL_CJ_PUBLISHER_ID = '101876465';"
+    },
+    {
+      "file": "src/components/sports/FootballFanOffers.tsx",
+      "line": 36,
+      "code": "offer.trackedUrl.startsWith(`https://www.anrdoezrs.net/links/${HOTEL_CJ_PUBLISHER_ID}/type/dlg/https://rexing.com/`);"
+    },
+    {
+      "file": "src/components/sports/FootballFanOffers.tsx",
+      "line": 41,
+      "code": "const RVSHARE_AFFILIATE_URL = buildCjAccountClick('rvshare', pathname, RVSHARE_DESTINATION);"
+    },
+    {
+      "file": "src/components/sports/FootballFanOffers.tsx",
+      "line": 42,
+      "code": "const MOTEL6_STANDARD_URL = buildCjAccountClick('motel6-standard', pathname);"
+    },
+    {
+      "file": "src/components/sports/FootballFanOffers.tsx",
+      "line": 43,
+      "code": "const MOTEL6_HALLOWEEN_URL = buildCjAccountClick('motel6-halloween', pathname);"
+    },
+    {
+      "file": "src/components/sports/FootballFanOffers.tsx",
+      "line": 44,
+      "code": "const HOTELS_AFFILIATE_URL = buildHotelsComEvergreenClick(HOTELS_DESTINATION, hotelsComPageSid(pathname));"
+    },
+    {
+      "file": "src/data/cj-account-verified-links.json",
+      "line": 8,
+      "code": "\"base\": \"https://www.jdoqocy.com/click-101876465-17289008\","
+    },
+    {
+      "file": "src/data/cj-account-verified-links.json",
+      "line": 19,
+      "code": "\"base\": \"https://www.kqzyfj.com/click-101876465-15734916\","
+    },
+    {
+      "file": "src/data/cj-account-verified-links.json",
+      "line": 30,
+      "code": "\"base\": \"https://www.tkqlhce.com/click-101876465-15734579\","
+    },
+    {
+      "file": "src/data/cj-account-verified-links.json",
+      "line": 41,
+      "code": "\"base\": \"https://www.kqzyfj.com/click-101876465-15230459\","
+    },
+    {
+      "file": "src/data/cj-account-verified-links.json",
+      "line": 52,
+      "code": "\"base\": \"https://www.tkqlhce.com/click-101876465-10697641\","
+    },
+    {
+      "file": "src/data/cj-account-verified-links.json",
+      "line": 64,
+      "code": "\"base\": \"https://www.tkqlhce.com/click-101876465-17198227\","
+    },
+    {
+      "file": "src/data/cj-account-verified-links.json",
+      "line": 75,
+      "code": "\"base\": \"https://www.kqzyfj.com/click-101876465-17371482\","
+    },
+    {
+      "file": "src/data/cj-account-verified-links.json",
+      "line": 86,
+      "code": "\"base\": \"https://www.jdoqocy.com/click-101876465-17255582\","
+    },
+    {
+      "file": "src/data/cj-account-verified-links.json",
+      "line": 95,
+      "code": "\"base\": \"https://www.dpbolvw.net/click-101876465-17235980\","
+    },
+    {
+      "file": "src/data/cj-account-verified-links.json",
+      "line": 104,
+      "code": "\"base\": \"https://www.kqzyfj.com/click-101876465-17235981\","
+    },
+    {
+      "file": "src/data/cj-account-verified-links.json",
+      "line": 113,
+      "code": "\"base\": \"https://www.jdoqocy.com/click-101876465-17235979\","
+    },
+    {
+      "file": "src/data/cj-account-verified-links.json",
+      "line": 122,
+      "code": "\"base\": \"https://www.jdoqocy.com/click-101876465-17235974\","
+    },
+    {
+      "file": "src/data/cj-account-verified-links.json",
+      "line": 131,
+      "code": "\"base\": \"https://www.kqzyfj.com/click-101876465-17235983\","
+    },
+    {
+      "file": "src/data/cj-account-verified-links.json",
+      "line": 140,
+      "code": "\"base\": \"https://www.tkqlhce.com/click-101876465-17342275\","
+    },
+    {
+      "file": "src/data/cj-account-verified-links.json",
+      "line": 149,
+      "code": "\"base\": \"https://www.dpbolvw.net/click-101876465-17235982\","
+    },
+    {
+      "file": "src/data/cj-account-verified-links.json",
+      "line": 158,
+      "code": "\"base\": \"https://www.dpbolvw.net/click-101876465-10697642\","
+    },
+    {
+      "file": "src/data/cj-account-verified-links.json",
+      "line": 169,
+      "code": "\"base\": \"https://www.jdoqocy.com/click-101876465-17142826\","
+    },
+    {
+      "file": "src/data/cj-account-verified-links.json",
+      "line": 178,
+      "code": "\"base\": \"https://www.jdoqocy.com/click-101876465-17142830\","
+    },
+    {
+      "file": "src/data/cj-account-verified-links.json",
+      "line": 187,
+      "code": "\"base\": \"https://www.dpbolvw.net/click-101876465-17142838\","
+    },
+    {
+      "file": "src/data/cj-account-verified-links.json",
+      "line": 196,
+      "code": "\"base\": \"https://www.kqzyfj.com/click-101876465-17141194\","
+    },
+    {
+      "file": "src/data/cj-account-verified-links.json",
+      "line": 205,
+      "code": "\"base\": \"https://www.tkqlhce.com/click-101876465-17141190\","
+    },
+    {
+      "file": "src/data/cj-account-verified-links.json",
+      "line": 214,
+      "code": "\"base\": \"https://www.jdoqocy.com/click-101876465-17252545\","
+    },
+    {
+      "file": "src/data/cj-account-verified-links.json",
+      "line": 223,
+      "code": "\"base\": \"https://www.dpbolvw.net/click-101876465-17142833\","
+    },
+    {
+      "file": "src/data/cj-account-verified-links.json",
+      "line": 232,
+      "code": "\"base\": \"https://www.anrdoezrs.net/click-101876465-17142835\","
+    },
+    {
+      "file": "src/data/cj-account-verified-links.json",
+      "line": 241,
+      "code": "\"base\": \"https://www.dpbolvw.net/click-101876465-17297358\","
+    },
+    {
+      "file": "src/data/cj-account-verified-links.json",
+      "line": 250,
+      "code": "\"base\": \"https://www.tkqlhce.com/click-101876465-17297374\","
+    },
+    {
+      "file": "src/data/cj-account-verified-links.json",
+      "line": 259,
+      "code": "\"base\": \"https://www.jdoqocy.com/click-101876465-17344173\","
+    },
+    {
+      "file": "src/data/cj-account-verified-links.json",
+      "line": 268,
+      "code": "\"base\": \"https://www.tkqlhce.com/click-101876465-17297376\","
+    },
+    {
+      "file": "src/data/cj-account-verified-links.json",
+      "line": 277,
+      "code": "\"base\": \"https://www.tkqlhce.com/click-101876465-17307735\","
+    },
+    {
+      "file": "src/data/cj-account-verified-links.json",
+      "line": 286,
+      "code": "\"base\": \"https://www.dpbolvw.net/click-101876465-17344185\","
+    },
+    {
+      "file": "src/data/cj-account-verified-links.json",
+      "line": 295,
+      "code": "\"base\": \"https://www.kqzyfj.com/click-101876465-17141195\","
+    },
+    {
+      "file": "src/data/cj-account-verified-links.json",
+      "line": 304,
+      "code": "\"base\": \"https://www.dpbolvw.net/click-101876465-17142831\","
+    },
+    {
+      "file": "src/data/cj-account-verified-links.json",
+      "line": 313,
+      "code": "\"base\": \"https://www.jdoqocy.com/click-101876465-17141193\","
+    },
+    {
+      "file": "src/data/cj-account-verified-links.json",
+      "line": 322,
+      "code": "\"base\": \"https://www.jdoqocy.com/click-101876465-17276038\","
+    },
+    {
+      "file": "src/data/cj-account-verified-links.json",
+      "line": 331,
+      "code": "\"base\": \"https://www.anrdoezrs.net/click-101876465-17344214\","
+    },
+    {
+      "file": "src/data/cj-account-verified-links.json",
+      "line": 340,
+      "code": "\"base\": \"https://www.dpbolvw.net/click-101876465-17297375\","
+    },
+    {
+      "file": "src/data/cj-account-verified-links.json",
+      "line": 349,
+      "code": "\"base\": \"https://www.kqzyfj.com/click-101876465-17142839\","
+    },
+    {
+      "file": "src/data/cj-account-verified-links.json",
+      "line": 358,
+      "code": "\"base\": \"https://www.kqzyfj.com/click-101876465-17142832\","
+    },
+    {
+      "file": "src/data/cj-account-verified-links.json",
+      "line": 367,
+      "code": "\"base\": \"https://www.dpbolvw.net/click-101876465-17297390\","
+    },
+    {
+      "file": "src/data/cj-account-verified-links.json",
+      "line": 376,
+      "code": "\"base\": \"https://www.kqzyfj.com/click-101876465-17344204\","
+    },
+    {
+      "file": "src/data/cj-account-verified-links.json",
+      "line": 385,
+      "code": "\"base\": \"https://www.dpbolvw.net/click-101876465-17344212\","
+    },
+    {
+      "file": "src/data/cj-account-verified-links.json",
+      "line": 394,
+      "code": "\"base\": \"https://www.dpbolvw.net/click-101876465-17219562\","
+    },
+    {
+      "file": "src/data/gaming.ts",
+      "line": 26,
+      "code": "url: \"https://www.jdoqocy.com/click-101876465-17255582\","
+    },
+    {
+      "file": "src/data/gaming.ts",
+      "line": 31,
+      "code": "url: \"https://www.jdoqocy.com/click-101876465-17235974\","
+    },
+    {
+      "file": "src/data/gaming.ts",
+      "line": 36,
+      "code": "url: \"https://www.jdoqocy.com/click-101876465-17235979\","
+    },
+    {
+      "file": "src/data/gaming.ts",
+      "line": 41,
+      "code": "url: \"https://www.dpbolvw.net/click-101876465-17235982\","
+    },
+    {
+      "file": "src/data/gaming.ts",
+      "line": 46,
+      "code": "url: \"https://www.dpbolvw.net/click-101876465-17235980\","
+    },
+    {
+      "file": "src/data/gaming.ts",
+      "line": 51,
+      "code": "url: \"https://www.kqzyfj.com/click-101876465-17235981\","
+    },
+    {
+      "file": "src/data/gaming.ts",
+      "line": 56,
+      "code": "url: \"https://www.kqzyfj.com/click-101876465-17235983\","
+    },
+    {
+      "file": "src/data/gaming.ts",
+      "line": 61,
+      "code": "url: \"https://www.tkqlhce.com/click-101876465-17342275\","
+    },
+    {
+      "file": "src/data/major-event-page.server.ts",
+      "line": 2,
+      "code": "import { buildHotelsComEvergreenClick, hotelsComPageSid, PALESTINE_HOTELS_SID } from \"@/lib/cj-hotels-evergreen\";"
+    },
+    {
+      "file": "src/data/major-event-page.server.ts",
+      "line": 84,
+      "code": "const PALESTINE_HOTELS_AFFILIATE_URL = buildHotelsComEvergreenClick(\"https://www.hotels.com/de1634643/hotels-palestine-texas/\", PALESTINE_HOTELS_SID);"
+    },
+    {
+      "file": "src/data/major-event-page.server.ts",
+      "line": 496,
+      "code": ": buildHotelsComEvergreenClick(HOTELS_COM_AFFILIATE_URL, hotelsComPageSid(`/event/${event.slug}`));"
+    },
+    {
+      "file": "src/lib/cj-account-links.ts",
+      "line": 8,
+      "code": "export function buildCjAccountClick(program: CjAccountProgram, pathname: string, destination?: string): string {"
+    },
+    {
+      "file": "src/lib/cj-hotels-evergreen.ts",
+      "line": 6,
+      "code": "export const CJ_HOTELS_EVERGREEN_BASE = \"https://www.anrdoezrs.net/click-101876465-15734399\";"
+    },
+    {
+      "file": "src/lib/cj-hotels-evergreen.ts",
+      "line": 22,
+      "code": "export function buildHotelsComEvergreenClick(destination: string, sid: string): string {"
+    },
+    {
+      "file": "src/lib/cj-hotels-evergreen.ts",
+      "line": 31,
+      "code": "const url = new URL(CJ_HOTELS_EVERGREEN_BASE);"
+    },
+    {
+      "file": "src/lib/cj-hotels-evergreen.ts",
+      "line": 41,
+      "code": "const base = new URL(CJ_HOTELS_EVERGREEN_BASE);"
+    },
+    {
+      "file": "src/routes/events.$collection.lazy.tsx",
+      "line": 1,
+      "code": "import { buildHotelsComEvergreenClick, hotelsComPageSid } from \"@/lib/cj-hotels-evergreen\";"
+    },
+    {
+      "file": "src/routes/events.$collection.lazy.tsx",
+      "line": 240,
+      "code": "<a href={buildHotelsComEvergreenClick(\"https://www.hotels.com/\", hotelsComPageSid(\"/events/fall-festivals\"))} rel=\"sponsored nofollow noopener noreferrer\" data-affiliate-partner=\"hotels.com\" data-affiliate-placement=\"fall-festival-hotel-search\" data-commercial-partner=\"hotels.com\" data-commercial-placement=\"fall-festival-hotel-search\" target=\"_blank\" className=\"mt-4 inline-block text-sm font-semibold text-primary underline\">Compare hotels on Hotels.com ↗</a>"
+    },
+    {
+      "file": "src/routes/events.$collection.lazy.tsx",
+      "line": 374,
+      "code": "<a href={buildHotelsComEvergreenClick(\"https://www.hotels.com/\", hotelsComPageSid(\"/events/christmas-events\"))} rel=\"sponsored nofollow noopener noreferrer\" data-affiliate-partner=\"hotels.com\" data-affiliate-placement=\"christmas-hub-hotel-search\" data-commercial-partner=\"hotels.com\" data-commercial-placement=\"christmas-hub-hotel-search\" target=\"_blank\" className=\"mt-4 inline-block text-sm font-semibold text-primary underline\">Search hotels on Hotels.com →</a>"
+    },
+    {
+      "file": "src/routes/events.air-shows.lazy.tsx",
+      "line": 1,
+      "code": "import { buildHotelsComEvergreenClick, hotelsComPageSid } from \"@/lib/cj-hotels-evergreen\";"
+    },
+    {
+      "file": "src/routes/events.air-shows.lazy.tsx",
+      "line": 231,
+      "code": "<a href={buildHotelsComEvergreenClick(\"https://www.hotels.com/\", hotelsComPageSid(\"/events/air-shows\"))} target=\"_blank\" rel=\"sponsored nofollow noopener noreferrer\" data-affiliate-partner=\"hotels.com\" data-affiliate-placement=\"airshows-hub-stays\" data-commercial-partner=\"hotels.com\" data-commercial-placement=\"airshows-hub-stays\" className=\"mt-5 inline-flex min-h-11 items-center border border-primary px-5 py-3 font-semibold text-primary\">Compare Texas hotels on Hotels.com ↗</a>"
+    },
+    {
+      "file": "src/routes/events.mardi-gras.lazy.tsx",
+      "line": 1,
+      "code": "import { buildHotelsComEvergreenClick, hotelsComPageSid } from \"@/lib/cj-hotels-evergreen\";"
+    },
+    {
+      "file": "src/routes/events.mardi-gras.lazy.tsx",
+      "line": 353,
+      "code": "<a href={buildHotelsComEvergreenClick(\"https://www.hotels.com/\", hotelsComPageSid(\"/events/mardi-gras\"))} target=\"_blank\" rel=\"sponsored nofollow noopener noreferrer\" data-affiliate-partner=\"hotels.com\" data-affiliate-placement=\"texas-mardi-gras-hub-stays\" data-commercial-partner=\"hotels.com\" data-commercial-placement=\"texas-mardi-gras-hub-stays\" className=\"mt-5 inline-flex min-h-11 items-center border border-primary px-5 py-3 font-semibold text-primary\">Compare Texas hotels ↗</a>"
+    },
+    {
+      "file": "src/routes/gaming_.$slug.lazy.tsx",
+      "line": 1,
+      "code": "import { buildCjAccountClick } from '@/lib/cj-account-links';"
+    },
+    {
+      "file": "src/routes/gaming_.$slug.lazy.tsx",
+      "line": 2,
+      "code": "import { buildHotelsComEvergreenClick, hotelsComPageSid } from \"@/lib/cj-hotels-evergreen\";"
+    },
+    {
+      "file": "src/routes/gaming_.$slug.lazy.tsx",
+      "line": 132,
+      "code": "const href = buildHotelsComEvergreenClick(destination, hotelsComPageSid(\"/gaming/esports-stadium-arlington\"));"
+    },
+    {
+      "file": "src/routes/gaming_.$slug.lazy.tsx",
+      "line": 171,
+      "code": "href={buildCjAccountClick(\"gearup-17255582\", `/gaming/${placement.replace(/^gaming-/, \"\")}`)}"
+    },
+    {
+      "file": "public/angi-home-services.js",
+      "line": 101,
+      "code": "const CJ_VERIFIED_ANGI_LINKS = {\"roofing\":{\"advertiserId\":\"7439025\",\"linkId\":\"17142826\",\"base\":\"https://www.jdoqocy.com/click-101876465-17142826\",\"destination\":\"http://request.angi.com/service-request/category/12061/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313936\",\"deepLink\":false,\"includeDestination\":false,\"allowedDestinations\":[]},\"hvac\":{\"advertiserId\":\"7439025\",\"linkId\":\"17142830\",\"base\":\"https://www.jdoqocy.com/click-101876465-17142830\",\"destination\":\"http://request.angi.com/service-request/category/12002/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313937\",\"deepLink\":false,\"includeDestination\":false,\"allowedDestinations\":[]},\"heating\":{\"advertiserId\":\"7439025\",\"linkId\":\"17142838\",\"base\":\"https://www.dpbolvw.net/click-101876465-17142838\",\"destination\":\"http://request.angi.com/service-request/category/12040/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313943\",\"deepLink\":false,\"includeDestination\":false,\"allowedDestinations\":[]},\"plumbing\":{\"advertiserId\":\"7439025\",\"linkId\":\"17141194\",\"base\":\"https://www.kqzyfj.com/click-101876465-17141194\",\"destination\":\"http://request.angi.com/service-request/category/12058/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43303139\",\"deepLink\":false,\"includeDestination\":false,\"allowedDestinations\":[]},\"moving\":{\"advertiserId\":\"7439025\",\"linkId\":\"17141190\",\"base\":\"https://www.tkqlhce.com/click-101876465-17141190\",\"destination\":\"http://request.angi.com/service-request/category/12050/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43303137\",\"deepLink\":false,\"includeDestination\":false,\"allowedDestinations\":[]},\"foundation\":{\"advertiserId\":\"7439025\",\"linkId\":\"17252545\",\"base\":\"https://www.jdoqocy.com/click-101876465-17252545\",\"destination\":\"http://request.angi.com/service-request/category/12033/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=44920547\",\"deepLink\":false,\"includeDestination\":false,\"allowedDestinations\":[]},\"remodeling\":{\"advertiserId\":\"7439025\",\"linkId\":\"17142833\",\"base\":\"https://www.dpbolvw.net/click-101876465-17142833\",\"destination\":\"http://request.angi.com/service-request/category/12001/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313940\",\"deepLink\":false,\"includeDestination\":false,\"allowedDestinations\":[]},\"windows\":{\"advertiserId\":\"7439025\",\"linkId\":\"17142835\",\"base\":\"https://www.anrdoezrs.net/click-101876465-17142835\",\"destination\":\"http://request.angi.com/service-request/category/12080/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313942\",\"deepLink\":false,\"includeDestination\":false,\"allowedDestinations\":[]},\"fences\":{\"advertiserId\":\"7439025\",\"linkId\":\"17297358\",\"base\":\"https://www.dpbolvw.net/click-101876465-17297358\",\"destination\":\"http://request.angi.com/service-request/category/12030/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313954\",\"deepLink\":false,\"includeDestination\":false,\"allowedDestinations\":[]},\"pools\":{\"advertiserId\":\"7439025\",\"linkId\":\"17297374\",\"base\":\"https://www.tkqlhce.com/click-101876465-17297374\",\"destination\":\"http://request.angi.com/service-request/category/12070/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313957\",\"deepLink\":false,\"includeDestination\":false,\"allowedDestinations\":[]},\"landscaping\":{\"advertiserId\":\"7439025\",\"linkId\":\"17344173\",\"base\":\"https://www.jdoqocy.com/click-101876465-17344173\",\"destination\":\"http://request.angi.com/service-request/category/12046/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313945\",\"deepLink\":false,\"includeDestination\":false,\"allowedDestinations\":[]},\"concrete\":{\"advertiserId\":\"7439025\",\"linkId\":\"17297376\",\"base\":\"https://www.tkqlhce.com/click-101876465-17297376\",\"destination\":\"http://request.angi.com/service-request/category/12015/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313956\",\"deepLink\":false,\"includeDestination\":false,\"allowedDestinations\":[]},\"flooring\":{\"advertiserId\":\"7439025\",\"linkId\":\"17307735\",\"base\":\"https://www.tkqlhce.com/click-101876465-17307735\",\"destination\":\"http://request.angi.com/service-request/category/12032/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313952\",\"deepLink\":false,\"includeDestination\":false,\"allowedDestinations\":[]},\"painting\":{\"advertiserId\":\"7439025\",\"linkId\":\"17344185\",\"base\":\"https://www.dpbolvw.net/click-101876465-17344185\",\"destination\":\"http://request.angi.com/service-request/category/12054/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313950\",\"deepLink\":false,\"includeDestination\":false,\"allowedDestinations\":[]},\"pest-control\":{\"advertiserId\":\"7439025\",\"linkId\":\"17141195\",\"base\":\"https://www.kqzyfj.com/click-101876465-17141195\",\"destination\":\"http://request.angi.com/service-request/category/12057/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43303140\",\"deepLink\":false,\"includeDestination\":false,\"allowedDestinations\":[]},\"electrical\":{\"advertiserId\":\"7439025\",\"linkId\":\"17142831\",\"base\":\"https://www.dpbolvw.net/click-101876465-17142831\",\"destination\":\"http://request.angi.com/service-request/category/12026/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313938\",\"deepLink\":false,\"includeDestination\":false,\"allowedDestinations\":[]},\"handyman\":{\"advertiserId\":\"7439025\",\"linkId\":\"17141193\",\"base\":\"https://www.jdoqocy.com/click-101876465-17141193\",\"destination\":\"http://request.angi.com/service-request/category/12039/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43303138\",\"deepLink\":false,\"includeDestination\":false,\"allowedDestinations\":[]},\"water-treatment\":{\"advertiserId\":\"7439025\",\"linkId\":\"17276038\",\"base\":\"https://www.jdoqocy.com/click-101876465-17276038\",\"destination\":\"http://request.angi.com/service-request/category/12077/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=44954937\",\"deepLink\":false,\"includeDestination\":false,\"allowedDestinations\":[]},\"siding\":{\"advertiserId\":\"7439025\",\"linkId\":\"17344214\",\"base\":\"https://www.anrdoezrs.net/click-101876465-17344214\",\"destination\":\"http://request.angi.com/service-request/category/12064/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=46163723\",\"deepLink\":false,\"includeDestination\":false,\"allowedDestinations\":[]},\"decks\":{\"advertiserId\":\"7439025\",\"linkId\":\"17297375\",\"base\":\"https://www.dpbolvw.net/click-101876465-17297375\",\"destination\":\"http://request.angi.com/service-request/category/12017/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313951\",\"deepLink\":false,\"includeDestination\":false,\"allowedDestinations\":[]},\"doors\":{\"advertiserId\":\"7439025\",\"linkId\":\"17142839\",\"base\":\"https://www.kqzyfj.com/click-101876465-17142839\",\"destination\":\"http://request.angi.com/service-request/category/12024/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313944\",\"deepLink\":false,\"includeDestination\":false,\"allowedDestinations\":[]},\"cleaning\":{\"advertiserId\":\"7439025\",\"linkId\":\"17142832\",\"base\":\"https://www.kqzyfj.com/click-101876465-17142832\",\"destination\":\"http://request.angi.com/service-request/category/12014/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=43313939\",\"deepLink\":false,\"includeDestination\":false,\"allowedDestinations\":[]},\"survey\":{\"advertiserId\":\"7439025\",\"linkId\":\"17297390\",\"base\":\"https://www.dpbolvw.net/click-101876465-17297390\",\"destination\":\"http://request.angi.com/service-request/category/12005/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=45292678\",\"deepLink\":false,\"includeDestination\":false,\"allowedDestinations\":[]},\"paving\":{\"advertiserId\":\"7439025\",\"linkId\":\"17344204\",\"base\":\"https://www.kqzyfj.com/click-101876465-17344204\",\"destination\":\"http://request.angi.com/service-request/category/12055/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=46163719\",\"deepLink\":false,\"includeDestination\":false,\"allowedDestinations\":[]},\"pressure-washing\":{\"advertiserId\":\"7439025\",\"linkId\":\"17344212\",\"base\":\"https://www.dpbolvw.net/click-101876465-17344212\",\"destination\":\"http://request.angi.com/service-request/category/14980/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=46163722\",\"deepLink\":false,\"includeDestination\":false,\"allowedDestinations\":[]},\"custom-home\":{\"advertiserId\":\"7439025\",\"linkId\":\"17219562\",\"base\":\"https://www.dpbolvw.net/click-101876465-17219562\",\"destination\":\"http://request.angi.com/service-request/task/40105/?f_flg=MPLCJ-4396-scale-next-sr-traffic-ha&f_trt=next-sr-path&aid=157319271&m=comjuncaffnet&entry_point_id=44364980\",\"deepLink\":false,\"includeDestination\":false,\"allowedDestinations\":[]}};"
+    },
+    {
+      "file": "public/angi-home-services.js",
+      "line": 102,
+      "code": "function buildAngiClick(service, pathname) {"
+    },
+    {
+      "file": "public/angi-home-services.js",
+      "line": 103,
+      "code": "const entry = CJ_VERIFIED_ANGI_LINKS[service.key];"
+    },
+    {
+      "file": "public/angi-home-services.js",
+      "line": 123,
+      "code": "<a class=\"group block border border-border bg-background p-5 transition-colors hover:border-primary/60\" href=\"${buildAngiClick(service, pathname)}\" target=\"_blank\" rel=\"sponsored nofollow noopener noreferrer\" data-affiliate-partner=\"angi\" data-affiliate-placement=\"${placement}\" data-commercial-partner=\"angi\" data-commercial-placement=\"${placement}\">"
+    },
+    {
+      "file": "public/stay-affiliate-options.js",
+      "line": 6,
+      "code": "const CJ_PUBLISHER_ID = \"101876465\";"
+    },
+    {
+      "file": "public/stay-affiliate-options.js",
+      "line": 8,
+      "code": "const CJ_VERIFIED_STAY_LINKS = {\"rvshare\":{\"advertiserId\":\"5126501\",\"linkId\":\"15734916\",\"base\":\"https://www.kqzyfj.com/click-101876465-15734916\",\"destination\":\"https://rvshare.com/\",\"deepLink\":true,\"includeDestination\":true,\"allowedDestinations\":[\"https://rvshare.com/\"]},\"orbitz\":{\"advertiserId\":\"4861280\",\"linkId\":\"15734579\",\"base\":\"https://www.tkqlhce.com/click-101876465-15734579\",\"destination\":\"https://www.orbitz.com/\",\"deepLink\":true,\"includeDestination\":true,\"allowedDestinations\":[\"https://www.orbitz.com/\"]},\"travelocity\":{\"advertiserId\":\"1549809\",\"linkId\":\"15230459\",\"base\":\"https://www.kqzyfj.com/click-101876465-15230459\",\"destination\":\"https://www.travelocity.com/\",\"deepLink\":true,\"includeDestination\":false,\"allowedDestinations\":[\"https://www.travelocity.com/\"]},\"vrbo\":{\"advertiserId\":\"2691607\",\"linkId\":\"10697641\",\"base\":\"https://www.tkqlhce.com/click-101876465-10697641\",\"destination\":\"https://www.vrbo.com/\",\"deepLink\":true,\"includeDestination\":false,\"allowedDestinations\":[\"https://www.vrbo.com/\",\"https://www.vrbo.com/vacation-rentals/usa/texas/waco/waco-convention-center\"]},\"vrbo-owner\":{\"advertiserId\":\"2691607\",\"linkId\":\"10697642\",\"base\":\"https://www.dpbolvw.net/click-101876465-10697642\",\"destination\":\"https://www.vrbo.com/en-us/list/lead\",\"deepLink\":true,\"includeDestination\":true,\"allowedDestinations\":[\"https://www.vrbo.com/en-us/list/lead\"]}};"
+    },
+    {
+      "file": "public/stay-affiliate-options.js",
+      "line": 10,
+      "code": "const CJ_HOTELS_EVERGREEN_BASE = \"https://www.anrdoezrs.net/click-101876465-15734399\";"
+    },
+    {
+      "file": "public/stay-affiliate-options.js",
+      "line": 32,
+      "code": "function buildMotel6Link(aid, pathname = window.location.pathname) {"
+    },
+    {
+      "file": "public/stay-affiliate-options.js",
+      "line": 33,
+      "code": "if (aid === MOTEL6_STANDARD_AID) return \"https://www.tkqlhce.com/click-\" + CJ_PUBLISHER_ID + \"-\" + aid + \"?sid=\" + encodeURIComponent(hotelsComPageSid(pathname));"
+    },
+    {
+      "file": "public/stay-affiliate-options.js",
+      "line": 34,
+      "code": "if (aid === MOTEL6_HALLOWEEN_AID) return \"https://www.kqzyfj.com/click-\" + CJ_PUBLISHER_ID + \"-\" + aid + \"?sid=\" + encodeURIComponent(hotelsComPageSid(pathname));"
+    },
+    {
+      "file": "public/stay-affiliate-options.js",
+      "line": 169,
+      "code": "function buildCjDeepLink(destination, pathname = window.location.pathname) {"
+    },
+    {
+      "file": "public/stay-affiliate-options.js",
+      "line": 178,
+      "code": "return `${CJ_HOTELS_EVERGREEN_BASE}?sid=${encodeURIComponent(sid)}&url=${encodeURIComponent(parsed.toString())}`;"
+    },
+    {
+      "file": "public/stay-affiliate-options.js",
+      "line": 184,
+      "code": "const entry = CJ_VERIFIED_STAY_LINKS[program];"
+    },
+    {
+      "file": "public/stay-affiliate-options.js",
+      "line": 226,
+      "code": "link.href = buildCjDeepLink(destination);"
+    },
+    {
+      "file": "public/stay-affiliate-options.js",
+      "line": 243,
+      "code": "link.href = buildMotel6Link(promo ? MOTEL6_HALLOWEEN_AID : MOTEL6_STANDARD_AID);"
+    },
+    {
+      "file": "public/stay-affiliate-options.js",
+      "line": 852,
+      "code": "buildMotel6Link,"
+    },
+    {
+      "file": "public/stay-affiliate-options.js",
+      "line": 855,
+      "code": "buildCjDeepLink,"
+    },
+    {
+      "file": "public/stay-nearby-painted-churches-hotels.json",
+      "line": 26,
+      "code": "\"affiliateUrl\": \"https://www.anrdoezrs.net/click-101876465-15734399?sid=td_explore_painted_churches&url=https%3A%2F%2Fwww.hotels.com%2Fho439556%2Fholiday-inn-express-hotel-suites-schulenburg-an-ihg-hotel-schulenburg-united-states-of-america%2F\","
+    },
+    {
+      "file": "public/stay-nearby-painted-churches-hotels.json",
+      "line": 61,
+      "code": "\"affiliateUrl\": \"https://www.anrdoezrs.net/click-101876465-15734399?sid=td_explore_painted_churches&url=https%3A%2F%2Fwww.hotels.com%2Fho499127%2Fbest-western-plus-schulenburg-inn-suites-schulenburg-united-states-of-america%2F\","
+    },
+    {
+      "file": "public/stay-nearby-painted-churches-hotels.json",
+      "line": 96,
+      "code": "\"affiliateUrl\": \"https://www.anrdoezrs.net/click-101876465-15734399?sid=td_explore_painted_churches&url=https%3A%2F%2Fwww.hotels.com%2Fho467717%2Famericas-best-value-inn-schulenburg-schulenburg-united-states-of-america%2F\","
+    }
+  ],
+  "dormantGovernedDestinations": [
+    {
+      "program": "rexing",
+      "advertiserId": "5357356",
+      "linkId": "15735466",
+      "label": "Rexing evergreen",
+      "destination": "https://rexing.com/",
+      "status": "tracking-required; no live placement activated"
+    },
+    {
+      "program": "rexing",
+      "advertiserId": "5357356",
+      "linkId": "17315870",
+      "label": "C1 Plus 4K dash cam",
+      "destination": "https://rexing.com/products/rexing-c1-plus-ultra-hd-4k-dash-cam-with-wi-fi-built-in-gps",
+      "status": "tracking-required; no live placement activated"
+    },
+    {
+      "program": "rexing",
+      "advertiserId": "5357356",
+      "linkId": "17315857",
+      "label": "F30 4K + 1080p dual dash cam",
+      "destination": "https://rexing.com/products/rexing-f30-4k-1080p-dual-dash-cam",
+      "status": "tracking-required; no live placement activated"
+    },
+    {
+      "program": "rexing",
+      "advertiserId": "5357356",
+      "linkId": "17315873",
+      "label": "C3 3-channel dash cam",
+      "destination": "https://rexing.com/products/rexing-c3-3-channel-dash-cam-4k-front-1080p-cabin-rear",
+      "status": "tracking-required; no live placement activated"
+    },
+    {
+      "program": "rexing",
+      "advertiserId": "5357356",
+      "linkId": "17315897",
+      "label": "R4-RD 4-channel dash cam",
+      "destination": "https://rexing.com/products/rexing-r4-rd-4-channel-dash-cam-with-all-around-1080p-built-in-360-parking-monitor-wi-fi-gps-ir-night-vision?utm_source=copyToPasteBoard&utm_medium=product-links&utm_content=web",
+      "status": "tracking-required; no live placement activated"
+    },
+    {
+      "program": "rexing",
+      "advertiserId": "5357356",
+      "linkId": "17315886",
+      "label": "4G LTE 2-channel dash cam",
+      "destination": "https://rexing.com/products/rexing-4g-lte-2-channel-dash-cam-4k-1080p-with-gps?utm_source=copyToPasteBoard&utm_medium=product-links&utm_content=web",
+      "status": "tracking-required; no live placement activated"
+    },
+    {
+      "program": "rexing",
+      "advertiserId": "5357356",
+      "linkId": "17315888",
+      "label": "2000A jump starter",
+      "destination": "https://rexing.com/products/rexing-2000a-jumpstarter?utm_source=copyToPasteBoard&utm_medium=product-links&utm_content=web",
+      "status": "tracking-required; no live placement activated"
+    },
+    {
+      "program": "rexing",
+      "advertiserId": "5357356",
+      "linkId": "17315893",
+      "label": "3-in-1 jump starter, tire inflator and air blower",
+      "destination": "https://rexing.com/products/rexing-3-in-1-jump-starter-tire-inflator-air-blower-1500a-peak-12v-car-battery-booster-for-6l-gas-3l-diesel-engines-with-150-psi-air-compressor-led-flashlight-12000mah-portable-power-bank?utm_source=copyToPasteBoard&utm_medium=product-links&utm_content=web",
+      "status": "tracking-required; no live placement activated"
+    },
+    {
+      "program": "rexing",
+      "advertiserId": "5357356",
+      "linkId": "17315876",
+      "label": "OBD2 scanner",
+      "destination": "https://rexing.com/products/rexing-obdii-scanner",
+      "status": "tracking-required; no live placement activated"
+    },
+    {
+      "program": "rexing",
+      "advertiserId": "5357356",
+      "linkId": "17315880",
+      "label": "CPW-42 wireless CarPlay and Android Auto adapter",
+      "destination": "https://rexing.com/products/rexing-cpw-42-wireless-carplay-android-auto-adapter-for-iphone-ios-10-and-android-android-11",
+      "status": "tracking-required; no live placement activated"
+    },
+    {
+      "program": "rexing",
+      "advertiserId": "5357356",
+      "linkId": "15764166",
+      "label": "RoadMate CPDuo CarPlay/Android Auto receiver and dash cam",
+      "destination": "https://rexing.com/products/rexing-wireless-multimedia-receiver-roadmate-cpduo-carplay-android-auto-dash-cam-feature",
+      "status": "tracking-required; no live placement activated"
+    },
+    {
+      "program": "rexing",
+      "advertiserId": "5357356",
+      "linkId": "17315896",
+      "label": "BC500 in-car baby monitor",
+      "destination": "https://rexing.com/products/rexing-bc500-in-car-baby-monitor-hd-1080p-infrared-night-vision?utm_source=copyToPasteBoard&utm_medium=product-links&utm_content=web",
+      "status": "tracking-required; no live placement activated"
+    },
+    {
+      "program": "rexing",
+      "advertiserId": "5357356",
+      "linkId": "15078418",
+      "label": "H1 Blackhawk trail camera",
+      "destination": "https://rexing.com/products/rexing-h1-blackhawk-night-vision-trail-camera?utm_source=copyToPasteBoard&utm_medium=product-links&utm_content=web",
+      "status": "tracking-required; no live placement activated"
+    },
+    {
+      "program": "rexing",
+      "advertiserId": "5357356",
+      "linkId": "15218435",
+      "label": "FC1 fishing camera",
+      "destination": "https://www.rexingusa.com/product/fc1/",
+      "status": "tracking-required; no live placement activated"
+    },
+    {
+      "program": "rexing",
+      "advertiserId": "5357356",
+      "linkId": "16951431",
+      "label": "NACS-to-CCS EV adapter",
+      "destination": "https://rexing.com/products/rexing-nacs-to-ccs-adapter-for-evs",
+      "status": "tracking-required; no live placement activated"
+    },
+    {
+      "program": "abracadabra-nyc",
+      "advertiserId": "7889430",
+      "linkId": "17277658",
+      "label": "Abracadabra NYC evergreen",
+      "destination": "https://abracadabranyc.com/",
+      "status": "tracking-required; no live placement activated"
+    },
+    {
+      "program": "abracadabra-nyc",
+      "advertiserId": "7889430",
+      "linkId": "17267156",
+      "label": "Costumes",
+      "destination": "https://abracadabranyc.com/collections/costumes",
+      "status": "tracking-required; no live placement activated"
+    },
+    {
+      "program": "abracadabra-nyc",
+      "advertiserId": "7889430",
+      "linkId": "17267160",
+      "label": "Character Themes",
+      "destination": "https://abracadabranyc.com/collections/popular",
+      "status": "tracking-required; no live placement activated"
+    },
+    {
+      "program": "abracadabra-nyc",
+      "advertiserId": "7889430",
+      "linkId": "17267167",
+      "label": "Halloween Masks",
+      "destination": "https://abracadabranyc.com/collections/masks",
+      "status": "tracking-required; no live placement activated"
+    },
+    {
+      "program": "abracadabra-nyc",
+      "advertiserId": "7889430",
+      "linkId": "17267169",
+      "label": "Props",
+      "destination": "https://abracadabranyc.com/collections/props",
+      "status": "tracking-required; no live placement activated"
+    },
+    {
+      "program": "abracadabra-nyc",
+      "advertiserId": "7889430",
+      "linkId": "17267170",
+      "label": "FX Makeup",
+      "destination": "https://abracadabranyc.com/collections/makeup",
+      "status": "tracking-required; no live placement activated"
+    },
+    {
+      "program": "abracadabra-nyc",
+      "advertiserId": "7889430",
+      "linkId": "17267171",
+      "label": "Wigs",
+      "destination": "https://abracadabranyc.com/collections/wigs",
+      "status": "tracking-required; no live placement activated"
+    },
+    {
+      "program": "abracadabra-nyc",
+      "advertiserId": "7889430",
+      "linkId": "17267172",
+      "label": "Hats",
+      "destination": "https://abracadabranyc.com/collections/hats",
+      "status": "tracking-required; no live placement activated"
+    },
+    {
+      "program": "abracadabra-nyc",
+      "advertiserId": "7889430",
+      "linkId": "17267159",
+      "label": "Collectibles",
+      "destination": "https://abracadabranyc.com/collections/collectibles",
+      "status": "tracking-required; no live placement activated"
+    },
+    {
+      "program": "abracadabra-nyc",
+      "advertiserId": "7889430",
+      "linkId": "17267165",
+      "label": "Magic",
+      "destination": "https://abracadabranyc.com/collections/magic",
+      "status": "tracking-required; no live placement activated"
+    },
+    {
+      "program": "abracadabra-nyc",
+      "advertiserId": "7889430",
+      "linkId": "17267163",
+      "label": "Unique Gifts",
+      "destination": "https://abracadabranyc.com/collections/unique-gifts",
+      "status": "tracking-required; no live placement activated"
+    }
+  ],
+  "hotelsDestinations": [
+    "https://www.hotels.com/",
+    "https://www.hotels.com/de1634643/hotels-palestine-texas/",
+    "https://www.hotels.com/ho1066640416/live-by-loews-arlington-tx-arlington-united-states-of-america/",
+    "https://www.hotels.com/de1644308/hotels-mcallen-and-vicinity-texas/",
+    "https://www.hotels.com/de1644316/hotels-south-padre-island-and-vicinity-texas/",
+    "https://www.hotels.com/ho122433/courtyard-by-marriott-fort-worth-university-drive-fort-worth-united-states-of-america/",
+    "https://www.hotels.com/ho403739/hilton-garden-inn-fort-worth-medical-center-fort-worth-united-states-of-america/",
+    "https://www.hotels.com/ho434078/homewood-suites-by-hilton-fort-worth-medical-center-tx-fort-worth-united-states-of-america/",
+    "https://www.hotels.com/ho214111/the-lumen-dallas-united-states-of-america/",
+    "https://www.hotels.com/ho239327/the-highland-dallas-curio-collection-by-hilton-dallas-united-states-of-america/",
+    "https://www.hotels.com/ho129054/the-beeman-hotel-dallas-united-states-of-america/",
+    "https://www.hotels.com/ho2949850752/loews-arlington-arlington-united-states-of-america/",
+    "https://www.hotels.com/ho3155976672/drury-plaza-hotel-dallas-arlington-arlington-united-states-of-america/",
+    "https://www.hotels.com/ho241720/w-dallas-victory-dallas-united-states-of-america/",
+    "https://www.hotels.com/ho433692/homewood-suites-by-hilton-dallas-downtown-tx-dallas-united-states-of-america/",
+    "https://www.hotels.com/ho115100/hilton-anatole-dallas-united-states-of-america/",
+    "https://www.hotels.com/ho1830497920/tru-by-hilton-northlake-fort-worth-tx-roanoke-united-states-of-america/",
+    "https://www.hotels.com/ho599143232/home2-suites-by-hilton-fort-worth-northlake-roanoke-united-states-of-america/",
+    "https://www.hotels.com/ho929311744/holiday-inn-express-suites-fort-worth-north-northlake-an-ihg-hotel-roanoke-united-states-of-america/",
+    "https://www.hotels.com/ho3489929696/albert-hotel/",
+    "https://www.hotels.com/ho109548/fredericksburg-inn-suites-fredericksburg-united-states-of-america/",
+    "https://www.hotels.com/ho243589/hoffman-haus-fredericksburg-united-states-of-america/",
+    "https://www.hotels.com/ho145347/hotel-galvez-spa-galveston-united-states-of-america/",
+    "https://www.hotels.com/ho145366/the-tremont-house-galveston-united-states-of-america/",
+    "https://www.hotels.com/ho132202/harbor-house-at-pier-21-galveston-united-states-of-america/",
+    "https://www.hotels.com/ho116039/courtyard-by-marriott-waco-waco-united-states-of-america/",
+    "https://www.hotels.com/ho112972/hilton-waco-waco-united-states-of-america/",
+    "https://www.hotels.com/ho3586848288/hotel-1928/",
+    "https://www.hotels.com/ho494047/best-western-johnson-city-inn-johnson-city-united-states-of-america/",
+    "https://www.hotels.com/ho1266792032/carter-creek-winery-resort-spa-johnson-city-united-states-of-america/",
+    "https://www.hotels.com/ho2462492672/walden-retreats-johnson-city-united-states-of-america/",
+    "https://www.hotels.com/ho506095/best-western-plus-sweetwater-inn-suites-sweetwater-united-states-of-america/",
+    "https://www.hotels.com/ho636049152/la-quinta-inn-suites-by-wyndham-sweetwater-east-sweetwater-united-states-of-america/",
+    "https://www.hotels.com/ho532248/microtel-inn-and-suites-by-wyndham-sweetwater-sweetwater-united-states-of-america/",
+    "https://www.hotels.com/ho440446/kickapoo-lucky-eagle-casino-hotel-eagle-pass-united-states-of-america/",
+    "https://www.hotels.com/ho483104/golden-nugget-lake-charles-lake-charles-united-states-of-america/",
+    "https://www.hotels.com/ho268798/l-auberge-casino-resort-lake-charles-lake-charles-united-states-of-america/",
+    "https://www.hotels.com/ho576680/choctaw-casino-resort-durant-durant-united-states-of-america/",
+    "https://www.hotels.com/ho2796737888/omni-pga-frisco-resort-frisco-united-states-of-america/",
+    "https://www.hotels.com/ho325236/jw-marriott-san-antonio-hill-country-resort-spa-san-antonio-united-states-of-america/",
+    "https://www.hotels.com/ho211068/holiday-inn-express-suites-houston-memorial-park-area-an-ihg-hotel-houston-united-states-of-america/",
+    "https://www.hotels.com/ho114680/hotel-paso-del-norte-autograph-collection-el-paso-united-states-of-america/"
+  ]
+}

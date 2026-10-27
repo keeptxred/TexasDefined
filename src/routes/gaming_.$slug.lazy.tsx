@@ -1,3 +1,4 @@
+import { buildCjAccountClick } from '@/lib/cj-account-links';
 import { buildHotelsComEvergreenClick, hotelsComPageSid } from "@/lib/cj-hotels-evergreen";
 import { Link, createLazyFileRoute } from "@tanstack/react-router";
 
@@ -167,7 +168,7 @@ function GearUpCallout({ placement }: { placement: string }) {
         but it cannot fix every source of latency and may not improve a connection that is already well routed. Test your local network first.
       </p>
       <a
-        href={link.url}
+        href={buildCjAccountClick("gearup-17255582", `/gaming/${placement.replace(/^gaming-/, "")}`)}
         target="_blank"
         rel="sponsored nofollow noopener noreferrer"
         data-affiliate-partner="gearup"

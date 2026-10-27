@@ -4,7 +4,8 @@
   const EXPEDIA_SURFACE_ID = "expedia-travel-surface";
   const STAY_SLOT_SELECTOR = "[data-stay-nearby-slot]";
   const CJ_PUBLISHER_ID = "101876465";
-  const CJ_DLG_BASE = `https://www.anrdoezrs.net/links/${CJ_PUBLISHER_ID}/type/dlg/`;
+  // Generated from src/data/cj-account-verified-links.json; checked by the canonical account-link test.
+  const CJ_VERIFIED_STAY_LINKS = {"rvshare":{"advertiserId":"5126501","linkId":"15734916","base":"https://www.kqzyfj.com/click-101876465-15734916","destination":"https://rvshare.com/","deepLink":true,"includeDestination":true,"allowedDestinations":["https://rvshare.com/"]},"orbitz":{"advertiserId":"4861280","linkId":"15734579","base":"https://www.tkqlhce.com/click-101876465-15734579","destination":"https://www.orbitz.com/","deepLink":true,"includeDestination":true,"allowedDestinations":["https://www.orbitz.com/"]},"travelocity":{"advertiserId":"1549809","linkId":"15230459","base":"https://www.kqzyfj.com/click-101876465-15230459","destination":"https://www.travelocity.com/","deepLink":true,"includeDestination":false,"allowedDestinations":["https://www.travelocity.com/"]},"vrbo":{"advertiserId":"2691607","linkId":"10697641","base":"https://www.tkqlhce.com/click-101876465-10697641","destination":"https://www.vrbo.com/","deepLink":true,"includeDestination":false,"allowedDestinations":["https://www.vrbo.com/","https://www.vrbo.com/vacation-rentals/usa/texas/waco/waco-convention-center"]},"vrbo-owner":{"advertiserId":"2691607","linkId":"10697642","base":"https://www.dpbolvw.net/click-101876465-10697642","destination":"https://www.vrbo.com/en-us/list/lead","deepLink":true,"includeDestination":true,"allowedDestinations":["https://www.vrbo.com/en-us/list/lead"]}};
   // CJ-generated Hotels.com Evergreen click: preserve link AID and partner-specific SID.
   const CJ_HOTELS_EVERGREEN_BASE = "https://www.anrdoezrs.net/click-101876465-15734399";
   const HOTELS_DESTINATION = "https://www.hotels.com/";
@@ -28,9 +29,9 @@
   function motel6CampaignActive(now = Date.now()) {
     return Number.isFinite(now) && now >= MOTEL6_CAMPAIGN_START && now < MOTEL6_CAMPAIGN_END;
   }
-  function buildMotel6Link(aid) {
-    if (aid === MOTEL6_STANDARD_AID) return "https://www.tqlkg.com/click-" + CJ_PUBLISHER_ID + "-" + aid;
-    if (aid === MOTEL6_HALLOWEEN_AID) return "https://www.jdoqocy.com/click-" + CJ_PUBLISHER_ID + "-" + aid;
+  function buildMotel6Link(aid, pathname = window.location.pathname) {
+    if (aid === MOTEL6_STANDARD_AID) return "https://www.tkqlhce.com/click-" + CJ_PUBLISHER_ID + "-" + aid + "?sid=" + encodeURIComponent(hotelsComPageSid(pathname));
+    if (aid === MOTEL6_HALLOWEEN_AID) return "https://www.kqzyfj.com/click-" + CJ_PUBLISHER_ID + "-" + aid + "?sid=" + encodeURIComponent(hotelsComPageSid(pathname));
     throw new Error("Unreviewed Motel 6 CJ link ID");
   }
 
@@ -171,13 +172,21 @@
       throw new Error(`Unsupported stay affiliate destination: ${parsed.hostname}`);
     }
     if (parsed.hostname === "www.hotels.com") {
-      if (parsed.protocol !== "https:" || parsed.username || parsed.password || parsed.hash) throw new Error("Unsafe Hotels.com target");
+      if (parsed.protocol !== "https:" || parsed.username || parsed.password || parsed.hash || parsed.port) throw new Error("Unsafe Hotels.com target");
       const sid = hotelsComPageSid(pathname);
       if (!/^td_[a-z0-9_]{1,60}$/.test(sid) || sid.length > 64) throw new Error("Invalid CJ Hotels.com SID");
       return `${CJ_HOTELS_EVERGREEN_BASE}?sid=${encodeURIComponent(sid)}&url=${encodeURIComponent(parsed.toString())}`;
     }
-    // Preserve separately approved advertiser destinations: no reused Hotels.com AID.
-    return `${CJ_DLG_BASE}${encodeURI(parsed.toString())}`;
+    if (parsed.protocol !== 'https:' || parsed.username || parsed.password || parsed.hash || parsed.port) throw new Error('Unsafe CJ destination');
+    const target = parsed.toString();
+    const program = target === VRBO_OWNER_DESTINATION ? 'vrbo-owner'
+      : ({ 'www.orbitz.com': 'orbitz', 'www.travelocity.com': 'travelocity', 'www.vrbo.com': 'vrbo', 'rvshare.com': 'rvshare' })[parsed.hostname];
+    const entry = CJ_VERIFIED_STAY_LINKS[program];
+    if (!entry || !entry.allowedDestinations.includes(target)) throw new Error('Unverified advertiser destination');
+    const click = new URL(entry.base);
+    click.searchParams.set('sid', hotelsComPageSid(pathname));
+    if (entry.includeDestination || target !== entry.destination) click.searchParams.set('url', target);
+    return click.toString();
   }
 
   function exactPropertyDestination(name) {

@@ -47,9 +47,10 @@ export function expireMotel6Special(staySource, footballSource, now = new Date()
   stay = substitute(stay, /^    motel6CampaignActive,\n/m, '', 'retired API');
 
   let football = footballSource;
+  football = substitute(football, /^  const MOTEL6_HALLOWEEN_URL = buildCjAccountClick\('motel6-halloween', pathname\);\n/m, '', 'retired seasonal account link');
   football = substitute(football, /^import { useEffect, useState } from 'react';\n/m, '', 'retired React timer');
   football = substitute(football, /\/\/ September 21 standard CJ creative and October 26 Halloween promotion\.[\s\S]*?const MOTEL6_CAMPAIGN_END = Date\.parse\('2026-11-01T05:00:00Z'\);\n/,
-    "// Approved evergreen Motel 6 CJ creative with TexasDefined property PID.\nconst MOTEL6_STANDARD_URL = 'https://www.tqlkg.com/click-' + HOTEL_CJ_PUBLISHER_ID + '-17198227';\n", 'football campaign');
+    "// Approved evergreen Motel 6 CJ creative with TexasDefined property PID.\n", 'football campaign');
   football = substitute(football, /  const \[clientNow, setClientNow\] = useState\(0\);[\s\S]*?  const motel6Halloween = clientNow >= MOTEL6_CAMPAIGN_START && clientNow < MOTEL6_CAMPAIGN_END;\n/,
     '', 'football hydration timer');
   football = substitute(football, /              {motel6Halloween\n[\s\S]*?not guaranteed\."}/,

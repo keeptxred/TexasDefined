@@ -7,6 +7,7 @@ export const PAGE_BUDGET = 40;
 export const REPRESENTATIVE_PATHS = ['/', '/explore', '/texas-history', '/sports', '/fishing', '/events', '/shop', '/city/houston', '/article/bluebonnet-season-field-guide', '/destination/flat-creek-estate', '/county/travis'];
 const sharedPattern = /^(?:package(?:-lock)?\.json|vite\.config\.|wrangler\.|src\/(?:worker|server|styles|index\.css|components\/layout|routes\/__root|lib\/(?:seo|public-routes|public-route-tokens)))/;
 const groups = {
+  cj_affiliate: /cj-account|cj-hotels|stay-affiliate-options|angi-home-services|BookingCarRentalCard|SchoolSupplyPartners|FootballFanOffers|src\/data\/gaming|src\/routes\/gaming_/,
   images: /discover|hero|public\/images|materialize/,
   sports: /sports|venue|football/,
   horse_racing: /horse-racing|horseRacing|HorseRacing|verify-horse-racing-production/,

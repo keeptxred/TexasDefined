@@ -80,7 +80,7 @@ test('approved RVshare CJ deep link is a real second football offer with truthfu
   const stay = readFileSync('public/stay-affiliate-options.js', 'utf8');
   assert.match(stay, /RVSHARE_DESTINATION = "https:\/\/rvshare\.com\/"/);
   assert.match(offers, /RVSHARE_DESTINATION = 'https:\/\/rvshare\.com\/'/);
-  assert.match(offers, /RVSHARE_AFFILIATE_URL = `https:\/\/www\.anrdoezrs\.net\/links\/\$\{HOTEL_CJ_PUBLISHER_ID\}\/type\/dlg\/\$\{encodeURI\(RVSHARE_DESTINATION\)\}`/);
+  assert.ok(offers.includes("RVSHARE_AFFILIATE_URL = buildCjAccountClick('rvshare', pathname, RVSHARE_DESTINATION)"));
   assert.match(offers, /data-commercial-partner="rvshare"/);
   assert.match(offers, /football-road-trip-rv/);
   assert.match(offers, /trackAffiliateClick\(\{ partner: 'rvshare'/);
@@ -109,7 +109,7 @@ test('Hotels.com builder preserves exact destinations and rejects cross-advertis
     assert.equal(api.isHotelsComPropertyClick(click.href, 'td_other'), false);
   }
   assert.equal(api.hotelsComPageSid('/event/polar-express-palestine'), 'td_polar_palestine');
-  for (const target of ['https://www.orbitz.com/', 'http://www.hotels.com/', 'https://user@www.hotels.com/', 'https://www.hotels.com/#fragment']) assert.throws(() => api.buildHotelsComEvergreenClick(target, 'td_test'));
+  for (const target of ['https://www.orbitz.com/', 'http://www.hotels.com/', 'https://user@www.hotels.com/', 'https://www.hotels.com/#fragment', 'https://www.hotels.com:8443/']) assert.throws(() => api.buildHotelsComEvergreenClick(target, 'td_test'));
   assert.throws(() => api.buildHotelsComEvergreenClick('https://www.hotels.com/', 'bad SID'));
   assert.equal(api.isHotelsComPropertyClick('invalid', 'td_test'), false);
 });

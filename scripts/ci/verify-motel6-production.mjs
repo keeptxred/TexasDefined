@@ -1,3 +1,4 @@
+import { expectedCjAccountClick } from './cj-account-link-contract.mjs';
 // Lightweight always-on Motel 6 canary for the one approved post-deployment
 // subscriber. This is deliberately NOT another broad live site audit.
 const origin = process.env.MOTEL6_PRODUCTION_ORIGIN || 'https://texasdefined.com';
@@ -66,11 +67,19 @@ for (const bust of [false, true]) {
     'Prefer a budget motel for the drive?',
     'data-commercial-partner="motel6"',
     'data-commercial-placement="football-budget-motel"',
-    'https://www.tqlkg.com/click-101876465-17198227',
     'rel="sponsored nofollow noopener noreferrer"',
     'Affiliate disclosure: TexasDefined may earn a commission',
     '/stay-affiliate-options.js',
   ], 'Live football SSR' + (bust ? ' (cache-busted)' : ' (ordinary visitor URL)'));
+  const motel6Tag = (html.match(/<a\b[^>]*>/gi) || []).find(tag => tag.includes('data-commercial-partner="motel6"'));
+  const href = motel6Tag?.match(/href=["']([^"']+)["']/)?.[1]?.replace(/&amp;/g, '&');
+  const expected = expectedCjAccountClick('motel6-standard', footballPath);
+  // A PR inspects the current deployed baseline. Only its exactly known prior
+  // creative is allowed before publication; production runs require the new SID.
+  const prior = 'https://www.tqlkg.com/click-101876465-17198227';
+  if (href !== expected && !(process.env.GITHUB_EVENT_NAME === 'pull_request' && href === prior)) {
+    throw new Error('Motel 6 exact PID/AID, page SID or destination mismatch: ' + href);
+  }
   if (/<meta[^>]+name=["']robots["'][^>]+noindex\b/i.test(html)) {
     throw new Error('Football guide unexpectedly noindex');
   }

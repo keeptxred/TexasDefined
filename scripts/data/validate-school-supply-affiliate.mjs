@@ -9,18 +9,16 @@ function requireText(haystack, needle, label) {
   if (!haystack.includes(needle)) errors.push(`${label}: missing ${needle}`);
 }
 
+// CJ advertiser 7552520 expired October 1, 2026. Editorial fallback is mandatory.
 for (const [needle, label] of [
-  ['really-good-stuff', 'Really Good Stuff partner identity'],
-  ['https://www.anrdoezrs.net/click-101876465-17106455', 'Really Good Stuff CJ tracking link'],
-  ['import { trackAffiliateClick } from "@/lib/affiliate-click"', 'shared affiliate tracker import'],
-  ['module: "school-supplies"', 'school-supply module attribution'],
-  ['data-affiliate-partner=', 'affiliate partner data attribute'],
-  ['data-affiliate-placement=', 'affiliate placement data attribute'],
-  ['data-commercial-partner=', 'commercial partner data attribute'],
-  ['data-commercial-placement=', 'commercial placement data attribute'],
-  ['sponsored nofollow noopener noreferrer', 'affiliate relationship attributes'],
-  ['Affiliate disclosure: TexasDefined may earn a commission', 'affiliate disclosure'],
+  ['https://www.reallygoodstuff.com/', 'direct editorial retailer destination'],
+  ['CJ advertiser 7552520 expired 2026-10-01', 'source-dated relationship evidence'],
+  ['TexasDefined does not earn an affiliate commission from this link', 'honest non-affiliate disclosure'],
+  ['rel="noopener noreferrer"', 'safe new-window relationship'],
 ]) requireText(source, needle, label);
+for (const marker of ['click-101876465-17106455', 'data-affiliate-partner=', 'data-commercial-partner=', 'trackAffiliateClick']) {
+  if (source.includes(marker)) errors.push('Expired Really Good Stuff tracking must fail closed: ' + marker);
+}
 
 for (const [needle, label] of [
   ['event: "affiliate_click"', 'shared affiliate click event'],
@@ -34,7 +32,7 @@ for (const [needle, label] of [
 for (const [needle, label] of [
   ['Discount School Supply | Active CJ: 4%', 'current Discount School Supply paid term'],
   ['1-day referral period', 'Discount School Supply referral window'],
-  ['VALID SECONDARY ROUTE PENDING CLEAN TRACKED LINK', 'Discount School Supply activation state'],
+  ['VERIFIED SECONDARY ROUTE; NOT ACTIVATED', 'Discount School Supply activation state'],
 ]) requireText(portfolio, needle, label);
 
 const articleRoute = fs.readFileSync('src/routes/article.$slug.tsx', 'utf8');
@@ -76,4 +74,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log('School-supply affiliate validation passed: Really Good Stuff remains the live default, Discount School Supply is recognized as a current 4% secondary program but fails closed until a clean TexasDefined CJ tracking link replaces legacy email wrappers, and sponsored/commercial attribution remains intact.');
+console.log('School-supply relationship validation passed: expired Really Good Stuff tracking fails closed while editorial content and responsive placement remain; Discount School Supply is separately approved and is not substituted automatically.');

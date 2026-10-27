@@ -23,17 +23,17 @@ export const GEARUP_LINKS = {
   evergreen: {
     id: "17255582",
     label: "GearUP Boost",
-    url: "https://www.anrdoezrs.net/click-101876465-17255582",
+    url: "https://www.jdoqocy.com/click-101876465-17255582",
   },
   homepage: {
     id: "17235974",
     label: "GearUP",
-    url: "https://www.kqzyfj.com/click-101876465-17235974",
+    url: "https://www.jdoqocy.com/click-101876465-17235974",
   },
   subscription: {
     id: "17235979",
     label: "GearUP subscription",
-    url: "https://www.dpbolvw.net/click-101876465-17235979",
+    url: "https://www.jdoqocy.com/click-101876465-17235979",
   },
   eft: {
     id: "17235982",
@@ -43,17 +43,17 @@ export const GEARUP_LINKS = {
   fortnite: {
     id: "17235980",
     label: "GearUP for Fortnite",
-    url: "https://www.tkqlhce.com/click-101876465-17235980",
+    url: "https://www.dpbolvw.net/click-101876465-17235980",
   },
   apex: {
     id: "17235981",
     label: "GearUP for Apex Legends",
-    url: "https://www.tkqlhce.com/click-101876465-17235981",
+    url: "https://www.kqzyfj.com/click-101876465-17235981",
   },
   valorant: {
     id: "17235983",
     label: "GearUP for Valorant",
-    url: "https://www.jdoqocy.com/click-101876465-17235983",
+    url: "https://www.kqzyfj.com/click-101876465-17235983",
   },
   pubg: {
     id: "17342275",

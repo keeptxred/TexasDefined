@@ -1,3 +1,4 @@
+import { expectedCjAccountClick, expectedHotelsClick } from './cj-account-link-contract.mjs';
 import assert from 'node:assert/strict';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
@@ -54,7 +55,7 @@ for (const spec of cases) {
       const games = [...document.querySelectorAll('[data-football-district-game]')];
       const teamPaths = [...new Set([...document.querySelectorAll('a[href^="/texas-high-school-football-teams/"]')].map(a => new URL(a.href).pathname))];
       const anchors = [...document.querySelectorAll('a[href]')];
-      const affiliate = anchors.filter(a => a.href.includes('anrdoezrs.net'));
+      const affiliate = anchors.filter(a => ['hotels.com', 'rvshare'].includes(a.dataset.commercialPartner));
       return {
         title: document.title,
         h1: [...document.querySelectorAll('h1')].map(x => x.innerText.trim()),
@@ -70,7 +71,7 @@ for (const spec of cases) {
         scheduled: games.filter(el => el.dataset.status === 'schedule-only').length,
         districtSections: [...document.querySelectorAll('[data-football-district-section]')].map(el => el.dataset.footballDistrictSection),
         teamPaths,
-        affiliate: affiliate.map(a => ({ href: a.href, rel: a.rel, text: a.innerText })),
+        affiliate: affiliate.map(a => ({ href: a.href, rel: a.rel, text: a.innerText, partner: a.dataset.commercialPartner })),
         officialHosts: [...new Set(anchors.filter(a => /https:\/\/(?:athletics\.dentonisd\.org|www\.lisd\.net|www\.friscoisd\.org|tickets\.friscoisd\.org|www\.littleelmisd\.net)/i.test(a.href)).map(a => new URL(a.href).hostname))],
         imgProblems: [...document.images].filter(visible).filter(el => el.complete && el.naturalWidth === 0).map(el => el.currentSrc),
         missingImageAlt: [...document.images].filter(visible).filter(el => !el.hasAttribute('alt')).map(el => el.currentSrc),
@@ -92,17 +93,15 @@ for (const spec of cases) {
     for (const label of ['Denton Braswell', 'Denton Guyer', 'Frisco Wakeland', 'Lewisville', 'Flower Mound', 'Hebron', 'Marcus', 'Little Elm', 'Pigskin Prep', 'MaxPreps', 'not UIL-certified standings', 'Affiliate disclosure']) check(facts.text.includes(label), 'Missing on-screen copy: ' + label);
     check(!facts.text.includes('we do not assign district ranks, win–loss records'), 'Contradictory W–L disclaimer persists');
     check(facts.officialHosts.includes('athletics.dentonisd.org') && facts.officialHosts.includes('www.lisd.net') && facts.officialHosts.includes('www.friscoisd.org') && facts.officialHosts.includes('www.littleelmisd.net'), 'Official ticket links not shown for all four ISDs');
-    // Validate the two exact approved CJ partner contracts. Hotels.com
-    // migrated to its Evergreen click AID; RVshare retains its DLG URL.
-    const approvedTravel = new Set([
-      'https://www.anrdoezrs.net/click-101876465-15734399?sid=td_texas_high_school_football_districts_6a_district_5&url=https%3A%2F%2Fwww.hotels.com%2F',
-      'https://www.anrdoezrs.net/links/101876465/type/dlg/https://rvshare.com/',
-    ]);
+    // Two independently approved travel creatives, with exact page attribution.
+    const approvedTravel = new Set([expectedHotelsClick(path), expectedCjAccountClick('rvshare', path)]);
     check(facts.affiliate.length === 2, 'Expected two verified travel CJ links, got ' + facts.affiliate.length);
     check(new Set(facts.affiliate.map(item => item.href)).size === 2, 'Duplicate travel affiliate links');
     for (const item of facts.affiliate) {
       check(item.rel.includes('sponsored') && item.rel.includes('nofollow'), 'Missing affiliate rel flags ' + item.href);
-      check(approvedTravel.has(item.href), 'Ungoverned CJ URL ' + item.href);
+      const expected = item.partner === 'hotels.com' ? expectedHotelsClick(path) : expectedCjAccountClick('rvshare', path);
+      const prior = 'https://www.anrdoezrs.net/links/101876465/type/dlg/https://rvshare.com/';
+      check((approvedTravel.has(item.href) && item.href === expected) || (process.env.GITHUB_EVENT_NAME === 'pull_request' && item.partner === 'rvshare' && item.href === prior), 'Ungoverned CJ PID/AID, SID or destination ' + item.href);
     }
     check(facts.imgProblems.length === 0 && facts.missingImageAlt.length === 0, 'Broken image or missing alt: ' + JSON.stringify({broken:facts.imgProblems,unnamed:facts.missingImageAlt}));
     check(brokenAssets.length === 0, 'First-party asset failed: ' + brokenAssets.join('; '));

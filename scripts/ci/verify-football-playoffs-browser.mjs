@@ -1,3 +1,4 @@
+import { expectedCjAccountClick, expectedHotelsClick } from './cj-account-link-contract.mjs';
 import assert from 'node:assert/strict';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { readFileSync } from 'node:fs';
@@ -104,10 +105,9 @@ try {
     assert.ok(affiliate.official?.includes('Official UIL championship'));
     for (const offer of affiliate.offers) {
       const destination = offer.partner === 'hotels.com' ? 'https://www.hotels.com/' : 'https://rvshare.com/';
-      const expected = offer.partner === 'hotels.com'
-        ? 'https://www.anrdoezrs.net/click-101876465-15734399?sid=td_article_texas_high_school_football_playoffs_explained&url=' + encodeURIComponent(destination)
+      const expected = offer.partner === 'hotels.com' ? expectedHotelsClick(path, destination) : expectedCjAccountClick('rvshare', path);
+      const prior = offer.partner === 'hotels.com' ? expectedHotelsClick(path, destination)
         : 'https://www.anrdoezrs.net/links/101876465/type/dlg/' + destination;
-      const prior = 'https://www.anrdoezrs.net/links/101876465/type/dlg/' + destination;
       assert.ok(offer.href === expected || (process.env.GITHUB_EVENT_NAME === 'pull_request' && offer.href === prior),
         offer.partner + ' must use the exact approved CJ PID/AID, page SID and merchant destination');
       assert.ok(offer.rel.split(/\s+/).includes('sponsored') && offer.rel.includes('nofollow')
@@ -161,7 +161,13 @@ try {
       assert.equal(result.overflow, 'auto');
       assert.ok(result.cards.every(card => Math.abs(card.x - result.cards[0].x) < 1), 'mobile bracket cards must stack');
       const region = page.getByRole('region', { name: 'Playoff comparison table, scroll horizontally on small screens' });
+      // Bring the keyboard target into view after the affiliate section checks.
+      // Reset horizontal position so the assertion measures an actual key scroll.
+      await region.scrollIntoViewIfNeeded();
       await region.focus();
+      await region.press('Home');
+      await page.waitForFunction(() => document.activeElement?.getAttribute('role') === 'region', undefined, { timeout: 5000 });
+      console.log('Keyboard table setup', width, await region.evaluate(el => ({ left: el.scrollLeft, clientWidth: el.clientWidth, scrollWidth: el.scrollWidth })));
       await region.press('ArrowRight');
       await page.waitForFunction(() => document.querySelector('[data-playoffs-reference] [role=region]').scrollLeft > 0, undefined, { timeout: 5000 });
       result.keyboardScroll = await region.evaluate(el => el.scrollLeft);

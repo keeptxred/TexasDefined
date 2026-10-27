@@ -1,3 +1,4 @@
+import { expectedCjAccountClick } from '../ci/cj-account-link-contract.mjs';
 import fs from 'node:fs';
 import vm from 'node:vm';
 
@@ -218,8 +219,8 @@ try {
       errors.push('Palestine referral must preserve CJ PID/AID, city deep link and td_polar_palestine SID.');
     }
     for (const [value, partner] of [[orbitzDeepLink, 'Orbitz'], [travelocityDeepLink, 'Travelocity'], [vrboDeepLink, 'Vrbo'], [rvshareDeepLink, 'RVshare']]) {
-      if (!value.startsWith('https://www.anrdoezrs.net/links/101876465/type/dlg/')) {
-        errors.push(`${partner} must retain its existing advertiser-specific CJ deep link.`);
+      if (value !== expectedCjAccountClick(partner.toLowerCase(), '/')) {
+        errors.push(`${partner} must use its independently verified CJ creative, exact destination and page SID.`);
       }
     }
 
@@ -346,7 +347,7 @@ if (expediaPosition < 0 || affiliatePosition < 0 || affiliatePosition < expediaP
 
 for (const [needle, label] of [
   ['const CJ_PUBLISHER_ID = "101876465"', 'TexasDefined CJ publisher ID'],
-  ['https://www.anrdoezrs.net/links/${CJ_PUBLISHER_ID}/type/dlg/', 'CJ Deep Link Generator base'],
+  ['CJ_VERIFIED_STAY_LINKS', 'verified advertiser-specific Get Code registry'],
   ['const VERIFIED_PROPERTY_DESTINATIONS = new Map([', 'exact Hotels.com property registry'],
   ['const FEATURED_GOLF_STAYS = new Map([', 'source-backed featured golf stay registry'],
   ['https://www.hotels.com/ho2796737888/omni-pga-frisco-resort-frisco-united-states-of-america/', 'Omni PGA Frisco exact Hotels.com target'],
