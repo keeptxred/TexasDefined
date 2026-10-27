@@ -45,6 +45,10 @@ try {
       if (await eastHero.evaluate(image => image.naturalWidth) < 300) throw new Error("Daingerfield autumn hero did not load");
       const eastHeroSrc = await eastHero.getAttribute("src");
       if (!eastHeroSrc?.includes("Daingerfield_sp_reflection.jpg")) throw new Error("East Texas hero is not the approved Daingerfield autumn photograph: " + eastHeroSrc);
+      // Verify the Commons source FILE, not just the presence of an attribution link.
+      // Proxied /remote?url=... image paths previously generated dead File:remote pages.
+      const eastSource = await page.getByRole("link", { name: /Larry D. Moore via Wikimedia Commons/ }).getAttribute("href");
+      if (eastSource !== "https://commons.wikimedia.org/wiki/File:Daingerfield_sp_reflection.jpg") throw new Error("Daingerfield original Commons source link is incorrect: " + eastSource);
       if (!await page.getByText("The autumn-colored hero photograph shows Daingerfield State Park on October 24, 2014", { exact: false }).count()) throw new Error("East Texas historical hero caveat missing");
 
       await page.getByRole("heading", { name: "Explore the parks on a map" }).waitFor({ state: "visible", timeout: 20000 });
@@ -177,7 +181,7 @@ try {
       const tpwd = await page.getByRole("link", { name: /Official 2026 Lost Maples foliage report/ }).getAttribute("href");
       if (tpwd !== "https://tpwd.texas.gov/state-parks/lost-maples/foliage-reports") throw new Error("Incorrect official 2026 foliage report link");
       const photoLink = await page.getByRole("link", { name: /Hero photo: G. Lamar, November 2012/ }).getAttribute("href");
-      if (!photoLink?.includes("29567585500")) throw new Error("Historical photo source link missing");
+      if (photoLink !== "https://commons.wikimedia.org/wiki/File:The_Lost_Maples_State_Park_-_Fall_Colors_in_Texas_(29567585500).jpg") throw new Error("Historical Lost Maples Commons source does not point to the original image file: " + photoLink);
       const ccLink = await page.getByRole("link", { name: /CC BY 2.0 license/ }).getAttribute("href");
       if (ccLink !== "https://creativecommons.org/licenses/by/2.0/") throw new Error("Historical photo rights link missing");
       if (!await page.getByText("not a verified report of current foliage conditions", { exact: false }).count()) throw new Error("Historical photo caveat missing");
