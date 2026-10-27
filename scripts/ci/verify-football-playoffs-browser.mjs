@@ -161,7 +161,13 @@ try {
       assert.equal(result.overflow, 'auto');
       assert.ok(result.cards.every(card => Math.abs(card.x - result.cards[0].x) < 1), 'mobile bracket cards must stack');
       const region = page.getByRole('region', { name: 'Playoff comparison table, scroll horizontally on small screens' });
+      // Bring the keyboard target into view after the affiliate section checks.
+      // Reset horizontal position so the assertion measures an actual key scroll.
+      await region.scrollIntoViewIfNeeded();
       await region.focus();
+      await region.press('Home');
+      await page.waitForFunction(() => document.activeElement?.getAttribute('role') === 'region', undefined, { timeout: 5000 });
+      console.log('Keyboard table setup', width, await region.evaluate(el => ({ left: el.scrollLeft, clientWidth: el.clientWidth, scrollWidth: el.scrollWidth })));
       await region.press('ArrowRight');
       await page.waitForFunction(() => document.querySelector('[data-playoffs-reference] [role=region]').scrollLeft > 0, undefined, { timeout: 5000 });
       result.keyboardScroll = await region.evaluate(el => el.scrollLeft);
