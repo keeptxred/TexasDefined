@@ -21,7 +21,7 @@ try {
   const { buildTexasEventCarouselItemsServer, buildGlobalEventCalendarServer } = await server.ssrLoadModule('/src/data/events/texas-event-calendar.server.ts');
   const now = new Date();
   const date = now.toISOString().slice(0, 10);
-  const event = { id: 'fixture', name: 'Example event', startDate: date, city: 'San Antonio', venue: 'Frost Bank Center', officialUrl: 'https://www.ticketmaster.com/event/ABC123', affiliateUrl: 'https://ticketmaster.evyy.net/c/7758914/264167/4272?u=https%3A%2F%2Fwww.ticketmaster.com%2Fevent%2FABC123', status: 'onsale', segment: 'Sports', genre: '' };
+  const event = { id: 'fixture', name: 'Example event', startDate: date, city: 'San Antonio', venue: 'Frost Bank Center', officialUrl: 'https://www.ticketmaster.com/event/ABC123', affiliateUrl: 'https://ticketmaster.evyy.net/c/7758914/264167/4272?subId1=texasdefined&partnerpropertyid=8837726&MediaPartnerPropertyId=8837726&u=https%3A%2F%2Fwww.ticketmaster.com%2Fevent%2FABC123', status: 'onsale', segment: 'Sports', genre: '' };
   const catalog = { fetchedAt: now.toISOString(), events: [event] };
   const records = loadTicketmasterEventsServer(catalog, now);
   assert.equal(records.length, 1);
@@ -48,7 +48,7 @@ try {
   const ticketwebUrl = 'https://www.ticketweb.com/event/holiday-show-tickets/14859023';
   const ticketwebCatalog = { fetchedAt: now.toISOString(), events: [{
     ...event, id: 'ticketweb-fixture', officialUrl: ticketwebUrl,
-    affiliateUrl: 'https://ticketmaster.evyy.net/c/7758914/264167/4272?u=' + encodeURIComponent(ticketwebUrl),
+    affiliateUrl: 'https://ticketmaster.evyy.net/c/7758914/264167/4272?subId1=texasdefined&partnerpropertyid=8837726&MediaPartnerPropertyId=8837726&u=' + encodeURIComponent(ticketwebUrl),
   }] };
   const ticketweb = loadTicketmasterEventsServer(ticketwebCatalog, now);
   assert.equal(ticketweb.length, 1, 'Discovery-wrapped TicketWeb event must remain actionable');
