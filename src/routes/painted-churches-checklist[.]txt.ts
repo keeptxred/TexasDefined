@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { paintedChurchAuthorityExpansionDateLabel } from "@/data/painted-church-authority-sources";
+import { paintedChurchAuthorityExpansionDateLabel } from "@/data/painted-church-authority-catalog";
 import { resolvePaintedChurchVisitorStatus } from "@/data/painted-church-visitor-status";
 import { expandedPaintedChurches } from "@/data/painted-churches-expanded";
 
