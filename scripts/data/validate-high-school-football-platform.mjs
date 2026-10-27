@@ -1423,6 +1423,24 @@ if (!errors.length) {
     "TexasDefined's current sourced coach record identifies",
     'Football coach FAQ source attribution',
   );
+  for (const marker of [
+    "What is ${displayName}'s 2026–28 UIL football alignment?",
+    "Why does ${displayName}'s UIL enrollment not match its final football placement?",
+    "Does ${displayName} play six-man football?",
+    "Classification, division and district are combined here instead of repeated as separate FAQ answers.",
+  ]) requireText(footballProfileContent, marker, 'Compact football FAQ generator');
+
+  for (const retired of [
+    "What classification is ${displayName} football in for 2026–28?",
+    "What football district is ${displayName} in?",
+    "What enrollment does UIL list for ${displayName}?",
+    "What school district is ${displayName} in?",
+    "Does ${displayName} play six-man or eleven-man football?",
+  ]) {
+    if (footballProfileContent.includes(retired)) {
+      errors.push(`Football FAQ generator still contains retired repetitive template: ${retired}`);
+    }
+  }
   if (footballProfileContent.includes('The current school-source entry used by TexasDefined')) {
     errors.push('Football coach FAQ must not label third-party coach evidence as a school-source entry.');
   }
