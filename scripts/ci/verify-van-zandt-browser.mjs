@@ -59,6 +59,8 @@ async function inspect(label, width, height, failApi = false) {
     assert.equal(seo.h1, 1);
     assert.ok(seo.title.includes('Van Zandt County') && seo.description?.length > 50);
     for (const value of seo.schema) assert.doesNotThrow(() => JSON.parse(value));
+    const communityPins = await page.locator('[data-van-zandt-community-map] [data-van-zandt-community-point]').count();
+    assert.equal(communityPins, 9, 'Van Zandt source-backed community map must show all nine towns');
     for (const href of [
       'a[href*="grandsalinesaltpalace.com"]',
       'a[href*="atlas.thc.texas.gov/Details/4302000092"]',
