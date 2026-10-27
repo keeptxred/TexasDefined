@@ -38,6 +38,23 @@ type ReferralRow = {
   synced_at: string;
 };
 
+/** Impact reports cover completed America/Chicago calendar days, not UTC today.
+ * Return exactly N days before the current Texas date; endExclusive excludes
+ * today's incomplete report without changing the separate UTC click analytics.
+ */
+function completedTexasReportWindow(days: number, now = new Date()) {
+  if (!Number.isInteger(days) || days < 1 || days > 366) throw new Error('Invalid Impact report window.');
+  const parts = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/Chicago', year: 'numeric', month: '2-digit', day: '2-digit',
+  }).formatToParts(now);
+  const part = (type: string) => parts.find(p => p.type === type)?.value ?? '';
+  const today = part('year') + '-' + part('month') + '-' + part('day');
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(today)) throw new Error('Texas reporting date unavailable.');
+  const start = new Date(today + 'T12:00:00Z');
+  start.setUTCDate(start.getUTCDate() - days);
+  return { start: start.toISOString().slice(0, 10), endExclusive: today };
+}
+
 function utcDateOffset(daysAgo: number) {
   const date = new Date();
   date.setUTCHours(0, 0, 0, 0);
@@ -126,10 +143,12 @@ export async function loadPartnerReferralAnalyticsDashboard(accessKey: string): 
   // Impact is an independent PROVIDER-side measurement system. Read it only
   // AFTER the existing commercial-admin access assertion above. Do not fold
   // provider clicks into Cloudflare first-party referral totals.
+  const impactWindow = completedTexasReportWindow(WINDOW_DAYS);
   const { data: impactData, error: impactError } = await client
     .from('texasdefined_impact_performance_daily')
     .select('metric_date,reported_clicks,reported_actions,reported_sales,currency_code,synced_at')
-    .gte('metric_date', utcDateOffset(WINDOW_DAYS - 1))
+    .gte('metric_date', impactWindow.start)
+    .lt('metric_date', impactWindow.endExclusive)
     .order('metric_date', { ascending: true });
   if (impactError) throw new Error('Private Impact provider metrics could not be loaded.');
   const impactRows = (Array.isArray(impactData) ? impactData : []) as Array<{
