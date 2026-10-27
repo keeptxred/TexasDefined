@@ -2,6 +2,9 @@ export type VerifiedFootballSchoolIdentity = {
   slug: string;
   mascot: string;
   colors?: string;
+  colorsSourceUrl?: string;
+  colorsSourceLabel?: string;
+  colorsVerifiedAt?: string;
   sourceUrl: string;
   sourceLabel: string;
   verifiedAt: string;
@@ -21,6 +24,10 @@ export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoo
   {
     slug: 'chester',
     mascot: 'Yellowjackets',
+    colors: 'Purple and Gold',
+    colorsSourceUrl: 'https://www.kltv.com/story/29435077/chester-yellowjackets/',
+    colorsSourceLabel: 'KLTV/KTRE Chester Yellowjackets 2026 program preview lists Purple and Gold school colors',
+    colorsVerifiedAt: '2026-10-27',
     sourceUrl: 'https://www.chesterisd.com/page/athletics',
     sourceLabel: 'Chester ISD school athletics and coaches',
     verifiedAt: '2026-10-27',
@@ -49,6 +56,10 @@ export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoo
   {
     slug: 'center',
     mascot: 'Roughriders',
+    colors: 'Purple and Gold',
+    colorsSourceUrl: 'https://www.ktre.com/2018/09/15/center-roughriders/',
+    colorsSourceLabel: 'KTRE/KLTV Center Roughriders 2026 program preview lists Purple and Gold school colors',
+    colorsVerifiedAt: '2026-10-27',
     sourceUrl: 'https://ces.centerisd.org/page/dis.athletics',
     sourceLabel: 'Center ISD first-party ROUGHRIDER ATHLETICS directory',
     verifiedAt: '2026-10-26',
@@ -99,6 +110,10 @@ export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoo
   {
     slug: 'celeste',
     mascot: 'Blue Devils',
+    colors: 'Royal Blue and White',
+    colorsSourceUrl: 'https://www.celesteisd.org/blue-devil-history',
+    colorsSourceLabel: 'Celeste ISD Blue Devil history describes the school emblem in royal blue on white',
+    colorsVerifiedAt: '2026-10-27',
     sourceUrl: 'https://www.celesteisd.org/143891_3',
     sourceLabel: 'Celeste ISD official Blue Devil 2026 football athletics calendar',
     verifiedAt: '2026-10-26',
@@ -106,6 +121,10 @@ export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoo
   {
     slug: 'celina',
     mascot: 'Bobcats',
+    colors: 'Orange and White',
+    colorsSourceUrl: 'https://www.uiltexas.org/football/state-team-mp/celina-2024-2025-football',
+    colorsSourceLabel: 'Official UIL Celina 2024–25 championship team record lists Orange and White school colors',
+    colorsVerifiedAt: '2026-10-27',
     sourceUrl: 'https://ath.celinaisd.com/athletic-leadership',
     sourceLabel: 'Celina ISD official athletic leadership and Bobcat school athletics',
     verifiedAt: '2026-10-26',
@@ -120,6 +139,10 @@ export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoo
   {
     slug: "castroville-medina-valley",
     mascot: "Panthers",
+    colors: "Orange and Black",
+    colorsSourceUrl: "https://medinavalleyms.mvisd.com/apps/news/article/2234403?categoryId=23915",
+    colorsSourceLabel: "Medina Valley ISD 2026 MVHS Homecoming notice directs Panther supporters to wear orange and black",
+    colorsVerifiedAt: "2026-10-27",
     sourceUrl: "https://www.mvisd.com/apps/pages/index.jsp?type=d&uREC_ID=4387644",
     sourceLabel: "Medina Valley ISD official athletics page identifies Panthers",
     verifiedAt: "2026-10-26"

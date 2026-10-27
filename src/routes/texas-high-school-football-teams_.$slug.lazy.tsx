@@ -153,6 +153,9 @@ function Page() {
   // the optional TEA identity join may be unavailable in deployed SSR.
   const authoredFootballH1 = editorial?.seo?.title?.match(/^(.+?Football)/i)?.[1];
   const footballName = identity?.mascot ? `${displayName} ${identity.mascot} Football` : authoredFootballH1 || `${displayName} Football`;
+  const colorsSourceUrl = identity?.colors ? (identity.colorsSourceUrl ?? identity.sourceUrl) : undefined;
+  const colorsSourceLabel = identity?.colors ? (identity.colorsSourceLabel ?? identity.sourceLabel) : undefined;
+  const colorsVerifiedAt = identity?.colors ? (identity.colorsVerifiedAt ?? identity.verifiedAt) : undefined;
   const verifiedIdentityAccent = editorial?.theme?.accentHex ? undefined : footballIdentityAccentFromColors(identity?.colors);
   const identityPanelAccent = editorial?.theme?.accentHex ?? verifiedIdentityAccent;
   // Summarize the verified editorial ledger before the deeper school reference sections.
@@ -853,8 +856,12 @@ function Page() {
             <Snapshot label="Mascot" value={identity.mascot} />
             <Snapshot label="School colors" value={identity.colors || 'Not listed by the verified source'} />
           </dl>
-          <p className="mt-4 text-xs leading-6 text-muted-foreground">Identity last reviewed <time dateTime={identity.verifiedAt}>{formatFootballDate(identity.verifiedAt)}</time>. Mascot and colors appear only when TexasDefined has a named source it can cite; the source may be the school or district, UIL, or independently corroborated reporting.</p>
-          <a href={identity.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4">{identity.sourceLabel} ↗</a>
+          <p className="mt-4 text-xs leading-6 text-muted-foreground">Mascot evidence last reviewed <time dateTime={identity.verifiedAt}>{formatFootballDate(identity.verifiedAt)}</time>. Mascot and colors appear only when TexasDefined has a named source it can cite; color evidence may have a separate source and review date.</p>
+          <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">
+            <a href={identity.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">{identity.sourceLabel} ↗</a>
+            {identity.colors && colorsSourceUrl && colorsSourceUrl !== identity.sourceUrl && <a href={colorsSourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">{colorsSourceLabel || 'School color source'} ↗</a>}
+          </div>
+          {identity.colors && colorsVerifiedAt && <p className="mt-2 text-xs leading-6 text-muted-foreground">School-color evidence last reviewed <time dateTime={colorsVerifiedAt}>{formatFootballDate(colorsVerifiedAt)}</time>.</p>}
         </div>
       </section>}
 
@@ -924,7 +931,8 @@ function Page() {
             {program?.sourceUrl && <a href={program.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">UIL alignment source ↗</a>}
             {program?.teaSchoolProfileUrl && <a href={program.teaSchoolProfileUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">TEA school profile ↗</a>}
             {program?.teaDistrictProfileUrl && <a href={program.teaDistrictProfileUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">TEA district profile ↗</a>}
-            {identity && <a href={identity.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">School identity source ↗</a>}
+            {identity && <a href={identity.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">School mascot / identity source ↗</a>}
+            {identity?.colors && colorsSourceUrl && colorsSourceUrl !== identity.sourceUrl && <a href={colorsSourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">School color source ↗</a>}
             {privateAlignment && <a href={privateAlignment.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Association alignment source ↗</a>}
             {editorial?.coach && <a href={editorial.coach.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Coach source ↗</a>}
             {editorial?.campus && <a href={editorial.campus.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">Campus source ↗</a>}
