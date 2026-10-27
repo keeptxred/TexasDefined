@@ -4,7 +4,7 @@ const failures = [];
 const read = (path) => fs.readFileSync(path, 'utf8');
 const points = read('src/data/painted-church-map-points.ts');
 const mapRoute = read('src/routes/explore.painted-churches.map.tsx');
-const compareRoute = read('src/routes/explore.painted-churches.compare.tsx');
+const compareRoute = `${read('src/routes/explore.painted-churches.compare.tsx')}\n${read('src/routes/explore.painted-churches.compare.lazy.tsx')}`;
 const countRoute = read('src/routes/explore.painted-churches.how-many.tsx');
 const guideLibraryRoute = read('src/routes/explore.painted-churches_.guides.tsx');
 const knowledgeGraphRoute = read('src/routes/explore.painted-churches.knowledge-graph.tsx');
