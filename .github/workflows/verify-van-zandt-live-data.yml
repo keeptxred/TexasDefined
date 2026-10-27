@@ -38,4 +38,5 @@ jobs:
       - name: Verify current county tax and football API contracts
         env:
           PRODUCTION_ORIGIN: https://texasdefined.com
+          VERIFY_LIVE_COUNTY_HTML: ${{ github.event_name == 'workflow_run' }}
         run: node scripts/ci/verify-van-zandt-live-data.mjs
