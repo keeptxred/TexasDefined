@@ -1,3 +1,4 @@
+import { isHotelsComPropertyClick } from '@/lib/cj-hotels-evergreen';
 import { useEffect, useMemo, useState } from 'react';
 
 type BookingTarget = { provider?: string; affiliateUrl?: string | null; verified?: boolean };
@@ -106,14 +107,7 @@ function summarize({ venue, destination, paintedChurches, hotelsCom }: Dashboard
     .map((property) => property.propertyId as string));
   const targetedVerified = (property: StayProperty) => (property.bookingTargets || []).some((target) => {
     if (target.provider !== 'hotels.com' || target.verified !== true || !target.affiliateUrl) return false;
-    try {
-      const click = new URL(target.affiliateUrl);
-      return click.origin === 'https://www.anrdoezrs.net'
-        && click.pathname === '/click-101876465-15734399'
-        && click.searchParams.size === 2
-        && click.searchParams.get('sid') === 'td_explore_painted_churches'
-        && /^https:\/\/www\.hotels\.com\/ho\d+\//i.test(click.searchParams.get('url') || '');
-    } catch { return false; }
+    return isHotelsComPropertyClick(target.affiliateUrl, 'td_explore_painted_churches');
   });
   const venueVerifiedAffiliateLinks = venueProperties.filter((property) => property.id && verifiedPropertyIds.has(property.id)).length;
   const destinationVerifiedAffiliateLinks = destinationProperties.filter((property) => property.id && verifiedPropertyIds.has(property.id)).length;

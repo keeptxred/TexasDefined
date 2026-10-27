@@ -33,3 +33,14 @@ export function buildHotelsComEvergreenClick(destination: string, sid: string): 
   url.searchParams.set("url", parsed.toString());
   return url.toString();
 }
+
+/** Validate registry readiness without rendering or following an affiliate link. */
+export function isHotelsComPropertyClick(value: string, sid: string): boolean {
+  try {
+    const click = new URL(value);
+    const base = new URL(CJ_HOTELS_EVERGREEN_BASE);
+    return click.origin === base.origin && click.pathname === base.pathname
+      && click.searchParams.size === 2 && click.searchParams.get('sid') === sid
+      && /^https:\/\/www\.hotels\.com\/ho\d+\//i.test(click.searchParams.get('url') || '');
+  } catch { return false; }
+}
