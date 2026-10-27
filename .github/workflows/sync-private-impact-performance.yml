@@ -64,6 +64,9 @@ jobs:
         env:
           IMPACT_ACCOUNT_SID: ${{ secrets.IMPACT_ACCOUNT_SID }}
           IMPACT_AUTH_TOKEN: ${{ secrets.IMPACT_AUTH_TOKEN }}
+          # One bounded 30-day historical import on main changes; routine
+          # scheduled/manual updates recheck three completed Texas days.
+          IMPACT_BACKFILL_DAYS: ${{ github.event_name == 'push' && '30' || '3' }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL || 'https://ftkznprjljkhymknvhye.supabase.co' }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY || secrets.KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY }}
         run: node scripts/monetization/sync-impact-private-performance.mjs
