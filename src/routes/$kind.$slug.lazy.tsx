@@ -329,6 +329,11 @@ const batch002FootballCountyLinks: Record<string, Array<{ name: string; slug: st
 // for the same campus county. There must be no duplicate object keys in
 // either map; the strict CI validator enforces this invariant.
 const supplementalFootballCountyLinks: Record<string, Array<{ name: string; slug: string; context: string }>> = {
+  'san-saba': [{ name: 'Cherokee Fighting Indians', slug: 'cherokee', context: 'San Saba County 2026 six-man Division II District 8; school-published fixture revisions' }],
+  'tyler': [{ name: 'Chester Yellowjackets', slug: 'chester', context: 'Tyler County 2026 six-man Division I District 13; school-listed head coach Coleman Butter' }],
+  'wise': [{ name: 'Chico Dragons', slug: 'chico', context: 'Wise County 2026 2A Division I District 6; Texas Chico not California' }],
+  'childress': [{ name: 'Childress Bobcats', slug: 'childress', context: 'Childress County 2026 3A Division II District 1; school-listed coach Bo Helm' }],
+  'hardeman': [{ name: 'Chillicothe Eagles', slug: 'chillicothe', context: 'Hardeman County six-man Division II District 2; district schedule year needs updating' }],
   'shelby': [{ name: 'Center Roughriders', slug: 'center', context: 'Shelby County 4A Division II District 8, January 2026 Jack Alvarez appointment, Center ISD stadium-entry source caveats' }],
   'kerr': [{ name: 'Center Point Pirates', slug: 'center-point', context: 'Kerr County 2A Division II District 14, 2026 Pirates preseason bulletin and conflicting district athletics leadership pages' }],
   'atascosa': [{ name: 'Charlotte Trojans', slug: 'charlotte', context: 'Atascosa County 2A Division II District 15, current Timothy Williams AD, school athletic schedules and unconfirmed varsity head coaching' }],
