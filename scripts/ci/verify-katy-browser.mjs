@@ -75,8 +75,8 @@ async function checkSchool(page, viewport, variant) {
   verify(data.title.startsWith('Katy Tigers Football: Nine Texas State Titles & Stadium Guide'), viewport + '/' + variant + ': Katy-specific title missing');
   verify(data.description.length >= 80 && /Katy Tigers/i.test(data.description), viewport + ': Katy meta description');
   // NCES Katy High campus ID 482517002809 is in Fort Bend; Katy ISD also serves Harris.
-  verify(/from KATY, FORT BEND COUNTY/i.test(data.text), viewport + ': Katy campus county must be Fort Bend, not Harris');
-  verify(!/from KATY, HARRIS COUNTY/i.test(data.text), viewport + ': Katy campus misattributed to Harris County');
+  verify(/from Fort Bend County/i.test(data.text), viewport + '/' + variant + ': Katy program county must be Fort Bend, not Harris');
+  verify(!/physical campus is in Harris County/i.test(data.text), viewport + '/' + variant + ': Katy campus misattributed to Harris County');
   verify(data.canonicalCount === 1 && data.canonical === origin + schoolPath && !/\bnoindex\b/i.test(data.robots), viewport + '/' + variant + ': unique canonical/indexability');
   verify(data.seasonAnchorPresent, viewport + '/' + variant + ': existing football-current-season anchor missing');
   for (const label of [
@@ -112,7 +112,7 @@ async function checkSchool(page, viewport, variant) {
   verify(!data.links.some(link => /record_book_02\.26\.24\.pdf/i.test(link.href)),
     viewport + '/' + variant + ': obsolete record-book PDF link');
   verify(data.text.includes('Founding placements start at $9/month'), viewport + '/' + variant + ': $9 school pilot disclosure missing');
-  verify(!/guaranteed clicks|school-approved sponsorship/i.test(data.text), viewport + '/' + variant + ': misleading sponsorship promise');
+  verify(/Sponsorship does not imply school approval, rankings, or guaranteed clicks/i.test(data.text), viewport + '/' + variant + ': editorial independence/traffic disclaimer missing');
   verify((data.text.match(/Browse the TexasDefined shop/g) || []).length <= 1,
     viewport + '/' + variant + ': duplicate Katy shop promotion');
   const sponsor = data.links.find(link => /Sponsor this page/i.test(link.label));
