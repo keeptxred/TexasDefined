@@ -28,6 +28,11 @@ const paths = {
   productionSmoke: "scripts/ci/verify-production-surfaces.mjs",
   audit: "scripts/data/audit-metro-proximity-index-readiness.ts",
   auditRunner: "scripts/data/run-metro-proximity-audit.mjs",
+  restrictedOwnerMedia: "src/data/restricted-owner-destination-media.ts",
+  oliveDestination: "src/data/viator-destination-expansion-wave12.ts",
+  destinationRuntime: "src/data/destination-query-runtime.ts",
+  metroProductionBrowser: "scripts/ci/verify-metro-day-trips-production.mjs",
+  oliveRights: "docs/image-rights/texas-hill-country-olive-co-2026-10-27.md",
   package: "package.json",
 };
 for (const path of Object.values(paths)) {
@@ -36,6 +41,43 @@ for (const path of Object.values(paths)) {
 const files = Object.fromEntries(Object.entries(paths).map(([key, path]) => [key, read(path)]));
 const fail = (message) => { throw new Error(`Metro proximity validation failed: ${message}`); };
 const requireText = (source, token, label) => { if (!source.includes(token)) fail(label); };
+
+// Restricted owner-supplied Olive Co. photos must survive a valid remote
+// destination winning source precedence. Preserve the exact rights-governed
+// media without making the full local record outrank current remote editorial data.
+for (const token of [
+  'const OWNER_MEDIA_SLUG = "texas-hill-country-olive-co"',
+  'const OWNER_HERO = "/images/destinations/texas-hill-country-olive-co-bistro.webp"',
+  'const OWNER_GALLERY = "/images/destinations/texas-hill-country-olive-co-exterior.webp"',
+  'const OWNER_CREDIT = "Texas Hill Country Olive Co."',
+  'const OWNER_SOURCE = "https://texashillcountryoliveco.com/"',
+  "export function applyRestrictedOwnerDestinationMedia",
+  "hero: approved.hero",
+  "gallery,",
+]) requireText(files.restrictedOwnerMedia, token, `Olive Co. restricted owner-media reconciliation missing ${token}`);
+for (const token of [
+  'import { applyRestrictedOwnerDestinationMedia } from "./restricted-owner-destination-media";',
+  "const withRestrictedOwnerMedia = applyRestrictedOwnerDestinationMedia(enhanced);",
+  "return withRestrictedOwnerMedia;",
+]) requireText(files.destinationRuntime, token, `resolved destination does not preserve Olive Co. licensed media: ${token}`);
+for (const token of [
+  "/images/destinations/texas-hill-country-olive-co-bistro.webp",
+  "/images/destinations/texas-hill-country-olive-co-exterior.webp",
+  'sourceUrl: "https://texashillcountryoliveco.com/"',
+]) requireText(files.oliveDestination, token, `Olive Co. canonical licensed-media record missing ${token}`);
+for (const token of [
+  "non-exclusive, royalty-free, revocable",
+  "No advertising, sponsored or paid placements; no merchandise.",
+  "No generative-AI alteration or enhancement.",
+  "remove both photos from all uses within 14 days",
+]) requireText(files.oliveRights, token, `Olive Co. rights restriction missing ${token}`);
+for (const token of [
+  'photo("texas-hill-country-olive-co-exterior.webp")',
+  "proof.exterior?.loaded",
+  "proof.credit",
+  'proof.ogImage.includes("texas-hill-country-olive-co-bistro.webp")',
+]) requireText(files.metroProductionBrowser, token, `Olive Co. production photo acceptance weakened: ${token}`);
+requireText(files.test, "owner-licensed Olive Co. gallery survives remote destination precedence", "Olive Co. remote-precedence regression test missing");
 
 for (const token of [
   'slug: "old-hidalgo-pumphouse-museum"',
