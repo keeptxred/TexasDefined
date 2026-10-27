@@ -26,6 +26,7 @@ import { applyHistoricSiteFactCorrections } from "./historic-site-fact-correctio
 import { enrichHistoricSiteRemoteHero } from "./historic-site-remote-heroes";
 import { enrichNationalCemeteryDestination } from "./national-cemetery-enrichment";
 import { filterDestinationsByScope } from "./destination-query-scope";
+import { applyRestrictedOwnerDestinationMedia } from "./restricted-owner-destination-media";
 import { correctDestinationTravelRegion } from "./destination-region-consistency";
 import { applyTownAuthority } from "./town-authority-network";
 import { platform, scope } from "./index";
@@ -438,6 +439,10 @@ export async function getResolvedDestination(slug: Slug) {
   const resolved = await getResolvedDestinationBase(slug);
   if (!resolved) return resolved;
   const enhanced = (await enhanceWacoMuseumDestinations([resolved]))[0];
+  // A valid remote destination row can outrank the preserved catalog while
+  // omitting owner-supplied gallery media. Reapply only the exact, rights-
+  // governed media contract after resolution; all remote editorial fields stay.
+  const withRestrictedOwnerMedia = applyRestrictedOwnerDestinationMedia(enhanced);
   // Apply six official TPWD 2026 park visitor overlays after remote/local
   // resolution, and before the shared SSR + client destinationQuery caches it.
   // The official-source overlay is idempotent and exact-slug scoped.
@@ -445,9 +450,9 @@ export async function getResolvedDestination(slug: Slug) {
     "kickapoo-cavern-state-park", "possum-kingdom-state-park",
     "lake-casa-blanca-international-state-park", "lake-colorado-city-state-park",
     "purtis-creek-state-park", "martin-dies-jr-state-park",
-  ].includes(slug)) return enhanced;
+  ].includes(slug)) return withRestrictedOwnerMedia;
   const { applySixLaterTPWDAuthorities } = await import("./tpwd-six-later-park-authorities");
-  return applySixLaterTPWDAuthorities(enhanced);
+  return applySixLaterTPWDAuthorities(withRestrictedOwnerMedia);
 }
 
 export async function listResolvedDestinationSearchCatalog() {
