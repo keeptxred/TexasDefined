@@ -1,0 +1,100 @@
+import assert from 'node:assert/strict';
+import { createRequire } from 'node:module';
+import { mkdir } from 'node:fs/promises';
+
+const { chromium } = createRequire(import.meta.url)('/tmp/texasdefined-van-zandt-qa/node_modules/playwright-core');
+const origin = (process.env.PRODUCTION_ORIGIN || 'https://texasdefined.com').replace(/\/$/, '');
+const url = origin + '/county/van-zandt';
+const output = 'artifacts/van-zandt-acceptance';
+await mkdir(output, { recursive: true });
+const browser = await chromium.launch({ headless: true, executablePath: process.env.CHROME_BIN });
+const failures = [];
+
+async function inspect(label, width, height, failApi = false) {
+  const context = await browser.newContext({ viewport: { width, height }, isMobile: label === 'mobile' });
+  const page = await context.newPage();
+  const pageErrors = [];
+  page.on('pageerror', e => pageErrors.push(e.message));
+  if (failApi) {
+    await page.route('**/api/property-tax-rates?**', route => route.abort('failed'));
+    await page.route('**/api/high-school-football?**', route => route.abort('failed'));
+  }
+  try {
+    const response = await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 45000 });
+    assert.equal(response?.status(), 200, 'County HTTP status');
+    await page.getByRole('heading', { name: 'Van Zandt County', exact: true }).waitFor();
+    const seo = await page.evaluate(() => ({
+      canonical: document.querySelector('link[rel="canonical"]')?.href,
+      robots: document.querySelector('meta[name="robots"]')?.content || '',
+      title: document.title,
+      description: document.querySelector('meta[name="description"]')?.content,
+      h1: document.querySelectorAll('h1').length,
+      schema: [...document.querySelectorAll('script[type="application/ld+json"]')].map(el => el.textContent)
+    }));
+    assert.equal(seo.canonical, url);
+    assert.ok(!/noindex/i.test(seo.robots), 'County unexpectedly noindexed');
+    assert.equal(seo.h1, 1);
+    assert.ok(seo.title.includes('Van Zandt County') && seo.description?.length > 50);
+    for (const value of seo.schema) assert.doesNotThrow(() => JSON.parse(value));
+    for (const href of [
+      'a[href*="grandsalinesaltpalace.com"]',
+      'a[href*="atlas.thc.texas.gov/Details/4302000092"]',
+      'a[href*="openstreetmap.org/search?query="]',
+      'a[href="/destination/wills-point-depot-museum"]',
+      'a[href="/texas-high-school-football-teams/wills-point"]'
+    ]) assert.ok(await page.locator(href).count(), 'Missing important destination: ' + href);
+    const body = page.locator('body');
+    await page.getByRole('heading', { name: 'Taxing units in Van Zandt County' }).scrollIntoViewIfNeeded();
+    await page.waitForFunction(fail => {
+      const txt = document.body.innerText;
+      return fail ? txt.includes('Detailed rate tables are unavailable right now.')
+        : /20\d{2} finalized statewide file/.test(txt);
+    }, failApi, { timeout: 26000 });
+    await page.getByRole('heading', { name: 'High school football in Van Zandt County' }).scrollIntoViewIfNeeded();
+    await page.waitForFunction(fail => {
+      const txt = document.body.innerText;
+      return fail ? !txt.includes('Loading current UIL football programs…') && /Failed to fetch|football lookup timed out|Football programs could not be loaded/i.test(txt)
+        : !txt.includes('Loading current UIL football programs…') && !!document.querySelector('a[href^="/texas-high-school-football-teams/"]');
+    }, failApi, { timeout: 26000 });
+    assert.ok(!(await body.innerText()).includes('Loading current UIL football programs…'), 'Football spinner persists');
+    const dimensions = await page.evaluate(() => ({
+      screen: innerWidth,
+      scroll: document.documentElement.scrollWidth,
+      missingAlt: [...document.images].filter(i => !i.hasAttribute('alt')).map(i => i.src),
+      brokenVisible: [...document.images].filter(i => {
+        const r = i.getBoundingClientRect();
+        return r.width && r.height && r.top < innerHeight && r.bottom > 0 && i.complete && !i.naturalWidth;
+      }).map(i => i.src)
+    }));
+    assert.ok(dimensions.scroll <= dimensions.screen + 3, 'Horizontal overflow: ' + JSON.stringify(dimensions));
+    assert.deepEqual(dimensions.missingAlt, [], 'Image alt text missing');
+    assert.deepEqual(dimensions.brokenVisible, [], 'Broken visible imagery');
+    assert.deepEqual(pageErrors, [], 'Client JS errors');
+    await page.screenshot({ path: output + '/' + label + (failApi ? '-fallback' : '-loaded') + '.png', fullPage: true });
+    console.log('PASS ' + label + (failApi ? ' failure fallback' : ' normal load') + ': ' + JSON.stringify(dimensions));
+  } catch (e) {
+    await page.screenshot({ path: output + '/' + label + '-FAIL.png', fullPage: true }).catch(() => {});
+    failures.push(label + (failApi ? ' fallback' : '') + ': ' + (e?.message || e));
+  } finally { await context.close(); }
+}
+try {
+  await inspect('desktop', 1440, 900);
+  await inspect('mobile', 390, 844);
+  await inspect('mobile', 390, 844, true);
+  const context = await browser.newContext();
+  for (const path of [
+    '/destination/wills-point-depot-museum',
+    '/destination/canton',
+    '/texas-high-school-football-teams/wills-point',
+    '/property-tax/county/van-zandt'
+  ]) {
+    try {
+      const response = await context.request.get(origin + path, { timeout: 20000, maxRedirects: 4 });
+      if (response.status() !== 200 || !response.url().startsWith(origin + path))
+        failures.push(path + ': expected published content; found HTTP ' + response.status() + ' at ' + response.url());
+    } catch (e) { failures.push(path + ': ' + (e?.message || e)); }
+  }
+  await context.close();
+} finally { await browser.close(); }
+for (const failure of failures) console.error('FAIL ' + failure);
+if (failures.length) process.exitCode = 1;
