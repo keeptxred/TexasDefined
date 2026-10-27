@@ -96,6 +96,39 @@ async function inspect(label, width, height, failApi = false) {
     // A superseded React fetch can be canceled with ERR_ABORTED during route
     // revalidation. Successful loaded state above proves it was not a broken API.
     assert.deepEqual(failedNetwork.filter(x => x.startsWith(origin) && !failApi && !/net::ERR_ABORTED$/.test(x)), [], 'Failed first-party requests');
+    if (process.env.EXPECT_VAN_ZANDT_COMPACT_LAYOUT === 'true' && !failApi) {
+      // Only enforce the changed layout after the merged revision has deployed:
+      // PR workflows intentionally inspect the previous production release.
+      await page.waitForFunction(() => {
+        const slot = document.querySelector('[data-stay-nearby-slot]');
+        const surface = document.getElementById('expedia-travel-surface');
+        return !!slot && !!surface && slot.contains(surface);
+      }, null, { timeout: 20000 });
+      const spacing = await page.evaluate(() => {
+        const nav = document.querySelector('nav[aria-label="Breadcrumb"]');
+        const title = document.querySelector('h1');
+        const essentials = document.getElementById('van-zandt-guide-heading');
+        const slot = document.querySelector('[data-stay-nearby-slot]');
+        const affiliate = document.getElementById('expedia-travel-surface');
+        const article = document.querySelector('main article');
+        const crossCheck = document.querySelector('aside[aria-label="Find the county appraisal and tax offices responsible for the address"]');
+        if (!nav || !title || !essentials || !slot || !affiliate || !article || !crossCheck)
+          throw new Error('County visual spacing anchors missing');
+        return {
+          breadcrumbToTitle: Math.round(title.getBoundingClientRect().top - nav.getBoundingClientRect().bottom),
+          articleToOfficialSources: Math.round(crossCheck.getBoundingClientRect().top - article.getBoundingClientRect().bottom),
+          affiliateInOwnSlot: slot.contains(affiliate),
+          affiliateBeforeEssentialsHeading: essentials.parentElement?.contains(affiliate) ?? false,
+          affiliateWidth: Math.round(affiliate.getBoundingClientRect().width),
+          slotWidth: Math.round(slot.getBoundingClientRect().width),
+        };
+      });
+      assert.ok(spacing.breadcrumbToTitle >= 0 && spacing.breadcrumbToTitle <= 96, 'Oversized breadcrumb/header gap: ' + JSON.stringify(spacing));
+      assert.ok(spacing.articleToOfficialSources >= 0 && spacing.articleToOfficialSources <= 96, 'Oversized football-to-official-sources gap: ' + JSON.stringify(spacing));
+      assert.ok(spacing.affiliateInOwnSlot && !spacing.affiliateBeforeEssentialsHeading, 'Lodging incorrectly occupies essentials sidebar');
+      assert.ok(spacing.affiliateWidth <= spacing.slotWidth + 3, 'Lodging overflows its full-width slot');
+      console.log('PASS ' + label + ' county visual spacing: ' + JSON.stringify(spacing));
+    }
     await page.screenshot({ path: output + '/' + label + (failApi ? '-fallback' : '-loaded') + '.png', fullPage: true });
     console.log('PASS ' + label + (failApi ? ' failure fallback' : ' normal load') + ': ' + JSON.stringify(dimensions));
   } catch (e) {
