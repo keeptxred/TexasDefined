@@ -47,6 +47,20 @@
       "mergeAt": null,
       "productionVerification": null,
       "inventoryVerified": false
+    },
+    "editorialOfficialLinkHttpProbes": {
+      "status": "IMPLEMENTED",
+      "checkedAt": "2026-10-26",
+      "limitPerRefresh": 25,
+      "selection": "Source-qualified future non-Ticketmaster editorial canonical event CTAs, non-affiliate only, stable startDate and ID order; retry only after 14 days or exact URL/date change",
+      "purpose": "Public official provider URL HTTP reachability with strict host allowlist, no restricted API access or CAPTCHA bypass",
+      "checkpoint": "statewide.ticketLinkProbes keyed editorial:<canonical-event-id> and statewide.ticketLinkProbeLatestRun.editorialOfficial",
+      "mergeProtection": "Uses existing sync/finisher source-protected ledger paths and automatic event refresh PR; no new cron",
+      "tests": "node --test scripts/events/verify-editorial-ticket-links.test.mjs; protected premerge and existing ticketing validator",
+      "productionVerification": null,
+      "inventoryVerified": false,
+      "checkoutPriceVerified": false,
+      "affiliateCommissionVerified": false
     }
   },
   "events": [
