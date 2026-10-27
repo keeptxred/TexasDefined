@@ -121,7 +121,7 @@ export function CountyGuideSections({ entity, profile, localGovernment, related,
     {/* Expedia and CJ must mount outside the two-column essentials grid.
         Without an explicit slot the affiliate script inserts its surface into
         the narrow section-heading column, creating hundreds of empty pixels. */}
-    {entity.slug === 'van-zandt' ? <div data-stay-nearby-slot="" aria-label="Stays near Van Zandt County" className="border-b border-border py-5 sm:py-7" /> : null}
+    {entity.slug === 'van-zandt' ? <div data-stay-nearby-slot="" aria-label="Stays near Van Zandt County" /> : null}
 
     <CountyIdentitySection countyName={entity.name} region={entity.region} profile={profile} />
 
