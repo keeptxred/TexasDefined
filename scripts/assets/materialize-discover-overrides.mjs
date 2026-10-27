@@ -100,7 +100,7 @@ const entries = [
   ],
   [
     "texas-hill-country-olive-co",
-    "/images/explore/lakes-rivers/pedernales-falls-state-park.jpg"
+    "/images/destinations/texas-hill-country-olive-co-bistro.webp"
   ],
   [
     "brazos-bend-state-park",

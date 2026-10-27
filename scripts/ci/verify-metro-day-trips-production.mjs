@@ -181,6 +181,64 @@ try {
       const screenshot=directory+"/"+metro+"-"+viewport.name+".png";
       await page.screenshot({path:screenshot,fullPage:true,animations:"disabled",timeout:30000});
       record.screenshot=screenshot;
+      if(metro==="austin"){
+        const oliveCard=page.locator('[data-metro-curated-day-trips] [data-curated-day-trip="texas-hill-country-olive-co"]').first();
+        if(await oliveCard.count()){
+          await oliveCard.scrollIntoViewIfNeeded({timeout:10000});
+          const cardPhoto=await oliveCard.evaluate(element=>{
+            const img=element.querySelector("img");
+            const attribution=[...element.querySelectorAll("a[href]")].some(link=>
+              link.href==="https://texashillcountryoliveco.com/"&&link.closest("p")?.textContent?.includes("Photo: Texas Hill Country Olive Co."));
+            return {src:img?.src||"",loaded:!!img&&img.complete&&img.naturalWidth>=1200,attribution};
+          });
+          check("Austin curated owner photo stays exact-property and visibly credited",
+            cardPhoto.src.includes("texas-hill-country-olive-co-bistro.webp")&&cardPhoto.loaded&&cardPhoto.attribution,
+            JSON.stringify(cardPhoto).slice(0,400));
+        }
+      }
+      if(metro==="austin"){
+        // The separately licensed owner-supplied photograph must remain an
+        // actual subject-matched image with linked owner credit and gallery.
+        // This release check never clicks any monetized/affiliate link.
+        const owner=await context.newPage();
+        try{
+          const ownerPath="/destination/texas-hill-country-olive-co";
+          const ownerResponse=await owner.goto("https://texasdefined.com"+ownerPath+"?qa="+encodeURIComponent(targetSha.slice(0,12)||"live"),{waitUntil:"domcontentloaded",timeout:45000});
+          await owner.locator("main h1").waitFor({state:"visible",timeout:20000});
+          const hero=owner.locator('img[src*="texas-hill-country-olive-co-bistro.webp"]').first();
+          const exterior=owner.locator('img[src*="texas-hill-country-olive-co-exterior.webp"]').first();
+          await hero.scrollIntoViewIfNeeded({timeout:10000}).catch(()=>{});
+          await exterior.scrollIntoViewIfNeeded({timeout:10000}).catch(()=>{});
+          await owner.waitForTimeout(450);
+          const proof=await owner.evaluate(()=>{
+            const photos=[...document.images];
+            const photo=needle=>{const img=photos.find(x=>x.src.includes(needle));return img?{loaded:img.complete&&img.naturalWidth>=1200&&img.naturalHeight>0,alt:img.alt,width:img.naturalWidth,height:img.naturalHeight,src:img.src}:null;};
+            const links=[...document.querySelectorAll('a[href]')];
+            const credit=links.find(a=>a.href==="https://texashillcountryoliveco.com/"&&a.closest("p")?.textContent?.includes("Photo: Texas Hill Country Olive Co."));
+            return {
+              title:document.querySelector("main h1")?.textContent||"",
+              bistro:photo("texas-hill-country-olive-co-bistro.webp"),
+              exterior:photo("texas-hill-country-olive-co-exterior.webp"),
+              credit:!!credit,
+              ogImage:document.querySelector('meta[property="og:image"]')?.content||"",
+              formerContext:!!document.querySelector('img[src*="pedernales-falls-state-park.jpg"]')
+            };
+          });
+          check("licensed olive company exact-site photo, source link and editorial gallery",
+            ownerResponse?.status()===200
+            &&proof.title.includes("Texas Hill Country Olive Co.")
+            &&proof.bistro?.loaded&&!!proof.bistro.alt
+            &&proof.exterior?.loaded&&!!proof.exterior.alt
+            &&proof.credit
+            &&proof.ogImage.includes("texas-hill-country-olive-co-bistro.webp"),
+            JSON.stringify({...proof,bistro:proof.bistro?{...proof.bistro,src:proof.bistro.src.slice(-110)}:null,exterior:proof.exterior?{...proof.exterior,src:proof.exterior.src.slice(-110)}:null}).slice(0,750));
+          const ownerShot=directory+"/texas-hill-country-olive-co-"+viewport.name+".png";
+          await owner.screenshot({path:ownerShot,fullPage:true,animations:"disabled",timeout:30000});
+          record.ownerPhotoScreenshot=ownerShot;
+        }catch(error){
+          check("licensed olive company exact-site photo, source link and editorial gallery",false,String(error));
+        }finally{await owner.close();}
+      }
     }catch(error){
       check("scenario completed",false,error?.message||error);
       await page.screenshot({path:directory+"/"+metro+"-"+viewport.name+"-error.png",timeout:12000}).catch(()=>{});
