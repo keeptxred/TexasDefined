@@ -93,7 +93,9 @@ async function inspect(label, width, height, failApi = false) {
     assert.deepEqual(dimensions.missingAlt, [], 'Image alt text missing');
     assert.deepEqual(dimensions.brokenVisible, [], 'Broken visible imagery');
     assert.deepEqual(pageErrors, [], 'Uncaught client JavaScript exceptions');
-    assert.deepEqual(failedNetwork.filter(x => x.startsWith(origin) && !failApi), [], 'Failed first-party requests');
+    // A superseded React fetch can be canceled with ERR_ABORTED during route
+    // revalidation. Successful loaded state above proves it was not a broken API.
+    assert.deepEqual(failedNetwork.filter(x => x.startsWith(origin) && !failApi && !/net::ERR_ABORTED$/.test(x)), [], 'Failed first-party requests');
     await page.screenshot({ path: output + '/' + label + (failApi ? '-fallback' : '-loaded') + '.png', fullPage: true });
     console.log('PASS ' + label + (failApi ? ' failure fallback' : ' normal load') + ': ' + JSON.stringify(dimensions));
   } catch (e) {
