@@ -22,7 +22,7 @@ export function hotelsComPageSid(pathname: string): string {
 export function buildHotelsComEvergreenClick(destination: string, sid: string): string {
   const parsed = new URL(destination);
   if (parsed.protocol !== "https:" || parsed.hostname !== "www.hotels.com" ||
-    parsed.username || parsed.password || parsed.hash) {
+    parsed.username || parsed.password || parsed.hash || parsed.port) {
     throw new Error("Unapproved Hotels.com deep-link destination");
   }
   if (!/^td_[a-z0-9_]{1,60}$/.test(sid) || sid.length > 64) {

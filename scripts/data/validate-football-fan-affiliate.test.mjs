@@ -109,7 +109,7 @@ test('Hotels.com builder preserves exact destinations and rejects cross-advertis
     assert.equal(api.isHotelsComPropertyClick(click.href, 'td_other'), false);
   }
   assert.equal(api.hotelsComPageSid('/event/polar-express-palestine'), 'td_polar_palestine');
-  for (const target of ['https://www.orbitz.com/', 'http://www.hotels.com/', 'https://user@www.hotels.com/', 'https://www.hotels.com/#fragment']) assert.throws(() => api.buildHotelsComEvergreenClick(target, 'td_test'));
+  for (const target of ['https://www.orbitz.com/', 'http://www.hotels.com/', 'https://user@www.hotels.com/', 'https://www.hotels.com/#fragment', 'https://www.hotels.com:8443/']) assert.throws(() => api.buildHotelsComEvergreenClick(target, 'td_test'));
   assert.throws(() => api.buildHotelsComEvergreenClick('https://www.hotels.com/', 'bad SID'));
   assert.equal(api.isHotelsComPropertyClick('invalid', 'td_test'), false);
 });

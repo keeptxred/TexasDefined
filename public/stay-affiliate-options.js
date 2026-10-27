@@ -172,7 +172,7 @@
       throw new Error(`Unsupported stay affiliate destination: ${parsed.hostname}`);
     }
     if (parsed.hostname === "www.hotels.com") {
-      if (parsed.protocol !== "https:" || parsed.username || parsed.password || parsed.hash) throw new Error("Unsafe Hotels.com target");
+      if (parsed.protocol !== "https:" || parsed.username || parsed.password || parsed.hash || parsed.port) throw new Error("Unsafe Hotels.com target");
       const sid = hotelsComPageSid(pathname);
       if (!/^td_[a-z0-9_]{1,60}$/.test(sid) || sid.length > 64) throw new Error("Invalid CJ Hotels.com SID");
       return `${CJ_HOTELS_EVERGREEN_BASE}?sid=${encodeURIComponent(sid)}&url=${encodeURIComponent(parsed.toString())}`;

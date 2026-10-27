@@ -48,8 +48,3 @@ export function BookingCarRentalCard({ className = "", placement, title = "Need 
   );
 }
 
-export const bookingCarRentalAffiliate = {
-  publisherId: CJ_PUBLISHER_ID,
-  destination: BOOKING_CAR_RENTAL_DESTINATION,
-  affiliateUrl: BOOKING_CAR_RENTAL_URL,
-} as const;

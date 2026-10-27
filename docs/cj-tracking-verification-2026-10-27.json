@@ -948,11 +948,6 @@
       "code": "const BOOKING_CAR_RENTAL_URL = buildCjAccountClick('booking.com', pathname, BOOKING_CAR_RENTAL_DESTINATION);"
     },
     {
-      "file": "src/components/monetization/BookingCarRentalCard.tsx",
-      "line": 52,
-      "code": "publisherId: CJ_PUBLISHER_ID,"
-    },
-    {
       "file": "src/components/sports/FootballFanOffers.tsx",
       "line": 1,
       "code": "import { buildCjAccountClick } from '@/lib/cj-account-links';"

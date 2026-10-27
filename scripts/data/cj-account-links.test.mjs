@@ -104,3 +104,37 @@ test('CJ production acceptance stays inside the existing change-scoped deploymen
   assert.ok(verifier.includes("redirect: 'error'"));
   assert.ok(!verifier.includes('fetch(href') && !verifier.includes('fetch(expected'));
 });
+
+test('booking and football components initialize and render route-specific URLs during SSR', () => {
+  const route = '/article/texas-high-school-football-playoffs-explained';
+  const render = (file, name, props) => {
+    const exports = {};
+    vm.runInNewContext(ts.transpile(read(file), { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022, jsx: ts.JsxEmit.ReactJSX }), {
+      exports, URL,
+      require(id) {
+        if (id.endsWith('/cj-account-links')) return accountModule.exports;
+        if (id.endsWith('/cj-hotels-evergreen')) return hotelsModule.exports;
+        if (id.endsWith('/affiliate-click')) return { trackAffiliateClick() { throw new Error('Rendering must never emit a click'); } };
+        if (id === '@tanstack/react-router') return { useLocation: () => route };
+        if (id === 'react') return { useEffect() {}, useState: () => [0, () => {}] };
+        if (id === 'react/jsx-runtime') return { jsx: (type, props) => ({ type, props }), jsxs: (type, props) => ({ type, props }) };
+        throw new Error('Unexpected dependency ' + id);
+      },
+    });
+    const anchors = [];
+    function visit(node) {
+      if (Array.isArray(node)) return node.forEach(visit);
+      if (!node || typeof node !== 'object') return;
+      if (node.type === 'a') anchors.push(node.props);
+      visit(node.props?.children);
+    }
+    visit(exports[name](props));
+    return anchors;
+  };
+  const booking = render('src/components/monetization/BookingCarRentalCard.tsx', 'BookingCarRentalCard', { placement: 'test-placement' });
+  assert.equal(booking[0].href, expectedCjAccountClick('booking.com', route));
+  assert.equal(booking[0]['data-commercial-placement'], 'test-placement');
+  const football = render('src/components/sports/FootballFanOffers.tsx', 'FootballFanOffers', { slug: 'texas-high-school-football-playoffs-explained', hasUpcomingAwayTravel: false, showTravelPlanning: true });
+  for (const [partner, program] of [['rvshare', 'rvshare'], ['motel6', 'motel6-standard']]) assert.equal(football.find(a => a['data-commercial-partner'] === partner)?.href, expectedCjAccountClick(program, route));
+  assert.equal(football.find(a => a['data-commercial-partner'] === 'hotels.com')?.href, new URL('https://www.anrdoezrs.net/click-101876465-15734399?sid=td_article_texas_high_school_football_playoffs_explained&url=https%3A%2F%2Fwww.hotels.com%2F').href);
+});

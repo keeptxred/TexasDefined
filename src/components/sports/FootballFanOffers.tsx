@@ -26,7 +26,7 @@ const MOTEL6_CAMPAIGN_START = Date.parse('2026-10-26T00:00:00Z');
 const MOTEL6_CAMPAIGN_END = Date.parse('2026-11-01T05:00:00Z');
 // Hotels.com uses its own CJ-approved Evergreen creative and current page SID.
 // RVshare is an existing active CJ advertiser for TexasDefined. This uses the
-// same previously verified destination and DLG builder as stay-affiliate-options.js.
+// same verified Evergreen creative, destination and page SID as the stay bootstrap.
 const RVSHARE_DESTINATION = 'https://rvshare.com/';
 
 function isVerifiedProductUrl(offer: Offer) {
