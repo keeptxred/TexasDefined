@@ -81,13 +81,35 @@ export function mergeEventTicketing(
   if (!primary) return provider;
   if (!provider) return primary;
 
-  const seenLinks = new Set<string>();
-  const links = [...primary.links, ...provider.links].filter((link) => {
-    const key = link.affiliateUrl ?? link.officialTicketUrl ?? `${link.provider}:${link.source.name}:${link.lastVerifiedAt}`;
-    if (seenLinks.has(key)) return false;
-    seenLinks.add(key);
-    return true;
-  });
+  // Duplicate official checkout identities can enter via an organizer Offer
+  // followed by the matching provider feed. The presence of Impact wrapping
+  // must not turn ONE show into two competing internal ticket records.
+  // Compare the exact event destination (including performance query), not
+  // the affiliate wrapper; fragments are not an admission identity.
+  const canonicalDestination = (link: TexasEventTicketLink) => {
+    const url = safeHttpsUrl(link.officialTicketUrl);
+    if (!url) return link.officialTicketUrl ? `official:${link.officialTicketUrl}`
+      : `affiliate:${link.affiliateUrl ?? link.provider + ":" + link.source.name + ":" + link.lastVerifiedAt}`;
+    const parsed = new URL(url);
+    parsed.hash = "";
+    return `official:${parsed.toString()}`;
+  };
+  const byDestination = new Map<string, TexasEventTicketLink>();
+  for (const link of [...primary.links, ...provider.links]) {
+    const key = canonicalDestination(link);
+    const previous = byDestination.get(key);
+    if (!previous) { byDestination.set(key, link); continue; }
+    const linkAffiliateApproved = Boolean(approvedAffiliateHref(link));
+    const previousAffiliateApproved = Boolean(approvedAffiliateHref(previous));
+    // Authorized event-exact Impact takes precedence over an unsigned manual
+    // link, but unapproved commercial URLs never earn priority.
+    if ((linkAffiliateApproved && !previousAffiliateApproved)
+      || (!previousAffiliateApproved && !linkAffiliateApproved
+        && link.source.kind === "provider" && previous.source.kind !== "provider")) {
+      byDestination.set(key, link);
+    }
+  }
+  const links = [...byDestination.values()];
 
   const seenOffers = new Set<string>();
   const offers = [...primary.offers, ...provider.offers].filter((offer) => {
