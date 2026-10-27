@@ -34,6 +34,7 @@ try {
   for (const [time, expected] of [
     ['14:00','2:00 PM'],['19:30','7:30 PM'],['00:00','12:00 AM'],
     ['12:05','12:05 PM'],['23:59','11:59 PM'],['24:00','Time to confirm with provider'],
+    ['19:99','Time to confirm with provider'],
   ]) assert.equal(majorEventSessionTimeLabel(time),expected);
   assert.equal(majorEventSessionTimeLabel(undefined),'Time to confirm with provider');
   const source = readFileSync('src/data/major-event-page.server.ts', 'utf8');
