@@ -66,6 +66,7 @@ const checks = [
   ['article-discover-seo', 'SEO/DISCOVERY', 'Validate article discovery SEO', 'node', ['scripts/data/validate-article-discover-seo.mjs']],
   ['author-eeat', 'SEO/EEAT', 'Validate author EEAT', 'node', ['scripts/data/validate-author-eeat.mjs']],
   ['entity-template-quality', 'CONTENT/QUALITY', 'Validate entity template quality', 'node', ['scripts/data/validate-entity-template-quality.mjs']],
+  ['event-visitor-copy', 'CONTENT/QUALITY', 'Validate useful event and weekend visitor language', 'node', ['scripts/data/validate-event-visitor-copy.mjs']],
   ['image-seo', 'IMAGE/SEO', 'Validate image SEO', 'node', ['scripts/data/validate-image-seo.mjs']],
   ['shared-editorial-image-fallbacks', 'IMAGE/RESILIENCE', 'Validate shared editorial image failure handling', 'node', ['scripts/data/validate-shared-editorial-image-fallbacks.mjs']],
   ['editorial-image-duplicates', 'IMAGE/QUALITY', 'Validate editorial hero uniqueness site-wide', 'node', ['scripts/data/validate-editorial-image-duplicates.mjs', '--all']],
@@ -115,7 +116,7 @@ const predeployIds = new Set([
   'texas-talent-launch-contract', 'texas-talent-launch-depth-gate', 'texas-talent-flagship-depth',
   'texas-talent-flagship-depth-wave2', 'texas-talent-source-provenance', 'texas-talent-editorial-status',
   'texas-talent-content-depth', 'texas-talent-launch-metadata', 'texas-talent-reverse-links',
-  'texas-talent-public-preview', 'texas-talent-music-authority',
+  'texas-talent-public-preview', 'texas-talent-music-authority', 'event-visitor-copy',
   'relocation-insurance-authority', 'relocation-city-comparison', 'relocation-freshness', 'texas-life-relocation-hero-uniqueness', 'texas-life-housing-photo-relevance',
   'fishing-authority', 'all-lake-authority-inventory', 'citypass-affiliate', 'governed-seo-duplicates',
 ]);

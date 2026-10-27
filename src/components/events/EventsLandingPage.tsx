@@ -64,8 +64,8 @@ export function EventsLandingPage({ data, search, breadcrumb }: { data: EventsLa
       <EditorialLink href="/german-czech-texas-towns" title="German & Czech Texas heritage" text="Connect festivals and music to the towns, churches, bakeries and halls that preserve the deeper history." />
     </div></div></Container></section>
 
-    <DiscoverySection eyebrow="Plan by time" title="What’s happening when" description="Finite rolling and seasonal views use the same verified authority catalog." links={eventTimingLinks} />
-    <DiscoverySection eyebrow="Browse evergreen guides" title="Texas events by type" description="Crawlable planning collections connect the live calendar to permanent event guides and deeper Texas context." links={eventTopicLinks} />
+    <DiscoverySection eyebrow="Plan by time" title="What’s happening when" description="Explore upcoming weekends, seasonal celebrations and annual favorites—with dates and organizer details to check before you go." links={eventTimingLinks} />
+    <DiscoverySection eyebrow="Browse evergreen guides" title="Texas events by type" description="Find festivals, fairs, concerts and seasonal outings, then open a visitor guide for directions, dates and nearby ideas." links={eventTopicLinks} />
     <DiscoverySection eyebrow="Explore state-park activities" title="Ranger programs, nature walks and night skies" description="Our calendar includes qualifying TPWD activities at matched Texas state parks. For schedules, fees, accessibility and registration, always check the official program page. No TPWD descriptions or images are republished." links={[
       { href: "https://tpwd.texas.gov/calendar/hiking", title: "Guided hikes & nature walks", description: "Check upcoming outdoor walks directly with Texas Parks and Wildlife." },
       { href: "https://tpwd.texas.gov/calendar/stargazing", title: "Stargazing & night skies", description: "Look for telescope sessions, sky tours and park astronomy programs." },
