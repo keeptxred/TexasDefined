@@ -87,6 +87,29 @@ try {
           && researched.cards.some(card=>card.url.includes("elpasomissions.org"))
           && researched.disclaimer.includes("not five new destination profiles"),
           JSON.stringify(researched.cards));
+        const plans=await page.evaluate(()=>({
+          cards:[...document.querySelectorAll('[data-el-paso-trip-plan]')].map(node=>({
+            key:node.getAttribute("data-el-paso-trip-plan"),
+            links:[...node.querySelectorAll("a")].map(a=>({href:a.getAttribute("href"),target:a.getAttribute("target"),rel:a.getAttribute("rel")})),
+            text:node.textContent||""
+          })),
+          description:document.querySelector('[data-el-paso-trip-decisions]')?.textContent||"",
+          actualAnchors:[...document.querySelectorAll('[data-el-paso-source-backed-outing]')].map(node=>node.id)
+        }));
+        const externalSources=plans.cards.flatMap(card=>card.links.filter(link=>link.href?.startsWith("https://")));
+        const allInternalAnchors=plans.cards.flatMap(card=>card.links.filter(link=>link.href?.startsWith("#")));
+        check("El Paso three practical day-trip decisions cite safe visitor access without inflating indexable inventory",
+          plans.cards.length===3
+          && ["mission-trail","hueco-tanks","guadalupe"].every(key=>plans.cards.some(card=>card.key===key))
+          && plans.description.includes("not additional destination records")
+          && plans.cards.some(card=>card.text.includes("North Mountain self-guided"))
+          && plans.cards.some(card=>card.text.includes("after rain"))
+          && externalSources.some(link=>link.href==="https://www.elpasomissions.org/faqs/")
+          && externalSources.some(link=>link.href==="https://tpwd.texas.gov/state-parks/hueco-tanks/alert")
+          && externalSources.some(link=>link.href==="https://www.nps.gov/gumo/planyourvisit/dunes.htm")
+          && externalSources.every(link=>link.target==="_blank"&&link.rel?.includes("noopener"))
+          && allInternalAnchors.every(link=>plans.actualAnchors.includes(link.href.slice(1))),
+          JSON.stringify({plans:plans.cards.map(c=>c.key),externalSources,actualAnchors:plans.actualAnchors}));
       }
       check("correct city heading",data.h1.toLowerCase().includes(metro.split("-")[0]),data.h1);
       check("unique curated destination IDs",new Set(data.slugs).size===data.slugs.length,data.slugs.join(","));
