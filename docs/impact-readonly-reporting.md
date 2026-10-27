@@ -43,7 +43,7 @@ Provider references:
 
 The same authorized **Reports GET** permission can list generic Finance report
 definitions, if the partner account exposes any. A bounded read-only metadata
-check inspects at most two finance report definitions for explicit
+check inspects at most ten finance report definitions for explicit
 `Currency`/`PaymentStatus` or related fields. **It never runs finance
 reports or accesses payout amounts**, and never assumes that an API-visible
 finance report implies paid commissions or that its monetary fields are USD.
