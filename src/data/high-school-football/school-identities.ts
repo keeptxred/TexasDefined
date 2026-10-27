@@ -12,6 +12,41 @@ export type VerifiedFootballSchoolIdentity = {
 // must never control profile availability, public order, or enrichment priority.
 export const VERIFIED_FOOTBALL_SCHOOL_IDENTITIES: readonly VerifiedFootballSchoolIdentity[] = [
   {
+    slug: 'cherokee',
+    mascot: 'Fighting Indians',
+    sourceUrl: 'https://www.cherokeeisd.net/',
+    sourceLabel: 'Cherokee ISD school home Fighting Indians',
+    verifiedAt: '2026-10-27',
+  },
+  {
+    slug: 'chester',
+    mascot: 'Yellowjackets',
+    sourceUrl: 'https://www.chesterisd.com/page/athletics',
+    sourceLabel: 'Chester ISD school athletics and coaches',
+    verifiedAt: '2026-10-27',
+  },
+  {
+    slug: 'chico',
+    mascot: 'Dragons',
+    sourceUrl: 'https://www.texasfootball.com/team/chico-dragons',
+    sourceLabel: 'DCTF Texas Chico Dragons with current UIL realignment',
+    verifiedAt: '2026-10-27',
+  },
+  {
+    slug: 'childress',
+    mascot: 'Bobcats',
+    sourceUrl: 'https://www.childressisd.net/page/athletic-schedules/',
+    sourceLabel: 'Childress ISD 2026 Bobcats program',
+    verifiedAt: '2026-10-27',
+  },
+  {
+    slug: 'chillicothe',
+    mascot: 'Eagles',
+    sourceUrl: 'https://www.cisd-tx.net/215133_2',
+    sourceLabel: 'Chillicothe ISD athletics department',
+    verifiedAt: '2026-10-27',
+  },
+  {
     slug: 'center',
     mascot: 'Roughriders',
     sourceUrl: 'https://ces.centerisd.org/page/dis.athletics',
