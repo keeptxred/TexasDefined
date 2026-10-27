@@ -7,6 +7,8 @@ on:
       - 'src/data/events/official-venue-events.server.ts'
       - 'scripts/data/validate-official-venue-ticketing.mjs'
       - 'src/data/events/texas-event-record.ts'
+      - 'scripts/events/verify-editorial-ticket-links.mjs'
+      - 'scripts/events/verify-editorial-ticket-links.test.mjs'
       - 'src/data/events/ticketing.ts'
       - 'src/data/events/texas-event-records.server.ts'
       - 'src/data/events/texas-event-calendar.server.ts'
@@ -45,6 +47,9 @@ jobs:
 
       - name: Verify exact Choctaw game checkout source boundaries
         run: node --experimental-strip-types scripts/data/validate-official-venue-ticketing.mjs
+
+      - name: Validate bounded official editorial seller URL probes
+        run: node --test scripts/events/verify-editorial-ticket-links.test.mjs
 
       - name: Validate provider-neutral ticket architecture
         run: node scripts/data/validate-event-ticketing-architecture.mjs

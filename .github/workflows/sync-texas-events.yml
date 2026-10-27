@@ -13,6 +13,8 @@ on:
       - "scripts/events/sync-ticketmaster-events.mjs"
       - "scripts/events/ticketmaster-discovery.mjs"
       - "scripts/events/verify-ticketmaster-link-batch.mjs"
+      - "scripts/events/verify-editorial-ticket-links.mjs"
+      - "scripts/events/verify-editorial-ticket-links.test.mjs"
       - "scripts/events/verify-ticketmaster-link-batch.test.mjs"
       - "scripts/events/build-ticketmaster-authority-candidates.mjs"
       - "scripts/events/build-ticketmaster-authority-candidates.test.mjs"
@@ -82,6 +84,12 @@ jobs:
 
       - name: Check the next 40 verified-provider event destinations
         run: node scripts/events/verify-ticketmaster-link-batch.mjs
+
+      - name: Test bounded official editorial seller probes
+        run: node --test scripts/events/verify-editorial-ticket-links.test.mjs
+
+      - name: Check the next 25 official editorial purchase URLs
+        run: node scripts/events/verify-editorial-ticket-links.mjs
 
       - name: Detect catalog changes
         id: changes
