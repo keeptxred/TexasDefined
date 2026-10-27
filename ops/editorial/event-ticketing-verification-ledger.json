@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "owner": "TexasDefined",
-  "updatedAt": "2026-10-26",
+  "updatedAt": "2026-10-27",
   "scope": "Ticketing, affiliates, event verification",
   "statusPolicy": {
     "PENDING": "Not reviewed in this run",
@@ -87,34 +87,126 @@
       "commissionEligibilityVerified": false
     },
     "organizerOfferPublicationWindows": {
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "checkedAt": "2026-10-26",
       "defect": "Unexpired organizer page could produce ticket links from expired, future, sold-out or malformed Event schema Offer metadata.",
       "fix": "Filter source Offer before canonical ticket construction using America/Chicago date-only windows and exact timestamp boundaries; preserve independent organizer and approved provider options.",
       "tests": "validate-event-ticket-positive-path.mjs and validate-event-ticketing-architecture.mjs",
-      "pr": null,
+      "pr": 6068,
       "productionVerifiedAt": null,
-      "inventoryVerified": false
+      "inventoryVerified": false,
+      "mergeCommit": "1dc621819a93932faddd6b15c6359fab2a2b971a",
+      "protectedCheck": "PASS: Required merge gate, GitHub Actions run 40452919436",
+      "deployedAt": "2026-10-27T05:07:55Z",
+      "deploymentWorkflowRunId": 40453227653,
+      "cloudflareDeploymentId": "a3d690a5-566e-4a30-a13e-73c0bfec88e9",
+      "cloudflareVersionId": "11a01246-8b13-4a21-a0ee-c30cea20abd7",
+      "productionVerification": "Shared production workflow passed route-level Christmas, 12 curated performances, Palestine booking-guide, Event structured data and worker health. Specific live sold-out/future/expired Offer fixtures, individual Impact redirect property payloads and a cache-fresh multi-session venue/time DOM were not separately observed. Protected code-level regression tests cover those cases; do not imply provider inventory."
     },
     "impactFullAttributionSafety": {
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "checkedAt": "2026-10-26",
       "defect": "Resolver permitted incomplete Impact property/subId query while catalog audit enforced full attribution.",
       "fix": "Shared Ticketmaster resolver requires exact published four-field Impact attribution and same event destination; official non-sponsored fallback.",
       "tests": "validate-event-ticketing-architecture.mjs",
-      "pr": null,
+      "pr": 6068,
       "productionVerifiedAt": null,
-      "commissionsVerified": false
+      "commissionsVerified": false,
+      "mergeCommit": "1dc621819a93932faddd6b15c6359fab2a2b971a",
+      "protectedCheck": "PASS: Required merge gate, GitHub Actions run 40452919436",
+      "deployedAt": "2026-10-27T05:07:55Z",
+      "deploymentWorkflowRunId": 40453227653,
+      "cloudflareDeploymentId": "a3d690a5-566e-4a30-a13e-73c0bfec88e9",
+      "cloudflareVersionId": "11a01246-8b13-4a21-a0ee-c30cea20abd7",
+      "productionVerification": "Shared production workflow passed route-level Christmas, 12 curated performances, Palestine booking-guide, Event structured data and worker health. Specific live sold-out/future/expired Offer fixtures, individual Impact redirect property payloads and a cache-fresh multi-session venue/time DOM were not separately observed. Protected code-level regression tests cover those cases; do not imply provider inventory."
     },
     "majorGuideVisiblePerformanceIdentity": {
-      "status": "IMPLEMENTED",
+      "status": "DEPLOYED",
       "checkedAt": "2026-10-26",
       "defect": "Multi-performance ticket rows lacked venue/showtime identification.",
       "fix": "Display provider-local performance start time, show title and venue and accessible label; unknown time explicitly unconfirmed.",
       "tests": "validate-major-event-ticket-lifecycle.mjs",
-      "pr": null,
+      "pr": 6068,
       "productionVerifiedAt": null,
-      "inventoryVerified": false
+      "inventoryVerified": false,
+      "mergeCommit": "1dc621819a93932faddd6b15c6359fab2a2b971a",
+      "protectedCheck": "PASS: Required merge gate, GitHub Actions run 40452919436",
+      "deployedAt": "2026-10-27T05:07:55Z",
+      "deploymentWorkflowRunId": 40453227653,
+      "cloudflareDeploymentId": "a3d690a5-566e-4a30-a13e-73c0bfec88e9",
+      "cloudflareVersionId": "11a01246-8b13-4a21-a0ee-c30cea20abd7",
+      "productionVerification": "Shared production workflow passed route-level Christmas, 12 curated performances, Palestine booking-guide, Event structured data and worker health. Specific live sold-out/future/expired Offer fixtures, individual Impact redirect property payloads and a cache-fresh multi-session venue/time DOM were not separately observed. Protected code-level regression tests cover those cases; do not imply provider inventory."
+    },
+    "ticketingCompletion20261027": {
+      "status": "PRODUCTION_VERIFIED",
+      "scope": "Protected deployment and live site acceptance for merged ticketing, Christmas and editorial calendar changes; do not equate all synthetic edge cases with separate live proof.",
+      "checkedAt": "2026-10-27",
+      "mergeCommit": "1dc621819a93932faddd6b15c6359fab2a2b971a",
+      "sourcePR": 6068,
+      "sourceHead": "862c052af01bd7cb249f74d262ca3fa5169fba36",
+      "protectedMergeGate": {
+        "status": "CI_PASSED",
+        "runId": 40452919436
+      },
+      "production": {
+        "status": "PRODUCTION_VERIFIED",
+        "workflowRunId": 40453227653,
+        "conclusion": "success",
+        "cloudflareDeploymentId": "a3d690a5-566e-4a30-a13e-73c0bfec88e9",
+        "cloudflareVersionId": "11a01246-8b13-4a21-a0ee-c30cea20abd7",
+        "trafficPercentAtCheck": 100
+      },
+      "liveAcceptance": [
+        "direct Worker health and canonical domain",
+        "Palestine Polar Express 2026 authority canonical and cache-busted source schedule; official booking, hotel affiliate, editorial intro and no deprecated dashboard",
+        "Christmas source calendar",
+        "12 individually verified curated Christmas performances in live events calendar",
+        "Event JSON-LD production check",
+        "client bundle budget and built-worker smoke"
+      ],
+      "prReconciliation": [
+        {
+          "pr": 5973,
+          "status": "SUPERSEDED",
+          "evidence": "Merged #6000 full-catalog identity and Impact-link integrity; no duplicate change required"
+        },
+        {
+          "pr": 5976,
+          "status": "SUPERSEDED",
+          "evidence": "Closed outdated Oct 26 14:02Z event sync candidate; superseded by newer 17:25Z generated records and 23:10Z ledger checkpoint"
+        },
+        {
+          "pr": 6052,
+          "status": "SUPERSEDED",
+          "by": 6068
+        },
+        {
+          "pr": 6054,
+          "status": "SUPERSEDED",
+          "by": 6068
+        },
+        {
+          "pr": 6055,
+          "status": "SUPERSEDED",
+          "by": 6068
+        }
+      ],
+      "statewideEditorialCohort": {
+        "status": "CI_PASSED",
+        "recordCount": 34,
+        "batchSize": 50,
+        "source": "current canonical protected cohort validation",
+        "ticketInventoryVerified": false
+      },
+      "externalLimitations": [
+        "Restricted live seat inventory not authorized",
+        "Per-event commission eligibility and final checkout price not exposed",
+        "Five editorial links withheld where no compliant CTA was resolved; do not create generic substitute",
+        "2027 Palestine railroad dates must await organizer-published validated calendar"
+      ],
+      "verifiedInventory": false,
+      "verifiedFinalPrice": false,
+      "verifiedPerEventCommission": false
     }
   },
   "events": [
