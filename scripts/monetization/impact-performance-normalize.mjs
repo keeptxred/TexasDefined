@@ -28,8 +28,21 @@ export function normalizeDailyImpactRows(records,day,{currencyCode=null}={}){
   if(records.length!==1)throw new Error('Impact daily report needs explicit grouping verification.');
   const row=records[0];
   if(!row||typeof row!=='object'||Array.isArray(row))throw new Error('Invalid Impact daily record.');
-  const date=String(row.sort_date||'').slice(0,10);
-  if(date!==day)throw new Error('Impact record date does not match requested completed day.');
+  // Actual Impact partner daily response may contain date_display but no
+  // sort_date. Respect the bounded exact-one-day API filter and validate
+  // any parseable date; never silently accept a different report day.
+  const sortDate=String(row.sort_date??'').slice(0,10);
+  if(sortDate && sortDate!==day)throw new Error('Impact sort date does not match requested completed day.');
+  const display=String(row.date_display??'').trim();
+  if(!sortDate && !display)throw new Error('Impact report date field missing.');
+  if(!sortDate){
+    const parsed=Date.parse(display);
+    if(Number.isFinite(parsed)){
+      const reportedDay=new Date(parsed).toISOString().slice(0,10);
+      if(reportedDay!==day)throw new Error('Impact displayed date does not match requested completed day.');
+    }
+  }
+  const date=day;
   const verifiedCurrency=currencyCode!==null&&/^[A-Z]{3}$/.test(currencyCode)?currencyCode:null;
   const result={
     metric_date:date,
