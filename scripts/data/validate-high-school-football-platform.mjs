@@ -2366,6 +2366,33 @@ if (!errors.length) {
   }
 }
 
+// Current school-authored venue names are useful to visitors without
+// converting a campus mailing address or a city-only label into a gate address.
+// The source rows are public school sites; no school marks or photo rights follow.
+{
+  const editor = read('src/data/high-school-football/program-editorial.ts');
+  const venues = [
+    ['blanket','Tiger Stadium','blanketisd.org','901 Avenue H, Blanket, TX 76432'],
+    ['borger','Bulldog Stadium','borgerisd.net',null],
+    ['bosqueville','Bulldog Stadium','bosquevilleisd.org',null],
+    ['bovina','Mustang Stadium','bovinaisd.org',null],
+    ['bowie','Jackrabbit Stadium','bowieisd.net',null],
+  ];
+  for (const [slug,name,domain,verifiedAddress] of venues) {
+    const start = editor.indexOf('  "'+slug+'": {');
+    const end = editor.indexOf('\\n  "',start+8);
+    const school = start>=0 ? editor.slice(start,end<0?editor.length:end) : '';
+    if (!school.includes('"venue": {') || !school.includes('"name": "'+name+'"') ||
+        !school.includes(domain) || !school.includes('"verifiedAt": "2026-10-27"'))
+      errors.push('Source-based football venue missing or unattributed: '+slug);
+    const venuePart = school.split('"venue": {')[1]?.split('\\n    },')[0] || '';
+    if (verifiedAddress) {
+      if (!venuePart.includes('"address": "'+verifiedAddress+'"')) errors.push('Officially mapped Blanket stadium address lost');
+    } else if (venuePart.includes('"address":')) errors.push('Unsourced public spectator address added for '+slug);
+    if (!venuePart.includes('gate') && !venuePart.includes('entry')) errors.push('Venue entry-access caution missing for '+slug);
+  }
+}
+
 if (errors.length) {
   console.error('High-school football platform validation failed:');
   for (const error of errors) console.error(`- ${error}`);
