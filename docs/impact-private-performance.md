@@ -10,7 +10,7 @@ The existing private **`/admin/partner-referrals`** page authenticates via `asse
 
 - One row per completed Texas calendar date from the provider's `partner_performance_by_day` report.
 - `reported_clicks` etc. are what Impact reports, not the on-site click tracking totals from Cloudflare Analytics Engine. Do **not** add these counts together as if they had the same measurement definition.
-- `reported_total_cost`/`reported_action_cost` reflect provider-side estimated credit/cost fields; they are **not** confirmed cash paid, and can change with reversals or program decisions. Monetary fields require an independently verified three-letter currency code. Missing currency = monetary columns NULL.
+- `reported_total_cost`/`reported_action_cost` reflect provider-side estimated credit/cost fields; they are not confirmed cash paid, and can change with reversals or program decisions. Monetary fields require an independently verified three-letter currency code. Missing currency = monetary columns NULL.
 - Zero is distinct from null; never normalize missing fields to zero or assume unknown reports mean no revenue.
 - Store no individual `action_id`, customer identifiers, checkout items, transaction timestamps, IPs, purchaser data, raw report JSON, API tokens or account SID.
 - Retain immutable source-code reporting logic but keep actual revenue numbers private. Historical corrections must update the same `metric_date` row, not double count a second row.
