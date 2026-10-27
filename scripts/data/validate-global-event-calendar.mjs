@@ -113,7 +113,7 @@ for (const token of [
 ]) requireText(mardiGrasHub, token, "Mardi Gras hub current source/visitor details");
 
 const christmas = read("src/data/events/christmas-performances-2026.server.ts");
-const christmasHub = read("src/routes/events.$collection.tsx");
+const christmasHub = `${read("src/routes/events.$collection.tsx")}\n${read("src/routes/events.$collection.lazy.tsx")}`;
 const christmasIds = [...christmas.matchAll(/id: "([^"]+-2026)"/g)].map((match) => match[1]);
 if (christmasIds.length !== 12 || new Set(christmasIds).size !== 12) {
   failures.push("Christmas statewide calendar must project exactly 12 unique curated shows");

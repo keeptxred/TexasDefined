@@ -4,7 +4,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { PublishableGraphic } from "@/components/editorial/PublishableGraphic";
 import { Container } from "@/components/layout/Container";
-import { paintedChurchAuthorityExpansionDate } from "@/data/painted-church-authority-sources";
+import { paintedChurchAuthorityExpansionDate } from "@/data/painted-church-authority-catalog";
 import { paintedChurchMapPointBySlug, paintedChurchMapPoints } from "@/data/painted-church-map-points";
 import { expandedPaintedChurches } from "@/data/painted-churches-expanded";
 import { recoverOrHideImage } from "@/lib/image-fallback";

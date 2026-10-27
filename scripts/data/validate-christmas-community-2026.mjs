@@ -5,7 +5,7 @@ const read = (path) => fs.readFileSync(path, "utf8");
 const eventFile = read("src/data/events/christmas-community-2026.server.ts");
 const adapter = read("src/data/events/texas-event-records.server.ts");
 const collection = read("src/data/event-collection-page.server.ts");
-const page = read("src/routes/events.$collection.tsx");
+const page = `${read("src/routes/events.$collection.tsx")}\n${read("src/routes/events.$collection.lazy.tsx")}`;
 const premerge = read("scripts/ci/run-premerge-validation.mjs");
 const authority = read("src/data/major-event-expanded-authority-tranche59.server.ts");
 const resolver = read("src/data/major-event-page.server.ts");

@@ -2957,7 +2957,9 @@ const EventsCollectionRoute = EventsCollectionRouteImport.update({
   id: '/$collection',
   path: '/$collection',
   getParentRoute: () => EventsRoute,
-} as any)
+} as any).lazy(() =>
+  import('./routes/events.$collection.lazy').then((d) => d.Route),
+)
 const EventSlugRoute = EventSlugRouteImport.update({
   id: '/event/$slug',
   path: '/event/$slug',
@@ -3728,7 +3730,11 @@ const ExplorePaintedChurchesCompareRoute =
     id: '/compare',
     path: '/compare',
     getParentRoute: () => ExplorePaintedChurchesRoute,
-  } as any)
+  } as any).lazy(() =>
+    import('./routes/explore.painted-churches.compare.lazy').then(
+      (d) => d.Route,
+    ),
+  )
 const ExplorePaintedChurchesCiteRoute =
   ExplorePaintedChurchesCiteRouteImport.update({
     id: '/cite',
