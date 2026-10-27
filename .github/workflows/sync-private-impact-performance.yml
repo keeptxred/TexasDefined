@@ -1,0 +1,69 @@
+name: Sync private Impact daily performance
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '31 13 * * *'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/sync-private-impact-performance.yml'
+      - 'scripts/monetization/sync-impact-private-performance.mjs'
+      - 'scripts/monetization/impact-performance-normalize.mjs'
+      - 'supabase/migrations/20261027213000_create_private_impact_performance.sql'
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/sync-private-impact-performance.yml'
+      - 'scripts/monetization/sync-impact-private-performance.mjs'
+      - 'scripts/monetization/sync-impact-private-performance.test.mjs'
+      - 'scripts/monetization/impact-performance-normalize.mjs'
+      - 'scripts/monetization/impact-performance-normalize.test.mjs'
+      - 'supabase/migrations/20261027213000_create_private_impact_performance.sql'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: private-impact-performance-sync
+  cancel-in-progress: true
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test private Impact aggregates and read-only safety
+        run: |
+          node --test scripts/monetization/impact-performance-normalize.test.mjs scripts/monetization/sync-impact-private-performance.test.mjs scripts/monetization/validate-impact-private-performance.test.mjs
+
+  authorize:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    environment: texasdefined-publication
+    steps:
+      - name: Approve private financial sync through existing protected environment
+        run: echo "Protected TexasDefined publication environment authorized."
+
+  sync:
+    needs: [tests,authorize]
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Import private provider counts (no raw reports in logs)
+        env:
+          IMPACT_ACCOUNT_SID: ${{ secrets.IMPACT_ACCOUNT_SID }}
+          IMPACT_AUTH_TOKEN: ${{ secrets.IMPACT_AUTH_TOKEN }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL || 'https://ftkznprjljkhymknvhye.supabase.co' }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY || secrets.KEEP_TX_RED_SUPABASE_SERVICE_ROLE_KEY }}
+        run: node scripts/monetization/sync-impact-private-performance.mjs
