@@ -152,9 +152,16 @@ try {
           scrolledPhotos.push(await img.evaluate(image=>({
             src:image.currentSrc||image.src,
             alt:image.alt,
+            destinationPath:(image.closest('a[href^="/destination/"]')||image.closest('article')?.querySelector('a[href^="/destination/"]'))?.getAttribute('href')||"",
+            width:image.naturalWidth,
+            height:image.naturalHeight,
             loaded:image.complete&&image.naturalWidth>0&&image.naturalHeight>0
           })).catch(error=>({src:"",alt:"",loaded:false,error:String(error)})));
         }
+        // Preserve full sampled image URLs and alt text in the machine-readable
+        // artifact. The 250-character check summary cannot support an image-rights
+        // or identity audit; neither URL reachability nor alt text proves licensing.
+        record.photoEvidence=scrolledPhotos;
         check("scrolled destination photographs load",
           imageCount>=1&&scrolledPhotos.every(image=>image.loaded&&!!image.alt),
           JSON.stringify(scrolledPhotos.map(image=>({...image,src:image.src.slice(0,140)}))).slice(0,500));
