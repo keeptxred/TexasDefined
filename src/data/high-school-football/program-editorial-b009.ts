@@ -95,6 +95,12 @@ const BATCH009_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceLabel": "Chester ISD first-party coaching and athletics role list",
       "verifiedAt": "2026-10-27"
     },
+    "campus": {
+      "address": "273 Yellowjacket Dr, Chester, TX 75936 (school/district complex; not a verified spectator entrance)",
+      "sourceUrl": "https://www.chesterisd.com/",
+      "sourceLabel": "Chester ISD official school/district home and Find Us campus contact",
+      "verifiedAt": "2026-10-27"
+    },
     "schedule": {
       "label": "Chester ISD official athletics schedule and event updates",
       "sourceUrl": "https://www.chesterisd.com/athletics",
@@ -313,6 +319,12 @@ const BATCH009_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceLabel": "Chillicothe ISD first-party athletics contacts and dated schedule label",
       "verifiedAt": "2026-10-27"
     },
+    "campus": {
+      "address": "1610 S. 6th Street, Chillicothe, TX 79225 (school/district campus; not a verified spectator entrance)",
+      "sourceUrl": "https://www.cisd-tx.net/",
+      "sourceLabel": "Chillicothe ISD official current district/school home",
+      "verifiedAt": "2026-10-27"
+    },
     "schedule": {
       "label": "Chillicothe ISD official athletics updates (football PDF still labeled 25/26)",
       "sourceUrl": "https://www.cisd-tx.net/215133_2",
@@ -455,6 +467,12 @@ const BATCH009_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceLabel": "Center Point ISD official athletics page compared with its separate schedules page",
       "verifiedAt": "2026-10-26"
     },
+    "campus": {
+      "address": "207 China Street, Center Point, TX 78010 (Center Point High School campus; not a stadium gate)",
+      "sourceUrl": "https://www.cpisd.net/employee-resources",
+      "sourceLabel": "Center Point ISD official campus contacts identify the high school at 207 China Street",
+      "verifiedAt": "2026-10-27"
+    },
     "schedule": {
       "label": "Center Point ISD athletics and Pirate football schedules",
       "sourceUrl": "https://www.cpisd.net/pirates-sports",
@@ -522,6 +540,12 @@ const BATCH009_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceUrl": "https://www.centerville.k12.tx.us/46669_3",
       "sourceLabel": "Centerville ISD official 2026 varsity football schedule identifies Kyle Hardee as head coach",
       "verifiedAt": "2026-10-26"
+    },
+    "campus": {
+      "address": "813 South Commerce, Centerville, TX 75833 (Centerville Junior-Senior High campus; not a spectator entrance)",
+      "sourceUrl": "https://www.centerville.k12.tx.us/63130_2",
+      "sourceLabel": "Centerville ISD official Junior-Senior High campus page",
+      "verifiedAt": "2026-10-27"
     },
     "schedule": {
       "label": "Official 2026 Centerville varsity football schedule",
@@ -607,6 +631,12 @@ const BATCH009_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceLabel": "Sheldon ISD official 2026 opponent venue-address listing; Channelview ISD first-party athletics for home-game policies",
       "verifiedAt": "2026-10-26"
     },
+    "campus": {
+      "address": "1100 Sheldon Road, Channelview, TX 77530 (Channelview High School campus; Ray Maddry Stadium access is separate)",
+      "sourceUrl": "https://www.cvisd.org/o/chs",
+      "sourceLabel": "Channelview High School official current campus home",
+      "verifiedAt": "2026-10-27"
+    },
     "schedule": {
       "label": "Channelview ISD official athletics and ticket navigation",
       "sourceUrl": "https://www.cvisd.org/page/athletics/",
@@ -667,6 +697,12 @@ const BATCH009_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceUrl": "https://www.charlotteisd.net/vnews/display.v/SEC/Athletics",
       "sourceLabel": "Charlotte ISD current athletics and coaching list, 2026–27 program resources",
       "verifiedAt": "2026-10-26"
+    },
+    "campus": {
+      "address": "70 Trojan Drive, Charlotte, TX 78011 (Charlotte High School campus; not a spectator entrance)",
+      "sourceUrl": "https://www.charlotteisd.net/pages/uploaded_files/CISD%20Student%20Handbook%202024_2025.pdf",
+      "sourceLabel": "Charlotte ISD official handbook campus directory; current athletics guidance remains separate",
+      "verifiedAt": "2026-10-27"
     },
     "schedule": {
       "label": "Charlotte ISD high-school athletic schedules and forms",
@@ -735,6 +771,12 @@ const BATCH009_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceUrl": "https://www.chisd.net/staff-profile/~const-id/3872",
       "sourceLabel": "Current Cedar Hill ISD staff profile",
       "verifiedAt": "2026-10-26"
+    },
+    "campus": {
+      "address": "1 Longhorn Blvd., Cedar Hill, TX 75104 (Cedar Hill High School campus; verify event entrance separately)",
+      "sourceUrl": "https://chhs.chisd.net/contact",
+      "sourceLabel": "Cedar Hill High School official current Contact page",
+      "verifiedAt": "2026-10-27"
     },
     "schedule": {
       "label": "Cedar Hill ISD 2026 varsity football schedule",
@@ -1116,6 +1158,12 @@ const BATCH009_EDITORIAL: Record<string, FootballProgramEditorial> = {
       "sourceUrl": "https://ath.celinaisd.com/athletic-leadership",
       "sourceLabel": "Celina ISD official current athletics leadership directory",
       "verifiedAt": "2026-10-26"
+    },
+    "campus": {
+      "address": "3455 N. Preston Road, Celina, TX 75009 (Celina High School campus; not a game-day gate)",
+      "sourceUrl": "https://chs.celinaisd.com/about-us",
+      "sourceLabel": "Celina High School official current About Us campus listing",
+      "verifiedAt": "2026-10-27"
     },
     "schedule": {
       "label": "Celina Bobcats 2026 UIL football fixtures and historical record",
