@@ -1,7 +1,7 @@
 /**
  * Focused follow-up to Van Zandt production Chrome acceptance.
  * Verifies two real 16s timeouts, all live county football profile links,
- * nine community map targets, source-browser isolation, semantic JSON-LD,
+ * source-browser isolation, semantic JSON-LD,
  * and scoped WCAG accessibility without auditing other pages.
  */
 import assert from 'node:assert/strict';
@@ -12,14 +12,13 @@ const { chromium } = require('/tmp/texasdefined-van-zandt-qa/node_modules/playwr
 const axePath = '/tmp/texasdefined-van-zandt-qa/node_modules/axe-core/axe.min.js';
 const origin = (process.env.PRODUCTION_ORIGIN || 'https://texasdefined.com').replace(/\/$/, '');
 const countyPath = '/county/van-zandt';
-const communities = ['Canton', 'Wills Point', 'Grand Saline', 'Van', 'Edgewood', 'Fruitvale', 'Ben Wheeler', 'Martins Mill', 'Edom'];
 const browser = await chromium.launch({ headless: true, executablePath: process.env.CHROME_BIN });
 const problems = [];
 
 async function settled(page) {
-  await page.waitForFunction(minCount => document.querySelector('h1')?.textContent?.trim() === 'Van Zandt County' &&
-    document.querySelectorAll('a[href*="openstreetmap.org/search?query="]').length >= minCount,
-    communities.length, { timeout: 60000 });
+  await page.waitForFunction(() => document.querySelector('h1')?.textContent?.trim() === 'Van Zandt County' &&
+    !!document.querySelector('a[href*="grandsalinesaltpalace.com"]'),
+    null, { timeout: 60000 });
 }
 
 async function normalContentAndLinks() {
@@ -36,20 +35,13 @@ async function normalContentAndLinks() {
     await page.waitForTimeout(1100);
     await settled(page);
 
-    const mapLinks = await page.locator('a[href*="openstreetmap.org/search?query="]').evaluateAll(nodes =>
-      nodes.map(a => ({ href: a.href, text: a.closest('li')?.textContent || '' }))
-    );
-    assert.equal(mapLinks.length, communities.length, 'All nine community map links must be rendered once');
-    for (const community of communities) {
-      const expectedQuery = community + ', Van Zandt County, Texas';
-      const matches = mapLinks.filter(link => {
-        const parsed = new URL(link.href);
-        return parsed.hostname === 'www.openstreetmap.org' && parsed.pathname === '/search' &&
-          parsed.searchParams.get('query') === expectedQuery && link.text.includes(community);
-      });
-      assert.equal(matches.length, 1, 'Map link does not target the named Van Zandt community: ' + expectedQuery);
+    if (process.env.EXPECT_SERVER_ONLY_COUNTY_SOURCES === 'true') {
+      assert.equal(await page.getByRole('heading', { name: 'Places on the map' }).count(), 0,
+        'The retired county map section must remain absent after deployment');
+      assert.equal(await page.locator('[data-van-zandt-community-map], a[href*="openstreetmap.org/search?query="]').count(), 0,
+        'The retired county map and link grid must not return');
+      console.log('PASS layout: retired map section absent on Van Zandt County');
     }
-    console.log('PASS maps: all nine on-page community labels and decoded OSM search targets match exactly');
 
     const rawLd = await page.locator('script[type="application/ld+json"]').allTextContents();
     assert.ok(rawLd.length > 0, 'Missing county JSON-LD');
@@ -143,37 +135,11 @@ async function verifyRealTimeouts() {
   } finally { await context.close(); }
 }
 
-async function checkExternalOsmNavigationOnce() {
-  if (process.env.VERIFY_EXTERNAL_OSM !== 'true') return;
-  const context = await browser.newContext();
-  let verified = 0, limited = 0;
-  try {
-    for (const community of communities) {
-      const target = 'https://www.openstreetmap.org/search?query=' +
-        encodeURIComponent(community + ', Van Zandt County, Texas');
-      try {
-        const response = await context.request.get(target, { timeout: 12000, maxRedirects: 4 });
-        const content = await response.text();
-        if (response.status() === 200 && /OpenStreetMap/i.test(content)) verified++;
-        else {
-          limited++;
-          console.log('EXTERNAL MAP LIMIT ' + community + ': HTTP ' + response.status());
-        }
-      } catch (error) {
-        limited++;
-        console.log('EXTERNAL MAP LIMIT ' + community + ': ' + String(error.message).slice(0, 160));
-      }
-    }
-    console.log('OSM external front-end retrieval: ' + verified + '/' + communities.length +
-      ' resolved; ' + limited + ' restricted/timeout. This does not certify map search geocoding results.');
-  } finally { await context.close(); }
-}
 
 try {
   for (const [name, task] of [
     ['normal links, SEO and accessibility', normalContentAndLinks],
-    ['16-second timeout behavior', verifyRealTimeouts],
-    ['one-time OSM front-end navigation', checkExternalOsmNavigationOnce]
+    ['16-second timeout behavior', verifyRealTimeouts]
   ]) {
     try { await task(); } catch (e) { problems.push(name + ': ' + String(e?.message || e)); }
   }

@@ -96,12 +96,16 @@ requireAll('county editorial-first richness', countyGuide, [
   '<ArticleBody blocks={countySeriesArticle.body} entities={relatedEntities} />',
   'At a glance',
   'The county in numbers',
-  'County seat & communities',
-  'Places on the map',
   'Property & county services',
   'Official local resources',
   'Nearby places',
   'Keep exploring',
+]);
+forbidAll('county map section intentionally retired for all 254 counties', countyGuide, [
+  'Places on the map',
+  'County seat & communities',
+  'VanZandtCommunityMap',
+  'openstreetmap.org/search?query=',
 ]);
 requireAll('county loader-resolved feature handoff', countyGuide, [
   'countySeriesArticle: Article | null',
