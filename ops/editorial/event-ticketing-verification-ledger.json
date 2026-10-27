@@ -61,6 +61,16 @@
       "inventoryVerified": false,
       "checkoutPriceVerified": false,
       "affiliateCommissionVerified": false
+    },
+    "impactFullAttributionSafety": {
+      "status": "IMPLEMENTED",
+      "checkedAt": "2026-10-26",
+      "defect": "Shared live ticket CTA resolver accepted same-event Impact redirect with missing or changed property/subID parameters although snapshot auditing required exact 4-field attribution.",
+      "fix": "Require exact affiliate host/publisher/merchant/campaign and four tracking query fields with expected values; any discrepancy falls back to official nonsponsored event URL.",
+      "tests": "Existing canonical ticket architecture runtime fixture expanded with seven negative unauthorized attribution cases.",
+      "pr": null,
+      "productionVerifiedAt": null,
+      "commissionsVerified": false
     }
   },
   "events": [
