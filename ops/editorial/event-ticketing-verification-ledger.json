@@ -61,6 +61,18 @@
       "inventoryVerified": false,
       "checkoutPriceVerified": false,
       "affiliateCommissionVerified": false
+    },
+    "editorialCheckoutRedirectQueryIntegrity": {
+      "status": "IMPLEMENTED",
+      "checkedAt": "2026-10-26",
+      "issue": "Public editorial seller probe classified a 3xx as same destination if host+path matched, even when query parameters changed the selected date, showtime or ticketed performance.",
+      "fix": "Require exact scheme, host, path and search parameters; allow harmless fragment-only differences; flag changed checkout identity as REDIRECT_DIFFERENT_DESTINATION_REVIEW, never seat inventory.",
+      "tests": "Four new regression cases added to existing bounded editorial seller probe test suite; protected ticketing premerge and scheduled test gates required.",
+      "pr": null,
+      "mergedAt": null,
+      "productionVerifiedAt": null,
+      "inventoryConfirmed": false,
+      "finalPriceConfirmed": false
     }
   },
   "events": [
