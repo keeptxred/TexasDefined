@@ -1,23 +1,9 @@
 name: Verify seasonal production
-
+# This full seasonal audit is intentionally manual under update-scan-policy.json.
+# Automatic foliage coverage remains in the protected deploy change scope
+# and the independently scheduled Chrome foliage acceptance workflow.
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
-    paths:
-      - 'src/data/destination-editorial-links.ts'
-      - 'src/data/fixtures/seasonal-authority-articles.ts'
-      - 'src/data/fixtures/seasonal-intent-articles.ts'
-      - 'src/data/fixtures/lazy-seasonal-authority.ts'
-      - 'src/data/fixtures/seasonal-authority-links.ts'
-      - 'src/data/fixtures/seasonal-county-links.ts'
-      - 'src/data/county-seasonal-links.ts'
-      - 'src/components/content/CountySeasonalPlanning.tsx'
-      - 'src/components/content/CountyIdentitySection.tsx'
-      - 'src/components/editorial/ExploreIntentPaths.tsx'
-      - 'src/server.ts'
-      - 'scripts/data/validate-seasonal-authority.mjs'
 
 permissions:
   contents: read
@@ -25,35 +11,27 @@ permissions:
 
 jobs:
   verify-seasonal-production:
-    if: ${{ github.event_name == 'workflow_dispatch' || github.event_name == 'push' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     timeout-minutes: 12
     env:
       GH_TOKEN: ${{ github.token }}
-      DEPLOY_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+      DEPLOY_SHA: ${{ github.sha }}
     steps:
-      - name: Wait for production deploy on push fallback
-        if: ${{ github.event_name == 'push' }}
+      - name: Require successful production release of selected SHA
         shell: bash
         run: |
           set -euo pipefail
-          for attempt in $(seq 1 36); do
-            state="$(curl --fail-with-body --silent --show-error \
-              --header "Authorization: Bearer $GH_TOKEN" \
-              --header 'Accept: application/vnd.github+json' \
-              --header 'X-GitHub-Api-Version: 2022-11-28' \
-              "https://api.github.com/repos/${GITHUB_REPOSITORY}/commits/${DEPLOY_SHA}/status" \
-              | node -e 'let d="";process.stdin.on("data",c=>d+=c).on("end",()=>{const j=JSON.parse(d);const s=(j.statuses||[]).find(x=>x.context==="texasdefined-production");process.stdout.write(s?.state||"missing")})')"
-            echo "production status attempt ${attempt}: ${state}"
-            if [ "$state" = success ]; then exit 0; fi
-            if [ "$state" = failure ] || [ "$state" = error ]; then
-              echo "Production deployment failed for ${DEPLOY_SHA}; seasonal smoke will not run against a failed deploy." >&2
-              exit 1
-            fi
-            sleep 10
-          done
-          echo "Timed out waiting for texasdefined-production=success on ${DEPLOY_SHA}" >&2
-          exit 1
+          state="$(curl --fail-with-body --silent --show-error \
+            --header "Authorization: Bearer $GH_TOKEN" \
+            --header 'Accept: application/vnd.github+json' \
+            --header 'X-GitHub-Api-Version: 2022-11-28' \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/commits/${DEPLOY_SHA}/status" \
+            | node -e 'let d="";process.stdin.on("data",c=>d+=c).on("end",()=>{const j=JSON.parse(d);const s=(j.statuses||[]).find(x=>x.context==="texasdefined-production");process.stdout.write(s?.state||"missing")})')"
+          if [[ "$state" != success ]]; then
+            echo "::error title=Selected revision is not a verified production release::texasdefined-production for ${DEPLOY_SHA} is ${state}. Select a successfully deployed SHA and retry manually."
+            exit 1
+          fi
+          echo "Selected commit ${DEPLOY_SHA} has a verified production status."
 
       - name: Publish pending status
         shell: bash
@@ -168,7 +146,9 @@ jobs:
             --data '{"state":"success","context":"texasdefined-seasonal-live","description":"Seasonal Texas authority routes are live"}' >/dev/null
 
       - name: Publish failure status
-        if: ${{ failure() }}
+        # Only failed live assertions are a seasonal-production failure.
+        # An undeployed manually selected revision fails before publication.
+        if: ${{ failure() && steps.live.outcome == 'failure' }}
         shell: bash
         run: |
           curl --fail-with-body --silent --show-error --request POST \
