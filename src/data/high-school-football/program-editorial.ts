@@ -1,4 +1,3 @@
-import { footballMatchups, footballMatchupPath } from './football-matchups';
 
 export type FootballProgramEditorial = {
   slug: string;
@@ -28,6 +27,7 @@ export type FootballProgramEditorial = {
   };
   season?: {
     record: string;
+    recordLabel?: string;
     verifiedAt: string;
     sourceUrl: string;
     sourceLabel: string;
@@ -24369,43 +24369,5 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
 // This shared overlay keeps both team profiles and matchup pages aligned as verified
 // results are ingested, without running a crawl on each page request.
 export function getFootballProgramEditorial(slug: string) {
-  const editorial = PROGRAM_EDITORIAL[slug];
-  if (!editorial?.season) return editorial ?? null;
-  const finals = footballMatchups.filter((game) =>
-    game.status === 'final' &&
-    Number.isInteger(game.homeScore) &&
-    Number.isInteger(game.awayScore) &&
-    (game.home.slug === slug || game.away.slug === slug)
-  );
-  if (!finals.length) return editorial;
-  let refreshed = false;
-  const games = editorial.season.games.map((game) => {
-    const match = finals.find((candidate) => candidate.date === game.date);
-    if (!match) return game;
-    const isHome = match.home.slug === slug;
-    const forScore = isHome ? match.homeScore! : match.awayScore!;
-    const againstScore = isHome ? match.awayScore! : match.homeScore!;
-    const result = (forScore > againstScore ? 'W ' : forScore < againstScore ? 'L ' : 'T ')
-      + forScore + '–' + againstScore;
-    refreshed = true;
-    return { ...game, result, matchupPath: footballMatchupPath(match) };
-  });
-  if (!refreshed) return editorial;
-  const completed = games.filter((game) => /^[WLT] /.test(game.result ?? ''));
-  const wins = completed.filter((game) => game.result?.startsWith('W ')).length;
-  const losses = completed.filter((game) => game.result?.startsWith('L ')).length;
-  const districtGames = completed.filter((game) => game.district);
-  const districtWins = districtGames.filter((game) => game.result?.startsWith('W ')).length;
-  const districtLosses = districtGames.filter((game) => game.result?.startsWith('L ')).length;
-  const lastVerified = finals.reduce((latest, game) =>
-    game.verifiedAt > latest ? game.verifiedAt : latest, editorial.season.verifiedAt);
-  return {
-    ...editorial,
-    season: {
-      ...editorial.season,
-      games,
-      record: `${wins}–${losses} overall / ${districtWins}–${districtLosses} district (from listed finals)`,
-      verifiedAt: lastVerified,
-    },
-  };
+  return PROGRAM_EDITORIAL[slug] ?? null;
 }

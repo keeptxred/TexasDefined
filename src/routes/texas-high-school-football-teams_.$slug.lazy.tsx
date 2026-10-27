@@ -537,7 +537,7 @@ function Page() {
         <div className="min-w-0">
           {editorial?.season ? <>
             <dl className="grid gap-px border border-border bg-border sm:grid-cols-2">
-              <Snapshot label="Record when checked" value={editorial.season.record} />
+              <Snapshot label={editorial.season.recordLabel || 'Record when checked'} value={editorial.season.record} />
               <Snapshot label="Season data verified" value={formatFootballDate(editorial.season.verifiedAt)} />
             </dl>
             {FOOTBALL_SOURCE_GRAPHIC_SCHOOLS.has(slug) && <ReportedFormIllustration
@@ -563,7 +563,7 @@ function Page() {
                 </tbody>
               </table>
             </div>
-            <p className="mt-3 text-xs leading-6 text-muted-foreground">* District game. This table is a dated editorial snapshot, not a live scoreboard.</p>
+            {editorial.season.games.some((game) => game.district) && <p className="mt-3 text-xs leading-6 text-muted-foreground">* District game. This table is a dated editorial snapshot, not a live scoreboard.</p>}
             <a href={editorial.season.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-4 inline-block text-sm font-semibold text-primary underline underline-offset-4">{editorial.season.sourceLabel} ↗</a>
             {editorial.season.latestResultSourceUrl && <a href={editorial.season.latestResultSourceUrl} target="_blank" rel="noreferrer noopener" className="mt-3 inline-block text-sm font-semibold text-primary underline underline-offset-4">Verify latest recorded final ↗</a>}
           </> : <p className="max-w-4xl text-sm leading-7 text-muted-foreground">TexasDefined does not publish an unverified team-specific schedule. Use UIL’s Texas Scoreboard and the school’s official athletics source for current dates and results; the UIL feed is submission-based, and it is not an official district-standings table.</p>}
@@ -588,7 +588,7 @@ function Page() {
         </dl>
       </section>
 
-      {editorial && <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
+      {editorial?.overview?.length ? <section className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div>
           <p className="eyebrow text-primary">Program overview</p>
           <h2 className="mt-2 font-display text-3xl">{footballName} in 2026</h2>
@@ -624,7 +624,7 @@ function Page() {
             {editorial.campus && <a href={editorial.campus.sourceUrl} target="_blank" rel="noreferrer noopener" className="text-primary underline underline-offset-4">{editorial.campus.sourceLabel} ↗</a>}
           </div>
         </div>
-      </section>}
+      </section> : null}
 
       {editorial?.milestones && editorial.milestones.length > 0 && <section aria-label={`${displayName} verified football milestones`} className="grid gap-8 border-b border-border py-10 lg:grid-cols-[15rem_1fr]">
         <div>

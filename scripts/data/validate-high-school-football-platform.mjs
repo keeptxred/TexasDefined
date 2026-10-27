@@ -40,6 +40,7 @@ const footballSitemapPath = 'src/data/high-school-football/football-sitemap.serv
 const footballVenueLinksPath = 'src/data/high-school-football/football-venue-links.server.ts';
 const programProfileFunctionsPath = 'src/data/high-school-football/football-program-profile.functions.ts';
 const footballProfileContentPath = 'src/data/high-school-football/football-profile-content.ts';
+const footballTeamSeasonOverlayPath = 'src/data/high-school-football/football-team-season-overlay.ts';
 const footballProgramEditorialPath = 'src/data/high-school-football/program-editorial.ts';
 const footballBatch008EditorialPath = 'src/data/high-school-football/program-editorial-b008.ts';
 const uilDirectoryComponentPath = 'src/components/sports/UilFootballProgramDirectory.tsx';
@@ -177,6 +178,7 @@ if (!errors.length) {
   }
   const footballHub = read(files[11]);
   const footballProfileContent = read(footballProfileContentPath);
+const footballTeamSeasonOverlay = read(footballTeamSeasonOverlayPath);
   const footballProgramEditorial = read(footballProgramEditorialPath);
   const footballBatch008Editorial = read(footballBatch008EditorialPath);
   const publicRoutes = read(files[12]);
@@ -1161,6 +1163,21 @@ if (!errors.length) {
     "Chapin",
     "Randall beat Canyon 24-21",
   ]) requireText(footballBatch008Editorial, marker, 'Football Batch 008 editorial overlay');
+
+  for (const marker of [
+    "import { footballMatchups } from './football-matchups';",
+    "import { applyFootballMatchupSnapshot } from './football-team-season-overlay';",
+    'applyFootballMatchupSnapshot(aubreyAdjustedEditorial, canonicalSlug, footballMatchups)',
+  ]) requireText(programProfileServer, marker, 'Statewide football matchup overlay wiring');
+
+  for (const marker of [
+    "recordLabel: 'Verified snapshot record'",
+    "game.result && row.result && game.result !== row.result",
+    "editorial ?? { slug: teamSlug, overview: [], faq: [] }",
+    "game.status !== 'final'",
+  ]) requireText(footballTeamSeasonOverlay, marker, 'Statewide football matchup overlay safeguards');
+
+  forbidText(footballProgramEditorial, "footballMatchups", 'Base football editorial registry must not own runtime matchup reconciliation');
 
   requireText(programProfileServer, "import { loadBatch008FootballProgramEditorial } from './program-editorial-b008-loader.server';", 'Football Batch 008 lazy loader');
   requireText(programProfileServer, "(await loadBatch008FootballProgramEditorial(canonicalSlug)) ?? getFootballProgramEditorial(canonicalSlug)", 'Football Batch 008 editorial precedence');

@@ -14,6 +14,8 @@ import { footballClassificationRank, footballProgramProfilePath, footballProgram
 import { UIL_FOOTBALL_EXACT_ENROLLMENTS_2026_28 } from './uil-football-enrollments-2026.generated';
 import { getVerifiedFootballSchoolIdentity } from './school-identities';
 import { getFootballProgramEditorial } from './program-editorial';
+import { footballMatchups } from './football-matchups';
+import { applyFootballMatchupSnapshot } from './football-team-season-overlay';
 import { loadBatch008FootballProgramEditorial } from './program-editorial-b008-loader.server';
 import { loadBatch009FootballProgramEditorial } from './program-editorial-b009-loader.server';
 import { applyAubreyAutoResults } from './aubrey-auto-results';
@@ -133,8 +135,9 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
     if (!legacy) return null;
     // Featured private-school programs (such as TAPPS Castle Hills) require
     // the same source-backed batch overlay without entering the UIL dataset.
-    const editorial = (await loadBatch009FootballProgramEditorial(legacy.featured.slug))
+    const authoredEditorial = (await loadBatch009FootballProgramEditorial(legacy.featured.slug))
       ?? getFootballProgramEditorial(legacy.featured.slug);
+    const editorial = applyFootballMatchupSnapshot(authoredEditorial, legacy.featured.slug, footballMatchups);
     const profileContent = {
       displayName: legacy.featured.displayName,
       program: legacy.program,
@@ -265,9 +268,10 @@ export async function getFootballProgramProfile(slug: string): Promise<FootballP
   // source-backed, individually implemented Batch 009 slug.
   const batch008OrBaseEditorial = (await loadBatch008FootballProgramEditorial(canonicalSlug)) ?? getFootballProgramEditorial(canonicalSlug);
   const baseEditorial = (await loadBatch009FootballProgramEditorial(canonicalSlug)) ?? batch008OrBaseEditorial;
-  const editorial = canonicalSlug === 'aubrey'
+  const aubreyAdjustedEditorial = canonicalSlug === 'aubrey'
     ? applyAubreyAutoResults(baseEditorial)
     : baseEditorial;
+  const editorial = applyFootballMatchupSnapshot(aubreyAdjustedEditorial, canonicalSlug, footballMatchups);
   const profileContent = {
     displayName,
     program,
