@@ -99,7 +99,7 @@ export function getDistrictFootballGames(slug: string, classification: string, d
     for (const game of DISTRICT_21_2026_GAMES) known.set(gameKey(game), game);
   }
   for (const game of footballMatchups) {
-    if (game.classification !== classification || game.district !== district || game.phase !== 'regular') continue;
+    if (game.classification !== classification || game.district !== district || game.phase !== 'regular' || game.districtGame !== true) continue;
     const converted: DistrictFootballGame = {
       date: game.date, kickoff: game.kickoff,
       away: game.away.name, home: game.home.name, venue: game.venue,
