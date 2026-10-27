@@ -34,3 +34,20 @@ test('Provider metrics stay behind the existing commercial-admin key and cannot 
   assert.match(types,/settledCommissionVerified: false;/);
   assert.doesNotMatch(server,/console\.(?:log|debug|info).*impact/i);
 });
+
+test('Impact dashboard requests 30 COMPLETED Texas dates rather than 30 UTC dates including today',()=>{
+  const server=readFileSync('src/data/partner-referral-analytics.server.ts','utf8');
+  const ui=readFileSync('src/routes/admin.partner-referrals.lazy.tsx','utf8');
+  assert.match(server,/function completedTexasReportWindow\(days: number, now = new Date\(\)\)/);
+  assert.match(server,/timeZone: 'America\/Chicago'/);
+  assert.match(server,/const impactWindow = completedTexasReportWindow\(WINDOW_DAYS\)/);
+  assert.match(server,/\.gte\('metric_date', impactWindow\.start\)/);
+  assert.match(server,/\.lt\('metric_date', impactWindow\.endExclusive\)/);
+  assert.match(ui,/30 completed Texas calendar days/);
+  assert.match(ui,/a missing provider report date is unknown, never an assumed zero/);
+  const discovery=readFileSync('.github/workflows/discover-impact-reporting.yml','utf8');
+  assert.doesNotMatch(discovery,/^  schedule:/m);
+  assert.match(discovery,/workflow_dispatch:/);
+  const sync=readFileSync('.github/workflows/sync-private-impact-performance.yml','utf8');
+  assert.match(sync,/schedule:/);
+});

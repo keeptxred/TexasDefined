@@ -28,8 +28,6 @@ on:
       - 'scripts/monetization/impact-performance-normalize.test.mjs'
       - 'supabase/migrations/20261027213000_create_private_impact_performance.sql'
       - 'docs/impact-private-performance.md'
-  schedule:
-    - cron: '41 12 * * *'
 
 permissions:
   contents: read
