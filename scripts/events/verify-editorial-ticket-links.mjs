@@ -40,7 +40,14 @@ export function editorialProbeOutcome(status, location, origin) {
       if (!next || !approvedEditorialProbeUrl(next.href)) return 'REDIRECT_UNVERIFIED_INCONCLUSIVE';
       // Even on an approved domain, a redirect to another showtime is not
       // evidence that the original performance is purchasable.
-      return next.hostname === origin.hostname && next.pathname === origin.pathname
+      // Checkout systems may key the performance, date, section, or event ID
+      // in QUERY PARAMETERS, not only in pathname. Ignore fragment-only
+      // changes but require the canonical destination (including search) to
+      // remain the same before treating a redirect as same performance.
+      const sameCheckout = next.origin === origin.origin
+        && next.pathname === origin.pathname
+        && next.search === origin.search;
+      return sameCheckout
         ? 'REDIRECT_SAME_PATH_NO_INVENTORY_CLAIM'
         : 'REDIRECT_DIFFERENT_DESTINATION_REVIEW';
     } catch { return 'REDIRECT_UNVERIFIED_INCONCLUSIVE'; }
