@@ -31,7 +31,7 @@ type FootballSource = {
 type FootballVenue = {
   policyUrl?: string;
   name: string;
-  address: string;
+  address?: string;
   sourceUrl: string;
   verifiedAt: string;
 };
@@ -188,7 +188,7 @@ export function FootballGameNightGuide({
       </div>
       {venue && (
         <p className="mt-5 text-sm leading-7 text-muted-foreground">
-          <strong className="text-foreground">Sourced venue relationship:</strong> {venue.name} — {venue.address}.
+          <strong className="text-foreground">Sourced venue relationship:</strong> {venue.name}{venue.address ? <> — {venue.address}</> : null}.
           Confirm the actual game's host, entrance and parking before leaving.
           {' '}<a href={venue.sourceUrl} onClick={() => recordAction(slug, 'venue-source', venue.sourceUrl)}
             target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">
