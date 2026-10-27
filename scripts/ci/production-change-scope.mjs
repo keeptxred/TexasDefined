@@ -234,6 +234,20 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
       footballGameNightPages.add(page);
     }
   }
+  // Katy visitor information is distinct from the user's schedule/results widget.
+  // Verify exact canonical AND cache-busted SSR whenever its owners change,
+  // including this production verifier, without widening the statewide crawl.
+  const katyFootballPages = new Set();
+  if (changedFiles.some(path => [
+    'src/components/sports/KatyStadiumGuide.tsx',
+    'src/data/high-school-football/program-editorial.ts',
+    'src/components/sports/FootballMonetizationSlot.tsx',
+    'scripts/ci/verify-changed-production-pages.mjs',
+  ].includes(path))) {
+    const page = '/texas-high-school-football-teams/katy';
+    candidates.add(page);
+    katyFootballPages.add(page);
+  }
   // Verify the corrected statewide source figures on the real public pages, not
   // just a generic HTTP 200 or sitemap entry. Four fixed URLs, no catalog crawl.
   // Deploy runs enforce these canaries even when a newer release supersedes the
@@ -478,7 +492,7 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
   const boundedEventAuthorityPages = new Set([...eventAuthorityPages].slice(0, 8));
   const allPaths = [...candidates].sort();
   // A deploy smoke is explicitly a bounded sample, never a full-content certification.
-  const selectedPaths = [...new Set([...REPRESENTATIVE_PATHS.filter(p => candidates.has(p)), ...corporateEventPages, ...battleshipVisitorPages, ...fredericksburgSitemapPaths, ...magoffinHomePages, ...davisHillPages, ...texasDataPages, ...mardiGrasHubPages, ...boundedEventAuthorityPages, ...allPaths])].slice(0, PAGE_BUDGET - redirectChecks.length);
+  const selectedPaths = [...new Set([...REPRESENTATIVE_PATHS.filter(p => candidates.has(p)), ...corporateEventPages, ...battleshipVisitorPages, ...fredericksburgSitemapPaths, ...magoffinHomePages, ...davisHillPages, ...texasDataPages, ...mardiGrasHubPages, ...katyFootballPages, ...boundedEventAuthorityPages, ...allPaths])].slice(0, PAGE_BUDGET - redirectChecks.length);
   const selectedExpectedHrefs = Object.fromEntries(selectedPaths.filter(p => expectedHrefsByPage[p]).map(p => [p, expectedHrefsByPage[p]]));
   const candidateCount = allPaths.length + redirectChecks.length;
   return { baseline, head, changedFiles, shared, selectedPaths, expectedHrefsByPage: selectedExpectedHrefs,
@@ -489,6 +503,7 @@ export function buildChangePlan({ changedFiles, sources = {}, baseline = null, h
     downloadButtonPages: selectedPaths.filter(p => downloadButtonPages.has(p)),
     regionGuidePages: selectedPaths.filter(p => regionGuidePages.has(p)),
     footballGameNightPages: selectedPaths.filter(p => footballGameNightPages.has(p)),
+    katyFootballPages: selectedPaths.filter(p => katyFootballPages.has(p)),
     battleshipVisitorPages: selectedPaths.filter(p => battleshipVisitorPages.has(p)),
     fredericksburgSitemapPaths: selectedPaths.filter(p => fredericksburgSitemapPaths.has(p)),
     magoffinHomePages: selectedPaths.filter(p => magoffinHomePages.has(p)),
