@@ -126,7 +126,7 @@ function assertMagoffinLicensedImageStructuredData(html) {
 // A previously successful deploy could still serve Katy's old title and
 // missing stadium section from the ordinary, cached URL. Inspect both surfaces.
 export function assertKatyFootballContents(html, surface = 'release') {
-  const title = (html.match(/<title\\b[^>]*>([\\s\\S]*?)<\\/title>/i)?.[1] ?? '')
+  const title = (html.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i)?.[1] ?? '')
     .replace(/&amp;|&#38;|&#x26;/gi, '&');
   if (!title.includes('Katy Tigers Football: Nine Texas State Titles & Stadium Guide')) {
     throw new Error('Katy ' + surface + ' has stale title or promised on-page schedule');
