@@ -2267,6 +2267,25 @@ if (!errors.length) {
      !checker.includes('versions.size!==1')) errors.push('Final-five browser verifier must require 15 school checks, 5 counties, 20 screenshots, and one Worker version.');
 }
 
+// Stadium names and school campuses are not public spectator street addresses.
+// Preserve first-party venue relationships while omitting invented city-only
+// directions that look like fully verified stadium addresses.
+{
+  const footballEditorial = read('src/data/high-school-football/program-editorial.ts');
+  const gameNight = read('src/components/sports/FootballGameNightGuide.tsx');
+  const schoolPage = read('src/routes/texas-high-school-football-teams_.$slug.lazy.tsx');
+  if(!footballEditorial.includes('address?: string;') || !gameNight.includes('address?: string;'))
+    errors.push('Venue address must remain optional when only venue name is verified.');
+  if(!gameNight.includes('venue.address ? <> — {venue.address}</> : null') ||
+     !schoolPage.includes('editorial.venue.address && <Snapshot label="Address"'))
+    errors.push('Public football game-night and school pages may show venue street only when verified.');
+  const matches = [...footballEditorial.matchAll(/"venue":\\s*\\{[\\s\\S]*?\\n\\s*\\}/g)];
+  for (const [index, match] of matches.entries()) {
+    const address = match[0].match(/"address":\\s*"([^"]+)"/)?.[1];
+    if (address && !/\\d/.test(address)) errors.push('Venue '+index+' contains city/notice prose masquerading as street address: '+address);
+  }
+}
+
 if (errors.length) {
   console.error('High-school football platform validation failed:');
   for (const error of errors) console.error(`- ${error}`);
