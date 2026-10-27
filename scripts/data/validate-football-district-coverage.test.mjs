@@ -26,6 +26,7 @@ test('district 22 has independent source-backed reported results and a complete 
   assert.ok(source.includes('SEVEN_LAKES_OCT_15'));
   assert.ok(source.includes('getDistrictFootballGames'));
   assert.ok(source.includes("game.phase !== 'regular'"));
+  assert.ok(source.includes("game.districtGame !== true"));
   assert.ok(source.includes("converted.status === 'final' && previous.status !== 'final'"));
 });
 
