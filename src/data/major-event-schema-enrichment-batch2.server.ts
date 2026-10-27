@@ -235,13 +235,8 @@ export const majorEventSchemaEnrichmentBatch2: MajorEventSchemaEnrichment[] = [
   {
     slug: "austin-film-festival",
     organizer: organization("Austin Film Festival, Inc.", "https://austinfilmfestival.com/"),
-    offers: [
-      usdOffer("Film Pass", 80, "https://shop.austinfilmfestival.com/"),
-      usdOffer("Lone Star Badge", 175, "https://shop.austinfilmfestival.com/"),
-      usdOffer("Weekend Badge", 340, "https://shop.austinfilmfestival.com/"),
-      usdOffer("Conference Badge", 480, "https://shop.austinfilmfestival.com/"),
-      usdOffer("Producers Badge", 710, "https://shop.austinfilmfestival.com/"),
-    ],
+    // Organizer sells festival-wide film passes and conference badges here.
+    // They are not purchases for an exact October 2026 screening.
     sources: [
       { label: "Austin Film Festival official site", url: "https://austinfilmfestival.com/" },
       { label: "Austin Film Festival official badge and pass shop", url: "https://shop.austinfilmfestival.com/" },
@@ -490,7 +485,7 @@ export const majorEventSchemaEnrichmentBatch2: MajorEventSchemaEnrichment[] = [
   {
     slug: "main-st-fort-worth-arts-festival",
     organizer: organization("Downtown Fort Worth Initiatives, Inc.", "https://mainstreetartsfest.org/"),
-    offers: [usdOffer("Festival admission", 0, "https://mainstreetartsfest.org/")],
+    // MAIN ST. is free to attend; the homepage is not an admission checkout.
     sources: [
       { label: "MAIN ST. Fort Worth Arts Festival official site", url: "https://mainstreetartsfest.org/" },
       { label: "MAIN ST. official contact and presenter information", url: "https://mainstreetartsfest.org/contact-us/" },
