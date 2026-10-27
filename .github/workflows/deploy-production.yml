@@ -820,6 +820,25 @@ jobs:
         if: ${{ always() && steps.live_district16.outcome == 'success' && steps.district5_browser_deps.outcome == 'success' }}
         run: node scripts/ci/verify-district16-responsive-browser.mjs
 
+      # Bounded three-page event checkout/accessibility smoke; reuse Chrome
+      # already installed for District 5 rather than adding another dependency.
+      # Never click ticket links or claim live seats, prices, or commissions.
+      - name: Verify ticketing and Christmas pages at mobile and desktop widths
+        id: live_events_browser
+        if: ${{ always() && steps.live_christmas_12_calendar.outcome == 'success' && steps.district5_browser_deps.outcome == 'success' && steps.change_scope.outputs.events == 'true' }}
+        env:
+          PRODUCTION_ORIGIN: https://texasdefined.com
+        run: node scripts/ci/verify-events-mobile-browser.mjs
+
+      - name: Preserve bounded event browser verification screenshots
+        if: ${{ always() && steps.live_events_browser.outcome != 'skipped' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: events-mobile-browser-${{ github.run_id }}
+          path: artifacts/events-mobile-browser/
+          if-no-files-found: warn
+          retention-days: 14
+
       - name: Preserve District 5 responsive acceptance evidence
         if: ${{ always() && steps.live_district5_browser.outcome != 'skipped' }}
         uses: actions/upload-artifact@v4
