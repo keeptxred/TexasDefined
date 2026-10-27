@@ -9,6 +9,8 @@ on:
       - 'src/components/property/CountyTaxRateSection.tsx'
       - 'src/components/sports/HighSchoolFootballLookup.tsx'
       - 'src/components/content/VanZandtCountySpotlight.tsx'
+      - 'src/components/content/CountyGuideSections.tsx'
+      - 'src/components/authority/ContextualOfficialSources.tsx'
       - 'src/data/county-profile.remote.ts'
       - 'src/routes/$kind.$slug.tsx'
       - 'src/data/knowledge-graph/index.ts'
@@ -49,6 +51,8 @@ jobs:
           echo "CHROME_BIN=$CHROME_BIN" >> "$GITHUB_ENV"
           npm install --prefix /tmp/texasdefined-van-zandt-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1 axe-core@4.10.3
       - name: Verify desktop/mobile load, failure fallback, SEO and published links
+        env:
+          EXPECT_VAN_ZANDT_COMPACT_LAYOUT: ${{ github.event_name == 'workflow_run' }}
         run: node scripts/ci/verify-van-zandt-browser.mjs
       - name: Verify all county team pages, 16s hung requests, OSM links and focused accessibility
         env:
