@@ -119,11 +119,9 @@ export const majorEventSchemaEnrichmentBatch1: MajorEventSchemaEnrichment[] = [
   {
     slug: "sxsw",
     organizer: organization("SXSW, LLC", "https://sxsw.com/"),
-    offers: [
-      usdOffer("Platinum Badge", 1395, "https://cart.sxsw.com/"),
-      usdOffer("Innovation Badge", 895, "https://cart.sxsw.com/"),
-      usdOffer("Music Badge", 550, "https://cart.sxsw.com/"),
-    ],
+    // The SXSW badge cart sells multi-event credentials, not an exact
+    // admission checkout for a specific film, session or performance.
+    // Keep the official information source without an admission Offer CTA.
     sources: [
       { label: "SXSW official 2027 badge cart", url: "https://cart.sxsw.com/" },
       { label: "SXSW official site", url: "https://sxsw.com/" },
