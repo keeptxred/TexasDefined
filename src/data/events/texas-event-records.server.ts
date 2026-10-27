@@ -53,9 +53,31 @@ function eventIdentity(name: string, city: string) {
   return `${name.trim().toLowerCase()}:${city.trim().toLowerCase()}`;
 }
 
+/** Organizer Offer metadata is not perpetual sale authorization. Date-only
+ * sale windows use inclusive Texas-local boundaries; timestamp boundaries
+ * are exact instants. This is never a live-seat inventory verification. */
+export function currentSourceTicketOffers(offers: readonly EventSchemaOffer[] | undefined, now = new Date()): EventSchemaOffer[] {
+  if (!offers?.length) return [];
+  const today = texasTodayIso(now);
+  const within = (boundary: string | undefined, side: "start" | "end") => {
+    if (!boundary) return true;
+    if (/^\d{4}-\d{2}-\d{2}$/.test(boundary)) {
+      const d = new Date(boundary + "T12:00:00Z");
+      if (!Number.isFinite(d.getTime()) || d.toISOString().slice(0, 10) !== boundary) return false;
+      return side === "start" ? boundary <= today : boundary >= today;
+    }
+    if (!/^\d{4}-\d{2}-\d{2}T.*(?:Z|[+-]\d{2}:\d{2})$/.test(boundary)) return false;
+    const ms = Date.parse(boundary);
+    return Number.isFinite(ms) && (side === "start" ? ms <= now.getTime() : ms > now.getTime());
+  };
+  return offers.filter((offer) => offer.availability !== "https://schema.org/SoldOut"
+    && within(offer.validFrom, "start") && within(offer.validThrough, "end"));
+}
+
 function buildTicketing(offers: EventSchemaOffer[] | undefined, lastVerifiedAt: string, sourceName?: string): TexasEventTicketingMetadata | undefined {
-  if (!offers?.length) return undefined;
-  const uniqueTicketUrls = [...new Set(offers.map((offer) => offer.url))].filter((url) => providerForVerifiedTicketUrl(url));
+  const currentOffers = currentSourceTicketOffers(offers);
+  if (!currentOffers.length) return undefined;
+  const uniqueTicketUrls = [...new Set(currentOffers.map((offer) => offer.url))].filter((url) => providerForVerifiedTicketUrl(url));
   if (!uniqueTicketUrls.length) return undefined;
   return {
     links: uniqueTicketUrls.map((url, index) => ({
@@ -70,7 +92,7 @@ function buildTicketing(offers: EventSchemaOffer[] | undefined, lastVerifiedAt: 
       lastVerifiedAt,
       priority: index,
     })),
-    offers: offers.filter((offer) => providerForVerifiedTicketUrl(offer.url))
+    offers: currentOffers.filter((offer) => providerForVerifiedTicketUrl(offer.url))
       .map((offer) => ({ name: offer.name, url: offer.url, price: offer.price, priceCurrency: offer.priceCurrency })),
   };
 }
