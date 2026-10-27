@@ -148,7 +148,7 @@ jobs:
       - name: Publish failure status
         # Only failed live assertions are a seasonal-production failure.
         # An undeployed manually selected revision fails before publication.
-        if: ${{ steps.live.outcome == 'failure' }}
+        if: ${{ failure() && steps.live.outcome == 'failure' }}
         shell: bash
         run: |
           curl --fail-with-body --silent --show-error --request POST \
