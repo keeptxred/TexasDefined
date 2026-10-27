@@ -3730,7 +3730,9 @@ const ExplorePaintedChurchesCompareRoute =
     id: '/compare',
     path: '/compare',
     getParentRoute: () => ExplorePaintedChurchesRoute,
-  } as any)
+  } as any).lazy(() =>
+    import('./routes/explore.painted-churches.compare.lazy').then((d) => d.Route),
+  )
 const ExplorePaintedChurchesCiteRoute =
   ExplorePaintedChurchesCiteRouteImport.update({
     id: '/cite',
