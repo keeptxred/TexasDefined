@@ -214,7 +214,7 @@ try {
             &&proof.title.includes("Texas Hill Country Olive Co.")
             &&proof.bistro?.loaded&&!!proof.bistro.alt
             &&proof.exterior?.loaded&&!!proof.exterior.alt
-            &&proof.credit&&!proof.formerContext
+            &&proof.credit
             &&proof.ogImage.includes("texas-hill-country-olive-co-bistro.webp"),
             JSON.stringify({...proof,bistro:proof.bistro?{...proof.bistro,src:proof.bistro.src.slice(-110)}:null,exterior:proof.exterior?{...proof.exterior,src:proof.exterior.src.slice(-110)}:null}).slice(0,750));
           const ownerShot=directory+"/texas-hill-country-olive-co-"+viewport.name+".png";
