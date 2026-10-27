@@ -27,6 +27,15 @@
       "pr": null,
       "productionVerifiedAt": null,
       "providerInventoryVerified": false
+    },
+    "majorEventGuideLifecycleSafety": {
+      "status": "IMPLEMENTED",
+      "checkedAt": "2026-10-26",
+      "fix": "Official source lifecycle cancelled/postponed/rescheduled now suppresses major event guide Ticketmaster/Impact CTAs before choosing single or multi-performance sections.",
+      "test": "scripts/data/validate-major-event-ticket-lifecycle.mjs in protected CI; pending",
+      "productionVerifiedAt": null,
+      "inventoryVerified": false,
+      "pr": null
     }
   },
   "events": [
