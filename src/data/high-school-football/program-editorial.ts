@@ -6296,6 +6296,14 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
   },
   "blanket": {
     "slug": "blanket",
+    "venue": {
+      "name": "Tiger Stadium",
+      "address": "901 Avenue H, Blanket, TX 76432",
+      "sourceUrl": "https://www.blanketisd.org/events/2026-10-22",
+      "sourceLabel": "Blanket ISD October 22, 2026 junior-high football calendar lists Tiger Stadium and mapped 901 Avenue H",
+      "verifiedAt": "2026-10-27",
+      "note": "Blanket ISD lists a current football contest at Tiger Stadium and maps the venue to 901 Avenue H. District event information does not by itself establish every varsity home game assignment or the correct pedestrian/ADA gate, parking lot, ticket policy or sold-out status."
+    },
     "theme": {
       "accentHex": "#B99735",
       "label": "Independent gold editorial accent (school colors black and gold); no official mascot or logo reproduced"
@@ -8799,6 +8807,13 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
   },
   "borger": {
     "slug": "borger",
+    "venue": {
+      "name": "Bulldog Stadium",
+      "sourceUrl": "https://www.borgerisd.net/69293_2",
+      "sourceLabel": "Borger ISD 2026–27 back-to-school calendar names Bulldog Stadium for August 1 Meet the Bulldogs",
+      "verifiedAt": "2026-10-27",
+      "note": "Borger ISD lists the 2026 Meet the Bulldogs event at Bulldog Stadium. This supports the field name, not a certified address, every varsity home fixture, current tickets, stadium access or gate-specific instructions."
+    },
     "theme": {
       "accentHex": "#AD443B",
       "label": "Independent editorial accent; no district crest, school logo or photo copied"
@@ -8985,6 +9000,13 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
   },
   "bosqueville": {
     "slug": "bosqueville",
+    "venue": {
+      "name": "Bulldog Stadium",
+      "sourceUrl": "https://www.bosquevilleisd.org/live-feed",
+      "sourceLabel": "Bosqueville ISD first-party 2026 athletics live feed names Bulldog Stadium for JV/varsity Hamilton scrimmage",
+      "verifiedAt": "2026-10-27",
+      "note": "Bosqueville ISD names Bulldog Stadium as the location of a current JV/varsity scrimmage and Meet the Bulldogs event. This is school-controlled venue evidence, not validation of a street address, every subsequent fixture, parking or accessible spectator entry."
+    },
     "theme": {
       "accentHex": "#245094",
       "label": "Independent editorial accent; no district crest, school logo or photo copied"
@@ -9161,6 +9183,13 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
   },
   "bovina": {
     "slug": "bovina",
+    "venue": {
+      "name": "Mustang Stadium",
+      "sourceUrl": "https://www.bovinaisd.org/live-feed?page_no=2",
+      "sourceLabel": "Bovina ISD official current varsity football ticket/live-feed post explicitly names Mustang Stadium",
+      "verifiedAt": "2026-10-27",
+      "note": "Bovina ISD's dated varsity ticketing notice assigns its McCamey football game to Mustang Stadium. It does not establish a separate stadium address, spectator entrance, future match inventory or current admission conditions."
+    },
     "theme": {
       "accentHex": "#84414D",
       "label": "Independent editorial accent; no district crest, school logo or photo copied"
@@ -9330,6 +9359,13 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
   },
   "bowie": {
     "slug": "bowie",
+    "venue": {
+      "name": "Jackrabbit Stadium",
+      "sourceUrl": "https://www.bowieisd.net/o/bhs/live-feed",
+      "sourceLabel": "Bowie High School 2026 football home fixtures and Jackrabbit Stadium Friday-night spectator rules",
+      "verifiedAt": "2026-10-27",
+      "note": "Bowie High's school-controlled 2026 posts identify Jackrabbit Stadium for varsity home contests and describe spectator expectations. These published policies are specific to those events and may change; no unsourced stadium street number or access gate is inferred."
+    },
     "theme": {
       "accentHex": "#B14435",
       "label": "Independent editorial accent; no district crest, school logo or photo copied"
