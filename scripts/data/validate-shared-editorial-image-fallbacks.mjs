@@ -34,7 +34,7 @@ const files = new Map([
   ['explore category tiles', 'src/routes/explore.index.lazy.tsx'],
   ['painted church planner', 'src/routes/explore.painted-churches-plan.tsx'],
   ['painted church detail', 'src/routes/explore.painted-churches.$slug.lazy.tsx'],
-  ['painted church listing', 'src/routes/explore.painted-churches.tsx'],
+  ['painted church listing', 'src/routes/explore.painted-churches.lazy.tsx'],
   ['shop collection hero', 'src/routes/shop.$collection.tsx'],
   ['shop cart thumbnails', 'src/routes/shop.cart.lazy.tsx'],
   ['major event enrichment image', 'src/data/major-event-page.server.ts'],
