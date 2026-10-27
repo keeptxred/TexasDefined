@@ -13,6 +13,7 @@ const resolver = read("src/data/events/ticketing.ts");
 const providerClassifier = read("src/data/events/ticket-provider.ts");
 const curatedChristmas = read("src/data/events/christmas-performances-2026.server.ts");
 const adapter = read("src/data/events/texas-event-records.server.ts");
+for (const guard of ["currentSourceTicketOffers(offers)", 'offer.availability !== "https://schema.org/SoldOut"', 'isWithinBoundary(offer.validFrom, "start")', 'isWithinBoundary(offer.validThrough, "end")', "currentOffers.map((offer) => offer.url)"]) requireText(adapter, guard, "organizer Offer publication-window gate");
 const calendar = read("src/data/events/texas-event-calendar.server.ts");
 const component = read("src/components/events/EventTicketCta.tsx");
 const carousel = read("src/components/editorial/TexasEventCarousel.tsx");
