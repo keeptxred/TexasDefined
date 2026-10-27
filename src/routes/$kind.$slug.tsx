@@ -1,6 +1,6 @@
 import { createFileRoute, notFound } from '@tanstack/react-router';
 import { texasDefinedBrand } from '@/brand/texasdefined';
-import { loadCountyProfile } from '@/data/county-profile';
+import { loadCountyProfile } from '@/data/county-profile.remote';
 import { loadCountySeriesArticle } from '@/data/county-series';
 import { getCitySocialImage } from '@/data/city-social-images';
 import { elPasoCountyHero } from '@/data/el-paso-county-hero';
