@@ -2380,16 +2380,16 @@ if (!errors.length) {
   ];
   for (const [slug,name,domain,verifiedAddress] of venues) {
     const start = editor.indexOf('  "'+slug+'": {');
-    const end = editor.indexOf('\\n  "',start+8);
+    const end = editor.indexOf('\n  "',start+8);
     const school = start>=0 ? editor.slice(start,end<0?editor.length:end) : '';
     if (!school.includes('"venue": {') || !school.includes('"name": "'+name+'"') ||
         !school.includes(domain) || !school.includes('"verifiedAt": "2026-10-27"'))
       errors.push('Source-based football venue missing or unattributed: '+slug);
-    const venuePart = school.split('"venue": {')[1]?.split('\\n    },')[0] || '';
+    const venuePart = school.split('"venue": {')[1]?.split('\n    },')[0] || '';
     if (verifiedAddress) {
       if (!venuePart.includes('"address": "'+verifiedAddress+'"')) errors.push('Officially mapped Blanket stadium address lost');
     } else if (venuePart.includes('"address":')) errors.push('Unsourced public spectator address added for '+slug);
-    if (!venuePart.includes('gate') && !venuePart.includes('entry')) errors.push('Venue entry-access caution missing for '+slug);
+    if (!venuePart.includes('gate') && !venuePart.includes('entry') && !venuePart.includes('entrance')) errors.push('Venue entry-access caution missing for '+slug);
   }
 }
 
