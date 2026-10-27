@@ -131,6 +131,7 @@ const prebuildChecks = [
   ['EVENT/CHRISTMAS', 'Validate source-qualified Christmas community calendar and affiliate disclosures', 'node', ['scripts/data/validate-christmas-community-2026.mjs']],
   ['EVENT/PROVIDER', 'Validate five source-qualified Choctaw games and exact ticket CTAs', 'node', ['--experimental-strip-types', 'scripts/data/validate-official-venue-ticketing.mjs']],
   ['EVENT/PROVIDER', 'Validate exact Bluebonnet 2027 airshow purchase URL and expiry', 'node', ['scripts/data/validate-official-airshow-ticketing.mjs']],
+  ['EVENT/TICKETING', 'Verify cancelled and postponed organizer event guides suppress all ticket CTAs', 'node', ['scripts/data/validate-major-event-ticket-lifecycle.mjs']],
   ['EVENT/TICKETMASTER', 'Validate Ticketmaster ingestion and tracking', 'node', ['--test', 'scripts/events/ticketmaster-discovery.test.mjs']],
   ['EVENT/TICKETMASTER', 'Validate authority candidate queue and publishing safeguards', 'node', ['--test', 'scripts/events/build-ticketmaster-authority-candidates.test.mjs']],
   ['EVENT/TICKETMASTER', 'Validate bounded public ticket URL probes and rotating batches', 'node', ['--test', 'scripts/events/verify-ticketmaster-link-batch.test.mjs']],
