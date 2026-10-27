@@ -209,7 +209,7 @@
       "verifiedPerEventCommission": false
     },
     "ticketingFinalEditorialDisposition20261027": {
-      "status": "DEPLOYED",
+      "status": "PRODUCTION_VERIFIED",
       "checkedAt": "2026-10-27",
       "pr": 6073,
       "mergeCommit": "379e92dc8e64f9de30e575f6a09ed076339107f8",
@@ -238,10 +238,31 @@
       "explicitLimits": [
         "No provider seat-inventory entitlement",
         "No verified final checkout price or event-specific affiliate commissions",
-        "No independent fresh DOM validation of each of five affected festival authority guides",
-        "No independently observed post-merge scheduled editorial seller probe run"
+        "No independent fresh DOM validation of each of five affected festival authority guides"
       ],
-      "fiveFestivalProductionDOMVerified": false
+      "fiveFestivalProductionDOMVerified": false,
+      "exactFestivalProductionAcceptance": {
+        "status": "SUCCESS",
+        "runId": 40524116187,
+        "at": "2026-10-27T14:53:13Z",
+        "fiveFestivalGuidesVerified": true,
+        "viewports": [
+          1440,
+          390
+        ]
+      },
+      "scheduledEditorialOfficialProbe": {
+        "status": "SCHEDULED_RUN_VERIFIED",
+        "runId": 40543572790,
+        "checkedAt": "2026-10-27T16:30:48.449Z",
+        "eligible": 3,
+        "checked": 3,
+        "outcomes": {
+          "REACHABLE_NO_INVENTORY_CLAIM": 2,
+          "ACCESS_RESTRICTED_INCONCLUSIVE": 1
+        },
+        "limits": "2xx is HTTP reachability only; 403 remains inconclusive, not broken inventory, pricing or commission evidence"
+      }
     }
   },
   "events": [
@@ -5144,7 +5165,7 @@
       }
     },
     "editorialWithheldTicketDispositions20261027": {
-      "status": "DEPLOYED",
+      "status": "PRODUCTION_VERIFIED",
       "checkedAt": "2026-10-27",
       "scope": "Five source-qualified festival parent events identified from complete 50-record canonical cohort; distinguish free public admission and festival-wide credentials from exact event ticket checkouts.",
       "cases": [
@@ -5186,7 +5207,7 @@
       ],
       "test": "scripts/data/validate-statewide-editorial-ticket-cohorts.mjs rejects reinstated generic schema Offers and tests live canonical eligible rows; full Impact contract also enforced.",
       "pr": 6073,
-      "productionVerifiedAt": null,
+      "productionVerifiedAt": "2026-10-27T14:53:13Z",
       "restrictedProviderInventoryVerified": false,
       "mergeCommit": "379e92dc8e64f9de30e575f6a09ed076339107f8",
       "protectedMergeGate": {
@@ -5204,15 +5225,24 @@
         "cloudflareVersionId": "d0b5fc89-f242-482a-a91e-4e197aba8de0"
       },
       "productionAcceptance": {
-        "status": "REPRESENTATIVE_LIVE_ACCEPTANCE_PASSED",
+        "status": "EXACT_FIVE_FESTIVAL_GUIDES_VERIFIED",
+        "workflowRunId": 40524116187,
+        "ticketingSourcePR": 6073,
+        "testingPR": 6075,
         "pages": [
-          "/events",
-          "/events/christmas-events",
-          "/event/polar-express-palestine"
+          "/event/austin-film-festival",
+          "/event/sxsw",
+          "/event/austin-powwow",
+          "/event/houston-art-car-parade",
+          "/event/main-st-fort-worth-arts-festival"
         ],
-        "desktopWidth": 1440,
-        "mobileWidth": 390,
-        "scope": "Live Chrome browser checks and source-level five-offer regression passed; five individual festival guide DOMs were not separately revalidated against fresh production HTML."
+        "viewports": [
+          1440,
+          390
+        ],
+        "sourceIntegrity": "Each guide: canonical 200, organizer link present, no generalized admission section, no unsupported Event JSON-LD Offer, no horizontal overflow",
+        "captureType": "GitHub Actions live Chrome 16-page/viewpoint acceptance (8 pages × 2)",
+        "providerInventoryVerified": false
       }
     }
   },

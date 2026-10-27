@@ -34,9 +34,17 @@ for (const { label, origin } of endpoints) {
     const html = await response.text();
     const missing = checks.filter(([, marker]) => !html.includes(marker)).map(([name]) => name);
     const oldMarkers = oldContent.filter((marker) => html.includes(marker));
+    // Enforce exact approved CJ link IDs, source attribution and destinations.
+    // Do not visit affiliate redirects or accept arbitrary CJ publisher links.
+    const approvedTravel = {
+      'hotels.com': 'https://www.anrdoezrs.net/click-101876465-15734399?sid=td_article_texas_high_school_football_playoffs_explained&url=https%3A%2F%2Fwww.hotels.com%2F',
+      rvshare: 'https://www.anrdoezrs.net/links/101876465/type/dlg/https://rvshare.com/',
+    };
     const affiliateContracts = ['hotels.com', 'rvshare'].map((partner) => {
-      const tag = (html.match(/<a\b[^>]*>/gi) ?? []).find((value) => value.includes(`data-commercial-partner="${partner}"`));
-      return { partner, valid: Boolean(tag && /rel="sponsored nofollow noopener noreferrer"/.test(tag) && tag.includes('anrdoezrs.net/links/101876465/type/dlg/')) };
+      const tag = (html.match(/<a\b[^>]*>/gi) ?? []).find((value) => value.includes('data-commercial-partner="' + partner + '"'));
+      const href = (tag?.match(/\bhref="([^"]+)"/)?.[1] ?? '').replaceAll('&amp;', '&');
+      return { partner, valid: Boolean(tag && /rel="sponsored nofollow noopener noreferrer"/.test(tag)
+        && href === approvedTravel[partner]) };
     });
     const noStore = /\bno-store\b/i.test(response.headers.get('cache-control') ?? '');
     const pass = response.status === 200 && missing.length === 0 && oldMarkers.length === 0 && affiliateContracts.every((link) => link.valid) && noStore;

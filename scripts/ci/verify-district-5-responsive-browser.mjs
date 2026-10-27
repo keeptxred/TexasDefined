@@ -92,10 +92,17 @@ for (const spec of cases) {
     for (const label of ['Denton Braswell', 'Denton Guyer', 'Frisco Wakeland', 'Lewisville', 'Flower Mound', 'Hebron', 'Marcus', 'Little Elm', 'Pigskin Prep', 'MaxPreps', 'not UIL-certified standings', 'Affiliate disclosure']) check(facts.text.includes(label), 'Missing on-screen copy: ' + label);
     check(!facts.text.includes('we do not assign district ranks, win–loss records'), 'Contradictory W–L disclaimer persists');
     check(facts.officialHosts.includes('athletics.dentonisd.org') && facts.officialHosts.includes('www.lisd.net') && facts.officialHosts.includes('www.friscoisd.org') && facts.officialHosts.includes('www.littleelmisd.net'), 'Official ticket links not shown for all four ISDs');
+    // Validate the two exact approved CJ partner contracts. Hotels.com
+    // migrated to its Evergreen click AID; RVshare retains its DLG URL.
+    const approvedTravel = new Set([
+      'https://www.anrdoezrs.net/click-101876465-15734399?sid=td_texas_high_school_football_districts_6a_district_5&url=https%3A%2F%2Fwww.hotels.com%2F',
+      'https://www.anrdoezrs.net/links/101876465/type/dlg/https://rvshare.com/',
+    ]);
     check(facts.affiliate.length === 2, 'Expected two verified travel CJ links, got ' + facts.affiliate.length);
+    check(new Set(facts.affiliate.map(item => item.href)).size === 2, 'Duplicate travel affiliate links');
     for (const item of facts.affiliate) {
       check(item.rel.includes('sponsored') && item.rel.includes('nofollow'), 'Missing affiliate rel flags ' + item.href);
-      check(item.href.startsWith('https://www.anrdoezrs.net/links/101876465/type/dlg/'), 'Ungoverned CJ URL ' + item.href);
+      check(approvedTravel.has(item.href), 'Ungoverned CJ URL ' + item.href);
     }
     check(facts.imgProblems.length === 0 && facts.missingImageAlt.length === 0, 'Broken image or missing alt: ' + JSON.stringify({broken:facts.imgProblems,unnamed:facts.missingImageAlt}));
     check(brokenAssets.length === 0, 'First-party asset failed: ' + brokenAssets.join('; '));
