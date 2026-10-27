@@ -47,6 +47,16 @@
       "mergeAt": null,
       "productionVerification": null,
       "inventoryVerified": false
+    },
+    "majorGuideVisiblePerformanceIdentity": {
+      "status": "IMPLEMENTED",
+      "checkedAt": "2026-10-26",
+      "defect": "Multiple showtime or venue ticket rows identified only by date and title, leaving matinees and evening performances indistinguishable to visitors and screen readers.",
+      "fix": "Preserve exact ticket URLs while showing date, venue and provider-local start time with per-CTA accessible event labels. Unpublished time explicitly identified as unconfirmed.",
+      "tests": "Canonical major-event lifecycle Vite check now tests time rendering and exact venue/showtime accessibility markup.",
+      "pr": null,
+      "productionVerification": null,
+      "inventoryVerified": false
     }
   },
   "events": [
