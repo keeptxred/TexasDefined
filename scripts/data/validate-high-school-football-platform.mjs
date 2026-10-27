@@ -2111,6 +2111,33 @@ const footballTeamSeasonOverlay = read(footballTeamSeasonOverlayPath);
 }
 
 
+/** Batch 009 campus structure: promote only source-backed school/campus
+ * locations and keep them explicitly separate from stadium/gate claims. */
+{
+  const editorial = read('src/data/high-school-football/program-editorial-b009.ts');
+  const campusEvidence = [
+    ['chester', '273 Yellowjacket Dr, Chester, TX 75936', 'https://www.chesterisd.com/'],
+    ['chillicothe', '1610 S. 6th Street, Chillicothe, TX 79225', 'https://www.cisd-tx.net/'],
+    ['center-point', '207 China Street, Center Point, TX 78010', 'https://www.cpisd.net/employee-resources'],
+    ['centerville', '813 South Commerce, Centerville, TX 75833', 'https://www.centerville.k12.tx.us/63130_2'],
+    ['channelview', '1100 Sheldon Road, Channelview, TX 77530', 'https://www.cvisd.org/o/chs'],
+    ['cedar-hill', '1 Longhorn Blvd., Cedar Hill, TX 75104', 'https://chhs.chisd.net/contact'],
+    ['celina', '3455 N. Preston Road, Celina, TX 75009', 'https://chs.celinaisd.com/about-us'],
+    ['charlotte', '70 Trojan Drive, Charlotte, TX 78011', 'https://www.charlotteisd.net/pages/uploaded_files/CISD%20Student%20Handbook%202024_2025.pdf'],
+  ];
+  for (const [slug, address, sourceUrl] of campusEvidence) {
+    const start = editorial.indexOf('"'+slug+'": {');
+    const next = editorial.indexOf('\n  "', start + 4);
+    const section = start >= 0 ? editorial.slice(start, next > start ? next : editorial.length) : '';
+    if (!section.includes('"campus": {')) errors.push('Batch 009 verified campus block missing: '+slug);
+    if (!section.includes(address)) errors.push('Batch 009 verified campus address missing: '+slug);
+    if (!section.includes(sourceUrl)) errors.push('Batch 009 verified campus source missing: '+slug);
+    if (!/not a (?:verified )?(?:spectator entrance|stadium gate|game-day gate)|verify event entrance separately|access is separate/.test(section)) {
+      errors.push('Batch 009 campus must remain explicitly distinct from football spectator access: '+slug);
+    }
+  }
+}
+
 /** Second Batch 009 group: preserve source qualification, TAPPS separation
  * and no pre-deployment VERIFIED promotion. */
 {
