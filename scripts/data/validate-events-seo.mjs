@@ -239,9 +239,9 @@ for (const feature of [
   '"@type": "Offer"',
   '...(occurrenceEnrichment?.image ? { image:',
   '...(organizer ? { organizer } : {})',
-  '...(!expiredConfirmedOccurrence && offers?.length ? { offers } : {})',
+  '...(!expiredConfirmedOccurrence && majorEventGuideOffersAllowed(occurrenceEnrichment?.lifecycle?.status, window.endDate ?? window.startDate) && offers?.length ? { offers } : {})',
   '...(performers?.length ? { performer: performers } : {})',
-  'const offersMarkup = !expiredConfirmedOccurrence && displayOffers.length',
+  'const offersMarkup = displayOffers.length',
   'Event details',
   'Last reviewed',
 ]) {

@@ -72,6 +72,7 @@ import {
   getMajorEventSchemaEnrichmentServer,
   getMajorEventSchemaOccurrenceEnrichmentServer,
   type EventSchemaLifecycleStatus,
+  type EventSchemaOffer,
   isCompliantMajorEventImage,
 } from "./major-event-schema-enrichment.server";
 
@@ -321,6 +322,24 @@ export function majorEventGuideTicketsAllowed(lifecycleStatus?: EventSchemaLifec
   return lifecycleStatus === undefined || lifecycleStatus === "scheduled";
 }
 
+/** Admission offers must obey the reviewed lifecycle and the Texas-local occurrence day. */
+export function majorEventGuideOffersAllowed(
+  status?: EventSchemaLifecycleStatus,
+  occurrenceEndDate?: string,
+  now = new Date(),
+) {
+  return majorEventGuideTicketsAllowed(status)
+    && (!occurrenceEndDate || occurrenceEndDate >= majorEventTicketTexasToday(now));
+}
+
+/** A dated or explicitly sold-out price is not an actionable booking offer. */
+export function majorEventOfferIsActionable(offer: EventSchemaOffer, now = new Date()) {
+  const today = majorEventTicketTexasToday(now);
+  return offer.availability !== "https://schema.org/SoldOut"
+    && (!offer.validFrom || offer.validFrom.slice(0, 10) <= today)
+    && (!offer.validThrough || offer.validThrough.slice(0, 10) >= today);
+}
+
 export function buildMajorEventTicketingMarkupServer(slug: string, now = new Date()) {
   // An official event can be cancelled, postponed, or rescheduled while its
   // Ticketmaster Discovery listing still carries old on-sale metadata.
@@ -471,10 +490,26 @@ export function loadMajorEventPageServer(slug: string) {
   const stayNearbyMarkup = `<div data-stay-nearby-slot class="my-10" aria-label="Places to stay near ${esc(event.name)}"><section class="border-y border-border py-8"><p class="eyebrow text-primary">Where to stay</p><h2 class="mt-2 font-display text-3xl">Places to stay in ${esc(event.city)}</h2><p class="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">Compare lodging early for major event weekends, when the closest rooms can fill quickly. Check in-town options first, then widen the search to nearby communities if your preferred dates or price range are unavailable.</p><p class="mt-5"><a class="inline-flex min-h-11 items-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90" href="${hotelBookingHref}" target="_blank" rel="sponsored nofollow noopener noreferrer" data-affiliate-partner="hotels.com" data-affiliate-placement="event-stay-server-fallback" data-commercial-partner="hotels.com" data-commercial-placement="event-stay-server-fallback">${hotelBookingLabel}</a></p><p class="mt-3 text-xs text-muted-foreground">Affiliate disclosure: Texas Defined may earn a commission from qualifying Hotels.com bookings, at no additional cost to you.</p></section></div>`;
   const schemaEnrichment = getMajorEventSchemaEnrichmentServer(event.slug);
   const displayImage = isCompliantMajorEventImage(schemaEnrichment?.image) ? schemaEnrichment.image : undefined;
-  const displayOffers = [
-    ...(schemaEnrichment?.offers ?? []),
-    ...Object.values(schemaEnrichment?.occurrences ?? {}).flatMap((item) => item.offers ?? []),
-  ].filter((offer, index, offers) => offers.findIndex((candidate) => `${candidate.name}|${candidate.url}|${candidate.price}` === `${offer.name}|${offer.url}|${offer.price}`) === index);
+  // The historical enrichment catalog is not a live checkout feed. Never
+  // resurrect a cancelled, past, or explicitly sold-out occurrence through the
+  // secondary price list after its primary ticket CTA was suppressed.
+  const eligibleOfferWindows = occurrenceWindows.filter((window) =>
+    majorEventGuideOffersAllowed(
+      getMajorEventSchemaOccurrenceEnrichmentServer(event.slug, window.label)?.lifecycle?.status,
+      window.endDate ?? window.startDate,
+    ));
+  const displayOffers = !expiredConfirmedOccurrence
+    && majorEventGuideTicketsAllowed(schemaEnrichment?.lifecycle?.status)
+    && eligibleOfferWindows.length
+    ? [
+        ...(schemaEnrichment?.offers ?? []),
+        ...Object.entries(schemaEnrichment?.occurrences ?? {}).flatMap(([label, item]) =>
+          eligibleOfferWindows.some((window) => window.label === label) ? (item.offers ?? []) : []),
+      ]
+        .filter((offer) => majorEventOfferIsActionable(offer))
+        .filter((offer, index, offers) => offers.findIndex((candidate) =>
+          `${candidate.name}|${candidate.url}|${candidate.price}` === `${offer.name}|${offer.url}|${offer.price}`) === index)
+    : [];
   const displayPerformers = [
     ...(schemaEnrichment?.performers ?? []),
     ...Object.values(schemaEnrichment?.occurrences ?? {}).flatMap((item) => item.performers ?? []),
@@ -482,7 +517,7 @@ export function loadMajorEventPageServer(slug: string) {
   const organizerMarkup = schemaEnrichment?.organizer
     ? `<p><strong>Organizer:</strong> <a class="font-semibold text-primary underline" href="${esc(schemaEnrichment.organizer.url)}" target="_blank" rel="noreferrer noopener">${esc(schemaEnrichment.organizer.name)} ↗</a></p>`
     : "";
-  const offersMarkup = !expiredConfirmedOccurrence && displayOffers.length
+  const offersMarkup = displayOffers.length
     ? `<div><h3 class="font-display text-xl">Tickets and admission</h3><ul class="mt-2 space-y-2">${displayOffers.map((offer) => `<li><a class="font-semibold text-primary underline" href="${esc(offer.url)}" target="_blank" rel="noreferrer noopener">${esc(offer.name)} — ${offer.price === 0 ? "Free" : offer.price.toFixed(2) + " " + offer.priceCurrency} ↗</a></li>`).join("")}</ul></div>`
     : "";
   const performersMarkup = displayPerformers.length
@@ -549,7 +584,7 @@ export function loadMajorEventPageServer(slug: string) {
           ...(occurrenceEnrichment.organizer.url ? { url: occurrenceEnrichment.organizer.url } : {}),
         }
       : undefined;
-    const offers = occurrenceEnrichment?.offers?.map((offer) => ({
+    const offers = occurrenceEnrichment?.offers?.filter((offer) => majorEventOfferIsActionable(offer)).map((offer) => ({
       "@type": "Offer",
       name: offer.name,
       url: offer.url,
@@ -579,7 +614,7 @@ export function loadMajorEventPageServer(slug: string) {
       location,
       ...(occurrenceEnrichment?.image ? { image: [occurrenceEnrichment.image.url] } : {}),
       ...(organizer ? { organizer } : {}),
-      ...(!expiredConfirmedOccurrence && offers?.length ? { offers } : {}),
+      ...(!expiredConfirmedOccurrence && majorEventGuideOffersAllowed(occurrenceEnrichment?.lifecycle?.status, window.endDate ?? window.startDate) && offers?.length ? { offers } : {}),
       ...(performers?.length ? { performer: performers } : {}),
     };
   });

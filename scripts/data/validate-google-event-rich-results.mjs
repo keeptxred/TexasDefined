@@ -44,11 +44,14 @@ for (const [needle, message] of [
   ['addressCountry: "US"', 'Event location must include addressCountry.'],
   ['...(occurrenceEnrichment?.image ? { image: [occurrenceEnrichment.image.url] } : {})', 'Event image must come only from governed occurrence enrichment.'],
   ['...(organizer ? { organizer } : {})', 'Verified organizers must be emitted when available.'],
-  ['...(!expiredConfirmedOccurrence && offers?.length ? { offers } : {})', 'Verified ticket offers must be emitted only for non-expired occurrences.'],
+  ['...(!expiredConfirmedOccurrence && majorEventGuideOffersAllowed(occurrenceEnrichment?.lifecycle?.status, window.endDate ?? window.startDate) && offers?.length ? { offers } : {})', 'Verified ticket offers must be emitted only for non-expired occurrences.'],
   ['...(performers?.length ? { performer: performers } : {})', 'Verified performers must be emitted when available.'],
 ]) requireText(eventPage, needle, message);
 
-requireText(eventPage, 'const offersMarkup = !expiredConfirmedOccurrence && displayOffers.length', 'Expired event pages must suppress stale ticket-price UI.');
+requireText(eventPage, 'const offersMarkup = displayOffers.length', 'Event pages must render only offers admitted by the lifecycle and availability gate.');
+requireText(eventPage, 'const eligibleOfferWindows = occurrenceWindows.filter', 'Secondary visible offers must check each occurrence rather than mixing cancelled sessions.');
+requireText(eventPage, '.filter((offer) => majorEventOfferIsActionable(offer))', 'Secondary offers must suppress dated-out and sold-out prices.');
+requireText(eventPage, 'occurrenceEnrichment?.offers?.filter((offer) => majorEventOfferIsActionable(offer))', 'Event rich results must suppress expired and sold-out offer records.');
 requireText(eventPage, 'previousStartDate: occurrenceEnrichment.lifecycle.previousStartDate', 'Rescheduled Event JSON-LD must support previousStartDate.');
 requireText(eventPage, 'occurrenceEnrichment?.lifecycle?.status === "rescheduled"', 'previousStartDate must be gated to rescheduled events.');
 
