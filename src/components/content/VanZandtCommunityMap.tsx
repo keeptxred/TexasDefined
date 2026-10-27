@@ -31,8 +31,8 @@ function pointPosition(latitude: number, longitude: number) {
 export function VanZandtCommunityMap() {
   return (
     <figure className="mt-7 min-w-0" data-van-zandt-community-map="">
-      <div className="overflow-x-auto rounded-lg border border-border bg-muted/20" tabIndex={0} aria-label="Scrollable map of nine Van Zandt County communities">
-        <svg className="block h-auto min-w-[760px] w-full" viewBox="0 0 960 540" role="group" aria-labelledby="van-zandt-community-map-title van-zandt-community-map-description" xmlns="http://www.w3.org/2000/svg">
+      <div className="overflow-x-auto rounded-lg border border-border" tabIndex={0} aria-label="Scrollable map of nine Van Zandt County communities">
+        <svg className="block h-auto w-full" style={{ minWidth: 760 }} viewBox="0 0 960 540" role="group" aria-labelledby="van-zandt-community-map-title van-zandt-community-map-description" xmlns="http://www.w3.org/2000/svg">
           <title id="van-zandt-community-map-title">Nine Van Zandt County communities by geographic position</title>
           <desc id="van-zandt-community-map-description">North is up, east is right. Select a place to open its OpenStreetMap search. Point locations are approximate settlement locations, not municipal boundaries.</desc>
           <rect x="24" y="20" width="912" height="502" rx="12" className="fill-background stroke-border" strokeWidth="1.5" />
@@ -50,9 +50,9 @@ export function VanZandtCommunityMap() {
             const href = `https://www.openstreetmap.org/search?query=${encodeURIComponent(`${place.name}, Van Zandt County, Texas`)}`;
             return (
               <a key={place.name} href={href} target="_blank" rel="noopener noreferrer" aria-label={`Open map for ${place.name}, Van Zandt County`} data-van-zandt-community-point={place.name} className="group">
-                <circle cx={x} cy={y} r="16" className="fill-primary stroke-background group-hover:fill-foreground" strokeWidth="3" />
+                <circle cx={x} cy={y} r="16" className="fill-primary stroke-background" strokeWidth="3" />
                 <circle cx={x} cy={y} r="5" className="fill-background" />
-                <text x={x} y={y + 36} textAnchor="middle" fontSize="17" fontWeight="600" className="fill-foreground group-hover:fill-primary">{place.name}</text>
+                <text x={x} y={y + 36} textAnchor="middle" fontSize="17" fontWeight="600" className="fill-foreground">{place.name}</text>
               </a>
             );
           })}
