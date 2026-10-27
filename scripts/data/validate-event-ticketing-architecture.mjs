@@ -30,7 +30,7 @@ requireText(affiliateClick, "affiliate_event_id: eventId", "event-specific affil
 for (const provider of ["official", "ticketmaster", "ticketweb", "live-nation", "etix", "axs", "eventbrite", "seatgeek", "vivid-seats", "other"]) requireText(contract, `\"${provider}\"`, "provider contract");
 for (const field of ["provider: TexasEventTicketProvider", "officialTicketUrl?: string", "affiliateUrl?: string", "saleStatus: TexasEventTicketSaleStatus", "source: TexasEventTicketSource", "lastVerifiedAt: string", "officialExpiresAt?: string", "affiliateExpiresAt?: string"]) requireText(contract, field, "ticket-link contract");
 for (const status of ["on-sale", "presale", "registration", "not-on-sale-yet", "sold-out", "off-sale", "cancelled", "unknown"]) requireText(contract, `\"${status}\"`, "sale-status contract");
-for (const token of ["approvedAffiliateHref", "safeHttpsUrl", 'url.protocol === "https:"', "isExpired", "NON_ACTIONABLE_SALE_STATUSES", "rankedLinks", "affiliateExpiresAt", "officialExpiresAt", 'label: "Find Tickets →"', 'label: link.provider === "vivid-seats" ? "Resale Tickets →"', 'link.provider === "seatgeek" ? "View Tickets →" : "Official Tickets →"', 'rel: "sponsored nofollow noopener noreferrer"', 'rel: "noopener noreferrer"', "resolveEventTicketCta"]) requireText(resolver, token, "ticket resolver");
+for (const token of ["affiliate.searchParams.size !== 4", "partnerpropertyid", "MediaPartnerPropertyId", "approvedAffiliateHref", "safeHttpsUrl", 'url.protocol === "https:"', "isExpired", "NON_ACTIONABLE_SALE_STATUSES", "rankedLinks", "affiliateExpiresAt", "officialExpiresAt", 'label: "Find Tickets →"', 'label: link.provider === "vivid-seats" ? "Resale Tickets →"', 'link.provider === "seatgeek" ? "View Tickets →" : "Official Tickets →"', 'rel: "sponsored nofollow noopener noreferrer"', 'rel: "noopener noreferrer"', "resolveEventTicketCta"]) requireText(resolver, token, "ticket resolver");
 for (const token of ["providerForVerifiedTicketUrl(url)", "uniqueTicketUrls", "new Set(offers.map((offer) => offer.url))", "officialTicketUrl: url", 'saleStatus: "unknown"', 'kind: "official-event"', "lastVerifiedAt", "priority: index"]) requireText(adapter, token, "official ticket normalization");
 if (adapter.includes("affiliateUrl:")) failures.push("official-source adapter must not fabricate affiliate URLs");
 for (const token of ['isEventSpecificTicketDestination', 'publicTicketHostname', 'providerForVerifiedTicketUrl', 'ticketmaster.com', 'ticketweb.com', 'livenation.com', 'etix.com', 'axs.com', 'seatgeek.com', 'vividseats.com', 'eventbrite.com']) {
@@ -192,7 +192,7 @@ for (const bad of [
 const now = new Date('2026-09-11T21:00:00Z');
 const source = { kind: 'provider', name: 'Ticketmaster' };
 const official = 'https://www.ticketmaster.com/example/event/ABC123';
-const impact = (target, campaign='264167') => 'https://ticketmaster.evyy.net/c/7758914/'+campaign+'/4272?subId1=texasdefined&u='+encodeURIComponent(target);
+const impact = (target, campaign='264167') => 'https://ticketmaster.evyy.net/c/7758914/'+campaign+'/4272?subId1=texasdefined&partnerpropertyid=8837726&MediaPartnerPropertyId=8837726&u='+encodeURIComponent(target);
 const base = { provider: 'ticketmaster', saleStatus: 'on-sale', source, lastVerifiedAt: '2026-09-11T20:00:00Z' };
 const approved = impact(official);
 const both = resolveEventTicketCta({ links: [{ ...base, officialTicketUrl: official, affiliateUrl: approved }], offers: [] }, now);
@@ -218,6 +218,13 @@ for (const invalid of [
   ['wrong-publisher','https://ticketmaster.evyy.net/c/9999999/264167/4272?u='+encodeURIComponent(official)],
   ['wrong-merchant-id','https://ticketmaster.evyy.net/c/7758914/264168/4272?u='+encodeURIComponent(official)],
   ['wrong-merchant','https://ticketmaster.evyy.net/c/7758914/264167/9999?u='+encodeURIComponent(official)],
+  ['missing-partner-property',impact(official).replace('&partnerpropertyid=8837726','')],
+  ['missing-media-property',impact(official).replace('&MediaPartnerPropertyId=8837726','')],
+  ['incorrect-partner-property',impact(official).replace('partnerpropertyid=8837726','partnerpropertyid=9999999')],
+  ['incorrect-media-property',impact(official).replace('MediaPartnerPropertyId=8837726','MediaPartnerPropertyId=9999999')],
+  ['wrong-tracking-subid',impact(official).replace('subId1=texasdefined','subId1=unreviewed')],
+  ['duplicate-property',impact(official)+'&partnerpropertyid=8837726'],
+  ['unapproved-extra-param',impact(official)+'&affiliate_bonus=1'],
   ['wrong-event',impact('https://www.ticketmaster.com/different/event/ZZZ999')],
   ['wrong-provider',impact('https://www.ticketmaster.com/example/event/ABC123')+'&u='+encodeURIComponent(official)],
   ['unsafe-embedded',impact('https://evil.example.net/event/ABC123')],
