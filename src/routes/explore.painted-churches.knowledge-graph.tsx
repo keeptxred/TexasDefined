@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
-import { paintedChurchAuthorityExpansionDate } from "@/data/painted-church-authority-sources";
+import { paintedChurchAuthorityExpansionDate } from "@/data/painted-church-authority-catalog";
 import { buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const canonicalPath = "/explore/painted-churches/knowledge-graph";

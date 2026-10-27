@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs';
 import { createServer } from 'vite';
 const server = await createServer({ configFile: false, appType: 'custom', logLevel: 'error', server: { middlewareMode: true } });
 try {
-  const christmasRoute = readFileSync('src/routes/events.$collection.tsx', 'utf8');
+  const christmasRoute = [readFileSync('src/routes/events.$collection.tsx', 'utf8'), readFileSync('src/routes/events.$collection.lazy.tsx', 'utf8')].join('\n');
   for (const marker of [
     'trackAffiliateClick',
     'data-affiliate-event-id={eventId}',

@@ -2,7 +2,7 @@ import { useLocation } from '@tanstack/react-router';
 
 import { CitationTrustPanel, type CitationSource } from '@/components/authority/CitationTrustPanel';
 import { Container } from '@/components/layout/Container';
-import { paintedChurchAuthorityExpansionDateLabel } from '@/data/painted-church-authority-sources';
+import { paintedChurchAuthorityExpansionDateLabel } from '@/data/painted-church-authority-catalog';
 
 type TrustConfig = {
   title: string;

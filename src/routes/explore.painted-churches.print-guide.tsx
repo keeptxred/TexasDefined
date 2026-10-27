@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
 import { Container } from "@/components/layout/Container";
-import { paintedChurchAuthorityExpansionDate, paintedChurchAuthorityExpansionDateLabel } from "@/data/painted-church-authority-sources";
+import { paintedChurchAuthorityExpansionDate, paintedChurchAuthorityExpansionDateLabel } from "@/data/painted-church-authority-catalog";
 import { resolvePaintedChurchVisitorStatus } from "@/data/painted-church-visitor-status";
 import { expandedPaintedChurches } from "@/data/painted-churches-expanded";
 import { buildMeta, canonicalLink } from "@/lib/seo";

@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { texasDefinedBrand } from "@/brand/texasdefined";
-import { paintedChurchAuthorityExpansionDate } from "@/data/painted-church-authority-sources";
+import { paintedChurchAuthorityExpansionDate } from "@/data/painted-church-authority-catalog";
 import { absoluteUrl, buildMeta, canonicalLink, jsonLd } from "@/lib/seo";
 
 const canonicalPath = "/explore/painted-churches/guides";
