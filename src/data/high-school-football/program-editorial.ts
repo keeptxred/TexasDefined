@@ -15739,6 +15739,17 @@ const PROGRAM_EDITORIAL: Record<string, FootballProgramEditorial> = {
   },
   "aubrey": {
     "slug": "aubrey",
+    "photo": {
+      "src": "https://images.unsplash.com/photo-1508209495879-445d5febf597?auto=format&fit=crop&w=1400&q=78",
+      "width": 1400,
+      "height": 940,
+      "alt": "High school American football under stadium lights at dusk, pictured at a game in Aurora, Colorado, not an Aubrey game",
+      "caption": "Representative high-school football photo, not an Aubrey team or stadium image.",
+      "credit": "Tim Mossholder / Unsplash",
+      "sourceUrl": "https://unsplash.com/photos/man-holding-football-field-post-on-side-of-field-Fbq47uCtXHI",
+      "license": "Unsplash License",
+      "licenseUrl": "https://unsplash.com/license"
+    },
     "intro": "Aubrey is 4–3 overall and 4–0 in UIL District 4 through October 16 after a 66–14 home win over Carrollton Ranchview. The next listed game is October 23 at Lake Dallas. Find all 2026 scores, the remaining schedule, home tickets and Chaparral Stadium policies below.",
     "theme": {
       "accentHex": "#AE1C2A",
