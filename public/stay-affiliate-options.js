@@ -5,6 +5,8 @@
   const STAY_SLOT_SELECTOR = "[data-stay-nearby-slot]";
   const CJ_PUBLISHER_ID = "101876465";
   const CJ_DLG_BASE = `https://www.anrdoezrs.net/links/${CJ_PUBLISHER_ID}/type/dlg/`;
+  // CJ-generated Hotels.com Evergreen click: preserve link AID and partner-specific SID.
+  const CJ_HOTELS_EVERGREEN_BASE = "https://www.anrdoezrs.net/click-101876465-15734399";
   const HOTELS_DESTINATION = "https://www.hotels.com/";
   // Verified Palestine destination directory for the Polar Express booking guide.
   const PALESTINE_HOTELS_DESTINATION = "https://www.hotels.com/de1634643/hotels-palestine-texas/";
@@ -153,11 +155,28 @@
     });
   }
 
-  function buildCjDeepLink(destination) {
+  function hotelsComPageSid(pathname = window.location.pathname) {
+    const path = "/" + String(pathname).split("?")[0].replace(/^\/+|\/+$/g, "").toLowerCase();
+    if (path === "/event/polar-express-palestine") return "td_polar_palestine";
+    const key = path.slice(1).replace(/[^a-z0-9]+/g, "_").replace(/^_+|_+$/g, "") || "home";
+    if (key.length <= 53) return "td_" + key;
+    let hash = 2166136261;
+    for (const char of path) hash = Math.imul(hash ^ char.charCodeAt(0), 16777619) >>> 0;
+    return "td_" + key.slice(0, 47) + "_" + hash.toString(36).padStart(7, "0");
+  }
+
+  function buildCjDeepLink(destination, pathname = window.location.pathname) {
     const parsed = new URL(destination);
     if (!["www.hotels.com", "www.orbitz.com", "www.travelocity.com", "www.vrbo.com", "rvshare.com"].includes(parsed.hostname)) {
       throw new Error(`Unsupported stay affiliate destination: ${parsed.hostname}`);
     }
+    if (parsed.hostname === "www.hotels.com") {
+      if (parsed.protocol !== "https:" || parsed.username || parsed.password || parsed.hash) throw new Error("Unsafe Hotels.com target");
+      const sid = hotelsComPageSid(pathname);
+      if (!/^td_[a-z0-9_]{1,60}$/.test(sid) || sid.length > 64) throw new Error("Invalid CJ Hotels.com SID");
+      return `${CJ_HOTELS_EVERGREEN_BASE}?sid=${encodeURIComponent(sid)}&url=${encodeURIComponent(parsed.toString())}`;
+    }
+    // Preserve separately approved advertiser destinations: no reused Hotels.com AID.
     return `${CJ_DLG_BASE}${encodeURI(parsed.toString())}`;
   }
 
