@@ -439,20 +439,22 @@ export async function getResolvedDestination(slug: Slug) {
   const resolved = await getResolvedDestinationBase(slug);
   if (!resolved) return resolved;
   const enhanced = (await enhanceWacoMuseumDestinations([resolved]))[0];
-  // A valid remote destination row can outrank the preserved catalog while
-  // omitting owner-supplied gallery media. Reapply only the exact, rights-
-  // governed media contract after resolution; all remote editorial fields stay.
-  const withRestrictedOwnerMedia = applyRestrictedOwnerDestinationMedia(enhanced);
-  // Apply six official TPWD 2026 park visitor overlays after remote/local
-  // resolution, and before the shared SSR + client destinationQuery caches it.
-  // The official-source overlay is idempotent and exact-slug scoped.
-  if (![
+  // Six official TPWD 2026 park visitor overlays remain the final resolver
+  // for their exact slugs before the shared SSR + client destinationQuery
+  // caches them. Do not place unrelated overlays after this protected layer.
+  if ([
     "kickapoo-cavern-state-park", "possum-kingdom-state-park",
     "lake-casa-blanca-international-state-park", "lake-colorado-city-state-park",
     "purtis-creek-state-park", "martin-dies-jr-state-park",
-  ].includes(slug)) return withRestrictedOwnerMedia;
-  const { applySixLaterTPWDAuthorities } = await import("./tpwd-six-later-park-authorities");
-  return applySixLaterTPWDAuthorities(withRestrictedOwnerMedia);
+  ].includes(slug)) {
+    const { applySixLaterTPWDAuthorities } = await import("./tpwd-six-later-park-authorities");
+    return applySixLaterTPWDAuthorities(enhanced);
+  }
+  // A valid remote destination row can outrank the preserved catalog while
+  // omitting owner-supplied gallery media. For the separately governed Olive
+  // Co. slug, restore only the exact licensed media after ordinary resolution;
+  // all remote editorial fields remain authoritative.
+  return applyRestrictedOwnerDestinationMedia(enhanced);
 }
 
 export async function listResolvedDestinationSearchCatalog() {
