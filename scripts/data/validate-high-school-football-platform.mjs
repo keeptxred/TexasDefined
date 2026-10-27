@@ -678,6 +678,20 @@ const footballTeamSeasonOverlay = read(footballTeamSeasonOverlayPath);
   }
   requireText(schoolIdentities, "slug: 'wills-point'", 'Wills Point verified football identity');
   requireText(schoolIdentities, "mascot: 'Tigers'", 'Wills Point verified football identity');
+  for (const marker of [
+    'colorsSourceUrl?: string',
+    'colorsSourceLabel?: string',
+    'colorsVerifiedAt?: string',
+    "slug: 'center'",
+    "colors: 'Purple and Gold'",
+    "slug: 'chester'",
+    "slug: 'celina'",
+    "colors: 'Orange and White'",
+    "slug: 'celeste'",
+    "colors: 'Royal Blue and White'",
+    'slug: "castroville-medina-valley"',
+    'colors: "Orange and Black"',
+  ]) requireText(schoolIdentities, marker, 'Football school color provenance');
 
   if (programProfileServer.includes('matchFeaturedFootballProgram')) {
     errors.push('Current UIL football profiles must resolve identity directly by canonical UIL slug, not through the former seed-list matcher.');
@@ -1377,7 +1391,10 @@ const footballTeamSeasonOverlay = read(footballTeamSeasonOverlayPath);
     'Football game venues',
     'venueLinks.length > 0',
     'Venue details last reviewed',
-    'Identity last reviewed',
+    'Mascot evidence last reviewed',
+    'School-color evidence last reviewed',
+    'color evidence may have a separate source and review date',
+    'School color source ↗',
     'Mascot and colors appear only when TexasDefined has a named source it can cite',
     'identity &&',
     'Texas high schools often share district stadiums.',
@@ -1421,6 +1438,7 @@ const footballTeamSeasonOverlay = read(footballTeamSeasonOverlayPath);
     'formatFootballDate',
     '<time dateTime={game.date}>{formatFootballDate(game.date)}</time>',
     '<time dateTime={identity.verifiedAt}>{formatFootballDate(identity.verifiedAt)}</time>',
+    '<time dateTime={colorsVerifiedAt}>{formatFootballDate(colorsVerifiedAt)}</time>',
   ]) requireText(featuredProfilePage, marker, 'Football school profile page');
   for (const forbidden of [
     'Mascot and colors are published only from a school or district source.',
