@@ -40,6 +40,7 @@ const footballSitemapPath = 'src/data/high-school-football/football-sitemap.serv
 const footballVenueLinksPath = 'src/data/high-school-football/football-venue-links.server.ts';
 const programProfileFunctionsPath = 'src/data/high-school-football/football-program-profile.functions.ts';
 const footballProfileContentPath = 'src/data/high-school-football/football-profile-content.ts';
+const footballIdentityAccentPath = 'src/data/high-school-football/football-identity-accent.ts';
 const footballTeamSeasonOverlayPath = 'src/data/high-school-football/football-team-season-overlay.ts';
 const footballProgramEditorialPath = 'src/data/high-school-football/program-editorial.ts';
 const footballBatch008EditorialPath = 'src/data/high-school-football/program-editorial-b008.ts';
@@ -178,6 +179,7 @@ if (!errors.length) {
   }
   const footballHub = read(files[11]);
   const footballProfileContent = read(footballProfileContentPath);
+const footballIdentityAccent = read(footballIdentityAccentPath);
 const footballTeamSeasonOverlay = read(footballTeamSeasonOverlayPath);
   const footballProgramEditorial = read(footballProgramEditorialPath);
   const footballBatch008Editorial = read(footballBatch008EditorialPath);
@@ -1332,6 +1334,28 @@ const footballTeamSeasonOverlay = read(footballTeamSeasonOverlayPath);
     "schoolName === 'Southlake Carroll'",
   ]) forbidText(countyLookup, retired, 'Do not infer campus county from display name inside the county resolver');
 
+
+  for (const marker of [
+    'footballIdentityAccentFromColors',
+    "editorial?.theme?.accentHex ? undefined : footballIdentityAccentFromColors(identity?.colors)",
+    "accentHex={identityPanelAccent}",
+    "verifiedColors={verifiedIdentityAccent ? identity?.colors : undefined}",
+    'it is not an official school brand hex',
+  ]) requireText(featuredProfilePage, marker, 'Verified football identity accent rendering');
+
+  for (const marker of [
+    'These values are intentionally editorial approximations, not school brand hex',
+    'Neutral-only color labels return undefined',
+    'raw identity strings',
+    "/\\b(?:texas burnt orange|burnt orange)\\b/i",
+    "/\\b(?:navy blue|navy)\\b/i",
+    "/\\b(?:hunter green|forest green)\\b/i",
+    "/\\b(?:panther blue|roo blue|frenship blue|bright blue|blue)\\b/i",
+  ]) requireText(footballIdentityAccent, marker, 'Football identity accent palette safeguards');
+
+  if (featuredProfilePage.includes('borderTopColor: identity?.colors')) {
+    errors.push('Football profile must never pass the raw school color label directly into CSS.');
+  }
 
   for (const marker of [
     "createLazyFileRoute('/texas-high-school-football-teams/$slug')",
