@@ -57,8 +57,7 @@ for (const token of [
 ]) requireText(files.restrictedOwnerMedia, token, `Olive Co. restricted owner-media reconciliation missing ${token}`);
 for (const token of [
   'import { applyRestrictedOwnerDestinationMedia } from "./restricted-owner-destination-media";',
-  "const withRestrictedOwnerMedia = applyRestrictedOwnerDestinationMedia(enhanced);",
-  "return withRestrictedOwnerMedia;",
+  "return applyRestrictedOwnerDestinationMedia(enhanced);",
 ]) requireText(files.destinationRuntime, token, `resolved destination does not preserve Olive Co. licensed media: ${token}`);
 for (const token of [
   "/images/destinations/texas-hill-country-olive-co-bistro.webp",
