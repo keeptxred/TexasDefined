@@ -2087,6 +2087,8 @@ if (!errors.length) {
       verifierPath: 'scripts/ci/verify-football-b009-first-five-production.mjs',
       artifactPath: 'artifacts/b009-first-five-production-chrome/',
       verifierOut: "const out = 'artifacts/b009-first-five-production-chrome';",
+      scopeVerifierToken: 'verify-football-b009-first-five-production[.]mjs',
+      scopeWorkflowToken: 'verify-football-b009-first-five-production[.]yml',
       countyCount: 4,
       forbidden: ['verify-football-b009-next-five-production.mjs', 'artifacts/b009-next-five-production-chrome/'],
     },
@@ -2097,6 +2099,8 @@ if (!errors.length) {
       verifierPath: 'scripts/ci/verify-football-b009-next-five-production.mjs',
       artifactPath: 'artifacts/b009-next-five-production-chrome/',
       verifierOut: "const out = 'artifacts/b009-next-five-production-chrome';",
+      scopeVerifierToken: 'verify-football-b009-next-five-production[.]mjs',
+      scopeWorkflowToken: 'verify-football-b009-next-five-production[.]yml',
       countyCount: 5,
       forbidden: ['verify-football-b009-first-five-production.mjs', 'artifacts/b009-first-five-production-chrome/'],
     },
@@ -2114,6 +2118,8 @@ if (!errors.length) {
         || !scopeShell.includes('echo "run=true" >> "$GITHUB_OUTPUT"')
         || !scopeShell.includes('echo "run=false" >> "$GITHUB_OUTPUT"')
         || !scopeShell.includes('          fi')
+        || !scopeShell.includes(contract.scopeVerifierToken)
+        || !scopeShell.includes(contract.scopeWorkflowToken)
         || /\n\s*- uses: actions\//.test(scopeShell)) {
       errors.push('Batch009 '+contract.label+' production workflow scope or Chrome job malformed/duplicated.');
     }
