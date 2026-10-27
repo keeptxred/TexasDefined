@@ -11,6 +11,7 @@ on:
       - 'src/components/content/VanZandtCountySpotlight.tsx'
       - 'src/data/county-profile.remote.ts'
       - 'src/routes/$kind.$slug.tsx'
+      - 'src/data/knowledge-graph/index.ts'
       - 'scripts/ci/verify-van-zandt-closure.mjs'
   workflow_run:
     workflows:
