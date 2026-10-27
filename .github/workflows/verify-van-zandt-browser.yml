@@ -10,6 +10,8 @@ on:
       - 'src/components/sports/HighSchoolFootballLookup.tsx'
       - 'src/components/content/VanZandtCountySpotlight.tsx'
       - 'src/components/content/CountyGuideSections.tsx'
+      - 'src/components/content/VanZandtCommunityMap.tsx'
+      - 'scripts/ci/van-zandt-community-map.test.mjs'
       - 'src/components/authority/ContextualOfficialSources.tsx'
       - 'src/data/county-profile.remote.ts'
       - 'src/routes/$kind.$slug.tsx'
@@ -44,6 +46,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Verify geographic map coverage, source and zero map dependencies
+        run: node --test scripts/ci/van-zandt-community-map.test.mjs
       - name: Install isolated Chrome browser automation dependency
         run: |
           CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
