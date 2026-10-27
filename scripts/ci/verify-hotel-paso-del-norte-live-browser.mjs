@@ -9,6 +9,8 @@ const path = '/destination/hotel-paso-del-norte';
 const city = '/city/el-paso';
 const county = '/county/el-paso';
 const magoffin = '/destination/magoffin-home';
+const HOTEL_PASO_HOTELS_DESTINATION = 'https://www.hotels.com/ho114680/hotel-paso-del-norte-autograph-collection-el-paso-united-states-of-america/';
+const HOTEL_PASO_LEGACY_CJ = 'https://www.anrdoezrs.net/links/101876465/type/dlg/' + HOTEL_PASO_HOTELS_DESTINATION;
 const dir = 'artifacts/hotel-paso-del-norte-qa';
 const reports = [];
 let failures = [];
@@ -132,8 +134,8 @@ async function checkHotel(page, viewport) {
   check(linkExists(data.links,county),viewport+': missing county link');
   check(data.links.some(h=>h.startsWith('https://www.marriott.com/en-us/hotels/elpak-')),viewport+': missing official non-affiliate booking link');
   const cj = new URL(offer.href);
-  const expectedProperty = 'https://www.hotels.com/ho114680/hotel-paso-del-norte-autograph-collection-el-paso-united-states-of-america/';
-  const expectedLegacy = 'https://www.anrdoezrs.net/links/101876465/type/dlg/' + expectedProperty;
+  const expectedProperty = HOTEL_PASO_HOTELS_DESTINATION;
+  const expectedLegacy = HOTEL_PASO_LEGACY_CJ;
   const currentEvergreen = cj.origin === 'https://www.anrdoezrs.net' &&
     cj.pathname === '/click-101876465-15734399' &&
     cj.searchParams.size === 2 &&
@@ -171,7 +173,7 @@ async function checkInbound(page,p,viewport){
   await page.locator('h1').first().waitFor({state:'visible',timeout:25000});
   const data=await collect(page);
   const found=linkExists(data.links,path);
-  check(!data.links.some(h=>h === expectedLegacy || (h.startsWith('https://www.anrdoezrs.net/click-101876465-15734399') && new URL(h).searchParams.get('url')?.includes('/ho114680/'))),viewport+': Hotel Paso CJ link present on unrelated '+p);
+  check(!data.links.some(h=>h === HOTEL_PASO_LEGACY_CJ || (h.startsWith('https://www.anrdoezrs.net/click-101876465-15734399') && new URL(h).searchParams.get('url')?.includes('/ho114680/'))),viewport+': Hotel Paso CJ link present on unrelated '+p);
   check(response?.status()===200,viewport+': inbound '+p+' HTTP '+response?.status());
   check(found,viewport+': missing inbound Hotel Paso del Norte link on '+p);
   check(data.width<=data.viewportWidth+10,viewport+': inbound overflow '+p);
