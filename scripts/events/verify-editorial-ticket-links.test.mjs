@@ -29,6 +29,14 @@ test('no automatic redirect following, no false seat or broken-link conclusion o
   assert.equal(editorialProbeOutcome(200,null,url),'REACHABLE_NO_INVENTORY_CLAIM');
   assert.equal(editorialProbeOutcome(302,'https://www.etix.com/ticket/p/62230269/test',url),'REDIRECT_SAME_PATH_NO_INVENTORY_CLAIM');
   assert.equal(editorialProbeOutcome(302,'https://www.etix.com/ticket/p/99999/other',url),'REDIRECT_DIFFERENT_DESTINATION_REVIEW');
+  // A session ID can live in the query string rather than the path. Such a
+  // redirect must not be called same-performance admission.
+  const queryEvent=new URL('https://www.etix.com/ticket/p/62230269/test?session=matinee&date=2026-12-13');
+  assert.equal(editorialProbeOutcome(302,'?session=evening&date=2026-12-13',queryEvent),'REDIRECT_DIFFERENT_DESTINATION_REVIEW');
+  assert.equal(editorialProbeOutcome(302,'?session=matinee&date=2026-12-14',queryEvent),'REDIRECT_DIFFERENT_DESTINATION_REVIEW');
+  assert.equal(editorialProbeOutcome(302,'?session=matinee&date=2026-12-13',queryEvent),'REDIRECT_SAME_PATH_NO_INVENTORY_CLAIM');
+  assert.equal(editorialProbeOutcome(302,'?session=matinee&date=2026-12-13#prices',queryEvent),'REDIRECT_SAME_PATH_NO_INVENTORY_CLAIM');
+
   assert.equal(editorialProbeOutcome(302,'https://not-a-trusted-site.org/checkout',url),'REDIRECT_UNVERIFIED_INCONCLUSIVE');
   assert.equal(editorialProbeOutcome(404,null,url),'REVIEW_NOT_FOUND');
   assert.equal(editorialProbeOutcome(410,null,url),'REVIEW_NOT_FOUND');
