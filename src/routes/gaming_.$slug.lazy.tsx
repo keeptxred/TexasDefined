@@ -1,3 +1,4 @@
+import { buildHotelsComEvergreenClick, hotelsComPageSid } from "@/lib/cj-hotels-evergreen";
 import { Link, createLazyFileRoute } from "@tanstack/react-router";
 
 import { Container } from "@/components/layout/Container";
@@ -127,7 +128,7 @@ function CollegeDirectory() {
 
 function ArlingtonStayCallout() {
   const destination = "https://www.hotels.com/ho1066640416/live-by-loews-arlington-tx-arlington-united-states-of-america/";
-  const href = `https://www.anrdoezrs.net/links/101876465/type/dlg/${destination}`;
+  const href = buildHotelsComEvergreenClick(destination, hotelsComPageSid("/gaming/esports-stadium-arlington"));
   const placement = "gaming-esports-stadium-arlington-stay";
   return (
     <aside className="mt-12 border border-border bg-surface p-6" data-affiliate-module="gaming-event-stay">
