@@ -1,0 +1,49 @@
+name: One-time olive-image public smoke evidence
+on:
+  push:
+    branches: [ci/olive-photo-public-smoke-20261027]
+permissions:
+  contents: read
+jobs:
+  public-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compare original and published photo HTTP responses
+        run: |
+          for asset in bistro exterior; do
+            echo "PHOTO_ASSET $asset"
+            curl -LsS --max-time 30 -o "/tmp/olive-$asset.webp" -w 'url=%{url_effective} http=%{http_code} mime=%{content_type} bytes=%{size_download}\n' "https://texasdefined.com/images/destinations/texas-hill-country-olive-co-$asset.webp"
+            file "/tmp/olive-$asset.webp"
+          done
+      - name: Inspect actual browser image loading, HTML source credit and OpenGraph
+        run: |
+          npm install --prefix /tmp/texasdefined-olive-qa --no-save --no-package-lock --ignore-scripts playwright-core@1.56.1
+          node --input-type=module <<'JS'
+          import {createRequire} from 'node:module';
+          const req=createRequire(import.meta.url);
+          const {chromium}=req('/tmp/texasdefined-olive-qa/node_modules/playwright-core');
+          const browser=await chromium.launch({headless:true,executablePath:'/usr/bin/google-chrome',args:['--no-sandbox','--disable-dev-shm-usage']});
+          const page=await browser.newPage({viewport:{width:1365,height:900}});
+          const responses=[];
+          page.on('response',res=>{if(/texas-hill-country-olive-co-(bistro|exterior)\.webp/.test(res.url()))responses.push({url:res.url(),status:res.status(),contentType:res.headers()['content-type']})});
+          page.on('requestfailed',req=>{if(/texas-hill-country-olive-co-/.test(req.url())) responses.push({failed:req.url(),why:req.failure()})});
+          await page.goto('https://texasdefined.com/destination/texas-hill-country-olive-co?smoke=20261027',{waitUntil:'domcontentloaded',timeout:45000});
+          const gallery=page.locator('img[src*="texas-hill-country-olive-co-exterior.webp"]').first();
+          console.log('GALLERY_COUNT',await gallery.count());
+          if(await gallery.count()) {
+            await gallery.scrollIntoViewIfNeeded({timeout:10000});
+            await gallery.evaluate(async img=>{if(img.complete)return;await Promise.race([new Promise(r=>{img.addEventListener('load',r,{once:true});img.addEventListener('error',r,{once:true})}),new Promise(r=>setTimeout(r,5000))]);});
+          }
+          await page.waitForTimeout(650);
+          const state=await page.evaluate(()=>{
+            const photos=[...document.images];
+            const img=x=>photos.filter(i=>i.src.includes('texas-hill-country-olive-co-'+x+'.webp')).map(i=>({src:i.src,complete:i.complete,naturalWidth:i.naturalWidth,naturalHeight:i.naturalHeight,loading:i.loading,alt:i.alt,display:getComputedStyle(i).display,outerHTML:i.outerHTML.slice(0,450)}));
+            const links=[...document.querySelectorAll('a[href]')].filter(a=>a.href.includes('texashillcountryoliveco.com')).map(a=>({href:a.href,text:a.textContent,closestP:a.closest('p')?.textContent}));
+            const metas=[...document.querySelectorAll('meta[property*="image"]')].map(a=>({key:a.getAttribute('property'),content:a.content}));
+            return {bistro:img('bistro'),exterior:img('exterior'),links,metas};
+          });
+          console.log('PHOTO_PROOF',JSON.stringify({state,responses},null,2));
+          await browser.close();
+          JS
