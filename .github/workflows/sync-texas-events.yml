@@ -10,6 +10,11 @@ on:
       - "scripts/events/sync-tpwd-calendar.mjs"
       - "scripts/events/sync-tpwd-calendar.test.mjs"
       - "src/data/events/tpwd-event-records.server.ts"
+      # Shared admission normalization and resolver changes must get a bounded
+      # immediate verification run; do not rely solely on a potentially delayed
+      # GitHub cron. Reuse this SAME daily governed refresh and merge gate.
+      - "src/data/events/texas-event-records.server.ts"
+      - "src/data/events/ticketing.ts"
       - "scripts/events/sync-ticketmaster-events.mjs"
       - "scripts/events/ticketmaster-discovery.mjs"
       - "scripts/events/verify-ticketmaster-link-batch.mjs"
