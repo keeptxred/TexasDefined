@@ -7,7 +7,7 @@ const requireText = (content, token, label) => { if (!content.includes(token)) f
 
 const expanded = read('src/data/painted-churches-expanded.ts');
 const census = read('src/data/painted-church-census.ts');
-const hub = `${read('src/routes/explore.painted-churches.tsx')}\n${read('src/routes/explore.painted-churches.lazy.tsx')}`;
+const hub = read('src/routes/explore.painted-churches.tsx');
 const sitemap = read('src/routes/sitemap-explore[.]xml.ts');
 const search = read('src/data/painted-church-search.ts');
 const publicRoutes = read('src/lib/public-routes.ts');
