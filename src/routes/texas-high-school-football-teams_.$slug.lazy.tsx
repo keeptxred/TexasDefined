@@ -13,6 +13,7 @@ import {
   uilFootballEnrollmentBand,
   uilFootballEnrollmentBandForEnrollment,
 } from '@/data/high-school-football/enrollment-bands';
+import { footballIdentityAccentFromColors } from '@/data/high-school-football/football-identity-accent';
 
 // Original, school-specific source-derived visual finals; no unlicensed school photos, logos or seals.
 const FOOTBALL_SOURCE_GRAPHIC_SCHOOLS = new Set([
@@ -152,6 +153,8 @@ function Page() {
   // the optional TEA identity join may be unavailable in deployed SSR.
   const authoredFootballH1 = editorial?.seo?.title?.match(/^(.+?Football)/i)?.[1];
   const footballName = identity?.mascot ? `${displayName} ${identity.mascot} Football` : authoredFootballH1 || `${displayName} Football`;
+  const verifiedIdentityAccent = editorial?.theme?.accentHex ? undefined : footballIdentityAccentFromColors(identity?.colors);
+  const identityPanelAccent = editorial?.theme?.accentHex ?? verifiedIdentityAccent;
   // Summarize the verified editorial ledger before the deeper school reference sections.
   const latestResult = editorial?.season?.games.filter((game) => game.result).at(-1);
   // Published editorial snapshot date is stable across SSR and hydration; never label an unresolved past game as next.
@@ -451,7 +454,8 @@ function Page() {
               alignment={program ? `${alignmentLabel(program)} · District ${program.district}` : privateAlignment ? privateAlignmentLabel(privateAlignment) : governingBodyHint || 'Texas football program'}
               footballType={program?.footballType || privateAlignment?.footballType}
               mascot={identity?.mascot}
-              accentHex={editorial?.theme?.accentHex}
+              accentHex={identityPanelAccent}
+              verifiedColors={verifiedIdentityAccent ? identity?.colors : undefined}
             />
           )}
         </div>
@@ -1109,12 +1113,14 @@ function FootballIdentityPanel({
   footballType,
   mascot,
   accentHex,
+  verifiedColors,
 }: {
   footballName: string;
   alignment: string;
   footballType?: string;
   mascot?: string;
   accentHex?: string;
+  verifiedColors?: string;
 }) {
   return (
     <figure className="min-w-0">
@@ -1136,6 +1142,7 @@ function FootballIdentityPanel({
       </div>
       <figcaption className="mt-2 text-xs leading-5 text-muted-foreground">
         Original TexasDefined typographic football identity panel. No school logo, mascot artwork or school-owned photograph is reproduced.
+        {verifiedColors ? <> The accent uses a restrained TexasDefined palette interpretation of the sourced school colors ({verifiedColors}); it is not an official school brand hex.</> : null}
       </figcaption>
     </figure>
   );
